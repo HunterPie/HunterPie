@@ -1,0 +1,125 @@
+{
+  "version": 3,
+  "targets": {
+    "net5.0-windows7.0": {
+      "HunterPie.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/HunterPie.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HunterPie.Core.dll": {}
+        }
+      },
+      "HunterPie.UI/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "HunterPie.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/HunterPie.UI.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HunterPie.UI.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      }
+    }
+  },
+  "libraries": {
+    "HunterPie.Core/1.0.0": {
+      "type": "project",
+      "path": "../HunterPie.Core/HunterPie.Core.csproj",
+      "msbuildProject": "../HunterPie.Core/HunterPie.Core.csproj"
+    },
+    "HunterPie.UI/1.0.0": {
+      "type": "project",
+      "path": "../HunterPie.UI/HunterPie.UI.csproj",
+      "msbuildProject": "../HunterPie.UI/HunterPie.UI.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net5.0-windows7.0": [
+      "HunterPie.Core >= 1.0.0",
+      "HunterPie.UI >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Pichau\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\dev\\C#\\HunterPie-v2\\HunterPie\\HunterPie\\HunterPie.csproj",
+      "projectName": "HunterPie",
+      "projectPath": "D:\\dev\\C#\\HunterPie-v2\\HunterPie\\HunterPie\\HunterPie.csproj",
+      "packagesPath": "C:\\Users\\Pichau\\.nuget\\packages\\",
+      "outputPath": "D:\\dev\\C#\\HunterPie-v2\\HunterPie\\HunterPie\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\Pichau\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net5.0-windows7.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net5.0-windows7.0": {
+          "targetAlias": "net5.0-windows",
+          "projectReferences": {
+            "D:\\dev\\C#\\HunterPie-v2\\HunterPie\\HunterPie.Core\\HunterPie.Core.csproj": {
+              "projectPath": "D:\\dev\\C#\\HunterPie-v2\\HunterPie\\HunterPie.Core\\HunterPie.Core.csproj"
+            },
+            "D:\\dev\\C#\\HunterPie-v2\\HunterPie\\HunterPie.UI\\HunterPie.UI.csproj": {
+              "projectPath": "D:\\dev\\C#\\HunterPie-v2\\HunterPie\\HunterPie.UI\\HunterPie.UI.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net5.0-windows7.0": {
+        "targetAlias": "net5.0-windows",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WPF": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

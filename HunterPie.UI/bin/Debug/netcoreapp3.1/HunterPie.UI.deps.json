@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "HunterPie.UI/1.0.0": {
+        "dependencies": {
+          "HunterPie.Core": "1.0.0"
+        },
+        "runtime": {
+          "HunterPie.UI.dll": {}
+        }
+      },
+      "HunterPie.Core/1.0.0": {
+        "runtime": {
+          "HunterPie.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "HunterPie.UI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HunterPie.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

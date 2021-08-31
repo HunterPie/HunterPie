@@ -1,0 +1,9 @@
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.Core\bin\Debug\netcoreapp3.1\HunterPie.Core.deps.json
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.Core\bin\Debug\netcoreapp3.1\HunterPie.Core.dll
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.Core\bin\Debug\netcoreapp3.1\HunterPie.Core.pdb
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.Core\obj\Debug\netcoreapp3.1\HunterPie.Core.AssemblyInfoInputs.cache
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.Core\obj\Debug\netcoreapp3.1\HunterPie.Core.AssemblyInfo.cs
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.Core\obj\Debug\netcoreapp3.1\HunterPie.Core.csproj.CoreCompileInputs.cache
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.Core\obj\Debug\netcoreapp3.1\HunterPie.Core.dll
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.Core\obj\Debug\netcoreapp3.1\HunterPie.Core.pdb
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.Core\obj\Debug\netcoreapp3.1\HunterPie.Core.csprojAssemblyReference.cache

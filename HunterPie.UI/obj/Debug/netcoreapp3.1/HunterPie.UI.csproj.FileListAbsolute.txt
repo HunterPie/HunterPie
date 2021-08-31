@@ -1,0 +1,17 @@
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.UI\bin\Debug\netcoreapp3.1\HunterPie.UI.deps.json
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.UI\bin\Debug\netcoreapp3.1\HunterPie.UI.dll
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.UI\bin\Debug\netcoreapp3.1\HunterPie.UI.pdb
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.UI\bin\Debug\netcoreapp3.1\HunterPie.Core.dll
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.UI\bin\Debug\netcoreapp3.1\HunterPie.Core.pdb
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.UI\obj\Debug\netcoreapp3.1\HunterPie.UI.csprojAssemblyReference.cache
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.UI\obj\Debug\netcoreapp3.1\UserControl1.g.cs
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.UI\obj\Debug\netcoreapp3.1\HunterPie.UI_MarkupCompile.cache
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.UI\obj\Debug\netcoreapp3.1\HunterPie.UI_MarkupCompile.lref
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.UI\obj\Debug\netcoreapp3.1\UserControl1.baml
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.UI\obj\Debug\netcoreapp3.1\HunterPie.UI.g.resources
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.UI\obj\Debug\netcoreapp3.1\HunterPie.UI.AssemblyInfoInputs.cache
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.UI\obj\Debug\netcoreapp3.1\HunterPie.UI.AssemblyInfo.cs
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.UI\obj\Debug\netcoreapp3.1\HunterPie.UI.csproj.CoreCompileInputs.cache
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.UI\obj\Debug\netcoreapp3.1\HunterPie.UI.csproj.CopyComplete
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.UI\obj\Debug\netcoreapp3.1\HunterPie.UI.dll
+D:\dev\C#\HunterPie-v2\HunterPie\HunterPie.UI\obj\Debug\netcoreapp3.1\HunterPie.UI.pdb
