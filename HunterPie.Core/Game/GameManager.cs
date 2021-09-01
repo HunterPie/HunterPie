@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using HunterPie.Core.Game.Client;
 
 namespace HunterPie.Core.Game
 {
@@ -9,5 +7,8 @@ namespace HunterPie.Core.Game
     /// </summary>
     public class GameManager
     {
+
+        public Player Player { get; private set; }
+
     }
 }

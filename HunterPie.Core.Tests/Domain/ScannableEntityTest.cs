@@ -1,5 +1,6 @@
 using HunterPie.Core.Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace HunterPie.Core.Tests
 {
@@ -12,18 +13,25 @@ namespace HunterPie.Core.Tests
             public string TestValue;
         }
 
+        private struct Test2DTO
+        {
+            public int TestValue;
+        }
+
         private class TestEntity : ScannableEntity
         {
             public string TestValue { get; private set; }
+            public int TestValue2 { get; private set; }
 
             public TestEntity()
             {
-                AddScanner(typeof(TestDTO), ScanTestData);
+                Add(ScanTestData);
+                Add(ScanTestData2);
             }
 
             public void ScanData() => Scan();
 
-            public void ScanTestData()
+            public TestDTO ScanTestData()
             {
                 TestDTO dto = new()
                 {
@@ -32,6 +40,18 @@ namespace HunterPie.Core.Tests
 
                 Next(ref dto);
                 TestValue = dto.TestValue;
+
+                return dto;
+            }
+
+            public Test2DTO ScanTestData2()
+            {
+                Test2DTO dto = new() { TestValue = 20 };
+
+                Next(ref dto);
+                TestValue2 = dto.TestValue;
+
+                return dto;
             }
 
         }
@@ -42,17 +62,22 @@ namespace HunterPie.Core.Tests
             TestEntity test = new();
             
             test.MiddlewareFor<TestDTO>(ScannerMiddleware);
-
+            test.MiddlewareFor<Test2DTO>(ScannerMiddleware2);
             // This is called internally by the scannable entity, this is here just for testing purposes
             test.ScanData();
 
             Assert.AreEqual("Modified by middleware!", test.TestValue);
-
+            Assert.AreEqual(10, test.TestValue2);
         }
 
         private void ScannerMiddleware(ref TestDTO data)
         {
             data.TestValue = "Modified by middleware!";
+        }
+
+        private void ScannerMiddleware2(ref Test2DTO data)
+        {
+            data.TestValue = 10;
         }
     }
 }

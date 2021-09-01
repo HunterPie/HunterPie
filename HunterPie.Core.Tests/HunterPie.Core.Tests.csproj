@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet.Annotations" Version="0.13.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.1" />
     <PackageReference Include="MSTest.TestFramework" Version="2.1.1" />

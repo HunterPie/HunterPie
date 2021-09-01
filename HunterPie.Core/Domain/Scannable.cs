@@ -9,19 +9,19 @@ namespace HunterPie.Core.Domain
     /// <summary>
     /// Implementation for a scannable entity, handles the scan and middlewares internally
     /// </summary>
-    internal class ScannableEntity
+    public class Scannable
     {
 
         private readonly Dictionary<Type, HashSet<Delegate>> middlewares = new Dictionary<Type, HashSet<Delegate>>();
-        private readonly List<Action> scanners = new List<Action>();
+        private readonly List<Delegate> scanners = new List<Delegate>();
         
         /// <summary>
-        /// Calls each 
+        /// Calls each scanning function added to the scanners list
         /// </summary>
         protected void Scan()
         {
-            foreach (Action scanner in scanners)
-                scanner();
+            foreach (Delegate scanner in scanners)
+                scanner.DynamicInvoke();
         }
 
         /// <summary>
@@ -31,8 +31,10 @@ namespace HunterPie.Core.Domain
         /// <param name="type">Type of DTO this action will handle</param>
         /// <param name="scanner">Action to handle this DTO</param>
         /// <returns>True if scanner was added successfully, false otherwise</returns>
-        protected bool AddScanner(Type type, Action scanner)
+        protected bool Add<T>(Func<T> scanner)
         {
+            Type type = typeof(T);
+
             scanners.Add(scanner);
 
             if (!middlewares.ContainsKey(type))
@@ -40,6 +42,7 @@ namespace HunterPie.Core.Domain
 
             return true;
         }
+
 
         /// <summary>
         /// Calls the middlewares
