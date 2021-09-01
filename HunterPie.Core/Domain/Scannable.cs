@@ -18,7 +18,7 @@ namespace HunterPie.Core.Domain
         /// <summary>
         /// Calls each scanning function added to the scanners list
         /// </summary>
-        protected void Scan()
+        internal void Scan()
         {
             foreach (Delegate scanner in scanners)
                 scanner.DynamicInvoke();
