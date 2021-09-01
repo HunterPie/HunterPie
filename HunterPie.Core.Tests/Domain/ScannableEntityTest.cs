@@ -18,7 +18,7 @@ namespace HunterPie.Core.Tests
             public int TestValue;
         }
 
-        private class TestEntity : ScannableEntity
+        private class TestEntity : Scannable
         {
             public string TestValue { get; private set; }
             public int TestValue2 { get; private set; }

@@ -5,7 +5,7 @@ using System;
 
 namespace HunterPie.Core.Game.Client
 {
-    public class Player : ScannableEntity, IEventDispatcher
+    public class Player : Scannable, IEventDispatcher
     {
         public event EventHandler<EventArgs> OnLogin;
         public event EventHandler<EventArgs> OnLogout;
