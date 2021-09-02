@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using AddressMapType = HunterPie.Core.Address.Map.Internal.AddressMapKeyWords.AddressMapType;
 
 namespace HunterPie.Core.Address.Map.Internal
@@ -19,8 +17,8 @@ namespace HunterPie.Core.Address.Map.Internal
         {
             switch (type)
             {
-                case AddressMapType.IntPtr:
-                    self.Add(key, (IntPtr)Convert.ToInt64(value, 16));
+                case AddressMapType.Long:
+                    self.Add(key, Convert.ToInt64(value, 16));
                     break;
 
                 case AddressMapType.VecInt32:

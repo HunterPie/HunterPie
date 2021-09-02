@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace HunterPie.System.Windows
+namespace HunterPie.System.Windows.Native
 {
     internal static class Kernel32
     {

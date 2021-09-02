@@ -8,15 +8,20 @@ using System.Threading.Tasks;
 using HunterPie.Core.Extensions;
 using System.Linq;
 using HunterPie.Core.Logger;
+using HunterPie.Core.Domain.Interfaces;
+using HunterPie.Core.Domain.Memory;
+using HunterPie.Core.Domain.Process;
 
 namespace HunterPie.Core.System.Windows
 {
-    public class ProcessManager : IEventDispatcher
+    public class WindowsProcessManager : IProcessManager, IEventDispatcher
     {
 
         private Timer pooler;
         private bool isProcessForeground;
-        
+       
+        private IMemory memory; 
+
         public const string Name = "MonsterHunterWorld";
         public int Version { get; private set; }
         public Process Process { get; private set; }
@@ -44,7 +49,7 @@ namespace HunterPie.Core.System.Windows
         public event EventHandler<EventArgs> OnGameFocus;
         public event EventHandler<EventArgs> OnGameUnfocus;
 
-        private void SetupScanning()
+        public void Initialize()
         {
             pooler = new Timer(delegate { PoolProcessInfo(); } , null, 0, 80);
         }

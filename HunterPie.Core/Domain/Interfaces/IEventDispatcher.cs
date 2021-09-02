@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HunterPie.Core.Interfaces
+namespace HunterPie.Core.Domain.Interfaces
 {
     public interface IEventDispatcher {}
 }

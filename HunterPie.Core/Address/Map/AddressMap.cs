@@ -19,7 +19,8 @@ namespace HunterPie.Core.Address.Map
         }
 
         public static T Get<T>(string key) => parser.Get<T>(key);
-        public static void Add<T>(string key, T value) => parser.Add<T>(key, value);
+        public static long GetAbsolute(string key) => parser.Get<long>("BASE") + parser.Get<long>(key);
+        public static void Add<T>(string key, T value) => parser.Add(key, value);
 
     }
 }

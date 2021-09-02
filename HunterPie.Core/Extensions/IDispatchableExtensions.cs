@@ -1,8 +1,6 @@
-﻿using HunterPie.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 using HunterPie.Core.Logger;
+using HunterPie.Core.Domain.Interfaces;
 
 namespace HunterPie.Core.Extensions
 {

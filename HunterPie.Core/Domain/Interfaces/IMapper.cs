@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HunterPie.Core.Interfaces
+namespace HunterPie.Core.Domain.Interfaces
 {
     interface IMapper<T, K>
     {

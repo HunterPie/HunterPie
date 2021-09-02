@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace HunterPie.Core.Address.Map.Internal
 {
@@ -8,14 +6,14 @@ namespace HunterPie.Core.Address.Map.Internal
     {
         public enum AddressMapType
         {
-            IntPtr,
+            Long,
             VecInt32,
             Unknown
         }
 
         private static Dictionary<string, AddressMapType> types = new Dictionary<string, AddressMapType>()
         {
-            { "Address", AddressMapType.IntPtr },
+            { "Address", AddressMapType.Long },
             { "Offset", AddressMapType.VecInt32 }
         };
 

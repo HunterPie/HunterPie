@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Game.Client;
+﻿using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Game.Client;
 
 namespace HunterPie.Core.Game
 {
@@ -7,8 +8,18 @@ namespace HunterPie.Core.Game
     /// </summary>
     public class GameManager
     {
+        #region Private fields
+
+        private IProcessManager processManager;
+
+        #endregion
 
         public Player Player { get; private set; }
 
+
+        internal GameManager(IProcessManager process)
+        {
+
+        }
     }
 }
