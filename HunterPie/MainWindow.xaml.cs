@@ -24,8 +24,6 @@ namespace HunterPie
     {
         public MainWindow()
         {
-            InitializeLogger();
-
             InitializeComponent();
         }
 

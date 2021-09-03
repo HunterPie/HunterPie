@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Address.Map.Internal;
 using System.IO;
+using System.Linq;
 
 namespace HunterPie.Core.Address.Map
 {
@@ -16,6 +17,15 @@ namespace HunterPie.Core.Address.Map
                 
                 parser = new LegacyAddressMapParser(stream);
             }
+        }
+
+        public static void ParseLatest(string mapsDir)
+        {
+            string latestMap = Directory.GetFiles(mapsDir, "*.map")
+                .OrderByDescending(version => version)
+                .First();
+              
+            Parse(Path.Combine(mapsDir, latestMap));
         }
 
         public static T Get<T>(string key) => parser.Get<T>(key);

@@ -24,5 +24,23 @@ namespace HunterPie.Core.Extensions
             }
         }
 
+        public static void Dispatch(this IEventDispatcher self, EventHandler<EventArgs> toDispatch)
+        {
+            if (toDispatch is null)
+                return;
+
+            foreach (EventHandler<EventArgs> sub in toDispatch.GetInvocationList())
+            {
+                try
+                {
+                    sub(self, EventArgs.Empty);
+                }
+                catch (Exception err)
+                {
+                    Log.Error($"Exception in {sub.Method.Name}:", err);
+                }
+            }
+        }
+
     }
 }

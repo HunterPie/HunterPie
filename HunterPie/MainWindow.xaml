@@ -7,20 +7,6 @@
         mc:Ignorable="d"
         Title="HunterPie v2" Height="450" Width="800">
     <Grid>
-        <ItemsControl Loaded="OnConsoleLoaded">
-            <ItemsControl.Template>
-                <ControlTemplate>
-                    <ScrollViewer x:Name="scroll" VirtualizingPanel.IsVirtualizing="True">
-                        <VirtualizingStackPanel IsItemsHost="True"/>
-                    </ScrollViewer>
-                </ControlTemplate>
-            </ItemsControl.Template>
-
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Message, Mode=OneTime}" Foreground="{Binding Color, Mode=OneTime}" FontSize="13" FontFamily="Roboto, Segoe UI, Yu Gothic" TextOptions.TextHintingMode="Fixed" TextOptions.TextFormattingMode="Ideal" TextWrapping="WrapWithOverflow"/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        
     </Grid>
 </Window>

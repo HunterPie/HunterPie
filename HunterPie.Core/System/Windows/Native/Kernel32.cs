@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
 
-namespace HunterPie.System.Windows.Native
+namespace HunterPie.Core.System.Windows.Native
 {
     internal static class Kernel32
     {
+        public const int PROCESS_ALL_ACCESS = 0x001F0FFF;
+
         [Flags]
         public enum AllocationType : uint
         {
