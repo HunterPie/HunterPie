@@ -8,17 +8,15 @@ namespace HunterPie.Core.Domain
 {
     public static class ScanManager
     {
-        private static CancellationTokenSource token;
+        private static Thread thread;
+        private static CancellationTokenSource token = new CancellationTokenSource();
         private readonly static HashSet<Scannable> scannables = new HashSet<Scannable>();
         
         internal static void Start()
         {
-            if (token is null || token.IsCancellationRequested)
+            if (thread is null)
             {
-                token?.Dispose();
-                token = new CancellationTokenSource();
-
-                _ = new Task(async () =>
+                thread = new Thread(() =>
                 {
                     do
                     {
@@ -26,13 +24,14 @@ namespace HunterPie.Core.Domain
                         {
                             Scan();
 
-                            await Task.Delay(50);
-
-                            token.Token.ThrowIfCancellationRequested();
-
+                            lock (token)
+                            {
+                                if (token.IsCancellationRequested)
+                                    break;
+                            }
+                            Thread.Sleep(30);
                         }
-                        catch(OperationCanceledException) { return; }
-                        catch(Exception err)
+                        catch (Exception err)
                         {
                             // Logs the error if it came from a generic exception instead of a
                             // cancel request
@@ -41,19 +40,36 @@ namespace HunterPie.Core.Domain
                         }
 
                     } while (true);
-                }, token.Token, TaskCreationOptions.LongRunning);
+                })
+                {
+                    Name = "ScanManager",
+                    IsBackground = true,
+                    Priority = ThreadPriority.AboveNormal
+                };
+                thread.Start();
             }
                 
         }
 
-        internal static void Stop() => token?.Cancel();
+        internal static void Stop()
+        {
+            if (thread is not null)
+            {
+                lock (token)
+                {
+                    token.Cancel();
+                }
+                thread = null;
+            }
+        }
 
         private static void Scan()
         {
             lock (scannables)
             {
                 foreach (Scannable scannable in scannables)
-                    Task.Factory.StartNew(scannable.Scan);
+                    scannable.Scan();
+                    //Task.Factory.StartNew();
             }
         }
 

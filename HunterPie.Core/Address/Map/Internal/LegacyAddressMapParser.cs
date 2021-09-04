@@ -53,8 +53,8 @@ namespace HunterPie.Core.Address.Map.Internal
                 {
                     // # are used for comments
                     case AddressMapTokens.Comment:
-                        AddressMapTokenizer.ConsumeUntilChar(stream, '\n');
-                        AddressMapTokenizer.ConsumeTokens(stream, new char[] { '\n' });
+                        AddressMapTokenizer.ConsumeUntilChars(stream, new char[] { '\n', '\r' });
+                        AddressMapTokenizer.ConsumeTokens(stream, new char[] { '\n', '\r', '\t' });
                         break;
 
                     // Actual strings
@@ -70,11 +70,11 @@ namespace HunterPie.Core.Address.Map.Internal
 
                             AddressMapTokenizer.ConsumeTokens(stream, new char[] { ' ', '=' });
 
-                            string keyValue = AddressMapTokenizer.ConsumeUntilChars(stream, new char[] { '#', '\n' });
+                            string keyValue = AddressMapTokenizer.ConsumeUntilChars(stream, new char[] { '#', '\n', '\r', '\t' });
 
                             this.AddValueByType(valueType, keyName, keyValue);
 
-                            AddressMapTokenizer.ConsumeTokens(stream, new char[] { '\n', ' ' });
+                            AddressMapTokenizer.ConsumeTokens(stream, new char[] { '\n', ' ', '\t', '\r' });
                         }
 
                         break;

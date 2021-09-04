@@ -44,6 +44,17 @@ namespace HunterPie.Core.Game.Client
         public short HighRank { get; private set; }
         public short MasterRank { get; private set; }
         public int PlayTime { get; private set; }
+        public int ZoneId
+        {
+            get => zoneId;
+            set
+            {
+                if (value != zoneId)
+                {
+                    zoneId = value;
+                }
+            }
+        }
         public bool IsLoggedOn => playerAddress != 0;
         #endregion
 
@@ -67,7 +78,26 @@ namespace HunterPie.Core.Game.Client
 
         private void SetupScanners()
         {
+            Add(GetZoneData);
             Add(GetBasicData);
+        }
+
+        public ZoneData GetZoneData()
+        {
+            ZoneData data = new();
+
+            long zoneAddress = process.Memory.Read(
+                AddressMap.GetAbsolute("ZONE_OFFSET"),
+                AddressMap.Get<int[]>("ZoneOffsets")
+            );
+
+            data.ZoneId = process.Memory.Read<int>(zoneAddress);
+
+            Next(ref data);
+
+            ZoneId = data.ZoneId;
+            
+            return data;
         }
 
         public PlayerInformationData GetBasicData()
@@ -93,8 +123,8 @@ namespace HunterPie.Core.Game.Client
             {
                 data.Name = process.Memory.Read(currentPlayerSaveHeader + 0x50, 32);
                 data.HighRank = process.Memory.Read<short>(currentPlayerSaveHeader + 0x90);
-                data.MasterRank = process.Memory.Read<short>(currentPlayerSaveHeader + 0x44);
-                data.PlayTime = process.Memory.Read<int>(currentPlayerSaveHeader + 0x10);
+                data.MasterRank = process.Memory.Read<short>(currentPlayerSaveHeader + 0xD4);
+                data.PlayTime = process.Memory.Read<int>(currentPlayerSaveHeader + 0xA0);
 
                 Next(ref data);
 

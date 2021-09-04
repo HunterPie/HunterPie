@@ -15,10 +15,10 @@ namespace HunterPie.Internal.Logger
 
         private enum LogLevel
         {
-            Debug = ConsoleColor.Green,
-            Warn = ConsoleColor.Yellow,
-            Error = ConsoleColor.Red,
-            Info = ConsoleColor.Cyan
+            Debug = ConsoleColor.DarkGreen,
+            Warn = ConsoleColor.DarkYellow,
+            Error = ConsoleColor.DarkRed,
+            Info = ConsoleColor.DarkCyan
         }
 
         public NativeLogger()
@@ -54,8 +54,8 @@ namespace HunterPie.Internal.Logger
             {
                 lock (synchronizer)
                 {
-                    Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.Write($"[{DateTime.Now.ToLongTimeString()}] ");
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    Console.Write($"[{DateTime.Now.ToLongTimeString()}]");
                     Console.ForegroundColor = (ConsoleColor)level;
                     Console.Write($"[{level.ToString().ToUpper()}] ");
                     Console.ForegroundColor = ConsoleColor.Gray;

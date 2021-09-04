@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map.Internal;
+using HunterPie.Core.Logger;
 using System.IO;
 using System.Linq;
 
@@ -8,24 +9,33 @@ namespace HunterPie.Core.Address.Map
     {
 
         private static IAddressMapParser parser;
+        public static bool IsLoaded { get; private set; }
 
-        public static void Parse(string filePath)
+        public static bool Parse(string filePath)
         {
+            if (!File.Exists(filePath))
+                return false;
+
             using (FileStream file = File.OpenRead(filePath))
             {
                 StreamReader stream = new StreamReader(file);
                 
                 parser = new LegacyAddressMapParser(stream);
+
+                Log.Info($"Loaded {Path.GetFileName(filePath)} successfully");
+
+                IsLoaded = true;
             }
+            return true;
         }
 
-        public static void ParseLatest(string mapsDir)
+        public static bool ParseLatest(string mapsDir)
         {
             string latestMap = Directory.GetFiles(mapsDir, "*.map")
                 .OrderByDescending(version => version)
                 .First();
               
-            Parse(Path.Combine(mapsDir, latestMap));
+            return Parse(Path.Combine(mapsDir, latestMap));
         }
 
         public static T Get<T>(string key) => parser.Get<T>(key);

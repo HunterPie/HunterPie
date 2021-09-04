@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Process;
+﻿using HunterPie.Core.Domain;
+using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Game.Client;
 
 namespace HunterPie.Core.Game
@@ -10,7 +11,7 @@ namespace HunterPie.Core.Game
     {
         #region Private fields
 
-        private IProcessManager processManager;
+        private readonly IProcessManager processManager;
 
         #endregion
 
@@ -19,7 +20,23 @@ namespace HunterPie.Core.Game
 
         internal GameManager(IProcessManager process)
         {
+            processManager = process;
+        }
 
+        private void CreateEntities()
+        {
+            Player = new Player(processManager);
+        }
+
+        internal void SetupScanners()
+        {
+            CreateEntities();
+
+            ScanManager.Add(
+                Player    
+            );
+
+            ScanManager.Start();
         }
     }
 }

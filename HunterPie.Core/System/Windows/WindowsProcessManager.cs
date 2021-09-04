@@ -98,6 +98,14 @@ namespace HunterPie.Core.System.Windows
                 {
                     AddressMap.Parse(Path.Combine(mapPath, $"MonsterHunterWorld.{version}.map"));
                 }
+
+                if (!AddressMap.IsLoaded)
+                {
+                    Log.Error("Failed to parse map file");
+                    pooler.Dispose();
+                    return;
+                }
+
                 // Enable events from process
                 Process.EnableRaisingEvents = true;
                 Process.Exited += OnProcessExit;

@@ -14,7 +14,7 @@ namespace HunterPie.Core.Tests.Address.Map
 
         const string mapExample =
             "# Addresses\n" +
-            "Address BASE 0x140000000\n #hello world!" +
+            "Address BASE 0x140000000\r\n #hello world!\n" +
             "Address LEVEL_OFFSET 0x04ECB810\n" +
             "Address ZONE_OFFSET 0x04EC7030\n" +
             "# Offsets\n" +
@@ -24,11 +24,11 @@ namespace HunterPie.Core.Tests.Address.Map
         Dictionary<Type, Dictionary<string, object>> correctResult = new Dictionary<Type, Dictionary<string, object>>()
         {
             {
-                typeof(IntPtr), new Dictionary<string, object>()
+                typeof(long), new Dictionary<string, object>()
                 {
-                    { "BASE", new IntPtr(0x140000000) },
-                    { "LEVEL_OFFSET", new IntPtr(0x04ECB810) },
-                    { "ZONE_OFFSET", new IntPtr(0x04EC7030) }
+                    { "BASE", 0x140000000L },
+                    { "LEVEL_OFFSET", 0x04ECB810L },
+                    { "ZONE_OFFSET", 0x04EC7030L }
                 }
             },
             {
