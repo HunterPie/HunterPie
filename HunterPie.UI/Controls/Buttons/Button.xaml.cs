@@ -18,13 +18,19 @@ namespace HunterPie.UI.Controls.Buttons
 
         public event EventHandler<EventArgs> OnButtonClick;
 
-        public string Text
+
+
+        public new object Content
         {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            get { return (object)GetValue(ContentProperty); }
+            set { SetValue(ContentProperty, value); }
         }
-        public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(Button), new PropertyMetadata("Button"));
+
+        // Using a DependencyProperty as the backing store for Content.  This enables animation, styling, binding, etc...
+        public static new readonly DependencyProperty ContentProperty =
+            DependencyProperty.Register("Content", typeof(object), typeof(Button));
+
+
 
         public new Brush Foreground
         {

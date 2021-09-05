@@ -38,7 +38,6 @@ namespace HunterPie.UI.Logger
             
             StringBuilder message = new StringBuilder($"[{timestamp.ToLongTimeString()}]");
             message.AppendJoin(" ", args);
-
             await Application.Current.Dispatcher.InvokeAsync(() =>
             {
                 viewModel.Add(new LogString

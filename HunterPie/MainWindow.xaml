@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:part="clr-namespace:HunterPie.GUI.Parts"
         xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+        xmlns:test="clr-namespace:HunterPie.GUI.Parts.Sidebar"
         Title="HunterPie v2" 
         Height="600" 
         Width="1000" 
@@ -19,15 +20,18 @@
                       UseAeroCaptionButtons="False" />
     </WindowChrome.WindowChrome>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="73*"/>
+            <RowDefinition Height="226*"/>
+        </Grid.RowDefinitions>
         <part:HeaderBar 
             Height="25"
             Background="{StaticResource HUNTERPIE_HEADER_BACKGROUND}"
             VerticalAlignment="Top"/>
 
-        <Grid Height="120" 
+        <Grid 
               Background="{StaticResource HUNTERPIE_HEADER_BACKGROUND}" 
-              Margin="0,25,0,0"
-              VerticalAlignment="Top">
+              Margin="0,25,0,0">
 
             <StackPanel Orientation="Horizontal" 
                         VerticalAlignment="Center"
@@ -36,7 +40,7 @@
 
                 <Image Source="{StaticResource ICON_HUNTERPIE}"
                        Height="55"/>
-                <Label Foreground="WhiteSmoke"
+                <Label Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                        FontSize="40"
                        FontFamily="Work Sans"
                        VerticalAlignment="Center">
@@ -52,17 +56,30 @@
 
             </StackPanel>
 
-            <native:Button Text="LAUNCH GAME" 
-                           FontSize="20"
+            <native:Button FontSize="20"
                            FontWeight="Medium"
                            VerticalAlignment="Center" 
                            HorizontalAlignment="Right"
-                           Padding="25,5,25,5"
+                           Padding="25,0,25,5"
                            Margin="0,0,10,0"
                            Background="{StaticResource HUNTERPIE_ACCENT_COLOR}"
-                           />
+                           >
+                <native:Button.Content>
+                    <TextBlock Foreground="WhiteSmoke">
+                        <Run Text="▶"
+                             FontSize="30"/>
+                        <Run Text="LAUNCH GAME"
+                             BaselineAlignment="Center"/>
+                    </TextBlock>
+                </native:Button.Content>
+            </native:Button>
 
         </Grid>
 
+        <test:SideBarContainer Grid.Row="1"
+                               Background="{StaticResource HUNTERPIE_BACKGROUND_SECONDARY}"
+                               VerticalAlignment="Stretch"
+                               HorizontalAlignment="Left"
+                               ItemsHeight="40"/>
     </Grid>
 </Window>

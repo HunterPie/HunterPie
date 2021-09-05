@@ -14,8 +14,8 @@
              ClipToBounds="True">
     <UserControl.Resources>
         <Storyboard x:Key="PART_RippleAnimation" Storyboard.TargetName="PART_Ripple">
-            <DoubleAnimation Storyboard.TargetProperty="Width" From="0" Duration="0:0:0.4" />
-            <ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:0.4" />
+            <DoubleAnimation Storyboard.TargetProperty="Width" From="0" Duration="0:0:0.3" />
+            <ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:0.3" />
             <DoubleAnimation Duration="0:0:0.8" Storyboard.TargetProperty="Opacity"
                                     From="1" To="0" />
             <DoubleAnimation Storyboard.TargetProperty="Width" To="0" BeginTime="0:0:1.25" Duration="0:0:0" />
@@ -28,13 +28,13 @@
             <Grid>
                 <Canvas>
                     <Ellipse x:Name="PART_Ripple"
-                             Fill="#7FF5F5F5" 
+                             Fill="#40F5F5F5" 
                              HorizontalAlignment="Left" 
                              Height="{Binding Path=Width, RelativeSource={RelativeSource Self}}"
                              VerticalAlignment="Top"/>
                 </Canvas>
 
-                <Label Content="{Binding Text, ElementName=NativeButtonControl}"
+                <Label Content="{Binding Content, ElementName=NativeButtonControl}"
                        Foreground="{Binding Foreground, ElementName=NativeButtonControl}"
                        FontFamily="Work Sans"
                        HorizontalContentAlignment="Center"

@@ -41,14 +41,14 @@
         <StackPanel HorizontalAlignment="Right"
                     Orientation="Horizontal">
             <native:Button 
-                Text="_"
+                Content="_"
                 FontSize="14"
                 Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
                 OnButtonClick="OnMinimizeButtonClick"
                 />
             
             <native:Button 
-                Text="✕"
+                Content="✕"
                 Background="{StaticResource HUNTERPIE_ACCENT_COLOR}"
                 FontSize="15"
                 Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"

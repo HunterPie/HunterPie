@@ -10,9 +10,21 @@
     <Compile Update="GUI\Parts\HeaderBar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="GUI\Parts\Sidebar\SideBarContainer.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GUI\Parts\Sidebar\SideBarElement.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="GUI\Parts\HeaderBar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Parts\Sidebar\SideBarContainer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Parts\Sidebar\SideBarElement.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
