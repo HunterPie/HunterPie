@@ -4,6 +4,7 @@ using HunterPie.Core.Domain.DTO;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Enums;
 using System;
 
 namespace HunterPie.Core.Game.Client
@@ -13,9 +14,11 @@ namespace HunterPie.Core.Game.Client
     {
         #region Private fields
 
-        private IProcessManager process;
-        private long playerAddress;
-        private int zoneId;
+        private IProcessManager _process;
+        private long _playerAddress;
+        private Stage _zoneId;
+        private Weapon _weaponId;
+        private SpecializedTool _primaryTool = new SpecializedTool();
 
         #endregion
 
@@ -23,12 +26,12 @@ namespace HunterPie.Core.Game.Client
 
         public long PlayerAddress
         {
-            get => playerAddress;
+            get => _playerAddress;
             private set
             {
-                if (value != playerAddress)
+                if (value != _playerAddress)
                 {
-                    playerAddress = value;
+                    _playerAddress = value;
 
                     this.Dispatch(
                         value != 0
@@ -44,18 +47,40 @@ namespace HunterPie.Core.Game.Client
         public short HighRank { get; private set; }
         public short MasterRank { get; private set; }
         public int PlayTime { get; private set; }
-        public int ZoneId
+        
+        /// <summary>
+        /// Player stage id
+        /// </summary>
+        public Stage ZoneId
         {
-            get => zoneId;
+            get => _zoneId;
             set
             {
-                if (value != zoneId)
+                if (value != _zoneId)
                 {
-                    zoneId = value;
+                    _zoneId = value;
                 }
             }
         }
-        public bool IsLoggedOn => playerAddress != 0;
+
+        /// <summary>
+        /// Player weapon type
+        /// </summary>
+        public Weapon WeaponId
+        {
+            get => _weaponId;
+            set
+            {
+                if (value != _weaponId)
+                {
+                    _weaponId = value;
+                }
+            }
+        }
+
+        public ref readonly SpecializedTool PrimaryTool => ref _primaryTool;
+
+        public bool IsLoggedOn => _playerAddress != 0;
         #endregion
 
         public event EventHandler<EventArgs> OnLogin;
@@ -71,7 +96,7 @@ namespace HunterPie.Core.Game.Client
         
         internal Player(IProcessManager process)
         {
-            this.process = process;
+            _process = process;
 
             SetupScanners();
         }
@@ -80,18 +105,19 @@ namespace HunterPie.Core.Game.Client
         {
             Add(GetZoneData);
             Add(GetBasicData);
+            Add(GetWeaponData);
         }
 
-        public ZoneData GetZoneData()
+        private ZoneData GetZoneData()
         {
             ZoneData data = new();
 
-            long zoneAddress = process.Memory.Read(
+            long zoneAddress = _process.Memory.Read(
                 AddressMap.GetAbsolute("ZONE_OFFSET"),
                 AddressMap.Get<int[]>("ZoneOffsets")
             );
 
-            data.ZoneId = process.Memory.Read<int>(zoneAddress);
+            data.ZoneId = _process.Memory.Read<Stage>(zoneAddress);
 
             Next(ref data);
 
@@ -100,31 +126,31 @@ namespace HunterPie.Core.Game.Client
             return data;
         }
 
-        public PlayerInformationData GetBasicData()
+        private PlayerInformationData GetBasicData()
         {
             PlayerInformationData data = new();
-            if (zoneId == 0)
+            if (ZoneId == Stage.MainMenu)
             {
                 PlayerAddress = 0;
                 return data;
             }
 
-            long firstSaveAddress = process.Memory.Read(
+            long firstSaveAddress = _process.Memory.Read(
                 AddressMap.GetAbsolute("LEVEL_OFFSET"),
                 AddressMap.Get<int[]>("LevelOffsets")
             );
 
-            uint currentSaveSlot = process.Memory.Read<uint>(firstSaveAddress + 0x44);
+            uint currentSaveSlot = _process.Memory.Read<uint>(firstSaveAddress + 0x44);
             long nextPlayerSave = 0x27E9F0;
             long currentPlayerSaveHeader = 
-                process.Memory.Read<long>(firstSaveAddress) + nextPlayerSave * currentSaveSlot;
+                _process.Memory.Read<long>(firstSaveAddress) + nextPlayerSave * currentSaveSlot;
 
-            if (currentPlayerSaveHeader != playerAddress)
+            if (currentPlayerSaveHeader != _playerAddress)
             {
-                data.Name = process.Memory.Read(currentPlayerSaveHeader + 0x50, 32);
-                data.HighRank = process.Memory.Read<short>(currentPlayerSaveHeader + 0x90);
-                data.MasterRank = process.Memory.Read<short>(currentPlayerSaveHeader + 0xD4);
-                data.PlayTime = process.Memory.Read<int>(currentPlayerSaveHeader + 0xA0);
+                data.Name = _process.Memory.Read(currentPlayerSaveHeader + 0x50, 32);
+                data.HighRank = _process.Memory.Read<short>(currentPlayerSaveHeader + 0x90);
+                data.MasterRank = _process.Memory.Read<short>(currentPlayerSaveHeader + 0xD4);
+                data.PlayTime = _process.Memory.Read<int>(currentPlayerSaveHeader + 0xA0);
 
                 Next(ref data);
 
@@ -138,5 +164,28 @@ namespace HunterPie.Core.Game.Client
             return data;
         }
 
+        private PlayerEquipmentData GetWeaponData()
+        {
+            PlayerEquipmentData data = new();
+
+            if (!IsLoggedOn)
+                return data;
+
+            long address = _process.Memory.Read(
+                AddressMap.GetAbsolute("WEAPON_OFFSET"),
+                AddressMap.Get<int[]>("WeaponOffsets")
+            );
+
+            data.WeaponType = _process.Memory.Read<Weapon>(address);
+            SpecializedToolType[] tools = _process.Memory.Read<SpecializedToolType>(address, 2);
+            data.PrimaryTool = tools[0];
+            data.SecondaryTool = tools[1];
+
+            Next(ref data);
+
+            WeaponId = data.WeaponType;
+
+            return data;
+        }
     }
 }

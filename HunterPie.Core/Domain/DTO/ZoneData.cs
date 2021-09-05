@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HunterPie.Core.Game.Enums;
 
 namespace HunterPie.Core.Domain.DTO
 {
     public struct ZoneData
     {
-        public int ZoneId;
+        public Stage ZoneId;
     }
 }

@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:HunterPie.UI.Resources">
+    <DrawingImage x:Key="ICON_ADMINISTRATOR">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V64.01 H64.01 V0 H0 Z">
+                <GeometryDrawing Brush="{StaticResource HUNTERPIE_ACCENT_COLOR}" Geometry="F1 M64.01,64.01z M0,0z M53.0509,34.435C53.3426,42.4361 42.775,58.5426 31.7336,58.4071 20.6922,58.2717 10.6283,44.7073 10.4408,35.4424L10.5848,15.5438C17.018,12.0711 23.4512,8.59835 26.976,6.65361 30.5008,4.70887 31.1172,4.29215 32.4507,4.61164 33.7842,4.93113 35.8348,5.98683 39.3704,7.93504 42.9059,9.88324 47.9263,12.7239 52.9467,15.5647 53.2176,21.4332 53.0494,34.3934 53.0509,34.435z" />
+                <GeometryDrawing Brush="{StaticResource HUNTERPIE_HEADER_BACKGROUND}" Geometry="F1 M64.01,64.01z M0,0z M14.6687,18.7942L31.7336,10.6681 31.7336,32.4211 14.6687,32.4211 14.6687,18.7942z" />
+                <GeometryDrawing Brush="{StaticResource HUNTERPIE_HEADER_BACKGROUND}" Geometry="F1 M64.01,64.01z M0,0z M48.6735,32.4211L31.7336,32.4211 31.7336,54.2992C31.7336,54.2992,46.0481,49.7777,48.6735,32.4211z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_HUNTERPIE">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="{StaticResource HUNTERPIE_LOGO_PRIMARY}" Geometry="F1 M 31.7083,1.85034L 61.5247,31.6667L 31.7083,61.483L 1.892,31.6667L 31.7083,1.85034 Z "/>
+                    <GeometryDrawing Brush="{StaticResource HUNTERPIE_LOGO_SECONDARY}" Geometry="F1 M 24,17.5L 24,20.3333L 31.7083,28.3333L 40,20.25L 40,17.5L 31.7083,25.0729L 24,17.5 Z "/>
+                    <GeometryDrawing Brush="{StaticResource HUNTERPIE_LOGO_SECONDARY}" Geometry="F1 M 46.1875,23.8854L 43.3542,23.8854L 36.375,31.6667L 43.4375,39.8854L 46.1875,39.8854L 40,31.6667L 46.1875,23.8854 Z "/>
+                    <GeometryDrawing Brush="{StaticResource HUNTERPIE_LOGO_SECONDARY}" Geometry="F1 M 17.3541,23.6979L 20.1875,23.6979L 28.0833,31.6667L 20.1042,39.6979L 17.3542,39.6979L 24,31.6667L 17.3541,23.6979 Z "/>
+                    <GeometryDrawing Brush="{StaticResource HUNTERPIE_LOGO_SECONDARY}" Geometry="F1 M 24,46.6146L 24,43.7813L 31.7083,36.0208L 40,43.8646L 40,46.6146L 31.7083,39.7292L 24,46.6146 Z "/>
+                    <GeometryDrawing Brush="{StaticResource HUNTERPIE_LOGO_TERTIARY}" Geometry="F1 M 11.3481,10.9557L 13.7129,20.0224L 20.3825,13.4412L 11.3481,10.9557 Z "/>
+                    <GeometryDrawing Brush="{StaticResource HUNTERPIE_LOGO_TERTIARY}" Geometry="F1 M 52.0678,10.9635L 49.7031,20.0302L 43.0334,13.449L 52.0678,10.9635 Z "/>
+                    <GeometryDrawing Brush="{StaticResource HUNTERPIE_LOGO_TERTIARY}" Geometry="F1 M 11.3485,52.4748L 13.7132,43.4081L 20.3829,49.9893L 11.3485,52.4748 Z "/>
+                    <GeometryDrawing Brush="{StaticResource HUNTERPIE_LOGO_TERTIARY}" Geometry="F1 M 52.0681,52.4669L 49.7034,43.4003L 43.0338,49.9815L 52.0681,52.4669 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+</ResourceDictionary>

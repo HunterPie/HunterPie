@@ -62,13 +62,16 @@ namespace HunterPie.Core.System.Windows
 
         private void PoolProcessInfo()
         {
-            if (Process != null)
+            if (Process is not null)
+            {
+                IsProcessForeground = User32.GetForegroundWindow() == Process.MainWindowHandle;
                 return;
+            }
 
             Process monsterHunterProcess = Process.GetProcessesByName(Name)
                 .FirstOrDefault(process => !string.IsNullOrEmpty(process.MainWindowTitle));
 
-            if (monsterHunterProcess != null)
+            if (monsterHunterProcess is not null)
             {
                 // If our process is in either another window, or not initialized yet
                 if (!monsterHunterProcess.MainWindowTitle.ToUpper().StartsWith("MONSTER HUNTER: WORLD"))

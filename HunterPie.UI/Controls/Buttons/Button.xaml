@@ -1,0 +1,45 @@
+﻿<UserControl x:Name="NativeButtonControl"
+             x:Class="HunterPie.UI.Controls.Buttons.Button"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="25" d:DesignWidth="60" 
+             Cursor="Hand"
+             MouseEnter="OnMouseEnter"
+             MouseLeave="OnMouseLeave"
+             MouseLeftButtonUp="OnMouseLeftButtonUp"
+             MouseLeftButtonDown="OnMouseLeftButtonDown"
+             ClipToBounds="True">
+    <UserControl.Resources>
+        <Storyboard x:Key="PART_RippleAnimation" Storyboard.TargetName="PART_Ripple">
+            <DoubleAnimation Storyboard.TargetProperty="Width" From="0" Duration="0:0:0.4" />
+            <ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:0.4" />
+            <DoubleAnimation Duration="0:0:0.8" Storyboard.TargetProperty="Opacity"
+                                    From="1" To="0" />
+            <DoubleAnimation Storyboard.TargetProperty="Width" To="0" BeginTime="0:0:1.25" Duration="0:0:0" />
+            <DoubleAnimation BeginTime="0:0:1.25" Duration="0:0:0" Storyboard.TargetProperty="Opacity" To="1" />
+        </Storyboard>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Border>
+            <Grid>
+                <Canvas>
+                    <Ellipse x:Name="PART_Ripple"
+                             Fill="#7FF5F5F5" 
+                             HorizontalAlignment="Left" 
+                             Height="{Binding Path=Width, RelativeSource={RelativeSource Self}}"
+                             VerticalAlignment="Top"/>
+                </Canvas>
+
+                <Label Content="{Binding Text, ElementName=NativeButtonControl}"
+                       Foreground="{Binding Foreground, ElementName=NativeButtonControl}"
+                       FontFamily="Work Sans"
+                       HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

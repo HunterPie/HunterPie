@@ -4,6 +4,11 @@
              StartupUri="MainWindow.xaml" ShutdownMode="OnMainWindowClose" Startup="OnStartup"
              >
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Styles.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Icons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
