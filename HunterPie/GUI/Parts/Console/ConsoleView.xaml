@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="HunterPie.GUI.Parts.Console.ConsoleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:logger="clr-namespace:HunterPie.UI.Logger;assembly=HunterPie.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <logger:LogLevelToColorConverter x:Key="LogLevelToColorConverter"/>
+        <logger:LogLevelToStringConverter x:Key="LogLevelToStringConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <ItemsControl ItemsSource="{Binding Logs}">
+            <ItemsControl.Template>
+                <ControlTemplate>
+                    <ScrollViewer VirtualizingPanel.IsVirtualizing="True">
+                        <VirtualizingStackPanel IsItemsHost="True"/>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock FontFamily="Work Sans"
+                               Foreground="WhiteSmoke"
+                               FontSize="13"
+                               TextWrapping="WrapWithOverflow">
+                        <Run Text="{Binding Timestamp}"
+                             Foreground="LawnGreen"/><!--
+                     --><Run Text="{Binding Level, Converter={StaticResource LogLevelToStringConverter}}"
+                             Foreground="{Binding Level, Converter={StaticResource LogLevelToColorConverter}}"/>
+                        <Run Text="{Binding Message}"/>
+                    </TextBlock>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

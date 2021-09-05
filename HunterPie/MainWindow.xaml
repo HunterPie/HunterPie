@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:part="clr-namespace:HunterPie.GUI.Parts"
         xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
-        xmlns:test="clr-namespace:HunterPie.GUI.Parts.Sidebar"
+        xmlns:sidebar="clr-namespace:HunterPie.GUI.Parts.Sidebar"
+        xmlns:console="clr-namespace:HunterPie.GUI.Parts.Console"
         Title="HunterPie v2" 
         Height="600" 
         Width="1000" 
@@ -76,10 +77,16 @@
 
         </Grid>
 
-        <test:SideBarContainer Grid.Row="1"
+        <console:ConsoleView Grid.Row="1"
+                             VerticalAlignment="Stretch"
+                             HorizontalAlignment="Stretch"
+                             Margin="50,0,0,0"/>
+        
+        <sidebar:SideBarContainer Grid.Row="1"
                                Background="{StaticResource HUNTERPIE_BACKGROUND_SECONDARY}"
                                VerticalAlignment="Stretch"
                                HorizontalAlignment="Left"
                                ItemsHeight="40"/>
+        
     </Grid>
 </Window>

@@ -1,28 +1,106 @@
-﻿using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading;
 
 namespace HunterPie.Core.Logger
 {
     public class Log
     {
-        private ILogger io;
-        private static Log instance;
-        public static Log Instance => instance;
-
-        internal static Log NewInstance(ILogger logger)
+        private readonly List<ILogger> _io = new List<ILogger>();
+        private static Log _instance;
+        private readonly static SemaphoreSlim _semaphore = new(1, 1);
+        public static Log Instance
         {
-            instance = new Log(logger);
-            return Instance;
+            get {
+                if (_instance is null)
+                {
+                    _instance = new Log();
+                }
+
+                return _instance;
+            }
         }
 
-        private Log(ILogger logger)
+        public static async void Add(ILogger logger)
         {
-            io = logger;
+
+            try
+            {
+                await _semaphore.WaitAsync();
+                Instance._io.Add(logger);
+            }
+            catch { }
+            finally
+            {
+                _semaphore.Release();
+            }
         }
 
-        public static Task Debug(params object[] args) => Instance.io.Debug(args);
-        public static Task Info(params object[] args) => Instance.io.Info(args);
-        public static Task Warn(params object[] args) => Instance.io.Warn(args);
-        public static Task Error(params object[] args) => Instance.io.Error(args);
+        public static async void Debug(params object[] args)
+        {
+            try
+            {
+                await _semaphore.WaitAsync();
+
+                foreach (ILogger logger in Instance._io)
+                    await logger.Debug(args);
+
+            }
+            catch { }
+            finally
+            {
+                _semaphore.Release();
+            }
+        }
+
+        public static async void Info(params object[] args)
+        {
+            try
+            {
+                await _semaphore.WaitAsync();
+
+                foreach (ILogger logger in Instance._io)
+                    await logger.Info(args);
+
+            }
+            catch { }
+            finally
+            {
+                _semaphore.Release();
+            }
+        }
+        public static async void Warn(params object[] args)
+        {
+            try
+            {
+                await _semaphore.WaitAsync();
+
+                foreach (ILogger logger in Instance._io)
+                    await logger.Warn(args);
+
+            }
+            catch { }
+            finally
+            {
+                _semaphore.Release();
+            }
+        }
+
+        public static async void Error(params object[] args)
+        {
+            try
+            {
+                await _semaphore.WaitAsync();
+
+                foreach (ILogger logger in Instance._io)
+                    await logger.Error(args);
+
+            } 
+            catch { }
+            finally
+            {
+                _semaphore.Release();
+            }
+        }
+
     }
 }

@@ -7,44 +7,48 @@ using System.Windows;
 
 namespace HunterPie.UI.Logger
 {
-    internal class NativeLogger : ILogger
+    internal class HunterPieLogger : ILogger
     {
 
         public static readonly ObservableCollection<LogString> viewModel = new ObservableCollection<LogString>();
 
         public Task Debug(params object[] args)
         {
-            return WriteToBuffer("#000000", args);
+            return WriteToBuffer(LogLevel.Debug, args);
         }
 
         public Task Error(params object[] args)
         {
-            return WriteToBuffer("#000000", args);
+            return WriteToBuffer(LogLevel.Error, args);
         }
 
         public Task Info(params object[] args)
         {
-            return WriteToBuffer("#000000", args);
+            return WriteToBuffer(LogLevel.Info, args);
         }
 
         public Task Warn(params object[] args)
         {
-            return WriteToBuffer("#000000", args);
+            return WriteToBuffer(LogLevel.Warn, args);
         }
 
-        private async Task WriteToBuffer(string level, params object[] args)
+        private async Task WriteToBuffer(LogLevel level, params object[] args)
         {
-            DateTime timestamp = DateTime.Now;
             
-            StringBuilder message = new StringBuilder($"[{timestamp.ToLongTimeString()}]");
-            message.AppendJoin(" ", args);
             await Application.Current.Dispatcher.InvokeAsync(() =>
             {
+                StringBuilder builder = new StringBuilder();
+
+                foreach (object e in args)
+                    builder.Append(e.ToString());
+
                 viewModel.Add(new LogString
                 {
-                    Message = message.ToString(),
-                    Color = level
+                    Timestamp = $"[{DateTime.Now.ToLongTimeString()}]",
+                    Message = builder.ToString(),
+                    Level = level
                 });
+
             });
 
             

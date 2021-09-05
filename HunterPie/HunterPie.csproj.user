@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="GUI\Parts\Console\ConsoleView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="GUI\Parts\HeaderBar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -18,6 +21,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="GUI\Parts\Console\ConsoleView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="GUI\Parts\HeaderBar.xaml">
       <SubType>Designer</SubType>
     </Page>

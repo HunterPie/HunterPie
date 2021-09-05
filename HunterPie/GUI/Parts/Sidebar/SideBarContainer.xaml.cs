@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Logger;
+using HunterPie.Domain.Sidebar;
 using HunterPie.GUI.Parts.Sidebar.ViewModels;
 using System;
 using System.Collections.ObjectModel;
@@ -43,6 +44,11 @@ namespace HunterPie.GUI.Parts.Sidebar
             InitializeComponent();
             _selectSlideAnimation = FindResource("PART_SelectionAnimation") as Storyboard;
             DataContext = this;
+        }
+
+        public static void SetMenu(ISideBar menu)
+        {
+            Add(menu.Menu);
         }
 
         public static void Add(params ISideBarElement[] elements)

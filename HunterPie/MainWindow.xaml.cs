@@ -1,5 +1,6 @@
-﻿using HunterPie.GUI.Parts.Sidebar;
-using HunterPie.GUI.Parts.Sidebar.ViewModels;
+﻿using HunterPie.Core.Logger;
+using HunterPie.Domain.Sidebar;
+using HunterPie.GUI.Parts.Sidebar;
 using HunterPie.UI.Logger;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,20 +18,10 @@ namespace HunterPie
             InitializeSideMenu();
         }
 
-        private void OnConsoleLoaded(object sender, RoutedEventArgs e)
-        {
-            ItemsControl console = (ItemsControl)sender;
-            console.ItemsSource = NativeLogger.viewModel;
-        }
-
         private void InitializeSideMenu()
         {
-            SideBarContainer.Add(
-                    new ConsoleSideBarElementViewModel(),
-                    new SettingsSideBarElementViewModel(),
-                    new PluginsSideBarElementViewModel(),
-                    new PatchNotesSideBarElementViewModel()
-                );
+            ISideBar menu = new DefaultSideBar();
+            SideBarContainer.SetMenu(menu);
         }
     }
 }
