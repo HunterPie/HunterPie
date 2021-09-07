@@ -77,10 +77,16 @@
 
         </Grid>
 
-        <console:ConsoleView Grid.Row="1"
+<!--        <console:ConsoleView Grid.Row="1"
                              VerticalAlignment="Stretch"
                              HorizontalAlignment="Stretch"
-                             Margin="50,0,0,0"/>
+                             Margin="50,0,0,0"/> -->
+        <Grid Grid.Row="1"
+              VerticalAlignment="Stretch"
+              Margin="60,5,5,5">
+            <native:Switch VerticalAlignment="Top"
+                           HorizontalAlignment="Left"/>
+        </Grid>
         
         <sidebar:SideBarContainer Grid.Row="1"
                                Background="{StaticResource HUNTERPIE_BACKGROUND_SECONDARY}"

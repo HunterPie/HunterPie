@@ -1,0 +1,153 @@
+﻿<arch:ClickableControl x:Class="HunterPie.UI.Controls.Buttons.Switch"
+                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                       xmlns:local="clr-namespace:HunterPie.UI.Controls.Buttons"
+                       xmlns:anim="clr-namespace:HunterPie.UI.Architecture.Animation"
+                       xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
+                       xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                       xmlns:converters="clr-namespace:HunterPie.UI.Converters"
+                       mc:Ignorable="d" 
+                       Width="60"
+                       Height="30">
+    <arch:ClickableControl.Resources>
+        <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
+        <converters:SizeToDoubleSizeConverter x:Key="SizeToDoubleSizeConverter"/>
+
+        <Style x:Key="StyleBubble"
+               TargetType="{x:Type Ellipse}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsMouseOver, ElementName=PART_Slider}" 
+                             Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation To="25"
+                                                         Duration="0:0:0.25"
+                                                         Storyboard.TargetProperty="Width"/>
+                                <DoubleAnimation To="0.4"
+                                                         Duration="0:0:0.25"
+                                                         Storyboard.TargetProperty="Opacity"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation To="0"
+                                                         Duration="0:0:0.25"
+                                                         Storyboard.TargetProperty="Width"/>
+                                <DoubleAnimation To="0"
+                                                         Duration="0:0:0.25"
+                                                         Storyboard.TargetProperty="Opacity"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="StyleForeground"
+               TargetType="{x:Type Ellipse}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type arch:ClickableControl}}}"
+                             Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ThicknessAnimation To="37,0,0,0"
+                                                    Duration="0:0:0.15"
+                                                 Storyboard.TargetProperty="Margin"/>
+                                <anim:BrushAnimation To="{StaticResource BUTTON_COMMONBUTTON_FOREGROUND}"
+                                                     Duration="0:0:0.15"
+                                                     Storyboard.TargetProperty="Fill"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ThicknessAnimation To="5,0,0,0"
+                                                    Duration="0:0:0.15"
+                                                    Storyboard.TargetProperty="Margin"/>
+                                <anim:BrushAnimation To="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}"
+                                                     Duration="0:0:0.15"
+                                                     Storyboard.TargetProperty="Fill"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="SwitchBackground"
+               TargetType="{x:Type Rectangle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type arch:ClickableControl}}}" 
+                             Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <anim:BrushAnimation To="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                                                 Duration="0:0:0.25"
+                                                 Storyboard.TargetProperty="Fill"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Width">
+                                <anim:BrushAnimation To="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
+                                                 Duration="0:0:0.25"
+                                                 Storyboard.TargetProperty="Fill"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        
+    </arch:ClickableControl.Resources>
+    <Grid>
+        <Rectangle Fill="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
+                   RadiusX="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.5}"
+                   RadiusY="{Binding RadiusX, RelativeSource={RelativeSource Self}}"
+                   Stroke="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}"
+                   Style="{StaticResource SwitchBackground}"
+                   StrokeThickness="2"/>
+
+        <Ellipse x:Name="PART_Bubble"
+                 Fill="{StaticResource BUTTON_COMMONBUTTON_FOREGROUND}"
+                 Width="0"
+                 Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                 VerticalAlignment="Stretch"
+                 HorizontalAlignment="Left"
+                 Opacity="0"
+                 StrokeThickness="2"
+                 Style="{StaticResource StyleBubble}">
+            <Ellipse.Margin>
+                <MultiBinding Converter="{StaticResource SizeToDoubleSizeConverter}">
+                    <Binding ElementName="PART_Bubble" Path="ActualWidth" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
+                    <Binding ElementName="PART_Slider" Path="Margin" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
+                    <Binding ElementName="PART_Slider" Path="ActualWidth" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
+                    <MultiBinding.ConverterParameter>
+                        <sys:Double>5</sys:Double>
+                    </MultiBinding.ConverterParameter>
+                </MultiBinding>
+            </Ellipse.Margin>
+        </Ellipse>
+        
+        <Ellipse x:Name="PART_Slider"
+                 Fill="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}"
+                 Height="{Binding ActualHeight, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.60, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
+                 Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
+                 Stroke="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}"
+                 StrokeThickness="2"
+                 Margin="5,0,0,0"
+                 Cursor="Hand"
+                 VerticalAlignment="Stretch"
+                 HorizontalAlignment="Left"
+                 Style="{StaticResource StyleForeground}"/>
+
+        
+    </Grid>
+</arch:ClickableControl>

@@ -44,7 +44,7 @@
                 Content="_"
                 FontSize="14"
                 Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
-                OnButtonClick="OnMinimizeButtonClick"
+                OnClick="OnMinimizeButtonClick"
                 />
             
             <native:Button 
@@ -52,7 +52,7 @@
                 Background="{StaticResource HUNTERPIE_ACCENT_COLOR}"
                 FontSize="15"
                 Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
-                OnButtonClick="OnCloseButtonClick"
+                OnClick="OnCloseButtonClick"
                 HorizontalAlignment="Right"/>
 
         </StackPanel>

@@ -12,6 +12,10 @@
     <SolidColorBrush x:Key="HUNTERPIE_HEADER_BACKGROUND">#16181a</SolidColorBrush>
     <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_PRIMARY">#212426</SolidColorBrush>
     <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_SECONDARY">#24282b</SolidColorBrush>
+    <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_DARK">#151819</SolidColorBrush>
+    <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_DARKER">#ff080a0a</SolidColorBrush>
+    <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_LIGHTER">#2a2f30</SolidColorBrush>
+    <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_DARK_OPACITY">#50080a0a</SolidColorBrush>
     <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_PRIMARY">WhiteSmoke</SolidColorBrush>
     
     <SolidColorBrush x:Key="HUNTERPIE_LOGO_PRIMARY">#f7f7f7</SolidColorBrush>

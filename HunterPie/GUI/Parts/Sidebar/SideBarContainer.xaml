@@ -25,7 +25,7 @@
             RenderingBias="Quality" 
             Direction="0" 
             BlurRadius="10" 
-            Opacity="0.1"/>
+            Opacity="0.02"/>
     </UserControl.Effect>
     <Grid 
           HorizontalAlignment="Left">
@@ -52,10 +52,12 @@
                     <EventTrigger.Actions>
                         <BeginStoryboard>
                             <Storyboard Storyboard.TargetProperty="Width">
-                                <DoubleAnimationUsingKeyFrames>
-                                    <LinearDoubleKeyFrame Value="50" KeyTime="0:0:0.2"/>
-                                    <LinearDoubleKeyFrame Value="{StaticResource HUNTERPIE_SIDEBAR_WIDTH}" KeyTime="0:0:0.4"/>
-                                </DoubleAnimationUsingKeyFrames>
+                                <DoubleAnimation To="{StaticResource HUNTERPIE_SIDEBAR_WIDTH}"
+                                                 BeginTime="0:0:0.7"
+                                                 Duration="0:0:0.3"/>
+                                <DoubleAnimation To="0.15"
+                                                 Duration="0:0:0.3"
+                                                 Storyboard.TargetProperty="(Effect).Opacity"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger.Actions>
@@ -65,6 +67,9 @@
                         <BeginStoryboard>
                             <Storyboard Storyboard.TargetProperty="Width">
                                 <DoubleAnimation To="50" Duration="0:0:0.2"/>
+                                <DoubleAnimation To="0.02"
+                                                 Duration="0:0:0.3"
+                                                 Storyboard.TargetProperty="(Effect).Opacity"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger.Actions>

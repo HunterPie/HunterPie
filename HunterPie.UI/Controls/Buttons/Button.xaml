@@ -1,18 +1,17 @@
-﻿<UserControl x:Name="NativeButtonControl"
+﻿<arch:ClickableControl 
+             x:Name="NativeButtonControl"
              x:Class="HunterPie.UI.Controls.Buttons.Button"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
              mc:Ignorable="d" 
-             d:DesignHeight="25" d:DesignWidth="60" 
+             d:DesignHeight="25" 
+             d:DesignWidth="60" 
              Cursor="Hand"
-             MouseEnter="OnMouseEnter"
-             MouseLeave="OnMouseLeave"
-             MouseLeftButtonUp="OnMouseLeftButtonUp"
-             MouseLeftButtonDown="OnMouseLeftButtonDown"
              ClipToBounds="True">
-    <UserControl.Resources>
+    <arch:ClickableControl.Resources>
         <Storyboard x:Key="PART_RippleAnimation" Storyboard.TargetName="PART_Ripple">
             <DoubleAnimation Storyboard.TargetProperty="Width" From="0" Duration="0:0:0.3" />
             <ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:0.3" />
@@ -21,7 +20,7 @@
             <DoubleAnimation Storyboard.TargetProperty="Width" To="0" BeginTime="0:0:1.25" Duration="0:0:0" />
             <DoubleAnimation BeginTime="0:0:1.25" Duration="0:0:0" Storyboard.TargetProperty="Opacity" To="1" />
         </Storyboard>
-    </UserControl.Resources>
+    </arch:ClickableControl.Resources>
     
     <Grid>
         <Border>
@@ -42,4 +41,4 @@
             </Grid>
         </Border>
     </Grid>
-</UserControl>
+</arch:ClickableControl>

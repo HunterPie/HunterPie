@@ -5,9 +5,15 @@
     <Compile Update="Controls\Buttons\Button.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Buttons\Switch.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Controls\Buttons\Button.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Buttons\Switch.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Resource Update="Resources\Icons.xaml">

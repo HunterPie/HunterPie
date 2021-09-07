@@ -27,7 +27,7 @@
                                FontSize="13"
                                TextWrapping="WrapWithOverflow">
                         <Run Text="{Binding Timestamp}"
-                             Foreground="LawnGreen"/><!--
+                             Foreground="{StaticResource HUNTERPIE_ACCENT_COLOR}"/><!--
                      --><Run Text="{Binding Level, Converter={StaticResource LogLevelToStringConverter}}"
                              Foreground="{Binding Level, Converter={StaticResource LogLevelToColorConverter}}"/>
                         <Run Text="{Binding Message}"/>

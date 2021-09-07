@@ -5,6 +5,7 @@ using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Logger;
 using System;
 
 namespace HunterPie.Core.Game.Client
@@ -40,6 +41,8 @@ namespace HunterPie.Core.Game.Client
                         EventArgs.Empty
                     );
 
+                    if (value != 0)
+                        Log.Debug($"Logged in! Name: {Name}, HR: {HighRank}, MR: {MasterRank}, PlayTime: {PlayTime} seconds");
                 }
             }
         }
@@ -117,7 +120,7 @@ namespace HunterPie.Core.Game.Client
                 AddressMap.Get<int[]>("ZoneOffsets")
             );
 
-            data.ZoneId = _process.Memory.Read<Stage>(zoneAddress);
+            data.ZoneId = (Stage)_process.Memory.Read<int>(zoneAddress);
 
             Next(ref data);
 
@@ -159,6 +162,7 @@ namespace HunterPie.Core.Game.Client
                 MasterRank = data.MasterRank;
                 PlayTime = data.PlayTime;
 
+                PlayerAddress = currentPlayerSaveHeader;
             }
 
             return data;
@@ -176,10 +180,10 @@ namespace HunterPie.Core.Game.Client
                 AddressMap.Get<int[]>("WeaponOffsets")
             );
 
-            data.WeaponType = _process.Memory.Read<Weapon>(address);
-            SpecializedToolType[] tools = _process.Memory.Read<SpecializedToolType>(address, 2);
-            data.PrimaryTool = tools[0];
-            data.SecondaryTool = tools[1];
+            data.WeaponType = (Weapon)_process.Memory.Read<byte>(address);
+            int[] tools = _process.Memory.Read<int>(address, 2);
+            data.PrimaryTool = (SpecializedToolType)tools[0];
+            data.SecondaryTool = (SpecializedToolType)tools[1];
 
             Next(ref data);
 

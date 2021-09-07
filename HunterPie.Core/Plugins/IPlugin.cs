@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Game;
+using HunterPie.Core.Settings;
 using System;
 
 namespace HunterPie.Core.Plugins
@@ -9,7 +10,7 @@ namespace HunterPie.Core.Plugins
         public string Description { get; }
         public string Author { get; }
         public Version Version { get; }
-        public IPluginConfig Config { get; }
+        public ISettings Config { get; }
         
         internal Context Context { get; set; }
 
