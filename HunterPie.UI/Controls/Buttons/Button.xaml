@@ -35,7 +35,7 @@
 
                 <Label Content="{Binding Content, ElementName=NativeButtonControl}"
                        Foreground="{Binding Foreground, ElementName=NativeButtonControl}"
-                       FontFamily="Work Sans"
+                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                        HorizontalContentAlignment="Center"
                        VerticalContentAlignment="Center"/>
             </Grid>

@@ -5,6 +5,7 @@
         xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
         xmlns:sidebar="clr-namespace:HunterPie.GUI.Parts.Sidebar"
         xmlns:console="clr-namespace:HunterPie.GUI.Parts.Console"
+        xmlns:setting="clr-namespace:HunterPie.UI.Controls.Settings;assembly=HunterPie.UI"
         Title="HunterPie v2" 
         Height="600" 
         Width="1000" 
@@ -81,11 +82,30 @@
                              VerticalAlignment="Stretch"
                              HorizontalAlignment="Stretch"
                              Margin="50,0,0,0"/> -->
-        <Grid Grid.Row="1"
+        <Grid x:Name="PART_Host"
+              Grid.Row="1"
               VerticalAlignment="Stretch"
               Margin="60,5,5,5">
-            <native:Switch VerticalAlignment="Top"
-                           HorizontalAlignment="Left"/>
+            <!--<ScrollViewer>
+                <StackPanel>
+                    <setting:SettingElementHost VerticalAlignment="Top"/>
+                    <setting:SettingElementHost VerticalAlignment="Top"/>
+                    <setting:SettingElementHost VerticalAlignment="Top"/>
+                    <setting:SettingElementHost VerticalAlignment="Top"/>
+                    <setting:SettingElementHost VerticalAlignment="Top"/>
+                    <setting:SettingElementHost VerticalAlignment="Top"/>
+                    <setting:SettingElementHost VerticalAlignment="Top"/>
+                    <setting:SettingElementHost VerticalAlignment="Top"/>
+                    <setting:SettingElementHost VerticalAlignment="Top"/>
+                    <setting:SettingElementHost VerticalAlignment="Top"/>
+                    <setting:SettingElementHost VerticalAlignment="Top"/>
+                    <setting:SettingElementHost VerticalAlignment="Top"/>
+                    <setting:SettingElementHost VerticalAlignment="Top"/>
+                    <setting:SettingElementHost VerticalAlignment="Top"/>
+                    <setting:SettingElementHost VerticalAlignment="Top"/>
+                </StackPanel>
+            </ScrollViewer>-->
+            <setting:SettingHost x:Name="PART_Setting"/>
         </Grid>
         
         <sidebar:SideBarContainer Grid.Row="1"

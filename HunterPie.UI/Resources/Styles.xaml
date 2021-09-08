@@ -17,6 +17,7 @@
     <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_LIGHTER">#2a2f30</SolidColorBrush>
     <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_DARK_OPACITY">#50080a0a</SolidColorBrush>
     <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_PRIMARY">WhiteSmoke</SolidColorBrush>
+    <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_DARK">#7c858a</SolidColorBrush>
     
     <SolidColorBrush x:Key="HUNTERPIE_LOGO_PRIMARY">#f7f7f7</SolidColorBrush>
     <SolidColorBrush x:Key="HUNTERPIE_LOGO_SECONDARY">#16181a</SolidColorBrush>
@@ -31,6 +32,9 @@
     <SolidColorBrush x:Key="LOGGER_LEVEL_ERROR">#e65e5e</SolidColorBrush>
     <SolidColorBrush x:Key="LOGGER_LEVEL_PANIC">#ab5ee6</SolidColorBrush>
     
+    <!-- Font -->
+    <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">Work Sans</FontFamily>
+        
     <!-- Constants -->
     <sys:Double x:Key="HUNTERPIE_SIDEBAR_WIDTH">300</sys:Double>
 

@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="HunterPie.UI.Controls.Buttons.TabItem"
+             x:Name="TabItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Controls.Buttons"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="120"
+             ClipToBounds="True"
+             ToolTip="{Binding Description, ElementName=TabItemControl}"
+             Cursor="Hand">
+    <UserControl.Resources>
+        <Storyboard x:Key="PART_RippleAnimation" Storyboard.TargetName="PART_Ripple">
+            <DoubleAnimation Storyboard.TargetProperty="Width" From="0" Duration="0:0:0.3" />
+            <ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:0.3" />
+            <DoubleAnimation Duration="0:0:0.8" Storyboard.TargetProperty="Opacity"
+                                    From="1" To="0" />
+            <DoubleAnimation Storyboard.TargetProperty="Width" To="0" BeginTime="0:0:1.25" Duration="0:0:0" />
+            <DoubleAnimation BeginTime="0:0:1.25" Duration="0:0:0" Storyboard.TargetProperty="Opacity" To="1" />
+        </Storyboard>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="31*"/>
+            <ColumnDefinition Width="89*"/>
+        </Grid.ColumnDefinitions>
+        <Canvas Grid.ColumnSpan="2">
+            <Ellipse x:Name="PART_Ripple"
+                    Fill="#40F5F5F5" 
+                    HorizontalAlignment="Left" 
+                    Height="{Binding Path=Width, RelativeSource={RelativeSource Self}}"
+                    VerticalAlignment="Top"/>
+        </Canvas>
+        <Image Source="{Binding Icon, ElementName=TabItemControl}"
+               HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch"
+               Width="20"
+               Height="{Binding Width, RelativeSource={RelativeSource Self}}"/>
+        <TextBlock Text="{Binding Title, ElementName=TabItemControl}"
+                   Grid.Column="1"
+                   Margin="10,0,0,0"
+                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   FontWeight="Medium"
+                   VerticalAlignment="Center" Height="14"/>
+    </Grid>
+</UserControl>

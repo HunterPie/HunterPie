@@ -6,8 +6,9 @@ using HunterPie.Internal.Logger;
 using System;
 using System.Windows;
 using System.Windows.Threading;
-using System.Windows.Navigation;
 using HunterPie.UI.Logger;
+using System.Diagnostics;
+using HunterPie.Domain.Logger;
 
 namespace HunterPie
 {
@@ -25,6 +26,7 @@ namespace HunterPie
             InitializeBuiltinLogger();
             InitializeExceptionsCatcher();
             InitializeProcessScanner();
+            InitializeUITracer();
         }
 
         private static void InitializeLogger()
@@ -58,6 +60,13 @@ namespace HunterPie
             {
                 Log.Error(args.Exception);
             };
+        }
+
+        private void InitializeUITracer()
+        {
+            PresentationTraceSources.Refresh();
+            PresentationTraceSources.DataBindingSource.Listeners.Add(new LogTracer());
+            PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Warning;
         }
 
         private void OnGameClosed(object sender, EventArgs e)

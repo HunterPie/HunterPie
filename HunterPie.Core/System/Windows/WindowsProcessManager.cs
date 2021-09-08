@@ -11,6 +11,7 @@ using HunterPie.Core.Address.Map;
 using HunterPie.Core.System.Windows.Native;
 using System.IO;
 using HunterPie.Core.System.Windows.Memory;
+using HunterPie.Core.Client;
 
 namespace HunterPie.Core.System.Windows
 {
@@ -91,15 +92,13 @@ namespace HunterPie.Core.System.Windows
                 string version = monsterHunterProcess.MainWindowTitle.Split('(')[1].Trim(')');
                 bool parsed = int.TryParse(version, out int parsedVersion);
 
-                string mapPath = Path.Combine(AppContext.BaseDirectory, "address");
-
                 if (!parsed)
                 {
                     Log.Error("Failed to get Monster Hunter: World build version. Loading latest map version instead."); 
-                    AddressMap.ParseLatest(mapPath);
+                    AddressMap.ParseLatest(ClientInfo.AddressPath);
                 } else
                 {
-                    AddressMap.Parse(Path.Combine(mapPath, $"MonsterHunterWorld.{version}.map"));
+                    AddressMap.Parse(Path.Combine(ClientInfo.AddressPath, $"MonsterHunterWorld.{version}.map"));
                 }
 
                 if (!AddressMap.IsLoaded)

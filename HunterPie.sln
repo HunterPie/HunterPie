@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HunterPie.UI", "HunterPie.U
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HunterPie.Core.Tests", "HunterPie.Core.Tests\HunterPie.Core.Tests.csproj", "{767EEF70-71F6-47F9-A9EF-4A29B0F0E70E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HunterPie", "HunterPie\HunterPie.csproj", "{B9B4028A-2B5B-45C1-9F57-926B3968A7A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HunterPie", "HunterPie\HunterPie.csproj", "{B9B4028A-2B5B-45C1-9F57-926B3968A7A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:HunterPie.UI.Resources">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <DrawingImage x:Key="ICON_ADMINISTRATOR">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V64.01 H64.01 V0 H0 Z">
@@ -183,6 +182,16 @@
                             </DrawingGroup>
                         </DrawingGroup>
                     </DrawingGroup>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_INFO">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V45.311 H45.311 V0 H0 Z">
+                <DrawingGroup Opacity="1">
+                    <GeometryDrawing Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}" Geometry="F1 M45.311,45.311z M0,0z M22.675,0.02C22.669,0.02 22.661,0.021 22.655,0.021 22.648,0.021 22.642,0.02 22.635,0.02 10.135,0.02 0,10.154 0,22.656 0,35.156 10.135,45.291 22.635,45.291 22.642,45.291 22.648,45.291 22.655,45.291 22.661,45.291 22.669,45.291 22.675,45.291 35.175,45.291 45.31,35.156 45.31,22.656 45.311,10.154 35.176,0.02 22.675,0.02z M22.675,38.811C22.669,38.811 22.661,38.81 22.655,38.81 22.648,38.81 22.642,38.811 22.635,38.811 20.589,38.811 18.93,37.153 18.93,35.106 18.93,33.061 20.589,31.403 22.635,31.403 22.642,31.403 22.648,31.403 22.655,31.403 22.661,31.403 22.669,31.403 22.675,31.403 24.72,31.403 26.381,33.061 26.381,35.106 26.381,37.152 24.723,38.811 22.675,38.811z M27.988,10.578C27.746,14.275 26.056,25.27 26.056,25.27 26.056,27.124 24.537,28.626 22.683,28.626 22.673,28.626 22.663,28.626 22.654,28.626 22.645,28.626 22.634,28.626 22.625,28.626 20.772,28.626 19.253,27.122 19.253,25.27 19.253,25.27 17.564,14.275 17.322,10.578 17.202,8.727 18.62,5.29 22.626,5.29 22.636,5.29 22.646,5.291 22.655,5.291 22.664,5.291 22.674,5.29 22.684,5.29 26.689,5.29 28.109,8.727 27.988,10.578z" />
                 </DrawingGroup>
             </DrawingGroup>
         </DrawingImage.Drawing>

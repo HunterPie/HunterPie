@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="HunterPie.UI.Controls.Settings.SettingElementHost"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Controls.Settings"
+             xmlns:anim="clr-namespace:HunterPie.UI.Architecture.Animation"
+             xmlns:button="clr-namespace:HunterPie.UI.Controls.Buttons"
+             mc:Ignorable="d" 
+             xmlns:converters="clr-namespace:HunterPie.UI.Converters"
+             Background="Transparent"
+             d:DesignWidth="400"
+             ClipToBounds="True">
+    <UserControl.Resources>
+        <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
+        <Style x:Key="StyleHighlight" TargetType="{x:Type Rectangle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Opacity">
+                                <DoubleAnimation To="0.2" Duration="0:0:0.3"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Opacity">
+                                <DoubleAnimation To="0" Duration="0:0:0.3"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Canvas>
+            <Rectangle x:Name="PART_Highlight"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Left"
+                   Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=2}"
+                   Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=2}"
+                   Opacity="0"
+                   Style="{StaticResource StyleHighlight}">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,1">
+                        <GradientStop Offset="1" Color="#0CFFFFFF"/>
+                        <GradientStop Color="#0CFFFFFF" Offset="0.25"/>
+                        <GradientStop Color="#33FFFFFF" Offset="0.5"/>
+                        <GradientStop Color="#0CFFFFFF" Offset="0.75"/>
+                        <GradientStop Color="#0CFFFFFF" Offset="0"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Canvas>
+
+        <Label Content="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+               VerticalContentAlignment="Center"
+               HorizontalAlignment="Left"
+               FontSize="14"
+               Foreground="{StaticResource BUTTON_COMMONBUTTON_FOREGROUND}"
+               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <ContentControl Content="{Binding Hosted}"
+                            Margin="5"/>
+            <Image Source="{StaticResource ICON_INFO}"
+                   ToolTip="{Binding Description, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                   Width="20"
+                   Margin="5,0,10,0"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

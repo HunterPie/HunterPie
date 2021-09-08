@@ -1,29 +1,58 @@
 ﻿using HunterPie.Core.Settings;
 using HunterPie.UI.Controls.Buttons;
+using HunterPie.UI.Controls.Settings;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace HunterPie.UI.Settings
 {
-    internal class SettingsConstructorHelper
+    internal static class SettingsConstructorHelper
     {
-        private Dictionary<Type, Type> _equivalents = new Dictionary<Type, Type>()
+        private static readonly Dictionary<Type, Type> _equivalents = new Dictionary<Type, Type>()
         {
             { typeof(bool), typeof(Switch) },
             { typeof(string), typeof(TextBox) },
             { typeof(double), typeof(Slider) },
-            { typeof(ISettings), typeof(StackPanel) }
         };
 
-        public UIElement GetElementByType<T>(T property)
+        public static SettingElementHost BuildHostByType(object property)
         {
-            Type type = typeof(T);
+            Type type = property.GetType();
             
-            UIElement instance = (UIElement)Activator.CreateInstance(type);
+            if (property is ISettings)
+                return null;
 
-            return instance;
+            if (property is IFileSelector) 
+                return BuildFileSelector(property as IFileSelector);
+
+            Type elementType = _equivalents[type];
+
+            UIElement instance = (UIElement)Activator.CreateInstance(elementType);
+
+            SettingElementHost host = new SettingElementHost()
+            {
+                Hosted = instance
+            };
+
+            return host;
+        }
+
+        public static SettingElementHost BuildFileSelector(IFileSelector selector)
+        {
+            ComboBox box = new ComboBox();
+
+            foreach (object obj in selector.List())
+                box.Items.Add(obj);
+
+            SettingElementHost host = new SettingElementHost()
+            {
+                Hosted = box
+            };
+
+            return host;
         }
     }
 }

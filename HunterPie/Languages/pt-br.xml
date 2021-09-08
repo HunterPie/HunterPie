@@ -1,0 +1,811 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Strings lang="Portuguese">
+  <Monsters>
+    <Monster ID="ems062_03" Name="Training Dummy"/>
+    <Monster ID="em001_00" Name="Rathian"/>
+    <Monster ID="em001_01" Name="Rathian Rosa"/>
+    <Monster ID="em001_02" Name="Rathian Dourada"/>
+    <Monster ID="em002_00" Name="Rathalos"/>
+    <Monster ID="em002_01" Name="Rathalos Lazúli"/>
+    <Monster ID="em002_02" Name="Rathalos Prateado"/>
+    <Monster ID="em007_00" Name="Diablos"/>
+    <Monster ID="em007_01" Name="Diablos Negra"/>
+    <Monster ID="em011_00" Name="Kirin"/>
+    <Monster ID="em013_00" Name="Fatalis"/>
+    <Monster ID="em018_00" Name="Yian Garuga"/>
+    <Monster ID="em018_05" Name="Yian Garuga Escoriado"/>
+    <Monster ID="em023_00" Name="Rajang"/>
+    <Monster ID="em023_05" Name="Rajang Furioso"/>
+    <Monster ID="em024_00" Name="Kushala Daora"/>
+    <Monster ID="em026_00" Name="Lunastra"/>
+    <Monster ID="em027_00" Name="Teostra"/>
+    <Monster ID="em032_00" Name="Tigrex"/>
+    <Monster ID="em032_01" Name="Tigrex Bruto"/>
+    <Monster ID="em036_00" Name="Lavasioth"/>
+    <Monster ID="em037_00" Name="Nargacuga"/>
+    <Monster ID="em042_00" Name="Barioth"/>
+    <Monster ID="em042_05" Name="Barioth Presagélida"/>
+    <Monster ID="em043_00" Name="Deviljho"/>
+    <Monster ID="em043_05" Name="Deviljho Selvagem"/>
+    <Monster ID="em044_00" Name="Barroth"/>
+    <Monster ID="em045_00" Name="Uragaan"/>
+    <Monster ID="em050_00" Name="Alatreon"/>
+    <Monster ID="em057_00" Name="Zinogre"/>
+    <Monster ID="em057_01" Name="Zinogre Tenebroso"/>
+    <Monster ID="em063_00" Name="Brachydios"/>
+    <Monster ID="em063_05" Name="Brachydios Colérico"/>
+    <Monster ID="em080_00" Name="Glavenus"/>
+    <Monster ID="em080_01" Name="Glavenus Ácido"/>
+    <Monster ID="em100_00" Name="Anjanath"/>
+    <Monster ID="em100_01" Name="Anjanath Fulgurante"/>
+    <Monster ID="em101_00" Name="Grande Jagras"/>
+    <Monster ID="em102_00" Name="Pukei-Pukei"/>
+    <Monster ID="em102_01" Name="Pukei-Pukei Coralino"/>
+    <Monster ID="em103_00" Name="Nergigante"/>
+    <Monster ID="em103_05" Name="Nergigante Ferrenho"/>
+    <Monster ID="em104_00" Name="Safi'jiiva"/>
+    <Monster ID="em105_00" Name="Xeno'jiiva"/>
+    <Monster ID="em106_00" Name="Zorah Magdaros"/>
+    <Monster ID="em107_00" Name="Kulu-Ya-Ku"/>
+    <Monster ID="em108_00" Name="Jyuratodus"/>
+    <Monster ID="em109_00" Name="Tobi-Kadachi"/>
+    <Monster ID="em109_01" Name="Tobi-Kadachi Vípero"/>
+    <Monster ID="em110_00" Name="Paolumu"/>
+    <Monster ID="em110_01" Name="Paolumu Beladona"/>
+    <Monster ID="em111_00" Name="Legiana"/>
+    <Monster ID="em111_05" Name="Legiana Estridente"/>
+    <Monster ID="em112_00" Name="Grande Girros"/>
+    <Monster ID="em113_00" Name="Odogaron"/>
+    <Monster ID="em113_01" Name="Odogaron Negro"/>
+    <Monster ID="em114_00" Name="Radobaan"/>
+    <Monster ID="em115_00" Name="Vaal Hazak"/>
+    <Monster ID="em115_05" Name="Vaal Hazak Velado"/>
+    <Monster ID="em116_00" Name="Dodogama"/>
+    <Monster ID="em117_00" Name="Kulve Taroth"/>
+    <Monster ID="em118_00" Name="Bazelgeuse"/>
+    <Monster ID="em118_05" Name="Bazelgeuse Vulcânico"/>
+    <Monster ID="em120_00" Name="Tzitzi-Ya-Ku"/>
+    <Monster ID="em121_00" Name="Behemoth"/>
+    <Monster ID="em122_00" Name="Beotodus"/>
+    <Monster ID="em123_00" Name="Banbaro"/>
+    <Monster ID="em124_00" Name="Velkhana"/>
+    <Monster ID="em125_00" Name="Namielle"/>
+    <Monster ID="em126_00" Name="Shara Ishvalda"/>
+    <Monster ID="em127_00" Name="Liche"/>
+    <Monster ID="em127_01" Name="Liche Ancião"/>
+  </Monsters>
+  <Parts>
+    <Part ID="MONSTER_PART_UNKNOWN" Name="Parte Desconhecida"/>
+    <Part ID="MONSTER_PART_HEAD" Name="Cabeça"/>
+    <Part ID="MONSTER_PART_BODY" Name="Corpo"/>
+    <Part ID="MONSTER_PART_LWING" Name="Asa Esquerda"/>
+    <Part ID="MONSTER_PART_RWING" Name="Asa Direita"/>
+    <Part ID="MONSTER_PART_LLEG" Name="Perna Esquerda"/>
+    <Part ID="MONSTER_PART_RLEG" Name="Perna Direita"/>
+    <Part ID="MONSTER_PART_TAIL" Name="Cauda"/>
+    <Part ID="MONSTER_PART_TAIL_TIP" Name="Cauda (Ponta)"/>
+    <Part ID="MONSTER_PART_ARMS" Name="Braços"/>
+    <Part ID="MONSTER_PART_LEGS" Name="Pernas"/>
+    <Part ID="MONSTER_PART_LARM" Name="Braço Esquerda"/>
+    <Part ID="MONSTER_PART_RARM" Name="Braço Direito"/>
+    <Part ID="MONSTER_PART_LLIMBS" Name="Membros Esquerdos"/>
+    <Part ID="MONSTER_PART_RLIMBS" Name="Membros Direitos"/>
+    <Part ID="MONSTER_PART_WINGS" Name="Asas"/>
+    <Part ID="MONSTER_PART_LIMBS" Name="Membros"/>
+    <Part ID="MONSTER_PART_ABDOMEN" Name="Abdômen"/>
+    <Part ID="MONSTER_PART_CHEST" Name="Peito"/>
+    <Part ID="MONSTER_PART_REAR" Name="Partes Traseiras"/>
+    <Part ID="MONSTER_PART_HEAD_MUD" Name="Cabeça Lamaçenta"/>
+    <Part ID="MONSTER_PART_BODY_MUD" Name="Corpo Lamaçento"/>
+    <Part ID="MONSTER_PART_ARMS_MUD" Name="Braços Lamaçentos"/>
+    <Part ID="MONSTER_PART_LLEG_MUD" Name="Perna Esquerda Lamaçenta"/>
+    <Part ID="MONSTER_PART_RLEG_MUD" Name="Perna Direita Lamaçenta"/>
+    <Part ID="MONSTER_PART_TAIL_MUD" Name="Rabo Lamaçento"/>
+    <Part ID="MONSTER_PART_JAW" Name="Mandíbula"/>
+    <Part ID="MONSTER_PART_BACK" Name="Costas"/>
+    <Part ID="MONSTER_PART_FIN" Name="Barbatana"/>
+    <Part ID="MONSTER_PART_HORNS" Name="Chifres"/>
+    <Part ID="MONSTER_PART_NECK" Name="Pescoço"/>
+    <Part ID="MONSTER_PART_LHAND" Name="Garra Esquerda"/>
+    <Part ID="MONSTER_PART_RHAND" Name="Garra Direita"/>
+    <Part ID="MONSTER_PART_LFOOT" Name="Pata Esquerda"/>
+    <Part ID="MONSTER_PART_RFOOT" Name="Pata Direia"/>
+    <Part ID="MONSTER_PART_SHELL" Name="Casco"/>
+    <Part ID="MONSTER_PART_EXHAUST_ORGAN_CENTRAL" Name="Órgão de Exaustão Central"/>
+    <Part ID="MONSTER_PART_EXHAUST_ORGAN_HEAD" Name="Órgão de Exaustão da Cabeça"/>
+    <Part ID="MONSTER_PART_EXHAUST_ORGAN_CRATER" Name="Órgão de Exaustão da Cratera"/>
+    <Part ID="MONSTER_PART_EXHAUST_ORGAN_REAR" Name="Órgão de Exaustão Traseiro"/>
+    <Part ID="MONSTER_PART_WEAK_LSHELL" Name="Casco Fraco Esquerdo"/>
+    <Part ID="MONSTER_PART_WEAK_RSHELL" Name="Casco Fraco Direito"/>
+    <Part ID="MONSTER_PART_ROCK" Name="Pedra"/>
+    <Part ID="MONSTER_PART_MANE" Name="Juba"/>
+    <Part ID="MONSTER_PART_BALLOON" Name="Balão"/>
+    <Part ID="MONSTER_PART_LBONE" Name="Osso Esquerdo"/>
+    <Part ID="MONSTER_PART_RBONE" Name="Osso Direito"/>
+    <Part ID="MONSTER_PART_HORNS_GOLD" Name="Chifres Dourados"/>
+    <Part ID="MONSTER_PART_MANE_GOLD" Name="Juba Dourada"/>
+    <Part ID="MONSTER_PART_LCHEST_GOLD" Name="Peitoral Dourado Esquerdo"/>
+    <Part ID="MONSTER_PART_RCHEST_GOLD" Name="Peitoral Dourado Direito"/>
+    <Part ID="MONSTER_PART_LARM_GOLD" Name="Braço Dourado Esquerdo"/>
+    <Part ID="MONSTER_PART_RARM_GOLD" Name="Braço Dourado Direito"/>
+    <Part ID="MONSTER_PART_LLEG_GOLD" Name="Perna Dourada Esquerda"/>
+    <Part ID="MONSTER_PART_RLEG_GOLD" Name="Perna Dourada Direita"/>
+    <Part ID="MONSTER_PART_LTAIL_GOLD" Name="Cauda Dourada Esquerda"/>
+    <Part ID="MONSTER_PART_RTAIL_GOLD" Name="Cauda Dourada Direita"/>
+    <Part ID="MONSTER_PART_LHEAD" Name="Cabeça Esquerda"/>
+    <Part ID="MONSTER_PART_RHEAD" Name="Cabeça Direita"/>
+    <Part ID="MONSTER_PART_HEAD_SNOW" Name="Cabeça Nevada"/>
+    <Part ID="MONSTER_PART_BODY_SNOW" Name="Corpo Nevado"/>
+    <Part ID="MONSTER_PART_TAIL_SNOW" Name="Cauda Nevada"/>
+    <Part ID="MONSTER_PART_HEAD_ICE" Name="Cabeça Frígida"/>
+    <Part ID="MONSTER_PART_BODY_ICE" Name="Corpo Frígido"/>
+    <Part ID="MONSTER_PART_WINGS_ICE" Name="Asas Frígidas"/>
+    <Part ID="MONSTER_PART_ARMS_ICE" Name="Braços Frígidos"/>
+    <Part ID="MONSTER_PART_LEGS_ICE" Name="Pernas Frígidas"/>
+    <Part ID="MONSTER_PART_TAIL_ICE" Name="Cauda Frígida"/>
+    <Part ID="MONSTER_PART_LNECK_ROCK" Name="Pescoço Rochoso Esquerdo"/>
+    <Part ID="MONSTER_PART_RNECK_ROCK" Name="Pescoço Rochoso Direito"/>
+    <Part ID="MONSTER_PART_HEAD_ROCK" Name="Cabeça Rochosa"/>
+    <Part ID="MONSTER_PART_TAIL_ROCK" Name="Cauda Rochosa"/>
+    <Part ID="MONSTER_PART_LWING_ROCK" Name="Asa Esquerda Rochosa"/>
+    <Part ID="MONSTER_PART_RWING_ROCK" Name="Asa Direita Rochosa"/>
+    <Part ID="MONSTER_PART_LARM_ROCK" Name="Braço Esquerdo Rochoso"/>
+    <Part ID="MONSTER_PART_RARM_ROCK" Name="Braço Direito Rochoso"/>
+    <Part ID="MONSTER_PART_LEGS_ROCK" Name="Pernas Rochosas"/>
+    <Part ID="MONSTER_JAGRAS_SUMMONER" Name="Invocador de Jagras"/>
+    <Part ID="MONSTER_PART_ANTLERS" Name="Galhadas"/>
+    <Part ID="MONSTER_PART_HORN" Name="Chifre"/>
+    <!-- Removable parts -->
+    <Part ID="MONSTER_PART_REMOVABLE_TAIL" Name="Cauda Cortável"/>
+    <Part ID="MONSTER_PART_REMOVABLE_HORNS" Name="Chifres Quebráveis"/>
+    <Part ID="MONSTER_PART_REMOVABLE_HEAD" Name="Cabeça Quebrável"/>
+    <Part ID="MONSTER_PART_REMOVABLE_HEAD_ROCK" Name="Cabeça Rochosa Quebrável"/>
+    <Part ID="MONSTER_PART_REMOVABLE_CHEST_ROCK" Name="Peito Rochoso Quebrável"/>
+    <Part ID="MONSTER_PART_BODY_LEGS" Name="Corpo e Pernas"/>
+    <Part ID="MONSTER_PART_REMOVABLE_BALLOON" Name="Balão Removível"/>
+    <Part ID="MONSTER_PART_REMOVABLE_HORNS_2" Name="Chifres Quebráveis #2"/>
+    <Part ID="MONSTER_PART_REMOVABLE_LANTLER" Name="Galhada Esquerda Quebrável"/>
+    <Part ID="MONSTER_PART_REMOVABLE_RANTLER" Name="Galhada Direita Quebrável"/>
+    <Part ID="MONSTER_PART_SILVER_SPIKES_HEAD" Name="Espinhos Prata (Cabeça)"/>
+    <Part ID="MONSTER_PART_SILVER_SPIKES_LARM" Name="Espinhos Prata (Braço Esq.)"/>
+    <Part ID="MONSTER_PART_SILVER_SPIKES_RARM" Name="Espinhos Prata (Braço Dir.)"/>
+    <Part ID="MONSTER_PART_SILVER_SPIKES_LWING" Name="Espinhos Prata (Asa Esq.)"/>
+    <Part ID="MONSTER_PART_SILVER_SPIKES_RWING" Name="Espinhos Prata (Asa Dir.)"/>
+    <!-- Special parts -->
+    <Part ID="MONSTER_PART_KNOCKDOWN" Name="Nocaute"/>
+    <Part ID="MONSTER_PART_BIG_FLINCH" Name="Recuo Longo"/>
+    <Part ID="MONSTER_PART_RAGE" Name="Raiva"/>
+    <Part ID="MONSTER_PART_COUNTERATTACK" Name="Contra-Ataque"/>
+    <Part ID="MONSTER_PART_CHARGE" Name="Estado de Carga"/>
+    <Part ID="MONSTER_PART_THROAT" Name="Garganta"/>
+    <Part ID="MONSTER_PART_INFLATED_TAIL" Name="Cauda Inflada"/>
+    <Part ID="MONSTER_PART_SKY_FALL" Name="Queda Livre"/>
+    <Part ID="MONSTER_PART_EMISSIONS" Name="Emissões de eflúvio"/>
+    <Part ID="MONSTER_PART_GLOWING_HEAD" Name="Cabeça Incandescênte"/>
+    <Part ID="MONSTER_PART_GLOWING_TAIL" Name="Cauda Incandescênte"/>
+    <Part ID="MONSTER_PART_EMERGE_SNOW_HEAD" Name="Sair da Neve (Cabeça)"/>
+    <Part ID="MONSTER_PART_EMERGE_SNOW_BODY" Name="Sair da Neve (Corpo)"/>
+    <Part ID="MONSTER_PART_EMERGE_SNOW_TAIL" Name="Sair da Neve (Cauda)"/>
+    <Part ID="MONSTER_PART_SPIKES_HEAD" Name="Espinhos (Cabeça)"/>
+    <Part ID="MONSTER_PART_SPIKES_LARM" Name="Espinhos (Braço Esq.)"/>
+    <Part ID="MONSTER_PART_SPIKES_RARM" Name="Espinhos (Braço Dir.)"/>
+    <Part ID="MONSTER_PART_SPIKES_LWING" Name="Espinhos (Asa Esq.)"/>
+    <Part ID="MONSTER_PART_SPIKES_RWING" Name="Espinhos (Asa Dir.)"/>
+    <Part ID="MONSTER_PART_SPIKES_TAIL" Name="Espinhos (Cauda)"/>
+    <Part ID="MONSTER_PART_REPEL" Name="Repelir"/>
+    <Part ID="MONSTER_PART_EXPLOSION_WEAKENING" Name="Enfraq. Explosão"/>
+  </Parts>
+  <Ailments>
+    <Ailment ID="STATUS_UNKNOWN" Name="Desconhecido"/>
+    <Ailment ID="STATUS_POISON" Name="Veneno"/>
+    <Ailment ID="STATUS_PARALYSIS" Name="Paralisia"/>
+    <Ailment ID="STATUS_SLEEP" Name="Sono"/>
+    <Ailment ID="STATUS_BLAST" Name="Explosão"/>
+    <Ailment ID="STATUS_MOUNT" Name="Montaria"/>
+    <Ailment ID="STATUS_EXHAUSTION" Name="Exaustão"/>
+    <Ailment ID="STATUS_STUN" Name="Atordoamento"/>
+    <Ailment ID="STATUS_TRANQUILIZE" Name="Tranquilizante"/>
+    <Ailment ID="STATUS_FLASH" Name="Cego"/>
+    <Ailment ID="STATUS_KNOCKDOWN" Name="Caído"/>
+    <Ailment ID="STATUS_DUNGPOD" Name="Capsula de Esterco"/>
+    <Ailment ID="STATUS_SHOCKTRAP" Name="Armadilha de Choque"/>
+    <Ailment ID="STATUS_PITFALLTRAP" Name="Armadilha de Poço"/>
+    <Ailment ID="STATUS_VINETRAP" Name="Armadilha de Vinhas"/>
+    <Ailment ID="STATUS_ELDERSEAL" Name="Selo Ancião"/>
+    <Ailment ID="STATUS_SMOKING" Name="Fumaça"/>
+    <Ailment ID="STATUS_FELYNETRAP" Name="Armadilha Felyna"/>
+    <Ailment ID="STATUS_CLAW" Name="Garra"/>
+    <Ailment ID="STATUS_VIOLATED" Name="Recuo com a Garra"/>
+    <Ailment ID="STATUS_BANISHMENT_BALL" Name="Bola de Banimento"/>
+    <Ailment ID="STATUS_ENRAGE" Name="Raiva"/>
+  </Ailments>
+  <Mantles>
+    <Mantle ID="-1" Name="Sem Manto"/>
+    <Mantle ID="0" Name="Manto de Camuflagem"/>
+    <Mantle ID="1" Name="Manto Temporal"/>
+    <Mantle ID="2" Name="Reforço de Vida"/>
+    <Mantle ID="3" Name="Manto Rochafirme"/>
+    <Mantle ID="4" Name="Manto do Desafiante"/>
+    <Mantle ID="5" Name="Manto da Vitalidade"/>
+    <Mantle ID="6" Name="Manto Antifogo"/>
+    <Mantle ID="7" Name="Manto Antiágua"/>
+    <Mantle ID="8" Name="Manto Antigelo"/>
+    <Mantle ID="9" Name="Manto Antiraio"/>
+    <Mantle ID="10" Name="Manto Antidragão"/>
+    <Mantle ID="11" Name="Reforço de Limpeza"/>
+    <Mantle ID="12" Name="Manto Planador"/>
+    <Mantle ID="13" Name="Manto da Evasão"/>
+    <Mantle ID="14" Name="Manto de Impacto"/>
+    <Mantle ID="15" Name="Manto de Impacto"/>
+    <Mantle ID="16" Name="Manto da Imunidade"/>
+    <Mantle ID="17" Name="Reforço de Afinidade"/>
+    <Mantle ID="18" Name="Manto de Bandido"/>
+    <Mantle ID="19" Name="Capuz do Assasino"/>
+  </Mantles>
+  <Fertilizers>
+    <Fertilizer ID="0" Name="Vazio"/>
+    <Fertilizer ID="1" Name="Mais Coleta Planta (P)"/>
+    <Fertilizer ID="2" Name="Mais Coleta Planta (G)"/>
+    <Fertilizer ID="3" Name="Mais Coleta Fungo (P)"/>
+    <Fertilizer ID="4" Name="Mais Coleta Fungo (G)"/>
+    <Fertilizer ID="5" Name="Mais Coleta Mel/Inseto (P)"/>
+    <Fertilizer ID="6" Name="Mais Coleta Mel/Inseto (G)"/>
+    <Fertilizer ID="7" Name="Mais Crescimento (P)"/>
+    <Fertilizer ID="8" Name="Mais Crescimento (G)"/>
+  </Fertilizers>
+  <Stages>
+    <Stage ID="0" Name="Menu Principal"/>
+    <Stage ID="101" Name="Floresta Ancestral"/>
+    <Stage ID="102" Name="Ermo Selvagulha"/>
+    <Stage ID="103" Name="Planaltos Coralinos"/>
+    <Stage ID="104" Name="Vale Putrefato"/>
+    <Stage ID="105" Name="Fenda do Ancião"/>
+    <Stage ID="106" Name="Grande Desfiladeiro"/>
+    <Stage ID="107" Name="Grande Desfiladeiro"/>
+    <Stage ID="108" Name="Fronteira Glacial"/>
+    <Stage ID="109" Name="As Terras-Guias"/>
+    <Stage ID="201" Name="Arena Especial"/>
+    <Stage ID="202" Name="Arena"/>
+    <Stage ID="203" Name="Suprimentos de Seliana"/>
+    <Stage ID="301" Name="Astera"/>
+    <Stage ID="302" Name="Área de Encontro de Astera"/>
+    <Stage ID="303" Name="Base de Pesquisas"/>
+    <Stage ID="305" Name="Seliana"/>
+    <Stage ID="306" Name="Área de Encontro de Seliana"/>
+    <Stage ID="401" Name="Introdução"/>
+    <Stage ID="403" Name="Rio Perene"/>
+    <Stage ID="405" Name="Confluência de Destinos"/>
+    <Stage ID="406" Name="Floresta Ancestral"/>
+    <Stage ID="409" Name="Cavernas de El Dorado"/>
+    <Stage ID="411" Name="Suprimentos de Seliana"/>
+    <Stage ID="412" Name="Ilha da Origem"/>
+    <Stage ID="413" Name="Ilha da Origem"/>
+    <Stage ID="415" Name="Vale Isolado"/>
+    <Stage ID="416" Name="Vale Isolado"/>
+    <Stage ID="417" Name="Castelo Schrade"/>
+    <Stage ID="501" Name="Alojamento"/>
+    <Stage ID="502" Name="Alojamento Privado"/>
+    <Stage ID="503" Name="Suíte Privada"/>
+    <Stage ID="504" Name="Área de Treinamento"/>
+    <Stage ID="505" Name="Câmara dos Cinco"/>
+    <Stage ID="506" Name="Quarto de Seliana"/>
+  </Stages>
+  <Weapons>
+    <Weapon ID="0" Name="Espadão"/>
+    <Weapon ID="1" Name="Espada e Escudo"/>
+    <Weapon ID="2" Name="Lâminas Duplas"/>
+    <Weapon ID="3" Name="Espada Longa"/>
+    <Weapon ID="4" Name="Martelo"/>
+    <Weapon ID="5" Name="Berrante de Caça"/>
+    <Weapon ID="6" Name="Lança"/>
+    <Weapon ID="7" Name="Lançarma"/>
+    <Weapon ID="8" Name="Transmachado"/>
+    <Weapon ID="9" Name="Lâmina Dínamo"/>
+    <Weapon ID="10" Name="Glaive Inseto"/>
+    <Weapon ID="11" Name="Arco"/>
+    <Weapon ID="12" Name="Fuzilarco Pesado"/>
+    <Weapon ID="13" Name="Fuzilarco Leve"/>
+  </Weapons>
+  <Abnormalities>
+    <Abnormality ID="UNKNOWN_ABNORMALITY" Name="Desconhecido (ID: {AbnormalityID})"/>
+    <Abnormality ID="HUNTINGHORN_000_00" Name="Autoaprimoramento"/>
+    <Abnormality ID="HUNTINGHORN_999_00" Name="Mais Ataque + Prev. de Deflexão de Atq."/>
+    <Abnormality ID="HUNTINGHORN_001_00" Name="Mais Ataque (P)"/>
+    <Abnormality ID="HUNTINGHORN_001_01" Name="Mais Ataque (G)"/>
+    <Abnormality ID="HUNTINGHORN_002_00" Name="Mais Ataque (G)"/>
+    <Abnormality ID="HUNTINGHORN_002_01" Name="Mais Ataque (XG)"/>
+    <Abnormality ID="HUNTINGHORN_003_00" Name="Reforço de Vida (P)"/>
+    <Abnormality ID="HUNTINGHORN_004_00" Name="Reforço de Vida (G)"/>
+    <Abnormality ID="HUNTINGHORN_005_00" Name="Gasto de Vigor Reduzido (P)"/>
+    <Abnormality ID="HUNTINGHORN_006_00" Name="Gasto de Vigor Reduzido (G)"/>
+    <Abnormality ID="HUNTINGHORN_007_00" Name="Pressão de Vento Negada"/>
+    <Abnormality ID="HUNTINGHORN_008_00" Name="Toda a Pressão de Vento Negada"/>
+    <Abnormality ID="HUNTINGHORN_009_00" Name="Mais Defesa (P)"/>
+    <Abnormality ID="HUNTINGHORN_009_01" Name="Mais Defesa (G)"/>
+    <Abnormality ID="HUNTINGHORN_010_00" Name="Mais Defesa (G)"/>
+    <Abnormality ID="HUNTINGHORN_010_01" Name="Mais Defesa (XG)"/>
+    <Abnormality ID="HUNTINGHORN_011_00" Name="Uso de Ferramenta Reduzido (P)"/>
+    <Abnormality ID="HUNTINGHORN_012_00" Name="Uso de Ferramenta Reduzido (G)"/>
+    <Abnormality ID="HUNTINGHORN_013_00" Name="Rec. Vida (P)"/>
+    <Abnormality ID="HUNTINGHORN_014_00" Name="Rec. Vida (G)"/>
+    <Abnormality ID="HUNTINGHORN_015_00" Name="Rec. Vida (P) + Antidoto"/>
+    <Abnormality ID="HUNTINGHORN_016_00" Name="Rec. Vida (M) + Antidoto"/>
+    <Abnormality ID="HUNTINGHORN_018_00" Name="Regeneração de Vida (P)"/>
+    <Abnormality ID="HUNTINGHORN_019_00" Name="Regeneração de Vida (G)"/>
+    <Abnormality ID="HUNTINGHORN_020_00" Name="Tampões (P)"/>
+    <Abnormality ID="HUNTINGHORN_021_00" Name="Tampões (G)"/>
+    <Abnormality ID="HUNTINGHORN_022_00" Name="Proteção Divina"/>
+    <Abnormality ID="HUNTINGHORN_023_00" Name="Fortalecimento de Guialumes"/>
+    <Abnormality ID="HUNTINGHORN_024_00" Name="Dano de Ambiente Negado"/>
+    <Abnormality ID="HUNTINGHORN_025_00" Name="Atordoamento Negado"/>
+    <Abnormality ID="HUNTINGHORN_026_00" Name="Paralisia Negada"/>
+    <Abnormality ID="HUNTINGHORN_027_00" Name="Tremores Negados"/>
+    <Abnormality ID="HUNTINGHORN_028_00" Name="Resistência a Muco/Água/Neve Profunda"/>
+    <Abnormality ID="HUNTINGHORN_029_00" Name="Reforço Resistência a Fogo (P)"/>
+    <Abnormality ID="HUNTINGHORN_029_01" Name="Reforço Resistência a Fogo (G)"/>
+    <Abnormality ID="HUNTINGHORN_030_00" Name="Reforço Resistência a Fogo (G)"/>
+    <Abnormality ID="HUNTINGHORN_030_01" Name="Reforço Resistência a Fogo (XG)"/>
+    <Abnormality ID="HUNTINGHORN_031_00" Name="Reforço Resistência à Água (P)"/>
+    <Abnormality ID="HUNTINGHORN_031_01" Name="Reforço Resistência à Água (G)"/>
+    <Abnormality ID="HUNTINGHORN_032_00" Name="Reforço Resistência à Água (G)"/>
+    <Abnormality ID="HUNTINGHORN_032_01" Name="Reforço Resistência à Água (XG)"/>
+    <Abnormality ID="HUNTINGHORN_033_00" Name="Reforço Resistência a Raio (P)"/>
+    <Abnormality ID="HUNTINGHORN_033_01" Name="Reforço Resistência a Raio (G)"/>
+    <Abnormality ID="HUNTINGHORN_034_00" Name="Reforço Resistência a Raio (G)"/>
+    <Abnormality ID="HUNTINGHORN_034_01" Name="Reforço Resistência a Raio (XG)"/>
+    <Abnormality ID="HUNTINGHORN_035_00" Name="Reforço Resistência a Gelo (P)"/>
+    <Abnormality ID="HUNTINGHORN_035_01" Name="Reforço Resistência a Gelo (G)"/>
+    <Abnormality ID="HUNTINGHORN_036_00" Name="Reforço Resistência a Gelo (G)"/>
+    <Abnormality ID="HUNTINGHORN_036_01" Name="Reforço Resistência a Gelo (XG)"/>
+    <Abnormality ID="HUNTINGHORN_037_00" Name="Reforço Resistência a Dragão (P)"/>
+    <Abnormality ID="HUNTINGHORN_037_01" Name="Reforço Resistência a Dragão (G)"/>
+    <Abnormality ID="HUNTINGHORN_038_00" Name="Reforço Resistência a Dragão (G)"/>
+    <Abnormality ID="HUNTINGHORN_038_01" Name="Reforço Resistência a Dragão (XG)"/>
+    <Abnormality ID="HUNTINGHORN_039_00" Name="Reforço de Ataque Elemental"/>
+    <Abnormality ID="HUNTINGHORN_040_00" Name="Flagelos Negados"/>
+    <Abnormality ID="HUNTINGHORN_041_00" Name="Ondas Sônicas"/>
+    <Abnormality ID="HUNTINGHORN_042_00" Name="Todas Melodias Extendidas"/>
+    <Abnormality ID="HUNTINGHORN_043_00" Name="Empurrões Negados"/>
+    <Abnormality ID="HUNTINGHORN_045_00" Name="Mais Resistência a Flagelo"/>
+    <Abnormality ID="HUNTINGHORN_046_00" Name="Mais Afinidade (P)"/>
+    <Abnormality ID="HUNTINGHORN_047_00" Name="Todo Efeito Negativo Negado"/>
+    <Abnormality ID="HUNTINGHORN_048_00" Name="Tampões / Pressão de Vento Negada"/>
+    <Abnormality ID="HUNTINGHORN_049_00" Name="Mais Ataque de Status Anormais"/>
+    <Abnormality ID="HUNTINGHORN_051_00" Name="Onda de Eco de Impacto"/>
+    <Abnormality ID="HUNTINGHORN_052_00" Name="Onda de Eco &quot;Dragão&quot;"/>
+    <Abnormality ID="HUNTINGHORN_053_00" Name="Aumento Vigor Máximo + Recuperação"/>
+    <Abnormality ID="HUNTINGHORN_054_00" Name="Regeneração de Vida Estendida"/>
+    <Abnormality ID="HUNTINGHORN_055_00" Name="Ref. Velocid. + Mais Tempo Esquiva"/>
+    <Abnormality ID="HUNTINGHORN_056_00" Name="Mais Eficácia Elemental"/>
+    <Abnormality ID="HUNTINGHORN_943_00" Name="Mais Eficácia Elemental"/>
+    <Abnormality ID="PALICO_000_00" Name="Resuscitar"/>
+    <Abnormality ID="PALICO_001_00" Name="Mais Ataque (P)"/>
+    <Abnormality ID="PALICO_002_00" Name="Mais Ataque (G)"/>
+    <Abnormality ID="PALICO_003_00" Name="Mais Defesa (P)"/>
+    <Abnormality ID="PALICO_004_00" Name="Mais Defesa (G)"/>
+    <Abnormality ID="PALICO_005_00" Name="Mais Afinidade"/>
+    <Abnormality ID="PALICO_006_00" Name="Recovery Up"/>
+    <Abnormality ID="PALICO_007_00" Name="Aumento de Vida"/>
+    <Abnormality ID="PALICO_008_00" Name="Uso de Vigor Red."/>
+    <Abnormality ID="PALICO_009_00" Name="Desconhecido"/>
+    <Abnormality ID="PALICO_010_00" Name="Proteção Divina"/>
+    <Abnormality ID="PALICO_011_00" Name="Proteção Divina"/>
+    <Abnormality ID="PALICO_012_00" Name="Atordoamento Negado"/>
+    <Abnormality ID="PALICO_013_00" Name="Paralisia Negada"/>
+    <Abnormality ID="PALICO_014_00" Name="Tremores Negados"/>
+    <Abnormality ID="PALICO_015_00" Name="Tampões"/>
+    <Abnormality ID="PALICO_016_00" Name="Pressão de Vento Negada"/>
+    <Abnormality ID="PALICO_017_00" Name="Dano de Ambiente Negado"/>
+    <Abnormality ID="PALICO_018_00" Name="Desconhecido"/>
+    <Abnormality ID="DEBUFF_000_00" Name="Veneno"/>
+    <Abnormality ID="DEBUFF_001_00" Name="Veneno Forte"/>
+    <Abnormality ID="DEBUFF_002_00" Name="Desconhecido"/>
+    <Abnormality ID="DEBUFF_003_00" Name="Desconhecido"/>
+    <Abnormality ID="DEBUFF_004_00" Name="Flagelo de Fogo"/>
+    <Abnormality ID="DEBUFF_005_00" Name="Flagelo de Raio"/>
+    <Abnormality ID="DEBUFF_006_00" Name="Flagelo de Água"/>
+    <Abnormality ID="DEBUFF_007_00" Name="Flagelo de Gelo"/>
+    <Abnormality ID="DEBUFF_008_00" Name="Flagelo de Dragão"/>
+    <Abnormality ID="DEBUFF_009_00" Name="Sangramento"/>
+    <Abnormality ID="DEBUFF_010_00" Name="Recuperação de Sangramento"/>
+    <Abnormality ID="DEBUFF_011_00" Name="Eflúvio"/>
+    <Abnormality ID="DEBUFF_012_00" Name="Defesa Enfraquecida"/>
+    <Abnormality ID="DEBUFF_014_00" Name="Defesa Elem. Enfraquecida"/>
+    <Abnormality ID="DEBUFF_016_00" Name="No Items"/>
+    <Abnormality ID="DEBUFF_017_00" Name="Flagelo de Explosão"/>
+    <Abnormality ID="DEBUFF_020_00" Name="Flagelo de Slime"/>
+    <Abnormality ID="MISC_000_00" Name="Isotônico"/>
+    <Abnormality ID="MISC_001_00" Name="Lichia Agitada"/>
+    <Abnormality ID="MISC_002_00" Name="Carne Seca de Astera"/>
+    <Abnormality ID="MISC_004_00" Name="Grão de Força"/>
+    <Abnormality ID="MISC_004_01" Name="Pílula de Força"/>
+    <Abnormality ID="MISC_008_00" Name="Grão Duro"/>
+    <Abnormality ID="MISC_008_01" Name="Pílula Dura"/>
+    <Abnormality ID="MISC_013_00" Name="Pó Demoníaco"/>
+    <Abnormality ID="MISC_014_00" Name="Pó de Conchas"/>
+    <Abnormality ID="MISC_015_00" Name="Pílula Demoníaca"/>
+    <Abnormality ID="MISC_015_01" Name="Pílula Demoníaca"/>
+    <Abnormality ID="MISC_015_02" Name="Megapílula Demoníaca"/>
+    <Abnormality ID="MISC_016_00" Name="Pele de Pedra"/>
+    <Abnormality ID="MISC_016_01" Name="Pele de Pedra"/>
+    <Abnormality ID="MISC_016_02" Name="Megapele de Pedra"/>
+    <Abnormality ID="MISC_023_00" Name="Bebida Gelada"/>
+    <Abnormality ID="MISC_024_00" Name="Bebida Quente"/>
+    <Abnormality ID="MISC_026_00" Name="Regen. Vida"/>
+    <Abnormality ID="MISC_027_00" Name="Res. Frio"/>
+    <Abnormality ID="MISC_030_00" Name="Boneco de Neve"/>
+    <Abnormality ID="MISC_034_00" Name="Powercone"/>
+    <Abnormality ID="MISC_035_00" Name="Res. Gelo (G)"/>
+    <Abnormality ID="MISC_073_00" Name="Mais Ataque &amp; Mais Def. (P)"/>
+    <Abnormality ID="MISC_999_00" Name="Temp. Refeição"/>
+    <Abnormality ID="GEAR_000_00" Name="Munição Demoníaca"/>
+    <Abnormality ID="GEAR_001_00" Name="Munição Armadura"/>
+    <Abnormality ID="GEAR_002_00" Name="Fortificar"/>
+    <Abnormality ID="GEAR_003_00" Name="Polimento Protetor"/>
+    <Abnormality ID="GEAR_004_00" Name="Deslizada de Afinidade"/>
+    <Abnormality ID="GEAR_005_00" Name="Elemento Gradual"/>
+    <Abnormality ID="GEAR_006_00" Name="Poder Latente"/>
+    <Abnormality ID="GEAR_007_00" Name="Indignação"/>
+    <Abnormality ID="GEAR_008_00" Name="Adrenalina"/>
+    <Abnormality ID="GEAR_009_00" Name="Cool Cat"/>
+    <Abnormality ID="GEAR_010_00" Name="Frigidez"/>
+    <Abnormality ID="GEAR_015_00" Name="Bloqueio Ofensivo"/>
+    <Abnormality ID="GEAR_016_00" Name="Coalescência"/>
+    <Abnormality ID="GEAR_099_00" Name="Manto da Evasão (Atq)"/>
+    <Abnormality ID="GEAR_100_00" Name="Reforço de Afinidade"/>
+  </Abnormalities>
+  <!-- Client localization strings -->
+  <Client>
+    <Console>
+      <String ID="CONSOLE_CONSOLE" Name="CONSOLE"/>
+      <String ID="CONSOLE_SETTINGS" Name="OPÇÕES"/>
+      <String ID="CONSOLE_UPLOADBUILD" Name="PUBLICAR BUILD"/>
+      <String ID="CONSOLE_EXPORTGEAR" Name="EXPORTAR EQUIP."/>
+      <String ID="CONSOLE_PLUGINS" Name="EXTENSÕES"/>
+      <String ID="CONSOLE_CHANGELOG" Name="ATUALIZAÇÕES"/>
+      <String ID="CONSOLE_DISCORD" Name="DISCORD"/>
+      <String ID="CONSOLE_GITHUB" Name="GITHUB"/>
+      <String ID="CONSOLE_LAUNCH" Name="ABRIR JOGO"/>
+      <String ID="CONSOLE_VERSION" Name="Versão: {HunterPie_Version} ({HunterPie_Branch})"/>
+      <!-- Plugins -->
+      <String ID="MESSAGE_GET_MORE_PLUGINS" Name="Encontrar mais extensões!"/>
+      <String ID="MESSAGE_OPEN_PLUGINS_FOLDER" Name="Abrir pasta de extensões"/>
+      <String ID="MESSAGE_PLUGIN_INSTALL" Name="INSTALAR EXTENSÃO"/>
+      <String ID="MESSAGE_PLUGIN_INSTALL_DESC" Name="Largue sua module.json aqui para instalar uma nova extensão."/>
+      <String ID="MESSAGE_PLUGIN_INSTALLED" Name="Extensão: {name} instalada! Reinicie seu HunterPie para carregar a extensão!"/>
+      <String ID="ERROR_PLUGIN_AUTO_UPDATE" Name="Esta extensão não suporta atualização automática. Você terá que instalar ela manualmente."/>
+      <!-- Popups -->
+      <String ID="MESSAGE_QUIT" Name="Você tem certeza que quer fechar o HunterPie?"/>
+      <String ID="TITLE_MISSING_PATH" Name="Caminho para o Monster Hunter World não encontrado"/>
+      <String ID="MESSAGE_MISSING_PATH" Name="Você ainda não adicionou o caminho do jogo. Quer fazer isso agora?"/>
+      <String ID="MESSAGE_UPLOAD_BUILD" Name="Você quer publicar a build do seu personagem atual no Honey Hunters World?"/>
+      <!-- Console Messages -->
+      <String ID="MESSAGE_MAP_LOAD" Name="{HunterPie_Map} carregado"/>
+      <String ID="MESSAGE_DISCORD_CONNECTED" Name="Começando uma nova conexão do RPC"/>
+      <String ID="MESSAGE_DISCORD_USER_CONNECTED" Name="Conectado ao Discord no {Username}"/>
+      <String ID="MESSAGE_DISCORD_DISCONNECTED" Name="Conexão do Discord fechada"/>
+      <String ID="MESSAGE_DISCORD_JOIN_REQUEST" Name="{Username} quer entrar na sua sessão."/>
+      <String ID="MESSAGE_DISCORD_JOINING" Name="Entrando na sessão..."/>
+
+      <String ID="MESSAGE_MONSTER_DATA_LOAD" Name="Informação dos monstros carregada"/>
+      <String ID="MESSAGE_ABNORMALITIES_DATA_LOAD" Name="Informação das anormalidades carregada"/>
+      <String ID="MESSAGE_PLAYER_SCANNER_INITIALIZED" Name="Scanner de memória do jogador iniciado"/>
+      <String ID="MESSAGE_HUNTERPIE_INITIALIZED" Name="Inicializando HunterPie!"/>
+      <String ID="MESSAGE_GAME_SCANNER_INITIALIZED" Name="Scanner de memória do jogo iniciado"/>
+      <String ID="MESSAGE_MONSTER_SCANNER_INITIALIZED" Name="Scanner do monstro({MonsterNumber}) iniciado"/>
+      <String ID="MESSAGE_GAME_SCANNER_STOP" Name="Parando scanner do jogo"/>
+      <!-- Warnings -->
+      <String ID="MESSAGE_OFFLINEMODE_WARN" Name="HunterPie está no modo offline."/>
+      <String ID="MESSAGE_AUTOUPDATE_DISABLED_WARN" Name="Atualização automática está desabilitada. Se seu HunterPie tiver algum problema ou não suporta a versão do jogo atual, considere habilitar a atualização automática."/>
+      <String ID="MESSAGE_THEME_LOAD_WARN" Name="Tema personalizado carregado."/>
+      <!-- Errors -->
+      <String ID="MESSAGE_GAME_VERSION_UNSUPPORTED" Name="Versão do jogo detectada ({GAME_VERSION}) não mapeada ainda!"/>
+      <String ID="MESSAGE_LAUNCH_ERROR" Name="Falha ao iniciar Monster Hunter World."/>
+      <String ID="MESSAGE_UPDATE_ERROR" Name="Falha ao atualizar HunterPie. Verifique sua conexão à internet."/>
+      <String ID="MESSAGE_THEME_NOT_FOUND_ERROR" Name="Falha ao encontrar tema personalizado: {THEME_NAME}"/>
+      <String ID="MESSAGE_THEME_NOT_LOAD_ERROR" Name="Falha ao carregar tema personalizado!"/>
+    </Console>
+    <Settings>
+      <!-- General -->
+      <String ID="ENABLE_AUTOUPDATE" Name="Habilitar Atualização automática"/>
+      <String ID="ENABLE_AUTOUPDATE_DESC" Name="Se habilitado, HunterPie irá verificar por atualizações quando for iniciado."/>
+      <String ID="ENABLE_MINTOTRAY" Name="Minimizar HunterPie para a barra do sistema."/>
+      <String ID="ENABLE_MINTOTRAY_DESC" Name="Se habilitado, HunterPie será minimizado para a barra do sistema e continuará rodando em segundo plano."/>
+      <String ID="ENABLE_STARTMIN" Name="Inicie HunterPie minimizado"/>
+      <String ID="ENABLE_STARTMIN_DESC" Name="Se habilitado, HunterPie será minimizado para a barra do sistema quando iniciar."/>
+      <String ID="ENABLE_AUTOCLOSE" Name="Fechar HunterPie quando jogo for fechado"/>
+      <String ID="ENABLE_AUTOCLOSE_DESC" Name="Se habilitado, HunterPie irá automaticamente fechar quando o jogo não estiver mais rodando."/>
+      <String ID="STATIC_UPDATEBRANCH" Name="Atualizar de:"/>
+      <String ID="STATIC_UPDATEBRANCH_DESC" Name="Escolha uma branch para atualizar o HunterPie. BETA têm as ultimas funcionalidades enquanto master é mais estável."/>
+      <String ID="STATIC_LANGUAGEFILE" Name="Linguagem:"/>
+      <String ID="STATIC_LANGUAGEFILE_DESC" Name="Escolha o idioma que você deseja que o HunterPie use."/>
+      <String ID="STATIC_THEMEFILE" Name="Tema:"/>
+      <String ID="STATIC_THEMEFILE_DESC" Name="Escolha um tema que você deseja que o HunterPie use."/>
+      <String ID="STATIC_GAMEPATH" Name="Caminho:"/>
+      <String ID="STATIC_GAMEPATH_UNSELECTED" Name="Selecione Caminho"/>
+      <String ID="STATIC_GAMEPATH_DESC" Name="Selecione o caminho do seu MonsterHunterWorld.exe"/>
+      <String ID="STATIC_LAUNCHARGS" Name="Argumentos:"/>
+      <String ID="STATIC_LAUNCHARGS_NOARGS" Name="Sem Argumentos"/>
+      <String ID="STATIC_LAUNCHARGS_DESC" Name="Argumentos para serem usados quando o jogo for iniciado. Deixe isso vazio se você não sabe o que está fazendo."/>
+      <!-- Discord RPC -->
+      <String ID="ENABLE_RPC" Name="Habilitar Presença Rica do Discord"/>
+      <String ID="ENABLE_RPC_DESC" Name="Se habilitado, HunterPie mostrará sua atividade no jogo em seu status do Discord."/>
+      <String ID="ENABLE_RPC_HEALTH" Name="Exibir porcentagem de vida"/>
+      <String ID="ENABLE_RPC_HEALTH_DESC" Name="Se habilitato, HunterPie mostrará a porcentagem de vida do monstro que você está caçando."/>
+      <String ID="ENABLE_PEOPLE_JOIN" Name="Deixar pessoas pedir para entrar em minha sessão."/>
+      <String ID="ENABLE_PEOPLE_JOIN_DESC" Name="Se habilitado, pessoas poderão pedir para entrar em sua sessão de Monster Hunter"/>
+      <!-- Overlay -->
+      <String ID="ENABLE_OVERLAY" Name="Habilitar sobreposição do jogo"/>
+      <String ID="ENABLE_OVERLAY_DESC" Name="Se habilitado, a sobreposição será visível em jogo."/>
+      <String ID="ENABLE_HIDE_WHEN_UNFOCUS" Name="Esconder sobreposição quando o jogo estiver em segundo plano."/>
+      <String ID="ENABLE_HIDE_WHEN_UNFOCUS_DESC" Name="Se habilitado, a sobreposição do HunterPie será escondida automaticamente quando o jogo perder o foco. (Ex: Quando você da Alt+Tab)."/>
+      <String ID="ENABLE_HARDWARE_ACCELERATION" Name="Habilitar Aceleração de Hardware"/>
+      <String ID="ENABLE_HARDWARE_ACCELERATION_DESC" Name="Habilitando a aceleração de hardware fara com que a sobreposição seja renderizada pela placa de vídeo. Desabilitando essa função vai mudar o modo de renderização para Renderização de Software, que vai usar mais CPU. Desabilite essa função se você está tendo problemas de FPS."/>
+      <String ID="STATIC_ANIMATION_FPS" Name="Framerate das animações"/>
+      <String ID="STATIC_ANIMATION_FPS_DESC" Name="Muda o framerate de todas as animações do HunterPie. Selecione um valor baixo se você está tendo problemas de FPS."/>
+      <String ID="STATIC_GAME_SCAN_DELAY" Name="Delay de scan do jogo:"/>
+      <String ID="STATIC_GAME_SCAN_DELAY_DESC" Name="Delay entre scans. Selecionando um valor muito baixo fará com que o HunterPie scaneie o jogo mais vezes por segundo a custo de CPU.&#13;(Ex: Selecionando 200, fará com que HunterPie scaneie o jogo 5 vezes por segundo)."/>
+      <String ID="STATIC_IMAGE_QUALITY" Name="Qualidade das imagens"/>
+      <String ID="STATIC_IMAGE_QUALITY_DESC" Name="Muda a qualidade das imagens."/>
+      <String ID="STATIC_TOGGLE_OVERLAY" Name="Hab/Desab. Sobreposição (HotKey):"/>
+      <String ID="STATIC_TOGGLE_OVERLAY_DESC" Name="HotKey para habilitar/desabilitar a sobreposição. Mudar a tecla requer a reinicialização do HunterPie."/>
+      <String ID="STATIC_TOGGLE_DESIGN" Name="Hab/Desab. Modo Design (HotKey):"/>
+      <String ID="STATIC_TOGGLE_DESIGN_DESC" Name="HotKey para habilitar/desabilitar o modo design."/>
+      <String ID="STATIC_OVERLAY_POSITION_DESC" Name="Muda a posição da sobreposição."/>
+      <String ID="ENABLE_OVERLAY_FORCE_DIRECTX11_FULLSCREEN" Name="Forçar tela cheia do DirectX 11 pra ficar atrás da sobreposição"/>
+      <String ID="ENABLE_OVERLAY_FORCE_DIRECTX11_FULLSCREEN_DESC" Name="Esta opção vai forçar o jogo a ficar sempre atrás da sobreposição do HunterPie, como resultado, a sobreposição aparecerá mesmo em tela cheia com DirectX 11. REQUER OTIMIZAÇÃO DE TELA CHEIA DO WINDOWS 10."/>
+
+      <!-- Monster Widget -->
+      <String ID="ENABLE_MONSTER_WIDGET" Name="Habilitar o widget de monstros"/>
+      <String ID="ENABLE_MONSTER_WIDGET_DESC" Name="Se habilitado, o widget de monstros será visível quando tiver conteúdo para ser mostrado."/>
+      <String ID="STATIC_MONSTER_HEALTH_STRING_FORMAT" Name="Formato de texto da vida:"/>
+      <String ID="STATIC_MONSTER_HEALTH_STRING_FORMAT_DESC" Name="Formato de texto para a barra de vida do monstro."/>
+      <String ID="STATIC_MONSTER_AILMENT_BUILDUP_STRING_FORMAT" Name="Formato de texto dos status (Buildup):"/>
+      <String ID="STATIC_MONSTER_AILMENT_BUILDUP_STRING_FORMAT_DESC" Name="Formato de texto das buildups do monstro."/>
+      <String ID="STATIC_MONSTER_AILMENT_TIMER_STRING_FORMAT" Name="Formtat de texto do temporizador dos status:"/>
+      <String ID="STATIC_MONSTER_AILMENT_TIMER_STRING_FORMAT_DESC" Name="Formato de texto quando o status do monstro mostrar seu tempo restante."/>
+      <String ID="STATIC_MONSTER_PART_HEALTH_STRING_FORMAT" Name="Formato de texto da vida dos membros:"/>
+      <String ID="STATIC_MONSTER_PART_HEALTH_STRING_FORMAT_DESC" Name="Formato de texto dos membros do monstro."/>
+      <String ID="ENABLE_MONSTER_USE_LOCKON" Name="Usar lock-on em vez do mapa para selecionar o monstro alvo"/>
+      <String ID="ENABLE_MONSTER_USE_LOCKON_DESC" Name="Se habilitato, HunterPie usará a mira do jogo para selecionar o seu alvo."/>
+      <String ID="ENABLE_HIDE_MONSTER_HEALTH" Name="Esconder informação de vida"/>
+      <String ID="ENABLE_HIDE_MONSTER_HEALTH_DESC" Name="Se habilitado, a barra de vida não mostrará nenhuma informação relacionada a vida, stamina, captura e raiva do monstro."/>
+      <String ID="STATIC_MONSTER_AILMENTS_TAB" Name="Status"/>
+      <String ID="STATIC_MONSTER_PARTS_TAB" Name="Partes"/>
+      <String ID="STATIC_MONSTER_BAR_MODE" Name="Modo da barra de monstro:"/>
+      <String ID="STATIC_MONSTER_BAR_MODE_DESC" Name="Muda o modo da barra do monstro"/>
+      <String ID="STATIC_MONSTER_BAR_MODE_0" Name="Exibir todos ao mesmo tempo"/>
+      <String ID="STATIC_MONSTER_BAR_MODE_1" Name="Exibir todos, porém realçar o meu alvo"/>
+      <String ID="STATIC_MONSTER_BAR_MODE_2" Name="Exibir apenas alvo"/>
+      <String ID="STATIC_MONSTER_BAR_MODE_3" Name="Exibir todos porém esconder monstros inativos depois de 15 segundos"/>
+      <String ID="STATIC_MONSTER_BAR_MODE_4" Name="Exibir todos até um monstro ser selecionado"/>
+      <String ID="STATIC_MONSTER_BAR_MODE_HOTKEY" Name="Mudar modo (HotKey):"/>
+      <String ID="STATIC_MONSTER_BAR_MODE_HOTKEY_DESC" Name="HotKey para mudar o modo da barra do monstro. Mudar a tecla requer a reinicialização do HunterPie."/>
+      <String ID="STATIC_MONSTER_BAR_DOCK" Name="Posição da barra:"/>
+      <String ID="STATIC_MONSTER_BAR_DOCK_DESC" Name="Muda a posilção da barra."/>
+      <String ID="STATIC_MONSTER_BAR_DOCK_0" Name="Cima"/>
+      <String ID="STATIC_MONSTER_BAR_DOCK_1" Name="Baixo"/>
+      <String ID="ENABLE_MONSTER_ACTION" Name="Mostrar ação do monstro"/>
+      <String ID="ENABLE_MONSTER_ACTION_DESC" Name="Se habilitado, a ação do monstro ficará visível."/>
+      <String ID="ENABLE_MONSTER_WEAKNESS" Name="Exibir fraquezas"/>
+      <String ID="ENABLE_MONSTER_WEAKNESS_DESC" Name="Se habilitado, fraquezas do montro será visivel em baixo de sua barra de vida."/>
+      <String ID="ENABLE_HIDE_INACTIVE_PARTS" Name="Esconder partes inativas depois de alguns segundos"/>
+      <String ID="ENABLE_HIDE_INACTIVE_PARTS_DESC" Name="Se habilitado, partes serão automaticamente escondidas depois de algum tempo sem tomar dano."/>
+      <String ID="ENABLE_AUTO_SORT_PARTS" Name="Organizar partes automaticamente"/>
+      <String ID="ENABLE_AUTO_SORT_PARTS_DESC" Name="Se habilitado, as partes serão organizadas automaticamente, priorizando partes feridas e que tomaram dano recentemente."/>
+      <String ID="ENABLE_SHOW_UNBROKEN_PARTS" Name="Mostrar somente partes que não foram quebradas"/>
+      <String ID="ENABLE_SHOW_UNBROKEN_PARTS_DESC" Name="Se habilitado, partes que já foram quebradas serão escondidas."/>
+      <String ID="ENABLE_SHOW_BROKEN_PARTS" Name="Mostrar somente partes que podem ser quebradas"/>
+      <String ID="ENABLE_SHOW_BROKEN_PARTS_DESC" Name="Se habilitado, somente partes que podem ser quebradas ficarão visíveis."/>
+      <String ID="ENABLE_HIDE_INACTIVE_AILMENTS" Name="Esconder status inativos depois de alguns segundos"/>
+      <String ID="ENABLE_HIDE_INACTIVE_AILMENTS_DESC" Name="Se habilitado, status serão escondidos depois de um tempo que estejam inativos."/>
+      <String ID="ENABLE_BREAKABLE_PARTS" Name="Exibir partes quebráveis"/>
+      <String ID="ENABLE_BREAKABLE_PARTS_DESC" Name="Se habilitado, partes quebráveis, removíveis serão mostradas em baixo da barra de vida."/>
+      <String ID="ENABLE_AILMENTS_BAR_COLOR" Name="Habilitar status coloridos"/>
+      <String ID="ENABLE_AILMENTS_BAR_COLOR_DESC" Name="Se habilitado, as barras de status do monstro serão coloridas de acordo com seu respectivo grupo."/>
+      <String ID="ENABLE_AILMENTS" Name="Exibir status"/>
+      <String ID="ENABLE_AILMENTS_DESC" Name="Se habilitado, os status dos monstros serão visiveis em baixo da barra de vida."/>
+      <String ID="ENABLE_MONSTER_PARTS" Name="Exibir partes do monstro"/>
+      <String ID="ENABLE_MONSTER_PARTS_DESC" Name="Se habilitado, as partes do monstro se tornarão visíveis em baixo da barra de vida."/>
+      <String ID="ENABLE_MONSTER_PART_HEAD" Name="Habilitar Vida da Cabeça"/>
+      <String ID="ENABLE_MONSTER_PART_BODY" Name="Habilitar Vida do Corpo"/>
+      <String ID="ENABLE_MONSTER_PART_ARM" Name="Habilitar Vida dos Braços"/>
+      <String ID="ENABLE_MONSTER_PART_WING" Name="Habilitar Vida das Asas"/>
+      <String ID="ENABLE_MONSTER_PART_LEG" Name="Habilitar Vida das Pernas"/>
+      <String ID="ENABLE_MONSTER_PART_TAIL" Name="Habilitar Vida do Rabo"/>
+      <String ID="ENABLE_MONSTER_PART_LIMB" Name="Habilitar Vida dos Membros"/>
+      <String ID="ENABLE_MONSTER_PART_ABDOMEN" Name="Habilitar Vida do Abdômen"/>
+      <String ID="ENABLE_MONSTER_PART_CHEST" Name="Habilitar Vida do Peito"/>
+      <String ID="ENABLE_MONSTER_PART_REAR" Name="Habilitar Vida do Traseiro"/>
+      <String ID="ENABLE_MONSTER_PART_JAW" Name="Habilitar Vida da Mandíbula"/>
+      <String ID="ENABLE_MONSTER_PART_BACK" Name="Habilitar Vida das Costas"/>
+      <String ID="ENABLE_MONSTER_PART_FIN" Name="Habilitar Vida da Barbatana"/>
+      <String ID="ENABLE_MONSTER_PART_HORN" Name="Habilitar Vida dos Chifres"/>
+      <String ID="ENABLE_MONSTER_PART_NECK" Name="Habilitar Vida do Pescoço"/>
+      <String ID="ENABLE_MONSTER_PART_SHELL" Name="Habilitar Vida da Casca"/>
+      <String ID="ENABLE_MONSTER_PART_ORGAN" Name="Habilitar Vida dos Órgãos"/>
+      <String ID="ENABLE_MONSTER_PART_MANE" Name="Habilitar Vida da Juba"/>
+      <String ID="ENABLE_MONSTER_PART_BONE" Name="Habilitar Vida dos Ossos"/>
+      <String ID="ENABLE_MONSTER_PART_MISC" Name="Habilitar Vida de Outros"/>
+      <String ID="STATIC_MONSTER_MAX_PARTS" Name="Máximo de partes por coluna"/>
+      <String ID="STATIC_MONSTER_MAX_PARTS_DESC" Name="Define o número máximo de partes diferentes que cada coluna pode ter de uma vez."/>
+      <String ID="STATIC_MONSTER_MAX_COLUMNS" Name="Número máximo de colunas"/>
+      <String ID="STATIC_MONSTER_MAX_COLUMNS_DESC" Name="Define o número máximo de colunas de partes/status"/>
+      <String ID="STATIC_MONSTER_PART_DELAY" Name="Delay para esconder partes inativas"/>
+      <String ID="STATIC_MONSTER_PART_DELAY_DESC" Name="Delay para esperar antes de esconder partes depois que elas tomam dano ou status que se tornam inativos."/>
+      <String ID="STATIC_MONSTER_POSITION_DESC" Name="Muda a posição do widget de monstros."/>
+      <String ID="ENABLE_MONSTER_STATUS_POISON" Name="Mostrar Veneno"/>
+      <String ID="ENABLE_MONSTER_STATUS_PARALYSIS" Name="Mostrar Paralisia"/>
+      <String ID="ENABLE_MONSTER_STATUS_SLEEP" Name="Mostrar Sono"/>
+      <String ID="ENABLE_MONSTER_STATUS_BLAST" Name="Mostrar Explosão"/>
+      <String ID="ENABLE_MONSTER_STATUS_MOUNT" Name="Mostrar Monstaria"/>
+      <String ID="ENABLE_MONSTER_STATUS_EXHAUSTION" Name="Mostrar Exaustão"/>
+      <String ID="ENABLE_MONSTER_STATUS_STUN" Name="Mostrar Atordoamento"/>
+      <String ID="ENABLE_MONSTER_STATUS_TRANQUILIZE" Name="Mostrar Tranquilizante"/>
+      <String ID="ENABLE_MONSTER_STATUS_FLASH" Name="Mostrar Cegueira"/>
+      <String ID="ENABLE_MONSTER_STATUS_KNOCKDOWN" Name="Mostrar Caído"/>
+      <String ID="ENABLE_MONSTER_STATUS_DUNGPOD" Name="Mostrar Capsula de Esterco"/>
+      <String ID="ENABLE_MONSTER_STATUS_TRAP" Name="Mostrar Armadilhas"/>
+      <String ID="ENABLE_MONSTER_STATUS_ELDERSEAL" Name="Mostrar Selo Ancião"/>
+      <String ID="ENABLE_MONSTER_STATUS_SMOKING" Name="Mostrar Fumaça"/>
+      <String ID="ENABLE_MONSTER_STATUS_CLAW" Name="Mostrar Garra"/>
+      <String ID="ENABLE_MONSTER_STATUS_MISC" Name="Mostrar Outros"/>
+      <String ID="ENABLE_MONSTER_STATUS_ENRAGE" Name="Mostrar Raiva"/>
+      <!-- Harvest Box Widget -->
+      <String ID="ENABLE_HARVEST_BOX" Name="Habilitar Caixa de Colheita"/>
+      <String ID="ENABLE_HARVEST_BOX_DESC" Name="Se habilitado, a caixa de colheita será visivel quando tiver conteúdo para ser mostrado"/>
+      <String ID="ENABLE_STEAM_TRACKER" Name="Exibir Vaporizador"/>
+      <String ID="ENABLE_STEAM_TRACKER_DESC" Name="Se habilitado, o vaporizador será mostrado em baixo do widget."/>
+      <String ID="ENABLE_ARGOSY_TRACKER" Name="Exibir Argosy"/>
+      <String ID="ENABLE_ARGOSY_TRACKER_DESC" Name="Se habilitado, o Argosy será mostrado em baixo do widget."/>
+      <String ID="ENABLE_TAILRAIDERS_TRACKER" Name="Exibir Atacaudas"/>
+      <String ID="ENABLE_TAILRAIDERS_TRACKER_DESC" Name="Se habilitado, os Atacaudas será mostrado em baixo do widget."/>
+      <String ID="ENABLE_HARVEST_BOX_EVERYWHERE" Name="Sempre mostrar Caixa de Colheita"/>
+      <String ID="ENABLE_HARVEST_BOX_EVERYWHERE_DESC" Name="Se habilitado, este widget será mostrado em todos os lugares, incluindo expedições e outras áreas com monstros."/>
+      <String ID="STATIC_HARVEST_BOX_POSITION_DESC" Name="Muda a posição da caixa de colheita."/>
+      <String ID="ENABLE_HARVEST_BOX_COMPACT_MODE" Name="Habilitar modo compacto"/>
+      <String ID="ENABLE_HARVEST_BOX_COMPACT_MODE_DESC" Name="Se habilitado, o Widget da Caixa de Colheita usará o design compacto."/>
+      <!-- Damage Meter -->
+      <String ID="ENABLE_METER" Name="Habilitar widget de dano"/>
+      <String ID="ENABLE_METER_DESC" Name="Se habilitado, o widget de dano será sempre mostrado quando tiver conteúdo."/>
+      <String ID="ENABLE_TIMER" Name="Exibir temporizador"/>
+      <String ID="ENABLE_TIMER_DESC" Name="Se habilitado, o temporizador ficará visível."/>
+      <String ID="ENABLE_TOTAL_DAMAGE" Name="Exibir dano total"/>
+      <String ID="ENABLE_TOTAL_DAMAGE_DESC" Name="Se habilitado, o widget de dano mostrará o dano total individual."/>
+      <String ID="ENABLE_METER_DPS" Name="Exibir dano por segundo"/>
+      <String ID="ENABLE_METER_DPS_DESC" Name="Se habilitado, o widget de dano mostrará o dano por segundo individual."/>
+      <String ID="ENABLE_TIMER_IN_GL" Name="Habilitar temporizador em expedições"/>
+      <String ID="ENABLE_TIMER_IN_GL_DESC" Name="Se habilitado, o temporizador ficará visível em expedições."/>
+      <String ID="ENABLE_ONLY_TIMER" Name="Exibir somente temporizador"/>
+      <String ID="ENABLE_ONLY_TIMER_DESC" Name="Se habilitado, o Widget de dano mostrará somente o temporizador, escondendo o dano do grupo."/>
+      <String ID="ENABLE_METER_ONLY_MYSELF" Name="Exibir somente o meu dano"/>
+      <String ID="ENABLE_METER_ONLY_MYSELF_DESC" Name="Se habilitado, somente o seu dano ficará visível."/>
+      <String ID="STATIC_METER_PLAYER_1" Name="1º jogador"/>
+      <String ID="STATIC_METER_PLAYER_2" Name="2º jogador"/>
+      <String ID="STATIC_METER_PLAYER_3" Name="3º jogador"/>
+      <String ID="STATIC_METER_PLAYER_4" Name="4º jogador"/>
+      <String ID="STATIC_METER_POSITION_DESC" Name="Muda a posição do widget de dano."/>
+      <!-- Abnormalities Widget -->
+      <String ID="STATIC_CREATE_ABNORM_BAR_DESC" Name="Adiciona uma nova barra de anormalidades."/>
+      <String ID="STATIC_REMOVE_ABNORM_BAR_DESC" Name="Remove a última barra de anormalidades criada."/>
+      <String ID="STATIC_ENABLE_ABNORM_BAR" Name="Habilitar"/>
+      <String ID="ENABLE_ALLIGN_ABNORM_BAR_HORIZONTALLY" Name="Alinhar barra horizontalmente"/>
+      <String ID="ENABLE_ALLIGN_ABNORM_BAR_HORIZONTALLY_DESC" Name="Se habilitado, sua barra de anormalidades será alinhada horizontalmente. Disabilite essa função para ter uma barra vertical."/>
+      <String ID="ENABLE_ABNORM_BAR_TIME_LEFT" Name="Exibir tempo restante"/>
+      <String ID="ENABLE_ABNORM_BAR_TIME_LEFT_DESC" Name="Se habilitado, as anormalidades mostrarão o seu tempo restante em baixo de seus ícones."/>
+      <String ID="STATIC_TIMER_TEXT_FORMAT" Name="Formato do texto"/>
+      <String ID="STATIC_BACKGROUND_OPACITY" Name="Opacidade do fundo"/>
+      <String ID="STATIC_BACKGROUND_OPACITY_DESC" Name="Muda a opacidade do fundo da barra de anormalidades."/>
+      <String ID="STATIC_ABNORM_TAB_HH" Name="Berrante de Caça"/>
+      <String ID="STATIC_ABNORM_TAB_ORCHESTRA" Name="Orquestra"/>
+      <String ID="STATIC_ABNORM_TAB_DEBUFF" Name="Debuffs"/>
+      <String ID="STATIC_ABNORM_TAB_GEAR" Name="Armadura"/>
+      <String ID="STATIC_ABNORM_TAB_CONSUMABLE" Name="Consumíveis"/>
+      <String ID="ENABLE_SHOW_ABNORM_NAMES" Name="Exibir nome da anormalidade"/>
+      <String ID="ENABLE_SHOW_ABNORM_NAMES_DESC" Name="Se habilitado, o nome das anormalidades ficará visivel."/>
+      <!-- Specialized Tool Widget-->
+      <String ID="STATIC_PRIMARY_SPEC_TOOL" Name="Ferramenta primária"/>
+      <String ID="STATIC_SECONDARY_SPEC_TOOL" Name="Ferramenta secundária"/>
+      <String ID="ENABLE_PRIMARY_SPEC_TOOL" Name="Habilitar widget"/>
+      <String ID="ENABLE_PRIMARY_SPEC_TOOL_DESC" Name="Se habilitado, o widget de ferramenta primária será mostrado quando tiver conteúdo."/>
+      <String ID="ENABLE_SECONDARY_SPEC_TOOL" Name="Habilitar widget"/>
+      <String ID="ENABLE_SECONDARY_SPEC_TOOL_DESC" Name="Se habilitado, o widget de ferramenta secundária será mostrado quando tiver conteúdo."/>
+      <String ID="STATIC_COLOR" Name="Cor:"/>
+      <String ID="STATIC_PRIMARY_SPEC_TOOL_POSITION_DESC" Name="Muda a posição do widget de ferramenta primária."/>
+      <String ID="STATIC_SECONDARY_SPEC_TOOL_POSITION_DESC" Name="Muda a posição do widget de ferramenta secundária."/>
+      <!-- Class Widget -->
+      <String ID="ENABLE_GREATSWORD_HELPER" Name="Habilitar widget do Espadão"/>
+      <String ID="ENABLE_GREATSWORD_HELPER_DESC" Name="Se habilitado, o widget do Espadão será mostrado sempre que você equipar o Espadão."/>
+      <String ID="ENABLE_INSECT_GLAIVE_HELPER" Name="Habilitar widget da Glaive Inseto"/>
+      <String ID="ENABLE_INSECT_GLAIVE_HELPER_DESC" Name="Se habilitado, o widget da Glaive Inseto será mostrado sempre que você equipar a Glaive Inseto."/>
+      <String ID="ENABLE_CHARGE_BLADE_HELPER" Name="Habilitar widget da Lâmina Dínamo"/>
+      <String ID="ENABLE_CHARGE_BLADE_HELPER_DESC" Name="Se habilitado, o widget da Lâmina Dínamo será mostrado sempre que você equipar a Lâmina Dínamo."/>
+      <String ID="ENABLE_SWITCH_AXE_HELPER" Name="Habilitar widget do Transmachado"/>
+      <String ID="ENABLE_SWITCH_AXE_HELPER_DESC" Name="Se habilitado, o widget do Transmachado será mostrado sempre que você equipar o Transmachado."/>
+      <String ID="ENABLE_HUNTINGHORN_HELPER" Name="Habilitar widget do Berrante de Caça"/>
+      <String ID="ENABLE_HUNTINGHORN_HELPER_DESC" Name="Se habilitado, o widget do Berrante de Caça será mostrado sempre que você equipar o Berrante de Caça."/>
+      <String ID="ENABLE_GUN_LANCE_HELPER" Name="Habilitar widget da Lançarma"/>
+      <String ID="ENABLE_GUN_LANCE_HELPER_DESC" Name="Se habilitado, o widget da Lançarma será mostrado sempre que você equipar a Lançarma."/>
+      <String ID="ENABLE_LONGSWORD_HELPER" Name="Habilitar widget da Espada Longa"/>
+      <String ID="ENABLE_LONGSWORD_HELPER_DESC" Name="Se habilitado, o widget da Espada Longa será mostrado sempre que você equipar a Espada Longa."/>
+      <String ID="ENABLE_BOW_HELPER" Name="Habilitar widget do Arco"/>
+      <String ID="ENABLE_BOW_HELPER_DESC" Name="Se habilitado, o widget do Arco será mostrado sempre que você equipar o Arco."/>
+      <String ID="ENABLE_HAMMER_HELPER" Name="Habilitar widget do Martelo"/>
+      <String ID="ENABLE_HAMMER_HELPER_DESC" Name="Se habilitado, o widget do Martelo será mostrado sempre que você equipar o Martelo."/>
+      <String ID="ENABLE_DUALBLADES_HELPER" Name="Habilitar widget das Lâminas Duplas"/>
+      <String ID="ENABLE_DUALBLADES_HELPER_DESC" Name="Se habilitado, o widget das Lâminas Duplas será mostrado sempre que você equipar as Lâminas Duplas."/>
+      <String ID="ENABLE_LANCE_HELPER" Name="Habilitar widget da Lança"/>
+      <String ID="ENABLE_LANCE_HELPER_DESC" Name="Se habilitado, o widget da Lança será mostrado sempre que você equipar a Lança."/>
+      <String ID="ENABLE_HEAVYBOWGUN_HELPER" Name="Habilitar widget do Fuzilarco Pesado"/>
+      <String ID="ENABLE_HEAVYBOWGUN_HELPER_DESC" Name="Se habilitado, o widget do Fuzilarco Pesado será mostrado sempre que você equipar o Fuzilarco Pesado."/>
+      <String ID="ENABLE_LIGHTBOWGUN_HELPER" Name="Habilitar widget do Fuzilarco Leve"/>
+      <String ID="ENABLE_LIGHTBOWGUN_HELPER_DESC" Name="Se habilitado, o widget do Fuzilarco Leve será mostrado sempre que você equipar o Fuzilarco Leve."/>
+      <String ID="STATIC_CLASSES_BETA_WARNING" Name="Atenção: O auxiliador de classe ainda está em desenvolvimento e mais classes serão suportadas no futuro. Cada classe tem sua própria configuração, então você pode ter diferentes posições para cada classe. Use o Modo de Design para aumentar, diminuir ou mover este widget."/>
+      <!-- Links -->
+      <String ID="STATIC_HUNTERPIE_WIKI" Name="Documentação"/>
+      <String ID="STATIC_HUNTERPIE_WIKI_DESC" Name="Documentação oficial do HunterPie."/>
+      <String ID="STATIC_HUNTERPIE_ISSUES" Name="Problemas"/>
+      <String ID="STATIC_HUNTERPIE_ISSUES_DESC" Name="Página de problemas do HunterPie no GitHub."/>
+      <String ID="STATIC_HUNTERPIE_DISCORD" Name="Servidor do Discord"/>
+      <String ID="STATIC_HUNTERPIE_DISCORD_DESC" Name="Servidor oficial do HunterPie no Discord."/>
+      <String ID="STATIC_HUNTERPIE_DONATIONS" Name="Doações"/>
+      <String ID="STATIC_HUNTERPIE_PAYPAL" Name="PayPal"/>
+      <String ID="STATIC_HUNTERPIE_PAYPAL_DESC" Name="Considere doar se você quer suportar o desenvolvimento do HunterPie!"/>
+      <!-- Debug -->
+      <String ID="ENABLE_DEBUG_MESSAGES" Name="Habilitar mensagens de debug"/>
+      <String ID="ENABLE_DEBUG_MESSAGES_DESC" Name="Habilita as mensagens de debug. Não habilite essa função se você não tem ideia do que está fazendo. Isso é parte das ferramentas de desenvolvimento."/>
+      <String ID="ENABLE_UNKNOWN_AILMENTS" Name="Habilitar status desconhecidos de monstros."/>
+      <String ID="ENABLE_UNKNOWN_AILMENTS_DESC" Name="Habilita status desconhecidos dos monstros. Não habilite essa função se você não tem ideia do que está fazendo. Isso é parte das ferramentas de desenvolvimento."/>
+      <String ID="ENABLE_LOAD_CUSTOM_DATA" Name="Carregar informações customizadas de monstros"/>
+      <String ID="ENABLE_LOAD_CUSTOM_DATA_DESC" Name="Se habilitado, HunterPie carregará informações customizadas de monstros. Não habilite essa função se você não tem ideia do que está fazendo. Isso é parte das ferramentas de desenvolvimento."/>
+      <String ID="ENABLE_SEND_CRASH_TO_DEV" Name="Mandar relatório de erros para o desenvolvedor"/>
+      <String ID="ENABLE_SEND_CRASH_TO_DEV_DESC" Name="Se habilitado, HunterPie mandará o relatório de erros e crashes para o desenvolvedor. Você pode desabilitar está função, porém, mantendo esta opção ativa me ajudará a corrigir bugs e erros mais rápido."/>
+      <String ID="STATIC_LOAD_CUSTOM_DATA_PATH" Name="Caminho para informações customizadas:"/>
+      <String ID="STATIC_LOAD_CUSTOM_DATA_PATH_DESC" Name="Selecione o caminho para as informações customizadas."/>
+      <!-- Generics -->
+      <String ID="STATIC_BUTTON_SELECT_ALL" Name="Selecionar Todos"/>
+      <String ID="STATIC_BUTTON_UNSELECT_ALL" Name="Desmarcar Todos"/>
+      <String ID="STATIC_BUTTON_SAVE" Name="Salvar"/>
+      <String ID="STATIC_REQUIRES_RESTART" Name="(Requer reinicialização)"/>
+      <String ID="STATIC_POSITION" Name="Posição"/>
+      <String ID="STATIC_COPYCLIPBOARD" Name="Copiar"/>
+      <String ID="STATIC_OPACITY" Name="Opacidade"/>
+      <!-- Settings Side bar-->
+      <String ID="STATIC_GENERAL_SETTINGS" Name="Geral"/>
+      <String ID="STATIC_DISCORD_SETTINGS" Name="Discord"/>
+      <String ID="STATIC_OVERLAY_SETTINGS" Name="Sobreposição"/>
+      <String ID="STATIC_MONSTERS_SETTINGS" Name="Monstros"/>
+      <String ID="STATIC_HARVEST_BOX_SETTINGS" Name="Caixa de Colheita"/>
+      <String ID="STATIC_DAMAGE_METER_SETTINGS" Name="Medidor de Dano"/>
+      <String ID="STATIC_ABNORM_BAR_SETTINGS" Name="Barra de Buffs"/>
+      <String ID="STATIC_SPECIALIZED_TOOLS_SETTINGS" Name="Ferramentas"/>
+      <String ID="STATIC_CLASSES_SETTINGS" Name="Classes"/>
+      <String ID="STATIC_LINKS_SETTINGS" Name="Links"/>
+      <String ID="STATIC_DEBUG_SETTINGS" Name="Debug"/>
+    </Settings>
+    <Overlay>
+      <String ID="STATIC_HARVEST_BOX_TITLE" Name="CAIXA de COLHEITA"/>
+    </Overlay>
+    <Notifications>
+      <String ID="STATIC_DISCORD_JOIN_REQUEST" Name="{Username} quer entrar em sua sessão. Você aceita?"/>
+      <String ID="STATIC_ACCEPT" Name="Aceitar"/>
+      <String ID="STATIC_REJECT" Name="Rejeitar"/>
+      <String ID="STATIC_SETTINGS_LOAD" Name="Configurações carregadas"/>
+      <String ID="STATIC_OPENDEFAULTBROWSER" Name="Abrir no Navegador"/>
+      <String ID="STATIC_OPENFOLDER" Name="Abrir Pasta"/>
+      <String ID="MESSAGE_BUILD_UPLOADED" Name="Build publicada no Honey Hunters World!"/>
+      <String ID="MESSAGE_GEAR_EXPORTED" Name="Equipamento exportado em ./DataExport!"/>
+    </Notifications>
+    <RichPresence>
+      <String ID="RPC_DESCRIPTION_IN_MAIN_MENU" Name="No Menu Principal"/>
+      <String ID="RPC_DESCRIPTION_IN_LOADING_SCREEN" Name="Na Tela de Carregamento"/>
+      <String ID="RPC_DESCRIPTION_IN_TOWN" Name="Relaxando"/>
+      <String ID="RPC_DESCRIPTION_EXPLORING" Name="Explorando"/>
+      <String ID="RPC_DESCRIPTION_HUNTING" Name="Caçando {Monster} ({Health})"/>
+      <String ID="RPC_DESCRIPTION_TRAINING" Name="Treinando"/>
+      <String ID="RPC_STATE_LOBBY" Name="No Saguão"/>
+      <String ID="RPC_STATE_PARTY" Name="Em Grupo"/>
+      <String ID="RPC_STATE_SOLO" Name="Solo"/>
+    </RichPresence>
+  </Client>
+</Strings>
