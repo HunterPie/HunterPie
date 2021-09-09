@@ -1,16 +1,17 @@
 ﻿using HunterPie.Core.Logger;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace HunterPie.UI.Logger
 {
-    internal class HunterPieLogger : ILogger
+    public class HunterPieLogger : ILogger
     {
 
-        public static readonly ObservableCollection<LogString> viewModel = new ObservableCollection<LogString>();
+        public static readonly ObservableCollection<LogString> ViewModel = new ObservableCollection<LogString>();
 
         public Task Debug(params object[] args)
         {
@@ -34,15 +35,14 @@ namespace HunterPie.UI.Logger
 
         private async Task WriteToBuffer(LogLevel level, params object[] args)
         {
-            
             await Application.Current.Dispatcher.InvokeAsync(() =>
             {
                 StringBuilder builder = new StringBuilder();
 
                 foreach (object e in args)
                     builder.Append(e.ToString());
-
-                viewModel.Add(new LogString
+                
+                ViewModel.Add(new LogString
                 {
                     Timestamp = $"[{DateTime.Now.ToLongTimeString()}]",
                     Message = builder.ToString(),

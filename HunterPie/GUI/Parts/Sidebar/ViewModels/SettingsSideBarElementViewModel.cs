@@ -1,4 +1,7 @@
-﻿using HunterPie.Core.Logger;
+﻿using HunterPie.Core.Client;
+using HunterPie.GUI.Parts.Host;
+using HunterPie.UI.Controls.Settings;
+using HunterPie.UI.Settings;
 using System.Windows;
 using System.Windows.Media;
 
@@ -14,7 +17,11 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 
         public void ExecuteOnClick()
         {
-            Log.Debug("Settings button click!");
+            var settingTabs = VisualConverterManager.Build(ClientConfig.Config);
+            SettingHost host = new SettingHost();
+            host.AddTab(settingTabs);
+
+            MainHost.SetMain(host);
         }
     }
 }

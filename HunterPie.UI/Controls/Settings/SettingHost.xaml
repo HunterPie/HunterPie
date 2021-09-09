@@ -10,7 +10,9 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <DataTemplate x:Key="PanelTemplate" DataType="{x:Type vm:ISettingElement}">
-            <ContentControl Content="{Binding Panel}"/>
+            <ScrollViewer>
+                <ContentControl Content="{Binding Panel}"/>
+            </ScrollViewer>
         </DataTemplate>
         <DataTemplate x:Key="HeaderTemplate" DataType="{x:Type vm:ISettingElement}">
             <native:TabItem Padding="10,5,10,5"

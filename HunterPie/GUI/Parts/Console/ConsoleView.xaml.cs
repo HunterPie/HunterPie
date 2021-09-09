@@ -1,4 +1,5 @@
-﻿using HunterPie.UI.Architecture;
+﻿using HunterPie.UI.Logger;
+using System.Collections.ObjectModel;
 using System.Windows.Controls;
 
 namespace HunterPie.GUI.Parts.Console
@@ -6,15 +7,12 @@ namespace HunterPie.GUI.Parts.Console
     /// <summary>
     /// Interaction logic for ConsoleView.xaml
     /// </summary>
-    public partial class ConsoleView : UserControl, IView<ConsoleViewModel>
+    public partial class ConsoleView : UserControl
     {
-        private ConsoleViewModel viewModel = new ConsoleViewModel();
-        public ConsoleViewModel Model => viewModel;
 
         public ConsoleView()
         {
             InitializeComponent();
-            DataContext = Model;
         }
 
         

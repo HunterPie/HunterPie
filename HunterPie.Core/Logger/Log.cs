@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace HunterPie.Core.Logger
 {
     public class Log
     {
+
         private readonly List<ILogger> _io = new List<ILogger>();
         private static Log _instance;
         private readonly static SemaphoreSlim _semaphore = new(1, 1);
+        private readonly Dictionary<string, Stopwatch> _benchmarkers = new Dictionary<string, Stopwatch>();
         public static Log Instance
         {
             get {
@@ -102,5 +106,24 @@ namespace HunterPie.Core.Logger
             }
         }
 
+        public static void Benchmark([CallerMemberName] string name = "")
+        {
+            if (Instance._benchmarkers.ContainsKey(name))
+                return;
+
+            Info($"[BENCHMARK] Starting benchmark for '{name}'");
+            Instance._benchmarkers.Add(name, Stopwatch.StartNew());
+        }
+
+        public static void BenchmarkEnd([CallerMemberName] string name = "")
+        {
+            if (!Instance._benchmarkers.ContainsKey(name))
+                return;
+
+            Stopwatch benchmarker = Instance._benchmarkers[name];
+            Info($"[BENCHMARK] Time taken: {benchmarker.ElapsedMilliseconds}ms");
+            benchmarker.Stop();
+            Instance._benchmarkers.Remove(name);
+        }
     }
 }

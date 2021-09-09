@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace HunterPie.Core.Settings
 {
     public interface IFileSelector
     {
         public object Current { get; set; }
-        public object[] List();
+        public ObservableCollection<object> Elements { get; }
     }
 }

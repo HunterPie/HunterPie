@@ -1,4 +1,6 @@
 ﻿using HunterPie.Core.Logger;
+using HunterPie.GUI.Parts.Console;
+using HunterPie.GUI.Parts.Host;
 using System.Windows;
 using System.Windows.Media;
 
@@ -14,7 +16,8 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 
         public void ExecuteOnClick()
         {
-            Log.Debug("Console button clicked!");
+            var console = new ConsoleView();
+            MainHost.SetMain(console);
         }
     }
 }

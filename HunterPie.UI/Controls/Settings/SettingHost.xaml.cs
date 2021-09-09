@@ -10,7 +10,7 @@ namespace HunterPie.UI.Controls.Settings
     public partial class SettingHost : UserControl
     {
 
-        public readonly ObservableCollection<ISettingElement> _elements = new ObservableCollection<ISettingElement>();
+        private readonly ObservableCollection<ISettingElement> _elements = new ObservableCollection<ISettingElement>();
         public ObservableCollection<ISettingElement> Elements => _elements;
 
         public SettingHost()

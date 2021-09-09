@@ -6,6 +6,7 @@ using System.Windows;
 using HunterPie.UI.Settings;
 using System.Windows.Controls;
 using HunterPie.Core.Client.Configuration;
+using HunterPie.GUI.Parts.Host;
 
 namespace HunterPie
 {
@@ -14,24 +15,17 @@ namespace HunterPie
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
             InitializeSideMenu();
-            TestSettingsBuilder();
         }
 
         private void InitializeSideMenu()
         {
             ISideBar menu = new DefaultSideBar();
             SideBarContainer.SetMenu(menu);
-        }
-
-        private void TestSettingsBuilder()
-        {
-            var builder = new SettingsConstructor();
-            var x = builder.Build(new Config());
-            PART_Setting.AddTab(x);
         }
     }
 }

@@ -11,7 +11,7 @@
         <logger:LogLevelToStringConverter x:Key="LogLevelToStringConverter"/>
     </UserControl.Resources>
     <Grid>
-        <ItemsControl ItemsSource="{Binding Logs}">
+        <ItemsControl ItemsSource="{Binding Source={x:Static logger:HunterPieLogger.ViewModel}, Mode=OneWay}">
             <ItemsControl.Template>
                 <ControlTemplate>
                     <ScrollViewer VirtualizingPanel.IsVirtualizing="True">
