@@ -1,16 +1,16 @@
-﻿<arch:ClickableControl 
-             x:Name="NativeButtonControl"
-             x:Class="HunterPie.UI.Controls.Buttons.Button"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
-             mc:Ignorable="d" 
-             d:DesignHeight="25" 
-             d:DesignWidth="60" 
-             Cursor="Hand"
-             ClipToBounds="True">
+﻿<arch:ClickableControl x:Name="NativeButtonControl"
+                       x:Class="HunterPie.UI.Controls.Buttons.Button"
+                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                       xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
+                       xmlns:converters="clr-namespace:HunterPie.UI.Converters"
+                       mc:Ignorable="d" 
+                       d:DesignHeight="25" 
+                       d:DesignWidth="60" 
+                       Cursor="Hand"
+                       ClipToBounds="True">
     <arch:ClickableControl.Resources>
         <Storyboard x:Key="PART_RippleAnimation" Storyboard.TargetName="PART_Ripple">
             <DoubleAnimation Storyboard.TargetProperty="Width" From="0" Duration="0:0:0.3" />
@@ -20,11 +20,31 @@
             <DoubleAnimation Storyboard.TargetProperty="Width" To="0" BeginTime="0:0:1.25" Duration="0:0:0" />
             <DoubleAnimation BeginTime="0:0:1.25" Duration="0:0:0" Storyboard.TargetProperty="Opacity" To="1" />
         </Storyboard>
+        <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
     </arch:ClickableControl.Resources>
     
     <Grid>
         <Border>
             <Grid>
+                <Canvas>
+                    <Rectangle x:Name="PART_Highlight"
+                               VerticalAlignment="Top"
+                               HorizontalAlignment="Left"
+                               Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=2}"
+                               Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=2}"
+                               Opacity="0"
+                               Style="{StaticResource StyleHighlight}">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="1,1" StartPoint="0,1">
+                                <GradientStop Offset="1" Color="#0CFFFFFF"/>
+                                <GradientStop Color="#0CFFFFFF" Offset="0.25"/>
+                                <GradientStop Color="#33FFFFFF" Offset="0.5"/>
+                                <GradientStop Color="#0CFFFFFF" Offset="0.75"/>
+                                <GradientStop Color="#0CFFFFFF" Offset="0"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Canvas>
                 <Canvas>
                     <Ellipse x:Name="PART_Ripple"
                              Fill="#40F5F5F5" 

@@ -1,62 +1,50 @@
 ﻿<UserControl x:Class="HunterPie.UI.Windows.WindowHeader"
-             x:Name="PART_WndContainer"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Windows"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons"
              mc:Ignorable="d" 
+             d:DesignHeight="30" 
              d:DesignWidth="800"
-             Loaded="OnLoaded"
-             >
-    <Border BorderBrush="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
-            BorderThickness="2">
-        <Border.Effect>
-            <DropShadowEffect BlurRadius="15" ShadowDepth="0" Opacity="0.5" Direction="0"/>
-        </Border.Effect>
-        <Grid>
-            <Grid Margin="0,30,0,0"
-                  Background="{StaticResource HUNTERPIE_BACKGROUND_SECONDARY}">
-                <ContentControl Content="{Binding Container, ElementName=PART_WndContainer}"/>
-            </Grid>
-            
-            <Grid Height="30"
-              VerticalAlignment="Top"
-              Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
-              MouseLeftButtonDown="OnLeftMouseDown">
-                <Grid.Effect>
-                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.2" Direction="180"/>
-                </Grid.Effect>
-                <!-- Left container -->
-                <StackPanel HorizontalAlignment="Left"
+             Loaded="OnLoaded">
+    <Grid x:Name="PART_Header"
+                  Height="30"
+                  VerticalAlignment="Top"
+                  Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
+                  MouseLeftButtonDown="OnLeftMouseDown">
+        <Grid.Effect>
+            <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.2" Direction="180"/>
+        </Grid.Effect>
+        <!-- Left container -->
+        <StackPanel HorizontalAlignment="Left"
                     Orientation="Horizontal"
                     Margin="5,0,0,0">
-                    <Image Source="{StaticResource ICON_HUNTERPIE}"
-                   Width="20"
-                   Opacity="0.3"
-                   Margin="0,0,5,0"
-                   Height="20"/>
-                    <TextBlock FontFamily="Work Sans"
-                       Text="Window Title"
-                       FontSize="14"
-                       Foreground="White" 
-                       Opacity="0.3"
-                       HorizontalAlignment="Stretch" 
-                       VerticalAlignment="Center"/>
-                </StackPanel>
+            <Image Source="{Binding Owner.Icon}"
+                           Width="20"
+                           Opacity="0.3"
+                           Margin="0,0,5,0"
+                           Height="20"/>
+            <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                               Text="{Binding Owner.Title}"
+                               FontSize="16"
+                               Foreground="White" 
+                               Opacity="0.3"
+                               HorizontalAlignment="Stretch" 
+                               VerticalAlignment="Center"/>
+        </StackPanel>
 
-                <!-- Right container -->
-                <StackPanel HorizontalAlignment="Right"
+        <!-- Right container -->
+        <StackPanel HorizontalAlignment="Right"
                     Orientation="Horizontal">
-                    <native:Button 
+            <native:Button 
                 Content="_"
                 FontSize="14"
                 Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
                 OnClick="OnMinimizeButtonClick"
                 />
 
-                    <native:Button 
+            <native:Button 
                 Content="✕"
                 Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
                 FontSize="15"
@@ -64,10 +52,6 @@
                 OnClick="OnCloseButtonClick"
                 HorizontalAlignment="Right"/>
 
-                </StackPanel>
-            </Grid>
-            
-        </Grid>
-    </Border>
-    
+        </StackPanel>
+    </Grid>
 </UserControl>

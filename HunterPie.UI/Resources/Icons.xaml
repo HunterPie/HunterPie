@@ -189,9 +189,36 @@
 
     <DrawingImage x:Key="ICON_INFO">
         <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V45.311 H45.311 V0 H0 Z">
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}" 
+                                 Geometry="F1 M24,24z M0,0z M12,0C5.373,0 0,5.373 0,12 0,18.627 5.373,24 12,24 18.627,24 24,18.627 24,12 24,5.373 18.627,0 12,0z M11.999,5.75C12.689,5.75 13.25,6.31 13.25,7 13.25,7.69 12.689,8.25 11.999,8.25 11.309,8.25 10.75,7.69 10.75,7 10.75,6.31 11.309,5.75 11.999,5.75z M14,18L10,18 10,17C10.484,16.821,11,16.799,11,16.265L11,11.798C11,11.264,10.484,11.18,10,11.001L10,10.001 13,10.001 13,16.266C13,16.801,13.517,16.824,14,17.001L14,18z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_WARN">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                                 Geometry="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_ERROR">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V32 H32 V0 H0 Z">
                 <DrawingGroup Opacity="1">
-                    <GeometryDrawing Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}" Geometry="F1 M45.311,45.311z M0,0z M22.675,0.02C22.669,0.02 22.661,0.021 22.655,0.021 22.648,0.021 22.642,0.02 22.635,0.02 10.135,0.02 0,10.154 0,22.656 0,35.156 10.135,45.291 22.635,45.291 22.642,45.291 22.648,45.291 22.655,45.291 22.661,45.291 22.669,45.291 22.675,45.291 35.175,45.291 45.31,35.156 45.31,22.656 45.311,10.154 35.176,0.02 22.675,0.02z M22.675,38.811C22.669,38.811 22.661,38.81 22.655,38.81 22.648,38.81 22.642,38.811 22.635,38.811 20.589,38.811 18.93,37.153 18.93,35.106 18.93,33.061 20.589,31.403 22.635,31.403 22.642,31.403 22.648,31.403 22.655,31.403 22.661,31.403 22.669,31.403 22.675,31.403 24.72,31.403 26.381,33.061 26.381,35.106 26.381,37.152 24.723,38.811 22.675,38.811z M27.988,10.578C27.746,14.275 26.056,25.27 26.056,25.27 26.056,27.124 24.537,28.626 22.683,28.626 22.673,28.626 22.663,28.626 22.654,28.626 22.645,28.626 22.634,28.626 22.625,28.626 20.772,28.626 19.253,27.122 19.253,25.27 19.253,25.27 17.564,14.275 17.322,10.578 17.202,8.727 18.62,5.29 22.626,5.29 22.636,5.29 22.646,5.291 22.655,5.291 22.664,5.291 22.674,5.29 22.684,5.29 26.689,5.29 28.109,8.727 27.988,10.578z" />
+                    <DrawingGroup Opacity="1">
+                        <DrawingGroup Opacity="1">
+                            <GeometryDrawing Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}">
+                                <GeometryDrawing.Geometry>
+                                    <EllipseGeometry RadiusX="16" RadiusY="16" Center="16,16" />
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                            <GeometryDrawing Brush="{StaticResource HUNTERPIE_BACKGROUND_DARK}" Geometry="F1 M32,32z M0,0z M24,10.1L24,10.1 21.9,8 16,13.9 10.1,8 8,10.1 13.9,16 8,21.9 10.1,24 16,18.1 21.9,24 24,21.9 18.1,16z" />
+                        </DrawingGroup>
+                    </DrawingGroup>
                 </DrawingGroup>
             </DrawingGroup>
         </DrawingImage.Drawing>

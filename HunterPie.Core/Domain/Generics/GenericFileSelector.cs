@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Settings;
+﻿using HunterPie.Core.Settings.Types;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;

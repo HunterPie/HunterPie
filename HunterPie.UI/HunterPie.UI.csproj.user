@@ -17,6 +17,12 @@
     <Compile Update="Controls\Settings\SettingHost.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Dialog\DialogView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\WindowChrome.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\WindowHeader.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -35,6 +41,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\SettingHost.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Dialog\DialogView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Windows\WindowChrome.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\WindowHeader.xaml">

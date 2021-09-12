@@ -10,26 +10,9 @@ namespace HunterPie.UI.Windows
     /// <summary>
     /// Interaction logic for WindowHeader.xaml
     /// </summary>
-    public partial class WindowHeader : UserControl, INotifyPropertyChanged
+    public partial class WindowChrome : UserControl, INotifyPropertyChanged
     {
         private Window _owner;
-        private bool _isMouseDown;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public bool IsMouseDown
-        {
-            get => _isMouseDown;
-            private set
-            {
-                if (value != _isMouseDown)
-                {
-                    _isMouseDown = value;
-                    this.N(PropertyChanged);
-                }
-            }
-        }
-
         public Window Owner
         {
             get => _owner;
@@ -43,26 +26,31 @@ namespace HunterPie.UI.Windows
             }
         }
 
-        public WindowHeader()
+        public object Container
+        {
+            get { return (object)GetValue(ContainerProperty); }
+            set { SetValue(ContainerProperty, value); }
+        }
+        public static readonly DependencyProperty ContainerProperty =
+            DependencyProperty.Register("Container", typeof(object), typeof(WindowChrome));
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public WindowChrome()
         {
             InitializeComponent();
-            DataContext = this;
         }
-
+        
         private void OnCloseButtonClick(object sender, EventArgs e) => Owner.Close();
 
         private void OnMinimizeButtonClick(object sender, EventArgs e) => Owner.WindowState = WindowState.Minimized;
 
-        private void OnLeftMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            IsMouseDown = true;
-            Owner.DragMove();
-            IsMouseDown = false;
-        }
+        private void OnLeftMouseDown(object sender, MouseButtonEventArgs e) => Owner.DragMove();
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             Owner = Window.GetWindow(this);
+            
         }
     }
 }

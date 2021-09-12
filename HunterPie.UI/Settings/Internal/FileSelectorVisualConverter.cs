@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Settings;
+﻿using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Settings.Converter;
 using System;
 using System.Reflection;

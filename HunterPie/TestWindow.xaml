@@ -6,13 +6,18 @@
         xmlns:local="clr-namespace:HunterPie"
         xmlns:wnd="clr-namespace:HunterPie.UI.Windows;assembly=HunterPie.UI"
         mc:Ignorable="d"
-        Title="TestWindow" Height="450" Width="800" WindowStyle="None" AllowsTransparency="True">
-    <wnd:WindowHeader>
-        <wnd:WindowHeader.Container>
+        Title="TestWindow" 
+        Height="450" 
+        Width="800" 
+        WindowStyle="None" 
+        AllowsTransparency="True"
+        Icon="{StaticResource ICON_SETTINGS}">
+    <wnd:WindowChrome>
+        <wnd:WindowChrome.Container>
             <TextBlock Text="Hello"
-                           Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                           FontSize="20"
-                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
-        </wnd:WindowHeader.Container>
-    </wnd:WindowHeader>
+                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                       FontSize="20"
+                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+        </wnd:WindowChrome.Container>
+    </wnd:WindowChrome>
 </Window>

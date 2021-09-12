@@ -13,26 +13,6 @@
              ClipToBounds="True">
     <UserControl.Resources>
         <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
-        <Style x:Key="StyleHighlight" TargetType="{x:Type Rectangle}">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Value="True">
-                    <DataTrigger.EnterActions>
-                        <BeginStoryboard>
-                            <Storyboard Storyboard.TargetProperty="Opacity">
-                                <DoubleAnimation To="0.2" Duration="0:0:0.3"/>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </DataTrigger.EnterActions>
-                    <DataTrigger.ExitActions>
-                        <BeginStoryboard>
-                            <Storyboard Storyboard.TargetProperty="Opacity">
-                                <DoubleAnimation To="0" Duration="0:0:0.3"/>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </DataTrigger.ExitActions>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>

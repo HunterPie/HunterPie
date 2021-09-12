@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace HunterPie.Core.Settings
+namespace HunterPie.Core.Settings.Types
 {
     public interface IFileSelector
     {

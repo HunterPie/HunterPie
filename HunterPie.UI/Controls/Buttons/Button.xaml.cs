@@ -52,5 +52,20 @@ namespace HunterPie.UI.Controls.Buttons
 
             e.Handled = true;
         }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+
+            if (!IsMouseOver)
+                return;
+
+            Point pos = e.GetPosition(this);
+
+            double left = pos.X - (PART_Highlight.ActualWidth / 2);
+            double top = pos.Y - (PART_Highlight.ActualHeight / 2);
+
+            PART_Highlight.Margin = new Thickness(left, top, 0, 0);
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Logger;
 using HunterPie.Core.Settings;
-using HunterPie.UI.Controls.Settings;
+using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Controls.Settings.ViewModel;
 using HunterPie.UI.Settings.Converter;
 using HunterPie.UI.Settings.Internal;
