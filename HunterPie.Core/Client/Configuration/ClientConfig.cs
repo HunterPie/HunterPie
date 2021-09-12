@@ -16,7 +16,7 @@ namespace HunterPie.Core.Client.Configuration
         public bool MinimizeToSystemTray { get; set; }
 
         [SettingField("MINIMIZE_TO_SYSTEM_TRAY_STRING", "MINIMIZE_TO_SYSTEM_TRAY_STRING_DESC")]
-        public bool MinimizeToSystemTray1 { get; set; }
+        public string MinimizeToSystemTray1 { get; set; }
         [SettingField("MINIMIZE_TO_SYSTEM_TRAY_STRING", "MINIMIZE_TO_SYSTEM_TRAY_STRING_DESC")]
         public bool MinimizeToSystemTray2 { get; set; }
         [SettingField("MINIMIZE_TO_SYSTEM_TRAY_STRING", "MINIMIZE_TO_SYSTEM_TRAY_STRING_DESC")]

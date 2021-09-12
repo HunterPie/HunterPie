@@ -35,7 +35,11 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <Canvas>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="227*"/>
+            <ColumnDefinition Width="173*"/>
+        </Grid.ColumnDefinitions>
+        <Canvas Grid.ColumnSpan="2">
             <Rectangle x:Name="PART_Highlight"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Left"
@@ -57,19 +61,19 @@
 
         <Label Content="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
                VerticalContentAlignment="Center"
-               HorizontalAlignment="Left"
+               HorizontalAlignment="Stretch"
                FontSize="14"
                Foreground="{StaticResource BUTTON_COMMONBUTTON_FOREGROUND}"
                FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Right">
-            <ContentControl Content="{Binding Hosted}"
-                            Margin="5"/>
+        <Grid HorizontalAlignment="Stretch" 
+                   Grid.Column="1">
+            <ContentControl Content="{Binding Hosted, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                            Margin="5,5,25,5"/>
             <Image Source="{StaticResource ICON_INFO}"
                    ToolTip="{Binding Description, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
                    Width="20"
-                   Margin="5,0,10,0"/>
-        </StackPanel>
+                   HorizontalAlignment="Right"/>
+        </Grid>
 
     </Grid>
 </UserControl>

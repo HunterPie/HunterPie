@@ -19,6 +19,9 @@
     <Compile Update="GUI\Parts\Sidebar\SideBarElement.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="TestWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="GUI\Parts\Console\ConsoleView.xaml">
@@ -34,6 +37,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="TestWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

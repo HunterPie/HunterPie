@@ -1,0 +1,18 @@
+﻿<Window x:Class="HunterPie.TestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HunterPie"
+        xmlns:wnd="clr-namespace:HunterPie.UI.Windows;assembly=HunterPie.UI"
+        mc:Ignorable="d"
+        Title="TestWindow" Height="450" Width="800" WindowStyle="None" AllowsTransparency="True">
+    <wnd:WindowHeader>
+        <wnd:WindowHeader.Container>
+            <TextBlock Text="Hello"
+                           Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                           FontSize="20"
+                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+        </wnd:WindowHeader.Container>
+    </wnd:WindowHeader>
+</Window>

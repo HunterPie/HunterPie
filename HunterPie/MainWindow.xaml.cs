@@ -20,12 +20,19 @@ namespace HunterPie
         {
             InitializeComponent();
             InitializeSideMenu();
+            TestPopupWindow();
         }
 
         private void InitializeSideMenu()
         {
             ISideBar menu = new DefaultSideBar();
             SideBarContainer.SetMenu(menu);
+        }
+
+        private void TestPopupWindow()
+        {
+            TestWindow t = new();
+            t.Show();
         }
     }
 }

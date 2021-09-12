@@ -11,7 +11,10 @@ namespace HunterPie.UI.Settings.Internal
         public UIElement Build(object parent, PropertyInfo childInfo)
         {
             var binding = VisualConverterHelper.CreateBinding(parent, childInfo.Name);
-            Switch @switch = new();
+            Switch @switch = new()
+            {
+                HorizontalAlignment = HorizontalAlignment.Right
+            };
             
             BindingOperations.SetBinding(@switch, Switch.IsActiveProperty, binding);
             

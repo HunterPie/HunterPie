@@ -18,9 +18,12 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
         public void ExecuteOnClick()
         {
             var settingTabs = VisualConverterManager.Build(ClientConfig.Config);
+
             SettingHost host = new SettingHost();
+            
             host.AddTab(settingTabs);
 
+            
             MainHost.SetMain(host);
         }
     }

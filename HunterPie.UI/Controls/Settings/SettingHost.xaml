@@ -4,20 +4,34 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Controls.Settings"
+             xmlns:converters="clr-namespace:HunterPie.UI.Converters"
              xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:vm="clr-namespace:HunterPie.UI.Controls.Settings.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+        <converters:ObjectToUiConverter x:Key="ObjectToUiConverter"/>
         <DataTemplate x:Key="PanelTemplate" DataType="{x:Type vm:ISettingElement}">
-            <ScrollViewer>
-                <ContentControl Content="{Binding Panel}"/>
-            </ScrollViewer>
+            <ItemsControl ItemsSource="{Binding Elements, Mode=OneTime}">
+                <ItemsControl.Template>
+                    <ControlTemplate>
+                        <ScrollViewer VirtualizingPanel.IsVirtualizing="True">
+                            <VirtualizingStackPanel IsItemsHost="True"/>
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type vm:ISettingElementType}">
+                        <local:SettingElementHost Hosted="{Binding ., Converter={StaticResource ObjectToUiConverter}, IsAsync=True}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </DataTemplate>
         <DataTemplate x:Key="HeaderTemplate" DataType="{x:Type vm:ISettingElement}">
             <native:TabItem Padding="10,5,10,5"
                             Title="{Binding Title}"
-                            Description="{Binding Description, FallbackValue='hello'}"
+                            Description="{Binding Description}"
                             Icon="{Binding Icon}"
                             Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
                             FontSize="13"/>

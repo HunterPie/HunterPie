@@ -48,13 +48,15 @@ namespace HunterPie.UI.Settings
                 Type type = property.PropertyType;
                 if (type.GetInterfaces().Contains(typeof(ISettings)))
                 {
-                    StackPanel panel = new();
-                    object parent = property.GetValue(settings);
-                    BuildChildren(parent, panel);
-
                     SettingsGroup metadata = (SettingsGroup)Attribute.GetCustomAttribute(type, typeof(SettingsGroup));
+                    SettingElementViewModel vm = new(metadata.Name, metadata.Description, metadata.Icon);
 
-                    SettingElementViewModel vm = new(metadata.Name, metadata.Description, metadata.Icon, panel);
+                    object parent = property.GetValue(settings);
+                    BuildChildren(parent, vm);
+
+                    
+
+                    
 
                     holder.Add(vm);
                 }
@@ -73,15 +75,14 @@ namespace HunterPie.UI.Settings
 
         public static UIElement ConvertElement(object parent, PropertyInfo childInfo)
         {
-            Type type;
-
+            // In case of interfaces we can still convert property
             foreach (Type @interface in childInfo.PropertyType.GetInterfaces())
             {
                 if (Instance._converters.ContainsKey(@interface))
-                    break;
+                    return Instance._converters[@interface].Build(parent, childInfo);
             }
 
-            type = childInfo.PropertyType;
+            Type type = childInfo.PropertyType;
 
             if (!Instance._converters.ContainsKey(type))
                 return null;
@@ -89,25 +90,21 @@ namespace HunterPie.UI.Settings
             return Instance._converters[type].Build(parent, childInfo);
         }
 
-        private static void BuildChildren(object parent, Panel panel)
+        private static void BuildChildren(object parent, ISettingElement panel)
         {
             Type parentType = parent.GetType();
 
             foreach (PropertyInfo prop in parentType.GetProperties())
             {
-                Type type = prop.PropertyType;
-                object value = prop.GetValue(parent);
-                
-                UIElement element = ConvertElement(parent, prop);
                 SettingField metadata = prop.GetCustomAttribute<SettingField>();
-                SettingElementHost settingHost = new()
-                {
-                    Hosted = element,
-                    Text = metadata.Name,
-                    Description = metadata.Description
-                };
+                SettingElementType settingHost = new(
+                    name: metadata.Name,
+                    description: metadata.Description,
+                    parent,
+                    prop
+                );
 
-                panel.Children.Add(settingHost);
+                panel.Add(settingHost);
             }
         }
     }

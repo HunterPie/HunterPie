@@ -86,7 +86,7 @@
               VerticalAlignment="Stretch"
               Margin="60,5,5,5">
             <ContentControl Content="{Binding Source={x:Static host:MainHost.Instance}, Path=Element, IsAsync=True}"/>
-
+            
         </Grid>
         
         <sidebar:SideBarContainer Grid.Row="1"

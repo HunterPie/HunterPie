@@ -1,4 +1,4 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Media;
 
 namespace HunterPie.UI.Controls.Settings.ViewModel
@@ -8,6 +8,8 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
         public string Title { get; }
         public string Description { get; }
         public ImageSource Icon { get; }
-        public UIElement Panel { get; }
+        public ObservableCollection<ISettingElementType> Elements { get; }
+
+        public void Add(ISettingElementType element);
     }
 }

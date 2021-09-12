@@ -17,6 +17,9 @@
     <Compile Update="Controls\Settings\SettingHost.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Windows\WindowHeader.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Controls\Buttons\Button.xaml">
@@ -32,6 +35,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\SettingHost.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Windows\WindowHeader.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Resource Update="Resources\Icons.xaml">
