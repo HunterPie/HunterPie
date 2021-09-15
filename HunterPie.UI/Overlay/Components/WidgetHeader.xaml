@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="HunterPie.UI.Overlay.Components.WidgetHeader"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Components"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
+             xmlns:converters="clr-namespace:HunterPie.UI.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" 
+             d:DesignWidth="400"
+             Loaded="OnLoaded">
+    <UserControl.Resources>
+        <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Rectangle Fill="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
+                   RadiusX="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.5}"
+                   RadiusY="{Binding RadiusX, RelativeSource={RelativeSource Self}}"
+                   Stroke="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}"
+                   StrokeThickness="2"/>
+        <Grid Margin="10,0,10,0">
+            <TextBlock Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}}"
+                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       FontSize="15"/>
+            <TextBlock Margin="0,0,50,0"
+                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right">
+                <Run Text="x:"/>
+                <Run Text="{Binding Left, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}, StringFormat=\{0:F0\}}"
+                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
+                <Run Text="y:"/>
+                <Run Text="{Binding Top, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}, StringFormat=\{0:F0\}}"
+                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
+            </TextBlock>
+            <buttons:Button HorizontalAlignment="Right"
+                            Content="✕"
+                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                            OnClick="OnCloseButtonClick"/>
+        </Grid>
+    </Grid>
+</UserControl>

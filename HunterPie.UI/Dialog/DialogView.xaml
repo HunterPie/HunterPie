@@ -6,19 +6,22 @@
         xmlns:local="clr-namespace:HunterPie.UI.Dialog"
         xmlns:dialog="clr-namespace:HunterPie.Core.Domain.Dialog;assembly=HunterPie.Core"
         xmlns:wnd="clr-namespace:HunterPie.UI.Windows"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:converter="clr-namespace:HunterPie.UI.Converters"
         xmlns:btn="clr-namespace:HunterPie.UI.Controls.Buttons"
         mc:Ignorable="d"
-        Height="250" 
+        Height="200" 
         Width="400"
         Background="Transparent"
         AllowsTransparency="True"
-        WindowStyle="None" WindowStartupLocation="CenterOwner">
+        WindowStyle="None" 
+        Title="HunterPie"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converter:DialogButtonToVisibilityConverter x:Key="DialogButtonToVisibilityConverter"/>
-        <dialog:NativeDialogButtons x:Key="Accept">1</dialog:NativeDialogButtons>
-        <dialog:NativeDialogButtons x:Key="Reject">2</dialog:NativeDialogButtons>
-        <dialog:NativeDialogButtons x:Key="Cancel">4</dialog:NativeDialogButtons>
+        <sys:Int32 x:Key="Accept">1</sys:Int32>
+        <sys:Int32 x:Key="Reject">2</sys:Int32>
+        <sys:Int32 x:Key="Cancel">4</sys:Int32>
         <Style x:Key="DefaultButton" TargetType="{x:Type btn:Button}">
             <Setter Property="Background" Value="{StaticResource HUNTERPIE_BACKGROUND_DARK}"/>
             <Setter Property="FontWeight" Value="Medium"/>
@@ -32,14 +35,6 @@
     <wnd:WindowChrome>
         <wnd:WindowChrome.Container>
             <Grid>
-                <Rectangle Margin="-10">
-                    <Rectangle.Fill>
-                        <RadialGradientBrush>
-                            <GradientStop Color="#00000000"/>
-                            <GradientStop Color="#19000000" Offset="1"/>
-                        </RadialGradientBrush>
-                    </Rectangle.Fill>
-                </Rectangle>
                 <Label  VerticalAlignment="Top"
                         HorizontalAlignment="Center"
                         HorizontalContentAlignment="Center"
@@ -47,9 +42,11 @@
                     <Label.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{Binding Icon, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                   d:Source="{StaticResource ICON_ERROR}"
                                    Width="16"
                                    Height="16"/>
                             <TextBlock Text="{Binding DialogTitle, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                       d:Text="Error"
                                        VerticalAlignment="Center"
                                        FontSize="16"
                                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
@@ -59,15 +56,27 @@
                         </StackPanel>
                     </Label.Content>
                 </Label>
-                <TextBlock Text="{Binding Description, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, FallbackValue='Sample Text'}"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Stretch"
-                           TextWrapping="WrapWithOverflow"
-                           Margin="20,-30,20,0"
-                           Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                           FontSize="16"
-                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}" 
-                           TextAlignment="Center"/>
+                <Label VerticalAlignment="Top"
+                       HorizontalAlignment="Stretch"
+                       Margin="20,35,20,0"
+                       Height="60"
+                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                       FontSize="16"
+                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       VerticalContentAlignment="Center"
+                       HorizontalContentAlignment="Center">
+                    <Label.Content>
+                        <TextBlock Text="{Binding Description, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, FallbackValue='Sample Text'}"
+                                   d:Text="Do you want to accept this very cool popup?"
+                                   VerticalAlignment="Stretch"
+                                   HorizontalAlignment="Stretch"
+                                   TextWrapping="WrapWithOverflow"
+                                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                                   FontSize="16"
+                                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}" 
+                                   TextAlignment="Center"/> 
+                    </Label.Content>
+                </Label>
 
                 <WrapPanel Orientation="Horizontal"
                            VerticalAlignment="Bottom"

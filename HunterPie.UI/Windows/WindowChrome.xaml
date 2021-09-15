@@ -5,10 +5,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Windows"
-             xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons"
              mc:Ignorable="d"
+             d:Width="300"
+             d:Height="150"
              Loaded="OnLoaded">
-    <Border BorderBrush="{StaticResource HUNTERPIE_BACKGROUND_DARKER}"
+    <Border BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}"
             BorderThickness="1">
         <Border.Effect>
             <DropShadowEffect BlurRadius="15" ShadowDepth="0" Opacity="0.5" Direction="0"/>

@@ -66,19 +66,16 @@ namespace HunterPie.UI.Dialog
 
         public void Warn(string title, string description, NativeDialogButtons buttons)
         {
-            Title = "Warning";
             SetDialogInfo(title, description, "ICON_WARN", buttons);
         }
 
         public void Info(string title, string description, NativeDialogButtons buttons)
         {
-            Title = "Information";
             SetDialogInfo(title, description, "ICON_INFO", buttons);
         }
 
         public void Error(string title, string description, NativeDialogButtons buttons)
         {
-            Title = "Error";
             SetDialogInfo(title, description, "ICON_ERROR", buttons);
         }
 

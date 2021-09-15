@@ -9,6 +9,11 @@
         <GradientStop Color="#FF10B9DE" Offset="1"/>
     </LinearGradientBrush>
 
+    <LinearGradientBrush x:Key="HUNTERPIE_ACCENT_COLOR_TRANSPARENT" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#504B8EEE"/>
+        <GradientStop Color="#5010B9DE" Offset="1"/>
+    </LinearGradientBrush>
+
     <SolidColorBrush x:Key="HUNTERPIE_HEADER_BACKGROUND">#16181a</SolidColorBrush>
     <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_PRIMARY">#212426</SolidColorBrush>
     <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_SECONDARY">#24282b</SolidColorBrush>

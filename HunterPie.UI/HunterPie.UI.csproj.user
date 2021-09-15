@@ -20,6 +20,12 @@
     <Compile Update="Dialog\DialogView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Components\WidgetBase.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Components\WidgetHeader.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\WindowChrome.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -44,6 +50,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Dialog\DialogView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Components\WidgetBase.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Components\WidgetHeader.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\WindowChrome.xaml">

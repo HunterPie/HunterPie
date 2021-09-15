@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Logger;
+using System.Linq;
 using HunterPie.Domain.Sidebar;
 using HunterPie.GUI.Parts.Sidebar.ViewModels;
 using System;
