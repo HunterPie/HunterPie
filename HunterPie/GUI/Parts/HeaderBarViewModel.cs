@@ -1,10 +1,24 @@
-﻿using System.Security.Principal;
+﻿using System;
+using System.Reflection;
+using System.Security.Principal;
 using System.Windows;
 
 namespace HunterPie.GUI.Parts
 {
     public class HeaderBarViewModel
     {
+
+        public string Version
+        {
+            get
+            {
+                Assembly self = typeof(App).Assembly;
+                AssemblyName name = self.GetName();
+                Version ver = name.Version;
+
+                return $"v{ver}";
+            }
+        }
 
         public Visibility IsRunningAsAdmin => GetAdminState()
                                               ? Visibility.Visible

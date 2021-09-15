@@ -12,7 +12,8 @@
         AllowsTransparency="True" 
         BorderThickness="1"
         BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}" 
-        Background="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}">
+        Background="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"
+        Icon="{StaticResource ICON_HUNTERPIE}">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"
                       CornerRadius="0"

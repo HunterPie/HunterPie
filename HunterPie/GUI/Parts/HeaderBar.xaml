@@ -22,8 +22,8 @@
                    Margin="0,0,5,0"
                    Height="20"/>
             <TextBlock FontFamily="Work Sans"
-                       FontSize="14"
-                       Foreground="White" 
+                       FontSize="16"
+                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}" 
                        Opacity="0.3"
                        HorizontalAlignment="Stretch" 
                        VerticalAlignment="Center">
@@ -31,9 +31,9 @@
                      FontWeight="Medium"/><!--
               --><Run Text="Pie"
                      FontWeight="Light"/>
-                <Run Text="v2.0.0"
-                     FontSize="11"
-                     Foreground="Gray"/>
+                <Run Text="{Binding Version, Mode=OneTime}"
+                     d:Text="v2.0.0.0"
+                     FontSize="12"/>
             </TextBlock>
         </StackPanel>
         
