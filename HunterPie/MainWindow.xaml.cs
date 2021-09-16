@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Logger;
-using HunterPie.Domain.Sidebar;
+﻿using HunterPie.Domain.Sidebar;
 using HunterPie.GUI.Parts.Sidebar;
 using System.Windows;
 using HunterPie.Core.Domain.Dialog;
@@ -18,7 +17,7 @@ namespace HunterPie
         {
             InitializeComponent();
             InitializeSideMenu();
-            TestPopupWindow();
+            //TestPopupWindow();
         }
 
         private void InitializeSideMenu()

@@ -11,6 +11,7 @@ using System.Diagnostics;
 using HunterPie.Domain.Logger;
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.UI.Dialog;
+using HunterPie.Core.Game.Data;
 
 namespace HunterPie
 {
@@ -24,7 +25,9 @@ namespace HunterPie
 
         private void OnStartup(object sender, StartupEventArgs e)
         {
+            #if DEBUG
             InitializeLogger();
+            #endif
             InitializeBuiltinLogger();
             InitializeExceptionsCatcher();
             InitializeDialogManager();
@@ -84,14 +87,21 @@ namespace HunterPie
             throw new NotImplementedException();
         }
 
-        private void OnGameStart(object sender, EventArgs e)
+        private async void OnGameStart(object sender, EventArgs e)
         {
             GameManager game = new GameManager(process);
+            Strings strings = new Strings(process);
+            await strings.InitializeGMDs();
+
+            SongSkill songSkills = new SongSkill(process);
 
             context = new Context(
                     process,
+                    strings,
+                    songSkills,
                     game
                 );
+
         }
 
         private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)

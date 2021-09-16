@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using System;
 using System.Windows.Input;
-using HunterPie.Core.Logger;
 
 namespace HunterPie.GUI.Parts
 {

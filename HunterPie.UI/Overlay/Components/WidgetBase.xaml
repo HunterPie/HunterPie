@@ -9,6 +9,7 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="#01000000"
+        Topmost="True"
         Width="400"
         Height="250">
 

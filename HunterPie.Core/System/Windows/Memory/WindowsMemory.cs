@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Domain.Memory;
 using HunterPie.Core.System.Windows.Native;
+using HunterPie.Core.Utils;
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -39,12 +40,12 @@ namespace HunterPie.Core.System.Windows.Memory
 
         public T[] Read<T>(long address, uint count) where T : struct
         {
-            int lpByteCount = Marshal.SizeOf<T>() * (int)count;
-            T[] buffer = new T[count];
+            Type type = typeof(T);
 
-            Kernel32.ReadProcessMemory(pHandle, (IntPtr)address, buffer, lpByteCount, out int _);
+            if (type.IsPrimitive)
+                return ReadPrimitive<T>(address, count);
 
-            return buffer;
+            return ReadStructure<T>(address, count);
         }
 
         public long Read(long address, int[] offsets)
@@ -60,6 +61,29 @@ namespace HunterPie.Core.System.Windows.Memory
             }
 
             return address;
+        }
+
+        private T[] ReadStructure<T>(long address, uint count) where T : struct
+        {
+            int size = Marshal.SizeOf<T>() * (int)count;
+            IntPtr bufferAddress = Marshal.AllocHGlobal(size);
+            Kernel32.ReadProcessMemory(pHandle, (IntPtr)address, bufferAddress, size, out int _);
+
+            var structures = MarshalHelper.BufferToStructures<T>(bufferAddress, (int)count);
+
+            Marshal.FreeHGlobal(bufferAddress);
+
+            return structures;
+        }
+
+        private T[] ReadPrimitive<T>(long address, uint count) where T : struct
+        {
+            int lpByteCount = Marshal.SizeOf<T>() * (int)count;
+            T[] buffer = new T[count];
+
+            Kernel32.ReadProcessMemory(pHandle, (IntPtr)address, buffer, lpByteCount, out int _);
+
+            return buffer;
         }
 
         public bool Write<T>(long address, T data) where T : struct
