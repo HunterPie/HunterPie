@@ -10,7 +10,7 @@ namespace HunterPie.UI.Overlay.Components
     /// </summary>
     public partial class WidgetHeader : UserControl
     {
-        public Window Owner { get; private set; }
+        public WidgetBase Owner { get; private set; }
 
         public WidgetHeader()
         {
@@ -24,7 +24,7 @@ namespace HunterPie.UI.Overlay.Components
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            Owner = Window.GetWindow(this);
+            Owner = (WidgetBase)Window.GetWindow(this);
         }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)

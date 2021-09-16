@@ -9,12 +9,12 @@ namespace HunterPie.UI.Overlay.Components
     /// </summary>
     public partial class WidgetBase : Window, INotifyPropertyChanged
     {
-        private UIElement _widget;
+        private IWidget _widget;
         
-        public UIElement Widget
+        public IWidget Widget
         {
             get => _widget;
-            set
+            internal set
             {
                 if (value != _widget)
                 {
@@ -27,6 +27,7 @@ namespace HunterPie.UI.Overlay.Components
         public WidgetBase()
         {
             InitializeComponent();
+            DataContext = this;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

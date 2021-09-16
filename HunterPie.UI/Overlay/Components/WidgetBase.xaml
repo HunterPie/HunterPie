@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HunterPie.UI.Overlay.Components"
         mc:Ignorable="d"
-        Title="WidgetBase" 
+        Title="{Binding Widget.Title}"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="#01000000"
@@ -16,7 +16,7 @@
     <Grid>
         <!-- Widget content -->
         <Grid Margin="10,50,10,10">
-            <ContentControl Content="{Binding Widget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}}"/>
+            <ContentControl Content="{Binding Widget}"/>
         </Grid>
 
         <Grid x:Name="PART_Base"
