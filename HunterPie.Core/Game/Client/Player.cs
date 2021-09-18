@@ -7,12 +7,28 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Logger;
 using System;
+using System.Linq;
 
 namespace HunterPie.Core.Game.Client
 {
 
     public class Player : Scannable, IEventDispatcher
     {
+        #region consts
+        private readonly static Stage[] peaceZones =
+        {
+            Stage.Astera,
+            Stage.SelianaSupplyCache,
+            Stage.ResearchBase,
+            Stage.Seliana,
+            Stage.SelianaGatheringHub,
+            Stage.LivingQuarters,
+            Stage.PrivateQuarters,
+            Stage.PrivateSuite,
+            Stage.SelianaRoom
+        };
+        #endregion
+
         #region Private fields
 
         private IProcessManager _process;
@@ -20,6 +36,7 @@ namespace HunterPie.Core.Game.Client
         private Stage _zoneId;
         private Weapon _weaponId;
         private SpecializedTool _primaryTool = new SpecializedTool();
+        private SpecializedTool _secondaryTool = new SpecializedTool();
 
         #endregion
 
@@ -61,6 +78,11 @@ namespace HunterPie.Core.Game.Client
             {
                 if (value != _zoneId)
                 {
+                    if (peaceZones.Contains(value) && !peaceZones.Contains(_zoneId))
+                        this.Dispatch(OnVillageEnter);
+                    else if (!peaceZones.Contains(value) && peaceZones.Contains(_zoneId))
+                        this.Dispatch(OnVillageLeave);
+
                     _zoneId = value;
                 }
             }
@@ -81,7 +103,10 @@ namespace HunterPie.Core.Game.Client
             }
         }
 
+        
+
         public ref readonly SpecializedTool PrimaryTool => ref _primaryTool;
+        public ref readonly SpecializedTool SecondaryTool => ref _secondaryTool;
 
         public bool IsLoggedOn => _playerAddress != 0;
         #endregion
