@@ -8,12 +8,20 @@ using System.Threading.Tasks;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 {
-    class MonsterViewModel : Notifiable
+    public class MonsterViewModel : Notifiable
     {
+        // Monster data
         public string Name { get; set; }
         public string Icon { get; set; }
-        public int Health { get; set; }
-        public int MaxHealth { get; set; }
-        public ObservableCollection<>
+        public float Health { get; set; }
+        public float MaxHealth { get; set; }
+        public float Stamina { get; set; }
+        public float MaxStamina { get; set; } 
+        public readonly ObservableCollection<MonsterPartViewModel> Parts = new();
+        public readonly ObservableCollection<MonsterAilmentViewModel> Ailments = new();
+
+        // Monster states
+        public bool IsEnraged { get; set; }
+        public bool IsTarget { get; set; }
     }
 }
