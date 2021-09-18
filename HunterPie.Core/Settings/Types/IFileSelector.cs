@@ -1,10 +1,14 @@
 ﻿using System.Collections.ObjectModel;
+using Newtonsoft.Json;
 
 namespace HunterPie.Core.Settings.Types
 {
     public interface IFileSelector
     {
-        public object Current { get; set; }
-        public ObservableCollection<object> Elements { get; }
+        [JsonProperty]
+        public string Current { get; set; }
+
+        [JsonIgnore]
+        public ObservableCollection<string> Elements { get; }
     }
 }

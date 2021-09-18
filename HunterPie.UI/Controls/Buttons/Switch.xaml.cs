@@ -1,7 +1,10 @@
 ﻿using HunterPie.Core.Logger;
+using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Architecture;
+using HunterPie.UI.Architecture.Extensions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;

@@ -1,4 +1,5 @@
-﻿using HunterPie.UI.Controls.Buttons;
+﻿using HunterPie.Core.Settings.Types;
+using HunterPie.UI.Controls.Buttons;
 using HunterPie.UI.Settings.Converter;
 using System.Reflection;
 using System.Windows;
@@ -10,12 +11,13 @@ namespace HunterPie.UI.Settings.Internal
     {
         public UIElement Build(object parent, PropertyInfo childInfo)
         {
-            var binding = VisualConverterHelper.CreateBinding(parent, childInfo.Name);
+            Observable<bool> observable = (Observable<bool>)childInfo.GetValue(parent);
+            var binding = VisualConverterHelper.CreateBinding(observable);
             Switch @switch = new()
             {
                 HorizontalAlignment = HorizontalAlignment.Right
             };
-            
+
             BindingOperations.SetBinding(@switch, Switch.IsActiveProperty, binding);
             
             return @switch;

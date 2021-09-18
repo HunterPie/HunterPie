@@ -43,7 +43,9 @@ namespace HunterPie.UI.Overlay
 
         public static bool Register(IWidget widget)
         {
-            Instance._widgets.Add(new WidgetBase() { Widget = widget });
+            WidgetBase wnd = new WidgetBase() { Widget = widget };
+            Instance._widgets.Add(wnd);
+            wnd.Show();
             
             Log.Debug($"Added new widget: {widget.Title}");
 

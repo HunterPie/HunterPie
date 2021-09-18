@@ -6,20 +6,25 @@ using System.Linq;
 
 namespace HunterPie.Core.Domain.Generics
 {
-    public class GenericFileSelector : IFileSelector
+    public class GenericFileSelector : ObservableBase, IFileSelector
     {
+        private string _current;
         private readonly string _filter;
         private readonly string _basePath;
-        private readonly ObservableCollection<object> _elements = new ObservableCollection<object>();
+        private readonly ObservableCollection<string> _elements = new ObservableCollection<string>();
 
-        public object Current { get; set; }
+        public string Current
+        {
+            get => _current;
+            set { SetValue(ref _current, value); }
+        }
 
-        public ObservableCollection<object> Elements
+        public ObservableCollection<string> Elements
         {
             get
             {
                 _elements.Clear();
-                foreach (object file in ListFiles())
+                foreach (string file in ListFiles())
                 {
                     _elements.Add(file);
                 }
@@ -27,14 +32,15 @@ namespace HunterPie.Core.Domain.Generics
             }
         }
 
-        public GenericFileSelector(object current, string filter, string basePath)
+
+        public GenericFileSelector(string current, string filter, string basePath)
         {
             Current = current;
             _filter = filter;
             _basePath = basePath;
-        }
+        } 
 
-        private object[] ListFiles()
+        private string[] ListFiles()
         {
             if (!Directory.Exists(_basePath))
                 return Array.Empty<string>();

@@ -3,7 +3,10 @@ using HunterPie.GUI.Parts.Sidebar;
 using System.Windows;
 using HunterPie.Core.Domain.Dialog;
 using System.ComponentModel;
-using HunterPie.UI.Overlay.Components;
+using HunterPie.UI.Overlay;
+using HunterPie.UI.Overlay.Widgets.Monster;
+using System;
+using HunterPie.Core.Logger;
 
 namespace HunterPie
 {
@@ -15,9 +18,9 @@ namespace HunterPie
 
         public MainWindow()
         {
+            Log.Info("Initializing HunterPie GUI");
             InitializeComponent();
             InitializeSideMenu();
-            //TestPopupWindow();
         }
 
         private void InitializeSideMenu()
@@ -29,14 +32,15 @@ namespace HunterPie
             SideBarContainer.SetMenu(menu);
         }
 
-        private void TestPopupWindow()
+        protected override void OnInitialized(EventArgs e)
         {
-            WidgetBase widget = new WidgetBase();
-            widget.Show();
+            base.OnInitialized(e);
+            WidgetManager.Register(new MonsterContainer());
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
+
             NativeDialogResult result = DialogManager.Info("Confirmation", "Are you sure you want to exit HunterPie?", NativeDialogButtons.Accept | NativeDialogButtons.Cancel);  
             
             if (result != NativeDialogResult.Accept)

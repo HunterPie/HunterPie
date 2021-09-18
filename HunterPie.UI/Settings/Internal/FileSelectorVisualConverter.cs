@@ -13,12 +13,8 @@ namespace HunterPie.UI.Settings.Internal
         public UIElement Build(object parent, PropertyInfo childInfo)
         {
             IFileSelector child = (IFileSelector)childInfo.GetValue(parent);
-            Type selectorType = child.GetType();
-
-            Binding binding = VisualConverterHelper.CreateBinding(
-                child, 
-                selectorType.GetProperty("Current").Name
-            );
+            
+            Binding binding = VisualConverterHelper.CreateBinding(child, nameof(IFileSelector.Current));
 
             ComboBox ui = new()
             {

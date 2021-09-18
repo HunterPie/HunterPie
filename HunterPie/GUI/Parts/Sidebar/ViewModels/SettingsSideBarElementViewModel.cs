@@ -12,7 +12,7 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
         public ImageSource Icon => Application.Current.FindResource("ICON_SETTINGS") as ImageSource;
 
         public string Text => "Settings";
-
+         
         public bool IsActivable => true;
 
         public void ExecuteOnClick()

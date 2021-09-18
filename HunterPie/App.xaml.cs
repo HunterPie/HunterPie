@@ -12,6 +12,7 @@ using HunterPie.Domain.Logger;
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.UI.Dialog;
 using HunterPie.Core.Game.Data;
+using HunterPie.Core.Client;
 
 namespace HunterPie
 {
@@ -23,17 +24,18 @@ namespace HunterPie
         private IProcessManager process;
         private Context context;
 
-        private void OnStartup(object sender, StartupEventArgs e)
+        public App()
         {
-            #if DEBUG
+#if DEBUG
             InitializeLogger();
-            #endif
+#endif
             InitializeBuiltinLogger();
             InitializeExceptionsCatcher();
             InitializeDialogManager();
             InitializeProcessScanner();
             InitializeUITracer();
-
+            ClientConfig.Initialize();
+            ConfigManager.Initialize();
         }
 
         private static void InitializeLogger()
@@ -110,5 +112,13 @@ namespace HunterPie
             e.Handled = true;
         }
 
+        protected override void OnExit(ExitEventArgs e)
+        {
+            if (e.ApplicationExitCode == 0)
+            {
+                ConfigManager.SaveAll();
+            }
+            base.OnExit(e);
+        }
     }
 }

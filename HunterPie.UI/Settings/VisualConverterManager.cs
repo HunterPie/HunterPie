@@ -29,8 +29,8 @@ namespace HunterPie.UI.Settings
 
         private readonly Dictionary<Type, IVisualConverter> _converters = new Dictionary<Type, IVisualConverter>()
         {
-            { typeof(bool), new BooleanVisualConverter() },
-            { typeof(string), new StringVisualConverter() },
+            { typeof(Observable<bool>), new BooleanVisualConverter() },
+            { typeof(Observable<string>), new StringVisualConverter() },
             { typeof(IFileSelector), new FileSelectorVisualConverter() }
         };
 
@@ -53,10 +53,6 @@ namespace HunterPie.UI.Settings
 
                     object parent = property.GetValue(settings);
                     BuildChildren(parent, vm);
-
-                    
-
-                    
 
                     holder.Add(vm);
                 }
@@ -97,14 +93,20 @@ namespace HunterPie.UI.Settings
             foreach (PropertyInfo prop in parentType.GetProperties())
             {
                 SettingField metadata = prop.GetCustomAttribute<SettingField>();
-                SettingElementType settingHost = new(
-                    name: metadata.Name,
-                    description: metadata.Description,
-                    parent,
-                    prop
-                );
-
-                panel.Add(settingHost);
+                
+                if (prop.PropertyType.GetInterfaces().Contains(typeof(IWidgetSettings)))
+                {
+                    BuildChildren(prop.GetValue(parent), panel);
+                } else
+                {
+                    SettingElementType settingHost = new(
+                        name: metadata.Name,
+                        description: metadata.Description,
+                        parent,
+                        prop
+                    );
+                    panel.Add(settingHost);
+                }
             }
         }
     }

@@ -1,12 +1,14 @@
-﻿namespace HunterPie.Core.Settings
+﻿using HunterPie.Core.Settings.Types;
+
+namespace HunterPie.Core.Settings
 {
     public interface IWidgetSettings
     {
-        bool Initialize { get; set; }
-        bool Enabled { get; set; }
-        double[] Position { get; set; }
-        double Opacity { get; set; }
-        double Scale { get; set; }
-        bool StreamerMode { get; set; }
+        Observable<bool> Initialize { get; set; }
+        Observable<bool> Enabled { get; set; }
+        Position Position { get; set; }
+        Observable<double> Opacity { get; set; }
+        Observable<double> Scale { get; set; }
+        Observable<bool> StreamerMode { get; set; }
     }
 }

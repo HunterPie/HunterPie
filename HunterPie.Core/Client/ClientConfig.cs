@@ -1,19 +1,34 @@
 ﻿using HunterPie.Core.Client.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HunterPie.Core.Logger;
 
 namespace HunterPie.Core.Client
 {
     public class ClientConfig
     {
-        private readonly static Config _config = new Config();
+        private const string ConfigName = "config.json";
+
+        private readonly Config _config = new Config();
+        private static ClientConfig _instance;
+
         public static Config Config
         {
-            get => _config;
+            get => _instance._config;
         }
 
+        private ClientConfig()
+        {
+            ConfigManager.Register(ConfigName, _config);
+            _instance = this;
+
+            Log.Info("Initialized HunterPie Client configuration.");
+        }
+
+        internal static void Initialize()
+        {
+            if (_instance is not null)
+                return; 
+
+            _ = new ClientConfig();
+        }
     }
 }

@@ -10,8 +10,9 @@
         AllowsTransparency="True"
         Background="#01000000"
         Topmost="True"
-        Width="400"
-        Height="250">
+        SizeToContent="WidthAndHeight"
+        Top="{Binding Widget.Settings.Position.X, Mode=TwoWay}"
+        Left="{Binding Widget.Settings.Position.Y, Mode=TwoWay}">
 
     <Grid>
         <!-- Widget content -->

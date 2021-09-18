@@ -1,4 +1,5 @@
-﻿using HunterPie.UI.Settings.Converter;
+﻿using HunterPie.Core.Settings.Types;
+using HunterPie.UI.Settings.Converter;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,7 +11,8 @@ namespace HunterPie.UI.Settings.Internal
     {
         public UIElement Build(object parent, PropertyInfo childInfo)
         {
-            var binding = VisualConverterHelper.CreateBinding(parent, childInfo.Name);
+            Observable<string> observable = (Observable<string>)childInfo.GetValue(parent);
+            var binding = VisualConverterHelper.CreateBinding(observable);
             TextBox textbox = new();
 
             BindingOperations.SetBinding(textbox, TextBox.TextProperty, binding);
