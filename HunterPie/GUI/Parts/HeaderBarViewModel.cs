@@ -1,13 +1,14 @@
-﻿using System;
+﻿using HunterPie.Core.Architecture;
+using System;
 using System.Reflection;
 using System.Security.Principal;
 using System.Windows;
 
 namespace HunterPie.GUI.Parts
 {
-    public class HeaderBarViewModel
+    public class HeaderBarViewModel : Notifiable
     {
-
+        
         public string Version
         {
             get

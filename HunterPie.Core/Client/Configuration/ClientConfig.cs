@@ -1,6 +1,6 @@
-﻿using HunterPie.Core.Domain.Generics;
+﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Domain.Generics;
 using HunterPie.Core.Settings;
-using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration
 {

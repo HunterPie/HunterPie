@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Logger;
+﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Logger;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Controls.Settings.ViewModel;
@@ -9,7 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace HunterPie.UI.Settings
 {

@@ -1,5 +1,4 @@
 ﻿using HunterPie.Core.Domain.Dialog;
-using HunterPie.Core.Logger;
 using HunterPie.UI.Architecture.Extensions;
 using System.ComponentModel;
 using System.Windows;

@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace HunterPie.Core.Settings.Types
+namespace HunterPie.Core.Architecture
 {
-    public class Observable<T> : ObservableBase
+    public class Observable<T> : Notifiable
     {
         private T _value;
 

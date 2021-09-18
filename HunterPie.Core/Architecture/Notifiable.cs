@@ -1,11 +1,10 @@
-﻿using HunterPie.Core.Client;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace HunterPie.Core.Settings.Types
+namespace HunterPie.Core.Architecture
 {
-    public class ObservableBase : INotifyPropertyChanged
+    public class Notifiable : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -1,6 +1,8 @@
-﻿namespace HunterPie.Core.Settings.Types
+﻿using HunterPie.Core.Architecture;
+
+namespace HunterPie.Core.Settings.Types
 {
-    public class Position : ObservableBase
+    public class Position : Notifiable
     {
         private double _x;
         private double _y;

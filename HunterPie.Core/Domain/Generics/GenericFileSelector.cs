@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Settings.Types;
+﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Settings.Types;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace HunterPie.Core.Domain.Generics
 {
-    public class GenericFileSelector : ObservableBase, IFileSelector
+    public class GenericFileSelector : Notifiable, IFileSelector
     {
         private string _current;
         private readonly string _filter;

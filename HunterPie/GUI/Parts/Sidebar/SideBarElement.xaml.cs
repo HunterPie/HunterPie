@@ -8,7 +8,7 @@ namespace HunterPie.GUI.Parts.Sidebar
     /// <summary>
     /// Interaction logic for SideBarElement.xaml
     /// </summary>
-    public partial class SideBarElement : UserControl, IView<ISideBarElement>
+    public partial class SideBarElement : UserControl
     {
         public ISideBarElement Model => (ISideBarElement)DataContext;
 

@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Settings.Types;
+﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Settings
 {

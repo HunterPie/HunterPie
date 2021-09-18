@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HunterPie.Core.Architecture;
 
 namespace HunterPie.UI.Architecture
 {
-    public interface IView<TViewModel>
+    public interface IView<TViewModel> where TViewModel : Notifiable
     {
         public TViewModel Model { get; }
     }
