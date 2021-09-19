@@ -26,7 +26,13 @@
     <Compile Update="Overlay\Components\WidgetHeader.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Controls\Bar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Monster\MonsterContainer.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Monster\Views\BossMonsterView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\WindowChrome.xaml.cs">
@@ -61,7 +67,13 @@
     <Page Update="Overlay\Components\WidgetHeader.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Overlay\Controls\Bar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Overlay\Widgets\Monster\MonsterContainer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Monster\Views\BossMonsterView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\WindowChrome.xaml">

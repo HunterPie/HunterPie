@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="HunterPie.UI.Overlay.Controls.Bar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Controls"
+             xmlns:converters="clr-namespace:HunterPie.UI.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="20" 
+             d:DesignWidth="400"
+             SizeChanged="OnSizeChanged">
+    <UserControl.Resources>
+        <converters:WidthToPercentMarkerPosition x:Key="WidthToPercentMarkerPosition"/>
+    </UserControl.Resources>
+    <Border BorderBrush="#FF181A1B"
+            BorderThickness="2">
+        <Grid ClipToBounds="True">
+            <Rectangle Fill="#B2181A1B"/>
+            <Rectangle HorizontalAlignment="Left"
+                       Width="{Binding ActualValueDelayed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Bar}}}"
+                       d:Width="150" 
+                       Fill="{Binding ForegroundDelayed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Bar}}}"/>
+            <Rectangle Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Bar}}}"
+                       HorizontalAlignment="Left"
+                       Width="{Binding ActualValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Bar}}}"
+                       d:Width="130"/>
+
+            <!-- 10% Markers -->
+            <Grid Opacity="0.5">
+                <Line X1="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Converter={StaticResource WidthToPercentMarkerPosition}, ConverterParameter=1}" Y1="0"
+                      X2="{Binding X1, RelativeSource={RelativeSource Self}}" Y2="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
+                      Stroke="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"
+                      StrokeThickness="1.5"/>
+                <Line X1="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Converter={StaticResource WidthToPercentMarkerPosition}, ConverterParameter=2}" Y1="0"
+                      X2="{Binding X1, RelativeSource={RelativeSource Self}}" Y2="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
+                      Stroke="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"
+                      StrokeThickness="1.5"/>
+                <Line X1="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Converter={StaticResource WidthToPercentMarkerPosition}, ConverterParameter=3}" Y1="0"
+                      X2="{Binding X1, RelativeSource={RelativeSource Self}}" Y2="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
+                      Stroke="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"
+                      StrokeThickness="1.5"/>
+                <Line X1="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Converter={StaticResource WidthToPercentMarkerPosition}, ConverterParameter=4}" Y1="0"
+                      X2="{Binding X1, RelativeSource={RelativeSource Self}}" Y2="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
+                      Stroke="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"
+                      StrokeThickness="1.5"/>
+                <Line X1="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Converter={StaticResource WidthToPercentMarkerPosition}, ConverterParameter=5}" Y1="0"
+                      X2="{Binding X1, RelativeSource={RelativeSource Self}}" Y2="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
+                      Stroke="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"
+                      StrokeThickness="1.5"/>
+                <Line X1="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Converter={StaticResource WidthToPercentMarkerPosition}, ConverterParameter=6}" Y1="0"
+                      X2="{Binding X1, RelativeSource={RelativeSource Self}}" Y2="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
+                      Stroke="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"
+                      StrokeThickness="1.5"/>
+                <Line X1="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Converter={StaticResource WidthToPercentMarkerPosition}, ConverterParameter=7}" Y1="0"
+                      X2="{Binding X1, RelativeSource={RelativeSource Self}}" Y2="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
+                      Stroke="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"
+                      StrokeThickness="1.5"/>
+                <Line X1="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Converter={StaticResource WidthToPercentMarkerPosition}, ConverterParameter=8}" Y1="0"
+                      X2="{Binding X1, RelativeSource={RelativeSource Self}}" Y2="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
+                      Stroke="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"
+                      StrokeThickness="1.5"/>
+                <Line X1="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Converter={StaticResource WidthToPercentMarkerPosition}, ConverterParameter=9}" Y1="0"
+                      X2="{Binding X1, RelativeSource={RelativeSource Self}}" Y2="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
+                      Stroke="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"
+                      StrokeThickness="1.5"/>
+            </Grid>
+            
+        </Grid>
+    </Border>
+</UserControl>

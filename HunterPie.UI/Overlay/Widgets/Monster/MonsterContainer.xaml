@@ -4,10 +4,169 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster"
-             mc:Ignorable="d" 
-             Background="Red">
-    <Grid Width="300"
-          Height="300">
-            
+             xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
+             xmlns:converters="clr-namespace:HunterPie.UI.Converters"
+             xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets" 
+             xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels" 
+             xmlns:animations="clr-namespace:HunterPie.UI.Architecture.Animation"
+             d:DataContext="{d:DesignInstance Type=viewmodels:MonsterViewModel}"
+             mc:Ignorable="d"
+             Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
+        <converters:MonsterEmToIconConverter x:Key="MonsterEmToIconConverter"/>
+
+        <LinearGradientBrush x:Key="MonsterHealthUnenraged" EndPoint="1,1" StartPoint="0,1">
+            <GradientStop Color="#FF4B8EEE"/>
+            <GradientStop Color="#FF10B9DE" Offset="1"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="MonsterHealthUnenragedDelayed" Color="#FF9CE4FF"/>
+
+        <LinearGradientBrush x:Key="MonsterHealthEnraged" EndPoint="1,1" StartPoint="0,1">
+            <GradientStop Color="#d42c2c"/>
+            <GradientStop Color="#e63f29" Offset="1"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="MonsterHealthEnragedDelayed" Color="#FFEB6C5B"/>
+    </UserControl.Resources>
+    <Grid Width="600">
+        <Grid Margin="50,10,10,0">
+            <TextBlock Text="{Binding Name}"
+                       d:Text="Dodogama"
+                       Margin="10,0,0,0"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       FontSize="15"/>
+
+            <!-- Stamina Bar -->
+            <overlay:Bar Height="8"
+                     MaxValue="{Binding MaxStamina}"
+                     d:MaxValue="100"
+                     Value="{Binding Stamina}"
+                     d:Value="50"
+                     VerticalAlignment="Top" 
+                     RenderTransformOrigin="0.5,0.5"
+                     Margin="13,47,10,0" ForegroundDelayed="#FFFFCFA8">
+                <overlay:Bar.Foreground>
+                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,1">
+                        <GradientStop Color="#FFFF9A36" Offset="1"/>
+                        <GradientStop Color="#FFFF2E00" Offset="0"/>
+                    </LinearGradientBrush>
+                </overlay:Bar.Foreground>
+                <overlay:Bar.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="-45"/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </overlay:Bar.RenderTransform>
+            </overlay:Bar>
+
+            <!-- Health bar -->
+            <overlay:Bar Height="15"
+                         Foreground="{StaticResource MonsterHealthUnenraged}"
+                         ForegroundDelayed="{StaticResource MonsterHealthUnenragedDelayed}"
+                         MaxValue="{Binding MaxHealth}"
+                         d:MaxValue="100"
+                         Value="{Binding Health}"
+                         d:Value="50"
+                         VerticalAlignment="Top" 
+                         RenderTransformOrigin="0.5,0.5"
+                         Margin="10,32,10,0">
+                <overlay:Bar.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="45"/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </overlay:Bar.RenderTransform>
+                <overlay:Bar.Style>
+                    <Style TargetType="{x:Type overlay:Bar}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsEnraged}" Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard >
+                                            <animations:BrushAnimation Storyboard.TargetProperty="Foreground"
+                                                                       To="{StaticResource MonsterHealthEnraged}"
+                                                                       Duration="0:0:0.2"/>
+                                            <animations:BrushAnimation Storyboard.TargetProperty="ForegroundDelayed"
+                                                                       To="{StaticResource MonsterHealthEnragedDelayed}"
+                                                                       Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard >
+                                            <animations:BrushAnimation Storyboard.TargetProperty="Foreground"
+                                                                       To="{StaticResource MonsterHealthUnenraged}"
+                                                                       Duration="0:0:0.2"/>
+                                            <animations:BrushAnimation Storyboard.TargetProperty="ForegroundDelayed"
+                                                                       To="{StaticResource MonsterHealthUnenragedDelayed}"
+                                                                       Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </overlay:Bar.Style>
+            </overlay:Bar>
+            <TextBlock VerticalAlignment="Top"
+                   HorizontalAlignment="Left"
+                   Margin="10,15,0,0"
+                   Foreground="#FFF3F3F3"
+                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   FontWeight="Medium"
+                   FontSize="16">
+            <Run Text="{Binding Health}"
+                 d:Text="25000.0"
+                 FontWeight="Normal"/>
+            <Run Text="/"/>
+            <Run Text="{Binding MaxHealth}"
+                 d:Text="25000.0" 
+                 FontWeight="Light"
+                 FontSize="13"
+                 Foreground="#FFB2B2B2"/>
+            </TextBlock>
+
+            <TextBlock VerticalAlignment="Top"
+                   HorizontalAlignment="Right"
+                   Margin="0,15,20,0"
+                   Foreground="#FFF3F3F3"
+                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   FontWeight="Medium">
+            <Run Text="{Binding HealthPercentage, StringFormat=\{0:F0\}}"
+                 d:Text="90"
+                 FontWeight="Normal"
+                 FontSize="16"/><!--
+         --><Run Text="{Binding HealthPercentage, Converter={StaticResource DoubleToDecimalConverter}, StringFormat={}.{0:D2}%}"
+                 d:Text=".63%" 
+                 FontWeight="Light"
+                 Foreground="#FFB2B2B2"/>
+            </TextBlock>
+        </Grid>
+
+        <!-- Monster Icon -->
+        <Grid Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Top"
+              Margin="21,37,0,20">
+            <Rectangle Fill="#FF191A1B"
+                       RenderTransformOrigin="0.5,0.5" 
+                       Stroke="#FF343434">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="45"/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Image Source="{Binding Em, Converter={StaticResource MonsterEmToIconConverter}, FallbackValue={assets:MonsterIcon em116}}"
+                   Width="40"/>
+        </Grid>
     </Grid>
 </UserControl>

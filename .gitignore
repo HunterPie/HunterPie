@@ -7,15 +7,9 @@ packages
 
 x64
 
-# Ignore local server files
-docs/server.js
-docs/package-lock.json
-docs/node_modules
-
-# Scripts to turn .cs into markdown
-dump
-dump.py
-
 .env
 
 TestResults
+
+# Images
+Icons
