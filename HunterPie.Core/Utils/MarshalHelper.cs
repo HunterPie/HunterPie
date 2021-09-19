@@ -10,10 +10,11 @@ namespace HunterPie.Core.Utils
         /// </summary>
         /// <typeparam name="T">Type to convert</typeparam>
         /// <param name="array">Array of elements</param>
-        /// <param name="size">Size of array</param>
+        /// <param name="size">Number of elements * sizeof(T)</param>
         /// <returns>A buffer with the data</returns>
-        public static byte[] StructureToBuffer<T>(ref T[] array, int size) where T : struct
+        public static byte[] StructureToBuffer<T>(T[] array) where T : struct
         {
+            int size = Marshal.SizeOf<T>() * array.Length;
             IntPtr malloced = Marshal.AllocHGlobal(size);
             byte[] buffer = new byte[size];
 
