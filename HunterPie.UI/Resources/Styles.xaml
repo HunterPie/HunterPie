@@ -22,6 +22,15 @@
     <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_LIGHTER">#2a2f30</SolidColorBrush>
     <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_DARK_OPACITY">#50080a0a</SolidColorBrush>
     <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_PRIMARY">WhiteSmoke</SolidColorBrush>
+    <LinearGradientBrush x:Key="HUNTERPIE_HIGHLIGHT_BORDER" EndPoint="0.5,1" StartPoint="0,0">
+        <GradientStop Color="#7FF3F3F3"/>
+        <GradientStop Color="#4CFFFFFF" Offset="1"/>
+    </LinearGradientBrush>
+    <RadialGradientBrush x:Key="HUNTERPIE_HIGHLIGHT_BACKGROUND" SpreadMethod="Reflect" RadiusY="1" RadiusX="1" Center="0.5,0.5">
+        <GradientStop Color="#00000000" Offset="0"/>
+        <GradientStop Color="#7FFFFFFF" Offset="1"/>
+        <GradientStop Color="#00BDBDBD" Offset="0.35"/>
+    </RadialGradientBrush>
     <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_DARK">#7c858a</SolidColorBrush>
     
     <SolidColorBrush x:Key="HUNTERPIE_LOGO_PRIMARY">#f7f7f7</SolidColorBrush>

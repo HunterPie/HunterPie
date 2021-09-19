@@ -11,6 +11,8 @@
         Background="#01000000"
         Topmost="True"
         SizeToContent="WidthAndHeight"
+        d:Height="400"
+        d:Width="500"
         Top="{Binding Widget.Settings.Position.X, Mode=TwoWay}"
         Left="{Binding Widget.Settings.Position.Y, Mode=TwoWay}">
 
@@ -27,10 +29,11 @@
                             Margin="20,0,20,0"
                             VerticalAlignment="Top"/>
             <Border Margin="0,40,0,0"
-                x:Name="PART_Highlight"
-                BorderThickness="2" 
-                Background="{StaticResource HUNTERPIE_ACCENT_COLOR_TRANSPARENT}" 
-                BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
+                    x:Name="PART_Highlight"
+                    BorderThickness="2"
+                    Background="{StaticResource HUNTERPIE_HIGHLIGHT_BACKGROUND}"
+                    BorderBrush="{StaticResource HUNTERPIE_HIGHLIGHT_BORDER}">
+            </Border>
             <Grid.Style>
                 <Style TargetType="{x:Type Grid}">
                     <Style.Triggers>
