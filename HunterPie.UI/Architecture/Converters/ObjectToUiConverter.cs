@@ -4,7 +4,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace HunterPie.UI.Converters
+namespace HunterPie.UI.Architecture.Converters
 {
     public class ObjectToUiConverter : IValueConverter
     {

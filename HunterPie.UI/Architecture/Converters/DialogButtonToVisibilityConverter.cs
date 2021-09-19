@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace HunterPie.UI.Converters
+namespace HunterPie.UI.Architecture.Converters
 {
     class DialogButtonToVisibilityConverter : IValueConverter
     {

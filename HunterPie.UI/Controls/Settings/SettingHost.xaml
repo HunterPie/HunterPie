@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Controls.Settings"
-             xmlns:converters="clr-namespace:HunterPie.UI.Converters"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:vm="clr-namespace:HunterPie.UI.Controls.Settings.ViewModel"
              mc:Ignorable="d" 

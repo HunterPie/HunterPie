@@ -7,7 +7,7 @@
              xmlns:anim="clr-namespace:HunterPie.UI.Architecture.Animation"
              xmlns:button="clr-namespace:HunterPie.UI.Controls.Buttons"
              mc:Ignorable="d" 
-             xmlns:converters="clr-namespace:HunterPie.UI.Converters"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              Background="Transparent"
              d:DesignWidth="400"
              ClipToBounds="True">

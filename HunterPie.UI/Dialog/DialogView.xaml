@@ -7,7 +7,7 @@
         xmlns:dialog="clr-namespace:HunterPie.Core.Domain.Dialog;assembly=HunterPie.Core"
         xmlns:wnd="clr-namespace:HunterPie.UI.Windows"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        xmlns:converter="clr-namespace:HunterPie.UI.Converters"
+        xmlns:converter="clr-namespace:HunterPie.UI.Architecture.Converters"
         xmlns:btn="clr-namespace:HunterPie.UI.Controls.Buttons"
         mc:Ignorable="d"
         Height="200" 

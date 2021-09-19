@@ -7,7 +7,7 @@
                        xmlns:anim="clr-namespace:HunterPie.UI.Architecture.Animation"
                        xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
                        xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                       xmlns:converters="clr-namespace:HunterPie.UI.Converters"
+                       xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
                        mc:Ignorable="d" 
                        Width="60"
                        Height="30">

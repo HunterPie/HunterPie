@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using System.Windows.Media;
 
-namespace HunterPie.UI.Converters
+namespace HunterPie.UI.Architecture.Converters
 {
-    public class MonsterEmToIconConverter : IValueConverter
+    public class DoubleToDecimalConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string monsterEm = (string)value;
-            return new ImageSourceConverter().ConvertFromString($"pack://siteoforigin:,,,/Assets/Monsters/Icons/{monsterEm}_ID.png");
+            double val = (double)value;
+            return (int)((val % 1) * 100);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

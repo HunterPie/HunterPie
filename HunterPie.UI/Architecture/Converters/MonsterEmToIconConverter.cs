@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+using System.Windows.Media;
 
-namespace HunterPie.UI.Converters
+namespace HunterPie.UI.Architecture.Converters
 {
-    public class WidthToPercentMarkerPosition : IValueConverter
+    public class MonsterEmToIconConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            double width = (double)value;
-            double idx = int.Parse((string)parameter);
-
-            return (width / 10) * idx;
+            string monsterEm = (string)value;
+            return new ImageSourceConverter().ConvertFromString($"pack://siteoforigin:,,,/Assets/Monsters/Icons/{monsterEm}_ID.png");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
