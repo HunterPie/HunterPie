@@ -6,10 +6,10 @@
                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                        xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
                        xmlns:converters="clr-namespace:HunterPie.UI.Converters"
+                       xmlns:local="clr-namespace:HunterPie.UI.Controls.Buttons"
                        mc:Ignorable="d" 
                        d:DesignHeight="25" 
                        d:DesignWidth="60" 
-                       Cursor="Hand"
                        ClipToBounds="True">
     <arch:ClickableControl.Resources>
         <Storyboard x:Key="PART_RippleAnimation" Storyboard.TargetName="PART_Ripple">
@@ -61,4 +61,18 @@
             </Grid>
         </Border>
     </Grid>
+    <arch:ClickableControl.Style>
+        <Style TargetType="{x:Type local:Button}">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.2"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="True">
+                    <Setter Property="Opacity" Value="1"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </arch:ClickableControl.Style>
 </arch:ClickableControl>

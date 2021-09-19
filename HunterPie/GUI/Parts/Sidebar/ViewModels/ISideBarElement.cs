@@ -7,6 +7,7 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
         public ImageSource Icon { get; }
         public string Text { get; }
         public bool IsActivable { get; }
+        public bool IsEnabled { get; }
 
         public void ExecuteOnClick();
     }

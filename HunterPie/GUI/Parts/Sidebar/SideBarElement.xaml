@@ -7,7 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="300">
     <native:Button Background="Transparent"
-                   OnClick="OnButtonClick">
+                   OnClick="OnButtonClick"
+                   IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
         <native:Button.Content>
             <StackPanel Orientation="Horizontal" 
                         Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=native:Button}}">

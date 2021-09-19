@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HunterPie.Core.Logger;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,9 +17,11 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 
         public bool IsActivable => true;
 
+        public bool IsEnabled => false;
+
         public void ExecuteOnClick()
         {
-
+            
         }
     }
 }

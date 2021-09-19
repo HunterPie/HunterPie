@@ -17,11 +17,6 @@
         Left="{Binding Widget.Settings.Position.Y, Mode=TwoWay}">
 
     <Grid>
-        <!-- Widget content -->
-        <Grid Margin="10,50,10,10">
-            <ContentControl Content="{Binding Widget}"/>
-        </Grid>
-
         <Grid x:Name="PART_Base"
               Opacity="0"
               d:Opacity="1">
@@ -59,6 +54,11 @@
                     </Style.Triggers>
                 </Style>
             </Grid.Style>
+        </Grid>
+        
+        <!-- Widget content -->
+        <Grid Margin="10,50,10,10">
+            <ContentControl Content="{Binding Widget}"/>
         </Grid>
     </Grid>
 </Window>

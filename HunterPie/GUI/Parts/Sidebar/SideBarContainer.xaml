@@ -40,7 +40,8 @@
         <ItemsControl ItemsSource="{Binding Elements}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <local:SideBarElement Height="{Binding ItemsHeight, ElementName=SideBarContainerControl}"/>
+                    <local:SideBarElement Height="{Binding ItemsHeight, ElementName=SideBarContainerControl}"
+                                          IsEnabled="{Binding IsEnabled}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

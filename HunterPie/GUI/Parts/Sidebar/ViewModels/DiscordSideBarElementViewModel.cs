@@ -14,6 +14,8 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 
         public bool IsActivable => false;
 
+        public bool IsEnabled => true;
+
         public void ExecuteOnClick()
         {
             Process.Start("explorer", DiscordUrl);

@@ -14,6 +14,8 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 
         public bool IsActivable => true;
 
+        public bool IsEnabled => true;
+
         public void ExecuteOnClick()
         {
             var console = new ConsoleView();

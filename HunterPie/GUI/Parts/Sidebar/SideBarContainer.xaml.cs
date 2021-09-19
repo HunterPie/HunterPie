@@ -92,7 +92,7 @@ namespace HunterPie.GUI.Parts.Sidebar
 
             ISideBarElement element = Elements[idx];
 
-            if (!element.IsActivable)
+            if (!element.IsActivable || !element.IsEnabled)
                 return;
 
             ((ThicknessAnimation)_selectSlideAnimation.Children[0]).To = new Thickness(0, idx * ItemsHeight, 0, 0);
