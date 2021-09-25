@@ -24,8 +24,6 @@ namespace HunterPie.UI.Overlay.Controls
     public partial class Bar : UserControl
     {
 
-
-
         public double ActualValueDelayed
         {
             get { return (double)GetValue(ActualValueDelayedProperty); }
@@ -113,6 +111,12 @@ namespace HunterPie.UI.Overlay.Controls
 
             value = Math.Max(1.0, value);
             
+            if (double.IsNaN(value))
+            {
+                (sender as Bar).InvalidateVisual();
+                return;
+            }
+
             var smoothAnimation = new DoubleAnimation(value, value, new TimeSpan(0, 0, 0, 0, 50));
 
             BeginAnimation(Bar.ActualValueProperty, smoothAnimation, HandoffBehavior.Compose);

@@ -20,9 +20,13 @@ namespace HunterPie.Core.Converters
                 : null;
 
             var observable = Activator.CreateInstance(objectType, value);
+
+            if (value is null)
+                return observable;
+
             objectType.GetProperty(nameof(Observable<object>.Value)).SetValue(existingValue, value);
 
-            return observable;
+            return existingValue;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

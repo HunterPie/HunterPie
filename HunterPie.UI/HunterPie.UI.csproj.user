@@ -26,7 +26,13 @@
     <Compile Update="Overlay\Components\WidgetHeader.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Controls\Abnormality.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Controls\Bar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Monster\MonsterContainer.xaml.cs">
@@ -67,7 +73,13 @@
     <Page Update="Overlay\Components\WidgetHeader.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Overlay\Controls\Abnormality.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Overlay\Controls\Bar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Monster\MonsterContainer.xaml">
@@ -82,6 +94,9 @@
     <Page Update="Windows\WindowHeader.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Resource Update="Resources\Abnormalities.xaml">
+      <SubType>Designer</SubType>
+    </Resource>
     <Resource Update="Resources\Icons.xaml">
       <SubType>Designer</SubType>
     </Resource>

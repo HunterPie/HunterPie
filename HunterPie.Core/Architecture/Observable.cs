@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace HunterPie.Core.Architecture
 {
     [JsonConverter(typeof(ObservableConverter))]
-    public class Observable<T> : Notifiable
+    public class Observable<T> : Bindable
     {
         private T _value;
 

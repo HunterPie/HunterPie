@@ -7,11 +7,13 @@ namespace HunterPie.Core.Settings
     {
         public string Name;
         public string Description;
+        public bool RequiresRestart;
 
-        public SettingField(string name, string description)
+        public SettingField(string name, string description, bool requiresRestart = false)
         {
             Name = name;
             Description = description;
+            RequiresRestart = requiresRestart;
         }
     }
 }

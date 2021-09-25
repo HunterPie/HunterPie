@@ -8,7 +8,8 @@
              xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:vm="clr-namespace:HunterPie.UI.Controls.Settings.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" 
+             d:DesignWidth="800">
     <UserControl.Resources>
         <converters:ObjectToUiConverter x:Key="ObjectToUiConverter"/>
         <DataTemplate x:Key="PanelTemplate" DataType="{x:Type vm:ISettingElement}">
@@ -23,7 +24,9 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type vm:ISettingElementType}">
-                        <local:SettingElementHost Hosted="{Binding ., Converter={StaticResource ObjectToUiConverter}, IsAsync=True}"/>
+                        <local:SettingElementHost Hosted="{Binding ., Converter={StaticResource ObjectToUiConverter}, IsAsync=True}"
+                                                  Text="{Binding Name}"
+                                                  Description="{Binding Description}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

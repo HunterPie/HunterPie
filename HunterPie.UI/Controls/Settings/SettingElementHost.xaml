@@ -38,7 +38,7 @@
                 </Rectangle.Fill>
             </Rectangle>
         </Canvas>
-
+        
         <Label Content="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
                VerticalContentAlignment="Center"
                HorizontalAlignment="Stretch"

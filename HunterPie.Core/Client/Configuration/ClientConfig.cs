@@ -11,7 +11,7 @@ namespace HunterPie.Core.Client.Configuration
         public GenericFileSelector Language { get; set; } = new GenericFileSelector("en-us.xml", "*.xml", ClientInfo.LanguagesPath);
 
         [SettingField("THEME_STRING", "THEME_STRING_DESC")] 
-        public Observable<GenericFileSelector> Theme { get; set; } = new GenericFileSelector("default", "*.xaml", ClientInfo.ThemesPath);
+        public GenericFileSelector Theme { get; set; } = new GenericFileSelector("default", "*.xaml", ClientInfo.ThemesPath);
 
         [SettingField("MINIMIZE_TO_SYSTEM_TRAY_STRING", "MINIMIZE_TO_SYSTEM_TRAY_STRING_DESC")]
         public Observable<bool> MinimizeToSystemTray { get; set; } = true;

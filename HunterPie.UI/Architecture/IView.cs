@@ -2,7 +2,7 @@
 
 namespace HunterPie.UI.Architecture
 {
-    public interface IView<TViewModel> where TViewModel : Notifiable
+    public interface IView<TViewModel> where TViewModel : Bindable
     {
         public TViewModel Model { get; }
     }

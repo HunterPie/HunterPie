@@ -19,7 +19,6 @@ namespace HunterPie.UI.Settings.Internal
             };
 
             BindingOperations.SetBinding(@switch, Switch.IsActiveProperty, binding);
-            
             return @switch;
         }
     }

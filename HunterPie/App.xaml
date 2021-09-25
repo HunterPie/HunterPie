@@ -9,6 +9,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Styles.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Icons.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Abnormalities.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

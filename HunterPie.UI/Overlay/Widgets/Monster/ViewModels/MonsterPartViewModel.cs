@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 {
-    public class MonsterPartViewModel : Notifiable
+    public class MonsterPartViewModel : Bindable
     {
         public string Name { get; set; }
         public float Health { get; set; }

@@ -8,11 +8,13 @@ namespace HunterPie.UI.Settings.Converter
     {
         public static Binding CreateBinding(object parent, string path = nameof(Observable<bool>.Value))
         {
-            return new Binding(path)
+            var binding = new Binding(path)
             {
                 Mode = BindingMode.TwoWay,
-                Source = parent
+                Source = parent,
             };
+
+            return binding;
         }
     }
 }

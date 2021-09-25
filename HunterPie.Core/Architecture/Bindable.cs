@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace HunterPie.Core.Architecture
 {
-    public class Notifiable : INotifyPropertyChanged
+    public class Bindable : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

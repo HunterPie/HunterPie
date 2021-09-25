@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace HunterPie.GUI.Parts
 {
-    public class HeaderBarViewModel : Notifiable
+    public class HeaderBarViewModel : Bindable
     {
         
         public string Version

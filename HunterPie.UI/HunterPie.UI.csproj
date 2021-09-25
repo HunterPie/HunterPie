@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Page Remove="Resources\Abnormalities.xaml" />
     <Page Remove="Resources\Icons.xaml" />
     <Page Remove="Resources\Styles.xaml" />
   </ItemGroup>
@@ -15,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Abnormalities.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
     <Resource Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Resource>

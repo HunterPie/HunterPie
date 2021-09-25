@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="HunterPie.UI.Overlay.Controls.Abnormality"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Controls"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             x:Name="PART_Abnormality"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:RatioConverter x:Key="RatioConverter"/>
+        <LinearGradientBrush x:Key="AbnormalityStrokeBuff" EndPoint="1,1" StartPoint="0,0">
+            <GradientStop Color="#98eb34"/>
+            <GradientStop Color="#34ebc6" Offset="1"/>
+        </LinearGradientBrush>
+        
+        <LinearGradientBrush x:Key="AbnormalityStrokeDebuff" EndPoint="1,1" StartPoint="0,0">
+            <GradientStop Color="#eb4f34"/>
+            <GradientStop Color="#eb3434" Offset="1"/>
+        </LinearGradientBrush>
+    </UserControl.Resources>
+    <StackPanel>
+        <Grid>
+            <Ellipse Fill="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"/>
+            <local:Arc StrokeThickness="2"
+                       d:Percentage="0.8"
+                       d:Stroke="{StaticResource AbnormalityStrokeBuff}">
+                <local:Arc.Percentage>
+                    <MultiBinding Converter="{StaticResource RatioConverter}">
+                        <Binding Path="Time" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:Abnormality}}"/>
+                        <Binding Path="MaxTime" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:Abnormality}}"/>
+                    </MultiBinding>
+                </local:Arc.Percentage>
+                <local:Arc.Style>
+                    <Style TargetType="{x:Type local:Arc}">
+                        <Setter Property="Stroke" Value="{StaticResource AbnormalityStrokeDebuff}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsBuff}" Value="True">
+                                <Setter Property="Stroke" Value="{StaticResource AbnormalityStrokeBuff}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsBuff}" Value="False">
+                                <Setter Property="Stroke" Value="{StaticResource AbnormalityStrokeDebuff}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </local:Arc.Style>
+            </local:Arc>
+            <Image Source="{Binding Icon, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Abnormality}}, FallbackValue={StaticResource ICON_ELEATTACKUP}}"
+                   Margin="2"/>
+        </Grid>
+    </StackPanel>
+</UserControl>

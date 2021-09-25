@@ -2,7 +2,7 @@
 
 namespace HunterPie.Core.Settings.Types
 {
-    public class Position : Notifiable
+    public class Position : Bindable
     {
         private double _x;
         private double _y;

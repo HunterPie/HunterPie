@@ -100,7 +100,7 @@ namespace HunterPie.Core.Client
             WriteSettings(path);
         }
 
-        internal static void SaveAll()
+        public static void SaveAll()
         {
             foreach (string config in Settings.Keys)
                 Save(config);
@@ -123,8 +123,13 @@ namespace HunterPie.Core.Client
                             || str[0] == '\x00'
                             || str == "null")
                             throw new Exception("Configuration file was empty");
-                        
-                        JsonConvert.PopulateObject(str, _settings[path]);
+
+                        var serializerSettings = new JsonSerializerSettings()
+                        {
+                            NullValueHandling = NullValueHandling.Ignore
+                        };
+
+                        JsonConvert.PopulateObject(str, _settings[path], serializerSettings);
                     }
                 } catch (Exception err) { Log.Error(err); }
             }

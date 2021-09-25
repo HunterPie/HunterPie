@@ -7,5 +7,6 @@ namespace HunterPie.Core.Client.Configuration
     public class OverlayConfig : ISettings
     {
         public MonsterWidgetConfig EndemicWidget { get; set; } = new MonsterWidgetConfig();
+        public AbnormalityWidgetConfig AbnormalityWidget { get; set; } = new AbnormalityWidgetConfig();
     }
 }

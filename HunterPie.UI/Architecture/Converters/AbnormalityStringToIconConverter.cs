@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
 namespace HunterPie.UI.Architecture.Converters
 {
-    public class MonsterEmToIconConverter : IValueConverter
+    public class AbnormalityStringToIconConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string monsterEm = (string)value;
+            object icon = Application.Current.TryFindResource(value);
 
-            if (monsterEm is null || monsterEm.Length == 0)
-                return null;
-
-            return new ImageSourceConverter().ConvertFromString($"pack://siteoforigin:,,,/Assets/Monsters/Icons/{monsterEm}_ID.png");
+            return icon is null 
+                    ? null 
+                    : (ImageSource)icon;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

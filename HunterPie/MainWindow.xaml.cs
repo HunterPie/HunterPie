@@ -7,6 +7,7 @@ using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Monster;
 using System;
 using HunterPie.Core.Logger;
+using HunterPie.UI.Overlay.Widgets.Abnormality.View;
 
 namespace HunterPie
 {
@@ -36,6 +37,7 @@ namespace HunterPie
         {
             base.OnInitialized(e);
             WidgetManager.Register(new MonsterContainer());
+            WidgetManager.Register(new AbnormalityBarView());
         }
 
         protected override void OnClosing(CancelEventArgs e)

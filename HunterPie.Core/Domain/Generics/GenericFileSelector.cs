@@ -1,5 +1,7 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Converters;
 using HunterPie.Core.Settings.Types;
+using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -7,7 +9,8 @@ using System.Linq;
 
 namespace HunterPie.Core.Domain.Generics
 {
-    public class GenericFileSelector : Notifiable, IFileSelector
+    [JsonConverter(typeof(FileSelectorConverter))]
+    public class GenericFileSelector : Bindable, IFileSelector
     {
         private string _current;
         private readonly string _filter;
@@ -33,6 +36,10 @@ namespace HunterPie.Core.Domain.Generics
             }
         }
 
+        public GenericFileSelector(string current)
+        {
+            Current = current;
+        }
 
         public GenericFileSelector(string current, string filter, string basePath)
         {
