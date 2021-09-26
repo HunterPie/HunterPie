@@ -9,11 +9,16 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 {
     public class MonsterPartViewModel : Bindable
     {
-        public string Name { get; set; }
-        public float Health { get; set; }
-        public float MaxHealth { get; set; }
-        public float Tenderize { get; set; }
-        public float MaxTenderize { get; set; }
+        private string _name;
+        private double _health;
+        private double _maxHealth;
+
+
+        public string Name { get => _name; set { SetValue(ref _name, value); } }
+        public double Health { get => _health; set { SetValue(ref _health, value); } }
+        public double MaxHealth { get => _maxHealth; set { SetValue(ref _maxHealth, value); } }
+        public double Tenderize { get; set; }
+        public double MaxTenderize { get; set; }
         public int Break { get; set; }
         public int MaxBreaks { get; set; }
     }

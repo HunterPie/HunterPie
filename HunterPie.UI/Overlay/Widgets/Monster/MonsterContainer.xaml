@@ -10,6 +10,7 @@
              xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets" 
              xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels" 
              xmlns:animations="clr-namespace:HunterPie.UI.Architecture.Animation"
+             xmlns:view="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
              d:DataContext="{d:DesignInstance Type=viewmodels:MonsterViewModel}"
              mc:Ignorable="d"
              x:TypeArguments="viewmodels:MonsterViewModel"
@@ -17,6 +18,8 @@
     <UserControl.Resources>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
         <converters:MonsterEmToIconConverter x:Key="MonsterEmToIconConverter"/>
+        <converters:CrownToIconConverter x:Key="CrownToIconConverter"/>
+        <converters:CrownToVisibilityConverter x:Key="CrownToVisibilityConverter"/>
 
         <LinearGradientBrush x:Key="MonsterHealthUnenraged" EndPoint="1,1" StartPoint="0,1">
             <GradientStop Color="#FF4B8EEE"/>
@@ -31,15 +34,31 @@
         <SolidColorBrush x:Key="MonsterHealthEnragedDelayed" Color="#FFEB6C5B"/>
     </UserControl.Resources>
     <Grid Width="600">
-        <Grid Margin="50,10,10,0">
-            <TextBlock Text="{Binding Name}"
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Margin="50,10,10,10">
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Margin="10,0,0,0">
+                <Image Source="{Binding Crown, Converter={StaticResource CrownToIconConverter}}"
+                       d:Source="{StaticResource CROWN_MINI}"
+                       Height="15"
+                       d:Visibility="Visible"
+                       Visibility="{Binding Crown, Converter={StaticResource CrownToVisibilityConverter}}"
+                       Width="{Binding Height, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MonsterContainer}}}"
+                       Margin="0,0,5,0"/>
+                <TextBlock Text="{Binding Name}"
                        d:Text="Dodogama"
-                       Margin="10,0,0,0"
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                        Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                        FontSize="15"/>
+            </StackPanel>
+
 
             <!-- Stamina Bar -->
             <overlay:Bar Height="8"
@@ -48,6 +67,7 @@
                      Value="{Binding Stamina}"
                      d:Value="50"
                      VerticalAlignment="Top" 
+                     BorderThickness="2"
                      RenderTransformOrigin="0.5,0.5"
                      Margin="13,47,10,0" ForegroundDelayed="#FFFFCFA8">
                 <overlay:Bar.Foreground>
@@ -74,6 +94,7 @@
                          d:MaxValue="100"
                          Value="{Binding Health}"
                          d:Value="50"
+                         BorderThickness="2"
                          VerticalAlignment="Top" 
                          RenderTransformOrigin="0.5,0.5"
                          Margin="10,32,10,0">
@@ -125,15 +146,14 @@
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    FontWeight="Medium"
                    FontSize="16">
-            <Run Text="{Binding Health}"
+            <Run Text="{Binding Health, StringFormat=\{0:F1\}}"
                  d:Text="25000.0"
                  FontWeight="Normal"/>
             <Run Text="/"/>
-            <Run Text="{Binding MaxHealth}"
+            <Run Text="{Binding MaxHealth, StringFormat=\{0:F1\}}"
                  d:Text="25000.0" 
                  FontWeight="Light"
-                 FontSize="13"
-                 Foreground="#FFB2B2B2"/>
+                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/>
             </TextBlock>
 
             <TextBlock VerticalAlignment="Top"
@@ -157,7 +177,7 @@
         <Grid Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
               HorizontalAlignment="Left"
               VerticalAlignment="Top"
-              Margin="21,37,0,20">
+              Margin="21,37,0,0">
             <Rectangle Fill="#FF191A1B"
                        RenderTransformOrigin="0.5,0.5" 
                        Stroke="#FF343434">
@@ -170,5 +190,22 @@
             <Image Source="{Binding Em, Converter={StaticResource MonsterEmToIconConverter}, FallbackValue={assets:MonsterIcon em116}}"
                    Width="40"/>
         </Grid>
+
+        <ItemsControl ItemsSource="{Binding Parts, NotifyOnSourceUpdated=True}"
+                      Grid.Row="1">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel MaxHeight="200"
+                               ItemWidth="200"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:MonsterPartViewModel}">
+                    <view:BossMonsterPartView VerticalAlignment="Top"
+                                              HorizontalAlignment="Stretch"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </arch:View>

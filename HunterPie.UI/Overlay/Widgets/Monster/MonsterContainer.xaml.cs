@@ -1,9 +1,12 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
+using System;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster
 {
@@ -33,6 +36,36 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             ViewModel.Em = "em116";
             ViewModel.Name = "Dodogama";
             ViewModel.IsEnraged = false;
+            ViewModel.Crown = Crown.Gold;
+            
+            for (int i = 0; i < 13; i++)
+            {
+                ViewModel.Parts.Add(
+                    new MonsterPartViewModel()
+                    {
+                        Name = $"Part {i}",
+                        Health = 2000.0,
+                        MaxHealth = 2000.0
+                    }
+                );
+            }
+            var updater = new DispatcherTimer()
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+            Random rng = new();
+            updater.Tick += (_, __) =>
+            {
+                foreach (var abnorm in ViewModel.Parts)
+                {
+                    if (abnorm.Health <= 0.0)
+                        abnorm.Health = abnorm.MaxHealth;
+
+                    abnorm.Health -= rng.NextDouble() * 100;
+                }
+
+            };
+            updater.Start();
             Window owner = Window.GetWindow(this);
             owner.PreviewKeyDown += (_, args) =>
             {

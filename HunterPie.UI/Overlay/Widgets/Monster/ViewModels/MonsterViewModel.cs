@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Game.Enums;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,9 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         private double stamina;
         private double maxStamina;
         private bool isEnraged;
+        private Crown _crown;
+        private readonly ObservableCollection<MonsterPartViewModel> parts = new();
+        private readonly ObservableCollection<MonsterAilmentViewModel> ailments = new();
 
         // Monster data
         public string Name
@@ -46,7 +50,6 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
             get => healthPercentage;
             set { SetValue(ref healthPercentage, value); }
         }
-        
         public double Stamina
         {
             get => stamina;
@@ -57,9 +60,13 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
             get => maxStamina;
             set { SetValue(ref maxStamina, value); }
         }
-        
-        public readonly ObservableCollection<MonsterPartViewModel> Parts = new();
-        public readonly ObservableCollection<MonsterAilmentViewModel> Ailments = new();
+        public Crown Crown
+        {
+            get => _crown;
+            set { SetValue(ref _crown, value); }
+        }
+
+        public ref readonly ObservableCollection<MonsterPartViewModel> Parts => ref parts;
 
         // Monster states
         public bool IsEnraged

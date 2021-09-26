@@ -12,18 +12,15 @@
     <UserControl.Resources>
         <converters:WidthToPercentMarkerPosition x:Key="WidthToPercentMarkerPosition"/>
     </UserControl.Resources>
-    <Border BorderBrush="#FF181A1B"
-            BorderThickness="2">
+    <Border BorderBrush="#FF181A1B">
         <Grid ClipToBounds="True">
             <Rectangle Fill="#B2181A1B"/>
             <Rectangle HorizontalAlignment="Left"
                        Width="{Binding ActualValueDelayed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Bar}}}"
-                       d:Width="150" 
                        Fill="{Binding ForegroundDelayed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Bar}}}"/>
             <Rectangle Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Bar}}}"
                        HorizontalAlignment="Left"
-                       Width="{Binding ActualValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Bar}}}"
-                       d:Width="130"/>
+                       Width="{Binding ActualValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Bar}}}"/>
 
             <!-- 10% Markers -->
             <Grid Opacity="0.5">
