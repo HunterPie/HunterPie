@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HunterPie.Core.Domain.Interfaces
+namespace HunterPie.Core.Game.Environment
 {
-    public interface IMapper<T, K>
+    public class MonsterPart
     {
-        public K Map(T data);
     }
 }
