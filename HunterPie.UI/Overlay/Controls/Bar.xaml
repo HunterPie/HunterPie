@@ -23,7 +23,8 @@
                        Width="{Binding ActualValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Bar}}}"/>
 
             <!-- 10% Markers -->
-            <Grid Opacity="0.5">
+            <Grid Opacity="0.5"
+                  Visibility="{Binding MarkersVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Bar}}}">
                 <Line X1="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Converter={StaticResource WidthToPercentMarkerPosition}, ConverterParameter=1}" Y1="0"
                       X2="{Binding X1, RelativeSource={RelativeSource Self}}" Y2="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
                       Stroke="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"

@@ -14,8 +14,15 @@
         d:Height="400"
         d:Width="500"
         Top="{Binding Widget.Settings.Position.X, Mode=TwoWay}"
-        Left="{Binding Widget.Settings.Position.Y, Mode=TwoWay}">
-
+        Left="{Binding Widget.Settings.Position.Y, Mode=TwoWay}"
+        ResizeMode="CanMinimize">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0"
+                      CornerRadius="0"
+                      GlassFrameThickness="5"
+                      ResizeBorderThickness="5"
+                      UseAeroCaptionButtons="False" />
+    </WindowChrome.WindowChrome>
     <Grid>
         <Grid x:Name="PART_Base"
               Opacity="0"

@@ -45,7 +45,9 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
                     {
                         Name = $"Part {i}",
                         Health = 2000.0,
-                        MaxHealth = 2000.0
+                        MaxHealth = 2000.0,
+                        Tenderize = 300.0,
+                        MaxTenderize = 300.0
                     }
                 );
             }
@@ -58,10 +60,15 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             {
                 foreach (var abnorm in ViewModel.Parts)
                 {
+                    abnorm.Health -= rng.NextDouble() * 100;
+                    abnorm.Tenderize--;
+
                     if (abnorm.Health <= 0.0)
                         abnorm.Health = abnorm.MaxHealth;
 
-                    abnorm.Health -= rng.NextDouble() * 100;
+                    if (abnorm.Tenderize <= 0.0)
+                        abnorm.Tenderize = abnorm.MaxTenderize;
+
                 }
 
             };

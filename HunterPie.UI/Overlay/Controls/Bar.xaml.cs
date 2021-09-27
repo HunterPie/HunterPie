@@ -65,6 +65,14 @@ namespace HunterPie.UI.Overlay.Controls
         public static readonly DependencyProperty ForegroundDelayedProperty =
             DependencyProperty.Register("ForegroundDelayed", typeof(Brush), typeof(Bar));
 
+        public Visibility MarkersVisibility
+        {
+            get { return (Visibility)GetValue(MarkersVisibilityProperty); }
+            set { SetValue(MarkersVisibilityProperty, value); }
+        }
+        public static readonly DependencyProperty MarkersVisibilityProperty =
+            DependencyProperty.Register("MarkersVisibility", typeof(Visibility), typeof(Bar), new PropertyMetadata(Visibility.Visible));
+
         public Bar()
         {
             InitializeComponent();
@@ -107,7 +115,7 @@ namespace HunterPie.UI.Overlay.Controls
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             
-            double value = (double)e.NewSize.Width * ((double)Value / MaxValue) - 4;
+            double value = (double)e.NewSize.Width * ((double)Value / MaxValue) - (BorderThickness.Left + BorderThickness.Right);
 
             value = Math.Max(1.0, value);
             
