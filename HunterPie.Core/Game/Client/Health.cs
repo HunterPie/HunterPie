@@ -11,7 +11,6 @@ namespace HunterPie.Core.Game.Client
 {
     public class Health : Scannable, IEventDispatcher
     {
-        private readonly IProcessManager _process;
 
         public event EventHandler<EventArgs> OnHealthUpdate;
         public event EventHandler<EventArgs> OnMaxHealthUpdate;
@@ -20,8 +19,9 @@ namespace HunterPie.Core.Game.Client
         public event EventHandler<EventArgs> OnHealthExtStateUpdate;
 
         public Health(IProcessManager process)
+            : base(process)
         {
-            _process = process;
+            
         }
 
 

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+#pragma warning disable IDE0051
 
 namespace HunterPie.Core.Game.Environment
 {
@@ -14,7 +15,6 @@ namespace HunterPie.Core.Game.Environment
     {
         #region Private
 
-        private IProcessManager _process;
         private long _monsterAddress;
         private int _index;
 
@@ -58,18 +58,13 @@ namespace HunterPie.Core.Game.Environment
 
 
         public Monster(IProcessManager process, int index)
+            : base(process)
         {
-            _process = process;
-
-            SetupScanners();
+            _index = index;
         }
 
-        private void SetupScanners()
-        {
-            Add(GetMonsterAddress);
-        }
-
-        private MonsterAddressData GetMonsterAddress()
+        [ScannableMethod(typeof(MonsterAddressData))]
+        private void GetMonsterAddress()
         {
             MonsterAddressData dto = new();
 
@@ -96,10 +91,10 @@ namespace HunterPie.Core.Game.Environment
             Next(ref dto);
 
             MonsterAddress = dto.Address;
-            return dto;
         }
 
-        private MonsterInformationData GetMonsterInformation()
+        [ScannableMethod(typeof(MonsterInformationData))]
+        private void GetMonsterInformation()
         {
             MonsterInformationData dto = new();
 
@@ -112,20 +107,20 @@ namespace HunterPie.Core.Game.Environment
                 if (monsterEmSplit.ElementAtOrDefault(3) is null)
                 {
                     Model = null;
-                    return dto;
+                    return;
                 }
 
                 monsterEm = monsterEmSplit.LastOrDefault();
                 
                 if (!monsterEm.StartsWith("em"))
-                    return dto;
+                    return;
 
 
             }
 
             Next(ref dto);
 
-            return dto;
+            return;
         }
     }
 }

@@ -1,6 +1,10 @@
-﻿using HunterPie.Core.Logger;
+﻿using HunterPie.Core.Domain.Memory;
+using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Logger;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
 
 namespace HunterPie.Core.Domain
@@ -11,12 +15,45 @@ namespace HunterPie.Core.Domain
     /// <summary>
     /// Implementation for a scannable entity, handles the scan and middlewares internally
     /// </summary>
-    public class Scannable
+    abstract public class Scannable
     {
-
+        protected readonly IProcessManager _process;
+        protected IMemory Memory => _process.Memory;
         private readonly Dictionary<Type, HashSet<Delegate>> middlewares = new Dictionary<Type, HashSet<Delegate>>();
         private readonly List<Delegate> scanners = new List<Delegate>();
         
+        public Scannable(IProcessManager process)
+        {
+            _process = process;
+
+            AppendScannableMethods();
+        }
+
+        public Scannable()
+        {
+            AppendScannableMethods();
+        }
+
+        private void AppendScannableMethods()
+        {
+            Type self = GetType();
+            var methods = self.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+
+            foreach (var method in methods)
+            {
+                var scannableAttributes = method.GetCustomAttributes(typeof(ScannableMethod), true);
+
+                if (scannableAttributes.Length <= 0)
+                    continue;
+
+                ScannableMethod attrib = (ScannableMethod)scannableAttributes.First();
+
+                Action func = (Action)Delegate.CreateDelegate(typeof(Action), this, method.Name);
+
+                Add(attrib.DtoType, func);
+            }
+        }
+
         /// <summary>
         /// Calls each scanning function added to the scanners list
         /// </summary>
@@ -45,6 +82,15 @@ namespace HunterPie.Core.Domain
             return true;
         }
 
+        protected bool Add(Type type, Action scanner)
+        {
+            scanners.Add(scanner);
+
+            if (!middlewares.ContainsKey(type))
+                middlewares.Add(type, new());
+
+            return true;
+        }  
 
         /// <summary>
         /// Calls the middlewares

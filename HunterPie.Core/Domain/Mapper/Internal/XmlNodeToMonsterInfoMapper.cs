@@ -35,7 +35,6 @@ namespace HunterPie.Core.Domain.Mapper.Internal
                 .Select(node => MapFactory.Map<WeaknessInfo>(node))
                 .ToArray();
 
-            info.Parts = 
 
             return info;
         }

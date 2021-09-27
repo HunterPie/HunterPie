@@ -10,6 +10,6 @@ namespace HunterPie.Core.Game.Data
     public class MonsterData
     {
         private static XmlDocument _monsterXmlDocument;
-        private static Dictionary<int, MonsterInfo>
+        //private static Dictionary<int, MonsterInfo>
     }
 }

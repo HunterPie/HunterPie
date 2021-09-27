@@ -23,15 +23,14 @@ namespace HunterPie.Core.Tests
             public string TestValue { get; private set; }
             public int TestValue2 { get; private set; }
 
-            public TestEntity()
+            public TestEntity() : base()
             {
-                Add(ScanTestData);
-                Add(ScanTestData2);
             }
 
             public void ScanData() => Scan();
 
-            public TestDTO ScanTestData()
+            [ScannableMethod(typeof(TestDTO))]
+            private void ScanTestData()
             {
                 TestDTO dto = new()
                 {
@@ -41,17 +40,16 @@ namespace HunterPie.Core.Tests
                 Next(ref dto);
                 TestValue = dto.TestValue;
 
-                return dto;
             }
 
-            public Test2DTO ScanTestData2()
+            [ScannableMethod(typeof(Test2DTO))]
+            private void ScanTestData2()
             {
                 Test2DTO dto = new() { TestValue = 20 };
 
                 Next(ref dto);
                 TestValue2 = dto.TestValue;
 
-                return dto;
             }
 
         }

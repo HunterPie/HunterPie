@@ -9,6 +9,7 @@ using HunterPie.Core.Logger;
 using System;
 using System.Linq;
 
+#pragma warning disable IDE0051
 namespace HunterPie.Core.Game.Client
 {
 
@@ -31,12 +32,13 @@ namespace HunterPie.Core.Game.Client
 
         #region Private fields
 
-        private IProcessManager _process;
         private long _playerAddress;
         private Stage _zoneId;
         private Weapon _weaponId;
         private SpecializedTool _primaryTool = new SpecializedTool();
         private SpecializedTool _secondaryTool = new SpecializedTool();
+
+        internal Player(IProcessManager process) : base(process) {}
 
         #endregion
 
@@ -122,21 +124,9 @@ namespace HunterPie.Core.Game.Client
         public event EventHandler<EventArgs> OnVillageLeave;
         public event EventHandler<EventArgs> OnAilmentUpdate;
         
-        internal Player(IProcessManager process)
-        {
-            _process = process;
 
-            SetupScanners();
-        }
-
-        private void SetupScanners()
-        {
-            Add(GetZoneData);
-            Add(GetBasicData);
-            Add(GetWeaponData);
-        }
-
-        private ZoneData GetZoneData()
+        [ScannableMethod(typeof(ZoneData))]
+        private void GetZoneData()
         {
             ZoneData data = new();
 
@@ -151,16 +141,16 @@ namespace HunterPie.Core.Game.Client
 
             ZoneId = data.ZoneId;
             
-            return data;
         }
 
-        private PlayerInformationData GetBasicData()
+        [ScannableMethod(typeof(PlayerInformationData))]
+        private void GetBasicData()
         {
             PlayerInformationData data = new();
             if (ZoneId == Stage.MainMenu)
             {
                 PlayerAddress = 0;
-                return data;
+                return;
             }
 
             long firstSaveAddress = _process.Memory.Read(
@@ -190,15 +180,15 @@ namespace HunterPie.Core.Game.Client
                 PlayerAddress = currentPlayerSaveHeader;
             }
 
-            return data;
         }
 
-        private PlayerEquipmentData GetWeaponData()
+        [ScannableMethod(typeof(PlayerEquipmentData))]
+        private void GetWeaponData()
         {
             PlayerEquipmentData data = new();
 
             if (!IsLoggedOn)
-                return data;
+                return;
 
             long address = _process.Memory.Read(
                 AddressMap.GetAbsolute("WEAPON_OFFSET"),
@@ -214,7 +204,7 @@ namespace HunterPie.Core.Game.Client
 
             WeaponId = data.WeaponType;
 
-            return data;
+            return;
         }
     }
 }
