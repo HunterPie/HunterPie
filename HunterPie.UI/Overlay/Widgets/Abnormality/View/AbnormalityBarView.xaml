@@ -15,24 +15,35 @@
              Loaded="View_Loaded">
     <UserControl.Resources>
         <converter:AbnormalityStringToIconConverter x:Key="AbnormalityStringToIconConverter"/>
+        <converter:OrientationToOppositeConverter x:Key="OrientationToOppositeConverter"/>
+        <converter:OrientationConverter x:Key="OrientationConverter"/>
     </UserControl.Resources>
     <Grid>
         <ItemsControl ItemsSource="{Binding Abnormalities}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel ItemWidth="30"
-                               ItemHeight="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"
-                               Orientation="Vertical"/>
+                    <WrapPanel ItemHeight="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"
+                               Orientation="{Binding Settings.Orientation.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityBarView}}, Mode=OneWay, Converter={StaticResource OrientationConverter}}"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type vm:AbnormalityBarViewModel}">
-                    <overlay:Abnormality Icon="{Binding Icon, Converter={StaticResource AbnormalityStringToIconConverter}}"
-                                         Time="{Binding Timer}"
-                                         MaxTime="{Binding MaxTimer}"
-                                         IsBuff="{Binding IsBuff}"
-                                         Margin="2"/>
+                    <StackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}, Converter={StaticResource OrientationToOppositeConverter}}">
+                        <overlay:Abnormality Icon="{Binding Icon, Converter={StaticResource AbnormalityStringToIconConverter}}"
+                                             Time="{Binding Timer}"
+                                             MaxTime="{Binding MaxTimer}"
+                                             IsBuff="{Binding IsBuff}"
+                                             Margin="2,2,5,5"
+                                             Width="25"
+                                             Height="25"/>
+                        <TextBlock Text="{Binding Timer}"
+                                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

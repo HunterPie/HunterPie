@@ -1,6 +1,8 @@
 ﻿using HunterPie.Core.Logger;
+using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture.Extensions;
 using HunterPie.UI.Overlay.Components;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -41,8 +43,9 @@ namespace HunterPie.UI.Overlay
 
         private WidgetManager() { }
 
-        public static bool Register(IWidget widget)
+        public static bool Register<T>(IWidget<T> widget) where T : IWidgetSettings
         {
+
             WidgetBase wnd = new WidgetBase() { Widget = widget };
             Instance._widgets.Add(wnd);
             wnd.Show();

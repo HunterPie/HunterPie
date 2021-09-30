@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
 
@@ -23,5 +24,8 @@ namespace HunterPie.Core.Client.Configuration.Overlay
 
         [SettingField("A", "B")]
         public Observable<bool> StreamerMode { get; set; } = false;
+
+        [SettingField("ORIENTATION", "ORIENTATION_DESC")]
+        public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Horizontal;
     }
 }

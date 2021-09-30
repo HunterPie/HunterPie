@@ -6,9 +6,7 @@
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Components"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
-             mc:Ignorable="d" 
-             d:DesignHeight="30" 
-             d:DesignWidth="400"
+             mc:Ignorable="d"
              Loaded="OnLoaded">
     <UserControl.Resources>
         <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
@@ -20,28 +18,35 @@
                    Stroke="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}"
                    StrokeThickness="2"/>
         <Grid Margin="10,0,10,0">
-            <TextBlock Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}}"
-                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
-                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Left"
-                       FontSize="15"/>
-            <TextBlock Margin="0,0,50,0"
-                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
-                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Right">
-                <Run Text="x:"/>
-                <Run Text="{Binding Left, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}, StringFormat=\{0:F0\}}"
-                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
-                <Run Text="y:"/>
-                <Run Text="{Binding Top, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}, StringFormat=\{0:F0\}}"
-                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
-            </TextBlock>
-            <buttons:Button HorizontalAlignment="Right"
-                            Content="✕"
-                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                            OnClick="OnCloseButtonClick"/>
+            <DockPanel>
+                <TextBlock Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}}"
+                           Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                           d:Text="Example Widget"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           FontSize="15"
+                           DockPanel.Dock="Left"
+                           Margin="0,0,5,0"/>
+                <buttons:Button HorizontalAlignment="Right"
+                                DockPanel.Dock="Right"
+                                Content="✕"
+                                Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                OnClick="OnCloseButtonClick"/>
+                <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           DockPanel.Dock="Right">
+                    <Run Text="x:"/>
+                    <Run Text="{Binding Left, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}, StringFormat=\{0:F0\}}"
+                         Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
+                    <Run Text="y:"/>
+                    <Run Text="{Binding Top, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}, StringFormat=\{0:F0\}}"
+                         Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
+                </TextBlock>
+                
+            </DockPanel>
         </Grid>
     </Grid>
 </UserControl>

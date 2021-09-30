@@ -1,6 +1,5 @@
 ﻿using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Settings.Converter;
-using System;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;

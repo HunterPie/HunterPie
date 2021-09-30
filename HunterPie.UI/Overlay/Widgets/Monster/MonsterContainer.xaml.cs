@@ -1,9 +1,12 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Logger;
 using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -13,7 +16,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
     /// <summary>
     /// Interaction logic for MonsterContainer.xaml
     /// </summary>
-    public partial class MonsterContainer : View<MonsterViewModel>, IWidget 
+    public partial class MonsterContainer : View<MonsterViewModel>, IWidget<MonsterWidgetConfig>
     {
 
         public MonsterContainer()
@@ -22,9 +25,10 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             
         }
 
-        public IWidgetSettings Settings => ClientConfig.Config.Overlay.EndemicWidget;
 
         public string Title => "Monster Widget";
+
+        public MonsterWidgetConfig Settings => ClientConfig.Config.Overlay.EndemicWidget;
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -58,6 +62,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             Random rng = new();
             updater.Tick += (_, __) =>
             {
+                
                 foreach (var abnorm in ViewModel.Parts)
                 {
                     abnorm.Health -= rng.NextDouble() * 100;

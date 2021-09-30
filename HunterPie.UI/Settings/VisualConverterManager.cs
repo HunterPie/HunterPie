@@ -9,7 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace HunterPie.UI.Settings
 {
@@ -29,9 +32,10 @@ namespace HunterPie.UI.Settings
 
         private readonly Dictionary<Type, IVisualConverter> _converters = new Dictionary<Type, IVisualConverter>()
         {
-            { typeof(Observable<bool>), new BooleanVisualConverter() },
-            { typeof(Observable<string>), new StringVisualConverter() },
-            { typeof(IFileSelector), new FileSelectorVisualConverter() }
+            { typeof(bool), new BooleanVisualConverter() },
+            { typeof(string), new StringVisualConverter() },
+            { typeof(IFileSelector), new FileSelectorVisualConverter() },
+            { typeof(Enum), new EnumVisualConverter() },
         };
 
         private VisualConverterManager() {}
@@ -79,6 +83,12 @@ namespace HunterPie.UI.Settings
             }
 
             Type type = childInfo.PropertyType;
+
+            if (type.IsGenericType)
+                type = type.GenericTypeArguments.FirstOrDefault();
+
+            if (type.IsEnum)
+                return Instance._converters[typeof(Enum)].Build(parent, childInfo);
 
             if (!Instance._converters.ContainsKey(type))
                 return null;

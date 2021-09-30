@@ -15,16 +15,25 @@ namespace HunterPie.Core.Converters
         {
             
             var T = objectType.GetGenericArguments()[0];
-            var value = reader.Value != null 
-                ? Convert.ChangeType(reader.Value, T)
-                : null;
+            object value;
+            if (T.IsEnum)
+            {
+                value = Enum.Parse(T, reader.Value.ToString());
+            } else
+            {
+                value = reader.Value != null
+                    ? Convert.ChangeType(reader.Value, T)
+                    : null;
+            }
+             
 
             var observable = Activator.CreateInstance(objectType, value);
 
             if (value is null)
                 return observable;
 
-            objectType.GetProperty(nameof(Observable<object>.Value)).SetValue(existingValue, value);
+            objectType.GetProperty(nameof(Observable<object>.Value))
+                .SetValue(existingValue, value);
 
             return existingValue;
         }

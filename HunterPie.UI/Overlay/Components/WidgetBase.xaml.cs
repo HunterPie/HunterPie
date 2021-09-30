@@ -9,9 +9,9 @@ namespace HunterPie.UI.Overlay.Components
     /// </summary>
     public partial class WidgetBase : Window, INotifyPropertyChanged
     {
-        private IWidget _widget;
+        private object _widget;
         
-        public IWidget Widget
+        public object Widget
         {
             get => _widget;
             internal set

@@ -1,15 +1,10 @@
 ﻿using HunterPie.Core.Settings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HunterPie.UI.Overlay
 {
-    public interface IWidget
+    public interface IWidget<T> where T : IWidgetSettings
     {
-        public IWidgetSettings Settings { get; }
+        public T Settings { get; }
         public string Title { get; }
     }
 }
