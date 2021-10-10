@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Game\Client\Data\" />
     <Folder Include="Game\Events\" />
   </ItemGroup>
 

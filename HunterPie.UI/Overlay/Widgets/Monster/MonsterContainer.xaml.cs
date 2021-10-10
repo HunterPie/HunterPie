@@ -54,6 +54,17 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
                         MaxTenderize = 300.0
                     }
                 );
+
+                ViewModel.Ailments.Add(
+                    new MonsterAilmentViewModel()
+                    {
+                        Name = "Ailment",
+                        Timer = 200.0,
+                        MaxTimer = 200.0,
+                        Buildup = 200.0,
+                        MaxBuildup = 200.0
+                    }    
+                );
             }
             var updater = new DispatcherTimer()
             {

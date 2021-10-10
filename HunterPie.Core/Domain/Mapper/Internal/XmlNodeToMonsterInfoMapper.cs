@@ -32,7 +32,7 @@ namespace HunterPie.Core.Domain.Mapper.Internal
 
             info.Weaknesses = data.SelectNodes("Weaknesses/Weakness")!
                 .Cast<XmlNode>()
-                .Select(node => MapFactory.Map<WeaknessInfo>(node))
+                .Select(node => MapFactory.Map<XmlNode, WeaknessInfo>(node))
                 .ToArray();
 
 

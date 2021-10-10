@@ -37,7 +37,7 @@ namespace HunterPie.Core.Domain.Mapper
         /// <typeparam name="TOut">Type to map to</typeparam>
         /// <param name="object">Object to be mapped</param>
         /// <returns>Mapped object</returns>
-        public static TOut Map<TOut>(object @object)
+        public static TOut Map<TIn, TOut>(TIn @object)
         {
             if (!_mappers.ContainsKey(@object.GetType()))
                 return default;
@@ -47,9 +47,9 @@ namespace HunterPie.Core.Domain.Mapper
 
             Type mapperType = _mappers[@object.GetType()][typeof(TOut)];
 
-            IMapper<object, object> mapper = (IMapper<object, object>)Activator.CreateInstance(mapperType);
+            IMapper<TIn, TOut> mapper = (IMapper<TIn, TOut>)Activator.CreateInstance(mapperType);
 
-            return (TOut)mapper.Map(@object);
+            return mapper.Map(@object);
         }
     }
 }

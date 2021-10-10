@@ -51,7 +51,7 @@ namespace HunterPie.Core.Domain.Mapper.Internal
 
                 pInfo.BreakThresholds = partData.SelectNodes("Break")
                     .Cast<XmlNode>()
-                    .Select(node => MapFactory.Map<ThresholdInfo>(node))
+                    .Select(node => MapFactory.Map<XmlNode, ThresholdInfo>(node))
                     .ToArray();
 
                 parts.Add(pInfo);

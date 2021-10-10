@@ -51,12 +51,13 @@
                        Width="{Binding Height, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MonsterContainer}}}"
                        Margin="0,0,5,0"/>
                 <TextBlock Text="{Binding Name}"
-                       d:Text="Dodogama"
-                       VerticalAlignment="Top"
-                       HorizontalAlignment="Left"
-                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                       FontSize="15"/>
+                           d:Text="Dodogama"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Left"
+                           Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                           FontSize="15">
+                </TextBlock>
             </StackPanel>
 
 
@@ -191,21 +192,40 @@
                    Width="40"/>
         </Grid>
 
-        <ItemsControl ItemsSource="{Binding Parts, NotifyOnSourceUpdated=True}"
-                      Grid.Row="1">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel MaxHeight="200"
-                               ItemWidth="200"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+        <StackPanel Grid.Row="1"
+                    Orientation="Vertical">
+            <!-- Ailments -->
+            <ItemsControl ItemsSource="{Binding Ailments, NotifyOnSourceUpdated=True}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel MaxHeight="200"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
 
-            <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:MonsterPartViewModel}">
-                    <view:BossMonsterPartView VerticalAlignment="Top"
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:MonsterPartViewModel}">
+                        <view:BossMonsterAilmentView VerticalAlignment="Top"
+                                                     HorizontalAlignment="Stretch"
+                                                     Margin="4,0,4,0"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- Parts -->
+            <ItemsControl ItemsSource="{Binding Parts, NotifyOnSourceUpdated=True}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel ItemWidth="200"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:MonsterPartViewModel}">
+                        <view:BossMonsterPartView VerticalAlignment="Top"
                                               HorizontalAlignment="Stretch"/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
     </Grid>
 </arch:View>

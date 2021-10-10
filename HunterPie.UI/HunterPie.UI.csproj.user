@@ -38,6 +38,9 @@
     <Compile Update="Overlay\Widgets\Monster\MonsterContainer.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Monster\Views\BossMonsterAilmentView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Monster\Views\BossMonsterPartView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -86,6 +89,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Monster\MonsterContainer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Monster\Views\BossMonsterAilmentView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Monster\Views\BossMonsterPartView.xaml">

@@ -67,6 +67,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         }
 
         public ref readonly ObservableCollection<MonsterPartViewModel> Parts => ref parts;
+        public ref readonly ObservableCollection<MonsterAilmentViewModel> Ailments => ref ailments;
 
         // Monster states
         public bool IsEnraged
