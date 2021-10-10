@@ -48,11 +48,9 @@ namespace HunterPie.UI.Controls.Settings
             Point pos = e.GetPosition(this);
 
             double left = pos.X - (PART_Highlight.ActualWidth / 2);
-            double top = pos.Y - (PART_Highlight.ActualHeight / 2);
+            double top = 0;
 
             PART_Highlight.Margin = new Thickness(left, top, 0, 0);
         }
-
-
     }
 }

@@ -23,7 +23,7 @@
             <Rectangle x:Name="PART_Highlight"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Left"
-                   Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=2}"
+                   Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
                    Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=2}"
                    Opacity="0"
                    Style="{StaticResource StyleHighlight}">
