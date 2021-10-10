@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="HunterPie.UI.Controls.Sliders.Range"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Controls.Sliders"
+             mc:Ignorable="d"
+             d:Width="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="59*"/>
+            <ColumnDefinition Width="16*"/>
+        </Grid.ColumnDefinitions>
+        <Slider Value="{Binding Value}"
+                Maximum="{Binding Maximum}"
+                Minimum="{Binding Minimum}"
+                SmallChange="{Binding Change}"
+                d:Value="50"
+                d:Minimum="0"
+                d:Maximum="100"
+                Style="{StaticResource SliderDefault}"
+                Margin="3,0,3,0" 
+                AutoToolTipPlacement="TopLeft"/>
+        <TextBox Text="{Binding Value}"
+                 d:Text="50"
+                 HorizontalAlignment="Stretch" 
+                 TextAlignment="Center"
+                 Grid.Column="1"
+                 FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+    </Grid>
+</UserControl>

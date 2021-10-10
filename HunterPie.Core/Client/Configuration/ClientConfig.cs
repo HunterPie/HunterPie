@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Domain.Generics;
 using HunterPie.Core.Settings;
+using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration
 {
@@ -15,5 +16,8 @@ namespace HunterPie.Core.Client.Configuration
 
         [SettingField("MINIMIZE_TO_SYSTEM_TRAY_STRING", "MINIMIZE_TO_SYSTEM_TRAY_STRING_DESC")]
         public Observable<bool> MinimizeToSystemTray { get; set; } = true;
+
+        [SettingField("MINIMIZE_TO_SYSTEM_TRAY_STRING", "MINIMIZE_TO_SYSTEM_TRAY_STRING_DESC")]
+        public Range RangeTest { get; set; } = new() { Max = 100, Min = 0, Step = 1, Current = 60 };
     }
 }

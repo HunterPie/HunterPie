@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Architecture;
-using HunterPie.Core.Logger;
+﻿using HunterPie.Core.Logger;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Controls.Settings.ViewModel;
@@ -9,10 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
+using Range = HunterPie.Core.Settings.Types.Range;
 
 namespace HunterPie.UI.Settings
 {
@@ -34,6 +31,7 @@ namespace HunterPie.UI.Settings
         {
             { typeof(bool), new BooleanVisualConverter() },
             { typeof(string), new StringVisualConverter() },
+            { typeof(Range), new RangeVisualConverter() },
             { typeof(IFileSelector), new FileSelectorVisualConverter() },
             { typeof(Enum), new EnumVisualConverter() },
         };
