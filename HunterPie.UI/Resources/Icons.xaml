@@ -224,6 +224,14 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="ICON_EYE">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}" Geometry="F1 M24,24z M0,0z M15,12C15,13.654 13.654,15 12,15 10.346,15 9,13.654 9,12 9,10.346 10.346,9 12,9 13.654,9 15,10.346 15,12z M24,11.551C24,11.551 19.748,20 12.015,20 4.835,20 0,11.551 0,11.551 0,11.551 4.446,4 12.015,4 19.709,4 24,11.551 24,11.551z M17,12C17,9.243 14.757,7 12,7 9.243,7 7,9.243 7,12 7,14.757 9.243,17 12,17 14.757,17 17,14.757 17,12z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <!-- Monster Crowns -->
     <DrawingImage x:Key="CROWN_MINI">
         <DrawingImage.Drawing>

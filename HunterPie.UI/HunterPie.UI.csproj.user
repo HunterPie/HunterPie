@@ -20,6 +20,9 @@
     <Compile Update="Controls\Sliders\Range.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\TextBox\SecretTextBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Dialog\DialogView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -74,6 +77,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Sliders\Range.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\TextBox\SecretTextBox.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Dialog\DialogView.xaml">

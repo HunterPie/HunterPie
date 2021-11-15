@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using HunterPie.Core.Architecture;
 
 namespace HunterPie.Core.Settings.Types
 {
-    public class Secret
+    public class Secret : Bindable
     {
-        public string Value { get; set; }
+        private string _value;
+
+        public string Value
+        {
+            get => _value;
+            set { SetValue(ref _value, value); }
+        }
 
         public override string ToString()
         {

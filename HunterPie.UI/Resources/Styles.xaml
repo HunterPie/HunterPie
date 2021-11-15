@@ -354,7 +354,18 @@
         <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
         <Setter Property="FontSize" Value="16"/>
     </Style>
-    
+
+    <!-- PasswordBox -->
+    <Style x:Key="{x:Type PasswordBox}" TargetType="{x:Type PasswordBox}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="CaretBrush" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
+        <Setter Property="Foreground" Value="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+        <Setter Property="FontSize" Value="16"/>
+    </Style>
+
     <!-- Highlight -->
     <Style x:Key="StyleHighlight" TargetType="{x:Type Rectangle}">
         <Style.Triggers>
