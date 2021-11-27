@@ -51,7 +51,8 @@
                             Margin="5,5,25,5"/>
             <Image Source="{StaticResource ICON_INFO}"
                    ToolTip="{Binding Description, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
-                   Width="20"
+                   Width="18"
+                   Margin="2"
                    HorizontalAlignment="Right"/>
         </Grid>
 

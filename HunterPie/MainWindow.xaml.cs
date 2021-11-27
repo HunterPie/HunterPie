@@ -36,8 +36,6 @@ namespace HunterPie
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
-            WidgetManager.Register(new MonsterContainer());
-            WidgetManager.Register(new AbnormalityBarView());
         }
 
         protected override void OnClosing(CancelEventArgs e)

@@ -53,6 +53,15 @@
     <!-- Constants -->
     <sys:Double x:Key="HUNTERPIE_SIDEBAR_WIDTH">300</sys:Double>
 
+    <!-- Styles -->
+    <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}">
+        <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+        <Setter Property="Background" Value="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"/>
+        <Setter Property="Foreground" Value="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+
     <SolidColorBrush x:Key="StandardBorderBrush" Color="#888" />
     <SolidColorBrush x:Key="StandardBackgroundBrush" Color="Black" />
     <SolidColorBrush x:Key="HoverBorderBrush" Color="#DDD" />
@@ -411,7 +420,7 @@
                 <ControlTemplate TargetType="RepeatButton">
                     <Border SnapsToDevicePixels="True"  
                             BorderThickness="0" 
-                            Height="1"
+                            Height="2"
                             Background="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
                 </ControlTemplate>
             </Setter.Value>
