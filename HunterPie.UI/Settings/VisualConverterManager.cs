@@ -32,6 +32,7 @@ namespace HunterPie.UI.Settings
             { typeof(bool), new BooleanVisualConverter() },
             { typeof(string), new StringVisualConverter() },
             { typeof(Range), new RangeVisualConverter() },
+            { typeof(Secret), new SecretVisualConverter() },
             { typeof(IFileSelector), new FileSelectorVisualConverter() },
             { typeof(Enum), new EnumVisualConverter() },
         };

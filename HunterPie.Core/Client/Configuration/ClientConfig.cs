@@ -19,5 +19,8 @@ namespace HunterPie.Core.Client.Configuration
 
         [SettingField("MINIMIZE_TO_SYSTEM_TRAY_STRING", "MINIMIZE_TO_SYSTEM_TRAY_STRING_DESC")]
         public Range RangeTest { get; set; } = new() { Max = 100, Min = 0, Step = 1, Current = 60 };
+
+        [SettingField("PASSWORD_TEXT_STRING", "PASSWORD_TEXT_STRING_DESC")]
+        public Secret Password { get; set; } = new();
     }
 }
