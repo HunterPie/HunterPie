@@ -8,5 +8,6 @@ namespace HunterPie.Core.Client.Configuration
     {
         public MonsterWidgetConfig EndemicWidget { get; set; } = new MonsterWidgetConfig();
         public AbnormalityWidgetConfig AbnormalityWidget { get; set; } = new AbnormalityWidgetConfig();
+        public TelemetricsWidgetConfig DebugWidget { get; set; } = new TelemetricsWidgetConfig();
     }
 }
