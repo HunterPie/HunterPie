@@ -41,6 +41,9 @@
     <Compile Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Metrics\View\TelemetricsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Monster\MonsterContainer.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -98,6 +101,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Metrics\View\TelemetricsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Monster\MonsterContainer.xaml">
