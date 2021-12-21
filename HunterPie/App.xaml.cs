@@ -13,6 +13,8 @@ using HunterPie.Core.Domain.Dialog;
 using HunterPie.UI.Dialog;
 using HunterPie.Core.Game.Data;
 using HunterPie.Core.Client;
+using HunterPie.Core.System;
+using HunterPie.Core.Events;
 
 namespace HunterPie
 {
@@ -21,8 +23,8 @@ namespace HunterPie
     /// </summary>
     public partial class App : Application
     {
-        private IProcessManager process;
-        private Context context;
+        private IProcessManager _process;
+        private Context _context;
 
         public App()
         {
@@ -56,11 +58,36 @@ namespace HunterPie
 
         private void InitializeProcessScanner()
         {
-            process = new WindowsProcessManager();
-            process.Initialize();
+            ProcessManager.OnProcessFound += OnProcessFound;
+            ProcessManager.OnProcessClosed += OnProcessClosed;
 
-            process.OnGameStart += OnGameStart;
-            process.OnGameClosed += OnGameClosed;
+            ProcessManager.Start();
+        }
+
+        private void OnProcessClosed(object sender, ProcessManagerEventArgs e)
+        {
+            if (_process is null)
+                return;
+
+            _process = null;
+            _context = null;
+        }
+
+        private void OnProcessFound(object sender, ProcessManagerEventArgs e)
+        {
+            if (_process is not null)
+            {
+                Log.Info("HunterPie is already hooked to another process.");
+                return;
+            }
+
+            _process = e.Process;
+            Context context = GameManager.GetGameContext(e.ProcessName, _process);
+            
+            Log.Debug("Initialized game context");
+            
+            _context = context;
+            
         }
 
         private void InitializeExceptionsCatcher()
@@ -82,28 +109,6 @@ namespace HunterPie
         {
             INativeDialogFactory factory = new UIDialogFactory();
             _ = new DialogManager(factory);
-        }
-
-        private void OnGameClosed(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private async void OnGameStart(object sender, EventArgs e)
-        {
-            GameManager game = new GameManager(process);
-            Strings strings = new Strings(process);
-            await strings.InitializeGMDs();
-
-            SongSkill songSkills = new SongSkill(process);
-
-            context = new Context(
-                    process,
-                    strings,
-                    songSkills,
-                    game
-                );
-
         }
 
         private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)

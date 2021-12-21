@@ -1,42 +1,26 @@
 ﻿using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Game.Client;
+using HunterPie.Core.Game.World;
+using System;
 
 namespace HunterPie.Core.Game
 {
     /// <summary>
-    /// Manager responsible to sync in-game entities
+    /// Manager responsible to return the game context
     /// </summary>
-    public class GameManager
+    internal static class GameManager
     {
-        #region Private fields
-
-        private readonly IProcessManager processManager;
-
-        #endregion
-
-        public Player Player { get; private set; }
-
-
-        internal GameManager(IProcessManager process)
+        public static Context GetGameContext(string processName, IProcessManager process)
         {
-            processManager = process;
-        }
-
-        private void CreateEntities()
-        {
-            Player = new Player(processManager);
-        }
-
-        internal void SetupScanners()
-        {
-            CreateEntities();
-
-            ScanManager.Add(
-                Player    
-            );
-
-            ScanManager.Start();
+            // TODO: Make this a dictionary
+            switch (processName)
+            {
+                case "MonsterHunterWorld":
+                    return new MHWContext(process);
+                default:
+                    throw new Exception("Game context not implemented");
+            }
         }
     }
 }

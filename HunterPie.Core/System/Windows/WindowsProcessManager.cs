@@ -12,24 +12,26 @@ using HunterPie.Core.System.Windows.Native;
 using System.IO;
 using HunterPie.Core.System.Windows.Memory;
 using HunterPie.Core.Client;
+using HunterPie.Core.Events;
 
 namespace HunterPie.Core.System.Windows
 {
-    public class WindowsProcessManager : IProcessManager, IEventDispatcher
+    abstract class WindowsProcessManager : IProcessManager, IEventDispatcher
     {
 
         private Timer pooler;
+        private readonly object _lock = new();
         private bool isProcessForeground;
        
         private IMemory memory; 
         private IntPtr pHandle;
 
-        public const string Name = "MonsterHunterWorld";
+        public event EventHandler<ProcessEventArgs> OnGameStart;
+        public event EventHandler<ProcessEventArgs> OnGameClosed;
+        public event EventHandler<ProcessEventArgs> OnGameFocus;
+        public event EventHandler<ProcessEventArgs> OnGameUnfocus;
 
-        public event EventHandler<EventArgs> OnGameStart;
-        public event EventHandler<EventArgs> OnGameClosed;
-        public event EventHandler<EventArgs> OnGameFocus;
-        public event EventHandler<EventArgs> OnGameUnfocus;
+        public virtual string Name { get; }
 
         public int Version { get; private set; }
         public Process Process { get; private set; }
@@ -47,7 +49,7 @@ namespace HunterPie.Core.System.Windows
                     this.Dispatch(
                         value ? OnGameFocus 
                               : OnGameUnfocus, 
-                        EventArgs.Empty
+                        new ProcessEventArgs(Name)
                         );
                 }
             }
@@ -57,8 +59,8 @@ namespace HunterPie.Core.System.Windows
 
         public void Initialize()
         {
-            Log.Info("Started scanning for Monster Hunter: World process...");
-            pooler = new Timer(delegate { PoolProcessInfo(); } , null, 0, 80);
+            Log.Info($"Started scanning for process {Name}...");
+            pooler = new Timer(delegate { lock(_lock) { PoolProcessInfo(); } } , null, 0, 80);
         }
 
         private void PoolProcessInfo()
@@ -69,17 +71,13 @@ namespace HunterPie.Core.System.Windows
                 return;
             }
 
-            Process monsterHunterProcess = Process.GetProcessesByName(Name)
+            Process mhProcess = Process.GetProcessesByName(Name)
                 .FirstOrDefault(process => !string.IsNullOrEmpty(process.MainWindowTitle));
 
-            if (monsterHunterProcess is not null)
+            if (mhProcess is not null && ShouldOpenProcess(mhProcess))
             {
-                // If our process is in either another window, or not initialized yet
-                if (!monsterHunterProcess.MainWindowTitle.ToUpper().StartsWith("MONSTER HUNTER: WORLD"))
-                    return;
-
-                Process = monsterHunterProcess;
-                ProcessId = Process.Id;
+                Process = mhProcess;
+                ProcessId = mhProcess.Id;
                 pHandle = Kernel32.OpenProcess(Kernel32.PROCESS_ALL_ACCESS, false, ProcessId);
 
                 if (pHandle == IntPtr.Zero)
@@ -89,36 +87,20 @@ namespace HunterPie.Core.System.Windows
                     return;
                 }
 
-                string version = monsterHunterProcess.MainWindowTitle.Split('(')[1].Trim(')');
-                bool parsed = int.TryParse(version, out int parsedVersion);
-
-                if (!parsed)
-                {
-                    Log.Error("Failed to get Monster Hunter: World build version. Loading latest map version instead."); 
-                    AddressMap.ParseLatest(ClientInfo.AddressPath);
-                } else
-                {
-                    AddressMap.Parse(Path.Combine(ClientInfo.AddressPath, $"MonsterHunterWorld.{version}.map"));
-                }
-
-                if (!AddressMap.IsLoaded)
-                {
-                    Log.Error("Failed to parse map file");
-                    pooler.Dispose();
-                    return;
-                }
-
                 // Enable events from process
                 Process.EnableRaisingEvents = true;
                 Process.Exited += OnProcessExit;
 
                 IsRunning = true;
-                
+
                 memory = new WindowsMemory(pHandle);
 
-                this.Dispatch(OnGameStart);
+                this.Dispatch(OnGameStart, new(Name));
             }
+                
         }
+
+        protected abstract bool ShouldOpenProcess(Process process);
 
         private void OnProcessExit(object sender, EventArgs e)
         {
@@ -132,7 +114,8 @@ namespace HunterPie.Core.System.Windows
             
             pHandle = IntPtr.Zero;
 
-            this.Dispatch(OnGameClosed);
+            this.Dispatch(OnGameClosed, new(Name));
         }
+
     }
 }
