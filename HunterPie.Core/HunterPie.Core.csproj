@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <Folder Include="Game\Events\" />
-    <Folder Include="Game\World\" />
     <Folder Include="Game\Rise\" />
   </ItemGroup>
 
