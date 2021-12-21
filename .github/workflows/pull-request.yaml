@@ -1,0 +1,36 @@
+name: Pull Request Check
+
+on:
+  pull_request:
+    branches:
+      - master
+      - development
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Restore packages
+      shell: pwsh
+      run: msbuild -m /t:Restore
+
+    - name: Build apps
+      shell: pwsh
+      run: msbuild -m /p:Configuration=Debug
+
+    - name: Run Tests
+      shell: pwsh
+      run: msbuild -m /t:test HunterPie.Core.Tests/
