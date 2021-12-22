@@ -3,8 +3,7 @@ name: Pull Request Check
 on:
   pull_request:
     branches:
-      - master
-      - development
+      - main
 defaults:
   run:
     shell: bash
