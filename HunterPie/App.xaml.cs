@@ -15,6 +15,8 @@ using HunterPie.Core.Game.Data;
 using HunterPie.Core.Client;
 using HunterPie.Core.System;
 using HunterPie.Core.Events;
+using HunterPie.Internal.Intializers;
+using System.Windows.Navigation;
 
 namespace HunterPie
 {
@@ -26,42 +28,11 @@ namespace HunterPie
         private IProcessManager _process;
         private Context _context;
 
-        public App()
+        protected override void OnStartup(StartupEventArgs e)
         {
-#if DEBUG
-            InitializeLogger();
-#endif
-            InitializeBuiltinLogger();
-            InitializeExceptionsCatcher();
-            InitializeDialogManager();
-            InitializeProcessScanner();
-            InitializeUITracer();
-            ClientConfig.Initialize();
-            ConfigManager.Initialize();
-        }
+            base.OnStartup(e);
 
-        private static void InitializeLogger()
-        {
-            ILogger logger = new NativeLogger();
-            Log.Add(logger);
-
-            Log.Info("Hello world! HunterPie stdout has been initialized!");
-        }
-
-        private static void InitializeBuiltinLogger()
-        {
-            ILogger logger = new HunterPieLogger();
-            Log.Add(logger);
-
-            Log.Info("Initialized HunterPie logger");
-        }
-
-        private void InitializeProcessScanner()
-        {
-            ProcessManager.OnProcessFound += OnProcessFound;
-            ProcessManager.OnProcessClosed += OnProcessClosed;
-
-            ProcessManager.Start();
+            InitializerManager.Initialize();
         }
 
         private void OnProcessClosed(object sender, ProcessManagerEventArgs e)
@@ -88,27 +59,6 @@ namespace HunterPie
             
             _context = context;
             
-        }
-
-        private void InitializeExceptionsCatcher()
-        {
-            AppDomain.CurrentDomain.FirstChanceException += (_, args) =>
-            {
-                Log.Error(args.Exception);
-            };
-        }
-
-        private void InitializeUITracer()
-        {
-            PresentationTraceSources.Refresh();
-            PresentationTraceSources.DataBindingSource.Listeners.Add(new LogTracer());
-            PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Warning;
-        }
-
-        private void InitializeDialogManager()
-        {
-            INativeDialogFactory factory = new UIDialogFactory();
-            _ = new DialogManager(factory);
         }
 
         private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)

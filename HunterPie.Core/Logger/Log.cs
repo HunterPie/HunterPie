@@ -106,12 +106,29 @@ namespace HunterPie.Core.Logger
             }
         }
 
+        private static async void BenchmarkLog(params object[] args)
+        {
+            try
+            {
+                await _semaphore.WaitAsync();
+
+                foreach (ILogger logger in Instance._io)
+                    await logger.Benchmark(args);
+
+            }
+            catch { }
+            finally
+            {
+                _semaphore.Release();
+            }
+        }
+
         public static void Benchmark([CallerMemberName] string name = "")
         {
             if (Instance._benchmarkers.ContainsKey(name))
                 return;
 
-            Info($"[BENCHMARK] Starting benchmark for '{name}'");
+            BenchmarkLog($"Starting benchmark for '{name}'");
             Instance._benchmarkers.Add(name, Stopwatch.StartNew());
         }
 
@@ -121,7 +138,7 @@ namespace HunterPie.Core.Logger
                 return;
 
             Stopwatch benchmarker = Instance._benchmarkers[name];
-            Info($"[BENCHMARK] Time taken: {benchmarker.ElapsedMilliseconds}ms");
+            BenchmarkLog($"Time taken for '{name}': {benchmarker.ElapsedMilliseconds}ms");
             benchmarker.Stop();
             Instance._benchmarkers.Remove(name);
         }

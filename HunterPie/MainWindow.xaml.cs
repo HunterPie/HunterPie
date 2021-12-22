@@ -22,17 +22,6 @@ namespace HunterPie
         {
             Log.Info("Initializing HunterPie GUI");
             InitializeComponent();
-            InitializeSideMenu();
-            InitializeDebugWidget();
-        }
-
-        private void InitializeSideMenu()
-        {
-            ISideBar menu = new DefaultSideBar();
-
-            menu.Menu[0].ExecuteOnClick();
-            
-            SideBarContainer.SetMenu(menu);
         }
 
         private void InitializeDebugWidget()
@@ -43,6 +32,7 @@ namespace HunterPie
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
+
         }
 
         protected override void OnClosing(CancelEventArgs e)

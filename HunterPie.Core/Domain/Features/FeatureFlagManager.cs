@@ -4,17 +4,25 @@ namespace HunterPie.Core.Domain.Features
 {
     internal class FeatureFlagManager
     {
-        private readonly IFeatureFlagRepository flagRepository;
+        private IFeatureFlagRepository flagRepository;
+        private static FeatureFlagManager _instance;
 
         public FeatureFlagManager(IFeatureFlagRepository repository)
         {
-            flagRepository = repository;
+            if (_instance is not null)
+                return;
+
+            _instance = new() { 
+                flagRepository = repository    
+            };
         }
 
-        public bool IsEnabled(string feature) => flagRepository.IsEnabled(feature);
+        private FeatureFlagManager() {}
+
+        public static bool IsEnabled(string feature) => _instance.flagRepository.IsEnabled(feature);
 
         #nullable enable
-        public IFeature? Get(string feature) => flagRepository.GetFeature(feature);
+        public static IFeature? Get(string feature) => _instance.flagRepository.GetFeature(feature);
         #nullable disable
     }
 }
