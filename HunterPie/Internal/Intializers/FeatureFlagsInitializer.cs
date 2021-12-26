@@ -34,12 +34,13 @@ namespace HunterPie.Internal.Intializers
 
     public class DefaultFeatureFlags
     {
-        private Dictionary<string, IFeature> defaultFeatures = new()
+        private readonly Dictionary<string, IFeature> _defaultFeatures = new()
         {
             { FeatureFlags.FEATURE_NATIVE_LOGGER, new NativeLoggerFeature() },
+            { FeatureFlags.FEATURE_METRICS_WIDGET, new Feature() },
         };
 
-        public IReadOnlyDictionary<string, IFeature> Flags => defaultFeatures;
+        public IReadOnlyDictionary<string, IFeature> Flags => _defaultFeatures;
     }
 
     internal class FeatureFlagsInitializer : IInitializer
@@ -51,7 +52,7 @@ namespace HunterPie.Internal.Intializers
         {
             IFeatureFlagRepository localRepository = new LocalFeatureFlagRepository(Features.Flags);
             
-            ConfigManager.Register("feature-flags.json", Features.Flags);
+            ConfigManager.Register("internal/feature-flags.json", Features.Flags);
 
             FeatureFlagManager.Initialize(localRepository);
         }

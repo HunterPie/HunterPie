@@ -13,7 +13,8 @@
         BorderThickness="1"
         BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}" 
         Background="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"
-        Icon="{StaticResource ICON_HUNTERPIE}">
+        Icon="{StaticResource ICON_HUNTERPIE}"
+        Loaded="OnLoaded">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"
                       CornerRadius="0"

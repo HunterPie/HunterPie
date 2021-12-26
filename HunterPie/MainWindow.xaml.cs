@@ -9,6 +9,7 @@ using System;
 using HunterPie.Core.Logger;
 using HunterPie.UI.Overlay.Widgets.Abnormality.View;
 using HunterPie.UI.Overlay.Widgets.Metrics.View;
+using HunterPie.Internal;
 
 namespace HunterPie
 {
@@ -24,17 +25,6 @@ namespace HunterPie
             InitializeComponent();
         }
 
-        private void InitializeDebugWidget()
-        {
-            WidgetManager.Register(new TelemetricsView());
-        }
-
-        protected override void OnInitialized(EventArgs e)
-        {
-            base.OnInitialized(e);
-
-        }
-
         protected override void OnClosing(CancelEventArgs e)
         {
 
@@ -47,6 +37,11 @@ namespace HunterPie
             }
 
             base.OnClosing(e);
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            InitializerManager.InitializeGUI();
         }
     }
 }

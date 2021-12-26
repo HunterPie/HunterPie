@@ -15,7 +15,7 @@ using HunterPie.Core.Game.Data;
 using HunterPie.Core.Client;
 using HunterPie.Core.System;
 using HunterPie.Core.Events;
-using HunterPie.Internal.Intializers;
+using HunterPie.Internal;
 using System.Windows.Navigation;
 
 namespace HunterPie

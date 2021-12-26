@@ -1,8 +1,9 @@
 ﻿using HunterPie.Core.Logger;
 using HunterPie.Domain.Interfaces;
+using HunterPie.Internal.Intializers;
 using System.Collections.Generic;
 
-namespace HunterPie.Internal.Intializers
+namespace HunterPie.Internal
 {
     internal class InitializerManager
     {
@@ -23,6 +24,12 @@ namespace HunterPie.Internal.Intializers
             new MenuInitializer(),
         };
 
+        private static HashSet<IInitializer> _overlayInitializers = new()
+        {
+            // Debugging
+            new DebugWidgetInitializer(),
+        };
+
         public static void Initialize()
         {
             Log.Benchmark();
@@ -32,5 +39,15 @@ namespace HunterPie.Internal.Intializers
 
             Log.BenchmarkEnd();
         } 
+
+        public static void InitializeGUI()
+        {
+            Log.Benchmark();
+
+            foreach (IInitializer initializer in _overlayInitializers)
+                initializer.Init();
+
+            Log.BenchmarkEnd();
+        }
     }
 }

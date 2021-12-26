@@ -37,6 +37,9 @@ namespace HunterPie.Core.Client
         {
             path = GetFullPath(path);
 
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+
             if (_settings.ContainsKey(path))
                 return;
 
