@@ -53,7 +53,7 @@ namespace HunterPie.Internal.Intializers
             
             ConfigManager.Register("feature-flags.json", Features.Flags);
 
-            _ = new FeatureFlagManager(localRepository);
+            FeatureFlagManager.Initialize(localRepository);
         }
     }
 }
