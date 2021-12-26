@@ -16,6 +16,8 @@ namespace HunterPie.Internal.Intializers
             { FeatureFlags.FEATURE_NATIVE_LOGGER, new NativeLoggerFeature() },
         };
 
+        public static IReadOnlyDictionary<string, IFeature> Features => defaultFeatures;
+
         public void Init()
         {
             IFeatureFlagRepository localRepository = new LocalFeatureFlagRepository(defaultFeatures);
