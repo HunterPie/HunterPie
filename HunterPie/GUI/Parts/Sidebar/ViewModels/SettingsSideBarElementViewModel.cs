@@ -28,7 +28,7 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
             host.AddTab(settingTabs);
 
             // Also add feature flags
-            host.AddTab(new FeatureFlagsView(FeatureFlagsInitializer.Features));
+            host.AddTab(new FeatureFlagsView(FeatureFlagsInitializer.Features.Flags));
             
             MainHost.SetMain(host);
         }

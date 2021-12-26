@@ -1,21 +1,19 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Domain.Features.Domain;
-using HunterPie.Domain.Constants;
+using HunterPie.Core.Logger;
 
 namespace HunterPie.Internal.Logger
 {
-    internal class NativeLoggerFeature : IFeature
+    internal class NativeLoggerFeature : Feature
     {
-        Observable<bool> _isEnabled = new(false);
-        public Observable<bool> IsEnabled
+        protected override void OnEnable()
         {
-            get => _isEnabled;
-            set => _isEnabled.Value = value;
+            Log.Debug("Enabled feature");
         }
 
-        public string Name => FeatureFlags.FEATURE_NATIVE_LOGGER;
-
-        public void Disable() {}
-        public void Enable() {}
+        protected override void OnDisable()
+        {
+            Log.Debug("Disabled feature");
+        }
     }
 }

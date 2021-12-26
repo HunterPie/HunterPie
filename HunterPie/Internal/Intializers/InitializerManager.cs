@@ -9,10 +9,10 @@ namespace HunterPie.Internal.Intializers
         private static HashSet<IInitializer> _initializers = new()
         {
             // Core
+            new HunterPieLoggerInitializer(),
             new FeatureFlagsInitializer(),
 
             new NativeLoggerInitializer(),
-            new HunterPieLoggerInitializer(),
             new ExceptionCatcherInitializer(),
             new DialogManagerInitializer(),
             new UITracerInitializer(),
