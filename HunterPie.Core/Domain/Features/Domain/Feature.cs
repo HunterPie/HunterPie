@@ -8,8 +8,9 @@ namespace HunterPie.Core.Domain.Features.Domain
         private readonly Observable<bool> _isEnabled = false;
         public Observable<bool> IsEnabled => _isEnabled;
 
-        public Feature()
+        public Feature(bool defaultInitializer = false)
         {
+            _isEnabled = defaultInitializer;
             _isEnabled.PropertyChanged += OnPropertyChange;
         }
 

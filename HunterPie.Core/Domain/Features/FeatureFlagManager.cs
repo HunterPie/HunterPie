@@ -25,5 +25,7 @@ namespace HunterPie.Core.Domain.Features
         #nullable enable
         public static IFeature? Get(string feature) => _instance.flagRepository.GetFeature(feature);
         #nullable disable
+        
+        internal static void Dispose() => _instance = null;
     }
 }
