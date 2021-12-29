@@ -45,6 +45,9 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        <Rectangle Fill="Red"
+                   VerticalAlignment="Bottom"
+                   Height="50"/>
     </Grid>
     <UserControl.Style>
         <Style TargetType="{x:Type UserControl}">

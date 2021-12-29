@@ -16,9 +16,19 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.ViewModel
         private float _cpuUsage;
         private int _threads;
 
-        private readonly PerformanceCounter _cpuPerfCounter;
-        private float _cpuUsageT2;
-        private float _cpuUsageT1;
+        private PerformanceCounter _cpuPerfCounter;
+        private PerformanceCounter CpuPerfCounter
+        {
+            get
+            {
+                // Lazy initializer
+                if (_cpuPerfCounter is null)
+                    using (Process self = Process.GetCurrentProcess())
+                        _cpuPerfCounter = new("Process", "% Processor Time", self.ProcessName);
+
+                return _cpuPerfCounter;
+            }
+        }
 
         public long Memory
         {
@@ -40,12 +50,6 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.ViewModel
 
         public TelemetricsViewModel()
         {
-            using (Process self = Process.GetCurrentProcess())
-            {
-                _cpuPerfCounter = new("Process", "% Processor Time", self.ProcessName);
-                _cpuUsageT1 = _cpuPerfCounter.NextValue();
-            }
-            
             var dispatcher = new DispatcherTimer(DispatcherPriority.Render);
             dispatcher.Tick += new EventHandler(UpdateInformation);
             dispatcher.Interval = new TimeSpan(0, 0, 5);
@@ -60,7 +64,7 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.ViewModel
                 Threads = self.Threads.Count;
             }
 
-            CPU = _cpuPerfCounter.NextValue();
+            CPU = CpuPerfCounter.NextValue();
         }
     }
 }
