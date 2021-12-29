@@ -8,5 +8,6 @@ namespace HunterPie.Core.Logger
         public Task Warn(params object[] args);
         public Task Error(params object[] args);
         public Task Debug(params object[] args);
+        public Task Benchmark(params object[] args);
     }
 }

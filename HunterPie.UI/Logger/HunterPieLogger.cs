@@ -13,6 +13,11 @@ namespace HunterPie.UI.Logger
 
         public static readonly ObservableCollection<LogString> ViewModel = new ObservableCollection<LogString>();
 
+        public Task Benchmark(params object[] args)
+        {
+            return WriteToBuffer(LogLevel.Benchmark, args);
+        }
+
         public Task Debug(params object[] args)
         {
             return WriteToBuffer(LogLevel.Debug, args);

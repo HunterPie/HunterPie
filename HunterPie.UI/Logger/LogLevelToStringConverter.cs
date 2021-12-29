@@ -20,6 +20,8 @@ namespace HunterPie.UI.Logger
                     return "[ERROR]";
                 case LogLevel.Panic:
                     return "[PANIC]";
+                case LogLevel.Benchmark:
+                    return "[BENCHMARK]";
             }
             return string.Empty;
         }

@@ -46,6 +46,7 @@
     <SolidColorBrush x:Key="LOGGER_LEVEL_WARN">#E6CF5E</SolidColorBrush>
     <SolidColorBrush x:Key="LOGGER_LEVEL_ERROR">#e65e5e</SolidColorBrush>
     <SolidColorBrush x:Key="LOGGER_LEVEL_PANIC">#ab5ee6</SolidColorBrush>
+    <SolidColorBrush x:Key="LOGGER_LEVEL_BENCHMARK">#1BC9B6</SolidColorBrush>
     
     <!-- Font -->
     <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">Work Sans</FontFamily>

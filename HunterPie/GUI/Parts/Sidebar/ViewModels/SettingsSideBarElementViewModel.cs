@@ -1,5 +1,7 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.GUI.Parts.Host;
+using HunterPie.Internal.Intializers;
+using HunterPie.UI.Controls.Flags;
 using HunterPie.UI.Controls.Settings;
 using HunterPie.UI.Settings;
 using System.Windows;
@@ -25,6 +27,8 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
             
             host.AddTab(settingTabs);
 
+            // Also add feature flags
+            host.AddTab(new FeatureFlagsView(FeatureFlagsInitializer.Features.Flags));
             
             MainHost.SetMain(host);
         }

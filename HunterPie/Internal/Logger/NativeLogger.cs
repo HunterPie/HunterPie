@@ -15,6 +15,7 @@ namespace HunterPie.Internal.Logger
 
         private enum LogLevel
         {
+            Benchmark = ConsoleColor.Gray,
             Debug = ConsoleColor.DarkGreen,
             Warn = ConsoleColor.DarkYellow,
             Error = ConsoleColor.DarkRed,
@@ -64,6 +65,11 @@ namespace HunterPie.Internal.Logger
                     Console.Write("\n");
                 }
             });
+        }
+
+        public Task Benchmark(params object[] args)
+        {
+            return WriteToStdout(LogLevel.Benchmark, args);
         }
     }
 }

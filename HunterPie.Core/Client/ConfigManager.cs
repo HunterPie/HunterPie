@@ -37,6 +37,9 @@ namespace HunterPie.Core.Client
         {
             path = GetFullPath(path);
 
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+
             if (_settings.ContainsKey(path))
                 return;
 
@@ -126,7 +129,8 @@ namespace HunterPie.Core.Client
 
                         var serializerSettings = new JsonSerializerSettings()
                         {
-                            NullValueHandling = NullValueHandling.Ignore
+                            NullValueHandling = NullValueHandling.Ignore,
+                            TypeNameHandling = TypeNameHandling.Auto
                         };
 
                         JsonConvert.PopulateObject(str, _settings[path], serializerSettings);
@@ -141,7 +145,12 @@ namespace HunterPie.Core.Client
             {
                 try
                 {
-                    string serialized = JsonConvert.SerializeObject(_settings[path]);
+                    var serializerSettings = new JsonSerializerSettings()
+                    {
+                        TypeNameHandling = TypeNameHandling.Auto
+                    };
+
+                    string serialized = JsonConvert.SerializeObject(_settings[path], serializerSettings);
                     ReadOnlySpan<byte> buffer = Encoding.UTF8.GetBytes(serialized);
                     using (FileStream stream = File.OpenWrite(path))
                     {

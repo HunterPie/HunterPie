@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
@@ -30,6 +26,9 @@ namespace HunterPie.UI.Logger
                     break;
                 case LogLevel.Panic:
                     colorName = "LOGGER_LEVEL_PANIC";
+                    break;
+                case LogLevel.Benchmark:
+                    colorName = "LOGGER_LEVEL_BENCHMARK";
                     break;
                 default:
                     return null;
