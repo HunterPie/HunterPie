@@ -39,9 +39,10 @@ namespace HunterPie
             base.OnClosing(e);
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
+        private async void OnInitialized(object sender, EventArgs e)
         {
             InitializerManager.InitializeGUI();
         }
+
     }
 }
