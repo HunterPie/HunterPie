@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.GUI.Parts.Sidebar"
+             xmlns:account="clr-namespace:HunterPie.GUI.Parts.Account.View"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="300"
              PreviewMouseLeftButtonDown="OnLeftMouseButtonDown" 
@@ -27,7 +28,8 @@
             BlurRadius="10" 
             Opacity="0.02"/>
     </UserControl.Effect>
-    <Grid 
+    <Grid d:Width="{StaticResource HUNTERPIE_SIDEBAR_WIDTH}"
+          d:Background="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}"
           HorizontalAlignment="Left">
         <Rectangle x:Name="PART_Selection"
                    Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"
@@ -45,9 +47,17 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Rectangle Fill="Red"
-                   VerticalAlignment="Bottom"
-                   Height="50"/>
+
+        <account:AccountView VerticalAlignment="Bottom"
+                             Background="{StaticResource HUNTERPIE_BACKGROUND_SECONDARY}"
+                             x:Name="PART_UserAccount">
+            <account:AccountView.Effect>
+                <DropShadowEffect Direction="90" 
+                                  ShadowDepth="2" 
+                                  BlurRadius="5" 
+                                  Opacity="0.2"/>
+            </account:AccountView.Effect>
+        </account:AccountView>
     </Grid>
     <UserControl.Style>
         <Style TargetType="{x:Type UserControl}">
