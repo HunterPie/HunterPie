@@ -7,11 +7,11 @@
              xmlns:local="clr-namespace:HunterPie.GUI.Parts.Account.View"
              mc:Ignorable="d" 
              d:DesignHeight="50" 
-             d:DesignWidth="250">
+             d:DesignWidth="300">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
         <Image Source="https://cdn.discordapp.com/attachments/456629861637816340/909896053816442951/892157422171463742.png"
                HorizontalAlignment="Left"
@@ -30,7 +30,7 @@
                  Margin="5,5,0,5"
                  HorizontalAlignment="Left"
                  StrokeThickness="1"
-                 Stroke="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}"/>
+                 Stroke="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
 
         <!-- User name -->
         <TextBlock Text="Peepo"
@@ -43,11 +43,36 @@
                    VerticalAlignment="Center"
                    Margin="5,0,0,20"/>
 
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="1"
+                    Margin="5,0,0,5"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom">
+            <Image Source="{StaticResource ICON_SUPPORTER_TIER_1}"
+                   Height="20">
+
+                <Image.ToolTip>
+                    <Span>
+                        <Bold>Tier 1:</Bold> Supporter
+                    </Span>
+                </Image.ToolTip>
+            </Image>
+        </StackPanel>
+        
         <native:Button Grid.Column="1"
                        HorizontalAlignment="Right"
-                       Margin="5"
+                       Margin="5,5,35,5"
                        Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
             <Image Source="{StaticResource ICON_SETTINGS}"
+                   Width="20"/>
+        </native:Button>
+
+        <native:Button Grid.Column="1"
+                       HorizontalAlignment="Right"
+                       Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                       Margin="0,0,3,0"
+                       ToolTip="Disconnect">
+            <Image Source="{StaticResource ICON_LOGOUT}"
                    Width="20"/>
         </native:Button>
 

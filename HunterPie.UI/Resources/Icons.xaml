@@ -240,6 +240,46 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="ICON_SUPPORTER_TIER_1">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">
+                <DrawingGroup Opacity="1" Transform="1,0,0,1,0,-320">
+                    <DrawingGroup Opacity="1" Transform="1,0,0,1,0,320">
+                        <DrawingGroup Opacity="1" Transform="1,0,0,1,-256,-256">
+                            <DrawingGroup Opacity="1" Transform="1.04,0,0,1.05882,121.6,-16.6471">
+                                <GeometryDrawing Geometry="F0 M64,64z M0,0z M144,266L135,275 135,283 148,300 172,300 185,283 185,275 176,266 144,266z">
+                                    <GeometryDrawing.Brush>
+                                        <SolidColorBrush Color="#FF000000" Opacity="0.76" />
+                                    </GeometryDrawing.Brush>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                            <DrawingGroup Opacity="1" Transform="1,0,0,1,256,256">
+                                <GeometryDrawing Brush="{StaticResource HUNTERPIE_ACCENT_COLOR}" Geometry="F0 M64,64z M0,0z M32,48.5C34,48.5,39,59,39,59L25,59C25,59,30,48.5,32,48.5z M15,8L5,18 5,28 19,46 45,46 59,28 59,18 49,8 15,8z M16,10L7,19 7,27 20,44 44,44 57,27 57,19 48,10 16,10z M25,24L30,42 20,24 25,24z M39,24L34,42 44,24 39,24z M25,21L30,12 20,21 25,21z M39,21L34,12 44,21 39,21z" />
+                            </DrawingGroup>
+                            <GeometryDrawing Brush="{StaticResource HUNTERPIE_ACCENT_COLOR}" Geometry="F0 M64,64z M0,0z M284,280L292,280 288,298 284,280z" />
+                            <DrawingGroup Opacity="1" Transform="1,0,0,1,64,0">
+                                <GeometryDrawing Brush="{StaticResource HUNTERPIE_ACCENT_COLOR}" Geometry="F0 M64,64z M0,0z M220,277L224,268 228,277 220,277z" />
+                            </DrawingGroup>
+                        </DrawingGroup>
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_LOGOUT">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V384.971 H384.971 V0 H0 Z">
+                <DrawingGroup Opacity="1">
+                    <DrawingGroup Opacity="1">
+                        <GeometryDrawing Brush="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}" Geometry="F1 M384.971,384.971z M0,0z M180.455,360.91L24.061,360.91 24.061,24.061 180.455,24.061C187.096,24.061 192.485,18.671 192.485,12.031 192.485,5.391 187.095,0.00100000000000122 180.455,0.00100000000000122L12.03,0.00100000000000122C5.39,0.001,0,5.39,0,12.031L0,372.94C0,379.581,5.39,384.97,12.03,384.97L180.454,384.97C187.095,384.97 192.484,379.58 192.484,372.94 192.485,366.299 187.095,360.91 180.455,360.91z" />
+                        <GeometryDrawing Brush="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}" Geometry="F1 M384.971,384.971z M0,0z M381.481,184.088L298.472,99.888C293.768,95.136 286.153,95.148 281.461,99.888 276.757,104.628 276.757,112.327 281.461,117.067L344.019,180.527 96.279,180.527C89.638,180.527 84.249,185.965 84.249,192.678 84.249,199.391 89.639,204.829 96.279,204.829L344.019,204.829 281.461,268.289C276.757,273.041 276.757,280.728 281.461,285.468 286.165,290.22 293.78,290.22 298.472,285.468L381.469,201.268C386.113,196.588,386.161,188.756,381.481,184.088z" />
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <!-- Monster Crowns -->
     <DrawingImage x:Key="CROWN_MINI">
         <DrawingImage.Drawing>
