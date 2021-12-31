@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="HunterPie.GUI.Parts.Account.View.AccountView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+             xmlns:local="clr-namespace:HunterPie.GUI.Parts.Account.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" 
+             d:DesignWidth="250">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Image Source="https://cdn.discordapp.com/attachments/456629861637816340/909896053816442951/892157422171463742.png"
+               HorizontalAlignment="Left"
+               Margin="5,5,0,5"
+               Height="40"
+               Width="40"
+               x:Name="PART_AccountProfile">
+            <Image.Clip>
+                <EllipseGeometry Center="20,20"
+                                 RadiusX="19"
+                                 RadiusY="19"/>
+            </Image.Clip>
+        </Image>
+        <Ellipse Width="{Binding ActualWidth, ElementName=PART_AccountProfile}"
+                 Height="{Binding ActualHeight, ElementName=PART_AccountProfile}"
+                 Margin="5,5,0,5"
+                 HorizontalAlignment="Left"
+                 StrokeThickness="1"
+                 Stroke="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}"/>
+
+        <!-- User name -->
+        <TextBlock Text="Peepo"
+                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                   FontWeight="Medium"
+                   FontSize="16"
+                   Grid.Column="1"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Margin="5,0,0,20"/>
+
+        <native:Button Grid.Column="1"
+                       HorizontalAlignment="Right"
+                       Margin="5"
+                       Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
+            <Image Source="{StaticResource ICON_SETTINGS}"
+                   Width="20"/>
+        </native:Button>
+
+    </Grid>
+</UserControl>

@@ -8,6 +8,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using HunterPie.Core.Domain.Features;
+using HunterPie.Domain.Constants;
 
 namespace HunterPie.GUI.Parts.Sidebar
 {
@@ -45,6 +47,14 @@ namespace HunterPie.GUI.Parts.Sidebar
             InitializeComponent();
             _selectSlideAnimation = FindResource("PART_SelectionAnimation") as Storyboard;
             DataContext = this;
+        }
+
+        protected override void OnInitialized(EventArgs e)
+        {
+            if (!FeatureFlagManager.IsEnabled(FeatureFlags.FEATURE_USER_ACCOUNT))
+                PART_UserAccount.Visibility = Visibility.Collapsed;
+
+            base.OnInitialized(e);
         }
 
         public static void SetMenu(ISideBar menu)
