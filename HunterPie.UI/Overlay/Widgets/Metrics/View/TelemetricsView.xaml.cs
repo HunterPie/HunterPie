@@ -2,6 +2,7 @@
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Widgets.Metrics.ViewModel;
+using System;
 
 namespace HunterPie.UI.Overlay.Widgets.Metrics.View
 {
@@ -18,5 +19,10 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.View
         public TelemetricsWidgetConfig Settings => ClientConfig.Config.Overlay.DebugWidget;
 
         public string Title => "Debug Metrics";
+
+        private void OnGCClick(object sender, EventArgs e)
+        {
+            ViewModel.ExecuteGarbageCollector();
+        }
     }
 }
