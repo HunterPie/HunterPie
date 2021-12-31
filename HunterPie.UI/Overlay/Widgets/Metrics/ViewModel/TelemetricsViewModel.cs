@@ -66,5 +66,8 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.ViewModel
 
             CPU = CpuPerfCounter.NextValue();
         }
+
+        public void ExecuteGarbageCollector() => GC.Collect();
+
     }
 }

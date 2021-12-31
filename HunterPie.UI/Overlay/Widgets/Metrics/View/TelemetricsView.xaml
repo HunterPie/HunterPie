@@ -6,6 +6,8 @@
              xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Metrics.View"
              xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Metrics.ViewModel"
+             xmlns:controls="clr-namespace:HunterPie.UI.Overlay.Controls"
+             xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons"
              d:DataContext="{d:DesignInstance Type=viewmodels:TelemetricsViewModel}"
              x:TypeArguments="viewmodels:TelemetricsViewModel"
              mc:Ignorable="d"
@@ -49,13 +51,16 @@
                  Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
                  FontWeight="Medium"/>
         </TextBlock>
+
+        <native:Button Content="Execute GC"
+                       OnClick="OnGCClick"/>
+
         <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                   Text="Metrics are updated every 5 seconds."
                    FontSize="10"
                    Padding="5"
-                   Text="Metrics are updated every 5 seconds."
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Top">
-        </TextBlock>
+                   VerticalAlignment="Top"/>
     </StackPanel>
 </arch:View>
