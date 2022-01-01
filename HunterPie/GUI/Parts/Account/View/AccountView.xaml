@@ -13,12 +13,15 @@
             <ColumnDefinition Width="50"/>
             <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
-        <Image Source="https://cdn.discordapp.com/attachments/456629861637816340/909896053816442951/892157422171463742.png"
+        
+        <!-- Profile picture -->
+        <Image Source="https://cdn.discordapp.com/avatars/183067754784358400/aece9875489e2981b65d0002841b222b.png?size=256"
                HorizontalAlignment="Left"
                Margin="5,5,0,5"
                Height="40"
                Width="40"
-               x:Name="PART_AccountProfile">
+               x:Name="PART_AccountProfile"
+               RenderOptions.BitmapScalingMode="Fant">
             <Image.Clip>
                 <EllipseGeometry Center="20,20"
                                  RadiusX="19"
@@ -32,8 +35,21 @@
                  StrokeThickness="1"
                  Stroke="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
 
+        <!-- Notification badge -->
+        <Grid HorizontalAlignment="Right"
+              VerticalAlignment="Top"
+              Margin="2">
+            <Ellipse Fill="{StaticResource HUNTERPIE_NOTIFICATION_BADGE_COLOR}"
+                     Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"/>
+            <TextBlock Text="1"
+                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                       FontSize="14"
+                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       HorizontalAlignment="Center"/>
+        </Grid>
+        
         <!-- User name -->
-        <TextBlock Text="Peepo"
+        <TextBlock Text="Username"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
                    FontWeight="Medium"
