@@ -22,5 +22,8 @@ namespace HunterPie.Core.Client.Configuration
 
         [SettingField("PASSWORD_TEXT_STRING", "PASSWORD_TEXT_STRING_DESC")]
         public Secret Password { get; set; } = new();
+
+        [SettingField("DEV_ENABLE_FEATURE_FLAG", "DEV_ENABLE_FEATURE_FLAG_DESC", true)]
+        public Observable<bool> EnableFeatureFlags { get; set; } = false;
     }
 }

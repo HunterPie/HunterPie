@@ -49,7 +49,7 @@
         </Grid>
         
         <!-- User name -->
-        <TextBlock Text="Username"
+        <TextBlock Text="Haato"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
                    FontWeight="Medium"
