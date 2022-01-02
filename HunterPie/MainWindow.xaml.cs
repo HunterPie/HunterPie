@@ -10,6 +10,7 @@ using HunterPie.Core.Logger;
 using HunterPie.UI.Overlay.Widgets.Abnormality.View;
 using HunterPie.UI.Overlay.Widgets.Metrics.View;
 using HunterPie.Internal;
+using HunterPie.UI.Overlay.Widgets.Damage.View;
 
 namespace HunterPie
 {
@@ -42,6 +43,7 @@ namespace HunterPie
         private async void OnInitialized(object sender, EventArgs e)
         {
             InitializerManager.InitializeGUI();
+            WidgetManager.Register(new MeterView());
         }
 
     }

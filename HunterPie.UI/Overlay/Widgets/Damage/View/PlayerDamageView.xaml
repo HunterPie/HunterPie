@@ -7,11 +7,15 @@
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.View"
              xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.ViewModel"
              d:DataContext="{d:DesignInstance Type=viewmodels:PlayerViewModel}"
-             mc:Ignorable="d">
+             Margin="0,0,0,2"
+             mc:Ignorable="d"
+             d:Height="40">
     <UserControl.Resources>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>
+        <converters:HexColorToFadeConverter x:Key="HexColorToFadeConverter"/>
+        <converters:ParentSizePercentageConverter x:Key="ParentSizePercentageConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -22,28 +26,27 @@
         <!-- Bottom bar -->
         <Rectangle HorizontalAlignment="Left"
                    d:Width="200"
-                   Grid.ColumnSpan="2" Width="200">
-            <Rectangle.Fill>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#00000000"/>
-                    <GradientStop Color="#FF1EC9C1" Offset="1"/>
-                    <GradientStop Color="#FF1EC9C1" Offset="0.958"/>
-                    <GradientStop Color="#00000000" Offset="0.955"/>
-                    <GradientStop Color="#501EC9C1" Offset="0.952"/>
-                </LinearGradientBrush>
-            </Rectangle.Fill>
+                   Grid.ColumnSpan="2"
+                   Fill="{Binding Color, Converter={StaticResource HexColorToFadeConverter}}"
+                   x:Name="PART_BottomBar">
+            <Rectangle.Width>
+                <MultiBinding Converter="{StaticResource ParentSizePercentageConverter}">
+                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Grid}}"/>
+                    <Binding Path="DataContext.Percentage" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:PlayerDamageView}}"/>
+                </MultiBinding>
+            </Rectangle.Width>
         </Rectangle>
 
         <Rectangle HorizontalAlignment="Left"
                    VerticalAlignment="Bottom"
-                   d:Width="200"
                    Grid.ColumnSpan="2"
-                   Height="2" Width="200">
+                   Height="2"
+                   Width="{Binding ActualWidth, ElementName=PART_BottomBar}">
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="1,1" StartPoint="0,1">
                     <GradientStop Color="#00000000"/>
                     <GradientStop Color="#33FFFFFF" Offset="0.902"/>
-                    <GradientStop Color="#F2FFFFFF" Offset="1"/>
+                    <GradientStop Color="#AAFFFFFF" Offset="1"/>
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
@@ -52,26 +55,27 @@
                Source="{Binding Weapon, Converter={StaticResource WeaponToIconConverter}}"
                HorizontalAlignment="Left"
                VerticalAlignment="Center"
-               Width="30"
-               Margin="5,0,0,0" Height="28"/>
+               Width="20"
+               Margin="5,0,0,0"/>
 
         <TextBlock d:Text="Player"
                    Text="{Binding Name}"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                   FontSize="18"
+                   FontSize="16"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Stretch"
-                   Margin="40,0,0,0"
+                   Margin="30,0,0,0"
                    TextWrapping="WrapWithOverflow"/>
 
         <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                    FontWeight="Medium"
-                   FontSize="18"
+                   FontSize="16"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Center" 
-                   Grid.Column="1">
+                   HorizontalAlignment="Stretch" 
+                   Grid.Column="1"
+                   TextAlignment="Center">
             
             <Run d:Text="▴" 
                  d:Foreground="#FF64F077">
@@ -87,14 +91,14 @@
                         </Style.Triggers>
                     </Style>
                 </Run.Style>
-            </Run><!--
-         --><Run d:Text="75"
+            </Run>
+            <Run d:Text="75"
                  Text="{Binding Percentage, StringFormat=\{0:F0\}}"/><!--
          --><Run d:Text=".37"
                  Text="{Binding Percentage, Converter={StaticResource DoubleToDecimalConverter}, StringFormat={}.{0:D2}}"
                  Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
-                 FontSize="15"
-                 FontWeight="Light"/><!--
+                 FontSize="14"
+                 FontWeight="Normal"/><!--
          --><Run Text="%"
                  Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
                  FontSize="12"
@@ -103,18 +107,18 @@
 
         <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                   FontSize="18"
-                   VerticalAlignment="Top"
+                   FontSize="16"
+                   VerticalAlignment="Center"
                    HorizontalAlignment="Right"
-                   Margin="0,5,5,0" 
-                   Grid.Column="2" Height="21" Width="52">
+                   Margin="0,0,2,0"
+                   Grid.Column="2">
             <Run d:Text="50"
                  Text="{Binding DPS, StringFormat=\{0:F0\}}"/><!--
          --><Run d:Text=".32"
                  Text="{Binding DPS, Converter={StaticResource DoubleToDecimalConverter}, StringFormat={}.{0:D2}}"
                  Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
                  FontSize="15"
-                 FontWeight="Light"/><!--
+                 FontWeight="Normal"/><!--
          --><Run Text="/s"
                  Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
                  FontSize="12"
@@ -124,12 +128,13 @@
         <TextBlock d:Text="26,354"
                    Text="{Binding Damage}"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                   FontSize="18"
-                   VerticalAlignment="Top"
+                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                   FontSize="12"
+                   VerticalAlignment="Bottom"
                    HorizontalAlignment="Right"
-                   Margin="0,24,0,0" 
-                   Grid.Column="2" Height="21" Width="58"/>
+                   Margin="0,0,2,0" 
+                   Grid.Column="2"
+                   TextAlignment="Right"/>
 
     </Grid>
 </UserControl>

@@ -6,20 +6,68 @@
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.View"
              xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.ViewModel"
              d:DataContext="{d:DesignInstance Type=viewmodels:MeterViewModel}"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
              x:TypeArguments="viewmodels:MeterViewModel"
              xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+             Width="300">
+    <Grid Background="#CC111215">
         <Grid.Resources>
             <viewmodels:MockMeterViewModel x:Key="MockViewModel"/>
+            <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="29"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid>
+            <Label HorizontalAlignment="Left">
+                <WrapPanel ToolTip="Time Elapsed">
+                    <Image Source="{StaticResource ICON_STOPWATCH}"
+                           Margin="0,0,3,0"
+                           Height="18"/>
+                    <TextBlock Text="{Binding TimeElapsed, Converter={StaticResource SecondsToTimeString}}"
+                               d:Text="3:33"
+                               Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                               VerticalAlignment="Center"
+                               FontSize="13"/>
+                </WrapPanel>
+            </Label>
+
+            <Label HorizontalAlignment="Center">
+                <WrapPanel ToolTip="Deaths">
+                    <Image Source="{StaticResource ICON_SKULL}"
+                           Margin="0,0,3,0"
+                           Height="18"/>
+                    <TextBlock d:Text="2"
+                               Text="{Binding Deaths}"
+                               Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                               VerticalAlignment="Center"
+                               FontSize="13"/>
+                </WrapPanel>
+            </Label>
+
+            <buttons:Button HorizontalAlignment="Right"
+                            ToolTip="Fight Statistics">
+                <Image Source="{StaticResource ICON_STATISTICS}"
+                           Margin="0,0,3,0"
+                           Height="18"/>
+            </buttons:Button>
+        </Grid>
+
         <!-- Players display -->
         <ItemsControl d:DataContext="{StaticResource MockViewModel}"
-                      ItemsSource="{Binding Players}">
+                      ItemsSource="{Binding Players}"
+                      Margin="1,1,1,1" 
+                      Grid.Row="1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel ItemHeight="50"
+                    <WrapPanel ItemHeight="45"
                                Orientation="Vertical"
                                ItemWidth="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"/>
                 </ItemsPanelTemplate>
