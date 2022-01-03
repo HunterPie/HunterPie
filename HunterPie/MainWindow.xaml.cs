@@ -11,6 +11,8 @@ using HunterPie.UI.Overlay.Widgets.Abnormality.View;
 using HunterPie.UI.Overlay.Widgets.Metrics.View;
 using HunterPie.Internal;
 using HunterPie.UI.Overlay.Widgets.Damage.View;
+using System.Windows.Input;
+using System.Diagnostics;
 
 namespace HunterPie
 {
@@ -44,7 +46,16 @@ namespace HunterPie
         {
             InitializerManager.InitializeGUI();
             WidgetManager.Register(new MeterView());
+            WidgetManager.Register(new MonsterContainer());
         }
 
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) && e.KeyboardDevice.IsKeyDown(Key.R))
+            {
+                Process.Start(typeof(MainWindow).Assembly.Location.Replace(".dll", ".exe"));
+                Application.Current.Shutdown();
+            }
+        }
     }
 }

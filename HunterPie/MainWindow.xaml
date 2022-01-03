@@ -16,7 +16,7 @@
         Icon="{StaticResource ICON_HUNTERPIE}"
         Initialized="OnInitialized"
         SnapsToDevicePixels="True"
-        UseLayoutRounding="True">
+        UseLayoutRounding="True" KeyDown="OnKeyDown">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"
                       CornerRadius="0"
@@ -93,10 +93,10 @@
         </Grid>
         
         <sidebar:SideBarContainer Grid.Row="1"
-                               Background="{StaticResource HUNTERPIE_BACKGROUND_SECONDARY}"
-                               VerticalAlignment="Stretch"
-                               HorizontalAlignment="Left"
-                               ItemsHeight="40"/>
+                                  Background="{StaticResource HUNTERPIE_BACKGROUND_SECONDARY}"
+                                  VerticalAlignment="Stretch"
+                                  HorizontalAlignment="Left"
+                                  ItemsHeight="40"/>
         
     </Grid>
 </Window>

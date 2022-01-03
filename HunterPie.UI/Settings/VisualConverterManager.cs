@@ -55,6 +55,7 @@ namespace HunterPie.UI.Settings
                     SettingElementViewModel vm = new(metadata.Name, metadata.Description, metadata.Icon);
 
                     object parent = property.GetValue(settings);
+                    // TODO: Pass holder for the children so creating new tabs from nested ISettings is possible
                     BuildChildren(parent, vm);
 
                     holder.Add(vm);
