@@ -1,18 +1,16 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
 {
     public class MeterViewModel : Bindable
     {
-        
+        private static DamageMeterWidgetConfig Settings => ClientConfig.Config.Overlay.DamageMeterWidget;
         private double _timeElapsed = 1;
         private int _deaths;
         private int totalDamage = 0;
@@ -50,11 +48,13 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
                 Percentage = 25
             },
         };
+
         public double TimeElapsed
         {
             get => _timeElapsed;
             set { SetValue(ref _timeElapsed, value); }
         }
+
         public int Deaths
         {
             get => _deaths;
@@ -88,5 +88,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
 
             TimeElapsed++;
         }
+
+        public void ToggleHighlight() => Settings.ShouldHighlightMyself.Value = !Settings.ShouldHighlightMyself;
+        public void ToggleBlur() => Settings.ShouldBlurNames.Value = !Settings.ShouldBlurNames;
     }
 }

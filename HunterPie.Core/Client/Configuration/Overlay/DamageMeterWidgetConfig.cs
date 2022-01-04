@@ -1,11 +1,6 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
@@ -28,5 +23,11 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         
         [SettingField("MOCK", "MOCK")]
         public Observable<bool> StreamerMode { get; set; } = false;
+
+        [SettingField("ENABLE_DAMAGE_METER_SHOULD_HIGHLIGHT_MYSELF", "ENABLE_DAMAGE_METER_SHOULD_HIGHLIGHT_MYSELF_DESC")]
+        public Observable<bool> ShouldHighlightMyself { get; set; } = false;
+
+        [SettingField("ENABLE_DAMAGE_METER_SHOULD_BLUR_NAMES", "ENABLE_DAMAGE_METER_SHOULD_BLUR_NAMES_DESC")]
+        public Observable<bool> ShouldBlurNames { get; set; } = false;
     }
 }

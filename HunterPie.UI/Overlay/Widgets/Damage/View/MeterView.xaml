@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.View"
              xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.ViewModel"
              d:DataContext="{d:DesignInstance Type=viewmodels:MeterViewModel}"
+             xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Components"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
              x:TypeArguments="viewmodels:MeterViewModel"
              xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
@@ -18,8 +19,9 @@
             <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         </Grid.Resources>
         <Grid.RowDefinitions>
-            <RowDefinition Height="29"/>
+            <RowDefinition Height="30"/>
             <RowDefinition/>
+            <RowDefinition Height="{Binding ActualHeight, ElementName=PART_BottomBar}"/>
         </Grid.RowDefinitions>
 
         <!-- Header -->
@@ -79,5 +81,66 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    x:Name="PART_BottomBar"
+                    d:Height="30">
+            <buttons:Button HorizontalAlignment="Right"
+                            ToolTip="Highlight Myself"
+                            Margin="0,0,5,0"
+                            OnClick="OnPlayerHighlightToggle"
+                            Background="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}">
+                <Image Source="{StaticResource ICON_SPARKLING}"
+                           Height="18"/>
+                <buttons:Button.Clip>
+                    <EllipseGeometry RadiusX="14"
+                                     RadiusY="14"
+                                     Center="14,15"/>
+                </buttons:Button.Clip>
+            </buttons:Button>
+
+            <buttons:Button HorizontalAlignment="Right"
+                            ToolTip="Hide names"
+                            Margin="0,0,5,0"
+                            OnClick="OnPlayerBlurToggle"
+                            Background="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}">
+                <Image Source="{StaticResource ICON_HIDE}"
+                           Height="18"/>
+                <buttons:Button.Clip>
+                    <EllipseGeometry RadiusX="14"
+                                     RadiusY="14"
+                                     Center="14,15"/>
+                </buttons:Button.Clip>
+            </buttons:Button>
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Height" Value="0"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type overlay:WidgetBase}}}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.150"
+                                                         To="30"
+                                                         Storyboard.TargetProperty="Height"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.150"
+                                                         To="0"
+                                                         Storyboard.TargetProperty="Height"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+        </StackPanel>
     </Grid>
 </arch:View>

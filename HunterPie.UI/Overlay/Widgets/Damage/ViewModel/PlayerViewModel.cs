@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Client;
 using HunterPie.Core.Game.Enums;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
@@ -14,6 +15,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
         private string _color;
         private bool _isIncreasing;
         private bool _isUser;
+
+        private bool _shouldHighlightUser;
 
         public string Name
         {
@@ -55,6 +58,10 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
             get => _isUser;
             set { SetValue(ref _isUser, value); }
         }
+
+        // Settings related
+        public Observable<bool> ShouldHighlightMyself => ClientConfig.Config.Overlay.DamageMeterWidget.ShouldHighlightMyself;
+        public Observable<bool> ShouldBlurNames => ClientConfig.Config.Overlay.DamageMeterWidget.ShouldBlurNames;
 
     }
 }
