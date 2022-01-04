@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
-    public class TelemetricsWidgetConfig : IWidgetSettings
+    public class TelemetricsWidgetConfig : IWidgetSettings, ISettings
     {
         [SettingField("A", "B")]
         public Observable<bool> Initialize { get; set; } = true;

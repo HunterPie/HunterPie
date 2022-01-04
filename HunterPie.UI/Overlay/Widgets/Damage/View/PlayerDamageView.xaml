@@ -1,0 +1,185 @@
+﻿<UserControl x:Class="HunterPie.UI.Overlay.Widgets.Damage.View.PlayerDamageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.View"
+             xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.ViewModel"
+             d:DataContext="{d:DesignInstance Type=viewmodels:PlayerViewModel}"
+             Margin="0,0,0,2"
+             mc:Ignorable="d"
+             d:Height="40">
+    <UserControl.Resources>
+        <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>
+        <converters:HexColorToFadeConverter x:Key="HexColorToFadeConverter"/>
+        <converters:ParentSizePercentageConverter x:Key="ParentSizePercentageConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="49*"/>
+            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="26*"/>
+        </Grid.ColumnDefinitions>
+        <!-- Bottom bar -->
+        <Rectangle HorizontalAlignment="Left"
+                   d:Width="200"
+                   Grid.ColumnSpan="2"
+                   Fill="{Binding Color, Converter={StaticResource HexColorToFadeConverter}}"
+                   x:Name="PART_BottomBar">
+            <Rectangle.Width>
+                <MultiBinding Converter="{StaticResource ParentSizePercentageConverter}">
+                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Grid}}"/>
+                    <Binding Path="DataContext.Percentage" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:PlayerDamageView}}"/>
+                </MultiBinding>
+            </Rectangle.Width>
+        </Rectangle>
+
+        <Rectangle HorizontalAlignment="Left"
+                   VerticalAlignment="Bottom"
+                   Grid.ColumnSpan="2"
+                   Height="2"
+                   Width="{Binding ActualWidth, ElementName=PART_BottomBar}">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="1,1" StartPoint="0,1">
+                    <GradientStop Color="#00000000"/>
+                    <GradientStop Color="#33FFFFFF" Offset="0.902"/>
+                    <GradientStop Color="#AAFFFFFF" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Image d:Source="{StaticResource ICON_BOW}"
+               Source="{Binding Weapon, Converter={StaticResource WeaponToIconConverter}}"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               Width="20"
+               Margin="5,0,0,0"/>
+
+        <TextBlock d:Text="Player"
+                   Text="{Binding Name}"
+                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                   FontSize="16"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Stretch"
+                   Margin="30,0,0,0"
+                   TextWrapping="WrapWithOverflow">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding DataContext.ShouldBlurNames.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PlayerDamageView}}}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <BlurEffect RenderingBias="Performance" 
+                                                    KernelType="Gaussian" 
+                                                    Radius="10"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                   FontWeight="Medium"
+                   FontSize="16"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Stretch" 
+                   Grid.Column="1"
+                   TextAlignment="Center">
+            
+            <Run d:Text="▴" 
+                 d:Foreground="#FF64F077">
+                <Run.Style>
+                    <Style TargetType="{x:Type Run}">
+                        <Setter Property="Text" Value="▾"/>
+                        <Setter Property="Foreground" Value="#FFF06464"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataContext.IsIncreasing, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PlayerDamageView}}}" Value="True">
+                                <Setter Property="Text" Value="▴"/>
+                                <Setter Property="Foreground" Value="#FF64F077"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Run.Style>
+            </Run>
+            <Run d:Text="75"
+                 Text="{Binding Percentage, StringFormat=\{0:F0\}}"/><!--
+         --><Run d:Text=".37"
+                 Text="{Binding Percentage, Converter={StaticResource DoubleToDecimalConverter}, StringFormat={}.{0:D2}}"
+                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                 FontSize="14"
+                 FontWeight="Normal"/><!--
+         --><Run Text="%"
+                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                 FontSize="12"
+                 FontWeight="Light"/>
+        </TextBlock>
+
+        <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                   FontSize="16"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right"
+                   Margin="0,0,2,0"
+                   Grid.Column="2">
+            <Run d:Text="50"
+                 Text="{Binding DPS, StringFormat=\{0:F0\}}"/><!--
+         --><Run d:Text=".32"
+                 Text="{Binding DPS, Converter={StaticResource DoubleToDecimalConverter}, StringFormat={}.{0:D2}}"
+                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                 FontSize="15"
+                 FontWeight="Normal"/><!--
+         --><Run Text="/s"
+                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                 FontSize="12"
+                 FontWeight="Light"/>
+        </TextBlock>
+
+        <TextBlock d:Text="26,354"
+                   Text="{Binding Damage}"
+                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                   FontSize="12"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Right"
+                   Margin="0,0,2,0" 
+                   Grid.Column="2"
+                   TextAlignment="Right"/>
+
+    </Grid>
+    <UserControl.Style>
+        <Style TargetType="{x:Type UserControl}">
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding DataContext.ShouldHighlightMyself.Value, RelativeSource={RelativeSource Self}}" Value="True"/>
+                        <Condition Binding="{Binding DataContext.IsUser, RelativeSource={RelativeSource Self}}" Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Opacity" Value="1"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding DataContext.ShouldHighlightMyself.Value, RelativeSource={RelativeSource Self}}" Value="True"/>
+                        <Condition Binding="{Binding DataContext.IsUser, RelativeSource={RelativeSource Self}}" Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Opacity" Value="0.5"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
+</UserControl>

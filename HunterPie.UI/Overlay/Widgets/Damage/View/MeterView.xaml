@@ -1,0 +1,146 @@
+﻿<arch:View x:Class="HunterPie.UI.Overlay.Widgets.Damage.View.MeterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.View"
+             xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.ViewModel"
+             d:DataContext="{d:DesignInstance Type=viewmodels:MeterViewModel}"
+             xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Components"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
+             x:TypeArguments="viewmodels:MeterViewModel"
+             xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             mc:Ignorable="d" 
+             Width="300">
+    <Grid Background="#CC111215">
+        <Grid.Resources>
+            <viewmodels:MockMeterViewModel x:Key="MockViewModel"/>
+            <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="{Binding ActualHeight, ElementName=PART_BottomBar}"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid>
+            <Label HorizontalAlignment="Left">
+                <WrapPanel ToolTip="Time Elapsed">
+                    <Image Source="{StaticResource ICON_STOPWATCH}"
+                           Margin="0,0,3,0"
+                           Height="18"/>
+                    <TextBlock Text="{Binding TimeElapsed, Converter={StaticResource SecondsToTimeString}}"
+                               d:Text="3:33"
+                               Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                               VerticalAlignment="Center"
+                               FontSize="13"/>
+                </WrapPanel>
+            </Label>
+
+            <Label HorizontalAlignment="Center">
+                <WrapPanel ToolTip="Deaths">
+                    <Image Source="{StaticResource ICON_SKULL}"
+                           Margin="0,0,3,0"
+                           Height="18"/>
+                    <TextBlock d:Text="2"
+                               Text="{Binding Deaths}"
+                               Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                               VerticalAlignment="Center"
+                               FontSize="13"/>
+                </WrapPanel>
+            </Label>
+
+            <buttons:Button HorizontalAlignment="Right"
+                            ToolTip="Fight Statistics">
+                <Image Source="{StaticResource ICON_STATISTICS}"
+                           Margin="0,0,3,0"
+                           Height="18"/>
+            </buttons:Button>
+        </Grid>
+
+        <!-- Players display -->
+        <ItemsControl d:DataContext="{StaticResource MockViewModel}"
+                      ItemsSource="{Binding Players}"
+                      Margin="1,1,1,1" 
+                      Grid.Row="1">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel ItemHeight="45"
+                               Orientation="Vertical"
+                               ItemWidth="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:PlayerViewModel}">
+                    <local:PlayerDamageView/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    x:Name="PART_BottomBar"
+                    d:Height="30">
+            <buttons:Button HorizontalAlignment="Right"
+                            ToolTip="Highlight Myself"
+                            Margin="0,0,5,0"
+                            OnClick="OnPlayerHighlightToggle"
+                            Background="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}">
+                <Image Source="{StaticResource ICON_SPARKLING}"
+                           Height="18"/>
+                <buttons:Button.Clip>
+                    <EllipseGeometry RadiusX="14"
+                                     RadiusY="14"
+                                     Center="14,15"/>
+                </buttons:Button.Clip>
+            </buttons:Button>
+
+            <buttons:Button HorizontalAlignment="Right"
+                            ToolTip="Hide names"
+                            Margin="0,0,5,0"
+                            OnClick="OnPlayerBlurToggle"
+                            Background="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}">
+                <Image Source="{StaticResource ICON_HIDE}"
+                           Height="18"/>
+                <buttons:Button.Clip>
+                    <EllipseGeometry RadiusX="14"
+                                     RadiusY="14"
+                                     Center="14,15"/>
+                </buttons:Button.Clip>
+            </buttons:Button>
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Height" Value="0"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type overlay:WidgetBase}}}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.150"
+                                                         To="30"
+                                                         Storyboard.TargetProperty="Height"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.150"
+                                                         To="0"
+                                                         Storyboard.TargetProperty="Height"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+        </StackPanel>
+    </Grid>
+</arch:View>
