@@ -14,7 +14,9 @@
         BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}" 
         Background="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"
         Icon="{StaticResource ICON_HUNTERPIE}"
-        Initialized="OnInitialized">
+        Initialized="OnInitialized"
+        SnapsToDevicePixels="True"
+        UseLayoutRounding="True">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"
                       CornerRadius="0"
@@ -65,8 +67,7 @@
                            HorizontalAlignment="Right"
                            Padding="25,0,25,5"
                            Margin="0,0,10,0"
-                           Background="{StaticResource HUNTERPIE_ACCENT_COLOR}"
-                           >
+                           Background="{StaticResource HUNTERPIE_ACCENT_COLOR}">
                 <native:Button.Content>
                     <TextBlock Foreground="WhiteSmoke">
                         <Run Text="▶"

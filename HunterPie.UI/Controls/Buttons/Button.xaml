@@ -22,45 +22,43 @@
         </Storyboard>
         <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
     </arch:ClickableControl.Resources>
-    
-    <Grid>
-        <Border>
-            <Grid>
-                <Canvas>
-                    <Rectangle x:Name="PART_Highlight"
+
+    <Border>
+        <Grid>
+            <Canvas>
+                <Rectangle x:Name="PART_Highlight"
                                VerticalAlignment="Top"
                                HorizontalAlignment="Left"
                                Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=2}"
                                Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=2}"
                                Opacity="0"
                                Style="{StaticResource StyleHighlight}">
-                        <Rectangle.Fill>
-                            <LinearGradientBrush EndPoint="1,1" StartPoint="0,1">
-                                <GradientStop Offset="1" Color="#0CFFFFFF"/>
-                                <GradientStop Color="#0CFFFFFF" Offset="0.25"/>
-                                <GradientStop Color="#33FFFFFF" Offset="0.5"/>
-                                <GradientStop Color="#0CFFFFFF" Offset="0.75"/>
-                                <GradientStop Color="#0CFFFFFF" Offset="0"/>
-                            </LinearGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                </Canvas>
-                <Canvas>
-                    <Ellipse x:Name="PART_Ripple"
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="1,1" StartPoint="0,1">
+                            <GradientStop Offset="1" Color="#0CFFFFFF"/>
+                            <GradientStop Color="#0CFFFFFF" Offset="0.25"/>
+                            <GradientStop Color="#33FFFFFF" Offset="0.5"/>
+                            <GradientStop Color="#0CFFFFFF" Offset="0.75"/>
+                            <GradientStop Color="#0CFFFFFF" Offset="0"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Canvas>
+            <Canvas>
+                <Ellipse x:Name="PART_Ripple"
                              Fill="#40F5F5F5" 
                              HorizontalAlignment="Left" 
                              Height="{Binding Path=Width, RelativeSource={RelativeSource Self}}"
                              VerticalAlignment="Top"/>
-                </Canvas>
+            </Canvas>
 
-                <Label Content="{Binding Content, ElementName=NativeButtonControl}"
-                       Foreground="{Binding Foreground, ElementName=NativeButtonControl}"
-                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                       HorizontalContentAlignment="Center"
-                       VerticalContentAlignment="Center"/>
-            </Grid>
-        </Border>
-    </Grid>
+            <Label Content="{Binding Content, ElementName=NativeButtonControl}"
+                   Foreground="{Binding Foreground, ElementName=NativeButtonControl}"
+                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Center"/>
+        </Grid>
+    </Border>
     <arch:ClickableControl.Style>
         <Style TargetType="{x:Type local:Button}">
             <Style.Triggers>
