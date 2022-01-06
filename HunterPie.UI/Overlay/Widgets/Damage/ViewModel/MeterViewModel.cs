@@ -4,6 +4,7 @@ using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel

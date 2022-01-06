@@ -8,9 +8,11 @@
              d:DataContext="{d:DesignInstance Type=vm:MonsterAilmentViewModel}"
              xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             d:DesignWidth="60">
     <UserControl.Resources>
         <converters:RatioConverter x:Key="RatioConverter"/>
+        <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
     </UserControl.Resources>
     <Grid>
         <TextBlock d:Text="Ailment"
@@ -20,16 +22,16 @@
                    VerticalAlignment="Top"
                    HorizontalAlignment="Center"/>
 
-        <Ellipse Margin="5,15,5,0"
-                 Fill="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
+        <Ellipse Margin="15"
+                 Fill="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}"
                  Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                  VerticalAlignment="Top"/>
         
         
         <!-- Inner ring: Buildup -->
-        <overlay:Arc Margin="9,19,9,0"
+        <overlay:Arc Margin="15"
                      d:Percentage="1"
-                     StrokeThickness="2"
+                     StrokeThickness="3"
                      Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                      VerticalAlignment="Top">
             <overlay:Arc.Percentage>
@@ -40,16 +42,16 @@
             </overlay:Arc.Percentage>
             <overlay:Arc.Stroke>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0" SpreadMethod="Pad">
-                    <GradientStop Color="#FF473EFF"/>
-                    <GradientStop Color="#FF00FFDC" Offset="1"/>
+                    <GradientStop Color="#36D1DC"/>
+                    <GradientStop Color="#5B86E5" Offset="1"/>
                 </LinearGradientBrush>
             </overlay:Arc.Stroke>
         </overlay:Arc>
         
         <!-- Outer ring: Timer -->
-        <overlay:Arc Margin="5,15,5,0"
+        <overlay:Arc Margin="18"
                      d:Percentage="0.8"
-                     StrokeThickness="2"
+                     StrokeThickness="3"
                      Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                      VerticalAlignment="Top">
             <overlay:Arc.Percentage>
@@ -60,28 +62,31 @@
             </overlay:Arc.Percentage>
             <overlay:Arc.Stroke>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0" SpreadMethod="Pad">
-                    <GradientStop Color="#FF7EA7FF"/>
-                    <GradientStop Color="#FFA2FFBC" Offset="1"/>
+                    <GradientStop Color="#f7b733"/>
+                    <GradientStop Color="#fc4a1a" Offset="1"/>
                 </LinearGradientBrush>
             </overlay:Arc.Stroke>
         </overlay:Arc>
         
         <!-- Proc counter -->
         <TextBlock d:Text="5"
+                   Text="{Binding Count}"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                   FontWeight="Medium"
                    FontSize="15"
                    Margin="0,0,0,0"/>
         
         <!-- Timer/Buildup text -->
-        <TextBlock d:Text="1m30s"
-                   FontSize="15"
+        <TextBlock d:Text="1:30"
+                   Text="{Binding Timer, Converter={StaticResource SecondsToTimeString}}"
+                   FontSize="13"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                   VerticalAlignment="Center"
+                   VerticalAlignment="Bottom"
                    HorizontalAlignment="Center"
-                   Margin="0,50,0,0"/>
+                   Margin="0,0,0,0"/>
     </Grid>
 </UserControl>

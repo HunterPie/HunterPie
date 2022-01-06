@@ -24,7 +24,7 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.ViewModel
                 // Lazy initializer
                 if (_cpuPerfCounter is null)
                     using (Process self = Process.GetCurrentProcess())
-                        _cpuPerfCounter = new("Process", "% Processor Time", self.ProcessName);
+                        _cpuPerfCounter = new("Process", "% Processor Time", self.ProcessName, true);
 
                 return _cpuPerfCounter;
             }
@@ -63,8 +63,7 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.ViewModel
                 Memory = self.WorkingSet64 / 1024 / 1024;
                 Threads = self.Threads.Count;
             }
-
-            CPU = CpuPerfCounter.NextValue();
+            CPU = CpuPerfCounter.NextValue() / Environment.ProcessorCount;
         }
 
         public void ExecuteGarbageCollector() => GC.Collect();

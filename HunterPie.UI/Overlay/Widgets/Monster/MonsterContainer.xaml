@@ -16,6 +16,7 @@
              x:TypeArguments="viewmodels:MonsterViewModel"
              Loaded="UserControl_Loaded">
     <UserControl.Resources>
+        <viewmodels:MockMonsterViewModel x:Key="MockMonsterViewModel"/>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
         <converters:MonsterEmToIconConverter x:Key="MonsterEmToIconConverter"/>
         <converters:CrownToIconConverter x:Key="CrownToIconConverter"/>
@@ -33,12 +34,13 @@
         </LinearGradientBrush>
         <SolidColorBrush x:Key="MonsterHealthEnragedDelayed" Color="#FFEB6C5B"/>
     </UserControl.Resources>
-    <Grid Width="600">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid Margin="50,10,10,10">
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid Margin="50,10,10,9"
+              VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Left"
@@ -178,7 +180,9 @@
         <Grid Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
               HorizontalAlignment="Left"
               VerticalAlignment="Top"
-              Margin="21,37,0,0">
+              Margin="20,37,0,0"
+              d:Width="40"
+              d:Height="40">
             <Rectangle Fill="#FF191A1B"
                        RenderTransformOrigin="0.5,0.5" 
                        Stroke="#FF343434">
@@ -192,27 +196,36 @@
                    Width="40"/>
         </Grid>
 
+        <!-- Ailments -->
+
+        <ItemsControl ItemsSource="{Binding Ailments, NotifyOnSourceUpdated=True}"
+                      d:DataContext="{StaticResource MockMonsterViewModel}"
+                      Grid.Column="1"
+                      Grid.RowSpan="2"
+                      Grid.Row="0"
+                      VerticalAlignment="Top">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel ItemWidth="60"
+                               MaxWidth="200"
+                               />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:MonsterPartViewModel}">
+                    <view:BossMonsterAilmentView />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
         <StackPanel Grid.Row="1"
-                    Orientation="Vertical">
-            <!-- Ailments -->
-            <ItemsControl ItemsSource="{Binding Ailments, NotifyOnSourceUpdated=True}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel MaxHeight="200"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type viewmodels:MonsterPartViewModel}">
-                        <view:BossMonsterAilmentView VerticalAlignment="Top"
-                                                     HorizontalAlignment="Stretch"
-                                                     Margin="4,0,4,0"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-
+                    Orientation="Vertical"
+                    x:Name="PART_Bottom"
+                    Margin="0,90,0,0">
             <!-- Parts -->
-            <ItemsControl ItemsSource="{Binding Parts, NotifyOnSourceUpdated=True}">
+            <ItemsControl ItemsSource="{Binding Parts, NotifyOnSourceUpdated=True}"
+                          d:DataContext="{StaticResource MockMonsterViewModel}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel ItemWidth="200"/>

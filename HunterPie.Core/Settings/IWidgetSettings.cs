@@ -8,8 +8,8 @@ namespace HunterPie.Core.Settings
         Observable<bool> Initialize { get; set; }
         Observable<bool> Enabled { get; set; }
         Position Position { get; set; }
-        Observable<double> Opacity { get; set; }
-        Observable<double> Scale { get; set; }
+        Range Opacity { get; set; }
+        Range Scale { get; set; }
         Observable<bool> StreamerMode { get; set; }
     }
 }

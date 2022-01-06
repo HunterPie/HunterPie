@@ -21,8 +21,8 @@
                 Style="{StaticResource SliderDefault}"
                 Margin="3,0,3,0" 
                 AutoToolTipPlacement="TopLeft"/>
-        <TextBox Text="{Binding Value, StringFormat=\{0:F0\}}"
-                 d:Text="50"
+        <TextBox Text="{Binding Value, StringFormat=\{0:F1\}}"
+                 d:Text="50.0"
                  HorizontalAlignment="Stretch" 
                  TextAlignment="Center"
                  Grid.Column="1"

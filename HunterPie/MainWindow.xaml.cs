@@ -45,8 +45,9 @@ namespace HunterPie
         private async void OnInitialized(object sender, EventArgs e)
         {
             InitializerManager.InitializeGUI();
-            WidgetManager.Register(new MeterView());
+            //WidgetManager.Register(new MeterView());
             WidgetManager.Register(new MonsterContainer());
+            //WidgetManager.Register(new AbnormalityBarView());
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)

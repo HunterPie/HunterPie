@@ -14,13 +14,13 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         
         [SettingField("MOCK", "MOCK")]
         public Position Position { get; set; } = new(0, 0);
-        
-        [SettingField("MOCK", "MOCK")]
-        public Observable<double> Opacity { get; set; } = 1;
-        
-        [SettingField("MOCK", "MOCK")]
-        public Observable<double> Scale { get; set; } = 1;
-        
+
+        [SettingField("A", "B")]
+        public Range Opacity { get; set; } = new() { Current = 1, Max = 1, Min = 0, Step = 0.1 };
+
+        [SettingField("A", "B")]
+        public Range Scale { get; set; } = new() { Current = 1, Max = 2, Min = 0, Step = 0.1 };
+
         [SettingField("MOCK", "MOCK")]
         public Observable<bool> StreamerMode { get; set; } = false;
 
