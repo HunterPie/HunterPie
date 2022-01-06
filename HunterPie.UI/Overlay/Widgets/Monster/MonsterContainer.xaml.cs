@@ -79,7 +79,13 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             Random rng = new();
             updater.Tick += (_, __) =>
             {
-                
+                foreach (var ailm in ViewModel.Ailments)
+                {
+                    ailm.Timer--;
+
+                    if (ailm.Timer < 0)
+                        ailm.Timer = ailm.MaxTimer;
+                }
                 foreach (var abnorm in ViewModel.Parts)
                 {
                     abnorm.Health -= rng.NextDouble() * 100;

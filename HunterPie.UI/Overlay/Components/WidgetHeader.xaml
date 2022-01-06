@@ -48,9 +48,11 @@
                            DockPanel.Dock="Right">
                     <Run Text="x:"/>
                     <Run Text="{Binding Left, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}, StringFormat=\{0:F0\}}"
+                         d:Text="100"
                          Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
                     <Run Text="y:"/>
                     <Run Text="{Binding Top, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}, StringFormat=\{0:F0\}}"
+                         d:Text="100"
                          Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
                 </TextBlock>
                 
