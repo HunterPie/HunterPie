@@ -10,7 +10,7 @@ namespace HunterPie.UI.Settings.Internal
 {
     internal class RangeVisualConverter : IVisualConverter
     {
-        public UIElement Build(object parent, PropertyInfo childInfo)
+        public FrameworkElement Build(object parent, PropertyInfo childInfo)
         {
             Range range = (Range)childInfo.GetValue(parent);
             var currentBinding = VisualConverterHelper.CreateBinding(range, nameof(Range.Current));

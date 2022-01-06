@@ -9,7 +9,7 @@ namespace HunterPie.UI.Settings.Internal
 {
     internal class StringVisualConverter : IVisualConverter
     {
-        public UIElement Build(object parent, PropertyInfo childInfo)
+        public FrameworkElement Build(object parent, PropertyInfo childInfo)
         {
             Observable<string> observable = (Observable<string>)childInfo.GetValue(parent);
             var binding = VisualConverterHelper.CreateBinding(observable);

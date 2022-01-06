@@ -5,6 +5,7 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
+    [SettingsGroup("ABNORMALITY_WIDGET", "ABNORMALITY_WIDGET_DESC", "ICON_STOPWATCH")]
     public class AbnormalityWidgetConfig : IWidgetSettings
     {
         [SettingField("A", "B")]

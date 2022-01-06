@@ -4,7 +4,8 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
-    public class TelemetricsWidgetConfig : IWidgetSettings
+    [SettingsGroup("TELEMETRICS_WIDGET", "TELEMETRICS_WIDGET_DESC", "ICON_HIDE")]
+    public class TelemetricsWidgetConfig : IWidgetSettings, ISettings
     {
         [SettingField("A", "B")]
         public Observable<bool> Initialize { get; set; } = true;

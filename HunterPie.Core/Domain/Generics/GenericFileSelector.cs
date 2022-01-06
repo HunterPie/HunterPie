@@ -36,6 +36,7 @@ namespace HunterPie.Core.Domain.Generics
             }
         }
 
+        [JsonConstructor]
         public GenericFileSelector(string current)
         {
             Current = current;

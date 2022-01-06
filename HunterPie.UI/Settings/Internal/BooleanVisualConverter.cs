@@ -9,7 +9,7 @@ namespace HunterPie.UI.Settings.Internal
 {
     internal class BooleanVisualConverter : IVisualConverter
     {
-        public UIElement Build(object parent, PropertyInfo childInfo)
+        public FrameworkElement Build(object parent, PropertyInfo childInfo)
         {
             Observable<bool> observable = (Observable<bool>)childInfo.GetValue(parent);
             var binding = VisualConverterHelper.CreateBinding(observable);

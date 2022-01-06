@@ -9,7 +9,7 @@ namespace HunterPie.UI.Settings.Internal
 {
     internal class SecretVisualConverter : IVisualConverter
     {
-        public UIElement Build(object parent, PropertyInfo childInfo)
+        public FrameworkElement Build(object parent, PropertyInfo childInfo)
         {
             Secret observable = (Secret)childInfo.GetValue(parent);
             var binding = VisualConverterHelper.CreateBinding(observable);

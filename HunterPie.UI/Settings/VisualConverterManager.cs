@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Data;
 using Range = HunterPie.Core.Settings.Types.Range;
 
 namespace HunterPie.UI.Settings
@@ -41,8 +42,7 @@ namespace HunterPie.UI.Settings
 
         public static ISettingElement[] Build(object settings)
         {
-            Log.Benchmark();
-            List<SettingElementViewModel> holder = new List<SettingElementViewModel>();
+            List<ISettingElement> holder = new();
 
             Type parentType = settings.GetType();
 
@@ -55,16 +55,52 @@ namespace HunterPie.UI.Settings
                     SettingElementViewModel vm = new(metadata.Name, metadata.Description, metadata.Icon);
 
                     object parent = property.GetValue(settings);
-                    // TODO: Pass holder for the children so creating new tabs from nested ISettings is possible
-                    BuildChildren(parent, vm);
+                    BuildChildren(parent, vm, holder);
 
-                    holder.Add(vm);
+                    // Only adds panel if it has elements in it
+                    if (vm.Elements.Count > 0)
+                        holder.Add(vm);
                 }
             }
-            Log.BenchmarkEnd();
+
             return holder.ToArray();
         }
 
+        private static void BuildChildren(object parent, ISettingElement panel, List<ISettingElement> parentPanel)
+        {
+            Type parentType = parent.GetType();
+
+            foreach (PropertyInfo prop in parentType.GetProperties())
+            {
+                SettingField metadata = prop.GetCustomAttribute<SettingField>();
+
+                if (prop.PropertyType.GetInterfaces().Contains(typeof(ISettings)))
+                {
+                    SettingsGroup meta = (SettingsGroup)Attribute.GetCustomAttribute(prop.PropertyType, typeof(SettingsGroup));
+                    SettingElementViewModel vm = new(meta.Name, meta.Description, meta.Icon);
+
+                    object newParent = prop.GetValue(parent);
+                    BuildChildren(newParent, vm, parentPanel);
+
+                    parentPanel.Add(vm);
+                } else
+                {
+                    if (metadata is null)
+                        continue;
+
+                    SettingElementType settingHost = new(
+                        name: metadata.Name,
+                        description: metadata.Description,
+                        parent,
+                        prop
+                    );
+
+                    panel.Add(settingHost);
+                }
+            }
+
+        }
+             
         public static void AddConverterFor<T>(IVisualConverter converter)
         {
             if (Instance._converters.ContainsKey(typeof(T)))
@@ -79,7 +115,7 @@ namespace HunterPie.UI.Settings
             foreach (Type @interface in childInfo.PropertyType.GetInterfaces())
             {
                 if (Instance._converters.ContainsKey(@interface))
-                    return Instance._converters[@interface].Build(parent, childInfo);
+                    return ConvertElementHelper(@interface, parent, childInfo);
             }
 
             Type type = childInfo.PropertyType;
@@ -87,36 +123,31 @@ namespace HunterPie.UI.Settings
             if (type.IsGenericType)
                 type = type.GenericTypeArguments.FirstOrDefault();
 
+
             if (type.IsEnum)
-                return Instance._converters[typeof(Enum)].Build(parent, childInfo);
+                return ConvertElementHelper(typeof(Enum), parent, childInfo);
 
             if (!Instance._converters.ContainsKey(type))
                 return null;
 
-            return Instance._converters[type].Build(parent, childInfo);
+            return ConvertElementHelper(type, parent, childInfo);
         }
 
-        private static void BuildChildren(object parent, ISettingElement panel)
+        private static FrameworkElement ConvertElementHelper(Type type, object parent, PropertyInfo childInfo)
         {
-            Type parentType = parent.GetType();
+            FrameworkElement uiElement = Instance._converters[type].Build(parent, childInfo);
+            
+            uiElement.Unloaded += UICleanup;
 
-            foreach (PropertyInfo prop in parentType.GetProperties())
+            return uiElement;
+        }
+
+        private static void UICleanup(object sender, RoutedEventArgs e)
+        {
+            if (sender is FrameworkElement element)
             {
-                SettingField metadata = prop.GetCustomAttribute<SettingField>();
-                
-                if (prop.PropertyType.GetInterfaces().Contains(typeof(IWidgetSettings)))
-                {
-                    BuildChildren(prop.GetValue(parent), panel);
-                } else
-                {
-                    SettingElementType settingHost = new(
-                        name: metadata.Name,
-                        description: metadata.Description,
-                        parent,
-                        prop
-                    );
-                    panel.Add(settingHost);
-                }
+                element.Unloaded -= UICleanup;
+                BindingOperations.ClearAllBindings(element);
             }
         }
     }

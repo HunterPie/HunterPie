@@ -13,7 +13,7 @@ namespace HunterPie.UI.Settings.Internal
 {
     internal class EnumVisualConverter : IVisualConverter
     {
-        public UIElement Build(object parent, PropertyInfo childInfo)
+        public FrameworkElement Build(object parent, PropertyInfo childInfo)
         {
             object observable = childInfo.GetValue(parent);
             var binding = VisualConverterHelper.CreateBinding(observable);

@@ -4,7 +4,8 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
-    public class MonsterWidgetConfig : IWidgetSettings
+    [SettingsGroup("MONSTER_WIDGET", "MONSTER_WIDGET_DESC", "ICON_SKULL")]
+    public class MonsterWidgetConfig : IWidgetSettings, ISettings
     {
         [SettingField("A", "B")]
         public Observable<bool> Initialize { get; set; } = true;

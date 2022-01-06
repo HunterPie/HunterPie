@@ -1,5 +1,4 @@
 ﻿using HunterPie.Core.Architecture;
-using HunterPie.Core.Settings.Types;
 using System.Windows.Data;
 
 namespace HunterPie.UI.Settings.Converter

@@ -4,7 +4,8 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
-    public class DamageMeterWidgetConfig : IWidgetSettings
+    [SettingsGroup("METER_WIDGET", "METER_WIDGET_DESC", "ICON_STATISTICS")]
+    public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     {
         [SettingField("MOCK", "MOCK")]
         public Observable<bool> Initialize { get; set; } = true;

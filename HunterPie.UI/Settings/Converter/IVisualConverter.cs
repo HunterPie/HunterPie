@@ -5,6 +5,6 @@ namespace HunterPie.UI.Settings.Converter
 {
     public interface IVisualConverter
     {
-        public UIElement Build(object parent, PropertyInfo childInfo);
+        public FrameworkElement Build(object parent, PropertyInfo childInfo);
     }
 }
