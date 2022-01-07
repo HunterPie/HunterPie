@@ -2,9 +2,15 @@
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
+using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Timers;
+using System.Windows;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
@@ -15,7 +21,16 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
         private double _timeElapsed = 1;
         private int _deaths;
         private int totalDamage = 0;
-        private readonly DispatcherTimer dispatcher;
+        private readonly Timer dispatcher;
+
+        public ChartValues<ObservablePoint>[] PlayerChartValues { get; } = new ChartValues<ObservablePoint>[4]
+        {
+            new ChartValues<ObservablePoint>(),
+            new ChartValues<ObservablePoint>(),
+            new ChartValues<ObservablePoint>(),
+            new ChartValues<ObservablePoint>(),
+        };
+        public SeriesCollection Series { get; private set; } = new();
 
         public ObservableCollection<PlayerViewModel> Players { get; } = new()
         {
@@ -64,10 +79,10 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
 
         public MeterViewModel()
         {
-            dispatcher = new(DispatcherPriority.Render);
-            dispatcher.Tick += MockInGameAction;
-            dispatcher.Interval = new TimeSpan(0, 0, 1);
+            dispatcher = new(1000);
+            dispatcher.Elapsed += MockInGameAction;
             dispatcher.Start();
+            MockCreatePlayerSeries();
         }
 
         private void MockInGameAction(object sender, EventArgs e)
@@ -83,6 +98,10 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
                 player.Percentage = player.Damage / (double)Math.Max(1, totalDamage) * 100;
                 player.IsIncreasing = lastDps < player.DPS;
 
+                if (PlayerChartValues[i - 1].Count > 50)
+                    PlayerChartValues[i - 1].RemoveAt(0);
+
+                PlayerChartValues[i - 1].Add(new ObservablePoint(TimeElapsed, player.DPS));
                 totalDamage += hit;
                 i++;
             }
@@ -92,5 +111,37 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
 
         public void ToggleHighlight() => Settings.ShouldHighlightMyself.Value = !Settings.ShouldHighlightMyself;
         public void ToggleBlur() => Settings.ShouldBlurNames.Value = !Settings.ShouldBlurNames;
+
+        private void MockCreatePlayerSeries()
+        {
+            int i = 0;
+            foreach (PlayerViewModel player in Players)
+            {
+                Color c = (Color)ColorConverter.ConvertFromString(player.Color);
+                SolidColorBrush color = new SolidColorBrush(c);
+                LinearGradientBrush fill = new LinearGradientBrush()
+                {
+                    StartPoint = new Point(1, 0),
+                    EndPoint = new Point(1, 1)
+                };
+                fill.GradientStops = new GradientStopCollection()
+                {
+                    new GradientStop(c - Color.FromArgb(0xC0, 0, 0, 0), 0),
+                    new GradientStop(c - Color.FromArgb(0xEE, 0, 0, 0), 0.8)
+                };
+                var newSeries = new LineSeries()
+                {
+                    Title = player.Name,
+                    Stroke = color,
+                    Fill = fill,
+                    PointGeometrySize = 0,
+                    StrokeThickness = 2,
+                    LineSmoothness = 0.5
+                };
+                newSeries.Values = PlayerChartValues[i];
+                Series.Add(newSeries);
+                i++;
+            }
+        }
     }
 }

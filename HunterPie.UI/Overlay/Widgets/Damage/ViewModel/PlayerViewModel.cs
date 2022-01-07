@@ -16,8 +16,6 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
         private bool _isIncreasing;
         private bool _isUser;
 
-        private bool _shouldHighlightUser;
-
         public string Name
         {
             get => _name;

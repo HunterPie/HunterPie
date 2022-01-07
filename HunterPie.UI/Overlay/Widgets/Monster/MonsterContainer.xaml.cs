@@ -32,7 +32,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             ViewModel.MaxStamina = 10000.0;
             ViewModel.Stamina = 10000.0;
             ViewModel.HealthPercentage = 100.00;
-            ViewModel.Em = "em115";
+            ViewModel.Em = "em116";
             ViewModel.Name = "Dodogama";
             ViewModel.IsEnraged = false;
             ViewModel.Crown = Crown.Gold;

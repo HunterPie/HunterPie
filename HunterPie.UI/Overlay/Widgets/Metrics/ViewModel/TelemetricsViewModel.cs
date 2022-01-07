@@ -80,7 +80,7 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.ViewModel
             series2.Values = RAMSeries;
 
             Series.Add(newSeries);
-            Series.Add(series2);
+            //Series.Add(series2);
             var dispatcher = new Timer(5000)
             {
                 AutoReset = true
@@ -88,10 +88,14 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.ViewModel
             dispatcher.Elapsed += UpdateInformation;
             dispatcher.Start();
         }
-
+        double start = double.MaxValue;
         public void UpdateInformation(object source, ElapsedEventArgs e)
         {
             double elapsed = TimeSpan.FromTicks(e.SignalTime.Ticks).TotalSeconds;
+            start = Math.Min(start, elapsed);
+
+            elapsed -= start;
+
             using (Process self = Process.GetCurrentProcess())
             {
                 Memory = self.WorkingSet64 / 1024 / 1024;

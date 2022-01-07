@@ -193,7 +193,9 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
             <Image Source="{Binding Em, Converter={StaticResource MonsterEmToIconConverter}, FallbackValue={assets:MonsterIcon em116}}"
-                   Width="40"/>
+                   d:Source="{assets:MonsterIcon em116}"
+                   Width="40"
+                   RenderOptions.BitmapScalingMode="Fant"/>
         </Grid>
 
         <!-- Ailments -->
