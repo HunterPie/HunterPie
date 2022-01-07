@@ -7,6 +7,7 @@
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Metrics.View"
              xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Metrics.ViewModel"
              xmlns:controls="clr-namespace:HunterPie.UI.Overlay.Controls"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons"
              d:DataContext="{d:DesignInstance Type=viewmodels:TelemetricsViewModel}"
              x:TypeArguments="viewmodels:TelemetricsViewModel"
@@ -51,6 +52,9 @@
                  Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
                  FontWeight="Medium"/>
         </TextBlock>
+
+        <lvc:CartesianChart Height="120"
+                            Series="{Binding Series}"/>
 
         <native:Button Content="Execute GC"
                        OnClick="OnGCClick"/>

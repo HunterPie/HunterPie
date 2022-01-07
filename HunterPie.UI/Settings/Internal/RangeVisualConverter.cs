@@ -2,7 +2,6 @@
 using HunterPie.UI.Settings.Converter;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using RangeUI = HunterPie.UI.Controls.Sliders.Range;
 

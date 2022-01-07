@@ -1,9 +1,7 @@
-﻿using HunterPie.Core.Architecture;
-using HunterPie.UI.Architecture.Converters;
+﻿using HunterPie.UI.Architecture.Converters;
 using HunterPie.UI.Settings.Converter;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
