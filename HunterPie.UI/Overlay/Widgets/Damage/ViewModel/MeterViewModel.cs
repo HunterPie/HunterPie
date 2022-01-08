@@ -2,6 +2,7 @@
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
+using HunterPie.UI.Architecture.Brushes;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -122,16 +123,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
             {
                 Color c = (Color)ColorConverter.ConvertFromString(player.Color);
                 SolidColorBrush color = new SolidColorBrush(c);
-                LinearGradientBrush fill = new LinearGradientBrush()
-                {
-                    StartPoint = new Point(1, 0),
-                    EndPoint = new Point(1, 1)
-                };
-                fill.GradientStops = new GradientStopCollection()
-                {
-                    new GradientStop(c - Color.FromArgb(0xC0, 0, 0, 0), 0),
-                    new GradientStop(c - Color.FromArgb(0xFF, 0, 0, 0), 0.6)
-                };
+                LinearGradientBrush fill = ColorFadeGradient.FromColor(c);
                 var newSeries = new LineSeries()
                 {
                     Title = player.Name,

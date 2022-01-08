@@ -7,6 +7,9 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using System.Windows.Media;
 using LiveCharts.Defaults;
+using HunterPie.UI.Architecture.Brushes;
+using HunterPie.UI.Architecture.Graphs;
+using HunterPie.Core.Extensions;
 
 namespace HunterPie.UI.Overlay.Widgets.Metrics.ViewModel
 {
@@ -49,38 +52,31 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.ViewModel
             set { SetValue(ref _threads, value); }
         }
 
-        public SeriesCollection Series { get; private set; } = new();
+        public SeriesCollection CPUSeries { get; private set; }
+        public SeriesCollection RAMSeries { get; private set; }
 
-        private ChartValues<ObservablePoint> CPUSeries = new();
-        private ChartValues<ObservablePoint> RAMSeries = new();
+        private readonly ChartValues<ObservablePoint> CPUPoints = new();
+        private readonly ChartValues<ObservablePoint> WorkingSetPoints = new();
+        private readonly ChartValues<ObservablePoint> PrivateSetPoints = new();
+
+        public Func<double, string> BytesFormatter { get; } = 
+            new Func<double, string>((value) => ((long)value).FormatBytes());
+
+        public Func<double, string> PercentageFormatter { get; } =
+            new Func<double, string>((value) => $"{value:0.0}%");
 
         public TelemetricsViewModel()
         {
             // TODO: Make the graphs easier to code
-            var newSeries = new LineSeries()
-            {
-                Title = "CPU",
-                Stroke = Brushes.White,
-                Fill = new SolidColorBrush(Color.FromArgb(0x50, 255, 255, 255)),
-                PointGeometrySize = 0,
-                StrokeThickness = 2,
-                LineSmoothness = 1
-            };
-            newSeries.Values = CPUSeries;
+            CPUSeries = new LinearSeriesCollectionBuilder()
+                .AddSeries(CPUPoints, "CPU", Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF))
+                .Build();
 
-            var series2 = new LineSeries()
-            {
-                Title = "Memory",
-                Stroke = new SolidColorBrush(Color.FromArgb(255, 127, 160, 244)),
-                Fill = new SolidColorBrush(Color.FromArgb(0x50, 127, 160, 244)),
-                PointGeometrySize = 0,
-                StrokeThickness = 2,
-                LineSmoothness = 1
-            };
-            series2.Values = RAMSeries;
+            RAMSeries = new LinearSeriesCollectionBuilder()
+                .AddSeries(WorkingSetPoints, "Working", (Color)ColorConverter.ConvertFromString("#5C97F8"))
+                .AddSeries(PrivateSetPoints, "Private", (Color)ColorConverter.ConvertFromString("#7B65F0"))
+                .Build();
 
-            Series.Add(newSeries);
-            //Series.Add(series2);
             var dispatcher = new Timer(5000)
             {
                 AutoReset = true
@@ -100,15 +96,17 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.ViewModel
             {
                 Memory = self.WorkingSet64 / 1024 / 1024;
                 Threads = self.Threads.Count;
-                RAMSeries.Add(new ObservablePoint(elapsed, Memory));
+                WorkingSetPoints.Add(new ObservablePoint(elapsed, self.WorkingSet64));
+                PrivateSetPoints.Add(new ObservablePoint(elapsed, self.PrivateMemorySize64));
             }
             CPU = CpuPerfCounter.NextValue() / Environment.ProcessorCount;
-            CPUSeries.Add(new ObservablePoint(elapsed, CPU));
+            CPUPoints.Add(new ObservablePoint(elapsed, CPU));
 
-            if (CPUSeries.Count > 50)
+            if (CPUPoints.Count > 50)
             {
-                CPUSeries.RemoveAt(0);
-                RAMSeries.RemoveAt(0);
+                CPUPoints.RemoveAt(0);
+                WorkingSetPoints.RemoveAt(0);
+                PrivateSetPoints.RemoveAt(0);
             }
         }
 

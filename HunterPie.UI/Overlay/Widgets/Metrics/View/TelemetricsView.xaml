@@ -53,8 +53,20 @@
                  FontWeight="Medium"/>
         </TextBlock>
 
-        <lvc:CartesianChart Height="120"
-                            Series="{Binding Series}"/>
+        <lvc:CartesianChart Height="100"
+                            Series="{Binding CPUSeries}">
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis MinValue="0"
+                          LabelFormatter="{Binding PercentageFormatter}"/>
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
+        <lvc:CartesianChart Height="100"
+                            Series="{Binding RAMSeries}">
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis MinValue="0"
+                          LabelFormatter="{Binding BytesFormatter}"/>
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
 
         <native:Button Content="Execute GC"
                        OnClick="OnGCClick"/>
