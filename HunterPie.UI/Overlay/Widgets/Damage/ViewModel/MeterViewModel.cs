@@ -7,7 +7,6 @@ using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Media;
@@ -21,6 +20,12 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
         private int _deaths;
         private int totalDamage = 0;
         private readonly Timer dispatcher;
+
+        public Func<double, string> TimeFormatter { get; } = 
+            new Func<double, string>((value) => TimeSpan.FromSeconds(value).ToString("mm\\:ss"));
+
+        public Func<double, string> DPSFormatter { get; } =
+            new Func<double, string>((value) => $"{value:0.00}/s");
 
         public ChartValues<ObservablePoint>[] PlayerChartValues { get; } = new ChartValues<ObservablePoint>[4]
         {

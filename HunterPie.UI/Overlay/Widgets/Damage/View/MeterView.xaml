@@ -66,10 +66,9 @@
         <!-- Players display -->
         <StackPanel Grid.Row="1"
                     Orientation="Vertical">
-            <ItemsControl d:DataContext="{StaticResource MockViewModel}"
-                      ItemsSource="{Binding Players}"
-                      Margin="1,1,1,1" 
-                      Grid.Row="1">
+            <ItemsControl ItemsSource="{Binding Players}"
+                          Margin="1,1,1,1" 
+                          Grid.Row="1">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel ItemHeight="45"
@@ -87,7 +86,26 @@
 
             <lvc:CartesianChart Series="{Binding Series}"
                                 Height="120"
-                                DisableAnimations="True"/>
+                                DisableAnimations="True"
+                                Margin="1">
+                <lvc:CartesianChart.DataTooltip>
+                    <lvc:DefaultTooltip Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
+                                        Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                        BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                                        BulletSize="4"
+                                        BorderThickness="1"/>
+                </lvc:CartesianChart.DataTooltip>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis MinValue="0"
+                              ShowLabels="False"
+                              LabelFormatter="{Binding DPSFormatter}"/>
+                </lvc:CartesianChart.AxisY>
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis LabelFormatter="{Binding TimeFormatter}"
+                              FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+                </lvc:CartesianChart.AxisX>
+            </lvc:CartesianChart>
         </StackPanel>
         
 
