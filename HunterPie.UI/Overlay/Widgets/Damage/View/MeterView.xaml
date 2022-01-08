@@ -88,14 +88,6 @@
                                 Height="120"
                                 DisableAnimations="True"
                                 Margin="1">
-                <lvc:CartesianChart.DataTooltip>
-                    <lvc:DefaultTooltip Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
-                                        Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                                        BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}"
-                                        BulletSize="4"
-                                        BorderThickness="1"/>
-                </lvc:CartesianChart.DataTooltip>
                 <lvc:CartesianChart.AxisY>
                     <lvc:Axis MinValue="0"
                               ShowLabels="False"

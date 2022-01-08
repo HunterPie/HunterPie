@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf">
     <!-- <SolidColorBrush x:Key="HUNTERPIE_ACCENT_COLOR">#78b4d6</SolidColorBrush> -->
 
     <!-- Colors -->
@@ -482,5 +483,14 @@
                 <Setter Property="Template" Value="{StaticResource Slider}" />
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <Style x:Key="{x:Type lvc:DefaultTooltip}" TargetType="{x:Type lvc:DefaultTooltip}">
+        <Setter Property="Background" Value="{StaticResource HUNTERPIE_BACKGROUND_DARK}"/>
+        <Setter Property="Foreground" Value="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
+        <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
+        <Setter Property="BulletSize" Value="4"/>
+        <Setter Property="BorderThickness" Value="1"/>
     </Style>
 </ResourceDictionary>
