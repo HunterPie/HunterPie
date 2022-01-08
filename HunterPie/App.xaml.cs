@@ -17,6 +17,9 @@ using HunterPie.Core.System;
 using HunterPie.Core.Events;
 using HunterPie.Internal;
 using System.Windows.Navigation;
+using System.Windows.Media;
+using HunterPie.Core.Client.Configuration.Enums;
+using System.Windows.Interop;
 
 namespace HunterPie
 {
@@ -33,6 +36,14 @@ namespace HunterPie
             base.OnStartup(e);
 
             InitializerManager.Initialize();
+            SetRenderingMode();
+        }
+
+        private static void SetRenderingMode()
+        {
+            RenderOptions.ProcessRenderMode = ClientConfig.Config.Client.Rendering == RenderingStrategy.Hardware
+                ? RenderMode.Default
+                : RenderMode.SoftwareOnly;
         }
 
         private void OnProcessClosed(object sender, ProcessManagerEventArgs e)

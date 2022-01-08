@@ -6,12 +6,14 @@
              xmlns:local="clr-namespace:HunterPie.UI.Controls.Settings"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons"
+             xmlns:textbox="clr-namespace:HunterPie.UI.Controls.TextBox"
              xmlns:vm="clr-namespace:HunterPie.UI.Controls.Settings.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800">
     <UserControl.Resources>
         <converters:ObjectToUiConverter x:Key="ObjectToUiConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <DataTemplate x:Key="PanelTemplate" DataType="{x:Type vm:ISettingElement}">
             <ItemsControl ItemsSource="{Binding Elements, Mode=OneTime}">
                 <ItemsControl.Template>
@@ -26,7 +28,8 @@
                     <DataTemplate DataType="{x:Type vm:ISettingElementType}">
                         <local:SettingElementHost Hosted="{Binding ., Converter={StaticResource ObjectToUiConverter}, IsAsync=True}"
                                                   Text="{Binding Name}"
-                                                  Description="{Binding Description}"/>
+                                                  Description="{Binding Description}"
+                                                  Visibility="{Binding Match, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -62,13 +65,21 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid>
+    <StackPanel Orientation="Vertical">
+        <textbox:SearchTextBox MaxHeight="30"
+                               Height="30"
+                               Width="300"
+                               VerticalAlignment="Top"
+                               HorizontalAlignment="Right"
+                               OnSearchTextChanged="OnRealTimeSearch"/>
         <TabControl Background="Transparent"
                     ItemsSource="{Binding Elements}"
                     ContentTemplate="{StaticResource PanelTemplate}"
                     ItemTemplate="{StaticResource HeaderTemplate}"
                     BorderThickness="0,1,0,0"
-                    BorderBrush="{StaticResource HUNTERPIE_BACKGROUND_DARK}">
+                    BorderBrush="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
+                    SelectedIndex="{Binding CurrentTabIndex.Value}"
+                    TextSearch.TextPath="Text">
         </TabControl>
-    </Grid>
+    </StackPanel>
 </UserControl>

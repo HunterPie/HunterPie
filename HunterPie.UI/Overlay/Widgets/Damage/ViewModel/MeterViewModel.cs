@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Media;
-using System.Windows.Threading;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
 {
@@ -36,30 +35,30 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
         {
             new()
             {
-                Name = "Sciss",
+                Name = "Player 1",
                 Weapon = Weapon.Bow,
-                Color = "#ff9966",
+                Color = "#c3baf4",
                 Percentage = 25
             },
             new()
             {
-                Name = "Haato",
+                Name = "Player 2",
                 Weapon = Weapon.ChargeBlade,
-                Color = "#ff5e62",
+                Color = "#98ff98",
                 Percentage = 25,
                 IsUser = true
             },
             new()
             {
-                Name = "UwU",
-                Color = "#d9a7c7",
+                Name = "Player 3",
+                Color = "#FF4B8EEE",
                 Weapon = Weapon.Greatsword,
                 Percentage = 25
             },
             new()
             {
-                Name = "HunterPie v2",
-                Color = "#fffcdc",
+                Name = "Player 4",
+                Color = "#FF10B9DE",
                 Weapon = Weapon.HuntingHorn,
                 Percentage = 25
             },
@@ -105,7 +104,6 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
                 totalDamage += hit;
                 i++;
             }
-
             TimeElapsed++;
         }
 
@@ -127,7 +125,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
                 fill.GradientStops = new GradientStopCollection()
                 {
                     new GradientStop(c - Color.FromArgb(0xC0, 0, 0, 0), 0),
-                    new GradientStop(c - Color.FromArgb(0xEE, 0, 0, 0), 0.8)
+                    new GradientStop(c - Color.FromArgb(0xFF, 0, 0, 0), 0.6)
                 };
                 var newSeries = new LineSeries()
                 {
