@@ -1,18 +1,15 @@
-﻿using HunterPie.Domain.Sidebar;
-using HunterPie.GUI.Parts.Sidebar;
-using System.Windows;
+﻿using System.Windows;
 using HunterPie.Core.Domain.Dialog;
 using System.ComponentModel;
 using HunterPie.UI.Overlay;
-using HunterPie.UI.Overlay.Widgets.Monster;
 using System;
 using HunterPie.Core.Logger;
 using HunterPie.UI.Overlay.Widgets.Abnormality.View;
-using HunterPie.UI.Overlay.Widgets.Metrics.View;
 using HunterPie.Internal;
 using HunterPie.UI.Overlay.Widgets.Damage.View;
 using System.Windows.Input;
 using System.Diagnostics;
+using HunterPie.UI.Overlay.Widgets.Monster.Views;
 
 namespace HunterPie
 {
@@ -46,7 +43,7 @@ namespace HunterPie
         {
             InitializerManager.InitializeGUI();
             WidgetManager.Register(new MeterView());
-            WidgetManager.Register(new MonsterContainer());
+            WidgetManager.Register(new MonstersView());
             WidgetManager.Register(new AbnormalityBarView());
         }
 

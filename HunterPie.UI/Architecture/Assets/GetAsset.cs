@@ -16,7 +16,8 @@ namespace HunterPie.UI.Architecture.Assets
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return new ImageSourceConverter().ConvertFromString($"pack://siteoforigin:,,,/Assets/Monsters/Icons/{MonsterEm}_ID.png");
+            return new ImageSourceConverter()
+                .ConvertFromString($"pack://siteoforigin:,,,/Assets/Monsters/Icons/{MonsterEm}_ID.png");
         }
     }
 }
