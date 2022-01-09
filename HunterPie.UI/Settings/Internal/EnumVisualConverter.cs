@@ -1,9 +1,7 @@
-﻿using HunterPie.Core.Architecture;
-using HunterPie.UI.Architecture.Converters;
+﻿using HunterPie.UI.Architecture.Converters;
 using HunterPie.UI.Settings.Converter;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,7 +11,7 @@ namespace HunterPie.UI.Settings.Internal
 {
     internal class EnumVisualConverter : IVisualConverter
     {
-        public UIElement Build(object parent, PropertyInfo childInfo)
+        public FrameworkElement Build(object parent, PropertyInfo childInfo)
         {
             object observable = childInfo.GetValue(parent);
             var binding = VisualConverterHelper.CreateBinding(observable);

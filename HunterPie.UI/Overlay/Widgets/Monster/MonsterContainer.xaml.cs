@@ -1,12 +1,9 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
-using HunterPie.Core.Logger;
-using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using System;
-using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -22,9 +19,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         public MonsterContainer()
         {
             InitializeComponent();
-            
         }
-
 
         public string Title => "Monster Widget";
 
@@ -41,7 +36,29 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             ViewModel.Name = "Dodogama";
             ViewModel.IsEnraged = false;
             ViewModel.Crown = Crown.Gold;
-            
+            string[] ailmentNames = new[]
+            {
+                "Poison", "Paralysis", "Sleep", "Blast",
+                "Mount", "Exhaustion", "Stun", "Tranquilize",
+                "Flash", "Flash", "Knockdown", "Dung Pod",
+                "Shock Trap", "Pitfall Trap", "Elderseal",
+                "Smoking", "Felyne Trap", "Claw", "Banishment Ball",
+                "Enrage"
+            };
+            foreach (string ailment in ailmentNames)
+            {
+                ViewModel.Ailments.Add(
+                    new MonsterAilmentViewModel()
+                    {
+                        Name = ailment,
+                        Timer = 200.0,
+                        MaxTimer = 200.0,
+                        Buildup = 200.0,
+                        MaxBuildup = 200.0,
+                        Count = 0
+                    }
+                );
+            }
             for (int i = 0; i < 13; i++)
             {
                 ViewModel.Parts.Add(
@@ -54,17 +71,6 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
                         MaxTenderize = 300.0
                     }
                 );
-
-                ViewModel.Ailments.Add(
-                    new MonsterAilmentViewModel()
-                    {
-                        Name = "Ailment",
-                        Timer = 200.0,
-                        MaxTimer = 200.0,
-                        Buildup = 200.0,
-                        MaxBuildup = 200.0
-                    }    
-                );
             }
             var updater = new DispatcherTimer()
             {
@@ -73,7 +79,13 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             Random rng = new();
             updater.Tick += (_, __) =>
             {
-                
+                foreach (var ailm in ViewModel.Ailments)
+                {
+                    ailm.Timer--;
+
+                    if (ailm.Timer < 0)
+                        ailm.Timer = ailm.MaxTimer;
+                }
                 foreach (var abnorm in ViewModel.Parts)
                 {
                     abnorm.Health -= rng.NextDouble() * 100;

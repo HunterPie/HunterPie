@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain.Generics;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
@@ -20,10 +21,14 @@ namespace HunterPie.Core.Client.Configuration
         [SettingField("MINIMIZE_TO_SYSTEM_TRAY_STRING", "MINIMIZE_TO_SYSTEM_TRAY_STRING_DESC")]
         public Range RangeTest { get; set; } = new() { Max = 100, Min = 0, Step = 1, Current = 60 };
 
+        [SettingField("RENDERING_STRATEGY_STRING", "RENDERING_STRATEGY_STRING_DESC", true)]
+        public Observable<RenderingStrategy> Rendering { get; set; } = RenderingStrategy.Hardware;
+
         [SettingField("PASSWORD_TEXT_STRING", "PASSWORD_TEXT_STRING_DESC")]
         public Secret Password { get; set; } = new();
 
         [SettingField("DEV_ENABLE_FEATURE_FLAG", "DEV_ENABLE_FEATURE_FLAG_DESC", true)]
         public Observable<bool> EnableFeatureFlags { get; set; } = false;
+
     }
 }

@@ -4,7 +4,8 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
-    public class MonsterWidgetConfig : IWidgetSettings
+    [SettingsGroup("MONSTER_WIDGET", "MONSTER_WIDGET_DESC", "ICON_SKULL")]
+    public class MonsterWidgetConfig : IWidgetSettings, ISettings
     {
         [SettingField("A", "B")]
         public Observable<bool> Initialize { get; set; } = true;
@@ -16,10 +17,10 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         public Position Position { get; set; } = new(100, 100);
 
         [SettingField("A", "B")]
-        public Observable<double> Opacity { get; set; } = 1;
+        public Range Opacity { get; set; } = new() { Current = 1, Max = 1, Min = 0, Step = 0.1 };
 
         [SettingField("A", "B")]
-        public Observable<double> Scale { get; set; } = 1;
+        public Range Scale { get; set; } = new() { Current = 1, Max = 2, Min = 0, Step = 0.1 };
 
         [SettingField("A", "B")]
         public Observable<bool> StreamerMode { get; set; } = false;

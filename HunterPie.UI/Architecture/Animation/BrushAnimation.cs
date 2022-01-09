@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using BrushColors = System.Windows.Media.Brushes;
 
 namespace HunterPie.UI.Architecture.Animation
 {
@@ -31,7 +32,7 @@ namespace HunterPie.UI.Architecture.Animation
                                       AnimationClock animationClock)
         {
             if (!animationClock.CurrentProgress.HasValue)
-                return Brushes.Transparent;
+                return BrushColors.Transparent;
 
             //use the standard values if From and To are not set 
             //(it is the value of the given property)

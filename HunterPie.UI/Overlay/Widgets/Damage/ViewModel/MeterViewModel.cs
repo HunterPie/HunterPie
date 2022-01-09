@@ -2,9 +2,15 @@
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
+using HunterPie.UI.Architecture.Brushes;
+using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows.Threading;
+using System.Timers;
+using System.Windows;
+using System.Windows.Media;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
 {
@@ -14,36 +20,51 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
         private double _timeElapsed = 1;
         private int _deaths;
         private int totalDamage = 0;
-        private readonly DispatcherTimer dispatcher;
+        private readonly Timer dispatcher;
+
+        public Func<double, string> TimeFormatter { get; } = 
+            new Func<double, string>((value) => TimeSpan.FromSeconds(value).ToString("mm\\:ss"));
+
+        public Func<double, string> DPSFormatter { get; } =
+            new Func<double, string>((value) => $"{value:0.00}/s");
+
+        public ChartValues<ObservablePoint>[] PlayerChartValues { get; } = new ChartValues<ObservablePoint>[4]
+        {
+            new ChartValues<ObservablePoint>(),
+            new ChartValues<ObservablePoint>(),
+            new ChartValues<ObservablePoint>(),
+            new ChartValues<ObservablePoint>(),
+        };
+        public SeriesCollection Series { get; private set; } = new();
 
         public ObservableCollection<PlayerViewModel> Players { get; } = new()
         {
             new()
             {
-                Name = "Sciss",
+                Name = "Player 1",
                 Weapon = Weapon.Bow,
-                Color = "#ff9966",
+                Color = "#c3baf4",
                 Percentage = 25
             },
             new()
             {
-                Name = "Haato",
+                Name = "Player 2",
                 Weapon = Weapon.ChargeBlade,
-                Color = "#ff5e62",
+                Color = "#98ff98",
                 Percentage = 25,
                 IsUser = true
             },
             new()
             {
-                Name = "UwU",
-                Color = "#d9a7c7",
+                Name = "Player 3",
+                Color = "#FF4B8EEE",
                 Weapon = Weapon.Greatsword,
                 Percentage = 25
             },
             new()
             {
-                Name = "HunterPie v2",
-                Color = "#fffcdc",
+                Name = "Player 4",
+                Color = "#FF10B9DE",
                 Weapon = Weapon.HuntingHorn,
                 Percentage = 25
             },
@@ -63,10 +84,10 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
 
         public MeterViewModel()
         {
-            dispatcher = new(DispatcherPriority.Render);
-            dispatcher.Tick += MockInGameAction;
-            dispatcher.Interval = new TimeSpan(0, 0, 1);
+            dispatcher = new(1000);
+            dispatcher.Elapsed += MockInGameAction;
             dispatcher.Start();
+            MockCreatePlayerSeries();
         }
 
         private void MockInGameAction(object sender, EventArgs e)
@@ -82,14 +103,40 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
                 player.Percentage = player.Damage / (double)Math.Max(1, totalDamage) * 100;
                 player.IsIncreasing = lastDps < player.DPS;
 
+                if (PlayerChartValues[i - 1].Count > 50)
+                    PlayerChartValues[i - 1].RemoveAt(0);
+
+                PlayerChartValues[i - 1].Add(new ObservablePoint(TimeElapsed, player.DPS));
                 totalDamage += hit;
                 i++;
             }
-
             TimeElapsed++;
         }
 
         public void ToggleHighlight() => Settings.ShouldHighlightMyself.Value = !Settings.ShouldHighlightMyself;
         public void ToggleBlur() => Settings.ShouldBlurNames.Value = !Settings.ShouldBlurNames;
+
+        private void MockCreatePlayerSeries()
+        {
+            int i = 0;
+            foreach (PlayerViewModel player in Players)
+            {
+                Color c = (Color)ColorConverter.ConvertFromString(player.Color);
+                SolidColorBrush color = new SolidColorBrush(c);
+                LinearGradientBrush fill = ColorFadeGradient.FromColor(c);
+                var newSeries = new LineSeries()
+                {
+                    Title = player.Name,
+                    Stroke = color,
+                    Fill = fill,
+                    PointGeometrySize = 0,
+                    StrokeThickness = 2,
+                    LineSmoothness = 0.5
+                };
+                newSeries.Values = PlayerChartValues[i];
+                Series.Add(newSeries);
+                i++;
+            }
+        }
     }
 }

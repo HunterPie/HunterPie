@@ -22,6 +22,8 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
         public void ExecuteOnClick()
         {
             var settingTabs = VisualConverterManager.Build(ClientConfig.Config);
+            
+            var _ = ClientConfig.Config.Client.Language;
 
             SettingHost host = new SettingHost();
             
@@ -30,7 +32,9 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
             // Also add feature flags if enabled
             if (ClientConfig.Config.Client.EnableFeatureFlags)
                 host.AddTab(new FeatureFlagsView(FeatureFlagsInitializer.Features.Flags));
-            
+
+            _ = ClientConfig.Config.Client.Language;
+
             MainHost.SetMain(host);
         }
     }

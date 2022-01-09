@@ -1,6 +1,9 @@
-﻿using HunterPie.UI.Controls.Settings.ViewModel;
+﻿using HunterPie.Core.Architecture;
+using HunterPie.UI.Controls.Settings.ViewModel;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 using System.Windows.Controls;
+using HunterPie.UI.Controls.TextBox.Events;
 
 namespace HunterPie.UI.Controls.Settings
 {
@@ -9,9 +12,10 @@ namespace HunterPie.UI.Controls.Settings
     /// </summary>
     public partial class SettingHost : UserControl
     {
-
+        // TODO: Put all this data in the ViewModel
         private readonly ObservableCollection<ISettingElement> _elements = new ObservableCollection<ISettingElement>();
         public ObservableCollection<ISettingElement> Elements => _elements;
+        public Observable<int> CurrentTabIndex { get; } = 0;
 
         public SettingHost()
         {
@@ -28,6 +32,14 @@ namespace HunterPie.UI.Controls.Settings
         {
             foreach (ISettingElement el in elements)
                 AddTab(el);
+        }
+
+        private void OnRealTimeSearch(object sender, SearchTextChangedEventArgs e)
+        {
+            ISettingElement tab = Elements[CurrentTabIndex];
+
+            foreach (ISettingElementType field in tab.Elements)
+                field.Match = Regex.IsMatch(field.Name, e.Text, RegexOptions.IgnoreCase) || e.Text.Length == 0;
         }
     }
 }

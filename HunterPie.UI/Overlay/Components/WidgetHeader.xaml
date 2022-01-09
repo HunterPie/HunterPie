@@ -17,7 +17,7 @@
                    RadiusY="{Binding RadiusX, RelativeSource={RelativeSource Self}}"
                    Stroke="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}"
                    StrokeThickness="2"/>
-        <Grid Margin="10,0,10,0">
+        <Grid Margin="10,0,0,0">
             <DockPanel>
                 <TextBlock Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}}"
                            Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
@@ -32,7 +32,15 @@
                                 DockPanel.Dock="Right"
                                 Content="✕"
                                 Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                OnClick="OnCloseButtonClick"/>
+                                Margin="0,0,2,0"
+                                Height="25"
+                                OnClick="OnCloseButtonClick">
+                    <buttons:Button.Clip>
+                        <EllipseGeometry RadiusX="12.5"
+                                         RadiusY="12.5"
+                                         Center="12.5,12.5"/>
+                    </buttons:Button.Clip>
+                </buttons:Button>
                 <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
                            FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                            VerticalAlignment="Center"
@@ -40,9 +48,11 @@
                            DockPanel.Dock="Right">
                     <Run Text="x:"/>
                     <Run Text="{Binding Left, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}, StringFormat=\{0:F0\}}"
+                         d:Text="100"
                          Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
                     <Run Text="y:"/>
                     <Run Text="{Binding Top, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}, StringFormat=\{0:F0\}}"
+                         d:Text="100"
                          Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
                 </TextBlock>
                 

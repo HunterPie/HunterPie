@@ -8,5 +8,7 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
         public string Description { get; }
         public object Parent { get; }
         public PropertyInfo Information { get; }
+        
+        public bool Match { get; set; }
     }
 }

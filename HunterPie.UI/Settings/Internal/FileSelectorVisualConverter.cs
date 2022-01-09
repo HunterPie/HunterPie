@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Settings.Types;
+﻿using HunterPie.Core.Logger;
+using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Settings.Converter;
 using System.Reflection;
 using System.Windows;
@@ -9,7 +10,7 @@ namespace HunterPie.UI.Settings.Internal
 {
     internal class FileSelectorVisualConverter : IVisualConverter
     {
-        public UIElement Build(object parent, PropertyInfo childInfo)
+        public FrameworkElement Build(object parent, PropertyInfo childInfo)
         {
             IFileSelector child = (IFileSelector)childInfo.GetValue(parent);
             
@@ -20,7 +21,7 @@ namespace HunterPie.UI.Settings.Internal
                 ItemsSource = child.Elements
             };
 
-            BindingOperations.SetBinding(ui, ComboBox.SelectedItemProperty, binding);
+            BindingOperations.SetBinding(ui, ComboBox.SelectedValueProperty, binding);
             return ui;
         }
     }

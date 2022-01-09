@@ -45,6 +45,28 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="ICON_SEARCH">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M256,80A176,176,0,1,0,432,256A176,176,0,0,0,256,80z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}" Thickness="32" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M232,160A72,72,0,1,0,304,232A72,72,0,0,0,232,160z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}" Thickness="32" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M283.64,283.64L336,336">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}" Thickness="32" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="ICON_DECORATION">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">

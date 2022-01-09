@@ -5,6 +5,7 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
+    [SettingsGroup("ABNORMALITY_WIDGET", "ABNORMALITY_WIDGET_DESC", "ICON_STOPWATCH")]
     public class AbnormalityWidgetConfig : IWidgetSettings
     {
         [SettingField("A", "B")]
@@ -17,10 +18,10 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         public Position Position { get; set; } = new(100, 100);
 
         [SettingField("A", "B")]
-        public Observable<double> Opacity { get; set; } = 1;
+        public Range Opacity { get; set; } = new() { Current = 1, Max = 1, Min = 0, Step = 0.1 };
 
         [SettingField("A", "B")]
-        public Observable<double> Scale { get; set; } = 1;
+        public Range Scale { get; set; } = new() { Current = 1, Max = 2, Min = 0, Step = 0.1 };
 
         [SettingField("A", "B")]
         public Observable<bool> StreamerMode { get; set; } = false;

@@ -1,7 +1,10 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Converters;
+using Newtonsoft.Json;
 
 namespace HunterPie.Core.Settings.Types
 {
+    [JsonConverter(typeof(RangeConverter))]
     public class Range : Bindable
     {
         private double _current;

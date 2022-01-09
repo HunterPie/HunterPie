@@ -7,6 +7,7 @@
              xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.ViewModel"
              d:DataContext="{d:DesignInstance Type=viewmodels:MeterViewModel}"
              xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Components"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
              x:TypeArguments="viewmodels:MeterViewModel"
              xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
@@ -63,24 +64,44 @@
         </Grid>
 
         <!-- Players display -->
-        <ItemsControl d:DataContext="{StaticResource MockViewModel}"
-                      ItemsSource="{Binding Players}"
-                      Margin="1,1,1,1" 
-                      Grid.Row="1">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel ItemHeight="45"
+        <StackPanel Grid.Row="1"
+                    Orientation="Vertical">
+            <ItemsControl ItemsSource="{Binding Players}"
+                          Margin="1,1,1,1" 
+                          Grid.Row="1">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel ItemHeight="45"
                                Orientation="Vertical"
                                ItemWidth="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
 
-            <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:PlayerViewModel}">
-                    <local:PlayerDamageView/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:PlayerViewModel}">
+                        <local:PlayerDamageView/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <lvc:CartesianChart Series="{Binding Series}"
+                                Height="120"
+                                DisableAnimations="True"
+                                Margin="1">
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis MinValue="0"
+                              LabelFormatter="{Binding DPSFormatter}"
+                              FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+                </lvc:CartesianChart.AxisY>
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis LabelFormatter="{Binding TimeFormatter}"
+                              FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+                </lvc:CartesianChart.AxisX>
+            </lvc:CartesianChart>
+        </StackPanel>
+        
+
+        
 
         <StackPanel Orientation="Horizontal"
                     Grid.Row="2"

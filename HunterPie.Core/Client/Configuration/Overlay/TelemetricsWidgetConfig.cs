@@ -1,14 +1,10 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
+    [SettingsGroup("TELEMETRICS_WIDGET", "TELEMETRICS_WIDGET_DESC", "ICON_HIDE")]
     public class TelemetricsWidgetConfig : IWidgetSettings, ISettings
     {
         [SettingField("A", "B")]
@@ -21,10 +17,10 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         public Position Position { get; set; } = new(100, 100);
 
         [SettingField("A", "B")]
-        public Observable<double> Opacity { get; set; } = 1;
+        public Range Opacity { get; set; } = new() { Current = 1, Max = 1, Min = 0, Step = 0.1 };
 
         [SettingField("A", "B")]
-        public Observable<double> Scale { get; set; } = 1;
+        public Range Scale { get; set; } = new() { Current = 1, Max = 2, Min = 0, Step = 0.1 };
 
         [SettingField("A", "B")]
         public Observable<bool> StreamerMode { get; set; } = false;

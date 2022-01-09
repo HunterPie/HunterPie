@@ -2,7 +2,6 @@
 using HunterPie.UI.Settings.Converter;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using RangeUI = HunterPie.UI.Controls.Sliders.Range;
 
@@ -10,7 +9,7 @@ namespace HunterPie.UI.Settings.Internal
 {
     internal class RangeVisualConverter : IVisualConverter
     {
-        public UIElement Build(object parent, PropertyInfo childInfo)
+        public FrameworkElement Build(object parent, PropertyInfo childInfo)
         {
             Range range = (Range)childInfo.GetValue(parent);
             var currentBinding = VisualConverterHelper.CreateBinding(range, nameof(Range.Current));
