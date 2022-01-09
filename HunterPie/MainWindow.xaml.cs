@@ -10,6 +10,11 @@ using HunterPie.UI.Overlay.Widgets.Damage.View;
 using System.Windows.Input;
 using System.Diagnostics;
 using HunterPie.UI.Overlay.Widgets.Monster.Views;
+using HunterPie.Core.Client;
+using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
+using HunterPie.UI.Architecture;
+using HunterPie.Core.Architecture;
+using HunterPie.Core.Settings;
 
 namespace HunterPie
 {
@@ -42,9 +47,7 @@ namespace HunterPie
         private async void OnInitialized(object sender, EventArgs e)
         {
             InitializerManager.InitializeGUI();
-            WidgetManager.Register(new MeterView());
-            WidgetManager.Register(new MonstersView());
-            WidgetManager.Register(new AbnormalityBarView());
+            InitializeDebugWidgets();
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
@@ -54,6 +57,17 @@ namespace HunterPie
                 Process.Start(typeof(MainWindow).Assembly.Location.Replace(".dll", ".exe"));
                 Application.Current.Shutdown();
             }
+        }
+
+        private void InitializeDebugWidgets()
+        {
+            if (ClientConfig.Config.Debug.MockBossesWidget)
+                WidgetManager.Register(
+                    new MonstersView()
+                    {
+                        DataContext = new MockMonstersViewModel()
+                    }
+                );
         }
     }
 }

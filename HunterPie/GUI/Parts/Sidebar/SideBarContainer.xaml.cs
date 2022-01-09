@@ -9,7 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using HunterPie.Core.Domain.Features;
-using HunterPie.Domain.Constants;
+using HunterPie.Core.Domain.Constants;
 
 namespace HunterPie.GUI.Parts.Sidebar
 {

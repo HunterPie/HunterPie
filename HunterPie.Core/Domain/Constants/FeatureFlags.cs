@@ -1,4 +1,4 @@
-﻿namespace HunterPie.Domain.Constants
+﻿namespace HunterPie.Core.Domain.Constants
 {
     public static class FeatureFlags
     {

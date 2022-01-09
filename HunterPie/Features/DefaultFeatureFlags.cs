@@ -1,5 +1,5 @@
-﻿using HunterPie.Core.Domain.Features.Domain;
-using HunterPie.Domain.Constants;
+﻿using HunterPie.Core.Domain.Constants;
+using HunterPie.Core.Domain.Features.Domain;
 using HunterPie.Internal.Logger;
 using System.Collections.Generic;
 

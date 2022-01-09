@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Logger;
+﻿using HunterPie.Core.Domain.Features;
+using HunterPie.Core.Logger;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Controls.Settings.ViewModel;
@@ -52,6 +53,11 @@ namespace HunterPie.UI.Settings
                 if (type.GetInterfaces().Contains(typeof(ISettings)))
                 {
                     SettingsGroup metadata = (SettingsGroup)Attribute.GetCustomAttribute(type, typeof(SettingsGroup));
+
+                    if (metadata.DependsOnFeature is not null && 
+                        !FeatureFlagManager.IsEnabled(metadata.DependsOnFeature))
+                        continue;
+
                     SettingElementViewModel vm = new(metadata.Name, metadata.Description, metadata.Icon);
 
                     object parent = property.GetValue(settings);
@@ -77,6 +83,11 @@ namespace HunterPie.UI.Settings
                 if (prop.PropertyType.GetInterfaces().Contains(typeof(ISettings)))
                 {
                     SettingsGroup meta = (SettingsGroup)Attribute.GetCustomAttribute(prop.PropertyType, typeof(SettingsGroup));
+
+                    if (meta.DependsOnFeature is not null && 
+                        !FeatureFlagManager.IsEnabled(meta.DependsOnFeature))
+                        continue;
+
                     SettingElementViewModel vm = new(meta.Name, meta.Description, meta.Icon);
 
                     object newParent = prop.GetValue(parent);

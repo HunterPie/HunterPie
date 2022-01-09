@@ -15,7 +15,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.Views
             InitializeComponent();
         }
 
-        public MonsterWidgetConfig Settings => ClientConfig.Config.Overlay.EndemicWidget;
+        public MonsterWidgetConfig Settings => ClientConfig.Config.Overlay.BossesWidget;
 
         public string Title => "Monsters Widget";
     }
