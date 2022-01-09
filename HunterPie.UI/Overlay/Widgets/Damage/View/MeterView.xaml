@@ -90,8 +90,8 @@
                                 Margin="1">
                 <lvc:CartesianChart.AxisY>
                     <lvc:Axis MinValue="0"
-                              ShowLabels="False"
-                              LabelFormatter="{Binding DPSFormatter}"/>
+                              LabelFormatter="{Binding DPSFormatter}"
+                              FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
                 </lvc:CartesianChart.AxisY>
                 <lvc:CartesianChart.AxisX>
                     <lvc:Axis LabelFormatter="{Binding TimeFormatter}"
