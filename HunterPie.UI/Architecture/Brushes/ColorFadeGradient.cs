@@ -19,7 +19,7 @@ namespace HunterPie.UI.Architecture.Brushes
             brush.GradientStops = new()
             {
                 new(color - StartTransparency, 0),
-                new(color - EndTransparency, 0.6)
+                new(color - EndTransparency, 0.8)
             };
 
             return brush;

@@ -21,26 +21,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
                 MaxStamina = 10000,
                 Crown = Crown.Gold
             });
-            Monsters.Add(new MockBossMonsterViewModel()
-            {
-                Name = "Monster",
-                Em = "em120",
-                MaxHealth = 15000,
-                Health = 20000,
-                Stamina = 1000,
-                MaxStamina = 1000,
-                Crown = Crown.Silver
-            });
-            Monsters.Add(new MockBossMonsterViewModel()
-            {
-                Name = "Monster",
-                Em = "em103",
-                MaxHealth = 35000,
-                Health = 35000,
-                Stamina = 10000,
-                MaxStamina = 10000,
-                Crown = Crown.None
-            });
+            
         }
     }
 }

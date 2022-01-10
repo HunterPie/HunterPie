@@ -24,5 +24,8 @@ namespace HunterPie.Core.Client.Configuration.Overlay
 
         [SettingField("A", "B")]
         public Observable<bool> StreamerMode { get; set; } = false;
+
+        [SettingField("MONSTER_WIDGET_MAX_WIDTH_STRING", "MONSTER_WIDGET_MAX_WIDTH_STRING")]
+        public Range MaxWidth { get; set; } = new() { Current = 600, Max = 1000, Min = 200, Step = 1 };
     }
 }

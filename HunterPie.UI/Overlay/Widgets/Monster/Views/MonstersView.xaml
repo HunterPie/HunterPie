@@ -6,6 +6,7 @@
            xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
            xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
            xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels" 
+           xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Components"
            d:DataContext="{d:DesignInstance Type=viewmodels:MonstersViewModel}"
            x:TypeArguments="viewmodels:MonstersViewModel"
            mc:Ignorable="d">
@@ -14,7 +15,7 @@
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal"
-                               ItemWidth="300"/>
+                               MaxWidth="{Binding Settings.MaxWidth.Current, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
 

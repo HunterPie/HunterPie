@@ -12,7 +12,8 @@
              xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels" 
              xmlns:animations="clr-namespace:HunterPie.UI.Architecture.Animation"
              xmlns:view="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
-             d:DataContext="{d:DesignInstance Type=viewmodels:BossMonsterViewModel}">
+             d:DataContext="{d:DesignInstance Type=viewmodels:BossMonsterViewModel}"
+             d:DesignWidth="600">
     <UserControl.Resources>
         <viewmodels:MockBossMonsterViewModel x:Key="MockBossMonsterViewModel"/>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
@@ -197,39 +198,37 @@
                    RenderOptions.BitmapScalingMode="Fant"/>
         </Grid>
 
-        <!-- Ailments -->
-
-        <ItemsControl ItemsSource="{Binding Ailments, Mode=OneWay, NotifyOnSourceUpdated=True}"
-                      d:DataContext="{StaticResource MockBossMonsterViewModel}"
-                      Grid.Column="1"
-                      Grid.RowSpan="2"
-                      Grid.Row="0"
-                      VerticalAlignment="Top">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel ItemWidth="60"
-                               MaxWidth="200"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-
-            <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:MonsterAilmentViewModel}">
-                    <view:BossMonsterAilmentView Visibility="{Binding IsActive, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        
 
         <StackPanel Grid.Row="1"
                     Orientation="Vertical"
                     x:Name="PART_Bottom"
                     Margin="0,90,0,0">
+            <!-- Ailments -->
+
+            <ItemsControl ItemsSource="{Binding Ailments, Mode=OneWay, NotifyOnSourceUpdated=True}"
+                      d:DataContext="{StaticResource MockBossMonsterViewModel}"
+                      VerticalAlignment="Top">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel ItemWidth="60"
+                                   HorizontalAlignment="Stretch"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:MonsterAilmentViewModel}">
+                        <view:BossMonsterAilmentView Visibility="{Binding IsActive, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
             <!-- Parts -->
             <ItemsControl ItemsSource="{Binding Parts, NotifyOnSourceUpdated=True}"
                           d:DataContext="{StaticResource MockBossMonsterViewModel}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel ItemWidth="200"
-                                   MaxWidth="600"/>
+                        <WrapPanel ItemWidth="200"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
