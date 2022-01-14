@@ -19,5 +19,16 @@ namespace HunterPie.Core.Settings.Types
 
         private double _step;
         public double Step { get => _step; set { SetValue(ref _step, value); } }
+
+        [JsonConstructor]
+        public Range() { }
+
+        public Range(double current, double max, double min, double step)
+        {
+            Max = max;
+            Min = min;
+            Step = step;
+            Current = current;
+        }
     }
 }

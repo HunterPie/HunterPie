@@ -1,5 +1,4 @@
 ﻿using HunterPie.Core.Architecture;
-using System.Threading.Tasks;
 using System.Timers;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels

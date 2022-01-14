@@ -6,15 +6,31 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 {
     internal class MockBossMonsterViewModel : BossMonsterViewModel
     {
+        private Timer timer = new(1000);
+
         public MockBossMonsterViewModel()
         {
             MockParts();
             MockAilments();
+
+            timer.Elapsed += (_, __) =>
+            {
+                for (int i = 0; i < Parts.Count / 2; i++)
+                {
+                    var part = Parts[i];
+                    part.Health -= 20;
+
+                    if (part.Health < 0)
+                        part.Health = part.MaxHealth;
+                }
+            };
+            timer.Start(); 
         }
 
         private void MockParts()
@@ -29,7 +45,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
                         MaxHealth = 250.0,
                         Tenderize = 10.0,
                         MaxTenderize = 10.0,
-                        Break = 0,
+                        Breaks = 0,
                         MaxBreaks = 0
                     }
                 );

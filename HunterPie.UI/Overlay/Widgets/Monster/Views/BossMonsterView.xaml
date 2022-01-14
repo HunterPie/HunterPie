@@ -12,10 +12,10 @@
              xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels" 
              xmlns:animations="clr-namespace:HunterPie.UI.Architecture.Animation"
              xmlns:view="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
+             xmlns:ocomponents="clr-namespace:HunterPie.UI.Overlay.Components"
              d:DataContext="{d:DesignInstance Type=viewmodels:BossMonsterViewModel}"
              d:DesignWidth="600">
     <UserControl.Resources>
-        <viewmodels:MockBossMonsterViewModel x:Key="MockBossMonsterViewModel"/>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
         <converters:MonsterEmToIconConverter x:Key="MonsterEmToIconConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -33,6 +33,42 @@
             <GradientStop Color="#e63f29" Offset="1"/>
         </LinearGradientBrush>
         <SolidColorBrush x:Key="MonsterHealthEnragedDelayed" Color="#FFEB6C5B"/>
+
+        <Style x:Key="{x:Type local:BossMonsterPartView}" TargetType="{x:Type local:BossMonsterPartView}">
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Widget.Settings.AutoHideParts.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}}"
+                                   Value="True"/>
+                        <Condition Binding="{Binding DataContext.IsActive, RelativeSource={RelativeSource Self}}"
+                                   Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Widget.Settings.AutoHideParts.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}}"
+                                   Value="True"/>
+                        <Condition Binding="{Binding DataContext.IsActive, RelativeSource={RelativeSource Self}}"
+                                   Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Visible"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding DataContext.IsActive, RelativeSource={RelativeSource Self}}"
+                                   Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Visible"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <Grid >
         <Grid.ColumnDefinitions>
@@ -207,8 +243,7 @@
             <!-- Ailments -->
 
             <ItemsControl ItemsSource="{Binding Ailments, Mode=OneWay, NotifyOnSourceUpdated=True}"
-                      d:DataContext="{StaticResource MockBossMonsterViewModel}"
-                      VerticalAlignment="Top">
+                          VerticalAlignment="Top">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel ItemWidth="60"
@@ -224,8 +259,7 @@
             </ItemsControl>
 
             <!-- Parts -->
-            <ItemsControl ItemsSource="{Binding Parts, NotifyOnSourceUpdated=True}"
-                          d:DataContext="{StaticResource MockBossMonsterViewModel}">
+            <ItemsControl ItemsSource="{Binding Parts, NotifyOnSourceUpdated=True}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel ItemWidth="200"/>
@@ -235,7 +269,8 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:MonsterPartViewModel}">
                         <view:BossMonsterPartView VerticalAlignment="Top"
-                                              HorizontalAlignment="Stretch"/>
+                                                  HorizontalAlignment="Stretch"
+                                                  d:Visibility="Visible"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
