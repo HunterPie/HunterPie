@@ -178,13 +178,20 @@
                     </Style>
                 </overlay:Bar.Style>
             </overlay:Bar>
+            
             <TextBlock VerticalAlignment="Top"
-                   HorizontalAlignment="Left"
-                   Margin="10,15,0,0"
-                   Foreground="#FFF3F3F3"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   FontWeight="Medium"
-                   FontSize="16">
+                       HorizontalAlignment="Left"
+                       Margin="10,15,0,0"
+                       Foreground="#FFF3F3F3"
+                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       FontWeight="Medium"
+                       FontSize="16"
+                       x:Name="PART_HealthText">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="Black"
+                                      BlurRadius="4" 
+                                      ShadowDepth="0"/>
+                </TextBlock.Effect>
             <Run Text="{Binding Health, Mode=OneWay, StringFormat=\{0:F1\}}"
                  d:Text="25000.0"
                  FontWeight="Normal"/>
@@ -192,7 +199,7 @@
             <Run Text="{Binding MaxHealth, Mode=OneWay, StringFormat=\{0:F1\}}"
                  d:Text="25000.0" 
                  FontWeight="Light"
-                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/>
+                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"/>
             </TextBlock>
 
             <TextBlock VerticalAlignment="Top"
@@ -200,7 +207,13 @@
                    Margin="0,15,20,0"
                    Foreground="#FFF3F3F3"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   FontWeight="Medium">
+                   FontWeight="Medium"
+                   x:Name="PART_HealthPercentage">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="Black"
+                                      BlurRadius="4" 
+                                      ShadowDepth="0"/>
+                </TextBlock.Effect>
             <Run Text="{Binding HealthPercentage, Mode=OneWay, StringFormat=\{0:F0\}}"
                  d:Text="90"
                  FontWeight="Normal"
@@ -208,7 +221,7 @@
          --><Run Text="{Binding HealthPercentage, Mode=OneWay, Converter={StaticResource DoubleToDecimalConverter}, StringFormat={}.{0:D2}%}"
                  d:Text=".63%" 
                  FontWeight="Light"
-                 Foreground="#FFB2B2B2"/>
+                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"/>
             </TextBlock>
         </Grid>
 

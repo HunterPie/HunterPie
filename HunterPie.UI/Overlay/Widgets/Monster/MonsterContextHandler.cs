@@ -23,18 +23,29 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         private void HookEvents()
         {
             Context.OnHealthChange += OnHealthUpdate;
+            Context.OnSpawn += OnSpawn;
+        }
+
+        private void OnSpawn(object sender, EventArgs e)
+        {
+            Name = Context.Name;
+            Em = $"Rise_{Context.Id:00}";
         }
 
         private void OnHealthUpdate(object sender, EventArgs e)
         {
-            MaxHealth = Math.Max(Context.Health, MaxHealth);
+            MaxHealth = Context.MaxHealth;
             Health = Context.Health;
         }
 
         private void UpdateData()
         {
-            Name = "Unknown";
-            MaxHealth = Math.Max(Context.Health, MaxHealth);
+            if (Context.Id > -1)
+            {
+                Name = Context.Name;
+                Em = $"Rise_{Context.Id:00}";
+            }
+            MaxHealth = Context.MaxHealth;
             Health = Context.Health;
             MaxStamina = 0;
             Stamina = 0;

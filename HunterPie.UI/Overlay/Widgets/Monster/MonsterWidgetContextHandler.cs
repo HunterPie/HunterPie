@@ -25,7 +25,14 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             ViewModel = widget.DataContext as MonstersViewModel;
             Context = context;
 
+            UpdateData();
             HookEvents();
+        }
+
+        private void UpdateData()
+        {
+            foreach (IMonster monster in Context.Game.Monsters)
+                ViewModel.Monsters.Add(new MonsterContextHandler(monster));
         }
 
         private void HookEvents()

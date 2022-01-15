@@ -14,7 +14,12 @@ namespace HunterPie.UI.Architecture.Converters
             if (monsterEm is null || monsterEm.Length == 0)
                 return null;
 
-            return new ImageSourceConverter().ConvertFromString($"pack://siteoforigin:,,,/Assets/Monsters/Icons/{monsterEm}_ID.png");
+            bool isRise = monsterEm.StartsWith("Rise");
+
+            if (!isRise)
+                monsterEm += "_ID";
+
+            return new ImageSourceConverter().ConvertFromString($"pack://siteoforigin:,,,/Assets/Monsters/Icons/{monsterEm}.png");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

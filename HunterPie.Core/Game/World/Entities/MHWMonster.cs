@@ -11,6 +11,12 @@ namespace HunterPie.Core.Game.World.Entities
     {
         public float Health => throw new NotImplementedException();
 
+        public string Name => throw new NotImplementedException();
+
+        public int Id => throw new NotImplementedException();
+
+        public float MaxHealth => throw new NotImplementedException();
+
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
         public event EventHandler<EventArgs> OnDespawn;

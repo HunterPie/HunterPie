@@ -4,7 +4,10 @@ namespace HunterPie.Core.Game.Environment
 {
     public interface IMonster
     {
+        public string Name { get; }
+        public int Id { get; }
         public float Health { get; }
+        public float MaxHealth { get; }
 
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;

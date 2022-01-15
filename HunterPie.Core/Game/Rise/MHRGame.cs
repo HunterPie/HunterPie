@@ -4,8 +4,10 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.Rise.Entities;
+using HunterPie.Core.Logger;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace HunterPie.Core.Game.Rise
@@ -22,7 +24,6 @@ namespace HunterPie.Core.Game.Rise
 
         public MHRGame(IProcessManager process) : base(process)
         {
-            
             Task.Factory.StartNew(async () =>
             {
                 
