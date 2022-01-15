@@ -37,6 +37,15 @@ namespace HunterPie
 
             InitializerManager.Initialize();
             SetRenderingMode();
+
+            InitializeProcessScanners();
+        }
+
+        private void InitializeProcessScanners()
+        {
+            ProcessManager.Start();
+            ProcessManager.OnProcessFound += OnProcessFound;
+            ProcessManager.OnProcessClosed += OnProcessClosed;
         }
 
         private static void SetRenderingMode()

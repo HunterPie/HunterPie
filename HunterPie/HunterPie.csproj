@@ -16,13 +16,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Address\" />
     <Folder Include="GUI\Parts\Account\ViewModel\" />
     <Folder Include="GUI\Views\" />
     <Folder Include="Languages\" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Address\MonsterHunterRise.0.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Address\MonsterHunterWorld.408899.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -1,0 +1,5 @@
+﻿# Addresses
+Address LOCKON_ADDRESS 0xC0F0F60
+
+# Offsets
+Offset LOCKON_OFFSETS 0xB8,0x58,0x28,0x78
