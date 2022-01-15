@@ -16,6 +16,8 @@ namespace HunterPie.Core.Game.World
         private readonly List<IMonster> _monsters;
         private readonly IProcessManager _process;
 
+        public event EventHandler<IMonster> OnMonsterSpawn;
+
         public IPlayer Player => _player;
         public List<IMonster> Monsters => _monsters;
 

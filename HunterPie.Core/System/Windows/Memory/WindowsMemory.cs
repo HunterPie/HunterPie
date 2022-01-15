@@ -63,6 +63,21 @@ namespace HunterPie.Core.System.Windows.Memory
             return address;
         }
 
+        public long ReadPtr(long address, int[] offsets)
+        {
+            foreach (int offset in offsets)
+            {
+                long tmp = Read<long>(address + offset);
+
+                if (tmp == NULLPTR)
+                    return NULLPTR;
+
+                address = tmp;
+            }
+
+            return address;
+        }
+
         private T[] ReadStructure<T>(long address, uint count) where T : struct
         {
             int size = Marshal.SizeOf<T>() * (int)count;

@@ -9,6 +9,8 @@ namespace HunterPie.Core.Game.World.Entities
 {
     public class MHWMonster : IMonster
     {
+        public float Health => throw new NotImplementedException();
+
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
         public event EventHandler<EventArgs> OnDespawn;

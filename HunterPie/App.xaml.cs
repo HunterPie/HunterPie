@@ -20,6 +20,7 @@ using System.Windows.Navigation;
 using System.Windows.Media;
 using HunterPie.Core.Client.Configuration.Enums;
 using System.Windows.Interop;
+using HunterPie.UI.Overlay.Widgets.Monster;
 
 namespace HunterPie
 {
@@ -78,6 +79,11 @@ namespace HunterPie
             Log.Debug("Initialized game context");
             
             _context = context;
+            
+            Dispatcher.BeginInvoke(() =>
+            {
+                _ = new MonsterWidgetContextHandler(context);
+            });
             
         }
 

@@ -15,6 +15,7 @@
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal"
+                               ItemWidth="600"
                                MaxWidth="{Binding Settings.MaxWidth.Current, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
