@@ -1,6 +1,4 @@
-﻿Address BASE 0x140000000
-
-# Addresses
+﻿# Addresses
 Address MONSTERS_ADDRESS 0xC095F60
 Address LOCKON_ADDRESS 0xC0F0F60
 

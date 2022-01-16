@@ -95,6 +95,8 @@ namespace HunterPie.Core.System.Windows
 
                 memory = new WindowsMemory(pHandle);
 
+                AddressMap.Add("BASE", (long)Process.MainModule.BaseAddress);
+
                 this.Dispatch(OnGameStart, new(Name));
             }
                 
