@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Controls.Sliders"
+             xmlns:validators="clr-namespace:HunterPie.UI.Architecture.Validation"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
              d:Width="300">
     <Grid>
@@ -21,11 +23,25 @@
                 Style="{StaticResource SliderDefault}"
                 Margin="3,0,3,0" 
                 AutoToolTipPlacement="TopLeft"/>
-        <TextBox Text="{Binding Value, StringFormat=\{0:F1\}}"
-                 d:Text="50.0"
+        <TextBox d:Text="50.0"
                  HorizontalAlignment="Stretch" 
                  TextAlignment="Center"
                  Grid.Column="1"
-                 FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+                 FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}">
+            <TextBox.Text>
+                <Binding Path="Value"
+                         Mode="TwoWay"
+                         UpdateSourceTrigger="PropertyChanged"
+                         ValidatesOnDataErrors="True"
+                         ValidatesOnNotifyDataErrors="True"
+                         NotifyOnValidationError="True"
+                         StringFormat="{}{0:F2}">
+                    <Binding.ValidationRules>
+                        <validators:ByTypeValidationRule ValidationType="{x:Type system:Double}"
+                                                         ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
     </Grid>
 </UserControl>

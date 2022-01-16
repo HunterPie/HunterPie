@@ -2,12 +2,12 @@
 
 namespace HunterPie.Core.Domain.Features
 {
-    internal class FeatureFlagManager
+    public class FeatureFlagManager
     {
         private IFeatureFlagRepository flagRepository;
         private static FeatureFlagManager _instance;
 
-        public static void Initialize(IFeatureFlagRepository repository)
+        internal static void Initialize(IFeatureFlagRepository repository)
         {
             if (_instance is not null)
                 return;

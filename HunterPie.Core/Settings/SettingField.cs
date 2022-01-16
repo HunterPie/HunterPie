@@ -9,10 +9,10 @@ namespace HunterPie.Core.Settings
         public string Description;
         public bool RequiresRestart;
 
-        public SettingField(string name, string description, bool requiresRestart = false)
+        public SettingField(string name, string description = null, bool requiresRestart = false)
         {
             Name = name;
-            Description = description;
+            Description = description ?? $"{name}_DESC";
             RequiresRestart = requiresRestart;
         }
     }

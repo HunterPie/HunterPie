@@ -369,6 +369,22 @@
         <Setter Property="BorderThickness" Value="0,0,0,1"/>
         <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
         <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border BorderBrush="#FFEA5151" 
+                            BorderThickness="1">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#FFEA3434" 
+                                              BlurRadius="5" 
+                                              RenderingBias="Performance"
+                                              ShadowDepth="0"/>
+                        </Border.Effect>
+                        <AdornedElementPlaceholder />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <!-- PasswordBox -->

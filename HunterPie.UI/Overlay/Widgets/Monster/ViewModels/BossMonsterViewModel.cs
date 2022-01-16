@@ -1,15 +1,10 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Game.Enums;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 {
-    internal class MockMonsterViewModel : Bindable
+    public class BossMonsterViewModel : Bindable
     {
         private string name;
         private string em;
@@ -34,11 +29,15 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
             get => em;
             set { SetValue(ref em, value); }
         }
-
+        
         public double Health
         {
             get => health;
-            set { SetValue(ref health, value); }
+            set
+            {
+                SetValue(ref health, value);
+                HealthPercentage = Health / MaxHealth * 100;
+            }
         }
         public double MaxHealth
         {
@@ -48,7 +47,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         public double HealthPercentage
         {
             get => healthPercentage;
-            set { SetValue(ref healthPercentage, value); }
+            private set { SetValue(ref healthPercentage, value); }
         }
         public double Stamina
         {
@@ -76,47 +75,5 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
             set { SetValue(ref isEnraged, value); }
         }
         public bool IsTarget { get; set; }
-
-        public MockMonsterViewModel()
-        {
-            MockParts();
-            MockAilments();
-        }
-
-        private void MockParts()
-        {
-            for (int i = 0; i < 12; i++)
-            {
-                parts.Add(
-                    new MonsterPartViewModel()
-                    {
-                        Name = $"Part {i}",
-                        Health = 200.0,
-                        MaxHealth = 250.0,
-                        Tenderize = 10.0,
-                        MaxTenderize = 10.0,
-                        Break = 0,
-                        MaxBreaks = 0
-                    }
-                );
-            }
-        }
-
-        private void MockAilments()
-        {
-            for (int i = 0; i < 19; i++)
-            {
-                ailments.Add(
-                    new MonsterAilmentViewModel()
-                    {
-                        Name = "Ailment",
-                        Timer = 100.0,
-                        MaxTimer = 100.0,
-                        Buildup = 100.0,
-                        MaxBuildup = 100.0
-                    }
-                );
-            }
-        }
     }
 }

@@ -53,9 +53,6 @@
     <Compile Update="Overlay\Widgets\Metrics\View\TelemetricsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Overlay\Widgets\Monster\MonsterContainer.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Overlay\Widgets\Monster\Views\BossMonsterAilmentView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -63,6 +60,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Monster\Views\BossMonsterView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Monster\Views\MonstersView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\WindowChrome.xaml.cs">
@@ -124,9 +124,6 @@
     <Page Update="Overlay\Widgets\Metrics\View\TelemetricsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Overlay\Widgets\Monster\MonsterContainer.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Overlay\Widgets\Monster\Views\BossMonsterAilmentView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -134,6 +131,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Monster\Views\BossMonsterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Monster\Views\MonstersView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\WindowChrome.xaml">

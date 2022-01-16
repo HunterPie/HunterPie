@@ -68,7 +68,8 @@
                     Orientation="Vertical">
             <ItemsControl ItemsSource="{Binding Players}"
                           Margin="1,1,1,1" 
-                          Grid.Row="1">
+                          Grid.Row="1"
+                          d:DataContext="{StaticResource MockViewModel}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel ItemHeight="45"
@@ -87,7 +88,8 @@
             <lvc:CartesianChart Series="{Binding Series}"
                                 Height="120"
                                 DisableAnimations="True"
-                                Margin="1">
+                                Margin="1"
+                                d:DataContext="{StaticResource MockViewModel}">
                 <lvc:CartesianChart.AxisY>
                     <lvc:Axis MinValue="0"
                               LabelFormatter="{Binding DPSFormatter}"
