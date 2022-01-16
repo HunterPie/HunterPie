@@ -12,6 +12,7 @@ namespace HunterPie.Core.Game
         public List<IMonster> Monsters { get; }
 
         public event EventHandler<IMonster> OnMonsterSpawn;
+        public event EventHandler<IMonster> OnMonsterDespawn;
 
     }
 }

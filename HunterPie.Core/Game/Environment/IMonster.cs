@@ -8,6 +8,7 @@ namespace HunterPie.Core.Game.Environment
         public int Id { get; }
         public float Health { get; }
         public float MaxHealth { get; }
+        public bool IsTarget { get; }
 
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
@@ -22,6 +23,5 @@ namespace HunterPie.Core.Game.Environment
         public event EventHandler<EventArgs> OnEnrage;
         public event EventHandler<EventArgs> OnUnenrage;
         public event EventHandler<EventArgs> OnEnrageTimerChange;
-
     }
 }

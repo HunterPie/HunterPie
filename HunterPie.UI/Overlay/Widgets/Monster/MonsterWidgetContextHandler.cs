@@ -2,13 +2,8 @@
 using HunterPie.Core.Game.Environment;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Monster.Views;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster
 {
@@ -38,6 +33,21 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         private void HookEvents()
         {
             Context.Game.OnMonsterSpawn += OnMonsterSpawn;
+            Context.Game.OnMonsterDespawn += OnMonsterDespawn;
+        }
+
+        private void OnMonsterDespawn(object sender, IMonster e)
+        {
+            Application.Current.Dispatcher.Invoke(() => {
+                MonsterContextHandler monster = ViewModel.Monsters
+                    .Cast<MonsterContextHandler>()
+                    .FirstOrDefault(handler => handler.Context == e);
+                    
+                if (monster is null)
+                    return;
+
+                ViewModel.Monsters.Remove(monster);
+            });
         }
 
         private void OnMonsterSpawn(object sender, IMonster e)

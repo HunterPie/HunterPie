@@ -11,7 +11,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
 {
     public class MonsterContextHandler : BossMonsterViewModel
     {
-        private readonly IMonster Context;
+        public readonly IMonster Context;
 
         public MonsterContextHandler(IMonster context) : base()
         {

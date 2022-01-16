@@ -86,6 +86,9 @@ namespace HunterPie.Core.Domain
         {
             scanners.Add(scanner);
 
+            if (type is null)
+                return true;
+
             if (!middlewares.ContainsKey(type))
                 middlewares.Add(type, new());
 

@@ -1,18 +1,19 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Domain;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.Rise.Entities;
-using HunterPie.Core.Logger;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HunterPie.Core.Game.Rise
 {
-    public class MHRGame : Scannable, IGame
+    public class MHRGame : Scannable, IGame, IEventDispatcher
     {
         public IPlayer Player => throw new NotImplementedException();
 
@@ -21,36 +22,41 @@ namespace HunterPie.Core.Game.Rise
         Dictionary<long, IMonster> monsters = new();
 
         public event EventHandler<IMonster> OnMonsterSpawn;
+        public event EventHandler<IMonster> OnMonsterDespawn;
 
         public MHRGame(IProcessManager process) : base(process)
         {
-            Task.Factory.StartNew(async () =>
-            {
-                
-                while (true)
-                {
-                    foreach (var m in Monsters)
-                        if (m is Scannable ms)
-                            ms.Scan();
-                    
-                    Scan();
-                    
-                    await Task.Delay(100);
-                }
-            });
-            
+            StartScanTask();
         }
 
-        [ScannableMethod(typeof(MHRGame))]
-        private void ScanLockon()
+        [ScannableMethod]
+        private void ScanMonstersArray()
         {
             long address = _process.Memory.Read(
-                    AddressMap.GetAbsolute("LOCKON_ADDRESS"),
-                    AddressMap.Get<int[]>("LOCKON_OFFSETS")
+                AddressMap.GetAbsolute("MONSTERS_ADDRESS"),
+                AddressMap.Get<int[]>("MONSTER_LIST_OFFSETS")
             );
 
-            long monsterAddress = _process.Memory.Read<long>(address);
+            uint monsterArraySize = _process.Memory.Read<uint>(address - 0x8);
+            HashSet<long> monsterAddresses = _process.Memory.Read<long>(address + 0x20, monsterArraySize)
+                .ToHashSet();
 
+            long[] toDespawn = monsters.Keys.Where(address => !monsterAddresses.Contains(address))
+                .ToArray();
+
+            foreach (long mAddress in toDespawn)
+                HandleMonsterDespawn(mAddress);
+
+            long[] toSpawn = monsterAddresses.Where(address => !monsters.ContainsKey(address))
+                .ToArray();
+
+            foreach (long mAddress in toSpawn)
+                HandleMonsterSpawn(mAddress);
+
+        }
+
+        private void HandleMonsterSpawn(long monsterAddress)
+        {
             if (monsterAddress == 0 || monsters.ContainsKey(monsterAddress))
                 return;
 
@@ -58,7 +64,33 @@ namespace HunterPie.Core.Game.Rise
             monsters.Add(monsterAddress, monster);
             Monsters.Add(monster);
 
-            OnMonsterSpawn?.Invoke(this, monster);
+            this.Dispatch(OnMonsterSpawn, monster);
+        }
+
+        private void HandleMonsterDespawn(long address)
+        {
+            IMonster monster = monsters[address]; 
+            monsters.Remove(address);
+            Monsters.Remove(monster);
+
+            this.Dispatch(OnMonsterDespawn, monster);
+        }
+
+        private void StartScanTask()
+        {
+            Task.Factory.StartNew(async () =>
+            {
+                while (true)
+                {
+                    foreach (var m in Monsters)
+                        if (m is Scannable ms)
+                            ms.Scan();
+
+                    Scan();
+
+                    await Task.Delay(100);
+                }
+            });
         }
     }
 }

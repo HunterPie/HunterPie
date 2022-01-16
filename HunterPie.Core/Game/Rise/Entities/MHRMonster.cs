@@ -16,8 +16,9 @@ namespace HunterPie.Core.Game.Rise.Entities
     {
         private long _address;
 
-        private float _health;
         private int _id = -1;
+        private float _health;
+        private bool _isTarget;
 
         public float Health
         {
@@ -45,6 +46,19 @@ namespace HunterPie.Core.Game.Rise.Entities
                 {
                     _id = value;
                     this.Dispatch(OnSpawn);
+                }
+            }
+        }
+
+        public bool IsTarget
+        {
+            get => _isTarget;
+            private set
+            {
+                if (_isTarget != value)
+                {
+                    _isTarget = value;
+                    this.Dispatch(OnTarget);
                 }
             }
         }
@@ -105,6 +119,19 @@ namespace HunterPie.Core.Game.Rise.Entities
 
             MaxHealth = dto.MaxHealth;
             Health = dto.Health;
+        }
+
+        [ScannableMethod]
+        private void ScanLockon()
+        {
+            long address = _process.Memory.Read(
+                    AddressMap.GetAbsolute("LOCKON_ADDRESS"),
+                    AddressMap.Get<int[]>("LOCKON_OFFSETS")
+            );
+
+            long monsterAddress = _process.Memory.Read<long>(address);
+
+            IsTarget = monsterAddress == _address;
         }
     }
 }
