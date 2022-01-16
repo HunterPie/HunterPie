@@ -58,5 +58,7 @@ namespace HunterPie.Core.Domain.Generics
                 .Select(f => Path.GetFileName(f))
                 .ToArray();
         }
+
+        public static implicit operator string(GenericFileSelector selector) => selector.Current;
     }
 }

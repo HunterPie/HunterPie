@@ -21,6 +21,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             Context = context;
 
             UpdateData();
+            // TODO: Unhook events to avoid memory leak
             HookEvents();
         }
 

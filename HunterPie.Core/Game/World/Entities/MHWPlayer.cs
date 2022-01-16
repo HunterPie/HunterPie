@@ -108,6 +108,10 @@ namespace HunterPie.Core.Game.World.Entities
         public ref readonly SpecializedTool SecondaryTool => ref _secondaryTool;
 
         public bool IsLoggedOn => _playerAddress != 0;
+
+        int IPlayer.HighRank => throw new NotImplementedException();
+
+        public int StageId => throw new NotImplementedException();
         #endregion
 
         public event EventHandler<EventArgs> OnLogin;
