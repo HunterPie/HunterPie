@@ -13,7 +13,7 @@ namespace HunterPie.Core.System
 
         private readonly static IProcessManager[] _managers = new IProcessManager[]
         {
-            new MHWProcessManager(),
+            // new MHWProcessManager(),
             new MHRProcessManager(),
         };
         public static IProcessManager[] Managers => _managers;
