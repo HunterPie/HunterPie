@@ -15,5 +15,10 @@ namespace HunterPie.Core.Game.Rise
             Game = new MHRGame(process);
         }
 
+        internal override void Scan()
+        {
+            if (Game is MHRGame game)
+                game.StartScanTask();
+        }
     }
 }

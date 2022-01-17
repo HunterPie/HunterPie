@@ -1,10 +1,5 @@
 ﻿using HunterPie.Core.Domain.Process;
-using HunterPie.Core.Game.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HunterPie.Core.Game.World
 {
@@ -15,6 +10,11 @@ namespace HunterPie.Core.Game.World
             Game = new MHWGame(process);
             Process = process;
             // TODO: Strings
+        }
+
+        internal override void Scan()
+        {
+            throw new NotImplementedException();
         }
     }
 }

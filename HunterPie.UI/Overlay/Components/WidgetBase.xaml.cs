@@ -1,9 +1,9 @@
-﻿using HunterPie.UI.System.Windows;
-using HunterPie.UI.Architecture.Extensions;
+﻿using HunterPie.UI.Architecture.Extensions;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Interop;
 using System;
+using HunterPie.UI.Platform.Windows.Native;
 using HunterPie.UI.Overlay.Enums;
 
 namespace HunterPie.UI.Overlay.Components

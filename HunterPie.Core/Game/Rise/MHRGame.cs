@@ -31,7 +31,6 @@ namespace HunterPie.Core.Game.Rise
         public MHRGame(IProcessManager process) : base(process)
         {
             Player = new MHRPlayer(process);
-            StartScanTask();
         }
 
         [ScannableMethod]
@@ -91,7 +90,7 @@ namespace HunterPie.Core.Game.Rise
             this.Dispatch(OnMonsterDespawn, monster);
         }
 
-        private void StartScanTask()
+        internal void StartScanTask()
         {
             Task.Factory.StartNew(async () =>
             {

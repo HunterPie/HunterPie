@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace HunterPie.UI.System.Windows
+namespace HunterPie.UI.Platform.Windows.Native
 {
     public static class User32
     {

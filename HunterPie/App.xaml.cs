@@ -64,6 +64,8 @@ namespace HunterPie
             if (_process is null)
                 return;
 
+            UnhookEvents();
+
             _process = null;
             _context = null;
 
@@ -71,6 +73,7 @@ namespace HunterPie
                 handler.UnhookEvents();
 
             contextHandlers.Clear();
+            
         }
 
         private void OnProcessFound(object sender, ProcessManagerEventArgs e)
@@ -83,10 +86,11 @@ namespace HunterPie
 
             _process = e.Process;
             Context context = GameManager.GetGameContext(e.ProcessName, _process);
-            
+
             Log.Debug("Initialized game context");
-            
             _context = context;
+            
+            HookEvents();
             
             Dispatcher.InvokeAsync(() =>
             {
@@ -94,6 +98,7 @@ namespace HunterPie
                 contextHandlers.Add(handler);
             });
             
+            context.Scan();
         }
 
         private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -110,5 +115,18 @@ namespace HunterPie
             }
             base.OnExit(e);
         }
+
+        private void HookEvents()
+        {
+            _context.Game.Player.OnLogin += OnPlayerLogin;
+        }
+
+
+        private void UnhookEvents()
+        {
+            _context.Game.Player.OnLogin -= OnPlayerLogin;
+        }
+
+        private void OnPlayerLogin(object sender, EventArgs e) => Log.Info($"Logged in as {_context.Game.Player.Name}");
     }
 }

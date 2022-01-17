@@ -5,6 +5,7 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
 using System;
+using System.Text;
 
 namespace HunterPie.Core.Game.Rise.Entities
 {
@@ -26,6 +27,7 @@ namespace HunterPie.Core.Game.Rise.Entities
                     this.Dispatch(value is ""
                         ? OnLogout
                         : OnLogin);
+
                 }
             }
         }
@@ -96,8 +98,9 @@ namespace HunterPie.Core.Game.Rise.Entities
                 AddressMap.Get<int[]>("CHARACTER_OFFSETS")
             );
 
-            int nameLength = _process.Memory.Read<int>(currentPlayerSaveAddress + 0xC);
-            string name = _process.Memory.Read(currentPlayerSaveAddress + 0x14, (uint)(nameLength * 2));
+            long namePtr = _process.Memory.Read<long>(currentPlayerSaveAddress);
+            int nameLength = _process.Memory.Read<int>(namePtr + 0x10);
+            string name = _process.Memory.Read(namePtr + 0x14, (uint)(nameLength * 2), encoding: Encoding.Unicode);
 
             Name = name;
         }
