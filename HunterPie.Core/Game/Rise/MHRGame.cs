@@ -17,8 +17,10 @@ namespace HunterPie.Core.Game.Rise
     {
         const uint MAXIMUM_MONSTER_ARRAY_SIZE = 5;
 
-        public IPlayer Player { get; }
+        // TODO: Could probably turn this into a bit mask with 256 bits
+        private HashSet<int> MonsterAreas = new() { 5, 201, 202, 203, 204, 205, 207, 209, 210, 211};
 
+        public IPlayer Player { get; }
         public List<IMonster> Monsters { get; } = new();
 
         Dictionary<long, IMonster> monsters = new();
@@ -35,6 +37,16 @@ namespace HunterPie.Core.Game.Rise
         [ScannableMethod]
         private void ScanMonstersArray()
         {
+            // Only scans for monsters in hunting areas
+            if (!MonsterAreas.Contains(Player.StageId))
+            {
+                if (monsters.Keys.Count > 0)
+                    foreach (long mAddress in monsters.Keys)
+                        HandleMonsterDespawn(mAddress);
+
+                return;
+            }
+
             long address = _process.Memory.Read(
                 AddressMap.GetAbsolute("MONSTERS_ADDRESS"),
                 AddressMap.Get<int[]>("MONSTER_LIST_OFFSETS")

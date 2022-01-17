@@ -1,11 +1,6 @@
-﻿using HunterPie.Core.Game;
-using HunterPie.Core.Game.Environment;
+﻿using HunterPie.Core.Game.Environment;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster
 {
@@ -24,13 +19,30 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         {
             Context.OnHealthChange += OnHealthUpdate;
             Context.OnSpawn += OnSpawn;
+            Context.OnDeath += OnDespawn;
+            Context.OnDespawn += OnDespawn;
+            Context.OnTarget += OnTarget;
         }
 
+        private void UnhookEvents()
+        {
+            Context.OnHealthChange -= OnHealthUpdate;
+            Context.OnSpawn -= OnSpawn;
+            Context.OnDeath -= OnDespawn;
+            Context.OnDespawn -= OnDespawn;
+            Context.OnTarget -= OnTarget;
+        }
+        
         private void OnSpawn(object sender, EventArgs e)
         {
             Name = Context.Name;
             Em = $"Rise_{Context.Id:00}";
         }
+
+        private void OnDespawn(object sender, EventArgs e) => UnhookEvents();
+        
+        private void OnTarget(object sender, EventArgs e) => IsTarget = Context.IsTarget;
+
 
         private void OnHealthUpdate(object sender, EventArgs e)
         {
@@ -47,8 +59,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             }
             MaxHealth = Context.MaxHealth;
             Health = Context.Health;
-            MaxStamina = 0;
-            Stamina = 0;
+            IsTarget = Context.IsTarget;
         }
     }
 }

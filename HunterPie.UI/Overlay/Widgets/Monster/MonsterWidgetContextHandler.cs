@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster
 {
-    public class MonsterWidgetContextHandler
+    public class MonsterWidgetContextHandler : IContextHandler
     {
         private readonly MonstersViewModel ViewModel;
         private readonly Context Context;
@@ -21,7 +21,6 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             Context = context;
 
             UpdateData();
-            // TODO: Unhook events to avoid memory leak
             HookEvents();
         }
 
@@ -35,6 +34,12 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         {
             Context.Game.OnMonsterSpawn += OnMonsterSpawn;
             Context.Game.OnMonsterDespawn += OnMonsterDespawn;
+        }
+
+        public void UnhookEvents()
+        {
+            Context.Game.OnMonsterSpawn -= OnMonsterSpawn;
+            Context.Game.OnMonsterDespawn -= OnMonsterDespawn;
         }
 
         private void OnMonsterDespawn(object sender, IMonster e)

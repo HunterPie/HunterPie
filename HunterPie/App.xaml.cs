@@ -21,6 +21,8 @@ using System.Windows.Media;
 using HunterPie.Core.Client.Configuration.Enums;
 using System.Windows.Interop;
 using HunterPie.UI.Overlay.Widgets.Monster;
+using System.Collections.Generic;
+using HunterPie.UI.Overlay;
 
 namespace HunterPie
 {
@@ -31,6 +33,7 @@ namespace HunterPie
     {
         private IProcessManager _process;
         private Context _context;
+        private List<IContextHandler> contextHandlers = new();
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -63,6 +66,11 @@ namespace HunterPie
 
             _process = null;
             _context = null;
+
+            foreach (IContextHandler handler in contextHandlers)
+                handler.UnhookEvents();
+
+            contextHandlers.Clear();
         }
 
         private void OnProcessFound(object sender, ProcessManagerEventArgs e)
@@ -80,9 +88,10 @@ namespace HunterPie
             
             _context = context;
             
-            Dispatcher.BeginInvoke(() =>
+            Dispatcher.InvokeAsync(() =>
             {
-                _ = new MonsterWidgetContextHandler(context);
+                var handler = new MonsterWidgetContextHandler(context);
+                contextHandlers.Add(handler);
             });
             
         }
