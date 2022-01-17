@@ -4,7 +4,6 @@ using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
-using HunterPie.Core.Logger;
 using System;
 
 namespace HunterPie.Core.Game.Rise.Entities
@@ -12,10 +11,24 @@ namespace HunterPie.Core.Game.Rise.Entities
     public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     {
         #region Private
+        private string _name;
         private int _stageId;
         #endregion 
 
-        public string Name { get; private set; }
+        public string Name
+        {
+            get => _name;
+            private set
+            {
+                if (value != _name)
+                {
+                    _name = value;
+                    this.Dispatch(value is ""
+                        ? OnLogout
+                        : OnLogin);
+                }
+            }
+        }
 
         public int HighRank { get; private set; }
 
@@ -26,13 +39,9 @@ namespace HunterPie.Core.Game.Rise.Entities
             {
                 if (value != _stageId)
                 {
-                    if (value == -1 || _stageId == -1)
-                        this.Dispatch(value == -1 
-                            ? OnLogout
-                            : OnLogin);
-
-                    this.Dispatch(OnStageUpdate);
                     _stageId = value;
+                    
+                    this.Dispatch(OnStageUpdate);
                 }
             }
         }
@@ -52,6 +61,7 @@ namespace HunterPie.Core.Game.Rise.Entities
 
         // TODO: Add DTOs for middlewares
 
+
         [ScannableMethod]
         private void ScanStageData()
         {
@@ -70,6 +80,26 @@ namespace HunterPie.Core.Game.Rise.Entities
                 : villageId;
 
             StageId = zoneId;
+        }
+
+        [ScannableMethod]
+        private void ScanPlayerSaveData()
+        {
+            if (StageId == -1)
+            {
+                Name = "";
+                return;
+            }
+
+            long currentPlayerSaveAddress = _process.Memory.Read(
+                AddressMap.GetAbsolute("CHARACTER_ADDRESS"),
+                AddressMap.Get<int[]>("CHARACTER_OFFSETS")
+            );
+
+            int nameLength = _process.Memory.Read<int>(currentPlayerSaveAddress + 0xC);
+            string name = _process.Memory.Read(currentPlayerSaveAddress + 0x14, (uint)(nameLength * 2));
+
+            Name = name;
         }
     }
 }
