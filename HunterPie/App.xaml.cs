@@ -21,6 +21,7 @@ using System.Windows.Media;
 using HunterPie.Core.Client.Configuration.Enums;
 using System.Windows.Interop;
 using HunterPie.UI.Overlay.Widgets.Monster;
+using HunterPie.Integrations.Discord;
 
 namespace HunterPie
 {
@@ -30,6 +31,7 @@ namespace HunterPie
     public partial class App : Application
     {
         private IProcessManager _process;
+        private RiseRichPresence _richPresence;
         private Context _context;
 
         protected override void OnStartup(StartupEventArgs e)
@@ -63,6 +65,7 @@ namespace HunterPie
 
             _process = null;
             _context = null;
+            _richPresence?.Dispose();
         }
 
         private void OnProcessFound(object sender, ProcessManagerEventArgs e)
@@ -84,7 +87,8 @@ namespace HunterPie
             {
                 _ = new MonsterWidgetContextHandler(context);
             });
-            
+
+            _richPresence = new(context);
         }
 
         private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)

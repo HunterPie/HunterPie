@@ -22,6 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DiscordRichPresence" Version="1.0.175" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Address\MonsterHunterRise.0.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

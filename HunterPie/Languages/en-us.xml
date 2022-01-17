@@ -48,7 +48,7 @@
 			<Monster Id="43" String="Jyuratodus"/>
 			<Monster Id="44" String="Tobi-Kadachi"/>
 			<Monster Id="45" String="Bazelgeuse"/>
-			<Monster Id="46" String="Training Dummy"/>
+			<Monster Id="46" String="Toadversary"/>
 		</Rise>
 	</Monsters>
 	<Stages>
