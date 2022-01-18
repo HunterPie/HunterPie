@@ -12,12 +12,11 @@ namespace HunterPie.Core.Settings
 
         public SettingsGroup(
             string name,
-            string description,
             string icon,
             string dependsOnFeature = null
         ) {
             Name = name;
-            Description = description;
+            Description = name + "_DESC";
             Icon = icon;
             DependsOnFeature = dependsOnFeature;
         }

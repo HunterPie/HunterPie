@@ -40,7 +40,7 @@ namespace HunterPie.UI.Logger
 
         private async Task WriteToBuffer(LogLevel level, params object[] args)
         {
-            await Application.Current.Dispatcher.InvokeAsync(() =>
+            await Application.Current?.Dispatcher.InvokeAsync(() =>
             {
                 StringBuilder builder = new StringBuilder();
 

@@ -1,18 +1,8 @@
-﻿using HunterPie.Core.Logger;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using TB = System.Windows.Controls.TextBox;
 
 namespace HunterPie.UI.Controls.Sliders
 {
@@ -58,6 +48,21 @@ namespace HunterPie.UI.Controls.Sliders
         {
             InitializeComponent();
             DataContext = this;
+        }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && sender is TB textbox)
+                UpdateBinding(textbox);
+
+        }
+
+        private void OnLostFocus(object sender, RoutedEventArgs e) => UpdateBinding(sender as TB);
+
+        private static void UpdateBinding(TB textbox)
+        {
+            BindingExpression binding = textbox.GetBindingExpression(TB.TextProperty);
+            binding.UpdateSource();
         }
     }
 }

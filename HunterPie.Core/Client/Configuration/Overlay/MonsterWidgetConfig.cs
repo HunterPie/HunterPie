@@ -4,25 +4,25 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
-    [SettingsGroup("MONSTER_WIDGET", "MONSTER_WIDGET_DESC", "ICON_SKULL")]
+    [SettingsGroup("MONSTER_WIDGET", "ICON_SKULL")]
     public class MonsterWidgetConfig : IWidgetSettings, ISettings
     {
-        [SettingField("A")]
+        [SettingField("INITIALIZE_WIDGET_STRING", requiresRestart: true)]
         public Observable<bool> Initialize { get; set; } = true;
 
-        [SettingField("A")]
+        [SettingField("ENABLE_WIDGET_STRING")]
         public Observable<bool> Enabled { get; set; } = true;
 
-        [SettingField("A")]
+        [SettingField("WIDGET_POSITION")]
         public Position Position { get; set; } = new(100, 100);
 
-        [SettingField("A")]
+        [SettingField("WIDGET_OPACITY")]
         public Range Opacity { get; set; } = new() { Current = 1, Max = 1, Min = 0, Step = 0.1 };
 
-        [SettingField("A")]
+        [SettingField("WIDGET_SCALE")]
         public Range Scale { get; set; } = new() { Current = 1, Max = 2, Min = 0, Step = 0.1 };
 
-        [SettingField("A")]
+        [SettingField("ENABLE_STREAMER_MODE")]
         public Observable<bool> StreamerMode { get; set; } = false;
 
         [SettingField("MONSTER_WIDGET_MAX_WIDTH_STRING")]

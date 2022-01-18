@@ -4,7 +4,7 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
-    [SettingsGroup("METER_WIDGET", "METER_WIDGET_DESC", "ICON_STATISTICS")]
+    [SettingsGroup("METER_WIDGET", "ICON_STATISTICS", "feature_poggers")]
     public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     {
         [SettingField("MOCK", "MOCK")]

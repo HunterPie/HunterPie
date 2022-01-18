@@ -4,6 +4,10 @@ using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using HunterPie.UI.Controls.TextBox.Events;
+using HunterPie.Core.Logger;
+using System.Windows.Media.Animation;
+using System.Windows;
+using System;
 
 namespace HunterPie.UI.Controls.Settings
 {

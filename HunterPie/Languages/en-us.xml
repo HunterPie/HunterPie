@@ -71,4 +71,57 @@
 			<Stage Id="211" String="Coral Palace"/>
 		</Rise>
 	</Stages>
+
+	<Client>
+		<Settings>
+			<Setting Id="CLIENT_STRING"
+					 String="Client"
+					 Description="Client configurations"/>
+			<Setting Id="OVERLAY_STRING"
+					 String="Overlay"
+					 Description="Overlay configurations"/>
+			<Setting Id="DEV_TOOLS_STRING"
+					 String="Dev Tools"
+					 Description="Overlay configurations"/>
+			
+			<Setting Id="LANGUAGE_STRING"
+					 String="Language"
+					 Description="HunterPie's default localization"/>
+			<Setting Id="MINIMIZE_TO_SYSTEM_TRAY_STRING"
+					 String="Minimize to system tray"
+					 Description="If enabled, HunterPie will minimize to the system's tray."/>
+			<Setting Id="RENDERING_STRATEGY_STRING"
+					 String="Rendering Strategy"
+					 Description="HunterPie's default rendering strategy. Software will use your CPU to render the overlay, Hardware will use your Graphics Card."/>
+			<Setting Id="DEV_ENABLE_FEATURE_FLAG"
+					 String="Enable development feature flags"
+					 Description="If enabled, HunterPie will allow you to enable Feature Flags for in-development features."/>
+
+			<Setting Id="INITIALIZE_WIDGET_STRING"
+					 String="Initialize widget"
+					 Description="If enabled, HunterPie will always initialize this widget. Turn this off if you don't want this widget."/>
+			<Setting Id="ENABLE_WIDGET_STRING"
+					 String="Show widget"
+					 Description="If enabled, HunterPie will always show this widget whenever there's data to be displayed."/>
+			<Setting Id="WIDGET_POSITION"
+					 String="Widget position"
+					 Description="If enabled, HunterPie will always show this widget whenever there's data to be displayed."/>
+			<Setting Id="WIDGET_OPACITY"
+					 String="Widget opacity"
+					 Description="Controls this widget opacity."/>
+			<Setting Id="WIDGET_SCALE"
+					 String="Widget scale"
+					 Description="Controls this widget linear scale, the higher the value, the bigger the widget will be."/>
+			<Setting Id="MONSTER_WIDGET_MAX_WIDTH_STRING"
+					 String="Monster widget maximum width"
+					 Description="Controls the maximum width for the monsters health bar."/>
+
+			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
+					 String="Developer: Mock Monster widget"/>
+			<Setting Id="DEV_MOCK_DAMAGE_WIDGET_STRING"
+					 String="Developer: Mock Damage Meter widget"/>
+			<Setting Id="DEV_MOCK_ABNORMALITY_WIDGET_STRING"
+					 String="Developer: Mock Abnormalities widget"/>
+		</Settings>
+	</Client>
 </Strings>
