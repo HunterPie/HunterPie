@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HunterPie.UI.Overlay.Components"
+        xmlns:overlay="clr-namespace:HunterPie.UI.Overlay"
         mc:Ignorable="d"
-        Title="{Binding Widget.Title}"
+        Title="{Binding Widget.Title, Mode=OneWay}"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="#01000000"
@@ -13,13 +14,14 @@
         SizeToContent="WidthAndHeight"
         d:Height="400"
         d:Width="500"
-        Top="{Binding Widget.Settings.Position.X, Mode=TwoWay}"
-        Left="{Binding Widget.Settings.Position.Y, Mode=TwoWay}"
+        Top="{Binding Widget.Settings.Position.Y, Mode=TwoWay}"
+        Left="{Binding Widget.Settings.Position.X, Mode=TwoWay}"
         UseLayoutRounding="True"
-        RenderOptions.ClearTypeHint="Enabled" Loaded="OnLoaded">
+        RenderOptions.ClearTypeHint="Enabled" 
+        Loaded="OnLoaded"
+        ShowInTaskbar="False">
     <Grid>
         <Grid x:Name="PART_Base"
-              Opacity="0"
               d:Opacity="1">
             <local:WidgetHeader Height="30"
                             Margin="20,0,20,0"
@@ -32,9 +34,11 @@
             </Border>
             <Grid.Style>
                 <Style TargetType="{x:Type Grid}">
+                    <Setter Property="Opacity" Value="0"/>
                     <Style.Triggers>
                         <!-- OnMouseOver -->
-                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Value="True">
+                        <DataTrigger Binding="{Binding IsDesignModeEnabled, Source={x:Static overlay:WidgetManager.Instance}}"
+                                     Value="True">
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard Storyboard.TargetProperty="Opacity">

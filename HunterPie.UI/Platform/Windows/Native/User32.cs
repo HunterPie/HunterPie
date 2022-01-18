@@ -17,6 +17,9 @@ namespace HunterPie.UI.Platform.Windows.Native
         [DllImport("User32.dll")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
+        [DllImport("user32.dll")]
+        public static extern bool SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
         public const int GWL_EXSTYLE = (-20);
 
         [Flags]

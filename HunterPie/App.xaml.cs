@@ -74,6 +74,8 @@ namespace HunterPie
                 handler.UnhookEvents();
 
             contextHandlers.Clear();
+
+            Dispatcher.InvokeAsync(WidgetManager.Dispose);
         }
 
         private void OnProcessFound(object sender, ProcessManagerEventArgs e)
