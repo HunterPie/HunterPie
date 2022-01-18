@@ -18,13 +18,13 @@ namespace HunterPie.Core.System.Windows.Memory
             pHandle = processHandle;
         }
 
-        public string Read(long address, uint length)
+        public string Read(long address, uint length, Encoding encoding = null)
         {
             byte[] buffer = new byte[length];
 
             Kernel32.ReadProcessMemory(pHandle, (IntPtr)address, buffer, buffer.Length, out int _);
 
-            string raw = Encoding.UTF8.GetString(buffer, 0, buffer.Length);
+            string raw = (encoding ?? Encoding.UTF8).GetString(buffer, 0, buffer.Length);
             int nullCharIdx = raw.IndexOf('\x00');
 
             if (nullCharIdx < 0)
@@ -58,6 +58,21 @@ namespace HunterPie.Core.System.Windows.Memory
                     return NULLPTR;
 
                 address = tmp + offset;
+            }
+
+            return address;
+        }
+
+        public long ReadPtr(long address, int[] offsets)
+        {
+            foreach (int offset in offsets)
+            {
+                long tmp = Read<long>(address + offset);
+
+                if (tmp == NULLPTR)
+                    return NULLPTR;
+
+                address = tmp;
             }
 
             return address;

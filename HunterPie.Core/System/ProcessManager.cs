@@ -11,9 +11,10 @@ namespace HunterPie.Core.System
         public static event EventHandler<ProcessManagerEventArgs> OnProcessFound;
         public static event EventHandler<ProcessManagerEventArgs> OnProcessClosed;
 
-        private readonly static IProcessManager[] _managers = new[]
+        private readonly static IProcessManager[] _managers = new IProcessManager[]
         {
-            new MHWProcessManager()
+            // new MHWProcessManager(),
+            new MHRProcessManager(),
         };
         public static IProcessManager[] Managers => _managers;
 

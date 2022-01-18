@@ -18,6 +18,7 @@ namespace HunterPie.Internal
             new DialogManagerInitializer(),
             new UITracerInitializer(),
             new ClientConfigInitializer(),
+            new ClientLocalizationInitializer(),
             new ConfigManagerInitializer(),
 
             // GUI

@@ -13,6 +13,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         private double healthPercentage;
         private double stamina;
         private double maxStamina;
+        private bool isTarget;
         private bool isEnraged;
         private Crown _crown;
         private readonly ObservableCollection<MonsterPartViewModel> parts = new();
@@ -44,21 +45,25 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
             get => maxHealth;
             set { SetValue(ref maxHealth, value); }
         }
+        
         public double HealthPercentage
         {
             get => healthPercentage;
             private set { SetValue(ref healthPercentage, value); }
         }
+        
         public double Stamina
         {
             get => stamina;
             set { SetValue(ref stamina, value); }
         }
+        
         public double MaxStamina
         {
             get => maxStamina;
             set { SetValue(ref maxStamina, value); }
         }
+
         public Crown Crown
         {
             get => _crown;
@@ -74,6 +79,11 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
             get => isEnraged;
             set { SetValue(ref isEnraged, value); }
         }
-        public bool IsTarget { get; set; }
+
+        public bool IsTarget
+        {
+            get => isTarget;
+            set { SetValue(ref isTarget, value); }
+        }
     }
 }

@@ -1,14 +1,20 @@
 ﻿using HunterPie.Core.Game.Environment;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HunterPie.Core.Game.World.Entities
 {
     public class MHWMonster : IMonster
     {
+        public float Health => throw new NotImplementedException();
+
+        public string Name => throw new NotImplementedException();
+
+        public int Id => throw new NotImplementedException();
+
+        public float MaxHealth => throw new NotImplementedException();
+
+        public bool IsTarget => throw new NotImplementedException();
+
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
         public event EventHandler<EventArgs> OnDespawn;

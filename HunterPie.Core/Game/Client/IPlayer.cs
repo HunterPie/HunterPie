@@ -4,6 +4,10 @@ namespace HunterPie.Core.Game.Client
 {
     public interface IPlayer
     {
+        public string Name { get; }
+        public int HighRank { get; }
+        public int StageId { get; }
+
         public event EventHandler<EventArgs> OnLogin;
         public event EventHandler<EventArgs> OnLogout;
         public event EventHandler<EventArgs> OnHealthUpdate;

@@ -1,6 +1,5 @@
-﻿using HunterPie.Core.Domain;
-using HunterPie.Core.Domain.Process;
-using HunterPie.Core.Game.Client;
+﻿using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Game.World;
 using System;
 
@@ -18,6 +17,8 @@ namespace HunterPie.Core.Game
             {
                 case "MonsterHunterWorld":
                     return new MHWContext(process);
+                case "MonsterHunterRise":
+                    return new MHRContext(process);
                 default:
                     throw new Exception("Game context not implemented");
             }

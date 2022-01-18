@@ -7,7 +7,7 @@ namespace HunterPie.Core.Domain
     {
         public readonly Type DtoType;
 
-        public ScannableMethod(Type dtoType)
+        public ScannableMethod(Type dtoType = null)
         {
             DtoType = dtoType;
         }

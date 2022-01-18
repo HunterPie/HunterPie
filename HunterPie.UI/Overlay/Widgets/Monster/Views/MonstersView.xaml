@@ -10,18 +10,22 @@
            d:DataContext="{d:DesignInstance Type=viewmodels:MonstersViewModel}"
            x:TypeArguments="viewmodels:MonstersViewModel"
            mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
     <Grid>
         <ItemsControl ItemsSource="{Binding Monsters}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal"
+                    <WrapPanel Orientation="Vertical"
+                               ItemWidth="{Binding Settings.MaxWidth.Current, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                MaxWidth="{Binding Settings.MaxWidth.Current, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:BossMonsterViewModel}">
-                    <local:BossMonsterView />
+                    <local:BossMonsterView Visibility="{Binding IsTarget, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

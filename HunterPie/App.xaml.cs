@@ -14,12 +14,14 @@ using HunterPie.UI.Dialog;
 using HunterPie.Core.Game.Data;
 using HunterPie.Core.Client;
 using HunterPie.Core.System;
-using HunterPie.Core.Events;
 using HunterPie.Internal;
-using System.Windows.Navigation;
 using System.Windows.Media;
 using HunterPie.Core.Client.Configuration.Enums;
 using System.Windows.Interop;
+using HunterPie.UI.Overlay.Widgets.Monster;
+using HunterPie.Integrations.Discord;
+using HunterPie.UI.Overlay;
+using System.Collections.Generic;
 
 namespace HunterPie
 {
@@ -29,7 +31,9 @@ namespace HunterPie
     public partial class App : Application
     {
         private IProcessManager _process;
+        private RiseRichPresence _richPresence;
         private Context _context;
+        private List<IContextHandler> contextHandlers = new();
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -37,6 +41,15 @@ namespace HunterPie
 
             InitializerManager.Initialize();
             SetRenderingMode();
+
+            InitializeProcessScanners();
+        }
+
+        private void InitializeProcessScanners()
+        {
+            ProcessManager.Start();
+            ProcessManager.OnProcessFound += OnProcessFound;
+            ProcessManager.OnProcessClosed += OnProcessClosed;
         }
 
         private static void SetRenderingMode()
@@ -51,8 +64,16 @@ namespace HunterPie
             if (_process is null)
                 return;
 
+            UnhookEvents();
+            _richPresence?.Dispose();
+
             _process = null;
             _context = null;
+
+            foreach (IContextHandler handler in contextHandlers)
+                handler.UnhookEvents();
+
+            contextHandlers.Clear();
         }
 
         private void OnProcessFound(object sender, ProcessManagerEventArgs e)
@@ -65,11 +86,20 @@ namespace HunterPie
 
             _process = e.Process;
             Context context = GameManager.GetGameContext(e.ProcessName, _process);
-            
+
             Log.Debug("Initialized game context");
-            
             _context = context;
             
+            HookEvents();
+            _richPresence = new(context);
+            
+            Dispatcher.InvokeAsync(() =>
+            {
+                var handler = new MonsterWidgetContextHandler(context);
+                contextHandlers.Add(handler);
+            });
+            
+            context.Scan();
         }
 
         private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -86,5 +116,18 @@ namespace HunterPie
             }
             base.OnExit(e);
         }
+
+        private void HookEvents()
+        {
+            _context.Game.Player.OnLogin += OnPlayerLogin;
+        }
+
+
+        private void UnhookEvents()
+        {
+            _context.Game.Player.OnLogin -= OnPlayerLogin;
+        }
+
+        private void OnPlayerLogin(object sender, EventArgs e) => Log.Info($"Logged in as {_context.Game.Player.Name}");
     }
 }
