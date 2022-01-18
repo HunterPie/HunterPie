@@ -16,7 +16,7 @@
         Top="{Binding Widget.Settings.Position.X, Mode=TwoWay}"
         Left="{Binding Widget.Settings.Position.Y, Mode=TwoWay}"
         UseLayoutRounding="True"
-        RenderOptions.ClearTypeHint="Enabled">
+        RenderOptions.ClearTypeHint="Enabled" Loaded="OnLoaded">
     <Grid>
         <Grid x:Name="PART_Base"
               Opacity="0"

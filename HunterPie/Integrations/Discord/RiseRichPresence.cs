@@ -76,13 +76,19 @@ namespace HunterPie.Integrations.Discord
             if (targetMonster is not null)
                 description = $"Hunting {targetMonster.Name} ({targetMonster.Health / targetMonster.MaxHealth * 100:0}%)";
 
+            
+            
             presence.WithDetails(description)
                 .WithState(null)
                 .WithParty(null)
                 .WithAssets(new Assets()
                 {
                     LargeImageText = MHRContext.Strings.GetStageNameById(game.Player.StageId),
-                    LargeImageKey = $"rise-stage-{game.Player.StageId}",
+                    LargeImageKey = game.Player.StageId == -1 
+                                    ? "unknown" 
+                                    : $"rise-stage-{game.Player.StageId}",
+                    SmallImageText = game.Player.Name,
+                    SmallImageKey = game.Player.Name == "" ? null : "unknown"
                 })
                 .WithTimestamps(locationTime);
 

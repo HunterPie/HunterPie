@@ -131,7 +131,7 @@ namespace HunterPie.Core.Game.Rise.Entities
 
             long monsterAddress = _process.Memory.Read<long>(address);
 
-            IsTarget = monsterAddress == _address;
+            IsTarget = monsterAddress == _address || monsterAddress == 0;
         }
     }
 }

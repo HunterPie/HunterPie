@@ -4,18 +4,35 @@ using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
-using HunterPie.Core.Logger;
 using System;
+using System.Text;
 
 namespace HunterPie.Core.Game.Rise.Entities
 {
     public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     {
         #region Private
+        private string _name;
         private int _stageId;
+        private int _villageStageId;
+        private int _huntStageId;
         #endregion 
 
-        public string Name { get; private set; }
+        public string Name
+        {
+            get => _name;
+            private set
+            {
+                if (value != _name)
+                {
+                    _name = value;
+                    this.Dispatch(value is ""
+                        ? OnLogout
+                        : OnLogin);
+
+                }
+            }
+        }
 
         public int HighRank { get; private set; }
 
@@ -26,13 +43,8 @@ namespace HunterPie.Core.Game.Rise.Entities
             {
                 if (value != _stageId)
                 {
-                    if (value == -1 || _stageId == -1)
-                        this.Dispatch(value == -1 
-                            ? OnLogout
-                            : OnLogin);
-
-                    this.Dispatch(OnStageUpdate);
                     _stageId = value;
+                    this.Dispatch(OnStageUpdate);
                 }
             }
         }
@@ -52,6 +64,7 @@ namespace HunterPie.Core.Game.Rise.Entities
 
         // TODO: Add DTOs for middlewares
 
+
         [ScannableMethod]
         private void ScanStageData()
         {
@@ -61,15 +74,44 @@ namespace HunterPie.Core.Game.Rise.Entities
             );
 
             // TODO: Transform this into a structure instead of an array
-            int[] stageIds = _process.Memory.Read<int>(stageAddress + 0x64, 4);
+            int[] stageIds = _process.Memory.Read<int>(stageAddress + 0x60, 5);
 
-            int villageId = stageIds[0];
-            int huntId = stageIds[3];
-            int zoneId = huntId != -1
-                ? huntId + 200
-                : villageId;
+            bool isVillage = stageIds[0] == 4;
+            bool isMainMenu = stageIds[0] == 0;
+
+            int villageId = stageIds[1];
+            int huntId = stageIds[4];
+
+            int zoneId = isMainMenu switch
+            {
+                true => -1,
+                false => isVillage
+                ? villageId
+                : huntId + 200
+            };
 
             StageId = zoneId;
+        }
+
+        [ScannableMethod]
+        private void ScanPlayerSaveData()
+        {
+            if (StageId == -1)
+            {
+                Name = "";
+                return;
+            }
+
+            long currentPlayerSaveAddress = _process.Memory.Read(
+                AddressMap.GetAbsolute("CHARACTER_ADDRESS"),
+                AddressMap.Get<int[]>("CHARACTER_OFFSETS")
+            );
+
+            long namePtr = _process.Memory.Read<long>(currentPlayerSaveAddress);
+            int nameLength = _process.Memory.Read<int>(namePtr + 0x10);
+            string name = _process.Memory.Read(namePtr + 0x14, (uint)(nameLength * 2), encoding: Encoding.Unicode);
+
+            Name = name;
         }
     }
 }
