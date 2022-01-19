@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HunterPie.Core.Game.Enums;
+using System;
 
 namespace HunterPie.Core.Game.Environment
 {
@@ -9,6 +10,7 @@ namespace HunterPie.Core.Game.Environment
         public float Health { get; }
         public float MaxHealth { get; }
         public bool IsTarget { get; }
+        public Target Target { get; }
 
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
@@ -16,6 +18,7 @@ namespace HunterPie.Core.Game.Environment
         public event EventHandler<EventArgs> OnDeath;
         public event EventHandler<EventArgs> OnCapture;
         public event EventHandler<EventArgs> OnTarget;
+        public event EventHandler<EventArgs> OnTargetChange;
         public event EventHandler<EventArgs> OnCrownChange;
         public event EventHandler<EventArgs> OnHealthChange;
         public event EventHandler<EventArgs> OnStaminaChange;

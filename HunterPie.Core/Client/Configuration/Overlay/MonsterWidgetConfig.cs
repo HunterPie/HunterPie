@@ -14,13 +14,13 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         public Observable<bool> Enabled { get; set; } = true;
 
         [SettingField("WIDGET_POSITION")]
-        public Position Position { get; set; } = new(100, 100);
+        public Position Position { get; set; } = new(600, 100);
 
         [SettingField("WIDGET_OPACITY")]
-        public Range Opacity { get; set; } = new() { Current = 1, Max = 1, Min = 0, Step = 0.1 };
+        public Range Opacity { get; set; } = new(1, 1, 0.1, 0.1);
 
         [SettingField("WIDGET_SCALE")]
-        public Range Scale { get; set; } = new() { Current = 1, Max = 2, Min = 0, Step = 0.1 };
+        public Range Scale { get; set; } = new(1, 2, 0.1, 0.1);
 
         [SettingField("ENABLE_STREAMER_MODE")]
         public Observable<bool> StreamerMode { get; set; } = false;

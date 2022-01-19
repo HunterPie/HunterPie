@@ -16,10 +16,13 @@
         d:Width="500"
         Top="{Binding Widget.Settings.Position.Y, Mode=TwoWay}"
         Left="{Binding Widget.Settings.Position.X, Mode=TwoWay}"
+        Opacity="{Binding Widget.Settings.Opacity.Current, Mode=OneWay}"
         UseLayoutRounding="True"
         RenderOptions.ClearTypeHint="Enabled" 
         Loaded="OnLoaded"
-        ShowInTaskbar="False">
+        ShowInTaskbar="False"
+        Width="{Binding ActualWidth, ElementName=PART_WidgetContent, Mode=OneWay}"
+        Height="{Binding ActualHeight, ElementName=PART_WidgetContent, Mode=OneWay}">
     <Grid>
         <Grid x:Name="PART_Base"
               d:Opacity="1">
@@ -60,10 +63,18 @@
                 </Style>
             </Grid.Style>
         </Grid>
-        
+
         <!-- Widget content -->
         <Grid Margin="10,50,10,10">
-            <ContentControl Content="{Binding Widget}"/>
+            <ContentControl Content="{Binding Widget}"
+                            Opacity="{Binding Widget.Settings.Opacity.Current, Mode=OneWay}"/>
         </Grid>
+        <Grid.LayoutTransform>
+            <ScaleTransform ScaleX="{Binding Widget.Settings.Scale.Current, Mode=OneWay}"
+                            ScaleY="{Binding Widget.Settings.Scale.Current, Mode=OneWay}"
+                            CenterX="0.5"
+                            CenterY="0.5"/>
+        </Grid.LayoutTransform>
     </Grid>
+    
 </Window>

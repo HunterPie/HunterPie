@@ -5,6 +5,7 @@ using HunterPie.Core.Domain.DTO.Monster;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.Rise.Crypto;
 using HunterPie.Core.Logger;
@@ -19,6 +20,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         private int _id = -1;
         private float _health;
         private bool _isTarget;
+        private Target _target;
 
         public float Health
         {
@@ -63,6 +65,19 @@ namespace HunterPie.Core.Game.Rise.Entities
             }
         }
 
+        public Target Target
+        {
+            get => _target;
+            private set
+            {
+                if (_target != value)
+                {
+                    _target = value;
+                    this.Dispatch(OnTargetChange);
+                }
+            }
+        }
+
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
         public event EventHandler<EventArgs> OnDespawn;
@@ -76,6 +91,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         public event EventHandler<EventArgs> OnEnrage;
         public event EventHandler<EventArgs> OnUnenrage;
         public event EventHandler<EventArgs> OnEnrageTimerChange;
+        public event EventHandler<EventArgs> OnTargetChange;
 
         public MHRMonster(IProcessManager process, long address) : base(process)
         {
@@ -131,7 +147,14 @@ namespace HunterPie.Core.Game.Rise.Entities
 
             long monsterAddress = _process.Memory.Read<long>(address);
 
-            IsTarget = monsterAddress == _address || monsterAddress == 0;
+            IsTarget = monsterAddress == _address;
+            
+            if (IsTarget)
+                Target = Target.Self;
+            else if (monsterAddress != 0)
+                Target = Target.Another;
+            else
+                Target = Target.None;
         }
     }
 }

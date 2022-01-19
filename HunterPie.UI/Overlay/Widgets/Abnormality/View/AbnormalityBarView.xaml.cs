@@ -2,6 +2,7 @@
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture;
+using HunterPie.UI.Overlay.Enums;
 using HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality.View
     /// <summary>
     /// Interaction logic for AbnormalityBarView.xaml
     /// </summary>
-    public partial class AbnormalityBarView : View<AbnormalityBarViewModel>, IWidget<AbnormalityWidgetConfig>
+    public partial class AbnormalityBarView : View<AbnormalityBarViewModel>, IWidget<AbnormalityWidgetConfig>, IWidgetWindow
     {
         public AbnormalityBarView()
         {
@@ -34,6 +35,8 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality.View
         public string Title => "Abnormality Widget";
 
         public AbnormalityWidgetConfig Settings => ClientConfig.Config.Overlay.AbnormalityWidget;
+
+        public WidgetType Type => WidgetType.ClickThrough;
 
 
         #region Mock

@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Game.Environment;
+﻿using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Environment;
 using System;
 
 namespace HunterPie.Core.Game.World.Entities
@@ -15,6 +16,8 @@ namespace HunterPie.Core.Game.World.Entities
 
         public bool IsTarget => throw new NotImplementedException();
 
+        public Target Target => throw new NotImplementedException();
+
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
         public event EventHandler<EventArgs> OnDespawn;
@@ -28,5 +31,6 @@ namespace HunterPie.Core.Game.World.Entities
         public event EventHandler<EventArgs> OnEnrage;
         public event EventHandler<EventArgs> OnUnenrage;
         public event EventHandler<EventArgs> OnEnrageTimerChange;
+        public event EventHandler<EventArgs> OnTargetChange;
     }
 }
