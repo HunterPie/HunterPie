@@ -21,7 +21,7 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.View
 
         public string Title => "Debug Metrics";
 
-        public WidgetType Type => WidgetType.Window;
+        public WidgetType Type => WidgetType.ClickThrough;
 
         private void OnGCClick(object sender, EventArgs e)
         {

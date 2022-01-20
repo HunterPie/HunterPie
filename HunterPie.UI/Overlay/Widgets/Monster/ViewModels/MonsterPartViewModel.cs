@@ -70,7 +70,6 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
                 if (!IsActive)
                     return;
 
-                Log.Debug("Hide");
                 IsActive = false;
             }
         }

@@ -21,6 +21,7 @@ namespace HunterPie.Internal
             new ClientConfigInitializer(),
             new ClientLocalizationInitializer(),
             new ConfigManagerInitializer(),
+            new SystemTrayInitializer(),
 
             // GUI
             new MenuInitializer(),

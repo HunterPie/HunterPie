@@ -11,6 +11,7 @@ namespace HunterPie.Core.Game.Environment
         public float MaxHealth { get; }
         public bool IsTarget { get; }
         public Target Target { get; }
+        public IMonsterPart[] Parts { get; }
 
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;

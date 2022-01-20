@@ -14,6 +14,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         private double stamina;
         private double maxStamina;
         private bool isTarget;
+        private Target _targetType = Target.None;
         private bool isEnraged;
         private Crown _crown;
         private readonly ObservableCollection<MonsterPartViewModel> parts = new();
@@ -68,6 +69,12 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         {
             get => _crown;
             set { SetValue(ref _crown, value); }
+        }
+
+        public Target TargetType
+        {
+            get => _targetType;
+            set { SetValue(ref _targetType, value); }
         }
 
         public ref readonly ObservableCollection<MonsterPartViewModel> Parts => ref parts;

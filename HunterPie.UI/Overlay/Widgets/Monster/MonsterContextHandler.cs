@@ -2,6 +2,7 @@
 using HunterPie.Core.Game.Environment;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using System;
+using System.Windows;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster
 {
@@ -42,13 +43,26 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
 
         private void OnDespawn(object sender, EventArgs e) => UnhookEvents();
         
-        private void OnTargetChange(object sender, EventArgs e) => IsTarget = Context.Target == Target.Self || Context.Target == Target.None;
+        private void OnTargetChange(object sender, EventArgs e) 
+        {
+            IsTarget = Context.Target == Target.Self || Context.Target == Target.None;
+            TargetType = Context.Target;
+        }
 
 
         private void OnHealthUpdate(object sender, EventArgs e)
         {
             MaxHealth = Context.MaxHealth;
             Health = Context.Health;
+
+            if (Parts.Count != Context.Parts.Length)
+            {
+                Application.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    foreach (IMonsterPart part in Context.Parts)
+                        Parts.Add(new() { Name = "Unknown", MaxHealth = part.MaxHealth, Health = part.Health });
+                });
+            }
         }
 
         private void UpdateData()
@@ -63,6 +77,16 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             IsTarget = Context.Target == Target.Self || Context.Target == Target.None;
             MaxStamina = 1;
             Stamina = 1;
+            TargetType = Context.Target;
+
+            if (Parts.Count != Context.Parts.Length)
+            {
+                Application.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    foreach (IMonsterPart part in Context.Parts)
+                        Parts.Add(new() { Name = "Unknown", Health = part.Health, MaxHealth = part.MaxHealth });
+                });
+            }
         }
     }
 }
