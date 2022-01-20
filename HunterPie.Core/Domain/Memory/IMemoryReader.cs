@@ -9,5 +9,6 @@ namespace HunterPie.Core.Domain.Memory
         public T[] Read<T>(long address, uint count) where T : struct;
         public long ReadPtr(long address, int[] offsets);
         public long Read(long address, int[] offsets);
+        public T Deref<T>(long address, int[] offsets) where T : struct;
     }
 }

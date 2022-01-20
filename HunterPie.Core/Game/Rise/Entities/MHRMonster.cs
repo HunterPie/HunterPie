@@ -158,18 +158,23 @@ namespace HunterPie.Core.Game.Rise.Entities
         [ScannableMethod]
         private void ScanLockon()
         {
-            long address = _process.Memory.Read(
-                    AddressMap.GetAbsolute("LOCKON_ADDRESS"),
-                    AddressMap.Get<int[]>("LOCKON_OFFSETS")
+            
+            int cameraStyleType = _process.Memory.Deref<int>(
+                AddressMap.GetAbsolute("LOCKON_ADDRESS"),
+                AddressMap.Get<int[]>("LOCKON_CAMERA_STYLE_OFFSETS")
             );
 
-            bool useFocusCamera = _process.Memory.Read<byte>(address + 0x7A) == 1;
+            long cameraStylePtr = _process.Memory.Read(
+                AddressMap.GetAbsolute("LOCKON_ADDRESS"),
+                AddressMap.Get<int[]>("LOCKON_OFFSETS")
+            );
 
-            long monsterAddress = useFocusCamera switch
-            {
-                true => _process.Memory.Read<long>(address + 0xC0),
-                false => _process.Memory.Read<long>(address),
-            };
+            cameraStylePtr += cameraStyleType * 8;
+
+            long monsterAddress = _process.Memory.Deref<long>(
+                    cameraStylePtr,
+                    new[] { 0x78 }
+            );
 
             IsTarget = monsterAddress == _address;
             

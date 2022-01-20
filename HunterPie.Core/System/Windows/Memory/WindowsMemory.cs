@@ -110,5 +110,11 @@ namespace HunterPie.Core.System.Windows.Memory
         {
             throw new NotImplementedException();
         }
+
+        public T Deref<T>(long address, int[] offsets) where T : struct
+        {
+            long ptr = Read(address, offsets);
+            return Read<T>(ptr);
+        }
     }
 }
