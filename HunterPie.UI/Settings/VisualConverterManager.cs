@@ -39,6 +39,7 @@ namespace HunterPie.UI.Settings
             { typeof(Secret), new SecretVisualConverter() },
             { typeof(IFileSelector), new FileSelectorVisualConverter() },
             { typeof(Enum), new EnumVisualConverter() },
+            { typeof(Position), new PositionVisualConveter() },
         };
 
         private VisualConverterManager() {}
