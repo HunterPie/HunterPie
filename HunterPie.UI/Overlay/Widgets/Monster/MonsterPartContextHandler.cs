@@ -30,6 +30,10 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             Health = e.Health;
         }
 
-        public void Dispose() => UnhookEvents();
+        protected override void DisposeResources()
+        {
+            base.DisposeResources();
+            UnhookEvents();
+        }
     }
 }
