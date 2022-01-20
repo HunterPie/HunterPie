@@ -98,10 +98,10 @@
                 <Run Text="{Binding Health, StringFormat=\{0:F1\}}"
                      d:Text="2000.0"/><!--
              --><Run Text="/"
-                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
                      FontWeight="Light"/><!--
              --><Run Text="{Binding MaxHealth, StringFormat=\{0:F1\}}"
-                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
                      FontWeight="Light"
                      d:Text="2000.0"/>
             </TextBlock>

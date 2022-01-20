@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets" 
@@ -221,7 +221,7 @@
                                       BlurRadius="4" 
                                       ShadowDepth="0"/>
                 </TextBlock.Effect>
-            <Run Text="{Binding HealthPercentage, Mode=OneWay, Converter={StaticResource FloatFloorConverter}, StringFormat=\{0:F0\}}"
+            <Run Text="{Binding HealthPercentage, Mode=OneWay, Converter={StaticResource FloatFloorConverter}}"
                  d:Text="90"
                  FontWeight="Normal"
                  FontSize="16"/><!--
@@ -283,14 +283,13 @@
             <ItemsControl ItemsSource="{Binding Parts, NotifyOnSourceUpdated=True}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel ItemWidth="200"/>
+                        <WrapPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:MonsterPartViewModel}">
-                        <view:BossMonsterPartView VerticalAlignment="Top"
-                                                  HorizontalAlignment="Stretch"
+                        <view:BossMonsterPartView Width="200"
                                                   d:Visibility="Visible"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

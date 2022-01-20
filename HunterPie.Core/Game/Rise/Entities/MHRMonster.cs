@@ -163,7 +163,13 @@ namespace HunterPie.Core.Game.Rise.Entities
                     AddressMap.Get<int[]>("LOCKON_OFFSETS")
             );
 
-            long monsterAddress = _process.Memory.Read<long>(address);
+            bool useFocusCamera = _process.Memory.Read<byte>(address + 0x7A) == 1;
+
+            long monsterAddress = useFocusCamera switch
+            {
+                true => _process.Memory.Read<long>(address + 0xC0),
+                false => _process.Memory.Read<long>(address),
+            };
 
             IsTarget = monsterAddress == _address;
             

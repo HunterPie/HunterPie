@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Input;
+﻿using HunterPie.Core.Client;
+using HunterPie.Core.Input;
 using HunterPie.Core.Logger;
 using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture.Extensions;
@@ -44,7 +45,7 @@ namespace HunterPie.UI.Overlay
 
         private WidgetManager()
         {
-            Hotkey.Register("ScrollLock", EnterDesignMode);
+            Hotkey.Register(ClientConfig.Config.Overlay.ToggleDesignMode, EnterDesignMode);
         }
 
         public static bool Register<T>(IWidget<T> widget) where T : IWidgetSettings

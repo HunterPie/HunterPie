@@ -8,12 +8,12 @@ namespace HunterPie.UI.Architecture.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is float v)
+            return value switch
             {
-                return Math.Floor(v);
-            }
-
-            return 0.0;
+                float => Math.Floor((float)value),
+                double => Math.Floor((double)value),
+                _ => 0
+            };
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

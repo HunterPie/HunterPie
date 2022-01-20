@@ -1,8 +1,6 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
-using HunterPie.Core.Logger;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Timers;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
