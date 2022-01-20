@@ -4,7 +4,7 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
-    [SettingsGroup("MONSTER_WIDGET", "ICON_SKULL")]
+    [SettingsGroup("MONSTER_WIDGET_STRING", "ICON_SKULL")]
     public class MonsterWidgetConfig : IWidgetSettings, ISettings
     {
         [SettingField("INITIALIZE_WIDGET_STRING", requiresRestart: true)]

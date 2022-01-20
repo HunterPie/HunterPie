@@ -80,9 +80,12 @@
 			<Setting Id="OVERLAY_STRING"
 					 String="Overlay"
 					 Description="Overlay configurations"/>
+			<Setting Id="MONSTER_WIDGET_STRING"
+					 String="Monster Widget"
+					 Description="Overlay configurations"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="Dev Tools"
-					 Description="Overlay configurations"/>
+					 Description="Advanced development tools"/>
 			
 			<Setting Id="LANGUAGE_STRING"
 					 String="Language"
@@ -119,6 +122,12 @@
 			<Setting Id="MONSTER_WIDGET_MAX_WIDTH_STRING"
 					 String="Monster widget maximum width"
 					 Description="Controls the maximum width for the monsters health bar."/>
+			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_PARTS_STRING"
+					 String="Automatically hide monster parts"
+					 Description="If enabled, inactive monster parts will be hidden after X seconds."/>
+			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_PARTS_DELAY_STRING"
+					 String="Delay to hide inactive parts"
+					 Description="Delay to be waited to hide a part that has become inactive."/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>

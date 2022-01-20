@@ -1,6 +1,5 @@
 ﻿using HunterPie.UI.Controls.TextBox;
 using HunterPie.UI.Settings.Converter;
-using System;
 using System.Reflection;
 using System.Windows;
 
