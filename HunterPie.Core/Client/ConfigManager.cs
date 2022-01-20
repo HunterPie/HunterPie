@@ -150,7 +150,7 @@ namespace HunterPie.Core.Client
                         TypeNameHandling = TypeNameHandling.Auto
                     };
 
-                    string serialized = JsonConvert.SerializeObject(_settings[path], serializerSettings);
+                    string serialized = JsonConvert.SerializeObject(_settings[path], Formatting.Indented, serializerSettings);
                     ReadOnlySpan<byte> buffer = Encoding.UTF8.GetBytes(serialized);
                     using (FileStream stream = File.OpenWrite(path))
                     {

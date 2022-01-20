@@ -21,8 +21,10 @@
         RenderOptions.ClearTypeHint="Enabled" 
         Loaded="OnLoaded"
         ShowInTaskbar="False"
-        Width="{Binding ActualWidth, ElementName=PART_WidgetContent, Mode=OneWay}"
-        Height="{Binding ActualHeight, ElementName=PART_WidgetContent, Mode=OneWay}">
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid x:Name="PART_Base"
               d:Opacity="1">
@@ -67,7 +69,8 @@
         <!-- Widget content -->
         <Grid Margin="10,50,10,10">
             <ContentControl Content="{Binding Widget}"
-                            Opacity="{Binding Widget.Settings.Opacity.Current, Mode=OneWay}"/>
+                            Opacity="{Binding Widget.Settings.Opacity.Current, Mode=OneWay}"
+                            Visibility="{Binding Widget.Settings.Enabled, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </Grid>
         <Grid.LayoutTransform>
             <ScaleTransform ScaleX="{Binding Widget.Settings.Scale.Current, Mode=OneWay}"

@@ -18,6 +18,7 @@
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
         <converters:MonsterEmToIconConverter x:Key="MonsterEmToIconConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:FloatFloorConverter x:Key="FloatFloorConverter"/>
         <converters:CrownToIconConverter x:Key="CrownToIconConverter"/>
         <converters:CrownToVisibilityConverter x:Key="CrownToVisibilityConverter"/>
         <converters:TargetTypeToVisibility x:Key="TargetTypeToVisibility"/>
@@ -220,7 +221,7 @@
                                       BlurRadius="4" 
                                       ShadowDepth="0"/>
                 </TextBlock.Effect>
-            <Run Text="{Binding HealthPercentage, Mode=OneWay, StringFormat=\{0:F0\}}"
+            <Run Text="{Binding HealthPercentage, Mode=OneWay, Converter={StaticResource FloatFloorConverter}, StringFormat=\{0:F0\}}"
                  d:Text="90"
                  FontWeight="Normal"
                  FontSize="16"/><!--

@@ -1,9 +1,4 @@
 ﻿using HunterPie.Core.Game.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 {
@@ -19,7 +14,9 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
                 Health = 35000,
                 Stamina = 10000,
                 MaxStamina = 10000,
-                Crown = Crown.Gold
+                Crown = Crown.Gold,
+                TargetType = Target.Self,
+                IsTarget = true,
             });
             
         }
