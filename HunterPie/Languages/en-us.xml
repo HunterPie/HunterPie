@@ -97,6 +97,10 @@
 					 String="Enable development feature flags"
 					 Description="If enabled, HunterPie will allow you to enable Feature Flags for in-development features."/>
 
+			<Setting Id="OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE"
+					 String="[Hot Key] Toggle Design Mode"
+					 Description="Hot Key to toggle design mode on and off."/>
+			
 			<Setting Id="INITIALIZE_WIDGET_STRING"
 					 String="Initialize widget"
 					 Description="If enabled, HunterPie will always initialize this widget. Turn this off if you don't want this widget."/>
@@ -105,7 +109,7 @@
 					 Description="If enabled, HunterPie will always show this widget whenever there's data to be displayed."/>
 			<Setting Id="WIDGET_POSITION"
 					 String="Widget position"
-					 Description="If enabled, HunterPie will always show this widget whenever there's data to be displayed."/>
+					 Description="Controls this widget position."/>
 			<Setting Id="WIDGET_OPACITY"
 					 String="Widget opacity"
 					 Description="Controls this widget opacity."/>

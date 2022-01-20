@@ -1,5 +1,4 @@
 ﻿using HunterPie.Core.Domain.Features;
-using HunterPie.Core.Logger;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Controls.Settings.ViewModel;
@@ -40,6 +39,7 @@ namespace HunterPie.UI.Settings
             { typeof(IFileSelector), new FileSelectorVisualConverter() },
             { typeof(Enum), new EnumVisualConverter() },
             { typeof(Position), new PositionVisualConveter() },
+            { typeof(Keybinding), new KeybindingVisualConverter() },
         };
 
         private VisualConverterManager() {}
