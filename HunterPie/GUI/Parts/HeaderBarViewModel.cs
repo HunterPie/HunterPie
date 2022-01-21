@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Client;
 using System;
 using System.Reflection;
 using System.Security.Principal;
@@ -28,6 +29,11 @@ namespace HunterPie.GUI.Parts
         public void MinimizeApplication()
         {
             Application.Current.MainWindow.WindowState = WindowState.Minimized;
+
+            if (ClientConfig.Config.Client.MinimizeToSystemTray)
+            {
+                Application.Current.MainWindow.Hide();
+            }
         }
 
         public void CloseApplication()

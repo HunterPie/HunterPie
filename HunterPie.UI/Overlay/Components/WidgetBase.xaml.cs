@@ -5,6 +5,7 @@ using System.Windows.Interop;
 using System;
 using HunterPie.UI.Platform.Windows.Native;
 using HunterPie.UI.Overlay.Enums;
+using System.Windows.Media;
 
 namespace HunterPie.UI.Overlay.Components
 {
@@ -23,14 +24,15 @@ namespace HunterPie.UI.Overlay.Components
         private const uint ClickThroughFlags = 
             (uint)(User32.EX_WINDOW_STYLES.WS_EX_TRANSPARENT
             | User32.EX_WINDOW_STYLES.WS_EX_TOPMOST
-            | User32.EX_WINDOW_STYLES.WS_EX_NOACTIVATE);
+            | User32.EX_WINDOW_STYLES.WS_EX_NOACTIVATE
+            | User32.EX_WINDOW_STYLES.WS_EX_TOOLWINDOW);
 
         private const uint WindowFlags =
             (uint)(User32.EX_WINDOW_STYLES.WS_EX_TOPMOST
-            | User32.EX_WINDOW_STYLES.WS_EX_NOACTIVATE);
+            | User32.EX_WINDOW_STYLES.WS_EX_NOACTIVATE
+            | User32.EX_WINDOW_STYLES.WS_EX_TOOLWINDOW);
 
         private object _widget;
-        
         public object Widget
         {
             get => _widget;
@@ -48,9 +50,26 @@ namespace HunterPie.UI.Overlay.Components
         {
             InitializeComponent();
             DataContext = this;
+            CompositionTarget.Rendering += OnRender;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        private int counter = 0;
+        private void OnRender(object sender, EventArgs e)
+        {
+            if (counter >= 60)
+            {
+                ForceAlwaysOnTop();
+                counter = 0;
+            }
+            counter++;
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            CompositionTarget.Rendering -= OnRender;
+
+            base.OnClosing(e);
+        }
 
         private void SetWindowFlags()
         {
@@ -66,15 +85,37 @@ namespace HunterPie.UI.Overlay.Components
                 _ => throw new NotImplementedException("Unreachable"),
             };
 
-            // TODO: Streamer mode make remove this flag
-            flags |= (uint)User32.EX_WINDOW_STYLES.WS_EX_TOOLWINDOW;
-
             User32.SetWindowLong(hWnd, User32.GWL_EXSTYLE, (int)(styles | flags));
         }
 
-        private void OnLoaded(Object sender, RoutedEventArgs e)
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
             SetWindowFlags();
         }
+
+        internal void HandleTransparencyFlag(bool enableFlag)
+        {
+            IntPtr hWnd = new WindowInteropHelper(this)
+                .EnsureHandle();
+
+            uint styles = (uint)User32.GetWindowLong(hWnd, User32.GWL_EXSTYLE);
+
+            if (enableFlag)
+                styles |= (uint)(User32.EX_WINDOW_STYLES.WS_EX_TRANSPARENT);
+            else
+                styles &= ~(uint)(User32.EX_WINDOW_STYLES.WS_EX_TRANSPARENT);
+
+            User32.SetWindowLong(hWnd, User32.GWL_EXSTYLE, (int)styles);
+        }
+
+        private void ForceAlwaysOnTop()
+        {
+            IntPtr hWnd = new WindowInteropHelper(this)
+                .EnsureHandle();
+
+            User32.SetWindowPos(hWnd, -1, 0, 0, 0, 0, Flags);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -1,11 +1,4 @@
-﻿using HunterPie.Core.Architecture;
-using HunterPie.Core.Game.Enums;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HunterPie.Core.Game.Enums;
 using System.Timers;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
@@ -18,7 +11,6 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         {
             MockParts();
             MockAilments();
-
             timer.Elapsed += (_, __) =>
             {
                 for (int i = 0; i < Parts.Count / 2; i++)

@@ -4,9 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
-             xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets" 
              xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels" 
@@ -19,8 +18,10 @@
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
         <converters:MonsterEmToIconConverter x:Key="MonsterEmToIconConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:FloatFloorConverter x:Key="FloatFloorConverter"/>
         <converters:CrownToIconConverter x:Key="CrownToIconConverter"/>
         <converters:CrownToVisibilityConverter x:Key="CrownToVisibilityConverter"/>
+        <converters:TargetTypeToVisibility x:Key="TargetTypeToVisibility"/>
 
         <LinearGradientBrush x:Key="MonsterHealthUnenraged" EndPoint="1,1" StartPoint="0,1">
             <GradientStop Color="#FF4B8EEE"/>
@@ -95,10 +96,13 @@
                            Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                            FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                            FontSize="15">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="Black"
+                                      BlurRadius="4" 
+                                      ShadowDepth="0"/>
+                    </TextBlock.Effect>
                 </TextBlock>
             </StackPanel>
-
-
             <!-- Stamina Bar -->
             <overlay:Bar Height="8"
                      MaxValue="{Binding MaxStamina, Mode=OneWay}"
@@ -108,7 +112,9 @@
                      VerticalAlignment="Top" 
                      BorderThickness="2"
                      RenderTransformOrigin="0.5,0.5"
-                     Margin="13,47,10,0" ForegroundDelayed="#FFFFCFA8">
+                     Margin="13,47,10,0" 
+                     ForegroundDelayed="#FFFFCFA8" 
+                     BorderBrush="#C7212426">
                 <overlay:Bar.Foreground>
                     <LinearGradientBrush EndPoint="1,1" StartPoint="0,1">
                         <GradientStop Color="#FFFF9A36" Offset="1"/>
@@ -136,7 +142,8 @@
                          BorderThickness="2"
                          VerticalAlignment="Top" 
                          RenderTransformOrigin="0.5,0.5"
-                         Margin="10,32,10,0">
+                         Margin="10,32,10,0" 
+                         BorderBrush="#C7212426">
                 <overlay:Bar.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -214,7 +221,7 @@
                                       BlurRadius="4" 
                                       ShadowDepth="0"/>
                 </TextBlock.Effect>
-            <Run Text="{Binding HealthPercentage, Mode=OneWay, StringFormat=\{0:F0\}}"
+            <Run Text="{Binding HealthPercentage, Mode=OneWay, Converter={StaticResource FloatFloorConverter}}"
                  d:Text="90"
                  FontWeight="Normal"
                  FontSize="16"/><!--
@@ -252,7 +259,8 @@
         <StackPanel Grid.Row="1"
                     Orientation="Vertical"
                     x:Name="PART_Bottom"
-                    Margin="0,90,0,0">
+                    Margin="0,90,0,0"
+                    Visibility="{Binding TargetType, Converter={StaticResource TargetTypeToVisibility}}">
             <!-- Ailments -->
 
             <ItemsControl ItemsSource="{Binding Ailments, Mode=OneWay, NotifyOnSourceUpdated=True}"
@@ -275,14 +283,13 @@
             <ItemsControl ItemsSource="{Binding Parts, NotifyOnSourceUpdated=True}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel ItemWidth="200"/>
+                        <WrapPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:MonsterPartViewModel}">
-                        <view:BossMonsterPartView VerticalAlignment="Top"
-                                                  HorizontalAlignment="Stretch"
+                        <view:BossMonsterPartView Width="200"
                                                   d:Visibility="Visible"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

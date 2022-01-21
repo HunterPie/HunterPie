@@ -4,7 +4,7 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
-    [SettingsGroup("METER_WIDGET", "METER_WIDGET_DESC", "ICON_STATISTICS")]
+    [SettingsGroup("METER_WIDGET", "ICON_STATISTICS", "unavailable")]
     public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     {
         [SettingField("MOCK", "MOCK")]
@@ -17,10 +17,10 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         public Position Position { get; set; } = new(0, 0);
 
         [SettingField("A", "B")]
-        public Range Opacity { get; set; } = new() { Current = 1, Max = 1, Min = 0, Step = 0.1 };
+        public Range Opacity { get; set; } = new(1, 1, 0, 0.1);
 
         [SettingField("A", "B")]
-        public Range Scale { get; set; } = new() { Current = 1, Max = 2, Min = 0, Step = 0.1 };
+        public Range Scale { get; set; } = new(1, 2, 0, 0.1);
 
         [SettingField("MOCK", "MOCK")]
         public Observable<bool> StreamerMode { get; set; } = false;

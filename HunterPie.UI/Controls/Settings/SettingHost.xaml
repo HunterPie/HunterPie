@@ -14,12 +14,14 @@
     <UserControl.Resources>
         <converters:ObjectToUiConverter x:Key="ObjectToUiConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <vm:MockSettingHostViewModel x:Key="MockSettingHostViewModel"/>
         <DataTemplate x:Key="PanelTemplate" DataType="{x:Type vm:ISettingElement}">
-            <ItemsControl ItemsSource="{Binding Elements, Mode=OneTime}">
+            <ItemsControl ItemsSource="{Binding Elements, Mode=OneWay}">
                 <ItemsControl.Template>
                     <ControlTemplate>
-                        <ScrollViewer VirtualizingPanel.IsVirtualizing="True">
-                            <VirtualizingStackPanel IsItemsHost="True"/>
+                        <ScrollViewer VerticalScrollBarVisibility="Visible">
+                            <VirtualizingStackPanel IsItemsHost="True"
+                                                    CanVerticallyScroll="True"/>
                         </ScrollViewer>
                     </ControlTemplate>
                 </ItemsControl.Template>
@@ -29,7 +31,10 @@
                         <local:SettingElementHost Hosted="{Binding ., Converter={StaticResource ObjectToUiConverter}, IsAsync=True}"
                                                   Text="{Binding Name}"
                                                   Description="{Binding Description}"
-                                                  Visibility="{Binding Match, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                                  Visibility="{Binding Match, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                  Margin="0,3,0,3"
+                                                  Height="45"
+                                                  HorizontalAlignment="Stretch"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -65,7 +70,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <StackPanel Orientation="Vertical">
+    <Grid>
         <textbox:SearchTextBox MaxHeight="30"
                                Height="30"
                                Width="300"
@@ -74,12 +79,13 @@
                                OnSearchTextChanged="OnRealTimeSearch"/>
         <TabControl Background="Transparent"
                     ItemsSource="{Binding Elements}"
+                    d:DataContext="{StaticResource MockSettingHostViewModel}"
                     ContentTemplate="{StaticResource PanelTemplate}"
                     ItemTemplate="{StaticResource HeaderTemplate}"
                     BorderThickness="0,1,0,0"
+                    Margin="1,35,1,1"
                     BorderBrush="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
-                    SelectedIndex="{Binding CurrentTabIndex.Value}"
-                    TextSearch.TextPath="Text">
+                    SelectedIndex="{Binding CurrentTabIndex.Value}">
         </TabControl>
-    </StackPanel>
+    </Grid>
 </UserControl>

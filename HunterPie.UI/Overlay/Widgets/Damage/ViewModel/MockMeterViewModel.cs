@@ -18,10 +18,10 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
         {
             dispatcher = new(1000);
             dispatcher.Elapsed += MockInGameAction;
-            dispatcher.Start();
-
+            
             MockPlayers();
             MockPlayerSeries();
+            dispatcher.Start();
         }
 
         private void MockPlayers()

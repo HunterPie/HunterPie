@@ -15,7 +15,7 @@
         </Grid.ColumnDefinitions>
         
         <!-- Profile picture -->
-        <Image Source="https://cdn.discordapp.com/avatars/183067754784358400/616ae25169a46a7004694af5443b18cd.png?size=256"
+        <Image d:Source="https://cdn.discordapp.com/avatars/183067754784358400/616ae25169a46a7004694af5443b18cd.png?size=256"
                HorizontalAlignment="Left"
                Margin="5,5,0,5"
                Height="40"

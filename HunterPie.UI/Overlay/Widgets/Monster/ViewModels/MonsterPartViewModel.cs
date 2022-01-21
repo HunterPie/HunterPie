@@ -1,13 +1,12 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
-using HunterPie.Core.Logger;
+using System;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Timers;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 {
-    public class MonsterPartViewModel : Bindable
+    public class MonsterPartViewModel : Bindable, IDisposable
     {
         private readonly Timer timeout;
 
@@ -70,15 +69,8 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
                 if (!IsActive)
                     return;
 
-                Log.Debug("Hide");
                 IsActive = false;
             }
-        }
-
-        ~MonsterPartViewModel()
-        {
-            ClientConfig.Config.Overlay.BossesWidget.AutoHidePartsDelay.PropertyChanged -= OnDelayTimeUpdate;
-            timeout.Dispose();
         }
 
         private void OnDelayTimeUpdate(object sender, PropertyChangedEventArgs e)
@@ -96,5 +88,13 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
                 timeout.Start();
             }
         }
+
+        protected virtual void DisposeResources()
+        {
+            ClientConfig.Config.Overlay.BossesWidget.AutoHidePartsDelay.PropertyChanged -= OnDelayTimeUpdate;
+            timeout.Dispose();
+        }
+
+        public void Dispose() => DisposeResources();
     }
 }

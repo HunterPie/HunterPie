@@ -37,6 +37,14 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="ICON_OVERLAY">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}" Geometry="F1 M512,512z M0,0z M368,96L144,96A16,16,0,0,1,144,64L368,64A16,16,0,0,1,368,96z M400,144L112,144A16,16,0,0,1,112,112L400,112A16,16,0,0,1,400,144z M419.13,448L92.87,448A44.92,44.92,0,0,1,48,403.13L48,204.87A44.92,44.92,0,0,1,92.87,160L419.13,160A44.92,44.92,0,0,1,464,204.87L464,403.13A44.92,44.92,0,0,1,419.13,448z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="ICON_SPARKLING">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">

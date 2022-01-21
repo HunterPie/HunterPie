@@ -1,10 +1,11 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Domain.Constants;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
-    [SettingsGroup("TELEMETRICS_WIDGET", "TELEMETRICS_WIDGET_DESC", "ICON_HIDE")]
+    [SettingsGroup("TELEMETRICS_WIDGET", "ICON_BUG", FeatureFlags.FEATURE_METRICS_WIDGET)]
     public class TelemetricsWidgetConfig : IWidgetSettings, ISettings
     {
         [SettingField("A", "B")]

@@ -12,6 +12,7 @@ using HunterPie.UI.Overlay.Widgets.Monster.Views;
 using HunterPie.Core.Client;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Damage.ViewModel;
+using HunterPie.Internal.Tray;
 
 namespace HunterPie
 {
@@ -37,6 +38,7 @@ namespace HunterPie
                 e.Cancel = true;
                 return;
             }
+            InitializerManager.Unload();
 
             base.OnClosing(e);
         }
@@ -45,6 +47,7 @@ namespace HunterPie
         {
             InitializerManager.InitializeGUI();
             InitializeDebugWidgets();
+            SetupTrayIcon();
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
@@ -73,6 +76,29 @@ namespace HunterPie
                         DataContext = new MockMeterViewModel()
                     }
                 );
+        }
+
+        private void SetupTrayIcon()
+        {
+            TrayService.AddDoubleClickHandler((_, __) =>
+            {
+                Show();
+                WindowState = WindowState.Normal;
+                Focus();
+            });
+
+            TrayService.AddItem("Show")
+                .Click += (_, __) =>
+                {
+                    Show();
+                    WindowState = WindowState.Normal;
+                    Focus();
+                };
+
+            TrayService.AddItem("Close")
+                .Click += (_, __) => {
+                    Close();
+                };
         }
     }
 }

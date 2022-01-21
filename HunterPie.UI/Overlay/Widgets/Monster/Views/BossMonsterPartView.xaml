@@ -30,7 +30,13 @@
                    FontSize="14"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Left"
-                   Margin="35,0,0,0"/>
+                   Margin="35,0,0,0">
+            <TextBlock.Effect>
+                <DropShadowEffect Color="Black"
+                                      BlurRadius="4" 
+                                      ShadowDepth="0"/>
+            </TextBlock.Effect>
+        </TextBlock>
 
         <Grid Margin="30,15,0,0">
             <overlay:Bar Foreground="{StaticResource MonsterTenderizeBar}"
@@ -61,8 +67,8 @@
                          VerticalAlignment="Top"
                          Margin="4.5,0,5,0"
                          Background="{StaticResource HUNTERPIE_BACKGROUND_DARKER}"
-                         Value="{Binding Health}"
                          MaxValue="{Binding MaxHealth}"
+                         Value="{Binding Health}"
                          d:Value="50"
                          d:MaxValue="100"
                          BorderThickness="0"
@@ -84,13 +90,18 @@
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Center"
                        Margin="0,8,0,0">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="Black"
+                                      BlurRadius="2"
+                                      ShadowDepth="0"/>
+                </TextBlock.Effect>
                 <Run Text="{Binding Health, StringFormat=\{0:F1\}}"
                      d:Text="2000.0"/><!--
              --><Run Text="/"
-                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
                      FontWeight="Light"/><!--
              --><Run Text="{Binding MaxHealth, StringFormat=\{0:F1\}}"
-                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
                      FontWeight="Light"
                      d:Text="2000.0"/>
             </TextBlock>

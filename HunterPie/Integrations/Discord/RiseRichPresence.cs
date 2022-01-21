@@ -2,14 +2,12 @@
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Rise;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DiscordRPC.Message;
 using HunterPie.Core.Logger;
 using System.Timers;
 using HunterPie.Core.Game.Environment;
+using HunterPie.Core.Game.Enums;
 
 namespace HunterPie.Integrations.Discord
 {
@@ -68,15 +66,15 @@ namespace HunterPie.Integrations.Discord
             description = game.Player.StageId switch
             {
                 -1 => "In Main Menu",
+                >= 1 and <= 4 => "Chilling",
                 5 => "Practicing",
-                _ => "Chilling",
+                207 => "In Rampage",
+                _ => "Exploring"
             };
 
-            IMonster targetMonster = game.Monsters.FirstOrDefault(monster => monster.IsTarget);
+            IMonster targetMonster = game.Monsters.FirstOrDefault(monster => monster.Target == Target.Self);
             if (targetMonster is not null)
                 description = $"Hunting {targetMonster.Name} ({targetMonster.Health / targetMonster.MaxHealth * 100:0}%)";
-
-            
             
             presence.WithDetails(description)
                 .WithState(null)

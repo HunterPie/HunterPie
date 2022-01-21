@@ -5,6 +5,9 @@
     <Compile Update="Controls\Buttons\Button.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Buttons\Keybinding.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Buttons\Switch.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -18,6 +21,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Sliders\Range.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\TextBox\PositionTextBox.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\TextBox\SearchTextBox.xaml.cs">
@@ -76,6 +82,9 @@
     <Page Update="Controls\Buttons\Button.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\Buttons\Keybinding.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\Buttons\Switch.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -89,6 +98,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Sliders\Range.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\TextBox\PositionTextBox.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\TextBox\SearchTextBox.xaml">

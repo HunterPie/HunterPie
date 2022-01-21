@@ -4,10 +4,14 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+	<UseWindowsForms>true</UseWindowsForms>
     <StartupObject></StartupObject>
-	<Version>2.0.0.0</Version>
-	<AssemblyVersion>2.0.0.*</AssemblyVersion>
+	<Version>2.0.1.0</Version>
+	<AssemblyVersion>2.0.1.*</AssemblyVersion>
 	<Deterministic>false</Deterministic>
+	<ApplicationIcon>Tier 2.ico</ApplicationIcon>
+	<Authors>Haato</Authors>
+	<FileVersion>2.0.1.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Address\MonsterHunterRise.0.map">
+    <None Update="Address\MonsterHunterRise.3.6.1.1.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Address\MonsterHunterWorld.408899.map">

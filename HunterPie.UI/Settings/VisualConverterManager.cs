@@ -1,5 +1,4 @@
 ﻿using HunterPie.Core.Domain.Features;
-using HunterPie.Core.Logger;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Controls.Settings.ViewModel;
@@ -12,6 +11,8 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Data;
 using Range = HunterPie.Core.Settings.Types.Range;
+using Localization = HunterPie.Core.Client.Localization.Localization;
+using System.Xml;
 
 namespace HunterPie.UI.Settings
 {
@@ -37,6 +38,8 @@ namespace HunterPie.UI.Settings
             { typeof(Secret), new SecretVisualConverter() },
             { typeof(IFileSelector), new FileSelectorVisualConverter() },
             { typeof(Enum), new EnumVisualConverter() },
+            { typeof(Position), new PositionVisualConveter() },
+            { typeof(Keybinding), new KeybindingVisualConverter() },
         };
 
         private VisualConverterManager() {}
@@ -58,7 +61,11 @@ namespace HunterPie.UI.Settings
                         !FeatureFlagManager.IsEnabled(metadata.DependsOnFeature))
                         continue;
 
-                    SettingElementViewModel vm = new(metadata.Name, metadata.Description, metadata.Icon);
+                    XmlNode locNode = Localization.Query($"//Strings/Client/Settings/Setting[@Id='{metadata.Name}']");
+                    string title = locNode?.Attributes["String"].Value ?? metadata.Name;
+                    string description = locNode?.Attributes["Description"].Value ?? metadata.Description;
+
+                    SettingElementViewModel vm = new(title, description, metadata.Icon);
 
                     object parent = property.GetValue(settings);
                     BuildChildren(parent, vm, holder);
@@ -88,7 +95,11 @@ namespace HunterPie.UI.Settings
                         !FeatureFlagManager.IsEnabled(meta.DependsOnFeature))
                         continue;
 
-                    SettingElementViewModel vm = new(meta.Name, meta.Description, meta.Icon);
+                    XmlNode locNode = Localization.Query($"//Strings/Client/Settings/Setting[@Id='{meta.Name}']");
+                    string title = locNode?.Attributes["String"]?.Value ?? meta.Name;
+                    string description = locNode?.Attributes["Description"]?.Value ?? meta.Description;
+
+                    SettingElementViewModel vm = new(title, description, meta.Icon);
 
                     object newParent = prop.GetValue(parent);
                     BuildChildren(newParent, vm, parentPanel);
@@ -99,9 +110,13 @@ namespace HunterPie.UI.Settings
                     if (metadata is null)
                         continue;
 
+                    XmlNode locNode = Localization.Query($"//Strings/Client/Settings/Setting[@Id='{metadata.Name}']");
+                    string title = locNode?.Attributes["String"]?.Value ?? metadata.Name;
+                    string description = locNode?.Attributes["Description"]?.Value ?? metadata.Description;
+
                     SettingElementType settingHost = new(
-                        name: metadata.Name,
-                        description: metadata.Description,
+                        name: title,
+                        description: description,
                         parent,
                         prop
                     );

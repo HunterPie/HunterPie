@@ -74,6 +74,8 @@ namespace HunterPie
                 handler.UnhookEvents();
 
             contextHandlers.Clear();
+
+            Dispatcher.InvokeAsync(WidgetManager.Dispose);
         }
 
         private void OnProcessFound(object sender, ProcessManagerEventArgs e)
@@ -95,8 +97,12 @@ namespace HunterPie
             
             Dispatcher.InvokeAsync(() =>
             {
-                var handler = new MonsterWidgetContextHandler(context);
-                contextHandlers.Add(handler);
+                List<IContextHandler> handlers = new();
+
+                if (ClientConfig.Config.Overlay.BossesWidget.Initialize)
+                    handlers.Add(new MonsterWidgetContextHandler(context));
+
+                contextHandlers.AddRange(handlers);
             });
             
             context.Scan();
