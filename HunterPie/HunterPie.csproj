@@ -6,12 +6,12 @@
     <UseWPF>true</UseWPF>
 	<UseWindowsForms>true</UseWindowsForms>
     <StartupObject></StartupObject>
-	<Version>2.0.1.0</Version>
-	<AssemblyVersion>2.0.1.*</AssemblyVersion>
+	<Version>2.0.2.0</Version>
+	<AssemblyVersion>2.0.2.*</AssemblyVersion>
 	<Deterministic>false</Deterministic>
 	<ApplicationIcon>Tier 2.ico</ApplicationIcon>
 	<Authors>Haato</Authors>
-	<FileVersion>2.0.1.0</FileVersion>
+	<FileVersion>2.0.2.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

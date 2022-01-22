@@ -1,0 +1,176 @@
+﻿<Window x:Class="HunterPie.Update.Presentation.UpdateView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HunterPie.Update.Presentation"
+        xmlns:custom="clr-namespace:HunterPie.UI.Overlay.Controls;assembly=HunterPie.UI"
+        mc:Ignorable="d"
+        Title="UpdateView"
+        WindowStyle="None"
+        Height="300" 
+        Width="500"
+        ResizeMode="NoResize"
+        BorderThickness="1"
+        BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        Topmost="True"
+        MouseLeftButtonDown="OnMouseDown"
+        xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
+        d:DataContext="{d:DesignInstance Type=local:UpdateViewModel}">
+    <Window.Resources>
+        <converters:LongToByteRepresentationConverter x:Key="LongToByteRepresentationConverter"/>
+    </Window.Resources>
+    <Grid Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}">
+        <Rectangle VerticalAlignment="Bottom"
+                   Height="3"
+                   Fill="Black"
+                   Opacity="0.3"/>
+        <Rectangle VerticalAlignment="Bottom"
+                   HorizontalAlignment="Left"
+                   Width="500"
+                   Height="3"
+                   Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                   Opacity="0.5"/>
+        <Image Source="{StaticResource ICON_HUNTERPIE}"
+               Width="100"
+               Height="{Binding Width, RelativeSource={RelativeSource Self}}"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Center"
+               Margin="40"
+               Opacity="0.3"/>
+        <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                   FontSize="30"
+                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   Margin="0,100,0,0"
+                   Opacity="0">
+            <Run Text="Hunter"
+                 FontWeight="Medium"/><!--
+         --><Run Text="Pie"
+                 FontWeight="UltraLight"/>
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <Trigger Property="IsVisible" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         From="0"
+                                                         To="0.4"
+                                                         BeginTime="0:0:0.2"
+                                                         Duration="0:0:0.5"/>
+                                        <ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                                            To="0,140,0,0"
+                                                            Duration="0:0:0.5"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <!-- State message -->
+        <TextBlock d:Text="Verifying latest version"
+                   Text="{Binding State}"
+                   FontSize="12"
+                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   FontWeight="Medium"
+                   Margin="0,200,0,0"/>
+
+        <!-- Download data -->
+        <TextBlock FontSize="12"
+                   d:Text="100 MB"
+                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Right"
+                   Margin="0,0,30,5">
+            <Run Text="{Binding DownloadedBytes, Converter={StaticResource LongToByteRepresentationConverter}}"/><!--
+         --><Run Text="/"
+                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/><!--
+         --><Run Text="{Binding TotalBytes, Converter={StaticResource LongToByteRepresentationConverter}}"
+                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/>
+        </TextBlock>
+
+        <custom:Arc Stroke="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                    StrokeThickness="3"
+                    Width="15"
+                    Height="{Binding Width, RelativeSource={RelativeSource Self}}"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Margin="5"
+                    StartAngle="60"
+                    RenderTransformOrigin="0.5,0.5">
+            <custom:Arc.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="0"/>
+                </TransformGroup>
+            </custom:Arc.RenderTransform>
+            <custom:Arc.Style>
+                <Style TargetType="custom:Arc">
+                    <Style.Triggers>
+                        <Trigger Property="IsVisible" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever"
+                                                SpeedRatio="2">
+
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="StartAngle"
+                                                                       RepeatBehavior="Forever">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                                                  Value="-90"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:2"
+                                                                  Value="60"/>
+                                        </DoubleAnimationUsingKeyFrames>
+
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RenderTransform.Children[0].Angle"
+                                                                       RepeatBehavior="Forever">
+                                            <EasingDoubleKeyFrame KeyTime="0"
+                                                                  Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:1.8"
+                                                                  Value="360"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </custom:Arc.Style>
+        </custom:Arc>
+    </Grid>
+    <Window.Style>
+        <Style TargetType="{x:Type Window}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsMouseDown, RelativeSource={RelativeSource Self}}" 
+                             Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Opacity">
+                                <DoubleAnimation Duration="0:0:0.15"
+                                                 To="0.8"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Opacity">
+                                <DoubleAnimation Duration="0:0:0.15"
+                                                 To="1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+</Window>
