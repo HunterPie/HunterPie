@@ -22,18 +22,9 @@
         d:DataContext="{d:DesignInstance Type=local:UpdateViewModel}">
     <Window.Resources>
         <converters:LongToByteRepresentationConverter x:Key="LongToByteRepresentationConverter"/>
+        <converters:ParentSizePercentageConverter x:Key="ParentSizePercentageConverter"/>
     </Window.Resources>
     <Grid Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}">
-        <Rectangle VerticalAlignment="Bottom"
-                   Height="3"
-                   Fill="Black"
-                   Opacity="0.3"/>
-        <Rectangle VerticalAlignment="Bottom"
-                   HorizontalAlignment="Left"
-                   Width="500"
-                   Height="3"
-                   Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"
-                   Opacity="0.5"/>
         <Image Source="{StaticResource ICON_HUNTERPIE}"
                Width="100"
                Height="{Binding Width, RelativeSource={RelativeSource Self}}"
@@ -88,16 +79,17 @@
 
         <!-- Download data -->
         <TextBlock FontSize="12"
-                   d:Text="100 MB"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
                    VerticalAlignment="Bottom"
                    HorizontalAlignment="Right"
                    Margin="0,0,30,5">
-            <Run Text="{Binding DownloadedBytes, Converter={StaticResource LongToByteRepresentationConverter}}"/><!--
+            <Run Text="{Binding DownloadedBytes, Converter={StaticResource LongToByteRepresentationConverter}}"
+                 d:Text="20 MB"/><!--
          --><Run Text="/"
                  Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/><!--
          --><Run Text="{Binding TotalBytes, Converter={StaticResource LongToByteRepresentationConverter}}"
+                 d:Text="50 MB"
                  Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/>
         </TextBlock>
 
