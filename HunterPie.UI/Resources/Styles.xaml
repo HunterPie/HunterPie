@@ -55,7 +55,7 @@
     <SolidColorBrush x:Key="LOGGER_LEVEL_BENCHMARK">#1BC9B6</SolidColorBrush>
     
     <!-- Font -->
-    <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">./Assets/Fonts/#Work Sans</FontFamily>
+    <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">pack://application:,,,/HunterPie.UI;component/Resources/#Work Sans</FontFamily>
         
     <!-- Constants -->
     <sys:Double x:Key="HUNTERPIE_SIDEBAR_WIDTH">300</sys:Double>
@@ -67,6 +67,7 @@
         <Setter Property="Foreground" Value="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
         <Setter Property="BorderBrush" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
         <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="MaxWidth" Value="200"/>
     </Style>
 
     <SolidColorBrush x:Key="StandardBorderBrush" Color="#888" />

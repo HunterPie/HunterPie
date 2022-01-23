@@ -15,10 +15,11 @@
         BorderThickness="1"
         BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}" 
         Background="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"
-        Icon="{StaticResource ICON_HUNTERPIE}"
+        Icon="pack://application:,,,/Resources/Icon.ico"
         Initialized="OnInitialized"
         SnapsToDevicePixels="True"
-        UseLayoutRounding="True" KeyDown="OnKeyDown">
+        UseLayoutRounding="True" 
+        KeyDown="OnKeyDown">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"
                       CornerRadius="0"
@@ -75,7 +76,8 @@
                         <Run Text="▶"
                              FontSize="30"/>
                         <Run Text="LAUNCH GAME"
-                             BaselineAlignment="Center"/>
+                             BaselineAlignment="Center"
+                             FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
                     </TextBlock>
                 </native:Button.Content>
             </native:Button>
