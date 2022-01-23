@@ -248,7 +248,7 @@
                     </TransformGroup>
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <Image Source="{Binding Em, Mode=OneWay, Converter={StaticResource MonsterEmToIconConverter}, FallbackValue={assets:MonsterIcon em116}}"
+            <Image Source="{Binding Em, Mode=OneWay, Converter={StaticResource MonsterEmToIconConverter}}"
                    d:Source="{assets:MonsterIcon em116}"
                    Width="40"
                    RenderOptions.BitmapScalingMode="Fant"/>
