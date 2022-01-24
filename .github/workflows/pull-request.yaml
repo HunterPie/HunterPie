@@ -29,8 +29,3 @@ jobs:
     - name: Build apps
       shell: pwsh
       run: msbuild -m /p:Configuration=Debug
-
-    # TODO: Fix test run
-    # - name: Run Tests
-    #   shell: pwsh
-    #   run: msbuild -m /t:test HunterPie.Core.Tests/
