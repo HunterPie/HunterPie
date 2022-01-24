@@ -1,6 +1,9 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Client;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Remote;
 using System.Collections.ObjectModel;
+using System.IO;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 {
@@ -17,6 +20,8 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         private Target _targetType = Target.None;
         private bool isEnraged;
         private Crown _crown;
+        private string _icon;
+        private bool _isLoadingIcon = true;
         private readonly ObservableCollection<MonsterPartViewModel> parts = new();
         private readonly ObservableCollection<MonsterAilmentViewModel> ailments = new();
 
@@ -91,6 +96,43 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         {
             get => isTarget;
             set { SetValue(ref isTarget, value); }
+        }
+
+        public bool IsLoadingIcon
+        {
+            get => _isLoadingIcon;
+            set { SetValue(ref _isLoadingIcon, value); }
+        }
+
+        public string Icon
+        {
+            get => _icon;
+            set { SetValue(ref _icon, value); }
+        }
+
+        public async void FetchMonsterIcon()
+        {
+            IsLoadingIcon = true;
+            string imageName = BuildIconName();
+            string imagePath = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{em}.png");
+
+            // If file doesn't exist locally, we can check for the CDN
+            if (!File.Exists(imagePath))
+                imagePath = await CDN.GetMonsterIconUrl(imageName);
+
+            IsLoadingIcon = false;
+            Icon = imagePath;
+        }
+
+        private string BuildIconName()
+        {
+            string monsterEm = Em;
+            bool isRise = Em.StartsWith("Rise");
+
+            if (!isRise)
+                monsterEm += "_ID";
+
+            return monsterEm;
         }
     }
 }

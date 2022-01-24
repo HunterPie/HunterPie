@@ -86,7 +86,11 @@ namespace HunterPie.Integrations.Discord
                                     ? "unknown" 
                                     : $"rise-stage-{game.Player.StageId}",
                     SmallImageText = game.Player.Name,
-                    SmallImageKey = game.Player.Name == "" ? null : "unknown"
+                    SmallImageKey = game.Player.WeaponId switch
+                    {
+                        Weapon.None => "unknown",   
+                        _ => Enum.GetName(typeof(Weapon), game.Player.WeaponId)?.ToLower() ?? "unknown",
+                    }
                 })
                 .WithTimestamps(locationTime);
 

@@ -47,21 +47,23 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
 
         public async void FetchVersion()
         {
-            
             IsFetchingVersion = true;
             using (HttpClient client = new())
             {
-                HttpRequestMessage req = new(HttpMethod.Get, "https://api.hunterpie.com/v1/version");
-                HttpResponseMessage response = await client.SendAsync(req);
-                
-                if (!response.IsSuccessStatusCode)
-                    return;
+                using (HttpRequestMessage req = new(HttpMethod.Get, "https://api.hunterpie.com/v1/version"))
+                {
+                    using (HttpResponseMessage response = await client.SendAsync(req))
+                    {
+                        if (!response.IsSuccessStatusCode)
+                            return;
 
-                string body = await response.Content.ReadAsStringAsync();
-                VersionResponseSchema schema = JsonConvert.DeserializeObject<VersionResponseSchema>(body);
-                Version version = new Version(schema.LatestVersion);
+                        string body = await response.Content.ReadAsStringAsync();
+                        VersionResponseSchema schema = JsonConvert.DeserializeObject<VersionResponseSchema>(body);
+                        Version version = new Version(schema.LatestVersion);
 
-                IsLatestVersion = ClientInfo.IsVersionGreaterOrEq(version); 
+                        IsLatestVersion = ClientInfo.IsVersionGreaterOrEq(version);
+                    }
+                }
             }
             IsFetchingVersion = false;
         }

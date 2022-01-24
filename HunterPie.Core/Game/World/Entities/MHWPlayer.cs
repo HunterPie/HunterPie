@@ -124,6 +124,7 @@ namespace HunterPie.Core.Game.World.Entities
         public event EventHandler<EventArgs> OnVillageEnter;
         public event EventHandler<EventArgs> OnVillageLeave;
         public event EventHandler<EventArgs> OnAilmentUpdate;
+        public event EventHandler<EventArgs> OnWeaponChange;
 
         internal MHWPlayer(IProcessManager process) : base(process) { }
 

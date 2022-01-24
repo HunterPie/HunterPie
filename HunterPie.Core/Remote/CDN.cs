@@ -1,7 +1,8 @@
-﻿using System;
+﻿using HunterPie.Core.Client;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace HunterPie.Core.Remote
@@ -10,14 +11,48 @@ namespace HunterPie.Core.Remote
     {
         const string CDN_BASE_URL = "https://cdn.hunterpie.com";
 
+        private static HashSet<string> _notFoundCache = new();
+
         public static string GetMonsterIcon(string imageName)
         {
             return "";
         }
 
-        public static string GetMonsterIconUrl(string imagename)
+        public static async Task<string> GetMonsterIconUrl(string imagename)
         {
-            return $"{CDN_BASE_URL}/Monsters/Icons/{imagename}.png";
+            if (_notFoundCache.Contains(imagename))
+                return null;
+
+            string url = $"{CDN_BASE_URL}/Assets/Monsters/Icons/{imagename}.png";
+            string localImage = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{imagename}.png");
+
+            if (File.Exists(localImage))
+                return $"pack://siteoforigin:,,,Assets/Monsters/Icons/{imagename}.png";
+
+            using (HttpClient client = new())
+            {
+                using (HttpRequestMessage req = new(HttpMethod.Get, url))
+                {
+                    using (HttpResponseMessage response = await client.SendAsync(req))
+                    {
+                        if (response.StatusCode == HttpStatusCode.Forbidden)
+                        {
+                            _notFoundCache.Add(imagename);
+                            return null;
+                        }
+
+                        byte[] data = await response.Content.ReadAsByteArrayAsync();
+
+                        await File.WriteAllBytesAsync(
+                            localImage,
+                            data
+                        );
+
+                        return localImage;
+                    }
+                }
+            }
+
         }
     }
 }

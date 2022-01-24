@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows.Data;
 using System.Windows.Media;
 using HunterPie.Core.Remote;
+using System.Windows.Controls;
 
 namespace HunterPie.UI.Architecture.Converters
 {
@@ -27,9 +28,7 @@ namespace HunterPie.UI.Architecture.Converters
             string path = Path.Combine(ClientInfo.ClientPath, @$"Assets/{imageName}");
 
             if (!File.Exists(path))
-                return new ImageSourceConverter().ConvertFromString(
-                    CDN.GetMonsterIconUrl(monsterEm)
-                );
+                CDN.GetMonsterIconUrl(monsterEm);
 
             return new ImageSourceConverter().ConvertFromString($"pack://siteoforigin:,,,/Assets/Monsters/Icons/{monsterEm}.png");
         }

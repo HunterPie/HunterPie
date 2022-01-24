@@ -39,6 +39,8 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         {
             Name = Context.Name;
             Em = $"Rise_{Context.Id:00}";
+
+            FetchMonsterIcon();
         }
 
         private void OnDespawn(object sender, EventArgs e)
@@ -82,6 +84,8 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             {
                 Name = Context.Name;
                 Em = $"Rise_{Context.Id:00}";
+
+                FetchMonsterIcon();
             }
             MaxHealth = Context.MaxHealth;
             Health = Context.Health;
