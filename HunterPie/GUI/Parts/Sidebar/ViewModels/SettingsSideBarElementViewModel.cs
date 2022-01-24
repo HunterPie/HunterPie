@@ -3,6 +3,7 @@ using HunterPie.GUI.Parts.Host;
 using HunterPie.Internal.Intializers;
 using HunterPie.UI.Controls.Flags;
 using HunterPie.UI.Controls.Settings;
+using HunterPie.UI.Controls.Settings.ViewModel;
 using HunterPie.UI.Settings;
 using System.Windows;
 using System.Windows.Media;
@@ -25,15 +26,15 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
             
             var _ = ClientConfig.Config.Client.Language;
 
-            SettingHost host = new SettingHost();
+            SettingHostViewModel vm = new(settingTabs);
+            SettingHost host = new SettingHost()
+            {
+                DataContext = vm
+            };
             
-            host.AddTab(settingTabs);
-
             // Also add feature flags if enabled
             if (ClientConfig.Config.Client.EnableFeatureFlags)
-                host.AddTab(new FeatureFlagsView(FeatureFlagsInitializer.Features.Flags));
-
-            _ = ClientConfig.Config.Client.Language;
+                vm.Elements.Add(new FeatureFlagsView(FeatureFlagsInitializer.Features.Flags));
 
             MainHost.SetMain(host);
         }

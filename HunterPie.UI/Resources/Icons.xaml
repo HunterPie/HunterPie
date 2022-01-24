@@ -28,6 +28,14 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="ICON_DOWNLOAD_YELLOW">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="#ffab66" Geometry="F1 M512,512z M0,0z M256,464C370.87,464 464,370.87 464,256 464,141.13 370.87,48 256,48 141.13,48 48,141.13 48,256 48,370.87 141.13,464 256,464z M164.64,251.35A16,16,0,0,1,187.27,251.26L240,303.58 240,170A16,16,0,0,1,272,170L272,303.58 324.73,251.26A16,16,0,1,1,347.27,274L267.27,353.39A16,16,0,0,1,244.73,353.39L164.73,274A16,16,0,0,1,164.64,251.35z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="ICON_BUG">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
@@ -288,6 +296,14 @@
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
                 <GeometryDrawing Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}" Geometry="F1 M512,512z M0,0z M256,56C145.72,56 56,145.72 56,256 56,366.28 145.72,456 256,456 366.28,456 456,366.28 456,256 456,145.72 366.28,56 256,56z M256,138A26,26,0,1,1,230,164A26,26,0,0,1,256,138z M304,364L216,364A16,16,0,0,1,216,332L244,332 244,244 228,244A16,16,0,0,1,228,212L260,212A16,16,0,0,1,276,228L276,332 304,332A16,16,0,0,1,304,364z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_CHECKMARK_GREEN">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="#66e2a7" Geometry="F1 M512,512z M0,0z M256,48C141.31,48 48,141.31 48,256 48,370.69 141.31,464 256,464 370.69,464 464,370.69 464,256 464,141.31 370.69,48 256,48z M364.25,186.29L229.85,346.29A16,16,0,0,1,217.85,352L217.58,352A16,16,0,0,1,205.69,346.7L148.09,282.7A16,16,0,1,1,171.87,261.3L217.16,311.62 339.75,165.71A16,16,0,0,1,364.25,186.29z" />
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>

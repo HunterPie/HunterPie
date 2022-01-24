@@ -86,7 +86,10 @@
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="Dev Tools"
 					 Description="Advanced development tools"/>
-			
+
+			<Setting Id="ENABLE_SELF_UPDATE"
+					 String="Enable self update"
+					 Description="If enabled, HunterPie will automatically update itself to the latest version."/>
 			<Setting Id="LANGUAGE_STRING"
 					 String="Language"
 					 Description="HunterPie's default localization"/>

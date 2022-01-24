@@ -48,13 +48,11 @@ namespace HunterPie
             base.OnClosing(e);
         }
 
-        private async void OnInitialized(object sender, EventArgs e)
+        private void OnInitialized(object sender, EventArgs e)
         {
             InitializerManager.InitializeGUI();
             InitializeDebugWidgets();
             
-            await HandleAutoUpdate();
-
             Show();
             SetupTrayIcon();
         }
@@ -62,7 +60,7 @@ namespace HunterPie
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) && e.KeyboardDevice.IsKeyDown(Key.R))
-                Restart();
+                App.Restart();
         }
 
         private void InitializeDebugWidgets()
@@ -105,70 +103,6 @@ namespace HunterPie
                 .Click += (_, __) => {
                     Close();
                 };
-        }
-
-        // TODO: Implement all this logic in another class
-        private async Task HandleAutoUpdate()
-        {
-            Hide();
-            UpdateViewModel vm = new()
-            {
-                State = "Initializing HunterPie"
-            };
-            UpdateView view = new()
-            {
-                DataContext = vm
-            };
-            view.Show();
-
-            UpdateService service = new();
-            service.CleanupOldFiles();
-
-            vm.State = "Checking for latest version...";
-            Version latest = await service.GetLatestVersion();
-
-            if (latest is null || ClientInfo.IsVersionGreaterOrEq(latest))
-            {
-                view.Close();
-                return;
-            }
-
-            var result = DialogManager.Warn(
-                    "Update",
-                    "There's a new version of HunterPie.\nDo you want to update now?",
-                    NativeDialogButtons.Accept | NativeDialogButtons.Reject);
-
-            Dictionary<string, string> localFiles = await service.IndexAllFilesRecursively(ClientInfo.ClientPath);
-
-            if (result != NativeDialogResult.Accept)
-            {
-                view.Close();
-                return;
-            }
-
-            vm.State = "New version found";
-
-            vm.State = "Downloading package";
-            await service.DownloadZip((_, args) => {
-                vm.DownloadedBytes = args.BytesReceived;
-                vm.TotalBytes = args.TotalBytesToReceive;
-            });
-
-            vm.State = "Extracting package...";
-            service.ExtractZip();
-            Dictionary<string, string> remoteFiles = await service.IndexAllFilesRecursively(ClientInfo.GetPathFor(@"temp/HunterPie"));
-
-            vm.State = "Replacing old files";
-            service.ReplaceOldFiles(localFiles, remoteFiles);
-
-            view.Close();
-            Restart();
-        }
-
-        private void Restart()
-        {
-            Process.Start(typeof(MainWindow).Assembly.Location.Replace(".dll", ".exe"));
-            Application.Current.Shutdown();
         }
     }
 }

@@ -16,34 +16,14 @@ namespace HunterPie.UI.Controls.Settings
     /// </summary>
     public partial class SettingHost : UserControl
     {
-        // TODO: Put all this data in the ViewModel
-        private readonly ObservableCollection<ISettingElement> _elements = new ObservableCollection<ISettingElement>();
-        public ObservableCollection<ISettingElement> Elements => _elements;
-        public Observable<int> CurrentTabIndex { get; } = 0;
+        public SettingHostViewModel ViewModel => (SettingHostViewModel)DataContext;
 
         public SettingHost()
         {
             InitializeComponent();
-            DataContext = this;
         }
 
-        public void AddTab(ISettingElement element)
-        {
-            _elements.Add(element);
-        }
-
-        public void AddTab(params ISettingElement[] elements)
-        {
-            foreach (ISettingElement el in elements)
-                AddTab(el);
-        }
-
-        private void OnRealTimeSearch(object sender, SearchTextChangedEventArgs e)
-        {
-            ISettingElement tab = Elements[CurrentTabIndex];
-
-            foreach (ISettingElementType field in tab.Elements)
-                field.Match = Regex.IsMatch(field.Name, e.Text, RegexOptions.IgnoreCase) || e.Text.Length == 0;
-        }
+        private void OnRealTimeSearch(object sender, SearchTextChangedEventArgs e) => ViewModel.SearchSetting(e.Text);
+        private void OnLoaded(object sender, RoutedEventArgs e) => ViewModel.FetchVersion();
     }
 }

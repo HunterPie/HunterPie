@@ -1,12 +1,9 @@
 ﻿<UserControl x:Class="HunterPie.UI.Controls.Settings.SettingElementHost"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Controls.Settings"
-             xmlns:anim="clr-namespace:HunterPie.UI.Architecture.Animation"
-             xmlns:button="clr-namespace:HunterPie.UI.Controls.Buttons"
-             mc:Ignorable="d" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              Background="Transparent"
              d:DesignWidth="400"
@@ -19,6 +16,15 @@
             <ColumnDefinition Width="227*"/>
             <ColumnDefinition Width="173*"/>
         </Grid.ColumnDefinitions>
+        <Rectangle Grid.ColumnSpan="2" 
+                   Stroke="#33FF5151">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#00000000"/>
+                    <GradientStop Color="#33FF5151" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
         <Canvas Grid.ColumnSpan="2">
             <Rectangle x:Name="PART_Highlight"
                    VerticalAlignment="Top"

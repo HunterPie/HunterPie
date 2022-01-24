@@ -8,12 +8,15 @@
              xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:textbox="clr-namespace:HunterPie.UI.Controls.TextBox"
              xmlns:vm="clr-namespace:HunterPie.UI.Controls.Settings.ViewModel"
-             mc:Ignorable="d" 
+             xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading"
+             mc:Ignorable="d"
              d:DesignHeight="450" 
-             d:DesignWidth="800">
+             d:DesignWidth="800"
+             Loaded="OnLoaded">
     <UserControl.Resources>
         <converters:ObjectToUiConverter x:Key="ObjectToUiConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
         <vm:MockSettingHostViewModel x:Key="MockSettingHostViewModel"/>
         <DataTemplate x:Key="PanelTemplate" DataType="{x:Type vm:ISettingElement}">
             <ItemsControl ItemsSource="{Binding Elements, Mode=OneWay}">
@@ -71,6 +74,53 @@
         </Style>
     </UserControl.Resources>
     <Grid>
+        <StackPanel Orientation="Horizontal"
+                    Height="30"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left">
+            <loading:CircleLoading Width="15"
+                                   Height="15"
+                                   Margin="10,0,0,0"
+                                   Visibility="{Binding IsFetchingVersion, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Label Visibility="{Binding IsFetchingVersion, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                <Label.Style>
+                    <Style TargetType="Label">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsLatestVersion}" Value="True">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="{StaticResource ICON_CHECKMARK_GREEN}"
+                                                   Margin="0,0,5,0"/>
+                                            <TextBlock Text="HunterPie is up to date!"
+                                                       Foreground="#66e2a7"
+                                                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                                       VerticalAlignment="Center"
+                                                       FontWeight="Medium"/>
+                                        </StackPanel>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsLatestVersion}" Value="False">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="{StaticResource ICON_DOWNLOAD_YELLOW}"
+                                                   Margin="0,0,5,0"/>
+                                            <TextBlock Text="There's a new version of HunterPie available!"
+                                                       Foreground="#ffab66"
+                                                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                                       VerticalAlignment="Center"
+                                                       FontWeight="Medium"/>
+                                        </StackPanel>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+        </StackPanel>
         <textbox:SearchTextBox MaxHeight="30"
                                Height="30"
                                Width="300"
@@ -85,7 +135,7 @@
                     BorderThickness="0,1,0,0"
                     Margin="1,35,1,1"
                     BorderBrush="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
-                    SelectedIndex="{Binding CurrentTabIndex.Value}">
+                    SelectedIndex="{Binding CurrentTabIndex}">
         </TabControl>
     </Grid>
 </UserControl>
