@@ -10,21 +10,13 @@
              ClipToBounds="True">
     <UserControl.Resources>
         <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="227*"/>
             <ColumnDefinition Width="173*"/>
         </Grid.ColumnDefinitions>
-        <Rectangle Grid.ColumnSpan="2" 
-                   Stroke="#33FF5151">
-            <Rectangle.Fill>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#00000000"/>
-                    <GradientStop Color="#33FF5151" Offset="1"/>
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
         <Canvas Grid.ColumnSpan="2">
             <Rectangle x:Name="PART_Highlight"
                    VerticalAlignment="Top"
@@ -44,13 +36,24 @@
                 </Rectangle.Fill>
             </Rectangle>
         </Canvas>
-        
-        <Label Content="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
-               VerticalContentAlignment="Center"
-               HorizontalAlignment="Stretch"
-               FontSize="14"
-               Foreground="{StaticResource BUTTON_COMMONBUTTON_FOREGROUND}"
-               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+
+        <Label VerticalContentAlignment="Center"
+               HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                           FontSize="14"
+                           Text="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                           d:Text="Placeholder"
+                           Margin="0,0,5,0"/>
+                <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                           FontSize="8"
+                           Text="(Requires restart)"
+                           VerticalAlignment="Center"
+                           Visibility="{Binding RequiresRestart, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </StackPanel>
+        </Label>
         <Grid HorizontalAlignment="Stretch" 
                    Grid.Column="1">
             <ContentControl Content="{Binding Hosted, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"

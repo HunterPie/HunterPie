@@ -24,7 +24,7 @@ namespace HunterPie.UI.Controls.Flags
             {
                 var info = feat.GetType().GetProperty(nameof(IFeature.IsEnabled));
                 string name = featName.Replace("_", "__");
-                ISettingElementType el = new SettingElementType(name, featName, feat, info);
+                ISettingElementType el = new SettingElementType(name, featName, feat, info, true);
                 _elements.Add(el);
             }
         }

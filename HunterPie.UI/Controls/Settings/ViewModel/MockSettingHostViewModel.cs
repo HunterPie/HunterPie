@@ -20,7 +20,7 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
             public MockSettingElement()
             {
                 for (int i = 0; i < 15; i++)
-                    Elements.Add(new SettingElementType("Mock", "Mock", this, GetType().GetProperty(nameof(Mock))));
+                    Elements.Add(new SettingElementType("Mock", "Mock", this, GetType().GetProperty(nameof(Mock)), false));
             }
         }
 
