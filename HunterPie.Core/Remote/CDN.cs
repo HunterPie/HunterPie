@@ -27,7 +27,7 @@ namespace HunterPie.Core.Remote
             string localImage = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{imagename}.png");
 
             if (File.Exists(localImage))
-                return $"pack://siteoforigin:,,,Assets/Monsters/Icons/{imagename}.png";
+                return localImage;
 
             using (HttpClient client = new())
             {
