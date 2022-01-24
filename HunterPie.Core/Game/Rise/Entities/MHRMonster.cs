@@ -5,6 +5,7 @@ using HunterPie.Core.Domain.DTO.Monster;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.Rise.Crypto;
@@ -188,9 +189,11 @@ namespace HunterPie.Core.Game.Rise.Entities
 
         private void DerefPartsAndScan(long[] partsPointers)
         {
-            foreach (long part in partsPointers)
+            int i = 0;
+            foreach (var part in partsPointers)
             {
                 float maxHealth = _process.Memory.Read<float>(part + 0x18);
+                
                 // TODO: Read all this in 1 pass
                 long encodedHealthPtr = _process.Memory.ReadPtr(part, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
                 uint healthEncodedIdx = _process.Memory.Read<uint>(encodedHealthPtr + 0x18) & 3;
@@ -203,10 +206,11 @@ namespace HunterPie.Core.Game.Rise.Entities
                     continue;
 
                 if (!parts.ContainsKey(part))
-                    parts.Add(part, new MHRMonsterPart());
+                    parts.Add(part, new MHRMonsterPart(MonsterData.GetMonsterPartData(Id, i)?.String ?? "PART_UNKNOWN"));
 
                 MHRMonsterPart monsterPart = parts[part];
                 monsterPart.UpdateHealth(health, maxHealth);
+                i++;
             }
         }
     }

@@ -114,6 +114,7 @@ namespace HunterPie
             }
 
             _process = e.Process;
+            GameManager.InitializeGameData(e.ProcessName);
             Context context = GameManager.GetGameContext(e.ProcessName, _process);
 
             Log.Debug("Initialized game context");

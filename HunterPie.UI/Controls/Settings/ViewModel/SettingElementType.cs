@@ -19,7 +19,6 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
             set { SetValue(ref _match, value); }
         }
 
-
         public SettingElementType(string name, string description, object parent, PropertyInfo info, bool restart)
         {
             Name = name;

@@ -5,6 +5,7 @@ namespace HunterPie.Core.Game.Environment
     public interface IMonsterPart
     {
 
+        public string Id { get; }
         public float Health { get; }
         public float MaxHealth { get; }
 

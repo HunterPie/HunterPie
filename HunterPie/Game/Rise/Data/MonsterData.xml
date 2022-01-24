@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+	All the monster data was extracted from https://mhrise.mhrice.info/
+	Special thanks to wwylele for creating it, checkout his work at: https://github.com/wwylele/mhrice/
+-->
+<GameData>
+	<Monsters>
+		<Monster Id="0">
+			<Parts>
+				<Part Id="0"
+					  String="PART_UNKNOWN"/>
+				<Part Id="1"
+					  String="PART_UNKNOWN"/>
+				<Part Id="2"
+					  String="PART_HEAD"/>
+				<Part Id="3"
+					  String="PART_TORSO"/>
+				<Part Id="4"
+					  String="PART_L_WING"/>
+				<Part Id="5"
+					  String="PART_R_WING"/>
+				<Part Id="6"
+					  String="PART_L_LEG"/>
+				<Part Id="7"
+					  String="PART_R_LEG"/>
+				<Part Id="8"
+					  String="PART_TAIL"/>
+			</Parts>
+		</Monster>
+		<Monster Id="1">
+			<Parts>
+				<Part Id="0"
+					  String="PART_UNKNOWN"/>
+				<Part Id="1"
+					  String="PART_UNKNOWN"/>
+				<Part Id="2"
+					  String="PART_HEAD"/>
+				<Part Id="3"
+					  String="PART_TORSO"/>
+				<Part Id="4"
+					  String="PART_L_WING"/>
+				<Part Id="5"
+					  String="PART_R_WING"/>
+				<Part Id="6"
+					  String="PART_L_LEG"/>
+				<Part Id="7"
+					  String="PART_R_LEG"/>
+				<Part Id="8"
+					  String="PART_TAIL"/>
+			</Parts>
+		</Monster>
+
+		<Monster Id="5">
+			<Parts>
+				<Part Id="0"
+					  String="PART_UNKNOWN"/>
+				<Part Id="1"
+					  String="PART_UNKNOWN"/>
+				<Part Id="2"
+					  String="PART_BACK"/>
+				<Part Id="3"
+					  String="PART_L_WING"/>
+				<Part Id="4"
+					  String="PART_R_WING"/>
+				<Part Id="5"
+					  String="PART_L_LEG"/>
+				<Part Id="6"
+					  String="PART_R_LEG"/>
+				<Part Id="7"
+					  String="PART_HEAD"/>
+				<Part Id="8"
+					  String="PART_CHEST"/>
+				<Part Id="9"
+					  String="PART_TAIL"/>
+			</Parts>
+		</Monster>
+	</Monsters>
+</GameData>

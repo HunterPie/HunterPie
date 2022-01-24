@@ -67,7 +67,6 @@
         <Setter Property="Foreground" Value="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
         <Setter Property="BorderBrush" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="MaxWidth" Value="200"/>
     </Style>
 
     <SolidColorBrush x:Key="StandardBorderBrush" Color="#888" />

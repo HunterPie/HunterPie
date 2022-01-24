@@ -71,7 +71,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
                 Application.Current.Dispatcher.InvokeAsync(() =>
                 {
                     foreach (IMonsterPart part in Context.Parts)
-                        Parts.Add(new MonsterPartContextHandler(part) { Name = "Unknown", Health = part.Health, MaxHealth = part.MaxHealth });
+                        Parts.Add(new MonsterPartContextHandler(part) { Name = part.Id, Health = part.Health, MaxHealth = part.MaxHealth });
                 });
             }
         }

@@ -1,6 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Strings lang="English">
 	<Monsters>
+		<Shared>
+			<Part Id="PART_UNKNOWN" String="???"/>
+			<Part Id="PART_HEAD" String="Head"/>
+			<Part Id="PART_TORSO" String="Torso"/>
+			<Part Id="PART_L_WING" String="Left Wing"/>
+			<Part Id="PART_R_WING" String="Right Wing"/>
+			<Part Id="PART_L_LEG" String="Left Leg"/>
+			<Part Id="PART_R_LEG" String="Right Leg"/>
+			<Part Id="PART_TAIL" String="Tail"/>
+			<Part Id="PART_BACK" String="Back"/>
+			<Part Id="PART_CHEST" String="Chest"/>
+		</Shared>
 		<Rise>
 			<Monster Id="0" String="Rathian"/>
 			<Monster Id="1" String="Apex Rathian"/>
