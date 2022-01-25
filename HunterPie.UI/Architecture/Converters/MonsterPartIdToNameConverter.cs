@@ -11,7 +11,7 @@ namespace HunterPie.UI.Architecture.Converters
         {
             string id = (string)value;
             return Localization.Query($"//Strings/Monsters/Shared/Part[@Id='{id}']")?.Attributes["String"].Value
-                ?? Localization.Query($"//Strings/Monsters/Shared/Part[@Id='PART_UNKNOWN']").Attributes["String"].Value;
+                ?? id;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

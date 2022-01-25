@@ -10,8 +10,53 @@
 			<Part Id="PART_L_LEG" String="Left Leg"/>
 			<Part Id="PART_R_LEG" String="Right Leg"/>
 			<Part Id="PART_TAIL" String="Tail"/>
+			<Part Id="PART_NECK" String="Neck"/>
+			<Part Id="PART_L_ARM" String="Left Arm"/>
+			<Part Id="PART_R_ARM" String="Right Arm"/>
 			<Part Id="PART_BACK" String="Back"/>
-			<Part Id="PART_CHEST" String="Chest"/>
+			<Part Id="PART_WINGS" String="Wings"/>
+			<Part Id="PART_FORELEGS" String="Forelegs"/>
+			<Part Id="PART_H_LEGS" String="Hind Legs"/>
+			<Part Id="PART_L_CUTWING" String="Left Cutwing"/>
+			<Part Id="PART_R_CUTWING" String="Right Cutwing"/>
+			<Part Id="PART_ARMS" String="Arms"/>
+			<Part Id="PART_HEAD_MUD" String="Head (Mud)"/>
+			<Part Id="PART_TORSO_MUD" String="Torso (Mud)"/>
+			<Part Id="PART_ARMS_MUD" String="Arms (Mud)"/>
+			<Part Id="PART_L_LEG_MUD" String="Left Leg (Mud)"/>
+			<Part Id="PART_R_LEG_MUD" String="Right Leg (Mud)"/>
+			<Part Id="PART_TAIL_MUD" String="Tail (Mud)"/>
+			<Part Id="PART_SPONGE" String="Sponge"/>
+			<Part Id="PART_L_LEGS" String="Left Legs"/>
+			<Part Id="PART_R_LEGS" String="Right Legs"/>
+			<Part Id="PART_BODY" String="Body"/>
+			<Part Id="PART_UPPER_BODY" String="Upper Body"/>
+			<Part Id="PART_REAR" String="Rear"/>
+			<Part Id="PART_LOWER_BODY" String="Lower Body"/>
+			<Part Id="PART_UPPER_BACK" String="Upper Back"/>
+			<Part Id="PART_LOWER_BACK" String="Lower Back"/>
+			<Part Id="PART_ROLLING" String="Rolling"/>
+			<Part Id="PART_DORSAL_FIN" String="Dorsal Fin"/>
+			<Part Id="PART_LEGS" String="Legs"/>
+			<Part Id="PART_SHELL" String="Shell"/>
+			<Part Id="PART_CLAW" String="Claw"/>
+			<Part Id="PART_L_FORELEG" String="Left Foreleg"/>
+			<Part Id="PART_R_FORELEG" String="Right Foreleg"/>
+			<Part Id="PART_L_H_LEG" String="Left Hind Leg"/>
+			<Part Id="PART_R_H_LEG" String="Right Hind Leg"/>
+			<Part Id="PART_CHEST" String="Abdomen"/>
+			<Part Id="PART_TAIL_TIP" String="Tail Tip"/>
+			<Part Id="PART_MUD_BALL" String="Mud Ball"/>
+			<Part Id="PART_LOWER_TORSO" String="Lower Torso"/>
+			<Part Id="PART_TAIL_WINDSAC" String="Tail Windsac"/>
+			<Part Id="PART_CHEST_WINDSAC" String="Chest Windsac"/>
+			<Part Id="PART_BACK_WINDSAC" String="Back Windsac"/>
+			<Part Id="PART_L_ARM_ICE" String="Left Arm (Ice)"/>
+			<Part Id="PART_R_ARM_ICE" String="Right Arm (Ice)"/>
+			<Part Id="PART_B_LEG_FINS" String="Back Leg Fins"/>
+			<Part Id="PART_THUNDERBALLS" String="Thunderballs"/>
+			<Part Id="PART_ROCK" String="Rock"/>
+			<Part Id="PART_POT" String="Pot"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="Rathian"/>
