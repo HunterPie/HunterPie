@@ -14,11 +14,6 @@ namespace HunterPie.Update
             UpdateService service = new();
             service.CleanupOldFiles();
 
-            bool isAutoUpdateEnabled = ClientConfig.Config.Client.EnableAutoUpdate;
-            
-            if (!isAutoUpdateEnabled)
-                return false;
-
             vm.State = "Checking for latest version...";
             Version latest = await service.GetLatestVersion();
 

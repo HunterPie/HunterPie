@@ -60,11 +60,13 @@ namespace HunterPie
 
         private async Task SelfUpdate()
         {
+            if (!ClientConfig.Config.Client.EnableAutoUpdate)
+                return;
 
             UpdateViewModel vm = new();
             UpdateView view = new() { DataContext = vm };
             view.Show();
-
+            
             bool result = await UpdateUseCase.Exec(vm);
             view.Close();
             

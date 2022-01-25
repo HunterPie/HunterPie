@@ -28,14 +28,44 @@ namespace HunterPie.Core.Client.Localization
 
         private Localization()
         {
+            string englishXml = Path.Combine(ClientInfo.LanguagesPath, "en-us.xml");
             document = new();
+            document.Load(englishXml);
 
             string xmlPath = Path.Combine(ClientInfo.LanguagesPath, ClientConfig.Config.Client.Language);
 
             if (!File.Exists(xmlPath))
-                xmlPath = Path.Combine(ClientInfo.LanguagesPath, "en-us.xml");
+            {
+                Log.Error($"Failed to find {Path.GetFileNameWithoutExtension(xmlPath)} localization");
+                return;
+            }
+            
+            try
+            {
+                if (ClientConfig.Config.Client.Language != "en-us.xml")
+                {
+                    XmlDocument otherLanguage = new();
+                    otherLanguage.Load(xmlPath);
 
-            document.Load(xmlPath);
+                    XmlNodeList englishNodes = document.DocumentElement.SelectNodes("//*");
+                    foreach (XmlNode node in otherLanguage.DocumentElement.SelectNodes("//*"))
+                    {
+                        string id = node.Attributes["Id"]?.Value;
+
+                        if (id is null)
+                            continue;
+
+                        XmlNode match = document.DocumentElement.SelectSingleNode($"//{node.ParentNode.Name}/*[@Id='{id}']");
+
+                        if (match is null)
+                            continue;
+
+                        match.Attributes["String"].Value = node.Attributes["String"].Value;
+                        match.Attributes["Description"].Value = node.Attributes["Description"].Value;
+                    }
+                }
+            } catch(Exception err) { Log.Error(err); }
+            
 
             Log.Info($"Loaded localization {Path.GetFileNameWithoutExtension(xmlPath)}");
         }
