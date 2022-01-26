@@ -55,7 +55,7 @@
     <SolidColorBrush x:Key="LOGGER_LEVEL_BENCHMARK">#1BC9B6</SolidColorBrush>
     
     <!-- Font -->
-    <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">Work Sans</FontFamily>
+    <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">pack://application:,,,/HunterPie.UI;component/Resources/#Work Sans</FontFamily>
         
     <!-- Constants -->
     <sys:Double x:Key="HUNTERPIE_SIDEBAR_WIDTH">300</sys:Double>

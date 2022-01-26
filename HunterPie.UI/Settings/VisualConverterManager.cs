@@ -118,7 +118,8 @@ namespace HunterPie.UI.Settings
                         name: title,
                         description: description,
                         parent,
-                        prop
+                        prop,
+                        metadata.RequiresRestart
                     );
 
                     panel.Add(settingHost);

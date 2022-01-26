@@ -14,6 +14,9 @@
     <Compile Update="Controls\Buttons\TabItem.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Loading\CircleLoading.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Settings\SettingElementHost.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -89,6 +92,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Buttons\TabItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Loading\CircleLoading.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\SettingElementHost.xaml">

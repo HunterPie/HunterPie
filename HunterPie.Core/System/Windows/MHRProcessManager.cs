@@ -16,10 +16,18 @@ namespace HunterPie.Core.System.Windows
             if (!process.MainWindowTitle.ToUpper().StartsWith("MONSTERHUNTERRISE"))
                 return false;
 
-            // TODO: Rise versioning
-            string riseVersion = process.MainModule.FileVersionInfo.FileVersion;
+            string riseVersion;
+            try
+            {
+                riseVersion = process.MainModule.FileVersionInfo.FileVersion;
+            } catch
+            {
+                Log.Error("Failed to get Monster Hunter Rise version, missing permissions. Try running as administrator.");
+                return false;
+            }
 
-            Log.Info($"Detect Monster Hunter Rise version: {riseVersion}");
+
+            Log.Info($"Detected Monster Hunter Rise version: {riseVersion}");
 
             AddressMap.Parse(Path.Combine(ClientInfo.AddressPath, $"MonsterHunterRise.{riseVersion}.map"));
 

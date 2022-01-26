@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HunterPie.Core.Game.Enums;
+using System;
 
 namespace HunterPie.Core.Game.Client
 {
@@ -7,6 +8,7 @@ namespace HunterPie.Core.Game.Client
         public string Name { get; }
         public int HighRank { get; }
         public int StageId { get; }
+        public Weapon WeaponId { get; }
 
         public event EventHandler<EventArgs> OnLogin;
         public event EventHandler<EventArgs> OnLogout;
@@ -18,5 +20,6 @@ namespace HunterPie.Core.Game.Client
         public event EventHandler<EventArgs> OnVillageEnter;
         public event EventHandler<EventArgs> OnVillageLeave;
         public event EventHandler<EventArgs> OnAilmentUpdate;
+        public event EventHandler<EventArgs> OnWeaponChange;
     }
 }

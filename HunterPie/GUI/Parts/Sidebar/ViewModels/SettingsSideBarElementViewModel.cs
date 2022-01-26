@@ -3,9 +3,11 @@ using HunterPie.GUI.Parts.Host;
 using HunterPie.Internal.Intializers;
 using HunterPie.UI.Controls.Flags;
 using HunterPie.UI.Controls.Settings;
+using HunterPie.UI.Controls.Settings.ViewModel;
 using HunterPie.UI.Settings;
 using System.Windows;
 using System.Windows.Media;
+using Localization = HunterPie.Core.Client.Localization.Localization;
 
 namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 {
@@ -13,7 +15,7 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
     {
         public ImageSource Icon => Application.Current.FindResource("ICON_SETTINGS") as ImageSource;
 
-        public string Text => "Settings";
+        public string Text => Localization.Query("//Strings/Client/Tabs/Tab[@Id='SETTINGS_STRING']").Attributes["String"].Value;
          
         public bool IsActivable => true;
 
@@ -25,15 +27,15 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
             
             var _ = ClientConfig.Config.Client.Language;
 
-            SettingHost host = new SettingHost();
+            SettingHostViewModel vm = new(settingTabs);
+            SettingHost host = new SettingHost()
+            {
+                DataContext = vm
+            };
             
-            host.AddTab(settingTabs);
-
             // Also add feature flags if enabled
             if (ClientConfig.Config.Client.EnableFeatureFlags)
-                host.AddTab(new FeatureFlagsView(FeatureFlagsInitializer.Features.Flags));
-
-            _ = ClientConfig.Config.Client.Language;
+                vm.Elements.Add(new FeatureFlagsView(FeatureFlagsInitializer.Features.Flags));
 
             MainHost.SetMain(host);
         }

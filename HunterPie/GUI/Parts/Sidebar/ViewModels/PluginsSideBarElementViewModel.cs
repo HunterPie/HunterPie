@@ -1,11 +1,6 @@
-﻿using HunterPie.Core.Logger;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
+using Localization = HunterPie.Core.Client.Localization.Localization;
 
 namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 {
@@ -13,7 +8,7 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
     {
         public ImageSource Icon => Application.Current.FindResource("ICON_PLUGIN") as ImageSource;
 
-        public string Text => "Plugins";
+        public string Text => Localization.Query("//Strings/Client/Tabs/Tab[@Id='PLUGINS_STRING']").Attributes["String"].Value;
 
         public bool IsActivable => true;
 

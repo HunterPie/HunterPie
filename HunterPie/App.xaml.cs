@@ -22,6 +22,9 @@ using HunterPie.UI.Overlay.Widgets.Monster;
 using HunterPie.Integrations.Discord;
 using HunterPie.UI.Overlay;
 using System.Collections.Generic;
+using HunterPie.Update;
+using HunterPie.Update.Presentation;
+using System.Threading.Tasks;
 
 namespace HunterPie
 {
@@ -35,14 +38,40 @@ namespace HunterPie
         private Context _context;
         private List<IContextHandler> contextHandlers = new();
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
+            
+
             base.OnStartup(e);
 
             InitializerManager.Initialize();
             SetRenderingMode();
 
+            await SelfUpdate();
+
+            ShutdownMode = ShutdownMode.OnMainWindowClose;
+            
+            MainWindow window = new MainWindow();
+            window.Show();
+
             InitializeProcessScanners();
+            
+        }
+
+        private async Task SelfUpdate()
+        {
+            if (!ClientConfig.Config.Client.EnableAutoUpdate)
+                return;
+
+            UpdateViewModel vm = new();
+            UpdateView view = new() { DataContext = vm };
+            view.Show();
+            
+            bool result = await UpdateUseCase.Exec(vm);
+            view.Close();
+            
+            if (result)
+                Restart();
         }
 
         private void InitializeProcessScanners()
@@ -87,6 +116,7 @@ namespace HunterPie
             }
 
             _process = e.Process;
+            GameManager.InitializeGameData(e.ProcessName);
             Context context = GameManager.GetGameContext(e.ProcessName, _process);
 
             Log.Debug("Initialized game context");
@@ -135,5 +165,11 @@ namespace HunterPie
         }
 
         private void OnPlayerLogin(object sender, EventArgs e) => Log.Info($"Logged in as {_context.Game.Player.Name}");
+
+        public static void Restart()
+        {
+            Process.Start(typeof(MainWindow).Assembly.Location.Replace(".dll", ".exe"));
+            Current.Shutdown();
+        }
     }
 }

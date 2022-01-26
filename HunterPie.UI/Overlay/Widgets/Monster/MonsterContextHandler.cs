@@ -39,6 +39,8 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         {
             Name = Context.Name;
             Em = $"Rise_{Context.Id:00}";
+
+            FetchMonsterIcon();
         }
 
         private void OnDespawn(object sender, EventArgs e)
@@ -71,7 +73,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
                 Application.Current.Dispatcher.InvokeAsync(() =>
                 {
                     foreach (IMonsterPart part in Context.Parts)
-                        Parts.Add(new MonsterPartContextHandler(part) { Name = "Unknown", Health = part.Health, MaxHealth = part.MaxHealth });
+                        Parts.Add(new MonsterPartContextHandler(part) { Name = part.Id, Health = part.Health, MaxHealth = part.MaxHealth });
                 });
             }
         }
@@ -82,6 +84,8 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             {
                 Name = Context.Name;
                 Em = $"Rise_{Context.Id:00}";
+
+                FetchMonsterIcon();
             }
             MaxHealth = Context.MaxHealth;
             Health = Context.Health;
@@ -95,7 +99,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
                 Application.Current.Dispatcher.InvokeAsync(() =>
                 {
                     foreach (IMonsterPart part in Context.Parts)
-                        Parts.Add(new MonsterPartContextHandler(part) { Name = "Unknown", Health = part.Health, MaxHealth = part.MaxHealth });
+                        Parts.Add(new MonsterPartContextHandler(part) { Name = part.Id, Health = part.Health, MaxHealth = part.MaxHealth });
                 });
             }
         }

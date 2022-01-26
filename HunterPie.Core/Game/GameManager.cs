@@ -1,4 +1,6 @@
-﻿using HunterPie.Core.Domain.Process;
+﻿using HunterPie.Core.Client;
+using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Game.World;
 using System;
@@ -19,6 +21,21 @@ namespace HunterPie.Core.Game
                     return new MHWContext(process);
                 case "MonsterHunterRise":
                     return new MHRContext(process);
+                default:
+                    throw new Exception("Game context not implemented");
+            }
+        }
+
+        public static bool InitializeGameData(string processName)
+        {
+            // TODO: Refactor this
+            switch (processName)
+            {
+                case "MonsterHunterWorld":
+                    return false;
+                case "MonsterHunterRise":
+                    MonsterData.Init(ClientInfo.GetPathFor("Game/Rise/Data/MonsterData.xml"));
+                    return true;
                 default:
                     throw new Exception("Game context not implemented");
             }

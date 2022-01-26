@@ -9,7 +9,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
             Monsters.Add(new MockBossMonsterViewModel() 
             {
                 Name = "Monster",
-                Em = "em116",
+                Em = "Rise_32",
                 MaxHealth = 35000,
                 Health = 35000,
                 Stamina = 10000,

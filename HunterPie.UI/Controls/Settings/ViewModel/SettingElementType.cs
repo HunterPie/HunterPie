@@ -11,6 +11,7 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
         public PropertyInfo Information { get; private set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
+        public bool RequiresRestart { get; private set; }
 
         public bool Match
         {
@@ -18,12 +19,13 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
             set { SetValue(ref _match, value); }
         }
 
-        public SettingElementType(string name, string description, object parent, PropertyInfo info)
+        public SettingElementType(string name, string description, object parent, PropertyInfo info, bool restart)
         {
             Name = name;
             Description = description;
             Parent = parent;
             Information = info;
+            RequiresRestart = restart;
         }
     }
 }

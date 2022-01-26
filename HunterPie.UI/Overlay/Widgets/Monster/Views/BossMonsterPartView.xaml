@@ -6,10 +6,12 @@
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
              xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels"
              xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              d:DataContext="{d:DesignData Type=vm:MonsterPartViewModel}"
              mc:Ignorable="d"
              d:DesignWidth="200">
     <UserControl.Resources>
+        <converters:MonsterPartIdToNameConverter x:Key="MonsterPartIdToNameConverter"/>
         <LinearGradientBrush x:Key="MonsterHealthUnenraged" EndPoint="1,1" StartPoint="0,1">
             <GradientStop Color="#FF4B8EEE"/>
             <GradientStop Color="#FF10B9DE" Offset="1"/>
@@ -23,7 +25,7 @@
         <SolidColorBrush x:Key="MonsterTenderizeBarDelayed" Color="#FF9CE8FF"/>
     </UserControl.Resources>
     <Grid>
-        <TextBlock Text="{Binding Name}"
+        <TextBlock Text="{Binding Name, Converter={StaticResource MonsterPartIdToNameConverter}, Mode=OneTime}"
                    d:Text="Head"
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"

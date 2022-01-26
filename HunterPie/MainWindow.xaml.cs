@@ -13,6 +13,11 @@ using HunterPie.Core.Client;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Damage.ViewModel;
 using HunterPie.Internal.Tray;
+using HunterPie.Update.Presentation;
+using HunterPie.Update;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.IO;
 
 namespace HunterPie
 {
@@ -47,16 +52,15 @@ namespace HunterPie
         {
             InitializerManager.InitializeGUI();
             InitializeDebugWidgets();
+            
+            Show();
             SetupTrayIcon();
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) && e.KeyboardDevice.IsKeyDown(Key.R))
-            {
-                Process.Start(typeof(MainWindow).Assembly.Location.Replace(".dll", ".exe"));
-                Application.Current.Shutdown();
-            }
+                App.Restart();
         }
 
         private void InitializeDebugWidgets()

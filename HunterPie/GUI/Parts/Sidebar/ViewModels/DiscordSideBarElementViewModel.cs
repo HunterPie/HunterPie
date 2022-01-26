@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
+using Localization = HunterPie.Core.Client.Localization.Localization;
 
 namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 {
@@ -10,7 +11,7 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 
         public ImageSource Icon => Application.Current.FindResource("ICON_DISCORD") as ImageSource;
 
-        public string Text => "Discord";
+        public string Text => Localization.Query("//Strings/Client/Tabs/Tab[@Id='DISCORD_STRING']").Attributes["String"].Value;
 
         public bool IsActivable => false;
 

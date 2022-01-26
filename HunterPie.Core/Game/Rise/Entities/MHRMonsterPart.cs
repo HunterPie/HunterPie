@@ -9,6 +9,8 @@ namespace HunterPie.Core.Game.Rise.Entities
     {
         private float _health;
 
+        public string Id { get; }
+
         public float Health
         {
             get => _health;
@@ -26,6 +28,11 @@ namespace HunterPie.Core.Game.Rise.Entities
 
         public event EventHandler<IMonsterPart> OnHealthUpdate;
         public event EventHandler<IMonsterPart> OnBreakCountUpdate;
+
+        public MHRMonsterPart(string id)
+        {
+            Id = id;
+        }
 
         internal void UpdateHealth(float health, float maxHealth)
         {

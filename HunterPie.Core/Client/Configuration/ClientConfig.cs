@@ -8,6 +8,9 @@ namespace HunterPie.Core.Client.Configuration
     [SettingsGroup("CLIENT_STRING", "ICON_HUNTERPIE")]
     public class ClientConfig : ISettings
     {
+        [SettingField("ENABLE_SELF_UPDATE")]
+        public Observable<bool> EnableAutoUpdate { get; set; } = true;
+
         [SettingField("LANGUAGE_STRING")]
         public GenericFileSelector Language { get; set; } = new GenericFileSelector("en-us.xml", "*.xml", ClientInfo.LanguagesPath);
 

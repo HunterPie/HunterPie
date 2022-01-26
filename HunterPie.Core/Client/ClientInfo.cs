@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 
 namespace HunterPie.Core.Client
 {
@@ -12,5 +13,19 @@ namespace HunterPie.Core.Client
         public static string ThemesPath => Path.Combine(ClientPath, "Themes");
         public const string ConfigName = "config.json";
         public const string ConfigBackupName = ConfigName + ".bak";
+
+        public static bool IsVersionGreaterOrEq(Version other)
+        {
+            Assembly self = Assembly.GetEntryAssembly();
+            AssemblyName name = self.GetName();
+            Version ver = name.Version;
+
+            return ver >= other;
+        }
+
+        public static string GetPathFor(string relative)
+        {
+            return Path.Combine(ClientPath, relative);
+        }
     }
 }

@@ -40,9 +40,14 @@ namespace HunterPie.GUI.Parts.Host
             } 
         }
 
-        public static void SetMain(UIElement element)
+        public static void SetMain<T>(T element) where T : UIElement
         {
+            if (IsInstanceOf<T>())
+                return;
+
             Instance.Element = element;
         }
+
+        public static bool IsInstanceOf<T>() => Instance.Element is T;
     }
 }
