@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using HunterPie.Update;
 using HunterPie.Update.Presentation;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace HunterPie
 {
@@ -40,7 +41,7 @@ namespace HunterPie
 
         protected override async void OnStartup(StartupEventArgs e)
         {
-            
+            CheckForRunningInstances();
 
             base.OnStartup(e);
 
@@ -56,6 +57,16 @@ namespace HunterPie
 
             InitializeProcessScanners();
             
+        }
+
+        private void CheckForRunningInstances()
+        {
+            Process[] processes = Process.GetProcessesByName("HunterPie")
+                .Where(p => p.Id != Process.GetCurrentProcess().Id)
+                .ToArray();
+
+            foreach (Process process in processes)
+                process.Kill();
         }
 
         private async Task SelfUpdate()

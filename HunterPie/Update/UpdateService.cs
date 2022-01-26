@@ -151,7 +151,8 @@ namespace HunterPie.Update
                         directories.Push(entry);
                     else
                         if (entry.EndsWith(".old"))
-                            File.Delete(entry);
+                            try { File.Delete(entry); }
+                            catch(Exception err) { Log.Error(err); }
 
                 }
             }
