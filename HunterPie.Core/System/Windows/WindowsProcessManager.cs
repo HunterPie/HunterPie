@@ -19,7 +19,7 @@ namespace HunterPie.Core.System.Windows
     abstract class WindowsProcessManager : IProcessManager, IEventDispatcher
     {
 
-        private Timer pooler;
+        protected Timer pooler;
         private readonly object _lock = new();
         private bool isProcessForeground;
        
