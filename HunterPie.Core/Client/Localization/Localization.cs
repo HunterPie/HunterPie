@@ -57,7 +57,8 @@ namespace HunterPie.Core.Client.Localization
                         if (id is null)
                             continue;
 
-                        XmlNode match = document.DocumentElement.SelectSingleNode($"//{node.ParentNode.Name}/*[@Id='{id}']");
+                        string path = GetFullParentPath(node);
+                        XmlNode match = document.DocumentElement.SelectSingleNode($"//{path}/*[@Id='{id}']");
 
                         if (match is null)
                             continue;
@@ -74,6 +75,14 @@ namespace HunterPie.Core.Client.Localization
 
             Log.Info($"Loaded localization {Path.GetFileNameWithoutExtension(xmlPath)}");
         }
+
+        private static string GetFullParentPath(XmlNode node, string path = "")
+        {
+            if (node.ParentNode?.Name == null || node.ParentNode.Name == "#document")
+                return path;
+
+            return GetFullParentPath(node.ParentNode, $"{node.ParentNode.Name}/{path}");
+        } 
 
         public static XmlNode Query(string query) => _instance.document.SelectSingleNode(query);
         public static XmlNodeList QueryMany(string query) => _instance.document.SelectNodes(query);
