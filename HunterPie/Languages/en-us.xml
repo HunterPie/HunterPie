@@ -117,6 +117,7 @@
 			<Stage Id="3" String="Gathering Hub"/>
 			<Stage Id="4" String="Hub Prep Plaza"/>
 			<Stage Id="5" String="Training Area"/>
+			<Stage Id="199" String="Character Selection"/>
 			<Stage Id="201" String="Shrine Ruins"/>
 			<Stage Id="202" String="Sandy Plains"/>
 			<Stage Id="203" String="Flooded Forest"/>
