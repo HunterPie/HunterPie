@@ -23,8 +23,8 @@ namespace HunterPie.UI.Controls.Flags
             foreach (var (featName, feat) in features)
             {
                 var info = feat.GetType().GetProperty(nameof(IFeature.IsEnabled));
-                string name = featName.Replace("_", "__");
-                ISettingElementType el = new SettingElementType(name, featName, feat, info, true);
+                //string name = featName.Replace("_", "__");
+                ISettingElementType el = new SettingElementType(featName, featName, feat, info, true);
                 _elements.Add(el);
             }
         }

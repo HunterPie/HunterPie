@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HunterPie.Core.Client.Localization;
+using System;
 using System.Windows.Markup;
 using System.Windows.Media;
 
@@ -24,6 +25,22 @@ namespace HunterPie.UI.Architecture.Assets
 
             return new ImageSourceConverter()
                 .ConvertFromString($"pack://siteoforigin:,,,/Assets/Monsters/Icons/{imageId}.png");
+        }
+    }
+
+    [MarkupExtensionReturnType(typeof(string))]
+    public class LocalizationString : MarkupExtension
+    {
+        public string LocalizationId { get; set; }
+
+        public LocalizationString(string localizationId)
+        {
+            LocalizationId = localizationId;
+        }
+
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            return Localization.Query(LocalizationId)?.Attributes["String"].Value;
         }
     }
 }

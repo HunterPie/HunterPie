@@ -42,6 +42,8 @@ namespace HunterPie.Core.Client.Localization
             
             try
             {
+                // Merges selected custom localization with the default en-us one
+                // to avoid missing strings
                 if (ClientConfig.Config.Client.Language != "en-us.xml")
                 {
                     XmlDocument otherLanguage = new();
@@ -60,8 +62,11 @@ namespace HunterPie.Core.Client.Localization
                         if (match is null)
                             continue;
 
-                        match.Attributes["String"].Value = node.Attributes["String"].Value;
-                        match.Attributes["Description"].Value = node.Attributes["Description"].Value;
+                        if (match.Attributes["String"] != null)
+                            match.Attributes["String"].Value = node.Attributes["String"]?.Value ?? match.Attributes["String"].Value;
+
+                        if (match.Attributes["Description"] != null)
+                            match.Attributes["Description"].Value = node.Attributes["Description"]?.Value ?? match.Attributes["Description"].Value;
                     }
                 }
             } catch(Exception err) { Log.Error(err); }

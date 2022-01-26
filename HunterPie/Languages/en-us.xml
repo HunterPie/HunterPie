@@ -130,6 +130,24 @@
 	</Stages>
 
 	<Client>
+		<Tabs>
+			<Tab Id="CONSOLE_STRING"
+				 String="Console"/>
+			<Tab Id="DISCORD_STRING"
+				 String="Discord"/>
+			<Tab Id="PATCH_NOTES_STRING"
+				 String="Patch Notes"/>
+			<Tab Id="PLUGINS_STRING"
+				 String="Plugins"/>
+			<Tab Id="SETTINGS_STRING"
+				 String="Settings"/>
+		</Tabs>
+		<Generics>
+			<Generic Id="HUNTERPIE_IS_LATEST_VERSION"
+					 String="HunterPie is up to date!"/>
+			<Generic Id="HUNTERPIE_NOT_LATEST_VERSION"
+					 String="There's a new version of HunterPie available!"/>
+		</Generics>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
 					 String="Client"

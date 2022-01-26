@@ -7,6 +7,7 @@ using HunterPie.UI.Controls.Settings.ViewModel;
 using HunterPie.UI.Settings;
 using System.Windows;
 using System.Windows.Media;
+using Localization = HunterPie.Core.Client.Localization.Localization;
 
 namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 {
@@ -14,7 +15,7 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
     {
         public ImageSource Icon => Application.Current.FindResource("ICON_SETTINGS") as ImageSource;
 
-        public string Text => "Settings";
+        public string Text => Localization.Query("//Strings/Client/Tabs/Tab[@Id='SETTINGS_STRING']").Attributes["String"].Value;
          
         public bool IsActivable => true;
 

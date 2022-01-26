@@ -9,6 +9,7 @@
              xmlns:textbox="clr-namespace:HunterPie.UI.Controls.TextBox"
              xmlns:vm="clr-namespace:HunterPie.UI.Controls.Settings.ViewModel"
              xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading"
+             xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets"
              mc:Ignorable="d"
              d:DesignHeight="450" 
              d:DesignWidth="800"
@@ -92,7 +93,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="{StaticResource ICON_CHECKMARK_GREEN}"
                                                    Margin="0,0,5,0"/>
-                                            <TextBlock Text="HunterPie is up to date!"
+                                            <TextBlock Text="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=\'HUNTERPIE_IS_LATEST_VERSION\']'}"
                                                        Foreground="#66e2a7"
                                                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                                        VerticalAlignment="Center"
@@ -107,7 +108,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="{StaticResource ICON_DOWNLOAD_YELLOW}"
                                                    Margin="0,0,5,0"/>
-                                            <TextBlock Text="There's a new version of HunterPie available!"
+                                            <TextBlock Text="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=\'HUNTERPIE_NOT_LATEST_VERSION\']'}"
                                                        Foreground="#ffab66"
                                                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                                        VerticalAlignment="Center"
