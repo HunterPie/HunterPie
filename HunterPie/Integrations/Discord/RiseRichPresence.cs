@@ -69,6 +69,7 @@ namespace HunterPie.Integrations.Discord
                 >= 1 and <= 4 => "Chilling",
                 5 => "Practicing",
                 207 => "In Rampage",
+                199 => "Selecting character",
                 _ => "Exploring"
             };
 
@@ -85,10 +86,10 @@ namespace HunterPie.Integrations.Discord
                     LargeImageKey = game.Player.StageId == -1 
                                     ? "unknown" 
                                     : $"rise-stage-{game.Player.StageId}",
-                    SmallImageText = game.Player.Name,
+                    SmallImageText = $"{game.Player.Name} | HR: {game.Player.HighRank}",
                     SmallImageKey = game.Player.WeaponId switch
                     {
-                        Weapon.None => "unknown",   
+                        Weapon.None => null,
                         _ => Enum.GetName(typeof(Weapon), game.Player.WeaponId)?.ToLower() ?? "unknown",
                     }
                 })

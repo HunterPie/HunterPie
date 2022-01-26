@@ -13,6 +13,7 @@ namespace HunterPie.Core.Game.Rise.Entities
     public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     {
         #region Private
+        private int SaveSlotId;
         private string _name;
         private int _stageId;
         private Weapon _weaponId;
@@ -26,6 +27,7 @@ namespace HunterPie.Core.Game.Rise.Entities
                 if (value != _name)
                 {
                     _name = value;
+                    FindPlayerSaveSlot();
                     this.Dispatch(value is ""
                         ? OnLogout
                         : OnLogin);
@@ -109,7 +111,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         [ScannableMethod]
         private void ScanPlayerSaveData()
         {
-            if (StageId == -1)
+            if (StageId == -1 || StageId == 199)
             {
                 Name = "";
                 return;
@@ -125,6 +127,58 @@ namespace HunterPie.Core.Game.Rise.Entities
             string name = _process.Memory.Read(namePtr + 0x14, (uint)(nameLength * 2), encoding: Encoding.Unicode);
 
             Name = name;
+        }
+
+        private void FindPlayerSaveSlot()
+        {
+            if (StageId == -1 || StageId == 199)
+            {
+                Name = "";
+                SaveSlotId = -1;
+                return;
+            }
+
+            long currentPlayerSaveAddress = _process.Memory.Read(
+                AddressMap.GetAbsolute("CHARACTER_ADDRESS"),
+                AddressMap.Get<int[]>("CHARACTER_OFFSETS")
+            );
+            long namePtr = _process.Memory.Read<long>(currentPlayerSaveAddress);
+
+            long saveAddress = _process.Memory.Read(
+                AddressMap.GetAbsolute("SAVE_ADDRESS"), 
+                AddressMap.Get<int[]>("SAVE_OFFSETS")
+            );
+
+            for (int i = 0; i < 3; i++)
+            {
+                int[] nameOffsets = { i * 8 + 0x20, 0x10 };
+
+                long saveNamePtr = _process.Memory.Deref<long>(saveAddress, nameOffsets);
+
+                if (saveNamePtr == namePtr)
+                {
+                    SaveSlotId = i;
+                    return;
+                }
+            }
+        }
+
+        [ScannableMethod]
+        private void ScanPlayerLevel()
+        {
+            if (SaveSlotId < 0)
+                return;
+
+            long saveAddress = _process.Memory.Read(
+                AddressMap.GetAbsolute("SAVE_ADDRESS"),
+                AddressMap.Get<int[]>("SAVE_OFFSETS")
+            );
+
+            int[] levelOffsets = { SaveSlotId * 8 + 0x20, 0x18 };
+
+            int level = _process.Memory.Deref<int>(saveAddress, levelOffsets);
+
+            HighRank = level;
         }
 
         [ScannableMethod]
