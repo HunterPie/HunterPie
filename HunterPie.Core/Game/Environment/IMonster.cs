@@ -12,6 +12,7 @@ namespace HunterPie.Core.Game.Environment
         public bool IsTarget { get; }
         public Target Target { get; }
         public IMonsterPart[] Parts { get; }
+        public IMonsterAilment[] Ailments { get; }
 
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
@@ -27,5 +28,7 @@ namespace HunterPie.Core.Game.Environment
         public event EventHandler<EventArgs> OnEnrage;
         public event EventHandler<EventArgs> OnUnenrage;
         public event EventHandler<EventArgs> OnEnrageTimerChange;
+        public event EventHandler<IMonsterPart> OnNewPartFound;
+        public event EventHandler<IMonsterAilment> OnNewAilmentFound;
     }
 }

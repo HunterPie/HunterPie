@@ -6,6 +6,7 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Enums;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace HunterPie.Core.Game.Rise.Entities
@@ -63,6 +64,8 @@ namespace HunterPie.Core.Game.Rise.Entities
                 }
             }
         }
+
+        public List<IPartyMember> Party { get; } = new();
 
         public event EventHandler<EventArgs> OnLogin;
         public event EventHandler<EventArgs> OnLogout;

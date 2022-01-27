@@ -25,6 +25,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         private bool _isTarget;
         private Target _target;
         private readonly Dictionary<long, MHRMonsterPart> parts = new();
+        private readonly Dictionary<long, MHRMonsterAilment> ailments = new();
 
         public float Health
         {
@@ -83,6 +84,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         public IMonsterPart[] Parts => parts.Values.ToArray();
+        public IMonsterAilment[] Ailments => ailments.Values.ToArray();
 
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
@@ -98,6 +100,8 @@ namespace HunterPie.Core.Game.Rise.Entities
         public event EventHandler<EventArgs> OnUnenrage;
         public event EventHandler<EventArgs> OnEnrageTimerChange;
         public event EventHandler<EventArgs> OnTargetChange;
+        public event EventHandler<IMonsterPart> OnNewPartFound;
+        public event EventHandler<IMonsterAilment> OnNewAilmentFound;
 
         public MHRMonster(IProcessManager process, long address) : base(process)
         {
@@ -157,6 +161,20 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
+        private void GetMonsterAilments()
+        {
+            long ailmentsArrayPtr = _process.Memory.Read(
+                _address, 
+                AddressMap.Get<int[]>("MONSTER_AILMENTS_OFFSETS")
+            );
+
+            int ailmentsArrayLength = _process.Memory.Read<int>(ailmentsArrayPtr + 0x1C);
+            long[] ailmentsArray = _process.Memory.Read<long>(ailmentsArrayPtr + 0x20, (uint)ailmentsArrayLength);
+
+            DerefAilmentsAndScan(ailmentsArray);
+        }
+
+        [ScannableMethod]
         private void ScanLockon()
         {
             
@@ -206,11 +224,49 @@ namespace HunterPie.Core.Game.Rise.Entities
                     continue;
 
                 if (!parts.ContainsKey(part))
-                    parts.Add(part, new MHRMonsterPart(MonsterData.GetMonsterPartData(Id, i)?.String ?? "PART_UNKNOWN"));
+                {
+                    var dummy = new MHRMonsterPart(MonsterData.GetMonsterPartData(Id, i)?.String ?? "PART_UNKNOWN");
+                    parts.Add(part, dummy);
+
+                    this.Dispatch(OnNewPartFound, dummy);
+                }
 
                 MHRMonsterPart monsterPart = parts[part];
                 monsterPart.UpdateHealth(health, maxHealth);
                 i++;
+            }
+        }
+
+        private void DerefAilmentsAndScan(long[] ailmentsPointers)
+        {
+            foreach (long ailmentAddress in ailmentsPointers)
+            {
+                // TODO: Ailment structure
+                // 0x38 DOT Damage
+                // 0x40 MaxTimer
+                // 0x44 Timer
+                // 0x98 AilmentId
+                // 0xE0 Counter
+                // 0x110 Buildup
+                // 0x170 MaxBuildup
+
+                float maxTimer = _process.Memory.Read<float>(ailmentAddress + 0x40);
+                float timer = _process.Memory.Read<float>(ailmentAddress + 0x44);
+                int ailmentId = _process.Memory.Read<int>(ailmentAddress + 0x98);
+                int counter = _process.Memory.Read<int>(ailmentAddress + 0xE0);
+                float buildup = _process.Memory.Read<float>(ailmentAddress + 0x110);
+                float maxBuildup = _process.Memory.Read<float>(ailmentAddress + 0x170);
+
+                if (!ailments.ContainsKey(ailmentAddress))
+                {
+                    MHRMonsterAilment dummy = new($"AILMENT_{ailmentId}");
+                    ailments.Add(ailmentAddress, dummy);
+
+                    this.Dispatch(OnNewAilmentFound, dummy);
+                }
+
+                MHRMonsterAilment ailment = ailments[ailmentAddress];
+                ailment.UpdateInfo(timer, maxTimer, buildup, maxBuildup, counter);
             }
         }
     }
