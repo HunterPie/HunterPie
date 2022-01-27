@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration.Enums;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -41,6 +43,9 @@ namespace HunterPie.Core.Logger
 
         public static async void Debug(params object[] args)
         {
+            if (ClientConfig.Config.Debug.ClientLogLevel > LogLevel.Debug)
+                return;
+
             try
             {
                 await _semaphore.WaitAsync();
@@ -58,6 +63,9 @@ namespace HunterPie.Core.Logger
 
         public static async void Info(params object[] args)
         {
+            if (ClientConfig.Config.Debug.ClientLogLevel > LogLevel.Info)
+                return;
+
             try
             {
                 await _semaphore.WaitAsync();
@@ -74,6 +82,9 @@ namespace HunterPie.Core.Logger
         }
         public static async void Warn(params object[] args)
         {
+            if (ClientConfig.Config.Debug.ClientLogLevel > LogLevel.Warn)
+                return;
+
             try
             {
                 await _semaphore.WaitAsync();

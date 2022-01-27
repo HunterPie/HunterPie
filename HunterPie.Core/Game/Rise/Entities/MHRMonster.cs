@@ -163,7 +163,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         [ScannableMethod]
         private void GetMonsterAilments()
         {
-            long ailmentsArrayPtr = _process.Memory.Read(
+            long ailmentsArrayPtr = _process.Memory.ReadPtr(
                 _address, 
                 AddressMap.Get<int[]>("MONSTER_AILMENTS_OFFSETS")
             );
@@ -263,6 +263,7 @@ namespace HunterPie.Core.Game.Rise.Entities
                     ailments.Add(ailmentAddress, dummy);
 
                     this.Dispatch(OnNewAilmentFound, dummy);
+                    Log.Debug($"Found new ailment at {ailmentAddress:X08}");
                 }
 
                 MHRMonsterAilment ailment = ailments[ailmentAddress];

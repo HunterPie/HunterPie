@@ -20,6 +20,8 @@ namespace HunterPie.Core.Game.World.Entities
 
         public IMonsterPart[] Parts => throw new NotImplementedException();
 
+        public IMonsterAilment[] Ailments => throw new NotImplementedException();
+
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
         public event EventHandler<EventArgs> OnDespawn;
@@ -34,5 +36,7 @@ namespace HunterPie.Core.Game.World.Entities
         public event EventHandler<EventArgs> OnUnenrage;
         public event EventHandler<EventArgs> OnEnrageTimerChange;
         public event EventHandler<EventArgs> OnTargetChange;
+        public event EventHandler<IMonsterPart> OnNewPartFound;
+        public event EventHandler<IMonsterAilment> OnNewAilmentFound;
     }
 }
