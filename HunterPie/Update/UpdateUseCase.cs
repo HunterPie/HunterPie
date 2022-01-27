@@ -33,8 +33,8 @@ namespace HunterPie.Update
             vm.State = "Downloading package...";
             await service.DownloadZip((_, args) =>
             {
-                vm.DownloadedBytes = args.BytesReceived;
-                vm.TotalBytes = args.TotalBytesToReceive;
+                vm.DownloadedBytes = args.BytesDownloaded;
+                vm.TotalBytes = args.TotalBytes;
             });
 
             vm.State = "Calculating file hashes...";

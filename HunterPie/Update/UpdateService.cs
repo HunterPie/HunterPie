@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Http.Events;
 using HunterPie.Core.Logger;
 using HunterPie.Update.Remote;
 using System;
@@ -30,11 +31,9 @@ namespace HunterPie.Update
             return parsed;
         }
 
-        public async Task DownloadZip(EventHandler<DownloadProgressChangedEventArgs> callback)
+        public async Task DownloadZip(EventHandler<PoogieDownloadEventArgs> callback)
         {
-            api.HttpClient.OnDownloadProgressChanged += callback;
-            await api.DownloadVersion(latest);
-            api.HttpClient.OnDownloadProgressChanged -= callback;
+            await api.DownloadVersion(latest, callback);
         }
 
         public bool ExtractZip()

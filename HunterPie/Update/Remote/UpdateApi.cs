@@ -1,5 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Net;
+using System.Threading.Tasks;
 using HunterPie.Core.Client;
+using HunterPie.Core.Http;
+using HunterPie.Core.Http.Events;
 using HunterPie.Internal.Http;
 using Newtonsoft.Json;
 
@@ -18,30 +22,40 @@ namespace HunterPie.Update.Remote
 
         public async Task<string> GetLatestVersion()
         {
-            string url = "/v1/version";
+            string url = "https://api.hunterpie.com/v1/version";
             
-            try
-            {
-                var res = await HttpClient.AsyncRequest(url);
+            using Poogie request = new PoogieBuilder()
+                                    .Get(url)
+                                    .WithTimeout(TimeSpan.FromSeconds(10))
+                                    .Build();
 
-                if (!res.Success)
-                    return null;
+            using PoogieResponse resp = await request.RequestAsync();
 
-                VersionSchema json = await res.Json<VersionSchema>();
+            if (resp.Status != HttpStatusCode.OK)
+                return null;
 
-                return json.LatestVersion;
-            } catch { }
+            VersionSchema schema = await resp.AsJson<VersionSchema>();
 
-            return null;
+            return schema.LatestVersion;
         }
 
-        public async Task DownloadVersion(string version)
+        public async Task DownloadVersion(string version, EventHandler<PoogieDownloadEventArgs> callback)
         {
-            string url = $"/v1/version/{version}";
+            string url = $"https://api.hunterpie.com/v1/version/{version}";
 
-            await HttpClient.AsyncRequest(url);
+            using Poogie request = new PoogieBuilder()
+                                    .Get(url)
+                                    .WithTimeout(TimeSpan.FromSeconds(10))
+                                    .Build();
 
-            await HttpClient.SaveAsFile(ClientInfo.GetPathFor(@"temp/HunterPie.zip"));
+            using PoogieResponse resp = await request.RequestAsync();
+
+            if (resp.Status != HttpStatusCode.OK)
+                return;
+
+            resp.OnDownloadProgressChanged += callback;
+            await resp.Download(ClientInfo.GetPathFor(@"temp/HunterPie.zip"));
+            resp.OnDownloadProgressChanged -= callback;
         }
     }
 }
