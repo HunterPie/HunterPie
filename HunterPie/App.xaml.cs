@@ -1,17 +1,10 @@
 ﻿using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Game;
 using HunterPie.Core.Logger;
-using HunterPie.Core.System.Windows;
-using HunterPie.Internal.Logger;
 using System;
 using System.Windows;
 using System.Windows.Threading;
-using HunterPie.UI.Logger;
 using System.Diagnostics;
-using HunterPie.Domain.Logger;
-using HunterPie.Core.Domain.Dialog;
-using HunterPie.UI.Dialog;
-using HunterPie.Core.Game.Data;
 using HunterPie.Core.Client;
 using HunterPie.Core.System;
 using HunterPie.Internal;
@@ -62,7 +55,7 @@ namespace HunterPie
         private void CheckForRunningInstances()
         {
             Process[] processes = Process.GetProcessesByName("HunterPie")
-                .Where(p => p.Id != Process.GetCurrentProcess().Id)
+                .Where(p => p.Id != Environment.ProcessId)
                 .ToArray();
 
             foreach (Process process in processes)
@@ -106,6 +99,8 @@ namespace HunterPie
 
             UnhookEvents();
             _richPresence?.Dispose();
+
+            _context.Stop();
 
             _process = null;
             _context = null;
