@@ -8,6 +8,13 @@
 			<Ailment Id="AILMENT_STUN" String="Stun"/>
 			<Ailment Id="AILMENT_POISON" String="Poison"/>
 			<Ailment Id="AILMENT_BLAST" String="Blast"/>
+			<Ailment Id="AILMENT_EXHAUST" String="Exhaust"/>
+			<Ailment Id="AILMENT_MOUNT" String="Mount"/>
+			<Ailment Id="AILMENT_FLASH" String="Flash"/>
+			<Ailment Id="AILMENT_WATER" String="Waterblight"/>
+			<Ailment Id="AILMENT_FIRE" String="Fireblight"/>
+			<Ailment Id="AILMENT_ICE" String="Iceblight"/>
+			<Ailment Id="AILMENT_THUNDER" String="Thunderblight"/>
 		</Rise>
 	</Ailments>
 	<Monsters>

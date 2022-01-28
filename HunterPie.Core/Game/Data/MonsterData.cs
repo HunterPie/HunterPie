@@ -89,7 +89,7 @@ namespace HunterPie.Core.Game.Data
         public static AilmentDataSchema GetAilmentData(int id)
         {
             if (!Ailments.ContainsKey(id))
-                return new AilmentDataSchema() { String = "AILMENT_UNKNOWN" };
+                return new AilmentDataSchema() { String = $"{id}_UNKNOWN" };
 
             return Ailments[id];
         }

@@ -9,12 +9,13 @@
              xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              mc:Ignorable="d"
-             Padding="2"
+             Padding="0,0,0,2"
              Width="80">
     <UserControl.Resources>
         <converters:RatioConverter x:Key="RatioConverter"/>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:RiseMonsterAilmentIdToNameConverter x:Key="RiseMonsterAilmentIdToNameConverter"/>
+        <converters:MonsterAilmentIdToColorConverter x:Key="MonsterAilmentIdToColorConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -69,19 +70,14 @@
                      Width="40"
                      Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                      VerticalAlignment="Top"
-                     Grid.Row="1">
+                     Grid.Row="1"
+                     Stroke="{Binding Name, Mode=OneWay, Converter={StaticResource MonsterAilmentIdToColorConverter}}">
             <overlay:Arc.Percentage>
                 <MultiBinding Converter="{StaticResource RatioConverter}">
                     <Binding Path="Timer"/>
                     <Binding Path="MaxTimer"/>
                 </MultiBinding>
             </overlay:Arc.Percentage>
-            <overlay:Arc.Stroke>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0" SpreadMethod="Pad">
-                    <GradientStop Color="#f7b733"/>
-                    <GradientStop Color="#fc4a1a" Offset="1"/>
-                </LinearGradientBrush>
-            </overlay:Arc.Stroke>
         </overlay:Arc>
 
         <!-- Proc counter -->

@@ -2,8 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf">
-    <!-- <SolidColorBrush x:Key="HUNTERPIE_ACCENT_COLOR">#78b4d6</SolidColorBrush> -->
-
     <!-- Colors -->
     <LinearGradientBrush x:Key="HUNTERPIE_ACCENT_COLOR" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FF4B8EEE"/>
@@ -54,6 +52,32 @@
     <SolidColorBrush x:Key="LOGGER_LEVEL_PANIC">#ab5ee6</SolidColorBrush>
     <SolidColorBrush x:Key="LOGGER_LEVEL_BENCHMARK">#1BC9B6</SolidColorBrush>
     
+    <!-- Ailments -->
+    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_UNKNOWN">#FF73ABEE</SolidColorBrush>
+    <LinearGradientBrush x:Key="COLOR_MONSTER_AILMENT_POISON" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#DA22FF"/>
+        <GradientStop Color="#9733EE" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_MONSTER_AILMENT_PARALYSIS" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#e8cf6b"/>
+        <GradientStop Color="#fdfde2" Offset="1"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_SLEEP">#6be8a5</SolidColorBrush>
+    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_BLAST">#db7e53</SolidColorBrush>
+    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_MOUNT">#5380db</SolidColorBrush>
+    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_EXHAUSTION">#74d4b1</SolidColorBrush>
+    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_STUN">#deb83c</SolidColorBrush>
+    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_TRANQUILIZE">#c96ba0</SolidColorBrush>
+    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_FLASH">#f7c052</SolidColorBrush>
+    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_KNOCKDOWN">#5380db</SolidColorBrush>
+    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_DUNGPOD">#472102</SolidColorBrush>
+    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_TRAP">#9dc20a</SolidColorBrush>
+    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_ELDERSEAL">#71369c</SolidColorBrush>
+    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_SMOKING">#9c9c9c</SolidColorBrush>
+    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_CLAW">#6ab7d4</SolidColorBrush>
+    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_MISC">#97b3bf</SolidColorBrush>
+    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_ENRAGE">#c43939</SolidColorBrush>
+
     <!-- Font -->
     <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">pack://application:,,,/HunterPie.UI;component/Resources/#Work Sans</FontFamily>
         
