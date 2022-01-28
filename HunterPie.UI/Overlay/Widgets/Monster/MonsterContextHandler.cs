@@ -27,6 +27,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             Context.OnTargetChange += OnTargetChange;
             Context.OnNewPartFound += OnNewPartFound;
             Context.OnNewAilmentFound += OnNewAilmentFound;
+            Context.OnCrownChange += OnCrownChange;
         }
 
         private void UnhookEvents()
@@ -37,6 +38,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             Context.OnDespawn -= OnDespawn;
             Context.OnTargetChange -= OnTargetChange;
             Context.OnNewPartFound -= OnNewPartFound;
+            Context.OnCrownChange -= OnCrownChange;
         }
         
         private void OnSpawn(object sender, EventArgs e)
@@ -62,6 +64,11 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
                 Parts.Clear();
                 Ailments.Clear();
             });
+        }
+
+        private void OnCrownChange(object sender, EventArgs e)
+        {
+            Crown = Context.Crown;
         }
 
         private void OnNewAilmentFound(object sender, IMonsterAilment e)
@@ -121,6 +128,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             MaxStamina = 1;
             Stamina = 1;
             TargetType = Context.Target;
+            Crown = Context.Crown;
 
             if (Parts.Count != Context.Parts.Length || Ailments.Count != Context.Ailments.Length)
             {

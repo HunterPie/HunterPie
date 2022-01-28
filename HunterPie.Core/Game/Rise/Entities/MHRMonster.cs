@@ -25,6 +25,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         private float _health;
         private bool _isTarget;
         private Target _target;
+        private Crown _crown;
         private readonly Dictionary<long, MHRMonsterPart> parts = new();
         private readonly Dictionary<long, MHRMonsterAilment> ailments = new();
 
@@ -84,8 +85,22 @@ namespace HunterPie.Core.Game.Rise.Entities
             }
         }
 
+        public Crown Crown
+        {
+            get => _crown;
+            private set
+            {
+                if (_crown != value)
+                {
+                    _crown = value;
+                    this.Dispatch(OnCrownChange);
+                }
+            }
+        }
+
         public IMonsterPart[] Parts => parts.Values.ToArray();
         public IMonsterAilment[] Ailments => ailments.Values.ToArray();
+
 
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
@@ -204,6 +219,20 @@ namespace HunterPie.Core.Game.Rise.Entities
                 Target = Target.Another;
             else
                 Target = Target.None;
+        }
+
+        [ScannableMethod]
+        private void ScanMonsterCrown()
+        {
+            float monsterSizeMultiplier = _process.Memory.Deref<float>(_address, AddressMap.Get<int[]>("MONSTER_CROWN_OFFSETS"));
+
+            Crown = monsterSizeMultiplier switch
+            {
+                >= 1.23f => Crown.Gold,
+                < 1.23f and >= 1.16f => Crown.Silver,
+                <= 0.9f => Crown.Mini,
+                _ => Crown.None,
+            };
         }
 
         private void DerefPartsAndScan(long[] partsPointers)

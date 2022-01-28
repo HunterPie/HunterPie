@@ -13,6 +13,7 @@ namespace HunterPie.Core.Game.Environment
         public Target Target { get; }
         public IMonsterPart[] Parts { get; }
         public IMonsterAilment[] Ailments { get; }
+        public Crown Crown { get; }
 
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
