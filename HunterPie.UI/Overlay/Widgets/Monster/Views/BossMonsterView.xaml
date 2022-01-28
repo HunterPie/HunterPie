@@ -36,6 +36,42 @@
         </LinearGradientBrush>
         <SolidColorBrush x:Key="MonsterHealthEnragedDelayed" Color="#FFEB6C5B"/>
 
+        <Style x:Key="{x:Type local:BossMonsterAilmentView}" TargetType="{x:Type local:BossMonsterAilmentView}">
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Widget.Settings.AutoHideAilments.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}}"
+                                   Value="True"/>
+                        <Condition Binding="{Binding DataContext.IsActive, RelativeSource={RelativeSource Self}}"
+                                   Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Widget.Settings.AutoHideAilments.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}}"
+                                   Value="True"/>
+                        <Condition Binding="{Binding DataContext.IsActive, RelativeSource={RelativeSource Self}}"
+                                   Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Visible"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding DataContext.IsActive, RelativeSource={RelativeSource Self}}"
+                                   Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Visible"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+        
         <Style x:Key="{x:Type local:BossMonsterPartView}" TargetType="{x:Type local:BossMonsterPartView}">
             <Style.Triggers>
                 <MultiDataTrigger>
@@ -274,26 +310,24 @@
                     x:Name="PART_Bottom"
                     Margin="0,90,0,0"
                     Visibility="{Binding TargetType, Converter={StaticResource TargetTypeToVisibility}}">
+            
             <!-- Ailments -->
-
-            <ItemsControl ItemsSource="{Binding Ailments, Mode=OneWay, NotifyOnSourceUpdated=True}"
-                          VerticalAlignment="Top">
+            <ItemsControl ItemsSource="{Binding Ailments, Mode=OneWay, NotifyOnSourceUpdated=True}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel ItemWidth="60"
-                                   HorizontalAlignment="Stretch"/>
+                        <WrapPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:MonsterAilmentViewModel}">
-                        <view:BossMonsterAilmentView Visibility="{Binding IsActive, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <view:BossMonsterAilmentView Width="80"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
             <!-- Parts -->
-            <ItemsControl ItemsSource="{Binding Parts, NotifyOnSourceUpdated=True}">
+            <ItemsControl ItemsSource="{Binding Parts, Mode=OneWay, NotifyOnSourceUpdated=True}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"/>

@@ -2,6 +2,7 @@
 using HunterPie.Core.Game.Environment;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using System;
+using System.Linq;
 using System.Windows;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster
@@ -24,6 +25,8 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             Context.OnDeath += OnDespawn;
             Context.OnDespawn += OnDespawn;
             Context.OnTargetChange += OnTargetChange;
+            Context.OnNewPartFound += OnNewPartFound;
+            Context.OnNewAilmentFound += OnNewAilmentFound;
         }
 
         private void UnhookEvents()
@@ -33,6 +36,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             Context.OnDeath -= OnDespawn;
             Context.OnDespawn -= OnDespawn;
             Context.OnTargetChange -= OnTargetChange;
+            Context.OnNewPartFound -= OnNewPartFound;
         }
         
         private void OnSpawn(object sender, EventArgs e)
@@ -52,30 +56,54 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
                 foreach (MonsterPartContextHandler part in Parts)
                     part.Dispose();
 
+                foreach (MonsterAilmentContextHandler ailment in Ailments)
+                    ailment.Dispose();
+
                 Parts.Clear();
+                Ailments.Clear();
             });
         }
-        
+
+        private void OnNewAilmentFound(object sender, IMonsterAilment e)
+        {
+            Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                bool contains = Ailments.ToArray()
+                            .Cast<MonsterAilmentContextHandler>()
+                            .Where(p => p.Context == e).Count() > 0;
+
+                if (contains)
+                    return;
+
+                Ailments.Add(new MonsterAilmentContextHandler(e));
+            });
+        }
+
+        private void OnNewPartFound(object sender, IMonsterPart e)
+        {
+            Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                bool contains = Parts.ToArray()
+                            .Cast<MonsterPartContextHandler>()
+                            .Where(p => p.Context == e).Count() > 0;
+
+                if (contains)
+                    return;
+
+                Parts.Add(new MonsterPartContextHandler(e));
+            });
+        }
+
         private void OnTargetChange(object sender, EventArgs e) 
         {
             IsTarget = Context.Target == Target.Self || Context.Target == Target.None;
             TargetType = Context.Target;
         }
 
-
         private void OnHealthUpdate(object sender, EventArgs e)
         {
             MaxHealth = Context.MaxHealth;
             Health = Context.Health;
-
-            if (Parts.Count != Context.Parts.Length)
-            {
-                Application.Current.Dispatcher.InvokeAsync(() =>
-                {
-                    foreach (IMonsterPart part in Context.Parts)
-                        Parts.Add(new MonsterPartContextHandler(part) { Name = part.Id, Health = part.Health, MaxHealth = part.MaxHealth });
-                });
-            }
         }
 
         private void UpdateData()
@@ -94,12 +122,33 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             Stamina = 1;
             TargetType = Context.Target;
 
-            if (Parts.Count != Context.Parts.Length)
+            if (Parts.Count != Context.Parts.Length || Ailments.Count != Context.Ailments.Length)
             {
                 Application.Current.Dispatcher.InvokeAsync(() =>
                 {
                     foreach (IMonsterPart part in Context.Parts)
-                        Parts.Add(new MonsterPartContextHandler(part) { Name = part.Id, Health = part.Health, MaxHealth = part.MaxHealth });
+                    {
+                        bool contains = Parts.ToArray()
+                            .Cast<MonsterPartContextHandler>()
+                            .Where(p => p.Context == part).Count() > 0;
+
+                        if (contains)
+                            continue;
+
+                        Parts.Add(new MonsterPartContextHandler(part));
+                    }
+
+                    foreach (IMonsterAilment ailment in Context.Ailments)
+                    {
+                        bool contains = Ailments.ToArray()
+                            .Cast<MonsterAilmentContextHandler>()
+                            .Where(p => p.Context == ailment).Count() > 0;
+
+                        if (contains)
+                            continue;
+
+                        Ailments.Add(new MonsterAilmentContextHandler(ailment));
+                    }
                 });
             }
         }

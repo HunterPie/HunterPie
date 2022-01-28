@@ -9,31 +9,46 @@
              xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              mc:Ignorable="d"
-             d:DesignWidth="60">
+             Padding="2"
+             Width="80">
     <UserControl.Resources>
         <converters:RatioConverter x:Key="RatioConverter"/>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
+        <converters:RiseMonsterAilmentIdToNameConverter x:Key="RiseMonsterAilmentIdToNameConverter"/>
     </UserControl.Resources>
     <Grid>
-        <TextBlock d:Text="Ailment"
-                   Text="{Binding Name}"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        <TextBlock d:Text="AILMENT_1"
+                   Text="{Binding Name, Converter={StaticResource RiseMonsterAilmentIdToNameConverter}}"
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Center"/>
+                   FontWeight="Medium"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   TextTrimming="CharacterEllipsis">
+            <TextBlock.Effect>
+                <DropShadowEffect Color="Black"
+                                      BlurRadius="4" 
+                                      ShadowDepth="0"/>
+            </TextBlock.Effect>
+        </TextBlock>
 
-        <Ellipse Margin="15"
+        <Ellipse Width="40"
                  Fill="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}"
                  Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                 VerticalAlignment="Top"/>
-        
-        
-        <!-- Inner ring: Buildup -->
-        <overlay:Arc Margin="15"
-                     d:Percentage="1"
+                 VerticalAlignment="Top"
+                 Grid.Row="1"/>
+
+        <!-- Outer ring: Buildup -->
+        <overlay:Arc d:Percentage="1"
                      StrokeThickness="3"
+                     Width="40"
                      Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                     VerticalAlignment="Top">
+                     VerticalAlignment="Top"
+                     Grid.Row="1">
             <overlay:Arc.Percentage>
                 <MultiBinding Converter="{StaticResource RatioConverter}">
                     <Binding Path="Buildup"/>
@@ -47,13 +62,14 @@
                 </LinearGradientBrush>
             </overlay:Arc.Stroke>
         </overlay:Arc>
-        
-        <!-- Outer ring: Timer -->
-        <overlay:Arc Margin="18"
-                     d:Percentage="0.8"
+
+        <!-- Inner ring: Timer -->
+        <overlay:Arc d:Percentage="0.8"
                      StrokeThickness="3"
+                     Width="40"
                      Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                     VerticalAlignment="Top">
+                     VerticalAlignment="Top"
+                     Grid.Row="1">
             <overlay:Arc.Percentage>
                 <MultiBinding Converter="{StaticResource RatioConverter}">
                     <Binding Path="Timer"/>
@@ -67,26 +83,28 @@
                 </LinearGradientBrush>
             </overlay:Arc.Stroke>
         </overlay:Arc>
-        
+
         <!-- Proc counter -->
         <TextBlock d:Text="5"
                    Text="{Binding Count}"
-                   VerticalAlignment="Center"
+                   VerticalAlignment="Top"
                    HorizontalAlignment="Center"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                    FontWeight="Medium"
                    FontSize="15"
-                   Margin="0,0,0,0"/>
-        
+                   Margin="0,5,0,0" 
+                   Grid.Row="1"/>
+
         <!-- Timer/Buildup text -->
         <TextBlock d:Text="1:30"
                    Text="{Binding Timer, Converter={StaticResource SecondsToTimeString}}"
                    FontSize="13"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                   VerticalAlignment="Bottom"
+                   VerticalAlignment="Top"
                    HorizontalAlignment="Center"
-                   Margin="0,0,0,0"/>
+                   Margin="0,18,0,0" 
+                   Grid.Row="1"/>
     </Grid>
 </UserControl>

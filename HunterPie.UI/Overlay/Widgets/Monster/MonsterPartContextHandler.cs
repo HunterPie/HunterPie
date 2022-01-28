@@ -1,27 +1,27 @@
 ﻿using HunterPie.Core.Game.Environment;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
-using System;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster
 {
-    public class MonsterPartContextHandler : MonsterPartViewModel, IDisposable
+    public class MonsterPartContextHandler : MonsterPartViewModel
     {
-        private readonly IMonsterPart _context;
+        public readonly IMonsterPart Context;
 
         public MonsterPartContextHandler(IMonsterPart context)
         {
-            _context = context;
+            Context = context;
             HookEvents();
+            Update();
         }
 
         private void HookEvents()
         {
-            _context.OnHealthUpdate += OnHealthUpdate;
+            Context.OnHealthUpdate += OnHealthUpdate;
         }
 
         private void UnhookEvents()
         {
-            _context.OnHealthUpdate -= OnHealthUpdate;
+            Context.OnHealthUpdate -= OnHealthUpdate;
         }
 
         private void OnHealthUpdate(object sender, IMonsterPart e)
@@ -34,6 +34,13 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         {
             base.DisposeResources();
             UnhookEvents();
+        }
+
+        private void Update()
+        {
+            Name = Context.Id;
+            MaxHealth = Context.MaxHealth;
+            Health = Context.Health;
         }
     }
 }

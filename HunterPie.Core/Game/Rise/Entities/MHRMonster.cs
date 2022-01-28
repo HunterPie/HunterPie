@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Address.Map;
+﻿
+using HunterPie.Core.Address.Map;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.DTO;
 using HunterPie.Core.Domain.DTO.Monster;
@@ -242,24 +243,28 @@ namespace HunterPie.Core.Game.Rise.Entities
             foreach (long ailmentAddress in ailmentsPointers)
             {
                 // TODO: Ailment structure
+                // 0x18 Counter Ptr + 20
+                // 0x58 Buildup ptr + 20
+                // 0x68 Max buildup ptr + 20
                 // 0x38 DOT Damage
                 // 0x40 MaxTimer
                 // 0x44 Timer
                 // 0x98 AilmentId
-                // 0xE0 Counter
-                // 0x110 Buildup
-                // 0x170 MaxBuildup
+
+                long counterPtr = _process.Memory.Read<long>(ailmentAddress + 0x18);
+                long buildupPtr = _process.Memory.Read<long>(ailmentAddress + 0x58);
+                long maxBuildupPtr = _process.Memory.Read<long>(ailmentAddress + 0x68);
 
                 float maxTimer = _process.Memory.Read<float>(ailmentAddress + 0x40);
                 float timer = _process.Memory.Read<float>(ailmentAddress + 0x44);
                 int ailmentId = _process.Memory.Read<int>(ailmentAddress + 0x98);
-                int counter = _process.Memory.Read<int>(ailmentAddress + 0xE0);
-                float buildup = _process.Memory.Read<float>(ailmentAddress + 0x110);
-                float maxBuildup = _process.Memory.Read<float>(ailmentAddress + 0x170);
+                int counter = _process.Memory.Read<int>(counterPtr + 0x20);
+                float buildup = _process.Memory.Read<float>(buildupPtr + 0x20);
+                float maxBuildup = _process.Memory.Read<float>(maxBuildupPtr + 0x20);
 
                 if (!ailments.ContainsKey(ailmentAddress))
                 {
-                    MHRMonsterAilment dummy = new($"AILMENT_{ailmentId}");
+                    MHRMonsterAilment dummy = new(MonsterData.GetAilmentData(ailmentId).String);
                     ailments.Add(ailmentAddress, dummy);
 
                     this.Dispatch(OnNewAilmentFound, dummy);

@@ -8,6 +8,7 @@ namespace HunterPie.Core.Game.Data
     {
         private static XmlDocument _monsterXmlDocument;
         public static Dictionary<int, MonsterDataSchema> Monsters { get; private set; }
+        public static Dictionary<int, AilmentDataSchema> Ailments { get; private set; }
         
         internal static void Init(string path)
         {
@@ -15,6 +16,23 @@ namespace HunterPie.Core.Game.Data
 
             _monsterXmlDocument.Load(path);
             ParseAllMonsters();
+            ParseAllAilments();
+        }
+
+        private static void ParseAllAilments()
+        {
+            XmlNodeList ailments = _monsterXmlDocument.SelectNodes("//GameData/Ailments/Ailment");
+
+            Ailments = new(ailments.Count);
+            foreach (XmlNode ailment in ailments) {
+                int id = int.Parse(ailment.Attributes["Id"].Value);
+                AilmentDataSchema ailm = new()
+                {
+                    String = ailment.Attributes["String"]?.Value
+                };
+
+                Ailments[id] = ailm;
+            }
         }
 
         private static void ParseAllMonsters()
@@ -66,6 +84,14 @@ namespace HunterPie.Core.Game.Data
                 return null;
 
             return Monsters[id].Parts[index];
+        }
+
+        public static AilmentDataSchema GetAilmentData(int id)
+        {
+            if (!Ailments.ContainsKey(id))
+                return new AilmentDataSchema() { String = "AILMENT_UNKNOWN" };
+
+            return Ailments[id];
         }
     }
 }

@@ -1,9 +1,12 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Client;
+using System;
+using System.ComponentModel;
 using System.Timers;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 {
-    public class MonsterAilmentViewModel : Bindable
+    public class MonsterAilmentViewModel : Bindable, IDisposable
     {
         // Internal logic
         private readonly Timer timeout = new(15000);
@@ -16,6 +19,8 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         private int _count;
         private bool _isActive;
 
+        private object sync = new();
+
         public string Name { get => _name; set { SetValue(ref _name, value); } }
         public double Timer
         {
@@ -23,7 +28,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
             set
             {
                 if (value != _timer)
-                    RefreshTimeout();
+                    RefreshTimer();
 
                 SetValue(ref _timer, value);
             }
@@ -35,7 +40,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
             set
             {
                 if (value != _buildup)
-                    RefreshTimeout();
+                    RefreshTimer();
 
                 SetValue(ref _buildup, value);
             }
@@ -46,16 +51,54 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 
         public MonsterAilmentViewModel()
         {
-            timeout.Elapsed += UpdateActiveState;
+            timeout = new(ClientConfig.Config.Overlay.BossesWidget.AutoHideAilmentsDelay.Current * 1000)
+            {
+                AutoReset = true
+            };
+            timeout.Elapsed += OnHideTimerTick;
             timeout.Start();
+
+            ClientConfig.Config.Overlay.BossesWidget.AutoHideAilmentsDelay.PropertyChanged += OnDelayTimeUpdate;
         }
 
         private void UpdateActiveState(object sender, ElapsedEventArgs e) => IsActive = false;
 
-        private void RefreshTimeout()
+        private void OnHideTimerTick(object sender, ElapsedEventArgs e)
         {
-            IsActive = true;
-            timeout.Start();
+            lock (sync)
+            {
+                if (!IsActive)
+                    return;
+
+                IsActive = false;
+            }
+        }
+
+        private void OnDelayTimeUpdate(object sender, PropertyChangedEventArgs e)
+        {
+            timeout.Interval = ClientConfig.Config.Overlay.BossesWidget.AutoHideAilmentsDelay.Current * 1000;
+            RefreshTimer();
+        }
+
+        private void RefreshTimer()
+        {
+            lock (sync)
+            {
+                IsActive = true;
+                timeout.Stop();
+                timeout.Start();
+            }
+        }
+
+        protected virtual void DisposeResources()
+        {
+            ClientConfig.Config.Overlay.BossesWidget.AutoHideAilmentsDelay.PropertyChanged -= OnDelayTimeUpdate;
+            timeout.Dispose();
+        }
+
+        public void Dispose()
+        {
+            DisposeResources();
         }
     }
 }

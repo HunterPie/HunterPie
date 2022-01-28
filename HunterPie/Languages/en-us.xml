@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Strings lang="English">
+	<Ailments>
+		<Rise>
+			<Ailment Id="AILMENT_UNKNOWN" String="Unknown"/>
+			<Ailment Id="AILMENT_PARALYSIS" String="Paralysis"/>
+			<Ailment Id="AILMENT_SLEEP" String="Sleep"/>
+			<Ailment Id="AILMENT_STUN" String="Stun"/>
+			<Ailment Id="AILMENT_POISON" String="Poison"/>
+			<Ailment Id="AILMENT_BLAST" String="Blast"/>
+		</Rise>
+	</Ailments>
 	<Monsters>
 		<Shared>
 			<Part Id="PART_UNKNOWN" String="???"/>
