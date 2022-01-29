@@ -260,7 +260,9 @@ namespace HunterPie.Core.Game.Rise.Entities
 
             _enrage.UpdateInfo(
                 // To reverse the timer so it counts down instead of up
-                structure.MaxTimer - structure.Timer,
+                structure.Timer > 0 
+                    ? structure.MaxTimer - structure.Timer 
+                    : 0,
                 structure.MaxTimer,
                 structure.BuildUp,
                 structure.MaxBuildUp,
