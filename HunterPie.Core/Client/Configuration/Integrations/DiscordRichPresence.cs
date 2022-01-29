@@ -3,7 +3,7 @@ using HunterPie.Core.Settings;
 
 namespace HunterPie.Core.Client.Configuration.Integrations
 {
-    [SettingsGroup("DISCORD_RPC_STRING", "ICON_DISCORD")]
+    [SettingsGroup("DISCORD_RPC_STRING", "ICON_RPC")]
     public class DiscordRichPresence : ISettings
     {
         [SettingField("DRPC_ENABLE_RICH_PRESENCE")]

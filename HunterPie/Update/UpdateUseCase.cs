@@ -21,14 +21,18 @@ namespace HunterPie.Update
                 return false;
 
             vm.State = "New version found";
-            var result = DialogManager.Warn(
-                "Update",
-                "There's a new version of HunterPie.\nDo you want to update now?",
-                NativeDialogButtons.Accept | NativeDialogButtons.Reject
-            );
 
-            if (result != NativeDialogResult.Accept)
-                return false;
+            if (ClientConfig.Config.Client.EnableAutoUpdateConfirmation)
+            {
+                var result = DialogManager.Warn(
+                    "Update",
+                    $"Version v{latest} is now available.\nDo you want to update now?",
+                    NativeDialogButtons.Accept | NativeDialogButtons.Reject
+                );
+
+                if (result != NativeDialogResult.Accept)
+                    return false;
+            }
 
             vm.State = "Downloading package...";
             await service.DownloadZip((_, args) =>

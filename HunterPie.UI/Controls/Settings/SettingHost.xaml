@@ -23,7 +23,7 @@
             <ItemsControl ItemsSource="{Binding Elements, Mode=OneWay}">
                 <ItemsControl.Template>
                     <ControlTemplate>
-                        <ScrollViewer VerticalScrollBarVisibility="Visible">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <VirtualizingStackPanel IsItemsHost="True"
                                                     CanVerticallyScroll="True"/>
                         </ScrollViewer>
