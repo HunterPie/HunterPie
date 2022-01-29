@@ -2,6 +2,7 @@
 using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain.Generics;
 using HunterPie.Core.Settings;
+using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration
 {
@@ -22,6 +23,9 @@ namespace HunterPie.Core.Client.Configuration
 
         [SettingField("RENDERING_STRATEGY_STRING", requiresRestart: true)]
         public Observable<RenderingStrategy> Rendering { get; set; } = RenderingStrategy.Hardware;
+
+        [SettingField("POLLING_RATE_STRING")]
+        public Range PollingRate { get; set; } = new(100, 1000, 1, 1);
 
         [SettingField("DEV_ENABLE_FEATURE_FLAG", requiresRestart: true)]
         public Observable<bool> EnableFeatureFlags { get; set; } = false;

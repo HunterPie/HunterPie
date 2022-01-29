@@ -22,7 +22,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
                         part.Health = part.MaxHealth;
                 }
             };
-            timer.Start(); 
+            timer.Start();
         }
 
         private void MockParts()

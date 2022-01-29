@@ -40,7 +40,7 @@
             <Style.Triggers>
                 <MultiDataTrigger>
                     <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding Widget.Settings.AutoHideAilments.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}}"
+                        <Condition Binding="{Binding Widget.Settings.AutomaticallyHideAilments.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}}"
                                    Value="True"/>
                         <Condition Binding="{Binding DataContext.IsActive, RelativeSource={RelativeSource Self}}"
                                    Value="False"/>
@@ -51,7 +51,7 @@
                 </MultiDataTrigger>
                 <MultiDataTrigger>
                     <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding Widget.Settings.AutoHideAilments.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}}"
+                        <Condition Binding="{Binding Widget.Settings.AutomaticallyHideAilments.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}}"
                                    Value="True"/>
                         <Condition Binding="{Binding DataContext.IsActive, RelativeSource={RelativeSource Self}}"
                                    Value="True"/>
@@ -229,8 +229,7 @@
                        Foreground="#FFF3F3F3"
                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                        FontWeight="Medium"
-                       FontSize="16"
-                       x:Name="PART_HealthText">
+                       FontSize="16">
                 <TextBlock.Effect>
                     <DropShadowEffect Color="Black"
                                       BlurRadius="4" 
@@ -251,8 +250,7 @@
                    Margin="0,15,20,0"
                    Foreground="#FFF3F3F3"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   FontWeight="Medium"
-                   x:Name="PART_HealthPercentage">
+                   FontWeight="Medium">
                 <TextBlock.Effect>
                     <DropShadowEffect Color="Black"
                                       BlurRadius="4" 
@@ -315,7 +313,8 @@
             <ItemsControl ItemsSource="{Binding Ailments, Mode=OneWay, NotifyOnSourceUpdated=True}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal"/>
+                        <WrapPanel Orientation="Horizontal"
+                                   Visibility="{Binding Widget.Settings.EnableAilments.Value, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
@@ -330,7 +329,8 @@
             <ItemsControl ItemsSource="{Binding Parts, Mode=OneWay, NotifyOnSourceUpdated=True}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal"/>
+                        <WrapPanel Orientation="Horizontal"
+                                   Visibility="{Binding Widget.Settings.EnableParts.Value, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 

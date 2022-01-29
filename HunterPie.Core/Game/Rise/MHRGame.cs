@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Client;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
@@ -105,7 +106,7 @@ namespace HunterPie.Core.Game.Rise
 
                     Scan();
 
-                    await Task.Delay(100);
+                    await Task.Delay((int)ClientConfig.Config.Client.PollingRate.Current);
                 }
             });
         }
