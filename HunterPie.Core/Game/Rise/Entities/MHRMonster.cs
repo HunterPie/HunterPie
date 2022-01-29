@@ -10,6 +10,7 @@ using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.Rise.Crypto;
+using HunterPie.Core.Game.Rise.Definitions;
 using HunterPie.Core.Logger;
 using System;
 using System.Collections.Generic;
@@ -24,8 +25,10 @@ namespace HunterPie.Core.Game.Rise.Entities
         private int _id = -1;
         private float _health;
         private bool _isTarget;
+        private bool _isEnraged;
         private Target _target;
         private Crown _crown;
+        private MHRMonsterAilment _enrage = new MHRMonsterAilment("STATUS_ENRAGE");
         private readonly Dictionary<long, MHRMonsterPart> parts = new();
         private readonly Dictionary<long, MHRMonsterAilment> ailments = new();
 
@@ -101,6 +104,20 @@ namespace HunterPie.Core.Game.Rise.Entities
         public IMonsterPart[] Parts => parts.Values.ToArray();
         public IMonsterAilment[] Ailments => ailments.Values.ToArray();
 
+        public bool IsEnraged
+        {
+            get => _isEnraged;
+            private set
+            {
+                if (value != _isEnraged)
+                {
+                    _isEnraged = value;
+                    this.Dispatch(OnEnrageStateChange);
+                }
+            }
+        }
+
+        public IMonsterAilment Enrage => _enrage;
 
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
@@ -112,9 +129,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         public event EventHandler<EventArgs> OnHealthChange;
         public event EventHandler<EventArgs> OnStaminaChange;
         public event EventHandler<EventArgs> OnActionChange;
-        public event EventHandler<EventArgs> OnEnrage;
-        public event EventHandler<EventArgs> OnUnenrage;
-        public event EventHandler<EventArgs> OnEnrageTimerChange;
+        public event EventHandler<EventArgs> OnEnrageStateChange;
         public event EventHandler<EventArgs> OnTargetChange;
         public event EventHandler<IMonsterPart> OnNewPartFound;
         public event EventHandler<IMonsterAilment> OnNewAilmentFound;
@@ -234,6 +249,25 @@ namespace HunterPie.Core.Game.Rise.Entities
                 <= 0.9f => Crown.Mini,
                 _ => Crown.None,
             };
+        }
+
+        [ScannableMethod(typeof(MHREnrageStructure))]
+        private void ScanMonsterEnrage()
+        {
+            long enragePtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_ENRAGE_OFFSETS"));
+            
+            MHREnrageStructure structure = _process.Memory.Read<MHREnrageStructure>(enragePtr);
+
+            _enrage.UpdateInfo(
+                // To reverse the timer so it counts down instead of up
+                structure.MaxTimer - structure.Timer,
+                structure.MaxTimer,
+                structure.BuildUp,
+                structure.MaxBuildUp,
+                structure.Counter
+            );
+
+            IsEnraged = structure.Timer > 0;
         }
 
         private void DerefPartsAndScan(long[] partsPointers)

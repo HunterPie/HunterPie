@@ -76,7 +76,10 @@
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_SMOKING">#9c9c9c</SolidColorBrush>
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_CLAW">#6ab7d4</SolidColorBrush>
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_MISC">#97b3bf</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_ENRAGE">#c43939</SolidColorBrush>
+    <LinearGradientBrush x:Key="COLOR_MONSTER_STATUS_ENRAGE" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFCB2D3E"/>
+        <GradientStop Color="#FFEF473A" Offset="1"/>
+    </LinearGradientBrush>
 
     <!-- Font -->
     <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">pack://application:,,,/HunterPie.UI;component/Resources/#Work Sans</FontFamily>

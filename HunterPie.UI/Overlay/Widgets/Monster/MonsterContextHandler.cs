@@ -15,12 +15,15 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         {
             Context = context;
             HookEvents();
+
+            AddEnrage();
             UpdateData();
         }
 
         private void HookEvents()
         {
             Context.OnHealthChange += OnHealthUpdate;
+            Context.OnEnrageStateChange += OnEnrageStateChange;
             Context.OnSpawn += OnSpawn;
             Context.OnDeath += OnDespawn;
             Context.OnDespawn += OnDespawn;
@@ -33,6 +36,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         private void UnhookEvents()
         {
             Context.OnHealthChange -= OnHealthUpdate;
+            Context.OnEnrageStateChange -= OnEnrageStateChange;
             Context.OnSpawn -= OnSpawn;
             Context.OnDeath -= OnDespawn;
             Context.OnDespawn -= OnDespawn;
@@ -65,6 +69,8 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
                 Ailments.Clear();
             });
         }
+
+        private void OnEnrageStateChange(object sender, EventArgs e) => IsEnraged = Context.IsEnraged;
 
         private void OnCrownChange(object sender, EventArgs e)
         {
@@ -129,7 +135,8 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             Stamina = 1;
             TargetType = Context.Target;
             Crown = Context.Crown;
-
+            IsEnraged = Context.IsEnraged;
+            
             if (Parts.Count != Context.Parts.Length || Ailments.Count != Context.Ailments.Length)
             {
                 Application.Current.Dispatcher.InvokeAsync(() =>
@@ -159,6 +166,14 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
                     }
                 });
             }
+        }
+
+        private void AddEnrage()
+        {
+            Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                Ailments.Add(new MonsterAilmentContextHandler(Context.Enrage));
+            });
         }
     }
 }
