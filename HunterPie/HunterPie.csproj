@@ -100,4 +100,8 @@
     </None>
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="del &quot;$(TargetDir)*.pdb&quot; /q&#xD;&#xA;del &quot;$(TargetDir)\ref&quot; /q&#xD;&#xA;rmdir &quot;$(TargetDir)\ref&quot;&#xD;&#xA;del &quot;$(TargetDir)*.dev.json&quot; /q" />
+  </Target>
+
 </Project>

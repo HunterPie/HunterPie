@@ -1,4 +1,6 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Http;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -29,30 +31,17 @@ namespace HunterPie.Core.Remote
             if (File.Exists(localImage))
                 return localImage;
 
-            using (HttpClient client = new())
+            using Poogie request = new PoogieBuilder()
+                                .Get(url)
+                                .WithTimeout(TimeSpan.FromSeconds(5))
+                                .Build();
+
+            using PoogieResponse response = await request.RequestAsync();
             {
-                using (HttpRequestMessage req = new(HttpMethod.Get, url))
-                {
-                    using (HttpResponseMessage response = await client.SendAsync(req))
-                    {
-                        if (response.StatusCode == HttpStatusCode.Forbidden)
-                        {
-                            _notFoundCache.Add(imagename);
-                            return null;
-                        }
-
-                        byte[] data = await response.Content.ReadAsByteArrayAsync();
-
-                        await File.WriteAllBytesAsync(
-                            localImage,
-                            data
-                        );
-
-                        return localImage;
-                    }
-                }
+                await response.Download(localImage);
             }
 
+            return localImage;
         }
     }
 }
