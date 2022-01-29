@@ -256,6 +256,12 @@
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_PARTS_DELAY_STRING"
 					 String="Delay to hide inactive parts"
 					 Description="Delay to be waited to hide a part that has become inactive."/>
+			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_STRING"
+					 String="Automatically hide monster ailments"
+					 Description="If enabled, inactive monster parts will be hidden after X seconds."/>
+			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING"
+					 String="Delay to hide inactive ailments"
+					 Description="Delay to be waited to hide a part that has become inactive."/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>

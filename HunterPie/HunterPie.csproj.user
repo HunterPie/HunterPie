@@ -22,9 +22,6 @@
     <Compile Update="GUI\Parts\Sidebar\SideBarElement.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Internal\Http\WebClient.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Update="TestWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using HunterPie.Core.Client;
 using HunterPie.Core.Http;
 using HunterPie.Core.Http.Events;
-using HunterPie.Internal.Http;
 using Newtonsoft.Json;
 
 namespace HunterPie.Update.Remote
@@ -18,7 +17,6 @@ namespace HunterPie.Update.Remote
         }
 
         const string BASE_URL = "https://api.hunterpie.com";
-        public readonly AsyncHttpRequest HttpClient = new(BASE_URL);
 
         public async Task<string> GetLatestVersion()
         {
