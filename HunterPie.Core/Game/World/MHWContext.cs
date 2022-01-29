@@ -16,5 +16,10 @@ namespace HunterPie.Core.Game.World
         {
             throw new NotImplementedException();
         }
+
+        internal override void Stop()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

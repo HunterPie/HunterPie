@@ -22,6 +22,8 @@ namespace HunterPie.Core.Game.World.Entities
 
         public IMonsterAilment[] Ailments => throw new NotImplementedException();
 
+        public Crown Crown => throw new NotImplementedException();
+
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
         public event EventHandler<EventArgs> OnDespawn;

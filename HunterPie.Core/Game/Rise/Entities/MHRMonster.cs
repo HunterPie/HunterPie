@@ -224,7 +224,8 @@ namespace HunterPie.Core.Game.Rise.Entities
         [ScannableMethod]
         private void ScanMonsterCrown()
         {
-            float monsterSizeMultiplier = _process.Memory.Deref<float>(_address, AddressMap.Get<int[]>("MONSTER_CROWN_OFFSETS"));
+            long monsterSizePtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_CROWN_OFFSETS"));
+            float monsterSizeMultiplier = _process.Memory.Read<float>(monsterSizePtr + 0x28);
 
             Crown = monsterSizeMultiplier switch
             {

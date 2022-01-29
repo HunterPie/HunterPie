@@ -116,5 +116,11 @@ namespace HunterPie.Core.System.Windows.Memory
             long ptr = Read(address, offsets);
             return Read<T>(ptr);
         }
+
+        public T DerefPtr<T>(long address, int[] offsets) where T : struct
+        {
+            long ptr = ReadPtr(address, offsets);
+            return Read<T>(ptr);
+        }
     }
 }
