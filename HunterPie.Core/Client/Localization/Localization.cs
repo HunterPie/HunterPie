@@ -86,5 +86,7 @@ namespace HunterPie.Core.Client.Localization
 
         public static XmlNode Query(string query) => _instance.document.SelectSingleNode(query);
         public static XmlNodeList QueryMany(string query) => _instance.document.SelectNodes(query);
+        public static string QueryString(string query) => _instance.document.SelectSingleNode(query)?.Attributes["String"]?.Value;
+        public static string QueryDescription(string query) => Query(query)?.Attributes["Description"]?.Value;
     }
 }

@@ -1,4 +1,5 @@
-﻿using DiscordRPC;
+﻿
+using DiscordRPC;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Rise;
 using System;
@@ -8,6 +9,10 @@ using HunterPie.Core.Logger;
 using System.Timers;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Client.Configuration.Integrations;
+using HunterPie.Core.Client;
+using System.ComponentModel;
+using HunterPie.Core.Client.Localization;
 
 namespace HunterPie.Integrations.Discord
 {
@@ -18,6 +23,8 @@ namespace HunterPie.Integrations.Discord
         private Timestamps locationTime = Timestamps.Now;
         private readonly RichPresence presence = new();
         private readonly DiscordRpcClient client = new(AppId, autoEvents: true);
+        private DiscordRichPresence Settings => ClientConfig.Config.RichPresence;
+
         private readonly Timer timer = new(10000)
         {
             AutoReset = true
@@ -29,12 +36,15 @@ namespace HunterPie.Integrations.Discord
 
             HookEvents();
             timer.Start();
-            client.Initialize();
+
+            if (Settings.EnableRichPresence)
+                client.Initialize();
         }
 
         private void HookEvents()
         {
             client.OnReady += OnReady;
+            Settings.EnableRichPresence.PropertyChanged += OnEnableRichPresenceChanged;
             game.Player.OnStageUpdate += OnStageUpdate;
             timer.Elapsed += OnTick;
         }
@@ -43,7 +53,16 @@ namespace HunterPie.Integrations.Discord
         {
             client.OnReady -= OnReady;
             game.Player.OnStageUpdate -= OnStageUpdate;
+            Settings.EnableRichPresence.PropertyChanged -= OnEnableRichPresenceChanged;
             timer.Elapsed -= OnTick;
+        }
+
+        private void OnEnableRichPresenceChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (Settings.EnableRichPresence)
+                UpdatePresence();
+            else
+                client.ClearPresence();
         }
 
         private void OnReady(object sender, ReadyMessage args)
@@ -61,21 +80,29 @@ namespace HunterPie.Integrations.Discord
 
         private void UpdatePresence()
         {
+            if (!Settings.EnableRichPresence)
+            {
+                client.ClearPresence();
+                return;
+            }
+
             string description = null;
 
             description = game.Player.StageId switch
             {
-                -1 => "In Main Menu",
-                >= 1 and <= 4 => "Chilling",
-                5 => "Practicing",
-                207 => "In Rampage",
-                199 => "Selecting character",
-                _ => "Exploring"
+                -1 => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_MAIN_MENU']"),
+                >= 0 and <= 4 => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_IDLE']"),
+                5 => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_PRACTICE']"),
+                207 => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_RAMPAGE']"),
+                199 => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_CHAR_SELECTION']"),
+                _ => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_EXPLORING']")
             };
 
             IMonster targetMonster = game.Monsters.FirstOrDefault(monster => monster.Target == Target.Self);
             if (targetMonster is not null)
-                description = $"Hunting {targetMonster.Name} ({targetMonster.Health / targetMonster.MaxHealth * 100:0}%)";
+                description = Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_HUNTING']")
+                    .Replace("{Monster}", targetMonster.Name)
+                    .Replace("{Percentage}", $"{targetMonster.Health / targetMonster.MaxHealth * 100:0}");
             
             presence.WithDetails(description)
                 .WithState(null)
@@ -86,7 +113,11 @@ namespace HunterPie.Integrations.Discord
                     LargeImageKey = game.Player.StageId == -1 
                                     ? "unknown" 
                                     : $"rise-stage-{game.Player.StageId}",
-                    SmallImageText = $"{game.Player.Name} | HR: {game.Player.HighRank}",
+                    SmallImageText = Settings.ShowCharacterInfo 
+                        ? Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_CHARACTER_STRING_FORMAT']")
+                            .Replace("{Character}", game.Player.Name)
+                            .Replace("{HighRank}", game.Player.HighRank.ToString())
+                        : null,
                     SmallImageKey = game.Player.WeaponId switch
                     {
                         Weapon.None => null,
@@ -101,6 +132,7 @@ namespace HunterPie.Integrations.Discord
         public void Dispose()
         {
             UnhookEvents();
+            client.ClearPresence();
             client.Dispose();
             timer.Stop();
             timer.Dispose();
