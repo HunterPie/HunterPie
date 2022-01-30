@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
+using HunterPie.Core.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
         }
 
         // TODO: move this out of here when API code is ready
-        private class VersionResponseSchema
+        private struct VersionResponseSchema
         {
             [JsonProperty("latest_version")]
             public string LatestVersion;
@@ -48,23 +49,23 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
         public async void FetchVersion()
         {
             IsFetchingVersion = true;
-            using (HttpClient client = new())
-            {
-                using (HttpRequestMessage req = new(HttpMethod.Get, "https://api.hunterpie.com/v1/version"))
-                {
-                    using (HttpResponseMessage response = await client.SendAsync(req))
-                    {
-                        if (!response.IsSuccessStatusCode)
-                            return;
 
-                        string body = await response.Content.ReadAsStringAsync();
-                        VersionResponseSchema schema = JsonConvert.DeserializeObject<VersionResponseSchema>(body);
-                        Version version = new Version(schema.LatestVersion);
+            using Poogie request = PoogieFactory.Default()
+                                .Get("/v1/version")
+                                .WithTimeout(TimeSpan.FromSeconds(5))
+                                .Build();
 
-                        IsLatestVersion = ClientInfo.IsVersionGreaterOrEq(version);
-                    }
-                }
-            }
+            using PoogieResponse resp = await request.RequestAsync();
+
+            // TODO: Error status
+            if (!resp.Success)
+                return;
+
+            VersionResponseSchema schema = await resp.AsJson<VersionResponseSchema>();
+            Version version = new Version(schema.LatestVersion);
+
+            IsLatestVersion = ClientInfo.IsVersionGreaterOrEq(version);
+
             IsFetchingVersion = false;
         }
     }

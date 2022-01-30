@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 
@@ -7,23 +8,28 @@ namespace HunterPie.Core.Http
 {
     public class PoogieBuilder
     {
-        public string Url { get; private set; }
+        public List<string> Urls { get; private set; } = new();
+        public string Path { get; private set; }
         public HttpMethod Method { get; private set; }
         public HttpContent Content { get; private set; }
         public TimeSpan Timeout { get; private set; }
 
-        public PoogieBuilder Get(string url)
+        public PoogieBuilder() { }
+        public PoogieBuilder(string[] urls) { Urls.AddRange(urls); }
+        public PoogieBuilder(string url) { Urls.Add(url); }
+
+        public PoogieBuilder Get(string path)
         {
-            Url = url;
             Method = HttpMethod.Get;
+            Path = path;
 
             return this;
         }
 
-        public PoogieBuilder Post(string url)
+        public PoogieBuilder Post(string path)
         {
-            Url = url;
             Method = HttpMethod.Post;
+            Path = path;
 
             return this;
         }

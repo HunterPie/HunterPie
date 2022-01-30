@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HunterPie.Core.Logger;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -12,14 +13,16 @@ namespace HunterPie.Core.Http
         private HttpClient _client;
         private HttpRequestMessage _request;
 
-        public string Url { get; }
+        public string[] Urls { get; }
+        public string Path { get; }
         public HttpMethod Method { get; }
         public HttpContent Content { get; }
         public TimeSpan Timeout { get; }
 
         public Poogie(PoogieBuilder builder)
         {
-            Url = builder.Url;
+            Urls = builder.Urls.ToArray();
+            Path = builder.Path;
             Method = builder.Method;
             Content = builder.Content;
             Timeout = builder.Timeout;
@@ -27,13 +30,30 @@ namespace HunterPie.Core.Http
 
         public async Task<PoogieResponse> RequestAsync()
         {
-            _client = new() { Timeout = Timeout };
-            _request = new(Method, Url);
-            HttpResponseMessage res = await _client.SendAsync(_request);
+            foreach (string host in Urls)
+            {
+                _client = new() { Timeout = Timeout };
+                _request = new(Method, $"{host}{Path}");
 
-            PoogieResponse response = new(res);
+                HttpResponseMessage res;
+                try
+                {
+                    res = await _client.SendAsync(_request);
+                }
+                catch
+                {
+                    Log.Debug($"Failed to request host {host}, trying next one...");
+                    _client.Dispose();
+                    _request.Dispose();
 
-            return response;
+                    continue;
+                }
+
+                PoogieResponse response = new(res);
+                return response;
+            }
+
+            return new PoogieResponse(null);
         }
 
         public void Dispose()

@@ -70,12 +70,14 @@ namespace HunterPie
             UpdateViewModel vm = new();
             UpdateView view = new() { DataContext = vm };
             view.Show();
-            
+
             bool result = await UpdateUseCase.Exec(vm);
+
             view.Close();
-            
+
             if (result)
                 Restart();
+
         }
 
         private void InitializeProcessScanners()

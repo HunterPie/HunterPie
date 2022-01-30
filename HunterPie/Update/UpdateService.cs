@@ -48,6 +48,7 @@ namespace HunterPie.Update
             catch (Exception err)
             {
                 Log.Error(err);
+                Directory.Delete(ClientInfo.GetPathFor("temp"), true);
                 return false;
             }
 

@@ -15,14 +15,22 @@ namespace HunterPie.Core.Http
         private HttpResponseMessage _response;
         public HttpStatusCode Status { get; }
         public HttpContent Content { get; }
+        public bool Success { get; }
 
         public event EventHandler<PoogieDownloadEventArgs> OnDownloadProgressChanged;
 
         public PoogieResponse(HttpResponseMessage message)
         {
+            if (message is null)
+            {
+                Success = false;
+                return;
+            }
+
             _response = message;
             Status = message.StatusCode;
             Content = message.Content;
+            Success = true;
         }
 
         public async Task<T> AsJson<T>()
@@ -73,7 +81,7 @@ namespace HunterPie.Core.Http
 
         public void Dispose()
         {
-            _response.Dispose();
+            _response?.Dispose();
         }
     }
 }

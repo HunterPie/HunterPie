@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Domain.Dialog;
+using HunterPie.Core.Logger;
 using HunterPie.Update.Presentation;
 using System;
 using System.Threading.Tasks;
@@ -45,7 +46,11 @@ namespace HunterPie.Update
             var localFiles = await service.IndexAllFilesRecursively(ClientInfo.ClientPath);
 
             vm.State = "Extracting package...";
-            service.ExtractZip();
+            if (!service.ExtractZip())
+            {
+                Log.Error("Failed to extract package");
+                return false;
+            }
             var remoteFiles = await service.IndexAllFilesRecursively(ClientInfo.GetPathFor(@"temp/HunterPie"));
 
             vm.State = "Replacing old files";

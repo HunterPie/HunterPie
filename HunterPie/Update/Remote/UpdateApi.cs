@@ -16,18 +16,19 @@ namespace HunterPie.Update.Remote
             public string LatestVersion { get; set; }
         }
 
-        const string BASE_URL = "https://api.hunterpie.com";
 
         public async Task<string> GetLatestVersion()
         {
-            string url = "https://api.hunterpie.com/v1/version";
             
-            using Poogie request = new PoogieBuilder()
-                                    .Get(url)
+            using Poogie request = PoogieFactory.Default()
+                                    .Get("/v1/version")
                                     .WithTimeout(TimeSpan.FromSeconds(10))
                                     .Build();
 
             using PoogieResponse resp = await request.RequestAsync();
+
+            if (!resp.Success)
+                return null;
 
             if (resp.Status != HttpStatusCode.OK)
                 return null;
@@ -39,14 +40,16 @@ namespace HunterPie.Update.Remote
 
         public async Task DownloadVersion(string version, EventHandler<PoogieDownloadEventArgs> callback)
         {
-            string url = $"https://api.hunterpie.com/v1/version/{version}";
 
-            using Poogie request = new PoogieBuilder()
-                                    .Get(url)
+            using Poogie request = PoogieFactory.Default()
+                                    .Get($"/v1/version/{version}")
                                     .WithTimeout(TimeSpan.FromSeconds(10))
                                     .Build();
 
             using PoogieResponse resp = await request.RequestAsync();
+
+            if (!resp.Success)
+                return;
 
             if (resp.Status != HttpStatusCode.OK)
                 return;
