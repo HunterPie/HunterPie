@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace HunterPie.Core.Remote
@@ -38,6 +37,15 @@ namespace HunterPie.Core.Remote
 
             using PoogieResponse response = await request.RequestAsync();
             {
+                if (!response.Success)
+                    return null;
+
+                if (response.Status != HttpStatusCode.OK)
+                {
+                    _notFoundCache.Add(imagename);
+                    return null;
+                }
+
                 await response.Download(localImage);
             }
 

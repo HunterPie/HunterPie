@@ -53,6 +53,8 @@ namespace HunterPie.Core.Http
                 return response;
             }
 
+            Log.Error("Could not reach any of HunterPie's HTTP hosts.");
+
             return new PoogieResponse(null);
         }
 
