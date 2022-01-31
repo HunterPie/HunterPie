@@ -151,7 +151,8 @@
                      RenderTransformOrigin="0.5,0.5"
                      Margin="13,47,10,0" 
                      ForegroundDelayed="#FFFFCFA8" 
-                     BorderBrush="#C7212426">
+                     BorderBrush="#C7212426"
+                     Visibility="{Binding Widget.Settings.EnableStamina.Value, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <overlay:Bar.Foreground>
                     <LinearGradientBrush EndPoint="1,1" StartPoint="0,1">
                         <GradientStop Color="#FFFF9A36" Offset="1"/>
@@ -174,7 +175,8 @@
                        Foreground="#FFF3F3F3"
                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                        FontWeight="Medium"
-                       FontSize="13">
+                       FontSize="13"
+                       Visibility="{Binding Widget.Settings.EnableStamina.Value, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <TextBlock.Effect>
                     <DropShadowEffect Color="Black"
                                       BlurRadius="4" 

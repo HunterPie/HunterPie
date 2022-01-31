@@ -253,6 +253,10 @@
 			<Setting Id="WIDGET_SCALE"
 					 String="Widget scale"
 					 Description="Controls this widget linear scale, the higher the value, the bigger the widget will be."/>
+			
+			<Setting Id="MONSTER_WIDGET_ENABLE_STAMINA_STRING"
+					 String="Enable monster stamina"
+					 Description="If enabled, HunterPie will show the monster stamina under it's health bar."/>
 			<Setting Id="MONSTER_WIDGET_MAX_WIDTH_STRING"
 					 String="Monster widget maximum width"
 					 Description="Controls the maximum width for the monsters health bar."/>

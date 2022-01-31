@@ -13,9 +13,6 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         [SettingField("ENABLE_WIDGET_STRING")]
         public Observable<bool> Enabled { get; set; } = true;
 
-        [SettingField("WIDGET_POSITION")]
-        public Position Position { get; set; } = new(600, 100);
-
         [SettingField("WIDGET_OPACITY")]
         public Range Opacity { get; set; } = new(1, 1, 0.1, 0.1);
 
@@ -27,6 +24,9 @@ namespace HunterPie.Core.Client.Configuration.Overlay
 
         [SettingField("MONSTER_WIDGET_MAX_WIDTH_STRING")]
         public Range MaxWidth { get; set; } = new(600, 1000, 200, 1);
+
+        [SettingField("MONSTER_WIDGET_ENABLE_STAMINA_STRING")]
+        public Observable<bool> EnableStamina { get; set; } = true;
 
         [SettingField("MONSTER_WIDGET_ENABLE_AILMENTS_STRING")]
         public Observable<bool> EnableAilments { get; set; } = true;
@@ -45,5 +45,8 @@ namespace HunterPie.Core.Client.Configuration.Overlay
 
         [SettingField("MONSTER_WIDGET_AUTO_HIDE_PARTS_DELAY_STRING")]
         public Range AutoHidePartsDelay { get; set; } = new(15, 60, 1, 1);
+
+        [SettingField("WIDGET_POSITION")]
+        public Position Position { get; set; } = new(600, 100);
     }
 }
