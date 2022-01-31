@@ -168,6 +168,28 @@
                 </overlay:Bar.RenderTransform>
             </overlay:Bar>
 
+            <TextBlock VerticalAlignment="Top"
+                       HorizontalAlignment="Right"
+                       Margin="0,55,15,0"
+                       Foreground="#FFF3F3F3"
+                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       FontWeight="Medium"
+                       FontSize="13">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="Black"
+                                      BlurRadius="4" 
+                                      ShadowDepth="0"/>
+                </TextBlock.Effect>
+            <Run Text="{Binding Stamina, Mode=OneWay, StringFormat=\{0:F0\}}"
+                 d:Text="25000"
+                 FontWeight="Normal"/><!--
+         --><Run Text="/"/><!--
+         --><Run Text="{Binding MaxStamina, Mode=OneWay, StringFormat=\{0:F0\}}"
+                 d:Text="25000" 
+                 FontWeight="Light"
+                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"/>
+            </TextBlock>
+            
             <!-- Health bar -->
             <overlay:Bar Height="15"
                          Foreground="{StaticResource MonsterHealthUnenraged}"

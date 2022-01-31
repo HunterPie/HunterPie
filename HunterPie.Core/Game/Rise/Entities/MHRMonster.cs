@@ -19,6 +19,7 @@ using System.Linq;
 
 namespace HunterPie.Core.Game.Rise.Entities
 {
+#pragma warning disable IDE0051 // Remove unused private members
     public class MHRMonster : Scannable, IMonster, IEventDispatcher
     {
         private long _address;
@@ -300,12 +301,14 @@ namespace HunterPie.Core.Game.Rise.Entities
 
         [ScannableMethod(typeof(MHRStaminaStructure))]
         private void ScanMonsterStamina()
+
         {
             long staminaPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_STAMINA_OFFSETS"));
 
             MHRStaminaStructure structure = _process.Memory.Read<MHRStaminaStructure>(staminaPtr);
 
-
+            MaxStamina = structure.MaxStamina;
+            Stamina = structure.Stamina;
         }
 
         private void DerefPartsAndScan(long[] partsPointers)
@@ -378,4 +381,5 @@ namespace HunterPie.Core.Game.Rise.Entities
             }
         }
     }
+#pragma warning restore IDE0051 // Remove unused private members
 }

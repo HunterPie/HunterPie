@@ -60,8 +60,8 @@ namespace HunterPie.Core.Http
 
         public void Dispose()
         {
-            _request.Dispose();
-            _client.Dispose();
+            _request?.Dispose();
+            _client?.Dispose();
         }
     }
 }

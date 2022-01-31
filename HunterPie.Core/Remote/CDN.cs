@@ -24,16 +24,16 @@ namespace HunterPie.Core.Remote
             if (_notFoundCache.Contains(imagename))
                 return null;
 
-            string url = $"{CDN_BASE_URL}/Assets/Monsters/Icons/{imagename}.png";
             string localImage = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{imagename}.png");
 
             if (File.Exists(localImage))
                 return localImage;
 
-            using Poogie request = new PoogieBuilder()
-                                .Get(url)
-                                .WithTimeout(TimeSpan.FromSeconds(5))
-                                .Build();
+
+            using Poogie request = new PoogieBuilder(CDN_BASE_URL)
+                                        .Get($"/Assets/Monsters/Icons/{imagename}.png")
+                                        .WithTimeout(TimeSpan.FromSeconds(5))
+                                        .Build();
 
             using PoogieResponse response = await request.RequestAsync();
             {

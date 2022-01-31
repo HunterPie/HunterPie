@@ -23,6 +23,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         private void HookEvents()
         {
             Context.OnHealthChange += OnHealthUpdate;
+            Context.OnStaminaChange += OnStaminaUpdate;
             Context.OnEnrageStateChange += OnEnrageStateChange;
             Context.OnSpawn += OnSpawn;
             Context.OnDeath += OnDespawn;
@@ -36,6 +37,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         private void UnhookEvents()
         {
             Context.OnHealthChange -= OnHealthUpdate;
+            Context.OnStaminaChange -= OnStaminaUpdate;
             Context.OnEnrageStateChange -= OnEnrageStateChange;
             Context.OnSpawn -= OnSpawn;
             Context.OnDeath -= OnDespawn;
@@ -68,6 +70,12 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
                 Parts.Clear();
                 Ailments.Clear();
             });
+        }
+
+        private void OnStaminaUpdate(object sender, EventArgs e)
+        {
+            MaxStamina = Context.MaxStamina;
+            Stamina = Context.Stamina;
         }
 
         private void OnEnrageStateChange(object sender, EventArgs e) => IsEnraged = Context.IsEnraged;
@@ -131,8 +139,8 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             MaxHealth = Context.MaxHealth;
             Health = Context.Health;
             IsTarget = Context.Target == Target.Self || Context.Target == Target.None;
-            MaxStamina = 1;
-            Stamina = 1;
+            MaxStamina = Context.MaxStamina;
+            Stamina = Context.Stamina;
             TargetType = Context.Target;
             Crown = Context.Crown;
             IsEnraged = Context.IsEnraged;
