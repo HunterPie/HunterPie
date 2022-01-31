@@ -7,6 +7,7 @@ using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data;
+using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.Rise.Crypto;
@@ -28,10 +29,27 @@ namespace HunterPie.Core.Game.Rise.Entities
         private bool _isEnraged;
         private Target _target;
         private Crown _crown;
+        private float _stamina;
         private MHRMonsterAilment _enrage = new MHRMonsterAilment("STATUS_ENRAGE");
         private readonly Dictionary<long, MHRMonsterPart> parts = new();
         private readonly Dictionary<long, MHRMonsterAilment> ailments = new();
 
+
+        public int Id
+        {
+            get => _id;
+            private set
+            {
+                if (_id != value)
+                {
+                    _id = value;
+                    this.Dispatch(OnSpawn);
+                }
+            }
+        }
+
+        public string Name => MHRContext.Strings.GetMonsterNameById(Id);
+        
         public float Health
         {
             get => _health;
@@ -47,20 +65,20 @@ namespace HunterPie.Core.Game.Rise.Entities
 
         public float MaxHealth { get; private set; }
 
-        public string Name => MHRContext.Strings.GetMonsterNameById(Id);
-
-        public int Id
+        public float Stamina
         {
-            get => _id;
+            get => _stamina;
             private set
             {
-                if (_id != value)
+                if (value != _stamina)
                 {
-                    _id = value;
-                    this.Dispatch(OnSpawn);
+                    _stamina = value;
+                    this.Dispatch(OnStaminaChange);
                 }
             }
         }
+
+        public float MaxStamina { get; private set; }
 
         public bool IsTarget
         {
@@ -241,14 +259,22 @@ namespace HunterPie.Core.Game.Rise.Entities
         {
             long monsterSizePtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_CROWN_OFFSETS"));
             float monsterSizeMultiplier = _process.Memory.Read<float>(monsterSizePtr + 0x28);
+            
+            MonsterSizeSchema? crownData = MonsterData.GetMonsterData(Id)?.Size;
 
-            Crown = monsterSizeMultiplier switch
-            {
-                >= 1.23f => Crown.Gold,
-                < 1.23f and >= 1.16f => Crown.Silver,
-                <= 0.9f => Crown.Mini,
-                _ => Crown.None,
-            };
+            if (crownData is null)
+                return;
+
+            MonsterSizeSchema crown = crownData.Value;
+
+            if (monsterSizeMultiplier >= crown.Gold)
+                Crown = Crown.Gold;
+            else if (monsterSizeMultiplier >= crown.Silver)
+                Crown = Crown.Silver;
+            else if (monsterSizeMultiplier <= crown.Mini)
+                Crown = Crown.Mini;
+            else
+                Crown = Crown.None;
         }
 
         [ScannableMethod(typeof(MHREnrageStructure))]
@@ -270,6 +296,16 @@ namespace HunterPie.Core.Game.Rise.Entities
             );
 
             IsEnraged = structure.Timer > 0;
+        }
+
+        [ScannableMethod(typeof(MHRStaminaStructure))]
+        private void ScanMonsterStamina()
+        {
+            long staminaPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_STAMINA_OFFSETS"));
+
+            MHRStaminaStructure structure = _process.Memory.Read<MHRStaminaStructure>(staminaPtr);
+
+
         }
 
         private void DerefPartsAndScan(long[] partsPointers)

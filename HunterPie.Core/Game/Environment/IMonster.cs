@@ -9,6 +9,8 @@ namespace HunterPie.Core.Game.Environment
         public int Id { get; }
         public float Health { get; }
         public float MaxHealth { get; }
+        public float Stamina { get; }
+        public float MaxStamina { get; }
         public bool IsTarget { get; }
         public bool IsEnraged { get; }
         public Target Target { get; }
