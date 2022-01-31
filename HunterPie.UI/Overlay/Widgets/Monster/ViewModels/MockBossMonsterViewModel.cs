@@ -46,12 +46,18 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 
         private void MockAilments()
         {
-            for (int i = 0; i < 19; i++)
+            string[] ailmentNames =
+            {
+                "AILMENT_UNKNOWN", "AILMENT_PARALYSIS", "AILMENT_SLEEP", "AILMENT_STUN", "AILMENT_POISON",
+                "AILMENT_BLAST", "AILMENT_EXHAUST", "AILMENT_MOUNT", "AILMENT_FLASH", "AILMENT_WATER", "AILMENT_FIRE",
+                "AILMENT_ICE", "AILMENT_THUNDER", "STATUS_ENRAGE"
+            };
+            foreach (string name in ailmentNames)
             {
                 Ailments.Add(
                     new MonsterAilmentViewModel()
                     {
-                        Name = "Ailment",
+                        Name = name,
                         Timer = 100.0,
                         MaxTimer = 100.0,
                         Buildup = 100.0,

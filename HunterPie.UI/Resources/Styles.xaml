@@ -65,6 +65,22 @@
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_SLEEP">#6be8a5</SolidColorBrush>
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_BLAST">#db7e53</SolidColorBrush>
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_MOUNT">#5380db</SolidColorBrush>
+    <LinearGradientBrush x:Key="COLOR_MONSTER_AILMENT_WATER" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#82b5ff"/>
+        <GradientStop Color="#aff1ff" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_MONSTER_AILMENT_FIRE" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#e23a3a"/>
+        <GradientStop Color="#ff723f" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_MONSTER_AILMENT_ICE" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#ace3ff"/>
+        <GradientStop Color="#edfcff" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_MONSTER_AILMENT_THUNDER" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#ffb04f"/>
+        <GradientStop Color="#feffed" Offset="1"/>
+    </LinearGradientBrush>
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_EXHAUSTION">#74d4b1</SolidColorBrush>
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_STUN">#deb83c</SolidColorBrush>
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_TRANQUILIZE">#c96ba0</SolidColorBrush>
@@ -80,6 +96,7 @@
         <GradientStop Color="#FFCB2D3E"/>
         <GradientStop Color="#FFEF473A" Offset="1"/>
     </LinearGradientBrush>
+    
 
     <!-- Font -->
     <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">pack://application:,,,/HunterPie.UI;component/Resources/#Work Sans</FontFamily>

@@ -259,8 +259,9 @@ namespace HunterPie.Core.Game.Rise.Entities
         private void ScanMonsterCrown()
         {
             long monsterSizePtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_CROWN_OFFSETS"));
-            float monsterSizeMultiplier = _process.Memory.Read<float>(monsterSizePtr + 0x28);
-            
+            MHRSizeStructure monsterSize = _process.Memory.Read<MHRSizeStructure>(monsterSizePtr + 0x24);
+            float monsterSizeMultiplier = monsterSize.SizeMultiplier * monsterSize.UnkMultiplier;
+
             MonsterSizeSchema? crownData = MonsterData.GetMonsterData(Id)?.Size;
 
             if (crownData is null)

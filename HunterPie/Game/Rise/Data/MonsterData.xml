@@ -14,6 +14,10 @@
 		<Ailment Id="5" String="AILMENT_BLAST"/>
 		<Ailment Id="6" String="AILMENT_EXHAUST"/>
 		<Ailment Id="7" String="AILMENT_MOUNT"/>
+		<Ailment Id="8" String="AILMENT_WATER"/>
+		<Ailment Id="9" String="AILMENT_FIRE"/>
+		<Ailment Id="10" String="AILMENT_ICE"/>
+		<Ailment Id="11" String="AILMENT_THUNDER"/>
 	</Ailments>
 	<Monsters>
 		<Monster Id="0"
