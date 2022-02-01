@@ -41,7 +41,9 @@ namespace HunterPie
             InitializerManager.Initialize();
             SetRenderingMode();
 
+            #if DEPLOY
             await SelfUpdate();
+            #endif
 
             ShutdownMode = ShutdownMode.OnMainWindowClose;
             

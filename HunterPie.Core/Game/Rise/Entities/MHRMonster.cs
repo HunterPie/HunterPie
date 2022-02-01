@@ -332,9 +332,11 @@ namespace HunterPie.Core.Game.Rise.Entities
 
                 if (!parts.ContainsKey(part))
                 {
-                    var dummy = new MHRMonsterPart(MonsterData.GetMonsterPartData(Id, i)?.String ?? "PART_UNKNOWN");
+                    string partName = MonsterData.GetMonsterPartData(Id, i)?.String ?? "PART_UNKNOWN";
+                    var dummy = new MHRMonsterPart(partName);
                     parts.Add(part, dummy);
 
+                    Log.Debug($"Found {partName} for {Name} -> {part:X}");
                     this.Dispatch(OnNewPartFound, dummy);
                 }
 
