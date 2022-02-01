@@ -37,7 +37,6 @@ namespace HunterPie
                 e.Cancel = true;
                 return;
             }
-            InitializerManager.Unload();
 
             base.OnClosing(e);
         }

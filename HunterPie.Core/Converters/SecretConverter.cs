@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace HunterPie.Core.Converters
 {
-    public class FileSelectorConverter : JsonConverter
+    public class SecretConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
-            return objectType.GetInterfaces().Contains(typeof(IFileSelector));
+            return objectType.GetInterfaces().Contains(typeof(Secret));
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -19,7 +19,7 @@ namespace HunterPie.Core.Converters
                 ? Convert.ChangeType(reader.Value, typeof(string))
                 : null;
 
-            objectType.GetProperty(nameof(IFileSelector.Current)).SetValue(existingValue, value);
+            objectType.GetProperty(nameof(Secret.EncryptedValue)).SetValue(existingValue, value);
 
             return existingValue;
         }
@@ -27,7 +27,7 @@ namespace HunterPie.Core.Converters
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var prop = value.GetType()
-                        .GetProperty(nameof(IFileSelector.Current))
+                        .GetProperty(nameof(Secret.EncryptedValue))
                         .GetValue(value);
 
             serializer.Serialize(writer, prop);

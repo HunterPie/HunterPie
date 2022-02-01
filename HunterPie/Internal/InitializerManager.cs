@@ -11,6 +11,7 @@ namespace HunterPie.Internal
         private static HashSet<IInitializer> _initializers = new()
         {
             // Core
+            new LocalConfigInitializer(),
             new ClientConfigInitializer(),
             new ConfigManagerInitializer(),
             new HunterPieLoggerInitializer(),

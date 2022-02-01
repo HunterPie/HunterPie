@@ -15,6 +15,9 @@ namespace HunterPie.Core.Client.Configuration
         [SettingField("ENABLE_SELF_UPDATE_CONFIRMATION")]
         public Observable<bool> EnableAutoUpdateConfirmation { get; set; } = true;
 
+        [SettingField("SUPPORTER_SECRET_TOKEN")]
+        public Secret SupporterSecretToken { get; set; } = new();
+
         [SettingField("LANGUAGE_STRING")]
         public GenericFileSelector Language { get; set; } = new GenericFileSelector("en-us.xml", "*.xml", ClientInfo.LanguagesPath);
 
