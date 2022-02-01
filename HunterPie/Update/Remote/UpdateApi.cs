@@ -22,6 +22,7 @@ namespace HunterPie.Update.Remote
             
             using Poogie request = PoogieFactory.Default()
                                     .Get("/v1/version")
+                                    .WithHeader("X-Supporter-Token", ClientConfig.Config.Client.SupporterSecretToken)
                                     .WithTimeout(TimeSpan.FromSeconds(10))
                                     .Build();
 
@@ -43,6 +44,7 @@ namespace HunterPie.Update.Remote
 
             using Poogie request = PoogieFactory.Default()
                                     .Get($"/v1/version/{version}")
+                                    .WithHeader("X-Supporter-Token", ClientConfig.Config.Client.SupporterSecretToken)
                                     .WithTimeout(TimeSpan.FromSeconds(10))
                                     .Build();
 

@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Logger;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -13,20 +14,12 @@ namespace HunterPie.Core.Http
         private HttpClient _client;
         private HttpRequestMessage _request;
 
-        public string[] Urls { get; }
-        public string Path { get; }
-        public HttpMethod Method { get; }
-        public HttpContent Content { get; }
-        public TimeSpan Timeout { get; }
-
-        public Poogie(PoogieBuilder builder)
-        {
-            Urls = builder.Urls.ToArray();
-            Path = builder.Path;
-            Method = builder.Method;
-            Content = builder.Content;
-            Timeout = builder.Timeout;
-        }
+        public List<string> Urls { get; set; }
+        public string Path { get; set; }
+        public HttpMethod Method { get; set; }
+        public HttpContent Content { get; set; }
+        public TimeSpan Timeout { get; set; }
+        public Dictionary<string, string> Headers { get; } = new();
 
         public async Task<PoogieResponse> RequestAsync()
         {
@@ -34,6 +27,14 @@ namespace HunterPie.Core.Http
             {
                 _client = new() { Timeout = Timeout };
                 _request = new(Method, $"{host}{Path}");
+
+                foreach (var (key, value) in Headers)
+                {
+                    if (string.IsNullOrEmpty(value))
+                        continue;
+
+                    _request.Headers.Add(key, value);
+                }
 
                 HttpResponseMessage res;
                 try

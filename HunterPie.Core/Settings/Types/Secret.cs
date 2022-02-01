@@ -92,5 +92,7 @@ namespace HunterPie.Core.Settings.Types
         {
             return Value;
         }
+
+        public static implicit operator string(Secret self) => self.Value;
     }
 }
