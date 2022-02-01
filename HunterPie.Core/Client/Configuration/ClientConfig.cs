@@ -15,7 +15,7 @@ namespace HunterPie.Core.Client.Configuration
         [SettingField("ENABLE_SELF_UPDATE_CONFIRMATION")]
         public Observable<bool> EnableAutoUpdateConfirmation { get; set; } = true;
 
-        [SettingField("SUPPORTER_SECRET_TOKEN")]
+        [SettingField("SUPPORTER_SECRET_TOKEN_STRING")]
         public Secret SupporterSecretToken { get; set; } = new();
 
         [SettingField("LANGUAGE_STRING")]

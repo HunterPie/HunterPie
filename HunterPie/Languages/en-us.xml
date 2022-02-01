@@ -208,6 +208,9 @@
 			<Setting Id="ENABLE_SELF_UPDATE_CONFIRMATION"
 					 String="Show self update confirmation"
 					 Description="If enabled, HunterPie will ask permission to self update."/>
+			<Setting Id="SUPPORTER_SECRET_TOKEN_STRING"
+					 String="Supporter token"
+					 Description="Supporter token for getting beta updates."/>
 			<Setting Id="LANGUAGE_STRING"
 					 String="Language"
 					 Description="HunterPie's default localization"/>
@@ -285,6 +288,8 @@
 					 String="Developer: Mock Damage Meter widget"/>
 			<Setting Id="DEV_MOCK_ABNORMALITY_WIDGET_STRING"
 					 String="Developer: Mock Abnormalities widget"/>
+			<Setting Id="DEV_POOGIE_API_HOST_STRING"
+					 String="Developer: Poogie API Host"/>
 		</Settings>
 	</Client>
 </Strings>

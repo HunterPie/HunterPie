@@ -14,7 +14,7 @@ namespace HunterPie.Core.Http
         private HttpClient _client;
         private HttpRequestMessage _request;
 
-        public List<string> Urls { get; set; }
+        public List<string> Urls { get; set; } = new();
         public string Path { get; set; }
         public HttpMethod Method { get; set; }
         public HttpContent Content { get; set; }

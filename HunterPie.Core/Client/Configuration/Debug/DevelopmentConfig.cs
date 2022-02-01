@@ -17,6 +17,9 @@ namespace HunterPie.Core.Client.Configuration.Debug
         [SettingField("DEV_MOCK_ABNORMALITY_WIDGET_STRING", requiresRestart: true)]
         public Observable<bool> MockAbnormalityWidget { get; set; } = false;
 
+        [SettingField("DEV_POOGIE_API_HOST_STRING")]
+        public Observable<string> PoogieApiHost { get; set; } = "";
+
         [SettingField("DEV_ENABLE_DEBUG_MESSAGES")]
         public Observable<LogLevel> ClientLogLevel { get; set; } = LogLevel.Info;
     }

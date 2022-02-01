@@ -48,6 +48,7 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
 
             using Poogie request = PoogieFactory.Default()
                                 .Get("/v1/version")
+                                .WithHeader("X-Supporter-Token", ClientConfig.Config.Client.SupporterSecretToken)
                                 .WithTimeout(TimeSpan.FromSeconds(5))
                                 .Build();
 
