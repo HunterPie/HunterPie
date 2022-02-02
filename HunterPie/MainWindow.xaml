@@ -70,7 +70,8 @@
                            HorizontalAlignment="Right"
                            Padding="25,0,25,5"
                            Margin="0,0,10,0"
-                           Background="{StaticResource HUNTERPIE_ACCENT_COLOR}">
+                           Background="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                           OnClick="OnStartGameClick">
                 <native:Button.Content>
                     <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}">
                         <Run Text="▶"

@@ -12,6 +12,7 @@ using HunterPie.Core.Client;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Damage.ViewModel;
 using HunterPie.Internal.Tray;
+using System.Diagnostics;
 
 namespace HunterPie
 {
@@ -96,6 +97,19 @@ namespace HunterPie
                 .Click += (_, __) => {
                     Close();
                 };
+        }
+
+        private void OnStartGameClick(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo()
+                {
+                    FileName = "steam://run/1446780",
+                    UseShellExecute = true
+                });
+            } catch(Exception err) { Log.Error(err); }
+            
         }
     }
 }
