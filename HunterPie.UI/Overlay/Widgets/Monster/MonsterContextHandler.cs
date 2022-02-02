@@ -2,6 +2,7 @@
 using HunterPie.Core.Game.Environment;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using System;
+using System.Linq;
 using System.Windows;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster
@@ -14,25 +15,36 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         {
             Context = context;
             HookEvents();
+
+            AddEnrage();
             UpdateData();
         }
 
         private void HookEvents()
         {
             Context.OnHealthChange += OnHealthUpdate;
+            Context.OnStaminaChange += OnStaminaUpdate;
+            Context.OnEnrageStateChange += OnEnrageStateChange;
             Context.OnSpawn += OnSpawn;
             Context.OnDeath += OnDespawn;
             Context.OnDespawn += OnDespawn;
             Context.OnTargetChange += OnTargetChange;
+            Context.OnNewPartFound += OnNewPartFound;
+            Context.OnNewAilmentFound += OnNewAilmentFound;
+            Context.OnCrownChange += OnCrownChange;
         }
 
         private void UnhookEvents()
         {
             Context.OnHealthChange -= OnHealthUpdate;
+            Context.OnStaminaChange -= OnStaminaUpdate;
+            Context.OnEnrageStateChange -= OnEnrageStateChange;
             Context.OnSpawn -= OnSpawn;
             Context.OnDeath -= OnDespawn;
             Context.OnDespawn -= OnDespawn;
             Context.OnTargetChange -= OnTargetChange;
+            Context.OnNewPartFound -= OnNewPartFound;
+            Context.OnCrownChange -= OnCrownChange;
         }
         
         private void OnSpawn(object sender, EventArgs e)
@@ -52,30 +64,67 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
                 foreach (MonsterPartContextHandler part in Parts)
                     part.Dispose();
 
+                foreach (MonsterAilmentContextHandler ailment in Ailments)
+                    ailment.Dispose();
+
                 Parts.Clear();
+                Ailments.Clear();
             });
         }
-        
+
+        private void OnStaminaUpdate(object sender, EventArgs e)
+        {
+            MaxStamina = Context.MaxStamina;
+            Stamina = Context.Stamina;
+        }
+
+        private void OnEnrageStateChange(object sender, EventArgs e) => IsEnraged = Context.IsEnraged;
+
+        private void OnCrownChange(object sender, EventArgs e)
+        {
+            Crown = Context.Crown;
+        }
+
+        private void OnNewAilmentFound(object sender, IMonsterAilment e)
+        {
+            Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                bool contains = Ailments.ToArray()
+                            .Cast<MonsterAilmentContextHandler>()
+                            .Where(p => p.Context == e).Count() > 0;
+
+                if (contains)
+                    return;
+
+                Ailments.Add(new MonsterAilmentContextHandler(e));
+            });
+        }
+
+        private void OnNewPartFound(object sender, IMonsterPart e)
+        {
+            Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                bool contains = Parts.ToArray()
+                            .Cast<MonsterPartContextHandler>()
+                            .Where(p => p.Context == e).Count() > 0;
+
+                if (contains)
+                    return;
+
+                Parts.Add(new MonsterPartContextHandler(e));
+            });
+        }
+
         private void OnTargetChange(object sender, EventArgs e) 
         {
             IsTarget = Context.Target == Target.Self || Context.Target == Target.None;
             TargetType = Context.Target;
         }
 
-
         private void OnHealthUpdate(object sender, EventArgs e)
         {
             MaxHealth = Context.MaxHealth;
             Health = Context.Health;
-
-            if (Parts.Count != Context.Parts.Length)
-            {
-                Application.Current.Dispatcher.InvokeAsync(() =>
-                {
-                    foreach (IMonsterPart part in Context.Parts)
-                        Parts.Add(new MonsterPartContextHandler(part) { Name = part.Id, Health = part.Health, MaxHealth = part.MaxHealth });
-                });
-            }
         }
 
         private void UpdateData()
@@ -90,18 +139,49 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             MaxHealth = Context.MaxHealth;
             Health = Context.Health;
             IsTarget = Context.Target == Target.Self || Context.Target == Target.None;
-            MaxStamina = 1;
-            Stamina = 1;
+            MaxStamina = Context.MaxStamina;
+            Stamina = Context.Stamina;
             TargetType = Context.Target;
-
-            if (Parts.Count != Context.Parts.Length)
+            Crown = Context.Crown;
+            IsEnraged = Context.IsEnraged;
+            
+            if (Parts.Count != Context.Parts.Length || Ailments.Count != Context.Ailments.Length)
             {
                 Application.Current.Dispatcher.InvokeAsync(() =>
                 {
                     foreach (IMonsterPart part in Context.Parts)
-                        Parts.Add(new MonsterPartContextHandler(part) { Name = part.Id, Health = part.Health, MaxHealth = part.MaxHealth });
+                    {
+                        bool contains = Parts.ToArray()
+                            .Cast<MonsterPartContextHandler>()
+                            .Where(p => p.Context == part).Count() > 0;
+
+                        if (contains)
+                            continue;
+
+                        Parts.Add(new MonsterPartContextHandler(part));
+                    }
+
+                    foreach (IMonsterAilment ailment in Context.Ailments)
+                    {
+                        bool contains = Ailments.ToArray()
+                            .Cast<MonsterAilmentContextHandler>()
+                            .Where(p => p.Context == ailment).Count() > 0;
+
+                        if (contains)
+                            continue;
+
+                        Ailments.Add(new MonsterAilmentContextHandler(ailment));
+                    }
                 });
             }
+        }
+
+        private void AddEnrage()
+        {
+            Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                Ailments.Add(new MonsterAilmentContextHandler(Context.Enrage));
+            });
         }
     }
 }

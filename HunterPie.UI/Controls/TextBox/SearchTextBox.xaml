@@ -13,7 +13,7 @@
         <converters:RelativeSizeRectConverter x:Key="RelativeSizeRectConverter"/>
     </UserControl.Resources>
     <Grid>
-        <TextBox Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
+        <TextBox Background="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}"
                  VerticalContentAlignment="Center"
                  HorizontalAlignment="Stretch"
                  Padding="10,0,30,0"
@@ -26,8 +26,8 @@
                  TextChanged="OnTextChanged"
                  KeyUp="OnKeyUp">
             <TextBox.Clip>
-                <RectangleGeometry RadiusX="15"
-                                   RadiusY="15">
+                <RectangleGeometry RadiusX="1"
+                                   RadiusY="1">
                     <RectangleGeometry.Rect>
                         <MultiBinding Converter="{StaticResource RelativeSizeRectConverter}">
                             <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=TextBox}"/>
@@ -39,17 +39,12 @@
         </TextBox>
         <buttons:Button Width="30"
                         HorizontalAlignment="Right"
-                        Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
+                        Background="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}"
                         OnClick="OnSearchClick">
             <Image Source="{StaticResource ICON_SEARCH}"/>
-            <buttons:Button.Clip>
-                <EllipseGeometry Center="15,15"
-                                 RadiusX="15"
-                                 RadiusY="15"/>
-            </buttons:Button.Clip>
         </buttons:Button>
         <Rectangle Stroke="{StaticResource HUNTERPIE_ACCENT_COLOR}"
-                   RadiusX="15"
-                   RadiusY="15"/>
+                   RadiusX="1"
+                   RadiusY="1"/>
     </Grid>
 </UserControl>

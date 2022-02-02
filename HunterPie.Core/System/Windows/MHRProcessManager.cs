@@ -23,6 +23,7 @@ namespace HunterPie.Core.System.Windows
             } catch
             {
                 Log.Error("Failed to get Monster Hunter Rise version, missing permissions. Try running as administrator.");
+                pooler.Dispose();
                 return false;
             }
 

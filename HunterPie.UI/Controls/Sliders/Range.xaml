@@ -18,13 +18,16 @@
                 Maximum="{Binding Maximum}"
                 Minimum="{Binding Minimum}"
                 SmallChange="{Binding Change}"
+                LargeChange="{Binding Change}"
                 d:Value="50"
                 d:Minimum="0"
                 d:Maximum="100"
+                TickFrequency="{Binding Change}"
                 Style="{StaticResource SliderDefault}"
                 Margin="3,0,3,0" 
                 AutoToolTipPlacement="TopLeft"
-                VerticalAlignment="Center"/>
+                VerticalAlignment="Center"
+                IsSnapToTickEnabled="True"/>
         <TextBox d:Text="50.0"
                  HorizontalAlignment="Stretch" 
                  TextAlignment="Center"

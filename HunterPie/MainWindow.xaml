@@ -72,7 +72,7 @@
                            Margin="0,0,10,0"
                            Background="{StaticResource HUNTERPIE_ACCENT_COLOR}">
                 <native:Button.Content>
-                    <TextBlock Foreground="WhiteSmoke">
+                    <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}">
                         <Run Text="▶"
                              FontSize="30"/>
                         <Run Text="LAUNCH GAME"

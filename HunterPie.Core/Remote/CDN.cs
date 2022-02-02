@@ -1,8 +1,9 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Http;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace HunterPie.Core.Remote
@@ -23,36 +24,32 @@ namespace HunterPie.Core.Remote
             if (_notFoundCache.Contains(imagename))
                 return null;
 
-            string url = $"{CDN_BASE_URL}/Assets/Monsters/Icons/{imagename}.png";
             string localImage = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{imagename}.png");
 
             if (File.Exists(localImage))
                 return localImage;
 
-            using (HttpClient client = new())
+
+            using Poogie request = new PoogieBuilder(CDN_BASE_URL)
+                                        .Get($"/Assets/Monsters/Icons/{imagename}.png")
+                                        .WithTimeout(TimeSpan.FromSeconds(5))
+                                        .Build();
+
+            using PoogieResponse response = await request.RequestAsync();
             {
-                using (HttpRequestMessage req = new(HttpMethod.Get, url))
+                if (!response.Success)
+                    return null;
+
+                if (response.Status != HttpStatusCode.OK)
                 {
-                    using (HttpResponseMessage response = await client.SendAsync(req))
-                    {
-                        if (response.StatusCode == HttpStatusCode.Forbidden)
-                        {
-                            _notFoundCache.Add(imagename);
-                            return null;
-                        }
-
-                        byte[] data = await response.Content.ReadAsByteArrayAsync();
-
-                        await File.WriteAllBytesAsync(
-                            localImage,
-                            data
-                        );
-
-                        return localImage;
-                    }
+                    _notFoundCache.Add(imagename);
+                    return null;
                 }
+
+                await response.Download(localImage);
             }
 
+            return localImage;
         }
     }
 }

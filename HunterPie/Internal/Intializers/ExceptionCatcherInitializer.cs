@@ -8,9 +8,9 @@ namespace HunterPie.Internal.Intializers
     {
         public void Init()
         {
-            AppDomain.CurrentDomain.FirstChanceException += (_, args) =>
+            AppDomain.CurrentDomain.UnhandledException += (_, args) =>
             {
-                Log.Error(args.Exception);
+                Log.Error(args.ExceptionObject);
             };
         }
     }

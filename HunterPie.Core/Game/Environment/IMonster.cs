@@ -9,9 +9,15 @@ namespace HunterPie.Core.Game.Environment
         public int Id { get; }
         public float Health { get; }
         public float MaxHealth { get; }
+        public float Stamina { get; }
+        public float MaxStamina { get; }
         public bool IsTarget { get; }
+        public bool IsEnraged { get; }
         public Target Target { get; }
         public IMonsterPart[] Parts { get; }
+        public IMonsterAilment[] Ailments { get; }
+        public IMonsterAilment Enrage { get; }
+        public Crown Crown { get; }
 
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
@@ -24,8 +30,8 @@ namespace HunterPie.Core.Game.Environment
         public event EventHandler<EventArgs> OnHealthChange;
         public event EventHandler<EventArgs> OnStaminaChange;
         public event EventHandler<EventArgs> OnActionChange;
-        public event EventHandler<EventArgs> OnEnrage;
-        public event EventHandler<EventArgs> OnUnenrage;
-        public event EventHandler<EventArgs> OnEnrageTimerChange;
+        public event EventHandler<EventArgs> OnEnrageStateChange;
+        public event EventHandler<IMonsterPart> OnNewPartFound;
+        public event EventHandler<IMonsterAilment> OnNewAilmentFound;
     }
 }

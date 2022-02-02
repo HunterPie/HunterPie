@@ -113,8 +113,9 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         public async void FetchMonsterIcon()
         {
             IsLoadingIcon = true;
+
             string imageName = BuildIconName();
-            string imagePath = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{em}.png");
+            string imagePath = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{imageName}.png");
 
             // If file doesn't exist locally, we can check for the CDN
             if (!File.Exists(imagePath))

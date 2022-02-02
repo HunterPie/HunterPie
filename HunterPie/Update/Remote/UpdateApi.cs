@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Net;
+using System.Threading.Tasks;
 using HunterPie.Core.Client;
-using HunterPie.Internal.Http;
+using HunterPie.Core.Http;
+using HunterPie.Core.Http.Events;
 using Newtonsoft.Json;
 
 namespace HunterPie.Update.Remote
@@ -13,35 +16,49 @@ namespace HunterPie.Update.Remote
             public string LatestVersion { get; set; }
         }
 
-        const string BASE_URL = "https://api.hunterpie.com";
-        public readonly AsyncHttpRequest HttpClient = new(BASE_URL);
 
         public async Task<string> GetLatestVersion()
         {
-            string url = "/v1/version";
             
-            try
-            {
-                var res = await HttpClient.AsyncRequest(url);
+            using Poogie request = PoogieFactory.Default()
+                                    .Get("/v1/version")
+                                    .WithHeader("X-Supporter-Token", ClientConfig.Config.Client.SupporterSecretToken)
+                                    .WithTimeout(TimeSpan.FromSeconds(10))
+                                    .Build();
 
-                if (!res.Success)
-                    return null;
+            using PoogieResponse resp = await request.RequestAsync();
 
-                VersionSchema json = await res.Json<VersionSchema>();
+            if (!resp.Success)
+                return null;
 
-                return json.LatestVersion;
-            } catch { }
+            if (resp.Status != HttpStatusCode.OK)
+                return null;
 
-            return null;
+            VersionSchema schema = await resp.AsJson<VersionSchema>();
+
+            return schema.LatestVersion;
         }
 
-        public async Task DownloadVersion(string version)
+        public async Task DownloadVersion(string version, EventHandler<PoogieDownloadEventArgs> callback)
         {
-            string url = $"/v1/version/{version}";
 
-            await HttpClient.AsyncRequest(url);
+            using Poogie request = PoogieFactory.Default()
+                                    .Get($"/v1/version/{version}")
+                                    .WithHeader("X-Supporter-Token", ClientConfig.Config.Client.SupporterSecretToken)
+                                    .WithTimeout(TimeSpan.FromSeconds(10))
+                                    .Build();
 
-            await HttpClient.SaveAsFile(ClientInfo.GetPathFor(@"temp/HunterPie.zip"));
+            using PoogieResponse resp = await request.RequestAsync();
+
+            if (!resp.Success)
+                return;
+
+            if (resp.Status != HttpStatusCode.OK)
+                return;
+
+            resp.OnDownloadProgressChanged += callback;
+            await resp.Download(ClientInfo.GetPathFor(@"temp/HunterPie.zip"));
+            resp.OnDownloadProgressChanged -= callback;
         }
     }
 }

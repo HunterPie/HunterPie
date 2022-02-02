@@ -6,12 +6,16 @@
     <UseWPF>true</UseWPF>
 	<UseWindowsForms>true</UseWindowsForms>
     <StartupObject></StartupObject>
-	<Version>2.0.4.0</Version>
-	<AssemblyVersion>2.0.5.*</AssemblyVersion>
+	<Version>2.0.10.0</Version>
+	<AssemblyVersion>2.0.10.*</AssemblyVersion>
 	<Deterministic>false</Deterministic>
 	<ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
 	<Authors>Haato</Authors>
-	<FileVersion>2.0.5.0</FileVersion>
+	<FileVersion>2.0.10.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE;DEPLOY</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -99,5 +103,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="del &quot;$(TargetDir)*.pdb&quot; /q&#xD;&#xA;del &quot;$(TargetDir)\ref&quot; /q&#xD;&#xA;rmdir &quot;$(TargetDir)\ref&quot;&#xD;&#xA;del &quot;$(TargetDir)*.dev.json&quot; /q" />
+  </Target>
 
 </Project>

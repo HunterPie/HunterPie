@@ -19,6 +19,8 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
                 IsTarget = true,
             });
             
+            foreach (BossMonsterViewModel vm in Monsters)
+                vm.FetchMonsterIcon();
         }
     }
 }

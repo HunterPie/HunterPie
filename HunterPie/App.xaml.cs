@@ -1,17 +1,10 @@
 ﻿using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Game;
 using HunterPie.Core.Logger;
-using HunterPie.Core.System.Windows;
-using HunterPie.Internal.Logger;
 using System;
 using System.Windows;
 using System.Windows.Threading;
-using HunterPie.UI.Logger;
 using System.Diagnostics;
-using HunterPie.Domain.Logger;
-using HunterPie.Core.Domain.Dialog;
-using HunterPie.UI.Dialog;
-using HunterPie.Core.Game.Data;
 using HunterPie.Core.Client;
 using HunterPie.Core.System;
 using HunterPie.Internal;
@@ -25,6 +18,7 @@ using System.Collections.Generic;
 using HunterPie.Update;
 using HunterPie.Update.Presentation;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace HunterPie
 {
@@ -40,7 +34,7 @@ namespace HunterPie
 
         protected override async void OnStartup(StartupEventArgs e)
         {
-            
+            CheckForRunningInstances();
 
             base.OnStartup(e);
 
@@ -58,6 +52,16 @@ namespace HunterPie
             
         }
 
+        private void CheckForRunningInstances()
+        {
+            Process[] processes = Process.GetProcessesByName("HunterPie")
+                .Where(p => p.Id != Environment.ProcessId)
+                .ToArray();
+
+            foreach (Process process in processes)
+                process.Kill();
+        }
+
         private async Task SelfUpdate()
         {
             if (!ClientConfig.Config.Client.EnableAutoUpdate)
@@ -66,12 +70,14 @@ namespace HunterPie
             UpdateViewModel vm = new();
             UpdateView view = new() { DataContext = vm };
             view.Show();
-            
+
             bool result = await UpdateUseCase.Exec(vm);
+
             view.Close();
-            
+
             if (result)
                 Restart();
+
         }
 
         private void InitializeProcessScanners()
@@ -95,6 +101,8 @@ namespace HunterPie
 
             UnhookEvents();
             _richPresence?.Dispose();
+
+            _context.Stop();
 
             _process = null;
             _context = null;
@@ -147,9 +155,9 @@ namespace HunterPie
         protected override void OnExit(ExitEventArgs e)
         {
             if (e.ApplicationExitCode == 0)
-            {
                 ConfigManager.SaveAll();
-            }
+
+            InitializerManager.Unload();
             base.OnExit(e);
         }
 

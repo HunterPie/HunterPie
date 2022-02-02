@@ -95,6 +95,9 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
             timeout.Dispose();
         }
 
-        public void Dispose() => DisposeResources();
+        public void Dispose()
+        {
+            DisposeResources();
+        }
     }
 }

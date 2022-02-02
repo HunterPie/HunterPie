@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Http.Events;
 using HunterPie.Core.Logger;
 using HunterPie.Update.Remote;
 using System;
@@ -30,11 +31,9 @@ namespace HunterPie.Update
             return parsed;
         }
 
-        public async Task DownloadZip(EventHandler<DownloadProgressChangedEventArgs> callback)
+        public async Task DownloadZip(EventHandler<PoogieDownloadEventArgs> callback)
         {
-            api.HttpClient.OnDownloadProgressChanged += callback;
-            await api.DownloadVersion(latest);
-            api.HttpClient.OnDownloadProgressChanged -= callback;
+            await api.DownloadVersion(latest, callback);
         }
 
         public bool ExtractZip()
@@ -49,6 +48,7 @@ namespace HunterPie.Update
             catch (Exception err)
             {
                 Log.Error(err);
+                Directory.Delete(ClientInfo.GetPathFor("temp"), true);
                 return false;
             }
 
@@ -151,7 +151,8 @@ namespace HunterPie.Update
                         directories.Push(entry);
                     else
                         if (entry.EndsWith(".old"))
-                            File.Delete(entry);
+                            try { File.Delete(entry); }
+                            catch(Exception err) { Log.Error(err); }
 
                 }
             }

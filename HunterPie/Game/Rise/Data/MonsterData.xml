@@ -4,8 +4,24 @@
 	Special thanks to wwylele for creating it, checkout his work at: https://github.com/wwylele/mhrice/
 -->
 <GameData>
+	<Ailments>
+		<Ailment Id="-1" String="AILMENT_UNKNOWN"/>
+		<Ailment Id="0" String="AILMENT_PARALYSIS"/>
+		<Ailment Id="1" String="AILMENT_SLEEP"/>
+		<Ailment Id="2" String="AILMENT_STUN"/>
+		<Ailment Id="3" String="AILMENT_FLASH"/>
+		<Ailment Id="4" String="AILMENT_POISON"/>
+		<Ailment Id="5" String="AILMENT_BLAST"/>
+		<Ailment Id="6" String="AILMENT_EXHAUST"/>
+		<Ailment Id="7" String="AILMENT_MOUNT"/>
+		<Ailment Id="8" String="AILMENT_WATER"/>
+		<Ailment Id="9" String="AILMENT_FIRE"/>
+		<Ailment Id="10" String="AILMENT_ICE"/>
+		<Ailment Id="11" String="AILMENT_THUNDER"/>
+	</Ailments>
 	<Monsters>
-		<Monster Id="0">
+		<Monster Id="0"
+				 Size="1754.37">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -18,7 +34,11 @@
 				<Part Id="8" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="1">
+		<Monster Id="1"
+				 Size="2017.53">
+			<Crowns Mini="0.96"
+					Silver="1.1"
+					Gold="1.14"/>
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -31,7 +51,8 @@
 				<Part Id="8" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="2">
+		<Monster Id="2"
+				 Size="1704.22">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -45,7 +66,10 @@
 				<Part Id="9" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="3">
+		<Monster Id="3"
+				 Size="1874.64">
+			<Crowns Mini="0.97"
+					Silver="1.17"/>
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -59,7 +83,10 @@
 				<Part Id="9" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="4">
+		<Monster Id="4"
+				 Size="881.28">
+			<Crowns Silver="1.09"
+					Gold="1.14"/>
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -73,7 +100,8 @@
 				<Part Id="9" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="5">
+		<Monster Id="5"
+				 Size="1413.01">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -87,7 +115,8 @@
 				<Part Id="9" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="6">
+		<Monster Id="6"
+				 Size="2096.25">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -100,7 +129,10 @@
 				<Part Id="8" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="7">
+		<Monster Id="7"
+				 Size="2270.94">
+			<Crowns Mini="0.97"
+					Silver="1.17"/>
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -113,7 +145,10 @@
 				<Part Id="8" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="8">
+		<Monster Id="8"
+				 Size="845.91">
+			<Crowns Mini="0.97"
+					Silver="1.17"/>
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -126,7 +161,10 @@
 				<Part Id="8" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="9">
+		<Monster Id="9"
+				 Size="1913.13">
+			<Crowns Mini="0.97"
+					Silver="1.17"/>
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -138,7 +176,10 @@
 				<Part Id="7" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="10">
+		<Monster Id="10"
+				 Size="2249.06">
+			<Crowns Mini="0.97"
+					Silver="1.17"/>
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -152,7 +193,10 @@
 				<Part Id="9" String="PART_WINGS"/>
 			</Parts>
 		</Monster>
-		<Monster Id="11">
+		<Monster Id="11"
+				 Size="1790.15">
+			<Crowns Mini="0.97"
+					Silver="1.17"/>
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -164,7 +208,8 @@
 				<Part Id="7" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="12">
+		<Monster Id="12"
+				 Size="1941.89">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -177,7 +222,8 @@
 				<Part Id="8" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="13">
+		<Monster Id="13"
+				 Size="1914.14">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -191,7 +237,8 @@
 				<Part Id="9" String="PART_R_H_LEG"/>
 			</Parts>
 		</Monster>
-		<Monster Id="14">
+		<Monster Id="14"
+				 Size="2091">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -204,7 +251,8 @@
 				<Part Id="8" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="15">
+		<Monster Id="15"
+				 Size="1383.07">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -222,7 +270,8 @@
 				<Part Id="13" String="PART_TAIL_MUD"/>
 			</Parts>
 		</Monster>
-		<Monster Id="16">
+		<Monster Id="16"
+				 Size="1529.26">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -234,7 +283,8 @@
 				<Part Id="7" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="17">
+		<Monster Id="17"
+				 Size="1017.65">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -243,7 +293,8 @@
 				<Part Id="4" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="18">
+		<Monster Id="18"
+				 Size="1540.66">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -257,7 +308,10 @@
 				<Part Id="9" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="19">
+		<Monster Id="19"
+				 Size="1540.66">
+			<Crowns Mini="0.97"
+					Silver="1.17"/>
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -271,7 +325,8 @@
 				<Part Id="9" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="20">
+		<Monster Id="20"
+				 Size="935.98">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -280,7 +335,8 @@
 				<Part Id="4" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="21">
+		<Monster Id="21"
+				 Size="558.1">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -291,7 +347,11 @@
 				<Part Id="6" String="PART_LOWER_BODY"/>
 			</Parts>
 		</Monster>
-		<Monster Id="22">
+		<Monster Id="22"
+				 Size="710.3">
+			<Crowns Mini="0.96"
+					Silver="1.03"
+					Gold="1.05"/>
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -302,7 +362,8 @@
 				<Part Id="6" String="PART_LOWER_BODY"/>
 			</Parts>
 		</Monster>
-		<Monster Id="23">
+		<Monster Id="23"
+				 Size="525.11">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -313,7 +374,8 @@
 				<Part Id="6" String="PART_LOWER_BODY"/>
 			</Parts>
 		</Monster>
-		<Monster Id="24">
+		<Monster Id="24"
+				 Size="687.29">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -325,7 +387,8 @@
 				<Part Id="7" String="PART_ROLLING"/>
 			</Parts>
 		</Monster>
-		<Monster Id="25">
+		<Monster Id="25"
+				 Size="1832.1">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -339,7 +402,11 @@
 				<Part Id="9" String="PART_DORSAL_FIN"/>
 			</Parts>
 		</Monster>
-		<Monster Id="26">
+		<Monster Id="26"
+				 Size="2198.52">
+			<Crowns Mini="0.96"
+					Silver="1.1"
+					Gold="1.14"/>
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -353,7 +420,10 @@
 				<Part Id="9" String="PART_DORSAL_FIN"/>
 			</Parts>
 		</Monster>
-		<Monster Id="27">
+		<Monster Id="27"
+				 Size="2040.98">
+			<Crowns Silver="1.11"
+					Gold="1.17"/>
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -368,7 +438,8 @@
 				<Part Id="10" String="PART_CHEST"/>
 			</Parts>
 		</Monster>
-		<Monster Id="28">
+		<Monster Id="28"
+				 Size="1820.89">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -381,7 +452,10 @@
 				<Part Id="8" String="PART_H_LEGS"/>
 			</Parts>
 		</Monster>
-		<Monster Id="29">
+		<Monster Id="29"
+				 Size="924.79">
+			<Crowns Silver="1.09"
+					Gold="1.14"/>
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -394,7 +468,11 @@
 				<Part Id="8" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="30">
+		<Monster Id="30"
+				 Size="998.33">
+			<Crowns Mini="0.765"
+					Silver="0.9775"
+					Gold="1.0455"/>
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -407,7 +485,8 @@
 				<Part Id="8" String="PART_LEGS"/>
 			</Parts>
 		</Monster>
-		<Monster Id="31">
+		<Monster Id="31"
+				 Size="964.99">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -421,7 +500,8 @@
 				<Part Id="9" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="32">
+		<Monster Id="32"
+				 Size="1545">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -434,7 +514,8 @@
 				<Part Id="9" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="33">
+		<Monster Id="33"
+				 Size="856.93">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -453,7 +534,8 @@
 				<Part Id="14" String="PART_CHEST"/>
 			</Parts>
 		</Monster>
-		<Monster Id="34">
+		<Monster Id="34"
+				 Size="2694.5">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -468,7 +550,8 @@
 				<Part Id="10" String="PART_MUD_BALL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="35">
+		<Monster Id="35"
+				 Size="3068.6">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -483,7 +566,8 @@
 				<Part Id="10" String="PART_BACK_WINDSAC"/>
 			</Parts>
 		</Monster>
-		<Monster Id="36">
+		<Monster Id="36"
+				 Size="730.97">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -498,7 +582,8 @@
 				<Part Id="10" String="PART_TORSO"/>
 			</Parts>
 		</Monster>
-		<Monster Id="37">
+		<Monster Id="37"
+				 Size="1075.1">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -508,7 +593,8 @@
 				<Part Id="5" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="38">
+		<Monster Id="38"
+				 Size="3875.05">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -523,7 +609,8 @@
 				<Part Id="10" String="PART_CHEST"/>
 			</Parts>
 		</Monster>
-		<Monster Id="39">
+		<Monster Id="39"
+				 Size="3875.05">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -538,7 +625,8 @@
 				<Part Id="10" String="PART_CHEST"/>
 			</Parts>
 		</Monster>
-		<Monster Id="40">
+		<Monster Id="40"
+				 Size="1646.46">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -551,7 +639,8 @@
 				<Part Id="8" String="PART_R_WING"/>
 			</Parts>
 		</Monster>
-		<Monster Id="41">
+		<Monster Id="41"
+				 Size="1102.45">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -564,7 +653,8 @@
 				<Part Id="8" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="42">
+		<Monster Id="42"
+				 Size="901.24">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -576,7 +666,8 @@
 				<Part Id="7" String="PART_POT"/>
 			</Parts>
 		</Monster>
-		<Monster Id="43">
+		<Monster Id="43"
+				 Size="901.24">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -592,7 +683,8 @@
 				<Part Id="11" String="PART_TAIL_MUD"/>
 			</Parts>
 		</Monster>
-		<Monster Id="44">
+		<Monster Id="44"
+				 Size="1300.52">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>
@@ -604,7 +696,8 @@
 				<Part Id="7" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="45">
+		<Monster Id="45"
+				 Size="1928.38">
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN"/>
 				<Part Id="1" String="PART_UNKNOWN"/>

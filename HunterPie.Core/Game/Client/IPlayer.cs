@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Game.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace HunterPie.Core.Game.Client
 {
@@ -9,6 +10,7 @@ namespace HunterPie.Core.Game.Client
         public int HighRank { get; }
         public int StageId { get; }
         public Weapon WeaponId { get; }
+        public List<IPartyMember> Party { get; }
 
         public event EventHandler<EventArgs> OnLogin;
         public event EventHandler<EventArgs> OnLogout;

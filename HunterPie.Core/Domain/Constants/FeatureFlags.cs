@@ -7,5 +7,6 @@
         public const string FEATURE_USER_ACCOUNT = "feature_enable_user_account";
 
         public const string FEATURE_ADVANCED_DEV = "feature_enable_advanced_dev";
+        public const string FEATURE_REDIRECT_POOGIE = "feature_enable_poogie_redirect";
     }
 }

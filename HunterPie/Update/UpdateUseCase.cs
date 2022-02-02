@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Domain.Dialog;
+using HunterPie.Core.Logger;
 using HunterPie.Update.Presentation;
 using System;
 using System.Threading.Tasks;
@@ -21,27 +22,35 @@ namespace HunterPie.Update
                 return false;
 
             vm.State = "New version found";
-            var result = DialogManager.Warn(
-                "Update",
-                "There's a new version of HunterPie.\nDo you want to update now?",
-                NativeDialogButtons.Accept | NativeDialogButtons.Reject
-            );
 
-            if (result != NativeDialogResult.Accept)
-                return false;
+            if (ClientConfig.Config.Client.EnableAutoUpdateConfirmation)
+            {
+                var result = DialogManager.Warn(
+                    "Update",
+                    $"Version v{latest} is now available.\nDo you want to update now?",
+                    NativeDialogButtons.Accept | NativeDialogButtons.Reject
+                );
+
+                if (result != NativeDialogResult.Accept)
+                    return false;
+            }
 
             vm.State = "Downloading package...";
             await service.DownloadZip((_, args) =>
             {
-                vm.DownloadedBytes = args.BytesReceived;
-                vm.TotalBytes = args.TotalBytesToReceive;
+                vm.DownloadedBytes = args.BytesDownloaded;
+                vm.TotalBytes = args.TotalBytes;
             });
 
             vm.State = "Calculating file hashes...";
             var localFiles = await service.IndexAllFilesRecursively(ClientInfo.ClientPath);
 
             vm.State = "Extracting package...";
-            service.ExtractZip();
+            if (!service.ExtractZip())
+            {
+                Log.Error("Failed to extract package");
+                return false;
+            }
             var remoteFiles = await service.IndexAllFilesRecursively(ClientInfo.GetPathFor(@"temp/HunterPie"));
 
             vm.State = "Replacing old files";

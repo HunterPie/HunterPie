@@ -1,5 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Strings lang="English">
+	<Ailments>
+		<Rise>
+			<Ailment Id="AILMENT_UNKNOWN" String="Unknown"/>
+			<Ailment Id="AILMENT_PARALYSIS" String="Paralysis"/>
+			<Ailment Id="AILMENT_SLEEP" String="Sleep"/>
+			<Ailment Id="AILMENT_STUN" String="Stun"/>
+			<Ailment Id="AILMENT_POISON" String="Poison"/>
+			<Ailment Id="AILMENT_BLAST" String="Blast"/>
+			<Ailment Id="AILMENT_EXHAUST" String="Exhaust"/>
+			<Ailment Id="AILMENT_MOUNT" String="Mount"/>
+			<Ailment Id="AILMENT_FLASH" String="Flash"/>
+			<Ailment Id="AILMENT_WATER" String="Waterblight"/>
+			<Ailment Id="AILMENT_FIRE" String="Fireblight"/>
+			<Ailment Id="AILMENT_ICE" String="Iceblight"/>
+			<Ailment Id="AILMENT_THUNDER" String="Thunderblight"/>
+			<Ailment Id="STATUS_ENRAGE" String="Enrage"/>
+		</Rise>
+	</Ailments>
 	<Monsters>
 		<Shared>
 			<Part Id="PART_UNKNOWN" String="???"/>
@@ -117,6 +135,7 @@
 			<Stage Id="3" String="Gathering Hub"/>
 			<Stage Id="4" String="Hub Prep Plaza"/>
 			<Stage Id="5" String="Training Area"/>
+			<Stage Id="199" String="Character Selection"/>
 			<Stage Id="201" String="Shrine Ruins"/>
 			<Stage Id="202" String="Sandy Plains"/>
 			<Stage Id="203" String="Flooded Forest"/>
@@ -148,10 +167,31 @@
 			<Generic Id="HUNTERPIE_NOT_LATEST_VERSION"
 					 String="There's a new version of HunterPie available!"/>
 		</Generics>
+		<Integrations>
+			<Discord Id="DRPC_RISE_CHARACTER_STRING_FORMAT"
+					 String="{Character} | HR: {HighRank}"/>
+			<Discord Id="DRPC_RISE_STATE_MAIN_MENU"
+					 String="In Main Menu"/>
+			<Discord Id="DRPC_RISE_STATE_IDLE"
+					 String="Chilling"/>
+			<Discord Id="DRPC_RISE_STATE_PRACTICE"
+					 String="Practicing"/>
+			<Discord Id="DRPC_RISE_STATE_RAMPAGE"
+					 String="In Rampage"/>
+			<Discord Id="DRPC_RISE_STATE_CHAR_SELECTION"
+					 String="Selecting character"/>
+			<Discord Id="DRPC_RISE_STATE_EXPLORING"
+					 String="Exploring"/>
+			<Discord Id="DRPC_RISE_STATE_HUNTING"
+					 String="Hunting {Monster} ({Percentage}%)"/>
+		</Integrations>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
 					 String="Client"
 					 Description="Client configurations"/>
+			<Setting Id="DISCORD_RPC_STRING"
+					 String="Discord Presence"
+					 Description="Discord Rich Presence configurations"/>
 			<Setting Id="OVERLAY_STRING"
 					 String="Overlay"
 					 Description="Overlay configurations"/>
@@ -165,6 +205,12 @@
 			<Setting Id="ENABLE_SELF_UPDATE"
 					 String="Enable self update"
 					 Description="If enabled, HunterPie will automatically update itself to the latest version."/>
+			<Setting Id="ENABLE_SELF_UPDATE_CONFIRMATION"
+					 String="Show self update confirmation"
+					 Description="If enabled, HunterPie will ask permission to self update."/>
+			<Setting Id="SUPPORTER_SECRET_TOKEN_STRING"
+					 String="Supporter token"
+					 Description="Supporter token for getting beta updates."/>
 			<Setting Id="LANGUAGE_STRING"
 					 String="Language"
 					 Description="HunterPie's default localization"/>
@@ -174,10 +220,23 @@
 			<Setting Id="RENDERING_STRATEGY_STRING"
 					 String="Rendering Strategy"
 					 Description="HunterPie's default rendering strategy. Software will use your CPU to render the overlay, Hardware will use your Graphics Card."/>
+			<Setting Id="POLLING_RATE_STRING"
+					 String="Memory scan delay (milliseconds)"
+					 Description="The delay for HunterPie's scanner, setting this to a low number will make HunterPie extremely smooth, however, will use more CPU."/>
 			<Setting Id="DEV_ENABLE_FEATURE_FLAG"
 					 String="Enable development feature flags"
 					 Description="If enabled, HunterPie will allow you to enable Feature Flags for in-development features."/>
 
+			<Setting Id="DRPC_ENABLE_RICH_PRESENCE"
+					 String="Enable Discord Rich Presence"
+					 Description="If enabled, HunterPie will display your activity in your Discord status."/>
+			<Setting Id="DRPC_ENABLE_SHOW_CHARACTER_INFO"
+					 String="Show character information"
+					 Description="If enabled, HunterPie will display your character name and High Rank in your Discord status."/>
+			<Setting Id="DRPC_ENABLE_SHOW_MONSTER_HEALTH"
+					 String="Show target monster health"
+					 Description="If enabled, HunterPie will display the target monster's health in your Discord status when available."/>
+			
 			<Setting Id="OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE"
 					 String="[Hot Key] Toggle Design Mode"
 					 Description="Hot Key to toggle design mode on and off."/>
@@ -197,14 +256,30 @@
 			<Setting Id="WIDGET_SCALE"
 					 String="Widget scale"
 					 Description="Controls this widget linear scale, the higher the value, the bigger the widget will be."/>
+			
+			<Setting Id="MONSTER_WIDGET_ENABLE_STAMINA_STRING"
+					 String="Enable monster stamina"
+					 Description="If enabled, HunterPie will show the monster stamina under it's health bar."/>
 			<Setting Id="MONSTER_WIDGET_MAX_WIDTH_STRING"
 					 String="Monster widget maximum width"
 					 Description="Controls the maximum width for the monsters health bar."/>
+			<Setting Id="MONSTER_WIDGET_ENABLE_PARTS_STRING"
+					 String="Enable monster parts"
+					 Description="If enabled, monster parts will be enabled."/>
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_PARTS_STRING"
 					 String="Automatically hide monster parts"
 					 Description="If enabled, inactive monster parts will be hidden after X seconds."/>
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_PARTS_DELAY_STRING"
 					 String="Delay to hide inactive parts"
+					 Description="Delay to be waited to hide a part that has become inactive."/>
+			<Setting Id="MONSTER_WIDGET_ENABLE_AILMENTS_STRING"
+					 String="Enable monster ailments"
+					 Description="If enabled, monster ailments will be enabled."/>
+			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_STRING"
+					 String="Automatically hide monster ailments"
+					 Description="If enabled, inactive monster parts will be hidden after X seconds."/>
+			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING"
+					 String="Delay to hide inactive ailments"
 					 Description="Delay to be waited to hide a part that has become inactive."/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
@@ -213,6 +288,8 @@
 					 String="Developer: Mock Damage Meter widget"/>
 			<Setting Id="DEV_MOCK_ABNORMALITY_WIDGET_STRING"
 					 String="Developer: Mock Abnormalities widget"/>
+			<Setting Id="DEV_POOGIE_API_HOST_STRING"
+					 String="Developer: Poogie API Host"/>
 		</Settings>
 	</Client>
 </Strings>

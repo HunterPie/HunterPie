@@ -7,17 +7,11 @@ using HunterPie.Core.Logger;
 using HunterPie.Internal;
 using HunterPie.UI.Overlay.Widgets.Damage.View;
 using System.Windows.Input;
-using System.Diagnostics;
 using HunterPie.UI.Overlay.Widgets.Monster.Views;
 using HunterPie.Core.Client;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Damage.ViewModel;
 using HunterPie.Internal.Tray;
-using HunterPie.Update.Presentation;
-using HunterPie.Update;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.IO;
 
 namespace HunterPie
 {
@@ -43,7 +37,6 @@ namespace HunterPie
                 e.Cancel = true;
                 return;
             }
-            InitializerManager.Unload();
 
             base.OnClosing(e);
         }

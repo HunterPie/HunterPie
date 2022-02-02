@@ -10,5 +10,6 @@ namespace HunterPie.Core.Domain.Memory
         public long ReadPtr(long address, int[] offsets);
         public long Read(long address, int[] offsets);
         public T Deref<T>(long address, int[] offsets) where T : struct;
+        public T DerefPtr<T>(long address, int[] offsets) where T : struct;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Client;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
@@ -19,6 +20,7 @@ namespace HunterPie.Core.Game.Rise
 
         // TODO: Could probably turn this into a bit mask with 256 bits
         private HashSet<int> MonsterAreas = new() { 5, 201, 202, 203, 204, 205, 207, 209, 210, 211};
+        private bool _isGameRunning = true;
 
         public IPlayer Player { get; }
         public List<IMonster> Monsters { get; } = new();
@@ -94,7 +96,7 @@ namespace HunterPie.Core.Game.Rise
         {
             Task.Factory.StartNew(async () =>
             {
-                while (true)
+                while (_isGameRunning)
                 {
                     (Player as Scannable).Scan();
 
@@ -104,9 +106,11 @@ namespace HunterPie.Core.Game.Rise
 
                     Scan();
 
-                    await Task.Delay(100);
+                    await Task.Delay((int)ClientConfig.Config.Client.PollingRate.Current);
                 }
             });
         }
+
+        internal void StopScanning() => _isGameRunning = false;
     }
 }

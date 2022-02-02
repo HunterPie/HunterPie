@@ -8,6 +8,7 @@ using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Logger;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace HunterPie.Core.Game.World.Entities
@@ -112,6 +113,8 @@ namespace HunterPie.Core.Game.World.Entities
         int IPlayer.HighRank => throw new NotImplementedException();
 
         public int StageId => throw new NotImplementedException();
+
+        public List<IPartyMember> Party => throw new NotImplementedException();
         #endregion
 
         public event EventHandler<EventArgs> OnLogin;

@@ -12,7 +12,8 @@ namespace HunterPie.Features
             { FeatureFlags.FEATURE_NATIVE_LOGGER, new NativeLoggerFeature() },
             { FeatureFlags.FEATURE_METRICS_WIDGET, new Feature() },
             { FeatureFlags.FEATURE_USER_ACCOUNT, new Feature() },
-            { FeatureFlags.FEATURE_ADVANCED_DEV, new Feature() }
+            { FeatureFlags.FEATURE_ADVANCED_DEV, new Feature() },
+            { FeatureFlags.FEATURE_REDIRECT_POOGIE, new Feature() },
         };
 
         public IReadOnlyDictionary<string, IFeature> ReadOnlyFlags => Flags;
