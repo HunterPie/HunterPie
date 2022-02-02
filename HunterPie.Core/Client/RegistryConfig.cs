@@ -9,7 +9,7 @@ namespace HunterPie.Core.Client
 
         public static void Initialize()
         {
-            key = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\HunterPie");
+            key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HunterPie");
         }
 
         public static void Set(string name, object value) => key.SetValue(name, value);
