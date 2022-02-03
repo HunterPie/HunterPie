@@ -185,10 +185,10 @@
 				<Part Id="1" String="PART_UNKNOWN"/>
 				<Part Id="2" String="PART_HEAD"/>
 				<Part Id="3" String="PART_CHEST"/>
-				<Part Id="4" String="PART_L_H_LEG"/>
-				<Part Id="5" String="PART_R_H_LEG"/>
-				<Part Id="6" String="PART_L_FORELEG"/>
-				<Part Id="7" String="PART_R_FORELEG"/>
+				<Part Id="4" String="PART_L_FORELEG"/>
+				<Part Id="5" String="PART_R_FORELEG"/>
+				<Part Id="6" String="PART_L_H_LEG"/>
+				<Part Id="7" String="PART_R_H_LEG"/>
 				<Part Id="8" String="PART_TAIL"/>
 				<Part Id="9" String="PART_WINGS"/>
 			</Parts>
