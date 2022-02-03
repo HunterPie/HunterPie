@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Strings lang="Spanish">
+	<Ailments>
+		<Rise>
+			<Ailment Id="AILMENT_UNKNOWN" String="Unknown"/>
+			<Ailment Id="AILMENT_PARALYSIS" String="Parálisis"/>
+			<Ailment Id="AILMENT_SLEEP" String="Sueño"/>
+			<Ailment Id="AILMENT_STUN" String="Aturdir"/>
+			<Ailment Id="AILMENT_POISON" String="Veneno"/>
+			<Ailment Id="AILMENT_BLAST" String="Nitro"/>
+			<Ailment Id="AILMENT_EXHAUST" String="Cansancio"/>
+			<Ailment Id="AILMENT_MOUNT" String="Montar"/>
+			<Ailment Id="AILMENT_FLASH" String="Flash"/>
+			<Ailment Id="AILMENT_WATER" String="Plaga de agua"/>
+			<Ailment Id="AILMENT_FIRE" String="Plaga de fuego"/>
+			<Ailment Id="AILMENT_ICE" String="Plaga de hielo"/>
+			<Ailment Id="AILMENT_THUNDER" String="Plaga de rayo"/>
+			<Ailment Id="STATUS_ENRAGE" String="Enfurecer"/>
+		</Rise>
+	</Ailments>
+	<Monsters>
+		<Shared>
+			<Part Id="PART_UNKNOWN" String="???"/>
+			<Part Id="PART_HEAD" String="Cabeza"/>
+			<Part Id="PART_TORSO" String="Torso"/>
+			<Part Id="PART_L_WING" String="Ala izquierda"/>
+			<Part Id="PART_R_WING" String="Ala derecha"/>
+			<Part Id="PART_L_LEG" String="Pata izquierda"/>
+			<Part Id="PART_R_LEG" String="Pata derecha"/>
+			<Part Id="PART_TAIL" String="Cola"/>
+			<Part Id="PART_NECK" String="Cuello"/>
+			<Part Id="PART_L_ARM" String="Brazo izquierdo"/>
+			<Part Id="PART_R_ARM" String="Brazo derecho"/>
+			<Part Id="PART_BACK" String="Espalda"/>
+			<Part Id="PART_WINGS" String="Alas"/>
+			<Part Id="PART_FORELEGS" String="Pata delantera"/>
+			<Part Id="PART_H_LEGS" String="Pata trasera"/>
+			<Part Id="PART_L_CUTWING" String="Ala cuchilla izquierda"/>
+			<Part Id="PART_R_CUTWING" String="Ala cuchilla derecha"/>
+			<Part Id="PART_ARMS" String="Brazos"/>
+			<Part Id="PART_HEAD_MUD" String="Cabeza (lodo)"/>
+			<Part Id="PART_TORSO_MUD" String="Torso (lodo)"/>
+			<Part Id="PART_ARMS_MUD" String="Brazos (lodo)"/>
+			<Part Id="PART_L_LEG_MUD" String="Pata izquierda (lodo)"/>
+			<Part Id="PART_R_LEG_MUD" String="Pata derecha (lodo)"/>
+			<Part Id="PART_TAIL_MUD" String="Cola (lodo)"/>
+			<Part Id="PART_SPONGE" String="Esponja"/>
+			<Part Id="PART_L_LEGS" String="Patas izquierdas"/>
+			<Part Id="PART_R_LEGS" String="Patas derechas"/>
+			<Part Id="PART_BODY" String="Cuerpo"/>
+			<Part Id="PART_UPPER_BODY" String="Cuerpo superior"/>
+			<Part Id="PART_REAR" String="Trasero"/>
+			<Part Id="PART_LOWER_BODY" String="Cuerpo inferior"/>
+			<Part Id="PART_UPPER_BACK" String="Trasero superior"/>
+			<Part Id="PART_LOWER_BACK" String="Trasero inferior"/>
+			<Part Id="PART_ROLLING" String="Rodar"/>
+			<Part Id="PART_DORSAL_FIN" String="Aleta dorsal"/>
+			<Part Id="PART_LEGS" String="Piernas"/>
+			<Part Id="PART_SHELL" String="Caparazon"/>
+			<Part Id="PART_CLAW" String="Garra"/>
+			<Part Id="PART_L_FORELEG" String="Pata delantera izquierda"/>
+			<Part Id="PART_R_FORELEG" String="Pata delantera derecha"/>
+			<Part Id="PART_L_H_LEG" String="Pata trasera izquierda"/>
+			<Part Id="PART_R_H_LEG" String="Pata trasera derecha"/>
+			<Part Id="PART_CHEST" String="Abdomen"/>
+			<Part Id="PART_TAIL_TIP" String="Punta de la cola"/>
+			<Part Id="PART_MUD_BALL" String="Bola lodosa"/>
+			<Part Id="PART_LOWER_TORSO" String="Torso inferior"/>
+			<Part Id="PART_TAIL_WINDSAC" String="Punta cola (vesic.)"/>
+			<Part Id="PART_CHEST_WINDSAC" String="Pecho (vesicula)"/>
+			<Part Id="PART_BACK_WINDSAC" String="Espalda (vesicula)"/>
+			<Part Id="PART_L_ARM_ICE" String="Brazo izquierdo (hielo)"/>
+			<Part Id="PART_R_ARM_ICE" String="Brazo derecho (hielo)"/>
+			<Part Id="PART_B_LEG_FINS" String="Aleta de la pata trasera"/>
+			<Part Id="PART_THUNDERBALLS" String="Rayoesfera"/>
+			<Part Id="PART_ROCK" String="Roca"/>
+			<Part Id="PART_POT" String="Vasija"/>
+		</Shared>
+		<Rise>
+			<Monster Id="0" String="Rathian"/>
+			<Monster Id="1" String="Apex Rathian"/>
+			<Monster Id="2" String="Rathalos"/>
+			<Monster Id="3" String="Apex Rathalos"/>
+			<Monster Id="4" String="Khezu"/>
+			<Monster Id="5" String="Basarios"/>
+			<Monster Id="6" String="Diablos"/>
+			<Monster Id="7" String="Apex Diablos"/>
+			<Monster Id="8" String="Rajang"/>
+			<Monster Id="9" String="Kushala Daora"/>
+			<Monster Id="10" String="Chameleos"/>
+			<Monster Id="11" String="Teostra"/>
+			<Monster Id="12" String="Tigrex"/>
+			<Monster Id="13" String="Nargacuga"/>
+			<Monster Id="14" String="Barioth"/>
+			<Monster Id="15" String="Barroth"/>
+			<Monster Id="16" String="Ludroth Real"/>
+			<Monster Id="17" String="Gran Baggi"/>
+			<Monster Id="18" String="Zinogre"/>
+			<Monster Id="19" String="Apex Zinogre"/>
+			<Monster Id="20" String="Gran Wroggi"/>
+			<Monster Id="21" String="Arzuros"/>
+			<Monster Id="22" String="Apex Arzuros"/>
+			<Monster Id="23" String="Lagombi"/>
+			<Monster Id="24" String="Volvidon"/>
+			<Monster Id="25" String="Mizutsune"/>
+			<Monster Id="26" String="Apex Mizutsune"/>
+			<Monster Id="27" String="Valstrax Carmesi"/>
+			<Monster Id="28" String="Magnamalo"/>
+			<Monster Id="29" String="Bishaten"/>
+			<Monster Id="30" String="Aknosom"/>
+			<Monster Id="31" String="Tetranadon"/>
+			<Monster Id="32" String="Somnacanth"/>
+			<Monster Id="33" String="Rakna-Kadaki"/>
+			<Monster Id="34" String="Almudron"/>
+			<Monster Id="35" String="Ibushi de viento"/>
+			<Monster Id="36" String="Goss Harag"/>
+			<Monster Id="37" String="Gran Izuchi"/>
+			<Monster Id="38" String="Narwa de trueno"/>
+			<Monster Id="39" String="Narwa la creadora"/>
+			<Monster Id="40" String="Anjanath"/>
+			<Monster Id="41" String="Pukei-Pukei"/>
+			<Monster Id="42" String="Kulu-Ya-Ku"/>
+			<Monster Id="43" String="Jyuratodus"/>
+			<Monster Id="44" String="Tobi-Kadachi"/>
+			<Monster Id="45" String="Bazelgeuse"/>
+			<Monster Id="46" String="Saprobot"/>
+		</Rise>
+	</Monsters>
+	<Stages>
+		<Rise>
+			<Stage Id="-1" String="Menu principal"/>
+			<Stage Id="0" String="Aldea"/>
+			<Stage Id="1" String="Habitación"/>
+			<Stage Id="2" String="Plaza Camarada"/>
+			<Stage Id="3" String="Sala de reunión"/>
+			<Stage Id="4" String="Sala de preparación"/>
+			<Stage Id="5" String="Zona de entrenamiento"/>
+			<Stage Id="199" String="Seleccion de personaje"/>
+			<Stage Id="201" String="Templo olvidado"/>
+			<Stage Id="202" String="Lannos arenosos"/>
+			<Stage Id="203" String="Bosque inundado"/>
+			<Stage Id="204" String="Islas heladas"/>
+			<Stage Id="205" String="Grutas de lava"/>
+			<Stage Id="207" String="Fortaleza roja"/>
+			<Stage Id="209" String="Fuente infernal"/>
+			<Stage Id="210" String="Arena"/>
+			<Stage Id="211" String="Palacio coralino"/>
+		</Rise>
+	</Stages>
+
+	<Client>
+		<Tabs>
+			<Tab Id="CONSOLE_STRING"
+				 String="Consola"/>
+			<Tab Id="DISCORD_STRING"
+				 String="Discord"/>
+			<Tab Id="PATCH_NOTES_STRING"
+				 String="Notas del parche"/>
+			<Tab Id="PLUGINS_STRING"
+				 String="Plugins"/>
+			<Tab Id="SETTINGS_STRING"
+				 String="Ajustes"/>
+		</Tabs>
+		<Generics>
+			<Generic Id="HUNTERPIE_IS_LATEST_VERSION"
+					 String="¡HunterPie está actualizado!"/>
+			<Generic Id="HUNTERPIE_NOT_LATEST_VERSION"
+					 String="¡Hay una nueva versión de HunterPie disponible!"/>
+		</Generics>
+		<Integrations>
+			<Discord Id="DRPC_RISE_CHARACTER_STRING_FORMAT"
+					 String="{Character} | RC: {HighRank}"/>
+			<Discord Id="DRPC_RISE_STATE_MAIN_MENU"
+					 String="En el menú principal"/>
+			<Discord Id="DRPC_RISE_STATE_IDLE"
+					 String="Descansando"/>
+			<Discord Id="DRPC_RISE_STATE_PRACTICE"
+					 String="Practicando"/>
+			<Discord Id="DRPC_RISE_STATE_RAMPAGE"
+					 String="En el frenesí"/>
+			<Discord Id="DRPC_RISE_STATE_CHAR_SELECTION"
+					 String="Seleccionando personaje"/>
+			<Discord Id="DRPC_RISE_STATE_EXPLORING"
+					 String="Explorando"/>
+			<Discord Id="DRPC_RISE_STATE_HUNTING"
+					 String="Cazando a {Monster} ({Percentage}%)"/>
+		</Integrations>
+		<Settings>
+			<Setting Id="CLIENT_STRING"
+					 String="Cliente"
+					 Description="Ajustes del cliente"/>
+			<Setting Id="DISCORD_RPC_STRING"
+					 String="Discord Presence"
+					 Description="Ajustes de Discord Rich Presence"/>
+			<Setting Id="OVERLAY_STRING"
+					 String="Overlay"
+					 Description="Ajustes del Overlay"/>
+			<Setting Id="MONSTER_WIDGET_STRING"
+					 String="Widget de Monstruos"
+					 Description="Ajusted del Overlay"/>
+			<Setting Id="DEV_TOOLS_STRING"
+					 String="Herramientas de desarollador"
+					 Description="Herramientas avanzadas"/>
+
+			<Setting Id="ENABLE_SELF_UPDATE"
+					 String="Activar actualizaciones automáticas"
+					 Description="Al activarse, HunterPie siempre estará actualizado a la ultima versión disponible."/>
+			<Setting Id="ENABLE_SELF_UPDATE_CONFIRMATION"
+					 String="Mostrar confirmación de actualización automática"
+					 Description="Al activarse, HunterPie preguntará si deseas actualizar."/>
+			<Setting Id="SUPPORTER_SECRET_TOKEN_STRING"
+					 String="Token de mecenas"
+					 Description="Token de mecenas para recibir actualizaciones beta."/>
+			<Setting Id="LANGUAGE_STRING"
+					 String="Idioma"
+					 Description="La traducción usada por HunterPie"/>
+			<Setting Id="MINIMIZE_TO_SYSTEM_TRAY_STRING"
+					 String="Ocultar a la bandeja del sistema"
+					 Description="Al activarse, HunterPie se ocultará en la bandeja del sistema."/>
+			<Setting Id="RENDERING_STRATEGY_STRING"
+					 String="Método de renderizado"
+					 Description="El método de renderizado usado por HunterPie. Software usará tu CPU para mostrar el overlay, Hardware usará tu tarjeta de video."/>
+			<Setting Id="POLLING_RATE_STRING"
+					 String="Retraso de lectura de memoria (milisegundos)"
+					 Description="El retraso de lectura de HunterPie, a mas bajo sea el número usado mejor será la respuesta de HunterPie pero usará mas recursos del sistema."/>
+			<Setting Id="DEV_ENABLE_FEATURE_FLAG"
+					 String="Activar banderas de desarrollo"
+					 Description="Al activarse, HunterPie mostrará opciones aun en fase de desarrollo."/>
+
+			<Setting Id="DRPC_ENABLE_RICH_PRESENCE"
+					 String="Activar Discord Rich Presence"
+					 Description="Al activarse, HunterPie mostrará tu actividad en tu perfil de Discord."/>
+			<Setting Id="DRPC_ENABLE_SHOW_CHARACTER_INFO"
+					 String="Mostrar información del personaje"
+					 Description="Al activarse, HunterPie mostrará el nombre de tu personaje y su Rango de Cazador en tu perfil de Discord."/>
+			<Setting Id="DRPC_ENABLE_SHOW_MONSTER_HEALTH"
+					 String="Mostrar vida del objetivo"
+					 Description="Al activase, HunterPie mostrará la vida del monstruo principal en tu perfil de Discord."/>
+			
+			<Setting Id="OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE"
+					 String="[Hot Key] Activar modo de diseño"
+					 Description="Tecla usada para activar y desactivar el modo de diseño."/>
+			
+			<Setting Id="INITIALIZE_WIDGET_STRING"
+					 String="Iniciar widget"
+					 Description="Al activarse, HunterPie siempre mostrará este widget, desactiva la opción si prefieres no visualizar este widget."/>
+			<Setting Id="ENABLE_WIDGET_STRING"
+					 String="Mostrar widget"
+					 Description="Al activarse, HunterPie siempre mostrará este widget siempre que haya información."/>
+			<Setting Id="WIDGET_POSITION"
+					 String="Posición del widget"
+					 Description="Ajusta la posición de este widget."/>
+			<Setting Id="WIDGET_OPACITY"
+					 String="Opacidad del widget"
+					 Description="Ajusta la opacidad de este widget."/>
+			<Setting Id="WIDGET_SCALE"
+					 String="Tamaño del widget"
+					 Description="Ajusta la escala linear del widget, a más alto el valor, mayor será el tamaño del Widget."/>
+			
+			<Setting Id="MONSTER_WIDGET_ENABLE_STAMINA_STRING"
+					 String="Mostrar la resistencia del monstruo"
+					 Description="Al activarse, HunterPie mostrará la barra de resistencia del monstruo debajo de su barra de salud."/>
+			<Setting Id="MONSTER_WIDGET_MAX_WIDTH_STRING"
+					 String="Ancho del widget de monstruos."
+					 Description="Ajusta la anchura máxima de la barra de salud."/>
+			<Setting Id="MONSTER_WIDGET_ENABLE_PARTS_STRING"
+					 String="Activar partes de monstruos"
+					 Description="Al activarse, las partes de los monstruos serán mostradas"/>
+			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_PARTS_STRING"
+					 String="Ocultar automáticamente partes de los monstruos"
+					 Description="Al activarse, las partes inactivas de los monstruos serán ocultadas después de X segundos"/>
+			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_PARTS_DELAY_STRING"
+					 String="Retraso para ocultar partes inactivas"
+					 Description="Retraso para ocultar una parte que está inactiva."/>
+			<Setting Id="MONSTER_WIDGET_ENABLE_AILMENTS_STRING"
+					 String="Activar estados alterados"
+					 Description="Al activarse, se mostrarán los estados alterados de los monstruos."/>
+			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_STRING"
+					 String="Ocultar automáticamente estados alterados"
+					 Description="Al activarse, los estados alterados inactivos serán ocultados después de X segundos"/>
+			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING"
+					 String="Retraso para ocultar estados alterados"
+					 Description="Retraso para ocultar un estado alterado inactivo."/>
+
+			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
+					 String="Desarollo: Mock Monster widget"/>
+			<Setting Id="DEV_MOCK_DAMAGE_WIDGET_STRING"
+					 String="Desarollo: Mock Damage Meter widget"/>
+			<Setting Id="DEV_MOCK_ABNORMALITY_WIDGET_STRING"
+					 String="Desarollo: Mock Abnormalities widget"/>
+			<Setting Id="DEV_POOGIE_API_HOST_STRING"
+					 String="Desarollo: Poogie API Host"/>
+		</Settings>
+	</Client>
+</Strings>

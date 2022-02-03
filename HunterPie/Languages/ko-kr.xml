@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!-- 사용하면서 잘못된 부분이 있다면 수정해 주세요. -->
+
+<Strings lang="Korean">
+	<Ailments>
+		<Rise>
+			<Ailment Id="AILMENT_UNKNOWN" String="알 수 없음"/>
+			<Ailment Id="AILMENT_PARALYSIS" String="마비"/>
+			<Ailment Id="AILMENT_SLEEP" String="수면"/>
+			<Ailment Id="AILMENT_STUN" String="기절"/>
+			<Ailment Id="AILMENT_POISON" String="독"/>
+			<Ailment Id="AILMENT_BLAST" String="폭파"/>
+			<Ailment Id="AILMENT_EXHAUST" String="멸기"/>
+			<Ailment Id="AILMENT_MOUNT" String="용 조종"/>
+			<Ailment Id="AILMENT_FLASH" String="실명"/>
+			<Ailment Id="AILMENT_WATER" String="물 속성 피해"/>
+			<Ailment Id="AILMENT_FIRE" String="불 속성 피해"/>
+			<Ailment Id="AILMENT_ICE" String="얼음 속성 피해"/>
+			<Ailment Id="AILMENT_THUNDER" String="번개 속성 피해"/>
+			<Ailment Id="STATUS_ENRAGE" String="분노"/>
+		</Rise>
+	</Ailments>
+	<Monsters>
+		<Shared>
+			<Part Id="PART_UNKNOWN" String="???"/>
+			<Part Id="PART_HEAD" String="머리"/>
+			<Part Id="PART_TORSO" String="몸통"/>
+			<Part Id="PART_L_WING" String="좌측 날개"/>
+			<Part Id="PART_L_WING" String="좌측 날개"/>
+			<Part Id="PART_R_WING" String="우측 날개"/>
+			<Part Id="PART_L_LEG" String="좌측 다리"/>
+			<Part Id="PART_R_LEG" String="우측 다리"/>
+			<Part Id="PART_TAIL" String="꼬리"/>
+			<Part Id="PART_NECK" String="목"/>
+			<Part Id="PART_L_ARM" String="좌측 팔"/>
+			<Part Id="PART_R_ARM" String="우측 팔"/>
+			<Part Id="PART_BACK" String="등"/>
+			<Part Id="PART_WINGS" String="날개"/>
+			<Part Id="PART_FORELEGS" String="앞다리"/>
+			<Part Id="PART_H_LEGS" String="뒷다리"/>
+			<Part Id="PART_L_CUTWING" String="좌측 칼날개"/>
+			<Part Id="PART_R_CUTWING" String="우측 칼날개"/>
+			<Part Id="PART_ARMS" String="앞다리"/>
+			<Part Id="PART_HEAD_MUD" String="머리 (진흙)"/>
+			<Part Id="PART_TORSO_MUD" String="몸통 (진흙)"/>
+			<Part Id="PART_ARMS_MUD" String="앞다리 (진흙)"/>
+			<Part Id="PART_L_LEG_MUD" String="좌측 다리 (진흙)"/>
+			<Part Id="PART_R_LEG_MUD" String="우측 다리 (진흙)"/>
+			<Part Id="PART_TAIL_MUD" String="꼬리 (진흙)"/>
+			<Part Id="PART_SPONGE" String="스펀지"/>
+			<Part Id="PART_L_LEGS" String="좌측 다리"/>
+			<Part Id="PART_R_LEGS" String="우측 다리"/>
+			<Part Id="PART_BODY" String="몸통"/>
+			<Part Id="PART_UPPER_BODY" String="상반신"/>
+			<Part Id="PART_REAR" String="옆구리"/>
+			<Part Id="PART_LOWER_BODY" String="하반신"/>
+			<Part Id="PART_UPPER_BACK" String="등 상부"/>
+			<Part Id="PART_LOWER_BACK" String="등 하부"/>
+			<Part Id="PART_ROLLING" String="구르는 중"/>
+			<Part Id="PART_DORSAL_FIN" String="등 지느러미"/>
+			<Part Id="PART_LEGS" String="다리"/>
+			<Part Id="PART_SHELL" String="껍데기"/>
+			<Part Id="PART_CLAW" String="발톱"/>
+			<Part Id="PART_L_FORELEG" String="좌측 앞다리"/>
+			<Part Id="PART_R_FORELEG" String="우측 앞다리"/>
+			<Part Id="PART_L_H_LEG" String="좌측 뒷다리"/>
+			<Part Id="PART_R_H_LEG" String="우측 뒷다리"/>
+			<Part Id="PART_CHEST" String="복부"/>
+			<Part Id="PART_TAIL_TIP" String="꼬리 끝"/>
+			<Part Id="PART_MUD_BALL" String="진흙 공"/>
+			<Part Id="PART_LOWER_TORSO" String="몸통 하부"/>
+			<Part Id="PART_TAIL_WINDSAC" String="꼬리 부레"/>
+			<Part Id="PART_CHEST_WINDSAC" String="가슴 부레"/>
+			<Part Id="PART_BACK_WINDSAC" String="등 부레"/>
+			<Part Id="PART_L_ARM_ICE" String="좌측 팔 (얼음)"/>
+			<Part Id="PART_R_ARM_ICE" String="우측 팔 (얼음)"/>
+			<Part Id="PART_B_LEG_FINS" String="등 지느러미"/>
+			<Part Id="PART_THUNDERBALLS" String="발전 기관"/>
+			<Part Id="PART_ROCK" String="바위"/>
+			<Part Id="PART_POT" String="항아리"/>
+		</Shared>
+		<Rise>
+			<Monster Id="0" String="리오레이아"/>
+			<Monster Id="1" String="주인"/>
+			<Monster Id="2" String="리오레우스"/>
+			<Monster Id="3" String="주인 리오레우스"/>
+			<Monster Id="4" String="푸르푸르"/>
+			<Monster Id="5" String="바살모스"/>
+			<Monster Id="6" String="디아블로스"/>
+			<Monster Id="7" String="주인 디아블로스"/>
+			<Monster Id="8" String="라잔"/>
+			<Monster Id="9" String="크샬다오라"/>
+			<Monster Id="10" String="오나즈치"/>
+			<Monster Id="11" String="테오-테스카토르"/>
+			<Monster Id="12" String="티가렉스"/>
+			<Monster Id="13" String="나르가쿠르가"/>
+			<Monster Id="14" String="벨리오로스"/>
+			<Monster Id="15" String="볼보로스"/>
+			<Monster Id="16" String="로아루드로스"/>
+			<Monster Id="17" String="도스바기"/>
+			<Monster Id="18" String="진오우거"/>
+			<Monster Id="19" String="주인 진오우거"/>
+			<Monster Id="20" String="도스프로기"/>
+			<Monster Id="21" String="아오아시라"/>
+			<Monster Id="22" String="주인 아오아시라"/>
+			<Monster Id="23" String="울크스스"/>
+			<Monster Id="24" String="랑그로토라"/>
+			<Monster Id="25" String="타마미츠네"/>
+			<Monster Id="26" String="주인 타마미츠네"/>
+			<Monster Id="27" String="영묘한 광채의 발파루크"/>
+			<Monster Id="28" String="마가이마가도"/>
+			<Monster Id="29" String="비슈텐고"/>
+			<Monster Id="30" String="아케노시름"/>
+			<Monster Id="31" String="요츠미와두"/>
+			<Monster Id="32" String="이소네미쿠니"/>
+			<Monster Id="33" String="야츠카다키"/>
+			<Monster Id="34" String="오로미도로"/>
+			<Monster Id="35" String="이부시마키히코"/>
+			<Monster Id="36" String="고샤하기"/>
+			<Monster Id="37" String="오사이즈치"/>
+			<Monster Id="38" String="나루하타타히메"/>
+			<Monster Id="39" String="백룡연원 나루하타타히메"/>
+			<Monster Id="40" String="안쟈나프"/>
+			<Monster Id="41" String="푸케푸케"/>
+			<Monster Id="42" String="쿠루루야크"/>
+			<Monster Id="43" String="쥬라토도스"/>
+			<Monster Id="44" String="토비카가치"/>
+			<Monster Id="45" String="바젤기우스"/>
+			<Monster Id="46" String="개구리 훈련 모형"/>
+		</Rise>
+	</Monsters>
+	<Stages>
+		<Rise>
+			<Stage Id="-1" String="메인 메뉴"/>
+			<Stage Id="0" String="마을"/>
+			<Stage Id="1" String="집"/>
+			<Stage Id="2" String="동반자 광장"/>
+			<Stage Id="3" String="집회구역"/>
+			<Stage Id="4" String="집회소 준비구역"/>
+			<Stage Id="5" String="수련장"/>
+			<Stage Id="199" String="캐릭터 선택창"/>
+			<Stage Id="201" String="사원폐허"/>
+			<Stage Id="202" String="모래 평원"/>
+			<Stage Id="203" String="수몰된 숲"/>
+			<Stage Id="204" String="한랭 군도"/>
+			<Stage Id="205" String="용암 동굴"/>
+			<Stage Id="207" String="비취잎의 요새"/>
+			<Stage Id="209" String="옥천향"/>
+			<Stage Id="210" String="격투장"/>
+			<Stage Id="211" String="용궁 성터"/>
+		</Rise>
+	</Stages>
+
+	<Client>
+		<Tabs>
+			<Tab Id="CONSOLE_STRING"
+				 String="콘솔"/>
+			<Tab Id="DISCORD_STRING"
+				 String="디스코드"/>
+			<Tab Id="PATCH_NOTES_STRING"
+				 String="패치 내역"/>
+			<Tab Id="PLUGINS_STRING"
+				 String="플러그인"/>
+			<Tab Id="SETTINGS_STRING"
+				 String="설정"/>
+		</Tabs>
+		<Generics>
+			<Generic Id="HUNTERPIE_IS_LATEST_VERSION"
+					 String="헌터 파이가 최신 버전입니다!"/>
+			<Generic Id="HUNTERPIE_NOT_LATEST_VERSION"
+					 String="헌터 파이의 새로운 업데이트가 가능합니다!"/>
+		</Generics>
+		<Integrations>
+			<Discord Id="DRPC_RISE_CHARACTER_STRING_FORMAT"
+					 String="{Character} | HR: {HighRank}"/>
+			<Discord Id="DRPC_RISE_STATE_MAIN_MENU"
+					 String="메인 메뉴"/>
+			<Discord Id="DRPC_RISE_STATE_IDLE"
+					 String="휴식 중"/>
+			<Discord Id="DRPC_RISE_STATE_PRACTICE"
+					 String="수련장에서 연습 중"/>
+			<Discord Id="DRPC_RISE_STATE_RAMPAGE"
+					 String="백룡야행 진행 중"/>
+			<Discord Id="DRPC_RISE_STATE_CHAR_SELECTION"
+					 String="캐릭터 선택 중"/>
+			<Discord Id="DRPC_RISE_STATE_EXPLORING"
+					 String="탐색 중"/>
+			<Discord Id="DRPC_RISE_STATE_HUNTING"
+					 String="사냥 중 {Monster} ({Percentage}%)"/>
+		</Integrations>
+		<Settings>
+			<Setting Id="CLIENT_STRING"
+					 String="일반 설정"
+					 Description="본 앱의 일반 설정입니다."/>
+			<Setting Id="DISCORD_RPC_STRING"
+					 String="디스코스 프리센스"
+					 Description="디스코드 리치 프리센스 설정딥니다."/>
+			<Setting Id="OVERLAY_STRING"
+					 String="오버레이"
+					 Description="오버레이 설정"/>
+			<Setting Id="MONSTER_WIDGET_STRING"
+					 String="몬스터 위젯"
+					 Description="오버레이 설정"/>
+			<Setting Id="DEV_TOOLS_STRING"
+					 String="개발자 도구"
+					 Description="심화 개발 도구들입니다."/>
+
+			<Setting Id="ENABLE_SELF_UPDATE"
+					 String="자동 업데이트 사용"
+					 Description="옵션 활성화 시, 헌터 파이는 자동으로 최신버전으로 업데이트로 업데이트 됩니다."/>
+			<Setting Id="ENABLE_SELF_UPDATE_CONFIRMATION"
+					 String="자동 업데이트 승인"
+					 Description="옵션 활성화 시, 헌터 파이는 자동 업데이트 전 허용 여부를 물어봅니다."/>
+			<Setting Id="SUPPORTER_SECRET_TOKEN_STRING"
+					 String="서포터 토큰"
+					 Description="베타 업데이트를 위한 서포터 토큰입니다."/>
+			<Setting Id="LANGUAGE_STRING"
+					 String="언어"
+					 Description="헌터 파이의 표시 언어 설정입니다"/>
+			<Setting Id="MINIMIZE_TO_SYSTEM_TRAY_STRING"
+					 String="시스템 트레이로 최소화"
+					 Description="옵션 활성화 시, 헌터파이는 시스템 트레이로 최소화됩니다."/>
+			<Setting Id="RENDERING_STRATEGY_STRING"
+					 String="렌더링 방식"
+					 Description="헌터 파이의 렌더링 방식입니다. 소프트웨어 렌더링은 CPU를 사용하고, 하드웨어 렌더링은 그래픽 카드를 사용합니다."/>
+			<Setting Id="POLLING_RATE_STRING"
+					 String="메모리 스캔 딜레이 (ms 단위)"
+					 Description="헌터 파이 스캐너의 딜레이 설정입니다, 낮게 설정할수록 부드럽게 작동하지만, 그만큼 CPU 자원을 많이 사용합니다."/>
+			<Setting Id="DEV_ENABLE_FEATURE_FLAG"
+					 String="개발중 기능 표시를 활성화 합니다"
+					 Description="옵션 활성화 시, 개발 중인 기능을 보고 테스트할 수 있습니다."/>
+
+			<Setting Id="DRPC_ENABLE_RICH_PRESENCE"
+					 String="디스코드 리치 프리센스 활성화"
+					 Description="옵션 활성화 시, 헌터 파이는 디스코드 상태창에 활동을 표시해줍니다."/>
+			<Setting Id="DRPC_ENABLE_SHOW_CHARACTER_INFO"
+					 String="캐릭터 정보 표시"
+					 Description="옵션 활성화 시, 헌터 파이는 디스코드 상태창에 헌터랭크와 캐릭터 이름을 표시합니다."/>
+			<Setting Id="DRPC_ENABLE_SHOW_MONSTER_HEALTH"
+					 String="타겟 몬스터 체력 표시"
+					 Description="옵션 활성화 시, 헌터 파이는 디스코드 상태창에 타켓 몬스터의 체력을 표시합니다."/>
+			
+			<Setting Id="OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE"
+					 String="[단축키] 토글 디자인 모드"
+					 Description="디자인 모드를 On/Off 할 수 있는 단축키입니다."/>
+			
+			<Setting Id="INITIALIZE_WIDGET_STRING"
+					 String="위젯 사용"
+					 Description="옵션 활성화 시, 위젯을 사용합니다. 이 위젯을 원치 않는다면 옵션을 꺼두세요."/>
+			<Setting Id="ENABLE_WIDGET_STRING"
+					 String="위젯 표시"
+					 Description="옵션 활성화 시, 표시할 내용이 있다면 위젯에 표시합니다."/>
+			<Setting Id="WIDGET_POSITION"
+					 String="위젯 위치"
+					 Description="위젯의 위치를 조정합니다."/>
+			<Setting Id="WIDGET_OPACITY"
+					 String="위젯 투명도"
+					 Description="위젯의 투명도를 조정합니다."/>
+			<Setting Id="WIDGET_SCALE"
+					 String="위젯 크기"
+					 Description="위젯의 크기를 조정합니다."/>
+			
+			<Setting Id="MONSTER_WIDGET_ENABLE_STAMINA_STRING"
+					 String="몬스터 스테미나 활성화"
+					 Description="옵션 활성화 시, 헌터 파이는 몬스터의 체력 막대 아레에 스태미너 막대를 표시합니다"/>
+			<Setting Id="MONSTER_WIDGET_MAX_WIDTH_STRING"
+					 String="몬스터 위젯 가로 폭 조정"
+					 Description="몬스터 체력바의 최대 가로 폭을 설정합니다."/>
+			<Setting Id="MONSTER_WIDGET_ENABLE_PARTS_STRING"
+					 String="몬스터 부위 체력 활성화"
+					 Description="옵션 활성화 시, 몬스터의 부위 체력이 표시됩니다."/>
+			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_PARTS_STRING"
+					 String="몬스터 부위 체력 자동 숨김"
+					 Description="옵션 활성화 시, 변동이 없는 몬스터의 부위 체력이 X 초 후 숨겨집니다."/>
+			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_PARTS_DELAY_STRING"
+					 String="미변동 부위 체력 숨김 딜레이"
+					 Description="몬스터의 부위 체력이 숨겨지기 전까지 걸리는 딜레이입니다."/>
+			<Setting Id="MONSTER_WIDGET_ENABLE_AILMENTS_STRING"
+					 String="몬스터 상태이상 표시 활성화"
+					 Description="옵션 활성화 시, 몬스터에게 적용된 상태이상 종류가 표시됩니다."/>
+			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_STRING"
+					 String="몬스터 상태이상 자동 숨김"
+					 Description="옵션 활성화 시, 변동이 없는 몬스터의 상태이상 속성이 X 초 후 숨겨집니다."/>
+			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING"
+					 String="미변동 상태이상 숨김 딜레이"
+					 Description="몬스터의 미변동 상태이상 속성이 숨겨지기 전까지 걸리는 딜레이입니다."/>
+
+			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
+					 String="Developer: Mock Monster widget"/>
+			<Setting Id="DEV_MOCK_DAMAGE_WIDGET_STRING"
+					 String="Developer: Mock Damage Meter widget"/>
+			<Setting Id="DEV_MOCK_ABNORMALITY_WIDGET_STRING"
+					 String="Developer: Mock Abnormalities widget"/>
+			<Setting Id="DEV_POOGIE_API_HOST_STRING"
+					 String="Developer: Poogie API Host"/>
+		</Settings>
+	</Client>
+</Strings>
