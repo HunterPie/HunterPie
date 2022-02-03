@@ -68,7 +68,7 @@ namespace HunterPie.Core.Input
             else
             {
                 // Skip hotkeys which value is "None"
-                if (hotkey[0] == 0 && hotkey[0] == 0)
+                if (hotkey[0] == 0 && hotkey[1] == 0)
                 {
                     return 0;
                 }
