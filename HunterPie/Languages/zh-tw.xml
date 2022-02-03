@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Strings lang="Traditional Chinese">
+<Strings lang="traditional Chinese">
 	<Ailments>
 		<Rise>
 			<Ailment Id="AILMENT_UNKNOWN" String="未知狀態"/>
@@ -66,8 +66,8 @@
 			<Part Id="PART_TAIL_TIP" String="尾尖"/>
 			<Part Id="PART_MUD_BALL" String="泥球"/>
 			<Part Id="PART_LOWER_TORSO" String="下軀幹"/>
-			<Part Id="PART_TAIL_WINDSAC" String="尾部風囊"/>
-			<Part Id="PART_CHEST_WINDSAC" String="胸部風囊"/>
+			<Part Id="PART_TAIL_WINDSAC" String="尾部風袋"/>
+			<Part Id="PART_CHEST_WINDSAC" String="胸部風袋"/>
 			<Part Id="PART_BACK_WINDSAC" String="背部風袋"/>
 			<Part Id="PART_L_ARM_ICE" String="左臂（冰）"/>
 			<Part Id="PART_R_ARM_ICE" String="右臂（冰）"/>
@@ -144,7 +144,7 @@
 			<Stage Id="207" String="翡葉要塞"></Stage>
 			<Stage Id="209" String="獄泉鄉"></Stage>
 			<Stage Id="210" String="鬥技場"></Stage>
-			<Stage Id="211" String="龍宮古城"></Stage>
+			<Stage Id="211" String="龍宮要塞遺跡"></Stage>
 		</Rise>
 	</Stages>
 
@@ -236,11 +236,11 @@
 			<Setting Id="DRPC_ENABLE_SHOW_MONSTER_HEALTH"
 					 String="顯示目標魔物的血量"
 					 Description="如果啟用, 當可用時HunterPie將會在您的Discord狀態中顯示目標魔物的血量。"/>
-			
+
 			<Setting Id="OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE"
 					 String="[Hot Key] 切換編輯模式熱鍵"
 					 Description="用於打開和關閉編輯模式的熱鍵。"/>
-			
+
 			<Setting Id="INITIALIZE_WIDGET_STRING"
 					 String="初始化介面"
 					 Description="如果啟用, HunterPie將始終初始化此介面。如果您不需要此介面，請將其關閉。"/>
@@ -256,7 +256,7 @@
 			<Setting Id="WIDGET_SCALE"
 					 String="小工具介面比例"
 					 Description="調整小工具介面的線性比例，數值越高，介面就越大。"/>
-			
+
 			<Setting Id="MONSTER_WIDGET_ENABLE_STAMINA_STRING"
 					 String="魔物耐力"
 					 Description="如果啟用，HunterPie 將在其生命值條下方顯示魔物的耐力。"/>
