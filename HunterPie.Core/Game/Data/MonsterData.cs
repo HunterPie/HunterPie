@@ -90,26 +90,31 @@ namespace HunterPie.Core.Game.Data
 
             if (crowns is not null)
             {
-                float.TryParse(
-                    crowns.Attributes["Mini"]?.Value,
-                    NumberStyles.Float,
-                    CultureInfo.InvariantCulture,
-                    out mini
-                );
 
-                float.TryParse(
-                    crowns.Attributes["Silver"]?.Value,
-                    NumberStyles.Float,
-                    CultureInfo.InvariantCulture,
-                    out silver
-                );
+                if (crowns.Attributes["Mini"]?.Value is string miniValue)
+                    float.TryParse(
+                        miniValue,
+                        NumberStyles.Float,
+                        CultureInfo.InvariantCulture,
+                        out mini
+                    );
 
-                float.TryParse(
-                    crowns.Attributes["Gold"]?.Value,
-                    NumberStyles.Float,
-                    CultureInfo.InvariantCulture,
-                    out gold
-                );
+
+                if (crowns.Attributes["Silver"]?.Value is string silverValue)
+                    float.TryParse(
+                        silverValue,
+                        NumberStyles.Float,
+                        CultureInfo.InvariantCulture,
+                        out silver
+                    );
+
+                if (crowns.Attributes["Gold"]?.Value is string goldValue)
+                    float.TryParse(
+                        goldValue,
+                        NumberStyles.Float,
+                        CultureInfo.InvariantCulture,
+                        out gold
+                    );
             }
 
             return new()
