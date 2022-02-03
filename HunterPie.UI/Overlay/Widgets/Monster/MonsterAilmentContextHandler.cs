@@ -37,12 +37,18 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
 
         private void OnBuildUpUpdate(object sender, IMonsterAilment e)
         {
+            if (MaxBuildup <= 0)
+                return;
+
             MaxBuildup = e.MaxBuildUp;
             Buildup = e.BuildUp;
         }
 
         private void OnTimerUpdate(object sender, IMonsterAilment e)
         {
+            if (MaxTimer <= 0)
+                return;
+
             MaxTimer = e.MaxTimer;
             Timer = e.Timer;
         }

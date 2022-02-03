@@ -10,6 +10,9 @@ namespace HunterPie.UI.Architecture.Converters
         {
             if (value is double val)
             {
+                if (val > TimeSpan.MaxValue.TotalSeconds)
+                    return string.Empty;
+
                 TimeSpan span = TimeSpan.FromSeconds(val);
 
                 return span.ToString("mm\\:ss");
