@@ -11,6 +11,7 @@ namespace HunterPie.Core.Game.Client
         public int StageId { get; }
         public Weapon WeaponId { get; }
         public List<IPartyMember> Party { get; }
+        public IReadOnlyCollection<IAbnormality> Abnormalities { get; }
 
         public event EventHandler<EventArgs> OnLogin;
         public event EventHandler<EventArgs> OnLogout;
@@ -23,5 +24,7 @@ namespace HunterPie.Core.Game.Client
         public event EventHandler<EventArgs> OnVillageLeave;
         public event EventHandler<EventArgs> OnAilmentUpdate;
         public event EventHandler<EventArgs> OnWeaponChange;
+        public event EventHandler<IAbnormality> OnAbnormalityStart;
+        public event EventHandler<IAbnormality> OnAbnormalityEnd;
     }
 }

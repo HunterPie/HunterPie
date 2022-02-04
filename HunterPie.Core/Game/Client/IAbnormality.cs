@@ -1,10 +1,12 @@
-﻿using System;
+﻿using HunterPie.Core.Game.Enums;
+using System;
 
 namespace HunterPie.Core.Game.Client
 {
     public interface IAbnormality
     {
         public string Id { get; }
+        public AbnormalityType Type { get; }
         public float Timer { get; }
         public float MaxTimer { get; }
         public bool IsInfinite { get; }

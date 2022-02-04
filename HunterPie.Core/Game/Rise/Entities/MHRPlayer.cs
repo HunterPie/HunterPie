@@ -5,6 +5,7 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Rise.Definitions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -67,6 +68,9 @@ namespace HunterPie.Core.Game.Rise.Entities
 
         public List<IPartyMember> Party { get; } = new();
 
+        private readonly Dictionary<int, IAbnormality> abnormalities = new();
+        public IReadOnlyCollection<IAbnormality> Abnormalities => abnormalities.Values;
+
         public event EventHandler<EventArgs> OnLogin;
         public event EventHandler<EventArgs> OnLogout;
         public event EventHandler<EventArgs> OnHealthUpdate;
@@ -78,6 +82,8 @@ namespace HunterPie.Core.Game.Rise.Entities
         public event EventHandler<EventArgs> OnVillageLeave;
         public event EventHandler<EventArgs> OnAilmentUpdate;
         public event EventHandler<EventArgs> OnWeaponChange;
+        public event EventHandler<IAbnormality> OnAbnormalityStart;
+        public event EventHandler<IAbnormality> OnAbnormalityEnd;
 
         public MHRPlayer(IProcessManager process) : base(process) { }
 
@@ -213,6 +219,35 @@ namespace HunterPie.Core.Game.Rise.Entities
                 13 => Weapon.Bow,
                 _ => Weapon.None,
             };
+        }
+
+        [ScannableMethod]
+        private void ScanPlayerAbnormalities()
+        {
+            long songBuffsPtr = _process.Memory.Read(
+                AddressMap.GetAbsolute("HH_ABNORMALITIES_ADDRESS"), 
+                AddressMap.Get<int[]>("HH_ABNORMALITIES_OFFSETS")
+            );
+
+            uint songBuffsLength = _process.Memory.Read<uint>(songBuffsPtr + 0x1C);
+            long[] songBuffPtrs = _process.Memory.Read<long>(songBuffsPtr + 0x20, songBuffsLength);
+
+            DerefSongBuffs(songBuffPtrs);
+        }
+
+        private void DerefSongBuffs(long[] buffs)
+        {
+            int id = 0;
+            foreach (long buffPtr in buffs)
+            {
+                MHRHHAbnormality abnormality = _process.Memory.Read<MHRHHAbnormality>(buffPtr);
+
+                if (!abnormalities.ContainsKey(id))
+                    abnormalities.Add(id, new MHRSongAbnormality($"HH_{id}"));
+
+                MHRSongAbnormality abnorm = (MHRSongAbnormality)abnormalities[id];
+                abnorm.Update(abnormality);
+            }
         }
     }
 }

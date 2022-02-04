@@ -5,28 +5,28 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
-    [SettingsGroup("ABNORMALITY_WIDGET", "ICON_STOPWATCH", "feature_poggers")]
+    [SettingsGroup("ABNORMALITY_WIDGET", "ICON_STOPWATCH")]
     public class AbnormalityWidgetConfig : IWidgetSettings
     {
-        [SettingField("A", "B")]
+        [SettingField("INITIALIZE_WIDGET_STRING", requiresRestart: true)]
         public Observable<bool> Initialize { get; set; } = true;
 
-        [SettingField("A", "B")]
+        [SettingField("ENABLE_WIDGET_STRING")]
         public Observable<bool> Enabled { get; set; } = true;
 
-        [SettingField("A", "B")]
-        public Position Position { get; set; } = new(100, 100);
+        [SettingField("WIDGET_OPACITY")]
+        public Range Opacity { get; set; } = new(1, 1, 0.1, 0.1);
 
-        [SettingField("A", "B")]
-        public Range Opacity { get; set; } = new() { Current = 1, Max = 1, Min = 0, Step = 0.1 };
+        [SettingField("WIDGET_SCALE")]
+        public Range Scale { get; set; } = new(1, 2, 0.1, 0.1);
 
-        [SettingField("A", "B")]
-        public Range Scale { get; set; } = new() { Current = 1, Max = 2, Min = 0, Step = 0.1 };
-
-        [SettingField("A", "B")]
+        [SettingField("ENABLE_STREAMER_MODE")]
         public Observable<bool> StreamerMode { get; set; } = false;
 
         [SettingField("ORIENTATION", "ORIENTATION_DESC")]
         public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Horizontal;
+        
+        [SettingField("A", "B")]
+        public Position Position { get; set; } = new(100, 100);
     }
 }

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Abnormalities>
+	<Songs>
+		<Abnormality Id="0"
+					 Name="ABNORMALITY_SELF_IMPROVEMENT"/>
+		<Abnormality Id="1"
+					 Name="ABNORMALITY_ATTACK_UP"/>
+		<Abnormality Id="2"
+					 Name="ABNORMALITY_DEFENSE_UP"/>
+		<Abnormality Id="3"
+					 Name="ABNORMALITY_AFFINITY_UP"/>
+		<Abnormality Id="4"
+					 Name="ABNORMALITY_ELEMENTAL_ATTACK_UP"/>
+		<Abnormality Id="5"
+					 Name="ABNORMALITY_ATTACK_DEF_UP"/>
+		<Abnormality Id="5"
+					 Name="ABNORMALITY_ATTACK_DEF_UP"/>
+		<Abnormality Id="6"
+					 Name="ABNORMALITY_ATTACK_AFFINITY_UP"/>
+		<Abnormality Id="7"
+					 Name="ABNORMALITY_TREMORS_NEG"/>
+	</Songs>
+</Abnormalities>
