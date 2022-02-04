@@ -6,7 +6,7 @@ using HunterPie.Core.Settings.Types;
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
     [SettingsGroup("ABNORMALITY_WIDGET", "ICON_STOPWATCH")]
-    public class AbnormalityWidgetConfig : IWidgetSettings
+    public class AbnormalityWidgetConfig : IWidgetSettings, ISettings
     {
         [SettingField("INITIALIZE_WIDGET_STRING", requiresRestart: true)]
         public Observable<bool> Initialize { get; set; } = true;

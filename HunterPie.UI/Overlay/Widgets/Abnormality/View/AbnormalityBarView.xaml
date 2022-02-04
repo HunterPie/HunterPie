@@ -11,12 +11,12 @@
              mc:Ignorable="d" 
              x:TypeArguments="vm:AbnormalityBarViewModel"
              d:DesignHeight="450" 
-             d:DesignWidth="800"
-             Loaded="View_Loaded">
+             d:DesignWidth="800">
     <UserControl.Resources>
         <converter:AbnormalityStringToIconConverter x:Key="AbnormalityStringToIconConverter"/>
         <converter:OrientationToOppositeConverter x:Key="OrientationToOppositeConverter"/>
         <converter:OrientationConverter x:Key="OrientationConverter"/>
+        <converter:SecondsToTimeString x:Key="SecondsToTimeString"/>
     </UserControl.Resources>
     <Grid>
         <ItemsControl ItemsSource="{Binding Abnormalities}">
@@ -34,14 +34,21 @@
                                              Time="{Binding Timer}"
                                              MaxTime="{Binding MaxTimer}"
                                              IsBuff="{Binding IsBuff}"
-                                             Margin="2,2,5,5"
-                                             Width="25"
-                                             Height="25"/>
-                        <TextBlock Text="{Binding Timer}"
+                                             Margin="5,2,5,2"
+                                             Width="30"
+                                             Height="30"/>
+                        <TextBlock Text="{Binding Timer, Converter={StaticResource SecondsToTimeString}}"
                                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                   FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"/>
+                                   HorizontalAlignment="Center">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="Black"
+                                      BlurRadius="4" 
+                                      ShadowDepth="0"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
                     </StackPanel>
                     
                 </DataTemplate>

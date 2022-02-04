@@ -115,6 +115,8 @@ namespace HunterPie.Core.Game.World.Entities
         public int StageId => throw new NotImplementedException();
 
         public List<IPartyMember> Party => throw new NotImplementedException();
+
+        public IReadOnlyCollection<IAbnormality> Abnormalities => throw new NotImplementedException();
         #endregion
 
         public event EventHandler<EventArgs> OnLogin;
@@ -128,6 +130,8 @@ namespace HunterPie.Core.Game.World.Entities
         public event EventHandler<EventArgs> OnVillageLeave;
         public event EventHandler<EventArgs> OnAilmentUpdate;
         public event EventHandler<EventArgs> OnWeaponChange;
+        public event EventHandler<IAbnormality> OnAbnormalityStart;
+        public event EventHandler<IAbnormality> OnAbnormalityEnd;
 
         internal MHWPlayer(IProcessManager process) : base(process) { }
 

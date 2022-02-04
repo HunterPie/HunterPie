@@ -68,7 +68,7 @@ namespace HunterPie.Core.Game.Rise.Entities
 
         public List<IPartyMember> Party { get; } = new();
 
-        private readonly Dictionary<int, IAbnormality> abnormalities = new();
+        private Dictionary<int, IAbnormality> abnormalities = new();
         public IReadOnlyCollection<IAbnormality> Abnormalities => abnormalities.Values;
 
         public event EventHandler<EventArgs> OnLogin;
@@ -242,11 +242,30 @@ namespace HunterPie.Core.Game.Rise.Entities
             {
                 MHRHHAbnormality abnormality = _process.Memory.Read<MHRHHAbnormality>(buffPtr);
 
-                if (!abnormalities.ContainsKey(id))
-                    abnormalities.Add(id, new MHRSongAbnormality($"HH_{id}"));
+                // Abnormality is over
+                if (abnormalities.ContainsKey(id) && abnormality.Timer <= 0)
+                {
+                    MHRSongAbnormality abnorm = (MHRSongAbnormality)abnormalities[id];
 
-                MHRSongAbnormality abnorm = (MHRSongAbnormality)abnormalities[id];
-                abnorm.Update(abnormality);
+                    abnorm.Update(abnormality);
+
+                    abnormalities.Remove(id);
+                    this.Dispatch(OnAbnormalityEnd, abnorm);
+                } else if (abnormalities.ContainsKey(id) && abnormality.Timer > 0)
+                {
+                    MHRSongAbnormality abnorm = (MHRSongAbnormality)abnormalities[id];
+                    abnorm.Update(abnormality);
+                } else if (!abnormalities.ContainsKey(id) && abnormality.Timer > 0)
+                {
+                    MHRSongAbnormality abnorm = new MHRSongAbnormality($"HH_{id}"); ;
+                    
+                    abnormalities.Add(id, abnorm);
+
+                    abnorm.Update(abnormality);
+                    this.Dispatch(OnAbnormalityStart, abnorm);
+                }
+
+                id++;
             }
         }
     }

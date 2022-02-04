@@ -46,7 +46,7 @@
                 </local:Arc.Style>
             </local:Arc>
             <Image Source="{Binding Icon, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Abnormality}}, FallbackValue={StaticResource ICON_ELEATTACKUP}}"
-                   Margin="2"/>
+                   Margin="4"/>
         </Grid>
     </StackPanel>
 </UserControl>

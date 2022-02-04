@@ -19,6 +19,7 @@ using HunterPie.Update;
 using HunterPie.Update.Presentation;
 using System.Threading.Tasks;
 using System.Linq;
+using HunterPie.UI.Overlay.Widgets.Abnormality;
 
 namespace HunterPie
 {
@@ -139,6 +140,9 @@ namespace HunterPie
 
                 if (ClientConfig.Config.Overlay.BossesWidget.Initialize)
                     handlers.Add(new MonsterWidgetContextHandler(context));
+
+                if (ClientConfig.Config.Overlay.AbnormalityWidget.Initialize)
+                    handlers.Add(new AbnormalityWidgetContextHandler(context));
 
                 contextHandlers.AddRange(handlers);
             });

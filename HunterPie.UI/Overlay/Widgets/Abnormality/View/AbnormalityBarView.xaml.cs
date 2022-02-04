@@ -33,67 +33,7 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality.View
         }
 
         public string Title => "Abnormality Widget";
-
         public AbnormalityWidgetConfig Settings => ClientConfig.Config.Overlay.AbnormalityWidget;
-
         public WidgetType Type => WidgetType.ClickThrough;
-
-
-        #region Mock
-        private void View_Loaded(object sender, RoutedEventArgs e)
-        {
-            List<AbnormalityViewModel> vms = new()
-            {
-                new()
-                {
-                    Icon = "ICON_ATTACKUP",
-                    Timer = 100.0,
-                    MaxTimer = 100.0,
-                    IsBuff = true
-                },
-                new()
-                {
-                    Icon = "ICON_EFFLUVIA",
-                    Timer = 100.0,
-                    MaxTimer = 200.0,
-                    IsBuff = false
-                },
-                new()
-                {
-                    Icon = "ICON_NATURALHEALING",
-                    Timer = 300.0,
-                    MaxTimer = 420.0,
-                    IsBuff = true
-                },
-                new()
-                {
-                    Icon = "ICON_ALLRESUP",
-                    Timer = 100.0,
-                    MaxTimer = 200.0,
-                    IsBuff = true
-                }
-            };
-
-            foreach (var abnorm in vms)
-                ViewModel.Abnormalities.Add(abnorm);
-            
-            var updater = new DispatcherTimer()
-            {
-                Interval = TimeSpan.FromSeconds(1)
-            };
-            updater.Tick += (_, __) =>
-            {
-                foreach (var abnorm in ViewModel.Abnormalities)
-                {
-                    if (abnorm.Timer <= 0.0)
-                        abnorm.Timer = abnorm.MaxTimer;
-
-                    abnorm.Timer -= 1.0;
-                }
-                    
-            };
-            updater.Start();
-        }
-        #endregion
     }
 }
