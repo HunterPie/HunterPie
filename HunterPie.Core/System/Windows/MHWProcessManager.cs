@@ -13,7 +13,7 @@ namespace HunterPie.Core.System.Windows
         protected override bool ShouldOpenProcess(Process process)
         {
             // If our process is in either another window, or not initialized yet
-            if (!process.MainWindowTitle.ToUpper().StartsWith("MONSTER HUNTER: WORLD"))
+            if (!process.MainWindowTitle.ToUpperInvariant().StartsWith("MONSTER HUNTER: WORLD"))
                 return false;
 
             string version = process.MainWindowTitle.Split('(')[1].Trim(')');
