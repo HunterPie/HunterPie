@@ -6,6 +6,7 @@ namespace HunterPie.Core.Game.Client
     public interface IAbnormality
     {
         public string Id { get; }
+        public string Icon { get; }
         public AbnormalityType Type { get; }
         public float Timer { get; }
         public float MaxTimer { get; }

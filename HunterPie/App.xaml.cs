@@ -141,8 +141,8 @@ namespace HunterPie
                 if (ClientConfig.Config.Overlay.BossesWidget.Initialize)
                     handlers.Add(new MonsterWidgetContextHandler(context));
 
-                if (ClientConfig.Config.Overlay.AbnormalityWidget.Initialize)
-                    handlers.Add(new AbnormalityWidgetContextHandler(context));
+                /*if (ClientConfig.Config.Overlay.AbnormalityWidget.Initialize)
+                    handlers.Add(new AbnormalityWidgetContextHandler(context));*/
 
                 contextHandlers.AddRange(handlers);
             });

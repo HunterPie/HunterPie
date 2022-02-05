@@ -35,14 +35,9 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality
 
         private void UpdateData()
         {
-            IsBuff = Context.Type switch
-            {
-                AbnormalityType.Debuff => false,
-                _ => true,
-            };
-
-            Name = "Unknown";
-            Icon = "ICON_ATTACKUP";
+            IsBuff = Context.Type != AbnormalityType.Debuff;
+            Name = Context.Id;
+            Icon = Context.Icon;
             MaxTimer = Context.MaxTimer;
             Timer = Context.Timer;
 

@@ -17,6 +17,9 @@
     <Compile Update="Controls\Loading\CircleLoading.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Settings\Custom\AbnormalityTrayList.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Settings\SettingElementHost.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -95,6 +98,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Loading\CircleLoading.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Settings\Custom\AbnormalityTrayList.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\SettingElementHost.xaml">

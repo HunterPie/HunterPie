@@ -4,6 +4,7 @@ using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
+using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Rise.Definitions;
 using System;
@@ -257,7 +258,7 @@ namespace HunterPie.Core.Game.Rise.Entities
                     abnorm.Update(abnormality);
                 } else if (!abnormalities.ContainsKey(id) && abnormality.Timer > 0)
                 {
-                    MHRSongAbnormality abnorm = new MHRSongAbnormality($"HH_{id}"); ;
+                    MHRSongAbnormality abnorm = new MHRSongAbnormality(id); ;
                     
                     abnormalities.Add(id, abnorm);
 

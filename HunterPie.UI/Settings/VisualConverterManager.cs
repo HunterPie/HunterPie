@@ -40,6 +40,7 @@ namespace HunterPie.UI.Settings
             { typeof(Enum), new EnumVisualConverter() },
             { typeof(Position), new PositionVisualConveter() },
             { typeof(Keybinding), new KeybindingVisualConverter() },
+            { typeof(AbnormalityTrays), new AbnormalityTraysVisualConverter() },
         };
 
         private VisualConverterManager() {}

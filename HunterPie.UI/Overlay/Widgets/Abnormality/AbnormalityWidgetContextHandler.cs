@@ -14,9 +14,9 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality
         public readonly Context Context;
         public readonly AbnormalityBarViewModel ViewModel;
 
-        public AbnormalityWidgetContextHandler(Context context)
+        public AbnormalityWidgetContextHandler(Context context, int index)
         {
-            var widget = new AbnormalityBarView();
+            var widget = new AbnormalityBarView(index);
             WidgetManager.Register(widget);
             Context = context;
 

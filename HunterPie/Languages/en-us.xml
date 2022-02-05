@@ -195,6 +195,9 @@
 			<Setting Id="OVERLAY_STRING"
 					 String="Overlay"
 					 Description="Overlay configurations"/>
+			<Setting Id="ABNORMALITY_TRAY_STRING"
+					 String="Abnormality Trays"
+					 Description="Abnormality Trays configurations"/>
 			<Setting Id="MONSTER_WIDGET_STRING"
 					 String="Monster Widget"
 					 Description="Overlay configurations"/>

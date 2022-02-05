@@ -30,11 +30,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type vm:AbnormalityBarViewModel}">
                     <StackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}, Converter={StaticResource OrientationToOppositeConverter}}">
-                        <overlay:Abnormality Icon="{Binding Icon, Converter={StaticResource AbnormalityStringToIconConverter}}"
-                                             Time="{Binding Timer}"
-                                             MaxTime="{Binding MaxTimer}"
-                                             IsBuff="{Binding IsBuff}"
-                                             Margin="5,2,5,2"
+                        <overlay:Abnormality Margin="5,2,5,2"
                                              Width="30"
                                              Height="30"/>
                         <TextBlock Text="{Binding Timer, Converter={StaticResource SecondsToTimeString}}"

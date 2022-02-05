@@ -70,6 +70,30 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="ICON_ADD">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}" Geometry="F1 M512,512z M0,0z M256,48C141.31,48 48,141.31 48,256 48,370.69 141.31,464 256,464 370.69,464 464,370.69 464,256 464,141.31 370.69,48 256,48z M336,272L272,272 272,336A16,16,0,0,1,240,336L240,272 176,272A16,16,0,0,1,176,240L240,240 240,176A16,16,0,0,1,272,176L272,240 336,240A16,16,0,0,1,336,272z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_REMOVE">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}" Geometry="F1 M512,512z M0,0z M256,48C141.31,48 48,141.31 48,256 48,370.69 141.31,464 256,464 370.69,464 464,370.69 464,256 464,141.31 370.69,48 256,48z M336,272L176,272A16,16,0,0,1,176,240L336,240A16,16,0,0,1,336,272z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_SETTINGS_FILLED">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}" Geometry="F1 M512,512z M0,0z M256,176A80,80,0,1,0,336,256A80.24,80.24,0,0,0,256,176z M428.72,256A165.53,165.53,0,0,1,427.08,278.34L475.77,316.46A11.59,11.59,0,0,1,478.4,331.24L432.34,410.76A11.64,11.64,0,0,1,418.2,415.69L360.95,392.69A176.56,176.56,0,0,1,322.13,415.36L313.57,476.14A11.93,11.93,0,0,1,302.06,486L209.94,486A12,12,0,0,1,198.43,476.47L189.87,415.69A169.3,169.3,0,0,1,151.05,393L93.8,416A11.64,11.64,0,0,1,79.66,411.08L33.6,331.57A11.59,11.59,0,0,1,36.23,316.79L84.92,278.67A174.58,174.58,0,0,1,83.28,256A165.53,165.53,0,0,1,84.92,233.66L36.23,195.54A11.59,11.59,0,0,1,33.6,180.76L79.66,101.24A11.64,11.64,0,0,1,93.8,96.31L151.05,119.31A176.56,176.56,0,0,1,189.87,96.64L198.43,35.86A11.93,11.93,0,0,1,209.94,26L302.06,26A12,12,0,0,1,313.57,35.53L322.13,96.31A169.3,169.3,0,0,1,361,119L418.2,96A11.64,11.64,0,0,1,432.34,100.92L478.4,180.44A11.59,11.59,0,0,1,475.77,195.22L427.08,233.34A174.58,174.58,0,0,1,428.72,256z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="ICON_SEARCH">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">

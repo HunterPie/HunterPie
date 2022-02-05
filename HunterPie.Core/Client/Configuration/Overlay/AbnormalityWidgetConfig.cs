@@ -8,6 +8,9 @@ namespace HunterPie.Core.Client.Configuration.Overlay
     [SettingsGroup("ABNORMALITY_WIDGET", "ICON_STOPWATCH")]
     public class AbnormalityWidgetConfig : IWidgetSettings, ISettings
     {
+        [SettingField("ABNORMALITY_TRAY_NAME_STRING")]
+        public Observable<string> Name { get; set; } = "Abnormality Tray";
+
         [SettingField("INITIALIZE_WIDGET_STRING", requiresRestart: true)]
         public Observable<bool> Initialize { get; set; } = true;
 
@@ -26,7 +29,7 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         [SettingField("ORIENTATION", "ORIENTATION_DESC")]
         public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Horizontal;
         
-        [SettingField("A", "B")]
+        [SettingField("WIDGET_POSITION")]
         public Position Position { get; set; } = new(100, 100);
     }
 }
