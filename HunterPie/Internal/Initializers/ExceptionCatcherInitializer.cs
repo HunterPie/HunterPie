@@ -2,7 +2,7 @@
 using HunterPie.Domain.Interfaces;
 using System;
 
-namespace HunterPie.Internal.Intializers
+namespace HunterPie.Internal.Initializers
 {
     internal class ExceptionCatcherInitializer : IInitializer
     {

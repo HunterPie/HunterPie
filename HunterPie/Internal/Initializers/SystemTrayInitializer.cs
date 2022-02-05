@@ -5,7 +5,7 @@ using System;
 using System.Drawing;
 using System.IO;
 
-namespace HunterPie.Internal.Intializers
+namespace HunterPie.Internal.Initializers
 {
     internal class SystemTrayInitializer : IInitializer, IDisposable
     {

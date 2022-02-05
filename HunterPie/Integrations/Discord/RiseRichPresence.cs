@@ -100,9 +100,15 @@ namespace HunterPie.Integrations.Discord
 
             IMonster targetMonster = game.Monsters.FirstOrDefault(monster => monster.Target == Target.Self);
             if (targetMonster is not null)
-                description = Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_HUNTING']")
+            {
+                string descriptionString = Settings.ShowMonsterHealth 
+                    ? Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_HUNTING']")
+                    : Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_HUNTING_NO_HEALTH']");
+
+                description = descriptionString
                     .Replace("{Monster}", targetMonster.Name)
                     .Replace("{Percentage}", $"{targetMonster.Health / targetMonster.MaxHealth * 100:0}");
+            }
             
             presence.WithDetails(description)
                 .WithState(null)

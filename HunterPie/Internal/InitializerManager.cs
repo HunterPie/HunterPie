@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Logger;
 using HunterPie.Domain.Interfaces;
-using HunterPie.Internal.Intializers;
+using HunterPie.Internal.Initializers;
 using System;
 using System.Collections.Generic;
 

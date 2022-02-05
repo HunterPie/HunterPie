@@ -18,6 +18,7 @@
 		<Ailment Id="9" String="AILMENT_FIRE"/>
 		<Ailment Id="10" String="AILMENT_ICE"/>
 		<Ailment Id="11" String="AILMENT_THUNDER"/>
+		<Ailment Id="14" String="AILMENT_TRANQUILIZE"/>
 	</Ailments>
 	<Monsters>
 		<Monster Id="0"

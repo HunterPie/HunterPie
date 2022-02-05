@@ -27,7 +27,6 @@
 			<Part Id="PART_HEAD" String="머리"/>
 			<Part Id="PART_TORSO" String="몸통"/>
 			<Part Id="PART_L_WING" String="좌측 날개"/>
-			<Part Id="PART_L_WING" String="좌측 날개"/>
 			<Part Id="PART_R_WING" String="우측 날개"/>
 			<Part Id="PART_L_LEG" String="좌측 다리"/>
 			<Part Id="PART_R_LEG" String="우측 다리"/>
@@ -70,9 +69,9 @@
 			<Part Id="PART_TAIL_TIP" String="꼬리 끝"/>
 			<Part Id="PART_MUD_BALL" String="진흙 공"/>
 			<Part Id="PART_LOWER_TORSO" String="몸통 하부"/>
-			<Part Id="PART_TAIL_WINDSAC" String="꼬리 부레"/>
-			<Part Id="PART_CHEST_WINDSAC" String="가슴 부레"/>
-			<Part Id="PART_BACK_WINDSAC" String="등 부레"/>
+			<Part Id="PART_TAIL_WINDSAC" String="꼬리 끝(바람주머니)"/>
+			<Part Id="PART_CHEST_WINDSAC" String="흉부(바람주머니)"/>
+			<Part Id="PART_BACK_WINDSAC" String="등(바람주머니)"/>
 			<Part Id="PART_L_ARM_ICE" String="좌측 팔 (얼음)"/>
 			<Part Id="PART_R_ARM_ICE" String="우측 팔 (얼음)"/>
 			<Part Id="PART_B_LEG_FINS" String="등 지느러미"/>
@@ -82,7 +81,7 @@
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="리오레이아"/>
-			<Monster Id="1" String="주인"/>
+			<Monster Id="1" String="주인 리오레이아"/>
 			<Monster Id="2" String="리오레우스"/>
 			<Monster Id="3" String="주인 리오레우스"/>
 			<Monster Id="4" String="푸르푸르"/>
@@ -187,7 +186,7 @@
 			<Discord Id="DRPC_RISE_STATE_EXPLORING"
 					 String="탐색 중"/>
 			<Discord Id="DRPC_RISE_STATE_HUNTING"
-					 String="사냥 중 {Monster} ({Percentage}%)"/>
+					 String="{Monster} 사냥 중({Percentage}%)"/>
 		</Integrations>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
@@ -195,7 +194,7 @@
 					 Description="본 앱의 일반 설정입니다."/>
 			<Setting Id="DISCORD_RPC_STRING"
 					 String="디스코스 프리센스"
-					 Description="디스코드 리치 프리센스 설정딥니다."/>
+					 Description="디스코드 리치 프리센스 설정입니다."/>
 			<Setting Id="OVERLAY_STRING"
 					 String="오버레이"
 					 Description="오버레이 설정"/>
@@ -228,7 +227,7 @@
 					 String="메모리 스캔 딜레이 (ms 단위)"
 					 Description="헌터 파이 스캐너의 딜레이 설정입니다, 낮게 설정할수록 부드럽게 작동하지만, 그만큼 CPU 자원을 많이 사용합니다."/>
 			<Setting Id="DEV_ENABLE_FEATURE_FLAG"
-					 String="개발중 기능 표시를 활성화 합니다"
+					 String="개발 중 기능 표시를 활성화 합니다"
 					 Description="옵션 활성화 시, 개발 중인 기능을 보고 테스트할 수 있습니다."/>
 
 			<Setting Id="DRPC_ENABLE_RICH_PRESENCE"
@@ -262,8 +261,8 @@
 					 Description="위젯의 크기를 조정합니다."/>
 			
 			<Setting Id="MONSTER_WIDGET_ENABLE_STAMINA_STRING"
-					 String="몬스터 스테미나 활성화"
-					 Description="옵션 활성화 시, 헌터 파이는 몬스터의 체력 막대 아레에 스태미너 막대를 표시합니다"/>
+					 String="몬스터 스태미나 활성화"
+					 Description="옵션 활성화 시, 헌터 파이는 몬스터의 체력 막대 아래에 스태미나 막대를 표시합니다"/>
 			<Setting Id="MONSTER_WIDGET_MAX_WIDTH_STRING"
 					 String="몬스터 위젯 가로 폭 조정"
 					 Description="몬스터 체력바의 최대 가로 폭을 설정합니다."/>

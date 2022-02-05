@@ -2,7 +2,7 @@
 using HunterPie.Domain.Sidebar;
 using HunterPie.GUI.Parts.Sidebar;
 
-namespace HunterPie.Internal.Intializers
+namespace HunterPie.Internal.Initializers
 {
     internal class MenuInitializer : IInitializer
     {

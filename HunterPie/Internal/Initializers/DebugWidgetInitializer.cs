@@ -4,7 +4,7 @@ using HunterPie.Domain.Interfaces;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Metrics.View;
 
-namespace HunterPie.Internal.Intializers
+namespace HunterPie.Internal.Initializers
 {
     internal class DebugWidgetInitializer : IInitializer
     {

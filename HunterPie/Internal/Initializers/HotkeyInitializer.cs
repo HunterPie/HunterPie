@@ -4,7 +4,7 @@ using System;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace HunterPie.Internal.Intializers
+namespace HunterPie.Internal.Initializers
 {
     internal class HotkeyInitializer : IInitializer, IDisposable
     {

@@ -2,7 +2,7 @@
 using HunterPie.Domain.Interfaces;
 using HunterPie.UI.Logger;
 
-namespace HunterPie.Internal.Intializers
+namespace HunterPie.Internal.Initializers
 {
     internal class HunterPieLoggerInitializer : IInitializer
     {

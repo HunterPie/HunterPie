@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.GUI.Parts.Host;
-using HunterPie.Internal.Intializers;
+using HunterPie.Internal.Initializers;
 using HunterPie.UI.Controls.Flags;
 using HunterPie.UI.Controls.Settings;
 using HunterPie.UI.Controls.Settings.ViewModel;

@@ -4,7 +4,7 @@ using HunterPie.Core.Logger;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Internal.Logger;
 
-namespace HunterPie.Internal.Intializers
+namespace HunterPie.Internal.Initializers
 {
     internal class NativeLoggerInitializer : IInitializer
     {

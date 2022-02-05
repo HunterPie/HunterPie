@@ -4,7 +4,7 @@ using System;
 using HunterPie.Core.Settings.Types;
 using System.Security.Cryptography;
 
-namespace HunterPie.Internal.Intializers
+namespace HunterPie.Internal.Initializers
 {
     public class LocalConfigInitializer : IInitializer
     {
