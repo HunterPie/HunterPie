@@ -178,7 +178,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
 
         private void AddEnrage()
         {
-            Application.Current.Dispatcher.InvokeAsync(() =>
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 Ailments.Add(new MonsterAilmentContextHandler(Context.Enrage));
             });
