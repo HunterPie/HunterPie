@@ -16,6 +16,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         private float _timer;
 
         public string Id { get; private set; }
+        public string Name { get; private set; }
         public string Icon { get; private set; }
         public AbnormalityType Type => AbnormalityType.Song;
         public float Timer
@@ -43,7 +44,8 @@ namespace HunterPie.Core.Game.Rise.Entities
 
             if (data is AbnormalitySchema schema)
             {
-                Id = schema.Name;
+                Id = schema.Id;
+                Name = schema.Name;
                 Icon = schema.Icon;
             }
         }

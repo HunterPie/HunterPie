@@ -80,6 +80,37 @@ namespace HunterPie.UI.Settings
             return holder.ToArray();
         }
 
+        public static ISettingElementType[] BuildSubElements(object parent)
+        {
+            List<ISettingElementType> elements = new();
+
+            Type parentType = parent.GetType();
+
+            foreach (PropertyInfo prop in parentType.GetProperties())
+            {
+                SettingField metadata = prop.GetCustomAttribute<SettingField>();
+
+                if (metadata is null)
+                    continue;
+
+                XmlNode locNode = Localization.Query($"//Strings/Client/Settings/Setting[@Id='{metadata.Name}']");
+                string title = locNode?.Attributes["String"]?.Value ?? metadata.Name;
+                string description = locNode?.Attributes["Description"]?.Value ?? metadata.Description;
+
+                SettingElementType settingHost = new(
+                    name: title,
+                    description: description,
+                    parent,
+                    prop,
+                    metadata.RequiresRestart
+                );
+
+                elements.Add(settingHost);
+            }
+
+            return elements.ToArray();
+        }
+
         private static void BuildChildren(object parent, ISettingElement panel, List<ISettingElement> parentPanel)
         {
             Type parentType = parent.GetType();

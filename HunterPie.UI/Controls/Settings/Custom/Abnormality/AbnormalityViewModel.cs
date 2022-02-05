@@ -1,9 +1,4 @@
 ﻿using HunterPie.Core.Architecture;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HunterPie.UI.Controls.Settings.Custom.Abnormality
 {
@@ -13,6 +8,7 @@ namespace HunterPie.UI.Controls.Settings.Custom.Abnormality
 
         public string Name { get; set; }
         public string Icon { get; set; }
+        public string Id { get; set; }
         public bool IsEnabled { get => _isEnabled; set { SetValue(ref _isEnabled, value); } }
     }
 }

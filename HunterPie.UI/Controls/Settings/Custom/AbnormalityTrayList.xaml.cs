@@ -64,10 +64,7 @@ namespace HunterPie.UI.Controls.Settings.Custom
         private void OnOpenConfigClick(object sender, EventArgs e)
         {
             AbnormalityWidgetConfig vm = ViewModel.Trays[SelectedIndex];
-            var window = new AbnormalityWidgetConfigWindow()
-            {
-                DataContext = vm
-            };
+            var window = new AbnormalityWidgetConfigWindow(vm);
             window.ShowDialog();
         }
     }
