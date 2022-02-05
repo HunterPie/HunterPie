@@ -5,7 +5,7 @@ using HunterPie.Core.Domain.Features.Domain;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Features;
 
-namespace HunterPie.Internal.Intializers
+namespace HunterPie.Internal.Initializers
 {
     internal class FeatureFlagsInitializer : IInitializer
     {

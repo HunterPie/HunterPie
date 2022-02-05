@@ -19,6 +19,7 @@ using HunterPie.Update;
 using HunterPie.Update.Presentation;
 using System.Threading.Tasks;
 using System.Linq;
+using System.IO;
 
 namespace HunterPie
 {

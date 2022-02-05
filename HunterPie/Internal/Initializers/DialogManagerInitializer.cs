@@ -2,7 +2,7 @@
 using HunterPie.Domain.Interfaces;
 using HunterPie.UI.Dialog;
 
-namespace HunterPie.Internal.Intializers
+namespace HunterPie.Internal.Initializers
 {
     internal class DialogManagerInitializer : IInitializer
     {
