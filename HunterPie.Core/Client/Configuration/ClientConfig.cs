@@ -18,7 +18,7 @@ namespace HunterPie.Core.Client.Configuration
         [SettingField("SUPPORTER_SECRET_TOKEN_STRING")]
         public Secret SupporterSecretToken { get; set; } = new();
 
-        [SettingField("LANGUAGE_STRING")]
+        [SettingField("LANGUAGE_STRING", requiresRestart: true)]
         public GenericFileSelector Language { get; set; } = new GenericFileSelector("en-us.xml", "*.xml", ClientInfo.LanguagesPath);
 
         [SettingField("MINIMIZE_TO_SYSTEM_TRAY_STRING")]
