@@ -7,7 +7,7 @@ namespace HunterPie.Core.Game.Data
 {
     public class AbnormalityData
     {
-        public const string SongPrefix = "Song_";
+        public const string SongPrefix = "Songs_";
 
         private static XmlDocument _abnormalityData;
         public static Dictionary<string, AbnormalitySchema> Abnormalities { get; private set; }

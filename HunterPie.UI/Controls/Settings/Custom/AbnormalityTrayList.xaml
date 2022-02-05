@@ -39,7 +39,8 @@
         </btn:Button>
         <btn:Button HorizontalAlignment="Right"
                     Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                    Grid.Column="1">
+                    Grid.Column="1"
+                    OnClick="OnOpenConfigClick">
             <Image Source="{StaticResource ICON_SETTINGS_FILLED}"
                    Margin="5"/>
         </btn:Button>

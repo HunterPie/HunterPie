@@ -6,8 +6,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Windows"
              mc:Ignorable="d"
-             d:Width="300"
-             d:Height="150"
+             d:DesignWidth="300"
+             d:DesignHeight="150"
              Loaded="OnLoaded">
     <Border BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}"
             BorderThickness="1">

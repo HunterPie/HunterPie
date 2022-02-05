@@ -60,5 +60,15 @@ namespace HunterPie.UI.Controls.Settings.Custom
 
             SelectedIndex = Math.Max(0, SelectedIndex - 1);
         }
+
+        private void OnOpenConfigClick(object sender, EventArgs e)
+        {
+            AbnormalityWidgetConfig vm = ViewModel.Trays[SelectedIndex];
+            var window = new AbnormalityWidgetConfigWindow()
+            {
+                DataContext = vm
+            };
+            window.ShowDialog();
+        }
     }
 }

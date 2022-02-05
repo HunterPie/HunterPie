@@ -2,6 +2,7 @@
 using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
+using System.Collections.Generic;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
@@ -31,5 +32,7 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         
         [SettingField("WIDGET_POSITION")]
         public Position Position { get; set; } = new(100, 100);
+
+        public HashSet<string> AllowedAbnormalities { get; set; } = new();
     }
 }
