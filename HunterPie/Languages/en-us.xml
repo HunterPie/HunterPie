@@ -15,6 +15,7 @@
 			<Ailment Id="AILMENT_FIRE" String="Fireblight"/>
 			<Ailment Id="AILMENT_ICE" String="Iceblight"/>
 			<Ailment Id="AILMENT_THUNDER" String="Thunderblight"/>
+			<Ailment Id="AILMENT_TRANQUILIZE" String="Tranquilize"/>
 			<Ailment Id="STATUS_ENRAGE" String="Enrage"/>
 		</Rise>
 	</Ailments>
@@ -184,6 +185,8 @@
 					 String="Exploring"/>
 			<Discord Id="DRPC_RISE_STATE_HUNTING"
 					 String="Hunting {Monster} ({Percentage}%)"/>
+			<Discord Id="DRPC_RISE_STATE_HUNTING_NO_HEALTH"
+					 String="Hunting {Monster}"/>
 		</Integrations>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
