@@ -8,5 +8,6 @@ namespace HunterPie.Core.Settings.Types
         public ObservableCollection<AbnormalityWidgetConfig> Trays { get; set; } = new();
 
         public AbnormalityWidgetConfig this[int index] => Trays[index];
+
     }
 }
