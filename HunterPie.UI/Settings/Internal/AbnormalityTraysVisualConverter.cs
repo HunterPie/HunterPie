@@ -1,12 +1,7 @@
 ﻿using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Controls.Settings.Custom;
 using HunterPie.UI.Settings.Converter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace HunterPie.UI.Settings.Internal
