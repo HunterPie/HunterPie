@@ -226,10 +226,16 @@ namespace HunterPie.Core.Game.Rise.Entities
         [ScannableMethod]
         private void ScanPlayerConsumableAbnormalities()
         {
+            if (StageId == -1 || StageId == 199)
+                return;
+
             long consumableBuffs = _process.Memory.Read(
                 AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"), 
                 AddressMap.Get<int[]>("CONS_ABNORMALITIES_OFFSETS")
             );
+
+            if (consumableBuffs == 0)
+                return;
 
             AbnormalitySchema[] consumableSchemas = AbnormalityData.GetAllConsumableAbnormalities();
 
@@ -264,10 +270,16 @@ namespace HunterPie.Core.Game.Rise.Entities
         [ScannableMethod]
         private void ScanPlayerSongAbnormalities()
         {
+            if (StageId == -1 || StageId == 199)
+                return;
+
             long songBuffsPtr = _process.Memory.Read(
                 AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"), 
                 AddressMap.Get<int[]>("HH_ABNORMALITIES_OFFSETS")
             );
+
+            if (songBuffsPtr == 0)
+                return;
 
             uint songBuffsLength = _process.Memory.Read<uint>(songBuffsPtr + 0x1C);
             long[] songBuffPtrs = _process.Memory.Read<long>(songBuffsPtr + 0x20, songBuffsLength);
