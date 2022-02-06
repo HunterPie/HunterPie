@@ -27,7 +27,7 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         [SettingField("ENABLE_STREAMER_MODE")]
         public Observable<bool> StreamerMode { get; set; } = false;
 
-        [SettingField("ORIENTATION", "ORIENTATION_DESC")]
+        [SettingField("ORIENTATION_STRING")]
         public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Horizontal;
         
         [SettingField("WIDGET_POSITION")]

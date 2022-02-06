@@ -2,8 +2,9 @@
 {
     public struct AbnormalitySchema
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string Icon { get; set; }
+        public string Id;
+        public int Offset;
+        public string Name;
+        public string Icon;
     }
 }

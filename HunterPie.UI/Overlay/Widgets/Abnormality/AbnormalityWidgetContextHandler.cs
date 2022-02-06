@@ -74,7 +74,12 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality
             Application.Current.Dispatcher.Invoke(() =>
             {
                 foreach (IAbnormality abnormality in Context.Game.Player.Abnormalities)
+                {
+                    if (!Config.AllowedAbnormalities.Contains(abnormality.Id))
+                        return;
+
                     ViewModel.Abnormalities.Add(new AbnormalityContextHandler(abnormality));
+                }
             }, DispatcherPriority.Normal);
         }
     }

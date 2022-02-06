@@ -19,6 +19,27 @@
 			<Ailment Id="STATUS_ENRAGE" String="Enrage"/>
 		</Rise>
 	</Ailments>
+	<Abnormalities>
+		<Abnormality Id="ABNORMALITY_UNKNOWN" String="Unknown"/>
+		<Abnormality Id="ABNORMALITY_SELF_IMPROVEMENT" String="Self-Improvement"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_UP" String="Attack Up"/>
+		<Abnormality Id="ABNORMALITY_DEFENSE_UP" String="Defense Up"/>
+		<Abnormality Id="ABNORMALITY_AFFINITY_UP" String="Affinity Up"/>
+		<Abnormality Id="ABNORMALITY_ELEMENTAL_ATTACK_UP" String="Elemental Attack Up"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_DEF_UP" String="Attack and Def. Up"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_AFFINITY_UP" String="Attack and Affinity Up"/>
+		<Abnormality Id="ABNORMALITY_TREMORS_NEG" String="Tremors Negated"/>
+		<Abnormality Id="ABNORMALITY_BLIGHT_NEG" String="Blights Negated"/>
+		<Abnormality Id="ABNORMALITY_STAMINA_REC_UP" String="Stamina Recov. Up"/>
+		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Infernal Melody"/>
+		
+		<Abnormality Id="ABNORMALITY_MIGHT_SEED" String="Might Seed"/>
+		<Abnormality Id="ABNORMALITY_ADAMANT_SEED" String="Adamant Seed"/>
+		<Abnormality Id="ABNORMALITY_CLOTHFLY" String="Clothfly"/>
+		<Abnormality Id="ABNORMALITY_DASH_JUICE" String="Dash Juice"/>
+		<Abnormality Id="ABNORMALITY_DEMON_POWDER" String="Demon Powder"/>
+		<Abnormality Id="ABNORMALITY_HARDSHELL_POWDER" String="Hardshell Powder"/>
+	</Abnormalities>
 	<Monsters>
 		<Shared>
 			<Part Id="PART_UNKNOWN" String="???"/>
@@ -208,6 +229,13 @@
 					 String="Dev Tools"
 					 Description="Advanced development tools"/>
 
+			<Setting Id="ABNORMALITY_SONGS_STRING"
+					 String="Songs"
+					 Description="Song abnormalities"/>
+			<Setting Id="ABNORMALITY_CONSUMABLES_STRING"
+					 String="Consumables"
+					 Description="Consumable abnormalities"/>
+
 			<Setting Id="ENABLE_SELF_UPDATE"
 					 String="Enable self update"
 					 Description="If enabled, HunterPie will automatically update itself to the latest version."/>
@@ -262,6 +290,9 @@
 			<Setting Id="WIDGET_SCALE"
 					 String="Widget scale"
 					 Description="Controls this widget linear scale, the higher the value, the bigger the widget will be."/>
+			<Setting Id="ORIENTATION_STRING"
+					 String="Orientation"
+					 Description="Orientation of the widget."/>
 			
 			<Setting Id="MONSTER_WIDGET_ENABLE_STAMINA_STRING"
 					 String="Enable monster stamina"
@@ -287,6 +318,13 @@
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING"
 					 String="Delay to hide inactive ailments"
 					 Description="Delay to be waited to hide a part that has become inactive."/>
+
+			<Setting Id="ABNORMALITY_TRAYS_STRING"
+					 String="Abnormality Trays"
+					 Description="Configurations for abnormality trays."/>
+			<Setting Id="ABNORMALITY_TRAY_NAME_STRING"
+					 String="Abnormality Tray Name"
+					 Description="Name for this abnormality bar."/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>

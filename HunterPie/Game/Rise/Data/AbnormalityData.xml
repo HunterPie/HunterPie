@@ -46,6 +46,65 @@
 		<Abnormality Id="22"/>
 		<Abnormality Id="23"/>
 		<Abnormality Id="24"/>
-		<Abnormality Id="25"/>
+		<Abnormality Id="25"
+					 Name="ABNORMALITY_INFERNAL_MELODY"
+					 Icon="ICON_INFERNALMELODY"/>
 	</Songs>
+	<Consumables>
+		<!-- For consumables, we can use their Offsets xmm0, [rcx+00000??] as their Id, so it's easier to track it internally -->
+		<Abnormality Id="88"
+					 Offset="88"
+					 Name="ABNORMALITY_MIGHT_SEED"
+					 Icon="ITEM_MIGHT"/>
+		<Abnormality Id="8C"
+					 Offset="8C"
+					 Name="ABNORMALITY_ADAMANT_SEED"
+					 Icon="ITEM_ADAMANT"/>
+		<Abnormality Id="90"
+					 Offset="90"
+					 Name="ABNORMALITY_CLOTHFLY"
+					 Icon="ICON_DEFUP"/>
+		<Abnormality Id="94"
+					 Offset="94"
+					 Name="ABNORMALITY_DASH_JUICE"
+					 Icon="ITEM_DASH"/>
+		<Abnormality Id="A0"
+					 Offset="A0"
+					 Name="ABNORMALITY_DEMON_POWDER"
+					 Icon="ITEM_ATKPOWDER"/>
+		<Abnormality Id="A4"
+					 Offset="A4"
+					 Name="ABNORMALITY_HARDSHELL_POWDER"
+					 Icon="ITEM_DEFPOWDER"/>
+		<Abnormality Id="A8"
+					 Offset="A8"/>
+		<Abnormality Id="AC"
+					 Offset="AC"/>
+		<Abnormality Id="B4"
+					 Offset="B4"/>
+		<Abnormality Id="BC"
+					 Offset="BC"/>
+		<Abnormality Id="C0"
+					 Offset="C0"/>
+		<Abnormality Id="D4"
+					 Offset="D4"/>
+		<Abnormality Id="DC"
+					 Offset="DC"/>
+		<Abnormality Id="E0"
+					 Offset="E0"/>
+		<Abnormality Id="E8"
+					 Offset="E8"/>
+		<Abnormality Id="EC"
+					 Offset="EC"/>
+		<Abnormality Id="E4"
+					 Offset="E4"/>
+		<Abnormality Id="F0"
+					 Offset="F0"/>
+		<Abnormality Id="F8"
+					 Offset="F8"/>
+		<Abnormality Id="FC"
+					 Offset="FC"/>
+		<Abnormality Id="124"
+					 Offset="124"/>
+	</Consumables>
 </Abnormalities>

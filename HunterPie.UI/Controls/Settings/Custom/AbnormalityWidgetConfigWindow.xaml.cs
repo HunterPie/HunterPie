@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Localization = HunterPie.Core.Client.Localization.Localization;
 using System.Windows;
 using System.Xml;
 
@@ -24,6 +25,7 @@ namespace HunterPie.UI.Controls.Settings.Custom
         private readonly Dictionary<string, AbnormalityCollectionViewModel> collections = new();
         public ObservableCollection<AbnormalityCollectionViewModel> Collections { get; } = new();
         public ObservableCollection<ISettingElementType> Elements { get; } = new();
+        private Dictionary<string, object> _categoryIcons = new();
 
         public readonly AbnormalityWidgetConfig Config;
 
@@ -33,8 +35,15 @@ namespace HunterPie.UI.Controls.Settings.Custom
             DataContext = config;
             InitializeComponent();
 
+            LoadIcons();
             BuildVisualConfig();
             LoadAllAbnormalities();
+        }
+
+        private void LoadIcons()
+        {
+            _categoryIcons.Add("Songs", FindResource("ICON_SELFIMPROVEMENT"));
+            _categoryIcons.Add("Consumables", FindResource("ITEM_DEMONDRUG"));
         }
 
         private void BuildVisualConfig()
@@ -54,13 +63,19 @@ namespace HunterPie.UI.Controls.Settings.Custom
             foreach (XmlNode node in nodes)
             {
                 string category = node.ParentNode.Name;
+                string categoryString = $"//Strings/Client/Settings/Setting[@Id='ABNORMALITY_{category.ToUpperInvariant()}_STRING']";
                 string name = node.Attributes["Name"]?.Value ?? "ABNORMALITY_UNKNOWN";
                 string icon = node.Attributes["Icon"]?.Value ?? "ICON_MISSING";
                 string id = node.Attributes["Id"].Value;
                 string abnormId = $"{category}_{id}";
 
                 if (!collections.ContainsKey(category))
-                    collections.Add(category, new() { Name = category, Icon = FindResource("ICON_SELFIMPROVEMENT") });
+                    collections.Add(category, new() 
+                        { 
+                            Name = Localization.QueryString(categoryString),
+                            Description = Localization.QueryDescription(categoryString),
+                            Icon = _categoryIcons[category]
+                        });
 
                 AbnormalityCollectionViewModel collection = collections[category];
                 

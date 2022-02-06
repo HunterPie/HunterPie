@@ -5,6 +5,7 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Data;
+using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Rise.Definitions;
 using System;
@@ -223,10 +224,48 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        private void ScanPlayerAbnormalities()
+        private void ScanPlayerConsumableAbnormalities()
+        {
+            long consumableBuffs = _process.Memory.Read(
+                AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"), 
+                AddressMap.Get<int[]>("CONS_ABNORMALITIES_OFFSETS")
+            );
+
+            AbnormalitySchema[] consumableSchemas = AbnormalityData.GetAllConsumableAbnormalities();
+
+            foreach (AbnormalitySchema schema in consumableSchemas)
+            {
+                MHRConsumableStructure abnormality = _process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
+
+                if (abnormality.Timer > 0 && abnormalities.ContainsKey(schema.Offset))
+                {
+                    MHRConsumableAbnormality abnorm = (MHRConsumableAbnormality)abnormalities[schema.Offset];
+                    abnorm.Update(abnormality);
+                } else if (abnormality.Timer > 0 && !abnormalities.ContainsKey(schema.Offset))
+                {
+                    MHRConsumableAbnormality abnorm = new(schema.Offset);
+
+                    abnormalities.Add(schema.Offset, abnorm);
+
+                    abnorm.Update(abnormality);
+                    this.Dispatch(OnAbnormalityStart, abnorm);
+                } else if (abnormality.Timer <= 0 && abnormalities.ContainsKey(schema.Offset))
+                {
+                    MHRConsumableAbnormality abnorm = (MHRConsumableAbnormality)abnormalities[schema.Offset];
+                    abnorm.Update(abnormality);
+
+                    abnormalities.Remove(schema.Offset);
+                    this.Dispatch(OnAbnormalityEnd, abnorm);
+                }
+
+            }
+        }
+
+        [ScannableMethod]
+        private void ScanPlayerSongAbnormalities()
         {
             long songBuffsPtr = _process.Memory.Read(
-                AddressMap.GetAbsolute("HH_ABNORMALITIES_ADDRESS"), 
+                AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"), 
                 AddressMap.Get<int[]>("HH_ABNORMALITIES_OFFSETS")
             );
 

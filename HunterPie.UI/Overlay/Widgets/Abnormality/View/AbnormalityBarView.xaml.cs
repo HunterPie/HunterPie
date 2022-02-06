@@ -19,7 +19,7 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality.View
             InitializeComponent();
         }
 
-        public string Title => "Abnormality Widget";
+        public string Title => Settings.Name;
         public AbnormalityWidgetConfig Settings => ClientConfig.Config.Overlay.AbnormalityTray.Trays[Index];
         public WidgetType Type => WidgetType.ClickThrough;
     }

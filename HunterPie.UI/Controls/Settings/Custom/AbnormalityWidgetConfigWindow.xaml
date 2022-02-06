@@ -10,16 +10,26 @@
         xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons"
         mc:Ignorable="d"
         Title="{Binding Name.Value}"
-        Height="450" 
-        Width="800"
+        MinHeight="300"
+        Height="300"
+        MinWidth="500"
+        Width="500"
         WindowStyle="None"
-        ResizeMode="CanResizeWithGrip"
+        ResizeMode="CanResize"
         AllowsTransparency="True"
         Background="Transparent"
         Icon="{StaticResource ICON_SETTINGS_FILLED}"
         UseLayoutRounding="True"
         SnapsToDevicePixels="True"
-        Closing="OnClosing">
+        Closing="OnClosing"
+        WindowStartupLocation="CenterOwner">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0"
+                      CornerRadius="0"
+                      GlassFrameThickness="5"
+                      ResizeBorderThickness="5"
+                      UseAeroCaptionButtons="False" />
+    </WindowChrome.WindowChrome>
     <Window.Resources>
         <converters:ObjectToUiConverter x:Key="ObjectToUiConverter"/>
 
@@ -46,6 +56,7 @@
         <DataTemplate x:Key="HeaderTemplate">
             <native:TabItem Padding="10,5,10,5"
                             Title="{Binding Name}"
+                            Description="{Binding Description}"
                             Icon="{Binding Icon}"
                             Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
                             FontSize="13"/>
