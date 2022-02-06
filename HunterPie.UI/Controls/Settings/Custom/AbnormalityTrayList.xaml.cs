@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Settings.Types;
 using System;
 using System.Collections.Generic;
@@ -56,6 +57,17 @@ namespace HunterPie.UI.Controls.Settings.Custom
 
         private void OnRemoveTrayClick(object sender, EventArgs e)
         {
+            AbnormalityWidgetConfig config = ViewModel.Trays[SelectedIndex];
+
+            NativeDialogResult confirmation = DialogManager.Warn(
+                "Confirmation", 
+                $"Are you sure you want to delete {(string)config.Name}?", 
+                NativeDialogButtons.Accept | NativeDialogButtons.Cancel
+            );
+
+            if (confirmation != NativeDialogResult.Accept)
+                return;
+
             ViewModel.Trays.RemoveAt(SelectedIndex);
 
             SelectedIndex = Math.Max(0, SelectedIndex - 1);
