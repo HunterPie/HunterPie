@@ -28,9 +28,20 @@
 		<Abnormality Id="ABNORMALITY_ELEMENTAL_ATTACK_UP" String="Elemental Attack Up"/>
 		<Abnormality Id="ABNORMALITY_ATTACK_DEF_UP" String="Attack and Def. Up"/>
 		<Abnormality Id="ABNORMALITY_ATTACK_AFFINITY_UP" String="Attack and Affinity Up"/>
+		<Abnormality Id="ABNORMALITY_KNOCKBACK_NEG" String="Knockback Negated"/>
+		<Abnormality Id="ABNORMALITY_EARPLUG" String="Earplugs (S)"/>
+		<Abnormality Id="ABNORMALITY_EARPLUG_PLUS" String="Earplugs (L)"/>
 		<Abnormality Id="ABNORMALITY_TREMORS_NEG" String="Tremors Negated"/>
+		<Abnormality Id="ABNORMALITY_WIND_PRESSURE_PLUS" String="Wind Pressure Negated"/>
+		<Abnormality Id="ABNORMALITY_STUN_NEG" String="Stun Negated"/>
 		<Abnormality Id="ABNORMALITY_BLIGHT_NEG" String="Blights Negated"/>
+		<Abnormality Id="ABNORMALITY_DIVINE_PROTECTION" String="Divine Protection"/>
+		<Abnormality Id="ABNORMALITY_HEALTH_REGEN" String="Health Regeneration"/>
+		<Abnormality Id="ABNORMALITY_STAMINA_USE_RED" String="Stamina Use Reduced"/>
 		<Abnormality Id="ABNORMALITY_STAMINA_REC_UP" String="Stamina Recov. Up"/>
+		<Abnormality Id="ABNORMALITY_SHARPNESS_RED" String="Sharpness Loss Reduced"/>
+		<Abnormality Id="ABNORMALITY_ENV_NEG" String="Env. Damage Negated"/>
+		<Abnormality Id="ABNORMALITY_SONIC_BARRIER" String="Sonic Barrier"/>
 		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Infernal Melody"/>
 		
 		<Abnormality Id="ABNORMALITY_MIGHT_SEED" String="Might Seed"/>

@@ -16,19 +16,20 @@
         <converters:AbnormalityStringToIconConverter x:Key="AbnormalityStringToIconConverter"/>
     </UserControl.Resources>
     <button:Button OnClick="OnClick"
+                   Padding="0"
                    ToolTip="{Binding Name, Converter={StaticResource AbnormalityNameConverter}}">
-        <Grid RenderTransformOrigin="0.5,0.5">
+        <Grid RenderTransformOrigin="0.5,0.5"
+              Height="30"
+              Width="30">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform />
                     <RotateTransform />
                 </TransformGroup>
             </Grid.RenderTransform>
-            <Ellipse Fill="{StaticResource HUNTERPIE_BACKGROUND_DARK}"/>
-            <Image Source="{Binding Icon, Converter={StaticResource AbnormalityStringToIconConverter}}"
-                   d:Source="{StaticResource ICON_ABNORMATTACKUP}">
-                <Image.Style>
-                    <Style TargetType="Image">
+            <Ellipse Fill="{StaticResource HUNTERPIE_BACKGROUND_DARK}">
+                <Ellipse.Style>
+                    <Style TargetType="Ellipse">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsEnabled}" Value="True">
                                 <Setter Property="Effect">
@@ -50,8 +51,12 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </Image.Style>
-            </Image>
+                </Ellipse.Style>
+            </Ellipse>
+            <Image Source="{Binding Icon, Converter={StaticResource AbnormalityStringToIconConverter}}"
+                   d:Source="{StaticResource ICON_SHARPNESSUSERED}"
+                   Width="20"
+                   Height="20"/>
             <Grid.Style>
                 <Style TargetType="Grid">
                     <Style.Triggers>

@@ -35,7 +35,7 @@
 					 Name="ABNORMALITY_TREMORS_NEG"
 					 Icon="ICON_TREMORNEG"/>
 		<Abnormality Id="11"
-					 Name="ABNORMALITY_WIND_PRESSURE"
+					 Name="ABNORMALITY_WIND_PRESSURE_PLUS"
 					 Icon="ICON_WINDRES+"/>
 		<Abnormality Id="12"
 					 Name="ABNORMALITY_STUN_NEG"
@@ -59,13 +59,15 @@
 					 Name="ABNORMALITY_STAMINA_REC_UP"
 					 Icon="ICON_MAXSTAMRECOVERY"/>
 		<Abnormality Id="21"
-					 Name="ABNORMALITY_SHARPNESS_RED"/>
+					 Name="ABNORMALITY_SHARPNESS_RED"
+					 Icon="ICON_SHARPNESSUSERED"/>
 		<Abnormality Id="22"
 					 Name="ABNORMALITY_ENV_NEG"
 					 Icon="ICON_ENVNEG"/>
 		<Abnormality Id="23"/>
 		<Abnormality Id="24"
-					 Name="ABNORMALITY_SONIC_BARRIER"/>
+					 Name="ABNORMALITY_SONIC_BARRIER"
+					 Icon="ICON_SONICBARRIER"/>
 		<Abnormality Id="25"
 					 Name="ABNORMALITY_INFERNAL_MELODY"
 					 Icon="ICON_INFERNALMELODY"/>
