@@ -99,6 +99,100 @@
         </DrawingImage.Drawing>
     </DrawingImage>
     <!-- Abnormalities -->
+    <DrawingImage x:Key="ICON_STENCH">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V135.46667 H135.46666 V0 H0 Z">
+                <DrawingGroup Opacity="1" Transform="1,0,0,1,0,-161.53332" />
+                <DrawingGroup Opacity="1" Transform="1,0,0,1,0,-161.53332">
+                    <GeometryDrawing Brush="#FF7C3A12" Geometry="F1 M135.46666,135.46667z M0,0z M55.665099,286.14127L86.559901,286.14127 86.559901,274.04603 76.44904,263.93517 66.174086,263.93517 55.613103,272.95935z" />
+                    <GeometryDrawing Geometry="F1 M135.46666,135.46667z M0,0z M55.613103,272.95935L66.174086,263.93517 76.44904,263.93517 86.559899,274.04603 75.699936,265.72122 66.949031,265.76842z">
+                        <GeometryDrawing.Brush>
+                            <SolidColorBrush Color="#FF4E240B" Opacity="0.98431373" />
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF99660B" Geometry="F1 M135.46666,135.46667z M0,0z M38.708224,203.17889L39.0862,231.82387 44.721789,231.91037 44.767269,237.7903 91.080776,237.7903 91.080776,202.23952 64.432919,202.043 64.615192,215.8665C64.615192,215.8665 69.343998,216.77416 69.310589,214.27058 69.221429,207.58943 69.310589,207.58884 69.310589,207.58884L87.618551,207.58884 87.618551,227.50042C87.618551,227.50042 88.009958,231.71328 80.535907,231.91037 72.118783,232.13233 44.721792,231.91037 44.721792,231.91037L44.407276,181.96339C44.407276,181.96339 50.517862,181.63124 48.463566,173.5788 47.711222,170.62976 85.122422,170.58563 92.03128,173.21506 98.588879,175.71081 93.093192,186.86735 96.839349,187.54363 105.06769,189.02906 112.46651,189.46176 112.33287,197.07895 112.19924,204.69613 112.47461,243.9375 112.47461,243.9375 112.47461,243.9375 113.17735,250.72995 102.53978,250.66788 86.628542,250.57508 79.789452,250.76238 79.789452,250.76238L71.481168,259.44864 63.163389,250.75288 30.5231,250.60254C30.5231,250.60254,26.413829,251.00868,26.413829,240.19573L26.413829,208.12339C26.413829,208.12339,25.493208,202.05725,38.708227,203.17891z">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="#FF3B2705" Thickness="2" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="ICON_BUBBLE+">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V135.46667 H135.46666 V0 H0 Z">
+                <DrawingGroup Opacity="1" Transform="1,0,0,1,0,-161.53332" />
+                <DrawingGroup Opacity="1" Transform="1,0,0,1,0,-161.53332">
+                    <DrawingGroup Transform="1,0,0,1,0,1.2291667E-06">
+                        <GeometryDrawing>
+                            <GeometryDrawing.Brush>
+                                <RadialGradientBrush Center="89.936195,240.47247" RadiusX="32.136902" RadiusY="32.136902" GradientOrigin="89.936195,240.47247" MappingMode="Absolute" SpreadMethod="Pad" Opacity="1" Transform="2.7690404,0.03840411,-0.03186771,2.2977466,-190.85972,-350.40493">
+                                    <GradientStop Color="#FFFFFFFF" Offset="0" />
+                                    <GradientStop Color="#FF000000" Offset="1" />
+                                </RadialGradientBrush>
+                            </GeometryDrawing.Brush>
+                            <GeometryDrawing.Pen>
+                                <Pen Brush="#FF000000" Thickness="1.83366823" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                            </GeometryDrawing.Pen>
+                            <GeometryDrawing.Geometry>
+                                <EllipseGeometry RadiusX="28.5474" RadiusY="28.5474" Center="50.5139,205.5938" />
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                    </DrawingGroup>
+                    <DrawingGroup Transform="1,0,0,1,0,1.2291667E-06">
+                        <GeometryDrawing>
+                            <GeometryDrawing.Brush>
+                                <RadialGradientBrush Center="89.936195,240.47247" RadiusX="32.136902" RadiusY="32.136902" GradientOrigin="89.936195,240.47247" MappingMode="Absolute" SpreadMethod="Pad" Opacity="1" Transform="3.0202198,0.04188775,-0.03475842,2.5061749,-174.00061,-366.62903">
+                                    <GradientStop Color="#FFFFFFFF" Offset="0" />
+                                    <GradientStop Color="#FF000000" Offset="0.8" />
+                                </RadialGradientBrush>
+                            </GeometryDrawing.Brush>
+                            <GeometryDrawing.Pen>
+                                <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                            </GeometryDrawing.Pen>
+                            <GeometryDrawing.Geometry>
+                                <EllipseGeometry RadiusX="31.1369" RadiusY="31.1369" Center="89.268,239.8043" />
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                    </DrawingGroup>
+                    <DrawingGroup Transform="1,0,0,1,0,1.2291667E-06">
+                        <GeometryDrawing>
+                            <GeometryDrawing.Brush>
+                                <RadialGradientBrush Center="89.936195,240.47247" RadiusX="32.136902" RadiusY="32.136902" GradientOrigin="89.936195,240.47247" MappingMode="Absolute" SpreadMethod="Pad" Opacity="1" Transform="1.6010562,0.02220522,-0.01842587,1.3285546,-95.328879,-58.02022">
+                                    <GradientStop Color="#FFFFFFFF" Offset="0" />
+                                    <GradientStop Color="#FF000000" Offset="1" />
+                                </RadialGradientBrush>
+                            </GeometryDrawing.Brush>
+                            <GeometryDrawing.Pen>
+                                <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                            </GeometryDrawing.Pen>
+                            <GeometryDrawing.Geometry>
+                                <EllipseGeometry RadiusX="16.5061" RadiusY="16.5061" Center="44.2331,263.4577" />
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="ICON_HELLFIRE">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V135.46667 H135.46666 V0 H0 Z">
+                <DrawingGroup Opacity="1" Transform="1,0,0,1,0,-161.53332" />
+                <DrawingGroup Opacity="1" Transform="1,0,0,1,0,-161.53332">
+                    <GeometryDrawing Brush="#FF8200FB" Geometry="F1 M135.46666,135.46667z M0,0z M48.673455,169.72228C48.673455,169.72228 68.725347,178.40863 61.251431,194.19924 52.199486,213.32386 26.469417,218.31193 22.201686,242.42462 18.359451,264.13326 34.586865,292.89531 68.506571,293.85079 98.80747,294.70433 110.89499,272.29494 110.64062,259.19377 110.37452,245.48865 110.81939,237.80192 98.44097,232.02895 89.43362,227.82817 93.98575,242.51783 93.98575,242.51783 93.98575,242.51783 98.16731,239.18943 98.3807,244.5241 98.59409,249.85876 96.14776,255.55941 92.00087,253.01818 86.185076,249.71864 82.399455,249.3247 85.441778,238.57516 88.642575,227.26567 95.65139,223.10866 98.88513,213.39553 102.23868,203.32257 102.6039,187.30106 93.25943,177.98186 79.763618,164.52255 70.803162,165.61505 58.853508,166.04182 46.903861,166.4686 48.673455,169.72228 48.673455,169.72228z">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="#50000000" Thickness="3.1935792" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF621C93" Geometry="F1 M135.46666,135.46667z M0,0z M75.621147,195.43695C75.621147,195.43695 84.752037,199.47114 68.90889,211.99478 53.065747,224.51841 43.672834,233.43147 40.051543,243.39002 36.430251,253.34857 40.088153,264.47225 46.123638,269.75329 51.159496,274.03471 71.778217,286.22473 81.121863,278.45833 88.089862,272.66656 80.429927,267.3476 73.548482,261.49647 68.267436,256.81898 60.873964,243.69179 67.362112,234.94034 73.850251,226.18889 81.62617,216.28557 82.149046,215.02324 83.153483,212.59832 91.91696,199.20912 75.621147,195.43695z" />
+                    <GeometryDrawing Brush="#FFB69BFB" Geometry="F1 M135.46666,135.46667z M0,0z M53.990294,237.96763C53.990294,237.96763 50.236423,240.74949 48.274889,247.23764 46.313358,253.72579 49.55743,262.10002 53.178721,266.17398 56.800012,270.24792 65.928682,273.49199 69.32364,273.71833 72.56771,273.79373 72.680882,266.0608 67.701605,263.64661 60.308665,260.06215 55.053217,257.69228 57.214951,247.72802 57.870788,244.70502 59.396343,236.99484 56.831261,237.13657 54.417067,237.28745 53.990294,237.96763 53.990294,237.96763z" />
+                    <GeometryDrawing Brush="#FF6800CC" Geometry="F1 M135.46666,135.46667z M0,0z M50.582102,168.65979C59.971111,174.74131 61.144738,177.08857 61.144738,177.08857 61.144738,177.08857 65.945935,183.17008 63.918771,191.81224 61.891591,200.4544 36.071814,221.36628 31.270614,226.80764 26.469416,232.249 25.295791,237.15689 25.295791,237.15689 25.295791,237.15689 56.344869,210.35057 63.3853,201.41463 71.707368,190.852 68.719966,182.9567 67.439644,180.07598 61.21771,166.07667 50.582102,168.65979 50.582102,168.65979z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
     <DrawingImage x:Key="ICON_SHARPNESSUSERED">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V3980 H3980 V0 H0 Z">

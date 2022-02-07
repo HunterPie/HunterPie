@@ -237,7 +237,7 @@ namespace HunterPie.Core.Game.Rise.Entities
             if (consumableBuffs == 0)
                 return;
 
-            AbnormalitySchema[] consumableSchemas = AbnormalityData.GetAllConsumableAbnormalities();
+            AbnormalitySchema[] consumableSchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.ConsumablePrefix);
 
             foreach (AbnormalitySchema schema in consumableSchemas)
             {

@@ -12,6 +12,7 @@ namespace HunterPie.Core.Game.Data
     {
         public const string SongPrefix = "Songs_";
         public const string ConsumablePrefix = "Consumables_";
+        public const string DebuffPrefix = "Debuffs_";
 
         private static XmlDocument _abnormalityData;
         public static Dictionary<string, AbnormalitySchema> Abnormalities { get; private set; }
@@ -42,6 +43,8 @@ namespace HunterPie.Core.Game.Data
                 string name = abnormality.Attributes["Name"]?.Value ?? "ABNORMALITY_UNKNOWN";
                 string icon = abnormality.Attributes["Icon"]?.Value ?? "ICON_MISSING";
                 string offset = abnormality.Attributes["Offset"]?.Value ?? "0";
+                string dependsOn = abnormality.Attributes["DependsOn"]?.Value ?? "0";
+                string withValue = abnormality.Attributes["WithValue"]?.Value ?? "0";
                 string finalId = $"{abnormality.ParentNode.Name}_{id}";
 
                 AbnormalitySchema schema = new()
@@ -52,40 +55,45 @@ namespace HunterPie.Core.Game.Data
                 };
 
                 int.TryParse(offset, NumberStyles.HexNumber, null, out schema.Offset);
+                int.TryParse(dependsOn, NumberStyles.HexNumber, null, out schema.DependsOn);
+                int.TryParse(withValue, out schema.WithValue);
 
                 Abnormalities.Add(schema.Id, schema);
             }
         }
 
-        public static AbnormalitySchema? GetSongAbnormalityData(int id)
+        public static AbnormalitySchema? GetSongAbnormalityData(int id) => GetAbnormalityData($"{SongPrefix}{id}");
+        
+        public static AbnormalitySchema? GetConsumableAbnormalityData(int id) => GetAbnormalityData($"{ConsumablePrefix}{id:X}");
+
+        public static AbnormalitySchema? GetDebuffAbnormalityData(int id, int subId = int.MinValue)
         {
-            if (!Abnormalities.ContainsKey($"{SongPrefix}{id}"))
+
+            string stringId = subId switch
+            {
+                int.MinValue => $"{DebuffPrefix}{id}",
+                _ => $"{DebuffPrefix}{id}-{subId}"
+            };
+
+            return GetAbnormalityData(stringId);
+        }
+
+        private static AbnormalitySchema? GetAbnormalityData(string id)
+        {
+            if (!Abnormalities.ContainsKey(id))
                 return null;
 
-            AbnormalitySchema schema = Abnormalities[$"{SongPrefix}{id}"];
+            AbnormalitySchema schema = Abnormalities[id];
 
             if (schema.Icon == "ICON_MISSING")
-                Log.Info($"Missing abnormality {SongPrefix}{id}");
+                Log.Info($"Missing abnormality {id}");
 
             return schema;
         }
 
-        public static AbnormalitySchema? GetConsumableAbnormalityData(int id)
+        public static AbnormalitySchema[] GetAllAbnormalitiesFromCategory(string category)
         {
-            if (!Abnormalities.ContainsKey($"{ConsumablePrefix}{id:X}"))
-                return null;
-
-            AbnormalitySchema schema = Abnormalities[$"{ConsumablePrefix}{id:X}"];
-
-            if (schema.Icon == "ICON_MISSING")
-                Log.Info($"Missing abnormality {ConsumablePrefix}{id:X}");
-
-            return schema;
-        }
-
-        public static AbnormalitySchema[] GetAllConsumableAbnormalities()
-        {
-            AbnormalitySchema[] abnormalities = Abnormalities.Where(e => e.Key.StartsWith(ConsumablePrefix))
+            AbnormalitySchema[] abnormalities = Abnormalities.Where(e => e.Key.StartsWith(category))
                                                                 .Select(el => el.Value)
                                                                 .ToArray();
 

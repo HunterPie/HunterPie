@@ -50,6 +50,20 @@
 		<Abnormality Id="ABNORMALITY_DASH_JUICE" String="Dash Juice"/>
 		<Abnormality Id="ABNORMALITY_DEMON_POWDER" String="Demon Powder"/>
 		<Abnormality Id="ABNORMALITY_HARDSHELL_POWDER" String="Hardshell Powder"/>
+
+		<Abnormality Id="ABNORMALITY_POISON" String="Poison"/>
+		<Abnormality Id="ABNORMALITY_VENOM" String="Venom"/>
+		<Abnormality Id="ABNORMALITY_DEF_DOWN" String="Defense Down"/>
+		<Abnormality Id="ABNORMALITY_RES_DOWN" String="Resistance Down"/>
+		<Abnormality Id="ABNORMALITY_STENCH" String="Stench"/>
+		<Abnormality Id="ABNORMALITY_HELLFIRE" String="Hellfireblight"/>
+		<Abnormality Id="ABNORMALITY_BLAST" String="Blastblight"/>
+		<Abnormality Id="ABNORMALITY_FIRE" String="Fireblight"/>
+		<Abnormality Id="ABNORMALITY_WATER" String="Waterblight"/>
+		<Abnormality Id="ABNORMALITY_ICE" String="Iceblight"/>
+		<Abnormality Id="ABNORMALITY_THUNDER" String="Thunderblight"/>
+		<Abnormality Id="ABNORMALITY_DRAGON" String="Dragonblight"/>
+		<Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="Major Bubbleblight"/>
 	</Abnormalities>
 	<Monsters>
 		<Shared>
@@ -246,6 +260,9 @@
 			<Setting Id="ABNORMALITY_CONSUMABLES_STRING"
 					 String="Consumables"
 					 Description="Consumable abnormalities"/>
+			<Setting Id="ABNORMALITY_DEBUFFS_STRING"
+					 String="Debuffs"
+					 Description="Debuffs abnormalities"/>
 
 			<Setting Id="ENABLE_SELF_UPDATE"
 					 String="Enable self update"
