@@ -11,9 +11,9 @@
         mc:Ignorable="d"
         Title="{Binding Name.Value}"
         MinHeight="300"
-        Height="300"
-        MinWidth="500"
-        Width="500"
+        Height="500"
+        MinWidth="600"
+        Width="900"
         WindowStyle="None"
         ResizeMode="CanResize"
         AllowsTransparency="True"
@@ -41,7 +41,8 @@
                             <WrapPanel IsItemsHost="True"
                                        ItemHeight="45"
                                        ItemWidth="45"
-                                       Orientation="Horizontal"/>
+                                       Orientation="Horizontal"
+                                       Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"/>
                         </ScrollViewer>
                     </ControlTemplate>
                 </ItemsControl.Template>
@@ -87,8 +88,13 @@
     <wnd:WindowChrome>
         <wnd:WindowChrome.Container>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <StackPanel>
-                    <ItemsControl ItemsSource="{Binding Elements, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityWidgetConfigWindow}}}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <ItemsControl ItemsSource="{Binding Elements, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityWidgetConfigWindow}}}" 
+                                  Grid.Column="0">
                         <ItemsControl.Template>
                             <ControlTemplate>
                                 <VirtualizingStackPanel IsItemsHost="True"/>
@@ -106,17 +112,17 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                    
+
                     <!-- Abnormalities selector -->
                     <TabControl Background="Transparent"
                                 ItemsSource="{Binding Collections, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityWidgetConfigWindow}}}"
                                 ContentTemplate="{StaticResource PanelTemplate}"
                                 ItemTemplate="{StaticResource HeaderTemplate}"
-                                BorderThickness="0,1,0,0"
-                                Margin="1,35,1,1"
-                                BorderBrush="{StaticResource HUNTERPIE_BACKGROUND_DARK}">
+                                Padding="2,0,2,0"
+                                BorderThickness="0"
+                                Grid.Column="1">
                     </TabControl>
-                </StackPanel>
+                </Grid>
             </ScrollViewer>
         </wnd:WindowChrome.Container>
     </wnd:WindowChrome>

@@ -1,7 +1,6 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
-using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Rise.Definitions;
@@ -9,7 +8,7 @@ using System;
 
 namespace HunterPie.Core.Game.Rise.Entities
 {
-    public class MHRSongAbnormality : IAbnormality, IEventDispatcher
+    public class MHRSongAbnormality : IAbnormality, IUpdatable<MHRHHAbnormality>, IEventDispatcher
     {
         const float SECONDS_MULTIPLIER = 60;
 
@@ -38,22 +37,17 @@ namespace HunterPie.Core.Game.Rise.Entities
         
         public event EventHandler<IAbnormality> OnTimerUpdate;
 
-        public MHRSongAbnormality(int id)
+        public MHRSongAbnormality(AbnormalitySchema schema)
         {
-            var data = AbnormalityData.GetSongAbnormalityData(id);
-
-            if (data is AbnormalitySchema schema)
-            {
-                Id = schema.Id;
-                Name = schema.Name;
-                Icon = schema.Icon;
-            }
+            Id = schema.Id;
+            Name = schema.Name;
+            Icon = schema.Icon;
         }
 
-        internal void Update(MHRHHAbnormality data)
+        void IUpdatable<MHRHHAbnormality>.Update(MHRHHAbnormality data)
         {
-            MaxTimer = Math.Max(MaxTimer, data.Timer / SECONDS_MULTIPLIER);
-            Timer = data.Timer / SECONDS_MULTIPLIER;
+            MaxTimer = Math.Max(MaxTimer, data.Timer);
+            Timer = data.Timer;
         }
     }
 }

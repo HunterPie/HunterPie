@@ -113,7 +113,9 @@
 		<Abnormality Id="DC"
 					 Offset="DC"/>
 		<Abnormality Id="E0"
-					 Offset="E0"/>
+					 Offset="E0"
+					 Name="ABNORMALITY_NATURAL_HEALING"
+					 Icon="ICON_NATURALHEALING"/>
 		<Abnormality Id="E8"
 					 Offset="E8"/>
 		<Abnormality Id="EC"

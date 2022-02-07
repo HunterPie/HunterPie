@@ -10,6 +10,7 @@ using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Rise.Definitions;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace HunterPie.Core.Game.Rise.Entities
@@ -68,9 +69,11 @@ namespace HunterPie.Core.Game.Rise.Entities
             }
         }
 
+        public bool InHuntingZone => StageId >= 200 || StageId == 5;
+
         public List<IPartyMember> Party { get; } = new();
 
-        private Dictionary<int, IAbnormality> abnormalities = new();
+        private Dictionary<string, IAbnormality> abnormalities = new();
         public IReadOnlyCollection<IAbnormality> Abnormalities => abnormalities.Values;
 
         public event EventHandler<EventArgs> OnLogin;
@@ -92,7 +95,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         // TODO: Add DTOs for middlewares
 
         [ScannableMethod]
-        private void ScanStageData()
+        internal void ScanStageData()
         {
             long stageAddress = _process.Memory.Read(
                 AddressMap.GetAbsolute("STAGE_ADDRESS"), 
@@ -120,7 +123,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        private void ScanPlayerSaveData()
+        internal void ScanPlayerSaveData()
         {
             if (StageId == -1 || StageId == 199)
             {
@@ -175,7 +178,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        private void ScanPlayerLevel()
+        internal void ScanPlayerLevel()
         {
             if (SaveSlotId < 0)
                 return;
@@ -193,7 +196,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        private void ScanPlayerWeaponData()
+        internal void ScanPlayerWeaponData()
         {
             long weaponIdPtr = _process.Memory.Read(
                 AddressMap.GetAbsolute("WEAPON_ADDRESS"),
@@ -224,9 +227,9 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        private void ScanPlayerConsumableAbnormalities()
+        internal void ScanPlayerConsumableAbnormalities()
         {
-            if (StageId == -1 || StageId == 199)
+            if (!InHuntingZone)
                 return;
 
             long consumableBuffs = _process.Memory.Read(
@@ -243,34 +246,53 @@ namespace HunterPie.Core.Game.Rise.Entities
             {
                 MHRConsumableStructure abnormality = _process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
 
-                if (abnormality.Timer > 0 && abnormalities.ContainsKey(schema.Offset))
-                {
-                    MHRConsumableAbnormality abnorm = (MHRConsumableAbnormality)abnormalities[schema.Offset];
-                    abnorm.Update(abnormality);
-                } else if (abnormality.Timer > 0 && !abnormalities.ContainsKey(schema.Offset))
-                {
-                    MHRConsumableAbnormality abnorm = new(schema.Offset);
+                abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
-                    abnormalities.Add(schema.Offset, abnorm);
-
-                    abnorm.Update(abnormality);
-                    this.Dispatch(OnAbnormalityStart, abnorm);
-                } else if (abnormality.Timer <= 0 && abnormalities.ContainsKey(schema.Offset))
-                {
-                    MHRConsumableAbnormality abnorm = (MHRConsumableAbnormality)abnormalities[schema.Offset];
-                    abnorm.Update(abnormality);
-
-                    abnormalities.Remove(schema.Offset);
-                    this.Dispatch(OnAbnormalityEnd, abnorm);
-                }
-
+                HandleAbnormality<MHRConsumableAbnormality, MHRConsumableStructure>(schema, abnormality.Timer, abnormality);
             }
         }
 
         [ScannableMethod]
-        private void ScanPlayerSongAbnormalities()
+        internal void ScanPlayerDebuffAbnormalities()
         {
-            if (StageId == -1 || StageId == 199)
+            // Only scan in hunting zone due to invalid pointer when not in a hunting zone...
+            if (!InHuntingZone)
+                return;
+
+            long debuffsPtr = _process.Memory.Read(
+                AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"), 
+                AddressMap.Get<int[]>("DEBUFF_ABNORMALITIES_OFFSETS")
+            );
+
+            if (debuffsPtr == 0)
+                return;
+
+            AbnormalitySchema[] debuffSchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.DebuffPrefix);
+            
+            foreach (AbnormalitySchema schema in debuffSchemas)
+            {
+                int abnormSubId = schema.DependsOn switch
+                {
+                    0 => 0,
+                    _ => _process.Memory.Read<int>(debuffsPtr + schema.DependsOn)
+                };
+
+                MHRDebuffStructure abnormality = new();
+
+                // Only read memory if the required sub Id is the required one for this abnormality
+                if (abnormSubId == schema.WithValue)
+                    abnormality = _process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
+
+                abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+
+                HandleAbnormality<MHRDebuffAbnormality, MHRDebuffStructure>(schema, abnormality.Timer, abnormality);
+            }
+        }
+
+        [ScannableMethod]
+        internal void ScanPlayerSongAbnormalities()
+        {
+            if (!InHuntingZone)
                 return;
 
             long songBuffsPtr = _process.Memory.Read(
@@ -286,38 +308,51 @@ namespace HunterPie.Core.Game.Rise.Entities
 
             DerefSongBuffs(songBuffPtrs);
         }
-
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void DerefSongBuffs(long[] buffs)
         {
             int id = 0;
+            AbnormalitySchema[] schemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.SongPrefix);
             foreach (long buffPtr in buffs)
             {
                 MHRHHAbnormality abnormality = _process.Memory.Read<MHRHHAbnormality>(buffPtr);
+                abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
-                // Abnormality is over
-                if (abnormalities.ContainsKey(id) && abnormality.Timer <= 0)
-                {
-                    MHRSongAbnormality abnorm = (MHRSongAbnormality)abnormalities[id];
-
-                    abnorm.Update(abnormality);
-
-                    abnormalities.Remove(id);
-                    this.Dispatch(OnAbnormalityEnd, abnorm);
-                } else if (abnormalities.ContainsKey(id) && abnormality.Timer > 0)
-                {
-                    MHRSongAbnormality abnorm = (MHRSongAbnormality)abnormalities[id];
-                    abnorm.Update(abnormality);
-                } else if (!abnormalities.ContainsKey(id) && abnormality.Timer > 0)
-                {
-                    MHRSongAbnormality abnorm = new MHRSongAbnormality(id); ;
-                    
-                    abnormalities.Add(id, abnorm);
-
-                    abnorm.Update(abnormality);
-                    this.Dispatch(OnAbnormalityStart, abnorm);
-                }
+                AbnormalitySchema maybeSchema = schemas[id];
+                
+                if (maybeSchema is AbnormalitySchema schema)
+                    HandleAbnormality<MHRSongAbnormality, MHRHHAbnormality>(schema, abnormality.Timer, abnormality);
 
                 id++;
+            }
+        }
+
+        private void HandleAbnormality<T, S>(AbnormalitySchema schema, float timer, S newData) 
+            where T : IAbnormality, IUpdatable<S>
+            where S : struct
+        {
+            if (abnormalities.ContainsKey(schema.Id) && timer <= 0)
+            {
+                IUpdatable<S> abnorm = (IUpdatable<S>)abnormalities[schema.Id];
+
+                abnorm.Update(newData);
+
+                abnormalities.Remove(schema.Id);
+                this.Dispatch(OnAbnormalityEnd, (IAbnormality)abnorm);
+            }
+            else if (abnormalities.ContainsKey(schema.Id) && timer > 0)
+            {
+                IUpdatable<S> abnorm = (IUpdatable<S>)abnormalities[schema.Id];
+                abnorm.Update(newData);
+            }
+            else if (!abnormalities.ContainsKey(schema.Id) && timer > 0)
+            {
+                IUpdatable<S> abnorm = (IUpdatable<S>)Activator.CreateInstance(typeof(T), schema);
+
+                abnormalities.Add(schema.Id, (IAbnormality)abnorm);
+                abnorm.Update(newData);
+                this.Dispatch(OnAbnormalityStart, (IAbnormality)abnorm);
             }
         }
     }

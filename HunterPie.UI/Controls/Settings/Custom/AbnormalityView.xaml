@@ -35,7 +35,7 @@
                                 <Setter Property="Effect">
                                     <Setter.Value>
                                         <DropShadowEffect BlurRadius="5"
-                                                          Color="#7F57EAA0"
+                                                          Color="#FF10B9DE"
                                                           ShadowDepth="0"/>
                                     </Setter.Value>
                                 </Setter>

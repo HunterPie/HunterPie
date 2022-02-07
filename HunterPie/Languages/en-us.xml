@@ -50,6 +50,7 @@
 		<Abnormality Id="ABNORMALITY_DASH_JUICE" String="Dash Juice"/>
 		<Abnormality Id="ABNORMALITY_DEMON_POWDER" String="Demon Powder"/>
 		<Abnormality Id="ABNORMALITY_HARDSHELL_POWDER" String="Hardshell Powder"/>
+		<Abnormality Id="ABNORMALITY_NATURAL_HEALING" String="Natural Healing"/>
 
 		<Abnormality Id="ABNORMALITY_POISON" String="Poison"/>
 		<Abnormality Id="ABNORMALITY_VENOM" String="Venom"/>

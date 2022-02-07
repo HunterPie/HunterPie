@@ -1,6 +1,5 @@
 ﻿using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Logger;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -13,6 +12,7 @@ namespace HunterPie.Core.Game.Data
         public const string SongPrefix = "Songs_";
         public const string ConsumablePrefix = "Consumables_";
         public const string DebuffPrefix = "Debuffs_";
+        public const float TIMER_MULTIPLIER = 60.0f;
 
         private static XmlDocument _abnormalityData;
         public static Dictionary<string, AbnormalitySchema> Abnormalities { get; private set; }
