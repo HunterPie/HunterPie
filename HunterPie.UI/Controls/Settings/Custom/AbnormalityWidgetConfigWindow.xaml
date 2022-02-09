@@ -8,6 +8,7 @@
         xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
         xmlns:settings="clr-namespace:HunterPie.UI.Controls.Settings"
         xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons"
+        xmlns:textbox="clr-namespace:HunterPie.UI.Controls.TextBox"
         mc:Ignorable="d"
         Title="{Binding Name.Value}"
         MinHeight="300"
@@ -32,24 +33,26 @@
     </WindowChrome.WindowChrome>
     <Window.Resources>
         <converters:ObjectToUiConverter x:Key="ObjectToUiConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
         <DataTemplate x:Key="PanelTemplate">
             <ItemsControl ItemsSource="{Binding Abnormalities, Mode=OneWay}">
                 <ItemsControl.Template>
                     <ControlTemplate>
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
-                            <WrapPanel IsItemsHost="True"
-                                       ItemHeight="45"
-                                       ItemWidth="45"
-                                       Orientation="Horizontal"
-                                       Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"/>
+                            <VirtualizingStackPanel IsItemsHost="True"
+                                                    Orientation="Vertical"
+                                                    Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"/>
                         </ScrollViewer>
                     </ControlTemplate>
                 </ItemsControl.Template>
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:AbnormalityView Margin="2"/>
+                        <local:AbnormalityView Margin="2"
+                                               Height="45"
+                                               Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type VirtualizingStackPanel}}}"
+                                               Visibility="{Binding IsMatch, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -87,43 +90,60 @@
     </Window.Resources>
     <wnd:WindowChrome>
         <wnd:WindowChrome.Container>
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <ItemsControl ItemsSource="{Binding Elements, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityWidgetConfigWindow}}}" 
-                                  Grid.Column="0">
-                        <ItemsControl.Template>
-                            <ControlTemplate>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="13*"/>
+                    <RowDefinition Height="212*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ItemsControl ItemsSource="{Binding Elements, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityWidgetConfigWindow}}}" 
+                                  Grid.Column="0" Grid.RowSpan="2">
+                    <ItemsControl.Template>
+                        <ControlTemplate>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <VirtualizingStackPanel IsItemsHost="True"/>
-                            </ControlTemplate>
-                        </ItemsControl.Template>
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
 
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <settings:SettingElementHost Hosted="{Binding ., Converter={StaticResource ObjectToUiConverter}, IsAsync=True}"
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <settings:SettingElementHost Hosted="{Binding ., Converter={StaticResource ObjectToUiConverter}, IsAsync=True}"
                                                              Text="{Binding Name}"
                                                              Description="{Binding Description}"
                                                              Margin="0,3,0,3"
                                                              Height="45"
                                                              HorizontalAlignment="Stretch"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
-                    <!-- Abnormalities selector -->
-                    <TabControl Background="Transparent"
-                                ItemsSource="{Binding Collections, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityWidgetConfigWindow}}}"
-                                ContentTemplate="{StaticResource PanelTemplate}"
-                                ItemTemplate="{StaticResource HeaderTemplate}"
-                                Padding="2,0,2,0"
-                                BorderThickness="0"
-                                Grid.Column="1">
-                    </TabControl>
-                </Grid>
-            </ScrollViewer>
+                <DockPanel Grid.Column="1"
+                            Grid.Row="0">
+                    <native:Button Content="Select all"
+                                   DockPanel.Dock="Left"
+                                   Margin="5,0,10,0"
+                                   Padding="5,0,5,0"
+                                   Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
+                                   OnClick="OnSelectAllClick"/>
+                    <textbox:SearchTextBox DockPanel.Dock="Right"
+                                           OnSearchTextChanged="OnSearchTextChanged"/>
+                </DockPanel>
+                <!-- Abnormalities selector -->
+                <TabControl Background="Transparent"
+                            ItemsSource="{Binding Collections, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityWidgetConfigWindow}}}"
+                            ContentTemplate="{StaticResource PanelTemplate}"
+                            SelectedItem="{Binding SelectedCollection, RelativeSource={RelativeSource AncestorType={x:Type local:AbnormalityWidgetConfigWindow}}}"
+                            ItemTemplate="{StaticResource HeaderTemplate}"
+                            Padding="2,0,2,0"
+                            BorderThickness="0"
+                            Grid.Column="1"
+                            MaxHeight="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" 
+                            Grid.Row="1"/>
+            </Grid>
         </wnd:WindowChrome.Container>
     </wnd:WindowChrome>
 </Window>

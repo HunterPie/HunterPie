@@ -56,8 +56,8 @@
                    Foreground="{Binding Foreground, ElementName=NativeButtonControl}"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    Padding="2,5,2,5"
-                   HorizontalContentAlignment="Center"
-                   VerticalContentAlignment="Center"/>
+                   HorizontalContentAlignment="{Binding HorizontalContentAlignment, ElementName=NativeButtonControl}"
+                   VerticalContentAlignment="{Binding VerticalContentAlignment, ElementName=NativeButtonControl}"/>
         </Grid>
     </Border>
     <arch:ClickableControl.Style>

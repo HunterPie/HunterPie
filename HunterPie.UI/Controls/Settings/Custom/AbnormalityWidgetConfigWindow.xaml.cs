@@ -13,21 +13,39 @@ using System.Threading.Tasks;
 using Localization = HunterPie.Core.Client.Localization.Localization;
 using System.Windows;
 using System.Xml;
+using HunterPie.UI.Controls.TextBox.Events;
+using System.Text.RegularExpressions;
 
 namespace HunterPie.UI.Controls.Settings.Custom
 {
     /// <summary>
     /// Interaction logic for AbnormalityWidgetConfig.xaml
     /// </summary>
-    public partial class AbnormalityWidgetConfigWindow : Window
+    public partial class AbnormalityWidgetConfigWindow : Window, INotifyPropertyChanged
     {
+        private AbnormalityCollectionViewModel _selectedElement;
 
         private readonly Dictionary<string, AbnormalityCollectionViewModel> collections = new();
         public ObservableCollection<AbnormalityCollectionViewModel> Collections { get; } = new();
         public ObservableCollection<ISettingElementType> Elements { get; } = new();
         private Dictionary<string, object> _categoryIcons = new();
 
+        public AbnormalityCollectionViewModel SelectedCollection
+        {
+            get => _selectedElement;
+            set
+            {
+                if (value != _selectedElement)
+                {
+                    _selectedElement = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedCollection)));
+                }
+            }
+        }
+
         public readonly AbnormalityWidgetConfig Config;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public AbnormalityWidgetConfigWindow(AbnormalityWidgetConfig config)
         {
@@ -82,9 +100,11 @@ namespace HunterPie.UI.Controls.Settings.Custom
                 
                 collection.Abnormalities.Add(new()
                 {
-                    Name = name,
+                    Name = Localization.QueryString($"//Strings/Abnormalities/Abnormality[@Id='{name}']"),
                     Icon = icon,
                     Id = abnormId,
+                    Category = Localization.QueryString(categoryString),
+                    IsMatch = true,
                     IsEnabled = Config.AllowedAbnormalities.Contains(abnormId)
                 });
 
@@ -101,6 +121,26 @@ namespace HunterPie.UI.Controls.Settings.Custom
             foreach (AbnormalityCollectionViewModel collection in Collections)
                 foreach (var abnorm in collection.Abnormalities.Where(a => a.IsEnabled))
                     Config.AllowedAbnormalities.Add(abnorm.Id);
+        }
+
+        private void OnSearchTextChanged(object sender, SearchTextChangedEventArgs e)
+        {
+            if (SelectedCollection is not null)
+            {
+                foreach (AbnormalityViewModel vm in SelectedCollection.Abnormalities)
+                {
+                    vm.IsMatch = string.IsNullOrEmpty(e.Text) || Regex.IsMatch(vm.Name, e.Text, RegexOptions.IgnoreCase);
+                }
+            }
+        }
+
+        private void OnSelectAllClick(object sender, EventArgs e)
+        {
+            if (SelectedCollection is not null)
+            {
+                foreach (AbnormalityViewModel vm in SelectedCollection.Abnormalities)
+                    vm.IsEnabled = true;
+            }
         }
     }
 }

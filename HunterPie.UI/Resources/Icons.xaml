@@ -348,6 +348,14 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="ICON_CHECKMARK">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}" Geometry="F1 M512,512z M0,0z M256,48C141.31,48 48,141.31 48,256 48,370.69 141.31,464 256,464 370.69,464 464,370.69 464,256 464,141.31 370.69,48 256,48z M364.25,186.29L229.85,346.29A16,16,0,0,1,217.85,352L217.58,352A16,16,0,0,1,205.69,346.7L148.09,282.7A16,16,0,1,1,171.87,261.3L217.16,311.62 339.75,165.71A16,16,0,0,1,364.25,186.29z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    
     <DrawingImage x:Key="ICON_WARN">
         <DrawingImage.Drawing>
             <DrawingGroup>

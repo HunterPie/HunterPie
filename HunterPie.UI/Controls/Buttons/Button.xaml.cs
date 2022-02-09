@@ -30,6 +30,25 @@ namespace HunterPie.UI.Controls.Buttons
         public static new readonly DependencyProperty ForegroundProperty =
             DependencyProperty.Register("Foreground", typeof(Brush), typeof(Button), new PropertyMetadata(Brushes.WhiteSmoke));
 
+        public new VerticalAlignment VerticalContentAlignment
+        {
+            get { return (VerticalAlignment)GetValue(VerticalContentAlignmentProperty); }
+            set { SetValue(VerticalContentAlignmentProperty, value); }
+        }
+
+        public static new readonly DependencyProperty VerticalContentAlignmentProperty =
+            DependencyProperty.Register("VerticalContentAlignment", typeof(VerticalAlignment), typeof(Button), new PropertyMetadata(VerticalAlignment.Center));
+
+        public new HorizontalAlignment HorizontalContentAlignment
+        {
+            get { return (HorizontalAlignment)GetValue(HorizontalContentAlignmentProperty); }
+            set { SetValue(HorizontalContentAlignmentProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for HorizontalContentAlignment.  This enables animation, styling, binding, etc...
+        public static new readonly DependencyProperty HorizontalContentAlignmentProperty =
+            DependencyProperty.Register("HorizontalContentAlignment", typeof(HorizontalAlignment), typeof(Button), new PropertyMetadata(HorizontalAlignment.Center));
+
         public Button()
         {
             InitializeComponent();
