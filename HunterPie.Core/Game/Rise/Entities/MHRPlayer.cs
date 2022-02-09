@@ -227,6 +227,13 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
+        internal void ScanPlayerAbnormalitiesCleanup()
+        {
+            if (!InHuntingZone)
+                ClearAbnormalities();
+        }
+
+        [ScannableMethod]
         internal void ScanPlayerConsumableAbnormalities()
         {
             if (!InHuntingZone)
@@ -326,6 +333,15 @@ namespace HunterPie.Core.Game.Rise.Entities
 
                 id++;
             }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void ClearAbnormalities()
+        {
+            foreach (IAbnormality abnormality in abnormalities.Values)
+                this.Dispatch(OnAbnormalityEnd, abnormality);
+
+            abnormalities.Clear();
         }
 
         private void HandleAbnormality<T, S>(AbnormalitySchema schema, float timer, S newData) 

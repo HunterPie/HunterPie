@@ -51,6 +51,8 @@
 		<Abnormality Id="ABNORMALITY_DEMON_POWDER" String="Demon Powder"/>
 		<Abnormality Id="ABNORMALITY_HARDSHELL_POWDER" String="Hardshell Powder"/>
 		<Abnormality Id="ABNORMALITY_NATURAL_HEALING" String="Natural Healing"/>
+		<Abnormality Id="ABNORMALITY_REDLAMPSQUID" String="Red Lampsquid"/>
+		<Abnormality Id="ABNORMALITY_YELLOWLAMPSQUID" String="Yellow Lampsquid"/>
 
 		<Abnormality Id="ABNORMALITY_POISON" String="Poison"/>
 		<Abnormality Id="ABNORMALITY_VENOM" String="Venom"/>

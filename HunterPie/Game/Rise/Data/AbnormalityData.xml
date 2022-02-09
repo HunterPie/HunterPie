@@ -85,7 +85,7 @@
 		<Abnormality Id="90"
 					 Offset="90"
 					 Name="ABNORMALITY_CLOTHFLY"
-					 Icon="ICON_DEFUP"/>
+					 Icon="ICON_CLOTHFLY"/>
 		<Abnormality Id="94"
 					 Offset="94"
 					 Name="ABNORMALITY_DASH_JUICE"
@@ -101,9 +101,13 @@
 		<Abnormality Id="A8"
 					 Offset="A8"/>
 		<Abnormality Id="AC"
-					 Offset="AC"/>
+					 Offset="AC"
+					 Name="ABNORMALITY_REDLAMPSQUID"
+					 Icon="ICON_REDSQUID"/>
 		<Abnormality Id="B4"
-					 Offset="B4"/>
+					 Offset="B4"
+					 Name="ABNORMALITY_YELLOWLAMPSQUID"
+					 Icon="ICON_YELLOWSQUID"/>
 		<Abnormality Id="BC"
 					 Offset="BC"/>
 		<Abnormality Id="C0"

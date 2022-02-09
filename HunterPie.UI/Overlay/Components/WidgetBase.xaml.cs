@@ -59,6 +59,7 @@ namespace HunterPie.UI.Overlay.Components
             if (counter >= 60)
             {
                 ForceAlwaysOnTop();
+                InvalidateVisual();
                 counter = 0;
             }
             counter++;

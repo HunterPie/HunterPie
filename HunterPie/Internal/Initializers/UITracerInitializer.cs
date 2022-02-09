@@ -1,4 +1,5 @@
-﻿using HunterPie.Domain.Interfaces;
+﻿using HunterPie.Core.Client;
+using HunterPie.Domain.Interfaces;
 using HunterPie.Domain.Logger;
 using System.Diagnostics;
 
@@ -10,7 +11,7 @@ namespace HunterPie.Internal.Initializers
         {
             PresentationTraceSources.Refresh();
             PresentationTraceSources.DataBindingSource.Listeners.Add(new LogTracer());
-            PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Warning;
+            PresentationTraceSources.DataBindingSource.Switch.Level = ClientConfig.Config.Debug.PresentationSourceLevel;
         }
     }
 }

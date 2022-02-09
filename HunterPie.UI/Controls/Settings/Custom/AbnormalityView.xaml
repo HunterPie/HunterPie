@@ -54,7 +54,7 @@
                 </Ellipse.Style>
             </Ellipse>
             <Image Source="{Binding Icon, Converter={StaticResource AbnormalityStringToIconConverter}}"
-                   d:Source="{StaticResource ICON_STENCH}"
+                   d:Source="{StaticResource ICON_REDSQUID}"
                    Width="20"
                    Height="20"/>
             <Grid.Style>

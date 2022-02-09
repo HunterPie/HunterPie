@@ -80,7 +80,7 @@ namespace HunterPie.Integrations.Discord
 
         private void UpdatePresence()
         {
-            if (!Settings.EnableRichPresence)
+            if (!Settings.EnableRichPresence || client is null || !client.IsInitialized)
             {
                 client.ClearPresence();
                 return;
