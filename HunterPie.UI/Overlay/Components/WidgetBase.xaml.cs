@@ -6,6 +6,9 @@ using System;
 using HunterPie.UI.Platform.Windows.Native;
 using HunterPie.UI.Overlay.Enums;
 using System.Windows.Media;
+using System.Windows.Threading;
+using HunterPie.Core.Logger;
+using System.Windows.Controls;
 
 namespace HunterPie.UI.Overlay.Components
 {
@@ -32,8 +35,8 @@ namespace HunterPie.UI.Overlay.Components
             | User32.EX_WINDOW_STYLES.WS_EX_NOACTIVATE
             | User32.EX_WINDOW_STYLES.WS_EX_TOOLWINDOW);
 
-        private object _widget;
-        public object Widget
+        private UserControl _widget;
+        public UserControl Widget
         {
             get => _widget;
             internal set
@@ -59,7 +62,10 @@ namespace HunterPie.UI.Overlay.Components
             if (counter >= 60)
             {
                 ForceAlwaysOnTop();
-                InvalidateVisual();
+                // Force WPF to update all its bindings because for some reason some people have issues
+                // with bindings taking too long to be updated.
+                Widget.InvalidateVisual();
+                Dispatcher.Invoke(() => { }, DispatcherPriority.Render);
                 counter = 0;
             }
             counter++;

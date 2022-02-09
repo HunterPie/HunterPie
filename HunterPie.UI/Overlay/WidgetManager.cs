@@ -7,6 +7,7 @@ using HunterPie.UI.Overlay.Components;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Controls;
 
 namespace HunterPie.UI.Overlay
 {
@@ -51,7 +52,7 @@ namespace HunterPie.UI.Overlay
         public static bool Register<T>(IWidget<T> widget) where T : IWidgetSettings
         {
 
-            WidgetBase wnd = new WidgetBase() { Widget = widget };
+            WidgetBase wnd = new WidgetBase() { Widget = (UserControl)widget };
             Instance._widgets.Add(wnd);
             wnd.Show();
             

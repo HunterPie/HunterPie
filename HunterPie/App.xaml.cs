@@ -93,6 +93,7 @@ namespace HunterPie
             RenderOptions.ProcessRenderMode = ClientConfig.Config.Client.Rendering == RenderingStrategy.Hardware
                 ? RenderMode.Default
                 : RenderMode.SoftwareOnly;
+
         }
 
         private void OnProcessClosed(object sender, ProcessManagerEventArgs e)
