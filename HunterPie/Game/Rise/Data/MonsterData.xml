@@ -24,15 +24,13 @@
 		<Monster Id="0"
 				 Size="1754.37">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_L_WING"/>
-				<Part Id="5" String="PART_R_WING"/>
-				<Part Id="6" String="PART_L_LEG"/>
-				<Part Id="7" String="PART_R_LEG"/>
-				<Part Id="8" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_L_WING" />
+				<Part Id="3" String="PART_R_WING" />
+				<Part Id="4" String="PART_L_LEG" />
+				<Part Id="5" String="PART_R_LEG" />
+				<Part Id="6" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="1"
@@ -41,30 +39,26 @@
 					Silver="1.1"
 					Gold="1.14"/>
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_L_WING"/>
-				<Part Id="5" String="PART_R_WING"/>
-				<Part Id="6" String="PART_L_LEG"/>
-				<Part Id="7" String="PART_R_LEG"/>
-				<Part Id="8" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_L_WING" />
+				<Part Id="3" String="PART_R_WING" />
+				<Part Id="4" String="PART_L_LEG" />
+				<Part Id="5" String="PART_R_LEG" />
+				<Part Id="6" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="2"
 				 Size="1704.22">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_TORSO"/>
-				<Part Id="3" String="PART_L_WING"/>
-				<Part Id="4" String="PART_R_WING"/>
-				<Part Id="5" String="PART_L_LEG"/>
-				<Part Id="6" String="PART_R_LEG"/>
-				<Part Id="7" String="PART_NECK"/>
-				<Part Id="8" String="PART_HEAD"/>
-				<Part Id="9" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TORSO" />
+				<Part Id="1" String="PART_L_WING" />
+				<Part Id="2" String="PART_R_WING" />
+				<Part Id="3" String="PART_L_LEG" />
+				<Part Id="4" String="PART_R_LEG" />
+				<Part Id="5" String="PART_NECK" />
+				<Part Id="6" String="PART_HEAD" />
+				<Part Id="7" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="3"
@@ -72,16 +66,14 @@
 			<Crowns Mini="0.97"
 					Silver="1.17"/>
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_TORSO"/>
-				<Part Id="3" String="PART_L_WING"/>
-				<Part Id="4" String="PART_R_WING"/>
-				<Part Id="5" String="PART_L_LEG"/>
-				<Part Id="6" String="PART_R_LEG"/>
-				<Part Id="7" String="PART_NECK"/>
-				<Part Id="8" String="PART_HEAD"/>
-				<Part Id="9" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TORSO" />
+				<Part Id="1" String="PART_L_WING" />
+				<Part Id="2" String="PART_R_WING" />
+				<Part Id="3" String="PART_L_LEG" />
+				<Part Id="4" String="PART_R_LEG" />
+				<Part Id="5" String="PART_NECK" />
+				<Part Id="6" String="PART_HEAD" />
+				<Part Id="7" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="4"
@@ -89,45 +81,39 @@
 			<Crowns Silver="1.09"
 					Gold="1.14"/>
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_NECK"/>
-				<Part Id="4" String="PART_TORSO"/>
-				<Part Id="5" String="PART_L_LEG"/>
-				<Part Id="6" String="PART_R_LEG"/>
-				<Part Id="7" String="PART_L_WING"/>
-				<Part Id="8" String="PART_R_WING"/>
-				<Part Id="9" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_NECK" />
+				<Part Id="2" String="PART_TORSO" />
+				<Part Id="3" String="PART_L_LEG" />
+				<Part Id="4" String="PART_R_LEG" />
+				<Part Id="5" String="PART_L_WING" />
+				<Part Id="6" String="PART_R_WING" />
+				<Part Id="7" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="5"
 				 Size="1413.01">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_BACK"/>
-				<Part Id="3" String="PART_L_WING"/>
-				<Part Id="4" String="PART_R_WING"/>
-				<Part Id="5" String="PART_L_LEG"/>
-				<Part Id="6" String="PART_R_LEG"/>
-				<Part Id="7" String="PART_HEAD"/>
-				<Part Id="8" String="PART_CHEST"/>
-				<Part Id="9" String="PART_TAIL"/>
+				<Part Id="0" String="PART_BACK" />
+				<Part Id="1" String="PART_L_WING" />
+				<Part Id="2" String="PART_R_WING" />
+				<Part Id="3" String="PART_L_LEG" />
+				<Part Id="4" String="PART_R_LEG" />
+				<Part Id="5" String="PART_HEAD" />
+				<Part Id="6" String="PART_CHEST" />
+				<Part Id="7" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="6"
 				 Size="2096.25">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_L_WING"/>
-				<Part Id="5" String="PART_R_WING"/>
-				<Part Id="6" String="PART_L_LEG"/>
-				<Part Id="7" String="PART_R_LEG"/>
-				<Part Id="8" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_L_WING" />
+				<Part Id="3" String="PART_R_WING" />
+				<Part Id="4" String="PART_L_LEG" />
+				<Part Id="5" String="PART_R_LEG" />
+				<Part Id="6" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="7"
@@ -135,15 +121,13 @@
 			<Crowns Mini="0.97"
 					Silver="1.17"/>
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_L_WING"/>
-				<Part Id="5" String="PART_R_WING"/>
-				<Part Id="6" String="PART_L_LEG"/>
-				<Part Id="7" String="PART_R_LEG"/>
-				<Part Id="8" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_L_WING" />
+				<Part Id="3" String="PART_R_WING" />
+				<Part Id="4" String="PART_L_LEG" />
+				<Part Id="5" String="PART_R_LEG" />
+				<Part Id="6" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="8"
@@ -151,15 +135,13 @@
 			<Crowns Mini="0.97"
 					Silver="1.17"/>
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_L_ARM"/>
-				<Part Id="5" String="PART_R_ARM"/>
-				<Part Id="6" String="PART_L_LEG"/>
-				<Part Id="7" String="PART_R_LEG"/>
-				<Part Id="8" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_L_ARM" />
+				<Part Id="3" String="PART_R_ARM" />
+				<Part Id="4" String="PART_L_LEG" />
+				<Part Id="5" String="PART_R_LEG" />
+				<Part Id="6" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="9"
@@ -167,14 +149,12 @@
 			<Crowns Mini="0.97"
 					Silver="1.17"/>
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_L_LEG"/>
-				<Part Id="5" String="PART_R_LEG"/>
-				<Part Id="6" String="PART_WINGS"/>
-				<Part Id="7" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_L_LEG" />
+				<Part Id="3" String="PART_R_LEG" />
+				<Part Id="4" String="PART_WINGS" />
+				<Part Id="5" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="10"
@@ -182,16 +162,14 @@
 			<Crowns Mini="0.97"
 					Silver="1.17"/>
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_CHEST"/>
-				<Part Id="4" String="PART_L_FORELEG"/>
-				<Part Id="5" String="PART_R_FORELEG"/>
-				<Part Id="6" String="PART_L_H_LEG"/>
-				<Part Id="7" String="PART_R_H_LEG"/>
-				<Part Id="8" String="PART_TAIL"/>
-				<Part Id="9" String="PART_WINGS"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_CHEST" />
+				<Part Id="2" String="PART_L_H_LEG" />
+				<Part Id="3" String="PART_R_H_LEG" />
+				<Part Id="4" String="PART_L_FORELEG" />
+				<Part Id="5" String="PART_R_FORELEG" />
+				<Part Id="6" String="PART_TAIL" />
+				<Part Id="7" String="PART_WINGS" />
 			</Parts>
 		</Monster>
 		<Monster Id="11"
@@ -199,114 +177,98 @@
 			<Crowns Mini="0.97"
 					Silver="1.17"/>
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_CHEST"/>
-				<Part Id="4" String="PART_FORELEGS"/>
-				<Part Id="5" String="PART_H_LEGS"/>
-				<Part Id="6" String="PART_WINGS"/>
-				<Part Id="7" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_CHEST" />
+				<Part Id="2" String="PART_FORELEGS" />
+				<Part Id="3" String="PART_H_LEGS" />
+				<Part Id="4" String="PART_WINGS" />
+				<Part Id="5" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="12"
 				 Size="1941.89">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_L_FORELEG"/>
-				<Part Id="5" String="PART_R_FORELEG"/>
-				<Part Id="6" String="PART_L_H_LEG"/>
-				<Part Id="7" String="PART_R_H_LEG"/>
-				<Part Id="8" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_L_FORELEG" />
+				<Part Id="3" String="PART_R_FORELEG" />
+				<Part Id="4" String="PART_L_H_LEG" />
+				<Part Id="5" String="PART_R_H_LEG" />
+				<Part Id="6" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="13"
 				 Size="1914.14">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_L_CUTWING"/>
-				<Part Id="5" String="PART_TAIL"/>
-				<Part Id="6" String="PART_FORELEGS"/>
-				<Part Id="7" String="PART_L_H_LEG"/>
-				<Part Id="8" String="PART_R_CUTWING"/>
-				<Part Id="9" String="PART_R_H_LEG"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_L_CUTWING" />
+				<Part Id="3" String="PART_TAIL" />
+				<Part Id="4" String="PART_FORELEGS" />
+				<Part Id="5" String="PART_L_H_LEG" />
+				<Part Id="6" String="PART_R_CUTWING" />
+				<Part Id="7" String="PART_R_H_LEG" />
 			</Parts>
 		</Monster>
 		<Monster Id="14"
 				 Size="2091">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_L_FORELEG"/>
-				<Part Id="5" String="PART_R_FORELEG"/>
-				<Part Id="6" String="PART_L_H_LEG"/>
-				<Part Id="7" String="PART_R_H_LEG"/>
-				<Part Id="8" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_L_FORELEG" />
+				<Part Id="3" String="PART_R_FORELEG" />
+				<Part Id="4" String="PART_L_H_LEG" />
+				<Part Id="5" String="PART_R_H_LEG" />
+				<Part Id="6" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="15"
 				 Size="1383.07">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_ARMS"/>
-				<Part Id="5" String="PART_L_LEG"/>
-				<Part Id="6" String="PART_R_LEG"/>
-				<Part Id="7" String="PART_TAIL"/>
-				<Part Id="8" String="PART_HEAD_MUD"/>
-				<Part Id="9" String="PART_TORSO_MUD"/>
-				<Part Id="10" String="PART_ARMS_MUD"/>
-				<Part Id="11" String="PART_L_LEG_MUD"/>
-				<Part Id="12" String="PART_R_LEG_MUD"/>
-				<Part Id="13" String="PART_TAIL_MUD"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_ARMS" />
+				<Part Id="3" String="PART_L_LEG" />
+				<Part Id="4" String="PART_R_LEG" />
+				<Part Id="5" String="PART_TAIL" />
+				<Part Id="6" String="PART_HEAD_MUD" />
+				<Part Id="7" String="PART_TORSO_MUD" />
+				<Part Id="8" String="PART_ARMS_MUD" />
+				<Part Id="9" String="PART_L_LEG_MUD" />
+				<Part Id="10" String="PART_R_LEG_MUD" />
+				<Part Id="11" String="PART_TAIL_MUD" />
 			</Parts>
 		</Monster>
 		<Monster Id="16"
 				 Size="1529.26">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_SPONGE"/>
-				<Part Id="4" String="PART_TORSO"/>
-				<Part Id="5" String="PART_L_LEGS"/>
-				<Part Id="6" String="PART_R_LEGS"/>
-				<Part Id="7" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_SPONGE" />
+				<Part Id="2" String="PART_TORSO" />
+				<Part Id="3" String="PART_L_LEGS" />
+				<Part Id="4" String="PART_R_LEGS" />
+				<Part Id="5" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="17"
 				 Size="1017.65">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_BODY"/>
-				<Part Id="4" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_BODY" />
+				<Part Id="2" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="18"
 				 Size="1540.66">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_BACK"/>
-				<Part Id="5" String="PART_L_FORELEG"/>
-				<Part Id="6" String="PART_R_FORELEG"/>
-				<Part Id="7" String="PART_L_H_LEG"/>
-				<Part Id="8" String="PART_R_H_LEG"/>
-				<Part Id="9" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_BACK" />
+				<Part Id="3" String="PART_L_FORELEG" />
+				<Part Id="4" String="PART_R_FORELEG" />
+				<Part Id="5" String="PART_L_H_LEG" />
+				<Part Id="6" String="PART_R_H_LEG" />
+				<Part Id="7" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="19"
@@ -314,38 +276,32 @@
 			<Crowns Mini="0.97"
 					Silver="1.17"/>
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_BACK"/>
-				<Part Id="5" String="PART_L_FORELEG"/>
-				<Part Id="6" String="PART_R_FORELEG"/>
-				<Part Id="7" String="PART_L_H_LEG"/>
-				<Part Id="8" String="PART_R_H_LEG"/>
-				<Part Id="9" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_BACK" />
+				<Part Id="3" String="PART_L_FORELEG" />
+				<Part Id="4" String="PART_R_FORELEG" />
+				<Part Id="5" String="PART_L_H_LEG" />
+				<Part Id="6" String="PART_R_H_LEG" />
+				<Part Id="7" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="20"
 				 Size="935.98">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_BODY"/>
-				<Part Id="4" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_BODY" />
+				<Part Id="2" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="21"
 				 Size="558.1">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_UPPER_BODY"/>
-				<Part Id="4" String="PART_FORELEGS"/>
-				<Part Id="5" String="PART_REAR"/>
-				<Part Id="6" String="PART_LOWER_BODY"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_UPPER_BODY" />
+				<Part Id="2" String="PART_FORELEGS" />
+				<Part Id="3" String="PART_REAR" />
+				<Part Id="4" String="PART_LOWER_BODY" />
 			</Parts>
 		</Monster>
 		<Monster Id="22"
@@ -354,53 +310,45 @@
 					Silver="1.03"
 					Gold="1.05"/>
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_UPPER_BODY"/>
-				<Part Id="4" String="PART_FORELEGS"/>
-				<Part Id="5" String="PART_REAR"/>
-				<Part Id="6" String="PART_LOWER_BODY"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_UPPER_BODY" />
+				<Part Id="2" String="PART_FORELEGS" />
+				<Part Id="3" String="PART_REAR" />
+				<Part Id="4" String="PART_LOWER_BODY" />
 			</Parts>
 		</Monster>
 		<Monster Id="23"
 				 Size="525.11">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_UPPER_BODY"/>
-				<Part Id="4" String="PART_FORELEGS"/>
-				<Part Id="5" String="PART_REAR"/>
-				<Part Id="6" String="PART_LOWER_BODY"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_UPPER_BODY" />
+				<Part Id="2" String="PART_FORELEGS" />
+				<Part Id="3" String="PART_REAR" />
+				<Part Id="4" String="PART_LOWER_BODY" />
 			</Parts>
 		</Monster>
 		<Monster Id="24"
 				 Size="687.29">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_UPPER_BACK"/>
-				<Part Id="3" String="PART_HEAD"/>
-				<Part Id="4" String="PART_FORELEGS"/>
-				<Part Id="5" String="PART_LOWER_BACK"/>
-				<Part Id="6" String="PART_H_LEGS"/>
-				<Part Id="7" String="PART_ROLLING"/>
+				<Part Id="0" String="PART_UPPER_BACK" />
+				<Part Id="1" String="PART_HEAD" />
+				<Part Id="2" String="PART_FORELEGS" />
+				<Part Id="3" String="PART_LOWER_BACK" />
+				<Part Id="4" String="PART_H_LEGS" />
+				<Part Id="5" String="PART_ROLLING" />
 			</Parts>
 		</Monster>
 		<Monster Id="25"
 				 Size="1832.1">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_L_FORELEG"/>
-				<Part Id="4" String="PART_R_FORELEG"/>
-				<Part Id="5" String="PART_L_H_LEG"/>
-				<Part Id="6" String="PART_R_H_LEG"/>
-				<Part Id="7" String="PART_TORSO"/>
-				<Part Id="8" String="PART_TAIL"/>
-				<Part Id="9" String="PART_DORSAL_FIN"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_L_FORELEG" />
+				<Part Id="2" String="PART_R_FORELEG" />
+				<Part Id="3" String="PART_L_H_LEG" />
+				<Part Id="4" String="PART_R_H_LEG" />
+				<Part Id="5" String="PART_TORSO" />
+				<Part Id="6" String="PART_TAIL" />
+				<Part Id="7" String="PART_DORSAL_FIN" />
 			</Parts>
 		</Monster>
 		<Monster Id="26"
@@ -409,16 +357,14 @@
 					Silver="1.1"
 					Gold="1.14"/>
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_L_FORELEG"/>
-				<Part Id="4" String="PART_R_FORELEG"/>
-				<Part Id="5" String="PART_L_H_LEG"/>
-				<Part Id="6" String="PART_R_H_LEG"/>
-				<Part Id="7" String="PART_TORSO"/>
-				<Part Id="8" String="PART_TAIL"/>
-				<Part Id="9" String="PART_DORSAL_FIN"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_L_FORELEG" />
+				<Part Id="2" String="PART_R_FORELEG" />
+				<Part Id="3" String="PART_L_H_LEG" />
+				<Part Id="4" String="PART_R_H_LEG" />
+				<Part Id="5" String="PART_TORSO" />
+				<Part Id="6" String="PART_TAIL" />
+				<Part Id="7" String="PART_DORSAL_FIN" />
 			</Parts>
 		</Monster>
 		<Monster Id="27"
@@ -426,31 +372,27 @@
 			<Crowns Silver="1.11"
 					Gold="1.17"/>
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_L_WING"/>
-				<Part Id="5" String="PART_R_WING"/>
-				<Part Id="6" String="PART_L_FORELEG"/>
-				<Part Id="7" String="PART_R_FORELEG"/>
-				<Part Id="8" String="PART_TAIL"/>
-				<Part Id="9" String="PART_H_LEGS"/>
-				<Part Id="10" String="PART_CHEST"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_L_WING" />
+				<Part Id="3" String="PART_R_WING" />
+				<Part Id="4" String="PART_L_FORELEG" />
+				<Part Id="5" String="PART_R_FORELEG" />
+				<Part Id="6" String="PART_TAIL" />
+				<Part Id="7" String="PART_H_LEGS" />
+				<Part Id="8" String="PART_CHEST" />
 			</Parts>
 		</Monster>
 		<Monster Id="28"
 				 Size="1820.89">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_R_FORELEG"/>
-				<Part Id="5" String="PART_L_FORELEG"/>
-				<Part Id="6" String="PART_BACK"/>
-				<Part Id="7" String="PART_TAIL"/>
-				<Part Id="8" String="PART_H_LEGS"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_R_FORELEG" />
+				<Part Id="3" String="PART_L_FORELEG" />
+				<Part Id="4" String="PART_BACK" />
+				<Part Id="5" String="PART_TAIL" />
+				<Part Id="6" String="PART_H_LEGS" />
 			</Parts>
 		</Monster>
 		<Monster Id="29"
@@ -458,15 +400,13 @@
 			<Crowns Silver="1.09"
 					Gold="1.14"/>
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_R_FORELEG"/>
-				<Part Id="5" String="PART_L_FORELEG"/>
-				<Part Id="6" String="PART_R_H_LEG"/>
-				<Part Id="7" String="PART_L_H_LEG"/>
-				<Part Id="8" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_R_FORELEG" />
+				<Part Id="3" String="PART_L_FORELEG" />
+				<Part Id="4" String="PART_R_H_LEG" />
+				<Part Id="5" String="PART_L_H_LEG" />
+				<Part Id="6" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="30"
@@ -475,112 +415,98 @@
 					Silver="0.9775"
 					Gold="1.0455"/>
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_NECK"/>
-				<Part Id="4" String="PART_L_WING"/>
-				<Part Id="5" String="PART_R_WING"/>
-				<Part Id="6" String="PART_TORSO"/>
-				<Part Id="7" String="PART_TAIL"/>
-				<Part Id="8" String="PART_LEGS"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_NECK" />
+				<Part Id="2" String="PART_L_WING" />
+				<Part Id="3" String="PART_R_WING" />
+				<Part Id="4" String="PART_TORSO" />
+				<Part Id="5" String="PART_TAIL" />
+				<Part Id="6" String="PART_LEGS" />
 			</Parts>
 		</Monster>
 		<Monster Id="31"
 				 Size="964.99">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_R_ARM"/>
-				<Part Id="4" String="PART_L_ARM"/>
-				<Part Id="5" String="PART_R_LEG"/>
-				<Part Id="6" String="PART_L_LEG"/>
-				<Part Id="7" String="PART_SHELL"/>
-				<Part Id="8" String="PART_CHEST"/>
-				<Part Id="9" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_R_ARM" />
+				<Part Id="2" String="PART_L_ARM" />
+				<Part Id="3" String="PART_R_LEG" />
+				<Part Id="4" String="PART_L_LEG" />
+				<Part Id="5" String="PART_SHELL" />
+				<Part Id="6" String="PART_CHEST" />
+				<Part Id="7" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="32"
 				 Size="1545">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_TORSO"/>
-				<Part Id="3" String="PART_HEAD"/>
-				<Part Id="5" String="PART_L_ARM"/>
-				<Part Id="6" String="PART_R_ARM"/>
-				<Part Id="7" String="PART_L_LEG"/>
-				<Part Id="8" String="PART_R_LEG"/>
-				<Part Id="9" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TORSO" />
+				<Part Id="1" String="PART_HEAD" />
+				<Part Id="3" String="PART_L_ARM" />
+				<Part Id="4" String="PART_R_ARM" />
+				<Part Id="5" String="PART_L_LEG" />
+				<Part Id="6" String="PART_R_LEG" />
+				<Part Id="7" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="33"
 				 Size="856.93">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_CLAW"/>
-				<Part Id="4" String="PART_L_FORELEG"/>
-				<Part Id="5" String="PART_R_FORELEG"/>
-				<Part Id="6" String="PART_L_H_LEG"/>
-				<Part Id="7" String="PART_R_H_LEG"/>
-				<Part Id="8" String="PART_CHEST"/>
-				<Part Id="9" String="PART_L_FORELEG"/>
-				<Part Id="10" String="PART_R_FORELEG"/>
-				<Part Id="11" String="PART_L_H_LEG"/>
-				<Part Id="12" String="PART_R_H_LEG"/>
-				<Part Id="13" String="PART_CHEST"/>
-				<Part Id="14" String="PART_CHEST"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_CLAW" />
+				<Part Id="2" String="PART_L_FORELEG" />
+				<Part Id="3" String="PART_R_FORELEG" />
+				<Part Id="4" String="PART_L_H_LEG" />
+				<Part Id="5" String="PART_R_H_LEG" />
+				<Part Id="6" String="PART_CHEST" />
+				<Part Id="7" String="PART_L_FORELEG" />
+				<Part Id="8" String="PART_R_FORELEG" />
+				<Part Id="9" String="PART_L_H_LEG" />
+				<Part Id="10" String="PART_R_H_LEG" />
+				<Part Id="11" String="PART_CHEST" />
+				<Part Id="12" String="PART_CHEST" />
 			</Parts>
 		</Monster>
 		<Monster Id="34"
 				 Size="2694.5">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_L_FORELEG"/>
-				<Part Id="5" String="PART_R_FORELEG"/>
-				<Part Id="6" String="PART_L_H_LEG"/>
-				<Part Id="7" String="PART_R_H_LEG"/>
-				<Part Id="8" String="PART_TAIL"/>
-				<Part Id="9" String="PART_TAIL_TIP"/>
-				<Part Id="10" String="PART_MUD_BALL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_L_FORELEG" />
+				<Part Id="3" String="PART_R_FORELEG" />
+				<Part Id="4" String="PART_L_H_LEG" />
+				<Part Id="5" String="PART_R_H_LEG" />
+				<Part Id="6" String="PART_TAIL" />
+				<Part Id="7" String="PART_TAIL_TIP" />
+				<Part Id="8" String="PART_MUD_BALL" />
 			</Parts>
 		</Monster>
 		<Monster Id="35"
 				 Size="3068.6">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_R_ARM"/>
-				<Part Id="4" String="PART_L_ARM"/>
-				<Part Id="5" String="PART_LOWER_TORSO"/>
-				<Part Id="6" String="PART_BACK"/>
-				<Part Id="7" String="PART_TAIL"/>
-				<Part Id="8" String="PART_TAIL_WINDSAC"/>
-				<Part Id="9" String="PART_CHEST_WINDSAC"/>
-				<Part Id="10" String="PART_BACK_WINDSAC"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_R_ARM" />
+				<Part Id="2" String="PART_L_ARM" />
+				<Part Id="3" String="PART_LOWER_TORSO" />
+				<Part Id="4" String="PART_BACK" />
+				<Part Id="5" String="PART_TAIL" />
+				<Part Id="6" String="PART_TAIL_WINDSAC" />
+				<Part Id="7" String="PART_CHEST_WINDSAC" />
+				<Part Id="8" String="PART_BACK_WINDSAC" />
 			</Parts>
 		</Monster>
 		<Monster Id="36"
 				 Size="730.97">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_BACK"/>
-				<Part Id="4" String="PART_L_ARM"/>
-				<Part Id="5" String="PART_L_ARM_ICE"/>
-				<Part Id="6" String="PART_R_ARM"/>
-				<Part Id="7" String="PART_R_ARM_ICE"/>
-				<Part Id="8" String="PART_L_LEG"/>
-				<Part Id="9" String="PART_R_LEG"/>
-				<Part Id="10" String="PART_TORSO"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_BACK" />
+				<Part Id="2" String="PART_L_ARM" />
+				<Part Id="3" String="PART_L_ARM_ICE" />
+				<Part Id="4" String="PART_R_ARM" />
+				<Part Id="5" String="PART_R_ARM_ICE" />
+				<Part Id="6" String="PART_L_LEG" />
+				<Part Id="7" String="PART_R_LEG" />
+				<Part Id="8" String="PART_TORSO" />
 			</Parts>
 		</Monster>
 		<Monster Id="37"
@@ -595,117 +521,101 @@
 		<Monster Id="38"
 				 Size="3875.05">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_B_LEG_FINS"/>
-				<Part Id="4" String="PART_R_ARM"/>
-				<Part Id="5" String="PART_L_ARM"/>
-				<Part Id="6" String="PART_TAIL"/>
-				<Part Id="7" String="PART_TORSO"/>
-				<Part Id="8" String="PART_BACK"/>
-				<Part Id="9" String="PART_THUNDERBALLS"/>
-				<Part Id="10" String="PART_CHEST"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_B_LEG_FINS" />
+				<Part Id="2" String="PART_R_ARM" />
+				<Part Id="3" String="PART_L_ARM" />
+				<Part Id="4" String="PART_TAIL" />
+				<Part Id="5" String="PART_TORSO" />
+				<Part Id="6" String="PART_BACK" />
+				<Part Id="7" String="PART_THUNDERBALLS" />
+				<Part Id="8" String="PART_CHEST" />
 			</Parts>
 		</Monster>
 		<Monster Id="39"
 				 Size="3875.05">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_B_LEG_FINS"/>
-				<Part Id="4" String="PART_R_ARM"/>
-				<Part Id="5" String="PART_L_ARM"/>
-				<Part Id="6" String="PART_TAIL"/>
-				<Part Id="7" String="PART_TORSO"/>
-				<Part Id="8" String="PART_BACK"/>
-				<Part Id="9" String="PART_THUNDERBALLS"/>
-				<Part Id="10" String="PART_CHEST"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_B_LEG_FINS" />
+				<Part Id="2" String="PART_R_ARM" />
+				<Part Id="3" String="PART_L_ARM" />
+				<Part Id="4" String="PART_TAIL" />
+				<Part Id="5" String="PART_TORSO" />
+				<Part Id="6" String="PART_BACK" />
+				<Part Id="7" String="PART_THUNDERBALLS" />
+				<Part Id="8" String="PART_CHEST" />
 			</Parts>
 		</Monster>
 		<Monster Id="40"
 				 Size="1646.46">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_L_LEG"/>
-				<Part Id="5" String="PART_R_LEG"/>
-				<Part Id="6" String="PART_TAIL"/>
-				<Part Id="7" String="PART_L_WING"/>
-				<Part Id="8" String="PART_R_WING"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_L_LEG" />
+				<Part Id="3" String="PART_R_LEG" />
+				<Part Id="4" String="PART_TAIL" />
+				<Part Id="5" String="PART_L_WING" />
+				<Part Id="6" String="PART_R_WING" />
 			</Parts>
 		</Monster>
 		<Monster Id="41"
 				 Size="1102.45">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_L_WING"/>
-				<Part Id="5" String="PART_R_WING"/>
-				<Part Id="6" String="PART_L_LEG"/>
-				<Part Id="7" String="PART_R_LEG"/>
-				<Part Id="8" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_L_WING" />
+				<Part Id="3" String="PART_R_WING" />
+				<Part Id="4" String="PART_L_LEG" />
+				<Part Id="5" String="PART_R_LEG" />
+				<Part Id="6" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="42"
 				 Size="901.24">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_ARMS"/>
-				<Part Id="4" String="PART_BODY"/>
-				<Part Id="5" String="PART_TAIL"/>
-				<Part Id="6" String="PART_ROCK"/>
-				<Part Id="7" String="PART_POT"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_ARMS" />
+				<Part Id="2" String="PART_BODY" />
+				<Part Id="3" String="PART_TAIL" />
+				<Part Id="4" String="PART_ROCK" />
+				<Part Id="5" String="PART_POT" />
 			</Parts>
 		</Monster>
 		<Monster Id="43"
 				 Size="901.24">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_L_LEG"/>
-				<Part Id="5" String="PART_R_LEG"/>
-				<Part Id="6" String="PART_TAIL"/>
-				<Part Id="7" String="PART_HEAD_MUD"/>
-				<Part Id="8" String="PART_TORSO_MUD"/>
-				<Part Id="9" String="PART_L_LEG_MUD"/>
-				<Part Id="10" String="PART_R_LEG_MUD"/>
-				<Part Id="11" String="PART_TAIL_MUD"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_L_LEG" />
+				<Part Id="3" String="PART_R_LEG" />
+				<Part Id="4" String="PART_TAIL" />
+				<Part Id="5" String="PART_HEAD_MUD" />
+				<Part Id="6" String="PART_TORSO_MUD" />
+				<Part Id="7" String="PART_L_LEG_MUD" />
+				<Part Id="8" String="PART_R_LEG_MUD" />
+				<Part Id="9" String="PART_TAIL_MUD" />
 			</Parts>
 		</Monster>
 		<Monster Id="44"
 				 Size="1300.52">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_BACK"/>
-				<Part Id="5" String="PART_FORELEGS"/>
-				<Part Id="6" String="PART_H_LEGS"/>
-				<Part Id="7" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_BACK" />
+				<Part Id="3" String="PART_FORELEGS" />
+				<Part Id="4" String="PART_H_LEGS" />
+				<Part Id="5" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 		<Monster Id="45"
 				 Size="1928.38">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_TORSO"/>
-				<Part Id="4" String="PART_LEGS"/>
-				<Part Id="5" String="PART_L_WING"/>
-				<Part Id="6" String="PART_R_WING"/>
-				<Part Id="7" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_LEGS" />
+				<Part Id="3" String="PART_L_WING" />
+				<Part Id="4" String="PART_R_WING" />
+				<Part Id="5" String="PART_TAIL" />
 			</Parts>
 		</Monster>
 	</Monsters>
