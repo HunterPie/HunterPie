@@ -586,12 +586,10 @@
 		<Monster Id="37"
 				 Size="1075.1">
 			<Parts>
-				<Part Id="0" String="PART_UNKNOWN"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="3" String="PART_BODY"/>
-				<Part Id="4" String="PART_ARMS"/>
-				<Part Id="5" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_BODY"/>
+				<Part Id="2" String="PART_ARMS"/>
+				<Part Id="3" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
 		<Monster Id="38"

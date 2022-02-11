@@ -16,6 +16,7 @@ using HunterPie.Core.Logger;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace HunterPie.Core.Game.Rise.Entities
 {
@@ -194,13 +195,17 @@ namespace HunterPie.Core.Game.Rise.Entities
             long monsterPartsPtr = _process.Memory.Read<long>(healthComponent + 0x70);
             uint monsterPartsArrayLength = _process.Memory.Read<uint>(monsterPartsPtr + 0x1C);
 
+            long monsterBreakPartsArrayPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_BREAK_HEALTH_COMPONENT_OFFSETS"));
+            uint monsterBreakPartsArrayLength = _process.Memory.Read<uint>(monsterBreakPartsArrayPtr + 0x1C);
+
             // TODO: Find a better way to detect if this array is valid
             // This is a workaround because I don't want HunterPie to allocate 278326178362 longs because it read an invalid value
             if (monsterPartsArrayLength <= 30)
             {
-                long[] monsterPartsArray = _process.Memory.Read<long>(monsterPartsPtr, monsterPartsArrayLength);
+                long[] monsterFlinchArray = _process.Memory.Read<long>(monsterPartsPtr + 0x20, monsterPartsArrayLength);
+                long[] monsterBreakPartsArray = _process.Memory.Read<long>(monsterBreakPartsArrayPtr + 0x20, monsterBreakPartsArrayLength);
 
-                DerefPartsAndScan(monsterPartsArray);
+                DerefPartsAndScan(monsterFlinchArray, monsterBreakPartsArray);
             }
 
 
@@ -208,6 +213,49 @@ namespace HunterPie.Core.Game.Rise.Entities
 
             MaxHealth = dto.MaxHealth;
             Health = dto.Health;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void DerefPartsAndScan(long[] flinchPointers, long[] partsPointers)
+        {
+            for (int i = 0; i < flinchPointers.Length; i++)
+            {
+                long part = flinchPointers[i];
+                long breakablePart = partsPointers[i];
+
+                float maxBreakableHealth = _process.Memory.Read<float>(breakablePart + 0x18);
+                float maxHealth = _process.Memory.Read<float>(part + 0x18);
+
+                if (maxBreakableHealth > 0)
+                {
+                    part = breakablePart;
+                    maxHealth = maxBreakableHealth;
+                }
+
+                // TODO: Read all this in 1 pass
+                long encodedHealthPtr = _process.Memory.ReadPtr(part, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+                uint healthEncodedIdx = _process.Memory.Read<uint>(encodedHealthPtr + 0x18) & 3;
+                uint healthEncoded = _process.Memory.Read<uint>(encodedHealthPtr + healthEncodedIdx * 4 + 0x1C);
+                uint healthEncodedKey = _process.Memory.Read<uint>(encodedHealthPtr + 0x14);
+
+                float health = MHRFloat.DecodeHealth(healthEncoded, healthEncodedKey);
+
+                if (maxHealth <= 0.0f)
+                    continue;
+
+                if (!parts.ContainsKey(part))
+                {
+                    string partName = MonsterData.GetMonsterPartData(Id, i)?.String ?? "PART_UNKNOWN";
+                    var dummy = new MHRMonsterPart(partName);
+                    parts.Add(part, dummy);
+
+                    Log.Debug($"Found {partName} for {Name} -> {part:X}");
+                    this.Dispatch(OnNewPartFound, dummy);
+                }
+
+                MHRMonsterPart monsterPart = parts[part];
+                monsterPart.UpdateHealth(health, maxHealth);
+            }
         }
 
         [ScannableMethod]
@@ -310,40 +358,6 @@ namespace HunterPie.Core.Game.Rise.Entities
 
             MaxStamina = structure.MaxStamina;
             Stamina = structure.Stamina;
-        }
-
-        private void DerefPartsAndScan(long[] partsPointers)
-        {
-            int i = 0;
-            foreach (var part in partsPointers)
-            {
-                float maxHealth = _process.Memory.Read<float>(part + 0x18);
-                
-                // TODO: Read all this in 1 pass
-                long encodedHealthPtr = _process.Memory.ReadPtr(part, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
-                uint healthEncodedIdx = _process.Memory.Read<uint>(encodedHealthPtr + 0x18) & 3;
-                uint healthEncoded = _process.Memory.Read<uint>(encodedHealthPtr + healthEncodedIdx * 4 + 0x1C);
-                uint healthEncodedKey = _process.Memory.Read<uint>(encodedHealthPtr + 0x14);
-
-                float health = MHRFloat.DecodeHealth(healthEncoded, healthEncodedKey);
-
-                if (maxHealth <= 0.0f)
-                    continue;
-
-                if (!parts.ContainsKey(part))
-                {
-                    string partName = MonsterData.GetMonsterPartData(Id, i)?.String ?? "PART_UNKNOWN";
-                    var dummy = new MHRMonsterPart(partName);
-                    parts.Add(part, dummy);
-
-                    Log.Debug($"Found {partName} for {Name} -> {part:X}");
-                    this.Dispatch(OnNewPartFound, dummy);
-                }
-
-                MHRMonsterPart monsterPart = parts[part];
-                monsterPart.UpdateHealth(health, maxHealth);
-                i++;
-            }
         }
 
         private void DerefAilmentsAndScan(long[] ailmentsPointers)
