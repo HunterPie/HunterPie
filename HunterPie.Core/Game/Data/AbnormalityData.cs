@@ -12,7 +12,13 @@ namespace HunterPie.Core.Game.Data
         public const string SongPrefix = "Songs_";
         public const string ConsumablePrefix = "Consumables_";
         public const string DebuffPrefix = "Debuffs_";
+        public const string SkillPrefix = "Skills_";
         public const float TIMER_MULTIPLIER = 60.0f;
+
+        public const string Songs = "Songs";
+        public const string Consumables = "Consumables";
+        public const string Debuffs = "Debuffs";
+        public const string Skills = "Skills";
 
         private static XmlDocument _abnormalityData;
         public static Dictionary<string, AbnormalitySchema> Abnormalities { get; private set; }
@@ -46,12 +52,14 @@ namespace HunterPie.Core.Game.Data
                 string dependsOn = abnormality.Attributes["DependsOn"]?.Value ?? "0";
                 string withValue = abnormality.Attributes["WithValue"]?.Value ?? "0";
                 string finalId = $"{abnormality.ParentNode.Name}_{id}";
+                string category = abnormality.Attributes["Category"]?.Value ?? abnormality.ParentNode.Name;
 
                 AbnormalitySchema schema = new()
                 {
                     Id = finalId,
                     Name = name,
-                    Icon = icon
+                    Icon = icon,
+                    Category = category
                 };
 
                 int.TryParse(offset, NumberStyles.HexNumber, null, out schema.Offset);
@@ -93,7 +101,7 @@ namespace HunterPie.Core.Game.Data
 
         public static AbnormalitySchema[] GetAllAbnormalitiesFromCategory(string category)
         {
-            AbnormalitySchema[] abnormalities = Abnormalities.Where(e => e.Key.StartsWith(category))
+            AbnormalitySchema[] abnormalities = Abnormalities.Where(e => e.Value.Category == category)
                                                                 .Select(el => el.Value)
                                                                 .ToArray();
 

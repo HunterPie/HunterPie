@@ -8,5 +8,6 @@
         public int WithValue;
         public string Name;
         public string Icon;
+        public string Category;
     }
 }

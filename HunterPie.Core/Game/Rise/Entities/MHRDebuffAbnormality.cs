@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
+using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Rise.Definitions;
@@ -8,13 +9,14 @@ using System;
 
 namespace HunterPie.Core.Game.Rise.Entities
 {
+    // TODO: Make this a generic Abnormality
     public class MHRDebuffAbnormality : IAbnormality, IUpdatable<MHRDebuffStructure>, IEventDispatcher
     {
         private float _timer;
 
         public string Id { get; private set; }
         public string Icon { get; private set; }
-        public AbnormalityType Type => AbnormalityType.Debuff;
+        public AbnormalityType Type { get; private set; }
         public float Timer
         {
             get => _timer;
@@ -37,7 +39,9 @@ namespace HunterPie.Core.Game.Rise.Entities
         {
             Id = data.Id;
             Icon = data.Icon;
-
+            Type = data.Id.StartsWith(AbnormalityData.DebuffPrefix) 
+                ? AbnormalityType.Debuff 
+                : AbnormalityType.Skill;
         }
 
         void IUpdatable<MHRDebuffStructure>.Update(MHRDebuffStructure structure)

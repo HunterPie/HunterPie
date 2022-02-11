@@ -113,25 +113,37 @@
 		<Abnormality Id="C0"
 					 Offset="C0"/>
 		<Abnormality Id="D4"
-					 Offset="D4"/>
+					 Offset="D4"
+					 Name="ABNORMALITY_IMMUNITY"
+					 Icon="ICON_IMMUNITY"/>
 		<Abnormality Id="DC"
-					 Offset="DC"/>
+					 Offset="DC"
+					 Name="ABNORMALITY_GOURMET_FISH"
+					 Icon="ICON_GOURMETFISH"/>
 		<Abnormality Id="E0"
 					 Offset="E0"
 					 Name="ABNORMALITY_NATURAL_HEALING"
 					 Icon="ICON_NATURALHEALING"/>
+		<Abnormality Id="E4"
+					 Offset="E4"
+					 Name="ABNORMALITY_GO_FIGHT_WIN"
+					 Icon="ICON_PALICO_YELLOW"/>
 		<Abnormality Id="E8"
 					 Offset="E8"/>
 		<Abnormality Id="EC"
 					 Offset="EC"/>
-		<Abnormality Id="E4"
-					 Offset="E4"/>
 		<Abnormality Id="F0"
 					 Offset="F0"/>
+		<Abnormality Id="F4"
+					 Offset="F4"/>
 		<Abnormality Id="F8"
-					 Offset="F8"/>
+					 Offset="F8"
+					 Name="ABNORMALITY_POWER_DRUM"
+					 Icon="ICON_POWERDRUM"/>
 		<Abnormality Id="FC"
-					 Offset="FC"/>
+					 Offset="FC"
+					 Name="ABNORMALITY_ROUSING_ROAR"
+					 Icon="ICON_PALICO_BLUE"/>
 		<Abnormality Id="124"
 					 Offset="124"/>
 	</Consumables>
@@ -193,4 +205,16 @@
 					 Name="ABNORMALITY_BUBBLES_PLUS"
 					 Icon="ICON_BUBBLE+"/>
 	</Debuffs>
+	<Skills>
+		<Abnormality Id="118"
+					 Offset="118"
+					 Name="ABNORMALITY_COUNTERSTRIKE"
+					 Icon="ICON_ARMORSKILL_ORANGE"
+					 Category="Consumables"/>
+		<Abnormality Id="1DC"
+					 Offset="1DC"
+					 Name="ABNORMALITY_LATENTPOWER"
+					 Icon="ICON_ARMORSKILL_SALMON"
+					 Category="Debuffs"/>
+	</Skills>
 </Abnormalities>

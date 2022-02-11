@@ -247,7 +247,7 @@ namespace HunterPie.Core.Game.Rise.Entities
             if (consumableBuffs == 0)
                 return;
 
-            AbnormalitySchema[] consumableSchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.ConsumablePrefix);
+            AbnormalitySchema[] consumableSchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Consumables);
 
             foreach (AbnormalitySchema schema in consumableSchemas)
             {
@@ -274,7 +274,7 @@ namespace HunterPie.Core.Game.Rise.Entities
             if (debuffsPtr == 0)
                 return;
 
-            AbnormalitySchema[] debuffSchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.DebuffPrefix);
+            AbnormalitySchema[] debuffSchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Debuffs);
             
             foreach (AbnormalitySchema schema in debuffSchemas)
             {
@@ -320,7 +320,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         private void DerefSongBuffs(long[] buffs)
         {
             int id = 0;
-            AbnormalitySchema[] schemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.SongPrefix);
+            AbnormalitySchema[] schemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Songs);
             foreach (long buffPtr in buffs)
             {
                 MHRHHAbnormality abnormality = _process.Memory.Read<MHRHHAbnormality>(buffPtr);
@@ -359,11 +359,15 @@ namespace HunterPie.Core.Game.Rise.Entities
             }
             else if (abnormalities.ContainsKey(schema.Id) && timer > 0)
             {
+
                 IUpdatable<S> abnorm = (IUpdatable<S>)abnormalities[schema.Id];
                 abnorm.Update(newData);
             }
             else if (!abnormalities.ContainsKey(schema.Id) && timer > 0)
             {
+                if (schema.Icon == "ICON_MISSING")
+                    Logger.Log.Info($"Missing abnormality: {schema.Id}");
+
                 IUpdatable<S> abnorm = (IUpdatable<S>)Activator.CreateInstance(typeof(T), schema);
 
                 abnormalities.Add(schema.Id, (IAbnormality)abnorm);

@@ -6,12 +6,12 @@
     <UseWPF>true</UseWPF>
 	<UseWindowsForms>true</UseWindowsForms>
     <StartupObject></StartupObject>
-	<Version>2.0.15.0</Version>
-	<AssemblyVersion>2.0.15.*</AssemblyVersion>
+	<Version>2.0.16.0</Version>
+	<AssemblyVersion>2.0.16.*</AssemblyVersion>
 	<Deterministic>false</Deterministic>
 	<ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
 	<Authors>Haato</Authors>
-	<FileVersion>2.0.15.0</FileVersion>
+	<FileVersion>2.0.16.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

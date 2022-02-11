@@ -34,7 +34,7 @@
                      Grid.Column="0" 
                      Grid.RowSpan="2"/>
             <Image Source="{Binding Icon, Converter={StaticResource AbnormalityStringToIconConverter}}"
-                   d:Source="{StaticResource ICON_REDSQUID}" 
+                   d:Source="{StaticResource ICON_ARMORSKILL_ORANGE}" 
                    Grid.Column="0" 
                    Grid.RowSpan="2" 
                    Margin="5,5,5,5"/>

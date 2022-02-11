@@ -53,6 +53,15 @@
 		<Abnormality Id="ABNORMALITY_NATURAL_HEALING" String="Natural Healing"/>
 		<Abnormality Id="ABNORMALITY_REDLAMPSQUID" String="Red Lampsquid"/>
 		<Abnormality Id="ABNORMALITY_YELLOWLAMPSQUID" String="Yellow Lampsquid"/>
+		<Abnormality Id="ABNORMALITY_GOURMET_FISH" String="Gourmet Fish"/>
+		<Abnormality Id="ABNORMALITY_IMMUNITY" String="Immunity"/>
+		<Abnormality Id="ABNORMALITY_GO_FIGHT_WIN" String="Go, Fight, Win"/>
+		<Abnormality Id="ABNORMALITY_POWER_DRUM" String="Power Drum"/>
+		<Abnormality Id="ABNORMALITY_ROUSING_ROAR" String="Rousing Roar"/>
+		
+		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="Counterstrike"/>
+		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="Latent Power"/>
+		
 
 		<Abnormality Id="ABNORMALITY_POISON" String="Poison"/>
 		<Abnormality Id="ABNORMALITY_VENOM" String="Venom"/>
@@ -265,7 +274,10 @@
 					 Description="Consumable abnormalities"/>
 			<Setting Id="ABNORMALITY_DEBUFFS_STRING"
 					 String="Debuffs"
-					 Description="Debuffs abnormalities"/>
+					 Description="Debuffs abnormalities"/>]
+			<Setting Id="ABNORMALITY_SKILLS_STRING"
+					 String="Armor skills"
+					 Description="Armor skill abnormalities"/>
 
 			<Setting Id="ENABLE_SELF_UPDATE"
 					 String="Enable self update"

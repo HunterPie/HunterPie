@@ -62,10 +62,6 @@ namespace HunterPie.UI.Overlay.Components
             if (counter >= 60)
             {
                 ForceAlwaysOnTop();
-                // Force WPF to update all its bindings because for some reason some people have issues
-                // with bindings taking too long to be updated.
-                Widget.InvalidateVisual();
-                Dispatcher.Invoke(() => { }, DispatcherPriority.Render);
                 counter = 0;
             }
             counter++;

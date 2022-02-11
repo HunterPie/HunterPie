@@ -4,6 +4,7 @@
     {
         Song,
         Consumable,
+        Skill,
         Environment,
         Debuff
     }
