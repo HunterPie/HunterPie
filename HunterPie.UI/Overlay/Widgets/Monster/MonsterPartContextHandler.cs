@@ -17,11 +17,26 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         private void HookEvents()
         {
             Context.OnHealthUpdate += OnHealthUpdate;
+            Context.OnFlinchUpdate += OnFlinchUpdate;
+        }
+
+        private void OnFlinchUpdate(object sender, IMonsterPart e)
+        {
+            // In case this part has only flinch values, we can display it in the main health bar
+            if (e.MaxHealth < 0)
+            {
+                MaxHealth = e.MaxFlinch;
+                Health = e.Flinch;
+                return;
+            }
+            Tenderize = e.Flinch;
+            MaxTenderize = e.MaxFlinch;
         }
 
         private void UnhookEvents()
         {
             Context.OnHealthUpdate -= OnHealthUpdate;
+            Context.OnFlinchUpdate -= OnFlinchUpdate;
         }
 
         private void OnHealthUpdate(object sender, IMonsterPart e)
@@ -39,8 +54,18 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         private void Update()
         {
             Name = Context.Id;
-            MaxHealth = Context.MaxHealth;
-            Health = Context.Health;
+            if (Context.MaxHealth > 0)
+            {
+                MaxHealth = Context.MaxHealth;
+                Health = Context.Health;
+                Tenderize = Context.Flinch;
+                MaxTenderize = Context.MaxFlinch;
+            } else
+            {
+                MaxHealth = Context.MaxFlinch;
+                Health = Context.Flinch;
+            }
+            
         }
     }
 }

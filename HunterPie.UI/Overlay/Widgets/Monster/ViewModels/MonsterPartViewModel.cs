@@ -48,8 +48,6 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         public int MaxBreaks { get => _maxBreaks; set { SetValue(ref _maxBreaks, value); } }
         public bool IsActive { get => _isActive; set { SetValue(ref _isActive, value); } }
 
-        private object sync = new();
-
         public MonsterPartViewModel()
         {
             timeout = new(ClientConfig.Config.Overlay.BossesWidget.AutoHidePartsDelay.Current * 1000)
@@ -64,13 +62,10 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 
         private void OnHideTimerTick(object sender, ElapsedEventArgs e)
         {
-            lock (sync)
-            {
-                if (!IsActive)
-                    return;
+            if (!IsActive)
+                return;
 
-                IsActive = false;
-            }
+            IsActive = false;
         }
 
         private void OnDelayTimeUpdate(object sender, PropertyChangedEventArgs e)
@@ -81,12 +76,9 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 
         private void RefreshTimer()
         {
-            lock (sync)
-            {
-                IsActive = true;
-                timeout.Stop();
-                timeout.Start();
-            }
+            IsActive = true;
+            timeout.Stop();
+            timeout.Start();
         }
 
         protected virtual void DisposeResources()

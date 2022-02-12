@@ -19,10 +19,10 @@
         <SolidColorBrush x:Key="MonsterHealthUnenragedDelayed" Color="#FF9CE4FF"/>
 
         <LinearGradientBrush x:Key="MonsterTenderizeBar" EndPoint="1,1" StartPoint="0,1">
-            <GradientStop Color="#FF9CE4FF"/>
-            <GradientStop Color="White" Offset="1"/>
+            <GradientStop Color="#FFFB6C36"/>
+            <GradientStop Color="#FFFFD100" Offset="1"/>
         </LinearGradientBrush>
-        <SolidColorBrush x:Key="MonsterTenderizeBarDelayed" Color="#FF9CE8FF"/>
+        <SolidColorBrush x:Key="MonsterTenderizeBarDelayed" Color="#FFFFDB9C"/>
     </UserControl.Resources>
     <Grid>
         <TextBlock Text="{Binding Name, Converter={StaticResource MonsterPartIdToNameConverter}, Mode=OneTime}"
@@ -43,14 +43,14 @@
         <Grid Margin="30,15,0,0">
             <overlay:Bar Foreground="{StaticResource MonsterTenderizeBar}"
                          ForegroundDelayed="{StaticResource MonsterTenderizeBarDelayed}"
-                         Height="9"
+                         Height="10"
                          MarkersVisibility="Hidden"
                          VerticalAlignment="Top"
-                         Margin="3,0,5,0"
-                         Value="{Binding Tenderize}"
-                         MaxValue="{Binding MaxTenderize}"
-                         d:Value="100"
+                         Margin="2,0,5,0"
+                         MaxValue="{Binding MaxTenderize, Mode=OneWay}"
+                         Value="{Binding Tenderize, Mode=OneWay}"
                          d:MaxValue="100"
+                         d:Value="80"
                          BorderThickness="0"
                          RenderTransformOrigin="0.5,0.5">
                 <overlay:Bar.RenderTransform>
