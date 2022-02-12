@@ -195,69 +195,89 @@ namespace HunterPie.Core.Game.Rise.Entities
             dto.Health = currentHealth;
             dto.MaxHealth = _process.Memory.Read<float>(healthComponent + 0x18);
 
-            long monsterPartsPtr = _process.Memory.Read<long>(healthComponent + 0x70);
-            uint monsterPartsArrayLength = _process.Memory.Read<uint>(monsterPartsPtr + 0x1C);
-
-            long monsterBreakPartsArrayPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_BREAK_HEALTH_COMPONENT_OFFSETS"));
-            uint monsterBreakPartsArrayLength = _process.Memory.Read<uint>(monsterBreakPartsArrayPtr + 0x1C);
-
-            if (monsterPartsArrayLength == monsterBreakPartsArrayLength)
-            {
-                long[] monsterFlinchArray = _process.Memory.Read<long>(monsterPartsPtr + 0x20, monsterPartsArrayLength);
-                long[] monsterBreakPartsArray = _process.Memory.Read<long>(monsterBreakPartsArrayPtr + 0x20, monsterBreakPartsArrayLength);
-
-                DerefPartsAndScan(monsterFlinchArray, monsterBreakPartsArray);
-            }
-
-
             Next(ref dto);
 
             MaxHealth = dto.MaxHealth;
             Health = dto.Health;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void DerefPartsAndScan(long[] flinchPointers, long[] partsPointers)
+        [ScannableMethod]
+        private void GetMonsterParts()
         {
-            for (int i = 0; i < Math.Min(flinchPointers.Length, partsPointers.Length); i++)
+            // Flinch array
+            long monsterFlinchPartsPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_FLINCH_HEALTH_COMPONENT_OFFSETS"));
+            uint monsterFlinchPartsArrayLength = _process.Memory.Read<uint>(monsterFlinchPartsPtr + 0x1C);
+
+            // Breakable array
+            long monsterBreakPartsArrayPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_BREAK_HEALTH_COMPONENT_OFFSETS"));
+            uint monsterBreakPartsArrayLength = _process.Memory.Read<uint>(monsterBreakPartsArrayPtr + 0x1C);
+
+            // Severable array
+            long monsterSeverPartsArrayPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_SEVER_HEALTH_COMPONENT_OFFSETS"));
+            uint monsterSeverPartsArrayLenght = _process.Memory.Read<uint>(monsterSeverPartsArrayPtr + 0x1C);
+            
+            if (monsterFlinchPartsArrayLength == monsterBreakPartsArrayLength
+                && monsterFlinchPartsArrayLength == monsterSeverPartsArrayLenght)
+            {
+                long[] monsterFlinchArray = _process.Memory.Read<long>(monsterFlinchPartsPtr + 0x20, monsterFlinchPartsArrayLength);
+                long[] monsterBreakArray = _process.Memory.Read<long>(monsterBreakPartsArrayPtr + 0x20, monsterBreakPartsArrayLength);
+                long[] monsterSeverArray = _process.Memory.Read<long>(monsterSeverPartsArrayPtr + 0x20, monsterSeverPartsArrayLenght);
+
+                DerefPartsAndScan(monsterFlinchArray, monsterBreakArray, monsterSeverArray);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void DerefPartsAndScan(long[] flinchPointers, long[] partsPointers, long[] severablePointers)
+        {
+            for (int i = 0; i < flinchPointers.Length; i++)
             {
                 
                 long flinchPart = flinchPointers[i];
                 long breakablePart = partsPointers[i];
+                long severablePart = severablePointers[i];
 
                 MHRPartStructure partInfo = new()
                 {
                     MaxHealth = _process.Memory.Read<float>(breakablePart + 0x18),
                     MaxFlinch = _process.Memory.Read<float>(flinchPart + 0x18),
+                    MaxSever = _process.Memory.Read<float>(severablePart + 0x18)
                 };
 
-                if (partInfo.MaxFlinch < 0 && partInfo.MaxHealth < 0)
+                // Skip invalid parts
+                if (partInfo.MaxFlinch < 0 && partInfo.MaxHealth < 0 && partInfo.MaxSever < 0)
                     continue;
 
                 // TODO: Read all this in 1 pass
                 long encodedFlinchHealthPtr = _process.Memory.ReadPtr(flinchPart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
                 long encodedBreakableHealthPtr = _process.Memory.ReadPtr(breakablePart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+                long encodedSeverableHealthPtr = _process.Memory.ReadPtr(severablePart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
 
+                // Flinch values
                 uint healthEncodedIdx = _process.Memory.Read<uint>(encodedFlinchHealthPtr + 0x18) & 3;
                 uint healthEncoded = _process.Memory.Read<uint>(encodedFlinchHealthPtr + healthEncodedIdx * 4 + 0x1C);
                 uint healthEncodedKey = _process.Memory.Read<uint>(encodedFlinchHealthPtr + 0x14);
-
                 partInfo.Flinch = MHRFloat.DecodeHealth(healthEncoded, healthEncodedKey);
 
+                // Break values
                 healthEncodedIdx = _process.Memory.Read<uint>(encodedBreakableHealthPtr + 0x18) & 3;
                 healthEncoded = _process.Memory.Read<uint>(encodedBreakableHealthPtr + healthEncodedIdx * 4 + 0x1C);
                 healthEncodedKey = _process.Memory.Read<uint>(encodedBreakableHealthPtr + 0x14);
-
                 partInfo.Health = MHRFloat.DecodeHealth(healthEncoded, healthEncodedKey);
 
+                // Sever values
+                healthEncodedIdx = _process.Memory.Read<uint>(encodedSeverableHealthPtr + 0x18) & 3;
+                healthEncoded = _process.Memory.Read<uint>(encodedSeverableHealthPtr + healthEncodedIdx * 4 + 0x1C);
+                healthEncodedKey = _process.Memory.Read<uint>(encodedSeverableHealthPtr + 0x14);
+                partInfo.Sever = MHRFloat.DecodeHealth(healthEncoded, healthEncodedKey);
 
                 if (!parts.ContainsKey(flinchPart))
                 {
                     string partName = MonsterData.GetMonsterPartData(Id, i)?.String ?? "PART_UNKNOWN";
-                    var dummy = new MHRMonsterPart(partName);
+                    var dummy = new MHRMonsterPart(partName, partInfo);
                     parts.Add(flinchPart, dummy);
 
-                    Log.Debug($"Found {partName} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X}");
+                    Log.Debug($"Found {partName} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X}");
                     this.Dispatch(OnNewPartFound, dummy);
                 }
 

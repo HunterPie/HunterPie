@@ -229,7 +229,12 @@ namespace HunterPie.Core.Game.Rise.Entities
         [ScannableMethod]
         internal void ScanPlayerAbnormalitiesCleanup()
         {
-            if (!InHuntingZone)
+            long debuffsPtr = _process.Memory.Read(
+                AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
+                AddressMap.Get<int[]>("DEBUFF_ABNORMALITIES_OFFSETS")
+            );
+
+            if (!InHuntingZone || debuffsPtr == 0)
                 ClearAbnormalities();
         }
 

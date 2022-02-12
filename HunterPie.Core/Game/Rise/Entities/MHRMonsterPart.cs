@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.Rise.Definitions;
 using System;
@@ -10,6 +11,7 @@ namespace HunterPie.Core.Game.Rise.Entities
     {
         private float _health;
         private float _flinch;
+        private float _sever;
 
         public string Id { get; }
 
@@ -46,15 +48,41 @@ namespace HunterPie.Core.Game.Rise.Entities
         public float Tenderize => 0;
         public float MaxTenderize => 0;
 
+        public float Sever
+        {
+            get => _sever;
+            private set
+            {
+                if (value != _sever)
+                {
+                    _sever = value;
+                    this.Dispatch(OnSeverUpdate, this);
+                }
+            }
+        }
+
+        public float MaxSever { get; private set; }
+
+        public PartType Type { get; private set; }
 
         public event EventHandler<IMonsterPart> OnHealthUpdate;
         public event EventHandler<IMonsterPart> OnBreakCountUpdate;
         public event EventHandler<IMonsterPart> OnTenderizeUpdate;
         public event EventHandler<IMonsterPart> OnFlinchUpdate;
+        public event EventHandler<IMonsterPart> OnSeverUpdate;
 
-        public MHRMonsterPart(string id)
+        public MHRMonsterPart(string id, MHRPartStructure structure)
         {
             Id = id;
+            
+            if (structure.MaxFlinch > 0)
+                Type |= PartType.Flinch;
+
+            if (structure.MaxHealth > 0)
+                Type |= PartType.Breakable;
+
+            if (structure.MaxSever > 0)
+                Type |= PartType.Severable;
         }
 
         void IUpdatable<MHRPartStructure>.Update(MHRPartStructure data)
@@ -63,7 +91,8 @@ namespace HunterPie.Core.Game.Rise.Entities
             Health = data.Health;
             MaxFlinch = data.MaxFlinch;
             Flinch = data.Flinch;
-
+            MaxSever = data.MaxSever;
+            Sever = data.Sever;
         }
     }
 }
