@@ -84,7 +84,8 @@
 					 Offset="88"
 					 DependsOn="7C"
 					 WithValue="25"
-					 Name="ABNORMALITY_BUTTERFLAME"/>
+					 Name="ABNORMALITY_BUTTERFLAME"
+					 Icon="ICON_BUTTERFLAME"/>
 		<Abnormality Id="8C"
 					 Offset="8C"
 					 Name="ABNORMALITY_ADAMANT_SEED"
