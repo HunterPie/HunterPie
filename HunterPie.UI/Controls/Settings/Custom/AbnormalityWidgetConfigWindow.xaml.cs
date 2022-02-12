@@ -64,6 +64,7 @@ namespace HunterPie.UI.Controls.Settings.Custom
             _categoryIcons.Add("Consumables", FindResource("ITEM_DEMONDRUG"));
             _categoryIcons.Add("Debuffs", FindResource("ICON_VENOM"));
             _categoryIcons.Add("Skills", FindResource("ICON_ARMORSKILL_WHITE"));
+            _categoryIcons.Add("Foods", FindResource("ICON_DANGO"));
         }
 
         private void BuildVisualConfig()

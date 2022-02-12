@@ -13,12 +13,14 @@ namespace HunterPie.Core.Game.Data
         public const string ConsumablePrefix = "Consumables_";
         public const string DebuffPrefix = "Debuffs_";
         public const string SkillPrefix = "Skills_";
+        public const string FoodPrefix = "Foods_";
         public const float TIMER_MULTIPLIER = 60.0f;
 
         public const string Songs = "Songs";
         public const string Consumables = "Consumables";
         public const string Debuffs = "Debuffs";
         public const string Skills = "Skills";
+        public const string Foods = "Foods";
 
         private static XmlDocument _abnormalityData;
         public static Dictionary<string, AbnormalitySchema> Abnormalities { get; private set; }
@@ -72,7 +74,16 @@ namespace HunterPie.Core.Game.Data
 
         public static AbnormalitySchema? GetSongAbnormalityData(int id) => GetAbnormalityData($"{SongPrefix}{id}");
         
-        public static AbnormalitySchema? GetConsumableAbnormalityData(int id) => GetAbnormalityData($"{ConsumablePrefix}{id:X}");
+        public static AbnormalitySchema? GetConsumableAbnormalityData(int id, int subId = int.MinValue)
+        {
+            string stringId = subId switch
+            {
+                int.MinValue => $"{ConsumablePrefix}{id}",
+                _ => $"{ConsumablePrefix}{id}-{subId}"
+            };
+
+            return GetAbnormalityData(stringId);
+        }
 
         public static AbnormalitySchema? GetDebuffAbnormalityData(int id, int subId = int.MinValue)
         {

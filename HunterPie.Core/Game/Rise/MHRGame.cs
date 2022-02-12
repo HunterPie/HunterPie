@@ -106,13 +106,13 @@ namespace HunterPie.Core.Game.Rise
                             ms.Scan();
 
                     Scan();
-
                     Thread.Sleep((int)ClientConfig.Config.Client.PollingRate.Current);
                 }
             }))
             {
                 IsBackground = true,
-                Name = "MHRGame"
+                Name = "MHRGame",
+                Priority = ThreadPriority.Highest
             }.Start();
         }
 

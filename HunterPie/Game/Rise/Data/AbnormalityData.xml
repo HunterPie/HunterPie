@@ -74,10 +74,17 @@
 	</Songs>
 	<Consumables>
 		<!-- For consumables, we can use their Offsets xmm0, [rcx+00000??] as their Id, so it's easier to track it internally -->
-		<Abnormality Id="88"
+		<Abnormality Id="88-10"
 					 Offset="88"
+					 DependsOn="7C"
+					 WithValue="10"
 					 Name="ABNORMALITY_MIGHT_SEED"
 					 Icon="ITEM_MIGHT"/>
+		<Abnormality Id="88-25"
+					 Offset="88"
+					 DependsOn="7C"
+					 WithValue="25"
+					 Name="ABNORMALITY_BUTTERFLAME"/>
 		<Abnormality Id="8C"
 					 Offset="8C"
 					 Name="ABNORMALITY_ADAMANT_SEED"
@@ -109,7 +116,9 @@
 					 Name="ABNORMALITY_YELLOWLAMPSQUID"
 					 Icon="ICON_YELLOWSQUID"/>
 		<Abnormality Id="BC"
-					 Offset="BC"/>
+					 Offset="BC"
+					 Name="ABNORMALITY_CUTTERFLY"
+					 Icon="ICON_CUTTERFLY"/>
 		<Abnormality Id="C0"
 					 Offset="C0"/>
 		<Abnormality Id="D4"
@@ -206,6 +215,11 @@
 					 Icon="ICON_BUBBLE+"/>
 	</Debuffs>
 	<Skills>
+		<Abnormality Id="10C"
+					 Offset="10C"
+					 Name="ABNORMALITY_AFFINITY_SLIDING"
+					 Icon="ICON_ARMORSKILL_SALMON"
+					 Category="Consumables"/>
 		<Abnormality Id="118"
 					 Offset="118"
 					 Name="ABNORMALITY_COUNTERSTRIKE"
@@ -217,4 +231,23 @@
 					 Icon="ICON_ARMORSKILL_SALMON"
 					 Category="Debuffs"/>
 	</Skills>
+	<Foods>
+		<Abnormality Id="88-25"
+					 Offset="88"
+					 DependsOn="7C"
+					 WithValue="25"
+					 Name="ABNORMALITY_DANGO_BULKER"
+					 Icon="ICON_DANGOBULKER"
+					 Category="Consumables"/>
+		<Abnormality Id="130"
+					 Offset="130"
+					 Name="ABNORMALITY_DANGO_BOOSTER"
+					 Icon="ICON_DANGOBOOSTER"
+					 Category="Consumables"/>
+		<Abnormality Id="134"
+					 Offset="134"
+					 Name="ABNORMALITY_DANGO_GLUTTON"
+					 Icon="ICON_DANGOGLUTTON"
+					 Category="Consumables"/>
+	</Foods>
 </Abnormalities>

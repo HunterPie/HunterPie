@@ -45,6 +45,8 @@
 		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Infernal Melody"/>
 		
 		<Abnormality Id="ABNORMALITY_MIGHT_SEED" String="Might Seed"/>
+		<Abnormality Id="ABNORMALITY_BUTTERFLAME" String="Butterflame"/>
+		<Abnormality Id="ABNORMALITY_CUTTERFLY" String="Cutterfly"/>
 		<Abnormality Id="ABNORMALITY_ADAMANT_SEED" String="Adamant Seed"/>
 		<Abnormality Id="ABNORMALITY_CLOTHFLY" String="Clothfly"/>
 		<Abnormality Id="ABNORMALITY_DASH_JUICE" String="Dash Juice"/>
@@ -59,8 +61,13 @@
 		<Abnormality Id="ABNORMALITY_POWER_DRUM" String="Power Drum"/>
 		<Abnormality Id="ABNORMALITY_ROUSING_ROAR" String="Rousing Roar"/>
 		
+		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="Dango Bulker"/>
+		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="Dango Booster"/>
+		<Abnormality Id="ABNORMALITY_DANGO_GLUTTON" String="Dango Glutton"/>
+		
 		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="Counterstrike"/>
 		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="Latent Power"/>
+		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="Affinity Sliding"/>
 		
 
 		<Abnormality Id="ABNORMALITY_POISON" String="Poison"/>
@@ -278,6 +285,9 @@
 			<Setting Id="ABNORMALITY_SKILLS_STRING"
 					 String="Armor skills"
 					 Description="Armor skill abnormalities"/>
+			<Setting Id="ABNORMALITY_FOODS_STRING"
+					 String="Food skills"
+					 Description="Food abnormalities"/>
 
 			<Setting Id="ENABLE_SELF_UPDATE"
 					 String="Enable self update"

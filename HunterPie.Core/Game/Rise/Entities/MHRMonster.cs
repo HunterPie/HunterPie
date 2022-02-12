@@ -26,7 +26,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         private long _address;
 
         private int _id = -1;
-        private float _health;
+        private float _health = -1;
         private bool _isTarget;
         private bool _isEnraged;
         private Target _target;
@@ -61,6 +61,9 @@ namespace HunterPie.Core.Game.Rise.Entities
                 {
                     _health = value;
                     this.Dispatch(OnHealthChange);
+
+                    if (Health <= 0)
+                        this.Dispatch(OnDeath);
                 }
             }
         }

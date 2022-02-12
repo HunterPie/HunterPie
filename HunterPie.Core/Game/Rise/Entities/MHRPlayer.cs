@@ -251,7 +251,16 @@ namespace HunterPie.Core.Game.Rise.Entities
 
             foreach (AbnormalitySchema schema in consumableSchemas)
             {
-                MHRConsumableStructure abnormality = _process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
+                int abnormSubId = schema.DependsOn switch
+                {
+                    0 => 0,
+                    _ => _process.Memory.Read<int>(consumableBuffs + schema.DependsOn)
+                };
+
+                MHRConsumableStructure abnormality = new();
+
+                if (abnormSubId == schema.WithValue)
+                    abnormality = _process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
 
                 abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
