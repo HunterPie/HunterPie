@@ -33,7 +33,7 @@
                         <overlay:Abnormality Margin="5,2,5,2"
                                              Width="30"
                                              Height="30"/>
-                        <TextBlock Text="{Binding Timer, Converter={StaticResource SecondsToTimeString}}"
+                        <TextBlock Text="{Binding Timer, Converter={StaticResource SecondsToTimeString}, Mode=OneWay}"
                                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                    FontWeight="Medium"

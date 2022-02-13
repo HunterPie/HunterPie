@@ -25,12 +25,12 @@
     <Grid >
         <Ellipse Fill="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"/>
         <local:Arc StrokeThickness="2"
-                       d:Percentage="0.8"
-                       d:Stroke="{StaticResource HUNTERPIE_ACCENT_COLOR}">
+                   d:Percentage="0.8"
+                   d:Stroke="{StaticResource HUNTERPIE_ACCENT_COLOR}">
             <local:Arc.Percentage>
                 <MultiBinding Converter="{StaticResource RatioConverter}">
-                    <Binding Path="DataContext.Timer" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:Abnormality}}"/>
-                    <Binding Path="DataContext.MaxTimer" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:Abnormality}}"/>
+                    <Binding Path="DataContext.Timer" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:Abnormality}}" Mode="OneWay"/>
+                    <Binding Path="DataContext.MaxTimer" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:Abnormality}}" Mode="OneWay"/>
                 </MultiBinding>
             </local:Arc.Percentage>
             <local:Arc.Style>

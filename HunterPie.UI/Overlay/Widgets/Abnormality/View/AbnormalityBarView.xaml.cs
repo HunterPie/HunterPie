@@ -1,8 +1,8 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Enums;
 using HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel;
+
 
 namespace HunterPie.UI.Overlay.Widgets.Abnormality.View
 {
@@ -11,16 +11,16 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality.View
     /// </summary>
     public partial class AbnormalityBarView : View<AbnormalityBarViewModel>, IWidget<AbnormalityWidgetConfig>, IWidgetWindow
     {
-        private readonly int Index;
+        private readonly AbnormalityWidgetConfig _config;
 
-        public AbnormalityBarView(int index)
+        public AbnormalityBarView(ref AbnormalityWidgetConfig config)
         {
-            Index = index;
+            _config = config;
             InitializeComponent();
         }
 
         public string Title => Settings.Name;
-        public AbnormalityWidgetConfig Settings => ClientConfig.Config.Overlay.AbnormalityTray.Trays[Index];
+        public AbnormalityWidgetConfig Settings => _config; //ClientConfig.Config.Overlay.AbnormalityTray.Trays.Trays.ElementAtOrDefault(Index);
         public WidgetType Type => WidgetType.ClickThrough;
     }
 }

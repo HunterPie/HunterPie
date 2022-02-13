@@ -20,6 +20,8 @@ using HunterPie.Update.Presentation;
 using System.Threading.Tasks;
 using System.Linq;
 using HunterPie.UI.Overlay.Widgets.Abnormality;
+using System.Runtime.InteropServices;
+using HunterPie.Core.Client.Configuration.Overlay;
 
 namespace HunterPie
 {
@@ -142,9 +144,12 @@ namespace HunterPie
                 if (ClientConfig.Config.Overlay.BossesWidget.Initialize)
                     handlers.Add(new MonsterWidgetContextHandler(context));
 
-                int abnormTrayIndex = 0;
-                foreach (var abnormWidget in ClientConfig.Config.Overlay.AbnormalityTray.Trays.Trays)
-                    handlers.Add(new AbnormalityWidgetContextHandler(context, abnormTrayIndex++));
+                var configs = ClientConfig.Config.Overlay.AbnormalityTray.Trays.Trays.ToArray();
+                for (int i = 0; i < ClientConfig.Config.Overlay.AbnormalityTray.Trays.Trays.Count; i++)
+                {
+                    ref var abnormConfig = ref configs[i];
+                    handlers.Add(new AbnormalityWidgetContextHandler(context, ref abnormConfig));
+                }
 
                 contextHandlers.AddRange(handlers);
             });

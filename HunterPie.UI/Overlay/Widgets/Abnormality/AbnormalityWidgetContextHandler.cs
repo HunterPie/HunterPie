@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Client;
 using HunterPie.UI.Overlay.Widgets.Abnormality.View;
@@ -12,16 +11,15 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality
 {
     class AbnormalityWidgetContextHandler : IContextHandler
     {
-
+        private AbnormalityWidgetConfig _config;
         public readonly Context Context;
         public readonly AbnormalityBarViewModel ViewModel;
-        private readonly int Index;
-        private AbnormalityWidgetConfig Config => ClientConfig.Config.Overlay.AbnormalityTray.Trays[Index];
+        private ref AbnormalityWidgetConfig Config => ref _config;
 
-        public AbnormalityWidgetContextHandler(Context context, int index)
+        public AbnormalityWidgetContextHandler(Context context, ref AbnormalityWidgetConfig config)
         {
-            Index = index;
-            var widget = new AbnormalityBarView(index);
+            _config = config;
+            var widget = new AbnormalityBarView(ref Config);
             WidgetManager.Register(widget);
             Context = context;
 

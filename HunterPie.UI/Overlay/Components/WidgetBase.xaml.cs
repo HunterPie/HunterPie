@@ -6,9 +6,9 @@ using System;
 using HunterPie.UI.Platform.Windows.Native;
 using HunterPie.UI.Overlay.Enums;
 using System.Windows.Media;
-using System.Windows.Threading;
-using HunterPie.Core.Logger;
 using System.Windows.Controls;
+using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 
 namespace HunterPie.UI.Overlay.Components
 {
@@ -17,6 +17,11 @@ namespace HunterPie.UI.Overlay.Components
     /// </summary>
     public partial class WidgetBase : Window, INotifyPropertyChanged
     {
+        private TimeSpan LastRender;
+        private double _renderingTime;
+
+        public double RenderingTime { get => _renderingTime; private set { SetValue(ref _renderingTime, value); } }
+
         // TODO: Move this to platform dependent classes
         private const uint Flags = 
             (uint)(User32.SWP_WINDOWN_FLAGS.SWP_SHOWWINDOW 
@@ -59,7 +64,10 @@ namespace HunterPie.UI.Overlay.Components
         private int counter = 0;
         private void OnRender(object sender, EventArgs e)
         {
-            if (counter >= 60)
+            RenderingEventArgs args = (RenderingEventArgs)e;
+            RenderingTime = args.RenderingTime.TotalMilliseconds - LastRender.TotalMilliseconds;
+            LastRender = args.RenderingTime;
+            if (counter >= 30)
             {
                 ForceAlwaysOnTop();
                 counter = 0;
@@ -120,5 +128,14 @@ namespace HunterPie.UI.Overlay.Components
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        void SetValue<T>(ref T property, T value, [CallerMemberName] string propertyName = "")
+        {
+            if (EqualityComparer<T>.Default.Equals(property, value))
+                return;
+
+            property = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

@@ -13,6 +13,9 @@ using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Damage.ViewModel;
 using HunterPie.Internal.Tray;
 using System.Diagnostics;
+using HunterPie.UI.Overlay.Widgets.Abnormality.View;
+using HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel;
+using HunterPie.Core.Client.Configuration.Overlay;
 
 namespace HunterPie
 {
@@ -74,6 +77,17 @@ namespace HunterPie
                         DataContext = new MockMeterViewModel()
                     }
                 );
+
+            if (ClientConfig.Config.Debug.MockAbnormalityWidget)
+            {
+                var mockSettings = new AbnormalityWidgetConfig();
+                WidgetManager.Register(
+                    new AbnormalityBarView(ref mockSettings)
+                    {
+                        DataContext = new MockAbnormalityBarViewModel()
+                    }
+                );
+            }
         }
 
         private void SetupTrayIcon()
