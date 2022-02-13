@@ -120,7 +120,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
 
         private void OnTargetChange(object sender, EventArgs e) 
         {
-            IsTarget = Context.Target == Target.Self || Context.Target == Target.None;
+            IsTarget = Context.Target == Target.Self || (Context.Target == Target.None && !Config.ShowOnlyTarget);
             TargetType = Context.Target;
         }
 
