@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Game.Environment;
+﻿using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Environment;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster
@@ -10,33 +11,47 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         public MonsterPartContextHandler(IMonsterPart context)
         {
             Context = context;
+            Type = Context.Type;
+
             HookEvents();
             Update();
         }
 
         private void HookEvents()
         {
-            Context.OnHealthUpdate += OnHealthUpdate;
+            // Only hook needed functions
+            if (Type == PartType.Breakable)
+                Context.OnHealthUpdate += OnHealthUpdate;
+
             Context.OnFlinchUpdate += OnFlinchUpdate;
+            
+            if (Type == PartType.Severable)
+                Context.OnSeverUpdate += OnSeverUpdate;
+        }
+
+        private void OnSeverUpdate(object sender, IMonsterPart e)
+        {
+            MaxSever = e.MaxSever;
+            Sever = e.Sever;
         }
 
         private void OnFlinchUpdate(object sender, IMonsterPart e)
         {
-            // In case this part has only flinch values, we can display it in the main health bar
-            if (e.MaxHealth < 0)
-            {
-                MaxHealth = e.MaxFlinch;
-                Health = e.Flinch;
-                return;
-            }
-            Tenderize = e.Flinch;
-            MaxTenderize = e.MaxFlinch;
+            if (Flinch < e.Flinch && MaxFlinch > 0)
+                Breaks++;
+
+            MaxFlinch = e.MaxFlinch;
+            Flinch = e.Flinch;
+
+            IsPartBroken = Health == MaxHealth && (Breaks > 0 || Flinch != MaxFlinch);
+            IsPartSevered = MaxSever == Sever && (Breaks > 0 || Flinch != MaxFlinch);
         }
 
         private void UnhookEvents()
         {
             Context.OnHealthUpdate -= OnHealthUpdate;
             Context.OnFlinchUpdate -= OnFlinchUpdate;
+            Context.OnSeverUpdate -= OnSeverUpdate;
         }
 
         private void OnHealthUpdate(object sender, IMonsterPart e)
@@ -54,18 +69,17 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         private void Update()
         {
             Name = Context.Id;
-            if (Context.MaxHealth > 0)
-            {
-                MaxHealth = Context.MaxHealth;
-                Health = Context.Health;
-                Tenderize = Context.Flinch;
-                MaxTenderize = Context.MaxFlinch;
-            } else
-            {
-                MaxHealth = Context.MaxFlinch;
-                Health = Context.Flinch;
-            }
-            
+
+            MaxHealth = Context.MaxHealth;
+            Health = Context.Health;
+            MaxFlinch = Context.MaxFlinch;
+            Flinch = Context.Flinch;
+            MaxSever = Context.MaxSever;
+            Sever = Context.Sever;
+
+            IsPartSevered = MaxSever == Sever && (Breaks > 0 || Flinch != MaxFlinch);
+            IsPartBroken = Health == MaxHealth && (Breaks > 0 || Flinch != MaxFlinch);
+
         }
     }
 }

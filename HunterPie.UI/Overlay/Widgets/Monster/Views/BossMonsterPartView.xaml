@@ -12,11 +12,6 @@
              d:DesignWidth="200">
     <UserControl.Resources>
         <converters:MonsterPartIdToNameConverter x:Key="MonsterPartIdToNameConverter"/>
-        <LinearGradientBrush x:Key="MonsterHealthUnenraged" EndPoint="1,1" StartPoint="0,1">
-            <GradientStop Color="#FF4B8EEE"/>
-            <GradientStop Color="#FF10B9DE" Offset="1"/>
-        </LinearGradientBrush>
-        <SolidColorBrush x:Key="MonsterHealthUnenragedDelayed" Color="#FF9CE4FF"/>
 
         <LinearGradientBrush x:Key="MonsterTenderizeBar" EndPoint="1,1" StartPoint="0,1">
             <GradientStop Color="#FFFB6C36"/>
@@ -69,8 +64,8 @@
                          VerticalAlignment="Top"
                          Margin="4.5,0,5,0"
                          Background="{StaticResource HUNTERPIE_BACKGROUND_DARKER}"
-                         MaxValue="{Binding MaxHealth}"
-                         Value="{Binding Health}"
+                         MaxValue="{Binding MaxFlinch, Mode=OneWay}"
+                         Value="{Binding Flinch, Mode=OneWay}"
                          d:Value="50"
                          d:MaxValue="100"
                          BorderThickness="0"
@@ -97,12 +92,12 @@
                                       BlurRadius="2"
                                       ShadowDepth="0"/>
                 </TextBlock.Effect>
-                <Run Text="{Binding Health, StringFormat=\{0:F1\}}"
+                <Run Text="{Binding Flinch, StringFormat=\{0:F1\}}"
                      d:Text="2000.0"/><!--
              --><Run Text="/"
                      Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
                      FontWeight="Light"/><!--
-             --><Run Text="{Binding MaxHealth, StringFormat=\{0:F1\}}"
+             --><Run Text="{Binding MaxFlinch, StringFormat=\{0:F1\}}"
                      Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
                      FontWeight="Light"
                      d:Text="2000.0"/>

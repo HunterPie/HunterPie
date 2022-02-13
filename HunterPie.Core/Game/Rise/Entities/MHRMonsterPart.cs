@@ -76,13 +76,13 @@ namespace HunterPie.Core.Game.Rise.Entities
             Id = id;
             
             if (structure.MaxFlinch > 0)
-                Type |= PartType.Flinch;
+                Type = PartType.Flinch;
 
             if (structure.MaxHealth > 0)
-                Type |= PartType.Breakable;
+                Type = PartType.Breakable;
 
             if (structure.MaxSever > 0)
-                Type |= PartType.Severable;
+                Type = PartType.Severable;
         }
 
         void IUpdatable<MHRPartStructure>.Update(MHRPartStructure data)

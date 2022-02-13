@@ -13,7 +13,9 @@
              xmlns:view="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
              xmlns:ocomponents="clr-namespace:HunterPie.UI.Overlay.Components"
              xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading"
+             xmlns:selectors="clr-namespace:HunterPie.UI.Architecture.Selectors"
              d:DataContext="{d:DesignInstance Type=viewmodels:BossMonsterViewModel}"
+             IsHitTestVisible="False"
              d:DesignWidth="600">
     <UserControl.Resources>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
@@ -23,12 +25,6 @@
         <converters:CrownToIconConverter x:Key="CrownToIconConverter"/>
         <converters:CrownToVisibilityConverter x:Key="CrownToVisibilityConverter"/>
         <converters:TargetTypeToVisibility x:Key="TargetTypeToVisibility"/>
-
-        <LinearGradientBrush x:Key="MonsterHealthUnenraged" EndPoint="1,1" StartPoint="0,1">
-            <GradientStop Color="#FF4B8EEE"/>
-            <GradientStop Color="#FF10B9DE" Offset="1"/>
-        </LinearGradientBrush>
-        <SolidColorBrush x:Key="MonsterHealthUnenragedDelayed" Color="#FF9CE4FF"/>
 
         <LinearGradientBrush x:Key="MonsterHealthEnraged" EndPoint="1,1" StartPoint="0,1">
             <GradientStop Color="#d42c2c"/>
@@ -71,8 +67,7 @@
                 </MultiDataTrigger>
             </Style.Triggers>
         </Style>
-        
-        <Style x:Key="{x:Type local:BossMonsterPartView}" TargetType="{x:Type local:BossMonsterPartView}">
+        <Style x:Key="BEHAVIOR_PART_VIEW" TargetType="UserControl">
             <Style.Triggers>
                 <MultiDataTrigger>
                     <MultiDataTrigger.Conditions>
@@ -107,6 +102,27 @@
                 </MultiDataTrigger>
             </Style.Triggers>
         </Style>
+
+        <DataTemplate x:Key="TEMPLATE_PART_DEFAULT">
+            <view:BossMonsterPartView Width="200"
+                                      Style="{StaticResource BEHAVIOR_PART_VIEW}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TEMPLATE_PART_SEVERABLE">
+            <view:BossMonsterSeverablePartView Width="200"
+                                               Style="{StaticResource BEHAVIOR_PART_VIEW}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TEMPLATE_PART_BREAKABLE">
+            <view:BossMonsterBreakablePartView Width="200"
+                                               Style="{StaticResource BEHAVIOR_PART_VIEW}"/>
+        </DataTemplate>
+
+        <selectors:MonsterPartTemplateSelector x:Key="MonsterPartTemplateSelector"
+                                               DefaultTemplate="{StaticResource TEMPLATE_PART_DEFAULT}"
+                                               SeverableTemplate="{StaticResource TEMPLATE_PART_SEVERABLE}"
+                                               BreakableTemplate="{StaticResource TEMPLATE_PART_BREAKABLE}"/>
+
     </UserControl.Resources>
     <Grid >
         <Grid.ColumnDefinitions>
@@ -350,20 +366,14 @@
             </ItemsControl>
 
             <!-- Parts -->
-            <ItemsControl ItemsSource="{Binding Parts, Mode=OneWay, NotifyOnSourceUpdated=True}">
+            <ItemsControl ItemsSource="{Binding Parts, Mode=OneWay, NotifyOnSourceUpdated=True}"
+                          ItemTemplateSelector="{StaticResource MonsterPartTemplateSelector}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"
                                    Visibility="{Binding Widget.Settings.EnableParts.Value, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type viewmodels:MonsterPartViewModel}">
-                        <view:BossMonsterPartView Width="200"
-                                                  d:Visibility="Visible"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
             </ItemsControl>
         </StackPanel>
     </Grid>
