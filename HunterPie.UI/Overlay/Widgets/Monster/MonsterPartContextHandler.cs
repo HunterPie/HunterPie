@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Game.Enums;
-using HunterPie.Core.Game.Environment;
+﻿using HunterPie.Core.Game.Environment;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster
@@ -28,6 +27,8 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         {
             MaxSever = e.MaxSever;
             Sever = e.Sever;
+
+            IsPartSevered = MaxSever == Sever && (Breaks > 0 || Flinch != MaxFlinch);
         }
 
         private void OnFlinchUpdate(object sender, IMonsterPart e)
@@ -53,6 +54,8 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         {
             MaxHealth = e.MaxHealth;
             Health = e.Health;
+
+            IsPartBroken = MaxHealth <= 0 || Health == MaxHealth && (Breaks > 0 || Flinch != MaxFlinch);
         }
 
         protected override void DisposeResources()
