@@ -25,7 +25,26 @@
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:BossMonsterViewModel}">
-                    <local:BossMonsterView Visibility="{Binding IsTarget, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <local:BossMonsterView>
+                        <local:BossMonsterView.Style>
+                            <Style TargetType="local:BossMonsterView">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsTarget}" Value="True"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                    <DataTrigger Binding="{Binding IsAlive}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </local:BossMonsterView.Style>
+                    </local:BossMonsterView>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

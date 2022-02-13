@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Game.Enums;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using System;
@@ -44,6 +45,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             Context.OnDespawn -= OnDespawn;
             Context.OnTargetChange -= OnTargetChange;
             Context.OnNewPartFound -= OnNewPartFound;
+            Context.OnNewAilmentFound -= OnNewAilmentFound;
             Context.OnCrownChange -= OnCrownChange;
         }
         
@@ -51,6 +53,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         {
             Name = Context.Name;
             Em = $"Rise_{Context.Id:00}";
+            IsAlive = true;
 
             FetchMonsterIcon();
         }
@@ -58,7 +61,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         private void OnDespawn(object sender, EventArgs e)
         {
             UnhookEvents();
-
+            IsAlive = false;
             Application.Current.Dispatcher.InvokeAsync(() =>
             {
                 foreach (MonsterPartContextHandler part in Parts)
@@ -138,12 +141,13 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             }
             MaxHealth = Context.MaxHealth;
             Health = Context.Health;
-            IsTarget = Context.Target == Target.Self || Context.Target == Target.None;
+            IsTarget = Context.Target == Target.Self || (Context.Target == Target.None && !Config.ShowOnlyTarget);
             MaxStamina = Context.MaxStamina;
             Stamina = Context.Stamina;
             TargetType = Context.Target;
             Crown = Context.Crown;
             IsEnraged = Context.IsEnraged;
+            IsAlive = Context.Health > 0;
             
             if (Parts.Count != Context.Parts.Length || Ailments.Count != Context.Ailments.Length)
             {
