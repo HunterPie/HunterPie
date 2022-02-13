@@ -233,10 +233,10 @@
 					 Category="Debuffs"/>
 	</Skills>
 	<Foods>
-		<Abnormality Id="88-25"
+		<Abnormality Id="88-15"
 					 Offset="88"
 					 DependsOn="7C"
-					 WithValue="25"
+					 WithValue="15"
 					 Name="ABNORMALITY_DANGO_BULKER"
 					 Icon="ICON_DANGOBULKER"
 					 Category="Consumables"/>
