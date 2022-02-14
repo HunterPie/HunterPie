@@ -23,7 +23,6 @@ jobs:
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
-        working-directory: ${{ env.working-directory }}
         with:
           ruby-version: 2.7
           bundler-cache: true
