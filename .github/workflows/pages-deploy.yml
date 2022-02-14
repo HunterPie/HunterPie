@@ -12,6 +12,9 @@ jobs:
   continuous-delivery:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./docs
 
     steps:
       - name: Checkout
@@ -26,4 +29,5 @@ jobs:
           bundler-cache: true
 
       - name: Deploy
-        run: bash docs/tools/deploy.sh
+        run: bash tools/deploy.sh
+        
