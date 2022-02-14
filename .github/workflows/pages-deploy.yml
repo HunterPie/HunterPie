@@ -25,8 +25,11 @@ jobs:
           ruby-version: 2.7
           bundler-cache: true
 
+      - name: Change directory to Docs
+        run: cd Docs
+        
       - name: Install dependencies
         run: bundle install
 
       - name: Deploy
-        run: cd Docs && bash tools/deploy.sh
+        run: bash tools/deploy.sh
