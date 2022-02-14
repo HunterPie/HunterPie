@@ -2,7 +2,9 @@
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Enums;
 using HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel;
-
+using System;
+using System.Windows;
+using System.Windows.Media;
 
 namespace HunterPie.UI.Overlay.Widgets.Abnormality.View
 {
@@ -12,15 +14,37 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality.View
     public partial class AbnormalityBarView : View<AbnormalityBarViewModel>, IWidget<AbnormalityWidgetConfig>, IWidgetWindow
     {
         private readonly AbnormalityWidgetConfig _config;
+        public string Title => Settings.Name;
+        public AbnormalityWidgetConfig Settings => _config;
+        public WidgetType Type => WidgetType.ClickThrough;
 
         public AbnormalityBarView(ref AbnormalityWidgetConfig config)
         {
             _config = config;
             InitializeComponent();
+            
         }
 
-        public string Title => Settings.Name;
-        public AbnormalityWidgetConfig Settings => _config; //ClientConfig.Config.Overlay.AbnormalityTray.Trays.Trays.ElementAtOrDefault(Index);
-        public WidgetType Type => WidgetType.ClickThrough;
+        int frameCounter = 0;
+        private void OnRender(object sender, EventArgs e)
+        {
+            // Sort abnormalities every 60 frames
+            if (frameCounter >= 60)
+            {
+                ViewModel.SortAbnormalities(_config.SortByAlgorithm);
+                frameCounter = 0;
+            }
+            frameCounter++;
+        }
+
+        private void OnLoad(object sender, RoutedEventArgs e)
+        {
+            CompositionTarget.Rendering += OnRender;
+        }
+
+        private void OnUnload(object sender, RoutedEventArgs e)
+        {
+            CompositionTarget.Rendering -= OnRender;
+        }
     }
 }

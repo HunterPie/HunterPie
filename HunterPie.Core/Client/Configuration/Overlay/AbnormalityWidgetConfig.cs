@@ -18,6 +18,12 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         [SettingField("ENABLE_WIDGET_STRING")]
         public Observable<bool> Enabled { get; set; } = true;
 
+        [SettingField("ABNORMALITY_TRAY_MAX_SIZE_STRING")]
+        public Range MaxSize { get; set; } = new Range(300, 1200, 30, 30);
+
+        [SettingField("ABNORMALITY_TRAY_SORT_BY_TIME")]
+        public Observable<SortBy> SortByAlgorithm { get; set; } = SortBy.Off;
+
         [SettingField("WIDGET_OPACITY")]
         public Range Opacity { get; set; } = new(1, 1, 0.1, 0.1);
 

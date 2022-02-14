@@ -87,9 +87,6 @@ namespace HunterPie.UI.Overlay.Components
             LastRender = DateTime.Now;
             if (counter >= 60)
             {
-                #if DEBUG
-                RenderPoints.Add(new ObservablePoint(args.RenderingTime.TotalSeconds, RenderingTime));
-                #endif
                 ForceAlwaysOnTop();
                 counter = 0;
             }

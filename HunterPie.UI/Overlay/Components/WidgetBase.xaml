@@ -73,16 +73,20 @@
             <ContentControl Content="{Binding Widget}"
                             Opacity="{Binding Widget.Settings.Opacity.Current, Mode=OneWay}"
                             Visibility="{Binding Widget.Settings.Enabled.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            
             <mc:AlternateContent>
                 <mc:Choice Requires="DEBUG">
-                    <lvc:CartesianChart Height="100"
-                                        Series="{Binding RenderSeries}"
-                                        DisableAnimations="True"
-                                        VerticalAlignment="Top">
-                        <lvc:CartesianChart.AxisY>
-                            <lvc:Axis MinValue="0"/>
-                        </lvc:CartesianChart.AxisY>
-                    </lvc:CartesianChart>
+                    <TextBlock Background="#50000000"
+                               Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                               VerticalAlignment="Top"
+                               HorizontalAlignment="Left"
+                               Padding="5">
+                        <Run Text="{Binding RenderingTime, Mode=OneWay, StringFormat=\{0:F0\}}"
+                             d:Text="16"/><!--
+                     --><Run Text="ms"
+                             Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/>
+                    </TextBlock>
                 </mc:Choice>
             </mc:AlternateContent>
         </Grid>

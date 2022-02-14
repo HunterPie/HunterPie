@@ -81,8 +81,9 @@ namespace HunterPie
             if (ClientConfig.Config.Debug.MockAbnormalityWidget)
             {
                 var mockSettings = new AbnormalityWidgetConfig();
+                var settings = ClientConfig.Config.Overlay.AbnormalityTray.Trays.Trays[0];
                 WidgetManager.Register(
-                    new AbnormalityBarView(ref mockSettings)
+                    new AbnormalityBarView(ref settings)
                     {
                         DataContext = new MockAbnormalityBarViewModel()
                     }

@@ -11,7 +11,10 @@
              mc:Ignorable="d" 
              x:TypeArguments="vm:AbnormalityBarViewModel"
              d:DesignHeight="450" 
-             d:DesignWidth="800">
+             d:DesignWidth="800"
+             HorizontalAlignment="Left"
+             Loaded="OnLoad"
+             Unloaded="OnUnload">
     <UserControl.Resources>
         <converter:AbnormalityStringToIconConverter x:Key="AbnormalityStringToIconConverter"/>
         <converter:OrientationToOppositeConverter x:Key="OrientationToOppositeConverter"/>
@@ -19,11 +22,24 @@
         <converter:SecondsToTimeString x:Key="SecondsToTimeString"/>
     </UserControl.Resources>
     <Grid>
-        <ItemsControl ItemsSource="{Binding Abnormalities}">
+        <ItemsControl ItemsSource="{Binding Abnormalities, Mode=OneWay}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel ItemHeight="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"
-                               Orientation="{Binding Settings.Orientation.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityBarView}}, Mode=OneWay, Converter={StaticResource OrientationConverter}}"/>
+                               Orientation="{Binding Settings.Orientation.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityBarView}}, Mode=OneWay, Converter={StaticResource OrientationConverter}}">
+                        <WrapPanel.Style>
+                            <Style TargetType="WrapPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Orientation, RelativeSource={RelativeSource Self}}" Value="Horizontal">
+                                        <Setter Property="MaxWidth" Value="{Binding Settings.MaxSize.Current, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityBarView}}, Mode=OneWay}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Orientation, RelativeSource={RelativeSource Self}}" Value="Vertical">
+                                        <Setter Property="MaxHeight" Value="{Binding Settings.MaxSize.Current, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityBarView}}, Mode=OneWay}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </WrapPanel.Style>
+                    </WrapPanel>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
 
