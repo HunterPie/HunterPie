@@ -12,5 +12,39 @@ $tab-count: {{ site.tabs | size | plus: 1 }}; // plus 1 for home tab
 /* append your custom style below */
 
 ion-icon {
-  vertical-align: sub;
+    vertical-align: sub;
+}
+
+update::before {
+    content: "Update";
+    font-family: 'Source Sans Pro', 'Microsoft Yahei', sans-serif; ;
+    color: whitesmoke;
+    font-weight: 600;
+    display: inline-flex;
+    vertical-align: super;
+    padding: 5px;
+    border-radius: 5px;
+    background: rgb(222,40,16);
+    background: -moz-linear-gradient(90deg, rgba(222,40,16,1) 0%, rgba(238,105,75,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(222,40,16,1) 0%, rgba(238,105,75,1) 100%);
+    background: linear-gradient(90deg, rgba(222,40,16,1) 0%, rgba(238,105,75,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#de2810",endColorstr="#ee694b",GradientType=1);
+    font-size: 2vh;
+}
+
+docs::before {
+    content: "Docs";
+    font-family: 'Source Sans Pro', 'Microsoft Yahei', sans-serif; ;
+    color: whitesmoke;
+    font-weight: 600;
+    display: inline-flex;
+    vertical-align: super;
+    padding: 5px;
+    border-radius: 5px;
+    background: rgb(75,142,238);
+    background: -moz-linear-gradient(90deg, rgba(75,142,238,1) 0%, rgba(16,185,222,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(75,142,238,1) 0%, rgba(16,185,222,1) 100%);
+    background: linear-gradient(90deg, rgba(75,142,238,1) 0%, rgba(16,185,222,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#4b8eee",endColorstr="#10b9de",GradientType=1);
+    font-size: 2vh;
 }
