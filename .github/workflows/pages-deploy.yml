@@ -26,6 +26,4 @@ jobs:
           bundler-cache: true
 
       - name: Deploy
-        run: |
-        cd Docs
-        bash tools/deploy.sh
+        run: cd Docs && bash tools/deploy.sh
