@@ -12,9 +12,8 @@ jobs:
   continuous-delivery:
 
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./docs
+    env:
+      working-directory: ./Docs
 
     steps:
       - name: Checkout
@@ -24,10 +23,15 @@ jobs:
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
+        working-directory: ${{ env.working-directory }}
         with:
           ruby-version: 2.7
           bundler-cache: true
 
+      - name: Test
+        run: ls -R
+        working-directory: ${{ env.working-directory }}
+
       - name: Deploy
         run: bash tools/deploy.sh
-        
+        working-directory: ${{ env.working-directory }}
