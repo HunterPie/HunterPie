@@ -8,7 +8,7 @@ namespace HunterPie.Core.Client.Configuration.Enums
         Lowest,
         [Description("SORT_BY_HIGHEST_TIMER_STRING")]
         Highest,
-        [Description("SORT_BY_DISABLED")]
+        [Description("SORT_BY_DISABLED_STRING")]
         Off
     }
 }
