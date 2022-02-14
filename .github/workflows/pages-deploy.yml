@@ -24,6 +24,6 @@ jobs:
         with:
           ruby-version: 2.7
           bundler-cache: true
-          
+
       - name: Deploy
-        run: cd Docs && bash tools/deploy.sh
+        run: bash docs/tools/deploy.sh
