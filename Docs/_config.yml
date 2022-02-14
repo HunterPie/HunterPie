@@ -33,6 +33,8 @@ url: 'https://docs.hunterpie.com'
 
 github:
   username: haato3o             # change to your github username
+discord: 
+  url: https://discord.gg/5pdDq4Q
 
 social:
   # Change to your full name.
@@ -41,6 +43,7 @@ social:
   email: me@haato.dev             # change to your email address
   links:
     - https://github.com/haato3o
+  
 
 google_site_verification:               # fill in to your verification string
 

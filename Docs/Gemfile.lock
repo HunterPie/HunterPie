@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/eventmachine/eventmachine.git
+  revision: 9cb13a8a62363df5ebcc414169a3deb2c1608528
+  tag: v1.2.7
+  specs:
+    eventmachine (1.2.7)
+    eventmachine (1.2.7-x64-mingw32)
+
 PATH
   remote: .
   specs:
@@ -21,8 +29,6 @@ GEM
       http_parser.rb (~> 0)
     ethon (0.15.0)
       ffi (>= 1.15.0)
-    eventmachine (1.2.7)
-    eventmachine (1.2.7-x64-mingw32)
     ffi (1.15.5)
     ffi (1.15.5-x64-mingw32)
     forwardable-extended (2.6.0)
@@ -113,6 +119,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  eventmachine (= 1.2.7)!
   html-proofer (~> 3.18)
   jekyll-theme-chirpy!
   tzinfo (~> 1.2)

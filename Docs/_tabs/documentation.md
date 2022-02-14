@@ -1,6 +1,6 @@
 ---
 layout: documentation
 title: Documentation
-icon: fas fa-stream
+icon: fas fa-book
 order: 1
 ---

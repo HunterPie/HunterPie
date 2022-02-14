@@ -119,6 +119,8 @@ blockquote {
 
   @include prompt("note", "\f0eb", 400);
 
+  @include prompt("info", "\f05a");
+
   @include prompt("warning", "\f06a");
 
   @include prompt("danger", "\f071");

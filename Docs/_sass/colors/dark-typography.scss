@@ -72,10 +72,12 @@
   --prompt-text-color: rgb(216 212 212 / 75%);
   --prompt-note-bg: rgba(77, 187, 95, 0.2);
   --prompt-note-icon-color: rgb(5 223 5 / 68%);
-  --prompt-warning-bg: rgb(90 69 3 / 95%);
-  --prompt-warning-icon-color: rgb(255 165 0 / 80%);
-  --prompt-danger-bg: rgb(86 28 8 / 80%);
-  --prompt-danger-icon-color: #cd0202;
+  --prompt-warning-bg: rgba(168, 140, 46, 0.549);
+  --prompt-warning-icon-color: rgba(245, 170, 31, 0.8);
+  --prompt-danger-bg: rgba(167, 55, 55, 0.576);
+  --prompt-danger-icon-color: #d34545;
+  --prompt-info-bg: rgba(77, 115, 187, 0.2);
+  --prompt-info-icon-color: rgba(5, 154, 223, 0.68);
 
   /* tags */
   --tag-border: rgb(59, 79, 88);

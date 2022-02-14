@@ -33,7 +33,7 @@
     <!-- home -->
     <li class="nav-item{% if page.layout == 'home' %}{{ " active" }}{% endif %}">
       <a href="{{ '/' | relative_url }}" class="nav-link">
-        <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i>
+        <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3"></i>
         <span>{{ site.data.locales[lang].tabs.home | upcase }}</span>
       </a>
     </li>
@@ -41,7 +41,7 @@
     {% for tab in site.tabs %}
     <li class="nav-item{% if tab.url == page.url %}{{ " active" }}{% endif %}">
       <a href="{{ tab.url | relative_url }}" class="nav-link">
-        <i class="fa-fw {{ tab.icon }} ml-xl-3 mr-xl-3 unloaded"></i>
+        <i class="fa-fw {{ tab.icon }} ml-xl-3 mr-xl-3"></i>
         {% capture tab_name %}{{ tab.url | split: '/' }}{% endcapture %}
 
         <span>{{ site.data.locales[lang].tabs.[tab_name] | default: tab.title | upcase }}</span>
@@ -67,11 +67,13 @@
       {% capture url %}
         {%- if entry.type == 'github' -%}
           https://github.com/{{ site.github.username }}
+        {% elsif entry.type == 'discord' %}
+          {{ site.discord.url }}
         {%- elsif entry.type == 'twitter' -%}
           https://twitter.com/{{ site.twitter.username }}
         {%- elsif entry.type == 'email' -%}
           {% assign email = site.social.email | split: '@' %}
-          javascript:location.href = 'mailto:' + ['{{ email[0] }}','{{ email[1] }}'].join('@')
+          javascript:location.href = 'mailto:' + {{ site.social.email }}
         {%- elsif entry.type == 'rss' -%}
           {{ "/feed.xml" | relative_url }}
         {%- else -%}

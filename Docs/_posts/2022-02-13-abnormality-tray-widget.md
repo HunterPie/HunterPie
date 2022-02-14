@@ -3,7 +3,7 @@ layout: post
 title: "Abnormality Tray Widget"
 date: 2022-02-13 13:23 -0300
 badge: docs
-categories: [Documentation, Widgets]
+categories: [Documentation, Overlay, Widgets]
 ---
 The Abnormality Tray widget allows you to track your buff and debuff durations, it's useful when playing Hunting Horn, or when you just want to know how long a certain buff will last. HunterPie lets you create as many trays as you want, allowing you to separate abnormalities in different trays.
 

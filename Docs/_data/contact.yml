@@ -3,17 +3,10 @@
 -
   type: github
   icon: 'fab fa-github'
+
 -
-  type: twitter
-  icon: 'fab fa-twitter'
--
-  type: email
-  icon: 'fas fa-envelope'
-  noblank: true            # open link in current tab
--
-  type: rss
-  icon: 'fas fa-rss'
-  noblank: true
+  type: discord
+  icon: 'fab fa-discord'
 
 # Uncomment and complete the url below to enable more contact options
 # -
