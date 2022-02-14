@@ -9,6 +9,13 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
+using System.Windows.Threading;
+#if DEBUG
+using LiveCharts;
+using LiveCharts.Defaults;
+using HunterPie.UI.Architecture.Graphs;
+#endif
+
 
 namespace HunterPie.UI.Overlay.Components
 {
@@ -17,10 +24,15 @@ namespace HunterPie.UI.Overlay.Components
     /// </summary>
     public partial class WidgetBase : Window, INotifyPropertyChanged
     {
-        private TimeSpan LastRender;
+        private DateTime LastRender;
         private double _renderingTime;
 
         public double RenderingTime { get => _renderingTime; private set { SetValue(ref _renderingTime, value); } }
+
+        #if DEBUG
+        public SeriesCollection RenderSeries { get; private set; }
+        private readonly ChartValues<ObservablePoint> RenderPoints = new();
+        #endif
 
         // TODO: Move this to platform dependent classes
         private const uint Flags = 
@@ -56,6 +68,12 @@ namespace HunterPie.UI.Overlay.Components
 
         public WidgetBase()
         {
+            #if DEBUG
+            RenderSeries = new LinearSeriesCollectionBuilder()
+                .AddSeries(RenderPoints, "Render", Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF))
+                .Build();
+            #endif
+
             InitializeComponent();
             DataContext = this;
             CompositionTarget.Rendering += OnRender;
@@ -65,13 +83,17 @@ namespace HunterPie.UI.Overlay.Components
         private void OnRender(object sender, EventArgs e)
         {
             RenderingEventArgs args = (RenderingEventArgs)e;
-            RenderingTime = args.RenderingTime.TotalMilliseconds - LastRender.TotalMilliseconds;
-            LastRender = args.RenderingTime;
-            if (counter >= 30)
+            RenderingTime = (DateTime.Now - LastRender).TotalMilliseconds;
+            LastRender = DateTime.Now;
+            if (counter >= 60)
             {
+                #if DEBUG
+                RenderPoints.Add(new ObservablePoint(args.RenderingTime.TotalSeconds, RenderingTime));
+                #endif
                 ForceAlwaysOnTop();
                 counter = 0;
             }
+            Dispatcher.Invoke(() => { }, DispatcherPriority.Normal);
             counter++;
         }
 

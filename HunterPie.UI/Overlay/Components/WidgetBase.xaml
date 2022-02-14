@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HunterPie.UI.Overlay.Components"
         xmlns:overlay="clr-namespace:HunterPie.UI.Overlay"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:DEBUG="DEBUG_MODE"
         mc:Ignorable="d"
         Title="{Binding Widget.Title, Mode=OneWay}"
         WindowStyle="None"
@@ -71,6 +73,18 @@
             <ContentControl Content="{Binding Widget}"
                             Opacity="{Binding Widget.Settings.Opacity.Current, Mode=OneWay}"
                             Visibility="{Binding Widget.Settings.Enabled.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <mc:AlternateContent>
+                <mc:Choice Requires="DEBUG">
+                    <lvc:CartesianChart Height="100"
+                                        Series="{Binding RenderSeries}"
+                                        DisableAnimations="True"
+                                        VerticalAlignment="Top">
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis MinValue="0"/>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </mc:Choice>
+            </mc:AlternateContent>
         </Grid>
         <Grid.LayoutTransform>
             <ScaleTransform ScaleX="{Binding Widget.Settings.Scale.Current, Mode=OneWay}"
