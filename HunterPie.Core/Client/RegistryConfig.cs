@@ -15,6 +15,7 @@ namespace HunterPie.Core.Client
         public static void Set(string name, object value) => key.SetValue(name, value);
         public static bool Exists(string name) => key.GetValue(name) is not null;
         public static object Get(string name) => key.GetValue(name);
+        public static T Get<T>(string name) => (T)key.GetValue(name);
 
     }
 }

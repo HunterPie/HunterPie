@@ -41,9 +41,9 @@ namespace HunterPie.Core.Http
                 {
                     res = await _client.SendAsync(_request);
                 }
-                catch
+                catch (Exception err)
                 {
-                    Log.Debug($"Failed to request host {host}, trying next one...");
+                    Log.Debug($"Failed to request host {host}, trying next one...\n{err}");
                     _client.Dispose();
                     _request.Dispose();
 

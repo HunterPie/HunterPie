@@ -21,6 +21,8 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 
         public bool IsEnabled => true;
 
+        public bool ShouldNotify => false;
+
         public void ExecuteOnClick()
         {
             var settingTabs = VisualConverterManager.Build(ClientConfig.Config);

@@ -16,6 +16,7 @@ namespace HunterPie.Core.Http
         public HttpStatusCode Status { get; }
         public HttpContent Content { get; }
         public bool Success { get; }
+        public string Url { get; }
 
         public event EventHandler<PoogieDownloadEventArgs> OnDownloadProgressChanged;
 
@@ -31,6 +32,7 @@ namespace HunterPie.Core.Http
             Status = message.StatusCode;
             Content = message.Content;
             Success = true;
+            Url = message.RequestMessage.RequestUri.AbsoluteUri;
         }
 
         public async Task<T> AsJson<T>()

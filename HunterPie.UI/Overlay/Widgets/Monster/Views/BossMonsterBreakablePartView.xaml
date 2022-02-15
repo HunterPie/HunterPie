@@ -32,7 +32,7 @@
         <Grid Margin="30,15,0,0">
 
             <!-- Break Bar -->
-            <overlay:Bar d:Foreground="{StaticResource MONSTER_PART_BROKEN_FOREGROUND}"
+            <overlay:Bar d:Foreground="{StaticResource MONSTER_PART_BREAKABLE_FOREGROUND}"
                          d:ForegroundDelayed="{StaticResource MonsterHealthUnenragedDelayed}"
                          Height="5"
                          VerticalAlignment="Top"

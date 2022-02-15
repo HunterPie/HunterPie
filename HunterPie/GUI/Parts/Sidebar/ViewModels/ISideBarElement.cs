@@ -8,6 +8,7 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
         public string Text { get; }
         public bool IsActivable { get; }
         public bool IsEnabled { get; }
+        public bool ShouldNotify { get; }
 
         public void ExecuteOnClick();
     }

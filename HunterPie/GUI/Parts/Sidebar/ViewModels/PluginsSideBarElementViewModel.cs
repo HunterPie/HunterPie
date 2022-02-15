@@ -14,6 +14,8 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 
         public bool IsEnabled => false;
 
+        public bool ShouldNotify => false;
+
         public void ExecuteOnClick()
         {
             

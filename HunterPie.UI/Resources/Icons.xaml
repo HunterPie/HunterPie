@@ -27,7 +27,15 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
-    
+
+    <DrawingImage x:Key="ICON_DOCUMENTATION">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H448 V0 H0 Z">
+                <GeometryDrawing Brush="{StaticResource BUTTON_COMMONBUTTON_FOREGROUND}" Geometry="F1 M448,512z M0,0z M448,336L448,48C448,21.49,426.5,0,400,0L96,0C42.98,0,0,42.98,0,96L0,416C0,469.02,42.98,512,96,512L416,512C433.67,512 448,497.67 448,480.9 448,469.18 441.393,459.38 432,453.8L432,372.44C441.8,362.8,448,350.2,448,336z M143.1,128L335.1,128C344.8,128 352,135.2 352,144 352,152.8 344.8,160 336,160L143.1,160C135.2,160 128,152.8 128,144 128,135.2 135.2,128 143.1,128z M143.1,192L335.1,192C344.8,192 352,199.2 352,208 352,216.8 344.8,224 336,224L143.1,224C135.2,224 128,216.8 128,208 128,199.2 135.2,192 143.1,192z M384,448L96,448C78.33,448 64,433.67 64,416 64,398.33 78.33,384 96,384L384,384 384,448z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="ICON_DOWNLOAD_YELLOW">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
