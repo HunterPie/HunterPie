@@ -19,6 +19,71 @@
 			<Ailment Id="STATUS_ENRAGE" String="Enrage"/>
 		</Rise>
 	</Ailments>
+	<Abnormalities>
+		<Abnormality Id="ABNORMALITY_UNKNOWN" String="Unknown"/>
+		<Abnormality Id="ABNORMALITY_SELF_IMPROVEMENT" String="Self-Improvement"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_UP" String="Attack Up"/>
+		<Abnormality Id="ABNORMALITY_DEFENSE_UP" String="Defense Up"/>
+		<Abnormality Id="ABNORMALITY_AFFINITY_UP" String="Affinity Up"/>
+		<Abnormality Id="ABNORMALITY_ELEMENTAL_ATTACK_UP" String="Elemental Attack Up"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_DEF_UP" String="Attack and Def. Up"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_AFFINITY_UP" String="Attack and Affinity Up"/>
+		<Abnormality Id="ABNORMALITY_KNOCKBACK_NEG" String="Knockback Negated"/>
+		<Abnormality Id="ABNORMALITY_EARPLUG" String="Earplugs (S)"/>
+		<Abnormality Id="ABNORMALITY_EARPLUG_PLUS" String="Earplugs (L)"/>
+		<Abnormality Id="ABNORMALITY_TREMORS_NEG" String="Tremors Negated"/>
+		<Abnormality Id="ABNORMALITY_WIND_PRESSURE_PLUS" String="Wind Pressure Negated"/>
+		<Abnormality Id="ABNORMALITY_STUN_NEG" String="Stun Negated"/>
+		<Abnormality Id="ABNORMALITY_BLIGHT_NEG" String="Blights Negated"/>
+		<Abnormality Id="ABNORMALITY_DIVINE_PROTECTION" String="Divine Protection"/>
+		<Abnormality Id="ABNORMALITY_HEALTH_REGEN" String="Health Regeneration"/>
+		<Abnormality Id="ABNORMALITY_STAMINA_USE_RED" String="Stamina Use Reduced"/>
+		<Abnormality Id="ABNORMALITY_STAMINA_REC_UP" String="Stamina Recov. Up"/>
+		<Abnormality Id="ABNORMALITY_SHARPNESS_RED" String="Sharpness Loss Reduced"/>
+		<Abnormality Id="ABNORMALITY_ENV_NEG" String="Env. Damage Negated"/>
+		<Abnormality Id="ABNORMALITY_SONIC_BARRIER" String="Sonic Barrier"/>
+		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Infernal Melody"/>
+		
+		<Abnormality Id="ABNORMALITY_MIGHT_SEED" String="Might Seed"/>
+		<Abnormality Id="ABNORMALITY_BUTTERFLAME" String="Butterflame"/>
+		<Abnormality Id="ABNORMALITY_CUTTERFLY" String="Cutterfly"/>
+		<Abnormality Id="ABNORMALITY_ADAMANT_SEED" String="Adamant Seed"/>
+		<Abnormality Id="ABNORMALITY_CLOTHFLY" String="Clothfly"/>
+		<Abnormality Id="ABNORMALITY_DASH_JUICE" String="Dash Juice"/>
+		<Abnormality Id="ABNORMALITY_DEMON_POWDER" String="Demon Powder"/>
+		<Abnormality Id="ABNORMALITY_HARDSHELL_POWDER" String="Hardshell Powder"/>
+		<Abnormality Id="ABNORMALITY_NATURAL_HEALING" String="Natural Healing"/>
+		<Abnormality Id="ABNORMALITY_REDLAMPSQUID" String="Red Lampsquid"/>
+		<Abnormality Id="ABNORMALITY_YELLOWLAMPSQUID" String="Yellow Lampsquid"/>
+		<Abnormality Id="ABNORMALITY_GOURMET_FISH" String="Gourmet Fish"/>
+		<Abnormality Id="ABNORMALITY_IMMUNITY" String="Immunity"/>
+		<Abnormality Id="ABNORMALITY_GO_FIGHT_WIN" String="Go, Fight, Win"/>
+		<Abnormality Id="ABNORMALITY_POWER_DRUM" String="Power Drum"/>
+		<Abnormality Id="ABNORMALITY_ROUSING_ROAR" String="Rousing Roar"/>
+		
+		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="Dango Bulker"/>
+		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="Dango Booster"/>
+		<Abnormality Id="ABNORMALITY_DANGO_GLUTTON" String="Dango Glutton"/>
+		
+		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="Counterstrike"/>
+		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="Latent Power"/>
+		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="Affinity Sliding"/>
+		
+
+		<Abnormality Id="ABNORMALITY_POISON" String="Poison"/>
+		<Abnormality Id="ABNORMALITY_VENOM" String="Venom"/>
+		<Abnormality Id="ABNORMALITY_DEF_DOWN" String="Defense Down"/>
+		<Abnormality Id="ABNORMALITY_RES_DOWN" String="Resistance Down"/>
+		<Abnormality Id="ABNORMALITY_STENCH" String="Stench"/>
+		<Abnormality Id="ABNORMALITY_HELLFIRE" String="Hellfireblight"/>
+		<Abnormality Id="ABNORMALITY_BLAST" String="Blastblight"/>
+		<Abnormality Id="ABNORMALITY_FIRE" String="Fireblight"/>
+		<Abnormality Id="ABNORMALITY_WATER" String="Waterblight"/>
+		<Abnormality Id="ABNORMALITY_ICE" String="Iceblight"/>
+		<Abnormality Id="ABNORMALITY_THUNDER" String="Thunderblight"/>
+		<Abnormality Id="ABNORMALITY_DRAGON" String="Dragonblight"/>
+		<Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="Major Bubbleblight"/>
+	</Abnormalities>
 	<Monsters>
 		<Shared>
 			<Part Id="PART_UNKNOWN" String="???"/>
@@ -198,12 +263,31 @@
 			<Setting Id="OVERLAY_STRING"
 					 String="Overlay"
 					 Description="Overlay configurations"/>
+			<Setting Id="ABNORMALITY_TRAY_STRING"
+					 String="Abnormality Trays"
+					 Description="Abnormality Trays configurations"/>
 			<Setting Id="MONSTER_WIDGET_STRING"
 					 String="Monster Widget"
-					 Description="Overlay configurations"/>
+					 Description="Monster Widget configurations"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="Dev Tools"
 					 Description="Advanced development tools"/>
+
+			<Setting Id="ABNORMALITY_SONGS_STRING"
+					 String="Songs"
+					 Description="Song abnormalities"/>
+			<Setting Id="ABNORMALITY_CONSUMABLES_STRING"
+					 String="Consumables"
+					 Description="Consumable abnormalities"/>
+			<Setting Id="ABNORMALITY_DEBUFFS_STRING"
+					 String="Debuffs"
+					 Description="Debuffs abnormalities"/>]
+			<Setting Id="ABNORMALITY_SKILLS_STRING"
+					 String="Armor skills"
+					 Description="Armor skill abnormalities"/>
+			<Setting Id="ABNORMALITY_FOODS_STRING"
+					 String="Food skills"
+					 Description="Food abnormalities"/>
 
 			<Setting Id="ENABLE_SELF_UPDATE"
 					 String="Enable self update"
@@ -259,7 +343,13 @@
 			<Setting Id="WIDGET_SCALE"
 					 String="Widget scale"
 					 Description="Controls this widget linear scale, the higher the value, the bigger the widget will be."/>
-			
+			<Setting Id="ORIENTATION_STRING"
+					 String="Orientation"
+					 Description="Orientation of the widget."/>
+
+			<Setting Id="MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING"
+					 String="Show only target"
+					 Description="If enabled, HunterPie will only show the monster you have currently set as target."/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_STAMINA_STRING"
 					 String="Enable monster stamina"
 					 Description="If enabled, HunterPie will show the monster stamina under it's health bar."/>
@@ -284,6 +374,25 @@
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING"
 					 String="Delay to hide inactive ailments"
 					 Description="Delay to be waited to hide a part that has become inactive."/>
+
+			<Setting Id="ABNORMALITY_TRAYS_STRING"
+					 String="Abnormality Trays"
+					 Description="Configurations for abnormality trays."/>
+			<Setting Id="ABNORMALITY_TRAY_NAME_STRING"
+					 String="Abnormality Tray Name"
+					 Description="Name for this abnormality bar."/>
+			<Setting Id="ABNORMALITY_TRAY_MAX_SIZE_STRING"
+					 String="Maximum size"
+					 Description="Sets the maximum size for the tray."/>
+			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
+					 String="Sort by"
+					 Description="Selects the sorting algorithm used to sort all abnormalities."/>
+			<Setting Id="SORT_BY_LOWEST_TIMER_STRING"
+					 String="Lowest time"/>
+			<Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
+					 String="Highest time"/>
+			<Setting Id="SORT_BY_DISABLED_STRING"
+					 String="Disabled"/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>

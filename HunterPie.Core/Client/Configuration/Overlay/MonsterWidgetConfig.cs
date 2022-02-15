@@ -25,6 +25,9 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         [SettingField("MONSTER_WIDGET_MAX_WIDTH_STRING")]
         public Range MaxWidth { get; set; } = new(600, 1000, 200, 1);
 
+        [SettingField("MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING")]
+        public Observable<bool> ShowOnlyTarget { get; set; } = false;
+
         [SettingField("MONSTER_WIDGET_ENABLE_STAMINA_STRING")]
         public Observable<bool> EnableStamina { get; set; } = true;
 

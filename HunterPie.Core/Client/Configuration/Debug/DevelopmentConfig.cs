@@ -2,6 +2,7 @@
 using HunterPie.Core.Domain.Constants;
 using HunterPie.Core.Architecture;
 using HunterPie.Core.Client.Configuration.Enums;
+using System.Diagnostics;
 
 namespace HunterPie.Core.Client.Configuration.Debug
 {
@@ -20,7 +21,10 @@ namespace HunterPie.Core.Client.Configuration.Debug
         [SettingField("DEV_POOGIE_API_HOST_STRING")]
         public Observable<string> PoogieApiHost { get; set; } = "";
 
-        [SettingField("DEV_ENABLE_DEBUG_MESSAGES")]
+        [SettingField("DEV_LOG_LEVEL")]
         public Observable<LogLevel> ClientLogLevel { get; set; } = LogLevel.Info;
+
+        [SettingField("DEV_PRESENTATION_TRACER_LEVEL")]
+        public Observable<SourceLevels> PresentationSourceLevel { get; set; } = SourceLevels.Off;
     }
 }

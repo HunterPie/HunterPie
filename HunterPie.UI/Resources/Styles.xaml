@@ -96,7 +96,27 @@
         <GradientStop Color="#FFCB2D3E"/>
         <GradientStop Color="#FFEF473A" Offset="1"/>
     </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MonsterHealthUnenraged" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF4B8EEE"/>
+        <GradientStop Color="#FF10B9DE" Offset="1"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="MonsterHealthUnenragedDelayed" Color="#FF9CE4FF"/>
     
+    <LinearGradientBrush x:Key="MONSTER_PART_BREAKABLE_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFFBB623"/>
+        <GradientStop Color="#FFFFCC72" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MONSTER_PART_SEVERABLE_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFDE1010"/>
+        <GradientStop Color="#FFEE4B4B" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MONSTER_PART_BROKEN_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF3D3D3D"/>
+        <GradientStop Color="#FF8A8A8A" Offset="1"/>
+    </LinearGradientBrush>
 
     <!-- Font -->
     <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">pack://application:,,,/HunterPie.UI;component/Resources/#Work Sans</FontFamily>

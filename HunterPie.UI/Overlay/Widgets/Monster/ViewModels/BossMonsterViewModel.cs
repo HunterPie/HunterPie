@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Remote;
 using System.Collections.ObjectModel;
@@ -22,6 +23,8 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         private Crown _crown;
         private string _icon;
         private bool _isLoadingIcon = true;
+        private bool _isAlive;
+        public MonsterWidgetConfig Config => ClientConfig.Config.Overlay.BossesWidget;
         private readonly ObservableCollection<MonsterPartViewModel> parts = new();
         private readonly ObservableCollection<MonsterAilmentViewModel> ailments = new();
 
@@ -31,6 +34,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
             get => name;
             set { SetValue(ref name, value); }
         }
+
         public string Em
         {
             get => em;
@@ -109,6 +113,8 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
             get => _icon;
             set { SetValue(ref _icon, value); }
         }
+
+        public bool IsAlive { get => _isAlive; set { SetValue(ref _isAlive, value); } }
 
         public async void FetchMonsterIcon()
         {

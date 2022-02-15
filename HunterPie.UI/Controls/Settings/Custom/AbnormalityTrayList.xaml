@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="HunterPie.UI.Controls.Settings.Custom.AbnormalityTrayList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Controls.Settings.Custom"
+             xmlns:btn="clr-namespace:HunterPie.UI.Controls.Buttons"
+             xmlns:type="clr-namespace:HunterPie.Core.Settings.Types;assembly=HunterPie.Core"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" 
+             d:DesignWidth="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="125"/>
+        </Grid.ColumnDefinitions>
+        <ComboBox ItemsSource="{Binding Trays}"
+                  SelectedIndex="{Binding SelectedIndex, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityTrayList}}}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name.Value}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <btn:Button HorizontalAlignment="Left"
+                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                    Grid.Column="1"
+                    OnClick="OnAddTrayClick">
+            <Image Source="{StaticResource ICON_ADD}"
+                   Margin="5"/>
+        </btn:Button>
+        <btn:Button HorizontalAlignment="Center"
+                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                    Grid.Column="1"
+                    OnClick="OnRemoveTrayClick">
+            <Image Source="{StaticResource ICON_REMOVE}"
+                   Margin="5"/>
+        </btn:Button>
+        <btn:Button HorizontalAlignment="Right"
+                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                    Grid.Column="1"
+                    OnClick="OnOpenConfigClick">
+            <Image Source="{StaticResource ICON_SETTINGS_FILLED}"
+                   Margin="5"/>
+        </btn:Button>
+    </Grid>
+</UserControl>

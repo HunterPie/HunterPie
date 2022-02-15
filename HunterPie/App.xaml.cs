@@ -19,7 +19,9 @@ using HunterPie.Update;
 using HunterPie.Update.Presentation;
 using System.Threading.Tasks;
 using System.Linq;
-using System.IO;
+using HunterPie.UI.Overlay.Widgets.Abnormality;
+using System.Runtime.InteropServices;
+using HunterPie.Core.Client.Configuration.Overlay;
 
 namespace HunterPie
 {
@@ -93,6 +95,7 @@ namespace HunterPie
             RenderOptions.ProcessRenderMode = ClientConfig.Config.Client.Rendering == RenderingStrategy.Hardware
                 ? RenderMode.Default
                 : RenderMode.SoftwareOnly;
+
         }
 
         private void OnProcessClosed(object sender, ProcessManagerEventArgs e)
@@ -140,6 +143,13 @@ namespace HunterPie
 
                 if (ClientConfig.Config.Overlay.BossesWidget.Initialize)
                     handlers.Add(new MonsterWidgetContextHandler(context));
+
+                var configs = ClientConfig.Config.Overlay.AbnormalityTray.Trays.Trays.ToArray();
+                for (int i = 0; i < ClientConfig.Config.Overlay.AbnormalityTray.Trays.Trays.Count; i++)
+                {
+                    ref var abnormConfig = ref configs[i];
+                    handlers.Add(new AbnormalityWidgetContextHandler(context, ref abnormConfig));
+                }
 
                 contextHandlers.AddRange(handlers);
             });

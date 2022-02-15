@@ -10,6 +10,7 @@ using HunterPie.Core.Game.Rise.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace HunterPie.Core.Game.Rise
@@ -94,7 +95,7 @@ namespace HunterPie.Core.Game.Rise
 
         internal void StartScanTask()
         {
-            Task.Factory.StartNew(async () =>
+            new Thread(new ThreadStart(() =>
             {
                 while (_isGameRunning)
                 {
@@ -105,10 +106,14 @@ namespace HunterPie.Core.Game.Rise
                             ms.Scan();
 
                     Scan();
-
-                    await Task.Delay((int)ClientConfig.Config.Client.PollingRate.Current);
+                    Thread.Sleep((int)ClientConfig.Config.Client.PollingRate.Current);
                 }
-            });
+            }))
+            {
+                IsBackground = true,
+                Name = "MHRGame",
+                Priority = ThreadPriority.Highest
+            }.Start();
         }
 
         internal void StopScanning() => _isGameRunning = false;

@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
+using HunterPie.Core.Game.Enums;
 using System;
 using System.ComponentModel;
 using System.Timers;
@@ -15,9 +16,16 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         private double _maxHealth;
         private double _tenderize;
         private double _maxTenderize;
+        private double _flinch;
+        private double _maxFlinch;
+        private double _sever;
+        private double _maxSever;
         private int _breaks;
         private int _maxBreaks;
         private bool _isActive;
+        private bool _isPartBroken;
+        private bool _isPartSevered;
+        private PartType _type;
 
         public string Name { get => _name; set { SetValue(ref _name, value); } }
         public double Health
@@ -43,12 +51,37 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
                 SetValue(ref _tenderize, value);
             }
         }
+        public double Flinch
+        {
+            get => _flinch;
+            set
+            {
+                if (value != _flinch)
+                    RefreshTimer();
+
+                SetValue(ref _flinch, value);
+            }
+        }
+        public double MaxFlinch { get => _maxFlinch; set { SetValue(ref _maxFlinch, value); } }
         public double MaxTenderize { get => _maxTenderize; set { SetValue(ref _maxTenderize, value); } }
+        public double Sever
+        {
+            get => _sever;
+            set
+            {
+                if (value != _sever)
+                    RefreshTimer();
+
+                SetValue(ref _sever, value);
+            }
+        }
+        public double MaxSever { get => _maxSever; set { SetValue(ref _maxSever, value); } }
         public int Breaks { get => _breaks; set { SetValue(ref _breaks, value); } }
         public int MaxBreaks { get => _maxBreaks; set { SetValue(ref _maxBreaks, value); } }
         public bool IsActive { get => _isActive; set { SetValue(ref _isActive, value); } }
-
-        private object sync = new();
+        public bool IsPartBroken { get => _isPartBroken; set { SetValue(ref _isPartBroken, value); } }
+        public bool IsPartSevered { get => _isPartSevered; set { SetValue(ref _isPartSevered, value); } }
+        public PartType Type { get => _type; set { SetValue(ref _type, value); } }
 
         public MonsterPartViewModel()
         {
@@ -64,13 +97,10 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 
         private void OnHideTimerTick(object sender, ElapsedEventArgs e)
         {
-            lock (sync)
-            {
-                if (!IsActive)
-                    return;
+            if (!IsActive)
+                return;
 
-                IsActive = false;
-            }
+            IsActive = false;
         }
 
         private void OnDelayTimeUpdate(object sender, PropertyChangedEventArgs e)
@@ -81,12 +111,9 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 
         private void RefreshTimer()
         {
-            lock (sync)
-            {
-                IsActive = true;
-                timeout.Stop();
-                timeout.Start();
-            }
+            IsActive = true;
+            timeout.Stop();
+            timeout.Start();
         }
 
         protected virtual void DisposeResources()

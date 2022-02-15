@@ -25,8 +25,10 @@ namespace HunterPie.UI.Settings.Internal
 
             ComboBox box = new()
             {
-                ItemsSource = elements 
+                ItemsSource = elements
             };
+
+
 
             BindingOperations.SetBinding(box, ComboBox.SelectedItemProperty, binding);
 

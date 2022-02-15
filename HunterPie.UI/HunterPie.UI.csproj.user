@@ -17,6 +17,15 @@
     <Compile Update="Controls\Loading\CircleLoading.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Settings\Custom\AbnormalityTrayList.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Settings\Custom\AbnormalityView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Settings\Custom\AbnormalityWidgetConfigWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Settings\SettingElementHost.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -65,7 +74,13 @@
     <Compile Update="Overlay\Widgets\Monster\Views\BossMonsterAilmentView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Monster\Views\BossMonsterBreakablePartView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Monster\Views\BossMonsterPartView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Monster\Views\BossMonsterSeverablePartView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Monster\Views\BossMonsterView.xaml.cs">
@@ -95,6 +110,15 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Loading\CircleLoading.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Settings\Custom\AbnormalityTrayList.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Settings\Custom\AbnormalityView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Settings\Custom\AbnormalityWidgetConfigWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\SettingElementHost.xaml">
@@ -145,7 +169,13 @@
     <Page Update="Overlay\Widgets\Monster\Views\BossMonsterAilmentView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Overlay\Widgets\Monster\Views\BossMonsterBreakablePartView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Overlay\Widgets\Monster\Views\BossMonsterPartView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Monster\Views\BossMonsterSeverablePartView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Monster\Views\BossMonsterView.xaml">

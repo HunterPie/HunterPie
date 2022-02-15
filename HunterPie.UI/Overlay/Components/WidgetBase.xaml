@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HunterPie.UI.Overlay.Components"
         xmlns:overlay="clr-namespace:HunterPie.UI.Overlay"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:DEBUG="DEBUG_MODE"
         mc:Ignorable="d"
         Title="{Binding Widget.Title, Mode=OneWay}"
         WindowStyle="None"
@@ -71,6 +73,22 @@
             <ContentControl Content="{Binding Widget}"
                             Opacity="{Binding Widget.Settings.Opacity.Current, Mode=OneWay}"
                             Visibility="{Binding Widget.Settings.Enabled.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            
+            <mc:AlternateContent>
+                <mc:Choice Requires="DEBUG">
+                    <TextBlock Background="#50000000"
+                               Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                               VerticalAlignment="Top"
+                               HorizontalAlignment="Left"
+                               Padding="5">
+                        <Run Text="{Binding RenderingTime, Mode=OneWay, StringFormat=\{0:F0\}}"
+                             d:Text="16"/><!--
+                     --><Run Text="ms"
+                             Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/>
+                    </TextBlock>
+                </mc:Choice>
+            </mc:AlternateContent>
         </Grid>
         <Grid.LayoutTransform>
             <ScaleTransform ScaleX="{Binding Widget.Settings.Scale.Current, Mode=OneWay}"

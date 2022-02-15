@@ -35,6 +35,7 @@ namespace HunterPie.Core.Game
                     return false;
                 case "MonsterHunterRise":
                     MonsterData.Init(ClientInfo.GetPathFor("Game/Rise/Data/MonsterData.xml"));
+                    AbnormalityData.Init(ClientInfo.GetPathFor("Game/Rise/Data/AbnormalityData.xml"));
                     return true;
                 default:
                     throw new Exception("Game context not implemented");

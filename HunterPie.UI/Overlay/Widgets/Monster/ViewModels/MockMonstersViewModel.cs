@@ -17,6 +17,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
                 Crown = Crown.Gold,
                 TargetType = Target.Self,
                 IsTarget = true,
+                IsAlive = true
             });
             
             foreach (BossMonsterViewModel vm in Monsters)
