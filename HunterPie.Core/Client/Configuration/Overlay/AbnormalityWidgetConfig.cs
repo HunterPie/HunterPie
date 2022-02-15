@@ -21,7 +21,7 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         [SettingField("ABNORMALITY_TRAY_MAX_SIZE_STRING")]
         public Range MaxSize { get; set; } = new Range(300, 1200, 30, 30);
 
-        [SettingField("ABNORMALITY_TRAY_SORT_BY_TIME")]
+        [SettingField("ABNORMALITY_TRAY_SORT_BY_STRING")]
         public Observable<SortBy> SortByAlgorithm { get; set; } = SortBy.Off;
 
         [SettingField("WIDGET_OPACITY")]

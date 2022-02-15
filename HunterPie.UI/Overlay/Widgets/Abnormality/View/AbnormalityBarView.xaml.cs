@@ -39,7 +39,7 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality.View
 
         private void OnLoad(object sender, RoutedEventArgs e)
         {
-            CompositionTarget.Rendering += OnRender;
+            CompositionTarget.Rendering += OnRender; 
         }
 
         private void OnUnload(object sender, RoutedEventArgs e)

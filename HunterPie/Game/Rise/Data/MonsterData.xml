@@ -442,6 +442,7 @@
 			<Parts>
 				<Part Id="0" String="PART_TORSO" />
 				<Part Id="1" String="PART_HEAD" />
+				<Part Id="2" String="PART_UNKNOWN" />
 				<Part Id="3" String="PART_L_ARM" />
 				<Part Id="4" String="PART_R_ARM" />
 				<Part Id="5" String="PART_L_LEG" />

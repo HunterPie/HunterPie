@@ -83,13 +83,13 @@ namespace HunterPie.UI.Overlay.Components
         private void OnRender(object sender, EventArgs e)
         {
             RenderingEventArgs args = (RenderingEventArgs)e;
-            RenderingTime = (DateTime.Now - LastRender).TotalMilliseconds;
-            LastRender = DateTime.Now;
             if (counter >= 60)
             {
+                RenderingTime = (DateTime.Now - LastRender).TotalMilliseconds;
                 ForceAlwaysOnTop();
                 counter = 0;
             }
+            LastRender = DateTime.Now;
             Dispatcher.Invoke(() => { }, DispatcherPriority.Normal);
             counter++;
         }

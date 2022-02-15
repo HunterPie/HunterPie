@@ -268,7 +268,7 @@
 					 Description="Abnormality Trays configurations"/>
 			<Setting Id="MONSTER_WIDGET_STRING"
 					 String="Monster Widget"
-					 Description="Overlay configurations"/>
+					 Description="Monster Widget configurations"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="Dev Tools"
 					 Description="Advanced development tools"/>
@@ -381,6 +381,18 @@
 			<Setting Id="ABNORMALITY_TRAY_NAME_STRING"
 					 String="Abnormality Tray Name"
 					 Description="Name for this abnormality bar."/>
+			<Setting Id="ABNORMALITY_TRAY_MAX_SIZE_STRING"
+					 String="Maximum size"
+					 Description="Sets the maximum size for the tray."/>
+			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
+					 String="Sort by"
+					 Description="Selects the sorting algorithm used to sort all abnormalities."/>
+			<Setting Id="SORT_BY_LOWEST_TIMER_STRING"
+					 String="Lowest time"/>
+			<Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
+					 String="Highest time"/>
+			<Setting Id="SORT_BY_DISABLED_STRING"
+					 String="Disabled"/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>
