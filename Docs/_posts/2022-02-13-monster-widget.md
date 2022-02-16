@@ -3,6 +3,7 @@ layout: post
 title: "Monster Widget"
 date: 2022-02-14 19:03 -0300
 badge: docs
+math: true
 categories: [Documentation, Overlay, Widgets]
 ---
 The Monster Widget is responsible to track and display all the big monsters information. It is one of the most complex widgets and each single component is designed to be simple without losing information.
@@ -42,3 +43,36 @@ Having to target a monster to see their information is part of HunterPie's desig
 
 > If you have targeting system disabled in-game, this will not work. You must have either **Target** or **Focus** enabled.
 {: .prompt-warning }
+
+### Orientation
+
+Monster Widget supports two orientations, `Vertical` and `Horizontal`
+
+
+Orientation | Description
+:----------:|:--------------------
+Vertical    | Monster health bars will be placed on top of each other in the order they spawn
+Horizontal  | Monster healht bars will be placed side by side in the order they spawn
+
+![horizontal-bars-demo](/Static/horizontal-bars-demo.jpg) *Horizontally aligned bars*
+
+### Dynamic Resizing
+
+Dynamic resizing is one of the Monster Widget's features, it's very useful when your widget is in the `Horizontal` mode, it tries to calculate the health bar's width dynamically instead of having a static width based on how many monsters the widget is displaying at that moment.
+The width is calculated based on the width set as `Minimum Width`, using the following formula:
+
+$$ dynWidth = min + ((3 - n) * {min \over 4}) $$ 
+
+- **min:** Minimum Width
+- **n:** Number of monsters visible
+
+So, if you set the minimum width as `300`, each possible case will result in these dynamic widths:
+
+Monsters visible | Width (px)
+:---------------:|:----------------
+3                | 300
+2                | 375
+1                | 450
+
+> **Note:** Even if the dynamic width is higher or lower than the maximum and minimum width respectively, the visual width will not go above/below those widths.
+{: .prompt-note }
