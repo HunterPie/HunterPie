@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Game.Enums;
+using System.Linq;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 {
@@ -41,11 +42,12 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
                 Stamina = 10000,
                 MaxStamina = 10000,
                 Crown = Crown.Mini,
-                TargetType = Target.None,
+                TargetType = Target.Self,
                 IsTarget = true,
                 IsAlive = true
             });
-
+            VisibleMonsters = 1;
+            MonstersCount = 3;
             foreach (BossMonsterViewModel vm in Monsters)
                 vm.FetchMonsterIcon();
         }

@@ -356,8 +356,11 @@
 					 String="Enable monster stamina"
 					 Description="If enabled, HunterPie will show the monster stamina under it's health bar."/>
 			<Setting Id="MONSTER_WIDGET_MAX_WIDTH_STRING"
-					 String="Monster widget maximum width"
+					 String="Monster health bar maximum width"
 					 Description="Controls the maximum width for the monsters health bar."/>
+			<Setting Id="MONSTER_WIDGET_MIN_WIDTH_STRING"
+					 String="Monster health bar minimum width"
+					 Description="Controls the minimum width for the monsters health bar. This width will be used to calculate the dynamic size for the bars if that option is enabled."/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_PARTS_STRING"
 					 String="Enable monster parts"
 					 Description="If enabled, monster parts will be enabled."/>
@@ -376,6 +379,9 @@
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING"
 					 String="Delay to hide inactive ailments"
 					 Description="Delay to be waited to hide a part that has become inactive."/>
+			<Setting Id="MONSTER_WIDGET_DYNAMIC_RESIZE_STRING"
+					 String="Dynamically resize monster bars"
+					 Description="If enabled, HunterPie will automatically resize all monster bars depending on how many health bars are visible at the moment."/>
 
 			<Setting Id="ABNORMALITY_TRAYS_STRING"
 					 String="Abnormality Trays"
