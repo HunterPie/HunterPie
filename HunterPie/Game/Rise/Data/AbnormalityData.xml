@@ -139,9 +139,13 @@
                      Name="ABNORMALITY_GO_FIGHT_WIN"
                      Icon="ICON_PALICO_YELLOW"/>
         <Abnormality Id="E8"
-                     Offset="E8"/>
+                     Offset="E8"
+					 Name="ABNORMALITY_DEMON_AMMO"
+					 Icon="ICON_DEMONAMMO"/>
         <Abnormality Id="EC"
-                     Offset="EC"/>
+                     Offset="EC"
+					 Name="ABNORMALITY_ARMOR_AMMO"
+					 Icon="ICON_ARMORAMMO"/>
         <Abnormality Id="F0"
                      Offset="F0"/>
         <Abnormality Id="F4"

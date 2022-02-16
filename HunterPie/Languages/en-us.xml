@@ -60,6 +60,8 @@
 		<Abnormality Id="ABNORMALITY_GO_FIGHT_WIN" String="Go, Fight, Win"/>
 		<Abnormality Id="ABNORMALITY_POWER_DRUM" String="Power Drum"/>
 		<Abnormality Id="ABNORMALITY_ROUSING_ROAR" String="Rousing Roar"/>
+		<Abnormality Id="ABNORMALITY_DEMON_AMMO" String="Demon Ammo"/>
+		<Abnormality Id="ABNORMALITY_ARMOR_AMMO" String="Armor Ammo"/>
 		
 		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="Dango Bulker"/>
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="Dango Booster"/>
