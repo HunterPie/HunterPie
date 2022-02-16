@@ -5,27 +5,69 @@
            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
            xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
            xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
-           xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels" 
+           xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels"
+           xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+           xmlns:enums="clr-namespace:HunterPie.Core.Client.Configuration.Enums;assembly=HunterPie.Core"
            xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Components"
+           mc:Ignorable="d"
            d:DataContext="{d:DesignInstance Type=viewmodels:MonstersViewModel}"
-           x:TypeArguments="viewmodels:MonstersViewModel"
-           mc:Ignorable="d">
+           x:TypeArguments="viewmodels:MonstersViewModel">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:OrientationConverter x:Key="OrientationConverter"/>
+        <converters:DynamicMonsterBarSizeConverter x:Key="DynamicMonsterBarSizeConverter"/>
+        <converters:BindingMultiplierConverter x:Key="BindingMultiplierConverter"/>
+        <enums:Orientation x:Key="OHorizontal">Horizontal</enums:Orientation>
+        <enums:Orientation x:Key="OVertical">Vertical</enums:Orientation>
     </UserControl.Resources>
     <Grid>
-        <ItemsControl ItemsSource="{Binding Monsters}">
+        <ItemsControl ItemsSource="{Binding Monsters}"
+                      HorizontalContentAlignment="Center">
+            <ItemsControl.Style>
+                <Style TargetType="ItemsControl">
+                    <Style.Triggers>
+                        <!-- Dynamic size -->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Settings.DynamicResize.Value, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Value="True"/>
+                                <Condition Binding="{Binding Settings.Orientation.Value, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Value="{StaticResource OHorizontal}"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Width">
+                                    <Setter.Value>
+                                        <MultiBinding Converter="{StaticResource BindingMultiplierConverter}">
+                                            <Binding Path="Settings.MinWidth.Current" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                                            <Binding Path="DataContext.MonstersCount" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                                        </MultiBinding>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                        <DataTrigger Binding="{Binding Settings.DynamicResize.Value, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Value="False">
+                            <DataTrigger.Setters>
+                                <Setter Property="Width" Value="NaN"/>
+                            </DataTrigger.Setters>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Settings.Orientation.Value, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Value="{StaticResource OVertical}">
+                            <DataTrigger.Setters>
+                                <Setter Property="Width" Value="NaN"/>
+                            </DataTrigger.Setters>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ItemsControl.Style>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Vertical"
-                               ItemWidth="{Binding Settings.MaxWidth.Current, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                               MaxWidth="{Binding Settings.MaxWidth.Current, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+                    <WrapPanel Orientation="{Binding Settings.Orientation.Value, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Converter={StaticResource OrientationConverter}}"
+                               IsItemsHost="True"
+                               HorizontalAlignment="Center"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:BossMonsterViewModel}">
-                    <local:BossMonsterView>
+                    <local:BossMonsterView MinWidth="{Binding Settings.MinWidth.Current, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                           MaxWidth="{Binding Settings.MaxWidth.Current, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
                         <local:BossMonsterView.Style>
                             <Style TargetType="local:BossMonsterView">
                                 <Setter Property="Visibility" Value="Collapsed"/>
@@ -40,6 +82,24 @@
                                     </MultiDataTrigger>
                                     <DataTrigger Binding="{Binding IsAlive}" Value="False">
                                         <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                    <!-- Dynamic size setting -->
+                                    <DataTrigger Binding="{Binding Settings.DynamicResize.Value, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Value="True">
+                                        <DataTrigger.Setters>
+                                            <Setter Property="Width">
+                                                <Setter.Value>
+                                                    <MultiBinding Converter="{StaticResource DynamicMonsterBarSizeConverter}">
+                                                        <Binding Path="Settings.MinWidth.Current" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                                                        <Binding Path="DataContext.VisibleMonsters" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                                                    </MultiBinding>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger.Setters>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Settings.DynamicResize.Value, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Value="False">
+                                        <DataTrigger.Setters>
+                                            <Setter Property="Width" Value="{Binding Settings.MaxWidth.Current, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+                                        </DataTrigger.Setters>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>

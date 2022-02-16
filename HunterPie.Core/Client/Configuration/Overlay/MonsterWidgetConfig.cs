@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
 
@@ -19,11 +20,17 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         [SettingField("WIDGET_SCALE")]
         public Range Scale { get; set; } = new(1, 2, 0.1, 0.1);
 
-        [SettingField("ENABLE_STREAMER_MODE")]
-        public Observable<bool> StreamerMode { get; set; } = false;
+        [SettingField("ORIENTATION_STRING")]
+        public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Vertical;
+
+        [SettingField("MONSTER_WIDGET_DYNAMIC_RESIZE_STRING")]
+        public Observable<bool> DynamicResize { get; set; } = false;
 
         [SettingField("MONSTER_WIDGET_MAX_WIDTH_STRING")]
         public Range MaxWidth { get; set; } = new(600, 1000, 200, 1);
+
+        [SettingField("MONSTER_WIDGET_MIN_WIDTH_STRING")]
+        public Range MinWidth { get; set; } = new(400, 600, 200, 1);
 
         [SettingField("MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING")]
         public Observable<bool> ShowOnlyTarget { get; set; } = false;
@@ -48,6 +55,9 @@ namespace HunterPie.Core.Client.Configuration.Overlay
 
         [SettingField("MONSTER_WIDGET_AUTO_HIDE_PARTS_DELAY_STRING")]
         public Range AutoHidePartsDelay { get; set; } = new(15, 60, 1, 1);
+
+        [SettingField("ENABLE_STREAMER_MODE")]
+        public Observable<bool> StreamerMode { get; set; } = false;
 
         [SettingField("WIDGET_POSITION")]
         public Position Position { get; set; } = new(600, 100);

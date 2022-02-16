@@ -11,12 +11,13 @@
              d:DesignHeight="30">
     <UserControl.Resources>
         <converters:RatioConverter x:Key="RatioConverter"/>
+        <converters:ReverseRatioConverter x:Key="ReverseRatioConverter"/>
         <converters:AbnormalityStringToIconConverter x:Key="AbnormalityStringToIconConverter"/>
         <LinearGradientBrush x:Key="AbnormalityStrokeBuff" EndPoint="1,1" StartPoint="0,0">
             <GradientStop Color="#98eb34"/>
             <GradientStop Color="#34ebc6" Offset="1"/>
         </LinearGradientBrush>
-        
+
         <LinearGradientBrush x:Key="AbnormalityStrokeDebuff" EndPoint="1,1" StartPoint="0,0">
             <GradientStop Color="#eb4f34"/>
             <GradientStop Color="#eb3434" Offset="1"/>
@@ -51,5 +52,22 @@
                    d:Source="{StaticResource ITEM_DASH}"
                    Width="20"
                    Height="20"/>
+        <local:Arc StrokeThickness="13"
+                   Margin="2"
+                   d:Percentage="0.2"
+                   Stroke="#90000000" 
+                   RenderTransformOrigin="0.5,0.5">
+            <local:Arc.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                </TransformGroup>
+            </local:Arc.RenderTransform>
+            <local:Arc.Percentage>
+                <MultiBinding Converter="{StaticResource ReverseRatioConverter}">
+                    <Binding Path="DataContext.Timer" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:Abnormality}}" Mode="OneWay"/>
+                    <Binding Path="DataContext.MaxTimer" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:Abnormality}}" Mode="OneWay"/>
+                </MultiBinding>
+            </local:Arc.Percentage>
+        </local:Arc>
     </Grid>
 </UserControl>
