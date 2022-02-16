@@ -22,7 +22,15 @@ namespace HunterPie.UI.Overlay.Controls
         public static readonly DependencyProperty StartAngleProperty =
             DependencyProperty.Register("StartAngle", typeof(double), typeof(Arc), new PropertyMetadata(90.0, AnglesChanged));
 
+        public bool Reverse
+        {
+            get { return (bool)GetValue(ReverseProperty); }
+            set { SetValue(ReverseProperty, value); }
+        }
 
+        // Using a DependencyProperty as the backing store for Reverse.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ReverseProperty =
+            DependencyProperty.Register("Reverse", typeof(bool), typeof(Arc), new PropertyMetadata(false));
 
         public double Percentage
         {
@@ -54,7 +62,7 @@ namespace HunterPie.UI.Overlay.Controls
 
         private Geometry GetArcGeometry()
         {
-            double end = ConvertPercentageIntoAngle(Percentage);
+            double end = ConvertPercentageIntoAngle(Reverse, Percentage);
 
             Point startPoint = PointAtAngle(Math.Min(StartAngle, end));
             Point endPoint = PointAtAngle(Math.Max(StartAngle, end));
@@ -83,9 +91,13 @@ namespace HunterPie.UI.Overlay.Controls
             return new Point(x, y);
         }
 
-        public static double ConvertPercentageIntoAngle(double percentage)
+        public static double ConvertPercentageIntoAngle(bool reverse, double percentage)
         {
-            double angle = 90.0 - (360.0 * percentage);
+            double angle = reverse switch
+            {
+                true => -90.0 + (360.0 * percentage),
+                false => 90.0 - (360.0 * percentage),
+            };
             double cap = -269.999;
             return Math.Max(angle, cap);
         }
