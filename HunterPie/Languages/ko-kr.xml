@@ -1,7 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-
-<!-- 사용하면서 잘못된 부분이 있다면 수정해 주세요. -->
-
+<?xml version="1.0" encoding="utf-8" ?>
 <Strings lang="Korean">
 	<Ailments>
 		<Rise>
@@ -18,9 +15,77 @@
 			<Ailment Id="AILMENT_FIRE" String="불 속성 피해"/>
 			<Ailment Id="AILMENT_ICE" String="얼음 속성 피해"/>
 			<Ailment Id="AILMENT_THUNDER" String="번개 속성 피해"/>
+			<Ailment Id="AILMENT_TRANQUILIZE" String="실 속박 상태"/>
 			<Ailment Id="STATUS_ENRAGE" String="분노"/>
 		</Rise>
 	</Ailments>
+	<Abnormalities>
+		<Abnormality Id="ABNORMALITY_UNKNOWN" String="알 수 없음"/>
+		<Abnormality Id="ABNORMALITY_SELF_IMPROVEMENT" String="자기 강화"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_UP" String="공격력 UP"/>
+		<Abnormality Id="ABNORMALITY_DEFENSE_UP" String="방어력 UP"/>
+		<Abnormality Id="ABNORMALITY_AFFINITY_UP" String="회심률 UP"/>
+		<Abnormality Id="ABNORMALITY_ELEMENTAL_ATTACK_UP" String="속성 공격력 UP"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_DEF_UP" String="공격력&amp;방어력 UP"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_AFFINITY_UP" String="공격력&amp;회심률 UP"/>
+		<Abnormality Id="ABNORMALITY_KNOCKBACK_NEG" String="움츠리기 무효"/>
+		<Abnormality Id="ABNORMALITY_EARPLUG" String="청각 보호 (소)"/>
+		<Abnormality Id="ABNORMALITY_EARPLUG_PLUS" String="청각 보호 (대)"/>
+		<Abnormality Id="ABNORMALITY_TREMORS_NEG" String="진동 무효"/>
+		<Abnormality Id="ABNORMALITY_WIND_PRESSURE_PLUS" String="풍압 무효"/>
+		<Abnormality Id="ABNORMALITY_STUN_NEG" String="기절 무효"/>
+		<Abnormality Id="ABNORMALITY_BLIGHT_NEG" String="모든 속성 피해 무효"/>
+		<Abnormality Id="ABNORMALITY_DIVINE_PROTECTION" String="정령왕의 가호"/>
+		<Abnormality Id="ABNORMALITY_HEALTH_REGEN" String="체력 지속 회복"/>
+		<Abnormality Id="ABNORMALITY_STAMINA_USE_RED" String="스태미나 소비 경감"/>
+		<Abnormality Id="ABNORMALITY_STAMINA_REC_UP" String="스태미나 회복 속도 UP"/>
+		<Abnormality Id="ABNORMALITY_SHARPNESS_RED" String="예리도 소비 경감"/>
+		<Abnormality Id="ABNORMALITY_ENV_NEG" String="지형 대미지 무효"/>
+		<Abnormality Id="ABNORMALITY_SONIC_BARRIER" String="소리 방벽"/>
+		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="기염의 선율"/>
+		
+		<Abnormality Id="ABNORMALITY_MIGHT_SEED" String="괴력씨앗"/>
+		<Abnormality Id="ABNORMALITY_BUTTERFLAME" String="불꽃 나비"/>
+		<Abnormality Id="ABNORMALITY_CUTTERFLY" String="그물잠자리"/>
+		<Abnormality Id="ABNORMALITY_ADAMANT_SEED" String="인내씨앗"/>
+		<Abnormality Id="ABNORMALITY_CLOTHFLY" String="하얀천나비"/>
+		<Abnormality Id="ABNORMALITY_DASH_JUICE" String="강주약"/>
+		<Abnormality Id="ABNORMALITY_DEMON_POWDER" String="귀인의 가루"/>
+		<Abnormality Id="ABNORMALITY_HARDSHELL_POWDER" String="경화의 가루"/>
+		<Abnormality Id="ABNORMALITY_NATURAL_HEALING" String="자연 회복"/>
+		<Abnormality Id="ABNORMALITY_REDLAMPSQUID" String="빨간 등불징어"/>
+		<Abnormality Id="ABNORMALITY_YELLOWLAMPSQUID" String="노란 등불징어"/>
+		<Abnormality Id="ABNORMALITY_GOURMET_FISH" String="잘익은 생선"/>
+		<Abnormality Id="ABNORMALITY_IMMUNITY" String="면역"/>
+		<Abnormality Id="ABNORMALITY_GO_FIGHT_WIN" String="응원 댄스"/>
+		<Abnormality Id="ABNORMALITY_POWER_DRUM" String="강화북"/>
+		<Abnormality Id="ABNORMALITY_ROUSING_ROAR" String="강화 포효"/>
+		<Abnormality Id="ABNORMALITY_DEMON_AMMO" String="귀인탄"/>
+		<Abnormality Id="ABNORMALITY_ARMOR_AMMO" String="경화탄"/>
+		
+		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="경단 벌크업"/>
+		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="경단 단기최면술"/>
+		<Abnormality Id="ABNORMALITY_DANGO_GLUTTON" String="경단 배부름"/>
+		
+		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="공격적인 방어"/>
+		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="힘의 해방"/>
+		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="활주 강화"/>
+		
+
+		<Abnormality Id="ABNORMALITY_POISON" String="독"/>
+		<Abnormality Id="ABNORMALITY_VENOM" String="맹독"/>
+		<Abnormality Id="ABNORMALITY_DEF_DOWN" String="방어력 DOWN"/>
+		<Abnormality Id="ABNORMALITY_RES_DOWN" String="모든 내성 DOWN"/>
+		<Abnormality Id="ABNORMALITY_STENCH" String="일부 아이템 사용 불가"/>
+		<Abnormality Id="ABNORMALITY_HELLFIRE" String="귀화 피해"/>
+		<Abnormality Id="ABNORMALITY_BLAST" String="폭파 피해"/>
+		<Abnormality Id="ABNORMALITY_FIRE" String="불속성 피해"/>
+		<Abnormality Id="ABNORMALITY_WATER" String="물속성 피해"/>
+		<Abnormality Id="ABNORMALITY_ICE" String="얼음속성 피해"/>
+		<Abnormality Id="ABNORMALITY_THUNDER" String="번개속성 피해"/>
+		<Abnormality Id="ABNORMALITY_DRAGON" String="용속성 피해"/>
+		<Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="거품 상태"/>
+	</Abnormalities>
 	<Monsters>
 		<Shared>
 			<Part Id="PART_UNKNOWN" String="???"/>
@@ -74,7 +139,7 @@
 			<Part Id="PART_BACK_WINDSAC" String="등(바람주머니)"/>
 			<Part Id="PART_L_ARM_ICE" String="좌측 팔 (얼음)"/>
 			<Part Id="PART_R_ARM_ICE" String="우측 팔 (얼음)"/>
-			<Part Id="PART_B_LEG_FINS" String="등 지느러미"/>
+			<Part Id="PART_B_LEG_FINS" String="뒷다리 지느러미"/>
 			<Part Id="PART_THUNDERBALLS" String="발전 기관"/>
 			<Part Id="PART_ROCK" String="바위"/>
 			<Part Id="PART_POT" String="항아리"/>
@@ -119,7 +184,7 @@
 			<Monster Id="36" String="고샤하기"/>
 			<Monster Id="37" String="오사이즈치"/>
 			<Monster Id="38" String="나루하타타히메"/>
-			<Monster Id="39" String="백룡연원 나루하타타히메"/>
+			<Monster Id="39" String="백룡 연원 나루하타타히메"/>
 			<Monster Id="40" String="안쟈나프"/>
 			<Monster Id="41" String="푸케푸케"/>
 			<Monster Id="42" String="쿠루루야크"/>
@@ -166,9 +231,9 @@
 		</Tabs>
 		<Generics>
 			<Generic Id="HUNTERPIE_IS_LATEST_VERSION"
-					 String="헌터 파이가 최신 버전입니다!"/>
+					 String="HunterPie가 최신 버전입니다!"/>
 			<Generic Id="HUNTERPIE_NOT_LATEST_VERSION"
-					 String="헌터 파이의 새로운 업데이트가 가능합니다!"/>
+					 String="HunterPie의 새로운 업데이트가 가능합니다!"/>
 		</Generics>
 		<Integrations>
 			<Discord Id="DRPC_RISE_CHARACTER_STRING_FORMAT"
@@ -186,62 +251,83 @@
 			<Discord Id="DRPC_RISE_STATE_EXPLORING"
 					 String="탐색 중"/>
 			<Discord Id="DRPC_RISE_STATE_HUNTING"
-					 String="{Monster} 사냥 중({Percentage}%)"/>
+					 String="{Monster} 사냥 중 ({Percentage}%)"/>
+			<Discord Id="DRPC_RISE_STATE_HUNTING_NO_HEALTH"
+					 String="{Monster} 사냥 중"/>
 		</Integrations>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
-					 String="일반 설정"
-					 Description="본 앱의 일반 설정입니다."/>
+					 String="클라이언트"
+					 Description="클라이언트 설정"/>
 			<Setting Id="DISCORD_RPC_STRING"
-					 String="디스코스 프리센스"
-					 Description="디스코드 리치 프리센스 설정입니다."/>
+					 String="Discord Presence"
+					 Description="Discord Rich Presence 설정"/>
 			<Setting Id="OVERLAY_STRING"
 					 String="오버레이"
 					 Description="오버레이 설정"/>
+			<Setting Id="ABNORMALITY_TRAY_STRING"
+					 String="효과 트레이"
+					 Description="효과 트레이 설정"/>
 			<Setting Id="MONSTER_WIDGET_STRING"
 					 String="몬스터 위젯"
-					 Description="오버레이 설정"/>
+					 Description="몬스터 위젯 설정"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="개발자 도구"
 					 Description="심화 개발 도구들입니다."/>
 
+			<Setting Id="ABNORMALITY_SONGS_STRING"
+					 String="선율"
+					 Description="선율 효과"/>
+			<Setting Id="ABNORMALITY_CONSUMABLES_STRING"
+					 String="소비 아이템"
+					 Description="소비 아이템 효과"/>
+			<Setting Id="ABNORMALITY_DEBUFFS_STRING"
+					 String="디버프"
+					 Description="디버프 효과"/>]
+			<Setting Id="ABNORMALITY_SKILLS_STRING"
+					 String="방어 스킬"
+					 Description="방어 스킬 효과"/>
+			<Setting Id="ABNORMALITY_FOODS_STRING"
+					 String="식사 스킬"
+					 Description="식사 효과"/>
+
 			<Setting Id="ENABLE_SELF_UPDATE"
 					 String="자동 업데이트 사용"
-					 Description="옵션 활성화 시, 헌터 파이는 자동으로 최신버전으로 업데이트로 업데이트 됩니다."/>
+					 Description="옵션 활성화 시, HunterPie를 자동으로 최신버전으로 업데이트 합니다."/>
 			<Setting Id="ENABLE_SELF_UPDATE_CONFIRMATION"
-					 String="자동 업데이트 승인"
-					 Description="옵션 활성화 시, 헌터 파이는 자동 업데이트 전 허용 여부를 물어봅니다."/>
+					 String="자동 업데이트 확인 표시"
+					 Description="옵션 활성화 시, HunterPie를 자동으로 업데이트 하기 전에 허용 여부를 물어봅니다."/>
 			<Setting Id="SUPPORTER_SECRET_TOKEN_STRING"
 					 String="서포터 토큰"
 					 Description="베타 업데이트를 위한 서포터 토큰입니다."/>
 			<Setting Id="LANGUAGE_STRING"
 					 String="언어"
-					 Description="헌터 파이의 표시 언어 설정입니다"/>
+					 Description="HunterPie의 표시 언어 설정"/>
 			<Setting Id="MINIMIZE_TO_SYSTEM_TRAY_STRING"
 					 String="시스템 트레이로 최소화"
-					 Description="옵션 활성화 시, 헌터파이는 시스템 트레이로 최소화됩니다."/>
+					 Description="옵션 활성화 시, HunterPie는 시스템 트레이로 최소화됩니다."/>
 			<Setting Id="RENDERING_STRATEGY_STRING"
 					 String="렌더링 방식"
-					 Description="헌터 파이의 렌더링 방식입니다. 소프트웨어 렌더링은 CPU를 사용하고, 하드웨어 렌더링은 그래픽 카드를 사용합니다."/>
+					 Description="HunterPie의 렌더링 방식입니다. 소프트웨어 렌더링은 CPU를 사용하고, 하드웨어 렌더링은 그래픽 카드를 사용합니다."/>
 			<Setting Id="POLLING_RATE_STRING"
 					 String="메모리 스캔 딜레이 (ms 단위)"
-					 Description="헌터 파이 스캐너의 딜레이 설정입니다, 낮게 설정할수록 부드럽게 작동하지만, 그만큼 CPU 자원을 많이 사용합니다."/>
+					 Description="HunterPie 스캐너의 딜레이 설정입니다, 낮게 설정할수록 부드럽게 작동하지만, 그만큼 CPU 자원을 많이 사용합니다."/>
 			<Setting Id="DEV_ENABLE_FEATURE_FLAG"
-					 String="개발 중 기능 표시를 활성화 합니다"
+					 String="개발 중인 기능 표시"
 					 Description="옵션 활성화 시, 개발 중인 기능을 보고 테스트할 수 있습니다."/>
 
 			<Setting Id="DRPC_ENABLE_RICH_PRESENCE"
-					 String="디스코드 리치 프리센스 활성화"
-					 Description="옵션 활성화 시, 헌터 파이는 디스코드 상태창에 활동을 표시해줍니다."/>
+					 String="Discord Rich Presence 활성화"
+					 Description="옵션 활성화 시, HunterPie는 Discord 상태창에 활동을 표시해줍니다."/>
 			<Setting Id="DRPC_ENABLE_SHOW_CHARACTER_INFO"
 					 String="캐릭터 정보 표시"
-					 Description="옵션 활성화 시, 헌터 파이는 디스코드 상태창에 헌터랭크와 캐릭터 이름을 표시합니다."/>
+					 Description="옵션 활성화 시, HunterPie는 Discord 상태창에 헌터 랭크와 캐릭터 이름을 표시합니다."/>
 			<Setting Id="DRPC_ENABLE_SHOW_MONSTER_HEALTH"
 					 String="타겟 몬스터 체력 표시"
-					 Description="옵션 활성화 시, 헌터 파이는 디스코드 상태창에 타켓 몬스터의 체력을 표시합니다."/>
+					 Description="옵션 활성화 시, HunterPie는 Discord 상태창에 타켓 몬스터의 체력을 표시합니다."/>
 			
 			<Setting Id="OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE"
-					 String="[단축키] 토글 디자인 모드"
+					 String="[단축키] 디자인 모드 전환"
 					 Description="디자인 모드를 On/Off 할 수 있는 단축키입니다."/>
 			
 			<Setting Id="INITIALIZE_WIDGET_STRING"
@@ -259,31 +345,62 @@
 			<Setting Id="WIDGET_SCALE"
 					 String="위젯 크기"
 					 Description="위젯의 크기를 조정합니다."/>
+			<Setting Id="ORIENTATION_STRING"
+					 String="방향"
+					 Description="위젯의 배치 방향입니다."/>
 			
+			<Setting Id="MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING"
+					 String="타겟 몬스터만 표시"
+					 Description="옵션 활성화 시, HunterPie는 당신의 현재 타겟 몬스터만 표시합니다."/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_STAMINA_STRING"
 					 String="몬스터 스태미나 활성화"
-					 Description="옵션 활성화 시, 헌터 파이는 몬스터의 체력 막대 아래에 스태미나 막대를 표시합니다"/>
+					 Description="옵션 활성화 시, HunterPie는 몬스터의 체력 막대 아래에 스태미나 막대를 표시합니다"/>
 			<Setting Id="MONSTER_WIDGET_MAX_WIDTH_STRING"
-					 String="몬스터 위젯 가로 폭 조정"
-					 Description="몬스터 체력바의 최대 가로 폭을 설정합니다."/>
+					 String="몬스터 체력 바 최대 가로 길이"
+					 Description="몬스터 체력 바의 최대 가로 폭을 설정합니다."/>
+			<Setting Id="MONSTER_WIDGET_MIN_WIDTH_STRING"
+					 String="몬스터 체력 바 최소 가로 길이"
+					 Description="몬스터 체력 바의 최소 가로 폭을 설정합니다. 이 폭은 동적 크기 옵션을 사용 할 때 동적 크기 계산에 사용됩니다."/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_PARTS_STRING"
 					 String="몬스터 부위 체력 활성화"
 					 Description="옵션 활성화 시, 몬스터의 부위 체력이 표시됩니다."/>
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_PARTS_STRING"
-					 String="몬스터 부위 체력 자동 숨김"
+					 String="몬스터 부위 체력 자동 숨기기"
 					 Description="옵션 활성화 시, 변동이 없는 몬스터의 부위 체력이 X 초 후 숨겨집니다."/>
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_PARTS_DELAY_STRING"
-					 String="미변동 부위 체력 숨김 딜레이"
-					 Description="몬스터의 부위 체력이 숨겨지기 전까지 걸리는 딜레이입니다."/>
+					 String="미변동 부위 체력 숨기기 딜레이"
+					 Description="몬스터의 부위 체력이 숨겨지기 전까지 걸리는 시간입니다."/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_AILMENTS_STRING"
 					 String="몬스터 상태이상 표시 활성화"
 					 Description="옵션 활성화 시, 몬스터에게 적용된 상태이상 종류가 표시됩니다."/>
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_STRING"
-					 String="몬스터 상태이상 자동 숨김"
+					 String="몬스터 상태이상 자동 숨기기"
 					 Description="옵션 활성화 시, 변동이 없는 몬스터의 상태이상 속성이 X 초 후 숨겨집니다."/>
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING"
-					 String="미변동 상태이상 숨김 딜레이"
-					 Description="몬스터의 미변동 상태이상 속성이 숨겨지기 전까지 걸리는 딜레이입니다."/>
+					 String="미변동 상태이상 숨기기 딜레이"
+					 Description="몬스터의 미변동 상태이상 속성이 숨겨지기 전까지 걸리는 시간입니다."/>
+			<Setting Id="MONSTER_WIDGET_DYNAMIC_RESIZE_STRING"
+					 String="몬스터 바 동적 크기"
+					 Description="옵션 활성화 시, HunterPie는 체력 바 숫자에 따라 모든 몬스터 바 크기를 자동으로 조절합니다."/>
+
+			<Setting Id="ABNORMALITY_TRAYS_STRING"
+					 String="효과 트레이"
+					 Description="효과 트레이 설정입니다."/>
+			<Setting Id="ABNORMALITY_TRAY_NAME_STRING"
+					 String="효과 트레이 이름"
+					 Description="이 효과 바의 이름입니다."/>
+			<Setting Id="ABNORMALITY_TRAY_MAX_SIZE_STRING"
+					 String="최대 크기"
+					 Description="트레이의 최대 크기를 설정합니다."/>
+			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
+					 String="정렬 방법"
+					 Description="효과를 정렬하는 데 사용할 방법을 선택하세요."/>
+			<Setting Id="SORT_BY_LOWEST_TIMER_STRING"
+					 String="짧은 시간 순"/>
+			<Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
+					 String="긴 시간 순"/>
+			<Setting Id="SORT_BY_DISABLED_STRING"
+					 String="사용 안 함"/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>
