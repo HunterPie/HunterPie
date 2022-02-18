@@ -92,26 +92,23 @@ namespace HunterPie
 
         private void SetupTrayIcon()
         {
-            TrayService.AddDoubleClickHandler((_, __) =>
-            {
-                Show();
-                WindowState = WindowState.Normal;
-                Focus();
-            });
+            TrayService.AddDoubleClickHandler(OnTrayShowClick);
 
             TrayService.AddItem("Show")
-                .Click += (_, __) =>
-                {
-                    Show();
-                    WindowState = WindowState.Normal;
-                    Focus();
-                };
+                .Click += OnTrayShowClick;
 
             TrayService.AddItem("Close")
-                .Click += (_, __) => {
-                    Close();
-                };
+                .Click += OnTrayCloseClick;
         }
+
+        private void OnTrayShowClick(object sender, EventArgs e)
+        {
+            Show();
+            WindowState = WindowState.Normal;
+            Focus();
+        }
+
+        private void OnTrayCloseClick(object sender, EventArgs e) => Close();
 
         private void OnStartGameClick(object sender, EventArgs e)
         {
