@@ -1,11 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!--Translated by elappale#4205
+・If you see any mistakes in the translation or would like to submit your own, by all means join the HunterPie Discord and we can chat about it!
+・翻訳ミスがある場合、もしくは新しく翻訳ファイルを提出する場合は、HunterPieのDiscord鯖へお越しください。#translationsチャンネル、もしくはDMにてお待ちしております！
+・如果您在翻譯中發現任何錯誤或想提交自己的翻譯，請務必加入 HunterPie Discord，與我們一起討論！ 繁體中文翻譯 by TW 究叔叔#8599 -->
+
+
 <Strings lang="traditional Chinese">
 	<Ailments>
 		<Rise>
 			<Ailment Id="AILMENT_UNKNOWN" String="未知狀態"/>
 			<Ailment Id="AILMENT_PARALYSIS" String="麻痺"/>
 			<Ailment Id="AILMENT_SLEEP" String="睡眠"/>
-			<Ailment Id="AILMENT_STUN" String="暈眩"/>
+			<Ailment Id="AILMENT_STUN" String="昏厥"/>
 			<Ailment Id="AILMENT_POISON" String="中毒"/>
 			<Ailment Id="AILMENT_BLAST" String="爆炸"/>
 			<Ailment Id="AILMENT_EXHAUST" String="疲勞"/>
@@ -15,9 +22,77 @@
 			<Ailment Id="AILMENT_FIRE" String="火屬性異常"/>
 			<Ailment Id="AILMENT_ICE" String="冰屬性異常"/>
 			<Ailment Id="AILMENT_THUNDER" String="雷屬性異常"/>
+			<Ailment Id="AILMENT_TRANQUILIZE" String="麻醉(捕獲用)"/>
 			<Ailment Id="STATUS_ENRAGE" String="憤怒"/>
 		</Rise>
 	</Ailments>
+	<Abnormalities>
+		<Abnormality Id="ABNORMALITY_UNKNOWN" String="未知異常"/>
+		<Abnormality Id="ABNORMALITY_SELF_IMPROVEMENT" String="自我強化"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_UP" String="攻擊力UP"/>
+		<Abnormality Id="ABNORMALITY_DEFENSE_UP" String="防禦力UP"/>
+		<Abnormality Id="ABNORMALITY_AFFINITY_UP" String="會心率UP"/>
+		<Abnormality Id="ABNORMALITY_ELEMENTAL_ATTACK_UP" String="屬性攻擊力UP"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_DEF_UP" String="攻擊力、防禦力UP"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_AFFINITY_UP" String="攻擊力、會心率UP"/>
+		<Abnormality Id="ABNORMALITY_KNOCKBACK_NEG" String="後仰無效"/>
+		<Abnormality Id="ABNORMALITY_EARPLUG" String="聽覺保護【小】"/>
+		<Abnormality Id="ABNORMALITY_EARPLUG_PLUS" String="聽覺保護【大】"/>
+		<Abnormality Id="ABNORMALITY_TREMORS_NEG" String="耐震"/>
+		<Abnormality Id="ABNORMALITY_WIND_PRESSURE_PLUS" String="風壓無效"/>
+		<Abnormality Id="ABNORMALITY_STUN_NEG" String="昏厥無效"/>
+		<Abnormality Id="ABNORMALITY_BLIGHT_NEG" String="全狀態異常無效"/>
+		<Abnormality Id="ABNORMALITY_DIVINE_PROTECTION" String="精靈王的加護"/>
+		<Abnormality Id="ABNORMALITY_HEALTH_REGEN" String="體力持續回復"/>
+		<Abnormality Id="ABNORMALITY_STAMINA_USE_RED" String="耐力消耗減少"/>
+		<Abnormality Id="ABNORMALITY_STAMINA_REC_UP" String="耐力回復速度UP"/>
+		<Abnormality Id="ABNORMALITY_SHARPNESS_RED" String="銳利度消耗減輕"/>
+		<Abnormality Id="ABNORMALITY_ENV_NEG" String="地形傷害無效"/>
+		<Abnormality Id="ABNORMALITY_SONIC_BARRIER" String="滑音節奏"/>
+		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="氣焰的旋律"/>
+		
+		<Abnormality Id="ABNORMALITY_MIGHT_SEED" String="怪力種子"/>
+		<Abnormality Id="ABNORMALITY_BUTTERFLAME" String="火紅焰蝶"/>
+		<Abnormality Id="ABNORMALITY_CUTTERFLY" String="網切蜻蜓"/>
+		<Abnormality Id="ABNORMALITY_ADAMANT_SEED" String="忍耐種子"/>
+		<Abnormality Id="ABNORMALITY_CLOTHFLY" String="一反粉蝶"/>
+		<Abnormality Id="ABNORMALITY_DASH_JUICE" String="強走藥"/>
+		<Abnormality Id="ABNORMALITY_DEMON_POWDER" String="鬼人粉塵"/>
+		<Abnormality Id="ABNORMALITY_HARDSHELL_POWDER" String="硬化粉塵"/>
+		<Abnormality Id="ABNORMALITY_NATURAL_HEALING" String="活力劑"/>
+		<Abnormality Id="ABNORMALITY_REDLAMPSQUID" String="不知火赤烏賊"/>
+		<Abnormality Id="ABNORMALITY_YELLOWLAMPSQUID" String="不知火山吹烏賊"/>
+		<Abnormality Id="ABNORMALITY_GOURMET_FISH" String="全熟魚"/>
+		<Abnormality Id="ABNORMALITY_IMMUNITY" String="全狀態異常無效"/>
+		<Abnormality Id="ABNORMALITY_GO_FIGHT_WIN" String="應援舞蹈之技"/>
+		<Abnormality Id="ABNORMALITY_POWER_DRUM" String="強化太鼓之技"/>
+		<Abnormality Id="ABNORMALITY_ROUSING_ROAR" String="強化咆哮之技"/>
+		<Abnormality Id="ABNORMALITY_DEMON_AMMO" String="鬼人彈"/>
+		<Abnormality Id="ABNORMALITY_ARMOR_AMMO" String="硬化彈"/>
+		
+		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="糰子鍛鍊"/>
+		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="糰子短期催眠術"/>
+		<Abnormality Id="ABNORMALITY_DANGO_GLUTTON" String="糰子不知飢"/>
+		
+		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="逆襲"/>
+		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="力量解放"/>
+		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="滑走強化"/>
+		
+
+		<Abnormality Id="ABNORMALITY_POISON" String="中毒"/>
+		<Abnormality Id="ABNORMALITY_VENOM" String="猛毒"/>
+		<Abnormality Id="ABNORMALITY_DEF_DOWN" String="防禦力下降"/>
+		<Abnormality Id="ABNORMALITY_RES_DOWN" String="全屬性耐性DOWN"/>
+		<Abnormality Id="ABNORMALITY_STENCH" String="無法使用部分道具 "/>
+		<Abnormality Id="ABNORMALITY_HELLFIRE" String="鬼火異常"/>
+		<Abnormality Id="ABNORMALITY_BLAST" String="爆破異常"/>
+		<Abnormality Id="ABNORMALITY_FIRE" String="火屬性異常"/>
+		<Abnormality Id="ABNORMALITY_WATER" String="水屬性異常"/>
+		<Abnormality Id="ABNORMALITY_ICE" String="冰屬性異常"/>
+		<Abnormality Id="ABNORMALITY_THUNDER" String="雷屬性異常"/>
+		<Abnormality Id="ABNORMALITY_DRAGON" String="龍屬性異常"/>
+		<Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="泡沫狀態【大】"/>
+	</Abnormalities>
 	<Monsters>
 		<Shared>
 			<Part Id="PART_UNKNOWN" String="未知部位"/>
@@ -66,13 +141,13 @@
 			<Part Id="PART_TAIL_TIP" String="尾尖"/>
 			<Part Id="PART_MUD_BALL" String="泥球"/>
 			<Part Id="PART_LOWER_TORSO" String="下軀幹"/>
-			<Part Id="PART_TAIL_WINDSAC" String="尾部風袋"/>
-			<Part Id="PART_CHEST_WINDSAC" String="胸部風袋"/>
-			<Part Id="PART_BACK_WINDSAC" String="背部風袋"/>
+			<Part Id="PART_TAIL_WINDSAC" String="尾巴前端(風袋)"/>
+			<Part Id="PART_CHEST_WINDSAC" String="胸部(風袋)"/>
+			<Part Id="PART_BACK_WINDSAC" String="背部(風袋)"/>
 			<Part Id="PART_L_ARM_ICE" String="左臂（冰）"/>
 			<Part Id="PART_R_ARM_ICE" String="右臂（冰）"/>
 			<Part Id="PART_B_LEG_FINS" String="後腿鰭"/>
-			<Part Id="PART_THUNDERBALLS" String="雷袋"/>
+			<Part Id="PART_THUNDERBALLS" String="發電器官"/>
 			<Part Id="PART_ROCK" String="岩石"/>
 			<Part Id="PART_POT" String="壺"/>
 		</Shared>
@@ -183,7 +258,9 @@
 			<Discord Id="DRPC_RISE_STATE_EXPLORING"
 					 String="前往探索"/>
 			<Discord Id="DRPC_RISE_STATE_HUNTING"
-					 String="正在狩獵 {Monster} ({Percentage}%)"/>
+					 String="{Monster}を正在狩獵（{Percentage}%）"/>
+			<Discord Id="DRPC_RISE_STATE_HUNTING_NO_HEALTH"
+					 String="{Monster}を正在狩獵"/>
 		</Integrations>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
@@ -195,12 +272,31 @@
 			<Setting Id="OVERLAY_STRING"
 					 String="覆蓋層"
 					 Description="覆蓋層設置"/>
+			<Setting Id="ABNORMALITY_TRAY_STRING"
+					 String="狀態列"
+					 Description="狀態列設定"/>
 			<Setting Id="MONSTER_WIDGET_STRING"
 					 String="顯示介面設定"
 					 Description="覆蓋層配置"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="開發工具"
 					 Description="高級開發工具"/>
+
+			<Setting Id="ABNORMALITY_SONGS_STRING"
+					 String="旋律"
+					 Description="狩獵笛的旋律效果"/>
+			<Setting Id="ABNORMALITY_CONSUMABLES_STRING"
+					 String="增幅道具"
+					 Description="增幅道具和環境生物的效果"/>
+			<Setting Id="ABNORMALITY_DEBUFFS_STRING"
+					 String="Debuff 減益"
+					 Description="Debuff 減益效果"/>]
+			<Setting Id="ABNORMALITY_SKILLS_STRING"
+					 String="裝備技能"
+					 Description="裝備技能的效果"/>
+			<Setting Id="ABNORMALITY_FOODS_STRING"
+					 String="糰子技能"
+					 Description="糰子技能的效果"/>
 
 			<Setting Id="ENABLE_SELF_UPDATE"
 					 String="自動更新"
@@ -256,13 +352,22 @@
 			<Setting Id="WIDGET_SCALE"
 					 String="小工具介面比例"
 					 Description="調整小工具介面的線性比例，數值越高，介面就越大。"/>
+			<Setting Id="ORIENTATION_STRING"
+					 String="小工具介面方位"
+					 Description="在小工具介面顯示多項訊息時，更改小工具的擴展方向。"/>
 
+			<Setting Id="MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING"
+					 String="狩獵目標鎖定"
+					 Description="啟用時，只會顯示已鎖定的指定魔物。"/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_STAMINA_STRING"
 					 String="魔物耐力"
 					 Description="如果啟用，HunterPie 將在其生命值條下方顯示魔物的耐力。"/>
 			<Setting Id="MONSTER_WIDGET_MAX_WIDTH_STRING"
 					 String="魔物小工具介面最大寬度"
 					 Description="調整魔物血條的最大寬度。"/>
+			<Setting Id="MONSTER_WIDGET_MIN_WIDTH_STRING"
+					 String="魔物小工具介面最小寬度"
+					 Description="調整魔物血條的最小寬度。如果啟用「自動調整魔物血條寬距」，它將根據此設置自動更改。"/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_PARTS_STRING"
 					 String="魔物部位顯示"
 					 Description="如果啟用，將啟用魔物部位。"/>
@@ -281,6 +386,28 @@
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING"
 					 String="延後隱藏魔物閒置的異常狀態"
 					 Description="延後隱藏已變為閒置的異常狀態。"/>
+			<Setting Id="MONSTER_WIDGET_DYNAMIC_RESIZE_STRING"
+					 String="自動調整魔物血條寬距"
+					 Description="啟用時，它會根據顯示的魔物數量自動調整魔物血條的長度。"/>
+
+			<Setting Id="ABNORMALITY_TRAYS_STRING"
+					 String="Buff∕Debuff 工具列"
+					 Description="增益∕減益效果工具列的詳細設定。"/>
+			<Setting Id="ABNORMALITY_TRAY_NAME_STRING"
+					 String="Buff∕Debuff 工具列名稱"
+					 Description="增益∕減益效果工具列的名稱。"/>
+			<Setting Id="ABNORMALITY_TRAY_MAX_SIZE_STRING"
+					 String="Buff∕Debuff 工具列的最大數量"
+					 Description="增益∕減益效果工具列的最大設定數量。"/>
+			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
+					 String="Buff∕Debuff 工具列排序"
+					 Description="增益∕減益效果工具列的狀態效果排序。"/>
+			<Setting Id="SORT_BY_LOWEST_TIMER_STRING"
+					 String="最短時間"/>
+			<Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
+					 String="最長時間"/>
+			<Setting Id="SORT_BY_DISABLED_STRING"
+					 String="禁用"/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="開發人員：模擬魔物功能"/>

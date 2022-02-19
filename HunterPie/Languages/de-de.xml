@@ -9,8 +9,8 @@
 			<Ailment Id="AILMENT_POISON" String="Gift"/>
 			<Ailment Id="AILMENT_BLAST" String="Explosion"/>
 			<Ailment Id="AILMENT_EXHAUST" String="Erschöpfung"/>
-			<Ailment Id="AILMENT_MOUNT" String="Reitbar"/>
-			<Ailment Id="AILMENT_FLASH" String="Blenden"/>
+			<Ailment Id="AILMENT_MOUNT" String="Aufsitzen"/> <!-- Reitbar? Mount-->
+			<Ailment Id="AILMENT_FLASH" String="Blenden"/> 
 			<Ailment Id="AILMENT_WATER" String="Wasser"/>
 			<Ailment Id="AILMENT_FIRE" String="Brand"/>
 			<Ailment Id="AILMENT_ICE" String="Eisbrand"/>
@@ -18,6 +18,53 @@
 			<Ailment Id="STATUS_ENRAGE" String="Wut"/>
 		</Rise>
 	</Ailments>
+	<Abnormalities>
+		<Abnormality Id="ABNORMALITY_UNKNOWN" String="Unbekannt"/>
+		<Abnormality Id="ABNORMALITY_SELF_IMPROVEMENT" String="Selbstverbesserung"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_UP" String="Angriff+"/>
+		<Abnormality Id="ABNORMALITY_DEFENSE_UP" String="Verteidigung+"/>
+		<Abnormality Id="ABNORMALITY_AFFINITY_UP" String="Affinität+"/>
+		<Abnormality Id="ABNORMALITY_ELEMENTAL_ATTACK_UP" String="Elementangriff+"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_DEF_UP" String="Angriff und Verteidigung+"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_AFFINITY_UP" String="Angriff und Affinität+"/>
+		<Abnormality Id="ABNORMALITY_KNOCKBACK_NEG" String="Knockback negiert"/>
+		<Abnormality Id="ABNORMALITY_EARPLUG" String="Ohrstöpsel (S)"/>
+		<Abnormality Id="ABNORMALITY_EARPLUG_PLUS" String="Ohrstöpsel (L)"/>
+		<Abnormality Id="ABNORMALITY_TREMORS_NEG" String="Erdstöße negiert"/>
+		<Abnormality Id="ABNORMALITY_WIND_PRESSURE_PLUS" String="Winddruck negiert"/>
+		<Abnormality Id="ABNORMALITY_STUN_NEG" String="Betäubung negiert"/>
+		<Abnormality Id="ABNORMALITY_BLIGHT_NEG" String="Brand negiert"/> <!-- "Blight" -->
+		<Abnormality Id="ABNORMALITY_DIVINE_PROTECTION" String="Göttlicher Schutz"/>
+		<Abnormality Id="ABNORMALITY_HEALTH_REGEN" String="Lebensregeneration"/>
+		<Abnormality Id="ABNORMALITY_STAMINA_USE_RED" String="Ausdauerverbrauch verringert"/>
+		<Abnormality Id="ABNORMALITY_STAMINA_REC_UP" String="Ausdauerwiederherstellung+"/>
+		<Abnormality Id="ABNORMALITY_SHARPNESS_RED" String="Schärfe-Verlust reduziert"/>
+		<Abnormality Id="ABNORMALITY_ENV_NEG" String="Umgebungsschaden negiert"/>
+		<Abnormality Id="ABNORMALITY_SONIC_BARRIER" String="Akkustische Barriere"/>
+		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Höllenmelodie"/> <!-- Höllenmelodie? -->
+		
+		<Abnormality Id="ABNORMALITY_MIGHT_SEED" String="Machtsamen"/>
+		<Abnormality Id="ABNORMALITY_ADAMANT_SEED" String="Diamantsamen"/>
+		<Abnormality Id="ABNORMALITY_CLOTHFLY" String="Tuchfliege"/> <!-- Clothfly -->
+		<Abnormality Id="ABNORMALITY_DASH_JUICE" String="Sprintsaft"/>
+		<Abnormality Id="ABNORMALITY_DEMON_POWDER" String="Dämonenpulver"/>
+		<Abnormality Id="ABNORMALITY_HARDSHELL_POWDER" String="Harthülsenpulver"/>
+		<Abnormality Id="ABNORMALITY_NATURAL_HEALING" String="Natürliche Heilung"/>
+
+		<Abnormality Id="ABNORMALITY_POISON" String="Gift"/>
+		<Abnormality Id="ABNORMALITY_VENOM" String="Starkes Gift"/>
+		<Abnormality Id="ABNORMALITY_DEF_DOWN" String="Verteidigung-"/>
+		<Abnormality Id="ABNORMALITY_RES_DOWN" String="Widerstand-"/>
+		<Abnormality Id="ABNORMALITY_STENCH" String="Gestank"/>
+		<Abnormality Id="ABNORMALITY_HELLFIRE" String="Höllenpest"/>
+		<Abnormality Id="ABNORMALITY_BLAST" String="Explosionspest"/>
+		<Abnormality Id="ABNORMALITY_FIRE" String="Feuerpest"/>
+		<Abnormality Id="ABNORMALITY_WATER" String="Wasserpest"/>
+		<Abnormality Id="ABNORMALITY_ICE" String="Eispest"/>
+		<Abnormality Id="ABNORMALITY_THUNDER" String="Donnerpest"/>
+		<Abnormality Id="ABNORMALITY_DRAGON" String="Drachenpest"/>
+		<Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="Große Luftblasenpest"/> <!-- Major Bubbleblight -->
+	</Abnormalities>
 	<Monsters>
 		<Shared>
 			<Part Id="PART_UNKNOWN" String="???"/>
@@ -201,6 +248,15 @@
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="Dev Tools"
 					 Description="Erweiterte Entwicklertools"/>
+			<Setting Id="ABNORMALITY_SONGS_STRING"
+					 String="Songs"
+					 Description="Song Anomalien"/>
+			<Setting Id="ABNORMALITY_CONSUMABLES_STRING"
+					 String="Verbrauchbares"
+					 Description="Verbrauchbare Anomalien"/>
+			<Setting Id="ABNORMALITY_DEBUFFS_STRING"
+					 String="Debuffs"
+					 Description="Debuff-Anomalien"/>					 
 
 			<Setting Id="ENABLE_SELF_UPDATE"
 					 String="Aktiviere Auto-Update"
@@ -256,7 +312,9 @@
 			<Setting Id="WIDGET_SCALE"
 					 String="Widget Größe"
 					 Description="Kontrolliert die lineare Größe dieses Widgets. Je höher der Wert, desto größer wird das Widget dargestellt."/>
-			
+			<Setting Id="ORIENTATION_STRING"
+					 String="Orientation"
+					 Description="Orientation of the widget."/>											
 			<Setting Id="MONSTER_WIDGET_ENABLE_STAMINA_STRING"
 					 String="Aktiviere Monster Ausdauer"
 					 Description="Sofern aktiv, zeigt HunterPie die Ausdauer eines Monsters unter dessen Lebensbalken an."/>
@@ -281,13 +339,19 @@
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING"
 					 String="Verzögerung bevor Statuseffekte ausgeblendet werden"
 					 Description="Zeit die gewartet wird bevor ein inaktiver Statuseffekt ausgeblendet wird"/>
+			<Setting Id="ABNORMALITY_TRAYS_STRING"
+					 String="Anomalie-Leisten"
+					 Description="Konfigurationen für Anomalie-Leisten."/>
+			<Setting Id="ABNORMALITY_TRAY_NAME_STRING"
+					 String="Anomalie-Leisten Name"
+					 Description="Der Name dieser Anomalie-Leiste."/>							 
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Entwickler: Pseudo-Monster Widget"/>
 			<Setting Id="DEV_MOCK_DAMAGE_WIDGET_STRING"
 					 String="Entwickler: Pseudo-Damage Meter Widget"/>
 			<Setting Id="DEV_MOCK_ABNORMALITY_WIDGET_STRING"
-					 String="Entwickler: Pseudo-Abnormalitäten Widget"/>
+					 String="Entwickler: Pseudo-Anomalien Widget"/>
 			<Setting Id="DEV_POOGIE_API_HOST_STRING"
 					 String="Entwickler: Poogie API Host"/>
 		</Settings>
