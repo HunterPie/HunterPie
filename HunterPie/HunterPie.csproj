@@ -6,12 +6,11 @@
     <UseWPF>true</UseWPF>
 	<UseWindowsForms>true</UseWindowsForms>
     <StartupObject></StartupObject>
-	<Version>2.0.20.0</Version>
-	<AssemblyVersion>2.0.20.*</AssemblyVersion>
-	<Deterministic>false</Deterministic>
+	<Deterministic>true</Deterministic>
 	<ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	<Authors>Haato</Authors>
-	<FileVersion>2.0.20.0</FileVersion>
+	<Version>1.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -34,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ClrHeapAllocationAnalyzer" Version="3.0.0" Condition="'$(ConfigurationName)' == 'Debug'" />
     <PackageReference Include="DiscordRichPresence" Version="1.0.175" />
   </ItemGroup>
 
@@ -137,5 +137,7 @@
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="del &quot;$(TargetDir)*.pdb&quot; /q&#xD;&#xA;del &quot;$(TargetDir)\ref&quot; /q&#xD;&#xA;rmdir &quot;$(TargetDir)\ref&quot;&#xD;&#xA;del &quot;$(TargetDir)*.dev.json&quot; /q" />
   </Target>
+
+  <ProjectExtensions><VisualStudio><UserProperties BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.None.Increment" BuildVersion_DetectChanges="False" BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" /></VisualStudio></ProjectExtensions>
 
 </Project>

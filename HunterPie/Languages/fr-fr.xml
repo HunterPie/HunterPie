@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
+
+<!-- French (France) translation by Schneitizel S. Sekai and Tibo -->
+
 <Strings lang="French">
 	<Ailments>
 		<Rise>
@@ -7,7 +10,7 @@
 			<Ailment Id="AILMENT_SLEEP" String="Sommeil"/>
 			<Ailment Id="AILMENT_STUN" String="Étourdissement"/>
 			<Ailment Id="AILMENT_POISON" String="Poison"/>
-			<Ailment Id="AILMENT_BLAST" String="Explosion"/>
+			<Ailment Id="AILMENT_BLAST" String="Fléau-explosion"/>
 			<Ailment Id="AILMENT_EXHAUST" String="Léthargie"/>
 			<Ailment Id="AILMENT_MOUNT" String="Chevauchée"/>
 			<Ailment Id="AILMENT_FLASH" String="Flash"/>
@@ -147,6 +150,54 @@
 			<Stage Id="211" String="Palais de Coraux"/>
 		</Rise>
 	</Stages>
+	
+	<Abnormalities>
+        <Abnormality Id="ABNORMALITY_UNKNOWN" String="Inconnue"/>
+        <Abnormality Id="ABNORMALITY_SELF_IMPROVEMENT" String="Auto-amélioration"/>
+        <Abnormality Id="ABNORMALITY_ATTACK_UP" String="Attaque +"/>
+        <Abnormality Id="ABNORMALITY_DEFENSE_UP" String="Défense +"/>
+        <Abnormality Id="ABNORMALITY_AFFINITY_UP" String="Affinité +"/>
+        <Abnormality Id="ABNORMALITY_ELEMENTAL_ATTACK_UP" String="Attaque Élémentaire +"/>
+        <Abnormality Id="ABNORMALITY_ATTACK_DEF_UP" String="Bonus attaque + défense"/>
+        <Abnormality Id="ABNORMALITY_ATTACK_AFFINITY_UP" String="Attaque et Affinité +"/>
+        <Abnormality Id="ABNORMALITY_KNOCKBACK_NEG" String="Anti-chutes"/>
+        <Abnormality Id="ABNORMALITY_EARPLUG" String="Protection ouïe (P)"/>
+        <Abnormality Id="ABNORMALITY_EARPLUG_PLUS" String="Protection ouïe (G)"/>
+        <Abnormality Id="ABNORMALITY_TREMORS_NEG" String="Anti-séisme"/>
+        <Abnormality Id="ABNORMALITY_WIND_PRESSURE_PLUS" String="Immunité à bourrasque"/>
+        <Abnormality Id="ABNORMALITY_STUN_NEG" String="Anti-étourdissement"/>
+        <Abnormality Id="ABNORMALITY_BLIGHT_NEG" String="Anti-fléau"/>
+        <Abnormality Id="ABNORMALITY_DIVINE_PROTECTION" String="Protection divine"/>
+        <Abnormality Id="ABNORMALITY_HEALTH_REGEN" String="Régénération de vie"/>
+        <Abnormality Id="ABNORMALITY_STAMINA_USE_RED" String="Réduc. consom. endurance"/>
+        <Abnormality Id="ABNORMALITY_STAMINA_REC_UP" String="Récupération d'endurance +"/>
+        <Abnormality Id="ABNORMALITY_SHARPNESS_RED" String="Réduc. perte de tranchant"/>
+        <Abnormality Id="ABNORMALITY_ENV_NEG" String="Dégâts environ. annulés"/>
+        <Abnormality Id="ABNORMALITY_SONIC_BARRIER" String="Barrière Sonique"/>
+        <Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Mélodie Infernale"/>
+        
+        <Abnormality Id="ABNORMALITY_MIGHT_SEED" String="Graine de Force"/>
+        <Abnormality Id="ABNORMALITY_ADAMANT_SEED" String="Graine de Ténacité"/>
+        <Abnormality Id="ABNORMALITY_CLOTHFLY" String="Tissinsecte"/>
+        <Abnormality Id="ABNORMALITY_DASH_JUICE" String="Potion de Vitalité"/>
+        <Abnormality Id="ABNORMALITY_DEMON_POWDER" String="Poudre du Démon"/>
+        <Abnormality Id="ABNORMALITY_HARDSHELL_POWDER" String="Poudre de Pierre"/>
+        <Abnormality Id="ABNORMALITY_NATURAL_HEALING" String="Amerinsecte"/>
+
+        <Abnormality Id="ABNORMALITY_POISON" String="Poison"/>
+        <Abnormality Id="ABNORMALITY_VENOM" String="Poison Vorace"/>
+        <Abnormality Id="ABNORMALITY_DEF_DOWN" String="Défense -"/>
+        <Abnormality Id="ABNORMALITY_RES_DOWN" String="Résistance -"/>
+        <Abnormality Id="ABNORMALITY_STENCH" String="Puanteur"/>
+        <Abnormality Id="ABNORMALITY_HELLFIRE" String="Fléau-Feu de l'enfer"/>
+        <Abnormality Id="ABNORMALITY_BLAST" String="Fléau-Explosion"/>
+        <Abnormality Id="ABNORMALITY_FIRE" String="Fléau-Feu"/>
+        <Abnormality Id="ABNORMALITY_WATER" String="Fléau-Eau"/>
+        <Abnormality Id="ABNORMALITY_ICE" String="Fléau-Glace"/>
+        <Abnormality Id="ABNORMALITY_THUNDER" String="Fléau-Foudre"/>
+        <Abnormality Id="ABNORMALITY_DRAGON" String="Fléau-Dragon"/>
+        <Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="Fléau-Bulles"/>
+    </Abnormalities>
 
 	<Client>
 		<Tabs>
@@ -290,6 +341,23 @@
 					 String="Développeur : Mock Abnormalities widget"/>
 			<Setting Id="DEV_POOGIE_API_HOST_STRING"
 					 String="Développeur : Poogie API Host"/>
+					 
+			<Setting Id="ABNORMALITY_TRAYS_STRING"
+					String="Paramètres de fléaux"
+					Description="Configurations des paramètres des fléaux."/>
+			<Setting Id="ABNORMALITY_TRAY_NAME_STRING"
+					String="Noms des paramètres de fléaux"
+					Description="Nom pour cette barre de fléaux."/>    
+					
+			<Setting Id="ABNORMALITY_SONGS_STRING"
+					String="Musiques"
+					Description="Effets de musiques"/>
+			<Setting Id="ABNORMALITY_CONSUMABLES_STRING"
+					String="Consommables"
+					Description="Effets d'objets consommables"/>
+			<Setting Id="ABNORMALITY_DEBUFFS_STRING"
+					String="Malus"
+					Description="Effets de malus"/>   
 		</Settings>
 	</Client>
 </Strings>

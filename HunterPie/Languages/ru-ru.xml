@@ -15,9 +15,77 @@
 			<Ailment Id="AILMENT_FIRE" String="Огненная Порча"/>
 			<Ailment Id="AILMENT_ICE" String="Ледяная Порча"/>
 			<Ailment Id="AILMENT_THUNDER" String="Грозовая Порча"/>
+			<Ailment Id="AILMENT_TRANQUILIZE" String="Усыпление"/>
 			<Ailment Id="STATUS_ENRAGE" String="Бешенство"/>
 		</Rise>
 	</Ailments>
+	<Abnormalities>
+		<Abnormality Id="ABNORMALITY_UNKNOWN" String="Неизвестно"/>
+		<Abnormality Id="ABNORMALITY_SELF_IMPROVEMENT" String="Самосовершенствование"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_UP" String="Усиление атаки"/>
+		<Abnormality Id="ABNORMALITY_DEFENSE_UP" String="Усиление защиты"/>
+		<Abnormality Id="ABNORMALITY_AFFINITY_UP" String="Усиление мастерства"/>
+		<Abnormality Id="ABNORMALITY_ELEMENTAL_ATTACK_UP" String="Усиление атаки стихией"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_DEF_UP" String="Усиление атаки и защиты"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_AFFINITY_UP" String="Усиление атаки и мастерства"/>
+		<Abnormality Id="ABNORMALITY_KNOCKBACK_NEG" String="Нейтрализация сбив. с ног"/>
+		<Abnormality Id="ABNORMALITY_EARPLUG" String="Наушники (S)"/>
+		<Abnormality Id="ABNORMALITY_EARPLUG_PLUS" String="Наушники (L)"/>
+		<Abnormality Id="ABNORMALITY_TREMORS_NEG" String="Нейтрализация тряски"/>
+		<Abnormality Id="ABNORMALITY_WIND_PRESSURE_PLUS" String="Отмена давления ветра"/>
+		<Abnormality Id="ABNORMALITY_STUN_NEG" String="Нейтрализация оглушения"/>
+		<Abnormality Id="ABNORMALITY_BLIGHT_NEG" String="Снятие порчи"/>
+		<Abnormality Id="ABNORMALITY_DIVINE_PROTECTION" String="Божественная защита"/>
+		<Abnormality Id="ABNORMALITY_HEALTH_REGEN" String="Восст. здоровья (S)"/>
+		<Abnormality Id="ABNORMALITY_STAMINA_USE_RED" String="Усиление выносливости"/>
+		<Abnormality Id="ABNORMALITY_STAMINA_REC_UP" String="Улучш. восст. выносливости"/>
+		<Abnormality Id="ABNORMALITY_SHARPNESS_RED" String="Замедление затупления"/>
+		<Abnormality Id="ABNORMALITY_ENV_NEG" String="Отмена урона окружением"/>
+		<Abnormality Id="ABNORMALITY_SONIC_BARRIER" String="Звуковой барьер"/>
+		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Дьявольская мелодия"/>
+		
+		<Abnormality Id="ABNORMALITY_MIGHT_SEED" String="Зер. могущества"/>
+		<Abnormality Id="ABNORMALITY_BUTTERFLAME" String="Огнебабочка"/>
+		<Abnormality Id="ABNORMALITY_CUTTERFLY" String="Стрекоза-нож"/>
+		<Abnormality Id="ABNORMALITY_ADAMANT_SEED" String="Адамант. зерно"/>
+		<Abnormality Id="ABNORMALITY_CLOTHFLY" String="Тканебабочка"/>
+		<Abnormality Id="ABNORMALITY_DASH_JUICE" String="Сок бодрости"/>
+		<Abnormality Id="ABNORMALITY_DEMON_POWDER" String="Демон. порошок"/>
+		<Abnormality Id="ABNORMALITY_HARDSHELL_POWDER" String="Пор. из скорлупы"/>
+		<Abnormality Id="ABNORMALITY_NATURAL_HEALING" String="Иммунатор"/>
+		<Abnormality Id="ABNORMALITY_REDLAMPSQUID" String="Красный Лампокальмар"/>
+		<Abnormality Id="ABNORMALITY_YELLOWLAMPSQUID" String="Желтый Лампокальмар"/>
+		<Abnormality Id="ABNORMALITY_GOURMET_FISH" String="Вкусная рыба"/>
+		<Abnormality Id="ABNORMALITY_IMMUNITY" String="Иммунитет"/>
+		<Abnormality Id="ABNORMALITY_GO_FIGHT_WIN" String="Сражайся, побеждай"/>
+		<Abnormality Id="ABNORMALITY_POWER_DRUM" String="Барабан силы"/>
+		<Abnormality Id="ABNORMALITY_ROUSING_ROAR" String="Воодушевляющий рев"/>
+		<Abnormality Id="ABNORMALITY_DEMON_AMMO" String="Демон. снаряды"/>
+		<Abnormality Id="ABNORMALITY_ARMOR_AMMO" String="Защитные снаряды"/>
+		
+		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="Данго-пижон"/>
+		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="Данго-усилитель"/>
+		<Abnormality Id="ABNORMALITY_DANGO_GLUTTON" String="Данго-обжора"/>
+		
+		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="Контрудар"/>
+		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="Скрытая энергия"/>
+		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="Мастерский подкат"/>
+		
+
+		<Abnormality Id="ABNORMALITY_POISON" String="Яд"/>
+		<Abnormality Id="ABNORMALITY_VENOM" String="Сильный Яд"/>
+		<Abnormality Id="ABNORMALITY_DEF_DOWN" String="Защита снижена"/>
+		<Abnormality Id="ABNORMALITY_RES_DOWN" String="Сопротивление снижено"/>
+		<Abnormality Id="ABNORMALITY_STENCH" String="Зловоние"/>
+		<Abnormality Id="ABNORMALITY_HELLFIRE" String="Порча Адского Пламени"/>
+		<Abnormality Id="ABNORMALITY_BLAST" String="Взрывная Порча"/>
+		<Abnormality Id="ABNORMALITY_FIRE" String="Огненная Порча"/>
+		<Abnormality Id="ABNORMALITY_WATER" String="Водная Порча"/>
+		<Abnormality Id="ABNORMALITY_ICE" String="Ледяная Порча"/>
+		<Abnormality Id="ABNORMALITY_THUNDER" String="Грозовая Порча"/>
+		<Abnormality Id="ABNORMALITY_DRAGON" String="Драконья Порча"/>
+		<Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="Пузырь"/>
+	</Abnormalities>
 	<Monsters>
 		<Shared>
 			<Part Id="PART_UNKNOWN" String="???"/>
@@ -35,8 +103,8 @@
 			<Part Id="PART_WINGS" String="Крылья"/>
 			<Part Id="PART_FORELEGS" String="Передние Ноги"/>
 			<Part Id="PART_H_LEGS" String="Задние Ноги"/>
-			<Part Id="PART_L_CUTWING" String="Левый Разрез (?)"/>
-			<Part Id="PART_R_CUTWING" String="Правый Разрез (?)"/>
+			<Part Id="PART_L_CUTWING" String="Левый Часть Крыла"/>
+			<Part Id="PART_R_CUTWING" String="Правая Часть Крыла"/>
 			<Part Id="PART_ARMS" String="Руки"/>
 			<Part Id="PART_HEAD_MUD" String="Голова (В Грязи)"/>
 			<Part Id="PART_TORSO_MUD" String="Тело (В Грязи)"/>
@@ -48,9 +116,9 @@
 			<Part Id="PART_L_LEGS" String="Левые Ноги"/>
 			<Part Id="PART_R_LEGS" String="Правые Ноги"/>
 			<Part Id="PART_BODY" String="Тело"/>
-			<Part Id="PART_UPPER_BODY" String="Верхняя часть Тела"/>
+			<Part Id="PART_UPPER_BODY" String="Верхняя Часть Тела"/>
 			<Part Id="PART_REAR" String="Зад"/>
-			<Part Id="PART_LOWER_BODY" String="Нижняя часть Тела"/>
+			<Part Id="PART_LOWER_BODY" String="Нижняя Часть Тела"/>
 			<Part Id="PART_UPPER_BACK" String="Верх Спины"/>
 			<Part Id="PART_LOWER_BACK" String="Низ Спины"/>
 			<Part Id="PART_ROLLING" String="Вращается"/>
@@ -59,7 +127,7 @@
 			<Part Id="PART_SHELL" String="Панцирь"/>
 			<Part Id="PART_CLAW" String="Коготь"/>
 			<Part Id="PART_L_FORELEG" String="Левая Передняя Нога"/>
-			<Part Id="PART_R_FORELEG" String="Правая передняя Нога"/>
+			<Part Id="PART_R_FORELEG" String="Правая Передняя Нога"/>
 			<Part Id="PART_L_H_LEG" String="Левая Задняя Нога"/>
 			<Part Id="PART_R_H_LEG" String="Правая Задняя Нога"/>
 			<Part Id="PART_CHEST" String="Живот"/>
@@ -72,9 +140,9 @@
 			<Part Id="PART_L_ARM_ICE" String="Левая Лапа (Лед)"/>
 			<Part Id="PART_R_ARM_ICE" String="Правая Лапа (Лед)"/>
 			<Part Id="PART_B_LEG_FINS" String="Ласты Задних Ног"/>
-			<Part Id="PART_THUNDERBALLS" String="Громовые шары"/>
+			<Part Id="PART_THUNDERBALLS" String="Грозовые Шары"/>
 			<Part Id="PART_ROCK" String="Камень"/>
-			<Part Id="PART_POT" String="Горшок"/>
+			<Part Id="PART_POT" String="Кувшин"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="Ратиана"/>
@@ -85,7 +153,7 @@
 			<Monster Id="5" String="Базариос"/>
 			<Monster Id="6" String="Диаблос"/>
 			<Monster Id="7" String="Высший Диаблос"/>
-			<Monster Id="8" String="Раджанг (?)"/>
+			<Monster Id="8" String="Раянг"/>
 			<Monster Id="9" String="Кушала-даора"/>
 			<Monster Id="10" String="Хамелеос"/>
 			<Monster Id="11" String="Теостра"/>
@@ -115,14 +183,14 @@
 			<Monster Id="35" String="Змей ветра Ибуси"/>
 			<Monster Id="36" String="Госс-Хараг"/>
 			<Monster Id="37" String="Большой Идзути"/>
-			<Monster Id="38" String="Громовой змей Нарва"/>
-			<Monster Id="39" String="Нарва Мать-Всего"/>
+			<Monster Id="38" String="Змей грома Нарва"/>
+			<Monster Id="39" String="Нарва Всемать"/>
 			<Monster Id="40" String="Аньянат"/>
 			<Monster Id="41" String="Поки-Поки"/>
 			<Monster Id="42" String="Кулу-Йа-Ку"/>
 			<Monster Id="43" String="Юратод"/>
 			<Monster Id="44" String="Тоби-Кадачи"/>
-			<Monster Id="45" String="Базариос"/>
+			<Monster Id="45" String="Базельгейс"/>
 			<Monster Id="46" String="Жабовраг"/>
 		</Rise>
 	</Monsters>
@@ -144,7 +212,7 @@
 			<Stage Id="207" String="Красная крепость"/>
 			<Stage Id="209" String="Адские источники"/>
 			<Stage Id="210" String="Арена"/>
-			<Stage Id="211" String="Коралловый дворец"/>
+			<Stage Id="211" String="Дворец Кораллов"/>
 		</Rise>
 	</Stages>
 
@@ -153,7 +221,7 @@
 			<Tab Id="CONSOLE_STRING"
 				 String="Консоль"/>
 			<Tab Id="DISCORD_STRING"
-				 String="Дискорд"/>
+				 String="Discord"/>
 			<Tab Id="PATCH_NOTES_STRING"
 				 String="Патчноуты"/>
 			<Tab Id="PLUGINS_STRING"
@@ -184,6 +252,8 @@
 					 String="Исследует"/>
 			<Discord Id="DRPC_RISE_STATE_HUNTING"
 					 String="Охотится на {Monster} ({Percentage}%)"/>
+			<Discord Id="DRPC_RISE_STATE_HUNTING_NO_HEALTH"
+					 String="Охотится на {Monster}"/>
 		</Integrations>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
@@ -195,12 +265,31 @@
 			<Setting Id="OVERLAY_STRING"
 					 String="Оверлей"
 					 Description="Конфигурация оверлея"/>
+			<Setting Id="ABNORMALITY_TRAY_STRING"
+					 String="Панель аномалий"
+					 Description="Настройки панели аномалий"/>
 			<Setting Id="MONSTER_WIDGET_STRING"
 					 String="Виджет Монстра"
 					 Description="Конфигурация оверлея"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="Инструменты разработчика"
 					 Description="Продвинутые инструменты разработчика"/>
+					 
+			<Setting Id="ABNORMALITY_SONGS_STRING"
+					 String="Мелодии"
+					 Description="Статусы мелодий"/>
+			<Setting Id="ABNORMALITY_CONSUMABLES_STRING"
+					 String="Расходники"
+					 Description="Статусы расходников"/>
+			<Setting Id="ABNORMALITY_DEBUFFS_STRING"
+					 String="Дебаффы"
+					 Description="Дебаффы аномалий"/>
+			<Setting Id="ABNORMALITY_SKILLS_STRING"
+					 String="Навыки брони"
+					 Description="Статусы которые дают навыки брони"/>
+			<Setting Id="ABNORMALITY_FOODS_STRING"
+					 String="Навыки еды"
+					 Description="Статусы которые дает еда"/>
 
 			<Setting Id="ENABLE_SELF_UPDATE"
 					 String="Включить автоматическое обновление"
@@ -216,7 +305,7 @@
 					 Description="HunterPie выбор языка по умолчанию"/>
 			<Setting Id="MINIMIZE_TO_SYSTEM_TRAY_STRING"
 					 String="Сворачивать в системный трей"
-					 Description="Если этот параметр включен, то HunterPie будет сворачиватся в системный трей."/>					 
+					 Description="Если этот параметр включен, то HunterPie будет сворачиваться в системный трей."/>					 
 			<Setting Id="RENDERING_STRATEGY_STRING"
 					 String="Стратегия рендеринга"
 					 Description="Стратегия рендеринга HunterPie по умолчанию. Software будет использовать ваш процессор для рендеринга наложения, Hardware будет использовать вашу видеокарту."/>
@@ -256,16 +345,25 @@
 			<Setting Id="WIDGET_SCALE"
 					 String="Масштаб виджета"
 					 Description="Управляет линейным масштабом этого виджета, чем выше значение, тем больше будет виджет."/>
+			<Setting Id="ORIENTATION_STRING"
+					 String="Ориентация"
+					 Description="Ориентация положения виджета."/>
 			
+			<Setting Id="MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING"
+					 String="Показывать только выбраного в цель монстра"
+					 Description="Если включено, HunterPie будет показывать только того монстра, которого вы в данный момент установили в качестве цели."/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_STAMINA_STRING"
 					 String="Включить выносливость монстров"
 					 Description="Если включено, HunterPie будет показывать выносливость монстра под полосой здоровья."/>
 			<Setting Id="MONSTER_WIDGET_MAX_WIDTH_STRING"
-					 String="Максимальная ширина виджета монстра"
+					 String="Максимальная ширина полосы здоровья монстра"
 					 Description="Управляет максимальной шириной полосы здоровья монстров."/>
+			<Setting Id="MONSTER_WIDGET_MIN_WIDTH_STRING"
+					 String="Минимальная ширина полосы здоровья монстра"
+					 Description="Определяет минимальную ширину полосы здоровья монстров. Эта ширина будет использоваться для расчета динамического размера столбцов, если эта опция включена."/>		 		
 			<Setting Id="MONSTER_WIDGET_ENABLE_PARTS_STRING"
 					 String="Показывать части монстра"
-					 Description="Если включено, будет видны части монстров."/>
+					 Description="Если включено, будет видны части монстров."/>			
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_PARTS_STRING"
 					 String="Автоматически скрывать части монстров"
 					 Description="Если включено, неактивные части монстра будут скрыты через X секунд."/>
@@ -281,6 +379,28 @@
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING"
 					 String="Задержка, чтобы скрыть неактивные недуги"
 					 Description="Задержка ожидания, чтобы скрыть недуги которые стали неактивными."/>
+			<Setting Id="MONSTER_WIDGET_DYNAMIC_RESIZE_STRING"
+					 String="Динамическое изменение размеров полос монстров"
+					 Description="Если этот параметр включен, HunterPie автоматически изменит размер всех полос монстров в зависимости от того, сколько полосок здоровья видно в данный момент."/>
+					 
+			<Setting Id="ABNORMALITY_TRAYS_STRING"
+					 String="Панель аномалий"
+					 Description="Настройка панели аномалий"/>
+			<Setting Id="ABNORMALITY_TRAY_NAME_STRING"
+					 String="Название панели аномалий"
+					 Description="Название для этой панели аномалий"/>
+			 <Setting Id="ABNORMALITY_TRAY_MAX_SIZE_STRING"
+					 String="Максимальный размер"
+					 Description="Устанавливает максимальный размер панели."/>
+			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
+					 String="Сортировать по"
+					 Description="Выбирает алгоритм сортировки, используемый для сортировки всех аномалий."/>
+			<Setting Id="SORT_BY_LOWEST_TIMER_STRING"
+					 String="Минимальное время"/>
+			<Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
+					 String="Максимальное время"/>
+			<Setting Id="SORT_BY_DISABLED_STRING"
+					 String="Отключить"/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>
