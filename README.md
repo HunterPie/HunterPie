@@ -14,15 +14,22 @@
 
 HunterPie v2 is a version of HunterPie completely rewritten from scratch, however, it follows the same principles of its predecessor: being a modern, powerful and easy to use overlay with support for plugins, modules and custom widgets for Monster Hunter: World and Monster Hunter: Rise.
 
-## Installation
-
 ### Requirements
 
 - .NET 5
 
+### Installation
+
+1. Download the binaries from either [NexusMods](https://www.nexusmods.com/monsterhunterrise/mods/181) or [GitHub](https://github.com/Haato3o/HunterPie-v2/releases/latest)
+2. Extract them somewhere
+2.1 Make sure the folder you extracted to is not in read only mode.
+3. Run `HunterPie.exe`
+
 ## Features
 
-HunterPie v2 is still a work in progress, however it will have the same features as the legacy version and much more.
+- [Monster Widget](https://docs.hunterpie.com/posts/monster-widget/)
+- [Abnormality Tray Widget](https://docs.hunterpie.com/posts/abnormality-tray-widget/)
+- Discord Rich Presence
 
 ## Suggestions & PRs
 
