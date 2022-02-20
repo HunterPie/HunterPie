@@ -89,6 +89,9 @@
     <Compile Update="Overlay\Widgets\Monster\Views\MonstersView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Player\Views\PlayerHudView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\WindowChrome.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -182,6 +185,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Monster\Views\MonstersView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Player\Views\PlayerHudView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\WindowChrome.xaml">
