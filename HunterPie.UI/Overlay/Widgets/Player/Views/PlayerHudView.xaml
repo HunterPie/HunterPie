@@ -33,44 +33,89 @@
         <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                    VerticalAlignment="Top"
+                   HorizontalAlignment="Left"
                    Margin="45,0,0,0">
             <Run Text="HR 5"
                  Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
                  FontSize="8"
                  FontWeight="Medium"/>
             <Run Text="Lyss"/>
+            <TextBlock.Effect>
+                <DropShadowEffect Color="Black"
+                                      BlurRadius="4" 
+                                      ShadowDepth="0"/>
+            </TextBlock.Effect>
         </TextBlock>
 
         <!-- Health bar -->
-        <overlay:Bar Foreground="{StaticResource WIDGET_PLAYER_HEALTH_FOREGROUND}"
-                     Height="15"
-                     d:MaxValue="100"
-                     d:Value="100"
-                     BorderThickness="2" 
-                     RenderTransformOrigin="0.5,0.5"
-                     VerticalAlignment="Top"
-                     Margin="50,15,15,0">
-            <overlay:Bar.RenderTransform>
+        <Rectangle VerticalAlignment="Top"
+                   Margin="50,15,15,0"
+                   Height="15"
+                   Stroke="#FF6C6C6C"
+                   StrokeThickness="2" 
+                   Fill="#339E9E9E">
+            <Rectangle.RenderTransform>
                 <TransformGroup>
                     <SkewTransform AngleX="45"/>
                 </TransformGroup>
-            </overlay:Bar.RenderTransform>
-        </overlay:Bar>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+        <Grid VerticalAlignment="Top"
+              Margin="50,15,60,0">
+            <overlay:Bar x:Name="PART_HealthExtras"
+                     Foreground="{DynamicResource COLOR_MONSTER_STATUS_ENRAGE}"
+                     Background="#B2181A1B"
+                     Height="15"
+                     d:MaxValue="100"
+                     d:Value="50"
+                     BorderThickness="2" 
+                     RenderTransformOrigin="0.5,0.5"
+                     VerticalAlignment="Top">
+                <overlay:Bar.RenderTransform>
+                    <TransformGroup>
+                        <SkewTransform AngleX="45"/>
+                    </TransformGroup>
+                </overlay:Bar.RenderTransform>
+            </overlay:Bar>
+            <overlay:Bar Foreground="{StaticResource WIDGET_PLAYER_HEALTH_FOREGROUND}"
+                         Background="Transparent"
+                         Height="15"
+                         d:MaxValue="100"
+                         d:Value="30"
+                         BorderThickness="2" 
+                         RenderTransformOrigin="0.5,0.5"
+                         VerticalAlignment="Top"
+                         BorderBrush="#FF353951">
+                <overlay:Bar.RenderTransform>
+                    <TransformGroup>
+                        <SkewTransform AngleX="45"/>
+                    </TransformGroup>
+                </overlay:Bar.RenderTransform>
+            </overlay:Bar>
+        </Grid>
+        
+
         <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Right"
-                   Margin="0,2,23,0">
+                   Margin="0,2,15,0">
             <Run Text="150"/><!--
          --><Run Text="/150"
                  FontWeight="Light"/>
+            <TextBlock.Effect>
+                <DropShadowEffect Color="Black"
+                                      BlurRadius="4" 
+                                      ShadowDepth="0"/>
+            </TextBlock.Effect>
         </TextBlock>
 
         <!-- Stamina bar -->
         <overlay:Bar Foreground="{StaticResource WIDGET_PLAYER_STAMINA_FOREGROUND}"
+                     BorderBrush="#FF353951"
                      Height="8"
-                     d:MaxValue="100"
-                     d:Value="100"
+                     d:MaxValue="2000"
+                     d:Value="200"
                      BorderThickness="2" 
                      RenderTransformOrigin="0.5,0.5"
                      VerticalAlignment="Top"
@@ -89,6 +134,11 @@
             <Run Text="2000"/><!--
          --><Run Text="/2000"
                  FontWeight="Light"/>
+            <TextBlock.Effect>
+                <DropShadowEffect Color="Black"
+                                      BlurRadius="4" 
+                                      ShadowDepth="0"/>
+            </TextBlock.Effect>
         </TextBlock>
 
         <Grid Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
@@ -100,16 +150,16 @@
                        RenderTransformOrigin="0.5,0.5">
                 <Rectangle.Stroke>
                     <LinearGradientBrush EndPoint="1,1" StartPoint="0.5,0.5">
-                        <GradientStop Color="#FF939393"/>
-                        <GradientStop Color="White" Offset="1"/>
-                        <GradientStop Color="#FF9E9E9E" Offset="0.683"/>
-                        <GradientStop Color="LightGray" Offset="0.356"/>
+                        <GradientStop Color="#FF2F3136" Offset="0"/>
+                        <GradientStop Color="#FF2F303A" Offset="1"/>
+                        <GradientStop Color="Black" Offset="0.476"/>
+                        <GradientStop Color="#FF303030" Offset="0.202"/>
                     </LinearGradientBrush>
                 </Rectangle.Stroke>
                 <Rectangle.Fill>
                     <RadialGradientBrush>
                         <GradientStop Color="#FF41444D"/>
-                        <GradientStop Color="#FF15171D" Offset="1"/>
+                        <GradientStop Color="#FF121417" Offset="1"/>
                     </RadialGradientBrush>
                 </Rectangle.Fill>
                 <Rectangle.RenderTransform>
@@ -118,15 +168,26 @@
                     </TransformGroup>
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <Rectangle StrokeThickness="1.5"
-                       RenderTransformOrigin="0.5,0.5"
+            <Rectangle RenderTransformOrigin="0.5,0.5"
+                       StrokeThickness="0.5"
                        Margin="5">
                 <Rectangle.Fill>
                     <RadialGradientBrush>
-                        <GradientStop Color="#FF2F3032" Offset="1"/>
-                        <GradientStop Color="#FF3F414B" Offset="0"/>
+                        <GradientStop Color="#FF24252C" Offset="0.501"/>
+                        <GradientStop Color="#FF18181F" Offset="1"/>
                     </RadialGradientBrush>
                 </Rectangle.Fill>
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#7F323232"/>
+                        <GradientStop Color="#7F333347" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Effect>
+                    <DropShadowEffect Color="#FF7B8795" 
+                                      ShadowDepth="0" 
+                                      BlurRadius="20"/>
+                </Rectangle.Effect>
                 <Rectangle.RenderTransform>
                     <TransformGroup>
                         <RotateTransform Angle="45"/>
@@ -134,13 +195,13 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Image d:Source="{StaticResource ICON_LANCE}"
+            <Image d:Source="{StaticResource ICON_LANCE_DARK}"
                    Width="25"
                    Height="25"
                    RenderOptions.BitmapScalingMode="Fant">
                 <Image.Effect>
-                    <DropShadowEffect BlurRadius="10" 
-                                      Color="#FF6CF2FF" 
+                    <DropShadowEffect BlurRadius="5" 
+                                      Color="#FF213A5F" 
                                       ShadowDepth="0"/>
                 </Image.Effect>
                 <Image.Style>

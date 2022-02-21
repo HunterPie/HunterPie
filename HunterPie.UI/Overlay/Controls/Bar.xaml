@@ -14,7 +14,7 @@
     </UserControl.Resources>
     <Border BorderBrush="#FF181A1B">
         <Grid ClipToBounds="True">
-            <Rectangle Fill="#B2181A1B"/>
+            <Rectangle Fill="{Binding Background, RelativeSource={RelativeSource AncestorType={x:Type local:Bar}}}"/>
             <Rectangle HorizontalAlignment="Left"
                        Width="{Binding ActualValueDelayed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Bar}}}"
                        Fill="{Binding ForegroundDelayed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Bar}}}"/>
