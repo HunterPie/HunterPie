@@ -22,6 +22,8 @@ using System.Linq;
 using HunterPie.UI.Overlay.Widgets.Abnormality;
 using System.Runtime.InteropServices;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.UI.Overlay.Widgets.Wirebug;
+using HunterPie.Core.Game.Rise;
 
 namespace HunterPie
 {
@@ -150,6 +152,9 @@ namespace HunterPie
                     ref var abnormConfig = ref configs[i];
                     handlers.Add(new AbnormalityWidgetContextHandler(context, ref abnormConfig));
                 }
+
+                if (ClientConfig.Config.Overlay.WirebugWidget.Initialize)
+                    handlers.Add(new WirebugWidgetContextHandler((MHRContext)context));
 
                 contextHandlers.AddRange(handlers);
             });

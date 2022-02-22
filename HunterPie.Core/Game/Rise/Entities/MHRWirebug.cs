@@ -9,7 +9,7 @@ namespace HunterPie.Core.Game.Rise.Entities
     {
         private double _timer;
         private double _cooldown;
-        private bool _isAvailable;
+        private bool _isAvailable = true;
 
         public long Address { get; internal set; }
         public double Timer
@@ -67,6 +67,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         {
             MaxTimer = Math.Max(Timer, data.Timer);
             Timer = data.Timer;
+            IsAvailable = data.Timer > 0;
         }
     }
 }

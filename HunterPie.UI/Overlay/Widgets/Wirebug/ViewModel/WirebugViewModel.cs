@@ -10,12 +10,14 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel
         private double _timer;
         private double _maxTimer;
         private bool _onCooldown;
+        private bool _isAvailable;
 
         public double Cooldown { get => _cooldown; set { SetValue(ref _cooldown, value); } }
         public double MaxCooldown { get => _maxCooldown; set { SetValue(ref _maxCooldown, value); } }
         public double Timer { get => _timer; set { SetValue(ref _timer, value); } }
         public double MaxTimer { get => _maxTimer; set { SetValue(ref _maxTimer, value); } }
         public bool OnCooldown { get => _onCooldown; set { SetValue(ref _onCooldown, value); } }
+        public bool IsAvailable { get => _isAvailable; set { SetValue(ref _isAvailable, value); } }
         
     }
 }

@@ -347,7 +347,7 @@ namespace HunterPie.Core.Game.Rise.Entities
                 return;
             }
 
-            int wirebugsArrayLength = _process.Memory.Read<int>(wirebugsArrayPtr + 0x1C);
+            int wirebugsArrayLength = Math.Min(Wirebugs.Length, _process.Memory.Read<int>(wirebugsArrayPtr + 0x1C));
             long[] wirebugsPtrs = _process.Memory.Read<long>(wirebugsArrayPtr + 0x20, (uint)wirebugsArrayLength);
 
             bool shouldDispatchEvent = false;

@@ -7,7 +7,7 @@ namespace HunterPie.UI.Architecture
     public class View<TViewModel> : UserControl
         where TViewModel : Bindable
     {
-        protected TViewModel ViewModel => (TViewModel)DataContext;
+        public TViewModel ViewModel => (TViewModel)DataContext;
 
         protected virtual TViewModel InitializeViewModel()
         {

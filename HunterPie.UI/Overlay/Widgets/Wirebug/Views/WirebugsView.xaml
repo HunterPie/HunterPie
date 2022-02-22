@@ -9,6 +9,9 @@
            x:TypeArguments="vm:WirebugsViewModel"
            d:DataContext="{d:DesignInstance Type=vm:WirebugsViewModel}"
            mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
     <Grid>
         <ItemsControl ItemsSource="{Binding Elements, Mode=OneWay}"
                       HorizontalAlignment="Center">
@@ -22,7 +25,8 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type vm:WirebugViewModel}">
                     <local:WirebugView Width="50"
-                                       Height="50"/>
+                                       Height="50"
+                                       Visibility="{Binding IsAvailable, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
