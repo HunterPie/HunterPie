@@ -1,10 +1,8 @@
 ﻿using HunterPie.Memory.Native;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using static HunterPie.Memory.Native.Kernel32;
 
 namespace HunterPie.Memory.Core
@@ -49,6 +47,7 @@ namespace HunterPie.Memory.Core
         {
             int pageSize = 0;
             IntPtr lastBase = IntPtr.Zero;
+            byte[] buffer = new byte[Signatures.MaximumLength];
             for (int i = 0; i < memory.Length && Signatures.PatternsLeft > 0; i++)
             {
                 if (pageSize == 0)
@@ -71,7 +70,7 @@ namespace HunterPie.Memory.Core
                 
                 Span<byte> span = new Span<byte>(memory, i, Signatures.MaximumLength);
 
-                foreach (Signature signature in Signatures)
+                foreach (Signature signature in Signatures.Patterns)
                 {
                     if (signature.HasBeenFound)
                         continue;
@@ -79,12 +78,14 @@ namespace HunterPie.Memory.Core
                     if (signature.Pattern.Bytes[0] != span[0])
                         continue;
 
-                    bool match = signature.Pattern.Equals(span.ToArray());
+                    span.CopyTo(buffer);
+
+                    bool match = signature.Pattern.Equals(buffer);
                     
                     if (!match)
                         continue;
 
-                    long movAddress = BitConverter.ToInt32(span.ToArray(), (int)signature.Offset);
+                    long movAddress = BitConverter.ToInt32(buffer, (int)signature.Offset);
 
                     // 7 is the size of the full mov ???, [0x14????????] instruction
                     Signatures.Found(signature, i, i + movAddress + 7);

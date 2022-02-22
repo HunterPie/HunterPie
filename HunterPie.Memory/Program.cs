@@ -1,4 +1,6 @@
 ﻿using HunterPie.Memory.Core;
+using System;
+using System.Diagnostics;
 
 namespace HunterPie.Memory
 {
@@ -6,6 +8,7 @@ namespace HunterPie.Memory
     {
         static void Main()
         {
+            Stopwatch sw = Stopwatch.StartNew();
             Signatures mhrSignatures = new Signatures()
             {
                 new("STAGE_ADDRESS", "48 8B 05 ?? ?? ?? ?? 4C 8B 74 24 78 83 78 60 08", 3),
@@ -24,6 +27,9 @@ namespace HunterPie.Memory
                 .GetMemory()
                 .FindSignatures()
                 .Results();
+
+            sw.Stop();
+            Console.WriteLine("Finished scanning {0}ms", sw.ElapsedMilliseconds);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace HunterPie.Memory.Core
         public void CopyTo(Signature[] array, int arrayIndex) => _patterns.CopyTo(array, arrayIndex);
         public IEnumerator<Signature> GetEnumerator() => _patterns.GetEnumerator();
         public bool Remove(Signature item) => _patterns.Remove(item);
-        IEnumerator IEnumerable.GetEnumerator() => _patterns.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => Patterns.GetEnumerator();
         public void Found(Signature signature, long address, long value)
         {
             signature.FoundAt(address, value);
