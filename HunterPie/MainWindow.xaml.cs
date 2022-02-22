@@ -16,6 +16,8 @@ using System.Diagnostics;
 using HunterPie.UI.Overlay.Widgets.Abnormality.View;
 using HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.UI.Overlay.Widgets.Wirebug.Views;
+using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
 
 namespace HunterPie
 {
@@ -88,6 +90,13 @@ namespace HunterPie
                     }
                 );
             }
+
+            if (ClientConfig.Config.Debug.MockWirebugWidget)
+                WidgetManager.Register(new WirebugsView()
+                    {
+                        DataContext = new MockWirebugsViewModel()
+                    }
+                );
         }
 
         private void SetupTrayIcon()

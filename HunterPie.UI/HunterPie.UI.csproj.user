@@ -92,6 +92,12 @@
     <Compile Update="Overlay\Widgets\Player\Views\PlayerHudView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Wirebug\Views\WirebugsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Wirebug\Views\WirebugView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\WindowChrome.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -188,6 +194,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Player\Views\PlayerHudView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Wirebug\Views\WirebugsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Wirebug\Views\WirebugView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\WindowChrome.xaml">

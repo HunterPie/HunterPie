@@ -11,6 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HunterPie.Core.Tests", "Hun
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HunterPie", "HunterPie\HunterPie.csproj", "{B9B4028A-2B5B-45C1-9F57-926B3968A7A2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{25E245F2-E1A0-4674-8B30-1F32E70175F7}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,7 +106,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		BuildVersion_StartDate = 2000/1/1
 		SolutionGuid = {9BF75590-F213-418A-8657-32D49F05BD13}
+		BuildVersion_StartDate = 2000/1/1
 	EndGlobalSection
 EndGlobal

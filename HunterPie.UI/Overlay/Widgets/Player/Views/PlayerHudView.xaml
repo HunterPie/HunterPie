@@ -51,7 +51,7 @@
         <Rectangle VerticalAlignment="Top"
                    Margin="50,15,15,0"
                    Height="15"
-                   Stroke="#FF6C6C6C"
+                   Stroke="#FF5E6485"
                    StrokeThickness="2" 
                    Fill="#339E9E9E">
             <Rectangle.RenderTransform>
@@ -113,6 +113,7 @@
         <!-- Stamina bar -->
         <overlay:Bar Foreground="{StaticResource WIDGET_PLAYER_STAMINA_FOREGROUND}"
                      BorderBrush="#FF353951"
+                     Background="#B2181A1B"
                      Height="8"
                      d:MaxValue="2000"
                      d:Value="200"

@@ -11,6 +11,7 @@ namespace HunterPie.Core.Client.Configuration
         public AbnormalityTrayConfig AbnormalityTray { get; set; } = new();
         public DamageMeterWidgetConfig DamageMeterWidget { get; set; } = new();
         public TelemetricsWidgetConfig DebugWidget { get; set; } = new();
+        public WirebugWidgetConfig WirebugWidget { get; set; } = new();
 
         [SettingField("OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE", requiresRestart: true)]
         public Keybinding ToggleDesignMode { get; set; } = "ScrollLock";
