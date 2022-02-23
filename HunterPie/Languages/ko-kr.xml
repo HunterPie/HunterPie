@@ -15,7 +15,8 @@
 			<Ailment Id="AILMENT_FIRE" String="불 속성 피해"/>
 			<Ailment Id="AILMENT_ICE" String="얼음 속성 피해"/>
 			<Ailment Id="AILMENT_THUNDER" String="번개 속성 피해"/>
-			<Ailment Id="AILMENT_TRANQUILIZE" String="실 속박 상태"/>
+			<Ailment Id="AILMENT_DUNG" String="비료옥"/>
+			<Ailment Id="AILMENT_TRANQUILIZE" String="포획 마취"/>
 			<Ailment Id="STATUS_ENRAGE" String="분노"/>
 		</Rise>
 	</Ailments>
@@ -55,8 +56,8 @@
 		<Abnormality Id="ABNORMALITY_NATURAL_HEALING" String="자연 회복"/>
 		<Abnormality Id="ABNORMALITY_REDLAMPSQUID" String="빨간 등불징어"/>
 		<Abnormality Id="ABNORMALITY_YELLOWLAMPSQUID" String="노란 등불징어"/>
-		<Abnormality Id="ABNORMALITY_GOURMET_FISH" String="잘익은 생선"/>
-		<Abnormality Id="ABNORMALITY_IMMUNITY" String="면역"/>
+		<Abnormality Id="ABNORMALITY_GOURMET_FISH" String="잘 익은 생선"/>
+		<Abnormality Id="ABNORMALITY_IMMUNITY" String="상태이상 면역"/>
 		<Abnormality Id="ABNORMALITY_GO_FIGHT_WIN" String="응원 댄스"/>
 		<Abnormality Id="ABNORMALITY_POWER_DRUM" String="강화북"/>
 		<Abnormality Id="ABNORMALITY_ROUSING_ROAR" String="강화 포효"/>
@@ -91,54 +92,54 @@
 			<Part Id="PART_UNKNOWN" String="???"/>
 			<Part Id="PART_HEAD" String="머리"/>
 			<Part Id="PART_TORSO" String="몸통"/>
-			<Part Id="PART_L_WING" String="좌측 날개"/>
-			<Part Id="PART_R_WING" String="우측 날개"/>
-			<Part Id="PART_L_LEG" String="좌측 다리"/>
-			<Part Id="PART_R_LEG" String="우측 다리"/>
+			<Part Id="PART_L_WING" String="왼쪽 날개"/>
+			<Part Id="PART_R_WING" String="오른쪽 날개"/>
+			<Part Id="PART_L_LEG" String="왼쪽 다리"/>
+			<Part Id="PART_R_LEG" String="오른쪽 다리"/>
 			<Part Id="PART_TAIL" String="꼬리"/>
 			<Part Id="PART_NECK" String="목"/>
-			<Part Id="PART_L_ARM" String="좌측 팔"/>
-			<Part Id="PART_R_ARM" String="우측 팔"/>
+			<Part Id="PART_L_ARM" String="왼쪽 팔"/>
+			<Part Id="PART_R_ARM" String="오른쪽 팔"/>
 			<Part Id="PART_BACK" String="등"/>
 			<Part Id="PART_WINGS" String="날개"/>
 			<Part Id="PART_FORELEGS" String="앞다리"/>
 			<Part Id="PART_H_LEGS" String="뒷다리"/>
-			<Part Id="PART_L_CUTWING" String="좌측 칼날개"/>
-			<Part Id="PART_R_CUTWING" String="우측 칼날개"/>
+			<Part Id="PART_L_CUTWING" String="왼쪽 칼날개"/>
+			<Part Id="PART_R_CUTWING" String="오른쪽 칼날개"/>
 			<Part Id="PART_ARMS" String="앞다리"/>
 			<Part Id="PART_HEAD_MUD" String="머리 (진흙)"/>
 			<Part Id="PART_TORSO_MUD" String="몸통 (진흙)"/>
 			<Part Id="PART_ARMS_MUD" String="앞다리 (진흙)"/>
-			<Part Id="PART_L_LEG_MUD" String="좌측 다리 (진흙)"/>
-			<Part Id="PART_R_LEG_MUD" String="우측 다리 (진흙)"/>
+			<Part Id="PART_L_LEG_MUD" String="왼쪽 다리 (진흙)"/>
+			<Part Id="PART_R_LEG_MUD" String="오른쪽 다리 (진흙)"/>
 			<Part Id="PART_TAIL_MUD" String="꼬리 (진흙)"/>
 			<Part Id="PART_SPONGE" String="스펀지"/>
-			<Part Id="PART_L_LEGS" String="좌측 다리"/>
-			<Part Id="PART_R_LEGS" String="우측 다리"/>
+			<Part Id="PART_L_LEGS" String="왼쪽 다리"/>
+			<Part Id="PART_R_LEGS" String="오른쪽 다리"/>
 			<Part Id="PART_BODY" String="몸통"/>
 			<Part Id="PART_UPPER_BODY" String="상반신"/>
-			<Part Id="PART_REAR" String="옆구리"/>
+			<Part Id="PART_REAR" String="엉덩이"/>
 			<Part Id="PART_LOWER_BODY" String="하반신"/>
-			<Part Id="PART_UPPER_BACK" String="등 상부"/>
-			<Part Id="PART_LOWER_BACK" String="등 하부"/>
+			<Part Id="PART_UPPER_BACK" String="위쪽 등"/>
+			<Part Id="PART_LOWER_BACK" String="아래쪽 등"/>
 			<Part Id="PART_ROLLING" String="구르는 중"/>
 			<Part Id="PART_DORSAL_FIN" String="등 지느러미"/>
 			<Part Id="PART_LEGS" String="다리"/>
 			<Part Id="PART_SHELL" String="껍데기"/>
 			<Part Id="PART_CLAW" String="발톱"/>
-			<Part Id="PART_L_FORELEG" String="좌측 앞다리"/>
-			<Part Id="PART_R_FORELEG" String="우측 앞다리"/>
-			<Part Id="PART_L_H_LEG" String="좌측 뒷다리"/>
-			<Part Id="PART_R_H_LEG" String="우측 뒷다리"/>
+			<Part Id="PART_L_FORELEG" String="왼쪽 앞다리"/>
+			<Part Id="PART_R_FORELEG" String="오른쪽 앞다리"/>
+			<Part Id="PART_L_H_LEG" String="왼쪽 뒷다리"/>
+			<Part Id="PART_R_H_LEG" String="오른쪽 뒷다리"/>
 			<Part Id="PART_CHEST" String="복부"/>
 			<Part Id="PART_TAIL_TIP" String="꼬리 끝"/>
 			<Part Id="PART_MUD_BALL" String="진흙 공"/>
-			<Part Id="PART_LOWER_TORSO" String="몸통 하부"/>
+			<Part Id="PART_LOWER_TORSO" String="아래쪽 몸통"/>
 			<Part Id="PART_TAIL_WINDSAC" String="꼬리 끝(바람주머니)"/>
 			<Part Id="PART_CHEST_WINDSAC" String="흉부(바람주머니)"/>
 			<Part Id="PART_BACK_WINDSAC" String="등(바람주머니)"/>
-			<Part Id="PART_L_ARM_ICE" String="좌측 팔 (얼음)"/>
-			<Part Id="PART_R_ARM_ICE" String="우측 팔 (얼음)"/>
+			<Part Id="PART_L_ARM_ICE" String="왼쪽 팔 (얼음)"/>
+			<Part Id="PART_R_ARM_ICE" String="오른쪽 팔 (얼음)"/>
 			<Part Id="PART_B_LEG_FINS" String="뒷다리 지느러미"/>
 			<Part Id="PART_THUNDERBALLS" String="발전 기관"/>
 			<Part Id="PART_ROCK" String="바위"/>
@@ -203,7 +204,7 @@
 			<Stage Id="3" String="집회구역"/>
 			<Stage Id="4" String="집회소 준비구역"/>
 			<Stage Id="5" String="수련장"/>
-			<Stage Id="199" String="캐릭터 선택창"/>
+			<Stage Id="199" String="캐릭터 선택 화면"/>
 			<Stage Id="201" String="사원폐허"/>
 			<Stage Id="202" String="모래 평원"/>
 			<Stage Id="203" String="수몰된 숲"/>
@@ -221,7 +222,7 @@
 			<Tab Id="CONSOLE_STRING"
 				 String="콘솔"/>
 			<Tab Id="DISCORD_STRING"
-				 String="디스코드"/>
+				 String="Discord"/>
 			<Tab Id="PATCH_NOTES_STRING"
 				 String="패치 내역"/>
 			<Tab Id="PLUGINS_STRING"
@@ -271,6 +272,9 @@
 			<Setting Id="MONSTER_WIDGET_STRING"
 					 String="몬스터 위젯"
 					 Description="몬스터 위젯 설정"/>
+			<Setting Id="WIREBUG_WIDGET_STRING"
+					 String="밧줄벌레 위젯"
+					 Description="밧줄벌레 위젯 설정"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="개발자 도구"
 					 Description="심화 개발 도구들입니다."/>
@@ -285,8 +289,8 @@
 					 String="디버프"
 					 Description="디버프 효과"/>]
 			<Setting Id="ABNORMALITY_SKILLS_STRING"
-					 String="방어 스킬"
-					 Description="방어 스킬 효과"/>
+					 String="장비 스킬"
+					 Description="장비 스킬 효과"/>
 			<Setting Id="ABNORMALITY_FOODS_STRING"
 					 String="식사 스킬"
 					 Description="식사 효과"/>
@@ -329,6 +333,9 @@
 			<Setting Id="OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE"
 					 String="[단축키] 디자인 모드 전환"
 					 Description="디자인 모드를 On/Off 할 수 있는 단축키입니다."/>
+			<Setting Id="OVERLAY_HIDE_WHEN_GAME_UNFOCUS_STRING"
+					 String="게임 비활성화 시 위젯 숨기기"
+					 Description="옵션 활성화 시, 게임이 백그라운드 상태일 때 모든 위젯이 자동으로 숨겨집니다."/>
 			
 			<Setting Id="INITIALIZE_WIDGET_STRING"
 					 String="위젯 사용"
@@ -382,6 +389,9 @@
 			<Setting Id="MONSTER_WIDGET_DYNAMIC_RESIZE_STRING"
 					 String="몬스터 바 동적 크기"
 					 Description="옵션 활성화 시, HunterPie는 체력 바 숫자에 따라 모든 몬스터 바 크기를 자동으로 조절합니다."/>
+			<Setting Id="MONSTER_WIDGET_HIDE_UNKNOWN_PARTS_STRING"
+					 String="알 수 없는 몬스터 부위 숨기기"
+					 Description="옵션 활성화 시, HunterPie는 알 수 없는 부위를 숨깁니다 (&quot;???&quot;로 표시되는 부위)."/>
 
 			<Setting Id="ABNORMALITY_TRAYS_STRING"
 					 String="효과 트레이"
@@ -401,6 +411,10 @@
 					 String="긴 시간 순"/>
 			<Setting Id="SORT_BY_DISABLED_STRING"
 					 String="사용 안 함"/>
+			
+			<Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
+					 String="인-게임 밧줄벌레 조준 패치"
+					 Description="옵션 활성화 시, HunterPie는 인-게임에서 밧줄벌레 시각요소를 비활성화 했을 때 조준을 숨길 수 없는 게임 기능을 패치합니다."/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>
@@ -408,6 +422,8 @@
 					 String="Developer: Mock Damage Meter widget"/>
 			<Setting Id="DEV_MOCK_ABNORMALITY_WIDGET_STRING"
 					 String="Developer: Mock Abnormalities widget"/>
+			<Setting Id="DEV_MOCK_WIREBUG_WIDGET_STRING"
+					 String="Developer: Mock Wirebug widget"/>
 			<Setting Id="DEV_POOGIE_API_HOST_STRING"
 					 String="Developer: Poogie API Host"/>
 		</Settings>
