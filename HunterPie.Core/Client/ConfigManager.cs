@@ -134,7 +134,7 @@ namespace HunterPie.Core.Client
 
                         JsonConvert.PopulateObject(str, _settings[path], serializerSettings);
                     }
-                } catch (Exception err) { Log.Error(err); }
+                } catch (Exception err) { Log.Error(err.ToString()); }
             }
         }
 
@@ -156,7 +156,7 @@ namespace HunterPie.Core.Client
                         stream.SetLength(0);
                         stream.Write(buffer);
                     }
-                } catch(Exception err) { Log.Error(err); }
+                } catch(Exception err) { Log.Error(err.ToString()); }
             }
         }
 

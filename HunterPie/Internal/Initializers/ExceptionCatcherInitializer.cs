@@ -10,7 +10,7 @@ namespace HunterPie.Internal.Initializers
         {
             AppDomain.CurrentDomain.UnhandledException += (_, args) =>
             {
-                Log.Error(args.ExceptionObject);
+                Log.Error(args.ExceptionObject.ToString());
             };
         }
     }

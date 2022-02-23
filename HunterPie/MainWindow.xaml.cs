@@ -128,7 +128,7 @@ namespace HunterPie
                     FileName = "steam://run/1446780",
                     UseShellExecute = true
                 });
-            } catch(Exception err) { Log.Error(err); }
+            } catch(Exception err) { Log.Error(err.ToString()); }
             
         }
     }

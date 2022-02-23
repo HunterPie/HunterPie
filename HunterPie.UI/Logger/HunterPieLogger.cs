@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Logger;
 using System;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,46 +13,33 @@ namespace HunterPie.UI.Logger
 
         public static readonly ObservableCollection<LogString> ViewModel = new ObservableCollection<LogString>();
 
-        public Task Benchmark(params object[] args)
-        {
-            return WriteToBuffer(LogLevel.Benchmark, args);
-        }
+        public Task Benchmark(string message) => WriteToBuffer(LogLevel.Benchmark, message);
+        public Task Benchmark(string format, params object[] args) => WriteToBuffer(LogLevel.Benchmark, string.Format(format, args));
 
-        public Task Debug(params object[] args)
-        {
-            return WriteToBuffer(LogLevel.Debug, args);
-        }
+        public Task Debug(string message) => WriteToBuffer(LogLevel.Debug, message);
+        public Task Debug(string format, params object[] args) => WriteToBuffer(LogLevel.Debug, string.Format(format, args));
 
-        public Task Error(params object[] args)
-        {
-            return WriteToBuffer(LogLevel.Error, args);
-        }
+        public Task Info(string message) => WriteToBuffer(LogLevel.Info, message);
+        public Task Info(string format, params object[] args) => WriteToBuffer(LogLevel.Info, string.Format(format, args));
 
-        public Task Info(params object[] args)
-        {
-            return WriteToBuffer(LogLevel.Info, args);
-        }
+        public Task Warn(string message) => WriteToBuffer(LogLevel.Warn, message);
+        public Task Warn(string format, params object[] args) => WriteToBuffer(LogLevel.Warn, string.Format(format, args));
 
-        public Task Warn(params object[] args)
-        {
-            return WriteToBuffer(LogLevel.Warn, args);
-        }
+        public Task Error(string message) => WriteToBuffer(LogLevel.Error, message);
+        public Task Error(string format, params object[] args) => WriteToBuffer(LogLevel.Error, string.Format(format, args));
 
-        private async Task WriteToBuffer(LogLevel level, params object[] args)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private async Task WriteToBuffer(LogLevel level, string message)
         {
             try
             {
                 await Application.Current?.Dispatcher?.InvokeAsync(() =>
                 {
-                    StringBuilder builder = new StringBuilder();
-
-                    foreach (object e in args)
-                        builder.Append(e.ToString());
-
+                    
                     ViewModel.Add(new LogString
                     {
                         Timestamp = $"[{DateTime.Now.ToLongTimeString()}]",
-                        Message = builder.ToString(),
+                        Message = message,
                         Level = level
                     });
 

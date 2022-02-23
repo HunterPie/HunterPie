@@ -143,7 +143,7 @@ namespace HunterPie
 
         private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            Log.Error(e.Exception);
+            Log.Error(e.Exception.ToString());
             e.Handled = true;
         }
 

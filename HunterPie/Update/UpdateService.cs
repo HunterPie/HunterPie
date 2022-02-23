@@ -47,7 +47,7 @@ namespace HunterPie.Update
             }
             catch (Exception err)
             {
-                Log.Error(err);
+                Log.Error(err.ToString());
                 Directory.Delete(ClientInfo.GetPathFor("temp"), true);
                 return false;
             }
@@ -152,7 +152,7 @@ namespace HunterPie.Update
                     else
                         if (entry.EndsWith(".old"))
                             try { File.Delete(entry); }
-                            catch(Exception err) { Log.Error(err); }
+                            catch(Exception err) { Log.Error(err.ToString()); }
 
                 }
             }

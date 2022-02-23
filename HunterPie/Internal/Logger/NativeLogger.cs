@@ -11,8 +11,6 @@ namespace HunterPie.Internal.Logger
         [DllImport("kernel32", SetLastError = true)]
         private static extern bool AllocConsole();
 
-        private object synchronizer = new();
-
         private enum LogLevel
         {
             Benchmark = ConsoleColor.Gray,
@@ -29,47 +27,31 @@ namespace HunterPie.Internal.Logger
             Console.Title = "[DEBUG] HunterPie Console";
         }
 
-        public Task Debug(params object[] args)
-        {
-            return WriteToStdout(LogLevel.Debug, args);
-        }
+        public Task Benchmark(string message) => WriteToStdout(LogLevel.Benchmark, message);
+        public Task Benchmark(string format, params object[] args) => WriteToStdout(LogLevel.Benchmark, string.Format(format, args));
 
-        public Task Error(params object[] args)
-        {
-            return WriteToStdout(LogLevel.Error, args);
-        }
+        public Task Debug(string message) => WriteToStdout(LogLevel.Debug, message);
+        public Task Debug(string format, params object[] args) => WriteToStdout(LogLevel.Debug, string.Format(format, args));
 
-        public Task Info(params object[] args)
-        {
-            return WriteToStdout(LogLevel.Info, args);
-        }
+        public Task Info(string message) => WriteToStdout(LogLevel.Info, message);
+        public Task Info(string format, params object[] args) => WriteToStdout(LogLevel.Info, string.Format(format, args));
 
-        public Task Warn(params object[] args)
-        {
-            return WriteToStdout(LogLevel.Warn, args);
-        }
+        public Task Warn(string message) => WriteToStdout(LogLevel.Warn, message);
+        public Task Warn(string format, params object[] args) => WriteToStdout(LogLevel.Warn, string.Format(format, args));
 
-        private Task WriteToStdout(LogLevel level, params object[] args)
-        {
-            return Task.Run(() =>
-            {
-                lock (synchronizer)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                    Console.Write($"[{DateTime.Now.ToLongTimeString()}]");
-                    Console.ForegroundColor = (ConsoleColor)level;
-                    Console.Write($"[{level.ToString().ToUpper()}] ");
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    foreach (object arg in args)
-                        Console.Write(arg.ToString());
-                    Console.Write("\n");
-                }
-            });
-        }
+        public Task Error(string message) => WriteToStdout(LogLevel.Error, message);
+        public Task Error(string format, params object[] args) => WriteToStdout(LogLevel.Error, string.Format(format, args));
 
-        public Task Benchmark(params object[] args)
+        private Task WriteToStdout(LogLevel level, string message)
         {
-            return WriteToStdout(LogLevel.Benchmark, args);
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.Write($"[{DateTime.Now.ToLongTimeString()}]");
+            Console.ForegroundColor = (ConsoleColor)level;
+            Console.Write($"[{nameof(level).ToUpper()}] ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine(message);
+
+            return Task.FromResult(true);
         }
     }
 }

@@ -70,7 +70,7 @@ namespace HunterPie.Core.Client.Localization
                             match.Attributes["Description"].Value = node.Attributes["Description"]?.Value ?? match.Attributes["Description"].Value;
                     }
                 }
-            } catch(Exception err) { Log.Error(err); }
+            } catch(Exception err) { Log.Error(err.ToString()); }
             
 
             Log.Info($"Loaded localization {Path.GetFileNameWithoutExtension(xmlPath)}");
