@@ -67,6 +67,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         private void Update()
         {
             Name = Context.Id;
+            IsKnownPart = Context.Id == "PART_UNKNOWN";
 
             MaxHealth = Context.MaxHealth;
             Health = Context.Health;

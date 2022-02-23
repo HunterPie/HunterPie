@@ -86,7 +86,7 @@
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_TRANQUILIZE">#c96ba0</SolidColorBrush>
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_FLASH">#f7c052</SolidColorBrush>
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_KNOCKDOWN">#5380db</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_DUNGPOD">#472102</SolidColorBrush>
+    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_DUNG">#472102</SolidColorBrush>
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_TRAP">#9dc20a</SolidColorBrush>
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_ELDERSEAL">#71369c</SolidColorBrush>
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_SMOKING">#9c9c9c</SolidColorBrush>

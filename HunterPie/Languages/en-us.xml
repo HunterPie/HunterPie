@@ -15,6 +15,7 @@
 			<Ailment Id="AILMENT_FIRE" String="Fireblight"/>
 			<Ailment Id="AILMENT_ICE" String="Iceblight"/>
 			<Ailment Id="AILMENT_THUNDER" String="Thunderblight"/>
+			<Ailment Id="AILMENT_DUNG" String="Dung Bomb"/>
 			<Ailment Id="AILMENT_TRANQUILIZE" String="Tranquilize"/>
 			<Ailment Id="STATUS_ENRAGE" String="Enrage"/>
 		</Rise>

@@ -25,6 +25,7 @@
         <converters:CrownToIconConverter x:Key="CrownToIconConverter"/>
         <converters:CrownToVisibilityConverter x:Key="CrownToVisibilityConverter"/>
         <converters:TargetTypeToVisibility x:Key="TargetTypeToVisibility"/>
+        <converters:IsValidPartConverter x:Key="IsValidPartConverter"/>
 
         <LinearGradientBrush x:Key="MonsterHealthEnraged" EndPoint="1,1" StartPoint="0,1">
             <GradientStop Color="#d42c2c"/>
@@ -98,6 +99,17 @@
                     </MultiDataTrigger.Conditions>
                     <MultiDataTrigger.Setters>
                         <Setter Property="Visibility" Value="Visible"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Widget.Settings.HideUnknownParts.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}}"
+                                   Value="True"/>
+                        <Condition Binding="{Binding DataContext.IsKnownPart, RelativeSource={RelativeSource Self}}"
+                                   Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Collapsed"/>
                     </MultiDataTrigger.Setters>
                 </MultiDataTrigger>
             </Style.Triggers>
