@@ -160,8 +160,12 @@ namespace HunterPie.UI.Overlay.Components
 
         private void OnMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            double scale = 0.01 * (e.Delta > 0 ? 1 : -1);
-            Widget.Settings.Scale.Current += scale;
+            double step = 0.01 * (e.Delta > 0 ? 1 : -1);
+
+            if (Keyboard.IsKeyDown(Key.LeftCtrl))
+                Widget.Settings.Opacity.Current += step;
+            else
+                Widget.Settings.Scale.Current += step;
         }
     }
 }
