@@ -389,6 +389,9 @@
 			<Setting Id="MONSTER_WIDGET_DYNAMIC_RESIZE_STRING"
 					 String="Dynamically resize monster bars"
 					 Description="If enabled, HunterPie will automatically resize all monster bars depending on how many health bars are visible at the moment."/>
+			<Setting Id="MONSTER_WIDGET_HIDE_UNKNOWN_PARTS_STRING"
+					 String="Hide unknown monster parts"
+					 Description="If enabled, HunterPie will hide unknown parts (the ones labeled as &quot;???&quot;)."/>
 
 			<Setting Id="ABNORMALITY_TRAYS_STRING"
 					 String="Abnormality Trays"

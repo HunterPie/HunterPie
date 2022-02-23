@@ -50,7 +50,7 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         [SettingField("MONSTER_WIDGET_ENABLE_PARTS_STRING")]
         public Observable<bool> EnableParts { get; set; } = true;
 
-        [SettingField("MONSTER_WIDGET_HIDE_UNKNOWN_PARTS")]
+        [SettingField("MONSTER_WIDGET_HIDE_UNKNOWN_PARTS_STRING")]
         public Observable<bool> HideUnknownParts { get; set; } = true;
 
         [SettingField("MONSTER_WIDGET_AUTO_HIDE_PARTS_STRING")]
