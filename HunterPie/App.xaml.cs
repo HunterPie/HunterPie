@@ -18,6 +18,7 @@ using HunterPie.Update.Presentation;
 using System.Threading.Tasks;
 using System.Linq;
 using HunterPie.Features.Overlay;
+using HunterPie.Core.Events;
 
 namespace HunterPie
 {
@@ -125,7 +126,10 @@ namespace HunterPie
 
             Log.Debug("Initialized game context");
             _context = context;
-            
+
+            _process.OnGameFocus += OnGameFocus;
+            _process.OnGameUnfocus += OngameUnfocus;
+
             HookEvents();
             _richPresence = new(context);
             
@@ -133,6 +137,9 @@ namespace HunterPie
             
             context.Scan();
         }
+
+        private void OngameUnfocus(object sender, ProcessEventArgs e) => WidgetManager.Instance.IsGameFocused = false;
+        private void OnGameFocus(object sender, ProcessEventArgs e) => WidgetManager.Instance.IsGameFocused = true;
 
         private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
@@ -157,6 +164,8 @@ namespace HunterPie
 
         private void UnhookEvents()
         {
+            _process.OnGameFocus -= OnGameFocus;
+            _process.OnGameUnfocus -= OngameUnfocus;
             _context.Game.Player.OnLogin -= OnPlayerLogin;
         }
 

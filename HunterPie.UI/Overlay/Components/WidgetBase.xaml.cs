@@ -6,7 +6,6 @@ using System;
 using HunterPie.UI.Platform.Windows.Native;
 using HunterPie.UI.Overlay.Enums;
 using System.Windows.Media;
-using System.Windows.Controls;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Windows.Threading;
@@ -116,7 +115,7 @@ namespace HunterPie.UI.Overlay.Components
                 _ => throw new NotImplementedException("Unreachable"),
             };
 
-            User32.SetWindowLong(hWnd, User32.GWL_EXSTYLE, (int)(styles | flags));
+            _ = User32.SetWindowLong(hWnd, User32.GWL_EXSTYLE, (int)(styles | flags));
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -136,7 +135,7 @@ namespace HunterPie.UI.Overlay.Components
             else
                 styles &= ~(uint)(User32.EX_WINDOW_STYLES.WS_EX_TRANSPARENT);
 
-            User32.SetWindowLong(hWnd, User32.GWL_EXSTYLE, (int)styles);
+            _ = User32.SetWindowLong(hWnd, User32.GWL_EXSTYLE, (int)styles);
         }
 
         private void ForceAlwaysOnTop()

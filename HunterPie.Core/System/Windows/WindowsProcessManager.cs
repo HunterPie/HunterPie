@@ -9,9 +9,7 @@ using HunterPie.Core.Domain.Memory;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Address.Map;
 using HunterPie.Core.System.Windows.Native;
-using System.IO;
 using HunterPie.Core.System.Windows.Memory;
-using HunterPie.Core.Client;
 using HunterPie.Core.Events;
 
 namespace HunterPie.Core.System.Windows

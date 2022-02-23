@@ -51,7 +51,7 @@
                                 <BeginStoryboard>
                                     <Storyboard Storyboard.TargetProperty="Opacity">
                                         <DoubleAnimation Duration="0:0:0.15"
-                                                 To="1"/>
+                                                         To="1"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.EnterActions>
@@ -59,7 +59,7 @@
                                 <BeginStoryboard>
                                     <Storyboard Storyboard.TargetProperty="Opacity">
                                         <DoubleAnimation Duration="0:0:0.15"
-                                                 To="0"/>
+                                                         To="0"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.ExitActions>
@@ -72,9 +72,32 @@
         <!-- Widget content -->
         <Grid Margin="10,50,10,10">
             <ContentControl Content="{Binding Widget}"
-                            Opacity="{Binding Widget.Settings.Opacity.Current, Mode=OneWay}"
-                            Visibility="{Binding Widget.Settings.Enabled.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            
+                            Opacity="{Binding Widget.Settings.Opacity.Current, Mode=OneWay}">
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Style.Setters>
+                            <Setter Property="Visibility" Value="{Binding Widget.Settings.Enabled.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        </Style.Setters>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Settings.HideWhenUnfocus.Value, Source={x:Static overlay:WidgetManager.Instance}}" Value="True"/>
+                                    <Condition Binding="{Binding IsGameFocused, Source={x:Static overlay:WidgetManager.Instance}}" Value="False"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </MultiDataTrigger>
+
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsDesignModeEnabled, Source={x:Static overlay:WidgetManager.Instance}}" Value="True"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
+
             <mc:AlternateContent>
                 <mc:Choice Requires="DEBUG">
                     <TextBlock Background="#50000000"
