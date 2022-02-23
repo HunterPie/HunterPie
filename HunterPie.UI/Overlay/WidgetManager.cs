@@ -49,10 +49,11 @@ namespace HunterPie.UI.Overlay
             Hotkey.Register(ClientConfig.Config.Overlay.ToggleDesignMode, EnterDesignMode);
         }
 
-        public static bool Register<T>(IWidget<T> widget) where T : IWidgetSettings
+        public static bool Register<T, K>(T widget) where T : IWidgetWindow, IWidget<K>
+                                                    where K : IWidgetSettings
         {
 
-            WidgetBase wnd = new WidgetBase() { Widget = (UserControl)widget };
+            WidgetBase wnd = new WidgetBase() { Widget = widget };
             Instance._widgets.Add(wnd);
             wnd.Show();
             

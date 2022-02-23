@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Windows.Threading;
+using System.Windows.Input;
 #if DEBUG
 using LiveCharts;
 using LiveCharts.Defaults;
@@ -52,11 +53,11 @@ namespace HunterPie.UI.Overlay.Components
             | User32.EX_WINDOW_STYLES.WS_EX_NOACTIVATE
             | User32.EX_WINDOW_STYLES.WS_EX_TOOLWINDOW);
 
-        private UserControl _widget;
-        public UserControl Widget
+        private IWidgetWindow _widget;
+        public IWidgetWindow Widget
         {
             get => _widget;
-            internal set
+            init
             {
                 if (value != _widget)
                 {
@@ -155,6 +156,11 @@ namespace HunterPie.UI.Overlay.Components
 
             property = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void OnMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            
         }
     }
 }

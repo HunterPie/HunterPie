@@ -20,7 +20,7 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality
         {
             _config = config;
             var widget = new AbnormalityBarView(ref Config);
-            WidgetManager.Register(widget);
+            WidgetManager.Register<AbnormalityBarView, AbnormalityWidgetConfig>(widget);
             Context = context;
 
             ViewModel = (AbnormalityBarViewModel)widget.DataContext;

@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Constants;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Domain.Constants;
 using HunterPie.Core.Domain.Features;
 using HunterPie.Domain.Interfaces;
 using HunterPie.UI.Overlay;
@@ -11,7 +12,7 @@ namespace HunterPie.Internal.Initializers
         public void Init()
         {
             if (FeatureFlagManager.IsEnabled(FeatureFlags.FEATURE_METRICS_WIDGET))
-                WidgetManager.Register(new TelemetricsView());
+                WidgetManager.Register<TelemetricsView, TelemetricsWidgetConfig>(new TelemetricsView());
         }
     }
 }

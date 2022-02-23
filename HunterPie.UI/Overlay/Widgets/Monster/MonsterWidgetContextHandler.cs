@@ -19,7 +19,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         public MonsterWidgetContextHandler(Context context)
         {
             var widget = new MonstersView();
-            WidgetManager.Register(widget);
+            WidgetManager.Register< MonstersView, MonsterWidgetConfig>(widget);
 
             ViewModel = widget.DataContext as MonstersViewModel;
             Context = context;

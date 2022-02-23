@@ -65,7 +65,7 @@ namespace HunterPie
         private void InitializeDebugWidgets()
         {
             if (ClientConfig.Config.Debug.MockBossesWidget)
-                WidgetManager.Register(
+                WidgetManager.Register<MonstersView, MonsterWidgetConfig>(
                     new MonstersView()
                     {
                         DataContext = new MockMonstersViewModel()
@@ -73,7 +73,7 @@ namespace HunterPie
                 );
 
             if (ClientConfig.Config.Debug.MockDamageWidget)
-                WidgetManager.Register(
+                WidgetManager.Register<MeterView, DamageMeterWidgetConfig>(
                     new MeterView()
                     {
                         DataContext = new MockMeterViewModel()
@@ -83,7 +83,7 @@ namespace HunterPie
             if (ClientConfig.Config.Debug.MockAbnormalityWidget)
             {
                 var mockSettings = new AbnormalityWidgetConfig();
-                WidgetManager.Register(
+                WidgetManager.Register<AbnormalityBarView, AbnormalityWidgetConfig>(
                     new AbnormalityBarView(ref mockSettings)
                     {
                         DataContext = new MockAbnormalityBarViewModel()
@@ -92,7 +92,7 @@ namespace HunterPie
             }
 
             if (ClientConfig.Config.Debug.MockWirebugWidget)
-                WidgetManager.Register(new WirebugsView()
+                WidgetManager.Register<WirebugsView, WirebugWidgetConfig>(new WirebugsView()
                     {
                         DataContext = new MockWirebugsViewModel()
                     }

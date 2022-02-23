@@ -20,10 +20,11 @@
         Left="{Binding Widget.Settings.Position.X, Mode=TwoWay}"
         Opacity="{Binding Widget.Settings.Opacity.Current, Mode=OneWay}"
         UseLayoutRounding="True"
-        RenderOptions.ClearTypeHint="Enabled" 
+        SnapsToDevicePixels="True"
         Loaded="OnLoaded"
         ShowInTaskbar="False"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize" 
+        MouseWheel="OnMouseWheel">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>

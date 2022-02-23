@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Enums;
 using HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel;
@@ -17,6 +18,8 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality.View
         public string Title => Settings.Name;
         public AbnormalityWidgetConfig Settings => _config;
         public WidgetType Type => WidgetType.ClickThrough;
+
+        IWidgetSettings IWidgetWindow.Settings => _config;
 
         public AbnormalityBarView(ref AbnormalityWidgetConfig config)
         {

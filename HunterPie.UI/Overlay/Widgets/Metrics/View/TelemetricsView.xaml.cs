@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Enums;
 using HunterPie.UI.Overlay.Widgets.Metrics.ViewModel;
@@ -22,6 +23,8 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.View
         public string Title => "Debug Metrics";
 
         public WidgetType Type => WidgetType.ClickThrough;
+
+        IWidgetSettings IWidgetWindow.Settings => Settings;
 
         private void OnGCClick(object sender, EventArgs e)
         {
