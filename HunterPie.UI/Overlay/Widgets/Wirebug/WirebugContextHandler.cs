@@ -54,7 +54,10 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug
 
         private void UpdateData()
         {
-            MaxCooldown = Context.MaxCooldown;
+            if (Context.MaxCooldown == 0)
+                MaxCooldown = 400;
+            else
+                MaxCooldown = Context.MaxCooldown;
             Cooldown = Context.Cooldown;
             IsAvailable = Context.IsAvailable;
         }

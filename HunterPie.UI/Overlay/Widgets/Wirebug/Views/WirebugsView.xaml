@@ -6,15 +6,19 @@
            xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
            xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel"
            xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Wirebug.Views"
+           xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
            x:TypeArguments="vm:WirebugsViewModel"
            d:DataContext="{d:DesignInstance Type=vm:WirebugsViewModel}"
            mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <vm:MockWirebugsViewModel x:Key="MockViewModel"/>
+        <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
     </UserControl.Resources>
     <Grid>
         <ItemsControl ItemsSource="{Binding Elements, Mode=OneWay}"
-                      HorizontalAlignment="Center">
+                      HorizontalAlignment="Center"
+                      d:DataContext="{StaticResource MockViewModel}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel IsItemsHost="True"
@@ -24,9 +28,25 @@
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type vm:WirebugViewModel}">
-                    <local:WirebugView Width="50"
-                                       Height="50"
-                                       Visibility="{Binding IsAvailable, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <StackPanel Orientation="Vertical"
+                                Margin="5">
+                        <local:WirebugView Width="50"
+                                           Height="50"
+                                           Visibility="{Binding IsAvailable, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <TextBlock Text="{Binding Timer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"
+                                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Visibility="{Binding IsTemporary, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="Black"
+                                      BlurRadius="4" 
+                                      ShadowDepth="0"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

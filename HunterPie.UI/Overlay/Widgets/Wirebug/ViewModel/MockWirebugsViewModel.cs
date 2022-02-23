@@ -12,7 +12,8 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel
                 {
                     Cooldown = 5,
                     MaxCooldown = 12,
-                    OnCooldown = true
+                    OnCooldown = true,
+                    IsAvailable = true
                 }
             );
             Elements.Add(
@@ -20,7 +21,8 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel
                 {
                     Cooldown = 0,
                     MaxCooldown = 12,
-                    OnCooldown = false
+                    OnCooldown = false,
+                    IsAvailable = true
                 }
             );
             Elements.Add(
@@ -30,28 +32,31 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel
                     MaxCooldown = 12,
                     Timer = 200,
                     MaxTimer = 300,
-                    OnCooldown = true
+                    OnCooldown = true,
+                    IsAvailable = true,
+                    IsTemporary = true,
                 }
             );
             MockBehavior.Run(() =>
             {
                 foreach (var vm in Elements)
                 {
-                    if (!vm.OnCooldown)
-                        continue;
-
-                    vm.Cooldown -= 0.01;
                     vm.Timer -= Math.Min(vm.MaxTimer, 0.01);
 
                     if (vm.Timer <= 0)
                         vm.Timer = vm.MaxTimer;
+
+                    if (!vm.OnCooldown)
+                        continue;
+
+                    vm.Cooldown -= 0.01;
 
                     if (vm.Cooldown <= 0)
                     {
                         vm.Cooldown = 0;
                         vm.OnCooldown = false;
                     }
-                        
+                    
                 }
             }, 0.01f);
         }

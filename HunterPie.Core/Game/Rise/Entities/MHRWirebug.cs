@@ -65,7 +65,7 @@ namespace HunterPie.Core.Game.Rise.Entities
 
         void IUpdatable<MHRWirebugExtrasStructure>.Update(MHRWirebugExtrasStructure data)
         {
-            MaxTimer = Math.Max(Timer, data.Timer);
+            MaxTimer = Math.Max(MaxTimer, data.Timer);
             Timer = data.Timer;
             IsAvailable = data.Timer > 0;
         }

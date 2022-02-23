@@ -11,6 +11,7 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel
         private double _maxTimer;
         private bool _onCooldown;
         private bool _isAvailable;
+        private bool _isTemporary;
 
         public double Cooldown { get => _cooldown; set { SetValue(ref _cooldown, value); } }
         public double MaxCooldown { get => _maxCooldown; set { SetValue(ref _maxCooldown, value); } }
@@ -18,6 +19,6 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel
         public double MaxTimer { get => _maxTimer; set { SetValue(ref _maxTimer, value); } }
         public bool OnCooldown { get => _onCooldown; set { SetValue(ref _onCooldown, value); } }
         public bool IsAvailable { get => _isAvailable; set { SetValue(ref _isAvailable, value); } }
-        
+        public bool IsTemporary { get => _isTemporary; set { SetValue(ref _isTemporary, value); } }
     }
 }
