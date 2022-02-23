@@ -11,6 +11,7 @@ namespace HunterPie.UI.Architecture.Selectors
         public DataTemplate DefaultTemplate { get; set; }
         public DataTemplate SeverableTemplate { get; set; }
         public DataTemplate BreakableTemplate { get; set; }
+        public DataTemplate Empty = new DataTemplate();
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
@@ -21,6 +22,7 @@ namespace HunterPie.UI.Architecture.Selectors
                     PartType.Flinch => DefaultTemplate,
                     PartType.Breakable => BreakableTemplate,
                     PartType.Severable => SeverableTemplate,
+                    PartType.Invalid => Empty,
                     _ => throw new NotImplementedException(),
                 };
             }

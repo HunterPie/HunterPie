@@ -95,7 +95,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
                         MaxFlinch = 250.0,
                         Breaks = 0,
                         MaxBreaks = 0,
-                        Type = PartType.Flinch
+                        Type = PartType.Invalid
                     }
                 );
             }

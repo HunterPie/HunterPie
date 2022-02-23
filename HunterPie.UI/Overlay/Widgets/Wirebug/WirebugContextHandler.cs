@@ -36,9 +36,9 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug
 
         private void OnTimerUpdate(object sender, MHRWirebug e)
         {
-            IsTemporary = true;
             MaxTimer = e.MaxTimer;
             Timer = e.Timer;
+            IsTemporary = Context.Timer > 0;
         }
 
         private void OnAvailable(object sender, MHRWirebug e)
