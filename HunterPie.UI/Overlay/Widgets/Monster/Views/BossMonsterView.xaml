@@ -158,17 +158,18 @@
             </StackPanel>
             <!-- Stamina Bar -->
             <overlay:Bar Height="8"
-                     MaxValue="{Binding MaxStamina, Mode=OneWay}"
-                     d:MaxValue="100"
-                     Value="{Binding Stamina, Mode=OneWay}"
-                     d:Value="50"
-                     VerticalAlignment="Top" 
-                     BorderThickness="2"
-                     RenderTransformOrigin="0.5,0.5"
-                     Margin="13,47,10,0" 
-                     ForegroundDelayed="#FFFFCFA8" 
-                     BorderBrush="#C7212426"
-                     Visibility="{Binding Widget.Settings.EnableStamina.Value, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                         MaxValue="{Binding MaxStamina, Mode=OneWay}"
+                         d:MaxValue="100"
+                         Background="#B2181A1B"
+                         Value="{Binding Stamina, Mode=OneWay}"
+                         d:Value="50"
+                         VerticalAlignment="Top" 
+                         BorderThickness="2"
+                         RenderTransformOrigin="0.5,0.5"
+                         Margin="13,47,10,0" 
+                         ForegroundDelayed="#FFFFCFA8" 
+                         BorderBrush="#C7212426"
+                         Visibility="{Binding Widget.Settings.EnableStamina.Value, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <overlay:Bar.Foreground>
                     <LinearGradientBrush EndPoint="1,1" StartPoint="0,1">
                         <GradientStop Color="#FFFF9A36" Offset="1"/>
@@ -213,6 +214,7 @@
                          Foreground="{StaticResource MonsterHealthUnenraged}"
                          ForegroundDelayed="{StaticResource MonsterHealthUnenragedDelayed}"
                          MaxValue="{Binding MaxHealth, Mode=OneWay}"
+                         Background="#B2181A1B"
                          d:MaxValue="100"
                          Value="{Binding Health, Mode=OneWay}"
                          d:Value="50"
