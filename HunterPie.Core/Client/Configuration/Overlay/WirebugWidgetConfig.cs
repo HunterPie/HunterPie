@@ -19,6 +19,9 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         [SettingField("WIDGET_SCALE")]
         public Range Scale { get; set; } = new(1, 2, 0.1, 0.1);
 
+        [SettingField("WIREBUG_WIDGET_PATCH_IN_GAME_HUD", requiresRestart: true)]
+        public Observable<bool> PatchInGameHud { get; set; } = false;
+
         [SettingField("ENABLE_STREAMER_MODE")]
         public Observable<bool> StreamerMode { get; set; } = false;
 

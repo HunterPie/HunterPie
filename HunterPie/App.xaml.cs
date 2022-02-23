@@ -11,19 +11,12 @@ using HunterPie.Internal;
 using System.Windows.Media;
 using HunterPie.Core.Client.Configuration.Enums;
 using System.Windows.Interop;
-using HunterPie.UI.Overlay.Widgets.Monster;
 using HunterPie.Integrations.Discord;
 using HunterPie.UI.Overlay;
-using System.Collections.Generic;
 using HunterPie.Update;
 using HunterPie.Update.Presentation;
 using System.Threading.Tasks;
 using System.Linq;
-using HunterPie.UI.Overlay.Widgets.Abnormality;
-using System.Runtime.InteropServices;
-using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.UI.Overlay.Widgets.Wirebug;
-using HunterPie.Core.Game.Rise;
 using HunterPie.Features.Overlay;
 
 namespace HunterPie
