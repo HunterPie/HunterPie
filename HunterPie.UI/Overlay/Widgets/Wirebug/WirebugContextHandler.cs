@@ -36,6 +36,7 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug
 
         private void OnTimerUpdate(object sender, MHRWirebug e)
         {
+            IsTemporary = true;
             MaxTimer = e.MaxTimer;
             Timer = e.Timer;
         }
@@ -60,6 +61,10 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug
                 MaxCooldown = Context.MaxCooldown;
             Cooldown = Context.Cooldown;
             IsAvailable = Context.IsAvailable;
+
+            MaxTimer = Context.MaxTimer;
+            Timer = Context.Timer;
+            IsTemporary = Context.Timer > 0;
         }
     }
 }

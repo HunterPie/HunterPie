@@ -4,10 +4,8 @@ using HunterPie.Core.Logger;
 using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture.Extensions;
 using HunterPie.UI.Overlay.Components;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows.Controls;
 
 namespace HunterPie.UI.Overlay
 {

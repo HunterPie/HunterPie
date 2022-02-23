@@ -109,7 +109,7 @@ namespace HunterPie.UI.Overlay.Components
 
             uint styles = (uint)User32.GetWindowLong(hWnd, User32.GWL_EXSTYLE);
 
-            uint flags = ((IWidgetWindow)Widget).Type switch
+            uint flags = Widget.Type switch
             {
                 WidgetType.ClickThrough => ClickThroughFlags,
                 WidgetType.Window => WindowFlags,
