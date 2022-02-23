@@ -24,6 +24,7 @@ using System.Runtime.InteropServices;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.UI.Overlay.Widgets.Wirebug;
 using HunterPie.Core.Game.Rise;
+using HunterPie.Features.Overlay;
 
 namespace HunterPie
 {
@@ -35,7 +36,6 @@ namespace HunterPie
         private IProcessManager _process;
         private RiseRichPresence _richPresence;
         private Context _context;
-        private List<IContextHandler> contextHandlers = new();
 
         protected override async void OnStartup(StartupEventArgs e)
         {
@@ -113,10 +113,7 @@ namespace HunterPie
             _process = null;
             _context = null;
 
-            foreach (IContextHandler handler in contextHandlers)
-                handler.UnhookEvents();
-
-            contextHandlers.Clear();
+            WidgetInitializers.Unload();
 
             Dispatcher.InvokeAsync(WidgetManager.Dispose);
         }
@@ -139,25 +136,7 @@ namespace HunterPie
             HookEvents();
             _richPresence = new(context);
             
-            Dispatcher.InvokeAsync(() =>
-            {
-                List<IContextHandler> handlers = new();
-
-                if (ClientConfig.Config.Overlay.BossesWidget.Initialize)
-                    handlers.Add(new MonsterWidgetContextHandler(context));
-
-                var configs = ClientConfig.Config.Overlay.AbnormalityTray.Trays.Trays.ToArray();
-                for (int i = 0; i < ClientConfig.Config.Overlay.AbnormalityTray.Trays.Trays.Count; i++)
-                {
-                    ref var abnormConfig = ref configs[i];
-                    handlers.Add(new AbnormalityWidgetContextHandler(context, ref abnormConfig));
-                }
-
-                if (ClientConfig.Config.Overlay.WirebugWidget.Initialize)
-                    handlers.Add(new WirebugWidgetContextHandler((MHRContext)context));
-
-                contextHandlers.AddRange(handlers);
-            });
+            Dispatcher.InvokeAsync(() => WidgetInitializers.Initialize(context));
             
             context.Scan();
         }
