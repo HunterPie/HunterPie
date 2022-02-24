@@ -1,4 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- Übersetzung von MashiLo mit Korrekturen durch DeadDr4gon und Suho. 
+
+Hier könnte auch IHRE Werbung stehen.
+
+Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchaus Fehler auftreten, die im Normalfall aber hoffentlich von DeadDr4gon und/oder Suho berichtigt werden. Sollte jemand die Übersetzung eigenständig fortführen wollen, weil ich hier nur Müll fabriziere oder er langeweile hat, dann nur zu.
+-->
 <Strings lang="German">
 	<Ailments>
 		<Rise>
@@ -9,14 +15,17 @@
 			<Ailment Id="AILMENT_POISON" String="Gift"/>
 			<Ailment Id="AILMENT_BLAST" String="Explosion"/>
 			<Ailment Id="AILMENT_EXHAUST" String="Erschöpfung"/>
-			<Ailment Id="AILMENT_MOUNT" String="Aufsitzen"/> <!-- Reitbar? Mount-->
-			<Ailment Id="AILMENT_FLASH" String="Blenden"/> 
+			<Ailment Id="AILMENT_MOUNT" String="Aufsitzen"/>
+			<!-- Reitbar? Mount-->
+			<Ailment Id="AILMENT_FLASH" String="Blenden"/>
 			<Ailment Id="AILMENT_WATER" String="Wasser"/>
 			<Ailment Id="AILMENT_FIRE" String="Brand"/>
 			<Ailment Id="AILMENT_ICE" String="Eisbrand"/>
 			<Ailment Id="AILMENT_THUNDER" String="Donnerbrand"/>
+			<Ailment Id="AILMENT_TRANQUILIZE" String="Beruhigungsmittel"/>
+			<!-- Tranquilizer lassen? -->
 			<Ailment Id="STATUS_ENRAGE" String="Wut"/>
-		</Rise>
+			</Rise>
 	</Ailments>
 	<Abnormalities>
 		<Abnormality Id="ABNORMALITY_UNKNOWN" String="Unbekannt"/>
@@ -33,7 +42,7 @@
 		<Abnormality Id="ABNORMALITY_TREMORS_NEG" String="Erdstöße negiert"/>
 		<Abnormality Id="ABNORMALITY_WIND_PRESSURE_PLUS" String="Winddruck negiert"/>
 		<Abnormality Id="ABNORMALITY_STUN_NEG" String="Betäubung negiert"/>
-		<Abnormality Id="ABNORMALITY_BLIGHT_NEG" String="Brand negiert"/> <!-- "Blight" -->
+		<Abnormality Id="ABNORMALITY_BLIGHT_NEG" String="Brand negiert"/>
 		<Abnormality Id="ABNORMALITY_DIVINE_PROTECTION" String="Göttlicher Schutz"/>
 		<Abnormality Id="ABNORMALITY_HEALTH_REGEN" String="Lebensregeneration"/>
 		<Abnormality Id="ABNORMALITY_STAMINA_USE_RED" String="Ausdauerverbrauch verringert"/>
@@ -41,15 +50,38 @@
 		<Abnormality Id="ABNORMALITY_SHARPNESS_RED" String="Schärfe-Verlust reduziert"/>
 		<Abnormality Id="ABNORMALITY_ENV_NEG" String="Umgebungsschaden negiert"/>
 		<Abnormality Id="ABNORMALITY_SONIC_BARRIER" String="Akkustische Barriere"/>
-		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Höllenmelodie"/> <!-- Höllenmelodie? -->
-		
+		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Höllenmelodie"/>
+
 		<Abnormality Id="ABNORMALITY_MIGHT_SEED" String="Machtsamen"/>
+		<Abnormality Id="ABNORMALITY_BUTTERFLAME" String="Flämmling"/>
+		<Abnormality Id="ABNORMALITY_CUTTERFLY" String="Schnibelle"/>
+		<!-- Messerfliege oder sowas? -->
 		<Abnormality Id="ABNORMALITY_ADAMANT_SEED" String="Diamantsamen"/>
-		<Abnormality Id="ABNORMALITY_CLOTHFLY" String="Tuchfliege"/> <!-- Clothfly -->
+		<Abnormality Id="ABNORMALITY_CLOTHFLY" String="Tuchfalter"/>
 		<Abnormality Id="ABNORMALITY_DASH_JUICE" String="Sprintsaft"/>
 		<Abnormality Id="ABNORMALITY_DEMON_POWDER" String="Dämonenpulver"/>
 		<Abnormality Id="ABNORMALITY_HARDSHELL_POWDER" String="Harthülsenpulver"/>
 		<Abnormality Id="ABNORMALITY_NATURAL_HEALING" String="Natürliche Heilung"/>
+		<Abnormality Id="ABNORMALITY_REDLAMPSQUID" String="Roter Lampenkalmar"/>
+		<Abnormality Id="ABNORMALITY_YELLOWLAMPSQUID" String="Gelber Lampenkalmar"/>
+		<Abnormality Id="ABNORMALITY_GOURMET_FISH" String="Gourmetfisch"/>
+		<Abnormality Id="ABNORMALITY_IMMUNITY" String="Immunität"/>
+		<Abnormality Id="ABNORMALITY_GO_FIGHT_WIN" String="Los, Kämpfe, Siege"/>
+		<!-- ?????? -->
+		<Abnormality Id="ABNORMALITY_POWER_DRUM" String="Machttrommel"/>
+		<Abnormality Id="ABNORMALITY_ROUSING_ROAR" String="Schallendes Gebrüll"/>
+		<Abnormality Id="ABNORMALITY_DEMON_AMMO" String="Dämonen-Munition"/>
+		<Abnormality Id="ABNORMALITY_ARMOR_AMMO" String="Rüstungs-Munition"/>
+
+		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="Dango Kraftprotz"/>
+		<!-- kp, "Bulker" hat keine Übersetzung die für mich Sinn ergeben würde -->
+		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="Dango Verstärker"/>
+		<Abnormality Id="ABNORMALITY_DANGO_GLUTTON" String="Dango Nimmersatt"/>
+
+		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="Gegenschlag"/>
+		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="Latente Kraft"/>
+		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="Affinitätsrutschen"/>
+		<!-- ich hasse deutsch manchmal so sehr... -->
 
 		<Abnormality Id="ABNORMALITY_POISON" String="Gift"/>
 		<Abnormality Id="ABNORMALITY_VENOM" String="Starkes Gift"/>
@@ -63,7 +95,8 @@
 		<Abnormality Id="ABNORMALITY_ICE" String="Eispest"/>
 		<Abnormality Id="ABNORMALITY_THUNDER" String="Donnerpest"/>
 		<Abnormality Id="ABNORMALITY_DRAGON" String="Drachenpest"/>
-		<Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="Große Luftblasenpest"/> <!-- Major Bubbleblight -->
+		<Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="Große Luftblasenpest"/>
+		<!-- Major Bubbleblight -->
 	</Abnormalities>
 	<Monsters>
 		<Shared>
@@ -109,7 +142,8 @@
 			<Part Id="PART_R_FORELEG" String="Rechtes Vorderbein"/>
 			<Part Id="PART_L_H_LEG" String="Linkes Hinterbein"/>
 			<Part Id="PART_R_H_LEG" String="Rechtes Hinterbein"/>
-			<Part Id="PART_CHEST" String="Abdomen"/> <!-- ??? -->
+			<Part Id="PART_CHEST" String="Abdomen"/>
+			<!-- ??? -->
 			<Part Id="PART_TAIL_TIP" String="Schwanzsspitze"/>
 			<Part Id="PART_MUD_BALL" String="Schlammball"/>
 			<Part Id="PART_LOWER_TORSO" String="Unterer Torso"/>
@@ -224,13 +258,16 @@
 			<Discord Id="DRPC_RISE_STATE_PRACTICE"
 					 String="Trainiert"/>
 			<Discord Id="DRPC_RISE_STATE_RAMPAGE"
-					 String="In Randale"/> <!-- ??? -->
+					 String="In Randale"/>
+			<!-- ??? -->
 			<Discord Id="DRPC_RISE_STATE_CHAR_SELECTION"
 					 String="Wählt Charakter aus"/>
 			<Discord Id="DRPC_RISE_STATE_EXPLORING"
 					 String="Erkundet"/>
 			<Discord Id="DRPC_RISE_STATE_HUNTING"
 					 String="Jagt {Monster} ({Percentage}%)"/>
+			<Discord Id="DRPC_RISE_STATE_HUNTING_NO_HEALTH"
+					 String="Jagt {Monster}"/>
 		</Integrations>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
@@ -242,12 +279,16 @@
 			<Setting Id="OVERLAY_STRING"
 					 String="Overlay"
 					 Description="Overlay Konfiguration"/>
+			<Setting Id="ABNORMALITY_TRAY_STRING"
+					 String="Anomalie-Leisten"
+					 Description="Konfigurationen für Anomalie-Leisten."/>
 			<Setting Id="MONSTER_WIDGET_STRING"
 					 String="Monster Widget"
 					 Description="Overlay Konfiguration"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="Dev Tools"
 					 Description="Erweiterte Entwicklertools"/>
+
 			<Setting Id="ABNORMALITY_SONGS_STRING"
 					 String="Songs"
 					 Description="Song Anomalien"/>
@@ -256,7 +297,13 @@
 					 Description="Verbrauchbare Anomalien"/>
 			<Setting Id="ABNORMALITY_DEBUFFS_STRING"
 					 String="Debuffs"
-					 Description="Debuff-Anomalien"/>					 
+					 Description="Debuff-Anomalien"/>
+			<Setting Id="ABNORMALITY_SKILLS_STRING"
+					 String="Rüstungsfähigkeiten"
+					 Description="Rüstungsfähigkeiten Anomalien"/>
+			<Setting Id="ABNORMALITY_FOODS_STRING"
+					 String="Essensfähigkeiten"
+					 Description="Essens-Anomalien"/>
 
 			<Setting Id="ENABLE_SELF_UPDATE"
 					 String="Aktiviere Auto-Update"
@@ -292,11 +339,11 @@
 			<Setting Id="DRPC_ENABLE_SHOW_MONSTER_HEALTH"
 					 String="Zeige Zielmonster HP"
 					 Description="Sofern aktiv, zeigt HunterPie die verbleibenden Lebenspunkte des anvisierten Monsters in deinem Discord Status an."/>
-			
+
 			<Setting Id="OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE"
 					 String="[Hot Key] Design Modus umschalten"
 					 Description="Hotkey um den Design Modus ein- oder auszuschalten."/>
-			
+
 			<Setting Id="INITIALIZE_WIDGET_STRING"
 					 String="Initialisiere Widget"
 					 Description="Sofern aktiv, wird HunterPie dieses Widget immer initialisieren. Schalte diese Option aus wenn du das Widget nicht benutzen möchtest."/>
@@ -314,13 +361,20 @@
 					 Description="Kontrolliert die lineare Größe dieses Widgets. Je höher der Wert, desto größer wird das Widget dargestellt."/>
 			<Setting Id="ORIENTATION_STRING"
 					 String="Orientation"
-					 Description="Orientation of the widget."/>											
+					 Description="Orientation of the widget."/>
+
+			<Setting Id="MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING"
+					 String="Zeige nur mein Ziel"
+					 Description="Sofern aktiv, zeigt HunterPie nur das Monster an welches du aktuell als Ziel gewählt hast."/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_STAMINA_STRING"
 					 String="Aktiviere Monster Ausdauer"
 					 Description="Sofern aktiv, zeigt HunterPie die Ausdauer eines Monsters unter dessen Lebensbalken an."/>
 			<Setting Id="MONSTER_WIDGET_MAX_WIDTH_STRING"
 					 String="Monster Widget maximale Breite"
 					 Description="Kontrolliert die maximale Breite des Lebensbalkens eines Monsters."/>
+			<Setting Id="MONSTER_WIDGET_MIN_WIDTH_STRING"
+					 String="Monster Widget minimale Breite"
+					 Description="Kontrolliert die minimale Breite des Lebensbalkens eines Monsters. Die verwendete Breite wird zur Kalkulation der dynamischen Balkengröße verwendet, sofern diese aktiviert wurde."/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_PARTS_STRING"
 					 String="Aktiviere Monsterteile"
 					 Description="Sofern aktiv, wird die Anzeige von Monsterteilen verwendet."/>
@@ -339,12 +393,28 @@
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING"
 					 String="Verzögerung bevor Statuseffekte ausgeblendet werden"
 					 Description="Zeit die gewartet wird bevor ein inaktiver Statuseffekt ausgeblendet wird"/>
+			<Setting Id="MONSTER_WIDGET_DYNAMIC_RESIZE_STRING"
+					 String="Dynamische Größenänderung der Monster Lebensbalken"
+					 Description="Sofern aktiv, werden die Lebensbalken in Abhängigkeit von der aktuell sichtbaren Anzahl automatisch in ihrer Größe angepasst."/>
+
 			<Setting Id="ABNORMALITY_TRAYS_STRING"
 					 String="Anomalie-Leisten"
-					 Description="Konfigurationen für Anomalie-Leisten."/>
+					 Description="Konfigurationen der Anomalie-Leisten."/>
 			<Setting Id="ABNORMALITY_TRAY_NAME_STRING"
 					 String="Anomalie-Leisten Name"
-					 Description="Der Name dieser Anomalie-Leiste."/>							 
+					 Description="Der Name dieser Anomalie-Leiste."/>
+			<Setting Id="ABNORMALITY_TRAY_MAX_SIZE_STRING"
+					 String="Maximale Größe"
+					 Description="Setzt die maximale Größe für diese Leiste."/>
+			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
+					 String="Sortieren nach"
+					 Description="Wählt den Sortierungsalgorithmus der verwendet wird um die Anomalien zu ordnen."/>
+			<Setting Id="SORT_BY_LOWEST_TIMER_STRING"
+					 String="Geringste Dauer"/>
+			<Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
+					 String="Längste Dauer"/>
+			<Setting Id="SORT_BY_DISABLED_STRING"
+					 String="Deaktiviert"/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Entwickler: Pseudo-Monster Widget"/>

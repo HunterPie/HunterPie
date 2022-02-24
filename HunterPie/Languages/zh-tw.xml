@@ -50,7 +50,7 @@
 		<Abnormality Id="ABNORMALITY_ENV_NEG" String="地形傷害無效"/>
 		<Abnormality Id="ABNORMALITY_SONIC_BARRIER" String="滑音節奏"/>
 		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="氣焰的旋律"/>
-		
+
 		<Abnormality Id="ABNORMALITY_MIGHT_SEED" String="怪力種子"/>
 		<Abnormality Id="ABNORMALITY_BUTTERFLAME" String="火紅焰蝶"/>
 		<Abnormality Id="ABNORMALITY_CUTTERFLY" String="網切蜻蜓"/>
@@ -69,19 +69,19 @@
 		<Abnormality Id="ABNORMALITY_ROUSING_ROAR" String="強化咆哮之技"/>
 		<Abnormality Id="ABNORMALITY_DEMON_AMMO" String="鬼人彈"/>
 		<Abnormality Id="ABNORMALITY_ARMOR_AMMO" String="硬化彈"/>
-		
+
 		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="糰子鍛鍊"/>
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="糰子短期催眠術"/>
 		<Abnormality Id="ABNORMALITY_DANGO_GLUTTON" String="糰子不知飢"/>
-		
+
 		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="逆襲"/>
 		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="力量解放"/>
 		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="滑走強化"/>
-		
+
 
 		<Abnormality Id="ABNORMALITY_POISON" String="中毒"/>
 		<Abnormality Id="ABNORMALITY_VENOM" String="猛毒"/>
-		<Abnormality Id="ABNORMALITY_DEF_DOWN" String="防禦力下降"/>
+		<Abnormality Id="ABNORMALITY_DEF_DOWN" String="防禦力DOWN"/>
 		<Abnormality Id="ABNORMALITY_RES_DOWN" String="全屬性耐性DOWN"/>
 		<Abnormality Id="ABNORMALITY_STENCH" String="無法使用部分道具 "/>
 		<Abnormality Id="ABNORMALITY_HELLFIRE" String="鬼火異常"/>
@@ -276,8 +276,8 @@
 					 String="狀態列"
 					 Description="狀態列設定"/>
 			<Setting Id="MONSTER_WIDGET_STRING"
-					 String="顯示介面設定"
-					 Description="覆蓋層配置"/>
+					 String="魔物小工具"
+					 Description="魔物小工具配置"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="開發工具"
 					 Description="高級開發工具"/>
@@ -341,7 +341,7 @@
 					 String="初始化介面"
 					 Description="如果啟用, HunterPie將始終初始化此介面。如果您不需要此介面，請將其關閉。"/>
 			<Setting Id="ENABLE_WIDGET_STRING"
-					 String="顯示介面"
+					 String="顯示小工具介面"
 					 Description="如果啟用, 只要有可以顯示的數據，HunterPie將會始終顯示此介面。"/>
 			<Setting Id="WIDGET_POSITION"
 					 String="介面位置"
@@ -350,11 +350,11 @@
 					 String="不透明度"
 					 Description="控制介面的不透明度。"/>
 			<Setting Id="WIDGET_SCALE"
-					 String="小工具介面比例"
+					 String="小工具比例"
 					 Description="調整小工具介面的線性比例，數值越高，介面就越大。"/>
 			<Setting Id="ORIENTATION_STRING"
-					 String="小工具介面方位"
-					 Description="在小工具介面顯示多項訊息時，更改小工具的擴展方向。"/>
+					 String="小工具排列"
+					 Description="在小工具顯示多種魔物時，更改小工具橫向或直向的排列。"/>
 
 			<Setting Id="MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING"
 					 String="狩獵目標鎖定"
@@ -363,10 +363,10 @@
 					 String="魔物耐力"
 					 Description="如果啟用，HunterPie 將在其生命值條下方顯示魔物的耐力。"/>
 			<Setting Id="MONSTER_WIDGET_MAX_WIDTH_STRING"
-					 String="魔物小工具介面最大寬度"
+					 String="魔物小工具最大寬度"
 					 Description="調整魔物血條的最大寬度。"/>
 			<Setting Id="MONSTER_WIDGET_MIN_WIDTH_STRING"
-					 String="魔物小工具介面最小寬度"
+					 String="魔物小工具最小寬度"
 					 Description="調整魔物血條的最小寬度。如果啟用「自動調整魔物血條寬距」，它將根據此設置自動更改。"/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_PARTS_STRING"
 					 String="魔物部位顯示"
