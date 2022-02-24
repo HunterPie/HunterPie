@@ -57,6 +57,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Address\MonsterHunterRise.3.9.0.0.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Address\MonsterHunterRise.3.6.1.1.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
