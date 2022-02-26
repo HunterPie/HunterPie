@@ -122,7 +122,7 @@
 			<Part Id="PART_LOWER_BODY" String="하반신"/>
 			<Part Id="PART_UPPER_BACK" String="위쪽 등"/>
 			<Part Id="PART_LOWER_BACK" String="아래쪽 등"/>
-			<Part Id="PART_ROLLING" String="구르는 중"/>
+			<Part Id="PART_ROLLING" String="구르기"/>
 			<Part Id="PART_DORSAL_FIN" String="등 지느러미"/>
 			<Part Id="PART_LEGS" String="다리"/>
 			<Part Id="PART_SHELL" String="껍데기"/>
@@ -213,7 +213,7 @@
 			<Stage Id="207" String="비취잎의 요새"/>
 			<Stage Id="209" String="옥천향"/>
 			<Stage Id="210" String="격투장"/>
-			<Stage Id="211" String="용궁 성터"/>
+			<Stage Id="211" String="용궁성터"/>
 		</Rise>
 	</Stages>
 
