@@ -25,13 +25,13 @@ namespace HunterPie.UI.Controls.Settings
         public static readonly DependencyProperty DescriptionProperty =
             DependencyProperty.Register("Description", typeof(string), typeof(SettingElementHost), new PropertyMetadata("UNKNOWN_STRING_DESC"));
 
-        public UIElement Hosted
+        public UserControl Hosted
         {
-            get { return (UIElement)GetValue(HostedProperty); }
+            get { return (UserControl)GetValue(HostedProperty); }
             set { SetValue(HostedProperty, value); }
         }
         public static readonly DependencyProperty HostedProperty =
-            DependencyProperty.Register("Hosted", typeof(UIElement), typeof(SettingElementHost));
+            DependencyProperty.Register("Hosted", typeof(UserControl), typeof(SettingElementHost));
 
         public SettingElementHost()
         {

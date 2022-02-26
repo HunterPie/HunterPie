@@ -13,12 +13,31 @@
                        ClipToBounds="True">
     <arch:ClickableControl.Resources>
         <Storyboard x:Key="PART_RippleAnimation" Storyboard.TargetName="PART_Ripple">
-            <DoubleAnimation Storyboard.TargetProperty="Width" From="0" Duration="0:0:0.3" />
-            <ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:0.3" />
-            <DoubleAnimation Duration="0:0:0.8" Storyboard.TargetProperty="Opacity"
-                                    From="1" To="0" />
-            <DoubleAnimation Storyboard.TargetProperty="Width" To="0" BeginTime="0:0:1.25" Duration="0:0:0" />
-            <DoubleAnimation BeginTime="0:0:1.25" Duration="0:0:0" Storyboard.TargetProperty="Opacity" To="1" />
+            <DoubleAnimation Storyboard.TargetProperty="Width" 
+                             From="0" 
+                             Duration="0:0:0.3" />
+            <ThicknessAnimation Storyboard.TargetProperty="Margin" 
+                                Duration="0:0:0.3" />
+            <DoubleAnimation Duration="0:0:0.8" 
+                             Storyboard.TargetProperty="Opacity"
+                             From="1"
+                             To="0">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetProperty="Width" 
+                             To="0" 
+                             BeginTime="0:0:1.25" 
+                             Duration="0:0:0" />
+            <DoubleAnimation BeginTime="0:0:1.25" 
+                             Duration="0:0:0" 
+                             Storyboard.TargetProperty="Opacity" 
+                             To="1">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
         </Storyboard>
         <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
     </arch:ClickableControl.Resources>
