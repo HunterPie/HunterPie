@@ -201,11 +201,11 @@
 			<Stage Id="0" String="마을"/>
 			<Stage Id="1" String="집"/>
 			<Stage Id="2" String="동반자 광장"/>
-			<Stage Id="3" String="집회구역"/>
-			<Stage Id="4" String="집회소 준비구역"/>
+			<Stage Id="3" String="집회소"/>
+			<Stage Id="4" String="집회소 준비 구역"/>
 			<Stage Id="5" String="수련장"/>
 			<Stage Id="199" String="캐릭터 선택 화면"/>
-			<Stage Id="201" String="사원폐허"/>
+			<Stage Id="201" String="사원 폐허"/>
 			<Stage Id="202" String="모래 평원"/>
 			<Stage Id="203" String="수몰된 숲"/>
 			<Stage Id="204" String="한랭 군도"/>
