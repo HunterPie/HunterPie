@@ -72,9 +72,9 @@
                           d:DataContext="{StaticResource MockViewModel}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel ItemHeight="45"
-                               Orientation="Vertical"
-                               ItemWidth="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"/>
+                        <WrapPanel ItemHeight="40"
+                                   Orientation="Vertical"
+                                   ItemWidth="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
@@ -101,9 +101,6 @@
                 </lvc:CartesianChart.AxisX>
             </lvc:CartesianChart>
         </StackPanel>
-        
-
-        
 
         <StackPanel Orientation="Horizontal"
                     Grid.Row="2"
@@ -114,13 +111,14 @@
                             ToolTip="Highlight Myself"
                             Margin="0,0,5,0"
                             OnClick="OnPlayerHighlightToggle"
-                            Background="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}">
-                <Image Source="{StaticResource ICON_SPARKLING}"
-                           Height="18"/>
+                            Background="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}"
+                            Height="25"
+                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
+                <Image Source="{StaticResource ICON_SPARKLING}"/>
                 <buttons:Button.Clip>
-                    <EllipseGeometry RadiusX="14"
-                                     RadiusY="14"
-                                     Center="14,15"/>
+                    <EllipseGeometry RadiusX="12.5"
+                                     RadiusY="12.5"
+                                     Center="12.5,12.5"/>
                 </buttons:Button.Clip>
             </buttons:Button>
 
@@ -128,13 +126,14 @@
                             ToolTip="Hide names"
                             Margin="0,0,5,0"
                             OnClick="OnPlayerBlurToggle"
-                            Background="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}">
-                <Image Source="{StaticResource ICON_HIDE}"
-                           Height="18"/>
+                            Background="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}"
+                            Height="25"
+                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
+                <Image Source="{StaticResource ICON_HIDE}"/>
                 <buttons:Button.Clip>
-                    <EllipseGeometry RadiusX="14"
-                                     RadiusY="14"
-                                     Center="14,15"/>
+                    <EllipseGeometry RadiusX="12.5"
+                                     RadiusY="12.5"
+                                     Center="12.5,12.5"/>
                 </buttons:Button.Clip>
             </buttons:Button>
             <StackPanel.Style>
