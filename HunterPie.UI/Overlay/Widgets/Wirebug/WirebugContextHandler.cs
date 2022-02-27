@@ -1,16 +1,10 @@
 ﻿using HunterPie.Core.Game.Rise.Entities;
 using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HunterPie.UI.Overlay.Widgets.Wirebug
 {
     class WirebugContextHandler : WirebugViewModel, IContextHandler
     {
-
         public readonly MHRWirebug Context;
 
         public WirebugContextHandler(MHRWirebug context)

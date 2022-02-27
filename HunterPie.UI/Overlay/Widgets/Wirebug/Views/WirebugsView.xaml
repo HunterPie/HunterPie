@@ -15,7 +15,7 @@
         <vm:MockWirebugsViewModel x:Key="MockViewModel"/>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
     </UserControl.Resources>
-    <Grid>
+    <Grid Visibility="{Binding IsAvailable, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
         <ItemsControl ItemsSource="{Binding Elements, Mode=OneWay}"
                       HorizontalAlignment="Center"
                       d:DataContext="{StaticResource MockViewModel}">

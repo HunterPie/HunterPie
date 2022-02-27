@@ -14,7 +14,11 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug
 {
     public class WirebugWidgetContextHandler : IContextHandler
     {
-
+        private readonly static HashSet<int> UnavailableStages = new() { 
+            1, // Room
+            3, // Gathering Hub
+            4, // Hub Prep Plaza
+        };
         private readonly MHRContext Context;
         private readonly WirebugsViewModel ViewModel;
         private MHRPlayer Player => (MHRPlayer)Context.Game.Player;
@@ -34,20 +38,26 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug
 
         private void HookEvents()
         {
+            Player.OnStageUpdate += OnStageUpdate;
             Player.OnWirebugsRefresh += OnWirebugsRefresh;
         }
 
         public void UnhookEvents()
         {
+            Player.OnStageUpdate -= OnStageUpdate;
             Player.OnWirebugsRefresh -= OnWirebugsRefresh;
         }
+
+
+        private void OnStageUpdate(object sender, EventArgs e) => ViewModel.IsAvailable = !UnavailableStages.Contains(Player.StageId);
 
         private void OnWirebugsRefresh(object sender, MHRWirebug[] e)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                foreach (WirebugContextHandler vm in ViewModel.Elements.Cast<WirebugContextHandler>())
-                    vm.UnhookEvents();
+                foreach (WirebugViewModel vm in ViewModel.Elements)
+                    if (vm is WirebugContextHandler model)
+                        model.UnhookEvents();
 
                 ViewModel.Elements.Clear();
 
@@ -58,6 +68,8 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug
 
         private void UpdateData()
         {
+            ViewModel.IsAvailable = !UnavailableStages.Contains(Player.StageId);
+
             foreach (MHRWirebug wirebug in Player.Wirebugs)
                 ViewModel.Elements.Add(new WirebugContextHandler(wirebug));
         }
