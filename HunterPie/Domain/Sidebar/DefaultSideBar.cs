@@ -10,6 +10,7 @@ namespace HunterPie.Domain.Sidebar
             new SettingsSideBarElementViewModel(),
             new PluginsSideBarElementViewModel(),
             new PatchNotesSideBarElementViewModel(),
+            new PatreonSideBarElementViewModel(),
             new DiscordSideBarElementViewModel()
         };
 

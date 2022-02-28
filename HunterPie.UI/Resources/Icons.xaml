@@ -55,6 +55,14 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="ICON_PATREON">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="{StaticResource BUTTON_COMMONBUTTON_FOREGROUND}" Geometry="F1 M512,512z M0,0z M512,194.8C512,296.1 429.6,378.6 328.2,378.6 226.5,378.6 143.8,296.2 143.8,194.8 143.8,93.2 226.5,10.5 328.2,10.5 429.6,10.5 512,93.2 512,194.8z M0,501.5L90,501.5 90,10.5 0,10.5 0,501.5z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="ICON_BUG">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">

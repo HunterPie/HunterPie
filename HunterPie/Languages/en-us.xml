@@ -229,6 +229,8 @@
 				 String="Plugins"/>
 			<Tab Id="SETTINGS_STRING"
 				 String="Settings"/>
+			<Tab Id="PATREON_STRING"
+				 String="Patreon"/>
 		</Tabs>
 		<Generics>
 			<Generic Id="HUNTERPIE_IS_LATEST_VERSION"
