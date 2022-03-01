@@ -8,7 +8,6 @@ using HunterPie.UI.Overlay.Enums;
 using System.Windows.Media;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
-using System.Windows.Threading;
 using System.Windows.Input;
 #if DEBUG
 using LiveCharts;
@@ -82,7 +81,6 @@ namespace HunterPie.UI.Overlay.Components
         private int counter = 0;
         private void OnRender(object sender, EventArgs e)
         {
-            RenderingEventArgs args = (RenderingEventArgs)e;
             if (counter >= 60)
             {
                 RenderingTime = (DateTime.Now - LastRender).TotalMilliseconds;
@@ -90,7 +88,6 @@ namespace HunterPie.UI.Overlay.Components
                 counter = 0;
             }
             LastRender = DateTime.Now;
-            Dispatcher.Invoke(() => { }, DispatcherPriority.Normal);
             counter++;
         }
 
