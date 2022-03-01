@@ -18,6 +18,7 @@ using HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.UI.Overlay.Widgets.Wirebug.Views;
 using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
+using System.Threading;
 
 namespace HunterPie
 {

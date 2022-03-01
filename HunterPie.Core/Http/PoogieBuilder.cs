@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 
@@ -7,7 +8,7 @@ namespace HunterPie.Core.Http
 {
     public class PoogieBuilder
     {
-        private Poogie poogie = new();
+        private readonly Poogie poogie = new();
 
         public PoogieBuilder() { }
         public PoogieBuilder(string[] urls) { poogie.Urls.AddRange(urls); }
@@ -23,6 +24,9 @@ namespace HunterPie.Core.Http
 
         public PoogieBuilder WithHeader(string key, string value)
         {
+            Debug.Assert(!string.IsNullOrEmpty(key));
+            Debug.Assert(!string.IsNullOrEmpty(value));
+
             poogie.Headers.Add(key, value);
             
             return this;
@@ -30,6 +34,8 @@ namespace HunterPie.Core.Http
 
         public PoogieBuilder Post(string path)
         {
+            Debug.Assert(path.StartsWith("/"));
+
             poogie.Method = HttpMethod.Post;
             poogie.Path = path;
 

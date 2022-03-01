@@ -25,7 +25,7 @@
 
 
     </UserControl.Resources>
-    <Grid>
+    <Grid d:Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
@@ -100,7 +100,7 @@
                    VerticalAlignment="Top"
                    HorizontalAlignment="Right"
                    Margin="0,2,15,0">
-            <Run Text="150"/><!--
+            <Run Text="30"/><!--
          --><Run Text="/150"
                  FontWeight="Light"/>
             <TextBlock.Effect>
@@ -132,7 +132,7 @@
                    VerticalAlignment="Top"
                    HorizontalAlignment="Right"
                    Margin="0,38,19,0">
-            <Run Text="2000"/><!--
+            <Run d:Text="200"/><!--
          --><Run Text="/2000"
                  FontWeight="Light"/>
             <TextBlock.Effect>

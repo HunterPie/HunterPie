@@ -19,7 +19,7 @@ namespace HunterPie.Core.Extensions
                     sub(self, data);
                 } catch (Exception err)
                 {
-                    Log.Error($"Exception in {sub.Method.Name}:", err);
+                    Log.Error("Exception in {0}: {1}", sub.Method.Name, err.Message);
                 }
             }
         }
@@ -37,7 +37,7 @@ namespace HunterPie.Core.Extensions
                 }
                 catch (Exception err)
                 {
-                    Log.Error($"Exception in {sub.Method.Name}:", err);
+                    Log.Error("Exception in {0}: {1}", sub.Method.Name, err.Message);
                 }
             }
         }

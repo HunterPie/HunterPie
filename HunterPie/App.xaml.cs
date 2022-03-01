@@ -48,7 +48,6 @@ namespace HunterPie
             window.Show();
 
             InitializeProcessScanners();
-            
         }
 
         private void CheckForRunningInstances()
