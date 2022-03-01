@@ -4,7 +4,7 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
-    [SettingsGroup("WIREBUG_WIDGET_STRING", "ICON_WIREBUG")]
+    [SettingsGroup("WIREBUG_WIDGET_STRING", "ICON_WIREBUG_DARK")]
     public class WirebugWidgetConfig : IWidgetSettings, ISettings
     {
         [SettingField("INITIALIZE_WIDGET_STRING", requiresRestart: true)]

@@ -22,7 +22,7 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.View
 
         public string Title => "Debug Metrics";
 
-        public WidgetType Type => WidgetType.ClickThrough;
+        public WidgetType Type => WidgetType.Window;
 
         IWidgetSettings IWidgetWindow.Settings => Settings;
 

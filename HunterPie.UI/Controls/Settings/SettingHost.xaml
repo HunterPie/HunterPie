@@ -66,7 +66,7 @@
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter Property="Opacity" Value="1"/>
                                 <Setter TargetName="PART_Border" Property="BorderBrush" Value="Black" />
-                                <Setter Property="Foreground" Value="{StaticResource BUTTON_COMMONBUTTON_FOREGROUND}"/>
+                                <Setter Property="Foreground" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -136,7 +136,7 @@
                     BorderThickness="0,1,0,0"
                     Margin="1,35,1,1"
                     BorderBrush="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
-                    SelectedIndex="{Binding CurrentTabIndex}">
-        </TabControl>
+                    SelectedIndex="{Binding CurrentTabIndex}"
+                    TabStripPlacement="Left"/>
     </Grid>
 </UserControl>

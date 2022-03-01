@@ -7,6 +7,7 @@
         xmlns:overlay="clr-namespace:HunterPie.UI.Overlay"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:DEBUG="DEBUG_MODE"
+        xmlns:enums="clr-namespace:HunterPie.UI.Overlay.Enums"
         mc:Ignorable="d"
         Title="{Binding Widget.Title, Mode=OneWay}"
         WindowStyle="None"
@@ -27,6 +28,7 @@
         MouseWheel="OnMouseWheel">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <enums:WidgetType x:Key="WidgetType_Window">Window</enums:WidgetType>
     </Window.Resources>
     <Grid>
         <Grid x:Name="PART_Base"
@@ -45,6 +47,31 @@
                     <Setter Property="Opacity" Value="0"/>
                     <Style.Triggers>
                         <!-- OnMouseOver -->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Widget.Type}"
+                                           Value="{StaticResource WidgetType_Window}"/>
+                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}"
+                                           Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetProperty="Opacity">
+                                        <DoubleAnimation Duration="0:0:0.15"
+                                                         To="1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiDataTrigger.EnterActions>
+                            <MultiDataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetProperty="Opacity">
+                                        <DoubleAnimation Duration="0:0:0.15"
+                                                         To="0"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiDataTrigger.ExitActions>
+                        </MultiDataTrigger>
+
                         <DataTrigger Binding="{Binding IsDesignModeEnabled, Source={x:Static overlay:WidgetManager.Instance}}"
                                      Value="True">
                             <DataTrigger.EnterActions>
