@@ -7,6 +7,7 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel
     {
         public MockWirebugsViewModel()
         {
+            IsAvailable = true;
             Elements.Add(
                 new() 
                 {

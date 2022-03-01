@@ -125,6 +125,9 @@ namespace HunterPie.UI.Overlay.Components
 
         internal void HandleTransparencyFlag(bool enableFlag)
         {
+            if (Widget.Type == WidgetType.Window)
+                return;
+
             IntPtr hWnd = new WindowInteropHelper(this)
                 .EnsureHandle();
 

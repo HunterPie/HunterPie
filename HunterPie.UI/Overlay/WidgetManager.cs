@@ -1,5 +1,4 @@
 ﻿using HunterPie.Core.Architecture;
-using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Input;
 using HunterPie.Core.Logger;
@@ -37,7 +36,7 @@ namespace HunterPie.UI.Overlay
 
         private WidgetManager()
         {
-            Hotkey.Register(Settings.ToggleDesignMode, EnterDesignMode);
+            Hotkey.Register(Settings.ToggleDesignMode, ToggleDesignMode);
         }
 
         public static bool Register<T, K>(T widget) where T : IWidgetWindow, IWidget<K>
@@ -61,7 +60,7 @@ namespace HunterPie.UI.Overlay
             Instance._widgets.Clear();
         }
 
-        private void EnterDesignMode()
+        private void ToggleDesignMode()
         {
             IsDesignModeEnabled = !IsDesignModeEnabled;
 

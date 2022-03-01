@@ -46,6 +46,25 @@
                 <Style TargetType="{x:Type Grid}">
                     <Setter Property="Opacity" Value="0"/>
                     <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsDesignModeEnabled, Source={x:Static overlay:WidgetManager.Instance}}"
+                                     Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetProperty="Opacity">
+                                        <DoubleAnimation Duration="0:0:0.15"
+                                                         To="1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetProperty="Opacity">
+                                        <DoubleAnimation Duration="0:0:0.15"
+                                                         To="0"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
                         <!-- OnMouseOver -->
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
@@ -71,26 +90,6 @@
                                 </BeginStoryboard>
                             </MultiDataTrigger.ExitActions>
                         </MultiDataTrigger>
-
-                        <DataTrigger Binding="{Binding IsDesignModeEnabled, Source={x:Static overlay:WidgetManager.Instance}}"
-                                     Value="True">
-                            <DataTrigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard Storyboard.TargetProperty="Opacity">
-                                        <DoubleAnimation Duration="0:0:0.15"
-                                                         To="1"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </DataTrigger.EnterActions>
-                            <DataTrigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard Storyboard.TargetProperty="Opacity">
-                                        <DoubleAnimation Duration="0:0:0.15"
-                                                         To="0"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </DataTrigger.ExitActions>
-                        </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Grid.Style>
