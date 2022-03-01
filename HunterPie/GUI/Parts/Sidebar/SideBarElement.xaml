@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+             xmlns:misc="clr-namespace:HunterPie.UI.Controls.Misc;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="300">
     <UserControl.Resources>
@@ -22,13 +23,10 @@
                       ClipToBounds="False">
                     <Image Source="{Binding Icon}"
                            d:Source="{StaticResource ICON_DOCUMENTATION}"/>
-                    <Ellipse Fill="{StaticResource HUNTERPIE_NOTIFICATION_BADGE_COLOR}"
-                             Visibility="{Binding ShouldNotify, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                             Height="8"
-                             Width="8"
-                             VerticalAlignment="Top"
-                             HorizontalAlignment="Right"
-                             Margin="0,0,-3,0"/>
+                    <misc:Badge VerticalAlignment="Top"
+                                HorizontalAlignment="Right"
+                                Margin="0,0,-15,0"
+                                Visibility="{Binding ShouldNotify, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 </Grid>
                 <TextBlock Text="{Binding Text, FallbackValue=Button}"
                            FontWeight="Medium"
