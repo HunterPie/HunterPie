@@ -3,15 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.GUI.Parts.Console"
+             xmlns:vm="clr-namespace:HunterPie.GUI.Parts.Console.ViewModels"
              xmlns:logger="clr-namespace:HunterPie.UI.Logger;assembly=HunterPie.UI"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" 
+             d:DesignWidth="800">
     <UserControl.Resources>
-        <logger:LogLevelToColorConverter x:Key="LogLevelToColorConverter"/>
-        <logger:LogLevelToStringConverter x:Key="LogLevelToStringConverter"/>
+        <vm:MockConsoleViewModel x:Key="MockConsoleViewModel"/>
     </UserControl.Resources>
     <Grid>
-        <ItemsControl ItemsSource="{Binding Source={x:Static logger:HunterPieLogger.ViewModel}, Mode=OneWay}">
+        <ItemsControl ItemsSource="{Binding Source={x:Static logger:HunterPieLogger.ViewModel}, Mode=OneWay}"
+                      d:ItemsSource="{Binding Logs}"
+                      d:DataContext="{StaticResource MockConsoleViewModel}">
             <ItemsControl.Template>
                 <ControlTemplate>
                     <ScrollViewer VirtualizingPanel.IsVirtualizing="True"
@@ -23,16 +27,7 @@
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock FontFamily="Work Sans"
-                               Foreground="WhiteSmoke"
-                               FontSize="13"
-                               TextWrapping="WrapWithOverflow">
-                        <Run Text="{Binding Timestamp}"
-                             Foreground="{StaticResource HUNTERPIE_ACCENT_COLOR}"/><!--
-                     --><Run Text="{Binding Level, Converter={StaticResource LogLevelToStringConverter}}"
-                             Foreground="{Binding Level, Converter={StaticResource LogLevelToColorConverter}}"/>
-                        <Run Text="{Binding Message}"/>
-                    </TextBlock>
+                    <local:LogView Margin="0,0,0,2"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

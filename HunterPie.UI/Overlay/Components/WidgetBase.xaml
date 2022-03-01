@@ -7,6 +7,7 @@
         xmlns:overlay="clr-namespace:HunterPie.UI.Overlay"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:DEBUG="DEBUG_MODE"
+        xmlns:enums="clr-namespace:HunterPie.UI.Overlay.Enums"
         mc:Ignorable="d"
         Title="{Binding Widget.Title, Mode=OneWay}"
         WindowStyle="None"
@@ -20,12 +21,14 @@
         Left="{Binding Widget.Settings.Position.X, Mode=TwoWay}"
         Opacity="{Binding Widget.Settings.Opacity.Current, Mode=OneWay}"
         UseLayoutRounding="True"
-        RenderOptions.ClearTypeHint="Enabled" 
+        SnapsToDevicePixels="True"
         Loaded="OnLoaded"
         ShowInTaskbar="False"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize" 
+        MouseWheel="OnMouseWheel">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <enums:WidgetType x:Key="WidgetType_Window">Window</enums:WidgetType>
     </Window.Resources>
     <Grid>
         <Grid x:Name="PART_Base"
@@ -43,14 +46,13 @@
                 <Style TargetType="{x:Type Grid}">
                     <Setter Property="Opacity" Value="0"/>
                     <Style.Triggers>
-                        <!-- OnMouseOver -->
                         <DataTrigger Binding="{Binding IsDesignModeEnabled, Source={x:Static overlay:WidgetManager.Instance}}"
                                      Value="True">
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard Storyboard.TargetProperty="Opacity">
                                         <DoubleAnimation Duration="0:0:0.15"
-                                                 To="1"/>
+                                                         To="1"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.EnterActions>
@@ -58,11 +60,36 @@
                                 <BeginStoryboard>
                                     <Storyboard Storyboard.TargetProperty="Opacity">
                                         <DoubleAnimation Duration="0:0:0.15"
-                                                 To="0"/>
+                                                         To="0"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.ExitActions>
                         </DataTrigger>
+                        <!-- OnMouseOver -->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Widget.Type}"
+                                           Value="{StaticResource WidgetType_Window}"/>
+                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}"
+                                           Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetProperty="Opacity">
+                                        <DoubleAnimation Duration="0:0:0.15"
+                                                         To="1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiDataTrigger.EnterActions>
+                            <MultiDataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetProperty="Opacity">
+                                        <DoubleAnimation Duration="0:0:0.15"
+                                                         To="0"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiDataTrigger.ExitActions>
+                        </MultiDataTrigger>
                     </Style.Triggers>
                 </Style>
             </Grid.Style>
@@ -71,9 +98,32 @@
         <!-- Widget content -->
         <Grid Margin="10,50,10,10">
             <ContentControl Content="{Binding Widget}"
-                            Opacity="{Binding Widget.Settings.Opacity.Current, Mode=OneWay}"
-                            Visibility="{Binding Widget.Settings.Enabled.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            
+                            Opacity="{Binding Widget.Settings.Opacity.Current, Mode=OneWay}">
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Style.Setters>
+                            <Setter Property="Visibility" Value="{Binding Widget.Settings.Enabled.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        </Style.Setters>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Settings.HideWhenUnfocus.Value, Source={x:Static overlay:WidgetManager.Instance}}" Value="True"/>
+                                    <Condition Binding="{Binding IsGameFocused, Source={x:Static overlay:WidgetManager.Instance}}" Value="False"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </MultiDataTrigger>
+
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsDesignModeEnabled, Source={x:Static overlay:WidgetManager.Instance}}" Value="True"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
+
             <mc:AlternateContent>
                 <mc:Choice Requires="DEBUG">
                     <TextBlock Background="#50000000"

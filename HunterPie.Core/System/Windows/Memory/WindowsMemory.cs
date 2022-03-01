@@ -101,16 +101,6 @@ namespace HunterPie.Core.System.Windows.Memory
             return buffer;
         }
 
-        public bool Write<T>(long address, T data) where T : struct
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Write<T>(long address, T[] data) where T : struct
-        {
-            throw new NotImplementedException();
-        }
-
         public T Deref<T>(long address, int[] offsets) where T : struct
         {
             long ptr = Read(address, offsets);
@@ -121,6 +111,42 @@ namespace HunterPie.Core.System.Windows.Memory
         {
             long ptr = ReadPtr(address, offsets);
             return Read<T>(ptr);
+        }
+
+        public bool Write<T>(long address, T data) where T : struct
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Write<T>(long address, T[] data) where T : struct
+        {
+            byte[] buffer = StructureToBuffer(data);
+            return Kernel32.WriteProcessMemory(pHandle, (IntPtr)address, buffer, buffer.Length, out int _);
+        }
+
+        public bool InjectAsm(long address, byte[] asm)
+        {
+            Kernel32.VirtualProtectEx(pHandle, (IntPtr)address, (UIntPtr)asm.Length, 0x40, out uint oldProtect);
+            bool result = Write(address, asm);
+            Kernel32.VirtualProtectEx(pHandle, (IntPtr)address, (UIntPtr)asm.Length, oldProtect, out oldProtect);
+            return result;
+        }
+
+        public static byte[] StructureToBuffer<T>(T[] array) where T : struct
+        {
+            int size = Marshal.SizeOf<T>() * array.Length;
+            IntPtr malloced = Marshal.AllocHGlobal(size);
+            byte[] buffer = new byte[size];
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                int offset = i * Marshal.SizeOf<T>();
+                Marshal.StructureToPtr(array[i], malloced + offset, false);
+            }
+
+            Marshal.Copy(malloced, buffer, 0, size);
+            Marshal.FreeHGlobal(malloced);
+            return buffer;
         }
     }
 }

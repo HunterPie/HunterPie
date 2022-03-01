@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="HunterPie.UI.Controls.Misc.Badge"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Controls.Misc"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Rectangle RadiusX="{Binding ActualWidth, RelativeSource={RelativeSource Self}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.05}"
+                   RadiusY="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.05}"
+                   Fill="#CC700000"
+                   Stroke="#FFFFA8A8"
+                   StrokeThickness="1"
+                   x:Name="PART_Background"/>
+        <TextBlock Text="New"
+                   Padding="1"
+                   Foreground="{Binding Stroke, ElementName=PART_Background}"
+                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   FontSize="10"/>
+    </Grid>
+</UserControl>

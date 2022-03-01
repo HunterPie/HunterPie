@@ -53,6 +53,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
                     new MonsterPartViewModel()
                     {
                         Name = $"Severable {i}",
+                        IsKnownPart = true,
                         Health = 500.0,
                         MaxHealth = 500.0,
                         Sever = 2000.0,
@@ -73,6 +74,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
                     new MonsterPartViewModel()
                     {
                         Name = $"Breakable {i}",
+                        IsKnownPart = true,
                         Health = 500.0,
                         MaxHealth = 500.0,
                         Flinch = 250.0,
@@ -91,6 +93,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
                     new MonsterPartViewModel()
                     {
                         Name = $"Part {i}",
+                        IsKnownPart = true,
                         Flinch = 250.0,
                         MaxFlinch = 250.0,
                         Breaks = 0,
@@ -107,7 +110,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
             {
                 "AILMENT_UNKNOWN", "AILMENT_PARALYSIS", "AILMENT_SLEEP", "AILMENT_STUN", "AILMENT_POISON",
                 "AILMENT_BLAST", "AILMENT_EXHAUST", "AILMENT_MOUNT", "AILMENT_FLASH", "AILMENT_WATER", "AILMENT_FIRE",
-                "AILMENT_ICE", "AILMENT_THUNDER", "STATUS_ENRAGE"
+                "AILMENT_ICE", "AILMENT_THUNDER", "AILMENT_DUNG", "STATUS_ENRAGE"
             };
             foreach (string name in ailmentNames)
             {

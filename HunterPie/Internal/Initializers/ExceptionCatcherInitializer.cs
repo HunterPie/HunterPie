@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Logger;
 using HunterPie.Domain.Interfaces;
+using HunterPie.Internal.Poogie;
 using System;
 
 namespace HunterPie.Internal.Initializers
@@ -10,7 +11,9 @@ namespace HunterPie.Internal.Initializers
         {
             AppDomain.CurrentDomain.UnhandledException += (_, args) =>
             {
-                Log.Error(args.ExceptionObject);
+                Log.Error(args.ExceptionObject.ToString());
+
+                RemoteCrashReporter.Send(args.ExceptionObject as Exception);
             };
         }
     }

@@ -9,6 +9,7 @@
         Title="TestWindow" 
         Height="450" 
         Width="800" 
+        Background="Transparent"
         WindowStyle="None" 
         AllowsTransparency="True"
         Icon="{StaticResource ICON_SETTINGS}">

@@ -1,0 +1,161 @@
+﻿<UserControl x:Class="HunterPie.UI.Overlay.Widgets.Wirebug.Views.WirebugView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Wirebug.Views"
+             xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel"
+             xmlns:controls="clr-namespace:HunterPie.UI.Overlay.Controls"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             d:DataContext="{d:DesignInstance Type=vm:WirebugViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" 
+             d:DesignWidth="50"
+             IsHitTestVisible="False">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:RatioConverter x:Key="RatioConverter"/>
+        <converters:ReverseRatioConverter x:Key="ReverseRatioConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Ellipse Width="1"
+                 Height="1"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"
+                 RenderTransformOrigin="0.5,0.5"
+                 Fill="#FF5B86E5">
+            <Ellipse.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1" 
+                                    ScaleY="1"/>
+                </TransformGroup>
+            </Ellipse.RenderTransform>
+            <Ellipse.Style>
+                <Style TargetType="Ellipse">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding OnCooldown}" Value="False">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard Name="ANIMATION_PULSE">
+                                    <Storyboard RepeatBehavior="Forever"
+                                                Duration="0:0:5">
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <ExponentialEase EasingMode="EaseOut"/>
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
+
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="50"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="50">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <ExponentialEase EasingMode="EaseOut"/>
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:01.5" Value="70">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <ExponentialEase EasingMode="EaseOut"/>
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
+
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="50"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="50">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <ExponentialEase EasingMode="EaseOut"/>
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="70">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <ExponentialEase EasingMode="EaseOut"/>
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <RemoveStoryboard BeginStoryboardName="ANIMATION_PULSE"/>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Ellipse.Style>
+        </Ellipse>
+        <Ellipse Fill="#B2000000"/>
+        <controls:Arc StrokeThickness="3">
+            <controls:Arc.Stroke>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#36D1DC"/>
+                    <GradientStop Color="#5B86E5" Offset="1"/>
+                </LinearGradientBrush>
+            </controls:Arc.Stroke>
+            <controls:Arc.Percentage>
+                <MultiBinding Converter="{StaticResource ReverseRatioConverter}">
+                    <Binding Path="Cooldown"/>
+                    <Binding Path="MaxCooldown"/>
+                </MultiBinding>
+            </controls:Arc.Percentage>
+        </controls:Arc>
+        <controls:Arc StrokeThickness="3"
+                      Margin="3">
+            <controls:Arc.Stroke>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFCD3F52" Offset="1"/>
+                    <GradientStop Color="#FFC1416F" Offset="0"/>
+                </LinearGradientBrush>
+            </controls:Arc.Stroke>
+            <controls:Arc.Percentage>
+                <MultiBinding Converter="{StaticResource RatioConverter}">
+                    <Binding Path="Timer"/>
+                    <Binding Path="MaxTimer"/>
+                </MultiBinding>
+            </controls:Arc.Percentage>
+        </controls:Arc>
+        <Image Margin="5,10,8,10"
+               Source="{StaticResource ICON_WIREBUG}">
+            <Image.Effect>
+                <DropShadowEffect ShadowDepth="0" 
+                                  BlurRadius="10" 
+                                  Color="#FF00D6F7"/>
+            </Image.Effect>
+        </Image>
+        <Grid Visibility="{Binding OnCooldown, Converter={StaticResource BooleanToVisibilityConverter}}"
+              d:Visibility="Visible">
+            <controls:Arc Stroke="#80000000"
+                          StrokeThickness="20"
+                          Margin="5" 
+                          RenderTransformOrigin="0.5,0.5">
+                <controls:Arc.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="-1"/>
+                    </TransformGroup>
+                </controls:Arc.RenderTransform>
+                <controls:Arc.Percentage>
+                    <MultiBinding Converter="{StaticResource RatioConverter}">
+                        <Binding Path="Cooldown"/>
+                        <Binding Path="MaxCooldown"/>
+                    </MultiBinding>
+                </controls:Arc.Percentage>
+            </controls:Arc>
+            <Ellipse Margin="5"
+                     Fill="#80000000"/>
+            <TextBlock Text="{Binding Cooldown, Mode=OneWay, StringFormat=\{0:F1\}}"
+                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       FontSize="15"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontWeight="Medium">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FF34343C"
+                                      BlurRadius="4" 
+                                      ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </Grid>
+    </Grid>
+</UserControl>

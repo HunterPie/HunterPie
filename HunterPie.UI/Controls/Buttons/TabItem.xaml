@@ -22,8 +22,8 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="31*"/>
-            <ColumnDefinition Width="89*"/>
+            <ColumnDefinition Width="31"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Canvas Grid.ColumnSpan="2">
             <Ellipse x:Name="PART_Ripple"

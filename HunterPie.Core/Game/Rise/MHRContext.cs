@@ -13,6 +13,7 @@ namespace HunterPie.Core.Game.Rise
         {
             _strings = new MHRStrings(process);
             Game = new MHRGame(process);
+            Process = process;
         }
 
         internal override void Scan()

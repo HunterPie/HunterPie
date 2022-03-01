@@ -15,6 +15,7 @@
 			<Ailment Id="AILMENT_FIRE" String="Fireblight"/>
 			<Ailment Id="AILMENT_ICE" String="Iceblight"/>
 			<Ailment Id="AILMENT_THUNDER" String="Thunderblight"/>
+			<Ailment Id="AILMENT_DUNG" String="Dung Bomb"/>
 			<Ailment Id="AILMENT_TRANQUILIZE" String="Tranquilize"/>
 			<Ailment Id="STATUS_ENRAGE" String="Enrage"/>
 		</Rise>
@@ -228,6 +229,8 @@
 				 String="Plugins"/>
 			<Tab Id="SETTINGS_STRING"
 				 String="Settings"/>
+			<Tab Id="PATREON_STRING"
+				 String="Patreon"/>
 		</Tabs>
 		<Generics>
 			<Generic Id="HUNTERPIE_IS_LATEST_VERSION"
@@ -266,11 +269,14 @@
 					 String="Overlay"
 					 Description="Overlay configurations"/>
 			<Setting Id="ABNORMALITY_TRAY_STRING"
-					 String="Abnormality Trays"
+					 String="Abnormality Widget"
 					 Description="Abnormality Trays configurations"/>
 			<Setting Id="MONSTER_WIDGET_STRING"
 					 String="Monster Widget"
 					 Description="Monster Widget configurations"/>
+			<Setting Id="WIREBUG_WIDGET_STRING"
+					 String="Wirebug Widget"
+					 Description="Wirebug Widget configurations"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="Dev Tools"
 					 Description="Advanced development tools"/>
@@ -329,6 +335,9 @@
 			<Setting Id="OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE"
 					 String="[Hot Key] Toggle Design Mode"
 					 Description="Hot Key to toggle design mode on and off."/>
+			<Setting Id="OVERLAY_HIDE_WHEN_GAME_UNFOCUS_STRING"
+					 String="Hide Widgets when game is not focused"
+					 Description="If enabled, all Widgets will be automatically hidden when the game is not the foreground window."/>
 			
 			<Setting Id="INITIALIZE_WIDGET_STRING"
 					 String="Initialize widget"
@@ -382,6 +391,9 @@
 			<Setting Id="MONSTER_WIDGET_DYNAMIC_RESIZE_STRING"
 					 String="Dynamically resize monster bars"
 					 Description="If enabled, HunterPie will automatically resize all monster bars depending on how many health bars are visible at the moment."/>
+			<Setting Id="MONSTER_WIDGET_HIDE_UNKNOWN_PARTS_STRING"
+					 String="Hide unknown monster parts"
+					 Description="If enabled, HunterPie will hide unknown parts (the ones labeled as &quot;???&quot;)."/>
 
 			<Setting Id="ABNORMALITY_TRAYS_STRING"
 					 String="Abnormality Trays"
@@ -402,12 +414,18 @@
 			<Setting Id="SORT_BY_DISABLED_STRING"
 					 String="Disabled"/>
 
+			<Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
+					 String="Patch in-game Wirebug Aim"
+					 Description="If enabled, HunterPie will patch the game function so it doesn't hide your aim when you disable the Wirebug visual elements in-game."/>
+
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>
 			<Setting Id="DEV_MOCK_DAMAGE_WIDGET_STRING"
 					 String="Developer: Mock Damage Meter widget"/>
 			<Setting Id="DEV_MOCK_ABNORMALITY_WIDGET_STRING"
 					 String="Developer: Mock Abnormalities widget"/>
+			<Setting Id="DEV_MOCK_WIREBUG_WIDGET_STRING"
+					 String="Developer: Mock Wirebug widget"/>
 			<Setting Id="DEV_POOGIE_API_HOST_STRING"
 					 String="Developer: Poogie API Host"/>
 		</Settings>

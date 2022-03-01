@@ -18,17 +18,14 @@ ion-icon {
 update::before {
     content: "Update";
     font-family: 'Source Sans Pro', 'Microsoft Yahei', sans-serif; ;
-    color: whitesmoke;
+    color: #ffa59b;
+    border: 1px solid #ffa59b; 
     font-weight: 600;
     display: inline-flex;
     vertical-align: super;
     padding: 5px;
     border-radius: 5px;
-    background: rgb(222,40,16);
-    background: -moz-linear-gradient(90deg, rgba(222,40,16,1) 0%, rgba(238,105,75,1) 100%);
-    background: -webkit-linear-gradient(90deg, rgba(222,40,16,1) 0%, rgba(238,105,75,1) 100%);
-    background: linear-gradient(90deg, rgba(222,40,16,1) 0%, rgba(238,105,75,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#de2810",endColorstr="#ee694b",GradientType=1);
+    background-color: #ac4b4063;
     font-size: 2vh;
 }
 
@@ -41,10 +38,8 @@ docs::before {
     vertical-align: super;
     padding: 5px;
     border-radius: 5px;
-    background: rgb(75,142,238);
-    background: -moz-linear-gradient(90deg, rgba(75,142,238,1) 0%, rgba(16,185,222,1) 100%);
-    background: -webkit-linear-gradient(90deg, rgba(75,142,238,1) 0%, rgba(16,185,222,1) 100%);
-    background: linear-gradient(90deg, rgba(75,142,238,1) 0%, rgba(16,185,222,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#4b8eee",endColorstr="#10b9de",GradientType=1);
+    color: #64a4ff;
+    border: 1px solid #64a4ff; 
+    background-color: #4b8fee3d;
     font-size: 2vh;
 }

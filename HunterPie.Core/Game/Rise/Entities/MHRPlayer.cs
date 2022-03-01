@@ -76,6 +76,8 @@ namespace HunterPie.Core.Game.Rise.Entities
         private Dictionary<string, IAbnormality> abnormalities = new();
         public IReadOnlyCollection<IAbnormality> Abnormalities => abnormalities.Values;
 
+        public MHRWirebug[] Wirebugs { get; } = { new(), new(), new() };
+
         public event EventHandler<EventArgs> OnLogin;
         public event EventHandler<EventArgs> OnLogout;
         public event EventHandler<EventArgs> OnHealthUpdate;
@@ -89,13 +91,14 @@ namespace HunterPie.Core.Game.Rise.Entities
         public event EventHandler<EventArgs> OnWeaponChange;
         public event EventHandler<IAbnormality> OnAbnormalityStart;
         public event EventHandler<IAbnormality> OnAbnormalityEnd;
-
+        public event EventHandler<MHRWirebug[]> OnWirebugsRefresh;
+        
         public MHRPlayer(IProcessManager process) : base(process) { }
 
         // TODO: Add DTOs for middlewares
 
         [ScannableMethod]
-        internal void ScanStageData()
+        private void ScanStageData()
         {
             long stageAddress = _process.Memory.Read(
                 AddressMap.GetAbsolute("STAGE_ADDRESS"), 
@@ -123,7 +126,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        internal void ScanPlayerSaveData()
+        private void ScanPlayerSaveData()
         {
             if (StageId == -1 || StageId == 199)
             {
@@ -178,7 +181,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        internal void ScanPlayerLevel()
+        private void ScanPlayerLevel()
         {
             if (SaveSlotId < 0)
                 return;
@@ -196,7 +199,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        internal void ScanPlayerWeaponData()
+        private void ScanPlayerWeaponData()
         {
             long weaponIdPtr = _process.Memory.Read(
                 AddressMap.GetAbsolute("WEAPON_ADDRESS"),
@@ -227,7 +230,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        internal void ScanPlayerAbnormalitiesCleanup()
+        private void ScanPlayerAbnormalitiesCleanup()
         {
             long debuffsPtr = _process.Memory.Read(
                 AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
@@ -239,7 +242,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        internal void ScanPlayerConsumableAbnormalities()
+        private void ScanPlayerConsumableAbnormalities()
         {
             if (!InHuntingZone)
                 return;
@@ -274,7 +277,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        internal void ScanPlayerDebuffAbnormalities()
+        private void ScanPlayerDebuffAbnormalities()
         {
             // Only scan in hunting zone due to invalid pointer when not in a hunting zone...
             if (!InHuntingZone)
@@ -311,7 +314,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        internal void ScanPlayerSongAbnormalities()
+        private void ScanPlayerSongAbnormalities()
         {
             if (!InHuntingZone)
                 return;
@@ -330,6 +333,54 @@ namespace HunterPie.Core.Game.Rise.Entities
             DerefSongBuffs(songBuffPtrs);
         }
         
+        [ScannableMethod(typeof(MHRWirebugStructure))]
+        private void ScanPlayerWirebugs()
+        {
+            long wirebugsArrayPtr = _process.Memory.Read(
+                AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"), 
+                AddressMap.Get<int[]>("WIREBUG_DATA_OFFSETS")
+            );
+
+            if (wirebugsArrayPtr == 0)
+            {
+                this.Dispatch(OnWirebugsRefresh, Array.Empty<MHRWirebug>());
+                return;
+            }
+
+            int wirebugsArrayLength = Math.Min(Wirebugs.Length, _process.Memory.Read<int>(wirebugsArrayPtr + 0x1C));
+            long[] wirebugsPtrs = _process.Memory.Read<long>(wirebugsArrayPtr + 0x20, (uint)wirebugsArrayLength);
+
+            bool shouldDispatchEvent = false;
+            for (int i = 0; i < wirebugsArrayLength; i++)
+            {
+                long wirebugPtr = wirebugsPtrs[i];
+                MHRWirebugStructure data = _process.Memory.Read<MHRWirebugStructure>(wirebugPtr);
+                data.Cooldown /= AbnormalityData.TIMER_MULTIPLIER;
+                data.MaxCooldown /= AbnormalityData.TIMER_MULTIPLIER;
+                
+                if (wirebugPtr != Wirebugs[i].Address)
+                {
+                    shouldDispatchEvent = true;
+                    Wirebugs[i].Address = wirebugPtr;
+                }
+
+                IUpdatable<MHRWirebugStructure> wirebug = Wirebugs[i];
+                wirebug.Update(data);
+            }
+
+            // Update last Wirebug with extra data
+            MHRWirebugExtrasStructure extraData = _process.Memory.Deref<MHRWirebugExtrasStructure>(
+                AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"), 
+                AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_OFFSETS")
+            );
+            extraData.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+            IUpdatable<MHRWirebugExtrasStructure> lastWirebug = Wirebugs[Wirebugs.Length - 1];
+            lastWirebug.Update(extraData);
+
+            if (shouldDispatchEvent)
+                this.Dispatch(OnWirebugsRefresh, Wirebugs);
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void DerefSongBuffs(long[] buffs)
         {

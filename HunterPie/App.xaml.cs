@@ -11,17 +11,14 @@ using HunterPie.Internal;
 using System.Windows.Media;
 using HunterPie.Core.Client.Configuration.Enums;
 using System.Windows.Interop;
-using HunterPie.UI.Overlay.Widgets.Monster;
 using HunterPie.Integrations.Discord;
 using HunterPie.UI.Overlay;
-using System.Collections.Generic;
 using HunterPie.Update;
 using HunterPie.Update.Presentation;
 using System.Threading.Tasks;
 using System.Linq;
-using HunterPie.UI.Overlay.Widgets.Abnormality;
-using System.Runtime.InteropServices;
-using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Features.Overlay;
+using HunterPie.Core.Events;
 
 namespace HunterPie
 {
@@ -33,7 +30,6 @@ namespace HunterPie
         private IProcessManager _process;
         private RiseRichPresence _richPresence;
         private Context _context;
-        private List<IContextHandler> contextHandlers = new();
 
         protected override async void OnStartup(StartupEventArgs e)
         {
@@ -52,7 +48,6 @@ namespace HunterPie
             window.Show();
 
             InitializeProcessScanners();
-            
         }
 
         private void CheckForRunningInstances()
@@ -111,10 +106,7 @@ namespace HunterPie
             _process = null;
             _context = null;
 
-            foreach (IContextHandler handler in contextHandlers)
-                handler.UnhookEvents();
-
-            contextHandlers.Clear();
+            WidgetInitializers.Unload();
 
             Dispatcher.InvokeAsync(WidgetManager.Dispose);
         }
@@ -133,33 +125,24 @@ namespace HunterPie
 
             Log.Debug("Initialized game context");
             _context = context;
-            
+
+            _process.OnGameFocus += OnGameFocus;
+            _process.OnGameUnfocus += OngameUnfocus;
+
             HookEvents();
             _richPresence = new(context);
             
-            Dispatcher.InvokeAsync(() =>
-            {
-                List<IContextHandler> handlers = new();
-
-                if (ClientConfig.Config.Overlay.BossesWidget.Initialize)
-                    handlers.Add(new MonsterWidgetContextHandler(context));
-
-                var configs = ClientConfig.Config.Overlay.AbnormalityTray.Trays.Trays.ToArray();
-                for (int i = 0; i < ClientConfig.Config.Overlay.AbnormalityTray.Trays.Trays.Count; i++)
-                {
-                    ref var abnormConfig = ref configs[i];
-                    handlers.Add(new AbnormalityWidgetContextHandler(context, ref abnormConfig));
-                }
-
-                contextHandlers.AddRange(handlers);
-            });
+            Dispatcher.InvokeAsync(() => WidgetInitializers.Initialize(context));
             
             context.Scan();
         }
 
+        private void OngameUnfocus(object sender, ProcessEventArgs e) => WidgetManager.Instance.IsGameFocused = false;
+        private void OnGameFocus(object sender, ProcessEventArgs e) => WidgetManager.Instance.IsGameFocused = true;
+
         private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            Log.Error(e.Exception);
+            Log.Error(e.Exception.ToString());
             e.Handled = true;
         }
 
@@ -180,6 +163,8 @@ namespace HunterPie
 
         private void UnhookEvents()
         {
+            _process.OnGameFocus -= OnGameFocus;
+            _process.OnGameUnfocus -= OngameUnfocus;
             _context.Game.Player.OnLogin -= OnPlayerLogin;
         }
 

@@ -30,10 +30,10 @@ namespace HunterPie.Internal
 
         private static HashSet<IInitializer> _uiInitializers = new()
         {
+            new HotkeyInitializer(),
+
             // Debugging
             new DebugWidgetInitializer(),
-
-            new HotkeyInitializer(),
         };
 
         public static void Initialize()

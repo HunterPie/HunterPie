@@ -41,7 +41,7 @@ namespace HunterPie.Core.Logger
             }
         }
 
-        public static async void Debug(params object[] args)
+        public static async void Debug(string message)
         {
             if (ClientConfig.Config.Debug.ClientLogLevel > LogLevel.Debug)
                 return;
@@ -51,7 +51,7 @@ namespace HunterPie.Core.Logger
                 await _semaphore.WaitAsync();
 
                 foreach (ILogger logger in Instance._io)
-                    await logger.Debug(args);
+                    await logger.Debug(message);
 
             }
             catch { }
@@ -61,7 +61,27 @@ namespace HunterPie.Core.Logger
             }
         }
 
-        public static async void Info(params object[] args)
+        public static async void Debug(string format, params object[] args)
+        {
+            if (ClientConfig.Config.Debug.ClientLogLevel > LogLevel.Debug)
+                return;
+
+            try
+            {
+                await _semaphore.WaitAsync();
+
+                foreach (ILogger logger in Instance._io)
+                    await logger.Debug(format, args);
+
+            }
+            catch { }
+            finally
+            {
+                _semaphore.Release();
+            }
+        }
+
+        public static async void Info(string message)
         {
             if (ClientConfig.Config.Debug.ClientLogLevel > LogLevel.Info)
                 return;
@@ -71,7 +91,7 @@ namespace HunterPie.Core.Logger
                 await _semaphore.WaitAsync();
 
                 foreach (ILogger logger in Instance._io)
-                    await logger.Info(args);
+                    await logger.Info(message);
 
             }
             catch { }
@@ -80,7 +100,28 @@ namespace HunterPie.Core.Logger
                 _semaphore.Release();
             }
         }
-        public static async void Warn(params object[] args)
+
+        public static async void Info(string format, params object[] args)
+        {
+            if (ClientConfig.Config.Debug.ClientLogLevel > LogLevel.Info)
+                return;
+
+            try
+            {
+                await _semaphore.WaitAsync();
+
+                foreach (ILogger logger in Instance._io)
+                    await logger.Info(format, args);
+
+            }
+            catch { }
+            finally
+            {
+                _semaphore.Release();
+            }
+        }
+
+        public static async void Warn(string message)
         {
             if (ClientConfig.Config.Debug.ClientLogLevel > LogLevel.Warn)
                 return;
@@ -90,7 +131,7 @@ namespace HunterPie.Core.Logger
                 await _semaphore.WaitAsync();
 
                 foreach (ILogger logger in Instance._io)
-                    await logger.Warn(args);
+                    await logger.Warn(message);
 
             }
             catch { }
@@ -100,14 +141,34 @@ namespace HunterPie.Core.Logger
             }
         }
 
-        public static async void Error(params object[] args)
+        public static async void Warn(string format, params object[] args)
+        {
+            if (ClientConfig.Config.Debug.ClientLogLevel > LogLevel.Warn)
+                return;
+
+            try
+            {
+                await _semaphore.WaitAsync();
+
+                foreach (ILogger logger in Instance._io)
+                    await logger.Warn(format, args);
+
+            }
+            catch { }
+            finally
+            {
+                _semaphore.Release();
+            }
+        }
+
+        public static async void Error(string message)
         {
             try
             {
                 await _semaphore.WaitAsync();
 
                 foreach (ILogger logger in Instance._io)
-                    await logger.Error(args);
+                    await logger.Error(message);
 
             } 
             catch { }
@@ -117,14 +178,48 @@ namespace HunterPie.Core.Logger
             }
         }
 
-        private static async void BenchmarkLog(params object[] args)
+        public static async void Error(string format, params object[] args)
         {
             try
             {
                 await _semaphore.WaitAsync();
 
                 foreach (ILogger logger in Instance._io)
-                    await logger.Benchmark(args);
+                    await logger.Error(format, args);
+
+            }
+            catch { }
+            finally
+            {
+                _semaphore.Release();
+            }
+        }
+
+        private static async void BenchmarkLog(string message)
+        {
+            try
+            {
+                await _semaphore.WaitAsync();
+
+                foreach (ILogger logger in Instance._io)
+                    await logger.Benchmark(message);
+
+            }
+            catch { }
+            finally
+            {
+                _semaphore.Release();
+            }
+        }
+
+        private static async void BenchmarkLog(string format, params object[] args)
+        {
+            try
+            {
+                await _semaphore.WaitAsync();
+
+                foreach (ILogger logger in Instance._io)
+                    await logger.Benchmark(format, args);
 
             }
             catch { }

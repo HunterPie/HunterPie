@@ -6,10 +6,9 @@ using System;
 using HunterPie.UI.Platform.Windows.Native;
 using HunterPie.UI.Overlay.Enums;
 using System.Windows.Media;
-using System.Windows.Controls;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
-using System.Windows.Threading;
+using System.Windows.Input;
 #if DEBUG
 using LiveCharts;
 using LiveCharts.Defaults;
@@ -52,11 +51,11 @@ namespace HunterPie.UI.Overlay.Components
             | User32.EX_WINDOW_STYLES.WS_EX_NOACTIVATE
             | User32.EX_WINDOW_STYLES.WS_EX_TOOLWINDOW);
 
-        private UserControl _widget;
-        public UserControl Widget
+        private IWidgetWindow _widget;
+        public IWidgetWindow Widget
         {
             get => _widget;
-            internal set
+            init
             {
                 if (value != _widget)
                 {
@@ -82,7 +81,6 @@ namespace HunterPie.UI.Overlay.Components
         private int counter = 0;
         private void OnRender(object sender, EventArgs e)
         {
-            RenderingEventArgs args = (RenderingEventArgs)e;
             if (counter >= 60)
             {
                 RenderingTime = (DateTime.Now - LastRender).TotalMilliseconds;
@@ -90,7 +88,6 @@ namespace HunterPie.UI.Overlay.Components
                 counter = 0;
             }
             LastRender = DateTime.Now;
-            Dispatcher.Invoke(() => { }, DispatcherPriority.Normal);
             counter++;
         }
 
@@ -108,14 +105,14 @@ namespace HunterPie.UI.Overlay.Components
 
             uint styles = (uint)User32.GetWindowLong(hWnd, User32.GWL_EXSTYLE);
 
-            uint flags = ((IWidgetWindow)Widget).Type switch
+            uint flags = Widget.Type switch
             {
                 WidgetType.ClickThrough => ClickThroughFlags,
                 WidgetType.Window => WindowFlags,
                 _ => throw new NotImplementedException("Unreachable"),
             };
 
-            User32.SetWindowLong(hWnd, User32.GWL_EXSTYLE, (int)(styles | flags));
+            _ = User32.SetWindowLong(hWnd, User32.GWL_EXSTYLE, (int)(styles | flags));
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -125,6 +122,9 @@ namespace HunterPie.UI.Overlay.Components
 
         internal void HandleTransparencyFlag(bool enableFlag)
         {
+            if (Widget.Type == WidgetType.Window)
+                return;
+
             IntPtr hWnd = new WindowInteropHelper(this)
                 .EnsureHandle();
 
@@ -135,7 +135,7 @@ namespace HunterPie.UI.Overlay.Components
             else
                 styles &= ~(uint)(User32.EX_WINDOW_STYLES.WS_EX_TRANSPARENT);
 
-            User32.SetWindowLong(hWnd, User32.GWL_EXSTYLE, (int)styles);
+            _ = User32.SetWindowLong(hWnd, User32.GWL_EXSTYLE, (int)styles);
         }
 
         private void ForceAlwaysOnTop()
@@ -155,6 +155,16 @@ namespace HunterPie.UI.Overlay.Components
 
             property = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void OnMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            double step = 0.01 * (e.Delta > 0 ? 1 : -1);
+
+            if (Keyboard.IsKeyDown(Key.LeftCtrl))
+                Widget.Settings.Opacity.Current += step;
+            else
+                Widget.Settings.Scale.Current += step;
         }
     }
 }

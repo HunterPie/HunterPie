@@ -1,38 +1,28 @@
-﻿using HunterPie.Core.Client;
+﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Input;
 using HunterPie.Core.Logger;
 using HunterPie.Core.Settings;
-using HunterPie.UI.Architecture.Extensions;
 using HunterPie.UI.Overlay.Components;
-using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows.Controls;
+using ClientConfig = HunterPie.Core.Client.ClientConfig;
 
 namespace HunterPie.UI.Overlay
 {
-    public class WidgetManager : INotifyPropertyChanged
+    public class WidgetManager : Bindable
     {
         private bool _isDesignModeEnabled;
+        private bool _isGameFocused;
         private readonly ObservableCollection<WidgetBase> _widgets = new ObservableCollection<WidgetBase>();
 
-        public bool IsDesignModeEnabled
-        {
-            get => _isDesignModeEnabled;
-            private set
-            {
-                if (value != _isDesignModeEnabled)
-                {
-                    _isDesignModeEnabled = value;
-                    this.N(PropertyChanged);
-                }
-            }
-        }
+        public bool IsDesignModeEnabled { get => _isDesignModeEnabled; private set { SetValue(ref _isDesignModeEnabled, value); } }
+        public bool IsGameFocused { get => _isGameFocused; internal set { SetValue(ref _isGameFocused, value); } }
+
         public ref readonly ObservableCollection<WidgetBase> Widgets => ref _widgets;
+        public OverlayConfig Settings => ClientConfig.Config.Overlay;
 
         private static WidgetManager _instance;
 
-        public event PropertyChangedEventHandler PropertyChanged;
         public static WidgetManager Instance
         {
             get
@@ -46,13 +36,14 @@ namespace HunterPie.UI.Overlay
 
         private WidgetManager()
         {
-            Hotkey.Register(ClientConfig.Config.Overlay.ToggleDesignMode, EnterDesignMode);
+            Hotkey.Register(Settings.ToggleDesignMode, ToggleDesignMode);
         }
 
-        public static bool Register<T>(IWidget<T> widget) where T : IWidgetSettings
+        public static bool Register<T, K>(T widget) where T : IWidgetWindow, IWidget<K>
+                                                    where K : IWidgetSettings
         {
 
-            WidgetBase wnd = new WidgetBase() { Widget = (UserControl)widget };
+            WidgetBase wnd = new WidgetBase() { Widget = widget };
             Instance._widgets.Add(wnd);
             wnd.Show();
             
@@ -69,7 +60,7 @@ namespace HunterPie.UI.Overlay
             Instance._widgets.Clear();
         }
 
-        private void EnterDesignMode()
+        private void ToggleDesignMode()
         {
             IsDesignModeEnabled = !IsDesignModeEnabled;
 

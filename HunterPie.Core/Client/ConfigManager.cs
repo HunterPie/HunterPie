@@ -74,14 +74,14 @@ namespace HunterPie.Core.Client
 
             if (!Settings.ContainsKey(path))
             {
-                Log.Warn($"'{path}' not registered in ConfigManager.");
+                Log.Warn("'{0}' not registered in ConfigManager.", path);
                 return;
             }
 
             if (!File.Exists(path))
             {
                 string fileName = Path.GetFileName(path);
-                Log.Error($"{fileName} is missing. Creating a new one.");
+                Log.Error("{0} is missing. Creating a new one.", fileName);
 
                 WriteSettings(path);
             }
@@ -134,7 +134,7 @@ namespace HunterPie.Core.Client
 
                         JsonConvert.PopulateObject(str, _settings[path], serializerSettings);
                     }
-                } catch (Exception err) { Log.Error(err); }
+                } catch (Exception err) { Log.Error(err.ToString()); }
             }
         }
 
@@ -156,7 +156,7 @@ namespace HunterPie.Core.Client
                         stream.SetLength(0);
                         stream.Write(buffer);
                     }
-                } catch(Exception err) { Log.Error(err); }
+                } catch(Exception err) { Log.Error(err.ToString()); }
             }
         }
 

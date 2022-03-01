@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Enums;
 using HunterPie.UI.Overlay.Widgets.Damage.ViewModel;
@@ -22,6 +23,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.View
         public string Title => "Damage Meter";
 
         public WidgetType Type => WidgetType.ClickThrough;
+
+        IWidgetSettings IWidgetWindow.Settings => Settings;
 
         private void OnPlayerHighlightToggle(object sender, EventArgs e) => ViewModel.ToggleHighlight();
         private void OnPlayerBlurToggle(object sender, EventArgs e) => ViewModel.ToggleBlur();

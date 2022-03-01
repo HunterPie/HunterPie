@@ -16,6 +16,9 @@ using System.Diagnostics;
 using HunterPie.UI.Overlay.Widgets.Abnormality.View;
 using HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.UI.Overlay.Widgets.Wirebug.Views;
+using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
+using System.Threading;
 
 namespace HunterPie
 {
@@ -63,7 +66,7 @@ namespace HunterPie
         private void InitializeDebugWidgets()
         {
             if (ClientConfig.Config.Debug.MockBossesWidget)
-                WidgetManager.Register(
+                WidgetManager.Register<MonstersView, MonsterWidgetConfig>(
                     new MonstersView()
                     {
                         DataContext = new MockMonstersViewModel()
@@ -71,7 +74,7 @@ namespace HunterPie
                 );
 
             if (ClientConfig.Config.Debug.MockDamageWidget)
-                WidgetManager.Register(
+                WidgetManager.Register<MeterView, DamageMeterWidgetConfig>(
                     new MeterView()
                     {
                         DataContext = new MockMeterViewModel()
@@ -81,13 +84,20 @@ namespace HunterPie
             if (ClientConfig.Config.Debug.MockAbnormalityWidget)
             {
                 var mockSettings = new AbnormalityWidgetConfig();
-                WidgetManager.Register(
+                WidgetManager.Register<AbnormalityBarView, AbnormalityWidgetConfig>(
                     new AbnormalityBarView(ref mockSettings)
                     {
                         DataContext = new MockAbnormalityBarViewModel()
                     }
                 );
             }
+
+            if (ClientConfig.Config.Debug.MockWirebugWidget)
+                WidgetManager.Register<WirebugsView, WirebugWidgetConfig>(new WirebugsView()
+                    {
+                        DataContext = new MockWirebugsViewModel()
+                    }
+                );
         }
 
         private void SetupTrayIcon()
@@ -119,7 +129,7 @@ namespace HunterPie
                     FileName = "steam://run/1446780",
                     UseShellExecute = true
                 });
-            } catch(Exception err) { Log.Error(err); }
+            } catch(Exception err) { Log.Error(err.ToString()); }
             
         }
     }

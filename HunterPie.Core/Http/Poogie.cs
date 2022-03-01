@@ -59,6 +59,47 @@ namespace HunterPie.Core.Http
             return new PoogieResponse(null);
         }
 
+        public PoogieResponse Request()
+        {
+            foreach (string host in Urls)
+            {
+                _client = new() { Timeout = Timeout };
+                _request = new(Method, $"{host}{Path}");
+
+                if (Content is not null)
+                    _request.Content = Content;
+
+                foreach (var (key, value) in Headers)
+                {
+                    if (string.IsNullOrEmpty(value))
+                        continue;
+
+                    _request.Headers.Add(key, value);
+                }
+
+                HttpResponseMessage res;
+                try
+                {
+                    res = _client.Send(_request);
+                }
+                catch (Exception err)
+                {
+                    Log.Debug($"Failed to request host {host}, trying next one...\n{err}");
+                    _client.Dispose();
+                    _request.Dispose();
+
+                    continue;
+                }
+
+                PoogieResponse response = new(res);
+                return response;
+            }
+
+            Log.Error("Could not reach any of HunterPie's HTTP hosts.");
+
+            return new PoogieResponse(null);
+        }
+
         public void Dispose()
         {
             _request?.Dispose();

@@ -35,7 +35,7 @@ namespace HunterPie.Core.Domain
                         {
                             // Logs the error if it came from a generic exception instead of a
                             // cancel request
-                            Log.Error(err);
+                            Log.Error(err.ToString());
                             continue;
                         }
 

@@ -45,8 +45,8 @@
     <SolidColorBrush x:Key="BUTTON_COMMONBUTTON_FOREGROUND">WhiteSmoke</SolidColorBrush>
     <SolidColorBrush x:Key="BUTTON_ICON_FOREGROUND">WhiteSmoke</SolidColorBrush>
 
-    <SolidColorBrush x:Key="LOGGER_LEVEL_INFO">#78B4D6</SolidColorBrush>
-    <SolidColorBrush x:Key="LOGGER_LEVEL_DEBUG">#49BA67</SolidColorBrush>
+    <SolidColorBrush x:Key="LOGGER_LEVEL_INFO">#5cb7f2</SolidColorBrush>
+    <SolidColorBrush x:Key="LOGGER_LEVEL_DEBUG">#35cc76</SolidColorBrush>
     <SolidColorBrush x:Key="LOGGER_LEVEL_WARN">#E6CF5E</SolidColorBrush>
     <SolidColorBrush x:Key="LOGGER_LEVEL_ERROR">#e65e5e</SolidColorBrush>
     <SolidColorBrush x:Key="LOGGER_LEVEL_PANIC">#ab5ee6</SolidColorBrush>
@@ -86,7 +86,7 @@
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_TRANQUILIZE">#c96ba0</SolidColorBrush>
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_FLASH">#f7c052</SolidColorBrush>
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_KNOCKDOWN">#5380db</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_DUNGPOD">#472102</SolidColorBrush>
+    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_DUNG">#472102</SolidColorBrush>
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_TRAP">#9dc20a</SolidColorBrush>
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_ELDERSEAL">#71369c</SolidColorBrush>
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_SMOKING">#9c9c9c</SolidColorBrush>

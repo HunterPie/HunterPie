@@ -25,7 +25,9 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         private bool _isActive;
         private bool _isPartBroken;
         private bool _isPartSevered;
+        private bool _isKnownPart;
         private PartType _type;
+        
 
         public string Name { get => _name; set { SetValue(ref _name, value); } }
         public double Health
@@ -81,6 +83,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         public bool IsActive { get => _isActive; set { SetValue(ref _isActive, value); } }
         public bool IsPartBroken { get => _isPartBroken; set { SetValue(ref _isPartBroken, value); } }
         public bool IsPartSevered { get => _isPartSevered; set { SetValue(ref _isPartSevered, value); } }
+        public bool IsKnownPart { get => _isKnownPart; set { SetValue(ref _isKnownPart, value); } }
         public PartType Type { get => _type; set { SetValue(ref _type, value); } }
 
         public MonsterPartViewModel()
