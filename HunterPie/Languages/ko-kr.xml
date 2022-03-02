@@ -416,7 +416,7 @@
 			
 			<Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
 					 String="인-게임 밧줄벌레 조준 패치"
-					 Description="옵션 활성화 시, HunterPie는 인-게임에서 밧줄벌레 시각요소를 비활성화 했을 때 조준을 숨길 수 없는 게임 기능을 패치합니다."/>
+					 Description="옵션 활성화 시, HunterPie가 인-게임에서 밧줄벌레 게이지 HUD를 비활성화 했을 때도 조준할 수 있도록 패치합니다."/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>
