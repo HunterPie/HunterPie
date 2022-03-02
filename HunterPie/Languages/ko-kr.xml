@@ -229,6 +229,8 @@
 				 String="플러그인"/>
 			<Tab Id="SETTINGS_STRING"
 				 String="설정"/>
+                        <Tab Id="PATREON_STRING"
+ 				 String="Patreon"/>
 		</Tabs>
 		<Generics>
 			<Generic Id="HUNTERPIE_IS_LATEST_VERSION"
