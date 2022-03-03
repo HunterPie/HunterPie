@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!--Tradotto da Derphiroth#5976 A.K.A. SmantellaPorci
+<!--Tradotto da Derphiroth#5976 A.K.A. SmantellaPorci e Bombaclath#3673
 ・Se notate errori di qualche tipo, oppure volete postare la vostra traduzione riveduta e corretta, unitevi al Discord di HunterPie e fatelo presente! -->
 <Strings lang="Italian">
 	<Ailments>
@@ -17,9 +17,77 @@
 			<Ailment Id="AILMENT_FIRE" String="Malus da fuoco"/>
 			<Ailment Id="AILMENT_ICE" String="Malus da ghiaccio"/>
 			<Ailment Id="AILMENT_THUNDER" String="Malus da fulmine"/>
+			<Ailment Id="AILMENT_TRANQUILIZE" String="Tranquillizzato"/>
 			<Ailment Id="STATUS_ENRAGE" String="Ira"/>
 		</Rise>
 	</Ailments>
+	<Abnormalities>
+        <Abnormality Id="ABNORMALITY_UNKNOWN" String="Sconosciuto"/>
+        <Abnormality Id="ABNORMALITY_SELF_IMPROVEMENT" String="Automiglioramento"/>
+        <Abnormality Id="ABNORMALITY_ATTACK_UP" String="Aumenta attacco"/>
+        <Abnormality Id="ABNORMALITY_DEFENSE_UP" String="Aumenta difesa"/>
+        <Abnormality Id="ABNORMALITY_AFFINITY_UP" String="Aumenta affinità"/>
+        <Abnormality Id="ABNORMALITY_ELEMENTAL_ATTACK_UP" String="Aumenta attacco elem."/>
+        <Abnormality Id="ABNORMALITY_ATTACK_DEF_UP" String="Aumenta attacco e difesa"/>
+        <Abnormality Id="ABNORMALITY_ATTACK_AFFINITY_UP" String="Aumenta attacco ed affinità"/>
+        <Abnormality Id="ABNORMALITY_KNOCKBACK_NEG" String="Annulla respinta"/>
+        <Abnormality Id="ABNORMALITY_EARPLUG" String="Protezione udito (S)"/>
+        <Abnormality Id="ABNORMALITY_EARPLUG_PLUS" String="Protezione udito (L)"/>
+        <Abnormality Id="ABNORMALITY_TREMORS_NEG" String="Annulla sisma"/>
+        <Abnormality Id="ABNORMALITY_WIND_PRESSURE_PLUS" String="Annulla pressione vento"/>
+        <Abnormality Id="ABNORMALITY_STUN_NEG" String="Annulla stordimento"/>
+        <Abnormality Id="ABNORMALITY_BLIGHT_NEG" String="Annulla malus"/>
+        <Abnormality Id="ABNORMALITY_DIVINE_PROTECTION" String="Protezione divina"/>
+        <Abnormality Id="ABNORMALITY_HEALTH_REGEN" String="Rigenerazione"/>
+        <Abnormality Id="ABNORMALITY_STAMINA_USE_RED" String="Riduzione uso resistenza"/>
+        <Abnormality Id="ABNORMALITY_STAMINA_REC_UP" String="Aumento recupero resist."/>
+        <Abnormality Id="ABNORMALITY_SHARPNESS_RED" String="Riduzione perdita acutezza"/>
+        <Abnormality Id="ABNORMALITY_ENV_NEG" String="Annulla danni ambientali"/>
+        <Abnormality Id="ABNORMALITY_SONIC_BARRIER" String="Barriera sonica"/>
+        <Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Melodia infernale"/>
+        
+        <Abnormality Id="ABNORMALITY_MIGHT_SEED" String="Seme demoniaco"/>
+		<Abnormality Id="ABNORMALITY_BUTTERFLAME" String="Farfafiamma"/>
+		<Abnormality Id="ABNORMALITY_CUTTERFLY" String="Libellama"/>
+        <Abnormality Id="ABNORMALITY_ADAMANT_SEED" String="Seme difesa"/>
+        <Abnormality Id="ABNORMALITY_CLOTHFLY" String="Farfastoffa"/>
+        <Abnormality Id="ABNORMALITY_DASH_JUICE" String="Succo sprint"/> 
+        <Abnormality Id="ABNORMALITY_DEMON_POWDER" String="Polvere demoniaca"/>
+        <Abnormality Id="ABNORMALITY_HARDSHELL_POWDER" String="Polvere guscioduro"/>
+        <Abnormality Id="ABNORMALITY_NATURAL_HEALING" String="Aumento recupero"/>
+		<Abnormality Id="ABNORMALITY_REDLAMPSQUID" String="Lampamaro rosso"/>
+		<Abnormality Id="ABNORMALITY_YELLOWLAMPSQUID" String="Lampamaro giallo"/>
+		<Abnormality Id="ABNORMALITY_GOURMET_FISH" String="Pesce gourmet"/>
+		<Abnormality Id="ABNORMALITY_IMMUNITY" String="Immunità"/>
+		<Abnormality Id="ABNORMALITY_GO_FIGHT_WIN" String="Vai, combatti, vinci"/>
+		<Abnormality Id="ABNORMALITY_POWER_DRUM" String="Tamburo di potenza"/>
+		<Abnormality Id="ABNORMALITY_ROUSING_ROAR" String="Urlo travolgente"/>
+		<Abnormality Id="ABNORMALITY_DEMON_AMMO" String="Proiettile demoniaco"/>
+		<Abnormality Id="ABNORMALITY_ARMOR_AMMO" String="Proiettile armatura"/>
+
+		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="Carisma dango"/>	
+		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="Potenziatore dango"/>
+		<Abnormality Id="ABNORMALITY_DANGO_GLUTTON" String="Ghiottone dango"/>
+
+		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="Contrattacco"/>
+		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="Forza latente"/>		
+		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="Affinità scivolata"/>
+
+
+        <Abnormality Id="ABNORMALITY_POISON" String="Veleno"/>
+        <Abnormality Id="ABNORMALITY_VENOM" String="Super veleno"/>
+        <Abnormality Id="ABNORMALITY_DEF_DOWN" String="Riduzione difesa"/>
+        <Abnormality Id="ABNORMALITY_RES_DOWN" String="Riduzione resistenza"/>
+        <Abnormality Id="ABNORMALITY_STENCH" String="Fetore"/>
+        <Abnormality Id="ABNORMALITY_HELLFIRE" String="Malus fuoco infernale"/>
+        <Abnormality Id="ABNORMALITY_BLAST" String="Malus da scoppio"/>
+        <Abnormality Id="ABNORMALITY_FIRE" String="Malus da fuoco"/>
+        <Abnormality Id="ABNORMALITY_WATER" String="Malus da acqua"/>
+        <Abnormality Id="ABNORMALITY_ICE" String="Malus da ghiaccio"/>
+        <Abnormality Id="ABNORMALITY_THUNDER" String="Malus da tuono"/>
+        <Abnormality Id="ABNORMALITY_DRAGON" String="Malus da drago"/>
+        <Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="Malus da bolla"/>
+    </Abnormalities>
 	<Monsters>
 		<Shared>
 			<Part Id="PART_UNKNOWN" String="???"/>
@@ -43,8 +111,8 @@
 			<Part Id="PART_HEAD_MUD" String="Testa (Fango)"/>
 			<Part Id="PART_TORSO_MUD" String="Corpo (Fango)"/>
 			<Part Id="PART_ARMS_MUD" String="Zampe Anteriori(Fango)"/>
-			<Part Id="PART_L_LEG_MUD" String="Zampa Posteriore SX (Fango)"/>
-			<Part Id="PART_R_LEG_MUD" String="Zampa Posteriore DX (Fango)"/>
+			<Part Id="PART_L_LEG_MUD" String="Gamba Sinistra (Fango)"/>
+			<Part Id="PART_R_LEG_MUD" String="Gamba Destra (Fango)"/>
 			<Part Id="PART_TAIL_MUD" String="Coda (Fango)"/>
 			<Part Id="PART_SPONGE" String="Spugna"/>
 			<Part Id="PART_L_LEGS" String="Zampe Sinistre"/>
@@ -64,7 +132,7 @@
 			<Part Id="PART_R_FORELEG" String="Zampa Anteriore DX"/>
 			<Part Id="PART_L_H_LEG" String="Zampa Posteriore SX"/>
 			<Part Id="PART_R_H_LEG" String="Zampa Posteriore DX"/>
-			<Part Id="PART_CHEST" String="Addome"/>
+			<Part Id="PART_CHEST" String="Petto"/>
 			<Part Id="PART_TAIL_TIP" String="Estremità della coda"/>
 			<Part Id="PART_MUD_BALL" String="Sfera di fango"/>
 			<Part Id="PART_LOWER_TORSO" String="Basso ventre"/>
@@ -149,54 +217,6 @@
 			<Stage Id="211" String="Palazzo Corallino"/>
 		</Rise>
 	</Stages>
-	
-	<Abnormalities>
-        <Abnormality Id="ABNORMALITY_UNKNOWN" String="Sconosciuto"/>
-        <Abnormality Id="ABNORMALITY_SELF_IMPROVEMENT" String="Automiglioramento"/>
-        <Abnormality Id="ABNORMALITY_ATTACK_UP" String="Aumenta attacco"/>
-        <Abnormality Id="ABNORMALITY_DEFENSE_UP" String="Aumenta difesa"/>
-        <Abnormality Id="ABNORMALITY_AFFINITY_UP" String="Aumenta affinità"/>
-        <Abnormality Id="ABNORMALITY_ELEMENTAL_ATTACK_UP" String="Aumenta attacco elem."/>
-        <Abnormality Id="ABNORMALITY_ATTACK_DEF_UP" String="Aumenta attacco e difesa"/>
-        <Abnormality Id="ABNORMALITY_ATTACK_AFFINITY_UP" String="Aumenta Attacco ed affinità"/>
-        <Abnormality Id="ABNORMALITY_KNOCKBACK_NEG" String="Annulla respinta"/>
-        <Abnormality Id="ABNORMALITY_EARPLUG" String="Protezione udito (S)"/>
-        <Abnormality Id="ABNORMALITY_EARPLUG_PLUS" String="Protezione udito (L)"/>
-        <Abnormality Id="ABNORMALITY_TREMORS_NEG" String="Annulla sisma"/>
-        <Abnormality Id="ABNORMALITY_WIND_PRESSURE_PLUS" String="Annulla pressione vento"/>
-        <Abnormality Id="ABNORMALITY_STUN_NEG" String="Annulla stordimento"/>
-        <Abnormality Id="ABNORMALITY_BLIGHT_NEG" String="Annulla malus"/>
-        <Abnormality Id="ABNORMALITY_DIVINE_PROTECTION" String="Protezione divina"/>
-        <Abnormality Id="ABNORMALITY_HEALTH_REGEN" String="Rigenerazione"/>
-        <Abnormality Id="ABNORMALITY_STAMINA_USE_RED" String="Riduzione uso resistenza"/>
-        <Abnormality Id="ABNORMALITY_STAMINA_REC_UP" String="Aumento recupero resist."/>
-        <Abnormality Id="ABNORMALITY_SHARPNESS_RED" String="Riduzione perdita acutezza"/>
-        <Abnormality Id="ABNORMALITY_ENV_NEG" String="Annulla danni ambientali"/>
-        <Abnormality Id="ABNORMALITY_SONIC_BARRIER" String="Barriera sonica"/>
-        <Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Melodia infernale"/>
-        
-        <Abnormality Id="ABNORMALITY_MIGHT_SEED" String="Seme demoniaco"/>
-        <Abnormality Id="ABNORMALITY_ADAMANT_SEED" String="Seme difesa"/>
-        <Abnormality Id="ABNORMALITY_CLOTHFLY" String="Farfalla armatura"/>
-        <Abnormality Id="ABNORMALITY_DASH_JUICE" String="Succo sprint"/>
-        <Abnormality Id="ABNORMALITY_DEMON_POWDER" String="Polvere demoniaca"/>
-        <Abnormality Id="ABNORMALITY_HARDSHELL_POWDER" String="Polvere guscioduro"/>
-        <Abnormality Id="ABNORMALITY_NATURAL_HEALING" String="Aumento recupero"/>
-
-        <Abnormality Id="ABNORMALITY_POISON" String="Veleno"/>
-        <Abnormality Id="ABNORMALITY_VENOM" String="Super veleno"/>
-        <Abnormality Id="ABNORMALITY_DEF_DOWN" String="Riduzione difesa"/>
-        <Abnormality Id="ABNORMALITY_RES_DOWN" String="Riduzione resistenza"/>
-        <Abnormality Id="ABNORMALITY_STENCH" String="Fetore"/>
-        <Abnormality Id="ABNORMALITY_HELLFIRE" String="Malus fuoco infernale"/>
-        <Abnormality Id="ABNORMALITY_BLAST" String="Malus da scoppio"/>
-        <Abnormality Id="ABNORMALITY_FIRE" String="Malus da fuoco"/>
-        <Abnormality Id="ABNORMALITY_WATER" String="Malus da acqua"/>
-        <Abnormality Id="ABNORMALITY_ICE" String="Malus da ghiaccio"/>
-        <Abnormality Id="ABNORMALITY_THUNDER" String="Malus da tuono"/>
-        <Abnormality Id="ABNORMALITY_DRAGON" String="Malus da drago"/>
-        <Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="Malus da bolla"/>
-    </Abnormalities>
 
 	<Client>
 		<Tabs>
@@ -221,9 +241,9 @@
 			<Discord Id="DRPC_RISE_CHARACTER_STRING_FORMAT"
 					 String="{Character} | HR: {HighRank}"/>
 			<Discord Id="DRPC_RISE_STATE_MAIN_MENU"
-					 String="Nel Menu Principale"/>
+					 String="Nel Menù Principale"/>
 			<Discord Id="DRPC_RISE_STATE_IDLE"
-					 String="Cazzeggia"/>
+					 String="Si sta rilassando"/>
 			<Discord Id="DRPC_RISE_STATE_PRACTICE"
 					 String="Allenamento"/>
 			<Discord Id="DRPC_RISE_STATE_RAMPAGE"
@@ -234,6 +254,8 @@
 					 String="Sta esplorando"/>
 			<Discord Id="DRPC_RISE_STATE_HUNTING"
 					 String="Caccia {Monster} ({Percentage}%)"/>
+			<Discord Id="DRPC_RISE_STATE_HUNTING_NO_HEALTH"
+					 String="Caccia {Monster}"/>
 		</Integrations>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
@@ -245,12 +267,31 @@
 			<Setting Id="OVERLAY_STRING"
 					 String="Overlay"
 					 Description="Impostazioni Overlay"/>
+			<Setting Id="ABNORMALITY_TRAY_STRING"
+					 String="Area delle Anomalie"
+					 Description="Impostazioni area delle anomalie"/>
 			<Setting Id="MONSTER_WIDGET_STRING"
 					 String="Widget del Mostro"
-					 Description="Impostazioni Overlay"/>
+					 Description="Impostazioni Widget del mostro"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="Dev Tools"
 					 Description="Strumenti avanzati di sviluppo"/>
+
+			<Setting Id="ABNORMALITY_SONGS_STRING"
+					 String="Canzoni"
+					 Description="Anomalie causate da canzoni"/>
+			<Setting Id="ABNORMALITY_CONSUMABLES_STRING"
+					 String="Consumabili"
+					 Description="Anomalie causate da consumaili"/>
+			<Setting Id="ABNORMALITY_DEBUFFS_STRING"
+					 String="Debuffs"
+					 Description="Anomalie causate da deuff"/>]
+			<Setting Id="ABNORMALITY_SKILLS_STRING"
+					 String="Ailità armatura"
+					 Description="Anomalie causate da abilità armatura"/>
+			<Setting Id="ABNORMALITY_FOODS_STRING"
+					 String="Abilità cibo"
+					 Description="Anomalie causate da abilità cibo"/>
 
 			<Setting Id="ENABLE_SELF_UPDATE"
 					 String="Abilita auto aggiornamento"
@@ -305,58 +346,72 @@
 					 Description="Controlla l'opacità di questa funzione."/>
 			<Setting Id="WIDGET_SCALE"
 					 String="Scala"
-					 Description="Controlla la scala lineare di questa funzione. Maggiore il numero, più grande sarà."/>
-			
+					 Description="Controlla la scala lineare di questa funzione. Maggiore il numero, più grand sarà."/>
+			<Setting Id="ORIENTATION_STRING"
+					 String="Orientamento"
+					 Description="Orientamento del widget."/>
+
+			<Setting Id="MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING"
+					 String="Mostra solo il mostro obiettivo"
+					 Description="Se ailitato, HunterPie mostrerà solo il mostro segnato come obiettivo."/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_STAMINA_STRING"
 					 String="Abilita resistenza"
-					 Description="Se attivo, HunterPie mostrerà la resistenza del mostro sotto la sua barra salute."/>
+					 Description="Se abilitato, HunterPie mostrerà la resistenza del mostro sotto la sua barra salute."/>
 			<Setting Id="MONSTER_WIDGET_MAX_WIDTH_STRING"
 					 String="Larghezza massima barra mostro"
 					 Description="Regola la larghezza massima della barra salute dei mostri."/>
+			<Setting Id="MONSTER_WIDGET_MIN_WIDTH_STRING"
+					 String="Larghezza minima barra mostro"
+					 Description="Regola la larghezza minima della barra salute dei mostri. Il valore verrà utilizzato per calcolare lo spazio minimo se è attivato il ridimensionamento automatico"/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_PARTS_STRING"
 					 String="Mostra parti mostro"
-					 Description="Se attivo, verranno visualizzate le parti del mostro."/>
+					 Description="Se abilitato, verranno visualizzate le parti del mostro."/>
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_PARTS_STRING"
 					 String="Nascondi automaticamente parti del mostro"
-					 Description="Se attivo, le parti inattive del mostro verranno nascoste dopo X secondi."/>
+					 Description="Se abilitato, le parti inattive del mostro verranno nascoste dopo X secondi."/>
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_PARTS_DELAY_STRING"
 					 String="Tempo d'attesa per parti inattive"
 					 Description="Imposta quanto tempo debba passare per nascondere le parti inattive."/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_AILMENTS_STRING"
 					 String="Abilita i debuff"
-					 Description="Se attivo, verranno mostrati i debuff dei mostri."/>
+					 Description="Se abilitato, verranno mostrati i debuff dei mostri."/>
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_STRING"
 					 String="Nascondi automaticamente i debuff dei mostri"
-					 Description="Se attivo, le parti inattive dei mostri verranno nascosti dopo X secondi."/>
+					 Description="Se abilitato, le parti inattive dei mostri verranno nascosti dopo X secondi."/>
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING"
 					 String="Tempo d'attesa per debuff"
 					 Description="Imposta quanto tempo debba passare per nascondere i debuff ormai inattivi."/>
+			<Setting Id="MONSTER_WIDGET_DYNAMIC_RESIZE_STRING"
+					 String="Ridimensiona dinamicamente le barre dei mostri"
+					 Description="Se abilitato, HunterPie ridimensionerà automaticamente tutte le barre mostri a seconda di quante ne siano visibili al momento."/>
+
+			<Setting Id="ABNORMALITY_TRAYS_STRING"
+					 String="Area delle anomalie"
+					 Description="Impostazioni per l'area delle anomalie"/>
+			<Setting Id="ABNORMALITY_TRAY_NAME_STRING"
+					 String="Nome area delle anomalie"
+					 Description="Dai un nome a questa area delle anomalie"/>
+			<Setting Id="ABNORMALITY_TRAY_MAX_SIZE_STRING"
+					 String="Dimensioni massime"
+					 Description="Imposta le dimensioni massime per l'area delle anomalie"/>
+			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
+					 String="Ordina per"
+					 Description="Seleziona l'algoritmo di ordinamento usato per mostrare le anomalie"/>
+			<Setting Id="SORT_BY_LOWEST_TIMER_STRING"
+					 String="Tempo minore"/>
+			<Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
+					 String="Tempo maggiore"/>
+			<Setting Id="SORT_BY_DISABLED_STRING"
+					 String="Disabilitato"/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
-					 String="Sviluppatore: Mock Widget Monster"/>
+					 String="Developer: Mock del widget dei mostri"/>
 			<Setting Id="DEV_MOCK_DAMAGE_WIDGET_STRING"
-					 String="Sviluppatore: Mock Damage Meter widget"/>
+					 String="Developer: Mock del widget dei danni"/>
 			<Setting Id="DEV_MOCK_ABNORMALITY_WIDGET_STRING"
-					 String="Sviluppatore: Mock Abnormalities widget"/>
+					 String="Developer: Mock del widget delle anomalie"/>
 			<Setting Id="DEV_POOGIE_API_HOST_STRING"
-					 String="Sviluppatore: Poogie API Host"/>
-					 
-					 <Setting Id="ABNORMALITY_TRAYS_STRING"
-    String="Barra effetti"
-    Description="Impostazioni barra effetti."/>
-<Setting Id="ABNORMALITY_TRAY_NAME_STRING"
-    String="Nome barra effetti"
-    Description="Assegna un nome a questa barra"/>        
-
-<Setting Id="ABNORMALITY_SONGS_STRING"
-    String="Melodie"
-    Description="Effetti delle melodie"/>
-<Setting Id="ABNORMALITY_CONSUMABLES_STRING"
-    String="Consumabili"
-    Description="Effetti dei consumabili"/>
-<Setting Id="ABNORMALITY_DEBUFFS_STRING"
-    String="Debuff"
-    Description="Effetti dei debuff"/> 
+					 String="Developer: Poogie API Host"/>
 		</Settings>
 	</Client>
 </Strings>
