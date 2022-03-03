@@ -18,7 +18,6 @@ using HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.UI.Overlay.Widgets.Wirebug.Views;
 using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
-using System.Threading;
 using System.Windows.Media.Animation;
 
 namespace HunterPie
@@ -58,6 +57,7 @@ namespace HunterPie
             
             Show();
             SetupTrayIcon();
+            throw new ApplicationException("test");
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)

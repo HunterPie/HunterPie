@@ -31,8 +31,8 @@ namespace HunterPie.Internal.Poogie
             {
                 Version = ClientInfo.Version.ToString(),
                 GameBuild = "-",
-                Exception = exception.Message,
-                Stacktrace = exception.StackTrace
+                Exception = exception.GetType().ToString(),
+                Stacktrace = exception.ToString()
             };
 
             PoogieClient poogie = PoogieFactory.Default()

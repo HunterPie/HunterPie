@@ -20,6 +20,7 @@ using System.Linq;
 using HunterPie.Features.Overlay;
 using HunterPie.Core.Events;
 using HunterPie.Core.Domain;
+using HunterPie.Internal.Poogie;
 
 namespace HunterPie
 {
@@ -143,6 +144,7 @@ namespace HunterPie
 
         private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
+            RemoteCrashReporter.Send(e.Exception);
             Log.Error(e.Exception.ToString());
             e.Handled = true;
         }
