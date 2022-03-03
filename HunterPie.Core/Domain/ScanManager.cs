@@ -56,6 +56,7 @@ namespace HunterPie.Core.Domain
         {
             if (thread is not null)
             {
+                scannables.Clear();
                 token.Cancel();
                 thread = null;
             }
