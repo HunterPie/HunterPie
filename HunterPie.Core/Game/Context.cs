@@ -1,5 +1,4 @@
 ﻿using HunterPie.Core.Domain.Process;
-using System;
 
 namespace HunterPie.Core.Game
 {
@@ -7,8 +6,5 @@ namespace HunterPie.Core.Game
     {
         public IGame Game { get; protected set; }
         public IProcessManager Process { get; protected set; }
-
-        internal abstract void Scan();
-        internal abstract void Stop();
     }
 }

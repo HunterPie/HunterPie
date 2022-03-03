@@ -33,7 +33,11 @@ namespace HunterPie.Core.System.Windows
             AddressMap.Parse(Path.Combine(ClientInfo.AddressPath, $"MonsterHunterRise.{riseVersion}.map"));
 
             if (!AddressMap.IsLoaded)
+            {
+                Log.Error("Failed to load address for Monster Hunter Rise v{0}", riseVersion);
+                pooler.Dispose();
                 return false;
+            }
 
             return true;
         }

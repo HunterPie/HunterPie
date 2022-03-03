@@ -1,8 +1,9 @@
-﻿using HunterPie.Core.Logger;
+﻿using HunterPie.Core.Client;
+using HunterPie.Core.Logger;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace HunterPie.Core.Domain
 {
@@ -24,12 +25,10 @@ namespace HunterPie.Core.Domain
                         {
                             Scan();
 
-                            lock (token)
-                            {
-                                if (token.IsCancellationRequested)
-                                    break;
-                            }
-                            Thread.Sleep(30);
+                            if (token.IsCancellationRequested)
+                                break;
+
+                            Thread.Sleep((int)ClientConfig.Config.Client.PollingRate.Current);
                         }
                         catch (Exception err)
                         {
@@ -40,6 +39,8 @@ namespace HunterPie.Core.Domain
                         }
 
                     } while (true);
+
+                    token = new();
                 })
                 {
                     Name = "ScanManager",
@@ -55,10 +56,7 @@ namespace HunterPie.Core.Domain
         {
             if (thread is not null)
             {
-                lock (token)
-                {
-                    token.Cancel();
-                }
+                token.Cancel();
                 thread = null;
             }
         }
@@ -67,9 +65,8 @@ namespace HunterPie.Core.Domain
         {
             lock (scannables)
             {
-                foreach (Scannable scannable in scannables)
+                foreach (Scannable scannable in scannables.ToArray())
                     scannable.Scan();
-                    //Task.Factory.StartNew();
             }
         }
 

@@ -15,17 +15,5 @@ namespace HunterPie.Core.Game.Rise
             Game = new MHRGame(process);
             Process = process;
         }
-
-        internal override void Scan()
-        {
-            if (Game is MHRGame game)
-                game.StartScanTask();
-        }
-
-        internal override void Stop()
-        {
-            if (Game is MHRGame game)
-                game.StopScanning();
-        }
     }
 }

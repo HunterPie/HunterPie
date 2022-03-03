@@ -21,7 +21,6 @@ namespace HunterPie.Core.Game.Rise
 
         // TODO: Could probably turn this into a bit mask with 256 bits
         private HashSet<int> MonsterAreas = new() { 5, 201, 202, 203, 204, 205, 207, 209, 210, 211};
-        private bool _isGameRunning = true;
 
         public IPlayer Player { get; }
         public List<IMonster> Monsters { get; } = new();
@@ -34,6 +33,11 @@ namespace HunterPie.Core.Game.Rise
         public MHRGame(IProcessManager process) : base(process)
         {
             Player = new MHRPlayer(process);
+
+            ScanManager.Add(
+                this,
+                Player as Scannable
+            );
         }
 
         [ScannableMethod]
@@ -80,6 +84,7 @@ namespace HunterPie.Core.Game.Rise
             IMonster monster = new MHRMonster(_process, monsterAddress);
             monsters.Add(monsterAddress, monster);
             Monsters.Add(monster);
+            ScanManager.Add(monster as Scannable);
 
             this.Dispatch(OnMonsterSpawn, monster);
         }
@@ -89,33 +94,9 @@ namespace HunterPie.Core.Game.Rise
             IMonster monster = monsters[address]; 
             monsters.Remove(address);
             Monsters.Remove(monster);
+            ScanManager.Remove(monster as Scannable);
 
             this.Dispatch(OnMonsterDespawn, monster);
         }
-
-        internal void StartScanTask()
-        {
-            new Thread(new ThreadStart(() =>
-            {
-                while (_isGameRunning)
-                {
-                    (Player as Scannable).Scan();
-
-                    foreach (var m in Monsters)
-                        if (m is Scannable ms)
-                            ms.Scan();
-
-                    Scan();
-                    Thread.Sleep((int)ClientConfig.Config.Client.PollingRate.Current);
-                }
-            }))
-            {
-                IsBackground = true,
-                Name = "MHRGame",
-                Priority = ThreadPriority.Highest
-            }.Start();
-        }
-
-        internal void StopScanning() => _isGameRunning = false;
     }
 }
