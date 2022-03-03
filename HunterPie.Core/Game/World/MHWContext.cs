@@ -12,14 +12,5 @@ namespace HunterPie.Core.Game.World
             // TODO: Strings
         }
 
-        internal override void Scan()
-        {
-            throw new NotImplementedException();
-        }
-
-        internal override void Stop()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

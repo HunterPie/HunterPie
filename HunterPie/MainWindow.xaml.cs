@@ -19,6 +19,7 @@ using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.UI.Overlay.Widgets.Wirebug.Views;
 using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
 using System.Threading;
+using System.Windows.Media.Animation;
 
 namespace HunterPie
 {
@@ -32,6 +33,8 @@ namespace HunterPie
         {
             Log.Info("Initializing HunterPie GUI");
             InitializeComponent();
+
+            Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata { DefaultValue = 60 });
         }
 
         protected override void OnClosing(CancelEventArgs e)

@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using HunterPie.Features.Overlay;
 using HunterPie.Core.Events;
+using HunterPie.Core.Domain;
 
 namespace HunterPie
 {
@@ -101,7 +102,7 @@ namespace HunterPie
             UnhookEvents();
             _richPresence?.Dispose();
 
-            _context.Stop();
+            ScanManager.Stop();
 
             _process = null;
             _context = null;
@@ -134,7 +135,7 @@ namespace HunterPie
             
             Dispatcher.InvokeAsync(() => WidgetInitializers.Initialize(context));
             
-            context.Scan();
+            ScanManager.Start();
         }
 
         private void OngameUnfocus(object sender, ProcessEventArgs e) => WidgetManager.Instance.IsGameFocused = false;
