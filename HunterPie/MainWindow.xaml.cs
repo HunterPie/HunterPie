@@ -57,7 +57,6 @@ namespace HunterPie
             
             Show();
             SetupTrayIcon();
-            throw new ApplicationException("test");
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)

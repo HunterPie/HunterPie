@@ -144,7 +144,6 @@ namespace HunterPie
 
         private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            RemoteCrashReporter.Send(e.Exception);
             Log.Error(e.Exception.ToString());
             e.Handled = true;
         }
