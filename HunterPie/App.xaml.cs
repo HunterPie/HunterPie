@@ -20,7 +20,6 @@ using System.Linq;
 using HunterPie.Features.Overlay;
 using HunterPie.Core.Events;
 using HunterPie.Core.Domain;
-using HunterPie.Internal.Poogie;
 
 namespace HunterPie
 {
@@ -92,7 +91,6 @@ namespace HunterPie
             RenderOptions.ProcessRenderMode = ClientConfig.Config.Client.Rendering == RenderingStrategy.Hardware
                 ? RenderMode.Default
                 : RenderMode.SoftwareOnly;
-
         }
 
         private void OnProcessClosed(object sender, ProcessManagerEventArgs e)
