@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using static HunterPie.Memory.Native.Kernel32;
 
 namespace HunterPie.Memory.Core
@@ -67,27 +68,27 @@ namespace HunterPie.Memory.Core
 
                     pageSize = (int)pageInformation.RegionSize;
                 }
-                
-                Span<byte> span = new Span<byte>(memory, i, Signatures.MaximumLength);
 
-                foreach (Signature signature in Signatures.Patterns)
+
+                if (Signatures.FirstBytes[memory[i]] <= 0)
+                    continue;
+
+                Span<byte> span = new Span<byte>(memory, i, Signatures.MaximumLength);
+                
+                foreach (var signature in Signatures.Patterns)
                 {
                     if (signature.HasBeenFound)
-                        continue;
-
-                    if (signature.Pattern.Bytes[0] != span[0])
                         continue;
 
                     span.CopyTo(buffer);
 
                     bool match = signature.Pattern.Equals(buffer);
-                    
+
                     if (!match)
                         continue;
 
                     long movAddress = BitConverter.ToInt32(buffer, (int)signature.Offset);
 
-                    // 7 is the size of the full mov ???, [0x14????????] instruction
                     Signatures.Found(signature, i, i + movAddress + signature.Offset + sizeof(int));
                 }
 
@@ -102,7 +103,7 @@ namespace HunterPie.Memory.Core
             foreach (Signature signature in Signatures)
             {
                 if (signature.HasBeenFound)
-                    Console.WriteLine("Address {0} {1:X08}", signature.Name, signature.IsRelative ? signature.Value : signature.AtAddress);
+                    Console.WriteLine("Address {0} {1:X08}", signature.Name, signature.IsRelative ? signature.Value : signature.AtAddress + signature.Offset);
                 else
                     Console.WriteLine("Failed to find pattern for {0}", signature.Name);
 
