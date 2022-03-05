@@ -65,6 +65,12 @@
     <Compile Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Activities\View\SubmarinesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Activities\View\SubmarineView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Damage\View\MeterView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -170,6 +176,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Activities\View\SubmarinesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Activities\View\SubmarineView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Damage\View\MeterView.xaml">
