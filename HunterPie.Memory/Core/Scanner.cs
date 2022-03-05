@@ -88,7 +88,7 @@ namespace HunterPie.Memory.Core
                     long movAddress = BitConverter.ToInt32(buffer, (int)signature.Offset);
 
                     // 7 is the size of the full mov ???, [0x14????????] instruction
-                    Signatures.Found(signature, i, i + movAddress + 7);
+                    Signatures.Found(signature, i, i + movAddress + signature.Offset + sizeof(int));
                 }
 
                 pageSize--;
@@ -102,7 +102,7 @@ namespace HunterPie.Memory.Core
             foreach (Signature signature in Signatures)
             {
                 if (signature.HasBeenFound)
-                    Console.WriteLine("Address {0} {2:X08}", signature.Name, signature.AtAddress, signature.Value);
+                    Console.WriteLine("Address {0} {1:X08}", signature.Name, signature.IsRelative ? signature.Value : signature.AtAddress);
                 else
                     Console.WriteLine("Failed to find pattern for {0}", signature.Name);
 
