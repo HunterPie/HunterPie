@@ -381,7 +381,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Overlay\Widgets\Activities\ViewModel\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 

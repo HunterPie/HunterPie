@@ -19,6 +19,7 @@ using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.UI.Overlay.Widgets.Wirebug.Views;
 using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
 using System.Windows.Media.Animation;
+using HunterPie.UI.Overlay.Widgets.Activities.View;
 
 namespace HunterPie
 {
@@ -100,6 +101,9 @@ namespace HunterPie
                         DataContext = new MockWirebugsViewModel()
                     }
                 );
+
+            if (ClientConfig.Config.Debug.MockActivitiesWidget)
+                WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(new ActivitiesView());
         }
 
         private void SetupTrayIcon()

@@ -4,20 +4,135 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.View"
+             xmlns:button="clr-namespace:HunterPie.UI.Controls.Buttons"
+             xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.ViewModel"
+             d:DataContext="{d:DesignInstance Type=vm:TrainingDojoViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="30"
-             d:DesignWidth="240">
-    <Grid HorizontalAlignment="Left">
+             d:DesignHeight="40"
+             ClipToBounds="True">
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="25"/>
         </Grid.ColumnDefinitions>
-        <Image Source="{StaticResource ICON_DOJO}"
-               Margin="2"/>
-        <TextBlock Text="9"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   VerticalAlignment="Center"
-                   Grid.Column="1"/>
+        <Rectangle Grid.RowSpan="2"
+                   Grid.ColumnSpan="2"
+                   HorizontalAlignment="Left"
+                   Fill="#402ED14C"
+                   Width="200"
+                   Margin="1"/>
+        <StackPanel>
+            <Grid Height="40">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ShouldShowBuddies, RelativeSource={RelativeSource AncestorType=local:TrainingDojoView}}"
+                                         Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                                                To="0,-40,0,0"
+                                                                Duration="0:0:0.250"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                                                To="0,0,0,0"
+                                                                Duration="0:0:0.250"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="{StaticResource ICON_DOJO}"
+                       Margin="3"
+                       Grid.RowSpan="2" 
+                       Grid.Column="0"/>
+
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,-16,0" 
+                            Grid.Row="0" 
+                            Grid.Column="1">
+                    <Image Source="{StaticResource ICON_BOOST}"
+                           Height="15"
+                           Width="15"
+                           Margin="3,0,0,0"/>
+                    <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                               FontSize="15"
+                               VerticalAlignment="Center">
+                        <Run Text="Boosts:"
+                             FontWeight="Medium"/>
+                        <Run Text="{Binding Boosts}"
+                             d:Text="9"
+                             FontWeight="Medium"/><!--
+                     --><Run Text="/"
+                             Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/><!--
+                     --><Run Text="{Binding MaxBoosts}"
+                             d:Text="10"
+                             Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/>
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" 
+                            Grid.Row="1" 
+                            Grid.Column="1">
+                    <Image Source="{StaticResource ICON_TRAINING}"/>
+                    <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                               FontSize="15"
+                               VerticalAlignment="Center">
+                        <Run Text="Rounds:"
+                             FontWeight="Medium"/>
+                        <Run Text="{Binding Rounds}"
+                             d:Text="9"
+                             FontWeight="Medium"/><!--
+                     --><Run Text="/"
+                             Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/><!--
+                     --><Run Text="{Binding MaxRounds}"
+                             d:Text="10"
+                            Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/>
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+
+            <ItemsControl ItemsSource="{Binding Buddies}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Height="40"
+                                    Orientation="Horizontal"
+                                    IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:BuddyDojoView/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
+
+        <button:Button HorizontalAlignment="Center"
+                       Grid.Column="2"
+                       Grid.RowSpan="2"
+                       OnClick="OnClick">
+            <Image Source="{StaticResource ICON_MORE_INFO}"/>
+        </button:Button>
     </Grid>
 </UserControl>

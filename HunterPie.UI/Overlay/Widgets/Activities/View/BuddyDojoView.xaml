@@ -5,22 +5,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.View"
              mc:Ignorable="d" 
-             d:DesignHeight="30" 
-             d:DesignWidth="35">
+             Height="40" 
+             Width="40">
     <Grid>
         <Viewbox VerticalAlignment="Top"
                  Margin="2,0,2,0"
-                 MaxHeight="15">
-            <TextBlock Text="Muffin"
+                 MaxHeight="20">
+            <TextBlock Text="Mufddn"
                        TextWrapping="Wrap"
                        Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/>
         </Viewbox>
-        <TextBlock VerticalAlignment="Bottom"
+        <TextBlock VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    TextWrapping="Wrap"
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}">
             <Run Text="Lv."
-                 FontSize="10"/><!--
+                 FontSize="12"
+                 FontWeight="Medium"/><!--
          --><Run Text="45"
                  Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
 

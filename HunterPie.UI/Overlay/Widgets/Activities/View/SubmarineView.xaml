@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.View"
              mc:Ignorable="d" 
-             d:DesignHeight="30" 
+             d:DesignHeight="40" 
              d:DesignWidth="80">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -15,7 +15,7 @@
         <Rectangle Grid.RowSpan="2"
                    Grid.ColumnSpan="2"
                    HorizontalAlignment="Left"
-                   Fill="#202E82D1"
+                   Fill="#402ED14C"
                    Width="40"
                    Margin="1"/>
         <Border BorderThickness="1"
@@ -39,7 +39,7 @@
                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                        HorizontalAlignment="Center"
                        FontWeight="Medium"
-                       FontSize="14">
+                       FontSize="15">
                 <Run Text="15"/><!--
              --><Run Text="/20"
                      FontWeight="Light"
@@ -50,7 +50,7 @@
                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                        HorizontalAlignment="Center"
                        Grid.Row="1"
-                       FontSize="14"
+                       FontSize="15"
                        Margin="0,-2,0,0"/>
         </Grid>
     </Grid>

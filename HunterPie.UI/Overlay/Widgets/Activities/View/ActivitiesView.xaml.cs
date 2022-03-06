@@ -1,28 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Settings;
+using HunterPie.UI.Architecture;
+using HunterPie.UI.Overlay.Enums;
+using HunterPie.UI.Overlay.Widgets.Activities.ViewModel;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.View
 {
     /// <summary>
     /// Interaction logic for ActivitiesView.xaml
     /// </summary>
-    public partial class ActivitiesView : UserControl
+    public partial class ActivitiesView : View<ActivitiesViewModel>, IWidget<ActivitiesWidgetConfig>, IWidgetWindow
     {
         public ActivitiesView()
         {
             InitializeComponent();
         }
+
+        public WidgetType Type => WidgetType.Window;
+
+        ActivitiesWidgetConfig IWidget<ActivitiesWidgetConfig>.Settings => ClientConfig.Config.Overlay.ActivitiesWidget;
+        public IWidgetSettings Settings => ClientConfig.Config.Overlay.ActivitiesWidget;
+
+        public string Title => "Activities Widget";
+
+        
     }
 }
