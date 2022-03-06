@@ -8,7 +8,8 @@
     <Grid>
         <WrapPanel Orientation="Horizontal"
                    ItemWidth="80"
-                   Background="#FF202327">
+                   Background="#FF202327"
+                   HorizontalAlignment="Center">
             <local:SubmarineView Margin="1"/>
             <local:SubmarineView Margin="1"/>
             <local:SubmarineView Margin="1"

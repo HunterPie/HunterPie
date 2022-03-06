@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="HunterPie.UI.Overlay.Widgets.Activities.View.TrainingDojoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="30"
+             d:DesignWidth="240">
+    <Grid HorizontalAlignment="Left">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Image Source="{StaticResource ICON_DOJO}"
+               Margin="2"/>
+        <TextBlock Text="9"
+                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   VerticalAlignment="Center"
+                   Grid.Column="1"/>
+    </Grid>
+</UserControl>
