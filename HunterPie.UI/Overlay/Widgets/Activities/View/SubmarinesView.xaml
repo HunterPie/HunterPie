@@ -4,15 +4,39 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.View"
+             xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.ViewModel"
+             d:DataContext="{d:DesignInstance Type=vm:SubmarinesViewModel}"
              mc:Ignorable="d">
     <Grid>
-        <WrapPanel Orientation="Horizontal"
-                   ItemWidth="90"
-                   HorizontalAlignment="Center">
-            <local:SubmarineView Margin="1"/>
-            <local:SubmarineView Margin="1"/>
-            <local:SubmarineView Margin="1"
-                                 Opacity="0.3"/>
-        </WrapPanel>            
+        <ItemsControl ItemsSource="{Binding Submarines, Mode=OneWay}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"
+                               ItemWidth="90"
+                               HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:SubmarineView Margin="1">
+                        <local:SubmarineView.Style>
+                            <Style TargetType="local:SubmarineView">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsActive, Mode=OneWay}"
+                                                 Value="True">
+                                        <Setter Property="Opacity" Value="1"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsActive, Mode=OneWay}"
+                                                 Value="False">
+                                        <Setter Property="Opacity" Value="0.3"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </local:SubmarineView.Style>                        
+                    </local:SubmarineView>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </UserControl>

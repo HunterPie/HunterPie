@@ -1,8 +1,8 @@
-﻿using HunterPie.Core.Logger;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using Converter = System.Convert;
 
 namespace HunterPie.UI.Architecture.Converters
 {
@@ -10,10 +10,9 @@ namespace HunterPie.UI.Architecture.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            
-            double currentValue = (double)values[0];
-            double maxValue = (double)values[1];
-            double maxWidth = (double)values[2];
+            double currentValue = Converter.ToDouble(values[0]);
+            double maxValue = Converter.ToDouble(values[1]);
+            double maxWidth = Converter.ToDouble(values[2]);
             Thickness border = (Thickness)values[3];
             double sides = border.Left + border.Right;
 

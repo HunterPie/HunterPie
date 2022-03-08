@@ -6,10 +6,14 @@
              xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.View"
              xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.ViewModel"
+             xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Presentation"
              x:TypeArguments="vm:ActivitiesViewModel"
              d:DataContext="{d:DesignInstance Type=vm:ActivitiesViewModel}"
              mc:Ignorable="d">
     <UserControl.Resources>
+
+        <vm:MockActivitiesViewModel x:Key="MockActivitiesViewModel"/>
+
         <DataTemplate x:Key="TEMPLATE_SUBMARINES_VIEW">
             <local:SubmarinesView/>
         </DataTemplate>
@@ -17,14 +21,21 @@
         <DataTemplate x:Key="TEMPLATE_TRAINING_DOJO_VIEW">
             <local:TrainingDojoView/>
         </DataTemplate>
+
+        <presentation:ActivityTemplateSelector x:Key="ActivityTemplateSelector"
+                                               SubmarineTemplate="{StaticResource TEMPLATE_SUBMARINES_VIEW}"
+                                               TrainingDojoTemplate="{StaticResource TEMPLATE_TRAINING_DOJO_VIEW}"/>
     </UserControl.Resources>
-    <ItemsControl ItemsSource="{Binding Activities, Mode=OneWay}">
+    <ItemsControl ItemsSource="{Binding Activities, Mode=OneWay}"
+                  ItemTemplateSelector="{StaticResource ActivityTemplateSelector}"
+                  d:DataContext="{StaticResource MockActivitiesViewModel}"
+                  d:ItemsSource="{Binding Activities}">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <WrapPanel Width="270"
                            ItemWidth="270"
                            ItemHeight="40"
-                           Background="#FF202327"/>
+                           Background="#50202327"/>
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
     </ItemsControl>
