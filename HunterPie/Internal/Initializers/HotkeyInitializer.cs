@@ -1,7 +1,6 @@
 ﻿using HunterPie.Core.Input;
 using HunterPie.Domain.Interfaces;
 using System;
-using System.Windows;
 using System.Windows.Interop;
 
 namespace HunterPie.Internal.Initializers
@@ -13,7 +12,9 @@ namespace HunterPie.Internal.Initializers
 
         public void Init()
         {
-            hWnd = new WindowInteropHelper(Application.Current.MainWindow).EnsureHandle();
+            hWnd = new WindowInteropHelper(App.UI)
+                .EnsureHandle();
+
             source = HwndSource.FromHwnd(hWnd);
 
             source.AddHook(Hotkey.HwndHook);

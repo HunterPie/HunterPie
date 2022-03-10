@@ -23,10 +23,9 @@ namespace HunterPie.Core.System.Windows
             } catch
             {
                 Log.Error("Failed to get Monster Hunter Rise version, missing permissions. Try running as administrator.");
-                pooler.Dispose();
+                ShouldPollProcess = false;
                 return false;
             }
-
 
             Log.Info($"Detected Monster Hunter Rise version: {riseVersion}");
 
@@ -35,7 +34,7 @@ namespace HunterPie.Core.System.Windows
             if (!AddressMap.IsLoaded)
             {
                 Log.Error("Failed to load address for Monster Hunter Rise v{0}", riseVersion);
-                pooler.Dispose();
+                ShouldPollProcess = false;
                 return false;
             }
 
