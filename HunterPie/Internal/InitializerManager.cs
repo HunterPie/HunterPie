@@ -3,6 +3,7 @@ using HunterPie.Domain.Interfaces;
 using HunterPie.Internal.Initializers;
 using System;
 using System.Collections.Generic;
+using System.Windows.Threading;
 
 namespace HunterPie.Internal
 {
@@ -50,8 +51,12 @@ namespace HunterPie.Internal
         {
             Log.Benchmark();
 
-            foreach (IInitializer initializer in _uiInitializers)
-                initializer.Init();
+            // Make sure to run UI initializers in the main thread
+            Dispatcher.CurrentDispatcher.Invoke(() =>
+            {
+                foreach (IInitializer initializer in _uiInitializers)
+                    initializer.Init();
+            });          
 
             Log.BenchmarkEnd();
         }

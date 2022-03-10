@@ -31,7 +31,6 @@ namespace HunterPie
         public MainWindow()
         {
             Log.Info("Initializing HunterPie GUI");
-            InitializeComponent();
 
             Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata { DefaultValue = 60 });
         }
@@ -52,10 +51,11 @@ namespace HunterPie
 
         private void OnInitialized(object sender, EventArgs e)
         {
-            InitializerManager.InitializeGUI();
-            InitializeDebugWidgets();
-            
             Show();
+            InitializerManager.InitializeGUI();
+            
+            InitializeDebugWidgets();
+                       
             SetupTrayIcon();
         }
 
