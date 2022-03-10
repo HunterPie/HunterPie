@@ -22,9 +22,14 @@
             <local:TrainingDojoView/>
         </DataTemplate>
 
+        <DataTemplate x:Key="TEMPLATE_MEOWCENARIES_VIEW">
+            <local:MeowcenariesView/>
+        </DataTemplate>
+
         <presentation:ActivityTemplateSelector x:Key="ActivityTemplateSelector"
                                                SubmarineTemplate="{StaticResource TEMPLATE_SUBMARINES_VIEW}"
-                                               TrainingDojoTemplate="{StaticResource TEMPLATE_TRAINING_DOJO_VIEW}"/>
+                                               TrainingDojoTemplate="{StaticResource TEMPLATE_TRAINING_DOJO_VIEW}"
+                                               MeowcenariesTemplate="{StaticResource TEMPLATE_MEOWCENARIES_VIEW}"/>
     </UserControl.Resources>
     <ItemsControl ItemsSource="{Binding Activities, Mode=OneWay}"
                   ItemTemplateSelector="{StaticResource ActivityTemplateSelector}"
@@ -35,7 +40,7 @@
                 <WrapPanel Width="270"
                            ItemWidth="270"
                            ItemHeight="40"
-                           Background="#50202327"/>
+                           Background="#DF202327"/>
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
     </ItemsControl>

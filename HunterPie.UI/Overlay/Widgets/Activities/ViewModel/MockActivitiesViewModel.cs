@@ -80,6 +80,8 @@
                 }
             );
             Activities.Add(trainingDojoActivity);
+
+            Activities.Add(new MeowcenariesViewModel());
         }
     }
 }

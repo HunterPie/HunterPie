@@ -1,9 +1,5 @@
 ﻿using HunterPie.UI.Overlay.Widgets.Activities.Domain;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -24,7 +20,7 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.Presentation
                     ActivityType.HarvestBox => throw new NotImplementedException(),
                     ActivityType.Argosy => throw new NotImplementedException(),
                     ActivityType.Submarine => SubmarineTemplate,
-                    ActivityType.Meowcenaries => throw new NotImplementedException(),
+                    ActivityType.Meowcenaries => MeowcenariesTemplate,
                     ActivityType.TrainingDojo => TrainingDojoTemplate,
                     _ => throw new NotImplementedException(string.Format("Missing implementation for {0}", nameof(activity.Type)))
                 };

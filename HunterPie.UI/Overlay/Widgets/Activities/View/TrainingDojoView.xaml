@@ -62,7 +62,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="40"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Rectangle Margin="3"
@@ -70,7 +70,8 @@
                            Grid.Column="0"
                            Fill="WhiteSmoke">
                     <Rectangle.OpacityMask>
-                        <ImageBrush ImageSource="{StaticResource ICON_DOJO}" Stretch="Uniform"/>
+                        <ImageBrush ImageSource="{StaticResource ICON_DOJO}" 
+                                    Stretch="Uniform"/>
                     </Rectangle.OpacityMask>
                     <Rectangle.Effect>
                         <DropShadowEffect BlurRadius="5"
