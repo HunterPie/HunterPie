@@ -10,5 +10,10 @@ using System.Windows;
                                               // app, or any theme specific resource dictionaries)
 )]
 
+<<<<<<< HEAD
 [assembly: AssemblyVersion("2.0.21.154")]
 [assembly: AssemblyFileVersion("2.0.21.154")]
+=======
+[assembly: AssemblyVersion("2.0.21.155")]
+[assembly: AssemblyFileVersion("2.0.21.155")]
+>>>>>>> Fix/Hotfixes-v2.0.21

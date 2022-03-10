@@ -11,15 +11,16 @@ using HunterPie.Core.Address.Map;
 using HunterPie.Core.System.Windows.Native;
 using HunterPie.Core.System.Windows.Memory;
 using HunterPie.Core.Events;
+using System.Threading.Tasks;
 
 namespace HunterPie.Core.System.Windows
 {
     abstract class WindowsProcessManager : IProcessManager, IEventDispatcher
     {
 
-        protected Timer pooler;
-        private readonly object _lock = new();
+        protected Thread pooler;
         private bool isProcessForeground;
+        protected bool ShouldPollProcess = true;
        
         private IMemory memory; 
         private IntPtr pHandle;
@@ -58,10 +59,24 @@ namespace HunterPie.Core.System.Windows
         public void Initialize()
         {
             Log.Info($"Started scanning for process {Name}...");
-            pooler = new Timer(delegate { lock(_lock) { PoolProcessInfo(); } } , null, 0, 80);
+
+            pooler = new Thread(new ThreadStart(ExecutePolling))
+            {
+                Name = "PollingBackgroundThread",
+            };
+            pooler.Start();
         }
 
-        private void PoolProcessInfo()
+        private async void ExecutePolling()
+        {
+            while (ShouldPollProcess)
+            {
+                PollProcessInfo();
+                await Task.Delay(80);
+            }
+        }
+
+        private void PollProcessInfo()
         {
             if (Process is not null)
             {
@@ -70,9 +85,12 @@ namespace HunterPie.Core.System.Windows
             }
 
             Process mhProcess = Process.GetProcessesByName(Name)
-                .FirstOrDefault(process => !string.IsNullOrEmpty(process.MainWindowTitle));
+                .FirstOrDefault(process => !string.IsNullOrEmpty(process?.MainWindowTitle));
 
-            if (mhProcess is not null && ShouldOpenProcess(mhProcess))
+            if (mhProcess is null)
+                return;
+
+            if (ShouldOpenProcess(mhProcess))
             {
                 Process = mhProcess;
                 ProcessId = mhProcess.Id;
@@ -81,7 +99,7 @@ namespace HunterPie.Core.System.Windows
                 if (pHandle == IntPtr.Zero)
                 {
                     Log.Error("Failed to open game process. Run HunterPie as Administrator!");
-                    pooler.Dispose();
+                    ShouldPollProcess = false;
                     return;
                 }
 

@@ -14,7 +14,10 @@ namespace HunterPie.Core.Address.Map
         public static bool Parse(string filePath)
         {
             if (!File.Exists(filePath))
-                return false;
+            {
+                IsLoaded = false;
+                return IsLoaded;
+            }
 
             using (FileStream file = File.OpenRead(filePath))
             {
@@ -26,7 +29,8 @@ namespace HunterPie.Core.Address.Map
 
                 IsLoaded = true;
             }
-            return true;
+
+            return IsLoaded;
         }
 
         public static bool ParseLatest(string mapsDir)
