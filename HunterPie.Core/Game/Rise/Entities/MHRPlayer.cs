@@ -80,6 +80,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         public MHRWirebug[] Wirebugs { get; } = { new(), new(), new() };
 
         public MHRArgosy Argosy { get; } = new();
+        public MHRTrainingDojo TrainingDojo { get; } = new();
 
         public event EventHandler<EventArgs> OnLogin;
         public event EventHandler<EventArgs> OnLogout;
@@ -427,6 +428,12 @@ namespace HunterPie.Core.Game.Rise.Entities
                 localData.Update(submarines[i]);
             }
             
+        }
+
+        [ScannableMethod]
+        private void ScanTrainingDojo()
+        {
+
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

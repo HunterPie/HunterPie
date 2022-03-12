@@ -1,9 +1,12 @@
-﻿using HunterPie.Core.Client;
+﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Client;
 using HunterPie.Core.Logger;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace HunterPie.Core.Domain
 {
@@ -13,18 +16,25 @@ namespace HunterPie.Core.Domain
         private static CancellationTokenSource token = new CancellationTokenSource();
         private readonly static HashSet<Scannable> scannables = new HashSet<Scannable>();
         
+        // Metrics
+
+        public readonly static Observable<long> ScanTime = 0;
+        
         internal static void Start()
         {
             if (thread is null)
             {
-                thread = new Thread(() =>
+                thread = new Thread(async () =>
                 {
                     do
                     {
                         try
                         {
+                            Stopwatch sw = Stopwatch.StartNew();
                             Scan();
-
+                            sw.Stop();
+                            ScanTime.Value = sw.ElapsedMilliseconds;
+                            
                             if (token.IsCancellationRequested)
                                 break;
 
@@ -44,7 +54,7 @@ namespace HunterPie.Core.Domain
                 })
                 {
                     Name = "ScanManager",
-                    IsBackground = true,
+                    IsBackground = false,
                     Priority = ThreadPriority.AboveNormal
                 };
                 thread.Start();
@@ -64,11 +74,14 @@ namespace HunterPie.Core.Domain
 
         private static void Scan()
         {
-            lock (scannables)
-            {
-                foreach (Scannable scannable in scannables.ToArray())
-                    scannable.Scan();
-            }
+
+            Scannable[] readOnlyScannables = scannables.ToArray();
+            Task[] tasks = new Task[readOnlyScannables.Length];
+
+            for (int i = 0; i < readOnlyScannables.Length; i++)
+                tasks[i] = Task.Run(readOnlyScannables[i].Scan);
+
+            Task.WaitAll(tasks);
         }
 
         public static void Add(params Scannable[] scannableList)
