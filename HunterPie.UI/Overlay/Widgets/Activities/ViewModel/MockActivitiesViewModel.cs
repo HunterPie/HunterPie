@@ -81,7 +81,12 @@
             );
             Activities.Add(trainingDojoActivity);
 
-            Activities.Add(new MeowcenariesViewModel());
+            Activities.Add(new MeowcenariesViewModel() { 
+                DaysLeft = 3,
+                ExpectedOutcome = 4,
+                BuddyCount = 4,
+                MaxBuddyCount = 4
+            });
         }
     }
 }

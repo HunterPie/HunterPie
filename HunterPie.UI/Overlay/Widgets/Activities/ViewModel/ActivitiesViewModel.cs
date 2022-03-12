@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.Architecture;
-using HunterPie.UI.Overlay.Widgets.Activities.Domain;
+using HunterPie.Core.Game.Client;
 using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.ViewModel

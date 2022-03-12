@@ -8,6 +8,7 @@ using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Rise.Definitions;
+using HunterPie.Core.Game.Rise.Entities.Activities;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -22,6 +23,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         private string _name;
         private int _stageId;
         private Weapon _weaponId;
+        private readonly Dictionary<string, IAbnormality> abnormalities = new();
         #endregion 
 
         public string Name
@@ -72,11 +74,12 @@ namespace HunterPie.Core.Game.Rise.Entities
         public bool InHuntingZone => StageId >= 200 || StageId == 5;
 
         public List<IPartyMember> Party { get; } = new();
-
-        private Dictionary<string, IAbnormality> abnormalities = new();
+        
         public IReadOnlyCollection<IAbnormality> Abnormalities => abnormalities.Values;
 
         public MHRWirebug[] Wirebugs { get; } = { new(), new(), new() };
+
+        public MHRArgosy Argosy { get; } = new();
 
         public event EventHandler<EventArgs> OnLogin;
         public event EventHandler<EventArgs> OnLogout;
@@ -379,6 +382,51 @@ namespace HunterPie.Core.Game.Rise.Entities
 
             if (shouldDispatchEvent)
                 this.Dispatch(OnWirebugsRefresh, Wirebugs);
+        }
+
+        [ScannableMethod(typeof(MHRSubmarineData))]
+        private void ScanArgosy()
+        {
+            
+            long argosyAddress = _process.Memory.Read(
+                AddressMap.GetAbsolute("ARGOSY_ADDRESS"), 
+                AddressMap.Get<int[]>("ARGOSY_OFFSETS")
+            );
+
+            int submarineArrayLength = _process.Memory.Read<int>(argosyAddress + 0x1C);
+            MHRSubmarineData[] submarines = new MHRSubmarineData[submarineArrayLength];
+
+            long[] submarinePtrs = _process.Memory.Read<long>(argosyAddress + 0x20, (uint)submarineArrayLength);
+            
+            // Read submarines data
+            for (int i = 0; i < submarineArrayLength; i++)
+            {
+                ref long submarinePtr = ref submarinePtrs[i];
+                MHRSubmarineStructure data = _process.Memory.Read<MHRSubmarineStructure>(submarinePtr);
+                submarines[i].Data = data;
+            }
+
+            // Read submarine items array data
+            for (int i = 0; i < submarines.Length; i++)
+            {
+                ref MHRSubmarineData submarine = ref submarines[i];
+
+                int itemsArrayLength = _process.Memory.Read<int>(submarine.Data.ItemArrayPtr + 0x1C);
+                long[] itemsPtr = _process.Memory.Read<long>(submarine.Data.ItemArrayPtr + 0x20, (uint)itemsArrayLength);
+                MHRSubmarineItemStructure[] items = new MHRSubmarineItemStructure[itemsArrayLength];
+
+                for (int j = 0; j < itemsArrayLength; j++)
+                    items[j] = _process.Memory.Read<MHRSubmarineItemStructure>(itemsPtr[j]);
+
+                submarine.Items = items;
+            }
+
+            for (int i = 0; i < Math.Min(Argosy.Submarines.Length, submarineArrayLength); i++)
+            {
+                IUpdatable<MHRSubmarineData> localData = Argosy.Submarines[i];
+                localData.Update(submarines[i]);
+            }
+            
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

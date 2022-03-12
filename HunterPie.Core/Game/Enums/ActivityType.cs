@@ -1,4 +1,4 @@
-﻿namespace HunterPie.UI.Overlay.Widgets.Activities.Domain
+﻿namespace HunterPie.Core.Game.Enums
 {
     public enum ActivityType
     {

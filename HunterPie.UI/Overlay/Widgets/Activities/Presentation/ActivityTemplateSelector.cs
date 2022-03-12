@@ -1,4 +1,5 @@
-﻿using HunterPie.UI.Overlay.Widgets.Activities.Domain;
+﻿using HunterPie.Core.Game.Client;
+using HunterPie.Core.Game.Enums;
 using System;
 using System.Windows;
 using System.Windows.Controls;

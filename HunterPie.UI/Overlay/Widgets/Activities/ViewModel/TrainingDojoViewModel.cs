@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Architecture;
-using HunterPie.UI.Overlay.Widgets.Activities.Domain;
+using HunterPie.Core.Game.Client;
+using HunterPie.Core.Game.Enums;
 using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.ViewModel

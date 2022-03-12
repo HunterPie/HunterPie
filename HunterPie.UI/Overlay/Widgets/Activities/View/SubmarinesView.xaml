@@ -13,6 +13,7 @@
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal"
                                ItemWidth="90"
+                               ItemHeight="40"
                                HorizontalAlignment="Center"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>

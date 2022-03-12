@@ -6,28 +6,74 @@
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.View"
              xmlns:button="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.ViewModel"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              d:DataContext="{d:DesignInstance Type=vm:TrainingDojoViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="40"
              d:DesignWidth="270"
              ClipToBounds="True">
+    <UserControl.Resources>
+        <converters:CurrentValueToWidthConverter x:Key="CurrentValueToWidthConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
-        <Rectangle Grid.RowSpan="2"
-                   Grid.ColumnSpan="2"
-                   HorizontalAlignment="Left"
-                   Width="200"
-                   Margin="1">
-            <Rectangle.Fill>
-                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0.5,1">
-                    <GradientStop Color="#33008DCF" Offset="0"/>
-                    <GradientStop Color="#3300FFD1" Offset="1"/>
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
+        <Grid Grid.RowSpan="2"
+              Grid.ColumnSpan="2"
+              HorizontalAlignment="Left"
+              d:Width="40"
+              MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
+              Margin="1"
+              ClipToBounds="True">
+            <Grid.Width>
+                <MultiBinding Converter="{StaticResource CurrentValueToWidthConverter}">
+                    <Binding Path="DataContext.Rounds" RelativeSource="{RelativeSource AncestorType=local:TrainingDojoView}" FallbackValue="0"/>
+                    <Binding Path="DataContext.MaxRounds" RelativeSource="{RelativeSource AncestorType=local:TrainingDojoView}" FallbackValue="1"/>
+                    <Binding Path="MaxWidth" RelativeSource="{RelativeSource Self}"/>
+                    <Binding Path="Margin" RelativeSource="{RelativeSource Self}"/>
+                </MultiBinding>
+            </Grid.Width>
+            <Rectangle >
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0.5,1">
+                        <GradientStop Color="#33008DCF" Offset="0"/>
+                        <GradientStop Color="#3300FFD1" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Fill="#10FFFFFF" 
+                       Width="30" 
+                       RenderTransformOrigin="0.5,0.5"
+                       HorizontalAlignment="Left" 
+                       Margin="0,0,0,0">
+                <Rectangle.Effect>
+                    <BlurEffect Radius="20" 
+                                KernelType="Gaussian"/>
+                </Rectangle.Effect>
+                <Rectangle.Style>
+                    <Style TargetType="Rectangle">
+                        <Style.Triggers>
+                            <Trigger Property="IsVisible"
+                                     Value="True">
+                                <Trigger.EnterActions>
+
+                                    <BeginStoryboard>
+                                        <Storyboard RepeatBehavior="Forever"
+                                                    Storyboard.TargetProperty="Margin">
+                                            <ThicknessAnimation From="-40,0,0,0"
+                                                                To="300,0,0,0"
+                                                                Duration="0:0:3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Rectangle.Style>
+            </Rectangle>
+        </Grid>
         <StackPanel>
             <Grid Height="40">
                 <Grid.Style>
