@@ -17,7 +17,7 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.View
             InitializeComponent();
         }
 
-        public WidgetType Type => WidgetType.Window;
+        public WidgetType Type => WidgetType.ClickThrough;
 
         ActivitiesWidgetConfig IWidget<ActivitiesWidgetConfig>.Settings => ClientConfig.Config.Overlay.ActivitiesWidget;
         public IWidgetSettings Settings => ClientConfig.Config.Overlay.ActivitiesWidget;

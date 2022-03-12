@@ -430,10 +430,51 @@ namespace HunterPie.Core.Game.Rise.Entities
             
         }
 
-        [ScannableMethod]
+        [ScannableMethod(typeof(MHRTrainingDojoData))]
         private void ScanTrainingDojo()
         {
+            int[] staticTrainingData = _process.Memory.Read<int>(AddressMap.GetAbsolute("DATA_TRAINING_DOJO_ROUNDS_LEFT"), 5); 
+            MHRTrainingDojoData data = new()
+            {
+                Rounds = staticTrainingData[0],
+                MaxRounds = staticTrainingData[1],
+                Boosts = staticTrainingData[3],
+                MaxBoosts = staticTrainingData[4],
+                Buddies = new MHRBuddyData[6]
+            };
 
+            long trainingDojo = _process.Memory.Read(
+                AddressMap.GetAbsolute("TRAINING_DOJO_ADDRESS"), 
+                AddressMap.Get<int[]>("TRAINING_DOJO_OFFSETS")
+            );
+
+            data.BuddiesCount = _process.Memory.Read<int>(trainingDojo + 0x18);
+            long[] buddyPtrs = _process.Memory.Read<long>(trainingDojo + 0x40, 6);
+
+            for (int i = 0; i < data.BuddiesCount; i++)
+            {
+                data.Buddies[i] = DerefBuddyData(buddyPtrs[i]);
+            }
+
+            Next(ref data);
+
+            IUpdatable<MHRTrainingDojoData> model = TrainingDojo;
+            model.Update(data);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private MHRBuddyData DerefBuddyData(long buddyPtr)
+        {
+            long namePtr = _process.Memory.Read<long>(buddyPtr + 0x198);
+            int nameLength = _process.Memory.Read<int>(namePtr + 0x10);
+            
+            MHRBuddyData data = new()
+            {
+                Name = _process.Memory.Read(namePtr + 0x14, (uint)nameLength * 2, Encoding.Unicode),
+                Level = _process.Memory.Read<int>(buddyPtr + 0x1A4)
+            };
+
+            return data;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
