@@ -11,7 +11,7 @@
              d:DataContext="{d:DesignInstance Type=vm:ActivitiesViewModel}"
              mc:Ignorable="d">
     <UserControl.Resources>
-
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <vm:MockActivitiesViewModel x:Key="MockActivitiesViewModel"/>
 
         <DataTemplate x:Key="TEMPLATE_SUBMARINES_VIEW">
@@ -34,7 +34,8 @@
     <ItemsControl ItemsSource="{Binding Activities, Mode=OneWay}"
                   ItemTemplateSelector="{StaticResource ActivityTemplateSelector}"
                   d:DataContext="{StaticResource MockActivitiesViewModel}"
-                  d:ItemsSource="{Binding Activities}">
+                  d:ItemsSource="{Binding Activities}"
+                  Visibility="{Binding InVisibleStage, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <WrapPanel Width="270"

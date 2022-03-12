@@ -1,5 +1,4 @@
 ﻿using HunterPie.Core.Address.Map;
-using HunterPie.Core.Client;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
@@ -10,8 +9,6 @@ using HunterPie.Core.Game.Rise.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace HunterPie.Core.Game.Rise
 {
@@ -21,6 +18,8 @@ namespace HunterPie.Core.Game.Rise
 
         // TODO: Could probably turn this into a bit mask with 256 bits
         private HashSet<int> MonsterAreas = new() { 5, 201, 202, 203, 204, 205, 207, 209, 210, 211};
+
+        public static readonly int[] VillageStages = { 0, 1, 2, 3, 4, 5 };
 
         public IPlayer Player { get; }
         public List<IMonster> Monsters { get; } = new();

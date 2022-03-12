@@ -12,32 +12,32 @@ namespace HunterPie.Core.Game.Rise.Entities.Activities
 {
     public class MHRTrainingDojo : IEventDispatcher, IUpdatable<MHRTrainingDojoData>
     {
-        private int _roundsLeft;
-        private int _boostsLeft;
+        private int _rounds;
+        private int _boosts;
         private int _buddiesCount;
 
-        public int RoundsLeft
+        public int Rounds
         {
-            get => _roundsLeft;
+            get => _rounds;
             private set
             {
-                if (value != _roundsLeft)
+                if (value != _rounds)
                 {
-                    _roundsLeft = value;
+                    _rounds = value;
                     this.Dispatch(OnRoundsLeftChange, this);
                 }
             }
         }
         public int MaxRounds { get; private set; }
 
-        public int BoostsLeft
+        public int Boosts
         {
-            get => _boostsLeft;
+            get => _boosts;
             private set
             {
-                if (value != _boostsLeft)
+                if (value != _boosts)
                 {
-                    _boostsLeft = value;
+                    _boosts = value;
                     this.Dispatch(OnBoostsLeftChange, this);
                 }
             }
@@ -74,9 +74,9 @@ namespace HunterPie.Core.Game.Rise.Entities.Activities
             }
 
             MaxRounds = data.MaxRounds;
-            RoundsLeft = data.Rounds;
+            Rounds = data.Rounds;
             MaxBoosts = data.MaxBoosts;
-            BoostsLeft = data.Boosts;
+            Boosts = data.Boosts;
 
         }
     }

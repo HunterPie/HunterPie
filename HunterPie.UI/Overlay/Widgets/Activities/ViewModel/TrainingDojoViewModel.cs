@@ -16,6 +16,7 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.ViewModel
         public int MaxBoosts { get => _maxBoosts; set { SetValue(ref _maxBoosts, value); } }
         public int Rounds { get => _rounds; set { SetValue(ref _rounds, value); } }
         public int MaxRounds { get => _maxRounds; set { SetValue(ref _maxRounds, value); } }
+
         public ObservableCollection<BuddyViewModel> Buddies { get; } = new();
 
         public ActivityType Type => ActivityType.TrainingDojo;
