@@ -38,7 +38,7 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug
             UpdateData();
         }
 
-        private void HookEvents()
+        public void HookEvents()
         {
             Player.OnStageUpdate += OnStageUpdate;
             Player.OnWirebugsRefresh += OnWirebugsRefresh;

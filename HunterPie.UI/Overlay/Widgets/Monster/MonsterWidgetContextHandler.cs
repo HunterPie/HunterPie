@@ -38,7 +38,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             CalculateVisibleMonsters();
         }
 
-        private void HookEvents()
+        public void HookEvents()
         {
             Context.Game.OnMonsterSpawn += OnMonsterSpawn;
             Context.Game.OnMonsterDespawn += OnMonsterDespawn;

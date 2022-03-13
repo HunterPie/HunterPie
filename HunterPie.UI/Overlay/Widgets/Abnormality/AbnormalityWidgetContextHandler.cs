@@ -29,7 +29,7 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality
             HookEvents();
         }
 
-        private void HookEvents()
+        public void HookEvents()
         {
             Context.Game.Player.OnAbnormalityStart += OnAbnormalityStart;
             Context.Game.Player.OnAbnormalityEnd += OnAbnormalityEnd;
