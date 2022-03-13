@@ -2,10 +2,7 @@
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Rise.Definitions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HunterPie.Core.Game.Rise.Entities.Activities
 {
@@ -28,7 +25,7 @@ namespace HunterPie.Core.Game.Rise.Entities.Activities
             }
         }
 
-        public int MaxCount { get; private set; }
+        public int MaxCount { get; private set; } = 20;
 
         public int DaysLeft
         {
@@ -65,7 +62,7 @@ namespace HunterPie.Core.Game.Rise.Entities.Activities
             DaysLeft = data.Data.DaysLeft;
             MaxCount = data.Items.Length;
             Count = data.Items.Count(item => item.Amount > 0);
-            IsUnlocked = Count > 0;
+            IsUnlocked = data.Data.Buddy != 0;
         }
     }
 }

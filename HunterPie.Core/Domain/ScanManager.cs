@@ -54,7 +54,7 @@ namespace HunterPie.Core.Domain
                 })
                 {
                     Name = "ScanManager",
-                    IsBackground = false,
+                    IsBackground = true,
                     Priority = ThreadPriority.AboveNormal
                 };
                 thread.Start();

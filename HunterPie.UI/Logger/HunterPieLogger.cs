@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace HunterPie.UI.Logger
 {
@@ -30,20 +31,20 @@ namespace HunterPie.UI.Logger
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private async Task WriteToBuffer(LogLevel level, string message)
         {
-            try
+            if (Application.Current is null)
+                return;
+            
+            await Dispatcher.CurrentDispatcher.InvokeAsync(() =>
             {
-                await Application.Current?.Dispatcher?.InvokeAsync(() =>
-                {
-                    
-                    ViewModel.Add(new LogString
-                    {
-                        Timestamp = $"[{DateTime.Now.ToLongTimeString()}]",
-                        Message = message,
-                        Level = level
-                    });
 
+                ViewModel.Add(new LogString
+                {
+                    Timestamp = $"[{DateTime.Now.ToLongTimeString()}]",
+                    Message = message,
+                    Level = level
                 });
-            } catch {}
+
+            });
         }
     }
 }

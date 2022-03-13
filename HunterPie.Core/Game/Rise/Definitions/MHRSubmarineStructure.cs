@@ -5,6 +5,9 @@ namespace HunterPie.Core.Game.Rise.Definitions
     [StructLayout(LayoutKind.Explicit)]
     public struct MHRSubmarineStructure
     {
+        [FieldOffset(0x18)]
+        public long Buddy;
+
         [FieldOffset(0x28)]
         public int Item;
 

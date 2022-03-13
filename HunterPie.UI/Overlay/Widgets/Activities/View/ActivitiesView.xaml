@@ -35,7 +35,8 @@
                   ItemTemplateSelector="{StaticResource ActivityTemplateSelector}"
                   d:DataContext="{StaticResource MockActivitiesViewModel}"
                   d:ItemsSource="{Binding Activities}"
-                  Visibility="{Binding InVisibleStage, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
+                  Visibility="{Binding InVisibleStage, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
+                  d:Visibility="Visible">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <WrapPanel Width="270"
