@@ -421,6 +421,14 @@
 					 String="Patch in-game Wirebug Aim"
 					 Description="If enabled, HunterPie will patch the game function so it doesn't hide your aim when you disable the Wirebug visual elements in-game."/>
 
+			<Setting Id="ACTIVITIES_ENABLE_ARGOSY_STRING"
+					 String="Show Argosy"
+					 Description="If enabled, HunterPie will show Argosy's data."/>
+			<Setting Id="ACTIVITIES_ENABLE_TRAINING_DOJO_STRING"
+					 String="Show Argosy"
+					 Description="If enabled, HunterPie will show Training Dojo's data."/>
+
+
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>
 			<Setting Id="DEV_MOCK_DAMAGE_WIDGET_STRING"

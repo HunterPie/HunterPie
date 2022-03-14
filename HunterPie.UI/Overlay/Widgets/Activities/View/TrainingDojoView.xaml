@@ -168,12 +168,12 @@
                         <Run Text="Rounds:"
                              FontWeight="Medium"/>
                         <Run Text="{Binding Rounds}"
-                             Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                              d:Text="9"
                              FontWeight="Medium"/><!--
                      --><Run Text="/"
                              Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/><!--
                      --><Run Text="{Binding MaxRounds}"
+                             Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
                              d:Text="10"/>
                         <TextBlock.Effect>
                             <DropShadowEffect BlurRadius="5"
