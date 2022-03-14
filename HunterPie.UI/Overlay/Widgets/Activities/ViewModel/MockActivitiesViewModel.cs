@@ -87,6 +87,7 @@
                 BuddyCount = 4,
                 MaxBuddyCount = 4
             });
+            InVisibleStage = true;
         }
     }
 }

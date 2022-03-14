@@ -277,6 +277,9 @@
 			<Setting Id="WIREBUG_WIDGET_STRING"
 					 String="Wirebug Widget"
 					 Description="Wirebug Widget configurations"/>
+			<Setting Id="ACTIVITIES_WIDGET_STRING"
+					 String="Activities Widget"
+					 Description="Activities Widget configurations"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="Dev Tools"
 					 Description="Advanced development tools"/>

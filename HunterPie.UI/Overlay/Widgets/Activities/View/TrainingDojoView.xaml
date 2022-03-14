@@ -134,8 +134,8 @@
                            Height="15"
                            Width="15"
                            Margin="3,0,0,0" Opacity="0.5"/>
-                    <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
-                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                    <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                               Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                                FontSize="15"
                                VerticalAlignment="Center">
                         <Run Text="Boosts:"
@@ -161,7 +161,7 @@
                             Grid.Row="1" 
                             Grid.Column="1">
                     <Image Source="{StaticResource ICON_TRAINING}" Opacity="0.5"/>
-                    <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                    <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                                FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                FontSize="15"
                                VerticalAlignment="Center">

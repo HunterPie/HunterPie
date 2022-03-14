@@ -15,15 +15,17 @@
         <vm:MockActivitiesViewModel x:Key="MockActivitiesViewModel"/>
 
         <DataTemplate x:Key="TEMPLATE_SUBMARINES_VIEW">
-            <local:SubmarinesView/>
+            <local:SubmarinesView Height="40"
+                                  Visibility="{Binding Settings.IsArgosyEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:ActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </DataTemplate>
 
         <DataTemplate x:Key="TEMPLATE_TRAINING_DOJO_VIEW">
-            <local:TrainingDojoView/>
+            <local:TrainingDojoView Height="40"
+                                    Visibility="{Binding Settings.IsTrainingDojoEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:ActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </DataTemplate>
 
         <DataTemplate x:Key="TEMPLATE_MEOWCENARIES_VIEW">
-            <local:MeowcenariesView/>
+            <local:MeowcenariesView Height="40"/>
         </DataTemplate>
 
         <presentation:ActivityTemplateSelector x:Key="ActivityTemplateSelector"
@@ -41,7 +43,6 @@
             <ItemsPanelTemplate>
                 <WrapPanel Width="270"
                            ItemWidth="270"
-                           ItemHeight="40"
                            Background="#DF202327"/>
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>

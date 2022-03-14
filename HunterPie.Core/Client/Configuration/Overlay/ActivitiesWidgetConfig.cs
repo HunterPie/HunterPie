@@ -4,7 +4,7 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
-    [SettingsGroup("ACTIVITIES_WIDGET_STRING", "ICON_WIREBUG_DARK")]
+    [SettingsGroup("ACTIVITIES_WIDGET_STRING", "ICON_ARGOSY")]
     public class ActivitiesWidgetConfig : IWidgetSettings, ISettings
     {
         [SettingField("INITIALIZE_WIDGET_STRING", requiresRestart: true)]
@@ -12,6 +12,12 @@ namespace HunterPie.Core.Client.Configuration.Overlay
 
         [SettingField("ENABLE_WIDGET_STRING")]
         public Observable<bool> Enabled { get; set; } = true;
+
+        [SettingField("ACTIVITIES_ENABLE_ARGOSY_STRING")]
+        public Observable<bool> IsArgosyEnabled { get; set; } = true;
+
+        [SettingField("ACTIVITIES_ENABLE_TRAINING_DOJO_STRING")]
+        public Observable<bool> IsTrainingDojoEnabled { get; set; } = true;
 
         [SettingField("WIDGET_OPACITY")]
         public Range Opacity { get; set; } = new(1, 1, 0.1, 0.1);
