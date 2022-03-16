@@ -1,15 +1,11 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Game.Rise.Entities;
-using HunterPie.Core.Game.Rise.Entities.Activities;
-using HunterPie.Core.Game.Rise.Entities.Entity;
 using HunterPie.UI.Overlay.Widgets.Activities.Rise;
 using HunterPie.UI.Overlay.Widgets.Activities.View;
 using HunterPie.UI.Overlay.Widgets.Activities.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Threading;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities
 {
@@ -20,6 +16,7 @@ namespace HunterPie.UI.Overlay.Widgets.Activities
         private readonly MHRPlayer _player;
         private readonly IContextHandler[] _handlers;
         private readonly ActivitiesViewModel ViewModel;
+        private readonly ActivitiesView View;
 
         private readonly SubmarinesContextHandler _submarinesHandler;
         private readonly TrainingDojoContextHandler _trainingDojoContextHandler;
@@ -29,10 +26,10 @@ namespace HunterPie.UI.Overlay.Widgets.Activities
             _context = context;
             _player = (MHRPlayer)context.Game.Player;
 
-            var widget = new ActivitiesView();
-            WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(widget);
+            View = new ActivitiesView();
+            WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(View);
 
-            ViewModel = widget.ViewModel;
+            ViewModel = View.ViewModel;
             
             _submarinesHandler = new(_context);
             _trainingDojoContextHandler = new(_context);
@@ -69,6 +66,7 @@ namespace HunterPie.UI.Overlay.Widgets.Activities
                 handler.UnhookEvents();
 
             _player.OnStageUpdate -= OnStageChange;
+            WidgetManager.Unregister<ActivitiesView, ActivitiesWidgetConfig>(View);
         }
                 
     }

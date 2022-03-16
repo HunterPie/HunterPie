@@ -63,16 +63,17 @@ namespace HunterPie.Core.System.Windows
             pooler = new Thread(new ThreadStart(ExecutePolling))
             {
                 Name = "PollingBackgroundThread",
+                IsBackground = true,
             };
             pooler.Start();
         }
 
-        private async void ExecutePolling()
+        private void ExecutePolling()
         {
             while (ShouldPollProcess)
             {
                 PollProcessInfo();
-                await Task.Delay(80);
+                Thread.Sleep(80);
             }
         }
 

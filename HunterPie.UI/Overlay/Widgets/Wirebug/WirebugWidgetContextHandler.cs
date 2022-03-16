@@ -5,11 +5,6 @@ using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
 using HunterPie.UI.Overlay.Widgets.Wirebug.Views;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
 
 namespace HunterPie.UI.Overlay.Widgets.Wirebug
 {
@@ -48,6 +43,7 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug
         {
             Player.OnStageUpdate -= OnStageUpdate;
             Player.OnWirebugsRefresh -= OnWirebugsRefresh;
+            WidgetManager.Unregister<WirebugsView, WirebugWidgetConfig>(View);
         }
 
 

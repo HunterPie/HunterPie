@@ -13,15 +13,16 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
     public class MonsterWidgetContextHandler : IContextHandler
     {
         private readonly MonstersViewModel ViewModel;
+        private readonly MonstersView View;
         private MonsterWidgetConfig Settings => ClientConfig.Config.Overlay.BossesWidget;
         private readonly Context Context;
 
         public MonsterWidgetContextHandler(Context context)
         {
-            var widget = new MonstersView();
-            WidgetManager.Register< MonstersView, MonsterWidgetConfig>(widget);
+            View = new MonstersView();
+            WidgetManager.Register< MonstersView, MonsterWidgetConfig>(View);
 
-            ViewModel = widget.DataContext as MonstersViewModel;
+            ViewModel = View.ViewModel;
             Context = context;
 
             UpdateData();
@@ -48,6 +49,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         {
             Context.Game.OnMonsterSpawn -= OnMonsterSpawn;
             Context.Game.OnMonsterDespawn -= OnMonsterDespawn;
+            WidgetManager.Unregister<MonstersView, MonsterWidgetConfig>(View);
         }
 
         private void OnMonsterDespawn(object sender, IMonster e)
