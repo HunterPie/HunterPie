@@ -34,16 +34,14 @@ namespace HunterPie.UI.Logger
             if (Application.Current is null)
                 return;
             
-            await Dispatcher.CurrentDispatcher.InvokeAsync(() =>
+            await Application.Current.Dispatcher.InvokeAsync(() =>
             {
-
                 ViewModel.Add(new LogString
                 {
                     Timestamp = $"[{DateTime.Now.ToLongTimeString()}]",
                     Message = message,
                     Level = level
                 });
-
             });
         }
     }

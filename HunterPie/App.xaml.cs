@@ -110,9 +110,8 @@ namespace HunterPie
             _process = null;
             _context = null;
 
-            WidgetInitializers.Unload();
-
-            Dispatcher.InvokeAsync(WidgetManager.Dispose);
+            Dispatcher.InvokeAsync(WidgetInitializers.Unload);
+            Log.Info("{0} has been closed", e.ProcessName);
         }
 
         private void OnProcessFound(object sender, ProcessManagerEventArgs e)

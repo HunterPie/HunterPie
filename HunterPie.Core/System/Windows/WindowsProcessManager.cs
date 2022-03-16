@@ -11,7 +11,6 @@ using HunterPie.Core.Address.Map;
 using HunterPie.Core.System.Windows.Native;
 using HunterPie.Core.System.Windows.Memory;
 using HunterPie.Core.Events;
-using System.Threading.Tasks;
 
 namespace HunterPie.Core.System.Windows
 {
@@ -79,17 +78,24 @@ namespace HunterPie.Core.System.Windows
 
         private void PollProcessInfo()
         {
+            Process mhProcess = Process.GetProcessesByName(Name)
+                .FirstOrDefault(process => !string.IsNullOrEmpty(process?.MainWindowTitle));
+
+            if (mhProcess is null 
+                && Process is not null)
+            {
+                OnProcessExit();
+                return;
+            }
+
+            if (mhProcess is null)
+                return;
+
             if (Process is not null)
             {
                 IsProcessForeground = User32.GetForegroundWindow() == Process.MainWindowHandle;
                 return;
             }
-
-            Process mhProcess = Process.GetProcessesByName(Name)
-                .FirstOrDefault(process => !string.IsNullOrEmpty(process?.MainWindowTitle));
-
-            if (mhProcess is null)
-                return;
 
             if (ShouldOpenProcess(mhProcess))
             {
@@ -104,10 +110,6 @@ namespace HunterPie.Core.System.Windows
                     return;
                 }
 
-                // Enable events from process
-                Process.EnableRaisingEvents = true;
-                Process.Exited += OnProcessExit;
-
                 IsRunning = true;
 
                 memory = new WindowsMemory(pHandle);
@@ -116,19 +118,15 @@ namespace HunterPie.Core.System.Windows
 
                 this.Dispatch(OnGameStart, new(Name));
             }
-                
         }
 
         protected abstract bool ShouldOpenProcess(Process process);
 
-        private void OnProcessExit(object sender, EventArgs e)
+        private void OnProcessExit()
         {
-            Process.Exited -= OnProcessExit;
             Process.Dispose();
             Process = null;
 
-            Log.Info("Game process closed!");
-            
             Kernel32.CloseHandle(pHandle);
             
             pHandle = IntPtr.Zero;
