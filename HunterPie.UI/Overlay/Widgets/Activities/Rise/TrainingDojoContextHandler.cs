@@ -89,6 +89,7 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.Rise
             BuddyViewModel vm = _buddyViewModels[e];
 
             vm.Name = e.Name;
+            vm.IsEmpty = string.IsNullOrEmpty(e.Name);
         }
 
         private void OnBuddyLevelChange(object sender, MHRBuddy e)
