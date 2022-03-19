@@ -107,7 +107,9 @@
                      Name="ABNORMALITY_HARDSHELL_POWDER"
                      Icon="ITEM_DEFPOWDER"/>
         <Abnormality Id="A8"
-                     Offset="A8"/>
+                     Offset="A8"
+					 Name="ABNORMALITY_ARC_SHOT_BRACE"
+					 Icon="ICON_KNOCKBACKNEG"/>
         <Abnormality Id="AC"
                      Offset="AC"
                      Name="ABNORMALITY_REDLAMPSQUID"
@@ -121,7 +123,9 @@
                      Name="ABNORMALITY_CUTTERFLY"
                      Icon="ICON_CUTTERFLY"/>
         <Abnormality Id="C0"
-                     Offset="C0"/>
+                     Offset="C0"
+					 Name="ABNORMALITY_ARC_SHOT_AFFINITY"
+					 Icon="ICON_AFFINITY"/>
         <Abnormality Id="D4"
                      Offset="D4"
                      Name="ABNORMALITY_IMMUNITY"

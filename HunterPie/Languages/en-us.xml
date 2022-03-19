@@ -63,6 +63,8 @@
 		<Abnormality Id="ABNORMALITY_ROUSING_ROAR" String="Rousing Roar"/>
 		<Abnormality Id="ABNORMALITY_DEMON_AMMO" String="Demon Ammo"/>
 		<Abnormality Id="ABNORMALITY_ARMOR_AMMO" String="Armor Ammo"/>
+		<Abnormality Id="ABNORMALITY_ARC_SHOT_BRACE" String="Arc Shot: Brace"/>
+		<Abnormality Id="ABNORMALITY_ARC_SHOT_AFFINITY" String="Arc Shot: Affinity"/>
 		
 		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="Dango Bulker"/>
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="Dango Booster"/>

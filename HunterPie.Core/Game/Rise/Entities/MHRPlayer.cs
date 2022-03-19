@@ -81,6 +81,7 @@ namespace HunterPie.Core.Game.Rise.Entities
 
         public MHRArgosy Argosy { get; } = new();
         public MHRTrainingDojo TrainingDojo { get; } = new();
+        public MHRMeowmasters Meowmasters { get; } = new();
 
         public event EventHandler<EventArgs> OnLogin;
         public event EventHandler<EventArgs> OnLogout;
