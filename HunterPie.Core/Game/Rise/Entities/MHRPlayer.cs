@@ -450,7 +450,13 @@ namespace HunterPie.Core.Game.Rise.Entities
             );
 
             data.BuddiesCount = _process.Memory.Read<int>(trainingDojo + 0x18);
-            long[] buddyPtrs = _process.Memory.Read<long>(trainingDojo + 0x40, 6);
+
+            long trainingDojoBuddyArray = _process.Memory.Read(
+                AddressMap.GetAbsolute("TRAINING_DOJO_ADDRESS"),
+                AddressMap.Get<int[]>("TRAINING_DOJO_BUDDY_ARRAY_OFFSETS")
+            );
+
+            long[] buddyPtrs = _process.Memory.Read<long>(trainingDojoBuddyArray + 0x20, 6);
 
             for (int i = 0; i < data.BuddiesCount; i++)
             {
@@ -466,13 +472,14 @@ namespace HunterPie.Core.Game.Rise.Entities
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private MHRBuddyData DerefBuddyData(long buddyPtr)
         {
-            long namePtr = _process.Memory.Read<long>(buddyPtr + 0x198);
+            long namePtr = _process.Memory.ReadPtr(buddyPtr, AddressMap.Get<int[]>("BUDDY_NAME_OFFSETS"));
+            long levelPtr = _process.Memory.ReadPtr(buddyPtr, AddressMap.Get<int[]>("BUDDY_LEVEL_OFFSETS"));
             int nameLength = _process.Memory.Read<int>(namePtr + 0x10);
-            
+
             MHRBuddyData data = new()
             {
                 Name = _process.Memory.Read(namePtr + 0x14, (uint)nameLength * 2, Encoding.Unicode),
-                Level = _process.Memory.Read<int>(buddyPtr + 0x1A4)
+                Level = _process.Memory.Read<int>(levelPtr + 0x24)
             };
 
             return data;
