@@ -94,6 +94,7 @@ namespace HunterPie.Core.System.Windows
             if (Process is not null)
             {
                 IsProcessForeground = User32.GetForegroundWindow() == Process.MainWindowHandle;
+                mhProcess.Dispose();
                 return;
             }
 
