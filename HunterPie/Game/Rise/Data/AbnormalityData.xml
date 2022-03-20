@@ -234,6 +234,11 @@
                      Name="ABNORMALITY_COUNTERSTRIKE"
                      Icon="ICON_ARMORSKILL_ORANGE"
                      Category="Consumables"/>
+		<Abnormality Id="1D8"
+                     Offset="1D8"
+                     Name="ABNORMALITY_PROTECTIVE_POLISH"
+                     Icon="ICON_ARMORSKILL_YELLOW"
+                     Category="Debuffs"/>
         <Abnormality Id="1DC"
                      Offset="1DC"
                      Name="ABNORMALITY_LATENTPOWER"

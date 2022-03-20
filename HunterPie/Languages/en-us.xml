@@ -73,7 +73,7 @@
 		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="Counterstrike"/>
 		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="Latent Power"/>
 		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="Affinity Sliding"/>
-		
+		<Abnormality Id="ABNORMALITY_PROTECTIVE_POLISH" String="Protective Polish"/>
 
 		<Abnormality Id="ABNORMALITY_POISON" String="Poison"/>
 		<Abnormality Id="ABNORMALITY_VENOM" String="Venom"/>
