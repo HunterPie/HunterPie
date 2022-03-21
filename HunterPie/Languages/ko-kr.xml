@@ -63,6 +63,8 @@
 		<Abnormality Id="ABNORMALITY_ROUSING_ROAR" String="강화 포효"/>
 		<Abnormality Id="ABNORMALITY_DEMON_AMMO" String="귀인탄"/>
 		<Abnormality Id="ABNORMALITY_ARMOR_AMMO" String="경화탄"/>
+		<Abnormality Id="ABNORMALITY_ARC_SHOT_BRACE" String="곡사: 내충"/>
+		<Abnormality Id="ABNORMALITY_ARC_SHOT_AFFINITY" String="곡사: 회심"/>
 		
 		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="경단 벌크업"/>
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="경단 단기최면술"/>
@@ -71,7 +73,7 @@
 		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="공격적인 방어"/>
 		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="힘의 해방"/>
 		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="활주 강화"/>
-		
+		<Abnormality Id="ABNORMALITY_PROTECTIVE_POLISH" String="칼날 연마"/>
 
 		<Abnormality Id="ABNORMALITY_POISON" String="독"/>
 		<Abnormality Id="ABNORMALITY_VENOM" String="맹독"/>
@@ -277,6 +279,9 @@
 			<Setting Id="WIREBUG_WIDGET_STRING"
 					 String="밧줄벌레 위젯"
 					 Description="밧줄벌레 위젯 설정"/>
+			<Setting Id="ACTIVITIES_WIDGET_STRING"
+					 String="활동 위젯"
+					 Description="활동 위젯 설정"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="개발자 도구"
 					 Description="심화 개발 도구들입니다."/>
@@ -418,6 +423,14 @@
 					 String="인-게임 밧줄벌레 조준 패치"
 					 Description="옵션 활성화 시, HunterPie가 인-게임에서 밧줄벌레 게이지 HUD를 비활성화 했을 때도 조준할 수 있도록 패치합니다."/>
 
+			<Setting Id="ACTIVITIES_ENABLE_ARGOSY_STRING"
+					 String="교역선 표시"
+					 Description="옵션 활성화 시, HunterPie가 교역선의 정보를 표시합니다."/>
+			<Setting Id="ACTIVITIES_ENABLE_TRAINING_DOJO_STRING"
+					 String="동반자 도장 표시"
+					 Description="옵션 활성화 시, HunterPie가 동반자 도장의 정보를 표시합니다."/>
+			
+			
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>
 			<Setting Id="DEV_MOCK_DAMAGE_WIDGET_STRING"
