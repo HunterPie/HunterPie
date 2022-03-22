@@ -21,6 +21,8 @@ using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
 using System.Windows.Media.Animation;
 using HunterPie.UI.Overlay.Widgets.Activities.View;
 using HunterPie.UI.Overlay.Widgets.Activities.ViewModel;
+using HunterPie.UI.Overlay.Widgets.Chat.Views;
+using HunterPie.UI.Overlay.Widgets.Chat.ViewModels;
 
 namespace HunterPie
 {
@@ -109,6 +111,12 @@ namespace HunterPie
                         DataContext = new MockActivitiesViewModel()
                     }
                 );
+
+            if (ClientConfig.Config.Debug.MockChatWidget)
+                WidgetManager.Register<ChatView, ChatWidgetConfig>(new ChatView()
+                {
+                    DataContext = new MockChatViewModel()
+                });
         }
 
         private void SetupTrayIcon()
