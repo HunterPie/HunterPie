@@ -63,6 +63,8 @@
 		<Abnormality Id="ABNORMALITY_ROUSING_ROAR" String="Rousing Roar"/>
 		<Abnormality Id="ABNORMALITY_DEMON_AMMO" String="Demon Ammo"/>
 		<Abnormality Id="ABNORMALITY_ARMOR_AMMO" String="Armor Ammo"/>
+		<Abnormality Id="ABNORMALITY_ARC_SHOT_BRACE" String="Arc Shot: Brace"/>
+		<Abnormality Id="ABNORMALITY_ARC_SHOT_AFFINITY" String="Arc Shot: Affinity"/>
 		
 		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="Dango Bulker"/>
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="Dango Booster"/>
@@ -71,7 +73,7 @@
 		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="Counterstrike"/>
 		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="Latent Power"/>
 		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="Affinity Sliding"/>
-		
+		<Abnormality Id="ABNORMALITY_PROTECTIVE_POLISH" String="Protective Polish"/>
 
 		<Abnormality Id="ABNORMALITY_POISON" String="Poison"/>
 		<Abnormality Id="ABNORMALITY_VENOM" String="Venom"/>
@@ -277,6 +279,9 @@
 			<Setting Id="WIREBUG_WIDGET_STRING"
 					 String="Wirebug Widget"
 					 Description="Wirebug Widget configurations"/>
+			<Setting Id="ACTIVITIES_WIDGET_STRING"
+					 String="Activities Widget"
+					 Description="Activities Widget configurations"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="Dev Tools"
 					 Description="Advanced development tools"/>
@@ -417,6 +422,14 @@
 			<Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
 					 String="Patch in-game Wirebug Aim"
 					 Description="If enabled, HunterPie will patch the game function so it doesn't hide your aim when you disable the Wirebug visual elements in-game."/>
+
+			<Setting Id="ACTIVITIES_ENABLE_ARGOSY_STRING"
+					 String="Show Argosy"
+					 Description="If enabled, HunterPie will show Argosy's data."/>
+			<Setting Id="ACTIVITIES_ENABLE_TRAINING_DOJO_STRING"
+					 String="Show Argosy"
+					 Description="If enabled, HunterPie will show Training Dojo's data."/>
+
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>

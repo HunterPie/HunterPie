@@ -9,9 +9,7 @@
         Height="600" 
         Width="1000"
         MinWidth="600"
-        MinHeight="400"
-        WindowStyle="None" 
-        AllowsTransparency="True" 
+        MinHeight="400" 
         BorderThickness="1"
         BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}" 
         Background="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"
@@ -19,7 +17,8 @@
         Initialized="OnInitialized"
         SnapsToDevicePixels="True"
         UseLayoutRounding="True" 
-        KeyDown="OnKeyDown">
+        KeyDown="OnKeyDown" 
+        WindowStyle="SingleBorderWindow">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"
                       CornerRadius="0"

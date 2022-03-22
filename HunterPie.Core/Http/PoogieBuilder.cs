@@ -25,7 +25,6 @@ namespace HunterPie.Core.Http
         public PoogieBuilder WithHeader(string key, string value)
         {
             Debug.Assert(!string.IsNullOrEmpty(key));
-            Debug.Assert(!string.IsNullOrEmpty(value));
 
             poogie.Headers.Add(key, value);
             

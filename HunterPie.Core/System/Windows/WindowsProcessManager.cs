@@ -17,9 +17,9 @@ namespace HunterPie.Core.System.Windows
     abstract class WindowsProcessManager : IProcessManager, IEventDispatcher
     {
 
-        protected Timer pooler;
-        private readonly object _lock = new();
+        protected Thread pooler;
         private bool isProcessForeground;
+        protected bool ShouldPollProcess = true;
        
         private IMemory memory; 
         private IntPtr pHandle;
@@ -58,21 +58,47 @@ namespace HunterPie.Core.System.Windows
         public void Initialize()
         {
             Log.Info($"Started scanning for process {Name}...");
-            pooler = new Timer(delegate { lock(_lock) { PoolProcessInfo(); } } , null, 0, 80);
+
+            pooler = new Thread(new ThreadStart(ExecutePolling))
+            {
+                Name = "PollingBackgroundThread",
+                IsBackground = true,
+            };
+            pooler.Start();
         }
 
-        private void PoolProcessInfo()
+        private void ExecutePolling()
         {
-            if (Process is not null)
+            while (ShouldPollProcess)
             {
-                IsProcessForeground = User32.GetForegroundWindow() == Process.MainWindowHandle;
+                PollProcessInfo();
+                Thread.Sleep(80);
+            }
+        }
+
+        private void PollProcessInfo()
+        {
+            Process mhProcess = Process.GetProcessesByName(Name)
+                .FirstOrDefault(process => !string.IsNullOrEmpty(process?.MainWindowTitle));
+
+            if (mhProcess is null 
+                && Process is not null)
+            {
+                OnProcessExit();
                 return;
             }
 
-            Process mhProcess = Process.GetProcessesByName(Name)
-                .FirstOrDefault(process => !string.IsNullOrEmpty(process.MainWindowTitle));
+            if (mhProcess is null)
+                return;
 
-            if (mhProcess is not null && ShouldOpenProcess(mhProcess))
+            if (Process is not null)
+            {
+                IsProcessForeground = User32.GetForegroundWindow() == Process.MainWindowHandle;
+                mhProcess.Dispose();
+                return;
+            }
+
+            if (ShouldOpenProcess(mhProcess))
             {
                 Process = mhProcess;
                 ProcessId = mhProcess.Id;
@@ -81,13 +107,9 @@ namespace HunterPie.Core.System.Windows
                 if (pHandle == IntPtr.Zero)
                 {
                     Log.Error("Failed to open game process. Run HunterPie as Administrator!");
-                    pooler.Dispose();
+                    ShouldPollProcess = false;
                     return;
                 }
-
-                // Enable events from process
-                Process.EnableRaisingEvents = true;
-                Process.Exited += OnProcessExit;
 
                 IsRunning = true;
 
@@ -97,19 +119,15 @@ namespace HunterPie.Core.System.Windows
 
                 this.Dispatch(OnGameStart, new(Name));
             }
-                
         }
 
         protected abstract bool ShouldOpenProcess(Process process);
 
-        private void OnProcessExit(object sender, EventArgs e)
+        private void OnProcessExit()
         {
-            Process.Exited -= OnProcessExit;
             Process.Dispose();
             Process = null;
 
-            Log.Info("Game process closed!");
-            
             Kernel32.CloseHandle(pHandle);
             
             pHandle = IntPtr.Zero;

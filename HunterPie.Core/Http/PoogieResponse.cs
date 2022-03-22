@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Http.Events;
+using HunterPie.Core.Logger;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -56,29 +57,37 @@ namespace HunterPie.Core.Http
             bool isMoreToRead = true;
             byte[] buffer = new byte[8192];
 
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
-
-            using FileStream output = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None, buffer.Length, true);
-
-            do
+            try
             {
-                int bytesRead = await stream.ReadAsync(buffer);
-                
-                if (bytesRead == 0)
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(Path.GetDirectoryName(path));
+
+                using FileStream output = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None, buffer.Length, true);
+
+                do
                 {
-                    isMoreToRead = false;
+                    int bytesRead = await stream.ReadAsync(buffer);
+
+                    if (bytesRead == 0)
+                    {
+                        isMoreToRead = false;
+                        this.Dispatch(OnDownloadProgressChanged, new(totalBytesRead, totalBytes));
+                        continue;
+                    }
+
+                    await output.WriteAsync(buffer.AsMemory(0, bytesRead));
+
+                    totalBytesRead += bytesRead;
+
                     this.Dispatch(OnDownloadProgressChanged, new(totalBytesRead, totalBytes));
-                    continue;
-                }
 
-                await output.WriteAsync(buffer.AsMemory(0, bytesRead));
+                } while (isMoreToRead);
 
-                totalBytesRead += bytesRead;
-
-                this.Dispatch(OnDownloadProgressChanged, new(totalBytesRead, totalBytes));
-                
-            } while (isMoreToRead);
+            } catch(Exception err)
+            {
+                Log.Error(err.ToString());
+                return;
+            }
         }
 
         public void Dispose()

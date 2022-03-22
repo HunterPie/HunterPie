@@ -5,10 +5,6 @@ using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
 using HunterPie.UI.Overlay.Widgets.Wirebug.Views;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace HunterPie.UI.Overlay.Widgets.Wirebug
 {
@@ -21,22 +17,23 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug
         };
         private readonly MHRContext Context;
         private readonly WirebugsViewModel ViewModel;
+        private readonly WirebugsView View;
         private MHRPlayer Player => (MHRPlayer)Context.Game.Player;
         
 
         public WirebugWidgetContextHandler(MHRContext context)
         {
-            var widget = new WirebugsView();
-            WidgetManager.Register<WirebugsView, WirebugWidgetConfig>(widget);
+            View = new WirebugsView();
+            WidgetManager.Register<WirebugsView, WirebugWidgetConfig>(View);
             
-            ViewModel = widget.ViewModel;
+            ViewModel = View.ViewModel;
             Context = context;
 
             HookEvents();
             UpdateData();
         }
 
-        private void HookEvents()
+        public void HookEvents()
         {
             Player.OnStageUpdate += OnStageUpdate;
             Player.OnWirebugsRefresh += OnWirebugsRefresh;
@@ -46,6 +43,7 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug
         {
             Player.OnStageUpdate -= OnStageUpdate;
             Player.OnWirebugsRefresh -= OnWirebugsRefresh;
+            WidgetManager.Unregister<WirebugsView, WirebugWidgetConfig>(View);
         }
 
 
@@ -53,7 +51,7 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug
 
         private void OnWirebugsRefresh(object sender, MHRWirebug[] e)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            View.Dispatcher.Invoke(() =>
             {
                 foreach (WirebugViewModel vm in ViewModel.Elements)
                     if (vm is WirebugContextHandler model)

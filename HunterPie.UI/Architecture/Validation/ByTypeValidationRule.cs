@@ -19,7 +19,7 @@ namespace HunterPie.UI.Architecture.Validation
             {
                 "Boolean" => bool.TryParse(strValue, out _) ? new ValidationResult(true, null) : new ValidationResult(false, $"Input should be type of boolean"),
                 "Int32" => int.TryParse(strValue, out _) ? new ValidationResult(true, null) : new ValidationResult(false, $"Input should be type of Int32"),
-                "Double" => double.TryParse(strValue, out _) ? new ValidationResult(true, null) : new ValidationResult(false, $"Input should be type of Double"),
+                "Double" => double.TryParse(strValue, NumberStyles.Float, CultureInfo.InvariantCulture, out _) ? new ValidationResult(true, null) : new ValidationResult(false, $"Input should be type of Double"),
                 "Int64" => long.TryParse(strValue, out _) ? new ValidationResult(true, null) : new ValidationResult(false, $"Input should be type of Int64"),
                 _ => throw new InvalidCastException($"{ValidationType.Name} is not supported"),
             };

@@ -19,6 +19,8 @@ using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.UI.Overlay.Widgets.Wirebug.Views;
 using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
 using System.Windows.Media.Animation;
+using HunterPie.UI.Overlay.Widgets.Activities.View;
+using HunterPie.UI.Overlay.Widgets.Activities.ViewModel;
 
 namespace HunterPie
 {
@@ -31,7 +33,6 @@ namespace HunterPie
         public MainWindow()
         {
             Log.Info("Initializing HunterPie GUI");
-            InitializeComponent();
 
             Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata { DefaultValue = 60 });
         }
@@ -52,10 +53,11 @@ namespace HunterPie
 
         private void OnInitialized(object sender, EventArgs e)
         {
-            InitializerManager.InitializeGUI();
-            InitializeDebugWidgets();
-            
             Show();
+            InitializerManager.InitializeGUI();
+            
+            InitializeDebugWidgets();
+                       
             SetupTrayIcon();
         }
 
@@ -98,6 +100,13 @@ namespace HunterPie
                 WidgetManager.Register<WirebugsView, WirebugWidgetConfig>(new WirebugsView()
                     {
                         DataContext = new MockWirebugsViewModel()
+                    }
+                );
+
+            if (ClientConfig.Config.Debug.MockActivitiesWidget)
+                WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(new ActivitiesView() 
+                    {
+                        DataContext = new MockActivitiesViewModel()
                     }
                 );
         }

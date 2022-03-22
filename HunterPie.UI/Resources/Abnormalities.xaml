@@ -1897,6 +1897,30 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+    <DrawingImage x:Key="ICON_ARMORSKILL_YELLOW">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <DrawingGroup Opacity="1">
+                    <GeometryDrawing Brush="#FFD9C35D" Geometry="F1 M512,512z M0,0z M261.29148,22.90201L38.932014,114.63795 37.93419,388.84775 260.29397,482.57753 478.66451,392.83572 478.66451,114.63795z" />
+                    <DrawingGroup Opacity="1" Transform="5.5960934,0,0,5.5960934,79.28958,72.205806">
+                        <DrawingGroup Opacity="1" Transform="1,0,0,1,0,-384">
+                            <DrawingGroup Opacity="1" Transform="1,0,0,1,0,-512">
+                                <DrawingGroup Opacity="1" Transform="1,0,0,1,-384,0">
+                                    <GeometryDrawing Brush="#FF151515" Geometry="F0 M512,512z M0,0z M399,956L399,953 406,953 408,949 425,949 427,953 434,953 434,956z M419,941L419,947 414,947 414,941z" />
+                                </DrawingGroup>
+                                <DrawingGroup Opacity="1" Transform="1,0,0,1,-384,0">
+                                    <GeometryDrawing Brush="#FF0C0C0C" Geometry="F0 M512,512z M0,0z M443,937L437,937 437,941 440,941C441.656,941,443,939.656,443,938z M390,937L396,937 396,941 393,941C391.344,941,390,939.656,390,938z M402,939L402,937 431,937 431,939z M435,932L433,934 433,937 435,937z M398,932L400,934 400,937 398,937z M402,935L405,932 428,932 431,935z M431,918L427,918 427,922 431,922z M402,918L406,918 406,922 402,922z M402,915L407,910 407,913 411,913 411,905 422,905 422,913 426,913 426,910 431,915 431,916 425,916 425,919 408,919 408,916 402,916z M438,910L441,910 441,916 436,916 436,914 438,914z M395,910L392,910 392,916 397,916 397,914 395,914z" />
+                                </DrawingGroup>
+                                <DrawingGroup Opacity="1" Transform="1,0,0,1,-384,0">
+                                    <GeometryDrawing Brush="#FF0A0A0A" Geometry="F0 M512,512z M0,0z M396,932L390,932 390,935 396,935z M437,932L443,932 443,935 437,935z M396,929L390,929 390,930 396,930z M437,929L443,929 443,930 437,930z M402,924L402,926 405,928 405,930 428,930 428,928 431,926 431,924 425,924 425,921 408,921 408,924z M390,922L397,922 396,927 390,927z M443,922L436,922 437,927 443,927z M397,918L390,918 390,920 397,920z M436,918L443,918 443,920 436,920z M409,901L399,901 397,903 397,912 402,912 409,905z M424,901L434,901 436,903 436,912 431,912 424,905z" />
+                                </DrawingGroup>
+                            </DrawingGroup>
+                        </DrawingGroup>
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
     <DrawingImage x:Key="ICON_ARMORSKILL_DARKRED">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">

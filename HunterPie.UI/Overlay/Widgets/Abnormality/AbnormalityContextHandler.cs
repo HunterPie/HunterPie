@@ -17,7 +17,7 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality
             HookEvents();
         }
 
-        private void HookEvents()
+        public void HookEvents()
         {
             Context.OnTimerUpdate += OnTimerUpdate;
         }

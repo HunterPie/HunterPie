@@ -14,22 +14,23 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality
         private AbnormalityWidgetConfig _config;
         public readonly Context Context;
         public readonly AbnormalityBarViewModel ViewModel;
+        private readonly AbnormalityBarView View;
         private ref AbnormalityWidgetConfig Config => ref _config;
 
         public AbnormalityWidgetContextHandler(Context context, ref AbnormalityWidgetConfig config)
         {
             _config = config;
-            var widget = new AbnormalityBarView(ref Config);
-            WidgetManager.Register<AbnormalityBarView, AbnormalityWidgetConfig>(widget);
+            View = new AbnormalityBarView(ref Config);
+            WidgetManager.Register<AbnormalityBarView, AbnormalityWidgetConfig>(View);
             Context = context;
 
-            ViewModel = (AbnormalityBarViewModel)widget.DataContext;
+            ViewModel = View.ViewModel;
 
             UpdateData();
             HookEvents();
         }
 
-        private void HookEvents()
+        public void HookEvents()
         {
             Context.Game.Player.OnAbnormalityStart += OnAbnormalityStart;
             Context.Game.Player.OnAbnormalityEnd += OnAbnormalityEnd;
@@ -65,6 +66,7 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality
         {
             Context.Game.Player.OnAbnormalityStart -= OnAbnormalityStart;
             Context.Game.Player.OnAbnormalityEnd -= OnAbnormalityEnd;
+            WidgetManager.Unregister<AbnormalityBarView, AbnormalityWidgetConfig>(View);
         }
 
         private void UpdateData()

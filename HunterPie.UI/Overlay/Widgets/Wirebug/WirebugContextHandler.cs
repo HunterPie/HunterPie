@@ -15,7 +15,7 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug
             HookEvents();
         }
 
-        private void HookEvents()
+        public void HookEvents()
         {
             Context.OnCooldownUpdate += OnCooldownUpdate;
             Context.OnTimerUpdate += OnTimerUpdate;

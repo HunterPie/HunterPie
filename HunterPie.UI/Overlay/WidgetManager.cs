@@ -5,6 +5,7 @@ using HunterPie.Core.Logger;
 using HunterPie.Core.Settings;
 using HunterPie.UI.Overlay.Components;
 using System.Collections.ObjectModel;
+using System.Linq;
 using ClientConfig = HunterPie.Core.Client.ClientConfig;
 
 namespace HunterPie.UI.Overlay
@@ -50,6 +51,17 @@ namespace HunterPie.UI.Overlay
             Log.Debug($"Added new widget: {widget.Title}");
 
             return true;
+        }
+
+        public static bool Unregister<T, K>(T widget) where T : IWidgetWindow, IWidget<K>
+                                                      where K : IWidgetSettings
+        {
+            WidgetBase wnd = Instance._widgets.ToArray()
+                .First(wnd => wnd.Widget == (IWidgetWindow)widget);
+            
+            wnd.Close();
+            
+            return Instance._widgets.Remove(wnd);
         }
 
         internal static void Dispose()

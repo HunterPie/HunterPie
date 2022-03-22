@@ -553,4 +553,27 @@
         <Setter Property="BulletSize" Value="4"/>
         <Setter Property="BorderThickness" Value="1"/>
     </Style>
+
+    <Style TargetType="{x:Type TabItem}">
+        <Setter Property="Background" Value="#171717"/>
+        <Setter Property="Foreground" Value="#FF9C9C9C"/>
+        <Setter Property="Opacity" Value="0.6"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                    <Border x:Name="PART_Border">
+                        <ContentPresenter ContentSource="Header" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Opacity" Value="1"/>
+                            <Setter TargetName="PART_Border" Property="BorderBrush" Value="Black" />
+                            <Setter Property="Foreground" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
 </ResourceDictionary>

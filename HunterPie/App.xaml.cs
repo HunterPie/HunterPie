@@ -31,6 +31,8 @@ namespace HunterPie
         private IProcessManager _process;
         private RiseRichPresence _richPresence;
         private Context _context;
+        private static MainWindow _ui;
+        public static MainWindow UI => _ui;
 
         protected override async void OnStartup(StartupEventArgs e)
         {
@@ -45,8 +47,10 @@ namespace HunterPie
 
             ShutdownMode = ShutdownMode.OnMainWindowClose;
             
-            MainWindow window = new MainWindow();
-            window.Show();
+            _ui = await Dispatcher.InvokeAsync(() => { return new MainWindow(); });
+            
+            UI.InitializeComponent();
+            UI.Show();
 
             InitializeProcessScanners();
         }
@@ -106,9 +110,8 @@ namespace HunterPie
             _process = null;
             _context = null;
 
-            WidgetInitializers.Unload();
-
-            Dispatcher.InvokeAsync(WidgetManager.Dispose);
+            Dispatcher.InvokeAsync(WidgetInitializers.Unload);
+            Log.Info("{0} has been closed", e.ProcessName);
         }
 
         private void OnProcessFound(object sender, ProcessManagerEventArgs e)
