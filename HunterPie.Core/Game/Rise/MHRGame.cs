@@ -4,17 +4,22 @@ using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.Rise.Entities;
+using HunterPie.Core.Game.Rise.Entities.Chat;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace HunterPie.Core.Game.Rise
 {
     public class MHRGame : Scannable, IGame, IEventDispatcher
     {
         const uint MAXIMUM_MONSTER_ARRAY_SIZE = 5;
+
+        private MHRChat _chat = new MHRChat();
 
         // TODO: Could probably turn this into a bit mask with 256 bits
         private HashSet<int> MonsterAreas = new() { 5, 201, 202, 203, 204, 205, 207, 209, 210, 211};
@@ -23,6 +28,8 @@ namespace HunterPie.Core.Game.Rise
 
         public IPlayer Player { get; }
         public List<IMonster> Monsters { get; } = new();
+
+        public IChat Chat => _chat;
 
         Dictionary<long, IMonster> monsters = new();
 
@@ -37,6 +44,52 @@ namespace HunterPie.Core.Game.Rise
                 this,
                 Player as Scannable
             );
+        }
+
+        [ScannableMethod]
+        private void ScanChat()
+        {
+            long chatArrayPtr = _process.Memory.Read(
+                AddressMap.GetAbsolute("CHAT_ADDRESS"),
+                AddressMap.Get<int[]>("CHAT_OFFSETS")
+            );
+            long chatArray = _process.Memory.Read<long>(chatArrayPtr);
+            int chatCount = _process.Memory.Read<int>(chatArrayPtr + 0x8);
+
+            if (chatCount <= Chat.Messages.Count)
+                return;
+
+            int chatArrayLength = _process.Memory.Read<int>(chatArray + 0x1C);
+            long[] chatMessagePtrs = _process.Memory.Read<long>(chatArray + 0x20, (uint)chatArrayLength);
+
+            for (int i = Chat.Messages.Count; i < chatCount; i++)
+            {
+                long messagePtr = chatMessagePtrs[i];
+                MHRChatMessage message = DerefChatMessage(messagePtr);
+                _chat.AddMessage(messagePtr, message);
+            }
+        }
+
+        private MHRChatMessage DerefChatMessage(long messagePtr)
+        {
+            int messageType = _process.Memory.Read<int>(messagePtr + 0x10);
+            long messageAuthorPtr = _process.Memory.Read<long>(messagePtr + 0x28);
+            long messageStringPtr = _process.Memory.Read<long>(messagePtr + 0x58);
+
+            int messageStringLength = _process.Memory.Read<int>(messageStringPtr + 0x10);
+            long messageAuthorLength = _process.Memory.Read<int>(messageAuthorPtr + 0x10);
+
+            return new()
+            {
+                Message = _process.Memory.Read(messageStringPtr + 0x14, (uint)messageStringLength * 2, Encoding.Unicode),
+                Author = _process.Memory.Read(messageAuthorPtr + 0x14, (uint)messageAuthorLength * 2, Encoding.Unicode),
+                Type = messageType switch
+                {
+                    0 => AuthorType.Player1,
+                    0x0F => AuthorType.NPC,
+                    _ => AuthorType.None
+                }
+            };
         }
 
         [ScannableMethod]

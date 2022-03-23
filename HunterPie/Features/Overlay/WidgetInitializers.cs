@@ -10,7 +10,8 @@ namespace HunterPie.Features.Overlay
             new MonsterWidgetInitializer(),
             new AbnormalitiesWidgetInitializer(),
             new WirebugWidgetInitializer(),
-            new ActivitiesWidgetInitializer()
+            new ActivitiesWidgetInitializer(),
+            new ChatWidgetInitializer(),
         };
 
         public static void Initialize(Context context)

@@ -136,7 +136,6 @@ namespace HunterPie
             _richPresence = new(context);
             
             Dispatcher.InvokeAsync(() => WidgetInitializers.Initialize(context));
-            
             ScanManager.Start();
         }
 
