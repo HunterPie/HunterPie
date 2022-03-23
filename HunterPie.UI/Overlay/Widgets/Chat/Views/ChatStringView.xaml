@@ -8,13 +8,18 @@
     <StackPanel Orientation="Horizontal">
         <!-- Player name -->
         <Grid HorizontalAlignment="Left">
-            <Rectangle Fill="{Binding Color, Mode=OneWay}"
+            <Rectangle Width="2"
+                       HorizontalAlignment="Left"
+                       Fill="{Binding Color, Mode=OneWay}"
+                       d:Fill="DarkCyan"/>
+            <Rectangle Fill="#FF0B0D10"
                        Opacity="0.5"/>
             <TextBlock d:Text="Poggies"
                        Text="{Binding Author, Mode=OneWay}"
                        FontWeight="Bold"
                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                       Foreground="{Binding Color, Mode=OneWay}"
+                       d:Foreground="DarkCyan"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="13"
@@ -27,7 +32,7 @@
             </TextBlock>
         </Grid>
         <Grid ClipToBounds="True">
-            <Rectangle Fill="{Binding Color, Mode=OneWay}"
+            <Rectangle Fill="#FF0B0D10"
                        Opacity="0.5"
                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                        HorizontalAlignment="Left" 

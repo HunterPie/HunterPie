@@ -21,6 +21,14 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="ICON_STAR">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}" Geometry="F1 M512,512z M0,0z M394,480A16,16,0,0,1,384.61,477L256,383.76 127.39,477A16,16,0,0,1,102.84,458.92L153,310.35 23,221.2A16,16,0,0,1,32,192L192.38,192 240.78,43.05A16,16,0,0,1,271.22,43.05L319.62,192.05 480,192.05A16,16,0,0,1,489.05,221.25L359,310.35 409.13,458.88A16,16,0,0,1,394,480z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="ICON_BOOST">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">

@@ -1,4 +1,8 @@
-﻿using System.Windows;
+﻿using HunterPie.UI.Architecture.Test;
+using HunterPie.UI.Assets.Application;
+using System;
+using System.Collections;
+using System.Windows;
 using System.Windows.Media;
 
 namespace HunterPie.UI.Overlay.Widgets.Chat.ViewModels
@@ -7,57 +11,64 @@ namespace HunterPie.UI.Overlay.Widgets.Chat.ViewModels
     {
         public MockChatViewModel()
         {
-            ChatElementViewModel[] chatElements =
+            SolidColorBrush[] playerColors =
             {
-                new ChatElementViewModel()
-                {
-                    Text = "Hello, this is a string!",
-                    Author = "Player 1",
-                    Color = new SolidColorBrush(Color.FromArgb(0xFF, 0x93, 0x63, 0xEC))
-                },
-                new ChatElementViewModel()
-                {
-                    Text = "Hello, this is a string again!",
-                    Author = "Player 1",
-                    Color = new SolidColorBrush(Color.FromArgb(0xFF, 0x93, 0x63, 0xEC))
-                },
-                new ChatElementViewModel()
-                {
-                    Text = "Hello, this is a string again and again!",
-                    Author = "Player 1",
-                    Color = new SolidColorBrush(Color.FromArgb(0xFF, 0x93, 0x63, 0xEC))
-                },
-                new ChatElementViewModel()
-                {
-                    Text = "Hello, this is a string!",
-                    Author = "Player 2",
-                    Color = new SolidColorBrush(Color.FromArgb(0xFF, 0x42, 0x87, 0xf5))
-                },
-                new ChatElementViewModel()
-                {
-                    Text = "Hello, this is a string again!",
-                    Author = "Player 1",
-                    Color = new SolidColorBrush(Color.FromArgb(0xFF, 0x93, 0x63, 0xEC))
-                },
-                new ChatElementViewModel()
-                {
-                    Text = "Hello, this is a string again and again!",
-                    Author = "Player 3",
-                    Color = new SolidColorBrush(Color.FromArgb(0xFF, 0xF5, 0x42, 0x42))
-                }
+                new SolidColorBrush(Color.FromArgb(0xFF, 0x54, 0x38, 0xDC)),
+                new SolidColorBrush(Color.FromArgb(0xFF, 0x35, 0x7D, 0xED)),
+                new SolidColorBrush(Color.FromArgb(0xFF, 0x56, 0xEE, 0xF4)),
+                new SolidColorBrush(Color.FromArgb(0xFF, 0x32, 0xE8, 0x75))
             };
+
+            string[] playerNames = { "Lyss", "Pia", "夜令", "MashiLo" };
+            string[] possibleChats =
+            {
+                "poggies poggies wooo!",
+                "uwu hi",
+                "this is a test",
+                "hi can someone help me",
+                "deez nuts",
+                "very cool",
+                "subscribe to my onlyfans"
+            };
+
+            const int chatSize = 30;
+            ChatElementViewModel[] chatElements = new ChatElementViewModel[chatSize];
+            for (int i = 0; i < chatSize; i++)
+            {
+                Random rng = new Random();
+                int playerIndex = rng.Next(0, playerNames.Length);
+                int chatIndex = rng.Next(0, possibleChats.Length);
+                chatElements[i] = new ChatElementViewModel()
+                {
+                    Author = playerNames[playerIndex],
+                    Color = playerColors[playerIndex],
+                    Text = possibleChats[chatIndex],
+                };
+            }
 
             ChatCategoryViewModel general = new ChatCategoryViewModel()
             {
                 Name = "General",
                 Description = "General chat",
-                Icon = (ImageSource)Application.Current.FindResource("ICON_DECORATION")
+                Icon = Resources.Icon<ImageSource>("ICON_STAR")
             };
 
-            foreach (var chatElement in chatElements)
-                general.Elements.Add(chatElement);
-
+            
             Categories.Add(general);
+
+            IEnumerator enumerator = chatElements.GetEnumerator();
+            MockBehavior.Run(() =>
+            {
+                bool success = enumerator.MoveNext();
+                
+                if (!success)
+                    return;
+
+                ChatElementViewModel vm = (ChatElementViewModel)enumerator.Current;
+
+                Application.Current.Dispatcher.Invoke(() => general.Elements.Add(vm));
+                                
+            }, 1);
         }
     }
 }

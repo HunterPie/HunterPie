@@ -4,20 +4,7 @@ using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Enums;
 using HunterPie.UI.Overlay.Widgets.Chat.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace HunterPie.UI.Overlay.Widgets.Chat.Views
 {
@@ -38,5 +25,18 @@ namespace HunterPie.UI.Overlay.Widgets.Chat.Views
         public WidgetType Type => WidgetType.Window;
 
         IWidgetSettings IWidgetWindow.Settings => Settings;
+
+        private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (sender is ScrollViewer scrollViewer)
+            {
+                double scrollableSize = scrollViewer.ViewportHeight;
+                double scrollPosition = scrollViewer.VerticalOffset;
+                double extentHeight = scrollViewer.ExtentHeight;
+
+                if (scrollableSize + scrollPosition == extentHeight || extentHeight < scrollableSize)
+                    scrollViewer.ScrollToEnd();
+            }
+        }
     }
 }
