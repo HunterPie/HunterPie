@@ -19,6 +19,8 @@ namespace HunterPie.Core.Game.Rise
     {
         const uint MAXIMUM_MONSTER_ARRAY_SIZE = 5;
 
+        private const int CHAT_MAX_SIZE = 0x40;
+        private long _lastChatMessagePtr = 0;
         private MHRChat _chat = new MHRChat();
 
         // TODO: Could probably turn this into a bit mask with 256 bits
@@ -56,18 +58,38 @@ namespace HunterPie.Core.Game.Rise
             long chatArray = _process.Memory.Read<long>(chatArrayPtr);
             int chatCount = _process.Memory.Read<int>(chatArrayPtr + 0x8);
 
-            if (chatCount <= Chat.Messages.Count)
+            if (chatCount != CHAT_MAX_SIZE && chatCount <= Chat.Messages.Count)
+                return;
+            
+            //int chatArrayLength = _process.Memory.Read<int>(chatArray + 0x1C);
+            long[] chatMessagePtrs = _process.Memory.Read<long>(chatArray + 0x20, (uint)chatCount);
+
+            if (chatCount == CHAT_MAX_SIZE && chatMessagePtrs[chatCount - 1] == _lastChatMessagePtr)
                 return;
 
-            int chatArrayLength = _process.Memory.Read<int>(chatArray + 0x1C);
-            long[] chatMessagePtrs = _process.Memory.Read<long>(chatArray + 0x20, (uint)chatArrayLength);
-
-            for (int i = Chat.Messages.Count; i < chatCount; i++)
+            for (int i = chatCount % CHAT_MAX_SIZE; i < chatCount; i++)
             {
                 long messagePtr = chatMessagePtrs[i];
+                
+                if (_chat.ConstainsMessage(messagePtr))
+                    continue;
+
                 MHRChatMessage message = DerefChatMessage(messagePtr);
                 _chat.AddMessage(messagePtr, message);
             }
+
+            _lastChatMessagePtr = chatMessagePtrs[chatCount - 1];
+        }
+
+        [ScannableMethod]
+        private void ScanChatUi()
+        {
+            bool isChatOpen = _process.Memory.Deref<byte>(
+                AddressMap.GetAbsolute("CHAT_UI_ADDRESS"),
+                AddressMap.Get<int[]>("CHAT_UI_OFFSETS")
+            ) == 1;
+
+            _chat.IsChatOpen = isChatOpen;
         }
 
         private MHRChatMessage DerefChatMessage(long messagePtr)
@@ -77,7 +99,10 @@ namespace HunterPie.Core.Game.Rise
             long messageStringPtr = _process.Memory.Read<long>(messagePtr + 0x58);
 
             int messageStringLength = _process.Memory.Read<int>(messageStringPtr + 0x10);
+            messageStringLength = Math.Min(0x40, messageStringLength);
+
             long messageAuthorLength = _process.Memory.Read<int>(messageAuthorPtr + 0x10);
+            messageAuthorLength = Math.Min(0x40, messageAuthorLength);
 
             return new()
             {
@@ -85,7 +110,9 @@ namespace HunterPie.Core.Game.Rise
                 Author = _process.Memory.Read(messageAuthorPtr + 0x14, (uint)messageAuthorLength * 2, Encoding.Unicode),
                 Type = messageType switch
                 {
-                    0 => AuthorType.Player1,
+                    0x0 => AuthorType.Player1,
+                    0x3 => AuthorType.Buddy,
+                    0x0D => AuthorType.Monster,
                     0x0F => AuthorType.NPC,
                     _ => AuthorType.None
                 }

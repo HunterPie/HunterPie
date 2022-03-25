@@ -4,7 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Chat.Views"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             SnapsToDevicePixels="True"
+             UseLayoutRounding="True">
     <StackPanel Orientation="Horizontal">
         <!-- Player name -->
         <Grid HorizontalAlignment="Left">
@@ -22,11 +24,11 @@
                        d:Foreground="DarkCyan"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       FontSize="13"
+                       FontSize="12"
                        Padding="10,0,10,0">
                 <TextBlock.Effect>
-                    <DropShadowEffect Color="Black"
-                                      BlurRadius="1" 
+                    <DropShadowEffect Color="{Binding Color, Mode=OneWay}"
+                                      BlurRadius="5" 
                                       ShadowDepth="0"/>
                 </TextBlock.Effect>
             </TextBlock>
@@ -48,7 +50,7 @@
             </Rectangle>
             <TextBlock d:Text="Hello, this is a message."
                        Text="{Binding Text, Mode=OneWay}"
-                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
                        Padding="1"
                        FontSize="14"
                        FontWeight="Medium"

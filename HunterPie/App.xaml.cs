@@ -20,6 +20,7 @@ using System.Linq;
 using HunterPie.Features.Overlay;
 using HunterPie.Core.Events;
 using HunterPie.Core.Domain;
+using System.Threading;
 
 namespace HunterPie
 {
@@ -53,6 +54,7 @@ namespace HunterPie
             UI.Show();
 
             InitializeProcessScanners();
+            SetUIThreadPriority();
         }
 
         private void CheckForRunningInstances()
@@ -63,6 +65,11 @@ namespace HunterPie
 
             foreach (Process process in processes)
                 process.Kill();
+        }
+
+        private void SetUIThreadPriority()
+        {
+            Dispatcher.Thread.Priority = ThreadPriority.Highest;
         }
 
         private async Task SelfUpdate()

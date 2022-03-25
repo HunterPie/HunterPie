@@ -64,11 +64,18 @@ namespace HunterPie.UI.Overlay.Widgets.Chat
         public void HookEvents()
         {
             Context.Game.Chat.OnNewChatMessage += OnNewChatMessage;
+            Context.Game.Chat.OnChatOpen += OnChatOpen;
+        }
+
+        private void OnChatOpen(object sender, IChat e)
+        {
+            
         }
 
         public void UnhookEvents()
         {
             Context.Game.Chat.OnNewChatMessage -= OnNewChatMessage;
+            Context.Game.Chat.OnChatOpen -= OnChatOpen;
 
             WidgetManager.Unregister<ChatView, ChatWidgetConfig>(View);
         }

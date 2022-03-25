@@ -9,10 +9,27 @@ namespace HunterPie.Core.Game.Rise.Entities.Chat
 {
     public class MHRChat : IChat, IEventDispatcher
     {
+        private bool _isChatOpen;
         private readonly Dictionary<long, MHRChatMessage> _messages = new();
         public List<IChatMessage> Messages => _messages.Values.ToList<IChatMessage>();
 
+        public bool IsChatOpen
+        {
+            get => _isChatOpen;
+            internal set
+            {
+                if (value != _isChatOpen)
+                {
+                    _isChatOpen = value;
+                    this.Dispatch(OnChatOpen, this);
+                }
+            }
+        }
+
         public event EventHandler<IChatMessage> OnNewChatMessage;
+        public event EventHandler<IChat> OnChatOpen;
+
+        internal bool ConstainsMessage(long messageAddress) => _messages.ContainsKey(messageAddress);
 
         internal void AddMessage(long messageAddress, MHRChatMessage message)
         {

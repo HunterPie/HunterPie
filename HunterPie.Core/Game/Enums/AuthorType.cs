@@ -10,6 +10,8 @@ namespace HunterPie.Core.Game.Enums
     {
         None,
         NPC,
+        Buddy,
+        Monster,
         Player1,
         Player2,
         Player3,
