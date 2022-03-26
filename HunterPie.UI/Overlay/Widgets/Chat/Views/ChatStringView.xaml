@@ -10,12 +10,12 @@
     <StackPanel Orientation="Horizontal">
         <!-- Player name -->
         <Grid HorizontalAlignment="Left">
+            <Rectangle Fill="#FF211F2B"
+                       Opacity="0.8"/>
             <Rectangle Width="2"
                        HorizontalAlignment="Left"
                        Fill="{Binding Color, Mode=OneWay}"
                        d:Fill="DarkCyan"/>
-            <Rectangle Fill="#FF0B0D10"
-                       Opacity="0.5"/>
             <TextBlock d:Text="Poggies"
                        Text="{Binding Author, Mode=OneWay}"
                        FontWeight="Bold"
@@ -34,8 +34,8 @@
             </TextBlock>
         </Grid>
         <Grid ClipToBounds="True">
-            <Rectangle Fill="#FF0B0D10"
-                       Opacity="0.5"
+            <Rectangle Fill="#FF211F2B"
+                       Opacity="0.8"
                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                        HorizontalAlignment="Left" 
                        RenderTransformOrigin="0.5,0.5"
@@ -50,7 +50,7 @@
             </Rectangle>
             <TextBlock d:Text="Hello, this is a message."
                        Text="{Binding Text, Mode=OneWay}"
-                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                        Padding="1"
                        FontSize="14"
                        FontWeight="Medium"

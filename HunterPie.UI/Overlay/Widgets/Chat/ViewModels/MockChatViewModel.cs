@@ -13,10 +13,10 @@ namespace HunterPie.UI.Overlay.Widgets.Chat.ViewModels
         {
             SolidColorBrush[] playerColors =
             {
-                new SolidColorBrush(Color.FromArgb(0xFF, 0x54, 0x38, 0xDC)),
-                new SolidColorBrush(Color.FromArgb(0xFF, 0x35, 0x7D, 0xED)),
-                new SolidColorBrush(Color.FromArgb(0xFF, 0x56, 0xEE, 0xF4)),
-                new SolidColorBrush(Color.FromArgb(0xFF, 0x32, 0xE8, 0x75))
+                new SolidColorBrush(Color.FromArgb(0xFF, 0xED, 0x64, 0x91)),
+                new SolidColorBrush(Color.FromArgb(0xFF, 0x64, 0xB6, 0xED)),
+                new SolidColorBrush(Color.FromArgb(0xFF, 0xED, 0xAD, 0x64)),
+                new SolidColorBrush(Color.FromArgb(0xFF, 0x64, 0xED, 0x99))
             };
 
             string[] playerNames = { "Lyss", "Pia", "夜令", "MashiLo" };
@@ -31,7 +31,7 @@ namespace HunterPie.UI.Overlay.Widgets.Chat.ViewModels
                 "subscribe to my onlyfans"
             };
 
-            const int chatSize = 30;
+            const int chatSize = 900;
             ChatElementViewModel[] chatElements = new ChatElementViewModel[chatSize];
             for (int i = 0; i < chatSize; i++)
             {

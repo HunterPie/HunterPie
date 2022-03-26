@@ -66,12 +66,15 @@
                             Title="{Binding Name}"
                             Description="{Binding Description}"
                             Icon="{Binding Icon}"
-                            Background="#D0171B1F"
+                            Background="Transparent"
                             FontSize="13"
-                            BorderThickness="0"/>
+                            BorderThickness="0" Foreground="#FFD8D8D8"/>
         </DataTemplate>
     </UserControl.Resources>
-    <Grid Background="#D0171B1F">
+    <Grid Background="#CC151819">
+        <Border BorderThickness="1"
+                BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                Margin="2"/>
         <TabControl ItemsSource="{Binding Categories, Mode=OneWay}"
                     ItemTemplate="{StaticResource HeaderTemplate}"
                     ContentTemplate="{StaticResource PanelTemplate}"
