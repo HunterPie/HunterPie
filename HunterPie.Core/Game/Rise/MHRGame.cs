@@ -15,16 +15,17 @@ using System.Text;
 
 namespace HunterPie.Core.Game.Rise
 {
+#pragma warning disable IDE0051 // Remove unused private members
     public class MHRGame : Scannable, IGame, IEventDispatcher
     {
-        const uint MAXIMUM_MONSTER_ARRAY_SIZE = 5;
-
-        private const int CHAT_MAX_SIZE = 0x40;
+        public const uint MAXIMUM_MONSTER_ARRAY_SIZE = 5;
+        public const int CHAT_MAX_SIZE = 0x40;
+        
         private long _lastChatMessagePtr = 0;
-        private MHRChat _chat = new MHRChat();
+        private readonly MHRChat _chat = new MHRChat();
 
         // TODO: Could probably turn this into a bit mask with 256 bits
-        private HashSet<int> MonsterAreas = new() { 5, 201, 202, 203, 204, 205, 207, 209, 210, 211};
+        private readonly HashSet<int> MonsterAreas = new() { 5, 201, 202, 203, 204, 205, 207, 209, 210, 211};
 
         public static readonly int[] VillageStages = { 0, 1, 2, 3, 4, 5 };
 
@@ -92,33 +93,6 @@ namespace HunterPie.Core.Game.Rise
             _chat.IsChatOpen = isChatOpen;
         }
 
-        private MHRChatMessage DerefChatMessage(long messagePtr)
-        {
-            int messageType = _process.Memory.Read<int>(messagePtr + 0x10);
-            long messageAuthorPtr = _process.Memory.Read<long>(messagePtr + 0x28);
-            long messageStringPtr = _process.Memory.Read<long>(messagePtr + 0x58);
-
-            int messageStringLength = _process.Memory.Read<int>(messageStringPtr + 0x10);
-            messageStringLength = Math.Min(0x40, messageStringLength);
-
-            long messageAuthorLength = _process.Memory.Read<int>(messageAuthorPtr + 0x10);
-            messageAuthorLength = Math.Min(0x40, messageAuthorLength);
-
-            return new()
-            {
-                Message = _process.Memory.Read(messageStringPtr + 0x14, (uint)messageStringLength * 2, Encoding.Unicode),
-                Author = _process.Memory.Read(messageAuthorPtr + 0x14, (uint)messageAuthorLength * 2, Encoding.Unicode),
-                Type = messageType switch
-                {
-                    0x0 => AuthorType.Player1,
-                    0x3 => AuthorType.Buddy,
-                    0x0D => AuthorType.Monster,
-                    0x0F => AuthorType.NPC,
-                    _ => AuthorType.None
-                }
-            };
-        }
-
         [ScannableMethod]
         private void ScanMonstersArray()
         {
@@ -177,5 +151,56 @@ namespace HunterPie.Core.Game.Rise
 
             this.Dispatch(OnMonsterDespawn, monster);
         }
+
+        #region Chat helpers
+        private MHRChatMessage DerefChatMessage(long messagePtr)
+        {
+            int messageType = _process.Memory.Read<int>(messagePtr + 0x10);
+
+            return messageType switch
+            {
+                0x0 => DerefNormalChatMessage(messagePtr),
+                0x1 => DerefAutoChatMessage(messagePtr),
+                _ => DerefUnknownTypeMessage(messagePtr)
+            };
+        }
+
+        private MHRChatMessage DerefNormalChatMessage(long messagePtr)
+        {
+            long messageAuthorPtr = _process.Memory.Read<long>(messagePtr + 0x28);
+            long messageStringPtr = _process.Memory.Read<long>(messagePtr + 0x58);
+
+            int messageStringLength = _process.Memory.Read<int>(messageStringPtr + 0x10);
+            int messageAuthorLength = _process.Memory.Read<int>(messageAuthorPtr + 0x10);
+
+            string messageString = _process.Memory.Read(messageStringPtr + 0x14, (uint)messageStringLength * 2, Encoding.Unicode);
+            string messageAuthor = _process.Memory.Read(messageAuthorPtr + 0x10, (uint) messageAuthorLength * 2, Encoding.Unicode);
+
+            return new()
+            {
+                Message = messageString,
+                Author = messageAuthor,
+                Type = AuthorType.Player1
+            };
+        }
+
+        private MHRChatMessage DerefAutoChatMessage(long messagePtr)
+        {
+            long messageAuthorPtr = _process.Memory.Read<long>(messagePtr + 0x28);
+            int messageAuthorLength = _process.Memory.Read<int>(messageAuthorPtr + 0x10);
+            string messageAuthor = _process.Memory.Read(messageAuthorPtr + 0x10, (uint)messageAuthorLength * 2, Encoding.Unicode);
+
+            return new()
+            {
+                Message = "<Auto message>",
+                Author = messageAuthor,
+                Type = AuthorType.Player1
+            };
+        }
+
+        private MHRChatMessage DerefUnknownTypeMessage(long messagePtr) => new() { Type = AuthorType.None };
+
+        #endregion
     }
+#pragma warning restore IDE0051 // Remove unused private members
 }
