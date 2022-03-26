@@ -130,6 +130,11 @@ namespace HunterPie.Integrations.Discord
                         _ => Enum.GetName(typeof(Weapon), game.Player.WeaponId)?.ToLower() ?? "unknown",
                     }
                 })
+                .WithParty(new Party()
+                {
+                    Max = game.Player.Party.MaxSize,
+                    Size = game.Player.Party.Size,
+                })
                 .WithTimestamps(locationTime);
 
             client.SetPresence(presence);
