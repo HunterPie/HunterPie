@@ -8,5 +8,7 @@ namespace HunterPie.Core.Game.Rise.Entities.Chat
         public string Message { get; init; }
         public string Author { get; init; }
         public AuthorType Type { get; init; }
+
+        public int PlayerSlot { get; init; }
     }
 }

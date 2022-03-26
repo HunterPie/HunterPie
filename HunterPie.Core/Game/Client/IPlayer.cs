@@ -10,7 +10,7 @@ namespace HunterPie.Core.Game.Client
         public int HighRank { get; }
         public int StageId { get; }
         public Weapon WeaponId { get; }
-        public List<IPartyMember> Party { get; }
+        public IParty Party { get; }
         public IReadOnlyCollection<IAbnormality> Abnormalities { get; }
 
         public event EventHandler<EventArgs> OnLogin;

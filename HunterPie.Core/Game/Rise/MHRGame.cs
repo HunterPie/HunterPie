@@ -68,7 +68,7 @@ namespace HunterPie.Core.Game.Rise
             if (chatCount == CHAT_MAX_SIZE && chatMessagePtrs[chatCount - 1] == _lastChatMessagePtr)
                 return;
 
-            for (int i = chatCount % CHAT_MAX_SIZE; i < chatCount; i++)
+            for (int i = _chat.Messages.Count % CHAT_MAX_SIZE; i < chatCount; i++)
             {
                 long messagePtr = chatMessagePtrs[i];
                 
@@ -174,13 +174,16 @@ namespace HunterPie.Core.Game.Rise
             int messageAuthorLength = _process.Memory.Read<int>(messageAuthorPtr + 0x10);
 
             string messageString = _process.Memory.Read(messageStringPtr + 0x14, (uint)messageStringLength * 2, Encoding.Unicode);
-            string messageAuthor = _process.Memory.Read(messageAuthorPtr + 0x10, (uint) messageAuthorLength * 2, Encoding.Unicode);
+            string messageAuthor = _process.Memory.Read(messageAuthorPtr + 0x14, (uint) messageAuthorLength * 2, Encoding.Unicode);
+
+            int playerSlot = _process.Memory.Read<int>(messagePtr + 0x3C);
 
             return new()
             {
                 Message = messageString,
                 Author = messageAuthor,
-                Type = AuthorType.Player1
+                Type = AuthorType.Player,
+                PlayerSlot = playerSlot
             };
         }
 
@@ -188,13 +191,13 @@ namespace HunterPie.Core.Game.Rise
         {
             long messageAuthorPtr = _process.Memory.Read<long>(messagePtr + 0x28);
             int messageAuthorLength = _process.Memory.Read<int>(messageAuthorPtr + 0x10);
-            string messageAuthor = _process.Memory.Read(messageAuthorPtr + 0x10, (uint)messageAuthorLength * 2, Encoding.Unicode);
+            string messageAuthor = _process.Memory.Read(messageAuthorPtr + 0x14, (uint)messageAuthorLength * 2, Encoding.Unicode);
 
             return new()
             {
                 Message = "<Auto message>",
                 Author = messageAuthor,
-                Type = AuthorType.Player1
+                Type = AuthorType.Auto
             };
         }
 

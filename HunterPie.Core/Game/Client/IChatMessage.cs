@@ -7,5 +7,7 @@ namespace HunterPie.Core.Game.Client
         public string Message { get; }
         public string Author { get; }
         public AuthorType Type { get; }
+
+        public int PlayerSlot { get; }
     }
 }

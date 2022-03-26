@@ -13,10 +13,10 @@ namespace HunterPie.UI.Overlay.Widgets.Chat
     {
         private SolidColorBrush[] playerColors =
         {
-            new SolidColorBrush(Color.FromArgb(0xFF, 0x54, 0x38, 0xDC)),
-            new SolidColorBrush(Color.FromArgb(0xFF, 0x35, 0x7D, 0xED)),
-            new SolidColorBrush(Color.FromArgb(0xFF, 0x56, 0xEE, 0xF4)),
-            new SolidColorBrush(Color.FromArgb(0xFF, 0x32, 0xE8, 0x75))
+            new SolidColorBrush(Color.FromArgb(0xFF, 0xED, 0x64, 0x91)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x64, 0xB6, 0xED)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0xED, 0xAD, 0x64)),
+            new SolidColorBrush(Color.FromArgb(0xFF, 0x64, 0xED, 0x99))
         };
         
         private readonly ChatView View;
@@ -48,14 +48,14 @@ namespace HunterPie.UI.Overlay.Widgets.Chat
             {
                 View.Dispatcher.Invoke(() =>
                 {
-                    if (message.Type != AuthorType.Player1)
+                    if (message.Type != AuthorType.Player)
                         return;
 
                     General.Elements.Add(new ChatElementViewModel()
                     {
                         Author = message.Author,
                         Text = message.Message,
-                        Color = playerColors[((int)message.Type - 2) % playerColors.Length]
+                        Color = playerColors[message.PlayerSlot % playerColors.Length]
                     });
                 });
             }
@@ -83,14 +83,14 @@ namespace HunterPie.UI.Overlay.Widgets.Chat
         {
             View.Dispatcher.Invoke(() =>
             {
-                if (e.Type != AuthorType.Player1)
+                if (e.Type != AuthorType.Player)
                     return;
 
                 General.Elements.Add(new ChatElementViewModel()
                 {
                     Author = e.Author,
                     Text = e.Message,
-                    Color = playerColors[((int)e.Type - 2) % playerColors.Length]
+                    Color = playerColors[e.PlayerSlot % playerColors.Length]
                 });
             });
         }
