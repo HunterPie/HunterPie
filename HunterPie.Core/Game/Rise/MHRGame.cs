@@ -58,20 +58,21 @@ namespace HunterPie.Core.Game.Rise
             );
             long chatArray = _process.Memory.Read<long>(chatArrayPtr);
             int chatCount = _process.Memory.Read<int>(chatArrayPtr + 0x8);
-
-            if (chatCount != CHAT_MAX_SIZE && chatCount <= Chat.Messages.Count)
-                return;
             
-            //int chatArrayLength = _process.Memory.Read<int>(chatArray + 0x1C);
             long[] chatMessagePtrs = _process.Memory.Read<long>(chatArray + 0x20, (uint)chatCount);
 
-            if (chatCount == CHAT_MAX_SIZE && chatMessagePtrs[chatCount - 1] == _lastChatMessagePtr)
-                return;
+            bool isChatOpen = false;
 
-            for (int i = _chat.Messages.Count % CHAT_MAX_SIZE; i < chatCount; i++)
+            for (int i = 0; i < chatCount; i++)
             {
                 long messagePtr = chatMessagePtrs[i];
-                
+
+                if (!isChatOpen)
+                {
+                    int messageVisibilityState = _process.Memory.Read<int>(messagePtr + 0x8);
+                    isChatOpen |= messageVisibilityState == 2;
+                }
+
                 if (_chat.ConstainsMessage(messagePtr))
                     continue;
 
@@ -79,18 +80,15 @@ namespace HunterPie.Core.Game.Rise
                 _chat.AddMessage(messagePtr, message);
             }
 
+            if (!isChatOpen)
+                isChatOpen |= _process.Memory.Deref<byte>(
+                    AddressMap.GetAbsolute("CHAT_UI_ADDRESS"),
+                    AddressMap.Get<int[]>("CHAT_UI_OFFSETS")
+                ) == 1;
+
+            _chat.IsChatOpen = isChatOpen; 
+
             _lastChatMessagePtr = chatMessagePtrs[chatCount - 1];
-        }
-
-        [ScannableMethod]
-        private void ScanChatUi()
-        {
-            bool isChatOpen = _process.Memory.Deref<byte>(
-                AddressMap.GetAbsolute("CHAT_UI_ADDRESS"),
-                AddressMap.Get<int[]>("CHAT_UI_OFFSETS")
-            ) == 1;
-
-            _chat.IsChatOpen = isChatOpen;
         }
 
         [ScannableMethod]
@@ -183,7 +181,7 @@ namespace HunterPie.Core.Game.Rise
                 Message = messageString,
                 Author = messageAuthor,
                 Type = AuthorType.Player,
-                PlayerSlot = playerSlot
+                PlayerSlot = playerSlot,
             };
         }
 

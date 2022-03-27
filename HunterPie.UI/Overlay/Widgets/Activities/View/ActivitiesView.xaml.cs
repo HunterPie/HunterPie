@@ -4,6 +4,7 @@ using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Enums;
 using HunterPie.UI.Overlay.Widgets.Activities.ViewModel;
+using System;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.View
 {
@@ -23,5 +24,7 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.View
 
         public ActivitiesWidgetConfig Settings => ClientConfig.Config.Overlay.ActivitiesWidget;
         IWidgetSettings IWidgetWindow.Settings => Settings;
+
+        public event EventHandler<WidgetType> OnWidgetTypeChange;
     }
 }

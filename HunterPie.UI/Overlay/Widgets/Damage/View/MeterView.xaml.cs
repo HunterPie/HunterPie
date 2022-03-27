@@ -26,6 +26,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.View
 
         IWidgetSettings IWidgetWindow.Settings => Settings;
 
+        public event EventHandler<WidgetType> OnWidgetTypeChange;
+
         private void OnPlayerHighlightToggle(object sender, EventArgs e) => ViewModel.ToggleHighlight();
         private void OnPlayerBlurToggle(object sender, EventArgs e) => ViewModel.ToggleBlur();
     }

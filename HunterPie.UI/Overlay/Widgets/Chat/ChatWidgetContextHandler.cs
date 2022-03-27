@@ -3,6 +3,7 @@ using HunterPie.Core.Game;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Enums;
 using HunterPie.UI.Assets.Application;
+using HunterPie.UI.Overlay.Enums;
 using HunterPie.UI.Overlay.Widgets.Chat.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Chat.Views;
 using System.Windows.Media;
@@ -42,6 +43,11 @@ namespace HunterPie.UI.Overlay.Widgets.Chat
         }
         private void UpdateData()
         {
+            ViewModel.IsChatOpen = Context.Game.Chat.IsChatOpen;
+            View.Type = ViewModel.IsChatOpen
+                ? WidgetType.Window
+                : WidgetType.ClickThrough;
+
             ViewModel.Categories.Add(General);
 
             foreach (IChatMessage message in Context.Game.Chat.Messages)
@@ -69,7 +75,10 @@ namespace HunterPie.UI.Overlay.Widgets.Chat
 
         private void OnChatOpen(object sender, IChat e)
         {
-            
+            ViewModel.IsChatOpen = e.IsChatOpen;
+            View.Type = e.IsChatOpen
+                ? WidgetType.Window
+                : WidgetType.ClickThrough;
         }
 
         public void UnhookEvents()

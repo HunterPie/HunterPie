@@ -16,6 +16,7 @@
            UseLayoutRounding="True">
     <UserControl.Resources>
         <vm:MockChatViewModel x:Key="MockChatViewModel"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
         <DataTemplate x:Key="PanelTemplate" DataType="{x:Type vm:ChatCategoryViewModel}">
             <ItemsControl ItemsSource="{Binding Elements}">
@@ -33,7 +34,30 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:ChatStringView Margin="1"/>
+                        <local:ChatStringView Margin="1">
+                            <local:ChatStringView.Style>
+                                <Style TargetType="{x:Type local:ChatStringView}">
+                                    <Style.Triggers>
+                                        <EventTrigger RoutedEvent="Loaded">
+                                            <EventTrigger.Actions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                                                            From="50,1,1,1"
+                                                                            To="1,1,1,1"
+                                                                            Duration="0:0:0.250"/>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                         From="0"
+                                                                         To="1"
+                                                                         Duration="0:0:0.500"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger.Actions>
+                                        </EventTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </local:ChatStringView.Style>
+                        </local:ChatStringView>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -71,7 +95,8 @@
                             BorderThickness="0" Foreground="#FFD8D8D8"/>
         </DataTemplate>
     </UserControl.Resources>
-    <Grid Background="#CC151819">
+    <Grid Background="#CC151819"
+          Visibility="{Binding IsChatOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
         <Border BorderThickness="1"
                 BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}"
                 Margin="2"/>

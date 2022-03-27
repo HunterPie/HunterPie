@@ -259,6 +259,10 @@
 					 String="Hunting {Monster} ({Percentage}%)"/>
 			<Discord Id="DRPC_RISE_STATE_HUNTING_NO_HEALTH"
 					 String="Hunting {Monster}"/>
+			<Discord Id="DRPC_RISE_PARTY_STATE_SOLO_STRING"
+					 String="Solo"/>
+			<Discord Id="DRPC_RISE_PARTY_STATE_GROUP_STRING"
+					 String="In Party"/>
 		</Integrations>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
