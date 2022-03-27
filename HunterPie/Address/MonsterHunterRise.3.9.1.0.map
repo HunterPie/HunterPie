@@ -49,3 +49,12 @@ Offset CHAT_UI_OFFSETS 0x2E8,0x68,0x138,0x20
 # Buddy data
 Offset BUDDY_NAME_OFFSETS 0x20,0x18
 Offset BUDDY_LEVEL_OFFSETS 0x20
+
+# CRC Credits to REFramework: https://github.com/praydog/REFramework/blob/master/src/mods/IntegrityCheckBypass.cpp
+Address CRC_FUNC_1 0x02A72980
+Address CRC_FUNC_2 0x02AE7CD0
+Address CRC_FUNC_3 0x057271C0
+# Instructions
+Instruction CRC_ORIGINAL_FUNC_1 0x48,0x89,0x5C
+Instruction CRC_ORIGINAL_FUNC_2 0x48,0x89,0x5C
+Instruction CRC_ORIGINAL_FUNC_3 0x48,0x89,0x5C

@@ -58,7 +58,10 @@ namespace HunterPie.Core.Game.Rise
             );
             long chatArray = _process.Memory.Read<long>(chatArrayPtr);
             int chatCount = _process.Memory.Read<int>(chatArrayPtr + 0x8);
-            
+
+            if (chatCount <= 0)
+                return;
+
             long[] chatMessagePtrs = _process.Memory.Read<long>(chatArray + 0x20, (uint)chatCount);
 
             bool isChatOpen = false;
@@ -86,7 +89,7 @@ namespace HunterPie.Core.Game.Rise
                     AddressMap.Get<int[]>("CHAT_UI_OFFSETS")
                 ) == 1;
 
-            _chat.IsChatOpen = isChatOpen; 
+            _chat.IsChatOpen = isChatOpen;
 
             _lastChatMessagePtr = chatMessagePtrs[chatCount - 1];
         }

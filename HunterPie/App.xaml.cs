@@ -21,6 +21,7 @@ using HunterPie.Features.Overlay;
 using HunterPie.Core.Events;
 using HunterPie.Core.Domain;
 using System.Threading;
+using HunterPie.Features.Patcher;
 
 namespace HunterPie
 {
@@ -141,7 +142,9 @@ namespace HunterPie
 
             HookEvents();
             _richPresence = new(context);
-            
+
+            GamePatchers.Run(context);
+
             Dispatcher.InvokeAsync(() => WidgetInitializers.Initialize(context));
             ScanManager.Start();
         }

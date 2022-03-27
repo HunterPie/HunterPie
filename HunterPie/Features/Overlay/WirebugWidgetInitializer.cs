@@ -18,10 +18,12 @@ namespace HunterPie.Features.Overlay
             if (!ClientConfig.Config.Overlay.WirebugWidget.Initialize)
                 return;
 
-            PatchInGameHudAssembly(context);
 
             if (context is MHRContext ctx)
+            {
+                PatchInGameHudAssembly(context);
                 _handler = new WirebugWidgetContextHandler(ctx);
+            }
         }
 
         public void Unload()
