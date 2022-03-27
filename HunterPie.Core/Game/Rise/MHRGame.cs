@@ -6,6 +6,7 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
+using HunterPie.Core.Game.Rise.Definitions;
 using HunterPie.Core.Game.Rise.Entities;
 using HunterPie.Core.Game.Rise.Entities.Chat;
 using System;
@@ -70,17 +71,20 @@ namespace HunterPie.Core.Game.Rise
             {
                 long messagePtr = chatMessagePtrs[i];
 
+                MHRChatMessageStructure message = _process.Memory.Read<MHRChatMessageStructure>(messagePtr);
+
+                if (message.Type != 0 && message.Type != 1)
+                    continue;
+
                 if (!isChatOpen)
-                {
-                    int messageVisibilityState = _process.Memory.Read<int>(messagePtr + 0x8);
-                    isChatOpen |= messageVisibilityState == 2;
-                }
+                    isChatOpen |= message.Visibility == 2;
 
                 if (_chat.ConstainsMessage(messagePtr))
                     continue;
 
-                MHRChatMessage message = DerefChatMessage(messagePtr);
-                _chat.AddMessage(messagePtr, message);
+                MHRChatMessage messageData = DerefChatMessage(message);
+
+                _chat.AddMessage(messagePtr, messageData);
             }
 
             if (!isChatOpen)
@@ -154,45 +158,37 @@ namespace HunterPie.Core.Game.Rise
         }
 
         #region Chat helpers
-        private MHRChatMessage DerefChatMessage(long messagePtr)
+        private MHRChatMessage DerefChatMessage(MHRChatMessageStructure message)
         {
-            int messageType = _process.Memory.Read<int>(messagePtr + 0x10);
-
-            return messageType switch
+            return message.Type switch
             {
-                0x0 => DerefNormalChatMessage(messagePtr),
-                0x1 => DerefAutoChatMessage(messagePtr),
-                _ => DerefUnknownTypeMessage(messagePtr)
+                0x0 => DerefNormalChatMessage(message),
+                0x1 => DerefAutoChatMessage(message),
+                _ => DerefUnknownTypeMessage(message)
             };
         }
 
-        private MHRChatMessage DerefNormalChatMessage(long messagePtr)
+        private MHRChatMessage DerefNormalChatMessage(MHRChatMessageStructure message)
         {
-            long messageAuthorPtr = _process.Memory.Read<long>(messagePtr + 0x28);
-            long messageStringPtr = _process.Memory.Read<long>(messagePtr + 0x58);
+            int messageStringLength = _process.Memory.Read<int>(message.Message + 0x10);
+            int messageAuthorLength = _process.Memory.Read<int>(message.Author + 0x10);
 
-            int messageStringLength = _process.Memory.Read<int>(messageStringPtr + 0x10);
-            int messageAuthorLength = _process.Memory.Read<int>(messageAuthorPtr + 0x10);
-
-            string messageString = _process.Memory.Read(messageStringPtr + 0x14, (uint)messageStringLength * 2, Encoding.Unicode);
-            string messageAuthor = _process.Memory.Read(messageAuthorPtr + 0x14, (uint) messageAuthorLength * 2, Encoding.Unicode);
-
-            int playerSlot = _process.Memory.Read<int>(messagePtr + 0x3C);
+            string messageString = _process.Memory.Read(message.Message + 0x14, (uint)messageStringLength * 2, Encoding.Unicode);
+            string messageAuthor = _process.Memory.Read(message.Author + 0x14, (uint) messageAuthorLength * 2, Encoding.Unicode);
 
             return new()
             {
                 Message = messageString,
                 Author = messageAuthor,
                 Type = AuthorType.Player,
-                PlayerSlot = playerSlot,
+                PlayerSlot = message.PlayerSlot,
             };
         }
 
-        private MHRChatMessage DerefAutoChatMessage(long messagePtr)
+        private MHRChatMessage DerefAutoChatMessage(MHRChatMessageStructure message)
         {
-            long messageAuthorPtr = _process.Memory.Read<long>(messagePtr + 0x28);
-            int messageAuthorLength = _process.Memory.Read<int>(messageAuthorPtr + 0x10);
-            string messageAuthor = _process.Memory.Read(messageAuthorPtr + 0x14, (uint)messageAuthorLength * 2, Encoding.Unicode);
+            int messageAuthorLength = _process.Memory.Read<int>(message.Author + 0x10);
+            string messageAuthor = _process.Memory.Read(messageAuthorLength + 0x14, (uint)messageAuthorLength * 2, Encoding.Unicode);
 
             return new()
             {
@@ -202,7 +198,7 @@ namespace HunterPie.Core.Game.Rise
             };
         }
 
-        private MHRChatMessage DerefUnknownTypeMessage(long messagePtr) => new() { Type = AuthorType.None };
+        private MHRChatMessage DerefUnknownTypeMessage(MHRChatMessageStructure message) => new() { Type = AuthorType.None };
 
         #endregion
     }
