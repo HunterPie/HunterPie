@@ -2,7 +2,10 @@
 using HunterPie.Core.Logger;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.IO;
 using System.Text;
 
@@ -44,6 +47,7 @@ namespace HunterPie.Core.Client
 
             _settings[path] = @default;
             Reload(path);
+            BindToAllPropertiesRecursively(path, @default);
         }
 
         internal static void Initialize()
@@ -157,6 +161,44 @@ namespace HunterPie.Core.Client
                         stream.Write(buffer);
                     }
                 } catch(Exception err) { Log.Error(err.ToString()); }
+            }
+        }
+
+        private static void BindToAllPropertiesRecursively(string path, object data)
+        {
+            if (data is null)
+                return;
+
+            Type type = data.GetType();
+            foreach (var propertyInfo in type.GetProperties())
+            {
+                if (typeof(IEnumerable).IsAssignableFrom(propertyInfo.PropertyType))
+                {
+                    IEnumerable array = (IEnumerable)propertyInfo.GetValue(data);
+
+                    foreach (var item in array)
+                        BindToAllPropertiesRecursively(path, item);
+
+                }
+                else
+                {
+                    if (propertyInfo.PropertyType.IsPrimitive)
+                        continue;
+
+                    try
+                    {
+                        object value = propertyInfo.GetValue(data);
+
+                        if (value is INotifyPropertyChanged bindable)
+                        {
+                            bindable.PropertyChanged += (_, __) => { Save(path); };
+                            continue;
+                        }
+
+                        BindToAllPropertiesRecursively(path, value);
+
+                    } catch { continue; }
+                }
             }
         }
 

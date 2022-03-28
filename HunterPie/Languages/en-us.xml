@@ -324,6 +324,12 @@
 			<Setting Id="MINIMIZE_TO_SYSTEM_TRAY_STRING"
 					 String="Minimize to system tray"
 					 Description="If enabled, HunterPie will minimize to the system's tray."/>
+			<Setting Id="SEAMLESS_STARTUP_STRING"
+					 String="Enable seamless startup"
+					 Description="If enabled, HunterPie will not open it's main window at all at startup."/>
+			<Setting Id="SEAMLESS_SHUTDOWN_STRING"
+					 String="Enable seamless shutdown"
+					 Description="If enabled, HunterPie will not prompt you for confirmation on exit."/>
 			<Setting Id="RENDERING_STRATEGY_STRING"
 					 String="Rendering Strategy"
 					 Description="HunterPie's default rendering strategy. Software will use your CPU to render the overlay, Hardware will use your Graphics Card."/>

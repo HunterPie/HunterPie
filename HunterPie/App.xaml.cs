@@ -52,7 +52,9 @@ namespace HunterPie
             _ui = await Dispatcher.InvokeAsync(() => { return new MainWindow(); });
             
             UI.InitializeComponent();
-            UI.Show();
+            
+            if (!ClientConfig.Config.Client.EnableSeamlessStartup)
+                UI.Show();
 
             InitializeProcessScanners();
             SetUIThreadPriority();
@@ -80,7 +82,9 @@ namespace HunterPie
 
             UpdateViewModel vm = new();
             UpdateView view = new() { DataContext = vm };
-            view.Show();
+
+            if (!ClientConfig.Config.Client.EnableSeamlessStartup)
+                view.Show();
 
             bool result = await UpdateUseCase.Exec(vm);
 
@@ -165,6 +169,11 @@ namespace HunterPie
 
             InitializerManager.Unload();
             base.OnExit(e);
+        }
+
+        protected override void OnSessionEnding(SessionEndingCancelEventArgs e)
+        {
+            base.OnSessionEnding(e);
         }
 
         private void HookEvents()
