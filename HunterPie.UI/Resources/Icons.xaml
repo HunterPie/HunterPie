@@ -9,7 +9,15 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
-    
+
+    <DrawingImage x:Key="ICON_CHATBOX">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}" Geometry="F1 M512,512z M0,0z M456,48L56,48A24,24,0,0,0,32,72L32,360A24,24,0,0,0,56,384L128,384 128,464 245.74,384 456,384A24,24,0,0,0,480,360L480,72A24,24,0,0,0,456,48z M160,248A32,32,0,1,1,192,216A32,32,0,0,1,160,248z M256,248A32,32,0,1,1,288,216A32,32,0,0,1,256,248z M352,248A32,32,0,1,1,384,216A32,32,0,0,1,352,248z M456,80z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="ICON_WIREBUG">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">

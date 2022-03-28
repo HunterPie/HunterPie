@@ -15,6 +15,7 @@
         Background="#01000000"
         Topmost="True"
         SizeToContent="WidthAndHeight"
+        xmlns:animation="clr-namespace:HunterPie.UI.Architecture.Animation"
         d:Height="400"
         d:Width="500"
         Top="{Binding Widget.Settings.Position.Y, Mode=TwoWay}"
@@ -28,6 +29,7 @@
         MouseWheel="OnMouseWheel">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <animation:BrushAnimation x:Key="BrushAnimation"/>
         <enums:WidgetType x:Key="WidgetType_Window">Window</enums:WidgetType>
     </Window.Resources>
     <Grid>
@@ -90,6 +92,22 @@
                                 </BeginStoryboard>
                             </MultiDataTrigger.ExitActions>
                         </MultiDataTrigger>
+
+                        <EventTrigger RoutedEvent="Loaded">
+                            <!-- 
+                                Literally an useless animation just to force the Widget to be rendered at 60 FPS.
+                                Thank you WPF!
+                            -->
+                            <BeginStoryboard>
+                                <Storyboard AutoReverse="True"
+                                            RepeatBehavior="Forever">
+                                    <animation:BrushAnimation From="#01000000"
+                                                              To="Transparent"
+                                                              Duration="0:0:5"
+                                                              Storyboard.TargetProperty="Background"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
                     </Style.Triggers>
                 </Style>
             </Grid.Style>

@@ -88,6 +88,7 @@ namespace HunterPie.UI.Overlay.Components
                 RenderingTime = (DateTime.Now - LastRender).TotalMilliseconds;
                 ForceAlwaysOnTop();
                 counter = 0;
+                
             }
             LastRender = DateTime.Now;
             counter++;

@@ -63,6 +63,6 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         public Observable<bool> StreamerMode { get; set; } = false;
 
         [SettingField("WIDGET_POSITION")]
-        public Position Position { get; set; } = new(600, 100);
+        public Position Position { get; set; } = new(1200, 100);
     }
 }
