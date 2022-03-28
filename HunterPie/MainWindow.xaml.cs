@@ -55,7 +55,6 @@ namespace HunterPie
 
         private void OnInitialized(object sender, EventArgs e)
         {
-            Show();
             InitializerManager.InitializeGUI();
             
             InitializeDebugWidgets();
