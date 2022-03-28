@@ -25,7 +25,7 @@ namespace HunterPie.Core.Client.Configuration
         public Observable<bool> MinimizeToSystemTray { get; set; } = true;
 
         [SettingField("SEAMLESS_STARTUP_STRING")]
-        public Observable<bool> SeamlessStartup { get; set; } = false;
+        public Observable<bool> EnableSeamlessStartup { get; set; } = false;
 
         [SettingField("RENDERING_STRATEGY_STRING", requiresRestart: true)]
         public Observable<RenderingStrategy> Rendering { get; set; } = RenderingStrategy.Hardware;

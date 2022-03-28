@@ -53,7 +53,7 @@ namespace HunterPie
             
             UI.InitializeComponent();
             
-            if (!ClientConfig.Config.Client.SeamlessStartup)
+            if (!ClientConfig.Config.Client.EnableSeamlessStartup)
                 UI.Show();
 
             InitializeProcessScanners();
@@ -82,7 +82,9 @@ namespace HunterPie
 
             UpdateViewModel vm = new();
             UpdateView view = new() { DataContext = vm };
-            view.Show();
+
+            if (!ClientConfig.Config.Client.EnableSeamlessStartup)
+                view.Show();
 
             bool result = await UpdateUseCase.Exec(vm);
 
