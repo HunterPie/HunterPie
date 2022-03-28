@@ -118,10 +118,10 @@ namespace HunterPie.Integrations.Discord
                 .WithAssets(new Assets()
                 {
                     LargeImageText = MHRContext.Strings.GetStageNameById(game.Player.StageId),
-                    LargeImageKey = game.Player.StageId == -1 
-                                    ? "unknown" 
+                    LargeImageKey = game.Player.StageId == -1
+                                    ? "unknown"
                                     : $"rise-stage-{game.Player.StageId}",
-                    SmallImageText = Settings.ShowCharacterInfo 
+                    SmallImageText = Settings.ShowCharacterInfo
                         ? Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_CHARACTER_STRING_FORMAT']")
                             .Replace("{Character}", game.Player.Name)
                             .Replace("{HighRank}", game.Player.HighRank.ToString())
@@ -134,8 +134,11 @@ namespace HunterPie.Integrations.Discord
                 })
                 .WithParty(new Party()
                 {
+                    // TODO: Make shared ID for everyone in the party based on the session id
+                    ID = game.Player.Name ?? "",
                     Max = game.Player.Party.MaxSize,
                     Size = game.Player.Party.Size,
+                    Privacy = Party.PrivacySetting.Public
                 })
                 .WithState(state)
                 .WithTimestamps(locationTime);
