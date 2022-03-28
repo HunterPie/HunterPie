@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
@@ -191,7 +192,7 @@ namespace HunterPie.Core.Client
                         if (value is INotifyPropertyChanged bindable)
                         {
                             bindable.PropertyChanged += (_, __) => { Save(path); };
-                            Log.Debug("Bound to {0}", propertyInfo.Name);
+                            Log.Debug($"Bound to {propertyInfo.Name}");
 
                             continue;
                         }
