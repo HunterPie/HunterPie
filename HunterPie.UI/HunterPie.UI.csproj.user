@@ -83,6 +83,12 @@
     <Compile Update="Overlay\Widgets\Activities\View\TrainingDojoView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Chat\Views\ChatStringView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Chat\Views\ChatView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Damage\View\MeterView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -206,6 +212,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Activities\View\TrainingDojoView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Chat\Views\ChatStringView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Chat\Views\ChatView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Damage\View\MeterView.xaml">

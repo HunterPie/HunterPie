@@ -4,6 +4,7 @@ using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Enums;
 using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
+using System;
 
 namespace HunterPie.UI.Overlay.Widgets.Wirebug.Views
 {
@@ -21,5 +22,7 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug.Views
         public string Title => "Wirebug Widget";
         public WidgetType Type => WidgetType.ClickThrough;
         IWidgetSettings IWidgetWindow.Settings => Settings;
+
+        public event EventHandler<WidgetType> OnWidgetTypeChange;
     }
 }

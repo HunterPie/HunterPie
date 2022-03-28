@@ -11,8 +11,9 @@ namespace HunterPie.Core.Game
         public IPlayer Player { get; }
         public List<IMonster> Monsters { get; }
 
+        public IChat Chat { get; }
+
         public event EventHandler<IMonster> OnMonsterSpawn;
         public event EventHandler<IMonster> OnMonsterDespawn;
-
     }
 }

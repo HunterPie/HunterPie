@@ -109,10 +109,12 @@ namespace HunterPie.Integrations.Discord
                     .Replace("{Monster}", targetMonster.Name)
                     .Replace("{Percentage}", $"{targetMonster.Health / targetMonster.MaxHealth * 100:0}");
             }
-            
+
+            string state = game.Player.Party.Size <= 1
+                ? Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_PARTY_STATE_SOLO_STRING']")
+                : Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_PARTY_STATE_GROUP_STRING']");
+
             presence.WithDetails(description)
-                .WithState(null)
-                .WithParty(null)
                 .WithAssets(new Assets()
                 {
                     LargeImageText = MHRContext.Strings.GetStageNameById(game.Player.StageId),
@@ -130,6 +132,12 @@ namespace HunterPie.Integrations.Discord
                         _ => Enum.GetName(typeof(Weapon), game.Player.WeaponId)?.ToLower() ?? "unknown",
                     }
                 })
+                .WithParty(new Party()
+                {
+                    Max = game.Player.Party.MaxSize,
+                    Size = game.Player.Party.Size,
+                })
+                .WithState(state)
                 .WithTimestamps(locationTime);
 
             client.SetPresence(presence);

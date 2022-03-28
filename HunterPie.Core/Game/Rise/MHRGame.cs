@@ -4,25 +4,36 @@ using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
+using HunterPie.Core.Game.Rise.Definitions;
 using HunterPie.Core.Game.Rise.Entities;
+using HunterPie.Core.Game.Rise.Entities.Chat;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace HunterPie.Core.Game.Rise
 {
+#pragma warning disable IDE0051 // Remove unused private members
     public class MHRGame : Scannable, IGame, IEventDispatcher
     {
-        const uint MAXIMUM_MONSTER_ARRAY_SIZE = 5;
+        public const uint MAXIMUM_MONSTER_ARRAY_SIZE = 5;
+        public const int CHAT_MAX_SIZE = 0x40;
+        
+        private long _lastChatMessagePtr = 0;
+        private readonly MHRChat _chat = new MHRChat();
 
         // TODO: Could probably turn this into a bit mask with 256 bits
-        private HashSet<int> MonsterAreas = new() { 5, 201, 202, 203, 204, 205, 207, 209, 210, 211};
+        private readonly HashSet<int> MonsterAreas = new() { 5, 201, 202, 203, 204, 205, 207, 209, 210, 211};
 
         public static readonly int[] VillageStages = { 0, 1, 2, 3, 4, 5 };
 
         public IPlayer Player { get; }
         public List<IMonster> Monsters { get; } = new();
+
+        public IChat Chat => _chat;
 
         Dictionary<long, IMonster> monsters = new();
 
@@ -37,6 +48,54 @@ namespace HunterPie.Core.Game.Rise
                 this,
                 Player as Scannable
             );
+        }
+
+        [ScannableMethod]
+        private void ScanChat()
+        {
+            long chatArrayPtr = _process.Memory.Read(
+                AddressMap.GetAbsolute("CHAT_ADDRESS"),
+                AddressMap.Get<int[]>("CHAT_OFFSETS")
+            );
+            long chatArray = _process.Memory.Read<long>(chatArrayPtr);
+            int chatCount = _process.Memory.Read<int>(chatArrayPtr + 0x8);
+
+            if (chatCount <= 0)
+                return;
+
+            long[] chatMessagePtrs = _process.Memory.Read<long>(chatArray + 0x20, (uint)chatCount);
+
+            bool isChatOpen = false;
+
+            for (int i = 0; i < chatCount; i++)
+            {
+                long messagePtr = chatMessagePtrs[i];
+
+                MHRChatMessageStructure message = _process.Memory.Read<MHRChatMessageStructure>(messagePtr);
+
+                if (message.Type != 0 && message.Type != 1)
+                    continue;
+
+                if (!isChatOpen)
+                    isChatOpen |= message.Visibility == 2;
+
+                if (_chat.ConstainsMessage(messagePtr))
+                    continue;
+
+                MHRChatMessage messageData = DerefChatMessage(message);
+
+                _chat.AddMessage(messagePtr, messageData);
+            }
+
+            if (!isChatOpen)
+                isChatOpen |= _process.Memory.Deref<byte>(
+                    AddressMap.GetAbsolute("CHAT_UI_ADDRESS"),
+                    AddressMap.Get<int[]>("CHAT_UI_OFFSETS")
+                ) == 1;
+
+            _chat.IsChatOpen = isChatOpen;
+
+            _lastChatMessagePtr = chatMessagePtrs[chatCount - 1];
         }
 
         [ScannableMethod]
@@ -97,5 +156,51 @@ namespace HunterPie.Core.Game.Rise
 
             this.Dispatch(OnMonsterDespawn, monster);
         }
+
+        #region Chat helpers
+        private MHRChatMessage DerefChatMessage(MHRChatMessageStructure message)
+        {
+            return message.Type switch
+            {
+                0x0 => DerefNormalChatMessage(message),
+                0x1 => DerefAutoChatMessage(message),
+                _ => DerefUnknownTypeMessage(message)
+            };
+        }
+
+        private MHRChatMessage DerefNormalChatMessage(MHRChatMessageStructure message)
+        {
+            int messageStringLength = _process.Memory.Read<int>(message.Message + 0x10);
+            int messageAuthorLength = _process.Memory.Read<int>(message.Author + 0x10);
+
+            string messageString = _process.Memory.Read(message.Message + 0x14, (uint)messageStringLength * 2, Encoding.Unicode);
+            string messageAuthor = _process.Memory.Read(message.Author + 0x14, (uint) messageAuthorLength * 2, Encoding.Unicode);
+
+            return new()
+            {
+                Message = messageString,
+                Author = messageAuthor,
+                Type = AuthorType.Player,
+                PlayerSlot = message.PlayerSlot,
+            };
+        }
+
+        private MHRChatMessage DerefAutoChatMessage(MHRChatMessageStructure message)
+        {
+            int messageAuthorLength = _process.Memory.Read<int>(message.Author + 0x10);
+            string messageAuthor = _process.Memory.Read(messageAuthorLength + 0x14, (uint)messageAuthorLength * 2, Encoding.Unicode);
+
+            return new()
+            {
+                Message = "<Auto message>",
+                Author = messageAuthor,
+                Type = AuthorType.Auto
+            };
+        }
+
+        private MHRChatMessage DerefUnknownTypeMessage(MHRChatMessageStructure message) => new() { Type = AuthorType.None };
+
+        #endregion
     }
+#pragma warning restore IDE0051 // Remove unused private members
 }

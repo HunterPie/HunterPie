@@ -19,6 +19,8 @@ namespace HunterPie.Core.Game.World
         public IPlayer Player => _player;
         public List<IMonster> Monsters => _monsters;
 
+        public IChat Chat => throw new NotImplementedException();
+
         public MHWGame(IProcessManager process)
         {
             _process = process;

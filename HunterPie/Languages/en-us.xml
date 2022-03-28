@@ -259,6 +259,10 @@
 					 String="Hunting {Monster} ({Percentage}%)"/>
 			<Discord Id="DRPC_RISE_STATE_HUNTING_NO_HEALTH"
 					 String="Hunting {Monster}"/>
+			<Discord Id="DRPC_RISE_PARTY_STATE_SOLO_STRING"
+					 String="Solo"/>
+			<Discord Id="DRPC_RISE_PARTY_STATE_GROUP_STRING"
+					 String="In Party"/>
 		</Integrations>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
@@ -282,6 +286,9 @@
 			<Setting Id="ACTIVITIES_WIDGET_STRING"
 					 String="Activities Widget"
 					 Description="Activities Widget configurations"/>
+			<Setting Id="CHAT_WIDGET_STRING"
+					 String="Chat Widget"
+					 Description="Chat Widget configurations"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="Dev Tools"
 					 Description="Advanced development tools"/>
@@ -427,7 +434,7 @@
 					 String="Show Argosy"
 					 Description="If enabled, HunterPie will show Argosy's data."/>
 			<Setting Id="ACTIVITIES_ENABLE_TRAINING_DOJO_STRING"
-					 String="Show Argosy"
+					 String="Show Training Dojo"
 					 Description="If enabled, HunterPie will show Training Dojo's data."/>
 
 
