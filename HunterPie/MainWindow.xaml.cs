@@ -41,13 +41,19 @@ namespace HunterPie
 
         protected override void OnClosing(CancelEventArgs e)
         {
-
-            NativeDialogResult result = DialogManager.Info("Confirmation", "Are you sure you want to exit HunterPie?", NativeDialogButtons.Accept | NativeDialogButtons.Cancel);  
-            
-            if (result != NativeDialogResult.Accept)
+            if (!ClientConfig.Config.Client.EnableSeamlessShutdown)
             {
-                e.Cancel = true;
-                return;
+                NativeDialogResult result = DialogManager.Info(
+                    "Confirmation", 
+                    "Are you sure you want to exit HunterPie?", 
+                    NativeDialogButtons.Accept | NativeDialogButtons.Cancel
+                );
+
+                if (result != NativeDialogResult.Accept)
+                {
+                    e.Cancel = true;
+                    return;
+                }
             }
 
             base.OnClosing(e);
