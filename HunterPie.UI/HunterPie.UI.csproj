@@ -4,8 +4,8 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.0.22.225</AssemblyVersion>
-    <FileVersion>2.0.22.225</FileVersion>
+    <AssemblyVersion>2.0.22.227</AssemblyVersion>
+    <FileVersion>2.0.22.227</FileVersion>
     <Version>2.0.22.24</Version>
   </PropertyGroup>
 

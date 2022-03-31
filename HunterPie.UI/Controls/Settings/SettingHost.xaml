@@ -71,7 +71,8 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="{StaticResource ICON_CHECKMARK_GREEN}"
                                                    Margin="0,0,5,0"/>
-                                            <TextBlock Text="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=\'HUNTERPIE_IS_LATEST_VERSION\']'}"
+                                            <TextBlock Text="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_IS_LATEST_VERSION&quot;]'}"
+                                                       d:Text="Lastest version"
                                                        Foreground="#66e2a7"
                                                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                                        VerticalAlignment="Center"
@@ -86,7 +87,8 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="{StaticResource ICON_DOWNLOAD_YELLOW}"
                                                    Margin="0,0,5,0"/>
-                                            <TextBlock Text="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=\'HUNTERPIE_NOT_LATEST_VERSION\']'}"
+                                            <TextBlock Text="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_NOT_LATEST_VERSION&quot;]'}"
+                                                       d:Text="There's a newer version available"
                                                        Foreground="#ffab66"
                                                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                                        VerticalAlignment="Center"

@@ -1,10 +1,12 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
+using HunterPie.Core.Client.Events;
 using HunterPie.Core.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace HunterPie.UI.Controls.Settings.ViewModel
@@ -14,17 +16,28 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
         private int _currentTabIndex;
         private bool _isFetchingVersion;
         private bool _isLatestVersion;
+        public string _lastSync;
         private readonly ObservableCollection<ISettingElement> _elements = new();
 
         public ObservableCollection<ISettingElement> Elements => _elements;
         public int CurrentTabIndex { get => _currentTabIndex; set { SetValue(ref _currentTabIndex, value); } }
         public bool IsFetchingVersion { get => _isFetchingVersion; set { SetValue(ref _isFetchingVersion, value); } }
         public bool IsLatestVersion { get => _isLatestVersion; set { SetValue(ref _isLatestVersion, value); } }
+        public string LastSync { get => _lastSync; set { SetValue(ref _lastSync, value); } }
 
         public SettingHostViewModel(IEnumerable<ISettingElement> elements)
         {
+            ConfigManager.OnSync += OnConfigSync;
             foreach (ISettingElement el in elements)
                 _elements.Add(el);
+        }
+
+        private void OnConfigSync(object sender, ConfigSaveEventArgs e)
+        {
+            if (Path.GetFileNameWithoutExtension(e.Path) != "config")
+                return;
+
+            LastSync = e.SyncedAt.ToLongTimeString();
         }
 
         public void SearchSetting(string query)
