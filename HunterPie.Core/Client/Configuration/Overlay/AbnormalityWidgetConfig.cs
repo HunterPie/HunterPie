@@ -18,6 +18,9 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         [SettingField("ENABLE_WIDGET_STRING")]
         public Observable<bool> Enabled { get; set; } = true;
 
+        [SettingField("HIDE_WHEN_UI_VISIBLE_STRING")]
+        public Observable<bool> HideWhenUiOpen { get; set; } = false;
+
         [SettingField("ABNORMALITY_TRAY_MAX_SIZE_STRING")]
         public Range MaxSize { get; set; } = new Range(300, 1200, 30, 30);
 

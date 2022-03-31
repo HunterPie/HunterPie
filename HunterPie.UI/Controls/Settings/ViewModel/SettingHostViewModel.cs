@@ -2,10 +2,8 @@
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Events;
 using HunterPie.Core.Http;
-using HunterPie.Core.Logger;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.RegularExpressions;

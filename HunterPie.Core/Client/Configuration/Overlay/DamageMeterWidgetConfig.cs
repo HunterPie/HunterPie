@@ -12,7 +12,10 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         
         [SettingField("MOCK", "MOCK")]
         public Observable<bool> Enabled { get; set; } = true;
-        
+
+        [SettingField("HIDE_WHEN_UI_VISIBLE_STRING")]
+        public Observable<bool> HideWhenUiOpen { get; set; } = false;
+
         [SettingField("MOCK", "MOCK")]
         public Position Position { get; set; } = new(0, 0);
 

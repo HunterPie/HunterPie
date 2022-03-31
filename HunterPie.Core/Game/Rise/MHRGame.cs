@@ -22,8 +22,8 @@ namespace HunterPie.Core.Game.Rise
         public const uint MAXIMUM_MONSTER_ARRAY_SIZE = 5;
         public const int CHAT_MAX_SIZE = 0x40;
         
-        private long _lastChatMessagePtr = 0;
         private readonly MHRChat _chat = new MHRChat();
+        private bool _isHudOpen;
 
         // TODO: Could probably turn this into a bit mask with 256 bits
         private readonly HashSet<int> MonsterAreas = new() { 5, 201, 202, 203, 204, 205, 207, 209, 210, 211};
@@ -35,10 +35,24 @@ namespace HunterPie.Core.Game.Rise
 
         public IChat Chat => _chat;
 
+        public bool IsHudOpen
+        {
+            get => _isHudOpen;
+            private set
+            {
+                if (value != _isHudOpen)
+                {
+                    _isHudOpen = value;
+                    this.Dispatch(OnHudStateChange, this);
+                }
+            }
+        }
+
         Dictionary<long, IMonster> monsters = new();
 
         public event EventHandler<IMonster> OnMonsterSpawn;
         public event EventHandler<IMonster> OnMonsterDespawn;
+        public event EventHandler<IGame> OnHudStateChange;
 
         public MHRGame(IProcessManager process) : base(process)
         {
@@ -94,8 +108,17 @@ namespace HunterPie.Core.Game.Rise
                 ) == 1;
 
             _chat.IsChatOpen = isChatOpen;
+        }
 
-            _lastChatMessagePtr = chatMessagePtrs[chatCount - 1];
+        [ScannableMethod]
+        private void ScanUIState()
+        {
+            int isHudOpen = _process.Memory.Deref<int>(
+                AddressMap.GetAbsolute("UI_ADDRESS"),
+                AddressMap.Get<int[]>("UI_OPEN_OFFSETS")
+            );
+
+            IsHudOpen = isHudOpen == 1;
         }
 
         [ScannableMethod]
