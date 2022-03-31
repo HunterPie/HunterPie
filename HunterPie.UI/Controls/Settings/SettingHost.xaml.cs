@@ -20,5 +20,6 @@ namespace HunterPie.UI.Controls.Settings
         private void OnRealTimeSearch(object sender, SearchTextChangedEventArgs e) => ViewModel.SearchSetting(e.Text);
         private void OnLoaded(object sender, RoutedEventArgs e) => ViewModel.FetchVersion();
 
+        private void OnUnloaded(object sender, RoutedEventArgs e) => ViewModel.UnhookEvents();
     }
 }

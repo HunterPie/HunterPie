@@ -13,7 +13,8 @@
              mc:Ignorable="d"
              d:DesignHeight="450" 
              d:DesignWidth="800"
-             Loaded="OnLoaded">
+             Loaded="OnLoaded"
+             Unloaded="OnUnloaded">
     <UserControl.Resources>
         <converters:ObjectToUiConverter x:Key="ObjectToUiConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>

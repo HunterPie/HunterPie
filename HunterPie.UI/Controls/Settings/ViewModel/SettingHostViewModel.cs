@@ -2,6 +2,7 @@
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Events;
 using HunterPie.Core.Http;
+using HunterPie.Core.Logger;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,11 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
 
             foreach (ISettingElement el in elements)
                 _elements.Add(el);
+        }
+
+        public void UnhookEvents()
+        {
+            ConfigManager.OnSync -= OnConfigSync;
         }
 
         private void OnConfigSync(object sender, ConfigSaveEventArgs e)

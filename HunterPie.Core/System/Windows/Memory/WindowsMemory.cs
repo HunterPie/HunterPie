@@ -98,11 +98,16 @@ namespace HunterPie.Core.System.Windows.Memory
         private T[] ReadPrimitive<T>(long address, uint count) where T : struct
         {
             int lpByteCount = Marshal.SizeOf<T>() * (int)count;
-            T[] buffer = new T[count];
-
+            byte[] buffer = bufferPool.Rent(lpByteCount);
+            
             Kernel32.ReadProcessMemory(pHandle, (IntPtr)address, buffer, lpByteCount, out int _);
 
-            return buffer;
+            T[] bufferFinal = MemoryMarshal.Cast<byte, T>(buffer)
+                .ToArray();
+
+            bufferPool.Return(buffer, true);
+            
+            return bufferFinal;
         }
 
         public T Deref<T>(long address, int[] offsets) where T : struct

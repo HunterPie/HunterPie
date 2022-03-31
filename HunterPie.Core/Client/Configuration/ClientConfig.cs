@@ -31,7 +31,7 @@ namespace HunterPie.Core.Client.Configuration
         public Observable<bool> EnableSeamlessShutdown { get; set; } = false;
 
         [SettingField("RENDERING_STRATEGY_STRING", requiresRestart: true)]
-        public Observable<RenderingStrategy> Rendering { get; set; } = RenderingStrategy.Hardware;
+        public Observable<RenderingStrategy> Render { get; set; } = RenderingStrategy.Software;
 
         [SettingField("POLLING_RATE_STRING")]
         public Range PollingRate { get; set; } = new(100, 1000, 1, 1);
