@@ -16,7 +16,7 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
         private int _currentTabIndex;
         private bool _isFetchingVersion;
         private bool _isLatestVersion;
-        public string _lastSync;
+        public string _lastSync = DateTime.Now.ToString("G");
         private readonly ObservableCollection<ISettingElement> _elements = new();
 
         public ObservableCollection<ISettingElement> Elements => _elements;
@@ -25,9 +25,10 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
         public bool IsLatestVersion { get => _isLatestVersion; set { SetValue(ref _isLatestVersion, value); } }
         public string LastSync { get => _lastSync; set { SetValue(ref _lastSync, value); } }
 
-        public SettingHostViewModel(IEnumerable<ISettingElement> elements)
+        public SettingHostViewModel(ISettingElement[] elements)
         {
             ConfigManager.OnSync += OnConfigSync;
+
             foreach (ISettingElement el in elements)
                 _elements.Add(el);
         }
@@ -37,7 +38,7 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
             if (Path.GetFileNameWithoutExtension(e.Path) != "config")
                 return;
 
-            LastSync = e.SyncedAt.ToLongTimeString();
+            LastSync = e.SyncedAt.ToString("G");
         }
 
         public void SearchSetting(string query)
