@@ -7,6 +7,7 @@ namespace HunterPie.Core.Settings
     {
         Observable<bool> Initialize { get; set; }
         Observable<bool> Enabled { get; set; }
+        Observable<bool> HideWhenUiOpen { get; set; }
         Position Position { get; set; }
         Range Opacity { get; set; }
         Range Scale { get; set; }

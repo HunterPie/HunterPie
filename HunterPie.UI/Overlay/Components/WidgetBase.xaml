@@ -10,8 +10,8 @@
         xmlns:enums="clr-namespace:HunterPie.UI.Overlay.Enums"
         mc:Ignorable="d"
         Title="{Binding Widget.Title, Mode=OneWay}"
-        WindowStyle="None"
         AllowsTransparency="True"
+        WindowStyle="None" 
         Background="#01000000"
         Topmost="True"
         SizeToContent="WidthAndHeight"
@@ -48,7 +48,7 @@
                 <Style TargetType="{x:Type Grid}">
                     <Setter Property="Opacity" Value="0"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsDesignModeEnabled, Source={x:Static overlay:WidgetManager.Instance}}"
+                        <DataTrigger Binding="{Binding IsDesignModeEnabled, Source={x:Static overlay:WidgetManager.Instance}, Mode=OneWay}"
                                      Value="True">
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard>
@@ -98,7 +98,7 @@
                                 Literally an useless animation just to force the Widget to be rendered at 60 FPS.
                                 Thank you WPF!
                             -->
-                            <BeginStoryboard>
+                            <BeginStoryboard Name="SB_Useless">
                                 <Storyboard AutoReverse="True"
                                             RepeatBehavior="Forever">
                                     <animation:BrushAnimation From="#01000000"
@@ -125,15 +125,23 @@
                         <Style.Triggers>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Widget.Settings.HideWhenUiOpen.Value, Mode=OneWay}" Value="True"/>
+                                    <Condition Binding="{Binding IsGameHudOpen, Source={x:Static overlay:WidgetManager.Instance}, Mode=OneWay}" Value="True"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </MultiDataTrigger>
+                            
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
                                     <Condition Binding="{Binding Settings.HideWhenUnfocus.Value, Source={x:Static overlay:WidgetManager.Instance}}" Value="True"/>
-                                    <Condition Binding="{Binding IsGameFocused, Source={x:Static overlay:WidgetManager.Instance}}" Value="False"/>
+                                    <Condition Binding="{Binding IsGameFocused, Source={x:Static overlay:WidgetManager.Instance}, Mode=OneWay}" Value="False"/>
                                 </MultiDataTrigger.Conditions>
                                 <Setter Property="Visibility" Value="Hidden"/>
                             </MultiDataTrigger>
 
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding IsDesignModeEnabled, Source={x:Static overlay:WidgetManager.Instance}}" Value="True"/>
+                                    <Condition Binding="{Binding IsDesignModeEnabled, Source={x:Static overlay:WidgetManager.Instance}, Mode=OneWay}" Value="True"/>
                                 </MultiDataTrigger.Conditions>
                                 <Setter Property="Visibility" Value="Visible"/>
                             </MultiDataTrigger>

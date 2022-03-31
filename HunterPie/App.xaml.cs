@@ -18,7 +18,6 @@ using HunterPie.Update.Presentation;
 using System.Threading.Tasks;
 using System.Linq;
 using HunterPie.Features.Overlay;
-using HunterPie.Core.Events;
 using HunterPie.Core.Domain;
 using System.Threading;
 using HunterPie.Features.Patcher;
@@ -55,6 +54,8 @@ namespace HunterPie
             
             if (!ClientConfig.Config.Client.EnableSeamlessStartup)
                 UI.Show();
+
+            _ = WidgetManager.Instance;
 
             InitializeProcessScanners();
             SetUIThreadPriority();
@@ -104,7 +105,7 @@ namespace HunterPie
 
         private static void SetRenderingMode()
         {
-            RenderOptions.ProcessRenderMode = ClientConfig.Config.Client.Rendering == RenderingStrategy.Hardware
+            RenderOptions.ProcessRenderMode = ClientConfig.Config.Client.Render == RenderingStrategy.Hardware
                 ? RenderMode.Default
                 : RenderMode.SoftwareOnly;
         }
@@ -123,7 +124,11 @@ namespace HunterPie
             _context = null;
 
             Dispatcher.InvokeAsync(WidgetInitializers.Unload);
+            WidgetManager.Dispose();
             Log.Info("{0} has been closed", e.ProcessName);
+
+            if (ClientConfig.Config.Client.ShouldShutdownOnGameExit)
+                Dispatcher.Invoke(Shutdown);
         }
 
         private void OnProcessFound(object sender, ProcessManagerEventArgs e)
@@ -141,20 +146,16 @@ namespace HunterPie
             Log.Debug("Initialized game context");
             _context = context;
 
-            _process.OnGameFocus += OnGameFocus;
-            _process.OnGameUnfocus += OngameUnfocus;
-
             HookEvents();
             _richPresence = new(context);
+
+            WidgetManager.Hook(context);
 
             GamePatchers.Run(context);
 
             Dispatcher.InvokeAsync(() => WidgetInitializers.Initialize(context));
             ScanManager.Start();
         }
-
-        private void OngameUnfocus(object sender, ProcessEventArgs e) => WidgetManager.Instance.IsGameFocused = false;
-        private void OnGameFocus(object sender, ProcessEventArgs e) => WidgetManager.Instance.IsGameFocused = true;
 
         private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
@@ -171,21 +172,13 @@ namespace HunterPie
             base.OnExit(e);
         }
 
-        protected override void OnSessionEnding(SessionEndingCancelEventArgs e)
-        {
-            base.OnSessionEnding(e);
-        }
-
         private void HookEvents()
         {
             _context.Game.Player.OnLogin += OnPlayerLogin;
         }
 
-
         private void UnhookEvents()
         {
-            _process.OnGameFocus -= OnGameFocus;
-            _process.OnGameUnfocus -= OngameUnfocus;
             _context.Game.Player.OnLogin -= OnPlayerLogin;
         }
 

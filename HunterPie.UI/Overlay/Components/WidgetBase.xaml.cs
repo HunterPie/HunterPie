@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 #if DEBUG
 using LiveCharts;
 using LiveCharts.Defaults;
@@ -88,7 +89,6 @@ namespace HunterPie.UI.Overlay.Components
                 RenderingTime = (DateTime.Now - LastRender).TotalMilliseconds;
                 ForceAlwaysOnTop();
                 counter = 0;
-                
             }
             LastRender = DateTime.Now;
             counter++;

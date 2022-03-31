@@ -13,7 +13,10 @@ namespace HunterPie.Core.Game
 
         public IChat Chat { get; }
 
+        public bool IsHudOpen { get; }
+
         public event EventHandler<IMonster> OnMonsterSpawn;
         public event EventHandler<IMonster> OnMonsterDespawn;
+        public event EventHandler<IGame> OnHudStateChange;
     }
 }

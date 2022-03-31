@@ -99,7 +99,7 @@ namespace HunterPie.Core.System.Windows.Memory
         {
             int lpByteCount = Marshal.SizeOf<T>() * (int)count;
             T[] buffer = new T[count];
-
+            
             Kernel32.ReadProcessMemory(pHandle, (IntPtr)address, buffer, lpByteCount, out int _);
 
             return buffer;
