@@ -104,7 +104,7 @@ namespace HunterPie
 
         private static void SetRenderingMode()
         {
-            RenderOptions.ProcessRenderMode = ClientConfig.Config.Client.Rendering == RenderingStrategy.Hardware
+            RenderOptions.ProcessRenderMode = ClientConfig.Config.Client.Render == RenderingStrategy.Hardware
                 ? RenderMode.Default
                 : RenderMode.SoftwareOnly;
         }
