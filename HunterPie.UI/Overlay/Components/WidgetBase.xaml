@@ -10,8 +10,8 @@
         xmlns:enums="clr-namespace:HunterPie.UI.Overlay.Enums"
         mc:Ignorable="d"
         Title="{Binding Widget.Title, Mode=OneWay}"
-        WindowStyle="None"
         AllowsTransparency="True"
+        WindowStyle="None" 
         Background="#01000000"
         Topmost="True"
         SizeToContent="WidthAndHeight"
@@ -98,7 +98,7 @@
                                 Literally an useless animation just to force the Widget to be rendered at 60 FPS.
                                 Thank you WPF!
                             -->
-                            <BeginStoryboard>
+                            <BeginStoryboard Name="SB_Useless">
                                 <Storyboard AutoReverse="True"
                                             RepeatBehavior="Forever">
                                     <animation:BrushAnimation From="#01000000"

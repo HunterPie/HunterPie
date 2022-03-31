@@ -56,6 +56,8 @@ namespace HunterPie
             if (!ClientConfig.Config.Client.EnableSeamlessStartup)
                 UI.Show();
 
+            _ = WidgetManager.Instance;
+
             InitializeProcessScanners();
             SetUIThreadPriority();
         }

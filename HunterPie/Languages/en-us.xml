@@ -363,6 +363,9 @@
 			<Setting Id="ENABLE_WIDGET_STRING"
 					 String="Show widget"
 					 Description="If enabled, HunterPie will always show this widget whenever there's data to be displayed."/>
+			<Setting Id="HIDE_WHEN_UI_VISIBLE_STRING"
+					 String="Hide when HUD is visible"
+					 Description="If enabled, HunterPie will automatically hide this widget when the HUD is visible (e.g: At the end of quests, inside the camp, talking to NPCs, etc.)"/>
 			<Setting Id="WIDGET_POSITION"
 					 String="Widget position"
 					 Description="Controls this widget position."/>
