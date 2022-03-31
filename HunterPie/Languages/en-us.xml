@@ -330,6 +330,9 @@
 			<Setting Id="SEAMLESS_SHUTDOWN_STRING"
 					 String="Enable seamless shutdown"
 					 Description="If enabled, HunterPie will not prompt you for confirmation on exit."/>
+			<Setting Id="SHUTDOWN_ON_GAME_EXIT"
+					 String="Close on game exit"
+					 Description="If enabled, HunterPie will automatically close itself when the game is closed."/>
 			<Setting Id="RENDERING_STRATEGY_STRING"
 					 String="Rendering Strategy"
 					 Description="HunterPie's default rendering strategy. Software will use your CPU to render the overlay, Hardware will use your Graphics Card."/>

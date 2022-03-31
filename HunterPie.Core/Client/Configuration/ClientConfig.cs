@@ -30,6 +30,9 @@ namespace HunterPie.Core.Client.Configuration
         [SettingField("SEAMLESS_SHUTDOWN_STRING")]
         public Observable<bool> EnableSeamlessShutdown { get; set; } = false;
 
+        [SettingField("SHUTDOWN_ON_GAME_EXIT")]
+        public Observable<bool> ShouldShutdownOnGameExit { get; set; } = false;
+
         [SettingField("RENDERING_STRATEGY_STRING", requiresRestart: true)]
         public Observable<RenderingStrategy> Render { get; set; } = RenderingStrategy.Software;
 

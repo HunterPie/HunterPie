@@ -18,7 +18,6 @@ using HunterPie.Update.Presentation;
 using System.Threading.Tasks;
 using System.Linq;
 using HunterPie.Features.Overlay;
-using HunterPie.Core.Events;
 using HunterPie.Core.Domain;
 using System.Threading;
 using HunterPie.Features.Patcher;
@@ -127,6 +126,9 @@ namespace HunterPie
             Dispatcher.InvokeAsync(WidgetInitializers.Unload);
             WidgetManager.Dispose();
             Log.Info("{0} has been closed", e.ProcessName);
+
+            if (ClientConfig.Config.Client.ShouldShutdownOnGameExit)
+                Dispatcher.Invoke(Shutdown);
         }
 
         private void OnProcessFound(object sender, ProcessManagerEventArgs e)
