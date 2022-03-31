@@ -33,14 +33,8 @@
                     <Binding Path="Margin" RelativeSource="{RelativeSource Self}"/>
                 </MultiBinding>
             </Grid.Width>
-            <Rectangle >
-                <Rectangle.Fill>
-                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0.5,1">
-                        <GradientStop Color="#33008DCF" Offset="0"/>
-                        <GradientStop Color="#3300FFD1" Offset="1"/>
-                    </LinearGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
+            <Rectangle Opacity="0.3"
+                       Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
             <Rectangle Fill="#10FFFFFF" 
                        Width="30" 
                        RenderTransformOrigin="0.5,0.5"

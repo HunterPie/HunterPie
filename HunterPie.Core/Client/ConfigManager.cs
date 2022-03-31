@@ -1,10 +1,10 @@
-﻿using HunterPie.Core.Extensions;
+﻿using HunterPie.Core.Client.Events;
+using HunterPie.Core.Extensions;
 using HunterPie.Core.Logger;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
@@ -25,6 +25,8 @@ namespace HunterPie.Core.Client
         private readonly static Dictionary<string, long> _lastWrites = new Dictionary<string, long>();
         private const long MinTicks = 100 * TimeSpan.TicksPerMillisecond;
         private readonly static Dictionary<string, object> _settings = new Dictionary<string, object>();
+
+        public static event EventHandler<ConfigSaveEventArgs> OnSync;
 
         public static IReadOnlyDictionary<string, object> Settings => _settings;
         
@@ -91,6 +93,7 @@ namespace HunterPie.Core.Client
             }
 
             ReadSettings(path);
+            OnSync?.Invoke(null, new(path));
         }
 
         public static void Save(string path)
