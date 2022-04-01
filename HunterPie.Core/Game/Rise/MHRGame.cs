@@ -186,7 +186,6 @@ namespace HunterPie.Core.Game.Rise
             return message.Type switch
             {
                 0x0 => DerefNormalChatMessage(message),
-                0x1 => DerefAutoChatMessage(message),
                 _ => DerefUnknownTypeMessage(message)
             };
         }
