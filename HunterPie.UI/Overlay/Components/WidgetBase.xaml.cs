@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 #if DEBUG
 using LiveCharts;
 using LiveCharts.Defaults;
@@ -60,6 +61,7 @@ namespace HunterPie.UI.Overlay.Components
                 if (value != _widget)
                 {
                     _widget = value;
+                    _widget.OnWidgetTypeChange += OnWidgetTypeChange;
                     this.N(PropertyChanged);
                 }
             }
@@ -75,6 +77,7 @@ namespace HunterPie.UI.Overlay.Components
 
             InitializeComponent();
             DataContext = this;
+
             CompositionTarget.Rendering += OnRender;
         }
 
@@ -94,7 +97,7 @@ namespace HunterPie.UI.Overlay.Components
         protected override void OnClosing(CancelEventArgs e)
         {
             CompositionTarget.Rendering -= OnRender;
-
+            Widget.OnWidgetTypeChange -= OnWidgetTypeChange;
             base.OnClosing(e);
         }
 
@@ -122,9 +125,6 @@ namespace HunterPie.UI.Overlay.Components
 
         internal void HandleTransparencyFlag(bool enableFlag)
         {
-            if (Widget.Type == WidgetType.Window)
-                return;
-
             IntPtr hWnd = new WindowInteropHelper(this)
                 .EnsureHandle();
 
@@ -165,6 +165,18 @@ namespace HunterPie.UI.Overlay.Components
                 Widget.Settings.Opacity.Current += step;
             else
                 Widget.Settings.Scale.Current += step;
+        }
+        private void OnWidgetTypeChange(object sender, WidgetType e)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                switch (e)
+                {
+                    case WidgetType.ClickThrough: HandleTransparencyFlag(true); break;
+                    case WidgetType.Window: HandleTransparencyFlag(false); break;
+                    default: throw new Exception("unreachable");
+                }
+            });
         }
     }
 }

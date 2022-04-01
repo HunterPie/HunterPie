@@ -13,6 +13,9 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         [SettingField("ENABLE_WIDGET_STRING")]
         public Observable<bool> Enabled { get; set; } = true;
 
+        [SettingField("HIDE_WHEN_UI_VISIBLE_STRING")]
+        public Observable<bool> HideWhenUiOpen { get; set; } = false;
+        
         [SettingField("ACTIVITIES_ENABLE_ARGOSY_STRING")]
         public Observable<bool> IsArgosyEnabled { get; set; } = true;
 
@@ -29,6 +32,6 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         public Observable<bool> StreamerMode { get; set; } = false;
 
         [SettingField("WIDGET_POSITION")]
-        public Position Position { get; set; } = new(600, 100);
+        public Position Position { get; set; } = new(5, 935);
     }
 }

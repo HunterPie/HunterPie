@@ -29,6 +29,9 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality.View
         }
 
         int frameCounter = 0;
+
+        public event EventHandler<WidgetType> OnWidgetTypeChange;
+
         private void OnRender(object sender, EventArgs e)
         {
             // Sort abnormalities every 60 frames

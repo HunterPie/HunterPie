@@ -21,6 +21,8 @@ using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
 using System.Windows.Media.Animation;
 using HunterPie.UI.Overlay.Widgets.Activities.View;
 using HunterPie.UI.Overlay.Widgets.Activities.ViewModel;
+using HunterPie.UI.Overlay.Widgets.Chat.Views;
+using HunterPie.UI.Overlay.Widgets.Chat.ViewModels;
 
 namespace HunterPie
 {
@@ -39,13 +41,19 @@ namespace HunterPie
 
         protected override void OnClosing(CancelEventArgs e)
         {
-
-            NativeDialogResult result = DialogManager.Info("Confirmation", "Are you sure you want to exit HunterPie?", NativeDialogButtons.Accept | NativeDialogButtons.Cancel);  
-            
-            if (result != NativeDialogResult.Accept)
+            if (!ClientConfig.Config.Client.EnableSeamlessShutdown)
             {
-                e.Cancel = true;
-                return;
+                NativeDialogResult result = DialogManager.Info(
+                    "Confirmation", 
+                    "Are you sure you want to exit HunterPie?", 
+                    NativeDialogButtons.Accept | NativeDialogButtons.Cancel
+                );
+
+                if (result != NativeDialogResult.Accept)
+                {
+                    e.Cancel = true;
+                    return;
+                }
             }
 
             base.OnClosing(e);
@@ -53,7 +61,6 @@ namespace HunterPie
 
         private void OnInitialized(object sender, EventArgs e)
         {
-            Show();
             InitializerManager.InitializeGUI();
             
             InitializeDebugWidgets();
@@ -109,6 +116,12 @@ namespace HunterPie
                         DataContext = new MockActivitiesViewModel()
                     }
                 );
+
+            if (ClientConfig.Config.Debug.MockChatWidget)
+                WidgetManager.Register<ChatView, ChatWidgetConfig>(new ChatView()
+                {
+                    DataContext = new MockChatViewModel()
+                });
         }
 
         private void SetupTrayIcon()

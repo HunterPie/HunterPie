@@ -117,6 +117,8 @@ namespace HunterPie.Core.Game.World.Entities
         public List<IPartyMember> Party => throw new NotImplementedException();
 
         public IReadOnlyCollection<IAbnormality> Abnormalities => throw new NotImplementedException();
+
+        IParty IPlayer.Party => throw new NotImplementedException();
         #endregion
 
         public event EventHandler<EventArgs> OnLogin;

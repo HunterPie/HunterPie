@@ -9,8 +9,10 @@ using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Rise.Definitions;
 using HunterPie.Core.Game.Rise.Entities.Activities;
+using HunterPie.Core.Game.Rise.Entities.Party;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -24,7 +26,10 @@ namespace HunterPie.Core.Game.Rise.Entities
         private int _stageId;
         private Weapon _weaponId;
         private readonly Dictionary<string, IAbnormality> abnormalities = new();
-        #endregion 
+        private readonly MHRParty _party = new();
+        
+        #endregion
+
 
         public string Name
         {
@@ -73,7 +78,7 @@ namespace HunterPie.Core.Game.Rise.Entities
 
         public bool InHuntingZone => StageId >= 200 || StageId == 5;
 
-        public List<IPartyMember> Party { get; } = new();
+        public IParty Party => _party;
         
         public IReadOnlyCollection<IAbnormality> Abnormalities => abnormalities.Values;
 
@@ -467,6 +472,21 @@ namespace HunterPie.Core.Game.Rise.Entities
 
             IUpdatable<MHRTrainingDojoData> model = TrainingDojo;
             model.Update(data);
+        }
+
+        [ScannableMethod]
+        private void ScanPartyData()
+        {
+            long partyArrayPtr = _process.Memory.Read(
+                AddressMap.GetAbsolute("SESSION_PLAYERS_ADDRESS"),
+                AddressMap.Get<int[]>("SESSION_PLAYERS_ARRAY_OFFSETS")
+            );
+
+            long[] playerAddresses = _process.Memory.Read<long>(partyArrayPtr + 0x20, (uint)_party.MaxSize);
+
+            int membersCount = playerAddresses.Count(address => address != 0x0);
+
+            _party.Size = membersCount;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

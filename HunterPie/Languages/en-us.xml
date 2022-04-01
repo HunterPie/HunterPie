@@ -259,6 +259,10 @@
 					 String="Hunting {Monster} ({Percentage}%)"/>
 			<Discord Id="DRPC_RISE_STATE_HUNTING_NO_HEALTH"
 					 String="Hunting {Monster}"/>
+			<Discord Id="DRPC_RISE_PARTY_STATE_SOLO_STRING"
+					 String="Solo"/>
+			<Discord Id="DRPC_RISE_PARTY_STATE_GROUP_STRING"
+					 String="In Party"/>
 		</Integrations>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
@@ -282,6 +286,9 @@
 			<Setting Id="ACTIVITIES_WIDGET_STRING"
 					 String="Activities Widget"
 					 Description="Activities Widget configurations"/>
+			<Setting Id="CHAT_WIDGET_STRING"
+					 String="Chat Widget"
+					 Description="Chat Widget configurations"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="Dev Tools"
 					 Description="Advanced development tools"/>
@@ -317,6 +324,15 @@
 			<Setting Id="MINIMIZE_TO_SYSTEM_TRAY_STRING"
 					 String="Minimize to system tray"
 					 Description="If enabled, HunterPie will minimize to the system's tray."/>
+			<Setting Id="SEAMLESS_STARTUP_STRING"
+					 String="Enable seamless startup"
+					 Description="If enabled, HunterPie will not open it's main window at all at startup."/>
+			<Setting Id="SEAMLESS_SHUTDOWN_STRING"
+					 String="Enable seamless shutdown"
+					 Description="If enabled, HunterPie will not prompt you for confirmation on exit."/>
+			<Setting Id="SHUTDOWN_ON_GAME_EXIT"
+					 String="Close on game exit"
+					 Description="If enabled, HunterPie will automatically close itself when the game is closed."/>
 			<Setting Id="RENDERING_STRATEGY_STRING"
 					 String="Rendering Strategy"
 					 Description="HunterPie's default rendering strategy. Software will use your CPU to render the overlay, Hardware will use your Graphics Card."/>
@@ -350,6 +366,9 @@
 			<Setting Id="ENABLE_WIDGET_STRING"
 					 String="Show widget"
 					 Description="If enabled, HunterPie will always show this widget whenever there's data to be displayed."/>
+			<Setting Id="HIDE_WHEN_UI_VISIBLE_STRING"
+					 String="Hide when HUD is visible"
+					 Description="If enabled, HunterPie will automatically hide this widget when the HUD is visible (e.g: At the end of quests, inside the camp, talking to NPCs, etc.)"/>
 			<Setting Id="WIDGET_POSITION"
 					 String="Widget position"
 					 Description="Controls this widget position."/>
@@ -427,7 +446,7 @@
 					 String="Show Argosy"
 					 Description="If enabled, HunterPie will show Argosy's data."/>
 			<Setting Id="ACTIVITIES_ENABLE_TRAINING_DOJO_STRING"
-					 String="Show Argosy"
+					 String="Show Training Dojo"
 					 Description="If enabled, HunterPie will show Training Dojo's data."/>
 
 

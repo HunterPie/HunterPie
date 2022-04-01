@@ -24,8 +24,17 @@ namespace HunterPie.Core.Client.Configuration
         [SettingField("MINIMIZE_TO_SYSTEM_TRAY_STRING")]
         public Observable<bool> MinimizeToSystemTray { get; set; } = true;
 
+        [SettingField("SEAMLESS_STARTUP_STRING")]
+        public Observable<bool> EnableSeamlessStartup { get; set; } = false;
+
+        [SettingField("SEAMLESS_SHUTDOWN_STRING")]
+        public Observable<bool> EnableSeamlessShutdown { get; set; } = false;
+
+        [SettingField("SHUTDOWN_ON_GAME_EXIT")]
+        public Observable<bool> ShouldShutdownOnGameExit { get; set; } = false;
+
         [SettingField("RENDERING_STRATEGY_STRING", requiresRestart: true)]
-        public Observable<RenderingStrategy> Rendering { get; set; } = RenderingStrategy.Hardware;
+        public Observable<RenderingStrategy> Render { get; set; } = RenderingStrategy.Software;
 
         [SettingField("POLLING_RATE_STRING")]
         public Range PollingRate { get; set; } = new(100, 1000, 1, 1);

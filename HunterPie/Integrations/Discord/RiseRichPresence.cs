@@ -109,17 +109,19 @@ namespace HunterPie.Integrations.Discord
                     .Replace("{Monster}", targetMonster.Name)
                     .Replace("{Percentage}", $"{targetMonster.Health / targetMonster.MaxHealth * 100:0}");
             }
-            
+
+            string state = game.Player.Party.Size <= 1
+                ? Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_PARTY_STATE_SOLO_STRING']")
+                : Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_PARTY_STATE_GROUP_STRING']");
+
             presence.WithDetails(description)
-                .WithState(null)
-                .WithParty(null)
                 .WithAssets(new Assets()
                 {
                     LargeImageText = MHRContext.Strings.GetStageNameById(game.Player.StageId),
-                    LargeImageKey = game.Player.StageId == -1 
-                                    ? "unknown" 
+                    LargeImageKey = game.Player.StageId == -1
+                                    ? "unknown"
                                     : $"rise-stage-{game.Player.StageId}",
-                    SmallImageText = Settings.ShowCharacterInfo 
+                    SmallImageText = Settings.ShowCharacterInfo
                         ? Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_CHARACTER_STRING_FORMAT']")
                             .Replace("{Character}", game.Player.Name)
                             .Replace("{HighRank}", game.Player.HighRank.ToString())
@@ -130,6 +132,15 @@ namespace HunterPie.Integrations.Discord
                         _ => Enum.GetName(typeof(Weapon), game.Player.WeaponId)?.ToLower() ?? "unknown",
                     }
                 })
+                .WithParty(new Party()
+                {
+                    // TODO: Make shared ID for everyone in the party based on the session id
+                    ID = game.Player.Name ?? "",
+                    Max = game.Player.Party.MaxSize,
+                    Size = game.Player.Party.Size,
+                    Privacy = Party.PrivacySetting.Public
+                })
+                .WithState(state)
                 .WithTimestamps(locationTime);
 
             client.SetPresence(presence);

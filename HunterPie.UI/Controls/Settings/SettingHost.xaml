@@ -13,7 +13,8 @@
              mc:Ignorable="d"
              d:DesignHeight="450" 
              d:DesignWidth="800"
-             Loaded="OnLoaded">
+             Loaded="OnLoaded"
+             Unloaded="OnUnloaded">
     <UserControl.Resources>
         <converters:ObjectToUiConverter x:Key="ObjectToUiConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -53,9 +54,18 @@
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="53*"/>
+            <ColumnDefinition Width="53*"/>
+            <ColumnDefinition Width="54*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="83*"/>
+        </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal"
                     Height="30"
-                    VerticalAlignment="Top"
+                    VerticalAlignment="Center"
                     HorizontalAlignment="Left">
             <loading:CircleLoading Width="15"
                                    Height="15"
@@ -71,7 +81,8 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="{StaticResource ICON_CHECKMARK_GREEN}"
                                                    Margin="0,0,5,0"/>
-                                            <TextBlock Text="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=\'HUNTERPIE_IS_LATEST_VERSION\']'}"
+                                            <TextBlock Text="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_IS_LATEST_VERSION&quot;]'}"
+                                                       d:Text="Lastest version"
                                                        Foreground="#66e2a7"
                                                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                                        VerticalAlignment="Center"
@@ -86,7 +97,8 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="{StaticResource ICON_DOWNLOAD_YELLOW}"
                                                    Margin="0,0,5,0"/>
-                                            <TextBlock Text="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=\'HUNTERPIE_NOT_LATEST_VERSION\']'}"
+                                            <TextBlock Text="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_NOT_LATEST_VERSION&quot;]'}"
+                                                       d:Text="There's a newer version available"
                                                        Foreground="#ffab66"
                                                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                                        VerticalAlignment="Center"
@@ -100,21 +112,33 @@
                 </Label.Style>
             </Label>
         </StackPanel>
+        <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   TextWrapping="WrapWithOverflow"
+                   Grid.Column="1">
+                <Run Text="Config last sync @"/>
+                <Run Text="{Binding LastSync, Mode=OneWay}"
+                     d:Text="12:36:08"
+                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"/>
+        </TextBlock>
         <textbox:SearchTextBox MaxHeight="30"
                                Height="30"
-                               Width="300"
                                VerticalAlignment="Top"
-                               HorizontalAlignment="Right"
-                               OnSearchTextChanged="OnRealTimeSearch"/>
+                               OnSearchTextChanged="OnRealTimeSearch" 
+                               Grid.Column="2"/>
         <TabControl Background="Transparent"
                     ItemsSource="{Binding Elements}"
                     d:DataContext="{StaticResource MockSettingHostViewModel}"
                     ContentTemplate="{StaticResource PanelTemplate}"
                     ItemTemplate="{StaticResource HeaderTemplate}"
                     BorderThickness="0,1,0,0"
-                    Margin="1,35,1,1"
+                    Margin="1,1,1,1"
                     BorderBrush="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
                     SelectedIndex="{Binding CurrentTabIndex}"
-                    TabStripPlacement="Left"/>
+                    TabStripPlacement="Left" 
+                    Grid.Row="1" 
+                    Grid.ColumnSpan="3"/>
     </Grid>
 </UserControl>
