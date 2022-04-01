@@ -2,6 +2,7 @@
 using HunterPie.Core.System.Windows.Native;
 using HunterPie.Core.Utils;
 using System;
+using System.Buffers;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -9,9 +10,10 @@ namespace HunterPie.Core.System.Windows.Memory
 {
     public class WindowsMemory : IMemory
     {
-        const long NULLPTR = 0;
+        private const long NULLPTR = 0;
 
-        IntPtr pHandle;
+        private IntPtr pHandle;
+        private ArrayPool<byte> bufferPool = ArrayPool<byte>.Shared;
 
         public WindowsMemory(IntPtr processHandle)
         {
@@ -20,17 +22,19 @@ namespace HunterPie.Core.System.Windows.Memory
 
         public string Read(long address, uint length, Encoding encoding = null)
         {
-            byte[] buffer = new byte[length];
+            byte[] buffer = bufferPool.Rent((int)length);
 
-            Kernel32.ReadProcessMemory(pHandle, (IntPtr)address, buffer, buffer.Length, out int _);
+            Kernel32.ReadProcessMemory(pHandle, (IntPtr)address, buffer, (int)length, out int _);
 
-            string raw = (encoding ?? Encoding.UTF8).GetString(buffer, 0, buffer.Length);
+            string raw = (encoding ?? Encoding.UTF8).GetString(buffer, 0, (int)length);
+
+            bufferPool.Return(buffer, true);
             int nullCharIdx = raw.IndexOf('\x00');
 
             if (nullCharIdx < 0)
                 return raw;
 
-            return raw.Substring(0, nullCharIdx);
+            return raw[..nullCharIdx];
         }
 
         public T Read<T>(long address) where T : struct
@@ -95,7 +99,7 @@ namespace HunterPie.Core.System.Windows.Memory
         {
             int lpByteCount = Marshal.SizeOf<T>() * (int)count;
             T[] buffer = new T[count];
-
+            
             Kernel32.ReadProcessMemory(pHandle, (IntPtr)address, buffer, lpByteCount, out int _);
 
             return buffer;
@@ -121,7 +125,10 @@ namespace HunterPie.Core.System.Windows.Memory
         public bool Write<T>(long address, T[] data) where T : struct
         {
             byte[] buffer = StructureToBuffer(data);
-            return Kernel32.WriteProcessMemory(pHandle, (IntPtr)address, buffer, buffer.Length, out int _);
+
+            bool result = Kernel32.WriteProcessMemory(pHandle, (IntPtr)address, buffer, buffer.Length, out int _);
+            
+            return result;
         }
 
         public bool InjectAsm(long address, byte[] asm)
@@ -132,7 +139,7 @@ namespace HunterPie.Core.System.Windows.Memory
             return result;
         }
 
-        public static byte[] StructureToBuffer<T>(T[] array) where T : struct
+        public byte[] StructureToBuffer<T>(T[] array) where T : struct
         {
             int size = Marshal.SizeOf<T>() * array.Length;
             IntPtr malloced = Marshal.AllocHGlobal(size);

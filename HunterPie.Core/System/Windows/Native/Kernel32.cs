@@ -48,6 +48,15 @@ namespace HunterPie.Core.System.Windows.Native
         public static extern bool ReadProcessMemory(
             IntPtr hProcess,
             IntPtr lpBaseAddress,
+            byte[] lpBuffer,
+            int dwSize,
+            out int lpNumberOfBytesRead
+        );
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool ReadProcessMemory(
+            IntPtr hProcess,
+            IntPtr lpBaseAddress,
             [Out, MarshalAs(UnmanagedType.AsAny)] object lpBuffer,
             int dwSize,
             out int lpNumberOfBytesRead

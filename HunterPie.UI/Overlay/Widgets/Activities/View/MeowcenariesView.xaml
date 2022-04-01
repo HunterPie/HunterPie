@@ -1,0 +1,159 @@
+﻿<UserControl x:Class="HunterPie.UI.Overlay.Widgets.Activities.View.MeowcenariesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.View"
+             xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.ViewModel"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             d:DataContext="{d:DesignInstance Type=vm:MeowcenariesViewModel}"
+             mc:Ignorable="d" 
+             d:Height="40" 
+             d:Width="270">
+    <UserControl.Resources>
+        <converters:CurrentValueToWidthConverter x:Key="CurrentValueToWidthConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.RowSpan="2"
+              Grid.ColumnSpan="2"
+              HorizontalAlignment="Left"
+              d:Width="40"
+              MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
+              Margin="1"
+              ClipToBounds="True">
+            <Grid.Width>
+                <MultiBinding Converter="{StaticResource CurrentValueToWidthConverter}">
+                    <Binding Path="DataContext.DaysLeft" Mode="OneWay" RelativeSource="{RelativeSource AncestorType=local:MeowcenariesView}" FallbackValue="0"/>
+                    <Binding Path="DataContext.MaxDays" Mode="OneWay" RelativeSource="{RelativeSource AncestorType=local:MeowcenariesView}" FallbackValue="1"/>
+                    <Binding Path="MaxWidth" RelativeSource="{RelativeSource Self}"/>
+                    <Binding Path="Margin" RelativeSource="{RelativeSource Self}"/>
+                </MultiBinding>
+            </Grid.Width>
+            <Rectangle >
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0.5,1">
+                        <GradientStop Color="#33008DCF" Offset="0"/>
+                        <GradientStop Color="#3300FFD1" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Fill="#10FFFFFF" 
+                       Width="30" 
+                       RenderTransformOrigin="0.5,0.5"
+                       HorizontalAlignment="Left" 
+                       Margin="0,0,0,0">
+                <Rectangle.Effect>
+                    <BlurEffect Radius="20" 
+                                KernelType="Gaussian"/>
+                </Rectangle.Effect>
+                <Rectangle.Style>
+                    <Style TargetType="Rectangle">
+                        <Style.Triggers>
+                            <Trigger Property="IsVisible"
+                                     Value="True">
+                                <Trigger.EnterActions>
+
+                                    <BeginStoryboard>
+                                        <Storyboard RepeatBehavior="Forever"
+                                                    Storyboard.TargetProperty="Margin">
+                                            <ThicknessAnimation From="-40,0,0,0"
+                                                                To="300,0,0,0"
+                                                                Duration="0:0:3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Rectangle.Style>
+            </Rectangle>
+        </Grid>
+        
+        <Image Source="{StaticResource ICON_MEOWCENARIES}"
+               HorizontalAlignment="Center"
+               Margin="5">
+            <Image.Effect>
+                <DropShadowEffect BlurRadius="5"
+                                      Color="Black"
+                                      ShadowDepth="0"/>
+            </Image.Effect>
+        </Image>
+
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                       FontSize="15">
+                <Run Text="Days:"
+                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                     FontWeight="Medium"/>
+                <Run d:Text="4"
+                     Text="{Binding DaysLeft, Mode=OneWay}"
+                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                     FontWeight="Medium"/><!--
+             --><Run Text="/"/><!--
+             --><Run Text="5"/>
+
+                <TextBlock.Effect>
+                    <DropShadowEffect BlurRadius="5"
+                                      Color="Black"
+                                      ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                       FontSize="15"
+                       Grid.Row="1">
+                <Run Text="Buddies:"
+                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                     FontWeight="Medium"/>
+                <Run Text="{Binding BuddyCount, Mode=OneWay}"
+                     d:Text="3"
+                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                     FontWeight="Medium"/><!--
+             --><Run Text="/"/><!--
+             --><Run Text="{Binding MaxBuddyCount, Mode=OneWay}"
+                     d:Text="3"/>
+
+                <TextBlock.Effect>
+                    <DropShadowEffect BlurRadius="5"
+                                      Color="Black"
+                                      ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                       FontSize="15"
+                       Grid.Column="1">
+                <Run Text="Outcome:"
+                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                     FontWeight="Medium"/>
+                <Run Text="3"
+                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                     FontWeight="Medium"/><!--
+             --><Run Text="/"/><!--
+             --><Run Text="5"/>
+
+                <TextBlock.Effect>
+                    <DropShadowEffect BlurRadius="5"
+                                      Color="Black"
+                                      ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </Grid>
+
+    </Grid>
+</UserControl>

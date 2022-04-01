@@ -14,6 +14,9 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         [SettingField("A", "B")]
         public Observable<bool> Enabled { get; set; } = true;
 
+        [SettingField("HIDE_WHEN_UI_VISIBLE_STRING")]
+        public Observable<bool> HideWhenUiOpen { get; set; } = false;
+
         [SettingField("A", "B")]
         public Position Position { get; set; } = new(100, 100);
 

@@ -31,6 +31,7 @@ GEM
       ffi (>= 1.15.0)
     ffi (1.15.5)
     ffi (1.15.5-x64-mingw32)
+    ffi (1.15.5-x64-unknown)
     forwardable-extended (2.6.0)
     html-proofer (3.19.3)
       addressable (~> 2.3)
@@ -82,6 +83,8 @@ GEM
     mercenary (0.4.0)
     nokogiri (1.13.1-x64-mingw32)
       racc (~> 1.4)
+    nokogiri (1.13.1-x64-unknown)
+      racc (~> 1.4)
     nokogiri (1.13.1-x86_64-linux)
       racc (~> 1.4)
     parallel (1.21.0)
@@ -116,6 +119,7 @@ GEM
 
 PLATFORMS
   x64-mingw32
+  x64-unknown
   x86_64-linux
 
 DEPENDENCIES
@@ -128,4 +132,4 @@ DEPENDENCIES
   webrick (~> 1.7)
 
 BUNDLED WITH
-   2.3.7
+   2.3.10

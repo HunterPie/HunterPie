@@ -30,20 +30,18 @@ namespace HunterPie.UI.Logger
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private async Task WriteToBuffer(LogLevel level, string message)
         {
-            try
+            if (Application.Current is null)
+                return;
+            
+            await Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                await Application.Current?.Dispatcher?.InvokeAsync(() =>
+                ViewModel.Add(new LogString
                 {
-                    
-                    ViewModel.Add(new LogString
-                    {
-                        Timestamp = $"[{DateTime.Now.ToLongTimeString()}]",
-                        Message = message,
-                        Level = level
-                    });
-
+                    Timestamp = $"[{DateTime.Now.ToLongTimeString()}]",
+                    Message = message,
+                    Level = level
                 });
-            } catch {}
+            });
         }
     }
 }

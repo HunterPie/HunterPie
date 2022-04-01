@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Settings;
 using HunterPie.UI.Overlay.Enums;
+using System;
 
 namespace HunterPie.UI.Overlay
 {
@@ -7,5 +8,7 @@ namespace HunterPie.UI.Overlay
     {
         public WidgetType Type { get; }
         public IWidgetSettings Settings { get; }
+
+        public event EventHandler<WidgetType> OnWidgetTypeChange;
     }
 }

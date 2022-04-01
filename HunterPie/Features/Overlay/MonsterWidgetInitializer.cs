@@ -20,7 +20,7 @@ namespace HunterPie.Features.Overlay
 
         public void Unload()
         {
-            _handler.UnhookEvents();
+            _handler?.UnhookEvents();
         }
     }
 }

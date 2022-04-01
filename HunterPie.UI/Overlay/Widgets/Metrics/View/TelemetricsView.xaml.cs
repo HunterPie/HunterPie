@@ -26,6 +26,8 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.View
 
         IWidgetSettings IWidgetWindow.Settings => Settings;
 
+        public event EventHandler<WidgetType> OnWidgetTypeChange;
+
         private void OnGCClick(object sender, EventArgs e)
         {
             ViewModel.ExecuteGarbageCollector();

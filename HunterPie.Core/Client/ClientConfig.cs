@@ -17,8 +17,8 @@ namespace HunterPie.Core.Client
 
         private ClientConfig()
         {
-            ConfigManager.Register(ConfigName, _config);
             _instance = this;
+            ConfigManager.Register(ConfigName, _config);
 
             Log.Info("Initialized HunterPie Client configuration.");
         }

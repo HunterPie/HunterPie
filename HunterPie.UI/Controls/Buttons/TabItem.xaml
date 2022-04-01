@@ -32,16 +32,25 @@
                     Height="{Binding Path=Width, RelativeSource={RelativeSource Self}}"
                     VerticalAlignment="Top"/>
         </Canvas>
-        <Image Source="{Binding Icon, ElementName=TabItemControl}"
-               HorizontalAlignment="Stretch"
-               VerticalAlignment="Stretch"
-               Width="20"
-               Height="{Binding Width, RelativeSource={RelativeSource Self}}"/>
+        <Rectangle HorizontalAlignment="Stretch"
+                   VerticalAlignment="Stretch"
+                   Width="20"
+                   Height="{Binding Width, RelativeSource={RelativeSource Self}}"
+                   Fill="{Binding Foreground, ElementName=PART_HeaderTitle}">
+            <Rectangle.OpacityMask>
+                <ImageBrush d:ImageSource="{StaticResource ICON_DISCORD}"
+                            ImageSource="{Binding Icon, ElementName=TabItemControl}"
+                            TileMode="Tile" 
+                            Stretch="Uniform"/>
+            </Rectangle.OpacityMask>
+        </Rectangle>
         <TextBlock Text="{Binding Title, ElementName=TabItemControl}"
+                   x:Name="PART_HeaderTitle"
                    Grid.Column="1"
                    Margin="10,0,0,0"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    FontWeight="Medium"
-                   VerticalAlignment="Center" Height="14"/>
+                   VerticalAlignment="Center" 
+                   Height="14"/>
     </Grid>
 </UserControl>

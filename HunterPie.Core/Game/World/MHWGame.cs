@@ -15,9 +15,14 @@ namespace HunterPie.Core.Game.World
 
         public event EventHandler<IMonster> OnMonsterSpawn;
         public event EventHandler<IMonster> OnMonsterDespawn;
+        public event EventHandler<IGame> OnHudStateChange;
 
         public IPlayer Player => _player;
         public List<IMonster> Monsters => _monsters;
+
+        public IChat Chat => throw new NotImplementedException();
+
+        public bool IsHudOpen => throw new NotImplementedException();
 
         public MHWGame(IProcessManager process)
         {

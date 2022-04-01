@@ -63,6 +63,8 @@
 		<Abnormality Id="ABNORMALITY_ROUSING_ROAR" String="강화 포효"/>
 		<Abnormality Id="ABNORMALITY_DEMON_AMMO" String="귀인탄"/>
 		<Abnormality Id="ABNORMALITY_ARMOR_AMMO" String="경화탄"/>
+		<Abnormality Id="ABNORMALITY_ARC_SHOT_BRACE" String="곡사: 내충"/>
+		<Abnormality Id="ABNORMALITY_ARC_SHOT_AFFINITY" String="곡사: 회심"/>
 		
 		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="경단 벌크업"/>
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="경단 단기최면술"/>
@@ -71,8 +73,8 @@
 		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="공격적인 방어"/>
 		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="힘의 해방"/>
 		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="활주 강화"/>
+		<Abnormality Id="ABNORMALITY_PROTECTIVE_POLISH" String="칼날 연마"/>
 		
-
 		<Abnormality Id="ABNORMALITY_POISON" String="독"/>
 		<Abnormality Id="ABNORMALITY_VENOM" String="맹독"/>
 		<Abnormality Id="ABNORMALITY_DEF_DOWN" String="방어력 DOWN"/>
@@ -257,6 +259,10 @@
 					 String="{Monster} 사냥 중 ({Percentage}%)"/>
 			<Discord Id="DRPC_RISE_STATE_HUNTING_NO_HEALTH"
 					 String="{Monster} 사냥 중"/>
+			<Discord Id="DRPC_RISE_PARTY_STATE_SOLO_STRING"
+					 String="혼자 사냥 중"/>
+			<Discord Id="DRPC_RISE_PARTY_STATE_GROUP_STRING"
+					 String="파티 참여 중"/>
 		</Integrations>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
@@ -277,6 +283,12 @@
 			<Setting Id="WIREBUG_WIDGET_STRING"
 					 String="밧줄벌레 위젯"
 					 Description="밧줄벌레 위젯 설정"/>
+			<Setting Id="ACTIVITIES_WIDGET_STRING"
+					 String="활동 위젯"
+					 Description="활동 위젯 설정"/>
+			<Setting Id="CHAT_WIDGET_STRING"
+					 String="채팅 위젯"
+					 Description="채팅 위젯 "/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="개발자 도구"
 					 Description="심화 개발 도구들입니다."/>
@@ -312,6 +324,15 @@
 			<Setting Id="MINIMIZE_TO_SYSTEM_TRAY_STRING"
 					 String="시스템 트레이로 최소화"
 					 Description="옵션 활성화 시, HunterPie는 시스템 트레이로 최소화됩니다."/>
+			<Setting Id="SEAMLESS_STARTUP_STRING"
+					 String="최소화 시작 사용"
+					 Description="옵션 활성화 시, HunterPie 시작 시 메인 창을 열지 않습니다."/>
+			<Setting Id="SEAMLESS_SHUTDOWN_STRING"
+					 String="종료 시 확인 비활성화"
+					 Description="옵션 활성화 시, HunterPie 종료 시 동의 여부를 묻지 않습니다."/>
+			<Setting Id="SHUTDOWN_ON_GAME_EXIT"
+					 String="게임 종료 시 닫기"
+					 Description="옵션 활성화 시, 게임이 종료되면 HunterPie를 자동으로 닫습니다."/>
 			<Setting Id="RENDERING_STRATEGY_STRING"
 					 String="렌더링 방식"
 					 Description="HunterPie의 렌더링 방식입니다. 소프트웨어 렌더링은 CPU를 사용하고, 하드웨어 렌더링은 그래픽 카드를 사용합니다."/>
@@ -345,6 +366,9 @@
 			<Setting Id="ENABLE_WIDGET_STRING"
 					 String="위젯 표시"
 					 Description="옵션 활성화 시, 표시할 내용이 있다면 위젯에 표시합니다."/>
+			<Setting Id="HIDE_WHEN_UI_VISIBLE_STRING"
+					 String="HUD가 표시될 때 숨기기"
+					 Description="옵션 활성화 시, HUD가 표시될 때 HunterPie가 이 위젯을 자동으로 숨깁니다 (예: 퀘스트 정산 시, 캠프 내부, NPC와 대화할 때, 기타 등등.)"/>
 			<Setting Id="WIDGET_POSITION"
 					 String="위젯 위치"
 					 Description="위젯의 위치를 조정합니다."/>
@@ -418,6 +442,14 @@
 					 String="인-게임 밧줄벌레 조준 패치"
 					 Description="옵션 활성화 시, HunterPie가 인-게임에서 밧줄벌레 게이지 HUD를 비활성화 했을 때도 조준할 수 있도록 패치합니다."/>
 
+			<Setting Id="ACTIVITIES_ENABLE_ARGOSY_STRING"
+					 String="교역선 표시"
+					 Description="옵션 활성화 시, HunterPie가 교역선의 정보를 표시합니다."/>
+			<Setting Id="ACTIVITIES_ENABLE_TRAINING_DOJO_STRING"
+					 String="동반자 도장 표시"
+					 Description="옵션 활성화 시, HunterPie가 동반자 도장의 정보를 표시합니다."/>
+			
+			
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>
 			<Setting Id="DEV_MOCK_DAMAGE_WIDGET_STRING"

@@ -6,6 +6,12 @@
     <IsPackable>false</IsPackable>
 
     <OutputType>Library</OutputType>
+
+    <Version>2.0.22.24</Version>
+
+    <AssemblyVersion>2.0.22.25</AssemblyVersion>
+
+    <FileVersion>2.0.22.25</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

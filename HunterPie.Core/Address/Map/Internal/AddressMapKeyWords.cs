@@ -14,7 +14,8 @@ namespace HunterPie.Core.Address.Map.Internal
         private static Dictionary<string, AddressMapType> types = new Dictionary<string, AddressMapType>()
         {
             { "Address", AddressMapType.Long },
-            { "Offset", AddressMapType.VecInt32 }
+            { "Offset", AddressMapType.VecInt32 },
+            { "Instruction", AddressMapType.VecInt32 },
         };
 
         public static bool IsKeyWord(string word) => types.ContainsKey(word);
