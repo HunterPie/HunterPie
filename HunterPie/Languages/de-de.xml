@@ -23,7 +23,6 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 			<Ailment Id="AILMENT_ICE" String="Eisbrand"/>
 			<Ailment Id="AILMENT_THUNDER" String="Donnerbrand"/>
 			<Ailment Id="AILMENT_TRANQUILIZE" String="Beruhigungsmittel"/>
-			<!-- Tranquilizer lassen? -->
 			<Ailment Id="STATUS_ENRAGE" String="Wut"/>
 			</Rise>
 	</Ailments>
@@ -51,11 +50,9 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 		<Abnormality Id="ABNORMALITY_ENV_NEG" String="Umgebungsschaden negiert"/>
 		<Abnormality Id="ABNORMALITY_SONIC_BARRIER" String="Akkustische Barriere"/>
 		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Höllenmelodie"/>
-
 		<Abnormality Id="ABNORMALITY_MIGHT_SEED" String="Machtsamen"/>
 		<Abnormality Id="ABNORMALITY_BUTTERFLAME" String="Flämmling"/>
 		<Abnormality Id="ABNORMALITY_CUTTERFLY" String="Schnibelle"/>
-		<!-- Messerfliege oder sowas? -->
 		<Abnormality Id="ABNORMALITY_ADAMANT_SEED" String="Diamantsamen"/>
 		<Abnormality Id="ABNORMALITY_CLOTHFLY" String="Tuchfalter"/>
 		<Abnormality Id="ABNORMALITY_DASH_JUICE" String="Sprintsaft"/>
@@ -67,22 +64,21 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 		<Abnormality Id="ABNORMALITY_GOURMET_FISH" String="Gourmetfisch"/>
 		<Abnormality Id="ABNORMALITY_IMMUNITY" String="Immunität"/>
 		<Abnormality Id="ABNORMALITY_GO_FIGHT_WIN" String="Los, Kämpfe, Siege"/>
-		<!-- ?????? -->
 		<Abnormality Id="ABNORMALITY_POWER_DRUM" String="Machttrommel"/>
 		<Abnormality Id="ABNORMALITY_ROUSING_ROAR" String="Schallendes Gebrüll"/>
 		<Abnormality Id="ABNORMALITY_DEMON_AMMO" String="Dämonen-Munition"/>
 		<Abnormality Id="ABNORMALITY_ARMOR_AMMO" String="Rüstungs-Munition"/>
-
+		<Abnormality Id="ABNORMALITY_ARC_SHOT_BRACE" String="Arc Shot: Befestigung"/> <!-- ???????-->
+		<Abnormality Id="ABNORMALITY_ARC_SHOT_AFFINITY" String="Arc Shot: Affinität"/>
 		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="Dango Kraftprotz"/>
 		<!-- kp, "Bulker" hat keine Übersetzung die für mich Sinn ergeben würde -->
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="Dango Verstärker"/>
 		<Abnormality Id="ABNORMALITY_DANGO_GLUTTON" String="Dango Nimmersatt"/>
-
 		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="Gegenschlag"/>
 		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="Latente Kraft"/>
 		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="Affinitätsrutschen"/>
 		<!-- ich hasse deutsch manchmal so sehr... -->
-
+		<Abnormality Id="ABNORMALITY_PROTECTIVE_POLISH" String="Schutzpolitur"/>
 		<Abnormality Id="ABNORMALITY_POISON" String="Gift"/>
 		<Abnormality Id="ABNORMALITY_VENOM" String="Starkes Gift"/>
 		<Abnormality Id="ABNORMALITY_DEF_DOWN" String="Verteidigung-"/>
@@ -96,7 +92,6 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 		<Abnormality Id="ABNORMALITY_THUNDER" String="Donnerpest"/>
 		<Abnormality Id="ABNORMALITY_DRAGON" String="Drachenpest"/>
 		<Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="Große Luftblasenpest"/>
-		<!-- Major Bubbleblight -->
 	</Abnormalities>
 	<Monsters>
 		<Shared>
@@ -241,6 +236,8 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 				 String="Plugins"/>
 			<Tab Id="SETTINGS_STRING"
 				 String="Einstellungen"/>
+			<Tab Id="PATREON_STRING"
+				 String="Patreon"/>
 		</Tabs>
 		<Generics>
 			<Generic Id="HUNTERPIE_IS_LATEST_VERSION"
@@ -268,6 +265,10 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 					 String="Jagt {Monster} ({Percentage}%)"/>
 			<Discord Id="DRPC_RISE_STATE_HUNTING_NO_HEALTH"
 					 String="Jagt {Monster}"/>
+			<Discord Id="DRPC_RISE_PARTY_STATE_SOLO_STRING"
+					 String="Solo"/>
+			<Discord Id="DRPC_RISE_PARTY_STATE_GROUP_STRING"
+					 String="In Gruppe"/>
 		</Integrations>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
@@ -285,6 +286,15 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 			<Setting Id="MONSTER_WIDGET_STRING"
 					 String="Monster Widget"
 					 Description="Overlay Konfiguration"/>
+			<Setting Id="WIREBUG_WIDGET_STRING"
+					 String="Seilkäfer Widget"
+					 Description="Seilkäfer Widget Konfiguration"/>
+			<Setting Id="ACTIVITIES_WIDGET_STRING"
+					 String="Aktivitäts Widget"
+					 Description="Aktivitäts Widget Konfiguration"/>
+			<Setting Id="CHAT_WIDGET_STRING"
+					 String="Chat Widget"
+					 Description="Chat Widget Konfiguration"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="Dev Tools"
 					 Description="Erweiterte Entwicklertools"/>
@@ -320,6 +330,12 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 			<Setting Id="MINIMIZE_TO_SYSTEM_TRAY_STRING"
 					 String="Minimiere in die Taskleiste"
 					 Description="Sofern aktiv, wird HunterPie sich in die Taskleiste des Systems minimieren."/>
+			<Setting Id="SEAMLESS_STARTUP_STRING"
+					 String="Aktiviere nahtlosen Start"
+					 Description="Sofern aktiv, wird das Hauptfenster von HunterPie beim Start nicht geöffnet."/>
+			<Setting Id="SEAMLESS_SHUTDOWN_STRING"
+					 String="Aktiviere nahtloses Beenden"
+					 Description="Sofern aktiv, wird HunterPie dich nicht nach deiner Bestätigung fragen wenn du es beendest."/>
 			<Setting Id="RENDERING_STRATEGY_STRING"
 					 String="Rendering Methode"
 					 Description="HunterPies standard rendering Methode. 'Software' benutzt deine CPU, 'Hardware' deine GPU zum rendern des Overlays."/>
@@ -343,6 +359,9 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 			<Setting Id="OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE"
 					 String="[Hot Key] Design Modus umschalten"
 					 Description="Hotkey um den Design Modus ein- oder auszuschalten."/>
+			<Setting Id="OVERLAY_HIDE_WHEN_GAME_UNFOCUS_STRING"
+					 String="Verstcke Widgets wenn das Spiel nicht fokussiert ist"
+					 Description="Sofern aktiv, werden alle Widgets automatisch versteckt wenn das Spiel nicht dein Vordergrundfenster ist."/>
 
 			<Setting Id="INITIALIZE_WIDGET_STRING"
 					 String="Initialisiere Widget"
@@ -396,6 +415,9 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 			<Setting Id="MONSTER_WIDGET_DYNAMIC_RESIZE_STRING"
 					 String="Dynamische Größenänderung der Monster Lebensbalken"
 					 Description="Sofern aktiv, werden die Lebensbalken in Abhängigkeit von der aktuell sichtbaren Anzahl automatisch in ihrer Größe angepasst."/>
+			<Setting Id="MONSTER_WIDGET_HIDE_UNKNOWN_PARTS_STRING"
+					 String="Verstcke unbekannte Monsterteile"
+					 Description="Sofern aktiv, wird HunterPie unbekannte Teile nicht anzeigen (die als  &quot;???&quot; gekennzeichneten)."/>		 
 
 			<Setting Id="ABNORMALITY_TRAYS_STRING"
 					 String="Anomalie-Leisten"
@@ -415,6 +437,17 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 					 String="Längste Dauer"/>
 			<Setting Id="SORT_BY_DISABLED_STRING"
 					 String="Deaktiviert"/>
+					 
+			<Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
+					 String="In-game Seilkäfer Fadenkreuz patchen"
+					 Description="Sofern aktiv, wird HunterPie die Spielfunktion patchen, damit das Seilkäfer Fadenkreuz weiterhin sichtbar ist, auch wenn du die visuellen Seilkäfer Elemente in den Einstellungen des Spiels deaktivierst."/>
+
+			<Setting Id="ACTIVITIES_ENABLE_ARGOSY_STRING"
+					 String="Zeige Argosy"
+					 Description="Sofern aktiv, wird HunterPie Informationen über die Argosy anzeigen."/>
+			<Setting Id="ACTIVITIES_ENABLE_TRAINING_DOJO_STRING"
+					 String="Zeige Training-Dojo"
+					 Description="Sofern aktiv, wird HunterPie Informationen über das Trainings-Dojo anzeigen."/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Entwickler: Pseudo-Monster Widget"/>
