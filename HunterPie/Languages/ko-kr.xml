@@ -330,6 +330,9 @@
 			<Setting Id="SEAMLESS_SHUTDOWN_STRING"
 					 String="종료 시 확인 비활성화"
 					 Description="옵션 활성화 시, HunterPie 종료 시 동의 여부를 묻지 않습니다."/>
+			<Setting Id="SHUTDOWN_ON_GAME_EXIT"
+					 String="게임 종료 시 닫기"
+					 Description="옵션 활성화 시, 게임이 종료되면 HunterPie를 자동으로 닫습니다."/>
 			<Setting Id="RENDERING_STRATEGY_STRING"
 					 String="렌더링 방식"
 					 Description="HunterPie의 렌더링 방식입니다. 소프트웨어 렌더링은 CPU를 사용하고, 하드웨어 렌더링은 그래픽 카드를 사용합니다."/>
@@ -363,6 +366,9 @@
 			<Setting Id="ENABLE_WIDGET_STRING"
 					 String="위젯 표시"
 					 Description="옵션 활성화 시, 표시할 내용이 있다면 위젯에 표시합니다."/>
+			<Setting Id="HIDE_WHEN_UI_VISIBLE_STRING"
+					 String="HUD가 표시될 때 숨기기"
+					 Description="옵션 활성화 시, HUD가 표시될 때 HunterPie가 이 위젯을 자동으로 숨깁니다 (예: 퀘스트 정산 시, 캠프 내부, NPC와 대화할 때, 기타 등등.)"/>
 			<Setting Id="WIDGET_POSITION"
 					 String="위젯 위치"
 					 Description="위젯의 위치를 조정합니다."/>
