@@ -108,6 +108,9 @@
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
+                        <EventTrigger RoutedEvent="Unloaded">
+                            <RemoveStoryboard BeginStoryboardName="SB_Useless"/>
+                        </EventTrigger>
                     </Style.Triggers>
                 </Style>
             </Grid.Style>
