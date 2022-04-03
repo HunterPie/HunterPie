@@ -1,4 +1,4 @@
-<img src="https://cdn.discordapp.com/attachments/402557384209203200/888877225988980736/banner.png"/>
+<img src="https://cdn.hunterpie.com/Static/banner2-0.png"/>
 
 [![Discord](https://img.shields.io/discord/678286768046342147?color=7289DA&label=Discord&logo=discord&logoColor=white&style=flat-square)](https://discord.gg/5pdDq4Q)
 
@@ -16,7 +16,7 @@ HunterPie v2 is a version of HunterPie completely rewritten from scratch, howeve
 
 ### Requirements
 
-- .NET 5
+- .NET 5 Desktop Runtime
 
 ### Installation
 
@@ -25,10 +25,17 @@ HunterPie v2 is a version of HunterPie completely rewritten from scratch, howeve
 2.1 Make sure the folder you extracted to is not in read only mode.
 3. Run `HunterPie.exe`
 
+## Documentation
+
+HunterPie's documentation can be found [here](https://docs.hunterpie.com).
+
 ## Features
 
 - [Monster Widget](https://docs.hunterpie.com/posts/monster-widget/)
 - [Abnormality Tray Widget](https://docs.hunterpie.com/posts/abnormality-tray-widget/)
+- [Wirebug Widget](https://docs.hunterpie.com/posts/wirebug-widget/)
+- [Activities Widget](https://docs.hunterpie.com/posts/activities-widget/)
+- [Chat Widget](https://docs.hunterpie.com/posts/chat-widget/)
 - Discord Rich Presence
 
 ## Suggestions & PRs
