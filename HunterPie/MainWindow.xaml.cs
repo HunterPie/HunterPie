@@ -23,6 +23,7 @@ using HunterPie.UI.Overlay.Widgets.Activities.View;
 using HunterPie.UI.Overlay.Widgets.Activities.ViewModel;
 using HunterPie.UI.Overlay.Widgets.Chat.Views;
 using HunterPie.UI.Overlay.Widgets.Chat.ViewModels;
+using HunterPie.Features.Debug;
 
 namespace HunterPie
 {
@@ -74,55 +75,7 @@ namespace HunterPie
                 App.Restart();
         }
 
-        private void InitializeDebugWidgets()
-        {
-            if (ClientConfig.Config.Debug.MockBossesWidget)
-                WidgetManager.Register<MonstersView, MonsterWidgetConfig>(
-                    new MonstersView()
-                    {
-                        DataContext = new MockMonstersViewModel()
-                    }
-                );
-
-            if (ClientConfig.Config.Debug.MockDamageWidget)
-                WidgetManager.Register<MeterView, DamageMeterWidgetConfig>(
-                    new MeterView()
-                    {
-                        DataContext = new MockMeterViewModel()
-                    }
-                );
-
-            if (ClientConfig.Config.Debug.MockAbnormalityWidget)
-            {
-                var mockSettings = new AbnormalityWidgetConfig();
-                WidgetManager.Register<AbnormalityBarView, AbnormalityWidgetConfig>(
-                    new AbnormalityBarView(ref mockSettings)
-                    {
-                        DataContext = new MockAbnormalityBarViewModel()
-                    }
-                );
-            }
-
-            if (ClientConfig.Config.Debug.MockWirebugWidget)
-                WidgetManager.Register<WirebugsView, WirebugWidgetConfig>(new WirebugsView()
-                    {
-                        DataContext = new MockWirebugsViewModel()
-                    }
-                );
-
-            if (ClientConfig.Config.Debug.MockActivitiesWidget)
-                WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(new ActivitiesView() 
-                    {
-                        DataContext = new MockActivitiesViewModel()
-                    }
-                );
-
-            if (ClientConfig.Config.Debug.MockChatWidget)
-                WidgetManager.Register<ChatView, ChatWidgetConfig>(new ChatView()
-                {
-                    DataContext = new MockChatViewModel()
-                });
-        }
+        private void InitializeDebugWidgets() => DebugWidgets.MockIfNeeded();
 
         private void SetupTrayIcon()
         {
