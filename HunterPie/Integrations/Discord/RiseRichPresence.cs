@@ -32,6 +32,9 @@ namespace HunterPie.Integrations.Discord
 
         public RiseRichPresence(Context context)
         {
+            if (context.Game is not MHRGame)
+                return;
+
             game = (MHRGame)context.Game;
 
             HookEvents();

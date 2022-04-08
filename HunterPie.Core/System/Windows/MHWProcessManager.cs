@@ -17,14 +17,19 @@ namespace HunterPie.Core.System.Windows
                 return false;
 
             string version = process.MainWindowTitle.Split('(')[1].Trim(')');
-            bool parsed = int.TryParse(version, out int _);
+            bool parsed = int.TryParse(version, out int parsedVersion);
 
             if (!parsed)
             {
                 Log.Error("Failed to get Monster Hunter: World build version. Loading latest map version instead.");
                 AddressMap.ParseLatest(ClientInfo.AddressPath);
             } else
-                AddressMap.Parse(Path.Combine(ClientInfo.AddressPath, $"MonsterHunterWorld.{version}.map"));
+            {
+                if (IsICE(parsedVersion))
+                    AddressMap.ParseLatest(ClientInfo.AddressPath);
+                else
+                    AddressMap.Parse(Path.Combine(ClientInfo.AddressPath, $"MonsterHunterWorld.{version}.map"));
+            }
 
 
             if (!AddressMap.IsLoaded)
@@ -34,6 +39,11 @@ namespace HunterPie.Core.System.Windows
             }
 
             return true;
+        }
+
+        private bool IsICE(int version)
+        {
+            return version >= 300_000 && version <= 400_000;
         }
     }
 }

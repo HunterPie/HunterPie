@@ -6,6 +6,8 @@ namespace HunterPie.Core.Game.World.Entities
 {
     public class MHWMonster : IMonster
     {
+        private readonly long _address;
+
         public float Health => throw new NotImplementedException();
 
         public string Name => throw new NotImplementedException();
@@ -46,5 +48,10 @@ namespace HunterPie.Core.Game.World.Entities
         public event EventHandler<IMonsterPart> OnNewPartFound;
         public event EventHandler<IMonsterAilment> OnNewAilmentFound;
         public event EventHandler<EventArgs> OnEnrageStateChange;
+
+        public MHWMonster(long address)
+        {
+            _address = address;
+        }
     }
 }

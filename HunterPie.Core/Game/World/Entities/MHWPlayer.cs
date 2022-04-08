@@ -64,8 +64,8 @@ namespace HunterPie.Core.Game.World.Entities
             }
         }
         public string Name { get; private set; }
-        public short HighRank { get; private set; }
-        public short MasterRank { get; private set; }
+        public int HighRank { get; private set; }
+        public int MasterRank { get; private set; }
         public int PlayTime { get; private set; }
 
         /// <summary>
@@ -103,18 +103,12 @@ namespace HunterPie.Core.Game.World.Entities
             }
         }
 
-
-
         public ref readonly SpecializedTool PrimaryTool => ref _primaryTool;
         public ref readonly SpecializedTool SecondaryTool => ref _secondaryTool;
 
         public bool IsLoggedOn => _playerAddress != 0;
 
-        int IPlayer.HighRank => throw new NotImplementedException();
-
-        public int StageId => throw new NotImplementedException();
-
-        public List<IPartyMember> Party => throw new NotImplementedException();
+        public int StageId => (int)ZoneId;
 
         public IReadOnlyCollection<IAbnormality> Abnormalities => throw new NotImplementedException();
 

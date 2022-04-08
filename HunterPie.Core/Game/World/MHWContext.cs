@@ -3,7 +3,7 @@ using System;
 
 namespace HunterPie.Core.Game.World
 {
-    public class MHWContext : Context
+    public sealed class MHWContext : Context
     {
         internal MHWContext(IProcessManager process)
         {
