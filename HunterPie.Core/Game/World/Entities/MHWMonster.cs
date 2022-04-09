@@ -40,7 +40,7 @@ namespace HunterPie.Core.Game.World.Entities
 
         public string Em { get; private set; }
 
-        public string Name => "UwU";
+        public string Name => MHWContext.Strings.GetMonsterNameById(Id);
 
         public float Health
         {
@@ -169,12 +169,21 @@ namespace HunterPie.Core.Game.World.Entities
             long monsterHealthPtr = _process.Memory.Read<long>(_address + 0x7670);
             float[] healthValues = _process.Memory.Read<float>(monsterHealthPtr + 0x60, 2);
 
-            MaxHealth = healthValues[1];
-            Health = healthValues[0];
+            MaxHealth = healthValues[0];
+            Health = healthValues[1];
         }
 
         [ScannableMethod]
-        private void GetMonsterCrown()
+        private void GetMonsterStaminaData()
+        {
+            float[] staminaValues = _process.Memory.Read<float>(_address + 0x1C0F0, 2);
+
+            MaxStamina = staminaValues[1];
+            Stamina = staminaValues[0];
+        }
+
+        [ScannableMethod]
+        private void GetMonsterCrownData()
         {
             float sizeModifier = _process.Memory.Read<float>(_address + 0x7730);
             float sizeMultiplier = _process.Memory.Read<float>(_address + 0x188);

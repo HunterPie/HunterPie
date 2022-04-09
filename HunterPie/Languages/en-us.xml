@@ -196,6 +196,80 @@
 			<Monster Id="45" String="Bazelgeuse"/>
 			<Monster Id="46" String="Toadversary"/>
 		</Rise>
+		<World>
+			<Monster Id="98" String="Training Dummy"/>
+			<Monster Id="9" String="Rathian"/>
+			<Monster Id="10" String="Pink Rathian"/>
+			<Monster Id="88" String="Gold Rathian"/>
+			<Monster Id="1" String="Rathalos"/>
+			<Monster Id="11" String="Azure Rathalos"/>
+			<Monster Id="89" String="Silver Rathalos"/>
+			<Monster Id="12" String="Diablos"/>
+			<Monster Id="13" String="Black Diablos"/>
+			<Monster Id="14" String="Kirin"/>
+			<Monster Id="101" String="Fatalis"/>
+			<Monster Id="90" String="Yian Garuga"/>
+			<Monster Id="99" String="Scarred Yian Garuga"/>
+			<Monster Id="91" String="Rajang"/>
+			<Monster Id="92" String="Furious Rajang"/>
+			<Monster Id="16" String="Kushala Daora"/>
+			<Monster Id="17" String="Lunastra"/>
+			<Monster Id="18" String="Teostra"/>
+			<Monster Id="61" String="Tigrex"/>
+			<Monster Id="93" String="Brute Tigrex"/>
+			<Monster Id="19" String="Lavasioth"/>
+			<Monster Id="62" String="Nargacuga"/>
+			<Monster Id="63" String="Barioth"/>
+			<Monster Id="100" String="Frostfang Barioth"/>
+			<Monster Id="20" String="Deviljho"/>
+			<Monster Id="64" String="Savage Deviljho"/>
+			<Monster Id="21" String="Barroth"/>
+			<Monster Id="22" String="Uragaan"/>
+			<Monster Id="87" String="Alatreon"/>
+			<Monster Id="94" String="Zinogre"/>
+			<Monster Id="95" String="Stygian Zinogre"/>
+			<Monster Id="65" String="Brachydios"/>
+			<Monster Id="96" String="Raging Brachydios"/>
+			<Monster Id="66" String="Glavenus"/>
+			<Monster Id="67" String="Acidic Glavenus"/>
+			<Monster Id="0" String="Anjanath"/>
+			<Monster Id="68" String="Fulgur Anjanath"/>
+			<Monster Id="7" String="Great Jagras"/>
+			<Monster Id="24" String="Pukei-Pukei"/>
+			<Monster Id="69" String="Coral Pukei-Pukei"/>
+			<Monster Id="25" String="Nergigante"/>
+			<Monster Id="70" String="Ruiner Nergigante"/>
+			<Monster Id="97" String="Safi'jiiva"/>
+			<Monster Id="26" String="Xeno'jiiva"/>
+			<Monster Id="4" String="Zorah Magdaros"/>
+			<Monster Id="27" String="Kulu-Ya-Ku"/>
+			<Monster Id="29" String="Jyuratodus"/>
+			<Monster Id="30" String="Tobi-Kadachi"/>
+			<Monster Id="71" String="Viper Tobi-Kadachi"/>
+			<Monster Id="31" String="Paolumu"/>
+			<Monster Id="72" String="Nightshade Paolumu"/>
+			<Monster Id="32" String="Legiana"/>
+			<Monster Id="73" String="Shrieking Legiana"/>
+			<Monster Id="33" String="Great Girros"/>
+			<Monster Id="34" String="Odogaron"/>
+			<Monster Id="74" String="Ebony Odogaron"/>
+			<Monster Id="35" String="Radobaan"/>
+			<Monster Id="36" String="Vaal Hazak"/>
+			<Monster Id="75" String="Blackveil Vaal Hazak"/>
+			<Monster Id="37" String="Dodogama"/>
+			<Monster Id="38" String="Kulve Taroth"/>
+			<Monster Id="39" String="Bazelgeuse"/>
+			<Monster Id="76" String="Seething Bazelgeuse"/>
+			<Monster Id="28" String="Tzitzi-Ya-Ku"/>
+			<Monster Id="15" String="Behemoth"/>
+			<Monster Id="77" String="Beotodus"/>
+			<Monster Id="78" String="Banbaro"/>
+			<Monster Id="79" String="Velkhana"/>
+			<Monster Id="80" String="Namielle"/>
+			<Monster Id="81" String="Shara Ishvalda"/>
+			<Monster Id="23" String="Leshen"/>
+			<Monster Id="51" String="Ancient Leshen"/>
+		</World>
 	</Monsters>
 	<Stages>
 		<Rise>
