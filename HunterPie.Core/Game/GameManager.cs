@@ -32,7 +32,8 @@ namespace HunterPie.Core.Game
             switch (processName)
             {
                 case "MonsterHunterWorld":
-                    return false;
+                    MonsterData.Init(ClientInfo.GetPathFor("Game/World/Data/MonsterData.xml"));
+                    return true;
                 case "MonsterHunterRise":
                     MonsterData.Init(ClientInfo.GetPathFor("Game/Rise/Data/MonsterData.xml"));
                     AbnormalityData.Init(ClientInfo.GetPathFor("Game/Rise/Data/AbnormalityData.xml"));

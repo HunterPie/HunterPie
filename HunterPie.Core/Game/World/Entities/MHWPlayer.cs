@@ -37,7 +37,7 @@ namespace HunterPie.Core.Game.World.Entities
         private Weapon _weaponId;
         private SpecializedTool _primaryTool = new SpecializedTool();
         private SpecializedTool _secondaryTool = new SpecializedTool();
-
+        private Dictionary<string, IAbnormality> _abnormalities = new();
         #endregion
 
         #region Public fields
@@ -110,7 +110,7 @@ namespace HunterPie.Core.Game.World.Entities
 
         public int StageId => (int)ZoneId;
 
-        public IReadOnlyCollection<IAbnormality> Abnormalities => throw new NotImplementedException();
+        public IReadOnlyCollection<IAbnormality> Abnormalities => _abnormalities.Values;
 
         IParty IPlayer.Party => throw new NotImplementedException();
         #endregion
