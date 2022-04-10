@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain;
+﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
@@ -6,6 +7,7 @@ using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
+using HunterPie.Core.Game.World.Definitions;
 using HunterPie.Core.Logger;
 using System;
 
@@ -16,13 +18,14 @@ namespace HunterPie.Core.Game.World.Entities
         #region Private
         private readonly long _address;
         private int _id;
+        private int _doubleLinkedListIndex;
         private float _health = -1;
         private bool _isTarget;
         private bool _isEnraged;
         private Target _target;
         private Crown _crown;
         private float _stamina;
-        private MHWMonsterAilment _enrage = new MHWMonsterAilment("STATUS_ENRAGE");
+        private readonly MHWMonsterAilment _enrage = new MHWMonsterAilment("STATUS_ENRAGE");
         #endregion
 
         public int Id
@@ -159,8 +162,10 @@ namespace HunterPie.Core.Game.World.Entities
         private void GetMonsterBasicInformation()
         {
             int monsterId = _process.Memory.Read<int>(_address + 0x12280);
+            int doubleLinkedListIndex = _process.Memory.Read<int>(_address + 0x1228C);
 
             Id = monsterId;
+            _doubleLinkedListIndex = doubleLinkedListIndex;
         }
 
         [ScannableMethod]
@@ -208,6 +213,34 @@ namespace HunterPie.Core.Game.World.Entities
                 Crown = Crown.Mini;
             else
                 Crown = Crown.None;
+        }
+
+        [ScannableMethod]
+        private void GetMonsterEnrage()
+        {
+            MonsterStatusStructure enrageStructure = _process.Memory.Read<MonsterStatusStructure>(_address + 0x1BE30);
+            IUpdatable<MonsterStatusStructure> enrage = _enrage;
+
+            enrage.Update(enrageStructure);
+        }
+
+        [ScannableMethod]
+        private void GetLockedOnMonster()
+        {
+            int lockedOnDoubleLinkedListIndex = _process.Memory.Deref<int>(
+                AddressMap.GetAbsolute("LOCKON_ADDRESS"),
+                AddressMap.Get<int[]>("LOCKEDON_MONSTER_INDEX_OFFSETS")
+            );
+
+            IsTarget = lockedOnDoubleLinkedListIndex == _doubleLinkedListIndex;
+
+            if (IsTarget)
+                Target = Target.Self;
+            else if (lockedOnDoubleLinkedListIndex != -1)
+                Target = Target.Another;
+            else
+                Target = Target.None;
+                
         }
     }
 }
