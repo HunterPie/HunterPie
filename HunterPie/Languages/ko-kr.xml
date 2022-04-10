@@ -196,6 +196,80 @@
 			<Monster Id="45" String="바젤기우스"/>
 			<Monster Id="46" String="개구리 훈련 모형"/>
 		</Rise>
+		<World>
+			<Monster Id="98" String="짐수레"/>
+			<Monster Id="9" String="리오레이아"/>
+			<Monster Id="10" String="리오레이아 아종"/>
+			<Monster Id="88" String="리오레이아 희소종"/>
+			<Monster Id="1" String="리오레우스"/>
+			<Monster Id="11" String="리오레우스 아종"/>
+			<Monster Id="89" String="리오레우스 희소종"/>
+			<Monster Id="12" String="디아블로스"/>
+			<Monster Id="13" String="디아블로스 아종"/>
+			<Monster Id="14" String="키린"/>
+			<Monster Id="101" String="밀라보레아스"/>
+			<Monster Id="90" String="얀가루루가"/>
+			<Monster Id="99" String="상처입은 얀가루루가"/>
+			<Monster Id="91" String="라잔"/>
+			<Monster Id="92" String="격앙 라잔"/>
+			<Monster Id="16" String="크샬다오라"/>
+			<Monster Id="17" String="나나-테스카토리"/>
+			<Monster Id="18" String="테오-테스카토르"/>
+			<Monster Id="61" String="티가렉스"/>
+			<Monster Id="93" String="티가렉스 아종"/>
+			<Monster Id="19" String="볼가노스"/>
+			<Monster Id="62" String="나르가쿠르가"/>
+			<Monster Id="63" String="벨리오로스"/>
+			<Monster Id="100" String="얼음 칼날을 찬 벨리오로스"/>
+			<Monster Id="20" String="이블조"/>
+			<Monster Id="64" String="미친 이블조"/>
+			<Monster Id="21" String="볼보로스"/>
+			<Monster Id="22" String="우라간킨"/>
+			<Monster Id="87" String="알바트리온"/>
+			<Monster Id="94" String="진오우거"/>
+			<Monster Id="95" String="진오우거 아종"/>
+			<Monster Id="65" String="브라키디오스"/>
+			<Monster Id="96" String="사납게 터지는 브라키디오스"/>
+			<Monster Id="66" String="디노발드"/>
+			<Monster Id="67" String="디노발드 아종"/>
+			<Monster Id="0" String="안쟈나프"/>
+			<Monster Id="68" String="안쟈나프 아종"/>
+			<Monster Id="7" String="도스쟈그라스"/>
+			<Monster Id="24" String="푸케푸케"/>
+			<Monster Id="69" String="푸케푸케 아종"/>
+			<Monster Id="25" String="네르기간테"/>
+			<Monster Id="70" String="모두를 멸하는 네르기간테"/>
+			<Monster Id="97" String="무페토-지바"/>
+			<Monster Id="26" String="제노-지바"/>
+			<Monster Id="4" String="조라-마그다라오스"/>
+			<Monster Id="27" String="쿠루루야크"/>
+			<Monster Id="29" String="쥬라토도스"/>
+			<Monster Id="30" String="토비카가치"/>
+			<Monster Id="71" String="토비카가치 아종"/>
+			<Monster Id="31" String="파오우르무"/>
+			<Monster Id="72" String="파오우르무 아종"/>
+			<Monster Id="32" String="레이기에나"/>
+			<Monster Id="73" String="얼려 찌르는 레이기에나"/>
+			<Monster Id="33" String="도스기르오스"/>
+			<Monster Id="34" String="오도가론"/>
+			<Monster Id="74" String="오도가론 아종"/>
+			<Monster Id="35" String="라도발킨"/>
+			<Monster Id="36" String="발하자크"/>
+			<Monster Id="75" String="죽음을 두른 발하자크"/>
+			<Monster Id="37" String="도도가마루"/>
+			<Monster Id="38" String="맘-타로트"/>
+			<Monster Id="39" String="바젤기우스"/>
+			<Monster Id="76" String="홍련의 솟구치는 바젤기우스"/>
+			<Monster Id="28" String="치치야크"/>
+			<Monster Id="15" String="베히모스"/>
+			<Monster Id="77" String="브란토도스"/>
+			<Monster Id="78" String="버프바로"/>
+			<Monster Id="79" String="이베르카나"/>
+			<Monster Id="80" String="네로미에르"/>
+			<Monster Id="81" String="안-이슈왈다"/>
+			<Monster Id="23" String="레셴"/>
+			<Monster Id="51" String="고대 레셴"/>
+		</World>
 	</Monsters>
 	<Stages>
 		<Rise>
@@ -284,14 +358,14 @@
 					 String="밧줄벌레 위젯"
 					 Description="밧줄벌레 위젯 설정"/>
 			<Setting Id="ACTIVITIES_WIDGET_STRING"
-					 String="활동 위젯"
-					 Description="활동 위젯 설정"/>
+					 String="동반자 활동 위젯"
+					 Description="동반자 활동 위젯 설정"/>
 			<Setting Id="CHAT_WIDGET_STRING"
 					 String="채팅 위젯"
-					 Description="채팅 위젯 "/>
+					 Description="채팅 위젯 설정"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="개발자 도구"
-					 Description="심화 개발 도구들입니다."/>
+					 Description="심화 개발 도구"/>
 
 			<Setting Id="ABNORMALITY_SONGS_STRING"
 					 String="선율"
@@ -311,7 +385,7 @@
 
 			<Setting Id="ENABLE_SELF_UPDATE"
 					 String="자동 업데이트 사용"
-					 Description="옵션 활성화 시, HunterPie를 자동으로 최신버전으로 업데이트 합니다."/>
+					 Description="옵션 활성화 시, HunterPie를 자동으로 최신 버전으로 업데이트 합니다."/>
 			<Setting Id="ENABLE_SELF_UPDATE_CONFIRMATION"
 					 String="자동 업데이트 확인 표시"
 					 Description="옵션 활성화 시, HunterPie를 자동으로 업데이트 하기 전에 허용 여부를 물어봅니다."/>
@@ -345,7 +419,7 @@
 
 			<Setting Id="DRPC_ENABLE_RICH_PRESENCE"
 					 String="Discord Rich Presence 활성화"
-					 Description="옵션 활성화 시, HunterPie는 Discord 상태창에 활동을 표시해줍니다."/>
+					 Description="옵션 활성화 시, HunterPie는 Discord 상태창에 활동 상태를 표시합니다."/>
 			<Setting Id="DRPC_ENABLE_SHOW_CHARACTER_INFO"
 					 String="캐릭터 정보 표시"
 					 Description="옵션 활성화 시, HunterPie는 Discord 상태창에 헌터 랭크와 캐릭터 이름을 표시합니다."/>
@@ -358,7 +432,7 @@
 					 Description="디자인 모드를 On/Off 할 수 있는 단축키입니다."/>
 			<Setting Id="OVERLAY_HIDE_WHEN_GAME_UNFOCUS_STRING"
 					 String="게임 비활성화 시 위젯 숨기기"
-					 Description="옵션 활성화 시, 게임이 백그라운드 상태일 때 모든 위젯이 자동으로 숨겨집니다."/>
+					 Description="옵션 활성화 시, 게임이 백그라운드 상태일 때 모든 위젯을 자동으로 숨깁니다."/>
 			
 			<Setting Id="INITIALIZE_WIDGET_STRING"
 					 String="위젯 사용"
@@ -387,7 +461,7 @@
 					 Description="옵션 활성화 시, HunterPie는 당신의 현재 타겟 몬스터만 표시합니다."/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_STAMINA_STRING"
 					 String="몬스터 스태미나 활성화"
-					 Description="옵션 활성화 시, HunterPie는 몬스터의 체력 막대 아래에 스태미나 막대를 표시합니다"/>
+					 Description="옵션 활성화 시, HunterPie는 몬스터의 체력 바 아래에 스태미나 바를 표시합니다."/>
 			<Setting Id="MONSTER_WIDGET_MAX_WIDTH_STRING"
 					 String="몬스터 체력 바 최대 가로 길이"
 					 Description="몬스터 체력 바의 최대 가로 폭을 설정합니다."/>
@@ -424,7 +498,7 @@
 					 Description="효과 트레이 설정입니다."/>
 			<Setting Id="ABNORMALITY_TRAY_NAME_STRING"
 					 String="효과 트레이 이름"
-					 Description="이 효과 바의 이름입니다."/>
+					 Description="이 효과 트레이의 이름입니다."/>
 			<Setting Id="ABNORMALITY_TRAY_MAX_SIZE_STRING"
 					 String="최대 크기"
 					 Description="트레이의 최대 크기를 설정합니다."/>
@@ -440,7 +514,7 @@
 			
 			<Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
 					 String="인-게임 밧줄벌레 조준 패치"
-					 Description="옵션 활성화 시, HunterPie가 인-게임에서 밧줄벌레 게이지 HUD를 비활성화 했을 때도 조준할 수 있도록 패치합니다."/>
+					 Description="옵션 활성화 시, 인-게임 설정에서 밧줄벌레 게이지 HUD를 비활성화 했을 때도 조준할 수 있도록 패치합니다."/>
 
 			<Setting Id="ACTIVITIES_ENABLE_ARGOSY_STRING"
 					 String="교역선 표시"
