@@ -284,14 +284,14 @@
 					 String="밧줄벌레 위젯"
 					 Description="밧줄벌레 위젯 설정"/>
 			<Setting Id="ACTIVITIES_WIDGET_STRING"
-					 String="활동 위젯"
-					 Description="활동 위젯 설정"/>
+					 String="동반자 활동 위젯"
+					 Description="동반자 활동 위젯 설정"/>
 			<Setting Id="CHAT_WIDGET_STRING"
 					 String="채팅 위젯"
-					 Description="채팅 위젯 "/>
+					 Description="채팅 위젯 설정"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="개발자 도구"
-					 Description="심화 개발 도구들입니다."/>
+					 Description="심화 개발 도구"/>
 
 			<Setting Id="ABNORMALITY_SONGS_STRING"
 					 String="선율"
@@ -311,7 +311,7 @@
 
 			<Setting Id="ENABLE_SELF_UPDATE"
 					 String="자동 업데이트 사용"
-					 Description="옵션 활성화 시, HunterPie를 자동으로 최신버전으로 업데이트 합니다."/>
+					 Description="옵션 활성화 시, HunterPie를 자동으로 최신 버전으로 업데이트 합니다."/>
 			<Setting Id="ENABLE_SELF_UPDATE_CONFIRMATION"
 					 String="자동 업데이트 확인 표시"
 					 Description="옵션 활성화 시, HunterPie를 자동으로 업데이트 하기 전에 허용 여부를 물어봅니다."/>
@@ -345,7 +345,7 @@
 
 			<Setting Id="DRPC_ENABLE_RICH_PRESENCE"
 					 String="Discord Rich Presence 활성화"
-					 Description="옵션 활성화 시, HunterPie는 Discord 상태창에 활동을 표시해줍니다."/>
+					 Description="옵션 활성화 시, HunterPie는 Discord 상태창에 활동 상태를 표시합니다."/>
 			<Setting Id="DRPC_ENABLE_SHOW_CHARACTER_INFO"
 					 String="캐릭터 정보 표시"
 					 Description="옵션 활성화 시, HunterPie는 Discord 상태창에 헌터 랭크와 캐릭터 이름을 표시합니다."/>
@@ -358,7 +358,7 @@
 					 Description="디자인 모드를 On/Off 할 수 있는 단축키입니다."/>
 			<Setting Id="OVERLAY_HIDE_WHEN_GAME_UNFOCUS_STRING"
 					 String="게임 비활성화 시 위젯 숨기기"
-					 Description="옵션 활성화 시, 게임이 백그라운드 상태일 때 모든 위젯이 자동으로 숨겨집니다."/>
+					 Description="옵션 활성화 시, 게임이 백그라운드 상태일 때 모든 위젯을 자동으로 숨깁니다."/>
 			
 			<Setting Id="INITIALIZE_WIDGET_STRING"
 					 String="위젯 사용"
@@ -387,7 +387,7 @@
 					 Description="옵션 활성화 시, HunterPie는 당신의 현재 타겟 몬스터만 표시합니다."/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_STAMINA_STRING"
 					 String="몬스터 스태미나 활성화"
-					 Description="옵션 활성화 시, HunterPie는 몬스터의 체력 막대 아래에 스태미나 막대를 표시합니다"/>
+					 Description="옵션 활성화 시, HunterPie는 몬스터의 체력 바 아래에 스태미나 바를 표시합니다."/>
 			<Setting Id="MONSTER_WIDGET_MAX_WIDTH_STRING"
 					 String="몬스터 체력 바 최대 가로 길이"
 					 Description="몬스터 체력 바의 최대 가로 폭을 설정합니다."/>
@@ -424,7 +424,7 @@
 					 Description="효과 트레이 설정입니다."/>
 			<Setting Id="ABNORMALITY_TRAY_NAME_STRING"
 					 String="효과 트레이 이름"
-					 Description="이 효과 바의 이름입니다."/>
+					 Description="이 효과 트레이의 이름입니다."/>
 			<Setting Id="ABNORMALITY_TRAY_MAX_SIZE_STRING"
 					 String="최대 크기"
 					 Description="트레이의 최대 크기를 설정합니다."/>
@@ -440,7 +440,7 @@
 			
 			<Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
 					 String="인-게임 밧줄벌레 조준 패치"
-					 Description="옵션 활성화 시, HunterPie가 인-게임에서 밧줄벌레 게이지 HUD를 비활성화 했을 때도 조준할 수 있도록 패치합니다."/>
+					 Description="옵션 활성화 시, 인-게임 옵션에서 밧줄벌레 게이지 HUD를 비활성화 했을 때도 조준할 수 있도록 패치합니다."/>
 
 			<Setting Id="ACTIVITIES_ENABLE_ARGOSY_STRING"
 					 String="교역선 표시"
