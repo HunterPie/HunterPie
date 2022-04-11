@@ -70,7 +70,7 @@
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="경단 단기최면술"/>
 		<Abnormality Id="ABNORMALITY_DANGO_GLUTTON" String="경단 배부름"/>
 		
-		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="공격적인 방어"/>
+		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="역습"/>
 		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="힘의 해방"/>
 		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="활주 강화"/>
 		<Abnormality Id="ABNORMALITY_PROTECTIVE_POLISH" String="칼날 연마"/>
