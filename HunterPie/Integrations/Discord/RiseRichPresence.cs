@@ -34,11 +34,9 @@ namespace HunterPie.Integrations.Discord
         {
             game = (MHRGame)context.Game;
 
-            HookEvents();
+            client.Initialize();
             timer.Start();
-
-            if (Settings.EnableRichPresence)
-                client.Initialize();
+            HookEvents();
         }
 
         private void HookEvents()
