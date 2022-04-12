@@ -52,8 +52,10 @@ namespace HunterPie.Core.Game.Data
                     partsArray[j] = new()
                     {
                         Id = int.Parse(parts[j].Attributes["Id"].Value),
-                        String = parts[j].Attributes["String"].Value
+                        String = parts[j].Attributes["String"].Value,
                     };
+
+                    bool.TryParse(parts[j].Attributes["IsSeverable"]?.Value, out partsArray[j].IsSeverable);
                 }
 
                 

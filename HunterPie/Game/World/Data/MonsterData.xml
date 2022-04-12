@@ -30,22 +30,22 @@
 		<Ailment Id="999" String="AILMENT_ENRAGE"/>
 	</Ailments>
 	<Monsters>
-		<Monsters Id="0">
+		<Monster Id="0">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
 			<Parts>
-				<Part Id="1" String="PART_THROAT"/>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="1" String="PART_THROAT" IsSeverable="True"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="3" String="PART_BODY" TenderizeIds="1,5"/>
 				<Part Id="4" String="PART_L_LEG" TenderizeIds="2"/>
 				<Part Id="5" String="PART_R_LEG" TenderizeIds="6"/>
 				<Part Id="6" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="1">
+		</Monster>
+		<Monster Id="1">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,5"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_L_WING" TenderizeIds="1,2"/>
@@ -54,11 +54,11 @@
 				<Part Id="6" String="PART_R_LEG" TenderizeIds="8"/>
 				<Part Id="7" String="PART_TAIL" TenderizeIds="4,9"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="4">
+		</Monster>
+		<Monster Id="4">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_REPEL"/>
+				<Part Id="0" String="PART_REPEL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_CHEST"/>
@@ -75,8 +75,8 @@
 				<Part Id="14" String="PART_WEAK_L_SHELL"/>
 				<Part Id="15" String="PART_WEAK_R_SHELL"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="7">
+		</Monster>
+		<Monster Id="7">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
 				<Part Id="0" String="PART_HEAD" TenderizeIds="0,3"/>
@@ -86,11 +86,11 @@
 				<Part Id="4" String="PART_TAIL"/>
 				<Part Id="5" String="PART_ABDOMEN"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="9">
+		</Monster>
+		<Monster Id="9">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,5"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_L_WING" TenderizeIds="1,2"/>
@@ -99,11 +99,11 @@
 				<Part Id="6" String="PART_R_LEG" TenderizeIds="8"/>
 				<Part Id="7" String="PART_TAIL" TenderizeIds="4,9"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="10">
+		</Monster>
+		<Monster Id="10">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,5"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_L_WING" TenderizeIds="1,2"/>
@@ -112,11 +112,11 @@
 				<Part Id="6" String="PART_R_LEG" TenderizeIds="8"/>
 				<Part Id="7" String="PART_TAIL" TenderizeIds="4,9"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="11">
+		</Monster>
+		<Monster Id="11">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,5"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_L_WING" TenderizeIds="1,2"/>
@@ -125,12 +125,12 @@
 				<Part Id="6" String="PART_R_LEG" TenderizeIds="8"/>
 				<Part Id="7" String="PART_TAIL" TenderizeIds="4,9"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="12">
+		</Monster>
+		<Monster Id="12">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_HORNS"/>
-				<Part Id="1" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HORNS" IsSeverable="True"/>
+				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="3" String="PART_BODY" TenderizeIds="1,5"/>
 				<Part Id="4" String="PART_L_WING"/>
@@ -139,12 +139,12 @@
 				<Part Id="7" String="PART_R_LEG" TenderizeIds="6"/>
 				<Part Id="8" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="13">
+		</Monster>
+		<Monster Id="13">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_HORNS"/>
-				<Part Id="1" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HORNS" IsSeverable="True"/>
+				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="3" String="PART_BODY" TenderizeIds="1,5"/>
 				<Part Id="4" String="PART_L_WING"/>
@@ -153,19 +153,19 @@
 				<Part Id="7" String="PART_R_LEG" TenderizeIds="6"/>
 				<Part Id="8" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="14">
+		</Monster>
+		<Monster Id="14">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
 				<Part Id="0" String="PART_HORN" TenderizeIds="0,2"/>
 				<Part Id="1" String="PART_ARMS" TenderizeIds="1,3"/>
 				<Part Id="2" String="PART_LEGS" TenderizeIds="1,3"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="15">
+		</Monster>
+		<Monster Id="15">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HORNS"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,3"/>
 				<Part Id="3" String="PART_BODY"/>
@@ -175,11 +175,11 @@
 				<Part Id="7" String="PART_R_LEG"/>
 				<Part Id="8" String="PART_TAIL" TenderizeIds="2,5"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="16">
+		</Monster>
+		<Monster Id="16">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_TAIL" TenderizeIds="2,5"/>
@@ -187,11 +187,11 @@
 				<Part Id="5" String="PART_R_LIMBS"/>
 				<Part Id="6" String="PART_WINGS" TenderizeIds="1,4"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="17">
+		</Monster>
+		<Monster Id="17">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_LIMBS" TenderizeIds="1,5"/>
@@ -199,12 +199,12 @@
 				<Part Id="5" String="PART_R_WING" TenderizeIds="6"/>
 				<Part Id="6" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="18">
+		</Monster>
+		<Monster Id="18">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
-				<Part Id="1" String="PART_HORNS"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
+				<Part Id="1" String="PART_HORNS" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,3"/>
 				<Part Id="3" String="PART_BODY"/>
 				<Part Id="4" String="PART_ARMS"/>
@@ -212,8 +212,8 @@
 				<Part Id="6" String="PART_WINGS" TenderizeIds="1,4"/>
 				<Part Id="7" String="PART_TAIL" TenderizeIds="2,5"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="19">
+		</Monster>
+		<Monster Id="19">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
 				<Part Id="0" String="PART_HEAD" TenderizeIds="0,3"/>
@@ -223,12 +223,12 @@
 				<Part Id="4" String="PART_R_LEG"/>
 				<Part Id="5" String="PART_TAIL" TenderizeIds="2,5"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="20">
+		</Monster>
+		<Monster Id="20">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
-				<Part Id="1" String="PART_BIG_FLINCH"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
+				<Part Id="1" String="PART_BIG_FLINCH" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="3" String="PART_BODY" TenderizeIds="1,5"/>
 				<Part Id="4" String="PART_CHEST"/>
@@ -238,12 +238,12 @@
 				<Part Id="8" String="PART_R_LEG" TenderizeIds="6"/>
 				<Part Id="9" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="21">
+		</Monster>
+		<Monster Id="21">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_HEAD"/>
-				<Part Id="1" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" IsSeverable="True"/>
+				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="3" String="PART_HEAD_MUD" TenderizeIds="0,4"/>
 				<Part Id="4" String="PART_BODY" TenderizeIds="1,5"/>
@@ -257,11 +257,11 @@
 				<Part Id="12" String="PART_TAIL" TenderizeIds="3,7"/>
 				<Part Id="13" String="PART_TAIL_MUD" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="22">
+		</Monster>
+		<Monster Id="22">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_JAW"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="3" String="PART_BODY" TenderizeIds="1,5"/>
@@ -270,23 +270,23 @@
 				<Part Id="6" String="PART_R_LEG" TenderizeIds="6"/>
 				<Part Id="7" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="23">
+		</Monster>
+		<Monster Id="23">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_BODY_LEGS"/>
+				<Part Id="0" String="PART_BODY_LEGS" IsSeverable="True"/>
 				<Part Id="1" String="PART_ANTLERS" TenderizeIds="0,1"/>
 				<Part Id="2" String="PART_BODY" TenderizeIds="0,1"/>
 				<Part Id="3" String="PART_LEGS"/>
 				<Part Id="4" String="PART_ARMS"/>
 				<Part Id="5" String="PART_UNKNOWN"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="24">
+		</Monster>
+		<Monster Id="24">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
 			<Parts>
-				<Part Id="0" String="PART_HEAD"/>
-				<Part Id="1" String="PART_TAIL"/>
+				<Part Id="0" String="PART_HEAD" IsSeverable="True"/>
+				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="3" String="PART_BODY"/>
 				<Part Id="4" String="PART_L_WING" TenderizeIds="1"/>
@@ -295,13 +295,13 @@
 				<Part Id="7" String="PART_R_LEG" TenderizeIds="6"/>
 				<Part Id="8" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="25">
+		</Monster>
+		<Monster Id="25">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_HORNS"/>
-				<Part Id="1" String="PART_TAIL"/>
-				<Part Id="2" String="PART_UNKNOWN"/>
+				<Part Id="0" String="PART_HORNS" IsSeverable="True"/>
+				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
+				<Part Id="2" String="PART_UNKNOWN" IsSeverable="True"/>
 				<Part Id="3" String="PART_HORNS"/>
 				<Part Id="4" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="5" String="PART_BODY"/>
@@ -313,12 +313,12 @@
 				<Part Id="11" String="PART_R_WING" TenderizeIds="6,9"/>
 				<Part Id="12" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="26">
+		</Monster>
+		<Monster Id="26">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
+				<Part Id="1" String="PART_UNKNOWN" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="3" String="PART_NECK"/>
 				<Part Id="4" String="PART_BACK"/>
@@ -330,8 +330,8 @@
 				<Part Id="10" String="PART_WINGS" TenderizeIds="2,6,8,9"/>
 				<Part Id="11" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="27">
+		</Monster>
+		<Monster Id="27">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
 				<Part Id="0" String="PART_HEAD" TenderizeIds="0,3"/>
@@ -340,8 +340,8 @@
 				<Part Id="3" String="PART_TAIL" TenderizeIds="2,5"/>
 				<Part Id="4" String="PART_ROCK"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="28">
+		</Monster>
+		<Monster Id="28">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
 				<Part Id="0" String="PART_HEAD"/>
@@ -350,8 +350,8 @@
 				<Part Id="3" String="PART_LEGS"/>
 				<Part Id="4" String="PART_TAIL" TenderizeIds="2,5"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="29">
+		</Monster>
+		<Monster Id="29">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
 				<Part Id="0" String="PART_HEAD" TenderizeIds="0,3"/>
@@ -365,8 +365,8 @@
 				<Part Id="8" String="PART_R_LEG_MUD"/>
 				<Part Id="9" String="PART_TAIL_MUD" TenderizeIds="2,5"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="30">
+		</Monster>
+		<Monster Id="30">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
 			<Parts>
 				<Part Id="0" String="PART_HEAD" TenderizeIds="0,4"/>
@@ -376,11 +376,11 @@
 				<Part Id="4" String="PART_LEGS"/>
 				<Part Id="5" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="31">
+		</Monster>
+		<Monster Id="31">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_BALLOON"/>
+				<Part Id="0" String="PART_BALLOON" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="2" String="PART_BALLOON"/>
 				<Part Id="3" String="PART_BODY"/>
@@ -390,8 +390,8 @@
 				<Part Id="7" String="PART_R_WING" TenderizeIds="5,6"/>
 				<Part Id="8" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="32">
+		</Monster>
+		<Monster Id="32">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
 				<Part Id="0" String="PART_HEAD" TenderizeIds="0,4"/>
@@ -402,38 +402,38 @@
 				<Part Id="5" String="PART_R_LEG" TenderizeIds="6"/>
 				<Part Id="6" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="33">
+		</Monster>
+		<Monster Id="33">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_ARMS" TenderizeIds="1,4"/>
 				<Part Id="4" String="PART_LEGS"/>
 				<Part Id="5" String="PART_TAIL" TenderizeIds="2,5"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="34">
+		</Monster>
+		<Monster Id="34">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_COUNTERATTACK"/>
-				<Part Id="1" String="PART_TAIL"/>
+				<Part Id="0" String="PART_COUNTERATTACK" IsSeverable="True"/>
+				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="3" String="PART_BODY" TenderizeIds="2,6"/>
 				<Part Id="4" String="PART_ARMS" TenderizeIds="1,5"/>
 				<Part Id="5" String="PART_LEGS"/>
 				<Part Id="6" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="35">
+		</Monster>
+		<Monster Id="35">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
-				<Part Id="1" String="PART_UNKNOWN"/>
-				<Part Id="2" String="PART_UNKNOWN"/>
-				<Part Id="3" String="PART_UNKNOWN"/>
-				<Part Id="4" String="PART_UNKNOWN"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
+				<Part Id="1" String="PART_UNKNOWN" IsSeverable="True"/>
+				<Part Id="2" String="PART_UNKNOWN" IsSeverable="True"/>
+				<Part Id="3" String="PART_UNKNOWN" IsSeverable="True"/>
+				<Part Id="4" String="PART_UNKNOWN" IsSeverable="True"/>
 				<Part Id="5" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="6" String="PART_BODY" TenderizeIds="1,5"/>
 				<Part Id="7" String="PART_L_LEG" TenderizeIds="2"/>
@@ -444,12 +444,12 @@
 				<Part Id="12" String="PART_L_BONE"/>
 				<Part Id="13" String="PART_R_BONE"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="36">
+		</Monster>
+		<Monster Id="36">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_EMISSIONS"/>
-				<Part Id="1" String="PART_TAIL"/>
+				<Part Id="0" String="PART_EMISSIONS" IsSeverable="True"/>
+				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="3" String="PART_BACK"/>
 				<Part Id="4" String="PART_CHEST" TenderizeIds="2,6"/>
@@ -460,23 +460,23 @@
 				<Part Id="9" String="PART_R_LEG"/>
 				<Part Id="10" String="PART_WINGS"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="37">
+		</Monster>
+		<Monster Id="37">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_ARMS" TenderizeIds="1,4"/>
 				<Part Id="4" String="PART_LEGS"/>
 				<Part Id="5" String="PART_TAIL" TenderizeIds="2,5"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="38">
+		</Monster>
+		<Monster Id="38">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="1" String="PART_HORNS"/>
-				<Part Id="0" String="PART_HORNS_2"/>
+				<Part Id="1" String="PART_HORNS" IsSeverable="True"/>
+				<Part Id="0" String="PART_HORNS_2" IsSeverable="True"/>
 				<Part Id="2" String="PART_HORNS" TenderizeIds="0,3"/>
 				<Part Id="3" String="PART_CHEST" TenderizeIds="1,4"/>
 				<Part Id="4" String="PART_BODY"/>
@@ -494,11 +494,11 @@
 				<Part Id="16" String="PART_L_TAIL_GOLD"/>
 				<Part Id="17" String="PART_R_TAIL_GOLD"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="39">
+		</Monster>
+		<Monster Id="39">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,5"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_LEGS" TenderizeIds="3,8"/>
@@ -506,22 +506,22 @@
 				<Part Id="5" String="PART_R_WING" TenderizeIds="6,7"/>
 				<Part Id="6" String="PART_TAIL" TenderizeIds="4,9"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="51">
+		</Monster>
+		<Monster Id="51">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_BODY_LEGS"/>
+				<Part Id="0" String="PART_BODY_LEGS" IsSeverable="True"/>
 				<Part Id="1" String="PART_ANTLERS" TenderizeIds="0,1"/>
 				<Part Id="2" String="PART_BODY" TenderizeIds="0,1"/>
 				<Part Id="3" String="PART_LEGS"/>
 				<Part Id="4" String="PART_ARMS"/>
 				<Part Id="5" String="PART_UNKNOWN"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="61">
+		</Monster>
+		<Monster Id="61">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_L_ARM" TenderizeIds="1,6"/>
@@ -530,11 +530,11 @@
 				<Part Id="6" String="PART_R_LEG"/>
 				<Part Id="7" String="PART_TAIL" TenderizeIds="2,5"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="62">
+		</Monster>
+		<Monster Id="62">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_L_ARM" TenderizeIds="1,6"/>
@@ -543,11 +543,11 @@
 				<Part Id="6" String="PART_R_LEG"/>
 				<Part Id="7" String="PART_TAIL" TenderizeIds="2,5"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="63">
+		</Monster>
+		<Monster Id="63">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_L_ARM" TenderizeIds="1,6"/>
@@ -556,13 +556,13 @@
 				<Part Id="6" String="PART_R_LEG"/>
 				<Part Id="7" String="PART_TAIL" TenderizeIds="2,5"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="64">
+		</Monster>
+		<Monster Id="64">
 			<Crowns Mini="0.99" Silver="1.14" Gold="1.20"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
-				<Part Id="1" String="PART_BIG_FLINCH"/>
-				<Part Id="2" String="PART_COUNTERATTACK"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
+				<Part Id="1" String="PART_BIG_FLINCH" IsSeverable="True"/>
+				<Part Id="2" String="PART_COUNTERATTACK" IsSeverable="True"/>
 				<Part Id="3" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="4" String="PART_BODY" TenderizeIds="1,5"/>
 				<Part Id="5" String="PART_CHEST"/>
@@ -572,11 +572,11 @@
 				<Part Id="9" String="PART_R_LEG" TenderizeIds="6"/>
 				<Part Id="10" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="65">
+		</Monster>
+		<Monster Id="65">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_L_ARM" TenderizeIds="1"/>
@@ -585,12 +585,12 @@
 				<Part Id="6" String="PART_R_LEG"/>
 				<Part Id="7" String="PART_TAIL" TenderizeIds="2,5"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="66">
+		</Monster>
+		<Monster Id="66">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
 			<Parts>
-				<Part Id="1" String="PART_THROAT"/>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="1" String="PART_THROAT" IsSeverable="True"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="3" String="PART_FIN"/>
 				<Part Id="4" String="PART_BODY" TenderizeIds="1,5"/>
@@ -599,13 +599,13 @@
 				<Part Id="7" String="PART_R_LEG" TenderizeIds="6"/>
 				<Part Id="8" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="67">
+		</Monster>
+		<Monster Id="67">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
 			<Parts>
-				<Part Id="1" String="PART_THROAT"/>
-				<Part Id="0" String="PART_TAIL"/>
-				<Part Id="2" String="PART_UNKNOWN"/>
+				<Part Id="1" String="PART_THROAT" IsSeverable="True"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
+				<Part Id="2" String="PART_UNKNOWN" IsSeverable="True"/>
 				<Part Id="3" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="4" String="PART_FIN"/>
 				<Part Id="5" String="PART_BODY" TenderizeIds="1,5"/>
@@ -614,25 +614,25 @@
 				<Part Id="8" String="PART_R_LEG" TenderizeIds="6"/>
 				<Part Id="9" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="68">
+		</Monster>
+		<Monster Id="68">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
 			<Parts>
-				<Part Id="1" String="PART_THROAT"/>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="1" String="PART_THROAT" IsSeverable="True"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="3" String="PART_BODY" TenderizeIds="1,5"/>
 				<Part Id="4" String="PART_L_LEG" TenderizeIds="2"/>
 				<Part Id="5" String="PART_R_LEG" TenderizeIds="6"/>
 				<Part Id="6" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="69">
+		</Monster>
+		<Monster Id="69">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
 			<Parts>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="0" String="PART_TAIL"/>
-				<Part Id="1" String="PART_INFLATED_TAIL"/>
+				<Part Id="2" String="PART_HEAD" IsSeverable="True"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
+				<Part Id="1" String="PART_INFLATED_TAIL" IsSeverable="True"/>
 				<Part Id="3" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="4" String="PART_BODY"/>
 				<Part Id="5" String="PART_L_WING" TenderizeIds="1"/>
@@ -641,18 +641,18 @@
 				<Part Id="8" String="PART_R_LEG" TenderizeIds="6"/>
 				<Part Id="9" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="70">
+		</Monster>
+		<Monster Id="70">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_HORNS"/>
-				<Part Id="1" String="PART_TAIL"/>
-				<Part Id="2" String="PART_UNKNOWN"/>
-				<Part Id="3" String="PART_SILVER_SPIKES_HEAD"/>
-				<Part Id="4" String="PART_SILVER_SPIKES_L_ARM"/>
-				<Part Id="5" String="PART_SILVER_SPIKES_R_ARM"/>
-				<Part Id="6" String="PART_SILVER_SPIKES_L_WING"/>
-				<Part Id="7" String="PART_SILVER_SPIKES_R_WING"/>
+				<Part Id="0" String="PART_HORNS" IsSeverable="True"/>
+				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
+				<Part Id="2" String="PART_UNKNOWN" IsSeverable="True"/>
+				<Part Id="3" String="PART_SILVER_SPIKES_HEAD" IsSeverable="True"/>
+				<Part Id="4" String="PART_SILVER_SPIKES_L_ARM" IsSeverable="True"/>
+				<Part Id="5" String="PART_SILVER_SPIKES_R_ARM" IsSeverable="True"/>
+				<Part Id="6" String="PART_SILVER_SPIKES_L_WING" IsSeverable="True"/>
+				<Part Id="7" String="PART_SILVER_SPIKES_R_WING" IsSeverable="True"/>
 				<Part Id="8" String="PART_HORNS"/>
 				<Part Id="9" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="10" String="PART_BODY"/>
@@ -664,8 +664,8 @@
 				<Part Id="16" String="PART_R_WING" TenderizeIds="6,9"/>
 				<Part Id="17" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="71">
+		</Monster>
+		<Monster Id="71">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
 			<Parts>
 				<Part Id="0" String="PART_HEAD" TenderizeIds="0,4"/>
@@ -675,11 +675,11 @@
 				<Part Id="4" String="PART_LEGS"/>
 				<Part Id="5" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="72">
+		</Monster>
+		<Monster Id="72">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_BALLOON"/>
+				<Part Id="0" String="PART_BALLOON" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="2" String="PART_BALLOON"/>
 				<Part Id="3" String="PART_BODY"/>
@@ -689,11 +689,11 @@
 				<Part Id="7" String="PART_R_WING" TenderizeIds="5,6"/>
 				<Part Id="8" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="73">
+		</Monster>
+		<Monster Id="73">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_SKY_FALL"/>
+				<Part Id="0" String="PART_SKY_FALL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_L_WING" TenderizeIds="1"/>
@@ -701,25 +701,25 @@
 				<Part Id="5" String="PART_LEGS" TenderizeIds="2,6"/>
 				<Part Id="6" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="74">
+		</Monster>
+		<Monster Id="74">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_COUNTERATTACK"/>
-				<Part Id="2" String="PART_HEAD"/>
-				<Part Id="1" String="PART_TAIL"/>
+				<Part Id="0" String="PART_COUNTERATTACK" IsSeverable="True"/>
+				<Part Id="2" String="PART_HEAD" IsSeverable="True"/>
+				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="3" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="4" String="PART_BODY" TenderizeIds="2,6"/>
 				<Part Id="5" String="PART_ARMS" TenderizeIds="1,5"/>
 				<Part Id="6" String="PART_LEGS"/>
 				<Part Id="7" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="75">
+		</Monster>
+		<Monster Id="75">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="1" String="PART_TAIL"/>
-				<Part Id="0" String="PART_EMISSIONS"/>
+				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
+				<Part Id="0" String="PART_EMISSIONS" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="3" String="PART_BACK"/>
 				<Part Id="4" String="PART_CHEST" TenderizeIds="2,6"/>
@@ -735,13 +735,13 @@
 				<Part Id="14" String="PART_UNKNOWN"/>
 				<Part Id="15" String="PART_UNKNOWN"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="76">
+		</Monster>
+		<Monster Id="76">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="1" String="PART_GLOWING_HEAD"/>
-				<Part Id="0" String="PART_TAIL"/>
-				<Part Id="2" String="PART_GLOWING_TAIL"/>
+				<Part Id="1" String="PART_GLOWING_HEAD" IsSeverable="True"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
+				<Part Id="2" String="PART_GLOWING_TAIL" IsSeverable="True"/>
 				<Part Id="3" String="PART_HEAD" TenderizeIds="0,5"/>
 				<Part Id="4" String="PART_BODY"/>
 				<Part Id="5" String="PART_LEGS" TenderizeIds="3,8"/>
@@ -749,13 +749,13 @@
 				<Part Id="7" String="PART_R_WING" TenderizeIds="6,7"/>
 				<Part Id="8" String="PART_TAIL" TenderizeIds="4,9"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="77">
+		</Monster>
+		<Monster Id="77">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_EMERGE_SNOW_HEAD"/>
-				<Part Id="1" String="PART_EMERGE_SNOW_BODY"/>
-				<Part Id="2" String="PART_EMERGE_SNOW_TAIL"/>
+				<Part Id="0" String="PART_EMERGE_SNOW_HEAD" IsSeverable="True"/>
+				<Part Id="1" String="PART_EMERGE_SNOW_BODY" IsSeverable="True"/>
+				<Part Id="2" String="PART_EMERGE_SNOW_TAIL" IsSeverable="True"/>
 				<Part Id="3" String="PART_HEAD" TenderizeIds="0,3"/>
 				<Part Id="4" String="PART_HEAD_SNOW" TenderizeIds="0,3"/>
 				<Part Id="5" String="PART_BODY" TenderizeIds="1,4"/>
@@ -764,25 +764,25 @@
 				<Part Id="8" String="PART_TAIL" TenderizeIds="2,5"/>
 				<Part Id="9" String="PART_TAIL_SNOW" TenderizeIds="2,5"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="78">
+		</Monster>
+		<Monster Id="78">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_HORNS"/>
-				<Part Id="1" String="PART_TAIL"/>
-				<Part Id="2" String="PART_UNKNOWN"/>
+				<Part Id="0" String="PART_HORNS" IsSeverable="True"/>
+				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
+				<Part Id="2" String="PART_UNKNOWN" IsSeverable="True"/>
 				<Part Id="3" String="PART_HORNS" TenderizeIds="0,3"/>
 				<Part Id="4" String="PART_BODY"/>
 				<Part Id="5" String="PART_L_LEG" TenderizeIds="1"/>
 				<Part Id="6" String="PART_R_LEG" TenderizeIds="4"/>
 				<Part Id="7" String="PART_TAIL" TenderizeIds="2,5"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="79">
+		</Monster>
+		<Monster Id="79">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
-				<Part Id="1" String="PART_SKY_FALL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
+				<Part Id="1" String="PART_SKY_FALL" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,3"/>
 				<Part Id="3" String="PART_HEAD_ICE"/>
 				<Part Id="4" String="PART_BODY"/>
@@ -794,11 +794,11 @@
 				<Part Id="10" String="PART_LEGS"/>
 				<Part Id="11" String="PART_TAIL" TenderizeIds="2,5"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="80">
+		</Monster>
+		<Monster Id="80">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="2" String="PART_BACK"/>
 				<Part Id="3" String="PART_TAIL" TenderizeIds="3,7"/>
@@ -806,15 +806,15 @@
 				<Part Id="5" String="PART_LEGS"/>
 				<Part Id="6" String="PART_WINGS" TenderizeIds="2,6"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="81">
+		</Monster>
+		<Monster Id="81">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_HEAD_ROCK"/>
-				<Part Id="1" String="PART_HEAD_ROCK"/>
-				<Part Id="2" String="PART_CHEST_ROCK"/>
-				<Part Id="4" String="PART_UNKNOWN"/>
-				<Part Id="3" String="PART_HEAD"/>
+				<Part Id="0" String="PART_HEAD_ROCK" IsSeverable="True"/>
+				<Part Id="1" String="PART_HEAD_ROCK" IsSeverable="True"/>
+				<Part Id="2" String="PART_CHEST_ROCK" IsSeverable="True"/>
+				<Part Id="4" String="PART_UNKNOWN" IsSeverable="True"/>
+				<Part Id="3" String="PART_HEAD" IsSeverable="True"/>
 				<Part Id="5" String="PART_L_NECK_ROCK"/>
 				<Part Id="6" String="PART_R_NECK_ROCK"/>
 				<Part Id="7" String="PART_HEAD_ROCK"/>
@@ -832,13 +832,13 @@
 				<Part Id="19" String="PART_R_ARM" TenderizeIds="4"/>
 				<Part Id="20" String="PART_TAIL"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="87">
+		</Monster>
+		<Monster Id="87">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_HORNS"/>
-				<Part Id="1" String="PART_TAIL"/>
-				<Part Id="3" String="PART_EXPLOSION_WEAKENING"/>
+				<Part Id="0" String="PART_HORNS" IsSeverable="True"/>
+				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
+				<Part Id="3" String="PART_EXPLOSION_WEAKENING" IsSeverable="True"/>
 				<Part Id="3" String="PART_HEAD" TenderizeIds="0,5"/>
 				<Part Id="4" String="PART_CHEST"/>
 				<Part Id="5" String="PART_WINGS" TenderizeIds="2,7"/>
@@ -846,12 +846,12 @@
 				<Part Id="7" String="PART_LEGS" TenderizeIds="3,8"/>
 				<Part Id="8" String="PART_TAIL" TenderizeIds="4,9"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="88">
+		</Monster>
+		<Monster Id="88">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="1" String="PART_BIG_FLINCH"/>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="1" String="PART_BIG_FLINCH" IsSeverable="True"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,5"/>
 				<Part Id="3" String="PART_BODY"/>
 				<Part Id="4" String="PART_L_WING" TenderizeIds="1,2"/>
@@ -860,12 +860,12 @@
 				<Part Id="7" String="PART_R_LEG" TenderizeIds="8"/>
 				<Part Id="8" String="PART_TAIL" TenderizeIds="4,9"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="89">
+		</Monster>
+		<Monster Id="89">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="1" String="PART_BIG_FLINCH"/>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="1" String="PART_BIG_FLINCH" IsSeverable="True"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,5"/>
 				<Part Id="3" String="PART_BODY"/>
 				<Part Id="4" String="PART_L_WING" TenderizeIds="1,2"/>
@@ -874,11 +874,11 @@
 				<Part Id="7" String="PART_R_LEG" TenderizeIds="8"/>
 				<Part Id="8" String="PART_TAIL" TenderizeIds="4,9"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="90">
+		</Monster>
+		<Monster Id="90">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,5"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_L_LEG" TenderizeIds="3"/>
@@ -887,14 +887,14 @@
 				<Part Id="6" String="PART_R_WING" TenderizeIds="6,7"/>
 				<Part Id="7" String="PART_TAIL" TenderizeIds="4,9"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="91">
+		</Monster>
+		<Monster Id="91">
 			<Crowns Mini="0.9" Silver="1.11" Gold="1.18"/>
 			<Parts>
-				<Part Id="0" String="PART_HORNS"/>
-				<Part Id="2" String="PART_TAIL"/>
-				<Part Id="1" String="PART_HORNS_2"/>
-				<Part Id="3" String="PART_RAGE"/>
+				<Part Id="0" String="PART_HORNS" IsSeverable="True"/>
+				<Part Id="2" String="PART_TAIL" IsSeverable="True"/>
+				<Part Id="1" String="PART_HORNS_2" IsSeverable="True"/>
+				<Part Id="3" String="PART_RAGE" IsSeverable="True"/>
 				<Part Id="4" String="PART_HEAD"/>
 				<Part Id="5" String="PART_BODY"/>
 				<Part Id="6" String="PART_L_ARM" TenderizeIds="0"/>
@@ -903,14 +903,14 @@
 				<Part Id="9" String="PART_R_LEG" TenderizeIds="1,3"/>
 				<Part Id="10" String="PART_TAIL"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="92">
+		</Monster>
+		<Monster Id="92">
 			<Crowns Mini="0.9" Silver="1.11" Gold="1.18"/>
 			<Parts>
-				<Part Id="0" String="PART_HORNS"/>
-				<Part Id="2" String="PART_TAIL"/>
-				<Part Id="1" String="PART_HORNS_2"/>
-				<Part Id="3" String="PART_RAGE"/>
+				<Part Id="0" String="PART_HORNS" IsSeverable="True"/>
+				<Part Id="2" String="PART_TAIL" IsSeverable="True"/>
+				<Part Id="1" String="PART_HORNS_2" IsSeverable="True"/>
+				<Part Id="3" String="PART_RAGE" IsSeverable="True"/>
 				<Part Id="4" String="PART_HEAD"/>
 				<Part Id="5" String="PART_BODY"/>
 				<Part Id="6" String="PART_L_ARM" TenderizeIds="0"/>
@@ -919,11 +919,11 @@
 				<Part Id="9" String="PART_R_LEG" TenderizeIds="1,3"/>
 				<Part Id="10" String="PART_TAIL"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="93">
+		</Monster>
+		<Monster Id="93">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_L_ARM" TenderizeIds="1,6"/>
@@ -932,12 +932,12 @@
 				<Part Id="6" String="PART_R_LEG"/>
 				<Part Id="7" String="PART_TAIL" TenderizeIds="2,5"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="94">
+		</Monster>
+		<Monster Id="94">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="1" String="PART_CHARGE"/>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="1" String="PART_CHARGE" IsSeverable="True"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="3" String="PART_BODY" TenderizeIds="2,6"/>
 				<Part Id="4" String="PART_BACK"/>
@@ -945,12 +945,12 @@
 				<Part Id="6" String="PART_LEGS"/>
 				<Part Id="7" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="95">
+		</Monster>
+		<Monster Id="95">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="1" String="PART_CHARGE"/>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="1" String="PART_CHARGE" IsSeverable="True"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="3" String="PART_BODY" TenderizeIds="2,6"/>
 				<Part Id="4" String="PART_BACK"/>
@@ -958,11 +958,11 @@
 				<Part Id="6" String="PART_LEGS"/>
 				<Part Id="7" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="96">
+		</Monster>
+		<Monster Id="96">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_BACK"/>
@@ -973,11 +973,11 @@
 				<Part Id="8" String="PART_TAIL" TenderizeIds="3,7"/>
 				<Part Id="9" String="PART_TAIL_TIP"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="97">
+		</Monster>
+		<Monster Id="97">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,4,8,9"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_ABDOMEN"/>
@@ -991,19 +991,19 @@
 				<Part Id="11" String="PART_R_WING"/>
 				<Part Id="12" String="PART_TAIL" TenderizeIds="3,7"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="98">
+		</Monster>
+		<Monster Id="98">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN" TenderizeIds="0,2"/>
 				<Part Id="1" String="PART_UNKNOWN" TenderizeIds="1"/>
 				<Part Id="2" String="PART_UNKNOWN" TenderizeIds="3"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="99">
+		</Monster>
+		<Monster Id="99">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,5"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_L_LEG" TenderizeIds="3"/>
@@ -1012,11 +1012,11 @@
 				<Part Id="6" String="PART_R_WING" TenderizeIds="6,7"/>
 				<Part Id="7" String="PART_TAIL" TenderizeIds="4,9"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="100">
+		</Monster>
+		<Monster Id="100">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_TAIL"/>
+				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
 				<Part Id="2" String="PART_BODY"/>
 				<Part Id="3" String="PART_L_ARM" TenderizeIds="1,6"/>
@@ -1025,11 +1025,11 @@
 				<Part Id="6" String="PART_R_LEG"/>
 				<Part Id="7" String="PART_TAIL" TenderizeIds="2,5"/>
 			</Parts>
-		</Monsters>
-		<Monsters Id="101">
+		</Monster>
+		<Monster Id="101">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
 			<Parts>
-				<Part Id="0" String="PART_KNOCKDOWN"/>
+				<Part Id="0" String="PART_KNOCKDOWN" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
 				<Part Id="2" String="PART_NECK"/>
 				<Part Id="3" String="PART_CHEST"/>
@@ -1042,6 +1042,6 @@
 				<Part Id="10" String="PART_R_WING"/>
 				<Part Id="11" String="PART_TAIL"/>
 			</Parts>
-		</Monsters>
+		</Monster>
 	</Monsters>
 </GameData>

@@ -10,6 +10,7 @@ using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.World.Definitions;
 using HunterPie.Core.Logger;
 using System;
+using System.Linq;
 
 namespace HunterPie.Core.Game.World.Entities
 {
@@ -26,6 +27,7 @@ namespace HunterPie.Core.Game.World.Entities
         private Crown _crown;
         private float _stamina;
         private readonly MHWMonsterAilment _enrage = new MHWMonsterAilment("STATUS_ENRAGE");
+        private (long, MHWMonsterPart)[] _parts;
         #endregion
 
         public int Id
@@ -91,7 +93,9 @@ namespace HunterPie.Core.Game.World.Entities
             }
         }
 
-        public IMonsterPart[] Parts => Array.Empty<IMonsterPart>();
+        public IMonsterPart[] Parts => _parts?
+                                        .Select(v => v.Item2)
+                                        .ToArray<IMonsterPart>() ?? Array.Empty<IMonsterPart>();
 
         public IMonsterAilment[] Ailments => Array.Empty<IMonsterAilment>();
         public Target Target
@@ -154,7 +158,7 @@ namespace HunterPie.Core.Game.World.Entities
         {
             _address = address;
             Em = em;
-
+            
             Log.Debug($"Initialized monster at address {address:X}");
         }
 
@@ -218,8 +222,8 @@ namespace HunterPie.Core.Game.World.Entities
         [ScannableMethod]
         private void GetMonsterEnrage()
         {
-            MonsterStatusStructure enrageStructure = _process.Memory.Read<MonsterStatusStructure>(_address + 0x1BE30);
-            IUpdatable<MonsterStatusStructure> enrage = _enrage;
+            MHWMonsterStatusStructure enrageStructure = _process.Memory.Read<MHWMonsterStatusStructure>(_address + 0x1BE30);
+            IUpdatable<MHWMonsterStatusStructure> enrage = _enrage;
 
             enrage.Update(enrageStructure);
         }
@@ -241,6 +245,98 @@ namespace HunterPie.Core.Game.World.Entities
             else
                 Target = Target.None;
                 
+        }
+
+        [ScannableMethod]
+        private void GetMonsterParts()
+        {
+            long monsterPartPtr = _process.Memory.Read<long>(_address + 0x1D058);
+
+            if (monsterPartPtr == 0)
+                return;
+
+            long monsterPartAddress = monsterPartPtr + 0x40;
+            long monsterSeverableAddress = monsterPartPtr + 0x1FC8;
+
+            MonsterDataSchema? monsterSchema = MonsterData.GetMonsterData(Id);
+
+            if (!monsterSchema.HasValue)
+                return;
+
+            MonsterDataSchema monsterInfo = monsterSchema.Value;
+
+            if (_parts is null)
+            {
+                _parts = new (long, MHWMonsterPart)[monsterInfo.Parts.Length];
+                for (int i = 0; i < _parts.Length; i++)
+                    _parts[i] = (0, null);
+            }
+
+            int normalPartIndex = 0;
+
+            for (int pIndex = 0; pIndex < monsterInfo.Parts.Length; pIndex++)
+            {
+                var (cachedAddress, part) = _parts[pIndex];
+                IUpdatable<MHWMonsterPartStructure> updatable = _parts[pIndex].Item2;
+                MonsterPartSchema partSchema = monsterInfo.Parts[pIndex];
+                MHWMonsterPartStructure partStructure = new();
+
+                // If the part address has been cached already, we can just read them
+                if (cachedAddress > 0)
+                {
+                    partStructure = _process.Memory.Read<MHWMonsterPartStructure>(cachedAddress);
+
+                    // Alatreon elemental explosion level
+                    if (Id == 87 && partStructure.Index == 3)
+                        partStructure.Counter = _process.Memory.Read<int>(_address + 0x20920);
+
+                    updatable.Update(partStructure);
+                    continue;
+                }
+
+                if (partSchema.IsSeverable)
+                {
+                    while (monsterSeverableAddress < (monsterSeverableAddress + 0x120 * 32))
+                    {
+                        if (_process.Memory.Read<int>(monsterSeverableAddress) <= 0xA0)
+                            monsterSeverableAddress += 0x8;
+
+                        partStructure = _process.Memory.Read<MHWMonsterPartStructure>(monsterSeverableAddress);
+
+                        if (partStructure.Index == partSchema.Id && partStructure.MaxHealth > 0)
+                        {
+                            MHWMonsterPart newPart = new(partSchema.String);
+                            _parts[pIndex] = (monsterSeverableAddress, newPart);
+
+                            this.Dispatch(OnNewPartFound, newPart);
+
+                            do
+                            {
+                                monsterSeverableAddress += 0x78;
+                            } while (partStructure.Equals(_process.Memory.Read<MHWMonsterPartStructure>(monsterSeverableAddress)));
+
+                            break;
+                        }
+
+                        monsterSeverableAddress += 0x78;
+                    }
+                } else
+                {
+                    long address = monsterPartAddress + (normalPartIndex * 0x1F8);
+                    partStructure = _process.Memory.Read<MHWMonsterPartStructure>(address);
+
+                    MHWMonsterPart newPart = new(partSchema.String);
+
+                    _parts[pIndex] = (address, newPart);
+
+                    this.Dispatch(OnNewPartFound, newPart);
+
+                    normalPartIndex++;
+                }
+
+                updatable = _parts[pIndex].Item2;
+                updatable.Update(partStructure);
+            }
         }
     }
 }
