@@ -195,7 +195,7 @@ def iterate_ailments(ailments: OrderedDict) -> OrderedDict:
 
 def generate_v2_data(ailments: List[OrderedDict], monsters: List[OrderedDict]) -> OrderedDict:
     ailmentsNode = OrderedDict(Ailment = ailments)
-    monstersNode = OrderedDict(Monsters = monsters)
+    monstersNode = OrderedDict(Monster = monsters)
 
     root = OrderedDict(GameData = OrderedDict(
         Ailments = ailmentsNode,
