@@ -126,7 +126,7 @@ def save_v2_data(data: OrderedDict):
         os.mkdir("output")
 
     with open("output/out_monster_data_v2.xml", "w") as output:
-        xmltodict.unparse(data, output, 'UTF-8', pretty = True)
+        xmltodict.unparse(data, output, 'UTF-8', pretty = True, short_empty_elements = True)
 
 def extract_crown(monster) -> OrderedDict:
     crowns = OrderedDict()
@@ -154,7 +154,10 @@ def extract_parts(monster) -> List[OrderedDict]:
         data["@Id"] = id if part.get("@Index") == None else part["@Index"]
         data["@String"] = get_equivalent_v2_name(part["@Name"])
 
-        if (part.get("@TenderizeIds") != None):
+        if part.get("@IsRemovable") is not None:
+            data["@IsSeverable"] = part.get("@IsRemovable")
+        
+        if part.get("@TenderizeIds") is not None:
             data["@TenderizeIds"] = part["@TenderizeIds"]
 
         parts["Part"].append(data)
@@ -192,7 +195,7 @@ def iterate_ailments(ailments: OrderedDict) -> OrderedDict:
 
 def generate_v2_data(ailments: List[OrderedDict], monsters: List[OrderedDict]) -> OrderedDict:
     ailmentsNode = OrderedDict(Ailment = ailments)
-    monstersNode = OrderedDict(Monsters = monsters)
+    monstersNode = OrderedDict(Monster = monsters)
 
     root = OrderedDict(GameData = OrderedDict(
         Ailments = ailmentsNode,
