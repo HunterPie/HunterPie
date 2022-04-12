@@ -425,7 +425,7 @@
 					 Description="옵션 활성화 시, HunterPie는 Discord 상태창에 헌터 랭크와 캐릭터 이름을 표시합니다."/>
 			<Setting Id="DRPC_ENABLE_SHOW_MONSTER_HEALTH"
 					 String="타겟 몬스터 체력 표시"
-					 Description="옵션 활성화 시, HunterPie는 Discord 상태창에 타켓 몬스터의 체력을 표시합니다."/>
+					 Description="옵션 활성화 시, HunterPie는 Discord 상태창에 타겟 몬스터의 체력을 표시합니다."/>
 			
 			<Setting Id="OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE"
 					 String="[단축키] 디자인 모드 전환"
@@ -436,7 +436,7 @@
 			
 			<Setting Id="INITIALIZE_WIDGET_STRING"
 					 String="위젯 사용"
-					 Description="옵션 활성화 시, 위젯을 사용합니다. 이 위젯을 원치 않는다면 옵션을 꺼두세요."/>
+					 Description="옵션 활성화 시, 위젯을 사용할 수 있도록 불러옵니다. 이 위젯을 원치 않는다면 옵션을 꺼두세요."/>
 			<Setting Id="ENABLE_WIDGET_STRING"
 					 String="위젯 표시"
 					 Description="옵션 활성화 시, 표시할 내용이 있다면 위젯에 표시합니다."/>
