@@ -155,7 +155,7 @@ def extract_parts(monster) -> List[OrderedDict]:
         data["@String"] = get_equivalent_v2_name(part["@Name"])
 
         if part.get("@IsRemovable") is not None:
-            data["@IsRemovable"] = part.get("@IsRemovable")
+            data["@IsSeverable"] = part.get("@IsRemovable")
         
         if part.get("@TenderizeIds") is not None:
             data["@TenderizeIds"] = part["@TenderizeIds"]
