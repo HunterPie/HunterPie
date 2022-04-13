@@ -4,9 +4,9 @@ using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.World.Entities;
-using HunterPie.Core.Logger;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +40,7 @@ namespace HunterPie.Core.Game.World
 
         [ScannableMethod]
         private void ScanMonsterDoubleLinkedList()
-        {
+        {   
             long doubleLinkedListHead = _process.Memory.Read(
                 AddressMap.GetAbsolute("MONSTER_ADDRESS"),
                 AddressMap.Get<int[]>("MONSTER_OFFSETS")

@@ -99,9 +99,9 @@ namespace HunterPie.Core.Game.World.Entities
                                         .Select(v => v.Item2)
                                         .ToArray<IMonsterPart>() ?? Array.Empty<IMonsterPart>();
 
-        public IMonsterAilment[] Ailments => _ailments
-                                                .Select(a => a.Item2)
-                                                .ToArray<IMonsterAilment>() ?? Array.Empty<IMonsterAilment>();
+        public IMonsterAilment[] Ailments => _ailments?
+                                              .Select(a => a.Item2)
+                                              .ToArray<IMonsterAilment>() ?? Array.Empty<IMonsterAilment>();
         public Target Target
         {
             get => _target;
