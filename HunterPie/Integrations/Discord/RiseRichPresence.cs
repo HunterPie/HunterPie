@@ -9,7 +9,7 @@ using HunterPie.Core.Client.Localization;
 
 namespace HunterPie.Integrations.Discord
 {
-    internal class RiseRichPresence : RichPresence
+    internal sealed class RiseRichPresence : RichPresence
     {
         private const string RISE_APP_ID = "932399108017242182";
 
@@ -26,20 +26,20 @@ namespace HunterPie.Integrations.Discord
 
             description = game.Player.StageId switch
             {
-                -1 => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_MAIN_MENU']"),
-                >= 0 and <= 4 => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_IDLE']"),
+                -1 => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_STATE_MAIN_MENU']"),
+                >= 0 and <= 4 => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_STATE_IDLE']"),
                 5 => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_PRACTICE']"),
                 207 => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_RAMPAGE']"),
                 199 => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_CHAR_SELECTION']"),
-                _ => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_EXPLORING']")
+                _ => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_STATE_EXPLORING']")
             };
 
             IMonster targetMonster = game.Monsters.FirstOrDefault(monster => monster.Target == Target.Self);
             if (targetMonster is not null)
             {
                 string descriptionString = Settings.ShowMonsterHealth
-                    ? Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_HUNTING']")
-                    : Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_HUNTING_NO_HEALTH']");
+                    ? Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_STATE_HUNTING']")
+                    : Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_STATE_HUNTING_NO_HEALTH']");
 
                 description = descriptionString
                     .Replace("{Monster}", targetMonster.Name)
@@ -47,8 +47,8 @@ namespace HunterPie.Integrations.Discord
             }
 
             string state = game.Player.Party.Size <= 1
-                ? Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_PARTY_STATE_SOLO_STRING']")
-                : Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_PARTY_STATE_GROUP_STRING']");
+                ? Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_PARTY_STATE_SOLO_STRING']")
+                : Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_PARTY_STATE_GROUP_STRING']");
 
             Presence.WithDetails(description)
                 .WithAssets(new Assets()

@@ -291,6 +291,43 @@
 			<Stage Id="210" String="Arena"/>
 			<Stage Id="211" String="Coral Palace"/>
 		</Rise>
+		<World>
+			<Stage Id="0" String="Main Menu"/>
+			<Stage Id="101" String="Ancient Forest"/>
+			<Stage Id="102" String="Wildspire Waste"/>
+			<Stage Id="103" String="Coral Highlands"/>
+			<Stage Id="104" String="Rotten Vale"/>
+			<Stage Id="105" String="Elder's Recess"/>
+			<Stage Id="106" String="Great Ravine"/>
+			<Stage Id="107" String="Great Ravine"/>
+			<Stage Id="108" String="Hoarfrost Reach"/>
+			<Stage Id="109" String="The Guiding Lands"/>
+			<Stage Id="201" String="Special Arena"/>
+			<Stage Id="202" String="Arena"/>
+			<Stage Id="203" String="Seliana Supply Cache"/>
+			<Stage Id="301" String="Astera"/>
+			<Stage Id="302" String="Astera Gathering Hub"/>
+			<Stage Id="303" String="Research Base"/>
+			<Stage Id="305" String="Seliana"/>
+			<Stage Id="306" String="Seliana Gathering Hub"/>
+			<Stage Id="401" String="Introduction"/>
+			<Stage Id="403" String="Everstream"/>
+			<Stage Id="405" String="Confluence of Fates"/>
+			<Stage Id="406" String="Ancient Forest"/>
+			<Stage Id="409" String="Caverns of El Dorado"/>
+			<Stage Id="411" String="Seliana Supply Cache"/>
+			<Stage Id="412" String="Origin Isle"/>
+			<Stage Id="413" String="Origin Isle"/>
+			<Stage Id="415" String="Secluded Valley"/>
+			<Stage Id="416" String="Secluded Valley"/>
+			<Stage Id="417" String="Castle Schrade"/>
+			<Stage Id="501" String="Living Quarters"/>
+			<Stage Id="502" String="Private Quarters"/>
+			<Stage Id="503" String="Private Suite"/>
+			<Stage Id="504" String="Training Area"/>
+			<Stage Id="505" String="Chamber of Five"/>
+			<Stage Id="506" String="Seliana Room"/>
+		</World>
 	</Stages>
 
 	<Client>
@@ -315,28 +352,37 @@
 					 String="There's a new version of HunterPie available!"/>
 		</Generics>
 		<Integrations>
+			<!-- Shared between games -->
+			<Discord Id="DRPC_STATE_HUNTING"
+					 String="Hunting {Monster} ({Percentage}%)"/>
+			<Discord Id="DRPC_STATE_HUNTING_NO_HEALTH"
+					 String="Hunting {Monster}"/>
+			<Discord Id="DRPC_STATE_MAIN_MENU"
+					 String="In Main Menu"/>
+			<Discord Id="DRPC_STATE_IDLE"
+					 String="Chilling"/>
+			<Discord Id="DRPC_STATE_EXPLORING"
+					 String="Exploring"/>
+			<Discord Id="DRPC_PARTY_STATE_SOLO_STRING"
+					 String="Solo"/>
+			<Discord Id="DRPC_PARTY_STATE_GROUP_STRING"
+					 String="In Party"/>
+
+			<!-- Rise -->
 			<Discord Id="DRPC_RISE_CHARACTER_STRING_FORMAT"
 					 String="{Character} | HR: {HighRank}"/>
-			<Discord Id="DRPC_RISE_STATE_MAIN_MENU"
-					 String="In Main Menu"/>
-			<Discord Id="DRPC_RISE_STATE_IDLE"
-					 String="Chilling"/>
 			<Discord Id="DRPC_RISE_STATE_PRACTICE"
 					 String="Practicing"/>
 			<Discord Id="DRPC_RISE_STATE_RAMPAGE"
 					 String="In Rampage"/>
 			<Discord Id="DRPC_RISE_STATE_CHAR_SELECTION"
 					 String="Selecting character"/>
-			<Discord Id="DRPC_RISE_STATE_EXPLORING"
-					 String="Exploring"/>
-			<Discord Id="DRPC_RISE_STATE_HUNTING"
-					 String="Hunting {Monster} ({Percentage}%)"/>
-			<Discord Id="DRPC_RISE_STATE_HUNTING_NO_HEALTH"
-					 String="Hunting {Monster}"/>
-			<Discord Id="DRPC_RISE_PARTY_STATE_SOLO_STRING"
-					 String="Solo"/>
-			<Discord Id="DRPC_RISE_PARTY_STATE_GROUP_STRING"
-					 String="In Party"/>
+
+			<!-- World -->
+			<Discord Id="DRPC_WORLD_CHARACTER_STRING_FORMAT"
+					 String="{Character} | HR: {HighRank} | MR: {MasterRank}"/>
+			<Discord Id="DRPC_WORLD_STATE_PRACTICE"
+					 String="Training"/>
 		</Integrations>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
