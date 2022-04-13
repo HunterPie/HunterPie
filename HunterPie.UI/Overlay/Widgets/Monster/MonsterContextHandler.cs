@@ -196,7 +196,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             return Context switch
             {
                 MHRMonster ctx => $"Rise_{ctx.Id:00}",
-                MHWMonster ctx => ctx.Em,
+                MHWMonster ctx => $"World_{ctx.Id:00}",
                 _ => throw new NotImplementedException("unreachable")
             };
         }
