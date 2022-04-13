@@ -10,6 +10,7 @@ using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.World.Definitions;
 using HunterPie.Core.Logger;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace HunterPie.Core.Game.World.Entities
@@ -28,6 +29,7 @@ namespace HunterPie.Core.Game.World.Entities
         private float _stamina;
         private readonly MHWMonsterAilment _enrage = new MHWMonsterAilment("STATUS_ENRAGE");
         private (long, MHWMonsterPart)[] _parts;
+        private List<(long, MHWMonsterAilment)> _ailments;
         #endregion
 
         public int Id
@@ -97,7 +99,9 @@ namespace HunterPie.Core.Game.World.Entities
                                         .Select(v => v.Item2)
                                         .ToArray<IMonsterPart>() ?? Array.Empty<IMonsterPart>();
 
-        public IMonsterAilment[] Ailments => Array.Empty<IMonsterAilment>();
+        public IMonsterAilment[] Ailments => _ailments
+                                                .Select(a => a.Item2)
+                                                .ToArray<IMonsterAilment>() ?? Array.Empty<IMonsterAilment>();
         public Target Target
         {
             get => _target;
@@ -336,6 +340,53 @@ namespace HunterPie.Core.Game.World.Entities
 
                 updatable = _parts[pIndex].Item2;
                 updatable.Update(partStructure);
+            }
+        }
+
+        [ScannableMethod]
+        private void GetMonsterAilments()
+        {
+            if (_ailments is null)
+            {
+                _ailments = new(32);
+                long monsterAilmentArrayElement = _address + 0x1BC40;
+                long monsterAilmentPtr = _process.Memory.Read<long>(monsterAilmentArrayElement);
+                
+                while (monsterAilmentPtr > 1)
+                {
+                    long currentMonsterAilmentPtr = monsterAilmentPtr;
+                    // Comment from V1 so I don't forget: There's a gap between the monsterAilmentPtr and the actual ailment data
+                    MHWMonsterAilmentStructure structure = _process.Memory.Read<MHWMonsterAilmentStructure>(currentMonsterAilmentPtr + 0x148);
+                    
+                    monsterAilmentArrayElement += sizeof(long);
+                    monsterAilmentPtr = _process.Memory.Read<long>(monsterAilmentArrayElement);
+                    
+                    if (structure.Owner != _address)
+                        break;
+
+                    AilmentDataSchema ailmentSchema = MonsterData.GetAilmentData(structure.Id);
+                    if (ailmentSchema.IsUnknown)
+                        continue;
+
+                    MHWMonsterAilment ailment = new MHWMonsterAilment(ailmentSchema.String);
+
+                    _ailments.Add((currentMonsterAilmentPtr, ailment));
+                    this.Dispatch(OnNewAilmentFound, ailment);
+
+                    IUpdatable<MHWMonsterAilmentStructure> updatable = ailment;
+                    updatable.Update(structure);
+                }
+
+                return;
+            }
+
+            for (int i = 0; i < _ailments.Count; i++)
+            {
+                var (address, ailment) = _ailments[i];
+
+                MHWMonsterAilmentStructure structure = _process.Memory.Read<MHWMonsterAilmentStructure>(address + 0x148);
+                IUpdatable<MHWMonsterAilmentStructure> updatable = ailment;
+                updatable.Update(structure);
             }
         }
     }

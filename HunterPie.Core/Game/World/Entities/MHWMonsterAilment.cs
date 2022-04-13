@@ -6,7 +6,7 @@ using System;
 
 namespace HunterPie.Core.Game.World.Entities
 {
-    public class MHWMonsterAilment : IMonsterAilment, IEventDispatcher, IUpdatable<MHWMonsterStatusStructure>
+    public class MHWMonsterAilment : IMonsterAilment, IEventDispatcher, IUpdatable<MHWMonsterStatusStructure>, IUpdatable<MHWMonsterAilmentStructure>
     {
         private int _counter;
         private float _timer;
@@ -66,7 +66,16 @@ namespace HunterPie.Core.Game.World.Entities
             MaxTimer = data.MaxDuration;
             Timer = data.Duration;
             MaxBuildUp = data.MaxBuildup;
-            BuildUp = data.BuildUp;
+            BuildUp = data.Buildup;
+            Counter = data.Counter;
+        }
+
+        void IUpdatable<MHWMonsterAilmentStructure>.Update(MHWMonsterAilmentStructure data)
+        {
+            MaxTimer = data.MaxDuration;
+            Timer = data.Duration;
+            MaxBuildUp = data.MaxBuildup;
+            BuildUp = data.Buildup;
             Counter = data.Counter;
         }
     }

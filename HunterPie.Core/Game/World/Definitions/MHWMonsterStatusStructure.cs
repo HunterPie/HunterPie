@@ -9,7 +9,7 @@ namespace HunterPie.Core.Game.World.Definitions
         public long Unk0;
         public int Unk1;
         public int IsActive;
-        public float BuildUp;
+        public float Buildup;
         public float DamageDone;
         public float Unk3;
         public float Duration;
