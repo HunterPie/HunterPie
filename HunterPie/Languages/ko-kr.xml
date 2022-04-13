@@ -291,6 +291,43 @@
 			<Stage Id="210" String="격투장"/>
 			<Stage Id="211" String="용궁성터"/>
 		</Rise>
+		<World>
+			<Stage Id="0" String="메인 메뉴"/>
+			<Stage Id="101" String="고대수의 숲"/>
+			<Stage Id="102" String="개밋둑의 황야"/>
+			<Stage Id="103" String="육산호의 대지"/>
+			<Stage Id="104" String="독기의 골짜기"/>
+			<Stage Id="105" String="용결정의 땅"/>
+			<Stage Id="106" String="대협곡"/>
+			<Stage Id="107" String="대협곡"/>
+			<Stage Id="108" String="바다 건너 극한지"/>
+			<Stage Id="109" String="인도하는 땅"/>
+			<Stage Id="201" String="특수 격투장"/>
+			<Stage Id="202" String="격투장"/>
+			<Stage Id="203" String="무기 보관소"/>
+			<Stage Id="301" String="조사거점 아스테라"/>
+			<Stage Id="302" String="아스테라 집회구역"/>
+			<Stage Id="303" String="연구기지"/>
+			<Stage Id="305" String="전선거점 세리에나"/>
+			<Stage Id="306" String="세리에나 집회구역"/>
+			<Stage Id="401" String="×화산룡전2"/>
+			<Stage Id="403" String="지맥 회랑"/>
+			<Stage Id="405" String="지맥이 모이는 땅"/>
+			<Stage Id="406" String="고대수의 숲"/>
+			<Stage Id="409" String="지맥의 황금향"/>
+			<Stage Id="411" String="무기 보관소"/>
+			<Stage Id="412" String="기원의 외딴 섬"/>
+			<Stage Id="413" String="기원의 외딴 섬"/>
+			<Stage Id="415" String="깊숙한 골짜기"/>
+			<Stage Id="416" String="깊숙한 골짜기"/>
+			<Stage Id="417" String="슈레이드성/>
+			<Stage Id="501" String="2등급 마이하우스"/>
+			<Stage Id="502" String="1등급 마이하우스"/>
+			<Stage Id="503" String="특등급 마이하우스"/>
+			<Stage Id="504" String="훈련구역"/>
+			<Stage Id="505" String="다섯 용의 방"/>
+			<Stage Id="506" String="조사 거점의 마이하우스"/>
+		</World>
 	</Stages>
 
 	<Client>
@@ -315,28 +352,37 @@
 					 String="HunterPie의 새로운 업데이트가 가능합니다!"/>
 		</Generics>
 		<Integrations>
-			<Discord Id="DRPC_RISE_CHARACTER_STRING_FORMAT"
-					 String="{Character} | HR: {HighRank}"/>
-			<Discord Id="DRPC_RISE_STATE_MAIN_MENU"
+			<!-- Shared between games -->
+			<Discord Id="DRPC_STATE_HUNTING"
+					 String="Hunting {Monster} ({Percentage}%)"/>
+			<Discord Id="DRPC_STATE_HUNTING_NO_HEALTH"
+					 String="Hunting {Monster}"/>
+			<Discord Id="DRPC_STATE_MAIN_MENU"
 					 String="메인 메뉴"/>
-			<Discord Id="DRPC_RISE_STATE_IDLE"
+			<Discord Id="DRPC_STATE_IDLE"
 					 String="휴식 중"/>
+			<Discord Id="DRPC_STATE_EXPLORING"
+					 String="탐색 중"/>
+			<Discord Id="DRPC_PARTY_STATE_SOLO_STRING"
+					 String="혼자 사냥 중"/>
+			<Discord Id="DRPC_PARTY_STATE_GROUP_STRING"
+					 String="파티 사냥 중"/>
+
+			<!-- Rise -->
+			<Discord Id="DRPC_RISE_CHARACTER_STRING_FORMAT"
+					 String="{Character} | HR: {HighRank}"/>		      
 			<Discord Id="DRPC_RISE_STATE_PRACTICE"
-					 String="수련장에서 연습 중"/>
+					 String="수련장에서 수련 중"/>
 			<Discord Id="DRPC_RISE_STATE_RAMPAGE"
 					 String="백룡야행 진행 중"/>
 			<Discord Id="DRPC_RISE_STATE_CHAR_SELECTION"
 					 String="캐릭터 선택 중"/>
-			<Discord Id="DRPC_RISE_STATE_EXPLORING"
-					 String="탐색 중"/>
-			<Discord Id="DRPC_RISE_STATE_HUNTING"
-					 String="{Monster} 사냥 중 ({Percentage}%)"/>
-			<Discord Id="DRPC_RISE_STATE_HUNTING_NO_HEALTH"
-					 String="{Monster} 사냥 중"/>
-			<Discord Id="DRPC_RISE_PARTY_STATE_SOLO_STRING"
-					 String="혼자 사냥 중"/>
-			<Discord Id="DRPC_RISE_PARTY_STATE_GROUP_STRING"
-					 String="파티 참여 중"/>
+
+			<!-- World -->
+			<Discord Id="DRPC_WORLD_CHARACTER_STRING_FORMAT"
+					 String="{Character} | HR: {HighRank} | MR: {MasterRank}"/>
+			<Discord Id="DRPC_WORLD_STATE_PRACTICE"
+					 String="훈련구역에서 훈련 중"/>
 		</Integrations>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
