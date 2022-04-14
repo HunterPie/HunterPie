@@ -5,7 +5,7 @@ namespace HunterPie.Core.Client
 {
     public class ClientConfig
     {
-        private const string ConfigName = "config.json";
+        public const string CONFIG_NAME = "config.json";
 
         private readonly Config _config = new Config();
         private static ClientConfig _instance;
@@ -18,7 +18,7 @@ namespace HunterPie.Core.Client
         private ClientConfig()
         {
             _instance = this;
-            ConfigManager.Register(ConfigName, _config);
+            ConfigManager.Register(CONFIG_NAME, _config);
 
             Log.Info("Initialized HunterPie Client configuration.");
         }
