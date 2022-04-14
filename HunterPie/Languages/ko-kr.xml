@@ -354,9 +354,9 @@
 		<Integrations>
 			<!-- Shared between games -->
 			<Discord Id="DRPC_STATE_HUNTING"
-					 String="Hunting {Monster} ({Percentage}%)"/>
+					 String="{Monster} 사냥 중({Percentage}%)"/>
 			<Discord Id="DRPC_STATE_HUNTING_NO_HEALTH"
-					 String="Hunting {Monster}"/>
+					 String="{Monster} 사냥 중"/>
 			<Discord Id="DRPC_STATE_MAIN_MENU"
 					 String="메인 메뉴"/>
 			<Discord Id="DRPC_STATE_IDLE"
@@ -370,7 +370,7 @@
 
 			<!-- Rise -->
 			<Discord Id="DRPC_RISE_CHARACTER_STRING_FORMAT"
-					 String="{Character} | HR: {HighRank}"/>		      
+					 String="{Character} | HR: {HighRank}"/>
 			<Discord Id="DRPC_RISE_STATE_PRACTICE"
 					 String="수련장에서 수련 중"/>
 			<Discord Id="DRPC_RISE_STATE_RAMPAGE"
@@ -571,15 +571,15 @@
 			
 			
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
-					 String="Developer: Mock Monster widget"/>
+					 String="개발자: 모의 몬스터 위젯"/>
 			<Setting Id="DEV_MOCK_DAMAGE_WIDGET_STRING"
-					 String="Developer: Mock Damage Meter widget"/>
+					 String="개발자: 모의 대미지 미터 위젯"/>
 			<Setting Id="DEV_MOCK_ABNORMALITY_WIDGET_STRING"
-					 String="Developer: Mock Abnormalities widget"/>
+					 String="개발자: 모의 효과 위젯"/>
 			<Setting Id="DEV_MOCK_WIREBUG_WIDGET_STRING"
-					 String="Developer: Mock Wirebug widget"/>
+					 String="개발자: 모의 밧줄벌레 위젯"/>
 			<Setting Id="DEV_POOGIE_API_HOST_STRING"
-					 String="Developer: Poogie API Host"/>
+					 String="개발자: Poogie API 호스트"/>
 		</Settings>
 	</Client>
 </Strings>
