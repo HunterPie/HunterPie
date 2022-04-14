@@ -120,7 +120,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         {
             IsLoadingIcon = true;
 
-            string imageName = BuildIconName();
+            string imageName = Em;
             string imagePath = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{imageName}.png");
 
             // If file doesn't exist locally, we can check for the CDN
@@ -129,17 +129,6 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 
             IsLoadingIcon = false;
             Icon = imagePath;
-        }
-
-        private string BuildIconName()
-        {
-            string monsterEm = Em;
-            bool isRise = Em.StartsWith("Rise");
-
-            if (!isRise)
-                monsterEm += "_ID";
-
-            return monsterEm;
         }
     }
 }
