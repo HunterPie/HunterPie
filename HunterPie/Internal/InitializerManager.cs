@@ -24,7 +24,7 @@ namespace HunterPie.Internal
             new UITracerInitializer(),
             new ClientLocalizationInitializer(),
             new SystemTrayInitializer(),
-
+            new ClientConfigBindingsInitializer(),
             // GUI
             new MenuInitializer(),
         };
