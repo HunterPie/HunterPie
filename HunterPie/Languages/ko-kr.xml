@@ -17,6 +17,16 @@
 			<Ailment Id="AILMENT_THUNDER" String="번개 속성 피해"/>
 			<Ailment Id="AILMENT_DUNG" String="비료옥"/>
 			<Ailment Id="AILMENT_TRANQUILIZE" String="포획 마취"/>
+			<Ailment Id="AILMENT_KNOCKDOWN" String="넘어짐"/>
+			<Ailment Id="AILMENT_SHOCKTRAP" String="마비 덫"/>
+			<Ailment Id="AILMENT_PITFALLTRAP" String="구멍 함정"/>
+			<Ailment Id="AILMENT_VINETRAP" String="넝쿨 함정"/>
+			<Ailment Id="AILMENT_ELDERSEAL" String="용봉력"/>
+			<Ailment Id="AILMENT_SMOKING" String="용속성 연기"/>
+			<Ailment Id="AILMENT_FELYNETRAP" String="벌레장 함정"/>
+			<Ailment Id="AILMENT_CLAW" String="클러치 공격 분노치"/>
+			<Ailment Id="AILMENT_CLAWFLINCH" String="클러치 경직"/>
+			<Ailment Id="AILMENT_BANISHINGBALL" String="탈주옥"/>
 			<Ailment Id="STATUS_ENRAGE" String="분노"/>
 		</Rise>
 	</Ailments>
