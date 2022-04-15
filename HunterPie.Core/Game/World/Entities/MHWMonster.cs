@@ -229,6 +229,8 @@ namespace HunterPie.Core.Game.World.Entities
             MHWMonsterStatusStructure enrageStructure = _process.Memory.Read<MHWMonsterStatusStructure>(_address + 0x1BE30);
             IUpdatable<MHWMonsterStatusStructure> enrage = _enrage;
 
+            IsEnraged = enrageStructure.Duration > 0;
+
             enrage.Update(enrageStructure);
         }
 

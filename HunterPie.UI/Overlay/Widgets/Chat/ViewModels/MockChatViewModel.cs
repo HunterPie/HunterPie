@@ -50,7 +50,7 @@ namespace HunterPie.UI.Overlay.Widgets.Chat.ViewModels
             {
                 Name = "General",
                 Description = "General chat",
-                Icon = Resources.Icon<ImageSource>("ICON_STAR")
+                Icon = Resources.Icon("ICON_STAR")
             };
 
             
