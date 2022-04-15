@@ -1,6 +1,5 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client.Configuration.Enums;
-using HunterPie.Core.Logger;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
 using System.Collections.Generic;
@@ -18,6 +17,9 @@ namespace HunterPie.Core.Client.Configuration.Overlay
 
         [SettingField("ENABLE_WIDGET_STRING")]
         public Observable<bool> Enabled { get; set; } = true;
+
+        [SettingField("ABNORMALITY_GAME_TYPE")]
+        public Observable<GameType> Game { get; set; } = GameType.Rise;
 
         [SettingField("HIDE_WHEN_UI_VISIBLE_STRING")]
         public Observable<bool> HideWhenUiOpen { get; set; } = false;
