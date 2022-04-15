@@ -17,6 +17,16 @@
 			<Ailment Id="AILMENT_THUNDER" String="Thunderblight"/>
 			<Ailment Id="AILMENT_DUNG" String="Dung Bomb"/>
 			<Ailment Id="AILMENT_TRANQUILIZE" String="Tranquilize"/>
+			<Ailment Id="AILMENT_KNOCKDOWN" String="Knockdown"/>
+			<Ailment Id="AILMENT_SHOCKTRAP" String="Shock Trap"/>
+			<Ailment Id="AILMENT_PITFALLTRAP" String="Pitfall Trap"/>
+			<Ailment Id="AILMENT_VINETRAP" String="Vine Trap"/>
+			<Ailment Id="AILMENT_ELDERSEAL" String="Elderseal"/>
+			<Ailment Id="AILMENT_SMOKING" String="Smoking"/>
+			<Ailment Id="AILMENT_FELYNETRAP" String="Felyne Trap"/>
+			<Ailment Id="AILMENT_CLAW" String="Clutch Claw"/>
+			<Ailment Id="AILMENT_CLAWFLINCH" String="Claw Flinch"/>
+			<Ailment Id="AILMENT_BANISHINGBALL" String="Banishing Ball"/>
 			<Ailment Id="STATUS_ENRAGE" String="Enrage"/>
 		</Rise>
 	</Ailments>
