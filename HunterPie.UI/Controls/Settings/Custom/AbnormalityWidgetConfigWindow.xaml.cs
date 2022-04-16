@@ -17,6 +17,8 @@ namespace HunterPie.UI.Controls.Settings.Custom
     /// </summary>
     public partial class AbnormalityWidgetConfigWindow : Window, INotifyPropertyChanged
     {
+        // TODO: Separate View from ViewModel
+
         private AbnormalityCollectionViewModel _selectedElement;
 
         public ObservableCollection<AbnormalityCollectionViewModel> Collections { get; } = new();

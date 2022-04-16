@@ -72,13 +72,21 @@
                            Background="{StaticResource HUNTERPIE_ACCENT_COLOR}"
                            OnClick="OnStartGameClick">
                 <native:Button.Content>
-                    <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}">
-                        <Run Text="▶"
-                             FontSize="30"/>
-                        <Run Text="LAUNCH GAME"
-                             BaselineAlignment="Center"
-                             FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
-                    </TextBlock>
+                    <Grid>
+                        <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}">
+                            <Run Text="▶"
+                                 FontSize="30"/>
+                            <Run Text="LAUNCH GAME"
+                                 BaselineAlignment="Center"
+                                 FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+                        </TextBlock>
+                        <TextBlock Text="Monster Hunter: World"
+                                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARKER}"
+                                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                   FontSize="10"
+                                   VerticalAlignment="Bottom"
+                                   HorizontalAlignment="Right"/>
+                    </Grid>                    
                 </native:Button.Content>
             </native:Button>
 

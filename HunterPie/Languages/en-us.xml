@@ -431,7 +431,10 @@
 					 Description="Consumable abnormalities"/>
 			<Setting Id="ABNORMALITY_DEBUFFS_STRING"
 					 String="Debuffs"
-					 Description="Debuffs abnormalities"/>]
+					 Description="Debuffs abnormalities"/>
+			<Setting Id="ABNORMALITY_PALICO_STRING"
+					 String="Orchestra"
+					 Description="Orchestra abnormalities"/>
 			<Setting Id="ABNORMALITY_SKILLS_STRING"
 					 String="Armor skills"
 					 Description="Armor skill abnormalities"/>
