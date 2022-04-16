@@ -18,14 +18,16 @@ namespace HunterPie.UI.Controls.Settings.Custom.Abnormality
         private const string ALL_ABNORMALITIES_QUERY = "//Abnormalities/*/Abnormality";
 
         private const string ICON_SONGS = "ICON_SELFIMPROVEMENT";
+        private const string ICON_PALICO = "ICON_ORCHESTRA";
         private const string ICON_CONSUMABLES = "ITEM_DEMONDRUG";
         private const string ICON_DEBUFFS = "ICON_VENOM";
-        private const string ICON_SKILLS = "ICON_ARMORSKILL_WHITE";
+        private const string ICON_SKILLS = "ICON_BUILD";
         private const string ICON_FOODS = "ICON_DANGO";
 
         private static readonly Dictionary<string, ImageSource> Icons = new Dictionary<string, ImageSource>()
         {
             { "Songs", Resources.Icon(ICON_SONGS) },
+            { "Palico", Resources.Icon(ICON_PALICO) },
             { "Consumables", Resources.Icon(ICON_CONSUMABLES) },
             { "Debuffs", Resources.Icon(ICON_DEBUFFS) },
             { "Skills", Resources.Icon(ICON_SKILLS) },
