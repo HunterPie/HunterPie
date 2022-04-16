@@ -3,6 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:part="clr-namespace:HunterPie.GUI.Parts"
         xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
+        xmlns:client="clr-namespace:HunterPie.Core.Client;assembly=HunterPie.Core"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:sidebar="clr-namespace:HunterPie.GUI.Parts.Sidebar"
         xmlns:host="clr-namespace:HunterPie.GUI.Parts.Host"
         Title="HunterPie v2" 
@@ -18,7 +22,11 @@
         SnapsToDevicePixels="True"
         UseLayoutRounding="True" 
         KeyDown="OnKeyDown"
-        WindowStyle="SingleBorderWindow">
+        WindowStyle="SingleBorderWindow"
+        mc:Ignorable="d">
+    <Window.Resources>
+        <converters:GameTypeToGameNameConverter x:Key="GameTypeToGameNameConverter"/>
+    </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"
                       CornerRadius="0"
@@ -80,8 +88,9 @@
                                  BaselineAlignment="Center"
                                  FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
                         </TextBlock>
-                        <TextBlock Text="Monster Hunter: World"
-                                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARKER}"
+                        <TextBlock d:Text="Monster Hunter: World"
+                                   Text="{Binding Client.DefaultGameType.Value ,Source={x:Static client:ClientConfig.Config}, Converter={StaticResource GameTypeToGameNameConverter}}"
+                                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                    FontSize="10"
                                    VerticalAlignment="Bottom"

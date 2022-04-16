@@ -34,7 +34,15 @@
 		<Abnormality Id="ABNORMALITY_UNKNOWN" String="Unknown"/>
 		<Abnormality Id="ABNORMALITY_SELF_IMPROVEMENT" String="Self-Improvement"/>
 		<Abnormality Id="ABNORMALITY_ATTACK_UP" String="Attack Up"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_UP_L" String="Attack Up (L)"/>
+		<Abnormality Id="ABNORMALITY_HEALTH_BOOST" String="Health Boost"/>
+		<Abnormality Id="ABNORMALITY_HEALTH_BOOST_L" String="Health Boost (L)"/>
 		<Abnormality Id="ABNORMALITY_DEFENSE_UP" String="Defense Up"/>
+		<Abnormality Id="ABNORMALITY_DEFENSE_UP_L" String="Defense Up (L)"/>
+		<Abnormality Id="ABNORMALITY_TOOL_USE_RED" String="Tool Use Drain Red."/>
+		<Abnormality Id="ABNORMALITY_TOOL_USE_RED_L" String="Tool Use Drain Red. (L)"/>
+		<Abnormality Id="ABNORMALITY_HEALTH_REC" String="Health Rec."/>
+		<Abnormality Id="ABNORMALITY_HEALTH_REC_L" String="Health Rec. (L)"/>
 		<Abnormality Id="ABNORMALITY_AFFINITY_UP" String="Affinity Up"/>
 		<Abnormality Id="ABNORMALITY_ELEMENTAL_ATTACK_UP" String="Elemental Attack Up"/>
 		<Abnormality Id="ABNORMALITY_ATTACK_DEF_UP" String="Attack and Def. Up"/>
@@ -43,12 +51,19 @@
 		<Abnormality Id="ABNORMALITY_EARPLUG" String="Earplugs (S)"/>
 		<Abnormality Id="ABNORMALITY_EARPLUG_PLUS" String="Earplugs (L)"/>
 		<Abnormality Id="ABNORMALITY_TREMORS_NEG" String="Tremors Negated"/>
-		<Abnormality Id="ABNORMALITY_WIND_PRESSURE_PLUS" String="Wind Pressure Negated"/>
+		<Abnormality Id="ABNORMALITY_DEEP_RESISTANCE" String="Muck/Water/Deep Snow Resistance"/>
+		<Abnormality Id="ABNORMALITY_FIRE_RESISTANCE" String="Fire Res. Up"/>
+		<Abnormality Id="ABNORMALITY_FIRE_RESISTANCE_L" String="Fire Res. Up (L)"/>
+		<Abnormality Id="ABNORMALITY_WIND_PRESSURE" String="Wind Pressure Negated"/>
+		<Abnormality Id="ABNORMALITY_WIND_PRESSURE_PLUS" String="All Wind Pressure Negated"/>
 		<Abnormality Id="ABNORMALITY_STUN_NEG" String="Stun Negated"/>
+		<Abnormality Id="ABNORMALITY_PARALYSIS_NEG" String="Paralysis Negated"/>
 		<Abnormality Id="ABNORMALITY_BLIGHT_NEG" String="Blights Negated"/>
 		<Abnormality Id="ABNORMALITY_DIVINE_PROTECTION" String="Divine Protection"/>
+		<Abnormality Id="ABNORMALITY_SCOUTFLY" String="Scoutfly Power Up"/>
 		<Abnormality Id="ABNORMALITY_HEALTH_REGEN" String="Health Regeneration"/>
 		<Abnormality Id="ABNORMALITY_STAMINA_USE_RED" String="Stamina Use Reduced"/>
+		<Abnormality Id="ABNORMALITY_STAMINA_USE_RED_L" String="Stamina Use Reduced (L)"/>
 		<Abnormality Id="ABNORMALITY_STAMINA_REC_UP" String="Stamina Recov. Up"/>
 		<Abnormality Id="ABNORMALITY_SHARPNESS_RED" String="Sharpness Loss Reduced"/>
 		<Abnormality Id="ABNORMALITY_ENV_NEG" String="Env. Damage Negated"/>

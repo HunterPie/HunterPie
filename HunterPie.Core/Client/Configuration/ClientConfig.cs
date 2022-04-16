@@ -24,6 +24,9 @@ namespace HunterPie.Core.Client.Configuration
         [SettingField("MINIMIZE_TO_SYSTEM_TRAY_STRING")]
         public Observable<bool> MinimizeToSystemTray { get; set; } = true;
 
+        [SettingField("DEFAULT_RUN_GAME_TYPE")]
+        public Observable<GameType> DefaultGameType { get; set; } = GameType.Rise;
+
         [SettingField("SEAMLESS_STARTUP_STRING")]
         public Observable<bool> EnableSeamlessStartup { get; set; } = false;
 

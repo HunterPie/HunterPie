@@ -1,3 +1,4 @@
+from calendar import c
 from collections import OrderedDict
 import requests
 import xmltodict
@@ -33,6 +34,8 @@ def save_v2_data(data: OrderedDict):
     with open("output/out_abnormality_data_v2.xml", "w") as output:
         xmltodict.unparse(data, output, 'UTF-8', pretty = True, short_empty_elements = True)
 
+    logger.info("Saved abnormality data")
+
 def build_v2_id(offset: str, condition_offset: str) -> str:
     if condition_offset is not None:
         offset += f"-{int(condition_offset):X}"
@@ -54,16 +57,19 @@ def iterate_abnormalities(document: OrderedDict) -> OrderedDict:
             abnormalities["Abnormalities"][niceCategory] = OrderedDict(Abnormality = [])
 
         for v1_abnormality in document[category]["Abnormality"]:
-            logger.info(v1_abnormality)
             v2_abnorm_struct = OrderedDict()
             v2_abnorm_struct["@Id"] = build_v2_id(v1_abnormality["@Offset"], v1_abnormality.get("@ConditionOffset"))
-            v2_abnorm_struct["@Offset"] = v1_abnormality["@Offset"]
+
+            if (v1_abnormality["@Offset"] != v2_abnorm_struct["@Id"]):
+                v2_abnorm_struct["@Offset"] = v1_abnormality["@Offset"]
 
             if v1_abnormality.get("@ConditionOffset") is not None:
                 v2_abnorm_struct["@DependsOn"] = calculate_condition(v1_abnormality["@Offset"], v1_abnormality.get("@ConditionOffset"))
 
             v2_abnorm_struct["@Icon"] = v1_abnormality.get("@Icon")
             abnormalities["Abnormalities"][niceCategory]["Abnormality"].append(v2_abnorm_struct)
+        
+        logger.info(f"Converted {len(document[category]['Abnormality'])} abnormalities from category {niceCategory}")
     return abnormalities
 
 def generate_v2_data(abnormalities: OrderedDict) -> OrderedDict:
