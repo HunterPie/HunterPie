@@ -247,6 +247,7 @@ namespace HunterPie.Core.Game.World.Entities
             MHWAbnormalityStructure[] abnormalities = _process.Memory.Read<MHWAbnormalityStructure>(abnormalityBaseAddress + 0x38, 75);
 
             GetHuntingHornAbnormalities(abnormalities);
+            GetOrchestraAbnormalities(abnormalities);
         }
 
         private void GetHuntingHornAbnormalities(MHWAbnormalityStructure[] buffs)
@@ -258,6 +259,21 @@ namespace HunterPie.Core.Game.World.Entities
             {
                 // We can calculate the index of the abnormality based on their offset and the size of a float
                 int index = (abnormalitySchema.Offset - offsetFirstAbnormality) / sizeof(float);
+                MHWAbnormalityStructure structure = buffs[index];
+
+                HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
+            }
+        }
+
+        private void GetOrchestraAbnormalities(MHWAbnormalityStructure[] buffs)
+        {
+            AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Orchestra);
+            int offsetFirstAbnormality = abnormalitySchemas[0].Offset;
+            int indexFirstOrchestraAbnormality = (offsetFirstAbnormality - 0x38) / sizeof(float);
+
+            foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+            {
+                int index = (abnormalitySchema.Offset - offsetFirstAbnormality) / sizeof(float) + indexFirstOrchestraAbnormality;
                 MHWAbnormalityStructure structure = buffs[index];
 
                 HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
