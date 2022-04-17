@@ -1,13 +1,14 @@
 <img src="https://cdn.hunterpie.com/Static/banner2-0.png"/>
 
-[![Discord](https://img.shields.io/discord/678286768046342147?color=7289DA&label=Discord&logo=discord&logoColor=white&style=flat-square)](https://discord.gg/5pdDq4Q)
+[![Discord](https://img.shields.io/discord/678286768046342147?color=7289DA&label=Discord&logo=discord&logoColor=white&style=for-the-badge)](https://discord.gg/5pdDq4Q)
+[![Paypal](https://img.shields.io/badge/donate-Paypal-blue.svg?color=62b2fc&style=for-the-badge&label=Donate)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F2QA6HEQZ366A&source=url)
+[![Patreon](https://img.shields.io/badge/Support-Patreon-blue.svg?color=fc8362&style=for-the-badge&logo=patreon&logoColor=white)](https://www.patreon.com/HunterPie)
 
-[![Paypal](https://img.shields.io/badge/donate-Paypal-blue.svg?color=62b2fc&style=flat-square&label=Donate)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F2QA6HEQZ366A&source=url)
-[![Patreon](https://img.shields.io/badge/Support-Patreon-blue.svg?color=fc8362&style=flat-square&logo=patreon&logoColor=white)](https://www.patreon.com/HunterPie)
+[![GitHub license](https://img.shields.io/github/license/Haato3o/HunterPie-v2?color=c20067&style=for-the-badge)](https://github.com/Haato3o/HunterPie-v2/blob/main/LICENSE)
 
-[![GitHub license](https://img.shields.io/github/license/Haato3o/HunterPie-v2?color=c20067&style=flat-square)](https://github.com/Haato3o/HunterPie-v2/blob/main/LICENSE)
+[![Version](https://img.shields.io/badge/dynamic/json?color=%2303a9fc&label=Version&prefix=v&query=latest_version&url=https%3A%2F%2Fapi.hunterpie.com%2Fv1%2Fversion&style=for-the-badge)](https://www.nexusmods.com/monsterhunterrise/mods/181)
+
 [![wakatime](https://wakatime.com/badge/github/Haato3o/HunterPie.svg)](https://wakatime.com/badge/github/Haato3o/HunterPie)
-
 # HunterPie
 
 ## About
