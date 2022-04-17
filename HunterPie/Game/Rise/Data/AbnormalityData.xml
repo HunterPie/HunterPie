@@ -35,7 +35,7 @@
                      Name="ABNORMALITY_TREMORS_NEG"
                      Icon="ICON_TREMORNEG"/>
         <Abnormality Id="11"
-                     Name="ABNORMALITY_WIND_PRESSURE_PLUS"
+                     Name="ABNORMALITY_WIND_PRESSURE"
                      Icon="ICON_WINDRES+"/>
         <Abnormality Id="12"
                      Name="ABNORMALITY_STUN_NEG"
