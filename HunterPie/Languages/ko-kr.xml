@@ -34,7 +34,15 @@
 		<Abnormality Id="ABNORMALITY_UNKNOWN" String="알 수 없음"/>
 		<Abnormality Id="ABNORMALITY_SELF_IMPROVEMENT" String="자기 강화"/>
 		<Abnormality Id="ABNORMALITY_ATTACK_UP" String="공격력 UP"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_UP_L" String="공격력 UP (대)"/>
+		<Abnormality Id="ABNORMALITY_HEALTH_BOOST" String="체력 UP"/>
+		<Abnormality Id="ABNORMALITY_HEALTH_BOOST_L" String="체력 UP (대)"/>
 		<Abnormality Id="ABNORMALITY_DEFENSE_UP" String="방어력 UP"/>
+		<Abnormality Id="ABNORMALITY_DEFENSE_UP_L" String="방어력 UP (대)"/>
+		<Abnormality Id="ABNORMALITY_TOOL_USE_RED" String="특수 장비 소비 경감"/>
+		<Abnormality Id="ABNORMALITY_TOOL_USE_RED_L" String="특수 장비 소비 경감 (대)"/>
+		<Abnormality Id="ABNORMALITY_HEALTH_REC" String="체력 회복"/>
+		<Abnormality Id="ABNORMALITY_HEALTH_REC_L" String="체력 회복 (대)"/>
 		<Abnormality Id="ABNORMALITY_AFFINITY_UP" String="회심률 UP"/>
 		<Abnormality Id="ABNORMALITY_ELEMENTAL_ATTACK_UP" String="속성 공격력 UP"/>
 		<Abnormality Id="ABNORMALITY_ATTACK_DEF_UP" String="공격력&amp;방어력 UP"/>
@@ -43,12 +51,19 @@
 		<Abnormality Id="ABNORMALITY_EARPLUG" String="청각 보호 (소)"/>
 		<Abnormality Id="ABNORMALITY_EARPLUG_PLUS" String="청각 보호 (대)"/>
 		<Abnormality Id="ABNORMALITY_TREMORS_NEG" String="진동 무효"/>
-		<Abnormality Id="ABNORMALITY_WIND_PRESSURE_PLUS" String="풍압 무효"/>
+		<Abnormality Id="ABNORMALITY_DEEP_RESISTANCE" String="진흙 경감&amp;물가/쌓인 눈 적응"/>
+		<Abnormality Id="ABNORMALITY_FIRE_RESISTANCE" String="불속성 방어 강화"/>
+		<Abnormality Id="ABNORMALITY_FIRE_RESISTANCE_L" String="불속성 방어 강화 (대)"/>
+		<Abnormality Id="ABNORMALITY_WIND_PRESSURE" String="풍압 무효"/>
+		<Abnormality Id="ABNORMALITY_WIND_PRESSURE_PLUS" String="풍압 완전 무효"/>
 		<Abnormality Id="ABNORMALITY_STUN_NEG" String="기절 무효"/>
+		<Abnormality Id="ABNORMALITY_PARALYSIS_NEG" String="마비 무효"/>
 		<Abnormality Id="ABNORMALITY_BLIGHT_NEG" String="모든 속성 피해 무효"/>
 		<Abnormality Id="ABNORMALITY_DIVINE_PROTECTION" String="정령왕의 가호"/>
+		<Abnormality Id="ABNORMALITY_SCOUTFLY" String="안내벌레 추적력 강화"/>
 		<Abnormality Id="ABNORMALITY_HEALTH_REGEN" String="체력 지속 회복"/>
 		<Abnormality Id="ABNORMALITY_STAMINA_USE_RED" String="스태미나 소비 경감"/>
+		<Abnormality Id="ABNORMALITY_STAMINA_USE_RED_L" String="스태미나 소비 경감 (대)"/>
 		<Abnormality Id="ABNORMALITY_STAMINA_REC_UP" String="스태미나 회복 속도 UP"/>
 		<Abnormality Id="ABNORMALITY_SHARPNESS_RED" String="예리도 소비 경감"/>
 		<Abnormality Id="ABNORMALITY_ENV_NEG" String="지형 대미지 무효"/>
