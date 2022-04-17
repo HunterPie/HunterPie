@@ -99,7 +99,6 @@
 		<Abnormality Id="110" Icon="ICON_EXT_HEALTHRECOVERY"/>
 		<Abnormality Id="114" Icon="ICON_EVASION"/>
 		<Abnormality Id="118" Icon="ICON_ALLRESUP"/>
-		<Abnormality Id="118" Icon="ICON_ELEATTACKUP"/>
 	</Songs>
 	<Palico>
 		<Abnormality Id="11C" Icon="ICON_EVASION"/>
@@ -133,9 +132,9 @@
 		<Abnormality Id="608" Icon="ICON_EFFLUVIA"/>
 		<Abnormality Id="60C" Icon="ICON_DEFDOWN"/>
 		<Abnormality Id="614" Icon="ICON_ALLRESDOWN"/>
-		<Abnormality Id="61C" Icon="None"/>
+		<Abnormality Id="61C"/>
 		<Abnormality Id="620" Icon="ICON_BLAST"/>
-		<Abnormality Id="63C--10" Offset="63C" DependsOn="62C" Icon="ICON_BLASTSCOURGE"/>
+		<Abnormality Id="63C-10" Offset="63C" DependsOn="62C" Icon="ICON_BLASTSCOURGE"/>
 	</Debuffs>
 	<Consumables>
 		<Abnormality Id="690" Icon="ITEM_DASH"/>
@@ -165,7 +164,7 @@
 		<Abnormality Id="730" Icon="ICON_ELEATTACKUP"/>
 		<Abnormality Id="738" Icon="ICON_AFFINITY"/>
 		<Abnormality Id="754" Icon="ICON_ARMORSKILL_SALMON"/>
-		<Abnormality Id="7C8" Icon="None"/>
+		<Abnormality Id="7C8"/>
 		<Abnormality Id="788" Icon="ICON_ARMORSKILL_WHITE"/>
 		<Abnormality Id="79C" Icon="ICON_ATTACKUP"/>
 		<Abnormality Id="7A0" Icon="ICON_ARMORSKILL_PURPLE"/>
