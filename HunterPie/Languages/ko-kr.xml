@@ -54,11 +54,24 @@
 		<Abnormality Id="ABNORMALITY_DEEP_RESISTANCE" String="진흙 경감&amp;물가/쌓인 눈 적응"/>
 		<Abnormality Id="ABNORMALITY_FIRE_RESISTANCE" String="불속성 방어 강화"/>
 		<Abnormality Id="ABNORMALITY_FIRE_RESISTANCE_L" String="불속성 방어 강화 (대)"/>
+		<Abnormality Id="ABNORMALITY_WATER_RESISTANCE" String="물속성 방어 강화"/>
+		<Abnormality Id="ABNORMALITY_WATER_RESISTANCE_L" String="물속성 방어 강화 (대)"/>
+		<Abnormality Id="ABNORMALITY_THUNDER_RESISTANCE" String="번개속성 방어 강화"/>
+		<Abnormality Id="ABNORMALITY_THUNDER_RESISTANCE_L" String="번개속성 방어 강화 (대)"/>
+		<Abnormality Id="ABNORMALITY_ICE_RESISTANCE" String="얼음속성 방어 강화"/>
+		<Abnormality Id="ABNORMALITY_ICE_RESISTANCE_L" String="얼음속성 방어 강화 (대)"/>
+		<Abnormality Id="ABNORMALITY_DRAGON_RESISTANCE" String="용속성 방어 강화"/>
+		<Abnormality Id="ABNORMALITY_DRAGON_RESISTANCE_L" String="용속성 방어 강화 (대)"/>
+		<Abnormality Id="ABNORMALITY_ALL_RES_UP" String="모든 속성 내성치 UP"/>
 		<Abnormality Id="ABNORMALITY_WIND_PRESSURE" String="풍압 무효"/>
 		<Abnormality Id="ABNORMALITY_WIND_PRESSURE_PLUS" String="풍압 완전 무효"/>
+		<Abnormality Id="ABNORMALITY_ABNORM_ATTACK_UP" String="상태 이상 공격력 UP (소)"/>
+		<Abnormality Id="ABNORMALITY_MAX_STAM_RECOVERY" String="스태미나 최대치 UP&amp;회복"/>
+		<Abnormality Id="ABNORMALITY_EXT_HEALTH_RECOVERY" String="체력 지속 회복"/>
 		<Abnormality Id="ABNORMALITY_STUN_NEG" String="기절 무효"/>
 		<Abnormality Id="ABNORMALITY_PARALYSIS_NEG" String="마비 무효"/>
 		<Abnormality Id="ABNORMALITY_BLIGHT_NEG" String="모든 속성 피해 무효"/>
+		<Abnormality Id="ABNORMALITY_AILMENTS_NEG" String="모든 상태 이상 무효"/>
 		<Abnormality Id="ABNORMALITY_DIVINE_PROTECTION" String="정령왕의 가호"/>
 		<Abnormality Id="ABNORMALITY_SCOUTFLY" String="안내벌레 추적력 강화"/>
 		<Abnormality Id="ABNORMALITY_HEALTH_REGEN" String="체력 지속 회복"/>
@@ -69,6 +82,12 @@
 		<Abnormality Id="ABNORMALITY_ENV_NEG" String="지형 대미지 무효"/>
 		<Abnormality Id="ABNORMALITY_SONIC_BARRIER" String="소리 방벽"/>
 		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="기염의 선율"/>
+		<Abnormality Id="ABNORMALITY_SPEED_EVADE_UP" String="자기 강화 [속]&amp;회피 성능 UP"/>
+		<Abnormality Id="ABNORMALITY_ALL_RES_ELEMENT_ATTACK" String="속성계 효과 UP"/>
+		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="기염의 선율"/>
+		
+		<Abnormality Id="ABNORMALITY_RESUSCITATE" String="꿀벌레 근성"/>
+		<Abnormality Id="ABNORMALITY_WINDPROOF" String="풍압 무효"/>
 		
 		<Abnormality Id="ABNORMALITY_MIGHT_SEED" String="괴력씨앗"/>
 		<Abnormality Id="ABNORMALITY_BUTTERFLAME" String="불꽃 나비"/>
@@ -107,12 +126,15 @@
 		<Abnormality Id="ABNORMALITY_STENCH" String="일부 아이템 사용 불가"/>
 		<Abnormality Id="ABNORMALITY_HELLFIRE" String="귀화 피해"/>
 		<Abnormality Id="ABNORMALITY_BLAST" String="폭파 피해"/>
+		<Abnormality Id="ABNORMALITY_BLASTSCOURGE" String="강폭파 피해"/>
 		<Abnormality Id="ABNORMALITY_FIRE" String="불속성 피해"/>
 		<Abnormality Id="ABNORMALITY_WATER" String="물속성 피해"/>
 		<Abnormality Id="ABNORMALITY_ICE" String="얼음속성 피해"/>
 		<Abnormality Id="ABNORMALITY_THUNDER" String="번개속성 피해"/>
 		<Abnormality Id="ABNORMALITY_DRAGON" String="용속성 피해"/>
 		<Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="거품 상태"/>
+		<Abnormality Id="ABNORMALITY_BLEED" String="열상 상태"/>
+		<Abnormality Id="ABNORMALITY_EFFLUVIA" String="독기 침식 상태"/>
 	</Abnormalities>
 	<Monsters>
 		<Shared>
