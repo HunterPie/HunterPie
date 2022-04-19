@@ -33,6 +33,7 @@ namespace HunterPie.Core.Game
             {
                 case "MonsterHunterWorld":
                     MonsterData.Init(ClientInfo.GetPathFor("Game/World/Data/MonsterData.xml"));
+                    AbnormalityData.Init(ClientInfo.GetPathFor("Game/World/Data/AbnormalityData.xml"));
                     return true;
                 case "MonsterHunterRise":
                     MonsterData.Init(ClientInfo.GetPathFor("Game/Rise/Data/MonsterData.xml"));

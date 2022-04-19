@@ -54,11 +54,24 @@
 		<Abnormality Id="ABNORMALITY_DEEP_RESISTANCE" String="Muck/Water/Deep Snow Resistance"/>
 		<Abnormality Id="ABNORMALITY_FIRE_RESISTANCE" String="Fire Res. Up"/>
 		<Abnormality Id="ABNORMALITY_FIRE_RESISTANCE_L" String="Fire Res. Up (L)"/>
+		<Abnormality Id="ABNORMALITY_WATER_RESISTANCE" String="Water Res. Up"/>
+		<Abnormality Id="ABNORMALITY_WATER_RESISTANCE_L" String="Water Res. Up (L)"/>
+		<Abnormality Id="ABNORMALITY_THUNDER_RESISTANCE" String="Thunder Res. Up"/>
+		<Abnormality Id="ABNORMALITY_THUNDER_RESISTANCE_L" String="Thunder Res. Up (L)"/>
+		<Abnormality Id="ABNORMALITY_ICE_RESISTANCE" String="Ice Res. Up"/>
+		<Abnormality Id="ABNORMALITY_ICE_RESISTANCE_L" String="Ice Res. Up (L)"/>
+		<Abnormality Id="ABNORMALITY_DRAGON_RESISTANCE" String="Dragon Res. Up"/>
+		<Abnormality Id="ABNORMALITY_DRAGON_RESISTANCE_L" String="Dragon Res. Up (L)"/>
+		<Abnormality Id="ABNORMALITY_ALL_RES_UP" String="All Res. Up"/>
 		<Abnormality Id="ABNORMALITY_WIND_PRESSURE" String="Wind Pressure Negated"/>
 		<Abnormality Id="ABNORMALITY_WIND_PRESSURE_PLUS" String="All Wind Pressure Negated"/>
+		<Abnormality Id="ABNORMALITY_ABNORM_ATTACK_UP" String="Abnormal Status Atk. Up (S)"/>
+		<Abnormality Id="ABNORMALITY_MAX_STAM_RECOVERY" String="Max Stamina Up + Recovery"/>
+		<Abnormality Id="ABNORMALITY_EXT_HEALTH_RECOVERY" String="Extended Health Recovery"/>
 		<Abnormality Id="ABNORMALITY_STUN_NEG" String="Stun Negated"/>
 		<Abnormality Id="ABNORMALITY_PARALYSIS_NEG" String="Paralysis Negated"/>
 		<Abnormality Id="ABNORMALITY_BLIGHT_NEG" String="Blights Negated"/>
+		<Abnormality Id="ABNORMALITY_AILMENTS_NEG" String="All Ailments Negated"/>
 		<Abnormality Id="ABNORMALITY_DIVINE_PROTECTION" String="Divine Protection"/>
 		<Abnormality Id="ABNORMALITY_SCOUTFLY" String="Scoutfly Power Up"/>
 		<Abnormality Id="ABNORMALITY_HEALTH_REGEN" String="Health Regeneration"/>
@@ -69,6 +82,12 @@
 		<Abnormality Id="ABNORMALITY_ENV_NEG" String="Env. Damage Negated"/>
 		<Abnormality Id="ABNORMALITY_SONIC_BARRIER" String="Sonic Barrier"/>
 		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Infernal Melody"/>
+		<Abnormality Id="ABNORMALITY_SPEED_EVADE_UP" String="Speed Boost + Evade Window Up"/>
+		<Abnormality Id="ABNORMALITY_ALL_RES_ELEMENT_ATTACK" String="Elemental Effectiveness"/>
+		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Infernal Melody"/>
+		
+		<Abnormality Id="ABNORMALITY_RESUSCITATE" String="Resuscitate"/>
+		<Abnormality Id="ABNORMALITY_WINDPROOF" String="Windproof"/>
 		
 		<Abnormality Id="ABNORMALITY_MIGHT_SEED" String="Might Seed"/>
 		<Abnormality Id="ABNORMALITY_BUTTERFLAME" String="Butterflame"/>
@@ -107,12 +126,15 @@
 		<Abnormality Id="ABNORMALITY_STENCH" String="Stench"/>
 		<Abnormality Id="ABNORMALITY_HELLFIRE" String="Hellfireblight"/>
 		<Abnormality Id="ABNORMALITY_BLAST" String="Blastblight"/>
+		<Abnormality Id="ABNORMALITY_BLASTSCOURGE" String="Blastscourge"/>
 		<Abnormality Id="ABNORMALITY_FIRE" String="Fireblight"/>
 		<Abnormality Id="ABNORMALITY_WATER" String="Waterblight"/>
 		<Abnormality Id="ABNORMALITY_ICE" String="Iceblight"/>
 		<Abnormality Id="ABNORMALITY_THUNDER" String="Thunderblight"/>
 		<Abnormality Id="ABNORMALITY_DRAGON" String="Dragonblight"/>
 		<Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="Major Bubbleblight"/>
+		<Abnormality Id="ABNORMALITY_BLEED" String="Bleed"/>
+		<Abnormality Id="ABNORMALITY_EFFLUVIA" String="Effluvia"/>
 	</Abnormalities>
 	<Monsters>
 		<Shared>

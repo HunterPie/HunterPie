@@ -79,63 +79,164 @@
 		<Abnormality Id="B0"
 					 Name="ABNORMALITY_FIRE_RESISTANCE_L"
 					 Icon="ICON_FIRERES+"/>
-		<Abnormality Id="B4" Icon="ICON_WATERRES"/>
-		<Abnormality Id="B8" Icon="ICON_WATERRES+"/>
-		<Abnormality Id="BC" Icon="ICON_THUNDERRES"/>
-		<Abnormality Id="C0" Icon="ICON_THUNDERRES+"/>
-		<Abnormality Id="C4" Icon="ICON_ICERES"/>
-		<Abnormality Id="C8" Icon="ICON_ICERES+"/>
-		<Abnormality Id="CC" Icon="ICON_DRAGONRES"/>
-		<Abnormality Id="D0" Icon="ICON_DRAGONRES+"/>
-		<Abnormality Id="D4" Icon="ICON_ELEATTACKUP"/>
-		<Abnormality Id="D8" Icon="ICON_BLIGHTSNEG"/>
-		<Abnormality Id="E4" Icon="ICON_KNOCKBACKNEG"/>
-		<Abnormality Id="EC" Icon="ICON_ALLRESUP"/>
-		<Abnormality Id="F0" Icon="ICON_AFFINITY"/>
-		<Abnormality Id="F4" Icon="ICON_AILMENTSNEG"/>
-		<Abnormality Id="F8" Icon="ICON_EARPLUGS"/>
-		<Abnormality Id="FC" Icon="ICON_ABNORMATTACKUP"/>
-		<Abnormality Id="10C" Icon="ICON_MAXSTAMRECOVERY"/>
-		<Abnormality Id="110" Icon="ICON_EXT_HEALTHRECOVERY"/>
-		<Abnormality Id="114" Icon="ICON_EVASION"/>
-		<Abnormality Id="118" Icon="ICON_ALLRESUP"/>
-		<Abnormality Id="118" Icon="ICON_ELEATTACKUP"/>
+		<Abnormality Id="B4"
+					 Name="ABNORMALITY_WATER_RESISTANCE"
+					 Icon="ICON_WATERRES"/>
+		<Abnormality Id="B8"
+					 Name="ABNORMALITY_WATER_RESISTANCE_L"
+					 Icon="ICON_WATERRES+"/>
+		<Abnormality Id="BC"
+					 Name="ABNORMALITY_THUNDER_RESISTANCE"
+					 Icon="ICON_THUNDERRES"/>
+		<Abnormality Id="C0"
+					 Name="ABNORMALITY_THUNDER_RESISTANCE_L"
+					 Icon="ICON_THUNDERRES+"/>
+		<Abnormality Id="C4"
+					 Name="ABNORMALITY_ICE_RESISTANCE"
+					 Icon="ICON_ICERES"/>
+		<Abnormality Id="C8"
+					 Name="ABNORMALITY_ICE_RESISTANCE_L"
+					 Icon="ICON_ICERES+"/>
+		<Abnormality Id="CC"
+					 Name="ABNORMALITY_DRAGON_RESISTANCE"
+					 Icon="ICON_DRAGONRES"/>
+		<Abnormality Id="D0"
+					 Name="ABNORMALITY_DRAGON_RESISTANCE_L"
+					 Icon="ICON_DRAGONRES+"/>
+		<Abnormality Id="D4"
+					 Name="ABNORMALITY_ELEMENTAL_ATTACK_UP"
+					 Icon="ICON_ELEATTACKUP"/>
+		<Abnormality Id="D8" 
+					 Name="ABNORMALITY_BLIGHT_NEG"
+					 Icon="ICON_BLIGHTSNEG"/>
+		<Abnormality Id="E4" 
+					 Name="ABNORMALITY_KNOCKBACK_NEG"
+					 Icon="ICON_KNOCKBACKNEG"/>
+		<Abnormality Id="EC"
+					 Name="ABNORMALITY_ALL_RES_UP"
+					 Icon="ICON_ALLRESUP"/>
+		<Abnormality Id="F0"
+					 Name="ABNORMALITY_AFFINITY_UP"
+					 Icon="ICON_AFFINITY"/>
+		<Abnormality Id="F4"
+					 Name="ABNORMALITY_AILMENTS_NEG"
+					 Icon="ICON_AILMENTSNEG"/>
+		<Abnormality Id="F8" 
+					 Name="ABNORMALITY_EARPLUG"
+					 Icon="ICON_EARPLUGS"/>
+		<Abnormality Id="FC"
+					 Name="ABNORMALITY_ABNORM_ATTACK_UP"
+					 Icon="ICON_ABNORMATTACKUP"/>
+		<Abnormality Id="10C"
+					 Name="ABNORMALITY_MAX_STAM_RECOVERY"
+					 Icon="ICON_MAXSTAMRECOVERY"/>
+		<Abnormality Id="110"
+					 Name="ABNORMALITY_EXT_HEALTH_RECOVERY"
+					 Icon="ICON_EXT_HEALTHRECOVERY"/>
+		<Abnormality Id="114"
+					 Name="ABNORMALITY_SPEED_EVADE_UP"
+					 Icon="ICON_EVASION"/>
+		<Abnormality Id="118" 
+					 Name="ABNORMALITY_ALL_RES_ELEMENT_ATTACK"
+					 Icon="ICON_ALLRESUP"/>
 	</Songs>
 	<Palico>
-		<Abnormality Id="11C" Icon="ICON_EVASION"/>
-		<Abnormality Id="120" Icon="ICON_ATTACKUP"/>
-		<Abnormality Id="124" Icon="ICON_ATTACKUP"/>
-		<Abnormality Id="128" Icon="ICON_DEFUP"/>
-		<Abnormality Id="12C" Icon="ICON_DEFUP"/>
-		<Abnormality Id="130" Icon="ICON_AFFINITY"/>
-		<Abnormality Id="134" Icon="ICON_NATURALHEALING"/>
-		<Abnormality Id="138" Icon="ICON_HEALTHUP"/>
-		<Abnormality Id="13C" Icon="ICON_STAMINAUP"/>
-		<Abnormality Id="144" Icon="ICON_DIVINEPROTECTION"/>
-		<Abnormality Id="148" Icon="ICON_DIVINEPROTECTION"/>
-		<Abnormality Id="14C" Icon="ICON_STUNNEG"/>
-		<Abnormality Id="150" Icon="ICON_PARALYSISNEG"/>
-		<Abnormality Id="154" Icon="ICON_TREMORNEG"/>
-		<Abnormality Id="158" Icon="ICON_EARPLUGS"/>
-		<Abnormality Id="15C" Icon="ICON_WINDRES+"/>
-		<Abnormality Id="160" Icon="ICON_ENVNEG"/>
+		<Abnormality Id="11C"
+					 Name="ABNORMALITY_RESUSCITATE"
+					 Icon="ICON_EVASION"/>
+		<Abnormality Id="120"
+					 Name="ABNORMALITY_ATTACK_UP"
+					 Icon="ICON_ATTACKUP"/>
+		<Abnormality Id="124"
+					 Name="ABNORMALITY_ATTACK_UP_L"
+					 Icon="ICON_ATTACKUP"/>
+		<Abnormality Id="128"
+					 Name="ABNORMALITY_DEFENSE_UP"
+					 Icon="ICON_DEFUP"/>
+		<Abnormality Id="12C"
+					 Name="ABNORMALITY_DEFENSE_UP_L"
+					 Icon="ICON_DEFUP"/>
+		<Abnormality Id="130"
+					 Name="ABNORMALITY_AFFINITY_UP"
+					 Icon="ICON_AFFINITY"/>
+		<Abnormality Id="134"
+					 Name="ABNORMALITY_HEALTH_REC"
+					 Icon="ICON_NATURALHEALING"/>
+		<Abnormality Id="138"
+					 Name="ABNORMALITY_HEALTH_BOOST"
+					 Icon="ICON_HEALTHUP"/>
+		<Abnormality Id="13C"
+					 Name="ABNORMALITY_STAMINA_USE_RED"
+					 Icon="ICON_STAMINAUP"/>
+		<Abnormality Id="144"
+					 Nam="ABNORMALITY_DIVINE_PROTECTION"
+					 Icon="ICON_DIVINEPROTECTION"/>
+		<Abnormality Id="148" 
+					 Name="ABNORMALITY_DIVINE_PROTECTION"
+					 Icon="ICON_DIVINEPROTECTION"/>
+		<Abnormality Id="14C"
+					 Name="ABNORMALITY_STUN_NEG"
+					 Icon="ICON_STUNNEG"/>
+		<Abnormality Id="150"
+					 Name="ABNORMALITY_PARALYSIS_NEG"
+					 Icon="ICON_PARALYSISNEG"/>
+		<Abnormality Id="154"
+					 Name="ABNORMALITY_TREMORS_NEG"
+					 Icon="ICON_TREMORNEG"/>
+		<Abnormality Id="158"
+					 Name="ABNORMALITY_EARPLUG"
+					 Icon="ICON_EARPLUGS"/>
+		<Abnormality Id="15C"
+					 Name="ABNORMALITY_WINDPROOF"
+					 Icon="ICON_WINDRES+"/>
+		<Abnormality Id="160"
+					 Name="ABNORMALITY_ENV_NEG"
+					 Icon="ICON_ENVNEG"/>
 	</Palico>
 	<Debuffs>
-		<Abnormality Id="5DC" Icon="ICON_POISON"/>
-		<Abnormality Id="5E0" Icon="ICON_VENOM"/>
-		<Abnormality Id="5EC" Icon="ELEMENT_FIRE"/>
-		<Abnormality Id="5F0" Icon="ELEMENT_THUNDER"/>
-		<Abnormality Id="5F4" Icon="ELEMENT_WATER"/>
-		<Abnormality Id="5F8" Icon="ELEMENT_ICE"/>
-		<Abnormality Id="5FC" Icon="ELEMENT_DRAGON"/>
-		<Abnormality Id="600" Icon="ICON_BLEED"/>
+		<Abnormality Id="5DC"
+					 Name="ABNORMALITY_POISON"
+					 Icon="ICON_POISON"/>
+		<Abnormality Id="5E0"
+					 Name="ABNORMALITY_VENOM"
+					 Icon="ICON_VENOM"/>
+		<Abnormality Id="5EC"
+					 Name="ABNORMALITY_FIRE"
+					 Icon="ELEMENT_FIRE"/>
+		<Abnormality Id="5F0"
+					 Name="ABNORMALITY_THUNDER"
+					 Icon="ELEMENT_THUNDER"/>
+		<Abnormality Id="5F4"
+					 Name="ABNORMALITY_WATER"
+					 Icon="ELEMENT_WATER"/>
+		<Abnormality Id="5F8"
+					 Name="ABNORMALITY_ICE"
+					 Icon="ELEMENT_ICE"/>
+		<Abnormality Id="5FC"
+					 Name="ABNORMALITY_DRAGON"
+					 Icon="ELEMENT_DRAGON"/>
+		<Abnormality Id="600"
+					 Name="ABNORMALITY_BLEED"
+					 Icon="ICON_BLEED"/>
 		<Abnormality Id="604" Icon="ICON_NATURALHEALING"/>
-		<Abnormality Id="608" Icon="ICON_EFFLUVIA"/>
-		<Abnormality Id="60C" Icon="ICON_DEFDOWN"/>
-		<Abnormality Id="614" Icon="ICON_ALLRESDOWN"/>
-		<Abnormality Id="61C" Icon="None"/>
-		<Abnormality Id="620" Icon="ICON_BLAST"/>
-		<Abnormality Id="63C--10" Offset="63C" DependsOn="62C" Icon="ICON_BLASTSCOURGE"/>
+		<Abnormality Id="608" 
+					 Name="ABNORMALITY_EFFLUVIA"
+					 Icon="ICON_EFFLUVIA"/>
+		<Abnormality Id="60C" 
+					 Name="ABNORMALITY_DEF_DOWN"
+					 Icon="ICON_DEFDOWN"/>
+		<Abnormality Id="614" 
+					 Name="ABNORMALITY_RES_DOWN"
+					 Icon="ICON_ALLRESDOWN"/>
+		<Abnormality Id="61C"/>
+		<Abnormality Id="620"
+					 Name="ABNORMALITY_BLAST"
+					 Icon="ICON_BLAST"/>
+		<Abnormality Id="63C-10" 
+					 Name="ABNORMALITY_BLASTSCOURGE"
+					 Offset="63C" 
+					 DependsOn="62C"
+					 Icon="ICON_BLASTSCOURGE"/>
 	</Debuffs>
 	<Consumables>
 		<Abnormality Id="690" Icon="ITEM_DASH"/>
@@ -165,7 +266,7 @@
 		<Abnormality Id="730" Icon="ICON_ELEATTACKUP"/>
 		<Abnormality Id="738" Icon="ICON_AFFINITY"/>
 		<Abnormality Id="754" Icon="ICON_ARMORSKILL_SALMON"/>
-		<Abnormality Id="7C8" Icon="None"/>
+		<Abnormality Id="7C8"/>
 		<Abnormality Id="788" Icon="ICON_ARMORSKILL_WHITE"/>
 		<Abnormality Id="79C" Icon="ICON_ATTACKUP"/>
 		<Abnormality Id="7A0" Icon="ICON_ARMORSKILL_PURPLE"/>
