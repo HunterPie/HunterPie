@@ -141,23 +141,57 @@
 					 Icon="ICON_ALLRESUP"/>
 	</Songs>
 	<Palico>
-		<Abnormality Id="11C" Icon="ICON_EVASION"/>
-		<Abnormality Id="120" Icon="ICON_ATTACKUP"/>
-		<Abnormality Id="124" Icon="ICON_ATTACKUP"/>
-		<Abnormality Id="128" Icon="ICON_DEFUP"/>
-		<Abnormality Id="12C" Icon="ICON_DEFUP"/>
-		<Abnormality Id="130" Icon="ICON_AFFINITY"/>
-		<Abnormality Id="134" Icon="ICON_NATURALHEALING"/>
-		<Abnormality Id="138" Icon="ICON_HEALTHUP"/>
-		<Abnormality Id="13C" Icon="ICON_STAMINAUP"/>
-		<Abnormality Id="144" Icon="ICON_DIVINEPROTECTION"/>
-		<Abnormality Id="148" Icon="ICON_DIVINEPROTECTION"/>
-		<Abnormality Id="14C" Icon="ICON_STUNNEG"/>
-		<Abnormality Id="150" Icon="ICON_PARALYSISNEG"/>
-		<Abnormality Id="154" Icon="ICON_TREMORNEG"/>
-		<Abnormality Id="158" Icon="ICON_EARPLUGS"/>
-		<Abnormality Id="15C" Icon="ICON_WINDRES+"/>
-		<Abnormality Id="160" Icon="ICON_ENVNEG"/>
+		<Abnormality Id="11C"
+					 Name="ABNORMALITY_RESUSCITATE"
+					 Icon="ICON_EVASION"/>
+		<Abnormality Id="120"
+					 Name="ABNORMALITY_ATTACK_UP"
+					 Icon="ICON_ATTACKUP"/>
+		<Abnormality Id="124"
+					 Name="ABNORMALITY_ATTACK_UP_L"
+					 Icon="ICON_ATTACKUP"/>
+		<Abnormality Id="128"
+					 Name="ABNORMALITY_DEFENSE_UP"
+					 Icon="ICON_DEFUP"/>
+		<Abnormality Id="12C"
+					 Name="ABNORMALITY_DEFENSE_UP_L"
+					 Icon="ICON_DEFUP"/>
+		<Abnormality Id="130"
+					 Name="ABNORMALITY_AFFINITY_UP"
+					 Icon="ICON_AFFINITY"/>
+		<Abnormality Id="134"
+					 Name="ABNORMALITY_HEALTH_REC"
+					 Icon="ICON_NATURALHEALING"/>
+		<Abnormality Id="138"
+					 Name="ABNORMALITY_HEALTH_BOOST"
+					 Icon="ICON_HEALTHUP"/>
+		<Abnormality Id="13C"
+					 Name="ABNORMALITY_STAMINA_USE_RED"
+					 Icon="ICON_STAMINAUP"/>
+		<Abnormality Id="144"
+					 Nam="ABNORMALITY_DIVINE_PROTECTION"
+					 Icon="ICON_DIVINEPROTECTION"/>
+		<Abnormality Id="148" 
+					 Name="ABNORMALITY_DIVINE_PROTECTION"
+					 Icon="ICON_DIVINEPROTECTION"/>
+		<Abnormality Id="14C"
+					 Name="ABNORMALITY_STUN_NEG"
+					 Icon="ICON_STUNNEG"/>
+		<Abnormality Id="150"
+					 Name="ABNORMALITY_PARALYSIS_NEG"
+					 Icon="ICON_PARALYSISNEG"/>
+		<Abnormality Id="154"
+					 Name="ABNORMALITY_TREMORS_NEG"
+					 Icon="ICON_TREMORNEG"/>
+		<Abnormality Id="158"
+					 Name="ABNORMALITY_EARPLUG"
+					 Icon="ICON_EARPLUGS"/>
+		<Abnormality Id="15C"
+					 Name="ABNORMALITY_WINDPROOF"
+					 Icon="ICON_WINDRES+"/>
+		<Abnormality Id="160"
+					 Name="ABNORMALITY_ENV_NEG"
+					 Icon="ICON_ENVNEG"/>
 	</Palico>
 	<Debuffs>
 		<Abnormality Id="5DC" Icon="ICON_POISON"/>

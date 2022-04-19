@@ -86,6 +86,9 @@
 		<Abnormality Id="ABNORMALITY_ALL_RES_ELEMENT_ATTACK" String="Elemental Effectiveness"/>
 		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Infernal Melody"/>
 		
+		<Abnormality Id="ABNORMALITY_RESUSCITATE" String="Resuscitate"/>
+		<Abnormality Id="ABNORMALITY_WINDPROOF" String="Windproof"/>
+		
 		<Abnormality Id="ABNORMALITY_MIGHT_SEED" String="Might Seed"/>
 		<Abnormality Id="ABNORMALITY_BUTTERFLAME" String="Butterflame"/>
 		<Abnormality Id="ABNORMALITY_CUTTERFLY" String="Cutterfly"/>
