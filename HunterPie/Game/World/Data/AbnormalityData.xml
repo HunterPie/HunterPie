@@ -194,21 +194,49 @@
 					 Icon="ICON_ENVNEG"/>
 	</Palico>
 	<Debuffs>
-		<Abnormality Id="5DC" Icon="ICON_POISON"/>
-		<Abnormality Id="5E0" Icon="ICON_VENOM"/>
-		<Abnormality Id="5EC" Icon="ELEMENT_FIRE"/>
-		<Abnormality Id="5F0" Icon="ELEMENT_THUNDER"/>
-		<Abnormality Id="5F4" Icon="ELEMENT_WATER"/>
-		<Abnormality Id="5F8" Icon="ELEMENT_ICE"/>
-		<Abnormality Id="5FC" Icon="ELEMENT_DRAGON"/>
-		<Abnormality Id="600" Icon="ICON_BLEED"/>
+		<Abnormality Id="5DC"
+					 Name="ABNORMALITY_POISON"
+					 Icon="ICON_POISON"/>
+		<Abnormality Id="5E0"
+					 Name="ABNORMALITY_VENOM"
+					 Icon="ICON_VENOM"/>
+		<Abnormality Id="5EC"
+					 Name="ABNORMALITY_FIRE"
+					 Icon="ELEMENT_FIRE"/>
+		<Abnormality Id="5F0"
+					 Name="ABNORMALITY_THUNDER"
+					 Icon="ELEMENT_THUNDER"/>
+		<Abnormality Id="5F4"
+					 Name="ABNORMALITY_WATER"
+					 Icon="ELEMENT_WATER"/>
+		<Abnormality Id="5F8"
+					 Name="ABNORMALITY_ICE"
+					 Icon="ELEMENT_ICE"/>
+		<Abnormality Id="5FC"
+					 Name="ABNORMALITY_DRAGON"
+					 Icon="ELEMENT_DRAGON"/>
+		<Abnormality Id="600"
+					 Name="ABNORMALITY_BLEED"
+					 Icon="ICON_BLEED"/>
 		<Abnormality Id="604" Icon="ICON_NATURALHEALING"/>
-		<Abnormality Id="608" Icon="ICON_EFFLUVIA"/>
-		<Abnormality Id="60C" Icon="ICON_DEFDOWN"/>
-		<Abnormality Id="614" Icon="ICON_ALLRESDOWN"/>
+		<Abnormality Id="608" 
+					 Name="ABNORMALITY_EFFLUVIA"
+					 Icon="ICON_EFFLUVIA"/>
+		<Abnormality Id="60C" 
+					 Name="ABNORMALITY_DEF_DOWN"
+					 Icon="ICON_DEFDOWN"/>
+		<Abnormality Id="614" 
+					 Name="ABNORMALITY_RES_DOWN"
+					 Icon="ICON_ALLRESDOWN"/>
 		<Abnormality Id="61C"/>
-		<Abnormality Id="620" Icon="ICON_BLAST"/>
-		<Abnormality Id="63C-10" Offset="63C" DependsOn="62C" Icon="ICON_BLASTSCOURGE"/>
+		<Abnormality Id="620"
+					 Name="ABNORMALITY_BLAST"
+					 Icon="ICON_BLAST"/>
+		<Abnormality Id="63C-10" 
+					 Name="ABNORMALITY_BLASTSCOURGE"
+					 Offset="63C" 
+					 DependsOn="62C"
+					 Icon="ICON_BLASTSCOURGE"/>
 	</Debuffs>
 	<Consumables>
 		<Abnormality Id="690" Icon="ITEM_DASH"/>

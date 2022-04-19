@@ -126,12 +126,15 @@
 		<Abnormality Id="ABNORMALITY_STENCH" String="Stench"/>
 		<Abnormality Id="ABNORMALITY_HELLFIRE" String="Hellfireblight"/>
 		<Abnormality Id="ABNORMALITY_BLAST" String="Blastblight"/>
+		<Abnormality Id="ABNORMALITY_BLASTSCOURGE" String="Blastscourge"/>
 		<Abnormality Id="ABNORMALITY_FIRE" String="Fireblight"/>
 		<Abnormality Id="ABNORMALITY_WATER" String="Waterblight"/>
 		<Abnormality Id="ABNORMALITY_ICE" String="Iceblight"/>
 		<Abnormality Id="ABNORMALITY_THUNDER" String="Thunderblight"/>
 		<Abnormality Id="ABNORMALITY_DRAGON" String="Dragonblight"/>
 		<Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="Major Bubbleblight"/>
+		<Abnormality Id="ABNORMALITY_BLEED" String="Bleed"/>
+		<Abnormality Id="ABNORMALITY_EFFLUVIA" String="Effluvia"/>
 	</Abnormalities>
 	<Monsters>
 		<Shared>
