@@ -218,7 +218,8 @@
 		<Abnormality Id="600"
 					 Name="ABNORMALITY_BLEED"
 					 Icon="ICON_BLEED"/>
-		<Abnormality Id="604" Icon="ICON_NATURALHEALING"/>
+		<Abnormality Id="604" 
+					 Icon="ICON_NATURALHEALING"/>
 		<Abnormality Id="608" 
 					 Name="ABNORMALITY_EFFLUVIA"
 					 Icon="ICON_EFFLUVIA"/>
