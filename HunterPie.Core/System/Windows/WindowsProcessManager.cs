@@ -11,6 +11,7 @@ using HunterPie.Core.Address.Map;
 using HunterPie.Core.System.Windows.Native;
 using HunterPie.Core.System.Windows.Memory;
 using HunterPie.Core.Events;
+using HunterPie.Core.Domain.Enums;
 
 namespace HunterPie.Core.System.Windows
 {
@@ -30,6 +31,7 @@ namespace HunterPie.Core.System.Windows
         public event EventHandler<ProcessEventArgs> OnGameUnfocus;
 
         public virtual string Name { get; }
+        public virtual GameProcess Game { get; }
 
         public int Version { get; private set; }
         public Process Process { get; private set; }

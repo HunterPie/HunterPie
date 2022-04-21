@@ -152,7 +152,7 @@ namespace HunterPie.Core.Client
                 {
                     var serializerSettings = new JsonSerializerSettings()
                     {
-                        TypeNameHandling = TypeNameHandling.None
+                        TypeNameHandling = TypeNameHandling.Auto
                     };
 
                     string serialized = JsonConvert.SerializeObject(_settings[path], Formatting.Indented, serializerSettings);

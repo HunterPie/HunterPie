@@ -4,7 +4,7 @@ using HunterPie.Core.Settings;
 namespace HunterPie.Core.Client.Configuration.Games
 {
     [SettingsGroup("OVERLAY_STRING", "ICON_OVERLAY")]
-    public class MHRConfig : ISettings
+    public class MHWConfig : ISettings
     {
         public DiscordRichPresence RichPresence { get; set; } = new();
         public OverlayConfig Overlay { get; set; } = new();

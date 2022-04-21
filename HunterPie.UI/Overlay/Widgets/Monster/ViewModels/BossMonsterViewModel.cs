@@ -10,6 +10,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 {
     public class BossMonsterViewModel : Bindable
     {
+        private MonsterWidgetConfig _config;
         private string name;
         private string em;
         private double health;
@@ -24,9 +25,11 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         private string _icon;
         private bool _isLoadingIcon = true;
         private bool _isAlive;
-        public MonsterWidgetConfig Config => ClientConfig.Config.Overlay.BossesWidget;
+        public MonsterWidgetConfig Config => _config;
         private readonly ObservableCollection<MonsterPartViewModel> parts = new();
         private readonly ObservableCollection<MonsterAilmentViewModel> ailments = new();
+
+        public BossMonsterViewModel(MonsterWidgetConfig config) => _config = config;
 
         // Monster data
         public string Name

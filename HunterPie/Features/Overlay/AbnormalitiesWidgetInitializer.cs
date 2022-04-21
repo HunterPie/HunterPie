@@ -1,5 +1,7 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
+using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Abnormality;
@@ -14,8 +16,15 @@ namespace HunterPie.Features.Overlay
 
         public void Load(Context context)
         {
-            var configs = ClientConfig.Config.Overlay.AbnormalityTray.Trays.Trays.ToArray();
-            for (int i = 0; i < ClientConfig.Config.Overlay.AbnormalityTray.Trays.Trays.Count; i++)
+            var config = ProcessManager.Game switch
+            {
+                GameProcess.MonsterHunterRise => ClientConfig.Config.Rise.Overlay,
+                GameProcess.MonsterHunterWorld => ClientConfig.Config.World.Overlay,
+                _ => throw new System.NotImplementedException(),
+            };
+
+            var configs = config.AbnormalityTray.Trays.Trays.ToArray();
+            for (int i = 0; i < config.AbnormalityTray.Trays.Trays.Count; i++)
             {
                 ref var abnormConfig = ref configs[i];
                 _handlers.Add(new AbnormalityWidgetContextHandler(context, ref abnormConfig));

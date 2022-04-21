@@ -1,11 +1,15 @@
-﻿using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.System;
 using HunterPie.UI.Assets.Application;
 using HunterPie.UI.Overlay.Enums;
 using HunterPie.UI.Overlay.Widgets.Chat.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Chat.Views;
+using System;
 using System.Windows.Media;
 
 namespace HunterPie.UI.Overlay.Widgets.Chat
@@ -33,7 +37,11 @@ namespace HunterPie.UI.Overlay.Widgets.Chat
         public ChatWidgetContextHandler(Context context)
         {
             Context = context;
-            View = new ChatView();
+            View = new ChatView(ProcessManager.Game switch
+            {
+                GameProcess.MonsterHunterRise => ClientConfig.Config.Rise.Overlay.ChatWidget,
+                _ => throw new NotImplementedException()
+            });
             ViewModel = View.ViewModel;
 
             WidgetManager.Register<ChatView, ChatWidgetConfig>(View);

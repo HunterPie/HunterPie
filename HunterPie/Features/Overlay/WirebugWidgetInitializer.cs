@@ -3,6 +3,7 @@ using HunterPie.Core.Client;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Logger;
+using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Wirebug;
@@ -15,9 +16,10 @@ namespace HunterPie.Features.Overlay
 
         public void Load(Context context)
         {
-            if (!ClientConfig.Config.Overlay.WirebugWidget.Initialize)
-                return;
+            var config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
 
+            if (!config.WirebugWidget.Initialize)
+                return;
 
             if (context is MHRContext ctx)
             {
@@ -45,7 +47,9 @@ namespace HunterPie.Features.Overlay
         */
         private void PatchInGameHudAssembly(Context context)
         {
-            if (!ClientConfig.Config.Overlay.WirebugWidget.PatchInGameHud)
+            var config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
+
+            if (!config.WirebugWidget.PatchInGameHud)
                 return;
 
             long wirebugAimAddress = AddressMap.GetAbsolute("FUNC_WIREBUG_HIDE_AIM_ADDRESS");

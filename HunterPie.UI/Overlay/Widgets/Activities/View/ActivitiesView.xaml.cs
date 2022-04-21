@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Enums;
@@ -13,8 +12,11 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.View
     /// </summary>
     public partial class ActivitiesView : View<ActivitiesViewModel>, IWidget<ActivitiesWidgetConfig>, IWidgetWindow
     {
-        public ActivitiesView()
+        public readonly ActivitiesWidgetConfig _config;
+
+        public ActivitiesView(ActivitiesWidgetConfig config)
         {
+            _config = config;
             InitializeComponent();
         }
 
@@ -22,7 +24,7 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.View
 
         public string Title => "Activities Widget";
 
-        public ActivitiesWidgetConfig Settings => ClientConfig.Config.Overlay.ActivitiesWidget;
+        public ActivitiesWidgetConfig Settings => _config;
         IWidgetSettings IWidgetWindow.Settings => Settings;
 
         public event EventHandler<WidgetType> OnWidgetTypeChange;

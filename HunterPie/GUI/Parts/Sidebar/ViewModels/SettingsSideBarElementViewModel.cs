@@ -1,10 +1,12 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.GUI.Parts.Host;
 using HunterPie.Internal.Initializers;
 using HunterPie.UI.Controls.Flags;
 using HunterPie.UI.Controls.Settings;
 using HunterPie.UI.Controls.Settings.ViewModel;
 using HunterPie.UI.Settings;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using Localization = HunterPie.Core.Client.Localization.Localization;
@@ -26,7 +28,19 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
         public void ExecuteOnClick()
         {
             var settingTabs = VisualConverterManager.Build(ClientConfig.Config);
-            
+
+            var gameSpecificTabs = VisualConverterManager.Build(
+                ClientConfig.Config.Client.DefaultGameType.Value switch
+                {
+                    GameType.Rise => ClientConfig.Config.Rise,
+                    GameType.World => ClientConfig.Config.World,
+                    _ => throw new System.NotImplementedException(),
+                }
+            );
+
+            settingTabs = settingTabs.Concat(gameSpecificTabs)
+                .ToArray();
+
             var _ = ClientConfig.Config.Client.Language;
 
             SettingHostViewModel vm = new(settingTabs);

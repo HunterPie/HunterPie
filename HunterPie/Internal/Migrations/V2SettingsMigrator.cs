@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client.Configuration;
+using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Interfaces;
 using System;
 
@@ -15,6 +16,12 @@ namespace HunterPie.Internal.Migrations
         {
             if (oldSettings is Config config)
             {
+                OverlayClientConfig overlayClientConfig = new()
+                {
+                    ToggleDesignMode = config.Overlay.ToggleDesignMode,
+                    HideWhenUnfocus = config.Overlay.HideWhenUnfocus,
+                };
+
                 V2Config v2Config = new V2Config()
                 {
                     Client = config.Client,
@@ -23,6 +30,7 @@ namespace HunterPie.Internal.Migrations
                         RichPresence = config.RichPresence,
                         Overlay = config.Overlay,
                     },
+                    Overlay = overlayClientConfig,
                     Development = config.Debug
                 };
 

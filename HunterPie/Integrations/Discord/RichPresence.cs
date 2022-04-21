@@ -2,7 +2,6 @@
 using HunterPie.Core.Game;
 using System;
 using DiscordPresence = DiscordRPC.RichPresence;
-using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Integrations;
 using System.Timers;
 using System.ComponentModel;
@@ -15,7 +14,7 @@ namespace HunterPie.Integrations.Discord
     {
         private const int DEFAULT_INTERVAL = 10000;
 
-        protected DiscordRichPresence Settings => ClientConfig.Config.RichPresence;
+        protected abstract DiscordRichPresence Settings { get; }
         protected readonly DiscordPresence Presence = new();
 
         private readonly string _appId;

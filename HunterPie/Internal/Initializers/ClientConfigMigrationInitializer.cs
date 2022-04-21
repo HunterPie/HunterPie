@@ -56,7 +56,7 @@ namespace HunterPie.Internal.Initializers
         {
             var serializerSettings = new JsonSerializerSettings()
             {
-                TypeNameHandling = TypeNameHandling.None
+                TypeNameHandling = TypeNameHandling.Auto
             };
             string serializedConfig = JsonConvert.SerializeObject(newSettings, serializerSettings);
             

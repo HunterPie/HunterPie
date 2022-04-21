@@ -1,8 +1,7 @@
-﻿using HunterPie.Core.Game.Enums;
-using HunterPie.UI.Architecture.Brushes;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Game.Enums;
 using HunterPie.UI.Architecture.Graphs;
 using LiveCharts.Defaults;
-using LiveCharts.Wpf;
 using System;
 using System.Timers;
 using System.Windows.Media;
@@ -13,9 +12,11 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
     {
         private int totalDamage = 0;
         private readonly Timer dispatcher;
+        private readonly DamageMeterWidgetConfig _mockConfig;
 
-        public MockMeterViewModel()
+        public MockMeterViewModel(DamageMeterWidgetConfig config) : base(config)
         {
+            _mockConfig = config;
             dispatcher = new(1000);
             dispatcher.Elapsed += MockInGameAction;
             
@@ -26,14 +27,14 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
 
         private void MockPlayers()
         {
-            Players.Add(new()
+            Players.Add(new(_mockConfig)
             {
                 Name = "Player 1",
                 Weapon = Weapon.Bow,
                 Color = "#c3baf4",
                 Percentage = 25
             });
-            Players.Add(new()
+            Players.Add(new(_mockConfig)
             {
                 Name = "Player 2",
                 Weapon = Weapon.ChargeBlade,
@@ -41,14 +42,14 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
                 Percentage = 25,
                 IsUser = true
             });
-            Players.Add(new()
+            Players.Add(new(_mockConfig)
             {
                 Name = "Player 3",
                 Color = "#FF4B8EEE",
                 Weapon = Weapon.Greatsword,
                 Percentage = 25
             });
-            Players.Add(new()
+            Players.Add(new(_mockConfig)
             {
                 Name = "Player 4",
                 Color = "#FF10B9DE",

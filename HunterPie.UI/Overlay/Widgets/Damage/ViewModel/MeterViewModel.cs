@@ -1,5 +1,4 @@
 ﻿using HunterPie.Core.Architecture;
-using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
 using LiveCharts;
 using LiveCharts.Defaults;
@@ -11,9 +10,12 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
 {
     public class MeterViewModel : Bindable
     {
-        private static DamageMeterWidgetConfig Settings => ClientConfig.Config.Overlay.DamageMeterWidget;
+        private DamageMeterWidgetConfig _config;
+        private DamageMeterWidgetConfig Settings => _config;
         private double _timeElapsed = 1;
         private int _deaths;
+
+        public MeterViewModel(DamageMeterWidgetConfig config) => _config = config;
 
         public Func<double, string> TimeFormatter { get; } = 
             new Func<double, string>((value) => TimeSpan.FromSeconds(value).ToString("mm\\:ss"));

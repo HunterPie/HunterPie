@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration.Overlay;
 using System;
 using System.ComponentModel;
 using System.Timers;
@@ -10,6 +11,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
     {
         // Internal logic
         private readonly Timer timeout = new(15000);
+        private readonly MonsterWidgetConfig _config;
 
         private string _name;
         private double _timer;
@@ -49,16 +51,17 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         public int Count { get => _count; set { SetValue(ref _count, value); } }
         public bool IsActive { get => _isActive; set { SetValue(ref _isActive, value); } }
 
-        public MonsterAilmentViewModel()
+        public MonsterAilmentViewModel(MonsterWidgetConfig config)
         {
-            timeout = new(ClientConfig.Config.Overlay.BossesWidget.AutoHideAilmentsDelay.Current * 1000)
+            _config = config;
+            timeout = new(config.AutoHideAilmentsDelay.Current * 1000)
             {
                 AutoReset = true
             };
             timeout.Elapsed += OnHideTimerTick;
             timeout.Start();
 
-            ClientConfig.Config.Overlay.BossesWidget.AutoHideAilmentsDelay.PropertyChanged += OnDelayTimeUpdate;
+            config.AutoHideAilmentsDelay.PropertyChanged += OnDelayTimeUpdate;
         }
 
         private void UpdateActiveState(object sender, ElapsedEventArgs e) => IsActive = false;
@@ -76,7 +79,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 
         private void OnDelayTimeUpdate(object sender, PropertyChangedEventArgs e)
         {
-            timeout.Interval = ClientConfig.Config.Overlay.BossesWidget.AutoHideAilmentsDelay.Current * 1000;
+            timeout.Interval = _config.AutoHideAilmentsDelay.Current * 1000;
             RefreshTimer();
         }
 
@@ -92,7 +95,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 
         protected virtual void DisposeResources()
         {
-            ClientConfig.Config.Overlay.BossesWidget.AutoHideAilmentsDelay.PropertyChanged -= OnDelayTimeUpdate;
+            _config.AutoHideAilmentsDelay.PropertyChanged -= OnDelayTimeUpdate;
             timeout.Dispose();
         }
 

@@ -76,23 +76,25 @@ namespace HunterPie
 
         private void InitializeDebugWidgets()
         {
-            if (ClientConfig.Config.Debug.MockBossesWidget)
+            var mockConfig = ClientConfig.Config.Rise.Overlay;
+
+            if (ClientConfig.Config.Development.MockBossesWidget)
                 WidgetManager.Register<MonstersView, MonsterWidgetConfig>(
-                    new MonstersView()
+                    new MonstersView(mockConfig.BossesWidget)
                     {
-                        DataContext = new MockMonstersViewModel()
+                        DataContext = new MockMonstersViewModel(mockConfig.BossesWidget)
                     }
                 );
 
-            if (ClientConfig.Config.Debug.MockDamageWidget)
+            if (ClientConfig.Config.Development.MockDamageWidget)
                 WidgetManager.Register<MeterView, DamageMeterWidgetConfig>(
-                    new MeterView()
+                    new MeterView(mockConfig.DamageMeterWidget)
                     {
-                        DataContext = new MockMeterViewModel()
+                        DataContext = new MockMeterViewModel(mockConfig.DamageMeterWidget)
                     }
                 );
 
-            if (ClientConfig.Config.Debug.MockAbnormalityWidget)
+            if (ClientConfig.Config.Development.MockAbnormalityWidget)
             {
                 var mockSettings = new AbnormalityWidgetConfig();
                 WidgetManager.Register<AbnormalityBarView, AbnormalityWidgetConfig>(
@@ -103,22 +105,22 @@ namespace HunterPie
                 );
             }
 
-            if (ClientConfig.Config.Debug.MockWirebugWidget)
-                WidgetManager.Register<WirebugsView, WirebugWidgetConfig>(new WirebugsView()
+            if (ClientConfig.Config.Development.MockWirebugWidget)
+                WidgetManager.Register<WirebugsView, WirebugWidgetConfig>(new WirebugsView(mockConfig.WirebugWidget)
                     {
                         DataContext = new MockWirebugsViewModel()
                     }
                 );
 
-            if (ClientConfig.Config.Debug.MockActivitiesWidget)
-                WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(new ActivitiesView() 
+            if (ClientConfig.Config.Development.MockActivitiesWidget)
+                WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(new ActivitiesView(mockConfig.ActivitiesWidget) 
                     {
                         DataContext = new MockActivitiesViewModel()
                     }
                 );
 
-            if (ClientConfig.Config.Debug.MockChatWidget)
-                WidgetManager.Register<ChatView, ChatWidgetConfig>(new ChatView()
+            if (ClientConfig.Config.Development.MockChatWidget)
+                WidgetManager.Register<ChatView, ChatWidgetConfig>(new ChatView(mockConfig.ChatWidget)
                 {
                     DataContext = new MockChatViewModel()
                 });

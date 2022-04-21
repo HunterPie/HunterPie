@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Enums;
@@ -13,12 +12,15 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug.Views
     /// </summary>
     public partial class WirebugsView : View<WirebugsViewModel>, IWidget<WirebugWidgetConfig>, IWidgetWindow
     {
-        public WirebugsView()
+        private readonly WirebugWidgetConfig _config;
+        
+        public WirebugsView(WirebugWidgetConfig config)
         {
+            _config = config;
             InitializeComponent();
         }
 
-        public WirebugWidgetConfig Settings => ClientConfig.Config.Overlay.WirebugWidget;
+        public WirebugWidgetConfig Settings => _config;
         public string Title => "Wirebug Widget";
         public WidgetType Type => WidgetType.ClickThrough;
         IWidgetSettings IWidgetWindow.Settings => Settings;
