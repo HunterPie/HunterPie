@@ -256,8 +256,14 @@
 		<Abnormality Id="708" Icon="ICON_SNOWMANHEAD"/>
 		<Abnormality Id="718" Icon="ICON_ATTACKUP"/>
 		<Abnormality Id="71C" Icon="ICON_ICERES+"/>
-		<Abnormality Id="E4" Icon="ICON_MEAT"/>
 	</Consumables>
+	<Foods>
+		<Abnormality Id="E4"
+					 Icon="ICON_MEAT"/>
+	</Foods>
+	<Gears>
+		
+	</Gears>
 	<Skills>
 		<Abnormality Id="6CC" Icon="ICON_DEMONAMMO"/>
 		<Abnormality Id="6D0" Icon="ICON_ARMORAMMO"/>
@@ -271,7 +277,11 @@
 		<Abnormality Id="788" Icon="ICON_ARMORSKILL_WHITE"/>
 		<Abnormality Id="79C" Icon="ICON_ATTACKUP"/>
 		<Abnormality Id="7A0" Icon="ICON_ARMORSKILL_PURPLE"/>
-		<Abnormality Id="FC4" Icon="ICON_MANTLE"/>
-		<Abnormality Id="FC8" Icon="ICON_BOOSTER_RED"/>
+		<Abnormality Id="FC4" 
+					 Icon="ICON_MANTLE"
+					 Category="Gears"/>
+		<Abnormality Id="FC8" 
+					 Icon="ICON_BOOSTER_RED"
+					 Category="Gears"/>
 	</Skills>
 </Abnormalities>

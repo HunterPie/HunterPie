@@ -248,6 +248,10 @@ namespace HunterPie.Core.Game.World.Entities
 
             GetHuntingHornAbnormalities(abnormalities);
             GetOrchestraAbnormalities(abnormalities);
+            GetConsumableAbnormalities(abnormalityBaseAddress);
+            GetSkillAbnormalities(abnormalityBaseAddress);
+            GetFoodAbnormalities();
+            GetGearAbnormalities();
         }
 
         private void GetHuntingHornAbnormalities(MHWAbnormalityStructure[] buffs)
@@ -275,6 +279,62 @@ namespace HunterPie.Core.Game.World.Entities
             {
                 int index = (abnormalitySchema.Offset - offsetFirstAbnormality) / sizeof(float) + indexFirstOrchestraAbnormality;
                 MHWAbnormalityStructure structure = buffs[index];
+
+                HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
+            }
+        }
+
+        private void GetConsumableAbnormalities(long baseAddress)
+        {
+            AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Consumables);
+
+            foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+            {
+                MHWAbnormalityStructure structure = _process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
+
+                HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
+            }
+        }
+
+        private void GetSkillAbnormalities(long baseAddress)
+        {
+            AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Skills);
+
+            foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+            {
+                MHWAbnormalityStructure structure = _process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
+
+                HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
+            }
+        }
+
+        private void GetFoodAbnormalities()
+        {
+            long canteenAddress = _process.Memory.Read(
+                AddressMap.GetAbsolute("CANTEEN_ADDRESS"),
+                AddressMap.Get<int[]>("ABNORMALITY_CANTEEN_OFFSETS")
+            );
+
+            AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Foods);
+            foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+            {
+                MHWAbnormalityStructure structure = _process.Memory.Read<MHWAbnormalityStructure>(canteenAddress + abnormalitySchema.Offset);
+
+                HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
+            }
+        }
+
+        private void GetGearAbnormalities()
+        {
+            long gearAddress = _process.Memory.Read(
+                AddressMap.GetAbsolute("ABNORMALITY_ADDRESS"),
+                AddressMap.Get<int[]>("ABNORMALITY_GEAR_OFFSETS")
+            );
+
+            AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Gears);
+            foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+            {
+                MHWAbnormalityStructure structure = _process.Memory.Read<MHWAbnormalityStructure>(gearAddress + abnormalitySchema.Offset);
 
                 HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
             }

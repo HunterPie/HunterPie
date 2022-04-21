@@ -10,6 +10,7 @@ namespace HunterPie.Core.Game.Data
     public class AbnormalityData
     {
         public const string SongPrefix = "Songs_";
+        public const string GearPrefix = "Gears_";
         public const string ConsumablePrefix = "Consumables_";
         public const string DebuffPrefix = "Debuffs_";
         public const string SkillPrefix = "Skills_";
@@ -18,6 +19,7 @@ namespace HunterPie.Core.Game.Data
         public const float TIMER_MULTIPLIER = 60.0f;
 
         public const string Songs = "Songs";
+        public const string Gears = "Gears";
         public const string Consumables = "Consumables";
         public const string Debuffs = "Debuffs";
         public const string Skills = "Skills";
