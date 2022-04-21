@@ -43,7 +43,7 @@ namespace HunterPie.Core.Logger
 
         public static async void Debug(string message)
         {
-            if (ClientConfig.Config.Debug.ClientLogLevel > LogLevel.Debug)
+            if (ClientConfig.Config.Development.ClientLogLevel > LogLevel.Debug)
                 return;
 
             try
@@ -63,7 +63,7 @@ namespace HunterPie.Core.Logger
 
         public static async void Debug(string format, params object[] args)
         {
-            if (ClientConfig.Config.Debug.ClientLogLevel > LogLevel.Debug)
+            if (ClientConfig.Config.Development.ClientLogLevel > LogLevel.Debug)
                 return;
 
             try
@@ -83,7 +83,7 @@ namespace HunterPie.Core.Logger
 
         public static async void Info(string message)
         {
-            if (ClientConfig.Config.Debug.ClientLogLevel > LogLevel.Info)
+            if (ClientConfig.Config.Development.ClientLogLevel > LogLevel.Info)
                 return;
 
             try
@@ -103,7 +103,7 @@ namespace HunterPie.Core.Logger
 
         public static async void Info(string format, params object[] args)
         {
-            if (ClientConfig.Config.Debug.ClientLogLevel > LogLevel.Info)
+            if (ClientConfig.Config.Development.ClientLogLevel > LogLevel.Info)
                 return;
 
             try
@@ -123,7 +123,7 @@ namespace HunterPie.Core.Logger
 
         public static async void Warn(string message)
         {
-            if (ClientConfig.Config.Debug.ClientLogLevel > LogLevel.Warn)
+            if (ClientConfig.Config.Development.ClientLogLevel > LogLevel.Warn)
                 return;
 
             try
@@ -143,7 +143,7 @@ namespace HunterPie.Core.Logger
 
         public static async void Warn(string format, params object[] args)
         {
-            if (ClientConfig.Config.Debug.ClientLogLevel > LogLevel.Warn)
+            if (ClientConfig.Config.Development.ClientLogLevel > LogLevel.Warn)
                 return;
 
             try
