@@ -55,6 +55,8 @@ namespace HunterPie.Core.Game.World.Entities.Abnormalities
                 AbnormalityData.Debuffs => AbnormalityType.Debuff,
                 AbnormalityData.Skills => AbnormalityType.Skill,
                 AbnormalityData.Orchestra => AbnormalityType.Orchestra,
+                AbnormalityData.Gears => AbnormalityType.Gear,
+                AbnormalityData.Foods => AbnormalityType.Food,
                 _ => throw new NotImplementedException("unreachable")
             };
 

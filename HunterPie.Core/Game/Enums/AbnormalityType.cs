@@ -7,6 +7,8 @@
         Skill,
         Environment,
         Debuff,
-        Orchestra
+        Orchestra,
+        Gear,
+        Food
     }
 }

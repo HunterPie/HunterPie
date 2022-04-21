@@ -248,6 +248,7 @@ namespace HunterPie.Core.Game.World.Entities
 
             GetHuntingHornAbnormalities(abnormalities);
             GetOrchestraAbnormalities(abnormalities);
+            GetDebuffAbnormalities(abnormalityBaseAddress);
             GetConsumableAbnormalities(abnormalityBaseAddress);
             GetSkillAbnormalities(abnormalityBaseAddress);
             GetFoodAbnormalities();
@@ -279,6 +280,18 @@ namespace HunterPie.Core.Game.World.Entities
             {
                 int index = (abnormalitySchema.Offset - offsetFirstAbnormality) / sizeof(float) + indexFirstOrchestraAbnormality;
                 MHWAbnormalityStructure structure = buffs[index];
+
+                HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
+            }
+        }
+
+        private void GetDebuffAbnormalities(long baseAddress)
+        {
+            AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Debuffs);
+
+            foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+            {
+                MHWAbnormalityStructure structure = _process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
 
                 HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
             }
