@@ -5,7 +5,7 @@ using HunterPie.Core.Settings.Types;
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
     [SettingsGroup("OVERLAY_STRING", "ICON_OVERLAY")]
-    public class OverlayClientConfig
+    public class OverlayClientConfig : ISettings
     {
         [SettingField("OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE", requiresRestart: true)]
         public Keybinding ToggleDesignMode { get; set; } = "ScrollLock";
