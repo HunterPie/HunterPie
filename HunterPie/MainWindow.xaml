@@ -9,6 +9,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:sidebar="clr-namespace:HunterPie.GUI.Parts.Sidebar"
         xmlns:host="clr-namespace:HunterPie.GUI.Parts.Host"
+        xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
         Title="HunterPie v2" 
         Height="600" 
         Width="1000"
@@ -84,7 +85,8 @@
                         <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}">
                             <Run Text="▶"
                                  FontSize="30"/>
-                            <Run Text="LAUNCH GAME"
+                            <Run Text="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_LAUNCH_GAME&quot;]'}"
+                                 d:Text="LAUNG GAME"
                                  BaselineAlignment="Center"
                                  FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
                         </TextBlock>

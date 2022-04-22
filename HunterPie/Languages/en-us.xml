@@ -395,6 +395,8 @@
 				 String="Patreon"/>
 		</Tabs>
 		<Generics>
+			<Generic Id="HUNTERPIE_LAUNCH_GAME"
+					 String="LAUNCH GAME"/>
 			<Generic Id="HUNTERPIE_IS_LATEST_VERSION"
 					 String="HunterPie is up to date!"/>
 			<Generic Id="HUNTERPIE_NOT_LATEST_VERSION"
@@ -633,6 +635,10 @@
 					 String="Developer: Mock Abnormalities widget"/>
 			<Setting Id="DEV_MOCK_WIREBUG_WIDGET_STRING"
 					 String="Developer: Mock Wirebug widget"/>
+			<Setting Id="DEV_MOCK_ACTIVITIES_WIDGET_STRING"
+					 String="Developer: Mock Activities widget"/>
+			<Setting Id="DEV_MOCK_CHAT_WIDGET_STRING"
+					 String="Developer: Mock Chat widget"/>
 			<Setting Id="DEV_POOGIE_API_HOST_STRING"
 					 String="Developer: Poogie API Host"/>
 		</Settings>
