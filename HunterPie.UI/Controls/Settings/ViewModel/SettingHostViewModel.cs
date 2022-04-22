@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Architecture;
+﻿using HunterPie.Core.API;
+using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Events;
 using HunterPie.Core.Http;
@@ -53,33 +54,17 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
                 field.Match = Regex.IsMatch(field.Name, query, RegexOptions.IgnoreCase) || query.Length == 0;
         }
 
-        // TODO: move this out of here when API code is ready
-        private struct VersionResponseSchema
-        {
-            [JsonProperty("latest_version")]
-            public string LatestVersion;
-        }
-
         public async void FetchVersion()
         {
             IsFetchingVersion = true;
 
-            using Poogie request = PoogieFactory.Default()
-                                .Get("/v1/version")
-                                .WithHeader("X-Supporter-Token", ClientConfig.Config.Client.SupporterSecretToken)
-                                .WithTimeout(TimeSpan.FromSeconds(5))
-                                .Build();
+            var schema = await PoogieApi.GetLatestVersion();
 
-            using PoogieResponse resp = await request.RequestAsync();
-
-            // TODO: Error status
-            if (!resp.Success)
-                return;
-
-            VersionResponseSchema schema = await resp.AsJson<VersionResponseSchema>();
-            Version version = new Version(schema.LatestVersion);
-
-            IsLatestVersion = ClientInfo.IsVersionGreaterOrEq(version);
+            if (schema is not null)
+            {
+                Version version = new Version(schema.LatestVersion);
+                IsLatestVersion = ClientInfo.IsVersionGreaterOrEq(version);
+            }
 
             IsFetchingVersion = false;
         }
