@@ -49,7 +49,6 @@ namespace HunterPie.Core.Client
 
             _settings[path] = @default;
             Reload(path);
-            BindToAllPropertiesRecursively(path, @default);
         }
 
         internal static void Initialize()
@@ -167,7 +166,7 @@ namespace HunterPie.Core.Client
             }
         }
 
-        private static void BindToAllPropertiesRecursively(string path, object data)
+        public static void BindAndSaveOnChanges(string path, object data)
         {
             if (data is null)
                 return;
@@ -180,7 +179,7 @@ namespace HunterPie.Core.Client
                     IEnumerable array = (IEnumerable)propertyInfo.GetValue(data);
 
                     foreach (var item in array)
-                        BindToAllPropertiesRecursively(path, item);
+                        BindAndSaveOnChanges(path, item);
 
                 }
                 else
@@ -198,7 +197,7 @@ namespace HunterPie.Core.Client
                             continue;
                         }
 
-                        BindToAllPropertiesRecursively(path, value);
+                        BindAndSaveOnChanges(path, value);
 
                     } catch { continue; }
                 }
