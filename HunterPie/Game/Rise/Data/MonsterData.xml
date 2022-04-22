@@ -13,7 +13,7 @@
         <Ailment Id="4" String="AILMENT_POISON"/>
         <Ailment Id="5" String="AILMENT_BLAST"/>
         <Ailment Id="6" String="AILMENT_EXHAUST"/>
-        <Ailment Id="7" String="AILMENT_MOUNT"/>
+        <Ailment Id="7" String="AILMENT_RIDE"/>
         <Ailment Id="8" String="AILMENT_WATER"/>
         <Ailment Id="9" String="AILMENT_FIRE"/>
         <Ailment Id="10" String="AILMENT_ICE"/>
