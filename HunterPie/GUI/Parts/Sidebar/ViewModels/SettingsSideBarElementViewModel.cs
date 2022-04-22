@@ -25,7 +25,14 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 
         public bool ShouldNotify => false;
 
-        public void ExecuteOnClick()
+        public SettingsSideBarElementViewModel()
+        {
+            ClientConfig.Config.Client.DefaultGameType.PropertyChanged += (_, __) => RefreshSettingsWindow(true);
+        }
+
+        public void ExecuteOnClick() => RefreshSettingsWindow();
+
+        private void RefreshSettingsWindow(bool forceRefresh = false)
         {
             var settingTabs = VisualConverterManager.Build(ClientConfig.Config);
 
@@ -48,12 +55,12 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
             {
                 DataContext = vm
             };
-            
+
             // Also add feature flags if enabled
             if (ClientConfig.Config.Client.EnableFeatureFlags)
                 vm.Elements.Add(new FeatureFlagsView(FeatureFlagsInitializer.Features.Flags));
 
-            MainHost.SetMain(host);
+            MainHost.SetMain(host, forceRefresh);
         }
     }
 }

@@ -40,9 +40,9 @@ namespace HunterPie.GUI.Parts.Host
             } 
         }
 
-        public static void SetMain<T>(T element) where T : UIElement
+        public static void SetMain<T>(T element, bool forceRefresh = false) where T : UIElement
         {
-            if (IsInstanceOf<T>())
+            if (!forceRefresh && IsInstanceOf<T>())
                 return;
 
             Instance.Element = element;

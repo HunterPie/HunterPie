@@ -13,7 +13,10 @@ namespace HunterPie.UI.Architecture
         protected virtual TViewModel InitializeViewModel()
         {
             if (this is IWidgetWindow widget)
-                return (TViewModel)Activator.CreateInstance(typeof(TViewModel), widget.Settings);
+                try
+                {
+                    return (TViewModel)Activator.CreateInstance(typeof(TViewModel), widget.Settings);
+                } catch { };
 
             return Activator.CreateInstance<TViewModel>();
         }
