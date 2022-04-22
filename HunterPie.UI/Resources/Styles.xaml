@@ -27,6 +27,7 @@
     <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_DARK_OPACITY">#50080a0a</SolidColorBrush>
     <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_PRIMARY">WhiteSmoke</SolidColorBrush>
     <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_SECONDARY">#cccccc</SolidColorBrush>
+    <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_DARKER">#FF49575F</SolidColorBrush>
     <LinearGradientBrush x:Key="HUNTERPIE_HIGHLIGHT_BORDER" EndPoint="0.5,1" StartPoint="0,0">
         <GradientStop Color="#7FF3F3F3"/>
         <GradientStop Color="#4CFFFFFF" Offset="1"/>

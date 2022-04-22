@@ -54,7 +54,7 @@ namespace HunterPie.Core.Client
         internal static void Initialize()
         {
             Action<string> reloadSetting = (string path) => Reload(path);
-            var debounceReload = reloadSetting.Debounce(100);
+            var debounceReload = reloadSetting.Debounce(200);
 
             _fileSystemWatcher.Changed += (_, args) =>
             {

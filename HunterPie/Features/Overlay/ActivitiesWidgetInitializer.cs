@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Rise;
+using HunterPie.Core.Game.World;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Activities;
@@ -21,6 +22,7 @@ namespace HunterPie.Features.Overlay
             _handler = context switch
             {
                 MHRContext ctx => new RiseActivitiesWidgetContextHandler(ctx),
+                MHWContext ctx => null,
                 _ => throw new NotImplementedException("unreachable")
             };
         }

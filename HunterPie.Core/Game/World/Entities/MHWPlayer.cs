@@ -5,11 +5,16 @@ using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
+using HunterPie.Core.Game.Data;
+using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.World.Definitions;
+using HunterPie.Core.Game.World.Entities.Abnormalities;
 using HunterPie.Core.Logger;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace HunterPie.Core.Game.World.Entities
 {
@@ -37,7 +42,7 @@ namespace HunterPie.Core.Game.World.Entities
         private Weapon _weaponId;
         private SpecializedTool _primaryTool = new SpecializedTool();
         private SpecializedTool _secondaryTool = new SpecializedTool();
-
+        private Dictionary<string, IAbnormality> _abnormalities = new();
         #endregion
 
         #region Public fields
@@ -64,8 +69,8 @@ namespace HunterPie.Core.Game.World.Entities
             }
         }
         public string Name { get; private set; }
-        public short HighRank { get; private set; }
-        public short MasterRank { get; private set; }
+        public int HighRank { get; private set; }
+        public int MasterRank { get; private set; }
         public int PlayTime { get; private set; }
 
         /// <summary>
@@ -103,22 +108,18 @@ namespace HunterPie.Core.Game.World.Entities
             }
         }
 
-
-
         public ref readonly SpecializedTool PrimaryTool => ref _primaryTool;
         public ref readonly SpecializedTool SecondaryTool => ref _secondaryTool;
 
         public bool IsLoggedOn => _playerAddress != 0;
 
-        int IPlayer.HighRank => throw new NotImplementedException();
+        public int StageId => (int)ZoneId;
 
-        public int StageId => throw new NotImplementedException();
-
-        public List<IPartyMember> Party => throw new NotImplementedException();
-
-        public IReadOnlyCollection<IAbnormality> Abnormalities => throw new NotImplementedException();
+        public IReadOnlyCollection<IAbnormality> Abnormalities => _abnormalities.Values;
 
         IParty IPlayer.Party => throw new NotImplementedException();
+
+        public bool InHuntingZone => ZoneId != Stage.MainMenu && !peaceZones.Contains(_zoneId);
         #endregion
 
         public event EventHandler<EventArgs> OnLogin;
@@ -217,6 +218,167 @@ namespace HunterPie.Core.Game.World.Entities
             WeaponId = data.WeaponType;
 
             return;
+        }
+
+
+        [ScannableMethod]
+        private void GetAbnormalitiesCleanup()
+        {
+            long abnormalityBaseAddress = _process.Memory.Read(
+                AddressMap.GetAbsolute("ABNORMALITY_ADDRESS"),
+                AddressMap.Get<int[]>("ABNORMALITY_OFFSETS")
+            );
+
+            if (!InHuntingZone || abnormalityBaseAddress == 0)
+                ClearAbnormalities();
+        }
+
+        [ScannableMethod]
+        private void GetAbnormalities()
+        {
+            if (!InHuntingZone)
+                return;
+
+            long abnormalityBaseAddress = _process.Memory.Read(
+                AddressMap.GetAbsolute("ABNORMALITY_ADDRESS"),
+                AddressMap.Get<int[]>("ABNORMALITY_OFFSETS")
+            );
+
+            MHWAbnormalityStructure[] abnormalities = _process.Memory.Read<MHWAbnormalityStructure>(abnormalityBaseAddress + 0x38, 75);
+
+            GetHuntingHornAbnormalities(abnormalities);
+            GetOrchestraAbnormalities(abnormalities);
+            GetConsumableAbnormalities(abnormalityBaseAddress);
+            GetSkillAbnormalities(abnormalityBaseAddress);
+            GetFoodAbnormalities();
+            GetGearAbnormalities();
+        }
+
+        private void GetHuntingHornAbnormalities(MHWAbnormalityStructure[] buffs)
+        {
+            AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Songs);
+            int offsetFirstAbnormality = abnormalitySchemas[0].Offset;
+
+            foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+            {
+                // We can calculate the index of the abnormality based on their offset and the size of a float
+                int index = (abnormalitySchema.Offset - offsetFirstAbnormality) / sizeof(float);
+                MHWAbnormalityStructure structure = buffs[index];
+
+                HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
+            }
+        }
+
+        private void GetOrchestraAbnormalities(MHWAbnormalityStructure[] buffs)
+        {
+            AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Orchestra);
+            int offsetFirstAbnormality = abnormalitySchemas[0].Offset;
+            int indexFirstOrchestraAbnormality = (offsetFirstAbnormality - 0x38) / sizeof(float);
+
+            foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+            {
+                int index = (abnormalitySchema.Offset - offsetFirstAbnormality) / sizeof(float) + indexFirstOrchestraAbnormality;
+                MHWAbnormalityStructure structure = buffs[index];
+
+                HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
+            }
+        }
+
+        private void GetConsumableAbnormalities(long baseAddress)
+        {
+            AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Consumables);
+
+            foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+            {
+                MHWAbnormalityStructure structure = _process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
+
+                HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
+            }
+        }
+
+        private void GetSkillAbnormalities(long baseAddress)
+        {
+            AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Skills);
+
+            foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+            {
+                MHWAbnormalityStructure structure = _process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
+
+                HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
+            }
+        }
+
+        private void GetFoodAbnormalities()
+        {
+            long canteenAddress = _process.Memory.Read(
+                AddressMap.GetAbsolute("CANTEEN_ADDRESS"),
+                AddressMap.Get<int[]>("ABNORMALITY_CANTEEN_OFFSETS")
+            );
+
+            AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Foods);
+            foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+            {
+                MHWAbnormalityStructure structure = _process.Memory.Read<MHWAbnormalityStructure>(canteenAddress + abnormalitySchema.Offset);
+
+                HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
+            }
+        }
+
+        private void GetGearAbnormalities()
+        {
+            long gearAddress = _process.Memory.Read(
+                AddressMap.GetAbsolute("ABNORMALITY_ADDRESS"),
+                AddressMap.Get<int[]>("ABNORMALITY_GEAR_OFFSETS")
+            );
+
+            AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Gears);
+            foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+            {
+                MHWAbnormalityStructure structure = _process.Memory.Read<MHWAbnormalityStructure>(gearAddress + abnormalitySchema.Offset);
+
+                HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
+            }
+        }
+
+        private void HandleAbnormality<T, S>(AbnormalitySchema schema, float timer, S newData)
+            where T : IAbnormality, IUpdatable<S>
+            where S : struct
+        {
+            if (_abnormalities.ContainsKey(schema.Id) && timer <= 0)
+            {
+                IUpdatable<S> abnorm = (IUpdatable<S>)_abnormalities[schema.Id];
+
+                abnorm.Update(newData);
+
+                _abnormalities.Remove(schema.Id);
+                this.Dispatch(OnAbnormalityEnd, (IAbnormality)abnorm);
+            }
+            else if (_abnormalities.ContainsKey(schema.Id) && timer > 0)
+            {
+
+                IUpdatable<S> abnorm = (IUpdatable<S>)_abnormalities[schema.Id];
+                abnorm.Update(newData);
+            }
+            else if (!_abnormalities.ContainsKey(schema.Id) && timer > 0)
+            {
+                if (schema.Icon == "ICON_MISSING")
+                    Log.Info($"Missing abnormality: {schema.Id}");
+
+                IUpdatable<S> abnorm = (IUpdatable<S>)Activator.CreateInstance(typeof(T), schema);
+
+                _abnormalities.Add(schema.Id, (IAbnormality)abnorm);
+                abnorm.Update(newData);
+                this.Dispatch(OnAbnormalityStart, (IAbnormality)abnorm);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void ClearAbnormalities()
+        {
+            foreach (IAbnormality abnormality in _abnormalities.Values)
+                this.Dispatch(OnAbnormalityEnd, abnormality);
+
+            _abnormalities.Clear();
         }
     }
 }

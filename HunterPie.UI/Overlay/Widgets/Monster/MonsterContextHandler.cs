@@ -1,6 +1,7 @@
-﻿using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.Core.Game.Enums;
+﻿using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
+using HunterPie.Core.Game.Rise.Entities;
+using HunterPie.Core.Game.World.Entities;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using System;
 using System.Linq;
@@ -52,7 +53,9 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         private void OnSpawn(object sender, EventArgs e)
         {
             Name = Context.Name;
-            Em = $"Rise_{Context.Id:00}";
+
+            Em = BuildMonsterEmByContext();
+
             IsAlive = true;
 
             FetchMonsterIcon();
@@ -135,7 +138,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             if (Context.Id > -1)
             {
                 Name = Context.Name;
-                Em = $"Rise_{Context.Id:00}";
+                Em = BuildMonsterEmByContext();
 
                 FetchMonsterIcon();
             }
@@ -186,6 +189,16 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             {
                 Ailments.Add(new MonsterAilmentContextHandler(Context.Enrage));
             });
+        }
+
+        private string BuildMonsterEmByContext()
+        {
+            return Context switch
+            {
+                MHRMonster ctx => $"Rise_{ctx.Id:00}",
+                MHWMonster ctx => $"World_{ctx.Id:00}",
+                _ => throw new NotImplementedException("unreachable")
+            };
         }
     }
 }

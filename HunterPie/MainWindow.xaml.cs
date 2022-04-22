@@ -97,17 +97,6 @@ namespace HunterPie
 
         private void OnTrayCloseClick(object sender, EventArgs e) => Close();
 
-        private void OnStartGameClick(object sender, EventArgs e)
-        {
-            try
-            {
-                Process.Start(new ProcessStartInfo()
-                {
-                    FileName = "steam://run/1446780",
-                    UseShellExecute = true
-                });
-            } catch(Exception err) { Log.Error(err.ToString()); }
-            
-        }
+        private void OnStartGameClick(object sender, EventArgs e) => Steam.RunGameBy(ClientConfig.Config.Client.DefaultGameType);
     }
 }

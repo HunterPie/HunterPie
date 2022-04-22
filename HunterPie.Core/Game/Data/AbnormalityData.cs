@@ -10,17 +10,21 @@ namespace HunterPie.Core.Game.Data
     public class AbnormalityData
     {
         public const string SongPrefix = "Songs_";
+        public const string GearPrefix = "Gears_";
         public const string ConsumablePrefix = "Consumables_";
         public const string DebuffPrefix = "Debuffs_";
         public const string SkillPrefix = "Skills_";
         public const string FoodPrefix = "Foods_";
+        public const string OrchestraPrefix = "Palico_"; 
         public const float TIMER_MULTIPLIER = 60.0f;
 
         public const string Songs = "Songs";
+        public const string Gears = "Gears";
         public const string Consumables = "Consumables";
         public const string Debuffs = "Debuffs";
         public const string Skills = "Skills";
         public const string Foods = "Foods";
+        public const string Orchestra = "Palico";
 
         private static XmlDocument _abnormalityData;
         public static Dictionary<string, AbnormalitySchema> Abnormalities { get; private set; }
@@ -50,7 +54,7 @@ namespace HunterPie.Core.Game.Data
                 string id = abnormality.Attributes["Id"].Value;
                 string name = abnormality.Attributes["Name"]?.Value ?? "ABNORMALITY_UNKNOWN";
                 string icon = abnormality.Attributes["Icon"]?.Value ?? "ICON_MISSING";
-                string offset = abnormality.Attributes["Offset"]?.Value ?? "0";
+                string offset = abnormality.Attributes["Offset"]?.Value ?? id;
                 string dependsOn = abnormality.Attributes["DependsOn"]?.Value ?? "0";
                 string withValue = abnormality.Attributes["WithValue"]?.Value ?? "0";
                 string finalId = $"{abnormality.ParentNode.Name}_{id}";

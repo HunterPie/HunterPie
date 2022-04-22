@@ -1,16 +1,17 @@
-﻿using App = System.Windows.Application;
+﻿using System.Windows.Media;
+using App = System.Windows.Application;
 
 namespace HunterPie.UI.Assets.Application
 {
     public static class Resources
     {
 
-        public static T Icon<T>(string iconName)
+        public static ImageSource Icon(string iconName)
         {
-            return (T)App.Current.FindResource(iconName);
+            return (ImageSource)App.Current.FindResource(iconName);
         }
 
-        public static T Resource<T>(string resourceName)
+        public static T Get<T>(string resourceName)
         {
             return (T)App.Current.FindResource(resourceName);
         }

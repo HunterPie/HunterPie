@@ -17,6 +17,16 @@
 			<Ailment Id="AILMENT_THUNDER" String="Thunderblight"/>
 			<Ailment Id="AILMENT_DUNG" String="Dung Bomb"/>
 			<Ailment Id="AILMENT_TRANQUILIZE" String="Tranquilize"/>
+			<Ailment Id="AILMENT_KNOCKDOWN" String="Knockdown"/>
+			<Ailment Id="AILMENT_SHOCKTRAP" String="Shock Trap"/>
+			<Ailment Id="AILMENT_PITFALLTRAP" String="Pitfall Trap"/>
+			<Ailment Id="AILMENT_VINETRAP" String="Vine Trap"/>
+			<Ailment Id="AILMENT_ELDERSEAL" String="Elderseal"/>
+			<Ailment Id="AILMENT_SMOKING" String="Smoking"/>
+			<Ailment Id="AILMENT_FELYNETRAP" String="Felyne Trap"/>
+			<Ailment Id="AILMENT_CLAW" String="Clutch Claw"/>
+			<Ailment Id="AILMENT_CLAWFLINCH" String="Claw Flinch"/>
+			<Ailment Id="AILMENT_BANISHINGBALL" String="Banishing Ball"/>
 			<Ailment Id="STATUS_ENRAGE" String="Enrage"/>
 		</Rise>
 	</Ailments>
@@ -24,7 +34,15 @@
 		<Abnormality Id="ABNORMALITY_UNKNOWN" String="Unknown"/>
 		<Abnormality Id="ABNORMALITY_SELF_IMPROVEMENT" String="Self-Improvement"/>
 		<Abnormality Id="ABNORMALITY_ATTACK_UP" String="Attack Up"/>
+		<Abnormality Id="ABNORMALITY_ATTACK_UP_L" String="Attack Up (L)"/>
+		<Abnormality Id="ABNORMALITY_HEALTH_BOOST" String="Health Boost"/>
+		<Abnormality Id="ABNORMALITY_HEALTH_BOOST_L" String="Health Boost (L)"/>
 		<Abnormality Id="ABNORMALITY_DEFENSE_UP" String="Defense Up"/>
+		<Abnormality Id="ABNORMALITY_DEFENSE_UP_L" String="Defense Up (L)"/>
+		<Abnormality Id="ABNORMALITY_TOOL_USE_RED" String="Tool Use Drain Red."/>
+		<Abnormality Id="ABNORMALITY_TOOL_USE_RED_L" String="Tool Use Drain Red. (L)"/>
+		<Abnormality Id="ABNORMALITY_HEALTH_REC" String="Health Rec."/>
+		<Abnormality Id="ABNORMALITY_HEALTH_REC_L" String="Health Rec. (L)"/>
 		<Abnormality Id="ABNORMALITY_AFFINITY_UP" String="Affinity Up"/>
 		<Abnormality Id="ABNORMALITY_ELEMENTAL_ATTACK_UP" String="Elemental Attack Up"/>
 		<Abnormality Id="ABNORMALITY_ATTACK_DEF_UP" String="Attack and Def. Up"/>
@@ -33,17 +51,43 @@
 		<Abnormality Id="ABNORMALITY_EARPLUG" String="Earplugs (S)"/>
 		<Abnormality Id="ABNORMALITY_EARPLUG_PLUS" String="Earplugs (L)"/>
 		<Abnormality Id="ABNORMALITY_TREMORS_NEG" String="Tremors Negated"/>
-		<Abnormality Id="ABNORMALITY_WIND_PRESSURE_PLUS" String="Wind Pressure Negated"/>
+		<Abnormality Id="ABNORMALITY_DEEP_RESISTANCE" String="Muck/Water/Deep Snow Resistance"/>
+		<Abnormality Id="ABNORMALITY_FIRE_RESISTANCE" String="Fire Res. Up"/>
+		<Abnormality Id="ABNORMALITY_FIRE_RESISTANCE_L" String="Fire Res. Up (L)"/>
+		<Abnormality Id="ABNORMALITY_WATER_RESISTANCE" String="Water Res. Up"/>
+		<Abnormality Id="ABNORMALITY_WATER_RESISTANCE_L" String="Water Res. Up (L)"/>
+		<Abnormality Id="ABNORMALITY_THUNDER_RESISTANCE" String="Thunder Res. Up"/>
+		<Abnormality Id="ABNORMALITY_THUNDER_RESISTANCE_L" String="Thunder Res. Up (L)"/>
+		<Abnormality Id="ABNORMALITY_ICE_RESISTANCE" String="Ice Res. Up"/>
+		<Abnormality Id="ABNORMALITY_ICE_RESISTANCE_L" String="Ice Res. Up (L)"/>
+		<Abnormality Id="ABNORMALITY_DRAGON_RESISTANCE" String="Dragon Res. Up"/>
+		<Abnormality Id="ABNORMALITY_DRAGON_RESISTANCE_L" String="Dragon Res. Up (L)"/>
+		<Abnormality Id="ABNORMALITY_ALL_RES_UP" String="All Res. Up"/>
+		<Abnormality Id="ABNORMALITY_WIND_PRESSURE" String="Wind Pressure Negated"/>
+		<Abnormality Id="ABNORMALITY_WIND_PRESSURE_PLUS" String="All Wind Pressure Negated"/>
+		<Abnormality Id="ABNORMALITY_ABNORM_ATTACK_UP" String="Abnormal Status Atk. Up (S)"/>
+		<Abnormality Id="ABNORMALITY_MAX_STAM_RECOVERY" String="Max Stamina Up + Recovery"/>
+		<Abnormality Id="ABNORMALITY_EXT_HEALTH_RECOVERY" String="Extended Health Recovery"/>
 		<Abnormality Id="ABNORMALITY_STUN_NEG" String="Stun Negated"/>
+		<Abnormality Id="ABNORMALITY_PARALYSIS_NEG" String="Paralysis Negated"/>
 		<Abnormality Id="ABNORMALITY_BLIGHT_NEG" String="Blights Negated"/>
+		<Abnormality Id="ABNORMALITY_AILMENTS_NEG" String="All Ailments Negated"/>
 		<Abnormality Id="ABNORMALITY_DIVINE_PROTECTION" String="Divine Protection"/>
+		<Abnormality Id="ABNORMALITY_SCOUTFLY" String="Scoutfly Power Up"/>
 		<Abnormality Id="ABNORMALITY_HEALTH_REGEN" String="Health Regeneration"/>
 		<Abnormality Id="ABNORMALITY_STAMINA_USE_RED" String="Stamina Use Reduced"/>
+		<Abnormality Id="ABNORMALITY_STAMINA_USE_RED_L" String="Stamina Use Reduced (L)"/>
 		<Abnormality Id="ABNORMALITY_STAMINA_REC_UP" String="Stamina Recov. Up"/>
 		<Abnormality Id="ABNORMALITY_SHARPNESS_RED" String="Sharpness Loss Reduced"/>
 		<Abnormality Id="ABNORMALITY_ENV_NEG" String="Env. Damage Negated"/>
 		<Abnormality Id="ABNORMALITY_SONIC_BARRIER" String="Sonic Barrier"/>
 		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Infernal Melody"/>
+		<Abnormality Id="ABNORMALITY_SPEED_EVADE_UP" String="Speed Boost + Evade Window Up"/>
+		<Abnormality Id="ABNORMALITY_ALL_RES_ELEMENT_ATTACK" String="Elemental Effectiveness"/>
+		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Infernal Melody"/>
+		
+		<Abnormality Id="ABNORMALITY_RESUSCITATE" String="Resuscitate"/>
+		<Abnormality Id="ABNORMALITY_WINDPROOF" String="Windproof"/>
 		
 		<Abnormality Id="ABNORMALITY_MIGHT_SEED" String="Might Seed"/>
 		<Abnormality Id="ABNORMALITY_BUTTERFLAME" String="Butterflame"/>
@@ -82,12 +126,15 @@
 		<Abnormality Id="ABNORMALITY_STENCH" String="Stench"/>
 		<Abnormality Id="ABNORMALITY_HELLFIRE" String="Hellfireblight"/>
 		<Abnormality Id="ABNORMALITY_BLAST" String="Blastblight"/>
+		<Abnormality Id="ABNORMALITY_BLASTSCOURGE" String="Blastscourge"/>
 		<Abnormality Id="ABNORMALITY_FIRE" String="Fireblight"/>
 		<Abnormality Id="ABNORMALITY_WATER" String="Waterblight"/>
 		<Abnormality Id="ABNORMALITY_ICE" String="Iceblight"/>
 		<Abnormality Id="ABNORMALITY_THUNDER" String="Thunderblight"/>
 		<Abnormality Id="ABNORMALITY_DRAGON" String="Dragonblight"/>
 		<Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="Major Bubbleblight"/>
+		<Abnormality Id="ABNORMALITY_BLEED" String="Bleed"/>
+		<Abnormality Id="ABNORMALITY_EFFLUVIA" String="Effluvia"/>
 	</Abnormalities>
 	<Monsters>
 		<Shared>
@@ -196,6 +243,80 @@
 			<Monster Id="45" String="Bazelgeuse"/>
 			<Monster Id="46" String="Toadversary"/>
 		</Rise>
+		<World>
+			<Monster Id="0" String="Anjanath"/>
+			<Monster Id="1" String="Rathalos"/>
+			<Monster Id="4" String="Zorah Magdaros"/>
+			<Monster Id="7" String="Great Jagras"/>
+			<Monster Id="9" String="Rathian"/>
+			<Monster Id="10" String="Pink Rathian"/>
+			<Monster Id="11" String="Azure Rathalos"/>
+			<Monster Id="12" String="Diablos"/>
+			<Monster Id="13" String="Black Diablos"/>
+			<Monster Id="14" String="Kirin"/>
+			<Monster Id="15" String="Behemoth"/>
+			<Monster Id="16" String="Kushala Daora"/>
+			<Monster Id="17" String="Lunastra"/>
+			<Monster Id="18" String="Teostra"/>
+			<Monster Id="19" String="Lavasioth"/>
+			<Monster Id="20" String="Deviljho"/>
+			<Monster Id="21" String="Barroth"/>
+			<Monster Id="22" String="Uragaan"/>
+			<Monster Id="23" String="Leshen"/>
+			<Monster Id="24" String="Pukei-Pukei"/>
+			<Monster Id="25" String="Nergigante"/>
+			<Monster Id="26" String="Xeno'jiiva"/>
+			<Monster Id="27" String="Kulu-Ya-Ku"/>
+			<Monster Id="28" String="Tzitzi-Ya-Ku"/>
+			<Monster Id="29" String="Jyuratodus"/>
+			<Monster Id="30" String="Tobi-Kadachi"/>
+			<Monster Id="31" String="Paolumu"/>
+			<Monster Id="32" String="Legiana"/>
+			<Monster Id="33" String="Great Girros"/>
+			<Monster Id="34" String="Odogaron"/>
+			<Monster Id="35" String="Radobaan"/>
+			<Monster Id="36" String="Vaal Hazak"/>
+			<Monster Id="37" String="Dodogama"/>
+			<Monster Id="38" String="Kulve Taroth"/>
+			<Monster Id="39" String="Bazelgeuse"/>
+			<Monster Id="51" String="Ancient Leshen"/>
+			<Monster Id="61" String="Tigrex"/>
+			<Monster Id="62" String="Nargacuga"/>
+			<Monster Id="63" String="Barioth"/>
+			<Monster Id="64" String="Savage Deviljho"/>
+			<Monster Id="65" String="Brachydios"/>
+			<Monster Id="66" String="Glavenus"/>
+			<Monster Id="67" String="Acidic Glavenus"/>
+			<Monster Id="68" String="Fulgur Anjanath"/>
+			<Monster Id="69" String="Coral Pukei-Pukei"/>
+			<Monster Id="70" String="Ruiner Nergigante"/>
+			<Monster Id="71" String="Viper Tobi-Kadachi"/>
+			<Monster Id="72" String="Nightshade Paolumu"/>
+			<Monster Id="73" String="Shrieking Legiana"/>
+			<Monster Id="74" String="Ebony Odogaron"/>
+			<Monster Id="75" String="Blackveil Vaal Hazak"/>
+			<Monster Id="76" String="Seething Bazelgeuse"/>
+			<Monster Id="77" String="Beotodus"/>
+			<Monster Id="78" String="Banbaro"/>
+			<Monster Id="79" String="Velkhana"/>
+			<Monster Id="80" String="Namielle"/>
+			<Monster Id="81" String="Shara Ishvalda"/>
+			<Monster Id="87" String="Alatreon"/>
+			<Monster Id="88" String="Gold Rathian"/>
+			<Monster Id="89" String="Silver Rathalos"/>
+			<Monster Id="90" String="Yian Garuga"/>
+			<Monster Id="91" String="Rajang"/>
+			<Monster Id="92" String="Furious Rajang"/>
+			<Monster Id="93" String="Brute Tigrex"/>
+			<Monster Id="94" String="Zinogre"/>
+			<Monster Id="95" String="Stygian Zinogre"/>
+			<Monster Id="96" String="Raging Brachydios"/>
+			<Monster Id="97" String="Safi'jiiva"/>
+			<Monster Id="98" String="Training Dummy"/>
+			<Monster Id="99" String="Scarred Yian Garuga"/>
+			<Monster Id="100" String="Frostfang Barioth"/>
+			<Monster Id="101" String="Fatalis"/>
+		</World>
 	</Monsters>
 	<Stages>
 		<Rise>
@@ -217,6 +338,43 @@
 			<Stage Id="210" String="Arena"/>
 			<Stage Id="211" String="Coral Palace"/>
 		</Rise>
+		<World>
+			<Stage Id="0" String="Main Menu"/>
+			<Stage Id="101" String="Ancient Forest"/>
+			<Stage Id="102" String="Wildspire Waste"/>
+			<Stage Id="103" String="Coral Highlands"/>
+			<Stage Id="104" String="Rotten Vale"/>
+			<Stage Id="105" String="Elder's Recess"/>
+			<Stage Id="106" String="Great Ravine"/>
+			<Stage Id="107" String="Great Ravine"/>
+			<Stage Id="108" String="Hoarfrost Reach"/>
+			<Stage Id="109" String="The Guiding Lands"/>
+			<Stage Id="201" String="Special Arena"/>
+			<Stage Id="202" String="Arena"/>
+			<Stage Id="203" String="Seliana Supply Cache"/>
+			<Stage Id="301" String="Astera"/>
+			<Stage Id="302" String="Astera Gathering Hub"/>
+			<Stage Id="303" String="Research Base"/>
+			<Stage Id="305" String="Seliana"/>
+			<Stage Id="306" String="Seliana Gathering Hub"/>
+			<Stage Id="401" String="Introduction"/>
+			<Stage Id="403" String="Everstream"/>
+			<Stage Id="405" String="Confluence of Fates"/>
+			<Stage Id="406" String="Ancient Forest"/>
+			<Stage Id="409" String="Caverns of El Dorado"/>
+			<Stage Id="411" String="Seliana Supply Cache"/>
+			<Stage Id="412" String="Origin Isle"/>
+			<Stage Id="413" String="Origin Isle"/>
+			<Stage Id="415" String="Secluded Valley"/>
+			<Stage Id="416" String="Secluded Valley"/>
+			<Stage Id="417" String="Castle Schrade"/>
+			<Stage Id="501" String="Living Quarters"/>
+			<Stage Id="502" String="Private Quarters"/>
+			<Stage Id="503" String="Private Suite"/>
+			<Stage Id="504" String="Training Area"/>
+			<Stage Id="505" String="Chamber of Five"/>
+			<Stage Id="506" String="Seliana Room"/>
+		</World>
 	</Stages>
 
 	<Client>
@@ -241,28 +399,37 @@
 					 String="There's a new version of HunterPie available!"/>
 		</Generics>
 		<Integrations>
+			<!-- Shared between games -->
+			<Discord Id="DRPC_STATE_HUNTING"
+					 String="Hunting {Monster} ({Percentage}%)"/>
+			<Discord Id="DRPC_STATE_HUNTING_NO_HEALTH"
+					 String="Hunting {Monster}"/>
+			<Discord Id="DRPC_STATE_MAIN_MENU"
+					 String="In Main Menu"/>
+			<Discord Id="DRPC_STATE_IDLE"
+					 String="Chilling"/>
+			<Discord Id="DRPC_STATE_EXPLORING"
+					 String="Exploring"/>
+			<Discord Id="DRPC_PARTY_STATE_SOLO_STRING"
+					 String="Solo"/>
+			<Discord Id="DRPC_PARTY_STATE_GROUP_STRING"
+					 String="In Party"/>
+
+			<!-- Rise -->
 			<Discord Id="DRPC_RISE_CHARACTER_STRING_FORMAT"
 					 String="{Character} | HR: {HighRank}"/>
-			<Discord Id="DRPC_RISE_STATE_MAIN_MENU"
-					 String="In Main Menu"/>
-			<Discord Id="DRPC_RISE_STATE_IDLE"
-					 String="Chilling"/>
 			<Discord Id="DRPC_RISE_STATE_PRACTICE"
 					 String="Practicing"/>
 			<Discord Id="DRPC_RISE_STATE_RAMPAGE"
 					 String="In Rampage"/>
 			<Discord Id="DRPC_RISE_STATE_CHAR_SELECTION"
 					 String="Selecting character"/>
-			<Discord Id="DRPC_RISE_STATE_EXPLORING"
-					 String="Exploring"/>
-			<Discord Id="DRPC_RISE_STATE_HUNTING"
-					 String="Hunting {Monster} ({Percentage}%)"/>
-			<Discord Id="DRPC_RISE_STATE_HUNTING_NO_HEALTH"
-					 String="Hunting {Monster}"/>
-			<Discord Id="DRPC_RISE_PARTY_STATE_SOLO_STRING"
-					 String="Solo"/>
-			<Discord Id="DRPC_RISE_PARTY_STATE_GROUP_STRING"
-					 String="In Party"/>
+
+			<!-- World -->
+			<Discord Id="DRPC_WORLD_CHARACTER_STRING_FORMAT"
+					 String="{Character} | HR: {HighRank} | MR: {MasterRank}"/>
+			<Discord Id="DRPC_WORLD_STATE_PRACTICE"
+					 String="Training"/>
 		</Integrations>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
@@ -301,7 +468,10 @@
 					 Description="Consumable abnormalities"/>
 			<Setting Id="ABNORMALITY_DEBUFFS_STRING"
 					 String="Debuffs"
-					 Description="Debuffs abnormalities"/>]
+					 Description="Debuffs abnormalities"/>
+			<Setting Id="ABNORMALITY_PALICO_STRING"
+					 String="Orchestra"
+					 Description="Orchestra abnormalities"/>
 			<Setting Id="ABNORMALITY_SKILLS_STRING"
 					 String="Armor skills"
 					 Description="Armor skill abnormalities"/>
