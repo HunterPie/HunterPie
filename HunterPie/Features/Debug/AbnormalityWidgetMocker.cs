@@ -10,7 +10,7 @@ namespace HunterPie.Features.Debug
     {
         public void Mock()
         {
-            if (ClientConfig.Config.Debug.MockAbnormalityWidget)
+            if (ClientConfig.Config.Development.MockAbnormalityWidget)
             {
                 var mockSettings = new AbnormalityWidgetConfig();
                 WidgetManager.Register<AbnormalityBarView, AbnormalityWidgetConfig>(

@@ -10,12 +10,15 @@ namespace HunterPie.Features.Debug
     {
         public void Mock()
         {
-            if (ClientConfig.Config.Debug.MockActivitiesWidget)
-                WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(new ActivitiesView()
-                {
-                    DataContext = new MockActivitiesViewModel()
-                }
-            );
+            var mockConfig = ClientConfig.Config.Rise.Overlay;
+
+            if (ClientConfig.Config.Development.MockActivitiesWidget)
+                WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(
+                    new ActivitiesView(mockConfig.ActivitiesWidget)
+                    {
+                        DataContext = new MockActivitiesViewModel()
+                    }
+                );
         }
     }
 }

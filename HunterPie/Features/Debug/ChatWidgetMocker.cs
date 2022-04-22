@@ -10,11 +10,15 @@ namespace HunterPie.Features.Debug
     {
         public void Mock()
         {
-            if (ClientConfig.Config.Debug.MockChatWidget)
-                WidgetManager.Register<ChatView, ChatWidgetConfig>(new ChatView()
-                {
-                    DataContext = new MockChatViewModel()
-                });
+            var mockConfig = ClientConfig.Config.Rise.Overlay;
+
+            if (ClientConfig.Config.Development.MockChatWidget)
+                WidgetManager.Register<ChatView, ChatWidgetConfig>(
+                    new ChatView(mockConfig.ChatWidget)
+                    {
+                        DataContext = new MockChatViewModel()
+                    }
+                );
         }
     }
 }

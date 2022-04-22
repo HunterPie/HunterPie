@@ -10,11 +10,13 @@ namespace HunterPie.Features.Debug
     {
         public void Mock()
         {
-            if (ClientConfig.Config.Debug.MockDamageWidget)
+            var mockConfig = ClientConfig.Config.Rise.Overlay;
+
+            if (ClientConfig.Config.Development.MockDamageWidget)
                 WidgetManager.Register<MeterView, DamageMeterWidgetConfig>(
-                    new MeterView()
+                    new MeterView(mockConfig.DamageMeterWidget)
                     {
-                        DataContext = new MockMeterViewModel()
+                        DataContext = new MockMeterViewModel(mockConfig.DamageMeterWidget)
                     }
                 );
         }
