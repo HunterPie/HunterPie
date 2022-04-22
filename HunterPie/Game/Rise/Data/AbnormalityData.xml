@@ -150,8 +150,6 @@
                      Offset="EC"
 					 Name="ABNORMALITY_ARMOR_AMMO"
 					 Icon="ICON_ARMORAMMO"/>
-        <Abnormality Id="F0"
-                     Offset="F0"/>
         <Abnormality Id="F4"
                      Offset="F4"/>
         <Abnormality Id="F8"
@@ -224,6 +222,11 @@
                      Icon="ICON_BUBBLE+"/>
     </Debuffs>
     <Skills>
+		<Abnormality Id="F0"
+                     Offset="F0"
+					 Name="ABNORMALITY_OFFENSIVE_GUARD"
+					 Icon="ICON_ARMORSKILL_PURPLE"
+					 Category="Consumables"/>
         <Abnormality Id="10C"
                      Offset="10C"
                      Name="ABNORMALITY_AFFINITY_SLIDING"

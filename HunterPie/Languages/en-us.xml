@@ -10,6 +10,7 @@
 			<Ailment Id="AILMENT_BLAST" String="Blast"/>
 			<Ailment Id="AILMENT_EXHAUST" String="Exhaust"/>
 			<Ailment Id="AILMENT_MOUNT" String="Mount"/>
+			<Ailment Id="AILMENT_RIDE" String="Ride"/>
 			<Ailment Id="AILMENT_FLASH" String="Flash"/>
 			<Ailment Id="AILMENT_WATER" String="Waterblight"/>
 			<Ailment Id="AILMENT_FIRE" String="Fireblight"/>
@@ -118,6 +119,7 @@
 		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="Latent Power"/>
 		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="Affinity Sliding"/>
 		<Abnormality Id="ABNORMALITY_PROTECTIVE_POLISH" String="Protective Polish"/>
+		<Abnormality Id="ABNORMALITY_OFFENSIVE_GUARD" String="Offensive Guard"/>
 
 		<Abnormality Id="ABNORMALITY_POISON" String="Poison"/>
 		<Abnormality Id="ABNORMALITY_VENOM" String="Venom"/>
@@ -491,6 +493,9 @@
 			<Setting Id="LANGUAGE_STRING"
 					 String="Language"
 					 Description="HunterPie's default localization"/>
+			<Setting Id="DEFAULT_RUN_GAME_TYPE"
+					 String="Default game"
+					 Description="Game to be launched, changing this to another game will also change the settings window to display the settings associated to that game."/>
 			<Setting Id="MINIMIZE_TO_SYSTEM_TRAY_STRING"
 					 String="Minimize to system tray"
 					 Description="If enabled, HunterPie will minimize to the system's tray."/>
