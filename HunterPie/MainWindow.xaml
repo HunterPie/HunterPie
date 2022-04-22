@@ -95,7 +95,7 @@
                                    FontSize="10"
                                    VerticalAlignment="Bottom"
                                    HorizontalAlignment="Right"/>
-                    </Grid>                    
+                    </Grid>
                 </native:Button.Content>
             </native:Button>
 
