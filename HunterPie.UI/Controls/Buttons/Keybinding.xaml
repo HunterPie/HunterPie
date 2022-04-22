@@ -7,9 +7,54 @@
              mc:Ignorable="d" 
              d:DesignHeight="35" d:DesignWidth="200"
              PreviewKeyDown="OnKeyDown"
-             Focusable="True">
-    <local:Button Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
-                  Content="{Binding HotKey, RelativeSource={RelativeSource FindAncestor, AncestorType=local:Keybinding}}"
-                  OnClick="OnClick">
+             Focusable="True" 
+             Loaded="OnLoaded">
+    <local:Button OnClick="OnClick"
+                  Cursor="Hand"
+                  HorizontalContentAlignment="Right">
+        <local:Button.Content>
+            <ItemsControl ItemsSource="{Binding Keys, RelativeSource={RelativeSource FindAncestor, AncestorType=local:Keybinding}}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="5,0,0,0">
+                            <Rectangle RadiusX="5"
+                                       RadiusY="5"
+                                       Stroke="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                                       Fill="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                                       Opacity="0.2"/>
+                            <TextBlock Text="{Binding .}"
+                                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                                       FontSize="13"
+                                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                       Padding="5"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </local:Button.Content>
+        <local:Button.Style>
+            <Style TargetType="local:Button">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource AncestorType={x:Type local:Keybinding}}}" Value="True">
+                        <DataTrigger.Setters>
+                            <Setter Property="BorderBrush" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                        </DataTrigger.Setters>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource AncestorType={x:Type local:Keybinding}}}" Value="False">
+                        <DataTrigger.Setters>
+                            <Setter Property="Background" Value="Transparent"/>
+                        </DataTrigger.Setters>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </local:Button.Style>
     </local:Button>
 </UserControl>
