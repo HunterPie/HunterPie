@@ -27,6 +27,8 @@ namespace HunterPie.Internal
             new ClientConfigBindingsInitializer(),
             // GUI
             new MenuInitializer(),
+
+            new ApiPingInitializer(),
         };
 
         private static HashSet<IInitializer> _uiInitializers = new()
