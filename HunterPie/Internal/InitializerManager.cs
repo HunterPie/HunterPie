@@ -13,6 +13,7 @@ namespace HunterPie.Internal
         {
             // Core
             new LocalConfigInitializer(),
+            new ClientConfigMigrationInitializer(),
             new ClientConfigInitializer(),
             new ConfigManagerInitializer(),
             new HunterPieLoggerInitializer(),

@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Client;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Logger;
 using System.Diagnostics;
 using System.IO;
@@ -8,7 +9,8 @@ namespace HunterPie.Core.System.Windows
 {
     internal class MHWProcessManager : WindowsProcessManager
     {
-        public override string Name => "MonsterHunterWorld"; 
+        public override string Name => "MonsterHunterWorld";
+        public override GameProcess Game => GameProcess.MonsterHunterWorld;
 
         protected override bool ShouldOpenProcess(Process process)
         {

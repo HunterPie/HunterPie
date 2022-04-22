@@ -6,6 +6,8 @@ using System.Linq;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Client.Configuration.Integrations;
+using HunterPie.Core.Client;
 
 namespace HunterPie.Integrations.Discord
 {
@@ -14,6 +16,7 @@ namespace HunterPie.Integrations.Discord
         private const string RISE_APP_ID = "932399108017242182";
 
         private readonly MHRGame game;
+        protected override DiscordRichPresence Settings => ClientConfig.Config.Rise.RichPresence;
 
         public RiseRichPresence(MHRContext context) : base(RISE_APP_ID, context.Game)
         {

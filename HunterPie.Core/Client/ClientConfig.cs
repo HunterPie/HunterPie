@@ -7,10 +7,10 @@ namespace HunterPie.Core.Client
     {
         public const string CONFIG_NAME = "config.json";
 
-        private readonly Config _config = new Config();
+        private readonly V2Config _config = new();
         private static ClientConfig _instance;
 
-        public static Config Config
+        public static V2Config Config
         {
             get => _instance._config;
         }

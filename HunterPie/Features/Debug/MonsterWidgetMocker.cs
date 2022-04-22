@@ -10,11 +10,13 @@ namespace HunterPie.Features.Debug
     {
         public void Mock()
         {
-            if (ClientConfig.Config.Debug.MockBossesWidget)
+            var mockConfig = ClientConfig.Config.Rise.Overlay;
+
+            if (ClientConfig.Config.Development.MockBossesWidget)
                 WidgetManager.Register<MonstersView, MonsterWidgetConfig>(
-                    new MonstersView()
+                    new MonstersView(mockConfig.BossesWidget)
                     {
-                        DataContext = new MockMonstersViewModel()
+                        DataContext = new MockMonstersViewModel(mockConfig.BossesWidget)
                     }
                 );
         }

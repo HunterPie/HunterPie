@@ -1,10 +1,12 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.GUI.Parts.Host;
 using HunterPie.Internal.Initializers;
 using HunterPie.UI.Controls.Flags;
 using HunterPie.UI.Controls.Settings;
 using HunterPie.UI.Controls.Settings.ViewModel;
 using HunterPie.UI.Settings;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using Localization = HunterPie.Core.Client.Localization.Localization;
@@ -23,10 +25,29 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 
         public bool ShouldNotify => false;
 
-        public void ExecuteOnClick()
+        public SettingsSideBarElementViewModel()
+        {
+            ClientConfig.Config.Client.DefaultGameType.PropertyChanged += (_, __) => RefreshSettingsWindow(true);
+        }
+
+        public void ExecuteOnClick() => RefreshSettingsWindow();
+
+        private void RefreshSettingsWindow(bool forceRefresh = false)
         {
             var settingTabs = VisualConverterManager.Build(ClientConfig.Config);
-            
+
+            var gameSpecificTabs = VisualConverterManager.Build(
+                ClientConfig.Config.Client.DefaultGameType.Value switch
+                {
+                    GameType.Rise => ClientConfig.Config.Rise,
+                    GameType.World => ClientConfig.Config.World,
+                    _ => throw new System.NotImplementedException(),
+                }
+            );
+
+            settingTabs = settingTabs.Concat(gameSpecificTabs)
+                .ToArray();
+
             var _ = ClientConfig.Config.Client.Language;
 
             SettingHostViewModel vm = new(settingTabs);
@@ -34,12 +55,12 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
             {
                 DataContext = vm
             };
-            
+
             // Also add feature flags if enabled
             if (ClientConfig.Config.Client.EnableFeatureFlags)
                 vm.Elements.Add(new FeatureFlagsView(FeatureFlagsInitializer.Features.Flags));
 
-            MainHost.SetMain(host);
+            MainHost.SetMain(host, forceRefresh);
         }
     }
 }

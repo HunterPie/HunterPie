@@ -33,7 +33,7 @@ namespace HunterPie.Core.Http
 
             bool shouldRedirect = FeatureFlagManager.IsEnabled(FeatureFlags.FEATURE_REDIRECT_POOGIE);
             PoogieBuilder builder = shouldRedirect 
-                                    ? new PoogieBuilder(ClientConfig.Config.Debug.PoogieApiHost)
+                                    ? new PoogieBuilder(ClientConfig.Config.Development.PoogieApiHost)
                                     : new PoogieBuilder(Hosts);
 
             return builder.WithTimeout(TimeSpan.FromSeconds(5))

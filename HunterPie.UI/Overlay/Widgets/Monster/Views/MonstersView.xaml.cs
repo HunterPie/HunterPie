@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Enums;
@@ -13,12 +12,14 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.Views
     /// </summary>
     public partial class MonstersView : View<MonstersViewModel>, IWidget<MonsterWidgetConfig>, IWidgetWindow
     {
-        public MonstersView()
+        private readonly MonsterWidgetConfig _config;
+        public MonstersView(MonsterWidgetConfig config)
         {
+            _config = config;
             InitializeComponent();
         }
 
-        public MonsterWidgetConfig Settings => ClientConfig.Config.Overlay.BossesWidget;
+        public MonsterWidgetConfig Settings => _config;
         public string Title => "Monsters Widget";
         public WidgetType Type => WidgetType.ClickThrough;
         IWidgetSettings IWidgetWindow.Settings => Settings;

@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
 using System;
 using System.ComponentModel;
@@ -10,6 +11,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
     public class MonsterPartViewModel : Bindable, IDisposable
     {
         private readonly Timer timeout;
+        private MonsterWidgetConfig _config;
 
         private string _name;
         private double _health;
@@ -86,16 +88,17 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         public bool IsKnownPart { get => _isKnownPart; set { SetValue(ref _isKnownPart, value); } }
         public PartType Type { get => _type; set { SetValue(ref _type, value); } }
 
-        public MonsterPartViewModel()
+        public MonsterPartViewModel(MonsterWidgetConfig config)
         {
-            timeout = new(ClientConfig.Config.Overlay.BossesWidget.AutoHidePartsDelay.Current * 1000)
+            _config = config;
+            timeout = new(config.AutoHidePartsDelay.Current * 1000)
             {
                 AutoReset = true
             };
             timeout.Elapsed += OnHideTimerTick;
             timeout.Start();
 
-            ClientConfig.Config.Overlay.BossesWidget.AutoHidePartsDelay.PropertyChanged += OnDelayTimeUpdate;
+            config.AutoHidePartsDelay.PropertyChanged += OnDelayTimeUpdate;
         }
 
         private void OnHideTimerTick(object sender, ElapsedEventArgs e)
@@ -108,7 +111,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 
         private void OnDelayTimeUpdate(object sender, PropertyChangedEventArgs e)
         {
-            timeout.Interval = ClientConfig.Config.Overlay.BossesWidget.AutoHidePartsDelay.Current * 1000;
+            timeout.Interval = _config.AutoHidePartsDelay.Current * 1000;
             RefreshTimer();
         }
 
@@ -121,7 +124,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 
         protected virtual void DisposeResources()
         {
-            ClientConfig.Config.Overlay.BossesWidget.AutoHidePartsDelay.PropertyChanged -= OnDelayTimeUpdate;
+            _config.AutoHidePartsDelay.PropertyChanged -= OnDelayTimeUpdate;
             timeout.Dispose();
         }
 

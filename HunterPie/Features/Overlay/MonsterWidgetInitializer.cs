@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Game;
+using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Monster;
@@ -12,7 +13,9 @@ namespace HunterPie.Features.Overlay
 
         public void Load(Context context)
         {
-            if (!ClientConfig.Config.Overlay.BossesWidget.Initialize)
+            var config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
+
+            if (!config.BossesWidget.Initialize)
                 return;
 
             _handler = new MonsterWidgetContextHandler(context);

@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Game.Rise.Entities;
 using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
@@ -23,7 +24,7 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug
 
         public WirebugWidgetContextHandler(MHRContext context)
         {
-            View = new WirebugsView();
+            View = new WirebugsView(ClientConfig.Config.Rise.Overlay.WirebugWidget);
             WidgetManager.Register<WirebugsView, WirebugWidgetConfig>(View);
             
             ViewModel = View.ViewModel;

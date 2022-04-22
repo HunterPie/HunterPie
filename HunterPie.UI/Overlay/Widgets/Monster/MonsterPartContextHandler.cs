@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Game.Environment;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Game.Environment;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster
@@ -7,7 +8,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
     {
         public readonly IMonsterPart Context;
 
-        public MonsterPartContextHandler(IMonsterPart context)
+        public MonsterPartContextHandler(IMonsterPart context, MonsterWidgetConfig config) : base(config)
         {
             Context = context;
             Type = Context.Type;

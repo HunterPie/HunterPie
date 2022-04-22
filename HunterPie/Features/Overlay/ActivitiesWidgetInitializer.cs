@@ -2,6 +2,7 @@
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Game.World;
+using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Activities;
@@ -15,8 +16,9 @@ namespace HunterPie.Features.Overlay
 
         public void Load(Context context)
         {
+            var config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
 
-            if (!ClientConfig.Config.Overlay.ActivitiesWidget.Initialize)
+            if (!config.ActivitiesWidget.Initialize)
                 return;
 
             _handler = context switch

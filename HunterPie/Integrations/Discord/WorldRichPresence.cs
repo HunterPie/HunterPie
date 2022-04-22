@@ -1,4 +1,6 @@
 ﻿using DiscordRPC;
+using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration.Integrations;
 using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
@@ -13,6 +15,7 @@ namespace HunterPie.Integrations.Discord
         private const string WORLD_APP_ID = "567152028070051859";
         private readonly MHWGame game;
 
+        protected override DiscordRichPresence Settings => ClientConfig.Config.World.RichPresence;
         public WorldRichPresence(MHWContext context) : base(WORLD_APP_ID, context.Game)
         {
             game = (MHWGame)context.Game;

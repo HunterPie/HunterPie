@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Game.Rise.Entities;
 using HunterPie.UI.Overlay.Widgets.Activities.Rise;
@@ -26,7 +27,7 @@ namespace HunterPie.UI.Overlay.Widgets.Activities
             _context = context;
             _player = (MHRPlayer)context.Game.Player;
 
-            View = new ActivitiesView();
+            View = new ActivitiesView(ClientConfig.Config.Rise.Overlay.ActivitiesWidget);
             WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(View);
 
             ViewModel = View.ViewModel;

@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.UI.Overlay;
 using System;
 using System.Windows.Controls;
 
@@ -11,6 +12,12 @@ namespace HunterPie.UI.Architecture
 
         protected virtual TViewModel InitializeViewModel()
         {
+            if (this is IWidgetWindow widget)
+                try
+                {
+                    return (TViewModel)Activator.CreateInstance(typeof(TViewModel), widget.Settings);
+                } catch { };
+
             return Activator.CreateInstance<TViewModel>();
         }
 

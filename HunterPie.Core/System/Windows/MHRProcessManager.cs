@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Client;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Logger;
 using System.Diagnostics;
 using System.IO;
@@ -10,6 +11,7 @@ namespace HunterPie.Core.System.Windows
     {
 
         public override string Name => "MonsterHunterRise";
+        public override GameProcess Game => GameProcess.MonsterHunterRise;
 
         protected override bool ShouldOpenProcess(Process process)
         {

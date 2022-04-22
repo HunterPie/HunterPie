@@ -1,12 +1,12 @@
 ﻿using HunterPie.Core.Architecture;
-using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
 {
     public class PlayerViewModel : Bindable
     {
-
+        private DamageMeterWidgetConfig _config;
         private string _name;
         private Weapon _weapon;
         private int _damage;
@@ -15,6 +15,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
         private string _color;
         private bool _isIncreasing;
         private bool _isUser;
+
+        public PlayerViewModel(DamageMeterWidgetConfig config) => _config = config;
 
         public string Name
         {
@@ -58,8 +60,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
         }
 
         // Settings related
-        public Observable<bool> ShouldHighlightMyself => ClientConfig.Config.Overlay.DamageMeterWidget.ShouldHighlightMyself;
-        public Observable<bool> ShouldBlurNames => ClientConfig.Config.Overlay.DamageMeterWidget.ShouldBlurNames;
+        public Observable<bool> ShouldHighlightMyself => _config.ShouldHighlightMyself;
+        public Observable<bool> ShouldBlurNames => _config.ShouldBlurNames;
 
     }
 }
