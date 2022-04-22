@@ -1,10 +1,11 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
-    [SettingsGroup("CHAT_WIDGET_STRING", "ICON_CHATBOX")]
+    [SettingsGroup("CHAT_WIDGET_STRING", "ICON_CHATBOX", availableGames: GameProcess.MonsterHunterRise)]
     public class ChatWidgetConfig : IWidgetSettings, ISettings
     {
         [SettingField("INITIALIZE_WIDGET_STRING", requiresRestart: true)]

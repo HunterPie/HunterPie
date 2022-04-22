@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HunterPie.Core.Domain.Enums;
+using System;
 
 namespace HunterPie.Core.Settings
 {
@@ -9,16 +10,19 @@ namespace HunterPie.Core.Settings
         public readonly string Description;
         public readonly string Icon;
         public readonly string DependsOnFeature;
+        public readonly GameProcess AvailableGames;
 
         public SettingsGroup(
             string name,
             string icon,
-            string dependsOnFeature = null
+            string dependsOnFeature = null,
+            GameProcess availableGames = GameProcess.MonsterHunterWorld | GameProcess.MonsterHunterRise
         ) {
             Name = name;
             Description = name + "_DESC";
             Icon = icon;
             DependsOnFeature = dependsOnFeature;
+            AvailableGames = availableGames;
         }
     }
 }

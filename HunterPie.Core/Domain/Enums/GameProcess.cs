@@ -1,9 +1,12 @@
-﻿namespace HunterPie.Core.Domain.Enums
+﻿using System;
+
+namespace HunterPie.Core.Domain.Enums
 {
-    public enum GameProcess
+    [Flags]
+    public enum GameProcess : int
     {
-        None,
-        MonsterHunterRise,
-        MonsterHunterWorld,
+        None = 0,
+        MonsterHunterRise = 1 << 0,
+        MonsterHunterWorld = 1 << 1,
     }
 }

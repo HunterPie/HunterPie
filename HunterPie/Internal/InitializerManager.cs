@@ -18,6 +18,7 @@ namespace HunterPie.Internal
             new ConfigManagerInitializer(),
             new HunterPieLoggerInitializer(),
             new FeatureFlagsInitializer(),
+            new MapperFactoryInitializer(),
 
             new NativeLoggerInitializer(),
             new ExceptionCatcherInitializer(),

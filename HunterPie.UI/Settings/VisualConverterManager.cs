@@ -13,6 +13,10 @@ using System.Windows.Data;
 using Range = HunterPie.Core.Settings.Types.Range;
 using Localization = HunterPie.Core.Client.Localization.Localization;
 using System.Xml;
+using HunterPie.Core.Domain.Enums;
+using HunterPie.Core.Client;
+using HunterPie.Core.Domain.Mapper;
+using HunterPie.Core.Client.Configuration.Enums;
 
 namespace HunterPie.UI.Settings
 {
@@ -50,6 +54,7 @@ namespace HunterPie.UI.Settings
             List<ISettingElement> holder = new();
 
             Type parentType = settings.GetType();
+            GameProcess currentConfiguration = MapFactory.Map<GameType, GameProcess>(ClientConfig.Config.Client.DefaultGameType.Value);
 
             foreach (PropertyInfo property in parentType.GetProperties())
             {
@@ -60,6 +65,9 @@ namespace HunterPie.UI.Settings
 
                     if (metadata.DependsOnFeature is not null && 
                         !FeatureFlagManager.IsEnabled(metadata.DependsOnFeature))
+                        continue;
+
+                    if (!metadata.AvailableGames.HasFlag(currentConfiguration))
                         continue;
 
                     XmlNode locNode = Localization.Query($"//Strings/Client/Settings/Setting[@Id='{metadata.Name}']");
@@ -114,6 +122,7 @@ namespace HunterPie.UI.Settings
         private static void BuildChildren(object parent, ISettingElement panel, List<ISettingElement> parentPanel)
         {
             Type parentType = parent.GetType();
+            GameProcess currentConfiguration = MapFactory.Map<GameType, GameProcess>(ClientConfig.Config.Client.DefaultGameType.Value);
 
             foreach (PropertyInfo prop in parentType.GetProperties())
             {
@@ -125,6 +134,9 @@ namespace HunterPie.UI.Settings
 
                     if (meta.DependsOnFeature is not null && 
                         !FeatureFlagManager.IsEnabled(meta.DependsOnFeature))
+                        continue;
+
+                    if (!meta.AvailableGames.HasFlag(currentConfiguration))
                         continue;
 
                     XmlNode locNode = Localization.Query($"//Strings/Client/Settings/Setting[@Id='{meta.Name}']");
