@@ -61,7 +61,8 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="7*"/>
-            <RowDefinition Height="83*"/>
+            <RowDefinition Height="76*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal"
                     Height="30"
@@ -114,10 +115,12 @@
         </StackPanel>
         <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
+                   HorizontalAlignment="Right"
+                   Margin="0,0,5,0"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    TextWrapping="WrapWithOverflow"
-                   Grid.Column="1">
+                   Grid.Column="2"
+                   Grid.Row="2">
                 <Run Text="Config last sync @"/>
                 <Run Text="{Binding LastSync, Mode=OneWay}"
                      d:Text="12:36:08"
@@ -159,5 +162,14 @@
                 </ControlTemplate>
             </TabControl.Template>
         </TabControl>
+
+        <ComboBox SelectedIndex="0"
+                  Grid.Row="2"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  FontSize="12">
+            <ComboBoxItem Content="Monster Hunter: World"/>
+            <ComboBoxItem Content="Monster Hunter Rise"/>
+        </ComboBox>
     </Grid>
 </UserControl>

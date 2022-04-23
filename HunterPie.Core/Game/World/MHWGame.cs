@@ -4,7 +4,6 @@ using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
-using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.World.Entities;
 using System;
@@ -18,6 +17,7 @@ namespace HunterPie.Core.Game.World
         private readonly MHWPlayer _player;
         private readonly Dictionary<long, IMonster> _monsters = new();
         private readonly IProcessManager _process;
+        private bool _isMouseVisible;
 
         public event EventHandler<IMonster> OnMonsterSpawn;
         public event EventHandler<IMonster> OnMonsterDespawn;
@@ -28,7 +28,18 @@ namespace HunterPie.Core.Game.World
 
         public IChat Chat => throw new NotImplementedException();
 
-        public bool IsHudOpen => throw new NotImplementedException();
+        public bool IsHudOpen
+        {
+            get => _isMouseVisible;
+            private set
+            {
+                if (value != _isMouseVisible)
+                {
+                    _isMouseVisible = value;
+                    this.Dispatch(OnHudStateChange, this);
+                }
+            }
+        }
 
         public MHWGame(IProcessManager process)
         {
@@ -39,7 +50,18 @@ namespace HunterPie.Core.Game.World
         }
 
         [ScannableMethod]
-        private void ScanMonsterDoubleLinkedList()
+        private void GetMouseVisibilityState()
+        {
+            bool isMouseVisible = _process.Memory.Deref<int>(
+                AddressMap.GetAbsolute("GAME_MOUSE_INFO_ADDRESS"),
+                AddressMap.Get<int[]>("MOUSE_VISIBILITY_OFFSETS")
+            ) == 1;
+
+            IsHudOpen = isMouseVisible;
+        }
+
+        [ScannableMethod]
+        private void GetMonsterDoubleLinkedList()
         {   
             long doubleLinkedListHead = _process.Memory.Read(
                 AddressMap.GetAbsolute("MONSTER_ADDRESS"),

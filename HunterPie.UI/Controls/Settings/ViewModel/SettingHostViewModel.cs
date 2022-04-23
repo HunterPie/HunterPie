@@ -2,8 +2,6 @@
 using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Events;
-using HunterPie.Core.Http;
-using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
