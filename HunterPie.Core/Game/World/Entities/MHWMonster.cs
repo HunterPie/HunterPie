@@ -19,7 +19,7 @@ namespace HunterPie.Core.Game.World.Entities
     {
         #region Private
         private readonly long _address;
-        private int _id;
+        private int _id = -1;
         private int _doubleLinkedListIndex;
         private float _health = -1;
         private bool _isTarget;
