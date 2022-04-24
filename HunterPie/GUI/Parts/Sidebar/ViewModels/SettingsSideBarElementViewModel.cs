@@ -3,12 +3,12 @@ using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.GUI.Parts.Host;
 using HunterPie.Internal.Initializers;
+using HunterPie.UI.Assets.Application;
 using HunterPie.UI.Controls.Flags;
 using HunterPie.UI.Controls.Settings;
 using HunterPie.UI.Controls.Settings.ViewModel;
 using HunterPie.UI.Settings;
 using System.Linq;
-using System.Windows;
 using System.Windows.Media;
 using Localization = HunterPie.Core.Client.Localization.Localization;
 
@@ -16,7 +16,7 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 {
     internal class SettingsSideBarElementViewModel : ISideBarElement
     {
-        public ImageSource Icon => Application.Current.FindResource("ICON_SETTINGS") as ImageSource;
+        public ImageSource Icon => Resources.Icon("ICON_SETTINGS");
 
         public string Text => Localization.Query("//Strings/Client/Tabs/Tab[@Id='SETTINGS_STRING']").Attributes["String"].Value;
          

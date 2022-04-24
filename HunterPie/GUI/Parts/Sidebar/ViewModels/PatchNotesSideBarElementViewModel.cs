@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
 using HunterPie.Core.Http;
+using HunterPie.UI.Assets.Application;
 using System;
 using System.Diagnostics;
 using System.Net;
@@ -17,7 +18,7 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
         private bool _shouldNotify;
         private string _resolvedUrl;
 
-        public ImageSource Icon => Application.Current.FindResource("ICON_DOCUMENTATION") as ImageSource;
+        public ImageSource Icon => Resources.Icon("ICON_DOCUMENTATION");
         public string Text => Localization.Query("//Strings/Client/Tabs/Tab[@Id='PATCH_NOTES_STRING']").Attributes["String"].Value;
         public bool IsActivable => false;
         public bool IsEnabled { get => _isEnabled; private set { SetValue(ref _isEnabled, value); } }

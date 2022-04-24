@@ -21,8 +21,14 @@
                       Width="20"
                       Margin="10,0,0,0"
                       ClipToBounds="False">
-                    <Image Source="{Binding Icon}"
-                           d:Source="{StaticResource ICON_DOCUMENTATION}"/>
+                    <Rectangle Fill="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                               >
+                        <Rectangle.OpacityMask>
+                            <ImageBrush ImageSource="{Binding Icon}"
+                                        d:ImageSource="{StaticResource ICON_DOCUMENTATION}" 
+                                        Stretch="Uniform"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
                     <misc:Badge VerticalAlignment="Top"
                                 HorizontalAlignment="Right"
                                 Margin="0,0,-15,0"
@@ -32,7 +38,8 @@
                            FontWeight="Medium"
                            FontSize="18"
                            Margin="30,0,0,0"
-                           VerticalAlignment="Center"/>
+                           VerticalAlignment="Center"
+                           Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/>
             </StackPanel>
         </native:Button.Content>
     </native:Button>

@@ -1,7 +1,6 @@
-﻿using HunterPie.Core.Logger;
-using System.Linq;
-using HunterPie.Domain.Sidebar;
+﻿using HunterPie.Domain.Sidebar;
 using HunterPie.GUI.Parts.Sidebar.ViewModels;
+using HunterPie.UI.Architecture.Extensions;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -45,7 +44,7 @@ namespace HunterPie.GUI.Parts.Sidebar
         public SideBarContainer()
         {
             InitializeComponent();
-            _selectSlideAnimation = FindResource("PART_SelectionAnimation") as Storyboard;
+            _selectSlideAnimation = this.FindResource<Storyboard>("PART_SelectionAnimation");
             DataContext = this;
         }
 

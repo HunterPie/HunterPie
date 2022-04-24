@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using HunterPie.UI.Assets.Application;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
 using Localization = HunterPie.Core.Client.Localization.Localization;
@@ -9,7 +10,7 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
     {
         const string DiscordUrl = "https://discord.gg/5pdDq4Q";
 
-        public ImageSource Icon => Application.Current.FindResource("ICON_DISCORD") as ImageSource;
+        public ImageSource Icon => Resources.Icon("ICON_DISCORD");
 
         public string Text => Localization.Query("//Strings/Client/Tabs/Tab[@Id='DISCORD_STRING']").Attributes["String"].Value;
 

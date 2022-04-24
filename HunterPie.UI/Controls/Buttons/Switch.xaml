@@ -24,11 +24,11 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation To="25"
-                                                         Duration="0:0:0.25"
-                                                         Storyboard.TargetProperty="Width"/>
+                                                 Duration="0:0:0.25"
+                                                 Storyboard.TargetProperty="Width"/>
                                 <DoubleAnimation To="0.4"
-                                                         Duration="0:0:0.25"
-                                                         Storyboard.TargetProperty="Opacity"/>
+                                                 Duration="0:0:0.25"
+                                                 Storyboard.TargetProperty="Opacity"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </DataTrigger.EnterActions>
@@ -36,11 +36,11 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation To="0"
-                                                         Duration="0:0:0.25"
-                                                         Storyboard.TargetProperty="Width"/>
+                                                 Duration="0:0:0.25"
+                                                 Storyboard.TargetProperty="Width"/>
                                 <DoubleAnimation To="0"
-                                                         Duration="0:0:0.25"
-                                                         Storyboard.TargetProperty="Opacity"/>
+                                                 Duration="0:0:0.25"
+                                                 Storyboard.TargetProperty="Opacity"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </DataTrigger.ExitActions>
@@ -116,7 +116,7 @@
                    StrokeThickness="2"/>
 
         <Ellipse x:Name="PART_Bubble"
-                 Fill="{StaticResource BUTTON_COMMONBUTTON_FOREGROUND}"
+                 Fill="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                  Width="0"
                  Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                  VerticalAlignment="Stretch"
@@ -126,9 +126,18 @@
                  Style="{StaticResource StyleBubble}">
             <Ellipse.Margin>
                 <MultiBinding Converter="{StaticResource SizeToDoubleSizeConverter}">
-                    <Binding ElementName="PART_Bubble" Path="ActualWidth" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
-                    <Binding ElementName="PART_Slider" Path="Margin" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
-                    <Binding ElementName="PART_Slider" Path="ActualWidth" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
+                    <Binding ElementName="PART_Bubble" 
+                             Path="ActualWidth" 
+                             Mode="OneWay" 
+                             UpdateSourceTrigger="PropertyChanged"/>
+                    <Binding ElementName="PART_Slider" 
+                             Path="Margin" 
+                             Mode="OneWay" 
+                             UpdateSourceTrigger="PropertyChanged"/>
+                    <Binding ElementName="PART_Slider" 
+                             Path="ActualWidth" 
+                             Mode="OneWay" 
+                             UpdateSourceTrigger="PropertyChanged"/>
                     <MultiBinding.ConverterParameter>
                         <sys:Double>5</sys:Double>
                     </MultiBinding.ConverterParameter>

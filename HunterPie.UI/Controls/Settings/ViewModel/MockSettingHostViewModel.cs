@@ -1,8 +1,8 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Domain.Enums;
+using HunterPie.UI.Assets.Application;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Media;
 
 namespace HunterPie.UI.Controls.Settings.ViewModel
@@ -13,7 +13,7 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
         {
             public string Title => "Mock";
             public string Description => "Mock";
-            public ImageSource Icon => Application.Current.FindResource("ICON_BUG") as ImageSource;
+            public ImageSource Icon => Resources.Icon("ICON_BUG");
             public string Mock = "Mock";
 
             public ObservableCollection<ISettingElementType> Elements { get; } = new();

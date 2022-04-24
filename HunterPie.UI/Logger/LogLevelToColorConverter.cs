@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HunterPie.UI.Assets.Application;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
@@ -34,7 +35,7 @@ namespace HunterPie.UI.Logger
                     return null;
             }
 
-            return Application.Current.FindResource(colorName);
+            return Resources.Get<object>(colorName);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

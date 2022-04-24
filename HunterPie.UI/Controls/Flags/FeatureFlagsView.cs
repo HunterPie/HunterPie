@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Domain.Features.Domain;
+using HunterPie.UI.Assets.Application;
 using HunterPie.UI.Controls.Settings.ViewModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,7 +14,7 @@ namespace HunterPie.UI.Controls.Flags
 
         public string Description => "Feature flags configuration";
 
-        public ImageSource Icon => Application.Current.FindResource("ICON_FLAG") as ImageSource;
+        public ImageSource Icon => Resources.Icon("ICON_FLAG");
 
         private readonly ObservableCollection<ISettingElementType> _elements = new();
         public ObservableCollection<ISettingElementType> Elements => _elements;
