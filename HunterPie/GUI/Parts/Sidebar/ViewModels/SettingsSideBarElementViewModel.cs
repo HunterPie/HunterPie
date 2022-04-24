@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.GUI.Parts.Host;
 using HunterPie.Internal.Initializers;
 using HunterPie.UI.Controls.Flags;
@@ -27,7 +28,7 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 
         public SettingsSideBarElementViewModel()
         {
-            ClientConfig.Config.Client.DefaultGameType.PropertyChanged += (_, __) => RefreshSettingsWindow(true);
+            ClientConfig.Config.Client.LastConfiguredGame.PropertyChanged += (_, __) => RefreshSettingsWindow(true);
         }
 
         public void ExecuteOnClick() => RefreshSettingsWindow();
@@ -37,12 +38,7 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
             var settingTabs = VisualConverterManager.Build(ClientConfig.Config);
 
             var gameSpecificTabs = VisualConverterManager.Build(
-                ClientConfig.Config.Client.DefaultGameType.Value switch
-                {
-                    GameType.Rise => ClientConfig.Config.Rise,
-                    GameType.World => ClientConfig.Config.World,
-                    _ => throw new System.NotImplementedException(),
-                }
+                ClientConfigHelper.GetGameConfigBy(ClientConfig.Config.Client.LastConfiguredGame.Value)
             );
 
             settingTabs = settingTabs.Concat(gameSpecificTabs)

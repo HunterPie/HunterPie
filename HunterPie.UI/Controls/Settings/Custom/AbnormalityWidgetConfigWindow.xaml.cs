@@ -9,6 +9,7 @@ using System.Linq;
 using System.Windows;
 using HunterPie.UI.Controls.TextBox.Events;
 using System.Text.RegularExpressions;
+using HunterPie.Core.Client;
 
 namespace HunterPie.UI.Controls.Settings.Custom
 {
@@ -49,17 +50,6 @@ namespace HunterPie.UI.Controls.Settings.Custom
 
             BuildVisualConfig();
             LoadAbnormalities();
-            HookEvents();
-        }
-
-        private void HookEvents()
-        {
-            Config.Game.PropertyChanged += OnGameTypeChanged;
-        }
-
-        private void UnhookEvents()
-        {
-            Config.Game.PropertyChanged -= OnGameTypeChanged;
         }
 
         private void BuildVisualConfig()
@@ -74,7 +64,10 @@ namespace HunterPie.UI.Controls.Settings.Custom
         {
             Collections.Clear();
 
-            var collections = AbnormalitiesViewHelper.GetViewModelsBy(Config);
+            var collections = AbnormalitiesViewHelper.GetViewModelsBy(
+                ClientConfig.Config.Client.LastConfiguredGame.Value, 
+                Config
+            );
 
             foreach (AbnormalityCollectionViewModel coll in collections)
                 Collections.Add(coll);
@@ -82,7 +75,6 @@ namespace HunterPie.UI.Controls.Settings.Custom
 
         private void OnClosing(object sender, CancelEventArgs e)
         {
-            UnhookEvents();
             Config.AllowedAbnormalities.Clear();
 
             foreach (AbnormalityCollectionViewModel collection in Collections)

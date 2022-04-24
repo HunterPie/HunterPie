@@ -2,6 +2,7 @@
 using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.UI.Assets.Application;
 using System;
 using System.Collections.Generic;
@@ -34,12 +35,12 @@ namespace HunterPie.UI.Controls.Settings.Custom.Abnormality
             { "Foods", Resources.Icon(ICON_FOODS) },
         };
 
-        public static AbnormalityCollectionViewModel[] GetViewModelsBy(AbnormalityWidgetConfig config)
+        public static AbnormalityCollectionViewModel[] GetViewModelsBy(GameProcess game, AbnormalityWidgetConfig config)
         {
-            string gameDataFile = config.Game.Value switch
+            string gameDataFile = game switch
             {
-                GameType.Rise => RISE_ABNORMALITIES_FILE,
-                GameType.World => WORLD_ABNORMALITIES_FILE,
+                GameProcess.MonsterHunterRise => RISE_ABNORMALITIES_FILE,
+                GameProcess.MonsterHunterWorld => WORLD_ABNORMALITIES_FILE,
                 _ => throw new NotImplementedException("unreachable")
             };
 
