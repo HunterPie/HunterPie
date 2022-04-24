@@ -164,18 +164,28 @@
                 </ControlTemplate>
             </TabControl.Template>
         </TabControl>
-
-        <ComboBox ItemsSource="{Binding Games}"
-                  Grid.Row="2"
-                  Grid.Column="0"
-                  Grid.ColumnSpan="2"
-                  FontSize="12"
-                  SelectedItem="{Binding Client.LastConfiguredGame.Value, Source={x:Static client:ClientConfig.Config}, Mode=TwoWay}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding ., Converter={StaticResource GameProcessToGameNameConverter}}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+        <DockPanel Grid.Row="2"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2">
+            <TextBlock Text="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_CURRENT_SELECTED_CONFIG&quot;]'}"
+                       d:Text="Current configuration"
+                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                       VerticalAlignment="Center"
+                       DockPanel.Dock="Left"
+                       Margin="5,0,5,0"/>
+            <ComboBox ItemsSource="{Binding Games}"
+                      FontSize="12"
+                      SelectedItem="{Binding SelectedGame.Value, Mode=TwoWay}"
+                      DockPanel.Dock="Left"
+                      d:DataContext="{StaticResource MockSettingHostViewModel}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding ., Converter={StaticResource GameProcessToGameNameConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </DockPanel>
+        
     </Grid>
 </UserControl>

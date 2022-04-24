@@ -401,6 +401,8 @@
 					 String="HunterPie is up to date!"/>
 			<Generic Id="HUNTERPIE_NOT_LATEST_VERSION"
 					 String="There's a new version of HunterPie available!"/>
+			<Generic Id="HUNTERPIE_CURRENT_SELECTED_CONFIG"
+					 String="Configuration for:"/>
 		</Generics>
 		<Integrations>
 			<!-- Shared between games -->

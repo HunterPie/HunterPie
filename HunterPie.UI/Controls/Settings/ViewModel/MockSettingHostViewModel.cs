@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Domain.Enums;
+using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Media;
 
@@ -14,6 +17,9 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
             public string Mock = "Mock";
 
             public ObservableCollection<ISettingElementType> Elements { get; } = new();
+            public ObservableCollection<GameProcess> Games { get; } = new();
+
+            public Observable<GameProcess> SelectedGame => GameProcess.MonsterHunterWorld;
 
             public void Add(ISettingElementType element) { }
 
@@ -21,6 +27,9 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
             {
                 for (int i = 0; i < 15; i++)
                     Elements.Add(new SettingElementType("Mock", "Mock", this, GetType().GetProperty(nameof(Mock)), false));
+
+                foreach (GameProcess gameProcess in Enum.GetValues<GameProcess>())
+                    Games.Add(gameProcess);
             }
         }
 

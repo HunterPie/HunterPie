@@ -21,6 +21,7 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
 
         public ObservableCollection<ISettingElement> Elements => _elements;
         public ObservableCollection<GameProcess> Games => _games;
+        public Observable<GameProcess> SelectedGame => ClientConfig.Config.Client.LastConfiguredGame;
         public int CurrentTabIndex { get => _currentTabIndex; set { SetValue(ref _currentTabIndex, value); } }
         public bool IsFetchingVersion { get => _isFetchingVersion; set { SetValue(ref _isFetchingVersion, value); } }
         public bool IsLatestVersion { get => _isLatestVersion; set { SetValue(ref _isLatestVersion, value); } }
