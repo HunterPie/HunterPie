@@ -401,6 +401,8 @@
 					 String="HunterPie가 최신 버전입니다!"/>
 			<Generic Id="HUNTERPIE_NOT_LATEST_VERSION"
 					 String="HunterPie의 새로운 업데이트가 가능합니다!"/>
+			<Generic Id="HUNTERPIE_CURRENT_SELECTED_CONFIG"
+					 String="설정:"/>
 		</Generics>
 		<Integrations>
 			<!-- Shared between games -->
