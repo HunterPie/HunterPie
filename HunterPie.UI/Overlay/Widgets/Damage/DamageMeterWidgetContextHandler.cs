@@ -10,6 +10,7 @@ using HunterPie.UI.Overlay.Widgets.Damage.ViewModel;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
@@ -42,30 +43,40 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         private void UpdateData()
         {
             foreach (IPartyMember member in Context.Game.Player.Party.Members)
-            {
-                _members.Add(member, new(View.Settings) { Name = member.Name, Damage = member.Damage, Weapon = member.Weapon, Color = "#98ff98" });
-                member.OnDamageDealt += OnDamageDealt;
-                member.OnWeaponChange += OnWeaponChange;
-
-                ViewModel.Players.Add(_members[member]);
-                AddPlayerSeries(member);
-            }
+                AddPlayer(member);
         }
 
         public void HookEvents()
         {
             Context.Game.Player.Party.OnMemberJoin += OnMemberJoin;
             Context.Game.OnTimeElapsedChange += OnTimeElapsedChange;
+            Context.Game.Player.OnVillageEnter += OnVillageEnter;
+            Context.Game.Player.OnVillageLeave += OnVillageLeave;
         }
 
         public void UnhookEvents()
         {
             Context.Game.Player.Party.OnMemberJoin -= OnMemberJoin;
             Context.Game.OnTimeElapsedChange -= OnTimeElapsedChange;
+            Context.Game.Player.OnVillageEnter -= OnVillageEnter;
+            Context.Game.Player.OnVillageLeave -= OnVillageLeave;
             WidgetManager.Unregister<MeterView, DamageMeterWidgetConfig>(View);
         }
 
         #region Player events
+        private void OnVillageLeave(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void OnVillageEnter(object sender, EventArgs e)
+        {
+            foreach (var member in _members.Keys)
+                RemovePlayer(member);
+
+            _members.Clear();
+        }
+
         private void GetPlayerPoints()
         {
             foreach (var member in _members.Keys)
@@ -83,13 +94,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             }
         }
 
-        private void OnMemberJoin(object sender, IPartyMember e)
-        {
-            _members.Add(e, new(View.Settings) { Name = e.Name, Damage = e.Damage, Weapon = e.Weapon, Color = "#98ff98" });
-            e.OnDamageDealt += OnDamageDealt;
-            e.OnWeaponChange += OnWeaponChange;
-            AddPlayerSeries(e);
-        }
+        private void OnMemberJoin(object sender, IPartyMember e) => AddPlayer(e);
 
         private void OnTimeElapsedChange(object sender, IGame e)
         {
@@ -118,6 +123,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         }
         #endregion
 
+        #region Helpers
         private void AddPlayerSeries(IPartyMember member)
         {
             _playerPoints.Add(member, new());
@@ -132,11 +138,32 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
                 Fill = ColorFadeGradient.FromColor(color),
                 PointGeometrySize = 0,
                 StrokeThickness = 2,
-                LineSmoothness = 0.7
+                LineSmoothness = 1
             };
             series.Values = points;
 
             ViewModel.Series.Add(series);
         }
+
+        private void AddPlayer(IPartyMember member)
+        {
+            _members.Add(member, new(View.Settings) { Name = member.Name, Damage = member.Damage, Weapon = member.Weapon, Color = "#98ff98" });
+            member.OnDamageDealt += OnDamageDealt;
+            member.OnWeaponChange += OnWeaponChange;
+
+            ViewModel.Players.Add(_members[member]);
+            AddPlayerSeries(member);
+        }
+
+        private void RemovePlayer(IPartyMember member)
+        {
+            member.OnDamageDealt -= OnDamageDealt;
+            member.OnWeaponChange -= OnWeaponChange;
+
+            ViewModel.Players.Remove(_members[member]);
+            _playerPoints.Remove(member);
+        }
+
+        #endregion
     }
 }
