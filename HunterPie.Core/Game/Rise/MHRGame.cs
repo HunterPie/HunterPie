@@ -48,11 +48,14 @@ namespace HunterPie.Core.Game.Rise
             }
         }
 
+        public float TimeElapsed => throw new NotImplementedException();
+
         Dictionary<long, IMonster> monsters = new();
 
         public event EventHandler<IMonster> OnMonsterSpawn;
         public event EventHandler<IMonster> OnMonsterDespawn;
         public event EventHandler<IGame> OnHudStateChange;
+        public event EventHandler<IGame> OnTimeElapsedChange;
 
         public MHRGame(IProcessManager process) : base(process)
         {

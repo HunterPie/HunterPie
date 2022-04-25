@@ -15,8 +15,11 @@ namespace HunterPie.Core.Game
 
         public bool IsHudOpen { get; }
 
+        public float TimeElapsed { get; }
+
         public event EventHandler<IMonster> OnMonsterSpawn;
         public event EventHandler<IMonster> OnMonsterDespawn;
         public event EventHandler<IGame> OnHudStateChange;
+        public event EventHandler<IGame> OnTimeElapsedChange;
     }
 }

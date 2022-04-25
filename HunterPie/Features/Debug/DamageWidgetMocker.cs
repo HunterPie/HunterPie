@@ -16,7 +16,7 @@ namespace HunterPie.Features.Debug
                 WidgetManager.Register<MeterView, DamageMeterWidgetConfig>(
                     new MeterView(mockConfig.DamageMeterWidget)
                     {
-                        DataContext = new MockMeterViewModel(mockConfig.DamageMeterWidget)
+                        DataContext = new MockMeterViewModel()
                     }
                 );
         }

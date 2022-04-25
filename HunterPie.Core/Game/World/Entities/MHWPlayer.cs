@@ -10,6 +10,7 @@ using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.World.Definitions;
 using HunterPie.Core.Game.World.Entities.Abnormalities;
+using HunterPie.Core.Game.World.Entities.Party;
 using HunterPie.Core.Logger;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,7 @@ namespace HunterPie.Core.Game.World.Entities
         private SpecializedTool _primaryTool = new SpecializedTool();
         private SpecializedTool _secondaryTool = new SpecializedTool();
         private Dictionary<string, IAbnormality> _abnormalities = new();
+        private MHWParty _party = new();
         #endregion
 
         #region Public fields
@@ -117,7 +119,7 @@ namespace HunterPie.Core.Game.World.Entities
 
         public IReadOnlyCollection<IAbnormality> Abnormalities => _abnormalities.Values;
 
-        IParty IPlayer.Party => throw new NotImplementedException();
+        public IParty Party => _party;
 
         public bool InHuntingZone => ZoneId != Stage.MainMenu && !peaceZones.Contains(_zoneId);
         #endregion
@@ -392,6 +394,41 @@ namespace HunterPie.Core.Game.World.Entities
                 this.Dispatch(OnAbnormalityEnd, abnormality);
 
             _abnormalities.Clear();
+        }
+
+        [ScannableMethod]
+        private void GetParty()
+        {
+            long partyInformation = _process.Memory.Read(
+                AddressMap.GetAbsolute("PARTY_ADDRESS"),
+                AddressMap.Get<int[]>("PARTY_OFFSETS")
+            ) - 0x22B7;
+
+            long damageInformation = _process.Memory.Read(
+                AddressMap.GetAbsolute("DAMAGE_ADDRESS"),
+                AddressMap.Get<int[]>("DAMAGE_OFFSETS")
+            );
+
+            for (int i = 0; i < Party.MaxSize; i++)
+            {
+                long playerAddress = partyInformation + (i * 0x1C0);
+                bool isSlotEmpty = _process.Memory.Read<byte>(playerAddress) == 0;
+
+                if (isSlotEmpty)
+                {
+                    _party.Remove(playerAddress);
+                    continue;
+                }
+
+                // TODO: Scan levels
+                MHWPartyMemberData data = new MHWPartyMemberData
+                {
+                    Name = _process.Memory.Read(playerAddress, 32),
+                    Weapon = (Weapon)_process.Memory.Read<byte>(playerAddress + 0x33),
+                    Damage = _process.Memory.Read<int>(damageInformation + (i * 0x2A0))
+                };
+                _party.Update(playerAddress, data);
+            }
         }
     }
 }

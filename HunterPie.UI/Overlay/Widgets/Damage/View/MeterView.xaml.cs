@@ -12,11 +12,14 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.View
     /// </summary>
     public partial class MeterView : View<MeterViewModel>, IWidget<DamageMeterWidgetConfig>, IWidgetWindow
     {
-        private DamageMeterWidgetConfig _config;
+        private readonly DamageMeterWidgetConfig _config;
+
         public MeterView(DamageMeterWidgetConfig config)
         {
             _config = config;
             InitializeComponent();
+
+            ViewModel.Settings = _config;
         }
 
         public DamageMeterWidgetConfig Settings => _config;

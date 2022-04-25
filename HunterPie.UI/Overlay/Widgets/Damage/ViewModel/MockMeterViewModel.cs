@@ -14,9 +14,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
         private readonly Timer dispatcher;
         private readonly DamageMeterWidgetConfig _mockConfig;
 
-        public MockMeterViewModel(DamageMeterWidgetConfig config) : base(config)
+        public MockMeterViewModel()
         {
-            _mockConfig = config;
             dispatcher = new(1000);
             dispatcher.Elapsed += MockInGameAction;
             

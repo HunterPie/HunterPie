@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.UI.Architecture.Graphs;
 using LiveCharts;
 using LiveCharts.Defaults;
 using System;
@@ -10,12 +11,9 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
 {
     public class MeterViewModel : Bindable
     {
-        private DamageMeterWidgetConfig _config;
-        private DamageMeterWidgetConfig Settings => _config;
+        public DamageMeterWidgetConfig Settings { get; internal set; }
         private double _timeElapsed = 1;
         private int _deaths;
-
-        public MeterViewModel(DamageMeterWidgetConfig config) => _config = config;
 
         public Func<double, string> TimeFormatter { get; } = 
             new Func<double, string>((value) => TimeSpan.FromSeconds(value).ToString("mm\\:ss"));
@@ -24,7 +22,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
             new Func<double, string>((value) => $"{value:0.00}/s");
 
         public List<ChartValues<ObservablePoint>> PlayerChartValues { get; } = new();
-        public SeriesCollection Series { get; protected set; }
+        public SeriesCollection Series { get; protected set; } = new();
 
         public ObservableCollection<PlayerViewModel> Players { get; } = new();
 
