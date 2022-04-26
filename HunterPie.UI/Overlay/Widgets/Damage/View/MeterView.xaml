@@ -14,7 +14,11 @@
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              mc:Ignorable="d" 
              Width="300">
-    <Grid Background="#CC111215">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid Background="#CC111215"
+          Visibility="{Binding InHuntingZone, Converter={StaticResource BooleanToVisibilityConverter}}">
         <Grid.Resources>
             <viewmodels:MockMeterViewModel x:Key="MockViewModel"/>
             <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
@@ -89,6 +93,7 @@
                                 Height="120"
                                 DisableAnimations="True"
                                 Margin="1"
+                                Visibility="{Binding Settings.ShouldShowPlots.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
                                 d:DataContext="{StaticResource MockViewModel}">
                 <lvc:CartesianChart.AxisY>
                     <lvc:Axis MinValue="0"

@@ -26,15 +26,19 @@ namespace HunterPie.Core.Game.World.Entities.Party
         public void Update(long memberAddress, MHWPartyMemberData data)
         {
             if (!_partyMembers.ContainsKey(memberAddress))
-                Add(memberAddress);
+                Add(memberAddress, data);
 
             IUpdatable<MHWPartyMemberData> updatable = _partyMembers[memberAddress];
             updatable.Update(data);
         }
 
-        public void Add(long memberAddress)
+        public void Add(long memberAddress, MHWPartyMemberData data)
         {
             _partyMembers.Add(memberAddress, new());
+            
+            IUpdatable<MHWPartyMemberData> updatable = _partyMembers[memberAddress];
+            updatable.Update(data);
+
             this.Dispatch(OnMemberJoin, _partyMembers[memberAddress]);
         }
 

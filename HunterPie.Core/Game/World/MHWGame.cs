@@ -78,6 +78,17 @@ namespace HunterPie.Core.Game.World
         [ScannableMethod]
         private void GetTimeElapsed()
         {
+            long questEndTimerPtrs = _process.Memory.Read(
+                AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
+                AddressMap.Get<int[]>("QUEST_END_TIMER_OFFSETS")
+            );
+            float[] timers = _process.Memory.Read<float>(questEndTimerPtrs, 2);
+            float currentTimer = timers[0];
+            float maxTimer = timers[1];
+
+            if (currentTimer > 0 || maxTimer <= 0)
+                return;
+
             long timerAddress = _process.Memory.Read(
                 AddressMap.GetAbsolute("ABNORMALITY_ADDRESS"),
                 AddressMap.Get<int[]>("ABNORMALITY_OFFSETS")

@@ -17,6 +17,9 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         [SettingField("HIDE_WHEN_UI_VISIBLE_STRING")]
         public Observable<bool> HideWhenUiOpen { get; set; } = false;
 
+        [SettingField("ENABLE_DAMAGE_METER_DPS_PLOT")]
+        public Observable<bool> ShouldShowPlots { get; set; } = true;
+
         [SettingField("WIDGET_POSITION")]
         public Position Position { get; set; } = new(0, 0);
 

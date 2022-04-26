@@ -16,6 +16,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
 
         public MockMeterViewModel()
         {
+            InHuntingZone = true;
             dispatcher = new(1000);
             dispatcher.Elapsed += MockInGameAction;
             

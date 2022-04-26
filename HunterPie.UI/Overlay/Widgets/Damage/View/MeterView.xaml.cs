@@ -17,9 +17,9 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.View
         public MeterView(DamageMeterWidgetConfig config)
         {
             _config = config;
-            InitializeComponent();
-
             ViewModel.Settings = _config;
+
+            InitializeComponent();
         }
 
         public DamageMeterWidgetConfig Settings => _config;

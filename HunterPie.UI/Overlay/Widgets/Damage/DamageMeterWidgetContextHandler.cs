@@ -19,12 +19,14 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
 {
     public class DamageMeterWidgetContextHandler : IContextHandler
     {
+        private const int MAXIMUM_NUMBER_OF_POINTS = 60;
+
         private readonly MeterViewModel ViewModel;
         private readonly MeterView View;
         private readonly Context Context;
         private readonly Dictionary<IPartyMember, PlayerViewModel> _members = new();
         private readonly Dictionary<IPartyMember, ChartValues<ObservablePoint>> _playerPoints = new();
-        private float lastTimeElapsed = 0;
+        private int lastTimeElapsed = 0;
 
         public DamageMeterWidgetContextHandler(Context context)
         {
@@ -42,6 +44,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
 
         private void UpdateData()
         {
+            ViewModel.InHuntingZone = Context.Game.Player.InHuntingZone;
             foreach (IPartyMember member in Context.Game.Player.Party.Members)
                 AddPlayer(member);
         }
@@ -66,15 +69,20 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         #region Player events
         private void OnVillageLeave(object sender, EventArgs e)
         {
-            
+            ViewModel.InHuntingZone = true;
         }
 
         private void OnVillageEnter(object sender, EventArgs e)
         {
-            foreach (var member in _members.Keys)
-                RemovePlayer(member);
+            ViewModel.InHuntingZone = false;
 
-            _members.Clear();
+            View.Dispatcher.Invoke(() =>
+            {
+                foreach (var member in _members.Keys)
+                    RemovePlayer(member);
+
+                _members.Clear();
+            });
         }
 
         private void GetPlayerPoints()
@@ -91,18 +99,21 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
                 vm.DPS = newDps;
 
                 points.Add(new ObservablePoint(ViewModel.TimeElapsed, vm.DPS));
+
+                if (points.Count >= MAXIMUM_NUMBER_OF_POINTS)
+                    points.RemoveAt(0);
             }
         }
 
-        private void OnMemberJoin(object sender, IPartyMember e) => AddPlayer(e);
+        private void OnMemberJoin(object sender, IPartyMember e) => View.Dispatcher.Invoke(() => AddPlayer(e));
 
         private void OnTimeElapsedChange(object sender, IGame e)
         {
             ViewModel.TimeElapsed = e.TimeElapsed;
-            if (e.TimeElapsed - lastTimeElapsed > 300)
+            if ((int)e.TimeElapsed != lastTimeElapsed)
             {
-                GetPlayerPoints();
-                lastTimeElapsed = e.TimeElapsed;
+                View.Dispatcher.Invoke(GetPlayerPoints);
+                lastTimeElapsed = (int)e.TimeElapsed;
             }
         }
 
@@ -147,6 +158,9 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
 
         private void AddPlayer(IPartyMember member)
         {
+            if (_members.ContainsKey(member))
+                return;
+
             _members.Add(member, new(View.Settings) { Name = member.Name, Damage = member.Damage, Weapon = member.Weapon, Color = "#98ff98" });
             member.OnDamageDealt += OnDamageDealt;
             member.OnWeaponChange += OnWeaponChange;

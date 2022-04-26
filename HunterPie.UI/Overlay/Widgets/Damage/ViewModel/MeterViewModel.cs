@@ -14,6 +14,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
         public DamageMeterWidgetConfig Settings { get; internal set; }
         private double _timeElapsed = 1;
         private int _deaths;
+        private bool _inHuntingZone;
 
         public Func<double, string> TimeFormatter { get; } = 
             new Func<double, string>((value) => TimeSpan.FromSeconds(value).ToString("mm\\:ss"));
@@ -37,6 +38,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
             get => _deaths;
             set { SetValue(ref _deaths, value); }
         }
+
+        public bool InHuntingZone { get => _inHuntingZone; set { SetValue(ref _inHuntingZone, value); } }
 
         public void ToggleHighlight() => Settings.ShouldHighlightMyself.Value = !Settings.ShouldHighlightMyself;
         public void ToggleBlur() => Settings.ShouldBlurNames.Value = !Settings.ShouldBlurNames;
