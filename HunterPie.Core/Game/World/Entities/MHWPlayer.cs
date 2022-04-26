@@ -425,7 +425,8 @@ namespace HunterPie.Core.Game.World.Entities
                 {
                     Name = _process.Memory.Read(playerAddress, 32),
                     Weapon = (Weapon)_process.Memory.Read<byte>(playerAddress + 0x33),
-                    Damage = _process.Memory.Read<int>(damageInformation + (i * 0x2A0))
+                    Damage = _process.Memory.Read<int>(damageInformation + (i * 0x2A0)),
+                    Slot = i
                 };
                 _party.Update(playerAddress, data);
             }

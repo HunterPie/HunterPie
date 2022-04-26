@@ -13,6 +13,7 @@ using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Windows.Media;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage

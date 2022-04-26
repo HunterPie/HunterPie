@@ -40,6 +40,8 @@ namespace HunterPie.Core.Game.World.Entities.Party
             }
         }
 
+        public int Slot { get; private set; }
+
         public event EventHandler<IPartyMember> OnDamageDealt;
         public event EventHandler<IPartyMember> OnWeaponChange;
 
@@ -48,6 +50,7 @@ namespace HunterPie.Core.Game.World.Entities.Party
             Name = data.Name;
             Damage = data.Damage;
             Weapon = data.Weapon;
+            Slot = data.Slot;
         }
     }
 }
