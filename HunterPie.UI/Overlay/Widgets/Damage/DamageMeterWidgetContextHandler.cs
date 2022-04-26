@@ -5,6 +5,7 @@ using HunterPie.Core.Game;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Brushes;
+using HunterPie.UI.Overlay.Widgets.Damage.Helpers;
 using HunterPie.UI.Overlay.Widgets.Damage.View;
 using HunterPie.UI.Overlay.Widgets.Damage.ViewModel;
 using LiveCharts;
@@ -46,8 +47,10 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         private void UpdateData()
         {
             ViewModel.InHuntingZone = Context.Game.Player.InHuntingZone;
-            foreach (IPartyMember member in Context.Game.Player.Party.Members)
-                AddPlayer(member);
+
+            if (ViewModel.InHuntingZone)
+                foreach (IPartyMember member in Context.Game.Player.Party.Members)
+                    AddPlayer(member);
         }
 
         public void HookEvents()
@@ -136,13 +139,13 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         #endregion
 
         #region Helpers
-        private void AddPlayerSeries(IPartyMember member)
+        private void AddPlayerSeries(IPartyMember member, PlayerViewModel model)
         {
             _playerPoints.Add(member, new());
 
             ChartValues<ObservablePoint> points = _playerPoints[member];
             
-            Color color = (Color)ColorConverter.ConvertFromString("#98ff98");
+            Color color = (Color)ColorConverter.ConvertFromString(model.Color);
             var series = new LineSeries()
             {
                 Title = member.Name,
@@ -162,12 +165,27 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             if (_members.ContainsKey(member))
                 return;
 
-            _members.Add(member, new(View.Settings) { Name = member.Name, Damage = member.Damage, Weapon = member.Weapon, Color = "#98ff98" });
+            string playerColor = PlayerConfigHelper.GetColorFromPlayer(
+                ProcessManager.Game,
+                member.Slot,
+                false
+            );
+
+            _members.Add(member, new(View.Settings) 
+            { 
+                Name = member.Name, 
+                Damage = member.Damage, 
+                Weapon = member.Weapon, 
+                Color = playerColor,
+            });
+
             member.OnDamageDealt += OnDamageDealt;
             member.OnWeaponChange += OnWeaponChange;
 
-            ViewModel.Players.Add(_members[member]);
-            AddPlayerSeries(member);
+            var model = _members[member];
+
+            ViewModel.Players.Add(model);
+            AddPlayerSeries(member, model);
         }
 
         private void RemovePlayer(IPartyMember member)

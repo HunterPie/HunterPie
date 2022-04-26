@@ -17,6 +17,21 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         [SettingField("HIDE_WHEN_UI_VISIBLE_STRING")]
         public Observable<bool> HideWhenUiOpen { get; set; } = false;
 
+        [SettingField("DAMAGE_METER_SELF_COLOR_STRING")]
+        public Color PlayerSelf { get; set; } = "#FF725AC1";
+
+        [SettingField("DAMAGE_METER_PLAYER_1_COLOR_STRING")]
+        public Color PlayerFirst { get; set; } = "#FF6184D8";
+
+        [SettingField("DAMAGE_METER_PLAYER_2_COLOR_STRING")]
+        public Color PlayerSecond { get; set; } = "#FF50C5B7";
+
+        [SettingField("DAMAGE_METER_PLAYER_3_COLOR_STRING")]
+        public Color PlayerThird { get; set; } = "#FF9CEC5B";
+
+        [SettingField("DAMAGE_METER_PLAYER_4_COLOR_STRING")]
+        public Color PlayerFourth { get; set; } = "#FFF0F465";
+
         [SettingField("ENABLE_DAMAGE_METER_DPS_PLOT")]
         public Observable<bool> ShouldShowPlots { get; set; } = true;
 
