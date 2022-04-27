@@ -99,7 +99,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
                 float totalDamage = _members.Keys.Sum(m => m.Damage);
                 double newDps = member.Damage / ViewModel.TimeElapsed;
                 vm.IsIncreasing = newDps > vm.DPS;
-                vm.Percentage = member.Damage / totalDamage * 100;
+                vm.Percentage = totalDamage > 0 ? member.Damage / totalDamage * 100 : 0;
                 vm.DPS = newDps;
 
                 points.Add(new ObservablePoint(ViewModel.TimeElapsed, vm.DPS));
