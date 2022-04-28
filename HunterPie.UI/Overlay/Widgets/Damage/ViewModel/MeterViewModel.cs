@@ -6,6 +6,7 @@ using LiveCharts.Defaults;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
 {
@@ -15,6 +16,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
         private double _timeElapsed = 1;
         private int _deaths;
         private bool _inHuntingZone;
+        private ObservableCollection<PlayerViewModel> _players = new();
 
         public Func<double, string> TimeFormatter { get; } = 
             new Func<double, string>((value) => TimeSpan.FromSeconds(value).ToString("mm\\:ss"));
@@ -25,7 +27,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
         public List<ChartValues<ObservablePoint>> PlayerChartValues { get; } = new();
         public SeriesCollection Series { get; protected set; } = new();
 
-        public ObservableCollection<PlayerViewModel> Players { get; } = new();
+        public ObservableCollection<PlayerViewModel> Players { get => _players; private set { SetValue(ref _players, value); } }
 
         public double TimeElapsed
         {
@@ -43,5 +45,10 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
 
         public void ToggleHighlight() => Settings.ShouldHighlightMyself.Value = !Settings.ShouldHighlightMyself;
         public void ToggleBlur() => Settings.ShouldBlurNames.Value = !Settings.ShouldBlurNames;
+
+        public void SortPlayers()
+        {
+            Players = new(Players.OrderByDescending(e => e.Damage));
+        }
     }
 }

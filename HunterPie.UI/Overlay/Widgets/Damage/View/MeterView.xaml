@@ -70,7 +70,7 @@
         <!-- Players display -->
         <StackPanel Grid.Row="1"
                     Orientation="Vertical">
-            <ItemsControl ItemsSource="{Binding Players}"
+            <ItemsControl ItemsSource="{Binding Players, Mode=OneWay}"
                           Margin="1,1,1,1" 
                           Grid.Row="1"
                           d:DataContext="{StaticResource MockViewModel}">
@@ -78,7 +78,8 @@
                     <ItemsPanelTemplate>
                         <WrapPanel ItemHeight="40"
                                    Orientation="Vertical"
-                                   ItemWidth="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"/>
+                                   ItemWidth="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                                   IsItemsHost="True"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
@@ -94,7 +95,10 @@
                                 DisableAnimations="True"
                                 Margin="1"
                                 Visibility="{Binding Settings.ShouldShowPlots.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                d:DataContext="{StaticResource MockViewModel}">
+                                d:DataContext="{StaticResource MockViewModel}"
+                                Hoverable="False"
+                                DataTooltip="{x:Null}"
+                                IsEnabled="False">
                 <lvc:CartesianChart.AxisY>
                     <lvc:Axis MinValue="0"
                               LabelFormatter="{Binding DPSFormatter}"

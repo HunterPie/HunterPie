@@ -103,9 +103,6 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
                 vm.DPS = newDps;
 
                 points.Add(new ObservablePoint(ViewModel.TimeElapsed, vm.DPS));
-
-                if (points.Count >= MAXIMUM_NUMBER_OF_POINTS)
-                    points.RemoveAt(0);
             }
         }
 
@@ -113,10 +110,24 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
 
         private void OnTimeElapsedChange(object sender, IGame e)
         {
+            if (!e.Player.InHuntingZone)
+                return;
+
+            if (e.TimeElapsed < ViewModel.TimeElapsed)
+                View.Dispatcher.Invoke(() =>
+                {
+                    foreach (var plots in _playerPoints.Values)
+                        plots.Clear();
+                });
+
             ViewModel.TimeElapsed = e.TimeElapsed;
             if ((int)e.TimeElapsed != lastTimeElapsed)
             {
-                View.Dispatcher.Invoke(GetPlayerPoints);
+                View.Dispatcher.Invoke(() =>
+                {
+                    GetPlayerPoints();
+                    ViewModel.SortPlayers();
+                });
                 lastTimeElapsed = (int)e.TimeElapsed;
             }
         }
