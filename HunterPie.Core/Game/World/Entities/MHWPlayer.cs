@@ -293,7 +293,16 @@ namespace HunterPie.Core.Game.World.Entities
 
             foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
             {
-                MHWAbnormalityStructure structure = _process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
+                MHWAbnormalityStructure structure = new();
+
+                int abnormSubId = abnormalitySchema.DependsOn switch
+                {
+                    0 => 0,
+                    _ => _process.Memory.Read<int>(baseAddress + abnormalitySchema.DependsOn)
+                };
+
+                if (abnormSubId == abnormalitySchema.WithValue)
+                    structure = _process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
 
                 HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
             }

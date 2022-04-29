@@ -237,6 +237,7 @@
 					 Name="ABNORMALITY_BLASTSCOURGE"
 					 Offset="63C" 
 					 DependsOn="62C"
+					 WithValue="1"
 					 Icon="ICON_BLASTSCOURGE"/>
 	</Debuffs>
 	<Consumables>
