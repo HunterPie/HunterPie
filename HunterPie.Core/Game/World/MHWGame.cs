@@ -5,6 +5,7 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Environment;
+using HunterPie.Core.Game.World.Crypto;
 using HunterPie.Core.Game.World.Entities;
 using System;
 using System.Collections.Generic;
@@ -80,21 +81,15 @@ namespace HunterPie.Core.Game.World
         {
             long questEndTimerPtrs = _process.Memory.Read(
                 AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
-                AddressMap.Get<int[]>("QUEST_END_TIMER_OFFSETS")
+                AddressMap.Get<int[]>("QUEST_TIMER_OFFSETS")
             );
-            float[] timers = _process.Memory.Read<float>(questEndTimerPtrs, 2);
-            float currentTimer = timers[0];
-            float maxTimer = timers[1];
+            ulong[] timers = _process.Memory.Read<ulong>(questEndTimerPtrs, 2);
+            ulong encryptKey = timers[0];
+            ulong encryptedValue = timers[1];
 
-            if (currentTimer > 0 || maxTimer <= 0)
-                return;
+            float maxTimer = _process.Memory.Read<ulong>(questEndTimerPtrs + 0x20) / 60.0f;
 
-            long timerAddress = _process.Memory.Read(
-                AddressMap.GetAbsolute("ABNORMALITY_ADDRESS"),
-                AddressMap.Get<int[]>("ABNORMALITY_OFFSETS")
-            );
-            float elapsedTime = _process.Memory.Read<float>(timerAddress + 0xC24);
-            TimeElapsed = elapsedTime;
+            TimeElapsed = maxTimer - MHWCrypto.DecryptQuestTimer(encryptedValue, encryptKey);
         }
 
         [ScannableMethod]
