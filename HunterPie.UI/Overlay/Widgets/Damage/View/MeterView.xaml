@@ -36,7 +36,7 @@
                     <Image Source="{StaticResource ICON_STOPWATCH}"
                            Margin="0,0,3,0"
                            Height="18"/>
-                    <TextBlock Text="{Binding TimeElapsed, Converter={StaticResource SecondsToTimeString}}"
+                    <TextBlock Text="{Binding TimeElapsed, Converter={StaticResource SecondsToTimeString}, ConverterParameter='mm\\:ss\\.fff'}"
                                d:Text="3:33"
                                Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                                FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
@@ -97,8 +97,7 @@
                                 Visibility="{Binding Settings.ShouldShowPlots.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
                                 d:DataContext="{StaticResource MockViewModel}"
                                 Hoverable="False"
-                                DataTooltip="{x:Null}"
-                                IsEnabled="False">
+                                DataTooltip="{x:Null}">
                 <lvc:CartesianChart.AxisY>
                     <lvc:Axis MinValue="0"
                               LabelFormatter="{Binding DPSFormatter}"

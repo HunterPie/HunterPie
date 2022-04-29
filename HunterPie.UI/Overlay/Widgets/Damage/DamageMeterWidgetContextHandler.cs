@@ -21,13 +21,11 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
 {
     public class DamageMeterWidgetContextHandler : IContextHandler
     {
-        private const int MAXIMUM_NUMBER_OF_POINTS = 60;
-
         private readonly MeterViewModel ViewModel;
         private readonly MeterView View;
         private readonly Context Context;
         private readonly Dictionary<IPartyMember, PlayerViewModel> _members = new();
-        private readonly Dictionary<IPartyMember, ChartValues<ObservablePoint>> _playerPoints = new();
+        private readonly Dictionary<IPartyMember, Series> _playerPoints = new();
         private int lastTimeElapsed = 0;
 
         public DamageMeterWidgetContextHandler(Context context)
@@ -74,6 +72,12 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         private void OnVillageLeave(object sender, EventArgs e)
         {
             ViewModel.InHuntingZone = true;
+
+            View.Dispatcher.Invoke(() =>
+            {
+                foreach (var member in Context.Game.Player.Party.Members)
+                    AddPlayer(member);
+            });
         }
 
         private void OnVillageEnter(object sender, EventArgs e)
@@ -93,7 +97,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         {
             foreach (var member in _members.Keys)
             {
-                ChartValues<ObservablePoint> points = _playerPoints[member];
+                ChartValues<ObservablePoint> points = (ChartValues<ObservablePoint>)_playerPoints[member].Values;
                 PlayerViewModel vm = _members[member];
 
                 float totalDamage = _members.Keys.Sum(m => m.Damage);
@@ -110,16 +114,6 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
 
         private void OnTimeElapsedChange(object sender, IGame e)
         {
-            if (!e.Player.InHuntingZone)
-                return;
-
-            if (e.TimeElapsed < ViewModel.TimeElapsed)
-                View.Dispatcher.Invoke(() =>
-                {
-                    foreach (var plots in _playerPoints.Values)
-                        plots.Clear();
-                });
-
             ViewModel.TimeElapsed = e.TimeElapsed;
             if ((int)e.TimeElapsed != lastTimeElapsed)
             {
@@ -152,9 +146,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         #region Helpers
         private void AddPlayerSeries(IPartyMember member, PlayerViewModel model)
         {
-            _playerPoints.Add(member, new());
-
-            ChartValues<ObservablePoint> points = _playerPoints[member];
+            ChartValues<ObservablePoint> points = new();
             
             Color color = (Color)ColorConverter.ConvertFromString(model.Color);
             var series = new LineSeries()
@@ -168,6 +160,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             };
             series.Values = points;
 
+            _playerPoints.Add(member, series);
             ViewModel.Series.Add(series);
         }
 
@@ -205,6 +198,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             member.OnWeaponChange -= OnWeaponChange;
 
             ViewModel.Players.Remove(_members[member]);
+            ViewModel.Series.Remove(_playerPoints[member]);
             _playerPoints.Remove(member);
         }
 

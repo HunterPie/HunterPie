@@ -87,9 +87,9 @@ namespace HunterPie.Core.Game.World
             ulong encryptKey = timers[0];
             ulong encryptedValue = timers[1];
 
-            float maxTimer = _process.Memory.Read<ulong>(questEndTimerPtrs + 0x20) / 60.0f;
-
-            TimeElapsed = maxTimer - MHWCrypto.DecryptQuestTimer(encryptedValue, encryptKey);
+            float questMaxTimer = _process.Memory.Read<uint>(questEndTimerPtrs + 0x1C) / 60.0f;
+            float elapsed = MHWCrypto.DecryptQuestTimer(encryptedValue, encryptKey);
+            TimeElapsed = Math.Max(0, questMaxTimer - elapsed);
         }
 
         [ScannableMethod]
