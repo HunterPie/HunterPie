@@ -57,6 +57,9 @@ namespace HunterPie.Integrations.Discord
                 .Replace("{HighRank}", player.HighRank.ToString())
                 .Replace("{MasterRank}", player.MasterRank.ToString());
 
+            string state = game.Player.Party.Size <= 1
+                ? Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_PARTY_STATE_SOLO_STRING']")
+                : Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_PARTY_STATE_GROUP_STRING']");
 
             Presence.WithDetails(description)
                 .WithAssets(new Assets()
@@ -65,7 +68,16 @@ namespace HunterPie.Integrations.Discord
                     LargeImageText = MHWContext.Strings.GetStageNameById(player.StageId),
                     SmallImageKey = player.WeaponId != Weapon.None ? $"weap{(int)player.WeaponId}" : "hunter-rank",
                     SmallImageText = smallKeyText
-                });
+                })
+                .WithParty(new Party()
+                {
+                    // TODO: Use session Id with party leader name hash as Id
+                    ID = game.Player.Name ?? "",
+                    Max = game.Player.Party.MaxSize,
+                    Size = game.Player.Party.Size,
+                    Privacy = Party.PrivacySetting.Public
+                })
+                .WithState(state);
         }
     }
 }
