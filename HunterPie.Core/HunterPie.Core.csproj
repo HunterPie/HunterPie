@@ -7,7 +7,7 @@
     <Version>2.0.22.24</Version>
     <AssemblyVersion>2.0.25.93</AssemblyVersion>
     <FileVersion>2.0.25.93</FileVersion>
-  </PropertyGroup>
+ </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Game\Events\" />

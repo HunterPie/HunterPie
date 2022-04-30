@@ -241,47 +241,113 @@
 					 Icon="ICON_BLASTSCOURGE"/>
 	</Debuffs>
 	<Consumables>
-		<Abnormality Id="690" Icon="ITEM_DASH"/>
-		<Abnormality Id="694" Icon="ICON_STAMINAUP"/>
-		<Abnormality Id="698" Icon="ICON_NATURALHEALING"/>
-		<Abnormality Id="6A0-8" Offset="6A0" DependsOn="6A8" Icon="ITEM_MIGHT"/>
-		<Abnormality Id="6B0-C" Offset="6B0" DependsOn="6BC" Icon="ITEM_ADAMANT"/>
-		<Abnormality Id="6C4" Icon="ITEM_ATKPOWDER"/>
-		<Abnormality Id="6C8" Icon="ITEM_DEFPOWDER"/>
-		<Abnormality Id="6CC-8" Offset="6CC" DependsOn="6D4" Icon="ITEM_DEMONDRUG"/>
-		<Abnormality Id="6D0-8" Offset="6D0" DependsOn="6D8" Icon="ITEM_ARMORSKIN"/>
-		<Abnormality Id="6EC" Icon="ICON_HOTRES"/>
-		<Abnormality Id="6F0" Icon="ICON_COLDRES"/>
-		<Abnormality Id="6F8" Icon="ICON_EXT_HEALTHRECOVERY"/>
-		<Abnormality Id="6FC" Icon="ICON_COLDRES"/>
-		<Abnormality Id="708" Icon="ICON_SNOWMANHEAD"/>
-		<Abnormality Id="718" Icon="ICON_ATTACKUP"/>
-		<Abnormality Id="71C" Icon="ICON_ICERES+"/>
+		<Abnormality Id="690" 
+					 Name="ABNORMALITY_DASH_JUICE"
+					 Icon="ITEM_DASH"/>
+		<Abnormality Id="694" 
+					 Name="ABNORMALITY_WIGGLY_LITCHY"
+					 Icon="ICON_STAMINAUP"/>
+		<Abnormality Id="698" 
+					 Name="ABNORMALITY_ASTERA_JERKY"
+					 Icon="ICON_NATURALHEALING"/>
+		<Abnormality Id="6A0-8"
+					 Name="ABNORMALITY_MIGHT_SEED"
+					 Offset="6A0" 
+					 DependsOn="6A8" 
+					 Icon="ITEM_MIGHT"/>
+		<Abnormality Id="6B0-C"
+					 Name="ABNORMALITY_MIGHT_PILL"
+					 Offset="6B0"
+					 DependsOn="6BC"
+					 Icon="ITEM_ADAMANT"/>
+		<Abnormality Id="6C4"
+					 Name="ABNORMALITY_DEMON_POWDER"
+					 Icon="ITEM_ATKPOWDER"/>
+		<Abnormality Id="6C8"
+					 Name="ABNORMALITY_HARDSHELL_POWDER"
+					 Icon="ITEM_DEFPOWDER"/>
+		<Abnormality Id="6CC-8"
+					 Name="ABNORMALITY_DEMONDRUG"
+					 Offset="6CC" 
+					 DependsOn="6D4"
+					 Icon="ITEM_DEMONDRUG"/>
+		<Abnormality Id="6D0-8"
+					 Name="ABNORMALITY_ARMORSKIN"
+					 Offset="6D0"
+					 DependsOn="6D8"
+					 Icon="ITEM_ARMORSKIN"/>
+		<Abnormality Id="6EC"
+					 Name="ABNORMALITY_COOLDRINK"
+					 Icon="ICON_HOTRES"/>
+		<Abnormality Id="6F0"
+					 Name="ABNORMALITY_HOTDRINK"
+					 Icon="ICON_COLDRES"/>
+		<Abnormality Id="6F8"
+					 Name="ABNORMALITY_HEALTH_REGEN"
+					 Icon="ICON_EXT_HEALTHRECOVERY"/>
+		<Abnormality Id="6FC"
+					 Name="ABNORMALITY_COLD_RES"
+					 Icon="ICON_COLDRES"/>
+		<Abnormality Id="708"
+					 Name="ABNORMALITY_SNOWMAN_HEAD"
+					 Icon="ICON_SNOWMANHEAD"/>
+		<Abnormality Id="718"
+					 Name="ABNORMALITY_POWERCONE"
+					 Icon="ICON_ATTACKUP"/>
+		<Abnormality Id="71C"
+					 Name="ABNORMALITY_ICE_RES"
+					 Icon="ICON_ICERES+"/>
 	</Consumables>
 	<Foods>
 		<Abnormality Id="E4"
+					 Name="ABNORMALITY_FOOD_TIMER"
 					 Icon="ICON_MEAT"/>
 	</Foods>
 	<Gears>
 		
 	</Gears>
 	<Skills>
-		<Abnormality Id="6CC" Icon="ICON_DEMONAMMO"/>
-		<Abnormality Id="6D0" Icon="ICON_ARMORAMMO"/>
-		<Abnormality Id="764" Icon="ICON_ATTACKUP"/>
-		<Abnormality Id="76C" Icon="ICON_ARMORSKILL_DARKRED"/>
-		<Abnormality Id="770" Icon="ICON_AFFINITY"/>
-		<Abnormality Id="730" Icon="ICON_ELEATTACKUP"/>
-		<Abnormality Id="738" Icon="ICON_AFFINITY"/>
-		<Abnormality Id="754" Icon="ICON_ARMORSKILL_SALMON"/>
-		<Abnormality Id="7C8"/>
-		<Abnormality Id="788" Icon="ICON_ARMORSKILL_WHITE"/>
-		<Abnormality Id="79C" Icon="ICON_ATTACKUP"/>
-		<Abnormality Id="7A0" Icon="ICON_ARMORSKILL_PURPLE"/>
+		<Abnormality Id="6CC" 
+					 Name="ABNORMALITY_DEMON_AMMO"
+					 Icon="ICON_DEMONAMMO"/>
+		<Abnormality Id="6D0" 
+					 Name="ABNORMALITY_ARMOR_AMMO"
+					 Icon="ICON_ARMORAMMO"/>
+		<Abnormality Id="764"
+					 Name="ABNORMALITY_FORTIFY"
+					 Icon="ICON_ATTACKUP"/>
+		<Abnormality Id="76C" 
+					 Name="ABNORMALITY_PROTECTIVE_POLISH"
+					 Icon="ICON_ARMORSKILL_DARKRED"/>
+		<Abnormality Id="770" 
+					 Name="ABNORMALITY_AFFINITY_SLIDING"
+					 Icon="ICON_AFFINITY"/>
+		<Abnormality Id="730" 
+					 Name="ABNORMALITY_ELEMENT_ACCELERATION"
+					 Icon="ICON_ELEATTACKUP"/>
+		<Abnormality Id="738"
+					 Name="ABNORMALITY_LATENTPOWER"
+					 Icon="ICON_AFFINITY"/>
+		<Abnormality Id="754"
+					 Name="ABNORMALITY_ADRENALINE"
+					 Icon="ICON_ARMORSKILL_SALMON"/>
+		<Abnormality Id="7C8"
+					 Name="ABNORMALITY_COOL_CAT"/>
+		<Abnormality Id="788" 
+					 Name="ABNORMALITY_FROSTCRAFT"
+					 Icon="ICON_ARMORSKILL_WHITE"/>
+		<Abnormality Id="79C"
+					 Name="ABNORMALITY_OFFENSIVE_GUARD"
+					 Icon="ICON_ATTACKUP"/>
+		<Abnormality Id="7A0"
+					 Name="ABNORMALITY_COALESCENCE"
+					 Icon="ICON_ARMORSKILL_PURPLE"/>
 		<Abnormality Id="FC4" 
+					 Name="ABNORMALITY_EVASION_MANTLE"
 					 Icon="ICON_MANTLE"
 					 Category="Gears"/>
 		<Abnormality Id="FC8" 
+					 Name="ABNORMALITY_AFFINITTY_BOOSTER"
 					 Icon="ICON_BOOSTER_RED"
 					 Category="Gears"/>
 	</Skills>
