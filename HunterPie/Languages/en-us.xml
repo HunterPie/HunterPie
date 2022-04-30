@@ -91,6 +91,11 @@
 		<Abnormality Id="ABNORMALITY_WINDPROOF" String="Windproof"/>
 		
 		<Abnormality Id="ABNORMALITY_MIGHT_SEED" String="Might Seed"/>
+		<Abnormality Id="ABNORMALITY_MIGHT_PILL" String="Might Pill"/>
+		<Abnormality Id="ABNORMALITY_DEMONDRUG" String="Demondrug"/>
+		<Abnormality Id="ABNORMALITY_ARMORSKIN" String="Armorskin"/>
+		<Abnormality Id="ABNORMALITY_COOLDRINK" String="Cool Drink"/>
+		<Abnormality Id="ABNORMALITY_HOTDRINK" String="Hot Drink"/>
 		<Abnormality Id="ABNORMALITY_BUTTERFLAME" String="Butterflame"/>
 		<Abnormality Id="ABNORMALITY_CUTTERFLY" String="Cutterfly"/>
 		<Abnormality Id="ABNORMALITY_ADAMANT_SEED" String="Adamant Seed"/>
@@ -110,16 +115,32 @@
 		<Abnormality Id="ABNORMALITY_ARMOR_AMMO" String="Armor Ammo"/>
 		<Abnormality Id="ABNORMALITY_ARC_SHOT_BRACE" String="Arc Shot: Brace"/>
 		<Abnormality Id="ABNORMALITY_ARC_SHOT_AFFINITY" String="Arc Shot: Affinity"/>
+		<Abnormality Id="ABNORMALITY_WIGGLY_LITCHY" String="Wiggly Litchy"/>
+		<Abnormality Id="ABNORMALITY_ASTERA_JERKY" String="Astera Jerky"/>
+		<Abnormality Id="ABNORMALITY_HEALTH_REGEN" String="Health Regen."/>
+		<Abnormality Id="ABNORMALITY_COLD_RES" String="Cold Res."/>
+		<Abnormality Id="ABNORMALITY_SNOWMAN_HEAD" String="Snowman Head"/>
+		<Abnormality Id="ABNORMALITY_POWERCONE" String="Powercone"/>
+		<Abnormality Id="ABNORMALITY_ICE_RES" String="Ice Res. (L)"/>
+		<Abnormality Id="ABNORMALITY_FOOD_TIMER" String="Food Timer"/>
 		
 		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="Dango Bulker"/>
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="Dango Booster"/>
 		<Abnormality Id="ABNORMALITY_DANGO_GLUTTON" String="Dango Glutton"/>
 		
+		<Abnormality Id="ABNORMALITY_FORTIFY" String="Fortify"/>
 		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="Counterstrike"/>
 		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="Latent Power"/>
 		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="Affinity Sliding"/>
 		<Abnormality Id="ABNORMALITY_PROTECTIVE_POLISH" String="Protective Polish"/>
 		<Abnormality Id="ABNORMALITY_OFFENSIVE_GUARD" String="Offensive Guard"/>
+		<Abnormality Id="ABNORMALITY_ELEMENT_ACCELERATION" String="Element Acceleration"/>
+		<Abnormality Id="ABNORMALITY_ADRENALINE" String="Adrenaline"/>
+		<Abnormality Id="ABNORMALITY_COOL_CAT" String="Cool Cat"/>
+		<Abnormality Id="ABNORMALITY_FROSTCRAFT" String="Frostcraft"/>
+		<Abnormality Id="ABNORMALITY_COALESCENCE" String="Coalescence"/>
+		<Abnormality Id="ABNORMALITY_EVASION_MANTLE" String="Evasion Mantle (Atk)"/>
+		<Abnormality Id="ABNORMALITY_AFFINITTY_BOOSTER" String="Affinity Booster"/>
 
 		<Abnormality Id="ABNORMALITY_POISON" String="Poison"/>
 		<Abnormality Id="ABNORMALITY_VENOM" String="Venom"/>
