@@ -18,6 +18,8 @@ namespace HunterPie.Core.Game.Rise.Entities
 
         public int Slot => throw new NotImplementedException();
 
+        public bool IsMyself => throw new NotImplementedException();
+
         public event EventHandler<IPartyMember> OnDamageDealt;
         public event EventHandler<IPartyMember> OnWeaponChange;
     }

@@ -8,5 +8,6 @@ namespace HunterPie.Core.Game.World.Definitions
         public Weapon Weapon;
         public int Damage;
         public int Slot;
+        public bool IsMyself;
     }
 }

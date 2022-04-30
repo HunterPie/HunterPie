@@ -14,7 +14,6 @@ using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Windows.Media;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage
@@ -181,7 +180,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             string playerColor = PlayerConfigHelper.GetColorFromPlayer(
                 ProcessManager.Game,
                 member.Slot,
-                false
+                member.IsMyself
             );
 
             _members.Add(member, new(View.Settings) 
@@ -190,6 +189,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
                 Damage = member.Damage, 
                 Weapon = member.Weapon, 
                 Color = playerColor,
+                IsUser = member.IsMyself
             });
 
             member.OnDamageDealt += OnDamageDealt;

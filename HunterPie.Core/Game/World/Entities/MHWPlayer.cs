@@ -429,14 +429,18 @@ namespace HunterPie.Core.Game.World.Entities
                     continue;
                 }
 
+                string name = _process.Memory.Read(playerAddress, 32);
+                bool isLocalPlayer = name == Name;
                 // TODO: Scan levels
                 MHWPartyMemberData data = new MHWPartyMemberData
                 {
-                    Name = _process.Memory.Read(playerAddress, 32),
-                    Weapon = (Weapon)_process.Memory.Read<byte>(playerAddress + 0x33),
+                    Name = name,
+                    Weapon = isLocalPlayer ? WeaponId : (Weapon)_process.Memory.Read<byte>(playerAddress + 0x33),
                     Damage = _process.Memory.Read<int>(damageInformation + (i * 0x2A0)),
-                    Slot = i
+                    Slot = i,
+                    IsMyself = isLocalPlayer
                 };
+
                 _party.Update(playerAddress, data);
             }
         }
