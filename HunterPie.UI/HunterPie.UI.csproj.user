@@ -5,6 +5,9 @@
     <Compile Update="Controls\Buttons\Button.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Buttons\ColorPicker.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Buttons\Keybinding.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -134,6 +137,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Controls\Buttons\Button.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Buttons\ColorPicker.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Buttons\Keybinding.xaml">

@@ -1,28 +1,33 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
 using HunterPie.UI.Architecture.Graphs;
+using HunterPie.UI.Architecture.Test;
 using LiveCharts.Defaults;
 using System;
 using System.Timers;
+using System.Windows;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
 {
     public class MockMeterViewModel : MeterViewModel
     {
         private int totalDamage = 0;
-        private readonly Timer dispatcher;
         private readonly DamageMeterWidgetConfig _mockConfig;
 
-        public MockMeterViewModel(DamageMeterWidgetConfig config) : base(config)
+        public MockMeterViewModel()
         {
-            _mockConfig = config;
-            dispatcher = new(1000);
-            dispatcher.Elapsed += MockInGameAction;
+            InHuntingZone = true;
             
             MockPlayers();
             MockPlayerSeries();
-            dispatcher.Start();
+
+            MockBehavior.Run(() =>
+            {
+                MockInGameAction();
+                Application.Current.Dispatcher.Invoke(SortPlayers);
+            }, 1);
         }
 
         private void MockPlayers()
@@ -58,14 +63,15 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
             });
         }
 
-        private void MockInGameAction(object sender, EventArgs e)
+        private void MockInGameAction()
         {
             Random random = new();
             int i = 1;
             foreach (PlayerViewModel player in Players)
             {
                 double lastDps = player.DPS;
-                int hit = random.Next(0, 400 / i);
+                int hit = random.Next(0, 400);
+                bool shouldHit = hit % 2 == 1;
                 player.Damage += hit;
                 player.DPS = player.Damage / TimeElapsed;
                 player.Percentage = player.Damage / (double)Math.Max(1, totalDamage) * 100;

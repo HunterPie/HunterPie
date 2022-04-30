@@ -10,6 +10,7 @@ using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.World.Definitions;
 using HunterPie.Core.Game.World.Entities.Abnormalities;
+using HunterPie.Core.Game.World.Entities.Party;
 using HunterPie.Core.Logger;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace HunterPie.Core.Game.World.Entities
         private readonly static Stage[] peaceZones =
         {
             Stage.Astera,
-            Stage.SelianaSupplyCache,
+            Stage.AsteraGatheringHub,
             Stage.ResearchBase,
             Stage.Seliana,
             Stage.SelianaGatheringHub,
@@ -43,6 +44,7 @@ namespace HunterPie.Core.Game.World.Entities
         private SpecializedTool _primaryTool = new SpecializedTool();
         private SpecializedTool _secondaryTool = new SpecializedTool();
         private Dictionary<string, IAbnormality> _abnormalities = new();
+        private MHWParty _party = new();
         #endregion
 
         #region Public fields
@@ -117,7 +119,7 @@ namespace HunterPie.Core.Game.World.Entities
 
         public IReadOnlyCollection<IAbnormality> Abnormalities => _abnormalities.Values;
 
-        IParty IPlayer.Party => throw new NotImplementedException();
+        public IParty Party => _party;
 
         public bool InHuntingZone => ZoneId != Stage.MainMenu && !peaceZones.Contains(_zoneId);
         #endregion
@@ -291,7 +293,16 @@ namespace HunterPie.Core.Game.World.Entities
 
             foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
             {
-                MHWAbnormalityStructure structure = _process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
+                MHWAbnormalityStructure structure = new();
+
+                int abnormSubId = abnormalitySchema.DependsOn switch
+                {
+                    0 => 0,
+                    _ => _process.Memory.Read<int>(baseAddress + abnormalitySchema.DependsOn)
+                };
+
+                if (abnormSubId == abnormalitySchema.WithValue)
+                    structure = _process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
 
                 HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
             }
@@ -392,6 +403,46 @@ namespace HunterPie.Core.Game.World.Entities
                 this.Dispatch(OnAbnormalityEnd, abnormality);
 
             _abnormalities.Clear();
+        }
+
+        [ScannableMethod]
+        private void GetParty()
+        {
+            long partyInformation = _process.Memory.Read(
+                AddressMap.GetAbsolute("PARTY_ADDRESS"),
+                AddressMap.Get<int[]>("PARTY_OFFSETS")
+            ) - 0x22B7;
+
+            long damageInformation = _process.Memory.Read(
+                AddressMap.GetAbsolute("DAMAGE_ADDRESS"),
+                AddressMap.Get<int[]>("DAMAGE_OFFSETS")
+            );
+
+            for (int i = 0; i < Party.MaxSize; i++)
+            {
+                long playerAddress = partyInformation + (i * 0x1C0);
+                bool isSlotEmpty = _process.Memory.Read<byte>(playerAddress) == 0;
+
+                if (isSlotEmpty)
+                {
+                    _party.Remove(playerAddress);
+                    continue;
+                }
+
+                string name = _process.Memory.Read(playerAddress, 32);
+                bool isLocalPlayer = name == Name;
+                // TODO: Scan levels
+                MHWPartyMemberData data = new MHWPartyMemberData
+                {
+                    Name = name,
+                    Weapon = isLocalPlayer ? WeaponId : (Weapon)_process.Memory.Read<byte>(playerAddress + 0x33),
+                    Damage = _process.Memory.Read<int>(damageInformation + (i * 0x2A0)),
+                    Slot = i,
+                    IsMyself = isLocalPlayer
+                };
+
+                _party.Update(playerAddress, data);
+            }
         }
     }
 }
