@@ -45,6 +45,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         private void UpdateData()
         {
             ViewModel.InHuntingZone = Context.Game.Player.InHuntingZone;
+            ViewModel.Deaths = Context.Game.Deaths;
 
             if (ViewModel.InHuntingZone)
                 foreach (IPartyMember member in Context.Game.Player.Party.Members)
@@ -57,18 +58,26 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             Context.Game.OnTimeElapsedChange += OnTimeElapsedChange;
             Context.Game.Player.OnVillageEnter += OnVillageEnter;
             Context.Game.Player.OnVillageLeave += OnVillageLeave;
+            Context.Game.OnDeathCountChange += OnDeathCountChange;
         }
 
+        
         public void UnhookEvents()
         {
             Context.Game.Player.Party.OnMemberJoin -= OnMemberJoin;
             Context.Game.OnTimeElapsedChange -= OnTimeElapsedChange;
             Context.Game.Player.OnVillageEnter -= OnVillageEnter;
             Context.Game.Player.OnVillageLeave -= OnVillageLeave;
+            Context.Game.OnDeathCountChange -= OnDeathCountChange;
             WidgetManager.Unregister<MeterView, DamageMeterWidgetConfig>(View);
         }
 
         #region Player events
+        private void OnDeathCountChange(object sender, IGame e)
+        {
+            ViewModel.Deaths = e.Deaths;
+        }
+
         private void OnVillageLeave(object sender, EventArgs e)
         {
             ViewModel.InHuntingZone = true;

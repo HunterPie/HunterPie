@@ -25,6 +25,7 @@ namespace HunterPie.Core.Game.World.Entities
         private readonly static Stage[] peaceZones =
         {
             Stage.Astera,
+            Stage.AsteraGatheringHub,
             Stage.ResearchBase,
             Stage.Seliana,
             Stage.SelianaGatheringHub,

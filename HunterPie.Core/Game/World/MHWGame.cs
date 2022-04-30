@@ -20,11 +20,13 @@ namespace HunterPie.Core.Game.World
         private readonly IProcessManager _process;
         private bool _isMouseVisible;
         private float _timeElapsed;
+        private int _deaths;
 
         public event EventHandler<IMonster> OnMonsterSpawn;
         public event EventHandler<IMonster> OnMonsterDespawn;
         public event EventHandler<IGame> OnHudStateChange;
         public event EventHandler<IGame> OnTimeElapsedChange;
+        public event EventHandler<IGame> OnDeathCountChange;
 
         public IPlayer Player => _player;
         public List<IMonster> Monsters { get; } = new();
@@ -53,6 +55,19 @@ namespace HunterPie.Core.Game.World
                 {
                     _timeElapsed = value;
                     this.Dispatch(OnTimeElapsedChange, this);
+                }
+            }
+        }
+
+        public int Deaths
+        {
+            get => _deaths;
+            private set
+            {
+                if (value != _deaths)
+                {
+                    _deaths = value;
+                    this.Dispatch(OnDeathCountChange, this);
                 }
             }
         }
@@ -90,6 +105,17 @@ namespace HunterPie.Core.Game.World
             float questMaxTimer = _process.Memory.Read<uint>(questEndTimerPtrs + 0x1C) / 60.0f;
             float elapsed = MHWCrypto.DecryptQuestTimer(encryptedValue, encryptKey);
             TimeElapsed = Math.Max(0, questMaxTimer - elapsed);
+        }
+
+        [ScannableMethod]
+        private void GetDeathCounter()
+        {
+            int deathCounter = _process.Memory.Deref<int>(
+                AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
+                AddressMap.Get<int[]>("QUEST_DEATH_COUNTER_OFFSETS")
+            );
+
+            Deaths = deathCounter;
         }
 
         [ScannableMethod]

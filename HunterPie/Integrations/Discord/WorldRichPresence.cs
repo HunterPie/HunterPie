@@ -31,8 +31,7 @@ namespace HunterPie.Integrations.Discord
 
                 Stage.Astera or Stage.AsteraGatheringHub or Stage.ResearchBase
                 or Stage.Seliana or Stage.SelianaGatheringHub or Stage.LivingQuarters
-                or Stage.PrivateQuarters or Stage.PrivateSuite or Stage.SelianaSupplyCache
-                or Stage.SelianaSupplyCache2 or Stage.SelianaRoom => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_STATE_IDLE']"),
+                or Stage.PrivateQuarters or Stage.PrivateSuite or Stage.SelianaRoom => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_STATE_IDLE']"),
 
                 Stage.TrainingArea => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_WORLD_STATE_PRACTICE']"),
 
