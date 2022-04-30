@@ -14,7 +14,11 @@
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              mc:Ignorable="d" 
              Width="300">
-    <Grid Background="#CC111215">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid Background="#CC111215"
+          Visibility="{Binding InHuntingZone, Converter={StaticResource BooleanToVisibilityConverter}}">
         <Grid.Resources>
             <viewmodels:MockMeterViewModel x:Key="MockViewModel"/>
             <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
@@ -32,7 +36,7 @@
                     <Image Source="{StaticResource ICON_STOPWATCH}"
                            Margin="0,0,3,0"
                            Height="18"/>
-                    <TextBlock Text="{Binding TimeElapsed, Converter={StaticResource SecondsToTimeString}}"
+                    <TextBlock Text="{Binding TimeElapsed, Converter={StaticResource SecondsToTimeString}, ConverterParameter='mm\\:ss\\.fff'}"
                                d:Text="3:33"
                                Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                                FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
@@ -66,7 +70,7 @@
         <!-- Players display -->
         <StackPanel Grid.Row="1"
                     Orientation="Vertical">
-            <ItemsControl ItemsSource="{Binding Players}"
+            <ItemsControl ItemsSource="{Binding Players, Mode=OneWay}"
                           Margin="1,1,1,1" 
                           Grid.Row="1"
                           d:DataContext="{StaticResource MockViewModel}">
@@ -74,7 +78,8 @@
                     <ItemsPanelTemplate>
                         <WrapPanel ItemHeight="40"
                                    Orientation="Vertical"
-                                   ItemWidth="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"/>
+                                   ItemWidth="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                                   IsItemsHost="True"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
@@ -89,7 +94,10 @@
                                 Height="120"
                                 DisableAnimations="True"
                                 Margin="1"
-                                d:DataContext="{StaticResource MockViewModel}">
+                                Visibility="{Binding Settings.ShouldShowPlots.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                d:DataContext="{StaticResource MockViewModel}"
+                                Hoverable="False"
+                                DataTooltip="{x:Null}">
                 <lvc:CartesianChart.AxisY>
                     <lvc:Axis MinValue="0"
                               LabelFormatter="{Binding DPSFormatter}"

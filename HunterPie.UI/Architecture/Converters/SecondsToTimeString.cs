@@ -8,6 +8,7 @@ namespace HunterPie.UI.Architecture.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            string timeFormat = "mm\\:ss";
             if (value is double val)
             {
                 if (val > TimeSpan.MaxValue.TotalSeconds)
@@ -15,7 +16,10 @@ namespace HunterPie.UI.Architecture.Converters
 
                 TimeSpan span = TimeSpan.FromSeconds(val);
 
-                return span.ToString("mm\\:ss");
+                if (parameter is string format)
+                    timeFormat = format;
+
+                return span.ToString(timeFormat);
             }
 
             return string.Empty;

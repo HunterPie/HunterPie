@@ -45,6 +45,7 @@ namespace HunterPie.UI.Settings
             { typeof(Position), new PositionVisualConveter() },
             { typeof(Keybinding), new KeybindingVisualConverter() },
             { typeof(AbnormalityTrays), new AbnormalityTraysVisualConverter() },
+            { typeof(Color), new ColorVisualConverter() },
         };
 
         private VisualConverterManager() {}

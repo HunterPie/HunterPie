@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Game.Client;
+using System;
 using System.Collections.Generic;
 
 namespace HunterPie.Core.Game.Rise.Entities.Party
@@ -10,5 +11,8 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
         public int MaxSize => MAX_PARTY_SIZE;
 
         public List<IPartyMember> Members { get; } = new(MAX_PARTY_SIZE);
+
+        public event EventHandler<IPartyMember> OnMemberJoin;
+        public event EventHandler<IPartyMember> OnMemberLeave;
     }
 }

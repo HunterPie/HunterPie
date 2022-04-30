@@ -9,7 +9,7 @@ namespace HunterPie.UI.Architecture.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             double val = (double)value;
-            return (int)((val % 1) * 100);
+            return Math.Max(0, (int)((val % 1) * 100));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
