@@ -25,11 +25,11 @@
                         <Grid Margin="5,0,0,0">
                             <Rectangle RadiusX="5"
                                        RadiusY="5"
-                                       Stroke="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                                       Fill="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                                       Stroke="{StaticResource WHITE_50}"
+                                       Fill="{StaticResource WHITE_400}"
                                        Opacity="0.2"/>
                             <TextBlock Text="{Binding .}"
-                                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                                       Foreground="{StaticResource WHITE_50}"
                                        FontSize="13"
                                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                        Padding="5"/>

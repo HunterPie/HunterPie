@@ -58,7 +58,7 @@
                                 <ThicknessAnimation To="37,0,0,0"
                                                     Duration="0:0:0.15"
                                                  Storyboard.TargetProperty="Margin"/>
-                                <anim:BrushAnimation To="{StaticResource BUTTON_COMMONBUTTON_FOREGROUND}"
+                                <anim:BrushAnimation To="{StaticResource WHITE_50}"
                                                      Duration="0:0:0.15"
                                                      Storyboard.TargetProperty="Fill"/>
                             </Storyboard>
@@ -70,7 +70,7 @@
                                 <ThicknessAnimation To="5,0,0,0"
                                                     Duration="0:0:0.15"
                                                     Storyboard.TargetProperty="Margin"/>
-                                <anim:BrushAnimation To="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}"
+                                <anim:BrushAnimation To="{StaticResource GRAY_100}"
                                                      Duration="0:0:0.15"
                                                      Storyboard.TargetProperty="Fill"/>
                             </Storyboard>
@@ -96,7 +96,7 @@
                     <DataTrigger.ExitActions>
                         <BeginStoryboard>
                             <Storyboard Storyboard.TargetProperty="Width">
-                                <anim:BrushAnimation To="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
+                                <anim:BrushAnimation To="{StaticResource GRAY_300}"
                                                  Duration="0:0:0.25"
                                                  Storyboard.TargetProperty="Fill"/>
                             </Storyboard>
@@ -108,15 +108,15 @@
         
     </arch:ClickableControl.Resources>
     <Grid>
-        <Rectangle Fill="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
+        <Rectangle Fill="{StaticResource GRAY_300}"
                    RadiusX="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.5}"
                    RadiusY="{Binding RadiusX, RelativeSource={RelativeSource Self}}"
-                   Stroke="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}"
+                   Stroke="{StaticResource GRAY_300}"
                    Style="{StaticResource SwitchBackground}"
                    StrokeThickness="2"/>
 
         <Ellipse x:Name="PART_Bubble"
-                 Fill="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                 Fill="{StaticResource WHITE_100}"
                  Width="0"
                  Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                  VerticalAlignment="Stretch"
@@ -146,10 +146,10 @@
         </Ellipse>
         
         <Ellipse x:Name="PART_Slider"
-                 Fill="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}"
+                 Fill="{StaticResource GRAY_100}"
                  Height="{Binding ActualHeight, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.60, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
                  Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
-                 Stroke="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}"
+                 Stroke="{StaticResource GRAY_100}"
                  StrokeThickness="2"
                  Margin="5,0,0,0"
                  Cursor="Hand"

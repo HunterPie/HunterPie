@@ -190,7 +190,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Border CornerRadius="1" 
-                            Background="{StaticResource HUNTERPIE_FOREGROUND_DARK}" 
+                            Background="{StaticResource WHITE_500}" 
                             BorderBrush="{TemplateBinding BorderBrush}" 
                             BorderThickness="0"  
                             Width="7"/>
@@ -208,7 +208,7 @@
             </Grid.RowDefinitions>
             <Border Grid.RowSpan="3" 
                     CornerRadius="2" 
-                    Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}" />
+                    Background="{StaticResource GRAY_400}" />
             <RepeatButton Grid.Row="0" Style="{StaticResource ScrollBarLineButton}" Height="18" Command="ScrollBar.LineUpCommand" Content="M 0 4 L 8 4 L 4 0 Z" />
             <Track Name="PART_Track" Grid.Row="1" IsDirectionReversed="true">
                 <Track.DecreaseRepeatButton>
@@ -218,8 +218,8 @@
                 <Track.Thumb>
                     <Thumb Style="{StaticResource ScrollBarThumb}" 
                            Margin="1,1,1,1" 
-                           Background="{StaticResource HorizontalNormalBrush}" 
-                           BorderBrush="{StaticResource HorizontalNormalBorderBrush}" />
+                           Background="{StaticResource WHITE_500}" 
+                           BorderBrush="{StaticResource WHITE_500}" />
                 </Track.Thumb>
                 <Track.IncreaseRepeatButton>
                     <RepeatButton Style="{StaticResource ScrollBarPageButton}" 
@@ -345,8 +345,24 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
-        <Setter Property="TextElement.Foreground" Value="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
+        <Setter Property="TextElement.Foreground" Value="{StaticResource WHITE_100}"/>
         <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource GRAY_400}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{StaticResource GRAY_400}"/>
+                            <Setter Property="Foreground" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
@@ -383,21 +399,23 @@
                         <!-- Popup showing items -->
                         <Popup Name="Popup" 
                                Placement="Bottom"
-                               Focusable="False" AllowsTransparency="True"
+                               Focusable="False" 
+                               AllowsTransparency="True"
                                IsOpen="{TemplateBinding ComboBox.IsDropDownOpen}"
-                               PopupAnimation="Slide">
+                               PopupAnimation="Fade">
                             <Grid Name="DropDown" 
                                   SnapsToDevicePixels="True"
                                   MinWidth="{TemplateBinding FrameworkElement.ActualWidth}"
                                   MaxHeight="{TemplateBinding ComboBox.MaxDropDownHeight}">
                                 <Border Name="DropDownBorder" 
-                                        Background="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}" 
-                                        Margin="0,1,0,0"
+                                        Background="{StaticResource GRAY_200}" 
+                                        Margin="0,0,0,0"
                                         CornerRadius="0" 
                                         BorderThickness="1,1,1,1"
-                                        BorderBrush="#FF151515"/>
-                                <ScrollViewer Margin="4" SnapsToDevicePixels="True">
-                                    <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
+                                        BorderBrush="{StaticResource GRAY_200}"/>
+                                <ScrollViewer Margin="0" 
+                                              SnapsToDevicePixels="True">
+                                    <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"/>
                                 </ScrollViewer>
                             </Grid>
                         </Popup>
@@ -422,7 +440,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <!-- TextBox -->
     <Style x:Key="{x:Type TextBox}" TargetType="{x:Type TextBox}">
         <Setter Property="Background" Value="Transparent"/>

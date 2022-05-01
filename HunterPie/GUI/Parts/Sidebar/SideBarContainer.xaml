@@ -49,7 +49,7 @@
         </ItemsControl>
 
         <account:AccountView VerticalAlignment="Bottom"
-                             Background="{StaticResource HUNTERPIE_BACKGROUND_SECONDARY}"
+                             Background="{StaticResource GRAY_50}"
                              x:Name="PART_UserAccount">
             <account:AccountView.Effect>
                 <DropShadowEffect Direction="90" 
