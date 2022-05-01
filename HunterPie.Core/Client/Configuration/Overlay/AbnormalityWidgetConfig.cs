@@ -18,9 +18,6 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         [SettingField("ENABLE_WIDGET_STRING")]
         public Observable<bool> Enabled { get; set; } = true;
 
-        [SettingField("ABNORMALITY_GAME_TYPE")]
-        public Observable<GameType> Game { get; set; } = GameType.Rise;
-
         [SettingField("HIDE_WHEN_UI_VISIBLE_STRING")]
         public Observable<bool> HideWhenUiOpen { get; set; } = false;
 

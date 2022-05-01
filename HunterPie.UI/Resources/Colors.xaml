@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Grays -->
+    <SolidColorBrush x:Key="GRAY">#3a3e40</SolidColorBrush>
+    <SolidColorBrush x:Key="GRAY_50">#24282b</SolidColorBrush>
+    <SolidColorBrush x:Key="GRAY_100">#202427</SolidColorBrush>
+    <SolidColorBrush x:Key="GRAY_200">#1d2022</SolidColorBrush>
+    <SolidColorBrush x:Key="GRAY_300">#191c1e</SolidColorBrush>
+    <SolidColorBrush x:Key="GRAY_400">#16181a</SolidColorBrush>
+    <SolidColorBrush x:Key="GRAY_500">#121416</SolidColorBrush>
+    <SolidColorBrush x:Key="GRAY_600">#0e1011</SolidColorBrush>
+    <SolidColorBrush x:Key="GRAY_700">#0b0c0d</SolidColorBrush>
+    <SolidColorBrush x:Key="GRAY_800">#070809</SolidColorBrush>
+    <SolidColorBrush x:Key="GRAY_900">#040404</SolidColorBrush>
+    
+    <!-- Whites -->
+    <SolidColorBrush x:Key="WHITE">#ffffff</SolidColorBrush>
+    <SolidColorBrush x:Key="WHITE_50">#e9eaea</SolidColorBrush>
+    <SolidColorBrush x:Key="WHITE_100">#d3d4d5</SolidColorBrush>
+    <SolidColorBrush x:Key="WHITE_200">#bdbfbf</SolidColorBrush>
+    <SolidColorBrush x:Key="WHITE_300">#a7a9aa</SolidColorBrush>
+    <SolidColorBrush x:Key="WHITE_400">#929495</SolidColorBrush>
+    <SolidColorBrush x:Key="WHITE_500">#7c7e80</SolidColorBrush>
+    <SolidColorBrush x:Key="WHITE_600">#66696b</SolidColorBrush>
+    <SolidColorBrush x:Key="WHITE_700">#505355</SolidColorBrush>
+</ResourceDictionary>

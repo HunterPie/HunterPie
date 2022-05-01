@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
@@ -21,13 +22,10 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
 
         public MonsterWidgetContextHandler(Context context)
         {
-            View = new MonstersView(ProcessManager.Game switch
-            {
-                GameProcess.MonsterHunterRise => ClientConfig.Config.Rise.Overlay.BossesWidget,
-                GameProcess.MonsterHunterWorld => ClientConfig.Config.World.Overlay.BossesWidget,
-                _ => throw new NotImplementedException(),
-            });
-            WidgetManager.Register< MonstersView, MonsterWidgetConfig>(View);
+            OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
+
+            View = new MonstersView(config.BossesWidget);
+            WidgetManager.Register<MonstersView, MonsterWidgetConfig>(View);
 
             ViewModel = View.ViewModel;
             Context = context;

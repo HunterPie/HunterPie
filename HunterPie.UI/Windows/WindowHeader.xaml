@@ -11,7 +11,7 @@
     <Grid x:Name="PART_Header"
                   Height="30"
                   VerticalAlignment="Top"
-                  Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
+                  Background="{StaticResource GRAY_300}"
                   MouseLeftButtonDown="OnLeftMouseDown">
         <Grid.Effect>
             <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.2" Direction="180"/>
@@ -28,7 +28,7 @@
             <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                Text="{Binding Owner.Title}"
                                FontSize="16"
-                               Foreground="White" 
+                               Foreground="{StaticResource WHITE_50}" 
                                Opacity="0.3"
                                HorizontalAlignment="Stretch" 
                                VerticalAlignment="Center"/>
@@ -46,7 +46,7 @@
 
             <native:Button 
                 Content="✕"
-                Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
+                Background="{StaticResource GRAY_300}"
                 FontSize="15"
                 Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
                 OnClick="OnCloseButtonClick"

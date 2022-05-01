@@ -1,7 +1,7 @@
 ﻿using HunterPie.Core.Game.Enums;
+using HunterPie.UI.Assets.Application;
 using System;
 using System.Globalization;
-using System.Windows;
 using System.Windows.Data;
 
 namespace HunterPie.UI.Architecture.Converters
@@ -56,13 +56,13 @@ namespace HunterPie.UI.Architecture.Converters
                         iconName = "ICON_HEAVYBOWGUN";
                         break;
                     case Weapon.LightBowgun:
-                        iconName = "ICON_LIGHBOWGUN";
+                        iconName = "ICON_LIGHTBOWGUN";
                         break;
                     default:
                         return null;
                 }
 
-                return Application.Current.FindResource(iconName);
+                return Resources.Icon(iconName);
             }
 
             return null;

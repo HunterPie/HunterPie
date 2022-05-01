@@ -45,6 +45,7 @@ namespace HunterPie.UI.Settings
             { typeof(Position), new PositionVisualConveter() },
             { typeof(Keybinding), new KeybindingVisualConverter() },
             { typeof(AbnormalityTrays), new AbnormalityTraysVisualConverter() },
+            { typeof(Color), new ColorVisualConverter() },
         };
 
         private VisualConverterManager() {}
@@ -54,7 +55,7 @@ namespace HunterPie.UI.Settings
             List<ISettingElement> holder = new();
 
             Type parentType = settings.GetType();
-            GameProcess currentConfiguration = MapFactory.Map<GameType, GameProcess>(ClientConfig.Config.Client.DefaultGameType.Value);
+            GameProcess currentConfiguration = ClientConfig.Config.Client.LastConfiguredGame.Value;
 
             foreach (PropertyInfo property in parentType.GetProperties())
             {
@@ -122,7 +123,7 @@ namespace HunterPie.UI.Settings
         private static void BuildChildren(object parent, ISettingElement panel, List<ISettingElement> parentPanel)
         {
             Type parentType = parent.GetType();
-            GameProcess currentConfiguration = MapFactory.Map<GameType, GameProcess>(ClientConfig.Config.Client.DefaultGameType.Value);
+            GameProcess currentConfiguration = ClientConfig.Config.Client.LastConfiguredGame.Value;
 
             foreach (PropertyInfo prop in parentType.GetProperties())
             {

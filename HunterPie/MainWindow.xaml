@@ -17,7 +17,7 @@
         MinHeight="400" 
         BorderThickness="1"
         BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}" 
-        Background="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"
+        Background="{StaticResource GRAY_100}"
         Icon="pack://application:,,,/Resources/Icon.ico"
         Initialized="OnInitialized"
         SnapsToDevicePixels="True"
@@ -42,11 +42,11 @@
         </Grid.RowDefinitions>
         <part:HeaderBar 
             Height="25"
-            Background="{StaticResource HUNTERPIE_HEADER_BACKGROUND}"
+            Background="{StaticResource GRAY_300}"
             VerticalAlignment="Top"/>
 
         <Grid 
-              Background="{StaticResource HUNTERPIE_HEADER_BACKGROUND}" 
+              Background="{StaticResource GRAY_300}" 
               Margin="0,25,0,0">
 
             <StackPanel Orientation="Horizontal" 
@@ -112,7 +112,7 @@
         </Grid>
         
         <sidebar:SideBarContainer Grid.Row="1"
-                                  Background="{StaticResource HUNTERPIE_BACKGROUND_SECONDARY}"
+                                  Background="{StaticResource GRAY_50}"
                                   VerticalAlignment="Stretch"
                                   HorizontalAlignment="Left"
                                   ItemsHeight="40"/>

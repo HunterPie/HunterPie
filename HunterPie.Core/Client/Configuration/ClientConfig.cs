@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Generics;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
@@ -45,5 +46,7 @@ namespace HunterPie.Core.Client.Configuration
         [SettingField("DEV_ENABLE_FEATURE_FLAG", requiresRestart: true)]
         public Observable<bool> EnableFeatureFlags { get; set; } = false;
 
+        // States
+        public Observable<GameProcess> LastConfiguredGame { get; set; } = GameProcess.MonsterHunterRise;
     }
 }

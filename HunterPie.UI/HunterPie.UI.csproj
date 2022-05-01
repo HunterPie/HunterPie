@@ -3,14 +3,16 @@
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+	<UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.0.24.8</AssemblyVersion>
-    <FileVersion>2.0.24.8</FileVersion>
+    <AssemblyVersion>2.0.24.219</AssemblyVersion>
+    <FileVersion>2.0.24.219</FileVersion>
     <Version>2.0.22.24</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <Page Remove="Resources\Abnormalities.xaml" />
+    <Page Remove="Resources\Colors.xaml" />
     <Page Remove="Resources\Icons.xaml" />
     <Page Remove="Resources\Styles.xaml" />
   </ItemGroup>
@@ -24,6 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
     <Resource Include="Resources\WorkSans-ExtraLight.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
