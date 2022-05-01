@@ -45,6 +45,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         {
             ViewModel.InHuntingZone = Context.Game.Player.InHuntingZone;
             ViewModel.Deaths = Context.Game.Deaths;
+            ViewModel.TimeElapsed = Context.Game.TimeElapsed;
 
             if (ViewModel.InHuntingZone)
                 foreach (IPartyMember member in Context.Game.Player.Party.Members)

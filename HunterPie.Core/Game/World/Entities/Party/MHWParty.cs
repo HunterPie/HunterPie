@@ -14,7 +14,7 @@ namespace HunterPie.Core.Game.World.Entities.Party
 
         private readonly Dictionary<long, MHWPartyMember> _partyMembers = new(MAXIMUM_SIZE);
 
-        public int Size => throw new NotImplementedException();
+        public int Size => _partyMembers.Count;
 
         public int MaxSize => MAXIMUM_SIZE;
 

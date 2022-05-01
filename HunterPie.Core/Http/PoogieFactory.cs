@@ -9,6 +9,7 @@ namespace HunterPie.Core.Http
     {
         const string CLIENT_ID = "X-Client-Id";
         const string APP_VERSION = "X-App-Version";
+        const string CLIENT_TYPE = "X-HunterPie-Client";
 
         public readonly static string[] Hosts =
         {
@@ -38,7 +39,8 @@ namespace HunterPie.Core.Http
 
             return builder.WithTimeout(TimeSpan.FromSeconds(5))
                           .WithHeader(CLIENT_ID, clientId)
-                          .WithHeader(APP_VERSION, ClientInfo.Version.ToString());
+                          .WithHeader(APP_VERSION, ClientInfo.Version.ToString())
+                          .WithHeader(CLIENT_TYPE, "v2");
         }
 
         public static PoogieBuilder Docs()

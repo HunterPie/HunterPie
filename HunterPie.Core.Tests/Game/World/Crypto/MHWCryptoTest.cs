@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace HunterPie.Core.Tests.Game.World.Crypto
 {
     [TestClass]
-    public class TestMHWCrypto
+    public class MHWCryptoTest
     {
         ref struct QuestTimerTestCase
         {

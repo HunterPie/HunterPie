@@ -45,8 +45,7 @@
             Background="{StaticResource GRAY_300}"
             VerticalAlignment="Top"/>
 
-        <Grid 
-              Background="{StaticResource GRAY_300}" 
+        <Grid Background="{StaticResource GRAY_300}" 
               Margin="0,25,0,0">
 
             <StackPanel Orientation="Horizontal" 
