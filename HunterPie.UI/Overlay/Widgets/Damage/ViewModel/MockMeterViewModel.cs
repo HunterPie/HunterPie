@@ -70,7 +70,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
             foreach (PlayerViewModel player in Players)
             {
                 double lastDps = player.DPS;
-                int hit = random.Next(0, 400);
+                int hit = random.Next(0, random.Next(1, 300));
                 bool shouldHit = hit % 2 == 1;
                 player.Damage += hit;
                 player.DPS = player.Damage / TimeElapsed;

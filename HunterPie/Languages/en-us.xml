@@ -480,6 +480,9 @@
 			<Setting Id="ACTIVITIES_WIDGET_STRING"
 					 String="Activities Widget"
 					 Description="Activities Widget configurations"/>
+			<Setting Id="METER_WIDGET_STRING"
+					 String="Damage Meter Widget"
+					 Description="Damage Meter Widget configurations"/>
 			<Setting Id="CHAT_WIDGET_STRING"
 					 String="Chat Widget"
 					 Description="Chat Widget configurations"/>
@@ -649,6 +652,30 @@
 					 String="Show Training Dojo"
 					 Description="If enabled, HunterPie will show Training Dojo's data."/>
 
+			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_HIGHLIGHT_MYSELF"
+					 String="Highlight myself"
+					 Description="If enabled, your name will be highlighted from the other players."/>
+			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_BLUR_NAMES"
+					 String="Blur names"
+					 Description="If enabled, everyone's names will be blurred out from the meter."/>
+			<Setting Id="DAMAGE_METER_ENABLE_DPS_PLOT"
+					 String="Display DPS plot"
+					 Description="If enabled, the DPS plot graph will be visible."/>
+			<Setting Id="DAMAGE_METER_SELF_COLOR_STRING"
+					 String="My color"
+					 Description="The color of your player in the damage meter."/>
+			<Setting Id="DAMAGE_METER_PLAYER_1_COLOR_STRING"
+					 String="Party leader color"
+					 Description="The color of the party leader in the damage meter."/>
+			<Setting Id="DAMAGE_METER_PLAYER_2_COLOR_STRING"
+					 String="Second player color"
+					 Description="The color of the second player in the party in the damage meter."/>
+			<Setting Id="DAMAGE_METER_PLAYER_3_COLOR_STRING"
+					 String="Third player color"
+					 Description="The color of the third player in the party in the damage meter."/>
+			<Setting Id="DAMAGE_METER_PLAYER_4_COLOR_STRING"
+					 String="Fourth player color"
+					 Description="The color of the fourth player in the party in the damage meter."/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>

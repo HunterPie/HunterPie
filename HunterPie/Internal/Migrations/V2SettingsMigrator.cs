@@ -22,6 +22,8 @@ namespace HunterPie.Internal.Migrations
                     HideWhenUnfocus = config.Overlay.HideWhenUnfocus,
                 };
 
+                config.Overlay.DamageMeterWidget = new();
+
                 V2Config v2Config = new V2Config()
                 {
                     Client = config.Client,

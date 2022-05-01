@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Client;
+﻿using Config = HunterPie.Core.Client.Configuration.Config;
+using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Versions;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Domain.Interfaces;
@@ -19,6 +20,8 @@ namespace HunterPie.Internal.Initializers
 
         public void Init()
         {
+            CreateConfigIfNeeded();
+
             IVersionedConfig versionedConfig = ReadSettingsAs<VersionedConfig>();
 
             if (!_migrators.ContainsKey(versionedConfig.Version))
@@ -32,10 +35,18 @@ namespace HunterPie.Internal.Initializers
                 if (!migrator.CanMigrate(versionedConfig))
                     return;
 
-                versionedConfig = migrator.Migrate(versionedConfig);
+               versionedConfig = migrator.Migrate(versionedConfig);
             }
 
             RewriteSettings(versionedConfig);
+        }
+
+        private void CreateConfigIfNeeded()
+        {
+            string configPath = ClientInfo.GetPathFor(ClientConfig.CONFIG_NAME);
+
+            if (!File.Exists(configPath))
+                ConfigHelper.WriteObject(configPath, new Config());
         }
 
         private T ReadSettingsAs<T>()
