@@ -64,7 +64,9 @@ namespace HunterPie.Core.Game.World.Entities
         void IUpdatable<MHWMonsterStatusStructure>.Update(MHWMonsterStatusStructure data)
         {
             MaxTimer = data.MaxDuration;
-            Timer = data.Duration;
+            Timer = data.Duration > 0 
+                ? data.MaxDuration - data.Duration 
+                : 0;
             MaxBuildUp = data.MaxBuildup;
             BuildUp = data.Buildup;
             Counter = data.Counter;
