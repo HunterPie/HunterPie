@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Collections.ObjectModel;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace HunterPie.UI.Controls.Buttons
 {
@@ -20,6 +12,7 @@ namespace HunterPie.UI.Controls.Buttons
     /// </summary>
     public partial class Keybinding : UserControl
     {
+        public ObservableCollection<string> Keys { get; private set; } = new();
 
         public string HotKey
         {
@@ -53,9 +46,12 @@ namespace HunterPie.UI.Controls.Buttons
                 return;
             }
 
+            Keys.Clear();
+
             // Delete key removes the HotKey
             if (key == Key.Delete)
             {
+                Keys.Add("None");
                 SetValue(HotKeyProperty, "None");
                 return;
             }
@@ -64,16 +60,21 @@ namespace HunterPie.UI.Controls.Buttons
             StringBuilder shortcutText = new StringBuilder();
             if ((Keyboard.Modifiers & ModifierKeys.Control) != 0)
             {
+                Keys.Add("Ctrl");
                 shortcutText.Append("Ctrl+");
             }
             if ((Keyboard.Modifiers & ModifierKeys.Shift) != 0)
             {
+                Keys.Add("Shift");
                 shortcutText.Append("Shift+");
             }
             if ((Keyboard.Modifiers & ModifierKeys.Alt) != 0)
             {
+                Keys.Add("Alt");
                 shortcutText.Append("Alt+");
             }
+
+            Keys.Add(key.ToString());
             shortcutText.Append(key.ToString());
             SetValue(HotKeyProperty, shortcutText.ToString());
         }
@@ -81,6 +82,14 @@ namespace HunterPie.UI.Controls.Buttons
         private void OnClick(object sender, EventArgs e)
         {
             Focus();
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            Keys.Clear();
+
+            foreach (string key in HotKey.Split("+"))
+                Keys.Add(key);
         }
     }
 }

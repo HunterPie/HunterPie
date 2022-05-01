@@ -1,8 +1,8 @@
-﻿using HunterPie.Core.Architecture;
+﻿using HunterPie.Core.API;
+using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Events;
-using HunterPie.Core.Http;
-using Newtonsoft.Json;
+using HunterPie.Core.Domain.Enums;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -17,8 +17,11 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
         private bool _isLatestVersion;
         public string _lastSync = DateTime.Now.ToString("G");
         private readonly ObservableCollection<ISettingElement> _elements = new();
+        private readonly ObservableCollection<GameProcess> _games = new();
 
         public ObservableCollection<ISettingElement> Elements => _elements;
+        public ObservableCollection<GameProcess> Games => _games;
+        public Observable<GameProcess> SelectedGame => ClientConfig.Config.Client.LastConfiguredGame;
         public int CurrentTabIndex { get => _currentTabIndex; set { SetValue(ref _currentTabIndex, value); } }
         public bool IsFetchingVersion { get => _isFetchingVersion; set { SetValue(ref _isFetchingVersion, value); } }
         public bool IsLatestVersion { get => _isLatestVersion; set { SetValue(ref _isLatestVersion, value); } }
@@ -30,6 +33,10 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
 
             foreach (ISettingElement el in elements)
                 _elements.Add(el);
+
+            foreach (GameProcess gameType in Enum.GetValues<GameProcess>())
+                if (gameType != GameProcess.None)
+                    _games.Add(gameType);
         }
 
         public void UnhookEvents()
@@ -53,33 +60,17 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
                 field.Match = Regex.IsMatch(field.Name, query, RegexOptions.IgnoreCase) || query.Length == 0;
         }
 
-        // TODO: move this out of here when API code is ready
-        private struct VersionResponseSchema
-        {
-            [JsonProperty("latest_version")]
-            public string LatestVersion;
-        }
-
         public async void FetchVersion()
         {
             IsFetchingVersion = true;
 
-            using Poogie request = PoogieFactory.Default()
-                                .Get("/v1/version")
-                                .WithHeader("X-Supporter-Token", ClientConfig.Config.Client.SupporterSecretToken)
-                                .WithTimeout(TimeSpan.FromSeconds(5))
-                                .Build();
+            var schema = await PoogieApi.GetLatestVersion();
 
-            using PoogieResponse resp = await request.RequestAsync();
-
-            // TODO: Error status
-            if (!resp.Success)
-                return;
-
-            VersionResponseSchema schema = await resp.AsJson<VersionResponseSchema>();
-            Version version = new Version(schema.LatestVersion);
-
-            IsLatestVersion = ClientInfo.IsVersionGreaterOrEq(version);
+            if (schema is not null)
+            {
+                Version version = new Version(schema.LatestVersion);
+                IsLatestVersion = ClientInfo.IsVersionGreaterOrEq(version);
+            }
 
             IsFetchingVersion = false;
         }

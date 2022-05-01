@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Enums;
@@ -13,12 +12,17 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.View
     /// </summary>
     public partial class MeterView : View<MeterViewModel>, IWidget<DamageMeterWidgetConfig>, IWidgetWindow
     {
-        public MeterView()
+        private readonly DamageMeterWidgetConfig _config;
+
+        public MeterView(DamageMeterWidgetConfig config)
         {
+            _config = config;
+            ViewModel.Settings = _config;
+
             InitializeComponent();
         }
 
-        public DamageMeterWidgetConfig Settings => ClientConfig.Config.Overlay.DamageMeterWidget;
+        public DamageMeterWidgetConfig Settings => _config;
 
         public string Title => "Damage Meter";
 

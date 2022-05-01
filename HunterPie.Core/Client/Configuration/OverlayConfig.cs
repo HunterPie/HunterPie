@@ -16,10 +16,8 @@ namespace HunterPie.Core.Client.Configuration
         public ActivitiesWidgetConfig ActivitiesWidget { get; set; } = new();
         public ChatWidgetConfig ChatWidget { get; set; } = new();
 
-        [SettingField("OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE", requiresRestart: true)]
         public Keybinding ToggleDesignMode { get; set; } = "ScrollLock";
 
-        [SettingField("OVERLAY_HIDE_WHEN_GAME_UNFOCUS_STRING")]
         public Observable<bool> HideWhenUnfocus { get; set; } = false;
     }
 }

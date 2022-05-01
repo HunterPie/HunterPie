@@ -11,7 +11,7 @@ namespace HunterPie.Internal.Initializers
         {
             PresentationTraceSources.Refresh();
             PresentationTraceSources.DataBindingSource.Listeners.Add(new LogTracer());
-            PresentationTraceSources.DataBindingSource.Switch.Level = ClientConfig.Config.Debug.PresentationSourceLevel;
+            PresentationTraceSources.DataBindingSource.Switch.Level = ClientConfig.Config.Development.PresentationSourceLevel;
         }
     }
 }

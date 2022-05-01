@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Generics;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
@@ -24,6 +25,9 @@ namespace HunterPie.Core.Client.Configuration
         [SettingField("MINIMIZE_TO_SYSTEM_TRAY_STRING")]
         public Observable<bool> MinimizeToSystemTray { get; set; } = true;
 
+        [SettingField("DEFAULT_RUN_GAME_TYPE")]
+        public Observable<GameType> DefaultGameType { get; set; } = GameType.Rise;
+
         [SettingField("SEAMLESS_STARTUP_STRING")]
         public Observable<bool> EnableSeamlessStartup { get; set; } = false;
 
@@ -42,5 +46,7 @@ namespace HunterPie.Core.Client.Configuration
         [SettingField("DEV_ENABLE_FEATURE_FLAG", requiresRestart: true)]
         public Observable<bool> EnableFeatureFlags { get; set; } = false;
 
+        // States
+        public Observable<GameProcess> LastConfiguredGame { get; set; } = GameProcess.MonsterHunterRise;
     }
 }

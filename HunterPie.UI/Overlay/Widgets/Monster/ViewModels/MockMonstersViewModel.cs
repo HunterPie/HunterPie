@@ -1,13 +1,13 @@
-﻿using HunterPie.Core.Game.Enums;
-using System.Linq;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Game.Enums;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 {
     public class MockMonstersViewModel : MonstersViewModel
     {
-        public MockMonstersViewModel()
+        public MockMonstersViewModel(MonsterWidgetConfig config)
         {
-            Monsters.Add(new MockBossMonsterViewModel() 
+            Monsters.Add(new MockBossMonsterViewModel(config) 
             {
                 Name = "Monster",
                 Em = "Rise_32",
@@ -20,7 +20,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
                 IsTarget = false,
                 IsAlive = true
             });
-            Monsters.Add(new MockBossMonsterViewModel()
+            Monsters.Add(new MockBossMonsterViewModel(config)
             {
                 Name = "Monster 2",
                 Em = "Rise_32",
@@ -33,7 +33,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
                 IsTarget = false,
                 IsAlive = true
             });
-            Monsters.Add(new MockBossMonsterViewModel()
+            Monsters.Add(new MockBossMonsterViewModel(config)
             {
                 Name = "Monster 3",
                 Em = "Rise_32",

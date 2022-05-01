@@ -6,6 +6,9 @@
         Consumable,
         Skill,
         Environment,
-        Debuff
+        Debuff,
+        Orchestra,
+        Gear,
+        Food
     }
 }

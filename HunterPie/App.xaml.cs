@@ -30,7 +30,7 @@ namespace HunterPie
     public partial class App : Application
     {
         private IProcessManager _process;
-        private RiseRichPresence _richPresence;
+        private RichPresence _richPresence;
         private Context _context;
         private static MainWindow _ui;
         public static MainWindow UI => _ui;
@@ -147,7 +147,7 @@ namespace HunterPie
             _context = context;
 
             HookEvents();
-            _richPresence = new(context);
+            _richPresence = DiscordPresenceController.GetPresenceBy(context);
 
             WidgetManager.Hook(context);
 

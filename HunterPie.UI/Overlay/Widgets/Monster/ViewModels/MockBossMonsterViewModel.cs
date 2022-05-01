@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Game.Enums;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Game.Enums;
 using System;
 using System.Timers;
 
@@ -7,9 +8,11 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
     internal class MockBossMonsterViewModel : BossMonsterViewModel
     {
         private Timer timer = new(1000);
+        private readonly MonsterWidgetConfig _mockConfig;
 
-        public MockBossMonsterViewModel()
+        public MockBossMonsterViewModel(MonsterWidgetConfig config) : base(config)
         {
+            _mockConfig = config;
             MockParts();
             MockAilments();
             timer.Elapsed += (_, __) =>
@@ -50,7 +53,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
             for (int i = 0; i < 2; i++)
             {
                 Parts.Add(
-                    new MonsterPartViewModel()
+                    new MonsterPartViewModel(_mockConfig)
                     {
                         Name = $"Severable {i}",
                         IsKnownPart = true,
@@ -71,7 +74,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
             for (int i = 0; i < 2; i++)
             {
                 Parts.Add(
-                    new MonsterPartViewModel()
+                    new MonsterPartViewModel(_mockConfig)
                     {
                         Name = $"Breakable {i}",
                         IsKnownPart = true,
@@ -90,7 +93,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
             for (int i = 0; i < 10; i++)
             {
                 Parts.Add(
-                    new MonsterPartViewModel()
+                    new MonsterPartViewModel(_mockConfig)
                     {
                         Name = $"Part {i}",
                         IsKnownPart = true,
@@ -115,7 +118,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
             foreach (string name in ailmentNames)
             {
                 Ailments.Add(
-                    new MonsterAilmentViewModel()
+                    new MonsterAilmentViewModel(_mockConfig)
                     {
                         Name = name,
                         Timer = 100.0,

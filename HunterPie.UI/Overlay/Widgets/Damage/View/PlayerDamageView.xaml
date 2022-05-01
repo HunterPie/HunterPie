@@ -26,7 +26,7 @@
         <!-- Bottom bar -->
         <Rectangle HorizontalAlignment="Left"
                    d:Width="200"
-                   Grid.ColumnSpan="2"
+                   Grid.ColumnSpan="3"
                    Fill="{Binding Color, Converter={StaticResource HexColorToFadeConverter}}"
                    x:Name="PART_BottomBar">
             <Rectangle.Width>
@@ -39,7 +39,7 @@
 
         <Rectangle HorizontalAlignment="Left"
                    VerticalAlignment="Bottom"
-                   Grid.ColumnSpan="2"
+                   Grid.ColumnSpan="3"
                    Height="2"
                    Width="{Binding ActualWidth, ElementName=PART_BottomBar}">
             <Rectangle.Fill>

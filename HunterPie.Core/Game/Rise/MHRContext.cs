@@ -3,7 +3,7 @@ using HunterPie.Core.Game.Rise.Data;
 
 namespace HunterPie.Core.Game.Rise
 {
-    public class MHRContext : Context
+    public sealed class MHRContext : Context
     {
 
         private static MHRStrings _strings;

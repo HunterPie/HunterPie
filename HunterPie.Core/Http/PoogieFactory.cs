@@ -9,6 +9,7 @@ namespace HunterPie.Core.Http
     {
         const string CLIENT_ID = "X-Client-Id";
         const string APP_VERSION = "X-App-Version";
+        const string CLIENT_TYPE = "X-HunterPie-Client";
 
         public readonly static string[] Hosts =
         {
@@ -33,12 +34,13 @@ namespace HunterPie.Core.Http
 
             bool shouldRedirect = FeatureFlagManager.IsEnabled(FeatureFlags.FEATURE_REDIRECT_POOGIE);
             PoogieBuilder builder = shouldRedirect 
-                                    ? new PoogieBuilder(ClientConfig.Config.Debug.PoogieApiHost)
+                                    ? new PoogieBuilder(ClientConfig.Config.Development.PoogieApiHost)
                                     : new PoogieBuilder(Hosts);
 
             return builder.WithTimeout(TimeSpan.FromSeconds(5))
                           .WithHeader(CLIENT_ID, clientId)
-                          .WithHeader(APP_VERSION, ClientInfo.Version.ToString());
+                          .WithHeader(APP_VERSION, ClientInfo.Version.ToString())
+                          .WithHeader(CLIENT_TYPE, "v2");
         }
 
         public static PoogieBuilder Docs()

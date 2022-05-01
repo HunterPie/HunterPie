@@ -7,6 +7,7 @@
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:textbox="clr-namespace:HunterPie.UI.Controls.TextBox"
+             xmlns:client="clr-namespace:HunterPie.Core.Client;assembly=HunterPie.Core"
              xmlns:vm="clr-namespace:HunterPie.UI.Controls.Settings.ViewModel"
              xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading"
              xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets"
@@ -16,6 +17,7 @@
              Loaded="OnLoaded"
              Unloaded="OnUnloaded">
     <UserControl.Resources>
+        <converters:GameProcessToGameNameConverter x:Key="GameProcessToGameNameConverter"/>
         <converters:ObjectToUiConverter x:Key="ObjectToUiConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
@@ -61,7 +63,8 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="7*"/>
-            <RowDefinition Height="83*"/>
+            <RowDefinition Height="76*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal"
                     Height="30"
@@ -114,10 +117,12 @@
         </StackPanel>
         <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
+                   HorizontalAlignment="Right"
+                   Margin="0,0,5,0"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    TextWrapping="WrapWithOverflow"
-                   Grid.Column="1">
+                   Grid.Column="2"
+                   Grid.Row="2">
                 <Run Text="Config last sync @"/>
                 <Run Text="{Binding LastSync, Mode=OneWay}"
                      d:Text="12:36:08"
@@ -139,6 +144,50 @@
                     SelectedIndex="{Binding CurrentTabIndex}"
                     TabStripPlacement="Left" 
                     Grid.Row="1" 
-                    Grid.ColumnSpan="3"/>
+                    Grid.ColumnSpan="3">
+            <TabControl.Template>
+                <ControlTemplate TargetType="TabControl">
+                    <DockPanel>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      DockPanel.Dock="Left">
+                            <TabPanel x:Name="HeaderPanel"
+                                      Grid.Column="0"
+                                      Grid.Row="0"
+                                      IsItemsHost="True"/>
+                        </ScrollViewer>
+                        <ContentPresenter x:Name="PART_SelectedContentHost"
+                                          DockPanel.Dock="Right"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          Margin="{TemplateBinding Padding}"
+                                          ContentSource="SelectedContent"/>
+                    </DockPanel>
+                </ControlTemplate>
+            </TabControl.Template>
+        </TabControl>
+        
+        <DockPanel Grid.Row="2"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2">
+            <TextBlock Text="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_CURRENT_SELECTED_CONFIG&quot;]'}"
+                       d:Text="Current configuration"
+                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                       VerticalAlignment="Center"
+                       DockPanel.Dock="Left"
+                       Margin="5,0,5,0"/>
+            <ComboBox ItemsSource="{Binding Games}"
+                      FontSize="12"
+                      SelectedItem="{Binding SelectedGame.Value, Mode=TwoWay}"
+                      DockPanel.Dock="Left"
+                      d:DataContext="{StaticResource MockSettingHostViewModel}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding ., Converter={StaticResource GameProcessToGameNameConverter}}"
+                                   d:Text="Selected thing"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </DockPanel>
+        
     </Grid>
 </UserControl>

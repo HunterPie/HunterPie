@@ -1,6 +1,8 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
+using HunterPie.Core.Game.Rise.Entities;
+using HunterPie.Core.Game.World.Entities;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using System;
 using System.Linq;
@@ -12,7 +14,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
     {
         public readonly IMonster Context;
 
-        public MonsterContextHandler(IMonster context) : base()
+        public MonsterContextHandler(IMonster context, MonsterWidgetConfig config) : base(config)
         {
             Context = context;
             HookEvents();
@@ -52,7 +54,9 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         private void OnSpawn(object sender, EventArgs e)
         {
             Name = Context.Name;
-            Em = $"Rise_{Context.Id:00}";
+
+            Em = BuildMonsterEmByContext();
+
             IsAlive = true;
 
             FetchMonsterIcon();
@@ -99,7 +103,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
                 if (contains)
                     return;
 
-                Ailments.Add(new MonsterAilmentContextHandler(e));
+                Ailments.Add(new MonsterAilmentContextHandler(e, Config));
             });
         }
 
@@ -114,7 +118,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
                 if (contains)
                     return;
 
-                Parts.Add(new MonsterPartContextHandler(e));
+                Parts.Add(new MonsterPartContextHandler(e, Config));
             });
         }
 
@@ -135,7 +139,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             if (Context.Id > -1)
             {
                 Name = Context.Name;
-                Em = $"Rise_{Context.Id:00}";
+                Em = BuildMonsterEmByContext();
 
                 FetchMonsterIcon();
             }
@@ -162,7 +166,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
                         if (contains)
                             continue;
 
-                        Parts.Add(new MonsterPartContextHandler(part));
+                        Parts.Add(new MonsterPartContextHandler(part, Config));
                     }
 
                     foreach (IMonsterAilment ailment in Context.Ailments)
@@ -174,7 +178,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
                         if (contains)
                             continue;
 
-                        Ailments.Add(new MonsterAilmentContextHandler(ailment));
+                        Ailments.Add(new MonsterAilmentContextHandler(ailment, Config));
                     }
                 });
             }
@@ -184,8 +188,18 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                Ailments.Add(new MonsterAilmentContextHandler(Context.Enrage));
+                Ailments.Add(new MonsterAilmentContextHandler(Context.Enrage, Config));
             });
+        }
+
+        private string BuildMonsterEmByContext()
+        {
+            return Context switch
+            {
+                MHRMonster ctx => $"Rise_{ctx.Id:00}",
+                MHWMonster ctx => $"World_{ctx.Id:00}",
+                _ => throw new NotImplementedException("unreachable")
+            };
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Settings;
@@ -16,14 +15,16 @@ namespace HunterPie.UI.Overlay.Widgets.Chat.Views
     /// </summary>
     public partial class ChatView : View<ChatViewModel>, IWidget<ChatWidgetConfig>, IWidgetWindow, IEventDispatcher
     {
+        private readonly ChatWidgetConfig _config;
         private WidgetType _widgetType = WidgetType.ClickThrough;
 
-        public ChatView()
+        public ChatView(ChatWidgetConfig config)
         {
+            _config = config;
             InitializeComponent();
         }
 
-        public ChatWidgetConfig Settings => ClientConfig.Config.Overlay.ChatWidget;
+        public ChatWidgetConfig Settings => _config;
 
         public string Title => "Chat Widget";
 

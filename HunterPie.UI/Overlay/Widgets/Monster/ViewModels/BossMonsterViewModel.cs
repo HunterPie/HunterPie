@@ -10,6 +10,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 {
     public class BossMonsterViewModel : Bindable
     {
+        private MonsterWidgetConfig _config;
         private string name;
         private string em;
         private double health;
@@ -24,9 +25,11 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         private string _icon;
         private bool _isLoadingIcon = true;
         private bool _isAlive;
-        public MonsterWidgetConfig Config => ClientConfig.Config.Overlay.BossesWidget;
+        public MonsterWidgetConfig Config => _config;
         private readonly ObservableCollection<MonsterPartViewModel> parts = new();
         private readonly ObservableCollection<MonsterAilmentViewModel> ailments = new();
+
+        public BossMonsterViewModel(MonsterWidgetConfig config) => _config = config;
 
         // Monster data
         public string Name
@@ -120,7 +123,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         {
             IsLoadingIcon = true;
 
-            string imageName = BuildIconName();
+            string imageName = Em;
             string imagePath = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{imageName}.png");
 
             // If file doesn't exist locally, we can check for the CDN
@@ -129,17 +132,6 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
 
             IsLoadingIcon = false;
             Icon = imagePath;
-        }
-
-        private string BuildIconName()
-        {
-            string monsterEm = Em;
-            bool isRise = Em.StartsWith("Rise");
-
-            if (!isRise)
-                monsterEm += "_ID";
-
-            return monsterEm;
         }
     }
 }

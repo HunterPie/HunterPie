@@ -1,10 +1,11 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay
 {
-    [SettingsGroup("ACTIVITIES_WIDGET_STRING", "ICON_ARGOSY")]
+    [SettingsGroup("ACTIVITIES_WIDGET_STRING", "ICON_ARGOSY", availableGames: GameProcess.MonsterHunterRise)]
     public class ActivitiesWidgetConfig : IWidgetSettings, ISettings
     {
         [SettingField("INITIALIZE_WIDGET_STRING", requiresRestart: true)]

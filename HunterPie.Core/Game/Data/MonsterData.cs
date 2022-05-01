@@ -52,8 +52,10 @@ namespace HunterPie.Core.Game.Data
                     partsArray[j] = new()
                     {
                         Id = int.Parse(parts[j].Attributes["Id"].Value),
-                        String = parts[j].Attributes["String"].Value
+                        String = parts[j].Attributes["String"].Value,
                     };
+
+                    bool.TryParse(parts[j].Attributes["IsSeverable"]?.Value, out partsArray[j].IsSeverable);
                 }
 
                 
@@ -148,7 +150,7 @@ namespace HunterPie.Core.Game.Data
         public static AilmentDataSchema GetAilmentData(int id)
         {
             if (!Ailments.ContainsKey(id))
-                return new AilmentDataSchema() { String = $"{id}_UNKNOWN" };
+                return new AilmentDataSchema() { String = $"{id}_UNKNOWN", IsUnknown = true };
 
             return Ailments[id];
         }

@@ -24,7 +24,7 @@
         <converters:LongToByteRepresentationConverter x:Key="LongToByteRepresentationConverter"/>
         <converters:ParentSizePercentageConverter x:Key="ParentSizePercentageConverter"/>
     </Window.Resources>
-    <Grid Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}">
+    <Grid Background="{StaticResource GRAY_400}">
         <Image Source="{StaticResource ICON_HUNTERPIE}"
                Width="100"
                Height="{Binding Width, RelativeSource={RelativeSource Self}}"
@@ -32,7 +32,7 @@
                HorizontalAlignment="Center"
                Margin="40"
                Opacity="0.3"/>
-        <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+        <TextBlock Foreground="{StaticResource WHITE_400}"
                    FontSize="30"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    VerticalAlignment="Top"
@@ -71,7 +71,7 @@
                    Text="{Binding State}"
                    FontSize="12"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                   Foreground="{StaticResource WHITE_500}"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Center"
                    FontWeight="Medium"
@@ -80,17 +80,17 @@
         <!-- Download data -->
         <TextBlock FontSize="12"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                   Foreground="{StaticResource WHITE_200}"
                    VerticalAlignment="Bottom"
                    HorizontalAlignment="Right"
                    Margin="0,0,30,5">
             <Run Text="{Binding DownloadedBytes, Converter={StaticResource LongToByteRepresentationConverter}}"
                  d:Text="20 MB"/><!--
          --><Run Text="/"
-                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/><!--
+                 Foreground="{StaticResource WHITE_500}"/><!--
          --><Run Text="{Binding TotalBytes, Converter={StaticResource LongToByteRepresentationConverter}}"
                  d:Text="50 MB"
-                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/>
+                 Foreground="{StaticResource WHITE_500}"/>
         </TextBlock>
 
         <custom:Arc Stroke="{StaticResource HUNTERPIE_ACCENT_COLOR}"

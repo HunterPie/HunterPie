@@ -5,7 +5,6 @@ using System.IO;
 using System.Windows.Data;
 using System.Windows.Media;
 using HunterPie.Core.Remote;
-using System.Windows.Controls;
 
 namespace HunterPie.UI.Architecture.Converters
 {

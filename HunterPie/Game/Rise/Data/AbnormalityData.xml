@@ -35,7 +35,7 @@
                      Name="ABNORMALITY_TREMORS_NEG"
                      Icon="ICON_TREMORNEG"/>
         <Abnormality Id="11"
-                     Name="ABNORMALITY_WIND_PRESSURE_PLUS"
+                     Name="ABNORMALITY_WIND_PRESSURE"
                      Icon="ICON_WINDRES+"/>
         <Abnormality Id="12"
                      Name="ABNORMALITY_STUN_NEG"
@@ -150,8 +150,6 @@
                      Offset="EC"
 					 Name="ABNORMALITY_ARMOR_AMMO"
 					 Icon="ICON_ARMORAMMO"/>
-        <Abnormality Id="F0"
-                     Offset="F0"/>
         <Abnormality Id="F4"
                      Offset="F4"/>
         <Abnormality Id="F8"
@@ -224,6 +222,11 @@
                      Icon="ICON_BUBBLE+"/>
     </Debuffs>
     <Skills>
+		<Abnormality Id="F0"
+                     Offset="F0"
+					 Name="ABNORMALITY_OFFENSIVE_GUARD"
+					 Icon="ICON_ARMORSKILL_PURPLE"
+					 Category="Consumables"/>
         <Abnormality Id="10C"
                      Offset="10C"
                      Name="ABNORMALITY_AFFINITY_SLIDING"

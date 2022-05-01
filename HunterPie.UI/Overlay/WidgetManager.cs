@@ -1,11 +1,15 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client.Configuration;
+using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Events;
 using HunterPie.Core.Game;
 using HunterPie.Core.Input;
 using HunterPie.Core.Logger;
 using HunterPie.Core.Settings;
+using HunterPie.Core.System;
 using HunterPie.UI.Overlay.Components;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using ClientConfig = HunterPie.Core.Client.ClientConfig;
@@ -24,7 +28,7 @@ namespace HunterPie.UI.Overlay
         public bool IsGameFocused { get => _isGameFocused; private set { SetValue(ref _isGameFocused, value); } }
         public bool IsGameHudOpen { get => _isGameHudOpen; private set { SetValue(ref _isGameHudOpen, value); } }
         public ref readonly ObservableCollection<WidgetBase> Widgets => ref _widgets;
-        public OverlayConfig Settings => ClientConfig.Config.Overlay;
+        public OverlayClientConfig Settings => ClientConfig.Config.Overlay;
 
         private static WidgetManager _instance;
 

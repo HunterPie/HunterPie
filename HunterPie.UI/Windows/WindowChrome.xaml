@@ -17,7 +17,7 @@
         <Grid>
             <!-- Content -->
             <Grid Margin="0,30,0,0"
-                  Background="{StaticResource HUNTERPIE_BACKGROUND_SECONDARY}">
+                  Background="{StaticResource GRAY_100}">
                 <Border BorderThickness="2"
                         Margin="2"
                         BorderBrush="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}">

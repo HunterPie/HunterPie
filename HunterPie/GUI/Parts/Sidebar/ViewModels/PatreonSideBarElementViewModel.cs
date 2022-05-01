@@ -4,6 +4,7 @@ using System.Windows;
 using System.Diagnostics;
 using System.Windows.Media;
 using Localization = HunterPie.Core.Client.Localization.Localization;
+using HunterPie.UI.Assets.Application;
 
 namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 {
@@ -14,7 +15,7 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
         private bool _shouldNotify;
 
 
-        public ImageSource Icon => Application.Current.FindResource("ICON_PATREON") as ImageSource;
+        public ImageSource Icon => Resources.Icon("ICON_PATREON");
         public string Text => Localization.QueryString("//Strings/Client/Tabs/Tab[@Id='PATREON_STRING']");
         public bool IsActivable => false;
         public bool IsEnabled => true;

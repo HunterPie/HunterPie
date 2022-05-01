@@ -5,6 +5,9 @@
     <Compile Update="Controls\Buttons\Button.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Buttons\ColorPicker.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Buttons\Keybinding.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -136,6 +139,9 @@
     <Page Update="Controls\Buttons\Button.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\Buttons\ColorPicker.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\Buttons\Keybinding.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -256,6 +262,9 @@
     <Page Update="Overlay\Widgets\Wirebug\Views\WirebugView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Resource Update="Resources\Colors.xaml">
+      <SubType>Designer</SubType>
+    </Resource>
     <Page Update="Windows\WindowChrome.xaml">
       <SubType>Designer</SubType>
     </Page>

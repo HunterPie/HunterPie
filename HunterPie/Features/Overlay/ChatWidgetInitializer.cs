@@ -1,5 +1,7 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Game;
+using HunterPie.Core.Game.Rise;
+using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Chat;
@@ -12,10 +14,13 @@ namespace HunterPie.Features.Overlay
 
         public void Load(Context context)
         {
-            if (!ClientConfig.Config.Overlay.ChatWidget.Initialize)
+            var config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
+
+            if (!config.ChatWidget.Initialize)
                 return;
 
-            _handler = new ChatWidgetContextHandler(context);
+            if (context is MHRContext ctx)
+                _handler = new ChatWidgetContextHandler(ctx);
         }
 
         public void Unload()

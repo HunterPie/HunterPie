@@ -12,6 +12,7 @@ namespace HunterPie.Features.Overlay
             new WirebugWidgetInitializer(),
             new ActivitiesWidgetInitializer(),
             new ChatWidgetInitializer(),
+            new DamageWidgetInitializer(),
         };
 
         public static void Initialize(Context context)

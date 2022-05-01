@@ -26,7 +26,7 @@
                    Height="20"/>
             <TextBlock FontFamily="Work Sans"
                        FontSize="16"
-                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}" 
+                       Foreground="{StaticResource WHITE_200}" 
                        Opacity="0.3"
                        HorizontalAlignment="Stretch" 
                        VerticalAlignment="Center">

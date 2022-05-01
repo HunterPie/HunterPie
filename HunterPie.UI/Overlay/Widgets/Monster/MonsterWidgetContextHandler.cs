@@ -1,7 +1,10 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Environment;
+using HunterPie.Core.System;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Monster.Views;
 using System;
@@ -14,13 +17,15 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
     {
         private readonly MonstersViewModel ViewModel;
         private readonly MonstersView View;
-        private MonsterWidgetConfig Settings => ClientConfig.Config.Overlay.BossesWidget;
+        private MonsterWidgetConfig Settings => View.Settings;
         private readonly Context Context;
 
         public MonsterWidgetContextHandler(Context context)
         {
-            View = new MonstersView();
-            WidgetManager.Register< MonstersView, MonsterWidgetConfig>(View);
+            OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
+
+            View = new MonstersView(config.BossesWidget);
+            WidgetManager.Register<MonstersView, MonsterWidgetConfig>(View);
 
             ViewModel = View.ViewModel;
             Context = context;
@@ -34,7 +39,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             foreach (IMonster monster in Context.Game.Monsters)
             {
                 monster.OnTargetChange += OnTargetChange;
-                ViewModel.Monsters.Add(new MonsterContextHandler(monster));
+                ViewModel.Monsters.Add(new MonsterContextHandler(monster, Settings));
             }
             CalculateVisibleMonsters();
         }
@@ -71,7 +76,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
 
         private void OnMonsterSpawn(object sender, IMonster e)
         {
-            Application.Current.Dispatcher.Invoke(() => ViewModel.Monsters.Add(new MonsterContextHandler(e)));
+            Application.Current.Dispatcher.Invoke(() => ViewModel.Monsters.Add(new MonsterContextHandler(e, Settings)));
             
             e.OnTargetChange += OnTargetChange;
             CalculateVisibleMonsters();

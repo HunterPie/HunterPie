@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Enums;
@@ -13,12 +12,14 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.View
     /// </summary>
     public partial class TelemetricsView : View<TelemetricsViewModel>, IWidget<TelemetricsWidgetConfig>, IWidgetWindow
     {
-        public TelemetricsView()
+        private readonly TelemetricsWidgetConfig _config;
+        public TelemetricsView(TelemetricsWidgetConfig config)
         {
+            _config = config;
             InitializeComponent();
         }
 
-        public TelemetricsWidgetConfig Settings => ClientConfig.Config.Overlay.DebugWidget;
+        public TelemetricsWidgetConfig Settings => _config;
 
         public string Title => "Debug Metrics";
 

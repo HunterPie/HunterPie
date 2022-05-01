@@ -13,10 +13,12 @@ namespace HunterPie.Internal
         {
             // Core
             new LocalConfigInitializer(),
+            new ClientConfigMigrationInitializer(),
             new ClientConfigInitializer(),
             new ConfigManagerInitializer(),
             new HunterPieLoggerInitializer(),
             new FeatureFlagsInitializer(),
+            new MapperFactoryInitializer(),
 
             new NativeLoggerInitializer(),
             new ExceptionCatcherInitializer(),
@@ -27,6 +29,8 @@ namespace HunterPie.Internal
             new ClientConfigBindingsInitializer(),
             // GUI
             new MenuInitializer(),
+
+            new ApiPingInitializer(),
         };
 
         private static HashSet<IInitializer> _uiInitializers = new()

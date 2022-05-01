@@ -27,6 +27,7 @@
     <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_DARK_OPACITY">#50080a0a</SolidColorBrush>
     <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_PRIMARY">WhiteSmoke</SolidColorBrush>
     <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_SECONDARY">#cccccc</SolidColorBrush>
+    <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_DARKER">#FF49575F</SolidColorBrush>
     <LinearGradientBrush x:Key="HUNTERPIE_HIGHLIGHT_BORDER" EndPoint="0.5,1" StartPoint="0,0">
         <GradientStop Color="#7FF3F3F3"/>
         <GradientStop Color="#4CFFFFFF" Offset="1"/>
@@ -189,7 +190,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Border CornerRadius="1" 
-                            Background="{StaticResource HUNTERPIE_FOREGROUND_DARK}" 
+                            Background="{StaticResource WHITE_500}" 
                             BorderBrush="{TemplateBinding BorderBrush}" 
                             BorderThickness="0"  
                             Width="7"/>
@@ -207,7 +208,7 @@
             </Grid.RowDefinitions>
             <Border Grid.RowSpan="3" 
                     CornerRadius="2" 
-                    Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}" />
+                    Background="{StaticResource GRAY_400}" />
             <RepeatButton Grid.Row="0" Style="{StaticResource ScrollBarLineButton}" Height="18" Command="ScrollBar.LineUpCommand" Content="M 0 4 L 8 4 L 4 0 Z" />
             <Track Name="PART_Track" Grid.Row="1" IsDirectionReversed="true">
                 <Track.DecreaseRepeatButton>
@@ -217,8 +218,8 @@
                 <Track.Thumb>
                     <Thumb Style="{StaticResource ScrollBarThumb}" 
                            Margin="1,1,1,1" 
-                           Background="{StaticResource HorizontalNormalBrush}" 
-                           BorderBrush="{StaticResource HorizontalNormalBorderBrush}" />
+                           Background="{StaticResource WHITE_500}" 
+                           BorderBrush="{StaticResource WHITE_500}" />
                 </Track.Thumb>
                 <Track.IncreaseRepeatButton>
                     <RepeatButton Style="{StaticResource ScrollBarPageButton}" 
@@ -299,18 +300,24 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="30" />
             </Grid.ColumnDefinitions>
-            <Border Grid.ColumnSpan="2" Name="Border"
-              BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}"
-              CornerRadius="0" BorderThickness="0,0,0,1"
-              Background="Transparent" />
-            <Border Grid.Column="1" Margin="1, 1, 1, 1"  Name="ButtonBorder"
-              CornerRadius="0" BorderThickness="0, 0, 0, 0"
-              Background="Transparent" />
+            <Border Grid.ColumnSpan="2" 
+                    Name="Border"
+                    BorderBrush="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                    CornerRadius="0" 
+                    BorderThickness="0,0,0,0"
+                    Background="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}"/>
+            <Border Grid.Column="1" 
+                    Margin="1,1,1,1"  
+                    Name="ButtonBorder"
+                    CornerRadius="0" 
+                    BorderThickness="0, 0, 0, 0"
+                    Background="Transparent" />
 
             <Path Name="Arrow" Grid.Column="1"
-            Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
-            HorizontalAlignment="Center" Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"
-            VerticalAlignment="Center" />
+                  Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
+                  HorizontalAlignment="Center" 
+                  Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                  VerticalAlignment="Center" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="UIElement.IsMouseOver" Value="True">
@@ -330,55 +337,85 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="{x:Type ComboBox}"  TargetType="{x:Type ComboBox}">
+    <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
         <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="UIElement.SnapsToDevicePixels" Value="True"/>
-        <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="True"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
-        <Setter Property="TextElement.Foreground" Value="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
+        <Setter Property="TextElement.Foreground" Value="{StaticResource WHITE_100}"/>
         <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource GRAY_400}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{StaticResource GRAY_400}"/>
+                            <Setter Property="Foreground" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
                     <Grid>
-                        <ToggleButton Name="ToggleButton" Grid.Column="2"
-                ClickMode="Press" Focusable="False"
-                IsChecked="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
-                Template="{StaticResource ComboBoxToggleButtonTemplate}"/>
-
-                        <ContentPresenter Name="ContentSite" Margin="5, 3, 23, 3" IsHitTestVisible="False"
-                              HorizontalAlignment="Left" VerticalAlignment="Center"
-                              Content="{TemplateBinding ComboBox.SelectionBoxItem}"
-                              ContentTemplate="{TemplateBinding ComboBox.SelectionBoxItemTemplate}"
-                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>
-                        <TextBox Name="PART_EditableTextBox" Margin="3, 3, 23, 3"
-                     IsReadOnly="{TemplateBinding IsReadOnly}"
-                     Visibility="Hidden" Background="Transparent"
-                     HorizontalAlignment="Left" VerticalAlignment="Center"
-                     Focusable="True" >
+                        <ToggleButton Name="ToggleButton" 
+                                      Grid.Column="2"
+                                      ClickMode="Press" 
+                                      Focusable="False"
+                                      IsChecked="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                      Template="{StaticResource ComboBoxToggleButtonTemplate}"/>
+                        <ContentPresenter Name="ContentSite" 
+                                          Margin="5,3,23,3" 
+                                          IsHitTestVisible="False"
+                                          HorizontalAlignment="Left" 
+                                          VerticalAlignment="Center"
+                                          Content="{TemplateBinding ComboBox.SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding ComboBox.SelectionBoxItemTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>
+                        <TextBox Name="PART_EditableTextBox" 
+                                 Margin="3,3,23,3"
+                                 IsReadOnly="{TemplateBinding IsReadOnly}"
+                                 Visibility="Hidden" 
+                                 Background="Transparent"
+                                 HorizontalAlignment="Left" 
+                                 VerticalAlignment="Center"
+                                 Focusable="True">
                             <TextBox.Template>
-                                <ControlTemplate TargetType="TextBox" >
-                                    <Border Name="PART_ContentHost" Focusable="False" />
+                                <ControlTemplate TargetType="TextBox">
+                                    <Border Name="PART_ContentHost" 
+                                            Focusable="False"/>
                                 </ControlTemplate>
                             </TextBox.Template>
                         </TextBox>
                         <!-- Popup showing items -->
-                        <Popup Name="Popup" Placement="Bottom"
-                   Focusable="False" AllowsTransparency="True"
-                   IsOpen="{TemplateBinding ComboBox.IsDropDownOpen}"
-                   PopupAnimation="Slide">
-                            <Grid Name="DropDown" SnapsToDevicePixels="True"
-                    MinWidth="{TemplateBinding FrameworkElement.ActualWidth}"
-                    MaxHeight="{TemplateBinding ComboBox.MaxDropDownHeight}">
-                                <Border Name="DropDownBorder" Background="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}" Margin="0,1,0,0"
-                        CornerRadius="0" BorderThickness="1,1,1,1"
-                        BorderBrush="#FF151515"/>
-                                <ScrollViewer Margin="4" SnapsToDevicePixels="True">
-                                    <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
+                        <Popup Name="Popup" 
+                               Placement="Bottom"
+                               Focusable="False" 
+                               AllowsTransparency="True"
+                               IsOpen="{TemplateBinding ComboBox.IsDropDownOpen}"
+                               PopupAnimation="Fade">
+                            <Grid Name="DropDown" 
+                                  SnapsToDevicePixels="True"
+                                  MinWidth="{TemplateBinding FrameworkElement.ActualWidth}"
+                                  MaxHeight="{TemplateBinding ComboBox.MaxDropDownHeight}">
+                                <Border Name="DropDownBorder" 
+                                        Background="{StaticResource GRAY_200}" 
+                                        Margin="0,0,0,0"
+                                        CornerRadius="0" 
+                                        BorderThickness="1,1,1,1"
+                                        BorderBrush="{StaticResource GRAY_200}"/>
+                                <ScrollViewer Margin="0" 
+                                              SnapsToDevicePixels="True">
+                                    <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"/>
                                 </ScrollViewer>
                             </Grid>
                         </Popup>
@@ -403,7 +440,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <!-- TextBox -->
     <Style x:Key="{x:Type TextBox}" TargetType="{x:Type TextBox}">
         <Setter Property="Background" Value="Transparent"/>
@@ -412,6 +449,7 @@
         <Setter Property="BorderBrush" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
         <Setter Property="BorderThickness" Value="0,0,0,1"/>
         <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
@@ -495,8 +533,8 @@
     </Style>
 
     <Style x:Key="SliderThumb" TargetType="Thumb">
-        <Setter Property="SnapsToDevicePixels" Value="true" />
-        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Thumb">
@@ -514,11 +552,11 @@
     <ControlTemplate x:Key="Slider" TargetType="Slider">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Track Grid.Row="1" x:Name="PART_Track"   >
+            <Track Grid.Row="1" x:Name="PART_Track">
                 <Track.DecreaseRepeatButton>
                     <RepeatButton Style="{StaticResource SliderRepeatButton1}"  Command="Slider.DecreaseLarge" />
                 </Track.DecreaseRepeatButton>

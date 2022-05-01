@@ -54,7 +54,7 @@ namespace HunterPie.Core.Client
         internal static void Initialize()
         {
             Action<string> reloadSetting = (string path) => Reload(path);
-            var debounceReload = reloadSetting.Debounce(100);
+            var debounceReload = reloadSetting.Debounce(200);
 
             _fileSystemWatcher.Changed += (_, args) =>
             {
@@ -148,21 +148,7 @@ namespace HunterPie.Core.Client
         {
             lock (_settings[path])
             {
-                try
-                {
-                    var serializerSettings = new JsonSerializerSettings()
-                    {
-                        TypeNameHandling = TypeNameHandling.Auto
-                    };
-
-                    string serialized = JsonConvert.SerializeObject(_settings[path], Formatting.Indented, serializerSettings);
-                    ReadOnlySpan<byte> buffer = Encoding.UTF8.GetBytes(serialized);
-                    using (FileStream stream = File.OpenWrite(path))
-                    {
-                        stream.SetLength(0);
-                        stream.Write(buffer);
-                    }
-                } catch(Exception err) { Log.Error(err.ToString()); }
+                ConfigHelper.WriteObject(path, _settings[path]);
             }
         }
 
