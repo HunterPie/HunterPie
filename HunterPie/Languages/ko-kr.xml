@@ -652,7 +652,6 @@
 					 String="동반자 도장 표시"
 					 Description="옵션 활성화 시, HunterPie가 동반자 도장의 정보를 표시합니다."/>
 			
-			
 			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_HIGHLIGHT_MYSELF"
  					 String="자신 강조하기"
  					 Description="옵션 활성화 시, 다른 플레이어들에게서 당신의 이름이 강조됩니다."/>
