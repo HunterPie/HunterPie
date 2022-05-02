@@ -480,6 +480,9 @@
 			<Setting Id="ACTIVITIES_WIDGET_STRING"
 					 String="동반자 활동 위젯"
 					 Description="동반자 활동 위젯 설정"/>
+                        <Setting Id="METER_WIDGET_STRING"
+ 					 String="대미지 미터 위젯"
+ 					 Description="대미지 미터 위젯 설정"/>
 			<Setting Id="CHAT_WIDGET_STRING"
 					 String="채팅 위젯"
 					 Description="채팅 위젯 설정"/>
@@ -650,7 +653,32 @@
 					 Description="옵션 활성화 시, HunterPie가 동반자 도장의 정보를 표시합니다."/>
 			
 			
-			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
+			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_HIGHLIGHT_MYSELF"
+ 					 String="자신 강조하기"
+ 					 Description="옵션 활성화 시, 다른 플레이어들에게서 당신의 이름이 강조됩니다."/>
+ 			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_BLUR_NAMES"
+ 					 String="이름 흐릿하게"
+ 					 Description="옵션 활성화 시, 미터기에서 모두의 이름이 흐릿해집니다."/>
+ 			<Setting Id="DAMAGE_METER_ENABLE_DPS_PLOT"
+ 					 String="DPS 표시"
+ 					 Description="옵션 활성화 시, DPS 그래프가 표시됩니다."/>
+ 			<Setting Id="DAMAGE_METER_SELF_COLOR_STRING"
+ 					 String="나의 색상"
+ 					 Description="대미지 미터에서 당신의 플레이어의 색상입니다."/>
+ 			<Setting Id="DAMAGE_METER_PLAYER_1_COLOR_STRING"
+ 					 String="파티 리더 색상"
+ 					 Description="대미지 미터에서 파티 리더의 색상입니다."/>
+ 			<Setting Id="DAMAGE_METER_PLAYER_2_COLOR_STRING"
+ 					 String="두번째 플레이어 색상"
+ 					 Description="대미지 미터에서 두번째 플레이어의 색상입니다."/>
+ 			<Setting Id="DAMAGE_METER_PLAYER_3_COLOR_STRING"
+ 					 String="세번째 플레이어 색상"
+ 					 Description="대미지 미터에서 세번째 플레이어의 색상입니다."/>
+ 			<Setting Id="DAMAGE_METER_PLAYER_4_COLOR_STRING"
+ 					 String="네번째 플레이어 색상"
+ 					 Description="대미지 미터에서 네번째 플레이어의 색상입니다."/>
+
+                        <Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="개발자: 모의 몬스터 위젯"/>
 			<Setting Id="DEV_MOCK_DAMAGE_WIDGET_STRING"
 					 String="개발자: 모의 대미지 미터 위젯"/>
