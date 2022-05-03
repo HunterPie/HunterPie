@@ -64,7 +64,8 @@ namespace HunterPie
         private void CheckForRunningInstances()
         {
             Process[] processes = Process.GetProcessesByName("HunterPie")
-                .Where(p => p.Id != Environment.ProcessId)
+                .Where(p => p.Id != Environment.ProcessId 
+                        && p.MainModule.FileName == Process.GetCurrentProcess().MainModule.FileName)
                 .ToArray();
 
             foreach (Process process in processes)
