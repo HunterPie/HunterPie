@@ -48,7 +48,7 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         public Observable<bool> AutomaticallyHideAilments { get; set; } = true;
 
         [SettingField("MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING")]
-        public Range AutoHideAilmentsDelay { get; set; } = new(15, 60, 1, 1);
+        public Range AutoHideAilmentsDelay { get; set; } = new(15, 300, 1, 1);
 
         [SettingField("MONSTER_WIDGET_ENABLE_PARTS_STRING")]
         public Observable<bool> EnableParts { get; set; } = true;
@@ -60,7 +60,7 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         public Observable<bool> AutoHideParts { get; set; } = true;
 
         [SettingField("MONSTER_WIDGET_AUTO_HIDE_PARTS_DELAY_STRING")]
-        public Range AutoHidePartsDelay { get; set; } = new(15, 60, 1, 1);
+        public Range AutoHidePartsDelay { get; set; } = new(15, 300, 1, 1);
 
         [SettingField("ENABLE_STREAMER_MODE")]
         public Observable<bool> StreamerMode { get; set; } = false;
