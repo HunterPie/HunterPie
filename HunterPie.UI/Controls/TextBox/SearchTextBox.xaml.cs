@@ -1,8 +1,10 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.UI.Controls.TextBox.Events;
 using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using TB = System.Windows.Controls.TextBox;
 
 namespace HunterPie.UI.Controls.TextBox
 {
@@ -22,7 +24,9 @@ namespace HunterPie.UI.Controls.TextBox
         /// </summary>
         public event EventHandler<SearchTextChangedEventArgs> OnSearch;
 
-        public Observable<string> SearchText { get; } = "";
+        public Observable<string> SearchText { get; } = "Search";
+
+        private bool IsPlaceholderVisible { get; set; } = true;
 
         public SearchTextBox()
         {
@@ -30,13 +34,45 @@ namespace HunterPie.UI.Controls.TextBox
             DataContext = this;
         }
 
-        private void OnTextChanged(object sender, TextChangedEventArgs e) => OnSearchTextChanged?.Invoke(this, new(SearchText));
-        private void OnSearchClick(object sender, EventArgs e) => OnSearch?.Invoke(this, new(SearchText));
+        private void OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!IsPlaceholderVisible)
+                OnSearchTextChanged?.Invoke(this, new(SearchText));
+        }
+
+        private void OnSearchClick(object sender, EventArgs e)
+        {
+            if (!IsPlaceholderVisible)
+                OnSearch?.Invoke(this, new(SearchText));
+        }
         private void OnKeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyboardDevice.IsKeyDown(Key.Enter))
                 OnSearch?.Invoke(this, new(SearchText));
         }
 
+        private void OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is TB tb)
+            {
+                if (tb.Text.Length == 0 && !IsPlaceholderVisible)
+                {
+                    IsPlaceholderVisible = true;
+                    tb.Text = "Search";
+                }
+            }
+        }
+
+        private void OnGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is TB tb)
+            {
+                if (tb.Text.Length > 0 && IsPlaceholderVisible)
+                {
+                    IsPlaceholderVisible = false;
+                    tb.Text = string.Empty;
+                }
+            }
+        }
     }
 }

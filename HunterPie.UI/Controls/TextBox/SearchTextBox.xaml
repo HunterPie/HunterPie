@@ -13,18 +13,19 @@
         <converters:RelativeSizeRectConverter x:Key="RelativeSizeRectConverter"/>
     </UserControl.Resources>
     <Grid>
-        <TextBox Background="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}"
+        <TextBox Background="{StaticResource GRAY_600}"
                  VerticalContentAlignment="Center"
                  HorizontalAlignment="Stretch"
                  Padding="10,0,30,0"
                  TextAlignment="Left"
                  FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
                  d:Text="Search"
                  Text="{Binding SearchText.Value, UpdateSourceTrigger=PropertyChanged}"
                  BorderThickness="0"
                  TextChanged="OnTextChanged"
-                 KeyUp="OnKeyUp">
+                 KeyUp="OnKeyUp"
+                 LostFocus="OnLostFocus"
+                 GotFocus="OnGotFocus">
             <TextBox.Clip>
                 <RectangleGeometry RadiusX="1"
                                    RadiusY="1">
@@ -36,6 +37,18 @@
                     </RectangleGeometry.Rect>
                 </RectangleGeometry>
             </TextBox.Clip>
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Foreground" Value="{StaticResource WHITE_100}"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsFocused" Value="False">
+                            <Trigger.Setters>
+                                <Setter Property="Foreground" Value="{StaticResource WHITE_500}"/>
+                            </Trigger.Setters>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
         </TextBox>
         <buttons:Button Width="30"
                         HorizontalAlignment="Right"
