@@ -22,6 +22,15 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             Context.OnHealthUpdate += OnHealthUpdate;
             Context.OnFlinchUpdate += OnFlinchUpdate;
             Context.OnSeverUpdate += OnSeverUpdate;
+            Context.OnBreakCountUpdate += OnBreakCountUpdate;
+        }
+        
+        private void UnhookEvents()
+        {
+            Context.OnHealthUpdate -= OnHealthUpdate;
+            Context.OnFlinchUpdate -= OnFlinchUpdate;
+            Context.OnSeverUpdate -= OnSeverUpdate;
+            Context.OnBreakCountUpdate -= OnBreakCountUpdate;
         }
 
         private void OnSeverUpdate(object sender, IMonsterPart e)
@@ -30,6 +39,12 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             Sever = e.Sever;
 
             IsPartSevered = MaxSever == Sever && (Breaks > 0 || Flinch != MaxFlinch);
+        }
+
+
+        private void OnBreakCountUpdate(object sender, IMonsterPart e)
+        {
+            Breaks = e.Count;
         }
 
         private void OnFlinchUpdate(object sender, IMonsterPart e)
@@ -42,13 +57,6 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
 
             IsPartBroken = MaxHealth <= 0 || Health == MaxHealth && (Breaks > 0 || Flinch != MaxFlinch);
             IsPartSevered = MaxSever == Sever && (Breaks > 0 || Flinch != MaxFlinch);
-        }
-
-        private void UnhookEvents()
-        {
-            Context.OnHealthUpdate -= OnHealthUpdate;
-            Context.OnFlinchUpdate -= OnFlinchUpdate;
-            Context.OnSeverUpdate -= OnSeverUpdate;
         }
 
         private void OnHealthUpdate(object sender, IMonsterPart e)

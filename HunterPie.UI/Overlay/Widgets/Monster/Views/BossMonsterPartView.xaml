@@ -20,14 +20,31 @@
         <SolidColorBrush x:Key="MonsterTenderizeBarDelayed" Color="#FFFFDB9C"/>
     </UserControl.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="33*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="{Binding Breaks}"
+                   d:Text="3"
+                   Foreground="{StaticResource WHITE_50}"
+                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   FontSize="14"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center">
+            <TextBlock.Effect>
+                <DropShadowEffect Color="Black"
+                                      BlurRadius="4" 
+                                      ShadowDepth="0"/>
+            </TextBlock.Effect>
+        </TextBlock>
         <TextBlock Text="{Binding Name, Converter={StaticResource MonsterPartIdToNameConverter}, Mode=OneTime}"
                    d:Text="Head"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                   Foreground="{StaticResource WHITE_50}"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    FontSize="14"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Left"
-                   Margin="35,0,0,0">
+                   Grid.Column="1">
             <TextBlock.Effect>
                 <DropShadowEffect Color="Black"
                                       BlurRadius="4" 
@@ -35,7 +52,7 @@
             </TextBlock.Effect>
         </TextBlock>
 
-        <Grid Margin="30,15,0,0">
+        <Grid Margin="30,15,0,0" Grid.ColumnSpan="2">
             <overlay:Bar Foreground="{StaticResource MonsterTenderizeBar}"
                          ForegroundDelayed="{StaticResource MonsterTenderizeBarDelayed}"
                          Height="10"
@@ -57,13 +74,13 @@
                     </TransformGroup>
                 </overlay:Bar.RenderTransform>
             </overlay:Bar>
-            
+
             <overlay:Bar Foreground="{StaticResource MonsterHealthUnenraged}"
                          ForegroundDelayed="{StaticResource MonsterHealthUnenragedDelayed}"
                          Height="7"
                          VerticalAlignment="Top"
                          Margin="4.5,0,5,0"
-                         Background="{StaticResource HUNTERPIE_BACKGROUND_DARKER}"
+                         Background="{StaticResource GRAY_500}"
                          MaxValue="{Binding MaxFlinch, Mode=OneWay}"
                          Value="{Binding Flinch, Mode=OneWay}"
                          d:Value="50"
@@ -79,9 +96,9 @@
                     </TransformGroup>
                 </overlay:Bar.RenderTransform>
             </overlay:Bar>
-            
 
-            <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+
+            <TextBlock Foreground="{StaticResource WHITE_50}"
                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                        FontSize="14"
                        VerticalAlignment="Bottom"
@@ -95,10 +112,10 @@
                 <Run Text="{Binding Flinch, StringFormat=\{0:F1\}}"
                      d:Text="2000.0"/><!--
              --><Run Text="/"
-                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                     Foreground="{StaticResource WHITE_200}"
                      FontWeight="Light"/><!--
              --><Run Text="{Binding MaxFlinch, StringFormat=\{0:F1\}}"
-                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                     Foreground="{StaticResource WHITE_200}"
                      FontWeight="Light"
                      d:Text="2000.0"/>
             </TextBlock>

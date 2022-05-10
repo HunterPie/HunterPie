@@ -14,6 +14,7 @@ namespace HunterPie.Core.Game.World.Entities
     public class MHWMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHWMonsterPartStructure>
     {
         private float _flinch;
+        private int _count;
 
         public string Id { get; }
 
@@ -43,7 +44,18 @@ namespace HunterPie.Core.Game.World.Entities
         public float Tenderize => throw new NotImplementedException();
 
         public float MaxTenderize { get; private set; }
-
+        public int Count
+        {
+            get => _count;
+            private set
+            {
+                if (value != _count)
+                {
+                    _count = value;
+                    this.Dispatch(OnBreakCountUpdate, this);
+                }
+            }
+        }
         public PartType Type { get; private set; }
 
         public event EventHandler<IMonsterPart> OnHealthUpdate;
@@ -63,6 +75,7 @@ namespace HunterPie.Core.Game.World.Entities
         {
             Flinch = data.Health;
             MaxFlinch = data.MaxHealth;
+            Count = data.Counter;
         }
     }
 }

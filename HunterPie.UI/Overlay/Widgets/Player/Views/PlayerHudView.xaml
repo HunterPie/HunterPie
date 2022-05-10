@@ -51,7 +51,7 @@
         <Rectangle VerticalAlignment="Top"
                    Margin="50,15,15,0"
                    Height="15"
-                   Stroke="#FF5E6485"
+                   Stroke="{StaticResource GRAY_100}"
                    StrokeThickness="2" 
                    Fill="#339E9E9E">
             <Rectangle.RenderTransform>
@@ -64,7 +64,7 @@
               Margin="50,15,60,0">
             <overlay:Bar x:Name="PART_HealthExtras"
                      Foreground="{DynamicResource COLOR_MONSTER_STATUS_ENRAGE}"
-                     Background="#B2181A1B"
+                     Background="#B2121719"
                      Height="15"
                      d:MaxValue="100"
                      d:Value="50"
@@ -85,7 +85,7 @@
                          BorderThickness="2" 
                          RenderTransformOrigin="0.5,0.5"
                          VerticalAlignment="Top"
-                         BorderBrush="#FF353951">
+                         BorderBrush="{StaticResource GRAY_300}">
                 <overlay:Bar.RenderTransform>
                     <TransformGroup>
                         <SkewTransform AngleX="45"/>
@@ -112,7 +112,7 @@
 
         <!-- Stamina bar -->
         <overlay:Bar Foreground="{StaticResource WIDGET_PLAYER_STAMINA_FOREGROUND}"
-                     BorderBrush="#FF353951"
+                     BorderBrush="{StaticResource GRAY_200}"
                      Background="#B2181A1B"
                      Height="8"
                      d:MaxValue="2000"
@@ -202,7 +202,7 @@
                    RenderOptions.BitmapScalingMode="Fant">
                 <Image.Effect>
                     <DropShadowEffect BlurRadius="5" 
-                                      Color="#FF213A5F" 
+                                      Color="#FF66696B" 
                                       ShadowDepth="0"/>
                 </Image.Effect>
                 <Image.Style>

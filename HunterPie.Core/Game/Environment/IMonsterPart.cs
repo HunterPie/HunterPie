@@ -15,6 +15,8 @@ namespace HunterPie.Core.Game.Environment
         public float MaxSever { get; }
         public float Tenderize { get; }
         public float MaxTenderize { get; }
+        public int Count { get; }
+
         public PartType Type { get; }
 
         public event EventHandler<IMonsterPart> OnHealthUpdate;
