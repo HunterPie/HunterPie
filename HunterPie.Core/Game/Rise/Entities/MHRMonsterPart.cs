@@ -65,6 +65,8 @@ namespace HunterPie.Core.Game.Rise.Entities
 
         public PartType Type { get; private set; }
 
+        public int Count => 0;
+
         public event EventHandler<IMonsterPart> OnHealthUpdate;
         public event EventHandler<IMonsterPart> OnBreakCountUpdate;
         public event EventHandler<IMonsterPart> OnTenderizeUpdate;
