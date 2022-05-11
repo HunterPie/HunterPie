@@ -121,7 +121,10 @@ namespace HunterPie.Core.Game.World.Entities
 
         public IParty Party => _party;
 
-        public bool InHuntingZone => ZoneId != Stage.MainMenu && !peaceZones.Contains(_zoneId);
+        public bool InHuntingZone => ZoneId != Stage.MainMenu 
+            && ZoneId != Stage.TrainingArea
+            && !peaceZones.Contains(_zoneId);
+
         #endregion
 
         public event EventHandler<EventArgs> OnLogin;

@@ -1,5 +1,4 @@
 ﻿using HunterPie.Core.Architecture;
-using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
 using System;
@@ -80,7 +79,17 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
             }
         }
         public double MaxSever { get => _maxSever; set { SetValue(ref _maxSever, value); } }
-        public int Breaks { get => _breaks; set { SetValue(ref _breaks, value); } }
+        public int Breaks 
+        { 
+            get => _breaks; 
+            set 
+            {
+                if (value != _breaks)
+                    RefreshTimer();
+
+                SetValue(ref _breaks, value); 
+            } 
+        }
         public int MaxBreaks { get => _maxBreaks; set { SetValue(ref _maxBreaks, value); } }
         public bool IsActive { get => _isActive; set { SetValue(ref _isActive, value); } }
         public bool IsPartBroken { get => _isPartBroken; set { SetValue(ref _isPartBroken, value); } }
