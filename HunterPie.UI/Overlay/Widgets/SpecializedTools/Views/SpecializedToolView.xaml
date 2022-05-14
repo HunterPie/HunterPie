@@ -1,0 +1,107 @@
+﻿<arch:View x:Class="HunterPie.UI.Overlay.Widgets.SpecializedTools.Views.SpecializedToolView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.Views"
+             xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.ViewModels"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             x:TypeArguments="vm:SpecializedToolViewModel"
+             d:DataContext="{d:DesignInstance Type=vm:SpecializedToolViewModel}"
+             mc:Ignorable="d" 
+             Height="70" 
+             Width="70">
+    <UserControl.Resources>
+        <converters:HeightToRelativeViewboxVerticalPosition x:Key="HeightToRelativeViewboxVerticalPosition"/>
+    </UserControl.Resources>
+    <Grid>
+        <Rectangle Fill="{StaticResource GRAY_200}"
+                   Stroke="{StaticResource GRAY_600}"
+                   StrokeThickness="2"
+                   RenderTransformOrigin="0.5,0.5"
+                   Margin="10.5"
+                   x:Name="PART_Background">
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="45"/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+        <Rectangle Fill="{StaticResource GRAY_500}"
+                   Width="35"
+                   VerticalAlignment="Bottom"
+                   MaxHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                   Height="35"
+                   Margin="0,0,4.5,20">
+            <Rectangle.OpacityMask>
+                <ImageBrush ImageSource="{StaticResource ICON_MANTLE}"/>
+            </Rectangle.OpacityMask>
+        </Rectangle>
+        <Canvas Height="30"
+                VerticalAlignment="Bottom"
+                ClipToBounds="True" 
+                RenderTransformOrigin="0.5,0.5">
+            <Canvas.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="180"/>
+                </TransformGroup>
+            </Canvas.RenderTransform>
+            <Rectangle Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                       Opacity="0.3"
+                       StrokeThickness="0"
+                       RenderTransformOrigin="0.5,0.5"
+                       Width="{Binding ActualWidth, ElementName=PART_Background}"
+                       Height="{Binding ActualHeight, ElementName=PART_Background}"
+                       Canvas.Top="10.5"
+                       Canvas.Left="10.5"
+                       HorizontalAlignment="Stretch">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="45"/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Rectangle Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                       Opacity="0.4"
+                       Width="35"
+                       VerticalAlignment="Bottom"
+                       MaxHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                       Height="35"
+                       Canvas.Top="55"
+                       Canvas.Left="54.75">
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="{StaticResource ICON_MANTLE}"/>
+                </Rectangle.OpacityMask>
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="180"/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+        </Canvas>
+
+        <!--
+        <Rectangle Fill="#FFCE3C3C"
+                   Width="20"
+                   VerticalAlignment="Bottom"
+                   MaxHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                   Height="20"
+                   Margin="0,0,0,15">
+            <Rectangle.OpacityMask>
+                <ImageBrush ImageSource="{StaticResource ICON_MANTLE}"
+                            Viewport="0,0,20,20"
+                            ViewportUnits="Absolute">
+                    <ImageBrush.Viewbox>
+                        <MultiBinding Converter="{StaticResource HeightToRelativeViewboxVerticalPosition}">
+                            <Binding Path="ActualHeight"
+                                         RelativeSource="{RelativeSource AncestorType={x:Type Rectangle}}"/>
+                            <Binding Path="MaxHeight"
+                                         RelativeSource="{RelativeSource AncestorType={x:Type Rectangle}}"/>
+                        </MultiBinding>
+                    </ImageBrush.Viewbox>
+                </ImageBrush>
+            </Rectangle.OpacityMask>
+        </Rectangle>-->
+    </Grid>
+</arch:View>

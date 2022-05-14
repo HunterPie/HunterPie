@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HunterPie"
         xmlns:wnd="clr-namespace:HunterPie.UI.Windows;assembly=HunterPie.UI"
+        xmlns:st="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.Views;assembly=HunterPie.UI"
+        xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
         mc:Ignorable="d"
         Title="TestWindow" 
         Height="450" 
@@ -13,12 +15,14 @@
         WindowStyle="None" 
         AllowsTransparency="True"
         Icon="{StaticResource ICON_SETTINGS}">
+    <Window.Resources>
+        <converters:HeightToRelativeViewboxVerticalPosition x:Key="HeightToRelativeViewboxVerticalPosition"/>
+    </Window.Resources>
     <wnd:WindowChrome>
         <wnd:WindowChrome.Container>
-            <TextBlock Text="Hello"
-                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                       FontSize="20"
-                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+            <st:SpecializedToolView VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Width="70"/>
         </wnd:WindowChrome.Container>
     </wnd:WindowChrome>
 </Window>
