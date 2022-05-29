@@ -20,9 +20,7 @@
     </Window.Resources>
     <wnd:WindowChrome>
         <wnd:WindowChrome.Container>
-            <st:SpecializedToolView VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    Width="70"/>
+            <TextBlock Text="Hello"/>
         </wnd:WindowChrome.Container>
     </wnd:WindowChrome>
 </Window>

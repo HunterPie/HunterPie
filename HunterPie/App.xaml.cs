@@ -59,8 +59,6 @@ namespace HunterPie
 
             InitializeProcessScanners();
             SetUIThreadPriority();
-
-            new TestWindow().Show();
         }
 
         private void CheckForRunningInstances()

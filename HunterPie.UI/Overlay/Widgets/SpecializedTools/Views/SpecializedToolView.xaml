@@ -14,6 +14,10 @@
              Width="70">
     <UserControl.Resources>
         <converters:HeightToRelativeViewboxVerticalPosition x:Key="HeightToRelativeViewboxVerticalPosition"/>
+        <converters:SpecializedToolToColorConverter x:Key="SpecializedToolToColorConverter"/>
+        <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
+        <converters:ReverseSecondsToTimeStringConverter x:Key="ReverseSecondsToTimeStringConverter"/>
+        <converters:TimerToSizeConverter x:Key="TimerToSizeConverter"/>
     </UserControl.Resources>
     <Grid>
         <Rectangle Fill="{StaticResource GRAY_200}"
@@ -38,7 +42,7 @@
                 <ImageBrush ImageSource="{StaticResource ICON_MANTLE}"/>
             </Rectangle.OpacityMask>
         </Rectangle>
-        <Canvas Height="30"
+        <Canvas d:Height="70"
                 VerticalAlignment="Bottom"
                 ClipToBounds="True" 
                 RenderTransformOrigin="0.5,0.5">
@@ -47,12 +51,14 @@
                     <RotateTransform Angle="180"/>
                 </TransformGroup>
             </Canvas.RenderTransform>
-            <Rectangle Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+            <Rectangle Fill="{Binding Id, Converter={StaticResource SpecializedToolToColorConverter}}"
                        Opacity="0.3"
                        StrokeThickness="0"
                        RenderTransformOrigin="0.5,0.5"
-                       Width="{Binding ActualWidth, ElementName=PART_Background}"
-                       Height="{Binding ActualHeight, ElementName=PART_Background}"
+                       Width="{Binding ActualWidth, ElementName=PART_Background, Mode=OneWay}"
+                       Height="{Binding ActualHeight, ElementName=PART_Background, Mode=OneWay}"
+                       d:Width="49"
+                       d:Height="49"
                        Canvas.Top="10.5"
                        Canvas.Left="10.5"
                        HorizontalAlignment="Stretch">
@@ -62,7 +68,8 @@
                     </TransformGroup>
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <Rectangle Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+            <Rectangle Fill="{Binding Id, Converter={StaticResource SpecializedToolToColorConverter}}" 
+                       d:Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"
                        Opacity="0.4"
                        Width="35"
                        VerticalAlignment="Bottom"
@@ -78,30 +85,69 @@
                         <RotateTransform Angle="180"/>
                     </TransformGroup>
                 </Rectangle.RenderTransform>
+                <Rectangle.Effect>
+                    <DropShadowEffect ShadowDepth="0"
+                                      BlurRadius="2"
+                                      Color="#50000000"/>
+                </Rectangle.Effect>
             </Rectangle>
+            <Canvas.Style>
+                <Style TargetType="{x:Type Canvas}">
+                    <Setter Property="Height">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource TimerToSizeConverter}">
+                                <Binding Path="DataContext.Timer" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:SpecializedToolView}}"/>
+                                <Binding Path="DataContext.MaxTimer" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:SpecializedToolView}}"/>
+                                <Binding Path="ActualHeight" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:SpecializedToolView}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsRecharging}"
+                                     Value="True">
+                            <Setter Property="Height">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource TimerToSizeConverter}">
+                                        <Binding Path="DataContext.Cooldown" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:SpecializedToolView}}"/>
+                                        <Binding Path="DataContext.MaxCooldown" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:SpecializedToolView}}"/>
+                                        <Binding Path="ActualHeight" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:SpecializedToolView}}"/>
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Canvas.Style>
         </Canvas>
 
-        <!--
-        <Rectangle Fill="#FFCE3C3C"
-                   Width="20"
-                   VerticalAlignment="Bottom"
-                   MaxHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                   Height="20"
-                   Margin="0,0,0,15">
-            <Rectangle.OpacityMask>
-                <ImageBrush ImageSource="{StaticResource ICON_MANTLE}"
-                            Viewport="0,0,20,20"
-                            ViewportUnits="Absolute">
-                    <ImageBrush.Viewbox>
-                        <MultiBinding Converter="{StaticResource HeightToRelativeViewboxVerticalPosition}">
-                            <Binding Path="ActualHeight"
-                                         RelativeSource="{RelativeSource AncestorType={x:Type Rectangle}}"/>
-                            <Binding Path="MaxHeight"
-                                         RelativeSource="{RelativeSource AncestorType={x:Type Rectangle}}"/>
-                        </MultiBinding>
-                    </ImageBrush.Viewbox>
-                </ImageBrush>
-            </Rectangle.OpacityMask>
-        </Rectangle>-->
+        <TextBlock d:Text="00:50"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   FontWeight="Medium"
+                   FontSize="14"
+                   Foreground="{StaticResource WHITE_50}">
+            <TextBlock.Effect>
+                <DropShadowEffect ShadowDepth="0"/>
+            </TextBlock.Effect>
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Text" Value="{Binding Timer, Converter={StaticResource SecondsToTimeString}}"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsRecharging}" 
+                                     Value="True">
+                            <Setter Property="Text">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource ReverseSecondsToTimeStringConverter}">
+                                        <Binding Path="DataContext.Cooldown" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:SpecializedToolView}}"/>
+                                        <Binding Path="DataContext.MaxCooldown" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:SpecializedToolView}}"/>
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
     </Grid>
 </arch:View>

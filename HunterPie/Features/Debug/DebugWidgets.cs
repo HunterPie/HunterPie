@@ -10,6 +10,7 @@
             new DamageWidgetMocker(),
             new WirebugWidgetMocker(),
             new ChatWidgetMocker(),
+            new SpecializedToolWidgetMocker(),
         };
 
         public static void MockIfNeeded()

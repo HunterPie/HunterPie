@@ -15,7 +15,7 @@ namespace HunterPie.Core.Client.Configuration
         public WirebugWidgetConfig WirebugWidget { get; set; } = new();
         public ActivitiesWidgetConfig ActivitiesWidget { get; set; } = new();
         public ChatWidgetConfig ChatWidget { get; set; } = new();
-
+        public SpecializedToolWidgetConfig SpecializedToolWidget { get; set; } = new();
         public Keybinding ToggleDesignMode { get; set; } = "ScrollLock";
 
         public Observable<bool> HideWhenUnfocus { get; set; } = false;
