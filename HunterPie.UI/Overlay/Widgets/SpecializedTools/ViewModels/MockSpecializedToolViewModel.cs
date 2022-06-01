@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Game.World.Entities;
+﻿using HunterPie.Core.Game.Enums;
 using HunterPie.UI.Architecture.Test;
 
 namespace HunterPie.UI.Overlay.Widgets.SpecializedTools.ViewModels
@@ -10,7 +10,7 @@ namespace HunterPie.UI.Overlay.Widgets.SpecializedTools.ViewModels
 
         public MockSpecializedToolViewModel()
         {
-            Id = MHWSpecializedTool.ChallengerMantle;
+            Id = SpecializedToolType.ChallengerMantle;
             MaxCooldown = MAX_COOLDOWN;
             Timer = MaxTimer = MAX_TIMER;
 

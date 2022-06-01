@@ -12,6 +12,7 @@ using HunterPie.Core.Game.World.Definitions;
 using HunterPie.Core.Game.World.Entities.Abnormalities;
 using HunterPie.Core.Game.World.Entities.Party;
 using HunterPie.Core.Logger;
+using SpecializedTool = HunterPie.Core.Game.World.Entities.Player.MHWSpecializedTool;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,10 +42,9 @@ namespace HunterPie.Core.Game.World.Entities
         private long _playerAddress;
         private Stage _zoneId;
         private Weapon _weaponId;
-        private SpecializedTool _primaryTool = new SpecializedTool();
-        private SpecializedTool _secondaryTool = new SpecializedTool();
-        private Dictionary<string, IAbnormality> _abnormalities = new();
-        private MHWParty _party = new();
+        private readonly SpecializedTool[] _tools = { new(), new() };
+        private readonly Dictionary<string, IAbnormality> _abnormalities = new();
+        private readonly MHWParty _party = new();
         #endregion
 
         #region Public fields
@@ -110,8 +110,7 @@ namespace HunterPie.Core.Game.World.Entities
             }
         }
 
-        public ref readonly SpecializedTool PrimaryTool => ref _primaryTool;
-        public ref readonly SpecializedTool SecondaryTool => ref _secondaryTool;
+        public SpecializedTool[] Tools => _tools;
 
         public bool IsLoggedOn => _playerAddress != 0;
 
@@ -214,9 +213,6 @@ namespace HunterPie.Core.Game.World.Entities
             );
 
             data.WeaponType = (Weapon)_process.Memory.Read<byte>(address);
-            int[] tools = _process.Memory.Read<int>(address, 2);
-            data.PrimaryTool = (SpecializedToolType)tools[0];
-            data.SecondaryTool = (SpecializedToolType)tools[1];
 
             Next(ref data);
 
@@ -225,6 +221,42 @@ namespace HunterPie.Core.Game.World.Entities
             return;
         }
 
+        [ScannableMethod]
+        private void GetMantlesData()
+        {
+            long address = _process.Memory.Read(
+                AddressMap.GetAbsolute("WEAPON_OFFSET"),
+                AddressMap.Get<int[]>("WeaponOffsets")
+            );
+            SpecializedToolType[] ids = _process.Memory.Read<byte>(address + 0x34, 2)
+                .Cast<SpecializedToolType>()
+                .ToArray();
+
+            long equipmentAddress = _process.Memory.Read(
+                AddressMap.GetAbsolute("EQUIPMENT_ADDRESS"),
+                AddressMap.Get<int[]>("WeaponOffsets")
+            );
+
+            const int specializedTools = 20;
+            float[] cooldowns = _process.Memory.Read<float>(equipmentAddress + 0x99C, specializedTools * 2);
+            float[] timers = _process.Memory.Read<float>(equipmentAddress + 0xA8C, specializedTools * 2);
+
+            for (int i = 0; i < Tools.Length; i++)
+            {
+                int id = (int)ids[i];
+                MHWSpecializedToolStructure tool = new MHWSpecializedToolStructure
+                {
+                    Id = ids[i],
+                    Timer = timers.ElementAtOrDefault(id),
+                    MaxTimer = timers.ElementAtOrDefault(id + specializedTools),
+                    Cooldown = cooldowns.ElementAtOrDefault(id),
+                    MaxCooldown = cooldowns.ElementAtOrDefault(id + specializedTools),
+                };
+                IUpdatable<MHWSpecializedToolStructure> mhwTool = Tools[i];
+                mhwTool.Update(tool);
+            }
+
+        }
 
         [ScannableMethod]
         private void GetAbnormalitiesCleanup()
