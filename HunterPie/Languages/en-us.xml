@@ -486,6 +486,9 @@
 			<Setting Id="CHAT_WIDGET_STRING"
 					 String="Chat Widget"
 					 Description="Chat Widget configurations"/>
+			<Setting Id="SPECIALIZED_TOOL_WIDGET_STRING"
+					 String="Specialized Tool Widget"
+					 Description="Specialized Tool Widget configurations"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="Dev Tools"
 					 Description="Advanced development tools"/>

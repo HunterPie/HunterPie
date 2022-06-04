@@ -776,6 +776,54 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="ICON_MANTLE">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">
+                <DrawingGroup Opacity="1" Transform="1,0,0,1,-384,-64">
+                    <DrawingGroup Opacity="1" Transform="0.5,0,0,0.375,0,0">
+                        <DrawingGroup Opacity="1" Transform="2,0,0,2.66667,-256,-1877.33">
+                            <GeometryDrawing Brush="#FFA9A9A8" Geometry="F0 M64,64z M0,0z M527.5,810L521,826 567,826 556,810 553,813 547.5,808 542,813 536.5,808 531,813 527.5,810z M531,796L550,796 556,806 552.5,810 547.5,805 542,809 536.5,805 531,809 527,805 531,796z M541,774L547,774 559,783.5 547,793 541,793 541,774z" />
+                            <GeometryDrawing Brush="#FFFFFFFF" Geometry="F0 M64,64z M0,0z M531,817L535,824 527,824 531,817z M543.5,817L547.5,824 539.5,824 543.5,817z M556,817L560,824 552,824 556,817z M537.5,793C539,793,539,792,539,792L539,776C539,775 539,774 534.5,774 530,774 530,775 530,776L530,792C530,792 530,793 531,793 532,793 532,792 532,792L532,779C532,778 532,777 534,777 536,777 536,778 536,779L536,792C536,792,536,793,537.5,793z" />
+                        </DrawingGroup>
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="ICON_BOOSTER">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">
+                <DrawingGroup Opacity="1" Transform="1,0,0,1,-128,-192">
+                    <DrawingGroup Opacity="1" Transform="0.5,0,0,0.375,0,0">
+                        <DrawingGroup Opacity="1" Transform="2,0,0,2.66667,128,-682.667">
+                            <GeometryDrawing Brush="#FF5E1C21" Geometry="F0 M64,64z M0,0z M84,503L86,496 104,496 107,503 84,503z" />
+                            <DrawingGroup Opacity="1" Transform="1.11111,0,0,1,-10.6111,-0.5">
+                                <GeometryDrawing Brush="#FFF75765" Geometry="F0 M64,64z M0,0z M100,488C100,487.448,99.597,487,99.1,487L91.9,487C91.403,487,91,487.448,91,488L91,494 100,494 100,488z" />
+                            </DrawingGroup>
+                            <DrawingGroup Opacity="1" Transform="1,0,0,1,-64,256">
+                                <GeometryDrawing Brush="#FFB53E48" Geometry="F0 M64,64z M0,0z M144.984,221L142.5,224 146.5,227 148.5,225 144.984,221z M175.016,221L177.5,224 173.5,227 171.5,225 175.016,221z M151.5,218L155.5,216 156.5,222 153.5,223 151.5,218z M168.5,218L164.5,216 163.5,222 166.5,223 168.5,218z M137.159,219.216L140.554,216.171 135.5,211 132.5,215 137.159,219.216z M182.841,219.216L179.446,216.171 184.5,211 187.5,215 182.841,219.216z M148.5,210L153.5,208 151.5,202 145.545,203 148.5,210z M171.5,210L166.5,208 168.5,202 174.455,203 171.5,210z" />
+                            </DrawingGroup>
+                        </DrawingGroup>
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="ICON_ASSASSINS_HOOD">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">
+                <DrawingGroup Opacity="1" Transform="1,0,0,1,-448,-320">
+                    <DrawingGroup Opacity="1" Transform="0.5,0,0,0.375,0,0">
+                        <DrawingGroup Opacity="1" Transform="2,0,0,2.66667,896,0">
+                            <GeometryDrawing Brush="#FFB9B9B9" Geometry="F0 M64,64z M0,0z M32,370C32,370 28.875,369.875 25,366 23,364 21,362 21,360 21,358 28,350.991 28,350.991L32,355 36,350.991C36,350.991 43,358 43,360 43,362 41,364 39,366 35,370 32,370 32,370z" />
+                            <GeometryDrawing Brush="#FFFFFFFF" Geometry="F0 M64,64z M0,0z M28,349C28,349 19,356 19,362 19,368 27,378 27,378 27,378 22,376 19,373 16,370 15,367 15,367L11.5,374C11.5,374 8,368 8,366 8,364 11,363 14,358 17,353 16,351 18,339 20,327 29,326 32,326L32.071,326C35.14,326.016 44.016,327.094 46,339 48,351 47,353 50,358 53,363 56,364 56,366 56,368 52.5,374 52.5,374L49,367C49,367 48,370 45,373 42,376 37,378 37,378 37,378 45,368 45,362 45,356 36,349 36,349L32,353 28,349z" />
+                        </DrawingGroup>
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    
     <!-- Weapon Icons -->
     <!-- Credits: https://github.com/OthelloRhin/MHW_Icons_SVG -->
     <DrawingImage x:Key="ICON_GREATSWORD">
