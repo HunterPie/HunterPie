@@ -14,7 +14,7 @@ namespace HunterPie.Features.Debug
 
             if (ClientConfig.Config.Development.MockSpecializedToolWidget)
                 WidgetManager.Register<SpecializedToolView, SpecializedToolWidgetConfig>(
-                    new SpecializedToolView(mockConfig.SpecializedToolWidget)
+                    new SpecializedToolView(mockConfig.PrimarySpecializedToolWidget)
                     {
                         DataContext = new MockSpecializedToolViewModel()
                     }

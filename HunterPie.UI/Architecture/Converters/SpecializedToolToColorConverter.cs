@@ -27,7 +27,7 @@ namespace HunterPie.UI.Architecture.Converters
                     SpecializedToolType.ThunderproofMantle => Resources.Get<Brush>("COLOR_THUNDERPROOF_MANTLE"),
                     SpecializedToolType.DragonproofMantle => Resources.Get<Brush>("COLOR_DRAGONPROOF_MANTLE"),
                     SpecializedToolType.CleanserBooster => Resources.Get<Brush>("COLOR_CLEANSER_BOOSTER"),
-                    SpecializedToolType.GliderMantle => Resources.Get<Brush>("COLOR_GLINDER_MANTLE"),
+                    SpecializedToolType.GliderMantle => Resources.Get<Brush>("COLOR_GLIDER_MANTLE"),
                     SpecializedToolType.EvasionMantle => Resources.Get<Brush>("COLOR_EVASION_MANTLE"),
                     SpecializedToolType.ImpactMantle => Resources.Get<Brush>("COLOR_IMPACT_MANTLE"),
                     SpecializedToolType.ApothecaryMantle => Resources.Get<Brush>("COLOR_APOTHECARY_MANTLE"),

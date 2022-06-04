@@ -15,6 +15,7 @@
     <UserControl.Resources>
         <converters:HeightToRelativeViewboxVerticalPosition x:Key="HeightToRelativeViewboxVerticalPosition"/>
         <converters:SpecializedToolToColorConverter x:Key="SpecializedToolToColorConverter"/>
+        <converters:SpecializedToolTypeToIconConverter x:Key="SpecializedToolTypeToIconConverter"/>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:ReverseSecondsToTimeStringConverter x:Key="ReverseSecondsToTimeStringConverter"/>
         <converters:TimerToSizeConverter x:Key="TimerToSizeConverter"/>
@@ -39,7 +40,7 @@
                    Height="35"
                    Margin="0,0,4.5,20">
             <Rectangle.OpacityMask>
-                <ImageBrush ImageSource="{StaticResource ICON_MANTLE}"/>
+                <ImageBrush ImageSource="{Binding Id, Converter={StaticResource SpecializedToolTypeToIconConverter}}"/>
             </Rectangle.OpacityMask>
         </Rectangle>
         <Canvas d:Height="70"
@@ -59,8 +60,8 @@
                        Height="{Binding ActualHeight, ElementName=PART_Background, Mode=OneWay}"
                        d:Width="49"
                        d:Height="49"
-                       Canvas.Top="10.5"
-                       Canvas.Left="10.5"
+                       Canvas.Top="11"
+                       Canvas.Left="11"
                        HorizontalAlignment="Stretch">
                 <Rectangle.RenderTransform>
                     <TransformGroup>
@@ -78,7 +79,7 @@
                        Canvas.Top="55"
                        Canvas.Left="54.75">
                 <Rectangle.OpacityMask>
-                    <ImageBrush ImageSource="{StaticResource ICON_MANTLE}"/>
+                    <ImageBrush ImageSource="{Binding Id, Converter={StaticResource SpecializedToolTypeToIconConverter}}"/>
                 </Rectangle.OpacityMask>
                 <Rectangle.RenderTransform>
                     <TransformGroup>

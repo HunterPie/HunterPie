@@ -1,12 +1,13 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.World.Definitions;
 using System;
 
 namespace HunterPie.Core.Game.World.Entities.Player
 {
-    public class MHWSpecializedTool : IEventDispatcher, IUpdatable<MHWSpecializedToolStructure>
+    public class MHWSpecializedTool : ISpecializedTool, IEventDispatcher, IUpdatable<MHWSpecializedToolStructure>
     {
         private SpecializedToolType _id;
         private float _cooldown;
@@ -20,7 +21,7 @@ namespace HunterPie.Core.Game.World.Entities.Player
                 if (value != _id)
                 {
                     _id = value;
-                    this.Dispatch(OnChange);
+                    this.Dispatch(OnChange, this);
                 }
             }
         }
@@ -33,7 +34,7 @@ namespace HunterPie.Core.Game.World.Entities.Player
                 if (value != _cooldown)
                 {
                     _cooldown = value;
-                    this.Dispatch(OnCooldownUpdate);
+                    this.Dispatch(OnCooldownUpdate, this);
                 }
             }
         }
@@ -48,16 +49,16 @@ namespace HunterPie.Core.Game.World.Entities.Player
                 if (value != _timer)
                 {
                     _timer = value;
-                    this.Dispatch(OnTimerUpdate);
+                    this.Dispatch(OnTimerUpdate, this);
                 }
             }
         }
 
         public float MaxTimer { get; private set; }
 
-        public event EventHandler<EventArgs> OnCooldownUpdate;
-        public event EventHandler<EventArgs> OnTimerUpdate;
-        public event EventHandler<EventArgs> OnChange;
+        public event EventHandler<ISpecializedTool> OnCooldownUpdate;
+        public event EventHandler<ISpecializedTool> OnTimerUpdate;
+        public event EventHandler<ISpecializedTool> OnChange;
 
         void IUpdatable<MHWSpecializedToolStructure>.Update(MHWSpecializedToolStructure data)
         {

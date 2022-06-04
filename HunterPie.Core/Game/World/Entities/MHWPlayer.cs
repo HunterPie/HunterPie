@@ -208,8 +208,8 @@ namespace HunterPie.Core.Game.World.Entities
                 return;
 
             long address = _process.Memory.Read(
-                AddressMap.GetAbsolute("WEAPON_OFFSET"),
-                AddressMap.Get<int[]>("WeaponOffsets")
+                AddressMap.GetAbsolute("WEAPON_ADDRESS"),
+                AddressMap.Get<int[]>("WEAPON_OFFSETS")
             );
 
             data.WeaponType = (Weapon)_process.Memory.Read<byte>(address);
@@ -225,16 +225,16 @@ namespace HunterPie.Core.Game.World.Entities
         private void GetMantlesData()
         {
             long address = _process.Memory.Read(
-                AddressMap.GetAbsolute("WEAPON_OFFSET"),
-                AddressMap.Get<int[]>("WeaponOffsets")
+                AddressMap.GetAbsolute("WEAPON_ADDRESS"),
+                AddressMap.Get<int[]>("WEAPON_OFFSETS")
             );
-            SpecializedToolType[] ids = _process.Memory.Read<byte>(address + 0x34, 2)
-                .Cast<SpecializedToolType>()
+            SpecializedToolType[] ids = _process.Memory.Read<int>(address + 0x34, 2)
+                .Select(e => (SpecializedToolType)e)
                 .ToArray();
 
             long equipmentAddress = _process.Memory.Read(
                 AddressMap.GetAbsolute("EQUIPMENT_ADDRESS"),
-                AddressMap.Get<int[]>("WeaponOffsets")
+                AddressMap.Get<int[]>("EQUIPMENT_OFFSETS")
             );
 
             const int specializedTools = 20;

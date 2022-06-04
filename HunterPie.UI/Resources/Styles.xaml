@@ -54,26 +54,81 @@
     <SolidColorBrush x:Key="LOGGER_LEVEL_BENCHMARK">#1BC9B6</SolidColorBrush>
     
     <!-- Specialized Tools -->
-    <SolidColorBrush x:Key="COLOR_GHILLIE_MANTLE">#FF3F893C</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_TEMPORAL_MANTLE">#FFFCD701</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_BANDIT_MANTLE">#FFFCD701</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_HEALTH_BOOSTER">#FF389454</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_ROCKSTEADY_MANTLE">#FF787878</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_DRAGONPROOF_MANTLE">#FF787878</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_CHALLENGER_MANTLE">#FFA2E6D4</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_THUNDERPROOF_MANTLE">#FFA2E6D4</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_VITALITY_MANTLE">#FF59B67F</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_FIREPROOF_MANTLE">#FFFC5967</SolidColorBrush>
+    
+    <LinearGradientBrush x:Key="COLOR_GHILLIE_MANTLE" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF74D680"/>
+        <GradientStop Color="#FF378B29" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_TEMPORAL_MANTLE" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFFFDD00"/>
+        <GradientStop Color="#FFFBB034" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_BANDIT_MANTLE" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFFFDD00"/>
+        <GradientStop Color="#FFFBB034" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_HEALTH_BOOSTER" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF74D680"/>
+        <GradientStop Color="#FF378B29" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_ROCKSTEADY_MANTLE" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFD2CCC4"/>
+        <GradientStop Color="#FF2F4353" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_DRAGONPROOF_MANTLE" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFD2CCC4"/>
+        <GradientStop Color="#FF2F4353" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_CHALLENGER_MANTLE" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF2FEBD2"/>
+        <GradientStop Color="#FF2FEBB3" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_THUNDERPROOF_MANTLE" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF74D4BA"/>
+        <GradientStop Color="#FF74CAD4" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_VITALITY_MANTLE" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF3CBD71"/>
+        <GradientStop Color="#FF3CBD92" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_FIREPROOF_MANTLE" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFF04654"/>
+        <GradientStop Color="#FFE63737" Offset="1"/>
+    </LinearGradientBrush>
     <SolidColorBrush x:Key="COLOR_IMPACT_MANTLE">#FFFC5967</SolidColorBrush>
     <SolidColorBrush x:Key="COLOR_WATERPROOF_MANTLE">#FF57DBFF</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_ICEPROOF_MANTLE">#FFFFFFFF</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_EVASION_MANTLE">#FFFFFFFF</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_IMMUNITY_MANTLE">#FFFFFFFF</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_CLEANSER_BOOSTER">#FF4362CA</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_GLIDER_MANTLE">#FF628BFF</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_APOTHECARY_MANTLE">#FFAB9AEB</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_AFFINITY_BOOSTER">#FFB53E48</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_ASSASSINS_HOOD">#FFFFFFFF</SolidColorBrush>
+    <LinearGradientBrush x:Key="COLOR_ICEPROOF_MANTLE" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFF5F7FA"/>
+        <GradientStop Color="#FFB8C6DB" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_EVASION_MANTLE" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFF5F7FA"/>
+        <GradientStop Color="#FFB8C6DB" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_IMMUNITY_MANTLE" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFF5F7FA"/>
+        <GradientStop Color="#FFB8C6DB" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_CLEANSER_BOOSTER" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF4884EE"/>
+        <GradientStop Color="#FF06BCFB" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_GLIDER_MANTLE" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF647DEE"/>
+        <GradientStop Color="#FF7F53AC" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_APOTHECARY_MANTLE" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF5F72BE"/>
+        <GradientStop Color="#FF9921E8" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_AFFINITY_BOOSTER" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFDB3445"/>
+        <GradientStop Color="#FFF71735" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="COLOR_ASSASSINS_HOOD" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFF5F7FA"/>
+        <GradientStop Color="#FFB8C6DB" Offset="1"/>
+    </LinearGradientBrush>
     
     <!-- Ailments -->
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_UNKNOWN">#FF73ABEE</SolidColorBrush>
