@@ -13,6 +13,8 @@ namespace HunterPie.GUI.Parts
         public HeaderBar()
         {
             InitializeComponent();
+
+            ViewModel.FetchSupporterStatus();
         }
 
         private void OnCloseButtonClick(object sender, EventArgs e) => ViewModel.CloseApplication();

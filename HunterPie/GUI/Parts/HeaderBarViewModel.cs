@@ -1,4 +1,6 @@
-﻿using HunterPie.Core.Architecture;
+﻿using HunterPie.Core.API;
+using HunterPie.Core.API.Schemas;
+using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
 using System;
 using System.Reflection;
@@ -9,7 +11,10 @@ namespace HunterPie.GUI.Parts
 {
     public class HeaderBarViewModel : Bindable
     {
-        
+
+        private bool _isSupporter;
+        private bool _isFetchingSupporter;
+
         public string Version
         {
             get
@@ -21,6 +26,9 @@ namespace HunterPie.GUI.Parts
                 return $"v{ver}";
             }
         }
+
+        public bool IsSupporter { get => _isSupporter; set { SetValue(ref _isSupporter, value); } }
+        public bool IsFetchingSupporter { get => _isFetchingSupporter; set { SetValue(ref _isFetchingSupporter, value); } }
 
         public Visibility IsRunningAsAdmin => GetAdminState()
                                               ? Visibility.Visible
@@ -34,6 +42,17 @@ namespace HunterPie.GUI.Parts
             {
                 Application.Current.MainWindow.Hide();
             }
+        }
+
+        public async void FetchSupporterStatus()
+        {
+            IsFetchingSupporter = true;
+
+            SupporterValidationResSchema res = await PoogieApi.ValidateSupporterToken();
+
+            IsSupporter = res?.IsValid ?? false;
+
+            IsFetchingSupporter = false;
         }
 
         public void CloseApplication()
