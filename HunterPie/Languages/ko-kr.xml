@@ -486,6 +486,9 @@
 			<Setting Id="CHAT_WIDGET_STRING"
 					 String="채팅 위젯"
 					 Description="채팅 위젯 설정"/>
+			<Setting Id="SPECIALIZED_TOOL_WIDGET_STRING"
+					 String="특수 장비 위젯"
+					 Description="특수 장비 위젯 설정"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="개발자 도구"
 					 Description="심화 개발 도구"/>
