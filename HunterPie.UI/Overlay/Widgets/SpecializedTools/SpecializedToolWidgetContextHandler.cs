@@ -3,6 +3,7 @@ using HunterPie.Core.Game;
 using HunterPie.Core.Game.Client;
 using HunterPie.UI.Overlay.Widgets.SpecializedTools.ViewModels;
 using HunterPie.UI.Overlay.Widgets.SpecializedTools.Views;
+using System;
 
 namespace HunterPie.UI.Overlay.Widgets.SpecializedTools
 {
@@ -32,6 +33,8 @@ namespace HunterPie.UI.Overlay.Widgets.SpecializedTools
 
         public void HookEvents()
         {
+            Context.Game.Player.OnVillageEnter += OnVillageEnter;
+            Context.Game.Player.OnVillageLeave += OnVillageLeave;
             ToolContext.OnChange += OnChange;
             ToolContext.OnCooldownUpdate += OnCooldownUpdate;
             ToolContext.OnTimerUpdate += OnTimerUpdate;
@@ -39,6 +42,8 @@ namespace HunterPie.UI.Overlay.Widgets.SpecializedTools
 
         public void UnhookEvents()
         {
+            Context.Game.Player.OnVillageEnter -= OnVillageEnter;
+            Context.Game.Player.OnVillageLeave -= OnVillageLeave;
             ToolContext.OnChange -= OnChange;
             ToolContext.OnCooldownUpdate -= OnCooldownUpdate;
             ToolContext.OnTimerUpdate -= OnTimerUpdate;
@@ -46,6 +51,7 @@ namespace HunterPie.UI.Overlay.Widgets.SpecializedTools
 
         private void UpdateData()
         {
+            ViewModel.ShouldBeVisible = Context.Game.Player.InHuntingZone;
             ViewModel.Id = ToolContext.Id;
             ViewModel.MaxCooldown = ToolContext.MaxCooldown;
             ViewModel.Cooldown = ToolContext.MaxCooldown - ToolContext.Cooldown;
@@ -55,6 +61,16 @@ namespace HunterPie.UI.Overlay.Widgets.SpecializedTools
         }
 
         #region Event handlers
+        private void OnVillageEnter(object sender, EventArgs e)
+        {
+            ViewModel.ShouldBeVisible = false;
+        }
+
+        private void OnVillageLeave(object sender, EventArgs e)
+        {
+            ViewModel.ShouldBeVisible = true;
+        }
+
         private void OnTimerUpdate(object sender, ISpecializedTool e)
         {
             ViewModel.MaxTimer = e.MaxTimer;

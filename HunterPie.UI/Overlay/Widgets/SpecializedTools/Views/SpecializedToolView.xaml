@@ -19,8 +19,9 @@
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:ReverseSecondsToTimeStringConverter x:Key="ReverseSecondsToTimeStringConverter"/>
         <converters:TimerToSizeConverter x:Key="TimerToSizeConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
-    <Grid>
+    <Grid Visibility="{Binding ShouldBeVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
         <Rectangle Fill="{StaticResource GRAY_200}"
                    Stroke="{StaticResource GRAY_600}"
                    StrokeThickness="2"

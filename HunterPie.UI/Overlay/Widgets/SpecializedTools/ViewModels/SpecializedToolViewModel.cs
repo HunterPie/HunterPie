@@ -11,6 +11,7 @@ namespace HunterPie.UI.Overlay.Widgets.SpecializedTools.ViewModels
         private double _cooldown;
         private double _maxCooldown;
         private bool _isRecharging;
+        private bool _shouldBeVisible;
 
         public SpecializedToolType Id { get => _id; set { SetValue(ref _id, value); } }
         public double Timer { get => _timer; set { SetValue(ref _timer, value); } }
@@ -18,5 +19,6 @@ namespace HunterPie.UI.Overlay.Widgets.SpecializedTools.ViewModels
         public double Cooldown { get => _cooldown; set { SetValue(ref _cooldown, value); } }
         public double MaxCooldown { get => _maxCooldown; set { SetValue(ref _maxCooldown, value); } }
         public bool IsRecharging { get => _isRecharging; set { SetValue(ref _isRecharging, value); } }
+        public bool ShouldBeVisible { get => _shouldBeVisible; set { SetValue(ref _shouldBeVisible, value); } }
     }
 }
