@@ -4,16 +4,13 @@ using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.World.Definitions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HunterPie.Core.Game.World.Entities
 {
     public class MHWMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHWMonsterPartStructure>
     {
         private float _flinch;
+        private float _sever;
         private int _count;
 
         public string Id { get; }
@@ -37,9 +34,20 @@ namespace HunterPie.Core.Game.World.Entities
 
         public float MaxFlinch { get; private set; }
 
-        public float Sever => 0;
+        public float Sever
+        {
+            get => _sever;
+            private set
+            {
+                if (value != _sever)
+                {
+                    _sever = value;
+                    this.Dispatch(OnSeverUpdate, this);
+                }
+            }
+        }
 
-        public float MaxSever => 0;
+        public float MaxSever { get; private set; }
 
         public float Tenderize => throw new NotImplementedException();
 
@@ -64,17 +72,33 @@ namespace HunterPie.Core.Game.World.Entities
         public event EventHandler<IMonsterPart> OnSeverUpdate;
         public event EventHandler<IMonsterPart> OnBreakCountUpdate;
 
-        public MHWMonsterPart(string id)
+        public MHWMonsterPart(string id, bool isSeverable)
         {
             Id = id;
 
-            Type = PartType.Flinch;
+            Type = isSeverable ? PartType.Severable : PartType.Flinch;
         }
 
         void IUpdatable<MHWMonsterPartStructure>.Update(MHWMonsterPartStructure data)
         {
-            Flinch = data.Health;
-            MaxFlinch = data.MaxHealth;
+            switch (Type)
+            {
+                case PartType.Severable:
+                    {
+                        MaxSever = data.MaxHealth;
+                        Sever = data.Health;
+                    }
+                    break;
+                case PartType.Flinch:
+                    {
+                        MaxFlinch = data.MaxHealth;
+                        Flinch = data.Health;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            
             Count = data.Counter;
         }
     }
