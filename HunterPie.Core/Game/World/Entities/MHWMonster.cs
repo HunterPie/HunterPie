@@ -311,7 +311,7 @@ namespace HunterPie.Core.Game.World.Entities
 
                         if (partStructure.Index == partSchema.Id && partStructure.MaxHealth > 0)
                         {
-                            MHWMonsterPart newPart = new(partSchema.String);
+                            MHWMonsterPart newPart = new(partSchema.String, partSchema.IsSeverable);
                             _parts[pIndex] = (monsterSeverableAddress, newPart);
 
                             this.Dispatch(OnNewPartFound, newPart);
@@ -331,7 +331,7 @@ namespace HunterPie.Core.Game.World.Entities
                     long address = monsterPartAddress + (normalPartIndex * 0x1F8);
                     partStructure = _process.Memory.Read<MHWMonsterPartStructure>(address);
 
-                    MHWMonsterPart newPart = new(partSchema.String);
+                    MHWMonsterPart newPart = new(partSchema.String, partSchema.IsSeverable);
 
                     _parts[pIndex] = (address, newPart);
 

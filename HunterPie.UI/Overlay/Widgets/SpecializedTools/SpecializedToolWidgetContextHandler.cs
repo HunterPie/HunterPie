@@ -58,6 +58,9 @@ namespace HunterPie.UI.Overlay.Widgets.SpecializedTools
             ViewModel.Timer = ToolContext.Timer;
             ViewModel.MaxTimer = ToolContext.MaxTimer;
             ViewModel.IsRecharging = ViewModel.Cooldown > 0 && ViewModel.Timer == 0;
+
+            if (ViewModel.Cooldown == 0 && ViewModel.Timer == 0)
+                ViewModel.Timer = ViewModel.MaxTimer;
         }
 
         #region Event handlers
