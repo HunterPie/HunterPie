@@ -21,14 +21,16 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         {
             Context.OnHealthUpdate += OnHealthUpdate;
             Context.OnFlinchUpdate += OnFlinchUpdate;
+            Context.OnTenderizeUpdate += OnTenderizeUpdate;
             Context.OnSeverUpdate += OnSeverUpdate;
             Context.OnBreakCountUpdate += OnBreakCountUpdate;
         }
-        
+
         private void UnhookEvents()
         {
             Context.OnHealthUpdate -= OnHealthUpdate;
             Context.OnFlinchUpdate -= OnFlinchUpdate;
+            Context.OnTenderizeUpdate -= OnTenderizeUpdate;
             Context.OnSeverUpdate -= OnSeverUpdate;
             Context.OnBreakCountUpdate -= OnBreakCountUpdate;
         }
@@ -41,6 +43,11 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             IsPartSevered = MaxSever == Sever && (Breaks > 0 || Flinch != MaxFlinch);
         }
 
+        private void OnTenderizeUpdate(object sender, IMonsterPart e)
+        {
+            Tenderize = e.Tenderize;
+            MaxTenderize = e.MaxTenderize;
+        }
 
         private void OnBreakCountUpdate(object sender, IMonsterPart e)
         {

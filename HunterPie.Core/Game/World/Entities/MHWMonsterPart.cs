@@ -4,14 +4,22 @@ using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.World.Definitions;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace HunterPie.Core.Game.World.Entities
 {
-    public class MHWMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHWMonsterPartStructure>
+    public class MHWMonsterPart : 
+        IMonsterPart, IEventDispatcher, 
+        IUpdatable<MHWMonsterPartStructure>,
+        IUpdatable<MHWTenderizeInfoStructure>
     {
         private float _flinch;
         private float _sever;
+        private float _tenderize;
         private int _count;
+        private readonly HashSet<uint> _tenderizeIds;
+
 
         public string Id { get; }
 
@@ -49,7 +57,18 @@ namespace HunterPie.Core.Game.World.Entities
 
         public float MaxSever { get; private set; }
 
-        public float Tenderize => throw new NotImplementedException();
+        public float Tenderize
+        {
+            get => _tenderize;
+            private set
+            {
+                if (value != _tenderize)
+                {
+                    _tenderize = value;
+                    this.Dispatch(OnTenderizeUpdate, this);
+                }
+            }
+        }
 
         public float MaxTenderize { get; private set; }
         public int Count
@@ -72,11 +91,21 @@ namespace HunterPie.Core.Game.World.Entities
         public event EventHandler<IMonsterPart> OnSeverUpdate;
         public event EventHandler<IMonsterPart> OnBreakCountUpdate;
 
-        public MHWMonsterPart(string id, bool isSeverable)
+        public MHWMonsterPart(
+            string id, 
+            bool isSeverable,
+            uint[] tenderizeIds
+        )
         {
             Id = id;
 
             Type = isSeverable ? PartType.Severable : PartType.Flinch;
+            _tenderizeIds = tenderizeIds.ToHashSet();
+        }
+
+        public bool HasTenderizeId(uint id)
+        {
+            return _tenderizeIds.Contains(id);
         }
 
         void IUpdatable<MHWMonsterPartStructure>.Update(MHWMonsterPartStructure data)
@@ -100,6 +129,12 @@ namespace HunterPie.Core.Game.World.Entities
             }
             
             Count = data.Counter;
+        }
+
+        void IUpdatable<MHWTenderizeInfoStructure>.Update(MHWTenderizeInfoStructure data)
+        {
+            Tenderize = data.Duration;
+            MaxTenderize = data.MaxDuration;
         }
     }
 }
