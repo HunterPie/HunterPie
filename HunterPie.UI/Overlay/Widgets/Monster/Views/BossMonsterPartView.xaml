@@ -14,8 +14,8 @@
         <converters:MonsterPartIdToNameConverter x:Key="MonsterPartIdToNameConverter"/>
 
         <LinearGradientBrush x:Key="MonsterTenderizeBar" EndPoint="1,1" StartPoint="0,1">
-            <GradientStop Color="#FFFB6C36"/>
-            <GradientStop Color="#FFFFD100" Offset="1"/>
+            <GradientStop Color="#FF03E5B7"/>
+            <GradientStop Color="#FF69F3D7" Offset="1"/>
         </LinearGradientBrush>
         <SolidColorBrush x:Key="MonsterTenderizeBarDelayed" Color="#FFFFDB9C"/>
     </UserControl.Resources>

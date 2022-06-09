@@ -45,7 +45,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
 
         private void OnTenderizeUpdate(object sender, IMonsterPart e)
         {
-            Tenderize = e.Tenderize;
+            Tenderize = e.MaxTenderize - e.Tenderize;
             MaxTenderize = e.MaxTenderize;
         }
 
