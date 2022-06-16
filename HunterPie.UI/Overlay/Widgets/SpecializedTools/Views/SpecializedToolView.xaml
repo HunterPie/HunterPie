@@ -41,10 +41,11 @@
                    Height="35"
                    Margin="0,0,4.5,20">
             <Rectangle.OpacityMask>
-                <ImageBrush ImageSource="{Binding Id, Converter={StaticResource SpecializedToolTypeToIconConverter}}"/>
+                <ImageBrush ImageSource="{Binding Id, Converter={StaticResource SpecializedToolTypeToIconConverter}}"
+                            d:ImageSource="{StaticResource ICON_MANTLE}"/>
             </Rectangle.OpacityMask>
         </Rectangle>
-        <Canvas d:Height="70"
+        <Canvas d:Height="45"
                 VerticalAlignment="Bottom"
                 ClipToBounds="True" 
                 RenderTransformOrigin="0.5,0.5">
@@ -54,6 +55,7 @@
                 </TransformGroup>
             </Canvas.RenderTransform>
             <Rectangle Fill="{Binding Id, Converter={StaticResource SpecializedToolToColorConverter}}"
+                       d:Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"
                        Opacity="0.3"
                        StrokeThickness="0"
                        RenderTransformOrigin="0.5,0.5"
@@ -80,7 +82,8 @@
                        Canvas.Top="55"
                        Canvas.Left="54.75">
                 <Rectangle.OpacityMask>
-                    <ImageBrush ImageSource="{Binding Id, Converter={StaticResource SpecializedToolTypeToIconConverter}}"/>
+                    <ImageBrush ImageSource="{Binding Id, Converter={StaticResource SpecializedToolTypeToIconConverter}}"
+                                d:ImageSource="{StaticResource ICON_MANTLE}"/>
                 </Rectangle.OpacityMask>
                 <Rectangle.RenderTransform>
                     <TransformGroup>
