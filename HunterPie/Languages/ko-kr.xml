@@ -486,6 +486,9 @@
 			<Setting Id="CHAT_WIDGET_STRING"
 					 String="채팅 위젯"
 					 Description="채팅 위젯 설정"/>
+			<Setting Id="SPECIALIZED_TOOL_WIDGET_STRING"
+					 String="특수 장비 위젯"
+					 Description="특수 장비 위젯 설정"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="개발자 도구"
 					 Description="심화 개발 도구"/>
@@ -689,8 +692,14 @@
 					 String="개발자: 모의 동반자 활동 위젯"/>
 			<Setting Id="DEV_MOCK_CHAT_WIDGET_STRING"
 					 String="개발자: 모의 채팅 위젯"/>
+			<Setting Id="DEV_MOCK_SPECIALIZED_TOOL_WIDGET_STRING"
+					 String="개발자: 모의 특수 장비 위젯"/>
 			<Setting Id="DEV_POOGIE_API_HOST_STRING"
 					 String="개발자: Poogie API 호스트"/>
+			<Setting Id="DEV_LOG_LEVEL"
+					 String="개발자: 로그 레벨"/>
+			<Setting Id="DEV_PRESENTATION_TRACER_LEVEL"
+					 String="개발자: UI 렌더링 트레이서 레벨"/>
 		</Settings>
 	</Client>
 </Strings>
