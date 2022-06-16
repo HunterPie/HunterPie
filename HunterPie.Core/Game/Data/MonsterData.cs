@@ -1,6 +1,8 @@
 ﻿using HunterPie.Core.Game.Data.Schemas;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Xml;
 
 namespace HunterPie.Core.Game.Data
@@ -53,6 +55,7 @@ namespace HunterPie.Core.Game.Data
                     {
                         Id = int.Parse(parts[j].Attributes["Id"].Value),
                         String = parts[j].Attributes["String"].Value,
+                        TenderizeIds = ParseTenderizeIds(parts[j].Attributes["TenderizeIds"]?.Value)
                     };
 
                     bool.TryParse(parts[j].Attributes["IsSeverable"]?.Value, out partsArray[j].IsSeverable);
@@ -72,6 +75,16 @@ namespace HunterPie.Core.Game.Data
 
                 i++;
             }
+        }
+
+        private static uint[] ParseTenderizeIds(string? tenderizeIds)
+        {
+            if (tenderizeIds is not null)
+                return tenderizeIds.Split(',')
+                                   .Select(id => uint.Parse(id))
+                                   .ToArray();
+
+            return Array.Empty<uint>();
         }
 
         private static MonsterSizeSchema ParseSize(XmlNode monster)

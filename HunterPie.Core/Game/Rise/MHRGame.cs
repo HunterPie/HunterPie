@@ -119,9 +119,9 @@ namespace HunterPie.Core.Game.Rise
         [ScannableMethod]
         private void ScanUIState()
         {
-            int isHudOpen = _process.Memory.Deref<int>(
-                AddressMap.GetAbsolute("UI_ADDRESS"),
-                AddressMap.Get<int[]>("UI_OPEN_OFFSETS")
+            byte isHudOpen = _process.Memory.Deref<byte>(
+                AddressMap.GetAbsolute("MOUSE_ADDRESS"),
+                AddressMap.Get<int[]>("MOUSE_OFFSETS")
             );
 
             IsHudOpen = isHudOpen == 1;

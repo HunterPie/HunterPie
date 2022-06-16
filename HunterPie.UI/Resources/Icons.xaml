@@ -393,7 +393,24 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
-
+    
+    <DrawingImage x:Key="ICON_METER">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M352,144L464,144 464,256">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}" Thickness="32" StartLineCap="Square" EndLineCap="Square" LineJoin="Miter" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M48,368L192,224 288,320 448,160">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{StaticResource HUNTERPIE_FOREGROUND_DARK}" Thickness="32" StartLineCap="Square" EndLineCap="Square" LineJoin="Miter" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    
     <DrawingImage x:Key="ICON_STATISTICS">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
