@@ -311,7 +311,11 @@ namespace HunterPie.Core.Game.World.Entities
 
                         if (partStructure.Index == partSchema.Id && partStructure.MaxHealth > 0)
                         {
-                            MHWMonsterPart newPart = new(partSchema.String);
+                            MHWMonsterPart newPart = new(
+                                partSchema.String, 
+                                partSchema.IsSeverable, 
+                                partSchema.TenderizeIds
+                            );
                             _parts[pIndex] = (monsterSeverableAddress, newPart);
 
                             this.Dispatch(OnNewPartFound, newPart);
@@ -331,7 +335,11 @@ namespace HunterPie.Core.Game.World.Entities
                     long address = monsterPartAddress + (normalPartIndex * 0x1F8);
                     partStructure = _process.Memory.Read<MHWMonsterPartStructure>(address);
 
-                    MHWMonsterPart newPart = new(partSchema.String);
+                    MHWMonsterPart newPart = new(
+                        partSchema.String,
+                        partSchema.IsSeverable,
+                        partSchema.TenderizeIds
+                    );
 
                     _parts[pIndex] = (address, newPart);
 
@@ -342,6 +350,28 @@ namespace HunterPie.Core.Game.World.Entities
 
                 updatable = _parts[pIndex].Item2;
                 updatable.Update(partStructure);
+            }
+        }
+
+        [ScannableMethod]
+        private void GetMonsterPartTenderizes()
+        {
+            MHWTenderizeInfoStructure[] tenderizeInfos = _process.Memory.Read<MHWTenderizeInfoStructure>(
+                _address + 0x1C458,
+                10
+            );
+
+            foreach (MHWTenderizeInfoStructure tenderizeInfo in tenderizeInfos)
+            {
+                if (tenderizeInfo.PartId == uint.MaxValue)
+                    continue;
+
+                var parts = _parts.Select(p => p.Item2)
+                                  .Where(p => p.HasTenderizeId(tenderizeInfo.PartId))
+                                  .ToArray();
+
+                foreach (IUpdatable<MHWTenderizeInfoStructure> part in parts)
+                    part.Update(tenderizeInfo);
             }
         }
 

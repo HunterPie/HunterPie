@@ -8,6 +8,8 @@ namespace HunterPie.Core.Client
 {
     public static class ClientConfigHelper
     {
+        public delegate T OverlayConfigDeferDelegate<T>(OverlayConfig config);
+
         public static OverlayConfig GetOverlayConfigFrom(GameProcess game)
         {
             return game switch
@@ -16,6 +18,13 @@ namespace HunterPie.Core.Client
                 GameProcess.MonsterHunterWorld => ClientConfig.Config.World.Overlay,
                 _ => throw new NotImplementedException(),
             };
+        }
+
+        public static T DeferOverlayConfig<T>(GameProcess game, OverlayConfigDeferDelegate<T> deferDelegate)
+        {
+            OverlayConfig config = GetOverlayConfigFrom(game);
+
+            return deferDelegate(config);
         }
 
         public static DiscordRichPresence GetDiscordRichPresenceConfigFrom(GameProcess game)

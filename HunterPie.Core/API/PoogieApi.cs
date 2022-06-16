@@ -2,6 +2,7 @@
 using HunterPie.Core.Client;
 using HunterPie.Core.Http;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace HunterPie.Core.API
@@ -12,17 +13,19 @@ namespace HunterPie.Core.API
         const string VERSION_PATH = "/v1/version";
         const string CRASH_PATH = "/v1/report/crash";
         const string SESSION_PATH = "/v1/session";
+        const string SUPPORTER_PATH = "/v1/supporter";
 
         const string SUPPORTER_HEADER = "X-Supporter-Token";
 
         const double DEFAULT_TIMEOUT = 10;
+        static private readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(DEFAULT_TIMEOUT);
 
         public static async Task<VersionResSchema?> GetLatestVersion()
         {
             using Poogie request = PoogieFactory.Default()
                 .Get(VERSION_PATH)
                 .WithHeader(SUPPORTER_HEADER, ClientConfig.Config.Client.SupporterSecretToken)
-                .WithTimeout(TimeSpan.FromSeconds(DEFAULT_TIMEOUT))
+                .WithTimeout(DefaultTimeout)
                 .Build();
 
             using PoogieResponse resp = await request.RequestAsync();
@@ -41,7 +44,7 @@ namespace HunterPie.Core.API
         {
             using Poogie request = PoogieFactory.Default()
                 .Get(SESSION_PATH)
-                .WithTimeout(TimeSpan.FromSeconds(DEFAULT_TIMEOUT))
+                .WithTimeout(DefaultTimeout)
                 .Build();
 
             using PoogieResponse resp = await request.RequestAsync();
@@ -53,6 +56,26 @@ namespace HunterPie.Core.API
                 return null;
 
             SessionResSchema schema = await resp.AsJson<SessionResSchema>();
+            return schema;
+        }
+
+        public static async Task<SupporterValidationResSchema?> ValidateSupporterToken()
+        {
+            using Poogie request = PoogieFactory.Default()
+                .Get(SUPPORTER_PATH + "/verify")
+                .WithHeader(SUPPORTER_HEADER, ClientConfig.Config.Client.SupporterSecretToken)
+                .WithTimeout(DefaultTimeout)
+                .Build();
+
+            using PoogieResponse resp = await request.RequestAsync();
+
+            if (!resp.Success)
+                return null;
+
+            if (resp.Status >= HttpStatusCode.BadRequest)
+                return null;
+
+            SupporterValidationResSchema schema = await resp.AsJson<SupporterValidationResSchema>();
             return schema;
         }
     }

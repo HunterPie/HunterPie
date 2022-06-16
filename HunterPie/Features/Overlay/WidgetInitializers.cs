@@ -13,6 +13,7 @@ namespace HunterPie.Features.Overlay
             new ActivitiesWidgetInitializer(),
             new ChatWidgetInitializer(),
             new DamageWidgetInitializer(),
+            new SpecializedToolWidgetInitializer(),
         };
 
         public static void Initialize(Context context)

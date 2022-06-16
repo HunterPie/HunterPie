@@ -1,4 +1,5 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿
+    <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <DrawingImage x:Key="ICON_MEAT">
         <DrawingImage.Drawing>
@@ -99,20 +100,6 @@
         </DrawingImage.Drawing>
     </DrawingImage>
     <!-- Abnormalities -->
-    <DrawingImage x:Key="ICON_MANTLE">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">
-                <DrawingGroup Opacity="1" Transform="1,0,0,1,-384,-64">
-                    <DrawingGroup Opacity="1" Transform="0.5,0,0,0.375,0,0">
-                        <DrawingGroup Opacity="1" Transform="2,0,0,2.66667,-256,-1877.33">
-                            <GeometryDrawing Brush="#FFA9A9A8" Geometry="F0 M64,64z M0,0z M527.5,810L521,826 567,826 556,810 553,813 547.5,808 542,813 536.5,808 531,813 527.5,810z M531,796L550,796 556,806 552.5,810 547.5,805 542,809 536.5,805 531,809 527,805 531,796z M541,774L547,774 559,783.5 547,793 541,793 541,774z" />
-                            <GeometryDrawing Brush="#FFFFFFFF" Geometry="F0 M64,64z M0,0z M531,817L535,824 527,824 531,817z M543.5,817L547.5,824 539.5,824 543.5,817z M556,817L560,824 552,824 556,817z M537.5,793C539,793,539,792,539,792L539,776C539,775 539,774 534.5,774 530,774 530,775 530,776L530,792C530,792 530,793 531,793 532,793 532,792 532,792L532,779C532,778 532,777 534,777 536,777 536,778 536,779L536,792C536,792,536,793,537.5,793z" />
-                        </DrawingGroup>
-                    </DrawingGroup>
-                </DrawingGroup>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
     <DrawingImage x:Key="ICON_BOOSTER_RED">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">

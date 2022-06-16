@@ -486,6 +486,9 @@
 			<Setting Id="CHAT_WIDGET_STRING"
 					 String="Chat Widget"
 					 Description="Chat Widget configurations"/>
+			<Setting Id="SPECIALIZED_TOOL_WIDGET_STRING"
+					 String="Specialized Tool Widget"
+					 Description="Specialized Tool Widget configurations"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="Dev Tools"
 					 Description="Advanced development tools"/>
@@ -689,8 +692,14 @@
 					 String="Developer: Mock Activities widget"/>
 			<Setting Id="DEV_MOCK_CHAT_WIDGET_STRING"
 					 String="Developer: Mock Chat widget"/>
+			<Setting Id="DEV_MOCK_SPECIALIZED_TOOL_WIDGET_STRING"
+					 String="Developer: Mock Specialized Tool widget"/>
 			<Setting Id="DEV_POOGIE_API_HOST_STRING"
 					 String="Developer: Poogie API Host"/>
+			<Setting Id="DEV_LOG_LEVEL"
+					 String="Developer: Log level"/>
+			<Setting Id="DEV_PRESENTATION_TRACER_LEVEL"
+					 String="Developer: UI rendering tracer level"/>
 		</Settings>
 	</Client>
 </Strings>

@@ -39,7 +39,7 @@
                                                   Text="{Binding Name}"
                                                   Description="{Binding Description}"
                                                   Visibility="{Binding Match, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                  Margin="0,3,0,3"
+                                                  Margin="5,3,5,3"
                                                   Height="45"
                                                   HorizontalAlignment="Stretch"/>
                     </DataTemplate>

@@ -16,7 +16,7 @@ namespace HunterPie.UI.Architecture.Converters
             Thickness border = (Thickness)values[3];
             double sides = border.Left + border.Right;
 
-            double width = maxWidth * (currentValue / maxValue) - sides;
+            double width = maxWidth * (currentValue / Math.Max(maxValue, 1)) - sides;
             return Math.Max(1.0, width);
         }
 

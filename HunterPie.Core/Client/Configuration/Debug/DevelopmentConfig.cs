@@ -3,7 +3,6 @@ using HunterPie.Core.Domain.Constants;
 using HunterPie.Core.Architecture;
 using HunterPie.Core.Client.Configuration.Enums;
 using System.Diagnostics;
-using HunterPie.Core.Client.Configuration.Overlay;
 
 namespace HunterPie.Core.Client.Configuration.Debug
 {
@@ -27,7 +26,10 @@ namespace HunterPie.Core.Client.Configuration.Debug
 
         [SettingField("DEV_MOCK_CHAT_WIDGET_STRING", requiresRestart: true)]
         public Observable<bool> MockChatWidget { get; set; } = false;
-        
+
+        [SettingField("DEV_MOCK_SPECIALIZED_TOOL_WIDGET_STRING", requiresRestart: true)]
+        public Observable<bool> MockSpecializedToolWidget { get; set; } = false;
+
         [SettingField("DEV_POOGIE_API_HOST_STRING")]
         public Observable<string> PoogieApiHost { get; set; } = "";
 

@@ -39,6 +39,40 @@
                      FontSize="12"/>
             </TextBlock>
         </StackPanel>
+
+        
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <ContentControl>
+                
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsSupporter}"
+                                         Value="True">
+                                <DataTrigger.Setters>
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Opacity="0.5">
+                                                <Image Source="{StaticResource ICON_SUPPORTER_TIER_1}"
+                                                       Height="20"/>
+                                                <TextBlock Text="Supporter"
+                                                           Foreground="{StaticResource WHITE_500}"
+                                                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                                           VerticalAlignment="Center"
+                                                           Margin="5,0,0,0"
+                                                           FontWeight="Medium"/>
+                                            </StackPanel>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger.Setters>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
+        </StackPanel>
         
         <!-- Right container -->
         <StackPanel HorizontalAlignment="Right"
