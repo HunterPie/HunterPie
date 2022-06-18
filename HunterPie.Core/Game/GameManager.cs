@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Game.Data;
+using HunterPie.Core.Game.Demos.Sunbreak;
 using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Game.World;
 using System;
@@ -21,6 +22,8 @@ namespace HunterPie.Core.Game
                     return new MHWContext(process);
                 case "MonsterHunterRise":
                     return new MHRContext(process);
+                case "MHRiseSunbreakDemo":
+                    return new MHRSunbreakDemoContext(process);
                 default:
                     throw new Exception("Game context not implemented");
             }
@@ -36,6 +39,7 @@ namespace HunterPie.Core.Game
                     AbnormalityData.Init(ClientInfo.GetPathFor("Game/World/Data/AbnormalityData.xml"));
                     return true;
                 case "MonsterHunterRise":
+                case "MHRiseSunbreakDemo":
                     MonsterData.Init(ClientInfo.GetPathFor("Game/Rise/Data/MonsterData.xml"));
                     AbnormalityData.Init(ClientInfo.GetPathFor("Game/Rise/Data/AbnormalityData.xml"));
                     return true;

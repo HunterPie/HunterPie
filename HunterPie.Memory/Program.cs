@@ -29,7 +29,7 @@ namespace HunterPie.Memory
                 new("BUDDY_ADDRESS", "48 8B 05 ?? ?? ?? ?? 32 C9 48 8B 80 A8 00 00 00", 3),
             }.Compile();
 
-            Scanner.Create("MonsterHunterRise")
+            Scanner.Create("MHRiseSunbreakDemo")
                 .WithSignatures(mhrSignatures)
                 .FindProcess()
                 .GetMemory()
