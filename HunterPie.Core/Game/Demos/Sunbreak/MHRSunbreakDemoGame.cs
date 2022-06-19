@@ -5,6 +5,7 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Demos.Sunbreak.Entities.Monster;
+using HunterPie.Core.Game.Demos.Sunbreak.Entities.Player;
 using HunterPie.Core.Game.Environment;
 using System;
 using System.Collections.Generic;
@@ -19,11 +20,12 @@ namespace HunterPie.Core.Game.Demos.Sunbreak
         public const uint MAXIMUM_MONSTER_ARRAY_SIZE = 5;
 
         // TODO: Could probably turn this into a bit mask with 256 bits
-        private readonly HashSet<int> MonsterAreas = new() { 5, 201, 202, 203, 204, 205, 207, 209, 210, 211 };
+        private readonly HashSet<int> MonsterAreas = new() { 5, 201, 202, 203, 204, 205, 207, 209, 210, 211, 212 };
+        private readonly MHRSunbreakDemoPlayer _player;
 
         public static readonly int[] VillageStages = { 0, 1, 2, 3, 4, 5 };
 
-        public IPlayer Player { get; }
+        public IPlayer Player => _player;
         public List<IMonster> Monsters { get; } = new();
 
         public IChat Chat => throw new NotImplementedException();
@@ -44,21 +46,23 @@ namespace HunterPie.Core.Game.Demos.Sunbreak
 
         public MHRSunbreakDemoGame(IProcessManager process) : base(process) 
         {
-            ScanManager.Add(this);
+            _player = new(process);
+
+            ScanManager.Add(_player, this);
         }
 
         [ScannableMethod]
         private void ScanMonstersArray()
         {
             // Only scans for monsters in hunting areas
-            /*if (!MonsterAreas.Contains(Player.StageId))
+            if (!MonsterAreas.Contains(Player.StageId))
             { 
                 if (monsters.Keys.Count > 0)
                     foreach (long mAddress in monsters.Keys)
                         HandleMonsterDespawn(mAddress);
 
                 return;
-            }*/
+            }
 
             long address = _process.Memory.Read(
                 AddressMap.GetAbsolute("MONSTERS_ADDRESS"),

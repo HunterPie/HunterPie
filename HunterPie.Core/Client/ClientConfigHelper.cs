@@ -14,7 +14,9 @@ namespace HunterPie.Core.Client
         {
             return game switch
             {
+                GameProcess.MonsterHunterRiseSunbreakDemo or
                 GameProcess.MonsterHunterRise => ClientConfig.Config.Rise.Overlay,
+
                 GameProcess.MonsterHunterWorld => ClientConfig.Config.World.Overlay,
                 _ => throw new NotImplementedException(),
             };
@@ -41,7 +43,9 @@ namespace HunterPie.Core.Client
         {
             return game switch
             {
+                GameProcess.MonsterHunterRiseSunbreakDemo or
                 GameProcess.MonsterHunterRise => ClientConfig.Config.Rise,
+
                 GameProcess.MonsterHunterWorld => ClientConfig.Config.World,
                 _ => throw new NotImplementedException(),
             };

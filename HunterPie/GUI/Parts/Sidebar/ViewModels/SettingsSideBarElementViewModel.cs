@@ -1,6 +1,4 @@
 ﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Enums;
-using HunterPie.Core.Domain.Enums;
 using HunterPie.GUI.Parts.Host;
 using HunterPie.Internal.Initializers;
 using HunterPie.UI.Assets.Application;

@@ -20,7 +20,7 @@ namespace HunterPie.Core.Game.Rise.Data
             string query = $"//Strings/Monsters/Rise/Monster[@Id='{id}']";
             XmlNode monster = Localization.Query(query);
 
-            return monster?.Attributes["String"]?.Value ?? "Unknown";
+            return monster?.Attributes["String"]?.Value ?? $"Unknown [id: {id}]";
         }
 
         public string GetStageNameById(int id)

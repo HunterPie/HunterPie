@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Game;
+using HunterPie.Core.Game.Demos.Sunbreak;
 using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Game.World;
 using HunterPie.Core.System;
@@ -25,6 +26,7 @@ namespace HunterPie.Features.Overlay
             {
                 MHRContext ctx => new RiseActivitiesWidgetContextHandler(ctx),
                 MHWContext ctx => null,
+                MHRSunbreakDemoContext => null,
                 _ => throw new NotImplementedException("unreachable")
             };
         }
