@@ -363,6 +363,7 @@
 			<Stage Id="209" String="Infernal Springs"/>
 			<Stage Id="210" String="Arena"/>
 			<Stage Id="211" String="Coral Palace"/>
+			<Stage Id="212" String="Jungle"/>
 		</Rise>
 		<World>
 			<Stage Id="0" String="Main Menu"/>

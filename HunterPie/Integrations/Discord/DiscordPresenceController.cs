@@ -15,7 +15,7 @@ namespace HunterPie.Integrations.Discord
             {
                 MHWContext ctx => new WorldRichPresence(ctx),
                 MHRContext ctx => new RiseRichPresence(ctx),
-                MHRSunbreakDemoContext => null,
+                MHRSunbreakDemoContext ctx => new RiseSunbreakDemoRichPresence(ctx),
                 _ => throw new NotImplementedException("unreachable")
             };
         }

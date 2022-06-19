@@ -4,7 +4,7 @@ using HunterPie.Core.Settings;
 
 namespace HunterPie.Core.Client.Configuration.Integrations
 {
-    [SettingsGroup("DISCORD_RPC_STRING", "ICON_RPC", availableGames: GameProcess.MonsterHunterWorld | GameProcess.MonsterHunterRise)]
+    [SettingsGroup("DISCORD_RPC_STRING", "ICON_RPC", availableGames: GameProcess.MonsterHunterWorld | GameProcess.MonsterHunterRise | GameProcess.MonsterHunterRiseSunbreakDemo)]
     public class DiscordRichPresence : ISettings
     {
         [SettingField("DRPC_ENABLE_RICH_PRESENCE")]

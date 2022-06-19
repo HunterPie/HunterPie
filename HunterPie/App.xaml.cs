@@ -147,7 +147,7 @@ namespace HunterPie
             Log.Debug("Initialized game context");
             _context = context;
 
-            //HookEvents();
+            HookEvents();
             _richPresence = DiscordPresenceController.GetPresenceBy(context);
 
             WidgetManager.Hook(context);
