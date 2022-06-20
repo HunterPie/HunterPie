@@ -50,7 +50,7 @@ namespace HunterPie.Integrations.Discord
                     .Replace("{Monster}", targetMonster.Name)
                     .Replace("{Percentage}", $"{targetMonster.Health / targetMonster.MaxHealth * 100:0}");
             }
-            Log.Info(game.Player.StageId.ToString());
+
             Presence.WithDetails(description)
                 .WithAssets(new Assets()
                 {
@@ -63,11 +63,7 @@ namespace HunterPie.Integrations.Discord
                             .Replace("{Character}", game.Player.Name)
                             .Replace("{HighRank}", game.Player.HighRank.ToString())
                         : null,
-                    SmallImageKey = game.Player.WeaponId switch
-                    {
-                        Weapon.None => null,
-                        _ => Enum.GetName(typeof(Weapon), game.Player.WeaponId)?.ToLower() ?? "unknown",
-                    }
+                    SmallImageKey = "unknown"
                 });
 
         }

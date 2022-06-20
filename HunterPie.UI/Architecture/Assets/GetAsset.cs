@@ -17,11 +17,7 @@ namespace HunterPie.UI.Architecture.Assets
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            bool isRise = MonsterEm.StartsWith("Rise");
             string imageId = MonsterEm;
-
-            if (!isRise)
-                imageId += "_ID";
 
             return new ImageSourceConverter()
                 .ConvertFromString($"pack://siteoforigin:,,,/Assets/Monsters/Icons/{imageId}.png");

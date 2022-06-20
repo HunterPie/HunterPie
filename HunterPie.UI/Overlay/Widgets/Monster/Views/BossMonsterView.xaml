@@ -337,14 +337,14 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Image d:Source="{assets:MonsterIcon em116}"
+            <Image d:Source="{assets:MonsterIcon World_16}"
                    Width="40"
                    RenderOptions.BitmapScalingMode="Fant">
                 <Image.Style>
                     <Style TargetType="Image">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsLoadingIcon}" Value="False">
-                                <Setter Property="Source" Value="{Binding Icon, Mode=OneWay, TargetNullValue={StaticResource ICON_SKULL}}"/>
+                                <Setter Property="Source" Value="{Binding Icon, Mode=OneWay, TargetNullValue={assets:MonsterIcon Rise_Unknown}}"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
