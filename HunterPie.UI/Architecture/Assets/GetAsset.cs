@@ -1,5 +1,8 @@
-﻿using HunterPie.Core.Client.Localization;
+﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Remote;
 using System;
+using System.IO;
 using System.Windows.Markup;
 using System.Windows.Media;
 
@@ -18,6 +21,12 @@ namespace HunterPie.UI.Architecture.Assets
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
             string imageId = MonsterEm;
+
+            string imagePath = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{imageId}.png");
+
+            // If file doesn't exist locally, we can check for the CDN
+            if (!File.Exists(imagePath))
+                CDN.GetMonsterIconUrl(imageId).RunSynchronously();
 
             return new ImageSourceConverter()
                 .ConvertFromString($"pack://siteoforigin:,,,/Assets/Monsters/Icons/{imageId}.png");
