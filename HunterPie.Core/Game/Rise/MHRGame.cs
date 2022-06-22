@@ -146,7 +146,7 @@ namespace HunterPie.Core.Game.Rise
             );
 
             uint monsterArraySize = _process.Memory.Read<uint>(address - 0x8);
-            HashSet<long> monsterAddresses = _process.Memory.Read<long>(address + 0x20, Math.Max(MAXIMUM_MONSTER_ARRAY_SIZE, monsterArraySize))
+            HashSet<long> monsterAddresses = _process.Memory.Read<long>(address + 0x20, Math.Min(MAXIMUM_MONSTER_ARRAY_SIZE, monsterArraySize))
                 .ToHashSet();
 
             long[] toDespawn = monsters.Keys.Where(address => !monsterAddresses.Contains(address))
