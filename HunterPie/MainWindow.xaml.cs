@@ -24,6 +24,7 @@ using HunterPie.UI.Overlay.Widgets.Activities.ViewModel;
 using HunterPie.UI.Overlay.Widgets.Chat.Views;
 using HunterPie.UI.Overlay.Widgets.Chat.ViewModels;
 using HunterPie.Features.Debug;
+using HunterPie.Core.API;
 
 namespace HunterPie
 {

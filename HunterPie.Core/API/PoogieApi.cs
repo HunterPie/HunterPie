@@ -59,6 +59,25 @@ namespace HunterPie.Core.API
             return schema;
         }
 
+        public static async Task<SessionResSchema> EndSession()
+        {
+            using Poogie request = PoogieFactory.Default()
+                .Post(SESSION_PATH + "/end")
+                .WithTimeout(DefaultTimeout)
+                .Build();
+
+            using PoogieResponse resp = await request.RequestAsync();
+
+            if (!resp.Success)
+                return null;
+
+            if (resp.Status >= HttpStatusCode.BadRequest)
+                return null;
+
+            SessionResSchema schema = await resp.AsJson<SessionResSchema>();
+            return schema;
+        }
+
         public static async Task<SupporterValidationResSchema?> ValidateSupporterToken()
         {
             using Poogie request = PoogieFactory.Default()
