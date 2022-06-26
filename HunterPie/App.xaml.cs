@@ -21,8 +21,6 @@ using HunterPie.Features.Overlay;
 using HunterPie.Core.Domain;
 using System.Threading;
 using HunterPie.Features.Patcher;
-using HunterPie.Core.API;
-using HunterPie.Core.Utils;
 
 namespace HunterPie
 {
@@ -172,8 +170,6 @@ namespace HunterPie
                 ConfigManager.SaveAll();
 
             InitializerManager.Unload();
-
-            AsyncHelper.RunSync(PoogieApi.EndSession);
 
             base.OnExit(e);
         }
