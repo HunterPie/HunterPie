@@ -39,7 +39,9 @@ namespace HunterPie.UI.Controls.Settings.Custom.Abnormality
         {
             string gameDataFile = game switch
             {
+                GameProcess.MonsterHunterRiseSunbreakDemo or
                 GameProcess.MonsterHunterRise => RISE_ABNORMALITIES_FILE,
+
                 GameProcess.MonsterHunterWorld => WORLD_ABNORMALITIES_FILE,
                 _ => throw new NotImplementedException("unreachable")
             };

@@ -162,6 +162,7 @@
 	<Monsters>
 		<Shared>
 			<Part Id="PART_UNKNOWN" String="???"/>
+			<Part Id="PART_TO_BE_MAPPED" String="Unknown"/>
 			<Part Id="PART_HEAD" String="Head"/>
 			<Part Id="PART_TORSO" String="Torso"/>
 			<Part Id="PART_L_WING" String="Left Wing"/>
@@ -265,6 +266,8 @@
 			<Monster Id="44" String="Tobi-Kadachi"/>
 			<Monster Id="45" String="Bazelgeuse"/>
 			<Monster Id="46" String="Toadversary"/>
+			<Monster Id="85" String="Astalos"/>
+			<Monster Id="93" String="Malzeno"/>
 		</Rise>
 		<World>
 			<Monster Id="0" String="Anjanath"/>
@@ -360,6 +363,7 @@
 			<Stage Id="209" String="Infernal Springs"/>
 			<Stage Id="210" String="Arena"/>
 			<Stage Id="211" String="Coral Palace"/>
+			<Stage Id="212" String="Jungle"/>
 		</Rise>
 		<World>
 			<Stage Id="0" String="Main Menu"/>

@@ -5,8 +5,8 @@
     <UseWPF>true</UseWPF>
 	<UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.1.0.32</AssemblyVersion>
-    <FileVersion>2.1.0.32</FileVersion>
+    <AssemblyVersion>2.1.0.93</AssemblyVersion>
+    <FileVersion>2.1.0.93</FileVersion>
     <Version>2.1.0.0</Version>
  </PropertyGroup>
 
@@ -382,6 +382,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Monsters\Icons\Rise_45.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Monsters\Icons\Rise_Unknown.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Monsters\Icons\World_00.png">

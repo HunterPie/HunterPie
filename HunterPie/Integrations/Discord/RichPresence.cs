@@ -49,8 +49,9 @@ namespace HunterPie.Integrations.Discord
                 _client.ClearPresence();
                 return;
             }
-
-            HandlePresence();
+            
+            try { HandlePresence(); }
+            catch (Exception ex) { Log.Error(ex.ToString()); }
 
             Presence.WithTimestamps(_locationTime);
             _client.SetPresence(Presence);

@@ -19,6 +19,7 @@ namespace HunterPie.Core.System
         {
             new MHWProcessManager(),
             new MHRProcessManager(),
+            new MHRSunbreakDemoProcessManager(),
         };
         public static IProcessManager[] Managers => _managers;
 

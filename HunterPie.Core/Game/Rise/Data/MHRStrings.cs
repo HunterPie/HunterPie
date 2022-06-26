@@ -1,8 +1,5 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Localization;
+﻿using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Process;
-using HunterPie.Core.Logger;
-using System.IO;
 using System.Xml;
 
 namespace HunterPie.Core.Game.Rise.Data
@@ -23,7 +20,7 @@ namespace HunterPie.Core.Game.Rise.Data
             string query = $"//Strings/Monsters/Rise/Monster[@Id='{id}']";
             XmlNode monster = Localization.Query(query);
 
-            return monster?.Attributes["String"].Value ?? "Unknown";
+            return monster?.Attributes["String"]?.Value ?? $"Unknown [id: {id}]";
         }
 
         public string GetStageNameById(int id)
@@ -31,7 +28,7 @@ namespace HunterPie.Core.Game.Rise.Data
             string query = $"//Strings/Stages/Rise/Stage[@Id='{id}']";
             XmlNode monster = Localization.Query(query);
 
-            return monster?.Attributes["String"].Value ?? "Unknown";
+            return monster?.Attributes["String"]?.Value ?? "Unknown";
         }
     }
 }

@@ -10,7 +10,7 @@ namespace HunterPie.Core.Address.Map.Internal
         private static int[] ParseStringToVecInt32(string stringified)
         {
             return stringified.Split(",")
-                    .Select(element => Convert.ToInt32(element, 16))
+                    .Select(element => Convert.ToInt32(element.Trim(), 16))
                     .ToArray();
         }
 
