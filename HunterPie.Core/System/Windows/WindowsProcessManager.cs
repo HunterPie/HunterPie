@@ -34,7 +34,7 @@ namespace HunterPie.Core.System.Windows
         public virtual GameProcess Game { get; }
 
         public int Version { get; private set; }
-        public Process Process { get; private set; }
+        public Process? Process { get; private set; }
         public int ProcessId { get; private set; }
         public bool IsRunning { get; private set; }
         public bool IsProcessForeground
@@ -83,8 +83,7 @@ namespace HunterPie.Core.System.Windows
             Process mhProcess = Process.GetProcessesByName(Name)
                 .FirstOrDefault(process => !string.IsNullOrEmpty(process?.MainWindowTitle));
 
-            if (mhProcess is null 
-                && Process is not null)
+            if (Process?.HasExited ?? false)
             {
                 OnProcessExit();
                 return;
