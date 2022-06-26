@@ -1,29 +1,16 @@
 ﻿using System.Windows;
 using HunterPie.Core.Domain.Dialog;
 using System.ComponentModel;
-using HunterPie.UI.Overlay;
 using System;
 using HunterPie.Core.Logger;
 using HunterPie.Internal;
-using HunterPie.UI.Overlay.Widgets.Damage.View;
 using System.Windows.Input;
-using HunterPie.UI.Overlay.Widgets.Monster.Views;
 using HunterPie.Core.Client;
-using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
-using HunterPie.UI.Overlay.Widgets.Damage.ViewModel;
 using HunterPie.Internal.Tray;
-using System.Diagnostics;
-using HunterPie.UI.Overlay.Widgets.Abnormality.View;
-using HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel;
-using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.UI.Overlay.Widgets.Wirebug.Views;
-using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
 using System.Windows.Media.Animation;
-using HunterPie.UI.Overlay.Widgets.Activities.View;
-using HunterPie.UI.Overlay.Widgets.Activities.ViewModel;
-using HunterPie.UI.Overlay.Widgets.Chat.Views;
-using HunterPie.UI.Overlay.Widgets.Chat.ViewModels;
 using HunterPie.Features.Debug;
+using HunterPie.Core.API;
+using HunterPie.Core.Utils;
 
 namespace HunterPie
 {
@@ -56,6 +43,8 @@ namespace HunterPie
                     return;
                 }
             }
+
+            AsyncHelper.RunSync(PoogieApi.EndSession);
 
             base.OnClosing(e);
         }

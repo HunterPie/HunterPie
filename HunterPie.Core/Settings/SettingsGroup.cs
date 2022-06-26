@@ -16,7 +16,7 @@ namespace HunterPie.Core.Settings
             string name,
             string icon,
             string dependsOnFeature = null,
-            GameProcess availableGames = GameProcess.MonsterHunterWorld | GameProcess.MonsterHunterRise
+            GameProcess availableGames = GameProcess.MonsterHunterWorld | GameProcess.MonsterHunterRise | GameProcess.MonsterHunterRiseSunbreakDemo
         ) {
             Name = name;
             Description = name + "_DESC";

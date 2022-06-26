@@ -17,6 +17,7 @@ namespace HunterPie.UI.Architecture.Converters
                 return game switch
                 {
                     GameProcess.None => "None",
+                    GameProcess.MonsterHunterRiseSunbreakDemo => Games.MONSTER_HUNTER_RISE_SUNBREAK_DEMO,
                     GameProcess.MonsterHunterRise => Games.MONSTER_HUNTER_RISE,
                     GameProcess.MonsterHunterWorld => Games.MONSTER_HUNTER_WORLD,
                     _ => throw new NotImplementedException(),
@@ -33,6 +34,7 @@ namespace HunterPie.UI.Architecture.Converters
                 return game switch
                 {
                     "None" => GameProcess.None,
+                    Games.MONSTER_HUNTER_RISE_SUNBREAK_DEMO => GameProcess.MonsterHunterRiseSunbreakDemo,
                     Games.MONSTER_HUNTER_RISE => GameProcess.MonsterHunterRise,
                     Games.MONSTER_HUNTER_WORLD => GameProcess.MonsterHunterWorld,
                     _ => throw new NotImplementedException(),

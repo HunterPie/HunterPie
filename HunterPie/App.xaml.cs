@@ -170,6 +170,7 @@ namespace HunterPie
                 ConfigManager.SaveAll();
 
             InitializerManager.Unload();
+
             base.OnExit(e);
         }
 

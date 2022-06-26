@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Game.Demos.Sunbreak.Entities.Monster;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.Rise.Entities;
@@ -86,7 +87,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         }
 
         private void OnEnrageStateChange(object sender, EventArgs e) => IsEnraged = Context.IsEnraged;
-
+        
         private void OnCrownChange(object sender, EventArgs e)
         {
             Crown = Context.Crown;
@@ -198,6 +199,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             {
                 MHRMonster ctx => $"Rise_{ctx.Id:00}",
                 MHWMonster ctx => $"World_{ctx.Id:00}",
+                MHRSunbreakDemoMonster ctx => $"Rise_{ctx.Id:00}",
                 _ => throw new NotImplementedException("unreachable")
             };
         }

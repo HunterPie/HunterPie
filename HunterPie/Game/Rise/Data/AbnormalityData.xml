@@ -71,6 +71,10 @@
         <Abnormality Id="25"
                      Name="ABNORMALITY_INFERNAL_MELODY"
                      Icon="ICON_INFERNALMELODY"/>
+		<Abnormality Id="26"
+					 Name="ABNORMALITY_SHARPNESS_REGEN"
+					 Icon="ICON_SHARPNESSUSERED"/>
+		<Abnormality Id="27"/>
     </Songs>
     <Consumables>
         <!-- For consumables, we can use their Offsets xmm0, [rcx+00000??] as their Id, so it's easier to track it internally -->
