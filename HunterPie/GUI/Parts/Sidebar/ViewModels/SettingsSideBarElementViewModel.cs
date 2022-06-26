@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Client;
+﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Client;
 using HunterPie.GUI.Parts.Host;
 using HunterPie.Internal.Initializers;
 using HunterPie.UI.Assets.Application;
@@ -6,6 +7,7 @@ using HunterPie.UI.Controls.Flags;
 using HunterPie.UI.Controls.Settings;
 using HunterPie.UI.Controls.Settings.ViewModel;
 using HunterPie.UI.Settings;
+using System;
 using System.Linq;
 using System.Windows.Media;
 using Localization = HunterPie.Core.Client.Localization.Localization;
@@ -26,7 +28,8 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 
         public SettingsSideBarElementViewModel()
         {
-            ClientConfig.Config.Client.LastConfiguredGame.PropertyChanged += (_, __) => RefreshSettingsWindow(true);
+            RefreshWindowOnChange(ClientConfig.Config.Client.LastConfiguredGame);
+            RefreshWindowOnChange(ClientConfig.Config.Client.EnableFeatureFlags);
         }
 
         public void ExecuteOnClick() => RefreshSettingsWindow();
@@ -56,5 +59,8 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels
 
             MainHost.SetMain(host, forceRefresh);
         }
+
+        private void RefreshWindowOnChange(Bindable observable) => observable.PropertyChanged += (_, __) => RefreshSettingsWindow(true);
+
     }
 }
