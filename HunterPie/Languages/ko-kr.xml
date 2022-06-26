@@ -162,6 +162,7 @@
 	<Monsters>
 		<Shared>
 			<Part Id="PART_UNKNOWN" String="???"/>
+                        <Part Id="PART_TO_BE_MAPPED" String="알 수 없음"/>
 			<Part Id="PART_HEAD" String="머리"/>
 			<Part Id="PART_TORSO" String="몸통"/>
 			<Part Id="PART_L_WING" String="왼쪽 날개"/>
@@ -265,6 +266,8 @@
 			<Monster Id="44" String="토비카가치"/>
 			<Monster Id="45" String="바젤기우스"/>
 			<Monster Id="46" String="개구리 훈련 모형"/>
+                        <Monster Id="85" String="라이젝스"/>
+ 			<Monster Id="93" String="멜-제나"/>
 		</Rise>
 		<World>
 			<Monster Id="0" String="안쟈나프"/>
@@ -360,6 +363,7 @@
 			<Stage Id="209" String="옥천향"/>
 			<Stage Id="210" String="격투장"/>
 			<Stage Id="211" String="용궁성터"/>
+                        <Stage Id="212" String="밀림"/>
 		</Rise>
 		<World>
 			<Stage Id="0" String="메인 메뉴"/>
