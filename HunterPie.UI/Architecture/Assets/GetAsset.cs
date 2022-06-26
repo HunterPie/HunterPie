@@ -32,8 +32,7 @@ namespace HunterPie.UI.Architecture.Assets
             if (!File.Exists(imagePath))
                 AsyncHelper.RunSync(DownloadMonsterIcon);
 
-            return new ImageSourceConverter()
-                .ConvertFromString($"pack://siteoforigin:,,,/Assets/Monsters/Icons/{MonsterEm}.png");
+            return $"pack://siteoforigin:,,,/Assets/Monsters/Icons/{MonsterEm}.png";
         }
     }
 
