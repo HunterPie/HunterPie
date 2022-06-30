@@ -23,7 +23,7 @@ namespace HunterPie.Features.Overlay
 
             if (context is MHRContext ctx)
             {
-                PatchInGameHudAssembly(context);
+                //PatchInGameHudAssembly(context);
                 _handler = new WirebugWidgetContextHandler(ctx);
             }
         }
