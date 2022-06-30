@@ -358,6 +358,9 @@
 			<Stage Id="3" String="Gathering Hub"/>
 			<Stage Id="4" String="Hub Prep Plaza"/>
 			<Stage Id="5" String="Training Area"/>
+			<Stage Id="6" String="Elgado"/>
+			<Stage Id="7" String="Elgado's Room"/>
+			<Stage Id="11" String="Elgado's Command Post"/>
 			<Stage Id="199" String="Character Selection"/>
 			<Stage Id="201" String="Shrine Ruins"/>
 			<Stage Id="202" String="Sandy Plains"/>
@@ -369,6 +372,7 @@
 			<Stage Id="210" String="Arena"/>
 			<Stage Id="211" String="Coral Palace"/>
 			<Stage Id="212" String="Jungle"/>
+			<Stage Id="222" String="Arena"/>
 		</Rise>
 		<World>
 			<Stage Id="0" String="Main Menu"/>
