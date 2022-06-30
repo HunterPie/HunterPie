@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="HunterPie.Features.Tools.Localization.Views.LocalizableStringView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.Features.Tools.Localization.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" 
+             d:DesignWidth="750">
+    <Grid d:Background="{StaticResource GRAY_400}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBox d:Text="CLIENT"
+                 FontSize="10"
+                 IsReadOnly="True"
+                 Margin="3,0,3,0"/>
+        <TextBox IsReadOnly="True"
+                 Grid.Column="1"
+                 Margin="3,0,3,0"/>
+        <TextBlock d:Text="Strings.Client.Settings.CLIENT_STRING"
+                   FontSize="10"
+                   Grid.Row="1"
+                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   Foreground="{StaticResource WHITE_500}"
+                   Grid.ColumnSpan="2"/>
+    </Grid>
+</UserControl>

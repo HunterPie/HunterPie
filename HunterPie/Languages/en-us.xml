@@ -266,6 +266,7 @@
 			<Monster Id="44" String="Tobi-Kadachi"/>
 			<Monster Id="45" String="Bazelgeuse"/>
 			<Monster Id="46" String="Toadversary"/>
+			<Monster Id="78" String="Daimyo Hermitaur"/>
 			<Monster Id="85" String="Astalos"/>
 			<Monster Id="93" String="Malzeno"/>
 		</Rise>

@@ -16,9 +16,9 @@ namespace HunterPie.Memory
                 new("MONSTER_ADDRESS", "48 8B 15 ?? ?? ?? ?? 45 32 ED 4C 8B F8 48 85 D2 74 0B", 3),
                 new("MONSTER_ADDRESS", "48 8B 05 ?? ?? ?? ?? 48 8B 88 ?? ?? ?? ?? 4A 8B 44 C9 20", 3),
                 new("LOCKON_ADDRESS", "48 8B 05 ?? ?? ?? ?? 48 89 6C 24 60 8B EE", 3),
-                new("CHARACTER_ADDRESS", "48 8B 1D ?? ?? ?? ?? 80 B8 DC 00 00 00 00 0F 85", 3),
+                new("CHARACTER_ADDRESS", "48 8B ?? ?? ?? ?? ?? 80 B8 DC 00 00 00 00 0F 85", 3),
                 new("SAVE_ADDRESS", "48 8B 15 ?? ?? ?? ?? 45 33 C0 48 8B CE E8 ?? ?? ?? ?? 84 C0 74 1A 48 8B", 3),
-                new("WEAPON_ADDRESS", "48 8B 0D ?? ?? ?? ?? 8B 51 70 39 93 84 00 00 00", 3),
+                new("WEAPON_ADDRESS", "48 8B 0D ?? ?? ?? ?? 8B 51 70 39 93", 3),
                 new("ABNORMALITIES_ADDRESS", "48 8B 15 ?? ?? ?? ?? 48 85 D2 74 08 48 8B CB E8 ?? ?? ?? ?? 48 8B 15 ?? ?? ?? ?? 48 85 D2 74 08 48 8B CB E8 ?? ?? ?? ?? 48 8B 15 ?? ?? ?? ?? 48 85 D2 74 0D", 3),
                 new("HUD_SETTINGS_ADDRESS", "48 8B 05 ?? ?? ?? ?? 33 F6 4C 8B 80 D0 00 00 00 41 8B 80 C8 00 00 00", 3),
                 // TODO: ARGOSY_ADDRESS
@@ -34,7 +34,7 @@ namespace HunterPie.Memory
                 new("BUDDY_ADDRESS", "48 8B 05 ?? ?? ?? ?? 32 C9 48 8B 80 A8 00 00 00", 3),
             }.Compile();
 
-            Scanner.Create("MHRiseSunbreakDemo")
+            Scanner.Create("MonsterHunterRise")
                 .WithSignatures(mhrSignatures)
                 .FindProcess()
                 .GetMemory()

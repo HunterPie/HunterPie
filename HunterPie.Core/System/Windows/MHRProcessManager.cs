@@ -15,7 +15,7 @@ namespace HunterPie.Core.System.Windows
 
         protected override bool ShouldOpenProcess(Process process)
         {
-            if (!process.MainWindowTitle.ToUpperInvariant().StartsWith("MONSTERHUNTERRISE"))
+            if (!process.MainWindowTitle.ToUpperInvariant().StartsWith("MONSTER HUNTER RISE"))
                 return false;
 
             string riseVersion;

@@ -169,7 +169,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         {
             MonsterInformationData dto = new();
 
-            int monsterId = _process.Memory.Read<int>(_address + 0x274);
+            int monsterId = _process.Memory.Read<int>(_address + 0x2C4);
             
             dto.Id = monsterId;
 
@@ -286,7 +286,7 @@ namespace HunterPie.Core.Game.Rise.Entities
             }
         }
 
-        [ScannableMethod]
+        //[ScannableMethod]
         private void GetMonsterAilments()
         {
             long ailmentsArrayPtr = _process.Memory.ReadPtr(

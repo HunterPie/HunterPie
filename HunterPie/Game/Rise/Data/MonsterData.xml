@@ -620,6 +620,19 @@
                 <Part Id="5" String="PART_TAIL" />
             </Parts>
         </Monster>
+		<Monster Id="78"
+              Size="0">
+			<Parts>
+				<Part Id="0" String="PART_TO_BE_MAPPED" />
+				<Part Id="1" String="PART_TO_BE_MAPPED" />
+				<Part Id="2" String="PART_TO_BE_MAPPED" />
+				<Part Id="3" String="PART_TO_BE_MAPPED" />
+				<Part Id="4" String="PART_TO_BE_MAPPED" />
+				<Part Id="5" String="PART_TO_BE_MAPPED" />
+				<Part Id="6" String="PART_TO_BE_MAPPED" />
+				<Part Id="7" String="PART_TO_BE_MAPPED" />
+			</Parts>
+		</Monster>
 		<Monster Id="85"
               Size="0">
 			<Parts>
