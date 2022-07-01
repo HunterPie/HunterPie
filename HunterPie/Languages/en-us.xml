@@ -268,10 +268,13 @@
 			<Monster Id="46" String="Toadversary"/>
 			<Monster Id="78" String="Daimyo Hermitaur"/>
 			<Monster Id="79" String="Shogun Ceanataur"/>
+			<Monster Id="84" String="Seregios"/>
 			<Monster Id="85" String="Astalos"/>
 			<Monster Id="88" String="Blood Orange Bishaten"/>
 			<Monster Id="89" String="Aurora Somnacanth"/>
+			<Monster Id="91" String="Magma Almudron"/>
 			<Monster Id="93" String="Malzeno"/>
+			<Monster Id="94" String="Lunagaron"/>
 			<Monster Id="95" String="Garangolm"/>
 		</Rise>
 		<World>
