@@ -162,6 +162,7 @@
 	<Monsters>
 		<Shared>
 			<Part Id="PART_UNKNOWN" String="???"/>
+			<Part Id="PART_TO_BE_MAPPED" String="알 수 없음"/>
 			<Part Id="PART_HEAD" String="머리"/>
 			<Part Id="PART_TORSO" String="몸통"/>
 			<Part Id="PART_L_WING" String="왼쪽 날개"/>
@@ -265,6 +266,16 @@
 			<Monster Id="44" String="토비카가치"/>
 			<Monster Id="45" String="바젤기우스"/>
 			<Monster Id="46" String="개구리 훈련 모형"/>
+			<Monster Id="78" String="다이묘자자미"/>
+			<Monster Id="79" String="쇼군기자미"/>
+			<Monster Id="84" String="셀레기오스"/>
+			<Monster Id="85" String="라이젝스"/>
+			<Monster Id="88" String="비슈텐고 아종"/>
+			<Monster Id="89" String="이소네미쿠니 아종"/>
+			<Monster Id="91" String="오로미도로 아종"/>
+			<Monster Id="93" String="멜-제나"/>
+			<Monster Id="94" String="루나가론"/>
+			<Monster Id="95" String="가란고르무"/>
 		</Rise>
 		<World>
 			<Monster Id="0" String="안쟈나프"/>
@@ -344,12 +355,15 @@
 	<Stages>
 		<Rise>
 			<Stage Id="-1" String="메인 메뉴"/>
-			<Stage Id="0" String="마을"/>
-			<Stage Id="1" String="집"/>
+			<Stage Id="0" String="카무라 마을"/>
+			<Stage Id="1" String="카무라 마을의 집"/>
 			<Stage Id="2" String="동반자 광장"/>
 			<Stage Id="3" String="집회소"/>
 			<Stage Id="4" String="집회소 준비 구역"/>
 			<Stage Id="5" String="수련장"/>
+			<Stage Id="6" String="관측 거점 엘가도"/>
+			<Stage Id="7" String="엘가도의 마이룸"/>
+			<Stage Id="11" String="엘가도의 기사단 지휘소"/>
 			<Stage Id="199" String="캐릭터 선택 화면"/>
 			<Stage Id="201" String="사원 폐허"/>
 			<Stage Id="202" String="모래 평원"/>
@@ -360,6 +374,8 @@
 			<Stage Id="209" String="옥천향"/>
 			<Stage Id="210" String="격투장"/>
 			<Stage Id="211" String="용궁성터"/>
+			<Stage Id="212" String="밀림"/>
+			<Stage Id="222" String="격투장"/>
 		</Rise>
 		<World>
 			<Stage Id="0" String="메인 메뉴"/>
