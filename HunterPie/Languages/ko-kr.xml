@@ -268,14 +268,20 @@
 			<Monster Id="46" String="개구리 훈련 모형"/>
 			<Monster Id="78" String="다이묘자자미"/>
 			<Monster Id="79" String="쇼군기자미"/>
+			<Monster Id="80" String="격앙 라잔"/>
+			<Monster Id="82" String="고어-마가라"/>
+			<Monster Id="83" String="샤가르마가라"/>
 			<Monster Id="84" String="셀레기오스"/>
 			<Monster Id="85" String="라이젝스"/>
+			<Monster Id="87" String="원망 서린 마가이마가도"/>
 			<Monster Id="88" String="비슈텐고 아종"/>
 			<Monster Id="89" String="이소네미쿠니 아종"/>
+			<Monster Id="90" String="야츠카다키 아종"/>
 			<Monster Id="91" String="오로미도로 아종"/>
 			<Monster Id="93" String="멜-제나"/>
 			<Monster Id="94" String="루나가론"/>
 			<Monster Id="95" String="가란고르무"/>
+			<Monster Id="97" String="에스피나스"/>
 		</Rise>
 		<World>
 			<Monster Id="0" String="안쟈나프"/>
