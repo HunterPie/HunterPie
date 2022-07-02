@@ -76,7 +76,7 @@ namespace HunterPie.Core.Game.Data
             }
         }
 
-        private static string BuildAbnormalityId(string self, string group)
+        public static string BuildAbnormalityId(string self, string group)
         {
             return self.StartsWith("ABN_")
                 ? self
