@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using HunterPie.Core.Json;
 using System;
 using System.Diagnostics;
 using System.Net.Http;
@@ -43,7 +43,7 @@ namespace HunterPie.Core.Http
 
         public PoogieBuilder WithJson<T>(T json)
         {
-            string serialized = JsonConvert.SerializeObject(json);
+            string serialized = JsonProvider.Serialize(json);
             poogie.Content = new StringContent(serialized, Encoding.UTF8, "application/json");
 
             return this;

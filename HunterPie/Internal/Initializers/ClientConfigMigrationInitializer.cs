@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using HunterPie.Core.Json;
 
 namespace HunterPie.Internal.Initializers
 {
@@ -70,7 +71,7 @@ namespace HunterPie.Internal.Initializers
             {
                 TypeNameHandling = TypeNameHandling.Auto
             };
-            string serializedConfig = JsonConvert.SerializeObject(newSettings, serializerSettings);
+            string serializedConfig = JsonProvider.Serialize(newSettings);
             
             File.WriteAllText(
                 ClientInfo.GetPathFor(ClientInfo.ConfigName), 
