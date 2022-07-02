@@ -104,7 +104,7 @@ namespace HunterPie.Core.Game.Rise
 
                 MHRChatMessage messageData = DerefChatMessage(message);
 
-                 _chat.AddMessage(messagePtr, messageData);
+                _chat.AddMessage(messagePtr, messageData);
             }
 
             if (!isChatOpen)
