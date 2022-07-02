@@ -167,6 +167,18 @@
                      Icon="ICON_PALICO_BLUE"/>
         <Abnormality Id="124"
                      Offset="12C"/>
+		<Abnormality Id="ABN_RUBY_WIREBUG"
+                     Offset="194"
+					 DependsOn="234"
+					 WithValue="4"
+                     Name="ABNORMALITY_RUBY_WIREBUG"
+                     Icon="ICON_RUBY_WIREBUG"/>
+		<Abnormality Id="ABN_GOLD_WIREBUG"
+                     Offset="194"
+					 DependsOn="234"
+					 WithValue="16"
+                     Name="ABNORMALITY_GOLD_WIREBUG"
+                     Icon="ICON_GOLD_WIREBUG"/>
     </Consumables>
     <Debuffs>
         <Abnormality Id="ABN_POISON"
