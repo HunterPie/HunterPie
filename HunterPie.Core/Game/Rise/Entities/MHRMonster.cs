@@ -286,7 +286,7 @@ namespace HunterPie.Core.Game.Rise.Entities
             }
         }
 
-        //[ScannableMethod]
+        [ScannableMethod]
         private void GetMonsterAilments()
         {
             long ailmentsArrayPtr = _process.Memory.ReadPtr(
@@ -390,6 +390,7 @@ namespace HunterPie.Core.Game.Rise.Entities
 
         private void DerefAilmentsAndScan(long[] ailmentsPointers)
         {
+            int ailmentId = 0;
             foreach (long ailmentAddress in ailmentsPointers)
             {
                 // TODO: Ailment structure
@@ -402,12 +403,12 @@ namespace HunterPie.Core.Game.Rise.Entities
                 // 0x98 AilmentId
 
                 long counterPtr = _process.Memory.Read<long>(ailmentAddress + 0x18);
-                long buildupPtr = _process.Memory.Read<long>(ailmentAddress + 0x58);
-                long maxBuildupPtr = _process.Memory.Read<long>(ailmentAddress + 0x68);
-
-                float maxTimer = _process.Memory.Read<float>(ailmentAddress + 0x40);
-                float timer = _process.Memory.Read<float>(ailmentAddress + 0x44);
-                int ailmentId = _process.Memory.Read<int>(ailmentAddress + 0x98);
+                long buildupPtr = _process.Memory.Read<long>(ailmentAddress + 0x68);
+                long maxBuildupPtr = _process.Memory.Read<long>(ailmentAddress + 0x78);
+                float maxTimer = _process.Memory.Read<float>(ailmentAddress + 0x44);
+                float timer = _process.Memory.Read<float>(ailmentAddress + 0x48);
+                //int ailmentId = _process.Memory.Read<int>(ailmentAddress + 0xA8);
+                
                 int counter = _process.Memory.Read<int>(counterPtr + 0x20);
                 float buildup = _process.Memory.Read<float>(buildupPtr + 0x20);
                 float maxBuildup = _process.Memory.Read<float>(maxBuildupPtr + 0x20);
@@ -423,6 +424,7 @@ namespace HunterPie.Core.Game.Rise.Entities
 
                 MHRMonsterAilment ailment = ailments[ailmentAddress];
                 ailment.UpdateInfo(timer, maxTimer, buildup, maxBuildup, counter);
+                ailmentId++;
             }
         }
     }
