@@ -124,6 +124,22 @@
 			<Monster Id="44" String="飞雷龙"/>
 			<Monster Id="45" String="爆鳞龙"/>
 			<Monster Id="46" String="机关蛙"/>
+			<Monster Id="78" String="大名盾蟹"/>
+			<Monster Id="79" String="将军镰蟹"/>
+			<Monster Id="80" String="激昂金狮子"/>
+			<Monster Id="82" String="黑蚀龙"/>
+			<Monster Id="83" String="天廻龙"/>
+			<Monster Id="84" String="千刃龙"/>
+			<Monster Id="85" String="电龙"/>
+			<Monster Id="87" String="嗟怨震天怨虎龙"/>
+			<Monster Id="88" String="绯天狗兽"/>
+			<Monster Id="89" String="冰人鱼龙"/>
+			<Monster Id="90" String="炽妃蜘蛛"/>
+			<Monster Id="91" String="熔翁龙"/>
+			<Monster Id="93" String="爵银龙"/>
+			<Monster Id="94" String="冰狼龙"/>
+			<Monster Id="95" String="刚缠兽"/>
+			<Monster Id="97" String="棘龙"/>
 		</Rise>
 	</Monsters>
 	<Stages>
