@@ -649,6 +649,54 @@
 				<Part Id="10" String="PART_TO_BE_MAPPED" />
 			</Parts>
 		</Monster>
+		<Monster Id="80"
+              Size="0">
+			<Parts>
+				<Part Id="0" String="PART_TO_BE_MAPPED" />
+				<Part Id="1" String="PART_TO_BE_MAPPED" />
+				<Part Id="2" String="PART_TO_BE_MAPPED" />
+				<Part Id="3" String="PART_TO_BE_MAPPED" />
+				<Part Id="4" String="PART_TO_BE_MAPPED" />
+				<Part Id="5" String="PART_TO_BE_MAPPED" />
+				<Part Id="6" String="PART_TO_BE_MAPPED" />
+				<Part Id="7" String="PART_TO_BE_MAPPED" />
+				<Part Id="8" String="PART_TO_BE_MAPPED" />
+				<Part Id="9" String="PART_TO_BE_MAPPED" />
+				<Part Id="10" String="PART_TO_BE_MAPPED" />
+			</Parts>
+		</Monster>
+		<Monster Id="82"
+              Size="0">
+			<Parts>
+				<Part Id="0" String="PART_TO_BE_MAPPED" />
+				<Part Id="1" String="PART_TO_BE_MAPPED" />
+				<Part Id="2" String="PART_TO_BE_MAPPED" />
+				<Part Id="3" String="PART_TO_BE_MAPPED" />
+				<Part Id="4" String="PART_TO_BE_MAPPED" />
+				<Part Id="5" String="PART_TO_BE_MAPPED" />
+				<Part Id="6" String="PART_TO_BE_MAPPED" />
+				<Part Id="7" String="PART_TO_BE_MAPPED" />
+				<Part Id="8" String="PART_TO_BE_MAPPED" />
+				<Part Id="9" String="PART_TO_BE_MAPPED" />
+				<Part Id="10" String="PART_TO_BE_MAPPED" />
+			</Parts>
+		</Monster>
+		<Monster Id="83"
+              Size="0">
+			<Parts>
+				<Part Id="0" String="PART_TO_BE_MAPPED" />
+				<Part Id="1" String="PART_TO_BE_MAPPED" />
+				<Part Id="2" String="PART_TO_BE_MAPPED" />
+				<Part Id="3" String="PART_TO_BE_MAPPED" />
+				<Part Id="4" String="PART_TO_BE_MAPPED" />
+				<Part Id="5" String="PART_TO_BE_MAPPED" />
+				<Part Id="6" String="PART_TO_BE_MAPPED" />
+				<Part Id="7" String="PART_TO_BE_MAPPED" />
+				<Part Id="8" String="PART_TO_BE_MAPPED" />
+				<Part Id="9" String="PART_TO_BE_MAPPED" />
+				<Part Id="10" String="PART_TO_BE_MAPPED" />
+			</Parts>
+		</Monster>
 		<Monster Id="84"
               Size="0">
 			<Parts>
@@ -678,6 +726,22 @@
 				<Part Id="7" String="PART_TO_BE_MAPPED" />
 			</Parts>
 		</Monster>
+		<Monster Id="87"
+              Size="0">
+			<Parts>
+				<Part Id="0" String="PART_TO_BE_MAPPED" />
+				<Part Id="1" String="PART_TO_BE_MAPPED" />
+				<Part Id="2" String="PART_TO_BE_MAPPED" />
+				<Part Id="3" String="PART_TO_BE_MAPPED" />
+				<Part Id="4" String="PART_TO_BE_MAPPED" />
+				<Part Id="5" String="PART_TO_BE_MAPPED" />
+				<Part Id="6" String="PART_TO_BE_MAPPED" />
+				<Part Id="7" String="PART_TO_BE_MAPPED" />
+				<Part Id="8" String="PART_TO_BE_MAPPED" />
+				<Part Id="9" String="PART_TO_BE_MAPPED" />
+				<Part Id="10" String="PART_TO_BE_MAPPED" />
+			</Parts>
+		</Monster>
 		<Monster Id="88"
               Size="0">
 			<Parts>
@@ -705,6 +769,22 @@
 				<Part Id="5" String="PART_L_LEG" />
 				<Part Id="6" String="PART_R_LEG" />
 				<Part Id="7" String="PART_TAIL" />
+			</Parts>
+		</Monster>
+		<Monster Id="90"
+              Size="0">
+			<Parts>
+				<Part Id="0" String="PART_TO_BE_MAPPED" />
+				<Part Id="1" String="PART_TO_BE_MAPPED" />
+				<Part Id="2" String="PART_TO_BE_MAPPED" />
+				<Part Id="3" String="PART_TO_BE_MAPPED" />
+				<Part Id="4" String="PART_TO_BE_MAPPED" />
+				<Part Id="5" String="PART_TO_BE_MAPPED" />
+				<Part Id="6" String="PART_TO_BE_MAPPED" />
+				<Part Id="7" String="PART_TO_BE_MAPPED" />
+				<Part Id="8" String="PART_TO_BE_MAPPED" />
+				<Part Id="9" String="PART_TO_BE_MAPPED" />
+				<Part Id="10" String="PART_TO_BE_MAPPED" />
 			</Parts>
 		</Monster>
 		<Monster Id="91"
@@ -750,6 +830,22 @@
 			</Parts>
 		</Monster>
 		<Monster Id="95"
+              Size="0">
+			<Parts>
+				<Part Id="0" String="PART_TO_BE_MAPPED" />
+				<Part Id="1" String="PART_TO_BE_MAPPED" />
+				<Part Id="2" String="PART_TO_BE_MAPPED" />
+				<Part Id="3" String="PART_TO_BE_MAPPED" />
+				<Part Id="4" String="PART_TO_BE_MAPPED" />
+				<Part Id="5" String="PART_TO_BE_MAPPED" />
+				<Part Id="6" String="PART_TO_BE_MAPPED" />
+				<Part Id="7" String="PART_TO_BE_MAPPED" />
+				<Part Id="8" String="PART_TO_BE_MAPPED" />
+				<Part Id="9" String="PART_TO_BE_MAPPED" />
+				<Part Id="10" String="PART_TO_BE_MAPPED" />
+			</Parts>
+		</Monster>
+		<Monster Id="97"
               Size="0">
 			<Parts>
 				<Part Id="0" String="PART_TO_BE_MAPPED" />
