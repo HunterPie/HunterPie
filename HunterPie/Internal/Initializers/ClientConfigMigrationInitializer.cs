@@ -15,7 +15,8 @@ namespace HunterPie.Internal.Initializers
     {
         private readonly static Dictionary<int, ISettingsMigrator> _migrators = new()
         {
-            { 0, new V2SettingsMigrator() }
+            { 0, new V2SettingsMigrator() },
+            { 1, new V3SettingsMigrator() },
         };
 
         public void Init()
