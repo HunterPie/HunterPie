@@ -123,6 +123,8 @@
 		<Abnormality Id="ABNORMALITY_POWERCONE" String="귀신방울"/>
 		<Abnormality Id="ABNORMALITY_ICE_RES" String="얼음속성 방어 강화 (대)"/>
 		<Abnormality Id="ABNORMALITY_FOOD_TIMER" String="식사 불가"/>
+		<Abnormality Id="ABNORMALITY_RUBY_WIREBUG" String="변환밧줄벌레-홍"/>
+		<Abnormality Id="ABNORMALITY_GOLD_WIREBUG" String="변환밧줄벌레-금"/>
 		
 		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="경단 벌크업"/>
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="경단 단기최면술"/>
