@@ -186,9 +186,9 @@
 		<Integrations>
 			<Discord Id="DRPC_RISE_CHARACTER_STRING_FORMAT"
 					 String="{Character} | HR: {HighRank}"/>
-			<Discord Id="DRPC_RISE_STATE_MAIN_MENU"
+			<Discord Id="DRPC_STATE_MAIN_MENU"
 					 String="在主菜单"/>
-			<Discord Id="DRPC_RISE_STATE_IDLE"
+			<Discord Id="DRPC_STATE_IDLE"
 					 String="闲逛中"/>
 			<Discord Id="DRPC_RISE_STATE_PRACTICE"
 					 String="练习中"/>
@@ -196,9 +196,13 @@
 					 String="正在进行百龙夜行"/>
 			<Discord Id="DRPC_RISE_STATE_CHAR_SELECTION"
 					 String="选择角色中"/>
-			<Discord Id="DRPC_RISE_STATE_EXPLORING"
+			<Discord Id="DRPC_PARTY_STATE_SOLO_STRING"
+					 String="单人"/>
+			<Discord Id="DRPC_PARTY_STATE_GROUP_STRING"
+					 String="组队中"/>
+			<Discord Id="DRPC_STATE_EXPLORING"
 					 String="探索中"/>
-			<Discord Id="DRPC_RISE_STATE_HUNTING"
+			<Discord Id="DRPC_STATE_HUNTING"
 					 String="正在狩猎 {Monster} ({Percentage}%)"/>
 		</Integrations>
 		<Settings>
