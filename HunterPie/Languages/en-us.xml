@@ -283,6 +283,7 @@
 			<Monster Id="93" String="Malzeno"/>
 			<Monster Id="94" String="Lunagaron"/>
 			<Monster Id="95" String="Garangolm"/>
+			<Monster Id="96" String="Gaismagorm"/>
 			<Monster Id="97" String="Espinas"/>
 		</Rise>
 		<World>
