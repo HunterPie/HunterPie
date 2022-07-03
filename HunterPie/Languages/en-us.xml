@@ -123,6 +123,8 @@
 		<Abnormality Id="ABNORMALITY_POWERCONE" String="Powercone"/>
 		<Abnormality Id="ABNORMALITY_ICE_RES" String="Ice Res. (L)"/>
 		<Abnormality Id="ABNORMALITY_FOOD_TIMER" String="Food Timer"/>
+		<Abnormality Id="ABNORMALITY_RUBY_WIREBUG" String="Ruby Wirebug"/>
+		<Abnormality Id="ABNORMALITY_GOLD_WIREBUG" String="Gold Wirebug"/>
 		
 		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="Dango Bulker"/>
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="Dango Booster"/>

@@ -58,7 +58,7 @@ namespace HunterPie.UI.Controls.Settings.Custom.Abnormality
                 string name = node.Attributes["Name"]?.Value ?? "ABNORMALITY_UNKNOWN";
                 string icon = node.Attributes["Icon"]?.Value ?? "ICON_MISSING";
                 string id = node.Attributes["Id"].Value;
-                string abnormId = $"{category}_{id}";
+                string abnormId = id;
 
                 if (!collections.ContainsKey(category))
                     collections.Add(category, new()

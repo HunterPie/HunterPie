@@ -1,5 +1,5 @@
-﻿using HunterPie.Core.Logger;
-using Newtonsoft.Json;
+﻿using HunterPie.Core.Json;
+using HunterPie.Core.Logger;
 using System;
 using System.IO;
 using System.Text;
@@ -13,12 +13,8 @@ namespace HunterPie.Core.Client
         {
             try
             {
-                var serializerSettings = new JsonSerializerSettings()
-                {
-                    TypeNameHandling = TypeNameHandling.Auto
-                };
 
-                string serialized = JsonConvert.SerializeObject(obj, Formatting.Indented, serializerSettings);
+                string serialized = JsonProvider.Serialize(obj);
                 ReadOnlySpan<byte> buffer = Encoding.UTF8.GetBytes(serialized);
                 using (FileStream stream = File.OpenWrite(path))
                 {

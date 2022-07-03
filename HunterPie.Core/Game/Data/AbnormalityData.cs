@@ -62,7 +62,7 @@ namespace HunterPie.Core.Game.Data
 
                 AbnormalitySchema schema = new()
                 {
-                    Id = finalId,
+                    Id = BuildAbnormalityId(id, abnormality.ParentNode.Name),
                     Name = name,
                     Icon = icon,
                     Category = category
@@ -74,6 +74,13 @@ namespace HunterPie.Core.Game.Data
 
                 Abnormalities.Add(schema.Id, schema);
             }
+        }
+
+        private static string BuildAbnormalityId(string self, string group)
+        {
+            return self.StartsWith("ABN_")
+                ? self
+                : $"{group}_{self}";
         }
 
         public static AbnormalitySchema? GetSongAbnormalityData(int id) => GetAbnormalityData($"{SongPrefix}{id}");

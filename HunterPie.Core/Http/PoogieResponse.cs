@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Http.Events;
+using HunterPie.Core.Json;
 using HunterPie.Core.Logger;
 using Newtonsoft.Json;
 using System;
@@ -40,7 +41,7 @@ namespace HunterPie.Core.Http
         {
             string content = await Content.ReadAsStringAsync();
 
-            return JsonConvert.DeserializeObject<T>(content);
+            return JsonProvider.Deserialize<T>(content);
         }
 
         public async Task<byte[]> AsRaw()

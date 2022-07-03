@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Client.Configuration;
+﻿using HunterPie.Core.Client.Configuration.Versions;
 using HunterPie.Core.Logger;
 
 namespace HunterPie.Core.Client
@@ -7,10 +7,10 @@ namespace HunterPie.Core.Client
     {
         public const string CONFIG_NAME = "config.json";
 
-        private readonly V2Config _config = new();
+        private readonly V3Config _config = new();
         private static ClientConfig _instance;
 
-        public static V2Config Config
+        public static V3Config Config
         {
             get => _instance._config;
         }

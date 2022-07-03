@@ -18,8 +18,11 @@
         <Ailment Id="9" String="AILMENT_FIRE"/>
         <Ailment Id="10" String="AILMENT_ICE"/>
         <Ailment Id="11" String="AILMENT_THUNDER"/>
+        <Ailment Id="12" String="AILMENT_UNKNOWN"/>
+        <Ailment Id="13" String="AILMENT_UNKNOWN"/>
         <Ailment Id="14" String="AILMENT_TRANQUILIZE"/>
         <Ailment Id="15" String="AILMENT_DUNG"/>
+		<Ailment Id="16" String="AILMENT_UNKNOWN"/>
     </Ailments>
     <Monsters>
         <Monster Id="0"
