@@ -37,6 +37,7 @@ namespace HunterPie.UI.Controls.Settings.Custom.Abnormality
 
         public static AbnormalityCollectionViewModel[] GetViewModelsBy(GameProcess game, AbnormalityWidgetConfig config)
         {
+            // TODO: Use AbnormalityData class to load abnormalities and then convert them using the IMapper
             string gameDataFile = game switch
             {
                 GameProcess.MonsterHunterRiseSunbreakDemo or

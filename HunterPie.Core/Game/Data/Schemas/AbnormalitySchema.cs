@@ -9,5 +9,6 @@
         public string Name;
         public string Icon;
         public string Category;
+        public string Group;
     }
 }

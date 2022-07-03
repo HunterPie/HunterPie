@@ -213,6 +213,10 @@
                      Offset="824"
                      Name="ABNORMALITY_BLAST"
                      Icon="ICON_BLAST"/>
+		<Abnormality Id="ABN_WEBBED"
+                     Offset="828"
+                     Name="ABNORMALITY_WEBBED"
+                     Icon="ICON_WEBBED"/>
         <Abnormality Id="ABN_FIRE"
                      Offset="82C"
                      Name="ABNORMALITY_FIRE"
@@ -237,6 +241,18 @@
                      Offset="848"
                      Name="ABNORMALITY_BUBBLES_PLUS"
                      Icon="ICON_BUBBLE+"/>
+		<Abnormality Id="ABN_FRENZY_BUILDUP"
+                     Offset="874"
+                     Name="ABNORMALITY_FRENZY_BUILDUP"
+                     Icon="ICON_FRENZY_BUILDUP"/>
+		<Abnormality Id="ABN_FRENZY"
+                     Offset="884"
+                     Name="ABNORMALITY_FRENZY"
+                     Icon="ICON_FRENZY"/>
+		<Abnormality Id="ABN_BLEED"
+                     Offset="86C"
+                     Name="ABNORMALITY_BLEED"
+                     Icon="ICON_BLEED"/>
     </Debuffs>
     <Skills>
 		<Abnormality Id="ABN_OFFENSIVE_GUARD"

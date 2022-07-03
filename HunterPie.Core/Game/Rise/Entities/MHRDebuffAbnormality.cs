@@ -39,7 +39,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         {
             Id = data.Id;
             Icon = data.Icon;
-            Type = data.Id.StartsWith(AbnormalityData.DebuffPrefix) 
+            Type = data.Group.StartsWith("Debuffs")
                 ? AbnormalityType.Debuff 
                 : AbnormalityType.Skill;
         }

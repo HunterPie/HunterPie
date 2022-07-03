@@ -21,14 +21,10 @@ namespace HunterPie.Core.Game.Rise
     {
         public const uint MAXIMUM_MONSTER_ARRAY_SIZE = 5;
         public const int CHAT_MAX_SIZE = 0x40;
+        public const int TRAINING_ROOM_ID = 5;
         
         private readonly MHRChat _chat = new MHRChat();
         private bool _isHudOpen;
-
-        // TODO: Could probably turn this into a bit mask with 256 bits
-        private readonly HashSet<int> MonsterAreas = new() { 5, 201, 202, 203, 204, 205, 207, 209, 210, 211};
-
-        public static readonly int[] VillageStages = { 0, 1, 2, 3, 4, 5 };
 
         public IPlayer Player { get; }
         public List<IMonster> Monsters { get; } = new();
@@ -52,7 +48,7 @@ namespace HunterPie.Core.Game.Rise
 
         public int Deaths => throw new NotImplementedException();
 
-        Dictionary<long, IMonster> monsters = new();
+        readonly Dictionary<long, IMonster> monsters = new();
 
         public event EventHandler<IMonster> OnMonsterSpawn;
         public event EventHandler<IMonster> OnMonsterDespawn;
@@ -131,7 +127,7 @@ namespace HunterPie.Core.Game.Rise
         private void ScanMonstersArray()
         {
             // Only scans for monsters in hunting areas
-            if (!MonsterAreas.Contains(Player.StageId))
+            if (!Player.InHuntingZone && Player.StageId != TRAINING_ROOM_ID)
             {
                 if (monsters.Keys.Count > 0)
                     foreach (long mAddress in monsters.Keys)
