@@ -27,6 +27,10 @@ namespace HunterPie.Features.Overlay
             for (int i = 0; i < config.AbnormalityTray.Trays.Trays.Count; i++)
             {
                 ref var abnormConfig = ref configs[i];
+
+                if (!abnormConfig.Initialize)
+                    continue;
+
                 _handlers.Add(new AbnormalityWidgetContextHandler(context, ref abnormConfig));
             }
         }

@@ -57,15 +57,16 @@ namespace HunterPie.Core.Game.Data
                 string offset = abnormality.Attributes["Offset"]?.Value ?? id;
                 string dependsOn = abnormality.Attributes["DependsOn"]?.Value ?? "0";
                 string withValue = abnormality.Attributes["WithValue"]?.Value ?? "0";
-                string finalId = $"{abnormality.ParentNode.Name}_{id}";
-                string category = abnormality.Attributes["Category"]?.Value ?? abnormality.ParentNode.Name;
+                string group = abnormality.ParentNode.Name;
+                string category = abnormality.Attributes["Category"]?.Value ?? group;
 
                 AbnormalitySchema schema = new()
                 {
-                    Id = BuildAbnormalityId(id, abnormality.ParentNode.Name),
+                    Id = BuildAbnormalityId(id, group),
                     Name = name,
                     Icon = icon,
-                    Category = category
+                    Category = category,
+                    Group = group
                 };
 
                 int.TryParse(offset, NumberStyles.HexNumber, null, out schema.Offset);
@@ -76,7 +77,7 @@ namespace HunterPie.Core.Game.Data
             }
         }
 
-        private static string BuildAbnormalityId(string self, string group)
+        public static string BuildAbnormalityId(string self, string group)
         {
             return self.StartsWith("ABN_")
                 ? self

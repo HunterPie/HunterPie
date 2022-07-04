@@ -40,8 +40,8 @@ namespace HunterPie.Internal.Migrations
                 for (int i = 0; i < newConfig.Rise.Overlay.AbnormalityTray.Trays.Trays.Count; i++)
                 {
                     AbnormalityWidgetConfig tray = newConfig.Rise.Overlay.AbnormalityTray.Trays.Trays.ElementAt(i);
-                    HashSet<string> newIds = tray.AllowedAbnormalities.Select(oldId => oldId.Split("_").Last())
-                                                                      .Select(abnormalityId => correlations.GetValueOrDefault(abnormalityId))
+                    HashSet<string> newIds = tray.AllowedAbnormalities.Select(oldId => (oldId, suffix: oldId.Split("_").Last()))
+                                                                      .Select(abnorm => correlations.GetValueOrDefault(abnorm.suffix) ?? abnorm.oldId)
                                                                       .Where(id => id != null)
                                                                       .ToHashSet();
 

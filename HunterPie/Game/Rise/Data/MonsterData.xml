@@ -848,6 +848,22 @@
 				<Part Id="10" String="PART_TO_BE_MAPPED" />
 			</Parts>
 		</Monster>
+		<Monster Id="96"
+              Size="0">
+			<Parts>
+				<Part Id="0" String="PART_TO_BE_MAPPED" />
+				<Part Id="1" String="PART_TO_BE_MAPPED" />
+				<Part Id="2" String="PART_TO_BE_MAPPED" />
+				<Part Id="3" String="PART_TO_BE_MAPPED" />
+				<Part Id="4" String="PART_TO_BE_MAPPED" />
+				<Part Id="5" String="PART_TO_BE_MAPPED" />
+				<Part Id="6" String="PART_TO_BE_MAPPED" />
+				<Part Id="7" String="PART_TO_BE_MAPPED" />
+				<Part Id="8" String="PART_TO_BE_MAPPED" />
+				<Part Id="9" String="PART_TO_BE_MAPPED" />
+				<Part Id="10" String="PART_TO_BE_MAPPED" />
+			</Parts>
+		</Monster>
 		<Monster Id="97"
               Size="0">
 			<Parts>
