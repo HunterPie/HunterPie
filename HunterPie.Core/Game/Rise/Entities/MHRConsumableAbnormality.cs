@@ -33,12 +33,17 @@ namespace HunterPie.Core.Game.Rise.Entities
         public bool IsInfinite { get; private set; }
         public int Level { get; private set; }
 
+        public bool IsBuildup { get; private set; }
+
         public event EventHandler<IAbnormality> OnTimerUpdate;
 
-        public MHRConsumableAbnormality(AbnormalitySchema schema)
+        public MHRConsumableAbnormality(AbnormalitySchema data)
         {
-            Id = schema.Id;
-            Icon = schema.Icon;
+            Id = data.Id;
+            Icon = data.Icon;
+
+            if (IsBuildup)
+                MaxTimer = data.MaxBuildup;
         }
 
         void IUpdatable<MHRConsumableStructure>.Update(MHRConsumableStructure data)

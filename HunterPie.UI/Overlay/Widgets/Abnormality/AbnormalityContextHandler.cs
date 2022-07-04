@@ -40,7 +40,7 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality
             Icon = Context.Icon;
             MaxTimer = Context.MaxTimer;
             Timer = Context.Timer;
-
+            IsBuildup = Context.IsBuildup;
         }
     }
 }

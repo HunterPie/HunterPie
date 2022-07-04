@@ -160,6 +160,9 @@
 		<Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="Major Bubbleblight"/>
 		<Abnormality Id="ABNORMALITY_BLEED" String="Bleed"/>
 		<Abnormality Id="ABNORMALITY_EFFLUVIA" String="Effluvia"/>
+		<Abnormality Id="ABNORMALITY_FRENZY_BUILDUP" String="The Frenzy (Buildup)"/>
+		<Abnormality Id="ABNORMALITY_FRENZY" String="The Frenzy"/>
+		<Abnormality Id="ABNORMALITY_WEBBED" String="Webbed"/>
 	</Abnormalities>
 	<Monsters>
 		<Shared>
