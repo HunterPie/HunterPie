@@ -283,6 +283,7 @@
 			<Monster Id="93" String="멜-제나"/>
 			<Monster Id="94" String="루나가론"/>
 			<Monster Id="95" String="가란고르무"/>
+                        <Monster Id="96" String="가이아델름"/>
 			<Monster Id="97" String="에스피나스"/>
 		</Rise>
 		<World>
