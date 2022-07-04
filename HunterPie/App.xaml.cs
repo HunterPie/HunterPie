@@ -177,18 +177,17 @@ namespace HunterPie
         private void HookEvents()
         {
             _context.Game.Player.OnLogin += OnPlayerLogin;
-            _context.Game.Player.OnStageUpdate += (_, __) =>
-            {
-                Log.Info(string.Format("StageId: {0} | InHuntingZone: {1}", _context.Game.Player.StageId, _context.Game.Player.InHuntingZone));
-            };
+            _context.Game.Player.OnStageUpdate += OnStageUpdate;
         }
 
         private void UnhookEvents()
         {
             _context.Game.Player.OnLogin -= OnPlayerLogin;
+            _context.Game.Player.OnStageUpdate -= OnStageUpdate;
         }
 
         private void OnPlayerLogin(object sender, EventArgs e) => Log.Info($"Logged in as {_context.Game.Player.Name}");
+        private void OnStageUpdate(object sender, EventArgs e) => Log.Debug(string.Format("StageId: {0} | InHuntingZone: {1}", _context.Game.Player.StageId, _context.Game.Player.InHuntingZone));
 
         public static void Restart()
         {

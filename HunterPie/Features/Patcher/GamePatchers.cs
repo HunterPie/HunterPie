@@ -7,7 +7,7 @@ namespace HunterPie.Features.Patcher
     {
         private static IContextInitializer[] patchers = new IContextInitializer[]
         {
-            //new RiseIntegrityPatcher(),
+            new RiseIntegrityPatcher(),
         };
 
         public static void Run(Context context)

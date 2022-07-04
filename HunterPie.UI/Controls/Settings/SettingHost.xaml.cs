@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using HunterPie.UI.Controls.TextBox.Events;
 using System.Windows;
+using System;
 
 namespace HunterPie.UI.Controls.Settings
 {
@@ -20,5 +21,7 @@ namespace HunterPie.UI.Controls.Settings
         private void OnRealTimeSearch(object sender, SearchTextChangedEventArgs e) => ViewModel.SearchSetting(e.Text);
         private void OnLoaded(object sender, RoutedEventArgs e) => ViewModel.FetchVersion();
         private void OnUnloaded(object sender, RoutedEventArgs e) => ViewModel.UnhookEvents();
+
+        private void OnExecuteUpdateClick(object sender, RoutedEventArgs e) => ViewModel.ExecuteRestart();
     }
 }

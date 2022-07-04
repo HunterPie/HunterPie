@@ -202,11 +202,14 @@
 			<Part Id="PART_LEGS" String="Legs"/>
 			<Part Id="PART_SHELL" String="Shell"/>
 			<Part Id="PART_CLAW" String="Claw"/>
+			<Part Id="PART_R_CLAW" String="Right Claw"/>
+			<Part Id="PART_L_CLAW" String="Left Claw"/>
 			<Part Id="PART_L_FORELEG" String="Left Foreleg"/>
 			<Part Id="PART_R_FORELEG" String="Right Foreleg"/>
 			<Part Id="PART_L_H_LEG" String="Left Hind Leg"/>
 			<Part Id="PART_R_H_LEG" String="Right Hind Leg"/>
-			<Part Id="PART_CHEST" String="Abdomen"/>
+			<Part Id="PART_ABDOMEN" String="Abdomen"/>
+			<Part Id="PART_CHEST" String="Chest"/>
 			<Part Id="PART_TAIL_TIP" String="Tail Tip"/>
 			<Part Id="PART_MUD_BALL" String="Mud Ball"/>
 			<Part Id="PART_LOWER_TORSO" String="Lower Torso"/>
@@ -219,6 +222,10 @@
 			<Part Id="PART_THUNDERBALLS" String="Thunderballs"/>
 			<Part Id="PART_ROCK" String="Rock"/>
 			<Part Id="PART_POT" String="Pot"/>
+			<Part Id="PART_WING_CLAW" String="Wingclaw"/>
+			<Part Id="PART_FORELEG" String="Foreleg"/>
+			<Part Id="PART_H_LEG" String="Hind Leg"/>
+			<Part Id="PART_ANTENNA" String="Antenna"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="Rathian"/>

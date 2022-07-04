@@ -16,7 +16,7 @@ Address MOUSE_ADDRESS 0x0EA1DCF8
 # Static Data
 Address DATA_TRAINING_DOJO_ROUNDS_LEFT 0x0E95B0F8
 # Executable
-Address FUNC_WIREBUG_HIDE_AIM_ADDRESS 0x1374D9C
+Address FUNC_WIREBUG_HIDE_AIM_ADDRESS 0x01B0F14C
 # Offsets
 Offset STAGE_OFFSETS 0x0
 Offset LOCKON_OFFSETS 0xB8,0x58,0x20
@@ -55,9 +55,9 @@ Offset BUDDY_NAME_OFFSETS 0x20,0x18
 Offset BUDDY_LEVEL_OFFSETS 0x20
 
 # CRC Credits to REFramework: https://github.com/praydog/REFramework/blob/master/src/mods/IntegrityCheckBypass.cpp
-Address CRC_FUNC_1 0x02A72980
-Address CRC_FUNC_2 0x02AE7CD0
-Address CRC_FUNC_3 0x057271C0
+Address CRC_FUNC_1 0x0364AC20
+Address CRC_FUNC_2 0x036E1FA0
+Address CRC_FUNC_3 0x06CA7A70
 # Instructions
 Instruction CRC_ORIGINAL_FUNC_1 0x48,0x89,0x5C
 Instruction CRC_ORIGINAL_FUNC_2 0x48,0x89,0x5C
