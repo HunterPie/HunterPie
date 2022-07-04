@@ -12,6 +12,7 @@ namespace HunterPie.Core.Game.Client
         public float MaxTimer { get; }
         public bool IsInfinite { get; }
         public int Level { get; }
+        public bool IsBuildup { get; }
 
         public event EventHandler<IAbnormality> OnTimerUpdate;
     }

@@ -38,5 +38,12 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel
             get { return _isBuff; }
             set { SetValue(ref _isBuff, value); }
         }
+
+        public bool _isBuildup;
+        public bool IsBuildup
+        {
+            get { return _isBuildup; }
+            set { SetValue(ref _isBuildup, value); }
+        }
     }
 }

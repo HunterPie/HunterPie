@@ -10,7 +10,6 @@ namespace HunterPie.Core.Game.Rise.Entities
 {
     public class MHRSongAbnormality : IAbnormality, IUpdatable<MHRHHAbnormality>, IEventDispatcher
     {
-        const float SECONDS_MULTIPLIER = 60;
 
         private float _timer;
 
@@ -34,7 +33,8 @@ namespace HunterPie.Core.Game.Rise.Entities
         public bool IsInfinite { get; private set; }
         public int Level { get; private set; }
 
-        
+        public bool IsBuildup { get; private set; }
+
         public event EventHandler<IAbnormality> OnTimerUpdate;
 
         public MHRSongAbnormality(AbnormalitySchema schema)
@@ -42,6 +42,7 @@ namespace HunterPie.Core.Game.Rise.Entities
             Id = schema.Id;
             Name = schema.Name;
             Icon = schema.Icon;
+            IsBuildup = schema.IsBuildup;
         }
 
         void IUpdatable<MHRHHAbnormality>.Update(MHRHHAbnormality data)

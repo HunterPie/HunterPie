@@ -244,7 +244,9 @@
 		<Abnormality Id="ABN_FRENZY_BUILDUP"
                      Offset="874"
                      Name="ABNORMALITY_FRENZY_BUILDUP"
-                     Icon="ICON_FRENZY_BUILDUP"/>
+                     Icon="ICON_FRENZY_BUILDUP"
+					 IsBuildup="True"
+					 MaxBuildup="2"/>
 		<Abnormality Id="ABN_FRENZY"
                      Offset="884"
                      Name="ABNORMALITY_FRENZY"

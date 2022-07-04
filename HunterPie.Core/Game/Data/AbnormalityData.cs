@@ -59,6 +59,8 @@ namespace HunterPie.Core.Game.Data
                 string withValue = abnormality.Attributes["WithValue"]?.Value ?? "0";
                 string group = abnormality.ParentNode.Name;
                 string category = abnormality.Attributes["Category"]?.Value ?? group;
+                string isBuildup = abnormality.Attributes["IsBuildup"]?.Value ?? "False";
+                string maxBuildup = abnormality.Attributes["MaxBuildup"]?.Value ?? "0";
 
                 AbnormalitySchema schema = new()
                 {
@@ -72,6 +74,8 @@ namespace HunterPie.Core.Game.Data
                 int.TryParse(offset, NumberStyles.HexNumber, null, out schema.Offset);
                 int.TryParse(dependsOn, NumberStyles.HexNumber, null, out schema.DependsOn);
                 int.TryParse(withValue, out schema.WithValue);
+                bool.TryParse(isBuildup, out schema.IsBuildup);
+                int.TryParse(maxBuildup, out schema.MaxBuildup);
 
                 Abnormalities.Add(schema.Id, schema);
             }

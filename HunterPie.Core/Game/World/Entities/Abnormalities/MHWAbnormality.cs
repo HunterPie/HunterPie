@@ -42,6 +42,8 @@ namespace HunterPie.Core.Game.World.Entities.Abnormalities
 
         public int Level { get; }
 
+        public bool IsBuildup { get; set; }
+
         public event EventHandler<IAbnormality> OnTimerUpdate;
 
         public MHWAbnormality(AbnormalitySchema schema)
@@ -59,7 +61,10 @@ namespace HunterPie.Core.Game.World.Entities.Abnormalities
                 AbnormalityData.Foods => AbnormalityType.Food,
                 _ => throw new NotImplementedException("unreachable")
             };
+            IsBuildup = schema.IsBuildup;
 
+            if (IsBuildup)
+                MaxTimer = schema.MaxBuildup;
         }
 
         void IUpdatable<MHWAbnormalityStructure>.Update(MHWAbnormalityStructure data)

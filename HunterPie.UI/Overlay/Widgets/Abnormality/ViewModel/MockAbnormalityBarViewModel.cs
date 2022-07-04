@@ -11,6 +11,7 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel
             public string Icon;
             public float MaxDuration;
             public bool IsDebuff;
+            public bool IsBuildup;
         }
         private static MockAbnormalityData[] MockAbnormalityDatas =
         {
@@ -34,7 +35,10 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel
             new() { Name = "ABNORMALITY_BUBBLES_PLUS", Icon = "ICON_BUBBLE+", MaxDuration = 60, IsDebuff = true },
             new() { Name = "ABNORMALITY_FIRE", Icon = "ELEMENT_FIRE", MaxDuration = 15, IsDebuff = true },
             new() { Name = "ABNORMALITY_STENCH", Icon = "ICON_STENCH", MaxDuration = 30, IsDebuff = true },
-            new() { Name = "ABNORMALITY_RES_DOWN", Icon = "ICON_ALLRESDOWN", MaxDuration = 25, IsDebuff = true }
+            new() { Name = "ABNORMALITY_RES_DOWN", Icon = "ICON_ALLRESDOWN", MaxDuration = 25, IsDebuff = true },
+
+            // Buildup
+            new() { Name = "ABNORMALITY_THE_FRENZY_BUILDUP", Icon = "ICON_THE_FRENZY", MaxDuration = 150, IsDebuff = true, IsBuildup = true },
         };
 
         public MockAbnormalityBarViewModel()
@@ -62,7 +66,8 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel
                     Name = data.Name,
                     Timer = data.MaxDuration,
                     MaxTimer = data.MaxDuration,
-                    IsBuff = !data.IsDebuff
+                    IsBuff = !data.IsDebuff,
+                    IsBuildup = data.IsBuildup,
                 };
                 Abnormalities.Add(mock);
             }

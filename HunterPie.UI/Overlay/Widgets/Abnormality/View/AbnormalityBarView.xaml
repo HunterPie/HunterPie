@@ -20,6 +20,8 @@
         <converter:OrientationToOppositeConverter x:Key="OrientationToOppositeConverter"/>
         <converter:OrientationConverter x:Key="OrientationConverter"/>
         <converter:SecondsToTimeString x:Key="SecondsToTimeString"/>
+        <converter:RatioConverter x:Key="RatioConverter"/>
+        <converter:TestMultibinding x:Key="TestMultibinding"/>
     </UserControl.Resources>
     <Grid>
         <ItemsControl ItemsSource="{Binding Abnormalities, Mode=OneWay}">
@@ -48,9 +50,9 @@
                     <StackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}, Converter={StaticResource OrientationToOppositeConverter}}">
                         <overlay:Abnormality Margin="5,2,5,2"
                                              Width="30"
-                                             Height="30"/>
-                        <TextBlock Text="{Binding Timer, Converter={StaticResource SecondsToTimeString}, Mode=OneWay}"
-                                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                                             Height="30"
+                                             x:Name="PART_ABNORMALITY"/>
+                        <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
@@ -60,6 +62,30 @@
                                       BlurRadius="4" 
                                       ShadowDepth="0"/>
                             </TextBlock.Effect>
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsBuildup, Mode=OneWay}" Value="False">
+                                            <DataTrigger.Setters>
+                                                <Setter Property="Text" 
+                                                        Value="{Binding Timer, Converter={StaticResource SecondsToTimeString}, Mode=OneWay}"/>
+                                            </DataTrigger.Setters>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsBuildup, Mode=OneWay}" Value="True">
+                                            <DataTrigger.Setters>
+                                                <Setter Property="Text">
+                                                    <Setter.Value>
+                                                        <MultiBinding Converter="{StaticResource RatioConverter}" StringFormat="{}{0:P0}">
+                                                            <Binding Path="DataContext.Timer" ElementName="PART_ABNORMALITY"/>
+                                                            <Binding Path="DataContext.MaxTimer" ElementName="PART_ABNORMALITY"/>
+                                                        </MultiBinding>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger.Setters>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
                         </TextBlock>
                     </StackPanel>
                     
