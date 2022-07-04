@@ -23,7 +23,7 @@ namespace HunterPie.Features.Overlay
 
             if (context is MHRContext ctx)
             {
-                //PatchInGameHudAssembly(context);
+                PatchInGameHudAssembly(context);
                 _handler = new WirebugWidgetContextHandler(ctx);
             }
         }
@@ -62,7 +62,10 @@ namespace HunterPie.Features.Overlay
             if (!context.Process.Memory.InjectAsm(wirebugAimAddress, assembly))
             {
                 Log.Error("Failed to patch in-game Wirebug HUD");
+                return;
             }
+
+            Log.Debug("Successfully patched Wirebug aim");
         }
     }
 }
