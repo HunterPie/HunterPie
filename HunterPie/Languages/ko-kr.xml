@@ -385,6 +385,7 @@
 			<Stage Id="211" String="용궁성터"/>
 			<Stage Id="212" String="밀림"/>
 			<Stage Id="222" String="격투장"/>
+			-- <Stage Id="???" String="요새고원"/> --
 		</Rise>
 		<World>
 			<Stage Id="0" String="메인 메뉴"/>
