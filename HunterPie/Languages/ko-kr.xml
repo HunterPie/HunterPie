@@ -188,7 +188,7 @@
 			<Part Id="PART_L_LEG_MUD" String="왼쪽 다리 (진흙)"/>
 			<Part Id="PART_R_LEG_MUD" String="오른쪽 다리 (진흙)"/>
 			<Part Id="PART_TAIL_MUD" String="꼬리 (진흙)"/>
-			<Part Id="PART_SPONGE" String="스펀지"/>
+			<Part Id="PART_SPONGE" String="갈기"/>  -- 로아루드로스
 			<Part Id="PART_L_LEGS" String="왼쪽 다리"/>
 			<Part Id="PART_R_LEGS" String="오른쪽 다리"/>
 			<Part Id="PART_BODY" String="몸통"/>
@@ -202,11 +202,14 @@
 			<Part Id="PART_LEGS" String="다리"/>
 			<Part Id="PART_SHELL" String="껍데기"/>
 			<Part Id="PART_CLAW" String="발톱"/>
+			<Part Id="PART_R_CLAW" String="오른쪽 발톱"/>
+			<Part Id="PART_L_CLAW" String="왼쪽 발톱"/>
 			<Part Id="PART_L_FORELEG" String="왼쪽 앞다리"/>
 			<Part Id="PART_R_FORELEG" String="오른쪽 앞다리"/>
 			<Part Id="PART_L_H_LEG" String="왼쪽 뒷다리"/>
 			<Part Id="PART_R_H_LEG" String="오른쪽 뒷다리"/>
-			<Part Id="PART_CHEST" String="복부"/>
+			<Part Id="PART_ABDOMEN" String="복부"/>
+			<Part Id="PART_CHEST" String="흉부"/>
 			<Part Id="PART_TAIL_TIP" String="꼬리 끝"/>
 			<Part Id="PART_MUD_BALL" String="진흙 공"/>
 			<Part Id="PART_LOWER_TORSO" String="아래쪽 몸통"/>
@@ -219,6 +222,10 @@
 			<Part Id="PART_THUNDERBALLS" String="발전 기관"/>
 			<Part Id="PART_ROCK" String="바위"/>
 			<Part Id="PART_POT" String="항아리"/>
+			<Part Id="PART_WING_CLAW" String="날개 다리"/>
+			<Part Id="PART_FORELEG" String="앞다리"/>
+			<Part Id="PART_H_LEG" String="뒷다리"/>
+			<Part Id="PART_ANTENNA" String="촉각"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="리오레이아"/>
