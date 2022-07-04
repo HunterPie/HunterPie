@@ -17,6 +17,11 @@
              Loaded="OnLoaded"
              Unloaded="OnUnloaded">
     <UserControl.Resources>
+
+        <Style x:Key="UpdateAvailableClickStyle" TargetType="native:Button">
+            <EventSetter Event="Click" Handler="OnExecuteUpdateClick"/>
+        </Style>
+        
         <converters:GameProcessToGameNameConverter x:Key="GameProcessToGameNameConverter"/>
         <converters:ObjectToUiConverter x:Key="ObjectToUiConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -74,7 +79,8 @@
                                    Height="15"
                                    Margin="10,0,0,0"
                                    Visibility="{Binding IsFetchingVersion, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            <Label Visibility="{Binding IsFetchingVersion, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+            <Label Visibility="{Binding IsFetchingVersion, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                   Padding="0">
                 <Label.Style>
                     <Style TargetType="Label">
                         <Style.Triggers>
@@ -83,7 +89,7 @@
                                     <Setter.Value>
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="{StaticResource ICON_CHECKMARK_GREEN}"
-                                                   Margin="0,0,5,0"/>
+                                                   Margin="1,5,5,5"/>
                                             <TextBlock Text="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_IS_LATEST_VERSION&quot;]'}"
                                                        d:Text="Lastest version"
                                                        Foreground="#66e2a7"
@@ -97,16 +103,19 @@
                             <DataTrigger Binding="{Binding IsLatestVersion}" Value="False">
                                 <Setter Property="Content">
                                     <Setter.Value>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image Source="{StaticResource ICON_DOWNLOAD_YELLOW}"
-                                                   Margin="0,0,5,0"/>
-                                            <TextBlock Text="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_NOT_LATEST_VERSION&quot;]'}"
-                                                       d:Text="There's a newer version available"
-                                                       Foreground="#ffab66"
-                                                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                                                       VerticalAlignment="Center"
-                                                       FontWeight="Medium"/>
-                                        </StackPanel>
+                                        <native:Button Style="{StaticResource UpdateAvailableClickStyle}"
+                                                       Cursor="Hand">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{StaticResource ICON_DOWNLOAD_YELLOW}"
+                                                       Margin="0,0,5,0"/>
+                                                <TextBlock Text="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_NOT_LATEST_VERSION&quot;]'}"
+                                                           d:Text="There's a newer version available"
+                                                           Foreground="#ffab66"
+                                                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                                           VerticalAlignment="Center"
+                                                           FontWeight="Medium"/>
+                                            </StackPanel>
+                                        </native:Button>
                                     </Setter.Value>
                                 </Setter>
                             </DataTrigger>

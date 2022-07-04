@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -8,7 +9,16 @@ namespace HunterPie.UI.Architecture
     {
         private bool _isMouseInside;
         private bool _isMouseDown;
+
         public event EventHandler<EventArgs> OnClick;
+
+        public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Direct, typeof(RoutedEventHandler), typeof(ClickableControl));
+
+        public event RoutedEventHandler Click
+        {
+            add { AddHandler(ClickEvent, value); }
+            remove { RemoveHandler(ClickEvent, value); }
+        }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
@@ -27,6 +37,7 @@ namespace HunterPie.UI.Architecture
             {
                 OnClickEvent();
                 OnClick?.Invoke(this, e);
+                RaiseEvent(new RoutedEventArgs(ClickEvent, this));
             }
 
             _isMouseDown = false;
