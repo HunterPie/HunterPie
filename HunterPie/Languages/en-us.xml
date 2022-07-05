@@ -373,6 +373,7 @@
 	</Monsters>
 	<Stages>
 		<Rise>
+			<Stage Id="-2" String="Loading Screen"/>
 			<Stage Id="-1" String="Main Menu"/>
 			<Stage Id="0" String="Village"/>
 			<Stage Id="1" String="Room"/>
@@ -394,7 +395,6 @@
 			<Stage Id="210" String="Arena"/>
 			<Stage Id="211" String="Coral Palace"/>
 			<Stage Id="212" String="Jungle"/>
-			<Stage Id="222" String="Arena"/>
 		</Rise>
 		<World>
 			<Stage Id="0" String="Main Menu"/>

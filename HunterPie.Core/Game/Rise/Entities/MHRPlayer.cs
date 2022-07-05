@@ -27,7 +27,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         private Weapon _weaponId;
         private readonly Dictionary<string, IAbnormality> abnormalities = new();
         private readonly MHRParty _party = new();
-        
+        private MHRStageStructure _stageData;
         #endregion
 
 
@@ -76,7 +76,7 @@ namespace HunterPie.Core.Game.Rise.Entities
             }
         }
 
-        public bool InHuntingZone => StageId >= 200 || StageId == 5;
+        public bool InHuntingZone => _stageData.IsHuntingZone() || StageId == 5;
 
         public IParty Party => _party;
         
@@ -116,29 +116,24 @@ namespace HunterPie.Core.Game.Rise.Entities
             );
 
             // TODO: Transform this into a structure instead of an array
-            int[] stageIds = _process.Memory.Read<int>(stageAddress + 0x60, 5);
+            MHRStageStructure stageData = _process.Memory.Read<MHRStageStructure>(stageAddress + 0x60);
 
-            bool isVillage = stageIds[0] == 4;
-            bool isMainMenu = stageIds[0] == 0;
-
-            int villageId = stageIds[1];
-            int huntId = stageIds[4];
-
-            int zoneId = isMainMenu switch
+            int zoneId = stageData.IsMainMenu() switch
             {
                 true => -1,
-                false => isVillage
-                ? villageId
-                : huntId + 200
+                false => stageData.IsVillage()
+                ? stageData.VillageId
+                : stageData.IsLoadingScreen() ? -2 : stageData.HuntingId + 200
             };
 
+            _stageData = stageData;
             StageId = zoneId;
         }
 
         [ScannableMethod]
         private void ScanPlayerSaveData()
         {
-            if (StageId == -1 || StageId == 199)
+            if (_stageData.IsMainMenu())
             {
                 Name = "";
                 return;
