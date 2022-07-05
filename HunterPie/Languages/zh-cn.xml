@@ -155,12 +155,12 @@
 			<Monster Id="94" String="冰狼龙"/>
 			<Monster Id="96" String="冥渊龙"/>
 			<Monster Id="95" String="刚缠兽"/>
-			
 			<Monster Id="97" String="棘龙"/>
 		</Rise>
 	</Monsters>
 	<Stages>
 		<Rise>
+			<Stage Id="-2" String="加载界面"/>
 			<Stage Id="-1" String="主菜单"/>
 			<Stage Id="0" String="炎火村"/>
 			<Stage Id="1" String="自己家"/>
@@ -182,7 +182,8 @@
 			<Stage Id="210" String="斗技场"/>
 			<Stage Id="211" String="龙宫古城"/>
 			<Stage Id="212" String="密林"/>
-			<Stage Id="222" String="竞技场"/>
+			<Stage Id="213" String="城塞高地"/>
+			<Stage Id="215" String="渊劫地狱"/>
 		</Rise>
 	</Stages>
 
@@ -198,18 +199,26 @@
 				 String="插件"/>
 			<Tab Id="SETTINGS_STRING"
 				 String="设置"/>
+			<Tab Id="PATREON_STRING"
+				 String="Patreon"/>
 		</Tabs>
 		<Generics>
+			<Generic Id="HUNTERPIE_LAUNCH_GAME"
+					 String="启动游戏"/>
 			<Generic Id="HUNTERPIE_IS_LATEST_VERSION"
-					 String="HunterPie已经更新到最新版本了！"/>
+					 String="HunterPie已经是最新版本了！"/>
 			<Generic Id="HUNTERPIE_NOT_LATEST_VERSION"
 					 String="HunterPie检测到一个可用更新！"/>
+			<Generic Id="HUNTERPIE_CURRENT_SELECTED_CONFIG"
+					 String="配置："/>
 		</Generics>
 		<Integrations>
 			<Discord Id="DRPC_RISE_CHARACTER_STRING_FORMAT"
 					 String="{Character} | HR: {HighRank}"/>
 			<Discord Id="DRPC_STATE_MAIN_MENU"
 					 String="在主菜单"/>
+			<Discord Id="DRPC_STATE_LOADING"
+					 String="加载界面中"/>
 			<Discord Id="DRPC_STATE_IDLE"
 					 String="闲逛中"/>
 			<Discord Id="DRPC_RISE_STATE_PRACTICE"
@@ -226,6 +235,8 @@
 					 String="探索中"/>
 			<Discord Id="DRPC_STATE_HUNTING"
 					 String="正在狩猎 {Monster} ({Percentage}%)"/>
+			<Discord Id="DRPC_STATE_HUNTING_NO_HEALTH"
+					 String="正在狩猎 {Monster}"/>
 		</Integrations>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
@@ -243,7 +254,42 @@
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="开发者工具"
 					 Description="嵌入界面选项"/>
-			
+			<Setting Id="ABNORMALITY_TRAY_STRING"
+					 String="增减益状态组件"
+					 Description="增减益状态组件选项"/>
+			<Setting Id="WIREBUG_WIDGET_STRING"
+					 String="翔虫组件"
+					 Description="翔虫组件选项"/>
+			<Setting Id="ACTIVITIES_WIDGET_STRING"
+					 String="道场和交易船组件"
+					 Description="道场和交易船组件选项"/>
+			<Setting Id="METER_WIDGET_STRING"
+					 String="伤害统计组件"
+					 Description="伤害统计组件选项"/>
+			<Setting Id="CHAT_WIDGET_STRING"
+					 String="聊天组件"
+					 Description="聊天组件选项"/>
+					 
+			<Setting Id="ABNORMALITY_SONGS_STRING"
+					 String="歌曲BUFF"
+					 Description="歌曲BUFF"/>
+			<Setting Id="ABNORMALITY_CONSUMABLES_STRING"
+					 String="消耗品"
+					 Description="消耗品BUFF"/>
+			<Setting Id="ABNORMALITY_DEBUFFS_STRING"
+					 String="Debuffs"
+					 Description="减益状态"/>
+			<Setting Id="ABNORMALITY_PALICO_STRING"
+					 String="Orchestra"
+					 Description="Orchestra abnormalities"/>
+			<Setting Id="ABNORMALITY_SKILLS_STRING"
+					 String="护甲技能"
+					 Description="护甲技能状态"/>
+			<Setting Id="ABNORMALITY_FOODS_STRING"
+					 String="食物技能"
+					 Description="食物技能状态"/>
+					 
+					 
 			<Setting Id="ENABLE_SELF_UPDATE"
 					 String="开启自动更新"
 					 Description="开启后，Hunterpie每次启动会自动检查并更新到最新版本。"/>		
@@ -256,9 +302,21 @@
 			<Setting Id="LANGUAGE_STRING"
 					 String="语言"
 					 Description="HunterPie的默认语言"/>
+			<Setting Id="DEFAULT_RUN_GAME_TYPE"
+					 String="默认游戏"
+					 Description="选择默认启动的游戏，更改此选项会自动切换至相应游戏的配置。"/>
 			<Setting Id="MINIMIZE_TO_SYSTEM_TRAY_STRING"
 					 String="在任务栏最小化"
 					 Description="开启后, HunterPie会最小化到系统的任务栏"/>
+			<Setting Id="SEAMLESS_STARTUP_STRING"
+					 String="无痕启动"
+					 Description="开启后, HunterPie 的窗口将不会在程序启动时出现。"/>
+			<Setting Id="SEAMLESS_SHUTDOWN_STRING"
+					 String="无痕关闭"
+					 Description="开启后, HunterPie 退出时将不会弹出确认窗口。"/>
+			<Setting Id="SHUTDOWN_ON_GAME_EXIT"
+					 String="与游戏一起退出"
+					 Description="开启后, 当游戏关闭时，HunterPie会自动关闭。"/>
 			<Setting Id="RENDERING_STRATEGY_STRING"
 					 String="渲染模式"
 					 Description="HunterPie的默认渲染模式。Software会使用你的CPU来渲染嵌入界面, Hardware则会使用你的显卡。"/>
@@ -282,6 +340,9 @@
 			<Setting Id="OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE"
 					 String="[按键] 开启组件移动模式"
 					 Description="设置一个按键来开启和关闭组件移动模式。"/>
+			<Setting Id="OVERLAY_HIDE_WHEN_GAME_UNFOCUS_STRING"
+					 String="游戏不是焦点时隐藏组件"
+					 Description="开启后, 如果游戏不是当前主窗口，则会自动隐藏所有组件。"/>
 					 
 			<Setting Id="INITIALIZE_WIDGET_STRING"
 					 String="初始化组件"
@@ -289,6 +350,9 @@
 			<Setting Id="ENABLE_WIDGET_STRING"
 					 String="显示组件"
 					 Description="开启后， 只要有可显示的数据，HunterPie就会一直显示这个组件。"/>
+		    <Setting Id="HIDE_WHEN_UI_VISIBLE_STRING"
+					 String="当游戏界面显示时自动隐藏"
+					 Description="开启后, 若游戏界面显示（比如帐篷中、与NPC对话、任务结束窗口等等）HunterPie 会自动隐藏此组件。"/>
 			<Setting Id="WIDGET_POSITION"
 					 String="组件位置"
 					 Description="按“ScrollLock”键进入组件移动模式。（以后可以自定义此按键）。"/>
@@ -298,13 +362,22 @@
 			<Setting Id="WIDGET_SCALE"
 					 String="组件比例"
 					 Description="控制这个组件的线性比例，数值越高，组件就越大。"/>
+			<Setting Id="ORIENTATION_STRING"
+					 String="生长方向"
+					 Description="此组件的生长方向。"/>
 					 
+			<Setting Id="MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING"
+					 String="只显示当前目标"
+					 Description="开启后, HunterPie 将只显示你的当前怪物。"/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_STAMINA_STRING"
 					 String="开启怪物耐力条"
 					 Description="开启后， HunterPie在怪物的血量条下方显示怪物的耐力条。"/>
 			<Setting Id="MONSTER_WIDGET_MAX_WIDTH_STRING"
 					 String="怪物组件最大宽度"
 					 Description="控制怪物生命条的最大宽度。"/>
+			<Setting Id="MONSTER_WIDGET_MIN_WIDTH_STRING"
+					 String="怪物组件最小宽度"
+					 Description="控制怪物生命条的最小宽度。"/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_PARTS_STRING"
 					 String="启用怪物部位"
 					 Description="开启后，HunterPie会显示怪物部位。"/>
@@ -323,6 +396,67 @@
 			<Setting Id="MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING"
 					 String="延迟隐藏不活跃的怪物状态"
 					 Description="不活跃的怪物状态将延迟后隐藏。"/>
+			<Setting Id="MONSTER_WIDGET_DYNAMIC_RESIZE_STRING"
+					 String="动态调整怪物组件大小"
+					 Description="开启后, HunterPie 会根据当前可视怪物生命条多少来调整所有怪物的血条大小。"/>
+			<Setting Id="MONSTER_WIDGET_HIDE_UNKNOWN_PARTS_STRING"
+					 String="隐藏怪物的未知部位"
+					 Description="开启后, HunterPie 会隐藏未知部位 (被标记为 &quot;???&quot;)。"/>
+					 
+			<Setting Id="ABNORMALITY_TRAYS_STRING"
+					 String="增减益状态栏"
+					 Description="配置增减益状态组件。"/>
+			<Setting Id="ABNORMALITY_TRAY_NAME_STRING"
+					 String="增减益状态组件名称"
+					 Description="为这个状态组件命名。"/>
+			<Setting Id="ABNORMALITY_TRAY_MAX_SIZE_STRING"
+					 String="最大大小"
+					 Description="这列增减益状态组件的最大大小。"/>
+			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
+					 String="排列方式"
+					 Description="选择所有增减益状态的排序方式。"/>
+			<Setting Id="SORT_BY_LOWEST_TIMER_STRING"
+					 String="最短时间"/>
+			<Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
+					 String="最长时间"/>
+			<Setting Id="SORT_BY_DISABLED_STRING"
+					 String="禁用"/>
+
+			<Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
+					 String="修复游戏中的翔虫瞄准系统"
+					 Description="开启后, HunterPie 会在你游戏中禁用翔虫视觉效果时依旧显示你的翔虫瞄准。"/>
+
+			<Setting Id="ACTIVITIES_ENABLE_ARGOSY_STRING"
+					 String="显示交易船"
+					 Description="开启后, HunterPie 会显示交易船的数据。"/>
+			<Setting Id="ACTIVITIES_ENABLE_TRAINING_DOJO_STRING"
+					 String="显示随从道场"
+					 Description="开启后, HunterPie 会显示随从道场的数据。"/>
+
+			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_HIGHLIGHT_MYSELF"
+					 String="自己名称高亮"
+					 Description="开启后, 你的名字将会高亮显示。"/>
+			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_BLUR_NAMES"
+					 String="模糊名称"
+					 Description="开启后, 伤害统计中将会模糊显示所有玩家的名称。"/>
+			<Setting Id="DAMAGE_METER_ENABLE_DPS_PLOT"
+					 String="显示DPS图表"
+					 Description="开启后, 将显示DPS图表。"/>
+			<Setting Id="DAMAGE_METER_SELF_COLOR_STRING"
+					 String="我的颜色"
+					 Description="你的角色在伤害统计中的颜色。"/>
+			<Setting Id="DAMAGE_METER_PLAYER_1_COLOR_STRING"
+					 String="小队队长颜色"
+					 Description="小队队长在伤害统计中的颜色。"/>
+			<Setting Id="DAMAGE_METER_PLAYER_2_COLOR_STRING"
+					 String="二号玩家颜色"
+					 Description="二号玩家在伤害统计中的颜色。"/>
+			<Setting Id="DAMAGE_METER_PLAYER_3_COLOR_STRING"
+					 String="三号玩家颜色"
+					 Description="三号玩家在伤害统计中的颜色。"/>
+			<Setting Id="DAMAGE_METER_PLAYER_4_COLOR_STRING"
+					 String="四号玩家颜色"
+					 Description="四号玩家在伤害统计中的颜色。"/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="开发中: 模拟怪物组件"/>
