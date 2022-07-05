@@ -10,17 +10,25 @@
 			<Ailment Id="AILMENT_BLAST" String="爆破"/>
 			<Ailment Id="AILMENT_EXHAUST" String="虚弱"/>
 			<Ailment Id="AILMENT_MOUNT" String="操龙"/>
+			<Ailment Id="AILMENT_RIDE" String="骑乘"/>
 			<Ailment Id="AILMENT_FLASH" String="眩目"/>
 			<Ailment Id="AILMENT_WATER" String="弱水"/>
 			<Ailment Id="AILMENT_FIRE" String="弱火"/>
 			<Ailment Id="AILMENT_ICE" String="弱冰"/>
 			<Ailment Id="AILMENT_THUNDER" String="弱雷"/>
+			<Ailment Id="AILMENT_DUNG" String="异臭"/>
+			<Ailment Id="AILMENT_TRANQUILIZE" String="麻醉"/>
+			<Ailment Id="AILMENT_KNOCKDOWN" String="击倒"/>
+			<Ailment Id="AILMENT_SHOCKTRAP" String="麻痹陷阱"/>
+			<Ailment Id="AILMENT_PITFALLTRAP" String="落穴陷阱"/>
+			<Ailment Id="AILMENT_SMOKING" String="烟雾"/>
 			<Ailment Id="STATUS_ENRAGE" String="激怒"/>
 		</Rise>
 	</Ailments>
 	<Monsters>
 		<Shared>
 			<Part Id="PART_UNKNOWN" String="未知部位"/>
+			<Part Id="PART_TO_BE_MAPPED" String="未知部位"/>
 			<Part Id="PART_HEAD" String="头部"/>
 			<Part Id="PART_TORSO" String="躯干"/>
 			<Part Id="PART_L_WING" String="左翼"/>
@@ -58,11 +66,14 @@
 			<Part Id="PART_LEGS" String="腿"/>
 			<Part Id="PART_SHELL" String="壳"/>
 			<Part Id="PART_CLAW" String="爪子"/>
+			<Part Id="PART_R_CLAW" String="右爪"/>
+			<Part Id="PART_L_CLAW" String="左爪"/>
 			<Part Id="PART_L_FORELEG" String="左前腿"/>
 			<Part Id="PART_R_FORELEG" String="右前腿"/>
 			<Part Id="PART_L_H_LEG" String="左后腿"/>
 			<Part Id="PART_R_H_LEG" String="右后腿"/>
-			<Part Id="PART_CHEST" String="腹部"/>
+			<Part Id="PART_ABDOMEN" String="腹部"/>
+			<Part Id="PART_CHEST" String="胸部"/>
 			<Part Id="PART_TAIL_TIP" String="尾尖"/>
 			<Part Id="PART_MUD_BALL" String="泥土球"/>
 			<Part Id="PART_LOWER_TORSO" String="下躯干"/>
@@ -75,6 +86,10 @@
 			<Part Id="PART_THUNDERBALLS" String="雷电球"/>
 			<Part Id="PART_ROCK" String="石头"/>
 			<Part Id="PART_POT" String="茶釜"/>
+			<Part Id="PART_WING_CLAW" String="翼爪"/>
+			<Part Id="PART_FORELEG" String="前肢"/>
+			<Part Id="PART_H_LEG" String="后肢"/>
+			<Part Id="PART_ANTENNA" String="触角"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="雌火龙"/>
@@ -124,6 +139,24 @@
 			<Monster Id="44" String="飞雷龙"/>
 			<Monster Id="45" String="爆鳞龙"/>
 			<Monster Id="46" String="机关蛙"/>
+			<Monster Id="78" String="大名盾蟹"/>
+			<Monster Id="79" String="将军镰蟹"/>
+			<Monster Id="80" String="激昂金狮子"/>
+			<Monster Id="82" String="黑蚀龙"/>
+			<Monster Id="83" String="天廻龙"/>
+			<Monster Id="84" String="千刃龙"/>
+			<Monster Id="85" String="电龙"/>
+			<Monster Id="87" String="嗟怨震天怨虎龙"/>
+			<Monster Id="88" String="绯天狗兽"/>
+			<Monster Id="89" String="冰人鱼龙"/>
+			<Monster Id="90" String="炽妃蜘蛛"/>
+			<Monster Id="91" String="熔翁龙"/>
+			<Monster Id="93" String="爵银龙"/>
+			<Monster Id="94" String="冰狼龙"/>
+			<Monster Id="96" String="冥渊龙"/>
+			<Monster Id="95" String="刚缠兽"/>
+			
+			<Monster Id="97" String="棘龙"/>
 		</Rise>
 	</Monsters>
 	<Stages>
@@ -135,6 +168,9 @@
 			<Stage Id="3" String="集会所"/>
 			<Stage Id="4" String="集会所 准备区域"/>
 			<Stage Id="5" String="修炼场"/>
+			<Stage Id="6" String="埃尔迦德"/>
+			<Stage Id="7" String="埃尔迦德的小屋"/>
+			<Stage Id="11" String="骑士团指挥所"/>
 			<Stage Id="199" String="角色选择"/>
 			<Stage Id="201" String="废神社"/>
 			<Stage Id="202" String="沙原"/>
@@ -145,6 +181,8 @@
 			<Stage Id="209" String="狱泉乡"/>
 			<Stage Id="210" String="斗技场"/>
 			<Stage Id="211" String="龙宫古城"/>
+			<Stage Id="212" String="密林"/>
+			<Stage Id="222" String="竞技场"/>
 		</Rise>
 	</Stages>
 
@@ -170,9 +208,9 @@
 		<Integrations>
 			<Discord Id="DRPC_RISE_CHARACTER_STRING_FORMAT"
 					 String="{Character} | HR: {HighRank}"/>
-			<Discord Id="DRPC_RISE_STATE_MAIN_MENU"
+			<Discord Id="DRPC_STATE_MAIN_MENU"
 					 String="在主菜单"/>
-			<Discord Id="DRPC_RISE_STATE_IDLE"
+			<Discord Id="DRPC_STATE_IDLE"
 					 String="闲逛中"/>
 			<Discord Id="DRPC_RISE_STATE_PRACTICE"
 					 String="练习中"/>
@@ -180,9 +218,13 @@
 					 String="正在进行百龙夜行"/>
 			<Discord Id="DRPC_RISE_STATE_CHAR_SELECTION"
 					 String="选择角色中"/>
-			<Discord Id="DRPC_RISE_STATE_EXPLORING"
+			<Discord Id="DRPC_PARTY_STATE_SOLO_STRING"
+					 String="单人"/>
+			<Discord Id="DRPC_PARTY_STATE_GROUP_STRING"
+					 String="组队中"/>
+			<Discord Id="DRPC_STATE_EXPLORING"
 					 String="探索中"/>
-			<Discord Id="DRPC_RISE_STATE_HUNTING"
+			<Discord Id="DRPC_STATE_HUNTING"
 					 String="正在狩猎 {Monster} ({Percentage}%)"/>
 		</Integrations>
 		<Settings>
