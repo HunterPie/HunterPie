@@ -200,6 +200,16 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 			<Monster Id="44" String="Tobi-Kadachi"/>
 			<Monster Id="45" String="Bazelgeuse"/>
 			<Monster Id="46" String="Toadversary"/>
+			<Monster Id="78" String="Daimyo Hermitaur"/>
+			<Monster Id="79" String="Shogun Ceanataur"/>
+			<Monster Id="84" String="Seregios"/>
+			<Monster Id="85" String="Astalos"/>
+			<Monster Id="88" String="Blut-Bishaten"/>
+			<Monster Id="89" String="Auroracanth"/>
+			<Monster Id="91" String="Magmadron"/>
+			<Monster Id="93" String="Malzeno"/>
+			<Monster Id="94" String="Lunagaron"/>
+			<Monster Id="95" String="Garangolm"/>
 		</Rise>
 	</Monsters>
 	<Stages>
@@ -221,6 +231,7 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 			<Stage Id="209" String="Höllenquellen"/>
 			<Stage Id="210" String="Arena"/>
 			<Stage Id="211" String="Korallenpalast"/>
+			<Stage Id="212" String="Dschungel" />
 		</Rise>
 	</Stages>
 
