@@ -14,11 +14,12 @@
 	<DebugType>full</DebugType>
 	<SignAssembly>False</SignAssembly>
 	<PlatformTarget>AnyCPU</PlatformTarget>
+	<Nullable>disable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants>TRACE;DEPLOY;DEBUG</DefineConstants>
-    <Optimize>False</Optimize>
+    <Optimize>True</Optimize>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
