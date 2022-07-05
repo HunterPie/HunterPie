@@ -59,6 +59,11 @@ namespace HunterPie.Core.Game.Rise.Entities
                 {
                     _stageId = value;
                     this.Dispatch(OnStageUpdate);
+
+                    if (_stageData.IsVillage())
+                        this.Dispatch(OnVillageEnter);
+                    else
+                        this.Dispatch(OnVillageLeave);
                 }
             }
         }
@@ -117,14 +122,18 @@ namespace HunterPie.Core.Game.Rise.Entities
 
             // TODO: Transform this into a structure instead of an array
             MHRStageStructure stageData = _process.Memory.Read<MHRStageStructure>(stageAddress + 0x60);
-
-            int zoneId = stageData.IsMainMenu() switch
-            {
-                true => -1,
-                false => stageData.IsVillage()
-                ? stageData.VillageId
-                : stageData.IsLoadingScreen() ? -2 : stageData.HuntingId + 200
-            };
+            
+            int zoneId;
+            if (stageData.IsMainMenu())
+                zoneId = -1;
+            else if (stageData.IsVillage())
+                zoneId = stageData.VillageId;
+            else if (stageData.IsLoadingScreen())
+                zoneId = -2;
+            else if (stageData.IsSelectingCharacter())
+                zoneId = 199;
+            else
+                zoneId = stageData.HuntingId + 200;
 
             _stageData = stageData;
             StageId = zoneId;
@@ -153,7 +162,7 @@ namespace HunterPie.Core.Game.Rise.Entities
 
         private void FindPlayerSaveSlot()
         {
-            if (StageId == -1 || StageId == 199)
+            if (_stageData.IsMainMenu())
             {
                 Name = "";
                 SaveSlotId = -1;

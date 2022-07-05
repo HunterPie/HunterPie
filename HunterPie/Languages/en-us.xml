@@ -468,6 +468,8 @@
 					 String="Hunting {Monster}"/>
 			<Discord Id="DRPC_STATE_MAIN_MENU"
 					 String="In Main Menu"/>
+			<Discord Id="DRPC_STATE_LOADING"
+					 String="In Loading Screen"/>
 			<Discord Id="DRPC_STATE_IDLE"
 					 String="Chilling"/>
 			<Discord Id="DRPC_STATE_EXPLORING"
