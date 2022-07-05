@@ -10,6 +10,7 @@ namespace HunterPie.Core.Game.Rise.Definitions
          * 3 -> Char selection
          * 4 -> Village
          * 5 -> Hunting Zones
+         * 6 -> Hunting Zones
          * 12 -> Loading screen
          * **/
         public int Type;
@@ -22,7 +23,7 @@ namespace HunterPie.Core.Game.Rise.Definitions
         public bool IsMainMenu() => Type == 0;
         public bool IsSelectingCharacter() => Type == 3;
         public bool IsVillage() => Type == 4;
-        public bool IsHuntingZone() => Type == 5;
+        public bool IsHuntingZone() => Type == 5 || Type == 6;
         public bool IsLoadingScreen() => Type == 12;
     }
 }
