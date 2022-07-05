@@ -30,7 +30,8 @@ namespace HunterPie.Integrations.Discord
             description = game.Player.StageId switch
             {
                 -1 => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_STATE_MAIN_MENU']"),
-                >= 0 and <= 4 => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_STATE_IDLE']"),
+                >= 0 and <= 4 or 
+                > 5 and < 199 => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_STATE_IDLE']"),
                 5 => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_PRACTICE']"),
                 207 => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_RAMPAGE']"),
                 199 => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_RISE_STATE_CHAR_SELECTION']"),

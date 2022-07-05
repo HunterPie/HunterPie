@@ -1,8 +1,8 @@
 ﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Enums;
+using HunterPie.Core.Game.Data;
 using HunterPie.UI.Assets.Application;
 using System;
 using System.Collections.Generic;
@@ -37,6 +37,7 @@ namespace HunterPie.UI.Controls.Settings.Custom.Abnormality
 
         public static AbnormalityCollectionViewModel[] GetViewModelsBy(GameProcess game, AbnormalityWidgetConfig config)
         {
+            // TODO: Use AbnormalityData class to load abnormalities and then convert them using the IMapper
             string gameDataFile = game switch
             {
                 GameProcess.MonsterHunterRiseSunbreakDemo or
@@ -58,7 +59,7 @@ namespace HunterPie.UI.Controls.Settings.Custom.Abnormality
                 string name = node.Attributes["Name"]?.Value ?? "ABNORMALITY_UNKNOWN";
                 string icon = node.Attributes["Icon"]?.Value ?? "ICON_MISSING";
                 string id = node.Attributes["Id"].Value;
-                string abnormId = $"{category}_{id}";
+                string abnormId = AbnormalityData.BuildAbnormalityId(id, category);
 
                 if (!collections.ContainsKey(category))
                     collections.Add(category, new()

@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client.Events;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Json;
 using HunterPie.Core.Logger;
 using Newtonsoft.Json;
 using System;
@@ -138,7 +139,7 @@ namespace HunterPie.Core.Client
                             TypeNameHandling = TypeNameHandling.Auto
                         };
 
-                        JsonConvert.PopulateObject(str, _settings[path], serializerSettings);
+                        JsonProvider.Populate(str, _settings[path]);
                     }
                 } catch (Exception err) { Log.Error(err.ToString()); }
             }

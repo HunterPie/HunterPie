@@ -9,5 +9,8 @@
         public string Name;
         public string Icon;
         public string Category;
+        public string Group;
+        public bool IsBuildup;
+        public int MaxBuildup;
     }
 }

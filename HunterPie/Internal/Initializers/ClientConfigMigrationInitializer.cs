@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using HunterPie.Core.Json;
 
 namespace HunterPie.Internal.Initializers
 {
@@ -15,7 +16,8 @@ namespace HunterPie.Internal.Initializers
     {
         private readonly static Dictionary<int, ISettingsMigrator> _migrators = new()
         {
-            { 0, new V2SettingsMigrator() }
+            { 0, new V2SettingsMigrator() },
+            { 1, new V3SettingsMigrator() },
         };
 
         public void Init()
@@ -69,7 +71,7 @@ namespace HunterPie.Internal.Initializers
             {
                 TypeNameHandling = TypeNameHandling.Auto
             };
-            string serializedConfig = JsonConvert.SerializeObject(newSettings, serializerSettings);
+            string serializedConfig = JsonProvider.Serialize(newSettings);
             
             File.WriteAllText(
                 ClientInfo.GetPathFor(ClientInfo.ConfigName), 

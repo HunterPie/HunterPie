@@ -111,7 +111,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         private void ScanStageData()
         {
             long stageAddress = _process.Memory.Read(
-                AddressMap.GetAbsolute("STAGE_ADDRESS"), 
+                AddressMap.GetAbsolute("STAGE_ADDRESS"),
                 AddressMap.Get<int[]>("STAGE_OFFSETS")
             );
 

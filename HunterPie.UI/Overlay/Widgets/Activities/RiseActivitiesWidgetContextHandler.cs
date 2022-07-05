@@ -53,12 +53,12 @@ namespace HunterPie.UI.Overlay.Widgets.Activities
 
         private void UpdateData()
         {
-            ViewModel.InVisibleStage = MHRGame.VillageStages.Contains(_player.StageId);
+            ViewModel.InVisibleStage = !_player.InHuntingZone && _player.StageId != -1;
         }
 
         private void OnStageChange(object sender, EventArgs e)
         {
-            ViewModel.InVisibleStage = MHRGame.VillageStages.Contains(_player.StageId);
+            ViewModel.InVisibleStage = !_player.InHuntingZone && _player.StageId != -1;
         }
 
         public void UnhookEvents()

@@ -57,23 +57,35 @@ namespace HunterPie.Core.Game.Data
                 string offset = abnormality.Attributes["Offset"]?.Value ?? id;
                 string dependsOn = abnormality.Attributes["DependsOn"]?.Value ?? "0";
                 string withValue = abnormality.Attributes["WithValue"]?.Value ?? "0";
-                string finalId = $"{abnormality.ParentNode.Name}_{id}";
-                string category = abnormality.Attributes["Category"]?.Value ?? abnormality.ParentNode.Name;
+                string group = abnormality.ParentNode.Name;
+                string category = abnormality.Attributes["Category"]?.Value ?? group;
+                string isBuildup = abnormality.Attributes["IsBuildup"]?.Value ?? "False";
+                string maxBuildup = abnormality.Attributes["MaxBuildup"]?.Value ?? "0";
 
                 AbnormalitySchema schema = new()
                 {
-                    Id = finalId,
+                    Id = BuildAbnormalityId(id, group),
                     Name = name,
                     Icon = icon,
-                    Category = category
+                    Category = category,
+                    Group = group
                 };
 
                 int.TryParse(offset, NumberStyles.HexNumber, null, out schema.Offset);
                 int.TryParse(dependsOn, NumberStyles.HexNumber, null, out schema.DependsOn);
                 int.TryParse(withValue, out schema.WithValue);
+                bool.TryParse(isBuildup, out schema.IsBuildup);
+                int.TryParse(maxBuildup, out schema.MaxBuildup);
 
                 Abnormalities.Add(schema.Id, schema);
             }
+        }
+
+        public static string BuildAbnormalityId(string self, string group)
+        {
+            return self.StartsWith("ABN_")
+                ? self
+                : $"{group}_{self}";
         }
 
         public static AbnormalitySchema? GetSongAbnormalityData(int id) => GetAbnormalityData($"{SongPrefix}{id}");

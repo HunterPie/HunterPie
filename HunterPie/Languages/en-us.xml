@@ -123,6 +123,8 @@
 		<Abnormality Id="ABNORMALITY_POWERCONE" String="Powercone"/>
 		<Abnormality Id="ABNORMALITY_ICE_RES" String="Ice Res. (L)"/>
 		<Abnormality Id="ABNORMALITY_FOOD_TIMER" String="Food Timer"/>
+		<Abnormality Id="ABNORMALITY_RUBY_WIREBUG" String="Ruby Wirebug"/>
+		<Abnormality Id="ABNORMALITY_GOLD_WIREBUG" String="Gold Wirebug"/>
 		
 		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="Dango Bulker"/>
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="Dango Booster"/>
@@ -158,6 +160,9 @@
 		<Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="Major Bubbleblight"/>
 		<Abnormality Id="ABNORMALITY_BLEED" String="Bleed"/>
 		<Abnormality Id="ABNORMALITY_EFFLUVIA" String="Effluvia"/>
+		<Abnormality Id="ABNORMALITY_FRENZY_BUILDUP" String="The Frenzy (Buildup)"/>
+		<Abnormality Id="ABNORMALITY_FRENZY" String="The Frenzy"/>
+		<Abnormality Id="ABNORMALITY_WEBBED" String="Webbed"/>
 	</Abnormalities>
 	<Monsters>
 		<Shared>
@@ -200,11 +205,14 @@
 			<Part Id="PART_LEGS" String="Legs"/>
 			<Part Id="PART_SHELL" String="Shell"/>
 			<Part Id="PART_CLAW" String="Claw"/>
+			<Part Id="PART_R_CLAW" String="Right Claw"/>
+			<Part Id="PART_L_CLAW" String="Left Claw"/>
 			<Part Id="PART_L_FORELEG" String="Left Foreleg"/>
 			<Part Id="PART_R_FORELEG" String="Right Foreleg"/>
 			<Part Id="PART_L_H_LEG" String="Left Hind Leg"/>
 			<Part Id="PART_R_H_LEG" String="Right Hind Leg"/>
-			<Part Id="PART_CHEST" String="Abdomen"/>
+			<Part Id="PART_ABDOMEN" String="Abdomen"/>
+			<Part Id="PART_CHEST" String="Chest"/>
 			<Part Id="PART_TAIL_TIP" String="Tail Tip"/>
 			<Part Id="PART_MUD_BALL" String="Mud Ball"/>
 			<Part Id="PART_LOWER_TORSO" String="Lower Torso"/>
@@ -217,6 +225,10 @@
 			<Part Id="PART_THUNDERBALLS" String="Thunderballs"/>
 			<Part Id="PART_ROCK" String="Rock"/>
 			<Part Id="PART_POT" String="Pot"/>
+			<Part Id="PART_WING_CLAW" String="Wingclaw"/>
+			<Part Id="PART_FORELEG" String="Foreleg"/>
+			<Part Id="PART_H_LEG" String="Hind Leg"/>
+			<Part Id="PART_ANTENNA" String="Antenna"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="Rathian"/>
@@ -266,8 +278,23 @@
 			<Monster Id="44" String="Tobi-Kadachi"/>
 			<Monster Id="45" String="Bazelgeuse"/>
 			<Monster Id="46" String="Toadversary"/>
+			<Monster Id="78" String="Daimyo Hermitaur"/>
+			<Monster Id="79" String="Shogun Ceanataur"/>
+			<Monster Id="80" String="Furious Rajang"/>
+			<Monster Id="82" String="Gore Magala"/>
+			<Monster Id="83" String="Shagaru Magala"/>
+			<Monster Id="84" String="Seregios"/>
 			<Monster Id="85" String="Astalos"/>
+			<Monster Id="87" String="Scorned Magnamalo"/>
+			<Monster Id="88" String="Blood Orange Bishaten"/>
+			<Monster Id="89" String="Aurora Somnacanth"/>
+			<Monster Id="90" String="Pyre Rakna-kadaki"/>
+			<Monster Id="91" String="Magma Almudron"/>
 			<Monster Id="93" String="Malzeno"/>
+			<Monster Id="94" String="Lunagaron"/>
+			<Monster Id="95" String="Garangolm"/>
+			<Monster Id="96" String="Gaismagorm"/>
+			<Monster Id="97" String="Espinas"/>
 		</Rise>
 		<World>
 			<Monster Id="0" String="Anjanath"/>
@@ -353,6 +380,9 @@
 			<Stage Id="3" String="Gathering Hub"/>
 			<Stage Id="4" String="Hub Prep Plaza"/>
 			<Stage Id="5" String="Training Area"/>
+			<Stage Id="6" String="Elgado"/>
+			<Stage Id="7" String="Elgado's Room"/>
+			<Stage Id="11" String="Elgado's Command Post"/>
 			<Stage Id="199" String="Character Selection"/>
 			<Stage Id="201" String="Shrine Ruins"/>
 			<Stage Id="202" String="Sandy Plains"/>
@@ -364,6 +394,7 @@
 			<Stage Id="210" String="Arena"/>
 			<Stage Id="211" String="Coral Palace"/>
 			<Stage Id="212" String="Jungle"/>
+			<Stage Id="222" String="Arena"/>
 		</Rise>
 		<World>
 			<Stage Id="0" String="Main Menu"/>

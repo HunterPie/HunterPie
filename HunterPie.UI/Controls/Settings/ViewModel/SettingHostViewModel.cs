@@ -5,8 +5,10 @@ using HunterPie.Core.Client.Events;
 using HunterPie.Core.Domain.Enums;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace HunterPie.UI.Controls.Settings.ViewModel
 {
@@ -73,6 +75,13 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
             }
 
             IsFetchingVersion = false;
+        }
+
+        public async void ExecuteRestart()
+        {
+            string path = Process.GetCurrentProcess().MainModule.FileName;
+            Process.Start(path.Replace(".dll", ".exe"));
+            Application.Current.Shutdown();
         }
     }
 }
