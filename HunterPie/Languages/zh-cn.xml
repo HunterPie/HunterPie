@@ -277,7 +277,7 @@
 					 String="消耗品"
 					 Description="消耗品BUFF"/>
 			<Setting Id="ABNORMALITY_DEBUFFS_STRING"
-					 String="Debuffs"
+					 String="减益状态"
 					 Description="减益状态"/>
 			<Setting Id="ABNORMALITY_PALICO_STRING"
 					 String="Orchestra"
