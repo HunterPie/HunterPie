@@ -15,15 +15,14 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 			<Ailment Id="AILMENT_POISON" String="Gift"/>
 			<Ailment Id="AILMENT_BLAST" String="Explosion"/>
 			<Ailment Id="AILMENT_EXHAUST" String="Erschöpfung"/>
-			<Ailment Id="AILMENT_MOUNT" String="Aufsitzen"/>
-			<!-- Reitbar? Mount-->
+			<Ailment Id="AILMENT_MOUNT" String="Reitbar"/>
 			<Ailment Id="AILMENT_FLASH" String="Blenden"/>
 			<Ailment Id="AILMENT_WATER" String="Wasser"/>
 			<Ailment Id="AILMENT_FIRE" String="Brand"/>
 			<Ailment Id="AILMENT_ICE" String="Eisbrand"/>
 			<Ailment Id="AILMENT_THUNDER" String="Donnerbrand"/>
 			<Ailment Id="AILMENT_TRANQUILIZE" String="Beruhigungsmittel"/>
-			<Ailment Id="STATUS_ENRAGE" String="Wut"/>
+			<Ailment Id="STATUS_ENRAGE" String="Raserei"/>
 			</Rise>
 	</Ailments>
 	<Abnormalities>
@@ -202,18 +201,25 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 			<Monster Id="46" String="Toadversary"/>
 			<Monster Id="78" String="Daimyo Hermitaur"/>
 			<Monster Id="79" String="Shogun Ceanataur"/>
+			<Monster Id="80" String="Zorniger Rajang"/>
+			<Monster Id="82" String="Gore Magala"/>
+			<Monster Id="83" String="Shagaru Magala"/>
 			<Monster Id="84" String="Seregios"/>
 			<Monster Id="85" String="Astalos"/>
+			<Monster Id="87" String="Tobender Magnamalo"/>
 			<Monster Id="88" String="Blut-Bishaten"/>
 			<Monster Id="89" String="Auroracanth"/>
 			<Monster Id="91" String="Magmadron"/>
 			<Monster Id="93" String="Malzeno"/>
 			<Monster Id="94" String="Lunagaron"/>
 			<Monster Id="95" String="Garangolm"/>
+			<Monster Id="96" String="Gaismagorm"/>
+			<Monster Id="97" String="Espinas"/>
 		</Rise>
 	</Monsters>
 	<Stages>
 		<Rise>
+			<Stage Id="-2" String="Ladebildschirm"/>
 			<Stage Id="-1" String="Hauptmenü"/>
 			<Stage Id="0" String="Dorf"/>
 			<Stage Id="1" String="Raum"/>
@@ -221,6 +227,9 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 			<Stage Id="3" String="Gathering Hub"/>
 			<Stage Id="4" String="Hub Vorbereitungsplatz"/>
 			<Stage Id="5" String="Trainings-Areal"/>
+			<Stage Id="6" String="Elgado"/>
+			<Stage Id="7" String="Raum"/>
+			<Stage Id="11" String="Kommandoposten"/>
 			<Stage Id="199" String="Charakter Auswahl"/>
 			<Stage Id="201" String="Heilige Ruinen"/>
 			<Stage Id="202" String="Sandebene"/>
