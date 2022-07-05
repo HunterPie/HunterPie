@@ -123,6 +123,8 @@
 		<Abnormality Id="ABNORMALITY_POWERCONE" String="귀신방울"/>
 		<Abnormality Id="ABNORMALITY_ICE_RES" String="얼음속성 방어 강화 (대)"/>
 		<Abnormality Id="ABNORMALITY_FOOD_TIMER" String="식사 불가"/>
+		<Abnormality Id="ABNORMALITY_RUBY_WIREBUG" String="변환밧줄벌레-홍"/>
+		<Abnormality Id="ABNORMALITY_GOLD_WIREBUG" String="변환밧줄벌레-금"/>
 		
 		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="경단 벌크업"/>
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="경단 단기최면술"/>
@@ -158,10 +160,14 @@
 		<Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="거품 상태"/>
 		<Abnormality Id="ABNORMALITY_BLEED" String="열상 상태"/>
 		<Abnormality Id="ABNORMALITY_EFFLUVIA" String="독기 침식 상태"/>
+		<Abnormality Id="ABNORMALITY_FRENZY_BUILDUP" String="광룡증 (침식)"/>
+		<Abnormality Id="ABNORMALITY_FRENZY" String="광룡증"/>
+		<Abnormality Id="ABNORMALITY_WEBBED" String="거미줄"/>
 	</Abnormalities>
 	<Monsters>
 		<Shared>
 			<Part Id="PART_UNKNOWN" String="???"/>
+			<Part Id="PART_TO_BE_MAPPED" String="알 수 없음"/>
 			<Part Id="PART_HEAD" String="머리"/>
 			<Part Id="PART_TORSO" String="몸통"/>
 			<Part Id="PART_L_WING" String="왼쪽 날개"/>
@@ -185,7 +191,7 @@
 			<Part Id="PART_L_LEG_MUD" String="왼쪽 다리 (진흙)"/>
 			<Part Id="PART_R_LEG_MUD" String="오른쪽 다리 (진흙)"/>
 			<Part Id="PART_TAIL_MUD" String="꼬리 (진흙)"/>
-			<Part Id="PART_SPONGE" String="스펀지"/>
+			<Part Id="PART_SPONGE" String="갈기"/>  -- 로아루드로스
 			<Part Id="PART_L_LEGS" String="왼쪽 다리"/>
 			<Part Id="PART_R_LEGS" String="오른쪽 다리"/>
 			<Part Id="PART_BODY" String="몸통"/>
@@ -199,11 +205,14 @@
 			<Part Id="PART_LEGS" String="다리"/>
 			<Part Id="PART_SHELL" String="껍데기"/>
 			<Part Id="PART_CLAW" String="발톱"/>
+			<Part Id="PART_R_CLAW" String="오른쪽 발톱"/>
+			<Part Id="PART_L_CLAW" String="왼쪽 발톱"/>
 			<Part Id="PART_L_FORELEG" String="왼쪽 앞다리"/>
 			<Part Id="PART_R_FORELEG" String="오른쪽 앞다리"/>
 			<Part Id="PART_L_H_LEG" String="왼쪽 뒷다리"/>
 			<Part Id="PART_R_H_LEG" String="오른쪽 뒷다리"/>
-			<Part Id="PART_CHEST" String="복부"/>
+			<Part Id="PART_ABDOMEN" String="복부"/>
+			<Part Id="PART_CHEST" String="흉부"/>
 			<Part Id="PART_TAIL_TIP" String="꼬리 끝"/>
 			<Part Id="PART_MUD_BALL" String="진흙 공"/>
 			<Part Id="PART_LOWER_TORSO" String="아래쪽 몸통"/>
@@ -216,6 +225,10 @@
 			<Part Id="PART_THUNDERBALLS" String="발전 기관"/>
 			<Part Id="PART_ROCK" String="바위"/>
 			<Part Id="PART_POT" String="항아리"/>
+			<Part Id="PART_WING_CLAW" String="날개 다리"/>
+			<Part Id="PART_FORELEG" String="앞다리"/>
+			<Part Id="PART_H_LEG" String="뒷다리"/>
+			<Part Id="PART_ANTENNA" String="촉각"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="리오레이아"/>
@@ -265,6 +278,23 @@
 			<Monster Id="44" String="토비카가치"/>
 			<Monster Id="45" String="바젤기우스"/>
 			<Monster Id="46" String="개구리 훈련 모형"/>
+			<Monster Id="78" String="다이묘자자미"/>
+			<Monster Id="79" String="쇼군기자미"/>
+			<Monster Id="80" String="격앙 라잔"/>
+			<Monster Id="82" String="고어-마가라"/>
+			<Monster Id="83" String="샤가르마가라"/>
+			<Monster Id="84" String="셀레기오스"/>
+			<Monster Id="85" String="라이젝스"/>
+			<Monster Id="87" String="원망 서린 마가이마가도"/>
+			<Monster Id="88" String="비슈텐고 아종"/>
+			<Monster Id="89" String="이소네미쿠니 아종"/>
+			<Monster Id="90" String="야츠카다키 아종"/>
+			<Monster Id="91" String="오로미도로 아종"/>
+			<Monster Id="93" String="멜-제나"/>
+			<Monster Id="94" String="루나가론"/>
+			<Monster Id="95" String="가란고르무"/>
+                        <Monster Id="96" String="가이아델름"/>
+			<Monster Id="97" String="에스피나스"/>
 		</Rise>
 		<World>
 			<Monster Id="0" String="안쟈나프"/>
@@ -344,12 +374,15 @@
 	<Stages>
 		<Rise>
 			<Stage Id="-1" String="메인 메뉴"/>
-			<Stage Id="0" String="마을"/>
-			<Stage Id="1" String="집"/>
+			<Stage Id="0" String="카무라 마을"/>
+			<Stage Id="1" String="카무라 마을의 집"/>
 			<Stage Id="2" String="동반자 광장"/>
 			<Stage Id="3" String="집회소"/>
 			<Stage Id="4" String="집회소 준비 구역"/>
 			<Stage Id="5" String="수련장"/>
+			<Stage Id="6" String="관측 거점 엘가도"/>
+			<Stage Id="7" String="엘가도의 마이룸"/>
+			<Stage Id="11" String="엘가도의 기사단 지휘소"/>
 			<Stage Id="199" String="캐릭터 선택 화면"/>
 			<Stage Id="201" String="사원 폐허"/>
 			<Stage Id="202" String="모래 평원"/>
@@ -360,6 +393,9 @@
 			<Stage Id="209" String="옥천향"/>
 			<Stage Id="210" String="격투장"/>
 			<Stage Id="211" String="용궁성터"/>
+			<Stage Id="212" String="밀림"/>
+			<Stage Id="222" String="격투장"/>
+			-- <Stage Id="???" String="요새고원"/>
 		</Rise>
 		<World>
 			<Stage Id="0" String="메인 메뉴"/>
