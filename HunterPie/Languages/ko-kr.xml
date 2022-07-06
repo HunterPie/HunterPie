@@ -293,7 +293,7 @@
 			<Monster Id="93" String="멜-제나"/>
 			<Monster Id="94" String="루나가론"/>
 			<Monster Id="95" String="가란고르무"/>
-            <Monster Id="96" String="가이아델름"/>
+                        <Monster Id="96" String="가이아델름"/>
 			<Monster Id="97" String="에스피나스"/>
 		</Rise>
 		<World>
@@ -395,7 +395,8 @@
 			<Stage Id="211" String="용궁성터"/>
 			<Stage Id="212" String="밀림"/>
 			<Stage Id="222" String="격투장"/>
-			<!-- <Stage Id="???" String="요새고원"/> -->
+			<Stage Id="213" String="요새고원"/>
+                        <Stage Id="215" String="연겁의 나락"/>
 		</Rise>
 		<World>
 			<Stage Id="0" String="메인 메뉴"/>
