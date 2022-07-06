@@ -259,6 +259,8 @@
 			<Stage Id="210" String="鬥技場"></Stage>
 			<Stage Id="211" String="龍宮要塞遺跡"></Stage>
 			<Stage Id="212" String="密林"/>
+			<Stage Id="213" String="城塞高地"/>
+			<Stage Id="215" String="淵劫之地獄"/>
 		</Rise>
 	</Stages>
 
