@@ -23,11 +23,11 @@ namespace HunterPie.Core.Game.Rise.Entities
         #region Private
         private int SaveSlotId;
         private string _name;
-        private int _stageId;
+        private int _stageId = -1;
         private Weapon _weaponId;
         private readonly Dictionary<string, IAbnormality> abnormalities = new();
         private readonly MHRParty _party = new();
-        private MHRStageStructure _stageData;
+        private MHRStageStructure _stageData = new();
         #endregion
 
 
@@ -119,6 +119,9 @@ namespace HunterPie.Core.Game.Rise.Entities
                 AddressMap.GetAbsolute("STAGE_ADDRESS"),
                 AddressMap.Get<int[]>("STAGE_OFFSETS")
             );
+
+            if (stageAddress == 0x00000000)
+                return;
 
             // TODO: Transform this into a structure instead of an array
             MHRStageStructure stageData = _process.Memory.Read<MHRStageStructure>(stageAddress + 0x60);
