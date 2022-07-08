@@ -10,6 +10,7 @@ using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Rise.Definitions;
 using HunterPie.Core.Game.Rise.Entities.Activities;
 using HunterPie.Core.Game.Rise.Entities.Party;
+using HunterPie.Core.Game.Rise.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -225,25 +226,7 @@ namespace HunterPie.Core.Game.Rise.Entities
 
             int weaponId = _process.Memory.Read<int>(weaponIdPtr + 0x8C);
 
-            // Why can't capcom keep the same ids for weapons in all their games? :tired:
-            WeaponId = weaponId switch
-            {
-                0 => Weapon.Greatsword,
-                1 => Weapon.SwitchAxe,
-                2 => Weapon.Longsword,
-                3 => Weapon.LightBowgun,
-                4 => Weapon.HeavyBowgun,
-                5 => Weapon.Hammer,
-                6 => Weapon.GunLance,
-                7 => Weapon.Lance,
-                8 => Weapon.SwordAndShield,
-                9 => Weapon.DualBlades,
-                10 => Weapon.HuntingHorn,
-                11 => Weapon.ChargeBlade,
-                12 => Weapon.InsectGlaive,
-                13 => Weapon.Bow,
-                _ => Weapon.None,
-            };
+            WeaponId = weaponId.ToWeaponId();
         }
 
         [ScannableMethod]
