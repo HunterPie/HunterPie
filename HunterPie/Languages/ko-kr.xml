@@ -160,7 +160,7 @@
 		<Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="거품 상태"/>
 		<Abnormality Id="ABNORMALITY_BLEED" String="열상 상태"/>
 		<Abnormality Id="ABNORMALITY_EFFLUVIA" String="독기 침식 상태"/>
-		<Abnormality Id="ABNORMALITY_FRENZY_BUILDUP" String="광룡증 (침식)"/>
+		<Abnormality Id="ABNORMALITY_FRENZY_BUILDUP" String="광룡 바이러스 감염"/>
 		<Abnormality Id="ABNORMALITY_FRENZY" String="광룡증"/>
 		<Abnormality Id="ABNORMALITY_WEBBED" String="거미줄"/>
 	</Abnormalities>
