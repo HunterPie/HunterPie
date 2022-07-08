@@ -6,6 +6,8 @@ obj
 packages
 
 x64
+Debug
+Release
 
 .env
 
