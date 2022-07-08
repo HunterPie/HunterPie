@@ -191,7 +191,7 @@
 			<Part Id="PART_L_LEG_MUD" String="왼쪽 다리 (진흙)"/>
 			<Part Id="PART_R_LEG_MUD" String="오른쪽 다리 (진흙)"/>
 			<Part Id="PART_TAIL_MUD" String="꼬리 (진흙)"/>
-			<Part Id="PART_SPONGE" String="갈기"/>  <!-- 로아루드로스 -->
+			<Part Id="PART_SPONGE" String="갈기"/>
 			<Part Id="PART_L_LEGS" String="왼쪽 다리"/>
 			<Part Id="PART_R_LEGS" String="오른쪽 다리"/>
 			<Part Id="PART_BODY" String="몸통"/>
@@ -214,7 +214,7 @@
 			<Part Id="PART_ABDOMEN" String="복부"/>
 			<Part Id="PART_CHEST" String="흉부"/>
 			<Part Id="PART_TAIL_TIP" String="꼬리 끝"/>
-			<Part Id="PART_MUD_BALL" String="진흙 공"/>
+			<Part Id="PART_MUD_BALL" String="꼬리의 바위"/>
 			<Part Id="PART_LOWER_TORSO" String="아래쪽 몸통"/>
 			<Part Id="PART_TAIL_WINDSAC" String="꼬리 끝(바람주머니)"/>
 			<Part Id="PART_CHEST_WINDSAC" String="흉부(바람주머니)"/>
