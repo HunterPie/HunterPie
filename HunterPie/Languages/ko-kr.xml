@@ -86,10 +86,10 @@
 		<Abnormality Id="ABNORMALITY_SPEED_EVADE_UP" String="자기 강화 [속]&amp;회피 성능 UP"/>
 		<Abnormality Id="ABNORMALITY_ALL_RES_ELEMENT_ATTACK" String="속성계 효과 UP"/>
 		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="기염의 선율"/>
-		
+
 		<Abnormality Id="ABNORMALITY_RESUSCITATE" String="꿀벌레 근성"/>
 		<Abnormality Id="ABNORMALITY_WINDPROOF" String="풍압 무효"/>
-		
+
 		<Abnormality Id="ABNORMALITY_MIGHT_SEED" String="괴력씨앗"/>
 		<Abnormality Id="ABNORMALITY_MIGHT_PILL" String="괴력의 환약"/>
 		<Abnormality Id="ABNORMALITY_DEMONDRUG" String="귀인약"/>
@@ -125,11 +125,11 @@
 		<Abnormality Id="ABNORMALITY_FOOD_TIMER" String="식사 불가"/>
 		<Abnormality Id="ABNORMALITY_RUBY_WIREBUG" String="변환밧줄벌레-홍"/>
 		<Abnormality Id="ABNORMALITY_GOLD_WIREBUG" String="변환밧줄벌레-금"/>
-		
+
 		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="경단 벌크업"/>
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="경단 단기최면술"/>
 		<Abnormality Id="ABNORMALITY_DANGO_GLUTTON" String="경단 배부름"/>
-		
+
 		<Abnormality Id="ABNORMALITY_FORTIFY" String="불굴"/>
 		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="역습"/>
 		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="힘의 해방"/>
@@ -143,7 +143,7 @@
 		<Abnormality Id="ABNORMALITY_COALESCENCE" String="전화위복"/>
 		<Abnormality Id="ABNORMALITY_EVASION_MANTLE" String="회피 복장 (공격력 UP)"/>
 		<Abnormality Id="ABNORMALITY_AFFINITTY_BOOSTER" String="달인의 연통"/>
-		
+
 		<Abnormality Id="ABNORMALITY_POISON" String="독"/>
 		<Abnormality Id="ABNORMALITY_VENOM" String="맹독"/>
 		<Abnormality Id="ABNORMALITY_DEF_DOWN" String="방어력 DOWN"/>
@@ -229,6 +229,7 @@
 			<Part Id="PART_FORELEG" String="앞다리"/>
 			<Part Id="PART_H_LEG" String="뒷다리"/>
 			<Part Id="PART_ANTENNA" String="촉각"/>
+			<Part Id="PART_CREST" String="볏"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="리오레이아"/>
@@ -396,7 +397,7 @@
 			<Stage Id="212" String="밀림"/>
 			<Stage Id="222" String="격투장"/>
 			<Stage Id="213" String="요새고원"/>
-                        <Stage Id="215" String="연겁의 나락"/>
+			<Stage Id="215" String="연겁의 나락"/>
 		</Rise>
 		<World>
 			<Stage Id="0" String="메인 메뉴"/>
@@ -517,7 +518,7 @@
 			<Setting Id="ACTIVITIES_WIDGET_STRING"
 					 String="동반자 활동 위젯"
 					 Description="동반자 활동 위젯 설정"/>
-                        <Setting Id="METER_WIDGET_STRING"
+			<Setting Id="METER_WIDGET_STRING"
  					 String="대미지 미터 위젯"
  					 Description="대미지 미터 위젯 설정"/>
 			<Setting Id="CHAT_WIDGET_STRING"
@@ -539,9 +540,9 @@
 			<Setting Id="ABNORMALITY_DEBUFFS_STRING"
 					 String="디버프"
 					 Description="디버프 효과"/>
-            <Setting Id="ABNORMALITY_PALICO_STRING"
-                        String="격려의 음악"
-                        Description="격려의 음악 효과"/>
+			<Setting Id="ABNORMALITY_PALICO_STRING"
+					 String="격려의 음악"
+					 Description="격려의 음악 효과"/>
 			<Setting Id="ABNORMALITY_SKILLS_STRING"
 					 String="장비 스킬"
 					 Description="장비 스킬 효과"/>
@@ -595,14 +596,14 @@
 			<Setting Id="DRPC_ENABLE_SHOW_MONSTER_HEALTH"
 					 String="타겟 몬스터 체력 표시"
 					 Description="옵션 활성화 시, HunterPie는 Discord 상태창에 타겟 몬스터의 체력을 표시합니다."/>
-			
+
 			<Setting Id="OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE"
 					 String="[단축키] 디자인 모드 전환"
 					 Description="디자인 모드를 On/Off 할 수 있는 단축키입니다."/>
 			<Setting Id="OVERLAY_HIDE_WHEN_GAME_UNFOCUS_STRING"
 					 String="게임 비활성화 시 위젯 숨기기"
 					 Description="옵션 활성화 시, 게임이 백그라운드 상태일 때 모든 위젯을 자동으로 숨깁니다."/>
-			
+
 			<Setting Id="INITIALIZE_WIDGET_STRING"
 					 String="위젯 사용"
 					 Description="옵션 활성화 시, 위젯을 사용할 수 있도록 불러옵니다. 이 위젯을 원치 않는다면 옵션을 꺼두세요."/>
@@ -624,7 +625,7 @@
 			<Setting Id="ORIENTATION_STRING"
 					 String="방향"
 					 Description="위젯의 배치 방향입니다."/>
-			
+
 			<Setting Id="MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING"
 					 String="타겟 몬스터만 표시"
 					 Description="옵션 활성화 시, HunterPie는 당신의 현재 타겟 몬스터만 표시합니다."/>
@@ -680,7 +681,7 @@
 					 String="긴 시간 순"/>
 			<Setting Id="SORT_BY_DISABLED_STRING"
 					 String="사용 안 함"/>
-			
+
 			<Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
 					 String="인-게임 밧줄벌레 조준 패치"
 					 Description="옵션 활성화 시, 인-게임 옵션에서 밧줄벌레 게이지 HUD를 비활성화 했을 때도 조준할 수 있도록 패치합니다."/>
@@ -691,12 +692,12 @@
 			<Setting Id="ACTIVITIES_ENABLE_TRAINING_DOJO_STRING"
 					 String="동반자 도장 표시"
 					 Description="옵션 활성화 시, HunterPie가 동반자 도장의 정보를 표시합니다."/>
-			
+
 			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_HIGHLIGHT_MYSELF"
  					 String="자신 강조하기"
  					 Description="옵션 활성화 시, 다른 플레이어들에게서 당신의 이름이 강조됩니다."/>
  			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_BLUR_NAMES"
- 					 String="이름 흐릿하게"
+ 					 String="이름 흐릿하게 표시"
  					 Description="옵션 활성화 시, 미터기에서 모두의 이름이 흐릿해집니다."/>
  			<Setting Id="DAMAGE_METER_ENABLE_DPS_PLOT"
  					 String="DPS 표시"
@@ -717,7 +718,7 @@
  					 String="네번째 플레이어 색상"
  					 Description="대미지 미터에서 네번째 플레이어의 색상입니다."/>
 
-            <Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
+			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="개발자: 모의 몬스터 위젯"/>
 			<Setting Id="DEV_MOCK_DAMAGE_WIDGET_STRING"
 					 String="개발자: 모의 대미지 미터 위젯"/>
