@@ -1,4 +1,5 @@
 #include "../../../pch.h"
+#include <iterator>
 #include "manager.h"
 
 using namespace HunterPie::Core::Damage;
@@ -26,6 +27,10 @@ void DamageTrackManager::UpdateDamage(EntityDamageData damageData)
         m_Trackings.insert({ target, new HuntStatistics() });
 
     HuntStatistics*& statistics = m_Trackings.at(target);
+
+    if (damageData.source.index >= std::size(statistics->entities) || damageData.source.index < 0)
+        return;
+
     EntityDamageData& entityData = statistics->entities[damageData.source.index];
 
     entityData.rawDamage += damageData.rawDamage;
