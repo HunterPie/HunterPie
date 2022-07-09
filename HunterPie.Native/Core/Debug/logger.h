@@ -5,3 +5,5 @@
 #else
 #define LOG(...)
 #endif
+
+#define NAMEOF(name) #name
