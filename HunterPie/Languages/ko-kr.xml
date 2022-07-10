@@ -230,6 +230,7 @@
 			<Part Id="PART_H_LEG" String="뒷다리"/>
 			<Part Id="PART_ANTENNA" String="촉각"/>
 			<Part Id="PART_CREST" String="볏"/>
+			<Part Id="PART_THROAT" String="목"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="리오레이아"/>
