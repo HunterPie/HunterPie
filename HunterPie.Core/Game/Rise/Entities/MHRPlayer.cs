@@ -11,6 +11,7 @@ using HunterPie.Core.Game.Rise.Definitions;
 using HunterPie.Core.Game.Rise.Entities.Activities;
 using HunterPie.Core.Game.Rise.Entities.Party;
 using HunterPie.Core.Game.Rise.Utils;
+using HunterPie.Core.Native.IPC.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,8 +31,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         private readonly MHRParty _party = new();
         private MHRStageStructure _stageData = new();
         #endregion
-
-
+        
         public string Name
         {
             get => _name;
@@ -61,7 +61,7 @@ namespace HunterPie.Core.Game.Rise.Entities
                     _stageId = value;
                     this.Dispatch(OnStageUpdate);
 
-                    if (_stageData.IsVillage())
+                    if (_stageData.IsVillage() && value != 5)
                         this.Dispatch(OnVillageEnter);
                     else
                         this.Dispatch(OnVillageLeave);
@@ -314,6 +314,60 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
+        private void GetSessionPlayers()
+        {
+            long playersArrayPtr = _process.Memory.Read(
+                AddressMap.GetAbsolute("CHARACTER_ADDRESS"),
+                AddressMap.Get<int[]>("CHARACTER_INFO_OFFSETS")
+            );
+
+            long playersWeaponPtr = _process.Memory.Read(
+                AddressMap.GetAbsolute("SESSION_PLAYERS_ADDRESS"),
+                AddressMap.Get<int[]>("SESSION_PLAYER_OFFSETS")
+            );
+
+            MHRCharacterData[] sessionPlayersArray = _process.Memory.Read<long>(playersArrayPtr + 0x20, 4)
+                .Where(pointer => pointer != 0)
+                .Select(pointer => _process.Memory.Read<MHRCharacterData>(pointer))
+                .ToArray();
+
+            // In case player DC'd
+            if (sessionPlayersArray.Length == 0)
+            {
+                _party.Update(0, new MHRPartyMemberData()
+                {
+                    Name = Name,
+                    HighRank = HighRank,
+                    WeaponId = WeaponId,
+                    IsMyself = true
+                });
+                return;
+            }
+
+            Weapon[] playerWeapons = _process.Memory.Read<long>(playersWeaponPtr, 4)
+                .Select(pointer => _process.Memory.Read<int>(pointer + 0x134).ToWeaponId())
+                .ToArray();
+                        
+            for (int i = 0; i < 4; i++)
+            {
+                ref MHRCharacterData character = ref sessionPlayersArray[i];
+
+                string name = _process.Memory.Read(character.NamePointer + 0x14, 32, Encoding.Unicode);
+                Weapon weapon = playerWeapons[i];
+
+                MHRPartyMemberData memberData = new MHRPartyMemberData
+                {
+                    Name = name,
+                    HighRank = character.HighRank,
+                    WeaponId = weapon,
+                    IsMyself = name == Name
+                };
+
+                _party.Update(i, memberData);
+            }
+        }
+
+        [ScannableMethod]
         private void ScanPlayerSongAbnormalities()
         {
             if (!InHuntingZone)
@@ -552,6 +606,15 @@ namespace HunterPie.Core.Game.Rise.Entities
                 abnormalities.Add(schema.Id, (IAbnormality)abnorm);
                 abnorm.Update(newData);
                 this.Dispatch(OnAbnormalityStart, (IAbnormality)abnorm);
+            }
+        }
+
+        internal void UpdatePartyMembersDamage(EntityDamageData[] entities)
+        {
+            foreach (EntityDamageData entity in entities)
+            {
+                IUpdatable<EntityDamageData> member = (IUpdatable<EntityDamageData>)_party.Members[entity.Entity.Index];
+                member.Update(entity);
             }
         }
     }

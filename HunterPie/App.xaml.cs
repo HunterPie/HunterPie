@@ -160,15 +160,7 @@ namespace HunterPie
             Dispatcher.InvokeAsync(() => WidgetInitializers.Initialize(context));
             ScanManager.Start();
 
-            DamageMessageHandler.OnReceived += (_, message) =>
-            {
-                Log.Info("Received message: {0}", JsonProvider.Serialize(message));
-            };
-
-            IPCService.Initialize().ContinueWith(async (b) =>
-            {
-                DamageMessageHandler.Request(0x21002CD0);
-            });
+            IPCService.Initialize();
         }
 
         private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)

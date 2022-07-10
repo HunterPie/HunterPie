@@ -27,7 +27,6 @@ void OnRequestHuntingStatistics(RequestHuntStatisticsMessage* message)
 
     for (int i = 0; i < std::size(response.entities); i++)
     {
-        LOG("Player %d: %f", statistics->entities[i].source, statistics->entities[i].elementalDamage + statistics->entities[i].rawDamage);
         std::memcpy(&response.entities[i], &statistics->entities[i], sizeof(EntityDamageData));
     }
 

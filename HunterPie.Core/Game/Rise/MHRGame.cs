@@ -9,6 +9,9 @@ using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.Rise.Definitions;
 using HunterPie.Core.Game.Rise.Entities;
 using HunterPie.Core.Game.Rise.Entities.Chat;
+using HunterPie.Core.Native.IPC.Handlers.Internal.Damage;
+using HunterPie.Core.Native.IPC.Handlers.Internal.Damage.Models;
+using HunterPie.Core.Native.IPC.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +27,16 @@ namespace HunterPie.Core.Game.Rise
         public const int TRAINING_ROOM_ID = 5;
         
         private readonly MHRChat _chat = new MHRChat();
+        private readonly MHRPlayer _player;
+        private float _timeElapsed;
+        private DateTime _lastTeleport = DateTime.Now;
+        private int _deaths;
         private bool _isHudOpen;
+        private DateTime _lastDamageUpdate = DateTime.MinValue;
+        readonly Dictionary<long, IMonster> _monsters = new();
+        readonly Dictionary<long, EntityDamageData[]> _damageDone = new();
 
-        public IPlayer Player { get; }
+        public IPlayer Player => _player;
         public List<IMonster> Monsters { get; } = new();
 
         public IChat Chat => _chat;
@@ -44,11 +54,31 @@ namespace HunterPie.Core.Game.Rise
             }
         }
 
-        public float TimeElapsed => throw new NotImplementedException();
+        public float TimeElapsed
+        {
+            get => _timeElapsed;
+            private set
+            {
+                if (value != _timeElapsed)
+                {
+                    _timeElapsed = value;
+                    this.Dispatch(OnTimeElapsedChange, this);
+                }
+            }
+        }
 
-        public int Deaths => throw new NotImplementedException();
-
-        readonly Dictionary<long, IMonster> monsters = new();
+        public int Deaths
+        {
+            get => _deaths;
+            private set
+            {
+                if (value != _deaths)
+                {
+                    _deaths = value;
+                    this.Dispatch(OnDeathCountChange, this);
+                }
+            }
+        }
 
         public event EventHandler<IMonster> OnMonsterSpawn;
         public event EventHandler<IMonster> OnMonsterDespawn;
@@ -58,12 +88,14 @@ namespace HunterPie.Core.Game.Rise
 
         public MHRGame(IProcessManager process) : base(process)
         {
-            Player = new MHRPlayer(process);
+            _player = new MHRPlayer(process);
 
             ScanManager.Add(
                 this,
                 Player as Scannable
             );
+
+            SetupDamageHandler();
         }
 
         [ScannableMethod]
@@ -113,6 +145,31 @@ namespace HunterPie.Core.Game.Rise
         }
 
         [ScannableMethod]
+        private void GetElapsedTime()
+        {
+            float elapsedTime = _process.Memory.Deref<float>(
+                AddressMap.GetAbsolute("QUEST_ADDRESS"),
+                AddressMap.Get<int[]>("QUEST_TIMER_OFFSETS")
+            );
+
+            TimeElapsed = elapsedTime > 0 
+                ? elapsedTime 
+                : (float)(DateTime.Now - _lastTeleport).TotalSeconds;
+        }
+
+        [ScannableMethod]
+        private void GetPartyMembersDamage()
+        {
+            if ((DateTime.Now - _lastDamageUpdate).TotalMilliseconds < 200)
+                return;
+
+            _lastDamageUpdate = DateTime.Now;
+
+            foreach (long target in _monsters.Keys)
+                DamageMessageHandler.Request(target);
+        }
+
+        [ScannableMethod]
         private void ScanUIState()
         {
             byte isHudOpen = _process.Memory.Deref<byte>(
@@ -129,8 +186,8 @@ namespace HunterPie.Core.Game.Rise
             // Only scans for monsters in hunting areas
             if (!Player.InHuntingZone && Player.StageId != TRAINING_ROOM_ID)
             {
-                if (monsters.Keys.Count > 0)
-                    foreach (long mAddress in monsters.Keys)
+                if (_monsters.Keys.Count > 0)
+                    foreach (long mAddress in _monsters.Keys)
                         HandleMonsterDespawn(mAddress);
 
                 return;
@@ -145,13 +202,13 @@ namespace HunterPie.Core.Game.Rise
             HashSet<long> monsterAddresses = _process.Memory.Read<long>(address + 0x20, Math.Min(MAXIMUM_MONSTER_ARRAY_SIZE, monsterArraySize))
                 .ToHashSet();
 
-            long[] toDespawn = monsters.Keys.Where(address => !monsterAddresses.Contains(address))
+            long[] toDespawn = _monsters.Keys.Where(address => !monsterAddresses.Contains(address))
                 .ToArray();
 
             foreach (long mAddress in toDespawn)
                 HandleMonsterDespawn(mAddress);
 
-            long[] toSpawn = monsterAddresses.Where(address => !monsters.ContainsKey(address))
+            long[] toSpawn = monsterAddresses.Where(address => !_monsters.ContainsKey(address))
                 .ToArray();
 
             foreach (long mAddress in toSpawn)
@@ -161,11 +218,11 @@ namespace HunterPie.Core.Game.Rise
 
         private void HandleMonsterSpawn(long monsterAddress)
         {
-            if (monsterAddress == 0 || monsters.ContainsKey(monsterAddress))
+            if (monsterAddress == 0 || _monsters.ContainsKey(monsterAddress))
                 return;
 
             IMonster monster = new MHRMonster(_process, monsterAddress);
-            monsters.Add(monsterAddress, monster);
+            _monsters.Add(monsterAddress, monster);
             Monsters.Add(monster);
             ScanManager.Add(monster as Scannable);
 
@@ -174,13 +231,50 @@ namespace HunterPie.Core.Game.Rise
 
         private void HandleMonsterDespawn(long address)
         {
-            IMonster monster = monsters[address]; 
-            monsters.Remove(address);
+            IMonster monster = _monsters[address]; 
+            _monsters.Remove(address);
             Monsters.Remove(monster);
             ScanManager.Remove(monster as Scannable);
 
             this.Dispatch(OnMonsterDespawn, monster);
         }
+
+        #region Damage helpers
+
+        private void SetupDamageHandler()
+        {
+            DamageMessageHandler.OnReceived += OnReceivePlayersDamage;
+        }
+
+        private void OnReceivePlayersDamage(object sender, ResponseDamageMessage e)
+        {
+            long target = e.Entities.First().Target;
+
+            if (!_monsters.ContainsKey(target))
+                return;
+
+            _damageDone[target] = e.Entities;
+
+            EntityDamageData[] damages = _damageDone.Values.SelectMany(entity => entity)
+                .GroupBy(entity => entity.Entity.Index)
+                .Select(group =>
+                {
+                    EntityDamageData entity = group.ElementAt(0);
+
+                    return new EntityDamageData
+                    {
+                        Target = entity.Target,
+                        Entity = entity.Entity,
+                        RawDamage = group.Sum(e => e.RawDamage),
+                        ElementalDamage = group.Sum(e => e.ElementalDamage)
+                    };
+                })
+                .ToArray();
+
+            _player.UpdatePartyMembersDamage(damages);
+        }
+
+        #endregion
 
         #region Chat helpers
         private MHRChatMessage DerefChatMessage(MHRChatMessageStructure message)
