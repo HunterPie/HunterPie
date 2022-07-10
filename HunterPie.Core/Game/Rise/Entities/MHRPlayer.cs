@@ -31,6 +31,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         private readonly Dictionary<string, IAbnormality> abnormalities = new();
         private readonly MHRParty _party = new();
         private MHRStageStructure _stageData = new();
+        private MHRStageStructure _lastStageData = new();
         #endregion
         
         public string Name
@@ -59,13 +60,17 @@ namespace HunterPie.Core.Game.Rise.Entities
             {
                 if (value != _stageId)
                 {
+                    if (_stageData.IsVillage() && value != 5 && (_lastStageData.IsHuntingZone() || StageId == 5))
+                        this.Dispatch(OnVillageEnter);
+                    else if (_lastStageData.IsHuntingZone() || value == 5)
+                        this.Dispatch(OnVillageLeave);
+
+                    int temp = _stageId;
+                    
                     _stageId = value;
                     this.Dispatch(OnStageUpdate);
 
-                    if (_stageData.IsVillage() && value != 5)
-                        this.Dispatch(OnVillageEnter);
-                    else
-                        this.Dispatch(OnVillageLeave);
+                    
                 }
             }
         }
@@ -140,7 +145,10 @@ namespace HunterPie.Core.Game.Rise.Entities
             else
                 zoneId = stageData.HuntingId + 200;
 
+            var tempStageData = _stageData;
             _stageData = stageData;
+            _lastStageData = tempStageData;
+
             StageId = zoneId;
         }
 
@@ -375,6 +383,10 @@ namespace HunterPie.Core.Game.Rise.Entities
                 }
 
                 string name = _process.Memory.Read(playerData.data.NamePointer + 0x14, 32, Encoding.Unicode);
+
+                if (string.IsNullOrEmpty(name))
+                    continue;
+
                 Weapon weapon = _process.Memory.Read<int>(weaponPtr + 0x134).ToWeaponId();
 
                 MHRPartyMemberData memberData = new MHRPartyMemberData

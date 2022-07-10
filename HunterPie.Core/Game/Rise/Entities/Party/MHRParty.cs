@@ -2,6 +2,7 @@
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Rise.Definitions;
+using HunterPie.Core.Logger;
 using HunterPie.Core.Native.IPC.Models.Common;
 using System;
 using System.Collections.Generic;
@@ -49,7 +50,7 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
 
             IUpdatable<MHRPartyMemberData> updatable = _partyMembers[memberIndex];
             updatable.Update(data);
-
+            Log.Debug("Added new player to party: id: {0} name: {1} weap: {2}", memberIndex, data.Name, data.WeaponId);
             this.Dispatch(OnMemberJoin, _partyMembers[memberIndex]);
         }
 
