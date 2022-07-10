@@ -1,5 +1,4 @@
 ﻿using HunterPie.Core.Client;
-using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Logger;

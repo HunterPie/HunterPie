@@ -2,8 +2,6 @@
 #include "pch.h"
 #include <iostream>
 #include <thread>
-#include "libs/MinHook/MinHook.h"
-#include "Games/Rise/Damage/hooks.h"
 #include "Core/Server/IPCService.h"
 #include "Core/Server/Handlers/MessageHandler.h"
 
@@ -19,24 +17,12 @@ void SetupHandlers()
 }
 
 void Initialize()
-{
-    intptr_t pointers[] = { 0x141149370 };
-
-    MH_Initialize();
-    
-    auto damageHooks = Game::Damage::Hook::DamageHooks();
-    bool success = damageHooks.Init(pointers);
-
-    if (!success)
-        LOG("[DEBUG] Something went wrong, failed to hook");
-    
+{   
     auto ipcService = Core::Server::IPCService::GetInstance();
     
     SetupHandlers();
-    
-    MH_EnableHook(MH_ALL_HOOKS);
 
-    success = ipcService->Initialize();
+    bool success = ipcService->Initialize();
     
     if (!success)
         LOG("Something went wrong");

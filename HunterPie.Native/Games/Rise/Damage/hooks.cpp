@@ -10,7 +10,7 @@ using namespace HunterPie::Core::Damage;
 uintptr_t fnCalculateEntityDamagePtr = (uintptr_t)nullptr;
 
 EntityType GetEntityByDamageType(int damageType);
-bool HookFunctions(intptr_t* pointers);
+bool HookFunctions();
 
 MHREntityData* Game::Damage::Hook::CalculateEntityDamage(
     intptr_t arg1,
@@ -51,20 +51,24 @@ MHREntityData* Game::Damage::Hook::CalculateEntityDamage(
     return damageData;
 }
 
-bool Game::Damage::Hook::DamageHooks::Init(intptr_t* pointers)
+bool Game::Damage::Hook::DamageHooks::Init(uintptr_t* pointers)
 {
     fnCalculateEntityDamagePtr = pointers[FUN_CALCULATE_ENTITY_DAMAGE];
 
-    return HookFunctions(pointers);
+    LOG("Added trampoline to function %016X", fnCalculateEntityDamagePtr);
+
+    return HookFunctions();
 }
 
-bool HookFunctions(intptr_t* pointers)
+bool HookFunctions()
 {
     MH_STATUS status = MH_CreateHook(
         (fnCalculateEntityDamage)fnCalculateEntityDamagePtr,
         &CalculateEntityDamage,
         reinterpret_cast<LPVOID*>(&ogCalculateEntityDamage)
     );
+
+    LOG("%s status: %s", NAMEOF(fnCalculateEntityDamage), MH_StatusToString(status));
 
     return status == MH_OK;
 }

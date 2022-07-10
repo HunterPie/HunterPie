@@ -2,7 +2,8 @@
 {
     public enum IPCMessageType
     {
-        HUNTERPIE,
+        INIT_IPC_MEMORY_ADDRESSES,
+        INIT_MH_HOOKS,
         GET_HUNT_STATISTICS,
         DELETE_HUNT_STATISTICS,
         CLEAR_HUNT_STATISTICS,

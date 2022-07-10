@@ -22,7 +22,7 @@ namespace Game
             class DamageHooks : public IInitializable
             {
             public:
-                virtual bool Init(intptr_t* pointers);
+                virtual bool Init(uintptr_t* pointers);
             };
         }
     }

@@ -159,6 +159,7 @@
     <ClInclude Include="Core\Interfaces\IInitializable.h" />
     <ClInclude Include="Core\Managers\Damage\manager.h" />
     <ClInclude Include="Core\Server\Handlers\Damage\DamageMessageHandler.h" />
+    <ClInclude Include="Core\Server\Handlers\Initialize\InitializationMessageHandler.h" />
     <ClInclude Include="Core\Server\Handlers\MessageHandler.h" />
     <ClInclude Include="Core\Server\IPCService.h" />
     <ClInclude Include="Core\Server\Models\Messages.h" />
@@ -173,6 +174,7 @@
   <ItemGroup>
     <ClCompile Include="Core\Managers\Damage\manager.cpp" />
     <ClCompile Include="Core\Server\Handlers\Damage\DamageMessageHandler.cpp" />
+    <ClCompile Include="Core\Server\Handlers\Initialize\InitializationMessageHandler.cpp" />
     <ClCompile Include="Core\Server\Handlers\MessageHandler.cpp" />
     <ClCompile Include="Core\Server\IPCService.cpp" />
     <ClCompile Include="dllmain.cpp" />

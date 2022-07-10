@@ -50,11 +50,12 @@ void OnRequestClearHuntStatisticsMessage(RequestClearHuntStatisticsMessage* mess
 
 void DamageMessageHandler::Initialize()
 {
-    WITH(IPCService::GetInstance())
-        _->RegisterMessageHandler(GET_HUNT_STATISTICS, &OnRequestHuntingStatistics);
-        _->GetInstance()->RegisterMessageHandler(DELETE_HUNT_STATISTICS, &OnRequestDeleteHuntingStatistics);
-        _->GetInstance()->RegisterMessageHandler(CLEAR_HUNT_STATISTICS, &OnRequestClearHuntStatisticsMessage);
-    END_WITH()
+    WITH_INSTANCE(IPCService::GetInstance())
+    {
+        it->RegisterMessageHandler(GET_HUNT_STATISTICS, &OnRequestHuntingStatistics);
+        it->GetInstance()->RegisterMessageHandler(DELETE_HUNT_STATISTICS, &OnRequestDeleteHuntingStatistics);
+        it->GetInstance()->RegisterMessageHandler(CLEAR_HUNT_STATISTICS, &OnRequestClearHuntStatisticsMessage);
+    }
 }
 
 const char* DamageMessageHandler::GetName()
