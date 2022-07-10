@@ -33,6 +33,9 @@ void DamageTrackManager::UpdateDamage(EntityDamageData damageData)
 
     EntityDamageData& entityData = statistics->entities[damageData.source.index];
 
+    entityData.target = damageData.target;
+    memcpy(&entityData.source, &damageData.source, sizeof(Entity));
+
     entityData.rawDamage += damageData.rawDamage;
     entityData.elementalDamage += damageData.elementalDamage;
 

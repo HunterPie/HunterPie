@@ -21,6 +21,9 @@ using HunterPie.Features.Overlay;
 using HunterPie.Core.Domain;
 using System.Threading;
 using HunterPie.Features.Patcher;
+using HunterPie.Core.Native.IPC;
+using HunterPie.Core.Native.IPC.Handlers.Internal.Damage;
+using HunterPie.Core.Json;
 
 namespace HunterPie
 {
@@ -156,6 +159,16 @@ namespace HunterPie
 
             Dispatcher.InvokeAsync(() => WidgetInitializers.Initialize(context));
             ScanManager.Start();
+
+            DamageMessageHandler.OnReceived += (_, message) =>
+            {
+                Log.Info("Received message: {0}", JsonProvider.Serialize(message));
+            };
+
+            IPCService.Initialize().ContinueWith(async (b) =>
+            {
+                DamageMessageHandler.Request(0x21002CD0);
+            });
         }
 
         private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)
