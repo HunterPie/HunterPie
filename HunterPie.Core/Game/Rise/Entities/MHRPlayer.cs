@@ -20,6 +20,7 @@ using System.Text;
 
 namespace HunterPie.Core.Game.Rise.Entities
 {
+    
     public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     {
         #region Private
@@ -316,23 +317,42 @@ namespace HunterPie.Core.Game.Rise.Entities
         [ScannableMethod]
         private void GetSessionPlayers()
         {
-            long playersArrayPtr = _process.Memory.Read(
+            long playersArrayPtr = _process.Memory.Deref<long>(
                 AddressMap.GetAbsolute("CHARACTER_ADDRESS"),
-                AddressMap.Get<int[]>("CHARACTER_INFO_OFFSETS")
+                AddressMap.Get<int[]>("SOS_SESSION_PLAYER_OFFSETS")
             );
 
-            long playersWeaponPtr = _process.Memory.Read(
+            long playersWeaponPtr = _process.Memory.Deref<long>(
                 AddressMap.GetAbsolute("SESSION_PLAYERS_ADDRESS"),
                 AddressMap.Get<int[]>("SESSION_PLAYER_OFFSETS")
             );
 
-            MHRCharacterData[] sessionPlayersArray = _process.Memory.Read<long>(playersArrayPtr + 0x20, 4)
-                .Where(pointer => pointer != 0)
-                .Select(pointer => _process.Memory.Read<MHRCharacterData>(pointer))
+            (int index, bool isValid, MHRCharacterData data)[] sessionPlayersArray = _process.Memory.Read<long>(playersArrayPtr + 0x20, 4)
+                .Select(pointer => (isValid: pointer != 0, pointer))
+                .Select((player, index) => (index, player.isValid, _process.Memory.Read<MHRCharacterData>(player.pointer)))
                 .ToArray();
 
+            bool isSos = sessionPlayersArray.Any(player => player.isValid);
+
+            if (!isSos)
+            {
+                playersArrayPtr = _process.Memory.Deref<long>(
+                    AddressMap.GetAbsolute("CHARACTER_ADDRESS"),
+                    AddressMap.Get<int[]>("CHARACTER_INFO_OFFSETS")
+                );
+
+                sessionPlayersArray = _process.Memory.Read<long>(playersArrayPtr + 0x20, 4)
+                                                     .Select(pointer => (isValid: pointer != 0, pointer))
+                                                     .Select((player, index) => (index, player.isValid, _process.Memory.Read<MHRCharacterData>(player.pointer)))
+                                                     .ToArray();
+            }
+
+            bool isOnlineSession = sessionPlayersArray.Any(player => player.isValid);
+
+            long[] playerWeaponsPtr = _process.Memory.Read<long>(playersWeaponPtr + 0x20, 4);
+
             // In case player DC'd
-            if (sessionPlayersArray.Length == 0)
+            if (!isOnlineSession)
             {
                 _party.Update(0, new MHRPartyMemberData()
                 {
@@ -344,26 +364,28 @@ namespace HunterPie.Core.Game.Rise.Entities
                 return;
             }
 
-            Weapon[] playerWeapons = _process.Memory.Read<long>(playersWeaponPtr, 4)
-                .Select(pointer => _process.Memory.Read<int>(pointer + 0x134).ToWeaponId())
-                .ToArray();
-                        
-            for (int i = 0; i < 4; i++)
+            foreach (var playerData in sessionPlayersArray)
             {
-                ref MHRCharacterData character = ref sessionPlayersArray[i];
+                long weaponPtr = playerWeaponsPtr[playerData.index];
 
-                string name = _process.Memory.Read(character.NamePointer + 0x14, 32, Encoding.Unicode);
-                Weapon weapon = playerWeapons[i];
+                if (weaponPtr == 0)
+                {
+                    _party.Remove(playerData.index);
+                    continue;
+                }
+
+                string name = _process.Memory.Read(playerData.data.NamePointer + 0x14, 32, Encoding.Unicode);
+                Weapon weapon = _process.Memory.Read<int>(weaponPtr + 0x134).ToWeaponId();
 
                 MHRPartyMemberData memberData = new MHRPartyMemberData
                 {
                     Name = name,
-                    HighRank = character.HighRank,
+                    HighRank = playerData.data.HighRank,
                     WeaponId = weapon,
                     IsMyself = name == Name
                 };
 
-                _party.Update(i, memberData);
+                _party.Update(playerData.index, memberData);
             }
         }
 
@@ -613,8 +635,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         {
             foreach (EntityDamageData entity in entities)
             {
-                IUpdatable<EntityDamageData> member = (IUpdatable<EntityDamageData>)_party.Members[entity.Entity.Index];
-                member.Update(entity);
+                _party.Update(entity.Entity.Index, entity);
             }
         }
     }

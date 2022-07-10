@@ -15,8 +15,9 @@ void OnRequestHuntingStatistics(RequestHuntStatisticsMessage* message)
     auto statistics = damageTracker->GetHuntStatisticsBy(message->target);
     
     ResponseHuntStatisticsMessage response{};
-    response.type = HUNT_STATISTICS;
+    response.type = GET_HUNT_STATISTICS;
     response.version = 1;
+    response.target = message->target;
 
     if (statistics == nullptr)
     {    
@@ -33,9 +34,27 @@ void OnRequestHuntingStatistics(RequestHuntStatisticsMessage* message)
     ipcService->SendIPCMessage(&response, sizeof(ResponseHuntStatisticsMessage));
 }
 
+void OnRequestDeleteHuntingStatistics(RequestDeleteHuntStatisticsMessage* message)
+{
+    auto damageTracker = HunterPie::Core::Damage::DamageTrackManager::GetInstance();
+
+    damageTracker->DeleteBy(message->target);
+}
+
+void OnRequestClearHuntStatisticsMessage(RequestClearHuntStatisticsMessage* message)
+{
+    auto damageTracker = HunterPie::Core::Damage::DamageTrackManager::GetInstance();
+
+    damageTracker->ClearAllExcept(message->targetsToKeep, 10);
+}
+
 void DamageMessageHandler::Initialize()
 {
-    IPCService::GetInstance()->RegisterMessageHandler(HUNT_STATISTICS, &OnRequestHuntingStatistics);
+    WITH(IPCService::GetInstance())
+        _->RegisterMessageHandler(GET_HUNT_STATISTICS, &OnRequestHuntingStatistics);
+        _->GetInstance()->RegisterMessageHandler(DELETE_HUNT_STATISTICS, &OnRequestDeleteHuntingStatistics);
+        _->GetInstance()->RegisterMessageHandler(CLEAR_HUNT_STATISTICS, &OnRequestClearHuntStatisticsMessage);
+    END_WITH()
 }
 
 const char* DamageMessageHandler::GetName()

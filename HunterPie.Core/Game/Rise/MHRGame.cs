@@ -29,7 +29,7 @@ namespace HunterPie.Core.Game.Rise
         private readonly MHRChat _chat = new MHRChat();
         private readonly MHRPlayer _player;
         private float _timeElapsed;
-        private DateTime _lastTeleport = DateTime.Now;
+        private (int, DateTime) _lastTeleport = (0, DateTime.Now);
         private int _deaths;
         private bool _isHudOpen;
         private DateTime _lastDamageUpdate = DateTime.MinValue;
@@ -154,7 +154,12 @@ namespace HunterPie.Core.Game.Rise
 
             TimeElapsed = elapsedTime > 0 
                 ? elapsedTime 
-                : (float)(DateTime.Now - _lastTeleport).TotalSeconds;
+                : (float)(DateTime.Now - _lastTeleport.Item2).TotalSeconds;
+
+            if (Player.StageId != _lastTeleport.Item1)
+            {
+                _lastTeleport = (Player.StageId, DateTime.Now);
+            }
         }
 
         [ScannableMethod]
@@ -166,7 +171,7 @@ namespace HunterPie.Core.Game.Rise
             _lastDamageUpdate = DateTime.Now;
 
             foreach (long target in _monsters.Keys)
-                DamageMessageHandler.Request(target);
+                DamageMessageHandler.RequestHuntStatistics(target);
         }
 
         [ScannableMethod]
@@ -233,10 +238,13 @@ namespace HunterPie.Core.Game.Rise
         {
             IMonster monster = _monsters[address]; 
             _monsters.Remove(address);
+            _damageDone.Remove(address);
             Monsters.Remove(monster);
             ScanManager.Remove(monster as Scannable);
 
             this.Dispatch(OnMonsterDespawn, monster);
+
+            DamageMessageHandler.DeleteHuntStatisticsBy(address);
         }
 
         #region Damage helpers
@@ -248,7 +256,7 @@ namespace HunterPie.Core.Game.Rise
 
         private void OnReceivePlayersDamage(object sender, ResponseDamageMessage e)
         {
-            long target = e.Entities.First().Target;
+            long target = e.Target;
 
             if (!_monsters.ContainsKey(target))
                 return;

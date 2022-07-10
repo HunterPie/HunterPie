@@ -29,6 +29,7 @@ namespace HunterPie
                 void UpdateDamage(EntityDamageData damageData);
                 HuntStatistics* GetHuntStatisticsBy(intptr_t target);
                 void DeleteBy(intptr_t target);
+                void ClearAllExcept(intptr_t* exceptions, size_t length);
             };
         }
     }

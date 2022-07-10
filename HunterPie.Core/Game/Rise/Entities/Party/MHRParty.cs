@@ -24,6 +24,9 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
         
         public void Update(int memberIndex, MHRPartyMemberData data)
         {
+            if (_partyMembers.ContainsKey(memberIndex) && _partyMembers[memberIndex].Name != data.Name)
+                Remove(memberIndex);
+
             if (!_partyMembers.ContainsKey(memberIndex))
                 Add(memberIndex, data);
 

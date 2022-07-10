@@ -12,7 +12,9 @@ namespace Core
             enum IPCMessageType
             {
                 HUNTERPIE,
-                HUNT_STATISTICS,
+                GET_HUNT_STATISTICS,
+                DELETE_HUNT_STATISTICS,
+                CLEAR_HUNT_STATISTICS,
                 UNKNOWN
             };
 

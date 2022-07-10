@@ -35,6 +35,10 @@ MHREntityData* Game::Damage::Hook::CalculateEntityDamage(
         GetEntityByDamageType(damageData->attackerDamageType)
     };
 
+    // Each player's main pet will inherits the owner's index, but be flagged as a PET
+    if (entity.type == PET && entity.index <= 3)
+        entity.index = entity.index + 4 + 1;
+
     EntityDamageData entityData = EntityDamageData{
         target,
         entity,

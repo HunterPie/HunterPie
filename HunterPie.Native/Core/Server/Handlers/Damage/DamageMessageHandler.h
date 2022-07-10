@@ -1,8 +1,8 @@
 #pragma once
 #include "../../../Entities/damage.h"
-#include "../MessageHandler.h"
 #include "../../Models/Messages.h"
 #include "../../IPCService.h"
+#include "../MessageHandler.h"
 
 namespace Core
 {
@@ -17,7 +17,18 @@ namespace Core
 
             struct ResponseHuntStatisticsMessage : IPCMessage
             {
+                intptr_t target;
                 Entities::EntityDamageData entities[10];
+            };
+
+            struct RequestDeleteHuntStatisticsMessage : IPCMessage
+            {
+                intptr_t target;
+            };
+
+            struct RequestClearHuntStatisticsMessage : IPCMessage
+            {
+                intptr_t targetsToKeep[10];
             };
         }
 

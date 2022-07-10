@@ -50,7 +50,7 @@ namespace HunterPie.Core.System.Windows
                         value ? OnGameFocus 
                               : OnGameUnfocus, 
                         new ProcessEventArgs(Name)
-                        );
+                    );
                 }
             }
         }

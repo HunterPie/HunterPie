@@ -55,6 +55,20 @@ void DamageTrackManager::DeleteBy(intptr_t target)
     if (m_Trackings.find(target) == m_Trackings.end())
         return;
 
+    LOG("Clearing monster at %08X", target);
+
     delete m_Trackings.at(target);
     m_Trackings.erase(target);
+}
+
+void DamageTrackManager::ClearAllExcept(intptr_t* targets, size_t length)
+{
+    for (auto track : m_Trackings)
+    {
+        intptr_t* size = targets + length * sizeof(intptr_t);
+        bool found = std::find(targets, size, track.first) != size;
+
+        if (found)
+            DeleteBy(track.first);
+    }
 }

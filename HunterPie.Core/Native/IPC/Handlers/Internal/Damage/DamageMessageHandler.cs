@@ -8,7 +8,7 @@ namespace HunterPie.Core.Native.IPC.Handlers.Internal.Damage
     {
         public int Version => 1;
 
-        public IPCMessageType Type => IPCMessageType.DAMAGE;
+        public IPCMessageType Type => IPCMessageType.GET_HUNT_STATISTICS;
 
         public void Handle(byte[] message)
         {
@@ -16,16 +16,46 @@ namespace HunterPie.Core.Native.IPC.Handlers.Internal.Damage
             DispatchMessage(response);
         }
 
-        public static async void Request(long target)
+        public static async void RequestHuntStatistics(long target)
         {
             RequestDamageMessage request = new RequestDamageMessage
             {
                 Header = new IPCMessage
                 {
-                    Type = IPCMessageType.DAMAGE,
+                    Type = IPCMessageType.GET_HUNT_STATISTICS,
                     Version = 1,
                 },
                 Target = target
+            };
+
+            await IPCService.Send(request);
+        }
+
+        public static async void DeleteHuntStatisticsBy(long target)
+        {
+            RequestDeleteHuntStatisticsMessage request = new RequestDeleteHuntStatisticsMessage
+            {
+                Header = new IPCMessage
+                {
+                    Type = IPCMessageType.DELETE_HUNT_STATISTICS,
+                    Version = 1
+                },
+                Target = target
+            };
+
+            await IPCService.Send(request);
+        }
+
+        public static async void ClearAllHuntStatisticsExcept(long[] targets)
+        {
+            RequestClearHuntStatisticsMessage request = new RequestClearHuntStatisticsMessage
+            {
+                Header = new IPCMessage
+                {
+                    Type = IPCMessageType.DELETE_HUNT_STATISTICS,
+                    Version = 1
+                },
+                TargetsToKeep = targets
             };
 
             await IPCService.Send(request);

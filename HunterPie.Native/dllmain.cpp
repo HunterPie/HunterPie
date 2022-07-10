@@ -46,12 +46,13 @@ void LoadNativeDll()
 {
     std::thread([]()
     {
+    #if _DEBUG
         AllocConsole();
         FILE* stdoutForward;
         freopen_s(&stdoutForward, "CONOUT$", "w", stdout);
 
         std::cout << "Alloced console" << std::endl;
-
+    #endif
         Initialize();
     }).detach();
 }
