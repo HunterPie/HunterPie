@@ -14,6 +14,7 @@ namespace HunterPie.Features
             { FeatureFlags.FEATURE_USER_ACCOUNT, new Feature() },
             { FeatureFlags.FEATURE_ADVANCED_DEV, new Feature() },
             { FeatureFlags.FEATURE_REDIRECT_POOGIE, new Feature() },
+            { FeatureFlags.FEATURE_RISE_DAMAGE_METER, new Feature() },
         };
 
         public IReadOnlyDictionary<string, IFeature> ReadOnlyFlags => Flags;

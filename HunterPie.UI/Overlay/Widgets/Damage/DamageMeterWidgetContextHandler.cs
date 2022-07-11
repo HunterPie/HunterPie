@@ -3,6 +3,7 @@ using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Client;
+using HunterPie.Core.Logger;
 using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Brushes;
 using HunterPie.UI.Overlay.Widgets.Damage.Helpers;
@@ -47,24 +48,24 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             ViewModel.Deaths = Context.Game.Deaths;
             ViewModel.TimeElapsed = Context.Game.TimeElapsed;
 
-            if (ViewModel.InHuntingZone)
-                foreach (IPartyMember member in Context.Game.Player.Party.Members)
-                    AddPlayer(member);
+            foreach (IPartyMember member in Context.Game.Player.Party.Members)
+                AddPlayer(member);
         }
 
         public void HookEvents()
         {
             Context.Game.Player.Party.OnMemberJoin += OnMemberJoin;
+            Context.Game.Player.Party.OnMemberLeave += OnMemberLeave;
             Context.Game.OnTimeElapsedChange += OnTimeElapsedChange;
             Context.Game.Player.OnVillageEnter += OnVillageEnter;
             Context.Game.Player.OnVillageLeave += OnVillageLeave;
             Context.Game.OnDeathCountChange += OnDeathCountChange;
         }
 
-        
         public void UnhookEvents()
         {
             Context.Game.Player.Party.OnMemberJoin -= OnMemberJoin;
+            Context.Game.Player.Party.OnMemberLeave -= OnMemberLeave;
             Context.Game.OnTimeElapsedChange -= OnTimeElapsedChange;
             Context.Game.Player.OnVillageEnter -= OnVillageEnter;
             Context.Game.Player.OnVillageLeave -= OnVillageLeave;
@@ -115,11 +116,16 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
                 vm.Percentage = totalDamage > 0 ? member.Damage / totalDamage * 100 : 0;
                 vm.DPS = newDps;
 
+                if (points.Count >= 50)
+                    points.RemoveAt(0);
+
                 points.Add(new ObservablePoint(ViewModel.TimeElapsed, vm.DPS));
             }
         }
 
         private void OnMemberJoin(object sender, IPartyMember e) => View.Dispatcher.Invoke(() => AddPlayer(e));
+
+        private void OnMemberLeave(object sender, IPartyMember e) => View.Dispatcher.Invoke(() => RemovePlayer(e));
 
         private void OnTimeElapsedChange(object sender, IGame e)
         {
@@ -209,6 +215,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
 
             ViewModel.Players.Remove(_members[member]);
             ViewModel.Series.Remove(_playerPoints[member]);
+            _members.Remove(member);
             _playerPoints.Remove(member);
         }
 

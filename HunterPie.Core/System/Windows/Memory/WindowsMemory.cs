@@ -155,5 +155,38 @@ namespace HunterPie.Core.System.Windows.Memory
             Marshal.FreeHGlobal(malloced);
             return buffer;
         }
+
+        public bool Inject(string dll)
+        {
+
+            IntPtr dllNamePtr = Kernel32.VirtualAllocEx(
+                pHandle,
+                IntPtr.Zero,
+                (uint)dll.Length + 1,
+                Kernel32.AllocationType.Commit,
+                Kernel32.MemoryProtection.ExecuteReadWrite
+            );
+
+            if (dllNamePtr == IntPtr.Zero)
+                return false;
+
+            byte[] dllPath = Encoding.UTF8.GetBytes(dll);
+            Write((long)dllNamePtr, dllPath);
+
+            IntPtr kernel32Address = Kernel32.GetModuleHandle("kernel32");
+            IntPtr loadLibraryA = Kernel32.GetProcAddress(kernel32Address, "LoadLibraryA");
+            IntPtr lpThreadId = IntPtr.Zero;
+            IntPtr thread = Kernel32.CreateRemoteThread(
+                pHandle,
+                IntPtr.Zero,
+                0,
+                loadLibraryA,
+                dllNamePtr,
+                0,
+                lpThreadId
+            );
+
+            return thread != IntPtr.Zero;
+        }
     }
 }

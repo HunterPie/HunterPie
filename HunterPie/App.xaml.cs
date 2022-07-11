@@ -21,6 +21,10 @@ using HunterPie.Features.Overlay;
 using HunterPie.Core.Domain;
 using System.Threading;
 using HunterPie.Features.Patcher;
+using HunterPie.Core.Native.IPC;
+using HunterPie.Core.Native.IPC.Handlers.Internal.Damage;
+using HunterPie.Core.Json;
+using HunterPie.Features;
 
 namespace HunterPie
 {
@@ -151,11 +155,12 @@ namespace HunterPie
             _richPresence = DiscordPresenceController.GetPresenceBy(context);
 
             WidgetManager.Hook(context);
-
             GamePatchers.Run(context);
+            ContextInitializers.Initialize(context);
 
             Dispatcher.InvokeAsync(() => WidgetInitializers.Initialize(context));
             ScanManager.Start();
+
         }
 
         private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)
