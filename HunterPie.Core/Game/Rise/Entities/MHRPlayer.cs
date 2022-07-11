@@ -60,9 +60,9 @@ namespace HunterPie.Core.Game.Rise.Entities
             {
                 if (value != _stageId)
                 {
-                    if (_stageData.IsVillage() && value != 5 && (_lastStageData.IsHuntingZone() || StageId == 5))
+                    if (_stageData.IsVillage() && value != 5 && ((_lastStageData.IsHuntingZone() || StageId == 5) || _lastStageData.IsIrrelevantStage()))
                         this.Dispatch(OnVillageEnter);
-                    else if (_lastStageData.IsHuntingZone() || value == 5)
+                    else if (_stageData.IsHuntingZone() || value == 5)
                         this.Dispatch(OnVillageLeave);
 
                     int temp = _stageId;
@@ -70,7 +70,6 @@ namespace HunterPie.Core.Game.Rise.Entities
                     _stageId = value;
                     this.Dispatch(OnStageUpdate);
 
-                    
                 }
             }
         }
