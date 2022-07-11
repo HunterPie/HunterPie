@@ -390,6 +390,7 @@ namespace HunterPie.Core.Game.Rise.Entities
 
                 MHRPartyMemberData memberData = new MHRPartyMemberData
                 {
+                    Index = playerData.index,
                     Name = name,
                     HighRank = playerData.data.HighRank,
                     WeaponId = weapon,

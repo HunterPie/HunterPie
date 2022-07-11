@@ -22,7 +22,7 @@ namespace HunterPie.Features.Native
 
             if (IsAlreadyInjected(context))
             {
-                Log.Info("HunterPie Native Interface is already running");
+                Log.Native("HunterPie Native Interface is already running");
                 return;
             }
 
@@ -32,7 +32,7 @@ namespace HunterPie.Features.Native
                 return;
             }
 
-            Log.Info("HunterPie Native Interface injected successfully!");
+            Log.Native("HunterPie Native Interface injected successfully!");
         }
 
         private static bool IsAlreadyInjected(Context context)

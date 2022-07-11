@@ -53,6 +53,7 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
             Name = data.Name;
             Weapon = data.WeaponId;
             IsMyself = data.IsMyself;
+            Slot = data.Index;
         }
 
         void IUpdatable<EntityDamageData>.Update(EntityDamageData data)
