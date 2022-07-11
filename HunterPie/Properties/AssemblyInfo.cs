@@ -13,4 +13,3 @@ using System.Windows;
 
 [assembly: AssemblyVersion("2.1.1.256")]
 [assembly: AssemblyFileVersion("2.1.1.256")]
-
