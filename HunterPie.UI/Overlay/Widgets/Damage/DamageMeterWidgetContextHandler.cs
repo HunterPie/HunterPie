@@ -184,8 +184,12 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
 
         private void AddPlayer(IPartyMember member)
         {
-            if (_members.Keys.Any(m => m.Name == member.Name))
-                return;
+            IPartyMember existingMember = _members.Keys.FirstOrDefault(m => m.Name == member.Name);
+            if (existingMember is not null)
+            {
+                RemovePlayer(existingMember);
+                AddPlayer(member);
+            }
 
             if (_members.ContainsKey(member))
                 return;
@@ -210,6 +214,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
 
             var model = _members[member];
 
+            Log.Debug("Added player: {0:X} {1}", member.GetHashCode(), member.Name);
+
             ViewModel.Players.Add(model);
             AddPlayerSeries(member, model);
         }
@@ -223,6 +229,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             ViewModel.Series.Remove(_playerPoints[member]);
             _members.Remove(member);
             _playerPoints.Remove(member);
+
+            Log.Debug("Removed player {0:X}: {1}", member.GetHashCode(), member.Name);
         }
 
         #endregion

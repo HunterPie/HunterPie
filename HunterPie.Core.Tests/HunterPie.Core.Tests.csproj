@@ -9,9 +9,9 @@
 
     <Version>2.0.22.24</Version>
 
-    <AssemblyVersion>2.0.22.31</AssemblyVersion>
+    <AssemblyVersion>2.0.22.32</AssemblyVersion>
 
-    <FileVersion>2.0.22.31</FileVersion>
+    <FileVersion>2.0.22.32</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

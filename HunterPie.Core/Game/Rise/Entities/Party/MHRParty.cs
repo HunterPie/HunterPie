@@ -50,7 +50,7 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
 
             IUpdatable<MHRPartyMemberData> updatable = _partyMembers[memberIndex];
             updatable.Update(data);
-            Log.Debug("Added new player to party: id: {0} name: {1} weap: {2}", memberIndex, data.Name, data.WeaponId);
+            Log.Debug("Added new player to party: id: {0} name: {1} weap: {2}, hash: {3:X}", memberIndex, data.Name, data.WeaponId, updatable.GetHashCode());
             this.Dispatch(OnMemberJoin, _partyMembers[memberIndex]);
         }
 
