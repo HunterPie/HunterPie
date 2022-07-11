@@ -3,6 +3,7 @@ using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Client;
+using HunterPie.Core.Json;
 using HunterPie.Core.Logger;
 using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Brushes;
@@ -55,7 +56,6 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         public void HookEvents()
         {
             Context.Game.Player.Party.OnMemberJoin += OnMemberJoin;
-            Context.Game.Player.Party.OnMemberLeave += OnMemberLeave;
             Context.Game.OnTimeElapsedChange += OnTimeElapsedChange;
             Context.Game.Player.OnVillageEnter += OnVillageEnter;
             Context.Game.Player.OnVillageLeave += OnVillageLeave;
@@ -65,7 +65,6 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         public void UnhookEvents()
         {
             Context.Game.Player.Party.OnMemberJoin -= OnMemberJoin;
-            Context.Game.Player.Party.OnMemberLeave -= OnMemberLeave;
             Context.Game.OnTimeElapsedChange -= OnTimeElapsedChange;
             Context.Game.Player.OnVillageEnter -= OnVillageEnter;
             Context.Game.Player.OnVillageLeave -= OnVillageLeave;
@@ -123,9 +122,13 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             }
         }
 
-        private void OnMemberJoin(object sender, IPartyMember e) => View.Dispatcher.Invoke(() => AddPlayer(e));
+        private void OnMemberJoin(object sender, IPartyMember e)
+        {
+            if (!Context.Game.Player.InHuntingZone)
+                return;
 
-        private void OnMemberLeave(object sender, IPartyMember e) => View.Dispatcher.Invoke(() => RemovePlayer(e));
+            View.Dispatcher.Invoke(() => AddPlayer(e));
+        }
 
         private void OnTimeElapsedChange(object sender, IGame e)
         {
@@ -181,6 +184,9 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
 
         private void AddPlayer(IPartyMember member)
         {
+            if (_members.Keys.Any(m => m.Name == member.Name))
+                return;
+
             if (_members.ContainsKey(member))
                 return;
 
