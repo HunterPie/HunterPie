@@ -578,6 +578,9 @@
 			<Setting Id="SHUTDOWN_ON_GAME_EXIT"
 					 String="Close on game exit"
 					 Description="If enabled, HunterPie will automatically close itself when the game is closed."/>
+			<Setting Id="RENDERING_FPS_STRING"
+					 String="Rendering Framerate"
+					 Description="HunterPie's render framerate, the higher the smoother the animations will be. Lowering this setting should increase performance."/>
 			<Setting Id="RENDERING_STRATEGY_STRING"
 					 String="Rendering Strategy"
 					 Description="HunterPie's default rendering strategy. Software will use your CPU to render the overlay, Hardware will use your Graphics Card."/>
