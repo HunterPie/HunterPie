@@ -21,7 +21,7 @@ namespace HunterPie.Core.Native.IPC.Handlers.Internal.Initialiaze
                 return;
             }
 
-            Log.Info("Successfully initialized HunterPie Native Interface hooks!");
+            Log.Native("Successfully initialized HunterPie Native Interface hooks!");
         }
 
         public static async void RequestInitMHHooks()

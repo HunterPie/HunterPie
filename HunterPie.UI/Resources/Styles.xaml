@@ -47,6 +47,7 @@
     <SolidColorBrush x:Key="BUTTON_ICON_FOREGROUND">WhiteSmoke</SolidColorBrush>
 
     <SolidColorBrush x:Key="LOGGER_LEVEL_INFO">#5cb7f2</SolidColorBrush>
+    <SolidColorBrush x:Key="LOGGER_LEVEL_NATIVE">#e84ad3</SolidColorBrush>
     <SolidColorBrush x:Key="LOGGER_LEVEL_DEBUG">#35cc76</SolidColorBrush>
     <SolidColorBrush x:Key="LOGGER_LEVEL_WARN">#E6CF5E</SolidColorBrush>
     <SolidColorBrush x:Key="LOGGER_LEVEL_ERROR">#e65e5e</SolidColorBrush>

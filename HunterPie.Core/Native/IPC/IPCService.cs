@@ -64,7 +64,7 @@ namespace HunterPie.Core.Native.IPC
             if (!_isConnected)
                 return false;
 
-            Log.Info("[Native] Connected to HunterPie Native IPC");
+            Log.Native("Connected to HunterPie Native IPC");
 
             Listen();
             
