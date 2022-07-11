@@ -23,6 +23,7 @@ namespace HunterPie.Core.Game.Rise
     public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
     {
         public const uint MAXIMUM_MONSTER_ARRAY_SIZE = 5;
+        public const long ALL_TARGETS = 0;
         public const int CHAT_MAX_SIZE = 0x40;
         public const int TRAINING_ROOM_ID = 5;
         
@@ -178,13 +179,13 @@ namespace HunterPie.Core.Game.Rise
         [ScannableMethod]
         private void GetPartyMembersDamage()
         {
-            if ((DateTime.Now - _lastDamageUpdate).TotalMilliseconds < 200)
+            if ((DateTime.Now - _lastDamageUpdate).TotalMilliseconds < 100)
                 return;
 
             _lastDamageUpdate = DateTime.Now;
 
-            foreach (long target in _monsters.Keys)
-                DamageMessageHandler.RequestHuntStatistics(target);
+            if (Player.InHuntingZone)
+                DamageMessageHandler.RequestHuntStatistics(ALL_TARGETS);
         }
 
         [ScannableMethod]
@@ -263,14 +264,12 @@ namespace HunterPie.Core.Game.Rise
         private void OnPlayerStageUpdate(object sender, EventArgs e)
         {
             DamageMessageHandler.ClearAllHuntStatisticsExcept(Array.Empty<long>());
+            DamageMessageHandler.RequestHuntStatistics(ALL_TARGETS);
         }
 
         private void OnReceivePlayersDamage(object sender, ResponseDamageMessage e)
         {
             long target = e.Target;
-
-            if (!_monsters.ContainsKey(target))
-                return;
 
             _damageDone[target] = e.Entities;
 

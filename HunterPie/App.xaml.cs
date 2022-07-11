@@ -52,7 +52,7 @@ namespace HunterPie
 
             ShutdownMode = ShutdownMode.OnMainWindowClose;
             
-            _ui = await Dispatcher.InvokeAsync(() => { return new MainWindow(); });
+            _ui = Dispatcher.Invoke(() => { return new MainWindow(); });
             
             UI.InitializeComponent();
             

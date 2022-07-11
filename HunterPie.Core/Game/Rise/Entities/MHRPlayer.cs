@@ -324,6 +324,15 @@ namespace HunterPie.Core.Game.Rise.Entities
         [ScannableMethod]
         private void GetSessionPlayers()
         {
+            int questState = _process.Memory.Deref<int>(
+                AddressMap.GetAbsolute("QUEST_ADDRESS"),
+                AddressMap.Get<int[]>("QUEST_STATUS_OFFSETS")
+            );
+
+            // Only scan party members when the player is not in the quest end screen
+            if (questState.IsQuestFinished())
+                return;
+
             long playersArrayPtr = _process.Memory.Deref<long>(
                 AddressMap.GetAbsolute("CHARACTER_ADDRESS"),
                 AddressMap.Get<int[]>("SOS_SESSION_PLAYER_OFFSETS")

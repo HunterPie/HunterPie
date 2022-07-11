@@ -25,5 +25,7 @@ namespace HunterPie.Core.Game.Rise.Utils
                 _ => Weapon.None,
             };
         }
+
+        public static bool IsQuestFinished(this int self) => self > 2;
     }
 }

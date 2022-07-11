@@ -19,7 +19,7 @@ namespace HunterPie.Features.Native
                 return;
 
             string native = ClientInfo.GetPathFor(NATIVE_PATH);
-
+            
             if (IsAlreadyInjected(context))
             {
                 Log.Native("HunterPie Native Interface is already running");
