@@ -20,7 +20,7 @@ using System.Text;
 namespace HunterPie.Core.Game.Rise
 {
 #pragma warning disable IDE0051 // Remove unused private members
-    public class MHRGame : Scannable, IGame, IEventDispatcher
+    public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
     {
         public const uint MAXIMUM_MONSTER_ARRAY_SIZE = 5;
         public const int CHAT_MAX_SIZE = 0x40;
@@ -95,8 +95,21 @@ namespace HunterPie.Core.Game.Rise
                 Player as Scannable
             );
 
-            SetupDamageHandler();
+            HookEvents();
         }
+        
+        private void HookEvents()
+        {
+            DamageMessageHandler.OnReceived += OnReceivePlayersDamage;
+            _player.OnStageUpdate += OnPlayerStageUpdate;
+        }
+
+        public void Dispose()
+        {
+            DamageMessageHandler.OnReceived -= OnReceivePlayersDamage;
+            _player.OnStageUpdate -= OnPlayerStageUpdate;
+        }
+
 
         [ScannableMethod]
         private void ScanChat()
@@ -243,15 +256,13 @@ namespace HunterPie.Core.Game.Rise
             ScanManager.Remove(monster as Scannable);
 
             this.Dispatch(OnMonsterDespawn, monster);
-
-            DamageMessageHandler.DeleteHuntStatisticsBy(address);
         }
 
         #region Damage helpers
 
-        private void SetupDamageHandler()
+        private void OnPlayerStageUpdate(object sender, EventArgs e)
         {
-            DamageMessageHandler.OnReceived += OnReceivePlayersDamage;
+            DamageMessageHandler.ClearAllHuntStatisticsExcept(Array.Empty<long>());
         }
 
         private void OnReceivePlayersDamage(object sender, ResponseDamageMessage e)

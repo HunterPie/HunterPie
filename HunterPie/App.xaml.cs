@@ -124,6 +124,7 @@ namespace HunterPie
             _richPresence?.Dispose();
 
             ScanManager.Stop();
+            _context.Dispose();
 
             _process = null;
             _context = null;

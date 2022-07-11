@@ -19,7 +19,7 @@ namespace HunterPie.Core.Native.IPC
         private static IPCService? _instance;
         private TcpClient? _client;
         private NetworkStream? _stream => _client?.GetStream();
-        private bool _isConnected;
+        private bool IsConnected => _client?.Connected ?? false;
         private static readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1);
 
         public static IPCService Instance
@@ -45,7 +45,7 @@ namespace HunterPie.Core.Native.IPC
 
         private async Task<bool> Connect()
         {
-            if (_isConnected)
+            if (IsConnected)
                 return true;
 
             _client = new();
@@ -59,16 +59,14 @@ namespace HunterPie.Core.Native.IPC
                 return false;
             }
 
-            _isConnected = true;
-
-            if (!_isConnected)
+            if (!IsConnected)
                 return false;
 
             Log.Native("Connected to HunterPie Native Interface");
 
             Listen();
             
-            return _isConnected;
+            return IsConnected;
         }
 
         private void HandleMessage(byte[] rawData)
@@ -84,7 +82,7 @@ namespace HunterPie.Core.Native.IPC
             {
                 byte[] buffer = new byte[IPC_DEFAULT_BUFFER_SIZE];
              
-                while (_isConnected)
+                while (IsConnected)
                 {
                     int dataSize = await _stream?.ReadAsync(buffer, 0, buffer.Length);
                     byte[] dataCopy = new byte[dataSize];
@@ -93,7 +91,32 @@ namespace HunterPie.Core.Native.IPC
                     
                     HandleMessage(dataCopy);
                 }
+
+                HandleDisconnect();
             });
+        }
+
+        private async void HandleDisconnect()
+        {
+            _client?.Dispose();
+            Log.Native("HunterPie was disconnected from Native Interface.");
+
+            Reconnect();
+        }
+
+        private async void Reconnect()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                if (IsConnected)
+                    break;
+
+                Log.Debug("Attempting to reconnect to Native Interface");
+
+                await Connect();
+
+                await Task.Delay(i * 100);
+            }
         }
 
         private async Task<bool> SendAsync<T>(T message) where T : struct
@@ -104,7 +127,7 @@ namespace HunterPie.Core.Native.IPC
 
         private async Task<bool> SendRawAsync(byte[] raw)
         {
-            if (!_isConnected)
+            if (!IsConnected)
                 return false;
 
             try

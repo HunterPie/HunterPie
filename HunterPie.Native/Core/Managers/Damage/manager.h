@@ -19,9 +19,11 @@ namespace HunterPie
             {
             private:
                 std::unordered_map<intptr_t, HuntStatistics*> m_Trackings;
+                HuntStatistics m_AllTargetsTotal;
                 static DamageTrackManager* m_Instance;
                 DamageTrackManager();
                 DamageTrackManager operator=(DamageTrackManager const&);
+                EntityDamageData* CalculateTotalDamage();
 
             public:
                 static DamageTrackManager* GetInstance();
