@@ -230,7 +230,75 @@
 			<Part Id="PART_H_LEG" String="뒷다리"/>
 			<Part Id="PART_ANTENNA" String="촉각"/>
 			<Part Id="PART_CREST" String="볏"/>
+			<!-- Missing MHW monster parts -->
 			<Part Id="PART_THROAT" String="목"/>
+			<Part Id="PART_REPEL" String="격퇴"/>
+			<Part Id="PART_EXHAUST_ORGAN_CENTRAL" String="배열기관 (중앙)"/>
+			<Part Id="PART_EXHAUST_ORGAN_HEAD" String="배열기관 (머리)"/>
+			<Part Id="PART_EXHAUST_ORGAN_CRATER" String="배열기관 (분화구)"/>
+			<Part Id="PART_EXHAUST_ORGAN_REAR" String="배열기관 (후방)"/>
+			<Part Id="PART_WEAK_L_SHELL" String="왼쪽 약한 껍질"/>
+			<Part Id="PART_WEAK_R_SHELL" String="오른쪽 약한 껍질"/>
+			<Part Id="PART_HORN" String="뿔"/>
+			<Part Id="PART_HORNS" String="뿔"/>
+			<Part Id="PART_LIMBS" String="앞다리"/>
+			<Part Id="PART_L_LIMBS" String="왼쪽 앞다리"/>
+			<Part Id="PART_R_LIMBS" String="오른쪽 앞다리"/>
+			<Part Id="PART_BIG_FLINCH" String="대경직"/>
+			<Part Id="PART_BODY_MUD" String="몸통 (진흙)"/>
+			<Part Id="PART_JAW" String="턱"/>
+			<Part Id="PART_BODY_LEGS" String="몸(+다리)"/>
+			<Part Id="PART_ANTLERS" String="머리 (뿔)"/>
+			<Part Id="PART_MANE" String="갈기"/>
+			<Part Id="PART_BALLOON" String="목 주머니"/>
+			<Part Id="PART_COUNTERATTACK" String="반격"/>
+			<Part Id="PART_L_BONE" String="왼쪽 뼈갑옷"/>
+			<Part Id="PART_R_BONE" String="오른쪽 뼈갑옷"/>
+			<Part Id="PART_EMISSIONS" String="독기 발산 기관"/>
+			<Part Id="PART_HORNS_2" String="두번째 뿔"/>
+			<Part Id="PART_HORNS_GOLD" String="큰뿔 (황금)"/>
+			<Part Id="PART_MANE_GOLD" String="갈기 (황금)"/>
+			<Part Id="PART_L_CHEST_GOLD" String="왼쪽 가슴 (황금)"/>
+			<Part Id="PART_R_CHEST_GOLD" String="오른쪽 가슴 (황금)"/>
+			<Part Id="PART_L_ARM_GOLD" String="왼쪽 앞다리 (황금)"/>
+			<Part Id="PART_R_ARM_GOLD" String="오른쪽 앞다리 (황금)"/>
+			<Part Id="PART_L_LEG_GOLD" String="왼쪽 뒷다리 (황금)"/>
+			<Part Id="PART_R_LEG_GOLD" String="오른쪽 뒷다리 (황금)"/>
+			<Part Id="PART_L_TAIL_GOLD" String="왼쪽 꼬리 (황금)"/>
+			<Part Id="PART_R_TAIL_GOLD" String="오른쪽 꼬리 (황금)"/>
+			<Part Id="PART_FIN" String="등갑각"/>
+			<Part Id="PART_INFLATED_TAIL" String="팽창된 꼬리"/>
+			<Part Id="PART_SILVER_SPIKES_HEAD" String="머리 (금강 가시)"/>
+			<Part Id="PART_SILVER_SPIKES_L_ARM" String="왼쪽 앞다리 (금강 가시)"/>
+			<Part Id="PART_SILVER_SPIKES_R_ARM" String="오른쪽 앞다리 (금강 가시)"/>
+			<Part Id="PART_SILVER_SPIKES_L_WING" String="왼쪽 날개 (금강 가시)"/>
+			<Part Id="PART_SILVER_SPIKES_R_WING" String="오른쪽 날개 (금강 가시)"/>
+			<Part Id="PART_SKY_FALL" String="격추"/>
+			<Part Id="PART_GLOWING_HEAD" String="빛나는 머리"/>
+			<Part Id="PART_GLOWING_TAIL" String="빛나는 꼬리"/>
+			<Part Id="PART_EMERGE_SNOW_HEAD" String="눈 위로 떠오른 머리"/>
+			<Part Id="PART_EMERGE_SNOW_BODY" String="눈 위로 떠오른 몸통"/>
+			<Part Id="PART_EMERGE_SNOW_TAIL" String="눈 위로 떠오른 꼬리"/>
+			<Part Id="PART_HEAD_SNOW" String="머리 (눈)"/>
+			<Part Id="PART_BODY_SNOW" String="몸통 (눈)"/>
+			<Part Id="PART_TAIL_SNOW" String="꼬리 (눈)"/>
+			<Part Id="PART_HEAD_ICE" String="머리 (얼음)"/>
+			<Part Id="PART_BODY_ICE" String="몸통 (얼음)"/>
+			<Part Id="PART_WINGS_ICE" String="날개 (얼음)"/>
+			<Part Id="PART_ARMS_ICE" String="앞다리 (얼음)"/>
+			<Part Id="PART_HEAD_ROCK" String="머리 (바위)"/>
+			<Part Id="PART_CHEST_ROCK" String="가슴 (바위)"/>
+			<Part Id="PART_L_NECK_ROCK" String="왼쪽 목 (바위)"/>
+			<Part Id="PART_R_NECK_ROCK" String="오른쪽 목 (바위)"/>
+			<Part Id="PART_TAIL_ROCK" String="꼬리 (바위)"/>
+			<Part Id="PART_L_WING_ROCK" String="왼쪽 날개 (바위)"/>
+			<Part Id="PART_R_WING_ROCK" String="오른쪽 날개 (바위)"/>
+			<Part Id="PART_L_ARMS_ROCK" String="왼쪽 앞다리 (바위)"/>
+			<Part Id="PART_R_ARMS_ROCK" String="오른쪽 앞다리 (바위)"/>
+			<Part Id="PART_EXPLOSION_WEAKENING" String="속성 대경직"/>
+			<Part Id="PART_RAGE" String="분노 해제"/>
+			<Part Id="PART_CHARGE" String="충전 상태 해제"/>
+			<Part Id="PART_KNOCKDOWN" String="병기 대미지 대경직"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="리오레이아"/>
@@ -472,6 +540,8 @@
 					 String="{Monster} 사냥 중"/>
 			<Discord Id="DRPC_STATE_MAIN_MENU"
 					 String="메인 메뉴"/>
+			<Discord Id="DRPC_STATE_LOADING"
+					 String="로딩 화면"/>
 			<Discord Id="DRPC_STATE_IDLE"
 					 String="휴식 중"/>
 			<Discord Id="DRPC_STATE_EXPLORING"
@@ -578,6 +648,9 @@
 			<Setting Id="SHUTDOWN_ON_GAME_EXIT"
 					 String="게임 종료 시 닫기"
 					 Description="옵션 활성화 시, 게임이 종료되면 HunterPie를 자동으로 닫습니다."/>
+			<Setting Id="RENDERING_FPS_STRING"
+					 String="렌더링 프레임율"
+					 Description="HunterPie의 렌더 프레임률, 높을수록 애니메이션이 부드러워집니다. 이 값을 낮출수록 성능이 개선됩니다."/>
 			<Setting Id="RENDERING_STRATEGY_STRING"
 					 String="렌더링 방식"
 					 Description="HunterPie의 렌더링 방식입니다. 소프트웨어 렌더링은 CPU를 사용하고, 하드웨어 렌더링은 그래픽 카드를 사용합니다."/>
