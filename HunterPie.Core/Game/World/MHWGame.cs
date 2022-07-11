@@ -183,5 +183,7 @@ namespace HunterPie.Core.Game.World
 
             this.Dispatch(OnMonsterDespawn, monster);
         }
+
+        public void Dispose() {}
     }
 }
