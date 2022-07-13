@@ -14,7 +14,6 @@
         BorderThickness="1"
         BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}"
         Background="Transparent"
-        AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         Topmost="True"
         MouseLeftButtonDown="OnMouseDown"
@@ -24,6 +23,9 @@
         <converters:LongToByteRepresentationConverter x:Key="LongToByteRepresentationConverter"/>
         <converters:ParentSizePercentageConverter x:Key="ParentSizePercentageConverter"/>
     </Window.Resources>
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="-1"/>
+    </WindowChrome.WindowChrome>
     <Grid Background="{StaticResource GRAY_400}">
         <Image Source="{StaticResource ICON_HUNTERPIE}"
                Width="100"

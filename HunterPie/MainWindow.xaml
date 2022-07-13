@@ -23,15 +23,15 @@
         SnapsToDevicePixels="True"
         UseLayoutRounding="True" 
         KeyDown="OnKeyDown"
-        WindowStyle="SingleBorderWindow"
+        WindowStyle="None"
         mc:Ignorable="d">
     <Window.Resources>
         <converters:GameTypeToGameNameConverter x:Key="GameTypeToGameNameConverter"/>
     </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"
-                      CornerRadius="0"
-                      GlassFrameThickness="5"
+                      CornerRadius="2"
+                      GlassFrameThickness="-1"
                       ResizeBorderThickness="5"
                       UseAeroCaptionButtons="False"/>
     </WindowChrome.WindowChrome>

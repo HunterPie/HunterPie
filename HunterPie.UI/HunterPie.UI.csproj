@@ -5,9 +5,9 @@
     <UseWPF>true</UseWPF>
 	<UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.2.1.65</AssemblyVersion>
-    <FileVersion>2.2.1.65</FileVersion>
-    <Version>2.1.0.0</Version>
+    <AssemblyVersion>2.2.1.66</AssemblyVersion>
+    <FileVersion>2.2.1.66</FileVersion>
+    <Version>2.2.0.0</Version>
  </PropertyGroup>
 
   <ItemGroup>

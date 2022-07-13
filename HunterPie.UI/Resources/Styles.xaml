@@ -477,8 +477,7 @@
                         <!-- Popup showing items -->
                         <Popup Name="Popup" 
                                Placement="Bottom"
-                               Focusable="False" 
-                               AllowsTransparency="True"
+                               Focusable="False"
                                IsOpen="{TemplateBinding ComboBox.IsDropDownOpen}"
                                PopupAnimation="Fade">
                             <Grid Name="DropDown" 

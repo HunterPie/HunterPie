@@ -10,8 +10,7 @@
         xmlns:enums="clr-namespace:HunterPie.UI.Overlay.Enums"
         mc:Ignorable="d"
         Title="{Binding Widget.Title, Mode=OneWay}"
-        AllowsTransparency="True"
-        WindowStyle="None" 
+        WindowStyle="None"
         Background="#01000000"
         Topmost="True"
         SizeToContent="WidthAndHeight"
@@ -32,6 +31,9 @@
         <animation:BrushAnimation x:Key="BrushAnimation"/>
         <enums:WidgetType x:Key="WidgetType_Window">Window</enums:WidgetType>
     </Window.Resources>
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="-1"/>
+    </WindowChrome.WindowChrome>
     <Grid>
         <Grid x:Name="PART_Base"
               d:Opacity="1">
