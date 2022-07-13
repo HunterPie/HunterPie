@@ -12,8 +12,8 @@
         mc:Ignorable="d"
         Height="200" 
         Width="400"
-        Background="Transparent"
-        AllowsTransparency="True"
+        Background="#01000000"
+        ResizeMode="NoResize"
         Topmost="true"
         WindowStyle="None" 
         Title="HunterPie"
@@ -35,6 +35,10 @@
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
     </Window.Resources>
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="-1"
+                      CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
     <wnd:WindowChrome>
         <wnd:WindowChrome.Container>
             <Grid>
