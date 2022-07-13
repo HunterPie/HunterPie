@@ -20,7 +20,6 @@ using System.Text;
 
 namespace HunterPie.Core.Game.Rise.Entities
 {
-    
     public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     {
         #region Private
@@ -119,7 +118,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         // TODO: Add DTOs for middlewares
 
         [ScannableMethod]
-        private void ScanStageData()
+        private void GetStageData()
         {
             long stageAddress = _process.Memory.Read(
                 AddressMap.GetAbsolute("STAGE_ADDRESS"),
@@ -152,7 +151,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        private void ScanPlayerSaveData()
+        private void GetPlayerSaveData()
         {
             if (_stageData.IsMainMenu())
             {
@@ -207,7 +206,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        private void ScanPlayerLevel()
+        private void GetPlayerLevel()
         {
             if (SaveSlotId < 0)
                 return;
@@ -225,7 +224,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        private void ScanPlayerWeaponData()
+        private void GetPlayerWeaponData()
         {
             long weaponIdPtr = _process.Memory.Read(
                 AddressMap.GetAbsolute("WEAPON_ADDRESS"),
@@ -238,7 +237,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        private void ScanPlayerAbnormalitiesCleanup()
+        private void GetPlayerAbnormalitiesCleanup()
         {
             long debuffsPtr = _process.Memory.Read(
                 AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
@@ -250,7 +249,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        private void ScanPlayerConsumableAbnormalities()
+        private void GetPlayerConsumableAbnormalities()
         {
             if (!InHuntingZone)
                 return;
@@ -285,7 +284,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        private void ScanPlayerDebuffAbnormalities()
+        private void GetPlayerDebuffAbnormalities()
         {
             // Only scan in hunting zone due to invalid pointer when not in a hunting zone...
             if (!InHuntingZone)
@@ -411,7 +410,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        private void ScanPlayerSongAbnormalities()
+        private void GetPlayerSongAbnormalities()
         {
             if (!InHuntingZone)
                 return;
@@ -431,7 +430,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
         
         [ScannableMethod(typeof(MHRWirebugStructure))]
-        private void ScanPlayerWirebugs()
+        private void GetPlayerWirebugs()
         {
             long wirebugsArrayPtr = _process.Memory.Read(
                 AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"), 
@@ -479,7 +478,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod(typeof(MHRSubmarineData))]
-        private void ScanArgosy()
+        private void GetArgosy()
         {
             
             long argosyAddress = _process.Memory.Read(
@@ -524,7 +523,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod(typeof(MHRTrainingDojoData))]
-        private void ScanTrainingDojo()
+        private void GetTrainingDojo()
         {
             int[] staticTrainingData = _process.Memory.Read<int>(AddressMap.GetAbsolute("DATA_TRAINING_DOJO_ROUNDS_LEFT"), 5); 
             MHRTrainingDojoData data = new()
@@ -562,7 +561,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         }
 
         [ScannableMethod]
-        private void ScanPartyData()
+        private void GetPartyData()
         {
             long partyArrayPtr = _process.Memory.Read(
                 AddressMap.GetAbsolute("SESSION_PLAYERS_ADDRESS"),
