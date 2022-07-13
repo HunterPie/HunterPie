@@ -599,7 +599,7 @@
 					 String="특수 장비 위젯"
 					 Description="특수 장비 위젯 설정"/>
 			<Setting Id="DEV_TOOLS_STRING"
-					 String="개발자 도구"
+					 String="개발 도구"
 					 Description="심화 개발 도구"/>
 
 			<Setting Id="ABNORMALITY_SONGS_STRING"
@@ -650,7 +650,7 @@
 					 Description="옵션 활성화 시, 게임이 종료되면 HunterPie를 자동으로 닫습니다."/>
 			<Setting Id="RENDERING_FPS_STRING"
 					 String="렌더링 프레임율"
-					 Description="HunterPie의 렌더 프레임률, 높을수록 애니메이션이 부드러워집니다. 이 값을 낮출수록 성능이 개선됩니다."/>
+					 Description="HunterPie의 렌더 프레임율, 높을수록 애니메이션이 부드러워집니다. 이 값을 낮출수록 성능이 개선됩니다."/>
 			<Setting Id="RENDERING_STRATEGY_STRING"
 					 String="렌더링 방식"
 					 Description="HunterPie의 렌더링 방식입니다. 소프트웨어 렌더링은 CPU를 사용하고, 하드웨어 렌더링은 그래픽 카드를 사용합니다."/>
@@ -658,8 +658,8 @@
 					 String="메모리 스캔 딜레이 (ms 단위)"
 					 Description="HunterPie 스캐너의 딜레이 설정입니다, 낮게 설정할수록 부드럽게 작동하지만, 그만큼 CPU 자원을 많이 사용합니다."/>
 			<Setting Id="DEV_ENABLE_FEATURE_FLAG"
-					 String="개발 중인 기능 표시"
-					 Description="옵션 활성화 시, 개발 중인 기능을 보고 테스트할 수 있습니다."/>
+					 String="개발 기능 플래그 활성화"
+					 Description="옵션 활성화 시, HunterPie는 개발 중인 기능에 대한 기능 플래그를 활성화할 수 있도록 허용합니다."/>
 
 			<Setting Id="DRPC_ENABLE_RICH_PRESENCE"
 					 String="Discord Rich Presence 활성화"
