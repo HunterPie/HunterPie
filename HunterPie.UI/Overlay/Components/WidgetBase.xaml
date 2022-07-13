@@ -25,7 +25,8 @@
         Loaded="OnLoaded"
         ShowInTaskbar="False"
         ResizeMode="NoResize" 
-        MouseWheel="OnMouseWheel">
+        MouseWheel="OnMouseWheel"
+        AllowsTransparency="True">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <animation:BrushAnimation x:Key="BrushAnimation"/>
