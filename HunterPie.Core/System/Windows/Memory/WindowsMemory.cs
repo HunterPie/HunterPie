@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Domain.Memory;
+using HunterPie.Core.Logger;
 using HunterPie.Core.System.Windows.Native;
 using HunterPie.Core.Utils;
 using System;
@@ -173,8 +174,14 @@ namespace HunterPie.Core.System.Windows.Memory
             byte[] dllPath = Encoding.UTF8.GetBytes(dll);
             Write((long)dllNamePtr, dllPath);
 
+            Log.Debug("Wrote DLL name at {0:X}", dllNamePtr);
+
             IntPtr kernel32Address = Kernel32.GetModuleHandle("kernel32");
+            Log.Debug("Found kernel32 address at {0:X}", kernel32Address);
+
             IntPtr loadLibraryA = Kernel32.GetProcAddress(kernel32Address, "LoadLibraryA");
+            Log.Debug("kernel32::loadLibraryA -> {0:X}", loadLibraryA);
+            
             IntPtr lpThreadId = IntPtr.Zero;
             IntPtr thread = Kernel32.CreateRemoteThread(
                 pHandle,
@@ -185,6 +192,7 @@ namespace HunterPie.Core.System.Windows.Memory
                 0,
                 lpThreadId
             );
+            Log.Debug("threat {0:08X}", thread);
 
             return thread != IntPtr.Zero;
         }
