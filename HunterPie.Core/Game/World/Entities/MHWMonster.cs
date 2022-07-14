@@ -143,6 +143,8 @@ namespace HunterPie.Core.Game.World.Entities
 
         public IMonsterAilment Enrage => _enrage;
 
+        public Element[] Weaknesses => Array.Empty<Element>();
+
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
         public event EventHandler<EventArgs> OnDespawn;
@@ -157,6 +159,7 @@ namespace HunterPie.Core.Game.World.Entities
         public event EventHandler<IMonsterPart> OnNewPartFound;
         public event EventHandler<IMonsterAilment> OnNewAilmentFound;
         public event EventHandler<EventArgs> OnEnrageStateChange;
+        public event EventHandler<Element[]> OnWeaknessesChange;
 
         public MHWMonster(IProcessManager process, long address, string em) : base(process)
         {
