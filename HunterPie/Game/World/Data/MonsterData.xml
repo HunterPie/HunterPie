@@ -32,6 +32,10 @@
 	<Monsters>
 		<Monster Id="0">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="1" String="PART_THROAT" IsSeverable="True"/>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
@@ -44,6 +48,10 @@
 		</Monster>
 		<Monster Id="1">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,5"/>
@@ -57,6 +65,10 @@
 		</Monster>
 		<Monster Id="4">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Water"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_REPEL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD"/>
@@ -78,6 +90,10 @@
 		</Monster>
 		<Monster Id="7">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HEAD" TenderizeIds="0,3"/>
 				<Part Id="1" String="PART_BODY" TenderizeIds="2,5"/>
@@ -89,6 +105,10 @@
 		</Monster>
 		<Monster Id="9">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,5"/>
@@ -102,6 +122,10 @@
 		</Monster>
 		<Monster Id="10">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,5"/>
@@ -115,6 +139,10 @@
 		</Monster>
 		<Monster Id="11">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,5"/>
@@ -128,6 +156,10 @@
 		</Monster>
 		<Monster Id="12">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Water"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HORNS" IsSeverable="True"/>
 				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
@@ -142,6 +174,10 @@
 		</Monster>
 		<Monster Id="13">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Water"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HORNS" IsSeverable="True"/>
 				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
@@ -156,6 +192,10 @@
 		</Monster>
 		<Monster Id="14">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Water"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HORN" TenderizeIds="0,2"/>
 				<Part Id="1" String="PART_ARMS" TenderizeIds="1,3"/>
@@ -164,6 +204,10 @@
 		</Monster>
 		<Monster Id="15">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Water"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HORNS"/>
@@ -178,6 +222,10 @@
 		</Monster>
 		<Monster Id="16">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Dragon"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
@@ -190,6 +238,10 @@
 		</Monster>
 		<Monster Id="17">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Dragon"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,4"/>
@@ -202,6 +254,10 @@
 		</Monster>
 		<Monster Id="18">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HORNS" IsSeverable="True"/>
@@ -215,6 +271,10 @@
 		</Monster>
 		<Monster Id="19">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HEAD" TenderizeIds="0,3"/>
 				<Part Id="1" String="PART_BODY" TenderizeIds="1,4"/>
@@ -226,6 +286,10 @@
 		</Monster>
 		<Monster Id="20">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_BIG_FLINCH" IsSeverable="True"/>
@@ -241,6 +305,10 @@
 		</Monster>
 		<Monster Id="21">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Fire"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HEAD" IsSeverable="True"/>
 				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
@@ -260,6 +328,10 @@
 		</Monster>
 		<Monster Id="22">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Dragon"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_JAW"/>
@@ -273,6 +345,10 @@
 		</Monster>
 		<Monster Id="23">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_BODY_LEGS" IsSeverable="True"/>
 				<Part Id="1" String="PART_ANTLERS" TenderizeIds="0,1"/>
@@ -284,6 +360,10 @@
 		</Monster>
 		<Monster Id="24">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
+			<Weaknesses>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HEAD" IsSeverable="True"/>
 				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
@@ -298,6 +378,10 @@
 		</Monster>
 		<Monster Id="25">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Dragon"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HORNS" IsSeverable="True"/>
 				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
@@ -316,6 +400,10 @@
 		</Monster>
 		<Monster Id="26">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Dragon"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_UNKNOWN" IsSeverable="True"/>
@@ -333,6 +421,10 @@
 		</Monster>
 		<Monster Id="27">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Fire"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HEAD" TenderizeIds="0,3"/>
 				<Part Id="1" String="PART_ARMS" TenderizeIds="1,4"/>
@@ -343,6 +435,10 @@
 		</Monster>
 		<Monster Id="28">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HEAD"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
@@ -353,6 +449,10 @@
 		</Monster>
 		<Monster Id="29">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Water"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HEAD" TenderizeIds="0,3"/>
 				<Part Id="1" String="PART_BODY" TenderizeIds="1,4"/>
@@ -368,6 +468,10 @@
 		</Monster>
 		<Monster Id="30">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Fire"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="1" String="PART_BODY" TenderizeIds="2,6"/>
@@ -379,6 +483,10 @@
 		</Monster>
 		<Monster Id="31">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_BALLOON" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,4"/>
@@ -393,6 +501,10 @@
 		</Monster>
 		<Monster Id="32">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Fire"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="1" String="PART_BODY"/>
@@ -405,6 +517,10 @@
 		</Monster>
 		<Monster Id="33">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
@@ -416,6 +532,10 @@
 		</Monster>
 		<Monster Id="34">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_COUNTERATTACK" IsSeverable="True"/>
 				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
@@ -428,6 +548,10 @@
 		</Monster>
 		<Monster Id="35">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_UNKNOWN" IsSeverable="True"/>
@@ -447,6 +571,10 @@
 		</Monster>
 		<Monster Id="36">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Dragon"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_EMISSIONS" IsSeverable="True"/>
 				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
@@ -463,6 +591,10 @@
 		</Monster>
 		<Monster Id="37">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
@@ -474,6 +606,10 @@
 		</Monster>
 		<Monster Id="38">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="1" String="PART_HORNS" IsSeverable="True"/>
 				<Part Id="0" String="PART_HORNS_2" IsSeverable="True"/>
@@ -497,6 +633,10 @@
 		</Monster>
 		<Monster Id="39">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Dragon"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,5"/>
@@ -509,6 +649,10 @@
 		</Monster>
 		<Monster Id="51">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_BODY_LEGS" IsSeverable="True"/>
 				<Part Id="1" String="PART_ANTLERS" TenderizeIds="0,1"/>
@@ -520,6 +664,10 @@
 		</Monster>
 		<Monster Id="61">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Dragon"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
@@ -533,6 +681,10 @@
 		</Monster>
 		<Monster Id="62">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Fire"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
@@ -546,6 +698,10 @@
 		</Monster>
 		<Monster Id="63">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
@@ -559,6 +715,10 @@
 		</Monster>
 		<Monster Id="64">
 			<Crowns Mini="0.99" Silver="1.14" Gold="1.20"/>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_BIG_FLINCH" IsSeverable="True"/>
@@ -575,6 +735,10 @@
 		</Monster>
 		<Monster Id="65">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Water"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
@@ -588,6 +752,10 @@
 		</Monster>
 		<Monster Id="66">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="1" String="PART_THROAT" IsSeverable="True"/>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
@@ -602,6 +770,10 @@
 		</Monster>
 		<Monster Id="67">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="1" String="PART_THROAT" IsSeverable="True"/>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
@@ -617,6 +789,10 @@
 		</Monster>
 		<Monster Id="68">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Water"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="1" String="PART_THROAT" IsSeverable="True"/>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
@@ -629,6 +805,10 @@
 		</Monster>
 		<Monster Id="69">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="2" String="PART_HEAD" IsSeverable="True"/>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
@@ -644,6 +824,10 @@
 		</Monster>
 		<Monster Id="70">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HORNS" IsSeverable="True"/>
 				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
@@ -667,6 +851,10 @@
 		</Monster>
 		<Monster Id="71">
 			<Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
+			<Weaknesses>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HEAD" TenderizeIds="0,4"/>
 				<Part Id="1" String="PART_BODY" TenderizeIds="2,6"/>
@@ -678,6 +866,10 @@
 		</Monster>
 		<Monster Id="72">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Fire"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_BALLOON" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,4"/>
@@ -692,6 +884,10 @@
 		</Monster>
 		<Monster Id="73">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_SKY_FALL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,4"/>
@@ -704,6 +900,10 @@
 		</Monster>
 		<Monster Id="74">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_COUNTERATTACK" IsSeverable="True"/>
 				<Part Id="2" String="PART_HEAD" IsSeverable="True"/>
@@ -717,6 +917,10 @@
 		</Monster>
 		<Monster Id="75">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Dragon"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="0" String="PART_EMISSIONS" IsSeverable="True"/>
@@ -738,6 +942,10 @@
 		</Monster>
 		<Monster Id="76">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="1" String="PART_GLOWING_HEAD" IsSeverable="True"/>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
@@ -752,6 +960,10 @@
 		</Monster>
 		<Monster Id="77">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_EMERGE_SNOW_HEAD" IsSeverable="True"/>
 				<Part Id="1" String="PART_EMERGE_SNOW_BODY" IsSeverable="True"/>
@@ -767,6 +979,10 @@
 		</Monster>
 		<Monster Id="78">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Fire"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HORNS" IsSeverable="True"/>
 				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
@@ -780,6 +996,10 @@
 		</Monster>
 		<Monster Id="79">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Dragon"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_SKY_FALL" IsSeverable="True"/>
@@ -797,6 +1017,10 @@
 		</Monster>
 		<Monster Id="80">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Dragon"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,4"/>
@@ -809,6 +1033,10 @@
 		</Monster>
 		<Monster Id="81">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Water"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HEAD_ROCK" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD_ROCK" IsSeverable="True"/>
@@ -835,6 +1063,11 @@
 		</Monster>
 		<Monster Id="87">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Dragon"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HORNS" IsSeverable="True"/>
 				<Part Id="1" String="PART_TAIL" IsSeverable="True"/>
@@ -849,6 +1082,10 @@
 		</Monster>
 		<Monster Id="88">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Water"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="1" String="PART_BIG_FLINCH" IsSeverable="True"/>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
@@ -863,6 +1100,10 @@
 		</Monster>
 		<Monster Id="89">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="1" String="PART_BIG_FLINCH" IsSeverable="True"/>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
@@ -877,6 +1118,10 @@
 		</Monster>
 		<Monster Id="90">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Dragon"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,5"/>
@@ -890,6 +1135,10 @@
 		</Monster>
 		<Monster Id="91">
 			<Crowns Mini="0.9" Silver="1.11" Gold="1.18"/>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Water"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HORNS" IsSeverable="True"/>
 				<Part Id="2" String="PART_TAIL" IsSeverable="True"/>
@@ -906,6 +1155,10 @@
 		</Monster>
 		<Monster Id="92">
 			<Crowns Mini="0.9" Silver="1.11" Gold="1.18"/>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Water"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_HORNS" IsSeverable="True"/>
 				<Part Id="2" String="PART_TAIL" IsSeverable="True"/>
@@ -922,6 +1175,10 @@
 		</Monster>
 		<Monster Id="93">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
@@ -935,6 +1192,10 @@
 		</Monster>
 		<Monster Id="94">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Water"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="1" String="PART_CHARGE" IsSeverable="True"/>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
@@ -948,6 +1209,10 @@
 		</Monster>
 		<Monster Id="95">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Fire"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="1" String="PART_CHARGE" IsSeverable="True"/>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
@@ -961,6 +1226,10 @@
 		</Monster>
 		<Monster Id="96">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Water"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,4"/>
@@ -976,6 +1245,10 @@
 		</Monster>
 		<Monster Id="97">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,4,8,9"/>
@@ -994,6 +1267,7 @@
 		</Monster>
 		<Monster Id="98">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses/>
 			<Parts>
 				<Part Id="0" String="PART_UNKNOWN" TenderizeIds="0,2"/>
 				<Part Id="1" String="PART_UNKNOWN" TenderizeIds="1"/>
@@ -1002,6 +1276,10 @@
 		</Monster>
 		<Monster Id="99">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Dragon"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,5"/>
@@ -1015,6 +1293,10 @@
 		</Monster>
 		<Monster Id="100">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_TAIL" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
@@ -1028,6 +1310,10 @@
 		</Monster>
 		<Monster Id="101">
 			<Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Fire"/>
+			</Weaknesses>
 			<Parts>
 				<Part Id="0" String="PART_KNOCKDOWN" IsSeverable="True"/>
 				<Part Id="1" String="PART_HEAD" TenderizeIds="0,3"/>
