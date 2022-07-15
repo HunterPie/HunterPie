@@ -497,6 +497,12 @@
 			<Discord Id="DRPC_WORLD_STATE_PRACTICE"
 					 String="Training"/>
 		</Integrations>
+		<Enums>
+			<Enum Id="RELATIVE_TO_QUEST_STRING"
+				  String="Relative to quest"/>
+			<Enum Id="RELATIVE_TO_JOIN_STRING"
+				  String="Relative to join"/>
+		</Enums>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
 					 String="Client"
