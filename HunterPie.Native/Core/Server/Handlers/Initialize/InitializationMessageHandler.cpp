@@ -5,7 +5,7 @@
 using namespace Core::Server;
 using namespace Core::Server::Models;
 using namespace Core::Server::Handlers;
-using namespace Game;
+using namespace Games::Rise;
 
 void OnRequestIPCInitialization(RequestIPCInitializationMessage* message)
 {

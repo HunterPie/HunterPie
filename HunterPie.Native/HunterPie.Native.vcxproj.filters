@@ -27,10 +27,10 @@
     <ClInclude Include="Core\Interfaces\IInitializable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Games\Rise\Damage\damage.h">
+    <ClInclude Include="Games\Rise\Damage\Damage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Games\Rise\Damage\hooks.h">
+    <ClInclude Include="Games\Rise\Damage\Hooks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\Utils\addresses.h">
@@ -66,6 +66,12 @@
     <ClInclude Include="Core\Server\Handlers\Initialize\InitializationMessageHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Games\Rise\Utils\RiseUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Games\Rise\Common\Monster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -74,7 +80,7 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Games\Rise\Damage\hooks.cpp">
+    <ClCompile Include="Games\Rise\Damage\Hooks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Core\Managers\Damage\manager.cpp">
