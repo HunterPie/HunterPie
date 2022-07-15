@@ -75,5 +75,11 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
 
             this.Dispatch(OnMemberLeave, member);
         }
+
+        public void Clear()
+        {
+            foreach (int index in _partyMembers.Keys.ToArray())
+                Remove(index);
+        }
     }
 }

@@ -26,6 +26,8 @@ namespace HunterPie.Core.Game.Rise.Utils
             };
         }
 
+        public static bool IsInQuest(this int self) => self == 2;
         public static bool IsQuestFinished(this int self) => self > 2;
+        public static bool IsTrainingRoom(this int self) => self == 5;
     }
 }

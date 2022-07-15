@@ -328,9 +328,15 @@ namespace HunterPie.Core.Game.Rise.Entities
                 AddressMap.Get<int[]>("QUEST_STATUS_OFFSETS")
             );
 
-            // Only scan party members when the player is not in the quest end screen
             if (questState.IsQuestFinished())
                 return;
+
+            // Only scan party members when the player is not in the quest end screen
+            if (!questState.IsInQuest() && !StageId.IsTrainingRoom())
+            {
+                _party.Clear();
+                return;
+            }
 
             long playersArrayPtr = _process.Memory.Deref<long>(
                 AddressMap.GetAbsolute("CHARACTER_ADDRESS"),
