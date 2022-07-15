@@ -36,6 +36,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             Context.OnNewPartFound += OnNewPartFound;
             Context.OnNewAilmentFound += OnNewAilmentFound;
             Context.OnCrownChange += OnCrownChange;
+            Context.OnWeaknessesChange += OnWeaknessesChange;
         }
 
         private void UnhookEvents()
@@ -50,6 +51,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             Context.OnNewPartFound -= OnNewPartFound;
             Context.OnNewAilmentFound -= OnNewAilmentFound;
             Context.OnCrownChange -= OnCrownChange;
+            Context.OnWeaknessesChange -= OnWeaknessesChange;
         }
         
         private void OnSpawn(object sender, EventArgs e)
@@ -80,6 +82,20 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             });
         }
 
+        private void OnWeaknessesChange(object sender, Element[] e)
+        {
+            Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                lock(Weaknesses)
+                {
+                    Weaknesses.Clear();
+
+                    foreach (var weakness in e)
+                        Weaknesses.Add(weakness);
+                }
+            });
+        }
+
         private void OnStaminaUpdate(object sender, EventArgs e)
         {
             MaxStamina = Context.MaxStamina;
@@ -99,7 +115,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             {
                 bool contains = Ailments.ToArray()
                             .Cast<MonsterAilmentContextHandler>()
-                            .Where(p => p.Context == e).Count() > 0;
+                            .Count(p => p.Context == e) > 0;
 
                 if (contains)
                     return;
@@ -114,7 +130,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             {
                 bool contains = Parts.ToArray()
                             .Cast<MonsterPartContextHandler>()
-                            .Where(p => p.Context == e).Count() > 0;
+                            .Count(p => p.Context == e) > 0;
 
                 if (contains)
                     return;
@@ -181,6 +197,9 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
 
                         Ailments.Add(new MonsterAilmentContextHandler(ailment, Config));
                     }
+
+                    foreach (Element weakness in Context.Weaknesses)
+                        Weaknesses.Add(weakness);
                 });
             }
         }

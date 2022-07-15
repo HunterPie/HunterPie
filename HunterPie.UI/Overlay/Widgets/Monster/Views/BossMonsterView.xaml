@@ -14,6 +14,7 @@
              xmlns:ocomponents="clr-namespace:HunterPie.UI.Overlay.Components"
              xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading"
              xmlns:selectors="clr-namespace:HunterPie.UI.Architecture.Selectors"
+             xmlns:genums="clr-namespace:HunterPie.Core.Game.Enums;assembly=HunterPie.Core"
              d:DataContext="{d:DesignInstance Type=viewmodels:BossMonsterViewModel}"
              IsHitTestVisible="False"
              d:DesignWidth="600">
@@ -136,7 +137,7 @@
                                                BreakableTemplate="{StaticResource TEMPLATE_PART_BREAKABLE}"/>
 
     </UserControl.Resources>
-    <Grid >
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
@@ -355,7 +356,26 @@
                                    Visibility="{Binding IsLoadingIcon, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </Grid>
 
-        
+        <!-- Weaknesses -->
+        <ItemsControl ItemsSource="{Binding Weaknesses, Mode=OneWay}"
+                      d:DataContext="{x:Static viewmodels:DesignModeViewModels.MockBossMonsterViewModel}"
+                      VerticalAlignment="Top"
+                      HorizontalAlignment="Left"
+                      Margin="60,67,0,0">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type genums:Element}">
+                    <local:BossMonsterWeaknessView Width="20"
+                                                   Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                                                   Margin="2,0,0,0"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
 
         <StackPanel Grid.Row="1"
                     Orientation="Vertical"
