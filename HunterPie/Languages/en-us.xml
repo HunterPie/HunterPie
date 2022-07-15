@@ -497,6 +497,12 @@
 			<Discord Id="DRPC_WORLD_STATE_PRACTICE"
 					 String="Training"/>
 		</Integrations>
+		<Enums>
+			<Enum Id="RELATIVE_TO_QUEST_STRING"
+				  String="Relative to quest"/>
+			<Enum Id="RELATIVE_TO_JOIN_STRING"
+				  String="Relative to join"/>
+		</Enums>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
 					 String="Client"
@@ -706,6 +712,9 @@
 			<Setting Id="DAMAGE_METER_ENABLE_DPS_PLOT"
 					 String="Display DPS plot"
 					 Description="If enabled, the DPS plot graph will be visible."/>
+			<Setting Id="DAMAGE_METER_DPS_CALCULATION_STRATEGY_STRING"
+					 String="DPS calculation strategy"
+					 Description="Determines the strategy that will be used to calculate the damage per second.&#x0a;- RelativeToQuest: Will use the quest timer&#x0a;- RelativeToJoin: Will use the time when the player joined the party"/>
 			<Setting Id="DAMAGE_METER_SELF_COLOR_STRING"
 					 String="My color"
 					 Description="The color of your player in the damage meter."/>

@@ -328,9 +328,15 @@ namespace HunterPie.Core.Game.Rise.Entities
                 AddressMap.Get<int[]>("QUEST_STATUS_OFFSETS")
             );
 
-            // Only scan party members when the player is not in the quest end screen
             if (questState.IsQuestFinished())
                 return;
+
+            // Only scan party members when the player is not in the quest end screen
+            if (!questState.IsInQuest() && !StageId.IsTrainingRoom())
+            {
+                _party.Clear();
+                return;
+            }
 
             long playersArrayPtr = _process.Memory.Deref<long>(
                 AddressMap.GetAbsolute("CHARACTER_ADDRESS"),
@@ -369,8 +375,12 @@ namespace HunterPie.Core.Game.Rise.Entities
             // In case player DC'd
             if (!isOnlineSession)
             {
-                _party.Update(0, new MHRPartyMemberData()
+                if (string.IsNullOrEmpty(Name))
+                    return;
+
+                _party.Update(new MHRPartyMemberData()
                 {
+                    Index = 0,
                     Name = Name,
                     HighRank = HighRank,
                     WeaponId = WeaponId,
@@ -405,7 +415,7 @@ namespace HunterPie.Core.Game.Rise.Entities
                     IsMyself = name == Name
                 };
 
-                _party.Update(playerData.index, memberData);
+                _party.Update(memberData);
             }
         }
 
@@ -654,9 +664,8 @@ namespace HunterPie.Core.Game.Rise.Entities
         internal void UpdatePartyMembersDamage(EntityDamageData[] entities)
         {
             foreach (EntityDamageData entity in entities)
-            {
-                _party.Update(entity.Entity.Index, entity);
-            }
+                _party.Update(entity);
+
         }
     }
 }

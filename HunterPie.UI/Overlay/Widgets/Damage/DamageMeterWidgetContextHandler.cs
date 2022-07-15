@@ -1,9 +1,9 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Client;
-using HunterPie.Core.Json;
 using HunterPie.Core.Logger;
 using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Brushes;
@@ -25,8 +25,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         private readonly MeterViewModel ViewModel;
         private readonly MeterView View;
         private readonly Context Context;
-        private readonly Dictionary<IPartyMember, PlayerViewModel> _members = new();
-        private readonly Dictionary<IPartyMember, Series> _playerPoints = new();
+        private readonly Dictionary<IPartyMember, MemberInfo> _members = new();
         private int lastTimeElapsed = 0;
 
         public DamageMeterWidgetContextHandler(Context context)
@@ -56,6 +55,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         public void HookEvents()
         {
             Context.Game.Player.Party.OnMemberJoin += OnMemberJoin;
+            Context.Game.Player.Party.OnMemberLeave += OnMemberLeave;
             Context.Game.OnTimeElapsedChange += OnTimeElapsedChange;
             Context.Game.Player.OnVillageEnter += OnVillageEnter;
             Context.Game.Player.OnVillageLeave += OnVillageLeave;
@@ -65,6 +65,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         public void UnhookEvents()
         {
             Context.Game.Player.Party.OnMemberJoin -= OnMemberJoin;
+            Context.Game.Player.Party.OnMemberLeave -= OnMemberLeave;
             Context.Game.OnTimeElapsedChange -= OnTimeElapsedChange;
             Context.Game.Player.OnVillageEnter -= OnVillageEnter;
             Context.Game.Player.OnVillageLeave -= OnVillageLeave;
@@ -106,11 +107,12 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         {
             foreach (var member in _members.Keys)
             {
-                ChartValues<ObservablePoint> points = (ChartValues<ObservablePoint>)_playerPoints[member].Values;
-                PlayerViewModel vm = _members[member];
+                MemberInfo memberInfo = _members[member];
+                ChartValues<ObservablePoint> points = (ChartValues<ObservablePoint>)memberInfo.Series.Values;
+                PlayerViewModel vm = memberInfo.ViewModel;
 
                 float totalDamage = _members.Keys.Sum(m => m.Damage);
-                double newDps = member.Damage / ViewModel.TimeElapsed;
+                double newDps = CalculateDpsByConfiguredStrategy(memberInfo);
                 vm.IsIncreasing = newDps > vm.DPS;
                 vm.Percentage = totalDamage > 0 ? member.Damage / totalDamage * 100 : 0;
                 vm.DPS = newDps;
@@ -122,13 +124,9 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             }
         }
 
-        private void OnMemberJoin(object sender, IPartyMember e)
-        {
-            if (!Context.Game.Player.InHuntingZone)
-                return;
+        private void OnMemberJoin(object sender, IPartyMember e) => View.Dispatcher.Invoke(() => AddPlayer(e));
 
-            View.Dispatcher.Invoke(() => AddPlayer(e));
-        }
+        private void OnMemberLeave(object sender, IPartyMember e) => View.Dispatcher.Invoke(() => RemovePlayer(e));
 
         private void OnTimeElapsedChange(object sender, IGame e)
         {
@@ -146,51 +144,45 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
 
         private void OnDamageDealt(object sender, IPartyMember e)
         {
-            PlayerViewModel member = _members[e];
+            MemberInfo member = _members[e];
+            PlayerViewModel vm = member.ViewModel;
 
-            double newDps = e.Damage / ViewModel.TimeElapsed;
-            member.IsIncreasing = newDps > member.DPS;
-            member.Damage = e.Damage;
-            member.DPS = newDps;
+            double newDps = CalculateDpsByConfiguredStrategy(member);
+            vm.IsIncreasing = newDps > vm.DPS;
+            vm.Damage = e.Damage;
+            vm.DPS = newDps;
         }
         
         private void OnWeaponChange(object sender, IPartyMember e)
         {
-            PlayerViewModel member = _members[e];
+            PlayerViewModel member = _members[e].ViewModel;
             member.Weapon = e.Weapon;
         }
         #endregion
 
         #region Helpers
-        private void AddPlayerSeries(IPartyMember member, PlayerViewModel model)
+        private Series BuildPlayerSeries(string name, string color)
         {
             ChartValues<ObservablePoint> points = new();
             
-            Color color = (Color)ColorConverter.ConvertFromString(model.Color);
+            Color actualColor = (Color)ColorConverter.ConvertFromString(color);
             var series = new LineSeries()
             {
-                Title = member.Name,
-                Stroke = new SolidColorBrush(color),
-                Fill = ColorFadeGradient.FromColor(color),
+                Title = name,
+                Stroke = new SolidColorBrush(actualColor),
+                Fill = ColorFadeGradient.FromColor(actualColor),
                 PointGeometrySize = 0,
                 StrokeThickness = 2,
                 LineSmoothness = 1
             };
             series.Values = points;
 
-            _playerPoints.Add(member, series);
             ViewModel.Series.Add(series);
+            return series;
         }
 
         private void AddPlayer(IPartyMember member)
         {
-            IPartyMember existingMember = _members.Keys.FirstOrDefault(m => m.Name == member.Name);
-            if (existingMember is not null)
-            {
-                RemovePlayer(existingMember);
-                AddPlayer(member);
-            }
-
             if (_members.ContainsKey(member))
                 return;
 
@@ -200,39 +192,59 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
                 member.IsMyself
             );
 
-            _members.Add(member, new(View.Settings) 
-            { 
-                Name = member.Name, 
-                Damage = member.Damage, 
-                Weapon = member.Weapon, 
-                Color = playerColor,
-                IsUser = member.IsMyself
-            });
+            var memberInfo = new MemberInfo
+            {
+                ViewModel = new(View.Settings)
+                {
+                    Name = member.Name,
+                    Damage = member.Damage,
+                    Weapon = member.Weapon,
+                    Color = playerColor,
+                    IsUser = member.IsMyself
+                },
+                Series = BuildPlayerSeries(member.Name, playerColor),
+                JoinedAt = Context.Game.TimeElapsed
+            };
+
+            _members.Add(member, memberInfo);
 
             member.OnDamageDealt += OnDamageDealt;
             member.OnWeaponChange += OnWeaponChange;
 
-            var model = _members[member];
+            var model = _members[member].ViewModel;
 
-            Log.Debug("Added player: {0:X} {1}", member.GetHashCode(), member.Name);
+            Log.Debug("Added player: {0:X} {1} with joinedAt: {2}", member.GetHashCode(), member.Name, memberInfo.JoinedAt);
 
             ViewModel.Players.Add(model);
-            AddPlayerSeries(member, model);
         }
 
         private void RemovePlayer(IPartyMember member)
         {
+            if (!_members.ContainsKey(member))
+                return;
+
             member.OnDamageDealt -= OnDamageDealt;
             member.OnWeaponChange -= OnWeaponChange;
 
-            ViewModel.Players.Remove(_members[member]);
-            ViewModel.Series.Remove(_playerPoints[member]);
+            ViewModel.Players.Remove(_members[member].ViewModel);
+            ViewModel.Series.Remove(_members[member].Series);
             _members.Remove(member);
-            _playerPoints.Remove(member);
 
             Log.Debug("Removed player {0:X}: {1}", member.GetHashCode(), member.Name);
         }
 
+        private double CalculateDpsByConfiguredStrategy(MemberInfo member)
+        {
+            double timeElapsed = (View.Settings.DpsCalculationStrategy.Value) switch
+            {
+                DPSCalculationStrategy.RelativeToQuest => ViewModel.TimeElapsed,
+                DPSCalculationStrategy.RelativeToJoin => ViewModel.TimeElapsed - Math.Min(ViewModel.TimeElapsed, member.JoinedAt),
+                _ => 1,
+            };
+            timeElapsed = Math.Max(1, timeElapsed);
+
+            return member.ViewModel.Damage / timeElapsed;
+        }
         #endregion
     }
 }

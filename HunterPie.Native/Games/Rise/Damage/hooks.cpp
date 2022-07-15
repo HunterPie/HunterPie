@@ -2,19 +2,20 @@
 #include "../../../libs/MinHook/MinHook.h"
 #include "../../../Core/Managers/Damage/manager.h"
 #include "../../../Core/Utils/addresses.h"
+#include "../Utils/RiseUtils.h"
 
-using namespace Game::Damage::Hook;
-using namespace Game::Damage;
+using namespace Games::Rise::Damage;
 using namespace HunterPie::Core::Damage;
+using namespace Games::Rise::Damage::Hook;
 
 uintptr_t fnCalculateEntityDamagePtr = (uintptr_t)nullptr;
 
 EntityType GetEntityByDamageType(int damageType);
 bool HookFunctions();
 
-MHREntityData* Game::Damage::Hook::CalculateEntityDamage(
+MHREntityData* Hook::CalculateEntityDamage(
     intptr_t arg1,
-    intptr_t target,
+    Monster* target,
     intptr_t arg3,
     intptr_t arg4,
     intptr_t arg5,
@@ -30,6 +31,9 @@ MHREntityData* Game::Damage::Hook::CalculateEntityDamage(
         arg6
     );
 
+    if (!IS_BIG_MONSTER(target->id))
+        return damageData;
+
     Entity entity = Entity{
         damageData->Id,
         GetEntityByDamageType(damageData->attackerDamageType)
@@ -40,7 +44,7 @@ MHREntityData* Game::Damage::Hook::CalculateEntityDamage(
         entity.index = entity.index + 4 + 1;
 
     EntityDamageData entityData = EntityDamageData{
-        target,
+        (intptr_t)target,
         entity,
         damageData->rawDamage,
         damageData->elementalDamage,
@@ -51,7 +55,7 @@ MHREntityData* Game::Damage::Hook::CalculateEntityDamage(
     return damageData;
 }
 
-bool Game::Damage::Hook::DamageHooks::Init(uintptr_t* pointers)
+bool DamageHooks::Init(uintptr_t* pointers)
 {
     fnCalculateEntityDamagePtr = pointers[FUN_CALCULATE_ENTITY_DAMAGE];
 
