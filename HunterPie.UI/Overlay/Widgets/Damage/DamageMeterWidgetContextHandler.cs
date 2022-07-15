@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Client;
@@ -111,8 +112,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
                 PlayerViewModel vm = memberInfo.ViewModel;
 
                 float totalDamage = _members.Keys.Sum(m => m.Damage);
-                double timeElapsed = ViewModel.TimeElapsed - memberInfo.JoinedAt;
-                double newDps = member.Damage / Math.Max(1, timeElapsed);
+                double newDps = CalculateDpsByConfiguredStrategy(memberInfo);
                 vm.IsIncreasing = newDps > vm.DPS;
                 vm.Percentage = totalDamage > 0 ? member.Damage / totalDamage * 100 : 0;
                 vm.DPS = newDps;
@@ -144,12 +144,13 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
 
         private void OnDamageDealt(object sender, IPartyMember e)
         {
-            PlayerViewModel member = _members[e].ViewModel;
+            MemberInfo member = _members[e];
+            PlayerViewModel vm = member.ViewModel;
 
-            double newDps = e.Damage / ViewModel.TimeElapsed;
-            member.IsIncreasing = newDps > member.DPS;
-            member.Damage = e.Damage;
-            member.DPS = newDps;
+            double newDps = CalculateDpsByConfiguredStrategy(member);
+            vm.IsIncreasing = newDps > vm.DPS;
+            vm.Damage = e.Damage;
+            vm.DPS = newDps;
         }
         
         private void OnWeaponChange(object sender, IPartyMember e)
@@ -212,7 +213,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
 
             var model = _members[member].ViewModel;
 
-            Log.Debug("Added player: {0:X} {1}", member.GetHashCode(), member.Name);
+            Log.Debug("Added player: {0:X} {1} with joinedAt: {2}", member.GetHashCode(), member.Name, memberInfo.JoinedAt);
 
             ViewModel.Players.Add(model);
         }
@@ -230,6 +231,19 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             _members.Remove(member);
 
             Log.Debug("Removed player {0:X}: {1}", member.GetHashCode(), member.Name);
+        }
+
+        private double CalculateDpsByConfiguredStrategy(MemberInfo member)
+        {
+            double timeElapsed = (View.Settings.DpsCalculationStrategy.Value) switch
+            {
+                DPSCalculationStrategy.RelativeToQuest => ViewModel.TimeElapsed,
+                DPSCalculationStrategy.RelativeToJoin => ViewModel.TimeElapsed - Math.Min(ViewModel.TimeElapsed, member.JoinedAt),
+                _ => 1,
+            };
+            timeElapsed = Math.Max(1, timeElapsed);
+
+            return member.ViewModel.Damage / timeElapsed;
         }
         #endregion
     }
