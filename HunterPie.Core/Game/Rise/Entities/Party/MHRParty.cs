@@ -13,6 +13,7 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
     public class MHRParty : IParty, IEventDispatcher
     {
         private readonly Dictionary<int, MHRPartyMember> _partyMembers = new();
+        private readonly Dictionary<string, MHRPartyMember> _partyMemberNameLookup = new();
         
         public const int MAX_PARTY_SIZE = 4;
         public int Size { get; internal set; }
@@ -23,35 +24,42 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
         public event EventHandler<IPartyMember> OnMemberJoin;
         public event EventHandler<IPartyMember> OnMemberLeave;
         
-        public void Update(int memberIndex, MHRPartyMemberData data)
+        public void Update(MHRPartyMemberData data)
         {
-            if (_partyMembers.ContainsKey(memberIndex) && _partyMembers[memberIndex].Name != data.Name)
-                Remove(memberIndex);
-
-            if (!_partyMembers.ContainsKey(memberIndex))
-                Add(memberIndex, data);
-
-            IUpdatable<MHRPartyMemberData> updatable = _partyMembers[memberIndex];
-            updatable.Update(data);
-        }
-
-        public void Update(int memberIndex, EntityDamageData data)
-        {
-            if (!_partyMembers.ContainsKey(memberIndex))
+            if (string.IsNullOrEmpty(data.Name))
                 return;
 
-            IUpdatable<EntityDamageData> updatable = _partyMembers[memberIndex];
+
+            if (!_partyMemberNameLookup.ContainsKey(data.Name))
+                Add(data);
+
+            IUpdatable<MHRPartyMemberData> updatable = _partyMembers[data.Index];
             updatable.Update(data);
         }
 
-        public void Add(int memberIndex, MHRPartyMemberData data)
+        public void Update(EntityDamageData data)
         {
-            _partyMembers.Add(memberIndex, new());
+            if (!_partyMembers.ContainsKey(data.Entity.Index))
+                return;
 
-            IUpdatable<MHRPartyMemberData> updatable = _partyMembers[memberIndex];
+            IUpdatable<EntityDamageData> updatable = _partyMembers[data.Entity.Index];
             updatable.Update(data);
-            Log.Debug("Added new player to party: id: {0} name: {1} weap: {2}, hash: {3:X}", memberIndex, data.Name, data.WeaponId, updatable.GetHashCode());
-            this.Dispatch(OnMemberJoin, _partyMembers[memberIndex]);
+        }
+
+        public void Add(MHRPartyMemberData data)
+        {
+            if (_partyMembers.ContainsKey(data.Index))
+                Remove(data.Index);
+
+            MHRPartyMember member = new();
+            _partyMembers.Add(data.Index, member);
+            _partyMemberNameLookup.Add(data.Name, member);
+
+            IUpdatable<MHRPartyMemberData> updatable = member;
+            updatable.Update(data);
+            Log.Debug("Added new player to party: id: {0} name: {1} weap: {2}, hash: {3:X}", data.Index, data.Name, data.WeaponId, updatable.GetHashCode());
+            
+            this.Dispatch(OnMemberJoin, member);
         }
 
         public void Remove(int memberIndex)
@@ -61,6 +69,10 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
 
             IPartyMember member = _partyMembers[memberIndex];
             _partyMembers.Remove(memberIndex);
+            _partyMemberNameLookup.Remove(member.Name);
+            
+            Log.Debug("Removed player: id: {0} name: {1} hash: {2:X}", memberIndex, member.Name, member.GetHashCode());
+
             this.Dispatch(OnMemberLeave, member);
         }
     }
