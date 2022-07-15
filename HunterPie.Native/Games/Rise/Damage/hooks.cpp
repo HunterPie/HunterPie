@@ -31,8 +31,10 @@ MHREntityData* Hook::CalculateEntityDamage(
         arg6
     );
 
-    if (!IS_BIG_MONSTER(target->id))
+    if (!Utils::IsBigMonster(target->id))
         return damageData;
+
+    LOG("Hit monster id: %d", target->id);
 
     Entity entity = Entity{
         damageData->Id,

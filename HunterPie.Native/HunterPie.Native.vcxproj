@@ -181,6 +181,7 @@
     <ClCompile Include="Core\Server\IPCService.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Games\Rise\Damage\Hooks.cpp" />
+    <ClCompile Include="Games\Rise\Utils\RiseUtils.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

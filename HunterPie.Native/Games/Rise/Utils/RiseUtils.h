@@ -1,6 +1,12 @@
 #pragma once
 
-#define IS_VANILLA_BOSS(id) 0b1111111111111111111111111111111111111111111111 >> id & 1
-#define IS_SUNBREAK_BOSS(id) (id >= 78 && id < 97) && 0b1110111101111101111 >> 78 - id & 1
-
-#define IS_BIG_MONSTER(id) IS_VANILLA_BOSS(id) && IS_SUNBREAK_BOSS(id)
+namespace Games
+{
+    namespace Rise
+    {
+        namespace Utils
+        {
+            bool IsBigMonster(int32_t id);
+        }
+    }
+}

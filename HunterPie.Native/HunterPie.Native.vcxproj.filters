@@ -98,6 +98,9 @@
     <ClCompile Include="Core\Server\Handlers\Initialize\InitializationMessageHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Games\Rise\Utils\RiseUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="libs\MinHook\libMinHook.x64.lib" />
