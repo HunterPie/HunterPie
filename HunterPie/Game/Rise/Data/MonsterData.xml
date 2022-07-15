@@ -27,10 +27,10 @@
     <Monsters>
         <Monster Id="0"
                  Size="1754.37">
-			<Weaknesses>
-				<Weakness Name="Dragon"/>
-				<Weakness Name="Thunder"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Dragon"/>
+                <Weakness Name="Thunder"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -46,10 +46,10 @@
             <Crowns Mini="0.96"
                     Silver="1.1"
                     Gold="1.14"/>
-			<Weaknesses>
-				<Weakness Name="Dragon"/>
-				<Weakness Name="Thunder"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Dragon"/>
+                <Weakness Name="Thunder"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -62,10 +62,10 @@
         </Monster>
         <Monster Id="2"
                  Size="1704.22">
-			<Weaknesses>
-				<Weakness Name="Dragon"/>
-				<Weakness Name="Thunder"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Dragon"/>
+                <Weakness Name="Thunder"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_TORSO" />
                 <Part Id="1" String="PART_L_WING" />
@@ -81,10 +81,10 @@
                  Size="1874.64">
             <Crowns Mini="0.97"
                     Silver="1.17"/>
-			<Weaknesses>
-				<Weakness Name="Dragon"/>
-				<Weakness Name="Thunder"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Dragon"/>
+                <Weakness Name="Thunder"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_TORSO" />
                 <Part Id="1" String="PART_L_WING" />
@@ -100,9 +100,9 @@
                  Size="881.28">
             <Crowns Silver="1.09"
                     Gold="1.14"/>
-			<Weaknesses>
-				<Weakness Name="Fire"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Fire"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_NECK" />
@@ -116,9 +116,9 @@
         </Monster>
         <Monster Id="5"
                  Size="1413.01">
-			<Weaknesses>
-				<Weakness Name="Dragon"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Dragon"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_BACK" />
                 <Part Id="1" String="PART_L_WING" />
@@ -132,10 +132,10 @@
         </Monster>
         <Monster Id="6"
                  Size="2096.25">
-			<Weaknesses>
-				<Weakness Name="Ice"/>
-				<Weakness Name="Water"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Ice"/>
+                <Weakness Name="Water"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -150,11 +150,11 @@
                  Size="2270.94">
             <Crowns Mini="0.97"
                     Silver="1.17"/>
-			<Weaknesses>
-				<Weakness Name="Ice"/>
-				<Weakness Name="Water"/>
-			</Weaknesses>
-			<Parts>
+            <Weaknesses>
+                <Weakness Name="Ice"/>
+                <Weakness Name="Water"/>
+            </Weaknesses>
+            <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
                 <Part Id="2" String="PART_L_WING" />
@@ -168,9 +168,9 @@
                  Size="845.91">
             <Crowns Mini="0.97"
                     Silver="1.17"/>
-			<Weaknesses>
-				<Weakness Name="Ice"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Ice"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -185,9 +185,9 @@
                  Size="1913.13">
             <Crowns Mini="0.97"
                     Silver="1.17"/>
-			<Weaknesses>
-				<Weakness Name="Thunder"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -201,10 +201,10 @@
                  Size="2249.06">
             <Crowns Mini="0.97"
                     Silver="1.17"/>
-			<Weaknesses>
-				<Weakness Name="Fire"/>
-				<Weakness Name="Dragon"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Fire"/>
+                <Weakness Name="Dragon"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_CHEST" />
@@ -220,10 +220,10 @@
                  Size="1790.15">
             <Crowns Mini="0.97"
                     Silver="1.17"/>
-			<Weaknesses>
-				<Weakness Name="Water"/>
-				<Weakness Name="Ice"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Water"/>
+                <Weakness Name="Ice"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_CHEST" />
@@ -235,10 +235,10 @@
         </Monster>
         <Monster Id="12"
                  Size="1941.89">
-			<Weaknesses>
-				<Weakness Name="Thunder"/>
-				<Weakness Name="Dragon"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+                <Weakness Name="Dragon"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -251,10 +251,10 @@
         </Monster>
         <Monster Id="13"
                  Size="1914.14">
-			<Weaknesses>
-				<Weakness Name="Thunder"/>
-				<Weakness Name="Fire"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+                <Weakness Name="Fire"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -268,10 +268,10 @@
         </Monster>
         <Monster Id="14"
                  Size="2091">
-			<Weaknesses>
-				<Weakness Name="Fire"/>
-				<Weakness Name="Thunder"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Fire"/>
+                <Weakness Name="Thunder"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -284,10 +284,10 @@
         </Monster>
         <Monster Id="15"
                  Size="1383.07">
-			<Weaknesses>
-				<Weakness Name="Fire"/>
-				<Weakness Name="Ice"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Fire"/>
+                <Weakness Name="Ice"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -305,9 +305,9 @@
         </Monster>
         <Monster Id="16"
                  Size="1529.26">
-			<Weaknesses>
-				<Weakness Name="Fire"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Fire"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_SPONGE" />
@@ -319,10 +319,10 @@
         </Monster>
         <Monster Id="17"
                  Size="1017.65">
-			<Weaknesses>
-				<Weakness Name="Fire"/>
-				<Weakness Name="Water"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Fire"/>
+                <Weakness Name="Water"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_BODY" />
@@ -331,10 +331,10 @@
         </Monster>
         <Monster Id="18"
                  Size="1540.66">
-			<Weaknesses>
-				<Weakness Name="Ice"/>
-				<Weakness Name="Water"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Ice"/>
+                <Weakness Name="Water"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -350,9 +350,9 @@
                  Size="1540.66">
             <Crowns Mini="0.97"
                     Silver="1.17"/>
-			<Weaknesses>
-				<Weakness Name="Ice"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Ice"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -366,10 +366,10 @@
         </Monster>
         <Monster Id="20"
                  Size="935.98">
-			<Weaknesses>
-				<Weakness Name="Ice"/>
-				<Weakness Name="Water"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Ice"/>
+                <Weakness Name="Water"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_BODY" />
@@ -378,10 +378,10 @@
         </Monster>
         <Monster Id="21"
                  Size="558.1">
-			<Weaknesses>
-				<Weakness Name="Dragon"/>
-				<Weakness Name="Water"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Dragon"/>
+                <Weakness Name="Water"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_UPPER_BODY" />
@@ -395,10 +395,10 @@
             <Crowns Mini="0.96"
                     Silver="1.03"
                     Gold="1.05"/>
-			<Weaknesses>
-				<Weakness Name="Water"/>
-				<Weakness Name="Dragon"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Water"/>
+                <Weakness Name="Dragon"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_UPPER_BODY" />
@@ -409,9 +409,9 @@
         </Monster>
         <Monster Id="23"
                  Size="525.11">
-			<Weaknesses>
-				<Weakness Name="Fire"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Fire"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_UPPER_BODY" />
@@ -422,10 +422,10 @@
         </Monster>
         <Monster Id="24"
                  Size="687.29">
-			<Weaknesses>
-				<Weakness Name="Water"/>
-				<Weakness Name="Ice"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Water"/>
+                <Weakness Name="Ice"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_UPPER_BACK" />
                 <Part Id="1" String="PART_HEAD" />
@@ -437,10 +437,10 @@
         </Monster>
         <Monster Id="25"
                  Size="1832.1">
-			<Weaknesses>
-				<Weakness Name="Thunder"/>
-				<Weakness Name="Dragon"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+                <Weakness Name="Dragon"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_L_FORELEG" />
@@ -457,10 +457,10 @@
             <Crowns Mini="0.96"
                     Silver="1.1"
                     Gold="1.14"/>
-			<Weaknesses>
-				<Weakness Name="Thunder"/>
-				<Weakness Name="Dragon"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+                <Weakness Name="Dragon"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_L_FORELEG" />
@@ -476,10 +476,10 @@
                  Size="2040.98">
             <Crowns Silver="1.11"
                     Gold="1.17"/>
-			<Weaknesses>
-				<Weakness Name="Fire"/>
-				<Weakness Name="Water"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Fire"/>
+                <Weakness Name="Water"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -494,9 +494,9 @@
         </Monster>
         <Monster Id="28"
                  Size="1820.89">
-			<Weaknesses>
-				<Weakness Name="Water"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Water"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -511,9 +511,9 @@
                  Size="924.79">
             <Crowns Silver="1.09"
                     Gold="1.14"/>
-			<Weaknesses>
-				<Weakness Name="Ice"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Ice"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -529,10 +529,10 @@
             <Crowns Mini="0.765"
                     Silver="0.9775"
                     Gold="1.0455"/>
-			<Weaknesses>
-				<Weakness Name="Thunder"/>
-				<Weakness Name="Water"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+                <Weakness Name="Water"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_NECK" />
@@ -545,10 +545,10 @@
         </Monster>
         <Monster Id="31"
                  Size="964.99">
-			<Weaknesses>
-				<Weakness Name="Thunder"/>
-				<Weakness Name="Fire"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+                <Weakness Name="Fire"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_R_ARM" />
@@ -562,11 +562,11 @@
         </Monster>
         <Monster Id="32"
                  Size="1545">
-			<Weaknesses>
-				<Weakness Name="Thunder"/>
-				<Weakness Name="Fire"/>
-			</Weaknesses>
-			<Parts>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+                <Weakness Name="Fire"/>
+            </Weaknesses>
+            <Parts>
                 <Part Id="0" String="PART_TORSO" />
                 <Part Id="1" String="PART_HEAD" />
                 <Part Id="2" String="PART_UNKNOWN" />
@@ -579,9 +579,9 @@
         </Monster>
         <Monster Id="33"
                  Size="856.93">
-			<Weaknesses>
-				<Weakness Name="Ice"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Ice"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_CLAW" />
@@ -600,10 +600,10 @@
         </Monster>
         <Monster Id="34"
                  Size="2694.5">
-			<Weaknesses>
-				<Weakness Name="Fire"/>
-				<Weakness Name="Ice"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Fire"/>
+                <Weakness Name="Ice"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -618,10 +618,10 @@
         </Monster>
         <Monster Id="35"
                  Size="3068.6">
-			<Weaknesses>
-				<Weakness Name="Dragon"/>
-				<Weakness Name="Fire"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Dragon"/>
+                <Weakness Name="Fire"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_R_ARM" />
@@ -636,9 +636,9 @@
         </Monster>
         <Monster Id="36"
                  Size="730.97">
-			<Weaknesses>
-				<Weakness Name="Fire"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Fire"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_BACK" />
@@ -653,10 +653,10 @@
         </Monster>
         <Monster Id="37"
                  Size="1075.1">
-			<Weaknesses>
-				<Weakness Name="Thunder"/>
-				<Weakness Name="Water"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+                <Weakness Name="Water"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD"/>
                 <Part Id="1" String="PART_BODY"/>
@@ -666,10 +666,10 @@
         </Monster>
         <Monster Id="38"
                  Size="3875.05">
-			<Weaknesses>
-				<Weakness Name="Dragon"/>
-				<Weakness Name="Ice"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Dragon"/>
+                <Weakness Name="Ice"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_B_LEG_FINS" />
@@ -684,10 +684,10 @@
         </Monster>
         <Monster Id="39"
                  Size="3875.05">
-			<Weaknesses>
-				<Weakness Name="Dragon"/>
-				<Weakness Name="Ice"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Dragon"/>
+                <Weakness Name="Ice"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_B_LEG_FINS" />
@@ -702,10 +702,10 @@
         </Monster>
         <Monster Id="40"
                  Size="1646.46">
-			<Weaknesses>
-				<Weakness Name="Water"/>
-				<Weakness Name="Ice"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Water"/>
+                <Weakness Name="Ice"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -718,10 +718,10 @@
         </Monster>
         <Monster Id="41"
                  Size="1102.45">
-			<Weaknesses>
-				<Weakness Name="Thunder"/>
-				<Weakness Name="Ice"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+                <Weakness Name="Ice"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -734,9 +734,9 @@
         </Monster>
         <Monster Id="42"
                  Size="901.24">
-			<Weaknesses>
-				<Weakness Name="Water"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Water"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_ARMS" />
@@ -748,9 +748,9 @@
         </Monster>
         <Monster Id="43"
                  Size="901.24">
-			<Weaknesses>
-				<Weakness Name="Thunder"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -766,10 +766,10 @@
         </Monster>
         <Monster Id="44"
                  Size="1300.52">
-			<Weaknesses>
-				<Weakness Name="Water"/>
-				<Weakness Name="Fire"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Water"/>
+                <Weakness Name="Fire"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -781,9 +781,9 @@
         </Monster>
         <Monster Id="45"
                  Size="1928.38">
-			<Weaknesses>
-				<Weakness Name="Thunder"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -793,29 +793,29 @@
                 <Part Id="5" String="PART_TAIL" />
             </Parts>
         </Monster>
-		<Monster Id="46"
+        <Monster Id="46"
                  Size="0">
-			<Weaknesses>
-				<Weakness Name="Fire"/>
-				<Weakness Name="Water"/>
-				<Weakness Name="Ice"/>
-				<Weakness Name="Thunder"/>
-				<Weakness Name="Dragon"/>
-			</Weaknesses>
-			<Parts>
-				<Part Id="0" String="PART_HEAD" />
-				<Part Id="1" String="PART_TORSO" />
-				<Part Id="2" String="PART_LEGS" />
-				<Part Id="3" String="PART_L_WING" />
-				<Part Id="4" String="PART_R_WING" />
-				<Part Id="5" String="PART_TAIL" />
-			</Parts>
-		</Monster>
+            <Weaknesses>
+                <Weakness Name="Fire"/>
+                <Weakness Name="Water"/>
+                <Weakness Name="Ice"/>
+                <Weakness Name="Thunder"/>
+                <Weakness Name="Dragon"/>
+            </Weaknesses>
+            <Parts>
+                <Part Id="0" String="PART_HEAD" />
+                <Part Id="1" String="PART_TORSO" />
+                <Part Id="2" String="PART_LEGS" />
+                <Part Id="3" String="PART_L_WING" />
+                <Part Id="4" String="PART_R_WING" />
+                <Part Id="5" String="PART_TAIL" />
+            </Parts>
+        </Monster>
         <Monster Id="78"
                  Size="495.95">
-			<Weaknesses>
-				<Weakness Name="Thunder"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_BODY" />
@@ -829,10 +829,10 @@
         </Monster>
         <Monster Id="79"
                  Size="596.24">
-			<Weaknesses>
-				<Weakness Name="Thunder"/>
-				<Weakness Name="Fire"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+                <Weakness Name="Fire"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_BODY" />
@@ -849,11 +849,11 @@
         <Monster Id="80"
                  Size="845.91">
             <Crowns Mini="0.97"
-                    Silver="0.17"/>
-			<Weaknesses>
-				<Weakness Name="Ice"/>
-				<Weakness Name="Water"/>
-			</Weaknesses>
+                    Silver="1.17"/>
+            <Weaknesses>
+                <Weakness Name="Ice"/>
+                <Weakness Name="Water"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -866,11 +866,11 @@
         </Monster>
         <Monster Id="82"
                  Size="1765.78">
-			<Crowns Silver="1.11"
+            <Crowns Silver="1.11"
                     Gold="1.17"/>
-			<Weaknesses>
-				<Weakness Name="Fire"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Fire"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -884,12 +884,12 @@
         </Monster>
         <Monster Id="83"
                  Size="1735.54">
-			<Crowns Silver="1.11"
+            <Crowns Silver="1.11"
                     Gold="1.17"/>
-			<Weaknesses>
-				<Weakness Name="Dragon"/>
-				<Weakness Name="Fire"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Dragon"/>
+                <Weakness Name="Fire"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -902,10 +902,10 @@
         </Monster>
         <Monster Id="84"
                  Size="1679">
-			<Weaknesses>
-				<Weakness Name="Thunder"/>
-				<Weakness Name="Ice"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+                <Weakness Name="Ice"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -918,9 +918,9 @@
         </Monster>
         <Monster Id="85"
                  Size="1740.84">
-			<Weaknesses>
-				<Weakness Name="Ice"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Ice"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_CREST" />
                 <Part Id="1" String="PART_TORSO" />
@@ -934,12 +934,12 @@
         </Monster>
         <Monster Id="87"
                  Size="2002.97">
-			<Crowns Silver="1.11"
+            <Crowns Silver="1.11"
                     Gold="1.17"/>
-			<Weaknesses>
-				<Weakness Name="Water"/>
-				<Weakness Name="Thunder"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Water"/>
+                <Weakness Name="Thunder"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -952,11 +952,11 @@
         </Monster>
         <Monster Id="88"
                  Size="924.79">
-			<Crowns Silver="1.09"
+            <Crowns Silver="1.09"
                     Gold="1.14"/>
-			<Weaknesses>
-				<Weakness Name="Water"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Water"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_BODY" />
@@ -969,10 +969,10 @@
         </Monster>
         <Monster Id="89"
                  Size="1545">
-			<Weaknesses>
-				<Weakness Name="Fire"/>
-				<Weakness Name="Thunder"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Fire"/>
+                <Weakness Name="Thunder"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_TORSO" />
                 <Part Id="1" String="PART_HEAD" />
@@ -986,10 +986,10 @@
         </Monster>
         <Monster Id="90"
                  Size="856.93">
-			<Weaknesses>
-				<Weakness Name="Water"/>
-				<Weakness Name="Ice"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Water"/>
+                <Weakness Name="Ice"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_CLAW" />
@@ -1008,10 +1008,10 @@
         </Monster>
         <Monster Id="91"
                  Size="2245.29">
-			<Weaknesses>
-				<Weakness Name="Water"/>
-				<Weakness Name="Ice"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Water"/>
+                <Weakness Name="Ice"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_BODY" />
@@ -1026,11 +1026,11 @@
         </Monster>
         <Monster Id="93"
                  Size="2081.64">
-			<Crowns Silver="1.11"
+            <Crowns Silver="1.11"
                     Gold="1.17"/>
-			<Weaknesses>
-				<Weakness Name="Dragon"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Dragon"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -1043,10 +1043,10 @@
         </Monster>
         <Monster Id="94"
                  Size="1414.23">
-			<Weaknesses>
-				<Weakness Name="Fire"/>
-				<Weakness Name="Thunder"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Fire"/>
+                <Weakness Name="Thunder"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_BODY" />
@@ -1060,11 +1060,11 @@
         </Monster>
         <Monster Id="95"
                  Size="0">
-			<Crowns Silver="1.11"
+            <Crowns Silver="1.11"
                     Gold="1.17"/>
-			<Weaknesses>
-				<Weakness Name="Thunder"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_HEAD" />
@@ -1078,10 +1078,10 @@
         </Monster>
         <Monster Id="96"
                  Size="4807.54">
-			<Weaknesses>
-				<Weakness Name="Dragon"/>
-				<Weakness Name="Thunder"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Dragon"/>
+                <Weakness Name="Thunder"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
@@ -1102,9 +1102,9 @@
         </Monster>
         <Monster Id="97"
                  Size="1755.25">
-			<Weaknesses>
-				<Weakness Name="Ice"/>
-			</Weaknesses>
+            <Weaknesses>
+                <Weakness Name="Ice"/>
+            </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
