@@ -314,8 +314,8 @@
                 <Part Id="1" String="PART_TAIL" IsSeverable="True"/>
                 <Part Id="2" String="PART_HEAD" TenderizeIds="0,4"/>
                 <Part Id="3" String="PART_HEAD_MUD" TenderizeIds="0,4"/>
-                <Part Id="4" String="PART_BODY" TenderizeIds="1,5"/>
-                <Part Id="5" String="PART_BODY_MUD" TenderizeIds="1,5"/>
+                <Part Id="4" String="PART_TORSO" TenderizeIds="1,5"/>
+                <Part Id="5" String="PART_TORSO_MUD" TenderizeIds="1,5"/>
                 <Part Id="6" String="PART_ARMS"/>
                 <Part Id="7" String="PART_ARMS_MUD"/>
                 <Part Id="8" String="PART_L_LEG" TenderizeIds="2"/>
@@ -455,12 +455,12 @@
             </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" TenderizeIds="0,3"/>
-                <Part Id="1" String="PART_BODY" TenderizeIds="1,4"/>
+                <Part Id="1" String="PART_TORSO" TenderizeIds="1,4"/>
                 <Part Id="2" String="PART_L_LEG"/>
                 <Part Id="3" String="PART_R_LEG"/>
                 <Part Id="4" String="PART_TAIL" TenderizeIds="2,5"/>
                 <Part Id="5" String="PART_HEAD_MUD" TenderizeIds="0,3"/>
-                <Part Id="6" String="PART_BODY_MUD" TenderizeIds="1,4"/>
+                <Part Id="6" String="PART_TORSO_MUD" TenderizeIds="1,4"/>
                 <Part Id="7" String="PART_L_LEG_MUD"/>
                 <Part Id="8" String="PART_R_LEG_MUD"/>
                 <Part Id="9" String="PART_TAIL_MUD" TenderizeIds="2,5"/>

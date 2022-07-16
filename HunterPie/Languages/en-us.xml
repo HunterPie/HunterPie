@@ -229,6 +229,74 @@
 			<Part Id="PART_FORELEG" String="Foreleg"/>
 			<Part Id="PART_H_LEG" String="Hind Leg"/>
 			<Part Id="PART_ANTENNA" String="Antenna"/>
+			<Part Id="PART_CREST" String="Crest"/>
+			<Part Id="PART_THROAT" String="Throat"/>
+			<Part Id="PART_BIG_FLINCH" String="Big Flinch"/>
+			<Part Id="PART_HORNS" String="Horns"/>
+			<Part Id="PART_HORN" String="Horn"/>
+			<Part Id="PART_KNOCKDOWN" String="Knockdown"/>
+			<Part Id="PART_HORNS_2" String="Horns #2"/>
+			<Part Id="PART_RAGE" String="Rage"/>
+			<Part Id="PART_L_LIMBS" String="Left Limbs"/>
+			<Part Id="PART_R_LIMBS" String="Right Limbs"/>
+			<Part Id="PART_LIMBS" String="Limbs"/>
+			<Part Id="PART_COUNTERATTACK" String="Counterattack"/>
+			<Part Id="PART_JAW" String="Jaw"/>
+			<Part Id="PART_EXPLOSION_WEAKENING" String="Elemental Explosion"/>
+			<Part Id="PART_CHARGE" String="Charge"/>
+			<Part Id="PART_FIN" String="Fin"/>
+			<Part Id="PART_INFLATED_TAIL" String="Inflated Tail"/>
+			<Part Id="PART_SILVER_SPIKES_HEAD" String="Silver Spikes (Head)"/>
+			<Part Id="PART_SILVER_SPIKES_L_ARM" String="Silver Spikes (L. Arm)"/>
+			<Part Id="PART_SILVER_SPIKES_R_ARM" String="Silver Spikes (R. Arm)"/>
+			<Part Id="PART_SILVER_SPIKES_L_WING" String="Silver Spikes (L. Wing)"/>
+			<Part Id="PART_SILVER_SPIKES_L_WING" String="Silver Spikes (L. Wing)"/>
+			<Part Id="PART_SILVER_SPIKES_R_WING" String="Silver Spikes (R. Wing)"/>
+			<Part Id="PART_EXHAUST_ORGAN_CENTRAL" String="Exhaust Organ (Central)"/>
+			<Part Id="PART_EXHAUST_ORGAN_HEAD" String="Exhaust Organ (Head)"/>
+			<Part Id="PART_EXHAUST_ORGAN_CRATER" String="Exhaust Organ (Crater)"/>
+			<Part Id="PART_EXHAUST_ORGAN_REAR" String="Exhaust Organ (Rear)"/>
+			<Part Id="PART_REPEL" String="Repel"/>
+			<Part Id="PART_WEAK_L_SHELL" String="Left Weak Shell"/>
+			<Part Id="PART_WEAK_R_SHELL" String="Right Weak Shell"/>
+			<Part Id="PART_BALLOON" String="Balloon"/>
+			<Part Id="PART_SKY_FALL" String="Sky Fall"/>
+			<Part Id="PART_L_BONE" String="Left Bone"/>
+			<Part Id="PART_R_BONE" String="Right Bone"/>
+			<Part Id="PART_EMISSIONS" String="Effluvia Emissions"/>
+			<Part Id="PART_HORNS_GOLD" String="Golden Horns"/>
+			<Part Id="PART_MANE_GOLD" String="Golden Mane"/>
+			<Part Id="PART_L_CHEST_GOLD" String="Golden Left Chest"/>
+			<Part Id="PART_R_CHEST_GOLD" String="Golden Right Chest"/>
+			<Part Id="PART_L_ARM_GOLD" String="Golden Left Arm"/>
+			<Part Id="PART_R_ARM_GOLD" String="Golden Right Arm"/>
+			<Part Id="PART_L_LEG_GOLD" String="Golden Left Leg"/>
+			<Part Id="PART_R_LEG_GOLD" String="Golden Right Leg"/>
+			<Part Id="PART_L_TAIL_GOLD" String="Golden Tail (Left)"/>
+			<Part Id="PART_R_TAIL_GOLD" String="Golden Tail (Right)"/>
+			<Part Id="PART_GLOWING_HEAD" String="Glowing Head"/>
+			<Part Id="PART_GLOWING_TAIL" String="Glowing Tail"/>
+			<Part Id="PART_EMERGE_SNOW_HEAD" String="Emerge from Snow (Head)"/>
+			<Part Id="PART_EMERGE_SNOW_BODY" String="Emerge from Snow (Body)"/>
+			<Part Id="PART_EMERGE_SNOW_TAIL" String="Emerge from Snow (Tail)"/>
+			<Part Id="PART_HEAD_SNOW" String="Head (Snow)"/>
+			<Part Id="PART_BODY_SNOW" String="Body (Snow)"/>
+			<Part Id="PART_TAIL_SNOW" String="Tail (Snow)"/>
+			<Part Id="PART_HEAD_ICE" String="Head (Ice)"/>
+			<Part Id="PART_BODY_ICE" String="Body (Ice)"/>
+			<Part Id="PART_WINGS_ICE" String="Wings (Ice)"/>
+			<Part Id="PART_ARMS_ICE" String="Arms (Ice)"/>
+			<Part Id="PART_HEAD_ROCK" String="Head (Rock)"/>
+			<Part Id="PART_CHEST_ROCK" String="Chest (Rock)"/>
+			<Part Id="PART_L_NECK_ROCK" String="Neck Left (Rock)"/>
+			<Part Id="PART_R_NECK_ROCK" String="Neck Right (Rock)"/>
+			<Part Id="PART_TAIL_ROCK" String="Tail (Rock)"/>
+			<Part Id="PART_L_WING_ROCK" String="Left Wing (Rock)"/>
+			<Part Id="PART_R_WING_ROCK" String="Right Wing (Rock)"/>
+			<Part Id="PART_L_ARM_ROCK" String="Left Arm (Rock)"/>
+			<Part Id="PART_R_ARM_ROCK" String="Right Arm (Rock)"/>
+			<Part Id="PART_BODY_LEGS" String="Body &amp; Legs"/>
+			<Part Id="PART_ANTLERS" String="Antlers"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="Rathian"/>
