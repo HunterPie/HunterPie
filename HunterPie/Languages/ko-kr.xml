@@ -237,9 +237,9 @@
 			<Part Id="PART_KNOCKDOWN" String="병기 대미지 대경직"/>
 			<Part Id="PART_HORNS_2" String="두번째 뿔"/>
 			<Part Id="PART_RAGE" String="분노 해제"/>
-			<Part Id="PART_LIMBS" String="앞다리"/>
 			<Part Id="PART_L_LIMBS" String="왼쪽 앞다리"/>
 			<Part Id="PART_R_LIMBS" String="오른쪽 앞다리"/>
+			<Part Id="PART_LIMBS" String="앞다리"/>
 			<Part Id="PART_COUNTERATTACK" String="반격"/>
 			<Part Id="PART_JAW" String="턱"/>
 			<Part Id="PART_EXPLOSION_WEAKENING" String="속성 대경직"/>
@@ -361,7 +361,7 @@
 			<Monster Id="93" String="멜-제나"/>
 			<Monster Id="94" String="루나가론"/>
 			<Monster Id="95" String="가란고르무"/>
-                        <Monster Id="96" String="가이아델름"/>
+			<Monster Id="96" String="가이아델름"/>
 			<Monster Id="97" String="에스피나스"/>
 		</Rise>
 		<World>
@@ -517,8 +517,8 @@
 				 String="플러그인"/>
 			<Tab Id="SETTINGS_STRING"
 				 String="설정"/>
-                        <Tab Id="PATREON_STRING"
- 				 String="Patreon"/>
+			<Tab Id="PATREON_STRING"
+				 String="Patreon"/>
 		</Tabs>
 		<Generics>
 			<Generic Id="HUNTERPIE_LAUNCH_GAME"
@@ -565,6 +565,12 @@
 			<Discord Id="DRPC_WORLD_STATE_PRACTICE"
 					 String="훈련구역에서 훈련 중"/>
 		</Integrations>
+		<Enums>
+			<Enum Id="RELATIVE_TO_QUEST_STRING"
+				  String="퀘스트 기준"/>
+			<Enum Id="RELATIVE_TO_JOIN_STRING"
+				  String="참가 기준"/>
+		</Enums>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
 					 String="클라이언트"
@@ -588,8 +594,8 @@
 					 String="동반자 활동 위젯"
 					 Description="동반자 활동 위젯 설정"/>
 			<Setting Id="METER_WIDGET_STRING"
- 					 String="대미지 미터 위젯"
- 					 Description="대미지 미터 위젯 설정"/>
+				 	 String="대미지 미터 위젯"
+				 	 Description="대미지 미터 위젯 설정"/>
 			<Setting Id="CHAT_WIDGET_STRING"
 					 String="채팅 위젯"
 					 Description="채팅 위젯 설정"/>
@@ -766,29 +772,32 @@
 					 Description="옵션 활성화 시, HunterPie가 동반자 도장의 정보를 표시합니다."/>
 
 			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_HIGHLIGHT_MYSELF"
- 					 String="자신 강조하기"
- 					 Description="옵션 활성화 시, 다른 플레이어들에게서 당신의 이름이 강조됩니다."/>
- 			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_BLUR_NAMES"
- 					 String="이름 흐릿하게 표시"
- 					 Description="옵션 활성화 시, 미터기에서 모두의 이름이 흐릿해집니다."/>
- 			<Setting Id="DAMAGE_METER_ENABLE_DPS_PLOT"
- 					 String="DPS 표시"
- 					 Description="옵션 활성화 시, DPS 그래프가 표시됩니다."/>
- 			<Setting Id="DAMAGE_METER_SELF_COLOR_STRING"
- 					 String="나의 색상"
- 					 Description="대미지 미터에서 당신의 플레이어의 색상입니다."/>
- 			<Setting Id="DAMAGE_METER_PLAYER_1_COLOR_STRING"
- 					 String="파티 리더 색상"
- 					 Description="대미지 미터에서 파티 리더의 색상입니다."/>
- 			<Setting Id="DAMAGE_METER_PLAYER_2_COLOR_STRING"
- 					 String="두번째 플레이어 색상"
- 					 Description="대미지 미터에서 두번째 플레이어의 색상입니다."/>
- 			<Setting Id="DAMAGE_METER_PLAYER_3_COLOR_STRING"
- 					 String="세번째 플레이어 색상"
- 					 Description="대미지 미터에서 세번째 플레이어의 색상입니다."/>
- 			<Setting Id="DAMAGE_METER_PLAYER_4_COLOR_STRING"
- 					 String="네번째 플레이어 색상"
- 					 Description="대미지 미터에서 네번째 플레이어의 색상입니다."/>
+				 	 String="자신 강조하기"
+				 	 Description="옵션 활성화 시, 다른 플레이어들에게서 당신의 이름이 강조됩니다."/>
+			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_BLUR_NAMES"
+				 	 String="이름 흐릿하게 표시"
+				 	 Description="옵션 활성화 시, 미터기에서 모두의 이름이 흐릿해집니다."/>
+			<Setting Id="DAMAGE_METER_ENABLE_DPS_PLOT"
+				 	 String="DPS 도표 표시"
+				 	 Description="옵션 활성화 시, DPS 도표 그래프가 표시됩니다."/>
+			<Setting Id="DAMAGE_METER_DPS_CALCULATION_STRATEGY_STRING"
+					 String="DPS 계산 방법"
+					 Description="초당 대미지를 계산하는데 사용할 방법을 결정합니다.&#x0a;- 퀘스트 기준: 퀘스트 경과 시간을 기준으로 계산&#x0a;- 참여 기준: 플레이어가 파티에 참여한 시간을 기준으로 계산"/>
+			<Setting Id="DAMAGE_METER_SELF_COLOR_STRING"
+				 	 String="나의 색상"
+				 	 Description="대미지 미터에서 당신의 플레이어의 색상입니다."/>
+			<Setting Id="DAMAGE_METER_PLAYER_1_COLOR_STRING"
+				 	 String="파티 리더 색상"
+				 	 Description="대미지 미터에서 파티 리더의 색상입니다."/>
+			<Setting Id="DAMAGE_METER_PLAYER_2_COLOR_STRING"
+				 	 String="두번째 플레이어 색상"
+				 	 Description="대미지 미터에서 두번째 플레이어의 색상입니다."/>
+			<Setting Id="DAMAGE_METER_PLAYER_3_COLOR_STRING"
+				 	 String="세번째 플레이어 색상"
+				 	 Description="대미지 미터에서 세번째 플레이어의 색상입니다."/>
+			<Setting Id="DAMAGE_METER_PLAYER_4_COLOR_STRING"
+				 	 String="네번째 플레이어 색상"
+				 	 Description="대미지 미터에서 네번째 플레이어의 색상입니다."/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="개발자: 모의 몬스터 위젯"/>
