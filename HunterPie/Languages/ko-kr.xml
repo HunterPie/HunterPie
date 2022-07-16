@@ -230,32 +230,39 @@
 			<Part Id="PART_H_LEG" String="뒷다리"/>
 			<Part Id="PART_ANTENNA" String="촉각"/>
 			<Part Id="PART_CREST" String="볏"/>
-			<!-- Missing MHW monster parts -->
 			<Part Id="PART_THROAT" String="목"/>
-			<Part Id="PART_REPEL" String="격퇴"/>
+			<Part Id="PART_BIG_FLINCH" String="대경직"/>
+			<Part Id="PART_HORNS" String="뿔"/>
+			<Part Id="PART_HORN" String="뿔"/>
+			<Part Id="PART_KNOCKDOWN" String="병기 대미지 대경직"/>
+			<Part Id="PART_HORNS_2" String="두번째 뿔"/>
+			<Part Id="PART_RAGE" String="분노 해제"/>
+			<Part Id="PART_LIMBS" String="앞다리"/>
+			<Part Id="PART_L_LIMBS" String="왼쪽 앞다리"/>
+			<Part Id="PART_R_LIMBS" String="오른쪽 앞다리"/>
+			<Part Id="PART_COUNTERATTACK" String="반격"/>
+			<Part Id="PART_JAW" String="턱"/>
+			<Part Id="PART_EXPLOSION_WEAKENING" String="속성 대경직"/>
+			<Part Id="PART_CHARGE" String="충전 상태 해제"/>
+			<Part Id="PART_FIN" String="등갑각"/>
+			<Part Id="PART_INFLATED_TAIL" String="팽창된 꼬리"/>
+			<Part Id="PART_SILVER_SPIKES_HEAD" String="머리 (금강 가시)"/>
+			<Part Id="PART_SILVER_SPIKES_L_ARM" String="왼쪽 앞다리 (금강 가시)"/>
+			<Part Id="PART_SILVER_SPIKES_R_ARM" String="오른쪽 앞다리 (금강 가시)"/>
+			<Part Id="PART_SILVER_SPIKES_L_WING" String="왼쪽 날개 (금강 가시)"/>
+			<Part Id="PART_SILVER_SPIKES_R_WING" String="오른쪽 날개 (금강 가시)"/>
 			<Part Id="PART_EXHAUST_ORGAN_CENTRAL" String="배열기관 (중앙)"/>
 			<Part Id="PART_EXHAUST_ORGAN_HEAD" String="배열기관 (머리)"/>
 			<Part Id="PART_EXHAUST_ORGAN_CRATER" String="배열기관 (분화구)"/>
 			<Part Id="PART_EXHAUST_ORGAN_REAR" String="배열기관 (후방)"/>
+			<Part Id="PART_REPEL" String="격퇴"/>
 			<Part Id="PART_WEAK_L_SHELL" String="왼쪽 약한 껍질"/>
 			<Part Id="PART_WEAK_R_SHELL" String="오른쪽 약한 껍질"/>
-			<Part Id="PART_HORN" String="뿔"/>
-			<Part Id="PART_HORNS" String="뿔"/>
-			<Part Id="PART_LIMBS" String="앞다리"/>
-			<Part Id="PART_L_LIMBS" String="왼쪽 앞다리"/>
-			<Part Id="PART_R_LIMBS" String="오른쪽 앞다리"/>
-			<Part Id="PART_BIG_FLINCH" String="대경직"/>
-			<Part Id="PART_BODY_MUD" String="몸통 (진흙)"/>
-			<Part Id="PART_JAW" String="턱"/>
-			<Part Id="PART_BODY_LEGS" String="몸(+다리)"/>
-			<Part Id="PART_ANTLERS" String="머리 (뿔)"/>
-			<Part Id="PART_MANE" String="갈기"/>
 			<Part Id="PART_BALLOON" String="목 주머니"/>
-			<Part Id="PART_COUNTERATTACK" String="반격"/>
+			<Part Id="PART_SKY_FALL" String="격추"/>
 			<Part Id="PART_L_BONE" String="왼쪽 뼈갑옷"/>
 			<Part Id="PART_R_BONE" String="오른쪽 뼈갑옷"/>
 			<Part Id="PART_EMISSIONS" String="독기 발산 기관"/>
-			<Part Id="PART_HORNS_2" String="두번째 뿔"/>
 			<Part Id="PART_HORNS_GOLD" String="큰뿔 (황금)"/>
 			<Part Id="PART_MANE_GOLD" String="갈기 (황금)"/>
 			<Part Id="PART_L_CHEST_GOLD" String="왼쪽 가슴 (황금)"/>
@@ -266,14 +273,6 @@
 			<Part Id="PART_R_LEG_GOLD" String="오른쪽 뒷다리 (황금)"/>
 			<Part Id="PART_L_TAIL_GOLD" String="왼쪽 꼬리 (황금)"/>
 			<Part Id="PART_R_TAIL_GOLD" String="오른쪽 꼬리 (황금)"/>
-			<Part Id="PART_FIN" String="등갑각"/>
-			<Part Id="PART_INFLATED_TAIL" String="팽창된 꼬리"/>
-			<Part Id="PART_SILVER_SPIKES_HEAD" String="머리 (금강 가시)"/>
-			<Part Id="PART_SILVER_SPIKES_L_ARM" String="왼쪽 앞다리 (금강 가시)"/>
-			<Part Id="PART_SILVER_SPIKES_R_ARM" String="오른쪽 앞다리 (금강 가시)"/>
-			<Part Id="PART_SILVER_SPIKES_L_WING" String="왼쪽 날개 (금강 가시)"/>
-			<Part Id="PART_SILVER_SPIKES_R_WING" String="오른쪽 날개 (금강 가시)"/>
-			<Part Id="PART_SKY_FALL" String="격추"/>
 			<Part Id="PART_GLOWING_HEAD" String="빛나는 머리"/>
 			<Part Id="PART_GLOWING_TAIL" String="빛나는 꼬리"/>
 			<Part Id="PART_EMERGE_SNOW_HEAD" String="눈 위로 떠오른 머리"/>
@@ -295,10 +294,9 @@
 			<Part Id="PART_R_WING_ROCK" String="오른쪽 날개 (바위)"/>
 			<Part Id="PART_L_ARMS_ROCK" String="왼쪽 앞다리 (바위)"/>
 			<Part Id="PART_R_ARMS_ROCK" String="오른쪽 앞다리 (바위)"/>
-			<Part Id="PART_EXPLOSION_WEAKENING" String="속성 대경직"/>
-			<Part Id="PART_RAGE" String="분노 해제"/>
-			<Part Id="PART_CHARGE" String="충전 상태 해제"/>
-			<Part Id="PART_KNOCKDOWN" String="병기 대미지 대경직"/>
+			<Part Id="PART_BODY_LEGS" String="몸(+다리)"/>
+			<Part Id="PART_ANTLERS" String="머리 (뿔)"/>
+			<Part Id="PART_MANE" String="갈기"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="리오레이아"/>
