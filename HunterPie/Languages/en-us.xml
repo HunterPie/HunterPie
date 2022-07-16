@@ -250,7 +250,6 @@
 			<Part Id="PART_SILVER_SPIKES_L_ARM" String="Silver Spikes (L. Arm)"/>
 			<Part Id="PART_SILVER_SPIKES_R_ARM" String="Silver Spikes (R. Arm)"/>
 			<Part Id="PART_SILVER_SPIKES_L_WING" String="Silver Spikes (L. Wing)"/>
-			<Part Id="PART_SILVER_SPIKES_L_WING" String="Silver Spikes (L. Wing)"/>
 			<Part Id="PART_SILVER_SPIKES_R_WING" String="Silver Spikes (R. Wing)"/>
 			<Part Id="PART_EXHAUST_ORGAN_CENTRAL" String="Exhaust Organ (Central)"/>
 			<Part Id="PART_EXHAUST_ORGAN_HEAD" String="Exhaust Organ (Head)"/>
