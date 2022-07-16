@@ -5,7 +5,7 @@
 using namespace Core::Server;
 using namespace Core::Server::Models;
 using namespace Core::Server::Handlers;
-using namespace Game;
+using namespace Games::Rise;
 
 void OnRequestIPCInitialization(RequestIPCInitializationMessage* message)
 {
@@ -14,7 +14,7 @@ void OnRequestIPCInitialization(RequestIPCInitializationMessage* message)
 
     IPCMessage response{
         INIT_IPC_MEMORY_ADDRESSES,
-        1
+        2
     };
 
     IPCService::GetInstance()->SendIPCMessage(&response, sizeof(IPCMessage));

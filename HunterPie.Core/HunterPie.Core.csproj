@@ -4,9 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
     <Authors>Haato</Authors>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <Version>2.1.0.0</Version>
-    <AssemblyVersion>2.2.1.22</AssemblyVersion>
-    <FileVersion>2.2.1.22</FileVersion>
+    <Version>2.2.0.0</Version>
+    <AssemblyVersion>2.2.1.78</AssemblyVersion>
+    <FileVersion>2.2.1.78</FileVersion>
  </PropertyGroup>
 
   <ItemGroup>

@@ -9,6 +9,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Features\Tools\Localization\Views\LocalizableStringView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="GUI\Parts\Account\View\AccountView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -27,14 +30,14 @@
     <Compile Update="GUI\Parts\Sidebar\SideBarElement.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="TestWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Update\Presentation\UpdateView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Features\Tools\Localization\Views\LocalizableStringView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="GUI\Parts\Account\View\AccountView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -54,9 +57,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="TestWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Update\Presentation\UpdateView.xaml">

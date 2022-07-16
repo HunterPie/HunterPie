@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Domain.Memory;
+using HunterPie.Core.Logger;
 using HunterPie.Core.System.Windows.Native;
 using HunterPie.Core.Utils;
 using System;
@@ -158,33 +159,40 @@ namespace HunterPie.Core.System.Windows.Memory
 
         public bool Inject(string dll)
         {
+            byte[] dllPath = Encoding.Unicode.GetBytes(dll);
 
             IntPtr dllNamePtr = Kernel32.VirtualAllocEx(
                 pHandle,
                 IntPtr.Zero,
-                (uint)dll.Length + 1,
+                (uint)dllPath.Length + 1,
                 Kernel32.AllocationType.Commit,
                 Kernel32.MemoryProtection.ExecuteReadWrite
             );
 
             if (dllNamePtr == IntPtr.Zero)
                 return false;
-
-            byte[] dllPath = Encoding.UTF8.GetBytes(dll);
+            
             Write((long)dllNamePtr, dllPath);
 
+            Log.Debug("Wrote DLL name at {0:X}", dllNamePtr);
+
             IntPtr kernel32Address = Kernel32.GetModuleHandle("kernel32");
-            IntPtr loadLibraryA = Kernel32.GetProcAddress(kernel32Address, "LoadLibraryA");
+            Log.Debug("Found kernel32 address at {0:X}", kernel32Address);
+
+            IntPtr loadLibraryW = Kernel32.GetProcAddress(kernel32Address, "LoadLibraryW");
+            Log.Debug("kernel32::LoadLibraryW -> {0:X}", loadLibraryW);
+            
             IntPtr lpThreadId = IntPtr.Zero;
             IntPtr thread = Kernel32.CreateRemoteThread(
                 pHandle,
                 IntPtr.Zero,
                 0,
-                loadLibraryA,
+                loadLibraryW,
                 dllNamePtr,
                 0,
                 lpThreadId
             );
+            Log.Debug("thread {0:X}", thread);
 
             return thread != IntPtr.Zero;
         }

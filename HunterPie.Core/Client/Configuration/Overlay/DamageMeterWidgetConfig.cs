@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
@@ -22,6 +23,10 @@ namespace HunterPie.Core.Client.Configuration.Overlay
 
         [SettingField("DAMAGE_METER_ENABLE_SHOULD_BLUR_NAMES")]
         public Observable<bool> ShouldBlurNames { get; set; } = false;
+
+        [SettingField("DAMAGE_METER_DPS_CALCULATION_STRATEGY_STRING")]
+
+        public Observable<DPSCalculationStrategy> DpsCalculationStrategy { get; set; } = DPSCalculationStrategy.RelativeToJoin;
 
         [SettingField("DAMAGE_METER_SELF_COLOR_STRING")]
         public Color PlayerSelf { get; set; } = "#FF725AC1";

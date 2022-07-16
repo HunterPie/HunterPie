@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HunterPie
+namespace HunterPie.UI.Overlay.Widgets.Monster.Views
 {
     /// <summary>
-    /// Interaction logic for TestWindow.xaml
+    /// Interaction logic for BossMonsterWeaknessView.xaml
     /// </summary>
-    public partial class TestWindow : Window
+    public partial class BossMonsterWeaknessView : UserControl
     {
-        public TestWindow()
+        public BossMonsterWeaknessView()
         {
             InitializeComponent();
         }

@@ -44,10 +44,11 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
                 Crown = Crown.Mini,
                 TargetType = Target.Self,
                 IsTarget = true,
-                IsAlive = true
+                IsAlive = true,
             });
             VisibleMonsters = 1;
             MonstersCount = 3;
+
             foreach (BossMonsterViewModel vm in Monsters)
                 vm.FetchMonsterIcon();
         }

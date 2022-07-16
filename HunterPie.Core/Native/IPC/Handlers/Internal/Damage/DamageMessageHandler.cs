@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Native.IPC.Handlers.Internal.Damage.Models;
 using HunterPie.Core.Native.IPC.Models;
 using HunterPie.Core.Native.IPC.Utils;
+using System;
 
 namespace HunterPie.Core.Native.IPC.Handlers.Internal.Damage
 {
@@ -48,14 +49,18 @@ namespace HunterPie.Core.Native.IPC.Handlers.Internal.Damage
 
         public static async void ClearAllHuntStatisticsExcept(long[] targets)
         {
+            long[] buffer = new long[10];
+
+            Buffer.BlockCopy(targets, 0, buffer, 0, targets.Length * sizeof(long));
+
             RequestClearHuntStatisticsMessage request = new RequestClearHuntStatisticsMessage
             {
                 Header = new IPCMessage
                 {
-                    Type = IPCMessageType.DELETE_HUNT_STATISTICS,
+                    Type = IPCMessageType.CLEAR_HUNT_STATISTICS,
                     Version = 1
                 },
-                TargetsToKeep = targets
+                TargetsToKeep = buffer
             };
 
             await IPCService.Send(request);
