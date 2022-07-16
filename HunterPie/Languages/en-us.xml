@@ -297,6 +297,7 @@
 			<Part Id="PART_R_ARM_ROCK" String="Right Arm (Rock)"/>
 			<Part Id="PART_BODY_LEGS" String="Body &amp; Legs"/>
 			<Part Id="PART_ANTLERS" String="Antlers"/>
+			<Part Id="PART_MANE" String="Mane"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="Rathian"/>
