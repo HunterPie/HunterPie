@@ -95,25 +95,6 @@
                                 </BeginStoryboard>
                             </MultiDataTrigger.ExitActions>
                         </MultiDataTrigger>
-
-                        <EventTrigger RoutedEvent="Loaded">
-                            <!-- 
-                                Literally an useless animation just to force the Widget to be rendered at 60 FPS.
-                                Thank you WPF!
-                            -->
-                            <BeginStoryboard Name="SB_Useless">
-                                <Storyboard AutoReverse="True"
-                                            RepeatBehavior="Forever">
-                                    <animation:BrushAnimation From="#01000000"
-                                                              To="Transparent"
-                                                              Duration="0:0:5"
-                                                              Storyboard.TargetProperty="Background"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="Unloaded">
-                            <RemoveStoryboard BeginStoryboardName="SB_Useless"/>
-                        </EventTrigger>
                     </Style.Triggers>
                 </Style>
             </Grid.Style>

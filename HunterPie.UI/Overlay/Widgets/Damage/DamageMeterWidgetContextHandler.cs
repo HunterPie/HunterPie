@@ -9,7 +9,7 @@ using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Brushes;
 using HunterPie.UI.Overlay.Widgets.Damage.Helpers;
 using HunterPie.UI.Overlay.Widgets.Damage.View;
-using HunterPie.UI.Overlay.Widgets.Damage.ViewModel;
+using HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;

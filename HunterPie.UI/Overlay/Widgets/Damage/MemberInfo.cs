@@ -1,4 +1,4 @@
-﻿using HunterPie.UI.Overlay.Widgets.Damage.ViewModel;
+﻿using HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
 using LiveCharts.Wpf;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage
