@@ -98,7 +98,7 @@
                                 DataTooltip="{x:Null}">
                 <lvc:CartesianChart.AxisY>
                     <lvc:Axis MinValue="0"
-                              LabelFormatter="{Binding DPSFormatter, Mode=OneTime}"
+                              LabelFormatter="{Binding DamageFormatter, Mode=OneWay}"
                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
                 </lvc:CartesianChart.AxisY>
                 <lvc:CartesianChart.AxisX>

@@ -117,7 +117,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
                 vm.Percentage = totalDamage > 0 ? member.Damage / totalDamage * 100 : 0;
                 vm.DPS = newDps;
 
-                points.Add(new ObservablePoint(ViewModel.TimeElapsed, vm.DPS));
+                var point = CalculatePointByConfiguredStrategy(vm);
+                points.Add(point);
             }
         }
 
@@ -245,6 +246,18 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             timeElapsed = Math.Max(1, timeElapsed);
 
             return member.ViewModel.Damage / timeElapsed;
+        }
+
+        private ObservablePoint CalculatePointByConfiguredStrategy(PlayerViewModel player)
+        {
+            double damage = (View.Settings.DamagePlotStrategy.Value) switch
+            {
+                DamagePlotStrategy.TotalDamage => player.Damage,
+                DamagePlotStrategy.DamagePerSecond => player.DPS,
+                _ => throw new NotImplementedException(),
+            };
+
+            return new ObservablePoint(ViewModel.TimeElapsed, damage);
         }
         #endregion
     }

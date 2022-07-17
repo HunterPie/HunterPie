@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.UI.Architecture;
 using LiveCharts;
 using System;
@@ -12,12 +13,12 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
         private double _timeElapsed = 1;
         private int _deaths;
         private bool _inHuntingZone;
+        private Func<double, string> _damageFormatter;
 
-        public Func<double, string> TimeFormatter { get; } = 
+        public Func<double, string> TimeFormatter { get; set;  } = 
             new Func<double, string>((value) => TimeSpan.FromSeconds(value).ToString("mm\\:ss"));
 
-        public Func<double, string> DPSFormatter { get; } =
-            new Func<double, string>((value) => $"{value:0.00}/s");
+        public Func<double, string> DamageFormatter { get => _damageFormatter; set { SetValue(ref _damageFormatter, value); } }
 
         public SeriesCollection Series { get; protected set; } = new();
 
@@ -36,6 +37,26 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
         }
 
         public bool InHuntingZone { get => _inHuntingZone; set { SetValue(ref _inHuntingZone, value); } }
+
+        public MeterViewModel()
+        {
+            SetupFormatters();
+        }
+
+        private void SetupFormatters()
+        {
+            DamageFormatter = new Func<double, string>((value) => FormatDamageByStrategy(value));
+        }
+
+        private string FormatDamageByStrategy(double damage)
+        {
+            return (Settings.DamagePlotStrategy.Value) switch
+            {
+                DamagePlotStrategy.TotalDamage => damage.ToString(),
+                DamagePlotStrategy.DamagePerSecond => $"{damage:0.00}/s",
+                _ => throw new NotImplementedException()
+            };
+        }
 
         public void ToggleHighlight() => Settings.ShouldHighlightMyself.Value = !Settings.ShouldHighlightMyself;
         public void ToggleBlur() => Settings.ShouldBlurNames.Value = !Settings.ShouldBlurNames;

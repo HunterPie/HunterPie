@@ -28,6 +28,9 @@ namespace HunterPie.Core.Client.Configuration.Overlay
 
         public Observable<DPSCalculationStrategy> DpsCalculationStrategy { get; set; } = DPSCalculationStrategy.RelativeToJoin;
 
+        [SettingField("DAMAGE_METER_DAMAGE_PLOT_STRATEGY_STRING")]
+        public Observable<DamagePlotStrategy> DamagePlotStrategy { get; set; } = Enums.DamagePlotStrategy.DamagePerSecond;
+
         [SettingField("DAMAGE_METER_SELF_COLOR_STRING")]
         public Color PlayerSelf { get; set; } = "#FF725AC1";
 
