@@ -70,7 +70,7 @@
         <!-- Players display -->
         <StackPanel Grid.Row="1"
                     Orientation="Vertical">
-            <ItemsControl ItemsSource="{Binding Players, Mode=OneTime}"
+            <ItemsControl ItemsSource="{Binding Players, Mode=OneWay}"
                           Margin="1,1,1,1" 
                           Grid.Row="1"
                           d:DataContext="{StaticResource MockViewModel}">
@@ -90,7 +90,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <lvc:CartesianChart Series="{Binding Series, Mode=OneTime}"
+            <lvc:CartesianChart Series="{Binding Series, Mode=OneWay}"
                                 Height="120"
                                 DisableAnimations="True"
                                 Margin="1"

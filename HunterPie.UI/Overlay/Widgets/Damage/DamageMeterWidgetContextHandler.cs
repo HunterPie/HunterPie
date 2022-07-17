@@ -117,9 +117,6 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
                 vm.Percentage = totalDamage > 0 ? member.Damage / totalDamage * 100 : 0;
                 vm.DPS = newDps;
 
-                if (points.Count >= 50)
-                    points.RemoveAt(0);
-
                 points.Add(new ObservablePoint(ViewModel.TimeElapsed, vm.DPS));
             }
         }
