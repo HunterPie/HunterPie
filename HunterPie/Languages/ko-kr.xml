@@ -570,6 +570,8 @@
 				  String="퀘스트 기준"/>
 			<Enum Id="RELATIVE_TO_JOIN_STRING"
 				  String="참가 기준"/>
+			<Enum Id="RELATIVE_TO_FIRSTHIT_STRING"
+				  String="첫 타격 기준"/>
 		</Enums>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
@@ -782,7 +784,10 @@
 				 	 Description="옵션 활성화 시, DPS 도표 그래프가 표시됩니다."/>
 			<Setting Id="DAMAGE_METER_DPS_CALCULATION_STRATEGY_STRING"
 					 String="DPS 계산 방법"
-					 Description="초당 대미지를 계산하는데 사용할 방법을 결정합니다.&#x0a;- 퀘스트 기준: 퀘스트 경과 시간을 기준으로 계산&#x0a;- 참여 기준: 플레이어가 파티에 참여한 시간을 기준으로 계산"/>
+					 Description="초당 대미지를 계산하는데 사용할 방법을 결정합니다.&#x0a;- 퀘스트 기준: 퀘스트 경과 시간을 기준으로 계산&#x0a;- 참여 기준: 플레이어가 파티에 참여한 시간을 기준으로 계산&#x0a;- 첫 타격 기준: 몬스터를 처음으로 타격한 시간을 기준으로 계산"/>
+			<Setting Id="DAMAGE_METER_DAMAGE_PLOT_STRATEGY_STRING"
+ 					 String="대미지 도표화 방법"
+ 					 Description="그래프에서 대미지를 도표화할 방법을 결정합니다.&#x0a;- 초당 대미지: DPS가 그래프로 표시됩니다&#x0a;- 총 대미지: 총 대미지가 그래프로 표시됩니다"/>
 			<Setting Id="DAMAGE_METER_SELF_COLOR_STRING"
 				 	 String="나의 색상"
 				 	 Description="대미지 미터에서 당신의 플레이어의 색상입니다."/>
