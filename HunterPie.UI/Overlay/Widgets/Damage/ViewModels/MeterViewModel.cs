@@ -1,13 +1,12 @@
-﻿using HunterPie.Core.Architecture;
-using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.UI.Architecture;
 using LiveCharts;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 
-namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
+namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
 {
-    public class MeterViewModel : Bindable
+    public class MeterViewModel : ViewModel
     {
         public DamageMeterWidgetConfig Settings { get; internal set; }
         private double _timeElapsed = 1;

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 
-namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModel
+namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
 {
     public class MockMeterViewModel : MeterViewModel
     {

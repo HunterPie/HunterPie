@@ -198,8 +198,8 @@
     </LinearGradientBrush>
 
     <!-- Font -->
-    <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">pack://application:,,,/HunterPie.UI;component/Resources/#Work Sans</FontFamily>
-        
+    <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">Work Sans</FontFamily>
+
     <!-- Constants -->
     <sys:Double x:Key="HUNTERPIE_SIDEBAR_WIDTH">300</sys:Double>
 
@@ -689,6 +689,10 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
     </Style>
     
 </ResourceDictionary>
