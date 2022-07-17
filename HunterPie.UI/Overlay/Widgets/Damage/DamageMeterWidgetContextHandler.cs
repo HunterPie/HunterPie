@@ -144,6 +144,9 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             MemberInfo member = _members[e];
             PlayerViewModel vm = member.ViewModel;
 
+            if (member.FirstHitAt == -1)
+                member.FirstHitAt = ViewModel.TimeElapsed;
+
             double newDps = CalculateDpsByConfiguredStrategy(member);
             vm.IsIncreasing = newDps > vm.DPS;
             vm.Damage = e.Damage;
@@ -236,6 +239,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             {
                 DPSCalculationStrategy.RelativeToQuest => ViewModel.TimeElapsed,
                 DPSCalculationStrategy.RelativeToJoin => ViewModel.TimeElapsed - Math.Min(ViewModel.TimeElapsed, member.JoinedAt),
+                DPSCalculationStrategy.RelativeToFirstHit => ViewModel.TimeElapsed - Math.Min(ViewModel.TimeElapsed, member.FirstHitAt),
                 _ => 1,
             };
             timeElapsed = Math.Max(1, timeElapsed);

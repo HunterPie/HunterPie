@@ -8,5 +8,6 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         public PlayerViewModel ViewModel { get; init; }
         public Series Series { get; init; }
         public double JoinedAt { get; init; }
+        public double FirstHitAt { get; set; } = -1;
     }
 }

@@ -3,6 +3,7 @@
     public enum DPSCalculationStrategy
     {
         RelativeToQuest,
-        RelativeToJoin
+        RelativeToJoin,
+        RelativeToFirstHit
     }
 }
