@@ -26,6 +26,9 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         private string _icon;
         private bool _isLoadingIcon = true;
         private bool _isAlive;
+        private double _captureThreshold;
+        private bool _isCapturable;
+
         public MonsterWidgetConfig Config => _config;
         private readonly ObservableCollection<MonsterPartViewModel> _parts = new();
         private readonly ObservableCollection<MonsterAilmentViewModel> _ailments = new();
@@ -89,6 +92,17 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
         {
             get => _targetType;
             set { SetValue(ref _targetType, value); }
+        }
+
+        public double CaptureThreshold
+        {
+            get => _captureThreshold;
+            set { SetValue(ref _captureThreshold, value); }
+        }
+        public bool IsCapturable
+        {
+            get => _isCapturable;
+            set { SetValue(ref _isCapturable, value); }
         }
 
         public ref readonly ObservableCollection<MonsterPartViewModel> Parts => ref _parts;

@@ -28,6 +28,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         {
             Context.OnHealthChange += OnHealthUpdate;
             Context.OnStaminaChange += OnStaminaUpdate;
+            Context.OnCaptureThresholdChange += OnCaptureThresholdChange;
             Context.OnEnrageStateChange += OnEnrageStateChange;
             Context.OnSpawn += OnSpawn;
             Context.OnDeath += OnDespawn;
@@ -43,6 +44,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         {
             Context.OnHealthChange -= OnHealthUpdate;
             Context.OnStaminaChange -= OnStaminaUpdate;
+            Context.OnCaptureThresholdChange -= OnCaptureThresholdChange;
             Context.OnEnrageStateChange -= OnEnrageStateChange;
             Context.OnSpawn -= OnSpawn;
             Context.OnDeath -= OnDespawn;
@@ -82,6 +84,11 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             });
         }
 
+        private void OnCaptureThresholdChange(object sender, IMonster e)
+        {
+            CaptureThreshold = e.CaptureThreshold;
+            IsCapturable = CaptureThreshold >= (Health / MaxHealth);
+        }
         private void OnWeaknessesChange(object sender, Element[] e)
         {
             Application.Current.Dispatcher.InvokeAsync(() =>
@@ -149,6 +156,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         {
             MaxHealth = Context.MaxHealth;
             Health = Context.Health;
+            IsCapturable = CaptureThreshold >= (Health / MaxHealth);
         }
 
         private void UpdateData()
@@ -169,6 +177,9 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             Crown = Context.Crown;
             IsEnraged = Context.IsEnraged;
             IsAlive = Context.Health > 0;
+            CaptureThreshold = Context.CaptureThreshold;
+            IsCapturable = CaptureThreshold >= (Health / MaxHealth);
+            
             
             if (Parts.Count != Context.Parts.Length || Ailments.Count != Context.Ailments.Length)
             {
