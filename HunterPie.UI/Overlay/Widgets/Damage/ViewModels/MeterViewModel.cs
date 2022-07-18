@@ -9,7 +9,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
 {
     public class MeterViewModel : ViewModel
     {
-        private readonly DamageMeterWidgetConfig _settings;
+        public DamageMeterWidgetConfig Settings { get; }
         private double _timeElapsed = 1;
         private int _deaths;
         private bool _inHuntingZone;
@@ -40,7 +40,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
 
         public MeterViewModel(DamageMeterWidgetConfig config)
         {
-            _settings = config;
+            Settings = config;
             SetupFormatters();
         }
 
@@ -51,7 +51,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
 
         private string FormatDamageByStrategy(double damage)
         {
-            return (_settings.DamagePlotStrategy.Value) switch
+            return (Settings.DamagePlotStrategy.Value) switch
             {
                 DamagePlotStrategy.TotalDamage => damage.ToString(),
                 DamagePlotStrategy.DamagePerSecond => $"{damage:0.00}/s",
@@ -59,8 +59,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
             };
         }
 
-        public void ToggleHighlight() => _settings.ShouldHighlightMyself.Value = !_settings.ShouldHighlightMyself;
-        public void ToggleBlur() => _settings.ShouldBlurNames.Value = !_settings.ShouldBlurNames;
+        public void ToggleHighlight() => Settings.ShouldHighlightMyself.Value = !Settings.ShouldHighlightMyself;
+        public void ToggleBlur() => Settings.ShouldBlurNames.Value = !Settings.ShouldBlurNames;
 
         public void SortPlayers()
         {
