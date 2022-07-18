@@ -85,7 +85,6 @@
 		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Infernal Melody"/>
 		<Abnormality Id="ABNORMALITY_SPEED_EVADE_UP" String="Speed Boost + Evade Window Up"/>
 		<Abnormality Id="ABNORMALITY_ALL_RES_ELEMENT_ATTACK" String="Elemental Effectiveness"/>
-		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Infernal Melody"/>
 		
 		<Abnormality Id="ABNORMALITY_RESUSCITATE" String="Resuscitate"/>
 		<Abnormality Id="ABNORMALITY_WINDPROOF" String="Windproof"/>
