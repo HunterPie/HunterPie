@@ -35,8 +35,8 @@ namespace HunterPie.Core.Game.Rise.Entities
         private MHRMonsterAilment _enrage = new MHRMonsterAilment("STATUS_ENRAGE");
         private readonly Dictionary<long, MHRMonsterPart> parts = new();
         private readonly Dictionary<long, MHRMonsterAilment> ailments = new();
-
-
+        private readonly List<Element> _weaknesses = new();
+        
         public int Id
         {
             get => _id;
@@ -45,6 +45,7 @@ namespace HunterPie.Core.Game.Rise.Entities
                 if (_id != value)
                 {
                     _id = value;
+                    GetMonsterWeaknesses();
                     this.Dispatch(OnSpawn);
                 }
             }
@@ -142,6 +143,8 @@ namespace HunterPie.Core.Game.Rise.Entities
 
         public IMonsterAilment Enrage => _enrage;
 
+        public Element[] Weaknesses => _weaknesses.ToArray();
+
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
         public event EventHandler<EventArgs> OnDespawn;
@@ -156,12 +159,24 @@ namespace HunterPie.Core.Game.Rise.Entities
         public event EventHandler<EventArgs> OnTargetChange;
         public event EventHandler<IMonsterPart> OnNewPartFound;
         public event EventHandler<IMonsterAilment> OnNewAilmentFound;
+        public event EventHandler<Element[]> OnWeaknessesChange;
 
         public MHRMonster(IProcessManager process, long address) : base(process)
         {
             _address = address;
 
             Log.Debug($"Initialized monster at address {address:X}");
+        }
+
+        private void GetMonsterWeaknesses()
+        {
+            var data = MonsterData.GetMonsterData(Id);
+
+            if (data.HasValue)
+            {
+                _weaknesses.AddRange(data.Value.Weaknesses);
+                this.Dispatch(OnWeaknessesChange, Weaknesses);
+            }
         }
 
         [ScannableMethod(typeof(MonsterInformationData))]
@@ -277,7 +292,7 @@ namespace HunterPie.Core.Game.Rise.Entities
                     var dummy = new MHRMonsterPart(partName, partInfo);
                     parts.Add(flinchPart, dummy);
 
-                    Log.Debug($"Found {partName} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X}");
+                    //Log.Debug($"Found {partName} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X}");
                     this.Dispatch(OnNewPartFound, dummy);
                 }
 
@@ -419,7 +434,7 @@ namespace HunterPie.Core.Game.Rise.Entities
                     ailments.Add(ailmentAddress, dummy);
 
                     this.Dispatch(OnNewAilmentFound, dummy);
-                    Log.Debug($"Found new ailment at {ailmentAddress:X08}");
+                    //Log.Debug($"Found new ailment at {ailmentAddress:X08}");
                 }
 
                 MHRMonsterAilment ailment = ailments[ailmentAddress];

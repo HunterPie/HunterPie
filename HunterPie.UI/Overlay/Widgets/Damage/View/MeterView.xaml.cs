@@ -2,7 +2,7 @@
 using HunterPie.Core.Settings;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Enums;
-using HunterPie.UI.Overlay.Widgets.Damage.ViewModel;
+using HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
 using System;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.View

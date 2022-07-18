@@ -4,9 +4,9 @@
     <TargetFramework>net6.0</TargetFramework>
     <Authors>Haato</Authors>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <Version>2.1.0.0</Version>
-    <AssemblyVersion>2.1.1.68</AssemblyVersion>
-    <FileVersion>2.1.1.68</FileVersion>
+    <Version>2.2.0.0</Version>
+    <AssemblyVersion>2.2.1.88</AssemblyVersion>
+    <FileVersion>2.2.1.88</FileVersion>
  </PropertyGroup>
 
   <ItemGroup>
