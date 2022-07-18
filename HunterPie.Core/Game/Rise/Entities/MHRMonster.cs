@@ -32,7 +32,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         private Target _target;
         private Crown _crown;
         private float _stamina;
-        private MHRMonsterAilment _enrage = new MHRMonsterAilment("STATUS_ENRAGE");
+        private readonly MHRMonsterAilment _enrage = new MHRMonsterAilment("STATUS_ENRAGE");
         private readonly Dictionary<long, MHRMonsterPart> parts = new();
         private readonly Dictionary<long, MHRMonsterAilment> ailments = new();
         private readonly List<Element> _weaknesses = new();
