@@ -19,5 +19,7 @@ namespace HunterPie.Core.Domain.Process
         public IMemory Memory { get; }
 
         public void Initialize();
+        public void Pause();
+        public void Resume();
     }
 }

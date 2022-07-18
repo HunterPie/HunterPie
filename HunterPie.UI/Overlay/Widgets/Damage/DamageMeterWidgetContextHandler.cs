@@ -9,7 +9,7 @@ using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Brushes;
 using HunterPie.UI.Overlay.Widgets.Damage.Helpers;
 using HunterPie.UI.Overlay.Widgets.Damage.View;
-using HunterPie.UI.Overlay.Widgets.Damage.ViewModel;
+using HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -117,10 +117,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
                 vm.Percentage = totalDamage > 0 ? member.Damage / totalDamage * 100 : 0;
                 vm.DPS = newDps;
 
-                if (points.Count >= 50)
-                    points.RemoveAt(0);
-
-                points.Add(new ObservablePoint(ViewModel.TimeElapsed, vm.DPS));
+                var point = CalculatePointByConfiguredStrategy(vm);
+                points.Add(point);
             }
         }
 
@@ -146,6 +144,9 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         {
             MemberInfo member = _members[e];
             PlayerViewModel vm = member.ViewModel;
+
+            if (member.FirstHitAt == -1)
+                member.FirstHitAt = ViewModel.TimeElapsed;
 
             double newDps = CalculateDpsByConfiguredStrategy(member);
             vm.IsIncreasing = newDps > vm.DPS;
@@ -239,11 +240,24 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             {
                 DPSCalculationStrategy.RelativeToQuest => ViewModel.TimeElapsed,
                 DPSCalculationStrategy.RelativeToJoin => ViewModel.TimeElapsed - Math.Min(ViewModel.TimeElapsed, member.JoinedAt),
+                DPSCalculationStrategy.RelativeToFirstHit => ViewModel.TimeElapsed - Math.Min(ViewModel.TimeElapsed, member.FirstHitAt),
                 _ => 1,
             };
             timeElapsed = Math.Max(1, timeElapsed);
 
             return member.ViewModel.Damage / timeElapsed;
+        }
+
+        private ObservablePoint CalculatePointByConfiguredStrategy(PlayerViewModel player)
+        {
+            double damage = (View.Settings.DamagePlotStrategy.Value) switch
+            {
+                DamagePlotStrategy.TotalDamage => player.Damage,
+                DamagePlotStrategy.DamagePerSecond => player.DPS,
+                _ => throw new NotImplementedException(),
+            };
+
+            return new ObservablePoint(ViewModel.TimeElapsed, damage);
         }
         #endregion
     }
