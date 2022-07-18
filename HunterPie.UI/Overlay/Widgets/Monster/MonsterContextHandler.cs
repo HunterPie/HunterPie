@@ -88,6 +88,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
         {
             CaptureThreshold = e.CaptureThreshold;
             IsCapturable = CaptureThreshold >= (Health / MaxHealth);
+            CanBeCaptured = e.CaptureThreshold > 0;
         }
         private void OnWeaknessesChange(object sender, Element[] e)
         {
@@ -178,6 +179,7 @@ namespace HunterPie.UI.Overlay.Widgets.Monster
             IsEnraged = Context.IsEnraged;
             IsAlive = Context.Health > 0;
             CaptureThreshold = Context.CaptureThreshold;
+            CanBeCaptured = Context.CaptureThreshold > 0;
             IsCapturable = CaptureThreshold >= (Health / MaxHealth);
             
             

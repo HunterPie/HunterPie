@@ -14,13 +14,13 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
     public class MockMeterViewModel : MeterViewModel
     {
         private int totalDamage = 0;
-        private readonly DamageMeterWidgetConfig _mockConfig;
+        private static readonly DamageMeterWidgetConfig _mockConfig = new();
         public readonly List<ChartValues<ObservablePoint>> _playerChartValues = new();
 
-        public MockMeterViewModel()
+        public MockMeterViewModel() : base(_mockConfig)
         {
             InHuntingZone = true;
-            
+
             MockPlayers();
             MockPlayerSeries();
 

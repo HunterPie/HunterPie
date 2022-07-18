@@ -325,7 +325,8 @@
             <!-- Capture tick -->
             <StackPanel Orientation="Vertical"
                         VerticalAlignment="Top"
-                        HorizontalAlignment="Left">
+                        HorizontalAlignment="Left"
+                        Visibility="{Binding CanBeCaptured, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Image Source="{StaticResource ICON_FUNNEL}"
                        Height="10"
                        Width="10"/>

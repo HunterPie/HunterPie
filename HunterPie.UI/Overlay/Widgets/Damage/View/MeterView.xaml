@@ -74,16 +74,14 @@
                           d:DataContext="{StaticResource MockViewModel}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel ItemHeight="40"
-                                   Orientation="Vertical"
-                                   ItemWidth="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                                   IsItemsHost="True"/>
+                        <StackPanel Orientation="Vertical"
+                                    IsItemsHost="True"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:PlayerViewModel}">
-                        <local:PlayerDamageView/>
+                        <local:PlayerDamageView Height="38"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
