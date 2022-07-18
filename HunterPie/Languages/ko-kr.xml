@@ -8,7 +8,7 @@
 			<Ailment Id="AILMENT_STUN" String="기절"/>
 			<Ailment Id="AILMENT_POISON" String="독"/>
 			<Ailment Id="AILMENT_BLAST" String="폭파"/>
-			<Ailment Id="AILMENT_EXHAUST" String="멸기"/>
+			<Ailment Id="AILMENT_EXHAUST" String="기력 감소"/>
 			<Ailment Id="AILMENT_MOUNT" String="올라타기"/>
 			<Ailment Id="AILMENT_RIDE" String="용 조종"/>
 			<Ailment Id="AILMENT_FLASH" String="실명"/>
@@ -85,7 +85,6 @@
 		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="기염의 선율"/>
 		<Abnormality Id="ABNORMALITY_SPEED_EVADE_UP" String="자기 강화 [속]&amp;회피 성능 UP"/>
 		<Abnormality Id="ABNORMALITY_ALL_RES_ELEMENT_ATTACK" String="속성계 효과 UP"/>
-		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="기염의 선율"/>
 
 		<Abnormality Id="ABNORMALITY_RESUSCITATE" String="꿀벌레 근성"/>
 		<Abnormality Id="ABNORMALITY_WINDPROOF" String="풍압 무효"/>
