@@ -11,6 +11,7 @@ namespace HunterPie.Core.Game.Environment
         public float MaxHealth { get; }
         public float Stamina { get; }
         public float MaxStamina { get; }
+        public float CaptureThreshold { get; }
         public bool IsTarget { get; }
         public bool IsEnraged { get; }
         public Target Target { get; }
@@ -35,5 +36,6 @@ namespace HunterPie.Core.Game.Environment
         public event EventHandler<IMonsterPart> OnNewPartFound;
         public event EventHandler<IMonsterAilment> OnNewAilmentFound;
         public event EventHandler<Element[]> OnWeaknessesChange;
+        public event EventHandler<IMonster> OnCaptureThresholdChange;
     }
 }
