@@ -551,7 +551,7 @@
 
 			<!-- Rise -->
 			<Discord Id="DRPC_RISE_CHARACTER_STRING_FORMAT"
-					 String="{Character} | HR: {HighRank}"/>
+					 String="{Character} | HR: {HighRank} | MR: {MasterRank}"/>
 			<Discord Id="DRPC_RISE_STATE_PRACTICE"
 					 String="Practicing"/>
 			<Discord Id="DRPC_RISE_STATE_RAMPAGE"
