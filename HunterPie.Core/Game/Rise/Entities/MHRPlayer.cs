@@ -52,6 +52,8 @@ namespace HunterPie.Core.Game.Rise.Entities
 
         public int HighRank { get; private set; }
 
+        public int MasterRank { get; private set; }
+
         public int StageId
         {
             get => _stageId;
@@ -218,9 +220,10 @@ namespace HunterPie.Core.Game.Rise.Entities
 
             int[] levelOffsets = { SaveSlotId * 8 + 0x20, 0x18 };
 
-            int level = _process.Memory.Deref<int>(saveAddress, levelOffsets);
+            var level = _process.Memory.Deref<MHRPlayerLevelStructure>(saveAddress, levelOffsets);
 
-            HighRank = level;
+            HighRank = level.HighRank;
+            MasterRank = level.MasterRank;
         }
 
         [ScannableMethod]
