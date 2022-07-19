@@ -566,10 +566,29 @@
 					 String="Training"/>
 		</Integrations>
 		<Enums>
+			<Enum Id="SORT_BY_LOWEST_TIMER_STRING"
+				  String="Lowest"/>
+			<Enum Id="SORT_BY_HIGHEST_TIMER_STRING"
+				  String="Highest"/>
+			<Enum Id="SORT_BY_DISABLED_STRING"
+				  String="No sorting"/>
+			
+			<Enum Id="ORIENTATION_HORIZONTAL_STRING"
+				  String="Horizontal"/>
+			<Enum Id="ORIENTATION_VERTICAL_STRING"
+				  String="Vertical"/>
+
 			<Enum Id="RELATIVE_TO_QUEST_STRING"
 				  String="Relative to quest"/>
 			<Enum Id="RELATIVE_TO_JOIN_STRING"
 				  String="Relative to join"/>
+			<Enum Id="RELATIVE_TO_FIRST_HIT_STRING"
+				  String="Relative to first hit"/>
+
+			<Enum Id="PLOT_TOTAL_DAMAGE_STRING"
+				  String="Total damage"/>
+			<Enum Id="PLOT_DPS_STRING"
+				  String="Damage per second"/>
 		</Enums>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
