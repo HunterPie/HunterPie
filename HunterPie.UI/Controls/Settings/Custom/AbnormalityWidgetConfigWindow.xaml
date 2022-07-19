@@ -16,20 +16,18 @@
         MinWidth="600"
         Width="900"
         WindowStyle="None"
-        ResizeMode="CanResize"
-        AllowsTransparency="True"
-        Background="Transparent"
+        Background="Black"
         Icon="{StaticResource ICON_SETTINGS_FILLED}"
         UseLayoutRounding="True"
         SnapsToDevicePixels="True"
+        ResizeMode="CanResize"
         Closing="OnClosing"
         WindowStartupLocation="CenterOwner">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"
                       CornerRadius="0"
-                      GlassFrameThickness="5"
-                      ResizeBorderThickness="5"
-                      UseAeroCaptionButtons="False" />
+                      GlassFrameThickness="-1"
+                      ResizeBorderThickness="5" />
     </WindowChrome.WindowChrome>
     <Window.Resources>
         <converters:ObjectToUiConverter x:Key="ObjectToUiConverter"/>
@@ -66,7 +64,7 @@
                             FontSize="13"/>
         </DataTemplate>
     </Window.Resources>
-    <wnd:WindowChrome>
+    <wnd:WindowChrome Background="Transparent">
         <wnd:WindowChrome.Container>
             <Grid>
                 <Grid.RowDefinitions>
