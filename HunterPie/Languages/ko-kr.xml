@@ -565,10 +565,29 @@
 					 String="훈련구역에서 훈련 중"/>
 		</Integrations>
 		<Enums>
+			<Enum Id="SORT_BY_LOWEST_TIMER_STRING"
+ 				  String="낮은 순 정렬"/>
+ 			<Enum Id="SORT_BY_HIGHEST_TIMER_STRING"
+ 				  String="높은 순 정렬"/>
+ 			<Enum Id="SORT_BY_DISABLED_STRING"
+ 				  String="정렬 안함"/>
+
+ 			<Enum Id="ORIENTATION_HORIZONTAL_STRING"
+ 				  String="가로"/>
+ 			<Enum Id="ORIENTATION_VERTICAL_STRING"
+ 				  String="세로"/>
+
 			<Enum Id="RELATIVE_TO_QUEST_STRING"
 				  String="퀘스트 기준"/>
 			<Enum Id="RELATIVE_TO_JOIN_STRING"
 				  String="참가 기준"/>
+			<Enum Id="RELATIVE_TO_FIRST_HIT_STRING"
+ 				  String="첫 타격 기준"/>
+
+ 			<Enum Id="PLOT_TOTAL_DAMAGE_STRING"
+ 				  String="총 대미지"/>
+ 			<Enum Id="PLOT_DPS_STRING"
+ 				  String="초당 대미지"/>
 		</Enums>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
