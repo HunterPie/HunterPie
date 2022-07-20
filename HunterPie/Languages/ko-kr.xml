@@ -550,7 +550,7 @@
 
 			<!-- Rise -->
 			<Discord Id="DRPC_RISE_CHARACTER_STRING_FORMAT"
-					 String="{Character} | HR: {HighRank}"/>
+					 String="{Character} | HR: {HighRank} | MR: {MasterRank}"/>
 			<Discord Id="DRPC_RISE_STATE_PRACTICE"
 					 String="수련장에서 수련 중"/>
 			<Discord Id="DRPC_RISE_STATE_RAMPAGE"
