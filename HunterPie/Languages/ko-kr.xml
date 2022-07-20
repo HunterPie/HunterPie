@@ -566,9 +566,9 @@
 		</Integrations>
 		<Enums>
 			<Enum Id="SORT_BY_LOWEST_TIMER_STRING"
- 				  String="낮은 순 정렬"/>
+ 				  String="짧은 시간 순"/>
  			<Enum Id="SORT_BY_HIGHEST_TIMER_STRING"
- 				  String="높은 순 정렬"/>
+ 				  String="긴 시간 순"/>
  			<Enum Id="SORT_BY_DISABLED_STRING"
  				  String="정렬 안함"/>
 
