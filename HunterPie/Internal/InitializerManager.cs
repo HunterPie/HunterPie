@@ -11,6 +11,7 @@ namespace HunterPie.Internal
     {
         private static HashSet<IInitializer> _initializers = new()
         {
+            new CustomFontsInitializer(),
             // Core
             new LocalConfigInitializer(),
             new ClientConfigMigrationInitializer(),

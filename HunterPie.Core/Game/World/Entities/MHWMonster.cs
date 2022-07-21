@@ -145,6 +145,9 @@ namespace HunterPie.Core.Game.World.Entities
 
         public Element[] Weaknesses => Array.Empty<Element>();
 
+        // TODO: Maybe v2.3.0?
+        public float CaptureThreshold => 0;
+
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
         public event EventHandler<EventArgs> OnDespawn;
@@ -160,6 +163,7 @@ namespace HunterPie.Core.Game.World.Entities
         public event EventHandler<IMonsterAilment> OnNewAilmentFound;
         public event EventHandler<EventArgs> OnEnrageStateChange;
         public event EventHandler<Element[]> OnWeaknessesChange;
+        public event EventHandler<IMonster> OnCaptureThresholdChange;
 
         public MHWMonster(IProcessManager process, long address, string em) : base(process)
         {

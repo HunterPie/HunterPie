@@ -27,6 +27,7 @@
         <converters:CrownToVisibilityConverter x:Key="CrownToVisibilityConverter"/>
         <converters:TargetTypeToVisibility x:Key="TargetTypeToVisibility"/>
         <converters:IsValidPartConverter x:Key="IsValidPartConverter"/>
+        <converters:PercentageToLeftMargingDistanceConverter x:Key="PercentageToLeftMargingDistanceConverter"/>
 
         <LinearGradientBrush x:Key="MonsterHealthEnraged" EndPoint="1,1" StartPoint="0,1">
             <GradientStop Color="#d42c2c"/>
@@ -221,7 +222,7 @@
                  FontWeight="Light"
                  Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"/>
             </TextBlock>
-            
+
             <!-- Health bar -->
             <overlay:Bar Height="15"
                          Foreground="{StaticResource MonsterHealthUnenraged}"
@@ -277,7 +278,7 @@
                     </Style>
                 </overlay:Bar.Style>
             </overlay:Bar>
-            
+
             <TextBlock VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                        Margin="10,15,0,0"
@@ -320,7 +321,32 @@
                  FontWeight="Light"
                  Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"/>
             </TextBlock>
+
+            <!-- Capture tick -->
+            <StackPanel Orientation="Vertical"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Visibility="{Binding CanBeCaptured, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Image Source="{StaticResource ICON_FUNNEL}"
+                       Height="10"
+                       Width="10"/>
+                <StackPanel.Margin>
+                    <MultiBinding Converter="{StaticResource PercentageToLeftMargingDistanceConverter}" ConverterParameter="0,30,0,0">
+                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Grid}}"/>
+                        <Binding Path="DataContext.CaptureThreshold" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:BossMonsterView}}"/>
+                    </MultiBinding>
+                </StackPanel.Margin>
+            </StackPanel>
         </Grid>
+
+        <!-- Capture indicator -->
+        <Image Source="{StaticResource ICON_TRAP}"
+               Height="25"
+               Width="25"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Right"
+               Margin="0,2,30,0"
+               Visibility="{Binding IsCapturable, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
         <!-- Monster Icon -->
         <Grid Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"

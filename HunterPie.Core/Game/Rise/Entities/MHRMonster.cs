@@ -32,7 +32,8 @@ namespace HunterPie.Core.Game.Rise.Entities
         private Target _target;
         private Crown _crown;
         private float _stamina;
-        private MHRMonsterAilment _enrage = new MHRMonsterAilment("STATUS_ENRAGE");
+        private float _captureThreshold;
+        private readonly MHRMonsterAilment _enrage = new MHRMonsterAilment("STATUS_ENRAGE");
         private readonly Dictionary<long, MHRMonsterPart> parts = new();
         private readonly Dictionary<long, MHRMonsterAilment> ailments = new();
         private readonly List<Element> _weaknesses = new();
@@ -145,6 +146,19 @@ namespace HunterPie.Core.Game.Rise.Entities
 
         public Element[] Weaknesses => _weaknesses.ToArray();
 
+        public float CaptureThreshold
+        {
+            get => _captureThreshold;
+            private set
+            {
+                if (value != _captureThreshold)
+                {
+                    _captureThreshold = value;
+                    this.Dispatch(OnCaptureThresholdChange, this);
+                }
+            }
+        }
+
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
         public event EventHandler<EventArgs> OnDespawn;
@@ -160,6 +174,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         public event EventHandler<IMonsterPart> OnNewPartFound;
         public event EventHandler<IMonsterAilment> OnNewAilmentFound;
         public event EventHandler<Element[]> OnWeaknessesChange;
+        public event EventHandler<IMonster> OnCaptureThresholdChange;
 
         public MHRMonster(IProcessManager process, long address) : base(process)
         {
@@ -214,6 +229,18 @@ namespace HunterPie.Core.Game.Rise.Entities
 
             MaxHealth = dto.MaxHealth;
             Health = dto.Health;
+        }
+
+        [ScannableMethod]
+        private void GetMonsterCaptureThreshold()
+        {
+            long captureHealthPtr = _process.Memory.ReadPtr(
+                _address,
+                AddressMap.Get<int[]>("MONSTER_CAPTURE_HEALTH_THRESHOLD")
+            );
+            float captureHealth = _process.Memory.Read<float>(captureHealthPtr + 0x1C);
+
+            CaptureThreshold = captureHealth / MaxHealth;
         }
 
         [ScannableMethod]

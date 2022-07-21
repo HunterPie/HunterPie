@@ -9,7 +9,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
 {
     public class MeterViewModel : ViewModel
     {
-        public DamageMeterWidgetConfig Settings { get; internal set; }
+        public DamageMeterWidgetConfig Settings { get; }
         private double _timeElapsed = 1;
         private int _deaths;
         private bool _inHuntingZone;
@@ -38,8 +38,9 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
 
         public bool InHuntingZone { get => _inHuntingZone; set { SetValue(ref _inHuntingZone, value); } }
 
-        public MeterViewModel()
+        public MeterViewModel(DamageMeterWidgetConfig config)
         {
+            Settings = config;
             SetupFormatters();
         }
 

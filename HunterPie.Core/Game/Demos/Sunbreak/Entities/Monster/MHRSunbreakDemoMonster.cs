@@ -143,6 +143,8 @@ namespace HunterPie.Core.Game.Demos.Sunbreak.Entities.Monster
 
         public Element[] Weaknesses => _weaknesses.ToArray();
 
+        public float CaptureThreshold => 0;
+
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
         public event EventHandler<EventArgs> OnDespawn;
@@ -158,6 +160,7 @@ namespace HunterPie.Core.Game.Demos.Sunbreak.Entities.Monster
         public event EventHandler<IMonsterPart> OnNewPartFound;
         public event EventHandler<IMonsterAilment> OnNewAilmentFound;
         public event EventHandler<Element[]> OnWeaknessesChange;
+        public event EventHandler<IMonster> OnCaptureThresholdChange;
 
         public MHRSunbreakDemoMonster(IProcessManager process, long address) : base(process)
         {
