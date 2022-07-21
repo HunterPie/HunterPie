@@ -654,7 +654,7 @@
         <Monster Id="80"
                  Size="845.91">
             <Crowns Mini="0.97"
-                    Silver="0.17"/>
+                    Silver="1.17"/>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
                 <Part Id="1" String="PART_TORSO" />
