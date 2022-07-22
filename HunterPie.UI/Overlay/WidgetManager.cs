@@ -61,7 +61,7 @@ namespace HunterPie.UI.Overlay
         public static bool Register<T, K>(T widget) where T : IWidgetWindow, IWidget<K>
                                                     where K : IWidgetSettings
         {
-            if (_instance.Widgets.ContainsKey(widget))
+            if (Instance.Widgets.ContainsKey(widget))
                 return false;
 
             WidgetBase wnd = new WidgetBase() { Widget = widget };
@@ -76,10 +76,10 @@ namespace HunterPie.UI.Overlay
         public static bool Unregister<T, K>(T widget) where T : IWidgetWindow, IWidget<K>
                                                       where K : IWidgetSettings
         {
-            if (!_instance.Widgets.ContainsKey(widget))
+            if (Instance.Widgets.ContainsKey(widget))
                 return false;
 
-            WidgetBase wnd = _instance.Widgets[widget];
+            WidgetBase wnd = Instance.Widgets[widget];
             wnd.Close();
             
             return Instance._widgets.Remove(widget);

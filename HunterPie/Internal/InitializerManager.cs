@@ -17,11 +17,11 @@ namespace HunterPie.Internal
             new ClientConfigMigrationInitializer(),
             new ClientConfigInitializer(),
             new ConfigManagerInitializer(),
-            new HunterPieLoggerInitializer(),
             new FeatureFlagsInitializer(),
+            new NativeLoggerInitializer(),
+            new HunterPieLoggerInitializer(),
             new MapperFactoryInitializer(),
 
-            new NativeLoggerInitializer(),
             new ExceptionCatcherInitializer(),
             new DialogManagerInitializer(),
             new UITracerInitializer(),
