@@ -76,7 +76,7 @@ namespace HunterPie.UI.Overlay
         public static bool Unregister<T, K>(T widget) where T : IWidgetWindow, IWidget<K>
                                                       where K : IWidgetSettings
         {
-            if (Instance.Widgets.ContainsKey(widget))
+            if (!Instance.Widgets.ContainsKey(widget))
                 return false;
 
             WidgetBase wnd = Instance.Widgets[widget];
