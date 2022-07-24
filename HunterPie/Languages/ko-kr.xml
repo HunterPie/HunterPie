@@ -675,7 +675,7 @@
 					 Description="HunterPie의 렌더 프레임율, 높을수록 애니메이션이 부드러워집니다. 이 값을 낮출수록 성능이 개선됩니다."/>
 			<Setting Id="RENDERING_STRATEGY_STRING"
 					 String="렌더링 방식"
-					 Description="HunterPie의 렌더링 방식입니다. 소프트웨어 렌더링은 CPU를 사용하고, 하드웨어 렌더링은 그래픽 카드를 사용합니다."/>
+					 Description="HunterPie의 렌더링 방식입니다. Software 렌더링은 CPU를 사용하고, Hardware 렌더링은 그래픽 카드를 사용합니다."/>
 			<Setting Id="POLLING_RATE_STRING"
 					 String="메모리 스캔 딜레이 (ms 단위)"
 					 Description="HunterPie 스캐너의 딜레이 설정입니다, 낮게 설정할수록 부드럽게 작동하지만, 그만큼 CPU 자원을 많이 사용합니다."/>
