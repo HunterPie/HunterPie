@@ -124,6 +124,7 @@
 		<Abnormality Id="ABNORMALITY_FOOD_TIMER" String="식사 불가"/>
 		<Abnormality Id="ABNORMALITY_RUBY_WIREBUG" String="변환밧줄벌레-홍"/>
 		<Abnormality Id="ABNORMALITY_GOLD_WIREBUG" String="변환밧줄벌레-금"/>
+		<Abnormality Id="ABNORMALITY_STINKMINK" String="연기 족제비"/>
 
 		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="경단 벌크업"/>
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="경단 단기최면술"/>
@@ -131,6 +132,7 @@
 
 		<Abnormality Id="ABNORMALITY_FORTIFY" String="불굴"/>
 		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="역습"/>
+		<Abnormality Id="ABNORMALITY_CHAIN_CRIT" String="연격"/>
 		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="힘의 해방"/>
 		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="활주 강화"/>
 		<Abnormality Id="ABNORMALITY_PROTECTIVE_POLISH" String="칼날 연마"/>
