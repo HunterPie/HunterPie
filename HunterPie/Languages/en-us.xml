@@ -125,6 +125,7 @@
 		<Abnormality Id="ABNORMALITY_FOOD_TIMER" String="Food Timer"/>
 		<Abnormality Id="ABNORMALITY_RUBY_WIREBUG" String="Ruby Wirebug"/>
 		<Abnormality Id="ABNORMALITY_GOLD_WIREBUG" String="Gold Wirebug"/>
+		<Abnormality Id="ABNORMALITY_STINKMINK" String="Stinkmink"/>
 		
 		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="Dango Bulker"/>
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="Dango Booster"/>
@@ -132,6 +133,7 @@
 		
 		<Abnormality Id="ABNORMALITY_FORTIFY" String="Fortify"/>
 		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="Counterstrike"/>
+		<Abnormality Id="ABNORMALITY_CHAIN_CRIT" String="Chain Crit"/>
 		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="Latent Power"/>
 		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="Affinity Sliding"/>
 		<Abnormality Id="ABNORMALITY_PROTECTIVE_POLISH" String="Protective Polish"/>
