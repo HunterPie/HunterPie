@@ -29,7 +29,7 @@ HunterPie v2 is a version of HunterPie completely rewritten from scratch, howeve
 
 ### Requirements
 
-- .NET 5 Desktop Runtime
+- .NET 6 Desktop Runtime
 
 ### Installation
 
