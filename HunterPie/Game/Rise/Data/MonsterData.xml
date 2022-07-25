@@ -379,8 +379,9 @@
         <Monster Id="21"
                  Size="558.1">
             <Weaknesses>
-                <Weakness Name="Dragon"/>
-                <Weakness Name="Water"/>
+                <Weakness Name="Fire"/>
+                <Weakness Name="Ice"/>
+                <Weakness Name="Thunder"/>
             </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
@@ -396,8 +397,7 @@
                     Silver="1.03"
                     Gold="1.05"/>
             <Weaknesses>
-                <Weakness Name="Water"/>
-                <Weakness Name="Dragon"/>
+                <Weakness Name="Fire"/>
             </Weaknesses>
             <Parts>
                 <Part Id="0" String="PART_HEAD" />
