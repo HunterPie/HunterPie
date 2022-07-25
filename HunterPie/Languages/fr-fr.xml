@@ -127,6 +127,7 @@
 		<Abnormality Id="ABNORMALITY_FOOD_TIMER" String="Temps pour manger"/>
 		<Abnormality Id="ABNORMALITY_RUBY_WIREBUG" String="Filoptère rubis"/>
 		<Abnormality Id="ABNORMALITY_GOLD_WIREBUG" String="Filoptère doré"/>
+		<Abnormality Id="ABNORMALITY_STINKMINK" String="Cendrelette"/>
 
 		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="Dango blindé"/>
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="Dango booster"/>
@@ -134,6 +135,7 @@
 
 		<Abnormality Id="ABNORMALITY_FORTIFY" String="Jamais vaincu"/>
 		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="Contre-attaque"/>
+		<Abnormality Id="ABNORMALITY_CHAIN_CRIT" String="Vendetta"/>
 		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="Pouvoir latent"/>
 		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="Roi de la glisse"/>
 		<Abnormality Id="ABNORMALITY_PROTECTIVE_POLISH" String="Acier trempé"/>
