@@ -23,6 +23,9 @@ To calculate the damage for Monster Hunter Rise, HunterPie will sum every hit da
 - Damage done by ailments (e.g: poison, blast)
 - Damage done by other monsters
 
+> **Warning:** Hitting a dead monster will still count as damage done to a monster. This is a known issue and will be fixed eventually.
+{:.prompt-danger}
+
 ## Settings
 
 ### Player colors
