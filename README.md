@@ -1,14 +1,26 @@
+
 <img src="https://cdn.hunterpie.com/Static/banner2-0.png"/>
+<div align = center>
 
-[![Discord](https://img.shields.io/discord/678286768046342147?color=7289DA&label=Discord&logo=discord&logoColor=white&style=for-the-badge)](https://discord.gg/5pdDq4Q)
-[![Paypal](https://img.shields.io/badge/donate-Paypal-blue.svg?color=62b2fc&style=for-the-badge&label=Donate)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F2QA6HEQZ366A&source=url)
-[![Patreon](https://img.shields.io/badge/Support-Patreon-blue.svg?color=fc8362&style=for-the-badge&logo=patreon&logoColor=white)](https://www.patreon.com/HunterPie)
+[![Badge Discord]][Discord]
+[![Badge Patreon]][Patreon]
+[![Badge PayPal]][PayPal]
 
-[![GitHub license](https://img.shields.io/github/license/Haato3o/HunterPie-v2?color=c20067&style=for-the-badge)](https://github.com/Haato3o/HunterPie-v2/blob/main/LICENSE)
+[![Badge License]][License]
+![Badge Lines]
+![Badge Wakatime]
 
-[![Version](https://img.shields.io/badge/dynamic/json?color=%2303a9fc&label=Version&prefix=v&query=latest_version&url=https%3A%2F%2Fapi.hunterpie.com%2Fv1%2Fversion&style=for-the-badge)](https://www.nexusmods.com/monsterhunterrise/mods/181)
+[![Badge Version]][Nexus]
 
-[![wakatime](https://wakatime.com/badge/github/Haato3o/HunterPie.svg)](https://wakatime.com/badge/github/Haato3o/HunterPie)
+---
+
+**[<kbd> <br> Install <br> </kbd>][Installation]** 
+**[<kbd> <br> Documentation <br> </kbd>][Documentation]** 
+**[<kbd> <br> Contribute <br> </kbd>][Contribution]**  
+
+---
+</div>
+
 # HunterPie
 
 ## About
@@ -42,3 +54,25 @@ HunterPie's documentation can be found [here](https://docs.hunterpie.com).
 ## Suggestions & PRs
 
 Suggestions and pull requests are very appreciated, just keep in mind to follow the project architecture to keep it consistent.
+
+<!------- { Summary } ------>
+[Installation]: https://github.com/Haato3o/HunterPie-v2#installation
+[Documentation]: https://github.com/Haato3o/HunterPie-v2#documentation
+[Contribution]: https://github.com/Haato3o/HunterPie-v2#suggestions--prs
+
+<!------- { Links } -------->
+[Discord]: https://discord.gg/5pdDq4Q
+[Patreon]: https://www.patreon.com/HunterPie
+[PayPal]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F2QA6HEQZ366A&source=url
+[License]: https://github.com/Haato3o/HunterPie-v2/blob/main/LICENSE
+[Wakatime]: https://wakatime.com/badge/github/Haato3o/HunterPie
+[Nexus]: https://www.nexusmods.com/monsterhunterrise/mods/181
+
+<!------- { Badges } ------->
+[Badge Discord]: https://img.shields.io/discord/678286768046342147?color=7289DA&label=Discord&logo=discord&logoColor=white
+[Badge Patreon]: https://img.shields.io/badge/Support-Patreon-blue.svg?color=fc8362&logo=patreon&logoColor=white
+[Badge PayPal]: https://img.shields.io/badge/donate-Paypal-blue.svg?color=62b2fc&logo=paypal&label=Support
+[Badge License]: https://img.shields.io/github/license/Haato3o/HunterPie-v2?color=c20067
+[Badge Wakatime]: https://wakatime.com/badge/github/Haato3o/HunterPie.svg
+[Badge Lines]: https://img.shields.io/tokei/lines/github/haato3o/hunterpie-v2?color=985fe8
+[Badge Version]: https://img.shields.io/badge/dynamic/json?color=%2303a9fc&label=Version&prefix=v&query=latest_version&url=https%3A%2F%2Fapi.hunterpie.com%2Fv1%2Fversion
