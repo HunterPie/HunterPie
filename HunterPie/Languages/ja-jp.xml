@@ -130,6 +130,7 @@
 		<Abnormality Id="ABNORMALITY_FOOD_TIMER" String="食事"/>
 		<Abnormality Id="ABNORMALITY_RUBY_WIREBUG" String="変幻翔蟲・紅"/>
 		<Abnormality Id="ABNORMALITY_GOLD_WIREBUG" String="変幻翔蟲・金"/>
+		<Abnormality Id="ABNORMALITY_STINKMINK" String="エンエンク"/>
 		
 		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="おだんごビルドアップ"/>
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="おだんご短期催眠術"/>
@@ -137,6 +138,7 @@
 		
 		<Abnormality Id="ABNORMALITY_FORTIFY" String="不屈"/>
 		<Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="逆襲"/>
+		<Abnormality Id="ABNORMALITY_CHAIN_CRIT" String="連撃"/>
 		<Abnormality Id="ABNORMALITY_LATENTPOWER" String="力の解放"/>
 		<Abnormality Id="ABNORMALITY_AFFINITY_SLIDING" String="滑走強化"/>
 		<Abnormality Id="ABNORMALITY_PROTECTIVE_POLISH" String="剛刃研磨"/>
@@ -234,6 +236,73 @@
 			<Part Id="PART_FORELEG" String="前脚"/>
 			<Part Id="PART_H_LEG" String="後脚"/>
 			<Part Id="PART_ANTENNA" String="触角"/>
+			<Part Id="PART_CREST" String="傘"/>
+			<Part Id="PART_THROAT" String="喉"/>
+			<Part Id="PART_BIG_FLINCH" String="特殊怯み"/>
+			<Part Id="PART_HORNS" String="角"/>
+			<Part Id="PART_HORN" String="角"/>
+			<Part Id="PART_KNOCKDOWN" String="兵器ダウン"/>
+			<Part Id="PART_HORNS_2" String="角（二回目）"/>
+			<Part Id="PART_RAGE" String="怒り解除"/>
+			<Part Id="PART_L_LIMBS" String="左手脚"/>
+			<Part Id="PART_R_LIMBS" String="右手脚"/>
+			<Part Id="PART_LIMBS" String="手足"/>
+			<Part Id="PART_COUNTERATTACK" String="反撃"/>
+			<Part Id="PART_JAW" String="顎"/>
+			<Part Id="PART_EXPLOSION_WEAKENING" String="エスカトン弱体化"/>
+			<Part Id="PART_CHARGE" String="帯電"/>
+			<Part Id="PART_FIN" String="ひれ"/>
+			<Part Id="PART_INFLATED_TAIL" String="膨れた尻尾"/>
+			<Part Id="PART_SILVER_SPIKES_HEAD" String="金剛棘（頭）"/>
+			<Part Id="PART_SILVER_SPIKES_L_ARM" String="金剛棘（左前脚）"/>
+			<Part Id="PART_SILVER_SPIKES_R_ARM" String="金剛棘（右前脚）"/>
+			<Part Id="PART_SILVER_SPIKES_L_WING" String="金剛棘（左翼）"/>
+			<Part Id="PART_SILVER_SPIKES_R_WING" String="金剛棘（右翼）"/>
+			<Part Id="PART_EXHAUST_ORGAN_CENTRAL" String="排熱器官【中央】"/>
+			<Part Id="PART_EXHAUST_ORGAN_HEAD" String="排熱器官【頭部】"/>
+			<Part Id="PART_EXHAUST_ORGAN_CRATER" String="排熱器官【火口】"/>
+			<Part Id="PART_EXHAUST_ORGAN_REAR" String="排熱器官【後部】"/>
+			<Part Id="PART_REPEL" String="撃退"/>
+			<Part Id="PART_WEAK_L_SHELL" String="未発達の外殻（左）"/>
+			<Part Id="PART_WEAK_R_SHELL" String="未発達の外殻（右）"/>
+			<Part Id="PART_BALLOON" String="喉袋"/>
+			<Part Id="PART_SKY_FALL" String="打ち落とし"/>
+			<Part Id="PART_L_BONE" String="左脚（骨）"/>
+			<Part Id="PART_R_BONE" String="右脚（骨）"/>
+			<Part Id="PART_EMISSIONS" String="瘴気噴出"/>
+			<Part Id="PART_HORNS_GOLD" String="大角【黄金】"/>
+			<Part Id="PART_MANE_GOLD" String="たてがみ【黄金】"/>
+			<Part Id="PART_L_CHEST_GOLD" String="左胸【黄金】"/>
+			<Part Id="PART_R_CHEST_GOLD" String="右胸【黄金】"/>
+			<Part Id="PART_L_ARM_GOLD" String="左前脚【黄金】"/>
+			<Part Id="PART_R_ARM_GOLD" String="右前脚【黄金】"/>
+			<Part Id="PART_L_LEG_GOLD" String="左後脚【黄金】"/>
+			<Part Id="PART_R_LEG_GOLD" String="右後脚【黄金】"/>
+			<Part Id="PART_L_TAIL_GOLD" String="尻尾左側【黄金】"/>
+			<Part Id="PART_R_TAIL_GOLD" String="尻尾右側【黄金】"/>
+			<Part Id="PART_GLOWING_HEAD" String="頭（発光）"/>
+			<Part Id="PART_GLOWING_TAIL" String="尻尾（発光）"/>
+			<Part Id="PART_EMERGE_SNOW_HEAD" String="雪潜り解除（頭）"/>
+			<Part Id="PART_EMERGE_SNOW_BODY" String="雪潜り解除（胴）"/>
+			<Part Id="PART_EMERGE_SNOW_TAIL" String="雪潜り解除（尻尾）"/>
+			<Part Id="PART_HEAD_SNOW" String="頭（雪）"/>
+			<Part Id="PART_BODY_SNOW" String="胴（雪）"/>
+			<Part Id="PART_TAIL_SNOW" String="尻尾（雪）"/>
+			<Part Id="PART_HEAD_ICE" String="頭（氷）"/>
+			<Part Id="PART_BODY_ICE" String="胴（氷）"/>
+			<Part Id="PART_WINGS_ICE" String="翼（氷）"/>
+			<Part Id="PART_ARMS_ICE" String="前脚（氷）"/>
+			<Part Id="PART_HEAD_ROCK" String="頭（岩）"/>
+			<Part Id="PART_CHEST_ROCK" String="胴（岩）"/>
+			<Part Id="PART_L_NECK_ROCK" String="左首（岩）"/>
+			<Part Id="PART_R_NECK_ROCK" String="右首（岩）"/>
+			<Part Id="PART_TAIL_ROCK" String="尻尾（岩）"/>
+			<Part Id="PART_L_WING_ROCK" String="左翼（岩）"/>
+			<Part Id="PART_R_WING_ROCK" String="右翼（岩）"/>
+			<Part Id="PART_L_ARM_ROCK" String="左前脚(岩）"/>
+			<Part Id="PART_R_ARM_ROCK" String="右前脚（岩）"/>
+			<Part Id="PART_BODY_LEGS" String="後脚（岩）"/>
+			<Part Id="PART_ANTLERS" String="枝角"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="リオレイア"/>
@@ -400,6 +469,8 @@
 			<Stage Id="211" String="竜宮砦跡"/>
 			<Stage Id="212" String="密林"/>
 			<Stage Id="222" String="闘技場"/>
+			<Stage Id="213" String="城塞高地"/>
+			<Stage Id="215" String="淵劫の奈落"/>
 		</Rise>
 		<World>
 			<Stage Id="0" String="タイトル画面"/>
@@ -473,6 +544,8 @@
 					 String="{Monster}を狩猟中"/>
 			<Discord Id="DRPC_STATE_MAIN_MENU"
 					 String="タイトル画面"/>
+			<Discord Id="DRPC_STATE_LOADING"
+					 String="ロード画面"/>
 			<Discord Id="DRPC_STATE_IDLE"
 					 String="待機中"/>
 			<Discord Id="DRPC_STATE_EXPLORING"
@@ -480,7 +553,7 @@
 			<Discord Id="DRPC_PARTY_STATE_SOLO_STRING"
 					 String="ソロ"/>
 			<Discord Id="DRPC_PARTY_STATE_GROUP_STRING"
-					 String="パーティ"/>
+					 String="マルチ"/>
 
 			<!-- Rise -->
 			<Discord Id="DRPC_RISE_CHARACTER_STRING_FORMAT"
@@ -498,6 +571,31 @@
 			<Discord Id="DRPC_WORLD_STATE_PRACTICE"
 					 String="トレーニングエリア"/>
 		</Integrations>
+		<Enums>
+			<Enum Id="SORT_BY_LOWEST_TIMER_STRING"
+				  String="短い順"/>
+			<Enum Id="SORT_BY_HIGHEST_TIMER_STRING"
+				  String="長い順"/>
+			<Enum Id="SORT_BY_DISABLED_STRING"
+				  String="並び変えない"/>
+			
+			<Enum Id="ORIENTATION_HORIZONTAL_STRING"
+				  String="横並び"/>
+			<Enum Id="ORIENTATION_VERTICAL_STRING"
+				  String="縦並び"/>
+			
+			<Enum Id="RELATIVE_TO_QUEST_STRING"
+				  String="クエスト経過時間"/>
+			<Enum Id="RELATIVE_TO_JOIN_STRING"
+				  String="各プレイヤー参加時"/>
+			<Enum Id="RELATIVE_TO_FIRST_HIT_STRING"
+				  String="各プレーヤー初撃時"/>
+
+			<Enum Id="PLOT_TOTAL_DAMAGE_STRING"
+				  String="総ダメージ"/>
+			<Enum Id="PLOT_DPS_STRING"
+				  String="ダメージ毎秒"/>
+		</Enums>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
 					 String="基本設定"
@@ -579,6 +677,9 @@
 			<Setting Id="SHUTDOWN_ON_GAME_EXIT"
 					 String="ゲーム終了時に終了"
 					 Description="有効な場合、ゲーム終了時にHunterPieも続いて自動的に終了します。"/>
+			<Setting Id="RENDERING_FPS_STRING"
+					 String="フレームレート"
+					 Description="HunterPieのオーバーレイのフレームレート。高い値ほどヌルヌル表示されますが、より多くの処理能力が求められます。"/>
 			<Setting Id="RENDERING_STRATEGY_STRING"
 					 String="レンダリング方式"
 					 Description="HunterPieの基本レンダリング方式。SoftwareはCPUでオーバーレイを処理します。HardwareはGPUでオーバーレイを処理します。"/>
@@ -704,6 +805,12 @@
 			<Setting Id="DAMAGE_METER_ENABLE_DPS_PLOT"
 					 String="グラフ表示"
 					 Description="有効な場合、当ウィジェットのデータがグラフ化されて表示されます。"/>
+			<Setting Id="DAMAGE_METER_DPS_CALCULATION_STRATEGY_STRING"
+					 String="DPS計算方式"
+					 Description="DPS（ダメージ毎秒）の計算方式を変更します。&#x0a;- クエスト経過時間: クエスト経過時間を基準に計算する&#x0a;- 各プレイヤー参加時: プレイヤーの参加時を基準に計算する&#x0a;- 各プレイヤーの初撃時: モンスターに初めてダメージを与えた時を基準に計算する"/>
+			<Setting Id="DAMAGE_METER_DAMAGE_PLOT_STRATEGY_STRING"
+					 String="グラフ選択"
+					 Description="グラフに表示するデータを変更します。&#x0a;- ダメージ毎秒: 各プレイヤーのDPSがグラフ化されます&#x0a;- 総ダメージ: 各プレイヤーの総ダメージがグラフ化されます"/>
 			<Setting Id="DAMAGE_METER_SELF_COLOR_STRING"
 					 String="マイカラー"
 					 Description="ダメージウィジェット内での表示に使う自身の色"/>
