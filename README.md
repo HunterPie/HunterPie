@@ -14,9 +14,10 @@
 
 ---
 
-**[<kbd> <br> Install <br> </kbd>][Installation]** 
-**[<kbd> <br> Documentation <br> </kbd>][Documentation]** 
-**[<kbd> <br> Contribute <br> </kbd>][Contribution]**  
+**[<kbd> <br> :rocket: Install <br> </kbd>][Installation]** 
+**[<kbd> <br> 📘 Documentation <br> </kbd>][Documentation]** 
+**[<kbd> <br> 🕹 Features <br> </kbd>][Features]** 
+**[<kbd> <br> 💙 Contribute <br> </kbd>][Contribution]**  
 
 ---
 </div>
@@ -29,7 +30,7 @@ HunterPie v2 is a version of HunterPie completely rewritten from scratch, howeve
 
 ### Requirements
 
-- .NET 6 Desktop Runtime
+- [.NET Desktop Runtime 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-6.0.7-windows-x64-installer)
 
 ### Installation
 
@@ -40,7 +41,7 @@ HunterPie v2 is a version of HunterPie completely rewritten from scratch, howeve
 
 ## Documentation
 
-HunterPie's documentation can be found [here](https://docs.hunterpie.com).
+HunterPie's official documentation can be found [here](https://docs.hunterpie.com).
 
 ## Features
 
@@ -49,6 +50,8 @@ HunterPie's documentation can be found [here](https://docs.hunterpie.com).
 - [Wirebug Widget](https://docs.hunterpie.com/posts/wirebug-widget/)
 - [Activities Widget](https://docs.hunterpie.com/posts/activities-widget/)
 - [Chat Widget](https://docs.hunterpie.com/posts/chat-widget/)
+- [Damage Meter Widget](https://docs.hunterpie.com/posts/damage-meter-widget/)
+- [Specialized Tool Widget](https://docs.hunterpie.com/posts/specialized-tools-widget/)
 - Discord Rich Presence
 
 ## Suggestions & PRs
@@ -58,6 +61,7 @@ Suggestions and pull requests are very appreciated, just keep in mind to follow 
 <!------- { Summary } ------>
 [Installation]: https://github.com/Haato3o/HunterPie-v2#installation
 [Documentation]: https://github.com/Haato3o/HunterPie-v2#documentation
+[Features]: https://github.com/Haato3o/HunterPie-v2#features
 [Contribution]: https://github.com/Haato3o/HunterPie-v2#suggestions--prs
 
 <!------- { Links } -------->
