@@ -90,7 +90,6 @@
 		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="気炎の旋律"/>
 		<Abnormality Id="ABNORMALITY_SPEED_EVADE_UP" String="自分強化【速】＆回避性能ＵＰ"/>
 		<Abnormality Id="ABNORMALITY_ALL_RES_ELEMENT_ATTACK" String="属性系効果ＵＰ"/>
-		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="気炎の旋律"/>
 		
 		<Abnormality Id="ABNORMALITY_RESUSCITATE" String="災禍転福"/>
 		<Abnormality Id="ABNORMALITY_WINDPROOF" String="風圧無効"/>
@@ -303,6 +302,7 @@
 			<Part Id="PART_R_ARM_ROCK" String="右前脚（岩）"/>
 			<Part Id="PART_BODY_LEGS" String="後脚（岩）"/>
 			<Part Id="PART_ANTLERS" String="枝角"/>
+			<Part Id="PART_MANE" String="たてがみ"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="リオレイア"/>
