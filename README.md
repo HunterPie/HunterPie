@@ -34,9 +34,8 @@ HunterPie v2 is a version of HunterPie completely rewritten from scratch, howeve
 
 ### Installation
 
-1. Download the binaries from either [NexusMods](https://www.nexusmods.com/monsterhunterrise/mods/181) or [GitHub](https://github.com/Haato3o/HunterPie-v2/releases/latest)
-2. Extract them somewhere
-2.1 Make sure the folder you extracted to is not in read only mode.
+1. Download the binaries from either [Nexus Mods](https://www.nexusmods.com/monsterhunterrise/mods/181) or [GitHub](https://github.com/Haato3o/HunterPie-v2/releases/latest)
+2. Extract it somewhere, except Desktop, as that is known for giving some people issues due to lack of permissions to write to files.
 3. Run `HunterPie.exe`
 
 ## Documentation
