@@ -9,12 +9,15 @@ namespace HunterPie.UI.Architecture.Converters
 {
     public class SpecializedToolToColorConverter : IValueConverter
     {
+        private readonly static Brush DefaultColor = new SolidColorBrush(Colors.White);
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is SpecializedToolType tool)
             {
                 return tool switch
                 {
+                    SpecializedToolType.None => DefaultColor,
                     SpecializedToolType.GhillieMantle => Resources.Get<Brush>("COLOR_GHILLIE_MANTLE"),
                     SpecializedToolType.TemporalMantle => Resources.Get<Brush>("COLOR_TEMPORAL_MANTLE"),
                     SpecializedToolType.HealthBooster => Resources.Get<Brush>("COLOR_HEALTH_BOOSTER"),
