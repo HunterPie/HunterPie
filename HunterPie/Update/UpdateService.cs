@@ -145,7 +145,7 @@ namespace HunterPie.Update
                 {
                     FileAttributes attrib = File.GetAttributes(entry);
 
-                    if ((attrib & FileAttributes.Directory) == FileAttributes.Directory)
+                    if (attrib.HasFlag(FileAttributes.Directory))
                         directories.Push(entry);
                     else
                         if (entry.EndsWith(".old"))

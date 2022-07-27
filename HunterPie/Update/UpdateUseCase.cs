@@ -4,6 +4,7 @@ using HunterPie.Core.Logger;
 using HunterPie.Internal.Poogie;
 using HunterPie.Update.Presentation;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace HunterPie.Update
@@ -61,6 +62,18 @@ namespace HunterPie.Update
             } catch(Exception err)
             {
                 RemoteCrashReporter.Send(err);
+
+                string dialogMessage = err switch
+                {
+                    IOException => "Failed to replace old files, make sure HunterPie has permissions to move files.",
+                    UnauthorizedAccessException => "HunterPie is missing permissions to manage files.",
+                    _ => null,
+                };
+
+                if (dialogMessage is string message)
+                    DialogManager.Error("Update error", message, NativeDialogButtons.Accept);
+
+                Log.Error(err.ToString());
             }
 
             return true;
