@@ -86,6 +86,9 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
+            <local:PetsDamageView Height="38" 
+                                  DataContext="{Binding Pets, Mode=OneTime}"/>
+
             <lvc:CartesianChart Series="{Binding Series, Mode=OneTime}"
                                 Height="120"
                                 DisableAnimations="True"

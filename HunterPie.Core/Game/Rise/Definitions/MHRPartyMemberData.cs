@@ -10,5 +10,6 @@ namespace HunterPie.Core.Game.Rise.Definitions
         public int HighRank;
         public int MasterRank;
         public bool IsMyself;
+        public MemberType MemberType;
     }
 }

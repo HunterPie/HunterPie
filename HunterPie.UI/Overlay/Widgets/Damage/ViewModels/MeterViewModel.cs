@@ -24,6 +24,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
 
         public ObservableCollection<PlayerViewModel> Players { get; } = new();
 
+        public PetsViewModel Pets { get; } = new();
+
         public double TimeElapsed
         {
             get => _timeElapsed;

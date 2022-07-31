@@ -6,6 +6,7 @@ using LiveCharts;
 using LiveCharts.Defaults;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
@@ -16,6 +17,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
         private int totalDamage = 0;
         private static readonly DamageMeterWidgetConfig _mockConfig = new();
         public readonly List<ChartValues<ObservablePoint>> _playerChartValues = new();
+        public readonly double[] _petDamages = new double[4];
 
         public MockMeterViewModel() : base(_mockConfig)
         {
@@ -23,6 +25,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
 
             MockPlayers();
             MockPlayerSeries();
+            MockPets();
 
             MockBehavior.Run(() =>
             {
@@ -30,35 +33,44 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
             }, (float)TimeSpan.FromMilliseconds(16).TotalSeconds);
         }
 
+        private void MockPets()
+        {
+            Pets.Name = "Otomos";
+            Pets.Damages.Add(new(_mockConfig.PlayerFirst));
+            Pets.Damages.Add(new(_mockConfig.PlayerSelf));
+            Pets.Damages.Add(new(_mockConfig.PlayerThird));
+            Pets.Damages.Add(new(_mockConfig.PlayerFourth));
+        }
+
         private void MockPlayers()
         {
             Players.Add(new(_mockConfig)
             {
-                Name = "Doelinger",
+                Name = "Player 1",
                 Weapon = Weapon.Bow,
-                Color = "#c3baf4",
+                Color = _mockConfig.PlayerFirst,
                 Percentage = 25
             });
             Players.Add(new(_mockConfig)
             {
-                Name = "Poggers",
+                Name = "Player 2",
                 Weapon = Weapon.ChargeBlade,
-                Color = "#98ff98",
                 Percentage = 25,
+                Color = _mockConfig.PlayerSelf,
                 IsUser = true
             });
             Players.Add(new(_mockConfig)
             {
-                Name = "UwU",
-                Color = "#FF4B8EEE",
+                Name = "Player 3",
                 Weapon = Weapon.Greatsword,
+                Color = _mockConfig.PlayerThird,
                 Percentage = 25
             });
             Players.Add(new(_mockConfig)
             {
-                Name = "Haato",
-                Color = "#FF10B9DE",
+                Name = "Player 4",
                 Weapon = Weapon.HuntingHorn,
+                Color = _mockConfig.PlayerFourth,
                 Percentage = 25
             });
         }
@@ -71,6 +83,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
 
             if ((int)newTime > (int)TimeElapsed)
             {
+                Pets.TotalDamage = random.Next(0, 10000);
+
                 foreach (PlayerViewModel player in Players)
                 {
                     double lastDps = player.DPS;
@@ -86,8 +100,21 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
                     i++;
                 }
 
+                double[] petDamages = { random.NextDouble() * 100, random.NextDouble() * 100, random.NextDouble() * 100, random.NextDouble() * 100, };
+                Pets.TotalDamage = (int)(_petDamages.Sum() + petDamages.Sum());
+                
+                i = 0;
+                foreach (DamageBarViewModel pet in Pets.Damages)
+                {
+                    double petDamage = petDamages[i];
+                    _petDamages[i] += petDamage;
+                    pet.Percentage = _petDamages[i] / Pets.TotalDamage * 100;
+                    i++;
+                }
+
                 Application.Current.Dispatcher.Invoke(SortPlayers);
             }
+            
             TimeElapsed = newTime;
         }
 
