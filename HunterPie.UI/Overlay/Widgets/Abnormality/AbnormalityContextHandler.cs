@@ -24,7 +24,7 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality
 
         private void OnTimerUpdate(object sender, IAbnormality e)
         {
-            if ((int)e.Timer == (int)Timer)
+            if (!IsBuildup && (int)e.Timer == (int)Timer)
                 return;
 
             MaxTimer = e.MaxTimer;
