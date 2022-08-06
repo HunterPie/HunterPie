@@ -22,6 +22,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
         public MockMeterViewModel() : base(_mockConfig)
         {
             InHuntingZone = true;
+            HasPetsToBeDisplayed = true;
 
             MockPlayers();
             MockPlayerSeries();

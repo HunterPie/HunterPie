@@ -15,6 +15,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
         private int _deaths;
         private bool _inHuntingZone;
         private Func<double, string> _damageFormatter;
+        private bool _hasPetsToBeDisplayed;
 
         public Func<double, string> TimeFormatter { get; set;  } = 
             new Func<double, string>((value) => TimeSpan.FromSeconds(value).ToString("mm\\:ss"));
@@ -40,6 +41,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
         }
 
         public bool InHuntingZone { get => _inHuntingZone; set { SetValue(ref _inHuntingZone, value); } }
+
+        public bool HasPetsToBeDisplayed { get => _hasPetsToBeDisplayed; set => SetValue(ref _hasPetsToBeDisplayed, value); }
 
         public MeterViewModel(DamageMeterWidgetConfig config)
         {

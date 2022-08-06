@@ -72,7 +72,7 @@
                     <Style.Triggers>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding DataContext.ShouldBlurNames.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PlayerDamageView}}}" 
+                                <Condition Binding="{Binding DataContext.ShouldBlurNames.Value, RelativeSource={RelativeSource Self}}" 
                                            Value="True"/>
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.Setters>

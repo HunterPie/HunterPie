@@ -10,6 +10,7 @@
              mc:Ignorable="d"  
              d:Height="40">
     <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:ParentSizePercentageConverter x:Key="ParentSizePercentageConverter"/>
     </UserControl.Resources>
     <Grid>
@@ -17,7 +18,7 @@
             <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
-        
+
         <!-- Bottom bar -->
         <ItemsControl ItemsSource="{Binding Damages}"
                       Grid.ColumnSpan="2">
@@ -93,14 +94,4 @@
                    TextAlignment="Right"/>
 
     </Grid>
-    <UserControl.Style>
-        <Style TargetType="{x:Type UserControl}">
-            <Setter Property="Opacity" Value="1"/>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding DataContext.ShouldHighlightMyself.Value, RelativeSource={RelativeSource Self}}" Value="True">
-                    <Setter Property="Opacity" Value="0.5"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Style>
 </UserControl>

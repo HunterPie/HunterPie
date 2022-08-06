@@ -2,6 +2,7 @@
 using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Enums;
@@ -47,13 +48,15 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
 
         private void UpdateData()
         {
-            ViewModel.Pets.Name = "Otomos";
+            ViewModel.Pets.Name = Localization.QueryString("//Strings/Client/Overlay/String[@Id='DAMAGE_METER_OTOMOS_NAME_STRING']");
             ViewModel.InHuntingZone = Context.Game.Player.InHuntingZone;
             ViewModel.Deaths = Context.Game.Deaths;
             ViewModel.TimeElapsed = Context.Game.TimeElapsed;
-
+            
             foreach (IPartyMember member in Context.Game.Player.Party.Members)
                 HandleAddMember(member);
+
+            ViewModel.HasPetsToBeDisplayed = _pets.Keys.Count > 0;
         }
 
         public void HookEvents()
@@ -234,6 +237,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             var damageViewModel = new DamageBarViewModel(playerColor);
             ViewModel.Pets.Damages.Add(damageViewModel);
             _pets.Add(pet, damageViewModel);
+
+            ViewModel.HasPetsToBeDisplayed = _pets.Keys.Count > 0;
         }
 
         private void RemovePet(IPartyMember pet)
@@ -242,6 +247,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
                 return;
 
             _pets.Remove(pet);
+            ViewModel.HasPetsToBeDisplayed = _pets.Keys.Count > 0;
         }
 
         private void AddPlayer(IPartyMember member)
