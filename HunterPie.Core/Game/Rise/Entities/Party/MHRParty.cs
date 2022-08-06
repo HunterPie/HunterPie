@@ -80,17 +80,18 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
 
             MHRPartyMember member = new();
             MHRPartyMember memberPet = new(MemberType.Pet);
+
+            MHRPartyMemberData petData = data.ToPetData();
+
             _partyMembers.Add(data.Index, member);
-            _partyMemberPets.Add(data.Index + 5, memberPet);
+            _partyMemberPets.Add(petData.Index, memberPet);
             _partyMemberNameLookup.Add(data.Name, member);
 
             IUpdatable<MHRPartyMemberData> updatable = member;
             IUpdatable<MHRPartyMemberData> updatablePet = memberPet;
-            updatable.Update(data);
 
-            data.MemberType = MemberType.Pet;
-            data.Index = data.Index + 5;
-            updatablePet.Update(data);
+            updatable.Update(data);
+            updatablePet.Update(petData);
 
             Log.Debug("Added new player to party: id: {0} name: {1} weap: {2}, hash: {3:X}", data.Index, data.Name, data.WeaponId, updatable.GetHashCode());
             
@@ -103,10 +104,13 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
             if (!_partyMembers.ContainsKey(memberIndex))
                 return;
 
+            int petIndex = memberIndex.ToPetId();
+
             IPartyMember member = _partyMembers[memberIndex];
-            IPartyMember memberPet = _partyMemberPets[memberIndex];
+            IPartyMember memberPet = _partyMemberPets[petIndex];
+
             _partyMembers.Remove(memberIndex);
-            _partyMemberPets.Remove(memberIndex + 5);
+            _partyMemberPets.Remove(petIndex);
             _partyMemberNameLookup.Remove(member.Name);
             
             Log.Debug("Removed player: id: {0} name: {1} hash: {2:X}", memberIndex, member.Name, member.GetHashCode());

@@ -90,7 +90,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             View.Dispatcher.Invoke(() =>
             {
                 foreach (var member in Context.Game.Player.Party.Members)
-                    AddPlayer(member);
+                    HandleAddMember(member);
             });
         }
 
