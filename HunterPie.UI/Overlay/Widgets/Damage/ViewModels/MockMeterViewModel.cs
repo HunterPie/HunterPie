@@ -112,18 +112,10 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
                     i++;
                 }
 
-                Application.Current.Dispatcher.Invoke(SortPlayers);
+                Application.Current.Dispatcher.Invoke(SortMembers);
             }
             
             TimeElapsed = newTime;
-        }
-
-        private void InterpolatePoints(ChartValues<ObservablePoint> points)
-        {
-            for (int i = points.Count - 1; i > 0; i -= 2)
-            {
-                points.RemoveAt(i);
-            }
         }
 
         private void MockPlayerSeries()

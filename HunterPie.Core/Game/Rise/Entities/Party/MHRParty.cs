@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Rise.Definitions;
 using HunterPie.Core.Logger;
 using HunterPie.Core.Native.IPC.Models.Common;
@@ -14,7 +15,10 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
     public class MHRParty : IParty, IEventDispatcher
     {
         private readonly Dictionary<int, MHRPartyMember> _partyMembers = new();
-        private readonly Dictionary<int, MHRPartyMember> _partyMemberPets = new();
+        private readonly Dictionary<int, MHRPartyMember> _partyMemberPets = new()
+        {
+            { 4, new MHRPartyMember(MemberType.Pet) }
+        };
         private readonly Dictionary<string, MHRPartyMember> _partyMemberNameLookup = new();
         
         public const int MAX_PARTY_SIZE = 4;
@@ -75,14 +79,17 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
                 Remove(data.Index);
 
             MHRPartyMember member = new();
-            MHRPartyMember memberPet = new();
+            MHRPartyMember memberPet = new(MemberType.Pet);
             _partyMembers.Add(data.Index, member);
-            _partyMemberPets.Add(data.Index, member);
+            _partyMemberPets.Add(data.Index + 5, memberPet);
             _partyMemberNameLookup.Add(data.Name, member);
 
             IUpdatable<MHRPartyMemberData> updatable = member;
             IUpdatable<MHRPartyMemberData> updatablePet = memberPet;
             updatable.Update(data);
+
+            data.MemberType = MemberType.Pet;
+            data.Index = data.Index + 5;
             updatablePet.Update(data);
 
             Log.Debug("Added new player to party: id: {0} name: {1} weap: {2}, hash: {3:X}", data.Index, data.Name, data.WeaponId, updatable.GetHashCode());
@@ -99,7 +106,7 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
             IPartyMember member = _partyMembers[memberIndex];
             IPartyMember memberPet = _partyMemberPets[memberIndex];
             _partyMembers.Remove(memberIndex);
-            _partyMemberPets.Remove(memberIndex);
+            _partyMemberPets.Remove(memberIndex + 5);
             _partyMemberNameLookup.Remove(member.Name);
             
             Log.Debug("Removed player: id: {0} name: {1} hash: {2:X}", memberIndex, member.Name, member.GetHashCode());

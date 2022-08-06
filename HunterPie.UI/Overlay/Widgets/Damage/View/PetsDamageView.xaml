@@ -42,12 +42,12 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
 
-        <Image d:Source="{StaticResource ICON_BOW}"
-               Source="{StaticResource CROWN_GOLD}"
+        <Image Source="{StaticResource ICON_OTOMO}"
                HorizontalAlignment="Left"
                VerticalAlignment="Center"
                Width="20"
-               Margin="5,0,0,0"/>
+               Margin="5,0,0,0"
+               Opacity="0.7"/>
 
         <TextBlock d:Text="Otomos"
                    Text="{Binding Name, Mode=OneWay}"
@@ -95,23 +95,11 @@
     </Grid>
     <UserControl.Style>
         <Style TargetType="{x:Type UserControl}">
+            <Setter Property="Opacity" Value="1"/>
             <Style.Triggers>
-                <MultiDataTrigger>
-                    <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding DataContext.ShouldHighlightMyself.Value, RelativeSource={RelativeSource Self}}" Value="True"/>
-                    </MultiDataTrigger.Conditions>
-                    <MultiDataTrigger.Setters>
-                        <Setter Property="Opacity" Value="0.5"/>
-                    </MultiDataTrigger.Setters>
-                </MultiDataTrigger>
-                <MultiDataTrigger>
-                    <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding DataContext.ShouldHighlightMyself.Value, RelativeSource={RelativeSource Self}}" Value="False"/>
-                    </MultiDataTrigger.Conditions>
-                    <MultiDataTrigger.Setters>
-                        <Setter Property="Opacity" Value="1"/>
-                    </MultiDataTrigger.Setters>
-                </MultiDataTrigger>
+                <DataTrigger Binding="{Binding DataContext.ShouldHighlightMyself.Value, RelativeSource={RelativeSource Self}}" Value="True">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </DataTrigger>
             </Style.Triggers>
         </Style>
     </UserControl.Style>

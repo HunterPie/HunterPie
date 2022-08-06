@@ -4,6 +4,7 @@ using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Client;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Logger;
 using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Brushes;
@@ -17,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
+using ObservableColor = HunterPie.Core.Settings.Types.Color;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage
 {
@@ -26,6 +28,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
         private readonly MeterView View;
         private readonly Context Context;
         private readonly Dictionary<IPartyMember, MemberInfo> _members = new();
+        private readonly Dictionary<IPartyMember, DamageBarViewModel> _pets = new();
         private int lastTimeElapsed = 0;
 
         public DamageMeterWidgetContextHandler(Context context)
@@ -44,12 +47,13 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
 
         private void UpdateData()
         {
+            ViewModel.Pets.Name = "Otomos";
             ViewModel.InHuntingZone = Context.Game.Player.InHuntingZone;
             ViewModel.Deaths = Context.Game.Deaths;
             ViewModel.TimeElapsed = Context.Game.TimeElapsed;
 
             foreach (IPartyMember member in Context.Game.Player.Party.Members)
-                AddPlayer(member);
+                HandleAddMember(member);
         }
 
         public void HookEvents()
@@ -122,9 +126,18 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             }
         }
 
-        private void OnMemberJoin(object sender, IPartyMember e) => View.Dispatcher.Invoke(() => AddPlayer(e));
+        private void CalculatePetsDamage()
+        {
+            ViewModel.Pets.TotalDamage = _pets.Keys.Sum(pet => pet.Damage);
 
-        private void OnMemberLeave(object sender, IPartyMember e) => View.Dispatcher.Invoke(() => RemovePlayer(e));
+            foreach (var (pet, vm) in _pets)
+                vm.Percentage = pet.Damage / (double)ViewModel.Pets.TotalDamage * 100;
+
+        }
+
+        private void OnMemberJoin(object sender, IPartyMember e) => View.Dispatcher.Invoke(() => HandleAddMember(e));
+
+        private void OnMemberLeave(object sender, IPartyMember e) => View.Dispatcher.Invoke(() => HandleRemoveMember(e));
 
         private void OnTimeElapsedChange(object sender, IGame e)
         {
@@ -134,7 +147,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
                 View.Dispatcher.Invoke(() =>
                 {
                     GetPlayerPoints();
-                    ViewModel.SortPlayers();
+                    CalculatePetsDamage();
+                    ViewModel.SortMembers();
                 });
                 lastTimeElapsed = (int)e.TimeElapsed;
             }
@@ -182,12 +196,60 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             return series;
         }
 
+        private void HandleAddMember(IPartyMember member)
+        {
+            Action<IPartyMember>? func = member.Type switch
+            {
+                MemberType.Player => AddPlayer,
+                MemberType.Pet => AddPet,
+                _ => null,
+            };
+
+            func?.Invoke(member);
+        }
+
+        private void HandleRemoveMember(IPartyMember member)
+        {
+            Action<IPartyMember>? func = member.Type switch
+            {
+                MemberType.Player => RemovePlayer,
+                MemberType.Pet => RemovePet,
+                _ => null,
+            };
+
+            func?.Invoke(member);
+        }
+
+        private void AddPet(IPartyMember pet)
+        {
+            if (_pets.ContainsKey(pet))
+                return;
+
+            ObservableColor playerColor = PlayerConfigHelper.GetColorFromPlayer(
+                ProcessManager.Game,
+                Math.Max(pet.Slot - 5, 0), 
+                pet.IsMyself
+            );
+
+            var damageViewModel = new DamageBarViewModel(playerColor);
+            ViewModel.Pets.Damages.Add(damageViewModel);
+            _pets.Add(pet, damageViewModel);
+        }
+
+        private void RemovePet(IPartyMember pet)
+        {
+            if (!_pets.ContainsKey(pet))
+                return;
+
+            _pets.Remove(pet);
+        }
+
         private void AddPlayer(IPartyMember member)
         {
             if (_members.ContainsKey(member))
                 return;
 
-            string playerColor = PlayerConfigHelper.GetColorFromPlayer(
+            ObservableColor playerColor = PlayerConfigHelper.GetColorFromPlayer(
                 ProcessManager.Game,
                 member.Slot,
                 member.IsMyself
@@ -208,7 +270,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             };
 
             _members.Add(member, memberInfo);
-
+            
             member.OnDamageDealt += OnDamageDealt;
             member.OnWeaponChange += OnWeaponChange;
 
