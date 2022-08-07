@@ -21,6 +21,7 @@ namespace HunterPie.Internal
             new NativeLoggerInitializer(),
             new HunterPieLoggerInitializer(),
             new MapperFactoryInitializer(),
+            new CustomThemeInitializer(),
 
             new ExceptionCatcherInitializer(),
             new DialogManagerInitializer(),

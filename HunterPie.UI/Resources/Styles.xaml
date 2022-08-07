@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-                    xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI">
+                    xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
+                    xmlns:monster="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views;assembly=HunterPie.UI">
     <!-- Converters -->
     <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
     <!-- Colors -->
@@ -201,7 +202,7 @@
     </LinearGradientBrush>
 
     <!-- Font -->
-    <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">Work Sans</FontFamily>
+    <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">Work Sans, Microsoft Sans Serif</FontFamily>
 
     <!-- Constants -->
     <sys:Double x:Key="HUNTERPIE_SIDEBAR_WIDTH">300</sys:Double>
@@ -702,5 +703,7 @@
         <TextBlock Text="{Binding ., Mode=OneTime, Converter={StaticResource EnumToStringConverter}}"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
     </DataTemplate>
-    
+
+    <Style x:Key="STYLE_MONSTERS_WIDGET" TargetType="{x:Type monster:MonstersView}"/>
+
 </ResourceDictionary>
