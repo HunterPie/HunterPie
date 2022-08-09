@@ -62,6 +62,9 @@
     <None Update="Themes\Default\MonsterWidget.xaml">
       <SubType>Designer</SubType>
     </None>
+    <None Update="Themes\Minimal\MonsterWidget.xaml">
+      <SubType>Designer</SubType>
+    </None>
     <Page Update="Update\Presentation\UpdateView.xaml">
       <SubType>Designer</SubType>
     </Page>

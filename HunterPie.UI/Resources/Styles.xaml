@@ -3,7 +3,13 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
                     xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
-                    xmlns:monster="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views;assembly=HunterPie.UI">
+                    xmlns:monster="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views;assembly=HunterPie.UI"
+                    xmlns:meter="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.View;assembly=HunterPie.UI"
+                    xmlns:abnormalities="clr-namespace:HunterPie.UI.Overlay.Widgets.Abnormality.View;assembly=HunterPie.UI"
+                    xmlns:activities="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.View;assembly=HunterPie.UI"
+                    xmlns:chat="clr-namespace:HunterPie.UI.Overlay.Widgets.Chat.Views;assembly=HunterPie.UI"
+                    xmlns:wirebug="clr-namespace:HunterPie.UI.Overlay.Widgets.Wirebug.Views;assembly=HunterPie.UI"
+                    xmlns:specialized="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.Views;assembly=HunterPie.UI">
     <!-- Converters -->
     <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
     <!-- Colors -->
@@ -704,6 +710,13 @@
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
     </DataTemplate>
 
+    <!-- Themes support -->
     <Style x:Key="STYLE_MONSTERS_WIDGET" TargetType="{x:Type monster:MonstersView}"/>
-
+    <Style x:Key="STYLE_DAMAGE_METER_WIDGET" TargetType="{x:Type meter:MeterView}"/>
+    <Style x:Key="STYLE_ABNORMALITIES_BAR_WIDGET" TargetType="{x:Type abnormalities:AbnormalityBarView}"/>
+    <Style x:Key="STYLE_ACTIVITIES_WIDGET" TargetType="{x:Type activities:ActivitiesView}"/>
+    <Style x:Key="STYLE_CHAT_WIDGET" TargetType="{x:Type chat:ChatView}"/>
+    <Style x:Key="STYLE_WIREBUG_WIDGET" TargetType="{x:Type wirebug:WirebugsView}"/>
+    <Style x:Key="STYLE_SPECIALIZED_TOOLS_WIDGET" TargetType="{x:Type specialized:SpecializedToolView}"/>
+    
 </ResourceDictionary>

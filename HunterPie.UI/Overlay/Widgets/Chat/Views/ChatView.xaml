@@ -13,7 +13,8 @@
            Height="200"
            mc:Ignorable="d"
            SnapsToDevicePixels="True"
-           UseLayoutRounding="True">
+           UseLayoutRounding="True"
+           Style="{StaticResource STYLE_CHAT_WIDGET}">
     <UserControl.Resources>
         <vm:MockChatViewModel x:Key="MockChatViewModel"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>

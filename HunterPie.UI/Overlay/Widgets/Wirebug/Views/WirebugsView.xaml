@@ -9,7 +9,8 @@
            xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
            x:TypeArguments="vm:WirebugsViewModel"
            d:DataContext="{d:DesignInstance Type=vm:WirebugsViewModel}"
-           mc:Ignorable="d">
+           mc:Ignorable="d"
+           Style="{StaticResource STYLE_WIREBUG_WIDGET}">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <vm:MockWirebugsViewModel x:Key="MockViewModel"/>

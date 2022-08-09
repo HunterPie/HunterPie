@@ -14,7 +14,8 @@
              d:DesignWidth="800"
              HorizontalAlignment="Left"
              Loaded="OnLoad"
-             Unloaded="OnUnload">
+             Unloaded="OnUnload"
+             Style="{StaticResource STYLE_ABNORMALITIES_BAR_WIDGET}">
     <UserControl.Resources>
         <converter:AbnormalityStringToIconConverter x:Key="AbnormalityStringToIconConverter"/>
         <converter:OrientationToOppositeConverter x:Key="OrientationToOppositeConverter"/>

@@ -41,6 +41,7 @@
 
   <ItemGroup>
     <Page Remove="Themes\Default\MonsterWidget.xaml" />
+    <Page Remove="Themes\Minimal\MonsterWidget.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -59,6 +60,11 @@
     <None Include="Themes\Default\MonsterWidget.xaml">
       <Generator></Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Themes\Minimal\MonsterWidget.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+      <Generator></Generator>
     </None>
   </ItemGroup>
 
