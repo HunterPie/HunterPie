@@ -11,7 +11,8 @@
            xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Components"
            mc:Ignorable="d"
            d:DataContext="{d:DesignInstance Type=viewmodels:MonstersViewModel}"
-           x:TypeArguments="viewmodels:MonstersViewModel">
+           x:TypeArguments="viewmodels:MonstersViewModel"
+           Style="{StaticResource STYLE_MONSTERS_WIDGET}">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:OrientationConverter x:Key="OrientationConverter"/>
