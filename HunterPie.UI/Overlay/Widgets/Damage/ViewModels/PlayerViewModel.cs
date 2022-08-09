@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Architecture;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
@@ -13,7 +14,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
         private int _damage;
         private double _dps;
         private double _percentage;
-        private string _color;
+        private Color _color;
         private bool _isIncreasing;
         private bool _isUser;
 
@@ -44,7 +45,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
             get => _percentage;
             set { SetValue(ref _percentage, value); }
         }
-        public string Color
+        public Color Color
         {
             get => _color;
             set { SetValue(ref _color, value); }

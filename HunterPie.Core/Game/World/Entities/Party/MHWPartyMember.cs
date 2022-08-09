@@ -7,7 +7,7 @@ using System;
 
 namespace HunterPie.Core.Game.World.Entities.Party
 {
-    internal class MHWPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHWPartyMemberData>
+    public class MHWPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHWPartyMemberData>
     {
         private int _damage;
         private Weapon _weapon;
@@ -43,6 +43,8 @@ namespace HunterPie.Core.Game.World.Entities.Party
         public int Slot { get; private set; }
 
         public bool IsMyself { get; private set; }
+
+        public MemberType Type => MemberType.Player;
 
         public event EventHandler<IPartyMember> OnDamageDealt;
         public event EventHandler<IPartyMember> OnWeaponChange;

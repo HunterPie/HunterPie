@@ -27,7 +27,7 @@
         <Rectangle HorizontalAlignment="Left"
                    d:Width="200"
                    Grid.ColumnSpan="3"
-                   Fill="{Binding Color, Converter={StaticResource HexColorToFadeConverter}}"
+                   Fill="{Binding Color.Value, Converter={StaticResource HexColorToFadeConverter}}"
                    x:Name="PART_BottomBar">
             <Rectangle.Width>
                 <MultiBinding Converter="{StaticResource ParentSizePercentageConverter}">
@@ -72,7 +72,7 @@
                     <Style.Triggers>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding DataContext.ShouldBlurNames.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PlayerDamageView}}}" 
+                                <Condition Binding="{Binding DataContext.ShouldBlurNames.Value, RelativeSource={RelativeSource Self}}" 
                                            Value="True"/>
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.Setters>
