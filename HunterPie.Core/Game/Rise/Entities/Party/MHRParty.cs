@@ -123,6 +123,10 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
         {
             foreach (int index in _partyMembers.Keys.ToArray())
                 Remove(index);
+
+            // Reset pet damage
+            IUpdatable<MHRPartyMemberData> updatable = _partyMemberPets[4];
+            updatable.Update(new MHRPartyMemberData { Index = 4, MemberType = MemberType.Pet });
         }
     }
 }
