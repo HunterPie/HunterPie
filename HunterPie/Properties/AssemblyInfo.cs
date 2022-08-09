@@ -12,4 +12,3 @@ using System.Windows;
 
 [assembly: AssemblyVersion("2.3.0.47")]
 [assembly: AssemblyFileVersion("2.3.0.47")]
-

@@ -273,7 +273,7 @@
                      Icon="ICON_ARMORSKILL_ORANGE"
                      Category="Consumables"/>
         <Abnormality Id="ABN_CHAIN_CRIT"
-                     Offset="12C"
+                     Offset="16C"
                      Name="ABNORMALITY_CHAIN_CRIT"
                      Icon="ICON_ARMORSKILL_ORANGE"
                      Category="Consumables"/>
