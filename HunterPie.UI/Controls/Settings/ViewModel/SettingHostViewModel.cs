@@ -4,6 +4,7 @@ using HunterPie.Core.Client;
 using HunterPie.Core.Client.Events;
 using HunterPie.Core.Domain.Enums;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -20,6 +21,7 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
         public string _lastSync = DateTime.Now.ToString("G");
         private readonly ObservableCollection<ISettingElement> _elements = new();
         private readonly ObservableCollection<GameProcess> _games = new();
+        private readonly HashSet<GameProcess> _ignorableGames = new() { GameProcess.None, GameProcess.All };
 
         public ObservableCollection<ISettingElement> Elements => _elements;
         public ObservableCollection<GameProcess> Games => _games;
@@ -37,7 +39,7 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
                 _elements.Add(el);
 
             foreach (GameProcess gameType in Enum.GetValues<GameProcess>())
-                if (gameType != GameProcess.None)
+                if (!_ignorableGames.Contains(gameType))
                     _games.Add(gameType);
         }
 

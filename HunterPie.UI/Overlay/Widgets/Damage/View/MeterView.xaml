@@ -87,6 +87,31 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
+            <local:PetsDamageView Height="38" 
+                                  DataContext="{Binding Pets, Mode=OneTime}">
+                <local:PetsDamageView.Style>
+                    <Style TargetType="local:PetsDamageView">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataContext.ShouldHighlightMyself.Value, RelativeSource={RelativeSource Self}}" Value="True">
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding DataContext.HasPetsToBeDisplayed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MeterView}}}" Value="True">
+                                <DataTrigger.Setters>
+                                    <Setter Property="Visibility" Value="{Binding DataContext.Settings.ShouldShowOtomos.Value, 
+                                                                                  Converter={StaticResource BooleanToVisibilityConverter}, 
+                                                                                  Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:MeterView}}}"/>
+                                </DataTrigger.Setters>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding DataContext.HasPetsToBeDisplayed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MeterView}}}" Value="False">
+                                <DataTrigger.Setters>
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger.Setters>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </local:PetsDamageView.Style>
+            </local:PetsDamageView>
+
             <lvc:CartesianChart Series="{Binding Series, Mode=OneTime}"
                                 Height="120"
                                 DisableAnimations="True"

@@ -8,6 +8,7 @@ namespace HunterPie.Core.Domain.Enums
         None = 0,
         MonsterHunterRise = 1 << 0,
         MonsterHunterWorld = 1 << 1,
-        MonsterHunterRiseSunbreakDemo = 1 << 2
+        MonsterHunterRiseSunbreakDemo = 1 << 2,
+        All = MonsterHunterRise | MonsterHunterWorld | MonsterHunterRiseSunbreakDemo,
     }
 }

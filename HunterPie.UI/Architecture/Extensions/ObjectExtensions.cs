@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HunterPie.Core.Json;
+using System;
 using System.Linq;
 using System.Windows;
 
@@ -23,6 +24,12 @@ namespace HunterPie.UI.Architecture.Extensions
             }
 
             throw new ArgumentException("argument must be of type string");
+        }
+
+        public static TOut CopyAs<TIn, TOut>(this TIn @object)
+        {
+            var serialized = JsonProvider.Serialize(@object);
+            return JsonProvider.Deserialize<TOut>(serialized);
         }
     }
 }

@@ -1,13 +1,14 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Enums;
+using HunterPie.Core.Settings.Types;
 using System;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.Helpers
 {
     public static class PlayerConfigHelper
     {
-        public static string GetColorFromPlayer(GameProcess game, int slot, bool isSelf = false)
+        public static Color GetColorFromPlayer(GameProcess game, int slot, bool isSelf = false)
         {
             DamageMeterWidgetConfig config = ClientConfigHelper.GetOverlayConfigFrom(game).DamageMeterWidget;
 

@@ -11,6 +11,7 @@ namespace HunterPie.Core.Game.Client
         public Weapon Weapon { get; }
         public int Slot { get; }
         public bool IsMyself { get; }
+        public MemberType Type { get; }
 
         public event EventHandler<IPartyMember> OnDamageDealt;
         public event EventHandler<IPartyMember> OnWeaponChange;

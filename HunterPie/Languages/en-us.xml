@@ -507,6 +507,10 @@
 	</Stages>
 
 	<Client>
+		<Overlay>
+			<String Id="DAMAGE_METER_OTOMOS_NAME_STRING"
+					String="Otomos"/>
+		</Overlay>
 		<Tabs>
 			<Tab Id="CONSOLE_STRING"
 				 String="Console"/>
@@ -821,6 +825,9 @@
 			<Setting Id="DAMAGE_METER_PLAYER_4_COLOR_STRING"
 					 String="Fourth player color"
 					 Description="The color of the fourth player in the party in the damage meter."/>
+			<Setting Id="DAMAGE_METER_ENABLE_OTOMOS"
+					 String="Show Otomos damage"
+					 Description="If enabled, HunterPie will display Otomos damage."/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>
