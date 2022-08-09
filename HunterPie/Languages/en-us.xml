@@ -688,6 +688,9 @@
 			<Setting Id="DEV_ENABLE_FEATURE_FLAG"
 					 String="Enable development feature flags"
 					 Description="If enabled, HunterPie will allow you to enable Feature Flags for in-development features."/>
+			<Setting Id="THEME_STRING"
+					 String="Theme"
+					 Description="Current theme used by HunterPie"/>
 
 			<Setting Id="DRPC_ENABLE_RICH_PRESENCE"
 					 String="Enable Discord Rich Presence"
