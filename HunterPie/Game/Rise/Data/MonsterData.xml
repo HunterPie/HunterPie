@@ -811,6 +811,28 @@
                 <Part Id="5" String="PART_TAIL" />
             </Parts>
         </Monster>
+		<Monster Id="76">
+			<Parts>
+				<Part Id="0" String="PART_TO_BE_MAPPED" />
+				<Part Id="1" String="PART_TO_BE_MAPPED" />
+				<Part Id="2" String="PART_TO_BE_MAPPED" />
+				<Part Id="3" String="PART_TO_BE_MAPPED" />
+				<Part Id="4" String="PART_TO_BE_MAPPED" />
+				<Part Id="5" String="PART_TO_BE_MAPPED" />
+				<Part Id="6" String="PART_TO_BE_MAPPED" />
+			</Parts>
+		</Monster>
+		<Monster Id="77">
+			<Parts>
+				<Part Id="0" String="PART_TO_BE_MAPPED" />
+				<Part Id="1" String="PART_TO_BE_MAPPED" />
+				<Part Id="2" String="PART_TO_BE_MAPPED" />
+				<Part Id="3" String="PART_TO_BE_MAPPED" />
+				<Part Id="4" String="PART_TO_BE_MAPPED" />
+				<Part Id="5" String="PART_TO_BE_MAPPED" />
+				<Part Id="6" String="PART_TO_BE_MAPPED" />
+			</Parts>
+		</Monster>
         <Monster Id="78"
                  Size="495.95">
             <Weaknesses>
@@ -864,6 +886,18 @@
                 <Part Id="6" String="PART_TAIL" />
             </Parts>
         </Monster>
+		<Monster Id="81">
+			<Parts>
+				<Part Id="0" String="PART_TO_BE_MAPPED" />
+				<Part Id="1" String="PART_TO_BE_MAPPED" />
+				<Part Id="2" String="PART_TO_BE_MAPPED" />
+				<Part Id="3" String="PART_TO_BE_MAPPED" />
+				<Part Id="4" String="PART_TO_BE_MAPPED" />
+				<Part Id="5" String="PART_TO_BE_MAPPED" />
+				<Part Id="6" String="PART_TO_BE_MAPPED" />
+				<Part Id="7" String="PART_TO_BE_MAPPED" />
+			</Parts>
+		</Monster>
         <Monster Id="82"
                  Size="1765.78">
             <Crowns Silver="1.11"
@@ -1024,6 +1058,16 @@
                 <Part Id="8" String="PART_MUD_BALL" />
             </Parts>
         </Monster>
+		<Monster Id="92">
+			<Parts>
+				<Part Id="0" String="PART_TO_BE_MAPPED" />
+				<Part Id="1" String="PART_TO_BE_MAPPED" />
+				<Part Id="2" String="PART_TO_BE_MAPPED" />
+				<Part Id="3" String="PART_TO_BE_MAPPED" />
+				<Part Id="4" String="PART_TO_BE_MAPPED" />
+				<Part Id="5" String="PART_TO_BE_MAPPED" />
+			</Parts>
+		</Monster>
         <Monster Id="93"
                  Size="2081.64">
             <Crowns Silver="1.11"

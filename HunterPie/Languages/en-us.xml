@@ -347,9 +347,12 @@
 			<Monster Id="44" String="Tobi-Kadachi"/>
 			<Monster Id="45" String="Bazelgeuse"/>
 			<Monster Id="46" String="Toadversary"/>
+			<Monster Id="76" String="Gold Rathian"/>
+			<Monster Id="77" String="Silver Rathalos"/>
 			<Monster Id="78" String="Daimyo Hermitaur"/>
 			<Monster Id="79" String="Shogun Ceanataur"/>
 			<Monster Id="80" String="Furious Rajang"/>
+			<Monster Id="81" String="Lucent Nargacuga"/>
 			<Monster Id="82" String="Gore Magala"/>
 			<Monster Id="83" String="Shagaru Magala"/>
 			<Monster Id="84" String="Seregios"/>
@@ -359,6 +362,7 @@
 			<Monster Id="89" String="Aurora Somnacanth"/>
 			<Monster Id="90" String="Pyre Rakna-kadaki"/>
 			<Monster Id="91" String="Magma Almudron"/>
+			<Monster Id="92" String="Seething Bezelgeuse"/>
 			<Monster Id="93" String="Malzeno"/>
 			<Monster Id="94" String="Lunagaron"/>
 			<Monster Id="95" String="Garangolm"/>
