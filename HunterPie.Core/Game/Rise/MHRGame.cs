@@ -217,8 +217,9 @@ namespace HunterPie.Core.Game.Rise
                 AddressMap.Get<int[]>("MONSTER_LIST_OFFSETS")
             );
 
-            uint monsterArraySize = _process.Memory.Read<uint>(address - 0x8);
+            uint monsterArraySize = _process.Memory.Read<uint>(address + 0x1C);
             HashSet<long> monsterAddresses = _process.Memory.Read<long>(address + 0x20, Math.Min(MAXIMUM_MONSTER_ARRAY_SIZE, monsterArraySize))
+                .Where(mAddress => mAddress != 0)
                 .ToHashSet();
 
             long[] toDespawn = _monsters.Keys.Where(address => !monsterAddresses.Contains(address))
