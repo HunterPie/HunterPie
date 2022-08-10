@@ -507,6 +507,10 @@
 	</Stages>
 
 	<Client>
+		<Overlay>
+			<String Id="DAMAGE_METER_OTOMOS_NAME_STRING"
+					String="동반자"/>
+		</Overlay>
 		<Tabs>
 			<Tab Id="CONSOLE_STRING"
 				 String="콘솔"/>
@@ -815,6 +819,9 @@
 			<Setting Id="DAMAGE_METER_PLAYER_4_COLOR_STRING"
 				 	 String="네번째 플레이어 색상"
 				 	 Description="대미지 미터에서 네번째 플레이어의 색상입니다."/>
+			<Setting Id="DAMAGE_METER_ENABLE_OTOMOS"
+					 String="동반자 대미지 표시"
+					 Description="옵션 활성화 시, HunterPie가 동반자의 대미지를 표시합니다."/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="개발자: 모의 몬스터 위젯"/>
