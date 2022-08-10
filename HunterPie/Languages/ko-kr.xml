@@ -163,7 +163,7 @@
 		<Abnormality Id="ABNORMALITY_EFFLUVIA" String="독기 침식 상태"/>
 		<Abnormality Id="ABNORMALITY_FRENZY_BUILDUP" String="광룡 바이러스 감염"/>
 		<Abnormality Id="ABNORMALITY_FRENZY" String="광룡증"/>
-		<Abnormality Id="ABNORMALITY_WEBBED" String="거미줄"/>
+		<Abnormality Id="ABNORMALITY_WEBBED" String="실 속박 상태"/>
 	</Abnormalities>
 	<Monsters>
 		<Shared>
