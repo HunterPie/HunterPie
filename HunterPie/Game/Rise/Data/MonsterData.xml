@@ -811,6 +811,37 @@
                 <Part Id="5" String="PART_TAIL" />
             </Parts>
         </Monster>
+	   <Monster Id="76"
+                 Size="1754.37">
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+            </Weaknesses>
+            <Parts>
+                <Part Id="0" String="PART_HEAD" />
+                <Part Id="1" String="PART_TORSO" />
+                <Part Id="2" String="PART_L_WING" />
+                <Part Id="3" String="PART_R_WING" />
+                <Part Id="4" String="PART_L_LEG" />
+                <Part Id="5" String="PART_R_LEG" />
+                <Part Id="6" String="PART_TAIL" />
+            </Parts>
+        </Monster>
+	   <Monster Id="77"
+                 Size="1704.22">
+            <Weaknesses>
+                <Weakness Name="Water"/>
+            </Weaknesses>
+            <Parts>
+                <Part Id="0" String="PART_TORSO" />
+                <Part Id="1" String="PART_L_WING" />
+                <Part Id="2" String="PART_R_WING" />
+                <Part Id="3" String="PART_L_LEG" />
+                <Part Id="4" String="PART_R_LEG" />
+                <Part Id="5" String="PART_NECK" />
+                <Part Id="6" String="PART_HEAD" />
+                <Part Id="7" String="PART_TAIL" />
+            </Parts>
+        </Monster>
         <Monster Id="78"
                  Size="495.95">
             <Weaknesses>
@@ -862,6 +893,22 @@
                 <Part Id="4" String="PART_L_H_LEG" />
                 <Part Id="5" String="PART_R_H_LEG" />
                 <Part Id="6" String="PART_TAIL" />
+            </Parts>
+        </Monster>
+	   <Monster Id="81"
+                 Size="2012.03">
+            <Weaknesses>
+                <Weakness Name="Ice"/>
+            </Weaknesses>
+            <Parts>
+                <Part Id="0" String="PART_HEAD" />
+                <Part Id="1" String="PART_TORSO" />
+                <Part Id="2" String="PART_L_CUTWING" />
+                <Part Id="3" String="PART_TAIL" />
+                <Part Id="4" String="PART_FORELEGS" />
+                <Part Id="5" String="PART_L_H_LEG" />
+                <Part Id="6" String="PART_R_CUTWING" />
+                <Part Id="7" String="PART_R_H_LEG" />
             </Parts>
         </Monster>
         <Monster Id="82"
@@ -1022,6 +1069,21 @@
                 <Part Id="6" String="PART_TAIL" />
                 <Part Id="7" String="PART_TAIL_TIP" />
                 <Part Id="8" String="PART_MUD_BALL" />
+            </Parts>
+        </Monster>
+	   <Monster Id="92"
+                 Size="1928.38">
+            <Weaknesses>
+                <Weakness Name="Ice"/>
+                <Weakness Name="Thunder"/>
+            </Weaknesses>
+            <Parts>
+                <Part Id="0" String="PART_HEAD" />
+                <Part Id="1" String="PART_TORSO" />
+                <Part Id="2" String="PART_LEGS" />
+                <Part Id="3" String="PART_L_WING" />
+                <Part Id="4" String="PART_R_WING" />
+                <Part Id="5" String="PART_TAIL" />
             </Parts>
         </Monster>
         <Monster Id="93"
