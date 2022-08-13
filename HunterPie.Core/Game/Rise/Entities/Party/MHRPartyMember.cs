@@ -46,6 +46,8 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
         public bool IsMyself { get; private set; } = true;
         public MemberType Type { get; private set; }
 
+        public int MasterRank { get; private set; }
+
         public event EventHandler<IPartyMember> OnDamageDealt;
         public event EventHandler<IPartyMember> OnWeaponChange;
 
@@ -63,6 +65,7 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
             IsMyself = data.IsMyself;
             Slot = data.Index;
             Type = data.MemberType;
+            MasterRank = data.MasterRank;
         }
 
         void IUpdatable<EntityDamageData>.Update(EntityDamageData data)
