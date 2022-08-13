@@ -469,6 +469,7 @@
 			<Stage Id="211" String="Coral Palace"/>
 			<Stage Id="212" String="Jungle"/>
 			<Stage Id="213" String="Citadel"/>
+			<Stage Id="214" String="Forlorn Arena"/>
 			<Stage Id="215" String="Yawning Abyss"/>
 		</Rise>
 		<World>

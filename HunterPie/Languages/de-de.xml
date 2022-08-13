@@ -199,9 +199,12 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 			<Monster Id="44" String="Tobi-Kadachi"/>
 			<Monster Id="45" String="Bazelgeuse"/>
 			<Monster Id="46" String="Toadversary"/>
+			<Monster Id="76" String="Goldene Rathian"/>
+			<Monster Id="77" String="Silberner Rathalos"/>
 			<Monster Id="78" String="Daimyo Hermitaur"/>
 			<Monster Id="79" String="Shogun Ceanataur"/>
 			<Monster Id="80" String="Zorniger Rajang"/>
+			<Monster Id="81" String="Mondlicht-Nargacuga"/>
 			<Monster Id="82" String="Gore Magala"/>
 			<Monster Id="83" String="Shagaru Magala"/>
 			<Monster Id="84" String="Seregios"/>
@@ -209,7 +212,9 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 			<Monster Id="87" String="Tobender Magnamalo"/>
 			<Monster Id="88" String="Blut-Bishaten"/>
 			<Monster Id="89" String="Auroracanth"/>
+			<Monster Id="90" String="Pyro-Kadaki"/>
 			<Monster Id="91" String="Magmadron"/>
+			<Monster Id="92" String="Brodelnder Bazelgeuse"/>
 			<Monster Id="93" String="Malzeno"/>
 			<Monster Id="94" String="Lunagaron"/>
 			<Monster Id="95" String="Garangolm"/>
@@ -241,6 +246,9 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 			<Stage Id="210" String="Arena"/>
 			<Stage Id="211" String="Korallenpalast"/>
 			<Stage Id="212" String="Dschungel" />
+			<Stage Id="213" String="Zitadelle"/>
+			<Stage Id="214" String="Verbotener Turm"/>
+			<Stage Id="215" String="Gähnender Abgrund"/>			
 		</Rise>
 	</Stages>
 
