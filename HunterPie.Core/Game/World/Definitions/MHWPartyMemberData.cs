@@ -9,5 +9,6 @@ namespace HunterPie.Core.Game.World.Definitions
         public int Damage;
         public int Slot;
         public bool IsMyself;
+        public int MasterRank;
     }
 }

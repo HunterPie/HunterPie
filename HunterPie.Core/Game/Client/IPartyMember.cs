@@ -7,6 +7,7 @@ namespace HunterPie.Core.Game.Client
     {
 
         public string Name { get; }
+        public int MasterRank { get; }
         public int Damage { get; }
         public Weapon Weapon { get; }
         public int Slot { get; }

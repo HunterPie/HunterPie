@@ -9,7 +9,8 @@
              d:DataContext="{d:DesignInstance Type=viewmodels:PlayerViewModel}"
              Margin="0,0,0,2"
              mc:Ignorable="d"
-             d:Height="40">
+             d:Height="40"
+             d:Width="300">
     <UserControl.Resources>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -19,7 +20,8 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="49*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="39*"/>
             <ColumnDefinition Width="25*"/>
             <ColumnDefinition Width="26*"/>
         </Grid.ColumnDefinitions>
@@ -53,10 +55,16 @@
 
         <Image d:Source="{StaticResource ICON_BOW}"
                Source="{Binding Weapon, Converter={StaticResource WeaponToIconConverter}}"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Top"
                Width="20"
-               Margin="5,0,0,0"/>
+               Margin="0,13,0,0"/>
+
+        <TextBlock Text="{Binding MasterRank, Mode=OneWay}"
+                   Foreground="{StaticResource WHITE_200}"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   FontSize="10"/>
 
         <TextBlock d:Text="Player"
                    Text="{Binding Name}"
@@ -64,9 +72,8 @@
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                    FontSize="16"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Stretch"
-                   Margin="30,0,0,0"
-                   TextWrapping="WrapWithOverflow">
+                   TextWrapping="WrapWithOverflow" 
+                   Grid.Column="1">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
                     <Style.Triggers>
@@ -94,9 +101,8 @@
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                    FontWeight="Medium"
                    FontSize="16"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Stretch" 
-                   Grid.Column="1"
+                   VerticalAlignment="Center" 
+                   Grid.Column="2"
                    TextAlignment="Center">
             
             <Run d:Text="▴" 
@@ -131,9 +137,9 @@
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                    FontSize="16"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Right"
-                   Margin="0,0,2,0"
-                   Grid.Column="2">
+                   HorizontalAlignment="Left"
+                   Margin="25,0,0,0"
+                   Grid.Column="3">
             <Run d:Text="50"
                  Text="{Binding DPS, StringFormat=\{0:F0\}}"/><!--
          --><Run d:Text=".32"
@@ -155,7 +161,7 @@
                    VerticalAlignment="Bottom"
                    HorizontalAlignment="Right"
                    Margin="0,0,2,0" 
-                   Grid.Column="2"
+                   Grid.Column="3"
                    TextAlignment="Right"/>
 
     </Grid>

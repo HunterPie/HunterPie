@@ -269,7 +269,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
                     Damage = member.Damage,
                     Weapon = member.Weapon,
                     Color = playerColor,
-                    IsUser = member.IsMyself
+                    IsUser = member.IsMyself,
+                    MasterRank = member.MasterRank
                 },
                 Series = BuildPlayerSeries(member.Name, playerColor),
                 JoinedAt = Context.Game.TimeElapsed

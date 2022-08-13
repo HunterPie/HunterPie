@@ -46,6 +46,8 @@ namespace HunterPie.Core.Game.World.Entities.Party
 
         public MemberType Type => MemberType.Player;
 
+        public int MasterRank { get; private set; }
+
         public event EventHandler<IPartyMember> OnDamageDealt;
         public event EventHandler<IPartyMember> OnWeaponChange;
 
@@ -56,6 +58,7 @@ namespace HunterPie.Core.Game.World.Entities.Party
             Weapon = data.Weapon;
             Slot = data.Slot;
             IsMyself = data.IsMyself;
+            MasterRank = data.MasterRank;
         }
     }
 }

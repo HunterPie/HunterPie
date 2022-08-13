@@ -10,5 +10,8 @@ namespace HunterPie.Core.Game.Rise.Definitions
 
         [FieldOffset(0x38)]
         public int HighRank;
+
+        [FieldOffset(0x90)]
+        public int MasterRank;
     }
 }

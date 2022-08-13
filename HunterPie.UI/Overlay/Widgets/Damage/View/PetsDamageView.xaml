@@ -58,29 +58,7 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Stretch"
                    Margin="30,0,0,0"
-                   TextWrapping="WrapWithOverflow">
-            <TextBlock.Style>
-                <Style TargetType="{x:Type TextBlock}">
-                    <Style.Triggers>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding DataContext.ShouldBlurNames.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PlayerDamageView}}}" 
-                                           Value="True"/>
-                            </MultiDataTrigger.Conditions>
-                            <MultiDataTrigger.Setters>
-                                <Setter Property="Effect">
-                                    <Setter.Value>
-                                        <BlurEffect RenderingBias="Performance" 
-                                                    KernelType="Gaussian" 
-                                                    Radius="10"/>
-                                    </Setter.Value>
-                                </Setter>
-                            </MultiDataTrigger.Setters>
-                        </MultiDataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
+                   TextWrapping="WrapWithOverflow"/>
 
         <TextBlock d:Text="26,354"
                    Text="{Binding TotalDamage, Mode=OneWay}"

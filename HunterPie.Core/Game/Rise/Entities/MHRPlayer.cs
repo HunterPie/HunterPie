@@ -130,7 +130,6 @@ namespace HunterPie.Core.Game.Rise.Entities
             if (stageAddress == 0x00000000)
                 return;
 
-            // TODO: Transform this into a structure instead of an array
             MHRStageStructure stageData = _process.Memory.Read<MHRStageStructure>(stageAddress + 0x60);
             
             int zoneId;
@@ -386,6 +385,7 @@ namespace HunterPie.Core.Game.Rise.Entities
                     Index = 0,
                     Name = Name,
                     HighRank = HighRank,
+                    MasterRank = MasterRank,
                     WeaponId = WeaponId,
                     IsMyself = true
                 });
@@ -414,6 +414,7 @@ namespace HunterPie.Core.Game.Rise.Entities
                     Index = playerData.index,
                     Name = name,
                     HighRank = playerData.data.HighRank,
+                    MasterRank = playerData.data.MasterRank,
                     WeaponId = weapon,
                     IsMyself = name == Name
                 };
