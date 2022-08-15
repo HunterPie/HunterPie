@@ -789,6 +789,9 @@
 			<Setting Id="ACTIVITIES_ENABLE_TRAINING_DOJO_STRING"
 					 String="동반자 도장 표시"
 					 Description="옵션 활성화 시, HunterPie가 동반자 도장의 정보를 표시합니다."/>
+			<Setting Id="ACTIVITIES_ENABLE_MEOWMASTERS_STRING"
+					 String="동반자 그림자 부대 표시"
+					 Description="옵션 활성화 시, HunterPie가 동반자 그림자 부대의 정보를 표시합니다."/>
 
 			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_HIGHLIGHT_MYSELF"
 				 	 String="자신 강조하기"
