@@ -81,8 +81,25 @@
             );
             Activities.Add(trainingDojoActivity);
 
-            
+            SetupMeowmasters();
+
             InVisibleStage = true;
+        }
+
+        private void SetupMeowmasters()
+        {
+            var meowmastersActivity = new MeowcenariesViewModel()
+            {
+                Step = 3,
+                MaxSteps = 5,
+                ExpectedOutcome = 3,
+                BuddyCount = 4,
+                MaxBuddyCount = 4,
+                MaxOutcome = 5,
+                IsDeployed = true
+            };
+
+            Activities.Add(meowmastersActivity);
         }
     }
 }

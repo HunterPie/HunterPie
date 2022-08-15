@@ -574,6 +574,30 @@ namespace HunterPie.Core.Game.Rise.Entities
             model.Update(data);
         }
 
+        [ScannableMethod(typeof(MHRMeowmasterData))]
+        private void GetMeowcenaries()
+        {
+            long meowmastersAddress = _process.Memory.Read(
+                AddressMap.GetAbsolute("MEOWMASTERS_ADDRESS"),
+                AddressMap.Get<int[]>("MEOWMASTERS_OFFSETS")
+            );
+
+            MHRMeowmasterStructure structure = _process.Memory.Read<MHRMeowmasterStructure>(meowmastersAddress);
+            MHRMeowmasterData data = new()
+            {
+                IsDeployed = structure.IsDeployed,
+                IsLagniappleActive = structure.IsLagniappleActive,
+                BuddiesCount = _process.Memory.Read<int>(structure.BuddiesPointer + 0x18),
+                CurrentStep = structure.CurrentStep,
+                MaxStep = 5
+            };
+
+            Next(ref data);
+
+            IUpdatable<MHRMeowmasterData> updatable = Meowmasters;
+            updatable.Update(data);
+        }
+
         [ScannableMethod]
         private void GetPartyData()
         {
