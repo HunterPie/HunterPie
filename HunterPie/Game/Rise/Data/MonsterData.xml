@@ -811,7 +811,10 @@
                 <Part Id="5" String="PART_TAIL" />
             </Parts>
         </Monster>
-		<Monster Id="76">
+		<Monster Id="76"
+				 Size="1754.37">
+			<Crowns Mini="0.97"
+                    Silver="1.17"/>
 			<Weaknesses>
 				<Weakness Name="Thunder"/>
 				<Weakness Name="Water"/>
@@ -827,7 +830,10 @@
 				<Part Id="6" String="PART_TAIL" />
 			</Parts>
 		</Monster>
-		<Monster Id="77">
+		<Monster Id="77"
+				 Size="1704.22">
+			<Crowns Mini="0.97"
+                    Silver="1.17"/>
 			<Weaknesses>
 				<Weakness Name="Water"/>
 				<Weakness Name="Thunder"/>
@@ -897,7 +903,10 @@
                 <Part Id="6" String="PART_TAIL" />
             </Parts>
         </Monster>
-		<Monster Id="81">
+		<Monster Id="81"
+				 Size="2012.03">
+			<Crowns Mini="0.97"
+                    Silver="1.17"/>
 			<Weaknesses>
 				<Weakness Name="Ice"/>
 				<Weakness Name="Dragon"/>
@@ -1074,7 +1083,8 @@
                 <Part Id="8" String="PART_MUD_BALL" />
             </Parts>
         </Monster>
-		<Monster Id="92">
+		<Monster Id="92"
+				 Size="1928.38">
 			<Weaknesses>
 				<Weakness Name="Ice"/>
 				<Weakness Name="Thunder"/>
