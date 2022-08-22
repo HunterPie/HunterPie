@@ -100,6 +100,8 @@ namespace HunterPie.Core.Game.Rise.Entities
         public MHRTrainingDojo TrainingDojo { get; } = new();
         public MHRMeowmasters Meowmasters { get; } = new();
 
+        public MHRCohoot Cohoot { get; } = new();
+
         public event EventHandler<EventArgs> OnLogin;
         public event EventHandler<EventArgs> OnLogout;
         public event EventHandler<EventArgs> OnHealthUpdate;
@@ -534,6 +536,20 @@ namespace HunterPie.Core.Game.Rise.Entities
                 localData.Update(submarines[i]);
             }
             
+        }
+
+        [ScannableMethod(typeof(MHRCohootStructure))]
+        private void GetCohoot()
+        {
+            MHRCohootStructure cohoot = _process.Memory.Deref<MHRCohootStructure>(
+                AddressMap.GetAbsolute("COHOOT_ADDRESS"),
+                AddressMap.Get<int[]>("COHOOT_COUNT_OFFSETS")
+            );
+
+            Next(ref cohoot);
+
+            IUpdatable<MHRCohootStructure> updatable = Cohoot;
+            updatable.Update(cohoot);
         }
 
         [ScannableMethod(typeof(MHRTrainingDojoData))]

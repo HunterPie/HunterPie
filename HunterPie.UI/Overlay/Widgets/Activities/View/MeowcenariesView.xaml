@@ -97,7 +97,7 @@
                        FontSize="14"
                        VerticalAlignment="Center">
                 <Run Text="Step:"
-                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                     Foreground="{StaticResource WHITE_200}"
                      FontWeight="Medium"/>
                 <Run d:Text="4"
                      Text="{Binding Step, Mode=OneWay}"
@@ -120,7 +120,7 @@
                        Grid.Row="1"
                        VerticalAlignment="Center">
                 <Run Text="Buddies:"
-                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                     Foreground="{StaticResource WHITE_200}"
                      FontWeight="Medium"/>
                 <Run Text="{Binding BuddyCount, Mode=OneWay}"
                      d:Text="3"
@@ -143,7 +143,7 @@
                        Grid.Column="1"
                        VerticalAlignment="Center">
                 <Run Text="Outcome:"
-                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                     Foreground="{StaticResource WHITE_200}"
                      FontWeight="Medium"/>
                 <Run d:Text="3"
                      Text="{Binding ExpectedOutcome, Mode=OneWay}"

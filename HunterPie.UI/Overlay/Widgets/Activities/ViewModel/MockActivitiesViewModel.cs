@@ -82,6 +82,7 @@
             Activities.Add(trainingDojoActivity);
 
             SetupMeowmasters();
+            SetupCohoot();
 
             InVisibleStage = true;
         }
@@ -100,6 +101,17 @@
             };
 
             Activities.Add(meowmastersActivity);
+        }
+
+        private void SetupCohoot()
+        {
+            var cohootActivity = new CohootNestViewModel()
+            {
+                Count = 3,
+                MaxCount = 5,
+            };
+
+            Activities.Add(cohootActivity);
         }
     }
 }

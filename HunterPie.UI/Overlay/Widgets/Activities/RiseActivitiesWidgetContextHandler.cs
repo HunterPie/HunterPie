@@ -22,6 +22,7 @@ namespace HunterPie.UI.Overlay.Widgets.Activities
         private readonly SubmarinesContextHandler _submarinesHandler;
         private readonly TrainingDojoContextHandler _trainingDojoContextHandler;
         private readonly MeowcenariesContextHandler _meowcenariesContextHandler;
+        private readonly CohootContextHandler _cohootContextHandler;
 
         public RiseActivitiesWidgetContextHandler(MHRContext context)
         {
@@ -36,8 +37,15 @@ namespace HunterPie.UI.Overlay.Widgets.Activities
             _submarinesHandler = new(_context);
             _trainingDojoContextHandler = new(_context);
             _meowcenariesContextHandler = new(_context);
+            _cohootContextHandler = new(_context);
 
-            _handlers = new IContextHandler[] { _submarinesHandler, _trainingDojoContextHandler, _meowcenariesContextHandler };
+            _handlers = new IContextHandler[] 
+            { 
+                _submarinesHandler, 
+                _trainingDojoContextHandler, 
+                _meowcenariesContextHandler,
+                _cohootContextHandler,
+            };
             UpdateData();
             HookEvents();
         }
@@ -50,6 +58,7 @@ namespace HunterPie.UI.Overlay.Widgets.Activities
             ViewModel.Activities.Add(_submarinesHandler.ViewModel);
             ViewModel.Activities.Add(_trainingDojoContextHandler.ViewModel);
             ViewModel.Activities.Add(_meowcenariesContextHandler.ViewModel);
+            ViewModel.Activities.Add(_cohootContextHandler.ViewModel);
 
             _player.OnStageUpdate += OnStageChange;
         }

@@ -30,10 +30,16 @@
                                     Visibility="{Binding Settings.IsMeowmastersEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:ActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </DataTemplate>
 
+        <DataTemplate x:Key="TEMPLATE_COHOOT_VIEW">
+            <local:CohootNestView Height="40"
+                                  Visibility="{Binding Settings.IsMeowmastersEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:ActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        </DataTemplate>
+
         <presentation:ActivityTemplateSelector x:Key="ActivityTemplateSelector"
                                                SubmarineTemplate="{StaticResource TEMPLATE_SUBMARINES_VIEW}"
                                                TrainingDojoTemplate="{StaticResource TEMPLATE_TRAINING_DOJO_VIEW}"
-                                               MeowcenariesTemplate="{StaticResource TEMPLATE_MEOWCENARIES_VIEW}"/>
+                                               MeowcenariesTemplate="{StaticResource TEMPLATE_MEOWCENARIES_VIEW}"
+                                               CohootTemplae="{StaticResource TEMPLATE_COHOOT_VIEW}"/>
     </UserControl.Resources>
     <ItemsControl ItemsSource="{Binding Activities, Mode=OneWay}"
                   ItemTemplateSelector="{StaticResource ActivityTemplateSelector}"
