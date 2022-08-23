@@ -27,7 +27,7 @@ namespace HunterPie.Core.Game.Rise.Entities.Activities
 
         void IUpdatable<MHRCohootStructure>.Update(MHRCohootStructure data)
         {
-            MaxCount = 5;
+            MaxCount = data.MaxCount;
             Count = data.Count;
         }
     }

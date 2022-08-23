@@ -33,11 +33,11 @@
                     <Binding Path="Margin" RelativeSource="{RelativeSource Self}"/>
                 </MultiBinding>
             </Grid.Width>
-            <Rectangle >
+            <Rectangle>
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="1,0.5" StartPoint="0.5,1">
-                        <GradientStop Color="#33008DCF" Offset="0"/>
-                        <GradientStop Color="#3300FFD1" Offset="1"/>
+                        <GradientStop Color="#33CF0000" Offset="0"/>
+                        <GradientStop Color="#33FF0069" Offset="1"/>
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
@@ -75,7 +75,8 @@
         
         <Image Source="{StaticResource ICON_MEOWCENARIES}"
                HorizontalAlignment="Center"
-               Margin="5">
+               Margin="5"
+               Opacity="0.7">
             <Image.Effect>
                 <DropShadowEffect BlurRadius="5"
                                       Color="Black"
@@ -93,19 +94,20 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                       Foreground="{StaticResource WHITE_100}"
                        FontSize="14"
                        VerticalAlignment="Center">
                 <Run Text="Step:"
-                     Foreground="{StaticResource WHITE_200}"
+                     
                      FontWeight="Medium"/>
                 <Run d:Text="4"
                      Text="{Binding Step, Mode=OneWay}"
-                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                      FontWeight="Medium"/><!--
-             --><Run Text="/"/><!--
+             --><Run Text="/"
+                     Foreground="{StaticResource WHITE_600}"/><!--
              --><Run d:Text="5" 
-                     Text="{Binding MaxSteps, Mode=OneWay}"/>
+                     Text="{Binding MaxSteps, Mode=OneWay}"
+                     Foreground="{StaticResource WHITE_600}"/>
 
                 <TextBlock.Effect>
                     <DropShadowEffect BlurRadius="5"
@@ -115,20 +117,20 @@
             </TextBlock>
 
             <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                       Foreground="{StaticResource WHITE_100}"
                        FontSize="14"
                        Grid.Row="1"
                        VerticalAlignment="Center">
                 <Run Text="Buddies:"
-                     Foreground="{StaticResource WHITE_200}"
                      FontWeight="Medium"/>
                 <Run Text="{Binding BuddyCount, Mode=OneWay}"
                      d:Text="3"
-                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                      FontWeight="Medium"/><!--
-             --><Run Text="/"/><!--
+             --><Run Text="/"
+                     Foreground="{StaticResource WHITE_600}"/><!--
              --><Run Text="{Binding MaxBuddyCount, Mode=OneWay}"
-                     d:Text="4"/>
+                     d:Text="4"
+                     Foreground="{StaticResource WHITE_600}"/>
 
                 <TextBlock.Effect>
                     <DropShadowEffect BlurRadius="5"
@@ -138,20 +140,20 @@
             </TextBlock>
 
             <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                       Foreground="{StaticResource WHITE_100}"
                        FontSize="14"
                        Grid.Column="1"
                        VerticalAlignment="Center">
                 <Run Text="Outcome:"
-                     Foreground="{StaticResource WHITE_200}"
                      FontWeight="Medium"/>
                 <Run d:Text="3"
                      Text="{Binding ExpectedOutcome, Mode=OneWay}"
-                     Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                      FontWeight="Medium"/><!--
-             --><Run Text="/"/><!--
+             --><Run Text="/"
+                     Foreground="{StaticResource WHITE_600}"/><!--
              --><Run d:Text="5"
-                     Text="{Binding MaxOutcome, Mode=OneWay}"/>
+                     Text="{Binding MaxOutcome, Mode=OneWay}"
+                     Foreground="{StaticResource WHITE_600}"/>
 
                 <TextBlock.Effect>
                     <DropShadowEffect BlurRadius="5"

@@ -2,9 +2,13 @@
 
 namespace HunterPie.Core.Game.Rise.Definitions
 {
-    [StructLayout(LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Explicit)]
     public struct MHRCohootStructure
     {
+        [FieldOffset(0x18)]
+        public int MaxCount;
+
+        [FieldOffset(0x28)]
         public int Count;
     }
 }

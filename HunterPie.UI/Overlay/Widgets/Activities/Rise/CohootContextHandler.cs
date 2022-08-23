@@ -14,6 +14,7 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.Rise
         public CohootContextHandler(MHRContext context)
         {
             _context = context;
+            UpdateData();
         }
 
         public void HookEvents()
@@ -30,6 +31,12 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.Rise
         {
             ViewModel.Count = e.Count;
             ViewModel.MaxCount = e.MaxCount;
+        }
+
+        public void UpdateData()
+        {
+            ViewModel.Count = _player.Cohoot.Count;
+            ViewModel.MaxCount = _player.Cohoot.MaxCount;
         }
     }
 }
