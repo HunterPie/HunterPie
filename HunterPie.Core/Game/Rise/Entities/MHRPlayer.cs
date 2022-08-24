@@ -100,6 +100,8 @@ namespace HunterPie.Core.Game.Rise.Entities
         public MHRTrainingDojo TrainingDojo { get; } = new();
         public MHRMeowmasters Meowmasters { get; } = new();
 
+        public MHRCohoot Cohoot { get; } = new();
+
         public event EventHandler<EventArgs> OnLogin;
         public event EventHandler<EventArgs> OnLogout;
         public event EventHandler<EventArgs> OnHealthUpdate;
@@ -395,17 +397,13 @@ namespace HunterPie.Core.Game.Rise.Entities
             foreach (var playerData in sessionPlayersArray)
             {
                 long weaponPtr = playerWeaponsPtr[playerData.index];
+                string name = _process.Memory.Read(playerData.data.NamePointer + 0x14, 32, Encoding.Unicode);
 
-                if (weaponPtr == 0)
+                if (weaponPtr == 0 && !playerData.isValid)
                 {
                     _party.Remove(playerData.index);
                     continue;
                 }
-
-                string name = _process.Memory.Read(playerData.data.NamePointer + 0x14, 32, Encoding.Unicode);
-
-                if (string.IsNullOrEmpty(name))
-                    continue;
 
                 Weapon weapon = _process.Memory.Read<int>(weaponPtr + 0x134).ToWeaponId();
 
@@ -534,6 +532,20 @@ namespace HunterPie.Core.Game.Rise.Entities
                 localData.Update(submarines[i]);
             }
             
+        }
+
+        [ScannableMethod(typeof(MHRCohootStructure))]
+        private void GetCohoot()
+        {
+            MHRCohootStructure cohoot = _process.Memory.Deref<MHRCohootStructure>(
+                AddressMap.GetAbsolute("COHOOT_ADDRESS"),
+                AddressMap.Get<int[]>("COHOOT_COUNT_OFFSETS")
+            );
+
+            Next(ref cohoot);
+
+            IUpdatable<MHRCohootStructure> updatable = Cohoot;
+            updatable.Update(cohoot);
         }
 
         [ScannableMethod(typeof(MHRTrainingDojoData))]

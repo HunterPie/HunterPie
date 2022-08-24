@@ -78,7 +78,7 @@ namespace HunterPie.Core.Game.Rise.Entities.Activities
         void IUpdatable<MHRMeowmasterData>.Update(MHRMeowmasterData data)
         {
             MaxSteps = data.MaxStep;
-            Step = data.CurrentStep;
+            Step = data.CurrentStep + (data.IsDeployed ? 1 : 0);
             BuddyCount = data.BuddiesCount;
             HasLagniapple = data.IsLagniappleActive;
             ExpectedOutcome = BuddyCount + (HasLagniapple ? 1 : 0);

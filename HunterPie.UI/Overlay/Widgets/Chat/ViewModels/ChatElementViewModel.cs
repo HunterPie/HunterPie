@@ -1,10 +1,4 @@
 ﻿using HunterPie.Core.Architecture;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
 
 namespace HunterPie.UI.Overlay.Widgets.Chat.ViewModels
 {
@@ -12,11 +6,11 @@ namespace HunterPie.UI.Overlay.Widgets.Chat.ViewModels
     {
         private string _text;
         private string _author;
-        private Brush _color;
+        private int _index;
 
         public string Text { get => _text; set { SetValue(ref _text, value); } }
         public string Author { get => _author; set { SetValue(ref _author, value); } }
-        public Brush Color { get => _color; set { SetValue(ref _color, value); } }
+        public int Index { get => _index; set { SetValue(ref _index, value); } }
 
     }
 }
