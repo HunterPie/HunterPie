@@ -11,13 +11,13 @@ namespace HunterPie.Core.Game.Rise.Definitions
         [FieldOffset(0x10)]
         public int Type;
 
-        [FieldOffset(0x30)]
+        [FieldOffset(0x38)]
         public long Author;
 
-        [FieldOffset(0x3C)]
+        [FieldOffset(0x50)]
         public int PlayerSlot;
 
-        [FieldOffset(0x60)]
+        [FieldOffset(0x68)]
         public long Message;
     }
 }

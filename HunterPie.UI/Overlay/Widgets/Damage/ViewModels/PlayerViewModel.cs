@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Architecture;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
@@ -12,12 +13,15 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
         private Weapon _weapon;
         private int _damage;
         private double _dps;
-        private double _percentage;
-        private string _color;
+        private DamageBarViewModel _bar;
         private bool _isIncreasing;
         private bool _isUser;
+        private int _masterRank;
 
-        public PlayerViewModel(DamageMeterWidgetConfig config) => _config = config;
+        public PlayerViewModel(DamageMeterWidgetConfig config)
+        {
+            _config = config;
+        }
 
         public string Name
         {
@@ -39,16 +43,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
             get => _dps;
             set { SetValue(ref _dps, value); }
         }
-        public double Percentage
-        {
-            get => _percentage;
-            set { SetValue(ref _percentage, value); }
-        }
-        public string Color
-        {
-            get => _color;
-            set { SetValue(ref _color, value); }
-        }
+        public DamageBarViewModel Bar { get => _bar; set { SetValue(ref _bar, value); } }
         public bool IsIncreasing
         {
             get => _isIncreasing;
@@ -59,6 +54,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
             get => _isUser;
             set { SetValue(ref _isUser, value); }
         }
+
+        public int MasterRank { get => _masterRank; set { SetValue(ref _masterRank, value); } }
 
         // Settings related
         public Observable<bool> ShouldHighlightMyself => _config.ShouldHighlightMyself;

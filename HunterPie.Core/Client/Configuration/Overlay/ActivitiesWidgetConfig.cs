@@ -23,6 +23,12 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         [SettingField("ACTIVITIES_ENABLE_TRAINING_DOJO_STRING")]
         public Observable<bool> IsTrainingDojoEnabled { get; set; } = true;
 
+        [SettingField("ACTIVITIES_ENABLE_MEOWMASTERS_STRING")]
+        public Observable<bool> IsMeowmastersEnabled { get; set; } = true;
+
+        [SettingField("ACTIVITIES_ENABLE_COHOOT_STRING")]
+        public Observable<bool> IsCohootEnabled { get; set; } = true;
+
         [SettingField("WIDGET_OPACITY")]
         public Range Opacity { get; set; } = new(1, 1, 0.1, 0.1);
 

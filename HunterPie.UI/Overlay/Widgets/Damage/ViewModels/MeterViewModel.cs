@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Extensions;
 using HunterPie.UI.Architecture;
 using LiveCharts;
 using System;
@@ -14,6 +15,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
         private int _deaths;
         private bool _inHuntingZone;
         private Func<double, string> _damageFormatter;
+        private bool _hasPetsToBeDisplayed;
 
         public Func<double, string> TimeFormatter { get; set;  } = 
             new Func<double, string>((value) => TimeSpan.FromSeconds(value).ToString("mm\\:ss"));
@@ -23,6 +25,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
         public SeriesCollection Series { get; protected set; } = new();
 
         public ObservableCollection<PlayerViewModel> Players { get; } = new();
+
+        public PetsViewModel Pets { get; }
 
         public double TimeElapsed
         {
@@ -38,9 +42,12 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
 
         public bool InHuntingZone { get => _inHuntingZone; set { SetValue(ref _inHuntingZone, value); } }
 
+        public bool HasPetsToBeDisplayed { get => _hasPetsToBeDisplayed; set => SetValue(ref _hasPetsToBeDisplayed, value); }
+
         public MeterViewModel(DamageMeterWidgetConfig config)
         {
             Settings = config;
+            Pets = new(config);
             SetupFormatters();
         }
 
@@ -62,17 +69,10 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
         public void ToggleHighlight() => Settings.ShouldHighlightMyself.Value = !Settings.ShouldHighlightMyself;
         public void ToggleBlur() => Settings.ShouldBlurNames.Value = !Settings.ShouldBlurNames;
 
-        public void SortPlayers()
+        public void SortMembers()
         {
-            // TODO: Make this an extension instead of a method
-            for (int i = 1; i <= Players.Count; i++)
-            {
-                if (i > Players.Count - 1)
-                    break;
-
-                if (Players[i - 1].Damage < Players[i].Damage)
-                    Players.Move(i - 1, i);
-            }
+            Players.SortInPlace(player => player.Damage);
+            Pets.Damages.SortInPlace(pet => pet.Percentage);
         }
     }
 }

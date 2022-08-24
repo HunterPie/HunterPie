@@ -24,6 +24,9 @@ namespace HunterPie.Core.Client.Configuration.Overlay
         [SettingField("DAMAGE_METER_ENABLE_SHOULD_BLUR_NAMES")]
         public Observable<bool> ShouldBlurNames { get; set; } = false;
 
+        [SettingField("DAMAGE_METER_ENABLE_OTOMOS", availableGames: GameProcess.MonsterHunterRise)]
+        public Observable<bool> ShouldShowOtomos { get; set; } = true;
+
         [SettingField("DAMAGE_METER_DPS_CALCULATION_STRATEGY_STRING")]
 
         public Observable<DPSCalculationStrategy> DpsCalculationStrategy { get; set; } = DPSCalculationStrategy.RelativeToJoin;

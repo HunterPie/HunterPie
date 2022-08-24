@@ -35,8 +35,14 @@
                     <Binding Path="Margin" RelativeSource="{RelativeSource Self}"/>
                 </MultiBinding>
             </Grid.Width>
-            <Rectangle Opacity="0.3"
-                       Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
+            <Rectangle>
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0.5,1">
+                        <GradientStop Color="#33CF3900" Offset="0"/>
+                        <GradientStop Color="#33FFA400" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
             <Rectangle Fill="#10FFFFFF" 
                        Width="30" 
                        RenderTransformOrigin="0.5,0.5"
@@ -108,7 +114,8 @@
                 <Rectangle Margin="3"
                            Grid.RowSpan="2" 
                            Grid.Column="0"
-                           Fill="WhiteSmoke">
+                           Fill="WhiteSmoke"
+                           Opacity="0.7">
                     <Rectangle.OpacityMask>
                         <ImageBrush ImageSource="{StaticResource ICON_DOJO}" 
                                     Stretch="Uniform"/>
@@ -128,21 +135,19 @@
                            Height="15"
                            Width="15"
                            Margin="3,0,0,0" Opacity="0.5"/>
-                    <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                               Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                               FontSize="15"
-                               VerticalAlignment="Center">
+                    <TextBlock FontSize="15"
+                               VerticalAlignment="Center"
+                               Foreground="{StaticResource WHITE_100}">
                         <Run Text="Boosts:"
                              FontWeight="Medium"/>
-                        <Run Text="{Binding Boosts}"
-                             Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                        <Run Text="{Binding Boosts, Mode=OneWay}"
                              d:Text="9"
                              FontWeight="Medium"/><!--
                      --><Run Text="/"
-                             Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/><!--
-                     --><Run Text="{Binding MaxBoosts}"
+                             Foreground="{StaticResource WHITE_600}"/><!--
+                     --><Run Text="{Binding MaxBoosts, Mode=OneWay}"
                              d:Text="10"
-                             Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/>
+                             Foreground="{StaticResource WHITE_600}"/>
                         <TextBlock.Effect>
                             <DropShadowEffect BlurRadius="5"
                                               Color="Black"
@@ -155,8 +160,7 @@
                             Grid.Row="1" 
                             Grid.Column="1">
                     <Image Source="{StaticResource ICON_TRAINING}" Opacity="0.5"/>
-                    <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                    <TextBlock Foreground="{StaticResource WHITE_100}"
                                FontSize="15"
                                VerticalAlignment="Center">
                         <Run Text="Rounds:"
@@ -165,9 +169,9 @@
                              d:Text="9"
                              FontWeight="Medium"/><!--
                      --><Run Text="/"
-                             Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/><!--
+                             Foreground="{StaticResource WHITE_600}"/><!--
                      --><Run Text="{Binding MaxRounds}"
-                             Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                             Foreground="{StaticResource WHITE_600}"
                              d:Text="10"/>
                         <TextBlock.Effect>
                             <DropShadowEffect BlurRadius="5"

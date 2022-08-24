@@ -3,10 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Chat.Presentation"
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Chat.Views"
              mc:Ignorable="d"
              SnapsToDevicePixels="True"
              UseLayoutRounding="True">
+    <UserControl.Resources>
+        <presentation:MemberIndexToColorConverter x:Key="MemberIndexToColorConverter"/>
+    </UserControl.Resources>
     <StackPanel Orientation="Horizontal">
         <!-- Player name -->
         <Grid HorizontalAlignment="Left">
@@ -14,20 +18,20 @@
                        Opacity="0.8"/>
             <Rectangle Width="2"
                        HorizontalAlignment="Left"
-                       Fill="{Binding Color, Mode=OneWay}"
+                       Fill="{Binding Index, Converter={StaticResource MemberIndexToColorConverter}}"
                        d:Fill="DarkCyan"/>
             <TextBlock d:Text="Poggies"
-                       Text="{Binding Author, Mode=OneWay}"
+                       Text="{Binding Author}"
                        FontWeight="Bold"
                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                       Foreground="{Binding Color, Mode=OneWay}"
+                       Foreground="{Binding Index, Converter={StaticResource MemberIndexToColorConverter}}"
                        d:Foreground="DarkCyan"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="12"
                        Padding="10,0,10,0">
                 <TextBlock.Effect>
-                    <DropShadowEffect Color="{Binding Color, Mode=OneWay}"
+                    <DropShadowEffect Color="{Binding Index, Converter={StaticResource MemberIndexToColorConverter}}"
                                       BlurRadius="5" 
                                       ShadowDepth="0"/>
                 </TextBlock.Effect>

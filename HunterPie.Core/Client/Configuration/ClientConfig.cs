@@ -22,6 +22,9 @@ namespace HunterPie.Core.Client.Configuration
         [SettingField("LANGUAGE_STRING", requiresRestart: true)]
         public GenericFileSelector Language { get; set; } = new GenericFileSelector("en-us.xml", "*.xml", ClientInfo.LanguagesPath);
 
+        [SettingField("THEME_STRING", requiresRestart: true)]
+        public GenericFolderSelector Theme { get; set; } = new GenericFolderSelector("Default", "*", ClientInfo.ThemesPath);
+
         [SettingField("MINIMIZE_TO_SYSTEM_TRAY_STRING")]
         public Observable<bool> MinimizeToSystemTray { get; set; } = true;
 

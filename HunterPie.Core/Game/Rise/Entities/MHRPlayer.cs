@@ -100,6 +100,8 @@ namespace HunterPie.Core.Game.Rise.Entities
         public MHRTrainingDojo TrainingDojo { get; } = new();
         public MHRMeowmasters Meowmasters { get; } = new();
 
+        public MHRCohoot Cohoot { get; } = new();
+
         public event EventHandler<EventArgs> OnLogin;
         public event EventHandler<EventArgs> OnLogout;
         public event EventHandler<EventArgs> OnHealthUpdate;
@@ -130,7 +132,6 @@ namespace HunterPie.Core.Game.Rise.Entities
             if (stageAddress == 0x00000000)
                 return;
 
-            // TODO: Transform this into a structure instead of an array
             MHRStageStructure stageData = _process.Memory.Read<MHRStageStructure>(stageAddress + 0x60);
             
             int zoneId;
@@ -386,6 +387,7 @@ namespace HunterPie.Core.Game.Rise.Entities
                     Index = 0,
                     Name = Name,
                     HighRank = HighRank,
+                    MasterRank = MasterRank,
                     WeaponId = WeaponId,
                     IsMyself = true
                 });
@@ -395,17 +397,13 @@ namespace HunterPie.Core.Game.Rise.Entities
             foreach (var playerData in sessionPlayersArray)
             {
                 long weaponPtr = playerWeaponsPtr[playerData.index];
+                string name = _process.Memory.Read(playerData.data.NamePointer + 0x14, 32, Encoding.Unicode);
 
-                if (weaponPtr == 0)
+                if (weaponPtr == 0 && !playerData.isValid)
                 {
                     _party.Remove(playerData.index);
                     continue;
                 }
-
-                string name = _process.Memory.Read(playerData.data.NamePointer + 0x14, 32, Encoding.Unicode);
-
-                if (string.IsNullOrEmpty(name))
-                    continue;
 
                 Weapon weapon = _process.Memory.Read<int>(weaponPtr + 0x134).ToWeaponId();
 
@@ -414,6 +412,7 @@ namespace HunterPie.Core.Game.Rise.Entities
                     Index = playerData.index,
                     Name = name,
                     HighRank = playerData.data.HighRank,
+                    MasterRank = playerData.data.MasterRank,
                     WeaponId = weapon,
                     IsMyself = name == Name
                 };
@@ -535,6 +534,20 @@ namespace HunterPie.Core.Game.Rise.Entities
             
         }
 
+        [ScannableMethod(typeof(MHRCohootStructure))]
+        private void GetCohoot()
+        {
+            MHRCohootStructure cohoot = _process.Memory.Deref<MHRCohootStructure>(
+                AddressMap.GetAbsolute("COHOOT_ADDRESS"),
+                AddressMap.Get<int[]>("COHOOT_COUNT_OFFSETS")
+            );
+
+            Next(ref cohoot);
+
+            IUpdatable<MHRCohootStructure> updatable = Cohoot;
+            updatable.Update(cohoot);
+        }
+
         [ScannableMethod(typeof(MHRTrainingDojoData))]
         private void GetTrainingDojo()
         {
@@ -571,6 +584,30 @@ namespace HunterPie.Core.Game.Rise.Entities
 
             IUpdatable<MHRTrainingDojoData> model = TrainingDojo;
             model.Update(data);
+        }
+
+        [ScannableMethod(typeof(MHRMeowmasterData))]
+        private void GetMeowcenaries()
+        {
+            long meowmastersAddress = _process.Memory.Read(
+                AddressMap.GetAbsolute("MEOWMASTERS_ADDRESS"),
+                AddressMap.Get<int[]>("MEOWMASTERS_OFFSETS")
+            );
+
+            MHRMeowmasterStructure structure = _process.Memory.Read<MHRMeowmasterStructure>(meowmastersAddress);
+            MHRMeowmasterData data = new()
+            {
+                IsDeployed = structure.IsDeployed,
+                IsLagniappleActive = structure.IsLagniappleActive,
+                BuddiesCount = _process.Memory.Read<int>(structure.BuddiesPointer + 0x18),
+                CurrentStep = structure.CurrentStep,
+                MaxStep = 5
+            };
+
+            Next(ref data);
+
+            IUpdatable<MHRMeowmasterData> updatable = Meowmasters;
+            updatable.Update(data);
         }
 
         [ScannableMethod]

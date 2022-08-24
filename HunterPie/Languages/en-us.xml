@@ -469,6 +469,7 @@
 			<Stage Id="211" String="Coral Palace"/>
 			<Stage Id="212" String="Jungle"/>
 			<Stage Id="213" String="Citadel"/>
+			<Stage Id="214" String="Forlorn Arena"/>
 			<Stage Id="215" String="Yawning Abyss"/>
 		</Rise>
 		<World>
@@ -511,6 +512,10 @@
 	</Stages>
 
 	<Client>
+		<Overlay>
+			<String Id="DAMAGE_METER_OTOMOS_NAME_STRING"
+					String="Otomos"/>
+		</Overlay>
 		<Tabs>
 			<Tab Id="CONSOLE_STRING"
 				 String="Console"/>
@@ -688,6 +693,9 @@
 			<Setting Id="DEV_ENABLE_FEATURE_FLAG"
 					 String="Enable development feature flags"
 					 Description="If enabled, HunterPie will allow you to enable Feature Flags for in-development features."/>
+			<Setting Id="THEME_STRING"
+					 String="Theme"
+					 Description="Current theme used by HunterPie"/>
 
 			<Setting Id="DRPC_ENABLE_RICH_PRESENCE"
 					 String="Enable Discord Rich Presence"
@@ -794,6 +802,12 @@
 			<Setting Id="ACTIVITIES_ENABLE_TRAINING_DOJO_STRING"
 					 String="Show Training Dojo"
 					 Description="If enabled, HunterPie will show Training Dojo's data."/>
+			<Setting Id="ACTIVITIES_ENABLE_MEOWMASTERS_STRING"
+					 String="Show Meowcenaries"
+					 Description="If enabled, HunterPie will show Meowcenaries's data."/>
+			<Setting Id="ACTIVITIES_ENABLE_COHOOT_STRING"
+					 String="Show Cohoot Nest"
+					 Description="If enabled, HunterPie will show Cohoot's nest data."/>
 
 			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_HIGHLIGHT_MYSELF"
 					 String="Highlight myself"
@@ -825,6 +839,9 @@
 			<Setting Id="DAMAGE_METER_PLAYER_4_COLOR_STRING"
 					 String="Fourth player color"
 					 Description="The color of the fourth player in the party in the damage meter."/>
+			<Setting Id="DAMAGE_METER_ENABLE_OTOMOS"
+					 String="Show Otomos damage"
+					 Description="If enabled, HunterPie will display Otomos damage."/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>
