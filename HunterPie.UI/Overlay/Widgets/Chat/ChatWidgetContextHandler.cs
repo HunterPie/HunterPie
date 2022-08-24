@@ -16,14 +16,6 @@ namespace HunterPie.UI.Overlay.Widgets.Chat
 {
     public class ChatWidgetContextHandler : IContextHandler
     {
-        private SolidColorBrush[] playerColors =
-        {
-            new SolidColorBrush(Color.FromArgb(0xFF, 0xED, 0x64, 0x91)),
-            new SolidColorBrush(Color.FromArgb(0xFF, 0x64, 0xB6, 0xED)),
-            new SolidColorBrush(Color.FromArgb(0xFF, 0xED, 0xAD, 0x64)),
-            new SolidColorBrush(Color.FromArgb(0xFF, 0x64, 0xED, 0x99))
-        };
-        
         private readonly ChatView View;
         private readonly ChatViewModel ViewModel;
         private readonly Context Context;
@@ -69,7 +61,7 @@ namespace HunterPie.UI.Overlay.Widgets.Chat
                     {
                         Author = message.Author,
                         Text = message.Message,
-                        Color = playerColors[message.PlayerSlot % playerColors.Length]
+                        Index = message.PlayerSlot
                     });
                 });
             }
@@ -107,7 +99,7 @@ namespace HunterPie.UI.Overlay.Widgets.Chat
                 {
                     Author = e.Author,
                     Text = e.Message,
-                    Color = playerColors[e.PlayerSlot % playerColors.Length]
+                    Index = e.PlayerSlot
                 });
             });
         }
