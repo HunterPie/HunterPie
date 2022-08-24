@@ -15,7 +15,7 @@ using Localization = HunterPie.Core.Client.Localization.Localization;
 using System.Xml;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Client;
-
+#nullable enable
 namespace HunterPie.UI.Settings
 {
     public class VisualConverterManager
@@ -95,7 +95,7 @@ namespace HunterPie.UI.Settings
 
             foreach (PropertyInfo prop in parentType.GetProperties())
             {
-                SettingField metadata = prop.GetCustomAttribute<SettingField>();
+                SettingField? metadata = prop.GetCustomAttribute<SettingField>();
 
                 if (metadata is null)
                     continue;
@@ -125,7 +125,10 @@ namespace HunterPie.UI.Settings
 
             foreach (PropertyInfo prop in parentType.GetProperties())
             {
-                SettingField metadata = prop.GetCustomAttribute<SettingField>();
+                SettingField? metadata = prop.GetCustomAttribute<SettingField>();
+
+                if (metadata is not null && !metadata.AvailableGames.HasFlag(currentConfiguration))
+                    continue;
 
                 if (prop.PropertyType.GetInterfaces().Contains(typeof(ISettings)))
                 {
@@ -139,8 +142,8 @@ namespace HunterPie.UI.Settings
                         continue;
 
                     XmlNode locNode = Localization.Query($"//Strings/Client/Settings/Setting[@Id='{meta.Name}']");
-                    string title = locNode?.Attributes["String"]?.Value ?? meta.Name;
-                    string description = locNode?.Attributes["Description"]?.Value ?? meta.Description;
+                    string title = locNode?.Attributes?["String"]?.Value ?? meta.Name;
+                    string description = locNode?.Attributes?["Description"]?.Value ?? meta.Description;
 
                     SettingElementViewModel vm = new(title, description, meta.Icon);
 
@@ -154,8 +157,8 @@ namespace HunterPie.UI.Settings
                         continue;
 
                     XmlNode locNode = Localization.Query($"//Strings/Client/Settings/Setting[@Id='{metadata.Name}']");
-                    string title = locNode?.Attributes["String"]?.Value ?? metadata.Name;
-                    string description = locNode?.Attributes["Description"]?.Value ?? metadata.Description;
+                    string title = locNode?.Attributes?["String"]?.Value ?? metadata.Name;
+                    string description = locNode?.Attributes?["Description"]?.Value ?? metadata.Description;
 
                     SettingElementType settingHost = new(
                         name: title,
@@ -222,3 +225,4 @@ namespace HunterPie.UI.Settings
         }
     }
 }
+#nullable restore

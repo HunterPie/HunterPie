@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HunterPie.Core.Domain.Enums;
+using System;
 
 namespace HunterPie.Core.Settings
 {
@@ -8,12 +9,19 @@ namespace HunterPie.Core.Settings
         public string Name;
         public string Description;
         public bool RequiresRestart;
+        public readonly GameProcess AvailableGames;
 
-        public SettingField(string name, string description = null, bool requiresRestart = false)
+        public SettingField(
+            string name, 
+            string description = null, 
+            bool requiresRestart = false,
+            GameProcess availableGames = GameProcess.All
+        )
         {
             Name = name;
             Description = description ?? $"{name}_DESC";
             RequiresRestart = requiresRestart;
+            AvailableGames = availableGames;
         }
     }
 }

@@ -4,6 +4,7 @@
     {
         PLAYER,
         NPC,
+        PET,
         COMPANION,
         ENVIRONMENT,
         MONSTER,

@@ -6,6 +6,7 @@
         Argosy,
         Submarine,
         Meowcenaries,
-        TrainingDojo
+        TrainingDojo,
+        Cohoot
     }
 }

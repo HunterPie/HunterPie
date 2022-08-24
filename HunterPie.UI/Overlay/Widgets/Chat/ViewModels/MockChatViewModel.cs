@@ -41,7 +41,7 @@ namespace HunterPie.UI.Overlay.Widgets.Chat.ViewModels
                 chatElements[i] = new ChatElementViewModel()
                 {
                     Author = playerNames[playerIndex],
-                    Color = playerColors[playerIndex],
+                    Index = playerIndex,
                     Text = possibleChats[chatIndex],
                 };
             }

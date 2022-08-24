@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    
+    <!-- 
+    
+        HunterPie uses MVVM architecture, XAML are for the Views only, every data is observed by the view and you can create a binding
+        to the data handled by the view model.
+    
+        You can check for the default Views code and their respective ViewModels here:
+            - https://github.com/Haato3o/HunterPie-v2/tree/main/HunterPie.UI/Overlay/Widgets
+    
+        You can also find all the converters used by HunterPie here: 
+            - https://github.com/Haato3o/HunterPie-v2/tree/main/HunterPie.UI/Architecture/Converters
+    
+        For overwriting a Widget design, you can use the following Style x:Keys:
+        
+            - STYLE_MONSTERS_WIDGET
+            - STYLE_DAMAGE_METER_WIDGET
+            - STYLE_ABNORMALITIES_BAR_WIDGET
+            - STYLE_ACTIVITIES_WIDGET
+            - STYLE_CHAT_WIDGET
+            - STYLE_WIREBUG_WIDGET
+            - STYLE_SPECIALIZED_TOOLS_WIDGET
+        
+        Check the minimal theme for examples.
+    -->
+    
+    
+</ResourceDictionary>

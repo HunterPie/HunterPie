@@ -59,6 +59,12 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <None Update="Themes\Default\Template.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Themes\Minimal\MonsterWidget.xaml">
+      <SubType>Designer</SubType>
+    </None>
     <Page Update="Update\Presentation\UpdateView.xaml">
       <SubType>Designer</SubType>
     </Page>

@@ -61,7 +61,7 @@ namespace HunterPie.Core.Game.Rise.Entities.Activities
         {
             DaysLeft = data.Data.DaysLeft;
             MaxCount = data.Items.Length;
-            Count = data.Items.Count(item => item.Amount > 0);
+            Count = data.Items.Count(item => item.IsNotEmpty());
             IsUnlocked = data.Data.Buddy != 0;
         }
     }

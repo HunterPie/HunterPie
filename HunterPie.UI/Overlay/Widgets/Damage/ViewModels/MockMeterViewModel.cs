@@ -6,6 +6,7 @@ using LiveCharts;
 using LiveCharts.Defaults;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
@@ -16,13 +17,16 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
         private int totalDamage = 0;
         private static readonly DamageMeterWidgetConfig _mockConfig = new();
         public readonly List<ChartValues<ObservablePoint>> _playerChartValues = new();
+        public readonly double[] _petDamages = new double[4];
 
         public MockMeterViewModel() : base(_mockConfig)
         {
             InHuntingZone = true;
+            HasPetsToBeDisplayed = true;
 
             MockPlayers();
             MockPlayerSeries();
+            MockPets();
 
             MockBehavior.Run(() =>
             {
@@ -30,36 +34,41 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
             }, (float)TimeSpan.FromMilliseconds(16).TotalSeconds);
         }
 
+        private void MockPets()
+        {
+            Pets.Name = "Otomos";
+            Pets.Damages.Add(new(_mockConfig.PlayerFirst));
+            Pets.Damages.Add(new(_mockConfig.PlayerSelf));
+            Pets.Damages.Add(new(_mockConfig.PlayerThird));
+            Pets.Damages.Add(new(_mockConfig.PlayerFourth));
+        }
+
         private void MockPlayers()
         {
             Players.Add(new(_mockConfig)
             {
-                Name = "Doelinger",
+                Name = "Player 1",
                 Weapon = Weapon.Bow,
-                Color = "#c3baf4",
-                Percentage = 25
+                Bar = new(_mockConfig.PlayerFirst),
             });
             Players.Add(new(_mockConfig)
             {
-                Name = "Poggers",
+                Name = "Player 2",
                 Weapon = Weapon.ChargeBlade,
-                Color = "#98ff98",
-                Percentage = 25,
+                Bar = new(_mockConfig.PlayerSelf),
                 IsUser = true
             });
             Players.Add(new(_mockConfig)
             {
-                Name = "UwU",
-                Color = "#FF4B8EEE",
+                Name = "Player 3",
                 Weapon = Weapon.Greatsword,
-                Percentage = 25
+                Bar = new(_mockConfig.PlayerThird),
             });
             Players.Add(new(_mockConfig)
             {
-                Name = "Haato",
-                Color = "#FF10B9DE",
+                Name = "Player 4",
                 Weapon = Weapon.HuntingHorn,
-                Percentage = 25
+                Bar = new(_mockConfig.PlayerFourth),
             });
         }
 
@@ -71,6 +80,8 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
 
             if ((int)newTime > (int)TimeElapsed)
             {
+                Pets.TotalDamage = random.Next(0, 10000);
+
                 foreach (PlayerViewModel player in Players)
                 {
                     double lastDps = player.DPS;
@@ -78,7 +89,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
                     bool shouldHit = hit % 2 == 1;
                     player.Damage += hit;
                     player.DPS = player.Damage / TimeElapsed;
-                    player.Percentage = player.Damage / (double)Math.Max(1, totalDamage) * 100;
+                    player.Bar.Percentage = player.Damage / (double)Math.Max(1, totalDamage) * 100;
                     player.IsIncreasing = lastDps < player.DPS;
 
                     _playerChartValues[i - 1].Add(new ObservablePoint(TimeElapsed, player.DPS));
@@ -86,17 +97,22 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
                     i++;
                 }
 
-                Application.Current.Dispatcher.Invoke(SortPlayers);
-            }
-            TimeElapsed = newTime;
-        }
+                double[] petDamages = { random.NextDouble() * 100, random.NextDouble() * 100, random.NextDouble() * 100, random.NextDouble() * 100, };
+                Pets.TotalDamage = (int)(_petDamages.Sum() + petDamages.Sum());
+                
+                i = 0;
+                foreach (DamageBarViewModel pet in Pets.Damages)
+                {
+                    double petDamage = petDamages[i];
+                    _petDamages[i] += petDamage;
+                    pet.Percentage = _petDamages[i] / Pets.TotalDamage * 100;
+                    i++;
+                }
 
-        private void InterpolatePoints(ChartValues<ObservablePoint> points)
-        {
-            for (int i = points.Count - 1; i > 0; i -= 2)
-            {
-                points.RemoveAt(i);
+                Application.Current.Dispatcher.Invoke(SortMembers);
             }
+            
+            TimeElapsed = newTime;
         }
 
         private void MockPlayerSeries()
@@ -106,7 +122,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
             foreach (PlayerViewModel player in Players)
             {
                 _playerChartValues.Add(new());
-                Color color = (Color)ColorConverter.ConvertFromString(player.Color);
+                Color color = (Color)ColorConverter.ConvertFromString(player.Bar.Color);
                 builder.AddSeries(_playerChartValues[i], player.Name, color);
                 i++;
             }
