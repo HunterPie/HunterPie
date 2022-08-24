@@ -347,9 +347,12 @@
 			<Monster Id="44" String="토비카가치"/>
 			<Monster Id="45" String="바젤기우스"/>
 			<Monster Id="46" String="개구리 훈련 모형"/>
+			<Monster Id="76" String="리오레이아 희소종"/>
+			<Monster Id="77" String="리오레우스 희소종"/>
 			<Monster Id="78" String="다이묘자자미"/>
 			<Monster Id="79" String="쇼군기자미"/>
 			<Monster Id="80" String="격앙 라잔"/>
+			<Monster Id="81" String="나르가쿠르가 희소종"/>
 			<Monster Id="82" String="고어-마가라"/>
 			<Monster Id="83" String="샤가르마가라"/>
 			<Monster Id="84" String="셀레기오스"/>
@@ -359,6 +362,7 @@
 			<Monster Id="89" String="이소네미쿠니 아종"/>
 			<Monster Id="90" String="야츠카다키 아종"/>
 			<Monster Id="91" String="오로미도로 아종"/>
+			<Monster Id="92" String="홍련의 솟구치는 바젤기우스"/>
 			<Monster Id="93" String="멜-제나"/>
 			<Monster Id="94" String="루나가론"/>
 			<Monster Id="95" String="가란고르무"/>
@@ -465,6 +469,7 @@
 			<Stage Id="212" String="밀림"/>
 			<Stage Id="222" String="격투장"/>
 			<Stage Id="213" String="요새고원"/>
+			<Stage Id="214" String="탑의 비경"/>
 			<Stage Id="215" String="연겁의 나락"/>
 		</Rise>
 		<World>
@@ -788,6 +793,12 @@
 			<Setting Id="ACTIVITIES_ENABLE_TRAINING_DOJO_STRING"
 					 String="동반자 도장 표시"
 					 Description="옵션 활성화 시, HunterPie가 동반자 도장의 정보를 표시합니다."/>
+			<Setting Id="ACTIVITIES_ENABLE_MEOWMASTERS_STRING"
+					 String="동반자 그림자 부대 표시"
+					 Description="옵션 활성화 시, HunterPie가 동반자 그림자 부대의 정보를 표시합니다."/>
+			<Setting Id="ACTIVITIES_ENABLE_COHOOT_STRING"
+					 String="복부엉의 둥지 표시"
+					 Description="옵션 활성화 시, HunterPie가 복부엉의 둥지의 정보를 표시합니다."/>
 
 			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_HIGHLIGHT_MYSELF"
 				 	 String="자신 강조하기"

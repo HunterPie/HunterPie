@@ -27,8 +27,8 @@
               ClipToBounds="True">
             <Grid.Width>
                 <MultiBinding Converter="{StaticResource CurrentValueToWidthConverter}">
-                    <Binding Path="DataContext.DaysLeft" Mode="OneWay" RelativeSource="{RelativeSource AncestorType=local:MeowcenariesView}" FallbackValue="0"/>
-                    <Binding Path="DataContext.MaxDays" Mode="OneWay" RelativeSource="{RelativeSource AncestorType=local:MeowcenariesView}" FallbackValue="1"/>
+                    <Binding Path="DataContext.Step" Mode="OneWay" RelativeSource="{RelativeSource AncestorType=local:MeowcenariesView}" FallbackValue="0"/>
+                    <Binding Path="DataContext.MaxSteps" Mode="OneWay" RelativeSource="{RelativeSource AncestorType=local:MeowcenariesView}" FallbackValue="1"/>
                     <Binding Path="MaxWidth" RelativeSource="{RelativeSource Self}"/>
                     <Binding Path="Margin" RelativeSource="{RelativeSource Self}"/>
                 </MultiBinding>
@@ -94,16 +94,18 @@
             </Grid.RowDefinitions>
             <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                        Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
-                       FontSize="15">
-                <Run Text="Days:"
+                       FontSize="14"
+                       VerticalAlignment="Center">
+                <Run Text="Step:"
                      Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                      FontWeight="Medium"/>
                 <Run d:Text="4"
-                     Text="{Binding DaysLeft, Mode=OneWay}"
+                     Text="{Binding Step, Mode=OneWay}"
                      Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                      FontWeight="Medium"/><!--
              --><Run Text="/"/><!--
-             --><Run Text="5"/>
+             --><Run d:Text="5" 
+                     Text="{Binding MaxSteps, Mode=OneWay}"/>
 
                 <TextBlock.Effect>
                     <DropShadowEffect BlurRadius="5"
@@ -114,8 +116,9 @@
 
             <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                        Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
-                       FontSize="15"
-                       Grid.Row="1">
+                       FontSize="14"
+                       Grid.Row="1"
+                       VerticalAlignment="Center">
                 <Run Text="Buddies:"
                      Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                      FontWeight="Medium"/>
@@ -125,7 +128,7 @@
                      FontWeight="Medium"/><!--
              --><Run Text="/"/><!--
              --><Run Text="{Binding MaxBuddyCount, Mode=OneWay}"
-                     d:Text="3"/>
+                     d:Text="4"/>
 
                 <TextBlock.Effect>
                     <DropShadowEffect BlurRadius="5"
@@ -136,16 +139,19 @@
 
             <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                        Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
-                       FontSize="15"
-                       Grid.Column="1">
+                       FontSize="14"
+                       Grid.Column="1"
+                       VerticalAlignment="Center">
                 <Run Text="Outcome:"
                      Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                      FontWeight="Medium"/>
-                <Run Text="3"
+                <Run d:Text="3"
+                     Text="{Binding ExpectedOutcome, Mode=OneWay}"
                      Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                      FontWeight="Medium"/><!--
              --><Run Text="/"/><!--
-             --><Run Text="5"/>
+             --><Run d:Text="5"
+                     Text="{Binding MaxOutcome, Mode=OneWay}"/>
 
                 <TextBlock.Effect>
                     <DropShadowEffect BlurRadius="5"
@@ -154,6 +160,15 @@
                 </TextBlock.Effect>
             </TextBlock>
         </Grid>
-
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Setter Property="Opacity" Value="1"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding DataContext.IsDeployed, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MeowcenariesView}}}" Value="False">
+                        <Setter Property="Opacity" Value="0.4"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
     </Grid>
 </UserControl>

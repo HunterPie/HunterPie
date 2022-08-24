@@ -121,7 +121,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
                 float totalDamage = _members.Keys.Sum(m => m.Damage);
                 double newDps = CalculateDpsByConfiguredStrategy(memberInfo);
                 vm.IsIncreasing = newDps > vm.DPS;
-                vm.Percentage = totalDamage > 0 ? member.Damage / totalDamage * 100 : 0;
+                vm.Bar.Percentage = totalDamage > 0 ? member.Damage / totalDamage * 100 : 0;
                 vm.DPS = newDps;
 
                 var point = CalculatePointByConfiguredStrategy(vm);
@@ -268,8 +268,9 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
                     Name = member.Name,
                     Damage = member.Damage,
                     Weapon = member.Weapon,
-                    Color = playerColor,
-                    IsUser = member.IsMyself
+                    Bar = new(playerColor),
+                    IsUser = member.IsMyself,
+                    MasterRank = member.MasterRank
                 },
                 Series = BuildPlayerSeries(member.Name, playerColor),
                 JoinedAt = Context.Game.TimeElapsed

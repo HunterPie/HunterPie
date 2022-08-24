@@ -26,7 +26,8 @@
         </DataTemplate>
 
         <DataTemplate x:Key="TEMPLATE_MEOWCENARIES_VIEW">
-            <local:MeowcenariesView Height="40"/>
+            <local:MeowcenariesView Height="40"
+                                    Visibility="{Binding Settings.IsMeowmastersEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:ActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </DataTemplate>
 
         <presentation:ActivityTemplateSelector x:Key="ActivityTemplateSelector"

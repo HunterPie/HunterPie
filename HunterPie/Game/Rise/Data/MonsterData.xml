@@ -811,6 +811,39 @@
                 <Part Id="5" String="PART_TAIL" />
             </Parts>
         </Monster>
+		<Monster Id="76">
+			<Weaknesses>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Water"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_BODY" />
+				<Part Id="2" String="PART_L_WING" />
+				<Part Id="3" String="PART_R_WING" />
+				<Part Id="4" String="PART_L_LEG" />
+				<Part Id="5" String="PART_R_LEG" />
+				<Part Id="6" String="PART_TAIL" />
+			</Parts>
+		</Monster>
+		<Monster Id="77">
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_BODY" />
+				<Part Id="1" String="PART_L_WING" />
+				<Part Id="2" String="PART_R_WING" />
+				<Part Id="3" String="PART_L_LEG" />
+				<Part Id="4" String="PART_R_LEG" />
+				<Part Id="5" String="PART_NECK" />
+				<Part Id="6" String="PART_HEAD" />
+				<Part Id="7" String="PART_TAIL" />
+			</Parts>
+		</Monster>
         <Monster Id="78"
                  Size="495.95">
             <Weaknesses>
@@ -864,6 +897,23 @@
                 <Part Id="6" String="PART_TAIL" />
             </Parts>
         </Monster>
+		<Monster Id="81">
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Dragon"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_BODY" />
+				<Part Id="2" String="PART_L_CUTWING" />
+				<Part Id="3" String="PART_TAIL" />
+				<Part Id="4" String="PART_FORELEG" />
+				<Part Id="5" String="PART_H_LEG" />
+				<Part Id="6" String="PART_R_CUTWING" />
+				<Part Id="7" String="PART_H_LEG" />
+				<Part Id="7" String="PART_H_LEG" />
+			</Parts>
+		</Monster>
         <Monster Id="82"
                  Size="1765.78">
             <Crowns Silver="1.11"
@@ -1024,6 +1074,20 @@
                 <Part Id="8" String="PART_MUD_BALL" />
             </Parts>
         </Monster>
+		<Monster Id="92">
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_BODY" />
+				<Part Id="2" String="PART_LEGS" />
+				<Part Id="3" String="PART_L_WING" />
+				<Part Id="4" String="PART_R_WING" />
+				<Part Id="5" String="PART_TAIL" />
+			</Parts>
+		</Monster>
         <Monster Id="93"
                  Size="2081.64">
             <Crowns Silver="1.11"

@@ -49,30 +49,26 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
             {
                 Name = "Player 1",
                 Weapon = Weapon.Bow,
-                Color = _mockConfig.PlayerFirst,
-                Percentage = 25
+                Bar = new(_mockConfig.PlayerFirst),
             });
             Players.Add(new(_mockConfig)
             {
                 Name = "Player 2",
                 Weapon = Weapon.ChargeBlade,
-                Percentage = 25,
-                Color = _mockConfig.PlayerSelf,
+                Bar = new(_mockConfig.PlayerSelf),
                 IsUser = true
             });
             Players.Add(new(_mockConfig)
             {
                 Name = "Player 3",
                 Weapon = Weapon.Greatsword,
-                Color = _mockConfig.PlayerThird,
-                Percentage = 25
+                Bar = new(_mockConfig.PlayerThird),
             });
             Players.Add(new(_mockConfig)
             {
                 Name = "Player 4",
                 Weapon = Weapon.HuntingHorn,
-                Color = _mockConfig.PlayerFourth,
-                Percentage = 25
+                Bar = new(_mockConfig.PlayerFourth),
             });
         }
 
@@ -93,7 +89,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
                     bool shouldHit = hit % 2 == 1;
                     player.Damage += hit;
                     player.DPS = player.Damage / TimeElapsed;
-                    player.Percentage = player.Damage / (double)Math.Max(1, totalDamage) * 100;
+                    player.Bar.Percentage = player.Damage / (double)Math.Max(1, totalDamage) * 100;
                     player.IsIncreasing = lastDps < player.DPS;
 
                     _playerChartValues[i - 1].Add(new ObservablePoint(TimeElapsed, player.DPS));
@@ -126,7 +122,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
             foreach (PlayerViewModel player in Players)
             {
                 _playerChartValues.Add(new());
-                Color color = (Color)ColorConverter.ConvertFromString(player.Color);
+                Color color = (Color)ColorConverter.ConvertFromString(player.Bar.Color);
                 builder.AddSeries(_playerChartValues[i], player.Name, color);
                 i++;
             }
