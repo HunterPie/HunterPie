@@ -802,6 +802,12 @@
 			<Setting Id="ACTIVITIES_ENABLE_TRAINING_DOJO_STRING"
 					 String="Show Training Dojo"
 					 Description="If enabled, HunterPie will show Training Dojo's data."/>
+			<Setting Id="ACTIVITIES_ENABLE_MEOWMASTERS_STRING"
+					 String="Show Meowcenaries"
+					 Description="If enabled, HunterPie will show Meowcenaries's data."/>
+			<Setting Id="ACTIVITIES_ENABLE_COHOOT_STRING"
+					 String="Show Cohoot Nest"
+					 Description="If enabled, HunterPie will show Cohoot's nest data."/>
 
 			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_HIGHLIGHT_MYSELF"
 					 String="Highlight myself"

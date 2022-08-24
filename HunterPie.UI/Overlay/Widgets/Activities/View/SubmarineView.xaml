@@ -77,7 +77,14 @@
                VerticalAlignment="Center"
                HorizontalAlignment="Center"
                Margin="5"
-               Grid.Column="0"/>
+               Grid.Column="0"
+               Opacity="0.7">
+            <Image.Effect>
+                <DropShadowEffect BlurRadius="2"
+                                  Color="Black"
+                                  ShadowDepth="0"/>
+            </Image.Effect>
+        </Image>
 
         <ContentPresenter Grid.Column="1">
             <ContentPresenter.Style>
@@ -92,20 +99,17 @@
                                             <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                                                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                        <TextBlock Foreground="{StaticResource WHITE_100}"
                                                    HorizontalAlignment="Center"
                                                    FontWeight="Medium"
                                                    FontSize="15">
                                             <Run Text="{Binding Count, Mode=OneWay}"
                                                  d:Text="10"/><!--
                                          --><Run Text="/"
-                                                 FontWeight="Light"
-                                                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/><!--
+                                                 Foreground="{StaticResource WHITE_600}"/><!--
                                          --><Run Text="{Binding MaxCount, Mode=OneWay}"
                                                  d:Text="20"
-                                                 FontWeight="Light"
-                                                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/>
+                                                 Foreground="{StaticResource WHITE_600}"/>
                                             <TextBlock.Effect>
                                                 <DropShadowEffect BlurRadius="5"
                                                                   Color="Black"

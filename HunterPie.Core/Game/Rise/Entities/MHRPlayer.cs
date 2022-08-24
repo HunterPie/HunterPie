@@ -100,6 +100,8 @@ namespace HunterPie.Core.Game.Rise.Entities
         public MHRTrainingDojo TrainingDojo { get; } = new();
         public MHRMeowmasters Meowmasters { get; } = new();
 
+        public MHRCohoot Cohoot { get; } = new();
+
         public event EventHandler<EventArgs> OnLogin;
         public event EventHandler<EventArgs> OnLogout;
         public event EventHandler<EventArgs> OnHealthUpdate;
@@ -536,6 +538,20 @@ namespace HunterPie.Core.Game.Rise.Entities
             
         }
 
+        [ScannableMethod(typeof(MHRCohootStructure))]
+        private void GetCohoot()
+        {
+            MHRCohootStructure cohoot = _process.Memory.Deref<MHRCohootStructure>(
+                AddressMap.GetAbsolute("COHOOT_ADDRESS"),
+                AddressMap.Get<int[]>("COHOOT_COUNT_OFFSETS")
+            );
+
+            Next(ref cohoot);
+
+            IUpdatable<MHRCohootStructure> updatable = Cohoot;
+            updatable.Update(cohoot);
+        }
+
         [ScannableMethod(typeof(MHRTrainingDojoData))]
         private void GetTrainingDojo()
         {
@@ -572,6 +588,30 @@ namespace HunterPie.Core.Game.Rise.Entities
 
             IUpdatable<MHRTrainingDojoData> model = TrainingDojo;
             model.Update(data);
+        }
+
+        [ScannableMethod(typeof(MHRMeowmasterData))]
+        private void GetMeowcenaries()
+        {
+            long meowmastersAddress = _process.Memory.Read(
+                AddressMap.GetAbsolute("MEOWMASTERS_ADDRESS"),
+                AddressMap.Get<int[]>("MEOWMASTERS_OFFSETS")
+            );
+
+            MHRMeowmasterStructure structure = _process.Memory.Read<MHRMeowmasterStructure>(meowmastersAddress);
+            MHRMeowmasterData data = new()
+            {
+                IsDeployed = structure.IsDeployed,
+                IsLagniappleActive = structure.IsLagniappleActive,
+                BuddiesCount = _process.Memory.Read<int>(structure.BuddiesPointer + 0x18),
+                CurrentStep = structure.CurrentStep,
+                MaxStep = 5
+            };
+
+            Next(ref data);
+
+            IUpdatable<MHRMeowmasterData> updatable = Meowmasters;
+            updatable.Update(data);
         }
 
         [ScannableMethod]
