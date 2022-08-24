@@ -397,17 +397,13 @@ namespace HunterPie.Core.Game.Rise.Entities
             foreach (var playerData in sessionPlayersArray)
             {
                 long weaponPtr = playerWeaponsPtr[playerData.index];
+                string name = _process.Memory.Read(playerData.data.NamePointer + 0x14, 32, Encoding.Unicode);
 
-                if (weaponPtr == 0)
+                if (weaponPtr == 0 && !playerData.isValid)
                 {
                     _party.Remove(playerData.index);
                     continue;
                 }
-
-                string name = _process.Memory.Read(playerData.data.NamePointer + 0x14, 32, Encoding.Unicode);
-
-                if (string.IsNullOrEmpty(name))
-                    continue;
 
                 Weapon weapon = _process.Memory.Read<int>(weaponPtr + 0x134).ToWeaponId();
 

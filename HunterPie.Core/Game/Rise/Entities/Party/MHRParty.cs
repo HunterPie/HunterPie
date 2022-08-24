@@ -46,9 +46,11 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
             if (string.IsNullOrEmpty(data.Name))
                 return;
 
-
             if (!_partyMemberNameLookup.ContainsKey(data.Name))
                 Add(data);
+
+            if (!_partyMembers.ContainsKey(data.Index))
+                return;
 
             IUpdatable<MHRPartyMemberData> updatable = _partyMembers[data.Index];
             updatable.Update(data);
@@ -112,7 +114,7 @@ namespace HunterPie.Core.Game.Rise.Entities.Party
             _partyMembers.Remove(memberIndex);
             _partyMemberPets.Remove(petIndex);
             _partyMemberNameLookup.Remove(member.Name);
-            
+
             Log.Debug("Removed player: id: {0} name: {1} hash: {2:X}", memberIndex, member.Name, member.GetHashCode());
 
             this.Dispatch(OnMemberLeave, member);
