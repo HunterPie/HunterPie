@@ -66,9 +66,9 @@ Offset BUDDY_LEVEL_OFFSETS 0x20
 Offset MEOWMASTERS_OFFSETS 0x0
 
 # CRC Credits to REFramework: https://github.com/praydog/REFramework/blob/master/src/mods/IntegrityCheckBypass.cpp
-Address CRC_FUNC_1 0x02562D70
-Address CRC_FUNC_2 0x026231E0
-Address CRC_FUNC_3 0x06ED80E0
+Address CRC_FUNC_1 0x02562DC0
+Address CRC_FUNC_2 0x02623230
+Address CRC_FUNC_3 0x06ED8370
 # Instructions
 Instruction CRC_ORIGINAL_FUNC_1 0x48,0x89,0x5C
 Instruction CRC_ORIGINAL_FUNC_2 0x48,0x89,0x5C
