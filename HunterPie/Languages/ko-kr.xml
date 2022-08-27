@@ -512,6 +512,10 @@
 	</Stages>
 
 	<Client>
+		<Overlay>
+			<String Id="DAMAGE_METER_OTOMOS_NAME_STRING"
+					String="동반자"/>
+		</Overlay>
 		<Tabs>
 			<Tab Id="CONSOLE_STRING"
 				 String="콘솔"/>
@@ -689,6 +693,9 @@
 			<Setting Id="DEV_ENABLE_FEATURE_FLAG"
 					 String="개발 기능 플래그 활성화"
 					 Description="옵션 활성화 시, HunterPie는 개발 중인 기능에 대한 기능 플래그를 활성화할 수 있도록 허용합니다."/>
+			<Setting Id="THEME_STRING"
+					 String="테마"
+					 Description="HunterPie에 현재 적용된 테마"/>
 
 			<Setting Id="DRPC_ENABLE_RICH_PRESENCE"
 					 String="Discord Rich Presence 활성화"
@@ -789,6 +796,12 @@
 			<Setting Id="ACTIVITIES_ENABLE_TRAINING_DOJO_STRING"
 					 String="동반자 도장 표시"
 					 Description="옵션 활성화 시, HunterPie가 동반자 도장의 정보를 표시합니다."/>
+			<Setting Id="ACTIVITIES_ENABLE_MEOWMASTERS_STRING"
+					 String="동반자 그림자 부대 표시"
+					 Description="옵션 활성화 시, HunterPie가 동반자 그림자 부대의 정보를 표시합니다."/>
+			<Setting Id="ACTIVITIES_ENABLE_COHOOT_STRING"
+					 String="복부엉의 둥지 표시"
+					 Description="옵션 활성화 시, HunterPie가 복부엉의 둥지의 정보를 표시합니다."/>
 
 			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_HIGHLIGHT_MYSELF"
 				 	 String="자신 강조하기"
@@ -820,6 +833,9 @@
 			<Setting Id="DAMAGE_METER_PLAYER_4_COLOR_STRING"
 				 	 String="네번째 플레이어 색상"
 				 	 Description="대미지 미터에서 네번째 플레이어의 색상입니다."/>
+			<Setting Id="DAMAGE_METER_ENABLE_OTOMOS"
+					 String="동반자 대미지 표시"
+					 Description="옵션 활성화 시, HunterPie가 동반자의 대미지를 표시합니다."/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="개발자: 모의 몬스터 위젯"/>
