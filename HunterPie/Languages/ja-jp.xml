@@ -352,9 +352,12 @@
 			<Monster Id="44" String="トビカガチ"/>
 			<Monster Id="45" String="バゼルギウス"/>
 			<Monster Id="46" String="からくり蛙"/>
+			<Monster Id="76" String="リオレイア希少種"/>
+			<Monster Id="77" String="リオレウス希少種"/>
 			<Monster Id="78" String="ダイミョウザザミ"/>
 			<Monster Id="79" String="ショウグンギザミ"/>
 			<Monster Id="80" String="激昂したラージャン"/>
+			<Monster Id="81" String="ナルガクルガ希少種"/>
 			<Monster Id="82" String="ゴア・マガラ"/>
 			<Monster Id="83" String="シャガルマガラ"/>
 			<Monster Id="84" String="セルレギオス"/>
@@ -364,6 +367,7 @@
 			<Monster Id="89" String="イソネミクニ亜種"/>
 			<Monster Id="90" String="ヤツカダキ亜種"/>
 			<Monster Id="91" String="オロミドロ亜種"/>
+			<Monster Id="92" String="紅蓮滾るバゼルギウス"/>
 			<Monster Id="93" String="メル・ゼナ"/>
 			<Monster Id="94" String="ルナガロン"/>
 			<Monster Id="95" String="ガランゴルム"/>
@@ -470,6 +474,7 @@
 			<Stage Id="212" String="密林"/>
 			<Stage Id="222" String="闘技場"/>
 			<Stage Id="213" String="城塞高地"/>
+			<Stage Id="214" String="塔の秘境"/>
 			<Stage Id="215" String="淵劫の奈落"/>
 		</Rise>
 		<World>
@@ -512,6 +517,10 @@
 	</Stages>
 
 	<Client>
+		<Overlay>
+			<String Id="DAMAGE_METER_OTOMOS_NAME_STRING"
+					String="オトモ"/>
+		</Overlay>
 		<Tabs>
 			<Tab Id="CONSOLE_STRING"
 				 String="コンソール"/>
@@ -689,6 +698,9 @@
 			<Setting Id="DEV_ENABLE_FEATURE_FLAG"
 					 String="開発用のフィーチャーフラグ"
 					 Description="有効な場合、開発中の機能を観覧・試用することが可能になります。"/>
+				<Setting Id="THEME_STRING"
+					 String="テーマ"
+					 Description="現在HunterPieが使用しているテーマ"/>
 
 			<Setting Id="DRPC_ENABLE_RICH_PRESENCE"
 					 String="Discordリッチプレゼンスを有効化"
@@ -795,6 +807,12 @@
 			<Setting Id="ACTIVITIES_ENABLE_TRAINING_DOJO_STRING"
 					 String="オトモ道場を表示"
 					 Description="有効な場合、HunterPieはオトモ道場の情報を表示します。"/>
+				<Setting Id="ACTIVITIES_ENABLE_MEOWMASTERS_STRING"
+					 String="オトモ隠密隊を表示"
+					 Description="有効な場合、HunterPieはオトモ隠密隊の情報を表示します。"/>
+			<Setting Id="ACTIVITIES_ENABLE_COHOOT_STRING"
+					 String="フクズクの巣を表示"
+					 Description="有効な場合、HunterPieはフクズクの巣の情報を表示します。"/>
 
 			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_HIGHLIGHT_MYSELF"
 					 String="自身をハイライト"
@@ -826,6 +844,9 @@
 			<Setting Id="DAMAGE_METER_PLAYER_4_COLOR_STRING"
 					 String="参加者カラー４"
 					 Description="ダメージウィジェット内での表示に使う、４番目の参加者の色"/>
+			<Setting Id="DAMAGE_METER_ENABLE_OTOMOS"
+					 String="オトモのダメージを表示"
+					 Description="有効な場合、HunterPieはオトモのダメージを表示します。"/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>
