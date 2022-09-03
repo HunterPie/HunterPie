@@ -40,6 +40,7 @@ namespace HunterPie.Core.Game.World.Entities
                 if (value != _id)
                 {
                     _id = value;
+                    GetMonsterWeaknesses();
                     this.Dispatch(OnSpawn);
                 }
             }
@@ -143,10 +144,38 @@ namespace HunterPie.Core.Game.World.Entities
 
         public IMonsterAilment Enrage => _enrage;
 
-        public Element[] Weaknesses => Array.Empty<Element>();
+        private readonly List<Element> _weaknesses = new();
+        public Element[] Weaknesses => _weaknesses.ToArray();
+        
+        private void GetMonsterWeaknesses()
+        {
+            var data = MonsterData.GetMonsterData(Id);
+
+            if (data.HasValue)
+            {
+                _weaknesses.AddRange(data.Value.Weaknesses);
+                this.Dispatch(OnWeaknessesChange, Weaknesses);
+            }
+        }
 
         // TODO: Maybe v2.3.0?
-        public float CaptureThreshold => 0;
+        private float _captureThreshold;
+        public float CaptureThreshold
+        {
+            get
+            {
+                return _captureThreshold;
+            }
+            private set
+            {
+                if (value != _captureThreshold)
+                {
+                    _captureThreshold = value;
+                    this.Dispatch(OnCaptureThresholdChange, this);
+                }
+            }
+        }
+        
 
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
@@ -241,6 +270,16 @@ namespace HunterPie.Core.Game.World.Entities
             enrage.Update(enrageStructure);
         }
 
+        [ScannableMethod]
+        private void GetMonsterCaptureThreshold()
+        {
+            MonsterDataSchema? monsterSchema = MonsterData.GetMonsterData(Id);
+            if (monsterSchema is null)
+            {
+                return;
+            }
+            CaptureThreshold = monsterSchema.Value.Capture/100f;
+        }
         [ScannableMethod]
         private void GetLockedOnMonster()
         {
