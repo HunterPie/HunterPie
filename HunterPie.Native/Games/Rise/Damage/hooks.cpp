@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "hooks.h"
 #include "libs/MinHook/MinHook.h"
 #include "Core/Managers/Damage/manager.h"

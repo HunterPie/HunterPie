@@ -1,5 +1,7 @@
+#include "pch.h"
 #include "IPCService.h"
 #include <thread>
+
 #define DEFAULT_ADDRESS L"127.0.0.1"
 #define DEFAULT_PORT    22002
 #define IPC_DEFAULT_BUFFER_SIZE 8192

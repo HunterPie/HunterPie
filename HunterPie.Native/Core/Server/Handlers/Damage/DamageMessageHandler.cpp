@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "DamageMessageHandler.h"
 #include "Core/Managers/Damage/manager.h"
 #include <iterator>

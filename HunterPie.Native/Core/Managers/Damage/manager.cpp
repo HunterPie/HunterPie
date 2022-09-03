@@ -2,6 +2,7 @@
 #include <iterator>
 #include "manager.h"
 #include <set>
+
 #define ALL_TARGETS 0
 
 using namespace HunterPie::Core::Damage;

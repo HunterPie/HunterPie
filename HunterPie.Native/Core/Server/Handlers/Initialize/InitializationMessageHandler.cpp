@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "InitializationMessageHandler.h"
 #include "Games/Rise/Damage/hooks.h"
 #include "libs/MinHook/MinHook.h"
