@@ -1,4 +1,4 @@
-#include "../../../pch.h"
+#include "pch.h"
 #include "RiseUtils.h"
 
 #define MAX_SUNBREAK_BIG_MONSTER_ID 97

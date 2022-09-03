@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../Entities/damage.h"
+#include "Core/Entities/damage.h"
 #include "../../Models/Messages.h"
 #include "../../IPCService.h"
 #include "../MessageHandler.h"

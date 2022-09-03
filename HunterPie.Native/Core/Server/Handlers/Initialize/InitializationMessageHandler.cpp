@@ -1,6 +1,6 @@
 #include "InitializationMessageHandler.h"
-#include "../../../../Games/Rise/Damage/hooks.h"
-#include "../../../../libs/MinHook/MinHook.h"
+#include "Games/Rise/Damage/hooks.h"
+#include "libs/MinHook/MinHook.h"
 
 using namespace Core::Server;
 using namespace Core::Server::Models;

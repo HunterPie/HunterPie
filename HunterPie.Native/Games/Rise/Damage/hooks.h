@@ -1,7 +1,7 @@
 #pragma once
 #include "damage.h"
 #include "../Common/Monster.h"
-#include "../../../Core/Interfaces/IInitializable.h"
+#include "Core/Interfaces/IInitializable.h"
 
 using namespace Core;
 using namespace Games::Rise::Common;

@@ -1,5 +1,5 @@
 #include "DamageMessageHandler.h"
-#include "../../../Managers/Damage/manager.h"
+#include "Core/Managers/Damage/manager.h"
 #include <iterator>
 
 using namespace Core::Server;
