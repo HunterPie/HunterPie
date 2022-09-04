@@ -5,8 +5,7 @@
 // Do not add files here that you will be updating frequently as this negates the performance advantage.
 
 // HOW TO USE THIS FILE (https://cplusplus.com/articles/2z86b7Xj/)
-// We need now to add #include "stdafx.h" into each file.
-// The "stdafx.h" header must be the very first one to be included into the *.c/*.cpp file.
+// The "pch.h" header must be the very first one to be included into the *.c/*.cpp file.
 // This is obligatory! Otherwise you are guaranteed to get compilation errors.
 
 #ifndef PCH_H
