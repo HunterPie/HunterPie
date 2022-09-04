@@ -69,7 +69,7 @@ namespace HunterPie.Core.Game.Data
                 MonsterDataSchema schema = new()
                 {
                     Id = int.Parse(monster.Attributes["Id"].Value),
-                    Capture = int.Parse(monster.Attributes["Capture"].Value),
+                    Capture = int.Parse(monster.Attributes["Capture"]?.Value ?? "0"),
                     Size = sizeSchema,
                     Parts = partsArray,
                     Weaknesses = weaknesses

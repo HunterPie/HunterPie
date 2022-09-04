@@ -41,6 +41,7 @@ namespace HunterPie.Core.Game.World.Entities
                 {
                     _id = value;
                     GetMonsterWeaknesses();
+                    GetMonsterCaptureThreshold();
                     this.Dispatch(OnSpawn);
                 }
             }
@@ -147,35 +148,9 @@ namespace HunterPie.Core.Game.World.Entities
         private readonly List<Element> _weaknesses = new();
         public Element[] Weaknesses => _weaknesses.ToArray();
         
-        private void GetMonsterWeaknesses()
-        {
-            var data = MonsterData.GetMonsterData(Id);
 
-            if (data.HasValue)
-            {
-                _weaknesses.AddRange(data.Value.Weaknesses);
-                this.Dispatch(OnWeaknessesChange, Weaknesses);
-            }
-        }
-
-        // TODO: Maybe v2.3.0?
         private float _captureThreshold;
-        public float CaptureThreshold
-        {
-            get
-            {
-                return _captureThreshold;
-            }
-            private set
-            {
-                if (value != _captureThreshold)
-                {
-                    _captureThreshold = value;
-                    this.Dispatch(OnCaptureThresholdChange, this);
-                }
-            }
-        }
-        
+        public float CaptureThreshold => _captureThreshold;
 
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
@@ -200,6 +175,24 @@ namespace HunterPie.Core.Game.World.Entities
             Em = em;
             
             Log.Debug($"Initialized monster at address {address:X}");
+        }
+        
+        private void GetMonsterCaptureThreshold()
+        {
+            var data = MonsterData.GetMonsterData(Id);
+
+            if (!data.HasValue) return;
+            _captureThreshold = MonsterData.GetMonsterData(Id)?.Capture / 100f ?? 0; 
+            this.Dispatch(OnCaptureThresholdChange, this);
+        }
+        
+        private void GetMonsterWeaknesses()
+        {
+            var data = MonsterData.GetMonsterData(Id);
+
+            if (!data.HasValue) return;
+            _weaknesses.AddRange(data.Value.Weaknesses);
+            this.Dispatch(OnWeaknessesChange, Weaknesses);
         }
 
         [ScannableMethod]
@@ -269,17 +262,7 @@ namespace HunterPie.Core.Game.World.Entities
 
             enrage.Update(enrageStructure);
         }
-
-        [ScannableMethod]
-        private void GetMonsterCaptureThreshold()
-        {
-            MonsterDataSchema? monsterSchema = MonsterData.GetMonsterData(Id);
-            if (monsterSchema is null)
-            {
-                return;
-            }
-            CaptureThreshold = monsterSchema.Value.Capture/100f;
-        }
+        
         [ScannableMethod]
         private void GetLockedOnMonster()
         {
