@@ -2,7 +2,7 @@
 
 namespace Core
 {
-    class IInitializable abstract
+    class IInitializable
     {
     public:
         virtual bool Init(uintptr_t* pointers) = 0;
