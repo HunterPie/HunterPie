@@ -1,4 +1,5 @@
-﻿<GameData>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GameData>
     <Ailments>
         <Ailment Id="-1" String="AILMENT_UNKNOWN"/>
         <Ailment Id="0" String="0"/>
