@@ -1,7 +1,13 @@
-﻿namespace HunterPie.Core.Native.IPC.Models
+﻿using HunterPie.Core.Native.IPC.Handlers.Internal.Initialiaze.Models;
+
+namespace HunterPie.Core.Native.IPC.Models
 {
+    /// <summary>
+    /// IPC message types. See HunterPie.Native\Core\Server\Models\Messages.h for native definition.
+    /// </summary>
     public enum IPCMessageType
     {
+        /// <summary>Requests IPC initialization. Wrapped by <see cref="RequestIPCInitializationMessage"/>.</summary>
         INIT_IPC_MEMORY_ADDRESSES,
         INIT_MH_HOOKS,
         GET_HUNT_STATISTICS,

@@ -1,24 +1,37 @@
 #include "pch.h"
 #include "InitializationMessageHandler.h"
+#include "Games/World/Damage/hooks.h"
 #include "Games/Rise/Damage/hooks.h"
 #include "libs/MinHook/MinHook.h"
 
 using namespace Core::Server;
 using namespace Core::Server::Models;
 using namespace Core::Server::Handlers;
-using namespace Games::Rise;
 
 void OnRequestIPCInitialization(RequestIPCInitializationMessage* message)
 {
+    ResponseIPCInitializationMessage response{};
+    WITH(response)
+    {
+        it.type = INIT_IPC_MEMORY_ADDRESSES;
+        it.version = 2;
+        it.hresult = ERROR_SUCCESS;
+    }
+
     MH_Initialize();
-    Damage::Hook::DamageHooks().Init(message->addresses);
+    switch (message->hostType) {
+        case IPCInitializationHostType::MHWorld:
+            Games::World::Damage::Hooks::DamageHooks().Init(message->addresses);
+            break;
+        case IPCInitializationHostType::MHRise:
+            Games::Rise::Damage::Hook::DamageHooks().Init(message->addresses);
+            break;
+        default:
+            it.hresult = E_INVALIDARG;
+            break;
+    }
 
-    IPCMessage response{
-        INIT_IPC_MEMORY_ADDRESSES,
-        2
-    };
-
-    IPCService::GetInstance()->SendIPCMessage(&response, sizeof(IPCMessage));
+    IPCService::GetInstance()->SendIPCMessage(&response, sizeof(ResponseIPCInitializationMessage));
 }
 
 void OnRequestInitMHHooks(IPCMessage* message)
