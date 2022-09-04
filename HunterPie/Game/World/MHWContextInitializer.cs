@@ -19,7 +19,7 @@ internal class MHWContextInitializer : IContextInitializer
     {
         if (context is not MHWContext) return;
 
-        // MHWIntegrityPatcher.Patch(context);          // Rebasing: We will add patching method in next commits.
+        WorldIntegrityPatcher.Patch(context);
         // Make sure to inject module after patching.
         IPCInjectorInitializer.InjectNativeModule(context);
         await NativeIPCInitializer.WaitForIPCInitialization();
