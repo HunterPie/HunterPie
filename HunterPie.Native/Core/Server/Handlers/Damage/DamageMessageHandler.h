@@ -4,42 +4,39 @@
 #include "../../IPCService.h"
 #include "../MessageHandler.h"
 
-namespace Core
+namespace Core::Server
 {
-    namespace Server
+    namespace Models
     {
-        namespace Models
+        struct RequestHuntStatisticsMessage : IPCMessage
         {
-            struct RequestHuntStatisticsMessage : IPCMessage
-            {
-                intptr_t target;
-            };
+            intptr_t target;
+        };
 
-            struct ResponseHuntStatisticsMessage : IPCMessage
-            {
-                intptr_t target;
-                Entities::EntityDamageData entities[10];
-            };
-
-            struct RequestDeleteHuntStatisticsMessage : IPCMessage
-            {
-                intptr_t target;
-            };
-
-            struct RequestClearHuntStatisticsMessage : IPCMessage
-            {
-                intptr_t targetsToKeep[10];
-            };
-        }
-
-        namespace Handlers
+        struct ResponseHuntStatisticsMessage : IPCMessage
         {
-            class DamageMessageHandler : public MessageHandler
-            {
-            public:
-                virtual void Initialize();
-                virtual const char* GetName();
-            };
-        }
+            intptr_t target;
+            Entities::EntityDamageData entities[10];
+        };
+
+        struct RequestDeleteHuntStatisticsMessage : IPCMessage
+        {
+            intptr_t target;
+        };
+
+        struct RequestClearHuntStatisticsMessage : IPCMessage
+        {
+            intptr_t targetsToKeep[10];
+        };
+    }
+
+    namespace Handlers
+    {
+        class DamageMessageHandler : public MessageHandler
+        {
+        public:
+            virtual void Initialize();
+            virtual const char* GetName();
+        };
     }
 }

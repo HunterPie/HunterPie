@@ -2,33 +2,30 @@
 #include <string>
 #include "weapon.h"
 
-namespace Core
+namespace Core::Entities
 {
-    namespace Entities
+    enum EntityType
     {
-        enum EntityType
-        {
-            PLAYER,
-            NPC,
-            PET,
-            COMPANION,
-            ENVIRONMENT,
-            MONSTER,
-            UNKNOWN
-        };
+        PLAYER,
+        NPC,
+        PET,
+        COMPANION,
+        ENVIRONMENT,
+        MONSTER,
+        UNKNOWN
+    };
 
-        struct Entity
-        {
-            int index;
-            EntityType type;
-        };
+    struct Entity
+    {
+        int index;
+        EntityType type;
+    };
 
-        struct EntityDamageData
-        {
-            intptr_t target;
-            Entity source;
-            float rawDamage;
-            float elementalDamage;
-        };
-    }
+    struct EntityDamageData
+    {
+        intptr_t target;
+        Entity source;
+        float rawDamage;
+        float elementalDamage;
+    };
 }

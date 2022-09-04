@@ -8,39 +8,36 @@
 
 using namespace Core::Server::Models;
 
-namespace Core
+namespace Core::Server
 {
-    namespace Server
+    using IPCMessageCallback = void (*)(void*);
+
+    class IPCService
     {
-        using IPCMessageCallback = void (*)(void*);
+    public:
+        bool Initialize();
 
-        class IPCService
-        {
-        public:
-            bool Initialize();
+        static IPCService* GetInstance();
 
-            static IPCService* GetInstance();
-
-            size_t SendIPCMessage(
-                IPCMessage* message,
-                size_t size
-            );
+        size_t SendIPCMessage(
+            IPCMessage* message,
+            size_t size
+        );
             
-            void RegisterMessageHandler(
-                IPCMessageType type,
-                LPVOID callback
-            );
+        void RegisterMessageHandler(
+            IPCMessageType type,
+            LPVOID callback
+        );
 
-        private:
-            static IPCService* m_Instance;
-            std::unordered_map<IPCMessageType, std::vector<LPVOID>*> m_MessageCallbacks;
-            SOCKET m_Client;
-            bool m_IsInitialized;
-            IPCService();
+    private:
+        static IPCService* m_Instance;
+        std::unordered_map<IPCMessageType, std::vector<LPVOID>*> m_MessageCallbacks;
+        SOCKET m_Client;
+        bool m_IsInitialized;
+        IPCService();
 
-            void Listen();
-            void DispatchIPCMessage(void* message);
-            void RestartIPCService();
-        };
-    }
+        void Listen();
+        void DispatchIPCMessage(void* message);
+        void RestartIPCService();
+    };
 }
