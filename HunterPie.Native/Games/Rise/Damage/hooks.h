@@ -20,6 +20,6 @@ namespace Games::Rise::Damage::Hook
     class DamageHooks : public IInitializable
     {
     public:
-        virtual bool Init(uintptr_t* pointers);
+        virtual HRESULT Init(uintptr_t* pointers);
     };
 }

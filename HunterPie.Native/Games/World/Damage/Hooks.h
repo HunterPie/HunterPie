@@ -11,6 +11,6 @@ namespace Games::World::Damage::Hooks
     class DamageHooks : public Core::IInitializable
     {
     public:
-        bool Init(uintptr_t* pointers) override;
+        HRESULT Init(uintptr_t* pointers) override;
     };
 };

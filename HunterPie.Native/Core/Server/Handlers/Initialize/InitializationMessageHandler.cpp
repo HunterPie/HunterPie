@@ -20,15 +20,15 @@ void OnRequestIPCInitialization(RequestIPCInitializationMessage* message)
 
     MH_Initialize();
     switch (message->hostType) {
-        case IPCInitializationHostType::MHWorld:
-            Games::World::Damage::Hooks::DamageHooks().Init(message->addresses);
-            break;
-        case IPCInitializationHostType::MHRise:
-            Games::Rise::Damage::Hook::DamageHooks().Init(message->addresses);
-            break;
-        default:
-            it.hresult = E_INVALIDARG;
-            break;
+    case IPCInitializationHostType::MHWorld:
+        response.hresult = Games::World::Damage::Hooks::DamageHooks().Init(message->addresses);
+        break;
+    case IPCInitializationHostType::MHRise:
+        response.hresult = Games::Rise::Damage::Hook::DamageHooks().Init(message->addresses);
+        break;
+    default:
+        response.hresult = E_INVALIDARG;
+        break;
     }
 
     IPCService::GetInstance()->SendIPCMessage(&response, sizeof(ResponseIPCInitializationMessage));

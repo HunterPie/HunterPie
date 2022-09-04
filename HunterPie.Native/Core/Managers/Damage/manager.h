@@ -24,7 +24,7 @@ namespace HunterPie::Core::Damage
     public:
         static DamageTrackManager* GetInstance();
 
-        void UpdateDamage(EntityDamageData damageData);
+        void UpdateDamage(const EntityDamageData& damageData);
         HuntStatistics* GetHuntStatisticsBy(intptr_t target);
         void DeleteBy(intptr_t target);
         void ClearAllExcept(intptr_t* exceptions, size_t length);

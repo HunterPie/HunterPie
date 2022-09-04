@@ -8,19 +8,27 @@ using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.World.Crypto;
 using HunterPie.Core.Game.World.Entities;
 using HunterPie.Core.Game.World.Utils;
+using HunterPie.Core.Native.IPC.Handlers.Internal.Damage;
+using HunterPie.Core.Native.IPC.Handlers.Internal.Damage.Models;
+using HunterPie.Core.Native.IPC.Models.Common;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace HunterPie.Core.Game.World
 {
     public class MHWGame : Scannable, IGame, IEventDispatcher
     {
+        public const long ALL_TARGETS = 0;
+
         private readonly MHWPlayer _player;
         private readonly Dictionary<long, IMonster> _monsters = new();
+        private readonly Dictionary<long, EntityDamageData[]> _damageDone = new();
         private bool _isMouseVisible;
         private float _timeElapsed;
         private int _deaths;
+        private Stopwatch _damageUpdateStopwatch = new();
 
         public event EventHandler<IMonster> OnMonsterSpawn;
         public event EventHandler<IMonster> OnMonsterDespawn;
@@ -76,6 +84,9 @@ namespace HunterPie.Core.Game.World
         {
             _player = new(process);
 
+            DamageMessageHandler.OnReceived += OnReceivePlayersDamage;
+            _player.OnStageUpdate += OnPlayerStageUpdate;
+
             ScanManager.Add(_player, this);
         }
 
@@ -108,6 +119,18 @@ namespace HunterPie.Core.Game.World
             float elapsed = MHWCrypto.DecryptQuestTimer(encryptedValue, encryptKey);
 
             TimeElapsed = Math.Max(0, questMaxTimer - elapsed);
+        }
+
+        [ScannableMethod]
+        private void GetPartyMembersDamage()
+        {
+            if (_damageUpdateStopwatch.IsRunning && _damageUpdateStopwatch.ElapsedMilliseconds < 100)
+                return;
+
+            _damageUpdateStopwatch.Restart();
+
+            if (Player.InHuntingZone)
+                DamageMessageHandler.RequestHuntStatistics(ALL_TARGETS);
         }
 
         [ScannableMethod]
@@ -185,5 +208,40 @@ namespace HunterPie.Core.Game.World
         }
 
         public void Dispose() {}
+
+        #region Damage helpers
+
+        private void OnPlayerStageUpdate(object sender, EventArgs e)
+        {
+            DamageMessageHandler.ClearAllHuntStatisticsExcept(Array.Empty<long>());
+            DamageMessageHandler.RequestHuntStatistics(ALL_TARGETS);
+        }
+
+        private void OnReceivePlayersDamage(object sender, ResponseDamageMessage e)
+        {
+            long target = e.Target;
+
+            _damageDone[target] = e.Entities;
+
+            EntityDamageData[] damages = _damageDone.Values.SelectMany(entity => entity)
+                .GroupBy(entity => entity.Entity.Index)
+                .Select(group =>
+                {
+                    EntityDamageData entity = group.ElementAt(0);
+
+                    return new EntityDamageData
+                    {
+                        Target = entity.Target,
+                        Entity = entity.Entity,
+                        RawDamage = group.Sum(e => e.RawDamage),
+                        ElementalDamage = group.Sum(e => e.ElementalDamage)
+                    };
+                })
+                .ToArray();
+
+            _player.UpdatePartyMembersDamage(damages);
+        }
+
+        #endregion
     }
 }

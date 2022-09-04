@@ -1,13 +1,14 @@
 #include "pch.h"
 #include "Hooks.h"
 #include "Core/Debug/logger.h"
+#include "Core/Managers/Damage/manager.h"
 #include "Core/Utils/addresses.h"
 #include "libs/MinHook/MinHook.h"
 
 namespace Games::World::Damage::Hooks
 {
     DealDamageFunction ogDealDamage = nullptr;
-    
+
     void DealDamage(
         Common::Monster* target,
         int damage,
@@ -24,11 +25,37 @@ namespace Games::World::Damage::Hooks
             return;
         }
         ogDealDamage(target, damage, position, isTenderized, isCrit, unk0, unk1, unk2, attackId);
+
         LOG("Hit monster id: %d; damage: %d; atkId: %d", target->id, damage, attackId);
+
+        // Only count in Large Monsters. 101: Fatalis
+        if (target->id < 0 || target->id > 101) {
+            return;
+        }
+
+        auto entity = Entity{
+            0,     // We use 0 to indicate local player here.
+            PLAYER,
+        };
+
+        auto entityData = EntityDamageData{
+            reinterpret_cast<intptr_t>(target),
+            entity,
+            static_cast<float>(damage),
+            // We cannot distinguish between raw / elemental here.
+            0,
+        };
+
+        HunterPie::Core::Damage::DamageTrackManager::GetInstance()->UpdateDamage(entityData);
     }
 
-    bool DamageHooks::Init(uintptr_t* pointers)
+    HRESULT DamageHooks::Init(uintptr_t* pointers)
     {
+        if (ogDealDamage) {
+            LOG("DealDamage function is already hooked. Original function at %p.", ogDealDamage);
+            return ERROR_ALREADY_INITIALIZED;
+        }
+
         ogDealDamage = nullptr;
         auto originalDealDamagePtr = reinterpret_cast<DealDamageFunction>(pointers[FUN_CALCULATE_ENTITY_DAMAGE]);
 
@@ -39,10 +66,8 @@ namespace Games::World::Damage::Hooks
             reinterpret_cast<LPVOID*>(&ogDealDamage)
         );
 
-        LOG("Hook DealDamage function status: %s", MH_StatusToString(status));
-        LOG("DealDamage: %p", &DealDamage);
-        LOG("&ogDealDamage: %p,ogDealDamage: %p", &ogDealDamage, ogDealDamage);
+        LOG("Hook DealDamage status: %s", MH_StatusToString(status));
 
-        return status == MH_OK;
+        return status == MH_OK ? ERROR_SUCCESS : ERROR_HOOK_NOT_INSTALLED;
     }
 }
