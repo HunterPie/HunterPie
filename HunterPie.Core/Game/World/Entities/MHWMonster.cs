@@ -40,6 +40,8 @@ namespace HunterPie.Core.Game.World.Entities
                 if (value != _id)
                 {
                     _id = value;
+                    GetMonsterWeaknesses();
+                    GetMonsterCaptureThreshold();
                     this.Dispatch(OnSpawn);
                 }
             }
@@ -143,10 +145,12 @@ namespace HunterPie.Core.Game.World.Entities
 
         public IMonsterAilment Enrage => _enrage;
 
-        public Element[] Weaknesses => Array.Empty<Element>();
+        private readonly List<Element> _weaknesses = new();
+        public Element[] Weaknesses => _weaknesses.ToArray();
+        
 
-        // TODO: Maybe v2.3.0?
-        public float CaptureThreshold => 0;
+        private float _captureThreshold;
+        public float CaptureThreshold => _captureThreshold;
 
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
@@ -171,6 +175,24 @@ namespace HunterPie.Core.Game.World.Entities
             Em = em;
             
             Log.Debug($"Initialized monster at address {address:X}");
+        }
+        
+        private void GetMonsterCaptureThreshold()
+        {
+            var data = MonsterData.GetMonsterData(Id);
+
+            if (!data.HasValue) return;
+            _captureThreshold = MonsterData.GetMonsterData(Id)?.Capture / 100f ?? 0; 
+            this.Dispatch(OnCaptureThresholdChange, this);
+        }
+        
+        private void GetMonsterWeaknesses()
+        {
+            var data = MonsterData.GetMonsterData(Id);
+
+            if (!data.HasValue) return;
+            _weaknesses.AddRange(data.Value.Weaknesses);
+            this.Dispatch(OnWeaknessesChange, Weaknesses);
         }
 
         [ScannableMethod]
@@ -240,7 +262,7 @@ namespace HunterPie.Core.Game.World.Entities
 
             enrage.Update(enrageStructure);
         }
-
+        
         [ScannableMethod]
         private void GetLockedOnMonster()
         {

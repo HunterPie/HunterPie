@@ -30,7 +30,7 @@
         <Ailment Id="999" String="AILMENT_ENRAGE"/>
     </Ailments>
     <Monsters>
-        <Monster Id="0">
+        <Monster Id="0" Capture="25">
             <Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
             <Weaknesses>
                 <Weakness Name="Water"/>
@@ -46,7 +46,7 @@
                 <Part Id="6" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="1">
+        <Monster Id="1" Capture="20">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Dragon"/>
@@ -63,7 +63,7 @@
                 <Part Id="7" String="PART_TAIL" TenderizeIds="4,9"/>
             </Parts>
         </Monster>
-        <Monster Id="4">
+        <Monster Id="4" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Dragon"/>
@@ -88,7 +88,7 @@
                 <Part Id="15" String="PART_WEAK_R_SHELL"/>
             </Parts>
         </Monster>
-        <Monster Id="7">
+        <Monster Id="7" Capture="30">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Fire"/>
@@ -103,7 +103,7 @@
                 <Part Id="5" String="PART_ABDOMEN"/>
             </Parts>
         </Monster>
-        <Monster Id="9">
+        <Monster Id="9" Capture="25">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Dragon"/>
@@ -120,7 +120,7 @@
                 <Part Id="7" String="PART_TAIL" TenderizeIds="4,9"/>
             </Parts>
         </Monster>
-        <Monster Id="10">
+        <Monster Id="10" Capture="25">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Dragon"/>
@@ -137,7 +137,7 @@
                 <Part Id="7" String="PART_TAIL" TenderizeIds="4,9"/>
             </Parts>
         </Monster>
-        <Monster Id="11">
+        <Monster Id="11" Capture="15">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Dragon"/>
@@ -154,7 +154,7 @@
                 <Part Id="7" String="PART_TAIL" TenderizeIds="4,9"/>
             </Parts>
         </Monster>
-        <Monster Id="12">
+        <Monster Id="12" Capture="20">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -172,7 +172,7 @@
                 <Part Id="8" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="13">
+        <Monster Id="13" Capture="15">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -190,7 +190,7 @@
                 <Part Id="8" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="14">
+        <Monster Id="14" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Fire"/>
@@ -202,7 +202,7 @@
                 <Part Id="2" String="PART_LEGS" TenderizeIds="1,3"/>
             </Parts>
         </Monster>
-        <Monster Id="15">
+        <Monster Id="15" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Dragon"/>
@@ -220,7 +220,7 @@
                 <Part Id="8" String="PART_TAIL" TenderizeIds="2,5"/>
             </Parts>
         </Monster>
-        <Monster Id="16">
+        <Monster Id="16" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -236,7 +236,7 @@
                 <Part Id="6" String="PART_WINGS" TenderizeIds="1,4"/>
             </Parts>
         </Monster>
-        <Monster Id="17">
+        <Monster Id="17" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -252,7 +252,7 @@
                 <Part Id="6" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="18">
+        <Monster Id="18" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Water"/>
@@ -269,7 +269,7 @@
                 <Part Id="7" String="PART_TAIL" TenderizeIds="2,5"/>
             </Parts>
         </Monster>
-        <Monster Id="19">
+        <Monster Id="19" Capture="20">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Water"/>
@@ -284,7 +284,7 @@
                 <Part Id="5" String="PART_TAIL" TenderizeIds="2,5"/>
             </Parts>
         </Monster>
-        <Monster Id="20">
+        <Monster Id="20" Capture="20">
             <Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
             <Weaknesses>
                 <Weakness Name="Dragon"/>
@@ -303,7 +303,7 @@
                 <Part Id="9" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="21">
+        <Monster Id="21" Capture="25">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Water"/>
@@ -326,7 +326,7 @@
                 <Part Id="13" String="PART_TAIL_MUD" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="22">
+        <Monster Id="22" Capture="20">
             <Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
             <Weaknesses>
                 <Weakness Name="Water"/>
@@ -343,7 +343,7 @@
                 <Part Id="7" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="23">
+        <Monster Id="23" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Fire"/>
@@ -358,7 +358,7 @@
                 <Part Id="5" String="PART_UNKNOWN"/>
             </Parts>
         </Monster>
-        <Monster Id="24">
+        <Monster Id="24" Capture="25">
             <Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
             <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -376,7 +376,7 @@
                 <Part Id="8" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="25">
+        <Monster Id="25" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -398,7 +398,7 @@
                 <Part Id="12" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="26">
+        <Monster Id="26" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Fire"/>
@@ -419,7 +419,7 @@
                 <Part Id="11" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="27">
+        <Monster Id="27" Capture="30">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Water"/>
@@ -433,7 +433,7 @@
                 <Part Id="4" String="PART_ROCK"/>
             </Parts>
         </Monster>
-        <Monster Id="28">
+        <Monster Id="28" Capture="30">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -447,7 +447,7 @@
                 <Part Id="4" String="PART_TAIL" TenderizeIds="2,5"/>
             </Parts>
         </Monster>
-        <Monster Id="29">
+        <Monster Id="29" Capture="25">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -466,7 +466,7 @@
                 <Part Id="9" String="PART_TAIL_MUD" TenderizeIds="2,5"/>
             </Parts>
         </Monster>
-        <Monster Id="30">
+        <Monster Id="30" Capture="25">
             <Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
             <Weaknesses>
                 <Weakness Name="Water"/>
@@ -481,7 +481,7 @@
                 <Part Id="5" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="31">
+        <Monster Id="31" Capture="25">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Fire"/>
@@ -499,7 +499,7 @@
                 <Part Id="8" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="32">
+        <Monster Id="32" Capture="20">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -515,7 +515,7 @@
                 <Part Id="6" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="33">
+        <Monster Id="33" Capture="30">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Water"/>
@@ -530,7 +530,7 @@
                 <Part Id="5" String="PART_TAIL" TenderizeIds="2,5"/>
             </Parts>
         </Monster>
-        <Monster Id="34">
+        <Monster Id="34" Capture="20">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -546,7 +546,7 @@
                 <Part Id="6" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="35">
+        <Monster Id="35" Capture="25">
             <Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
             <Weaknesses>
                 <Weakness Name="Dragon"/>
@@ -569,7 +569,7 @@
                 <Part Id="13" String="PART_R_BONE"/>
             </Parts>
         </Monster>
-        <Monster Id="36">
+        <Monster Id="36" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Fire"/>
@@ -589,7 +589,7 @@
                 <Part Id="10" String="PART_WINGS"/>
             </Parts>
         </Monster>
-        <Monster Id="37">
+        <Monster Id="37" Capture="30">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -604,7 +604,7 @@
                 <Part Id="5" String="PART_TAIL" TenderizeIds="2,5"/>
             </Parts>
         </Monster>
-        <Monster Id="38">
+        <Monster Id="38" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -631,7 +631,7 @@
                 <Part Id="17" String="PART_R_TAIL_GOLD"/>
             </Parts>
         </Monster>
-        <Monster Id="39">
+        <Monster Id="39" Capture="30">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -647,7 +647,7 @@
                 <Part Id="6" String="PART_TAIL" TenderizeIds="4,9"/>
             </Parts>
         </Monster>
-        <Monster Id="51">
+        <Monster Id="51" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Fire"/>
@@ -662,7 +662,7 @@
                 <Part Id="5" String="PART_UNKNOWN"/>
             </Parts>
         </Monster>
-        <Monster Id="61">
+        <Monster Id="61" Capture="20">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -679,7 +679,7 @@
                 <Part Id="7" String="PART_TAIL" TenderizeIds="2,5"/>
             </Parts>
         </Monster>
-        <Monster Id="62">
+        <Monster Id="62" Capture="20">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -696,7 +696,7 @@
                 <Part Id="7" String="PART_TAIL" TenderizeIds="2,5"/>
             </Parts>
         </Monster>
-        <Monster Id="63">
+        <Monster Id="63" Capture="20">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Fire"/>
@@ -713,7 +713,7 @@
                 <Part Id="7" String="PART_TAIL" TenderizeIds="2,5"/>
             </Parts>
         </Monster>
-        <Monster Id="64">
+        <Monster Id="64" Capture="10">
             <Crowns Mini="0.99" Silver="1.14" Gold="1.20"/>
             <Weaknesses>
                 <Weakness Name="Dragon"/>
@@ -733,7 +733,7 @@
                 <Part Id="10" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="65">
+        <Monster Id="65" Capture="20">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -750,7 +750,7 @@
                 <Part Id="7" String="PART_TAIL" TenderizeIds="2,5"/>
             </Parts>
         </Monster>
-        <Monster Id="66">
+        <Monster Id="66" Capture="20">
             <Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
             <Weaknesses>
                 <Weakness Name="Water"/>
@@ -768,7 +768,7 @@
                 <Part Id="8" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="67">
+        <Monster Id="67" Capture="20">
             <Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
             <Weaknesses>
                 <Weakness Name="Fire"/>
@@ -787,7 +787,7 @@
                 <Part Id="9" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="68">
+        <Monster Id="68" Capture="15">
             <Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
             <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -803,7 +803,7 @@
                 <Part Id="6" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="69">
+        <Monster Id="69" Capture="25">
             <Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
             <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -822,7 +822,7 @@
                 <Part Id="9" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="70">
+        <Monster Id="70" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Dragon"/>
@@ -849,7 +849,7 @@
                 <Part Id="17" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="71">
+        <Monster Id="71" Capture="25">
             <Crowns Mini="0.9" Silver="1.10" Gold="1.20"/>
             <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -864,7 +864,7 @@
                 <Part Id="5" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="72">
+        <Monster Id="72" Capture="25">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Water"/>
@@ -882,7 +882,7 @@
                 <Part Id="8" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="73">
+        <Monster Id="73" Capture="15">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Fire"/>
@@ -898,7 +898,7 @@
                 <Part Id="6" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="74">
+        <Monster Id="74" Capture="15">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Water"/>
@@ -915,7 +915,7 @@
                 <Part Id="7" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="75">
+        <Monster Id="75" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Fire"/>
@@ -940,7 +940,7 @@
                 <Part Id="15" String="PART_UNKNOWN"/>
             </Parts>
         </Monster>
-        <Monster Id="76">
+        <Monster Id="76" Capture="10">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -958,7 +958,7 @@
                 <Part Id="8" String="PART_TAIL" TenderizeIds="4,9"/>
             </Parts>
         </Monster>
-        <Monster Id="77">
+        <Monster Id="77" Capture="25">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Fire"/>
@@ -977,7 +977,7 @@
                 <Part Id="9" String="PART_TAIL_SNOW" TenderizeIds="2,5"/>
             </Parts>
         </Monster>
-        <Monster Id="78">
+        <Monster Id="78" Capture="25">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Dragon"/>
@@ -994,7 +994,7 @@
                 <Part Id="7" String="PART_TAIL" TenderizeIds="2,5"/>
             </Parts>
         </Monster>
-        <Monster Id="79">
+        <Monster Id="79" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Fire"/>
@@ -1015,7 +1015,7 @@
                 <Part Id="11" String="PART_TAIL" TenderizeIds="2,5"/>
             </Parts>
         </Monster>
-        <Monster Id="80">
+        <Monster Id="80" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Fire"/>
@@ -1031,7 +1031,7 @@
                 <Part Id="6" String="PART_WINGS" TenderizeIds="2,6"/>
             </Parts>
         </Monster>
-        <Monster Id="81">
+        <Monster Id="81" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -1061,7 +1061,7 @@
                 <Part Id="20" String="PART_TAIL"/>
             </Parts>
         </Monster>
-        <Monster Id="87">
+        <Monster Id="87" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -1080,7 +1080,7 @@
                 <Part Id="8" String="PART_TAIL" TenderizeIds="4,9"/>
             </Parts>
         </Monster>
-        <Monster Id="88">
+        <Monster Id="88" Capture="10">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -1098,7 +1098,7 @@
                 <Part Id="8" String="PART_TAIL" TenderizeIds="4,9"/>
             </Parts>
         </Monster>
-        <Monster Id="89">
+        <Monster Id="89" Capture="10">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Water"/>
@@ -1116,7 +1116,7 @@
                 <Part Id="8" String="PART_TAIL" TenderizeIds="4,9"/>
             </Parts>
         </Monster>
-        <Monster Id="90">
+        <Monster Id="90" Capture="20">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Water"/>
@@ -1133,7 +1133,7 @@
                 <Part Id="7" String="PART_TAIL" TenderizeIds="4,9"/>
             </Parts>
         </Monster>
-        <Monster Id="91">
+        <Monster Id="91" Capture="15">
             <Crowns Mini="0.9" Silver="1.11" Gold="1.18"/>
             <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -1153,7 +1153,7 @@
                 <Part Id="10" String="PART_TAIL"/>
             </Parts>
         </Monster>
-        <Monster Id="92">
+        <Monster Id="92" Capture="10">
             <Crowns Mini="0.9" Silver="1.11" Gold="1.18"/>
             <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -1173,7 +1173,7 @@
                 <Part Id="10" String="PART_TAIL"/>
             </Parts>
         </Monster>
-        <Monster Id="93">
+        <Monster Id="93" Capture="15">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Water"/>
@@ -1190,7 +1190,7 @@
                 <Part Id="7" String="PART_TAIL" TenderizeIds="2,5"/>
             </Parts>
         </Monster>
-        <Monster Id="94">
+        <Monster Id="94" Capture="20">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -1207,7 +1207,7 @@
                 <Part Id="7" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="95">
+        <Monster Id="95" Capture="20">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -1224,7 +1224,7 @@
                 <Part Id="7" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="96">
+        <Monster Id="96" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -1243,7 +1243,7 @@
                 <Part Id="9" String="PART_TAIL_TIP"/>
             </Parts>
         </Monster>
-        <Monster Id="97">
+        <Monster Id="97" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Dragon"/>
@@ -1265,7 +1265,7 @@
                 <Part Id="12" String="PART_TAIL" TenderizeIds="3,7"/>
             </Parts>
         </Monster>
-        <Monster Id="98">
+        <Monster Id="98" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses/>
             <Parts>
@@ -1274,7 +1274,7 @@
                 <Part Id="2" String="PART_UNKNOWN" TenderizeIds="3"/>
             </Parts>
         </Monster>
-        <Monster Id="99">
+        <Monster Id="99" Capture="15">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Water"/>
@@ -1291,7 +1291,7 @@
                 <Part Id="7" String="PART_TAIL" TenderizeIds="4,9"/>
             </Parts>
         </Monster>
-        <Monster Id="100">
+        <Monster Id="100" Capture="20">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Fire"/>
@@ -1308,7 +1308,7 @@
                 <Part Id="7" String="PART_TAIL" TenderizeIds="2,5"/>
             </Parts>
         </Monster>
-        <Monster Id="101">
+        <Monster Id="101" Capture="0">
             <Crowns Mini="0.9" Silver="1.15" Gold="1.23"/>
             <Weaknesses>
                 <Weakness Name="Dragon"/>
