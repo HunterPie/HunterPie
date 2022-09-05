@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using HunterPie.Core.Domain.Features;
 using HunterPie.Core.Domain.Constants;
+using HunterPie.GUI.Parts.Account.ViewModels;
 
 namespace HunterPie.GUI.Parts.Sidebar
 {
@@ -40,6 +41,8 @@ namespace HunterPie.GUI.Parts.Sidebar
         }
         public static readonly DependencyProperty SelectedButtonProperty =
             DependencyProperty.Register("SelectedButton", typeof(Thickness), typeof(SideBarContainer));
+
+        public AccountViewModel Account => PART_UserAccount.ViewModel;
 
         public SideBarContainer()
         {

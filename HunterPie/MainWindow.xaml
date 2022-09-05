@@ -10,6 +10,7 @@
         xmlns:sidebar="clr-namespace:HunterPie.GUI.Parts.Sidebar"
         xmlns:host="clr-namespace:HunterPie.GUI.Parts.Host"
         xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
+        xmlns:account="clr-namespace:HunterPie.GUI.Parts.Account.Views"
         Title="HunterPie v2" 
         Height="600" 
         Width="1000"
@@ -24,9 +25,11 @@
         UseLayoutRounding="True" 
         KeyDown="OnKeyDown"
         WindowStyle="None"
-        mc:Ignorable="d">
+        mc:Ignorable="d"
+        MouseDown="Window_MouseDown">
     <Window.Resources>
         <converters:GameTypeToGameNameConverter x:Key="GameTypeToGameNameConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"
@@ -75,7 +78,7 @@
                            FontWeight="Medium"
                            VerticalAlignment="Center" 
                            HorizontalAlignment="Right"
-                           Padding="25,0,25,5"
+                           Padding="25,5,25,10"
                            Margin="0,0,10,0"
                            Background="{StaticResource HUNTERPIE_ACCENT_COLOR}"
                            OnClick="OnStartGameClick">
@@ -114,7 +117,13 @@
                                   Background="{StaticResource GRAY_50}"
                                   VerticalAlignment="Stretch"
                                   HorizontalAlignment="Left"
-                                  ItemsHeight="40"/>
-        
+                                  ItemsHeight="40"
+                                  x:Name="PART_SideBar"/>
+
+        <account:AccountPopupView Grid.Row="1"
+                                  VerticalAlignment="Bottom"
+                                  HorizontalAlignment="Left"
+                                  Margin="25,0,0,25"
+                                  Visibility="{Binding Account.IsAvatarClicked, ElementName=PART_SideBar, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
     </Grid>
 </Window>

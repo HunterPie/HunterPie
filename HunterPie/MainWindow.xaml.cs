@@ -87,5 +87,10 @@ namespace HunterPie
         private void OnTrayCloseClick(object sender, EventArgs e) => Close();
 
         private void OnStartGameClick(object sender, EventArgs e) => Steam.RunGameBy(ClientConfig.Config.Client.DefaultGameType);
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Keyboard.ClearFocus();
+        }
     }
 }

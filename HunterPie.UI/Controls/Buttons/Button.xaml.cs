@@ -49,6 +49,18 @@ namespace HunterPie.UI.Controls.Buttons
         public static new readonly DependencyProperty HorizontalContentAlignmentProperty =
             DependencyProperty.Register("HorizontalContentAlignment", typeof(HorizontalAlignment), typeof(Button), new PropertyMetadata(HorizontalAlignment.Center));
 
+        public new Thickness Padding
+        {
+            get { return (Thickness)GetValue(PaddingProperty); }
+            set { SetValue(PaddingProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Padding.  This enables animation, styling, binding, etc...
+        public static new readonly DependencyProperty PaddingProperty =
+            DependencyProperty.Register("Padding", typeof(Thickness), typeof(Button), new PropertyMetadata(new Thickness(2, 5, 2, 5)));
+
+
+
         public Button()
         {
             InitializeComponent();
