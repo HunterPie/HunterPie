@@ -1,6 +1,6 @@
 #pragma once
 #include <unordered_map>
-#include "../../Entities/damage.h"
+#include "Core/Entities/damage.h"
 
 using namespace Core::Entities;
 

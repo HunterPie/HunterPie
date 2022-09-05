@@ -1,7 +1,8 @@
+#include "pch.h"
 #include "hooks.h"
-#include "../../../libs/MinHook/MinHook.h"
-#include "../../../Core/Managers/Damage/manager.h"
-#include "../../../Core/Utils/addresses.h"
+#include "libs/MinHook/MinHook.h"
+#include "Core/Managers/Damage/manager.h"
+#include "Core/Utils/addresses.h"
 #include "../Utils/RiseUtils.h"
 
 using namespace Games::Rise::Damage;

@@ -1,5 +1,4 @@
 #pragma once
-#include "../../../pch.h"
 #include "../Common/Monster.h"
 
 using namespace Games::Rise::Common;
