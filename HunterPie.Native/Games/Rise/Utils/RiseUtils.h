@@ -1,12 +1,6 @@
 #pragma once
 
-namespace Games
+namespace Games::Rise::Utils
 {
-    namespace Rise
-    {
-        namespace Utils
-        {
-            bool IsBigMonster(int32_t id);
-        }
-    }
+    bool IsBigMonster(int32_t id);
 }
