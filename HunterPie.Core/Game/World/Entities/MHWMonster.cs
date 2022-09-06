@@ -27,6 +27,7 @@ namespace HunterPie.Core.Game.World.Entities
         private Target _target;
         private Crown _crown;
         private float _stamina;
+        private float _captureThreshold;
         private readonly MHWMonsterAilment _enrage = new MHWMonsterAilment("STATUS_ENRAGE");
         private (long, MHWMonsterPart)[] _parts;
         private List<(long, MHWMonsterAilment)> _ailments;
@@ -147,10 +148,19 @@ namespace HunterPie.Core.Game.World.Entities
 
         private readonly List<Element> _weaknesses = new();
         public Element[] Weaknesses => _weaknesses.ToArray();
-        
 
-        private float _captureThreshold;
-        public float CaptureThreshold => _captureThreshold;
+        public float CaptureThreshold
+        {
+            get => _captureThreshold;
+            private set
+            {
+                if (value != _captureThreshold)
+                {
+                    _captureThreshold = value;
+                    this.Dispatch(OnCaptureThresholdChange, this);
+                }
+            }
+        }
 
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnLoad;
@@ -182,8 +192,8 @@ namespace HunterPie.Core.Game.World.Entities
             var data = MonsterData.GetMonsterData(Id);
 
             if (!data.HasValue) return;
-            _captureThreshold = MonsterData.GetMonsterData(Id)?.Capture / 100f ?? 0; 
-            this.Dispatch(OnCaptureThresholdChange, this);
+            
+            CaptureThreshold = MonsterData.GetMonsterData(Id)?.Capture / 100f ?? 0; 
         }
         
         private void GetMonsterWeaknesses()
@@ -191,6 +201,7 @@ namespace HunterPie.Core.Game.World.Entities
             var data = MonsterData.GetMonsterData(Id);
 
             if (!data.HasValue) return;
+
             _weaknesses.AddRange(data.Value.Weaknesses);
             this.Dispatch(OnWeaknessesChange, Weaknesses);
         }
