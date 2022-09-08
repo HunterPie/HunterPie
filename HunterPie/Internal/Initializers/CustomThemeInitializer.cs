@@ -13,14 +13,14 @@ namespace HunterPie.Internal.Initializers
         public void Init()
         {
             string themePath = Path.Combine(ClientInfo.ThemesPath, ClientConfig.Config.Client.Theme);
-            
+
             if (!File.Exists(themePath))
-                {
-                    Log.Error("Failed to load theme {0}", ClientConfig.Config.Client.Theme.Current);
-                    Log.Info("Failed to find theme {0}, Changed to Default theme", ClientConfig.Config.Client.Theme.Current);
-                    themePath = Path.Combine(ClientInfo.ThemesPath, "Default");
-                    ClientConfig.Config.Client.Theme.Current = "Default";
-                }
+            {
+                Log.Error("Failed to load theme {0}", ClientConfig.Config.Client.Theme.Current);
+                Log.Info("Failed to find theme {0}, Changed to Default theme", ClientConfig.Config.Client.Theme.Current);
+                themePath = Path.Combine(ClientInfo.ThemesPath, "Default");
+                ClientConfig.Config.Client.Theme.Current = "Default";
+            }
 
             var xamlFilesToLoad = Directory.EnumerateFiles(themePath, "*.xaml");
 
