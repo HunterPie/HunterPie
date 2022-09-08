@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace HunterPie.GUI.Parts.Account.Views
 {
     /// <summary>
-    /// Interaction logic for AccountPopupView.xaml
+    /// Interaction logic for AccountPreferencesView.xaml
     /// </summary>
-    public partial class AccountPopupView : UserControl
+    public partial class AccountPreferencesView : UserControl
     {
-        public AccountPopupView()
+        public AccountPreferencesView()
         {
             InitializeComponent();
         }

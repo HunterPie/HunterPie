@@ -12,74 +12,138 @@
            mc:Ignorable="d" 
            d:DesignHeight="50" 
            d:DesignWidth="300">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50"/>
-            <ColumnDefinition Width="250"/>
-        </Grid.ColumnDefinitions>
+    <UserControl.Resources>
+        <Style x:Key="AvatarClickStyle" TargetType="native:Button">
+            <EventSetter Event="Click" Handler="OnAvatarClick"/>
+            <EventSetter Event="GotKeyboardFocus" Handler="OnAvatarGotKeyboardFocus"/>
+            <EventSetter Event="LostKeyboardFocus" Handler="OnAvatarLostKeyboardFocus"/>
+        </Style>
+
+        <Style x:Key="AccountButtonsStyle" TargetType="native:Button">
+            <Setter Property="Padding" Value="20,10,20,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="{StaticResource GRAY_100}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource GRAY}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style x:Key="LoginStyle" TargetType="native:Button" BasedOn="{StaticResource AccountButtonsStyle}">
+            <EventSetter Event="Click" Handler="OnLoginClick"/>
+        </Style>
+
+        <Style x:Key="RegisterStyle" TargetType="native:Button" BasedOn="{StaticResource AccountButtonsStyle}">
+            <EventSetter Event="Click" Handler="OnRegisterClick"/>
+        </Style>
+    </UserControl.Resources>
+    <ContentPresenter>
+        <ContentPresenter.Style>
+            <Style TargetType="ContentPresenter">
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="250"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{StaticResource ICON_DISCONNECTED_ACCOUNT}"
+                                   Height="40"
+                                   Width="40"
+                                   RenderOptions.BitmapScalingMode="Fant"
+                                   Opacity="0.4"/>
+                            <StackPanel Orientation="Horizontal"
+                                        Grid.Column="1"
+                                        VerticalAlignment="Stretch"
+                                        HorizontalAlignment="Right">
+                                <native:Button Content="Login"
+                                               Style="{StaticResource LoginStyle}"/>
+                                <native:Button Content="Register"
+                                               Style="{StaticResource RegisterStyle}"/>
+                            </StackPanel>
+                            
+                        </Grid>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsLoggedIn, Mode=OneWay}" Value="True">
+                        <Setter Property="Content">
+                            <Setter.Value>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="250"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Profile picture -->
+                                    <native:Button Padding="5"
+                                                   VerticalAlignment="Stretch"
+                                                   HorizontalContentAlignment="Left"
+                                                   VerticalContentAlignment="Top"
+                                                   Focusable="True"
+                                                   Cursor="Hand"
+                                                   Style="{StaticResource AvatarClickStyle}">
+                                        <native:Button.Clip>
+                                            <EllipseGeometry Center="25,25"
+                                                             RadiusX="19"
+                                                             RadiusY="19"/>
+                                        </native:Button.Clip>
+                                        <Canvas>
+                                            <Image Source="https://cdn.discordapp.com/emojis/916398796626333696.webp?size=96"
+                                                   Height="40"
+                                                   Width="40"
+                                                   RenderOptions.BitmapScalingMode="Fant"
+                                                   Opacity="0.9"
+                                                   Stretch="UniformToFill"/>
+                                        </Canvas>
+                                    </native:Button>
+
+                                    <!-- User name -->
+                                    <TextBlock Text="Haato"
+                                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                               Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                                               FontWeight="Medium"
+                                               FontSize="16"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               Margin="5,0,0,20"/>
+
+                                    <StackPanel Orientation="Horizontal"
+                                                Grid.Column="1"
+                                                Margin="5,0,0,5"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Bottom">
+                                        <Image Source="{StaticResource ICON_SUPPORTER_TIER_1}"
+                                               Height="20">
+
+                                            <Image.ToolTip>
+                                                <Span>
+                                                    <Bold>Tier 1:</Bold> Supporter
+                                                </Span>
+                                            </Image.ToolTip>
+                                        </Image>
+                                    </StackPanel>
+
+                                    <native:Button Grid.Column="1"
+                                                   HorizontalAlignment="Right"
+                                                   Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
+                                                   ToolTip="Disconnect"
+                                                   Padding="6,0,5,0"
+                                                   Background="{StaticResource GRAY_300}">
+                                        <Image Source="{StaticResource ICON_LOGOUT}"
+                                               Width="20"/>
+                                    </native:Button>
+                                </Grid>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ContentPresenter.Style>
         
-        <!-- Profile picture -->
-        <native:Button Padding="5"
-                       VerticalAlignment="Stretch"
-                       HorizontalContentAlignment="Left"
-                       VerticalContentAlignment="Top"
-                       Focusable="True"
-                       OnClick="OnAvatarClick"
-                       GotKeyboardFocus="OnAvatarGotKeyboardFocus"
-                       LostKeyboardFocus="OnAvatarLostKeyboardFocus">
-            <native:Button.Clip>
-                <EllipseGeometry Center="25,25"
-                                 RadiusX="19"
-                                 RadiusY="19"/>
-            </native:Button.Clip>
-            <Canvas>
-                <Image Source="https://cdn.discordapp.com/emojis/916398796626333696.webp?size=96"
-                       Height="40"
-                       Width="40"
-                       RenderOptions.BitmapScalingMode="Fant"
-                       Opacity="0.9">
-                </Image>
-            </Canvas>
-        </native:Button>
-
         
 
-        <!-- User name -->
-        <TextBlock Text="Haato"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
-                   FontWeight="Medium"
-                   FontSize="16"
-                   Grid.Column="1"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Center"
-                   Margin="5,0,0,20"/>
-
-        <StackPanel Orientation="Horizontal"
-                    Grid.Column="1"
-                    Margin="5,0,0,5"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Bottom">
-            <Image Source="{StaticResource ICON_SUPPORTER_TIER_1}"
-                   Height="20">
-
-                <Image.ToolTip>
-                    <Span>
-                        <Bold>Tier 1:</Bold> Supporter
-                    </Span>
-                </Image.ToolTip>
-            </Image>
-        </StackPanel>
-
-        <native:Button Grid.Column="1"
-                       HorizontalAlignment="Right"
-                       Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
-                       ToolTip="Disconnect"
-                       Padding="3,0,2,0"
-                       Background="#cf304a">
-            <Image Source="{StaticResource ICON_LOGOUT}"
-                   Width="20"/>
-        </native:Button>
-
-    </Grid>
+    </ContentPresenter>
 </arch:View>

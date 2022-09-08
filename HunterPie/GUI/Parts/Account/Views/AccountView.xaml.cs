@@ -1,4 +1,5 @@
-﻿using HunterPie.GUI.Parts.Account.ViewModels;
+﻿using HunterPie.Core.Logger;
+using HunterPie.GUI.Parts.Account.ViewModels;
 using HunterPie.UI.Architecture;
 using System;
 using System.Windows;
@@ -17,9 +18,11 @@ namespace HunterPie.GUI.Parts.Account.Views
             InitializeComponent();
         }
 
-        private void OnAvatarClick(object sender, EventArgs e)
+        private void OnAvatarGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e) => ViewModel.IsAvatarClicked = true;
+        private void OnAvatarLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e) => ViewModel.IsAvatarClicked = false;
+
+        private void OnAvatarClick(object sender, RoutedEventArgs e)
         {
-            
             if (sender is UserControl obj)
             {
                 var wasFocused = Keyboard.FocusedElement;
@@ -29,10 +32,16 @@ namespace HunterPie.GUI.Parts.Account.Views
                 else
                     obj.Focus();
             }
-
         }
 
-        private void OnAvatarGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e) => ViewModel.IsAvatarClicked = true;
-        private void OnAvatarLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e) => ViewModel.IsAvatarClicked = false;
+        private void OnLoginClick(object sender, RoutedEventArgs e)
+        {
+            Log.Info("Test");
+        }
+
+        private void OnRegisterClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

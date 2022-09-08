@@ -43,10 +43,9 @@
             <RowDefinition Height="73*"/>
             <RowDefinition Height="226*"/>
         </Grid.RowDefinitions>
-        <part:HeaderBar 
-            Height="25"
-            Background="{StaticResource GRAY_300}"
-            VerticalAlignment="Top"/>
+        <part:HeaderBar Height="25"
+                        Background="{StaticResource GRAY_300}"
+                        VerticalAlignment="Top"/>
 
         <Grid Background="{StaticResource GRAY_300}" 
               Margin="0,25,0,0">
@@ -80,7 +79,10 @@
                            HorizontalAlignment="Right"
                            Padding="25,5,25,10"
                            Margin="0,0,10,0"
-                           Background="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                           CornerRadius="5"
+                           BorderThickness="1"
+                           BorderBrush="{StaticResource GRAY}"
+                           Background="{StaticResource GRAY_100}"
                            OnClick="OnStartGameClick">
                 <native:Button.Content>
                     <Grid>
@@ -112,18 +114,11 @@
             <ContentControl Content="{Binding Source={x:Static host:MainHost.Instance}, Path=Element, IsAsync=True}"/>
             
         </Grid>
-        
+
         <sidebar:SideBarContainer Grid.Row="1"
-                                  Background="{StaticResource GRAY_50}"
                                   VerticalAlignment="Stretch"
                                   HorizontalAlignment="Left"
                                   ItemsHeight="40"
                                   x:Name="PART_SideBar"/>
-
-        <account:AccountPopupView Grid.Row="1"
-                                  VerticalAlignment="Bottom"
-                                  HorizontalAlignment="Left"
-                                  Margin="25,0,0,25"
-                                  Visibility="{Binding Account.IsAvatarClicked, ElementName=PART_SideBar, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
     </Grid>
 </Window>

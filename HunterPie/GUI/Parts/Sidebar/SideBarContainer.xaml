@@ -6,14 +6,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.GUI.Parts.Sidebar"
              xmlns:account="clr-namespace:HunterPie.GUI.Parts.Account.Views"
+             xmlns:animations="clr-namespace:HunterPie.UI.Architecture.Animation;assembly=HunterPie.UI"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="300"
+             d:DesignHeight="600" 
+             d:DesignWidth="300"
              PreviewMouseLeftButtonDown="OnLeftMouseButtonDown" 
              MouseLeftButtonUp="OnLeftMouseButtonUp" 
              MouseEnter="OnMouseEnter" 
              MouseLeave="OnMouseLeave" 
              Width="50"
-             BorderThickness="0,0,0,0">
+             BorderThickness="0,0,0,0"
+             Background="{StaticResource GRAY_50}">
     <UserControl.Resources>
         <Storyboard x:Key="PART_SelectionAnimation" Storyboard.TargetName="PART_Selection">
             <ThicknessAnimation Duration="0:0:0.050"
@@ -29,7 +32,6 @@
             Opacity="0.02"/>
     </UserControl.Effect>
     <Grid d:Width="{StaticResource HUNTERPIE_SIDEBAR_WIDTH}"
-          d:Background="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}"
           HorizontalAlignment="Left">
         <Rectangle x:Name="PART_Selection"
                    Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"
@@ -49,7 +51,6 @@
         </ItemsControl>
 
         <account:AccountView VerticalAlignment="Bottom"
-                             Background="{StaticResource GRAY_50}"
                              x:Name="PART_UserAccount"
                              Height="50">
             <account:AccountView.Effect>
@@ -68,8 +69,8 @@
                         <BeginStoryboard>
                             <Storyboard Storyboard.TargetProperty="Width">
                                 <DoubleAnimation To="{StaticResource HUNTERPIE_SIDEBAR_WIDTH}"
-                                                 BeginTime="0:0:0.7"
-                                                 Duration="0:0:0.3"/>
+                                                 Duration="0:0:0.3"
+                                                 SpeedRatio="1"/>
                                 <DoubleAnimation To="0.15"
                                                  Duration="0:0:0.3"
                                                  Storyboard.TargetProperty="(Effect).Opacity"/>
@@ -80,8 +81,11 @@
                 <EventTrigger RoutedEvent="Mouse.MouseLeave">
                     <EventTrigger.Actions>
                         <BeginStoryboard>
-                            <Storyboard Storyboard.TargetProperty="Width">
-                                <DoubleAnimation To="50" Duration="0:0:0.2"/>
+                            <Storyboard>
+                                <DoubleAnimation To="50" 
+                                                 Duration="0:0:0.2"
+                                                 SpeedRatio="1"
+                                                 Storyboard.TargetProperty="Width"/>
                                 <DoubleAnimation To="0.02"
                                                  Duration="0:0:0.3"
                                                  Storyboard.TargetProperty="(Effect).Opacity"/>
