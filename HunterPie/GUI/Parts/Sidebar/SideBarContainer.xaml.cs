@@ -9,7 +9,8 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using HunterPie.Core.Domain.Features;
 using HunterPie.Core.Domain.Constants;
-using HunterPie.GUI.Parts.Account.ViewModels;
+using HunterPie.Core.Logger;
+using HunterPie.Core.Architecture;
 
 namespace HunterPie.GUI.Parts.Sidebar
 {
@@ -18,11 +19,12 @@ namespace HunterPie.GUI.Parts.Sidebar
     /// </summary>
     public partial class SideBarContainer : UserControl
     {
+        // TODO: Make a ViewModel for this
         private static readonly ObservableCollection<ISideBarElement> _elements = new ObservableCollection<ISideBarElement>();
 
         public ObservableCollection<ISideBarElement> Elements => _elements;
 
-        private bool _isMouseInside;
+        public Observable<bool> IsMouseInside { get; } = false;
         private bool _isMouseDown;
         private readonly Storyboard _selectSlideAnimation;
 
@@ -41,8 +43,6 @@ namespace HunterPie.GUI.Parts.Sidebar
         }
         public static readonly DependencyProperty SelectedButtonProperty =
             DependencyProperty.Register("SelectedButton", typeof(Thickness), typeof(SideBarContainer));
-
-        public AccountViewModel Account => PART_UserAccount.ViewModel;
 
         public SideBarContainer()
         {
@@ -78,7 +78,7 @@ namespace HunterPie.GUI.Parts.Sidebar
         private void OnLeftMouseButtonUp(object sender, MouseButtonEventArgs e)
         {
             // Was a click!
-            if (_isMouseDown && _isMouseInside) 
+            if (_isMouseDown && IsMouseInside) 
                 OnClick(e.GetPosition(this));
 
             _isMouseDown = false;
@@ -86,13 +86,15 @@ namespace HunterPie.GUI.Parts.Sidebar
 
         private void OnMouseEnter(object sender, MouseEventArgs e)
         {
-            _isMouseInside = true;
+            IsMouseInside.Value = true;
+            PART_ButtonsContainer.IsHitTestVisible = true;
         }
 
         private void OnMouseLeave(object sender, MouseEventArgs e)
         {
-            _isMouseInside = false;
+            IsMouseInside.Value = false;
             _isMouseDown = false;
+            PART_ButtonsContainer.IsHitTestVisible = false;
         }
         
         private void OnClick(Point mousePosition)

@@ -12,7 +12,7 @@
     <Compile Update="Features\Tools\Localization\Views\LocalizableStringView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Account\Views\AccountPopupView.xaml.cs">
+    <Compile Update="GUI\Parts\Account\Views\AccountPreferencesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="GUI\Parts\Account\Views\AccountView.xaml.cs">
@@ -41,7 +41,7 @@
     <Page Update="Features\Tools\Localization\Views\LocalizableStringView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Account\Views\AccountPopupView.xaml">
+    <Page Update="GUI\Parts\Account\Views\AccountPreferencesView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Account\Views\AccountView.xaml">

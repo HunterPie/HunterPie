@@ -67,30 +67,31 @@
                     </Setter.Value>
                 </Setter>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsLoggedIn, Mode=OneWay}" Value="True">
+                    <DataTrigger Binding="{Binding DataContext.IsLoggedIn, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AccountView}}}" Value="True">
                         <Setter Property="Content">
                             <Setter.Value>
-                                <Grid>
+                                <Grid Background="{StaticResource GRAY_100}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="50"/>
                                         <ColumnDefinition Width="250"/>
                                     </Grid.ColumnDefinitions>
 
                                     <!-- Profile picture -->
-                                    <native:Button Padding="5"
+                                    <native:Button Padding="0"
                                                    VerticalAlignment="Stretch"
                                                    HorizontalContentAlignment="Left"
                                                    VerticalContentAlignment="Top"
                                                    Focusable="True"
                                                    Cursor="Hand"
+                                                   Margin="3,4,0,0"
                                                    Style="{StaticResource AvatarClickStyle}">
                                         <native:Button.Clip>
-                                            <EllipseGeometry Center="25,25"
+                                            <EllipseGeometry Center="20,20"
                                                              RadiusX="19"
                                                              RadiusY="19"/>
                                         </native:Button.Clip>
                                         <Canvas>
-                                            <Image Source="https://cdn.discordapp.com/emojis/916398796626333696.webp?size=96"
+                                            <Image Source="https://media.discordapp.net/attachments/877388915986817105/1017171064977113178/unknown.png"
                                                    Height="40"
                                                    Width="40"
                                                    RenderOptions.BitmapScalingMode="Fant"

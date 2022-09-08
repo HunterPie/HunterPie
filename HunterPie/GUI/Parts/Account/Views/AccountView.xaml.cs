@@ -32,6 +32,8 @@ namespace HunterPie.GUI.Parts.Account.Views
                 else
                     obj.Focus();
             }
+
+            ViewModel.OpenAccountPreferences();
         }
 
         private void OnLoginClick(object sender, RoutedEventArgs e)

@@ -4,21 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.GUI.Parts.Account.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d">
     <Grid>
-        <Image Source="https://media.discordapp.net/attachments/877388915986817105/1017171064977113178/unknown.png"
-               Height="100"
-               Width="100"
-               VerticalAlignment="Top"
-               HorizontalAlignment="Left"
-               RenderOptions.BitmapScalingMode="Fant" 
-               Stretch="UniformToFill">
-            <Image.Clip>
-                <EllipseGeometry Center="50,50"
+        <Grid>
+            <Image Source="https://media.discordapp.net/attachments/877388915986817105/1017171064977113178/unknown.png"
+                   Height="100"
+                   Width="100"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Left"
+                   RenderOptions.BitmapScalingMode="Fant" 
+                   Stretch="UniformToFill"
+                   Margin="50">
+                <Image.Clip>
+                    <EllipseGeometry Center="50,50"
                                  RadiusX="50"
                                  RadiusY="50"/>
-            </Image.Clip>
-        </Image>
+                </Image.Clip>
+            </Image>
+            <TextBlock Text="Haato"
+                       FontSize="20"
+                       Foreground="{StaticResource WHITE_200}"/>
+        </Grid>
+        
+
     </Grid>
 </UserControl>
