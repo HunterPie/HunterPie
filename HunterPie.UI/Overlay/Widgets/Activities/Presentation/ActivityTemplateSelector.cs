@@ -11,7 +11,7 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.Presentation
         public DataTemplate SubmarineTemplate { get; set; }
         public DataTemplate TrainingDojoTemplate { get; set; }
         public DataTemplate MeowcenariesTemplate { get; set; }
-        public DataTemplate CohootTemplate { get; set; }
+        public DataTemplate CohootTemplae { get; set; }
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
@@ -24,7 +24,7 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.Presentation
                     ActivityType.Submarine => SubmarineTemplate,
                     ActivityType.Meowcenaries => MeowcenariesTemplate,
                     ActivityType.TrainingDojo => TrainingDojoTemplate,
-                    ActivityType.Cohoot => CohootTemplate,
+                    ActivityType.Cohoot => CohootTemplae,
                     _ => throw new NotImplementedException(string.Format("Missing implementation for {0}", nameof(activity.Type)))
                 };
             }
