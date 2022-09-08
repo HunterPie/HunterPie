@@ -43,6 +43,22 @@
             <RowDefinition Height="73*"/>
             <RowDefinition Height="226*"/>
         </Grid.RowDefinitions>
+
+        <Grid x:Name="PART_Host"
+              Grid.Row="1"
+              VerticalAlignment="Stretch"
+              Margin="60,5,5,5"
+              ClipToBounds="True">
+            <ContentControl Content="{Binding Source={x:Static host:MainHost.Instance}, Path=Element, IsAsync=True}" 
+                            RenderTransformOrigin="0.5,0.5"
+                            x:Name="PART_ContentPresenter">
+                <ContentControl.RenderTransform>
+                    <ScaleTransform ScaleY="1"
+                                    ScaleX="1"/>
+                </ContentControl.RenderTransform>
+            </ContentControl>
+        </Grid>
+        
         <part:HeaderBar Height="25"
                         Background="{StaticResource GRAY_300}"
                         VerticalAlignment="Top"/>
@@ -107,13 +123,7 @@
 
         </Grid>
         
-        <Grid x:Name="PART_Host"
-              Grid.Row="1"
-              VerticalAlignment="Stretch"
-              Margin="60,5,5,5">
-            <ContentControl Content="{Binding Source={x:Static host:MainHost.Instance}, Path=Element, IsAsync=True}"/>
-            
-        </Grid>
+        
 
         <sidebar:SideBarContainer Grid.Row="1"
                                   VerticalAlignment="Stretch"

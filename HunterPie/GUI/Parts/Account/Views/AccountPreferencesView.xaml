@@ -4,28 +4,83 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.GUI.Parts.Account.Views"
-             mc:Ignorable="d">
+             xmlns:misc="clr-namespace:HunterPie.UI.Controls.Misc;assembly=HunterPie.UI"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="400"
+             Background="{StaticResource GRAY_300}">
     <Grid>
-        <Grid>
-            <Image Source="https://media.discordapp.net/attachments/877388915986817105/1017171064977113178/unknown.png"
-                   Height="100"
-                   Width="100"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Left"
-                   RenderOptions.BitmapScalingMode="Fant" 
-                   Stretch="UniformToFill"
-                   Margin="50">
-                <Image.Clip>
-                    <EllipseGeometry Center="50,50"
-                                 RadiusX="50"
-                                 RadiusY="50"/>
-                </Image.Clip>
-            </Image>
-            <TextBlock Text="Haato"
-                       FontSize="20"
-                       Foreground="{StaticResource WHITE_200}"/>
-        </Grid>
-        
+        <Border VerticalAlignment="Top"
+                Margin="20"
+                Background="{StaticResource GRAY_100}"
+                Padding="10"
+                BorderBrush="{StaticResource GRAY}"
+                BorderThickness="1"
+                CornerRadius="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="https://media.discordapp.net/attachments/877388915986817105/1017171064977113178/unknown.png"
+                       Height="90"
+                       Width="90"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       RenderOptions.BitmapScalingMode="Fant" 
+                       Stretch="UniformToFill"
+                       Grid.Column="0">
+                    <Image.Clip>
+                        <EllipseGeometry Center="45,45"
+                                 RadiusX="45"
+                                 RadiusY="45"/>
+                    </Image.Clip>
+                </Image>
+                <Ellipse Width="92"
+                         Height="92"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Center"
+                         Fill="Transparent"
+                         StrokeThickness="2"
+                         Stroke="{StaticResource HUNTERPIE_ACCENT_COLOR_TRANSPARENT}"/>
+
+                <!-- Account Info -->
+                <Grid Grid.Column="1"
+                      Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Haato"
+                               FontSize="20"
+                               Foreground="{StaticResource WHITE_200}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"/>
+
+                    <!-- Supporter badge -->
+                    <misc:Badge Grid.Row="1"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Left"
+                                Text="Supporter" 
+                                Background="#6652C0F9" 
+                                Foreground="#FF52B8F9"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Left"
+                                Margin="10"
+                                Grid.Row="2"
+                                Height="20">
+                        <Image Source="{StaticResource ICON_SUPPORTER_TIER_1}"/>
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+        </Border>
+
+
 
     </Grid>
 </UserControl>

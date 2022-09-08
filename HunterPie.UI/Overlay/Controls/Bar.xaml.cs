@@ -79,12 +79,16 @@ namespace HunterPie.UI.Overlay.Controls
             oldValue = Math.Max(1.0, oldValue);
             newValue = Math.Max(1.0, newValue);
 
-            var smoothAnimation = new DoubleAnimation(oldValue, newValue, new TimeSpan(0, 0, 0, 0, 150));
+            var smoothAnimation = new DoubleAnimation(oldValue, newValue, new TimeSpan(0, 0, 0, 0, 150))
+            {
+                EasingFunction = new QuadraticEase(),
+            };
             owner.BeginAnimation(Bar.ActualValueProperty, smoothAnimation, HandoffBehavior.Compose);
 
             var smoothDelayedAnimation = new DoubleAnimation(oldValue, newValue, new TimeSpan(0, 0, 0, 0, 150))
             {
-                BeginTime = new TimeSpan(0, 0, 0, 0, 500)
+                BeginTime = new TimeSpan(0, 0, 0, 0, 500),
+                EasingFunction = new QuadraticEase(),
             };
             owner.BeginAnimation(Bar.ActualValueDelayedProperty, smoothDelayedAnimation, HandoffBehavior.Compose);
         }
