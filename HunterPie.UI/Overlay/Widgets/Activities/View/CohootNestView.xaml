@@ -6,6 +6,7 @@
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.View"
              xmlns:System="clr-namespace:System;assembly=System.Runtime" 
+             xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets"
              mc:Ignorable="d" 
              d:DesignHeight="35" 
              d:DesignWidth="300">
@@ -91,7 +92,7 @@
                 <DropShadowEffect BlurRadius="5"
                                       Color="Black"
                                       ShadowDepth="0"/>
-            </TextBlock.Effect><Run Text="{Binding CohootNestString, Mode=OneWay}"
+            </TextBlock.Effect><Run Text="{loc:LocalizationString '//Strings/Client/Overlay/String[@Id=&quot;COHOOT_NEST_STRING&quot;]'}"
                  d:Text="Cohoot Nest: "
                  FontWeight="Medium"/><!--
          --><Run Text="{Binding Count, Mode=OneWay}"

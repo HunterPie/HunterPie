@@ -517,19 +517,19 @@
 					String="Otomos"/>
 
 			<String Id="TRAINING_DOJO_BOOSTS_STRING"
-					String="Boosts"/>
+					String="Boosts:"/>
 			<String Id="TRAINING_DOJO_ROUNDS_STRING"
-					String="Rounds"/>
+					String="Rounds:"/>
 
 			<String Id="MEOWCENARIES_STEP_STRING"
-					String="Step"/>
+					String="Step:"/>
 			<String Id="MEOWCENARIES_OUTCOME_STRING"
-					String="Outcome"/>
-			<String Id="MEOWCENARIES_BUDDY_STRING"
-					String="Buddies"/>
+					String="Outcome:"/>
+			<String Id="MEOWCENARIES_BUDDIES_STRING"
+					String="Buddies:"/>
 			
 			<String Id="COHOOT_NEST_STRING"
-					String="Cohoot Nest"/>
+					String="Cohoot Nest: "/>
 		</Overlay>
 		<Tabs>
 			<Tab Id="CONSOLE_STRING"

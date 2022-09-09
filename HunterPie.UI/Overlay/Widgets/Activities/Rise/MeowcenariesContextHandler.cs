@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Client.Localization;
-using HunterPie.Core.Game.Rise;
+﻿using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Game.Rise.Entities;
 using HunterPie.Core.Game.Rise.Entities.Activities;
 using HunterPie.UI.Overlay.Widgets.Activities.ViewModel;
@@ -21,9 +20,6 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.Rise
         {
             _context = context;
             _player = context.Game.Player as MHRPlayer;
-            ViewModel.StepString = Localization.QueryString("//Strings/Client/Overlay/String[@Id='MEOWCENARIES_STEP_STRING']");
-            ViewModel.OutcomeString = Localization.QueryString("//Strings/Client/Overlay/String[@Id='MEOWCENARIES_OUTCOME_STRING']");
-            ViewModel.BuddyString = Localization.QueryString("//Strings/Client/Overlay/String[@Id='MEOWCENARIES_BUDDY_STRING']");
             UpdateData();
         }
 
