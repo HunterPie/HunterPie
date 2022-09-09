@@ -3,6 +3,7 @@
 #include "Core/Debug/logger.h"
 #include "Core/Managers/Damage/manager.h"
 #include "Core/Utils/addresses.h"
+#include "Games/World/Utils/WorldUtils.h"
 #include "libs/MinHook/MinHook.h"
 
 namespace Games::World::Damage::Hooks
@@ -28,10 +29,8 @@ namespace Games::World::Damage::Hooks
 
         LOG("Hit monster id: %d; damage: %d; atkId: %d", target->id, damage, attackId);
 
-        // Only count in Large Monsters. 101: Fatalis
-        if (target->id < 0 || target->id > 101) {
-            return;
-        }
+        // Only count in Large Monsters.
+        if (!Utils::IsLargeMonster(target->id)) return;
 
         auto entity = Entity{
             0,     // We use 0 to indicate local player here.
