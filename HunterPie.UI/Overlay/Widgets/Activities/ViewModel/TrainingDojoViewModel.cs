@@ -2,7 +2,6 @@
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Enums;
 using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.ViewModel
 {
