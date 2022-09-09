@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.View"
              xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.ViewModel"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets"
              d:DataContext="{d:DesignInstance Type=vm:MeowcenariesViewModel}"
              mc:Ignorable="d" 
              d:Height="40" 
@@ -97,8 +98,8 @@
                        Foreground="{StaticResource WHITE_100}"
                        FontSize="14"
                        VerticalAlignment="Center">
-                <Run Text="Step:"
-                     
+                <Run d:Text="Step:"
+                     Text="{loc:LocalizationString '//Strings/Client/Overlay/String[@Id=&quot;MEOWCENARIES_STEP_STRING&quot;]'}"
                      FontWeight="Medium"/>
                 <Run d:Text="4"
                      Text="{Binding Step, Mode=OneWay}"
@@ -121,7 +122,8 @@
                        FontSize="14"
                        Grid.Row="1"
                        VerticalAlignment="Center">
-                <Run Text="Buddies:"
+                <Run d:Text="Buddies:"
+                     Text="{loc:LocalizationString '//Strings/Client/Overlay/String[@Id=&quot;MEOWCENARIES_BUDDIES_STRING&quot;]'}"
                      FontWeight="Medium"/>
                 <Run Text="{Binding BuddyCount, Mode=OneWay}"
                      d:Text="3"
@@ -144,7 +146,8 @@
                        FontSize="14"
                        Grid.Column="1"
                        VerticalAlignment="Center">
-                <Run Text="Outcome:"
+                <Run d:Text="Outcome:"
+                     Text="{loc:LocalizationString '//Strings/Client/Overlay/String[@Id=&quot;MEOWCENARIES_OUTCOME_STRING&quot;]'}"
                      FontWeight="Medium"/>
                 <Run d:Text="3"
                      Text="{Binding ExpectedOutcome, Mode=OneWay}"
