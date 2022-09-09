@@ -14,7 +14,7 @@ namespace HunterPie.Internal.Initializers
         {
             string themePath = Path.Combine(ClientInfo.ThemesPath, ClientConfig.Config.Client.Theme);
 
-            if (!File.Exists(themePath))
+            if (!Directory.Exists(themePath))
             {
                 Log.Error("Failed to load theme {0}", ClientConfig.Config.Client.Theme.Current);
                 Log.Info("Failed to find theme {0}, Changed to Default theme", ClientConfig.Config.Client.Theme.Current);
