@@ -97,8 +97,8 @@
                        Foreground="{StaticResource WHITE_100}"
                        FontSize="14"
                        VerticalAlignment="Center">
-                <Run Text="Step:"
-                     
+                <Run d:Text="Step:"
+                     Text="{Binding StepString, Mode=OneWay}"
                      FontWeight="Medium"/>
                 <Run d:Text="4"
                      Text="{Binding Step, Mode=OneWay}"
@@ -121,7 +121,8 @@
                        FontSize="14"
                        Grid.Row="1"
                        VerticalAlignment="Center">
-                <Run Text="Buddies:"
+                <Run d:Text="Buddies:"
+                     Text="{Binding BuddyString, Mode=OneWay}"
                      FontWeight="Medium"/>
                 <Run Text="{Binding BuddyCount, Mode=OneWay}"
                      d:Text="3"
@@ -144,7 +145,8 @@
                        FontSize="14"
                        Grid.Column="1"
                        VerticalAlignment="Center">
-                <Run Text="Outcome:"
+                <Run d:Text="Outcome:"
+                     Text="{Binding OutcomeString, Mode=OneWay}"
                      FontWeight="Medium"/>
                 <Run d:Text="3"
                      Text="{Binding ExpectedOutcome, Mode=OneWay}"

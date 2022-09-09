@@ -13,6 +13,9 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.ViewModel
         private int _buddyCount;
         private int _maxBuddyCount;
         private bool _isDeployed;
+        private string _stepString;
+        private string _outcomeString;
+        private string _buddyString;
         
         public int Step { get => _step; set { SetValue(ref _step, value); } }
         public int MaxSteps { get => _maxSteps; set { SetValue(ref _maxSteps, value); } }
@@ -21,6 +24,9 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.ViewModel
         public int BuddyCount { get => _buddyCount; set { SetValue(ref _buddyCount, value); } }
         public int MaxBuddyCount { get => _maxBuddyCount; set { SetValue(ref _maxBuddyCount, value); } }
         public bool IsDeployed { get => _isDeployed; set { SetValue(ref _isDeployed, value); } }
+        public string StepString { get => _stepString; set => SetValue(ref _stepString, value + ":"); }
+        public string OutcomeString { get => _outcomeString; set => SetValue(ref _outcomeString, value + ":"); }
+        public string BuddyString { get => _buddyString; set => SetValue(ref _buddyString, value + ":"); }
 
         public ActivityType Type => ActivityType.Meowcenaries;
     }

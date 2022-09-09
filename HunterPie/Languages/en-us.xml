@@ -515,6 +515,21 @@
 		<Overlay>
 			<String Id="DAMAGE_METER_OTOMOS_NAME_STRING"
 					String="Otomos"/>
+
+			<String Id="TRAINING_DOJO_BOOSTS_STRING"
+					String="Boosts"/>
+			<String Id="TRAINING_DOJO_ROUNDS_STRING"
+					String="Rounds"/>
+
+			<String Id="MEOWCENARIES_STEP_STRING"
+					String="Step"/>
+			<String Id="MEOWCENARIES_OUTCOME_STRING"
+					String="Outcome"/>
+			<String Id="MEOWCENARIES_BUDDY_STRING"
+					String="Buddies"/>
+			
+			<String Id="COHOOT_NEST_STRING"
+					String="Cohoot Nest"/>
 		</Overlay>
 		<Tabs>
 			<Tab Id="CONSOLE_STRING"

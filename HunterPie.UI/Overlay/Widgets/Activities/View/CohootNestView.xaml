@@ -91,7 +91,8 @@
                 <DropShadowEffect BlurRadius="5"
                                       Color="Black"
                                       ShadowDepth="0"/>
-            </TextBlock.Effect><Run Text="Cohoot Nest: "
+            </TextBlock.Effect><Run Text="{Binding CohootNestString, Mode=OneWay}"
+                 d:Text="Cohoot Nest: "
                  FontWeight="Medium"/><!--
          --><Run Text="{Binding Count, Mode=OneWay}"
                  d:Text="0"

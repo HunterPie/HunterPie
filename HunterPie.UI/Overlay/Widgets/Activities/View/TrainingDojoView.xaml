@@ -138,7 +138,8 @@
                     <TextBlock FontSize="15"
                                VerticalAlignment="Center"
                                Foreground="{StaticResource WHITE_100}">
-                        <Run Text="Boosts:"
+                        <Run d:Text="Boosts:"
+                             Text="{Binding DojoBoostsString, Mode=OneWay}"
                              FontWeight="Medium"/>
                         <Run Text="{Binding Boosts, Mode=OneWay}"
                              d:Text="9"
@@ -163,7 +164,8 @@
                     <TextBlock Foreground="{StaticResource WHITE_100}"
                                FontSize="15"
                                VerticalAlignment="Center">
-                        <Run Text="Rounds:"
+                        <Run d:Text="Rounds:"
+                             Text="{Binding DojoRoundsString, Mode=OneWay}"
                              FontWeight="Medium"/>
                         <Run Text="{Binding Rounds}"
                              d:Text="9"

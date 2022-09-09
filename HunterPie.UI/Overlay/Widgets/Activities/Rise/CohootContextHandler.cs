@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Game.Rise;
+﻿using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Game.Rise.Entities;
 using HunterPie.Core.Game.Rise.Entities.Activities;
 using HunterPie.UI.Overlay.Widgets.Activities.ViewModel;
@@ -14,6 +15,7 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.Rise
         public CohootContextHandler(MHRContext context)
         {
             _context = context;
+            ViewModel.CohootNestString = Localization.QueryString("//Strings/Client/Overlay/String[@Id='COHOOT_NEST_STRING']");
             UpdateData();
         }
 

@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Game.Rise;
+﻿using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Game.Rise.Entities;
 using HunterPie.Core.Game.Rise.Entities.Activities;
 using HunterPie.Core.Game.Rise.Entities.Entity;
@@ -20,6 +21,8 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.Rise
         {
             _context = context;
             _buddyViewModels = new(_player.TrainingDojo.Buddies.Length);
+            ViewModel.DojoBoostsString = Localization.QueryString("//Strings/Client/Overlay/String[@Id='TRAINING_DOJO_BOOSTS_STRING']");
+            ViewModel.DojoRoundsString = Localization.QueryString("//Strings/Client/Overlay/String[@Id='TRAINING_DOJO_ROUNDS_STRING']");
 
             UpdateData();
         }
