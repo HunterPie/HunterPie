@@ -28,7 +28,8 @@ namespace HunterPie.Core.Game.World
         private bool _isMouseVisible;
         private float _timeElapsed;
         private int _deaths;
-        private Stopwatch _damageUpdateStopwatch = new();
+        private readonly Stopwatch _localTimerStopwatch = new();
+        private readonly Stopwatch _damageUpdateThrottleStopwatch = new();
 
         public event EventHandler<IMonster> OnMonsterSpawn;
         public event EventHandler<IMonster> OnMonsterDespawn;
@@ -54,6 +55,9 @@ namespace HunterPie.Core.Game.World
             }
         }
 
+        /// <summary>
+        /// Gets time elapsed in seconds since the quest starts.
+        /// </summary>
         public float TimeElapsed
         {
             get => _timeElapsed;
@@ -112,22 +116,44 @@ namespace HunterPie.Core.Game.World
             ulong encryptKey = timers[0];
             ulong encryptedValue = timers[1];
 
-            float questMaxTimer = _process.Memory.Read<uint>(questEndTimerPtrs + 0x1C)
-                                                 .ApproximateHigh(MHWGameUtils.MaxQuestTimers)
-                                                 .ToSeconds();
+            uint questMaxTimerRaw = _process.Memory.Read<uint>(questEndTimerPtrs + 0x1C);
 
             float elapsed = MHWCrypto.DecryptQuestTimer(encryptedValue, encryptKey);
 
-            TimeElapsed = Math.Max(0, questMaxTimer - elapsed);
+            if (questMaxTimerRaw is 0 or 180000 && elapsed == 0.0)
+            {
+                if (Player.InHuntingZone)
+                {
+                    // No quest timer available while player is on the hunt.
+                    // We will use ours instead.
+                    _localTimerStopwatch.Start();
+                    TimeElapsed = _localTimerStopwatch.ElapsedMilliseconds / 1000.0f;
+                }
+                else
+                {
+                    // Prevent TimeElapsed from being 3000 sec. before joining the hunt.
+                    // Otherwise there will be incorrect MemberInfo.JoinedAt values when player is entering Training Area or Guiding Lands.
+                    TimeElapsed = 0;
+                }
+            }
+            else
+            {
+                if (_localTimerStopwatch.IsRunning)
+                    _localTimerStopwatch.Reset();
+                float questMaxTimer = questMaxTimerRaw
+                    .ApproximateHigh(MHWGameUtils.MaxQuestTimers)
+                    .ToSeconds();
+                TimeElapsed = Math.Max(0, questMaxTimer - elapsed);
+            }
         }
 
         [ScannableMethod]
         private void GetPartyMembersDamage()
         {
-            if (_damageUpdateStopwatch.IsRunning && _damageUpdateStopwatch.ElapsedMilliseconds < 100)
+            if (_damageUpdateThrottleStopwatch.IsRunning && _damageUpdateThrottleStopwatch.ElapsedMilliseconds < 100)
                 return;
 
-            _damageUpdateStopwatch.Restart();
+            _damageUpdateThrottleStopwatch.Restart();
 
             if (Player.InHuntingZone)
                 DamageMessageHandler.RequestHuntStatistics(ALL_TARGETS);
@@ -215,6 +241,8 @@ namespace HunterPie.Core.Game.World
         {
             DamageMessageHandler.ClearAllHuntStatisticsExcept(Array.Empty<long>());
             DamageMessageHandler.RequestHuntStatistics(ALL_TARGETS);
+            _damageUpdateThrottleStopwatch.Reset();
+            _localTimerStopwatch.Reset();
         }
 
         private void OnReceivePlayersDamage(object sender, ResponseDamageMessage e)
