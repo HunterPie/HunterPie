@@ -93,9 +93,11 @@
                                       Color="Black"
                                       ShadowDepth="0"/>
             </TextBlock.Effect><Run Text="{loc:LocalizationString '//Strings/Client/Overlay/String[@Id=&quot;COHOOT_NEST_STRING&quot;]'}"
-                 d:Text="Cohoot Nest: "
+                 d:Text="Cohoot Nest"
                  FontWeight="Medium"/><!--
-         --><Run Text="{Binding Count, Mode=OneWay}"
+		 --><Run Text=": "
+				 FontWeight="Medium"/><!--
+		 --><Run Text="{Binding Count, Mode=OneWay}"
                  d:Text="0"
                  FontWeight="Medium"/><!--
          --><Run Text="/"

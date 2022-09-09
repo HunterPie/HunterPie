@@ -139,8 +139,10 @@
                     <TextBlock FontSize="15"
                                VerticalAlignment="Center"
                                Foreground="{StaticResource WHITE_100}">
-                        <Run d:Text="Boosts:"
+                        <Run d:Text="Boosts"
                              Text="{loc:LocalizationString '//Strings/Client/Overlay/String[@Id=&quot;TRAINING_DOJO_BOOSTS_STRING&quot;]'}"
+                             FontWeight="Medium"/>
+						<Run Text=":"
                              FontWeight="Medium"/>
                         <Run Text="{Binding Boosts, Mode=OneWay}"
                              d:Text="9"
@@ -165,8 +167,10 @@
                     <TextBlock Foreground="{StaticResource WHITE_100}"
                                FontSize="15"
                                VerticalAlignment="Center">
-                        <Run d:Text="Rounds:"
+                        <Run d:Text="Rounds"
                              Text="{loc:LocalizationString '//Strings/Client/Overlay/String[@Id=&quot;TRAINING_DOJO_ROUNDS_STRING&quot;]'}"
+                             FontWeight="Medium"/>
+						<Run Text=":"
                              FontWeight="Medium"/>
                         <Run Text="{Binding Rounds}"
                              d:Text="9"

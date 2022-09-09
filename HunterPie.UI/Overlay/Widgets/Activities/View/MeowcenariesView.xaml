@@ -98,8 +98,10 @@
                        Foreground="{StaticResource WHITE_100}"
                        FontSize="14"
                        VerticalAlignment="Center">
-                <Run d:Text="Step:"
+                <Run d:Text="Step"
                      Text="{loc:LocalizationString '//Strings/Client/Overlay/String[@Id=&quot;MEOWCENARIES_STEP_STRING&quot;]'}"
+                     FontWeight="Medium"/>
+				<Run Text=":"
                      FontWeight="Medium"/>
                 <Run d:Text="4"
                      Text="{Binding Step, Mode=OneWay}"
@@ -122,8 +124,10 @@
                        FontSize="14"
                        Grid.Row="1"
                        VerticalAlignment="Center">
-                <Run d:Text="Buddies:"
+                <Run d:Text="Buddies"
                      Text="{loc:LocalizationString '//Strings/Client/Overlay/String[@Id=&quot;MEOWCENARIES_BUDDIES_STRING&quot;]'}"
+                     FontWeight="Medium"/>
+				<Run Text=":"
                      FontWeight="Medium"/>
                 <Run Text="{Binding BuddyCount, Mode=OneWay}"
                      d:Text="3"
@@ -146,8 +150,10 @@
                        FontSize="14"
                        Grid.Column="1"
                        VerticalAlignment="Center">
-                <Run d:Text="Outcome:"
+                <Run d:Text="Outcome"
                      Text="{loc:LocalizationString '//Strings/Client/Overlay/String[@Id=&quot;MEOWCENARIES_OUTCOME_STRING&quot;]'}"
+                     FontWeight="Medium"/>
+				<Run Text=":"
                      FontWeight="Medium"/>
                 <Run d:Text="3"
                      Text="{Binding ExpectedOutcome, Mode=OneWay}"
