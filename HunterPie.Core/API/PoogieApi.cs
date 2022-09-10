@@ -14,6 +14,7 @@ namespace HunterPie.Core.API
         const string CRASH_PATH = "/v1/report/crash";
         const string SESSION_PATH = "/v1/session";
         const string SUPPORTER_PATH = "/v1/supporter";
+        const string NOTIFICATIONS = "/v1/notifications";
 
         const string SUPPORTER_HEADER = "X-Supporter-Token";
 
@@ -96,6 +97,25 @@ namespace HunterPie.Core.API
 
             SupporterValidationResSchema schema = await resp.AsJson<SupporterValidationResSchema>();
             return schema;
+        }
+
+        public static async Task<Notification[]> GetNotifications()
+        {
+            using Poogie request = PoogieFactory.Default()
+                .Get(NOTIFICATIONS)
+                .WithTimeout(DefaultTimeout)
+                .Build();
+
+            using PoogieResponse resp = await request.RequestAsync();
+
+            if (!resp.Success)
+                return Array.Empty<Notification>();
+
+            if (resp.Status >= HttpStatusCode.BadRequest)
+                return Array.Empty<Notification>();
+
+            Notification[] result = await resp.AsJson<Notification[]>();
+            return result;
         }
     }
 #nullable restore

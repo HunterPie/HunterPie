@@ -78,6 +78,18 @@
         <!-- Right container -->
         <StackPanel HorizontalAlignment="Right"
                     Orientation="Horizontal">
+            <native:Button Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                           Padding="0"
+                           BorderThickness="0"
+                           OnClick="OnNotificationsClick">
+                <Rectangle Fill="{StaticResource WHITE_600}"
+                           Height="20"
+                           Width="20">
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="{StaticResource ICON_BELL}"/>
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </native:Button>
             <native:Button 
                 Content="_"
                 FontSize="14"

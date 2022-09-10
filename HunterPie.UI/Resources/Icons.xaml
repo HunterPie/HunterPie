@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <DrawingImage x:Key="ICON_ADMINISTRATOR">
         <DrawingImage.Drawing>
@@ -17,10 +17,20 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+
+    <DrawingImage x:Key="ICON_BELL">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="{StaticResource GRAY_100}" Geometry="F1 M512,512z M0,0z M440.08,341.31C438.42,339.31 436.79,337.31 435.19,335.38 413.19,308.77 399.88,292.71 399.88,217.38 399.88,178.38 390.55,146.38 372.16,122.38 358.6,104.65 340.27,91.2 316.11,81.26A3,3,0,0,1,315.29,80.59C306.6,51.49 282.82,32 256,32 229.18,32 205.41,51.49 196.72,80.56A3.13,3.13,0,0,1,195.91,81.21C139.53,104.42 112.13,148.95 112.13,217.35 112.13,292.71 98.84,308.77 76.82,335.35 75.22,337.28 73.59,339.24 71.93,341.28A35.16,35.16,0,0,0,67.28,378.9C73.45,391.9,86.6,399.97,101.61,399.97L410.5,399.97C425.44,399.97,438.5,391.91,444.69,378.97A35.17,35.17,0,0,0,440.08,341.31z M256,480A80.06,80.06,0,0,0,326.44,437.87A4,4,0,0,0,322.9,432L189.12,432A4,4,0,0,0,185.57,437.87A80.06,80.06,0,0,0,256,480z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="ICON_DISCONNECTED_ACCOUNT">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
                 <GeometryDrawing Brush="{StaticResource WHITE}" Geometry="F1 M512,512z M0,0z M256,48C141.31,48 48,141.31 48,256 48,370.69 141.31,464 256,464 370.69,464 464,370.69 464,256 464,141.31 370.69,48 256,48z M258,144A72,72,0,1,1,186,216A72,72,0,0,1,258,144z M256,432A175.55,175.55,0,0,1,126.82,375.4C135.66,329.62 215.06,320 256,320 296.94,320 376.34,329.62 385.18,375.39A175.52,175.52,0,0,1,256,432z" />
+
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>

@@ -14,6 +14,7 @@ namespace HunterPie.GUI.Parts
 
         private bool _isSupporter;
         private bool _isFetchingSupporter;
+        private bool _isNotificationsToggled;
 
         public string Version
         {
@@ -29,6 +30,7 @@ namespace HunterPie.GUI.Parts
 
         public bool IsSupporter { get => _isSupporter; set { SetValue(ref _isSupporter, value); } }
         public bool IsFetchingSupporter { get => _isFetchingSupporter; set { SetValue(ref _isFetchingSupporter, value); } }
+        public bool IsNotificationsToggled { get => _isNotificationsToggled; set { SetValue(ref _isNotificationsToggled, value); } }
 
         public Visibility IsRunningAsAdmin => GetAdminState()
                                               ? Visibility.Visible

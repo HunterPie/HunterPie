@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using HunterPie.Features.Debug;
 using HunterPie.Core.API;
 using HunterPie.Core.Utils;
+using HunterPie.GUI.ViewModels;
 using HunterPie.GUI.Parts.Host;
 using System.Windows.Media;
 
@@ -24,6 +25,8 @@ namespace HunterPie
 
         public MainWindow()
         {
+            DataContext = new MainViewModel();
+
             Log.Info("Initializing HunterPie GUI");
 
             Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata { DefaultValue = (int)ClientConfig.Config.Client.RenderFramePerSecond.Current });
