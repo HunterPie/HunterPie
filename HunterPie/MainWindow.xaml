@@ -10,6 +10,7 @@
         xmlns:sidebar="clr-namespace:HunterPie.GUI.Parts.Sidebar"
         xmlns:host="clr-namespace:HunterPie.GUI.Parts.Host"
         xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
+        xmlns:account="clr-namespace:HunterPie.GUI.Parts.Account.Views"
         Title="HunterPie v2" 
         Height="600" 
         Width="1000"
@@ -24,9 +25,11 @@
         UseLayoutRounding="True" 
         KeyDown="OnKeyDown"
         WindowStyle="None"
-        mc:Ignorable="d">
+        mc:Ignorable="d"
+        MouseDown="Window_MouseDown">
     <Window.Resources>
         <converters:GameTypeToGameNameConverter x:Key="GameTypeToGameNameConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"
@@ -40,10 +43,25 @@
             <RowDefinition Height="73*"/>
             <RowDefinition Height="226*"/>
         </Grid.RowDefinitions>
-        <part:HeaderBar 
-            Height="25"
-            Background="{StaticResource GRAY_300}"
-            VerticalAlignment="Top"/>
+
+        <Grid x:Name="PART_Host"
+              Grid.Row="1"
+              VerticalAlignment="Stretch"
+              Margin="60,5,5,5"
+              ClipToBounds="True">
+            <ContentControl Content="{Binding Source={x:Static host:MainHost.Instance}, Path=Element, IsAsync=True}" 
+                            RenderTransformOrigin="0.5,0.5"
+                            x:Name="PART_ContentPresenter">
+                <ContentControl.RenderTransform>
+                    <ScaleTransform ScaleY="1"
+                                    ScaleX="1"/>
+                </ContentControl.RenderTransform>
+            </ContentControl>
+        </Grid>
+        
+        <part:HeaderBar Height="25"
+                        Background="{StaticResource GRAY_300}"
+                        VerticalAlignment="Top"/>
 
         <Grid Background="{StaticResource GRAY_300}" 
               Margin="0,25,0,0">
@@ -75,9 +93,12 @@
                            FontWeight="Medium"
                            VerticalAlignment="Center" 
                            HorizontalAlignment="Right"
-                           Padding="25,0,25,5"
+                           Padding="25,5,25,10"
                            Margin="0,0,10,0"
-                           Background="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                           CornerRadius="5"
+                           BorderThickness="1"
+                           BorderBrush="{StaticResource GRAY}"
+                           Background="{StaticResource GRAY_100}"
                            OnClick="OnStartGameClick">
                 <native:Button.Content>
                     <Grid>
@@ -102,19 +123,12 @@
 
         </Grid>
         
-        <Grid x:Name="PART_Host"
-              Grid.Row="1"
-              VerticalAlignment="Stretch"
-              Margin="60,5,5,5">
-            <ContentControl Content="{Binding Source={x:Static host:MainHost.Instance}, Path=Element, IsAsync=True}"/>
-            
-        </Grid>
         
+
         <sidebar:SideBarContainer Grid.Row="1"
-                                  Background="{StaticResource GRAY_50}"
                                   VerticalAlignment="Stretch"
                                   HorizontalAlignment="Left"
-                                  ItemsHeight="40"/>
-        
+                                  ItemsHeight="40"
+                                  x:Name="PART_SideBar"/>
     </Grid>
 </Window>

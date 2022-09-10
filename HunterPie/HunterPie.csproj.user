@@ -12,7 +12,10 @@
     <Compile Update="Features\Tools\Localization\Views\LocalizableStringView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Account\View\AccountView.xaml.cs">
+    <Compile Update="GUI\Parts\Account\Views\AccountPreferencesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GUI\Parts\Account\Views\AccountView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="GUI\Parts\Console\ConsoleView.xaml.cs">
@@ -38,7 +41,10 @@
     <Page Update="Features\Tools\Localization\Views\LocalizableStringView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Account\View\AccountView.xaml">
+    <Page Update="GUI\Parts\Account\Views\AccountPreferencesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Parts\Account\Views\AccountView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Console\ConsoleView.xaml">

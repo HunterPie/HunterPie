@@ -42,8 +42,11 @@
         <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
     </arch:ClickableControl.Resources>
 
-    <Border>
-        <Grid>
+    <Border CornerRadius="{Binding CornerRadius, ElementName=NativeButtonControl}"
+            BorderThickness="{Binding BorderThickness, ElementName=NativeButtonControl}"
+            BorderBrush="{Binding BorderBrush, ElementName=NativeButtonControl}"
+            Background="{Binding Background, ElementName=NativeButtonControl}">
+        <Grid ClipToBounds="True">
             <Canvas>
                 <Rectangle x:Name="PART_Highlight"
                                VerticalAlignment="Top"
@@ -63,6 +66,14 @@
                     </Rectangle.Fill>
                 </Rectangle>
             </Canvas>
+            
+            <Label Content="{Binding Content, ElementName=NativeButtonControl}"
+                   Foreground="{Binding Foreground, ElementName=NativeButtonControl}"
+                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   Padding="{Binding Padding, ElementName=NativeButtonControl}"
+                   HorizontalContentAlignment="{Binding HorizontalContentAlignment, ElementName=NativeButtonControl}"
+                   VerticalContentAlignment="{Binding VerticalContentAlignment, ElementName=NativeButtonControl}"/>
+
             <Canvas>
                 <Ellipse x:Name="PART_Ripple"
                              Fill="#40F5F5F5" 
@@ -70,13 +81,6 @@
                              Height="{Binding Path=Width, RelativeSource={RelativeSource Self}}"
                              VerticalAlignment="Top"/>
             </Canvas>
-
-            <Label Content="{Binding Content, ElementName=NativeButtonControl}"
-                   Foreground="{Binding Foreground, ElementName=NativeButtonControl}"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Padding="2,5,2,5"
-                   HorizontalContentAlignment="{Binding HorizontalContentAlignment, ElementName=NativeButtonControl}"
-                   VerticalContentAlignment="{Binding VerticalContentAlignment, ElementName=NativeButtonControl}"/>
         </Grid>
     </Border>
     <arch:ClickableControl.Style>

@@ -17,7 +17,13 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
-
+    <DrawingImage x:Key="ICON_DISCONNECTED_ACCOUNT">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="{StaticResource WHITE}" Geometry="F1 M512,512z M0,0z M256,48C141.31,48 48,141.31 48,256 48,370.69 141.31,464 256,464 370.69,464 464,370.69 464,256 464,141.31 370.69,48 256,48z M258,144A72,72,0,1,1,186,216A72,72,0,0,1,258,144z M256,432A175.55,175.55,0,0,1,126.82,375.4C135.66,329.62 215.06,320 256,320 296.94,320 376.34,329.62 385.18,375.39A175.52,175.52,0,0,1,256,432z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
     <DrawingImage x:Key="ICON_COHOOT">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V135.46666 H135.46666 V0 H0 Z">

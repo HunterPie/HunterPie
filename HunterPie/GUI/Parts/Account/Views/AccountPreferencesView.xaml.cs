@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HunterPie.GUI.Parts.Account.View
+namespace HunterPie.GUI.Parts.Account.Views
 {
     /// <summary>
-    /// Interaction logic for AccountView.xaml
+    /// Interaction logic for AccountPreferencesView.xaml
     /// </summary>
-    public partial class AccountView : UserControl
+    public partial class AccountPreferencesView : UserControl
     {
-        public AccountView()
+        public AccountPreferencesView()
         {
             InitializeComponent();
         }
