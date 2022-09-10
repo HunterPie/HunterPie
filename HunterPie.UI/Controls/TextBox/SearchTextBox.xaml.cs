@@ -51,19 +51,7 @@ namespace HunterPie.UI.Controls.TextBox
                 OnSearch?.Invoke(this, new(SearchText));
         }
 
-        private void OnLostFocus(object sender, RoutedEventArgs e)
-        {
-            if (sender is TB tb)
-            {
-                if (tb.Text.Length == 0 && !IsPlaceholderVisible)
-                {
-                    IsPlaceholderVisible = true;
-                    tb.Text = "Search";
-                }
-            }
-        }
-
-        private void OnGotFocus(object sender, RoutedEventArgs e)
+        private void OnGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             if (sender is TB tb)
             {
@@ -71,6 +59,18 @@ namespace HunterPie.UI.Controls.TextBox
                 {
                     IsPlaceholderVisible = false;
                     tb.Text = string.Empty;
+                }
+            }
+        }
+
+        private void OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (sender is TB tb)
+            {
+                if (tb.Text.Length == 0 && !IsPlaceholderVisible)
+                {
+                    IsPlaceholderVisible = true;
+                    tb.Text = "Search";
                 }
             }
         }

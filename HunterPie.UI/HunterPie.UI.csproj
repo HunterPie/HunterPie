@@ -1,12 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.3.1.137</AssemblyVersion>
-    <FileVersion>2.3.1.137</FileVersion>
+    <AssemblyVersion>2.4.1.1</AssemblyVersion>
+    <FileVersion>2.4.1.1</FileVersion>
     <Version>2.2.0.0</Version>
     <LangVersion>10.0</LangVersion>
  </PropertyGroup>

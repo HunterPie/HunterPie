@@ -12,6 +12,8 @@ using HunterPie.Features.Debug;
 using HunterPie.Core.API;
 using HunterPie.Core.Utils;
 using HunterPie.GUI.ViewModels;
+using HunterPie.GUI.Parts.Host;
+using System.Windows.Media;
 
 namespace HunterPie
 {
@@ -59,6 +61,7 @@ namespace HunterPie
             InitializeDebugWidgets();
                        
             SetupTrayIcon();
+            SetupMainNavigator();
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
@@ -80,6 +83,24 @@ namespace HunterPie
                 .Click += OnTrayCloseClick;
         }
 
+        private void SetupMainNavigator()
+        {
+            DoubleAnimation shrinkAnimation = new DoubleAnimation(1.5, 1, TimeSpan.FromMilliseconds(200))
+            {
+                EasingFunction = new QuarticEase()
+            };
+            DoubleAnimation opacityAnimation = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(500))
+            {
+                EasingFunction = new SineEase()
+            };
+            MainHost.Instance.PropertyChanged += (_, __) =>
+            {
+                PART_ContentPresenter.BeginAnimation(FrameworkElement.OpacityProperty, opacityAnimation);
+                PART_ContentPresenter.RenderTransform.BeginAnimation(ScaleTransform.ScaleXProperty, shrinkAnimation);
+                PART_ContentPresenter.RenderTransform.BeginAnimation(ScaleTransform.ScaleYProperty, shrinkAnimation);
+            };
+        }
+
         private void OnTrayShowClick(object sender, EventArgs e)
         {
             Show();
@@ -90,5 +111,10 @@ namespace HunterPie
         private void OnTrayCloseClick(object sender, EventArgs e) => Close();
 
         private void OnStartGameClick(object sender, EventArgs e) => Steam.RunGameBy(ClientConfig.Config.Client.DefaultGameType);
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Keyboard.ClearFocus();
+        }
     }
 }

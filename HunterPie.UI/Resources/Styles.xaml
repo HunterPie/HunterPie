@@ -216,9 +216,9 @@
     <!-- Styles -->
     <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}">
         <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
-        <Setter Property="Background" Value="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"/>
-        <Setter Property="Foreground" Value="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
+        <Setter Property="Background" Value="{StaticResource GRAY_50}"/>
+        <Setter Property="Foreground" Value="{StaticResource WHITE_100}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource GRAY}"/>
         <Setter Property="BorderThickness" Value="1"/>
     </Style>
 
