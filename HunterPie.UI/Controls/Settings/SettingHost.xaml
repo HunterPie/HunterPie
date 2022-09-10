@@ -21,7 +21,20 @@
         <Style x:Key="UpdateAvailableClickStyle" TargetType="native:Button">
             <EventSetter Event="Click" Handler="OnExecuteUpdateClick"/>
         </Style>
-        
+        <Storyboard x:Key="SlideInAnimation">
+            <ThicknessAnimation From="-20,0,0,0"
+                                To="0,0,0,0"
+                                Duration="0:0:0.25"
+                                Storyboard.TargetProperty="Margin">
+                <ThicknessAnimation.EasingFunction>
+                    <QuadraticEase/>
+                </ThicknessAnimation.EasingFunction>
+            </ThicknessAnimation>
+            <DoubleAnimation From="0"
+                             To="1"
+                             Duration="0:0:0.3"
+                             Storyboard.TargetProperty="Opacity"/>
+        </Storyboard>
         <converters:GameProcessToGameNameConverter x:Key="GameProcessToGameNameConverter"/>
         <converters:ObjectToUiConverter x:Key="ObjectToUiConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -33,7 +46,9 @@
                     <ControlTemplate>
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <VirtualizingStackPanel IsItemsHost="True"
-                                                    CanVerticallyScroll="True"/>
+                                                    CanVerticallyScroll="True" 
+                                                    Loaded="OnPanelLoaded"
+                                                    DataContextChanged="OnPanelDataContextChanged"/>
                         </ScrollViewer>
                     </ControlTemplate>
                 </ItemsControl.Template>

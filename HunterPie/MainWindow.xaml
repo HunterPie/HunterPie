@@ -27,7 +27,7 @@
         KeyDown="OnKeyDown"
         WindowStyle="None"
         mc:Ignorable="d"
-        x:Name="PART_MainView">
+        x:Name="PART_MainView"
         MouseDown="Window_MouseDown">
     <Window.Resources>
         <converters:GameTypeToGameNameConverter x:Key="GameTypeToGameNameConverter"/>
@@ -46,9 +46,6 @@
             <RowDefinition Height="226*"/>
         </Grid.RowDefinitions>
 
-        <part:HeaderBar x:Name="PART_HeaderBar"
-                        Height="25"
-
         <Grid x:Name="PART_Host"
               Grid.Row="1"
               VerticalAlignment="Stretch"
@@ -63,8 +60,9 @@
                 </ContentControl.RenderTransform>
             </ContentControl>
         </Grid>
-        
-        <part:HeaderBar Height="25"
+
+        <part:HeaderBar x:Name="PART_HeaderBar"
+                        Height="25"
                         Background="{StaticResource GRAY_300}"
                         VerticalAlignment="Top"/>
 
@@ -155,7 +153,7 @@
                                                          To="1"
                                                          Duration="0:0:0.25">
                                             <DoubleAnimation.EasingFunction>
-                                                <QuadraticEase/>
+                                                <PowerEase/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <ThicknessAnimation Storyboard.TargetProperty="Margin"
@@ -178,7 +176,7 @@
                                                          To="0"
                                                          Duration="0:0:0.25">
                                             <DoubleAnimation.EasingFunction>
-                                                <QuadraticEase/>
+                                                <PowerEase/>
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <ThicknessAnimation Storyboard.TargetProperty="Margin"

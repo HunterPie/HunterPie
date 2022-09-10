@@ -82,13 +82,18 @@
                            Padding="0"
                            BorderThickness="0"
                            OnClick="OnNotificationsClick">
-                <Rectangle Fill="{StaticResource WHITE_600}"
+                <Rectangle Fill="{StaticResource WHITE_300}"
                            Height="20"
                            Width="20">
                     <Rectangle.OpacityMask>
                         <ImageBrush ImageSource="{StaticResource ICON_BELL}"/>
                     </Rectangle.OpacityMask>
                 </Rectangle>
+                <native:Button.Clip>
+                    <EllipseGeometry RadiusX="12"
+                                     RadiusY="12"
+                                     Center="12,12"/>
+                </native:Button.Clip>
             </native:Button>
             <native:Button 
                 Content="_"
