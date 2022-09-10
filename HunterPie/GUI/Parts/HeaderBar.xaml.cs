@@ -20,5 +20,6 @@ namespace HunterPie.GUI.Parts
         private void OnCloseButtonClick(object sender, EventArgs e) => ViewModel.CloseApplication();
         private void OnMinimizeButtonClick(object sender, EventArgs e) => ViewModel.MinimizeApplication();
         private void OnLeftMouseDown(object sender, MouseButtonEventArgs e) => ViewModel.DragApplication();
+        private void OnNotificationsClick(object sender, EventArgs e) => ViewModel.IsNotificationsToggled = !ViewModel.IsNotificationsToggled;
     }
 }

@@ -10,6 +10,7 @@
         xmlns:sidebar="clr-namespace:HunterPie.GUI.Parts.Sidebar"
         xmlns:host="clr-namespace:HunterPie.GUI.Parts.Host"
         xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
+        xmlns:notifications="clr-namespace:HunterPie.GUI.Parts.Notifications.Views"
         Title="HunterPie v2" 
         Height="600" 
         Width="1000"
@@ -24,7 +25,8 @@
         UseLayoutRounding="True" 
         KeyDown="OnKeyDown"
         WindowStyle="None"
-        mc:Ignorable="d">
+        mc:Ignorable="d"
+        x:Name="PART_MainView">
     <Window.Resources>
         <converters:GameTypeToGameNameConverter x:Key="GameTypeToGameNameConverter"/>
     </Window.Resources>
@@ -40,10 +42,10 @@
             <RowDefinition Height="73*"/>
             <RowDefinition Height="226*"/>
         </Grid.RowDefinitions>
-        <part:HeaderBar 
-            Height="25"
-            Background="{StaticResource GRAY_300}"
-            VerticalAlignment="Top"/>
+        <part:HeaderBar x:Name="PART_HeaderBar"
+                        Height="25"
+                        Background="{StaticResource GRAY_300}"
+                        VerticalAlignment="Top"/>
 
         <Grid Background="{StaticResource GRAY_300}" 
               Margin="0,25,0,0">
@@ -115,6 +117,71 @@
                                   VerticalAlignment="Stretch"
                                   HorizontalAlignment="Left"
                                   ItemsHeight="40"/>
-        
+
+        <notifications:NotificationsPanelView Grid.ColumnSpan="10"
+                                              Grid.RowSpan="10"
+                                              Height="400"
+                                              Width="350"
+                                              VerticalAlignment="Top"
+                                              HorizontalAlignment="Right"
+                                              Margin="0,0,50,0"
+                                              Opacity="0"
+                                              IsHitTestVisible="False">
+            <notifications:NotificationsPanelView.Style>
+                <Style TargetType="{x:Type notifications:NotificationsPanelView}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DataContext.IsNotificationsToggled, ElementName=PART_HeaderBar}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         To="1"
+                                                         Duration="0:0:0.25">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                                            To="0,25,50,0"
+                                                            Duration="0:0:0.25">
+                                            <ThicknessAnimation.EasingFunction>
+                                                <QuadraticEase/>
+                                            </ThicknessAnimation.EasingFunction>
+                                        </ThicknessAnimation>
+                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsHitTestVisible">
+                                            <DiscreteBooleanKeyFrame Value="True"/>
+                                        </BooleanAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         To="0"
+                                                         Duration="0:0:0.25">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                                            To="0,0,50,0"
+                                                            Duration="0:0:0.25">
+                                            <ThicknessAnimation.EasingFunction>
+                                                <QuadraticEase/>
+                                            </ThicknessAnimation.EasingFunction>
+                                        </ThicknessAnimation>
+                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsHitTestVisible">
+                                            <DiscreteBooleanKeyFrame Value="False"/>
+                                        </BooleanAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </notifications:NotificationsPanelView.Style>
+        </notifications:NotificationsPanelView>
+
     </Grid>
 </Window>

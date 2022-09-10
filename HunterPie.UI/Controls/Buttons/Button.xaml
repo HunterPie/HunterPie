@@ -12,7 +12,8 @@
                        d:DesignWidth="60" 
                        ClipToBounds="True">
     <arch:ClickableControl.Resources>
-        <Storyboard x:Key="PART_RippleAnimation" Storyboard.TargetName="PART_Ripple">
+        <Storyboard x:Key="PART_RippleAnimation" 
+                    Storyboard.TargetName="PART_Ripple">
             <DoubleAnimation Storyboard.TargetProperty="Width" 
                              From="0" 
                              Duration="0:0:0.3" />

@@ -52,7 +52,6 @@
 
   <ItemGroup>
     <Folder Include="GUI\Parts\Account\ViewModel\" />
-    <Folder Include="GUI\Views\" />
     <Folder Include="Languages\" />
   </ItemGroup>
 
