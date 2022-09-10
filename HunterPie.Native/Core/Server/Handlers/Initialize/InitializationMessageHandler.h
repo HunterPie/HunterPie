@@ -3,31 +3,28 @@
 #include "../../IPCService.h"
 #include "../../Models/Messages.h"
 
-namespace Core
+namespace Core::Server
 {
-    namespace Server
+    namespace Models
     {
-        namespace Models
+        struct RequestIPCInitializationMessage : IPCMessage
         {
-            struct RequestIPCInitializationMessage : IPCMessage
-            {
-                uintptr_t addresses[256];
-            };
+            uintptr_t addresses[256];
+        };
 
-            struct ResponseInitMHHooksMessage : IPCMessage
-            {
-                int status;
-            };
-        }
-
-        namespace Handlers
+        struct ResponseInitMHHooksMessage : IPCMessage
         {
-            class InitializationMessageHandler : public MessageHandler
-            {
-            public:
-                virtual void Initialize();
-                virtual const char* GetName();
-            };
-        }
+            int status;
+        };
+    }
+
+    namespace Handlers
+    {
+        class InitializationMessageHandler : public MessageHandler
+        {
+        public:
+            virtual void Initialize();
+            virtual const char* GetName();
+        };
     }
 }

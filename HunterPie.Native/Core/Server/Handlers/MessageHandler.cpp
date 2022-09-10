@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "MessageHandler.h"
 #include "Initialize/InitializationMessageHandler.h"
 #include "Damage/DamageMessageHandler.h"

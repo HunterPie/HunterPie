@@ -1,17 +1,10 @@
 #pragma once
-#include "../../../pch.h"
 
-namespace Games
+namespace Games::Rise::Common
 {
-    namespace Rise
+    struct Monster
     {
-        namespace Common
-        {
-            struct Monster
-            {
-                uint8_t unk_padding[0x2C4];
-                int32_t id;
-            };
-        }
-    }
+        uint8_t unk_padding[0x2C4];
+        int32_t id;
+    };
 }

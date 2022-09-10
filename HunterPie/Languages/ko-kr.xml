@@ -515,6 +515,21 @@
 		<Overlay>
 			<String Id="DAMAGE_METER_OTOMOS_NAME_STRING"
 					String="동반자"/>
+
+			<String Id="TRAINING_DOJO_BOOSTS_STRING"
+					String="부스트 횟수:"/>
+			<String Id="TRAINING_DOJO_ROUNDS_STRING"
+					String="특훈 횟수:"/>
+
+			<String Id="MEOWCENARIES_STEP_STRING"
+					String="조사 단계:"/>
+			<String Id="MEOWCENARIES_OUTCOME_STRING"
+					String="보상:"/>
+			<String Id="MEOWCENARIES_BUDDIES_STRING"
+					String="동반자:"/>
+
+			<String Id="COHOOT_NEST_STRING"
+					String="복부엉의 둥지: "/>
 		</Overlay>
 		<Tabs>
 			<Tab Id="CONSOLE_STRING"
