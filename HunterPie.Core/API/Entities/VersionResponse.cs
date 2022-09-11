@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace HunterPie.Core.API.Schemas
+namespace HunterPie.Core.API.Entities
 {
-    public class VersionResSchema
+    public class VersionResponse
     {
         [JsonProperty("latest_version")]
         public string LatestVersion { get; set; }

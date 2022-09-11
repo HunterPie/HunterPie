@@ -49,8 +49,6 @@ namespace HunterPie
                 }
             }
 
-            AsyncHelper.RunSync(PoogieApi.EndSession);
-
             base.OnClosing(e);
         }
 
