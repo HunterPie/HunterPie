@@ -775,12 +775,6 @@
 			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
 					 String="Trier par"
 					 Description="L'algorithme à utiliser pour trier les effets."/>
-			<Setting Id="SORT_BY_LOWEST_TIMER_STRING"
-					 String="Plus Petit Temps"/>
-			<Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
-					 String="Plus Grand Temps"/>
-			<Setting Id="SORT_BY_DISABLED_STRING"
-					 String="Désactivé"/>
 
 			<Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
 					 String="Correction de la Visée avec Filoptère"

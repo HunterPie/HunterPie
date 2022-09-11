@@ -555,6 +555,26 @@
 			<Generic Id="HUNTERPIE_CURRENT_SELECTED_CONFIG"
 					 String="Configuration for:"/>
 		</Generics>
+		<Dialogs>
+			<!-- Do not edit the text inside {} -->
+			<Dialog Id="UPDATE_TITLE_STRING"
+					String="Update"/>
+			<Dialog Id="UPDATE_CONFIRMATION_DESCRIPTION_STRING"
+					String="Version v{Latest} is now available.&#x0a;Do you want to update now?"/>
+			<Dialog Id="CONFIRMATION_TITLE_STRING"
+					String="Confirmation"/>
+			<Dialog Id="DELETE_CONFIRMATION_DESCRIPTION_STRING"
+					String="Are you sure you want to delete {Item}?"/>
+			<Dialog Id="EXIT_CONFIRMATION_DESCRIPTION_STRING"
+					String="Are you sure you want to exit HunterPie?"/>
+
+			<Button Id="ACCEPT_STRING"
+				  String="Accept"/>
+			<Button Id="REJECT_STRING"
+				  String="Reject"/>
+			<Button Id="CANCEL_STRING"
+				  String="Cancel"/>
+		</Dialogs>
 		<Integrations>
 			<!-- Shared between games -->
 			<Discord Id="DRPC_STATE_HUNTING"
@@ -800,12 +820,6 @@
 			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
 					 String="Sort by"
 					 Description="Selects the sorting algorithm used to sort all abnormalities."/>
-			<Setting Id="SORT_BY_LOWEST_TIMER_STRING"
-					 String="Lowest time"/>
-			<Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
-					 String="Highest time"/>
-			<Setting Id="SORT_BY_DISABLED_STRING"
-					 String="Disabled"/>
 
 			<Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
 					 String="Patch in-game Wirebug Aim"

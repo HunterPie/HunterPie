@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using HunterPie.Features.Debug;
 using HunterPie.Core.API;
 using HunterPie.Core.Utils;
+using Localization = HunterPie.Core.Client.Localization.Localization;
 
 namespace HunterPie
 {
@@ -32,8 +33,8 @@ namespace HunterPie
             if (!ClientConfig.Config.Client.EnableSeamlessShutdown)
             {
                 NativeDialogResult result = DialogManager.Info(
-                    "Confirmation", 
-                    "Are you sure you want to exit HunterPie?",
+                    Localization.QueryString("//Strings/Client/Dialogs/Dialog[@Id='CONFIRMATION_TITLE_STRING']"),
+                    Localization.QueryString("//Strings/Client/Dialogs/Dialog[@Id='EXIT_CONFIRMATION_DESCRIPTION_STRING']"),
                     NativeDialogButtons.Accept | NativeDialogButtons.Cancel
                 );
 
