@@ -112,9 +112,21 @@ namespace HunterPie
 
         private void OnStartGameClick(object sender, EventArgs e) => Steam.RunGameBy(ClientConfig.Config.Client.DefaultGameType);
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Keyboard.ClearFocus();
+            if (IsMouseOverElement(e, PART_HeaderBar))
+                return;
+
+            if (!IsMouseOverElement(e, PART_NotificationsPanel))
+                PART_HeaderBar.ViewModel.IsNotificationsToggled = false;
+        }
+
+        private bool IsMouseOverElement(MouseEventArgs args, FrameworkElement element)
+        {
+            Point points = args.GetPosition(element);
+            HitTestResult result = VisualTreeHelper.HitTest(element, points);
+
+            return result != null;
         }
     }
 }

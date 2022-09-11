@@ -28,7 +28,7 @@
         WindowStyle="None"
         mc:Ignorable="d"
         x:Name="PART_MainView"
-        MouseDown="Window_MouseDown">
+        PreviewMouseDown="OnMouseDown">
     <Window.Resources>
         <converters:GameTypeToGameNameConverter x:Key="GameTypeToGameNameConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -141,7 +141,8 @@
                                               HorizontalAlignment="Right"
                                               Margin="0,0,50,0"
                                               Opacity="0"
-                                              IsHitTestVisible="False">
+                                              IsHitTestVisible="False"
+                                              x:Name="PART_NotificationsPanel">
             <notifications:NotificationsPanelView.Style>
                 <Style TargetType="{x:Type notifications:NotificationsPanelView}">
                     <Style.Triggers>
@@ -149,6 +150,10 @@
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsHitTestVisible">
+                                            <DiscreteBooleanKeyFrame Value="True"
+                                                                     KeyTime="0:0:0.0"/>
+                                        </BooleanAnimationUsingKeyFrames>
                                         <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                                          To="1"
                                                          Duration="0:0:0.25">
@@ -163,15 +168,17 @@
                                                 <QuadraticEase/>
                                             </ThicknessAnimation.EasingFunction>
                                         </ThicknessAnimation>
-                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsHitTestVisible">
-                                            <DiscreteBooleanKeyFrame Value="True"/>
-                                        </BooleanAnimationUsingKeyFrames>
+                                        
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.EnterActions>
                             <DataTrigger.ExitActions>
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsHitTestVisible">
+                                            <DiscreteBooleanKeyFrame Value="False"
+                                                                     KeyTime="0:0:0.0"/>
+                                        </BooleanAnimationUsingKeyFrames>
                                         <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                                          To="0"
                                                          Duration="0:0:0.25">
@@ -186,9 +193,6 @@
                                                 <QuadraticEase/>
                                             </ThicknessAnimation.EasingFunction>
                                         </ThicknessAnimation>
-                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsHitTestVisible">
-                                            <DiscreteBooleanKeyFrame Value="False"/>
-                                        </BooleanAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.ExitActions>

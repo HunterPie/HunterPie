@@ -36,6 +36,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="GUI\Views\**" />
+    <EmbeddedResource Remove="GUI\Views\**" />
+    <None Remove="GUI\Views\**" />
+    <Page Remove="GUI\Views\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Icon.ico" />
   </ItemGroup>
 

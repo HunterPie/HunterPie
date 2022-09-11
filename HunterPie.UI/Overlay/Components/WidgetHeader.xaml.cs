@@ -19,7 +19,7 @@ namespace HunterPie.UI.Overlay.Components
 
         private void OnCloseButtonClick(object sender, EventArgs e)
         {
-            Owner.Close();
+            Owner.Widget.Settings.Enabled.Value = false;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
