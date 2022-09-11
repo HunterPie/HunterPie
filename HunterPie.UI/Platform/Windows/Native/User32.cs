@@ -14,7 +14,7 @@ namespace HunterPie.UI.Platform.Windows.Native
         [DllImport("user32.dll")]
         public static extern int GetWindowLong(IntPtr hwnd, int index);
 
-        [DllImport("User32.dll")]
+        [DllImport("User32.dll", SetLastError = true)]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
         [DllImport("user32.dll")]
