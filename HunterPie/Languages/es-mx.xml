@@ -634,12 +634,6 @@
 			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
 					 String="Filtrar por"
 					 Description="Selecciona el tipo de filtrado para los efectos."/>
-			<Setting Id="SORT_BY_LOWEST_TIMER_STRING"
-					 String="Tiempo mínimo"/>
-			<Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
-					 String="Tiempo máximo"/>
-			<Setting Id="SORT_BY_DISABLED_STRING"
-					 String="Desactivado"/>
 
 			<Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
 					 String="Arreglo de la punteria de cordoperos"

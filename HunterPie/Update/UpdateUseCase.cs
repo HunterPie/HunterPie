@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Logger;
 using HunterPie.Internal.Poogie;
@@ -28,8 +29,8 @@ namespace HunterPie.Update
             if (ClientConfig.Config.Client.EnableAutoUpdateConfirmation)
             {
                 var result = DialogManager.Warn(
-                    "Update",
-                    $"Version v{latest} is now available.\nDo you want to update now?",
+                    Localization.QueryString("//Strings/Client/Dialogs/Dialog[@Id='UPDATE_TITLE_STRING']"),
+                    Localization.QueryString("//Strings/Client/Dialogs/Dialog[@Id='UPDATE_CONFIRMATION_DESCRIPTION_STRING']").Replace("{Latest}", $"{latest}"),
                     NativeDialogButtons.Accept | NativeDialogButtons.Reject
                 );
 
