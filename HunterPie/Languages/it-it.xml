@@ -397,12 +397,6 @@
 			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
 					 String="Ordina per"
 					 Description="Seleziona l'algoritmo di ordinamento usato per mostrare le anomalie"/>
-			<Setting Id="SORT_BY_LOWEST_TIMER_STRING"
-					 String="Tempo minore"/>
-			<Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
-					 String="Tempo maggiore"/>
-			<Setting Id="SORT_BY_DISABLED_STRING"
-					 String="Disabilitato"/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock del widget dei mostri"/>

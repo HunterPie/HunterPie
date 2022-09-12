@@ -395,12 +395,6 @@
 			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
 					 String="Сортировать по"
 					 Description="Выбирает алгоритм сортировки, используемый для сортировки всех аномалий."/>
-			<Setting Id="SORT_BY_LOWEST_TIMER_STRING"
-					 String="Минимальное время"/>
-			<Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
-					 String="Максимальное время"/>
-			<Setting Id="SORT_BY_DISABLED_STRING"
-					 String="Отключить"/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Developer: Mock Monster widget"/>

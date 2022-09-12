@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Settings.Types;
 using System;
@@ -49,8 +50,8 @@ namespace HunterPie.UI.Controls.Settings.Custom
             AbnormalityWidgetConfig config = ViewModel.Trays[SelectedIndex];
 
             NativeDialogResult confirmation = DialogManager.Warn(
-                "Confirmation", 
-                $"Are you sure you want to delete {(string)config.Name}?", 
+                Localization.QueryString("//Strings/Client/Dialogs/Dialog[@Id='CONFIRMATION_TITLE_STRING']"),
+                Localization.QueryString("//Strings/Client/Dialogs/Dialog[@Id='DELETE_CONFIRMATION_DESCRIPTION_STRING']").Replace("{Item}", $"{(string)config.Name}"),
                 NativeDialogButtons.Accept | NativeDialogButtons.Cancel
             );
 
