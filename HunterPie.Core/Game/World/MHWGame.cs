@@ -120,7 +120,7 @@ namespace HunterPie.Core.Game.World
 
             float elapsed = MHWCrypto.DecryptQuestTimer(encryptedValue, encryptKey);
 
-            if (questMaxTimerRaw is 0 or 180000 && elapsed == 0.0)
+            if (questMaxTimerRaw is 0 or 180000 && elapsed is 0.0f or 3000.0f)
             {
                 if (Player.InHuntingZone)
                 {
