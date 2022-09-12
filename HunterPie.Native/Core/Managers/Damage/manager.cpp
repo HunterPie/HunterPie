@@ -32,7 +32,7 @@ void DamageTrackManager::UpdateDamage(const EntityDamageData& damageData)
     HuntStatistics*& statistics = m_Trackings.at(target);
 
     if (damageData.source.index >= std::size(statistics->entities) || damageData.source.index < 0) {
-        LOG("Invalid source entity index£º%d.", damageData.source.index);
+        LOG("Invalid source entity index: %d.", damageData.source.index);
         return;
     }
 

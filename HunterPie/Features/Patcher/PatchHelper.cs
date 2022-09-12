@@ -7,12 +7,12 @@ namespace HunterPie.Features.Patcher;
 
 internal static class PatchHelper
 {
-    /// <inheritdoc cref="CheckMemory(IMemory,long,string)"/>
+    /// <inheritdoc cref="ContentEquals(IMemory,long,string)"/>
     /// <param name="memoryLocationName">the name of an Address existing in <see cref="AddressMap"/>.</param>
-    public static bool CheckMemory(IMemory memory, string memoryLocationName, string expectedDataName)
+    public static bool ContentEquals(this IMemory memory, string memoryLocationName, string expectedDataName)
     {
         var memoryLocation = AddressMap.GetAbsolute(memoryLocationName);
-        return CheckMemory(memory, memoryLocation, expectedDataName);
+        return ContentEquals(memory, memoryLocation, expectedDataName);
     }
 
     /// <summary>
@@ -22,7 +22,7 @@ internal static class PatchHelper
     /// <param name="memory">the memory to inspect.</param>
     /// <param name="memoryLocation">starting memory address.</param>
     /// <param name="expectedDataName">the name of a byte sequence (Instruction) existing in <see cref="AddressMap"/>.</param>
-    public static bool CheckMemory(IMemory memory, long memoryLocation, string expectedDataName)
+    public static bool ContentEquals(this IMemory memory, long memoryLocation, string expectedDataName)
     {
         // TODO AddressMap.Get should support returning byte[] directly.
         var expectedData = AddressMap.Get<int[]>(expectedDataName)

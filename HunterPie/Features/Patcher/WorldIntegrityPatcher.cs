@@ -17,8 +17,8 @@ internal static class WorldIntegrityPatcher
         {
             var crc1 = AddressMap.GetAbsolute(addressName1);
             var crc2 = AddressMap.GetAbsolute(addressName2);
-            if (PatchHelper.CheckMemory(context.Process.Memory, crc1, originalFuncName1)
-                && PatchHelper.CheckMemory(context.Process.Memory, crc2, originalFuncName2))
+            if (context.Process.Memory.ContentEquals(crc1, originalFuncName1)
+                && context.Process.Memory.ContentEquals(crc2, originalFuncName2))
             {
                 const int JMP_INSTRUCTION_LENGTH = 1 + 4;
                 var patch = new byte[JMP_INSTRUCTION_LENGTH + 1];

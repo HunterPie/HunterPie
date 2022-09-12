@@ -17,8 +17,6 @@ namespace Core::Server
         struct RequestIPCInitializationMessage : IPCMessage
         {
             IPCInitializationHostType hostType;
-            // For x64 word alignment.
-            uint32_t reserved1;
             uintptr_t addresses[256];
         };
 
