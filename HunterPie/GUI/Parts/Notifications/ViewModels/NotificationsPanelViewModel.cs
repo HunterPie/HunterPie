@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.API;
-using HunterPie.Core.API.Schemas;
+using HunterPie.Core.API.Entities;
 using HunterPie.UI.Architecture;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
