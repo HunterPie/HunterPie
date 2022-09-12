@@ -177,6 +177,17 @@ namespace HunterPie.Core.Game.Rise
         }
 
         [ScannableMethod]
+        private void GetDeathCounter()
+        {
+            int deathCounter = _process.Memory.Deref<int>(
+                AddressMap.GetAbsolute("QUEST_ADDRESS"),
+                AddressMap.Get<int[]>("QUEST_DEATH_COUNTER_OFFSETS")
+            );
+
+            Deaths = deathCounter;
+        }
+
+        [ScannableMethod]
         private void GetPartyMembersDamage()
         {
             if ((DateTime.Now - _lastDamageUpdate).TotalMilliseconds < 100)
