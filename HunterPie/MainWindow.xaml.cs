@@ -26,8 +26,8 @@ namespace HunterPie
 
         public MainWindow()
         {
-        	 DataContext = new MainViewModel();
-        	 
+            DataContext = new MainViewModel();
+
             Log.Info("Initializing HunterPie GUI");
 
             Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata { DefaultValue = (int)ClientConfig.Config.Client.RenderFramePerSecond.Current });
