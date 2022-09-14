@@ -52,14 +52,14 @@
                                    Height="40"
                                    Width="40"
                                    RenderOptions.BitmapScalingMode="Fant"
-                                   Opacity="0.4"/>
+                                   Opacity="0.1"/>
                             <StackPanel Orientation="Horizontal"
                                         Grid.Column="1"
                                         VerticalAlignment="Stretch"
                                         HorizontalAlignment="Right">
-                                <native:Button Content="Login"
+                                <native:Button Content="Sign In"
                                                Style="{StaticResource LoginStyle}"/>
-                                <native:Button Content="Register"
+                                <native:Button Content="Sign Up"
                                                Style="{StaticResource RegisterStyle}"/>
                             </StackPanel>
                             
