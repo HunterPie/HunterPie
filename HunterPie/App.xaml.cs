@@ -156,8 +156,8 @@ namespace HunterPie
             _richPresence = DiscordPresenceController.GetPresenceBy(context);
 
             WidgetManager.Hook(context);
-            GamePatchers.Run(context);
-            ContextInitializers.Initialize(context);
+            // Start initialization but don't wait for it.
+            _ = ContextInitializers.InitializeAsync(context);
 
             Dispatcher.InvokeAsync(() => WidgetInitializers.Initialize(context));
             ScanManager.Start();

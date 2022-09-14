@@ -1,9 +1,10 @@
-﻿using HunterPie.Core.Game;
+﻿using System.Threading.Tasks;
+using HunterPie.Core.Game;
 
 namespace HunterPie.Domain.Interfaces
 {
     internal interface IContextInitializer
     {
-        public void Initialize(Context context);
+        public Task InitializeAsync(Context context);
     }
 }

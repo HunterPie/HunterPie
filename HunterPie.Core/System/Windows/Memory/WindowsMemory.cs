@@ -4,6 +4,7 @@ using HunterPie.Core.System.Windows.Native;
 using HunterPie.Core.Utils;
 using System;
 using System.Buffers;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -118,26 +119,26 @@ namespace HunterPie.Core.System.Windows.Memory
             return Read<T>(ptr);
         }
 
-        public bool Write<T>(long address, T data) where T : struct
+        public void Write<T>(long address, T data) where T : struct
         {
             throw new NotImplementedException();
         }
 
-        public bool Write<T>(long address, T[] data) where T : struct
+        public void Write<T>(long address, T[] data) where T : struct
         {
             byte[] buffer = StructureToBuffer(data);
 
-            bool result = Kernel32.WriteProcessMemory(pHandle, (IntPtr)address, buffer, buffer.Length, out int _);
-            
-            return result;
+            if (!Kernel32.WriteProcessMemory(pHandle, (IntPtr)address, buffer, buffer.Length, out int _))
+                throw new Win32Exception();
         }
 
-        public bool InjectAsm(long address, byte[] asm)
+        public void InjectAsm(long address, byte[] asm)
         {
-            Kernel32.VirtualProtectEx(pHandle, (IntPtr)address, (UIntPtr)asm.Length, 0x40, out uint oldProtect);
-            bool result = Write(address, asm);
-            Kernel32.VirtualProtectEx(pHandle, (IntPtr)address, (UIntPtr)asm.Length, oldProtect, out oldProtect);
-            return result;
+            if (!Kernel32.VirtualProtectEx(pHandle, (IntPtr)address, (UIntPtr)asm.Length, 0x40, out uint oldProtect))
+                throw new Win32Exception();
+            Write(address, asm);
+            if (!Kernel32.VirtualProtectEx(pHandle, (IntPtr)address, (UIntPtr)asm.Length, oldProtect, out oldProtect))
+                throw new Win32Exception();
         }
 
         public byte[] StructureToBuffer<T>(T[] array) where T : struct
@@ -157,7 +158,7 @@ namespace HunterPie.Core.System.Windows.Memory
             return buffer;
         }
 
-        public bool Inject(string dll)
+        public void Inject(string dll)
         {
             byte[] dllPath = Encoding.Unicode.GetBytes(dll);
 
@@ -169,8 +170,7 @@ namespace HunterPie.Core.System.Windows.Memory
                 Kernel32.MemoryProtection.ExecuteReadWrite
             );
 
-            if (dllNamePtr == IntPtr.Zero)
-                return false;
+            if (dllNamePtr == IntPtr.Zero) throw new Win32Exception();
             
             Write((long)dllNamePtr, dllPath);
 
@@ -178,9 +178,11 @@ namespace HunterPie.Core.System.Windows.Memory
 
             IntPtr kernel32Address = Kernel32.GetModuleHandle("kernel32");
             Log.Debug("Found kernel32 address at {0:X}", kernel32Address);
+            if (kernel32Address == IntPtr.Zero) throw new Win32Exception();
 
             IntPtr loadLibraryW = Kernel32.GetProcAddress(kernel32Address, "LoadLibraryW");
             Log.Debug("kernel32::LoadLibraryW -> {0:X}", loadLibraryW);
+            if (kernel32Address == IntPtr.Zero) throw new Win32Exception();
             
             IntPtr lpThreadId = IntPtr.Zero;
             IntPtr thread = Kernel32.CreateRemoteThread(
@@ -193,8 +195,7 @@ namespace HunterPie.Core.System.Windows.Memory
                 lpThreadId
             );
             Log.Debug("thread {0:X}", thread);
-
-            return thread != IntPtr.Zero;
+            if (thread == IntPtr.Zero) throw new Win32Exception();
         }
     }
 }
