@@ -422,12 +422,6 @@ Translated by Neo#1234，由灵魂复苏翻译，有问题可以进HunterPie Dis
 			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
 					 String="排列方式"
 					 Description="选择所有增减益状态的排序方式。"/>
-			<Setting Id="SORT_BY_LOWEST_TIMER_STRING"
-					 String="最短时间"/>
-			<Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
-					 String="最长时间"/>
-			<Setting Id="SORT_BY_DISABLED_STRING"
-					 String="禁用"/>
 
 			<Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
 					 String="修复游戏中的翔虫瞄准系统"
