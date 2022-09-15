@@ -1,14 +1,18 @@
-﻿<UserControl x:Class="HunterPie.GUI.Parts.Account.Views.AccountSignFlowView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.GUI.Parts.Account.Views"
-             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
-             xmlns:textbox="clr-namespace:HunterPie.UI.Controls.TextBox;assembly=HunterPie.UI"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" 
-             d:DesignWidth="800">
+﻿<arch:View x:Class="HunterPie.GUI.Parts.Account.Views.AccountSignFlowView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+           xmlns:local="clr-namespace:HunterPie.GUI.Parts.Account.Views"
+           xmlns:arch="clr-namespace:HunterPie.UI.Architecture;assembly=HunterPie.UI"
+           xmlns:vm="clr-namespace:HunterPie.GUI.Parts.Account.ViewModels"
+           xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+           xmlns:textbox="clr-namespace:HunterPie.UI.Controls.TextBox;assembly=HunterPie.UI"
+           mc:Ignorable="d" 
+           d:DataContext="{d:DesignInstance vm:AccountSignFlowViewModel}"
+           d:DesignHeight="450" 
+           d:DesignWidth="800"
+           x:TypeArguments="vm:AccountSignFlowViewModel">
     <UserControl.Resources>
         <DataTemplate x:Key="HeaderTemplate">
             <buttons:TabItem />
@@ -60,10 +64,30 @@
                 <UniformGrid Columns="2" Margin="12">
                     <FrameworkElement x:Name="PART_Dummy"/>
                 </UniformGrid>
+                <Rectangle Grid.Row="1"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Left"
+                           Height="30"
+                           Margin="12,12,0,10" 
+                           RadiusX="2"
+                           RadiusY="20"
+                           Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                           Width="{Binding ActualWidth, ElementName=PART_Dummy}"
+                           x:Name="PART_SelectedSignFlowHighlight">
+                    <Rectangle.OpacityMask>
+                        <LinearGradientBrush EndPoint="0,0" 
+                                             StartPoint="0,1">
+                            <GradientStop Color="#00000000" Offset="1"/>
+                            <GradientStop Color="#30000000" Offset="0.1"/>
+                            <GradientStop Color="#DD000000" Offset="0"/>
+                        </LinearGradientBrush>
+                    </Rectangle.OpacityMask>
+                </Rectangle>
                 <TabControl Grid.Row="1"
                             Background="Transparent"
                             BorderThickness="0"
-                            Margin="10">
+                            Margin="10"
+                            SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
                     <TabItem>
                         <TabItem.Header>
                             <buttons:TabItem Title="Login"
@@ -71,7 +95,8 @@
                                              Icon="{StaticResource ICON_DISCONNECTED_ACCOUNT}"
                                              FontSize="15"
                                              Width="{Binding ActualWidth, ElementName=PART_Dummy}"
-                                             Padding="5"/>
+                                             Padding="5"
+                                             Background="Transparent"/>
                         </TabItem.Header>
                         <Grid>
                             <StackPanel>
@@ -92,12 +117,16 @@
                     <TabItem>
                         <TabItem.Header>
                             <buttons:TabItem Title="Create account"
+                                             Description="Create a new account"
                                              FontSize="15"
                                              Icon="{StaticResource ICON_ADD}"
-                                             Width="{Binding ActualWidth, ElementName=PART_Dummy}"/>
+                                             Width="{Binding ActualWidth, ElementName=PART_Dummy}"
+                                             Background="Transparent"/>
                         </TabItem.Header>
                     </TabItem>
                 </TabControl>
+
+                
             </Grid>
             <Border.Style>
                 <Style TargetType="Border">
@@ -125,4 +154,4 @@
             </Border.Style>
         </Border>
     </Grid>
-</UserControl>
+</arch:View>

@@ -50,8 +50,6 @@ namespace HunterPie
                 }
             }
 
-            AsyncHelper.RunSync(PoogieApi.EndSession);
-
             base.OnClosing(e);
         }
 
@@ -121,6 +119,7 @@ namespace HunterPie
             if (sender is AccountSignFlowView view)
             {
                 view.OnFormClose -= OnSignFormClose;
+                view.Dispose();
                 PART_SigninView.Content = null;
             }
         }
