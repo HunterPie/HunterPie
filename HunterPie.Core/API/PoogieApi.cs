@@ -14,6 +14,7 @@ namespace HunterPie.Core.API
         const string CRASH_PATH = "/v1/report/crash";
         const string SUPPORTER_PATH = "/v1/supporter";
         const string NOTIFICATIONS = "/v1/notifications";
+        const string LOGIN = "/v1/login";
 
         const string SUPPORTER_HEADER = "X-Supporter-Token";
 
@@ -37,6 +38,32 @@ namespace HunterPie.Core.API
                 return null;
 
             return await resp.AsJson<T>();
+        }
+
+        private static async Task<T?> Post<P, T>(string path, P payload) where T : class
+        {
+            using Poogie request = PoogieFactory.Default()
+                .Post(path)
+                .WithHeader(SUPPORTER_HEADER, ClientConfig.Config.Client.SupporterSecretToken)
+                .WithJson(payload)
+                .WithTimeout(DefaultTimeout)
+                .Build();
+
+            using PoogieResponse resp = await request.RequestAsync();
+
+            if (!resp.Success)
+                return null;
+
+            if (resp.Status >= HttpStatusCode.BadRequest)
+                return null;
+
+            return await resp.AsJson<T>();
+        }
+
+        public static async Task<LoginResponse?> Login(LoginRequest request)
+        {
+            LoginResponse? resp = await Post<LoginRequest, LoginResponse>(LOGIN, request);
+            return resp;
         }
 
         public static async Task<VersionResponse?> GetLatestVersion()
