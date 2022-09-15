@@ -9,12 +9,12 @@ namespace HunterPie.Features.Native
 
         public static async Task WaitForIPCInitialization()
         {
-            var attempts = 0;
-            while (!(await IPCService.Initialize()))
+            if (await IPCService.Initialize()) return;
+            for (int i = 0; i <= 10; i++)
             {
-                attempts++;
-                Log.Debug($"Retrying to connect: Attempt {attempts}...");
-                await Task.Delay(attempts * 100);
+                Log.Debug($"Retrying to connect: Attempt {i}...");
+                await Task.Delay(i * 100);
+                if (await IPCService.Initialize()) return;
             }
         }
 

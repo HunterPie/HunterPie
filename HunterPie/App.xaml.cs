@@ -20,10 +20,6 @@ using System.Linq;
 using HunterPie.Features.Overlay;
 using HunterPie.Core.Domain;
 using System.Threading;
-using HunterPie.Features.Patcher;
-using HunterPie.Core.Native.IPC;
-using HunterPie.Core.Native.IPC.Handlers.Internal.Damage;
-using HunterPie.Core.Json;
 using HunterPie.Features;
 
 namespace HunterPie
@@ -137,31 +133,40 @@ namespace HunterPie
                 Dispatcher.Invoke(Shutdown);
         }
 
-        private void OnProcessFound(object sender, ProcessManagerEventArgs e)
+        private async void OnProcessFound(object sender, ProcessManagerEventArgs e)
         {
+            // Reference: https://docs.microsoft.com/en-us/archive/msdn-magazine/2013/march/async-await-best-practices-in-asynchronous-programming
+            // Also, note that this function does not assume it can be called concurrently for now. (esp. the _process variable)
             if (_process is not null)
             {
                 Log.Info("HunterPie is already hooked to another process.");
                 return;
             }
 
-            _process = e.Process;
-            GameManager.InitializeGameData(e.ProcessName);
-            Context context = GameManager.GetGameContext(e.ProcessName, _process);
+            try
+            {
+                _process = e.Process;
+                GameManager.InitializeGameData(e.ProcessName);
+                Context context = GameManager.GetGameContext(e.ProcessName, _process);
 
-            Log.Debug("Initialized game context");
-            _context = context;
+                Log.Debug("Initialized game context");
+                _context = context;
 
-            HookEvents();
-            _richPresence = DiscordPresenceController.GetPresenceBy(context);
+                HookEvents();
+                _richPresence = DiscordPresenceController.GetPresenceBy(context);
 
-            WidgetManager.Hook(context);
-            // Start initialization but don't wait for it.
-            _ = ContextInitializers.InitializeAsync(context);
+                WidgetManager.Hook(context);
 
-            Dispatcher.InvokeAsync(() => WidgetInitializers.Initialize(context));
-            ScanManager.Start();
+                await ContextInitializers.InitializeAsync(context).ConfigureAwait(false);
 
+                await Dispatcher.InvokeAsync(() => WidgetInitializers.Initialize(context));
+
+                ScanManager.Start();
+            }
+            catch (Exception ex)
+            {
+                Log.Error("HunterPie fails to initialize on the {0} process. {1}", e.ProcessName, ex);
+            }
         }
 
         private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)

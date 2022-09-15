@@ -19,7 +19,7 @@ namespace HunterPie.Features
         public static async Task InitializeAsync(Context context)
         {
             foreach (var initializer in initializers)
-                await initializer.InitializeAsync(context);
+                await initializer.InitializeAsync(context).ConfigureAwait(false);
         }
     }
 }
