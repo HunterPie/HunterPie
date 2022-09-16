@@ -1,6 +1,9 @@
-﻿using HunterPie.Core.Game;
+﻿using System.Threading.Tasks;
+using HunterPie.Core.Game;
 using HunterPie.Domain.Interfaces;
-using HunterPie.Features.Native;
+using HunterPie.Game.Demos.Sunbreak;
+using HunterPie.Game.Rise;
+using HunterPie.Game.World;
 
 namespace HunterPie.Features
 {
@@ -8,14 +11,15 @@ namespace HunterPie.Features
     {
         private static IContextInitializer[] initializers = new IContextInitializer[]
         {
-            new IPCInjectorInitializer(),
-            new NativeIPCInitializer(),
+            new MHWContextInitializer(),
+            new MHRContextInitializer(),
+            new MHRSunbreakDemoContextInitializer(),
         };
 
-        public static void Initialize(Context context)
+        public static async Task InitializeAsync(Context context)
         {
             foreach (var initializer in initializers)
-                initializer.Initialize(context);
+                await initializer.InitializeAsync(context).ConfigureAwait(false);
         }
     }
 }

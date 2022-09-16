@@ -1,13 +1,11 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Logger;
-using HunterPie.Domain.Interfaces;
 using System.Linq;
 
 namespace HunterPie.Features.Patcher
 {
-    internal class RiseIntegrityPatcher : IContextInitializer
+    internal static class RiseIntegrityPatcher
     {
         /// <summary>
         /// HunterPie has assembly patches for some features to work correctly, patching in-game functions can crash the game
@@ -16,11 +14,8 @@ namespace HunterPie.Features.Patcher
         /// cannot guarantee an user has it, then HunterPie also patches it if needed.
         /// 
         /// Credits to REFramework: https://github.com/praydog/REFramework
-        public void Initialize(Context context)
+        public static void Patch(Context context)
         {
-            if (context is not MHRContext)
-                return;
-
             long[] crcFuncs =
                 {
                     AddressMap.GetAbsolute("CRC_FUNC_1"),
@@ -57,9 +52,9 @@ namespace HunterPie.Features.Patcher
                 
                 if (Enumerable.SequenceEqual(originalAsm, originalInstructions))
                 {
-                    bool patched = context.Process.Memory.InjectAsm(crcFunc, asmPatch);
-                    
-                    if (patched) Log.Debug("Patched 0x{0:X}", crcFunc);
+                    context.Process.Memory.InjectAsm(crcFunc, asmPatch);
+
+                    Log.Debug("Patched 0x{0:X}", crcFunc);
                 }
             }
         }
