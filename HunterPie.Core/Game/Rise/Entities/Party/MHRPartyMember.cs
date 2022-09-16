@@ -6,72 +6,71 @@ using HunterPie.Core.Game.Rise.Definitions;
 using HunterPie.Core.Native.IPC.Models.Common;
 using System;
 
-namespace HunterPie.Core.Game.Rise.Entities.Party
+namespace HunterPie.Core.Game.Rise.Entities.Party;
+
+public class MHRPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHRPartyMemberData>, IUpdatable<EntityDamageData>
 {
-    public class MHRPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHRPartyMemberData>, IUpdatable<EntityDamageData>
+    private int _damage;
+    private Weapon _weapon;
+
+    public string Name { get; private set; }
+
+    public int Damage
     {
-        private int _damage;
-        private Weapon _weapon;
-
-        public string Name { get; private set; }
-
-        public int Damage
+        get => _damage;
+        private set
         {
-            get => _damage;
-            private set
+            if (value != _damage)
             {
-                if (value != _damage)
-                {
-                    _damage = value;
-                    this.Dispatch(OnDamageDealt, this);
-                }
+                _damage = value;
+                this.Dispatch(OnDamageDealt, this);
             }
         }
+    }
 
-        public Weapon Weapon
+    public Weapon Weapon
+    {
+        get => _weapon;
+        private set
         {
-            get => _weapon;
-            private set
+            if (value != _weapon)
             {
-                if (value != _weapon)
-                {
-                    _weapon = value;
-                    this.Dispatch(OnWeaponChange, this);
-                }
+                _weapon = value;
+                this.Dispatch(OnWeaponChange, this);
             }
         }
+    }
 
-        public int Slot { get; private set; }
+    public int Slot { get; private set; }
 
-        public bool IsMyself { get; private set; } = true;
-        public MemberType Type { get; private set; }
+    public bool IsMyself { get; private set; } = true;
+    public MemberType Type { get; private set; }
 
-        public int MasterRank { get; private set; }
+    public int MasterRank { get; private set; }
 
-        public event EventHandler<IPartyMember> OnDamageDealt;
-        public event EventHandler<IPartyMember> OnWeaponChange;
+    public event EventHandler<IPartyMember> OnDamageDealt;
+    public event EventHandler<IPartyMember> OnWeaponChange;
 
-        public MHRPartyMember() { }
+    public MHRPartyMember() { }
 
-        public MHRPartyMember(MemberType type)
-        {
-            Type = type;
-        }
+    public MHRPartyMember(MemberType type)
+    {
+        Type = type;
+    }
 
-        void IUpdatable<MHRPartyMemberData>.Update(MHRPartyMemberData data)
-        {
-            Name = data.Name;
-            Weapon = data.WeaponId;
-            IsMyself = data.IsMyself;
-            Slot = data.Index;
-            Type = data.MemberType;
-            MasterRank = data.MasterRank;
-        }
+    void IUpdatable<MHRPartyMemberData>.Update(MHRPartyMemberData data)
+    {
+        Name = data.Name;
+        Weapon = data.WeaponId;
+        IsMyself = data.IsMyself;
+        Slot = data.Index;
+        Type = data.MemberType;
+        MasterRank = data.MasterRank;
+    }
 
-        void IUpdatable<EntityDamageData>.Update(EntityDamageData data)
-        {
-            float totalDamage = data.RawDamage + data.ElementalDamage;
-            Damage = (int)totalDamage;
-        }
+    void IUpdatable<EntityDamageData>.Update(EntityDamageData data)
+    {
+        float totalDamage = data.RawDamage + data.ElementalDamage;
+        Damage = (int)totalDamage;
     }
 }

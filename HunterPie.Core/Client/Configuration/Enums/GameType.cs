@@ -1,8 +1,7 @@
-﻿namespace HunterPie.Core.Client.Configuration.Enums
+﻿namespace HunterPie.Core.Client.Configuration.Enums;
+
+public enum GameType
 {
-    public enum GameType
-    {
-        Rise,
-        World
-    }
+    Rise,
+    World
 }

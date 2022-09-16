@@ -1,9 +1,8 @@
-﻿namespace HunterPie.Core.Game.Enums
+﻿namespace HunterPie.Core.Game.Enums;
+
+public enum MemberType
 {
-    public enum MemberType
-    {
-        Player,
-        Pet,
-        Companion
-    }
+    Player,
+    Pet,
+    Companion
 }

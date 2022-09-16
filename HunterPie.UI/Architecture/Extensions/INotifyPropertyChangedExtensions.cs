@@ -1,13 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace HunterPie.UI.Architecture.Extensions
+namespace HunterPie.UI.Architecture.Extensions;
+
+internal static class INotifyPropertyChangedExtensions
 {
-    static class INotifyPropertyChangedExtensions
-    {
-        static public void N(this INotifyPropertyChanged self, PropertyChangedEventHandler @event, [CallerMemberName] string propertyName = "")
-        {
-            @event?.Invoke(self, new PropertyChangedEventArgs(propertyName));
-        }
-    }
+    public static void N(this INotifyPropertyChanged self, PropertyChangedEventHandler @event, [CallerMemberName] string propertyName = "") => @event?.Invoke(self, new PropertyChangedEventArgs(propertyName));
 }

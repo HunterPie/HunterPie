@@ -4,31 +4,29 @@ using HunterPie.Core.Domain.Features.Data;
 using HunterPie.Core.Domain.Features.Domain;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Features;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace HunterPie.Internal.Initializers
+namespace HunterPie.Internal.Initializers;
+
+internal class FeatureFlagsInitializer : IInitializer
 {
-    internal class FeatureFlagsInitializer : IInitializer
+
+    public static readonly DefaultFeatureFlags Features = new();
+
+    public void Init()
     {
-        
-        public readonly static DefaultFeatureFlags Features = new();
+        IFeatureFlagRepository localRepository = new LocalFeatureFlagRepository(Features.ReadOnlyFlags);
 
-        public void Init()
-        {
-            IFeatureFlagRepository localRepository = new LocalFeatureFlagRepository(Features.ReadOnlyFlags);
+        var supportedFlags = Features.Flags.Keys.ToHashSet();
 
-            HashSet<string> supportedFlags = Features.Flags.Keys.ToHashSet();
+        ConfigManager.Register("internal/feature-flags.json", Features.Flags);
 
-            ConfigManager.Register("internal/feature-flags.json", Features.Flags);
+        string[] loadedFlags = Features.Flags.Keys.ToArray();
 
-            string[] loadedFlags = Features.Flags.Keys.ToArray();
+        foreach (string loadedFlag in loadedFlags)
+            if (!supportedFlags.Contains(loadedFlag))
+                _ = Features.Flags.Remove(loadedFlag);
 
-            foreach (string loadedFlag in loadedFlags)
-                if (!supportedFlags.Contains(loadedFlag))
-                    Features.Flags.Remove(loadedFlag);
-
-            FeatureFlagManager.Initialize(localRepository);
-        }
+        FeatureFlagManager.Initialize(localRepository);
     }
 }

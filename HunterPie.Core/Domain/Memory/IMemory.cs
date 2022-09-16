@@ -1,10 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace HunterPie.Core.Domain.Memory;
 
-namespace HunterPie.Core.Domain.Memory
-{
-    public interface IMemory : IMemoryReader, IMemoryWriter {}
-}
+public interface IMemory : IMemoryReader, IMemoryWriter { }

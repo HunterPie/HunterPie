@@ -1,19 +1,16 @@
 ﻿using HunterPie.GUI.Parts.Sidebar.ViewModels;
 
-namespace HunterPie.Domain.Sidebar
-{
-    internal class DefaultSideBar : ISideBar
-    {
-        private readonly ISideBarElement[] _menu = new ISideBarElement[]
-        {
-            new ConsoleSideBarElementViewModel(),
-            new SettingsSideBarElementViewModel(),
-            new PluginsSideBarElementViewModel(),
-            new PatchNotesSideBarElementViewModel(),
-            new PatreonSideBarElementViewModel(),
-            new DiscordSideBarElementViewModel()
-        };
+namespace HunterPie.Domain.Sidebar;
 
-        public ISideBarElement[] Menu => _menu;
-    }
+internal class DefaultSideBar : ISideBar
+{
+    public ISideBarElement[] Menu { get; } = new ISideBarElement[]
+    {
+        new ConsoleSideBarElementViewModel(),
+        new SettingsSideBarElementViewModel(),
+        new PluginsSideBarElementViewModel(),
+        new PatchNotesSideBarElementViewModel(),
+        new PatreonSideBarElementViewModel(),
+        new DiscordSideBarElementViewModel()
+    };
 }

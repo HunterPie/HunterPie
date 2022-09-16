@@ -8,40 +8,38 @@ using HunterPie.UI.Overlay.Widgets.Abnormality;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HunterPie.Features.Overlay
+namespace HunterPie.Features.Overlay;
+
+internal class AbnormalitiesWidgetInitializer : IWidgetInitializer
 {
-    internal class AbnormalitiesWidgetInitializer : IWidgetInitializer
+    private readonly List<IContextHandler> _handlers = new();
+
+    public void Load(Context context)
     {
-        readonly List<IContextHandler> _handlers = new();
-
-        public void Load(Context context)
+        Core.Client.Configuration.OverlayConfig config = ProcessManager.Game switch
         {
-            var config = ProcessManager.Game switch
-            {
-                GameProcess.MonsterHunterRise => ClientConfig.Config.Rise.Overlay,
-                GameProcess.MonsterHunterWorld => ClientConfig.Config.World.Overlay,
-                _ => throw new System.NotImplementedException(),
-            };
+            GameProcess.MonsterHunterRise => ClientConfig.Config.Rise.Overlay,
+            GameProcess.MonsterHunterWorld => ClientConfig.Config.World.Overlay,
+            _ => throw new System.NotImplementedException(),
+        };
 
-            var configs = config.AbnormalityTray.Trays.Trays.ToArray();
-            for (int i = 0; i < config.AbnormalityTray.Trays.Trays.Count; i++)
-            {
-                ref var abnormConfig = ref configs[i];
-
-                if (!abnormConfig.Initialize)
-                    continue;
-
-                _handlers.Add(new AbnormalityWidgetContextHandler(context, ref abnormConfig));
-            }
-        }
-
-        public void Unload()
+        Core.Client.Configuration.Overlay.AbnormalityWidgetConfig[] configs = config.AbnormalityTray.Trays.Trays.ToArray();
+        for (int i = 0; i < config.AbnormalityTray.Trays.Trays.Count; i++)
         {
-            foreach (IContextHandler handler in _handlers)
-                handler.UnhookEvents();
+            ref Core.Client.Configuration.Overlay.AbnormalityWidgetConfig abnormConfig = ref configs[i];
 
-            _handlers.Clear();
+            if (!abnormConfig.Initialize)
+                continue;
+
+            _handlers.Add(new AbnormalityWidgetContextHandler(context, ref abnormConfig));
         }
-        
+    }
+
+    public void Unload()
+    {
+        foreach (IContextHandler handler in _handlers)
+            handler.UnhookEvents();
+
+        _handlers.Clear();
     }
 }

@@ -1,7 +1,6 @@
-﻿namespace HunterPie.Core.Domain.Interfaces
+﻿namespace HunterPie.Core.Domain.Interfaces;
+
+public interface IVersionedConfig
 {
-    public interface IVersionedConfig
-    {
-        public int Version { get; }
-    }
+    public int Version { get; }
 }

@@ -8,66 +8,65 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 
-namespace HunterPie.UI.Controls.Settings.Custom
+namespace HunterPie.UI.Controls.Settings.Custom;
+
+/// <summary>
+/// Interaction logic for AbnormalityTrayList.xaml
+/// </summary>
+public partial class AbnormalityTrayList : UserControl, INotifyPropertyChanged
 {
-    /// <summary>
-    /// Interaction logic for AbnormalityTrayList.xaml
-    /// </summary>
-    public partial class AbnormalityTrayList : UserControl, INotifyPropertyChanged
+
+    private int _selectedIndex;
+
+    public int SelectedIndex { get => _selectedIndex; set => SetValue(ref _selectedIndex, value); }
+
+    private AbnormalityTrays ViewModel => (AbnormalityTrays)DataContext;
+
+    public AbnormalityTrayList()
     {
+        InitializeComponent();
+    }
 
-        private int _selectedIndex;
+    public event PropertyChangedEventHandler PropertyChanged;
 
-        public int SelectedIndex { get => _selectedIndex; set { SetValue(ref _selectedIndex, value); } }
+    private void SetValue<T>(ref T property, T value, [CallerMemberName] string propertyName = "")
+    {
+        if (EqualityComparer<T>.Default.Equals(property, value))
+            return;
 
-        private AbnormalityTrays ViewModel => (AbnormalityTrays)DataContext;
+        property = value;
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 
-        public AbnormalityTrayList()
-        {
-            InitializeComponent();
-        }
+    private void OnAddTrayClick(object sender, EventArgs e)
+    {
+        ViewModel.Trays.Add(new AbnormalityWidgetConfig() { Name = $"Abnormality Tray {ViewModel.Trays.Count + 1}" });
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        SelectedIndex = Math.Max(0, ViewModel.Trays.Count - 1);
+    }
 
-        private void SetValue<T>(ref T property, T value, [CallerMemberName] string propertyName = "")
-        {
-            if (EqualityComparer<T>.Default.Equals(property, value))
-                return;
+    private void OnRemoveTrayClick(object sender, EventArgs e)
+    {
+        AbnormalityWidgetConfig config = ViewModel.Trays[SelectedIndex];
 
-            property = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        NativeDialogResult confirmation = DialogManager.Warn(
+            Localization.QueryString("//Strings/Client/Dialogs/Dialog[@Id='CONFIRMATION_TITLE_STRING']"),
+            Localization.QueryString("//Strings/Client/Dialogs/Dialog[@Id='DELETE_CONFIRMATION_DESCRIPTION_STRING']").Replace("{Item}", $"{(string)config.Name}"),
+            NativeDialogButtons.Accept | NativeDialogButtons.Cancel
+        );
 
-        private void OnAddTrayClick(object sender, EventArgs e)
-        {
-            ViewModel.Trays.Add(new AbnormalityWidgetConfig() { Name = $"Abnormality Tray {ViewModel.Trays.Count + 1}" });
+        if (confirmation != NativeDialogResult.Accept)
+            return;
 
-            SelectedIndex = Math.Max(0, ViewModel.Trays.Count - 1);
-        }
+        ViewModel.Trays.RemoveAt(SelectedIndex);
 
-        private void OnRemoveTrayClick(object sender, EventArgs e)
-        {
-            AbnormalityWidgetConfig config = ViewModel.Trays[SelectedIndex];
+        SelectedIndex = Math.Max(0, SelectedIndex - 1);
+    }
 
-            NativeDialogResult confirmation = DialogManager.Warn(
-                Localization.QueryString("//Strings/Client/Dialogs/Dialog[@Id='CONFIRMATION_TITLE_STRING']"),
-                Localization.QueryString("//Strings/Client/Dialogs/Dialog[@Id='DELETE_CONFIRMATION_DESCRIPTION_STRING']").Replace("{Item}", $"{(string)config.Name}"),
-                NativeDialogButtons.Accept | NativeDialogButtons.Cancel
-            );
-
-            if (confirmation != NativeDialogResult.Accept)
-                return;
-
-            ViewModel.Trays.RemoveAt(SelectedIndex);
-
-            SelectedIndex = Math.Max(0, SelectedIndex - 1);
-        }
-
-        private void OnOpenConfigClick(object sender, EventArgs e)
-        {
-            AbnormalityWidgetConfig vm = ViewModel.Trays[SelectedIndex];
-            var window = new AbnormalityWidgetConfigWindow(vm);
-            window.ShowDialog();
-        }
+    private void OnOpenConfigClick(object sender, EventArgs e)
+    {
+        AbnormalityWidgetConfig vm = ViewModel.Trays[SelectedIndex];
+        var window = new AbnormalityWidgetConfigWindow(vm);
+        _ = window.ShowDialog();
     }
 }

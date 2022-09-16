@@ -3,32 +3,30 @@ using System;
 using System.Linq;
 using MessageHandlerProvider = System.Collections.Generic.Dictionary<HunterPie.Core.Native.IPC.Models.IPCMessageType, System.Collections.Generic.List<HunterPie.Core.Native.IPC.Handlers.IMessageHandler>>;
 
-namespace HunterPie.Core.Native.IPC.Handlers
+namespace HunterPie.Core.Native.IPC.Handlers;
+
+public static class MessageHandlerManager
 {
 
-    public static class MessageHandlerManager
+    private static readonly Lazy<MessageHandlerProvider> _handlerProvider = new(InitProvider);
+    private static MessageHandlerProvider HandlerProvider => _handlerProvider.Value;
+
+    public static void Dispatch(IPCMessageType type, byte[] message)
     {
+        if (!HandlerProvider.ContainsKey(type))
+            return;
 
-        private readonly static Lazy<MessageHandlerProvider> _handlerProvider = new(InitProvider);
-        private static MessageHandlerProvider HandlerProvider => _handlerProvider.Value;
+        foreach (IMessageHandler handler in HandlerProvider[type])
+            handler.Handle(message);
+    }
 
-        public static void Dispatch(IPCMessageType type, byte[] message)
-        {
-            if (!HandlerProvider.ContainsKey(type))
-                return;
-
-            foreach (var handler in HandlerProvider[type])
-                handler.Handle(message);
-        }
-
-        private static MessageHandlerProvider InitProvider()
-        {
-            return AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(assembly => assembly.GetTypes())
-                .Where(type => type.GetInterface(nameof(IMessageHandler)) is not null)
-                .Select(@class => (IMessageHandler)Activator.CreateInstance(@class))
-                .GroupBy(handler => handler.Type)
-                .ToDictionary(group => group.Key, group => group.ToList());
-        }
+    private static MessageHandlerProvider InitProvider()
+    {
+        return AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(assembly => assembly.GetTypes())
+            .Where(type => type.GetInterface(nameof(IMessageHandler)) is not null)
+            .Select(@class => (IMessageHandler)Activator.CreateInstance(@class))
+            .GroupBy(handler => handler.Type)
+            .ToDictionary(group => group.Key, group => group.ToList());
     }
 }

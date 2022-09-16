@@ -1,8 +1,7 @@
-﻿namespace HunterPie.Core.Domain.DTO.Monster
+﻿namespace HunterPie.Core.Domain.DTO.Monster;
+
+public struct MonsterInformationData
 {
-    public struct MonsterInformationData
-    {
-        public string Model;
-        public int Id;
-    }
+    public string Model;
+    public int Id;
 }

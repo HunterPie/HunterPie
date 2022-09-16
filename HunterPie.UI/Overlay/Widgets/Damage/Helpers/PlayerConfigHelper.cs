@@ -4,18 +4,17 @@ using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Settings.Types;
 using System;
 
-namespace HunterPie.UI.Overlay.Widgets.Damage.Helpers
+namespace HunterPie.UI.Overlay.Widgets.Damage.Helpers;
+
+public static class PlayerConfigHelper
 {
-    public static class PlayerConfigHelper
+    public static Color GetColorFromPlayer(GameProcess game, int slot, bool isSelf = false)
     {
-        public static Color GetColorFromPlayer(GameProcess game, int slot, bool isSelf = false)
-        {
-            DamageMeterWidgetConfig config = ClientConfigHelper.GetOverlayConfigFrom(game).DamageMeterWidget;
+        DamageMeterWidgetConfig config = ClientConfigHelper.GetOverlayConfigFrom(game).DamageMeterWidget;
 
-            if (isSelf)
-                return config.PlayerSelf;
-
-            return slot switch
+        return isSelf
+            ? config.PlayerSelf
+            : slot switch
             {
                 0 => config.PlayerFirst,
                 1 => config.PlayerSecond,
@@ -23,6 +22,5 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.Helpers
                 3 => config.PlayerFourth,
                 _ => throw new Exception("invalid player slot")
             };
-        }
     }
 }

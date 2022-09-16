@@ -1,13 +1,12 @@
-﻿namespace HunterPie.UI.Logger
+﻿namespace HunterPie.UI.Logger;
+
+public enum LogLevel
 {
-    public enum LogLevel
-    {
-        Benchmark,
-        Debug,
-        Info,
-        Native,
-        Warn,
-        Error,
-        Panic
-    }
+    Benchmark,
+    Debug,
+    Info,
+    Native,
+    Warn,
+    Error,
+    Panic
 }

@@ -1,22 +1,18 @@
 ﻿using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Game.World.Data;
-using System;
 
-namespace HunterPie.Core.Game.World
+namespace HunterPie.Core.Game.World;
+
+public sealed class MHWContext : Context
 {
-    public sealed class MHWContext : Context
+    public static MHWStrings Strings { get; private set;  }
+
+    internal MHWContext(IProcessManager process)
     {
-
-        private static MHWStrings _strings;
-        public static MHWStrings Strings => _strings;
-
-        internal MHWContext(IProcessManager process)
-        {
-            _strings = new MHWStrings(process);
-            Game = new MHWGame(process);
-            Process = process;
-        }
-
-        public override void Dispose() {}
+        Strings = new MHWStrings(process);
+        Game = new MHWGame(process);
+        Process = process;
     }
+
+    public override void Dispose() { }
 }
