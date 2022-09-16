@@ -786,12 +786,6 @@
 			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
 					 String="Buff∕Debuff 工具列排序"
 					 Description="增益∕減益效果工具列的狀態效果排序。"/>
-			<Setting Id="SORT_BY_LOWEST_TIMER_STRING"
-					 String="最短時間"/>
-			<Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
-					 String="最長時間"/>
-			<Setting Id="SORT_BY_DISABLED_STRING"
-					 String="禁用"/>
 
 			<Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
 					 String="Patch in-game Wirebug Aim"
