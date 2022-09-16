@@ -19,7 +19,7 @@ namespace HunterPie.UI.Controls.Buttons
 
         private void OnButtonClick(object sender, EventArgs e)
         {
-            ColorDialog colorDialog = new ColorDialog();
+            using ColorDialog colorDialog = new();
 
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {

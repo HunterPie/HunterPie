@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Xml;
 
+#nullable enable
 namespace HunterPie.Core.Game.Data
 {
     public class MonsterData
@@ -93,24 +94,23 @@ namespace HunterPie.Core.Game.Data
 
         private static MonsterSizeSchema ParseSize(XmlNode monster)
         {
-            XmlNode crowns = monster.SelectSingleNode("Crowns");
+            XmlNode crowns = monster.SelectSingleNode("Crowns")!;
 
-            float size = 0;
             float mini = 0.9f;
             float silver = 1.15f;
             float gold = 1.23f;
 
             float.TryParse(
-                monster.Attributes["Size"]?.Value, 
+                monster.Attributes!["Size"]?.Value, 
                 NumberStyles.Float,
                 CultureInfo.InvariantCulture, 
-                out size
+                out float size
             );
 
             if (crowns is not null)
             {
 
-                if (crowns.Attributes["Mini"]?.Value is string miniValue)
+                if (crowns.Attributes!["Mini"]?.Value is string miniValue)
                     float.TryParse(
                         miniValue,
                         NumberStyles.Float,
@@ -147,14 +147,17 @@ namespace HunterPie.Core.Game.Data
         
         private static Element[] ParseWeakness(XmlNode monster)
         {
-            XmlNodeList weaknesses = monster.SelectNodes("Weaknesses/Weakness");
+            XmlNodeList weaknesses = monster.SelectNodes("Weaknesses/Weakness")!;
             Element[] elements = new Element[weaknesses.Count];
 
             for (int i = 0; i < weaknesses.Count; i++)
             {
-                XmlNode weakness = weaknesses[i];
+                XmlNode weakness = weaknesses[i]!;
 
-                Enum.TryParse(typeof(Element), weakness.Attributes["Name"]?.Value, out object element);
+                Enum.TryParse(typeof(Element), weakness!.Attributes!["Name"]?.Value, out object? element);
+
+                if (element is null)
+                    continue;
 
                 elements[i] = (Element)element;
             }
@@ -190,3 +193,4 @@ namespace HunterPie.Core.Game.Data
         }
     }
 }
+#nullable restore

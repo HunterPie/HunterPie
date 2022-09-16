@@ -12,12 +12,7 @@ namespace HunterPie.Core.Remote
     {
         const string CDN_BASE_URL = "https://cdn.hunterpie.com";
 
-        private static HashSet<string> _notFoundCache = new();
-
-        public static string GetMonsterIcon(string imageName)
-        {
-            return "";
-        }
+        private readonly static HashSet<string> _notFoundCache = new();
 
         public static async Task<string> GetMonsterIconUrl(string imagename)
         {

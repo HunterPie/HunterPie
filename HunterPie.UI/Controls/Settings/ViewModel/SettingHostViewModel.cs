@@ -79,7 +79,7 @@ namespace HunterPie.UI.Controls.Settings.ViewModel
             IsFetchingVersion = false;
         }
 
-        public async void ExecuteRestart()
+        public void ExecuteRestart()
         {
             string path = Process.GetCurrentProcess().MainModule.FileName;
             Process.Start(path.Replace(".dll", ".exe"));

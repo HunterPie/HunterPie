@@ -43,7 +43,7 @@ namespace HunterPie.Internal.Initializers
             RewriteSettings(versionedConfig);
         }
 
-        private void CreateConfigIfNeeded()
+        private static void CreateConfigIfNeeded()
         {
             string configPath = ClientInfo.GetPathFor(ClientConfig.CONFIG_NAME);
 
@@ -51,12 +51,12 @@ namespace HunterPie.Internal.Initializers
                 ConfigHelper.WriteObject(configPath, new Config());
         }
 
-        private T ReadSettingsAs<T>()
+        private static T ReadSettingsAs<T>()
         {
             return ReadSettingsAs<T>(typeof(T));
         }
 
-        private T ReadSettingsAs<T>(Type type)
+        private static T ReadSettingsAs<T>(Type type)
         {
             string rawSettings = File.ReadAllText(
                 ClientInfo.GetPathFor(ClientInfo.ConfigName)
@@ -65,12 +65,8 @@ namespace HunterPie.Internal.Initializers
             return (T)JsonConvert.DeserializeObject(rawSettings, type);
         }
 
-        private void RewriteSettings(IVersionedConfig newSettings)
+        private static void RewriteSettings(IVersionedConfig newSettings)
         {
-            var serializerSettings = new JsonSerializerSettings()
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            };
             string serializedConfig = JsonProvider.Serialize(newSettings);
             
             File.WriteAllText(

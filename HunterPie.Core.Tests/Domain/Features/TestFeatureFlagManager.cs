@@ -10,7 +10,7 @@ namespace HunterPie.Core.Tests.Domain.Features
     {
         private class MockFlagsRepository : IFeatureFlagRepository
         {
-            private Dictionary<string, Feature> _mockFeatures = new()
+            private readonly Dictionary<string, Feature> _mockFeatures = new()
             {
                 { "feature_example_mock", new Feature(true) },
                 { "feature_example_mock_2", new Feature(false) },

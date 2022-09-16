@@ -9,7 +9,7 @@ namespace HunterPie.Features
 {
     internal static class ContextInitializers
     {
-        private static IContextInitializer[] initializers = new IContextInitializer[]
+        private readonly static IContextInitializer[] initializers = new IContextInitializer[]
         {
             new MHWContextInitializer(),
             new MHRContextInitializer(),

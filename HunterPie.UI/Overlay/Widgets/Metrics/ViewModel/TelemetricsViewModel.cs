@@ -2,12 +2,9 @@
 using System;
 using System.Diagnostics;
 using System.Timers;
-using System.Collections.Generic;
 using LiveCharts;
-using LiveCharts.Wpf;
 using System.Windows.Media;
 using LiveCharts.Defaults;
-using HunterPie.UI.Architecture.Brushes;
 using HunterPie.UI.Architecture.Graphs;
 using HunterPie.Core.Extensions;
 
@@ -19,6 +16,7 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.ViewModel
         private long _memoryUsage;
         private float _cpuUsage;
         private int _threads;
+        private readonly Timer _dispatcher;
 
         private PerformanceCounter _cpuPerfCounter;
         private PerformanceCounter CpuPerfCounter
@@ -77,12 +75,12 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.ViewModel
                 .AddSeries(PrivateSetPoints, "Private", (Color)ColorConverter.ConvertFromString("#7B65F0"))
                 .Build();
 
-            var dispatcher = new Timer(5000)
+            _dispatcher = new Timer(5000)
             {
                 AutoReset = true
             };
-            dispatcher.Elapsed += UpdateInformation;
-            dispatcher.Start();
+            _dispatcher.Elapsed += UpdateInformation;
+            _dispatcher.Start();
         }
         double start = double.MaxValue;
         public void UpdateInformation(object source, ElapsedEventArgs e)

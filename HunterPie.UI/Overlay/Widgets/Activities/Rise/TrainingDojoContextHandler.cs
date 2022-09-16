@@ -12,32 +12,32 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.Rise
     {
         private readonly MHRContext _context;
         private readonly Dictionary<MHRBuddy, BuddyViewModel> _buddyViewModels;
-        private MHRPlayer _player => (MHRPlayer)_context.Game.Player;
+        private MHRPlayer Player => (MHRPlayer)_context.Game.Player;
 
         public readonly TrainingDojoViewModel ViewModel = new();
 
         public TrainingDojoContextHandler(MHRContext context)
         {
             _context = context;
-            _buddyViewModels = new(_player.TrainingDojo.Buddies.Length);
+            _buddyViewModels = new(Player.TrainingDojo.Buddies.Length);
 
             UpdateData();
         }
 
         private void UpdateData()
         {
-            ViewModel.Boosts = _player.TrainingDojo.Boosts;
-            ViewModel.MaxBoosts = _player.TrainingDojo.MaxBoosts;
-            ViewModel.Rounds = _player.TrainingDojo.Rounds;
-            ViewModel.MaxRounds = _player.TrainingDojo.MaxRounds;
+            ViewModel.Boosts = Player.TrainingDojo.Boosts;
+            ViewModel.MaxBoosts = Player.TrainingDojo.MaxBoosts;
+            ViewModel.Rounds = Player.TrainingDojo.Rounds;
+            ViewModel.MaxRounds = Player.TrainingDojo.MaxRounds;
         }
 
         public void HookEvents()
         {
-            _player.TrainingDojo.OnBoostsLeftChange += OnBoostsChange;
-            _player.TrainingDojo.OnRoundsLeftChange += OnRoundsChange;
+            Player.TrainingDojo.OnBoostsLeftChange += OnBoostsChange;
+            Player.TrainingDojo.OnRoundsLeftChange += OnRoundsChange;
 
-            foreach (MHRBuddy buddy in _player.TrainingDojo.Buddies)
+            foreach (MHRBuddy buddy in Player.TrainingDojo.Buddies)
             {
                 if (_buddyViewModels.ContainsKey(buddy))
                     continue;
@@ -59,8 +59,8 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.Rise
 
         public void UnhookEvents()
         {
-            _player.TrainingDojo.OnBoostsLeftChange -= OnBoostsChange;
-            _player.TrainingDojo.OnRoundsLeftChange -= OnRoundsChange;
+            Player.TrainingDojo.OnBoostsLeftChange -= OnBoostsChange;
+            Player.TrainingDojo.OnRoundsLeftChange -= OnRoundsChange;
 
             foreach (MHRBuddy buddy in _buddyViewModels.Keys)
             {

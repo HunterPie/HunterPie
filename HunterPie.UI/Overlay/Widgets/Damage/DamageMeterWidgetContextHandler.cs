@@ -199,6 +199,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             return series;
         }
 
+#nullable enable
         private void HandleAddMember(IPartyMember member)
         {
             Action<IPartyMember>? func = member.Type switch
@@ -222,6 +223,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
 
             func?.Invoke(member);
         }
+#nullable restore
 
         private void AddPet(IPartyMember pet)
         {

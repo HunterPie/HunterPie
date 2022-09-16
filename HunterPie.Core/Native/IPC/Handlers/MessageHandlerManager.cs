@@ -1,24 +1,23 @@
 ﻿using HunterPie.Core.Native.IPC.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using MessageHandlerProvider = System.Collections.Generic.Dictionary<HunterPie.Core.Native.IPC.Models.IPCMessageType, System.Collections.Generic.List<HunterPie.Core.Native.IPC.Handlers.IMessageHandler>>;
 
 namespace HunterPie.Core.Native.IPC.Handlers
 {
-    using MessageHandlerProvider = Dictionary<IPCMessageType, List<IMessageHandler>>;
 
     public static class MessageHandlerManager
     {
 
-        private static Lazy<MessageHandlerProvider> _handlerProvider = new Lazy<MessageHandlerProvider>(InitProvider);
-        private static MessageHandlerProvider handlerProvider => _handlerProvider.Value;
+        private readonly static Lazy<MessageHandlerProvider> _handlerProvider = new(InitProvider);
+        private static MessageHandlerProvider HandlerProvider => _handlerProvider.Value;
 
         public static void Dispatch(IPCMessageType type, byte[] message)
         {
-            if (!handlerProvider.ContainsKey(type))
+            if (!HandlerProvider.ContainsKey(type))
                 return;
 
-            foreach (var handler in handlerProvider[type])
+            foreach (var handler in HandlerProvider[type])
                 handler.Handle(message);
         }
 

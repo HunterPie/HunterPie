@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 
+#nullable enable
 namespace HunterPie.Core.Json
 {
     public static class JsonProvider
@@ -23,6 +24,7 @@ namespace HunterPie.Core.Json
             JsonConvert.SerializeObject(value, Formatting.Indented, _serializerSettings);
 
         public static T Deserialize<T>(string value) =>
-            JsonConvert.DeserializeObject<T>(value);
+            JsonConvert.DeserializeObject<T>(value)!;
     }
 }
+#nullable restore

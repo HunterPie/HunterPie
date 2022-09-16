@@ -5,7 +5,7 @@ namespace HunterPie.Features.Overlay
 {
     internal static class WidgetInitializers
     {
-        private static IWidgetInitializer[] Initializers =
+        private readonly static IWidgetInitializer[] Initializers =
         {
             new MonsterWidgetInitializer(),
             new AbnormalitiesWidgetInitializer(),

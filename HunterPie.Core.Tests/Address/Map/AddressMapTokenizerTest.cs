@@ -12,7 +12,8 @@ namespace HunterPie.Core.Tests.Address.Map
         public void ConsumeUntilCharTest()
         {
             string testCase = "# this is a commentary, and I'm trying to make it as long as possible to also test the speed\nAddress TEST_OFFSET 0x123456\n";
-            StreamReader stream = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(testCase)));
+            
+            using StreamReader stream = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(testCase)));
 
             string result = AddressMapTokenizer.ConsumeUntilChar(stream, '\n');
 

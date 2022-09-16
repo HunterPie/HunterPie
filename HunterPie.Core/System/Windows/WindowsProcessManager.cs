@@ -13,26 +13,27 @@ using HunterPie.Core.System.Windows.Memory;
 using HunterPie.Core.Events;
 using HunterPie.Core.Domain.Enums;
 
+#nullable enable
 namespace HunterPie.Core.System.Windows
 {
     abstract class WindowsProcessManager : IProcessManager, IEventDispatcher
     {
 
-        protected Thread pooler;
+        protected Thread? _pooler;
         private bool _isProcessForeground;
         private bool _shouldPauseThread;
         protected bool ShouldPollProcess = true;
        
-        private IMemory memory; 
+        private IMemory? _memory; 
         private IntPtr pHandle;
 
-        public event EventHandler<ProcessEventArgs> OnGameStart;
-        public event EventHandler<ProcessEventArgs> OnGameClosed;
-        public event EventHandler<ProcessEventArgs> OnGameFocus;
-        public event EventHandler<ProcessEventArgs> OnGameUnfocus;
+        public event EventHandler<ProcessEventArgs>? OnGameStart;
+        public event EventHandler<ProcessEventArgs>? OnGameClosed;
+        public event EventHandler<ProcessEventArgs>? OnGameFocus;
+        public event EventHandler<ProcessEventArgs>? OnGameUnfocus;
 
-        public virtual string Name { get; }
-        public virtual GameProcess Game { get; }
+        public abstract string Name { get; }
+        public abstract GameProcess Game { get; }
 
         public int Version { get; private set; }
         public Process? Process { get; private set; }
@@ -56,18 +57,18 @@ namespace HunterPie.Core.System.Windows
             }
         }
 
-        public IMemory Memory => memory;
+        public IMemory Memory => _memory!;
 
         public void Initialize()
         {
             Log.Info($"Started scanning for process {Name}...");
 
-            pooler = new Thread(new ThreadStart(ExecutePolling))
+            _pooler = new Thread(new ThreadStart(ExecutePolling))
             {
                 Name = "PollingBackgroundThread",
                 IsBackground = true,
             };
-            pooler.Start();
+            _pooler.Start();
         }
 
         private void ExecutePolling()
@@ -93,7 +94,7 @@ namespace HunterPie.Core.System.Windows
                 return;
             }
 
-            Process mhProcess = Process.GetProcessesByName(Name)
+            Process? mhProcess = Process.GetProcessesByName(Name)
                 .FirstOrDefault(process => !string.IsNullOrEmpty(process?.MainWindowTitle));
 
             if (mhProcess is null)
@@ -112,7 +113,7 @@ namespace HunterPie.Core.System.Windows
                 ProcessId = mhProcess.Id;
                 pHandle = Kernel32.OpenProcess(Kernel32.PROCESS_ALL_ACCESS, false, ProcessId);
 
-                if (pHandle == IntPtr.Zero)
+                if (pHandle == IntPtr.Zero || Process.MainModule is null)
                 {
                     Log.Error("Failed to open game process. Run HunterPie as Administrator!");
                     ShouldPollProcess = false;
@@ -121,7 +122,7 @@ namespace HunterPie.Core.System.Windows
 
                 IsRunning = true;
 
-                memory = new WindowsMemory(pHandle);
+                _memory = new WindowsMemory(pHandle);
 
                 AddressMap.Add("BASE", (long)Process.MainModule.BaseAddress);
 
@@ -133,7 +134,7 @@ namespace HunterPie.Core.System.Windows
 
         private void OnProcessExit()
         {
-            Process.Dispose();
+            Process?.Dispose();
             Process = null;
 
             Kernel32.CloseHandle(pHandle);
@@ -148,7 +149,8 @@ namespace HunterPie.Core.System.Windows
         public void Resume()
         {
             _shouldPauseThread = false;
-            pooler.Interrupt();
+            _pooler?.Interrupt();
         }
     }
 }
+#nullable restore
