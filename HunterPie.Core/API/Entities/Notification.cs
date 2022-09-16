@@ -2,7 +2,7 @@
 using System;
 
 #nullable enable
-namespace HunterPie.Core.API.Schemas
+namespace HunterPie.Core.API.Entities
 {
     public class Notification
     {
