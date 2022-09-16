@@ -14,6 +14,7 @@ using HunterPie.Core.Utils;
 using HunterPie.GUI.ViewModels;
 using HunterPie.GUI.Parts.Host;
 using System.Windows.Media;
+using HunterPie.GUI.Parts.Account.Views;
 using Localization = HunterPie.Core.Client.Localization.Localization;
 
 namespace HunterPie
@@ -61,6 +62,7 @@ namespace HunterPie
                        
             SetupTrayIcon();
             SetupMainNavigator();
+            SetupAccountEvents();
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
@@ -98,6 +100,29 @@ namespace HunterPie
                 PART_ContentPresenter.RenderTransform.BeginAnimation(ScaleTransform.ScaleXProperty, shrinkAnimation);
                 PART_ContentPresenter.RenderTransform.BeginAnimation(ScaleTransform.ScaleYProperty, shrinkAnimation);
             };
+        }
+
+        private void SetupAccountEvents()
+        {
+            PART_Sidebar.PART_UserAccount.OnSignInClicked += (_, __) => CreateSignFlowView();
+            PART_Sidebar.PART_UserAccount.OnSignUpClicked += (_, __) => CreateSignFlowView();
+        }
+
+        private void CreateSignFlowView()
+        {
+            AccountSignFlowView view = new();
+            view.OnFormClose += OnSignFormClose;
+            PART_SigninView.Content = view;
+        }
+
+        private void OnSignFormClose(object sender, EventArgs e)
+        {
+            if (sender is AccountSignFlowView view)
+            {
+                view.OnFormClose -= OnSignFormClose;
+                view.Dispose();
+                PART_SigninView.Content = null;
+            }
         }
 
         private void OnTrayShowClick(object sender, EventArgs e)

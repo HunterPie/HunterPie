@@ -21,9 +21,6 @@ using HunterPie.Features.Overlay;
 using HunterPie.Core.Domain;
 using System.Threading;
 using HunterPie.Features.Patcher;
-using HunterPie.Core.Native.IPC;
-using HunterPie.Core.Native.IPC.Handlers.Internal.Damage;
-using HunterPie.Core.Json;
 using HunterPie.Features;
 
 namespace HunterPie
