@@ -18,7 +18,7 @@ namespace HunterPie.Core.Native.IPC
 
         private static IPCService? _instance;
         private TcpClient? _client;
-        private NetworkStream? _stream => _client?.GetStream();
+        private NetworkStream? Stream => _client?.GetStream();
         private bool IsConnected => _client?.Connected ?? false;
         private static readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1);
 
@@ -84,7 +84,7 @@ namespace HunterPie.Core.Native.IPC
              
                 while (IsConnected)
                 {
-                    int dataSize = await _stream?.ReadAsync(buffer, 0, buffer.Length);
+                    int dataSize = await Stream?.ReadAsync(buffer, 0, buffer.Length);
                     byte[] dataCopy = new byte[dataSize];
 
                     Buffer.BlockCopy(buffer, 0, dataCopy, 0, dataSize);
@@ -96,7 +96,7 @@ namespace HunterPie.Core.Native.IPC
             });
         }
 
-        private async void HandleDisconnect()
+        private void HandleDisconnect()
         {
             _client?.Dispose();
             Log.Native("HunterPie was disconnected from Native Interface.");
@@ -134,7 +134,7 @@ namespace HunterPie.Core.Native.IPC
             {
                 await _semaphoreSlim.WaitAsync();
 
-                await _stream?.WriteAsync(raw, 0, raw.Length);
+                await Stream?.WriteAsync(raw, 0, raw.Length);
                 return true;
             } catch (Exception err)
             {

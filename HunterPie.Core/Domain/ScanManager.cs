@@ -24,7 +24,7 @@ namespace HunterPie.Core.Domain
         {
             if (thread is null)
             {
-                thread = new Thread(async () =>
+                thread = new Thread(() =>
                 {
                     do
                     {

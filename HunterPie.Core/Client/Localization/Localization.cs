@@ -1,20 +1,18 @@
 ﻿using HunterPie.Core.Logger;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
+#nullable enable
 namespace HunterPie.Core.Client.Localization
 {
     public class Localization
     {
 
         private XmlDocument document;
-        private static Localization _instance;
+        private static Localization? _instance;
 
         public static Localization Instance
         {
@@ -50,25 +48,25 @@ namespace HunterPie.Core.Client.Localization
                     XmlDocument otherLanguage = new();
                     otherLanguage.Load(xmlPath);
 
-                    XmlNodeList englishNodes = document.DocumentElement.SelectNodes("//*");
-                    foreach (XmlNode node in otherLanguage.DocumentElement.SelectNodes("//*"))
+                    XmlNodeList englishNodes = document.DocumentElement!.SelectNodes("//*")!;
+                    foreach (XmlNode node in otherLanguage.DocumentElement!.SelectNodes("//*")!)
                     {
-                        string id = node.Attributes["Id"]?.Value;
+                        string id = node.Attributes!["Id"]?.Value!;
 
                         if (id is null)
                             continue;
 
                         string path = GetFullParentPath(node);
-                        XmlNode match = document.DocumentElement.SelectSingleNode($"//{path}/*[@Id='{id}']");
+                        XmlNode match = document.DocumentElement.SelectSingleNode($"//{path}/*[@Id='{id}']")!;
 
                         if (match is null)
                             continue;
 
-                        if (match.Attributes["String"] != null)
-                            match.Attributes["String"].Value = node.Attributes["String"]?.Value ?? match.Attributes["String"].Value;
+                        if (match.Attributes?["String"] is not null)
+                            match.Attributes!["String"]!.Value = node.Attributes["String"]?.Value ?? match.Attributes["String"]!.Value;
 
-                        if (match.Attributes["Description"] != null)
-                            match.Attributes["Description"].Value = node.Attributes["Description"]?.Value ?? match.Attributes["Description"].Value;
+                        if (match.Attributes?["Description"] is not null)
+                            match.Attributes!["Description"]!.Value = node.Attributes["Description"]?.Value ?? match.Attributes["Description"]!.Value;
                     }
                 }
             } catch(Exception err) { Log.Error(err.ToString()); }
@@ -85,23 +83,24 @@ namespace HunterPie.Core.Client.Localization
             return GetFullParentPath(node.ParentNode, $"{node.ParentNode.Name}/{path}");
         } 
 
-        public static XmlNode Query(string query) => _instance.document.SelectSingleNode(query);
-        public static XmlNodeList QueryMany(string query) => _instance.document.SelectNodes(query);
-        public static string QueryString(string query) => _instance.document.SelectSingleNode(query)?.Attributes["String"]?.Value;
-        public static string QueryDescription(string query) => Query(query)?.Attributes["Description"]?.Value;
+        public static XmlNode? Query(string query) => Instance.document.SelectSingleNode(query);
+        public static XmlNodeList? QueryMany(string query) => Instance.document.SelectNodes(query);
+        public static string QueryString(string query) => Instance.document.SelectSingleNode(query)?.Attributes?["String"]?.Value ?? query;
+        public static string QueryDescription(string query) => Query(query)?.Attributes?["Description"]?.Value ?? query;
 
         public static string GetEnumString(object enumValue)
         {
             MemberInfo memberInfo = enumValue.GetType()
-                                             .GetMember(enumValue.ToString())
+                                             .GetMember(enumValue.ToString()!)
                                              .First();
 
             LocalizationAttribute? attribute = memberInfo.GetCustomAttribute<LocalizationAttribute>();
 
             if (attribute is null)
-                return enumValue.ToString();
+                return enumValue.ToString()!;
 
             return QueryString(attribute.XPath);
         }
     }
 }
+#nullable restore

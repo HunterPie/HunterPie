@@ -23,7 +23,6 @@ namespace HunterPie.Internal.Logger
 
         public NativeLogger()
         {
-            Process currentProcess = Process.GetCurrentProcess();
             AllocConsole();
             Console.Title = "[DEBUG] HunterPie Console";
         }
@@ -46,7 +45,7 @@ namespace HunterPie.Internal.Logger
         public Task Native(string message) => WriteToStdout(LogLevel.Error, message);
         public Task Native(string format, params object[] args) => WriteToStdout(LogLevel.Native, string.Format(format, args));
 
-        private Task WriteToStdout(LogLevel level, string message)
+        private static Task WriteToStdout(LogLevel level, string message)
         {
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.Write($"[{DateTime.Now.ToLongTimeString()}]");

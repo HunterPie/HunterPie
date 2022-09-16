@@ -9,7 +9,6 @@ using System.Windows.Media;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Windows.Input;
-using System.Windows.Media.Animation;
 using HunterPie.Core.Logger;
 using System.Runtime.InteropServices;
 #if DEBUG
@@ -137,7 +136,7 @@ namespace HunterPie.UI.Overlay.Components
             else
                 styles &= ~(uint)(User32.EX_WINDOW_STYLES.WS_EX_TRANSPARENT);
 
-            var result = User32.SetWindowLong(hWnd, User32.GWL_EXSTYLE, (int)styles);
+            int result = User32.SetWindowLong(hWnd, User32.GWL_EXSTYLE, (int)styles);
 
             if (result == 0)
                 Log.Error("Failed to set widget {0} flags due to error code: {1}", Widget.GetType().Name, Marshal.GetLastWin32Error());

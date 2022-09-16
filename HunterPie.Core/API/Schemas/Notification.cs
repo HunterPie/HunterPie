@@ -2,18 +2,19 @@
 using Newtonsoft.Json;
 using System;
 
+#nullable enable
 namespace HunterPie.Core.API.Schemas
 {
     public class Notification
     {
         [JsonProperty("title")]
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
         [JsonProperty("message")]
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
 
         [JsonProperty("icon")]
-        public string Icon { get; set; }
+        public string? Icon { get; set; } = string.Empty;
 
         [JsonProperty("notification_type")]
         public NotificationType NotificationType { get; set; }
@@ -28,3 +29,4 @@ namespace HunterPie.Core.API.Schemas
         public DateTime CreatedAt { get; set; }
     }
 }
+#nullable restore

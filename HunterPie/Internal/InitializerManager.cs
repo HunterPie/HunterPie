@@ -9,7 +9,7 @@ namespace HunterPie.Internal
 {
     internal class InitializerManager
     {
-        private static HashSet<IInitializer> _initializers = new()
+        private readonly static HashSet<IInitializer> _initializers = new()
         {
             new CustomFontsInitializer(),
             // Core
@@ -35,7 +35,7 @@ namespace HunterPie.Internal
             new ApiPingInitializer(),
         };
 
-        private static HashSet<IInitializer> _uiInitializers = new()
+        private readonly static HashSet<IInitializer> _uiInitializers = new()
         {
             new HotkeyInitializer(),
 

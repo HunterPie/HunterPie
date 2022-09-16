@@ -10,9 +10,9 @@ namespace HunterPie.Internal.Initializers
 {
     internal class CustomFontsInitializer : IInitializer, IDisposable
     {
-        private static string _fontsFolder = ClientInfo.GetPathFor("Assets\\Fonts");
+        private readonly static string _fontsFolder = ClientInfo.GetPathFor("Assets\\Fonts");
 
-        private static Lazy<string[]> _fonts = new Lazy<string[]>(() =>
+        private readonly static Lazy<string[]> _fonts = new(() =>
         {
             if (!Directory.Exists(_fontsFolder))
                 return Array.Empty<string>();

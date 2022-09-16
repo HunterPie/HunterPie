@@ -19,16 +19,14 @@ namespace HunterPie.Core.Address.Map
                 return IsLoaded;
             }
 
-            using (FileStream file = File.OpenRead(filePath))
-            {
-                StreamReader stream = new StreamReader(file);
-                
-                parser = new LegacyAddressMapParser(stream);
+            using FileStream file = File.OpenRead(filePath);
+            using StreamReader stream = new StreamReader(file);
 
-                Log.Info($"Loaded {Path.GetFileName(filePath)} successfully");
+            parser = new LegacyAddressMapParser(stream);
 
-                IsLoaded = true;
-            }
+            Log.Info($"Loaded {Path.GetFileName(filePath)} successfully");
+
+            IsLoaded = true;
 
             return IsLoaded;
         }

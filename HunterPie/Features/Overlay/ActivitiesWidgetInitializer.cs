@@ -25,7 +25,7 @@ namespace HunterPie.Features.Overlay
             _handler = context switch
             {
                 MHRContext ctx => new RiseActivitiesWidgetContextHandler(ctx),
-                MHWContext ctx => null,
+                MHWContext => null,
                 MHRSunbreakDemoContext => null,
                 _ => throw new NotImplementedException("unreachable")
             };

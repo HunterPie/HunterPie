@@ -10,19 +10,19 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.Rise
     {
         private readonly MHRContext _context;
         private readonly Dictionary<MHRSubmarine, SubmarineViewModel> _submarineViewModels;
-        private MHRPlayer _player => (MHRPlayer)_context.Game.Player;
+        private MHRPlayer Player => (MHRPlayer)_context.Game.Player;
 
         public readonly SubmarinesViewModel ViewModel = new();
 
         public SubmarinesContextHandler(MHRContext context)
         {
             _context = context;
-            _submarineViewModels = new(_player.Argosy.Submarines.Length);
+            _submarineViewModels = new(Player.Argosy.Submarines.Length);
         }
 
         public void HookEvents()
         {
-            foreach (MHRSubmarine submarine in _player.Argosy.Submarines)
+            foreach (MHRSubmarine submarine in Player.Argosy.Submarines)
             {
                 if (!_submarineViewModels.ContainsKey(submarine))
                     _submarineViewModels[submarine] = new()

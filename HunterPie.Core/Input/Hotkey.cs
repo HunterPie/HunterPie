@@ -27,7 +27,9 @@ namespace HunterPie.Core.Input
             }
         }
 
+#pragma warning disable IDE0060
         internal static IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+#pragma warning restore IDE0060
         {
             if (msg == WM_HOTKEY)
             {

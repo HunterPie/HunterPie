@@ -301,7 +301,7 @@ namespace HunterPie.Core.Game.Rise
             return message.Type switch
             {
                 0x0 => DerefNormalChatMessage(message),
-                _ => DerefUnknownTypeMessage(message)
+                _ => DerefUnknownTypeMessage()
             };
         }
 
@@ -335,7 +335,7 @@ namespace HunterPie.Core.Game.Rise
             };
         }
 
-        private MHRChatMessage DerefUnknownTypeMessage(MHRChatMessageStructure message) => new() { Type = AuthorType.None };
+        private MHRChatMessage DerefUnknownTypeMessage() => new() { Type = AuthorType.None };
 
         #endregion
     }

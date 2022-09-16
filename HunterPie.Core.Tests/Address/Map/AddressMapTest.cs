@@ -43,7 +43,7 @@ namespace HunterPie.Core.Tests.Address.Map
         [TestMethod]
         public void TestLegacyAddressMapParser()
         {
-            StreamReader stream = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(mapExample)));
+            using StreamReader stream = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(mapExample)));
 
             IAddressMapParser result = new LegacyAddressMapParser(stream);
 

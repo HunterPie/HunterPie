@@ -5,7 +5,7 @@ namespace HunterPie.Features.Patcher
 {
     internal static class GamePatchers
     {
-        private static IContextInitializer[] patchers = new IContextInitializer[]
+        private readonly static IContextInitializer[] patchers = new IContextInitializer[]
         {
             new RiseIntegrityPatcher(),
         };
