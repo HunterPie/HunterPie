@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.API;
-using HunterPie.Core.API.Schemas;
+using HunterPie.Core.API.Entities;
 using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
 using System;
@@ -50,7 +50,7 @@ namespace HunterPie.GUI.Parts
         {
             IsFetchingSupporter = true;
 
-            SupporterValidationResSchema res = await PoogieApi.ValidateSupporterToken();
+            SupporterValidationResponse res = await PoogieApi.ValidateSupporterToken();
 
             IsSupporter = res?.IsValid ?? false;
 

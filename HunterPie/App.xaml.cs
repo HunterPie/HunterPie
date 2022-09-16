@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Game;
 using HunterPie.Core.Logger;
 using System;
@@ -20,6 +20,7 @@ using System.Linq;
 using HunterPie.Features.Overlay;
 using HunterPie.Core.Domain;
 using System.Threading;
+using HunterPie.Features.Patcher;
 using HunterPie.Features;
 
 namespace HunterPie

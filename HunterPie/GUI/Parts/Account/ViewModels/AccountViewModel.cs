@@ -9,7 +9,7 @@ namespace HunterPie.GUI.Parts.Account.ViewModels
         private bool _isAvatarClicked;
         private string _avatarUrl;
         private string _username;
-        private bool _isLoggedIn = true;
+        private bool _isLoggedIn;
 
         public bool IsAvatarClicked { get => _isAvatarClicked; set => SetValue(ref _isAvatarClicked, value); }
         public string AvatarUrl { get => _avatarUrl; set => SetValue(ref _avatarUrl, value); }

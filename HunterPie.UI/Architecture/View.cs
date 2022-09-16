@@ -21,6 +21,11 @@ namespace HunterPie.UI.Architecture
             return Activator.CreateInstance<TViewModel>();
         }
 
+        public View()
+        {
+            DataContext = InitializeViewModel();
+        }
+
         public View(params object[] args)
         {
             DataContext = InitializeViewModel(args);

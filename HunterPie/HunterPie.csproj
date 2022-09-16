@@ -58,8 +58,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="GUI\Parts\Account\ViewModels\" />
-    <Folder Include="GUI\Views\" />
     <Folder Include="Languages\" />
   </ItemGroup>
 

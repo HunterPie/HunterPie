@@ -1,8 +1,7 @@
-﻿using HunterPie.Core.API.Entities;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 
-namespace HunterPie.Core.API.Schemas
+namespace HunterPie.Core.API.Entities
 {
     public class Notification
     {
@@ -19,10 +18,10 @@ namespace HunterPie.Core.API.Schemas
         public NotificationType NotificationType { get; set; }
 
         [JsonProperty("primary_action")]
-        public string? PrimaryAction { get; set; }
+        public string PrimaryAction { get; set; }
 
         [JsonProperty("secondary_action")]
-        public string? SecondaryAction { get; set; }
+        public string SecondaryAction { get; set; }
 
         [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }
