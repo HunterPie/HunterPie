@@ -131,7 +131,13 @@
         <sidebar:SideBarContainer Grid.Row="1"
                                   VerticalAlignment="Stretch"
                                   HorizontalAlignment="Left"
-                                  ItemsHeight="40"/>
+                                  ItemsHeight="40"
+                                  x:Name="PART_Sidebar"/>
+
+        <ContentPresenter x:Name="PART_SigninView"
+                          Margin="0,30,0,0"
+                          Grid.ColumnSpan="2"
+                          Grid.RowSpan="2"/>
 
         <notifications:NotificationsPanelView Grid.ColumnSpan="10"
                                               Grid.RowSpan="10"
@@ -168,7 +174,7 @@
                                                 <QuadraticEase/>
                                             </ThicknessAnimation.EasingFunction>
                                         </ThicknessAnimation>
-                                        
+
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.EnterActions>

@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.API.Entities;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 
 #nullable enable
@@ -14,7 +13,7 @@ namespace HunterPie.Core.API.Schemas
         public string Message { get; set; } = string.Empty;
 
         [JsonProperty("icon")]
-        public string? Icon { get; set; } = string.Empty;
+        public string Icon { get; set; } = string.Empty;
 
         [JsonProperty("notification_type")]
         public NotificationType NotificationType { get; set; }

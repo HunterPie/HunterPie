@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Address.Map;
+﻿using System;
+using HunterPie.Core.Address.Map;
 using HunterPie.Core.Client;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Rise;
@@ -47,25 +48,28 @@ namespace HunterPie.Features.Overlay
         */
         private void PatchInGameHudAssembly(Context context)
         {
-            var config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
-
-            if (!config.WirebugWidget.PatchInGameHud)
-                return;
-
-            long wirebugAimAddress = AddressMap.GetAbsolute("FUNC_WIREBUG_HIDE_AIM_ADDRESS");
-            byte[] assembly =
+            try
             {
-                // or qword ptr[rax+50], 01
-                0x48, 0x83, 0x48, 0x50, 0x1
-            };
+                var config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
 
-            if (!context.Process.Memory.InjectAsm(wirebugAimAddress, assembly))
-            {
-                Log.Error("Failed to patch in-game Wirebug HUD");
-                return;
+                if (!config.WirebugWidget.PatchInGameHud)
+                    return;
+
+                long wirebugAimAddress = AddressMap.GetAbsolute("FUNC_WIREBUG_HIDE_AIM_ADDRESS");
+                byte[] assembly =
+                {
+                    // or qword ptr[rax+50], 01
+                    0x48, 0x83, 0x48, 0x50, 0x1
+                };
+
+                context.Process.Memory.InjectAsm(wirebugAimAddress, assembly);
+
+                Log.Debug("Successfully patched Wirebug aim");
             }
-
-            Log.Debug("Successfully patched Wirebug aim");
+            catch (Exception ex)
+            {
+                Log.Error("Failed to patch in-game Wirebug HUD: {0}", ex);
+            }
         }
     }
 }

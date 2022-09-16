@@ -517,9 +517,9 @@
 					String="동반자"/>
 
 			<String Id="TRAINING_DOJO_BOOSTS_STRING"
-					String="부스트 횟수:"/>
+					String="부스트:"/>
 			<String Id="TRAINING_DOJO_ROUNDS_STRING"
-					String="특훈 횟수:"/>
+					String="특훈:"/>
 
 			<String Id="MEOWCENARIES_STEP_STRING"
 					String="조사 단계:"/>
@@ -555,6 +555,25 @@
 			<Generic Id="HUNTERPIE_CURRENT_SELECTED_CONFIG"
 					 String="설정:"/>
 		</Generics>
+		<Dialogs>
+			<Dialog Id="UPDATE_TITLE_STRING"
+					 String="업데이트"/>
+			<Dialog Id="UPDATE_CONFIRMATION_DESCRIPTION_STRING"
+					 String="v{Latest} 버전을 사용할 수 있습니다.&#x0a;지금 업데이트 할까요?"/>
+			<Dialog Id="CONFIRMATION_TITLE_STRING"
+					String="확인"/>
+			<Dialog Id="DELETE_CONFIRMATION_DESCRIPTION_STRING"
+					String="{Item} 삭제할까요?"/>
+			<Dialog Id="EXIT_CONFIRMATION_DESCRIPTION_STRING"
+					String="HunterPie를 종료할까요?"/>
+
+			<Button Id="ACCEPT_STRING"
+				  String="네"/>
+			<Button Id="REJECT_STRING"
+				  String="아니오"/>
+			<Button Id="CANCEL_STRING"
+				  String="취소"/>
+		</Dialogs>
 		<Integrations>
 			<!-- Shared between games -->
 			<Discord Id="DRPC_STATE_HUNTING"

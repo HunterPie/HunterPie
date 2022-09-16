@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Logger;
+﻿using HunterPie.Core.Domain.Interfaces;
+using HunterPie.Core.Extensions;
 using HunterPie.GUI.Parts.Account.ViewModels;
 using HunterPie.UI.Architecture;
 using System;
@@ -11,12 +12,15 @@ namespace HunterPie.GUI.Parts.Account.Views
     /// <summary>
     /// Interaction logic for AccountView.xaml
     /// </summary>
-    public partial class AccountView : View<AccountViewModel>
+    public partial class AccountView : View<AccountViewModel>, IEventDispatcher
     {
         public AccountView()
         {
             InitializeComponent();
         }
+
+        public event EventHandler<EventArgs> OnSignInClicked;
+        public event EventHandler<EventArgs> OnSignUpClicked;
 
         private void OnAvatarGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e) => ViewModel.IsAvatarClicked = true;
         private void OnAvatarLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e) => ViewModel.IsAvatarClicked = false;
@@ -36,14 +40,7 @@ namespace HunterPie.GUI.Parts.Account.Views
             ViewModel.OpenAccountPreferences();
         }
 
-        private void OnLoginClick(object sender, RoutedEventArgs e)
-        {
-            Log.Info("Test");
-        }
-
-        private void OnRegisterClick(object sender, RoutedEventArgs e)
-        {
-
-        }
+        private void OnLoginClick(object sender, RoutedEventArgs e) => this.Dispatch(OnSignInClicked);
+        private void OnRegisterClick(object sender, RoutedEventArgs e) => this.Dispatch(OnSignUpClicked);
     }
 }

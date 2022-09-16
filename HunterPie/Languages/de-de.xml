@@ -459,12 +459,6 @@ Ansonsten: Ich spiele nicht auf Deutsch, insofern können bei Eigennamen durchau
 			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
 					 String="Sortieren nach"
 					 Description="Wählt den Sortierungsalgorithmus der verwendet wird um die Anomalien zu ordnen."/>
-			<Setting Id="SORT_BY_LOWEST_TIMER_STRING"
-					 String="Geringste Dauer"/>
-			<Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
-					 String="Längste Dauer"/>
-			<Setting Id="SORT_BY_DISABLED_STRING"
-					 String="Deaktiviert"/>
 					 
 			<Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
 					 String="In-game Seilkäfer Fadenkreuz patchen"

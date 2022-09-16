@@ -790,12 +790,6 @@
 			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
 					 String="並び順"
 					 Description="バフ・デバフの並び順をを変更する。"/>
-			<Setting Id="SORT_BY_LOWEST_TIMER_STRING"
-					 String="残り時間の昇順"/>
-			<Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
-					 String="残り時間の降順"/>
-			<Setting Id="SORT_BY_DISABLED_STRING"
-					 String="並び変えない"/>
 
 			<Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
 					 String="翔蟲エイム修正"

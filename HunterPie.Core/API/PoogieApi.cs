@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.API.Schemas;
+﻿using HunterPie.Core.API.Entities;
 using HunterPie.Core.Client;
 using HunterPie.Core.Http;
 using System;
@@ -12,77 +12,19 @@ namespace HunterPie.Core.API
     {
         const string VERSION_PATH = "/v1/version";
         const string CRASH_PATH = "/v1/report/crash";
-        const string SESSION_PATH = "/v1/session";
         const string SUPPORTER_PATH = "/v1/supporter";
         const string NOTIFICATIONS = "/v1/notifications";
+        const string LOGIN = "/v1/login";
 
         const string SUPPORTER_HEADER = "X-Supporter-Token";
 
         const double DEFAULT_TIMEOUT = 10;
         static private readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(DEFAULT_TIMEOUT);
 
-        public static async Task<VersionResSchema?> GetLatestVersion()
+        private static async Task<T?> Get<T>(string path) where T : class
         {
             using Poogie request = PoogieFactory.Default()
-                .Get(VERSION_PATH)
-                .WithHeader(SUPPORTER_HEADER, ClientConfig.Config.Client.SupporterSecretToken)
-                .WithTimeout(DefaultTimeout)
-                .Build();
-
-            using PoogieResponse resp = await request.RequestAsync();
-
-            if (!resp.Success)
-                return null;
-
-            if ((int)resp.Status >= 400)
-                return null;
-
-            VersionResSchema schema = await resp.AsJson<VersionResSchema>();
-            return schema;
-        }
-
-        public static async Task<SessionResSchema?> GetSession()
-        {
-            using Poogie request = PoogieFactory.Default()
-                .Get(SESSION_PATH)
-                .WithTimeout(DefaultTimeout)
-                .Build();
-
-            using PoogieResponse resp = await request.RequestAsync();
-
-            if (!resp.Success)
-                return null;
-
-            if ((int)resp.Status >= 400)
-                return null;
-
-            SessionResSchema schema = await resp.AsJson<SessionResSchema>();
-            return schema;
-        }
-
-        public static async Task<SessionResSchema> EndSession()
-        {
-            using Poogie request = PoogieFactory.Default()
-                .Post(SESSION_PATH + "/end")
-                .WithTimeout(DefaultTimeout)
-                .Build();
-
-            using PoogieResponse resp = await request.RequestAsync();
-
-            if (!resp.Success)
-                return null;
-
-            if (resp.Status >= HttpStatusCode.BadRequest)
-                return null;
-
-            SessionResSchema schema = await resp.AsJson<SessionResSchema>();
-            return schema;
-        }
-
-        public static async Task<SupporterValidationResSchema?> ValidateSupporterToken()
-        {
-            using Poogie request = PoogieFactory.Default()
-                .Get(SUPPORTER_PATH + "/verify")
+                .Get(path)
                 .WithHeader(SUPPORTER_HEADER, ClientConfig.Config.Client.SupporterSecretToken)
                 .WithTimeout(DefaultTimeout)
                 .Build();
@@ -95,27 +37,51 @@ namespace HunterPie.Core.API
             if (resp.Status >= HttpStatusCode.BadRequest)
                 return null;
 
-            SupporterValidationResSchema schema = await resp.AsJson<SupporterValidationResSchema>();
-            return schema;
+            return await resp.AsJson<T>();
+        }
+
+        private static async Task<T?> Post<P, T>(string path, P payload) where T : class
+        {
+            using Poogie request = PoogieFactory.Default()
+                .Post(path)
+                .WithHeader(SUPPORTER_HEADER, ClientConfig.Config.Client.SupporterSecretToken)
+                .WithJson(payload)
+                .WithTimeout(DefaultTimeout)
+                .Build();
+
+            using PoogieResponse resp = await request.RequestAsync();
+
+            if (!resp.Success)
+                return null;
+
+            if (resp.Status >= HttpStatusCode.BadRequest)
+                return null;
+
+            return await resp.AsJson<T>();
+        }
+
+        public static async Task<LoginResponse?> Login(LoginRequest request)
+        {
+            LoginResponse? resp = await Post<LoginRequest, LoginResponse>(LOGIN, request);
+            return resp;
+        }
+
+        public static async Task<VersionResponse?> GetLatestVersion()
+        {
+            VersionResponse? resp = await Get<VersionResponse>(VERSION_PATH);
+            return resp;
+        }
+
+        public static async Task<SupporterValidationResponse?> ValidateSupporterToken()
+        {
+            SupporterValidationResponse? resp = await Get<SupporterValidationResponse>(SUPPORTER_PATH + "/verify");
+            return resp;
         }
 
         public static async Task<Notification[]> GetNotifications()
         {
-            using Poogie request = PoogieFactory.Default()
-                .Get(NOTIFICATIONS)
-                .WithTimeout(DefaultTimeout)
-                .Build();
-
-            using PoogieResponse resp = await request.RequestAsync();
-
-            if (!resp.Success)
-                return Array.Empty<Notification>();
-
-            if (resp.Status >= HttpStatusCode.BadRequest)
-                return Array.Empty<Notification>();
-
-            Notification[] result = await resp.AsJson<Notification[]>();
-            return result;
+            Notification[]? resp = await Get<Notification[]>(NOTIFICATIONS);
+            return resp ?? Array.Empty<Notification>();
         }
     }
 #nullable restore

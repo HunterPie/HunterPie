@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace HunterPie.Core.API.Schemas
+namespace HunterPie.Core.API.Entities
 {
-    public class SupporterValidationResSchema
+    public class SupporterValidationResponse
     {
         [JsonProperty("is_valid")]
         public bool IsValid { get; set; }

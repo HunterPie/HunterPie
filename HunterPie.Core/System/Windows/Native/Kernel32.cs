@@ -89,10 +89,10 @@ namespace HunterPie.Core.System.Windows.Native
             out uint lpflOldProtect
         );
 
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool CloseHandle(IntPtr hObject);
 
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32.dll", SetLastError = true)]
         public static extern IntPtr CreateRemoteThread(
             IntPtr hProcess,
             IntPtr lpThreadAttributes,
@@ -103,7 +103,7 @@ namespace HunterPie.Core.System.Windows.Native
             IntPtr lpThreadId
         );
 
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32.dll", SetLastError = true)]
         public static extern IntPtr VirtualAllocEx(
             IntPtr hProcess,
             IntPtr lpAddress,
@@ -112,10 +112,10 @@ namespace HunterPie.Core.System.Windows.Native
             MemoryProtection flProtect
         );
 
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32.dll", SetLastError = true)]
         public static extern IntPtr GetModuleHandle(string lpModuleName);
 
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32.dll", SetLastError = true)]
         public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
     }
 }
