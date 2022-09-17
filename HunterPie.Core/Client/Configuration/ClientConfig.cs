@@ -37,6 +37,9 @@ namespace HunterPie.Core.Client.Configuration
         [SettingField("SEAMLESS_SHUTDOWN_STRING")]
         public Observable<bool> EnableSeamlessShutdown { get; set; } = false;
 
+        [SettingField("ENABLE_NATIVE_MODULE_STRING", availableGames: GameProcess.MonsterHunterWorld)]
+        public Observable<bool> EnableNativeModule { get; set; } = false;
+
         [SettingField("SHUTDOWN_ON_GAME_EXIT")]
         public Observable<bool> ShouldShutdownOnGameExit { get; set; } = false;
 
