@@ -716,7 +716,7 @@
 					 Description="옵션 활성화 시, HunterPie 종료 시 동의 여부를 묻지 않습니다."/>
 			<Setting Id="ENABLE_NATIVE_MODULE_STRING"
  					 String="게임 패치 활성화 (설명을 자세히 읽어주세요)"
- 					 Description="옵션 활성화 시, HunterPie가 몇몇 기능을 활성화하기 위해 게임을 패치합니다 (예. 탐색 중의 대미지 미터).&#10;이 옵션을 사용하면 게임이 비정상 종료될 수 있습니다. 중요한 작업 중이라면, 이 옵션을 끄거나 CRC Bypass 모드를 설치하세요 (예. 몬스터 헌터: 월드에서의 Stracker's Loader).&#10;적용하려면 게임을 다시 시작해야 합니다."/>
+ 					 Description="옵션 활성화 시, HunterPie가 몇몇 기능을 활성화하기 위해 게임을 패치합니다 (예. 탐색 중의 대미지 미터).&#10;[Stracker's Loader]와 [Performance Booster and Plugin Extender](CRCBypass) 모드를 설치하지 않은 경우 이 옵션을 사용하면 플레이 중 게임이 비정상 종료될 수 있습니다.&#10;적용하려면 게임을 다시 시작해야 합니다."/>
 			<Setting Id="SHUTDOWN_ON_GAME_EXIT"
 					 String="게임 종료 시 닫기"
 					 Description="옵션 활성화 시, 게임이 종료되면 HunterPie를 자동으로 닫습니다."/>
