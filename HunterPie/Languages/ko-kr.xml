@@ -346,7 +346,7 @@
 			<Monster Id="43" String="쥬라토도스"/>
 			<Monster Id="44" String="토비카가치"/>
 			<Monster Id="45" String="바젤기우스"/>
-			<Monster Id="46" String="개구리 훈련 모형"/>
+			<Monster Id="46" String="훈련용 개구리 모형"/>
 			<Monster Id="76" String="리오레이아 희소종"/>
 			<Monster Id="77" String="리오레우스 희소종"/>
 			<Monster Id="78" String="다이묘자자미"/>
@@ -554,6 +554,8 @@
 					 String="HunterPie의 새로운 업데이트가 가능합니다!"/>
 			<Generic Id="HUNTERPIE_CURRENT_SELECTED_CONFIG"
 					 String="설정:"/>
+			<Generic Id="REQUIRES_RESTART_STRING"
+					 String="(다시 시작 필요)"/>
 		</Generics>
 		<Dialogs>
 			<Dialog Id="UPDATE_TITLE_STRING"
@@ -563,7 +565,7 @@
 			<Dialog Id="CONFIRMATION_TITLE_STRING"
 					String="확인"/>
 			<Dialog Id="DELETE_CONFIRMATION_DESCRIPTION_STRING"
-					String="{Item} 삭제할까요?"/>
+					String="{Item}을(를) 삭제할까요?"/>
 			<Dialog Id="EXIT_CONFIRMATION_DESCRIPTION_STRING"
 					String="HunterPie를 종료할까요?"/>
 
@@ -690,7 +692,7 @@
 
 			<Setting Id="ENABLE_SELF_UPDATE"
 					 String="자동 업데이트 사용"
-					 Description="옵션 활성화 시, HunterPie를 자동으로 최신 버전으로 업데이트 합니다."/>
+					 Description="옵션 활성화 시, HunterPie를 자동으로 업데이트 합니다."/>
 			<Setting Id="ENABLE_SELF_UPDATE_CONFIRMATION"
 					 String="자동 업데이트 확인 표시"
 					 Description="옵션 활성화 시, HunterPie를 자동으로 업데이트 하기 전에 허용 여부를 물어봅니다."/>
@@ -712,6 +714,9 @@
 			<Setting Id="SEAMLESS_SHUTDOWN_STRING"
 					 String="종료 시 확인 비활성화"
 					 Description="옵션 활성화 시, HunterPie 종료 시 동의 여부를 묻지 않습니다."/>
+			<Setting Id="ENABLE_NATIVE_MODULE_STRING"
+ 					 String="게임 패치 활성화 (설명을 자세히 읽어주세요)"
+ 					 Description="옵션 활성화 시, HunterPie가 몇몇 기능을 활성화하기 위해 게임을 패치합니다 (예. 탐색 중의 대미지 미터).&#10;이 옵션을 사용하면 게임이 비정상 종료될 수 있습니다. 중요한 작업 중이라면, 이 옵션을 끄거나 CRC Bypass 모드를 설치하세요 (예. 몬스터 헌터: 월드에서의 Stracker's Loader).&#10;적용하려면 게임을 다시 시작해야 합니다."/>
 			<Setting Id="SHUTDOWN_ON_GAME_EXIT"
 					 String="게임 종료 시 닫기"
 					 Description="옵션 활성화 시, 게임이 종료되면 HunterPie를 자동으로 닫습니다."/>

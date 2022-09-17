@@ -554,6 +554,8 @@
 					 String="There's a new version of HunterPie available!"/>
 			<Generic Id="HUNTERPIE_CURRENT_SELECTED_CONFIG"
 					 String="Configuration for:"/>
+			<Generic Id="REQUIRES_RESTART_STRING"
+					 String="(Requires restart)"/>
 		</Generics>
 		<Dialogs>
 			<!-- Do not edit the text inside {} -->
