@@ -20,17 +20,16 @@ internal class MHWContextInitializer : IContextInitializer
     {
         if (context is not MHWContext) return;
 
-        if (ClientConfig.Config.Client.EnableNativeModule)
+        if (!ClientConfig.Config.Client.EnableNativeModule) return;
+
+        WorldIntegrityPatcher.Patch(context);
+        // Make sure to inject module after patching.
+        IPCInjectorInitializer.InjectNativeModule(context);
+        await NativeIPCInitializer.WaitForIPCInitialization();
+        IPCInitializationMessageHandler.RequestIPCInitialization(IPCInitializationHostType.MHWorld, new[]
         {
-            WorldIntegrityPatcher.Patch(context);
-            // Make sure to inject module after patching.
-            IPCInjectorInitializer.InjectNativeModule(context);
-            await NativeIPCInitializer.WaitForIPCInitialization();
-            IPCInitializationMessageHandler.RequestIPCInitialization(IPCInitializationHostType.MHWorld, new[]
-            {
-                (UIntPtr)AddressMap.GetAbsolute("FUN_DEAL_DAMAGE"),
-            });
-        }
+            (UIntPtr)AddressMap.GetAbsolute("FUN_DEAL_DAMAGE"),
+        });
     }
 
 }
