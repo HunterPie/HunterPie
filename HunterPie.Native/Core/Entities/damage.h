@@ -17,12 +17,14 @@ namespace Core::Entities
 
     struct Entity
     {
+        // Entity index in the HuntStatistics::entities array.
         int index;
         EntityType type;
     };
 
     struct EntityDamageData
     {
+        // Pointer to the target Monster structure. (MHW/MHR)
         intptr_t target;
         Entity source;
         float rawDamage;

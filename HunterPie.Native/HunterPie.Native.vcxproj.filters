@@ -72,6 +72,15 @@
     <ClInclude Include="Games\Rise\Common\Monster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Games\World\Damage\Hooks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Games\World\Common\Monster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Games\World\Utils\WorldUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -99,6 +108,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Games\Rise\Utils\RiseUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Games\World\Damage\Hooks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Games\World\Utils\WorldUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

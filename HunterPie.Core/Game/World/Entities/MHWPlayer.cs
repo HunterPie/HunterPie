@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using HunterPie.Core.Native.IPC.Models.Common;
 
 namespace HunterPie.Core.Game.World.Entities
 {
@@ -39,7 +40,8 @@ namespace HunterPie.Core.Game.World.Entities
 
         #region Private fields
 
-        private long _playerAddress;
+        private long _playerSaveAddress;
+        private long _localPlayerAddress;
         private Stage _zoneId;
         private Weapon _weaponId;
         private readonly SpecializedTool[] _tools = { new(), new() };
@@ -49,14 +51,14 @@ namespace HunterPie.Core.Game.World.Entities
 
         #region Public fields
 
-        public long PlayerAddress
+        public long PlayerSaveAddress
         {
-            get => _playerAddress;
+            get => _playerSaveAddress;
             private set
             {
-                if (value != _playerAddress)
+                if (value != _playerSaveAddress)
                 {
-                    _playerAddress = value;
+                    _playerSaveAddress = value;
 
                     this.Dispatch(
                         value != 0
@@ -91,6 +93,7 @@ namespace HunterPie.Core.Game.World.Entities
                         this.Dispatch(OnVillageLeave);
 
                     _zoneId = value;
+                    this.Dispatch(OnStageUpdate);
                 }
             }
         }
@@ -112,7 +115,7 @@ namespace HunterPie.Core.Game.World.Entities
 
         public SpecializedTool[] Tools => _tools;
 
-        public bool IsLoggedOn => _playerAddress != 0;
+        public bool IsLoggedOn => _playerSaveAddress != 0;
 
         public int StageId => (int)ZoneId;
 
@@ -120,9 +123,8 @@ namespace HunterPie.Core.Game.World.Entities
 
         public IParty Party => _party;
 
-        public bool InHuntingZone => ZoneId != Stage.MainMenu 
-            && ZoneId != Stage.TrainingArea
-            && !peaceZones.Contains(_zoneId);
+        public bool InHuntingZone => ZoneId != Stage.MainMenu
+                                     && !peaceZones.Contains(_zoneId);
 
         #endregion
 
@@ -166,7 +168,7 @@ namespace HunterPie.Core.Game.World.Entities
             PlayerInformationData data = new();
             if (ZoneId == Stage.MainMenu)
             {
-                PlayerAddress = 0;
+                PlayerSaveAddress = 0;
                 return;
             }
 
@@ -180,7 +182,7 @@ namespace HunterPie.Core.Game.World.Entities
             long currentPlayerSaveHeader =
                 _process.Memory.Read<long>(firstSaveAddress) + nextPlayerSave * currentSaveSlot;
 
-            if (currentPlayerSaveHeader != _playerAddress)
+            if (currentPlayerSaveHeader != _playerSaveAddress)
             {
                 data.Name = _process.Memory.Read(currentPlayerSaveHeader + 0x50, 32);
                 data.HighRank = _process.Memory.Read<short>(currentPlayerSaveHeader + 0x90);
@@ -194,7 +196,7 @@ namespace HunterPie.Core.Game.World.Entities
                 MasterRank = data.MasterRank;
                 PlayTime = data.PlayTime;
 
-                PlayerAddress = currentPlayerSaveHeader;
+                PlayerSaveAddress = currentPlayerSaveHeader;
             }
 
         }
@@ -453,6 +455,7 @@ namespace HunterPie.Core.Game.World.Entities
                 AddressMap.Get<int[]>("DAMAGE_OFFSETS")
             );
 
+            var localLocalPlayerAddress = 0L;
             for (int i = 0; i < Party.MaxSize; i++)
             {
                 long playerAddress = partyInformation + (i * 0x1C0);
@@ -466,6 +469,10 @@ namespace HunterPie.Core.Game.World.Entities
 
                 string name = _process.Memory.Read(playerAddress, 32);
                 bool isLocalPlayer = name == Name;
+                if (isLocalPlayer)
+                {
+                    localLocalPlayerAddress = playerAddress;
+                }
                 MHWPartyMemberLevelStructure levels = _process.Memory.Read<MHWPartyMemberLevelStructure>(playerAddress + 0x27);
                 MHWPartyMemberData data = new MHWPartyMemberData
                 {
@@ -478,6 +485,19 @@ namespace HunterPie.Core.Game.World.Entities
                 };
 
                 _party.Update(playerAddress, data);
+            }
+            _localPlayerAddress = localLocalPlayerAddress;
+        }
+
+        internal void UpdatePartyMembersDamage(EntityDamageData[] entities)
+        {
+            foreach (EntityDamageData entity in entities)
+            {
+                // For now we are only tracking local player.
+                if (entity.Entity.Index == 0)
+                {
+                    _party.Update(_localPlayerAddress, entity);
+                }
             }
         }
     }

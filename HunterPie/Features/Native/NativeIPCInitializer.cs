@@ -17,6 +17,5 @@ namespace HunterPie.Features.Native
                 if (await IPCService.Initialize()) return;
             }
         }
-
     }
 }

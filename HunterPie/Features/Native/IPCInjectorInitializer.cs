@@ -9,6 +9,7 @@ namespace HunterPie.Features.Native
 {
     internal static class IPCInjectorInitializer
     {
+
         const string NATIVE_NAME = "HunterPie.Native.dll";
         const string NATIVE_PATH = "libs/" + NATIVE_NAME;
 
@@ -42,5 +43,6 @@ namespace HunterPie.Features.Native
             return context.Process.Process.Modules.Cast<ProcessModule>()
                 .Any(module => module.ModuleName == NATIVE_NAME);
         }
+
     }
 }
