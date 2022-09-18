@@ -9,6 +9,7 @@ using HunterPie.Core.Logger;
 using HunterPie.Core.System.Windows.Memory;
 using HunterPie.Core.System.Windows.Native;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -35,10 +36,17 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
     public abstract string Name { get; }
     public abstract GameProcess Game { get; }
 
+    /// <inheritdoc />
+    public bool? IsExitedNormally { get; private set; }
+
     public int Version { get; private set; }
+
     public Process? Process { get; private set; }
+
     public int ProcessId { get; private set; }
+
     public bool IsRunning { get; private set; }
+
     public bool IsProcessForeground
     {
         get => _isProcessForeground;
@@ -63,11 +71,7 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
     {
         Log.Info($"Started scanning for process {Name}...");
 
-        _pooler = new Thread(new ThreadStart(ExecutePolling))
-        {
-            Name = "PollingBackgroundThread",
-            IsBackground = true,
-        };
+        _pooler = new Thread(new ThreadStart(ExecutePolling)) { Name = "PollingBackgroundThread", IsBackground = true, };
         _pooler.Start();
     }
 
@@ -94,14 +98,14 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
 
     private void PollProcessInfo()
     {
-        if (Process is not null && Process!.HasExited)
+        if (Process?.HasExited == true)
         {
             OnProcessExit();
             return;
         }
 
         Process? mhProcess = Process.GetProcessesByName(Name)
-            .FirstOrDefault(process => !string.IsNullOrEmpty(process?.MainWindowTitle));
+            .FirstOrDefault(process => !string.IsNullOrEmpty(process.MainWindowTitle));
 
         if (mhProcess is null)
             return;
@@ -115,24 +119,35 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
 
         if (ShouldOpenProcess(mhProcess))
         {
-            Process = mhProcess;
-            ProcessId = mhProcess.Id;
-            pHandle = Kernel32.OpenProcess(Kernel32.PROCESS_ALL_ACCESS, false, ProcessId);
+            try
+            {
+                Process = mhProcess;
+                ProcessId = mhProcess.Id;
+                IsExitedNormally = null;
+                // We want to retrieve process exit code, so force Process to call OpenProcess by explicitly retrieving its SafeHandle.
+                // Otherwise there will be InvalidOperationException: Process was not started by this object, so requested information cannot be determined.
+                _ = Process.SafeHandle;
+                pHandle = Kernel32.OpenProcess(Kernel32.PROCESS_ALL_ACCESS, false, ProcessId);
 
-            if (pHandle == IntPtr.Zero || Process.MainModule is null)
+                if (pHandle == IntPtr.Zero || Process.MainModule is null)
+                {
+                    throw new Win32Exception();
+                }
+
+                IsRunning = true;
+
+                _memory = new WindowsMemory(pHandle);
+
+                AddressMap.Add("BASE", (long)Process.MainModule.BaseAddress);
+
+                this.Dispatch(OnGameStart, new(Name));
+            }
+            catch (Exception ex)
             {
                 Log.Error("Failed to open game process. Run HunterPie as Administrator!");
+                Log.Info("Error details: {0}", ex);
                 ShouldPollProcess = false;
-                return;
             }
-
-            IsRunning = true;
-
-            _memory = new WindowsMemory(pHandle);
-
-            AddressMap.Add("BASE", (long)Process.MainModule.BaseAddress);
-
-            this.Dispatch(OnGameStart, new(Name));
         }
     }
 
@@ -140,7 +155,10 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
 
     private void OnProcessExit()
     {
-        Process?.Dispose();
+        Debug.Assert(Process != null);
+
+        IsExitedNormally = Process.ExitCode == 0;
+        Process.Dispose();
         Process = null;
 
         _ = Kernel32.CloseHandle(pHandle);
@@ -157,5 +175,6 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
         _shouldPauseThread = false;
         _pooler?.Interrupt();
     }
+
 }
 #nullable restore

@@ -1,6 +1,7 @@
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Game;
 using HunterPie.Core.Logger;
@@ -122,9 +123,17 @@ public partial class App : Application
         _process = null;
         _context = null;
 
-        _ = Dispatcher.InvokeAsync(WidgetInitializers.Unload);
+        Dispatcher.InvokeAsync(WidgetInitializers.Unload);
         WidgetManager.Dispose();
         Log.Info("{0} has been closed", e.ProcessName);
+        if (e.Process.IsExitedNormally == false
+            && e.Process.Game == GameProcess.MonsterHunterWorld
+            && ClientConfig.Config.Client.EnableNativeModule)
+        {
+            Log.Info(
+                "Game has exited abnormally. If you have not installed Stracker's Loader and CRC bypass mod, turning off \"Enable native module\" in Client Settings may help.",
+                e.ProcessName);
+        }
 
         if (ClientConfig.Config.Client.ShouldShutdownOnGameExit)
             Dispatcher.Invoke(Shutdown);
