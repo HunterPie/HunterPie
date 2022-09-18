@@ -7,9 +7,22 @@ namespace Core::Server
 {
     namespace Models
     {
+        enum class IPCInitializationHostType : uint32_t
+        {
+            Invalid = 0,
+            MHWorld,
+            MHRise,
+        };
+
         struct RequestIPCInitializationMessage : IPCMessage
         {
+            IPCInitializationHostType hostType;
             uintptr_t addresses[256];
+        };
+
+        struct ResponseIPCInitializationMessage : IPCMessage
+        {
+            HRESULT hresult;
         };
 
         struct ResponseInitMHHooksMessage : IPCMessage

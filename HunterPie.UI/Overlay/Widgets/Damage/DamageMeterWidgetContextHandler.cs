@@ -64,8 +64,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             Context.Game.Player.Party.OnMemberJoin += OnMemberJoin;
             Context.Game.Player.Party.OnMemberLeave += OnMemberLeave;
             Context.Game.OnTimeElapsedChange += OnTimeElapsedChange;
-            Context.Game.Player.OnVillageEnter += OnVillageEnter;
-            Context.Game.Player.OnVillageLeave += OnVillageLeave;
+            Context.Game.Player.OnStageUpdate += OnStageUpdate;
             Context.Game.OnDeathCountChange += OnDeathCountChange;
         }
 
@@ -74,8 +73,6 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             Context.Game.Player.Party.OnMemberJoin -= OnMemberJoin;
             Context.Game.Player.Party.OnMemberLeave -= OnMemberLeave;
             Context.Game.OnTimeElapsedChange -= OnTimeElapsedChange;
-            Context.Game.Player.OnVillageEnter -= OnVillageEnter;
-            Context.Game.Player.OnVillageLeave -= OnVillageLeave;
             Context.Game.OnDeathCountChange -= OnDeathCountChange;
             WidgetManager.Unregister<MeterView, DamageMeterWidgetConfig>(View);
         }
@@ -86,27 +83,23 @@ namespace HunterPie.UI.Overlay.Widgets.Damage
             ViewModel.Deaths = e.Deaths;
         }
 
-        private void OnVillageLeave(object sender, EventArgs e)
+        private void OnStageUpdate(object sender, EventArgs e)
         {
-            ViewModel.InHuntingZone = true;
-
-            View.Dispatcher.Invoke(() =>
-            {
-                foreach (var member in Context.Game.Player.Party.Members)
-                    HandleAddMember(member);
-            });
-        }
-
-        private void OnVillageEnter(object sender, EventArgs e)
-        {
-            ViewModel.InHuntingZone = false;
-
+            var inHuntingZone = Context.Game.Player.InHuntingZone;
+            ViewModel.InHuntingZone = inHuntingZone;
+            // Reset stats. Note in MHW, player can switch to another expedition without going back to the village.
             View.Dispatcher.Invoke(() =>
             {
                 foreach (var member in _members.Keys)
                     RemovePlayer(member);
 
                 _members.Clear();
+
+                if (Context.Game.Player.InHuntingZone)
+                {
+                    foreach (var member in Context.Game.Player.Party.Members)
+                        HandleAddMember(member);
+                }
             });
         }
 

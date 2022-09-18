@@ -17,7 +17,6 @@ namespace HunterPie.Core.Game.Demos.Sunbreak
 
         public override void Dispose()
         {
-            
         }
     }
 }
