@@ -21,6 +21,6 @@ public interface IGame : IDisposable
     public event EventHandler<IMonster> OnMonsterSpawn;
     public event EventHandler<IMonster> OnMonsterDespawn;
     public event EventHandler<IGame> OnHudStateChange;
-    public event EventHandler<IGame> OnTimeElapsedChange;
+    public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange;
     public event EventHandler<IGame> OnDeathCountChange;
 }

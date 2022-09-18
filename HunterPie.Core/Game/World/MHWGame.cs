@@ -34,7 +34,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
     public event EventHandler<IMonster> OnMonsterSpawn;
     public event EventHandler<IMonster> OnMonsterDespawn;
     public event EventHandler<IGame> OnHudStateChange;
-    public event EventHandler<IGame> OnTimeElapsedChange;
+    public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange;
     public event EventHandler<IGame> OnDeathCountChange;
 
     public IPlayer Player => _player;
@@ -58,16 +58,18 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
     /// <summary>
     /// Gets time elapsed in seconds since the quest starts.
     /// </summary>
-    public float TimeElapsed
+    public float TimeElapsed => _timeElapsed;
+
+    private void SetTimeElapsed(float value, bool isReset)
     {
-        get => _timeElapsed;
-        private set
+        if (value != _timeElapsed)
         {
-            if (value != _timeElapsed)
-            {
-                _timeElapsed = value;
-                this.Dispatch(OnTimeElapsedChange, this);
-            }
+            _timeElapsed = value;
+            this.Dispatch(OnTimeElapsedChange, isReset ? TimeElapsedChangeEventArgs.TimerReset : TimeElapsedChangeEventArgs.Empty);
+        }
+        else if (isReset)
+        {
+            this.Dispatch(OnTimeElapsedChange, TimeElapsedChangeEventArgs.TimerReset);
         }
     }
 
@@ -123,25 +125,40 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
             if (Player.InHuntingZone)
             {
                 // No quest timer available while player is on the hunt.
-                // We will use ours instead.
-                _localTimerStopwatch.Start();
-                TimeElapsed = _localTimerStopwatch.ElapsedMilliseconds / 1000.0f;
+                // We will use our local timer instead.
+                if (_localTimerStopwatch.IsRunning)
+                {
+                    SetTimeElapsed(_localTimerStopwatch.ElapsedMilliseconds / 1000.0f, false);
+                }
+                else
+                {
+                    _localTimerStopwatch.Start();
+                    SetTimeElapsed(0, true);
+                }
             }
             else
             {
                 // Prevent TimeElapsed from being 3000 sec. before joining the hunt.
                 // Otherwise there will be incorrect MemberInfo.JoinedAt values when player is entering Training Area or Guiding Lands.
-                TimeElapsed = 0;
+                SetTimeElapsed(0, false);
             }
         }
         else
         {
-            if (_localTimerStopwatch.IsRunning)
-                _localTimerStopwatch.Reset();
             float questMaxTimer = questMaxTimerRaw
                 .ApproximateHigh(MHWGameUtils.MaxQuestTimers)
                 .ToSeconds();
-            TimeElapsed = Math.Max(0, questMaxTimer - elapsed);
+            float timeElapsed = Math.Max(0, questMaxTimer - elapsed);
+            if (_localTimerStopwatch.IsRunning)
+            {
+                // Stop local timer before switching to the real quest timer.
+                _localTimerStopwatch.Reset();
+                SetTimeElapsed(timeElapsed, true);
+            }
+            else
+            {
+                SetTimeElapsed(timeElapsed, false);
+            }
         }
     }
 
