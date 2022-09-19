@@ -254,6 +254,11 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
 
     private void OnPlayerStageUpdate(object sender, EventArgs e)
     {
+        if (!Player.InHuntingZone)
+        {
+            // When back from hunt, manually clear damage data in case player enters Training Area (data won't be reset)
+            foreach (var member in Player.Party.Members) member.ResetDamage();
+        }
         DamageMessageHandler.ClearAllHuntStatisticsExcept(Array.Empty<long>());
         DamageMessageHandler.RequestHuntStatistics(ALL_TARGETS);
         _damageUpdateThrottleStopwatch.Reset();

@@ -14,6 +14,9 @@ public interface IPartyMember
     public bool IsMyself { get; }
     public MemberType Type { get; }
 
+    /// <summary>Manually reset damage data.</summary>
+    public void ResetDamage();
+
     public event EventHandler<IPartyMember> OnDamageDealt;
     public event EventHandler<IPartyMember> OnWeaponChange;
 }
