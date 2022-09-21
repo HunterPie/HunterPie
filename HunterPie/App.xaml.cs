@@ -131,8 +131,9 @@ public partial class App : Application
             && ClientConfig.Config.Client.EnableNativeModule)
         {
             Log.Info(
-                "Game has exited abnormally. If you have not installed Stracker's Loader and CRC bypass mod, turning off \"Enable native module\" in Client Settings may help.",
-                e.ProcessName);
+                "{0} has exited abnormally. If you have not installed Stracker's Loader and CRC bypass mod, turning off \"Enable native module\" in Client Settings may help.",
+                e.ProcessName
+            );
         }
 
         if (ClientConfig.Config.Client.ShouldShutdownOnGameExit)
