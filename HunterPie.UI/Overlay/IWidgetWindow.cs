@@ -2,13 +2,12 @@
 using HunterPie.UI.Overlay.Enums;
 using System;
 
-namespace HunterPie.UI.Overlay
-{
-    public interface IWidgetWindow
-    {
-        public WidgetType Type { get; }
-        public IWidgetSettings Settings { get; }
+namespace HunterPie.UI.Overlay;
 
-        public event EventHandler<WidgetType> OnWidgetTypeChange;
-    }
+public interface IWidgetWindow
+{
+    public WidgetType Type { get; }
+    public IWidgetSettings Settings { get; }
+
+    public event EventHandler<WidgetType> OnWidgetTypeChange;
 }

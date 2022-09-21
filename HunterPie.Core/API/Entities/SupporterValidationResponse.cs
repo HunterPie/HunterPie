@@ -1,10 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace HunterPie.Core.API.Entities
+namespace HunterPie.Core.API.Entities;
+
+public class SupporterValidationResponse
 {
-    public class SupporterValidationResponse
-    {
-        [JsonProperty("is_valid")]
-        public bool IsValid { get; set; }
-    }
+    [JsonProperty("is_valid")]
+    public bool IsValid { get; set; }
 }

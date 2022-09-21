@@ -5,125 +5,124 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace HunterPie.UI.Controls.Buttons
+namespace HunterPie.UI.Controls.Buttons;
+
+/// <summary>
+/// Interaction logic for NativeButton.xaml
+/// </summary>
+public partial class Button : ClickableControl
 {
-    /// <summary>
-    /// Interaction logic for NativeButton.xaml
-    /// </summary>
-    public partial class Button : ClickableControl
+    private readonly Storyboard _rippleAnimation;
+
+    public new object Content
     {
-        private readonly Storyboard _rippleAnimation;
+        get => GetValue(ContentProperty);
+        set => SetValue(ContentProperty, value);
+    }
+    public static new readonly DependencyProperty ContentProperty =
+        DependencyProperty.Register("Content", typeof(object), typeof(Button));
 
-        public new object Content
-        {
-            get { return (object)GetValue(ContentProperty); }
-            set { SetValue(ContentProperty, value); }
-        }
-        public static new readonly DependencyProperty ContentProperty =
-            DependencyProperty.Register("Content", typeof(object), typeof(Button));
+    public new Brush Foreground
+    {
+        get => (Brush)GetValue(ForegroundProperty);
+        set => SetValue(ForegroundProperty, value);
+    }
+    public static new readonly DependencyProperty ForegroundProperty =
+        DependencyProperty.Register("Foreground", typeof(Brush), typeof(Button), new PropertyMetadata(Brushes.WhiteSmoke));
 
-        public new Brush Foreground
-        {
-            get { return (Brush)GetValue(ForegroundProperty); }
-            set { SetValue(ForegroundProperty, value); }
-        }
-        public static new readonly DependencyProperty ForegroundProperty =
-            DependencyProperty.Register("Foreground", typeof(Brush), typeof(Button), new PropertyMetadata(Brushes.WhiteSmoke));
+    public new Brush Background
+    {
+        get => (Brush)GetValue(BackgroundProperty);
+        set => SetValue(BackgroundProperty, value);
+    }
 
-        public new Brush Background
-        {
-            get { return (Brush)GetValue(BackgroundProperty); }
-            set { SetValue(BackgroundProperty, value); }
-        }
+    // Using a DependencyProperty as the backing store for Background.  This enables animation, styling, binding, etc...
+    public static new readonly DependencyProperty BackgroundProperty =
+        DependencyProperty.Register("Background", typeof(Brush), typeof(Button));
 
-        // Using a DependencyProperty as the backing store for Background.  This enables animation, styling, binding, etc...
-        public static new readonly DependencyProperty BackgroundProperty =
-            DependencyProperty.Register("Background", typeof(Brush), typeof(Button));
+    public new VerticalAlignment VerticalContentAlignment
+    {
+        get => (VerticalAlignment)GetValue(VerticalContentAlignmentProperty);
+        set => SetValue(VerticalContentAlignmentProperty, value);
+    }
 
-        public new VerticalAlignment VerticalContentAlignment
-        {
-            get { return (VerticalAlignment)GetValue(VerticalContentAlignmentProperty); }
-            set { SetValue(VerticalContentAlignmentProperty, value); }
-        }
+    public static new readonly DependencyProperty VerticalContentAlignmentProperty =
+        DependencyProperty.Register("VerticalContentAlignment", typeof(VerticalAlignment), typeof(Button), new PropertyMetadata(VerticalAlignment.Center));
 
-        public static new readonly DependencyProperty VerticalContentAlignmentProperty =
-            DependencyProperty.Register("VerticalContentAlignment", typeof(VerticalAlignment), typeof(Button), new PropertyMetadata(VerticalAlignment.Center));
+    public new HorizontalAlignment HorizontalContentAlignment
+    {
+        get => (HorizontalAlignment)GetValue(HorizontalContentAlignmentProperty);
+        set => SetValue(HorizontalContentAlignmentProperty, value);
+    }
 
-        public new HorizontalAlignment HorizontalContentAlignment
-        {
-            get { return (HorizontalAlignment)GetValue(HorizontalContentAlignmentProperty); }
-            set { SetValue(HorizontalContentAlignmentProperty, value); }
-        }
+    // Using a DependencyProperty as the backing store for HorizontalContentAlignment.  This enables animation, styling, binding, etc...
+    public static new readonly DependencyProperty HorizontalContentAlignmentProperty =
+        DependencyProperty.Register("HorizontalContentAlignment", typeof(HorizontalAlignment), typeof(Button), new PropertyMetadata(HorizontalAlignment.Center));
 
-        // Using a DependencyProperty as the backing store for HorizontalContentAlignment.  This enables animation, styling, binding, etc...
-        public static new readonly DependencyProperty HorizontalContentAlignmentProperty =
-            DependencyProperty.Register("HorizontalContentAlignment", typeof(HorizontalAlignment), typeof(Button), new PropertyMetadata(HorizontalAlignment.Center));
+    public new Thickness Padding
+    {
+        get => (Thickness)GetValue(PaddingProperty);
+        set => SetValue(PaddingProperty, value);
+    }
 
-        public new Thickness Padding
-        {
-            get { return (Thickness)GetValue(PaddingProperty); }
-            set { SetValue(PaddingProperty, value); }
-        }
+    // Using a DependencyProperty as the backing store for Padding.  This enables animation, styling, binding, etc...
+    public static new readonly DependencyProperty PaddingProperty =
+        DependencyProperty.Register("Padding", typeof(Thickness), typeof(Button), new PropertyMetadata(new Thickness(2, 5, 2, 5)));
 
-        // Using a DependencyProperty as the backing store for Padding.  This enables animation, styling, binding, etc...
-        public static new readonly DependencyProperty PaddingProperty =
-            DependencyProperty.Register("Padding", typeof(Thickness), typeof(Button), new PropertyMetadata(new Thickness(2, 5, 2, 5)));
+    public new Thickness BorderThickness
+    {
+        get => (Thickness)GetValue(BorderThicknessProperty);
+        set => SetValue(BorderThicknessProperty, value);
+    }
 
-        public new Thickness BorderThickness
-        {
-            get { return (Thickness)GetValue(BorderThicknessProperty); }
-            set { SetValue(BorderThicknessProperty, value); }
-        }
+    // Using a DependencyProperty as the backing store for BorderThickness.  This enables animation, styling, binding, etc...
+    public static new readonly DependencyProperty BorderThicknessProperty =
+        DependencyProperty.Register("BorderThickness", typeof(Thickness), typeof(Button));
 
-        // Using a DependencyProperty as the backing store for BorderThickness.  This enables animation, styling, binding, etc...
-        public new static readonly DependencyProperty BorderThicknessProperty =
-            DependencyProperty.Register("BorderThickness", typeof(Thickness), typeof(Button));
+    public CornerRadius CornerRadius
+    {
+        get => (CornerRadius)GetValue(CornerRadiusProperty);
+        set => SetValue(CornerRadiusProperty, value);
+    }
 
-        public CornerRadius CornerRadius
-        {
-            get { return (CornerRadius)GetValue(CornerRadiusProperty); }
-            set { SetValue(CornerRadiusProperty, value); }
-        }
+    // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty CornerRadiusProperty =
+        DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(Button), new PropertyMetadata(new CornerRadius(0)));
 
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(Button), new PropertyMetadata(new CornerRadius(0)));
+    public Button()
+    {
+        InitializeComponent();
 
-        public Button()
-        {
-            InitializeComponent();
-            
-            _rippleAnimation = FindResource("PART_RippleAnimation") as Storyboard;
-        }
+        _rippleAnimation = FindResource("PART_RippleAnimation") as Storyboard;
+    }
 
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
-        {
-            base.OnMouseLeftButtonDown(e);
-            var targetWidth = Math.Max(ActualWidth, ActualHeight) * 2;
-            var mousePosition = e.GetPosition(this);
-            var startMargin = new Thickness(mousePosition.X, mousePosition.Y, 0, 0);
-            PART_Ripple.Margin = startMargin;
-            (_rippleAnimation.Children[0] as DoubleAnimation).To = targetWidth;
-            (_rippleAnimation.Children[1] as ThicknessAnimation).From = startMargin;
-            (_rippleAnimation.Children[1] as ThicknessAnimation).To = new Thickness(mousePosition.X - targetWidth / 2, mousePosition.Y - targetWidth / 2, 0, 0);
-            PART_Ripple.BeginStoryboard(_rippleAnimation);
+    protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+    {
+        base.OnMouseLeftButtonDown(e);
+        double targetWidth = Math.Max(ActualWidth, ActualHeight) * 2;
+        Point mousePosition = e.GetPosition(this);
+        var startMargin = new Thickness(mousePosition.X, mousePosition.Y, 0, 0);
+        PART_Ripple.Margin = startMargin;
+        (_rippleAnimation.Children[0] as DoubleAnimation).To = targetWidth;
+        (_rippleAnimation.Children[1] as ThicknessAnimation).From = startMargin;
+        (_rippleAnimation.Children[1] as ThicknessAnimation).To = new Thickness(mousePosition.X - (targetWidth / 2), mousePosition.Y - (targetWidth / 2), 0, 0);
+        PART_Ripple.BeginStoryboard(_rippleAnimation);
 
-            e.Handled = true;
-        }
+        e.Handled = true;
+    }
 
-        protected override void OnMouseMove(MouseEventArgs e)
-        {
-            base.OnMouseMove(e);
+    protected override void OnMouseMove(MouseEventArgs e)
+    {
+        base.OnMouseMove(e);
 
-            if (!IsMouseOver)
-                return;
+        if (!IsMouseOver)
+            return;
 
-            Point pos = e.GetPosition(this);
+        Point pos = e.GetPosition(this);
 
-            double left = pos.X - (PART_Highlight.ActualWidth / 2);
-            double top = pos.Y - (PART_Highlight.ActualHeight / 2);
+        double left = pos.X - (PART_Highlight.ActualWidth / 2);
+        double top = pos.Y - (PART_Highlight.ActualHeight / 2);
 
-            PART_Highlight.Margin = new Thickness(left, top, 0, 0);
-        }
+        PART_Highlight.Margin = new Thickness(left, top, 0, 0);
     }
 }

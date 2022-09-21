@@ -1,10 +1,9 @@
 ﻿using HunterPie.Core.Game;
 
-namespace HunterPie.UI.Architecture.Overlay
+namespace HunterPie.UI.Architecture.Overlay;
+
+internal interface IWidgetInitializer
 {
-    interface IWidgetInitializer
-    {
-        public void Load(Context context);
-        public void Unload();
-    }
+    public void Load(Context context);
+    public void Unload();
 }

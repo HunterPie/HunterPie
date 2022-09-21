@@ -7,56 +7,49 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace HunterPie.GUI.Parts.Account.Views
+namespace HunterPie.GUI.Parts.Account.Views;
+
+/// <summary>
+/// Interaction logic for AccountSignFlowView.xaml
+/// </summary>
+public partial class AccountSignFlowView : View<AccountSignFlowViewModel>, IEventDispatcher, IDisposable
 {
-    /// <summary>
-    /// Interaction logic for AccountSignFlowView.xaml
-    /// </summary>
-    public partial class AccountSignFlowView : View<AccountSignFlowViewModel>, IEventDispatcher, IDisposable
+    public event EventHandler<EventArgs> OnFormClose;
+
+    public AccountSignFlowView()
     {
-        public event EventHandler<EventArgs> OnFormClose;
+        HookEvents();
 
-        public AccountSignFlowView()
+        InitializeComponent();
+    }
+
+    private void OnCloseClick(object sender, RoutedEventArgs e) => this.Dispatch(OnFormClose);
+
+    public void Dispose() => ViewModel.PropertyChanged -= OnPropertyChanged;
+
+    private void HookEvents() => ViewModel.PropertyChanged += OnPropertyChanged;
+
+    private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        switch (e.PropertyName)
         {
-            HookEvents();
-
-            InitializeComponent();
+            case nameof(AccountSignFlowViewModel.SelectedIndex):
+                AnimateSlide(ViewModel.SelectedIndex);
+                break;
+            default:
+                break;
         }
+    }
 
-        private void OnCloseClick(object sender, RoutedEventArgs e) => this.Dispatch(OnFormClose);
-
-        public void Dispose()
+    private void AnimateSlide(int index)
+    {
+        Thickness[] positions = { new Thickness(12, 12, 0, 10), new Thickness(198, 12, 0, 10) };
+        ThicknessAnimation animation = new(positions[index], TimeSpan.FromMilliseconds(200), FillBehavior.HoldEnd)
         {
-            ViewModel.PropertyChanged -= OnPropertyChanged;
-        }
+            EasingFunction = new QuadraticEase(),
+            DecelerationRatio = 1,
+        };
 
-        private void HookEvents()
-        {
-            ViewModel.PropertyChanged += OnPropertyChanged;
-        }
-
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case nameof(AccountSignFlowViewModel.SelectedIndex):
-                    AnimateSlide(ViewModel.SelectedIndex);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void AnimateSlide(int index)
-        {
-            Thickness[] positions = { new Thickness(12, 12, 0, 10), new Thickness(198, 12, 0, 10) };
-            ThicknessAnimation animation = new(positions[index], TimeSpan.FromMilliseconds(200), FillBehavior.HoldEnd)
-            {
-                EasingFunction = new QuadraticEase(),
-                DecelerationRatio = 1,
-            };
-
-            PART_SelectedSignFlowHighlight.BeginAnimation(FrameworkElement.MarginProperty, animation);
-        }
+        PART_SelectedSignFlowHighlight.BeginAnimation(FrameworkElement.MarginProperty, animation);
     }
 }

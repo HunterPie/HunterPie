@@ -1,8 +1,7 @@
-﻿namespace HunterPie.Core.Domain.DTO
+﻿namespace HunterPie.Core.Domain.DTO;
+
+public struct StaminaData
 {
-    public struct StaminaData
-    {
-        public float Stamina;
-        public float MaxStamina;
-    }
+    public float Stamina;
+    public float MaxStamina;
 }

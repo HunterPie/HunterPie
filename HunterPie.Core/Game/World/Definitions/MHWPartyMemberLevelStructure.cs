@@ -1,8 +1,7 @@
-﻿namespace HunterPie.Core.Game.World.Definitions
+﻿namespace HunterPie.Core.Game.World.Definitions;
+
+public struct MHWPartyMemberLevelStructure
 {
-    public struct MHWPartyMemberLevelStructure
-    {
-        public short HighRank;
-        public short MasterRank;
-    }
+    public short HighRank;
+    public short MasterRank;
 }

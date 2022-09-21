@@ -1,24 +1,23 @@
 ﻿using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Settings.Converter;
-using KeybindingControl = HunterPie.UI.Controls.Buttons.Keybinding;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Data;
+using KeybindingControl = HunterPie.UI.Controls.Buttons.Keybinding;
 
-namespace HunterPie.UI.Settings.Internal
+namespace HunterPie.UI.Settings.Internal;
+
+public class KeybindingVisualConverter : IVisualConverter
 {
-    public class KeybindingVisualConverter : IVisualConverter
+    public FrameworkElement Build(object parent, PropertyInfo childInfo)
     {
-        public FrameworkElement Build(object parent, PropertyInfo childInfo)
-        {
-            Keybinding key = (Keybinding)childInfo.GetValue(parent);
-            var binding = VisualConverterHelper.CreateBinding(key, nameof(Keybinding.KeyCombo));
+        var key = (Keybinding)childInfo.GetValue(parent);
+        Binding binding = VisualConverterHelper.CreateBinding(key, nameof(Keybinding.KeyCombo));
 
-            KeybindingControl control = new();
+        KeybindingControl control = new();
 
-            BindingOperations.SetBinding(control, KeybindingControl.HotKeyProperty, binding);
-            
-            return control;
-        }
+        _ = BindingOperations.SetBinding(control, KeybindingControl.HotKeyProperty, binding);
+
+        return control;
     }
 }

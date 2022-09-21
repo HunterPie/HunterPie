@@ -1,12 +1,11 @@
-﻿namespace HunterPie.Core.Game.Enums
+﻿namespace HunterPie.Core.Game.Enums;
+
+public enum AuthorType
 {
-    public enum AuthorType
-    {
-        None,
-        NPC,
-        Buddy,
-        Monster,
-        Player,
-        Auto,
-    }
+    None,
+    NPC,
+    Buddy,
+    Monster,
+    Player,
+    Auto,
 }

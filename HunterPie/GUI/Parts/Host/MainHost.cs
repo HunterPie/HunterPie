@@ -1,36 +1,35 @@
 ﻿using HunterPie.Core.Architecture;
 using System.Windows;
 
-namespace HunterPie.GUI.Parts.Host
+namespace HunterPie.GUI.Parts.Host;
+
+internal class MainHost : Bindable
 {
-    internal class MainHost : Bindable
+    private static MainHost _instance;
+    public static MainHost Instance
     {
-        private static MainHost _instance;
-        public static MainHost Instance
+        get
         {
-            get
-            {
-                if (_instance is null)
-                    _instance = new();
+            if (_instance is null)
+                _instance = new();
 
-                return _instance;
-            }
+            return _instance;
         }
-
-        private UIElement _element;
-                
-        private MainHost() { }
-
-        public UIElement Element { get => _element; set { SetValue(ref _element, value); } }
-
-        public static void SetMain<T>(T element, bool forceRefresh = false) where T : UIElement
-        {
-            if (!forceRefresh && IsInstanceOf<T>())
-                return;
-
-            Instance.Element = element;
-        }
-
-        public static bool IsInstanceOf<T>() => Instance.Element is T;
     }
+
+    private UIElement _element;
+
+    private MainHost() { }
+
+    public UIElement Element { get => _element; set => SetValue(ref _element, value); }
+
+    public static void SetMain<T>(T element, bool forceRefresh = false) where T : UIElement
+    {
+        if (!forceRefresh && IsInstanceOf<T>())
+            return;
+
+        Instance.Element = element;
+    }
+
+    public static bool IsInstanceOf<T>() => Instance.Element is T;
 }

@@ -1,8 +1,7 @@
-﻿namespace HunterPie.Core.API.Entities
+﻿namespace HunterPie.Core.API.Entities;
+
+public enum NotificationType
 {
-    public enum NotificationType
-    {
-        INFO,
-        WARNING
-    }
+    INFO,
+    WARNING
 }

@@ -1,7 +1,6 @@
-﻿namespace HunterPie.Core.Game.Rise.Definitions
+﻿namespace HunterPie.Core.Game.Rise.Definitions;
+
+public struct MHRDebuffStructure
 {
-    public struct MHRDebuffStructure
-    {
-        public float Timer;
-    }
+    public float Timer;
 }

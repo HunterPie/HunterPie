@@ -2,24 +2,23 @@
 using System;
 using System.Windows.Controls;
 
-namespace HunterPie.UI.Controls.Settings.Custom
-{
-    /// <summary>
-    /// Interaction logic for AbnormalityView.xaml
-    /// </summary>
-    public partial class AbnormalityView : UserControl
-    {
-        public AbnormalityView()
-        {
-            InitializeComponent();
-        }
+namespace HunterPie.UI.Controls.Settings.Custom;
 
-        private void OnClick(object sender, EventArgs e)
+/// <summary>
+/// Interaction logic for AbnormalityView.xaml
+/// </summary>
+public partial class AbnormalityView : UserControl
+{
+    public AbnormalityView()
+    {
+        InitializeComponent();
+    }
+
+    private void OnClick(object sender, EventArgs e)
+    {
+        if (DataContext is AbnormalityViewModel vm)
         {
-            if (DataContext is AbnormalityViewModel vm)
-            {
-                vm.IsEnabled = !vm.IsEnabled;
-            }
+            vm.IsEnabled = !vm.IsEnabled;
         }
     }
 }

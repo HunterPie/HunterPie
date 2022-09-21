@@ -1,4 +1,3 @@
-﻿namespace HunterPie.Core.Client.Configuration.Games
-{
-    public sealed class MHRConfig : GameConfig { }
-}
+﻿namespace HunterPie.Core.Client.Configuration.Games;
+
+public sealed class MHRConfig : GameConfig { }
