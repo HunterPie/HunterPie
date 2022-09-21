@@ -3,100 +3,98 @@ using HunterPie.Core.Game.Rise.Entities;
 using HunterPie.Core.Game.Rise.Entities.Activities;
 using HunterPie.Core.Game.Rise.Entities.Entity;
 using HunterPie.UI.Overlay.Widgets.Activities.ViewModel;
-using System;
 using System.Collections.Generic;
 
-namespace HunterPie.UI.Overlay.Widgets.Activities.Rise
+namespace HunterPie.UI.Overlay.Widgets.Activities.Rise;
+
+internal class TrainingDojoContextHandler : IContextHandler
 {
-    internal class TrainingDojoContextHandler : IContextHandler
+    private readonly MHRContext _context;
+    private readonly Dictionary<MHRBuddy, BuddyViewModel> _buddyViewModels;
+    private MHRPlayer Player => (MHRPlayer)_context.Game.Player;
+
+    public readonly TrainingDojoViewModel ViewModel = new();
+
+    public TrainingDojoContextHandler(MHRContext context)
     {
-        private readonly MHRContext _context;
-        private readonly Dictionary<MHRBuddy, BuddyViewModel> _buddyViewModels;
-        private MHRPlayer Player => (MHRPlayer)_context.Game.Player;
+        _context = context;
+        _buddyViewModels = new(Player.TrainingDojo.Buddies.Length);
 
-        public readonly TrainingDojoViewModel ViewModel = new();
+        UpdateData();
+    }
 
-        public TrainingDojoContextHandler(MHRContext context)
+    private void UpdateData()
+    {
+        ViewModel.Boosts = Player.TrainingDojo.Boosts;
+        ViewModel.MaxBoosts = Player.TrainingDojo.MaxBoosts;
+        ViewModel.Rounds = Player.TrainingDojo.Rounds;
+        ViewModel.MaxRounds = Player.TrainingDojo.MaxRounds;
+    }
+
+    public void HookEvents()
+    {
+        Player.TrainingDojo.OnBoostsLeftChange += OnBoostsChange;
+        Player.TrainingDojo.OnRoundsLeftChange += OnRoundsChange;
+
+        foreach (MHRBuddy buddy in Player.TrainingDojo.Buddies)
         {
-            _context = context;
-            _buddyViewModels = new(Player.TrainingDojo.Buddies.Length);
+            if (_buddyViewModels.ContainsKey(buddy))
+                continue;
 
-            UpdateData();
-        }
-
-        private void UpdateData()
-        {
-            ViewModel.Boosts = Player.TrainingDojo.Boosts;
-            ViewModel.MaxBoosts = Player.TrainingDojo.MaxBoosts;
-            ViewModel.Rounds = Player.TrainingDojo.Rounds;
-            ViewModel.MaxRounds = Player.TrainingDojo.MaxRounds;
-        }
-
-        public void HookEvents()
-        {
-            Player.TrainingDojo.OnBoostsLeftChange += OnBoostsChange;
-            Player.TrainingDojo.OnRoundsLeftChange += OnRoundsChange;
-
-            foreach (MHRBuddy buddy in Player.TrainingDojo.Buddies)
+            _buddyViewModels[buddy] = new()
             {
-                if (_buddyViewModels.ContainsKey(buddy))
-                    continue;
+                Name = buddy.Name,
+                Level = buddy.Level,
+                IsEmpty = string.IsNullOrEmpty(buddy.Name)
+            };
 
-                _buddyViewModels[buddy] = new()
-                {
-                    Name = buddy.Name,
-                    Level = buddy.Level,
-                    IsEmpty = string.IsNullOrEmpty(buddy.Name)
-                };
-
-                buddy.OnNameChange += OnBuddyNameChange;
-                buddy.OnLevelChange += OnBuddyLevelChange;
-            }
-
-            foreach (BuddyViewModel vm in _buddyViewModels.Values)
-                ViewModel.Buddies.Add(vm);
+            buddy.OnNameChange += OnBuddyNameChange;
+            buddy.OnLevelChange += OnBuddyLevelChange;
         }
 
-        public void UnhookEvents()
+        foreach (BuddyViewModel vm in _buddyViewModels.Values)
+            ViewModel.Buddies.Add(vm);
+    }
+
+    public void UnhookEvents()
+    {
+        Player.TrainingDojo.OnBoostsLeftChange -= OnBoostsChange;
+        Player.TrainingDojo.OnRoundsLeftChange -= OnRoundsChange;
+
+        foreach (MHRBuddy buddy in _buddyViewModels.Keys)
         {
-            Player.TrainingDojo.OnBoostsLeftChange -= OnBoostsChange;
-            Player.TrainingDojo.OnRoundsLeftChange -= OnRoundsChange;
-
-            foreach (MHRBuddy buddy in _buddyViewModels.Keys)
-            {
-                buddy.OnNameChange -= OnBuddyNameChange;
-                buddy.OnLevelChange -= OnBuddyLevelChange;
-            }
-
-            _buddyViewModels.Clear();
-            ViewModel.Buddies.Clear();
+            buddy.OnNameChange -= OnBuddyNameChange;
+            buddy.OnLevelChange -= OnBuddyLevelChange;
         }
 
-        private void OnRoundsChange(object sender, MHRTrainingDojo e)
-        {
-            ViewModel.Rounds = e.Rounds;
-            ViewModel.MaxRounds = e.MaxRounds;
-        }
+        _buddyViewModels.Clear();
+        ViewModel.Buddies.Clear();
+    }
 
-        private void OnBoostsChange(object sender, MHRTrainingDojo e)
-        {
-            ViewModel.Boosts = e.Boosts;
-            ViewModel.MaxBoosts = e.MaxBoosts;
-        }
+    private void OnRoundsChange(object sender, MHRTrainingDojo e)
+    {
+        ViewModel.Rounds = e.Rounds;
+        ViewModel.MaxRounds = e.MaxRounds;
+    }
 
-        private void OnBuddyNameChange(object sender, MHRBuddy e)
-        {
-            BuddyViewModel vm = _buddyViewModels[e];
+    private void OnBoostsChange(object sender, MHRTrainingDojo e)
+    {
+        ViewModel.Boosts = e.Boosts;
+        ViewModel.MaxBoosts = e.MaxBoosts;
+    }
 
-            vm.Name = e.Name;
-            vm.IsEmpty = string.IsNullOrEmpty(e.Name);
-        }
+    private void OnBuddyNameChange(object sender, MHRBuddy e)
+    {
+        BuddyViewModel vm = _buddyViewModels[e];
 
-        private void OnBuddyLevelChange(object sender, MHRBuddy e)
-        {
-            BuddyViewModel vm = _buddyViewModels[e];
+        vm.Name = e.Name;
+        vm.IsEmpty = string.IsNullOrEmpty(e.Name);
+    }
 
-            vm.Level = e.Level;
-        }
+    private void OnBuddyLevelChange(object sender, MHRBuddy e)
+    {
+        BuddyViewModel vm = _buddyViewModels[e];
+
+        vm.Level = e.Level;
     }
 }

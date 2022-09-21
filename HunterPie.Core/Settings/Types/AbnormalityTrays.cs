@@ -3,14 +3,13 @@ using HunterPie.Core.Converters;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 
-namespace HunterPie.Core.Settings.Types
+namespace HunterPie.Core.Settings.Types;
+
+public class AbnormalityTrays
 {
-    public class AbnormalityTrays
-    {
-        [JsonConverter(typeof(ObservableCollectionConverter<AbnormalityWidgetConfig>))]
-        public ObservableCollection<AbnormalityWidgetConfig> Trays { get; set; } = new();
+    [JsonConverter(typeof(ObservableCollectionConverter<AbnormalityWidgetConfig>))]
+    public ObservableCollection<AbnormalityWidgetConfig> Trays { get; set; } = new();
 
-        public AbnormalityWidgetConfig this[int index] => Trays[index];
+    public AbnormalityWidgetConfig this[int index] => Trays[index];
 
-    }
 }

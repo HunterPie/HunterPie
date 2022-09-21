@@ -4,17 +4,16 @@ using HunterPie.UI.Settings.Converter;
 using System.Reflection;
 using System.Windows;
 
-namespace HunterPie.UI.Settings.Internal
+namespace HunterPie.UI.Settings.Internal;
+
+public class ColorVisualConverter : IVisualConverter
 {
-    public class ColorVisualConverter : IVisualConverter
+    public FrameworkElement Build(object parent, PropertyInfo childInfo)
     {
-        public FrameworkElement Build(object parent, PropertyInfo childInfo)
+        var viewModel = (Color)childInfo.GetValue(parent);
+        return new ColorPicker()
         {
-            Color viewModel = (Color)childInfo.GetValue(parent);
-            return new ColorPicker()
-            {
-                DataContext = viewModel,
-            };
-        }
+            DataContext = viewModel,
+        };
     }
 }

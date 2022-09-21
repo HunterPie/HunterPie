@@ -5,25 +5,21 @@ using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Monster;
 
-namespace HunterPie.Features.Overlay
+namespace HunterPie.Features.Overlay;
+
+internal class MonsterWidgetInitializer : IWidgetInitializer
 {
-    internal class MonsterWidgetInitializer : IWidgetInitializer
+    private IContextHandler _handler;
+
+    public void Load(Context context)
     {
-        IContextHandler _handler;
+        Core.Client.Configuration.OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
 
-        public void Load(Context context)
-        {
-            var config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
+        if (!config.BossesWidget.Initialize)
+            return;
 
-            if (!config.BossesWidget.Initialize)
-                return;
-
-            _handler = new MonsterWidgetContextHandler(context);
-        }
-
-        public void Unload()
-        {
-            _handler?.UnhookEvents();
-        }
+        _handler = new MonsterWidgetContextHandler(context);
     }
+
+    public void Unload() => _handler?.UnhookEvents();
 }

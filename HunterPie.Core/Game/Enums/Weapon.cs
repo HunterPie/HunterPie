@@ -1,21 +1,20 @@
-﻿namespace HunterPie.Core.Game.Enums
+﻿namespace HunterPie.Core.Game.Enums;
+
+public enum Weapon : byte
 {
-    public enum Weapon : byte
-    {
-        Greatsword,
-        SwordAndShield,
-        DualBlades,
-        Longsword,
-        Hammer,
-        HuntingHorn,
-        Lance,
-        GunLance,
-        SwitchAxe,
-        ChargeBlade,
-        InsectGlaive,
-        Bow,
-        HeavyBowgun,
-        LightBowgun,
-        None = 255
-    }
+    Greatsword,
+    SwordAndShield,
+    DualBlades,
+    Longsword,
+    Hammer,
+    HuntingHorn,
+    Lance,
+    GunLance,
+    SwitchAxe,
+    ChargeBlade,
+    InsectGlaive,
+    Bow,
+    HeavyBowgun,
+    LightBowgun,
+    None = 255
 }

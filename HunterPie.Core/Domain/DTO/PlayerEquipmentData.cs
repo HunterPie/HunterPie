@@ -1,9 +1,8 @@
 ﻿using HunterPie.Core.Game.Enums;
 
-namespace HunterPie.Core.Domain.DTO
+namespace HunterPie.Core.Domain.DTO;
+
+public struct PlayerEquipmentData
 {
-    public struct PlayerEquipmentData
-    {
-        public Weapon WeaponType;
-    }
+    public Weapon WeaponType;
 }

@@ -4,26 +4,25 @@ using HunterPie.UI.Architecture;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
-namespace HunterPie.GUI.Parts.Notifications.ViewModels
+namespace HunterPie.GUI.Parts.Notifications.ViewModels;
+
+internal class NotificationsPanelViewModel : ViewModel
 {
-    internal class NotificationsPanelViewModel : ViewModel
+    public ObservableCollection<NotificationViewModel> Notifications { get; } = new ObservableCollection<NotificationViewModel>();
+
+    public async Task FetchNotifications()
     {
-        public ObservableCollection<NotificationViewModel> Notifications { get; } = new ObservableCollection<NotificationViewModel>();
+        Notification[] notifications = await PoogieApi.GetNotifications();
 
-        public async Task FetchNotifications()
+        foreach (Notification notification in notifications)
         {
-            Notification[] notifications = await PoogieApi.GetNotifications();
-
-            foreach (Notification notification in notifications)
+            Notifications.Add(new NotificationViewModel
             {
-                Notifications.Add(new NotificationViewModel
-                {
-                    Title = notification.Title,
-                    Message = notification.Message,
-                    Type = notification.NotificationType,
-                    Date = notification.CreatedAt
-                });
-            }
+                Title = notification.Title,
+                Message = notification.Message,
+                Type = notification.NotificationType,
+                Date = notification.CreatedAt
+            });
         }
     }
 }

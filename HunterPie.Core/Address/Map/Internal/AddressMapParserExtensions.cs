@@ -3,45 +3,44 @@ using System;
 using System.Linq;
 using AddressMapType = HunterPie.Core.Address.Map.Internal.AddressMapKeyWords.AddressMapType;
 
-namespace HunterPie.Core.Address.Map.Internal
+namespace HunterPie.Core.Address.Map.Internal;
+
+internal static class AddressMapParserExtensions
 {
-    static class AddressMapParserExtensions
+    private static int[] ParseStringToVecInt32(string stringified)
     {
-        private static int[] ParseStringToVecInt32(string stringified)
-        {
-            return stringified.Split(",")
-                    .Select(element => Convert.ToInt32(element.Trim(), 16))
-                    .ToArray();
-        }
+        return stringified.Split(",")
+                .Select(element => Convert.ToInt32(element.Trim(), 16))
+                .ToArray();
+    }
 
-        public static void AddValueByType(this IAddressMapParser self, AddressMapType type, string key, string value)
+    public static void AddValueByType(this IAddressMapParser self, AddressMapType type, string key, string value)
+    {
+        void TryAdd<T>(string key, T value)
         {
-            void TryAdd<T>(string key, T value)
+            try
             {
-                try
-                {
-                    self.Add(key, value);
-                } catch (Exception e)
-                {
-                    Log.Error(e.ToString());
-                }
+                self.Add(key, value);
             }
-
-            switch (type)
+            catch (Exception e)
             {
-                case AddressMapType.Long:
-                    TryAdd(key, Convert.ToInt64(value, 16));
-                    break;
-
-                case AddressMapType.VecInt32:
-                    TryAdd(key, ParseStringToVecInt32(value));
-                    break;
-
-                default:
-                    break;
-
+                Log.Error(e.ToString());
             }
         }
 
+        switch (type)
+        {
+            case AddressMapType.Long:
+                TryAdd(key, Convert.ToInt64(value, 16));
+                break;
+
+            case AddressMapType.VecInt32:
+                TryAdd(key, ParseStringToVecInt32(value));
+                break;
+
+            default:
+                break;
+
+        }
     }
 }

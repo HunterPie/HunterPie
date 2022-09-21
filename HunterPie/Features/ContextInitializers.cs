@@ -1,25 +1,24 @@
-﻿using System.Threading.Tasks;
-using HunterPie.Core.Game;
+﻿using HunterPie.Core.Game;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Game.Demos.Sunbreak;
 using HunterPie.Game.Rise;
 using HunterPie.Game.World;
+using System.Threading.Tasks;
 
-namespace HunterPie.Features
+namespace HunterPie.Features;
+
+internal static class ContextInitializers
 {
-    internal static class ContextInitializers
+    private static readonly IContextInitializer[] initializers = new IContextInitializer[]
     {
-        private readonly static IContextInitializer[] initializers = new IContextInitializer[]
-        {
-            new MHWContextInitializer(),
-            new MHRContextInitializer(),
-            new MHRSunbreakDemoContextInitializer(),
-        };
+        new MHWContextInitializer(),
+        new MHRContextInitializer(),
+        new MHRSunbreakDemoContextInitializer(),
+    };
 
-        public static async Task InitializeAsync(Context context)
-        {
-            foreach (var initializer in initializers)
-                await initializer.InitializeAsync(context).ConfigureAwait(false);
-        }
+    public static async Task InitializeAsync(Context context)
+    {
+        foreach (IContextInitializer initializer in initializers)
+            await initializer.InitializeAsync(context).ConfigureAwait(false);
     }
 }

@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace HunterPie.Core.Domain.Interfaces;
 
-namespace HunterPie.Core.Domain.Interfaces
+public interface IMapper<T, K>
 {
-    public interface IMapper<T, K>
-    {
-        public K Map(T data);
-    }
+    public K Map(T data);
 }

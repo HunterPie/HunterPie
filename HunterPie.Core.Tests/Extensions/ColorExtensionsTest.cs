@@ -2,24 +2,23 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Drawing;
 
-namespace HunterPie.Core.Tests.Extensions
+namespace HunterPie.Core.Tests.Extensions;
+
+[TestClass]
+public class ColorExtensionsTest
 {
-    [TestClass]
-    public class ColorExtensionsTest
+
+    [TestMethod]
+    public void ToHexString_ShouldParseColorToHexString()
     {
-
-        [TestMethod]
-        public void ToHexString_ShouldParseColorToHexString()
+        var testCase = new
         {
-            var testCase = new
-            {
-                Color = Color.FromArgb(0x35, 0x33, 0xFF, 0x69),
-                Expected = "#3533FF69"
-            };
+            Color = Color.FromArgb(0x35, 0x33, 0xFF, 0x69),
+            Expected = "#3533FF69"
+        };
 
-            string output = testCase.Color.ToHexString();
+        string output = testCase.Color.ToHexString();
 
-            Assert.AreEqual(testCase.Expected, output);
-        }
+        Assert.AreEqual(testCase.Expected, output);
     }
 }

@@ -3,22 +3,21 @@ using HunterPie.Core.Game.Data;
 using System;
 using System.Xml;
 
-namespace HunterPie.Core.Domain.Mapper.Internal
+namespace HunterPie.Core.Domain.Mapper.Internal;
+
+internal class XmlNodeToWeaknessInfoMapper : IMapper<XmlNode, WeaknessInfo>
 {
-    class XmlNodeToWeaknessInfoMapper : IMapper<XmlNode, WeaknessInfo>
+    public WeaknessInfo Map(XmlNode data)
     {
-        public WeaknessInfo Map(XmlNode data)
+        if (data is null)
+            throw new ArgumentNullException(nameof(data), "XmlNode cannot be null");
+
+        WeaknessInfo info = new()
         {
-            if (data is null)
-                throw new ArgumentNullException(nameof(data), "XmlNode cannot be null");
+            Id = data.Attributes["Id"]?.Value,
+            Stars = int.Parse(data.Attributes["Stars"]?.Value ?? "0")
+        };
 
-            WeaknessInfo info = new()
-            {
-                Id = data.Attributes["Id"]?.Value,
-                Stars = int.Parse(data.Attributes["Stars"]?.Value ?? "0")
-            };
-
-            return info;
-        }
+        return info;
     }
 }

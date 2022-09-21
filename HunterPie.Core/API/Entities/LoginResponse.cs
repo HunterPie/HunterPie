@@ -1,10 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace HunterPie.Core.API.Entities
+namespace HunterPie.Core.API.Entities;
+
+public class LoginResponse
 {
-    public class LoginResponse
-    {
-        [JsonProperty("token")]
-        public string Token { get; set; }
-    }
+    [JsonProperty("token")]
+    public string Token { get; set; }
 }
