@@ -64,8 +64,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
         Context.Game.Player.Party.OnMemberJoin += OnMemberJoin;
         Context.Game.Player.Party.OnMemberLeave += OnMemberLeave;
         Context.Game.OnTimeElapsedChange += OnTimeElapsedChange;
-        Context.Game.Player.OnVillageEnter += OnVillageEnter;
-        Context.Game.Player.OnVillageLeave += OnVillageLeave;
+        Context.Game.Player.OnStageUpdate += OnStageUpdate;
         Context.Game.OnDeathCountChange += OnDeathCountChange;
     }
 
@@ -74,8 +73,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
         Context.Game.Player.Party.OnMemberJoin -= OnMemberJoin;
         Context.Game.Player.Party.OnMemberLeave -= OnMemberLeave;
         Context.Game.OnTimeElapsedChange -= OnTimeElapsedChange;
-        Context.Game.Player.OnVillageEnter -= OnVillageEnter;
-        Context.Game.Player.OnVillageLeave -= OnVillageLeave;
+        Context.Game.Player.OnStageUpdate -= OnStageUpdate;
         Context.Game.OnDeathCountChange -= OnDeathCountChange;
         _ = WidgetManager.Unregister<MeterView, DamageMeterWidgetConfig>(View);
     }
@@ -83,27 +81,23 @@ public class DamageMeterWidgetContextHandler : IContextHandler
     #region Player events
     private void OnDeathCountChange(object sender, IGame e) => ViewModel.Deaths = e.Deaths;
 
-    private void OnVillageLeave(object sender, EventArgs e)
+    private void OnStageUpdate(object sender, EventArgs e)
     {
-        ViewModel.InHuntingZone = true;
-
+        bool inHuntingZone = Context.Game.Player.InHuntingZone;
+        ViewModel.InHuntingZone = inHuntingZone;
+        
         View.Dispatcher.Invoke(() =>
         {
-            foreach (IPartyMember member in Context.Game.Player.Party.Members)
-                HandleAddMember(member);
-        });
-    }
-
-    private void OnVillageEnter(object sender, EventArgs e)
-    {
-        ViewModel.InHuntingZone = false;
-
-        View.Dispatcher.Invoke(() =>
-        {
-            foreach (IPartyMember member in _members.Keys)
+            foreach (var member in _members.Keys)
                 RemovePlayer(member);
 
             _members.Clear();
+
+            if (Context.Game.Player.InHuntingZone)
+            {
+                foreach (var member in Context.Game.Player.Party.Members)
+                    HandleAddMember(member);
+            }
         });
     }
 

@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Native.IPC.Models;
+using HunterPie.Core.Native.IPC.Models;
 using System;
 using System.Runtime.InteropServices;
 
@@ -8,6 +8,8 @@ namespace HunterPie.Core.Native.IPC.Handlers.Internal.Initialiaze.Models;
 public struct RequestIPCInitializationMessage
 {
     public IPCMessage Header;
+
+    public IPCInitializationHostType HostType;
 
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = 256)]
     public UIntPtr[] Addresses;

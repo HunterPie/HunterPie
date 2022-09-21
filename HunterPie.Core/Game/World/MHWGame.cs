@@ -8,19 +8,27 @@ using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.World.Crypto;
 using HunterPie.Core.Game.World.Entities;
 using HunterPie.Core.Game.World.Utils;
+using HunterPie.Core.Native.IPC.Handlers.Internal.Damage;
+using HunterPie.Core.Native.IPC.Handlers.Internal.Damage.Models;
+using HunterPie.Core.Native.IPC.Models.Common;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace HunterPie.Core.Game.World;
 
 public class MHWGame : Scannable, IGame, IEventDispatcher
 {
+    public const long ALL_TARGETS = 0;
+
     private readonly MHWPlayer _player;
     private readonly Dictionary<long, IMonster> _monsters = new();
     private bool _isMouseVisible;
     private float _timeElapsed;
     private int _deaths;
+    private readonly Stopwatch _localTimerStopwatch = new();
+    private readonly Stopwatch _damageUpdateThrottleStopwatch = new();
 
     public event EventHandler<IMonster> OnMonsterSpawn;
     public event EventHandler<IMonster> OnMonsterDespawn;
@@ -46,6 +54,9 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
         }
     }
 
+    /// <summary>
+    /// Gets time elapsed in seconds since the quest starts.
+    /// </summary>
     public float TimeElapsed
     {
         get => _timeElapsed;
@@ -75,6 +86,8 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
     public MHWGame(IProcessManager process) : base(process)
     {
         _player = new(process);
+        DamageMessageHandler.OnReceived += OnReceivePlayersDamage;
+        _player.OnStageUpdate += OnPlayerStageUpdate;
 
         ScanManager.Add(_player, this);
     }
@@ -100,14 +113,47 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
         ulong[] timers = _process.Memory.Read<ulong>(questEndTimerPtrs, 2);
         ulong encryptKey = timers[0];
         ulong encryptedValue = timers[1];
-
-        float questMaxTimer = _process.Memory.Read<uint>(questEndTimerPtrs + 0x1C)
-                                             .ApproximateHigh(MHWGameUtils.MaxQuestTimers)
-                                             .ToSeconds();
+        uint questMaxTimerRaw = _process.Memory.Read<uint>(questEndTimerPtrs + 0x1C);
 
         float elapsed = MHWCrypto.DecryptQuestTimer(encryptedValue, encryptKey);
 
-        TimeElapsed = Math.Max(0, questMaxTimer - elapsed);
+        if (questMaxTimerRaw is 0 or 180000 && elapsed is 0.0f or 3000.0f)
+        {
+            if (Player.InHuntingZone)
+            {
+                // No quest timer available while player is on the hunt.
+                // We will use ours instead.
+                _localTimerStopwatch.Start();
+                TimeElapsed = _localTimerStopwatch.ElapsedMilliseconds / 1000.0f;
+            }
+            else
+            {
+                // Prevent TimeElapsed from being 3000 sec. before joining the hunt.
+                // Otherwise there will be incorrect MemberInfo.JoinedAt values when player is entering Training Area or Guiding Lands.
+                TimeElapsed = 0;
+            }
+        }
+        else
+        {
+            if (_localTimerStopwatch.IsRunning)
+                _localTimerStopwatch.Reset();
+            float questMaxTimer = questMaxTimerRaw
+                .ApproximateHigh(MHWGameUtils.MaxQuestTimers)
+                .ToSeconds();
+            TimeElapsed = Math.Max(0, questMaxTimer - elapsed);
+        }
+    }
+
+    [ScannableMethod]
+    private void GetPartyMembersDamage()
+    {
+        if (_damageUpdateThrottleStopwatch.IsRunning && _damageUpdateThrottleStopwatch.ElapsedMilliseconds < 100)
+            return;
+
+        _damageUpdateThrottleStopwatch.Restart();
+
+        if (Player.InHuntingZone)
+            DamageMessageHandler.RequestHuntStatistics(ALL_TARGETS);
     }
 
     [ScannableMethod]
@@ -183,6 +229,42 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
 
         this.Dispatch(OnMonsterDespawn, monster);
     }
+    
+    public void Dispose() {}
 
-    public void Dispose() { }
+    #region Damage helpers
+
+    private void OnPlayerStageUpdate(object sender, EventArgs e)
+    {
+        DamageMessageHandler.ClearAllHuntStatisticsExcept(Array.Empty<long>());
+        DamageMessageHandler.RequestHuntStatistics(ALL_TARGETS);
+        _damageUpdateThrottleStopwatch.Reset();
+        _localTimerStopwatch.Reset();
+    }
+
+    private void OnReceivePlayersDamage(object sender, ResponseDamageMessage e)
+    {
+        long target = e.Target;
+
+        _damageDone[target] = e.Entities;
+
+        EntityDamageData[] damages = _damageDone.Values.SelectMany(entity => entity)
+            .GroupBy(entity => entity.Entity.Index)
+            .Select(group =>
+            {
+                EntityDamageData entity = group.ElementAt(0);
+
+                return new EntityDamageData
+                {
+                    Target = entity.Target,
+                    Entity = entity.Entity,
+                    RawDamage = group.Sum(e => e.RawDamage),
+                    ElementalDamage = group.Sum(e => e.ElementalDamage)
+                };
+            })
+            .ToArray();
+
+        _player.UpdatePartyMembersDamage(damages);
+    }
+    #endregion
 }

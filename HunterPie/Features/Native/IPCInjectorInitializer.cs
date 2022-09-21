@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client;
 using HunterPie.Core.Game;
 using HunterPie.Core.Logger;
 using System;
@@ -35,6 +35,7 @@ internal static class IPCInjectorInitializer
             Log.Error("Failed to inject HunterPie Native Interface. {0}", ex);
             return false;
         }
+
     }
 
     private static bool IsAlreadyInjected(Context context)

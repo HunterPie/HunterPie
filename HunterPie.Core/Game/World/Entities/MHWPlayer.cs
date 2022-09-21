@@ -17,13 +17,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using SpecializedTool = HunterPie.Core.Game.World.Entities.Player.MHWSpecializedTool;
+using HunterPie.Core.Native.IPC.Models.Common;
 
 namespace HunterPie.Core.Game.World.Entities;
 
 public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 {
     #region consts
-    private static readonly Stage[] peaceZones =
+    private readonly static Stage[] peaceZones =
     {
         Stage.Astera,
         Stage.AsteraGatheringHub,
@@ -39,23 +40,25 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 
     #region Private fields
 
-    private long _playerAddress;
+    private long _playerSaveAddress;
+    private long _localPlayerAddress;
     private Stage _zoneId;
     private Weapon _weaponId;
+    private readonly SpecializedTool[] _tools = { new(), new() };
     private readonly Dictionary<string, IAbnormality> _abnormalities = new();
     private readonly MHWParty _party = new();
     #endregion
 
     #region Public fields
 
-    public long PlayerAddress
+    public long PlayerSaveAddress
     {
-        get => _playerAddress;
+        get => _playerSaveAddress;
         private set
         {
-            if (value != _playerAddress)
+            if (value != _playerSaveAddress)
             {
-                _playerAddress = value;
+                _playerSaveAddress = value;
 
                 this.Dispatch(
                     value != 0
@@ -90,6 +93,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
                     this.Dispatch(OnVillageLeave);
 
                 _zoneId = value;
+                this.Dispatch(OnStageUpdate);
             }
         }
     }
@@ -111,7 +115,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 
     public SpecializedTool[] Tools { get; } = { new(), new() };
 
-    public bool IsLoggedOn => _playerAddress != 0;
+    public bool IsLoggedOn => _playerSaveAddress != 0;
 
     public int StageId => (int)ZoneId;
 
@@ -120,8 +124,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     public IParty Party => _party;
 
     public bool InHuntingZone => ZoneId != Stage.MainMenu
-        && ZoneId != Stage.TrainingArea
-        && !peaceZones.Contains(_zoneId);
+                                 && !peaceZones.Contains(_zoneId);
 
     #endregion
 
@@ -165,7 +168,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
         PlayerInformationData data = new();
         if (ZoneId == Stage.MainMenu)
         {
-            PlayerAddress = 0;
+            PlayerSaveAddress = 0;
             return;
         }
 
@@ -192,8 +195,8 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             HighRank = data.HighRank;
             MasterRank = data.MasterRank;
             PlayTime = data.PlayTime;
-
-            PlayerAddress = currentPlayerSaveHeader;
+            
+            PlayerSaveAddress = currentPlayerSaveHeader;
         }
     }
 
@@ -450,6 +453,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             AddressMap.Get<int[]>("DAMAGE_OFFSETS")
         );
 
+        var localLocalPlayerAddress = 0L;
         for (int i = 0; i < Party.MaxSize; i++)
         {
             long playerAddress = partyInformation + (i * 0x1C0);
@@ -463,8 +467,12 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 
             string name = _process.Memory.Read(playerAddress, 32);
             bool isLocalPlayer = name == Name;
+            if (isLocalPlayer)
+            {
+                localLocalPlayerAddress = playerAddress;
+            }
             MHWPartyMemberLevelStructure levels = _process.Memory.Read<MHWPartyMemberLevelStructure>(playerAddress + 0x27);
-            var data = new MHWPartyMemberData
+            MHWPartyMemberData data = new MHWPartyMemberData
             {
                 Name = name,
                 Weapon = isLocalPlayer ? WeaponId : (Weapon)_process.Memory.Read<byte>(playerAddress + 0x33),
@@ -475,6 +483,19 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             };
 
             _party.Update(playerAddress, data);
+        }
+        _localPlayerAddress = localLocalPlayerAddress;
+    }
+
+    internal void UpdatePartyMembersDamage(EntityDamageData[] entities)
+    {
+        foreach (EntityDamageData entity in entities)
+        {
+            // For now we are only tracking local player.
+            if (entity.Entity.Index == 0)
+            {
+                _party.Update(_localPlayerAddress, entity);
+            }
         }
     }
 }

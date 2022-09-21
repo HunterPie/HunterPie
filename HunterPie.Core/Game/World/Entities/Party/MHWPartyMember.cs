@@ -1,16 +1,18 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.World.Definitions;
+using HunterPie.Core.Native.IPC.Models.Common;
 using System;
 
 namespace HunterPie.Core.Game.World.Entities.Party;
 
-public class MHWPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHWPartyMemberData>
+public class MHWPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHWPartyMemberData>, IUpdatable<EntityDamageData>
 {
     private int _damage;
     private Weapon _weapon;
+    private bool _anyNonTrivialStatisticalDamage;
 
     public string Name { get; private set; }
 
@@ -51,13 +53,29 @@ public class MHWPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHWPart
     public event EventHandler<IPartyMember> OnDamageDealt;
     public event EventHandler<IPartyMember> OnWeaponChange;
 
+    /// <inheritdoc />
     void IUpdatable<MHWPartyMemberData>.Update(MHWPartyMemberData data)
     {
         Name = data.Name;
-        Damage = data.Damage;
+        if (data.Damage != 0)
+        {
+            _anyNonTrivialStatisticalDamage = true;
+            Damage = data.Damage;
+        }
         Weapon = data.Weapon;
         Slot = data.Slot;
         IsMyself = data.IsMyself;
         MasterRank = data.MasterRank;
+    }
+
+    /// <inheritdoc />
+    void IUpdatable<EntityDamageData>.Update(EntityDamageData data)
+    {
+        // If there is only trivial (zero) damage data from player statistics data,
+        // we will use EntityDamageData from HunterPie.Native as a fallback.
+        if (!_anyNonTrivialStatisticalDamage)
+        {
+            Damage = (int)(data.RawDamage + data.ElementalDamage);
+        }
     }
 }

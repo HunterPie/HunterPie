@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Logger;
+using HunterPie.Core.Logger;
 using HunterPie.Core.Native.IPC.Handlers.Internal.Initialiaze.Models;
 using HunterPie.Core.Native.IPC.Models;
 using HunterPie.Core.Native.IPC.Utils;
@@ -16,10 +16,19 @@ internal class IPCInitializationMessageHandler : IMessageHandler
 
     public void Handle(byte[] message)
     {
-        IPCMessage response = MessageHelper.Deserialize<IPCMessage>(message);
+        ResponseIPCInitializationMessage response = MessageHelper.Deserialize<ResponseIPCInitializationMessage>(message);
 
-        if (response.Version != Version)
+        if (response.Header.Version != Version)
         {
+            Log.Warn(ERROR_DIALOG_MESSAGE);
+            return;
+        }
+
+        // Not throwing Exception here since stack trace won't be helpful.
+        var ex = Marshal.GetExceptionForHR(response.HResult);
+        if (ex != null)
+        {
+            Log.Error("Failed to initialize IPC: {0}", ex);
             Log.Warn(ERROR_DIALOG_MESSAGE);
             return;
         }
@@ -27,9 +36,9 @@ internal class IPCInitializationMessageHandler : IMessageHandler
         IPCHookInitializationMessageHandler.RequestInitMHHooks();
     }
 
-    public static async void RequestIPCInitialization(UIntPtr[] addresses)
+    public static async void RequestIPCInitialization(IPCInitializationHostType hostType, UIntPtr[] addresses)
     {
-        var buffer = new UIntPtr[256];
+        UIntPtr[] buffer = new UIntPtr[256];
 
         Buffer.BlockCopy(addresses, 0, buffer, 0, addresses.Length * Marshal.SizeOf<UIntPtr>());
 
@@ -40,6 +49,7 @@ internal class IPCInitializationMessageHandler : IMessageHandler
                 Type = IPCMessageType.INIT_IPC_MEMORY_ADDRESSES,
                 Version = 1,
             },
+            HostType = hostType,
             Addresses = buffer,
         };
 

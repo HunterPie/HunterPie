@@ -180,6 +180,9 @@
     <ClInclude Include="Games\Rise\Damage\Damage.h" />
     <ClInclude Include="Games\Rise\Damage\Hooks.h" />
     <ClInclude Include="Games\Rise\Utils\RiseUtils.h" />
+    <ClInclude Include="Games\World\Common\Monster.h" />
+    <ClInclude Include="Games\World\Damage\Hooks.h" />
+    <ClInclude Include="Games\World\Utils\WorldUtils.h" />
     <ClInclude Include="libs\MinHook\MinHook.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
@@ -192,6 +195,8 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Games\Rise\Damage\Hooks.cpp" />
     <ClCompile Include="Games\Rise\Utils\RiseUtils.cpp" />
+    <ClCompile Include="Games\World\Damage\Hooks.cpp" />
+    <ClCompile Include="Games\World\Utils\WorldUtils.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

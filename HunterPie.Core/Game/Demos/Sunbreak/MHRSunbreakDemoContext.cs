@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Game.Rise.Data;
 
 namespace HunterPie.Core.Game.Demos.Sunbreak;
@@ -16,6 +16,5 @@ public class MHRSunbreakDemoContext : Context
 
     public override void Dispose()
     {
-
     }
 }

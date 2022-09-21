@@ -2,6 +2,7 @@
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Native.IPC.Handlers.Internal.Initialiaze;
+using HunterPie.Core.Native.IPC.Handlers.Internal.Initialiaze.Models;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Features.Native;
 using HunterPie.Features.Patcher;
@@ -31,6 +32,6 @@ internal class MHRContextInitializer : IContextInitializer
         await NativeIPCInitializer.WaitForIPCInitialization();
         UIntPtr[] addresses = _addresses.Select(name => (UIntPtr)AddressMap.GetAbsolute(name))
             .ToArray();
-        IPCInitializationMessageHandler.RequestIPCInitialization(addresses);
+        IPCInitializationMessageHandler.RequestIPCInitialization(IPCInitializationHostType.MHRise, addresses);
     }
 }

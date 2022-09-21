@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Domain.Process;
 using System;
 
 namespace HunterPie.Core.Game;
