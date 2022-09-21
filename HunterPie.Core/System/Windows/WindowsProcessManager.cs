@@ -121,6 +121,9 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
         {
             try
             {
+                if (mhProcess.MainModule is null)
+                    throw new InvalidOperationException("Process main module is null.");
+
                 Process = mhProcess;
                 ProcessId = mhProcess.Id;
                 IsExitedNormally = null;
@@ -129,7 +132,7 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
                 _ = Process.SafeHandle;
                 pHandle = Kernel32.OpenProcess(Kernel32.PROCESS_ALL_ACCESS, false, ProcessId);
 
-                if (pHandle == IntPtr.Zero || Process.MainModule is null)
+                if (pHandle == IntPtr.Zero)
                 {
                     throw new Win32Exception();
                 }
