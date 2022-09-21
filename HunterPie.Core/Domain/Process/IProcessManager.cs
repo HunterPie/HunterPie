@@ -13,7 +13,7 @@ public interface IProcessManager
 
     /// <summary>Whether the last process exit is a normal exit (rather than crash).</summary>
     /// <value><c>null</c> if the game has not ever started, or is currently running.</value>
-    public bool? IsExitedNormally { get; }
+    public bool? HasExitedNormally { get; }
 
     public event EventHandler<ProcessEventArgs> OnGameStart;
     public event EventHandler<ProcessEventArgs> OnGameClosed;

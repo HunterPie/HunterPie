@@ -37,7 +37,7 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
     public abstract GameProcess Game { get; }
 
     /// <inheritdoc />
-    public bool? IsExitedNormally { get; private set; }
+    public bool? HasExitedNormally { get; private set; }
 
     public int Version { get; private set; }
 
@@ -126,7 +126,7 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
 
                 Process = mhProcess;
                 ProcessId = mhProcess.Id;
-                IsExitedNormally = null;
+                HasExitedNormally = null;
                 // We want to retrieve process exit code, so force Process to call OpenProcess by explicitly retrieving its SafeHandle.
                 // Otherwise there will be InvalidOperationException: Process was not started by this object, so requested information cannot be determined.
                 _ = Process.SafeHandle;
@@ -160,7 +160,7 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
     {
         Debug.Assert(Process != null);
 
-        IsExitedNormally = Process.ExitCode == 0;
+        HasExitedNormally = Process.ExitCode == 0;
         Process.Dispose();
         Process = null;
 

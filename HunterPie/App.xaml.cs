@@ -126,7 +126,7 @@ public partial class App : Application
         Dispatcher.InvokeAsync(WidgetInitializers.Unload);
         WidgetManager.Dispose();
         Log.Info("{0} has been closed", e.ProcessName);
-        if (e.Process.IsExitedNormally == false
+        if (e.Process.HasExitedNormally == false
             && e.Process.Game == GameProcess.MonsterHunterWorld
             && ClientConfig.Config.Client.EnableNativeModule)
         {
