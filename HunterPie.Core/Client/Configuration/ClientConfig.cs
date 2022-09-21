@@ -43,9 +43,6 @@ public class ClientConfig : ISettings
     [SettingField("ENABLE_NATIVE_MODULE_STRING", availableGames: GameProcess.MonsterHunterWorld)]
     public Observable<bool> EnableNativeModule { get; set; } = true;
 
-    [SettingField("SHUTDOWN_ON_GAME_EXIT")]
-    public Observable<bool> ShouldShutdownOnGameExit { get; set; } = false;
-
     [SettingField("RENDERING_STRATEGY_STRING", requiresRestart: true)]
     public Observable<RenderingStrategy> Render { get; set; } = RenderingStrategy.Software;
 

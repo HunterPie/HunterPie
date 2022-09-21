@@ -68,11 +68,15 @@ internal class InitializerManager
     public static void Unload()
     {
         foreach (IInitializer initializer in _initializers)
+        {
             if (initializer is IDisposable disposable)
                 disposable.Dispose();
+        }
 
         foreach (IInitializer initializer in _uiInitializers)
+        {
             if (initializer is IDisposable disposable)
                 disposable.Dispose();
+        }
     }
 }

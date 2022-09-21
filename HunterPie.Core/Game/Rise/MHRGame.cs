@@ -149,10 +149,12 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
         }
 
         if (!isChatOpen)
+        {
             isChatOpen |= _process.Memory.Deref<byte>(
                 AddressMap.GetAbsolute("CHAT_UI_ADDRESS"),
                 AddressMap.Get<int[]>("CHAT_UI_OFFSETS")
             ) == 1;
+        }
 
         _chat.IsChatOpen = isChatOpen;
     }
@@ -216,8 +218,10 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
         if (!Player.InHuntingZone && Player.StageId != TRAINING_ROOM_ID)
         {
             if (_monsters.Keys.Count > 0)
+            {
                 foreach (long mAddress in _monsters.Keys)
                     HandleMonsterDespawn(mAddress);
+            }
 
             return;
         }

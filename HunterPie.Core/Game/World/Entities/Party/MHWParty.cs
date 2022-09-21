@@ -2,11 +2,11 @@ using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.World.Definitions;
+using HunterPie.Core.Logger;
+using HunterPie.Core.Native.IPC.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using HunterPie.Core.Logger;
-using HunterPie.Core.Native.IPC.Models.Common;
 
 namespace HunterPie.Core.Game.World.Entities.Party;
 
@@ -52,6 +52,7 @@ public class MHWParty : IParty, IEventDispatcher
                 return;
             }
         }
+
         lock (member)
         {
             ((IUpdatable<MHWPartyMemberData>)member).Update(data);
@@ -70,6 +71,7 @@ public class MHWParty : IParty, IEventDispatcher
                 return;
             }
         }
+
         lock (member)
         {
             ((IUpdatable<EntityDamageData>)member).Update(data);
@@ -84,6 +86,7 @@ public class MHWParty : IParty, IEventDispatcher
         {
             _partyMembers.Add(memberAddress, member);
         }
+
         this.Dispatch(OnMemberJoin, member);
     }
 
@@ -95,6 +98,7 @@ public class MHWParty : IParty, IEventDispatcher
             if (!_partyMembers.Remove(memberAddress, out member))
                 return;
         }
+
         this.Dispatch(OnMemberLeave, member);
     }
 }

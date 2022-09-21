@@ -25,7 +25,7 @@ internal class IPCInitializationMessageHandler : IMessageHandler
         }
 
         // Not throwing Exception here since stack trace won't be helpful.
-        var ex = Marshal.GetExceptionForHR(response.HResult);
+        Exception ex = Marshal.GetExceptionForHR(response.HResult);
         if (ex != null)
         {
             Log.Error("Failed to initialize IPC: {0}", ex);
@@ -38,7 +38,7 @@ internal class IPCInitializationMessageHandler : IMessageHandler
 
     public static async void RequestIPCInitialization(IPCInitializationHostType hostType, UIntPtr[] addresses)
     {
-        UIntPtr[] buffer = new UIntPtr[256];
+        var buffer = new UIntPtr[256];
 
         Buffer.BlockCopy(addresses, 0, buffer, 0, addresses.Length * Marshal.SizeOf<UIntPtr>());
 

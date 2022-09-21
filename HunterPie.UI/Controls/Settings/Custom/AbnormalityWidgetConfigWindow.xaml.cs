@@ -78,8 +78,10 @@ public partial class AbnormalityWidgetConfigWindow : Window, INotifyPropertyChan
         Config.AllowedAbnormalities.Clear();
 
         foreach (AbnormalityCollectionViewModel collection in Collections)
+        {
             foreach (AbnormalityViewModel abnorm in collection.Abnormalities.Where(a => a.IsEnabled))
                 _ = Config.AllowedAbnormalities.Add(abnorm.Id);
+        }
     }
 
     private void OnSearchTextChanged(object sender, SearchTextChangedEventArgs e)

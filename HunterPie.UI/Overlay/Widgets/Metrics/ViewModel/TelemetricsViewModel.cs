@@ -25,8 +25,10 @@ public class TelemetricsViewModel : Bindable
         {
             // Lazy initializer
             if (_cpuPerfCounter is null)
-                using (var self = Process.GetCurrentProcess())
-                    _cpuPerfCounter = new("Process", "% Processor Time", self.ProcessName, true);
+            {
+                using var self = Process.GetCurrentProcess();
+                _cpuPerfCounter = new("Process", "% Processor Time", self.ProcessName, true);
+            }
 
             return _cpuPerfCounter;
         }

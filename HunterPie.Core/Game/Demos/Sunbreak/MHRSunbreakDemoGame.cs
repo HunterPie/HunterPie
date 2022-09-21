@@ -56,8 +56,10 @@ public class MHRSunbreakDemoGame : Scannable, IGame, IEventDispatcher
         if (!MonsterAreas.Contains(Player.StageId))
         {
             if (monsters.Keys.Count > 0)
+            {
                 foreach (long mAddress in monsters.Keys)
                     HandleMonsterDespawn(mAddress);
+            }
 
             return;
         }

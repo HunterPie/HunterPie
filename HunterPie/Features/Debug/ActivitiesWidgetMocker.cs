@@ -13,11 +13,13 @@ internal class ActivitiesWidgetMocker : IWidgetMocker
         Core.Client.Configuration.OverlayConfig mockConfig = ClientConfig.Config.Rise.Overlay;
 
         if (ClientConfig.Config.Development.MockActivitiesWidget)
+        {
             _ = WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(
                 new ActivitiesView(mockConfig.ActivitiesWidget)
                 {
                     DataContext = new MockActivitiesViewModel()
                 }
             );
+        }
     }
 }

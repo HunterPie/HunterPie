@@ -53,8 +53,10 @@ public class WirebugWidgetContextHandler : IContextHandler
         View.Dispatcher.Invoke(() =>
         {
             foreach (WirebugViewModel vm in ViewModel.Elements)
+            {
                 if (vm is WirebugContextHandler model)
                     model.UnhookEvents();
+            }
 
             ViewModel.Elements.Clear();
 

@@ -54,14 +54,18 @@ public static class ProcessManager
     private static void PauseAllPollingThreads(IProcessManager activeManager)
     {
         foreach (IProcessManager manager in Managers)
+        {
             if (manager != activeManager)
                 manager.Pause();
+        }
     }
 
     private static void ResumeAllPollingThreads(IProcessManager activeManager)
     {
         foreach (IProcessManager manager in Managers)
+        {
             if (manager != activeManager)
                 manager.Resume();
+        }
     }
 }

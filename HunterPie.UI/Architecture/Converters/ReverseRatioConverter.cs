@@ -13,7 +13,9 @@ public class ReverseRatioConverter : IMultiValueConverter
 
         if (values[0] is not double
             || values[1] is not double)
+        {
             return 0;
+        }
 
         double a = (double)values[0];
         double b = (double)values[1];

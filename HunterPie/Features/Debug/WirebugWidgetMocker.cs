@@ -13,11 +13,13 @@ internal class WirebugWidgetMocker : IWidgetMocker
         Core.Client.Configuration.OverlayConfig mockConfig = ClientConfig.Config.Rise.Overlay;
 
         if (ClientConfig.Config.Development.MockWirebugWidget)
+        {
             _ = WidgetManager.Register<WirebugsView, WirebugWidgetConfig>(
                 new WirebugsView(mockConfig.WirebugWidget)
                 {
                     DataContext = new MockWirebugsViewModel()
                 }
             );
+        }
     }
 }

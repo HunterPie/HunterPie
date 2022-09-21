@@ -13,11 +13,13 @@ internal class ChatWidgetMocker : IWidgetMocker
         Core.Client.Configuration.OverlayConfig mockConfig = ClientConfig.Config.Rise.Overlay;
 
         if (ClientConfig.Config.Development.MockChatWidget)
+        {
             _ = WidgetManager.Register<ChatView, ChatWidgetConfig>(
                 new ChatView(mockConfig.ChatWidget)
                 {
                     DataContext = new MockChatViewModel()
                 }
             );
+        }
     }
 }

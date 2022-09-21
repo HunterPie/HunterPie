@@ -82,7 +82,9 @@ public class Strings
         if (!_instance._endemicGmd.Keys.ContainsKey(monsterEm))
         {
             if (_specialEndemics.ContainsKey(monsterEm))
+            {
                 monsterEm = _specialEndemics[monsterEm];
+            }
             else
             {
                 monsterEm = monsterEm.Split('_').First();
@@ -112,7 +114,9 @@ public class Strings
         if (!_instance._endemicGmd.Keys.ContainsKey(monsterEm))
         {
             if (_specialEndemics.ContainsKey(monsterEm))
+            {
                 monsterEm = _specialEndemics[monsterEm];
+            }
             else
             {
                 monsterEm = monsterEm.Split('_').First();

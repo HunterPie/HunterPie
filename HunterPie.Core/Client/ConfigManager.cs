@@ -130,7 +130,9 @@ public class ConfigManager
                 if (string.IsNullOrEmpty(str)
                     || str[0] == '\x00'
                     || str == "null")
+                {
                     throw new Exception("Configuration file was empty");
+                }
 
                 var serializerSettings = new JsonSerializerSettings()
                 {

@@ -62,6 +62,7 @@ public class MHWPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHWPart
             _anyNonTrivialStatisticalDamage = true;
             Damage = data.Damage;
         }
+
         Weapon = data.Weapon;
         Slot = data.Slot;
         IsMyself = data.IsMyself;

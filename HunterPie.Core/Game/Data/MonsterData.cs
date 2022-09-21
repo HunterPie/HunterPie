@@ -110,28 +110,34 @@ public class MonsterData
         {
 
             if (crowns.Attributes!["Mini"]?.Value is string miniValue)
+            {
                 _ = float.TryParse(
                     miniValue,
                     NumberStyles.Float,
                     CultureInfo.InvariantCulture,
                     out mini
                 );
+            }
 
             if (crowns.Attributes["Silver"]?.Value is string silverValue)
+            {
                 _ = float.TryParse(
                     silverValue,
                     NumberStyles.Float,
                     CultureInfo.InvariantCulture,
                     out silver
                 );
+            }
 
             if (crowns.Attributes["Gold"]?.Value is string goldValue)
+            {
                 _ = float.TryParse(
                     goldValue,
                     NumberStyles.Float,
                     CultureInfo.InvariantCulture,
                     out gold
                 );
+            }
         }
 
         return new()

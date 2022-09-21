@@ -62,12 +62,14 @@ public class AbnormalitiesViewHelper
             string abnormId = AbnormalityData.BuildAbnormalityId(id, category);
 
             if (!collections.ContainsKey(category))
+            {
                 collections.Add(category, new()
                 {
                     Name = Localization.QueryString(categoryString),
                     Description = Localization.QueryDescription(categoryString),
                     Icon = Icons[category]
                 });
+            }
 
             AbnormalityCollectionViewModel collection = collections[category];
 

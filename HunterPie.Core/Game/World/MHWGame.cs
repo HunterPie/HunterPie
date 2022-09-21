@@ -24,6 +24,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
 
     private readonly MHWPlayer _player;
     private readonly Dictionary<long, IMonster> _monsters = new();
+    private readonly Dictionary<long, EntityDamageData[]> _damageDone = new();
     private bool _isMouseVisible;
     private float _timeElapsed;
     private int _deaths;
@@ -229,8 +230,8 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
 
         this.Dispatch(OnMonsterDespawn, monster);
     }
-    
-    public void Dispose() {}
+
+    public void Dispose() { }
 
     #region Damage helpers
 

@@ -12,7 +12,9 @@ public class ParentSizePercentageConverter : IMultiValueConverter
         // TODO: Make parameter the percentage divisor
         if (values[0] is not double ||
             values[1] is not double)
+        {
             return 0;
+        }
 
         double parentSize = (double)values[0];
         double percentage = (double)values[1] / 100;

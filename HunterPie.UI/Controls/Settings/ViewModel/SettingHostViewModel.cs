@@ -37,8 +37,10 @@ public class SettingHostViewModel : Bindable
             Elements.Add(el);
 
         foreach (GameProcess gameType in Enum.GetValues<GameProcess>())
+        {
             if (!_ignorableGames.Contains(gameType))
                 Games.Add(gameType);
+        }
     }
 
     public void UnhookEvents() => ConfigManager.OnSync -= OnConfigSync;

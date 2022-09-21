@@ -1,5 +1,5 @@
-﻿using System.Runtime.InteropServices;
-using HunterPie.Core.Native.IPC.Models;
+﻿using HunterPie.Core.Native.IPC.Models;
+using System.Runtime.InteropServices;
 
 namespace HunterPie.Core.Native.IPC.Handlers.Internal.Initialiaze.Models;
 

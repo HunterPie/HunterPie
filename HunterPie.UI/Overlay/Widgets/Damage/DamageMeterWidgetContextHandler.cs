@@ -85,17 +85,17 @@ public class DamageMeterWidgetContextHandler : IContextHandler
     {
         bool inHuntingZone = Context.Game.Player.InHuntingZone;
         ViewModel.InHuntingZone = inHuntingZone;
-        
+
         View.Dispatcher.Invoke(() =>
         {
-            foreach (var member in _members.Keys)
+            foreach (IPartyMember member in _members.Keys)
                 RemovePlayer(member);
 
             _members.Clear();
 
             if (Context.Game.Player.InHuntingZone)
             {
-                foreach (var member in Context.Game.Player.Party.Members)
+                foreach (IPartyMember member in Context.Game.Player.Party.Members)
                     HandleAddMember(member);
             }
         });

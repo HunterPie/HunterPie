@@ -64,7 +64,9 @@ public class VisualConverterManager
 
                 if (metadata.DependsOnFeature is not null &&
                     !FeatureFlagManager.IsEnabled(metadata.DependsOnFeature))
+                {
                     continue;
+                }
 
                 if (!metadata.AvailableGames.HasFlag(currentConfiguration))
                     continue;
@@ -136,7 +138,9 @@ public class VisualConverterManager
 
                 if (meta.DependsOnFeature is not null &&
                     !FeatureFlagManager.IsEnabled(meta.DependsOnFeature))
+                {
                     continue;
+                }
 
                 if (!meta.AvailableGames.HasFlag(currentConfiguration))
                     continue;

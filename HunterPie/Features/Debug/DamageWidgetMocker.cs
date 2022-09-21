@@ -13,11 +13,13 @@ internal class DamageWidgetMocker : IWidgetMocker
         Core.Client.Configuration.OverlayConfig mockConfig = ClientConfig.Config.World.Overlay;
 
         if (ClientConfig.Config.Development.MockDamageWidget)
+        {
             _ = WidgetManager.Register<MeterView, DamageMeterWidgetConfig>(
                 new MeterView(mockConfig.DamageMeterWidget)
                 {
                     DataContext = new MockMeterViewModel()
                 }
             );
+        }
     }
 }

@@ -12,19 +12,19 @@ using HunterPie.Core.Game.World.Definitions;
 using HunterPie.Core.Game.World.Entities.Abnormalities;
 using HunterPie.Core.Game.World.Entities.Party;
 using HunterPie.Core.Logger;
+using HunterPie.Core.Native.IPC.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using SpecializedTool = HunterPie.Core.Game.World.Entities.Player.MHWSpecializedTool;
-using HunterPie.Core.Native.IPC.Models.Common;
 
 namespace HunterPie.Core.Game.World.Entities;
 
 public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 {
     #region consts
-    private readonly static Stage[] peaceZones =
+    private static readonly Stage[] peaceZones =
     {
         Stage.Astera,
         Stage.AsteraGatheringHub,
@@ -182,7 +182,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
         long currentPlayerSaveHeader =
             _process.Memory.Read<long>(firstSaveAddress) + (nextPlayerSave * currentSaveSlot);
 
-        if (currentPlayerSaveHeader != _playerAddress)
+        if (currentPlayerSaveHeader != _playerSaveAddress)
         {
             data.Name = _process.Memory.Read(currentPlayerSaveHeader + 0x50, 32);
             data.HighRank = _process.Memory.Read<short>(currentPlayerSaveHeader + 0x90);
@@ -195,7 +195,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             HighRank = data.HighRank;
             MasterRank = data.MasterRank;
             PlayTime = data.PlayTime;
-            
+
             PlayerSaveAddress = currentPlayerSaveHeader;
         }
     }
@@ -453,7 +453,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             AddressMap.Get<int[]>("DAMAGE_OFFSETS")
         );
 
-        var localLocalPlayerAddress = 0L;
+        long localLocalPlayerAddress = 0;
         for (int i = 0; i < Party.MaxSize; i++)
         {
             long playerAddress = partyInformation + (i * 0x1C0);
@@ -468,11 +468,10 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             string name = _process.Memory.Read(playerAddress, 32);
             bool isLocalPlayer = name == Name;
             if (isLocalPlayer)
-            {
                 localLocalPlayerAddress = playerAddress;
-            }
+
             MHWPartyMemberLevelStructure levels = _process.Memory.Read<MHWPartyMemberLevelStructure>(playerAddress + 0x27);
-            MHWPartyMemberData data = new MHWPartyMemberData
+            var data = new MHWPartyMemberData
             {
                 Name = name,
                 Weapon = isLocalPlayer ? WeaponId : (Weapon)_process.Memory.Read<byte>(playerAddress + 0x33),
@@ -484,6 +483,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 
             _party.Update(playerAddress, data);
         }
+
         _localPlayerAddress = localLocalPlayerAddress;
     }
 
@@ -493,9 +493,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
         {
             // For now we are only tracking local player.
             if (entity.Entity.Index == 0)
-            {
                 _party.Update(_localPlayerAddress, entity);
-            }
         }
     }
 }

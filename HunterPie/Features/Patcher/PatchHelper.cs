@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq;
-using HunterPie.Core.Address.Map;
+﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Domain.Memory;
+using System;
+using System.Linq;
 
 namespace HunterPie.Features.Patcher;
 
@@ -11,7 +11,7 @@ internal static class PatchHelper
     /// <param name="memoryLocationName">the name of an Address existing in <see cref="AddressMap"/>.</param>
     public static bool ContentEquals(this IMemory memory, string memoryLocationName, string expectedDataName)
     {
-        var memoryLocation = AddressMap.GetAbsolute(memoryLocationName);
+        long memoryLocation = AddressMap.GetAbsolute(memoryLocationName);
         return ContentEquals(memory, memoryLocation, expectedDataName);
     }
 
@@ -25,7 +25,7 @@ internal static class PatchHelper
     public static bool ContentEquals(this IMemory memory, long memoryLocation, string expectedDataName)
     {
         // TODO AddressMap.Get should support returning byte[] directly.
-        var expectedData = AddressMap.Get<int[]>(expectedDataName)
+        byte[] expectedData = AddressMap.Get<int[]>(expectedDataName)
             .Select(b => (byte)b)
             .ToArray();
         if (expectedData.Length is < 1 or > 32)
@@ -33,7 +33,8 @@ internal static class PatchHelper
             // This is only a safeguard against blatant errors in the address map.
             throw new InvalidOperationException($"Unexpected data length: {expectedData.Length}.");
         }
-        var actualData = memory.Read<byte>(memoryLocation, (uint)expectedData.Length);
+
+        byte[] actualData = memory.Read<byte>(memoryLocation, (uint)expectedData.Length);
         return actualData.SequenceEqual(expectedData);
     }
 }

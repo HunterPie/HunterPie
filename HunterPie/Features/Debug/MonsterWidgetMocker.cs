@@ -13,11 +13,13 @@ internal class MonsterWidgetMocker : IWidgetMocker
         Core.Client.Configuration.OverlayConfig mockConfig = ClientConfig.Config.Rise.Overlay;
 
         if (ClientConfig.Config.Development.MockBossesWidget)
+        {
             _ = WidgetManager.Register<MonstersView, MonsterWidgetConfig>(
                 new MonstersView(mockConfig.BossesWidget)
                 {
                     DataContext = new MockMonstersViewModel(mockConfig.BossesWidget)
                 }
             );
+        }
     }
 }

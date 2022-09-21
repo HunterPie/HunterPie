@@ -5,7 +5,7 @@ namespace HunterPie.Core.Game.World;
 
 public sealed class MHWContext : Context
 {
-    public static MHWStrings Strings { get; private set;  }
+    public static MHWStrings Strings { get; private set; }
 
     internal MHWContext(IProcessManager process)
     {

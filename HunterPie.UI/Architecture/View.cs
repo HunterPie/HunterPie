@@ -13,11 +13,13 @@ public class View<TViewModel> : UserControl
     protected virtual TViewModel InitializeViewModel(params object[] args)
     {
         if (this is IWidgetWindow)
+        {
             try
             {
                 return (TViewModel)Activator.CreateInstance(typeof(TViewModel), args);
             }
-            catch { };
+            catch { }
+        };
 
         return Activator.CreateInstance<TViewModel>();
     }

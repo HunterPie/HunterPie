@@ -13,11 +13,13 @@ internal class SpecializedToolWidgetMocker : IWidgetMocker
         Core.Client.Configuration.OverlayConfig mockConfig = ClientConfig.Config.World.Overlay;
 
         if (ClientConfig.Config.Development.MockSpecializedToolWidget)
+        {
             _ = WidgetManager.Register<SpecializedToolView, SpecializedToolWidgetConfig>(
                 new SpecializedToolView(mockConfig.PrimarySpecializedToolWidget)
                 {
                     DataContext = new MockSpecializedToolViewModel()
                 }
             );
+        }
     }
 }

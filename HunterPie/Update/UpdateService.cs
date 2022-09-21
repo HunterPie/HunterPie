@@ -113,9 +113,11 @@ internal class UpdateService
             string localFile = ClientInfo.GetPathFor(file);
 
             if (!File.Exists(localFile))
+            {
                 _ = Directory.CreateDirectory(
                     Path.GetDirectoryName(localFile)
                 );
+            }
 
             File.Move(updatedFile, localFile);
         }
@@ -139,9 +141,12 @@ internal class UpdateService
                 FileAttributes attrib = File.GetAttributes(entry);
 
                 if (attrib.HasFlag(FileAttributes.Directory))
+                {
                     directories.Push(entry);
+                }
                 else
                     if (entry.EndsWith(".old"))
+                {
                     try
                     {
                         File.Delete(entry);
@@ -150,6 +155,7 @@ internal class UpdateService
                     {
                         Log.Error(err.ToString());
                     }
+                }
             }
         }
 
