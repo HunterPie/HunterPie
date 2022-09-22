@@ -63,7 +63,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
             if (value != _timeElapsed)
             {
                 _timeElapsed = value;
-                this.Dispatch(OnTimeElapsedChange, this);
+                this.Dispatch(OnTimeElapsedChange, TimeElapsedChangeEventArgs.Empty);
             }
         }
     }
@@ -84,7 +84,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
     public event EventHandler<IMonster> OnMonsterSpawn;
     public event EventHandler<IMonster> OnMonsterDespawn;
     public event EventHandler<IGame> OnHudStateChange;
-    public event EventHandler<IGame> OnTimeElapsedChange;
+    public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange;
     public event EventHandler<IGame> OnDeathCountChange;
 
     public MHRGame(IProcessManager process) : base(process)

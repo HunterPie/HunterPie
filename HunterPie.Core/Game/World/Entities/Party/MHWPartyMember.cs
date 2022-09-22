@@ -50,6 +50,13 @@ public class MHWPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHWPart
 
     public int MasterRank { get; private set; }
 
+    /// <inheritdoc />
+    public void ResetDamage()
+    {
+        _damage = 0;
+        _anyNonTrivialStatisticalDamage = false;
+    }
+
     public event EventHandler<IPartyMember> OnDamageDealt;
     public event EventHandler<IPartyMember> OnWeaponChange;
 

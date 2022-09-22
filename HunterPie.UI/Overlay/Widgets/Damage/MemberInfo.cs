@@ -7,6 +7,6 @@ internal class MemberInfo
 {
     public PlayerViewModel ViewModel { get; init; }
     public Series Series { get; init; }
-    public double JoinedAt { get; init; }
+    public double JoinedAt { get; set; }
     public double FirstHitAt { get; set; } = -1;
 }

@@ -48,6 +48,12 @@ public class MHRPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHRPart
 
     public int MasterRank { get; private set; }
 
+    /// <inheritdoc />
+    public void ResetDamage()
+    {
+        _damage = 0;
+    }
+
     public event EventHandler<IPartyMember> OnDamageDealt;
     public event EventHandler<IPartyMember> OnWeaponChange;
 
