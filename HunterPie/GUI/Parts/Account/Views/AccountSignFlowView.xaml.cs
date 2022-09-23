@@ -52,4 +52,6 @@ public partial class AccountSignFlowView : View<AccountSignFlowViewModel>, IEven
 
         PART_SelectedSignFlowHighlight.BeginAnimation(FrameworkElement.MarginProperty, animation);
     }
+
+    private async void OnSignInClick(object sender, EventArgs e) => await ViewModel.SignIn();
 }

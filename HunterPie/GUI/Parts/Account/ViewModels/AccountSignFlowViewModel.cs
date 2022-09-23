@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.API;
 using HunterPie.Core.API.Entities;
+using HunterPie.Core.Vault;
 using HunterPie.UI.Architecture;
 using System.Threading.Tasks;
 
@@ -20,6 +21,9 @@ public class AccountSignFlowViewModel : ViewModel
     public async Task<bool> SignIn()
     {
         IsLoggingIn = true;
+
+        CredentialVaultService.SaveCredential("test", "testing");
+
         LoginResponse? response = await PoogieApi.Login(new LoginRequest
         {
             Username = SignInUsername,

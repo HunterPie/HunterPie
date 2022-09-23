@@ -29,6 +29,7 @@ internal class InitializerManager
         new ClientLocalizationInitializer(),
         new SystemTrayInitializer(),
         new ClientConfigBindingsInitializer(),
+        new CredentialVaultInitializer(),
         // GUI
         new MenuInitializer(),
     };

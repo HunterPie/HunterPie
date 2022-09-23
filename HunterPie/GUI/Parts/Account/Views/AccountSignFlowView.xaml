@@ -88,6 +88,7 @@
                             BorderThickness="0"
                             Margin="10"
                             SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
+                    <!-- Login View -->
                     <TabItem>
                         <TabItem.Header>
                             <buttons:TabItem Title="Login"
@@ -100,20 +101,33 @@
                         </TabItem.Header>
                         <Grid>
                             <StackPanel>
-                                <TextBox Height="35"
-                                         Margin="10,20,10,10"/>
-                                <textbox:SecretTextBox Height="35"
-                                                       Margin="10,20,10,20"/>
+                                <StackPanel Orientation="Vertical"
+                                            Margin="10,20,10,10">
+                                    <TextBlock Text="Username"
+                                               Foreground="{StaticResource WHITE_200}"/>
+                                    <TextBox Height="35"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Vertical"
+                                            Margin="10,10,10,10">
+                                    <TextBlock Text="Password"
+                                               Foreground="{StaticResource WHITE_200}"/>
+                                    <textbox:SecretTextBox Height="35"/>
+                                </StackPanel>
+
+                                
                                 <buttons:Button Content="Sign In"
                                                 FontSize="15"
                                                 HorizontalAlignment="Center"
                                                 Padding="20,5,20,5"
                                                 BorderThickness="1"
                                                 BorderBrush="{StaticResource GRAY}"
-                                                CornerRadius="5"/>
+                                                CornerRadius="5"
+                                                OnClick="OnSignInClick"/>
                             </StackPanel>
                         </Grid>
                     </TabItem>
+                    <!-- Register View -->
                     <TabItem>
                         <TabItem.Header>
                             <buttons:TabItem Title="Create account"

@@ -530,23 +530,20 @@
 
     <!-- TextBox -->
     <Style x:Key="{x:Type TextBox}" TargetType="{x:Type TextBox}">
-        <Setter Property="Background" Value="{StaticResource GRAY_200}"/>
         <Setter Property="CaretBrush" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
         <Setter Property="Foreground" Value="{StaticResource WHITE_100}"/>
         <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="Padding" Value="2"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
                     <Border CornerRadius="5"
-                            BorderThickness="1"
-                            BorderBrush="{StaticResource GRAY_200}"
-                            ClipToBounds="True">
-                        <ScrollViewer SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                                      x:Name="PART_ContentHost"
-                                      Background="{StaticResource GRAY_300}"/>
+                            ClipToBounds="True"
+                            Background="{StaticResource GRAY_300}">
+                        <ScrollViewer x:Name="PART_ContentHost"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
