@@ -716,7 +716,7 @@
 					 String="Enable seamless shutdown"
 					 Description="If enabled, HunterPie will not prompt you for confirmation on exit."/>
 			<Setting Id="ENABLE_NATIVE_MODULE_STRING"
-					 String="Enable game patching (Please read description carefully)"
+					 String="Enable native module (Read description carefully)"
 					 Description="If enabled, HunterPie will patch the game to enable some functionality (e.g., damage meter during expedition).&#10;If you do not have [Stracker's Loader] and [Performance Booster and Plugin Extender](CRCBypass) mods, this option can crash the game over extended periods of play.&#10;Need to restart the game to take effect."/>
 			<Setting Id="SHUTDOWN_ON_GAME_EXIT"
 					 String="Close on game exit"

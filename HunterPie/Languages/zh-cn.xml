@@ -319,8 +319,8 @@ Translated by Neo#1234，由灵魂复苏翻译，有问题可以进HunterPie Dis
 					 String="无痕关闭"
 					 Description="开启后, HunterPie 退出时将不会弹出确认窗口。"/>
 			<Setting Id="ENABLE_NATIVE_MODULE_STRING"
-							 String="应用游戏补丁（请仔细阅读描述）"
-							 Description="开启后，HunterPie 会应用游戏补丁以启用一些功能（例如自由探索中的伤害统计）。&#10;如果启用此选项时尚未安装前置mod“Stracker's Loader”和CRC禁用mod“Performance Booster and Plugin Extender”，在长时间游戏过程中，游戏可能会崩溃。&#10;需要重启游戏使得设置生效。"/>
+							 String="启用本机模块（请仔细阅读描述）"
+							 Description="开启后，HunterPie 会应用游戏补丁以启用某些功能（例如自由探索中的伤害统计）。&#10;如果启用此选项时尚未安装前置mod“Stracker's Loader”和CRC禁用mod“Performance Booster and Plugin Extender”，在长时间运行过程中，游戏可能会崩溃。&#10;需要重启游戏使得设置生效。"/>
 			<Setting Id="SHUTDOWN_ON_GAME_EXIT"
 							 String="与游戏一起退出"
 							 Description="开启后, 当游戏关闭时，HunterPie会自动关闭。"/>

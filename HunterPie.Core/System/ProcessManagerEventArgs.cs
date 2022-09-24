@@ -7,6 +7,7 @@ public class ProcessManagerEventArgs : EventArgs
 {
 
     public IProcessManager Process { get; }
+
     public string ProcessName { get; }
 
     public ProcessManagerEventArgs(IProcessManager process, string processName)
