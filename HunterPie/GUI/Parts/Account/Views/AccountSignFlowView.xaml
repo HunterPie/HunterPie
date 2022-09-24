@@ -8,6 +8,7 @@
            xmlns:vm="clr-namespace:HunterPie.GUI.Parts.Account.ViewModels"
            xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
            xmlns:textbox="clr-namespace:HunterPie.UI.Controls.TextBox;assembly=HunterPie.UI"
+           xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
            mc:Ignorable="d" 
            d:DataContext="{d:DesignInstance vm:AccountSignFlowViewModel}"
            d:DesignHeight="450" 
@@ -17,6 +18,7 @@
         <DataTemplate x:Key="HeaderTemplate">
             <buttons:TabItem />
         </DataTemplate>
+        <converters:InvertBooleanConverter x:Key="InvertBooleanConverter"/>
     </UserControl.Resources>
     <Grid>
         <Rectangle Fill="{StaticResource GRAY_300}"/>
@@ -104,15 +106,19 @@
                                 <StackPanel Orientation="Vertical"
                                             Margin="10,20,10,10">
                                     <TextBlock Text="Username"
-                                               Foreground="{StaticResource WHITE_200}"/>
-                                    <TextBox Height="35"/>
+                                               Foreground="{StaticResource WHITE_200}"
+                                               Margin="0,0,0,1"/>
+                                    <TextBox Height="35"
+                                             IsReadOnly="{Binding IsLoggingIn, Mode=OneWay}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Vertical"
                                             Margin="10,10,10,10">
                                     <TextBlock Text="Password"
-                                               Foreground="{StaticResource WHITE_200}"/>
-                                    <textbox:SecretTextBox Height="35"/>
+                                               Foreground="{StaticResource WHITE_200}"
+                                               Margin="0,0,0,1"/>
+                                    <textbox:SecretTextBox Height="35"
+                                                           IsEnabled="{Binding IsLoggingIn, Mode=OneWay, Converter={StaticResource InvertBooleanConverter}}"/>
                                 </StackPanel>
 
                                 

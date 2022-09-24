@@ -22,8 +22,6 @@ public class AccountSignFlowViewModel : ViewModel
     {
         IsLoggingIn = true;
 
-        CredentialVaultService.SaveCredential("test", "testing");
-
         LoginResponse? response = await PoogieApi.Login(new LoginRequest
         {
             Username = SignInUsername,
@@ -31,6 +29,9 @@ public class AccountSignFlowViewModel : ViewModel
         });
 
         IsLoggingIn = false;
+
+        if (response is not null)
+            CredentialVaultService.SaveCredential(SignInUsername, response.Token);
 
         return response is not null;
     }
