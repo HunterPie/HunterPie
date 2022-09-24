@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace HunterPie.GUI.Parts.Account.ViewModels;
 
+#nullable enable
 public class AccountSignFlowViewModel : ViewModel
 {
     private int _selectedIndex;
-    private string _signInUsername;
-    private string _signInPassword;
+    private string _signInUsername = "";
+    private string _signInPassword = "";
     private bool _isLoggingIn;
 
     public int SelectedIndex { get => _selectedIndex; set => SetValue(ref _selectedIndex, value); }
@@ -35,3 +36,4 @@ public class AccountSignFlowViewModel : ViewModel
         return result is not null;
     }
 }
+#nullable restore

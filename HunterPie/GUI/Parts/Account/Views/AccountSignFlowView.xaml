@@ -13,11 +13,28 @@
            d:DataContext="{d:DesignInstance vm:AccountSignFlowViewModel}"
            d:DesignHeight="450" 
            d:DesignWidth="800"
-           x:TypeArguments="vm:AccountSignFlowViewModel">
+           x:TypeArguments="vm:AccountSignFlowViewModel"
+           Unloaded="OnCloseClick">
     <UserControl.Resources>
         <DataTemplate x:Key="HeaderTemplate">
             <buttons:TabItem />
         </DataTemplate>
+
+        <Storyboard x:Key="SB_SLIDE_OUT" Completed="OnSlideOutCompleted">
+            <ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                                     From="50"
+                                                     To="0,50,50,50"
+                                                     Duration="0:0:0.3">
+                <ThicknessAnimation.EasingFunction>
+                    <QuadraticEase/>
+                </ThicknessAnimation.EasingFunction>
+            </ThicknessAnimation>
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                     From="1"
+                                                     To="0"
+                                                     Duration="0:0:0.2"/>
+        </Storyboard>
+
         <converters:InvertBooleanConverter x:Key="InvertBooleanConverter"/>
     </UserControl.Resources>
     <Grid>
@@ -31,7 +48,8 @@
                 BorderBrush="{StaticResource GRAY_100}"
                 CornerRadius="5"
                 Background="{StaticResource GRAY_200}"
-                ClipToBounds="True">
+                ClipToBounds="True"
+                x:Name="PART_Border">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="32"/>
@@ -157,7 +175,7 @@
                             <BeginStoryboard>
                                 <Storyboard>
                                     <ThicknessAnimation Storyboard.TargetProperty="Margin"
-                                                     From="50,-30,50,130"
+                                                     From="80,50,50,50"
                                                      To="50"
                                                      Duration="0:0:0.3">
                                         <ThicknessAnimation.EasingFunction>

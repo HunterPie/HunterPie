@@ -118,7 +118,6 @@ public partial class MainWindow : Window
         if (sender is AccountSignFlowView view)
         {
             view.OnFormClose -= OnSignFormClose;
-            view.Dispose();
             PART_SigninView.Content = null;
         }
     }

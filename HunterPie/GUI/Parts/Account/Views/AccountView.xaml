@@ -145,13 +145,19 @@
 
                                     <native:Button Grid.Column="1"
                                                    HorizontalAlignment="Right"
-                                                   Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
                                                    ToolTip="Disconnect"
-                                                   Padding="6,0,5,0"
+                                                   Padding="6,0,2,0"
+                                                   Margin="10"
                                                    Background="{StaticResource GRAY_300}"
-                                                   Style="{StaticResource LogoutButtonStyle}">
+                                                   Cursor="Hand"
+                                                   Style="{StaticResource LogoutButtonStyle}"
+                                                   BorderBrush="{StaticResource GRAY_50}"
+                                                   BorderThickness="1"
+                                                   CornerRadius="3">
                                         <Image Source="{StaticResource ICON_LOGOUT}"
-                                               Width="20"/>
+                                               Height="20"
+                                               Width="20"
+                                               Stretch="Uniform"/>
                                     </native:Button>
                                 </Grid>
                             </Setter.Value>

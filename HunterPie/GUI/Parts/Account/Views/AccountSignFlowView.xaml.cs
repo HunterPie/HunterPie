@@ -14,6 +14,7 @@ namespace HunterPie.GUI.Parts.Account.Views;
 /// </summary>
 public partial class AccountSignFlowView : View<AccountSignFlowViewModel>, IEventDispatcher, IDisposable
 {
+    private Storyboard SlideOutAnimation;
     public event EventHandler<EventArgs> OnFormClose;
 
     public AccountSignFlowView()
@@ -21,9 +22,22 @@ public partial class AccountSignFlowView : View<AccountSignFlowViewModel>, IEven
         HookEvents();
 
         InitializeComponent();
+
     }
 
-    private void OnCloseClick(object sender, RoutedEventArgs e) => this.Dispatch(OnFormClose);
+    public override void EndInit()
+    {
+        base.EndInit();
+        SlideOutAnimation = FindResource("SB_SLIDE_OUT") as Storyboard;
+    }
+
+    private void CloseForm()
+    {
+        this.Dispatch(OnFormClose);
+        Dispose();
+    }
+
+    private void OnCloseClick(object sender, RoutedEventArgs e) => AnimateSlideOut();
 
     public void Dispose() => ViewModel.PropertyChanged -= OnPropertyChanged;
 
@@ -53,5 +67,15 @@ public partial class AccountSignFlowView : View<AccountSignFlowViewModel>, IEven
         PART_SelectedSignFlowHighlight.BeginAnimation(FrameworkElement.MarginProperty, animation);
     }
 
-    private async void OnSignInClick(object sender, EventArgs e) => await ViewModel.SignIn();
+    private void AnimateSlideOut() => SlideOutAnimation.Begin(PART_Border);
+
+    private async void OnSignInClick(object sender, EventArgs e)
+    {
+        if (!await ViewModel.SignIn())
+            return;
+
+        AnimateSlideOut();
+    }
+
+    private void OnSlideOutCompleted(object sender, EventArgs e) => CloseForm();
 }
