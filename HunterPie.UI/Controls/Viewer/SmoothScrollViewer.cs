@@ -43,7 +43,7 @@ public class SmoothScrollViewer : ScrollViewer
             sv.ScrollToVerticalOffset(value);
     }
 
-    private void AnimateVerticalScrolling(double offset, double duration = 500)
+    private void AnimateVerticalScrolling(double offset, double duration = 200)
     {
         _verticalOffsetQueue.Enqueue(offset);
         var animation = new DoubleAnimation(offset, TimeSpan.FromMilliseconds(duration))
