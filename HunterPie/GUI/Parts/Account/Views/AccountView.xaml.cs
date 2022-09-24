@@ -41,5 +41,11 @@ public partial class AccountView : View<AccountViewModel>, IEventDispatcher
     }
 
     private void OnLoginClick(object sender, RoutedEventArgs e) => this.Dispatch(OnSignInClicked);
+
     private void OnRegisterClick(object sender, RoutedEventArgs e) => this.Dispatch(OnSignUpClicked);
+    private void OnLogoutClick(object sender, RoutedEventArgs e) => ViewModel.SignOut();
+
+    private void OnLoad(object sender, RoutedEventArgs e) => ViewModel.FetchAccountDetails();
+
+    private void OnUnload(object sender, RoutedEventArgs e) => ViewModel.Dispose();
 }

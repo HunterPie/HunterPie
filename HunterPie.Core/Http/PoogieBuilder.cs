@@ -43,7 +43,7 @@ public class PoogieBuilder
 
     public PoogieBuilder WithJson<T>(T json)
     {
-        string serialized = JsonProvider.Serialize(json);
+        string serialized = JsonProvider.Serializer(json);
         poogie.Content = new StringContent(serialized, Encoding.UTF8, "application/json");
 
         return this;

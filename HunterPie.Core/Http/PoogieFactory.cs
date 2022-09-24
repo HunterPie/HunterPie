@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Domain.Constants;
 using HunterPie.Core.Domain.Features;
+using HunterPie.Core.Vault;
 using System;
 
 namespace HunterPie.Core.Http;
@@ -11,6 +12,7 @@ public static class PoogieFactory
     private const string APP_VERSION = "X-App-Version";
     private const string CLIENT_TYPE = "X-HunterPie-Client";
     private const string USER_AGENT = "User-Agent";
+    private const string TOKEN = "X-Token";
 
     public static readonly string[] Hosts =
     {
@@ -38,11 +40,14 @@ public static class PoogieFactory
                                 ? new PoogieBuilder(ClientConfig.Config.Development.PoogieApiHost)
                                 : new PoogieBuilder(Hosts);
 
+        string token = CredentialVaultService.GetCredential()?.Password;
+
         return builder.WithTimeout(TimeSpan.FromSeconds(5))
                       .WithHeader(CLIENT_ID, clientId)
                       .WithHeader(APP_VERSION, ClientInfo.Version.ToString())
                       .WithHeader(CLIENT_TYPE, "v2")
-                      .WithHeader(USER_AGENT, GetUserAgent());
+                      .WithHeader(USER_AGENT, GetUserAgent())
+                      .WithHeader(TOKEN, token);
     }
 
     public static PoogieBuilder Docs() => new(Documentation);

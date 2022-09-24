@@ -27,9 +27,9 @@ internal class WindowsCredentialVault : ICredentialVault
             Comment = IntPtr.Zero,
             TargetAlias = IntPtr.Zero,
             Type = CredentialType.Generic,
-            Persist = (uint)CredentialPersistence.Session,
+            Persist = (uint)CredentialPersistence.LocalMachine,
             CredentialBlobSize = (uint)passwordBytes.Length,
-            TargetName = Marshal.StringToCoTaskMemUni($"{OWNER_NAME}:{username}"),
+            TargetName = Marshal.StringToCoTaskMemUni(OWNER_NAME),
             CredentialBlob = Marshal.StringToCoTaskMemUni(encryptedPassword),
             Username = Marshal.StringToCoTaskMemUni(username)
         };
@@ -45,19 +45,11 @@ internal class WindowsCredentialVault : ICredentialVault
 
     }
 
-    public void Delete(string username)
+    public void Delete() => CredDeleteW(OWNER_NAME, CredentialType.Generic, 0);
+
+    public Credential? Get()
     {
-        bool success = CredReadW($"{OWNER_NAME}:{username}", CredentialType.Generic, 0, out IntPtr handle);
-
-        if (!success)
-            return;
-
-        _ = CredFree(handle);
-    }
-
-    public Credential? Get(string username)
-    {
-        bool success = CredReadW($"{OWNER_NAME}:{username}", CredentialType.Generic, 0, out IntPtr handle);
+        bool success = CredReadW(OWNER_NAME, CredentialType.Generic, 0, out IntPtr handle);
 
         if (!success)
             return null;
@@ -72,9 +64,12 @@ internal class WindowsCredentialVault : ICredentialVault
             return null;
 
         int passwordLength = (int)credential.CredentialBlobSize / 2;
+        string username = Marshal.PtrToStringUni(credential.Username);
         string password = Marshal.PtrToStringUni(credential.CredentialBlob, passwordLength);
 
         string decryptedPassword = CryptoService.Decrypt(password);
+
+        CredFree(handle);
 
         return new Credential()
         {

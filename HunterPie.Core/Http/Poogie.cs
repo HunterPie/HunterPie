@@ -28,6 +28,9 @@ public class Poogie : IDisposable
             _client = new() { Timeout = Timeout };
             _request = new(Method, $"{host}{Path}");
 
+            if (Content is not null)
+                _request.Content = Content;
+
             foreach ((string key, string value) in Headers)
             {
                 if (string.IsNullOrEmpty(value))

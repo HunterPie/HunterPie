@@ -7,11 +7,14 @@
            xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
            xmlns:local="clr-namespace:HunterPie.GUI.Parts.Account.Views"
            xmlns:vm="clr-namespace:HunterPie.GUI.Parts.Account.ViewModels"
+           xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading;assembly=HunterPie.UI"
            x:TypeArguments="vm:AccountViewModel"
            Focusable="True"
            mc:Ignorable="d" 
            d:DesignHeight="50" 
-           d:DesignWidth="300">
+           d:DesignWidth="300"
+           Loaded="OnLoad"
+           Unloaded="OnUnload">
     <UserControl.Resources>
         <Style x:Key="AvatarClickStyle" TargetType="native:Button">
             <EventSetter Event="Click" Handler="OnAvatarClick"/>
@@ -19,6 +22,10 @@
             <EventSetter Event="LostKeyboardFocus" Handler="OnAvatarLostKeyboardFocus"/>
         </Style>
 
+        <Style x:Key="LogoutButtonStyle" TargetType="native:Button">
+            <EventSetter Event="Click" Handler="OnLogoutClick"/>
+        </Style>
+        
         <Style x:Key="AccountButtonsStyle" TargetType="native:Button">
             <Setter Property="Padding" Value="20,10,20,10"/>
             <Setter Property="FontSize" Value="14"/>
@@ -67,6 +74,15 @@
                     </Setter.Value>
                 </Setter>
                 <Style.Triggers>
+                    <DataTrigger Binding="{Binding DataContext.IsLoggingIn, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AccountView}}}" Value="True">
+                        <Setter Property="Content">
+                            <Setter.Value>
+                                <local:AccountSkeletonView Width="300"
+                                                           Height="50"
+                                                           VerticalAlignment="Top"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
                     <DataTrigger Binding="{Binding DataContext.IsLoggedIn, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AccountView}}}" Value="True">
                         <Setter Property="Content">
                             <Setter.Value>
@@ -91,7 +107,7 @@
                                                              RadiusY="19"/>
                                         </native:Button.Clip>
                                         <Canvas>
-                                            <Image Source="https://media.discordapp.net/attachments/877388915986817105/1017171064977113178/unknown.png"
+                                            <Image Source="{Binding AvatarUrl, Mode=OneWay, FallbackValue={StaticResource ICON_DISCONNECTED_ACCOUNT}}"
                                                    Height="40"
                                                    Width="40"
                                                    RenderOptions.BitmapScalingMode="Fant"
@@ -101,7 +117,7 @@
                                     </native:Button>
 
                                     <!-- User name -->
-                                    <TextBlock Text="Haato"
+                                    <TextBlock Text="{Binding Username, Mode=OneWay}"
                                                FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                                Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
                                                FontWeight="Medium"
@@ -132,7 +148,8 @@
                                                    Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
                                                    ToolTip="Disconnect"
                                                    Padding="6,0,5,0"
-                                                   Background="{StaticResource GRAY_300}">
+                                                   Background="{StaticResource GRAY_300}"
+                                                   Style="{StaticResource LogoutButtonStyle}">
                                         <Image Source="{StaticResource ICON_LOGOUT}"
                                                Width="20"/>
                                     </native:Button>

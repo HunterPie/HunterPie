@@ -1,24 +1,75 @@
-﻿using HunterPie.GUI.Parts.Account.Views;
+﻿using HunterPie.Core.Remote;
+using HunterPie.Features.Account;
+using HunterPie.Features.Account.Event;
+using HunterPie.Features.Account.Model;
+using HunterPie.GUI.Parts.Account.Views;
 using HunterPie.GUI.Parts.Host;
 using HunterPie.UI.Architecture;
+using System;
 
 namespace HunterPie.GUI.Parts.Account.ViewModels;
 
-public class AccountViewModel : ViewModel
+public class AccountViewModel : ViewModel, IDisposable
 {
     private bool _isAvatarClicked;
-    private string _avatarUrl;
+    private string _avatarUrl = "https://cdn.hunterpie.com/avatars/default.png";
     private string _username;
     private bool _isLoggedIn;
+    private bool _isLoggingIn;
 
     public bool IsAvatarClicked { get => _isAvatarClicked; set => SetValue(ref _isAvatarClicked, value); }
     public string AvatarUrl { get => _avatarUrl; set => SetValue(ref _avatarUrl, value); }
     public string Username { get => _username; set => SetValue(ref _username, value); }
     public bool IsLoggedIn { get => _isLoggedIn; set => SetValue(ref _isLoggedIn, value); }
+    public bool IsLoggingIn { get => _isLoggingIn; set => SetValue(ref _isLoggingIn, value); }
+
+    public AccountViewModel()
+    {
+        AccountLoginManager.OnSignIn += OnAccountSignIn;
+        AccountLoginManager.OnSignOut += OnAccountSignOut;
+    }
+
+    private void OnAccountSignOut(object sender, EventArgs e) => IsLoggedIn = false;
+
+    private async void OnAccountSignIn(object sender, AccountLoginEventArgs e)
+    {
+        IsLoggingIn = true;
+        Username = e.Account.Username;
+        AvatarUrl = await CDN.GetAsset(e.Account.AvatarUrl);
+        IsLoggedIn = true;
+        IsLoggingIn = false;
+    }
+
+    public void SignOut() => AccountLoginManager.Logout();
+
+    public async void FetchAccountDetails()
+    {
+        IsLoggingIn = true;
+        IsLoggedIn = await AccountLoginManager.ValidateSessionToken();
+
+        if (!IsLoggedIn)
+        {
+            IsLoggingIn = false;
+            return;
+        }
+
+        UserAccount account = await AccountLoginManager.FetchAccount();
+
+        Username = account.Username;
+        AvatarUrl = await CDN.GetAsset(account.AvatarUrl);
+
+        IsLoggingIn = false;
+    }
 
     public void OpenAccountPreferences()
     {
         var preferences = new AccountPreferencesView();
         MainHost.SetMain(preferences);
+    }
+
+    public void Dispose()
+    {
+        AccountLoginManager.OnSignIn -= OnAccountSignIn;
+        AccountLoginManager.OnSignOut -= OnAccountSignOut;
     }
 }

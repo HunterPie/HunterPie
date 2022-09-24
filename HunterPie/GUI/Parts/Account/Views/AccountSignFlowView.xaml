@@ -109,6 +109,7 @@
                                                Foreground="{StaticResource WHITE_200}"
                                                Margin="0,0,0,1"/>
                                     <TextBox Height="35"
+                                             Text="{Binding SignInUsername, Mode=TwoWay}"
                                              IsReadOnly="{Binding IsLoggingIn, Mode=OneWay}"/>
                                 </StackPanel>
 
@@ -118,6 +119,7 @@
                                                Foreground="{StaticResource WHITE_200}"
                                                Margin="0,0,0,1"/>
                                     <textbox:SecretTextBox Height="35"
+                                                           Text="{Binding SignInPassword, Mode=TwoWay}"
                                                            IsEnabled="{Binding IsLoggingIn, Mode=OneWay, Converter={StaticResource InvertBooleanConverter}}"/>
                                 </StackPanel>
 

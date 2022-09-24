@@ -11,7 +11,7 @@ internal class CredentialVaultService
     }
 
     public static void SaveCredential(string username, string password) => _vault.Create(username, password);
-    public static void DeleteCredential(string username) => _vault.Delete(username);
-    public static Credential? GetCredential(string username) => _vault.Get(username);
+    public static void DeleteCredential() => _vault.Delete();
+    public static Credential? GetCredential() => _vault.Get();
 
 }

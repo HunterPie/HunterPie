@@ -1,6 +1,6 @@
-﻿using HunterPie.Core.API;
-using HunterPie.Core.API.Entities;
-using HunterPie.Core.Vault;
+﻿using HunterPie.Core.API.Entities;
+using HunterPie.Features.Account;
+using HunterPie.Features.Account.Model;
 using HunterPie.UI.Architecture;
 using System.Threading.Tasks;
 
@@ -22,17 +22,16 @@ public class AccountSignFlowViewModel : ViewModel
     {
         IsLoggingIn = true;
 
-        LoginResponse? response = await PoogieApi.Login(new LoginRequest
+        var request = new LoginRequest
         {
             Username = SignInUsername,
             Password = SignInPassword,
-        });
+        };
+
+        UserAccount? result = await AccountLoginManager.Login(request);
 
         IsLoggingIn = false;
 
-        if (response is not null)
-            CredentialVaultService.SaveCredential(SignInUsername, response.Token);
-
-        return response is not null;
+        return result is not null;
     }
 }

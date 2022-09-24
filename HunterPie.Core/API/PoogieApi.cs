@@ -15,6 +15,8 @@ public static class PoogieApi
     private const string SUPPORTER_PATH = "/v1/supporter";
     private const string NOTIFICATIONS = "/v1/notifications";
     private const string LOGIN = "/v1/login";
+    private const string LOGOUT = "/v1/logout";
+    private const string MY_ACCOUNT = "/v1/user/me";
     private const string SUPPORTER_HEADER = "X-Supporter-Token";
     private const double DEFAULT_TIMEOUT = 10;
     private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(DEFAULT_TIMEOUT);
@@ -52,6 +54,8 @@ public static class PoogieApi
         return resp;
     }
 
+    public static async Task<LogoutResponse?> Logout() => await Post<object, LogoutResponse>(LOGOUT, new());
+
     public static async Task<VersionResponse?> GetLatestVersion()
     {
         VersionResponse? resp = await Get<VersionResponse>(VERSION_PATH);
@@ -69,5 +73,7 @@ public static class PoogieApi
         Notification[]? resp = await Get<Notification[]>(NOTIFICATIONS);
         return resp ?? Array.Empty<Notification>();
     }
+
+    public static async Task<MyUserAccountResponse?> GetMyUserAccount() => await Get<MyUserAccountResponse>(MY_ACCOUNT);
 }
 #nullable restore

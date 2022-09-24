@@ -50,6 +50,13 @@ internal class AdvApi32
     );
 
     [DllImport(ADV_API_32, CharSet = CharSet.Unicode, SetLastError = true)]
+    public static extern bool CredDeleteW(
+        string target,
+        CredentialType type,
+        int flags
+    );
+
+    [DllImport(ADV_API_32, CharSet = CharSet.Unicode, SetLastError = true)]
     public static extern bool CredWriteW(
         [In] ref Credential credential,
         [In] uint flags

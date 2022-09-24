@@ -17,20 +17,22 @@ public class CryptoService
         byte[] iv = new byte[16];
         byte[] data;
 
-        using var aes = Aes.Create();
+        using (var aes = Aes.Create())
+        {
+            aes.Key = (byte[])RegistryConfig.Get("secret");
+            aes.IV = iv;
 
-        aes.Key = (byte[])RegistryConfig.Get("secret");
-        aes.IV = iv;
+            ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
 
-        ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+            using var memoryStream = new MemoryStream();
+            using var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write);
+            using (var streamWriter = new StreamWriter(cryptoStream))
+            {
+                streamWriter.Write(value);
+            }
 
-        using var memoryStream = new MemoryStream();
-        using var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write);
-        using var streamWriter = new StreamWriter(cryptoStream);
-
-        streamWriter.Write(value);
-
-        data = memoryStream.ToArray();
+            data = memoryStream.ToArray();
+        }
 
         return Convert.ToBase64String(data);
     }
