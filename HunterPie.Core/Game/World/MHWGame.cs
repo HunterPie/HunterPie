@@ -26,7 +26,6 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
     private readonly Dictionary<long, IMonster> _monsters = new();
     private readonly Dictionary<long, EntityDamageData[]> _damageDone = new();
     private bool _isMouseVisible;
-    private float _timeElapsed;
     private int _deaths;
     private readonly Stopwatch _localTimerStopwatch = new();
     private readonly Stopwatch _damageUpdateThrottleStopwatch = new();
@@ -58,13 +57,13 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
     /// <summary>
     /// Gets time elapsed in seconds since the quest starts.
     /// </summary>
-    public float TimeElapsed => _timeElapsed;
+    public float TimeElapsed { get; private set; }
 
     private void SetTimeElapsed(float value, bool isReset)
     {
-        if (value != _timeElapsed)
+        if (value != TimeElapsed)
         {
-            _timeElapsed = value;
+            TimeElapsed = value;
             this.Dispatch(OnTimeElapsedChange, isReset ? TimeElapsedChangeEventArgs.TimerReset : TimeElapsedChangeEventArgs.Empty);
         }
         else if (isReset)
@@ -257,8 +256,10 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
         if (!Player.InHuntingZone)
         {
             // When back from hunt, manually clear damage data in case player enters Training Area (data won't be reset)
-            foreach (var member in Player.Party.Members) member.ResetDamage();
+            foreach (IPartyMember member in Player.Party.Members)
+                member.ResetDamage();
         }
+
         DamageMessageHandler.ClearAllHuntStatisticsExcept(Array.Empty<long>());
         DamageMessageHandler.RequestHuntStatistics(ALL_TARGETS);
         _damageUpdateThrottleStopwatch.Reset();
