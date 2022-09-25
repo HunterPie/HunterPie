@@ -2,7 +2,6 @@ using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.World.Definitions;
-using HunterPie.Core.Logger;
 using HunterPie.Core.Native.IPC.Models.Common;
 using System;
 using System.Collections.Generic;
@@ -41,39 +40,25 @@ public class MHWParty : IParty, IEventDispatcher
 
     public void Update(long memberAddress, MHWPartyMemberData data)
     {
-        MHWPartyMember member;
         lock (_partyMembers)
         {
-            if (!_partyMembers.TryGetValue(memberAddress, out member))
+            if (!_partyMembers.TryGetValue(memberAddress, out MHWPartyMember member))
             {
-                member = new MHWPartyMember();
-                ((IUpdatable<MHWPartyMemberData>)member).Update(data);
-                _partyMembers.Add(memberAddress, member);
+                Add(memberAddress, data);
                 return;
             }
-        }
 
-        lock (member)
-        {
             ((IUpdatable<MHWPartyMemberData>)member).Update(data);
         }
     }
 
     public void Update(long memberAddress, EntityDamageData data)
     {
-        MHWPartyMember member;
         lock (_partyMembers)
         {
-            if (!_partyMembers.TryGetValue(memberAddress, out member))
-            {
-                // We do not have sufficient information to reconstruct player information, so discard it.
-                Log.Debug("Discarded EntityDamageData as member 0x{0:X} is not found.", memberAddress);
+            if (!_partyMembers.TryGetValue(memberAddress, out MHWPartyMember member))
                 return;
-            }
-        }
 
-        lock (member)
-        {
             ((IUpdatable<EntityDamageData>)member).Update(data);
         }
     }
@@ -82,10 +67,7 @@ public class MHWParty : IParty, IEventDispatcher
     {
         var member = new MHWPartyMember();
         ((IUpdatable<MHWPartyMemberData>)member).Update(data);
-        lock (_partyMembers)
-        {
-            _partyMembers.Add(memberAddress, member);
-        }
+        _partyMembers.Add(memberAddress, member);
 
         this.Dispatch(OnMemberJoin, member);
     }

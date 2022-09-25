@@ -81,12 +81,12 @@ csharp_style_var_when_type_is_apparent = true:suggestion
 
 # Expression-bodied members
 csharp_style_expression_bodied_accessors = when_on_single_line:error
-csharp_style_expression_bodied_constructors = false
+csharp_style_expression_bodied_constructors = false:silent
 csharp_style_expression_bodied_indexers = when_on_single_line:error
 csharp_style_expression_bodied_lambdas = when_on_single_line:error
-csharp_style_expression_bodied_local_functions = true
-csharp_style_expression_bodied_methods = when_on_single_line
-csharp_style_expression_bodied_operators = when_on_single_line
+csharp_style_expression_bodied_local_functions = true:silent
+csharp_style_expression_bodied_methods = when_on_single_line:silent
+csharp_style_expression_bodied_operators = when_on_single_line:silent
 csharp_style_expression_bodied_properties = when_on_single_line:error
 
 # Pattern matching preferences
@@ -106,22 +106,22 @@ csharp_prefer_static_local_function = true:warning
 csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async
 
 # Code-block preferences
-csharp_prefer_braces = when_multiline:error
+csharp_prefer_braces = false:error
 csharp_prefer_simple_using_statement = true:warning
 csharp_style_namespace_declarations = file_scoped:error
-csharp_style_prefer_method_group_conversion = false
+csharp_style_prefer_method_group_conversion = false:silent
 
 # Expression-level preferences
-csharp_prefer_simple_default_expression = true
-csharp_style_deconstructed_variable_declaration = true
-csharp_style_implicit_object_creation_when_type_is_apparent = true
+csharp_prefer_simple_default_expression = true:suggestion
+csharp_style_deconstructed_variable_declaration = true:suggestion
+csharp_style_implicit_object_creation_when_type_is_apparent = true:suggestion
 csharp_style_inlined_variable_declaration = true:warning
 csharp_style_prefer_index_operator = true:warning
 csharp_style_prefer_local_over_anonymous_function = true:error
-csharp_style_prefer_null_check_over_type_check = true
+csharp_style_prefer_null_check_over_type_check = true:suggestion
 csharp_style_prefer_range_operator = true:warning
-csharp_style_prefer_tuple_swap = true
-csharp_style_throw_expression = true
+csharp_style_prefer_tuple_swap = true:suggestion
+csharp_style_throw_expression = true:suggestion
 csharp_style_unused_value_assignment_preference = discard_variable:silent
 csharp_style_unused_value_expression_statement_preference = discard_variable
 
@@ -129,8 +129,8 @@ csharp_style_unused_value_expression_statement_preference = discard_variable
 csharp_using_directive_placement = outside_namespace:suggestion
 
 # New line preferences
-csharp_style_allow_blank_line_after_colon_in_constructor_initializer_experimental = true
-csharp_style_allow_blank_lines_between_consecutive_braces_experimental = false
+csharp_style_allow_blank_line_after_colon_in_constructor_initializer_experimental = true:silent
+csharp_style_allow_blank_lines_between_consecutive_braces_experimental = false:silent
 csharp_style_allow_embedded_statements_on_same_line_experimental = false:warning
 
 #### C# Formatting Rules ####
@@ -242,3 +242,30 @@ dotnet_diagnostic.HAA0302.severity = none
 
 # HAA0301: Closure Allocation Source
 dotnet_diagnostic.HAA0301.severity = none
+
+[*.{cs,vb}]
+dotnet_style_coalesce_expression = true:error
+dotnet_style_null_propagation = true:error
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true:error
+dotnet_style_prefer_auto_properties = true:error
+dotnet_style_object_initializer = true:warning
+dotnet_style_collection_initializer = true:warning
+dotnet_style_prefer_simplified_boolean_expressions = true:suggestion
+dotnet_style_prefer_conditional_expression_over_assignment = true:error
+dotnet_style_prefer_conditional_expression_over_return = true:error
+dotnet_style_explicit_tuple_names = true:error
+dotnet_style_prefer_inferred_tuple_names = true:suggestion
+dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
+dotnet_style_prefer_compound_assignment = true:suggestion
+dotnet_style_prefer_simplified_interpolation = true:suggestion
+dotnet_style_namespace_match_folder = true:suggestion
+dotnet_style_operator_placement_when_wrapping = beginning_of_line
+tab_width = 4
+indent_size = 4
+end_of_line = crlf
+dotnet_style_predefined_type_for_locals_parameters_members = true:error
+dotnet_style_predefined_type_for_member_access = true:error
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:silent
+dotnet_style_allow_multiple_blank_lines_experimental = false:silent
+dotnet_style_allow_statement_immediately_after_block_experimental = false:warning
+dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:error
