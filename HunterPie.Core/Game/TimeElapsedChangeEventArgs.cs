@@ -4,13 +4,12 @@ namespace HunterPie.Core.Game;
 
 public class TimeElapsedChangeEventArgs : EventArgs
 {
-    public new static readonly TimeElapsedChangeEventArgs Empty = new(false);
+    public static readonly TimeElapsedChangeEventArgs TimerReset = new(true, 0.0f);
 
-    public static readonly TimeElapsedChangeEventArgs TimerReset = new(true);
-
-    public TimeElapsedChangeEventArgs(bool isTimerReset)
+    public TimeElapsedChangeEventArgs(bool isTimerReset, float timeElapsed)
     {
         IsTimerReset = isTimerReset;
+        TimeElapsed = timeElapsed;
     }
 
     /// <summary>
@@ -18,4 +17,9 @@ public class TimeElapsedChangeEventArgs : EventArgs
     /// This indicates the time elapsed may experience sudden change.
     /// </summary>
     public bool IsTimerReset { get; }
+
+    /// <summary>
+    /// Time elapsed in-game
+    /// </summary>
+    public float TimeElapsed { get; }
 }

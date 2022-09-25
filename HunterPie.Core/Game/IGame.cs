@@ -16,6 +16,7 @@ public interface IGame : IDisposable
     public bool IsHudOpen { get; }
 
     public float TimeElapsed { get; }
+
     public int Deaths { get; }
 
     public event EventHandler<IMonster> OnMonsterSpawn;

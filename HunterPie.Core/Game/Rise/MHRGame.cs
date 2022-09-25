@@ -63,7 +63,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
             if (value != _timeElapsed)
             {
                 _timeElapsed = value;
-                this.Dispatch(OnTimeElapsedChange, TimeElapsedChangeEventArgs.Empty);
+                this.Dispatch(OnTimeElapsedChange, new TimeElapsedChangeEventArgs(false, value));
             }
         }
     }
@@ -172,9 +172,8 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
             : (float)(DateTime.Now - _lastTeleport.Item2).TotalSeconds;
 
         if (Player.StageId != _lastTeleport.Item1)
-        {
             _lastTeleport = (Player.StageId, DateTime.Now);
-        }
+
     }
 
     [ScannableMethod]
