@@ -1,3 +1,4 @@
+
 using System.Reflection;
 using System.Windows;
 
@@ -10,5 +11,5 @@ using System.Windows;
                                               // app, or any theme specific resource dictionaries)
 )]
 
-[assembly: AssemblyVersion("2.4.0.189")]
-[assembly: AssemblyFileVersion("2.4.0.189")]
+[assembly: AssemblyVersion("2.4.0.191")]
+[assembly: AssemblyFileVersion("2.4.0.191")]

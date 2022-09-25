@@ -30,7 +30,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
     private readonly Context Context;
     private readonly Dictionary<IPartyMember, MemberInfo> _members = new();
     private readonly Dictionary<IPartyMember, DamageBarViewModel> _pets = new();
-    private float lastTimeElapsed = 0;
+    private double lastTimeElapsed = 0;
 
     public DamageMeterWidgetContextHandler(Context context)
     {
@@ -103,9 +103,9 @@ public class DamageMeterWidgetContextHandler : IContextHandler
 
     private void GetPlayerPoints(bool isTimerReset)
     {
-        foreach (var (member, memberInfo) in _members)
+        foreach ((IPartyMember member, MemberInfo memberInfo) in _members)
         {
-            ChartValues<ObservablePoint> points = (ChartValues<ObservablePoint>)memberInfo.Series.Values;
+            var points = (ChartValues<ObservablePoint>)memberInfo.Series.Values;
             PlayerViewModel vm = memberInfo.ViewModel;
 
             float totalDamage = _members.Keys.Sum(m => m.Damage);
@@ -121,7 +121,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
             double newDps = CalculateDpsByConfiguredStrategy(memberInfo);
             vm.IsIncreasing = newDps > vm.DPS;
             vm.DPS = newDps;
-            var point = CalculatePointByConfiguredStrategy(vm);
+            ObservablePoint point = CalculatePointByConfiguredStrategy(vm);
             points.Add(point);
         }
     }
@@ -130,7 +130,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
     {
         ViewModel.Pets.TotalDamage = _pets.Keys.Sum(pet => pet.Damage);
 
-        foreach (var (pet, vm) in _pets)
+        foreach ((IPartyMember pet, DamageBarViewModel vm) in _pets)
             vm.Percentage = pet.Damage / (double)ViewModel.Pets.TotalDamage * 100;
     }
 
@@ -140,30 +140,31 @@ public class DamageMeterWidgetContextHandler : IContextHandler
 
     private void OnTimeElapsedChange(object sender, TimeElapsedChangeEventArgs e)
     {
-        IGame game = (IGame)sender;
-        ViewModel.TimeElapsed = game.TimeElapsed;
+        ViewModel.TimeElapsed = e.TimeElapsed;
         bool isTimerReset = e.IsTimerReset;
+
+        if (!isTimerReset && (int)(e.TimeElapsed - lastTimeElapsed) == 0)
+            return;
+
         if (isTimerReset)
         {
             // If the timer has just been reset, it usually means the local timer is being replaced with real game timer.
             // Note the info of party members in the current hunting party can be loaded before the real game timer gets ready in MHW.
             // Use 0 sec as other player's join time in this case to prevent a very large dps result.
             // We don't know when the others have joined after all.
-            foreach (var (member, memberInfo) in _members)
-            {
-                memberInfo.JoinedAt = member.IsMyself ? game.TimeElapsed : 0;
-            }
+            foreach ((IPartyMember member, MemberInfo memberInfo) in _members)
+                memberInfo.JoinedAt = member.IsMyself ? e.TimeElapsed : 0;
+
         }
-        if (isTimerReset || Math.Abs(game.TimeElapsed - lastTimeElapsed) > 0.1)
+
+        View.Dispatcher.Invoke(() =>
         {
-            View.Dispatcher.Invoke(() =>
-            {
-                GetPlayerPoints(isTimerReset);
-                CalculatePetsDamage();
-                ViewModel.SortMembers();
-            });
-            lastTimeElapsed = game.TimeElapsed;
-        }
+            GetPlayerPoints(isTimerReset);
+            CalculatePetsDamage();
+            ViewModel.SortMembers();
+        });
+
+        lastTimeElapsed = ViewModel.TimeElapsed;
     }
 
     private void OnDamageDealt(object sender, IPartyMember e)

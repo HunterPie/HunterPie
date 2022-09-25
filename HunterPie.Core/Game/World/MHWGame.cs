@@ -61,15 +61,14 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
 
     private void SetTimeElapsed(float value, bool isReset)
     {
-        if (value != TimeElapsed)
-        {
-            TimeElapsed = value;
-            this.Dispatch(OnTimeElapsedChange, isReset ? TimeElapsedChangeEventArgs.TimerReset : TimeElapsedChangeEventArgs.Empty);
-        }
-        else if (isReset)
+        if (isReset)
         {
             this.Dispatch(OnTimeElapsedChange, TimeElapsedChangeEventArgs.TimerReset);
+            return;
         }
+
+        TimeElapsed = value;
+        this.Dispatch(OnTimeElapsedChange, isReset ? TimeElapsedChangeEventArgs.TimerReset : new TimeElapsedChangeEventArgs(false, TimeElapsed));
     }
 
     public int Deaths
@@ -121,44 +120,36 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
 
         if (questMaxTimerRaw is 0 or 180000 && elapsed is 0.0f or 3000.0f)
         {
-            if (Player.InHuntingZone)
+            if (!Player.InHuntingZone)
             {
-                // No quest timer available while player is on the hunt.
-                // We will use our local timer instead.
-                if (_localTimerStopwatch.IsRunning)
-                {
-                    SetTimeElapsed(_localTimerStopwatch.ElapsedMilliseconds / 1000.0f, false);
-                }
-                else
-                {
-                    _localTimerStopwatch.Start();
-                    SetTimeElapsed(0, true);
-                }
-            }
-            else
-            {
-                // Prevent TimeElapsed from being 3000 sec. before joining the hunt.
-                // Otherwise there will be incorrect MemberInfo.JoinedAt values when player is entering Training Area or Guiding Lands.
                 SetTimeElapsed(0, false);
+                return;
             }
+
+            if (!_localTimerStopwatch.IsRunning)
+            {
+                _localTimerStopwatch.Start();
+                SetTimeElapsed(0, true);
+                return;
+            }
+
+            SetTimeElapsed(_localTimerStopwatch.ElapsedMilliseconds / 1000.0f, false);
+            return;
         }
-        else
-        {
-            float questMaxTimer = questMaxTimerRaw
+
+        float questMaxTimer = questMaxTimerRaw
                 .ApproximateHigh(MHWGameUtils.MaxQuestTimers)
                 .ToSeconds();
-            float timeElapsed = Math.Max(0, questMaxTimer - elapsed);
-            if (_localTimerStopwatch.IsRunning)
-            {
-                // Stop local timer before switching to the real quest timer.
-                _localTimerStopwatch.Reset();
-                SetTimeElapsed(timeElapsed, true);
-            }
-            else
-            {
-                SetTimeElapsed(timeElapsed, false);
-            }
+        float timeElapsed = Math.Max(0, questMaxTimer - elapsed);
+
+        if (!_localTimerStopwatch.IsRunning)
+        {
+            SetTimeElapsed(timeElapsed, false);
+            return;
         }
+
+        _localTimerStopwatch.Reset();
+        SetTimeElapsed(timeElapsed, true);
     }
 
     [ScannableMethod]
