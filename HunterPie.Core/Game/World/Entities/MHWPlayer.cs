@@ -253,7 +253,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             break;
         }
 
-        if (isPlayingSolo && _party.Size == 0)
+        if (isPlayingSolo)
         {
             _party.Update(0, new MHWPartyMemberData
             {
