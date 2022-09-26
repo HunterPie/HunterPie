@@ -1,5 +1,7 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
+using HunterPie.Features.Account;
+using HunterPie.Features.Account.Event;
 using HunterPie.GUI.Parts.Account.ViewModels;
 using HunterPie.UI.Architecture;
 using System;
@@ -39,9 +41,19 @@ public partial class AccountSignFlowView : View<AccountSignFlowViewModel>, IEven
 
     private void OnCloseClick(object sender, RoutedEventArgs e) => AnimateSlideOut();
 
-    public void Dispose() => ViewModel.PropertyChanged -= OnPropertyChanged;
+    public void Dispose()
+    {
+        AccountLoginManager.OnSignIn -= OnAccountSignIn;
+        ViewModel.PropertyChanged -= OnPropertyChanged;
+    }
 
-    private void HookEvents() => ViewModel.PropertyChanged += OnPropertyChanged;
+    private void HookEvents()
+    {
+        AccountLoginManager.OnSignIn += OnAccountSignIn;
+        ViewModel.PropertyChanged += OnPropertyChanged;
+    }
+
+    private void OnAccountSignIn(object sender, AccountLoginEventArgs e) => AnimateSlideOut();
 
     private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
     {
@@ -68,14 +80,6 @@ public partial class AccountSignFlowView : View<AccountSignFlowViewModel>, IEven
     }
 
     private void AnimateSlideOut() => SlideOutAnimation.Begin(PART_Border);
-
-    private async void OnSignInClick(object sender, EventArgs e)
-    {
-        if (!await ViewModel.SignIn())
-            return;
-
-        AnimateSlideOut();
-    }
 
     private void OnSlideOutCompleted(object sender, EventArgs e) => CloseForm();
 }

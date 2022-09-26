@@ -34,8 +34,6 @@
                                                      To="0"
                                                      Duration="0:0:0.2"/>
         </Storyboard>
-
-        <converters:InvertBooleanConverter x:Key="InvertBooleanConverter"/>
     </UserControl.Resources>
     <Grid>
         <Rectangle Fill="{StaticResource GRAY_300}"/>
@@ -119,39 +117,8 @@
                                              Padding="5"
                                              Background="Transparent"/>
                         </TabItem.Header>
-                        <Grid>
-                            <StackPanel>
-                                <StackPanel Orientation="Vertical"
-                                            Margin="10,20,10,10">
-                                    <TextBlock Text="Username"
-                                               Foreground="{StaticResource WHITE_200}"
-                                               Margin="0,0,0,1"/>
-                                    <TextBox Height="35"
-                                             Text="{Binding SignInUsername, Mode=TwoWay}"
-                                             IsReadOnly="{Binding IsLoggingIn, Mode=OneWay}"/>
-                                </StackPanel>
 
-                                <StackPanel Orientation="Vertical"
-                                            Margin="10,10,10,10">
-                                    <TextBlock Text="Password"
-                                               Foreground="{StaticResource WHITE_200}"
-                                               Margin="0,0,0,1"/>
-                                    <textbox:SecretTextBox Height="35"
-                                                           Text="{Binding SignInPassword, Mode=TwoWay}"
-                                                           IsEnabled="{Binding IsLoggingIn, Mode=OneWay, Converter={StaticResource InvertBooleanConverter}}"/>
-                                </StackPanel>
-
-                                
-                                <buttons:Button Content="Sign In"
-                                                FontSize="15"
-                                                HorizontalAlignment="Center"
-                                                Padding="20,5,20,5"
-                                                BorderThickness="1"
-                                                BorderBrush="{StaticResource GRAY}"
-                                                CornerRadius="5"
-                                                OnClick="OnSignInClick"/>
-                            </StackPanel>
-                        </Grid>
+                        <local:AccountLoginFlowView />
                     </TabItem>
                     <!-- Register View -->
                     <TabItem>
@@ -163,6 +130,8 @@
                                              Width="{Binding ActualWidth, ElementName=PART_Dummy}"
                                              Background="Transparent"/>
                         </TabItem.Header>
+
+                        <local:AccountRegisterFlowView />
                     </TabItem>
                 </TabControl>
 

@@ -20,8 +20,10 @@
             <ItemsControl.Template>
                 <ControlTemplate>
                     <viewer:SmoothScrollViewer VirtualizingPanel.IsVirtualizing="True"
-                                  VerticalScrollBarVisibility="Auto">
-                        <VirtualizingStackPanel IsItemsHost="True"/>
+                                               VirtualizingStackPanel.VirtualizationMode="Recycling"
+                                               VerticalScrollBarVisibility="Auto">
+                        <VirtualizingStackPanel IsItemsHost="True"
+                                                VirtualizingStackPanel.VirtualizationMode="Recycling"/>
                     </viewer:SmoothScrollViewer>
                 </ControlTemplate>
             </ItemsControl.Template>
