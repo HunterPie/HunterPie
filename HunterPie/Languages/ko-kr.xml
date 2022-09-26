@@ -566,6 +566,7 @@
 					String="확인"/>
 			<Dialog Id="DELETE_CONFIRMATION_DESCRIPTION_STRING"
 					String="{Item}을(를) 삭제할까요?"/>
+
 			<Dialog Id="EXIT_CONFIRMATION_DESCRIPTION_STRING"
 					String="HunterPie를 종료할까요?"/>
 

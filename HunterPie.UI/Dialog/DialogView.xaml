@@ -99,6 +99,7 @@
                                 Visibility="{Binding Buttons, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource DialogButtonToVisibilityConverter}, ConverterParameter={StaticResource Reject}}"
                                 Style="{StaticResource DefaultButton}"
                                 OnClick="OnReject"/>
+
                     <btn:Button Content="{loc:LocalizationString '//Strings/Client/Dialogs/Button[@Id=&quot;CANCEL_STRING&quot;]'}"
                                 Visibility="{Binding Buttons, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource DialogButtonToVisibilityConverter}, ConverterParameter={StaticResource Cancel}}"
                                 Style="{StaticResource DefaultButton}"
