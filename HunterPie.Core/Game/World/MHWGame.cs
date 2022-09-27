@@ -61,11 +61,8 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
 
     private void SetTimeElapsed(float value, bool isReset)
     {
-        if (isReset)
-        {
-            this.Dispatch(OnTimeElapsedChange, TimeElapsedChangeEventArgs.TimerReset);
+        if (value == TimeElapsed)
             return;
-        }
 
         TimeElapsed = value;
         this.Dispatch(OnTimeElapsedChange, isReset ? TimeElapsedChangeEventArgs.TimerReset : new TimeElapsedChangeEventArgs(false, TimeElapsed));
@@ -140,11 +137,12 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
         float questMaxTimer = questMaxTimerRaw
                 .ApproximateHigh(MHWGameUtils.MaxQuestTimers)
                 .ToSeconds();
+
         float timeElapsed = Math.Max(0, questMaxTimer - elapsed);
 
         if (!_localTimerStopwatch.IsRunning)
         {
-            SetTimeElapsed(timeElapsed, false);
+            SetTimeElapsed(timeElapsed, TimeElapsed == 0);
             return;
         }
 
