@@ -199,7 +199,7 @@ namespace HunterPie.Core.Game.Rise.Entities
         {
             MonsterInformationData dto = new();
 
-            int monsterId = _process.Memory.Read<int>(_address + 0x2C4);
+            int monsterId = _process.Memory.Read<int>(_address + 0x2D4);
             
             dto.Id = monsterId;
 
