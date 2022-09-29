@@ -232,28 +232,22 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
         if (questInformation.IsMHWQuestOver())
             return;
 
-        long partyInformation = _process.Memory.Read(
+        long partyInformationPtr = _process.Memory.Read(
             AddressMap.GetAbsolute("PARTY_ADDRESS"),
             AddressMap.Get<int[]>("PARTY_OFFSETS")
-        ) - 0x22B7;
+        );
 
         long damageInformation = _process.Memory.Read(
             AddressMap.GetAbsolute("DAMAGE_ADDRESS"),
             AddressMap.Get<int[]>("DAMAGE_OFFSETS")
         );
 
-        bool isPlayingSolo = true;
+        int partySize = _process.Memory.Deref<int>(
+            AddressMap.GetAbsolute("SESSION_OFFSET"),
+            AddressMap.Get<int[]>("SESSION_PARTY_OFFSETS")
+        );
 
-        for (int i = 0; i < Party.MaxSize; i++)
-        {
-            if (_process.Memory.Read<byte>(partyInformation + (i * 0x1C0)) == 0)
-                continue;
-
-            isPlayingSolo = false;
-            break;
-        }
-
-        if (isPlayingSolo)
+        if (partySize is 0)
         {
             _party.Update(0, new MHWPartyMemberData
             {
@@ -264,45 +258,49 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
                 IsMyself = true,
                 MasterRank = MasterRank
             });
-            return;
         }
-        else if (!isPlayingSolo && _party.Size == 1)
-        {
+        else
             _party.Remove(0);
-        }
 
-        long localLocalPlayerAddress = 0;
-        for (int i = 0; i < Party.MaxSize; i++)
+        MHWPartyMemberStructure[] partyMembers = _process.Memory.Read<MHWPartyMemberStructure>(partyInformationPtr, 4);
+
+        long localPlayerReference = 0;
+        int index = -1;
+        foreach (MHWPartyMemberStructure partyMember in partyMembers)
         {
-            long playerAddress = partyInformation + (i * 0x1C0);
-            bool isSlotEmpty = _process.Memory.Read<byte>(playerAddress) == 0;
+            index++;
 
-            if (isSlotEmpty)
+            if (index >= partySize)
             {
-                _party.Remove(playerAddress);
+                _party.Remove(partyMember.Address);
                 continue;
             }
 
-            string name = _process.Memory.Read(playerAddress, 32);
-            bool isLocalPlayer = name == Name;
-            if (isLocalPlayer)
-                localLocalPlayerAddress = playerAddress;
+            string name = _process.Memory.Read(partyMember.Address + 0x49, 32);
 
-            MHWPartyMemberLevelStructure levels = _process.Memory.Read<MHWPartyMemberLevelStructure>(playerAddress + 0x27);
+            if (string.IsNullOrEmpty(name))
+                continue;
+
+            bool isLocalPlayer = name == Name;
+
+            if (isLocalPlayer)
+                localPlayerReference = partyMember.Address;
+
+            MHWPartyMemberLevelStructure levels = _process.Memory.Read<MHWPartyMemberLevelStructure>(partyMember.Address + 0x70);
             var data = new MHWPartyMemberData
             {
                 Name = name,
-                Weapon = isLocalPlayer ? WeaponId : (Weapon)_process.Memory.Read<byte>(playerAddress + 0x33),
-                Damage = _process.Memory.Read<int>(damageInformation + (i * 0x2A0)),
-                Slot = i,
+                Weapon = isLocalPlayer ? WeaponId : (Weapon)_process.Memory.Read<byte>(partyMember.Address + 0x7C),
+                Damage = _process.Memory.Read<int>(damageInformation + (index * 0x2A0)),
+                Slot = index,
                 IsMyself = isLocalPlayer,
                 MasterRank = levels.MasterRank
             };
 
-            _party.Update(playerAddress, data);
+            _party.Update(partyMember.Address, data);
         }
 
-        _localPlayerAddress = localLocalPlayerAddress;
+        _localPlayerAddress = localPlayerReference;
     }
 
     [ScannableMethod]
