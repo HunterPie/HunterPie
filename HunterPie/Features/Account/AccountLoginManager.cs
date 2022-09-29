@@ -43,12 +43,15 @@ internal class AccountLoginManager : IEventDispatcher
 
     public static async Task<UserAccount?> Login(LoginRequest request)
     {
-        LoginResponse? loginResponse = await PoogieApi.Login(request);
+        PoogieApiResult<LoginResponse>? loginResponse = await PoogieApi.Login(request);
 
-        if (loginResponse is null)
+        if (loginResponse is null || !loginResponse.Success)
             return null;
 
-        CredentialVaultService.SaveCredential(request.Username, loginResponse.Token);
+        if (loginResponse.Response is null)
+            return null;
+
+        CredentialVaultService.SaveCredential(request.Username, loginResponse.Response.Token);
 
         UserAccount? account = await FetchAccount();
 
@@ -79,7 +82,12 @@ internal class AccountLoginManager : IEventDispatcher
     {
         Credential? credential = CredentialVaultService.GetCredential();
 
-        return credential is null ? null : ((await PoogieApi.GetMyUserAccount())?.ToModel());
+        PoogieApiResult<MyUserAccountResponse>? account = await PoogieApi.GetMyUserAccount();
+
+        if (account is null || account.Response is null)
+            return null;
+
+        return credential is null ? null : account.Response.ToModel();
     }
 }
 #nullable restore

@@ -11,6 +11,7 @@
            xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
            xmlns:vm="clr-namespace:HunterPie.GUI.Parts.Account.ViewModels"
            x:TypeArguments="vm:AccountLoginFlowViewModel"
+           d:DataContext="{d:DesignInstance vm:AccountLoginFlowViewModel}"
            mc:Ignorable="d" 
            d:DesignHeight="450" 
            d:DesignWidth="800">
@@ -24,7 +25,8 @@
                        Foreground="{StaticResource WHITE_200}"
                        Margin="0,0,0,1"/>
             <TextBox Height="35"
-                     IsReadOnly="{Binding IsLoggingIn, Mode=OneWay}">
+                     IsReadOnly="{Binding IsLoggingIn, Mode=OneWay}"
+                     x:Name="PART_UsernameBox">
                 <TextBox.Text>
                     <Binding Path="Username"
                              Mode="TwoWay"
@@ -46,7 +48,7 @@
                        Foreground="{StaticResource WHITE_200}"
                        Margin="0,0,0,1"/>
             <textbox:SecretTextBox Height="35"
-                                   Text="{Binding Password, Mode=TwoWay}"
+                                   Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                    IsEnabled="{Binding IsLoggingIn, Mode=OneWay, Converter={StaticResource InvertBooleanConverter}}"/>
         </StackPanel>
 
@@ -58,6 +60,7 @@
                         BorderThickness="1"
                         BorderBrush="{StaticResource GRAY}"
                         CornerRadius="5"
-                        OnClick="OnSignInClick"/>
+                        OnClick="OnSignInClick"
+                        IsEnabled="{Binding CanLogIn, Mode=OneWay}"/>
     </StackPanel>
 </arch:View>

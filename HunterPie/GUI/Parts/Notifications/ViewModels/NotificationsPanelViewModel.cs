@@ -12,9 +12,12 @@ internal class NotificationsPanelViewModel : ViewModel
 
     public async Task FetchNotifications()
     {
-        Notification[] notifications = await PoogieApi.GetNotifications();
+        PoogieApiResult<Notification[]> notifications = await PoogieApi.GetNotifications();
 
-        foreach (Notification notification in notifications)
+        if (notifications is null || !notifications.Success)
+            return;
+
+        foreach (Notification notification in notifications.Response)
         {
             Notifications.Add(new NotificationViewModel
             {

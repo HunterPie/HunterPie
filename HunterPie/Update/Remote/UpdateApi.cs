@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.API;
+using HunterPie.Core.API.Entities;
 using HunterPie.Core.Client;
 using HunterPie.Core.Http;
 using HunterPie.Core.Http.Events;
@@ -12,8 +13,12 @@ public class UpdateApi
 {
     public async Task<string> GetLatestVersion()
     {
-        Core.API.Entities.VersionResponse response = await PoogieApi.GetLatestVersion();
-        return response?.LatestVersion;
+        PoogieApiResult<VersionResponse> response = await PoogieApi.GetLatestVersion();
+
+        if (response is null || !response.Success)
+            return null;
+
+        return response.Response?.LatestVersion;
     }
 
     public async Task DownloadVersion(string version, EventHandler<PoogieDownloadEventArgs> callback)

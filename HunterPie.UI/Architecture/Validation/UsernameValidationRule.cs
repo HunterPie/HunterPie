@@ -15,7 +15,10 @@ public class UsernameValidationRule : ValidationRule
         if (value is not string username)
             throw new ArgumentException("value must be a string");
 
-        if (string.IsNullOrEmpty(username) || username.Length < 3 || username.Length > 20)
+        if (string.IsNullOrEmpty(username))
+            return new ValidationResult(true, ERROR_RANGE_USERNAME);
+
+        if (username.Length is < 3 or > 20)
             return new ValidationResult(false, ERROR_RANGE_USERNAME);
 
         if (!Regex.IsMatch(username, USERNAME_PATTERN))

@@ -1,14 +1,19 @@
-﻿<UserControl x:Class="HunterPie.GUI.Parts.Account.Views.AccountRegisterFlowView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.GUI.Parts.Account.Views"
-             xmlns:textbox="clr-namespace:HunterPie.UI.Controls.TextBox;assembly=HunterPie.UI"
-             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
-             mc:Ignorable="d" 
-             d:DesignHeight="400" 
-             d:DesignWidth="300">
+﻿<arch:View x:Class="HunterPie.GUI.Parts.Account.Views.AccountRegisterFlowView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+           xmlns:local="clr-namespace:HunterPie.GUI.Parts.Account.Views"
+           xmlns:arch="clr-namespace:HunterPie.UI.Architecture;assembly=HunterPie.UI"
+           xmlns:vm="clr-namespace:HunterPie.GUI.Parts.Account.ViewModels"
+           xmlns:validation="clr-namespace:HunterPie.UI.Architecture.Validation;assembly=HunterPie.UI"
+           xmlns:textbox="clr-namespace:HunterPie.UI.Controls.TextBox;assembly=HunterPie.UI"
+           xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+           x:TypeArguments="vm:AccountRegisterFlowViewModel"
+           mc:Ignorable="d" 
+           d:DesignHeight="400" 
+           d:DesignWidth="300"
+           d:DataContext="{d:DesignInstance vm:AccountRegisterFlowViewModel}">
     <StackPanel>
         <!-- Username -->
         <StackPanel Orientation="Vertical"
@@ -16,7 +21,20 @@
             <TextBlock Text="Username"
                        Foreground="{StaticResource WHITE_200}"
                        Margin="0,0,0,1"/>
-            <TextBox Height="35"/>
+            <TextBox Height="35">
+                <TextBox.Text>
+                    <Binding Path="Username"
+                             Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged"
+                             ValidatesOnDataErrors="True"
+                             ValidatesOnNotifyDataErrors="True"
+                             NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <validation:UsernameValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </StackPanel>
 
         <!-- Email -->
@@ -25,7 +43,20 @@
             <TextBlock Text="Email"
                        Foreground="{StaticResource WHITE_200}"
                        Margin="0,0,0,1"/>
-            <TextBox Height="35"/>
+            <TextBox Height="35">
+                <TextBox.Text>
+                    <Binding Path="Email"
+                             Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged"
+                             ValidatesOnDataErrors="True"
+                             ValidatesOnNotifyDataErrors="True"
+                             NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <validation:EmailValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </StackPanel>
 
         <!-- Password -->
@@ -43,6 +74,7 @@
                         BorderThickness="1"
                         BorderBrush="{StaticResource GRAY}"
                         CornerRadius="5"
-                        HorizontalAlignment="Center"/>
+                        HorizontalAlignment="Center"
+                        IsEnabled="{Binding CanRegister, Mode=OneWay}"/>
     </StackPanel>
-</UserControl>
+</arch:View>

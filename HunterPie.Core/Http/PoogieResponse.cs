@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.API.Entities;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Http.Events;
 using HunterPie.Core.Json;
@@ -36,11 +37,18 @@ public class PoogieResponse : IEventDispatcher, IDisposable
         Url = message.RequestMessage.RequestUri.AbsoluteUri;
     }
 
-    public async Task<T> AsJson<T>()
+    public async Task<PoogieApiResult<T>> AsJson<T>()
     {
         string content = await Content.ReadAsStringAsync();
 
-        return JsonProvider.Deserialize<T>(content);
+        var result = new PoogieApiResult<T>
+        {
+            Response = JsonProvider.Deserializer<T>(content),
+            Error = JsonProvider.Deserializer<ErrorResponse>(content),
+            Success = Status < HttpStatusCode.BadRequest
+        };
+
+        return result;
     }
 
     public async Task<byte[]> AsRaw() => await Content.ReadAsByteArrayAsync();

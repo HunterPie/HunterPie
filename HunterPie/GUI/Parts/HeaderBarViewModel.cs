@@ -50,9 +50,9 @@ public class HeaderBarViewModel : Bindable
     {
         IsFetchingSupporter = true;
 
-        SupporterValidationResponse res = await PoogieApi.ValidateSupporterToken();
+        PoogieApiResult<SupporterValidationResponse> res = await PoogieApi.ValidateSupporterToken();
 
-        IsSupporter = res?.IsValid ?? false;
+        IsSupporter = res?.Response?.IsValid ?? false;
 
         IsFetchingSupporter = false;
     }

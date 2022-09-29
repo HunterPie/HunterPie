@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.API;
+using HunterPie.Core.API.Entities;
 using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Events;
@@ -65,11 +66,11 @@ public class SettingHostViewModel : Bindable
     {
         IsFetchingVersion = true;
 
-        Core.API.Entities.VersionResponse schema = await PoogieApi.GetLatestVersion();
+        PoogieApiResult<VersionResponse> schema = await PoogieApi.GetLatestVersion();
 
-        if (schema is not null)
+        if (schema is not null && schema.Response is VersionResponse resp)
         {
-            var version = new Version(schema.LatestVersion);
+            var version = new Version(resp.LatestVersion);
             IsLatestVersion = ClientInfo.IsVersionGreaterOrEq(version);
         }
 

@@ -44,7 +44,6 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     private long _localPlayerAddress;
     private Stage _zoneId;
     private Weapon _weaponId;
-    private readonly SpecializedTool[] _tools = { new(), new() };
     private readonly Dictionary<string, IAbnormality> _abnormalities = new();
     private readonly MHWParty _party = new();
     #endregion
