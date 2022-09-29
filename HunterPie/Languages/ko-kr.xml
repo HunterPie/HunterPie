@@ -368,6 +368,7 @@
 			<Monster Id="95" String="가란고르무"/>
 			<Monster Id="96" String="가이아델름"/>
 			<Monster Id="97" String="에스피나스"/>
+			<Monster Id="98" String="에스피나스 아종"/>
 		</Rise>
 		<World>
 			<Monster Id="0" String="안쟈나프"/>
