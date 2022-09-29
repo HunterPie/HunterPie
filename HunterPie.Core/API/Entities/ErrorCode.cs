@@ -2,5 +2,6 @@
 
 public enum ErrorCode
 {
-    USER_ALREADY_EXISTS
+    USER_ALREADY_EXISTS,
+    INVALID_SESSION_TOKEN
 }

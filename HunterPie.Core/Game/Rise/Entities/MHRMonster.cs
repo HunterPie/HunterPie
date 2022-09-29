@@ -199,9 +199,9 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     {
         MonsterInformationData dto = new();
 
-        int monsterId = _process.Memory.Read<int>(_address + 0x2C4);
-
-        dto.Id = monsterId;
+            int monsterId = _process.Memory.Read<int>(_address + 0x2D4);
+            
+            dto.Id = monsterId;
 
         Next(ref dto);
 

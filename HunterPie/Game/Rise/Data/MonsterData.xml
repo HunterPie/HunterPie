@@ -1187,5 +1187,18 @@
                 <Part Id="4" String="PART_TAIL" />
             </Parts>
         </Monster>
+		<Monster Id="98"
+                 Size="1755.25">
+			<Weaknesses>
+				<Weakness Name="Water"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD" />
+				<Part Id="1" String="PART_TORSO" />
+				<Part Id="2" String="PART_WINGS" />
+				<Part Id="3" String="PART_LEGS" />
+				<Part Id="4" String="PART_TAIL" />
+			</Parts>
+		</Monster>
     </Monsters>
 </GameData>

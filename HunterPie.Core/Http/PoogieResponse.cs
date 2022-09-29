@@ -41,10 +41,22 @@ public class PoogieResponse : IEventDispatcher, IDisposable
     {
         string content = await Content.ReadAsStringAsync();
 
+        T? response = default;
+        try
+        {
+            response = JsonProvider.Deserializer<T>(content);
+        } catch { };
+
+        ErrorResponse? error = null;
+        try
+        {
+            error = JsonProvider.Deserializer<ErrorResponse>(content);
+        } catch {}
+
         var result = new PoogieApiResult<T>
         {
-            Response = JsonProvider.Deserializer<T>(content),
-            Error = JsonProvider.Deserializer<ErrorResponse>(content),
+            Response = response,
+            Error = error,
             Success = Status < HttpStatusCode.BadRequest
         };
 
