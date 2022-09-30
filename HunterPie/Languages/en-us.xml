@@ -357,6 +357,7 @@
             <Monster Id="83" String="Shagaru Magala"/>
             <Monster Id="84" String="Seregios"/>
             <Monster Id="85" String="Astalos"/>
+            <Monster Id="86" String="Violet Mizutsune"/>
             <Monster Id="87" String="Scorned Magnamalo"/>
             <Monster Id="88" String="Blood Orange Bishaten"/>
             <Monster Id="89" String="Aurora Somnacanth"/>
@@ -369,6 +370,7 @@
             <Monster Id="96" String="Gaismagorm"/>
             <Monster Id="97" String="Espinas"/>
             <Monster Id="98" String="Flaming Espinas"/>
+            <Monster Id="108" String="Risen Chameleos"/>
         </Rise>
         <World>
             <Monster Id="0" String="Anjanath"/>
