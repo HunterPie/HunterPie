@@ -82,12 +82,15 @@ internal class AccountLoginManager : IEventDispatcher
     {
         Credential? credential = CredentialVaultService.GetCredential();
 
+        if (credential is null)
+            return null;
+
         PoogieApiResult<MyUserAccountResponse>? account = await PoogieApi.GetMyUserAccount();
 
         if (account is null || account.Response is null)
             return null;
 
-        return credential is null ? null : account.Response.ToModel();
+        return account.Response.ToModel();
     }
 }
 #nullable restore
