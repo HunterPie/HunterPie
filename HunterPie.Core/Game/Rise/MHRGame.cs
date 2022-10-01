@@ -33,7 +33,6 @@ namespace HunterPie.Core.Game.Rise
         private (int, DateTime) _lastTeleport = (0, DateTime.Now);
         private int _deaths;
         private bool _isHudOpen;
-        private bool _isCutsceneActive;
         private DateTime _lastDamageUpdate = DateTime.MinValue;
         readonly Dictionary<long, IMonster> _monsters = new();
         readonly Dictionary<long, EntityDamageData[]> _damageDone = new();
