@@ -56,19 +56,6 @@ namespace HunterPie.Core.Game.Rise
             }
         }
 
-        public bool IsCutsceneActive
-        {
-            get => _isCutsceneActive;
-            private set
-            {
-                if (value != _isCutsceneActive)
-                {
-                    _isCutsceneActive = value;
-                    this.Dispatch(OnCutsceneStateChange, this);
-                }
-            }
-        }
-
         public float TimeElapsed
         {
             get => _timeElapsed;
@@ -98,7 +85,6 @@ namespace HunterPie.Core.Game.Rise
         public event EventHandler<IMonster> OnMonsterSpawn;
         public event EventHandler<IMonster> OnMonsterDespawn;
         public event EventHandler<IGame> OnHudStateChange;
-        public event EventHandler<IGame> OnCutsceneStateChange;
         public event EventHandler<IGame> OnTimeElapsedChange;
         public event EventHandler<IGame> OnDeathCountChange;
 
@@ -211,18 +197,12 @@ namespace HunterPie.Core.Game.Rise
                 AddressMap.Get<int[]>("MOUSE_OFFSETS")
             );
 
-            IsHudOpen = isHudOpen == 1;
-        }
-
-        [ScannableMethod]
-        private void ScanCutsceneState()
-        {
             byte isCutsceneActive = _process.Memory.Deref<byte>(
                 AddressMap.GetAbsolute("EVENTCAMERA_ADDRESS"),
                 AddressMap.Get<int[]>("CUTSCENE_STATE_OFFSETS")
             );
 
-            IsCutsceneActive = isCutsceneActive > 0;
+            IsHudOpen = isHudOpen == 1 || isCutsceneActive != 0;
         }
 
         [ScannableMethod]

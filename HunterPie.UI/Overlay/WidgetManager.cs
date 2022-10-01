@@ -18,13 +18,11 @@ namespace HunterPie.UI.Overlay
         private bool _isDesignModeEnabled;
         private bool _isGameFocused;
         private bool _isGameHudOpen;
-        private bool _isCutsceneActive;
         private readonly Dictionary<IWidgetWindow, WidgetBase> _widgets = new Dictionary<IWidgetWindow, WidgetBase>();
 
         public bool IsDesignModeEnabled { get => _isDesignModeEnabled; private set { SetValue(ref _isDesignModeEnabled, value); } }
         public bool IsGameFocused { get => _isGameFocused; private set { SetValue(ref _isGameFocused, value); } }
         public bool IsGameHudOpen { get => _isGameHudOpen; private set { SetValue(ref _isGameHudOpen, value); } }
-        public bool IsCutsceneActive { get => _isCutsceneActive; private set { SetValue(ref _isCutsceneActive, value); } }
         public ref readonly Dictionary<IWidgetWindow, WidgetBase> Widgets => ref _widgets;
         public OverlayClientConfig Settings => ClientConfig.Config.Overlay;
 
@@ -52,12 +50,9 @@ namespace HunterPie.UI.Overlay
             context.Process.OnGameFocus += OnGameFocus;
             context.Process.OnGameUnfocus += OnGameUnfocus;
             context.Game.OnHudStateChange += OnHudStateChange;
-            context.Game.OnCutsceneStateChange += OnCutsceneStateChange;
         }
 
         private static void OnHudStateChange(object sender, IGame e) => Instance.IsGameHudOpen = e.IsHudOpen;
-
-        private static void OnCutsceneStateChange(object sender, IGame e) => Instance.IsCutsceneActive = e.IsCutsceneActive;
 
         private static void OnGameUnfocus(object sender, ProcessEventArgs e) => Instance.IsGameFocused = false;
 
@@ -95,7 +90,6 @@ namespace HunterPie.UI.Overlay
             Instance._context.Process.OnGameFocus += OnGameFocus;
             Instance._context.Process.OnGameUnfocus += OnGameUnfocus;
             Instance._context.Game.OnHudStateChange += OnHudStateChange;
-            Instance._context.Game.OnCutsceneStateChange += OnCutsceneStateChange;
         }
 
         private void ToggleDesignMode()

@@ -39,21 +39,21 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug
         {
             Player.OnStageUpdate += OnStageUpdate;
             Player.OnWirebugsRefresh += OnWirebugsRefresh;
-            Context.Game.OnCutsceneStateChange += OnCutsceneStateChange;
+            Context.Game.OnHudStateChange += OnHudStateChange;
         }
 
         public void UnhookEvents()
         {
             Player.OnStageUpdate -= OnStageUpdate;
             Player.OnWirebugsRefresh -= OnWirebugsRefresh;
-            Context.Game.OnCutsceneStateChange -= OnCutsceneStateChange;
+            Context.Game.OnHudStateChange -= OnHudStateChange;
             WidgetManager.Unregister<WirebugsView, WirebugWidgetConfig>(View);
         }
 
 
         private void OnStageUpdate(object sender, EventArgs e) => ViewModel.IsAvailable = !UnavailableStages.Contains(Player.StageId);
 
-        private void OnCutsceneStateChange(object sender, IGame e) => ViewModel.IsAvailable = !e.IsCutsceneActive;
+        private void OnHudStateChange(object sender, IGame e) => ViewModel.IsAvailable = !e.IsHudOpen;
 
         private void OnWirebugsRefresh(object sender, MHRWirebug[] e)
         {
@@ -72,7 +72,7 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug
 
         private void UpdateData()
         {
-            ViewModel.IsAvailable = !UnavailableStages.Contains(Player.StageId) && !Context.Game.IsCutsceneActive;
+            ViewModel.IsAvailable = !UnavailableStages.Contains(Player.StageId) && !Context.Game.IsHudOpen;
 
             foreach (MHRWirebug wirebug in Player.Wirebugs)
                 ViewModel.Elements.Add(new WirebugContextHandler(wirebug));
