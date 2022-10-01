@@ -11,6 +11,7 @@
         xmlns:host="clr-namespace:HunterPie.GUI.Parts.Host"
         xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
         xmlns:notifications="clr-namespace:HunterPie.GUI.Parts.Notifications.Views"
+        xmlns:appNotifications="clr-namespace:HunterPie.Features.Notification"
         xmlns:account="clr-namespace:HunterPie.GUI.Parts.Account.Views"
         Title="HunterPie v2" 
         Height="600" 
@@ -207,5 +208,20 @@
                 </Style>
             </notifications:NotificationsPanelView.Style>
         </notifications:NotificationsPanelView>
+        
+        <!-- In-App notifications -->
+        <ItemsControl ItemsSource="{Binding Source={x:Static appNotifications:AppNotificationManager.Notifications}, Mode=OneWay}"
+                      VerticalAlignment="Bottom"
+                      Grid.Row="1"
+                      Grid.RowSpan="3"
+                      HorizontalAlignment="Center"
+                      Margin="30">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"
+                                IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
     </Grid>
 </Window>

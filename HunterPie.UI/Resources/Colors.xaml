@@ -24,4 +24,23 @@
     <SolidColorBrush x:Key="WHITE_500">#7c7e80</SolidColorBrush>
     <SolidColorBrush x:Key="WHITE_600">#66696b</SolidColorBrush>
     <SolidColorBrush x:Key="WHITE_700">#505355</SolidColorBrush>
+    
+    <!-- Red -->
+    <SolidColorBrush x:Key="RED_LIGHT_700">#e4bacb</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_600">#dba3ba</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_500">#d38ca9</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_400">#ca7597</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_300">#c15e86</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_200">#b84775</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_100">#af3063</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_50">#aa255b</SolidColorBrush>
+    <SolidColorBrush x:Key="RED">#a61952</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_50">#9e184e</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_100">#95174a</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_200">#851442</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_300">#741239</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_400">#640f31</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_500">#530d29</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_600">#420a21</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_700">#320819</SolidColorBrush>
 </ResourceDictionary>
