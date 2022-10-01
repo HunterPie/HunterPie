@@ -357,6 +357,7 @@
 			<Monster Id="83" String="샤가르마가라"/>
 			<Monster Id="84" String="셀레기오스"/>
 			<Monster Id="85" String="라이젝스"/>
+			<Monster Id="86" String="타마미츠네 희소종"/>
 			<Monster Id="87" String="원망 서린 마가이마가도"/>
 			<Monster Id="88" String="비슈텐고 아종"/>
 			<Monster Id="89" String="이소네미쿠니 아종"/>
@@ -369,6 +370,7 @@
 			<Monster Id="96" String="가이아델름"/>
 			<Monster Id="97" String="에스피나스"/>
 			<Monster Id="98" String="에스피나스 아종"/>
+			<Monster Id="108" String="괴이 극복 오나즈치"/>
 		</Rise>
 		<World>
 			<Monster Id="0" String="안쟈나프"/>
