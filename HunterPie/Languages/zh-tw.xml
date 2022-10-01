@@ -349,7 +349,7 @@
 			<Monster Id="45" String="爆鱗龍"/>
 			<Monster Id="46" String="訓練用河童蛙"/>
 			<Monster Id="76" String="金火龍"/>
-	        <Monster Id="77" String="銀火龍"/>
+	        	<Monster Id="77" String="銀火龍"/>
 			<Monster Id="78" String="大名蟹"/>
 			<Monster Id="79" String="將軍蟹"/>
 			<Monster Id="80" String="激昂金獅子"/>
@@ -358,6 +358,7 @@
 			<Monster Id="83" String="天迴龍"/>
 			<Monster Id="84" String="千刃龍"/>
 			<Monster Id="85" String="電龍"/>
+			<Monster Id="86" String="焰狐龍"/>
 			<Monster Id="87" String="嗟怨轟天怨虎龍"/>
 			<Monster Id="88" String="緋天狗獸"/>
 			<Monster Id="89" String="冰人魚龍"/>
@@ -369,6 +370,8 @@
 			<Monster Id="95" String="剛纏獸"/>
 			<Monster Id="96" String="冥淵龍"/>
 			<Monster Id="97" String="棘龍"/>
+			<Monster Id="98" String="棘茶龍"/>
+			<Monster Id="108" String="傀異克服霞龍"/>
 		</Rise>
 		<World>
 			<Monster Id="0" String="蠻顎龍"/>
