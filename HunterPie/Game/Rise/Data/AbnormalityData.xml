@@ -130,9 +130,9 @@
                      Name="ABNORMALITY_ARC_SHOT_AFFINITY"
                      Icon="ICON_AFFINITY"/>
         <Abnormality Id="ABN_STINKMINK"
-					 Name="ABNORMALITY_STINKMINK"
+                     Name="ABNORMALITY_STINKMINK"
                      Offset="D4"
-					 Icon="ICON_STINKMINK"/>
+                     Icon="ICON_STINKMINK"/>
         <Abnormality Id="ABN_IMMUNITY"
                      Offset="DC"
                      Name="ABNORMALITY_IMMUNITY"
