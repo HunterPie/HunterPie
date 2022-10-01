@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Address.Map;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
