@@ -25,6 +25,7 @@ namespace HunterPie.Core.Game.World
         public event EventHandler<IMonster> OnMonsterSpawn;
         public event EventHandler<IMonster> OnMonsterDespawn;
         public event EventHandler<IGame> OnHudStateChange;
+        public event EventHandler<IGame> OnCutsceneStateChange;
         public event EventHandler<IGame> OnTimeElapsedChange;
         public event EventHandler<IGame> OnDeathCountChange;
 
@@ -45,6 +46,8 @@ namespace HunterPie.Core.Game.World
                 }
             }
         }
+
+        public bool IsCutsceneActive { get; set; }
 
         public float TimeElapsed
         {

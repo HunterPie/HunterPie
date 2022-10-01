@@ -32,6 +32,8 @@ namespace HunterPie.Core.Game.Demos.Sunbreak
 
         public bool IsHudOpen { get; set; }
 
+        public bool IsCutsceneActive { get; set; }
+
         public float TimeElapsed => throw new NotImplementedException();
 
         public int Deaths => throw new NotImplementedException();
@@ -41,6 +43,7 @@ namespace HunterPie.Core.Game.Demos.Sunbreak
         public event EventHandler<IMonster> OnMonsterSpawn;
         public event EventHandler<IMonster> OnMonsterDespawn;
         public event EventHandler<IGame> OnHudStateChange;
+        public event EventHandler<IGame> OnCutsceneStateChange;
         public event EventHandler<IGame> OnTimeElapsedChange;
         public event EventHandler<IGame> OnDeathCountChange;
 

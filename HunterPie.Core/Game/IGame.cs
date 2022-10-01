@@ -14,6 +14,7 @@ namespace HunterPie.Core.Game
         public IChat Chat { get; }
 
         public bool IsHudOpen { get; }
+        public bool IsCutsceneActive { get; }
 
         public float TimeElapsed { get; }
         public int Deaths { get; }
@@ -21,6 +22,7 @@ namespace HunterPie.Core.Game
         public event EventHandler<IMonster> OnMonsterSpawn;
         public event EventHandler<IMonster> OnMonsterDespawn;
         public event EventHandler<IGame> OnHudStateChange;
+        public event EventHandler<IGame> OnCutsceneStateChange;
         public event EventHandler<IGame> OnTimeElapsedChange;
         public event EventHandler<IGame> OnDeathCountChange;
     }

@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Game;
 using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Game.Rise.Entities;
 using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
@@ -38,17 +39,21 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug
         {
             Player.OnStageUpdate += OnStageUpdate;
             Player.OnWirebugsRefresh += OnWirebugsRefresh;
+            Context.Game.OnCutsceneStateChange += OnCutsceneStateChange;
         }
 
         public void UnhookEvents()
         {
             Player.OnStageUpdate -= OnStageUpdate;
             Player.OnWirebugsRefresh -= OnWirebugsRefresh;
+            Context.Game.OnCutsceneStateChange -= OnCutsceneStateChange;
             WidgetManager.Unregister<WirebugsView, WirebugWidgetConfig>(View);
         }
 
 
         private void OnStageUpdate(object sender, EventArgs e) => ViewModel.IsAvailable = !UnavailableStages.Contains(Player.StageId);
+
+        private void OnCutsceneStateChange(object sender, IGame e) => ViewModel.IsAvailable = !e.IsCutsceneActive;
 
         private void OnWirebugsRefresh(object sender, MHRWirebug[] e)
         {
@@ -67,7 +72,7 @@ namespace HunterPie.UI.Overlay.Widgets.Wirebug
 
         private void UpdateData()
         {
-            ViewModel.IsAvailable = !UnavailableStages.Contains(Player.StageId);
+            ViewModel.IsAvailable = !UnavailableStages.Contains(Player.StageId) && !Context.Game.IsCutsceneActive;
 
             foreach (MHRWirebug wirebug in Player.Wirebugs)
                 ViewModel.Elements.Add(new WirebugContextHandler(wirebug));

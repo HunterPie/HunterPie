@@ -33,6 +33,7 @@ namespace HunterPie.Core.Game.Rise
         private (int, DateTime) _lastTeleport = (0, DateTime.Now);
         private int _deaths;
         private bool _isHudOpen;
+        private bool _isCutsceneActive;
         private DateTime _lastDamageUpdate = DateTime.MinValue;
         readonly Dictionary<long, IMonster> _monsters = new();
         readonly Dictionary<long, EntityDamageData[]> _damageDone = new();
@@ -51,6 +52,19 @@ namespace HunterPie.Core.Game.Rise
                 {
                     _isHudOpen = value;
                     this.Dispatch(OnHudStateChange, this);
+                }
+            }
+        }
+
+        public bool IsCutsceneActive
+        {
+            get => _isCutsceneActive;
+            private set
+            {
+                if (value != _isCutsceneActive)
+                {
+                    _isCutsceneActive = value;
+                    this.Dispatch(OnCutsceneStateChange, this);
                 }
             }
         }
@@ -84,6 +98,7 @@ namespace HunterPie.Core.Game.Rise
         public event EventHandler<IMonster> OnMonsterSpawn;
         public event EventHandler<IMonster> OnMonsterDespawn;
         public event EventHandler<IGame> OnHudStateChange;
+        public event EventHandler<IGame> OnCutsceneStateChange;
         public event EventHandler<IGame> OnTimeElapsedChange;
         public event EventHandler<IGame> OnDeathCountChange;
 
@@ -197,6 +212,17 @@ namespace HunterPie.Core.Game.Rise
             );
 
             IsHudOpen = isHudOpen == 1;
+        }
+
+        [ScannableMethod]
+        private void ScanCutsceneState()
+        {
+            byte isCutsceneActive = _process.Memory.Deref<byte>(
+                AddressMap.GetAbsolute("EVENTCAMERA_ADDRESS"),
+                AddressMap.Get<int[]>("CUTSCENE_STATE_OFFSETS")
+            );
+
+            IsCutsceneActive = isCutsceneActive > 0;
         }
 
         [ScannableMethod]
