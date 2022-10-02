@@ -14,6 +14,10 @@ public partial class Push : UserControl
     private static readonly Brush _normalBackground = AppResources.Get<Brush>("GRAY_300");
     private static readonly Brush _errorForeground = AppResources.Get<Brush>("RED_LIGHT_200");
     private static readonly Brush _errorBackground = AppResources.Get<Brush>("RED_700");
+    private static readonly ImageSource _errorIcon = AppResources.Icon("ICON_ERROR_MASK");
+    private static readonly Brush _successForeground = AppResources.Get<Brush>("GREEN_LIGHT_300");
+    private static readonly Brush _successBackground = AppResources.Get<Brush>("GREEN_700");
+    private static readonly ImageSource _successIcon = AppResources.Icon("ICON_LOCK_CHECK_MASK");
 
     public new Brush Background
     {
@@ -42,6 +46,16 @@ public partial class Push : UserControl
     public static readonly DependencyProperty MessageProperty =
         DependencyProperty.Register("Message", typeof(string), typeof(Push));
 
+    public ImageSource Icon
+    {
+        get => (ImageSource)GetValue(IconProperty);
+        set => SetValue(IconProperty, value);
+    }
+
+    // Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty IconProperty =
+        DependencyProperty.Register("Icon", typeof(ImageSource), typeof(Push));
+
     public Push()
     {
         InitializeComponent();
@@ -55,11 +69,23 @@ public partial class Push : UserControl
     /// <returns>Error notification</returns>
     public static Push Error(string message)
     {
-        return new Push()
+        return new Push
         {
             Message = message,
             Background = _errorBackground,
             Foreground = _errorForeground,
+            Icon = _errorIcon
+        };
+    }
+
+    public static Push Success(string message)
+    {
+        return new Push
+        {
+            Message = message,
+            Background = _successBackground,
+            Foreground = _successForeground,
+            Icon = _successIcon
         };
     }
 

@@ -612,6 +612,27 @@
                      String="{Character} | HR: {HighRank} | MR: {MasterRank}"/>
             <Discord Id="DRPC_WORLD_STATE_PRACTICE"
                      String="Training"/>
+
+			<!-- Poogie Integration -->
+			<Poogie Id="ERROR_INVALID_USERNAME"
+					String="Username is not valid!"/>
+			<Poogie Id="ERROR_INVALID_PASSWORD"
+					String="Password is not valid!"/>
+			<Poogie Id="ERROR_INVALID_EMAIL"
+					String="Email is not valid!"/>
+			<Poogie Id="ERROR_INVALID_CREDENTIALS"
+					String="No account was found with that username and password."/>
+			<Poogie Id="ERROR_USER_NOT_FOUND"
+						String="Hmm... That user was not found!"/>
+			<Poogie Id="ERROR_USER_ALREADY_EXISTS"
+						String="There's already an user with that email or username!"/>
+			<Poogie Id="ERROR_UNVERIFIED_ACCOUNT"
+						String="Account must be verified first! Please check your email, including your spam folder to verify the account."/>
+
+			<Poogie Id="LOGIN_SUCCESS"
+						String="Welcome {Username}! You're now logged in."/>
+			<Poogie Id="ACCOUNT_REGISTER_SUCCESS"
+						String="Account verification was sent to {Email}. Please make sure to check your inbox and spam folders!"/>
         </Integrations>
         <Enums>
             <Enum Id="SORT_BY_LOWEST_TIMER_STRING"

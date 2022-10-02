@@ -5,6 +5,7 @@
            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
            xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
            xmlns:textbox="clr-namespace:HunterPie.UI.Controls.TextBox;assembly=HunterPie.UI"
+           xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading;assembly=HunterPie.UI"
            xmlns:local="clr-namespace:HunterPie.GUI.Parts.Account.Views"
            xmlns:arch="clr-namespace:HunterPie.UI.Architecture;assembly=HunterPie.UI"
            xmlns:validations="clr-namespace:HunterPie.UI.Architecture.Validation;assembly=HunterPie.UI"
@@ -21,21 +22,21 @@
     <StackPanel>
         <StackPanel Orientation="Vertical"
                     Margin="10,20,10,10">
-            <TextBlock Text="Username"
+            <TextBlock Text="Email"
                        Foreground="{StaticResource WHITE_200}"
                        Margin="0,0,0,1"/>
             <TextBox Height="35"
                      IsReadOnly="{Binding IsLoggingIn, Mode=OneWay}"
                      x:Name="PART_UsernameBox">
                 <TextBox.Text>
-                    <Binding Path="Username"
+                    <Binding Path="Email"
                              Mode="TwoWay"
                              UpdateSourceTrigger="PropertyChanged"
                              ValidatesOnDataErrors="True"
                              ValidatesOnNotifyDataErrors="True"
                              NotifyOnValidationError="True">
                         <Binding.ValidationRules>
-                            <validations:UsernameValidationRule ValidatesOnTargetUpdated="True"/>
+                            <validations:EmailValidationRule ValidatesOnTargetUpdated="True"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -53,14 +54,32 @@
         </StackPanel>
 
 
-        <buttons:Button Content="Sign In"
-                        FontSize="15"
+        <buttons:Button FontSize="15"
                         HorizontalAlignment="Center"
-                        Padding="20,5,20,5"
                         BorderThickness="1"
                         BorderBrush="{StaticResource GRAY}"
                         CornerRadius="5"
                         OnClick="OnSignInClick"
-                        IsEnabled="{Binding CanLogIn, Mode=OneWay}"/>
+                        IsEnabled="{Binding CanLogIn, Mode=OneWay}"
+                        Cursor="Hand">
+            <buttons:Button.Style>
+                <Style TargetType="buttons:Button">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DataContext.IsLoggingIn, RelativeSource={RelativeSource AncestorType={x:Type local:AccountLoginFlowView}}}" Value="False">
+                            <Setter Property="Content" Value="Sign In"/>
+                            <Setter Property="Padding" Value="20,8,20,8"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding DataContext.IsLoggingIn, RelativeSource={RelativeSource AncestorType={x:Type local:AccountLoginFlowView}}}" Value="True">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <loading:CircleLoading Height="20"
+                                                           Width="20"/>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </buttons:Button.Style>
+        </buttons:Button>
     </StackPanel>
 </arch:View>

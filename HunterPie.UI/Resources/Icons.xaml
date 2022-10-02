@@ -10,6 +10,23 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="ICON_LOCK_CHECK_MASK">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M320,264L230.4,376 192,331.12">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF000000" Thickness="32" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M80,176A16,16,0,0,0,64,192L64,408C64,438.24,89.76,464,120,464L392,464C422.24,464,448,439.49,448,409.25L448,192A16,16,0,0,0,432,176z M160,176L160,144A96,96,0,0,1,256,48L256,48A96,96,0,0,1,352,144L352,176">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF000000" Thickness="32" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="ICON_ERROR_MASK">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">

@@ -65,7 +65,8 @@
             <TextBlock Text="Password"
                        Foreground="{StaticResource WHITE_200}"
                        Margin="0,0,0,1"/>
-            <textbox:SecretTextBox Height="35"/>
+            <textbox:SecretTextBox Height="35"
+                                   Text="{Binding Password, Mode=TwoWay}"/>
         </StackPanel>
 
         <buttons:Button Content="Register"
@@ -75,6 +76,7 @@
                         BorderBrush="{StaticResource GRAY}"
                         CornerRadius="5"
                         HorizontalAlignment="Center"
-                        IsEnabled="{Binding CanRegister, Mode=OneWay}"/>
+                        IsEnabled="{Binding CanRegister, Mode=OneWay}"
+                        Click="OnRegisterClick"/>
     </StackPanel>
 </arch:View>

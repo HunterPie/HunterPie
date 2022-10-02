@@ -19,9 +19,11 @@ internal class AppNotificationManager
         if (_timeouts.TryAdd(_count, notification))
             Notifications.Add(notification);
 
+        var keys = KeyValuePair.Create(_count, notification);
+
         new DispatcherJob(() =>
         {
-            if (_timeouts.TryRemove(KeyValuePair.Create(_count, notification)))
+            if (_timeouts.TryRemove(keys))
                 Notifications.Remove(notification);
         }, timeout);
 

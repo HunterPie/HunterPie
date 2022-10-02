@@ -8,10 +8,10 @@
              MinWidth="200"
              MaxWidth="350">
     <Border CornerRadius="5"
-            d:BorderBrush="{StaticResource RED_LIGHT_300}"
+            d:BorderBrush="{StaticResource GREEN_LIGHT_300}"
             BorderBrush="{Binding Foreground, Mode=OneTime}"
             BorderThickness="1"
-            d:Background="{StaticResource RED_700}"
+            d:Background="{StaticResource GREEN_700}"
             Background="{Binding Background, Mode=OneTime}">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -19,24 +19,52 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Rectangle d:Fill="{StaticResource RED_LIGHT_400}"
+            <Rectangle d:Fill="{StaticResource GREEN_LIGHT_400}"
                        Fill="{Binding Foreground, Mode=OneTime}"
                        Margin="6"
                        Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                        VerticalAlignment="Center">
                 <Rectangle.OpacityMask>
-                    <ImageBrush ImageSource="{StaticResource ICON_ERROR_MASK}"/>
+                    <ImageBrush d:ImageSource="{StaticResource ICON_LOCK_CHECK_MASK}"
+                                ImageSource="{Binding Icon, Mode=OneTime}"
+                                Stretch="Uniform"/>
                 </Rectangle.OpacityMask>
             </Rectangle>
 
             <TextBlock d:Text="Testing asdljkhaskj hkasdhkaj shdkjash jas açskdjkl aaldk jaslk ajsldkjlak jdlkasjd alksdj kl alkshdla h ajsdhskj kjas hdkjas"
                        Text="{Binding Message, Mode=OneTime}"
-                       d:Foreground="{StaticResource RED_LIGHT_400}"
+                       d:Foreground="{StaticResource GREEN_LIGHT_400}"
                        Foreground="{Binding Foreground, Mode=OneTime}"
                        VerticalAlignment="center"
                        Grid.Column="1"
                        Margin="5"
-                       TextWrapping="WrapWithOverflow"/>
+                       TextWrapping="WrapWithOverflow"
+                       FontSize="13"/>
         </Grid>
     </Border>
+    <UserControl.Style>
+        <Style TargetType="local:Push">
+            <Style.Triggers>
+                <Trigger Property="IsVisible" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                 To="1"
+                                                 From="0"
+                                                 Duration="0:0:0.30"/>
+                                <ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                                    To="0,0,0,5"
+                                                    Duration="0:0:0.35">
+                                    <ThicknessAnimation.EasingFunction>
+                                        <QuadraticEase EasingMode="EaseIn"/>
+                                    </ThicknessAnimation.EasingFunction>
+                                </ThicknessAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
 </UserControl>

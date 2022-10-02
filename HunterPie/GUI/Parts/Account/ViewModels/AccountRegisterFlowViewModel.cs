@@ -1,7 +1,10 @@
 ﻿using HunterPie.Core.API;
 using HunterPie.Core.API.Entities;
+using HunterPie.Core.Client.Localization;
+using HunterPie.Features.Notification;
 using HunterPie.UI.Architecture;
-using System.Threading.Tasks;
+using HunterPie.UI.Controls.Notfication;
+using System;
 
 namespace HunterPie.GUI.Parts.Account.ViewModels;
 public class AccountRegisterFlowViewModel : ViewModel
@@ -46,7 +49,7 @@ public class AccountRegisterFlowViewModel : ViewModel
 
     public bool IsRegistering { get => _isRegistering; set => SetValue(ref _isRegistering, value); }
 
-    public async Task<PoogieApiResult<RegisterResponse>> SignUp()
+    public async void SignUp()
     {
         IsRegistering = true;
 
@@ -61,7 +64,25 @@ public class AccountRegisterFlowViewModel : ViewModel
 
         IsRegistering = false;
 
-        return register;
+        if (!register.Success)
+        {
+            AppNotificationManager.Push(
+                Push.Error(
+                    Localization.GetEnumString(register.Error!.Code)
+                ),
+                TimeSpan.FromSeconds(5)
+            );
+
+            return;
+        }
+
+        AppNotificationManager.Push(
+            Push.Success(
+                Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='ACCOUNT_REGISTER_SUCCESS']")
+                            .Replace("{Email}", register.Response.Email)
+            ),
+            TimeSpan.FromSeconds(10)
+        );
     }
 
     private void VerifyIfCanRegister() => CanRegister = Username.Length > 0 && Email.Length > 0 && Password.Length > 0;
