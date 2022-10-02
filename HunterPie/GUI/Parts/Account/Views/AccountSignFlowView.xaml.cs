@@ -43,13 +43,13 @@ public partial class AccountSignFlowView : View<AccountSignFlowViewModel>, IEven
 
     public void Dispose()
     {
-        AccountLoginManager.OnSignIn -= OnAccountSignIn;
+        AccountManager.OnSignIn -= OnAccountSignIn;
         ViewModel.PropertyChanged -= OnPropertyChanged;
     }
 
     private void HookEvents()
     {
-        AccountLoginManager.OnSignIn += OnAccountSignIn;
+        AccountManager.OnSignIn += OnAccountSignIn;
         ViewModel.PropertyChanged += OnPropertyChanged;
     }
 

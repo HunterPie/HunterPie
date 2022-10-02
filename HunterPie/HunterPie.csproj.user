@@ -12,6 +12,9 @@
     <Compile Update="Features\Tools\Localization\Views\LocalizableStringView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="GUI\Parts\Account\Controls\UploadableAccountAvatar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="GUI\Parts\Account\Views\AccountLoginFlowView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -57,6 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Features\Tools\Localization\Views\LocalizableStringView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Parts\Account\Controls\UploadableAccountAvatar.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Account\Views\AccountLoginFlowView.xaml">

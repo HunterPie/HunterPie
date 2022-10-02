@@ -25,10 +25,12 @@ public class AccountViewModel : ViewModel, IDisposable
 
     public AccountViewModel()
     {
-        AccountLoginManager.OnSignIn += OnAccountSignIn;
-        AccountLoginManager.OnSignOut += OnAccountSignOut;
+        AccountManager.OnSignIn += OnAccountSignIn;
+        AccountManager.OnSignOut += OnAccountSignOut;
+        AccountManager.OnAvatarChange += OnAvatarChange;
     }
 
+    private void OnAvatarChange(object sender, AccountAvatarEventArgs e) => AvatarUrl = e.AvatarUrl;
     private void OnAccountSignOut(object sender, EventArgs e) => IsLoggedIn = false;
 
     private async void OnAccountSignIn(object sender, AccountLoginEventArgs e)
@@ -40,12 +42,16 @@ public class AccountViewModel : ViewModel, IDisposable
         IsLoggingIn = false;
     }
 
-    public void SignOut() => AccountLoginManager.Logout();
+    public void SignOut()
+    {
+        IsLoggedIn = false;
+        AccountManager.Logout();
+    }
 
     public async void FetchAccountDetails()
     {
         IsLoggingIn = true;
-        IsLoggedIn = await AccountLoginManager.ValidateSessionToken();
+        IsLoggedIn = await AccountManager.ValidateSessionToken();
 
         if (!IsLoggedIn)
         {
@@ -53,7 +59,7 @@ public class AccountViewModel : ViewModel, IDisposable
             return;
         }
 
-        UserAccount account = await AccountLoginManager.FetchAccount();
+        UserAccount account = await AccountManager.FetchAccount();
 
         Username = account.Username;
         AvatarUrl = await CDN.GetAsset(account.AvatarUrl);
@@ -69,7 +75,8 @@ public class AccountViewModel : ViewModel, IDisposable
 
     public void Dispose()
     {
-        AccountLoginManager.OnSignIn -= OnAccountSignIn;
-        AccountLoginManager.OnSignOut -= OnAccountSignOut;
+        AccountManager.OnSignIn -= OnAccountSignIn;
+        AccountManager.OnSignOut -= OnAccountSignOut;
+        AccountManager.OnAvatarChange -= OnAvatarChange;
     }
 }

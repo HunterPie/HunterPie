@@ -47,7 +47,6 @@
                                 <BeginStoryboard>
                                     <Storyboard Storyboard.TargetProperty="Width">
                                         <DoubleAnimation To="{StaticResource HUNTERPIE_SIDEBAR_WIDTH}"
-                                                         BeginTime="0:0:0.5"
                                                          Duration="0:0:0.3">
                                             <DoubleAnimation.EasingFunction>
                                                 <QuadraticEase/>

@@ -132,15 +132,6 @@
                                                 Margin="5,0,0,5"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Bottom">
-                                        <Image Source="{StaticResource ICON_SUPPORTER_TIER_1}"
-                                               Height="20">
-
-                                            <Image.ToolTip>
-                                                <Span>
-                                                    <Bold>Tier 1:</Bold> Supporter
-                                                </Span>
-                                            </Image.ToolTip>
-                                        </Image>
                                     </StackPanel>
 
                                     <native:Button Grid.Column="1"

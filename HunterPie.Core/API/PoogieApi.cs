@@ -17,8 +17,10 @@ public static class PoogieApi
     private const string LOGOUT = "/v1/logout";
     private const string ACCOUNT = "/v1/account";
     private const string MY_ACCOUNT = "/v1/user/me";
+    private const string AVATAR_UPLOAD = "/v1/user/avatar/upload";
     private const string SUPPORTER_HEADER = "X-Supporter-Token";
-    private const double DEFAULT_TIMEOUT = 10;
+    private const double DEFAULT_TIMEOUT = 5;
+    private const int DEFAULT_RETRIES = 3;
     private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(DEFAULT_TIMEOUT);
 
     private static async Task<PoogieApiResult<T>?> Get<T>(string path) where T : class
@@ -27,6 +29,7 @@ public static class PoogieApi
             .Get(path)
             .WithHeader(SUPPORTER_HEADER, ClientConfig.Config.Client.SupporterSecretToken)
             .WithTimeout(DefaultTimeout)
+            .WithRetry(DEFAULT_RETRIES)
             .Build();
 
         using PoogieResponse resp = await request.RequestAsync();
@@ -44,6 +47,25 @@ public static class PoogieApi
             .WithHeader(SUPPORTER_HEADER, ClientConfig.Config.Client.SupporterSecretToken)
             .WithJson(payload)
             .WithTimeout(DefaultTimeout)
+            .WithRetry(DEFAULT_RETRIES)
+            .Build();
+
+        using PoogieResponse resp = await request.RequestAsync();
+
+        if (!resp.Success)
+            return null;
+
+        return await resp.AsJson<T>();
+    }
+
+    private static async Task<PoogieApiResult<T>?> PostFile<T>(string path, string fileName) where T : class
+    {
+        using Poogie request = PoogieFactory.Default()
+            .Post(path)
+            .WithHeader(SUPPORTER_HEADER, ClientConfig.Config.Client.SupporterSecretToken)
+            .WithTimeout(DefaultTimeout)
+            .WithRetry(DEFAULT_RETRIES)
+            .WithFile("file", fileName)
             .Build();
 
         using PoogieResponse resp = await request.RequestAsync();
@@ -67,5 +89,7 @@ public static class PoogieApi
     public static async Task<PoogieApiResult<MyUserAccountResponse>?> GetMyUserAccount() => await Get<MyUserAccountResponse>(MY_ACCOUNT);
 
     public static async Task<PoogieApiResult<RegisterResponse>?> Register(RegisterRequest request) => await Post<RegisterRequest, RegisterResponse>(ACCOUNT, request);
+
+    public static async Task<PoogieApiResult<UserAccountResponse>?> UploadAvatar(string fileName) => await PostFile<UserAccountResponse>(AVATAR_UPLOAD, fileName);
 }
 #nullable restore

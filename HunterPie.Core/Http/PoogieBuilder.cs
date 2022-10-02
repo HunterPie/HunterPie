@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Json;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 
@@ -49,11 +50,36 @@ public class PoogieBuilder
         return this;
     }
 
+    public PoogieBuilder WithFile(string name, string path)
+    {
+        Stream fileStream = File.OpenRead(path);
+        var content = new StreamContent(fileStream);
+        var form = new MultipartFormDataContent()
+        {
+            Headers =
+            {
+                ContentType =
+                {
+                    MediaType = "multipart/form-data"
+                }
+            }
+        };
+        form.Add(content, name, name);
+        poogie.Content = form;
+
+        return this;
+    }
+
     public PoogieBuilder WithTimeout(TimeSpan timeout)
     {
         poogie.Timeout = timeout;
         return this;
     }
 
+    public PoogieBuilder WithRetry(int retryCount)
+    {
+        poogie.Retry = retryCount;
+        return this;
+    }
     public Poogie Build() => poogie;
 }

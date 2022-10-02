@@ -29,5 +29,11 @@ public enum ErrorCode
     INVALID_SESSION_TOKEN,
 
     [Localization("//Strings/Client/Integrations/Poogie[@Id='ERROR_UNVERIFIED_ACCOUNT']")]
-    UNVERIFIED_ACCOUNT
+    UNVERIFIED_ACCOUNT,
+
+    [Localization("//Strings/Client/Integrations/Poogie[@Id='ERROR_INVALID_IMAGE']")]
+    INVALID_IMAGE,
+
+    [Localization("//Strings/Client/Integrations/Poogie[@Id='ERROR_FAILED_TO_UPDATE_AVATAR']")]
+    FAILED_TO_UPDATE_AVATAR,
 }

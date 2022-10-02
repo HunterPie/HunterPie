@@ -628,11 +628,17 @@
 						String="There's already an user with that email or username!"/>
 			<Poogie Id="ERROR_UNVERIFIED_ACCOUNT"
 						String="Account must be verified first! Please check your email, including your spam folder to verify the account."/>
+			<Poogie Id="INVALID_IMAGE"
+						String="File is not a valid image!"/>
+			<Poogie Id="FAILED_TO_UPDATE_AVATAR"
+						String="Failed to upload avatar, please try again in a few minutes."/>
 
 			<Poogie Id="LOGIN_SUCCESS"
 						String="Welcome {Username}! You're now logged in."/>
 			<Poogie Id="ACCOUNT_REGISTER_SUCCESS"
-						String="Account verification was sent to {Email}. Please make sure to check your inbox and spam folders!"/>
+						String="Account verification will be sent to {Email} shortly. Please make sure to check your inbox and spam folders!"/>
+			<Poogie Id="AVATAR_UPLOAD_SUCCESS"
+						String="Uploaded new avatar"/>
         </Integrations>
         <Enums>
             <Enum Id="SORT_BY_LOWEST_TIMER_STRING"

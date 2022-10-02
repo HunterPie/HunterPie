@@ -9,16 +9,17 @@ using HunterPie.Features.Account.Event;
 using HunterPie.Features.Account.Model;
 using HunterPie.Features.Notification;
 using HunterPie.UI.Controls.Notfication;
+using Microsoft.Win32;
 using System;
 using System.Threading.Tasks;
 
 namespace HunterPie.Features.Account;
 
 #nullable enable
-internal class AccountLoginManager : IEventDispatcher
+internal class AccountManager : IEventDispatcher
 {
-    private static AccountLoginManager? _instance;
-    private static AccountLoginManager Instance
+    private static AccountManager? _instance;
+    private static AccountManager Instance
     {
         get
         {
@@ -31,6 +32,7 @@ internal class AccountLoginManager : IEventDispatcher
 
     public static event EventHandler<AccountLoginEventArgs>? OnSignIn;
     public static event EventHandler<EventArgs>? OnSignOut;
+    public static event EventHandler<AccountAvatarEventArgs> OnAvatarChange;
 
     public static async Task<bool> ValidateSessionToken()
     {
@@ -86,6 +88,44 @@ internal class AccountLoginManager : IEventDispatcher
         Credential? credential = CredentialVaultService.GetCredential();
 
         return credential?.Password;
+    }
+
+    public static async void UploadAvatar()
+    {
+        var dialog = new OpenFileDialog
+        {
+            InitialDirectory = Environment.CurrentDirectory,
+            Filter = "Image Files|*.png;",
+            RestoreDirectory = true
+        };
+
+        if (dialog.ShowDialog() != true)
+            return;
+
+        PoogieApiResult<UserAccountResponse>? account = await PoogieApi.UploadAvatar(dialog.FileName);
+
+        if (account is null)
+            return;
+
+        if (!account.Success)
+        {
+            AppNotificationManager.Push(
+                Push.Error(
+                    Localization.GetEnumString(account.Error!.Code)
+                ),
+                TimeSpan.FromSeconds(10)
+            );
+            return;
+        }
+
+        AppNotificationManager.Push(
+            Push.Show(
+                Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='AVATAR_UPLOAD_SUCCESS']")
+            ),
+            TimeSpan.FromSeconds(5)
+        );
+
+        Instance.Dispatch(OnAvatarChange, new AccountAvatarEventArgs { AvatarUrl = account.Response!.AvatarUrl });
     }
 
     public static async Task<UserAccount?> FetchAccount()

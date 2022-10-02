@@ -49,7 +49,7 @@ public class AccountLoginFlowViewModel : ViewModel
             Password = Password,
         };
 
-        PoogieApiResult<LoginResponse>? result = await AccountLoginManager.Login(request);
+        PoogieApiResult<LoginResponse>? result = await AccountManager.Login(request);
 
         IsLoggingIn = false;
         CanLogIn = true;
