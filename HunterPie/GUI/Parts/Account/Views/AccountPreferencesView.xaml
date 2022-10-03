@@ -6,6 +6,7 @@
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
              xmlns:local="clr-namespace:HunterPie.GUI.Parts.Account.Views"
              xmlns:misc="clr-namespace:HunterPie.UI.Controls.Misc;assembly=HunterPie.UI"
+             xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="400"
@@ -15,105 +16,139 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
-    <StackPanel>
-        <Border VerticalAlignment="Top"
-                Margin="20"
-                Background="{StaticResource GRAY_100}"
-                Padding="10"
-                BorderBrush="{StaticResource GRAY}"
-                BorderThickness="1"
-                CornerRadius="5">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <TextBlock Text="ACCOUNT DETAILS"
-                           Foreground="{StaticResource WHITE_400}"
-                           FontWeight="Bold"
-                           Grid.ColumnSpan="2"
-                           FontSize="20"
-                           VerticalAlignment="Top"/>
-                <Separator Grid.ColumnSpan="2"
-                           Grid.Row="0"
-                           VerticalAlignment="Bottom"
-                           Background="{StaticResource GRAY}"/>
-
-                <buttons:Button Height="90"
-                                Width="90"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                Grid.Column="0"
-                                Grid.Row="1"
-                                Background="{StaticResource GRAY_400}"
-                                Click="OnAvatarUploadClick">
-                    <Image d:Source="https://media.discordapp.net/attachments/877388915986817105/1017171064977113178/unknown.png"
-                           Source="{Binding AvatarUrl, Mode=OneWay, FallbackValue={StaticResource ICON_DISCONNECTED_ACCOUNT}}"
-                           RenderOptions.BitmapScalingMode="Fant" 
-                           Stretch="Fill"/>
-                    <buttons:Button.Clip>
-                        <EllipseGeometry Center="45,45"
-                                         RadiusX="40"
-                                         RadiusY="40"/>
-                    </buttons:Button.Clip>
-                </buttons:Button>
-                
-
-                <!-- Account Info -->
-                <Grid Grid.Column="1"
-                      Margin="10"
-                      Grid.Row="1">
+    <viewer:SmoothScrollViewer>
+        <StackPanel>
+            <Border VerticalAlignment="Top"
+                    Margin="20"
+                    Background="{StaticResource GRAY_100}"
+                    Padding="10"
+                    BorderBrush="{StaticResource GRAY}"
+                    BorderThickness="1"
+                    CornerRadius="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <StackPanel Margin="0,0,0,10">
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="USERNAME"
-                                   FontSize="11"
-                                   Foreground="{StaticResource WHITE_500}"
-                                   FontWeight="Bold"/>
-                            <TextBlock d:Text="Haato"
-                                   Text="{Binding Username, Mode=OneWay}"
-                                   FontSize="14"
-                                   Foreground="{StaticResource WHITE_200}"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Left"
-                                   FontWeight="Regular"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="EMAIL"
-                                   FontSize="11"
-                                   Foreground="{StaticResource WHITE_500}"
-                                   FontWeight="Bold"/>
-                            <TextBlock d:Text="me@haato.dev"
-                                   Text="{Binding Email, Mode=OneWay}"
-                                   FontSize="14"
-                                   Foreground="{StaticResource WHITE_200}"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Left"
-                                   FontWeight="Regular"/>
-                        </StackPanel>
-                    </StackPanel>
-                    
 
-                    <!-- Supporter badge -->
-                    <misc:Badge Grid.Row="1"
-                                VerticalAlignment="Top"
-                                HorizontalAlignment="Left"
-                                Text="Supporter" 
-                                Background="{StaticResource GREEN_700}" 
-                                Foreground="{StaticResource GREEN_LIGHT_200}"
-                                Height="15"
-                                Visibility="{Binding IsSupporter, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <TextBlock Text="ACCOUNT DETAILS"
+                               Foreground="{StaticResource WHITE_400}"
+                               FontWeight="Medium"
+                               Grid.ColumnSpan="2"
+                               FontSize="15"
+                               VerticalAlignment="Top"/>
+                    <Separator Grid.ColumnSpan="2"
+                               Grid.Row="0"
+                               VerticalAlignment="Bottom"
+                               Background="{StaticResource GRAY}"/>
 
-                    <!-- Badges
+                    <buttons:Button Height="90"
+                                    Width="90"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Grid.Column="0"
+                                    Grid.Row="1"
+                                    Background="{StaticResource GRAY_400}"
+                                    Click="OnAvatarUploadClick">
+                        <Image d:Source="https://media.discordapp.net/attachments/877388915986817105/1017171064977113178/unknown.png"
+                               Source="{Binding AvatarUrl, Mode=OneWay, FallbackValue={StaticResource ICON_DISCONNECTED_ACCOUNT}}"
+                               RenderOptions.BitmapScalingMode="Fant" 
+                               Stretch="UniformToFill"/>
+                        <buttons:Button.Clip>
+                            <EllipseGeometry Center="45,45"
+                                             RadiusX="40"
+                                             RadiusY="40"/>
+                        </buttons:Button.Clip>
+                    </buttons:Button>
+
+                    <buttons:Button Height="25"
+                                    Width="25"
+                                    Grid.Column="0"
+                                    Grid.Row="1"
+                                    Background="{StaticResource GRAY_100}"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    Margin="12.5"
+                                    Padding="0"
+                                    Click="OnAvatarUploadClick">
+                        <Grid>
+                            <Ellipse Height="21"
+                                     Width="21"
+                                     Fill="{StaticResource WHITE_50}"/>
+                            <Rectangle Margin="2.5"
+                                       Fill="{StaticResource WHITE_500}"
+                                       VerticalAlignment="Stretch"
+                                       HorizontalAlignment="Stretch"
+                                       SnapsToDevicePixels="True">
+                                <Rectangle.OpacityMask>
+                                    <ImageBrush ImageSource="{StaticResource ICON_CAMERA_OUTLINE_MASK}"
+                                                Stretch="Uniform"
+                                                RenderOptions.BitmapScalingMode="Fant"/>
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Grid>
+                        <buttons:Button.Clip>
+                            <EllipseGeometry Center="12.5,12.5"
+                                             RadiusX="12.5"
+                                             RadiusY="12.5"/>
+                        </buttons:Button.Clip>
+                    </buttons:Button>
+
+                    <!-- Account Info -->
+                    <Grid Grid.Column="1"
+                          Margin="10"
+                          Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Margin="0,0,0,10">
+                            <StackPanel Orientation="Vertical"
+                                        Margin="0,0,0,5">
+                                <TextBlock Text="USERNAME"
+                                           FontSize="11"
+                                           Foreground="{StaticResource WHITE_500}"
+                                           FontWeight="Bold"/>
+                                <TextBlock d:Text="Haato"
+                                           Text="{Binding Username, Mode=OneWay}"
+                                           FontSize="14"
+                                           Foreground="{StaticResource WHITE_200}"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           FontWeight="Regular"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="EMAIL"
+                                           FontSize="11"
+                                           Foreground="{StaticResource WHITE_500}"
+                                           FontWeight="Bold"/>
+                                <TextBlock d:Text="me@haato.dev"
+                                           Text="{Binding Email, Mode=OneWay}"
+                                           FontSize="14"
+                                           Foreground="{StaticResource WHITE_200}"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           FontWeight="Regular"/>
+                            </StackPanel>
+                        </StackPanel>
+
+
+                        <!-- Supporter badge -->
+                        <misc:Badge Grid.Row="1"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Left"
+                                    Text="Supporter" 
+                                    Background="{StaticResource GREEN_700}" 
+                                    Foreground="{StaticResource GREEN_LIGHT_200}"
+                                    Height="15"
+                                    Visibility="{Binding IsSupporter, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                        <!-- Badges
                     <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Left"
@@ -122,37 +157,39 @@
                                 Height="20">
                         <Image Source="{StaticResource ICON_SUPPORTER_TIER_1}"/>
                     </StackPanel>-->
+                    </Grid>
+
                 </Grid>
+            </Border>
 
-            </Grid>
-        </Border>
+            <!-- Backups -->
+            <Border VerticalAlignment="Top"
+                    Margin="20,0,20,20"
+                    Background="{StaticResource GRAY_100}"
+                    Padding="10"
+                    BorderBrush="{StaticResource GRAY}"
+                    BorderThickness="1"
+                    CornerRadius="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-        <!-- Backups -->
-        <Border VerticalAlignment="Top"
-                Margin="20,0,20,20"
-                Background="{StaticResource GRAY_100}"
-                Padding="10"
-                BorderBrush="{StaticResource GRAY}"
-                BorderThickness="1"
-                CornerRadius="5">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                    <TextBlock Text="SAVE BACKUPS"
+                               Foreground="{StaticResource WHITE_400}"
+                               FontWeight="Medium"
+                               Grid.ColumnSpan="2"
+                               FontSize="15"
+                               VerticalAlignment="Top"/>
+                    <Separator Grid.ColumnSpan="2"
+                               Grid.Row="0"
+                               VerticalAlignment="Bottom"
+                               Background="{StaticResource GRAY}"/>
 
-                <TextBlock Text="SAVE BACKUPS"
-                           Foreground="{StaticResource WHITE_400}"
-                           FontWeight="Bold"
-                           Grid.ColumnSpan="2"
-                           FontSize="20"
-                           VerticalAlignment="Top"/>
-                <Separator Grid.ColumnSpan="2"
-                           Grid.Row="0"
-                           VerticalAlignment="Bottom"
-                           Background="{StaticResource GRAY}"/>
-            </Grid>
-        </Border>
 
-    </StackPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </viewer:SmoothScrollViewer>
 </UserControl>
