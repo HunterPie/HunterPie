@@ -5,8 +5,8 @@
     <Authors>Haato</Authors>
     <Configurations>Debug;Release;Deploy</Configurations>
     <Version>2.2.0.0</Version>
-    <AssemblyVersion>2.4.1.121</AssemblyVersion>
-    <FileVersion>2.4.1.121</FileVersion>
+    <AssemblyVersion>2.4.1.122</AssemblyVersion>
+    <FileVersion>2.4.1.122</FileVersion>
     <LangVersion>10.0</LangVersion>
  </PropertyGroup>
 

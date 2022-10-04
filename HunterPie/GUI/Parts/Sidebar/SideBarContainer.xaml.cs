@@ -1,6 +1,4 @@
 ﻿using HunterPie.Core.Architecture;
-using HunterPie.Core.Domain.Constants;
-using HunterPie.Core.Domain.Features;
 using HunterPie.Domain.Sidebar;
 using HunterPie.GUI.Parts.Sidebar.ViewModels;
 using HunterPie.UI.Architecture.Extensions;
@@ -48,14 +46,6 @@ public partial class SideBarContainer : UserControl
         InitializeComponent();
         _selectSlideAnimation = this.FindResource<Storyboard>("PART_SelectionAnimation");
         DataContext = this;
-    }
-
-    protected override void OnInitialized(EventArgs e)
-    {
-        if (!FeatureFlagManager.IsEnabled(FeatureFlags.FEATURE_USER_ACCOUNT))
-            PART_UserAccount.Visibility = Visibility.Collapsed;
-
-        base.OnInitialized(e);
     }
 
     public static void SetMenu(ISideBar menu) => Add(menu.Menu);
