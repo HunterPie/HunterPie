@@ -13,7 +13,8 @@
            mc:Ignorable="d" 
            d:DesignHeight="400" 
            d:DesignWidth="300"
-           d:DataContext="{d:DesignInstance vm:AccountRegisterFlowViewModel}">
+           d:DataContext="{d:DesignInstance vm:AccountRegisterFlowViewModel}"
+           PreviewKeyDown="OnPreviewKeyDown">
     <StackPanel>
         <!-- Username -->
         <StackPanel Orientation="Vertical"

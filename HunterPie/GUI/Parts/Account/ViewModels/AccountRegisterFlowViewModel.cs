@@ -51,6 +51,9 @@ public class AccountRegisterFlowViewModel : ViewModel
 
     public async void SignUp()
     {
+        if (!CanRegister)
+            return;
+
         IsRegistering = true;
 
         var request = new RegisterRequest

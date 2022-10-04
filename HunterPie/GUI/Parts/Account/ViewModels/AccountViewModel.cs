@@ -45,6 +45,7 @@ public class AccountViewModel : ViewModel, IDisposable
     public void SignOut()
     {
         IsLoggedIn = false;
+        MainHost.Return();
         AccountManager.Logout();
     }
 

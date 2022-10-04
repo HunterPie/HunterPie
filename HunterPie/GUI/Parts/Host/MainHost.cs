@@ -17,6 +17,7 @@ internal class MainHost : Bindable
         }
     }
 
+    private UIElement _lastElement;
     private UIElement _element;
 
     private MainHost() { }
@@ -28,7 +29,17 @@ internal class MainHost : Bindable
         if (!forceRefresh && IsInstanceOf<T>())
             return;
 
+        Instance._lastElement = Instance.Element;
         Instance.Element = element;
+    }
+
+    public static void Return()
+    {
+        if (Instance._lastElement is null)
+            return;
+
+        Instance.Element = Instance._lastElement;
+        Instance._lastElement = null;
     }
 
     public static bool IsInstanceOf<T>() => Instance.Element is T;

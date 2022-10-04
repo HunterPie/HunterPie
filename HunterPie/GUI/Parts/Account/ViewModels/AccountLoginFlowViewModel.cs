@@ -40,6 +40,9 @@ public class AccountLoginFlowViewModel : ViewModel
 
     public async Task<bool> SignIn()
     {
+        if (!CanLogIn)
+            return false;
+
         IsLoggingIn = true;
         CanLogIn = false;
 

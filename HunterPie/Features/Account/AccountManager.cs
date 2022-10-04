@@ -9,7 +9,6 @@ using HunterPie.Features.Account.Event;
 using HunterPie.Features.Account.Model;
 using HunterPie.Features.Notification;
 using HunterPie.UI.Controls.Notfication;
-using Microsoft.Win32;
 using System;
 using System.Threading.Tasks;
 
@@ -18,6 +17,7 @@ namespace HunterPie.Features.Account;
 #nullable enable
 internal class AccountManager : IEventDispatcher
 {
+    private UserAccount? _cachedAccount = null;
     private static AccountManager? _instance;
     private static AccountManager Instance
     {
@@ -32,7 +32,7 @@ internal class AccountManager : IEventDispatcher
 
     public static event EventHandler<AccountLoginEventArgs>? OnSignIn;
     public static event EventHandler<EventArgs>? OnSignOut;
-    public static event EventHandler<AccountAvatarEventArgs> OnAvatarChange;
+    public static event EventHandler<AccountAvatarEventArgs>? OnAvatarChange;
 
     public static async Task<bool> ValidateSessionToken()
     {
@@ -79,6 +79,7 @@ internal class AccountManager : IEventDispatcher
     {
         _ = await PoogieApi.Logout();
         CredentialVaultService.DeleteCredential();
+        Instance._cachedAccount = null;
 
         Instance.Dispatch(OnSignOut);
     }
@@ -90,19 +91,9 @@ internal class AccountManager : IEventDispatcher
         return credential?.Password;
     }
 
-    public static async void UploadAvatar()
+    public static async Task UploadAvatar(string path)
     {
-        var dialog = new OpenFileDialog
-        {
-            InitialDirectory = Environment.CurrentDirectory,
-            Filter = "Image Files|*.png;",
-            RestoreDirectory = true
-        };
-
-        if (dialog.ShowDialog() != true)
-            return;
-
-        PoogieApiResult<UserAccountResponse>? account = await PoogieApi.UploadAvatar(dialog.FileName);
+        PoogieApiResult<MyUserAccountResponse>? account = await PoogieApi.UploadAvatar(path);
 
         if (account is null)
             return;
@@ -125,7 +116,9 @@ internal class AccountManager : IEventDispatcher
             TimeSpan.FromSeconds(5)
         );
 
-        Instance.Dispatch(OnAvatarChange, new AccountAvatarEventArgs { AvatarUrl = account.Response!.AvatarUrl });
+        Instance._cachedAccount = account.Response.ToModel();
+
+        Instance.Dispatch(OnAvatarChange, new AccountAvatarEventArgs { AvatarUrl = Instance._cachedAccount.AvatarUrl });
     }
 
     public static async Task<UserAccount?> FetchAccount()
@@ -135,12 +128,17 @@ internal class AccountManager : IEventDispatcher
         if (credential is null)
             return null;
 
+        if (Instance._cachedAccount is not null)
+            return Instance._cachedAccount;
+
         PoogieApiResult<MyUserAccountResponse>? account = await PoogieApi.GetMyUserAccount();
 
         if (account is null || account.Response is null)
             return null;
 
-        return account.Response.ToModel();
+        Instance._cachedAccount = account.Response.ToModel();
+
+        return Instance._cachedAccount;
     }
 }
 #nullable restore

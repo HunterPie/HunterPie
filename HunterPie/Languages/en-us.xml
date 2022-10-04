@@ -632,6 +632,8 @@
 						String="File is not a valid image!"/>
 			<Poogie Id="FAILED_TO_UPDATE_AVATAR"
 						String="Failed to upload avatar, please try again in a few minutes."/>
+			<Poogie Id="ERROR_AVATAR_SIZE_TOO_LARGE"
+						String="Failed to upload avatar, size was above 3.5 MB."/>
 
 			<Poogie Id="LOGIN_SUCCESS"
 						String="Welcome {Username}! You're now logged in."/>

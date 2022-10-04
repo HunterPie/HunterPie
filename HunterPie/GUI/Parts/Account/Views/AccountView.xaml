@@ -139,10 +139,10 @@
                                                    ToolTip="Disconnect"
                                                    Padding="6,0,2,0"
                                                    Margin="10"
-                                                   Background="{StaticResource GRAY_300}"
+                                                   Background="{StaticResource RED_300}"
                                                    Cursor="Hand"
                                                    Style="{StaticResource LogoutButtonStyle}"
-                                                   BorderBrush="{StaticResource GRAY_50}"
+                                                   BorderBrush="{StaticResource RED_200}"
                                                    BorderThickness="1"
                                                    CornerRadius="3">
                                         <Image Source="{StaticResource ICON_LOGOUT}"

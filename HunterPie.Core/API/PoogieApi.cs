@@ -90,6 +90,6 @@ public static class PoogieApi
 
     public static async Task<PoogieApiResult<RegisterResponse>?> Register(RegisterRequest request) => await Post<RegisterRequest, RegisterResponse>(ACCOUNT, request);
 
-    public static async Task<PoogieApiResult<UserAccountResponse>?> UploadAvatar(string fileName) => await PostFile<UserAccountResponse>(AVATAR_UPLOAD, fileName);
+    public static async Task<PoogieApiResult<MyUserAccountResponse>?> UploadAvatar(string fileName) => await PostFile<MyUserAccountResponse>(AVATAR_UPLOAD, fileName);
 }
 #nullable restore

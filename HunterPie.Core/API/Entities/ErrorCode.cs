@@ -36,4 +36,7 @@ public enum ErrorCode
 
     [Localization("//Strings/Client/Integrations/Poogie[@Id='ERROR_FAILED_TO_UPDATE_AVATAR']")]
     FAILED_TO_UPDATE_AVATAR,
+
+    [Localization("//Strings/Client/Integrations/Poogie[@Id='ERROR_AVATAR_SIZE_TOO_LARGE']")]
+    AVATAR_SIZE_TOO_LARGE,
 }

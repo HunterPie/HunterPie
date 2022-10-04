@@ -18,6 +18,9 @@
     <Compile Update="GUI\Parts\Account\Views\AccountLoginFlowView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="GUI\Parts\Account\Views\AccountPreferencesSkeletonView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="GUI\Parts\Account\Views\AccountPreferencesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -31,6 +34,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="GUI\Parts\Account\Views\AccountView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GUI\Parts\Account\Views\Components\AccountDetailsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="GUI\Parts\Console\ConsoleView.xaml.cs">
@@ -68,6 +74,9 @@
     <Page Update="GUI\Parts\Account\Views\AccountLoginFlowView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="GUI\Parts\Account\Views\AccountPreferencesSkeletonView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="GUI\Parts\Account\Views\AccountPreferencesView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -81,6 +90,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Account\Views\AccountView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Parts\Account\Views\Components\AccountDetailsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Console\ConsoleView.xaml">
