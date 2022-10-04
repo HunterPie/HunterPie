@@ -10,6 +10,70 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="ICON_CAMERA_OUTLINE_MASK">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M350.54,148.68L323.92,106.62C318.31,100.08,310.62,96,302,96L210,96C201.38,96,193.69,100.08,188.08,106.62L161.46,148.68C155.85,155.23,148.62,160,140,160L80,160A32,32,0,0,0,48,192L48,384A32,32,0,0,0,80,416L432,416A32,32,0,0,0,464,384L464,192A32,32,0,0,0,432,160L373,160C364.35,160,356.15,155.23,350.54,148.68z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF000000" Thickness="32" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M124,158L124,136 100,136 100,158 M335.76,285.22L335.76,271.91A80,80,0,0,0,204.76,210.31 M176,258.78L176,272.09A80,80,0,0,0,306.73,333.89">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF000000" Thickness="32" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M196,272L176,252 156,272 M356,272L336,292 316,272">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF000000" Thickness="32" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_CAMERA_MASK">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M512,512z M0,0z M432,144L373,144C370,144,366.28,142.06,363.38,139L337.44,98.06A15.52,15.52,0,0,0,336.07,96.21C327.11,85.76,315,80,302,80L210,80C197,80,184.89,85.76,175.93,96.21A15.52,15.52,0,0,0,174.56,98.06L148.62,139.06C146.4,141.48,143.28,144.06,140,144.06L140,136.06A16,16,0,0,0,124,120.06L100,120.06A16,16,0,0,0,84,136.06L84,144.06 80,144.06A48.05,48.05,0,0,0,32,192.06L32,384A48.05,48.05,0,0,0,80,432L432,432A48.05,48.05,0,0,0,480,384L480,192A48.05,48.05,0,0,0,432,144z M316.84,346.3A96.06,96.06,0,0,1,161.18,287.12A16,16,0,0,1,144.69,260.69L164.69,240.69A16,16,0,0,1,187.31,240.69L207.31,260.69A16,16,0,0,1,196,288A17.31,17.31,0,0,1,194,287.86A64.07,64.07,0,0,0,296.66,321.49A16,16,0,1,1,316.87,346.3z M367.31,283.3L347.31,303.3A16,16,0,0,1,324.69,303.3L304.69,283.3A16,16,0,0,1,317.78,256.1A64,64,0,0,0,215,222.64A16,16,0,1,1,194.61,198A96,96,0,0,1,350.61,257A16,16,0,0,1,367.33,283.35z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_LOCK_CHECK_MASK">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M320,264L230.4,376 192,331.12">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF000000" Thickness="32" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M80,176A16,16,0,0,0,64,192L64,408C64,438.24,89.76,464,120,464L392,464C422.24,464,448,439.49,448,409.25L448,192A16,16,0,0,0,432,176z M160,176L160,144A96,96,0,0,1,256,48L256,48A96,96,0,0,1,352,144L352,176">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF000000" Thickness="32" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_ERROR_MASK">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M448,256C448,150 362,64 256,64 150,64 64,150 64,256 64,362 150,448 256,448 362,448 448,362 448,256z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF000000" Thickness="32" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M320,320L192,192 M192,320L320,192">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF000000" Thickness="32" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="ICON_FUNNEL">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">

@@ -46,16 +46,17 @@
     <Border CornerRadius="{Binding CornerRadius, ElementName=NativeButtonControl}"
             BorderThickness="{Binding BorderThickness, ElementName=NativeButtonControl}"
             BorderBrush="{Binding BorderBrush, ElementName=NativeButtonControl}"
-            Background="{Binding Background, ElementName=NativeButtonControl}">
+            Background="{Binding Background, ElementName=NativeButtonControl}"
+            x:Name="PART_Border">
         <Grid ClipToBounds="True">
             <Canvas>
                 <Rectangle x:Name="PART_Highlight"
-                               VerticalAlignment="Top"
-                               HorizontalAlignment="Left"
-                               Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=2}"
-                               Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=2}"
-                               Opacity="0"
-                               Style="{StaticResource StyleHighlight}">
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Left"
+                           Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=2}"
+                           Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=2}"
+                           Opacity="0"
+                           Style="{StaticResource StyleHighlight}">
                     <Rectangle.Fill>
                         <LinearGradientBrush EndPoint="1,1" StartPoint="0,1">
                             <GradientStop Offset="1" Color="#0CFFFFFF"/>
@@ -75,12 +76,12 @@
                    HorizontalContentAlignment="{Binding HorizontalContentAlignment, ElementName=NativeButtonControl}"
                    VerticalContentAlignment="{Binding VerticalContentAlignment, ElementName=NativeButtonControl}"/>
 
-            <Canvas>
+            <Canvas Clip="{Binding Clip, ElementName=PART_Border}">
                 <Ellipse x:Name="PART_Ripple"
-                             Fill="#40F5F5F5" 
-                             HorizontalAlignment="Left" 
-                             Height="{Binding Path=Width, RelativeSource={RelativeSource Self}}"
-                             VerticalAlignment="Top"/>
+                         Fill="#40F5F5F5" 
+                         HorizontalAlignment="Left" 
+                         Height="{Binding Path=Width, RelativeSource={RelativeSource Self}}"
+                         VerticalAlignment="Top"/>
             </Canvas>
         </Grid>
     </Border>

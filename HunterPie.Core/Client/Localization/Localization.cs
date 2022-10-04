@@ -90,7 +90,7 @@ public class Localization
     public static string QueryString(string query) => Instance.document.SelectSingleNode(query)?.Attributes?["String"]?.Value ?? query;
     public static string QueryDescription(string query) => Query(query)?.Attributes?["Description"]?.Value ?? query;
 
-    public static string GetEnumString(object enumValue)
+    public static string GetEnumString<T>(T enumValue)
     {
         MemberInfo memberInfo = enumValue.GetType()
                                          .GetMember(enumValue.ToString()!)
@@ -98,7 +98,7 @@ public class Localization
 
         LocalizationAttribute? attribute = memberInfo.GetCustomAttribute<LocalizationAttribute>();
 
-        return attribute is null ? enumValue.ToString() : QueryString(attribute.XPath);
+        return attribute is null ? enumValue.ToString()! : QueryString(attribute.XPath)!;
     }
 }
 #nullable restore

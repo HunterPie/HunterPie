@@ -45,4 +45,32 @@ public class CDN
 
         return localImage;
     }
+
+    public static async Task<string> GetAsset(string uri)
+    {
+        string fileName = Path.GetFileName(uri);
+        string localImage = ClientInfo.GetPathFor($"Assets/Cache/{fileName}");
+
+        if (File.Exists(localImage))
+            return localImage;
+
+        string filePath = uri.Replace(CDN_BASE_URL, string.Empty);
+
+        using Poogie request = new PoogieBuilder(CDN_BASE_URL)
+            .Get(filePath)
+            .WithTimeout(TimeSpan.FromSeconds(5))
+            .Build();
+
+        using PoogieResponse response = await request.RequestAsync();
+
+        if (!response.Success)
+            return null;
+
+        if (response.Status != HttpStatusCode.OK)
+            return null;
+
+        await response.Download(localImage);
+
+        return localImage;
+    }
 }

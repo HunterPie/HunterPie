@@ -1,5 +1,7 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
+using HunterPie.Features.Account;
+using HunterPie.Features.Account.Event;
 using HunterPie.GUI.Parts.Account.ViewModels;
 using HunterPie.UI.Architecture;
 using System;
@@ -14,6 +16,7 @@ namespace HunterPie.GUI.Parts.Account.Views;
 /// </summary>
 public partial class AccountSignFlowView : View<AccountSignFlowViewModel>, IEventDispatcher, IDisposable
 {
+    private Storyboard SlideOutAnimation;
     public event EventHandler<EventArgs> OnFormClose;
 
     public AccountSignFlowView()
@@ -21,13 +24,36 @@ public partial class AccountSignFlowView : View<AccountSignFlowViewModel>, IEven
         HookEvents();
 
         InitializeComponent();
+
     }
 
-    private void OnCloseClick(object sender, RoutedEventArgs e) => this.Dispatch(OnFormClose);
+    public override void EndInit()
+    {
+        base.EndInit();
+        SlideOutAnimation = FindResource("SB_SLIDE_OUT") as Storyboard;
+    }
 
-    public void Dispose() => ViewModel.PropertyChanged -= OnPropertyChanged;
+    private void CloseForm()
+    {
+        this.Dispatch(OnFormClose);
+        Dispose();
+    }
 
-    private void HookEvents() => ViewModel.PropertyChanged += OnPropertyChanged;
+    private void OnCloseClick(object sender, RoutedEventArgs e) => AnimateSlideOut();
+
+    public void Dispose()
+    {
+        AccountManager.OnSignIn -= OnAccountSignIn;
+        ViewModel.PropertyChanged -= OnPropertyChanged;
+    }
+
+    private void HookEvents()
+    {
+        AccountManager.OnSignIn += OnAccountSignIn;
+        ViewModel.PropertyChanged += OnPropertyChanged;
+    }
+
+    private void OnAccountSignIn(object sender, AccountLoginEventArgs e) => AnimateSlideOut();
 
     private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
     {
@@ -52,4 +78,8 @@ public partial class AccountSignFlowView : View<AccountSignFlowViewModel>, IEven
 
         PART_SelectedSignFlowHighlight.BeginAnimation(FrameworkElement.MarginProperty, animation);
     }
+
+    private void AnimateSlideOut() => SlideOutAnimation.Begin(PART_Border);
+
+    private void OnSlideOutCompleted(object sender, EventArgs e) => CloseForm();
 }

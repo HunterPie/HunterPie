@@ -23,6 +23,9 @@
     <Compile Update="Controls\Misc\Badge.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Notfication\Push.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Settings\Custom\AbnormalityTrayList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -170,6 +173,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Misc\Badge.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Notfication\Push.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\Custom\AbnormalityTrayList.xaml">

@@ -123,7 +123,7 @@ csharp_style_prefer_range_operator = true:warning
 csharp_style_prefer_tuple_swap = true:suggestion
 csharp_style_throw_expression = true:suggestion
 csharp_style_unused_value_assignment_preference = discard_variable:silent
-csharp_style_unused_value_expression_statement_preference = discard_variable
+csharp_style_unused_value_expression_statement_preference = discard_variable:silent
 
 # 'using' directive preferences
 csharp_using_directive_placement = outside_namespace:suggestion
@@ -251,8 +251,8 @@ dotnet_style_prefer_auto_properties = true:error
 dotnet_style_object_initializer = true:warning
 dotnet_style_collection_initializer = true:warning
 dotnet_style_prefer_simplified_boolean_expressions = true:suggestion
-dotnet_style_prefer_conditional_expression_over_assignment = true:error
-dotnet_style_prefer_conditional_expression_over_return = true:error
+dotnet_style_prefer_conditional_expression_over_assignment = true:silent
+dotnet_style_prefer_conditional_expression_over_return = true:silent
 dotnet_style_explicit_tuple_names = true:error
 dotnet_style_prefer_inferred_tuple_names = true:suggestion
 dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
@@ -269,3 +269,4 @@ dotnet_style_require_accessibility_modifiers = for_non_interface_members:silent
 dotnet_style_allow_multiple_blank_lines_experimental = false:silent
 dotnet_style_allow_statement_immediately_after_block_experimental = false:warning
 dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:error
+dotnet_style_readonly_field = true:error

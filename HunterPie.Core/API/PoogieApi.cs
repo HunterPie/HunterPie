@@ -2,7 +2,6 @@
 using HunterPie.Core.Client;
 using HunterPie.Core.Http;
 using System;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace HunterPie.Core.API;
@@ -15,59 +14,82 @@ public static class PoogieApi
     private const string SUPPORTER_PATH = "/v1/supporter";
     private const string NOTIFICATIONS = "/v1/notifications";
     private const string LOGIN = "/v1/login";
+    private const string LOGOUT = "/v1/logout";
+    private const string ACCOUNT = "/v1/account";
+    private const string MY_ACCOUNT = "/v1/user/me";
+    private const string AVATAR_UPLOAD = "/v1/user/avatar/upload";
     private const string SUPPORTER_HEADER = "X-Supporter-Token";
-    private const double DEFAULT_TIMEOUT = 10;
+    private const double DEFAULT_TIMEOUT = 5;
+    private const int DEFAULT_RETRIES = 3;
     private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(DEFAULT_TIMEOUT);
 
-    private static async Task<T?> Get<T>(string path) where T : class
+    private static async Task<PoogieApiResult<T>?> Get<T>(string path) where T : class
     {
         using Poogie request = PoogieFactory.Default()
             .Get(path)
             .WithHeader(SUPPORTER_HEADER, ClientConfig.Config.Client.SupporterSecretToken)
             .WithTimeout(DefaultTimeout)
+            .WithRetry(DEFAULT_RETRIES)
             .Build();
 
         using PoogieResponse resp = await request.RequestAsync();
 
-        return !resp.Success ? null : resp.Status >= HttpStatusCode.BadRequest ? null : await resp.AsJson<T>();
+        if (!resp.Success)
+            return null;
+
+        return await resp.AsJson<T>();
     }
 
-    private static async Task<T?> Post<P, T>(string path, P payload) where T : class
+    private static async Task<PoogieApiResult<T>?> Post<P, T>(string path, P payload) where T : class
     {
         using Poogie request = PoogieFactory.Default()
             .Post(path)
             .WithHeader(SUPPORTER_HEADER, ClientConfig.Config.Client.SupporterSecretToken)
             .WithJson(payload)
             .WithTimeout(DefaultTimeout)
+            .WithRetry(DEFAULT_RETRIES)
             .Build();
 
         using PoogieResponse resp = await request.RequestAsync();
 
-        return !resp.Success ? null : resp.Status >= HttpStatusCode.BadRequest ? null : await resp.AsJson<T>();
+        if (!resp.Success)
+            return null;
+
+        return await resp.AsJson<T>();
     }
 
-    public static async Task<LoginResponse?> Login(LoginRequest request)
+    private static async Task<PoogieApiResult<T>?> PostFile<T>(string path, string fileName) where T : class
     {
-        LoginResponse? resp = await Post<LoginRequest, LoginResponse>(LOGIN, request);
-        return resp;
+        using Poogie request = PoogieFactory.Default()
+            .Post(path)
+            .WithHeader(SUPPORTER_HEADER, ClientConfig.Config.Client.SupporterSecretToken)
+            .WithTimeout(DefaultTimeout)
+            .WithRetry(DEFAULT_RETRIES)
+            .WithFile("file", fileName)
+            .Build();
+
+        using PoogieResponse resp = await request.RequestAsync();
+
+        if (!resp.Success)
+            return null;
+
+        return await resp.AsJson<T>();
     }
 
-    public static async Task<VersionResponse?> GetLatestVersion()
-    {
-        VersionResponse? resp = await Get<VersionResponse>(VERSION_PATH);
-        return resp;
-    }
+    public static async Task<PoogieApiResult<LoginResponse>?> Login(LoginRequest request) => await Post<LoginRequest, LoginResponse>(LOGIN, request);
 
-    public static async Task<SupporterValidationResponse?> ValidateSupporterToken()
-    {
-        SupporterValidationResponse? resp = await Get<SupporterValidationResponse>(SUPPORTER_PATH + "/verify");
-        return resp;
-    }
+    public static async Task<PoogieApiResult<LogoutResponse>?> Logout() => await Post<object, LogoutResponse>(LOGOUT, new());
 
-    public static async Task<Notification[]> GetNotifications()
-    {
-        Notification[]? resp = await Get<Notification[]>(NOTIFICATIONS);
-        return resp ?? Array.Empty<Notification>();
-    }
+    public static async Task<PoogieApiResult<VersionResponse>?> GetLatestVersion() => await Get<VersionResponse>(VERSION_PATH);
+
+    public static async Task<PoogieApiResult<SupporterValidationResponse>?> ValidateSupporterToken() => await Get<SupporterValidationResponse>(SUPPORTER_PATH + "/verify");
+
+    public static async Task<PoogieApiResult<Notification[]>?> GetNotifications() => await Get<Notification[]>(NOTIFICATIONS);
+
+    public static async Task<PoogieApiResult<MyUserAccountResponse>?> GetMyUserAccount() => await Get<MyUserAccountResponse>(MY_ACCOUNT);
+
+    public static async Task<PoogieApiResult<RegisterResponse>?> Register(RegisterRequest request) => await Post<RegisterRequest, RegisterResponse>(ACCOUNT, request);
+
+    public static async Task<PoogieApiResult<MyUserAccountResponse>?> UploadAvatar(string fileName) => await PostFile<MyUserAccountResponse>(AVATAR_UPLOAD, fileName);
 }
 #nullable restore

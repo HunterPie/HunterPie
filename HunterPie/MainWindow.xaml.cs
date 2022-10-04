@@ -102,13 +102,14 @@ public partial class MainWindow : Window
 
     private void SetupAccountEvents()
     {
-        PART_Sidebar.PART_UserAccount.OnSignInClicked += (_, __) => CreateSignFlowView();
-        PART_Sidebar.PART_UserAccount.OnSignUpClicked += (_, __) => CreateSignFlowView();
+        PART_Sidebar.PART_UserAccount.OnSignInClicked += (_, __) => CreateSignFlowView(true);
+        PART_Sidebar.PART_UserAccount.OnSignUpClicked += (_, __) => CreateSignFlowView(false);
     }
 
-    private void CreateSignFlowView()
+    private void CreateSignFlowView(bool isLoggingIn)
     {
         AccountSignFlowView view = new();
+        view.ViewModel.SelectedIndex = isLoggingIn ? 0 : 1;
         view.OnFormClose += OnSignFormClose;
         PART_SigninView.Content = view;
     }
@@ -118,7 +119,6 @@ public partial class MainWindow : Window
         if (sender is AccountSignFlowView view)
         {
             view.OnFormClose -= OnSignFormClose;
-            view.Dispose();
             PART_SigninView.Content = null;
         }
     }

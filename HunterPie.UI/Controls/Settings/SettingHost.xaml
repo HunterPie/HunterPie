@@ -8,6 +8,7 @@
              xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:textbox="clr-namespace:HunterPie.UI.Controls.TextBox"
              xmlns:client="clr-namespace:HunterPie.Core.Client;assembly=HunterPie.Core"
+             xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer"
              xmlns:vm="clr-namespace:HunterPie.UI.Controls.Settings.ViewModel"
              xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading"
              xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets"
@@ -44,12 +45,12 @@
             <ItemsControl ItemsSource="{Binding Elements, Mode=OneWay}">
                 <ItemsControl.Template>
                     <ControlTemplate>
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto">
                             <VirtualizingStackPanel IsItemsHost="True"
                                                     CanVerticallyScroll="True" 
                                                     Loaded="OnPanelLoaded"
                                                     DataContextChanged="OnPanelDataContextChanged"/>
-                        </ScrollViewer>
+                        </viewer:SmoothScrollViewer>
                     </ControlTemplate>
                 </ItemsControl.Template>
 

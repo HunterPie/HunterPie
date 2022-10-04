@@ -8,15 +8,32 @@
            xmlns:vm="clr-namespace:HunterPie.GUI.Parts.Account.ViewModels"
            xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
            xmlns:textbox="clr-namespace:HunterPie.UI.Controls.TextBox;assembly=HunterPie.UI"
+           xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
            mc:Ignorable="d" 
            d:DataContext="{d:DesignInstance vm:AccountSignFlowViewModel}"
            d:DesignHeight="450" 
            d:DesignWidth="800"
-           x:TypeArguments="vm:AccountSignFlowViewModel">
+           x:TypeArguments="vm:AccountSignFlowViewModel"
+           Unloaded="OnCloseClick">
     <UserControl.Resources>
         <DataTemplate x:Key="HeaderTemplate">
             <buttons:TabItem />
         </DataTemplate>
+
+        <Storyboard x:Key="SB_SLIDE_OUT" Completed="OnSlideOutCompleted">
+            <ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                                     From="50"
+                                                     To="0,50,50,50"
+                                                     Duration="0:0:0.3">
+                <ThicknessAnimation.EasingFunction>
+                    <QuadraticEase/>
+                </ThicknessAnimation.EasingFunction>
+            </ThicknessAnimation>
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                     From="1"
+                                                     To="0"
+                                                     Duration="0:0:0.2"/>
+        </Storyboard>
     </UserControl.Resources>
     <Grid>
         <Rectangle Fill="{StaticResource GRAY_300}"/>
@@ -29,7 +46,8 @@
                 BorderBrush="{StaticResource GRAY_100}"
                 CornerRadius="5"
                 Background="{StaticResource GRAY_200}"
-                ClipToBounds="True">
+                ClipToBounds="True"
+                x:Name="PART_Border">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="32"/>
@@ -88,6 +106,7 @@
                             BorderThickness="0"
                             Margin="10"
                             SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
+                    <!-- Login View -->
                     <TabItem>
                         <TabItem.Header>
                             <buttons:TabItem Title="Login"
@@ -98,22 +117,10 @@
                                              Padding="5"
                                              Background="Transparent"/>
                         </TabItem.Header>
-                        <Grid>
-                            <StackPanel>
-                                <TextBox Height="35"
-                                         Margin="10,20,10,10"/>
-                                <textbox:SecretTextBox Height="35"
-                                                       Margin="10,20,10,20"/>
-                                <buttons:Button Content="Sign In"
-                                                FontSize="15"
-                                                HorizontalAlignment="Center"
-                                                Padding="20,5,20,5"
-                                                BorderThickness="1"
-                                                BorderBrush="{StaticResource GRAY}"
-                                                CornerRadius="5"/>
-                            </StackPanel>
-                        </Grid>
+
+                        <local:AccountLoginFlowView />
                     </TabItem>
+                    <!-- Register View -->
                     <TabItem>
                         <TabItem.Header>
                             <buttons:TabItem Title="Create account"
@@ -123,6 +130,8 @@
                                              Width="{Binding ActualWidth, ElementName=PART_Dummy}"
                                              Background="Transparent"/>
                         </TabItem.Header>
+
+                        <local:AccountRegisterFlowView />
                     </TabItem>
                 </TabControl>
 
@@ -135,7 +144,7 @@
                             <BeginStoryboard>
                                 <Storyboard>
                                     <ThicknessAnimation Storyboard.TargetProperty="Margin"
-                                                     From="50,-30,50,130"
+                                                     From="80,50,50,50"
                                                      To="50"
                                                      Duration="0:0:0.3">
                                         <ThicknessAnimation.EasingFunction>
