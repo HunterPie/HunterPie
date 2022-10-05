@@ -434,7 +434,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         DerefSongBuffs(songBuffPtrs);
     }
 
-    [ScannableMethod(typeof(MHRWirebugStructure))]
+    [ScannableMethod(typeof(MHRWirebugData))]
     private void GetPlayerWirebugs()
     {
         long wirebugsArrayPtr = _process.Memory.Read(
@@ -455,9 +455,17 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         for (int i = 0; i < wirebugsArrayLength; i++)
         {
             long wirebugPtr = wirebugsPtrs[i];
-            MHRWirebugStructure data = _process.Memory.Read<MHRWirebugStructure>(wirebugPtr);
-            data.Cooldown /= AbnormalityData.TIMER_MULTIPLIER;
-            data.MaxCooldown /= AbnormalityData.TIMER_MULTIPLIER;
+
+            var data = new MHRWirebugData
+            {
+                IsBlocked = _process.Memory.Deref<byte>(
+                    AddressMap.GetAbsolute("UI_ADDRESS"),
+                    AddressMap.Get<int[]>("IS_WIREBUG_BLOCKED_OFFSETS")
+                ) == 1,
+                Structure = _process.Memory.Read<MHRWirebugStructure>(wirebugPtr)
+            };
+            data.Structure.Cooldown /= AbnormalityData.TIMER_MULTIPLIER;
+            data.Structure.MaxCooldown /= AbnormalityData.TIMER_MULTIPLIER;
 
             if (wirebugPtr != Wirebugs[i].Address)
             {
@@ -465,7 +473,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
                 Wirebugs[i].Address = wirebugPtr;
             }
 
-            IUpdatable<MHRWirebugStructure> wirebug = Wirebugs[i];
+            IUpdatable<MHRWirebugData> wirebug = Wirebugs[i];
             wirebug.Update(data);
         }
 

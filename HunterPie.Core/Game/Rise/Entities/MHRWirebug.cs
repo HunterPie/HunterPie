@@ -5,11 +5,12 @@ using System;
 
 namespace HunterPie.Core.Game.Rise.Entities;
 
-public class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugStructure>, IUpdatable<MHRWirebugExtrasStructure>
+public class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasStructure>, IUpdatable<MHRWirebugData>
 {
     private double _timer;
     private double _cooldown;
     private bool _isAvailable = true;
+    private bool _isBlocked;
 
     public long Address { get; internal set; }
     public double Timer
@@ -53,20 +54,35 @@ public class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugStructure>, IUp
         }
     }
 
+    public bool IsBlocked
+    {
+        get => _isBlocked;
+        private set
+        {
+            if (value != _isBlocked)
+            {
+                _isBlocked = value;
+                this.Dispatch(OnBlockedStateChange, this);
+            }
+        }
+    }
+
     public event EventHandler<MHRWirebug> OnTimerUpdate;
     public event EventHandler<MHRWirebug> OnCooldownUpdate;
     public event EventHandler<MHRWirebug> OnAvailable;
-
-    void IUpdatable<MHRWirebugStructure>.Update(MHRWirebugStructure data)
-    {
-        MaxCooldown = data.MaxCooldown;
-        Cooldown = data.Cooldown;
-    }
+    public event EventHandler<MHRWirebug> OnBlockedStateChange;
 
     void IUpdatable<MHRWirebugExtrasStructure>.Update(MHRWirebugExtrasStructure data)
     {
         MaxTimer = Math.Max(MaxTimer, data.Timer);
         Timer = data.Timer;
         IsAvailable = data.Timer > 0;
+    }
+
+    void IUpdatable<MHRWirebugData>.Update(MHRWirebugData data)
+    {
+        IsBlocked = data.IsBlocked;
+        MaxCooldown = data.Structure.MaxCooldown;
+        Cooldown = data.Structure.Cooldown;
     }
 }
