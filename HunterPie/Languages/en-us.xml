@@ -547,6 +547,8 @@
                  String="Settings"/>
             <Tab Id="PATREON_STRING"
                  String="Patreon"/>
+			<Tab Id="GITHUB_STRING"
+                 String="Github"/>
         </Tabs>
         <Generics>
             <Generic Id="HUNTERPIE_LAUNCH_GAME"

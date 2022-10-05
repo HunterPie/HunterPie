@@ -11,6 +11,7 @@ internal class DefaultSideBar : ISideBar
         new PluginsSideBarElementViewModel(),
         new PatchNotesSideBarElementViewModel(),
         new PatreonSideBarElementViewModel(),
-        new DiscordSideBarElementViewModel()
+        new DiscordSideBarElementViewModel(),
+        new GithubSideBarElementViewModel(),
     };
 }
