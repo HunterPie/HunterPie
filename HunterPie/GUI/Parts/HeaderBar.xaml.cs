@@ -1,5 +1,6 @@
 ﻿using HunterPie.UI.Architecture;
 using System;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace HunterPie.GUI.Parts;
@@ -13,6 +14,14 @@ public partial class HeaderBar : View<HeaderBarViewModel>
     public HeaderBar()
     {
         InitializeComponent();
+    }
+
+    protected override void OnInitialized(EventArgs e)
+    {
+        base.OnInitialized(e);
+
+        if (DesignerProperties.GetIsInDesignMode(this))
+            return;
 
         ViewModel.FetchSupporterStatus();
     }

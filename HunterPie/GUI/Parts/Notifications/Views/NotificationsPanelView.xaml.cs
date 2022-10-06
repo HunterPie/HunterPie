@@ -1,4 +1,5 @@
 ﻿using HunterPie.GUI.Parts.Notifications.ViewModels;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -16,6 +17,11 @@ public partial class NotificationsPanelView : UserControl
         DataContext = new NotificationsPanelViewModel();
         InitializeComponent();
     }
+    private async void OnLoaded(object sender, RoutedEventArgs e)
+    {
+        if (DesignerProperties.GetIsInDesignMode(this))
+            return;
 
-    private async void OnLoaded(object sender, RoutedEventArgs e) => await ViewModel.FetchNotifications();
+        await ViewModel.FetchNotifications();
+    }
 }
