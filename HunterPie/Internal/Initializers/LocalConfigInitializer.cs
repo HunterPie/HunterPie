@@ -1,7 +1,10 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Settings.Types;
+using HunterPie.Core.System.Windows.Registry;
 using HunterPie.Domain.Interfaces;
 using System;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 
 namespace HunterPie.Internal.Initializers;
@@ -13,9 +16,21 @@ public class LocalConfigInitializer : IInitializer
 
     public void Init()
     {
-        RegistryConfig.Initialize();
+        InitializeLocalRegistry();
         GenerateSecretKey();
         GenerateClientId();
+    }
+
+    private void InitializeLocalRegistry()
+    {
+        ILocalRegistry registry;
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            registry = new WindowsRegistry();
+        else
+            throw new NotImplementedException("unsupported OS");
+
+        RegistryConfig.Initialize(registry);
     }
 
     /// <summary>

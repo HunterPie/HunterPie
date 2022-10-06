@@ -44,6 +44,8 @@ public class MeterViewModel : ViewModel
 
     public bool HasPetsToBeDisplayed { get => _hasPetsToBeDisplayed; set => SetValue(ref _hasPetsToBeDisplayed, value); }
 
+    public MeterViewModel() { }
+
     public MeterViewModel(DamageMeterWidgetConfig config)
     {
         Settings = config;
