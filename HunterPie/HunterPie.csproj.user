@@ -39,6 +39,9 @@
     <Compile Update="GUI\Parts\Account\Views\Components\AccountDetailsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="GUI\Parts\Backup\Views\BackupElementView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="GUI\Parts\Console\ConsoleView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -93,6 +96,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Account\Views\Components\AccountDetailsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Parts\Backup\Views\BackupElementView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Console\ConsoleView.xaml">

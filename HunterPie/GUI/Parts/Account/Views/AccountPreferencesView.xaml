@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:HunterPie.GUI.Parts.Account.Views"
              xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
              xmlns:components="clr-namespace:HunterPie.GUI.Parts.Account.Views.Components"
+             xmlns:backup="clr-namespace:HunterPie.GUI.Parts.Backup.Views"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="400"
@@ -72,7 +73,18 @@
                                VerticalAlignment="Bottom"
                                Background="{StaticResource GRAY}"/>
 
-
+                    <viewer:SmoothScrollViewer Grid.Row="1"
+                                               MaxHeight="200">
+                        <VirtualizingStackPanel>
+                            <backup:BackupElementView/>
+                            <backup:BackupElementView/>
+                            <backup:BackupElementView/>
+                            <backup:BackupElementView/>
+                            <backup:BackupElementView/>
+                            <backup:BackupElementView/>
+                            <backup:BackupElementView/>
+                        </VirtualizingStackPanel>
+                    </viewer:SmoothScrollViewer>
                 </Grid>
             </Border>
         </StackPanel>

@@ -58,6 +58,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="GUI\Parts\Backup\ViewModels\" />
     <Folder Include="Languages\" />
   </ItemGroup>
 

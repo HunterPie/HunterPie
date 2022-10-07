@@ -110,7 +110,7 @@
                             <Run Text="▶"
                                  FontSize="30"/>
                             <Run Text="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_LAUNCH_GAME&quot;]'}"
-                                 d:Text="LAUNG GAME"
+                                 d:Text="LAUNCH GAME"
                                  BaselineAlignment="Center"
                                  FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
                         </TextBlock>
@@ -126,8 +126,6 @@
             </native:Button>
 
         </Grid>
-        
-        
 
         <sidebar:SideBarContainer Grid.Row="1"
                                   VerticalAlignment="Stretch"
