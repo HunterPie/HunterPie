@@ -713,7 +713,7 @@
 					 Description="소비 아이템 효과"/>
 			<Setting Id="ABNORMALITY_DEBUFFS_STRING"
 					 String="상태 이상"
-					 Description="상태 이 효과"/>
+					 Description="상태 이상 효과"/>
 			<Setting Id="ABNORMALITY_PALICO_STRING"
 					 String="격려의 음악"
 					 Description="격려의 음악 효과"/>
