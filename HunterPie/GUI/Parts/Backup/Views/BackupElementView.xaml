@@ -15,7 +15,7 @@
             CornerRadius="5"
             ClipToBounds="True">
         <Grid>
-            <Rectangle Fill="{StaticResource GREEN_500}"
+            <Rectangle Fill="{StaticResource WHITE_700}"
                        Opacity="0.3"
                        RadiusX="5"
                        RadiusY="5"

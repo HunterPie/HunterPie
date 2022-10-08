@@ -49,44 +49,7 @@
             </ContentPresenter>
 
             <!-- Backups -->
-            <Border VerticalAlignment="Top"
-                    Margin="20,0,20,20"
-                    Background="{StaticResource GRAY_100}"
-                    Padding="10"
-                    BorderBrush="{StaticResource GRAY}"
-                    BorderThickness="1"
-                    CornerRadius="5">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Text="SAVE BACKUPS"
-                               Foreground="{StaticResource WHITE_400}"
-                               FontWeight="Medium"
-                               Grid.ColumnSpan="2"
-                               FontSize="15"
-                               VerticalAlignment="Top"/>
-                    <Separator Grid.ColumnSpan="2"
-                               Grid.Row="0"
-                               VerticalAlignment="Bottom"
-                               Background="{StaticResource GRAY}"/>
-
-                    <viewer:SmoothScrollViewer Grid.Row="1"
-                                               MaxHeight="200">
-                        <VirtualizingStackPanel>
-                            <backup:BackupElementView/>
-                            <backup:BackupElementView/>
-                            <backup:BackupElementView/>
-                            <backup:BackupElementView/>
-                            <backup:BackupElementView/>
-                            <backup:BackupElementView/>
-                            <backup:BackupElementView/>
-                        </VirtualizingStackPanel>
-                    </viewer:SmoothScrollViewer>
-                </Grid>
-            </Border>
+            <backup:BackupsView Margin="20"/>
         </StackPanel>
     </viewer:SmoothScrollViewer>
 </UserControl>
