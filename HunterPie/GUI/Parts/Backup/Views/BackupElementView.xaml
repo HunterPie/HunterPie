@@ -5,10 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
              xmlns:local="clr-namespace:HunterPie.GUI.Parts.Backup.Views"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+             xmlns:vm="clr-namespace:HunterPie.GUI.Parts.Backup.ViewModels"
              mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance vm:BackupElementViewModel}"
              d:DesignHeight="50" 
              d:DesignWidth="600"
              Margin="2.5">
+    <UserControl.Resources>
+        <converters:LongToByteRepresentationConverter x:Key="LongToByteRepresentationConverter"/>
+    </UserControl.Resources>
     <Border Background="{StaticResource GRAY_50}"
             BorderBrush="{StaticResource GRAY}"
             BorderThickness="1"
@@ -35,19 +42,21 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Game icon -->
-                <Image Source="https://cdn.hunterpie.com/Static/monster-hunter-rise-icon.png"
+                <Image d:Source="https://cdn.hunterpie.com/Static/monster-hunter-rise-icon.png"
+                       Source="{Binding GameIcon, Mode=OneTime}"
                        RenderOptions.BitmapScalingMode="Fant"
                        Grid.RowSpan="2"
                        Margin="5,5,5,5"/>
 
                 <!-- Game Name -->
-                <TextBlock Text="Monster Hunter Rise: Sunbreak"
-                        Grid.Column="1"
-                        FontSize="14"
-                        FontWeight="Medium"
-                        Foreground="{StaticResource WHITE_400}"
-                        VerticalAlignment="Center"
-                        Margin="5,0,0,0"/>
+                <TextBlock d:Text="Monster Hunter Rise: Sunbreak"
+                           Text="{Binding GameName, Mode=OneTime}"
+                           Grid.Column="1"
+                           FontSize="14"
+                           FontWeight="Medium"
+                           Foreground="{StaticResource WHITE_400}"
+                           VerticalAlignment="Center"
+                           Margin="5,0,0,0"/>
 
                 <!-- Save details -->
                 <StackPanel Orientation="Horizontal"
@@ -62,11 +71,11 @@
                         <Run Text="Date uploaded:"
                              Foreground="{StaticResource WHITE_600}"
                              FontWeight="Medium"/>
-                        <Run Text="October 6, 2022 at 09:53AM"/>
+                        <Run Text="{Binding UploadedAt, Mode=OneTime}"/>
                         <Run Text="Size:"
                              Foreground="{StaticResource WHITE_600}"
                              FontWeight="Medium"/>
-                        <Run Text="30.1 MB"/>
+                        <Run Text="{Binding ByteSize, Mode=OneTime, Converter={StaticResource LongToByteRepresentationConverter}}"/>
                     </TextBlock>
                 </StackPanel>
 
@@ -82,12 +91,8 @@
                                 Background="{StaticResource GRAY_300}"
                                 VerticalContentAlignment="Stretch"
                                 HorizontalContentAlignment="Stretch">
-                    <Rectangle Fill="{StaticResource WHITE_400}">
-                        <Rectangle.OpacityMask>
-                            <ImageBrush ImageSource="{StaticResource ICON_CLOUD_DOWNLOAD_MASK}"
-                                        Stretch="Uniform"/>
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
+                    <image:Icon Foreground="{StaticResource WHITE_400}"
+                                Image="{StaticResource ICON_CLOUD_DOWNLOAD_MASK}"/>
                 </buttons:Button>
 
                 <!-- Delete button -->
@@ -101,12 +106,8 @@
                                 Background="{StaticResource GRAY_300}"
                                 VerticalContentAlignment="Stretch"
                                 HorizontalContentAlignment="Stretch">
-                    <Rectangle Fill="{StaticResource WHITE_400}">
-                        <Rectangle.OpacityMask>
-                            <ImageBrush ImageSource="{StaticResource ICON_TRASH}"
-                                        Stretch="Uniform"/>
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
+                    <image:Icon Foreground="{StaticResource WHITE_400}"
+                                Image="{StaticResource ICON_TRASH}"/>
                 </buttons:Button>
             </Grid>
         </Grid>

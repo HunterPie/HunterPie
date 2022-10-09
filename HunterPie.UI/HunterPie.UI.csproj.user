@@ -17,6 +17,9 @@
     <Compile Update="Controls\Buttons\TabItem.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Image\Icon.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Loading\CircleLoading.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -167,6 +170,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Buttons\TabItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Image\Icon.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Loading\CircleLoading.xaml">

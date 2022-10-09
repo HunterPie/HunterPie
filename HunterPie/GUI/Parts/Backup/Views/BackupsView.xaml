@@ -1,20 +1,28 @@
-﻿<UserControl x:Class="HunterPie.GUI.Parts.Backup.Views.BackupsView"
+﻿<arch:View x:Class="HunterPie.GUI.Parts.Backup.Views.BackupsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.GUI.Parts.Backup.Views"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
              xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
+             xmlns:arch="clr-namespace:HunterPie.UI.Architecture;assembly=HunterPie.UI"
+             xmlns:vm="clr-namespace:HunterPie.GUI.Parts.Backup.ViewModels"
+             d:DataContext="{d:DesignInstance vm:BackupsViewModel}"
+             x:TypeArguments="vm:BackupsViewModel"
              mc:Ignorable="d" 
              d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
     <Border BorderThickness="1"
             BorderBrush="{StaticResource GRAY}"
             CornerRadius="5"
             Background="{StaticResource GRAY_100}"
-            Padding="10">
+            Padding="10,0,10,10">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="25"/>
+                <RowDefinition Height="35"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             
@@ -24,7 +32,8 @@
                        FontWeight="Medium"
                        Grid.ColumnSpan="2"
                        FontSize="15"
-                       VerticalAlignment="Top"/>
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"/>
             <Separator Grid.ColumnSpan="2"
                        Grid.Row="0"
                        VerticalAlignment="Bottom"
@@ -35,26 +44,55 @@
                        Foreground="{StaticResource WHITE_500}"
                        Margin="0,0,5,0"
                        HorizontalAlignment="Right"
-                       VerticalAlignment="Top">
+                       VerticalAlignment="Center">
                 <Run Text="Backups:"
                      FontWeight="Medium"/>
-                <Run Text="3"
+                <Run Text="{Binding Count, Mode=OneWay}"
+                     d:Text="3"
                      Foreground="{StaticResource WHITE_200}"/><!--
-             --><Run Text="/5"/>
+             --><Run Text="/"/><!--
+             --><Run Text="{Binding MaxCount, Mode=OneWay}"
+                     d:Text="5"/>
             </TextBlock>
-            
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Visibility="{Binding HasBackups, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <image:Icon Foreground="{StaticResource GREEN_LIGHT_100}"
+                            Image="{StaticResource ICON_CLOUD_CHECK}"
+                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                            Margin="7"
+                            Opacity="0.3"/>
+                <TextBlock FontSize="13"
+                           Foreground="{StaticResource WHITE_500}"
+                           VerticalAlignment="Center">
+                    <Run Text="Last sync:"
+                         FontWeight="Medium"/>
+                    <Run d:Text="An hour ago"
+                         Text="{Binding LastSync, Mode=OneWay, StringFormat=\{0:g\}}"
+                         Foreground="{StaticResource WHITE_200}"/>
+                </TextBlock>
+            </StackPanel>
+
             <!-- Backups -->
-            <viewer:SmoothScrollViewer Grid.Row="1"
-                                       MaxHeight="200">
-                <VirtualizingStackPanel>
-                    <local:BackupElementView/>
-                    <local:BackupElementView/>
-                    <local:BackupElementView/>
-                    <local:BackupElementView/>
-                    <local:BackupElementView/>
-                    <local:BackupElementView/>
-                </VirtualizingStackPanel>
-            </viewer:SmoothScrollViewer>
+            <ItemsControl Grid.Row="1"
+                          MaxHeight="200"
+                          ItemsSource="{Binding Backups, Mode=OneTime}">
+                <ItemsControl.Template>
+                    <ControlTemplate>
+                        <viewer:SmoothScrollViewer>
+                            <VirtualizingStackPanel IsItemsHost="True"
+                                                    VirtualizingPanel.VirtualizationMode="Recycling"/>
+                        </viewer:SmoothScrollViewer>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:BackupElementView/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
     </Border>
-</UserControl>
+</arch:View>

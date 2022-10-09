@@ -1,4 +1,4 @@
-﻿using HunterPie.UI.Architecture.Dispatcher;
+﻿using HunterPie.UI.Architecture.Dispatchers;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

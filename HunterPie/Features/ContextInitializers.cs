@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Game;
 using HunterPie.Domain.Interfaces;
+using HunterPie.Features.Backups;
 using HunterPie.Game.Demos.Sunbreak;
 using HunterPie.Game.Rise;
 using HunterPie.Game.World;
@@ -14,6 +15,8 @@ internal static class ContextInitializers
         new MHWContextInitializer(),
         new MHRContextInitializer(),
         new MHRSunbreakDemoContextInitializer(),
+
+        new GameSaveBackupService(),
     };
 
     public static async Task InitializeAsync(Context context)

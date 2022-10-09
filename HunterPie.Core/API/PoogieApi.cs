@@ -17,9 +17,10 @@ public static class PoogieApi
     private const string LOGOUT = "/v1/logout";
     private const string ACCOUNT = "/v1/account";
     private const string MY_ACCOUNT = "/v1/user/me";
+    private const string BACKUPS = "/v1/backup";
     private const string AVATAR_UPLOAD = "/v1/user/avatar/upload";
     private const string SUPPORTER_HEADER = "X-Supporter-Token";
-    private const double DEFAULT_TIMEOUT = 5;
+    private const double DEFAULT_TIMEOUT = 20;
     private const int DEFAULT_RETRIES = 3;
     private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(DEFAULT_TIMEOUT);
 
@@ -91,5 +92,9 @@ public static class PoogieApi
     public static async Task<PoogieApiResult<RegisterResponse>?> Register(RegisterRequest request) => await Post<RegisterRequest, RegisterResponse>(ACCOUNT, request);
 
     public static async Task<PoogieApiResult<MyUserAccountResponse>?> UploadAvatar(string fileName) => await PostFile<MyUserAccountResponse>(AVATAR_UPLOAD, fileName);
+
+    public static async Task<PoogieApiResult<UserBackupDetailsResponse>?> GetUserBackups() => await Get<UserBackupDetailsResponse>(BACKUPS);
+
+    public static async Task<PoogieApiResult<BackupResponse>?> UploadBackup(GameType gameType, string fileName) => await PostFile<BackupResponse>($"{BACKUPS}/upload/{gameType}", fileName);
 }
 #nullable restore

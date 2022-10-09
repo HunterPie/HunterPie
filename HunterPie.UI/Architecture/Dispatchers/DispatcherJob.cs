@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Threading;
 
-namespace HunterPie.UI.Architecture.Dispatcher;
+namespace HunterPie.UI.Architecture.Dispatchers;
 
 #nullable enable
 /// <summary>
