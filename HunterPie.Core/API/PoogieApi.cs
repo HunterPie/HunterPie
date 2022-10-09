@@ -41,6 +41,18 @@ public static class PoogieApi
         return await resp.AsJson<T>();
     }
 
+    private static async Task<PoogieResponse> Download(string path)
+    {
+        using Poogie request = PoogieFactory.Default()
+            .Get(path)
+            .WithHeader(SUPPORTER_HEADER, ClientConfig.Config.Client.SupporterSecretToken)
+            .WithTimeout(TimeSpan.FromSeconds(60))
+            .WithRetry(DEFAULT_RETRIES)
+            .Build();
+
+        return await request.RequestAsync();
+    }
+
     private static async Task<PoogieApiResult<T>?> Post<P, T>(string path, P payload) where T : class
     {
         using Poogie request = PoogieFactory.Default()
@@ -96,5 +108,7 @@ public static class PoogieApi
     public static async Task<PoogieApiResult<UserBackupDetailsResponse>?> GetUserBackups() => await Get<UserBackupDetailsResponse>(BACKUPS);
 
     public static async Task<PoogieApiResult<BackupResponse>?> UploadBackup(GameType gameType, string fileName) => await PostFile<BackupResponse>($"{BACKUPS}/upload/{gameType}", fileName);
+
+    public static async Task<PoogieResponse> DownloadBackup(string backupId) => await Download($"{BACKUPS}/{backupId}");
 }
 #nullable restore

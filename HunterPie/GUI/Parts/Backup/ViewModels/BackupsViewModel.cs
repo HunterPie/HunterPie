@@ -1,8 +1,10 @@
 ﻿using HunterPie.Core.API;
 using HunterPie.Core.API.Entities;
+using HunterPie.Core.Client;
 using HunterPie.UI.Architecture;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 
 namespace HunterPie.GUI.Parts.Backup.ViewModels;
@@ -49,7 +51,11 @@ public class BackupsViewModel : ViewModel
                     GameName = backup.GameName,
                     GameIcon = backup.GameIcon,
                     ByteSize = backup.Size,
-                    UploadedAt = backup.UploadedAt
+                    UploadedAt = backup.UploadedAt,
+                    IsDownloaded = File.Exists(
+                        ClientInfo.GetPathFor($"Backups/{backup.Id}.zip")
+                    )
+
                 });
             }
         });

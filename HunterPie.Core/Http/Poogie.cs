@@ -45,7 +45,7 @@ public class Poogie : IDisposable
                 HttpResponseMessage res;
                 try
                 {
-                    res = await _client.SendAsync(_request);
+                    res = await _client.SendAsync(_request, HttpCompletionOption.ResponseHeadersRead);
                 }
                 catch (Exception err)
                 {

@@ -7,6 +7,7 @@
              xmlns:local="clr-namespace:HunterPie.GUI.Parts.Backup.Views"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+             xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls;assembly=HunterPie.UI"
              xmlns:vm="clr-namespace:HunterPie.GUI.Parts.Backup.ViewModels"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance vm:BackupElementViewModel}"
@@ -15,6 +16,9 @@
              Margin="2.5">
     <UserControl.Resources>
         <converters:LongToByteRepresentationConverter x:Key="LongToByteRepresentationConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:InvertBooleanConverter x:Key="InvertBooleanConverter"/>
+        <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
     </UserControl.Resources>
     <Border Background="{StaticResource GRAY_50}"
             BorderBrush="{StaticResource GRAY}"
@@ -27,8 +31,20 @@
                        RadiusX="5"
                        RadiusY="5"
                        HorizontalAlignment="Left"
-                       Width="100"/>
-            
+                       d:Width="100"
+                       Visibility="{Binding IsDownloading, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Rectangle.Width>
+                    <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
+                        <Binding Path="BytesDownloaded"
+                                 Mode="OneWay"/>
+                        <Binding Path="BytesToDownload"
+                                 Mode="OneWay"/>
+                        <Binding Path="ActualWidth"
+                                 RelativeSource="{RelativeSource AncestorType={x:Type Grid}}"/>
+                    </MultiBinding>
+                </Rectangle.Width>
+            </Rectangle>
+
             <Grid Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -37,6 +53,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40"/>
                     <ColumnDefinition/>
+                    <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
@@ -79,24 +96,8 @@
                     </TextBlock>
                 </StackPanel>
 
-
-                <!-- Download button-->
+                <!-- Folder button-->
                 <buttons:Button Padding="2.5"
-                                Grid.Column="3"
-                                Grid.RowSpan="2"
-                                Margin="2,5,2,5"
-                                BorderThickness="1"
-                                CornerRadius="5"
-                                BorderBrush="{StaticResource GRAY_100}"
-                                Background="{StaticResource GRAY_300}"
-                                VerticalContentAlignment="Stretch"
-                                HorizontalContentAlignment="Stretch">
-                    <image:Icon Foreground="{StaticResource WHITE_400}"
-                                Image="{StaticResource ICON_CLOUD_DOWNLOAD_MASK}"/>
-                </buttons:Button>
-
-                <!-- Delete button -->
-                <buttons:Button Padding="2"
                                 Grid.Column="2"
                                 Grid.RowSpan="2"
                                 Margin="2,5,2,5"
@@ -105,7 +106,42 @@
                                 BorderBrush="{StaticResource GRAY_100}"
                                 Background="{StaticResource GRAY_300}"
                                 VerticalContentAlignment="Stretch"
-                                HorizontalContentAlignment="Stretch">
+                                HorizontalContentAlignment="Stretch"
+                                Visibility="{Binding IsDownloaded, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                Click="OnOpenFolderClick">
+                    <image:Icon Foreground="{StaticResource WHITE_400}"
+                                Image="{StaticResource ICON_OPEN_FOLDER}"/>
+                </buttons:Button>                
+                
+                <!-- Download button-->
+                <buttons:Button Padding="2.5"
+                                Grid.Column="4"
+                                Grid.RowSpan="2"
+                                Margin="2,5,2,5"
+                                BorderThickness="1"
+                                CornerRadius="5"
+                                BorderBrush="{StaticResource GRAY_100}"
+                                Background="{StaticResource GRAY_300}"
+                                VerticalContentAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch"
+                                IsEnabled="{Binding IsDownloading, Converter={StaticResource InvertBooleanConverter}}"
+                                Click="OnDownloadClick">
+                    <image:Icon Foreground="{StaticResource WHITE_400}"
+                                Image="{StaticResource ICON_CLOUD_DOWNLOAD_MASK}"/>
+                </buttons:Button>
+
+                <!-- Delete button -->
+                <buttons:Button Padding="2"
+                                Grid.Column="3"
+                                Grid.RowSpan="2"
+                                Margin="2,5,2,5"
+                                BorderThickness="1"
+                                CornerRadius="5"
+                                BorderBrush="{StaticResource GRAY_100}"
+                                Background="{StaticResource GRAY_300}"
+                                VerticalContentAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch"
+                                IsEnabled="{Binding IsDownloading, Converter={StaticResource InvertBooleanConverter}}">
                     <image:Icon Foreground="{StaticResource WHITE_400}"
                                 Image="{StaticResource ICON_TRASH}"/>
                 </buttons:Button>

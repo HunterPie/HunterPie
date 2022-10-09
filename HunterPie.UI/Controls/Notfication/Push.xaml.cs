@@ -17,7 +17,7 @@ public partial class Push : UserControl
     private static readonly ImageSource _errorIcon = AppResources.Icon("ICON_ERROR_MASK");
     private static readonly Brush _successForeground = AppResources.Get<Brush>("GREEN_LIGHT_300");
     private static readonly Brush _successBackground = AppResources.Get<Brush>("GREEN_700");
-    private static readonly ImageSource _successIcon = AppResources.Icon("ICON_LOCK_CHECK_MASK");
+    private static readonly ImageSource _successIcon = AppResources.Icon("ICON_CHECKMARK");
 
     public new Brush Background
     {
