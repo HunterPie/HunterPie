@@ -6,21 +6,26 @@ namespace HunterPie.Core.Game.Rise.Definitions
     public struct MHRStageStructure
     {   
         /**
-         * 0 -> Main menu
-         * 3 -> Char selection
+         * 0 -> None (Main menu)
+         * 1 -> Title
+         * 2 -> CharMake
+         * 3 -> SaveLoad (Char selection)
          * 4 -> Village
-         * 5 -> Hunting Zones
-         * 6 -> Hunting Zones
-         * 7 -> Hunting Zone
-         * 8 ~ 11 -> No idea, but I'll consider them as hunting zones too
-         * 12 -> Loading screen
+         * 5 -> Quest
+         * 6 -> LastBoss
+         * 7 -> LastBoss_MR
+         * 8 -> Arena
+         * 9 -> Hyakuryu
+         * 10 -> Result
+         * 11 -> Demo
+         * 12 -> Move (Loading screen)
          * **/
-        public int Type;
-        public int VillageId; // Probably map section?
-        public int Unk1;
-        public int Section;
-        public int Unk2;
-        public int HuntingId;
+        public int Type; // _GameState
+        public int VillageId; // _VillageSpace
+        public int Unk1; // _VillageSpaceChecker
+        public int Section;  // _QuestEnvSpace
+        public int Unk2;  // _ReverbBaseSpace
+        public int HuntingId;  // _CurrentMapNo
 
         public bool IsMainMenu() => Type == 0;
         public bool IsSelectingCharacter() => Type == 3;

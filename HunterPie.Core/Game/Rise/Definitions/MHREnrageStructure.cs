@@ -2,17 +2,23 @@
 {
     public struct MHREnrageStructure
     {
-        public long Reference;
-        public int unk0;
-        public int unk1;
-        public long unk2;
-        public int unk3;
-        public float BuildUp;
-        public float MaxBuildUp;
-        public float unk4;
-        public float Timer;
-        public float MaxTimer;
-        public float unk5;
-        public int Counter;
+        public long Reference;  // AngerMax
+        public int unk0;  // Em (Enemy)
+        public int unk1;  // <Boolean> AlwaysAnger
+        public long unk2;  // <Boolean> NushiAngerMode (Nushi means Apex)
+        public int unk3;  // <Boolean> Enable
+        public float BuildUp;  // AngerPoint
+        public float MaxBuildUp;  // LimitAnger
+        public float unk4;  // AddRateExternal
+        public float Timer;  // Timer
+        public float MaxTimer;  // TimerAnger
+        public float unk5;  // ExtendTimeAnger
+        public int Counter;  // CountAnger
+        // HyakuryuAngerCoolTime (Hyakuryu means Rampage)
+        // HyakuryuAngerAddTime
+        // StateParam
+        // AttrBit
+        // SeparateDataIndex
+        // IsExistAngerEndAction
     }
 }
