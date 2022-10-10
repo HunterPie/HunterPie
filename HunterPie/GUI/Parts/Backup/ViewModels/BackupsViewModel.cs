@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.API;
 using HunterPie.Core.API.Entities;
 using HunterPie.Core.Client;
+using HunterPie.Features.Account.Config;
 using HunterPie.UI.Architecture;
 using System;
 using System.Collections.ObjectModel;
@@ -24,6 +25,7 @@ public class BackupsViewModel : ViewModel, IDisposable
     public DateTime LastSync { get => _lastSync; set => SetValue(ref _lastSync, value); }
     public bool IsFetching { get => _isFetching; set => SetValue(ref _isFetching, value); }
     public bool HasBackups { get => _hasBackups; set => SetValue(ref _hasBackups, value); }
+    public bool IsBackupEnabled => LocalAccountConfig.Config.IsBackupEnabled.Value;
 
     public BackupsViewModel()
     {

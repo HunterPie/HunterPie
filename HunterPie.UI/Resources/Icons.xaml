@@ -10,6 +10,14 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="ICON_ACCOUNT">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M512,512z M0,0z M332.64,64.58C313.18,43.57 286,32 256,32 225.84,32 198.57,43.5 179.2,64.38 159.62,85.49 150.08,114.18 152.32,145.16 156.76,206.28 203.27,256 256,256 308.73,256 355.16,206.29 359.67,145.18 361.94,114.48 352.34,85.85 332.64,64.58z M432,480L80,480A31,31,0,0,1,55.8,468.87C49.3,461.1 46.68,450.49 48.62,439.76 57.06,392.94 83.4,353.61 124.8,326 161.58,301.49 208.17,288 256,288 303.83,288 350.42,301.5 387.2,326 428.6,353.6 454.94,392.93 463.38,439.75 465.32,450.48 462.7,461.09 456.2,468.86A31,31,0,0,1,432,480z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="ICON_OPEN_FOLDER">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">

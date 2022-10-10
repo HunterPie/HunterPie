@@ -706,6 +706,9 @@
             <Setting Id="DEV_TOOLS_STRING"
                      String="Dev Tools"
                      Description="Advanced development tools"/>
+			<Setting Id="ACCOUNT_STRING"
+                     String="Account"
+                     Description="Account settings"/>
 
             <Setting Id="ABNORMALITY_SONGS_STRING"
                      String="Songs"

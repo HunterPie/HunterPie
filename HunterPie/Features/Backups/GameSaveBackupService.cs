@@ -6,6 +6,7 @@ using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Game.World;
 using HunterPie.Core.Logger;
 using HunterPie.Domain.Interfaces;
+using HunterPie.Features.Account.Config;
 using HunterPie.Features.Backups.Games;
 using Microsoft.Win32;
 using System;
@@ -41,6 +42,9 @@ internal class GameSaveBackupService : IContextInitializer
 
     public static async Task<bool> ExecuteBackup()
     {
+        if (!LocalAccountConfig.Config.IsBackupEnabled)
+            return false;
+
         string registryKey = $"{LAST_BACKUP_KEY}_{_backupService!.Type}";
         string successRegistryKey = $"{LAST_BACKUP_SUCCESS_KEY}_{_backupService!.Type}";
 
