@@ -56,7 +56,7 @@ public class BackupsViewModel : ViewModel, IDisposable
         Count = response.Count;
         MaxCount = response.MaxCount;
         HasBackups = response.Backups.Length > 0;
-        LastSync = response.Backups.FirstOrDefault()?.UploadedAt ?? DateTime.MinValue;
+        LastSync = response.Backups.FirstOrDefault()?.UploadedAt.ToLocalTime() ?? DateTime.MinValue;
 
         await UIThread.InvokeAsync(() =>
         {
@@ -68,7 +68,7 @@ public class BackupsViewModel : ViewModel, IDisposable
                     GameName = backup.GameName,
                     GameIcon = backup.GameIcon,
                     ByteSize = backup.Size,
-                    UploadedAt = backup.UploadedAt,
+                    UploadedAt = backup.UploadedAt.ToLocalTime(),
                     IsDownloaded = File.Exists(
                         ClientInfo.GetPathFor($"Backups/{backup.Id}.zip")
                     )

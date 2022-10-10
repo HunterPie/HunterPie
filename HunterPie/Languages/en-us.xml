@@ -646,6 +646,8 @@
 
 			<Poogie Id="BACKUP_NOT_ENABLED_STRING"
                     String="Looks like you don't have automatic backups enabled.&#10;You can enable it in your Account settings."/>
+			<Poogie Id="BACKUP_NOT_FOUND_STRING"
+                    String="You have no backups."/>
         </Integrations>
         <Enums>
             <Enum Id="SORT_BY_LOWEST_TIMER_STRING"
