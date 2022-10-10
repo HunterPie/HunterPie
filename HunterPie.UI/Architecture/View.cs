@@ -2,6 +2,7 @@
 using HunterPie.UI.Overlay;
 using System;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace HunterPie.UI.Architecture;
@@ -43,7 +44,17 @@ public class View<TViewModel> : UserControl
         if (IsDesignMode)
             return;
 
+        Unloaded += OnViewUnloaded;
+
         Initialize();
+    }
+
+    private void OnViewUnloaded(object sender, RoutedEventArgs e)
+    {
+        if (ViewModel is IDisposable vm)
+            vm.Dispose();
+
+        Unloaded -= OnViewUnloaded;
     }
 
     protected virtual void Initialize() { }

@@ -7,7 +7,6 @@
              xmlns:local="clr-namespace:HunterPie.GUI.Parts.Backup.Views"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
-             xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls;assembly=HunterPie.UI"
              xmlns:vm="clr-namespace:HunterPie.GUI.Parts.Backup.ViewModels"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance vm:BackupElementViewModel}"
@@ -141,7 +140,8 @@
                                 Background="{StaticResource GRAY_300}"
                                 VerticalContentAlignment="Stretch"
                                 HorizontalContentAlignment="Stretch"
-                                IsEnabled="{Binding IsDownloading, Converter={StaticResource InvertBooleanConverter}}">
+                                IsEnabled="{Binding IsDownloading, Converter={StaticResource InvertBooleanConverter}}"
+                                Click="OnDeleteClick">
                     <image:Icon Foreground="{StaticResource WHITE_400}"
                                 Image="{StaticResource ICON_TRASH}"/>
                 </buttons:Button>

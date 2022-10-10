@@ -42,6 +42,16 @@ public class PoogieBuilder
         return this;
     }
 
+    public PoogieBuilder Delete(string path)
+    {
+        Debug.Assert(path.StartsWith("/"));
+
+        poogie.Method = HttpMethod.Delete;
+        poogie.Path = path;
+
+        return this;
+    }
+
     public PoogieBuilder WithJson<T>(T json)
     {
         string serialized = JsonProvider.Serializer(json);

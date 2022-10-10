@@ -547,7 +547,7 @@
                  String="Settings"/>
             <Tab Id="PATREON_STRING"
                  String="Patreon"/>
-			<Tab Id="GITHUB_STRING"
+            <Tab Id="GITHUB_STRING"
                  String="Github"/>
         </Tabs>
         <Generics>
@@ -615,34 +615,37 @@
             <Discord Id="DRPC_WORLD_STATE_PRACTICE"
                      String="Training"/>
 
-			<!-- Poogie Integration -->
-			<Poogie Id="ERROR_INVALID_USERNAME"
-					String="Username is not valid!"/>
-			<Poogie Id="ERROR_INVALID_PASSWORD"
-					String="Password is not valid!"/>
-			<Poogie Id="ERROR_INVALID_EMAIL"
-					String="Email is not valid!"/>
-			<Poogie Id="ERROR_INVALID_CREDENTIALS"
-					String="No account was found with that username and password."/>
-			<Poogie Id="ERROR_USER_NOT_FOUND"
-						String="Hmm... That user was not found!"/>
-			<Poogie Id="ERROR_USER_ALREADY_EXISTS"
-						String="There's already an user with that email or username!"/>
-			<Poogie Id="ERROR_UNVERIFIED_ACCOUNT"
-						String="Account must be verified first! Please check your email, including your spam folder to verify the account."/>
-			<Poogie Id="INVALID_IMAGE"
-						String="File is not a valid image!"/>
-			<Poogie Id="FAILED_TO_UPDATE_AVATAR"
-						String="Failed to upload avatar, please try again in a few minutes."/>
-			<Poogie Id="ERROR_AVATAR_SIZE_TOO_LARGE"
-						String="Failed to upload avatar, size was above 3.5 MB."/>
+            <!-- Poogie Integration -->
+            <Poogie Id="ERROR_INVALID_USERNAME"
+                    String="Username is not valid!"/>
+            <Poogie Id="ERROR_INVALID_PASSWORD"
+                    String="Password is not valid!"/>
+            <Poogie Id="ERROR_INVALID_EMAIL"
+                    String="Email is not valid!"/>
+            <Poogie Id="ERROR_INVALID_CREDENTIALS"
+                    String="No account was found with that username and password."/>
+            <Poogie Id="ERROR_USER_NOT_FOUND"
+                    String="Hmm... That user was not found!"/>
+            <Poogie Id="ERROR_USER_ALREADY_EXISTS"
+                    String="There's already an user with that email or username!"/>
+            <Poogie Id="ERROR_UNVERIFIED_ACCOUNT"
+                    String="Account must be verified first! Please check your email, including your spam folder to verify the account."/>
+            <Poogie Id="INVALID_IMAGE"
+                    String="File is not a valid image!"/>
+            <Poogie Id="FAILED_TO_UPDATE_AVATAR"
+                    String="Failed to upload avatar, please try again in a few minutes."/>
+            <Poogie Id="ERROR_AVATAR_SIZE_TOO_LARGE"
+                    String="Failed to upload avatar, size was above 3.5 MB."/>
 
-			<Poogie Id="LOGIN_SUCCESS"
-						String="Welcome {Username}! You're now logged in."/>
-			<Poogie Id="ACCOUNT_REGISTER_SUCCESS"
-						String="Account verification will be sent to {Email} shortly. Please make sure to check your inbox and spam folders!"/>
-			<Poogie Id="AVATAR_UPLOAD_SUCCESS"
-						String="Uploaded new avatar"/>
+            <Poogie Id="LOGIN_SUCCESS"
+                    String="Welcome {Username}! You're now logged in."/>
+            <Poogie Id="ACCOUNT_REGISTER_SUCCESS"
+                    String="Account verification will be sent to {Email} shortly. Please make sure to check your inbox and spam folders!"/>
+            <Poogie Id="AVATAR_UPLOAD_SUCCESS"
+                    String="Uploaded new avatar"/>
+
+			<Poogie Id="BACKUP_NOT_ENABLED_STRING"
+                    String="Looks like you don't have automatic backups enabled.&#10;You can enable it in your Account settings."/>
         </Integrations>
         <Enums>
             <Enum Id="SORT_BY_LOWEST_TIMER_STRING"

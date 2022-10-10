@@ -10,7 +10,7 @@ using System.Linq;
 namespace HunterPie.GUI.Parts.Backup.ViewModels;
 
 #nullable enable
-public class BackupsViewModel : ViewModel
+public class BackupsViewModel : ViewModel, IDisposable
 {
     private int _count;
     private int _maxCount;
@@ -24,6 +24,21 @@ public class BackupsViewModel : ViewModel
     public DateTime LastSync { get => _lastSync; set => SetValue(ref _lastSync, value); }
     public bool IsFetching { get => _isFetching; set => SetValue(ref _isFetching, value); }
     public bool HasBackups { get => _hasBackups; set => SetValue(ref _hasBackups, value); }
+
+    public BackupsViewModel()
+    {
+        HookEvents();
+    }
+
+    public void HookEvents()
+    {
+        PoogieApi.OnBackupDeleted += OnBackupDeleted;
+    }
+
+    public void UnhookEvents()
+    {
+        PoogieApi.OnBackupDeleted -= OnBackupDeleted;
+    }
 
     public async void FetchBackups()
     {
@@ -55,10 +70,23 @@ public class BackupsViewModel : ViewModel
                     IsDownloaded = File.Exists(
                         ClientInfo.GetPathFor($"Backups/{backup.Id}.zip")
                     )
-
                 });
             }
         });
     }
+
+    private async void OnBackupDeleted(object? sender, BackupDeleteResponse e)
+    {
+        await UIThread.InvokeAsync(() =>
+        {
+            BackupElementViewModel backup = Backups.First(vm => vm.BackupId == e.Id);
+
+            Backups.Remove(backup);
+        });
+
+        Count = Backups.Count;
+    }
+
+    public void Dispose() => UnhookEvents();
 }
 #nullable restore

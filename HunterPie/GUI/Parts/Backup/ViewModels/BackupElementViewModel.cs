@@ -66,4 +66,11 @@ public class BackupElementViewModel : ViewModel
     {
         Process.Start("explorer", ClientInfo.GetPathFor("Backups"));
     }
+
+    public async Task Delete()
+    {
+        IsDownloading = true;
+        await PoogieApi.DeleteBackup(BackupId);
+        IsDownloading = false;
+    }
 }

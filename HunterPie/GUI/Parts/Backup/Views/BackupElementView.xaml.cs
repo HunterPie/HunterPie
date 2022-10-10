@@ -17,4 +17,5 @@ public partial class BackupElementView : UserControl
 
     private async void OnDownloadClick(object sender, RoutedEventArgs e) => await ViewModel.Download();
     private void OnOpenFolderClick(object sender, RoutedEventArgs e) => ViewModel.OpenBackupFolder();
+    private async void OnDeleteClick(object sender, RoutedEventArgs e) => await ViewModel.Delete();
 }
