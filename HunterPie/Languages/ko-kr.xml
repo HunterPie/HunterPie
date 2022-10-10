@@ -644,6 +644,9 @@
 						String="계정 확인이 곧 {Email}으로 전송됩니다. 받은 편지함과 스팸 편지함을 확인해주세요!"/>
 			<Poogie Id="AVATAR_UPLOAD_SUCCESS"
 						String="새로운 아바타가 업로드되었습니다"/>
+
+			<Poogie Id="BACKUP_NOT_ENABLED_STRING"
+                    String="자동 백업을 활성화하지 않았습니다.&#10;계정 설정에서 활성화할 수 있습니다."/>
 		</Integrations>
 		<Enums>
 			<Enum Id="SORT_BY_LOWEST_TIMER_STRING"
@@ -704,6 +707,9 @@
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="개발 도구"
 					 Description="심화 개발 도구"/>
+			<Setting Id="ACCOUNT_STRING"
+                     String="계정"
+                     Description="계정 설정"/>
 
 			<Setting Id="ABNORMALITY_SONGS_STRING"
 					 String="선율"
