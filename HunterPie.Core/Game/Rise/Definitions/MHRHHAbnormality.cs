@@ -6,8 +6,8 @@
         public long Reference;
         public int unk0;
         public int unk1;
-        public float Timer;
-        public int unk2;
+        public float Timer;  // _Time
+        public int unk2;  // _State
         public long unk3;
     }
 }
