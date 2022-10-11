@@ -215,11 +215,44 @@
 
     <!-- Styles -->
     <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}">
+        <Style.Resources>
+            <Style TargetType="{x:Type ContentPresenter}">
+                <Style.Resources>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+                    </Style>
+                </Style.Resources>
+            </Style>
+        </Style.Resources>
         <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
         <Setter Property="Background" Value="{StaticResource GRAY_50}"/>
         <Setter Property="Foreground" Value="{StaticResource WHITE_100}"/>
         <Setter Property="BorderBrush" Value="{StaticResource GRAY}"/>
         <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="MaxWidth" Value="350"/>
+        <Setter Property="ToolTipService.InitialShowDelay" Value="10"/>
+        <Setter Property="ToolTipService.BetweenShowDelay" Value="10"/>
+        <Style.Triggers>
+            <Trigger Property="IsVisible" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             To="1"
+                                             From="0"
+                                             Duration="0:0:0.25"/>
+                            <DoubleAnimation Storyboard.TargetProperty="VerticalOffset"
+                                                From="-35"
+                                                Duration="0:0:0.25">
+                                <DoubleAnimation.EasingFunction>
+                                    <QuadraticEase/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <SolidColorBrush x:Key="StandardBorderBrush" Color="#888" />
