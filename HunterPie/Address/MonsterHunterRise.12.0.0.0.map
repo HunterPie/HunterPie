@@ -1,43 +1,28 @@
 ﻿# Addresses
-	# snow.wwise.WwiseChangeSpaceWatcher
-		Address STAGE_ADDRESS 0x0F126578
-	# snow.enemy.EnemyManager
-		Address MONSTERS_ADDRESS 0x0F127EB0
-	# snow.CameraManager
-		Address LOCKON_ADDRESS 0x0F131D08
-	# snow.LobbyManager
-		Address CHARACTER_ADDRESS 0x0F12A8A0
-	# snow.SnowSaveService
-		Address SAVE_ADDRESS 0x0F1197E8
-	# snow.StmInputConfig
-		Address WEAPON_ADDRESS 0x0F124B98
-	# snow.envCreature.EnvironmentCreatureManager
-		Address ABNORMALITIES_ADDRESS 0x0F126628
-	# snow.facility.TradeCenterFacility
-		Address ARGOSY_ADDRESS 0x0F12D500
-	# snow.facility.OtomoDojoFacility
-		Address TRAINING_DOJO_ADDRESS 0x0F12AA80
-	# snow.gui.ChatManager
-		Address CHAT_ADDRESS 0x0F11C7C0
-	# snow.gui.GuiManager
-		Address CHAT_UI_ADDRESS 0x0F128F80
-	# snow.player.PlayerManager
-		Address SESSION_PLAYERS_ADDRESS 0x0F123628
-	# snow.gui.GuiManager
-		Address UI_ADDRESS 0x0F128F80
-	# snow.StmInputManager
-		Address MOUSE_ADDRESS 0x0F127BA0
-	# snow.QuestManager
-		Address QUEST_ADDRESS 0x0F130278
-	# snow.data.OtomoSpyUnitManager
-		Address MEOWMASTERS_ADDRESS 0x0F1268E8
-	# snow.progress.ProgressOwlNestManager
-		Address COHOOT_ADDRESS 0x0F113E50
-# Static Data
-	# snow.facility.OtomoDojoFacility._ChargeNum
-		Address DATA_TRAINING_DOJO_ROUNDS_LEFT 0x0F12BE98
+Address STAGE_ADDRESS 0x0F126578					# snow.wwise.WwiseChangeSpaceWatcher
+Address MONSTERS_ADDRESS 0x0F127EB0					# snow.enemy.EnemyManager
+Address LOCKON_ADDRESS 0x0F131D08					# snow.CameraManager
+Address CHARACTER_ADDRESS 0x0F12A8A0				# snow.LobbyManager
+Address SAVE_ADDRESS 0x0F1197E8						# snow.SnowSaveService
+Address WEAPON_ADDRESS 0x0F124B98					# snow.StmInputConfig
+Address ABNORMALITIES_ADDRESS 0x0F126628			# snow.envCreature.EnvironmentCreatureManager
+Address ARGOSY_ADDRESS 0x0F12D500					# snow.facility.TradeCenterFacility
+Address TRAINING_DOJO_ADDRESS 0x0F12AA80			# snow.facility.OtomoDojoFacility
+Address CHAT_ADDRESS 0x0F11C7C0						# snow.gui.ChatManager
+Address CHAT_UI_ADDRESS 0x0F128F80					# snow.gui.GuiManager
+Address SESSION_PLAYERS_ADDRESS 0x0F123628			# snow.player.PlayerManager
+Address UI_ADDRESS 0x0F128F80						# snow.gui.GuiManager
+Address MOUSE_ADDRESS 0x0F127BA0					# snow.StmInputManager
+Address QUEST_ADDRESS 0x0F130278					# snow.QuestManager
+Address MEOWMASTERS_ADDRESS 0x0F1268E8				# snow.data.OtomoSpyUnitManager
+Address COHOOT_ADDRESS 0x0F113E50					# snow.progress.ProgressOwlNestManager
+
+# Static Data	
+Address DATA_TRAINING_DOJO_ROUNDS_LEFT 0x0F12BE98	# snow.facility.OtomoDojoFacility._ChargeNum
+
 # Executable
 Address FUNC_WIREBUG_HIDE_AIM_ADDRESS 0x02A752EC
+
 # Offsets
 Offset STAGE_OFFSETS 0x0
 Offset LOCKON_OFFSETS 0xB8,0x58,0x20
@@ -89,6 +74,7 @@ Offset MEOWMASTERS_OFFSETS 0x0
 Address CRC_FUNC_1 0x0297A5C0
 Address CRC_FUNC_2 0x02A378D0
 Address CRC_FUNC_3 0x06FCC7F0
+
 # Instructions
 Instruction CRC_ORIGINAL_FUNC_1 0x48,0x89,0x5C
 Instruction CRC_ORIGINAL_FUNC_2 0x48,0x89,0x5C

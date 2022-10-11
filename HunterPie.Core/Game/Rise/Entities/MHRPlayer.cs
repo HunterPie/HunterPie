@@ -458,10 +458,10 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
 
             var data = new MHRWirebugData
             {
-                IsBlocked = _process.Memory.Deref<byte>(
+                IsBlocked = _process.Memory.Deref<int>(
                     AddressMap.GetAbsolute("UI_ADDRESS"),
                     AddressMap.Get<int[]>("IS_WIREBUG_BLOCKED_OFFSETS")
-                ) == 1,
+                ) != 0,
                 Structure = _process.Memory.Read<MHRWirebugStructure>(wirebugPtr)
             };
             data.Structure.Cooldown /= AbnormalityData.TIMER_MULTIPLIER;
