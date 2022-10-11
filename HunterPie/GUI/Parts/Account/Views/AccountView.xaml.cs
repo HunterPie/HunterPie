@@ -1,9 +1,12 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
+using HunterPie.Features.Account.Config;
 using HunterPie.GUI.Parts.Account.ViewModels;
+using HunterPie.GUI.Parts.Host;
 using HunterPie.UI.Architecture;
+using HunterPie.UI.Controls.Settings;
+using HunterPie.UI.Controls.Settings.ViewModel;
 using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -22,6 +25,11 @@ public partial class AccountView : View<AccountViewModel>, IEventDispatcher
 
     public event EventHandler<EventArgs> OnSignInClicked;
     public event EventHandler<EventArgs> OnSignUpClicked;
+
+    protected override void Initialize()
+    {
+        ViewModel.FetchAccountDetails();
+    }
 
     private void OnAvatarGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e) => ViewModel.IsAvatarClicked = true;
     private void OnAvatarLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e) => ViewModel.IsAvatarClicked = false;
@@ -42,17 +50,16 @@ public partial class AccountView : View<AccountViewModel>, IEventDispatcher
     }
 
     private void OnLoginClick(object sender, RoutedEventArgs e) => this.Dispatch(OnSignInClicked);
-
     private void OnRegisterClick(object sender, RoutedEventArgs e) => this.Dispatch(OnSignUpClicked);
     private void OnLogoutClick(object sender, RoutedEventArgs e) => ViewModel.SignOut();
-
-    private void OnLoad(object sender, RoutedEventArgs e)
+    private async void OnSettingsClick(object sender, RoutedEventArgs e)
     {
-        if (DesignerProperties.GetIsInDesignMode(this))
-            return;
+        ISettingElement[] accountConfig = await LocalAccountConfig.CreateAccountSettingsTab();
 
-        ViewModel.FetchAccountDetails();
+        SettingHost host = new SettingHost()
+        {
+            DataContext = new SettingHostViewModel(accountConfig)
+        };
+        MainHost.SetMain(host);
     }
-
-    private void OnUnload(object sender, RoutedEventArgs e) => ViewModel.Dispose();
 }

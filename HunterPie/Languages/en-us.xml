@@ -937,6 +937,11 @@
                      String="Developer: Log level"/>
             <Setting Id="DEV_PRESENTATION_TRACER_LEVEL"
                      String="Developer: UI rendering tracer level"/>
+
+			<!-- Account -->
+			<Setting Id="ACCOUNT_ENABLE_BACKUP_STRING"
+                     String="Enable game save backup"
+                     Description="If enabled, HunterPie will automatically backup your game saves and upload them to the cloud."/>
         </Settings>
     </Client>
 </Strings>

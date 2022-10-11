@@ -45,13 +45,13 @@ internal class SettingsSideBarElementViewModel : ISideBarElement
 
         ISettingElement[] accountConfig = await LocalAccountConfig.CreateAccountSettingsTab();
 
-        settingTabs = settingTabs.Concat(accountConfig)
-                                 .Concat(gameSpecificTabs)
-                                 .ToArray();
+        accountConfig = accountConfig.Concat(settingTabs)
+                                     .Concat(gameSpecificTabs)
+                                     .ToArray();
 
         GenericFileSelector _ = ClientConfig.Config.Client.Language;
 
-        SettingHostViewModel vm = new(settingTabs);
+        SettingHostViewModel vm = new(accountConfig);
         var host = new SettingHost()
         {
             DataContext = vm
