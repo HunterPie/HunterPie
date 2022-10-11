@@ -13,6 +13,7 @@ internal class DefaultFeatureFlags
         { FeatureFlags.FEATURE_METRICS_WIDGET, new Feature() },
         { FeatureFlags.FEATURE_ADVANCED_DEV, new Feature() },
         { FeatureFlags.FEATURE_REDIRECT_POOGIE, new Feature() },
+        { FeatureFlags.FEATURE_IN_APP_NOTIFICATIONS, new Feature() },
     };
 
     public IReadOnlyDictionary<string, IFeature> ReadOnlyFlags => Flags;

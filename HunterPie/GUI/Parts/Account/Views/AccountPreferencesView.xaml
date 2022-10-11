@@ -6,6 +6,8 @@
              xmlns:local="clr-namespace:HunterPie.GUI.Parts.Account.Views"
              xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
              xmlns:components="clr-namespace:HunterPie.GUI.Parts.Account.Views.Components"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+             xmlns:backup="clr-namespace:HunterPie.GUI.Parts.Backup.Views"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="400"
@@ -17,7 +19,7 @@
     </UserControl.Resources>
     <viewer:SmoothScrollViewer>
         <StackPanel>
-            <ContentPresenter Margin="20">
+            <ContentPresenter Margin="20,10,20,10">
                 <ContentPresenter.Style>
                     <Style TargetType="ContentPresenter">
                         <Style.Triggers>
@@ -48,33 +50,7 @@
             </ContentPresenter>
 
             <!-- Backups -->
-            <Border VerticalAlignment="Top"
-                    Margin="20,0,20,20"
-                    Background="{StaticResource GRAY_100}"
-                    Padding="10"
-                    BorderBrush="{StaticResource GRAY}"
-                    BorderThickness="1"
-                    CornerRadius="5">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Text="SAVE BACKUPS"
-                               Foreground="{StaticResource WHITE_400}"
-                               FontWeight="Medium"
-                               Grid.ColumnSpan="2"
-                               FontSize="15"
-                               VerticalAlignment="Top"/>
-                    <Separator Grid.ColumnSpan="2"
-                               Grid.Row="0"
-                               VerticalAlignment="Bottom"
-                               Background="{StaticResource GRAY}"/>
-
-
-                </Grid>
-            </Border>
+            <backup:BackupsView Margin="20,0,20,20"/>
         </StackPanel>
     </viewer:SmoothScrollViewer>
 </UserControl>

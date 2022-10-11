@@ -7,6 +7,7 @@ using HunterPie.Core.Game;
 using HunterPie.Core.Logger;
 using HunterPie.Core.System;
 using HunterPie.Features;
+using HunterPie.Features.Backups;
 using HunterPie.Features.Overlay;
 using HunterPie.Integrations.Discord;
 using HunterPie.Internal;
@@ -142,8 +143,6 @@ public partial class App : Application
 
     private async void OnProcessFound(object sender, ProcessManagerEventArgs e)
     {
-        // Reference: https://docs.microsoft.com/en-us/archive/msdn-magazine/2013/march/async-await-best-practices-in-asynchronous-programming
-        // Also, note that this function does not assume it can be called concurrently for now. (esp. the _process variable)
         if (_process is not null)
         {
             Log.Info("HunterPie is already hooked to another process.");
@@ -174,6 +173,8 @@ public partial class App : Application
         {
             Log.Error("HunterPie fails to initialize on the {0} process. {1}", e.ProcessName, ex);
         }
+
+        await GameSaveBackupService.ExecuteBackup().ConfigureAwait(false);
     }
 
     private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)

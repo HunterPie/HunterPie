@@ -39,4 +39,8 @@ public enum ErrorCode
 
     [Localization("//Strings/Client/Integrations/Poogie[@Id='ERROR_AVATAR_SIZE_TOO_LARGE']")]
     AVATAR_SIZE_TOO_LARGE,
+
+    INVALID_BACKUP_UPLOAD,
+    BACKUP_TOO_LARGE,
+    BACKUP_RATE_LIMIT
 }

@@ -9,4 +9,5 @@ public static class FeatureFlags
     public const string FEATURE_REDIRECT_POOGIE = "feature_enable_poogie_redirect";
 
     public const string FEATURE_RISE_DAMAGE_METER = "feature_enable_rise_dps";
+    public const string FEATURE_IN_APP_NOTIFICATIONS = "feature_enable_in_app_notifications";
 }

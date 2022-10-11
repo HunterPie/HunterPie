@@ -63,4 +63,23 @@
     <SolidColorBrush x:Key="GREEN_600">#1d4e2e</SolidColorBrush>
     <SolidColorBrush x:Key="GREEN_700">#163b23</SolidColorBrush>
 
+    <!-- Yello -->
+    <SolidColorBrush x:Key="YELLOW_LIGHT_700">#fff7d5</SolidColorBrush>
+    <SolidColorBrush x:Key="YELLOW_LIGHT_600">#fff5c7</SolidColorBrush>
+    <SolidColorBrush x:Key="YELLOW_LIGHT_500">#fff2b9</SolidColorBrush>
+    <SolidColorBrush x:Key="YELLOW_LIGHT_400">#ffefab</SolidColorBrush>
+    <SolidColorBrush x:Key="YELLOW_LIGHT_300">#ffed9d</SolidColorBrush>
+    <SolidColorBrush x:Key="YELLOW_LIGHT_200">#ffea8f</SolidColorBrush>
+    <SolidColorBrush x:Key="YELLOW_LIGHT_100">#ffe881</SolidColorBrush>
+    <SolidColorBrush x:Key="YELLOW_LIGHT_50">#ffe67a</SolidColorBrush>
+    <SolidColorBrush x:Key="YELLOW">#ffe573</SolidColorBrush>
+    <SolidColorBrush x:Key="YELLOW_50">#f2da6d</SolidColorBrush>
+    <SolidColorBrush x:Key="YELLOW_100">#e6ce68</SolidColorBrush>
+    <SolidColorBrush x:Key="YELLOW_200">#ccb75c</SolidColorBrush>
+    <SolidColorBrush x:Key="YELLOW_300">#b3a051</SolidColorBrush>
+    <SolidColorBrush x:Key="YELLOW_400">#998945</SolidColorBrush>
+    <SolidColorBrush x:Key="YELLOW_500">#80733a</SolidColorBrush>
+    <SolidColorBrush x:Key="YELLOW_600">#665c2e</SolidColorBrush>
+    <SolidColorBrush x:Key="YELLOW_700">#4d4523</SolidColorBrush>
+    
 </ResourceDictionary>

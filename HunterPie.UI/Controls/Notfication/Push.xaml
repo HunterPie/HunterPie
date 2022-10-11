@@ -25,7 +25,7 @@
                        Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                        VerticalAlignment="Center">
                 <Rectangle.OpacityMask>
-                    <ImageBrush d:ImageSource="{StaticResource ICON_LOCK_CHECK_MASK}"
+                    <ImageBrush d:ImageSource="{StaticResource ICON_CHECKMARK}"
                                 ImageSource="{Binding Icon, Mode=OneTime}"
                                 Stretch="Uniform"/>
                 </Rectangle.OpacityMask>

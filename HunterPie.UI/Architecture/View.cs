@@ -1,6 +1,8 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.UI.Overlay;
 using System;
+using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace HunterPie.UI.Architecture;
@@ -23,6 +25,7 @@ public class View<TViewModel> : UserControl
 
         return Activator.CreateInstance<TViewModel>();
     }
+    protected bool IsDesignMode => DesignerProperties.GetIsInDesignMode(this);
 
     public View()
     {
@@ -33,4 +36,26 @@ public class View<TViewModel> : UserControl
     {
         DataContext = InitializeViewModel(args);
     }
+
+    protected override void OnInitialized(EventArgs e)
+    {
+        base.OnInitialized(e);
+
+        if (IsDesignMode)
+            return;
+
+        Unloaded += OnViewUnloaded;
+
+        Initialize();
+    }
+
+    private void OnViewUnloaded(object sender, RoutedEventArgs e)
+    {
+        if (ViewModel is IDisposable vm)
+            vm.Dispose();
+
+        Unloaded -= OnViewUnloaded;
+    }
+
+    protected virtual void Initialize() { }
 }

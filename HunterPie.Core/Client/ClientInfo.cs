@@ -33,4 +33,6 @@ public static class ClientInfo
     }
 
     public static string GetPathFor(string relative) => Path.Combine(ClientPath, relative);
+
+    public static string GetRandomTempFile() => Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 }
