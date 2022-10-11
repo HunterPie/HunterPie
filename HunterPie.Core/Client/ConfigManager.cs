@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace HunterPie.Core.Client;
@@ -163,7 +164,7 @@ public class ConfigManager
             return;
 
         Type type = data.GetType();
-        foreach (global::System.Reflection.PropertyInfo propertyInfo in type.GetProperties())
+        foreach (PropertyInfo propertyInfo in type.GetProperties())
         {
             if (typeof(IEnumerable).IsAssignableFrom(propertyInfo.PropertyType))
             {
