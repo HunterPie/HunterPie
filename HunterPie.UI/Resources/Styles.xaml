@@ -12,57 +12,6 @@
                     xmlns:specialized="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.Views;assembly=HunterPie.UI">
     <!-- Converters -->
     <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
-    <!-- Colors -->
-    <LinearGradientBrush x:Key="HUNTERPIE_ACCENT_COLOR" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FF4B8EEE"/>
-        <GradientStop Color="#FF10B9DE" Offset="1"/>
-    </LinearGradientBrush>
-    
-    <LinearGradientBrush x:Key="HUNTERPIE_ACCENT_COLOR_TRANSPARENT" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#504B8EEE"/>
-        <GradientStop Color="#5010B9DE" Offset="1"/>
-    </LinearGradientBrush>
-
-    <LinearGradientBrush x:Key="HUNTERPIE_NOTIFICATION_BADGE_COLOR" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FFCB2D3E"/>
-        <GradientStop Color="#FFEF473A" Offset="1"/>
-    </LinearGradientBrush>
-    
-    <SolidColorBrush x:Key="HUNTERPIE_HEADER_BACKGROUND">#16181a</SolidColorBrush>
-    <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_PRIMARY">#212426</SolidColorBrush>
-    <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_SECONDARY">#24282b</SolidColorBrush>
-    <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_DARK">#151819</SolidColorBrush>
-    <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_DARKER">#ff080a0a</SolidColorBrush>
-    <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_LIGHTER">#2a2f30</SolidColorBrush>
-    <SolidColorBrush x:Key="HUNTERPIE_BACKGROUND_DARK_OPACITY">#50080a0a</SolidColorBrush>
-    <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_PRIMARY">WhiteSmoke</SolidColorBrush>
-    <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_SECONDARY">#cccccc</SolidColorBrush>
-    <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_DARKER">#FF49575F</SolidColorBrush>
-    <LinearGradientBrush x:Key="HUNTERPIE_HIGHLIGHT_BORDER" EndPoint="0.5,1" StartPoint="0,0">
-        <GradientStop Color="#7FF3F3F3"/>
-        <GradientStop Color="#4CFFFFFF" Offset="1"/>
-    </LinearGradientBrush>
-    <RadialGradientBrush x:Key="HUNTERPIE_HIGHLIGHT_BACKGROUND" SpreadMethod="Reflect" RadiusY="1" RadiusX="1" Center="0.5,0.5">
-        <GradientStop Color="#00000000" Offset="0"/>
-        <GradientStop Color="#7FFFFFFF" Offset="1"/>
-        <GradientStop Color="#00BDBDBD" Offset="0.35"/>
-    </RadialGradientBrush>
-    <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_DARK">#7c858a</SolidColorBrush>
-    
-    <SolidColorBrush x:Key="HUNTERPIE_LOGO_PRIMARY">#f7f7f7</SolidColorBrush>
-    <SolidColorBrush x:Key="HUNTERPIE_LOGO_SECONDARY">#16181a</SolidColorBrush>
-    <SolidColorBrush x:Key="HUNTERPIE_LOGO_TERTIARY">#f7f7f7</SolidColorBrush>
-
-    <SolidColorBrush x:Key="BUTTON_COMMONBUTTON_FOREGROUND">WhiteSmoke</SolidColorBrush>
-    <SolidColorBrush x:Key="BUTTON_ICON_FOREGROUND">WhiteSmoke</SolidColorBrush>
-
-    <SolidColorBrush x:Key="LOGGER_LEVEL_INFO">#5cb7f2</SolidColorBrush>
-    <SolidColorBrush x:Key="LOGGER_LEVEL_NATIVE">#e84ad3</SolidColorBrush>
-    <SolidColorBrush x:Key="LOGGER_LEVEL_DEBUG">#35cc76</SolidColorBrush>
-    <SolidColorBrush x:Key="LOGGER_LEVEL_WARN">#E6CF5E</SolidColorBrush>
-    <SolidColorBrush x:Key="LOGGER_LEVEL_ERROR">#e65e5e</SolidColorBrush>
-    <SolidColorBrush x:Key="LOGGER_LEVEL_PANIC">#ab5ee6</SolidColorBrush>
-    <SolidColorBrush x:Key="LOGGER_LEVEL_BENCHMARK">#1BC9B6</SolidColorBrush>
     
     <!-- Specialized Tools -->
     
