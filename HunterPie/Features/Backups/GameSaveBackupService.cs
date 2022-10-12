@@ -25,13 +25,8 @@ internal class GameSaveBackupService : IContextInitializer
 
     public Task InitializeAsync(Context context)
     {
-        return Task.Factory.StartNew(async () =>
+        return Task.Factory.StartNew(() =>
         {
-            bool isLoggedIn = await AccountManager.ValidateSessionToken();
-
-            if (!isLoggedIn)
-                return;
-
             string? steamSavePath = GetSteamSaveFolder();
 
             if (steamSavePath is null)
@@ -48,6 +43,11 @@ internal class GameSaveBackupService : IContextInitializer
 
     public static async Task<bool> ExecuteBackup()
     {
+        bool isLoggedIn = await AccountManager.ValidateSessionToken();
+
+        if (!isLoggedIn)
+            return false;
+
         if (!LocalAccountConfig.Config.IsBackupEnabled)
             return false;
 
