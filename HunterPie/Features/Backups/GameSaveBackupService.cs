@@ -6,6 +6,7 @@ using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Game.World;
 using HunterPie.Core.Logger;
 using HunterPie.Domain.Interfaces;
+using HunterPie.Features.Account;
 using HunterPie.Features.Account.Config;
 using HunterPie.Features.Backups.Games;
 using Microsoft.Win32;
@@ -24,8 +25,13 @@ internal class GameSaveBackupService : IContextInitializer
 
     public Task InitializeAsync(Context context)
     {
-        return Task.Factory.StartNew(() =>
+        return Task.Factory.StartNew(async () =>
         {
+            bool isLoggedIn = await AccountManager.ValidateSessionToken();
+
+            if (!isLoggedIn)
+                return;
+
             string? steamSavePath = GetSteamSaveFolder();
 
             if (steamSavePath is null)
@@ -60,6 +66,13 @@ internal class GameSaveBackupService : IContextInitializer
             return false;
 
         PoogieApiResult<BackupResponse>? result = await PoogieApi.UploadBackup(_backupService.Type, backupFile);
+
+        if (File.Exists(backupFile))
+            try
+            {
+                File.Delete(backupFile);
+            }
+            catch { }
 
         if (result is null)
             return false;
