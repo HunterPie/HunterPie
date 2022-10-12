@@ -647,6 +647,8 @@
 
 			<Poogie Id="BACKUP_NOT_ENABLED_STRING"
                     String="자동 백업을 활성화하지 않았습니다.&#10;계정 설정에서 활성화할 수 있습니다."/>
+			<Poogie Id="BACKUP_NOT_FOUND_STRING"
+                    String="백업된 설정이 없습니다."/>
 		</Integrations>
 		<Enums>
 			<Enum Id="SORT_BY_LOWEST_TIMER_STRING"
@@ -936,6 +938,11 @@
 					 String="개발자: 로그 레벨"/>
 			<Setting Id="DEV_PRESENTATION_TRACER_LEVEL"
 					 String="개발자: UI 렌더링 트레이서 레벨"/>
+
+			<!-- Account -->
+			<Setting Id="ACCOUNT_ENABLE_BACKUP_STRING"
+                     String="설정 백업 활성화"
+                     Description="옵션 활성화 시, HunterPie가 자동으로 당신의 설정을 백업하고 클라우드에 업로드합니다."/>
 		</Settings>
 	</Client>
 </Strings>
