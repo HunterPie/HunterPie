@@ -3,23 +3,11 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace HunterPie.UI.Architecture.Converters
+namespace HunterPie.UI.Architecture.Converters;
+
+public class IsValidPartConverter : IValueConverter
 {
-    public class IsValidPartConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is PartType type)
-            {
-                return type != PartType.Invalid;
-            }
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value is PartType type ? type != PartType.Invalid : (object)false;
 
-            return false;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }

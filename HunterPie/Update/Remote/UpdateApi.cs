@@ -1,41 +1,45 @@
-﻿using System;
-using System.Net;
-using System.Threading.Tasks;
-using HunterPie.Core.API;
+﻿using HunterPie.Core.API;
+using HunterPie.Core.API.Entities;
 using HunterPie.Core.Client;
 using HunterPie.Core.Http;
 using HunterPie.Core.Http.Events;
+using System;
+using System.Net;
+using System.Threading.Tasks;
 
-namespace HunterPie.Update.Remote
-{ 
-    public class UpdateApi
+namespace HunterPie.Update.Remote;
+
+public class UpdateApi
+{
+    public async Task<string> GetLatestVersion()
     {
-        public async Task<string> GetLatestVersion()
-        {
-            var response = await PoogieApi.GetLatestVersion();
-            return response?.LatestVersion;
-        }
+        PoogieApiResult<VersionResponse> response = await PoogieApi.GetLatestVersion();
 
-        public async Task DownloadVersion(string version, EventHandler<PoogieDownloadEventArgs> callback)
-        {
+        if (response is null || !response.Success)
+            return null;
 
-            using Poogie request = PoogieFactory.Default()
-                                    .Get($"/v1/version/{version}")
-                                    .WithHeader("X-Supporter-Token", ClientConfig.Config.Client.SupporterSecretToken)
-                                    .WithTimeout(TimeSpan.FromSeconds(10))
-                                    .Build();
+        return response.Response?.LatestVersion;
+    }
 
-            using PoogieResponse resp = await request.RequestAsync();
+    public async Task DownloadVersion(string version, EventHandler<PoogieDownloadEventArgs> callback)
+    {
 
-            if (!resp.Success)
-                return;
+        using Poogie request = PoogieFactory.Default()
+                                .Get($"/v1/version/{version}")
+                                .WithHeader("X-Supporter-Token", ClientConfig.Config.Client.SupporterSecretToken)
+                                .WithTimeout(TimeSpan.FromSeconds(10))
+                                .Build();
 
-            if (resp.Status != HttpStatusCode.OK)
-                return;
+        using PoogieResponse resp = await request.RequestAsync();
 
-            resp.OnDownloadProgressChanged += callback;
-            await resp.Download(ClientInfo.GetPathFor(@"temp/HunterPie.zip"));
-            resp.OnDownloadProgressChanged -= callback;
-        }
+        if (!resp.Success)
+            return;
+
+        if (resp.Status != HttpStatusCode.OK)
+            return;
+
+        resp.OnDownloadProgressChanged += callback;
+        await resp.Download(ClientInfo.GetPathFor(@"temp/HunterPie.zip"));
+        resp.OnDownloadProgressChanged -= callback;
     }
 }

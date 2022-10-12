@@ -1,13 +1,9 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Domain.Interfaces;
 
-namespace HunterPie.Internal.Initializers
+namespace HunterPie.Internal.Initializers;
+
+internal class ConfigManagerInitializer : IInitializer
 {
-    internal class ConfigManagerInitializer : IInitializer
-    {
-        public void Init()
-        {
-            ConfigManager.Initialize();
-        }
-    }
+    public void Init() => ConfigManager.Initialize();
 }

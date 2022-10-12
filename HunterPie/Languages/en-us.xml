@@ -85,10 +85,10 @@
         <Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Infernal Melody"/>
         <Abnormality Id="ABNORMALITY_SPEED_EVADE_UP" String="Speed Boost + Evade Window Up"/>
         <Abnormality Id="ABNORMALITY_ALL_RES_ELEMENT_ATTACK" String="Elemental Effectiveness"/>
-        
+
         <Abnormality Id="ABNORMALITY_RESUSCITATE" String="Resuscitate"/>
         <Abnormality Id="ABNORMALITY_WINDPROOF" String="Windproof"/>
-        
+
         <Abnormality Id="ABNORMALITY_MIGHT_SEED" String="Might Seed"/>
         <Abnormality Id="ABNORMALITY_MIGHT_PILL" String="Might Pill"/>
         <Abnormality Id="ABNORMALITY_DEMONDRUG" String="Demondrug"/>
@@ -125,11 +125,11 @@
         <Abnormality Id="ABNORMALITY_RUBY_WIREBUG" String="Ruby Wirebug"/>
         <Abnormality Id="ABNORMALITY_GOLD_WIREBUG" String="Gold Wirebug"/>
         <Abnormality Id="ABNORMALITY_STINKMINK" String="Stinkmink"/>
-        
+
         <Abnormality Id="ABNORMALITY_DANGO_BULKER" String="Dango Bulker"/>
         <Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="Dango Booster"/>
         <Abnormality Id="ABNORMALITY_DANGO_GLUTTON" String="Dango Glutton"/>
-        
+
         <Abnormality Id="ABNORMALITY_FORTIFY" String="Fortify"/>
         <Abnormality Id="ABNORMALITY_COUNTERSTRIKE" String="Counterstrike"/>
         <Abnormality Id="ABNORMALITY_CHAIN_CRIT" String="Chain Crit"/>
@@ -530,9 +530,11 @@
                     String="Outcome:"/>
             <String Id="MEOWCENARIES_BUDDIES_STRING"
                     String="Buddies:"/>
-            
-            <String Id="COHOOT_NEST_STRING"
-                    String="Cohoot Nest: "/>
+			
+			<String Id="COHOOT_KAMURA_NEST_STRING"
+                    String="Kamura Nest: "/>
+			<String Id="COHOOT_ELGADO_NEST_STRING"
+                    String="Elgado Nest: "/>
         </Overlay>
         <Tabs>
             <Tab Id="CONSOLE_STRING"
@@ -547,6 +549,8 @@
                  String="Settings"/>
             <Tab Id="PATREON_STRING"
                  String="Patreon"/>
+            <Tab Id="GITHUB_STRING"
+                 String="Github"/>
         </Tabs>
         <Generics>
             <Generic Id="HUNTERPIE_LAUNCH_GAME"
@@ -558,6 +562,26 @@
             <Generic Id="HUNTERPIE_CURRENT_SELECTED_CONFIG"
                      String="Configuration for:"/>
         </Generics>
+        <Dialogs>
+            <!-- Do not edit the text inside {} -->
+            <Dialog Id="UPDATE_TITLE_STRING"
+                    String="Update"/>
+            <Dialog Id="UPDATE_CONFIRMATION_DESCRIPTION_STRING"
+                    String="Version v{Latest} is now available.&#x0a;Do you want to update now?"/>
+            <Dialog Id="CONFIRMATION_TITLE_STRING"
+                    String="Confirmation"/>
+            <Dialog Id="DELETE_CONFIRMATION_DESCRIPTION_STRING"
+                    String="Are you sure you want to delete {Item}?"/>
+            <Dialog Id="EXIT_CONFIRMATION_DESCRIPTION_STRING"
+                    String="Are you sure you want to exit HunterPie?"/>
+
+            <Button Id="ACCEPT_STRING"
+                  String="Accept"/>
+            <Button Id="REJECT_STRING"
+                  String="Reject"/>
+            <Button Id="CANCEL_STRING"
+                  String="Cancel"/>
+        </Dialogs>
         <Integrations>
             <!-- Shared between games -->
             <Discord Id="DRPC_STATE_HUNTING"
@@ -592,6 +616,40 @@
                      String="{Character} | HR: {HighRank} | MR: {MasterRank}"/>
             <Discord Id="DRPC_WORLD_STATE_PRACTICE"
                      String="Training"/>
+
+            <!-- Poogie Integration -->
+            <Poogie Id="ERROR_INVALID_USERNAME"
+                    String="Username is not valid!"/>
+            <Poogie Id="ERROR_INVALID_PASSWORD"
+                    String="Password is not valid!"/>
+            <Poogie Id="ERROR_INVALID_EMAIL"
+                    String="Email is not valid!"/>
+            <Poogie Id="ERROR_INVALID_CREDENTIALS"
+                    String="No account was found with that username and password."/>
+            <Poogie Id="ERROR_USER_NOT_FOUND"
+                    String="Hmm... That user was not found!"/>
+            <Poogie Id="ERROR_USER_ALREADY_EXISTS"
+                    String="There's already an user with that email or username!"/>
+            <Poogie Id="ERROR_UNVERIFIED_ACCOUNT"
+                    String="Account must be verified first! Please check your email, including your spam folder to verify the account."/>
+            <Poogie Id="INVALID_IMAGE"
+                    String="File is not a valid image!"/>
+            <Poogie Id="FAILED_TO_UPDATE_AVATAR"
+                    String="Failed to upload avatar, please try again in a few minutes."/>
+            <Poogie Id="ERROR_AVATAR_SIZE_TOO_LARGE"
+                    String="Failed to upload avatar, size was above 3.5 MB."/>
+
+            <Poogie Id="LOGIN_SUCCESS"
+                    String="Welcome {Username}! You're now logged in."/>
+            <Poogie Id="ACCOUNT_REGISTER_SUCCESS"
+                    String="Account verification will be sent to {Email} shortly. Please make sure to check your inbox and spam folders!"/>
+            <Poogie Id="AVATAR_UPLOAD_SUCCESS"
+                    String="Uploaded new avatar"/>
+
+			<Poogie Id="BACKUP_NOT_ENABLED_STRING"
+                    String="Looks like you don't have automatic backups enabled.&#10;You can enable it in your Account settings."/>
+			<Poogie Id="BACKUP_NOT_FOUND_STRING"
+                    String="You have no backups."/>
         </Integrations>
         <Enums>
             <Enum Id="SORT_BY_LOWEST_TIMER_STRING"
@@ -600,7 +658,7 @@
                   String="Highest"/>
             <Enum Id="SORT_BY_DISABLED_STRING"
                   String="No sorting"/>
-            
+
             <Enum Id="ORIENTATION_HORIZONTAL_STRING"
                   String="Horizontal"/>
             <Enum Id="ORIENTATION_VERTICAL_STRING"
@@ -652,6 +710,9 @@
             <Setting Id="DEV_TOOLS_STRING"
                      String="Dev Tools"
                      Description="Advanced development tools"/>
+			<Setting Id="ACCOUNT_STRING"
+                     String="Account"
+                     Description="Account settings"/>
 
             <Setting Id="ABNORMALITY_SONGS_STRING"
                      String="Songs"
@@ -696,6 +757,9 @@
             <Setting Id="SEAMLESS_SHUTDOWN_STRING"
                      String="Enable seamless shutdown"
                      Description="If enabled, HunterPie will not prompt you for confirmation on exit."/>
+            <Setting Id="ENABLE_NATIVE_MODULE_STRING"
+                     String="Enable native module (Read description carefully)"
+                     Description="If enabled, HunterPie will patch the game to enable some functionality (e.g., damage meter during expedition).&#10;If you do not have [Stracker's Loader] and [Performance Booster and Plugin Extender](CRCBypass) mods, this option can crash the game over extended periods of play.&#10;Need to restart the game to take effect."/>
             <Setting Id="SHUTDOWN_ON_GAME_EXIT"
                      String="Close on game exit"
                      Description="If enabled, HunterPie will automatically close itself when the game is closed."/>
@@ -724,14 +788,14 @@
             <Setting Id="DRPC_ENABLE_SHOW_MONSTER_HEALTH"
                      String="Show target monster health"
                      Description="If enabled, HunterPie will display the target monster's health in your Discord status when available."/>
-            
+
             <Setting Id="OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE"
                      String="[Hot Key] Toggle Design Mode"
                      Description="Hot Key to toggle design mode on and off."/>
             <Setting Id="OVERLAY_HIDE_WHEN_GAME_UNFOCUS_STRING"
                      String="Hide Widgets when game is not focused"
                      Description="If enabled, all Widgets will be automatically hidden when the game is not the foreground window."/>
-            
+
             <Setting Id="INITIALIZE_WIDGET_STRING"
                      String="Initialize widget"
                      Description="If enabled, HunterPie will always initialize this widget. Turn this off if you don't want this widget."/>
@@ -803,12 +867,6 @@
             <Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
                      String="Sort by"
                      Description="Selects the sorting algorithm used to sort all abnormalities."/>
-            <Setting Id="SORT_BY_LOWEST_TIMER_STRING"
-                     String="Lowest time"/>
-            <Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
-                     String="Highest time"/>
-            <Setting Id="SORT_BY_DISABLED_STRING"
-                     String="Disabled"/>
 
             <Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
                      String="Patch in-game Wirebug Aim"
@@ -881,6 +939,11 @@
                      String="Developer: Log level"/>
             <Setting Id="DEV_PRESENTATION_TRACER_LEVEL"
                      String="Developer: UI rendering tracer level"/>
+
+			<!-- Account -->
+			<Setting Id="ACCOUNT_ENABLE_BACKUP_STRING"
+                     String="Enable game save backup"
+                     Description="If enabled, HunterPie will automatically backup your game saves and upload them to the cloud."/>
         </Settings>
     </Client>
 </Strings>

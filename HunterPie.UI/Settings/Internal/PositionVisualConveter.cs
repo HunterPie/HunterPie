@@ -3,17 +3,16 @@ using HunterPie.UI.Settings.Converter;
 using System.Reflection;
 using System.Windows;
 
-namespace HunterPie.UI.Settings.Internal
+namespace HunterPie.UI.Settings.Internal;
+
+internal class PositionVisualConveter : IVisualConverter
 {
-    class PositionVisualConveter : IVisualConverter
+    public FrameworkElement Build(object parent, PropertyInfo childInfo)
     {
-        public FrameworkElement Build(object parent, PropertyInfo childInfo)
+        return new PositionTextBox()
         {
-            return new PositionTextBox()
-            {
-                DataContext = childInfo.GetValue(parent),
-                MaxWidth = 200
-            };
-        }
+            DataContext = childInfo.GetValue(parent),
+            MaxWidth = 200
+        };
     }
 }

@@ -1,22 +1,16 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using HunterPie.Core.Domain.Interfaces;
 
-namespace HunterPie.Core.Client
+namespace HunterPie.Core.Client;
+
+public static class RegistryConfig
 {
-    public class RegistryConfig
-    {
+    private static ILocalRegistry _localRegistry;
 
-        internal static RegistryKey key;
+    public static void Initialize(ILocalRegistry registry) => _localRegistry = registry;
 
-        public static void Initialize()
-        {
-            key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HunterPie");
-        }
+    public static void Set<T>(string name, T value) => _localRegistry.Set(name, value);
+    public static bool Exists(string name) => _localRegistry.Exists(name);
+    public static object Get(string name) => _localRegistry.Get(name);
+    public static T Get<T>(string name) => _localRegistry.Get<T>(name);
 
-        public static void Set<T>(string name, T value) => key.SetValue(name, value);
-        public static bool Exists(string name) => key.GetValue(name) is not null;
-        public static object Get(string name) => key.GetValue(name);
-        public static T Get<T>(string name) => (T)Convert.ChangeType(key.GetValue(name), typeof(T));
-
-    }
 }

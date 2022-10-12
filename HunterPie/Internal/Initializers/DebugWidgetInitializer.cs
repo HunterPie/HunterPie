@@ -7,15 +7,14 @@ using HunterPie.Domain.Interfaces;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Metrics.View;
 
-namespace HunterPie.Internal.Initializers
+namespace HunterPie.Internal.Initializers;
+
+internal class DebugWidgetInitializer : IInitializer
 {
-    internal class DebugWidgetInitializer : IInitializer
+    public void Init()
     {
-        public void Init()
-        {
-            var config = ClientConfigHelper.GetOverlayConfigFrom(GameProcess.MonsterHunterRise);
-            if (FeatureFlagManager.IsEnabled(FeatureFlags.FEATURE_METRICS_WIDGET))
-                WidgetManager.Register<TelemetricsView, TelemetricsWidgetConfig>(new TelemetricsView(config.DebugWidget));
-        }
+        Core.Client.Configuration.OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(GameProcess.MonsterHunterRise);
+        if (FeatureFlagManager.IsEnabled(FeatureFlags.FEATURE_METRICS_WIDGET))
+            _ = WidgetManager.Register<TelemetricsView, TelemetricsWidgetConfig>(new TelemetricsView(config.DebugWidget));
     }
 }

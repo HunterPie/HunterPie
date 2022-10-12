@@ -6,38 +6,35 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace HunterPie.Internal.Initializers
+namespace HunterPie.Internal.Initializers;
+
+internal class CustomFontsInitializer : IInitializer, IDisposable
 {
-    internal class CustomFontsInitializer : IInitializer, IDisposable
+    private static readonly string _fontsFolder = ClientInfo.GetPathFor("Assets\\Fonts");
+
+    private static readonly Lazy<string[]> _fonts = new(() =>
     {
-        private static string _fontsFolder = ClientInfo.GetPathFor("Assets\\Fonts");
+        return !Directory.Exists(_fontsFolder)
+            ? Array.Empty<string>()
+            : Directory.EnumerateFiles(_fontsFolder)
+                        .ToArray();
+    });
 
-        private static Lazy<string[]> _fonts = new Lazy<string[]>(() =>
+    public void Init()
+    {
+        foreach (string fontName in _fonts.Value)
+            _ = Gdi32.AddFontResourceW(fontName);
+
+    }
+
+    public void Dispose()
+    {
+        foreach (string fontName in _fonts.Value)
         {
-            if (!Directory.Exists(_fontsFolder))
-                return Array.Empty<string>();
+            int result = Gdi32.RemoveFontResourceW(fontName);
 
-            return Directory.EnumerateFiles(_fontsFolder)
-                            .ToArray();
-        });
-
-        public void Init()
-        {
-            foreach (string fontName in _fonts.Value)
-                _ = Gdi32.AddFontResourceW(fontName);
-
+            if (result == 0)
+                Log.Error("Failed to remove font resource. Error code: {0}", result);
         }
-
-        public void Dispose()
-        {
-            foreach (string fontName in _fonts.Value)
-            {
-                int result = Gdi32.RemoveFontResourceW(fontName);
-
-                if (result == 0)
-                    Log.Error("Failed to remove font resource. Error code: {0}", result);
-            }
-        }
-
     }
 }

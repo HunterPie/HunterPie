@@ -1,29 +1,61 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.UI.Overlay;
 using System;
+using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 
-namespace HunterPie.UI.Architecture
+namespace HunterPie.UI.Architecture;
+
+public class View<TViewModel> : UserControl
+    where TViewModel : Bindable
 {
-    public class View<TViewModel> : UserControl
-        where TViewModel : Bindable
+    public TViewModel ViewModel => (TViewModel)DataContext;
+
+    protected virtual TViewModel InitializeViewModel(params object[] args)
     {
-        public TViewModel ViewModel => (TViewModel)DataContext;
-
-        protected virtual TViewModel InitializeViewModel(params object[] args)
+        if (this is IWidgetWindow)
         {
-            if (this is IWidgetWindow widget)
-                try
-                {
-                    return (TViewModel)Activator.CreateInstance(typeof(TViewModel), args);
-                } catch { };
+            try
+            {
+                return (TViewModel)Activator.CreateInstance(typeof(TViewModel), args);
+            }
+            catch { }
+        };
 
-            return Activator.CreateInstance<TViewModel>();
-        }
-
-        public View(params object[] args)
-        {
-            DataContext = InitializeViewModel(args);
-        }
+        return Activator.CreateInstance<TViewModel>();
     }
+    protected bool IsDesignMode => DesignerProperties.GetIsInDesignMode(this);
+
+    public View()
+    {
+        DataContext = InitializeViewModel();
+    }
+
+    public View(params object[] args)
+    {
+        DataContext = InitializeViewModel(args);
+    }
+
+    protected override void OnInitialized(EventArgs e)
+    {
+        base.OnInitialized(e);
+
+        if (IsDesignMode)
+            return;
+
+        Unloaded += OnViewUnloaded;
+
+        Initialize();
+    }
+
+    private void OnViewUnloaded(object sender, RoutedEventArgs e)
+    {
+        if (ViewModel is IDisposable vm)
+            vm.Dispose();
+
+        Unloaded -= OnViewUnloaded;
+    }
+
+    protected virtual void Initialize() { }
 }

@@ -2,13 +2,9 @@
 using HunterPie.Core.Domain.Mapper.Internal;
 using HunterPie.Domain.Interfaces;
 
-namespace HunterPie.Internal.Initializers
+namespace HunterPie.Internal.Initializers;
+
+internal class MapperFactoryInitializer : IInitializer
 {
-    internal class MapperFactoryInitializer : IInitializer
-    {
-        public void Init()
-        {
-            MapFactory.Add(new GameTypeToGameProcessMapper());
-        }
-    }
+    public void Init() => MapFactory.Add(new GameTypeToGameProcessMapper());
 }

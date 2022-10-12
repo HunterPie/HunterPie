@@ -7,47 +7,47 @@ using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Wirebug;
+using System;
 
-namespace HunterPie.Features.Overlay
+namespace HunterPie.Features.Overlay;
+
+internal class WirebugWidgetInitializer : IWidgetInitializer
 {
-    internal class WirebugWidgetInitializer : IWidgetInitializer
+    private IContextHandler _handler;
+
+    public void Load(Context context)
     {
-        private IContextHandler _handler;
+        Core.Client.Configuration.OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
 
-        public void Load(Context context)
+        if (!config.WirebugWidget.Initialize)
+            return;
+
+        if (context is MHRContext ctx)
         {
-            var config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
-
-            if (!config.WirebugWidget.Initialize)
-                return;
-
-            if (context is MHRContext ctx)
-            {
-                PatchInGameHudAssembly(context);
-                _handler = new WirebugWidgetContextHandler(ctx);
-            }
+            PatchInGameHudAssembly(context);
+            _handler = new WirebugWidgetContextHandler(ctx);
         }
+    }
 
-        public void Unload()
-        {
-            _handler?.UnhookEvents();
-        }
+    public void Unload() => _handler?.UnhookEvents();
 
-        /*
-            * MHR has a built-in option to hide the Wirebug visual elements,
-            * however, turning that off also turns off the player's aim
-            * This patch aims to patch that instruction that hides the aim
-            * so it hides only the Wirebug elements.
-            * 
-            * Original instructions:
-            * `and qword ptr[rax+50],-02`
-            * 
-            * Patched instructions:
-            * `or qword ptr[rax+50], 01`
-        */
-        private void PatchInGameHudAssembly(Context context)
+    /*
+        * MHR has a built-in option to hide the Wirebug visual elements,
+        * however, turning that off also turns off the player's aim
+        * This patch aims to patch that instruction that hides the aim
+        * so it hides only the Wirebug elements.
+        * 
+        * Original instructions:
+        * `and qword ptr[rax+50],-02`
+        * 
+        * Patched instructions:
+        * `or qword ptr[rax+50], 01`
+    */
+    private void PatchInGameHudAssembly(Context context)
+    {
+        try
         {
-            var config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
+            Core.Client.Configuration.OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
 
             if (!config.WirebugWidget.PatchInGameHud)
                 return;
@@ -59,13 +59,13 @@ namespace HunterPie.Features.Overlay
                 0x48, 0x83, 0x48, 0x50, 0x1
             };
 
-            if (!context.Process.Memory.InjectAsm(wirebugAimAddress, assembly))
-            {
-                Log.Error("Failed to patch in-game Wirebug HUD");
-                return;
-            }
+            context.Process.Memory.InjectAsm(wirebugAimAddress, assembly);
 
             Log.Debug("Successfully patched Wirebug aim");
+        }
+        catch (Exception ex)
+        {
+            Log.Error("Failed to patch in-game Wirebug HUD: {0}", ex);
         }
     }
 }

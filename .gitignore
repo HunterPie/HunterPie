@@ -24,3 +24,8 @@ Icons
 *.user
 *.userosscache
 *.sln.docstates
+
+# Installer
+
+Installer/*.ttf
+Installer/installer

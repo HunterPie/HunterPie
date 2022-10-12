@@ -3,33 +3,32 @@ using System;
 using System.Linq;
 using System.Windows;
 
-namespace HunterPie.UI.Architecture.Extensions
+namespace HunterPie.UI.Architecture.Extensions;
+
+public static class ObjectExtensions
 {
-    public static class ObjectExtensions
+    /// <summary>
+    /// Converts a boxed string into thickness
+    /// </summary>
+    /// <param name="self">The string thickness formatted</param>
+    /// <returns>Thickness</returns>
+    public static Thickness ToThickness(this object self)
     {
-        /// <summary>
-        /// Converts a boxed string into thickness
-        /// </summary>
-        /// <param name="self">The string thickness formatted</param>
-        /// <returns>Thickness</returns>
-        public static Thickness ToThickness(this object self)
+        if (self is string str)
         {
-            if (self is string str)
-            {
-                double[] values = str.Split(',')
-                    .Select(e => double.Parse(e))
-                    .ToArray();
+            double[] values = str.Split(',')
+                .Select(e => double.Parse(e))
+                .ToArray();
 
-                return new Thickness(values[0], values[1], values[2], values[3]);
-            }
-
-            throw new ArgumentException("argument must be of type string");
+            return new Thickness(values[0], values[1], values[2], values[3]);
         }
 
-        public static TOut CopyAs<TIn, TOut>(this TIn @object)
-        {
-            var serialized = JsonProvider.Serialize(@object);
-            return JsonProvider.Deserialize<TOut>(serialized);
-        }
+        throw new ArgumentException("argument must be of type string");
+    }
+
+    public static TOut CopyAs<TIn, TOut>(this TIn @object)
+    {
+        string serialized = JsonProvider.Serialize(@object);
+        return JsonProvider.Deserialize<TOut>(serialized);
     }
 }

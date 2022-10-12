@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Architecture;
-using HunterPie.Core.Client;
+﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Remote;
@@ -7,155 +6,156 @@ using HunterPie.UI.Architecture;
 using System.Collections.ObjectModel;
 using System.IO;
 
-namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels
+namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
+
+public class BossMonsterViewModel : ViewModel
 {
-    public class BossMonsterViewModel : ViewModel
+    private string name;
+    private string em;
+    private double health;
+    private double maxHealth;
+    private double healthPercentage;
+    private double stamina;
+    private double maxStamina;
+    private bool isTarget;
+    private Target _targetType = Target.None;
+    private bool isEnraged;
+    private Crown _crown;
+    private string _icon;
+    private bool _isLoadingIcon = true;
+    private bool _isAlive;
+    private double _captureThreshold;
+    private bool _isCapturable;
+    private bool _canBeCaptured;
+
+    public MonsterWidgetConfig Config { get; }
+    private readonly ObservableCollection<MonsterPartViewModel> _parts = new();
+    private readonly ObservableCollection<MonsterAilmentViewModel> _ailments = new();
+    private readonly ObservableCollection<Element> _weaknesses = new();
+
+    public BossMonsterViewModel(MonsterWidgetConfig config)
     {
-        private readonly MonsterWidgetConfig _config;
-        private string name;
-        private string em;
-        private double health;
-        private double maxHealth;
-        private double healthPercentage;
-        private double stamina;
-        private double maxStamina;
-        private bool isTarget;
-        private Target _targetType = Target.None;
-        private bool isEnraged;
-        private Crown _crown;
-        private string _icon;
-        private bool _isLoadingIcon = true;
-        private bool _isAlive;
-        private double _captureThreshold;
-        private bool _isCapturable;
-        private bool _canBeCaptured;
+        Config = config;
+    }
 
-        public MonsterWidgetConfig Config => _config;
-        private readonly ObservableCollection<MonsterPartViewModel> _parts = new();
-        private readonly ObservableCollection<MonsterAilmentViewModel> _ailments = new();
-        private readonly ObservableCollection<Element> _weaknesses = new();
+    // Monster data
+    public string Name
+    {
+        get => name;
+        set => SetValue(ref name, value);
+    }
 
-        public BossMonsterViewModel(MonsterWidgetConfig config) => _config = config;
-        
-        // Monster data
-        public string Name
-        {
-            get => name;
-            set { SetValue(ref name, value); }
-        }
+    public string Em
+    {
+        get => em;
+        set => SetValue(ref em, value);
+    }
 
-        public string Em
+    public double Health
+    {
+        get => health;
+        set
         {
-            get => em;
-            set { SetValue(ref em, value); }
+            SetValue(ref health, value);
+            HealthPercentage = Health / MaxHealth * 100;
         }
-        
-        public double Health
-        {
-            get => health;
-            set
-            {
-                SetValue(ref health, value);
-                HealthPercentage = Health / MaxHealth * 100;
-            }
-        }
-        public double MaxHealth
-        {
-            get => maxHealth;
-            set { SetValue(ref maxHealth, value); }
-        }
-        
-        public double HealthPercentage
-        {
-            get => healthPercentage;
-            private set { SetValue(ref healthPercentage, value); }
-        }
-        
-        public double Stamina
-        {
-            get => stamina;
-            set { SetValue(ref stamina, value); }
-        }
-        
-        public double MaxStamina
-        {
-            get => maxStamina;
-            set { SetValue(ref maxStamina, value); }
-        }
+    }
+    public double MaxHealth
+    {
+        get => maxHealth;
+        set => SetValue(ref maxHealth, value);
+    }
 
-        public Crown Crown
-        {
-            get => _crown;
-            set { SetValue(ref _crown, value); }
-        }
+    public double HealthPercentage
+    {
+        get => healthPercentage;
+        private set => SetValue(ref healthPercentage, value);
+    }
 
-        public Target TargetType
-        {
-            get => _targetType;
-            set { SetValue(ref _targetType, value); }
-        }
+    public double Stamina
+    {
+        get => stamina;
+        set => SetValue(ref stamina, value);
+    }
 
-        public double CaptureThreshold
-        {
-            get => _captureThreshold;
-            set { SetValue(ref _captureThreshold, value); }
-        }
-        public bool IsCapturable
-        {
-            get => _isCapturable;
-            set { SetValue(ref _isCapturable, value); }
-        }
+    public double MaxStamina
+    {
+        get => maxStamina;
+        set => SetValue(ref maxStamina, value);
+    }
 
-        public bool CanBeCaptured
-        {
-            get => _canBeCaptured;
-            set { SetValue(ref _canBeCaptured, value); }
-        }
+    public Crown Crown
+    {
+        get => _crown;
+        set => SetValue(ref _crown, value);
+    }
 
-        public ref readonly ObservableCollection<MonsterPartViewModel> Parts => ref _parts;
-        public ref readonly ObservableCollection<MonsterAilmentViewModel> Ailments => ref _ailments;
-        public ref readonly ObservableCollection<Element> Weaknesses => ref _weaknesses;
+    public Target TargetType
+    {
+        get => _targetType;
+        set => SetValue(ref _targetType, value);
+    }
 
-        // Monster states
-        public bool IsEnraged
-        {
-            get => isEnraged;
-            set { SetValue(ref isEnraged, value); }
-        }
+    public double CaptureThreshold
+    {
+        get => _captureThreshold;
+        set => SetValue(ref _captureThreshold, value);
+    }
+    public bool IsCapturable
+    {
+        get => _isCapturable;
+        set => SetValue(ref _isCapturable, value);
+    }
 
-        public bool IsTarget
-        {
-            get => isTarget;
-            set { SetValue(ref isTarget, value); }
-        }
+    public bool CanBeCaptured
+    {
+        get => _canBeCaptured;
+        set => SetValue(ref _canBeCaptured, value);
+    }
 
-        public bool IsLoadingIcon
-        {
-            get => _isLoadingIcon;
-            set { SetValue(ref _isLoadingIcon, value); }
-        }
+    public ref readonly ObservableCollection<MonsterPartViewModel> Parts => ref _parts;
+    public ref readonly ObservableCollection<MonsterAilmentViewModel> Ailments => ref _ailments;
+    public ref readonly ObservableCollection<Element> Weaknesses => ref _weaknesses;
 
-        public string Icon
-        {
-            get => _icon;
-            set { SetValue(ref _icon, value); }
-        }
+    // Monster states
+    public bool IsEnraged
+    {
+        get => isEnraged;
+        set => SetValue(ref isEnraged, value);
+    }
 
-        public bool IsAlive { get => _isAlive; set { SetValue(ref _isAlive, value); } }
+    public bool IsTarget
+    {
+        get => isTarget;
+        set => SetValue(ref isTarget, value);
+    }
 
-        public async void FetchMonsterIcon()
-        {
-            IsLoadingIcon = true;
+    public bool IsLoadingIcon
+    {
+        get => _isLoadingIcon;
+        set => SetValue(ref _isLoadingIcon, value);
+    }
 
-            string imageName = Em;
-            string imagePath = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{imageName}.png");
+    public string Icon
+    {
+        get => _icon;
+        set => SetValue(ref _icon, value);
+    }
 
-            // If file doesn't exist locally, we can check for the CDN
-            if (!File.Exists(imagePath))
-                imagePath = await CDN.GetMonsterIconUrl(imageName);
+    public bool IsAlive { get => _isAlive; set => SetValue(ref _isAlive, value); }
 
-            IsLoadingIcon = false;
-            Icon = imagePath;
-        }
+    public async void FetchMonsterIcon()
+    {
+        IsLoadingIcon = true;
+
+        string imageName = Em;
+        string imagePath = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{imageName}.png");
+
+        // If file doesn't exist locally, we can check for the CDN
+        if (!File.Exists(imagePath))
+            imagePath = await CDN.GetMonsterIconUrl(imageName);
+
+        IsLoadingIcon = false;
+        Icon = imagePath;
     }
 }

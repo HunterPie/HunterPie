@@ -1,10 +1,9 @@
 ﻿using HunterPie.Core.Settings;
 
-namespace HunterPie.UI.Overlay
+namespace HunterPie.UI.Overlay;
+
+public interface IWidget<T> where T : IWidgetSettings
 {
-    public interface IWidget<T> where T : IWidgetSettings
-    {
-        public T Settings { get; }
-        public string Title { get; }
-    }
+    public T Settings { get; }
+    public string Title { get; }
 }

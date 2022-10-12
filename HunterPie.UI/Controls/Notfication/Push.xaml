@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="HunterPie.UI.Controls.Notfication.Push"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Controls.Notfication"
+             mc:Ignorable="d"
+             MinWidth="200"
+             MaxWidth="350">
+    <Border CornerRadius="5"
+            d:BorderBrush="{StaticResource GREEN_LIGHT_300}"
+            BorderBrush="{Binding Foreground, Mode=OneTime}"
+            BorderThickness="1"
+            d:Background="{StaticResource GREEN_700}"
+            Background="{Binding Background, Mode=OneTime}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="33"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Rectangle d:Fill="{StaticResource GREEN_LIGHT_400}"
+                       Fill="{Binding Foreground, Mode=OneTime}"
+                       Margin="6"
+                       Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                       VerticalAlignment="Center">
+                <Rectangle.OpacityMask>
+                    <ImageBrush d:ImageSource="{StaticResource ICON_CHECKMARK}"
+                                ImageSource="{Binding Icon, Mode=OneTime}"
+                                Stretch="Uniform"/>
+                </Rectangle.OpacityMask>
+            </Rectangle>
+
+            <TextBlock d:Text="Testing asdljkhaskj hkasdhkaj shdkjash jas açskdjkl aaldk jaslk ajsldkjlak jdlkasjd alksdj kl alkshdla h ajsdhskj kjas hdkjas"
+                       Text="{Binding Message, Mode=OneTime}"
+                       d:Foreground="{StaticResource GREEN_LIGHT_400}"
+                       Foreground="{Binding Foreground, Mode=OneTime}"
+                       VerticalAlignment="center"
+                       Grid.Column="1"
+                       Margin="5"
+                       TextWrapping="WrapWithOverflow"
+                       FontSize="13"/>
+        </Grid>
+    </Border>
+    <UserControl.Style>
+        <Style TargetType="local:Push">
+            <Style.Triggers>
+                <Trigger Property="IsVisible" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                 To="1"
+                                                 From="0"
+                                                 Duration="0:0:0.30"/>
+                                <ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                                    To="0,0,0,5"
+                                                    Duration="0:0:0.35">
+                                    <ThicknessAnimation.EasingFunction>
+                                        <QuadraticEase EasingMode="EaseIn"/>
+                                    </ThicknessAnimation.EasingFunction>
+                                </ThicknessAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
+</UserControl>

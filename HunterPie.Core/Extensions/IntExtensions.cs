@@ -1,8 +1,9 @@
-﻿namespace HunterPie.Core.Extensions
+﻿namespace HunterPie.Core.Extensions;
+
+public static class IntExtensions
 {
-    public static class IntExtensions
-    {
-        const int PET_ID_START = 5;
-        public static int ToPetId(this int self) => self + PET_ID_START;
-    }
+    private const int PET_ID_START = 5;
+    public static int ToPetId(this int self) => self + PET_ID_START;
+
+    public static bool IsMHWQuestOver(this int self) => self == 3;
 }

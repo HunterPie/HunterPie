@@ -2,48 +2,41 @@
 using HunterPie.Core.Game.Enums;
 using HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel;
 
-namespace HunterPie.UI.Overlay.Widgets.Abnormality
+namespace HunterPie.UI.Overlay.Widgets.Abnormality;
+
+internal class AbnormalityContextHandler : AbnormalityViewModel, IContextHandler
 {
-    class AbnormalityContextHandler : AbnormalityViewModel, IContextHandler
+
+    public readonly IAbnormality Context;
+
+    public AbnormalityContextHandler(IAbnormality context)
     {
+        Context = context;
 
-        public readonly IAbnormality Context;
+        UpdateData();
+        HookEvents();
+    }
 
-        public AbnormalityContextHandler(IAbnormality context)
-        {
-            Context = context;
-            
-            UpdateData();
-            HookEvents();
-        }
+    public void HookEvents() => Context.OnTimerUpdate += OnTimerUpdate;
 
-        public void HookEvents()
-        {
-            Context.OnTimerUpdate += OnTimerUpdate;
-        }
+    private void OnTimerUpdate(object sender, IAbnormality e)
+    {
+        if (!IsBuildup && (int)e.Timer == (int)Timer)
+            return;
 
-        private void OnTimerUpdate(object sender, IAbnormality e)
-        {
-            if (!IsBuildup && (int)e.Timer == (int)Timer)
-                return;
+        MaxTimer = e.MaxTimer;
+        Timer = e.Timer;
+    }
 
-            MaxTimer = e.MaxTimer;
-            Timer = e.Timer;
-        }
+    public void UnhookEvents() => Context.OnTimerUpdate -= OnTimerUpdate;
 
-        public void UnhookEvents()
-        {
-            Context.OnTimerUpdate -= OnTimerUpdate;
-        }
-
-        private void UpdateData()
-        {
-            IsBuff = Context.Type != AbnormalityType.Debuff;
-            Name = Context.Id;
-            Icon = Context.Icon;
-            MaxTimer = Context.MaxTimer;
-            Timer = Context.Timer;
-            IsBuildup = Context.IsBuildup;
-        }
+    private void UpdateData()
+    {
+        IsBuff = Context.Type != AbnormalityType.Debuff;
+        Name = Context.Id;
+        Icon = Context.Icon;
+        MaxTimer = Context.MaxTimer;
+        Timer = Context.Timer;
+        IsBuildup = Context.IsBuildup;
     }
 }

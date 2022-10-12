@@ -1,4 +1,5 @@
-﻿using HunterPie.Domain.Sidebar;
+﻿using HunterPie.Core.Architecture;
+using HunterPie.Domain.Sidebar;
 using HunterPie.GUI.Parts.Sidebar.ViewModels;
 using HunterPie.UI.Architecture.Extensions;
 using System;
@@ -7,106 +8,92 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
-using HunterPie.Core.Domain.Features;
-using HunterPie.Core.Domain.Constants;
 
-namespace HunterPie.GUI.Parts.Sidebar
+namespace HunterPie.GUI.Parts.Sidebar;
+
+/// <summary>
+/// Interaction logic for SideBarContainer.xaml
+/// </summary>
+public partial class SideBarContainer : UserControl
 {
-    /// <summary>
-    /// Interaction logic for SideBarContainer.xaml
-    /// </summary>
-    public partial class SideBarContainer : UserControl
+    // TODO: Make a ViewModel for this
+    private static readonly ObservableCollection<ISideBarElement> _elements = new();
+
+    public ObservableCollection<ISideBarElement> Elements => _elements;
+
+    public Observable<bool> IsMouseInside { get; } = false;
+    private bool _isMouseDown;
+    private readonly Storyboard _selectSlideAnimation;
+
+    public double ItemsHeight
     {
-        private static readonly ObservableCollection<ISideBarElement> _elements = new ObservableCollection<ISideBarElement>();
+        get => (double)GetValue(ItemsHeightProperty);
+        set => SetValue(ItemsHeightProperty, value);
+    }
+    public static readonly DependencyProperty ItemsHeightProperty =
+        DependencyProperty.Register("ItemsHeight", typeof(double), typeof(SideBarContainer), new PropertyMetadata(20.0));
 
-        public ObservableCollection<ISideBarElement> Elements => _elements;
+    public Thickness SelectedButton
+    {
+        get => (Thickness)GetValue(SelectedButtonProperty);
+        set => SetValue(SelectedButtonProperty, value);
+    }
+    public static readonly DependencyProperty SelectedButtonProperty =
+        DependencyProperty.Register("SelectedButton", typeof(Thickness), typeof(SideBarContainer));
 
-        private bool _isMouseInside;
-        private bool _isMouseDown;
-        private readonly Storyboard _selectSlideAnimation;
+    public SideBarContainer()
+    {
+        InitializeComponent();
+        _selectSlideAnimation = this.FindResource<Storyboard>("PART_SelectionAnimation");
+        DataContext = this;
+    }
 
-        public double ItemsHeight
-        {
-            get { return (double)GetValue(ItemsHeightProperty); }
-            set { SetValue(ItemsHeightProperty, value); }
-        }
-        public static readonly DependencyProperty ItemsHeightProperty =
-            DependencyProperty.Register("ItemsHeight", typeof(double), typeof(SideBarContainer), new PropertyMetadata(20.0));
+    public static void SetMenu(ISideBar menu) => Add(menu.Menu);
 
-        public Thickness SelectedButton
-        {
-            get { return (Thickness)GetValue(SelectedButtonProperty); }
-            set { SetValue(SelectedButtonProperty, value); }
-        }
-        public static readonly DependencyProperty SelectedButtonProperty =
-            DependencyProperty.Register("SelectedButton", typeof(Thickness), typeof(SideBarContainer));
+    public static void Add(params ISideBarElement[] elements)
+    {
+        foreach (ISideBarElement element in elements)
+            _elements.Add(element);
+    }
 
-        public SideBarContainer()
-        {
-            InitializeComponent();
-            _selectSlideAnimation = this.FindResource<Storyboard>("PART_SelectionAnimation");
-            DataContext = this;
-        }
+    private void OnLeftMouseButtonDown(object sender, MouseButtonEventArgs e) => _isMouseDown = true;
 
-        protected override void OnInitialized(EventArgs e)
-        {
-            if (!FeatureFlagManager.IsEnabled(FeatureFlags.FEATURE_USER_ACCOUNT))
-                PART_UserAccount.Visibility = Visibility.Collapsed;
+    private void OnLeftMouseButtonUp(object sender, MouseButtonEventArgs e)
+    {
+        // Was a click!
+        if (_isMouseDown && IsMouseInside)
+            OnClick(e.GetPosition(this));
 
-            base.OnInitialized(e);
-        }
+        _isMouseDown = false;
+    }
 
-        public static void SetMenu(ISideBar menu)
-        {
-            Add(menu.Menu);
-        }
+    private void OnMouseEnter(object sender, MouseEventArgs e)
+    {
+        IsMouseInside.Value = true;
+        PART_ButtonsContainer.IsHitTestVisible = true;
+    }
 
-        public static void Add(params ISideBarElement[] elements)
-        {
-            foreach (ISideBarElement element in elements)
-                _elements.Add(element);
-        }
+    private void OnMouseLeave(object sender, MouseEventArgs e)
+    {
+        IsMouseInside.Value = false;
+        _isMouseDown = false;
+        PART_ButtonsContainer.IsHitTestVisible = false;
+    }
 
-        private void OnLeftMouseButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            _isMouseDown = true;
-        }
+    private void OnClick(Point mousePosition)
+    {
+        int idx = (int)Math.Abs(mousePosition.Y / ItemsHeight);
 
-        private void OnLeftMouseButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            // Was a click!
-            if (_isMouseDown && _isMouseInside) 
-                OnClick(e.GetPosition(this));
+        if (idx >= Elements.Count)
+            return;
 
-            _isMouseDown = false;
-        }
+        ISideBarElement element = Elements[idx];
 
-        private void OnMouseEnter(object sender, MouseEventArgs e)
-        {
-            _isMouseInside = true;
-        }
+        if (!element.IsActivable || !element.IsEnabled)
+            return;
 
-        private void OnMouseLeave(object sender, MouseEventArgs e)
-        {
-            _isMouseInside = false;
-            _isMouseDown = false;
-        }
-        
-        private void OnClick(Point mousePosition)
-        {
-            int idx = (int)Math.Abs(mousePosition.Y / ItemsHeight);
+        ((ThicknessAnimation)_selectSlideAnimation.Children[0]).To = new Thickness(0, idx * ItemsHeight, 0, 0);
 
-            if (idx >= Elements.Count)
-                return;
-
-            ISideBarElement element = Elements[idx];
-
-            if (!element.IsActivable || !element.IsEnabled)
-                return;
-
-            ((ThicknessAnimation)_selectSlideAnimation.Children[0]).To = new Thickness(0, idx * ItemsHeight, 0, 0);
-
-            PART_Selection.BeginStoryboard(_selectSlideAnimation);
-        }
+        PART_Selection.BeginStoryboard(_selectSlideAnimation);
     }
 }

@@ -5,21 +5,20 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Data;
 
-namespace HunterPie.UI.Settings.Internal
-{
-    internal class BooleanVisualConverter : IVisualConverter
-    {
-        public FrameworkElement Build(object parent, PropertyInfo childInfo)
-        {
-            Observable<bool> observable = (Observable<bool>)childInfo.GetValue(parent);
-            var binding = VisualConverterHelper.CreateBinding(observable);
-            Switch @switch = new()
-            {
-                HorizontalAlignment = HorizontalAlignment.Right
-            };
+namespace HunterPie.UI.Settings.Internal;
 
-            BindingOperations.SetBinding(@switch, Switch.IsActiveProperty, binding);
-            return @switch;
-        }
+internal class BooleanVisualConverter : IVisualConverter
+{
+    public FrameworkElement Build(object parent, PropertyInfo childInfo)
+    {
+        var observable = (Observable<bool>)childInfo.GetValue(parent);
+        Binding binding = VisualConverterHelper.CreateBinding(observable);
+        Switch @switch = new()
+        {
+            HorizontalAlignment = HorizontalAlignment.Right
+        };
+
+        _ = BindingOperations.SetBinding(@switch, Switch.IsActiveProperty, binding);
+        return @switch;
     }
 }

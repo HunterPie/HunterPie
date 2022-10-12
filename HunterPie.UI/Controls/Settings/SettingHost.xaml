@@ -8,6 +8,7 @@
              xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:textbox="clr-namespace:HunterPie.UI.Controls.TextBox"
              xmlns:client="clr-namespace:HunterPie.Core.Client;assembly=HunterPie.Core"
+             xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer"
              xmlns:vm="clr-namespace:HunterPie.UI.Controls.Settings.ViewModel"
              xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading"
              xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets"
@@ -21,7 +22,20 @@
         <Style x:Key="UpdateAvailableClickStyle" TargetType="native:Button">
             <EventSetter Event="Click" Handler="OnExecuteUpdateClick"/>
         </Style>
-        
+        <Storyboard x:Key="SlideInAnimation">
+            <ThicknessAnimation From="-20,0,0,0"
+                                To="0,0,0,0"
+                                Duration="0:0:0.25"
+                                Storyboard.TargetProperty="Margin">
+                <ThicknessAnimation.EasingFunction>
+                    <QuadraticEase/>
+                </ThicknessAnimation.EasingFunction>
+            </ThicknessAnimation>
+            <DoubleAnimation From="0"
+                             To="1"
+                             Duration="0:0:0.3"
+                             Storyboard.TargetProperty="Opacity"/>
+        </Storyboard>
         <converters:GameProcessToGameNameConverter x:Key="GameProcessToGameNameConverter"/>
         <converters:ObjectToUiConverter x:Key="ObjectToUiConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -31,10 +45,12 @@
             <ItemsControl ItemsSource="{Binding Elements, Mode=OneWay}">
                 <ItemsControl.Template>
                     <ControlTemplate>
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto">
                             <VirtualizingStackPanel IsItemsHost="True"
-                                                    CanVerticallyScroll="True"/>
-                        </ScrollViewer>
+                                                    CanVerticallyScroll="True" 
+                                                    Loaded="OnPanelLoaded"
+                                                    DataContextChanged="OnPanelDataContextChanged"/>
+                        </viewer:SmoothScrollViewer>
                     </ControlTemplate>
                 </ItemsControl.Template>
 
@@ -104,7 +120,12 @@
                                 <Setter Property="Content">
                                     <Setter.Value>
                                         <native:Button Style="{StaticResource UpdateAvailableClickStyle}"
-                                                       Cursor="Hand">
+                                                       Cursor="Hand"
+                                                       Padding="10,5,10,5"
+                                                       Background="{StaticResource GRAY_100}"
+                                                       BorderBrush="{StaticResource GRAY}"
+                                                       BorderThickness="1"
+                                                       CornerRadius="5">
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="{StaticResource ICON_DOWNLOAD_YELLOW}"
                                                        Margin="0,0,5,0"/>

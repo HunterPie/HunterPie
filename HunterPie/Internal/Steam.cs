@@ -3,31 +3,33 @@ using HunterPie.Core.Logger;
 using System;
 using System.Diagnostics;
 
-namespace HunterPie.Internal
+namespace HunterPie.Internal;
+
+internal static class Steam
 {
-    internal static class Steam
+    public const string MONSTER_HUNTER_WORLD_APP_ID = "582010";
+    public const string MONSTER_HUNTER_RISE_APP_ID = "1446780";
+
+    public static void RunGameBy(GameType type)
     {
-        public const string MONSTER_HUNTER_WORLD_APP_ID = "582010";
-        public const string MONSTER_HUNTER_RISE_APP_ID = "1446780";
-
-        public static void RunGameBy(GameType type)
+        string appId = type switch
         {
-            string appId = type switch
-            {
-                GameType.Rise => MONSTER_HUNTER_RISE_APP_ID,
-                GameType.World => MONSTER_HUNTER_WORLD_APP_ID,
-                _ => throw new NotImplementedException(),
-            };
+            GameType.Rise => MONSTER_HUNTER_RISE_APP_ID,
+            GameType.World => MONSTER_HUNTER_WORLD_APP_ID,
+            _ => throw new NotImplementedException(),
+        };
 
-            try
+        try
+        {
+            _ = Process.Start(new ProcessStartInfo()
             {
-                Process.Start(new ProcessStartInfo()
-                {
-                    FileName = $"steam://run/{appId}",
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception err) { Log.Error(err.ToString()); }
+                FileName = $"steam://run/{appId}",
+                UseShellExecute = true
+            });
+        }
+        catch (Exception err)
+        {
+            Log.Error(err.ToString());
         }
     }
 }

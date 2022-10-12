@@ -1,9 +1,8 @@
 ﻿using HunterPie.Core.Game.Enums;
 
-namespace HunterPie.Core.Game.Client
+namespace HunterPie.Core.Game.Client;
+
+public interface IActivity
 {
-    public interface IActivity
-    {
-        public ActivityType Type { get; }
-    }
+    public ActivityType Type { get; }
 }

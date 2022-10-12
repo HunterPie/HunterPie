@@ -1,65 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using System.Linq;
+using System.Text;
 
-namespace HunterPie.Core.Address.Map.Internal
+namespace HunterPie.Core.Address.Map.Internal;
+
+internal class AddressMapTokenizer
 {
-    internal class AddressMapTokenizer
+
+    public static string ConsumeUntilChar(StreamReader stream, char token) =>
+        ConsumeUntilChars(stream, new HashSet<char>() { token });
+
+    public static string ConsumeUntilChars(StreamReader stream, char[] tokens) =>
+        ConsumeUntilChars(stream, tokens.ToHashSet());
+
+    public static string ConsumeUntilChars(StreamReader stream, HashSet<char> tokens)
     {
+        // Allocates 64 bytes in our stack for faster array manipulation
+        int bufferMaxSize = 64;
 
-        public static string ConsumeUntilChar(StreamReader stream, char token) => 
-            ConsumeUntilChars(stream, new HashSet<char>() { token });
+        Span<char> buffer = stackalloc char[bufferMaxSize];
+        var builder = new StringBuilder();
 
-        public static string ConsumeUntilChars(StreamReader stream, char[] tokens) =>
-            ConsumeUntilChars(stream, tokens.ToHashSet());
-
-        public static string ConsumeUntilChars(StreamReader stream, HashSet<char> tokens)
+        int charCount = 0;
+        while (!stream.EndOfStream)
         {
-            // Allocates 64 bytes in our stack for faster array manipulation
-            int bufferMaxSize = 64;
+            int character = stream.Read();
+            int nextCharacter = stream.Peek();
 
-            Span<char> buffer = stackalloc char[bufferMaxSize];
-            StringBuilder builder = new StringBuilder();
+            if (character != -1 && !tokens.Contains((char)character))
+                buffer[charCount % bufferMaxSize] = (char)character;
 
-            int charCount = 0;
-            while (!stream.EndOfStream)
+            // Transfer buffered characters to StringBuilder when the buffer is full or if we hit the desired last character
+            if (charCount + 1 == bufferMaxSize || tokens.Contains((char)nextCharacter) || nextCharacter == -1)
+                _ = builder.Append(buffer[..(charCount + 1)]);
+
+            if (tokens.Contains((char)nextCharacter))
             {
-                int character = stream.Read();
-                int nextCharacter = stream.Peek();
-
-                if (character != -1 && !tokens.Contains((char)character))
-                    buffer[charCount % bufferMaxSize] = (char)character;
-
-                // Transfer buffered characters to StringBuilder when the buffer is full or if we hit the desired last character
-                if (charCount + 1 == bufferMaxSize || tokens.Contains((char)nextCharacter) || nextCharacter == -1)
-                    builder.Append(buffer.Slice(0, charCount + 1));
-
-                if (tokens.Contains((char)nextCharacter))
-                {
-                    break;
-                }
-
-                charCount = (charCount + 1) % bufferMaxSize;
+                break;
             }
 
-            return builder.ToString();
+            charCount = (charCount + 1) % bufferMaxSize;
         }
 
-        public static void ConsumeTokens(StreamReader stream, char[] tokens) => ConsumeTokens(stream, tokens.ToHashSet());
+        return builder.ToString();
+    }
 
-        public static void ConsumeTokens(StreamReader stream, HashSet<char> tokens)
+    public static void ConsumeTokens(StreamReader stream, char[] tokens) => ConsumeTokens(stream, tokens.ToHashSet());
+
+    public static void ConsumeTokens(StreamReader stream, HashSet<char> tokens)
+    {
+        while (!stream.EndOfStream)
         {
-            while (!stream.EndOfStream)
-            {
-                int character = stream.Peek();
+            int character = stream.Peek();
 
-                if (tokens.Contains((char)character))
-                    stream.Read();
-                else
-                    break;
-            }
+            if (tokens.Contains((char)character))
+                _ = stream.Read();
+            else
+                break;
         }
     }
 }

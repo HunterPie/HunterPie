@@ -3,42 +3,41 @@ using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
 
-namespace HunterPie.Core.Client.Configuration.Overlay
+namespace HunterPie.Core.Client.Configuration.Overlay;
+
+[SettingsGroup("ACTIVITIES_WIDGET_STRING", "ICON_ARGOSY", availableGames: GameProcess.MonsterHunterRise)]
+public class ActivitiesWidgetConfig : IWidgetSettings, ISettings
 {
-    [SettingsGroup("ACTIVITIES_WIDGET_STRING", "ICON_ARGOSY", availableGames: GameProcess.MonsterHunterRise)]
-    public class ActivitiesWidgetConfig : IWidgetSettings, ISettings
-    {
-        [SettingField("INITIALIZE_WIDGET_STRING", requiresRestart: true)]
-        public Observable<bool> Initialize { get; set; } = true;
+    [SettingField("INITIALIZE_WIDGET_STRING", requiresRestart: true)]
+    public Observable<bool> Initialize { get; set; } = true;
 
-        [SettingField("ENABLE_WIDGET_STRING")]
-        public Observable<bool> Enabled { get; set; } = true;
+    [SettingField("ENABLE_WIDGET_STRING")]
+    public Observable<bool> Enabled { get; set; } = true;
 
-        [SettingField("HIDE_WHEN_UI_VISIBLE_STRING")]
-        public Observable<bool> HideWhenUiOpen { get; set; } = false;
-        
-        [SettingField("ACTIVITIES_ENABLE_ARGOSY_STRING")]
-        public Observable<bool> IsArgosyEnabled { get; set; } = true;
+    [SettingField("HIDE_WHEN_UI_VISIBLE_STRING")]
+    public Observable<bool> HideWhenUiOpen { get; set; } = false;
 
-        [SettingField("ACTIVITIES_ENABLE_TRAINING_DOJO_STRING")]
-        public Observable<bool> IsTrainingDojoEnabled { get; set; } = true;
+    [SettingField("ACTIVITIES_ENABLE_ARGOSY_STRING")]
+    public Observable<bool> IsArgosyEnabled { get; set; } = true;
 
-        [SettingField("ACTIVITIES_ENABLE_MEOWMASTERS_STRING")]
-        public Observable<bool> IsMeowmastersEnabled { get; set; } = true;
+    [SettingField("ACTIVITIES_ENABLE_TRAINING_DOJO_STRING")]
+    public Observable<bool> IsTrainingDojoEnabled { get; set; } = true;
 
-        [SettingField("ACTIVITIES_ENABLE_COHOOT_STRING")]
-        public Observable<bool> IsCohootEnabled { get; set; } = true;
+    [SettingField("ACTIVITIES_ENABLE_MEOWMASTERS_STRING")]
+    public Observable<bool> IsMeowmastersEnabled { get; set; } = true;
 
-        [SettingField("WIDGET_OPACITY")]
-        public Range Opacity { get; set; } = new(1, 1, 0.1, 0.1);
+    [SettingField("ACTIVITIES_ENABLE_COHOOT_STRING")]
+    public Observable<bool> IsCohootEnabled { get; set; } = true;
 
-        [SettingField("WIDGET_SCALE")]
-        public Range Scale { get; set; } = new(1, 2, 0.1, 0.1);
+    [SettingField("WIDGET_OPACITY")]
+    public Range Opacity { get; set; } = new(1, 1, 0.1, 0.1);
 
-        [SettingField("ENABLE_STREAMER_MODE")]
-        public Observable<bool> StreamerMode { get; set; } = false;
+    [SettingField("WIDGET_SCALE")]
+    public Range Scale { get; set; } = new(1, 2, 0.1, 0.1);
 
-        [SettingField("WIDGET_POSITION")]
-        public Position Position { get; set; } = new(5, 935);
-    }
+    [SettingField("ENABLE_STREAMER_MODE")]
+    public Observable<bool> StreamerMode { get; set; } = false;
+
+    [SettingField("WIDGET_POSITION")]
+    public Position Position { get; set; } = new(5, 935);
 }

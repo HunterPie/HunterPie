@@ -1,12 +1,13 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 
-namespace HunterPie.Core.Client.Configuration.Versions
-{
-    public class VersionedConfig : IVersionedConfig
-    {
-        private readonly int _version = 0;
-        public int Version => _version;
+namespace HunterPie.Core.Client.Configuration.Versions;
 
-        public VersionedConfig(int version) => _version = version;
+public class VersionedConfig : IVersionedConfig
+{
+    public int Version { get; } = 0;
+
+    public VersionedConfig(int version)
+    {
+        Version = version;
     }
 }

@@ -1,21 +1,27 @@
 ﻿using HunterPie.Core.Game;
 using HunterPie.Domain.Interfaces;
-using HunterPie.Features.Native;
+using HunterPie.Features.Backups;
+using HunterPie.Game.Demos.Sunbreak;
+using HunterPie.Game.Rise;
+using HunterPie.Game.World;
+using System.Threading.Tasks;
 
-namespace HunterPie.Features
+namespace HunterPie.Features;
+
+internal static class ContextInitializers
 {
-    internal static class ContextInitializers
+    private static readonly IContextInitializer[] initializers = new IContextInitializer[]
     {
-        private static IContextInitializer[] initializers = new IContextInitializer[]
-        {
-            new IPCInjectorInitializer(),
-            new NativeIPCInitializer(),
-        };
+        new MHWContextInitializer(),
+        new MHRContextInitializer(),
+        new MHRSunbreakDemoContextInitializer(),
 
-        public static void Initialize(Context context)
-        {
-            foreach (var initializer in initializers)
-                initializer.Initialize(context);
-        }
+        new GameSaveBackupService(),
+    };
+
+    public static async Task InitializeAsync(Context context)
+    {
+        foreach (IContextInitializer initializer in initializers)
+            await initializer.InitializeAsync(context).ConfigureAwait(false);
     }
 }

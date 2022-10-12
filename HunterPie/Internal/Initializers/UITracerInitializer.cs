@@ -3,15 +3,14 @@ using HunterPie.Domain.Interfaces;
 using HunterPie.Domain.Logger;
 using System.Diagnostics;
 
-namespace HunterPie.Internal.Initializers
+namespace HunterPie.Internal.Initializers;
+
+internal class UITracerInitializer : IInitializer
 {
-    internal class UITracerInitializer : IInitializer
+    public void Init()
     {
-        public void Init()
-        {
-            PresentationTraceSources.Refresh();
-            PresentationTraceSources.DataBindingSource.Listeners.Add(new LogTracer());
-            PresentationTraceSources.DataBindingSource.Switch.Level = ClientConfig.Config.Development.PresentationSourceLevel;
-        }
+        PresentationTraceSources.Refresh();
+        _ = PresentationTraceSources.DataBindingSource.Listeners.Add(new LogTracer());
+        PresentationTraceSources.DataBindingSource.Switch.Level = ClientConfig.Config.Development.PresentationSourceLevel;
     }
 }
