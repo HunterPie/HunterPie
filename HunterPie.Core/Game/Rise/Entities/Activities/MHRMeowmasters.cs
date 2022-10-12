@@ -78,10 +78,10 @@ public class MHRMeowmasters : IEventDispatcher, IUpdatable<MHRMeowmasterData>
     void IUpdatable<MHRMeowmasterData>.Update(MHRMeowmasterData data)
     {
         MaxSteps = data.MaxStep;
-        Step = data.CurrentStep + (data.IsDeployed ? 1 : 0);
+        Step = data.CurrentStep + (data.IsDeployed ? data.CurrentStep == 0 ? 1 : 0 : 0);
         BuddyCount = data.BuddiesCount;
         HasLagniapple = data.IsLagniappleActive;
-        ExpectedOutcome = BuddyCount + (HasLagniapple ? 1 : 0);
+        ExpectedOutcome = data.BuddiesCount + (HasLagniapple ? 1 : 0);
         IsDeployed = data.IsDeployed;
     }
 }
