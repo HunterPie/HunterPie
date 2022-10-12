@@ -6,8 +6,8 @@ namespace HunterPie.Core.Game.Rise.Definitions;
 public struct MHRCohootStructure
 {
     [FieldOffset(0x18)]
-    public int MaxCount;
+    public int ElgadoCount;
 
     [FieldOffset(0x28)]
-    public int Count;
+    public int KamuraCount;
 }

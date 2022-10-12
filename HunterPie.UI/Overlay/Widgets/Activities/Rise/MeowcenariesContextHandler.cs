@@ -23,6 +23,7 @@ internal class MeowcenariesContextHandler : IContextHandler
         _player.Meowmasters.OnDeployStateChange += OnDeployStateChange;
         _player.Meowmasters.OnStepChange += OnStepChange;
         _player.Meowmasters.OnBuddyCountChange += OnBuddyCountChange;
+        _player.Meowmasters.OnExpectedOutcomeChange += OnExpectedOutcomeChange;
     }
 
     public void UnhookEvents()
@@ -43,10 +44,16 @@ internal class MeowcenariesContextHandler : IContextHandler
         ViewModel.IsDeployed = _player.Meowmasters.IsDeployed;
     }
 
+    private void OnExpectedOutcomeChange(object sender, MHRMeowmasters e)
+    {
+        ViewModel.ExpectedOutcome = e.ExpectedOutcome;
+    }
+
     private void OnBuddyCountChange(object sender, MHRMeowmasters e)
     {
         ViewModel.MaxBuddyCount = e.MaxBuddies;
         ViewModel.BuddyCount = e.BuddyCount;
+        ViewModel.ExpectedOutcome = e.ExpectedOutcome;
     }
 
     private void OnStepChange(object sender, MHRMeowmasters e)

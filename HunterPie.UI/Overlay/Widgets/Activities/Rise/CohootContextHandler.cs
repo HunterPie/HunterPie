@@ -2,6 +2,7 @@
 using HunterPie.Core.Game.Rise.Entities;
 using HunterPie.Core.Game.Rise.Entities.Activities;
 using HunterPie.UI.Overlay.Widgets.Activities.ViewModel;
+using System;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.Rise;
 
@@ -17,19 +18,47 @@ internal class CohootContextHandler : IContextHandler
         UpdateData();
     }
 
-    public void HookEvents() => Player.Cohoot.OnCountChange += OnCountChange;
-
-    public void UnhookEvents() => Player.Cohoot.OnCountChange -= OnCountChange;
-
-    private void OnCountChange(object sender, MHRCohoot e)
+    public void HookEvents()
     {
-        ViewModel.Count = e.Count;
-        ViewModel.MaxCount = e.MaxCount;
+        Player.Cohoot.OnKamuraCountChange += OnKamuraCountChange;
+        Player.Cohoot.OnElgadoCountChange += OnElgadoCountChange;
+    }
+
+
+    public void UnhookEvents()
+    {
+        Player.Cohoot.OnKamuraCountChange -= OnKamuraCountChange;
+        Player.Cohoot.OnElgadoCountChange -= OnElgadoCountChange;
+
+    }
+
+    private void OnElgadoCountChange(object sender, MHRCohoot e)
+    {
+        ViewModel.ElgadoCount = e.ElgadoCount;
+        ViewModel.ElgadoMaxCount = e.MaxCount;
+        SetGeneralCount();
+    }
+
+
+    private void OnKamuraCountChange(object sender, MHRCohoot e)
+    {
+        ViewModel.KamuraCount = e.KamuraCount;
+        ViewModel.KamuraMaxCount = e.MaxCount;
+        SetGeneralCount();
     }
 
     public void UpdateData()
     {
-        ViewModel.Count = Player.Cohoot.Count;
-        ViewModel.MaxCount = Player.Cohoot.MaxCount;
+        ViewModel.ElgadoCount = Player.Cohoot.ElgadoCount;
+        ViewModel.ElgadoMaxCount = Player.Cohoot.MaxCount;
+        ViewModel.KamuraCount = Player.Cohoot.KamuraCount;
+        ViewModel.KamuraMaxCount = Player.Cohoot.MaxCount;
+        SetGeneralCount();
+    }
+
+    private void SetGeneralCount()
+    {
+        ViewModel.Count = Math.Max(ViewModel.KamuraCount, ViewModel.ElgadoCount);
+        ViewModel.MaxCount = Math.Max(ViewModel.KamuraMaxCount, ViewModel.ElgadoMaxCount);
     }
 }
