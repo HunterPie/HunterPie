@@ -530,9 +530,11 @@
                     String="Outcome:"/>
             <String Id="MEOWCENARIES_BUDDIES_STRING"
                     String="Buddies:"/>
-
-            <String Id="COHOOT_NEST_STRING"
-                    String="Cohoot Nest: "/>
+			
+			<String Id="COHOOT_KAMURA_NEST_STRING"
+                    String="Kamura Nest: "/>
+			<String Id="COHOOT_ELGADO_NEST_STRING"
+                    String="Elgado Nest: "/>
         </Overlay>
         <Tabs>
             <Tab Id="CONSOLE_STRING"

@@ -108,8 +108,10 @@ internal class MockActivitiesViewModel : ActivitiesViewModel
     {
         var cohootActivity = new CohootNestViewModel()
         {
-            Count = 3,
-            MaxCount = 5,
+            KamuraCount = 3,
+            KamuraMaxCount = 5,
+            ElgadoCount = 4,
+            ElgadoMaxCount = 5
         };
 
         Activities.Add(cohootActivity);
