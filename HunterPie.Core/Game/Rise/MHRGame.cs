@@ -206,8 +206,13 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
             AddressMap.GetAbsolute("MOUSE_ADDRESS"),
             AddressMap.Get<int[]>("MOUSE_OFFSETS")
         );
+        
+        byte isCutsceneActive = _process.Memory.Deref<byte>(
+            AddressMap.GetAbsolute("EVENTCAMERA_ADDRESS"),
+            AddressMap.Get<int[]>("CUTSCENE_STATE_OFFSETS")
+        );
 
-        IsHudOpen = isHudOpen == 1;
+        IsHudOpen = isHudOpen == 1 || isCutsceneActive != 0;
     }
 
     [ScannableMethod]
