@@ -80,6 +80,7 @@
 		<Abnormality Id="ABNORMALITY_STAMINA_USE_RED_L" String="스태미나 소비 경감 (대)"/>
 		<Abnormality Id="ABNORMALITY_STAMINA_REC_UP" String="스태미나 회복 속도 UP"/>
 		<Abnormality Id="ABNORMALITY_SHARPNESS_RED" String="예리도 소비 경감"/>
+		<Abnormality Id="ABNORMALITY_SHARPNESS_REGEN" String="예리도 지속 회복"/>
 		<Abnormality Id="ABNORMALITY_ENV_NEG" String="지형 대미지 무효"/>
 		<Abnormality Id="ABNORMALITY_SONIC_BARRIER" String="소리 방벽"/>
 		<Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="기염의 선율"/>
@@ -357,8 +358,8 @@
 			<Monster Id="83" String="샤가르마가라"/>
 			<Monster Id="84" String="셀레기오스"/>
 			<Monster Id="85" String="라이젝스"/>
-			<Monster Id="87" String="원망 서린 마가이마가도"/>
 			<Monster Id="86" String="타마미츠네 희소종"/>
+			<Monster Id="87" String="원망 서린 마가이마가도"/>
 			<Monster Id="88" String="비슈텐고 아종"/>
 			<Monster Id="89" String="이소네미쿠니 아종"/>
 			<Monster Id="90" String="야츠카다키 아종"/>
@@ -531,8 +532,10 @@
 			<String Id="MEOWCENARIES_BUDDIES_STRING"
 					String="동반자:"/>
 
-			<String Id="COHOOT_NEST_STRING"
-					String="복부엉의 둥지: "/>
+			<String Id="COHOOT_KAMURA_NEST_STRING"
+					String="카무라 둥지: "/>
+			<String Id="COHOOT_ELGADO_NEST_STRING"
+					String="엘가도 둥지: "/>
 		</Overlay>
 		<Tabs>
 			<Tab Id="CONSOLE_STRING"
@@ -547,6 +550,8 @@
 				 String="설정"/>
 			<Tab Id="PATREON_STRING"
 				 String="Patreon"/>
+			<Tab Id="GITHUB_STRING"
+				 String="Github"/>
 		</Tabs>
 		<Generics>
 			<Generic Id="HUNTERPIE_LAUNCH_GAME"
@@ -557,6 +562,8 @@
 					 String="HunterPie의 새로운 업데이트가 가능합니다!"/>
 			<Generic Id="HUNTERPIE_CURRENT_SELECTED_CONFIG"
 					 String="설정:"/>
+			<Generic Id="REQUIRES_RESTART_STRING"
+					 String="(다시 시작 필요)"/>
 		</Generics>
 		<Dialogs>
 			<Dialog Id="UPDATE_TITLE_STRING"
@@ -566,7 +573,7 @@
 			<Dialog Id="CONFIRMATION_TITLE_STRING"
 					String="확인"/>
 			<Dialog Id="DELETE_CONFIRMATION_DESCRIPTION_STRING"
-					String="{Item} 삭제할까요?"/>
+					String="{Item}을(를) 삭제할까요?"/>
 			<Dialog Id="EXIT_CONFIRMATION_DESCRIPTION_STRING"
 					String="HunterPie를 종료할까요?"/>
 
@@ -611,6 +618,40 @@
 					 String="{Character} | HR: {HighRank} | MR: {MasterRank}"/>
 			<Discord Id="DRPC_WORLD_STATE_PRACTICE"
 					 String="훈련구역에서 훈련 중"/>
+			
+			<!-- Poogie Integration -->
+			<Poogie Id="ERROR_INVALID_USERNAME"
+					String="올바르지 않은 사용자 이름입니다!"/>
+			<Poogie Id="ERROR_INVALID_PASSWORD"
+					String="올바르지 않은 비밀번호입니다!"/>
+			<Poogie Id="ERROR_INVALID_EMAIL"
+					String="올바르지 않은 이메일입니다!"/>
+			<Poogie Id="ERROR_INVALID_CREDENTIALS"
+					String="해당 사용자 이름과 비밀번호로 계정을 찾을 수 없습니다."/>
+			<Poogie Id="ERROR_USER_NOT_FOUND"
+						String="흠... 해당 사용자를 찾을 수 없습니다!"/>
+			<Poogie Id="ERROR_USER_ALREADY_EXISTS"
+						String="이메일과 사용자 이름이 같은 사용자가 있습니다!"/>
+			<Poogie Id="ERROR_UNVERIFIED_ACCOUNT"
+						String="먼저 계정이 확인되어야 합니다! 계정을 확인하기 위해 스팸 편지함을 포함한 이메일을 확인해주세요."/>
+			<Poogie Id="INVALID_IMAGE"
+						String="파일이 올바르지 않은 이미지입니다!"/>
+			<Poogie Id="FAILED_TO_UPDATE_AVATAR"
+						String="아바타 업로드를 실패했습니다, 몇 분후 다시 시도해주세요."/>
+			<Poogie Id="ERROR_AVATAR_SIZE_TOO_LARGE"
+						String="아바타 업로드를 실패했습니다, 파일 크기가 3.5 MB를 넘습니다."/>
+
+			<Poogie Id="LOGIN_SUCCESS"
+						String="{Username}님 환영합니다! 로그인 되었습니다."/>
+			<Poogie Id="ACCOUNT_REGISTER_SUCCESS"
+						String="계정 확인이 곧 {Email}으로 전송됩니다. 받은 편지함과 스팸 편지함을 확인해주세요!"/>
+			<Poogie Id="AVATAR_UPLOAD_SUCCESS"
+						String="새로운 아바타가 업로드되었습니다"/>
+
+			<Poogie Id="BACKUP_NOT_ENABLED_STRING"
+					String="자동 백업을 활성화하지 않았습니다.&#10;계정 설정에서 활성화할 수 있습니다."/>
+			<Poogie Id="BACKUP_NOT_FOUND_STRING"
+					String="백업 파일이 없습니다."/>
 		</Integrations>
 		<Enums>
 			<Enum Id="SORT_BY_LOWEST_TIMER_STRING"
@@ -671,6 +712,9 @@
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="개발 도구"
 					 Description="심화 개발 도구"/>
+			<Setting Id="ACCOUNT_STRING"
+					 String="계정"
+					 Description="계정 설정"/>
 
 			<Setting Id="ABNORMALITY_SONGS_STRING"
 					 String="선율"
@@ -679,8 +723,8 @@
 					 String="소비 아이템"
 					 Description="소비 아이템 효과"/>
 			<Setting Id="ABNORMALITY_DEBUFFS_STRING"
-					 String="디버프"
-					 Description="디버프 효과"/>
+					 String="상태 이상"
+					 Description="상태 이상 효과"/>
 			<Setting Id="ABNORMALITY_PALICO_STRING"
 					 String="격려의 음악"
 					 Description="격려의 음악 효과"/>
@@ -695,7 +739,7 @@
 					 String="자동 업데이트 사용"
 					 Description="옵션 활성화 시, HunterPie를 자동으로 최신 버전으로 업데이트 합니다."/>
 			<Setting Id="ENABLE_SELF_UPDATE_CONFIRMATION"
-					 String="자동 업데이트 확인 표시"
+					 String="자동 업데이트 시 확인창 표시"
 					 Description="옵션 활성화 시, HunterPie를 자동으로 업데이트 하기 전에 허용 여부를 물어봅니다."/>
 			<Setting Id="SUPPORTER_SECRET_TOKEN_STRING"
 					 String="서포터 토큰"
@@ -710,11 +754,14 @@
 					 String="시스템 트레이로 최소화"
 					 Description="옵션 활성화 시, HunterPie는 시스템 트레이로 최소화됩니다."/>
 			<Setting Id="SEAMLESS_STARTUP_STRING"
-					 String="최소화 시작 사용"
+					 String="최소화 상태로 시작"
 					 Description="옵션 활성화 시, HunterPie 시작 시 메인 창을 열지 않습니다."/>
 			<Setting Id="SEAMLESS_SHUTDOWN_STRING"
 					 String="종료 시 확인 비활성화"
 					 Description="옵션 활성화 시, HunterPie 종료 시 동의 여부를 묻지 않습니다."/>
+			<Setting Id="ENABLE_NATIVE_MODULE_STRING"
+ 					 String="고유 모듈 활성화 (설명을 자세히 읽어주세요)"
+ 					 Description="옵션 활성화 시, HunterPie가 몇몇 기능을 활성화하기 위해 게임을 패치합니다 (예. 탐색 중의 대미지 미터).&#10;[Stracker's Loader]와 [Performance Booster and Plugin Extender](CRCBypass) 모드를 설치하지 않은 경우 이 옵션을 사용하면 플레이 중 게임이 비정상 종료될 수 있습니다.&#10;적용하려면 게임을 다시 시작해야 합니다."/>
 			<Setting Id="SHUTDOWN_ON_GAME_EXIT"
 					 String="게임 종료 시 닫기"
 					 Description="옵션 활성화 시, 게임이 종료되면 HunterPie를 자동으로 닫습니다."/>
@@ -777,8 +824,8 @@
 					 String="타겟 몬스터만 표시"
 					 Description="옵션 활성화 시, HunterPie는 당신의 현재 타겟 몬스터만 표시합니다."/>
 			<Setting Id="MONSTER_WIDGET_ENABLE_STAMINA_STRING"
-					 String="몬스터 스태미나 활성화"
-					 Description="옵션 활성화 시, HunterPie는 몬스터의 체력 바 아래에 스태미나 바를 표시합니다."/>
+					 String="몬스터 기력 활성화"
+					 Description="옵션 활성화 시, HunterPie는 몬스터의 체력 바 아래에 기력 바를 표시합니다."/>
 			<Setting Id="MONSTER_WIDGET_MAX_WIDTH_STRING"
 					 String="몬스터 체력 바 최대 가로 길이"
 					 Description="몬스터 체력 바의 최대 가로 폭을 설정합니다."/>
@@ -894,6 +941,11 @@
 					 String="개발자: 로그 레벨"/>
 			<Setting Id="DEV_PRESENTATION_TRACER_LEVEL"
 					 String="개발자: UI 렌더링 트레이서 레벨"/>
+
+			<!-- Account -->
+			<Setting Id="ACCOUNT_ENABLE_BACKUP_STRING"
+					 String="게임 저장 백업 활성화"
+					 Description="옵션 활성화 시, HunterPie가 자동으로 당신의 게임 저장을 백업하고 클라우드에 업로드합니다."/>
 		</Settings>
 	</Client>
 </Strings>
