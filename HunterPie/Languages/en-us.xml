@@ -80,6 +80,7 @@
         <Abnormality Id="ABNORMALITY_STAMINA_USE_RED_L" String="Stamina Use Reduced (L)"/>
         <Abnormality Id="ABNORMALITY_STAMINA_REC_UP" String="Stamina Recov. Up"/>
         <Abnormality Id="ABNORMALITY_SHARPNESS_RED" String="Sharpness Loss Reduced"/>
+        <Abnormality Id="ABNORMALITY_SHARPNESS_REGEN" String="Sharpness Regeneration"/>
         <Abnormality Id="ABNORMALITY_ENV_NEG" String="Env. Damage Negated"/>
         <Abnormality Id="ABNORMALITY_SONIC_BARRIER" String="Sonic Barrier"/>
         <Abnormality Id="ABNORMALITY_INFERNAL_MELODY" String="Infernal Melody"/>
