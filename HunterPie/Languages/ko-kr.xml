@@ -532,9 +532,9 @@
 					String="동반자:"/>
 
 			<String Id="COHOOT_KAMURA_NEST_STRING"
-                    String="카무라 둥지: "/>
+					String="카무라 둥지: "/>
 			<String Id="COHOOT_ELGADO_NEST_STRING"
-                    String="엘가도 둥지: "/>
+					String="엘가도 둥지: "/>
 		</Overlay>
 		<Tabs>
 			<Tab Id="CONSOLE_STRING"
