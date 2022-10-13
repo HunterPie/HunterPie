@@ -84,26 +84,53 @@
         </Image>
 
         <TextBlock Grid.Column="1"
-                   VerticalAlignment="Center"
+                   VerticalAlignment="Top"
                    Foreground="{StaticResource WHITE_100}"
                    FontSize="15"
-                   Margin="5,0,0,0" Height="17">
+                   Margin="5,0,0,0">
             <TextBlock.Effect>
                 <DropShadowEffect BlurRadius="5"
                                       Color="Black"
                                       ShadowDepth="0"/>
-            </TextBlock.Effect><Run Text="{loc:LocalizationString '//Strings/Client/Overlay/String[@Id=&quot;COHOOT_NEST_STRING&quot;]'}"
-                 d:Text="Cohoot Nest: "
+            </TextBlock.Effect>
+            <Run Text="{loc:LocalizationString '//Strings/Client/Overlay/String[@Id=&quot;COHOOT_KAMURA_NEST_STRING&quot;]'}"
+                 d:Text="Kamura Nest: "
                  FontWeight="Medium"/><!--
-         --><Run Text="{Binding Count, Mode=OneWay}"
+         --><Run Text="{Binding KamuraCount, Mode=OneWay}"
                  d:Text="0"
                  FontWeight="Medium"/><!--
          --><Run Text="/"
                  FontWeight="Medium"
                  Foreground="{StaticResource WHITE_600}"/><!--
-         --><Run Text="{Binding MaxCount, Mode=OneWay}"
+         --><Run Text="{Binding KamuraMaxCount, Mode=OneWay}"
                  d:Text="5"
                  FontWeight="Medium"
-                 Foreground="{StaticResource WHITE_600}"/></TextBlock>
+                 Foreground="{StaticResource WHITE_600}"/>
+        </TextBlock>
+
+        <TextBlock Grid.Column="1"
+                   VerticalAlignment="Bottom"
+                   Foreground="{StaticResource WHITE_100}"
+                   FontSize="15"
+                   Margin="5,0,0,0">
+            <TextBlock.Effect>
+                <DropShadowEffect BlurRadius="5"
+                                      Color="Black"
+                                      ShadowDepth="0"/>
+            </TextBlock.Effect>
+            <Run Text="{loc:LocalizationString '//Strings/Client/Overlay/String[@Id=&quot;COHOOT_ELGADO_NEST_STRING&quot;]'}"
+                 d:Text="Elgado Nest: "
+                 FontWeight="Medium"/><!--
+         --><Run Text="{Binding ElgadoCount, Mode=OneWay}"
+                 d:Text="0"
+                 FontWeight="Medium"/><!--
+         --><Run Text="/"
+                 FontWeight="Medium"
+                 Foreground="{StaticResource WHITE_600}"/><!--
+         --><Run Text="{Binding ElgadoMaxCount, Mode=OneWay}"
+                 d:Text="5"
+                 FontWeight="Medium"
+                 Foreground="{StaticResource WHITE_600}"/>
+        </TextBlock>
     </Grid>
 </UserControl>

@@ -1,7 +1,6 @@
-﻿namespace HunterPie.Domain.Interfaces
+﻿namespace HunterPie.Domain.Interfaces;
+
+public interface IInitializer
 {
-    public interface IInitializer
-    {
-        public void Init();
-    }
+    public void Init();
 }

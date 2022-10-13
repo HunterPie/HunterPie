@@ -12,7 +12,7 @@ using namespace Games::Rise::Damage::Hook;
 uintptr_t fnCalculateEntityDamagePtr = (uintptr_t)nullptr;
 
 EntityType GetEntityByDamageType(int damageType);
-bool HookFunctions();
+HRESULT HookFunctions();
 
 MHREntityData* Hook::CalculateEntityDamage(
     intptr_t arg1,
@@ -58,7 +58,7 @@ MHREntityData* Hook::CalculateEntityDamage(
     return damageData;
 }
 
-bool DamageHooks::Init(uintptr_t* pointers)
+HRESULT DamageHooks::Init(uintptr_t* pointers)
 {
     fnCalculateEntityDamagePtr = pointers[FUN_CALCULATE_ENTITY_DAMAGE];
 
@@ -67,7 +67,7 @@ bool DamageHooks::Init(uintptr_t* pointers)
     return HookFunctions();
 }
 
-bool HookFunctions()
+HRESULT HookFunctions()
 {
     MH_STATUS status = MH_CreateHook(
         (fnCalculateEntityDamage)fnCalculateEntityDamagePtr,
@@ -77,7 +77,7 @@ bool HookFunctions()
 
     LOG("%s status: %s", NAMEOF(fnCalculateEntityDamage), MH_StatusToString(status));
 
-    return status == MH_OK;
+    return status == MH_OK ? ERROR_SUCCESS : ERROR_HOOK_NOT_INSTALLED;
 }
 
 EntityType GetEntityByDamageType(int damageType)

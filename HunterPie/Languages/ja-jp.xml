@@ -362,6 +362,7 @@
 			<Monster Id="83" String="シャガルマガラ"/>
 			<Monster Id="84" String="セルレギオス"/>
 			<Monster Id="85" String="ライゼクス"/>
+			<Monster Id="86" String="タマミツネ希少種"/>
 			<Monster Id="87" String="怨嗟響めくマガイマガド"/>
 			<Monster Id="88" String="ビシュテンゴ亜種"/>
 			<Monster Id="89" String="イソネミクニ亜種"/>
@@ -373,6 +374,8 @@
 			<Monster Id="95" String="ガランゴルム"/>
 			<Monster Id="96" String="ガイアデルム"/>
 			<Monster Id="97" String="エスピナス"/>
+			<Monster Id="98" String="エスピナス亜種"/>
+			<Monster Id="108" String="傀異克服オオナズチ"/>
 		</Rise>
 		<World>
 			<Monster Id="0" String="アンジャナフ"/>
@@ -520,6 +523,23 @@
 		<Overlay>
 			<String Id="DAMAGE_METER_OTOMOS_NAME_STRING"
 					String="オトモ"/>
+
+			<String Id="TRAINING_DOJO_BOOSTS_STRING"
+                    String="ブースト:"/>
+            <String Id="TRAINING_DOJO_ROUNDS_STRING"
+                    String="特訓回数:"/>
+
+            <String Id="MEOWCENARIES_STEP_STRING"
+                    String="進行状況:"/>
+            <String Id="MEOWCENARIES_OUTCOME_STRING"
+                    String="結果:"/>
+            <String Id="MEOWCENARIES_BUDDIES_STRING"
+                    String="オトモ:"/>
+            
+            <String Id="COHOOT_KAMURA_NEST_STRING"
+                    String="フクズクの巣【カムラ】: "/>
+			<String Id="COHOOT_ELGADO_NEST_STRING"
+                    String="フクズクの巣【エルガド】: "/>
 		</Overlay>
 		<Tabs>
 			<Tab Id="CONSOLE_STRING"
@@ -534,6 +554,8 @@
 				 String="設定"/>
 			<Tab Id="PATREON_STRING"
 				 String="Patreon"/>
+			<Tab Id="GITHUB_STRING"
+                 String="Github"/>
 		</Tabs>
 		<Generics>
 			<Generic Id="HUNTERPIE_LAUNCH_GAME"
@@ -545,6 +567,26 @@
 			<Generic Id="HUNTERPIE_CURRENT_SELECTED_CONFIG"
 					 String="メニュー切り替え："/>
 		</Generics>
+		<Dialogs>
+            <!-- Do not edit the text inside {} -->
+            <Dialog Id="UPDATE_TITLE_STRING"
+                    String="アップデート"/>
+            <Dialog Id="UPDATE_CONFIRMATION_DESCRIPTION_STRING"
+                    String="新バージョンv{Latest}が取得可能です。&#x0a;アップデートしますか？"/>
+            <Dialog Id="CONFIRMATION_TITLE_STRING"
+                    String="確認"/>
+            <Dialog Id="DELETE_CONFIRMATION_DESCRIPTION_STRING"
+                    String="{Item}を削除しますか？"/>
+            <Dialog Id="EXIT_CONFIRMATION_DESCRIPTION_STRING"
+                    String="HunterPieを終了しますか？"/>
+
+            <Button Id="ACCEPT_STRING"
+                  String="承諾"/>
+            <Button Id="REJECT_STRING"
+                  String="拒否"/>
+            <Button Id="CANCEL_STRING"
+                  String="キャンセル"/>
+        </Dialogs>
 		<Integrations>
 		<!-- Shared between games -->
 			<Discord Id="DRPC_STATE_HUNTING"
@@ -579,6 +621,40 @@
 					 String="{Character} | HR: {HighRank} | MR: {MasterRank}"/>
 			<Discord Id="DRPC_WORLD_STATE_PRACTICE"
 					 String="トレーニングエリア"/>
+
+			<!-- Poogie Integration -->
+            <Poogie Id="ERROR_INVALID_USERNAME"
+                    String="このユーザー名は使用できません。"/>
+            <Poogie Id="ERROR_INVALID_PASSWORD"
+                    String="このパスワードは使用できません。"/>
+            <Poogie Id="ERROR_INVALID_EMAIL"
+                    String="このメールアドレスは使用できません。"/>
+            <Poogie Id="ERROR_INVALID_CREDENTIALS"
+                    String="入力した内容に誤りがあるか、登録されていません。"/>
+            <Poogie Id="ERROR_USER_NOT_FOUND"
+                    String="ユーザーが見つかりませんでした。"/>
+            <Poogie Id="ERROR_USER_ALREADY_EXISTS"
+                    String="入力されたメールアドレスもしくはユーザー名は、すでに登録されています。"/>
+            <Poogie Id="ERROR_UNVERIFIED_ACCOUNT"
+                    String="アカウントが認証されていません。メールをご確認ください。"/>
+            <Poogie Id="INVALID_IMAGE"
+                    String="このファイル形式は使用できません。"/>
+            <Poogie Id="FAILED_TO_UPDATE_AVATAR"
+                    String="ファイルのアップロードに失敗しました。数分後に再度試してください。"/>
+            <Poogie Id="ERROR_AVATAR_SIZE_TOO_LARGE"
+                    String="ファイルが大きすぎます。3.5 MB 未満のファイルを選択してください。"/>
+
+            <Poogie Id="LOGIN_SUCCESS"
+                    String="おかえりなさい、{Username}。ログインに成功しました。"/>
+            <Poogie Id="ACCOUNT_REGISTER_SUCCESS"
+                    String="{Email}にアカウント認証メールを送信しました。受信トレイをご確認ください。迷惑メールなどに振り分けられてしまう可能性もあります。"/>
+            <Poogie Id="AVATAR_UPLOAD_SUCCESS"
+                    String="プロフィール画像が変更されました。"/>
+
+			<Poogie Id="BACKUP_NOT_ENABLED_STRING"
+                    String="自動バックアップが有効になっていません。&#10;アカウント設定で有効にすることができます。"/>
+			<Poogie Id="BACKUP_NOT_FOUND_STRING"
+                    String="使用可能なバックアップがありません。"/>
 		</Integrations>
 		<Enums>
 			<Enum Id="SORT_BY_LOWEST_TIMER_STRING"
@@ -639,6 +715,9 @@
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="開発者ツール"
 					 Description="開発用のツール"/>
+			<Setting Id="ACCOUNT_STRING"
+                     String="アカウント"
+                     Description="アカウント設定"/>
 
 			<Setting Id="ABNORMALITY_SONGS_STRING"
 					 String="旋律"
@@ -683,6 +762,9 @@
 			<Setting Id="SEAMLESS_SHUTDOWN_STRING"
 					 String="シームレス終了"
 					 Description="有効な場合、HunterPieは終了時に確認ウィンドウを表示しません。"/>
+			<Setting Id="ENABLE_NATIVE_MODULE_STRING"
+                     String="ネイティブモジュールを有効にする（詳細をご確認ください）"
+                     Description="有効な場合、HunterPieはいくつかの機能を有効にするためにパッチを適用します。（例：探索中の個人ダメージ）&#10;MODの[Stracker's Loader]と[Performance Booster and Plugin Extender](別名：CRCBypass)を導入されていない方は、長時間のプレイによりゲームがクラッシュする可能性があります。&#10;ゲームを再起動しないと反映されません。"/>
 			<Setting Id="SHUTDOWN_ON_GAME_EXIT"
 					 String="ゲーム終了時に終了"
 					 Description="有効な場合、ゲーム終了時にHunterPieも続いて自動的に終了します。"/>
@@ -790,12 +872,6 @@
 			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
 					 String="並び順"
 					 Description="バフ・デバフの並び順をを変更する。"/>
-			<Setting Id="SORT_BY_LOWEST_TIMER_STRING"
-					 String="残り時間の昇順"/>
-			<Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
-					 String="残り時間の降順"/>
-			<Setting Id="SORT_BY_DISABLED_STRING"
-					 String="並び変えない"/>
 
 			<Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
 					 String="翔蟲エイム修正"
@@ -868,6 +944,11 @@
 					 String="Developer: Log level"/>
 			<Setting Id="DEV_PRESENTATION_TRACER_LEVEL"
 					 String="Developer: UI rendering tracer level"/>
+
+			<!-- Account -->
+			<Setting Id="ACCOUNT_ENABLE_BACKUP_STRING"
+                     String="セーブデータの自動バックアップを有効化"
+                     Description="有効な場合、HunterPieは自動的にゲームのセーブデータをバックアップし、クラウドにアップロードします。"/>
 		</Settings>
 	</Client>
 </Strings>

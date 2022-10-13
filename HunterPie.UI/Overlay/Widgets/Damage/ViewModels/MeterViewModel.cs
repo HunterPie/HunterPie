@@ -6,73 +6,71 @@ using LiveCharts;
 using System;
 using System.Collections.ObjectModel;
 
-namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels
+namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
+
+public class MeterViewModel : ViewModel
 {
-    public class MeterViewModel : ViewModel
+    public DamageMeterWidgetConfig Settings { get; }
+    private double _timeElapsed = 1;
+    private int _deaths;
+    private bool _inHuntingZone;
+    private Func<double, string> _damageFormatter;
+    private bool _hasPetsToBeDisplayed;
+
+    public Func<double, string> TimeFormatter { get; set; } =
+        new Func<double, string>((value) => TimeSpan.FromSeconds(value).ToString("mm\\:ss"));
+
+    public Func<double, string> DamageFormatter { get => _damageFormatter; set => SetValue(ref _damageFormatter, value); }
+
+    public SeriesCollection Series { get; protected set; } = new();
+
+    public ObservableCollection<PlayerViewModel> Players { get; } = new();
+
+    public PetsViewModel Pets { get; }
+
+    public double TimeElapsed
     {
-        public DamageMeterWidgetConfig Settings { get; }
-        private double _timeElapsed = 1;
-        private int _deaths;
-        private bool _inHuntingZone;
-        private Func<double, string> _damageFormatter;
-        private bool _hasPetsToBeDisplayed;
+        get => _timeElapsed;
+        set => SetValue(ref _timeElapsed, value);
+    }
 
-        public Func<double, string> TimeFormatter { get; set;  } = 
-            new Func<double, string>((value) => TimeSpan.FromSeconds(value).ToString("mm\\:ss"));
+    public int Deaths
+    {
+        get => _deaths;
+        set => SetValue(ref _deaths, value);
+    }
 
-        public Func<double, string> DamageFormatter { get => _damageFormatter; set { SetValue(ref _damageFormatter, value); } }
+    public bool InHuntingZone { get => _inHuntingZone; set => SetValue(ref _inHuntingZone, value); }
 
-        public SeriesCollection Series { get; protected set; } = new();
+    public bool HasPetsToBeDisplayed { get => _hasPetsToBeDisplayed; set => SetValue(ref _hasPetsToBeDisplayed, value); }
 
-        public ObservableCollection<PlayerViewModel> Players { get; } = new();
+    public MeterViewModel() { }
 
-        public PetsViewModel Pets { get; }
+    public MeterViewModel(DamageMeterWidgetConfig config)
+    {
+        Settings = config;
+        Pets = new(config);
+        SetupFormatters();
+    }
 
-        public double TimeElapsed
+    private void SetupFormatters() => DamageFormatter = new Func<double, string>((value) => FormatDamageByStrategy(value));
+
+    private string FormatDamageByStrategy(double damage)
+    {
+        return Settings.DamagePlotStrategy.Value switch
         {
-            get => _timeElapsed;
-            set { SetValue(ref _timeElapsed, value); }
-        }
+            DamagePlotStrategy.TotalDamage => damage.ToString(),
+            DamagePlotStrategy.DamagePerSecond => $"{damage:0.00}/s",
+            _ => throw new NotImplementedException()
+        };
+    }
 
-        public int Deaths
-        {
-            get => _deaths;
-            set { SetValue(ref _deaths, value); }
-        }
+    public void ToggleHighlight() => Settings.ShouldHighlightMyself.Value = !Settings.ShouldHighlightMyself;
+    public void ToggleBlur() => Settings.ShouldBlurNames.Value = !Settings.ShouldBlurNames;
 
-        public bool InHuntingZone { get => _inHuntingZone; set { SetValue(ref _inHuntingZone, value); } }
-
-        public bool HasPetsToBeDisplayed { get => _hasPetsToBeDisplayed; set => SetValue(ref _hasPetsToBeDisplayed, value); }
-
-        public MeterViewModel(DamageMeterWidgetConfig config)
-        {
-            Settings = config;
-            Pets = new(config);
-            SetupFormatters();
-        }
-
-        private void SetupFormatters()
-        {
-            DamageFormatter = new Func<double, string>((value) => FormatDamageByStrategy(value));
-        }
-
-        private string FormatDamageByStrategy(double damage)
-        {
-            return (Settings.DamagePlotStrategy.Value) switch
-            {
-                DamagePlotStrategy.TotalDamage => damage.ToString(),
-                DamagePlotStrategy.DamagePerSecond => $"{damage:0.00}/s",
-                _ => throw new NotImplementedException()
-            };
-        }
-
-        public void ToggleHighlight() => Settings.ShouldHighlightMyself.Value = !Settings.ShouldHighlightMyself;
-        public void ToggleBlur() => Settings.ShouldBlurNames.Value = !Settings.ShouldBlurNames;
-
-        public void SortMembers()
-        {
-            Players.SortInPlace(player => player.Damage);
-            Pets.Damages.SortInPlace(pet => pet.Percentage);
-        }
+    public void SortMembers()
+    {
+        Players.SortInPlace(player => player.Damage);
+        Pets.Damages.SortInPlace(pet => pet.Percentage);
     }
 }

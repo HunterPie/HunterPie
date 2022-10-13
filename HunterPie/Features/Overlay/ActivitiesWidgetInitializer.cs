@@ -9,31 +9,27 @@ using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Activities;
 using System;
 
-namespace HunterPie.Features.Overlay
+namespace HunterPie.Features.Overlay;
+
+internal class ActivitiesWidgetInitializer : IWidgetInitializer
 {
-    internal class ActivitiesWidgetInitializer : IWidgetInitializer
+    private IContextHandler _handler;
+
+    public void Load(Context context)
     {
-        IContextHandler _handler;
+        Core.Client.Configuration.OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
 
-        public void Load(Context context)
+        if (!config.ActivitiesWidget.Initialize)
+            return;
+
+        _handler = context switch
         {
-            var config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
-
-            if (!config.ActivitiesWidget.Initialize)
-                return;
-
-            _handler = context switch
-            {
-                MHRContext ctx => new RiseActivitiesWidgetContextHandler(ctx),
-                MHWContext ctx => null,
-                MHRSunbreakDemoContext => null,
-                _ => throw new NotImplementedException("unreachable")
-            };
-        }
-
-        public void Unload()
-        {
-            _handler?.UnhookEvents();
-        }
+            MHRContext ctx => new RiseActivitiesWidgetContextHandler(ctx),
+            MHWContext => null,
+            MHRSunbreakDemoContext => null,
+            _ => throw new NotImplementedException("unreachable")
+        };
     }
+
+    public void Unload() => _handler?.UnhookEvents();
 }

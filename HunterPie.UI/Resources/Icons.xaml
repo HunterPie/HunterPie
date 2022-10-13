@@ -1,11 +1,132 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <DrawingImage x:Key="ICON_HUNTERPIE_HALLOWEEN">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">
+                <GeometryDrawing Brush="#FFF8FFFF" Geometry="F1 M64,64z M0,0z M31.7083,1.85034L61.5247,31.6667 31.7083,61.483 1.892,31.6667 31.7083,1.85034z" />
+                <GeometryDrawing Brush="#FFF8FFFF" Geometry="F1 M64,64z M0,0z M11.3481,10.9557L13.7129,20.0224 20.3825,13.4412 11.3481,10.9557z" />
+                <GeometryDrawing Brush="#FFF8FFFF" Geometry="F1 M64,64z M0,0z M52.0678,10.9635L49.7031,20.0302 43.0334,13.449 52.0678,10.9635z" />
+                <GeometryDrawing Brush="#FFF8FFFF" Geometry="F1 M64,64z M0,0z M11.3485,52.4748L13.7132,43.4081 20.3829,49.9893 11.3485,52.4748z" />
+                <GeometryDrawing Brush="#FFF8FFFF" Geometry="F1 M64,64z M0,0z M52.0681,52.4669L49.7034,43.4003 43.0338,49.9815 52.0681,52.4669z" />
+                <GeometryDrawing Brush="{StaticResource HUNTERPIE_HEADER_BACKGROUND}" Geometry="F1 M64,64z M0,0z M35.2083,30.5313C40.7205,25.6612 43.9252,23.7314 45.6042,20.3229 46.3313,18.8467 46.1042,20.6667 46.1042,20.6667 46.1042,20.6667 45.7708,30.75 40,31.1667 34.8218,31.5405 35.156,30.5775 35.2083,30.5313z" />
+                <GeometryDrawing Brush="{StaticResource HUNTERPIE_HEADER_BACKGROUND}" Geometry="F1 M64,64z M0,0z M17.125,34C17.125,34 17.375,34.1875 17.4628,34.2766 18.4494,35.2785 23.8725,41.0257 29.5649,41.224L29.5024,43.4115 33.5024,43.4115 33.4896,41.2552C33.4896,41.2552 42.1625,39.546 45.768,34.4585 46.7148,33.1226 45.2668,36.5062 43.3333,39.5365 41.9576,41.6925 40,43.6615 40,43.6615L39.0076,42.0729 35.5701,44.2604C35.9034,44.7813,36.5701,45.8229,36.5701,45.8229L36.5521,45.7969C36.5521,45.7969 34.8971,46.3613 31.4583,46.4063 29.0677,46.4375 26.2031,45.4063 26.2031,45.4063L26.9347,44.0729 23.6222,41.7292 22.9347,43.4792C22.9347,43.4792,17.4219,35.3594,17.2187,34.7188" />
+                <GeometryDrawing Brush="{StaticResource HUNTERPIE_HEADER_BACKGROUND}" Geometry="F1 M64,64z M0,0z M31.8321,33.2294L29.2905,36.7086C29.2488,36.9586 29.2427,37.6483 29.8437,37.9948 30.2993,38.2574 33.6771,38.0833 33.8437,38.0417 34.0104,38 34.75,37.2031 34.5,36.6823 34.25,36.1615 31.8321,33.1669 31.8321,33.2294z" />
+                <GeometryDrawing Brush="{StaticResource HUNTERPIE_HEADER_BACKGROUND}" Geometry="F1 M64,64z M0,0z M28.1061,30.5126C22.5939,25.6425 19.3892,23.7127 17.7103,20.3042 16.9831,18.828 17.2103,20.648 17.2103,20.648 17.2103,20.648 17.5436,30.7313 23.3144,31.148 28.4926,31.5218 28.1585,30.5588 28.1061,30.5126z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="ICON_ADMINISTRATOR">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V64.01 H64.01 V0 H0 Z">
                 <GeometryDrawing Brush="{StaticResource HUNTERPIE_ACCENT_COLOR}" Geometry="F1 M64.01,64.01z M0,0z M53.0509,34.435C53.3426,42.4361 42.775,58.5426 31.7336,58.4071 20.6922,58.2717 10.6283,44.7073 10.4408,35.4424L10.5848,15.5438C17.018,12.0711 23.4512,8.59835 26.976,6.65361 30.5008,4.70887 31.1172,4.29215 32.4507,4.61164 33.7842,4.93113 35.8348,5.98683 39.3704,7.93504 42.9059,9.88324 47.9263,12.7239 52.9467,15.5647 53.2176,21.4332 53.0494,34.3934 53.0509,34.435z" />
                 <GeometryDrawing Brush="{StaticResource HUNTERPIE_HEADER_BACKGROUND}" Geometry="F1 M64.01,64.01z M0,0z M14.6687,18.7942L31.7336,10.6681 31.7336,32.4211 14.6687,32.4211 14.6687,18.7942z" />
                 <GeometryDrawing Brush="{StaticResource HUNTERPIE_HEADER_BACKGROUND}" Geometry="F1 M64.01,64.01z M0,0z M48.6735,32.4211L31.7336,32.4211 31.7336,54.2992C31.7336,54.2992,46.0481,49.7777,48.6735,32.4211z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_ACCOUNT">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M512,512z M0,0z M332.64,64.58C313.18,43.57 286,32 256,32 225.84,32 198.57,43.5 179.2,64.38 159.62,85.49 150.08,114.18 152.32,145.16 156.76,206.28 203.27,256 256,256 308.73,256 355.16,206.29 359.67,145.18 361.94,114.48 352.34,85.85 332.64,64.58z M432,480L80,480A31,31,0,0,1,55.8,468.87C49.3,461.1 46.68,450.49 48.62,439.76 57.06,392.94 83.4,353.61 124.8,326 161.58,301.49 208.17,288 256,288 303.83,288 350.42,301.5 387.2,326 428.6,353.6 454.94,392.93 463.38,439.75 465.32,450.48 462.7,461.09 456.2,468.86A31,31,0,0,1,432,480z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_OPEN_FOLDER">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M512,512z M0,0z M408,96L252.11,96A23.89,23.89,0,0,1,238.8,92L211,73.41A55.77,55.77,0,0,0,179.89,64L104,64A56.06,56.06,0,0,0,48,120L48,144 464,144C464,113.12,438.88,96,408,96z M423.75,448L88.25,448A56,56,0,0,1,32.32,392.85L16.18,228.11 16.18,227.83A48,48,0,0,1,64,176L448.1,176A48,48,0,0,1,495.9,227.83L495.9,228.11 479.68,392.85A56,56,0,0,1,423.75,448z M479.9,226.55z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_CLOUD_CHECK">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M512,512z M0,0z M424.44,227.25A16,16,0,0,1,412.32,214.86C404.64,178.18,387.87,146.71,363.14,122.86A153.57,153.57,0,0,0,256,80C220.5,80,187.76,91.69,161.32,113.8A156.24,156.24,0,0,0,119.32,169.8A16,16,0,0,1,107.95,178.95C80.95,184.57 56.88,196.29 38.77,212.82 13.39,235.88 0,267.42 0,304 0,340 14.38,372.88 40.49,396.59 65.64,419.43 99.56,432 136,432L396,432C428.37,432 456.23,423.43 476.59,407.23 499.76,388.78 512,361.39 512,328 512,270.43 470,237.42 424.44,227.25z M329.24,218.31L221.44,346.31A16,16,0,0,1,209.44,352L209.17,352A16,16,0,0,1,197.29,346.72L151.39,295.85C145.62,289.46,145.57,279.52,151.69,273.45A16,16,0,0,1,174.85,274.08L208.75,311.66 304.75,197.66A16,16,0,1,1,329.23,218.28z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_TRASH">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M512,512z M0,0z M432,96L336,96 336,72A40,40,0,0,0,296,32L216,32A40,40,0,0,0,176,72L176,96 80,96A16,16,0,0,0,80,128L97,128 116,432.92C117.42,459.77,138,480,164,480L348,480C374.13,480,394.3,460.22,396,433L415,128 432,128A16,16,0,0,0,432,96z M192.57,416L192,416A16,16,0,0,1,176,400.57L168,176.57A16,16,0,1,1,200,175.43L208,399.43A16,16,0,0,1,192.57,416z M272,400A16,16,0,0,1,240,400L240,176A16,16,0,0,1,272,176z M304,96L208,96 208,72A7.91,7.91,0,0,1,216,64L296,64A7.91,7.91,0,0,1,304,72z M336,400.57A16,16,0,0,1,320,416L319.42,416A16,16,0,0,1,304,399.43L312,175.43A16,16,0,1,1,344,176.57z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_CLOUD_DOWNLOAD_MASK">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M512,512z M0,0z M472.7,189.5C459.44,181.07,442.87,174.94,424.62,171.57A16,16,0,0,1,412,159.28C404.14,124.77 387.4,95.15 362.85,72.7 334.15,46.45 296.21,32 256,32 220.65,32 188,43.08 161.63,64A150.13,150.13,0,0,0,119.68,116.83A16.05,16.05,0,0,1,108,125.8C80.87,130.7 57.47,140.48 39.59,154.5 13.7,174.83 0,203.56 0,237.6 0,305 55.93,352 136,352L240,352 240,224.45C240,215.84,246.62,208.45,255.23,208.02A16,16,0,0,1,272,224L272,352 396,352C468.64,352 512,317.76 512,260.4 512,230.35 498.41,205.83 472.7,189.5z M240,425.42L203.3,388.78A16,16,0,0,0,180.7,411.43L244.7,475.32A16,16,0,0,0,267.3,475.32L331.3,411.43A16,16,0,0,0,308.7,388.78L272,425.42 272,352 240,352z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_CAMERA_OUTLINE_MASK">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M350.54,148.68L323.92,106.62C318.31,100.08,310.62,96,302,96L210,96C201.38,96,193.69,100.08,188.08,106.62L161.46,148.68C155.85,155.23,148.62,160,140,160L80,160A32,32,0,0,0,48,192L48,384A32,32,0,0,0,80,416L432,416A32,32,0,0,0,464,384L464,192A32,32,0,0,0,432,160L373,160C364.35,160,356.15,155.23,350.54,148.68z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF000000" Thickness="32" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M124,158L124,136 100,136 100,158 M335.76,285.22L335.76,271.91A80,80,0,0,0,204.76,210.31 M176,258.78L176,272.09A80,80,0,0,0,306.73,333.89">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF000000" Thickness="32" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M196,272L176,252 156,272 M356,272L336,292 316,272">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF000000" Thickness="32" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_CAMERA_MASK">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M512,512z M0,0z M432,144L373,144C370,144,366.28,142.06,363.38,139L337.44,98.06A15.52,15.52,0,0,0,336.07,96.21C327.11,85.76,315,80,302,80L210,80C197,80,184.89,85.76,175.93,96.21A15.52,15.52,0,0,0,174.56,98.06L148.62,139.06C146.4,141.48,143.28,144.06,140,144.06L140,136.06A16,16,0,0,0,124,120.06L100,120.06A16,16,0,0,0,84,136.06L84,144.06 80,144.06A48.05,48.05,0,0,0,32,192.06L32,384A48.05,48.05,0,0,0,80,432L432,432A48.05,48.05,0,0,0,480,384L480,192A48.05,48.05,0,0,0,432,144z M316.84,346.3A96.06,96.06,0,0,1,161.18,287.12A16,16,0,0,1,144.69,260.69L164.69,240.69A16,16,0,0,1,187.31,240.69L207.31,260.69A16,16,0,0,1,196,288A17.31,17.31,0,0,1,194,287.86A64.07,64.07,0,0,0,296.66,321.49A16,16,0,1,1,316.87,346.3z M367.31,283.3L347.31,303.3A16,16,0,0,1,324.69,303.3L304.69,283.3A16,16,0,0,1,317.78,256.1A64,64,0,0,0,215,222.64A16,16,0,1,1,194.61,198A96,96,0,0,1,350.61,257A16,16,0,0,1,367.33,283.35z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_LOCK_CHECK_MASK">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M320,264L230.4,376 192,331.12">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF000000" Thickness="32" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M80,176A16,16,0,0,0,64,192L64,408C64,438.24,89.76,464,120,464L392,464C422.24,464,448,439.49,448,409.25L448,192A16,16,0,0,0,432,176z M160,176L160,144A96,96,0,0,1,256,48L256,48A96,96,0,0,1,352,144L352,176">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF000000" Thickness="32" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_ERROR_MASK">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M448,256C448,150 362,64 256,64 150,64 64,150 64,256 64,362 150,448 256,448 362,448 448,362 448,256z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF000000" Thickness="32" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M512,512z M0,0z M320,320L192,192 M192,320L320,192">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF000000" Thickness="32" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
@@ -18,6 +139,22 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="ICON_BELL">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="{StaticResource GRAY_100}" Geometry="F1 M512,512z M0,0z M440.08,341.31C438.42,339.31 436.79,337.31 435.19,335.38 413.19,308.77 399.88,292.71 399.88,217.38 399.88,178.38 390.55,146.38 372.16,122.38 358.6,104.65 340.27,91.2 316.11,81.26A3,3,0,0,1,315.29,80.59C306.6,51.49 282.82,32 256,32 229.18,32 205.41,51.49 196.72,80.56A3.13,3.13,0,0,1,195.91,81.21C139.53,104.42 112.13,148.95 112.13,217.35 112.13,292.71 98.84,308.77 76.82,335.35 75.22,337.28 73.59,339.24 71.93,341.28A35.16,35.16,0,0,0,67.28,378.9C73.45,391.9,86.6,399.97,101.61,399.97L410.5,399.97C425.44,399.97,438.5,391.91,444.69,378.97A35.17,35.17,0,0,0,440.08,341.31z M256,480A80.06,80.06,0,0,0,326.44,437.87A4,4,0,0,0,322.9,432L189.12,432A4,4,0,0,0,185.57,437.87A80.06,80.06,0,0,0,256,480z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_DISCONNECTED_ACCOUNT">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+                <GeometryDrawing Brush="{StaticResource WHITE}" Geometry="F1 M512,512z M0,0z M256,48C141.31,48 48,141.31 48,256 48,370.69 141.31,464 256,464 370.69,464 464,370.69 464,256 464,141.31 370.69,48 256,48z M258,144A72,72,0,1,1,186,216A72,72,0,0,1,258,144z M256,432A175.55,175.55,0,0,1,126.82,375.4C135.66,329.62 215.06,320 256,320 296.94,320 376.34,329.62 385.18,375.39A175.52,175.52,0,0,1,256,432z" />
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
     <DrawingImage x:Key="ICON_COHOOT">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V135.46666 H135.46666 V0 H0 Z">

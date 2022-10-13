@@ -1,10 +1,9 @@
 ﻿using System.Reflection;
 using System.Windows;
 
-namespace HunterPie.UI.Settings.Converter
+namespace HunterPie.UI.Settings.Converter;
+
+public interface IVisualConverter
 {
-    public interface IVisualConverter
-    {
-        public FrameworkElement Build(object parent, PropertyInfo childInfo);
-    }
+    public FrameworkElement Build(object parent, PropertyInfo childInfo);
 }

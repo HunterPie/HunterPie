@@ -4,21 +4,19 @@ using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Game.World;
 using System;
 
-namespace HunterPie.Integrations.Discord
+namespace HunterPie.Integrations.Discord;
+
+internal static class DiscordPresenceController
 {
-    internal static class DiscordPresenceController
+
+    public static RichPresence GetPresenceBy(Context context)
     {
-
-        public static RichPresence GetPresenceBy(Context context)
+        return context switch
         {
-            return context switch
-            {
-                MHWContext ctx => new WorldRichPresence(ctx),
-                MHRContext ctx => new RiseRichPresence(ctx),
-                MHRSunbreakDemoContext ctx => new RiseSunbreakDemoRichPresence(ctx),
-                _ => throw new NotImplementedException("unreachable")
-            };
-        }
-
+            MHWContext ctx => new WorldRichPresence(ctx),
+            MHRContext ctx => new RiseRichPresence(ctx),
+            MHRSunbreakDemoContext ctx => new RiseSunbreakDemoRichPresence(ctx),
+            _ => throw new NotImplementedException("unreachable")
+        };
     }
 }

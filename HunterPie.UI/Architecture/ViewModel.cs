@@ -1,8 +1,9 @@
 ﻿using HunterPie.Core.Architecture;
+using System.Windows.Threading;
 
-namespace HunterPie.UI.Architecture
+namespace HunterPie.UI.Architecture;
+
+public class ViewModel : Bindable
 {
-    public class ViewModel : Bindable
-    {
-    }
+    protected Dispatcher UIThread => Dispatcher.CurrentDispatcher;
 }

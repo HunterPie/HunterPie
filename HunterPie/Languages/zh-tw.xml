@@ -777,24 +777,18 @@
                      String="隱藏未知魔物部位"
                      Description="如果啟用，將隱藏未知部位（被標記為 &quot;???&quot;）。"/>
 
-            <Setting Id="ABNORMALITY_TRAYS_STRING"
-                     String="Buff∕Debuff 工具列"
-                     Description="增益∕減益效果工具列的詳細設定。"/>
-            <Setting Id="ABNORMALITY_TRAY_NAME_STRING"
-                     String="Buff∕Debuff 工具列名稱"
-                     Description="增益∕減益效果工具列的名稱。"/>
-            <Setting Id="ABNORMALITY_TRAY_MAX_SIZE_STRING"
-                     String="Buff∕Debuff 工具列的最大數量"
-                     Description="增益∕減益效果工具列的最大設定數量。"/>
-            <Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
-                     String="Buff∕Debuff 工具列排序"
-                     Description="增益∕減益效果工具列的狀態效果排序。"/>
-            <Setting Id="SORT_BY_LOWEST_TIMER_STRING"
-                     String="最短時間"/>
-            <Setting Id="SORT_BY_HIGHEST_TIMER_STRING"
-                     String="最長時間"/>
-            <Setting Id="SORT_BY_DISABLED_STRING"
-                     String="禁用"/>
+			<Setting Id="ABNORMALITY_TRAYS_STRING"
+					 String="Buff∕Debuff 工具列"
+					 Description="增益∕減益效果工具列的詳細設定。"/>
+			<Setting Id="ABNORMALITY_TRAY_NAME_STRING"
+					 String="Buff∕Debuff 工具列名稱"
+					 Description="增益∕減益效果工具列的名稱。"/>
+			<Setting Id="ABNORMALITY_TRAY_MAX_SIZE_STRING"
+					 String="Buff∕Debuff 工具列的最大數量"
+					 Description="增益∕減益效果工具列的最大設定數量。"/>
+			<Setting Id="ABNORMALITY_TRAY_SORT_BY_STRING"
+					 String="Buff∕Debuff 工具列排序"
+					 Description="增益∕減益效果工具列的狀態效果排序。"/>
 
             <Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
                      String="Patch in-game Wirebug Aim"

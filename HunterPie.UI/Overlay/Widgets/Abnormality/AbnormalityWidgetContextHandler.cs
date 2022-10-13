@@ -7,80 +7,79 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace HunterPie.UI.Overlay.Widgets.Abnormality
+namespace HunterPie.UI.Overlay.Widgets.Abnormality;
+
+internal class AbnormalityWidgetContextHandler : IContextHandler
 {
-    class AbnormalityWidgetContextHandler : IContextHandler
+    private AbnormalityWidgetConfig _config;
+    public readonly Context Context;
+    public readonly AbnormalityBarViewModel ViewModel;
+    private readonly AbnormalityBarView View;
+    private ref AbnormalityWidgetConfig Config => ref _config;
+
+    public AbnormalityWidgetContextHandler(Context context, ref AbnormalityWidgetConfig config)
     {
-        private AbnormalityWidgetConfig _config;
-        public readonly Context Context;
-        public readonly AbnormalityBarViewModel ViewModel;
-        private readonly AbnormalityBarView View;
-        private ref AbnormalityWidgetConfig Config => ref _config;
+        _config = config;
+        View = new AbnormalityBarView(ref Config);
+        _ = WidgetManager.Register<AbnormalityBarView, AbnormalityWidgetConfig>(View);
+        Context = context;
 
-        public AbnormalityWidgetContextHandler(Context context, ref AbnormalityWidgetConfig config)
+        ViewModel = View.ViewModel;
+
+        UpdateData();
+        HookEvents();
+    }
+
+    public void HookEvents()
+    {
+        Context.Game.Player.OnAbnormalityStart += OnAbnormalityStart;
+        Context.Game.Player.OnAbnormalityEnd += OnAbnormalityEnd;
+    }
+
+    private void OnAbnormalityEnd(object sender, IAbnormality e)
+    {
+        _ = Application.Current.Dispatcher.InvokeAsync(() =>
         {
-            _config = config;
-            View = new AbnormalityBarView(ref Config);
-            WidgetManager.Register<AbnormalityBarView, AbnormalityWidgetConfig>(View);
-            Context = context;
+            AbnormalityContextHandler handler = ViewModel.Abnormalities.Cast<AbnormalityContextHandler>()
+                .FirstOrDefault(vm => vm.Context == e);
 
-            ViewModel = View.ViewModel;
+            if (handler is null)
+                return;
 
-            UpdateData();
-            HookEvents();
-        }
+            handler.UnhookEvents();
+            _ = ViewModel.Abnormalities.Remove(handler);
+        }, DispatcherPriority.Normal);
+    }
 
-        public void HookEvents()
+    private void OnAbnormalityStart(object sender, IAbnormality e)
+    {
+        _ = Application.Current.Dispatcher.InvokeAsync(() =>
         {
-            Context.Game.Player.OnAbnormalityStart += OnAbnormalityStart;
-            Context.Game.Player.OnAbnormalityEnd += OnAbnormalityEnd;
-        }
+            if (!Config.AllowedAbnormalities.Contains(e.Id))
+                return;
 
-        private void OnAbnormalityEnd(object sender, IAbnormality e)
+            ViewModel.Abnormalities.Add(new AbnormalityContextHandler(e));
+        }, DispatcherPriority.Normal);
+    }
+
+    public void UnhookEvents()
+    {
+        Context.Game.Player.OnAbnormalityStart -= OnAbnormalityStart;
+        Context.Game.Player.OnAbnormalityEnd -= OnAbnormalityEnd;
+        _ = WidgetManager.Unregister<AbnormalityBarView, AbnormalityWidgetConfig>(View);
+    }
+
+    private void UpdateData()
+    {
+        Application.Current.Dispatcher.Invoke(() =>
         {
-            Application.Current.Dispatcher.InvokeAsync(() =>
+            foreach (IAbnormality abnormality in Context.Game.Player.Abnormalities)
             {
-                AbnormalityContextHandler handler = ViewModel.Abnormalities.Cast<AbnormalityContextHandler>()
-                    .FirstOrDefault(vm => vm.Context == e);
-
-                if (handler is null)
+                if (!Config.AllowedAbnormalities.Contains(abnormality.Id))
                     return;
 
-                handler.UnhookEvents();
-                ViewModel.Abnormalities.Remove(handler);
-            }, DispatcherPriority.Normal);
-        }
-
-        private void OnAbnormalityStart(object sender, IAbnormality e)
-        {
-            Application.Current.Dispatcher.InvokeAsync(() =>
-            {
-                if (!Config.AllowedAbnormalities.Contains(e.Id))
-                    return;
-
-                ViewModel.Abnormalities.Add(new AbnormalityContextHandler(e));
-            }, DispatcherPriority.Normal);
-        }
-
-        public void UnhookEvents()
-        {
-            Context.Game.Player.OnAbnormalityStart -= OnAbnormalityStart;
-            Context.Game.Player.OnAbnormalityEnd -= OnAbnormalityEnd;
-            WidgetManager.Unregister<AbnormalityBarView, AbnormalityWidgetConfig>(View);
-        }
-
-        private void UpdateData()
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                foreach (IAbnormality abnormality in Context.Game.Player.Abnormalities)
-                {
-                    if (!Config.AllowedAbnormalities.Contains(abnormality.Id))
-                        return;
-
-                    ViewModel.Abnormalities.Add(new AbnormalityContextHandler(abnormality));
-                }
-            }, DispatcherPriority.Normal);
-        }
+                ViewModel.Abnormalities.Add(new AbnormalityContextHandler(abnormality));
+            }
+        }, DispatcherPriority.Normal);
     }
 }

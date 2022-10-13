@@ -157,5 +157,15 @@
                 </TextBlock.Effect>
             </TextBlock>
         </Grid>
+
+        <Ellipse Fill="{StaticResource RED_600}"
+                 Visibility="{Binding IsBlocked, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                 Opacity="1"/>
+        <Ellipse Fill="{StaticResource RED_LIGHT_300}"
+                 Visibility="{Binding IsBlocked, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Ellipse.OpacityMask>
+                <ImageBrush ImageSource="{StaticResource ICON_ERROR_MASK}"/>
+            </Ellipse.OpacityMask>
+        </Ellipse>
     </Grid>
 </UserControl>

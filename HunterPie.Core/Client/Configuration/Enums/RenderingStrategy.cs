@@ -1,8 +1,7 @@
-﻿namespace HunterPie.Core.Client.Configuration.Enums
+﻿namespace HunterPie.Core.Client.Configuration.Enums;
+
+public enum RenderingStrategy
 {
-    public enum RenderingStrategy
-    {
-        Hardware,
-        Software,
-    }
+    Hardware,
+    Software,
 }

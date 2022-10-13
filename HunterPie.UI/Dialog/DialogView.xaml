@@ -9,6 +9,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:converter="clr-namespace:HunterPie.UI.Architecture.Converters"
         xmlns:btn="clr-namespace:HunterPie.UI.Controls.Buttons"
+        xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets"
         mc:Ignorable="d"
         Height="200" 
         Width="400"
@@ -29,8 +30,9 @@
             <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="Margin" Value="10"/>
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Padding" Value="10,0,10,0"/>
-            <Setter Property="BorderBrush" Value="{StaticResource GRAY_300}"/>
+            <Setter Property="Padding" Value="10,5,10,5"/>
+            <Setter Property="BorderBrush" Value="{StaticResource GRAY}"/>
+            <Setter Property="CornerRadius" Value="5"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
@@ -89,15 +91,15 @@
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Center"
                            Margin="10">
-                    <btn:Button Content="Accept"
+                    <btn:Button Content="{loc:LocalizationString '//Strings/Client/Dialogs/Button[@Id=&quot;ACCEPT_STRING&quot;]'}"
                                 Visibility="{Binding Buttons, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource DialogButtonToVisibilityConverter}, ConverterParameter={StaticResource Accept}}"
                                 Style="{StaticResource DefaultButton}"
                                 OnClick="OnAccept"/>
-                    <btn:Button Content="Reject"
+                    <btn:Button Content="{loc:LocalizationString '//Strings/Client/Dialogs/Button[@Id=&quot;REJECT_STRING&quot;]'}"
                                 Visibility="{Binding Buttons, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource DialogButtonToVisibilityConverter}, ConverterParameter={StaticResource Reject}}"
                                 Style="{StaticResource DefaultButton}"
                                 OnClick="OnReject"/>
-                    <btn:Button Content="Cancel"
+                    <btn:Button Content="{loc:LocalizationString '//Strings/Client/Dialogs/Button[@Id=&quot;CANCEL_STRING&quot;]'}"
                                 Visibility="{Binding Buttons, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource DialogButtonToVisibilityConverter}, ConverterParameter={StaticResource Cancel}}"
                                 Style="{StaticResource DefaultButton}"
                                 OnClick="OnCancel"/>

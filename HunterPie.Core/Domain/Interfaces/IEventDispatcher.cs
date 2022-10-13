@@ -1,8 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace HunterPie.Core.Domain.Interfaces;
 
-namespace HunterPie.Core.Domain.Interfaces
-{
-    public interface IEventDispatcher {}
-}
+public interface IEventDispatcher { }

@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:HunterPie.GUI.Parts.Console"
              xmlns:vm="clr-namespace:HunterPie.GUI.Parts.Console.ViewModels"
              xmlns:logger="clr-namespace:HunterPie.UI.Logger;assembly=HunterPie.UI"
+             xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800">
@@ -18,10 +19,12 @@
                       d:DataContext="{StaticResource MockConsoleViewModel}">
             <ItemsControl.Template>
                 <ControlTemplate>
-                    <ScrollViewer VirtualizingPanel.IsVirtualizing="True"
-                                  VerticalScrollBarVisibility="Auto">
-                        <VirtualizingStackPanel IsItemsHost="True"/>
-                    </ScrollViewer>
+                    <viewer:SmoothScrollViewer VirtualizingPanel.IsVirtualizing="True"
+                                               VirtualizingStackPanel.VirtualizationMode="Recycling"
+                                               VerticalScrollBarVisibility="Auto">
+                        <VirtualizingStackPanel IsItemsHost="True"
+                                                VirtualizingStackPanel.VirtualizationMode="Recycling"/>
+                    </viewer:SmoothScrollViewer>
                 </ControlTemplate>
             </ItemsControl.Template>
 

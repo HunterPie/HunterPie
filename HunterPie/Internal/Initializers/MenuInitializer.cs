@@ -2,17 +2,16 @@
 using HunterPie.Domain.Sidebar;
 using HunterPie.GUI.Parts.Sidebar;
 
-namespace HunterPie.Internal.Initializers
+namespace HunterPie.Internal.Initializers;
+
+internal class MenuInitializer : IInitializer
 {
-    internal class MenuInitializer : IInitializer
+    public void Init()
     {
-        public void Init()
-        {
-            ISideBar menu = new DefaultSideBar();
+        ISideBar menu = new DefaultSideBar();
 
-            menu.Menu[0].ExecuteOnClick();
+        menu.Menu[0].ExecuteOnClick();
 
-            SideBarContainer.SetMenu(menu);
-        }
+        SideBarContainer.SetMenu(menu);
     }
 }

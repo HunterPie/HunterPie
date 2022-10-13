@@ -57,7 +57,11 @@
                             <Storyboard>
                                 <ThicknessAnimation To="37,0,0,0"
                                                     Duration="0:0:0.15"
-                                                 Storyboard.TargetProperty="Margin"/>
+                                                 Storyboard.TargetProperty="Margin">
+                                    <ThicknessAnimation.EasingFunction>
+                                        <QuadraticEase/>
+                                    </ThicknessAnimation.EasingFunction>
+                                </ThicknessAnimation>
                                 <anim:BrushAnimation To="{StaticResource WHITE_50}"
                                                      Duration="0:0:0.15"
                                                      Storyboard.TargetProperty="Fill"/>
@@ -69,7 +73,11 @@
                             <Storyboard>
                                 <ThicknessAnimation To="5,0,0,0"
                                                     Duration="0:0:0.15"
-                                                    Storyboard.TargetProperty="Margin"/>
+                                                    Storyboard.TargetProperty="Margin">
+                                    <ThicknessAnimation.EasingFunction>
+                                        <QuadraticEase/>
+                                    </ThicknessAnimation.EasingFunction>
+                                </ThicknessAnimation>
                                 <anim:BrushAnimation To="{StaticResource GRAY_50}"
                                                      Duration="0:0:0.15"
                                                      Storyboard.TargetProperty="Fill"/>

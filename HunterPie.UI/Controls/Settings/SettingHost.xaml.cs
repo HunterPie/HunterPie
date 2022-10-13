@@ -1,25 +1,42 @@
 ﻿using HunterPie.UI.Controls.Settings.ViewModel;
-using System.Windows.Controls;
 using HunterPie.UI.Controls.TextBox.Events;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Animation;
 
-namespace HunterPie.UI.Controls.Settings
+namespace HunterPie.UI.Controls.Settings;
+
+/// <summary>
+/// Interaction logic for SettingHost.xaml
+/// </summary>
+public partial class SettingHost : UserControl
 {
-    /// <summary>
-    /// Interaction logic for SettingHost.xaml
-    /// </summary>
-    public partial class SettingHost : UserControl
+    private readonly Storyboard SlideInAnimation;
+    public SettingHostViewModel ViewModel => (SettingHostViewModel)DataContext;
+
+    public SettingHost()
     {
-        public SettingHostViewModel ViewModel => (SettingHostViewModel)DataContext;
+        InitializeComponent();
+        SlideInAnimation = FindResource("SlideInAnimation") as Storyboard;
 
-        public SettingHost()
-        {
-            InitializeComponent();
-        }
-
-        private void OnRealTimeSearch(object sender, SearchTextChangedEventArgs e) => ViewModel.SearchSetting(e.Text);
-        private void OnLoaded(object sender, RoutedEventArgs e) => ViewModel.FetchVersion();
-        private void OnUnloaded(object sender, RoutedEventArgs e) => ViewModel.UnhookEvents();
-        private void OnExecuteUpdateClick(object sender, RoutedEventArgs e) => ViewModel.ExecuteRestart();
     }
+
+    private void OnRealTimeSearch(object sender, SearchTextChangedEventArgs e) => ViewModel.SearchSetting(e.Text);
+    private void OnLoaded(object sender, RoutedEventArgs e) => ViewModel.FetchVersion();
+    private void OnUnloaded(object sender, RoutedEventArgs e) => ViewModel.UnhookEvents();
+    private void OnExecuteUpdateClick(object sender, RoutedEventArgs e) => ViewModel.ExecuteRestart();
+
+    private void OnPanelLoaded(object sender, RoutedEventArgs e)
+    {
+        if (sender is FrameworkElement element)
+            AnimatePanel(element);
+    }
+
+    private void OnPanelDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        if (sender is FrameworkElement element)
+            AnimatePanel(element);
+    }
+
+    private void AnimatePanel(FrameworkElement element) => SlideInAnimation.Begin(element);
 }

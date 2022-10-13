@@ -5,134 +5,133 @@ using System.Globalization;
 using System.Linq;
 using System.Xml;
 
-namespace HunterPie.Core.Game.Data
+namespace HunterPie.Core.Game.Data;
+
+public class AbnormalityData
 {
-    public class AbnormalityData
+    public const string SongPrefix = "Songs_";
+    public const string GearPrefix = "Gears_";
+    public const string ConsumablePrefix = "Consumables_";
+    public const string DebuffPrefix = "Debuffs_";
+    public const string SkillPrefix = "Skills_";
+    public const string FoodPrefix = "Foods_";
+    public const string OrchestraPrefix = "Palico_";
+    public const float TIMER_MULTIPLIER = 60.0f;
+
+    public const string Songs = "Songs";
+    public const string Gears = "Gears";
+    public const string Consumables = "Consumables";
+    public const string Debuffs = "Debuffs";
+    public const string Skills = "Skills";
+    public const string Foods = "Foods";
+    public const string Orchestra = "Palico";
+
+    private static XmlDocument _abnormalityData;
+    public static Dictionary<string, AbnormalitySchema> Abnormalities { get; private set; }
+
+    internal static void Init(string path)
     {
-        public const string SongPrefix = "Songs_";
-        public const string GearPrefix = "Gears_";
-        public const string ConsumablePrefix = "Consumables_";
-        public const string DebuffPrefix = "Debuffs_";
-        public const string SkillPrefix = "Skills_";
-        public const string FoodPrefix = "Foods_";
-        public const string OrchestraPrefix = "Palico_"; 
-        public const float TIMER_MULTIPLIER = 60.0f;
+        _abnormalityData = new();
+        _abnormalityData.Load(path);
 
-        public const string Songs = "Songs";
-        public const string Gears = "Gears";
-        public const string Consumables = "Consumables";
-        public const string Debuffs = "Debuffs";
-        public const string Skills = "Skills";
-        public const string Foods = "Foods";
-        public const string Orchestra = "Palico";
+        CreateFixedSizeDictionary();
+        LoadAbnormalities();
+    }
 
-        private static XmlDocument _abnormalityData;
-        public static Dictionary<string, AbnormalitySchema> Abnormalities { get; private set; }
+    private static void CreateFixedSizeDictionary()
+    {
+        int abnormalitiesCount = _abnormalityData.SelectNodes("//Abnormalities/*/Abnormality").Count;
 
-        internal static void Init(string path)
+        Abnormalities = new(abnormalitiesCount);
+    }
+
+    private static void LoadAbnormalities()
+    {
+        XmlNodeList abnormalities = _abnormalityData.SelectNodes("//Abnormalities/*/Abnormality");
+
+        foreach (XmlNode abnormality in abnormalities)
         {
-            _abnormalityData = new();
-            _abnormalityData.Load(path);
+            string id = abnormality.Attributes["Id"].Value;
+            string name = abnormality.Attributes["Name"]?.Value ?? "ABNORMALITY_UNKNOWN";
+            string icon = abnormality.Attributes["Icon"]?.Value ?? "ICON_MISSING";
+            string offset = abnormality.Attributes["Offset"]?.Value ?? id;
+            string dependsOn = abnormality.Attributes["DependsOn"]?.Value ?? "0";
+            string withValue = abnormality.Attributes["WithValue"]?.Value ?? "0";
+            string group = abnormality.ParentNode.Name;
+            string category = abnormality.Attributes["Category"]?.Value ?? group;
+            string isBuildup = abnormality.Attributes["IsBuildup"]?.Value ?? "False";
+            string maxBuildup = abnormality.Attributes["MaxBuildup"]?.Value ?? "0";
 
-            CreateFixedSizeDictionary();
-            LoadAbnormalities();
-        }
-
-        private static void CreateFixedSizeDictionary()
-        {
-            int abnormalitiesCount = _abnormalityData.SelectNodes("//Abnormalities/*/Abnormality").Count;
-
-            Abnormalities = new(abnormalitiesCount);
-        }
-
-        private static void LoadAbnormalities()
-        {
-            XmlNodeList abnormalities = _abnormalityData.SelectNodes("//Abnormalities/*/Abnormality");
-
-            foreach (XmlNode abnormality in abnormalities)
+            AbnormalitySchema schema = new()
             {
-                string id = abnormality.Attributes["Id"].Value;
-                string name = abnormality.Attributes["Name"]?.Value ?? "ABNORMALITY_UNKNOWN";
-                string icon = abnormality.Attributes["Icon"]?.Value ?? "ICON_MISSING";
-                string offset = abnormality.Attributes["Offset"]?.Value ?? id;
-                string dependsOn = abnormality.Attributes["DependsOn"]?.Value ?? "0";
-                string withValue = abnormality.Attributes["WithValue"]?.Value ?? "0";
-                string group = abnormality.ParentNode.Name;
-                string category = abnormality.Attributes["Category"]?.Value ?? group;
-                string isBuildup = abnormality.Attributes["IsBuildup"]?.Value ?? "False";
-                string maxBuildup = abnormality.Attributes["MaxBuildup"]?.Value ?? "0";
-
-                AbnormalitySchema schema = new()
-                {
-                    Id = BuildAbnormalityId(id, group),
-                    Name = name,
-                    Icon = icon,
-                    Category = category,
-                    Group = group
-                };
-
-                int.TryParse(offset, NumberStyles.HexNumber, null, out schema.Offset);
-                int.TryParse(dependsOn, NumberStyles.HexNumber, null, out schema.DependsOn);
-                int.TryParse(withValue, out schema.WithValue);
-                bool.TryParse(isBuildup, out schema.IsBuildup);
-                int.TryParse(maxBuildup, out schema.MaxBuildup);
-
-                Abnormalities.Add(schema.Id, schema);
-            }
-        }
-
-        public static string BuildAbnormalityId(string self, string group)
-        {
-            return self.StartsWith("ABN_")
-                ? self
-                : $"{group}_{self}";
-        }
-
-        public static AbnormalitySchema? GetSongAbnormalityData(int id) => GetAbnormalityData($"{SongPrefix}{id}");
-        
-        public static AbnormalitySchema? GetConsumableAbnormalityData(int id, int subId = int.MinValue)
-        {
-            string stringId = subId switch
-            {
-                int.MinValue => $"{ConsumablePrefix}{id}",
-                _ => $"{ConsumablePrefix}{id}-{subId}"
+                Id = BuildAbnormalityId(id, group),
+                Name = name,
+                Icon = icon,
+                Category = category,
+                Group = group
             };
 
-            return GetAbnormalityData(stringId);
-        }
+            _ = int.TryParse(offset, NumberStyles.HexNumber, null, out schema.Offset);
+            _ = int.TryParse(dependsOn, NumberStyles.HexNumber, null, out schema.DependsOn);
+            _ = int.TryParse(withValue, out schema.WithValue);
+            _ = bool.TryParse(isBuildup, out schema.IsBuildup);
+            _ = int.TryParse(maxBuildup, out schema.MaxBuildup);
 
-        public static AbnormalitySchema? GetDebuffAbnormalityData(int id, int subId = int.MinValue)
+            Abnormalities.Add(schema.Id, schema);
+        }
+    }
+
+    public static string BuildAbnormalityId(string self, string group)
+    {
+        return self.StartsWith("ABN_")
+            ? self
+            : $"{group}_{self}";
+    }
+
+    public static AbnormalitySchema? GetSongAbnormalityData(int id) => GetAbnormalityData($"{SongPrefix}{id}");
+
+    public static AbnormalitySchema? GetConsumableAbnormalityData(int id, int subId = int.MinValue)
+    {
+        string stringId = subId switch
         {
+            int.MinValue => $"{ConsumablePrefix}{id}",
+            _ => $"{ConsumablePrefix}{id}-{subId}"
+        };
 
-            string stringId = subId switch
-            {
-                int.MinValue => $"{DebuffPrefix}{id}",
-                _ => $"{DebuffPrefix}{id}-{subId}"
-            };
+        return GetAbnormalityData(stringId);
+    }
 
-            return GetAbnormalityData(stringId);
-        }
+    public static AbnormalitySchema? GetDebuffAbnormalityData(int id, int subId = int.MinValue)
+    {
 
-        private static AbnormalitySchema? GetAbnormalityData(string id)
+        string stringId = subId switch
         {
-            if (!Abnormalities.ContainsKey(id))
-                return null;
+            int.MinValue => $"{DebuffPrefix}{id}",
+            _ => $"{DebuffPrefix}{id}-{subId}"
+        };
 
-            AbnormalitySchema schema = Abnormalities[id];
+        return GetAbnormalityData(stringId);
+    }
 
-            if (schema.Icon == "ICON_MISSING")
-                Log.Info($"Missing abnormality {id}");
+    private static AbnormalitySchema? GetAbnormalityData(string id)
+    {
+        if (!Abnormalities.ContainsKey(id))
+            return null;
 
-            return schema;
-        }
+        AbnormalitySchema schema = Abnormalities[id];
 
-        public static AbnormalitySchema[] GetAllAbnormalitiesFromCategory(string category)
-        {
-            AbnormalitySchema[] abnormalities = Abnormalities.Where(e => e.Value.Category == category)
-                                                                .Select(el => el.Value)
-                                                                .ToArray();
+        if (schema.Icon == "ICON_MISSING")
+            Log.Info($"Missing abnormality {id}");
 
-            return abnormalities;
-        }
+        return schema;
+    }
+
+    public static AbnormalitySchema[] GetAllAbnormalitiesFromCategory(string category)
+    {
+        AbnormalitySchema[] abnormalities = Abnormalities.Where(e => e.Value.Category == category)
+                                                            .Select(el => el.Value)
+                                                            .ToArray();
+
+        return abnormalities;
     }
 }
