@@ -531,8 +531,10 @@
 			<String Id="MEOWCENARIES_BUDDIES_STRING"
 					String="동반자:"/>
 
-			<String Id="COHOOT_NEST_STRING"
-					String="복부엉의 둥지: "/>
+			<String Id="COHOOT_KAMURA_NEST_STRING"
+                    String="카무라 둥지: "/>
+			<String Id="COHOOT_ELGADO_NEST_STRING"
+                    String="엘가도 둥지: "/>
 		</Overlay>
 		<Tabs>
 			<Tab Id="CONSOLE_STRING"
@@ -646,9 +648,9 @@
 						String="새로운 아바타가 업로드되었습니다"/>
 
 			<Poogie Id="BACKUP_NOT_ENABLED_STRING"
-                    String="자동 백업을 활성화하지 않았습니다.&#10;계정 설정에서 활성화할 수 있습니다."/>
+					String="자동 백업을 활성화하지 않았습니다.&#10;계정 설정에서 활성화할 수 있습니다."/>
 			<Poogie Id="BACKUP_NOT_FOUND_STRING"
-                    String="백업된 설정이 없습니다."/>
+					String="백업된 설정이 없습니다."/>
 		</Integrations>
 		<Enums>
 			<Enum Id="SORT_BY_LOWEST_TIMER_STRING"
@@ -710,8 +712,8 @@
 					 String="개발 도구"
 					 Description="심화 개발 도구"/>
 			<Setting Id="ACCOUNT_STRING"
-                     String="계정"
-                     Description="계정 설정"/>
+					 String="계정"
+					 Description="계정 설정"/>
 
 			<Setting Id="ABNORMALITY_SONGS_STRING"
 					 String="선율"
@@ -941,8 +943,8 @@
 
 			<!-- Account -->
 			<Setting Id="ACCOUNT_ENABLE_BACKUP_STRING"
-                     String="설정 백업 활성화"
-                     Description="옵션 활성화 시, HunterPie가 자동으로 당신의 설정을 백업하고 클라우드에 업로드합니다."/>
+					 String="설정 백업 활성화"
+					 Description="옵션 활성화 시, HunterPie가 자동으로 당신의 설정을 백업하고 클라우드에 업로드합니다."/>
 		</Settings>
 	</Client>
 </Strings>
