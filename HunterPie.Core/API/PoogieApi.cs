@@ -69,10 +69,7 @@ public static class PoogieApi
 
         using PoogieResponse resp = await request.RequestAsync();
 
-        if (!resp.Success)
-            return null;
-
-        return await resp.AsJson<T>();
+        return !resp.Success ? null : await resp.AsJson<T>();
     }
 
     private static async Task<PoogieResponse> Download(string path)
@@ -99,10 +96,7 @@ public static class PoogieApi
 
         using PoogieResponse resp = await request.RequestAsync();
 
-        if (!resp.Success)
-            return null;
-
-        return await resp.AsJson<T>();
+        return !resp.Success ? null : await resp.AsJson<T>();
     }
 
     private static async Task<PoogieApiResult<T>?> PostFile<T>(string path, string fileName) where T : class
@@ -117,10 +111,7 @@ public static class PoogieApi
 
         using PoogieResponse resp = await request.RequestAsync();
 
-        if (!resp.Success)
-            return null;
-
-        return await resp.AsJson<T>();
+        return !resp.Success ? null : await resp.AsJson<T>();
     }
 
     private static async Task<PoogieApiResult<T>?> Delete<T, P>(string path, P payload) where T : class
@@ -135,10 +126,6 @@ public static class PoogieApi
 
         using PoogieResponse resp = await request.RequestAsync();
 
-        if (!resp.Success)
-            return null;
-
-        return await resp.AsJson<T>();
+        return !resp.Success ? null : await resp.AsJson<T>();
     }
 }
-#nullable restore

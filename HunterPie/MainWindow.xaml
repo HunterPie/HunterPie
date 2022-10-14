@@ -12,6 +12,7 @@
         xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
         xmlns:notifications="clr-namespace:HunterPie.GUI.Parts.Notifications.Views"
         xmlns:appNotifications="clr-namespace:HunterPie.Features.Notification"
+        xmlns:accountPromo="clr-namespace:HunterPie.GUI.Parts.Account.Views.Promotional"
         xmlns:account="clr-namespace:HunterPie.GUI.Parts.Account.Views"
         Title="HunterPie v2" 
         Height="600" 
@@ -133,6 +134,39 @@
                                   ItemsHeight="40"
                                   x:Name="PART_Sidebar"/>
 
+        <!-- SpookyPie :monkaS: -->
+        <Image Source="{StaticResource IMAGE_SPIDER_WEB}"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Left"
+               Margin="-60,-46,0,0"
+               IsHitTestVisible="False"/>
+
+        <Image Source="{StaticResource IMAGE_BAT}"
+               Height="25"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Left" 
+               RenderTransformOrigin="0.5,0.5"
+               Margin="295,45,0,0">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="30"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+
+        <Image Source="{StaticResource IMAGE_BAT}"
+               Height="25"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Left" 
+               RenderTransformOrigin="0.5,0.5"
+               Margin="395,80,0,0">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="-20"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+
         <ContentPresenter x:Name="PART_SigninView"
                           Margin="0,30,0,0"
                           Grid.ColumnSpan="2"
@@ -222,37 +256,9 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
         
-        <!-- SpookyPie :monkaS: -->
-        <Image Source="{StaticResource IMAGE_SPIDER_WEB}"
-               VerticalAlignment="Top"
-               HorizontalAlignment="Left"
-               Margin="-60,-46,0,0"
-               IsHitTestVisible="False"/>
-
-        <Image Source="{StaticResource IMAGE_BAT}"
-               Height="25"
-               VerticalAlignment="Top"
-               HorizontalAlignment="Left" 
-               RenderTransformOrigin="0.5,0.5"
-               Margin="295,45,0,0">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <RotateTransform Angle="30"/>
-                </TransformGroup>
-            </Image.RenderTransform>
-        </Image>
-
-        <Image Source="{StaticResource IMAGE_BAT}"
-               Height="25"
-               VerticalAlignment="Top"
-               HorizontalAlignment="Left" 
-               RenderTransformOrigin="0.5,0.5"
-               Margin="395,80,0,0">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <RotateTransform Angle="-20"/>
-                </TransformGroup>
-            </Image.RenderTransform>
-        </Image>
+        <accountPromo:AccountPromotionalView Grid.ColumnSpan="2"
+                                             Grid.RowSpan="2"
+                                             Margin="80"
+                                             Visibility="{Binding ShouldShowPromo, Converter={StaticResource BooleanToVisibilityConverter}}"/>
     </Grid>
 </Window>

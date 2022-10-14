@@ -1,6 +1,8 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Logger;
+using HunterPie.Features.Account;
+using HunterPie.Features.Account.UseCase;
 using HunterPie.Features.Debug;
 using HunterPie.GUI.Parts.Account.Views;
 using HunterPie.GUI.Parts.Host;
@@ -9,6 +11,7 @@ using HunterPie.Internal;
 using HunterPie.Internal.Tray;
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -22,6 +25,8 @@ namespace HunterPie;
 /// </summary>
 public partial class MainWindow : Window
 {
+
+    private MainViewModel ViewModel => (MainViewModel)DataContext;
 
     public MainWindow()
     {
@@ -61,7 +66,10 @@ public partial class MainWindow : Window
         SetupTrayIcon();
         SetupMainNavigator();
         SetupAccountEvents();
+        SetupPromoViewAsync();
     }
+
+    private async Task SetupPromoViewAsync() => ViewModel.ShouldShowPromo = await AccountPromotionalUseCase.ShouldShow();
 
     private void OnKeyDown(object sender, KeyEventArgs e)
     {
@@ -102,8 +110,8 @@ public partial class MainWindow : Window
 
     private void SetupAccountEvents()
     {
-        PART_Sidebar.PART_UserAccount.OnSignInClicked += (_, __) => CreateSignFlowView(true);
-        PART_Sidebar.PART_UserAccount.OnSignUpClicked += (_, __) => CreateSignFlowView(false);
+        AccountNavigationService.OnNavigateToSignIn += (_, __) => CreateSignFlowView(true);
+        AccountNavigationService.OnNavigateToSignUp += (_, __) => CreateSignFlowView(false);
     }
 
     private void CreateSignFlowView(bool isLoggingIn)
