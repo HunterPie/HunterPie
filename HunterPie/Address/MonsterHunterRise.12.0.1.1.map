@@ -1,25 +1,25 @@
 # Addresses
-Address STAGE_ADDRESS 0x0F126D08					# snow.wwise.WwiseChangeSpaceWatcher
-Address MONSTERS_ADDRESS 0x0F128618					# snow.enemy.EnemyManager
-Address LOCKON_ADDRESS 0x0F132498					# snow.CameraManager
-Address CHARACTER_ADDRESS 0x0F12B050				# snow.LobbyManager
-Address SAVE_ADDRESS 0x0F119F48						# snow.SnowSaveService
-Address WEAPON_ADDRESS 0x0F125338					# snow.StmInputConfig
-Address ABNORMALITIES_ADDRESS 0x0F126DB8			# snow.envCreature.EnvironmentCreatureManager
-Address ARGOSY_ADDRESS 0x0F12DC80					# snow.facility.TradeCenterFacility
-Address TRAINING_DOJO_ADDRESS 0x0F12B230			# snow.facility.OtomoDojoFacility
-Address CHAT_ADDRESS 0x0F11CF30						# snow.gui.ChatManager
-Address CHAT_UI_ADDRESS 0x0F1296E0					# snow.gui.GuiManager
-Address SESSION_PLAYERS_ADDRESS 0x0F123DB8			# snow.player.PlayerManager
-Address UI_ADDRESS 0x0F1296E0						# snow.gui.GuiManager
-Address MOUSE_ADDRESS 0x0F128308					# snow.StmInputManager
-Address QUEST_ADDRESS 0x0F130A00					# snow.QuestManager
-Address MEOWMASTERS_ADDRESS 0x0F127078				# snow.data.OtomoSpyUnitManager
-Address COHOOT_ADDRESS 0x0F1145E0					# snow.progress.ProgressOwlNestManager
-Address EVENTCAMERA_ADDRESS 0x0F126748				# snow.eventcut.EventCamera
+Address STAGE_ADDRESS 0x0F126D08
+Address MONSTERS_ADDRESS 0x0F128618
+Address LOCKON_ADDRESS 0x0F132498
+Address CHARACTER_ADDRESS 0x0F12B050
+Address SAVE_ADDRESS 0x0F119F48
+Address WEAPON_ADDRESS 0x0F125338
+Address ABNORMALITIES_ADDRESS 0x0F126DB8
+Address ARGOSY_ADDRESS 0x0F12DC80
+Address TRAINING_DOJO_ADDRESS 0x0F12B230
+Address CHAT_ADDRESS 0x0F11CF30
+Address CHAT_UI_ADDRESS 0x0F1296E0
+Address SESSION_PLAYERS_ADDRESS 0x0F123DB8
+Address UI_ADDRESS 0x0F1296E0
+Address MOUSE_ADDRESS 0x0F128308
+Address QUEST_ADDRESS 0x0F130A00
+Address MEOWMASTERS_ADDRESS 0x0F127078
+Address COHOOT_ADDRESS 0x0F1145E0
+Address EVENTCAMERA_ADDRESS 0x0F126748
 
 # Static Data	
-Address DATA_TRAINING_DOJO_ROUNDS_LEFT 0x0F12C618	# snow.facility.OtomoDojoFacility._ChargeNum
+Address DATA_TRAINING_DOJO_ROUNDS_LEFT 0x0F12C618
 
 # Executable
 Address FUNC_WIREBUG_HIDE_AIM_ADDRESS 0x02A7590C
