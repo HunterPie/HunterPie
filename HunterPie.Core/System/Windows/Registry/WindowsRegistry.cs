@@ -17,4 +17,5 @@ internal class WindowsRegistry : ILocalRegistry
     public object Get(string name) => _key.GetValue(name);
     public T Get<T>(string name) => (T)Convert.ChangeType(Get(name), typeof(T));
     public void Set<T>(string name, T value) => _key.SetValue(name, value);
+    public void Delete(string name) => _key.DeleteValue(name);
 }

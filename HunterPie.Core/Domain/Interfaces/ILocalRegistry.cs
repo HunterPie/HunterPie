@@ -6,5 +6,5 @@ public interface ILocalRegistry
     public bool Exists(string name);
     public object Get(string name);
     public T Get<T>(string name);
-
+    public void Delete(string name);
 }

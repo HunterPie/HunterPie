@@ -81,7 +81,7 @@ internal class GameSaveBackupService : IContextInitializer
         {
             Log.Debug("Successfully uploaded save file {0}", result.Response!.Id);
 
-            RegistryConfig.Set(registryKey, DateTime.UtcNow);
+            RegistryConfig.Set(registryKey, DateTime.UtcNow.Ticks);
         }
 
         RegistryConfig.Set(successRegistryKey, result.Success);
@@ -96,10 +96,22 @@ internal class GameSaveBackupService : IContextInitializer
         if (!RegistryConfig.Exists(registryKey))
             return true;
 
-        DateTime lastBackup = RegistryConfig.Get<DateTime>(registryKey);
-        double timeSinceLastBackup = (DateTime.UtcNow - lastBackup).TotalHours;
+        // TODO: Remove this in the future as it's only a temporary workaround to fix
+        // cultural DateTime parsing
+        long lastBackupTicks;
+        try
+        {
+            lastBackupTicks = RegistryConfig.Get<long>(registryKey);
+        }
+        catch
+        {
+            RegistryConfig.Delete(registryKey);
+            return true;
+        }
 
-        return timeSinceLastBackup > 24;
+        double timeSinceLastBackup = (DateTime.UtcNow - new DateTime(lastBackupTicks)).TotalHours;
+
+        return timeSinceLastBackup >= 23;
     }
 
     private string? GetSteamSaveFolder()
@@ -120,4 +132,3 @@ internal class GameSaveBackupService : IContextInitializer
         return Path.Combine(steamPath, "userdata", activeUser.Value.ToString());
     }
 }
-#nullable restore

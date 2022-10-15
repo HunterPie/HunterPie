@@ -12,5 +12,6 @@ public static class RegistryConfig
     public static bool Exists(string name) => _localRegistry.Exists(name);
     public static object Get(string name) => _localRegistry.Get(name);
     public static T Get<T>(string name) => _localRegistry.Get<T>(name);
+    public static void Delete(string name) => _localRegistry.Delete(name);
 
 }
