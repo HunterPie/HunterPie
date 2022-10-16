@@ -37,6 +37,7 @@ public class AccountLoginFlowViewModel : ViewModel
     }
     public bool IsLoggingIn { get => _isLoggingIn; set => SetValue(ref _isLoggingIn, value); }
     public bool CanLogIn { get => _canLogIn; set => SetValue(ref _canLogIn, value); }
+    public AccountPasswordResetFlowViewModel PasswordResetFlowViewModel { get; } = new();
 
     public async Task<bool> SignIn()
     {
@@ -74,5 +75,6 @@ public class AccountLoginFlowViewModel : ViewModel
 
         return result.Success;
     }
+
+    public void NavigateToPasswordResetFlow() => PasswordResetFlowViewModel.IsFlowActive = true;
 }
-#nullable restore

@@ -1,6 +1,7 @@
 ﻿using HunterPie.GUI.Parts.Account.ViewModels;
 using HunterPie.UI.Architecture;
 using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HunterPie.GUI.Parts.Account.Views;
@@ -25,6 +26,8 @@ public partial class AccountLoginFlowView : View<AccountLoginFlowViewModel>
         if (e.Key != Key.Enter)
             return;
 
-        await ViewModel.SignIn();
+        _ = await ViewModel.SignIn();
     }
+
+    private void OnForgotPasswordClick(object sender, RoutedEventArgs e) => ViewModel.NavigateToPasswordResetFlow();
 }
