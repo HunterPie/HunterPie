@@ -820,6 +820,9 @@
             <Setting Id="ORIENTATION_STRING"
                      String="Orientation"
                      Description="Orientation of the widget."/>
+            <Setting Id="ENABLE_STREAMER_MODE"
+                     String="Enable Streamer Mode"
+                     Description="Enabling streamer mode will make this widget visible for OBS and similar window capture softwares. Note that, enabling this will also make the window visible when you Alt+Tab."/>
 
             <Setting Id="MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING"
                      String="Show only target"
