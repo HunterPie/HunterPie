@@ -450,6 +450,7 @@
 	</Monsters>
 	<Stages>
 		<Rise>
+			<Stage Id="-2" String="로딩 화면"/>
 			<Stage Id="-1" String="메인 메뉴"/>
 			<Stage Id="0" String="카무라 마을"/>
 			<Stage Id="1" String="카무라 마을의 집"/>
