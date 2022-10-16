@@ -65,7 +65,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
             return;
 
         TimeElapsed = value;
-        this.Dispatch(OnTimeElapsedChange, isReset ? TimeElapsedChangeEventArgs.TimerReset : new TimeElapsedChangeEventArgs(false, TimeElapsed));
+        this.Dispatch(OnTimeElapsedChange, new TimeElapsedChangeEventArgs(isReset, value));
     }
 
     public int Deaths
