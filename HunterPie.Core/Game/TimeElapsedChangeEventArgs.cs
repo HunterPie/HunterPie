@@ -4,8 +4,6 @@ namespace HunterPie.Core.Game;
 
 public class TimeElapsedChangeEventArgs : EventArgs
 {
-    public static readonly TimeElapsedChangeEventArgs TimerReset = new(true, 0.0f);
-
     public TimeElapsedChangeEventArgs(bool isTimerReset, float timeElapsed)
     {
         IsTimerReset = isTimerReset;
