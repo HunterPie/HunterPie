@@ -18,6 +18,9 @@
     <Compile Update="GUI\Parts\Account\Views\AccountLoginFlowView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="GUI\Parts\Account\Views\AccountPasswordResetFlowView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="GUI\Parts\Account\Views\AccountPreferencesSkeletonView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -81,6 +84,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Account\Views\AccountLoginFlowView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Parts\Account\Views\AccountPasswordResetFlowView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Account\Views\AccountPreferencesSkeletonView.xaml">

@@ -15,72 +15,83 @@
            d:DataContext="{d:DesignInstance vm:AccountLoginFlowViewModel}"
            mc:Ignorable="d" 
            d:DesignHeight="450" 
-           d:DesignWidth="800"
+           d:DesignWidth="400"
            PreviewKeyDown="OnPreviewKeyDown">
     <UserControl.Resources>
         <converters:InvertBooleanConverter x:Key="InvertBooleanConverter"/>
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
     </UserControl.Resources>
-    <StackPanel>
-        <StackPanel Orientation="Vertical"
-                    Margin="10,20,10,10">
-            <TextBlock Text="Email"
-                       Foreground="{StaticResource WHITE_200}"
-                       Margin="0,0,0,1"/>
-            <TextBox Height="35"
-                     IsReadOnly="{Binding IsLoggingIn, Mode=OneWay}"
-                     x:Name="PART_UsernameBox">
-                <TextBox.Text>
-                    <Binding Path="Email"
-                             Mode="TwoWay"
-                             UpdateSourceTrigger="PropertyChanged"
-                             ValidatesOnDataErrors="True"
-                             ValidatesOnNotifyDataErrors="True"
-                             NotifyOnValidationError="True">
-                        <Binding.ValidationRules>
-                            <validations:EmailValidationRule ValidatesOnTargetUpdated="True"/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
-        </StackPanel>
+    <Grid>
+        <StackPanel Visibility="{Binding PasswordResetFlowViewModel.IsFlowActive, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+            <StackPanel Orientation="Vertical"
+                        Margin="10,20,10,10">
+                <TextBlock Text="Email"
+                            Foreground="{StaticResource WHITE_200}"
+                            Margin="0,0,0,1"/>
+                <TextBox Height="35"
+                            IsReadOnly="{Binding IsLoggingIn, Mode=OneWay}">
+                    <TextBox.Text>
+                        <Binding Path="Email"
+                                    Mode="TwoWay"
+                                    UpdateSourceTrigger="PropertyChanged"
+                                    ValidatesOnDataErrors="True"
+                                    ValidatesOnNotifyDataErrors="True"
+                                    NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <validations:EmailValidationRule ValidatesOnTargetUpdated="True"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
 
-        <StackPanel Orientation="Vertical"
-                    Margin="10,10,10,10">
-            <TextBlock Text="Password"
-                       Foreground="{StaticResource WHITE_200}"
-                       Margin="0,0,0,1"/>
-            <textbox:SecretTextBox Height="35"
-                                   Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                   IsEnabled="{Binding IsLoggingIn, Mode=OneWay, Converter={StaticResource InvertBooleanConverter}}"/>
-        </StackPanel>
+            <StackPanel Orientation="Vertical"
+                        Margin="10,10,10,10">
+                <TextBlock Text="Password"
+                            Foreground="{StaticResource WHITE_200}"
+                            Margin="0,0,0,1"/>
+                <textbox:SecretTextBox Height="35"
+                                        Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        IsEnabled="{Binding IsLoggingIn, Mode=OneWay, Converter={StaticResource InvertBooleanConverter}}"/>
+            </StackPanel>
 
+            <UniformGrid Columns="2">
+                <buttons:Button Content="Forgot password"
+                                FontSize="13"
+                                Padding="20,5,20,5"
+                                CornerRadius="5"
+                                HorizontalAlignment="Center"
+                                Click="OnForgotPasswordClick"
+                                Foreground="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
 
-        <buttons:Button FontSize="15"
-                        HorizontalAlignment="Center"
-                        BorderThickness="1"
-                        BorderBrush="{StaticResource GRAY}"
-                        CornerRadius="5"
-                        OnClick="OnSignInClick"
-                        IsEnabled="{Binding CanLogIn, Mode=OneWay}"
-                        Cursor="Hand">
-            <buttons:Button.Style>
-                <Style TargetType="buttons:Button">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding DataContext.IsLoggingIn, RelativeSource={RelativeSource AncestorType={x:Type local:AccountLoginFlowView}}}" Value="False">
+                <buttons:Button FontSize="15"
+                                HorizontalAlignment="Center"
+                                BorderThickness="1"
+                                BorderBrush="{StaticResource GRAY}"
+                                CornerRadius="5"
+                                OnClick="OnSignInClick"
+                                IsEnabled="{Binding CanLogIn, Mode=OneWay}"
+                                Cursor="Hand">
+                    <buttons:Button.Style>
+                        <Style TargetType="buttons:Button">
                             <Setter Property="Content" Value="Sign In"/>
                             <Setter Property="Padding" Value="20,8,20,8"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding DataContext.IsLoggingIn, RelativeSource={RelativeSource AncestorType={x:Type local:AccountLoginFlowView}}}" Value="True">
-                            <Setter Property="Content">
-                                <Setter.Value>
-                                    <loading:CircleLoading Height="20"
-                                                           Width="20"/>
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </buttons:Button.Style>
-        </buttons:Button>
-    </StackPanel>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DataContext.IsLoggingIn, RelativeSource={RelativeSource AncestorType={x:Type local:AccountLoginFlowView}}}" Value="True">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <loading:CircleLoading Height="20"
+                                                                Width="20"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </buttons:Button.Style>
+                </buttons:Button>
+            </UniformGrid>
+        </StackPanel>
+
+        <local:AccountPasswordResetFlowView DataContext="{Binding PasswordResetFlowViewModel, Mode=OneTime}"/>
+    </Grid>
 </arch:View>

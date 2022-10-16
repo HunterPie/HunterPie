@@ -6,6 +6,7 @@ public enum ErrorCode
 {
     NOT_ERROR,
 
+    [Localization("//Strings/Client/Integrations/Poogie[@Id='ERROR_GENERIC']")]
     ERROR_GENERIC,
     INVALID_PAYLOAD,
 
@@ -42,5 +43,12 @@ public enum ErrorCode
 
     INVALID_BACKUP_UPLOAD,
     BACKUP_TOO_LARGE,
-    BACKUP_RATE_LIMIT
+    BACKUP_RATE_LIMIT,
+    NOT_FOUND,
+
+    [Localization("//Strings/Client/Integrations/Poogie[@Id='ERROR_GENERIC']")]
+    INTERNAL_ERROR,
+
+    [Localization("//Strings/Client/Integrations/Poogie[@Id='ERROR_INVALID_PASSWORD_RESET_CODE']")]
+    INVALID_PASSWORD_RESET_CODE
 }
