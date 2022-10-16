@@ -199,9 +199,9 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     {
         MonsterInformationData dto = new();
 
-            int monsterId = _process.Memory.Read<int>(_address + 0x2D4);
-            
-            dto.Id = monsterId;
+        int monsterId = _process.Memory.Read<int>(_address + 0x2D4);
+
+        dto.Id = monsterId;
 
         Next(ref dto);
 
@@ -343,7 +343,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     }
 
     [ScannableMethod]
-    private void ScanLockon()
+    private void GetLockon()
     {
 
         int cameraStyleType = _process.Memory.Deref<int>(
@@ -369,7 +369,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     }
 
     [ScannableMethod]
-    private void ScanMonsterCrown()
+    private void GetMonsterCrown()
     {
         long monsterSizePtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_CROWN_OFFSETS"));
         MHRSizeStructure monsterSize = _process.Memory.Read<MHRSizeStructure>(monsterSizePtr + 0x24);
@@ -388,7 +388,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     }
 
     [ScannableMethod(typeof(MHREnrageStructure))]
-    private void ScanMonsterEnrage()
+    private void GetMonsterEnrage()
     {
         long enragePtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_ENRAGE_OFFSETS"));
 
@@ -409,8 +409,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     }
 
     [ScannableMethod(typeof(MHRStaminaStructure))]
-    private void ScanMonsterStamina()
-
+    private void GetMonsterStamina()
     {
         long staminaPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_STAMINA_OFFSETS"));
 

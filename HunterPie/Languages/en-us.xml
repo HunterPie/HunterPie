@@ -29,6 +29,7 @@
             <Ailment Id="AILMENT_CLAWFLINCH" String="Claw Flinch"/>
             <Ailment Id="AILMENT_BANISHINGBALL" String="Banishing Ball"/>
             <Ailment Id="STATUS_ENRAGE" String="Enrage"/>
+            <Ailment Id="STATUS_STEELFANG" String="Steel Fang"/>
         </Rise>
     </Ailments>
     <Abnormalities>
