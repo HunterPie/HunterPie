@@ -820,9 +820,6 @@
 			<Setting Id="ORIENTATION_STRING"
 					 String="방향"
 					 Description="위젯의 배치 방향입니다."/>
-			<Setting Id="ENABLE_STREAMER_MODE"
-					 String="스트리머 모드 활성화"
-					 Description="스트리머 모드를 활성화하면 OBS나 비슷한 창 캡쳐 소프트웨어에 이 웨젯을 표시할 수 있습니다. 참고: 옵션 활성화 시, 알트+탭 했을 때도 창이 표시합니다."/>
 
 			<Setting Id="MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING"
 					 String="타겟 몬스터만 표시"
