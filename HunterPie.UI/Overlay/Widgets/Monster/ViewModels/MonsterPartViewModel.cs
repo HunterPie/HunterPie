@@ -15,6 +15,8 @@ public class MonsterPartViewModel : AutoVisibilityViewModel
     private double _maxFlinch;
     private double _sever;
     private double _maxSever;
+    private double _qurioHealth;
+    private double _qurioMaxHealth;
     private int _breaks;
     private int _maxBreaks;
     private bool _isPartBroken;
@@ -71,6 +73,8 @@ public class MonsterPartViewModel : AutoVisibilityViewModel
         }
     }
     public double MaxSever { get => _maxSever; set => SetValue(ref _maxSever, value); }
+    public double QurioHealth { get => _qurioHealth; set => SetValue(ref _qurioHealth, value); }
+    public double QurioMaxHealth { get => _qurioMaxHealth; set => SetValue(ref _qurioMaxHealth, value); }
     public int Breaks
     {
         get => _breaks;

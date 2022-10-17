@@ -256,16 +256,38 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
 
         // Severable array
         long monsterSeverPartsArrayPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_SEVER_HEALTH_COMPONENT_OFFSETS"));
-        uint monsterSeverPartsArrayLenght = _process.Memory.Read<uint>(monsterSeverPartsArrayPtr + 0x1C);
+        uint monsterSeverPartsArrayLength = _process.Memory.Read<uint>(monsterSeverPartsArrayPtr + 0x1C);
 
         if (monsterFlinchPartsArrayLength == monsterBreakPartsArrayLength
-            && monsterFlinchPartsArrayLength == monsterSeverPartsArrayLenght)
+            && monsterFlinchPartsArrayLength == monsterSeverPartsArrayLength)
         {
             long[] monsterFlinchArray = _process.Memory.Read<long>(monsterFlinchPartsPtr + 0x20, monsterFlinchPartsArrayLength);
             long[] monsterBreakArray = _process.Memory.Read<long>(monsterBreakPartsArrayPtr + 0x20, monsterBreakPartsArrayLength);
-            long[] monsterSeverArray = _process.Memory.Read<long>(monsterSeverPartsArrayPtr + 0x20, monsterSeverPartsArrayLenght);
+            long[] monsterSeverArray = _process.Memory.Read<long>(monsterSeverPartsArrayPtr + 0x20, monsterSeverPartsArrayLength);
 
             DerefPartsAndScan(monsterFlinchArray, monsterBreakArray, monsterSeverArray);
+        }
+    }
+
+    [ScannableMethod]
+    private void GetMonsterQurioParts()
+    {
+        bool isQurioActive = _process.Memory.DerefPtr<byte>(
+            _address,
+            AddressMap.Get<int[]>("MONSTER_QURIO_STATE")
+        ) != 0;
+
+        if (!isQurioActive)
+            return;
+
+        long monsterQurioPartsArrayPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_QURIO_HEALTH_COMPONENT_OFFSETS"));
+        uint monsterQurioPartsArrayLength = _process.Memory.Read<uint>(monsterQurioPartsArrayPtr + 0x1C);
+
+        long[] monsterQurioArray = _process.Memory.Read<long>(monsterQurioPartsArrayPtr + 0x20, monsterQurioPartsArrayLength);
+
+        for (int i = 0; i < monsterQurioArray.Length; i++)
+        {
+
         }
     }
 

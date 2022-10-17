@@ -132,10 +132,16 @@
                                                Style="{StaticResource BEHAVIOR_PART_VIEW}"/>
         </DataTemplate>
 
+        <DataTemplate x:Key="TEMPLATE_PART_QURIO">
+            <view:BossMonsterQurioPartView Width="200"
+                                           Style="{StaticResource BEHAVIOR_PART_VIEW}"/>
+        </DataTemplate>
+
         <selectors:MonsterPartTemplateSelector x:Key="MonsterPartTemplateSelector"
                                                DefaultTemplate="{StaticResource TEMPLATE_PART_DEFAULT}"
                                                SeverableTemplate="{StaticResource TEMPLATE_PART_SEVERABLE}"
-                                               BreakableTemplate="{StaticResource TEMPLATE_PART_BREAKABLE}"/>
+                                               BreakableTemplate="{StaticResource TEMPLATE_PART_BREAKABLE}"
+                                               QurioTemplate="{StaticResource TEMPLATE_PART_QURIO}"/>
 
     </UserControl.Resources>
     <Grid>
