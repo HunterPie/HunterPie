@@ -1,10 +1,10 @@
-from calendar import c
+import logging
+import os
 from collections import OrderedDict
+from typing import Dict, List
+
 import requests
 import xmltodict
-import logging
-from typing import Dict, List
-import os
 
 FORMAT = '%(asctime)s [%(levelname)s] %(message)s'
 logging.basicConfig(format=FORMAT, level=logging.INFO)
