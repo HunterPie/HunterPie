@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Validate languaage files
+    name: Validate language files
     runs-on: ubuntu-latest
 
     steps:
