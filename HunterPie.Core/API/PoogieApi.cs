@@ -45,6 +45,7 @@ public static class PoogieApi
 
     public static async Task<PoogieApiResult<PasswordChangeResponse>?> RequestPasswordResetCode(PasswordResetRequest request) => await Post<PasswordResetRequest, PasswordChangeResponse>($"{ACCOUNT}/password/reset", request);
     public static async Task<PoogieApiResult<PasswordChangeResponse>?> ChangePassword(ChangePasswordRequest request) => await Post<ChangePasswordRequest, PasswordChangeResponse>($"{ACCOUNT}/password", request);
+    public static async Task<PoogieApiResult<CanUploadBackupResponse>?> GetCanUploadBackup() => await Get<CanUploadBackupResponse>($"{BACKUPS}/upload");
 
     private const string VERSION_PATH = "/v1/version";
     private const string CRASH_PATH = "/v1/report/crash";
