@@ -29,6 +29,7 @@
 			<Ailment Id="AILMENT_CLAWFLINCH" String="Derribo de garra"/>
 			<Ailment Id="AILMENT_BANISHINGBALL" String="Cápsula de expulsion"/>
 			<Ailment Id="STATUS_ENRAGE" String="Enfurecer"/>
+			<Ailment Id="STATUS_STEELFANG" String="Colmillos de acero"/>
 		</Rise>
 	</Ailments>
 	<Abnormalities>
@@ -219,13 +220,13 @@
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="Rathian"/>
-			<Monster Id="1" String="Apex Rathian"/>
+			<Monster Id="1" String="Rathian Apex"/>
 			<Monster Id="2" String="Rathalos"/>
-			<Monster Id="3" String="Apex Rathalos"/>
+			<Monster Id="3" String="Rathalos Apex"/>
 			<Monster Id="4" String="Khezu"/>
 			<Monster Id="5" String="Basarios"/>
 			<Monster Id="6" String="Diablos"/>
-			<Monster Id="7" String="Apex Diablos"/>
+			<Monster Id="7" String="Diablos Apex"/>
 			<Monster Id="8" String="Rajang"/>
 			<Monster Id="9" String="Kushala Daora"/>
 			<Monster Id="10" String="Chameleos"/>
@@ -237,14 +238,14 @@
 			<Monster Id="16" String="Ludroth Real"/>
 			<Monster Id="17" String="Gran Baggi"/>
 			<Monster Id="18" String="Zinogre"/>
-			<Monster Id="19" String="Apex Zinogre"/>
+			<Monster Id="19" String="Zinogre Apex"/>
 			<Monster Id="20" String="Gran Wroggi"/>
 			<Monster Id="21" String="Arzuros"/>
-			<Monster Id="22" String="Apex Arzuros"/>
+			<Monster Id="22" String="Arzuros Apex"/>
 			<Monster Id="23" String="Lagombi"/>
 			<Monster Id="24" String="Volvidon"/>
 			<Monster Id="25" String="Mizutsune"/>
-			<Monster Id="26" String="Apex Mizutsune"/>
+			<Monster Id="26" String="Mizutsune Apex"/>
 			<Monster Id="27" String="Valstrax Carmesi"/>
 			<Monster Id="28" String="Magnamalo"/>
 			<Monster Id="29" String="Bishaten"/>
@@ -265,6 +266,30 @@
 			<Monster Id="44" String="Tobi-Kadachi"/>
 			<Monster Id="45" String="Bazelgeuse"/>
 			<Monster Id="46" String="Saprobot"/>
+			<Monster Id="76" String="Rathian Dorada"/>
+            <Monster Id="77" String="Rathalos Plateado"/>
+            <Monster Id="78" String="Daimyo Hermitaur"/>
+            <Monster Id="79" String="Shogun Ceanataur"/>
+            <Monster Id="80" String="Rajang Furioso"/>
+            <Monster Id="81" String="Nargacuga Lunar"/>
+            <Monster Id="82" String="Gore Magala"/>
+            <Monster Id="83" String="Shagaru Magala"/>
+            <Monster Id="84" String="Seregios"/>
+            <Monster Id="85" String="Astalos"/>
+            <Monster Id="86" String="Mizutsune Violeta"/>
+            <Monster Id="87" String="Magnamalo Humillado"/>
+            <Monster Id="88" String="Bishaten Sanguina"/>
+            <Monster Id="89" String="Somnacanth Aurora"/>
+            <Monster Id="90" String="Rakna-kadaki Pira"/>
+            <Monster Id="91" String="Almudron Magma"/>
+            <Monster Id="92" String="Bezelgeuse Magma"/>
+            <Monster Id="93" String="Malzeno"/>
+            <Monster Id="94" String="Lunagaron"/>
+            <Monster Id="95" String="Garangolm"/>
+            <Monster Id="96" String="Gaismagorm"/>
+            <Monster Id="97" String="Espinas"/>
+            <Monster Id="98" String="Espinas Llameante"/>
+            <Monster Id="108" String="Chameleos Elevado"/>
 		</Rise>
 		<World>
 			<Monster Id="0" String="Anjanath"/>
@@ -350,6 +375,9 @@
 			<Stage Id="3" String="Sala de reunión"/>
 			<Stage Id="4" String="Sala de preparación"/>
 			<Stage Id="5" String="Zona de entrenamiento"/>
+			<Stage Id="6" String="Avanzadilla de Elgado"/>
+            <Stage Id="7" String="Habitación"/>
+            <Stage Id="11" String="Puesto de Mando"/>
 			<Stage Id="199" String="Seleccion de personaje"/>
 			<Stage Id="201" String="Templo olvidado"/>
 			<Stage Id="202" String="Lannos arenosos"/>
@@ -360,6 +388,10 @@
 			<Stage Id="209" String="Fuente infernal"/>
 			<Stage Id="210" String="Arena"/>
 			<Stage Id="211" String="Palacio coralino"/>
+			<Stage Id="212" String="Jungla"/>
+            <Stage Id="213" String="Bastión"/>
+            <Stage Id="214" String="Arena Forlorn"/>
+            <Stage Id="215" String="Abismo cavernoso"/>
 		</Rise>
 		<World>
 			<Stage Id="0" String="Menú principal"/>
@@ -401,6 +433,27 @@
 	</Stages>
 
 	<Client>
+	<Overlay>
+            <String Id="DAMAGE_METER_OTOMOS_NAME_STRING"
+                    String="Camaradas"/>
+
+            <String Id="TRAINING_DOJO_BOOSTS_STRING"
+                    String="Mejoras:"/>
+            <String Id="TRAINING_DOJO_ROUNDS_STRING"
+                    String="Rondas:"/>
+
+            <String Id="MEOWCENARIES_STEP_STRING"
+                    String="Etapas:"/>
+            <String Id="MEOWCENARIES_OUTCOME_STRING"
+                    String="Recompensa:"/>
+            <String Id="MEOWCENARIES_BUDDIES_STRING"
+                    String="Compañeros:"/>
+			
+			<String Id="COHOOT_KAMURA_NEST_STRING"
+                    String="Nido de Kamura: "/>
+			<String Id="COHOOT_ELGADO_NEST_STRING"
+                    String="Nido de Elgado: "/>
+        </Overlay>
 		<Tabs>
 			<Tab Id="CONSOLE_STRING"
 				 String="Consola"/>
