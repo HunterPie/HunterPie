@@ -12,6 +12,7 @@ using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.Rise.Crypto;
 using HunterPie.Core.Game.Rise.Definitions;
+using HunterPie.Core.Game.Rise.Entities.Monster;
 using HunterPie.Core.Logger;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,6 @@ using System.Runtime.CompilerServices;
 
 namespace HunterPie.Core.Game.Rise.Entities;
 
-#pragma warning disable IDE0051 // Remove unused private members
 public class MHRMonster : Scannable, IMonster, IEventDispatcher
 {
     private readonly long _address;
@@ -37,6 +37,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     private readonly Dictionary<long, MHRMonsterPart> parts = new();
     private readonly Dictionary<long, MHRMonsterAilment> ailments = new();
     private readonly List<Element> _weaknesses = new();
+    private MonsterType _monsterType;
 
     public int Id
     {
@@ -202,12 +203,18 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
         MonsterInformationData dto = new();
 
         int monsterId = _process.Memory.Read<int>(_address + 0x2D4);
+        long monsterTypePtr = _process.Memory.ReadPtr(
+            _address,
+            AddressMap.Get<int[]>("MONSTER_TYPE_OFFSETS")
+        );
+        int monsterType = _process.Memory.Read<int>(monsterTypePtr + 0x5C);
 
         dto.Id = monsterId;
 
         Next(ref dto);
 
         Id = dto.Id;
+        _monsterType = (MonsterType)monsterType;
     }
 
     [ScannableMethod(typeof(HealthData))]
@@ -242,7 +249,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
         );
         float captureHealth = _process.Memory.Read<float>(captureHealthPtr + 0x1C);
 
-        CaptureThreshold = captureHealth / MaxHealth;
+        CaptureThreshold = _monsterType == MonsterType.Qurio ? 0.0f : captureHealth / MaxHealth;
     }
 
     [ScannableMethod]
@@ -498,4 +505,3 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 }
-#pragma warning restore IDE0051 // Remove unused private members
