@@ -53,7 +53,7 @@
         </TextBlock>
 
         <Grid Margin="30,15,0,0" Grid.ColumnSpan="2">
-            <overlay:Bar ForegroundDelayed="{StaticResource MonsterHealthUnenragedDelayed}"
+            <overlay:Bar ForegroundDelayed="#FFF7A1C8"
                          Height="7"
                          VerticalAlignment="Top"
                          Margin="4.5,0,5,0"
