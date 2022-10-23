@@ -24,5 +24,5 @@ public interface IMonsterPart
     public event EventHandler<IMonsterPart> OnFlinchUpdate;
     public event EventHandler<IMonsterPart> OnSeverUpdate;
     public event EventHandler<IMonsterPart> OnBreakCountUpdate;
-
+    public event EventHandler<IMonsterPart> OnPartTypeChange;
 }

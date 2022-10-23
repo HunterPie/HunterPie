@@ -15,9 +15,9 @@ public class AutoVisibilityViewModel : ViewModel, IDisposable
 
     public bool IsActive { get => _isActive; set => SetValue(ref _isActive, value); }
 
-    public AutoVisibilityViewModel(Range _timeout)
+    public AutoVisibilityViewModel(Range timeout)
     {
-        Timeout = _timeout;
+        Timeout = timeout;
         _timer = new(Timeout.Current * MILLISECOND)
         {
             AutoReset = true,

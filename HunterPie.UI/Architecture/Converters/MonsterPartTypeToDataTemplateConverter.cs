@@ -1,12 +1,12 @@
 ﻿using HunterPie.Core.Game.Enums;
-using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using System;
+using System.Globalization;
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Data;
 
-namespace HunterPie.UI.Architecture.Selectors;
+namespace HunterPie.UI.Architecture.Converters;
 
-public class MonsterPartTemplateSelector : DataTemplateSelector
+public class MonsterPartTypeToDataTemplateConverter : IValueConverter
 {
     public DataTemplate DefaultTemplate { get; set; }
     public DataTemplate SeverableTemplate { get; set; }
@@ -14,10 +14,10 @@ public class MonsterPartTemplateSelector : DataTemplateSelector
     public DataTemplate QurioTemplate { get; set; }
     public DataTemplate Empty = new();
 
-    public override DataTemplate SelectTemplate(object item, DependencyObject container)
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return item is MonsterPartViewModel model
-            ? model.Type switch
+        return value is PartType type
+            ? type switch
             {
                 PartType.Flinch => DefaultTemplate,
                 PartType.Breakable => BreakableTemplate,
@@ -26,6 +26,8 @@ public class MonsterPartTemplateSelector : DataTemplateSelector
                 PartType.Invalid => Empty,
                 _ => throw new NotImplementedException(),
             }
-            : throw new ArgumentException("item must be a MonsterPartViewModel");
+            : null;//throw new ArgumentException("item must be a MonsterPartViewModel");
     }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }

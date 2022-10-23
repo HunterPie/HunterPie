@@ -159,6 +159,8 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 
+    public bool IsQurioActive { get; private set; }
+
     public event EventHandler<EventArgs> OnSpawn;
     public event EventHandler<EventArgs> OnLoad;
     public event EventHandler<EventArgs> OnDespawn;
@@ -246,6 +248,12 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterParts()
     {
+        long isQurioActivePtr = _process.Memory.ReadPtr(
+            _address,
+            AddressMap.Get<int[]>("MONSTER_QURIO_STATE")
+        );
+        bool isQurioActive = _process.Memory.Read<byte>(isQurioActivePtr + 0x12) == 2;
+
         // Flinch array
         long monsterFlinchPartsPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_FLINCH_HEALTH_COMPONENT_OFFSETS"));
         uint monsterFlinchPartsArrayLength = _process.Memory.Read<uint>(monsterFlinchPartsPtr + 0x1C);
@@ -256,21 +264,33 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
 
         // Severable array
         long monsterSeverPartsArrayPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_SEVER_HEALTH_COMPONENT_OFFSETS"));
-        uint monsterSeverPartsArrayLenght = _process.Memory.Read<uint>(monsterSeverPartsArrayPtr + 0x1C);
+        uint monsterSeverPartsArrayLength = _process.Memory.Read<uint>(monsterSeverPartsArrayPtr + 0x1C);
+
+        // Qurio array
+        long monsterQurioPartsArrayPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_QURIO_HEALTH_COMPONENT_OFFSETS"));
+        uint monsterQurioPartsArrayLength = _process.Memory.Read<uint>(monsterQurioPartsArrayPtr + 0x1C);
 
         if (monsterFlinchPartsArrayLength == monsterBreakPartsArrayLength
-            && monsterFlinchPartsArrayLength == monsterSeverPartsArrayLenght)
+            && monsterFlinchPartsArrayLength == monsterSeverPartsArrayLength)
         {
             long[] monsterFlinchArray = _process.Memory.Read<long>(monsterFlinchPartsPtr + 0x20, monsterFlinchPartsArrayLength);
             long[] monsterBreakArray = _process.Memory.Read<long>(monsterBreakPartsArrayPtr + 0x20, monsterBreakPartsArrayLength);
-            long[] monsterSeverArray = _process.Memory.Read<long>(monsterSeverPartsArrayPtr + 0x20, monsterSeverPartsArrayLenght);
+            long[] monsterSeverArray = _process.Memory.Read<long>(monsterSeverPartsArrayPtr + 0x20, monsterSeverPartsArrayLength);
+            long[] monsterQurioArray = isQurioActive ? _process.Memory.Read<long>(monsterQurioPartsArrayPtr + 0x20, monsterQurioPartsArrayLength) : Array.Empty<long>();
 
-            DerefPartsAndScan(monsterFlinchArray, monsterBreakArray, monsterSeverArray);
+            DerefPartsAndScan(monsterFlinchArray, monsterBreakArray, monsterSeverArray, monsterQurioArray);
         }
+
+        IsQurioActive = isQurioActive;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private void DerefPartsAndScan(long[] flinchPointers, long[] partsPointers, long[] severablePointers)
+    private void DerefPartsAndScan(
+        long[] flinchPointers,
+        long[] partsPointers,
+        long[] severablePointers,
+        long[] qurioPointers
+    )
     {
         for (int i = 0; i < flinchPointers.Length; i++)
         {
@@ -278,6 +298,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
             long flinchPart = flinchPointers[i];
             long breakablePart = partsPointers[i];
             long severablePart = severablePointers[i];
+            long? qurioPart = qurioPointers.Length > 0 ? qurioPointers[i] : null;
 
             MHRPartStructure partInfo = new()
             {
@@ -285,6 +306,8 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
                 MaxFlinch = _process.Memory.Read<float>(flinchPart + 0x18),
                 MaxSever = _process.Memory.Read<float>(severablePart + 0x18)
             };
+
+            MHRQurioPartData qurioInfo = new();
 
             // Skip invalid parts
             if (partInfo.MaxFlinch < 0 && partInfo.MaxHealth < 0 && partInfo.MaxSever < 0)
@@ -294,6 +317,22 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
             long encodedFlinchHealthPtr = _process.Memory.ReadPtr(flinchPart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
             long encodedBreakableHealthPtr = _process.Memory.ReadPtr(breakablePart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
             long encodedSeverableHealthPtr = _process.Memory.ReadPtr(severablePart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+
+            if (qurioPart is long qurioPartPtr)
+            {
+                long encodedQurioHealthPtr = _process.Memory.Read<long>(qurioPartPtr + 0x88);
+                uint qurioHealthEncodedIdx = _process.Memory.Read<uint>(encodedQurioHealthPtr + 0x18) & 3;
+                uint qurioHealthEncoded = _process.Memory.Read<uint>(encodedQurioHealthPtr + (qurioHealthEncodedIdx * 4) + 0x1C);
+                uint qurioHealthEncodedKey = _process.Memory.Read<uint>(encodedQurioHealthPtr + 0x14);
+
+                qurioInfo = new MHRQurioPartData
+                {
+                    MaxHealth = _process.Memory.Read<float>(qurioPartPtr + 0x38),
+                    Health = MHRFloat.DecodeHealth(qurioHealthEncoded, qurioHealthEncodedKey)
+                };
+
+                qurioInfo.IsInQurioState = qurioInfo.Health > 0;
+            }
 
             // Flinch values
             uint healthEncodedIdx = _process.Memory.Read<uint>(encodedFlinchHealthPtr + 0x18) & 3;
@@ -323,8 +362,8 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
                 this.Dispatch(OnNewPartFound, dummy);
             }
 
-            IUpdatable<MHRPartStructure> monsterPart = parts[flinchPart];
-            monsterPart.Update(partInfo);
+            ((IUpdatable<MHRPartStructure>)parts[flinchPart]).Update(partInfo);
+            ((IUpdatable<MHRQurioPartData>)parts[flinchPart]).Update(qurioInfo);
         }
     }
 
