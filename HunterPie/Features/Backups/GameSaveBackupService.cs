@@ -51,6 +51,11 @@ internal class GameSaveBackupService : IContextInitializer
         if (!LocalAccountConfig.Config.IsBackupEnabled)
             return false;
 
+        PoogieApiResult<CanUploadBackupResponse>? canUploadResponse = await PoogieApi.GetCanUploadBackup();
+
+        if (canUploadResponse?.Response?.CanUpload != true)
+            return false;
+
         string registryKey = $"{LAST_BACKUP_KEY}_{_backupService!.Type}";
         string successRegistryKey = $"{LAST_BACKUP_SUCCESS_KEY}_{_backupService!.Type}";
 
