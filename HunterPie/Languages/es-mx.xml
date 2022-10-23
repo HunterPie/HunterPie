@@ -124,6 +124,9 @@
 		<Abnormality Id="ABNORMALITY_POWERCONE" String="Cono de poder"/>
 		<Abnormality Id="ABNORMALITY_ICE_RES" String="Resistencia al hielo (G)"/>
 		<Abnormality Id="ABNORMALITY_FOOD_TIMER" String="Comida"/>
+		<Abnormality Id="ABNORMALITY_RUBY_WIREBUG" String="Cordoptero Rubí"/>
+        <Abnormality Id="ABNORMALITY_GOLD_WIREBUG" String="Cordoptero Dorado"/>
+        <Abnormality Id="ABNORMALITY_STINKMINK" String="Odorodreja"/>
 		
 		<Abnormality Id="ABNORMALITY_DANGO_BULKER" String="Dango remolque"/>
 		<Abnormality Id="ABNORMALITY_DANGO_BOOSTER" String="Dango refuerzo"/>
@@ -159,6 +162,9 @@
 		<Abnormality Id="ABNORMALITY_BUBBLES_PLUS" String="Plaga de burbujas fuerte"/>
 		<Abnormality Id="ABNORMALITY_BLEED" String="Sangrado"/>
 		<Abnormality Id="ABNORMALITY_EFFLUVIA" String="Efluvio"/>
+		<Abnormality Id="ABNORMALITY_FRENZY_BUILDUP" String="Furor (Apilado)"/>
+        <Abnormality Id="ABNORMALITY_FRENZY" String="Furor"/>
+        <Abnormality Id="ABNORMALITY_WEBBED" String="Enmarañado"/>
 	</Abnormalities>
 	<Monsters>
 		<Shared>
@@ -217,6 +223,78 @@
 			<Part Id="PART_THUNDERBALLS" String="Rayoesfera"/>
 			<Part Id="PART_ROCK" String="Roca"/>
 			<Part Id="PART_POT" String="Vasija"/>
+			<Part Id="PART_WING_CLAW" String="Garraala"/>
+            <Part Id="PART_FORELEG" String="Pata delantera"/>
+            <Part Id="PART_H_LEG" String="Pata trasera"/>
+            <Part Id="PART_ANTENNA" String="Antena"/>
+            <Part Id="PART_CREST" String="Cresta"/>
+            <Part Id="PART_THROAT" String="Garganta"/>
+            <Part Id="PART_BIG_FLINCH" String="Retroceso grande"/>
+            <Part Id="PART_HORNS" String="Cuernos"/>
+            <Part Id="PART_HORN" String="Cuerno"/>
+            <Part Id="PART_KNOCKDOWN" String="Noqueo"/>
+            <Part Id="PART_HORNS_2" String="Cuernos #2"/>
+            <Part Id="PART_RAGE" String="Ira"/>
+            <Part Id="PART_L_LIMBS" String="Extremidades izquierdas"/>
+            <Part Id="PART_R_LIMBS" String="Extremidades derechas"/>
+            <Part Id="PART_LIMBS" String="Extremidades"/>
+            <Part Id="PART_COUNTERATTACK" String="Contraataque"/>
+            <Part Id="PART_JAW" String="Mandibula"/>
+            <Part Id="PART_EXPLOSION_WEAKENING" String="Explosión Elemental"/>
+            <Part Id="PART_CHARGE" String="Carga"/>
+            <Part Id="PART_FIN" String="Aleta"/>
+            <Part Id="PART_INFLATED_TAIL" String="Cola inflada"/>
+            <Part Id="PART_SILVER_SPIKES_HEAD" String="Espinas Plateadas (Cabeza)"/>
+            <Part Id="PART_SILVER_SPIKES_L_ARM" String="Espinas Plateadas (B. Izq.)"/>
+            <Part Id="PART_SILVER_SPIKES_R_ARM" String="Espinas Plateadas (B. Der.)"/>
+            <Part Id="PART_SILVER_SPIKES_L_WING" String="Espinas Plateadas (Ala Izq.)"/>
+            <Part Id="PART_SILVER_SPIKES_R_WING" String="Espinas Plateadas (Ala Der.)"/>
+            <Part Id="PART_EXHAUST_ORGAN_CENTRAL" String="Núcleo de magma (Centro)"/>
+            <Part Id="PART_EXHAUST_ORGAN_HEAD" String="Núcleo de magma (Cabeza)"/>
+            <Part Id="PART_EXHAUST_ORGAN_CRATER" String="Núcleo de magma (Crater)"/>
+            <Part Id="PART_EXHAUST_ORGAN_REAR" String="Núcleo de magma (Trasero)"/>
+            <Part Id="PART_REPEL" String="Repeler"/>
+            <Part Id="PART_WEAK_L_SHELL" String="Caparazón debil izquierdo"/>
+            <Part Id="PART_WEAK_R_SHELL" String="Caparazón debil derecho"/>
+            <Part Id="PART_BALLOON" String="Globo"/>
+            <Part Id="PART_SKY_FALL" String="Caída del cielo"/>
+            <Part Id="PART_L_BONE" String="Hueso izquierdo"/>
+            <Part Id="PART_R_BONE" String="Hueso derecho"/>
+            <Part Id="PART_EMISSIONS" String="Emisiones de efluvio"/>
+            <Part Id="PART_HORNS_GOLD" String="Cuernos Dorados"/>
+            <Part Id="PART_MANE_GOLD" String="Melena Dorada"/>
+            <Part Id="PART_L_CHEST_GOLD" String="Pecho Izquierdo Dorado"/>
+            <Part Id="PART_R_CHEST_GOLD" String="Pecho Derecho Dorado"/>
+            <Part Id="PART_L_ARM_GOLD" String="Brazo Izquierdo Dorado"/>
+            <Part Id="PART_R_ARM_GOLD" String="Brazo Derecho Dorado"/>
+            <Part Id="PART_L_LEG_GOLD" String="Pata Izquierda Dorada"/>
+            <Part Id="PART_R_LEG_GOLD" String="Pata Derecha Dorada"/>
+            <Part Id="PART_L_TAIL_GOLD" String="Cola Dorada (Izq.)"/>
+            <Part Id="PART_R_TAIL_GOLD" String="Cola Dorada (Der.)"/>
+            <Part Id="PART_GLOWING_HEAD" String="Cabeza Brillante"/>
+            <Part Id="PART_GLOWING_TAIL" String="Cola Brillante"/>
+            <Part Id="PART_EMERGE_SNOW_HEAD" String="Emerger desde la nieve (Cabeza)"/>
+            <Part Id="PART_EMERGE_SNOW_BODY" String="Emerger desde la nieve (Cuerpo)"/>
+            <Part Id="PART_EMERGE_SNOW_TAIL" String="Emerger desde la nieve (Cola)"/>
+            <Part Id="PART_HEAD_SNOW" String="Cabeza (Nieve)"/>
+            <Part Id="PART_BODY_SNOW" String="Cuerpo (Nieve)"/>
+            <Part Id="PART_TAIL_SNOW" String="Cola (Nieve)"/>
+            <Part Id="PART_HEAD_ICE" String="Cabeza (Hielo)"/>
+            <Part Id="PART_BODY_ICE" String="Cuerpo (Hielo)"/>
+            <Part Id="PART_WINGS_ICE" String="Alas (Hielo)"/>
+            <Part Id="PART_ARMS_ICE" String="Brazos (Hielo)"/>
+            <Part Id="PART_HEAD_ROCK" String="Cabeza (Roca)"/>
+            <Part Id="PART_CHEST_ROCK" String="Pecho (Roca)"/>
+            <Part Id="PART_L_NECK_ROCK" String="Cuello Izq. (Roca)"/>
+            <Part Id="PART_R_NECK_ROCK" String="Cuello Der. (Roca)"/>
+            <Part Id="PART_TAIL_ROCK" String="Cola (Roca)"/>
+            <Part Id="PART_L_WING_ROCK" String="Ala Izq. (Roca)"/>
+            <Part Id="PART_R_WING_ROCK" String="Ala Der. (Roca)"/>
+            <Part Id="PART_L_ARM_ROCK" String="Brazo Izq. (Roca)"/>
+            <Part Id="PART_R_ARM_ROCK" String="Brazo Der. (Roca)"/>
+            <Part Id="PART_BODY_LEGS" String="Cuerpo &amp; Patas"/>
+            <Part Id="PART_ANTLERS" String="Cornamenta"/>
+            <Part Id="PART_MANE" String="Melena"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="Rathian"/>
@@ -445,7 +523,7 @@
             <String Id="MEOWCENARIES_STEP_STRING"
                     String="Etapas:"/>
             <String Id="MEOWCENARIES_OUTCOME_STRING"
-                    String="Recompensa:"/>
+                    String="Recompensas:"/>
             <String Id="MEOWCENARIES_BUDDIES_STRING"
                     String="Compañeros:"/>
 			
@@ -467,6 +545,8 @@
 				 String="Ajustes"/>
 			<Tab Id="PATREON_STRING"
 				 String="Patreon"/>
+			<Tab Id="GITHUB_STRING"
+				 String="GitHub"/>
 		</Tabs>
 		<Generics>
 			<Generic Id="HUNTERPIE_LAUNCH_GAME"
@@ -477,7 +557,29 @@
 					 String="¡Hay una nueva versión de HunterPie disponible!"/>
 			<Generic Id="HUNTERPIE_CURRENT_SELECTED_CONFIG"
 					 String="Ajustes para:"/>
+			<Generic Id="REQUIRES_RESTART_STRING"
+					 String="(Se necesita reiniciar)"/>
 		</Generics>
+		<Dialogs>
+			<!-- Do not edit the text inside {} -->
+            <Dialog Id="UPDATE_TITLE_STRING"
+                    String="Actualizar"/>
+            <Dialog Id="UPDATE_CONFIRMATION_DESCRIPTION_STRING"
+                    String="La version v{Latest} ya está disponible.&#x0a;¿Quieres actualizar ahora?"/>
+            <Dialog Id="CONFIRMATION_TITLE_STRING"
+                    String="Confirmar"/>
+            <Dialog Id="DELETE_CONFIRMATION_DESCRIPTION_STRING"
+                    String="¿Seguro que quieres eliminar {Item}?"/>
+            <Dialog Id="EXIT_CONFIRMATION_DESCRIPTION_STRING"
+                    String="¿Seguro que quieres salir de HunterPie?"/>
+
+            <Button Id="ACCEPT_STRING"
+                  String="Aceptar"/>
+            <Button Id="REJECT_STRING"
+                  String="Rechazar"/>
+            <Button Id="CANCEL_STRING"
+                  String="Cancelar"/>
+		</Dialogs>
 		<Integrations>
 			<!-- Shared between games -->
 			<Discord Id="DRPC_STATE_HUNTING"
@@ -510,7 +612,74 @@
 					 String="{Character} | RC: {HighRank} | RM: {MasterRank}"/>
 			<Discord Id="DRPC_WORLD_STATE_PRACTICE"
 					 String="Entrenando"/>
+
+			<!-- Poogie Integration -->
+            <Poogie Id="ERROR_INVALID_USERNAME"
+                    String="!Nombre de usuario no valido!"/>
+            <Poogie Id="ERROR_INVALID_PASSWORD"
+                    String="Contraseña no valida, debe contener al menos 8 caracteres!"/>
+            <Poogie Id="ERROR_INVALID_EMAIL"
+                    String="Correo no valido!"/>
+            <Poogie Id="ERROR_INVALID_CREDENTIALS"
+                    String="No se ha encontrado ninguna cuenta con ese nombre de usuario o contraseña."/>
+            <Poogie Id="ERROR_USER_NOT_FOUND"
+                    String="Uhmmm... No se ha encontrado ese usuario!"/>
+            <Poogie Id="ERROR_USER_ALREADY_EXISTS"
+                    String="Ya hay un usuario con ese correo!"/>
+            <Poogie Id="ERROR_UNVERIFIED_ACCOUNT"
+                    String="La cuenta debe ser verificada, por favor revisa el correo ingresado, incluso en la carpeta de spam."/>
+            <Poogie Id="INVALID_IMAGE"
+                    String="El archivo no es una formato de imagen aceptado!"/>
+            <Poogie Id="FAILED_TO_UPDATE_AVATAR"
+                    String="La carga de la imagen falló, por favor intentanlo nuevamente en unos minutos."/>
+            <Poogie Id="ERROR_AVATAR_SIZE_TOO_LARGE"
+                    String="La imagen no pudo ser subida, el archivo pesaba mas de 3.5 MB."/>
+			<Poogie Id="ERROR_INVALID_PASSWORD_RESET_CODE"
+                    String="El codigo de reinicio de contraseña no es valido o ya ha expirado."/>
+			<Poogie Id="ERROR_GENERIC"
+                    String="Vaya... Algo salio mal. Intentalo nuevamente en unos minutos!"/>
+
+            <Poogie Id="LOGIN_SUCCESS"
+                    String="Bienvenido {Username}! Ahora ya estas conectado."/>
+            <Poogie Id="ACCOUNT_REGISTER_SUCCESS"
+                    String="La verificación de cuenta será enviada a {Email} dentro de poco. Por favor asegurate de revisar tu bandeja de entrada y carpeta de spam!"/>
+            <Poogie Id="AVATAR_UPLOAD_SUCCESS"
+                    String="Uploaded new avatar"/>
+
+			<Poogie Id="BACKUP_NOT_ENABLED_STRING"
+                    String="Al parecer no tienes el respaldo automatico activado.&#10;Puedes activarlo en la configuración de la cuenta."/>
+			<Poogie Id="BACKUP_NOT_FOUND_STRING"
+                    String="No tienes respaldos."/>
+			<Poogie Id="PASSWORD_RESET_EMAIL_STRING"
+                    String="Un email será enviado a {Email} con el codigo de reinicio de contraseña."/>
+			<Poogie Id="PASSWORD_RESET_SUCCESS_STRING"
+                    String="La contraseña ha sido cambiada exitosamente."/>
 		</Integrations>
+		<Enums>
+            <Enum Id="SORT_BY_LOWEST_TIMER_STRING"
+                  String="Mas bajo"/>
+            <Enum Id="SORT_BY_HIGHEST_TIMER_STRING"
+                  String="Mas alto"/>
+            <Enum Id="SORT_BY_DISABLED_STRING"
+                  String="Sin ordenar"/>
+
+            <Enum Id="ORIENTATION_HORIZONTAL_STRING"
+                  String="Horizontal"/>
+            <Enum Id="ORIENTATION_VERTICAL_STRING"
+                  String="Vertical"/>
+
+            <Enum Id="RELATIVE_TO_QUEST_STRING"
+                  String="Relativo a la misión"/>
+            <Enum Id="RELATIVE_TO_JOIN_STRING"
+                  String="Relativo al equipo"/>
+            <Enum Id="RELATIVE_TO_FIRST_HIT_STRING"
+                  String="Relativo al primer golpe"/>
+
+            <Enum Id="PLOT_TOTAL_DAMAGE_STRING"
+                  String="Daño total"/>
+            <Enum Id="PLOT_DPS_STRING"
+                  String="Daño por segundo"/>
+        </Enums>
 		<Settings>
 			<Setting Id="CLIENT_STRING"
 					 String="Cliente"
@@ -528,8 +697,8 @@
 					 String="Widget de monstruos"
 					 Description="Ajustes del widget de monstruo"/>
 			<Setting Id="WIREBUG_WIDGET_STRING"
-					 String="Widget de cordopero"
-					 Description="Ajustes del widget de cordoperos"/>
+					 String="Widget de cordoptero"
+					 Description="Ajustes del widget de cordopteros"/>
 			<Setting Id="ACTIVITIES_WIDGET_STRING"
 					 String="Widget de actividad"
 					 Description="Ajustes del widget de actividad"/>
@@ -539,9 +708,15 @@
 			<Setting Id="CHAT_WIDGET_STRING"
 					 String="Widget del chat"
 					 Description="Ajustes del widget del chat"/>
+			<Setting Id="SPECIALIZED_TOOL_WIDGET_STRING"
+                     String="Herramientas especializadas"
+                     Description="Ajuste de Herramientas especializadas"/>
 			<Setting Id="DEV_TOOLS_STRING"
 					 String="Herramientas de desarollador"
 					 Description="Herramientas avanzadas"/>
+			<Setting Id="ACCOUNT_STRING"
+                     String="Cuenta"
+                     Description="Ajuste de cuenta"/>
 
 			<Setting Id="ABNORMALITY_SONGS_STRING"
 					 String="Melodias"
@@ -598,6 +773,9 @@
 			<Setting Id="DEV_ENABLE_FEATURE_FLAG"
 					 String="Activar banderas de desarrollo"
 					 Description="Al activarse, HunterPie mostrará opciones aun en fase de desarrollo."/>
+			 <Setting Id="THEME_STRING"
+                     String="Tema"
+                     Description="Tema actual utilizado por HunterPie"/>		 
 
 			<Setting Id="DRPC_ENABLE_RICH_PRESENCE"
 					 String="Activar Discord Rich Presence (Estado detallado)"
@@ -689,8 +867,8 @@
 					 Description="Selecciona el tipo de filtrado para los efectos."/>
 
 			<Setting Id="WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING"
-					 String="Arreglo de la punteria de cordoperos"
-					 Description="Al activarse, HunterPie arreglará la visualización de puntería de cordoperos para que no se oculte al desactivar la visualización de elementos de cordoperos en las opciones del juego."/>
+					 String="Arreglo de la punteria de cordopteros"
+					 Description="Al activarse, HunterPie arreglará la visualización de puntería de cordopteros para que no se oculte al desactivar la visualización de elementos de cordopteros en las opciones del juego."/>
 
 			<Setting Id="ACTIVITIES_ENABLE_ARGOSY_STRING"
 					 String="Mostrar el Argosy"
@@ -698,6 +876,12 @@
 			<Setting Id="ACTIVITIES_ENABLE_TRAINING_DOJO_STRING"
 					 String="Mostrar del dojo de entrenamiento"
 					 Description="Al activarse, HunterPie mostrará la información del dojo de entrenamiento."/>
+			<Setting Id="ACTIVITIES_ENABLE_MEOWMASTERS_STRING"
+                     String="Mostrar Miaurcenarios"
+                     Description="Al activarse, HunterPie mostrara la información de los miaurcenarios."/>
+            <Setting Id="ACTIVITIES_ENABLE_COHOOT_STRING"
+                     String="Mostrar nido de Bubo"
+                     Description="Al activarse, HunterPie mostrara la información de los nidos de Bubo."/>		 
 
 			<Setting Id="DAMAGE_METER_ENABLE_SHOULD_HIGHLIGHT_MYSELF"
 					 String="Resaltar al usuario"
@@ -723,6 +907,9 @@
 			<Setting Id="DAMAGE_METER_PLAYER_4_COLOR_STRING"
 					 String="Color del cuarto jugador"
 					 Description="El color del cuarto jugador en el widget de daño."/>
+			<Setting Id="DAMAGE_METER_ENABLE_OTOMOS"
+                     String="Mostrar daño de los camaradas"
+                     Description="Al activarse, HunterPie mostrará el daño causado por los camaradas."/>
 
 			<Setting Id="DEV_MOCK_MONSTER_WIDGET_STRING"
 					 String="Desarollo: Mock Monster widget"/>
@@ -738,6 +925,14 @@
 					 String="Desarollo: Mock Chat widget"/>
 			<Setting Id="DEV_POOGIE_API_HOST_STRING"
 					 String="Desarollo: Poogie API Host"/>
+			  <Setting Id="DEV_LOG_LEVEL"
+                     String="Desarrollo: Nivel de registro"/>
+            <Setting Id="DEV_PRESENTATION_TRACER_LEVEL"
+                     String="Developer: Nivel de trazador de representación de UI"/>
+			<!-- Account -->
+			<Setting Id="ACCOUNT_ENABLE_BACKUP_STRING"
+                     String="Activar respaldo de cuenta"
+                     Description="Al activarse, HunterPie respaldará automaticamente tus estados de guardado y los subirá a la nube."/>
 		</Settings>
 	</Client>
 </Strings>
