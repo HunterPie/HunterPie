@@ -14,23 +14,26 @@
                   CornerRadius="5"
                   HorizontalContentAlignment="Stretch"
                   VerticalContentAlignment="Stretch"
-                  Padding="0">
+                  Padding="0"
+                  Click="OnCardClick">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="192*"/>
+                <ColumnDefinition Width="197*"/>
                 <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
 
             <Border CornerRadius="4"
-                    Grid.ColumnSpan="2" 
+                    Grid.ColumnSpan="3" 
                     Grid.RowSpan="2">
                 <Border.Background>
-                    <ImageBrush ImageSource="https://cdn.hunterpie.com/Static/background_2.4.0.png"
-                                Stretch="None"
+                    <ImageBrush d:ImageSource="https://cdn.hunterpie.com/Static/update-2.5.0-banner.png"
+                                ImageSource="{Binding Banner}"
+                                Stretch="Uniform"
                                 RenderOptions.BitmapScalingMode="LowQuality"
                                 AlignmentX="Left"/>
                 </Border.Background>
@@ -44,7 +47,7 @@
             </Border>
 
 
-            <Border Grid.Column="1"
+            <Border Grid.Column="2"
                     CornerRadius="0,4,4,0"
                     Background="{StaticResource GRAY_300}"
                     Opacity="0.8" 
@@ -56,19 +59,23 @@
                             Grid.Column="1"/>
             </Border>
 
-            <TextBlock Text="Title"
+            <TextBlock d:Text="Title"
+                       Text="{Binding Title}"
                        FontSize="18"
-                       Foreground="{StaticResource WHITE_200}"
+                       Foreground="{StaticResource WHITE_300}"
                        FontWeight="Medium"
                        VerticalAlignment="Bottom"
-                       Margin="10,0"/>
+                       Margin="10,0" 
+                       Grid.Column="1"/>
 
-            <TextBlock Text="v2.0.0 is now available bringing new features and fixes! Click here to read the patch notes."
+            <TextBlock d:Text="v2.0.0 is now available bringing new features and fixes! Click here to read the patch notes."
+                       Text="{Binding Description}"
                        Grid.Row="1"
                        FontSize="15"
                        TextWrapping="WrapWithOverflow"
-                       Foreground="{StaticResource WHITE_200}"
-                       Margin="10,0"/>
+                       Foreground="{StaticResource WHITE_500}"
+                       Margin="10,5,10,0" 
+                       Grid.Column="1"/>
 
         </Grid>
     </local:Button>
