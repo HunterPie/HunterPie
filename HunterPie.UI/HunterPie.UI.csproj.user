@@ -2,6 +2,9 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="Controls\Buttons\BannerCard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Buttons\Button.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -160,6 +163,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Controls\Buttons\BannerCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\Buttons\Button.xaml">
       <SubType>Designer</SubType>
     </Page>

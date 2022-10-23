@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="HunterPie.UI.Controls.Buttons.BannerCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Controls.Buttons"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" 
+             d:DesignWidth="800">
+    <local:Button Background="{StaticResource GRAY_200}"
+                  BorderThickness="1"
+                  BorderBrush="{StaticResource GRAY}"
+                  CornerRadius="5"
+                  HorizontalContentAlignment="Stretch"
+                  VerticalContentAlignment="Stretch"
+                  Padding="0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+
+            <Border CornerRadius="4"
+                    Grid.ColumnSpan="2" 
+                    Grid.RowSpan="2">
+                <Border.Background>
+                    <ImageBrush ImageSource="https://cdn.hunterpie.com/Static/background_2.4.0.png"
+                                Stretch="None"
+                                RenderOptions.BitmapScalingMode="LowQuality"
+                                AlignmentX="Left"/>
+                </Border.Background>
+                <Border.OpacityMask>
+                    <LinearGradientBrush EndPoint="0.5,1" 
+                                         StartPoint="0,0">
+                        <GradientStop Color="#00000000" Offset="1"/>
+                        <GradientStop Color="#60000000" Offset="0.4"/>
+                    </LinearGradientBrush>
+                </Border.OpacityMask>
+            </Border>
+
+
+            <Border Grid.Column="1"
+                    CornerRadius="0,4,4,0"
+                    Background="{StaticResource GRAY_300}"
+                    Opacity="0.8" 
+                    Grid.RowSpan="2">
+                <image:Icon Image="{StaticResource ICON_ARROW_RIGHT}"
+                            Margin="2"
+                            Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                            Foreground="{StaticResource WHITE}"
+                            Grid.Column="1"/>
+            </Border>
+
+            <TextBlock Text="Title"
+                       FontSize="18"
+                       Foreground="{StaticResource WHITE_200}"
+                       FontWeight="Medium"
+                       VerticalAlignment="Bottom"
+                       Margin="10,0"/>
+
+            <TextBlock Text="v2.0.0 is now available bringing new features and fixes! Click here to read the patch notes."
+                       Grid.Row="1"
+                       FontSize="15"
+                       TextWrapping="WrapWithOverflow"
+                       Foreground="{StaticResource WHITE_200}"
+                       Margin="10,0"/>
+
+        </Grid>
+    </local:Button>
+</UserControl>

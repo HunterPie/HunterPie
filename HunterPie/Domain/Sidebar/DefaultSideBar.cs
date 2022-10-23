@@ -8,8 +8,8 @@ internal class DefaultSideBar : ISideBar
     {
         new ConsoleSideBarElementViewModel(),
         new SettingsSideBarElementViewModel(),
-        new PluginsSideBarElementViewModel(),
         new PatchNotesSideBarElementViewModel(),
+        //new PluginsSideBarElementViewModel(),
         new PatreonSideBarElementViewModel(),
         new DiscordSideBarElementViewModel(),
         new GithubSideBarElementViewModel(),
