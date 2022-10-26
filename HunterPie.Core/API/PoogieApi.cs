@@ -46,6 +46,7 @@ public static class PoogieApi
     public static async Task<PoogieApiResult<PasswordChangeResponse>?> RequestPasswordResetCode(PasswordResetRequest request) => await Post<PasswordResetRequest, PasswordChangeResponse>($"{ACCOUNT}/password/reset", request);
     public static async Task<PoogieApiResult<PasswordChangeResponse>?> ChangePassword(ChangePasswordRequest request) => await Post<ChangePasswordRequest, PasswordChangeResponse>($"{ACCOUNT}/password", request);
     public static async Task<PoogieApiResult<CanUploadBackupResponse>?> GetCanUploadBackup() => await Get<CanUploadBackupResponse>($"{BACKUPS}/upload");
+    public static async Task<PoogieApiResult<PatchResponse[]>?> GetPatchNotes() => await Get<PatchResponse[]>(PATCH_NOTES);
 
     private const string VERSION_PATH = "/v1/version";
     private const string CRASH_PATH = "/v1/report/crash";
@@ -57,6 +58,7 @@ public static class PoogieApi
     private const string MY_ACCOUNT = "/v1/user/me";
     private const string BACKUPS = "/v1/backup";
     private const string AVATAR_UPLOAD = "/v1/user/avatar/upload";
+    private const string PATCH_NOTES = "/v1/patch/notes";
     private const string SUPPORTER_HEADER = "X-Supporter-Token";
     private const double DEFAULT_TIMEOUT = 20;
     private const int DEFAULT_RETRIES = 3;

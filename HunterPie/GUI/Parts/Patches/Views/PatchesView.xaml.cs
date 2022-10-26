@@ -11,4 +11,6 @@ public partial class PatchesView : View<PatchesViewModel>
     {
         InitializeComponent();
     }
+
+    protected override void Initialize() => ViewModel.FetchPatchesAsync();
 }

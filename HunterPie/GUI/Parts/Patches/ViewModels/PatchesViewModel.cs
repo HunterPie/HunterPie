@@ -1,65 +1,40 @@
-﻿using HunterPie.UI.Architecture;
+﻿using HunterPie.Core.API;
+using HunterPie.Core.API.Entities;
+using HunterPie.UI.Architecture;
 using System.Collections.ObjectModel;
+using System.Windows.Threading;
 
 namespace HunterPie.GUI.Parts.Patches.ViewModels;
 
+#nullable enable
 public class PatchesViewModel : ViewModel
 {
-    public ObservableCollection<PatchViewModel> Patches { get; } = new()
+    private bool _isFetching;
+
+    public bool IsFetching { get => _isFetching; set => SetValue(ref _isFetching, value); }
+    public ObservableCollection<PatchViewModel> Patches { get; } = new();
+
+    public async void FetchPatchesAsync()
     {
-        new PatchViewModel
+        IsFetching = true;
+        PoogieApiResult<PatchResponse[]>? patches = await PoogieApi.GetPatchNotes();
+        IsFetching = false;
+
+        if (patches is null || !patches.Success || patches.Response is null)
+            return;
+
+        await Dispatcher.CurrentDispatcher.InvokeAsync(() =>
         {
-            Banner = "https://cdn.hunterpie.com/Static/update-2.5.0-banner.png",
-            Title = "HunterPie - Patch Notes [v2.5.0]",
-            Description = "This is a very long poggers description just to test the patch UI components very poggers LETS GOOOOOOOOOOOOO",
-        },
-        new PatchViewModel
-        {
-            Banner = "https://cdn.hunterpie.com/Static/update-2.4.0-banner.png",
-            Title = "HunterPie - Patch Notes [v2.4.0]",
-            Description = "This is a very long poggers description just to test the patch UI components very poggers LETS GOOOOOOOOOOOOO",
-        },
-        new PatchViewModel
-        {
-            Banner = "https://cdn.hunterpie.com/Static/update-2.3.0-banner.png",
-            Title = "HunterPie - Patch Notes [v2.3.0]",
-            Description = "This is a very long poggers description just to test the patch UI components very poggers LETS GOOOOOOOOOOOOO",
-        },
-        new PatchViewModel
-        {
-            Banner = "https://cdn.hunterpie.com/Static/update-2.2.0-banner.png",
-            Title = "HunterPie - Patch Notes [v2.2.0]",
-            Description = "This is a very long poggers description just to test the patch UI components very poggers LETS GOOOOOOOOOOOOO",
-        },
-        new PatchViewModel
-        {
-            Banner = "https://cdn.hunterpie.com/Static/update-2.1.0-banner.png",
-            Title = "HunterPie - Patch Notes [v2.1.0]",
-            Description = "This is a very long poggers description just to test the patch UI components very poggers LETS GOOOOOOOOOOOOO",
-        },
-        new PatchViewModel
-        {
-            Banner = "https://cdn.hunterpie.com/Static/update-2.0.23-banner.png",
-            Title = "HunterPie - Patch Notes [v2.0.23]",
-            Description = "This is a very long poggers description just to test the patch UI components very poggers LETS GOOOOOOOOOOOOO",
-        },
-        new PatchViewModel
-        {
-            Banner = "https://cdn.hunterpie.com/Static/update-2.0.22-banner.png",
-            Title = "HunterPie - Patch Notes [v2.0.22]",
-            Description = "This is a very long poggers description just to test the patch UI components very poggers LETS GOOOOOOOOOOOOO",
-        },
-        new PatchViewModel
-        {
-            Banner = "https://cdn.hunterpie.com/Static/update-2.0.21-banner.png",
-            Title = "HunterPie - Patch Notes [v2.0.21]",
-            Description = "This is a very long poggers description just to test the patch UI components very poggers LETS GOOOOOOOOOOOOO",
-        },
-        new PatchViewModel
-        {
-            Banner = "https://cdn.hunterpie.com/Static/update-2.0.20-banner.png",
-            Title = "HunterPie - Patch Notes [v2.0.20]",
-            Description = "This is a very long poggers description just to test the patch UI components very poggers LETS GOOOOOOOOOOOOO",
-        },
-    };
+            PatchResponse[] patchNotes = patches.Response;
+
+            foreach (PatchResponse note in patchNotes)
+                Patches.Add(new PatchViewModel
+                {
+                    Title = note.Title,
+                    Description = note.Description,
+                    Banner = note.Banner,
+                    Link = note.Link
+                });
+        });
+    }
 }

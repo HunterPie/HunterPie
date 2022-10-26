@@ -18,7 +18,8 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type vm:PatchViewModel}">
                         <buttons:BannerCard Height="150"
-                                            Margin="5"/>
+                                            Margin="5"
+                                            Link="{Binding Link, Mode=OneTime}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
 

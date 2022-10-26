@@ -38,10 +38,12 @@
                                 AlignmentX="Left"/>
                 </Border.Background>
                 <Border.OpacityMask>
-                    <LinearGradientBrush EndPoint="0.5,1" 
-                                         StartPoint="0,0">
+                    <LinearGradientBrush EndPoint="450,150" 
+                                         StartPoint="0,0" 
+                                         MappingMode="Absolute"
+                                         ColorInterpolationMode="SRgbLinearInterpolation">
                         <GradientStop Color="#00000000" Offset="1"/>
-                        <GradientStop Color="#60000000" Offset="0.4"/>
+                        <GradientStop Color="#60000000" Offset="0"/>
                     </LinearGradientBrush>
                 </Border.OpacityMask>
             </Border>
@@ -49,7 +51,7 @@
 
             <Border Grid.Column="2"
                     CornerRadius="0,4,4,0"
-                    Background="{StaticResource GRAY_300}"
+                    Background="{StaticResource GRAY_50}"
                     Opacity="0.8" 
                     Grid.RowSpan="2">
                 <image:Icon Image="{StaticResource ICON_ARROW_RIGHT}"
