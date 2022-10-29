@@ -53,6 +53,11 @@
               VerticalAlignment="Stretch"
               Margin="60,5,5,5"
               ClipToBounds="True">
+            <Grid.CacheMode>
+                <BitmapCache EnableClearType="False"
+                             RenderAtScale="1"
+                             SnapsToDevicePixels="False"/>
+            </Grid.CacheMode>
             <ContentControl Content="{Binding Source={x:Static host:MainHost.Instance}, Path=Element, IsAsync=True}" 
                             RenderTransformOrigin="0.5,0.5"
                             x:Name="PART_ContentPresenter">

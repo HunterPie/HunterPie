@@ -73,7 +73,7 @@
                 BorderBrush="{StaticResource GRAY}"
                 CornerRadius="5"
                 Padding="5"
-                Margin="0,0,10,0"
+                Margin="0,0,0,0"
                 Grid.Column="1">
             <Grid>
                 <Grid.RowDefinitions>

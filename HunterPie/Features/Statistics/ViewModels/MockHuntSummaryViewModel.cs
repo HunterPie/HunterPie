@@ -4,6 +4,8 @@ using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Media;
 
 namespace HunterPie.Features.Statistics.ViewModels;
@@ -25,6 +27,7 @@ public class MockHuntSummaryViewModel : HuntSummaryViewModel
         MockMonster();
         MockHuntDetails();
         MockPlayers();
+        MockAbnormalities();
     }
 
     private void MockHuntDetails()
@@ -36,7 +39,7 @@ public class MockHuntSummaryViewModel : HuntSummaryViewModel
 
     private void MockMonster()
     {
-        EnrageSections.Add(new AxisSection
+        Sections.Add(new AxisSection
         {
             StrokeThickness = 1,
             Stroke = new SolidColorBrush(Colors.Red) { Opacity = 0.15 },
@@ -46,7 +49,7 @@ public class MockHuntSummaryViewModel : HuntSummaryViewModel
             SectionWidth = 58
         });
 
-        EnrageSections.Add(new AxisSection
+        Sections.Add(new AxisSection
         {
             StrokeThickness = 1,
             Stroke = new SolidColorBrush(Colors.Red) { Opacity = 0.15 },
@@ -56,7 +59,7 @@ public class MockHuntSummaryViewModel : HuntSummaryViewModel
             SectionWidth = 35
         });
 
-        EnrageSections.Add(new AxisSection
+        Sections.Add(new AxisSection
         {
             StrokeThickness = 1,
             Stroke = new SolidColorBrush(Colors.Red) { Opacity = 0.15 },
@@ -66,7 +69,7 @@ public class MockHuntSummaryViewModel : HuntSummaryViewModel
             SectionWidth = 53
         });
 
-        EnrageSections.Add(new AxisSection
+        Sections.Add(new AxisSection
         {
             StrokeThickness = 1,
             Stroke = new SolidColorBrush(Colors.Red) { Opacity = 0.15 },
@@ -99,6 +102,69 @@ public class MockHuntSummaryViewModel : HuntSummaryViewModel
         return points;
     }
 
+    private void MockAbnormalities()
+    {
+        var rng = new Random(123);
+        string[] abnormalities =
+        {
+            "ICON_DEFUP",
+            "ICON_WINDRES+",
+            "ICON_ENVNEG",
+            "ICON_YELLOWSQUID",
+            "ICON_POWERDRUM",
+            "ELEMENT_FIRE",
+            "ICON_BLEED",
+            "ICON_DANGOGLUTTON"
+        };
+        Color[] colors =
+        {
+            Colors.GreenYellow,
+            Colors.Gold,
+            Colors.Yellow,
+            Colors.Cyan,
+            Colors.Violet,
+            Colors.Turquoise,
+            Colors.Teal
+        };
+        PartyMemberSummaryViewModel firstMember = Players.First();
+        List<AbnormalitySummaryViewModel> vms = new(abnormalities.Length);
+        foreach (string abnormality in abnormalities)
+        {
+            Brush color = new SolidColorBrush(colors[rng.Next(0, colors.Length)]);
+            var sections = new List<AxisSection>();
+
+            int nPoints = rng.Next(1, 4);
+            double start = 0;
+            Brush colorClone = color.Clone();
+            colorClone.Opacity = 0.05;
+            for (int i = 0; i < nPoints; i++)
+            {
+                start += rng.NextDouble() * 150;
+                sections.Add(new AxisSection
+                {
+                    StrokeThickness = 0,
+                    Fill = colorClone,
+                    Value = start,
+                    SectionWidth = rng.NextDouble() * 80
+                });
+            }
+
+            var summary = new AbnormalitySummaryViewModel
+            {
+                Id = abnormality,
+                Uptime = rng.NextDouble(),
+                Color = color,
+            };
+
+            summary.Sections.AddRange(sections);
+
+            vms.Add(summary);
+        }
+
+        foreach (AbnormalitySummaryViewModel vm in vms.OrderByDescending(vm => vm.Uptime).ToArray())
+            firstMember.Abnormalities.Add(vm);
+    }
+
     private void MockPlayers()
     {
         for (int i = 0; i < 4; i++)
@@ -122,9 +188,11 @@ public class MockHuntSummaryViewModel : HuntSummaryViewModel
                 {
                     Name = playerName,
                     Series = damageSeries,
-                    Weapon = (Weapon)rng.Next(0, 13)
+                    Weapon = (Weapon)rng.Next(0, 13),
                 }
             );
         }
+
+        SelectedPlayer = Players.First();
     }
 }

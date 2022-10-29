@@ -1,5 +1,6 @@
 ﻿using HunterPie.Features.Statistics.ViewModels;
 using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace HunterPie.Features.Statistics.Views;
@@ -20,5 +21,22 @@ public partial class HuntSummaryView : UserControl
     {
         if (sender is PartyMemberSummaryView view && view.DataContext is PartyMemberSummaryViewModel vm)
             ViewModel.FilterOnly(vm);
+    }
+
+    private void OnAbnormalityClick(object sender, EventArgs e)
+    {
+        if (sender is FrameworkElement view && view.DataContext is AbnormalitySummaryViewModel vm)
+        {
+            if (!vm.IsToggled)
+            {
+                ViewModel.AddSections(vm.Sections);
+                PART_Graph.Update();
+            }
+            else
+                ViewModel.RemoveSections(vm.Sections);
+
+            vm.IsToggled = !vm.IsToggled;
+
+        }
     }
 }
