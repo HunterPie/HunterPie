@@ -184,7 +184,7 @@
         <Abnormality Id="ABN_BLOOD"
                      Offset="76C"
                      Name="ABNORMALITY_BLOOD"
-                     Icon="ICON_BLOOD"/>
+                     Icon="ICON_BLOODBLIGHT"/>
         <Abnormality Id="ABN_POISON"
                      Offset="81C"
                      DependsOn="87C"
