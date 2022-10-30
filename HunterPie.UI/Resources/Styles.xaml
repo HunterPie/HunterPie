@@ -534,7 +534,8 @@
             <Setter.Value>
                 <ControlTemplate>
                     <Border BorderBrush="#FFEA5151" 
-                            BorderThickness="1">
+                            BorderThickness="1"
+                            CornerRadius="5">
                         <Border.Effect>
                             <DropShadowEffect Color="#FFEA3434" 
                                               BlurRadius="5" 

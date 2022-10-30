@@ -20,5 +20,5 @@ public struct MHRSubmarineItemStructure
     [FieldOffset(0x44)]
     public int Amount;
 
-    public bool IsNotEmpty() => Amount > 0 || (Unk0 + Unk1 + Unk2 != 0);
+    public bool IsNotEmpty() => Amount > 0;
 }

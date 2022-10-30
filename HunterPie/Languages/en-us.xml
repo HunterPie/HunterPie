@@ -29,6 +29,7 @@
             <Ailment Id="AILMENT_CLAWFLINCH" String="Claw Flinch"/>
             <Ailment Id="AILMENT_BANISHINGBALL" String="Banishing Ball"/>
             <Ailment Id="STATUS_ENRAGE" String="Enrage"/>
+            <Ailment Id="STATUS_STEELFANG" String="Steel Fang"/>
         </Rise>
     </Ailments>
     <Abnormalities>
@@ -624,7 +625,7 @@
             <Poogie Id="ERROR_INVALID_USERNAME"
                     String="Username is not valid!"/>
             <Poogie Id="ERROR_INVALID_PASSWORD"
-                    String="Password is not valid!"/>
+                    String="Password is not valid, it must be at least 8 characters long!"/>
             <Poogie Id="ERROR_INVALID_EMAIL"
                     String="Email is not valid!"/>
             <Poogie Id="ERROR_INVALID_CREDENTIALS"
@@ -641,6 +642,10 @@
                     String="Failed to upload avatar, please try again in a few minutes."/>
             <Poogie Id="ERROR_AVATAR_SIZE_TOO_LARGE"
                     String="Failed to upload avatar, size was above 3.5 MB."/>
+			<Poogie Id="ERROR_INVALID_PASSWORD_RESET_CODE"
+                    String="The password reset code is not valid or has expired."/>
+			<Poogie Id="ERROR_GENERIC"
+                    String="Whoops... Something went wrong. Try again in a few minutes!"/>
 
             <Poogie Id="LOGIN_SUCCESS"
                     String="Welcome {Username}! You're now logged in."/>
@@ -653,6 +658,10 @@
                     String="Looks like you don't have automatic backups enabled.&#10;You can enable it in your Account settings."/>
 			<Poogie Id="BACKUP_NOT_FOUND_STRING"
                     String="You have no backups."/>
+			<Poogie Id="PASSWORD_RESET_EMAIL_STRING"
+                    String="An email will be sent to {Email} with the required code to change your account password."/>
+			<Poogie Id="PASSWORD_RESET_SUCCESS_STRING"
+                    String="Password has been changed successfully."/>
         </Integrations>
         <Enums>
             <Enum Id="SORT_BY_LOWEST_TIMER_STRING"
