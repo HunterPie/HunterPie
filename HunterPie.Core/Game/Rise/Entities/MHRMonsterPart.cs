@@ -13,7 +13,7 @@ public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPart
     private float _health;
     private float _flinch;
     private float _sever;
-    private PartType _type;
+    private PartType _type = default;
     private bool _isInQurio;
 
     public string Id { get; }
@@ -104,6 +104,11 @@ public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPart
     public event EventHandler<IMonsterPart> OnSeverUpdate;
     public event EventHandler<IMonsterPart> OnPartTypeChange;
 
+    public MHRMonsterPart(string id)
+    {
+        Id = id;
+    }
+
     public MHRMonsterPart(string id, MHRPartStructure structure)
     {
         Id = id;
@@ -111,7 +116,7 @@ public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPart
         GetCurrentType(structure);
     }
 
-    void IUpdatable<MHRPartStructure>.Update(MHRPartStructure data)
+    public void Update(MHRPartStructure data)
     {
         if (Type == PartType.Qurio && !_isInQurio)
             GetCurrentType(data);
@@ -124,7 +129,7 @@ public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPart
         Sever = data.Sever;
     }
 
-    void IUpdatable<MHRQurioPartData>.Update(MHRQurioPartData data)
+    public void Update(MHRQurioPartData data)
     {
         if (!data.IsInQurioState && Type != PartType.Qurio)
             return;
