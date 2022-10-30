@@ -50,6 +50,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
     {
         ViewModel.Pets.Name = Localization.QueryString("//Strings/Client/Overlay/String[@Id='DAMAGE_METER_OTOMOS_NAME_STRING']");
         ViewModel.InHuntingZone = Context.Game.Player.InHuntingZone;
+        ViewModel.MaxDeaths = Context.Game.MaxDeaths;
         ViewModel.Deaths = Context.Game.Deaths;
         ViewModel.TimeElapsed = Context.Game.TimeElapsed;
 
@@ -79,7 +80,11 @@ public class DamageMeterWidgetContextHandler : IContextHandler
     }
 
     #region Player events
-    private void OnDeathCountChange(object sender, IGame e) => ViewModel.Deaths = e.Deaths;
+    private void OnDeathCountChange(object sender, IGame e)
+    {
+        ViewModel.MaxDeaths = e.MaxDeaths;
+        ViewModel.Deaths = e.Deaths;
+    }
 
     private void OnStageUpdate(object sender, EventArgs e)
     {
