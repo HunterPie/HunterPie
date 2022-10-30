@@ -34,7 +34,6 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
     public event EventHandler<IMonster> OnMonsterDespawn;
     public event EventHandler<IGame> OnHudStateChange;
     public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange;
-    public event EventHandler<IGame> OnQuestLifeChange;
     public event EventHandler<IGame> OnDeathCountChange;
 
     public IPlayer Player => _player;
@@ -69,7 +68,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
         this.Dispatch(OnTimeElapsedChange, new TimeElapsedChangeEventArgs(isReset, value));
     }
 
-    public int QuestLife => throw new NotImplementedException();
+    public int MaxDeaths => 0;
     public int Deaths
     {
         get => _deaths;

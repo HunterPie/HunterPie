@@ -32,7 +32,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
     private float _timeElapsed;
     private (int, DateTime) _lastTeleport = (0, DateTime.Now);
     private int _deaths;
-    private int _questLife;
+    private int _maxDeaths;
     private bool _isHudOpen;
     private DateTime _lastDamageUpdate = DateTime.MinValue;
     private readonly Dictionary<long, IMonster> _monsters = new();
@@ -82,15 +82,15 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
         }
     }
 
-    public int QuestLife
+    public int MaxDeaths
     {
-        get => _questLife;
+        get => _maxDeaths;
         private set
         {
-            if (value != _questLife)
+            if (value != _maxDeaths)
             {
-                _questLife = value;
-                this.Dispatch(OnQuestLifeChange, this);
+                _maxDeaths = value;
+                this.Dispatch(OnDeathCountChange, this);
             }
         }
     }
@@ -100,7 +100,6 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
     public event EventHandler<IGame> OnHudStateChange;
     public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange;
     public event EventHandler<IGame> OnDeathCountChange;
-    public event EventHandler<IGame> OnQuestLifeChange;
 
     public MHRGame(IProcessManager process) : base(process)
     {
@@ -199,18 +198,13 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
             AddressMap.Get<int[]>("QUEST_DEATH_COUNTER_OFFSETS")
         );
 
-        Deaths = deathCounter;
-    }
-
-    [ScannableMethod]
-    private void GetQuestLife()
-    {
-        int questLife = _process.Memory.Deref<int>(
+        int maxDeathsCounter = _process.Memory.Deref<int>(
             AddressMap.GetAbsolute("QUEST_ADDRESS"),
-            AddressMap.Get<int[]>("QUESTLIFE_OFFSETS")
+            AddressMap.Get<int[]>("QUEST_MAX_DEATHS_OFFSETS")
         );
 
-        QuestLife = questLife;
+        Deaths = deathCounter;
+        MaxDeaths = maxDeathsCounter;
     }
 
     [ScannableMethod]
