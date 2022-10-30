@@ -37,7 +37,6 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     private readonly Dictionary<long, MHRMonsterPart> parts = new();
     private readonly Dictionary<long, MHRMonsterAilment> ailments = new();
     private readonly List<Element> _weaknesses = new();
-    private MonsterType _monsterType;
 
     public int Id
     {
@@ -160,6 +159,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 
+    public MonsterType MonsterType { get; private set; }
     public bool IsQurioActive { get; private set; }
 
     public event EventHandler<EventArgs> OnSpawn;
@@ -182,7 +182,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     public MHRMonster(IProcessManager process, long address) : base(process)
     {
         _address = address;
-
+        GetMonsterType();
         Log.Debug($"Initialized monster at address {address:X}");
     }
 
@@ -197,24 +197,30 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 
-    [ScannableMethod(typeof(MonsterInformationData))]
-    private void GetMonsterBasicInformation()
+    private void GetMonsterType()
     {
-        MonsterInformationData dto = new();
-
-        int monsterId = _process.Memory.Read<int>(_address + 0x2D4);
         long monsterTypePtr = _process.Memory.ReadPtr(
             _address,
             AddressMap.Get<int[]>("MONSTER_TYPE_OFFSETS")
         );
         int monsterType = _process.Memory.Read<int>(monsterTypePtr + 0x5C);
+        MonsterType = (MonsterType)monsterType;
+    }
+
+    [ScannableMethod(typeof(MonsterInformationData))]
+    private void GetMonsterBa5sicInformation()
+    {
+        MonsterInformationData dto = new();
+
+        int monsterId = _process.Memory.Read<int>(_address + 0x2D4);
 
         dto.Id = monsterId;
 
         Next(ref dto);
 
+        GetMonsterType();
+
         Id = dto.Id;
-        _monsterType = (MonsterType)monsterType;
     }
 
     [ScannableMethod(typeof(HealthData))]
@@ -249,7 +255,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
         );
         float captureHealth = _process.Memory.Read<float>(captureHealthPtr + 0x1C);
 
-        CaptureThreshold = _monsterType == MonsterType.Qurio ? 0.0f : captureHealth / MaxHealth;
+        CaptureThreshold = MonsterType == MonsterType.Qurio ? 0.0f : captureHealth / MaxHealth;
     }
 
     [ScannableMethod]

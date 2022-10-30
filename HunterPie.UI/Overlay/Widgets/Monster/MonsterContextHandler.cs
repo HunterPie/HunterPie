@@ -3,6 +3,7 @@ using HunterPie.Core.Game.Demos.Sunbreak.Entities.Monster;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.Rise.Entities;
+using HunterPie.Core.Game.Rise.Entities.Monster;
 using HunterPie.Core.Game.World.Entities;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using System;
@@ -58,6 +59,7 @@ public class MonsterContextHandler : BossMonsterViewModel
 
     private void OnSpawn(object sender, EventArgs e)
     {
+        IsQurio = Context is MHRMonster monster && monster.MonsterType == MonsterType.Qurio;
         Name = Context.Name;
 
         Em = BuildMonsterEmByContext();
@@ -159,6 +161,8 @@ public class MonsterContextHandler : BossMonsterViewModel
 
     private void UpdateData()
     {
+        IsQurio = Context is MHRMonster monster && monster.MonsterType == MonsterType.Qurio;
+
         if (Context.Id > -1)
         {
             Name = Context.Name;
