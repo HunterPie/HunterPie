@@ -32,7 +32,6 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
     private float _timeElapsed;
     private (int, DateTime) _lastTeleport = (0, DateTime.Now);
     private int _deaths;
-    private int _maxDeaths;
     private bool _isHudOpen;
     private DateTime _lastDamageUpdate = DateTime.MinValue;
     private readonly Dictionary<long, IMonster> _monsters = new();
