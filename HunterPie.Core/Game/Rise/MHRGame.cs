@@ -82,18 +82,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
         }
     }
 
-    public int MaxDeaths
-    {
-        get => _maxDeaths;
-        private set
-        {
-            if (value != _maxDeaths)
-            {
-                _maxDeaths = value;
-                this.Dispatch(OnDeathCountChange, this);
-            }
-        }
-    }
+    public int MaxDeaths { get; private set; }
 
     public event EventHandler<IMonster> OnMonsterSpawn;
     public event EventHandler<IMonster> OnMonsterDespawn;
