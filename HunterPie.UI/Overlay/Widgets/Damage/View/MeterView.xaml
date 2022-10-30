@@ -61,7 +61,7 @@
                                VerticalAlignment="Center"
                                FontSize="13"
                                Visibility="{Binding MaxDeaths, Converter={StaticResource MaxDeathsToVisibilityConverter}}">
-                        <Run d:Text=" /" 
+                        <Run d:Text=" /"
                              Text=" /"/>
                         <Run d:Text="3"
                              Text="{Binding MaxDeaths, Mode=OneWay}"/>

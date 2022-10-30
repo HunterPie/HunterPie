@@ -31,6 +31,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
     private readonly MHRPlayer _player;
     private float _timeElapsed;
     private (int, DateTime) _lastTeleport = (0, DateTime.Now);
+    private int _maxDeaths;
     private int _deaths;
     private bool _isHudOpen;
     private DateTime _lastDamageUpdate = DateTime.MinValue;
@@ -68,6 +69,19 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
         }
     }
 
+    public int MaxDeaths
+    {
+        get => _maxDeaths;
+        private set
+        {
+            if (value != _maxDeaths)
+            {
+                _maxDeaths = value;
+                this.Dispatch(OnDeathCountChange, this);
+            }
+        }
+    }
+
     public int Deaths
     {
         get => _deaths;
@@ -80,8 +94,6 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
             }
         }
     }
-
-    public int MaxDeaths { get; private set; }
 
     public event EventHandler<IMonster> OnMonsterSpawn;
     public event EventHandler<IMonster> OnMonsterDespawn;
@@ -181,18 +193,18 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
     [ScannableMethod]
     private void GetDeathCounter()
     {
-        int deathCounter = _process.Memory.Deref<int>(
-            AddressMap.GetAbsolute("QUEST_ADDRESS"),
-            AddressMap.Get<int[]>("QUEST_DEATH_COUNTER_OFFSETS")
-        );
-
         int maxDeathsCounter = _process.Memory.Deref<int>(
             AddressMap.GetAbsolute("QUEST_ADDRESS"),
             AddressMap.Get<int[]>("QUEST_MAX_DEATHS_OFFSETS")
         );
 
-        Deaths = deathCounter;
+        int deathCounter = _process.Memory.Deref<int>(
+            AddressMap.GetAbsolute("QUEST_ADDRESS"),
+            AddressMap.Get<int[]>("QUEST_DEATH_COUNTER_OFFSETS")
+        );
+
         MaxDeaths = maxDeathsCounter;
+        Deaths = deathCounter;
     }
 
     [ScannableMethod]
