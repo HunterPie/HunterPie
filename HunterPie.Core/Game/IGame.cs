@@ -19,12 +19,11 @@ public interface IGame : IDisposable
 
     public int Deaths { get; }
 
-    public int QuestLife { get; }
+    public int MaxDeaths { get; }
 
     public event EventHandler<IMonster> OnMonsterSpawn;
     public event EventHandler<IMonster> OnMonsterDespawn;
     public event EventHandler<IGame> OnHudStateChange;
     public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange;
     public event EventHandler<IGame> OnDeathCountChange;
-    public event EventHandler<IGame> OnQuestLifeChange;
 }
