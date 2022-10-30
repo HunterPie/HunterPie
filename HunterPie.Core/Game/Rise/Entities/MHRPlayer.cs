@@ -246,7 +246,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     }
 
     [ScannableMethod]
-    private void GetPlayerConsumableAbnormalities()
+    private void GetConsumableAbnormalities()
     {
         if (!InHuntingZone)
             return;
