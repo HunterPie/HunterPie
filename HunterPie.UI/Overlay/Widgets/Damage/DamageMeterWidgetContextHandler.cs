@@ -51,6 +51,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
         ViewModel.Pets.Name = Localization.QueryString("//Strings/Client/Overlay/String[@Id='DAMAGE_METER_OTOMOS_NAME_STRING']");
         ViewModel.InHuntingZone = Context.Game.Player.InHuntingZone;
         ViewModel.Deaths = Context.Game.Deaths;
+        ViewModel.QuestLife = Context.Game.QuestLife;
         ViewModel.TimeElapsed = Context.Game.TimeElapsed;
 
         foreach (IPartyMember member in Context.Game.Player.Party.Members)
@@ -66,6 +67,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
         Context.Game.OnTimeElapsedChange += OnTimeElapsedChange;
         Context.Game.Player.OnStageUpdate += OnStageUpdate;
         Context.Game.OnDeathCountChange += OnDeathCountChange;
+        Context.Game.OnQuestLifeChange += OnQuestLifeChange;
     }
 
     public void UnhookEvents()
@@ -75,11 +77,13 @@ public class DamageMeterWidgetContextHandler : IContextHandler
         Context.Game.OnTimeElapsedChange -= OnTimeElapsedChange;
         Context.Game.Player.OnStageUpdate -= OnStageUpdate;
         Context.Game.OnDeathCountChange -= OnDeathCountChange;
+        Context.Game.OnQuestLifeChange -= OnQuestLifeChange;
         _ = WidgetManager.Unregister<MeterView, DamageMeterWidgetConfig>(View);
     }
 
     #region Player events
     private void OnDeathCountChange(object sender, IGame e) => ViewModel.Deaths = e.Deaths;
+    private void OnQuestLifeChange(object sender, IGame e) => ViewModel.QuestLife = e.QuestLife;
 
     private void OnStageUpdate(object sender, EventArgs e)
     {

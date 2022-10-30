@@ -32,6 +32,7 @@ public class MHRSunbreakDemoGame : Scannable, IGame, IEventDispatcher
 
     public float TimeElapsed => throw new NotImplementedException();
 
+    public int QuestLife => throw new NotImplementedException();
     public int Deaths => throw new NotImplementedException();
 
     private readonly Dictionary<long, IMonster> monsters = new();
@@ -40,6 +41,7 @@ public class MHRSunbreakDemoGame : Scannable, IGame, IEventDispatcher
     public event EventHandler<IMonster> OnMonsterDespawn;
     public event EventHandler<IGame> OnHudStateChange;
     public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange;
+    public event EventHandler<IGame> OnQuestLifeChange;
     public event EventHandler<IGame> OnDeathCountChange;
 
     public MHRSunbreakDemoGame(IProcessManager process) : base(process)

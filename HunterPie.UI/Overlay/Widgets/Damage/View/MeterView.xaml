@@ -19,6 +19,7 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <viewmodels:MockMeterViewModel x:Key="MockViewModel"/>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
+        <converters:QuestLifeToVisibilityConverter x:Key="QuestLifeToVisibilityConverter"/>
     </UserControl.Resources>
     <Grid Background="#CC111215"
           Visibility="{Binding InHuntingZone, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -51,6 +52,20 @@
                            Height="18"/>
                     <TextBlock d:Text="2"
                                Text="{Binding Deaths, Mode=OneWay}"
+                               Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                               VerticalAlignment="Center"
+                               FontSize="13"/>
+                    <TextBlock d:Text=" / "
+                               Text=" / "
+                               Visibility="{Binding QuestLife, Converter={StaticResource QuestLifeToVisibilityConverter}}"
+                               Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                               VerticalAlignment="Center"
+                               FontSize="13"/>
+                    <TextBlock d:Text="3"
+                               Text="{Binding QuestLife, Mode=OneWay}"
+                               Visibility="{Binding QuestLife, Converter={StaticResource QuestLifeToVisibilityConverter}}"
                                Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                                FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                VerticalAlignment="Center"

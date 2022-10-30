@@ -13,6 +13,7 @@ public class MeterViewModel : ViewModel
     public DamageMeterWidgetConfig Settings { get; }
     private double _timeElapsed = 1;
     private int _deaths;
+    private int _questLife;
     private bool _inHuntingZone;
     private Func<double, string> _damageFormatter;
     private bool _hasPetsToBeDisplayed;
@@ -38,6 +39,12 @@ public class MeterViewModel : ViewModel
     {
         get => _deaths;
         set => SetValue(ref _deaths, value);
+    }
+
+    public int QuestLife
+    {
+        get => _questLife;
+        set => SetValue(ref _questLife, value);
     }
 
     public bool InHuntingZone { get => _inHuntingZone; set => SetValue(ref _inHuntingZone, value); }

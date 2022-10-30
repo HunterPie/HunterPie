@@ -32,6 +32,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
     private float _timeElapsed;
     private (int, DateTime) _lastTeleport = (0, DateTime.Now);
     private int _deaths;
+    private int _questLife;
     private bool _isHudOpen;
     private DateTime _lastDamageUpdate = DateTime.MinValue;
     private readonly Dictionary<long, IMonster> _monsters = new();
@@ -81,11 +82,25 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
         }
     }
 
+    public int QuestLife
+    {
+        get => _questLife;
+        private set
+        {
+            if (value != _questLife)
+            {
+                _questLife = value;
+                this.Dispatch(OnQuestLifeChange, this);
+            }
+        }
+    }
+
     public event EventHandler<IMonster> OnMonsterSpawn;
     public event EventHandler<IMonster> OnMonsterDespawn;
     public event EventHandler<IGame> OnHudStateChange;
     public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange;
     public event EventHandler<IGame> OnDeathCountChange;
+    public event EventHandler<IGame> OnQuestLifeChange;
 
     public MHRGame(IProcessManager process) : base(process)
     {
@@ -185,6 +200,17 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
         );
 
         Deaths = deathCounter;
+    }
+
+    [ScannableMethod]
+    private void GetQuestLife()
+    {
+        int questLife = _process.Memory.Deref<int>(
+            AddressMap.GetAbsolute("QUEST_ADDRESS"),
+            AddressMap.Get<int[]>("QUESTLIFE_OFFSETS")
+        );
+
+        QuestLife = questLife;
     }
 
     [ScannableMethod]
