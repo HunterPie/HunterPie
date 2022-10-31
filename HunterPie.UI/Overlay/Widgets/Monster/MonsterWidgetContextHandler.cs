@@ -77,7 +77,7 @@ public class MonsterWidgetContextHandler : IContextHandler
 
     private void OnMonsterSpawn(object sender, IMonster e)
     {
-        Application.Current.Dispatcher.Invoke(() => ViewModel.Monsters.Add(new MonsterContextHandler(e, Settings)));
+        View.Dispatcher.Invoke(() => ViewModel.Monsters.Add(new MonsterContextHandler(e, Settings)));
 
         e.OnTargetChange += OnTargetChange;
         CalculateVisibleMonsters();

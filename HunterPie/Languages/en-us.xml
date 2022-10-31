@@ -301,6 +301,7 @@
             <Part Id="PART_BODY_LEGS" String="Body &amp; Legs"/>
             <Part Id="PART_ANTLERS" String="Antlers"/>
             <Part Id="PART_MANE" String="Mane"/>
+            <Part Id="PART_QURIO_THRESHOLD" String="Qurio Threshold"/>
         </Shared>
         <Rise>
             <Monster Id="0" String="Rathian"/>

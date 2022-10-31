@@ -21,6 +21,7 @@ using System.Runtime.CompilerServices;
 
 namespace HunterPie.Core.Game.Rise.Entities;
 
+#nullable enable
 public class MHRMonster : Scannable, IMonster, IEventDispatcher
 {
     private readonly long _address;
@@ -34,6 +35,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     private float _stamina;
     private float _captureThreshold;
     private readonly MHRMonsterAilment _enrage = new("STATUS_ENRAGE");
+    private readonly MHRMonsterPart? _qurioThreshold;
     private readonly Dictionary<long, MHRMonsterPart> parts = new();
     private readonly Dictionary<long, MHRMonsterAilment> ailments = new();
     private readonly List<Element> _weaknesses = new();
@@ -126,7 +128,20 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 
-    public IMonsterPart[] Parts => parts.Values.ToArray();
+    public IMonsterPart[] Parts
+    {
+        get
+        {
+            var extraParts = new List<IMonsterPart>();
+
+            if (_qurioThreshold is not null)
+                extraParts.Add(_qurioThreshold);
+
+            extraParts.AddRange(parts.Values);
+            return extraParts.ToArray();
+        }
+    }
+
     public IMonsterAilment[] Ailments => ailments.Values.ToArray();
 
     public bool IsEnraged
@@ -162,27 +177,31 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     public MonsterType MonsterType { get; private set; }
     public bool IsQurioActive { get; private set; }
 
-    public event EventHandler<EventArgs> OnSpawn;
-    public event EventHandler<EventArgs> OnLoad;
-    public event EventHandler<EventArgs> OnDespawn;
-    public event EventHandler<EventArgs> OnDeath;
-    public event EventHandler<EventArgs> OnCapture;
-    public event EventHandler<EventArgs> OnTarget;
-    public event EventHandler<EventArgs> OnCrownChange;
-    public event EventHandler<EventArgs> OnHealthChange;
-    public event EventHandler<EventArgs> OnStaminaChange;
-    public event EventHandler<EventArgs> OnActionChange;
-    public event EventHandler<EventArgs> OnEnrageStateChange;
-    public event EventHandler<EventArgs> OnTargetChange;
-    public event EventHandler<IMonsterPart> OnNewPartFound;
-    public event EventHandler<IMonsterAilment> OnNewAilmentFound;
-    public event EventHandler<Element[]> OnWeaknessesChange;
-    public event EventHandler<IMonster> OnCaptureThresholdChange;
+    public event EventHandler<EventArgs>? OnSpawn;
+    public event EventHandler<EventArgs>? OnLoad;
+    public event EventHandler<EventArgs>? OnDespawn;
+    public event EventHandler<EventArgs>? OnDeath;
+    public event EventHandler<EventArgs>? OnCapture;
+    public event EventHandler<EventArgs>? OnTarget;
+    public event EventHandler<EventArgs>? OnCrownChange;
+    public event EventHandler<EventArgs>? OnHealthChange;
+    public event EventHandler<EventArgs>? OnStaminaChange;
+    public event EventHandler<EventArgs>? OnActionChange;
+    public event EventHandler<EventArgs>? OnEnrageStateChange;
+    public event EventHandler<EventArgs>? OnTargetChange;
+    public event EventHandler<IMonsterPart>? OnNewPartFound;
+    public event EventHandler<IMonsterAilment>? OnNewAilmentFound;
+    public event EventHandler<Element[]>? OnWeaknessesChange;
+    public event EventHandler<IMonster>? OnCaptureThresholdChange;
 
     public MHRMonster(IProcessManager process, long address) : base(process)
     {
         _address = address;
         GetMonsterType();
+
+        if (MonsterType == MonsterType.Qurio)
+            _qurioThreshold = new("PART_QURIO_THRESHOLD");
+
         Log.Debug($"Initialized monster at address {address:X}");
     }
 
@@ -208,7 +227,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     }
 
     [ScannableMethod(typeof(MonsterInformationData))]
-    private void GetMonsterBa5sicInformation()
+    private void GetMonsterBasicInformation()
     {
         MonsterInformationData dto = new();
 
@@ -261,11 +280,11 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterParts()
     {
-        long isQurioActivePtr = _process.Memory.ReadPtr(
+        long qurioDataPtr = _process.Memory.ReadPtr(
             _address,
-            AddressMap.Get<int[]>("MONSTER_QURIO_STATE")
+            AddressMap.Get<int[]>("MONSTER_QURIO_DATA")
         );
-        bool isQurioActive = _process.Memory.Read<byte>(isQurioActivePtr + 0x12) == 2;
+        bool isQurioActive = _process.Memory.Read<byte>(qurioDataPtr + 0x12) == 2;
 
         // Flinch array
         long monsterFlinchPartsPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_FLINCH_HEALTH_COMPONENT_OFFSETS"));
@@ -375,9 +394,30 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
                 this.Dispatch(OnNewPartFound, dummy);
             }
 
-            ((IUpdatable<MHRPartStructure>)parts[flinchPart]).Update(partInfo);
-            ((IUpdatable<MHRQurioPartData>)parts[flinchPart]).Update(qurioInfo);
+            parts[flinchPart].Update(partInfo);
+            parts[flinchPart].Update(qurioInfo);
         }
+    }
+
+    [ScannableMethod]
+    private void GetQurioThreshold()
+    {
+        if (_qurioThreshold is null)
+            return;
+
+        long qurioDataPtr = _process.Memory.ReadPtr(
+            _address,
+            AddressMap.Get<int[]>("MONSTER_QURIO_DATA")
+        );
+        MHRQurioThresholdStructure structure = _process.Memory.Read<MHRQurioThresholdStructure>(qurioDataPtr + 0x14);
+        var data = new MHRQurioPartData
+        {
+            IsInQurioState = true,
+            Health = structure.MaxThreshold - structure.Threshold,
+            MaxHealth = structure.MaxThreshold
+        };
+
+        _qurioThreshold.Update(data);
     }
 
     [ScannableMethod]
