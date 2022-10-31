@@ -2,7 +2,7 @@
 using HunterPie.Core.API.Entities;
 using HunterPie.UI.Architecture;
 using System.Collections.ObjectModel;
-using System.Windows.Threading;
+using System.Threading.Tasks;
 
 namespace HunterPie.GUI.Parts.Patches.ViewModels;
 
@@ -14,7 +14,7 @@ public class PatchesViewModel : ViewModel
     public bool IsFetching { get => _isFetching; set => SetValue(ref _isFetching, value); }
     public ObservableCollection<PatchViewModel> Patches { get; } = new();
 
-    public async void FetchPatchesAsync()
+    public async Task FetchPatchesAsync()
     {
         IsFetching = true;
         PoogieApiResult<PatchResponse[]>? patches = await PoogieApi.GetPatchNotes();
@@ -23,7 +23,7 @@ public class PatchesViewModel : ViewModel
         if (patches is null || !patches.Success || patches.Response is null)
             return;
 
-        await Dispatcher.CurrentDispatcher.InvokeAsync(() =>
+        await UIThread.InvokeAsync(() =>
         {
             PatchResponse[] patchNotes = patches.Response;
 

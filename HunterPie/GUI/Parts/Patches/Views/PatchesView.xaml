@@ -8,29 +8,64 @@
            xmlns:vm="clr-namespace:HunterPie.GUI.Parts.Patches.ViewModels"
            xmlns:arch="clr-namespace:HunterPie.UI.Architecture;assembly=HunterPie.UI"
            xmlns:local="clr-namespace:HunterPie.GUI.Parts.Patches.Views"
-           x:TypeArguments="vm:PatchesViewModel"           
+           xmlns:buttonSkeletons="clr-namespace:HunterPie.UI.Controls.Buttons.Skeleton;assembly=HunterPie.UI"
+           x:TypeArguments="vm:PatchesViewModel"
            mc:Ignorable="d" 
            d:DesignHeight="450" 
-           d:DesignWidth="800">
+           d:DesignWidth="800"
+           d:DataContext="{d:DesignInstance vm:PatchesViewModel}">
     <Grid>
-        <viewer:SmoothScrollViewer IsDeferredScrollingEnabled="True">
-            <ItemsControl ItemsSource="{Binding Patches, Mode=OneTime}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type vm:PatchViewModel}">
-                        <buttons:BannerCard Height="150"
-                                            Margin="5"
-                                            Link="{Binding Link, Mode=OneTime}"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
+        <ContentControl>
+            
+            <ContentControl.Style>
+                <Style TargetType="{x:Type ContentControl}">
+                    <Style.Setters>
+                        <Setter Property="Content">
+                            <Setter.Value>
+                                <StackPanel>
+                                    <buttonSkeletons:BannerCardSkeleton Height="150"
+                                                                        Margin="5"/>
+                                    <buttonSkeletons:BannerCardSkeleton Height="150"
+                                                                        Margin="5"/>
+                                    <buttonSkeletons:BannerCardSkeleton Height="150"
+                                                                        Margin="5"/>
+                                </StackPanel>
+                            </Setter.Value>
+                        </Setter>
+                    </Style.Setters>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ViewModel.IsFetching, RelativeSource={RelativeSource AncestorType={x:Type local:PatchesView}}}"
+                                     Value="False">
+                            <DataTrigger.Setters>
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <viewer:SmoothScrollViewer>
+                                            <ItemsControl ItemsSource="{Binding Patches, Mode=OneTime}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type vm:PatchViewModel}">
+                                                        <buttons:BannerCard Height="150"
+                                                                            Margin="5"
+                                                                            Link="{Binding Link, Mode=OneTime}"/>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
 
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel VirtualizingPanel.VirtualizationMode="Recycling"
-                                                VirtualizingPanel.IsVirtualizing="True"
-                                                IsItemsHost="True"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </viewer:SmoothScrollViewer>
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <VirtualizingStackPanel VirtualizingPanel.VirtualizationMode="Recycling"
+                                                                                VirtualizingPanel.IsVirtualizing="True"
+                                                                                IsItemsHost="True"/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                            </ItemsControl>
+                                        </viewer:SmoothScrollViewer>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger.Setters>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+        
     </Grid>
 </arch:View>
