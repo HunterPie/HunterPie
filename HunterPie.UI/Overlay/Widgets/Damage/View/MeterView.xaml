@@ -19,6 +19,7 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <viewmodels:MockMeterViewModel x:Key="MockViewModel"/>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
+        <converters:MaxDeathsToVisibilityConverter x:Key="MaxDeathsToVisibilityConverter"/>
     </UserControl.Resources>
     <Grid Background="#CC111215"
           Visibility="{Binding InHuntingZone, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -55,6 +56,16 @@
                                FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                VerticalAlignment="Center"
                                FontSize="13"/>
+                    <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               Visibility="{Binding MaxDeaths, Converter={StaticResource MaxDeathsToVisibilityConverter}}">
+                        <Run d:Text=" /"
+                             Text=" /"/>
+                        <Run d:Text="3"
+                             Text="{Binding MaxDeaths, Mode=OneWay}"/>
+                    </TextBlock>
                 </WrapPanel>
             </Label>
 

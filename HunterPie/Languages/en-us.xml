@@ -147,6 +147,7 @@
         <Abnormality Id="ABNORMALITY_EVASION_MANTLE" String="Evasion Mantle (Atk)"/>
         <Abnormality Id="ABNORMALITY_AFFINITTY_BOOSTER" String="Affinity Booster"/>
 
+        <Abnormality Id="ABNORMALITY_BLOOD" String="Bloodblight"/>
         <Abnormality Id="ABNORMALITY_POISON" String="Poison"/>
         <Abnormality Id="ABNORMALITY_VENOM" String="Venom"/>
         <Abnormality Id="ABNORMALITY_DEF_DOWN" String="Defense Down"/>
@@ -300,6 +301,7 @@
             <Part Id="PART_BODY_LEGS" String="Body &amp; Legs"/>
             <Part Id="PART_ANTLERS" String="Antlers"/>
             <Part Id="PART_MANE" String="Mane"/>
+            <Part Id="PART_QURIO_THRESHOLD" String="Qurio Threshold"/>
         </Shared>
         <Rise>
             <Monster Id="0" String="Rathian"/>

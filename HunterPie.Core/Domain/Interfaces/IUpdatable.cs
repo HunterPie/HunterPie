@@ -6,5 +6,5 @@
 /// <typeparam name="T">The data structure to update from</typeparam>
 public interface IUpdatable<T> where T : struct
 {
-    internal void Update(T data);
+    public void Update(T data);
 }

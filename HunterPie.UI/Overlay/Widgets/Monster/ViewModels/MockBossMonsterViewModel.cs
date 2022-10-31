@@ -137,8 +137,8 @@ internal class MockBossMonsterViewModel : BossMonsterViewModel
                 new MonsterAilmentViewModel(_mockConfig)
                 {
                     Name = name,
-                    Timer = 100.0,
-                    MaxTimer = 100.0,
+                    Timer = 0,
+                    MaxTimer = 0,
                     Buildup = 100.0,
                     MaxBuildup = 100.0
                 }
