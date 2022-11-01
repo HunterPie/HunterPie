@@ -639,7 +639,7 @@
 			<Poogie Id="INVALID_IMAGE"
 					String="파일이 올바르지 않은 이미지입니다!"/>
 			<Poogie Id="FAILED_TO_UPDATE_AVATAR"
-					String="아바타 업로드를 실패했습니다, 몇 분후 다시 시도해주세요."/>
+					String="아바타 업로드를 실패했습니다, 몇 분 후 다시 시도해주세요."/>
 			<Poogie Id="ERROR_AVATAR_SIZE_TOO_LARGE"
 					String="아바타 업로드를 실패했습니다, 파일 크기가 3.5 MB를 넘습니다."/>
 			<Poogie Id="ERROR_INVALID_PASSWORD_RESET_CODE"
