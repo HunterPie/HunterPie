@@ -38,7 +38,7 @@
                            Height="18"/>
                     <TextBlock Text="{Binding TimeElapsed, Converter={StaticResource SecondsToTimeString}, ConverterParameter='mm\\:ss\\.fff'}"
                                d:Text="3:33"
-                               Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                               Foreground="{StaticResource WHITE}"
                                FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                VerticalAlignment="Center"
                                FontSize="13"/>
@@ -52,18 +52,18 @@
                            Height="18"/>
                     <TextBlock d:Text="2"
                                Text="{Binding Deaths, Mode=OneWay}"
-                               Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                               Foreground="{StaticResource WHITE}"
                                FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                VerticalAlignment="Center"
                                FontSize="13"/>
-                    <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                    <TextBlock Foreground="{StaticResource WHITE_200}"
                                FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                VerticalAlignment="Center"
                                FontSize="13"
-                               Visibility="{Binding MaxDeaths, Converter={StaticResource MaxDeathsToVisibilityConverter}}">
-                        <Run d:Text=" /"
-                             Text=" /"/>
-                        <Run d:Text="3"
+                               Visibility="{Binding MaxDeaths, Mode=OneWay, Converter={StaticResource MaxDeathsToVisibilityConverter}}"
+                               FontWeight="Medium">
+                        <Run Text="/"/><!--
+                     --><Run d:Text="3"
                              Text="{Binding MaxDeaths, Mode=OneWay}"/>
                     </TextBlock>
                 </WrapPanel>
@@ -131,6 +131,11 @@
                                 d:DataContext="{StaticResource MockViewModel}"
                                 Hoverable="False"
                                 DataTooltip="{x:Null}">
+                <lvc:CartesianChart.CacheMode>
+                    <BitmapCache EnableClearType="False"
+                                 RenderAtScale="1"
+                                 SnapsToDevicePixels="False"/>
+                </lvc:CartesianChart.CacheMode>
                 <lvc:CartesianChart.AxisY>
                     <lvc:Axis MinValue="0"
                               LabelFormatter="{Binding DamageFormatter, Mode=OneWay}"

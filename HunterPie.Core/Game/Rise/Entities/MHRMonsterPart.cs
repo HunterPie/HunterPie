@@ -141,7 +141,7 @@ public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPart
         }
 
         Type = PartType.Qurio;
-        QurioMaxHealth = Math.Max(data.Health, QurioMaxHealth);
+        QurioMaxHealth = Math.Max(data.MaxHealth, Math.Max(data.Health, QurioMaxHealth));
         QurioHealth = data.Health;
         _isInQurio = data.IsInQurioState;
     }

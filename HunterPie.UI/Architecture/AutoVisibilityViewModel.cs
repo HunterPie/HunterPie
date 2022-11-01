@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Timers;
 using Range = HunterPie.Core.Settings.Types.Range;
 
@@ -56,6 +58,15 @@ public class AutoVisibilityViewModel : ViewModel, IDisposable
     {
         _timer.Interval = Timeout.Current * MILLISECOND;
         RefreshTimer();
+    }
+
+    protected void SetValueAndRefresh<T>(ref T property, T value, [CallerMemberName] string propertyName = "")
+    {
+        if (EqualityComparer<T>.Default.Equals(property, value))
+            return;
+
+        RefreshTimer();
+        SetValue(ref property, value, propertyName);
     }
 
     public virtual void Dispose()
