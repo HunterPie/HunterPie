@@ -2,9 +2,13 @@
 using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Logger;
+using HunterPie.Domain.Sidebar;
+using HunterPie.GUI.Parts.Sidebar.Service;
+using HunterPie.GUI.Parts.Sidebar.ViewModels;
 using HunterPie.Internal.Poogie;
 using HunterPie.Update.Presentation;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -12,14 +16,18 @@ namespace HunterPie.Update;
 
 internal static class UpdateUseCase
 {
+    private const string JUST_UPDATED_KEY = "JustUpdated";
+
     public static async Task<bool> Exec(UpdateViewModel vm)
     {
         vm.State = "Initializing HunterPie";
         UpdateService service = new();
-        _ = service.CleanupOldFiles();
+        service.CleanupOldFiles();
 
         vm.State = "Checking for latest version...";
         Version latest = await service.GetLatestVersion();
+
+        OpenPatchNotesIfJustUpdated();
 
         if (latest is null || ClientInfo.IsVersionGreaterOrEq(latest))
             return false;
@@ -46,7 +54,7 @@ internal static class UpdateUseCase
         });
 
         vm.State = "Calculating file hashes...";
-        System.Collections.Generic.Dictionary<string, string> localFiles = await service.IndexAllFilesRecursively(ClientInfo.ClientPath);
+        Dictionary<string, string> localFiles = await service.IndexAllFilesRecursively(ClientInfo.ClientPath);
 
         vm.State = "Extracting package...";
         if (!service.ExtractZip())
@@ -55,7 +63,7 @@ internal static class UpdateUseCase
             return false;
         }
 
-        System.Collections.Generic.Dictionary<string, string> remoteFiles = await service.IndexAllFilesRecursively(ClientInfo.GetPathFor(@"temp/HunterPie"));
+        Dictionary<string, string> remoteFiles = await service.IndexAllFilesRecursively(ClientInfo.GetPathFor(@"temp/HunterPie"));
 
         vm.State = "Replacing old files";
         try
@@ -79,6 +87,18 @@ internal static class UpdateUseCase
             Log.Error(err.ToString());
         }
 
+        RegistryConfig.Set(JUST_UPDATED_KEY, true);
+
         return true;
+    }
+
+    private static void OpenPatchNotesIfJustUpdated()
+    {
+        if (RegistryConfig.Exists(JUST_UPDATED_KEY) && !RegistryConfig.Get<bool>(JUST_UPDATED_KEY))
+            return;
+
+        SideBarService.Navigate(SideBar.GetInstance<PatchNotesSideBarElementViewModel>());
+
+        RegistryConfig.Set(JUST_UPDATED_KEY, false);
     }
 }
