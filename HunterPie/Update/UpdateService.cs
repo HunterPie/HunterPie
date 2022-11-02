@@ -67,8 +67,7 @@ internal class UpdateService
 
     public async Task<Dictionary<string, string>> IndexAllFilesRecursively(string basePath, string relativePath = "", Dictionary<string, string> files = null)
     {
-        if (files is null)
-            files = new Dictionary<string, string>();
+        files ??= new Dictionary<string, string>();
 
         foreach (string entry in Directory.GetFileSystemEntries(basePath))
         {
@@ -128,7 +127,7 @@ internal class UpdateService
         return true;
     }
 
-    public bool CleanupOldFiles()
+    public void CleanupOldFiles()
     {
         Stack<string> directories = new();
 
@@ -158,7 +157,5 @@ internal class UpdateService
                 }
             }
         }
-
-        return true;
     }
 }

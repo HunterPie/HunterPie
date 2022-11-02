@@ -24,7 +24,7 @@
         </Grid.RowDefinitions>
         <TextBlock d:Text="AILMENT_1"
                    Text="{Binding Name, Converter={StaticResource RiseMonsterAilmentIdToNameConverter}}"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                   Foreground="{StaticResource WHITE_100}"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    FontWeight="Medium"
                    VerticalAlignment="Center"
@@ -44,7 +44,7 @@
                  Grid.Row="1"/>
 
         <!-- Outer ring: Buildup -->
-        <overlay:Arc d:Percentage="1"
+        <overlay:Arc d:Percentage="0.5"
                      StrokeThickness="3"
                      Width="40"
                      Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
@@ -65,13 +65,14 @@
         </overlay:Arc>
 
         <!-- Inner ring: Timer -->
-        <overlay:Arc d:Percentage="0.8"
+        <overlay:Arc d:Percentage="0.3"
                      StrokeThickness="3"
                      Width="40"
                      Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                      VerticalAlignment="Top"
                      Grid.Row="1"
-                     Stroke="{Binding Name, Mode=OneWay, Converter={StaticResource MonsterAilmentIdToColorConverter}}">
+                     Stroke="{Binding Name, Mode=OneWay, Converter={StaticResource MonsterAilmentIdToColorConverter}}"
+                     d:Stroke="Red">
             <overlay:Arc.Percentage>
                 <MultiBinding Converter="{StaticResource RatioConverter}">
                     <Binding Path="Timer"/>
@@ -86,7 +87,7 @@
                    VerticalAlignment="Top"
                    HorizontalAlignment="Center"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                   Foreground="{StaticResource WHITE}"
                    FontWeight="Medium"
                    FontSize="15"
                    Margin="0,5,0,0" 
@@ -97,7 +98,7 @@
                    Text="{Binding Timer, Converter={StaticResource SecondsToTimeString}}"
                    FontSize="13"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                   Foreground="{StaticResource WHITE_200}"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Center"
                    Margin="0,18,0,0" 

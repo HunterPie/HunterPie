@@ -1,6 +1,8 @@
 ﻿using HunterPie.Domain.Interfaces;
 using HunterPie.Domain.Sidebar;
 using HunterPie.GUI.Parts.Sidebar;
+using HunterPie.GUI.Parts.Sidebar.Service;
+using System.Linq;
 
 namespace HunterPie.Internal.Initializers;
 
@@ -8,10 +10,8 @@ internal class MenuInitializer : IInitializer
 {
     public void Init()
     {
-        ISideBar menu = new DefaultSideBar();
+        SideBarContainer.SetMenu(SideBar.Menu);
 
-        menu.Menu[0].ExecuteOnClick();
-
-        SideBarContainer.SetMenu(menu);
+        SideBarService.Navigate(SideBar.Menu.FirstOrDefault());
     }
 }

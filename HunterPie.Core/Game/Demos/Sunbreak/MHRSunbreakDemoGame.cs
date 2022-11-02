@@ -32,6 +32,7 @@ public class MHRSunbreakDemoGame : Scannable, IGame, IEventDispatcher
 
     public float TimeElapsed => throw new NotImplementedException();
 
+    public int MaxDeaths => throw new NotImplementedException();
     public int Deaths => throw new NotImplementedException();
 
     private readonly Dictionary<long, IMonster> monsters = new();

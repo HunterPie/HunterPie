@@ -5,8 +5,8 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.5.2.20</AssemblyVersion>
-    <FileVersion>2.5.2.20</FileVersion>
+    <AssemblyVersion>2.5.2.84</AssemblyVersion>
+    <FileVersion>2.5.2.84</FileVersion>
     <Version>2.2.0.0</Version>
     <LangVersion>10.0</LangVersion>
  </PropertyGroup>
@@ -644,6 +644,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Monsters\Icons\World_99.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Monsters\Masks\qurio_mask.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

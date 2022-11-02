@@ -12,6 +12,7 @@ public class MeterViewModel : ViewModel
 {
     public DamageMeterWidgetConfig Settings { get; }
     private double _timeElapsed = 1;
+    private int _maxDeaths;
     private int _deaths;
     private bool _inHuntingZone;
     private Func<double, string> _damageFormatter;
@@ -32,6 +33,12 @@ public class MeterViewModel : ViewModel
     {
         get => _timeElapsed;
         set => SetValue(ref _timeElapsed, value);
+    }
+
+    public int MaxDeaths
+    {
+        get => _maxDeaths;
+        set => SetValue(ref _maxDeaths, value);
     }
 
     public int Deaths
