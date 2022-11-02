@@ -89,7 +89,7 @@
 					 DependsOn="7C"
 					 WithValue="7"
 					 Name="ABNORMALITY_MEGA_DEMONDRUG"
-					 Icon="ITEM_DEMONDRUG+"
+					 Icon="ITEM_DEMONDRUG++"
 					 IsInfinite="True"/>
 		<Abnormality Id="ABN_ARMORSKIN"
 					 Offset="80"
@@ -103,7 +103,7 @@
 					 DependsOn="80"
 					 WithValue="25"
 					 Name="ABNORMALITY_MEGA_ARMORSKIN"
-					 Icon="ITEM_ARMORSKIN+"
+					 Icon="ITEM_ARMORSKIN++"
 					 IsInfinite="True"/>
         <Abnormality Id="ABN_MIGHT_SEED"
                      Offset="90"

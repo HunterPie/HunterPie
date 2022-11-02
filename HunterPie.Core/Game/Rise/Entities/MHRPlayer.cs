@@ -271,7 +271,9 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
 
             MHRConsumableStructure abnormality = new();
 
-            if (abnormSubId == schema.WithValue)
+            if (schema.IsInfinite)
+                abnormality.Timer = abnormSubId == schema.WithValue ? AbnormalityData.TIMER_MULTIPLIER : 0;
+            else if (abnormSubId == schema.WithValue)
                 abnormality = _process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
 
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
