@@ -63,8 +63,9 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
         {
             if (value != _timeElapsed)
             {
+                bool hasReset = value < _timeElapsed;
                 _timeElapsed = value;
-                this.Dispatch(OnTimeElapsedChange, new TimeElapsedChangeEventArgs(false, value));
+                this.Dispatch(OnTimeElapsedChange, new TimeElapsedChangeEventArgs(hasReset, value));
             }
         }
     }
@@ -226,7 +227,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
             AddressMap.GetAbsolute("MOUSE_ADDRESS"),
             AddressMap.Get<int[]>("MOUSE_OFFSETS")
         );
-        
+
         byte isCutsceneActive = _process.Memory.Deref<byte>(
             AddressMap.GetAbsolute("EVENTCAMERA_ADDRESS"),
             AddressMap.Get<int[]>("CUTSCENE_STATE_OFFSETS")

@@ -1,6 +1,8 @@
-﻿namespace HunterPie.Core.Game;
+﻿using System;
 
-public struct TimeElapsedChangeEventArgs
+namespace HunterPie.Core.Game;
+
+public class TimeElapsedChangeEventArgs : EventArgs
 {
     public TimeElapsedChangeEventArgs(bool isTimerReset, float timeElapsed)
     {

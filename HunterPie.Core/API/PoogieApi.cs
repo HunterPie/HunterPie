@@ -110,7 +110,7 @@ public static class PoogieApi
         using Poogie request = PoogieFactory.Default()
             .Post(path)
             .WithHeader(SUPPORTER_HEADER, ClientConfig.Config.Client.SupporterSecretToken)
-            .WithTimeout(DefaultTimeout)
+            .WithTimeout(DefaultTimeout * 3)
             .WithRetry(DEFAULT_RETRIES)
             .WithFile("file", fileName)
             .Build();
