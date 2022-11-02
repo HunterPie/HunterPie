@@ -286,6 +286,11 @@
                      Name="ABNORMALITY_CHAIN_CRIT"
                      Icon="ICON_ARMORSKILL_ORANGE"
                      Category="Consumables"/>
+		<Abnormality Id="ABN_GRINDER_S"
+                     Offset="190"
+                     Name="ABNORMALITY_GRINDER_S"
+                     Icon="ICON_ARMORSKILL_YELLOW"
+                     Category="Consumables"/>
         <Abnormality Id="ABN_PROTECTIVE_POLISH"
                      Offset="1D8"
                      Name="ABNORMALITY_PROTECTIVE_POLISH"

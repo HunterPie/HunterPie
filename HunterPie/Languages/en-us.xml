@@ -146,6 +146,7 @@
         <Abnormality Id="ABNORMALITY_COALESCENCE" String="Coalescence"/>
         <Abnormality Id="ABNORMALITY_EVASION_MANTLE" String="Evasion Mantle (Atk)"/>
         <Abnormality Id="ABNORMALITY_AFFINITTY_BOOSTER" String="Affinity Booster"/>
+        <Abnormality Id="ABNORMALITY_GRINDER_S" String="Grinder (S)"/>
 
         <Abnormality Id="ABNORMALITY_BLOOD" String="Bloodblight"/>
         <Abnormality Id="ABNORMALITY_POISON" String="Poison"/>
