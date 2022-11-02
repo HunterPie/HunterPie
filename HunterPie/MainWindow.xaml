@@ -226,6 +226,7 @@
         <accountPromo:AccountPromotionalView Grid.ColumnSpan="2"
                                              Grid.RowSpan="2"
                                              Margin="80"
-                                             Visibility="{Binding ShouldShowPromo, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                             Visibility="{Binding ShouldShowPromo, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                             d:Visibility="Collapsed"/>
     </Grid>
 </Window>

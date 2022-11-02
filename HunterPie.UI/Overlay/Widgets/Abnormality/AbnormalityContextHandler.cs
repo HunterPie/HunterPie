@@ -38,5 +38,6 @@ internal class AbnormalityContextHandler : AbnormalityViewModel, IContextHandler
         MaxTimer = Context.MaxTimer;
         Timer = Context.Timer;
         IsBuildup = Context.IsBuildup;
+        IsInfinite = Context.IsInfinite;
     }
 }

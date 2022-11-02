@@ -95,6 +95,8 @@
         <Abnormality Id="ABNORMALITY_MIGHT_PILL" String="Might Pill"/>
         <Abnormality Id="ABNORMALITY_DEMONDRUG" String="Demondrug"/>
         <Abnormality Id="ABNORMALITY_ARMORSKIN" String="Armorskin"/>
+		<Abnormality Id="ABNORMALITY_MEGA_DEMONDRUG" String="Mega Demondrug"/>
+		<Abnormality Id="ABNORMALITY_MEGA_ARMORSKIN" String="Mega Armorskin"/>
         <Abnormality Id="ABNORMALITY_COOLDRINK" String="Cool Drink"/>
         <Abnormality Id="ABNORMALITY_HOTDRINK" String="Hot Drink"/>
         <Abnormality Id="ABNORMALITY_BUTTERFLAME" String="Butterflame"/>
