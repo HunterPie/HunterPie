@@ -276,7 +276,7 @@
                      Name="ABNORMALITY_COUNTERSTRIKE"
                      Icon="ICON_ARMORSKILL_ORANGE"
                      Category="Consumables"/>
-		<Abnormality Id="ABN_COALESCENCE"
+        <Abnormality Id="ABN_COALESCENCE"
                      Offset="168"
                      Name="ABNORMALITY_COALESCENCE"
                      Icon="ICON_ARMORSKILL_PURPLE"
