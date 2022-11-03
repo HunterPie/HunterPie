@@ -12,4 +12,5 @@ public struct AbnormalitySchema
     public string Group;
     public bool IsBuildup;
     public int MaxBuildup;
+    public bool IsInfinite;
 }

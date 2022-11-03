@@ -26,7 +26,7 @@ public class Poogie : IDisposable
     {
         foreach (string host in Urls)
         {
-            for (int retry = 0; retry < Math.Min(1, Retry); retry++)
+            for (int retry = 0; retry < Math.Max(1, Retry); retry++)
             {
                 _client = new() { Timeout = Timeout };
                 _request = new(Method, $"{host}{Path}");
@@ -70,7 +70,7 @@ public class Poogie : IDisposable
     {
         foreach (string host in Urls)
         {
-            for (int retry = 0; retry < Math.Min(1, Retry); retry++)
+            for (int retry = 0; retry < Math.Max(1, Retry); retry++)
             {
                 _client = new() { Timeout = Timeout };
                 _request = new(Method, $"{host}{Path}");

@@ -89,6 +89,7 @@ public class MHWMonsterPart :
     public event EventHandler<IMonsterPart> OnFlinchUpdate;
     public event EventHandler<IMonsterPart> OnSeverUpdate;
     public event EventHandler<IMonsterPart> OnBreakCountUpdate;
+    public event EventHandler<IMonsterPart> OnPartTypeChange;
 
     public MHWMonsterPart(
         string id,

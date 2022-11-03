@@ -60,6 +60,17 @@ internal class MockBossMonsterViewModel : BossMonsterViewModel
             Parts.Add(
                 new MonsterPartViewModel(_mockConfig)
                 {
+                    Name = $"{i} (Qurio)",
+                    IsKnownPart = true,
+                    QurioHealth = 500.0,
+                    QurioMaxHealth = 500.0,
+                    Type = PartType.Qurio
+                }
+            );
+
+            Parts.Add(
+                new MonsterPartViewModel(_mockConfig)
+                {
                     Name = $"Severable {i}",
                     IsKnownPart = true,
                     Health = 500.0,
@@ -126,8 +137,8 @@ internal class MockBossMonsterViewModel : BossMonsterViewModel
                 new MonsterAilmentViewModel(_mockConfig)
                 {
                     Name = name,
-                    Timer = 100.0,
-                    MaxTimer = 100.0,
+                    Timer = 0,
+                    MaxTimer = 0,
                     Buildup = 100.0,
                     MaxBuildup = 100.0
                 }

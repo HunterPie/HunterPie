@@ -15,7 +15,8 @@
              HorizontalAlignment="Left"
              Loaded="OnLoad"
              Unloaded="OnUnload"
-             Style="{StaticResource STYLE_ABNORMALITIES_BAR_WIDGET}">
+             Style="{StaticResource STYLE_ABNORMALITIES_BAR_WIDGET}"
+             d:DataContext="{d:DesignInstance vm:AbnormalityBarViewModel}">
     <UserControl.Resources>
         <converter:AbnormalityStringToIconConverter x:Key="AbnormalityStringToIconConverter"/>
         <converter:OrientationToOppositeConverter x:Key="OrientationToOppositeConverter"/>
@@ -47,7 +48,7 @@
             </ItemsControl.ItemsPanel>
 
             <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type vm:AbnormalityBarViewModel}">
+                <DataTemplate DataType="{x:Type vm:AbnormalityViewModel}">
                     <StackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}, Converter={StaticResource OrientationToOppositeConverter}}">
                         <overlay:Abnormality Margin="5,2,5,2"
                                              Width="30"
@@ -82,6 +83,11 @@
                                                         </MultiBinding>
                                                     </Setter.Value>
                                                 </Setter>
+                                            </DataTrigger.Setters>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsInfinite, Mode=OneWay}" Value="True">
+                                            <DataTrigger.Setters>
+                                                <Setter Property="Text" Value="∞"/>
                                             </DataTrigger.Setters>
                                         </DataTrigger>
                                     </Style.Triggers>

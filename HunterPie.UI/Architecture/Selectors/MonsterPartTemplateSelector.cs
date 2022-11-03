@@ -11,6 +11,7 @@ public class MonsterPartTemplateSelector : DataTemplateSelector
     public DataTemplate DefaultTemplate { get; set; }
     public DataTemplate SeverableTemplate { get; set; }
     public DataTemplate BreakableTemplate { get; set; }
+    public DataTemplate QurioTemplate { get; set; }
     public DataTemplate Empty = new();
 
     public override DataTemplate SelectTemplate(object item, DependencyObject container)
@@ -21,6 +22,7 @@ public class MonsterPartTemplateSelector : DataTemplateSelector
                 PartType.Flinch => DefaultTemplate,
                 PartType.Breakable => BreakableTemplate,
                 PartType.Severable => SeverableTemplate,
+                PartType.Qurio => QurioTemplate,
                 PartType.Invalid => Empty,
                 _ => throw new NotImplementedException(),
             }

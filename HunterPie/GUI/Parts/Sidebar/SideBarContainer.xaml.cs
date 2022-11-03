@@ -1,8 +1,7 @@
 ﻿using HunterPie.Core.Architecture;
-using HunterPie.Domain.Sidebar;
+using HunterPie.GUI.Parts.Sidebar.Service;
 using HunterPie.GUI.Parts.Sidebar.ViewModels;
 using HunterPie.UI.Architecture.Extensions;
-using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,7 +21,6 @@ public partial class SideBarContainer : UserControl
     public ObservableCollection<ISideBarElement> Elements => _elements;
 
     public Observable<bool> IsMouseInside { get; } = false;
-    private bool _isMouseDown;
     private readonly Storyboard _selectSlideAnimation;
 
     public double ItemsHeight
@@ -31,7 +29,7 @@ public partial class SideBarContainer : UserControl
         set => SetValue(ItemsHeightProperty, value);
     }
     public static readonly DependencyProperty ItemsHeightProperty =
-        DependencyProperty.Register("ItemsHeight", typeof(double), typeof(SideBarContainer), new PropertyMetadata(20.0));
+        DependencyProperty.Register("ItemsHeight", typeof(double), typeof(SideBarContainer), new PropertyMetadata(40.0));
 
     public Thickness SelectedButton
     {
@@ -43,28 +41,25 @@ public partial class SideBarContainer : UserControl
 
     public SideBarContainer()
     {
+        HookEvents();
+
         InitializeComponent();
+
         _selectSlideAnimation = this.FindResource<Storyboard>("PART_SelectionAnimation");
         DataContext = this;
+
+        if (SideBarService.CurrentlySelected is not null)
+            NavigateTo(SideBarService.CurrentlySelected);
     }
 
-    public static void SetMenu(ISideBar menu) => Add(menu.Menu);
+    private void HookEvents() => SideBarService.NavigateToElement += NavigateTo;
+
+    public static void SetMenu(ISideBarElement[] menu) => Add(menu);
 
     public static void Add(params ISideBarElement[] elements)
     {
         foreach (ISideBarElement element in elements)
             _elements.Add(element);
-    }
-
-    private void OnLeftMouseButtonDown(object sender, MouseButtonEventArgs e) => _isMouseDown = true;
-
-    private void OnLeftMouseButtonUp(object sender, MouseButtonEventArgs e)
-    {
-        // Was a click!
-        if (_isMouseDown && IsMouseInside)
-            OnClick(e.GetPosition(this));
-
-        _isMouseDown = false;
     }
 
     private void OnMouseEnter(object sender, MouseEventArgs e)
@@ -76,21 +71,15 @@ public partial class SideBarContainer : UserControl
     private void OnMouseLeave(object sender, MouseEventArgs e)
     {
         IsMouseInside.Value = false;
-        _isMouseDown = false;
         PART_ButtonsContainer.IsHitTestVisible = false;
     }
 
-    private void OnClick(Point mousePosition)
+    private void NavigateTo(ISideBarElement element)
     {
-        int idx = (int)Math.Abs(mousePosition.Y / ItemsHeight);
-
-        if (idx >= Elements.Count)
-            return;
-
-        ISideBarElement element = Elements[idx];
-
         if (!element.IsActivable || !element.IsEnabled)
             return;
+
+        int idx = Elements.IndexOf(element);
 
         ((ThicknessAnimation)_selectSlideAnimation.Children[0]).To = new Thickness(0, idx * ItemsHeight, 0, 0);
 

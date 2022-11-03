@@ -246,7 +246,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     }
 
     [ScannableMethod]
-    private void GetPlayerConsumableAbnormalities()
+    private void GetConsumableAbnormalities()
     {
         if (!InHuntingZone)
             return;
@@ -271,7 +271,9 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
 
             MHRConsumableStructure abnormality = new();
 
-            if (abnormSubId == schema.WithValue)
+            if (schema.IsInfinite)
+                abnormality.Timer = abnormSubId == schema.WithValue ? AbnormalityData.TIMER_MULTIPLIER : 0;
+            else if (abnormSubId == schema.WithValue)
                 abnormality = _process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
 
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
@@ -518,7 +520,9 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             ref MHRSubmarineData submarine = ref submarines[i];
 
             int itemsArrayLength = _process.Memory.Read<int>(submarine.Data.ItemArrayPtr + 0x1C);
-            long[] itemsPtr = _process.Memory.Read<long>(submarine.Data.ItemArrayPtr + 0x20, (uint)itemsArrayLength);
+            long[] itemsPtr = _process.Memory.Read<long>(submarine.Data.ItemArrayPtr + 0x20, (uint)itemsArrayLength)
+                                             .Select(ptr => _process.Memory.Read<long>(ptr + 0x20))
+                                             .ToArray();
             var items = new MHRSubmarineItemStructure[itemsArrayLength];
 
             for (int j = 0; j < itemsArrayLength; j++)

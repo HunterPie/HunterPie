@@ -3,11 +3,11 @@ using HunterPie.Core.Game.Demos.Sunbreak.Entities.Monster;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.Rise.Entities;
+using HunterPie.Core.Game.Rise.Entities.Monster;
 using HunterPie.Core.Game.World.Entities;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using System;
 using System.Linq;
-using System.Windows;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster;
 
@@ -58,6 +58,7 @@ public class MonsterContextHandler : BossMonsterViewModel
 
     private void OnSpawn(object sender, EventArgs e)
     {
+        IsQurio = Context is MHRMonster monster && monster.MonsterType == MonsterType.Qurio;
         Name = Context.Name;
 
         Em = BuildMonsterEmByContext();
@@ -71,7 +72,7 @@ public class MonsterContextHandler : BossMonsterViewModel
     {
         UnhookEvents();
         IsAlive = false;
-        _ = Application.Current.Dispatcher.InvokeAsync(() =>
+        _ = UIThread.InvokeAsync(() =>
         {
             foreach (MonsterPartContextHandler part in Parts)
                 part.Dispose();
@@ -92,7 +93,7 @@ public class MonsterContextHandler : BossMonsterViewModel
     }
     private void OnWeaknessesChange(object sender, Element[] e)
     {
-        _ = Application.Current.Dispatcher.InvokeAsync(() =>
+        _ = UIThread.InvokeAsync(() =>
         {
             lock (Weaknesses)
             {
@@ -116,11 +117,11 @@ public class MonsterContextHandler : BossMonsterViewModel
 
     private void OnNewAilmentFound(object sender, IMonsterAilment e)
     {
-        _ = Application.Current.Dispatcher.InvokeAsync(() =>
+        UIThread.Invoke(() =>
         {
             bool contains = Ailments.ToArray()
                         .Cast<MonsterAilmentContextHandler>()
-                        .Count(p => p.Context == e) > 0;
+                        .Any(p => p.Context == e);
 
             if (contains)
                 return;
@@ -131,11 +132,11 @@ public class MonsterContextHandler : BossMonsterViewModel
 
     private void OnNewPartFound(object sender, IMonsterPart e)
     {
-        _ = Application.Current.Dispatcher.InvokeAsync(() =>
+        UIThread.Invoke(() =>
         {
             bool contains = Parts.ToArray()
                         .Cast<MonsterPartContextHandler>()
-                        .Count(p => p.Context == e) > 0;
+                        .Any(p => p.Context == e);
 
             if (contains)
                 return;
@@ -159,6 +160,8 @@ public class MonsterContextHandler : BossMonsterViewModel
 
     private void UpdateData()
     {
+        IsQurio = Context is MHRMonster monster && monster.MonsterType == MonsterType.Qurio;
+
         if (Context.Id > -1)
         {
             Name = Context.Name;
@@ -182,7 +185,7 @@ public class MonsterContextHandler : BossMonsterViewModel
 
         if (Parts.Count != Context.Parts.Length || Ailments.Count != Context.Ailments.Length)
         {
-            _ = Application.Current.Dispatcher.InvokeAsync(() =>
+            _ = UIThread.InvokeAsync(() =>
             {
                 foreach (IMonsterPart part in Context.Parts)
                 {
@@ -214,7 +217,7 @@ public class MonsterContextHandler : BossMonsterViewModel
         }
     }
 
-    private void AddEnrage() => Application.Current.Dispatcher.Invoke(() => Ailments.Add(new MonsterAilmentContextHandler(Context.Enrage, Config)));
+    private void AddEnrage() => UIThread.Invoke(() => Ailments.Add(new MonsterAilmentContextHandler(Context.Enrage, Config)));
 
     private string BuildMonsterEmByContext()
     {

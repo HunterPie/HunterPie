@@ -1,17 +1,21 @@
 ﻿using HunterPie.GUI.Parts.Sidebar.ViewModels;
+using System.Linq;
 
 namespace HunterPie.Domain.Sidebar;
 
-internal class DefaultSideBar : ISideBar
+#nullable enable
+internal static class SideBar
 {
-    public ISideBarElement[] Menu { get; } = new ISideBarElement[]
+    public static ISideBarElement[] Menu { get; } = new ISideBarElement[]
     {
         new ConsoleSideBarElementViewModel(),
         new SettingsSideBarElementViewModel(),
-        new PluginsSideBarElementViewModel(),
         new PatchNotesSideBarElementViewModel(),
+        //new PluginsSideBarElementViewModel(),
         new PatreonSideBarElementViewModel(),
         new DiscordSideBarElementViewModel(),
         new GithubSideBarElementViewModel(),
     };
+
+    public static T? GetInstance<T>() => (T?)Menu.FirstOrDefault(vm => vm is T);
 }
