@@ -95,6 +95,8 @@
 		<Abnormality Id="ABNORMALITY_MIGHT_PILL" String="Pildora de poder"/>
 		<Abnormality Id="ABNORMALITY_DEMONDRUG" String="Droga demoníaca"/>
 		<Abnormality Id="ABNORMALITY_ARMORSKIN" String="Piel de armadura"/>
+		<Abnormality Id="ABNORMALITY_MEGA_DEMONDRUG" String="Megadroga demoníaca"/>
+		<Abnormality Id="ABNORMALITY_MEGA_ARMORSKIN" String="Piel de armadura+"/>
 		<Abnormality Id="ABNORMALITY_COOLDRINK" String="Bebida fría"/>
 		<Abnormality Id="ABNORMALITY_HOTDRINK" String="Bebida caliente"/>
 		<Abnormality Id="ABNORMALITY_BUTTERFLAME" String="Pirausta"/>
@@ -145,7 +147,9 @@
 		<Abnormality Id="ABNORMALITY_COALESCENCE" String="Coalesencia"/>
 		<Abnormality Id="ABNORMALITY_EVASION_MANTLE" String="Manto de evasión (Atq)"/>
 		<Abnormality Id="ABNORMALITY_AFFINITTY_BOOSTER" String="Potenciador de afinidad"/>
+		<Abnormality Id="ABNORMALITY_GRINDER_S" String="Acabado protector"/>
 
+		<Abnormality Id="ABNORMALITY_BLOOD" String="Plaga sangrienta"/>
 		<Abnormality Id="ABNORMALITY_POISON" String="Veneno"/>
 		<Abnormality Id="ABNORMALITY_VENOM" String="Veneno letal"/>
 		<Abnormality Id="ABNORMALITY_DEF_DOWN" String="Defensa-"/>
@@ -295,6 +299,7 @@
             <Part Id="PART_BODY_LEGS" String="Cuerpo &amp; Patas"/>
             <Part Id="PART_ANTLERS" String="Cornamenta"/>
             <Part Id="PART_MANE" String="Melena"/>
+            <Part Id="PART_QURIO_THRESHOLD" String="Limite Qurio"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="Rathian"/>
@@ -348,7 +353,7 @@
             <Monster Id="77" String="Rathalos Plateado"/>
             <Monster Id="78" String="Daimyo Hermitaur"/>
             <Monster Id="79" String="Shogun Ceanataur"/>
-            <Monster Id="80" String="Rajang Furioso"/>
+            <Monster Id="80" String="Rajang Rabioso"/>
             <Monster Id="81" String="Nargacuga Lunar"/>
             <Monster Id="82" String="Gore Magala"/>
             <Monster Id="83" String="Shagaru Magala"/>
@@ -550,7 +555,7 @@
 		</Tabs>
 		<Generics>
 			<Generic Id="HUNTERPIE_LAUNCH_GAME"
-					 String="Lanzar juego"/>
+					 String="Abrir juego"/>
 			<Generic Id="HUNTERPIE_IS_LATEST_VERSION"
 					 String="¡HunterPie está actualizado!"/>
 			<Generic Id="HUNTERPIE_NOT_LATEST_VERSION"
@@ -644,7 +649,7 @@
             <Poogie Id="ACCOUNT_REGISTER_SUCCESS"
                     String="La verificación de cuenta será enviada a {Email} dentro de poco. Por favor asegurate de revisar tu bandeja de entrada y carpeta de spam!"/>
             <Poogie Id="AVATAR_UPLOAD_SUCCESS"
-                    String="Uploaded new avatar"/>
+                    String="Nueva imagen de usuario subida"/>
 
 			<Poogie Id="BACKUP_NOT_ENABLED_STRING"
                     String="Al parecer no tienes el respaldo automatico activado.&#10;Puedes activarlo en la configuración de la cuenta."/>
