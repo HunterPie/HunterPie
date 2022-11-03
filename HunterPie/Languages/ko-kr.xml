@@ -452,6 +452,7 @@
 	</Monsters>
 	<Stages>
 		<Rise>
+			<Stage Id="-2" String="로딩 화면"/>
 			<Stage Id="-1" String="메인 메뉴"/>
 			<Stage Id="0" String="카무라 마을"/>
 			<Stage Id="1" String="카무라 마을의 집"/>
@@ -530,7 +531,7 @@
 			<String Id="MEOWCENARIES_STEP_STRING"
 					String="조사 단계:"/>
 			<String Id="MEOWCENARIES_OUTCOME_STRING"
-					String="보상:"/>
+					String="결과:"/>
 			<String Id="MEOWCENARIES_BUDDIES_STRING"
 					String="동반자:"/>
 
@@ -625,35 +626,43 @@
 			<Poogie Id="ERROR_INVALID_USERNAME"
 					String="올바르지 않은 사용자 이름입니다!"/>
 			<Poogie Id="ERROR_INVALID_PASSWORD"
-					String="올바르지 않은 비밀번호입니다!"/>
+					String="올바르지 않은 비밀번호입니다, 최소 8글자 이상이어야 합니다!"/>
 			<Poogie Id="ERROR_INVALID_EMAIL"
 					String="올바르지 않은 이메일입니다!"/>
 			<Poogie Id="ERROR_INVALID_CREDENTIALS"
 					String="해당 사용자 이름과 비밀번호로 계정을 찾을 수 없습니다."/>
 			<Poogie Id="ERROR_USER_NOT_FOUND"
-						String="흠... 해당 사용자를 찾을 수 없습니다!"/>
+					String="흠... 해당 사용자를 찾을 수 없습니다!"/>
 			<Poogie Id="ERROR_USER_ALREADY_EXISTS"
-						String="이메일과 사용자 이름이 같은 사용자가 있습니다!"/>
+					String="이메일과 사용자 이름이 같은 사용자가 있습니다!"/>
 			<Poogie Id="ERROR_UNVERIFIED_ACCOUNT"
-						String="먼저 계정이 확인되어야 합니다! 계정을 확인하기 위해 스팸 편지함을 포함한 이메일을 확인해주세요."/>
+					String="먼저 계정이 확인되어야 합니다! 계정을 확인하기 위해 스팸 편지함을 포함한 이메일을 확인해주세요."/>
 			<Poogie Id="INVALID_IMAGE"
-						String="파일이 올바르지 않은 이미지입니다!"/>
+					String="파일이 올바르지 않은 이미지입니다!"/>
 			<Poogie Id="FAILED_TO_UPDATE_AVATAR"
-						String="아바타 업로드를 실패했습니다, 몇 분후 다시 시도해주세요."/>
+					String="아바타 업로드를 실패했습니다, 몇 분 후 다시 시도해주세요."/>
 			<Poogie Id="ERROR_AVATAR_SIZE_TOO_LARGE"
-						String="아바타 업로드를 실패했습니다, 파일 크기가 3.5 MB를 넘습니다."/>
+					String="아바타 업로드를 실패했습니다, 파일 크기가 3.5 MB를 넘습니다."/>
+			<Poogie Id="ERROR_INVALID_PASSWORD_RESET_CODE"
+					String="비밀번호 초기화 코드가 올바르지 않거나 만료되었습니다."/>
+			<Poogie Id="ERROR_GENERIC"
+					String="웁스... 뭔가 잘못되었습니다. 몇 분 후 다시 시도하세요!"/>
 
 			<Poogie Id="LOGIN_SUCCESS"
-						String="{Username}님 환영합니다! 로그인 되었습니다."/>
+					String="{Username}님 환영합니다! 로그인 되었습니다."/>
 			<Poogie Id="ACCOUNT_REGISTER_SUCCESS"
-						String="계정 확인이 곧 {Email}으로 전송됩니다. 받은 편지함과 스팸 편지함을 확인해주세요!"/>
+					String="계정 확인이 곧 {Email}으로 전송됩니다. 받은 편지함과 스팸 편지함을 확인해주세요!"/>
 			<Poogie Id="AVATAR_UPLOAD_SUCCESS"
-						String="새로운 아바타가 업로드되었습니다"/>
+					String="새로운 아바타가 업로드되었습니다"/>
 
 			<Poogie Id="BACKUP_NOT_ENABLED_STRING"
 					String="자동 백업을 활성화하지 않았습니다.&#10;계정 설정에서 활성화할 수 있습니다."/>
 			<Poogie Id="BACKUP_NOT_FOUND_STRING"
 					String="백업 파일이 없습니다."/>
+			<Poogie Id="PASSWORD_RESET_EMAIL_STRING"
+					String="계정 비밀번호를 변경하는데 필요한 코드를 {Email}으로 보냈습니다."/>
+			<Poogie Id="PASSWORD_RESET_SUCCESS_STRING"
+					String="비밀번호가 성공적으로 변경되었습니다."/>
 		</Integrations>
 		<Enums>
 			<Enum Id="SORT_BY_LOWEST_TIMER_STRING"
