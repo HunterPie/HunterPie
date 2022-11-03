@@ -22,11 +22,15 @@ Color | Represents | Description
 <ion-icon name="prism" style="fill:#fdc45b;"/> | `Break`  | Break values represent when a part is about to break.
 <ion-icon name="prism" style="fill:#e53737;"/> | `Sever` | Severable parts are the ones that can be cut off from a monster.
 <ion-icon name="prism" style="fill:#7f7f7f;"/> | `Broken` | A part will become Grey when it's either broken or severed. 
+<ion-icon name="prism" style="fill:#EE4B96;"/> | `Qurio`* | A part will become Pink when it's related to the monster's Qurio state. 
 
-When a part has all three values, the priority order is **always** `Sever` > `Break` > `Flinch` and the exact values displayed under the part health bar will follow that priority.
+When a part has all three values, the priority order is **always** `Qurio` > `Sever` > `Break` > `Flinch` and the exact values displayed under the part health bar will follow that priority.
 
 > By default, HunterPie only shows monsters's parts when you lock/focus on the monster using the in-game lock-on system.
 {: .prompt-info }
+
+> A Qurio part is exclusive for **Monster Hunter Rise: Sunbreak**
+{: .prompt-note }
 
 ### Monster Ailments
 
@@ -43,6 +47,10 @@ Having to target a monster to see their information is part of HunterPie's desig
 
 > If you have targeting system disabled in-game, this will not work. You must have either **Target** or **Focus** enabled.
 {: .prompt-warning }
+
+### Capture indicator
+
+For capturable monsters, an upside down triangle (<ion-icon name="caret-down-sharp" style="fill:#FBB623"></ion-icon>) will be placed on the exact percentage where the monster will become capturable. Once it's health falls into the capturable threshold, a shock trap icon (<svg width="25" height="25"><image xlink:href="https://cdn.hunterpie.com/Static/shock_trap.svg" width="25" height="25"/></svg>) will be displayed. 
 
 ### Orientation
 

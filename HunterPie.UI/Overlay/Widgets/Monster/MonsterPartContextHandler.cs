@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Environment;
+using HunterPie.Core.Game.Rise.Entities;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster;
@@ -17,11 +18,6 @@ public class MonsterPartContextHandler : MonsterPartViewModel
         Update();
     }
 
-    ~MonsterPartContextHandler()
-    {
-        UnhookEvents();
-    }
-
     private void HookEvents()
     {
         Context.OnHealthUpdate += OnHealthUpdate;
@@ -29,6 +25,8 @@ public class MonsterPartContextHandler : MonsterPartViewModel
         Context.OnTenderizeUpdate += OnTenderizeUpdate;
         Context.OnSeverUpdate += OnSeverUpdate;
         Context.OnBreakCountUpdate += OnBreakCountUpdate;
+        Context.OnPartTypeChange += OnPartTypeChange;
+        HookMHREvents();
     }
 
     private void UnhookEvents()
@@ -38,7 +36,11 @@ public class MonsterPartContextHandler : MonsterPartViewModel
         Context.OnTenderizeUpdate -= OnTenderizeUpdate;
         Context.OnSeverUpdate -= OnSeverUpdate;
         Context.OnBreakCountUpdate -= OnBreakCountUpdate;
+        Context.OnPartTypeChange -= OnPartTypeChange;
+        UnhookMHREvents();
     }
+
+    private void OnPartTypeChange(object sender, IMonsterPart e) => Type = e.Type;
 
     private void OnSeverUpdate(object sender, IMonsterPart e)
     {
@@ -91,5 +93,49 @@ public class MonsterPartContextHandler : MonsterPartViewModel
         IsPartSevered = MaxSever == Sever && (Breaks > 0 || Flinch != MaxFlinch);
         IsPartBroken = MaxHealth <= 0 || (Health == MaxHealth && (Breaks > 0 || Flinch != MaxFlinch));
 
+        MHRUpdate();
     }
+
+    private void MHRUpdate()
+    {
+        if (Context is MHRMonsterPart ctx)
+        {
+            QurioMaxHealth = ctx.QurioMaxHealth;
+            QurioHealth = ctx.QurioHealth;
+        }
+    }
+
+    public override void Dispose()
+    {
+        UnhookEvents();
+        base.Dispose();
+    }
+
+    #region Game exclusive hooks 
+
+    private void HookMHREvents()
+    {
+        if (Context is MHRMonsterPart ctx)
+        {
+            ctx.OnQurioHealthChange += OnQurioHealthChange;
+        }
+    }
+
+    private void UnhookMHREvents()
+    {
+        if (Context is MHRMonsterPart ctx)
+        {
+            ctx.OnQurioHealthChange -= OnQurioHealthChange;
+        }
+    }
+
+    private void OnQurioHealthChange(object sender, IMonsterPart e)
+    {
+        var part = (MHRMonsterPart)e;
+
+        QurioMaxHealth = part.QurioMaxHealth;
+        QurioHealth = part.QurioHealth;
+    }
+
+    #endregion
 }

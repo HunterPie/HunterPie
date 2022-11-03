@@ -7,11 +7,14 @@ using System;
 
 namespace HunterPie.Core.Game.Rise.Entities;
 
-public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPartStructure>
+public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPartStructure>, IUpdatable<MHRQurioPartData>
 {
+    private float _qurioHealth;
     private float _health;
     private float _flinch;
     private float _sever;
+    private PartType _type = default;
+    private bool _isInQurio;
 
     public string Id { get; }
 
@@ -63,37 +66,93 @@ public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPart
 
     public float MaxSever { get; private set; }
 
-    public PartType Type { get; private set; }
+    public float QurioHealth
+    {
+        get => _qurioHealth;
+        private set
+        {
+            if (value != _qurioHealth)
+            {
+                _qurioHealth = value;
+                this.Dispatch(OnQurioHealthChange, this);
+            }
+        }
+    }
+
+    public float QurioMaxHealth { get; private set; }
+
+    public PartType Type
+    {
+        get => _type;
+        private set
+        {
+            if (value != _type)
+            {
+                _type = value;
+                this.Dispatch(OnPartTypeChange, this);
+            }
+        }
+    }
 
     public int Count => 0;
 
     public event EventHandler<IMonsterPart> OnHealthUpdate;
+    public event EventHandler<IMonsterPart> OnQurioHealthChange;
     public event EventHandler<IMonsterPart> OnBreakCountUpdate;
     public event EventHandler<IMonsterPart> OnTenderizeUpdate;
     public event EventHandler<IMonsterPart> OnFlinchUpdate;
     public event EventHandler<IMonsterPart> OnSeverUpdate;
+    public event EventHandler<IMonsterPart> OnPartTypeChange;
+
+    public MHRMonsterPart(string id)
+    {
+        Id = id;
+    }
 
     public MHRMonsterPart(string id, MHRPartStructure structure)
     {
         Id = id;
 
-        if (structure.MaxFlinch > 0)
-            Type = PartType.Flinch;
-
-        if (structure.MaxHealth > 0)
-            Type = PartType.Breakable;
-
-        if (structure.MaxSever > 0)
-            Type = PartType.Severable;
+        GetCurrentType(structure);
     }
 
-    void IUpdatable<MHRPartStructure>.Update(MHRPartStructure data)
+    public void Update(MHRPartStructure data)
     {
+        if (Type == PartType.Qurio && !_isInQurio)
+            GetCurrentType(data);
+
         MaxHealth = data.MaxHealth;
         Health = data.Health;
         MaxFlinch = data.MaxFlinch;
         Flinch = data.Flinch;
         MaxSever = data.MaxSever;
         Sever = data.Sever;
+    }
+
+    public void Update(MHRQurioPartData data)
+    {
+        if (!data.IsInQurioState && Type != PartType.Qurio)
+            return;
+
+        if (!data.IsInQurioState && Type == PartType.Qurio)
+        {
+            _isInQurio = false;
+            return;
+        }
+
+        Type = PartType.Qurio;
+        QurioMaxHealth = Math.Max(data.MaxHealth, Math.Max(data.Health, QurioMaxHealth));
+        QurioHealth = data.Health;
+        _isInQurio = data.IsInQurioState;
+    }
+
+    private void GetCurrentType(MHRPartStructure structure)
+    {
+        if (structure.MaxSever > 0)
+            Type = PartType.Severable;
+        else if (structure.MaxHealth > 0)
+            Type = PartType.Breakable;
+        else if (structure.MaxFlinch > 0)
+            Type = PartType.Flinch;
     }
 }

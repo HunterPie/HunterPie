@@ -45,4 +45,7 @@ public class AbnormalityViewModel : Bindable
         get => _isBuildup;
         set => SetValue(ref _isBuildup, value);
     }
+
+    private bool _isInfinite;
+    public bool IsInfinite { get => _isInfinite; set => SetValue(ref _isInfinite, value); }
 }

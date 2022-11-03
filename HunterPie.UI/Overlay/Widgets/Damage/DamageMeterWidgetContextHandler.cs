@@ -50,6 +50,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
     {
         ViewModel.Pets.Name = Localization.QueryString("//Strings/Client/Overlay/String[@Id='DAMAGE_METER_OTOMOS_NAME_STRING']");
         ViewModel.InHuntingZone = Context.Game.Player.InHuntingZone;
+        ViewModel.MaxDeaths = Context.Game.MaxDeaths;
         ViewModel.Deaths = Context.Game.Deaths;
         ViewModel.TimeElapsed = Context.Game.TimeElapsed;
 
@@ -79,7 +80,11 @@ public class DamageMeterWidgetContextHandler : IContextHandler
     }
 
     #region Player events
-    private void OnDeathCountChange(object sender, IGame e) => ViewModel.Deaths = e.Deaths;
+    private void OnDeathCountChange(object sender, IGame e)
+    {
+        ViewModel.MaxDeaths = e.MaxDeaths;
+        ViewModel.Deaths = e.Deaths;
+    }
 
     private void OnStageUpdate(object sender, EventArgs e)
     {
@@ -148,6 +153,8 @@ public class DamageMeterWidgetContextHandler : IContextHandler
 
         if (isTimerReset)
         {
+            Log.Debug("Timer has reset");
+
             // If the timer has just been reset, it usually means the local timer is being replaced with real game timer.
             // Note the info of party members in the current hunting party can be loaded before the real game timer gets ready in MHW.
             // Use 0 sec as other player's join time in this case to prevent a very large dps result.

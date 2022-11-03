@@ -41,6 +41,7 @@ public class MHRConsumableAbnormality : IAbnormality, IUpdatable<MHRConsumableSt
     {
         Id = data.Id;
         Icon = data.Icon;
+        IsInfinite = data.IsInfinite;
 
         if (IsBuildup)
             MaxTimer = data.MaxBuildup;

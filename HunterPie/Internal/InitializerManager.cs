@@ -12,6 +12,7 @@ internal class InitializerManager
     private static readonly HashSet<IInitializer> _initializers = new()
     {
         new CustomFontsInitializer(),
+        
         // Core
         new LocalConfigInitializer(),
         new ClientConfigMigrationInitializer(),
@@ -30,6 +31,7 @@ internal class InitializerManager
         new SystemTrayInitializer(),
         new ClientConfigBindingsInitializer(),
         new CredentialVaultInitializer(),
+        
         // GUI
         new MenuInitializer(),
     };

@@ -95,6 +95,8 @@
         <Abnormality Id="ABNORMALITY_MIGHT_PILL" String="Might Pill"/>
         <Abnormality Id="ABNORMALITY_DEMONDRUG" String="Demondrug"/>
         <Abnormality Id="ABNORMALITY_ARMORSKIN" String="Armorskin"/>
+		<Abnormality Id="ABNORMALITY_MEGA_DEMONDRUG" String="Mega Demondrug"/>
+		<Abnormality Id="ABNORMALITY_MEGA_ARMORSKIN" String="Mega Armorskin"/>
         <Abnormality Id="ABNORMALITY_COOLDRINK" String="Cool Drink"/>
         <Abnormality Id="ABNORMALITY_HOTDRINK" String="Hot Drink"/>
         <Abnormality Id="ABNORMALITY_BUTTERFLAME" String="Butterflame"/>
@@ -146,7 +148,9 @@
         <Abnormality Id="ABNORMALITY_COALESCENCE" String="Coalescence"/>
         <Abnormality Id="ABNORMALITY_EVASION_MANTLE" String="Evasion Mantle (Atk)"/>
         <Abnormality Id="ABNORMALITY_AFFINITTY_BOOSTER" String="Affinity Booster"/>
+        <Abnormality Id="ABNORMALITY_GRINDER_S" String="Grinder (S)"/>
 
+        <Abnormality Id="ABNORMALITY_BLOOD" String="Bloodblight"/>
         <Abnormality Id="ABNORMALITY_POISON" String="Poison"/>
         <Abnormality Id="ABNORMALITY_VENOM" String="Venom"/>
         <Abnormality Id="ABNORMALITY_DEF_DOWN" String="Defense Down"/>
@@ -300,6 +304,7 @@
             <Part Id="PART_BODY_LEGS" String="Body &amp; Legs"/>
             <Part Id="PART_ANTLERS" String="Antlers"/>
             <Part Id="PART_MANE" String="Mane"/>
+            <Part Id="PART_QURIO_THRESHOLD" String="Qurio Threshold"/>
         </Shared>
         <Rise>
             <Monster Id="0" String="Rathian"/>

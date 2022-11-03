@@ -31,6 +31,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
     private readonly MHRPlayer _player;
     private float _timeElapsed;
     private (int, DateTime) _lastTeleport = (0, DateTime.Now);
+    private int _maxDeaths;
     private int _deaths;
     private bool _isHudOpen;
     private DateTime _lastDamageUpdate = DateTime.MinValue;
@@ -62,8 +63,22 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
         {
             if (value != _timeElapsed)
             {
+                bool hasReset = value < _timeElapsed;
                 _timeElapsed = value;
-                this.Dispatch(OnTimeElapsedChange, new TimeElapsedChangeEventArgs(false, value));
+                this.Dispatch(OnTimeElapsedChange, new TimeElapsedChangeEventArgs(hasReset, value));
+            }
+        }
+    }
+
+    public int MaxDeaths
+    {
+        get => _maxDeaths;
+        private set
+        {
+            if (value != _maxDeaths)
+            {
+                _maxDeaths = value;
+                this.Dispatch(OnDeathCountChange, this);
             }
         }
     }
@@ -179,11 +194,17 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
     [ScannableMethod]
     private void GetDeathCounter()
     {
+        int maxDeathsCounter = _process.Memory.Deref<int>(
+            AddressMap.GetAbsolute("QUEST_ADDRESS"),
+            AddressMap.Get<int[]>("QUEST_MAX_DEATHS_OFFSETS")
+        );
+
         int deathCounter = _process.Memory.Deref<int>(
             AddressMap.GetAbsolute("QUEST_ADDRESS"),
             AddressMap.Get<int[]>("QUEST_DEATH_COUNTER_OFFSETS")
         );
 
+        MaxDeaths = maxDeathsCounter;
         Deaths = deathCounter;
     }
 
@@ -206,7 +227,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
             AddressMap.GetAbsolute("MOUSE_ADDRESS"),
             AddressMap.Get<int[]>("MOUSE_OFFSETS")
         );
-        
+
         byte isCutsceneActive = _process.Memory.Deref<byte>(
             AddressMap.GetAbsolute("EVENTCAMERA_ADDRESS"),
             AddressMap.Get<int[]>("CUTSCENE_STATE_OFFSETS")

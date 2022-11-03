@@ -61,6 +61,7 @@ public class AbnormalityData
             string category = abnormality.Attributes["Category"]?.Value ?? group;
             string isBuildup = abnormality.Attributes["IsBuildup"]?.Value ?? "False";
             string maxBuildup = abnormality.Attributes["MaxBuildup"]?.Value ?? "0";
+            string isInfinite = abnormality.Attributes["IsInfinite"]?.Value ?? "False";
 
             AbnormalitySchema schema = new()
             {
@@ -76,6 +77,7 @@ public class AbnormalityData
             _ = int.TryParse(withValue, out schema.WithValue);
             _ = bool.TryParse(isBuildup, out schema.IsBuildup);
             _ = int.TryParse(maxBuildup, out schema.MaxBuildup);
+            _ = bool.TryParse(isInfinite, out schema.IsInfinite);
 
             Abnormalities.Add(schema.Id, schema);
         }
