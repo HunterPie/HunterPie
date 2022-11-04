@@ -95,6 +95,8 @@
 		<Abnormality Id="ABNORMALITY_MIGHT_PILL" String="괴력의 환약"/>
 		<Abnormality Id="ABNORMALITY_DEMONDRUG" String="귀인약"/>
 		<Abnormality Id="ABNORMALITY_ARMORSKIN" String="경화약"/>
+		<Abnormality Id="ABNORMALITY_MEGA_DEMONDRUG" String="그레이트 귀인약"/>
+		<Abnormality Id="ABNORMALITY_MEGA_ARMORSKIN" String="그레이트 경화약"/>
 		<Abnormality Id="ABNORMALITY_COOLDRINK" String="쿨드링크"/>
 		<Abnormality Id="ABNORMALITY_HOTDRINK" String="핫드링크"/>
 		<Abnormality Id="ABNORMALITY_BUTTERFLAME" String="불꽃 나비"/>
@@ -146,6 +148,7 @@
 		<Abnormality Id="ABNORMALITY_COALESCENCE" String="전화위복"/>
 		<Abnormality Id="ABNORMALITY_EVASION_MANTLE" String="회피 복장 (공격력 UP)"/>
 		<Abnormality Id="ABNORMALITY_AFFINITTY_BOOSTER" String="달인의 연통"/>
+		<Abnormality Id="ABNORMALITY_GRINDER_S" String="연마술[예]"/>
 
 		<Abnormality Id="ABNORMALITY_BLOOD" String="겁혈 피해"/>
 		<Abnormality Id="ABNORMALITY_POISON" String="독"/>
@@ -301,6 +304,7 @@
 			<Part Id="PART_BODY_LEGS" String="몸(+다리)"/>
 			<Part Id="PART_ANTLERS" String="머리 (뿔)"/>
 			<Part Id="PART_MANE" String="갈기"/>
+			<Part Id="PART_QURIO_THRESHOLD" String="괴이흉화"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="리오레이아"/>
