@@ -166,7 +166,7 @@ public partial class MainWindow : Window
     {
         bool isSafe = VerifyHunterPiePathUseCase.Invoke();
 
-        if (!isSafe)
+        if (isSafe)
             return;
 
         _ = DialogManager.Warn(
