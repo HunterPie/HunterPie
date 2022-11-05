@@ -124,7 +124,7 @@ public partial class App : Application
         _process = null;
         _context = null;
 
-        Dispatcher.InvokeAsync(WidgetInitializers.Unload);
+        _ = Dispatcher.InvokeAsync(WidgetInitializers.Unload);
         WidgetManager.Dispose();
         Log.Info("{0} has been closed", e.ProcessName);
         if (e.Process.HasExitedNormally == false
@@ -174,7 +174,7 @@ public partial class App : Application
             Log.Error("HunterPie fails to initialize on the {0} process. {1}", e.ProcessName, ex);
         }
 
-        await GameSaveBackupService.ExecuteBackup().ConfigureAwait(false);
+        _ = await GameSaveBackupService.ExecuteBackup().ConfigureAwait(false);
     }
 
     private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)
