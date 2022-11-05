@@ -11,8 +11,8 @@
         xmlns:btn="clr-namespace:HunterPie.UI.Controls.Buttons"
         xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets"
         mc:Ignorable="d"
-        Height="200" 
         Width="400"
+        SizeToContent="Height"
         Background="#01000000"
         ResizeMode="NoResize"
         Topmost="true"
@@ -44,10 +44,10 @@
     <wnd:WindowChrome>
         <wnd:WindowChrome.Container>
             <Grid>
-                <Label  VerticalAlignment="Top"
-                        HorizontalAlignment="Center"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center">
+                <Label VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center">
                     <Label.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{Binding Icon, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
@@ -65,45 +65,50 @@
                         </StackPanel>
                     </Label.Content>
                 </Label>
-                <Label VerticalAlignment="Top"
-                       HorizontalAlignment="Stretch"
-                       Margin="20,35,20,0"
-                       Height="60"
-                       Foreground="{StaticResource WHITE_100}"
-                       FontSize="16"
-                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                       VerticalContentAlignment="Center"
-                       HorizontalContentAlignment="Center">
-                    <Label.Content>
-                        <TextBlock Text="{Binding Description, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, FallbackValue='Sample Text'}"
-                                   d:Text="Do you want to accept this very cool popup?"
-                                   VerticalAlignment="Stretch"
-                                   HorizontalAlignment="Stretch"
-                                   TextWrapping="WrapWithOverflow"
-                                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                                   FontSize="16"
-                                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}" 
-                                   TextAlignment="Center"/> 
-                    </Label.Content>
-                </Label>
+                <StackPanel>
+                    <Label VerticalAlignment="Top"
+                           HorizontalAlignment="Stretch"
+                           Margin="20,35,20,0"
+                           Foreground="{StaticResource WHITE_100}"
+                           FontSize="16"
+                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                           VerticalContentAlignment="Center"
+                           HorizontalContentAlignment="Center">
+                        <Label.Content>
+                            <TextBlock Text="{Binding Description, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, FallbackValue='Sample Text'}"
+                                       d:Text="Do you want to accept this very cool popup? "
+                                       VerticalAlignment="Stretch"
+                                       HorizontalAlignment="Stretch"
+                                       TextWrapping="WrapWithOverflow"
+                                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                                       FontSize="14"
+                                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}" 
+                                       TextAlignment="Center"/>
+                        </Label.Content>
+                    </Label>
 
-                <WrapPanel Orientation="Horizontal"
-                           VerticalAlignment="Bottom"
-                           HorizontalAlignment="Center"
-                           Margin="10">
-                    <btn:Button Content="{loc:LocalizationString '//Strings/Client/Dialogs/Button[@Id=&quot;ACCEPT_STRING&quot;]'}"
-                                Visibility="{Binding Buttons, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource DialogButtonToVisibilityConverter}, ConverterParameter={StaticResource Accept}}"
-                                Style="{StaticResource DefaultButton}"
-                                OnClick="OnAccept"/>
-                    <btn:Button Content="{loc:LocalizationString '//Strings/Client/Dialogs/Button[@Id=&quot;REJECT_STRING&quot;]'}"
-                                Visibility="{Binding Buttons, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource DialogButtonToVisibilityConverter}, ConverterParameter={StaticResource Reject}}"
-                                Style="{StaticResource DefaultButton}"
-                                OnClick="OnReject"/>
-                    <btn:Button Content="{loc:LocalizationString '//Strings/Client/Dialogs/Button[@Id=&quot;CANCEL_STRING&quot;]'}"
-                                Visibility="{Binding Buttons, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource DialogButtonToVisibilityConverter}, ConverterParameter={StaticResource Cancel}}"
-                                Style="{StaticResource DefaultButton}"
-                                OnClick="OnCancel"/>
-                </WrapPanel>
+                    <WrapPanel Orientation="Horizontal"
+                                   VerticalAlignment="Bottom"
+                                   HorizontalAlignment="Center"
+                                   Margin="10">
+                        <btn:Button Content="{loc:LocalizationString '//Strings/Client/Dialogs/Button[@Id=&quot;ACCEPT_STRING&quot;]'}"
+                                    d:Content="Accept"
+                                    Visibility="{Binding Buttons, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource DialogButtonToVisibilityConverter}, ConverterParameter={StaticResource Accept}}"
+                                    Style="{StaticResource DefaultButton}"
+                                    OnClick="OnAccept"/>
+                        <btn:Button Content="{loc:LocalizationString '//Strings/Client/Dialogs/Button[@Id=&quot;REJECT_STRING&quot;]'}"
+                                    d:Content="Reject"
+                                    Visibility="{Binding Buttons, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource DialogButtonToVisibilityConverter}, ConverterParameter={StaticResource Reject}}"
+                                    Style="{StaticResource DefaultButton}"
+                                    OnClick="OnReject"/>
+                        <btn:Button Content="{loc:LocalizationString '//Strings/Client/Dialogs/Button[@Id=&quot;CANCEL_STRING&quot;]'}"
+                                    d:Content="Cancel"
+                                    Visibility="{Binding Buttons, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource DialogButtonToVisibilityConverter}, ConverterParameter={StaticResource Cancel}}"
+                                    Style="{StaticResource DefaultButton}"
+                                    OnClick="OnCancel"/>
+                    </WrapPanel>
+                </StackPanel>
+                
             </Grid>
         </wnd:WindowChrome.Container>
     </wnd:WindowChrome>

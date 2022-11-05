@@ -21,17 +21,17 @@
                     Orientation="Horizontal"
                     Margin="5,0,0,0">
             <Image Source="{Binding Owner.Icon}"
-                           Width="20"
-                           Opacity="0.3"
-                           Margin="0,0,5,0"
-                           Height="20"/>
+                   Width="20"
+                   Opacity="0.3"
+                   Margin="0,0,5,0"
+                   Height="20"/>
             <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                               Text="{Binding Owner.Title}"
-                               FontSize="16"
-                               Foreground="{StaticResource WHITE_50}" 
-                               Opacity="0.3"
-                               HorizontalAlignment="Stretch" 
-                               VerticalAlignment="Center"/>
+                       Text="{Binding Owner.Title}"
+                       FontSize="14"
+                       Foreground="{StaticResource WHITE_50}" 
+                       Opacity="0.3"
+                       HorizontalAlignment="Stretch" 
+                       VerticalAlignment="Center"/>
         </StackPanel>
 
         <!-- Right container -->

@@ -148,7 +148,7 @@ public class BossMonsterViewModel : ViewModel
 
     public bool IsAlive { get => _isAlive; set => SetValue(ref _isAlive, value); }
 
-    public async void FetchMonsterIcon()
+    public async Task FetchMonsterIcon()
     {
         IsLoadingIcon = true;
 

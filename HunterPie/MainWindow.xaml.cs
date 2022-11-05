@@ -9,6 +9,7 @@ using HunterPie.GUI.Parts.Host;
 using HunterPie.GUI.ViewModels;
 using HunterPie.Internal;
 using HunterPie.Internal.Tray;
+using HunterPie.Usecases;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -57,8 +58,10 @@ public partial class MainWindow : Window
         base.OnClosing(e);
     }
 
-    private void OnInitialized(object sender, EventArgs e)
+    private async void OnInitialized(object sender, EventArgs e)
     {
+        CheckIfHunterPiePathIsSafe();
+
         InitializerManager.InitializeGUI();
 
         InitializeDebugWidgets();
@@ -66,7 +69,7 @@ public partial class MainWindow : Window
         SetupTrayIcon();
         SetupMainNavigator();
         SetupAccountEvents();
-        SetupPromoViewAsync();
+        await SetupPromoViewAsync();
     }
 
     private async Task SetupPromoViewAsync() => ViewModel.ShouldShowPromo = await AccountPromotionalUseCase.ShouldShow();
@@ -157,5 +160,21 @@ public partial class MainWindow : Window
         HitTestResult result = VisualTreeHelper.HitTest(element, points);
 
         return result != null;
+    }
+
+    private void CheckIfHunterPiePathIsSafe()
+    {
+        bool isSafe = VerifyHunterPiePathUseCase.Invoke();
+
+        if (!isSafe)
+            return;
+
+        _ = DialogManager.Warn(
+            "Unsafe path",
+            "It looks like you're executing HunterPie directly from the zip file. Please extract it first before running the client.",
+            NativeDialogButtons.Accept
+        );
+
+        Application.Current.Shutdown();
     }
 }
