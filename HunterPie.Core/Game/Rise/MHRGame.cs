@@ -63,7 +63,8 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
         {
             if (value != _timeElapsed)
             {
-                bool hasReset = value < _timeElapsed;
+                bool hasReset = (value - _timeElapsed) > 5;
+
                 _timeElapsed = value;
                 this.Dispatch(OnTimeElapsedChange, new TimeElapsedChangeEventArgs(hasReset, value));
             }
