@@ -304,7 +304,7 @@
 			<Part Id="PART_BODY_LEGS" String="몸(+다리)"/>
 			<Part Id="PART_ANTLERS" String="머리 (뿔)"/>
 			<Part Id="PART_MANE" String="갈기"/>
-			<Part Id="PART_QURIO_THRESHOLD" String="괴이흉화"/>
+			<Part Id="PART_QURIO_THRESHOLD" String="괴이흉화 해제"/>
 		</Shared>
 		<Rise>
 			<Monster Id="0" String="리오레이아"/>
@@ -650,7 +650,7 @@
 			<Poogie Id="ERROR_INVALID_PASSWORD_RESET_CODE"
 					String="비밀번호 초기화 코드가 올바르지 않거나 만료되었습니다."/>
 			<Poogie Id="ERROR_GENERIC"
-					String="웁스... 뭔가 잘못되었습니다. 몇 분 후 다시 시도하세요!"/>
+					String="웁스... 뭔가 잘못되었습니다. 몇 분 후 다시 시도해주세요!"/>
 
 			<Poogie Id="LOGIN_SUCCESS"
 					String="{Username}님 환영합니다! 로그인 되었습니다."/>
