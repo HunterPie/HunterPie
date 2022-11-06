@@ -3,6 +3,7 @@ using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.SpecializedTools.ViewModels;
 using HunterPie.UI.Overlay.Widgets.SpecializedTools.Views;
+using OverlayConfig = HunterPie.Core.Client.Configuration.OverlayConfig;
 
 namespace HunterPie.Features.Debug;
 
@@ -10,7 +11,7 @@ internal class SpecializedToolWidgetMocker : IWidgetMocker
 {
     public void Mock()
     {
-        Core.Client.Configuration.OverlayConfig mockConfig = ClientConfig.Config.World.Overlay;
+        OverlayConfig mockConfig = ClientConfig.Config.World.Overlay;
 
         if (ClientConfig.Config.Development.MockSpecializedToolWidget)
         {

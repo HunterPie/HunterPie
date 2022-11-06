@@ -5,8 +5,8 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.5.2.100</AssemblyVersion>
-    <FileVersion>2.5.2.100</FileVersion>
+    <AssemblyVersion>2.5.2.109</AssemblyVersion>
+    <FileVersion>2.5.2.109</FileVersion>
     <Version>2.2.0.0</Version>
     <LangVersion>10.0</LangVersion>
  </PropertyGroup>
@@ -15,6 +15,7 @@
     <Page Remove="Resources\Abnormalities.xaml" />
     <Page Remove="Resources\Colors.xaml" />
     <Page Remove="Resources\Icons.xaml" />
+    <Page Remove="Resources\Interface.xaml" />
     <Page Remove="Resources\Styles.xaml" />
   </ItemGroup>
 
@@ -35,6 +36,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Resource>
     <Resource Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="Resources\Interface.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Resource>
     <Resource Include="Resources\Styles.xaml">

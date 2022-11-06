@@ -1,7 +1,7 @@
-﻿using HunterPie.Core.Architecture;
+﻿using HunterPie.UI.Architecture;
 
 namespace HunterPie.UI.Overlay.Widgets.Player.ViewModels;
 
-public class PlayerHudViewModel : Bindable
+public class PlayerHudViewModel : ViewModel
 {
 }

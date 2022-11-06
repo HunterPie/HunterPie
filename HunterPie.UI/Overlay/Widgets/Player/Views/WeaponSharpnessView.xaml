@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="HunterPie.UI.Overlay.Widgets.Player.Views.WeaponSharpnessView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" 
+             d:DesignWidth="100">
+    <Grid>
+        <Image Source="{StaticResource PLAYER_WEAPON_SHARPNESS_GAUGE}"
+               VerticalAlignment="Center"
+               Stretch="Uniform">
+            <Image.Effect>
+                <DropShadowEffect Color="#a557e6"
+                                  ShadowDepth="0"
+                                  BlurRadius="20"/>
+            </Image.Effect>
+        </Image>
+
+        <!-- Next blade -->
+        <Rectangle Fill="#f0deff"
+                   Width="63"
+                   Height="24"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Margin="35,1.5,0,0">
+            <Rectangle.OpacityMask>
+                <ImageBrush ImageSource="{StaticResource PLAYER_WEAPON_SHARPNESS_BLADE}"
+                            Stretch="Fill"  
+                            ViewportUnits="Absolute" 
+                            Viewbox="0,0,1,1"
+                            Viewport="0,0,63,24"/>
+            </Rectangle.OpacityMask>
+        </Rectangle>
+        
+        <!-- Current blade -->
+        <Rectangle Fill="#a557e6"
+                   Width="50"
+                   Height="24"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Margin="35,1.5,0,0">
+            <Rectangle.OpacityMask>
+                <ImageBrush ImageSource="{StaticResource PLAYER_WEAPON_SHARPNESS_BLADE}"
+                            Stretch="Fill"  
+                            ViewportUnits="Absolute" 
+                            Viewbox="0,0,1,1"
+                            Viewport="0,0,63,24"/>
+            </Rectangle.OpacityMask>
+        </Rectangle>
+    </Grid>
+</UserControl>

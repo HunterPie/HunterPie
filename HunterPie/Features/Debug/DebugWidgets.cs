@@ -11,6 +11,7 @@ internal static class DebugWidgets
         new WirebugWidgetMocker(),
         new ChatWidgetMocker(),
         new SpecializedToolWidgetMocker(),
+        new PlayerHUDWidgetMocker(),
     };
 
     public static void MockIfNeeded()
