@@ -12,9 +12,9 @@
                VerticalAlignment="Center"
                Stretch="Uniform">
             <Image.Effect>
-                <DropShadowEffect Color="#a557e6"
+                <DropShadowEffect Color="White"
                                   ShadowDepth="0"
-                                  BlurRadius="20"/>
+                                  BlurRadius="6"/>
             </Image.Effect>
         </Image>
 
@@ -35,8 +35,8 @@
         </Rectangle>
         
         <!-- Current blade -->
-        <Rectangle Fill="#a557e6"
-                   Width="50"
+        <Rectangle Fill="White"
+                   Width="63"
                    Height="24"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"

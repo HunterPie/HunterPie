@@ -6,12 +6,15 @@
            xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
            xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
            xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.Views"
+           xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
            xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.ViewModels"
            x:TypeArguments="viewmodels:PlayerHudViewModel"
            d:DataContext="{d:DesignInstance Type=viewmodels:PlayerHudViewModel}"
            mc:Ignorable="d"
            Width="800">
     <UserControl.Resources>
+        <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>
+
         <LinearGradientBrush x:Key="WIDGET_PLAYER_HEALTH_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
             <GradientStop Color="#3ecfa6"/>
             <GradientStop Color="#3ecf87" Offset="1"/>
@@ -41,15 +44,20 @@
                    HorizontalAlignment="Left"
                    Margin="5,5,0,0" 
                    Grid.Column="1">
-            <Run Text="MR 55"
-                 Foreground="{StaticResource WHITE_700}"
-                 FontSize="13"
+            <Run Text="Lv."
+                 Foreground="{StaticResource WHITE_400}"
+                 FontSize="13"/>
+            <Run d:Text="55"
+                 Text="{Binding Level, Mode=OneWay}"
+                 Foreground="{StaticResource WHITE_400}"
+                 FontSize="13"/>
+            <Run d:Text="Lyss"
+                 Text="{Binding Name, Mode=OneWay}"
+                 FontSize="16"
                  FontWeight="Medium"/>
-            <Run Text="Lyss"
-                 FontSize="16"/>
             <TextBlock.Effect>
                 <DropShadowEffect Color="Black"
-                                      BlurRadius="4" 
+                                      BlurRadius="2" 
                                       ShadowDepth="0"/>
             </TextBlock.Effect>
         </TextBlock>
@@ -93,8 +101,10 @@
             <overlay:Bar Foreground="{StaticResource WIDGET_PLAYER_HEALTH_FOREGROUND}"
                          Background="Transparent"
                          Height="15"
-                         MaxValue="150"
-                         Value="30"
+                         d:MaxValue="150"
+                         d:Value="30"
+                         MaxValue="{Binding MaxHealth, Mode=OneWay}"
+                         Value="{Binding Health, Mode=OneWay}"
                          BorderThickness="2" 
                          HorizontalAlignment="Left"
                          RenderTransformOrigin="0.5,0.5"
@@ -113,8 +123,10 @@
                      BorderBrush="{StaticResource GRAY_200}"
                      Background="#B2181A1B"
                      Height="8"
-                     MaxValue="2000"
-                     Value="550"
+                     d:MaxValue="2000"
+                     d:Value="550"
+                     MaxValue="{Binding MaxStamina, Mode=OneWay}"
+                     Value="{Binding Stamina, Mode=OneWay}"
                      BorderThickness="2" 
                      RenderTransformOrigin="0.5,0.5"
                      VerticalAlignment="Top"
@@ -129,39 +141,42 @@
 
 
         <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource WHITE_100}"
+                   Foreground="{StaticResource WHITE_50}"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Right"
                    Margin="0,12,18,0"
                    FontSize="15" 
                    Grid.Column="1">
-            <Run Text="30"
-                 FontWeight="Medium"/><!--
-         --><Run Text="/150"
-                 FontWeight="Light"/>
-            <Run Text="(200)"
+            <Run d:Text="30"
+                 Text="{Binding Health, Mode=OneWay, StringFormat='\{0:F0}'}"/><!--
+         --><Run d:Text="/150"
+                 Text="{Binding MaxHealth, Mode=OneWay, StringFormat='/\{0:F0}'}"
+                 FontWeight="Bold"/>
+            <Run d:Text="(200)"
+                 Text="{Binding MaxExtendableHealth, Mode=OneWay, StringFormat='(\{0:F0})'}"
                  FontWeight="Medium"
-                 Foreground="{StaticResource WHITE_300}"/>
+                 Foreground="{StaticResource WHITE_200}"/>
             <TextBlock.Effect>
                 <DropShadowEffect Color="Black"
-                                      BlurRadius="4" 
-                                      ShadowDepth="0"/>
+                                  BlurRadius="2" 
+                                  ShadowDepth="0"/>
             </TextBlock.Effect>
         </TextBlock>
 
         
         <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource WHITE_200}"
+                   Foreground="{StaticResource WHITE_50}"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Right"
                    Margin="0,25,15,0"
                    FontSize="15" 
                    Grid.Column="1" 
                    Grid.Row="1">
-            <Run Text="550"
-                 FontWeight="Medium"/><!--
-         --><Run Text="/2000"
-                 FontWeight="Light"/>
+            <Run d:Text="550"
+                 Text="{Binding Stamina, Mode=OneWay, StringFormat='\{0:F0}'}"/><!--
+         --><Run d:Text="/2000"
+                 Text="{Binding MaxStamina, Mode=OneWay, StringFormat='/\{0:F0}'}"
+                 FontWeight="Bold"/>
             <TextBlock.Effect>
                 <DropShadowEffect Color="Black"
                                       BlurRadius="4" 
@@ -226,25 +241,18 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <Image Source="{StaticResource ICON_LANCE}"
-                   Width="35"
-                   Height="35"
+            <Image d:Source="{StaticResource ICON_SWITCHAXE}"
+                   Source="{Binding Weapon, Mode=OneWay, Converter={StaticResource WeaponToIconConverter}}"
+                   HorizontalAlignment="Center"
                    RenderOptions.BitmapScalingMode="Fant"
-                   Opacity="0.35">
+                   Opacity="0.5"
+                   Margin="15"
+                   Stretch="Uniform">
                 <Image.Effect>
                     <DropShadowEffect BlurRadius="5" 
                                       Color="#FF66696B" 
                                       ShadowDepth="0"/>
                 </Image.Effect>
-                <Image.Style>
-                    <Style TargetType="Image">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsLoadingIcon}" Value="False">
-                                <Setter Property="Source" Value="{Binding Icon, Mode=OneWay, TargetNullValue={StaticResource ICON_SKULL}}"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Image.Style>
             </Image>
         </Grid>
 
