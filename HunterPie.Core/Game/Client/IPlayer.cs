@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Events;
 using System;
 using System.Collections.Generic;
 
@@ -14,11 +15,17 @@ public interface IPlayer
     public Weapon WeaponId { get; }
     public IParty Party { get; }
     public IReadOnlyCollection<IAbnormality> Abnormalities { get; }
+    public double Health { get; }
+    public double MaxHealth { get; }
+    public double MaxExtendableHealth { get; }
+    public double MaxPossibleHealth { get; }
+    public double Stamina { get; }
+    public double MaxStamina { get; }
+    public double MaxExtendableStamina { get; }
+    public double MaxPossibleStamina { get; }
 
     public event EventHandler<EventArgs> OnLogin;
     public event EventHandler<EventArgs> OnLogout;
-    public event EventHandler<EventArgs> OnHealthUpdate;
-    public event EventHandler<EventArgs> OnStaminaUpdate;
     public event EventHandler<EventArgs> OnDeath;
     public event EventHandler<EventArgs> OnActionUpdate;
     public event EventHandler<EventArgs> OnStageUpdate;
@@ -28,4 +35,6 @@ public interface IPlayer
     public event EventHandler<EventArgs> OnWeaponChange;
     public event EventHandler<IAbnormality> OnAbnormalityStart;
     public event EventHandler<IAbnormality> OnAbnormalityEnd;
+    public event EventHandler<HealthChangeEventArgs> OnHealthChange;
+    public event EventHandler<StaminaChangeEventArgs> OnStaminaChange;
 }

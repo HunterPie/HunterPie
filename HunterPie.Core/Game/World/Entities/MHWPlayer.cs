@@ -125,6 +125,14 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     public bool InHuntingZone => ZoneId != Stage.MainMenu
                                  && !peaceZones.Contains(_zoneId);
 
+    public double Stamina => throw new NotImplementedException();
+
+    public double MaxStamina => throw new NotImplementedException();
+
+    public double MaxExtendableStamina => throw new NotImplementedException();
+
+    public double MaxPossibleStamina => throw new NotImplementedException();
+
     #endregion
 
     public event EventHandler<EventArgs> OnLogin;

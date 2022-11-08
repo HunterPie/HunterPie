@@ -6,6 +6,7 @@ using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Events;
 using HunterPie.Core.Logger;
 using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Brushes;

@@ -7,6 +7,7 @@ using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Demos.Sunbreak.Entities.Monster;
 using HunterPie.Core.Game.Demos.Sunbreak.Entities.Player;
 using HunterPie.Core.Game.Environment;
+using HunterPie.Core.Game.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;

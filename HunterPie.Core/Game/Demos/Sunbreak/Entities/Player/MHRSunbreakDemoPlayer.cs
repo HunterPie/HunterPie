@@ -7,6 +7,7 @@ using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Rise.Definitions;
 using HunterPie.Core.Game.Rise.Entities;
 using System;
@@ -55,6 +56,22 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
 
     public int MasterRank { get; private set; }
 
+    public double Stamina => throw new NotImplementedException();
+
+    public double MaxStamina => throw new NotImplementedException();
+
+    public double MaxExtendableStamina => throw new NotImplementedException();
+
+    public double MaxPossibleStamina => throw new NotImplementedException();
+
+    public double Health => throw new NotImplementedException();
+
+    public double MaxHealth => throw new NotImplementedException();
+
+    public double MaxExtendableHealth => throw new NotImplementedException();
+
+    public double MaxPossibleHealth => throw new NotImplementedException();
+
     public event EventHandler<EventArgs> OnLogin;
     public event EventHandler<EventArgs> OnLogout;
     public event EventHandler<EventArgs> OnHealthUpdate;
@@ -68,6 +85,8 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
     public event EventHandler<EventArgs> OnWeaponChange;
     public event EventHandler<IAbnormality> OnAbnormalityStart;
     public event EventHandler<IAbnormality> OnAbnormalityEnd;
+    public event EventHandler<HealthChangeEventArgs> OnHealthChange;
+    public event EventHandler<StaminaChangeEventArgs> OnStaminaChange;
 
     public MHRSunbreakDemoPlayer(IProcessManager process) : base(process) { }
 

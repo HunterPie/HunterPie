@@ -7,6 +7,7 @@ using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Rise.Definitions;
 using HunterPie.Core.Game.Rise.Entities.Activities;
 using HunterPie.Core.Game.Rise.Entities.Party;
@@ -31,6 +32,14 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     private readonly MHRParty _party = new();
     private MHRStageStructure _stageData = new();
     private MHRStageStructure _lastStageData = new();
+    private double _stamina;
+    private double _maxStamina;
+    private double _maxExtendableStamina;
+    private double _maxPossibleStamina;
+    private double _health;
+    private double _maxHealth;
+    private double _maxExtendableHealth;
+    private double _maxPossibleHealth;
     #endregion
 
     public string Name
@@ -102,10 +111,112 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
 
     public MHRCohoot Cohoot { get; } = new();
 
+    public double Stamina
+    {
+        get => _stamina;
+        private set
+        {
+            if (value != _stamina)
+            {
+                _stamina = value;
+                this.Dispatch(OnStaminaChange, new StaminaChangeEventArgs(this));
+            }
+        }
+    }
+
+    public double MaxStamina
+    {
+        get => _maxStamina;
+        private set
+        {
+            if (value != _maxStamina)
+            {
+                _maxStamina = value;
+                this.Dispatch(OnStaminaChange, new StaminaChangeEventArgs(this));
+            }
+        }
+    }
+
+    public double MaxExtendableStamina
+    {
+        get => _maxExtendableStamina;
+        private set
+        {
+            if (value != _maxExtendableStamina)
+            {
+                _maxExtendableStamina = value;
+                this.Dispatch(OnStaminaChange, new StaminaChangeEventArgs(this));
+            }
+        }
+    }
+
+    public double MaxPossibleStamina
+    {
+        get => _maxPossibleStamina;
+        private set
+        {
+            if (value != _maxPossibleStamina)
+            {
+                _maxPossibleStamina = value;
+                this.Dispatch(OnStaminaChange, new StaminaChangeEventArgs(this));
+            }
+        }
+    }
+
+    public double Health
+    {
+        get => _health;
+        private set
+        {
+            if (value != _health)
+            {
+                _health = value;
+                this.Dispatch(OnHealthChange, new HealthChangeEventArgs(this));
+            }
+        }
+    }
+
+    public double MaxHealth
+    {
+        get => _maxHealth;
+        private set
+        {
+            if (value != _maxHealth)
+            {
+                _maxHealth = value;
+                this.Dispatch(OnHealthChange, new HealthChangeEventArgs(this));
+            }
+        }
+    }
+
+    public double MaxExtendableHealth
+    {
+        get => _maxExtendableHealth;
+        private set
+        {
+            if (value != _maxExtendableHealth)
+            {
+                _maxExtendableHealth = value;
+                this.Dispatch(OnHealthChange, new HealthChangeEventArgs(this));
+            }
+        }
+    }
+
+    public double MaxPossibleHealth
+    {
+        get => _maxPossibleHealth;
+        private set
+        {
+            if (value != _maxPossibleHealth)
+            {
+                _maxPossibleHealth = value;
+                this.Dispatch(OnHealthChange, new HealthChangeEventArgs(this));
+            }
+        }
+    }
+
     public event EventHandler<EventArgs> OnLogin;
     public event EventHandler<EventArgs> OnLogout;
-    public event EventHandler<EventArgs> OnHealthUpdate;
-    public event EventHandler<EventArgs> OnStaminaUpdate;
     public event EventHandler<EventArgs> OnDeath;
     public event EventHandler<EventArgs> OnActionUpdate;
     public event EventHandler<EventArgs> OnStageUpdate;
@@ -116,6 +227,8 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     public event EventHandler<IAbnormality> OnAbnormalityStart;
     public event EventHandler<IAbnormality> OnAbnormalityEnd;
     public event EventHandler<MHRWirebug[]> OnWirebugsRefresh;
+    public event EventHandler<HealthChangeEventArgs> OnHealthChange;
+    public event EventHandler<StaminaChangeEventArgs> OnStaminaChange;
 
     public MHRPlayer(IProcessManager process) : base(process) { }
 
@@ -436,6 +549,17 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         DerefSongBuffs(songBuffPtrs);
     }
 
+    [ScannableMethod]
+    private void GetPlayerStatus()
+    {
+        const double MaxDefaultStamina = 4500.0;
+        const double PetalaceMultiplier = 30.0;
+
+        MHRPetalaceStatsStructure petalace = GetEquippedPetalaceStats();
+
+        MaxPossibleStamina = (petalace.StaminaUp * PetalaceMultiplier) + MaxDefaultStamina;
+    }
+
     [ScannableMethod(typeof(MHRWirebugData))]
     private void GetPlayerWirebugs()
     {
@@ -703,6 +827,29 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             abnorm.Update(newData);
             this.Dispatch(OnAbnormalityStart, (IAbnormality)abnorm);
         }
+    }
+
+    private MHRPetalaceStatsStructure GetEquippedPetalaceStats()
+    {
+        int selectedPetalaceId = _process.Memory.Deref<int>(
+            AddressMap.GetAbsolute("PLAYER_GEAR_ADDRESS"),
+            AddressMap.Get<int[]>("SELECTED_PETALACE_OFFSETS")
+        ) & 0x0000FFFF;
+
+        long petalaceArray = _process.Memory.Read(
+            AddressMap.GetAbsolute("GEAR_ADDRESS"),
+            AddressMap.Get<int[]>("PETALACES_ARRAY_OFFSETS")
+        );
+        uint petalaceArrayLength = _process.Memory.Read<uint>(petalaceArray + 0x1C);
+        long[] petalacePtrs = _process.Memory.Read<long>(petalaceArray + 0x20, petalaceArrayLength);
+
+        MHRPetalaceStructure structure = _process.Memory.Read<MHRPetalaceStructure>(
+            petalacePtrs[selectedPetalaceId % petalacePtrs.Length]
+        );
+
+        MHRPetalaceDataStructure data = _process.Memory.Read<MHRPetalaceDataStructure>(structure.Data);
+
+        return _process.Memory.Read<MHRPetalaceStatsStructure>(data.Stats);
     }
 
     internal void UpdatePartyMembersDamage(EntityDamageData[] entities)
