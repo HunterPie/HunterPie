@@ -153,6 +153,9 @@
 		<Abnormality Id="ABNORMALITY_BLOOD" String="겁혈 피해"/>
 		<Abnormality Id="ABNORMALITY_POISON" String="독"/>
 		<Abnormality Id="ABNORMALITY_VENOM" String="맹독"/>
+		<Abnormality Id="ABNORMALITY_STUN" String="기절"/>
+		<Abnormality Id="ABNORMALITY_SLEEP" String="수면"/>
+		<Abnormality Id="ABNORMALITY_PARALYSIS" String="마비"/>
 		<Abnormality Id="ABNORMALITY_DEF_DOWN" String="방어력 DOWN"/>
 		<Abnormality Id="ABNORMALITY_RES_DOWN" String="모든 내성 DOWN"/>
 		<Abnormality Id="ABNORMALITY_STENCH" String="일부 아이템 사용 불가 상태"/>
