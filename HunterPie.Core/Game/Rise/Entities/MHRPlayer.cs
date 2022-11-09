@@ -34,11 +34,11 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     private MHRStageStructure _lastStageData = new();
     private double _stamina;
     private double _maxStamina;
-    private double _maxExtendableStamina;
+    private double _maxRecoverableStamina;
     private double _maxPossibleStamina;
     private double _health;
     private double _maxHealth;
-    private double _maxExtendableHealth;
+    private double _recoverableHealth;
     private double _maxPossibleHealth;
     #endregion
 
@@ -137,14 +137,14 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         }
     }
 
-    public double MaxExtendableStamina
+    public double MaxRecoverableStamina
     {
-        get => _maxExtendableStamina;
+        get => _maxRecoverableStamina;
         private set
         {
-            if (value != _maxExtendableStamina)
+            if (value != _maxRecoverableStamina)
             {
-                _maxExtendableStamina = value;
+                _maxRecoverableStamina = value;
                 this.Dispatch(OnStaminaChange, new StaminaChangeEventArgs(this));
             }
         }
@@ -189,14 +189,14 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         }
     }
 
-    public double MaxExtendableHealth
+    public double RecoverableHealth
     {
-        get => _maxExtendableHealth;
+        get => _recoverableHealth;
         private set
         {
-            if (value != _maxExtendableHealth)
+            if (value != _recoverableHealth)
             {
-                _maxExtendableHealth = value;
+                _recoverableHealth = value;
                 this.Dispatch(OnHealthChange, new HealthChangeEventArgs(this));
             }
         }
@@ -553,11 +553,28 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     private void GetPlayerStatus()
     {
         const double MaxDefaultStamina = 4500.0;
-        const double PetalaceMultiplier = 30.0;
+        const double MaxDefaultHealth = 100.0;
+        const double PetalaceStaminaMultiplier = 30.0;
 
-        MHRPetalaceStatsStructure petalace = GetEquippedPetalaceStats();
+        MHRPlayerHudStructure playerHud = _process.Memory.Deref<MHRPlayerHudStructure>(
+            AddressMap.GetAbsolute("UI_ADDRESS"),
+            AddressMap.Get<int[]>("PLAYER_HUD_OFFSETS")
+        );
 
-        MaxPossibleStamina = (petalace.StaminaUp * PetalaceMultiplier) + MaxDefaultStamina;
+        MHRPetalaceStatsStructure? petalace = GetEquippedPetalaceStats();
+
+        if (petalace is null)
+            return;
+
+        MaxHealth = playerHud.MaxHealth;
+        Health = playerHud.Health;
+        RecoverableHealth = playerHud.RecoverableHealth;
+        MaxPossibleHealth = petalace.Value.HealthUp + MaxDefaultHealth;
+
+        MaxStamina = playerHud.MaxStamina;
+        Stamina = playerHud.Stamina;
+        MaxRecoverableStamina = playerHud.MaxExtendableStamina;
+        MaxPossibleStamina = (petalace.Value.StaminaUp * PetalaceStaminaMultiplier) + MaxDefaultStamina;
     }
 
     [ScannableMethod(typeof(MHRWirebugData))]
@@ -829,17 +846,21 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         }
     }
 
-    private MHRPetalaceStatsStructure GetEquippedPetalaceStats()
+    private MHRPetalaceStatsStructure? GetEquippedPetalaceStats()
     {
+        long petalaceArray = _process.Memory.Read(
+            AddressMap.GetAbsolute("GEAR_ADDRESS"),
+            AddressMap.Get<int[]>("PETALACES_ARRAY_OFFSETS")
+        );
+
+        if (petalaceArray == 0)
+            return null;
+
         int selectedPetalaceId = _process.Memory.Deref<int>(
             AddressMap.GetAbsolute("PLAYER_GEAR_ADDRESS"),
             AddressMap.Get<int[]>("SELECTED_PETALACE_OFFSETS")
         ) & 0x0000FFFF;
 
-        long petalaceArray = _process.Memory.Read(
-            AddressMap.GetAbsolute("GEAR_ADDRESS"),
-            AddressMap.Get<int[]>("PETALACES_ARRAY_OFFSETS")
-        );
         uint petalaceArrayLength = _process.Memory.Read<uint>(petalaceArray + 0x1C);
         long[] petalacePtrs = _process.Memory.Read<long>(petalaceArray + 0x20, petalaceArrayLength);
 

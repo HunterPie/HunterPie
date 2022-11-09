@@ -60,7 +60,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
 
     public double MaxStamina => throw new NotImplementedException();
 
-    public double MaxExtendableStamina => throw new NotImplementedException();
+    public double MaxRecoverableStamina => throw new NotImplementedException();
 
     public double MaxPossibleStamina => throw new NotImplementedException();
 
@@ -71,6 +71,8 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
     public double MaxExtendableHealth => throw new NotImplementedException();
 
     public double MaxPossibleHealth => throw new NotImplementedException();
+
+    public double RecoverableHealth => throw new NotImplementedException();
 
     public event EventHandler<EventArgs> OnLogin;
     public event EventHandler<EventArgs> OnLogout;

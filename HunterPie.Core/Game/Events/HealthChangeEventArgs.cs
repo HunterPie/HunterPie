@@ -6,14 +6,14 @@ public class HealthChangeEventArgs
 
     public double Health { get; }
     public double MaxHealth { get; }
-    public double MaxExtendableHealth { get; }
+    public double RecoverableHealth { get; }
     public double MaxPossibleHealth { get; }
 
     public HealthChangeEventArgs(IPlayer player)
     {
         Health = player.Health;
         MaxHealth = player.MaxHealth;
-        MaxExtendableHealth = player.MaxExtendableHealth;
+        RecoverableHealth = player.RecoverableHealth;
         MaxPossibleHealth = player.MaxPossibleHealth;
     }
 }

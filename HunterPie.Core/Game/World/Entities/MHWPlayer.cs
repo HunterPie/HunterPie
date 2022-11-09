@@ -8,6 +8,7 @@ using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.World.Definitions;
 using HunterPie.Core.Game.World.Entities.Abnormalities;
 using HunterPie.Core.Game.World.Entities.Party;
@@ -129,9 +130,17 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 
     public double MaxStamina => throw new NotImplementedException();
 
-    public double MaxExtendableStamina => throw new NotImplementedException();
+    public double MaxRecoverableStamina => throw new NotImplementedException();
 
     public double MaxPossibleStamina => throw new NotImplementedException();
+
+    public double Health => throw new NotImplementedException();
+
+    public double MaxHealth => throw new NotImplementedException();
+
+    public double RecoverableHealth => throw new NotImplementedException();
+
+    public double MaxPossibleHealth => throw new NotImplementedException();
 
     #endregion
 
@@ -148,6 +157,8 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     public event EventHandler<EventArgs> OnWeaponChange;
     public event EventHandler<IAbnormality> OnAbnormalityStart;
     public event EventHandler<IAbnormality> OnAbnormalityEnd;
+    public event EventHandler<HealthChangeEventArgs> OnHealthChange;
+    public event EventHandler<StaminaChangeEventArgs> OnStaminaChange;
 
     internal MHWPlayer(IProcessManager process) : base(process) { }
 

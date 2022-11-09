@@ -30,6 +30,12 @@ public class PlayerHudViewModel : ViewModel
     private double _maxStamina;
     public double MaxStamina { get => _maxStamina; set => SetValue(ref _maxStamina, value); }
 
+    private double _maxPossibleStamina;
+    public double MaxPossibleStamina { get => _maxPossibleStamina; set => SetValue(ref _maxPossibleStamina, value); }
+
+    private double _maxRecoverableStamina;
+    public double MaxRecoverableStamina { get => _maxRecoverableStamina; set => SetValue(ref _maxRecoverableStamina, value); }
+
     private Weapon _weapon;
     public Weapon Weapon { get => _weapon; set => SetValue(ref _weapon, value); }
 }

@@ -1,18 +1,14 @@
-﻿using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.UI.Overlay;
-using HunterPie.UI.Overlay.Widgets.Player.ViewModels;
-using HunterPie.UI.Overlay.Widgets.Player.Views;
-
-namespace HunterPie.Features.Debug;
+﻿namespace HunterPie.Features.Debug;
 internal class PlayerHudWidgetMocker : IWidgetMocker
 {
     public void Mock()
     {
-        _ = WidgetManager.Register<PlayerHudView, WirebugWidgetConfig>(
+        return;
+        /*_ = WidgetManager.Register<PlayerHudView, PlayerHudWidgetConfig>(
                 new PlayerHudView()
                 {
                     DataContext = new MockPlayerHudViewModel()
                 }
-            );
+            );*/
     }
 }

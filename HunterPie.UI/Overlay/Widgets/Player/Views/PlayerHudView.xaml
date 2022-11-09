@@ -13,6 +13,7 @@
            mc:Ignorable="d"
            Width="800">
     <UserControl.Resources>
+        <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
         <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>
 
         <LinearGradientBrush x:Key="WIDGET_PLAYER_HEALTH_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
@@ -73,8 +74,9 @@
                        StrokeThickness="2" 
                        Fill="{StaticResource WHITE_300}"
                        Opacity="0.5"
-                       HorizontalAlignment="Left"
-                       Width="700">
+                       HorizontalAlignment="Stretch"
+                       Margin="-10,0,20,0"
+                       x:Name="PART_MaxHealthPossible">
                 <Rectangle.RenderTransform>
                     <TransformGroup>
                         <SkewTransform AngleX="45"/>
@@ -85,18 +87,29 @@
             <overlay:Bar Foreground="{StaticResource RED_LIGHT_50}"
                          Background="{StaticResource GRAY_500}"
                          Height="15"
-                         MaxValue="150"
-                         Value="50"
+                         MaxValue="{Binding RecoverableHealth, Mode=OneWay}"
+                         Value="{Binding MaxHealth, Mode=OneWay}"
                          HorizontalAlignment="Left"
                          BorderThickness="2" 
                          RenderTransformOrigin="0.5,0.5"
                          VerticalAlignment="Top"
-                         Width="500">
+                         d:Width="500">
                 <overlay:Bar.RenderTransform>
                     <TransformGroup>
                         <SkewTransform AngleX="45"/>
                     </TransformGroup>
                 </overlay:Bar.RenderTransform>
+                <overlay:Bar.Width>
+                    <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
+                        <Binding Path="MaxHealth"
+                                 Mode="OneWay"/>
+                        <Binding Path="MaxExtendableHealth"
+                                 Mode="OneWay"/>
+                        <Binding Path="ActualWidth"
+                                 Mode="OneWay"
+                                 ElementName="PART_MaxHealthPossible"/>
+                    </MultiBinding>
+                </overlay:Bar.Width>
             </overlay:Bar>
             <overlay:Bar Foreground="{StaticResource WIDGET_PLAYER_HEALTH_FOREGROUND}"
                          Background="Transparent"
@@ -110,32 +123,97 @@
                          RenderTransformOrigin="0.5,0.5"
                          VerticalAlignment="Top"
                          BorderBrush="{StaticResource GRAY_300}"
-                         Width="500">
+                         d:Width="500">
                 <overlay:Bar.RenderTransform>
                     <TransformGroup>
                         <SkewTransform AngleX="45"/>
                     </TransformGroup>
                 </overlay:Bar.RenderTransform>
+                <overlay:Bar.Width>
+                    <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
+                        <Binding Path="MaxHealth"
+                                 Mode="OneWay"/>
+                        <Binding Path="MaxExtendableHealth"
+                                 Mode="OneWay"/>
+                        <Binding Path="ActualWidth"
+                                 Mode="OneWay"
+                                 ElementName="PART_MaxHealthPossible"/>
+                    </MultiBinding>
+                </overlay:Bar.Width>
             </overlay:Bar>
 
             <!-- Stamina bar -->
+            <Rectangle VerticalAlignment="Top"
+                       Height="8"
+                       Stroke="{StaticResource WHITE_100}"
+                       StrokeThickness="2" 
+                       Fill="{StaticResource WHITE_300}"
+                       Opacity="0.5"
+                       HorizontalAlignment="Stretch"
+                       Margin="0,15,10,0"
+                       x:Name="PART_MaxStaminaPossible">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <SkewTransform AngleX="-45"/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Rectangle VerticalAlignment="Top"
+                       Height="8"
+                       Stroke="{StaticResource RED_LIGHT_300}"
+                       Fill="{StaticResource GRAY_200}"
+                       StrokeThickness="2" 
+                       Opacity="1"
+                       HorizontalAlignment="Stretch"
+                       Margin="0,15,0,0"
+                       d:Width="500">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <SkewTransform AngleX="-45"/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+                <Rectangle.Width>
+                    <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
+                        <Binding Path="MaxRecoverableStamina"
+                                 Mode="OneWay"/>
+                        <Binding Path="MaxPossibleStamina"
+                                 Mode="OneWay"/>
+                        <Binding Path="ActualWidth"
+                                 Mode="OneWay"
+                                 ElementName="PART_MaxStaminaPossible"/>
+                    </MultiBinding>
+                </Rectangle.Width>
+            </Rectangle>
             <overlay:Bar Foreground="{StaticResource WIDGET_PLAYER_STAMINA_FOREGROUND}"
-                     BorderBrush="{StaticResource GRAY_200}"
-                     Background="#B2181A1B"
-                     Height="8"
-                     d:MaxValue="2000"
-                     d:Value="550"
-                     MaxValue="{Binding MaxStamina, Mode=OneWay}"
-                     Value="{Binding Stamina, Mode=OneWay}"
-                     BorderThickness="2" 
-                     RenderTransformOrigin="0.5,0.5"
-                     VerticalAlignment="Top"
-                     Margin="0,15,0,0">
+                         BorderBrush="{StaticResource GRAY_200}"
+                         Background="#B2181A1B"
+                         Height="8"
+                         d:MaxValue="2000"
+                         d:Value="550"
+                         MaxValue="{Binding MaxStamina, Mode=OneWay}"
+                         Value="{Binding Stamina, Mode=OneWay}"
+                         BorderThickness="2" 
+                         RenderTransformOrigin="0.5,0.5"
+                         VerticalAlignment="Top"
+                         HorizontalAlignment="Left"
+                         d:Width="500"
+                         Margin="0,15,0,0">
                 <overlay:Bar.RenderTransform>
                     <TransformGroup>
                         <SkewTransform AngleX="-45"/>
                     </TransformGroup>
                 </overlay:Bar.RenderTransform>
+                <overlay:Bar.Width>
+                    <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
+                        <Binding Path="MaxStamina"
+                                 Mode="OneWay"/>
+                        <Binding Path="MaxPossibleStamina"
+                                 Mode="OneWay"/>
+                        <Binding Path="ActualWidth"
+                                 Mode="OneWay"
+                                 ElementName="PART_MaxStaminaPossible"/>
+                    </MultiBinding>
+                </overlay:Bar.Width>
             </overlay:Bar>
         </Grid>
 

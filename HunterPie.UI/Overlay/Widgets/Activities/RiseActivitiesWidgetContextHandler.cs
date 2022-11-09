@@ -9,7 +9,6 @@ using System;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities;
 
-// TODO: Separate this into activity IContextHandlers
 public class RiseActivitiesWidgetContextHandler : IContextHandler
 {
     private readonly MHRContext _context;

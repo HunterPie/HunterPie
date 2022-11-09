@@ -10,14 +10,20 @@ namespace HunterPie.UI.Overlay.Widgets.Player.Views;
 /// <summary>
 /// Interaction logic for PlayerHudView.xaml
 /// </summary>
-public partial class PlayerHudView : View<PlayerHudViewModel>, IWidget<WirebugWidgetConfig>, IWidgetWindow
+public partial class PlayerHudView : View<PlayerHudViewModel>, IWidget<PlayerHudWidgetConfig>, IWidgetWindow
 {
     public PlayerHudView()
     {
         InitializeComponent();
     }
 
-    public WirebugWidgetConfig Settings { get; }
+    public PlayerHudView(PlayerHudWidgetConfig config)
+    {
+        Settings = config;
+        InitializeComponent();
+    }
+
+    public PlayerHudWidgetConfig Settings { get; }
 
     public WidgetType Type => WidgetType.ClickThrough;
 

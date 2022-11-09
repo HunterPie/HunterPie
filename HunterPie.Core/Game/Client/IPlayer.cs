@@ -17,11 +17,11 @@ public interface IPlayer
     public IReadOnlyCollection<IAbnormality> Abnormalities { get; }
     public double Health { get; }
     public double MaxHealth { get; }
-    public double MaxExtendableHealth { get; }
+    public double RecoverableHealth { get; }
     public double MaxPossibleHealth { get; }
     public double Stamina { get; }
     public double MaxStamina { get; }
-    public double MaxExtendableStamina { get; }
+    public double MaxRecoverableStamina { get; }
     public double MaxPossibleStamina { get; }
 
     public event EventHandler<EventArgs> OnLogin;

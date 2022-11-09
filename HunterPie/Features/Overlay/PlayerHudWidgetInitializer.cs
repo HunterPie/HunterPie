@@ -1,15 +1,14 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Rise;
 using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
-using HunterPie.UI.Overlay.Widgets.Chat;
+using HunterPie.UI.Overlay.Widgets.Player;
 
 namespace HunterPie.Features.Overlay;
 
-internal class ChatWidgetInitializer : IWidgetInitializer
+internal class PlayerHudWidgetInitializer : IWidgetInitializer
 {
     private IContextHandler _handler;
 
@@ -17,12 +16,10 @@ internal class ChatWidgetInitializer : IWidgetInitializer
     {
         OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
 
-        if (!config.ChatWidget.Initialize)
+        if (!config.PlayerHudWidget.Initialize)
             return;
 
-        if (context is MHRContext ctx)
-            _handler = new ChatWidgetContextHandler(ctx);
+        _handler = new PlayerHudWidgetContextHandler(context);
     }
-
     public void Unload() => _handler?.UnhookEvents();
 }

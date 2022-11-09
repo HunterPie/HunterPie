@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Demos.Sunbreak;
 using HunterPie.Core.Game.Rise;
@@ -17,7 +18,7 @@ internal class ActivitiesWidgetInitializer : IWidgetInitializer
 
     public void Load(Context context)
     {
-        Core.Client.Configuration.OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
+        OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
 
         if (!config.ActivitiesWidget.Initialize)
             return;

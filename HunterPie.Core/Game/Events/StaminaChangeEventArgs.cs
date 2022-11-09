@@ -7,14 +7,14 @@ public class StaminaChangeEventArgs : EventArgs
 
     public double Stamina { get; }
     public double MaxStamina { get; }
-    public double MaxExtendableStamina { get; }
+    public double MaxRecoverableStamina { get; }
     public double MaxPossibleStamina { get; }
 
     public StaminaChangeEventArgs(IPlayer player)
     {
         Stamina = player.Stamina;
         MaxStamina = player.MaxStamina;
-        MaxExtendableStamina = player.MaxExtendableStamina;
+        MaxRecoverableStamina = player.MaxRecoverableStamina;
         MaxPossibleStamina = player.MaxPossibleStamina;
     }
 }

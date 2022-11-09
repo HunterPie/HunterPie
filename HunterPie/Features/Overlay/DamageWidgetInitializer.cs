@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Game;
 using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Overlay;
@@ -13,7 +14,7 @@ internal class DamageWidgetInitializer : IWidgetInitializer
 
     public void Load(Context context)
     {
-        Core.Client.Configuration.OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
+        OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
 
         if (!config.DamageMeterWidget.Initialize)
             return;
