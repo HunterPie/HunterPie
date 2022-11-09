@@ -235,7 +235,7 @@
                      WithValue="0"
                      Name="ABNORMALITY_SLEEP"
                      Icon="ICON_SLEEP"/>
-        <Abnormality Id="ABN_Paralysis"
+        <Abnormality Id="ABN_PARALYSIS"
                      Offset="828"
                      Name="ABNORMALITY_PARALYSIS"
                      Icon="ICON_PARALYSIS"/>
