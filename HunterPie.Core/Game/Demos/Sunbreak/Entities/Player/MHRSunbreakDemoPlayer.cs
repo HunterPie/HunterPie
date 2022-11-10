@@ -89,6 +89,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
     public event EventHandler<IAbnormality> OnAbnormalityEnd;
     public event EventHandler<HealthChangeEventArgs> OnHealthChange;
     public event EventHandler<StaminaChangeEventArgs> OnStaminaChange;
+    public event EventHandler<LevelChangeEventArgs> OnLevelChange;
 
     public MHRSunbreakDemoPlayer(IProcessManager process) : base(process) { }
 

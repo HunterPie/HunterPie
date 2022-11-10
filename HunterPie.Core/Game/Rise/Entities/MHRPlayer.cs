@@ -40,6 +40,8 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     private double _maxHealth;
     private double _recoverableHealth;
     private double _maxPossibleHealth;
+    private int _highRank;
+    private int _masterRank;
     #endregion
 
     public string Name
@@ -59,9 +61,31 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         }
     }
 
-    public int HighRank { get; private set; }
+    public int HighRank
+    {
+        get => _highRank;
+        private set
+        {
+            if (value != _highRank)
+            {
+                _highRank = value;
+                this.Dispatch(OnLevelChange, new LevelChangeEventArgs(this));
+            }
+        }
+    }
 
-    public int MasterRank { get; private set; }
+    public int MasterRank
+    {
+        get => _masterRank;
+        private set
+        {
+            if (value != _masterRank)
+            {
+                _masterRank = value;
+                this.Dispatch(OnLevelChange, new LevelChangeEventArgs(this));
+            }
+        }
+    }
 
     public int StageId
     {
@@ -229,6 +253,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     public event EventHandler<MHRWirebug[]> OnWirebugsRefresh;
     public event EventHandler<HealthChangeEventArgs> OnHealthChange;
     public event EventHandler<StaminaChangeEventArgs> OnStaminaChange;
+    public event EventHandler<LevelChangeEventArgs> OnLevelChange;
 
     public MHRPlayer(IProcessManager process) : base(process) { }
 

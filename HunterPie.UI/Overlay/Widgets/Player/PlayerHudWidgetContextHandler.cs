@@ -33,18 +33,16 @@ public class PlayerHudWidgetContextHandler : IContextHandler
     public void HookEvents()
     {
         Player.OnLogin += OnPlayerLogin;
+        Player.OnLevelChange += OnPlayerLevelChange;
         Player.OnWeaponChange += OnPlayerWeaponChange;
         Player.OnStageUpdate += OnStageChange;
         Player.OnHealthChange += OnPlayerHealthChange;
         Player.OnStaminaChange += OnPlayerStaminaChange;
     }
 
-    private void OnPlayerWeaponChange(object sender, EventArgs e)
-    {
-        ViewModel.Weapon = Player.WeaponId;
-        ViewModel.Level = Player.MasterRank;
-    }
-    private void OnStageChange(object sender, EventArgs e) => ViewModel.Level = Player.MasterRank;
+    private void OnStageChange(object sender, EventArgs e) => ViewModel.InHuntingZone = Player.InHuntingZone;
+    private void OnPlayerLevelChange(object sender, LevelChangeEventArgs e) => ViewModel.Level = Player.MasterRank;
+    private void OnPlayerWeaponChange(object sender, EventArgs e) => ViewModel.Weapon = Player.WeaponId;
     private void OnPlayerLogin(object sender, EventArgs e)
     {
         ViewModel.Name = Player.Name;
@@ -70,6 +68,7 @@ public class PlayerHudWidgetContextHandler : IContextHandler
     public void UnhookEvents()
     {
         Player.OnLogin -= OnPlayerLogin;
+        Player.OnLevelChange -= OnPlayerLevelChange;
         Player.OnWeaponChange -= OnPlayerWeaponChange;
         Player.OnStageUpdate -= OnStageChange;
         Player.OnHealthChange -= OnPlayerHealthChange;

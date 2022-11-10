@@ -242,6 +242,8 @@ dotnet_diagnostic.HAA0302.severity = none
 
 # HAA0301: Closure Allocation Source
 dotnet_diagnostic.HAA0301.severity = none
+csharp_style_prefer_top_level_statements = true:silent
+csharp_style_prefer_utf8_string_literals = true:suggestion
 
 [*.{cs,vb}]
 dotnet_style_coalesce_expression = true:error
