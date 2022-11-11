@@ -24,6 +24,9 @@ public class PlayerHudViewModel : ViewModel
     private double _recoverableHealth;
     public double RecoverableHealth { get => _recoverableHealth; set => SetValue(ref _recoverableHealth, value); }
 
+    private double _heal;
+    public double Heal { get => _heal; set => SetValue(ref _heal, value); }
+
     private double _stamina;
     public double Stamina { get => _stamina; set => SetValue(ref _stamina, value); }
 
@@ -41,4 +44,7 @@ public class PlayerHudViewModel : ViewModel
 
     private Weapon _weapon;
     public Weapon Weapon { get => _weapon; set => SetValue(ref _weapon, value); }
+
+    private AbnormalityCategory _abnormalityCategory;
+    public AbnormalityCategory AbnormalityCategory { get => _abnormalityCategory; set => SetValue(ref _abnormalityCategory, value); }
 }

@@ -74,6 +74,8 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
 
     public double RecoverableHealth => throw new NotImplementedException();
 
+    public double Heal => throw new NotImplementedException();
+
     public event EventHandler<EventArgs> OnLogin;
     public event EventHandler<EventArgs> OnLogout;
     public event EventHandler<EventArgs> OnHealthUpdate;
@@ -90,6 +92,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
     public event EventHandler<HealthChangeEventArgs> OnHealthChange;
     public event EventHandler<StaminaChangeEventArgs> OnStaminaChange;
     public event EventHandler<LevelChangeEventArgs> OnLevelChange;
+    public event EventHandler<HealthChangeEventArgs> OnHeal;
 
     public MHRSunbreakDemoPlayer(IProcessManager process) : base(process) { }
 

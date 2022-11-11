@@ -8,27 +8,24 @@
            xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.Views"
            xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
            xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.ViewModels"
+           xmlns:animations="clr-namespace:HunterPie.UI.Architecture.Animation"
+           xmlns:enums="clr-namespace:HunterPie.Core.Game.Enums;assembly=HunterPie.Core"
            x:TypeArguments="viewmodels:PlayerHudViewModel"
            d:DataContext="{d:DesignInstance Type=viewmodels:PlayerHudViewModel}"
            mc:Ignorable="d"
            Width="800">
     <UserControl.Resources>
+        <enums:AbnormalityCategory x:Key="STATE_NORMAL">None</enums:AbnormalityCategory>
+        <enums:AbnormalityCategory x:Key="STATE_FIRE">Fire</enums:AbnormalityCategory>
+        <enums:AbnormalityCategory x:Key="STATE_ICE">Ice</enums:AbnormalityCategory>
+        <enums:AbnormalityCategory x:Key="STATE_WATER">Water</enums:AbnormalityCategory>
+        <enums:AbnormalityCategory x:Key="STATE_BLEED">Bleed</enums:AbnormalityCategory>
+        <enums:AbnormalityCategory x:Key="STATE_POISON">Poison</enums:AbnormalityCategory>
+        
         <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
         <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:WeaponToMeleeVisibility x:Key="WeaponToMeleeVisibility"/>
-
-        <LinearGradientBrush x:Key="WIDGET_PLAYER_HEALTH_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
-            <GradientStop Color="#3ecfa6"/>
-            <GradientStop Color="#3ecf87" Offset="1"/>
-        </LinearGradientBrush>
-
-        <LinearGradientBrush x:Key="WIDGET_PLAYER_STAMINA_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
-            <GradientStop Color="#FFFF9A36" Offset="1"/>
-            <GradientStop Color="#FFFF2E00" Offset="0"/>
-        </LinearGradientBrush>
-
-
     </UserControl.Resources>
     <Grid Visibility="{Binding InHuntingZone, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
         <Grid.RowDefinitions>
@@ -86,11 +83,13 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <overlay:Bar Foreground="{StaticResource RED_LIGHT_50}"
+            <overlay:Bar Foreground="{StaticResource WIDGET_PLAYER_RECOVERABLE_FOREGROUND}"
                          Background="{StaticResource GRAY_500}"
                          Height="15"
-                         MaxValue="{Binding RecoverableHealth, Mode=OneWay}"
-                         Value="{Binding MaxHealth, Mode=OneWay}"
+                         MaxValue="{Binding MaxHealth, Mode=OneWay}"
+                         Value="{Binding RecoverableHealth, Mode=OneWay}"
+                         d:MaxValue="150"
+                         d:Value="100"
                          HorizontalAlignment="Left"
                          BorderThickness="2" 
                          RenderTransformOrigin="0.5,0.5"
@@ -113,8 +112,37 @@
                     </MultiBinding>
                 </overlay:Bar.Width>
             </overlay:Bar>
-            <overlay:Bar Foreground="{StaticResource WIDGET_PLAYER_HEALTH_FOREGROUND}"
+            <overlay:Bar Foreground="{StaticResource WIDGET_PLAYER_HEAL_FOREGROUND}"
                          Background="Transparent"
+                         Height="15"
+                         d:MaxValue="150"
+                         d:Value="50"
+                         MaxValue="{Binding MaxHealth, Mode=OneWay}"
+                         Value="{Binding Heal, Mode=OneWay}"
+                         BorderThickness="2" 
+                         HorizontalAlignment="Left"
+                         RenderTransformOrigin="0.5,0.5"
+                         VerticalAlignment="Top"
+                         MarkersVisibility="Collapsed"
+                         d:Width="500">
+                <overlay:Bar.RenderTransform>
+                    <TransformGroup>
+                        <SkewTransform AngleX="45"/>
+                    </TransformGroup>
+                </overlay:Bar.RenderTransform>
+                <overlay:Bar.Width>
+                    <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
+                        <Binding Path="MaxHealth"
+                                 Mode="OneWay"/>
+                        <Binding Path="MaxExtendableHealth"
+                                 Mode="OneWay"/>
+                        <Binding Path="ActualWidth"
+                                 Mode="OneWay"
+                                 ElementName="PART_MaxHealthPossible"/>
+                    </MultiBinding>
+                </overlay:Bar.Width>
+            </overlay:Bar>
+            <overlay:Bar Background="Transparent"
                          Height="15"
                          d:MaxValue="150"
                          d:Value="30"
@@ -124,8 +152,10 @@
                          HorizontalAlignment="Left"
                          RenderTransformOrigin="0.5,0.5"
                          VerticalAlignment="Top"
+                         Foreground="{StaticResource WIDGET_PLAYER_HEALTH_FOREGROUND}"
                          BorderBrush="{StaticResource GRAY_300}"
-                         d:Width="500">
+                         d:Width="500"
+                         x:Name="PART_HealthBar">
                 <overlay:Bar.RenderTransform>
                     <TransformGroup>
                         <SkewTransform AngleX="45"/>
@@ -166,8 +196,8 @@
                        Fill="{StaticResource GRAY_200}"
                        StrokeThickness="2" 
                        Opacity="1"
-                       HorizontalAlignment="Stretch"
-                       Margin="0,15,0,0"
+                       HorizontalAlignment="Left"
+                       Margin="3,15,0,0"
                        d:Width="500">
                 <Rectangle.RenderTransform>
                     <TransformGroup>

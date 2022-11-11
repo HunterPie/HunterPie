@@ -19,6 +19,7 @@ public interface IPlayer
     public double MaxHealth { get; }
     public double RecoverableHealth { get; }
     public double MaxPossibleHealth { get; }
+    public double Heal { get; }
     public double Stamina { get; }
     public double MaxStamina { get; }
     public double MaxRecoverableStamina { get; }
@@ -35,6 +36,7 @@ public interface IPlayer
     public event EventHandler<EventArgs> OnWeaponChange;
     public event EventHandler<IAbnormality> OnAbnormalityStart;
     public event EventHandler<IAbnormality> OnAbnormalityEnd;
+    public event EventHandler<HealthChangeEventArgs> OnHeal;
     public event EventHandler<HealthChangeEventArgs> OnHealthChange;
     public event EventHandler<StaminaChangeEventArgs> OnStaminaChange;
     public event EventHandler<LevelChangeEventArgs> OnLevelChange;

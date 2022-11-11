@@ -83,6 +83,8 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
         }
     }
 
+    public IAbnormalityCategorizationService AbnormalityCategorizationService => throw new NotImplementedException();
+
     public MHWGame(IProcessManager process) : base(process)
     {
         _player = new(process);

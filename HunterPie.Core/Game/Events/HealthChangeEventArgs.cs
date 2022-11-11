@@ -8,6 +8,7 @@ public class HealthChangeEventArgs
     public double MaxHealth { get; }
     public double RecoverableHealth { get; }
     public double MaxPossibleHealth { get; }
+    public double Heal { get; }
 
     public HealthChangeEventArgs(IPlayer player)
     {
@@ -15,5 +16,6 @@ public class HealthChangeEventArgs
         MaxHealth = player.MaxHealth;
         RecoverableHealth = player.RecoverableHealth;
         MaxPossibleHealth = player.MaxPossibleHealth;
+        Heal = player.Heal;
     }
 }

@@ -142,6 +142,8 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 
     public double MaxPossibleHealth => throw new NotImplementedException();
 
+    public double Heal => throw new NotImplementedException();
+
     #endregion
 
     public event EventHandler<EventArgs> OnLogin;
@@ -160,6 +162,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     public event EventHandler<HealthChangeEventArgs> OnHealthChange;
     public event EventHandler<StaminaChangeEventArgs> OnStaminaChange;
     public event EventHandler<LevelChangeEventArgs> OnLevelChange;
+    public event EventHandler<HealthChangeEventArgs> OnHeal;
 
     internal MHWPlayer(IProcessManager process) : base(process) { }
 

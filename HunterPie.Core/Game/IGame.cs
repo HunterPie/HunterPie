@@ -10,6 +10,7 @@ public interface IGame : IDisposable
 {
 
     public IPlayer Player { get; }
+    public IAbnormalityCategorizationService AbnormalityCategorizationService { get; }
     public List<IMonster> Monsters { get; }
 
     public IChat Chat { get; }

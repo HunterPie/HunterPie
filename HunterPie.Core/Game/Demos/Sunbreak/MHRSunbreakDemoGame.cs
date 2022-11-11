@@ -36,6 +36,8 @@ public class MHRSunbreakDemoGame : Scannable, IGame, IEventDispatcher
     public int MaxDeaths => throw new NotImplementedException();
     public int Deaths => throw new NotImplementedException();
 
+    public IAbnormalityCategorizationService AbnormalityCategorizationService => throw new NotImplementedException();
+
     private readonly Dictionary<long, IMonster> monsters = new();
 
     public event EventHandler<IMonster> OnMonsterSpawn;

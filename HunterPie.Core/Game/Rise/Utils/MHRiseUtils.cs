@@ -1,9 +1,17 @@
 ﻿using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Rise.Definitions;
+using System.Runtime.CompilerServices;
 
 namespace HunterPie.Core.Game.Rise.Utils;
 
 public static class MHRiseUtils
 {
+    private const double MAX_DEFAULT_STAMINA = 1500.0;
+    private const double FOOD_BONUS_STAMINA = 3000.0;
+    private const double MAX_DEFAULT_HEALTH = 100.0;
+    private const double FOOD_BONUS_HEALTH = 50.0;
+    private const double PETALACE_STAMINA_MULTIPLIER = 30.0;
+
     public static Weapon ToWeaponId(this int self)
     {
         return self switch
@@ -29,4 +37,12 @@ public static class MHRiseUtils
     public static bool IsInQuest(this int self) => self == 2;
     public static bool IsQuestFinished(this int self) => self > 2;
     public static bool IsTrainingRoom(this int self) => self == 5;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static double CalculateMaxPlayerHealth(this MHRPetalaceStatsStructure stats) =>
+        stats.HealthUp + MAX_DEFAULT_HEALTH + FOOD_BONUS_HEALTH;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static double CalculateMaxPlayerStamina(this MHRPetalaceStatsStructure stats) =>
+        (stats.StaminaUp * PETALACE_STAMINA_MULTIPLIER) + MAX_DEFAULT_STAMINA + FOOD_BONUS_STAMINA;
 }

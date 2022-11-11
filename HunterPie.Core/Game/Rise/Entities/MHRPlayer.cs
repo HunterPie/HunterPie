@@ -40,6 +40,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     private double _maxHealth;
     private double _recoverableHealth;
     private double _maxPossibleHealth;
+    private double _heal;
     private int _highRank;
     private int _masterRank;
     #endregion
@@ -239,6 +240,19 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         }
     }
 
+    public double Heal
+    {
+        get => _heal;
+        private set
+        {
+            if (value != _heal)
+            {
+                _heal = value;
+                this.Dispatch(OnHeal, new HealthChangeEventArgs(this));
+            }
+        }
+    }
+
     public event EventHandler<EventArgs> OnLogin;
     public event EventHandler<EventArgs> OnLogout;
     public event EventHandler<EventArgs> OnDeath;
@@ -254,6 +268,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     public event EventHandler<HealthChangeEventArgs> OnHealthChange;
     public event EventHandler<StaminaChangeEventArgs> OnStaminaChange;
     public event EventHandler<LevelChangeEventArgs> OnLevelChange;
+    public event EventHandler<HealthChangeEventArgs> OnHeal;
 
     public MHRPlayer(IProcessManager process) : base(process) { }
 
@@ -577,14 +592,18 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     [ScannableMethod]
     private void GetPlayerStatus()
     {
-        const double MaxDefaultStamina = 4500.0;
-        const double MaxDefaultHealth = 100.0;
-        const double PetalaceStaminaMultiplier = 30.0;
+        if (!InHuntingZone)
+            return;
 
-        MHRPlayerHudStructure playerHud = _process.Memory.Deref<MHRPlayerHudStructure>(
+        long playerHudPtr = _process.Memory.Read(
             AddressMap.GetAbsolute("UI_ADDRESS"),
             AddressMap.Get<int[]>("PLAYER_HUD_OFFSETS")
         );
+
+        if (playerHudPtr.IsNullPointer())
+            return;
+
+        MHRPlayerHudStructure playerHud = _process.Memory.Read<MHRPlayerHudStructure>(playerHudPtr);
 
         MHRPetalaceStatsStructure? petalace = GetEquippedPetalaceStats();
 
@@ -594,12 +613,13 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         MaxHealth = playerHud.MaxHealth;
         Health = playerHud.Health;
         RecoverableHealth = playerHud.RecoverableHealth;
-        MaxPossibleHealth = petalace.Value.HealthUp + MaxDefaultHealth;
+        MaxPossibleHealth = petalace.Value.CalculateMaxPlayerHealth();
+        Heal = playerHud.Heal;
 
         MaxStamina = playerHud.MaxStamina;
         Stamina = playerHud.Stamina;
         MaxRecoverableStamina = playerHud.MaxExtendableStamina;
-        MaxPossibleStamina = (petalace.Value.StaminaUp * PetalaceStaminaMultiplier) + MaxDefaultStamina;
+        MaxPossibleStamina = petalace.Value.CalculateMaxPlayerStamina();
     }
 
     [ScannableMethod(typeof(MHRWirebugData))]
@@ -610,7 +630,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             AddressMap.Get<int[]>("WIREBUG_DATA_OFFSETS")
         );
 
-        if (wirebugsArrayPtr == 0)
+        if (wirebugsArrayPtr.IsNullPointer())
         {
             this.Dispatch(OnWirebugsRefresh, Array.Empty<MHRWirebug>());
             return;

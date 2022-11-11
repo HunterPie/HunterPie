@@ -11,7 +11,7 @@ public struct MHRPlayerHudStructure
     public float CurrentHealth; // Seems to be the same as Health?
     public float MaximumHealth; // Same as MaxHealth?
     public long Unk;
-    public float HealthCopy; // Same as Health?
+    public float Heal;
     public long Unk1;
     public float Stamina;
     public float MaxStamina;

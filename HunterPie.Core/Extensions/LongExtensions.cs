@@ -1,4 +1,6 @@
-﻿namespace HunterPie.Core.Extensions;
+﻿using System.Runtime.CompilerServices;
+
+namespace HunterPie.Core.Extensions;
 
 public static class LongExtensions
 {
@@ -16,4 +18,7 @@ public static class LongExtensions
 
         return $"{decimalValue:0.0}{suffixes[suffixId]}";
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool IsNullPointer(this long value) => value == 0;
 }
