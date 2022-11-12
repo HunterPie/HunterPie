@@ -20,7 +20,7 @@ namespace HunterPie.UI.Overlay.Widgets.Player.Views;
 /// </summary>
 public partial class PlayerHudView : View<PlayerHudViewModel>, IWidget<PlayerHudWidgetConfig>, IWidgetWindow
 {
-    private Storyboard? _currentHealthBarAnimation;
+    private Storyboard _currentHealthBarAnimation = new Storyboard();
 
     private static readonly Brush _defaultHealthBarColor = ResourcesService.Get<Brush>("WIDGET_PLAYER_HEALTH_FOREGROUND");
 
@@ -95,25 +95,16 @@ public partial class PlayerHudView : View<PlayerHudViewModel>, IWidget<PlayerHud
         }
     }
 
-    private static Storyboard BuildBarStoryboard(Brush brush)
+    private Storyboard BuildBarStoryboard(Brush brush)
     {
         var sb = new Storyboard()
         {
-            AutoReverse = true,
-            RepeatBehavior = RepeatBehavior.Forever,
             Children = new TimelineCollection()
             {
                 new BrushAnimation()
                 {
                     To = brush,
                     Duration = new Duration(TimeSpan.FromMilliseconds(500)),
-                },
-                new BrushAnimation()
-                {
-                    To = _defaultHealthBarColor,
-                    Duration = new Duration(TimeSpan.FromMilliseconds(500)),
-                    BeginTime = TimeSpan.FromMilliseconds(1500),
-                    AccelerationRatio = 1
                 },
             },
         };

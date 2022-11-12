@@ -4,6 +4,7 @@ using HunterPie.Core.Game;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Logger;
 using HunterPie.Core.System;
 using HunterPie.UI.Overlay.Widgets.Player.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Player.Views;
@@ -50,18 +51,24 @@ public class PlayerHudWidgetContextHandler : IContextHandler
     {
         lock (_activeAbnormalities)
         {
-            if (_activeAbnormalities.Contains(e))
-                _activeAbnormalities.Remove(e);
+            if (!_activeAbnormalities.Contains(e))
+                return;
+
+            _activeAbnormalities.Remove(e);
+
+            Log.Debug("Removing {0:X}", e.GetHashCode());
 
             IAbnormality nextAbnormality = _activeAbnormalities.FirstOrDefault();
 
             if (nextAbnormality is null)
             {
                 ViewModel.AbnormalityCategory = AbnormalityCategory.None;
+                Log.Debug("Back to category None");
                 return;
             }
 
             ViewModel.AbnormalityCategory = _context.Game.AbnormalityCategorizationService.Categorize(nextAbnormality);
+            Log.Debug("Next abnormality: {0}. Size of active abnorms: {1}", ViewModel.AbnormalityCategory, _activeAbnormalities.Count);
         }
     }
 
@@ -75,6 +82,7 @@ public class PlayerHudWidgetContextHandler : IContextHandler
         lock (_activeAbnormalities)
         {
             _activeAbnormalities.Add(e);
+            Log.Debug("Added abnormality: {0} | {1:X}, Size of abnorms: {2}", category, e.GetHashCode(), _activeAbnormalities.Count);
         }
 
         ViewModel.AbnormalityCategory = category;
