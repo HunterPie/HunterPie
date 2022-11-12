@@ -13,6 +13,7 @@ using System;
 namespace HunterPie.Core.Game.Rise.Entities.Weapons;
 public class MHRMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
 {
+    private long _weaponSharpnessPointer;
     private Sharpness _sharpness;
     private int _currentSharpness;
 
@@ -74,10 +75,11 @@ public class MHRMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
             AddressMap.Get<int[]>("SHARPNESS_OFFSETS")
         );
 
-        if (SharpnessThresholds is null)
+        if (SharpnessThresholds is null || _weaponSharpnessPointer != sharpnessArrayPtr)
         {
             int[] sharpnessValues = _process.Memory.ReadArray<int>(sharpnessArrayPtr);
             SharpnessThresholds = CalculateThresholds(sharpnessValues);
+            _weaponSharpnessPointer = sharpnessArrayPtr;
         }
 
         Sharpness = structure.Level;
