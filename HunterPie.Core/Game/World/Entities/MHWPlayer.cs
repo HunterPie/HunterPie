@@ -9,9 +9,11 @@ using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Game.Utils;
 using HunterPie.Core.Game.World.Definitions;
 using HunterPie.Core.Game.World.Entities.Abnormalities;
 using HunterPie.Core.Game.World.Entities.Party;
+using HunterPie.Core.Game.World.Entities.Weapons;
 using HunterPie.Core.Logger;
 using HunterPie.Core.Native.IPC.Models.Common;
 using System;
@@ -19,6 +21,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using SpecializedTool = HunterPie.Core.Game.World.Entities.Player.MHWSpecializedTool;
+using WeaponType = HunterPie.Core.Game.Enums.Weapon;
 
 namespace HunterPie.Core.Game.World.Entities;
 
@@ -44,9 +47,10 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     private long _playerSaveAddress;
     private long _localPlayerAddress;
     private Stage _zoneId;
-    private Weapon _weaponId;
+    private Weapon _weaponId = WeaponType.None;
     private readonly Dictionary<string, IAbnormality> _abnormalities = new();
     private readonly MHWParty _party = new();
+    private IWeapon _weapon;
     #endregion
 
     #region Public fields
@@ -98,21 +102,6 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
         }
     }
 
-    /// <summary>
-    /// Player weapon type
-    /// </summary>
-    public Weapon WeaponId
-    {
-        get => _weaponId;
-        set
-        {
-            if (value != _weaponId)
-            {
-                _weaponId = value;
-            }
-        }
-    }
-
     public SpecializedTool[] Tools { get; } = { new(), new() };
 
     public bool IsLoggedOn => _playerSaveAddress != 0;
@@ -144,6 +133,20 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 
     public double Heal => throw new NotImplementedException();
 
+    public IWeapon Weapon
+    {
+        get => _weapon;
+        private set
+        {
+            if (value != _weapon)
+            {
+                IWeapon temp = _weapon;
+                _weapon = value;
+                this.Dispatch(OnWeaponChange, new WeaponChangeEventArgs(temp, _weapon));
+            }
+        }
+    }
+
     #endregion
 
     public event EventHandler<EventArgs> OnLogin;
@@ -156,7 +159,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     public event EventHandler<EventArgs> OnVillageEnter;
     public event EventHandler<EventArgs> OnVillageLeave;
     public event EventHandler<EventArgs> OnAilmentUpdate;
-    public event EventHandler<EventArgs> OnWeaponChange;
+    public event EventHandler<WeaponChangeEventArgs> OnWeaponChange;
     public event EventHandler<IAbnormality> OnAbnormalityStart;
     public event EventHandler<IAbnormality> OnAbnormalityEnd;
     public event EventHandler<HealthChangeEventArgs> OnHealthChange;
@@ -164,7 +167,10 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     public event EventHandler<LevelChangeEventArgs> OnLevelChange;
     public event EventHandler<HealthChangeEventArgs> OnHeal;
 
-    internal MHWPlayer(IProcessManager process) : base(process) { }
+    internal MHWPlayer(IProcessManager process) : base(process)
+    {
+        _weapon = new MHWMeleeWeapon(WeaponType.Greatsword);
+    }
 
     [ScannableMethod(typeof(ZoneData))]
     private void GetZoneData()
@@ -221,7 +227,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
         }
     }
 
-    [ScannableMethod(typeof(PlayerEquipmentData))]
+    [ScannableMethod]
     private void GetWeaponData()
     {
         PlayerEquipmentData data = new();
@@ -236,11 +242,20 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 
         data.WeaponType = (Weapon)_process.Memory.Read<byte>(address);
 
-        Next(ref data);
+        if (data.WeaponType == _weaponId)
+            return;
 
-        WeaponId = data.WeaponType;
+        IWeapon? weaponInstance = null;
 
-        return;
+        if (data.WeaponType.IsMelee())
+        {
+
+        }
+
+        if (weaponInstance is not null)
+            Weapon = weaponInstance;
+
+        _weaponId = data.WeaponType;
     }
 
     [ScannableMethod]
@@ -274,7 +289,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             _party.Update(0, new MHWPartyMemberData
             {
                 Name = Name,
-                Weapon = WeaponId,
+                Weapon = _weaponId,
                 Damage = 0,
                 Slot = 0,
                 IsMyself = true,
@@ -312,7 +327,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             var data = new MHWPartyMemberData
             {
                 Name = name,
-                Weapon = isLocalPlayer ? WeaponId : (Weapon)_process.Memory.Read<byte>(partyMember.Address + 0x7C),
+                Weapon = isLocalPlayer ? _weaponId : (Weapon)_process.Memory.Read<byte>(partyMember.Address + 0x7C),
                 Damage = _process.Memory.Read<int>(damageInformation + (index * 0x2A0)),
                 Slot = index,
                 IsMyself = isLocalPlayer,

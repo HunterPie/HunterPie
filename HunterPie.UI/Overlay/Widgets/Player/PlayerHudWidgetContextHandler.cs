@@ -80,9 +80,39 @@ public class PlayerHudWidgetContextHandler : IContextHandler
         ViewModel.AbnormalityCategory = category;
     }
     private void OnHeal(object sender, HealthChangeEventArgs e) => ViewModel.Heal = e.Heal;
+
     private void OnStageChange(object sender, EventArgs e) => ViewModel.InHuntingZone = Player.InHuntingZone;
+
     private void OnPlayerLevelChange(object sender, LevelChangeEventArgs e) => ViewModel.Level = Player.MasterRank;
-    private void OnPlayerWeaponChange(object sender, EventArgs e) => ViewModel.Weapon = Player.WeaponId;
+
+    private void OnPlayerWeaponChange(object sender, WeaponChangeEventArgs e)
+    {
+        if (e.OldWeapon is IMeleeWeapon melee)
+        {
+            melee.OnSharpnessLevelChange -= OnSharpnessLevelChange;
+            melee.OnSharpnessChange -= OnSharpnessChange;
+        }
+
+        if (e.NewWeapon is IMeleeWeapon newMelee)
+        {
+            newMelee.OnSharpnessLevelChange += OnSharpnessLevelChange;
+            newMelee.OnSharpnessChange += OnSharpnessChange;
+        }
+
+        ViewModel.Weapon = e.NewWeapon.Id;
+    }
+
+    private void OnSharpnessChange(object sender, SharpnessEventArgs e)
+    {
+        ViewModel.SharpnessViewModel.MaxSharpness = e.MaxSharpness - e.Threshold;
+        ViewModel.SharpnessViewModel.Sharpness = e.CurrentSharpness - e.Threshold;
+    }
+
+    private void OnSharpnessLevelChange(object sender, SharpnessEventArgs e)
+    {
+        ViewModel.SharpnessViewModel.SharpnessLevel = e.Sharpness;
+    }
+
     private void OnPlayerLogin(object sender, EventArgs e)
     {
         ViewModel.Name = Player.Name;

@@ -20,8 +20,8 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Rectangle Fill="{StaticResource GRAY_300}"
@@ -31,13 +31,12 @@
                    HorizontalAlignment="Left"
                    Margin="19,0,0,0"
                    RadiusX="1"
-                   RadiusY="1"
-                   Grid.Column="1">
+                   RadiusY="1">
             <Rectangle.RenderTransform>
                 <SkewTransform AngleX="-30"/>
             </Rectangle.RenderTransform>
             <Rectangle.Effect>
-                <effects:AlligatorShaderEffect Ratio="1"/>
+                <effects:AlligatorShaderEffect Ratio="2"/>
             </Rectangle.Effect>
         </Rectangle>
 
@@ -51,8 +50,7 @@
                    HorizontalAlignment="Left"
                    Margin="19,0,0,0"
                    RadiusX="1"
-                   RadiusY="1"
-                   Grid.Column="1">
+                   RadiusY="1">
             <Rectangle.RenderTransform>
                 <SkewTransform AngleX="-30"/>
             </Rectangle.RenderTransform>
@@ -74,8 +72,7 @@
         
         <Image Source="{StaticResource PLAYER_WEAPON_SHARPNESS_GAUGE_V2}"
                Height="25"
-               Stretch="Fill"
-               Grid.Column="1">
+               Stretch="Fill">
             <Image.Effect>
                 <DropShadowEffect Color="Black"
                                   ShadowDepth="0"
@@ -84,7 +81,7 @@
             </Image.Effect>
         </Image>
 
-        <TextBlock Grid.Column="0"
+        <TextBlock Grid.Column="1"
                    d:Text="50"
                    Text="{Binding Sharpness, Mode=OneWay}"
                    Foreground="{Binding SharpnessLevel, Mode=OneWay, Converter={StaticResource SharpnessToColorConverter}, ConverterParameter={StaticResource ConvertToBrush}}"

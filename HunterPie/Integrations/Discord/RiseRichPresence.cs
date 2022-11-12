@@ -72,10 +72,10 @@ internal sealed class RiseRichPresence : RichPresence
                         .Replace("{HighRank}", game.Player.HighRank.ToString())
                         .Replace("{MasterRank}", game.Player.MasterRank.ToString())
                     : null,
-                SmallImageKey = game.Player.WeaponId switch
+                SmallImageKey = game.Player.Weapon.Id switch
                 {
                     Weapon.None => null,
-                    _ => Enum.GetName(typeof(Weapon), game.Player.WeaponId)?.ToLower() ?? "unknown",
+                    _ => Enum.GetName(typeof(Weapon), game.Player.Weapon.Id)?.ToLower() ?? "unknown",
                 }
             })
             .WithParty(new Party()

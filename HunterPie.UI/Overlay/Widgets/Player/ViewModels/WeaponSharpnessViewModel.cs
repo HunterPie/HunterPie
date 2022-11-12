@@ -12,4 +12,7 @@ public class WeaponSharpnessViewModel : ViewModel
 
     private int _maxSharpness;
     public int MaxSharpness { get => _maxSharpness; set => SetValue(ref _maxSharpness, value); }
+
+    private int _hitsLeft;
+    public int HitsLeft { get => _hitsLeft; set => SetValue(ref _hitsLeft, value); }
 }

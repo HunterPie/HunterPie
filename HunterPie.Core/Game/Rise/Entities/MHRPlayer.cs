@@ -11,13 +11,16 @@ using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Rise.Definitions;
 using HunterPie.Core.Game.Rise.Entities.Activities;
 using HunterPie.Core.Game.Rise.Entities.Party;
+using HunterPie.Core.Game.Rise.Entities.Weapons;
 using HunterPie.Core.Game.Rise.Utils;
+using HunterPie.Core.Game.Utils;
 using HunterPie.Core.Native.IPC.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using WeaponType = HunterPie.Core.Game.Enums.Weapon;
 
 namespace HunterPie.Core.Game.Rise.Entities;
 
@@ -27,7 +30,6 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     private int SaveSlotId;
     private string _name;
     private int _stageId = -1;
-    private Weapon _weaponId;
     private readonly Dictionary<string, IAbnormality> abnormalities = new();
     private readonly MHRParty _party = new();
     private MHRStageStructure _stageData = new();
@@ -43,6 +45,8 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     private double _heal;
     private int _highRank;
     private int _masterRank;
+    private IWeapon _weapon;
+    private Weapon _weaponId = WeaponType.None;
     #endregion
 
     public string Name
@@ -105,19 +109,6 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
                 _stageId = value;
                 this.Dispatch(OnStageUpdate);
 
-            }
-        }
-    }
-
-    public Weapon WeaponId
-    {
-        get => _weaponId;
-        private set
-        {
-            if (value != _weaponId)
-            {
-                _weaponId = value;
-                this.Dispatch(OnWeaponChange);
             }
         }
     }
@@ -253,6 +244,20 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         }
     }
 
+    public IWeapon Weapon
+    {
+        get => _weapon;
+        private set
+        {
+            if (value != _weapon)
+            {
+                IWeapon lastWeapon = _weapon;
+                _weapon = value;
+                this.Dispatch(OnWeaponChange, new WeaponChangeEventArgs(lastWeapon, _weapon));
+            }
+        }
+    }
+
     public event EventHandler<EventArgs> OnLogin;
     public event EventHandler<EventArgs> OnLogout;
     public event EventHandler<EventArgs> OnDeath;
@@ -261,7 +266,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     public event EventHandler<EventArgs> OnVillageEnter;
     public event EventHandler<EventArgs> OnVillageLeave;
     public event EventHandler<EventArgs> OnAilmentUpdate;
-    public event EventHandler<EventArgs> OnWeaponChange;
+    public event EventHandler<WeaponChangeEventArgs> OnWeaponChange;
     public event EventHandler<IAbnormality> OnAbnormalityStart;
     public event EventHandler<IAbnormality> OnAbnormalityEnd;
     public event EventHandler<MHRWirebug[]> OnWirebugsRefresh;
@@ -270,7 +275,10 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     public event EventHandler<LevelChangeEventArgs> OnLevelChange;
     public event EventHandler<HealthChangeEventArgs> OnHeal;
 
-    public MHRPlayer(IProcessManager process) : base(process) { }
+    public MHRPlayer(IProcessManager process) : base(process)
+    {
+        _weapon = new MHRMeleeWeapon(process, WeaponType.Greatsword);
+    }
 
     // TODO: Add DTOs for middlewares
 
@@ -383,7 +391,44 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
 
         int weaponId = _process.Memory.Read<int>(weaponIdPtr + 0x8C);
 
-        WeaponId = weaponId.ToWeaponId();
+        WeaponType weapon = weaponId.ToWeaponId();
+
+        if (weapon == _weaponId)
+            return;
+
+        if (Weapon is Scannable scannable)
+            ScanManager.Remove(scannable);
+
+        IWeapon? weaponInstance = null;
+        if (weapon.IsMelee())
+        {
+            var meleeWeapon = new MHRMeleeWeapon(_process, weapon);
+            weaponInstance = meleeWeapon;
+
+            ScanManager.Add(meleeWeapon);
+        }
+        else
+        {
+            switch (weapon)
+            {
+                case WeaponType.Bow:
+                    weaponInstance = new MHRBow();
+                    break;
+                case WeaponType.HeavyBowgun:
+                    weaponInstance = new MHRHeavyBowgun();
+                    break;
+                case WeaponType.LightBowgun:
+                    weaponInstance = new MHRLightBowgun();
+                    break;
+                case WeaponType.None:
+                    return;
+            }
+        }
+
+        if (weaponInstance is not null)
+            Weapon = weaponInstance;
+
+        _weaponId = weapon;
     }
 
     [ScannableMethod]
@@ -536,7 +581,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
                 Name = Name,
                 HighRank = HighRank,
                 MasterRank = MasterRank,
-                WeaponId = WeaponId,
+                WeaponId = _weaponId,
                 IsMyself = true
             });
             return;

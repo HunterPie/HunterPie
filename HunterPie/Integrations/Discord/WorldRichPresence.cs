@@ -66,7 +66,7 @@ internal sealed class WorldRichPresence : RichPresence
             {
                 LargeImageKey = player.ZoneId != Stage.MainMenu ? $"st{player.StageId}" : "main-menu",
                 LargeImageText = MHWContext.Strings.GetStageNameById(player.StageId),
-                SmallImageKey = player.WeaponId != Weapon.None ? $"weap{(int)player.WeaponId}" : "hunter-rank",
+                SmallImageKey = player.Weapon.Id != Weapon.None ? $"weap{(int)player.Weapon.Id}" : "hunter-rank",
                 SmallImageText = smallKeyText
             })
             .WithParty(new Party()
