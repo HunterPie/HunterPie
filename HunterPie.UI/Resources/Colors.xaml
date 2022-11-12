@@ -169,4 +169,13 @@
         <GradientStop Color="#FFA52F2F" Offset="0"/>
     </LinearGradientBrush>
 
+    <Color x:Key="WIDGET_SHARPNESS_BROKEN">#000000</Color>
+    <Color x:Key="WIDGET_SHARPNESS_RED">#D13232</Color>
+    <Color x:Key="WIDGET_SHARPNESS_ORANGE">#F78B00</Color>
+    <Color x:Key="WIDGET_SHARPNESS_YELLOW">#F7E024</Color>
+    <Color x:Key="WIDGET_SHARPNESS_GREEN">#5BF77F</Color>
+    <Color x:Key="WIDGET_SHARPNESS_BLUE">#49B2E3</Color>
+    <Color x:Key="WIDGET_SHARPNESS_WHITE">#EAF5F4</Color>
+    <Color x:Key="WIDGET_SHARPNESS_PURPLE">#9120FF</Color>
+    
 </ResourceDictionary>

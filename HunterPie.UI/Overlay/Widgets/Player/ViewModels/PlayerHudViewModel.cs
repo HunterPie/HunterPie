@@ -47,4 +47,6 @@ public class PlayerHudViewModel : ViewModel
 
     private AbnormalityCategory _abnormalityCategory;
     public AbnormalityCategory AbnormalityCategory { get => _abnormalityCategory; set => SetValue(ref _abnormalityCategory, value); }
+
+    public WeaponSharpnessViewModel SharpnessViewModel { get; } = new();
 }

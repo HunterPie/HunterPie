@@ -1,22 +1,23 @@
-﻿namespace HunterPie.Features.Debug;
+﻿using System;
+using System.Linq;
+
+namespace HunterPie.Features.Debug;
 
 internal static class DebugWidgets
 {
-    private static readonly IWidgetMocker[] mockers = new IWidgetMocker[]
+    private static readonly Lazy<IWidgetMocker[]> mockers = new(() =>
     {
-        new MonsterWidgetMocker(),
-        new AbnormalityWidgetMocker(),
-        new ActivitiesWidgetMocker(),
-        new DamageWidgetMocker(),
-        new WirebugWidgetMocker(),
-        new ChatWidgetMocker(),
-        new SpecializedToolWidgetMocker(),
-        new PlayerHudWidgetMocker(),
-    };
+        return AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(asm => asm.GetTypes())
+            .Where(types => typeof(IWidgetMocker).IsAssignableFrom(types) && !types.IsInterface)
+            .Select(type => Activator.CreateInstance(type))
+            .Cast<IWidgetMocker>()
+            .ToArray();
+    });
 
     public static void MockIfNeeded()
     {
-        foreach (IWidgetMocker mocker in mockers)
+        foreach (IWidgetMocker mocker in mockers.Value)
             mocker.Mock();
     }
 }

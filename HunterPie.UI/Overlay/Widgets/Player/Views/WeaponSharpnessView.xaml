@@ -4,50 +4,99 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.Views"
+             xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.ViewModels"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:effects="clr-namespace:HunterPie.UI.Architecture.Effects"
              mc:Ignorable="d" 
-             d:DesignHeight="40" 
-             d:DesignWidth="100">
+             d:DesignHeight="40"
+             d:DataContext="{d:DesignInstance vm:WeaponSharpnessViewModel}">
+    <UserControl.Resources>
+        <converters:SharpnessToColorConverter x:Key="SharpnessToColorConverter"/>
+        <converters:SharpnessToPreviousColorConverter x:Key="SharpnessToPreviousColorConverter"/>
+        <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
+        
+        <sys:Boolean x:Key="ConvertToBrush">True</sys:Boolean>
+    </UserControl.Resources>
     <Grid>
-        <Image Source="{StaticResource PLAYER_WEAPON_SHARPNESS_GAUGE}"
-               VerticalAlignment="Center"
-               Stretch="Uniform">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="120"/>
+        </Grid.ColumnDefinitions>
+
+        <Rectangle Fill="{StaticResource GRAY_300}"
+                   Width="94"
+                   Height="13"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Margin="19,0,0,0"
+                   RadiusX="1"
+                   RadiusY="1"
+                   Grid.Column="1">
+            <Rectangle.RenderTransform>
+                <SkewTransform AngleX="-30"/>
+            </Rectangle.RenderTransform>
+            <Rectangle.Effect>
+                <effects:AlligatorShaderEffect Ratio="1"/>
+            </Rectangle.Effect>
+        </Rectangle>
+
+        <!-- Current blade -->
+        <Rectangle d:Fill="White"
+                   Fill="{Binding SharpnessLevel, Mode=OneWay, Converter={StaticResource SharpnessToColorConverter}, ConverterParameter={StaticResource ConvertToBrush}}"
+                   d:Width="94"
+                   MaxWidth="94"
+                   Height="13"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Margin="19,0,0,0"
+                   RadiusX="1"
+                   RadiusY="1"
+                   Grid.Column="1">
+            <Rectangle.RenderTransform>
+                <SkewTransform AngleX="-30"/>
+            </Rectangle.RenderTransform>
+            <Rectangle.Effect>
+                <effects:AlligatorShaderEffect Ratio="1"/>
+            </Rectangle.Effect>
+            <Rectangle.Width>
+                <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
+                    <Binding Path="Sharpness"
+                             Mode="OneWay"/>
+                    <Binding Path="MaxSharpness"
+                             Mode="OneWay"/>
+                    <Binding Path="MaxWidth"
+                             Mode="OneWay"
+                             RelativeSource="{RelativeSource Self}"/>
+                </MultiBinding>
+            </Rectangle.Width>
+        </Rectangle>
+        
+        <Image Source="{StaticResource PLAYER_WEAPON_SHARPNESS_GAUGE_V2}"
+               Height="25"
+               Stretch="Fill"
+               Grid.Column="1">
             <Image.Effect>
-                <DropShadowEffect Color="White"
+                <DropShadowEffect Color="Black"
                                   ShadowDepth="0"
-                                  BlurRadius="6"/>
+                                  BlurRadius="10"
+                                  Opacity="0.3"/>
             </Image.Effect>
         </Image>
 
-        <!-- Next blade -->
-        <Rectangle Fill="#f0deff"
-                   Width="63"
-                   Height="24"
+        <TextBlock Grid.Column="0"
+                   d:Text="50"
+                   Text="{Binding Sharpness, Mode=OneWay}"
+                   Foreground="{Binding SharpnessLevel, Mode=OneWay, Converter={StaticResource SharpnessToColorConverter}, ConverterParameter={StaticResource ConvertToBrush}}"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Left"
-                   Margin="35,1.5,0,0">
-            <Rectangle.OpacityMask>
-                <ImageBrush ImageSource="{StaticResource PLAYER_WEAPON_SHARPNESS_BLADE}"
-                            Stretch="Fill"  
-                            ViewportUnits="Absolute" 
-                            Viewbox="0,0,1,1"
-                            Viewport="0,0,63,24"/>
-            </Rectangle.OpacityMask>
-        </Rectangle>
-        
-        <!-- Current blade -->
-        <Rectangle Fill="White"
-                   Width="63"
-                   Height="24"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Left"
-                   Margin="35,1.5,0,0">
-            <Rectangle.OpacityMask>
-                <ImageBrush ImageSource="{StaticResource PLAYER_WEAPON_SHARPNESS_BLADE}"
-                            Stretch="Fill"  
-                            ViewportUnits="Absolute" 
-                            Viewbox="0,0,1,1"
-                            Viewport="0,0,63,24"/>
-            </Rectangle.OpacityMask>
-        </Rectangle>
+                   FontSize="15"
+                   FontWeight="Medium"
+                   d:Foreground="White">
+            <TextBlock.Effect>
+                <DropShadowEffect Color="Black"
+                                  ShadowDepth="0"
+                                  BlurRadius="10"/>
+            </TextBlock.Effect>
+        </TextBlock>
     </Grid>
 </UserControl>

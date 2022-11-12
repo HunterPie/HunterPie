@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+using Converter = System.Convert;
 
 namespace HunterPie.UI.Architecture.Converters;
 public class PercentageToRelativeSizeConverter : IMultiValueConverter
@@ -10,9 +11,9 @@ public class PercentageToRelativeSizeConverter : IMultiValueConverter
         if (values.Length < 3)
             throw new ArgumentException("there must be 3 double values");
 
-        double current = (double)values[0];
-        double max = Math.Max(1, (double)values[1]);
-        double relativeSize = (double)values[2];
+        double current = Converter.ToDouble(values[0]); ;
+        double max = Math.Max(1, Converter.ToDouble(values[1]));
+        double relativeSize = Converter.ToDouble(values[2]);
 
         return current / max * relativeSize;
     }

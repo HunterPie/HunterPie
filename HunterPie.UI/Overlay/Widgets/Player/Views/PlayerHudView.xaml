@@ -10,6 +10,7 @@
            xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.ViewModels"
            xmlns:animations="clr-namespace:HunterPie.UI.Architecture.Animation"
            xmlns:enums="clr-namespace:HunterPie.Core.Game.Enums;assembly=HunterPie.Core"
+           xmlns:effects="clr-namespace:HunterPie.UI.Architecture.Effects"
            x:TypeArguments="viewmodels:PlayerHudViewModel"
            d:DataContext="{d:DesignInstance Type=viewmodels:PlayerHudViewModel}"
            mc:Ignorable="d"
@@ -145,7 +146,7 @@
             <overlay:Bar Background="Transparent"
                          Height="15"
                          d:MaxValue="150"
-                         d:Value="30"
+                         d:Value="150"
                          MaxValue="{Binding MaxHealth, Mode=OneWay}"
                          Value="{Binding Health, Mode=OneWay}"
                          BorderThickness="2" 
@@ -340,9 +341,7 @@
                     </LinearGradientBrush>
                 </Rectangle.Stroke>
                 <Rectangle.Effect>
-                    <DropShadowEffect Color="#FF7B8795" 
-                                      ShadowDepth="0" 
-                                      BlurRadius="20"/>
+                    <effects:AlligatorShaderEffect Ratio="2"/>
                 </Rectangle.Effect>
                 <Rectangle.RenderTransform>
                     <TransformGroup>
@@ -369,11 +368,11 @@
         <!-- Weapon info -->
         <local:WeaponSharpnessView HorizontalAlignment="Left"
                                    Height="40"
-                                   Width="100"
                                    VerticalAlignment="Bottom"
                                    Grid.Column="1"
                                    Grid.Row="1"
                                    Margin="0,25,0,0"
-                                   Visibility="{Binding Weapon, Mode=OneWay, Converter={StaticResource WeaponToMeleeVisibility}}"/>
+                                   Visibility="{Binding ViewModel.Weapon, Mode=OneWay, Converter={StaticResource WeaponToMeleeVisibility}, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerHudView}}}"
+                                   DataContext="{Binding SharpnessViewModel, Mode=OneTime}"/>
     </Grid>
 </arch:View>
