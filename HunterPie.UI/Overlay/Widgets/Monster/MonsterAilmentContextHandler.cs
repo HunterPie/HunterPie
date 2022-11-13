@@ -17,11 +17,6 @@ public class MonsterAilmentContextHandler : MonsterAilmentViewModel
         HookEvents();
     }
 
-    ~MonsterAilmentContextHandler()
-    {
-        UnhookEvents();
-    }
-
     private void HookEvents()
     {
         Context.OnTimerUpdate += OnTimerUpdate;
@@ -64,5 +59,11 @@ public class MonsterAilmentContextHandler : MonsterAilmentViewModel
         Buildup = Context.BuildUp;
         MaxTimer = Context.MaxTimer;
         Timer = Context.Timer;
+    }
+
+    public override void Dispose()
+    {
+        UnhookEvents();
+        base.Dispose();
     }
 }
