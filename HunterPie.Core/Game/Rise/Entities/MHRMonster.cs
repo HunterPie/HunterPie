@@ -275,7 +275,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
         }
 
         MonsterDataSchema? data = MonsterData.GetMonsterData(Id);
-        if (data.HasValue && MonsterData.GetMonsterData(Id).Capture == 0)
+        if (data.HasValue && data.Value.Capture == 0)
         {
             CaptureThreshold = 0.0f;
             return;
