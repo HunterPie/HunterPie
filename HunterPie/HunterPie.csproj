@@ -12,10 +12,11 @@
     <Authors>Haato</Authors>
     <Version>1.0.0</Version>
     <DebugType>full</DebugType>
-    <SignAssembly>False</SignAssembly>
+    <SignAssembly>True</SignAssembly>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Nullable>disable</Nullable>
     <LangVersion>10.0</LangVersion>
+    <DelaySign>False</DelaySign>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -55,10 +56,6 @@
     <ProjectReference Include="..\HunterPie.Core\HunterPie.Core.csproj" />
     <ProjectReference Include="..\HunterPie.Native\HunterPie.Native.vcxproj" />
     <ProjectReference Include="..\HunterPie.UI\HunterPie.UI.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Languages\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -176,43 +173,10 @@
     <None Update="Game\World\Data\MonsterData.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Languages\de-de.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Languages\en-us.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Languages\es-mx.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Languages\fr-fr.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Languages\it-it.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Languages\ja-jp.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Languages\jp-jp.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Languages\ko-kr.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Languages\ru-ru.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Languages\zh-cn.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Languages\zh-tw.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="del &quot;$(TargetDir)*.pdb&quot; /q&#xD;&#xA;del &quot;$(TargetDir)\ref&quot; /q&#xD;&#xA;rmdir &quot;$(TargetDir)\ref&quot;&#xD;&#xA;del &quot;$(TargetDir)*.dev.json&quot; /q" />
+    <Exec Command="copy /b /y &quot;$(SolutionDir)Localization\localization\*.xml&quot; &quot;$(TargetDir)Languages&quot;&#xD;&#xA;del &quot;$(TargetDir)*.pdb&quot; /q&#xD;&#xA;del &quot;$(TargetDir)ref&quot; /q&#xD;&#xA;rmdir &quot;$(TargetDir)ref&quot;&#xD;&#xA;del &quot;$(TargetDir)*.dev.json&quot; /q&#xD;&#xA;echo &quot;Post-build event executed&quot;" />
   </Target>
 
   <ProjectExtensions><VisualStudio><UserProperties BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_BuildVersioningStyle="None.None.None.Increment" BuildVersion_DetectChanges="False" BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" /></VisualStudio></ProjectExtensions>
