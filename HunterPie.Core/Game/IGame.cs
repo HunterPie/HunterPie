@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Environment;
+using HunterPie.Core.Game.Events;
 using System;
 using System.Collections.Generic;
 
@@ -9,6 +10,7 @@ public interface IGame : IDisposable
 {
 
     public IPlayer Player { get; }
+    public IAbnormalityCategorizationService AbnormalityCategorizationService { get; }
     public List<IMonster> Monsters { get; }
 
     public IChat Chat { get; }

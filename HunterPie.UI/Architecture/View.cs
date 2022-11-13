@@ -4,13 +4,16 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace HunterPie.UI.Architecture;
 
-public class View<TViewModel> : UserControl
+public class View<TViewModel> : UserControl, IDisposable
     where TViewModel : Bindable
 {
     public TViewModel ViewModel => (TViewModel)DataContext;
+
+    public Dispatcher UIThread => Application.Current.Dispatcher;
 
     protected virtual TViewModel InitializeViewModel(params object[] args)
     {
@@ -55,7 +58,11 @@ public class View<TViewModel> : UserControl
             vm.Dispose();
 
         Unloaded -= OnViewUnloaded;
+
+        Dispose();
     }
 
     protected virtual void Initialize() { }
+
+    public virtual void Dispose() { }
 }

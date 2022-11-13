@@ -12,9 +12,15 @@
  </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Architecture\Shaders\noise.ps" />
+    <None Remove="Assets\Textures\alligator_noise_512x512.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Remove="Resources\Abnormalities.xaml" />
     <Page Remove="Resources\Colors.xaml" />
     <Page Remove="Resources\Icons.xaml" />
+    <Page Remove="Resources\Interface.xaml" />
     <Page Remove="Resources\Styles.xaml" />
   </ItemGroup>
 
@@ -27,6 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Architecture\Shaders\noise.ps" />
+    <Resource Include="Assets\Textures\alligator_noise_512x512.jpg" />
     <Resource Include="Resources\Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Resource>
@@ -35,6 +43,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Resource>
     <Resource Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="Resources\Interface.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Resource>
     <Resource Include="Resources\Styles.xaml">
@@ -652,6 +663,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Overlay\Widgets\Player\Model\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 

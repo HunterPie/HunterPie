@@ -70,7 +70,7 @@ public partial class Bar : UserControl
     {
         var owner = d as Bar;
 
-        if ((double)e.NewValue == 0.0 || owner.MaxValue == 0.0)
+        if (owner.MaxValue == 0.0)
             return;
 
         double oldValue = (owner.ActualWidth * ((double)e.OldValue / owner.MaxValue)) - 4;

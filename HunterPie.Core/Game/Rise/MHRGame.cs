@@ -6,6 +6,8 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Environment;
+using HunterPie.Core.Game.Events;
+using HunterPie.Core.Game.Rise.Data;
 using HunterPie.Core.Game.Rise.Definitions;
 using HunterPie.Core.Game.Rise.Entities;
 using HunterPie.Core.Game.Rise.Entities.Chat;
@@ -96,6 +98,8 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
             }
         }
     }
+
+    public IAbnormalityCategorizationService AbnormalityCategorizationService { get; } = new MHRAbnormalityCategorizationService();
 
     public event EventHandler<IMonster> OnMonsterSpawn;
     public event EventHandler<IMonster> OnMonsterDespawn;

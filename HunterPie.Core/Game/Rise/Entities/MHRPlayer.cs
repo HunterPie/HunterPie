@@ -7,16 +7,20 @@ using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Rise.Definitions;
 using HunterPie.Core.Game.Rise.Entities.Activities;
 using HunterPie.Core.Game.Rise.Entities.Party;
+using HunterPie.Core.Game.Rise.Entities.Weapons;
 using HunterPie.Core.Game.Rise.Utils;
+using HunterPie.Core.Game.Utils;
 using HunterPie.Core.Native.IPC.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using WeaponType = HunterPie.Core.Game.Enums.Weapon;
 
 namespace HunterPie.Core.Game.Rise.Entities;
 
@@ -26,11 +30,23 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     private int SaveSlotId;
     private string _name;
     private int _stageId = -1;
-    private Weapon _weaponId;
     private readonly Dictionary<string, IAbnormality> abnormalities = new();
     private readonly MHRParty _party = new();
     private MHRStageStructure _stageData = new();
     private MHRStageStructure _lastStageData = new();
+    private double _stamina;
+    private double _maxStamina;
+    private double _maxRecoverableStamina;
+    private double _maxPossibleStamina;
+    private double _health;
+    private double _maxHealth;
+    private double _recoverableHealth;
+    private double _maxPossibleHealth;
+    private double _heal;
+    private int _highRank;
+    private int _masterRank;
+    private IWeapon _weapon;
+    private Weapon _weaponId = WeaponType.None;
     #endregion
 
     public string Name
@@ -50,9 +66,31 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         }
     }
 
-    public int HighRank { get; private set; }
+    public int HighRank
+    {
+        get => _highRank;
+        private set
+        {
+            if (value != _highRank)
+            {
+                _highRank = value;
+                this.Dispatch(OnLevelChange, new LevelChangeEventArgs(this));
+            }
+        }
+    }
 
-    public int MasterRank { get; private set; }
+    public int MasterRank
+    {
+        get => _masterRank;
+        private set
+        {
+            if (value != _masterRank)
+            {
+                _masterRank = value;
+                this.Dispatch(OnLevelChange, new LevelChangeEventArgs(this));
+            }
+        }
+    }
 
     public int StageId
     {
@@ -75,19 +113,6 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         }
     }
 
-    public Weapon WeaponId
-    {
-        get => _weaponId;
-        private set
-        {
-            if (value != _weaponId)
-            {
-                _weaponId = value;
-                this.Dispatch(OnWeaponChange);
-            }
-        }
-    }
-
     public bool InHuntingZone => _stageData.IsHuntingZone() || StageId == 5;
 
     public IParty Party => _party;
@@ -102,22 +127,158 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
 
     public MHRCohoot Cohoot { get; } = new();
 
+    public double Stamina
+    {
+        get => _stamina;
+        private set
+        {
+            if (value != _stamina)
+            {
+                _stamina = value;
+                this.Dispatch(OnStaminaChange, new StaminaChangeEventArgs(this));
+            }
+        }
+    }
+
+    public double MaxStamina
+    {
+        get => _maxStamina;
+        private set
+        {
+            if (value != _maxStamina)
+            {
+                _maxStamina = value;
+                this.Dispatch(OnStaminaChange, new StaminaChangeEventArgs(this));
+            }
+        }
+    }
+
+    public double MaxRecoverableStamina
+    {
+        get => _maxRecoverableStamina;
+        private set
+        {
+            if (value != _maxRecoverableStamina)
+            {
+                _maxRecoverableStamina = value;
+                this.Dispatch(OnStaminaChange, new StaminaChangeEventArgs(this));
+            }
+        }
+    }
+
+    public double MaxPossibleStamina
+    {
+        get => _maxPossibleStamina;
+        private set
+        {
+            if (value != _maxPossibleStamina)
+            {
+                _maxPossibleStamina = value;
+                this.Dispatch(OnStaminaChange, new StaminaChangeEventArgs(this));
+            }
+        }
+    }
+
+    public double Health
+    {
+        get => _health;
+        private set
+        {
+            if (value != _health)
+            {
+                _health = value;
+                this.Dispatch(OnHealthChange, new HealthChangeEventArgs(this));
+            }
+        }
+    }
+
+    public double MaxHealth
+    {
+        get => _maxHealth;
+        private set
+        {
+            if (value != _maxHealth)
+            {
+                _maxHealth = value;
+                this.Dispatch(OnHealthChange, new HealthChangeEventArgs(this));
+            }
+        }
+    }
+
+    public double RecoverableHealth
+    {
+        get => _recoverableHealth;
+        private set
+        {
+            if (value != _recoverableHealth)
+            {
+                _recoverableHealth = value;
+                this.Dispatch(OnHealthChange, new HealthChangeEventArgs(this));
+            }
+        }
+    }
+
+    public double MaxPossibleHealth
+    {
+        get => _maxPossibleHealth;
+        private set
+        {
+            if (value != _maxPossibleHealth)
+            {
+                _maxPossibleHealth = value;
+                this.Dispatch(OnHealthChange, new HealthChangeEventArgs(this));
+            }
+        }
+    }
+
+    public double Heal
+    {
+        get => _heal;
+        private set
+        {
+            if (value != _heal)
+            {
+                _heal = value;
+                this.Dispatch(OnHeal, new HealthChangeEventArgs(this));
+            }
+        }
+    }
+
+    public IWeapon Weapon
+    {
+        get => _weapon;
+        private set
+        {
+            if (value != _weapon)
+            {
+                IWeapon lastWeapon = _weapon;
+                _weapon = value;
+                this.Dispatch(OnWeaponChange, new WeaponChangeEventArgs(lastWeapon, _weapon));
+            }
+        }
+    }
+
     public event EventHandler<EventArgs> OnLogin;
     public event EventHandler<EventArgs> OnLogout;
-    public event EventHandler<EventArgs> OnHealthUpdate;
-    public event EventHandler<EventArgs> OnStaminaUpdate;
     public event EventHandler<EventArgs> OnDeath;
     public event EventHandler<EventArgs> OnActionUpdate;
     public event EventHandler<EventArgs> OnStageUpdate;
     public event EventHandler<EventArgs> OnVillageEnter;
     public event EventHandler<EventArgs> OnVillageLeave;
     public event EventHandler<EventArgs> OnAilmentUpdate;
-    public event EventHandler<EventArgs> OnWeaponChange;
+    public event EventHandler<WeaponChangeEventArgs> OnWeaponChange;
     public event EventHandler<IAbnormality> OnAbnormalityStart;
     public event EventHandler<IAbnormality> OnAbnormalityEnd;
     public event EventHandler<MHRWirebug[]> OnWirebugsRefresh;
+    public event EventHandler<HealthChangeEventArgs> OnHealthChange;
+    public event EventHandler<StaminaChangeEventArgs> OnStaminaChange;
+    public event EventHandler<LevelChangeEventArgs> OnLevelChange;
+    public event EventHandler<HealthChangeEventArgs> OnHeal;
 
-    public MHRPlayer(IProcessManager process) : base(process) { }
+    public MHRPlayer(IProcessManager process) : base(process)
+    {
+        _weapon = new MHRMeleeWeapon(process, WeaponType.Greatsword);
+    }
 
     // TODO: Add DTOs for middlewares
 
@@ -230,7 +391,44 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
 
         int weaponId = _process.Memory.Read<int>(weaponIdPtr + 0x8C);
 
-        WeaponId = weaponId.ToWeaponId();
+        WeaponType weapon = weaponId.ToWeaponId();
+
+        if (weapon == _weaponId)
+            return;
+
+        if (Weapon is Scannable scannable)
+            ScanManager.Remove(scannable);
+
+        IWeapon? weaponInstance = null;
+        if (weapon.IsMelee())
+        {
+            var meleeWeapon = new MHRMeleeWeapon(_process, weapon);
+            weaponInstance = meleeWeapon;
+
+            ScanManager.Add(meleeWeapon);
+        }
+        else
+        {
+            switch (weapon)
+            {
+                case WeaponType.Bow:
+                    weaponInstance = new MHRBow();
+                    break;
+                case WeaponType.HeavyBowgun:
+                    weaponInstance = new MHRHeavyBowgun();
+                    break;
+                case WeaponType.LightBowgun:
+                    weaponInstance = new MHRLightBowgun();
+                    break;
+                case WeaponType.None:
+                    return;
+            }
+        }
+
+        if (weaponInstance is not null)
+            Weapon = weaponInstance;
+
+        _weaponId = weapon;
     }
 
     [ScannableMethod]
@@ -383,7 +581,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
                 Name = Name,
                 HighRank = HighRank,
                 MasterRank = MasterRank,
-                WeaponId = WeaponId,
+                WeaponId = _weaponId,
                 IsMyself = true
             });
             return;
@@ -436,6 +634,39 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         DerefSongBuffs(songBuffPtrs);
     }
 
+    [ScannableMethod]
+    private void GetPlayerStatus()
+    {
+        if (!InHuntingZone)
+            return;
+
+        long playerHudPtr = _process.Memory.Read(
+            AddressMap.GetAbsolute("UI_ADDRESS"),
+            AddressMap.Get<int[]>("PLAYER_HUD_OFFSETS")
+        );
+
+        if (playerHudPtr.IsNullPointer())
+            return;
+
+        MHRPlayerHudStructure playerHud = _process.Memory.Read<MHRPlayerHudStructure>(playerHudPtr);
+
+        MHRPetalaceStatsStructure? petalace = GetEquippedPetalaceStats();
+
+        if (petalace is null)
+            return;
+
+        MaxHealth = playerHud.MaxHealth;
+        Health = playerHud.Health;
+        RecoverableHealth = playerHud.RecoverableHealth;
+        MaxPossibleHealth = petalace.Value.CalculateMaxPlayerHealth();
+        Heal = playerHud.Heal;
+
+        MaxStamina = playerHud.MaxStamina;
+        Stamina = playerHud.Stamina;
+        MaxRecoverableStamina = playerHud.MaxExtendableStamina;
+        MaxPossibleStamina = petalace.Value.CalculateMaxPlayerStamina();
+    }
+
     [ScannableMethod(typeof(MHRWirebugData))]
     private void GetPlayerWirebugs()
     {
@@ -444,7 +675,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             AddressMap.Get<int[]>("WIREBUG_DATA_OFFSETS")
         );
 
-        if (wirebugsArrayPtr == 0)
+        if (wirebugsArrayPtr.IsNullPointer())
         {
             this.Dispatch(OnWirebugsRefresh, Array.Empty<MHRWirebug>());
             return;
@@ -703,6 +934,33 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             abnorm.Update(newData);
             this.Dispatch(OnAbnormalityStart, (IAbnormality)abnorm);
         }
+    }
+
+    private MHRPetalaceStatsStructure? GetEquippedPetalaceStats()
+    {
+        long petalaceArray = _process.Memory.Read(
+            AddressMap.GetAbsolute("GEAR_ADDRESS"),
+            AddressMap.Get<int[]>("PETALACES_ARRAY_OFFSETS")
+        );
+
+        if (petalaceArray == 0)
+            return null;
+
+        int selectedPetalaceId = _process.Memory.Deref<int>(
+            AddressMap.GetAbsolute("PLAYER_GEAR_ADDRESS"),
+            AddressMap.Get<int[]>("SELECTED_PETALACE_OFFSETS")
+        ) & 0x0000FFFF;
+
+        uint petalaceArrayLength = _process.Memory.Read<uint>(petalaceArray + 0x1C);
+        long[] petalacePtrs = _process.Memory.Read<long>(petalaceArray + 0x20, petalaceArrayLength);
+
+        MHRPetalaceStructure structure = _process.Memory.Read<MHRPetalaceStructure>(
+            petalacePtrs[selectedPetalaceId % petalacePtrs.Length]
+        );
+
+        MHRPetalaceDataStructure data = _process.Memory.Read<MHRPetalaceDataStructure>(structure.Data);
+
+        return _process.Memory.Read<MHRPetalaceStatsStructure>(data.Stats);
     }
 
     internal void UpdatePartyMembersDamage(EntityDamageData[] entities)

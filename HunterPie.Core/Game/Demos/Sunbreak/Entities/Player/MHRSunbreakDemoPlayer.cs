@@ -6,7 +6,7 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
-using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Rise.Definitions;
 using HunterPie.Core.Game.Rise.Entities;
 using System;
@@ -47,13 +47,33 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
 
     public bool InHuntingZone { get; private set; }
 
-    public Weapon WeaponId { get; private set; }
-
     public IParty Party { get; private set; }
 
     public IReadOnlyCollection<IAbnormality> Abnormalities => abnormalities.Values;
 
     public int MasterRank { get; private set; }
+
+    public double Stamina { get; private set; }
+
+    public double MaxStamina { get; private set; }
+
+    public double MaxRecoverableStamina { get; private set; }
+
+    public double MaxPossibleStamina { get; private set; }
+
+    public double Health { get; private set; }
+
+    public double MaxHealth { get; private set; }
+
+    public double MaxExtendableHealth { get; private set; }
+
+    public double MaxPossibleHealth { get; private set; }
+
+    public double RecoverableHealth { get; private set; }
+
+    public double Heal { get; private set; }
+
+    public IWeapon Weapon { get; private set; }
 
     public event EventHandler<EventArgs> OnLogin;
     public event EventHandler<EventArgs> OnLogout;
@@ -65,9 +85,13 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
     public event EventHandler<EventArgs> OnVillageEnter;
     public event EventHandler<EventArgs> OnVillageLeave;
     public event EventHandler<EventArgs> OnAilmentUpdate;
-    public event EventHandler<EventArgs> OnWeaponChange;
+    public event EventHandler<WeaponChangeEventArgs> OnWeaponChange;
     public event EventHandler<IAbnormality> OnAbnormalityStart;
     public event EventHandler<IAbnormality> OnAbnormalityEnd;
+    public event EventHandler<HealthChangeEventArgs> OnHealthChange;
+    public event EventHandler<StaminaChangeEventArgs> OnStaminaChange;
+    public event EventHandler<LevelChangeEventArgs> OnLevelChange;
+    public event EventHandler<HealthChangeEventArgs> OnHeal;
 
     public MHRSunbreakDemoPlayer(IProcessManager process) : base(process) { }
 

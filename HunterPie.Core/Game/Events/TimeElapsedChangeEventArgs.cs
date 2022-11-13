@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HunterPie.Core.Game;
+namespace HunterPie.Core.Game.Events;
 
 public class TimeElapsedChangeEventArgs : EventArgs
 {

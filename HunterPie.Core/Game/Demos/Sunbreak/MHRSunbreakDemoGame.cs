@@ -7,6 +7,7 @@ using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Demos.Sunbreak.Entities.Monster;
 using HunterPie.Core.Game.Demos.Sunbreak.Entities.Player;
 using HunterPie.Core.Game.Environment;
+using HunterPie.Core.Game.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,8 @@ public class MHRSunbreakDemoGame : Scannable, IGame, IEventDispatcher
 
     public int MaxDeaths => throw new NotImplementedException();
     public int Deaths => throw new NotImplementedException();
+
+    public IAbnormalityCategorizationService AbnormalityCategorizationService => throw new NotImplementedException();
 
     private readonly Dictionary<long, IMonster> monsters = new();
 

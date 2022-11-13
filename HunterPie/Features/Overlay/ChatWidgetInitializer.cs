@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Rise;
 using HunterPie.Core.System;
@@ -14,7 +15,7 @@ internal class ChatWidgetInitializer : IWidgetInitializer
 
     public void Load(Context context)
     {
-        Core.Client.Configuration.OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
+        OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
 
         if (!config.ChatWidget.Initialize)
             return;
