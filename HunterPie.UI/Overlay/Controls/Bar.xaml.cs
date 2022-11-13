@@ -12,6 +12,8 @@ namespace HunterPie.UI.Overlay.Controls;
 public partial class Bar : UserControl
 {
 
+    private readonly DoubleAnimation _cachedAnimation = new DoubleAnimation() { EasingFunction = new QuadraticEase(), Duration = new Duration(TimeSpan.FromMilliseconds(200)) };
+
     public double ActualValueDelayed
     {
         get => (double)GetValue(ActualValueDelayedProperty);
@@ -73,24 +75,15 @@ public partial class Bar : UserControl
         if (owner.MaxValue == 0.0)
             return;
 
-        double oldValue = (owner.ActualWidth * ((double)e.OldValue / owner.MaxValue)) - 4;
         double newValue = (owner.ActualWidth * ((double)e.NewValue / owner.MaxValue)) - 4;
 
-        oldValue = Math.Max(1.0, oldValue);
         newValue = Math.Max(1.0, newValue);
 
-        var smoothAnimation = new DoubleAnimation(oldValue, newValue, new TimeSpan(0, 0, 0, 0, 150))
-        {
-            EasingFunction = new QuadraticEase(),
-        };
-        owner.BeginAnimation(Bar.ActualValueProperty, smoothAnimation, HandoffBehavior.Compose);
+        DoubleAnimation animation = owner._cachedAnimation;
+        animation.From = owner.ActualValue;
+        animation.To = newValue;
 
-        var smoothDelayedAnimation = new DoubleAnimation(oldValue, newValue, new TimeSpan(0, 0, 0, 0, 150))
-        {
-            BeginTime = new TimeSpan(0, 0, 0, 0, 500),
-            EasingFunction = new QuadraticEase(),
-        };
-        owner.BeginAnimation(Bar.ActualValueDelayedProperty, smoothDelayedAnimation, HandoffBehavior.Compose);
+        owner.BeginAnimation(Bar.ActualValueProperty, animation, HandoffBehavior.Compose);
     }
 
     private void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -109,6 +102,5 @@ public partial class Bar : UserControl
         var smoothAnimation = new DoubleAnimation(value, value, new TimeSpan(0, 0, 0, 0, 50));
 
         BeginAnimation(Bar.ActualValueProperty, smoothAnimation, HandoffBehavior.Compose);
-        BeginAnimation(Bar.ActualValueDelayedProperty, smoothAnimation, HandoffBehavior.Compose);
     }
 }
