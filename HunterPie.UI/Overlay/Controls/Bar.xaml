@@ -15,12 +15,15 @@
     <Border BorderBrush="#FF181A1B">
         <Grid ClipToBounds="True">
             <Rectangle Fill="{Binding Background, RelativeSource={RelativeSource AncestorType={x:Type local:Bar}}}"/>
-            <Rectangle HorizontalAlignment="Left"
-                       Width="{Binding ActualValueDelayed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Bar}}}"
-                       Fill="{Binding ForegroundDelayed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Bar}}}"/>
             <Rectangle Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Bar}}}"
                        HorizontalAlignment="Left"
-                       Width="{Binding ActualValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Bar}}}"/>
+                       Width="{Binding ActualValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Bar}}}">
+                <Rectangle.CacheMode>
+                    <BitmapCache EnableClearType="False"
+                                 RenderAtScale="0.7"
+                                 SnapsToDevicePixels="False"/>
+                </Rectangle.CacheMode>
+            </Rectangle>
 
             <!-- 10% Markers -->
             <Grid Opacity="0.5"
@@ -62,7 +65,6 @@
                       Stroke="{StaticResource HUNTERPIE_BACKGROUND_PRIMARY}"
                       StrokeThickness="1.5"/>
             </Grid>
-            
         </Grid>
     </Border>
 </UserControl>
