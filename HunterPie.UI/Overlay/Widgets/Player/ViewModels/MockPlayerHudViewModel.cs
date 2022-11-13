@@ -31,7 +31,7 @@ public class MockPlayerHudViewModel : PlayerHudViewModel
     private void SetupSharpnessMocks()
     {
 
-        SharpnessViewModel.Sharpness = 25;
+        SharpnessViewModel.Sharpness = 50;
         SharpnessViewModel.MaxSharpness = 50;
 
         MockBehavior.Run(() => SharpnessViewModel.SharpnessLevel = (Sharpness)(((int)SharpnessViewModel.SharpnessLevel + 1) % 7), 2);

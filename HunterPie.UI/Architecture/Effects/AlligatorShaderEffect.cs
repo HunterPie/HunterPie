@@ -44,13 +44,13 @@ public class AlligatorShaderEffect : ShaderEffect
 
         var bitmap = new BitmapImage();
         bitmap.BeginInit();
-        bitmap.UriSource = new Uri("pack://application:,,,/HunterPie.UI;component/Assets/Textures/alligator_noise_64x64.jpg");
+        bitmap.UriSource = new Uri("pack://application:,,,/HunterPie.UI;component/Assets/Textures/alligator_noise_512x512.jpg");
         bitmap.EndInit();
 
         RandomInput = new ImageBrush(bitmap)
         {
             TileMode = TileMode.Tile,
-            Viewport = new Rect(0.0, 0.0, 512.0, 512.0),
+            Viewport = new Rect(0.0, 0.0, 1000, 1000.0),
             ViewportUnits = BrushMappingMode.Absolute
         };
 
