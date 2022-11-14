@@ -5,6 +5,7 @@ using HunterPie.Core.Domain.Features.Domain;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Features;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;
 
@@ -13,7 +14,7 @@ internal class FeatureFlagsInitializer : IInitializer
 
     public static readonly DefaultFeatureFlags Features = new();
 
-    public void Init()
+    public Task Init()
     {
         IFeatureFlagRepository localRepository = new LocalFeatureFlagRepository(Features.ReadOnlyFlags);
 
@@ -30,5 +31,7 @@ internal class FeatureFlagsInitializer : IInitializer
         }
 
         FeatureFlagManager.Initialize(localRepository);
+
+        return Task.CompletedTask;
     }
 }

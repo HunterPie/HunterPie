@@ -3,12 +3,13 @@ using HunterPie.Core.Domain.Features;
 using HunterPie.Core.Logger;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Internal.Logger;
+using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;
 
 internal class NativeLoggerInitializer : IInitializer
 {
-    public void Init()
+    public Task Init()
     {
         if (FeatureFlagManager.IsEnabled(FeatureFlags.FEATURE_NATIVE_LOGGER))
         {
@@ -17,5 +18,7 @@ internal class NativeLoggerInitializer : IInitializer
 
             Log.Info("Hello world! HunterPie stdout has been initialized!");
         }
+
+        return Task.CompletedTask;
     }
 }

@@ -43,7 +43,8 @@ public partial class App : Application
 
         base.OnStartup(e);
 
-        InitializerManager.Initialize();
+        await InitializerManager.Initialize();
+
         SetRenderingMode();
 
         await SelfUpdate();
@@ -126,7 +127,9 @@ public partial class App : Application
 
         _ = Dispatcher.InvokeAsync(WidgetInitializers.Unload);
         WidgetManager.Dispose();
+
         Log.Info("{0} has been closed", e.ProcessName);
+
         if (e.Process.HasExitedNormally == false
             && e.Process.Game == GameProcess.MonsterHunterWorld
             && ClientConfig.Config.Client.EnableNativeModule)

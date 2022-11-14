@@ -2,7 +2,9 @@
 using HunterPie.Core.Logger;
 using HunterPie.Domain.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
 
@@ -10,7 +12,7 @@ namespace HunterPie.Internal.Initializers;
 
 internal class CustomThemeInitializer : IInitializer
 {
-    public void Init()
+    public Task Init()
     {
         string themePath = Path.Combine(ClientInfo.ThemesPath, ClientConfig.Config.Client.Theme);
 
@@ -22,12 +24,14 @@ internal class CustomThemeInitializer : IInitializer
             ClientConfig.Config.Client.Theme.Current = "Default";
         }
 
-        System.Collections.Generic.IEnumerable<string> xamlFilesToLoad = Directory.EnumerateFiles(themePath, "*.xaml");
+        IEnumerable<string> xamlFilesToLoad = Directory.EnumerateFiles(themePath, "*.xaml");
 
         foreach (string file in xamlFilesToLoad)
             TryLoadingResource(file);
 
         Log.Info("Loaded theme {0}", ClientConfig.Config.Client.Theme.Current);
+
+        return Task.CompletedTask;
     }
 
     private void TryLoadingResource(string file)

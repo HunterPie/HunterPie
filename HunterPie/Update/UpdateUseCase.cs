@@ -24,6 +24,9 @@ internal static class UpdateUseCase
         UpdateService service = new();
         service.CleanupOldFiles();
 
+        vm.State = "Checking for new localization files...";
+        await service.UpdateLocalizationFiles();
+
         vm.State = "Checking for latest version...";
         Version latest = await service.GetLatestVersion();
 

@@ -33,6 +33,10 @@ public static class PoogieApi
 
     public static async Task<PoogieResponse> DownloadBackup(string backupId) => await Download($"{BACKUPS}/{backupId}");
 
+    public static async Task<PoogieResponse> DownloadVersion(string version) => await Download($"{VERSION_PATH}/{version}");
+
+    public static async Task<PoogieApiResult<LocalizationsResponse>?> GetLocalizationsChecksums() => await Get<LocalizationsResponse>($"{LOCALIZATIONS}/checksum");
+
     public static async Task<PoogieApiResult<BackupDeleteResponse>?> DeleteBackup(string backupId)
     {
         PoogieApiResult<BackupDeleteResponse>? result = await Delete<BackupDeleteResponse, object>($"{BACKUPS}/{backupId}", new());
@@ -60,6 +64,7 @@ public static class PoogieApi
     private const string AVATAR_UPLOAD = "/v1/user/avatar/upload";
     private const string PATCH_NOTES = "/v1/patch/notes";
     private const string SUPPORTER_HEADER = "X-Supporter-Token";
+    private const string LOCALIZATIONS = "/v1/localization";
     private const double DEFAULT_TIMEOUT = 20;
     private const int DEFAULT_RETRIES = 3;
     private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(DEFAULT_TIMEOUT);
