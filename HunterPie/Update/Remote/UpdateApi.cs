@@ -4,6 +4,7 @@ using HunterPie.Core.Client;
 using HunterPie.Core.Http;
 using HunterPie.Core.Http.Events;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -23,14 +24,7 @@ public class UpdateApi
 
     public async Task DownloadVersion(string version, EventHandler<PoogieDownloadEventArgs> callback)
     {
-
-        using Poogie request = PoogieFactory.Default()
-                                .Get($"/v1/version/{version}")
-                                .WithHeader("X-Supporter-Token", ClientConfig.Config.Client.SupporterSecretToken)
-                                .WithTimeout(TimeSpan.FromSeconds(10))
-                                .Build();
-
-        using PoogieResponse resp = await request.RequestAsync();
+        using PoogieResponse resp = await PoogieApi.DownloadVersion(version);
 
         if (!resp.Success)
             return;
@@ -41,5 +35,15 @@ public class UpdateApi
         resp.OnDownloadProgressChanged += callback;
         await resp.Download(ClientInfo.GetPathFor(@"temp/HunterPie.zip"));
         resp.OnDownloadProgressChanged -= callback;
+    }
+
+    public async Task<Dictionary<string, string>> GetLocalizationsChecksum()
+    {
+        PoogieApiResult<LocalizationsResponse> result = await PoogieApi.GetLocalizationsChecksums();
+
+        if (result.Response is null)
+            return new();
+
+        return result.Response.Localizations;
     }
 }

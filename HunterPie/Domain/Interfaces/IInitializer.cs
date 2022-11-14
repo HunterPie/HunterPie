@@ -1,6 +1,8 @@
-﻿namespace HunterPie.Domain.Interfaces;
+﻿using System.Threading.Tasks;
+
+namespace HunterPie.Domain.Interfaces;
 
 public interface IInitializer
 {
-    public void Init();
+    public Task Init();
 }
