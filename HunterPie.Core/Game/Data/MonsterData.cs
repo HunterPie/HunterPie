@@ -71,6 +71,7 @@ public class MonsterData
             {
                 Id = int.Parse(monster.Attributes["Id"].Value),
                 Capture = int.Parse(monster.Attributes["Capture"]?.Value ?? "0"),
+                IsNotCapturable = boolean.Parse(monster.Attributes["IsNotCapturable"]?.Value ?? "false"),
                 Size = sizeSchema,
                 Parts = partsArray,
                 Weaknesses = weaknesses
