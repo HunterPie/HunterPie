@@ -268,13 +268,26 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterCaptureThreshold()
     {
+        if (MonsterType == MonsterType.Qurio)
+        {
+            CaptureThreshold = 0.0f;
+            return;
+        }
+
+        MonsterDataSchema? data = MonsterData.GetMonsterData(Id);
+        if (data.HasValue && data.Value.IsNotCapturable == true)
+        {
+            CaptureThreshold = 0.0f;
+            return;
+        }
+
         long captureHealthPtr = _process.Memory.ReadPtr(
             _address,
             AddressMap.Get<int[]>("MONSTER_CAPTURE_HEALTH_THRESHOLD")
         );
         float captureHealth = _process.Memory.Read<float>(captureHealthPtr + 0x1C);
 
-        CaptureThreshold = MonsterType == MonsterType.Qurio ? 0.0f : captureHealth / MaxHealth;
+        CaptureThreshold = captureHealth / MaxHealth;
     }
 
     [ScannableMethod]
