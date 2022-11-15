@@ -99,7 +99,9 @@ public partial class Bar : UserControl
             return;
         }
 
-        var smoothAnimation = new DoubleAnimation(value, value, new TimeSpan(0, 0, 0, 0, 50));
+        DoubleAnimation smoothAnimation = _cachedAnimation;
+        smoothAnimation.From = value;
+        smoothAnimation.To = value;
 
         BeginAnimation(Bar.ActualValueProperty, smoothAnimation, HandoffBehavior.Compose);
     }

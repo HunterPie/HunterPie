@@ -332,7 +332,8 @@
             <StackPanel Orientation="Vertical"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Left"
-                        Visibility="{Binding CanBeCaptured, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Visibility="{Binding CanBeCaptured, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        d:Margin="200,30,0,0">
                 <Image Source="{StaticResource ICON_FUNNEL}"
                        Height="10"
                        Width="10"/>

@@ -24,6 +24,7 @@
         <enums:AbnormalityCategory x:Key="STATE_POISON">Poison</enums:AbnormalityCategory>
         
         <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
+        <converters:PercentageToLeftMargingDistanceConverter x:Key="PercentageToLeftMargingDistanceConverter"/>
         <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:WeaponToMeleeVisibility x:Key="WeaponToMeleeVisibility"/>
@@ -146,7 +147,7 @@
             <overlay:Bar Background="Transparent"
                          Height="15"
                          d:MaxValue="150"
-                         d:Value="150"
+                         d:Value="64"
                          MaxValue="{Binding MaxHealth, Mode=OneWay}"
                          Value="{Binding Health, Mode=OneWay}"
                          BorderThickness="2" 
@@ -155,7 +156,7 @@
                          VerticalAlignment="Top"
                          Foreground="{StaticResource WIDGET_PLAYER_HEALTH_FOREGROUND}"
                          BorderBrush="{StaticResource GRAY_300}"
-                         d:Width="500"
+                         d:Width="700"
                          x:Name="PART_HealthBar">
                 <overlay:Bar.RenderTransform>
                     <TransformGroup>
@@ -174,6 +175,14 @@
                     </MultiBinding>
                 </overlay:Bar.Width>
             </overlay:Bar>
+
+            <Image Source="{StaticResource ICON_FUNNEL}"
+                   Height="10"
+                   Width="10"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="90,0,0,0"
+                   Visibility="{Binding IsMoxieActive, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
             <!-- Stamina bar -->
             <Rectangle VerticalAlignment="Top"

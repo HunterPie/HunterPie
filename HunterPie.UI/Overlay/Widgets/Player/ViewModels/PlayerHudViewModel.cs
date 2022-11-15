@@ -48,5 +48,8 @@ public class PlayerHudViewModel : ViewModel
     private AbnormalityCategory _abnormalityCategory;
     public AbnormalityCategory AbnormalityCategory { get => _abnormalityCategory; set => SetValue(ref _abnormalityCategory, value); }
 
+    private bool _isMoxieActive;
+    public bool IsMoxieActive { get => _isMoxieActive; set => SetValue(ref _isMoxieActive, value); }
+
     public WeaponSharpnessViewModel SharpnessViewModel { get; } = new();
 }
