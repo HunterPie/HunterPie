@@ -8,6 +8,7 @@ namespace HunterPie.Core.Client.Configuration;
 [SettingsGroup("OVERLAY_STRING", "ICON_OVERLAY")]
 public class OverlayConfig : ISettings
 {
+    public PlayerHudWidgetConfig PlayerHudWidget { get; set; } = new();
     public MonsterWidgetConfig BossesWidget { get; set; } = new();
     public AbnormalityTrayConfig AbnormalityTray { get; set; } = new();
     public DamageMeterWidgetConfig DamageMeterWidget { get; set; } = new();
@@ -24,7 +25,7 @@ public class OverlayConfig : ISettings
         Position = new(1000, 375),
         Scale = new(0.9, 2, 0.1, 0.1)
     };
-    public PlayerHudWidgetConfig PlayerHudWidget { get; set; } = new();
+
     public Keybinding ToggleDesignMode { get; set; } = "ScrollLock";
 
     public Observable<bool> HideWhenUnfocus { get; set; } = false;
