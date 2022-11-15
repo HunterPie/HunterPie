@@ -5,7 +5,7 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay;
 
-[SettingsGroup("PLAYER_HUD_WIDGET_STRING", "ICON_CHATBOX", availableGames: GameProcess.MonsterHunterRise)]
+[SettingsGroup("PLAYER_HUD_WIDGET_STRING", "ICON_HELM", availableGames: GameProcess.MonsterHunterRise | GameProcess.MonsterHunterWorld)]
 public class PlayerHudWidgetConfig : IWidgetSettings, ISettings
 {
     [SettingField("INITIALIZE_WIDGET_STRING", requiresRestart: true)]
@@ -27,5 +27,5 @@ public class PlayerHudWidgetConfig : IWidgetSettings, ISettings
     public Observable<bool> StreamerMode { get; set; } = false;
 
     [SettingField("WIDGET_POSITION")]
-    public Position Position { get; set; } = new(1500, 500);
+    public Position Position { get; set; } = new(50, 0);
 }

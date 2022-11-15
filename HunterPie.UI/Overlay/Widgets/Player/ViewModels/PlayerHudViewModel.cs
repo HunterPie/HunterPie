@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Game.Enums;
 using HunterPie.UI.Architecture;
+using HunterPie.UI.Architecture.Collections;
 
 namespace HunterPie.UI.Overlay.Widgets.Player.ViewModels;
 
@@ -45,8 +46,10 @@ public class PlayerHudViewModel : ViewModel
     private Weapon _weapon;
     public Weapon Weapon { get => _weapon; set => SetValue(ref _weapon, value); }
 
-    private AbnormalityCategory _abnormalityCategory;
-    public AbnormalityCategory AbnormalityCategory { get => _abnormalityCategory; set => SetValue(ref _abnormalityCategory, value); }
+    public ThreadSafeObservableCollection<AbnormalityCategory> ActiveAbnormalities { get; } = new();
+
+    private bool _isMoxieActive;
+    public bool IsMoxieActive { get => _isMoxieActive; set => SetValue(ref _isMoxieActive, value); }
 
     public WeaponSharpnessViewModel SharpnessViewModel { get; } = new();
 }

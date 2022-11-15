@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Domain.Memory;
 using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Logger;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ public abstract class Scannable
     protected IMemory Memory => _process.Memory;
     private readonly Dictionary<Type, HashSet<Delegate>> middlewares = new();
     private readonly List<Delegate> scanners = new();
+    private readonly Dictionary<Delegate, int> _troublesomeScannables = new();
 
     public Scannable(IProcessManager process)
     {
@@ -56,8 +58,31 @@ public abstract class Scannable
     /// </summary>
     internal void Scan()
     {
-        foreach (Delegate scanner in scanners)
-            _ = scanner.DynamicInvoke();
+        Delegate[] readOnlyScanners = scanners.ToArray();
+
+        foreach (Delegate scanner in readOnlyScanners)
+        {
+            try
+            {
+                _ = scanner.DynamicInvoke();
+            }
+            catch (Exception err)
+            {
+                if (!_troublesomeScannables.ContainsKey(scanner))
+                    _troublesomeScannables.Add(scanner, 0);
+
+                _troublesomeScannables[scanner]++;
+
+                if (_troublesomeScannables[scanner] >= 3)
+                {
+                    Log.Warn($"Scanner: {scanner.Method.Name} had multiple exceptions. Disabling scanner for now;\n{err}");
+
+                    scanners.Remove(scanner);
+
+                    _troublesomeScannables.Remove(scanner);
+                }
+            }
+        }
     }
 
     /// <summary>

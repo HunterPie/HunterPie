@@ -83,7 +83,7 @@ public partial class Bar : UserControl
         animation.From = owner.ActualValue;
         animation.To = newValue;
 
-        owner.BeginAnimation(Bar.ActualValueProperty, animation, HandoffBehavior.Compose);
+        owner.BeginAnimation(Bar.ActualValueProperty, animation, HandoffBehavior.SnapshotAndReplace);
     }
 
     private void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -99,8 +99,10 @@ public partial class Bar : UserControl
             return;
         }
 
-        var smoothAnimation = new DoubleAnimation(value, value, new TimeSpan(0, 0, 0, 0, 50));
+        DoubleAnimation smoothAnimation = _cachedAnimation;
+        smoothAnimation.From = value;
+        smoothAnimation.To = value;
 
-        BeginAnimation(Bar.ActualValueProperty, smoothAnimation, HandoffBehavior.Compose);
+        BeginAnimation(Bar.ActualValueProperty, smoothAnimation, HandoffBehavior.SnapshotAndReplace);
     }
 }

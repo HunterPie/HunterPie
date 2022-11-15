@@ -24,6 +24,7 @@ public interface IPlayer
     public double MaxPossibleStamina { get; }
     public IWeapon Weapon { get; }
 
+
     public event EventHandler<EventArgs> OnLogin;
     public event EventHandler<EventArgs> OnLogout;
     public event EventHandler<EventArgs> OnDeath;

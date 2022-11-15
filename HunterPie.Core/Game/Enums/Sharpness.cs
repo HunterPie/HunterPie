@@ -8,5 +8,6 @@ public enum Sharpness
     Green,
     Blue,
     White,
-    Purple
+    Purple,
+    Invalid
 }

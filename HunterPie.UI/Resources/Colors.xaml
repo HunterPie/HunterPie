@@ -169,6 +169,26 @@
         <GradientStop Color="#FFA52F2F" Offset="0"/>
     </LinearGradientBrush>
 
+    <LinearGradientBrush x:Key="WIDGET_PLAYER_EFFLUVIA_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#a67f00" Offset="1"/>
+        <GradientStop Color="#5e4800" Offset="0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="WIDGET_PLAYER_ICE_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#93d1f5" Offset="1"/>
+        <GradientStop Color="#6bb7e3" Offset="0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="WIDGET_PLAYER_WATER_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#87abff" Offset="1"/>
+        <GradientStop Color="#4973d6" Offset="0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="WIDGET_PLAYER_NATURAL_HEAL_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#ffd942" Offset="1"/>
+        <GradientStop Color="#deb100" Offset="0"/>
+    </LinearGradientBrush>
+
     <Color x:Key="WIDGET_SHARPNESS_BROKEN">#000000</Color>
     <Color x:Key="WIDGET_SHARPNESS_RED">#D13232</Color>
     <Color x:Key="WIDGET_SHARPNESS_ORANGE">#F78B00</Color>

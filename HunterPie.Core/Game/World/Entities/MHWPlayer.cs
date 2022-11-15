@@ -14,6 +14,7 @@ using HunterPie.Core.Game.World.Definitions;
 using HunterPie.Core.Game.World.Entities.Abnormalities;
 using HunterPie.Core.Game.World.Entities.Party;
 using HunterPie.Core.Game.World.Entities.Weapons;
+using HunterPie.Core.Game.World.Utils;
 using HunterPie.Core.Logger;
 using HunterPie.Core.Native.IPC.Models.Common;
 using System;
@@ -51,6 +52,18 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     private readonly Dictionary<string, IAbnormality> _abnormalities = new();
     private readonly MHWParty _party = new();
     private IWeapon _weapon;
+    private int _highRank;
+    private int _masterRank;
+    private double _health;
+    private double _maxHealth;
+    private double _heal;
+    private double _recoverableHealth;
+    private double _maxPossibleHealth;
+    private double _stamina;
+    private double _maxStamina;
+    private double _maxRecoverableStamina;
+    private double _maxPossibleStamina;
+    private MHWGearSkill[] _skills;
     #endregion
 
     #region Public fields
@@ -77,8 +90,30 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
         }
     }
     public string Name { get; private set; }
-    public int HighRank { get; private set; }
-    public int MasterRank { get; private set; }
+    public int HighRank
+    {
+        get => _highRank;
+        private set
+        {
+            if (value != _highRank)
+            {
+                _highRank = value;
+                this.Dispatch(OnLevelChange, new LevelChangeEventArgs(this));
+            }
+        }
+    }
+    public int MasterRank
+    {
+        get => _masterRank;
+        private set
+        {
+            if (value != _masterRank)
+            {
+                _masterRank = value;
+                this.Dispatch(OnLevelChange, new LevelChangeEventArgs(this));
+            }
+        }
+    }
     public int PlayTime { get; private set; }
 
     /// <summary>
@@ -115,23 +150,122 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     public bool InHuntingZone => ZoneId != Stage.MainMenu
                                  && !peaceZones.Contains(_zoneId);
 
-    public double Stamina => throw new NotImplementedException();
+    public double Stamina
+    {
+        get => _stamina;
+        private set
+        {
+            if (value != _stamina)
+            {
+                _stamina = value;
+                this.Dispatch(OnStaminaChange, new StaminaChangeEventArgs(this));
+            }
+        }
+    }
 
-    public double MaxStamina => throw new NotImplementedException();
+    public double MaxStamina
+    {
+        get => _maxStamina;
+        private set
+        {
+            if (value != _maxStamina)
+            {
+                _maxStamina = value;
+                this.Dispatch(OnStaminaChange, new StaminaChangeEventArgs(this));
+            }
+        }
+    }
 
-    public double MaxRecoverableStamina => throw new NotImplementedException();
+    public double MaxRecoverableStamina
+    {
+        get => _maxRecoverableStamina;
+        private set
+        {
+            if (value != _maxRecoverableStamina)
+            {
+                _maxRecoverableStamina = value;
+                this.Dispatch(OnStaminaChange, new StaminaChangeEventArgs(this));
+            }
+        }
+    }
 
-    public double MaxPossibleStamina => throw new NotImplementedException();
+    public double MaxPossibleStamina
+    {
+        get => _maxPossibleStamina;
+        private set
+        {
+            if (value != _maxPossibleStamina)
+            {
+                _maxPossibleStamina = value;
+                this.Dispatch(OnStaminaChange, new StaminaChangeEventArgs(this));
+            }
+        }
+    }
 
-    public double Health => throw new NotImplementedException();
+    public double Health
+    {
+        get => _health;
+        private set
+        {
+            if (value != _health)
+            {
+                _health = value;
+                this.Dispatch(OnHealthChange, new HealthChangeEventArgs(this));
+            }
+        }
+    }
 
-    public double MaxHealth => throw new NotImplementedException();
+    public double MaxHealth
+    {
+        get => _maxHealth;
+        private set
+        {
+            if (value != _maxHealth)
+            {
+                _maxHealth = value;
+                this.Dispatch(OnHealthChange, new HealthChangeEventArgs(this));
+            }
+        }
+    }
 
-    public double RecoverableHealth => throw new NotImplementedException();
+    public double RecoverableHealth
+    {
+        get => _recoverableHealth;
+        private set
+        {
+            if (value != _recoverableHealth)
+            {
+                _recoverableHealth = value;
+                this.Dispatch(OnHealthChange, new HealthChangeEventArgs(this));
+            }
+        }
+    }
 
-    public double MaxPossibleHealth => throw new NotImplementedException();
+    public double MaxPossibleHealth
+    {
+        get => _maxPossibleHealth;
+        private set
+        {
+            if (value != _maxPossibleHealth)
+            {
+                _maxPossibleHealth = value;
+                this.Dispatch(OnHealthChange, new HealthChangeEventArgs(this));
+            }
+        }
+    }
 
-    public double Heal => throw new NotImplementedException();
+    public double Heal
+    {
+        get => _heal;
+        private set
+        {
+            if (value != _heal)
+            {
+                _heal = value;
+                this.Dispatch(OnHeal, new HealthChangeEventArgs(this));
+            }
+        }
+    }
 
     public IWeapon Weapon
     {
@@ -169,7 +303,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 
     internal MHWPlayer(IProcessManager process) : base(process)
     {
-        _weapon = new MHWMeleeWeapon(WeaponType.Greatsword);
+        _weapon = new MHWMeleeWeapon(process, WeaponType.Greatsword);
     }
 
     [ScannableMethod(typeof(ZoneData))]
@@ -228,6 +362,40 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     }
 
     [ScannableMethod]
+    private void GetGearSkills()
+    {
+        long gearSkillsPtr = _process.Memory.Read(
+            AddressMap.GetAbsolute("ABNORMALITY_ADDRESS"),
+            AddressMap.Get<int[]>("GEAR_SKILL_OFFSETS")
+        );
+
+        _skills = _process.Memory.Read<MHWGearSkill>(gearSkillsPtr, 226);
+    }
+
+    [ScannableMethod]
+    private void GetPlayerHudData()
+    {
+        long basicPlayerDataPtr = _process.Memory.Read(
+            AddressMap.GetAbsolute("EQUIPMENT_ADDRESS"),
+            AddressMap.Get<int[]>("PLAYER_BASIC_INFORMATION_OFFSETS")
+        );
+
+        MHWHudStructure hudStructure = _process.Memory.Read<MHWHudStructure>(basicPlayerDataPtr);
+
+        MHWHealingStructure totalHealings = _process.Memory.Read<MHWHealingStructure>(hudStructure.HealingArrayPointer + 0xEBB0, 4)
+                                                           .ToTotal();
+
+        MaxPossibleStamina = _skills.ToMaximumStaminaPossible();
+        MaxStamina = hudStructure.MaxStamina;
+        Stamina = hudStructure.Stamina;
+        MaxHealth = hudStructure.MaxHealth;
+        Health = hudStructure.Health;
+        RecoverableHealth = hudStructure.RecoverableHealth;
+        Heal = hudStructure.Health + totalHealings.MaxHeal - totalHealings.Heal;
+        MaxPossibleHealth = _skills.ToMaximumHealthPossible();
+    }
+
+    [ScannableMethod]
     private void GetWeaponData()
     {
         PlayerEquipmentData data = new();
@@ -245,11 +413,26 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
         if (data.WeaponType == _weaponId)
             return;
 
-        IWeapon? weaponInstance = null;
+        if (Weapon is Scannable scannable)
+            ScanManager.Remove(scannable);
 
+        IWeapon? weaponInstance = null;
         if (data.WeaponType.IsMelee())
         {
+            var meleeWeapon = new MHWMeleeWeapon(_process, data.WeaponType);
+            weaponInstance = meleeWeapon;
 
+            ScanManager.Add(meleeWeapon);
+        }
+        else
+        {
+            weaponInstance = (data.WeaponType) switch
+            {
+                WeaponType.Bow => new MHWBow(),
+                WeaponType.HeavyBowgun => new MHWHeavyBowgun(),
+                WeaponType.LightBowgun => new MHWLightBowgun(),
+                _ => null
+            };
         }
 
         if (weaponInstance is not null)
