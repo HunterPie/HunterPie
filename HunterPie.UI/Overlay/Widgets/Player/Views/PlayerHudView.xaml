@@ -96,7 +96,8 @@
                          BorderThickness="2" 
                          RenderTransformOrigin="0.5,0.5"
                          VerticalAlignment="Top"
-                         d:Width="500">
+                         d:Width="500"
+                         x:Name="PART_RecoverableHealthBar">
                 <overlay:Bar.RenderTransform>
                     <TransformGroup>
                         <SkewTransform AngleX="45"/>
@@ -239,7 +240,8 @@
                          VerticalAlignment="Top"
                          HorizontalAlignment="Left"
                          d:Width="500"
-                         Margin="0,15,0,0">
+                         Margin="0,15,0,0"
+                         x:Name="PART_StaminaBar">
                 <overlay:Bar.RenderTransform>
                     <TransformGroup>
                         <SkewTransform AngleX="-45"/>

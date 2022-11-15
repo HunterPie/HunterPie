@@ -7,6 +7,7 @@ using HunterPie.Core.Game.Client;
 using HunterPie.Core.Game.Environment;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.World.Crypto;
+using HunterPie.Core.Game.World.Data;
 using HunterPie.Core.Game.World.Entities;
 using HunterPie.Core.Game.World.Utils;
 using HunterPie.Core.Native.IPC.Handlers.Internal.Damage;
@@ -83,7 +84,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
         }
     }
 
-    public IAbnormalityCategorizationService AbnormalityCategorizationService => throw new NotImplementedException();
+    public IAbnormalityCategorizationService AbnormalityCategorizationService { get; } = new MHWAbnormalityCategorizatonService();
 
     public MHWGame(IProcessManager process) : base(process)
     {
