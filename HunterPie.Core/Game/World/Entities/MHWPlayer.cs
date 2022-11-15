@@ -303,7 +303,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 
     internal MHWPlayer(IProcessManager process) : base(process)
     {
-        _weapon = new MHWMeleeWeapon(WeaponType.Greatsword);
+        _weapon = new MHWMeleeWeapon(process, WeaponType.Greatsword);
     }
 
     [ScannableMethod(typeof(ZoneData))]
@@ -413,11 +413,16 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
         if (data.WeaponType == _weaponId)
             return;
 
-        IWeapon? weaponInstance = null;
+        if (Weapon is Scannable scannable)
+            ScanManager.Remove(scannable);
 
+        IWeapon? weaponInstance = null;
         if (data.WeaponType.IsMelee())
         {
-            weaponInstance = new MHWMeleeWeapon(data.WeaponType);
+            var meleeWeapon = new MHWMeleeWeapon(_process, data.WeaponType);
+            weaponInstance = meleeWeapon;
+
+            ScanManager.Add(meleeWeapon);
         }
         else
         {

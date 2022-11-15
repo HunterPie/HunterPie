@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Game.World.Definitions;
+﻿using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.World.Definitions;
 using System;
 using System.Linq;
 
@@ -11,6 +12,8 @@ public static class MHWGameUtils
     public const float DefaultMaxStamina = 150.0f;
     public const float StaminaIncrement = 50.0f;
     public static float[] HealthIncrements = { 0.0f, 15f, 30f, 50f };
+    public const int HandicraftMultiplier = 10;
+    public const int MaxHandicraft = 50;
 
     public static float ToSeconds(this uint self) => self / 60.0f;
 
@@ -63,5 +66,30 @@ public static class MHWGameUtils
         }
 
         return DefaultMaxStamina;
+    }
+
+    public static int MaximumSharpness(this int[] sharpnesses, MHWGearSkill handicraft)
+    {
+        int handicraftLevel = Math.Min((int)handicraft.LevelGear, 5);
+        return sharpnesses.Last(s => s > 0) - MaxHandicraft - (HandicraftMultiplier * handicraftLevel);
+    }
+
+    public static Sharpness ToSharpnessLevel(this int[] sharpnesses, int sharpness)
+    {
+        Sharpness level = Sharpness.Red;
+        int previousThreshold = 0;
+        foreach (int threshold in sharpnesses)
+        {
+            if (threshold == 0)
+                return level;
+
+            if (sharpness > previousThreshold && sharpness <= threshold)
+                return level;
+
+            level++;
+            previousThreshold = threshold;
+        }
+
+        return level;
     }
 }
