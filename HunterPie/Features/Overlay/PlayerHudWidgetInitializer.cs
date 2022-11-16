@@ -21,5 +21,9 @@ internal class PlayerHudWidgetInitializer : IWidgetInitializer
 
         _handler = new PlayerHudWidgetContextHandler(context);
     }
-    public void Unload() => _handler?.UnhookEvents();
+    public void Unload()
+    {
+        _handler?.UnhookEvents();
+        _handler = null;
+    }
 }

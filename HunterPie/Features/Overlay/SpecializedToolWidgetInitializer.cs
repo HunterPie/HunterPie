@@ -30,6 +30,7 @@ internal class SpecializedToolWidgetInitializer : IWidgetInitializer
         foreach (IContextHandler handler in _handlers)
             handler?.UnhookEvents();
 
+        _handlers.Clear();
     }
 
     private void InitializePrimaryTool(MHWContext context)

@@ -21,5 +21,9 @@ internal class MonsterWidgetInitializer : IWidgetInitializer
         _handler = new MonsterWidgetContextHandler(context);
     }
 
-    public void Unload() => _handler?.UnhookEvents();
+    public void Unload()
+    {
+        _handler?.UnhookEvents();
+        _handler = null;
+    }
 }

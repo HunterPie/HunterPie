@@ -24,5 +24,9 @@ internal class ChatWidgetInitializer : IWidgetInitializer
             _handler = new ChatWidgetContextHandler(ctx);
     }
 
-    public void Unload() => _handler?.UnhookEvents();
+    public void Unload()
+    {
+        _handler?.UnhookEvents();
+        _handler = null;
+    }
 }

@@ -29,7 +29,11 @@ internal class WirebugWidgetInitializer : IWidgetInitializer
         }
     }
 
-    public void Unload() => _handler?.UnhookEvents();
+    public void Unload()
+    {
+        _handler?.UnhookEvents();
+        _handler = null;
+    }
 
     /*
         * MHR has a built-in option to hide the Wirebug visual elements,

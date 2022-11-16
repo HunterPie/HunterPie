@@ -21,6 +21,7 @@ internal static class WidgetInitializers
     {
         foreach (IWidgetInitializer initializer in Initializers.Value)
             initializer.Load(context);
+
     }
 
     public static void Unload()

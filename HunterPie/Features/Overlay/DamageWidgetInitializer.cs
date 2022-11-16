@@ -22,5 +22,9 @@ internal class DamageWidgetInitializer : IWidgetInitializer
         _handler = new DamageMeterWidgetContextHandler(context);
     }
 
-    public void Unload() => _handler?.UnhookEvents();
+    public void Unload()
+    {
+        _handler?.UnhookEvents();
+        _handler = null;
+    }
 }

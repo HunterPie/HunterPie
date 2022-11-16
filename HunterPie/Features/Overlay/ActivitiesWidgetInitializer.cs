@@ -32,5 +32,9 @@ internal class ActivitiesWidgetInitializer : IWidgetInitializer
         };
     }
 
-    public void Unload() => _handler?.UnhookEvents();
+    public void Unload()
+    {
+        _handler?.UnhookEvents();
+        _handler = null;
+    }
 }
