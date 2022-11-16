@@ -43,6 +43,21 @@ public class PlayerHudWidgetContextHandler : IContextHandler
         Player.OnAbnormalityEnd += OnPlayerAbnormalityEnd;
     }
 
+    public void UnhookEvents()
+    {
+        Player.OnLogin -= OnPlayerLogin;
+        Player.OnLevelChange -= OnPlayerLevelChange;
+        Player.OnWeaponChange -= OnPlayerWeaponChange;
+        Player.OnStageUpdate -= OnStageChange;
+        Player.OnHealthChange -= OnPlayerHealthChange;
+        Player.OnStaminaChange -= OnPlayerStaminaChange;
+        Player.OnHeal -= OnHeal;
+        Player.OnAbnormalityStart -= OnPlayerAbnormalityStart;
+        Player.OnAbnormalityEnd -= OnPlayerAbnormalityEnd;
+
+        _ = WidgetManager.Unregister<PlayerHudView, PlayerHudWidgetConfig>(View);
+    }
+
     private void OnPlayerAbnormalityEnd(object sender, IAbnormality e)
     {
         AbnormalityCategory category = _context.Game.AbnormalityCategorizationService.Categorize(e);
@@ -119,19 +134,6 @@ public class PlayerHudWidgetContextHandler : IContextHandler
         ViewModel.MaxExtendableHealth = e.MaxPossibleHealth;
         ViewModel.Health = e.Health;
         ViewModel.RecoverableHealth = e.RecoverableHealth;
-    }
-
-    public void UnhookEvents()
-    {
-        Player.OnLogin -= OnPlayerLogin;
-        Player.OnLevelChange -= OnPlayerLevelChange;
-        Player.OnWeaponChange -= OnPlayerWeaponChange;
-        Player.OnStageUpdate -= OnStageChange;
-        Player.OnHealthChange -= OnPlayerHealthChange;
-        Player.OnStaminaChange -= OnPlayerStaminaChange;
-        Player.OnHeal -= OnHeal;
-
-        _ = WidgetManager.Unregister<PlayerHudView, PlayerHudWidgetConfig>(View);
     }
 
     private void UpdateData()
