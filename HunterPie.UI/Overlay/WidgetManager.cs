@@ -41,6 +41,7 @@ public class WidgetManager : Bindable
     private WidgetManager()
     {
         _ = Hotkey.Register(Settings.ToggleDesignMode, ToggleDesignMode);
+        _ = Hotkey.Register(Settings.ToggleVisibility, ToggleVisibility);
     }
 
     internal static void Hook(Context context)
@@ -97,5 +98,10 @@ public class WidgetManager : Bindable
 
         foreach (WidgetBase widget in Widgets.Values)
             widget.HandleTransparencyFlag(!IsDesignModeEnabled);
+    }
+
+    private void ToggleVisibility()
+    {
+        Settings.IsEnabled.Value = !Settings.IsEnabled;
     }
 }
