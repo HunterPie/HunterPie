@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Game;
+using HunterPie.Core.Logger;
 using HunterPie.UI.Architecture.Overlay;
 using System;
 using System.Linq;
@@ -20,8 +21,14 @@ internal static class WidgetInitializers
     public static void Initialize(Context context)
     {
         foreach (IWidgetInitializer initializer in Initializers.Value)
-            initializer.Load(context);
-
+            try
+            {
+                initializer.Load(context);
+            }
+            catch (Exception err)
+            {
+                Log.Error(err.ToString());
+            }
     }
 
     public static void Unload()
