@@ -4,6 +4,6 @@ namespace HunterPie.UI.Architecture.Overlay;
 
 internal interface IWidgetInitializer
 {
-    public void Load(Context context);
+    public void Load(IContext context);
     public void Unload();
 }

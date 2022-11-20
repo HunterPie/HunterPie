@@ -1,7 +1,7 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Client;
+using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.System;
@@ -12,19 +12,19 @@ using System;
 namespace HunterPie.UI.Overlay.Widgets.Player;
 public class PlayerHudWidgetContextHandler : IContextHandler
 {
-    private readonly PlayerHudView View;
-    private readonly PlayerHudViewModel ViewModel;
-    private readonly Context _context;
+    private readonly PlayerHudView _view;
+    private readonly PlayerHudViewModel _viewModel;
+    private readonly IContext _context;
     private IPlayer Player => _context.Game.Player;
 
-    public PlayerHudWidgetContextHandler(Context context)
+    public PlayerHudWidgetContextHandler(IContext context)
     {
         PlayerHudWidgetConfig config = ClientConfigHelper.DeferOverlayConfig(ProcessManager.Game, (config) => config.PlayerHudWidget);
 
-        View = new PlayerHudView(config);
-        ViewModel = View.ViewModel;
+        _view = new PlayerHudView(config);
+        _viewModel = _view.ViewModel;
         _context = context;
-        _ = WidgetManager.Register<PlayerHudView, PlayerHudWidgetConfig>(View);
+        _ = WidgetManager.Register<PlayerHudView, PlayerHudWidgetConfig>(_view);
 
         HookEvents();
         UpdateData();
@@ -36,9 +36,9 @@ public class PlayerHudWidgetContextHandler : IContextHandler
         Player.OnLevelChange += OnPlayerLevelChange;
         Player.OnWeaponChange += OnPlayerWeaponChange;
         Player.OnStageUpdate += OnStageChange;
-        Player.OnHealthChange += OnPlayerHealthChange;
-        Player.OnStaminaChange += OnPlayerStaminaChange;
-        Player.OnHeal += OnHeal;
+        Player.Health.OnHealthChange += OnPlayerHealthChange;
+        Player.Stamina.OnStaminaChange += OnPlayerStaminaChange;
+        Player.Health.OnHeal += OnHeal;
         Player.OnAbnormalityStart += OnPlayerAbnormalityStart;
         Player.OnAbnormalityEnd += OnPlayerAbnormalityEnd;
     }
@@ -49,13 +49,13 @@ public class PlayerHudWidgetContextHandler : IContextHandler
         Player.OnLevelChange -= OnPlayerLevelChange;
         Player.OnWeaponChange -= OnPlayerWeaponChange;
         Player.OnStageUpdate -= OnStageChange;
-        Player.OnHealthChange -= OnPlayerHealthChange;
-        Player.OnStaminaChange -= OnPlayerStaminaChange;
-        Player.OnHeal -= OnHeal;
+        Player.Health.OnHealthChange -= OnPlayerHealthChange;
+        Player.Stamina.OnStaminaChange -= OnPlayerStaminaChange;
+        Player.Health.OnHeal -= OnHeal;
         Player.OnAbnormalityStart -= OnPlayerAbnormalityStart;
         Player.OnAbnormalityEnd -= OnPlayerAbnormalityEnd;
 
-        _ = WidgetManager.Unregister<PlayerHudView, PlayerHudWidgetConfig>(View);
+        _ = WidgetManager.Unregister<PlayerHudView, PlayerHudWidgetConfig>(_view);
     }
 
     private void OnPlayerAbnormalityEnd(object sender, IAbnormality e)
@@ -65,10 +65,10 @@ public class PlayerHudWidgetContextHandler : IContextHandler
         if (category == AbnormalityCategory.None)
             return;
 
-        if (!ViewModel.ActiveAbnormalities.Contains(category))
+        if (!_viewModel.ActiveAbnormalities.Contains(category))
             return;
 
-        ViewModel.ActiveAbnormalities.Remove(category);
+        _viewModel.ActiveAbnormalities.Remove(category);
     }
 
     private void OnPlayerAbnormalityStart(object sender, IAbnormality e)
@@ -78,13 +78,13 @@ public class PlayerHudWidgetContextHandler : IContextHandler
         if (category == AbnormalityCategory.None)
             return;
 
-        ViewModel.ActiveAbnormalities.Add(category);
+        _viewModel.ActiveAbnormalities.Add(category);
     }
-    private void OnHeal(object sender, HealthChangeEventArgs e) => ViewModel.Heal = e.Heal;
+    private void OnHeal(object sender, HealthChangeEventArgs e) => _viewModel.Heal = e.Heal;
 
-    private void OnStageChange(object sender, EventArgs e) => ViewModel.InHuntingZone = Player.InHuntingZone;
+    private void OnStageChange(object sender, EventArgs e) => _viewModel.InHuntingZone = Player.InHuntingZone;
 
-    private void OnPlayerLevelChange(object sender, LevelChangeEventArgs e) => ViewModel.Level = Player.MasterRank;
+    private void OnPlayerLevelChange(object sender, LevelChangeEventArgs e) => _viewModel.Level = Player.MasterRank;
 
     private void OnPlayerWeaponChange(object sender, WeaponChangeEventArgs e)
     {
@@ -100,53 +100,53 @@ public class PlayerHudWidgetContextHandler : IContextHandler
             newMelee.OnSharpnessChange += OnSharpnessChange;
         }
 
-        ViewModel.Weapon = e.NewWeapon.Id;
+        _viewModel.Weapon = e.NewWeapon.Id;
     }
 
     private void OnSharpnessChange(object sender, SharpnessEventArgs e)
     {
-        ViewModel.SharpnessViewModel.MaxSharpness = e.MaxSharpness - e.Threshold;
-        ViewModel.SharpnessViewModel.Sharpness = e.CurrentSharpness - e.Threshold;
+        _viewModel.SharpnessViewModel.MaxSharpness = e.MaxSharpness - e.Threshold;
+        _viewModel.SharpnessViewModel.Sharpness = e.CurrentSharpness - e.Threshold;
     }
 
     private void OnSharpnessLevelChange(object sender, SharpnessEventArgs e)
     {
-        ViewModel.SharpnessViewModel.SharpnessLevel = e.Sharpness;
+        _viewModel.SharpnessViewModel.SharpnessLevel = e.Sharpness;
     }
 
     private void OnPlayerLogin(object sender, EventArgs e)
     {
-        ViewModel.Name = Player.Name;
-        ViewModel.Level = Player.MasterRank;
+        _viewModel.Name = Player.Name;
+        _viewModel.Level = Player.MasterRank;
     }
 
     private void OnPlayerStaminaChange(object sender, StaminaChangeEventArgs e)
     {
-        ViewModel.MaxStamina = e.MaxStamina;
-        ViewModel.Stamina = e.Stamina;
-        ViewModel.MaxPossibleStamina = e.MaxPossibleStamina;
-        ViewModel.MaxRecoverableStamina = e.MaxRecoverableStamina;
+        _viewModel.MaxStamina = e.MaxStamina;
+        _viewModel.Stamina = e.Stamina;
+        _viewModel.MaxPossibleStamina = e.MaxPossibleStamina;
+        _viewModel.MaxRecoverableStamina = e.MaxRecoverableStamina;
     }
 
     private void OnPlayerHealthChange(object sender, HealthChangeEventArgs e)
     {
-        ViewModel.MaxHealth = e.MaxHealth;
-        ViewModel.MaxExtendableHealth = e.MaxPossibleHealth;
-        ViewModel.Health = e.Health;
-        ViewModel.RecoverableHealth = e.RecoverableHealth;
+        _viewModel.MaxHealth = e.MaxHealth;
+        _viewModel.MaxExtendableHealth = e.MaxPossibleHealth;
+        _viewModel.Health = e.Health;
+        _viewModel.RecoverableHealth = e.RecoverableHealth;
     }
 
     private void UpdateData()
     {
-        ViewModel.MaxHealth = Player.MaxHealth;
-        ViewModel.MaxExtendableHealth = Player.MaxPossibleHealth;
-        ViewModel.Health = Player.Health;
-        ViewModel.RecoverableHealth = Player.RecoverableHealth;
-        ViewModel.MaxPossibleStamina = Player.MaxPossibleStamina;
-        ViewModel.MaxRecoverableStamina = Player.MaxRecoverableStamina;
-        ViewModel.MaxStamina = Player.MaxStamina;
-        ViewModel.Stamina = Player.Stamina;
-        ViewModel.Name = Player.Name;
-        ViewModel.Level = Player.MasterRank;
+        _viewModel.MaxHealth = Player.Health.Max;
+        _viewModel.MaxExtendableHealth = Player.Health.MaxPossibleHealth;
+        _viewModel.Health = Player.Health.Current;
+        _viewModel.RecoverableHealth = Player.Health.RecoverableHealth;
+        _viewModel.MaxPossibleStamina = Player.Stamina.MaxPossibleStamina;
+        _viewModel.MaxRecoverableStamina = Player.Stamina.MaxRecoverableStamina;
+        _viewModel.MaxStamina = Player.Stamina.Max;
+        _viewModel.Stamina = Player.Stamina.Current;
+        _viewModel.Name = Player.Name;
+        _viewModel.Level = Player.MasterRank;
     }
 }

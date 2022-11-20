@@ -10,7 +10,7 @@ namespace HunterPie.Features;
 
 internal static class ContextInitializers
 {
-    private static readonly IContextInitializer[] initializers = new IContextInitializer[]
+    private static readonly IContextInitializer[] Initializers =
     {
         new MHWContextInitializer(),
         new MHRContextInitializer(),
@@ -21,7 +21,7 @@ internal static class ContextInitializers
 
     public static async Task InitializeAsync(Context context)
     {
-        foreach (IContextInitializer initializer in initializers)
+        foreach (IContextInitializer initializer in Initializers)
             await initializer.InitializeAsync(context).ConfigureAwait(false);
     }
 }

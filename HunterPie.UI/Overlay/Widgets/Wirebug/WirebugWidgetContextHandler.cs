@@ -1,7 +1,7 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.Core.Game.Rise;
-using HunterPie.Core.Game.Rise.Entities;
+using HunterPie.Integrations.Datasources.MonsterHunterRise;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
 using HunterPie.UI.Overlay.Widgets.Wirebug.Views;
 using System;

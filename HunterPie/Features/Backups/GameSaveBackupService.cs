@@ -2,13 +2,13 @@
 using HunterPie.Core.API.Entities;
 using HunterPie.Core.Client;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Rise;
-using HunterPie.Core.Game.World;
 using HunterPie.Core.Logger;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Features.Account;
 using HunterPie.Features.Account.Config;
 using HunterPie.Features.Backups.Games;
+using HunterPie.Integrations.Datasources.MonsterHunterRise;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using Microsoft.Win32;
 using System;
 using System.IO;
@@ -23,7 +23,7 @@ internal class GameSaveBackupService : IContextInitializer
     private const string LAST_BACKUP_SUCCESS_KEY = "HUNTERPIE_LAST_BACKUP_SUCCESS";
     private static IBackupService? _backupService;
 
-    public Task InitializeAsync(Context context)
+    public Task InitializeAsync(IContext context)
     {
         return Task.Factory.StartNew(() =>
         {

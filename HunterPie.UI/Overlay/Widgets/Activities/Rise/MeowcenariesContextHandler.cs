@@ -1,6 +1,6 @@
-﻿using HunterPie.Core.Game.Rise;
-using HunterPie.Core.Game.Rise.Entities;
-using HunterPie.Core.Game.Rise.Entities.Activities;
+﻿using HunterPie.Integrations.Datasources.MonsterHunterRise;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Activities;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 using HunterPie.UI.Overlay.Widgets.Activities.ViewModel;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.Rise;

@@ -54,6 +54,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HunterPie.Core\HunterPie.Core.csproj" />
+    <ProjectReference Include="..\HunterPie.Integrations\HunterPie.Integrations.csproj" />
     <ProjectReference Include="..\HunterPie.Native\HunterPie.Native.vcxproj" />
     <ProjectReference Include="..\HunterPie.UI\HunterPie.UI.csproj" />
   </ItemGroup>

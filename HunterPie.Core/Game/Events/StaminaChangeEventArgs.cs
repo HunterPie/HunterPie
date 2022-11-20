@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Game.Client;
+﻿using HunterPie.Core.Game.Entity.Player.Vitals;
 using System;
 
 namespace HunterPie.Core.Game.Events;
@@ -10,11 +10,11 @@ public class StaminaChangeEventArgs : EventArgs
     public double MaxRecoverableStamina { get; }
     public double MaxPossibleStamina { get; }
 
-    public StaminaChangeEventArgs(IPlayer player)
+    public StaminaChangeEventArgs(IStaminaComponent component)
     {
-        Stamina = player.Stamina;
-        MaxStamina = player.MaxStamina;
-        MaxRecoverableStamina = player.MaxRecoverableStamina;
-        MaxPossibleStamina = player.MaxPossibleStamina;
+        Stamina = component.Current;
+        MaxStamina = component.Max;
+        MaxRecoverableStamina = component.MaxRecoverableStamina;
+        MaxPossibleStamina = component.MaxPossibleStamina;
     }
 }

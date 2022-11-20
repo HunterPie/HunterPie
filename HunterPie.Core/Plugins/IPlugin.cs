@@ -12,7 +12,7 @@ public interface IPlugin
     public Version Version { get; }
     public ISettings Config { get; }
 
-    internal Context Context { get; set; }
+    internal IContext Context { get; set; }
 
     public void Initialize();
 

@@ -1,9 +1,10 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Logger;
 using HunterPie.Core.System;
+using HunterPie.Integrations.Datasources.MonsterHunterRise;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Wirebug;
@@ -15,18 +16,18 @@ internal class WirebugWidgetInitializer : IWidgetInitializer
 {
     private IContextHandler _handler;
 
-    public void Load(Context context)
+    public void Load(IContext context)
     {
-        Core.Client.Configuration.OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
+        OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
 
         if (!config.WirebugWidget.Initialize)
             return;
 
-        if (context is MHRContext ctx)
-        {
-            PatchInGameHudAssembly(context);
-            _handler = new WirebugWidgetContextHandler(ctx);
-        }
+        if (context is not MHRContext ctx)
+            return;
+
+        PatchInGameHudAssembly(context);
+        _handler = new WirebugWidgetContextHandler(ctx);
     }
 
     public void Unload()
@@ -47,11 +48,11 @@ internal class WirebugWidgetInitializer : IWidgetInitializer
         * Patched instructions:
         * `or qword ptr[rax+50], 01`
     */
-    private void PatchInGameHudAssembly(Context context)
+    private void PatchInGameHudAssembly(IContext context)
     {
         try
         {
-            Core.Client.Configuration.OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
+            OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
 
             if (!config.WirebugWidget.PatchInGameHud)
                 return;

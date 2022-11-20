@@ -2,6 +2,7 @@
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Events;
 using HunterPie.Core.Game;
+using HunterPie.Core.Game.Entity.Game;
 using HunterPie.Core.Input;
 using HunterPie.Core.Logger;
 using HunterPie.Core.Settings;
@@ -13,7 +14,7 @@ namespace HunterPie.UI.Overlay;
 
 public class WidgetManager : Bindable
 {
-    private Context _context;
+    private IContext _context;
     private bool _isDesignModeEnabled;
     private bool _isGameFocused;
     private bool _isGameHudOpen;
@@ -44,7 +45,7 @@ public class WidgetManager : Bindable
         _ = Hotkey.Register(Settings.ToggleVisibility, ToggleVisibility);
     }
 
-    internal static void Hook(Context context)
+    internal static void Hook(IContext context)
     {
         Instance._context = context;
         context.Process.OnGameFocus += OnGameFocus;

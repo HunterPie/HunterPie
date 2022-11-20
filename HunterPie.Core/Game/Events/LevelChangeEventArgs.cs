@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Game.Client;
+﻿using HunterPie.Core.Game.Entity.Player;
 using System;
 
 namespace HunterPie.Core.Game.Events;

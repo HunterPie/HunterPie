@@ -1,10 +1,10 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Demos.Sunbreak;
-using HunterPie.Core.Game.Rise;
-using HunterPie.Core.Game.World;
 using HunterPie.Core.System;
+using HunterPie.Integrations.Datasources.MonsterHunterRise;
+using HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Activities;
@@ -16,7 +16,7 @@ internal class ActivitiesWidgetInitializer : IWidgetInitializer
 {
     private IContextHandler _handler;
 
-    public void Load(Context context)
+    public void Load(IContext context)
     {
         OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
 

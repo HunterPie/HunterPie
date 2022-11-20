@@ -14,27 +14,28 @@ internal static class RiseIntegrityPatcher
     /// cannot guarantee an user has it, then HunterPie also patches it if needed.
     /// 
     /// Credits to REFramework: https://github.com/praydog/REFramework
-    public static void Patch(Context context)
+    /// </summary>
+    public static void Patch(IContext context)
     {
         long[] crcFuncs =
-            {
-                AddressMap.GetAbsolute("CRC_FUNC_1"),
-                AddressMap.GetAbsolute("CRC_FUNC_2"),
-                AddressMap.GetAbsolute("CRC_FUNC_3"),
-            };
+        {
+            AddressMap.GetAbsolute("CRC_FUNC_1"),
+            AddressMap.GetAbsolute("CRC_FUNC_2"),
+            AddressMap.GetAbsolute("CRC_FUNC_3"),
+        };
         byte[][] originalAsms =
         {
-                AddressMap.Get<int[]>("CRC_ORIGINAL_FUNC_1")
-                    .Select(e => (byte)e)
-                    .ToArray(),
+            AddressMap.Get<int[]>("CRC_ORIGINAL_FUNC_1")
+                .Select(e => (byte)e)
+                .ToArray(),
 
             AddressMap.Get<int[]>("CRC_ORIGINAL_FUNC_2")
-                    .Select(e => (byte)e)
-                    .ToArray(),
+                .Select(e => (byte)e)
+                .ToArray(),
 
-                AddressMap.Get<int[]>("CRC_ORIGINAL_FUNC_3")
-                    .Select(e => (byte)e)
-                    .ToArray(),
+            AddressMap.Get<int[]>("CRC_ORIGINAL_FUNC_3")
+                .Select(e => (byte)e)
+                .ToArray(),
         };
         byte[] asmPatch = { 
             // mov al, 0
@@ -50,12 +51,12 @@ internal static class RiseIntegrityPatcher
 
             byte[] originalInstructions = context.Process.Memory.Read<byte>(crcFunc, 3);
 
-            if (Enumerable.SequenceEqual(originalAsm, originalInstructions))
-            {
-                context.Process.Memory.InjectAsm(crcFunc, asmPatch);
+            if (!originalAsm.SequenceEqual(originalInstructions))
+                continue;
 
-                Log.Debug("Patched 0x{0:X}", crcFunc);
-            }
+            context.Process.Memory.InjectAsm(crcFunc, asmPatch);
+
+            Log.Debug("Patched 0x{0:X}", crcFunc);
         }
     }
 }

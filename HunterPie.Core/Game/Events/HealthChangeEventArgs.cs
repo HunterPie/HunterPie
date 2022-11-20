@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Game.Client;
+﻿using HunterPie.Core.Game.Entity.Player.Vitals;
 
 namespace HunterPie.Core.Game.Events;
 public class HealthChangeEventArgs
@@ -10,12 +10,12 @@ public class HealthChangeEventArgs
     public double MaxPossibleHealth { get; }
     public double Heal { get; }
 
-    public HealthChangeEventArgs(IPlayer player)
+    public HealthChangeEventArgs(IHealthComponent component)
     {
-        Health = player.Health;
-        MaxHealth = player.MaxHealth;
-        RecoverableHealth = player.RecoverableHealth;
-        MaxPossibleHealth = player.MaxPossibleHealth;
-        Heal = player.Heal;
+        Health = component.Current;
+        MaxHealth = component.Max;
+        RecoverableHealth = component.RecoverableHealth;
+        MaxPossibleHealth = component.MaxPossibleHealth;
+        Heal = component.Heal;
     }
 }

@@ -2,30 +2,31 @@
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Integrations;
 using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
-using HunterPie.Core.Game.Environment;
-using HunterPie.Core.Game.World;
-using HunterPie.Core.Game.World.Entities;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Game;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
 using System.Linq;
 
 namespace HunterPie.Integrations.Discord;
 
 internal sealed class WorldRichPresence : RichPresence
 {
-    private const string WORLD_APP_ID = "567152028070051859";
-    private readonly MHWGame game;
+    private const string WorldAppId = "567152028070051859";
+    private readonly MHWGame _game;
 
     protected override DiscordRichPresence Settings => ClientConfig.Config.World.RichPresence;
-    public WorldRichPresence(MHWContext context) : base(WORLD_APP_ID, context.Game)
+    public WorldRichPresence(MHWContext context) : base(WorldAppId, context.Game)
     {
-        game = (MHWGame)context.Game;
+        _game = (MHWGame)context.Game;
     }
 
     protected override void HandlePresence()
     {
         string description = null;
 
-        description = (Stage)game.Player.StageId switch
+        description = (Stage)_game.Player.StageId switch
         {
             Stage.MainMenu => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_STATE_MAIN_MENU']"),
 
@@ -38,7 +39,7 @@ internal sealed class WorldRichPresence : RichPresence
             _ => Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_STATE_EXPLORING']")
         };
 
-        IMonster targetMonster = game.Monsters.FirstOrDefault(monster => monster.Target == Target.Self);
+        IMonster targetMonster = _game!.Monsters.FirstOrDefault(monster => monster.Target == Target.Self);
         if (targetMonster is not null)
         {
             string descriptionString = Settings.ShowMonsterHealth
@@ -50,14 +51,14 @@ internal sealed class WorldRichPresence : RichPresence
                 .Replace("{Percentage}", $"{targetMonster.Health / targetMonster.MaxHealth * 100:0}");
         }
 
-        var player = (MHWPlayer)game.Player;
+        var player = (MHWPlayer)_game.Player;
 
         string smallKeyText = Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_WORLD_CHARACTER_STRING_FORMAT']")
-            .Replace("{Character}", game.Player.Name)
+            .Replace("{Character}", _game.Player.Name)
             .Replace("{HighRank}", player.HighRank.ToString())
             .Replace("{MasterRank}", player.MasterRank.ToString());
 
-        string state = game.Player.Party.Size <= 1
+        string state = _game.Player.Party.Size <= 1
             ? Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_PARTY_STATE_SOLO_STRING']")
             : Localization.QueryString("//Strings/Client/Integrations/Discord[@Id='DRPC_PARTY_STATE_GROUP_STRING']");
 
@@ -72,9 +73,9 @@ internal sealed class WorldRichPresence : RichPresence
             .WithParty(new Party()
             {
                 // TODO: Use session Id with party leader name hash as Id
-                ID = game.Player.Name ?? "",
-                Max = game.Player.Party.MaxSize,
-                Size = game.Player.Party.Size,
+                ID = _game.Player.Name ?? "",
+                Max = _game.Player.Party.MaxSize,
+                Size = _game.Player.Party.Size,
                 Privacy = Party.PrivacySetting.Public
             })
             .WithState(state);
