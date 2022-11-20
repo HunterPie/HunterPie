@@ -13,7 +13,7 @@ internal static class WidgetInitializers
         return AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(asm => asm.GetTypes())
             .Where(types => typeof(IWidgetInitializer).IsAssignableFrom(types) && !types.IsInterface)
-            .Select(type => Activator.CreateInstance(type))
+            .Select(Activator.CreateInstance)
             .Cast<IWidgetInitializer>()
             .ToArray();
     });

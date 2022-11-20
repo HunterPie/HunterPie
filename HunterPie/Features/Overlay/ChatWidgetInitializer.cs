@@ -13,7 +13,7 @@ internal class ChatWidgetInitializer : IWidgetInitializer
 {
     private IContextHandler _handler;
 
-    public void Load(Context context)
+    public void Load(IContext context)
     {
         OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
 

@@ -23,7 +23,7 @@ internal class GameSaveBackupService : IContextInitializer
     private const string LAST_BACKUP_SUCCESS_KEY = "HUNTERPIE_LAST_BACKUP_SUCCESS";
     private static IBackupService? _backupService;
 
-    public Task InitializeAsync(Context context)
+    public Task InitializeAsync(IContext context)
     {
         return Task.Factory.StartNew(() =>
         {

@@ -16,13 +16,13 @@ internal class SpecializedToolWidgetInitializer : IWidgetInitializer
 {
     private readonly List<IContextHandler> _handlers = new(2);
 
-    public void Load(Context context)
+    public void Load(IContext context)
     {
-        if (context is MHWContext mhwContext)
-        {
-            InitializePrimaryTool(mhwContext);
-            InitializeSecondaryTool(mhwContext);
-        }
+        if (context is not MHWContext mhwContext)
+            return;
+
+        InitializePrimaryTool(mhwContext);
+        InitializeSecondaryTool(mhwContext);
     }
 
     public void Unload()
@@ -37,7 +37,8 @@ internal class SpecializedToolWidgetInitializer : IWidgetInitializer
     {
         SpecializedToolWidgetConfig config = ClientConfigHelper.DeferOverlayConfig(
             GameProcess.MonsterHunterWorld,
-            config => config.PrimarySpecializedToolWidget);
+            config => config.PrimarySpecializedToolWidget
+        );
 
         if (!config.Initialize)
             return;
@@ -55,7 +56,8 @@ internal class SpecializedToolWidgetInitializer : IWidgetInitializer
     {
         SpecializedToolWidgetConfig config = ClientConfigHelper.DeferOverlayConfig(
             GameProcess.MonsterHunterWorld,
-            config => config.SecondarySpecializedToolWidget);
+            config => config.SecondarySpecializedToolWidget
+        );
 
         if (!config.Initialize)
             return;

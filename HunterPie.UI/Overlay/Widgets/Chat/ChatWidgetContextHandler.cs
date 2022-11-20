@@ -15,9 +15,9 @@ namespace HunterPie.UI.Overlay.Widgets.Chat;
 
 public class ChatWidgetContextHandler : IContextHandler
 {
-    private readonly ChatView View;
-    private readonly ChatViewModel ViewModel;
-    private readonly Context Context;
+    private readonly ChatView _view;
+    private readonly ChatViewModel _viewModel;
+    private readonly Context _context;
     public ChatCategoryViewModel General { get; } = new()
     {
         Name = "General",
@@ -27,30 +27,30 @@ public class ChatWidgetContextHandler : IContextHandler
 
     public ChatWidgetContextHandler(Context context)
     {
-        Context = context;
-        View = new ChatView(ProcessManager.Game switch
+        _context = context;
+        _view = new ChatView(ProcessManager.Game switch
         {
             GameProcess.MonsterHunterRise => ClientConfig.Config.Rise.Overlay.ChatWidget,
             _ => throw new NotImplementedException()
         });
-        ViewModel = View.ViewModel;
+        _viewModel = _view.ViewModel;
 
-        _ = WidgetManager.Register<ChatView, ChatWidgetConfig>(View);
+        _ = WidgetManager.Register<ChatView, ChatWidgetConfig>(_view);
 
         UpdateData();
         HookEvents();
     }
     private void UpdateData()
     {
-        ViewModel.IsChatOpen = Context.Game.Chat.IsChatOpen;
-        View.Type = ViewModel.IsChatOpen
+        _viewModel.IsChatOpen = _context.Game.Chat.IsChatOpen;
+        _view.Type = _viewModel.IsChatOpen
             ? WidgetType.Window
             : WidgetType.ClickThrough;
 
-        ViewModel.Categories.Add(General);
+        _viewModel.Categories.Add(General);
 
-        foreach (IChatMessage message in Context.Game.Chat.Messages)
-            View.Dispatcher.Invoke(() =>
+        foreach (IChatMessage message in _context.Game.Chat.Messages)
+            _view.Dispatcher.Invoke(() =>
             {
                 if (message.Type != AuthorType.Player)
                     return;
@@ -66,28 +66,28 @@ public class ChatWidgetContextHandler : IContextHandler
 
     public void HookEvents()
     {
-        Context.Game.Chat.OnNewChatMessage += OnNewChatMessage;
-        Context.Game.Chat.OnChatOpen += OnChatOpen;
+        _context.Game.Chat.OnNewChatMessage += OnNewChatMessage;
+        _context.Game.Chat.OnChatOpen += OnChatOpen;
     }
 
     private void OnChatOpen(object sender, IChat e)
     {
-        ViewModel.IsChatOpen = e.IsChatOpen;
-        View.Type = e.IsChatOpen
+        _viewModel.IsChatOpen = e.IsChatOpen;
+        _view.Type = e.IsChatOpen
             ? WidgetType.Window
             : WidgetType.ClickThrough;
     }
 
     public void UnhookEvents()
     {
-        Context.Game.Chat.OnNewChatMessage -= OnNewChatMessage;
-        Context.Game.Chat.OnChatOpen -= OnChatOpen;
+        _context.Game.Chat.OnNewChatMessage -= OnNewChatMessage;
+        _context.Game.Chat.OnChatOpen -= OnChatOpen;
 
-        _ = WidgetManager.Unregister<ChatView, ChatWidgetConfig>(View);
+        _ = WidgetManager.Unregister<ChatView, ChatWidgetConfig>(_view);
     }
     private void OnNewChatMessage(object sender, IChatMessage e)
     {
-        View.Dispatcher.Invoke(() =>
+        _view.Dispatcher.Invoke(() =>
         {
             if (e.Type != AuthorType.Player)
                 return;

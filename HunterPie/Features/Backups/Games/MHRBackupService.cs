@@ -11,7 +11,7 @@ namespace HunterPie.Features.Backups.Games;
 internal class MHRBackupService : IBackupService
 {
     private readonly string _savesPath;
-    private const string _saveFilePattern = "*.bin";
+    private const string SaveFilePattern = "*.bin";
     private readonly byte[] _magicBytes = { 0x44, 0x53, 0x53, 0x53 };
     private string RiseSaveFolder => _savesPath + "/1446780/remote/win64_save";
 
@@ -29,7 +29,7 @@ internal class MHRBackupService : IBackupService
             if (!Directory.Exists(RiseSaveFolder))
                 return null;
 
-            string[] files = Directory.EnumerateFiles(RiseSaveFolder, _saveFilePattern)
+            string[] files = Directory.EnumerateFiles(RiseSaveFolder, SaveFilePattern)
                                       .ToArray();
 
             try

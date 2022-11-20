@@ -16,8 +16,7 @@ namespace HunterPie.Game.World;
 internal class MHWContextInitializer : IContextInitializer
 {
 
-    /// <inheritdoc />
-    public async Task InitializeAsync(Context context)
+    public async Task InitializeAsync(IContext context)
     {
         if (context is not MHWContext)
             return;
@@ -38,7 +37,7 @@ internal class MHWContextInitializer : IContextInitializer
         );
     }
 
-    private static async Task InitializeNativeModule(Context context)
+    private static async Task InitializeNativeModule(IContext context)
     {
         if (!ClientConfig.Config.Client.EnableNativeModule)
             return;

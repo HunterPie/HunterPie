@@ -22,8 +22,7 @@ internal class MHRContextInitializer : IContextInitializer
         "FUN_CALCULATE_ENTITY_DAMAGE"
     };
 
-    /// <inheritdoc />
-    public async Task InitializeAsync(Context context)
+    public async Task InitializeAsync(IContext context)
     {
         if (context is not MHRContext)
             return;
@@ -43,11 +42,10 @@ internal class MHRContextInitializer : IContextInitializer
         );
     }
 
-    private static async Task InitializeNativeModule(Context context)
+    private static async Task InitializeNativeModule(IContext context)
     {
         RiseIntegrityPatcher.Patch(context);
 
-        // Make sure to inject module after patching.
         _ = IPCInjectorInitializer.InjectNativeModule(context);
         await NativeIPCInitializer.WaitForIPCInitialization();
 

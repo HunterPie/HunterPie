@@ -9,7 +9,7 @@ namespace HunterPie.Integrations.Discord;
 internal static class DiscordPresenceController
 {
 
-    public static RichPresence GetPresenceBy(Context context)
+    public static RichPresence GetPresenceBy(IContext context)
     {
         return context switch
         {

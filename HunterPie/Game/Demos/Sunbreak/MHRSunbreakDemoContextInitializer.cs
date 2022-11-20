@@ -10,8 +10,7 @@ namespace HunterPie.Game.Demos.Sunbreak;
 internal class MHRSunbreakDemoContextInitializer : IContextInitializer
 {
 
-    /// <inheritdoc />
-    public async Task InitializeAsync(Context context)
+    public async Task InitializeAsync(IContext context)
     {
         if (context is not MHRSunbreakDemoContext)
             return;
