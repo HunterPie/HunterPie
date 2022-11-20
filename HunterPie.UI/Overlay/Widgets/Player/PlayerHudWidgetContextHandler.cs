@@ -1,7 +1,7 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Client;
+using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.System;
@@ -36,9 +36,9 @@ public class PlayerHudWidgetContextHandler : IContextHandler
         Player.OnLevelChange += OnPlayerLevelChange;
         Player.OnWeaponChange += OnPlayerWeaponChange;
         Player.OnStageUpdate += OnStageChange;
-        Player.OnHealthChange += OnPlayerHealthChange;
-        Player.OnStaminaChange += OnPlayerStaminaChange;
-        Player.OnHeal += OnHeal;
+        Player.Health.OnHealthChange += OnPlayerHealthChange;
+        Player.Stamina.OnStaminaChange += OnPlayerStaminaChange;
+        Player.Health.OnHeal += OnHeal;
         Player.OnAbnormalityStart += OnPlayerAbnormalityStart;
         Player.OnAbnormalityEnd += OnPlayerAbnormalityEnd;
     }
@@ -49,9 +49,9 @@ public class PlayerHudWidgetContextHandler : IContextHandler
         Player.OnLevelChange -= OnPlayerLevelChange;
         Player.OnWeaponChange -= OnPlayerWeaponChange;
         Player.OnStageUpdate -= OnStageChange;
-        Player.OnHealthChange -= OnPlayerHealthChange;
-        Player.OnStaminaChange -= OnPlayerStaminaChange;
-        Player.OnHeal -= OnHeal;
+        Player.Health.OnHealthChange -= OnPlayerHealthChange;
+        Player.Stamina.OnStaminaChange -= OnPlayerStaminaChange;
+        Player.Health.OnHeal -= OnHeal;
         Player.OnAbnormalityStart -= OnPlayerAbnormalityStart;
         Player.OnAbnormalityEnd -= OnPlayerAbnormalityEnd;
 
@@ -138,14 +138,14 @@ public class PlayerHudWidgetContextHandler : IContextHandler
 
     private void UpdateData()
     {
-        ViewModel.MaxHealth = Player.MaxHealth;
-        ViewModel.MaxExtendableHealth = Player.MaxPossibleHealth;
-        ViewModel.Health = Player.Health;
-        ViewModel.RecoverableHealth = Player.RecoverableHealth;
-        ViewModel.MaxPossibleStamina = Player.MaxPossibleStamina;
-        ViewModel.MaxRecoverableStamina = Player.MaxRecoverableStamina;
-        ViewModel.MaxStamina = Player.MaxStamina;
-        ViewModel.Stamina = Player.Stamina;
+        ViewModel.MaxHealth = Player.Health.Max;
+        ViewModel.MaxExtendableHealth = Player.Health.MaxPossibleHealth;
+        ViewModel.Health = Player.Health.Current;
+        ViewModel.RecoverableHealth = Player.Health.RecoverableHealth;
+        ViewModel.MaxPossibleStamina = Player.Stamina.MaxPossibleStamina;
+        ViewModel.MaxRecoverableStamina = Player.Stamina.MaxRecoverableStamina;
+        ViewModel.MaxStamina = Player.Stamina.Max;
+        ViewModel.Stamina = Player.Stamina.Current;
         ViewModel.Name = Player.Name;
         ViewModel.Level = Player.MasterRank;
     }

@@ -2,7 +2,7 @@
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Client;
+using HunterPie.Core.Game.Entity.Game.Chat;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.System;
 using HunterPie.UI.Assets.Application;
@@ -50,7 +50,6 @@ public class ChatWidgetContextHandler : IContextHandler
         ViewModel.Categories.Add(General);
 
         foreach (IChatMessage message in Context.Game.Chat.Messages)
-        {
             View.Dispatcher.Invoke(() =>
             {
                 if (message.Type != AuthorType.Player)
@@ -63,7 +62,6 @@ public class ChatWidgetContextHandler : IContextHandler
                     Index = message.PlayerSlot
                 });
             });
-        }
     }
 
     public void HookEvents()

@@ -2,6 +2,7 @@
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Events;
 using HunterPie.Core.Game;
+using HunterPie.Core.Game.Entity.Game;
 using HunterPie.Core.Input;
 using HunterPie.Core.Logger;
 using HunterPie.Core.Settings;

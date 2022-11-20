@@ -3,10 +3,11 @@ using DiscordRPC;
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Integrations;
 using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
-using HunterPie.Core.Game.Environment;
-using HunterPie.Core.Game.Rise;
 using HunterPie.Domain.Utils;
+using HunterPie.Integrations.Datasources.MonsterHunterRise;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Game;
 using System;
 using System.Linq;
 

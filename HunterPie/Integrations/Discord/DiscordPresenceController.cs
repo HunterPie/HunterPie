@@ -1,7 +1,7 @@
 ﻿using HunterPie.Core.Game;
-using HunterPie.Core.Game.Demos.Sunbreak;
-using HunterPie.Core.Game.Rise;
-using HunterPie.Core.Game.World;
+using HunterPie.Integrations.Datasources.MonsterHunterRise;
+using HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using System;
 
 namespace HunterPie.Integrations.Discord;

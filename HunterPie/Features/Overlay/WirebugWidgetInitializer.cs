@@ -1,9 +1,9 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Client;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Rise;
 using HunterPie.Core.Logger;
 using HunterPie.Core.System;
+using HunterPie.Integrations.Datasources.MonsterHunterRise;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Wirebug;

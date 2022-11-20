@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Client;
+using HunterPie.Core.Game.Entity.Player;
 using HunterPie.UI.Overlay.Widgets.Abnormality.View;
 using HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel;
 using System.Linq;

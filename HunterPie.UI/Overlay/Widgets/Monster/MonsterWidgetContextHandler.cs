@@ -2,7 +2,7 @@
 using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Environment;
+using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.System;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Monster.Views;

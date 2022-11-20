@@ -3,9 +3,10 @@ using DiscordRPC;
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Integrations;
 using HunterPie.Core.Client.Localization;
-using HunterPie.Core.Game.Demos.Sunbreak;
+using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
-using HunterPie.Core.Game.Environment;
+using HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo;
+using HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo.Entity.Game;
 using System.Linq;
 
 namespace HunterPie.Integrations.Discord;

@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.Core.Game.Environment;
-using HunterPie.Core.Game.Rise.Entities;
+using HunterPie.Core.Game.Entity.Enemy;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster;

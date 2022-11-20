@@ -1,10 +1,9 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.Core.Game.Demos.Sunbreak.Entities.Monster;
+using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
-using HunterPie.Core.Game.Environment;
-using HunterPie.Core.Game.Rise.Entities;
-using HunterPie.Core.Game.Rise.Entities.Monster;
-using HunterPie.Core.Game.World.Entities;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
+using HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo.Entity.Enemy;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enemy;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using System;
 using System.Linq;
