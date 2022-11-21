@@ -61,7 +61,6 @@ public class BackupsViewModel : ViewModel, IDisposable
         await UIThread.InvokeAsync(() =>
         {
             foreach (BackupResponse backup in response.Backups)
-            {
                 Backups.Add(new BackupElementViewModel
                 {
                     BackupId = backup.Id,
@@ -73,7 +72,6 @@ public class BackupsViewModel : ViewModel, IDisposable
                         ClientInfo.GetPathFor($"Backups/{backup.Id}.zip")
                     )
                 });
-            }
         });
     }
 
