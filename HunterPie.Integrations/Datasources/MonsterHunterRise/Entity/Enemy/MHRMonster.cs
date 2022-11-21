@@ -360,15 +360,17 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
 
             if (qurioPart is { } qurioPartPtr)
             {
-                long encodedQurioHealthPtr = _process.Memory.Read<long>(qurioPartPtr + 0x88);
+                MHRQurioPartStructure qurioStructure = _process.Memory.Read<MHRQurioPartStructure>(qurioPartPtr);
+
+                long encryptedHealthPtr =
+                    _process.Memory.ReadPtr(qurioStructure.EncryptedHealthPtr, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
 
                 qurioInfo = new MHRQurioPartData
                 {
-                    MaxHealth = _process.Memory.Read<float>(qurioPartPtr + 0x38),
-                    Health = _process.Memory.ReadEncryptedFloat(encodedQurioHealthPtr)
+                    MaxHealth = qurioStructure.MaxHealth,
+                    Health = _process.Memory.ReadEncryptedFloat(encryptedHealthPtr),
+                    IsInQurioState = qurioStructure.IsActive
                 };
-
-                qurioInfo.IsInQurioState = qurioInfo.Health > 0;
             }
 
             partInfo.Flinch = _process.Memory.ReadEncryptedFloat(encodedFlinchHealthPtr);
@@ -381,7 +383,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
                 var dummy = new MHRMonsterPart(partName, partInfo);
                 _parts.Add(flinchPart, dummy);
 
-                //Log.Debug($"Found {partName} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X}");
+                Log.Debug($"Found {partName} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X} Qurio: {qurioPart:X}");
                 this.Dispatch(OnNewPartFound, dummy);
             }
 
