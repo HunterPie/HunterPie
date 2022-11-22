@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Architecture;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
@@ -53,10 +54,12 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             {
                 _name = value;
                 FindPlayerSaveSlot();
-                this.Dispatch(value is ""
-                    ? OnLogout
-                    : OnLogin);
 
+                this.Dispatch(
+                    value is ""
+                        ? _onLogin
+                        : _onLogout
+                );
             }
         }
     }
@@ -69,7 +72,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             if (value != _highRank)
             {
                 _highRank = value;
-                this.Dispatch(OnLevelChange, new LevelChangeEventArgs(this));
+                this.Dispatch(_onLevelChange, new LevelChangeEventArgs(this));
             }
         }
     }
@@ -82,7 +85,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             if (value != _masterRank)
             {
                 _masterRank = value;
-                this.Dispatch(OnLevelChange, new LevelChangeEventArgs(this));
+                this.Dispatch(_onLevelChange, new LevelChangeEventArgs(this));
             }
         }
     }
@@ -95,12 +98,12 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             if (value != _stageId)
             {
                 if (_stageData.IsVillage() && value != 5 && (_lastStageData.IsHuntingZone() || StageId == 5 || _lastStageData.IsIrrelevantStage()))
-                    this.Dispatch(OnVillageEnter);
+                    this.Dispatch(_onVillageEnter);
                 else if (_stageData.IsHuntingZone() || value == 5)
-                    this.Dispatch(OnVillageLeave);
+                    this.Dispatch(_onVillageLeave);
 
                 _stageId = value;
-                this.Dispatch(OnStageUpdate);
+                this.Dispatch(_onStageUpdate);
             }
         }
     }
@@ -134,24 +137,84 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             {
                 IWeapon lastWeapon = _weapon;
                 _weapon = value;
-                this.Dispatch(OnWeaponChange, new WeaponChangeEventArgs(lastWeapon, _weapon));
+                this.Dispatch(_onWeaponChange, new WeaponChangeEventArgs(lastWeapon, _weapon));
             }
         }
     }
 
-    public event EventHandler<EventArgs> OnLogin;
-    public event EventHandler<EventArgs> OnLogout;
-    public event EventHandler<EventArgs> OnDeath;
-    public event EventHandler<EventArgs> OnActionUpdate;
-    public event EventHandler<EventArgs> OnStageUpdate;
-    public event EventHandler<EventArgs> OnVillageEnter;
-    public event EventHandler<EventArgs> OnVillageLeave;
-    public event EventHandler<EventArgs> OnAilmentUpdate;
-    public event EventHandler<WeaponChangeEventArgs> OnWeaponChange;
+    private readonly SmartEvent<EventArgs> _onLogin = new();
+    public event EventHandler<EventArgs> OnLogin
+    {
+        add => _onLogin.Hook(value);
+        remove => _onLogin.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onLogout = new();
+    public event EventHandler<EventArgs> OnLogout
+    {
+        add => _onLogout.Hook(value);
+        remove => _onLogout.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onDeath = new();
+    public event EventHandler<EventArgs> OnDeath
+    {
+        add => _onDeath.Hook(value);
+        remove => _onDeath.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onActionUpdate = new();
+    public event EventHandler<EventArgs> OnActionUpdate
+    {
+        add => _onActionUpdate.Hook(value);
+        remove => _onActionUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onStageUpdate = new();
+    public event EventHandler<EventArgs> OnStageUpdate
+    {
+        add => _onStageUpdate.Hook(value);
+        remove => _onStageUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onVillageEnter = new();
+    public event EventHandler<EventArgs> OnVillageEnter
+    {
+        add => _onVillageEnter.Hook(value);
+        remove => _onVillageEnter.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onVillageLeave = new();
+    public event EventHandler<EventArgs> OnVillageLeave
+    {
+        add => _onVillageLeave.Hook(value);
+        remove => _onVillageLeave.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onAilmentUpdate = new();
+    public event EventHandler<EventArgs> OnAilmentUpdate
+    {
+        add => _onAilmentUpdate.Hook(value);
+        remove => _onAilmentUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<WeaponChangeEventArgs> _onWeaponChange = new();
+    public event EventHandler<WeaponChangeEventArgs> OnWeaponChange
+    {
+        add => _onWeaponChange.Hook(value);
+        remove => _onWeaponChange.Unhook(value);
+    }
+
     public event EventHandler<IAbnormality> OnAbnormalityStart;
     public event EventHandler<IAbnormality> OnAbnormalityEnd;
     public event EventHandler<MHRWirebug[]> OnWirebugsRefresh;
-    public event EventHandler<LevelChangeEventArgs> OnLevelChange;
+
+    private readonly SmartEvent<LevelChangeEventArgs> _onLevelChange = new();
+    public event EventHandler<LevelChangeEventArgs> OnLevelChange
+    {
+        add => _onLevelChange.Hook(value);
+        remove => _onLevelChange.Unhook(value);
+    }
 
     public MHRPlayer(IProcessManager process) : base(process)
     {
