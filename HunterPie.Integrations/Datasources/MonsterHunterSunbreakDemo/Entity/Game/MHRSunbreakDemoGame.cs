@@ -58,13 +58,13 @@ public class MHRSunbreakDemoGame : Scannable, IGame, IEventDispatcher
             return;
         }
 
-        long address = _process.Memory.Read(
+        long address = Process.Memory.Read(
             AddressMap.GetAbsolute("MONSTERS_ADDRESS"),
             AddressMap.Get<int[]>("MONSTER_LIST_OFFSETS")
         );
 
-        uint monsterArraySize = _process.Memory.Read<uint>(address - 0x8);
-        var monsterAddresses = _process.Memory.Read<long>(address + 0x20, Math.Min(MaximumMonsterArraySize, monsterArraySize))
+        uint monsterArraySize = Process.Memory.Read<uint>(address - 0x8);
+        var monsterAddresses = Process.Memory.Read<long>(address + 0x20, Math.Min(MaximumMonsterArraySize, monsterArraySize))
             .ToHashSet();
 
         long[] toDespawn = _monsters.Keys.Where(address => !monsterAddresses.Contains(address))
@@ -86,7 +86,7 @@ public class MHRSunbreakDemoGame : Scannable, IGame, IEventDispatcher
         if (monsterAddress == 0 || _monsters.ContainsKey(monsterAddress))
             return;
 
-        IMonster monster = new MHRSunbreakDemoMonster(_process, monsterAddress);
+        IMonster monster = new MHRSunbreakDemoMonster(Process, monsterAddress);
         _monsters.Add(monsterAddress, monster);
         Monsters.Add(monster);
         ScanManager.Add(monster as Scannable);

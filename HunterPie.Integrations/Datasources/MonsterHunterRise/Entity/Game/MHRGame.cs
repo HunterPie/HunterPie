@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
@@ -13,6 +14,7 @@ using HunterPie.Core.Game.Services;
 using HunterPie.Core.Native.IPC.Handlers.Internal.Damage;
 using HunterPie.Core.Native.IPC.Handlers.Internal.Damage.Models;
 using HunterPie.Core.Native.IPC.Models.Common;
+using HunterPie.Integrations.Datasources.Common;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Chat;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
@@ -23,11 +25,9 @@ using System.Text;
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Game;
 
 #pragma warning disable IDE0051 // Remove unused private members
-public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
+public class MHRGame : Scannable, IGame, IEventDispatcher
 {
     public const uint MAXIMUM_MONSTER_ARRAY_SIZE = 5;
-    public const long ALL_TARGETS = 0;
-    public const int CHAT_MAX_SIZE = 0x40;
     public const int TRAINING_ROOM_ID = 5;
 
     private readonly MHRChat _chat = new();
@@ -54,7 +54,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
             if (value != _isHudOpen)
             {
                 _isHudOpen = value;
-                this.Dispatch(OnHudStateChange, this);
+                this.Dispatch(_onHudStateChange, this);
             }
         }
     }
@@ -69,7 +69,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
                 bool hasReset = value - _timeElapsed > 5;
 
                 _timeElapsed = value;
-                this.Dispatch(OnTimeElapsedChange, new TimeElapsedChangeEventArgs(hasReset, value));
+                this.Dispatch(_onTimeElapsedChange, new TimeElapsedChangeEventArgs(hasReset, value));
             }
         }
     }
@@ -82,7 +82,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
             if (value != _maxDeaths)
             {
                 _maxDeaths = value;
-                this.Dispatch(OnDeathCountChange, this);
+                this.Dispatch(_onDeathCountChange, this);
             }
         }
     }
@@ -95,18 +95,47 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
             if (value != _deaths)
             {
                 _deaths = value;
-                this.Dispatch(OnDeathCountChange, this);
+                this.Dispatch(_onDeathCountChange, this);
             }
         }
     }
 
     public IAbnormalityCategorizationService AbnormalityCategorizationService { get; } = new MHRAbnormalityCategorizationService();
 
-    public event EventHandler<IMonster> OnMonsterSpawn;
-    public event EventHandler<IMonster> OnMonsterDespawn;
-    public event EventHandler<IGame> OnHudStateChange;
-    public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange;
-    public event EventHandler<IGame> OnDeathCountChange;
+    private readonly SmartEvent<IMonster> _onMonsterSpawn = new();
+    public event EventHandler<IMonster> OnMonsterSpawn
+    {
+        add => _onMonsterSpawn.Hook(value);
+        remove => _onMonsterSpawn.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonster> _onMonsterDespawn = new();
+    public event EventHandler<IMonster> OnMonsterDespawn
+    {
+        add => _onMonsterDespawn.Hook(value);
+        remove => _onMonsterDespawn.Unhook(value);
+    }
+
+    private readonly SmartEvent<IGame> _onHudStateChange = new();
+    public event EventHandler<IGame> OnHudStateChange
+    {
+        add => _onHudStateChange.Hook(value);
+        remove => _onHudStateChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<TimeElapsedChangeEventArgs> _onTimeElapsedChange = new();
+    public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange
+    {
+        add => _onTimeElapsedChange.Hook(value);
+        remove => _onTimeElapsedChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<IGame> _onDeathCountChange = new();
+    public event EventHandler<IGame> OnDeathCountChange
+    {
+        add => _onDeathCountChange.Hook(value);
+        remove => _onDeathCountChange.Unhook(value);
+    }
 
     public MHRGame(IProcessManager process) : base(process)
     {
@@ -135,17 +164,17 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
     [ScannableMethod]
     private void ScanChat()
     {
-        long chatArrayPtr = _process.Memory.Read(
+        long chatArrayPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("CHAT_ADDRESS"),
             AddressMap.Get<int[]>("CHAT_OFFSETS")
         );
-        long chatArray = _process.Memory.Read<long>(chatArrayPtr);
-        int chatCount = _process.Memory.Read<int>(chatArrayPtr + 0x8);
+        long chatArray = Process.Memory.Read<long>(chatArrayPtr);
+        int chatCount = Process.Memory.Read<int>(chatArrayPtr + 0x8);
 
         if (chatCount <= 0)
             return;
 
-        long[] chatMessagePtrs = _process.Memory.Read<long>(chatArray + 0x20, (uint)chatCount);
+        long[] chatMessagePtrs = Process.Memory.Read<long>(chatArray + 0x20, (uint)chatCount);
 
         bool isChatOpen = false;
 
@@ -153,7 +182,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
         {
             long messagePtr = chatMessagePtrs[i];
 
-            MHRChatMessageStructure message = _process.Memory.Read<MHRChatMessageStructure>(messagePtr);
+            MHRChatMessageStructure message = Process.Memory.Read<MHRChatMessageStructure>(messagePtr);
 
             if (message.Type is not 0 and not 1)
                 continue;
@@ -170,7 +199,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
         }
 
         if (!isChatOpen)
-            isChatOpen |= _process.Memory.Deref<byte>(
+            isChatOpen |= Process.Memory.Deref<byte>(
                 AddressMap.GetAbsolute("CHAT_UI_ADDRESS"),
                 AddressMap.Get<int[]>("CHAT_UI_OFFSETS")
             ) == 1;
@@ -181,7 +210,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
     [ScannableMethod]
     private void GetElapsedTime()
     {
-        float elapsedTime = _process.Memory.Deref<float>(
+        float elapsedTime = Process.Memory.Deref<float>(
             AddressMap.GetAbsolute("QUEST_ADDRESS"),
             AddressMap.Get<int[]>("QUEST_TIMER_OFFSETS")
         );
@@ -198,12 +227,12 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
     [ScannableMethod]
     private void GetDeathCounter()
     {
-        int maxDeathsCounter = _process.Memory.Deref<int>(
+        int maxDeathsCounter = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("QUEST_ADDRESS"),
             AddressMap.Get<int[]>("QUEST_MAX_DEATHS_OFFSETS")
         );
 
-        int deathCounter = _process.Memory.Deref<int>(
+        int deathCounter = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("QUEST_ADDRESS"),
             AddressMap.Get<int[]>("QUEST_DEATH_COUNTER_OFFSETS")
         );
@@ -221,18 +250,18 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
         _lastDamageUpdate = DateTime.Now;
 
         if (Player.InHuntingZone)
-            DamageMessageHandler.RequestHuntStatistics(ALL_TARGETS);
+            DamageMessageHandler.RequestHuntStatistics(CommonConstants.AllTargets);
     }
 
     [ScannableMethod]
     private void GetUIState()
     {
-        byte isHudOpen = _process.Memory.Deref<byte>(
+        byte isHudOpen = Process.Memory.Deref<byte>(
             AddressMap.GetAbsolute("MOUSE_ADDRESS"),
             AddressMap.Get<int[]>("MOUSE_OFFSETS")
         );
 
-        byte isCutsceneActive = _process.Memory.Deref<byte>(
+        byte isCutsceneActive = Process.Memory.Deref<byte>(
             AddressMap.GetAbsolute("EVENTCAMERA_ADDRESS"),
             AddressMap.Get<int[]>("CUTSCENE_STATE_OFFSETS")
         );
@@ -253,13 +282,13 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
             return;
         }
 
-        long address = _process.Memory.Read(
+        long address = Process.Memory.Read(
             AddressMap.GetAbsolute("MONSTERS_ADDRESS"),
             AddressMap.Get<int[]>("MONSTER_LIST_OFFSETS")
         );
 
-        uint monsterArraySize = _process.Memory.Read<uint>(address + 0x1C);
-        var monsterAddresses = _process.Memory.Read<long>(address + 0x20, Math.Min(MAXIMUM_MONSTER_ARRAY_SIZE, monsterArraySize))
+        uint monsterArraySize = Process.Memory.Read<uint>(address + 0x1C);
+        var monsterAddresses = Process.Memory.Read<long>(address + 0x20, Math.Min(MAXIMUM_MONSTER_ARRAY_SIZE, monsterArraySize))
             .Where(mAddress => mAddress != 0)
             .ToHashSet();
 
@@ -282,12 +311,12 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
         if (monsterAddress == 0 || _monsters.ContainsKey(monsterAddress))
             return;
 
-        IMonster monster = new MHRMonster(_process, monsterAddress);
+        IMonster monster = new MHRMonster(Process, monsterAddress);
         _monsters.Add(monsterAddress, monster);
         Monsters.Add(monster);
         ScanManager.Add(monster as Scannable);
 
-        this.Dispatch(OnMonsterSpawn, monster);
+        this.Dispatch(_onMonsterSpawn, monster);
     }
 
     private void HandleMonsterDespawn(long address)
@@ -298,18 +327,18 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
         _ = Monsters.Remove(monster);
         ScanManager.Remove(monster as Scannable);
 
-        this.Dispatch(OnMonsterDespawn, monster);
+        this.Dispatch(_onMonsterDespawn, monster);
     }
 
     #region Damage helpers
 
-    private void OnPlayerStageUpdate(object sender, EventArgs e)
+    private static void OnPlayerStageUpdate(object? sender, EventArgs e)
     {
         DamageMessageHandler.ClearAllHuntStatisticsExcept(Array.Empty<long>());
-        DamageMessageHandler.RequestHuntStatistics(ALL_TARGETS);
+        DamageMessageHandler.RequestHuntStatistics(CommonConstants.AllTargets);
     }
 
-    private void OnReceivePlayersDamage(object sender, ResponseDamageMessage e)
+    private void OnReceivePlayersDamage(object? sender, ResponseDamageMessage e)
     {
         long target = e.Target;
 
@@ -321,12 +350,10 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
             {
                 EntityDamageData entity = group.ElementAt(0);
 
-                return new EntityDamageData
+                return entity with
                 {
-                    Target = entity.Target,
-                    Entity = entity.Entity,
-                    RawDamage = group.Sum(e => e.RawDamage),
-                    ElementalDamage = group.Sum(e => e.ElementalDamage)
+                    RawDamage = group.Sum(damage => damage.RawDamage),
+                    ElementalDamage = group.Sum(damage => damage.ElementalDamage)
                 };
             })
             .ToArray();
@@ -348,11 +375,11 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
 
     private MHRChatMessage DerefNormalChatMessage(MHRChatMessageStructure message)
     {
-        int messageStringLength = _process.Memory.Read<int>(message.Message + 0x10);
-        int messageAuthorLength = _process.Memory.Read<int>(message.Author + 0x10);
+        int messageStringLength = Process.Memory.Read<int>(message.Message + 0x10);
+        int messageAuthorLength = Process.Memory.Read<int>(message.Author + 0x10);
 
-        string messageString = _process.Memory.Read(message.Message + 0x14, (uint)messageStringLength * 2, Encoding.Unicode);
-        string messageAuthor = _process.Memory.Read(message.Author + 0x14, (uint)messageAuthorLength * 2, Encoding.Unicode);
+        string messageString = Process.Memory.Read(message.Message + 0x14, (uint)messageStringLength * 2, Encoding.Unicode);
+        string messageAuthor = Process.Memory.Read(message.Author + 0x14, (uint)messageAuthorLength * 2, Encoding.Unicode);
 
         return new()
         {
@@ -365,8 +392,8 @@ public class MHRGame : Scannable, IGame, IEventDispatcher, IDisposable
 
     private MHRChatMessage DerefAutoChatMessage(MHRChatMessageStructure message)
     {
-        int messageAuthorLength = _process.Memory.Read<int>(message.Author + 0x10);
-        string messageAuthor = _process.Memory.Read(messageAuthorLength + 0x14, (uint)messageAuthorLength * 2, Encoding.Unicode);
+        int messageAuthorLength = Process.Memory.Read<int>(message.Author + 0x10);
+        string messageAuthor = Process.Memory.Read(messageAuthorLength + 0x14, (uint)messageAuthorLength * 2, Encoding.Unicode);
 
         return new()
         {

@@ -208,8 +208,8 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterBasicInformation()
     {
-        int monsterId = _process.Memory.Read<int>(_address + 0x12280);
-        int doubleLinkedListIndex = _process.Memory.Read<int>(_address + 0x1228C);
+        int monsterId = Process.Memory.Read<int>(_address + 0x12280);
+        int doubleLinkedListIndex = Process.Memory.Read<int>(_address + 0x1228C);
 
         Id = monsterId;
         _doubleLinkedListIndex = doubleLinkedListIndex;
@@ -218,8 +218,8 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterHealthData()
     {
-        long monsterHealthPtr = _process.Memory.Read<long>(_address + 0x7670);
-        float[] healthValues = _process.Memory.Read<float>(monsterHealthPtr + 0x60, 2);
+        long monsterHealthPtr = Process.Memory.Read<long>(_address + 0x7670);
+        float[] healthValues = Process.Memory.Read<float>(monsterHealthPtr + 0x60, 2);
 
         MaxHealth = healthValues[0];
         Health = healthValues[1];
@@ -228,7 +228,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterStaminaData()
     {
-        float[] staminaValues = _process.Memory.Read<float>(_address + 0x1C0F0, 2);
+        float[] staminaValues = Process.Memory.Read<float>(_address + 0x1C0F0, 2);
 
         MaxStamina = staminaValues[1];
         Stamina = staminaValues[0];
@@ -237,8 +237,8 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterCrownData()
     {
-        float sizeModifier = _process.Memory.Read<float>(_address + 0x7730);
-        float sizeMultiplier = _process.Memory.Read<float>(_address + 0x188);
+        float sizeModifier = Process.Memory.Read<float>(_address + 0x7730);
+        float sizeMultiplier = Process.Memory.Read<float>(_address + 0x188);
 
         if (sizeModifier is <= 0 or >= 2)
             sizeModifier = 1;
@@ -260,7 +260,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterEnrage()
     {
-        MHWMonsterStatusStructure enrageStructure = _process.Memory.Read<MHWMonsterStatusStructure>(_address + 0x1BE30);
+        MHWMonsterStatusStructure enrageStructure = Process.Memory.Read<MHWMonsterStatusStructure>(_address + 0x1BE30);
         IUpdatable<MHWMonsterStatusStructure> enrage = _enrage;
 
         IsEnraged = enrageStructure.Duration > 0;
@@ -271,7 +271,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetLockedOnMonster()
     {
-        int lockedOnDoubleLinkedListIndex = _process.Memory.Deref<int>(
+        int lockedOnDoubleLinkedListIndex = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("LOCKON_ADDRESS"),
             AddressMap.Get<int[]>("LOCKEDON_MONSTER_INDEX_OFFSETS")
         );
@@ -284,7 +284,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterParts()
     {
-        long monsterPartPtr = _process.Memory.Read<long>(_address + 0x1D058);
+        long monsterPartPtr = Process.Memory.Read<long>(_address + 0x1D058);
 
         if (monsterPartPtr == 0)
             return;
@@ -318,11 +318,11 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
             // If the part address has been cached already, we can just read them
             if (cachedAddress > 0)
             {
-                partStructure = _process.Memory.Read<MHWMonsterPartStructure>(cachedAddress);
+                partStructure = Process.Memory.Read<MHWMonsterPartStructure>(cachedAddress);
 
                 // Alatreon elemental explosion level
                 if (Id == 87 && partStructure.Index == 3)
-                    partStructure.Counter = _process.Memory.Read<int>(_address + 0x20920);
+                    partStructure.Counter = Process.Memory.Read<int>(_address + 0x20920);
 
                 updatable.Update(partStructure);
                 continue;
@@ -332,10 +332,10 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
             {
                 while (monsterSeverableAddress < (monsterSeverableAddress + (0x120 * 32)))
                 {
-                    if (_process.Memory.Read<int>(monsterSeverableAddress) <= 0xA0)
+                    if (Process.Memory.Read<int>(monsterSeverableAddress) <= 0xA0)
                         monsterSeverableAddress += 0x8;
 
-                    partStructure = _process.Memory.Read<MHWMonsterPartStructure>(monsterSeverableAddress);
+                    partStructure = Process.Memory.Read<MHWMonsterPartStructure>(monsterSeverableAddress);
 
                     if (partStructure.Index == partSchema.Id && partStructure.MaxHealth > 0)
                     {
@@ -351,7 +351,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
                         do
                         {
                             monsterSeverableAddress += 0x78;
-                        } while (partStructure.Equals(_process.Memory.Read<MHWMonsterPartStructure>(monsterSeverableAddress)));
+                        } while (partStructure.Equals(Process.Memory.Read<MHWMonsterPartStructure>(monsterSeverableAddress)));
 
                         break;
                     }
@@ -362,7 +362,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
             else
             {
                 long address = monsterPartAddress + (normalPartIndex * 0x1F8);
-                partStructure = _process.Memory.Read<MHWMonsterPartStructure>(address);
+                partStructure = Process.Memory.Read<MHWMonsterPartStructure>(address);
 
                 MHWMonsterPart newPart = new(
                     partSchema.String,
@@ -385,7 +385,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterPartTenderizes()
     {
-        MHWTenderizeInfoStructure[] tenderizeInfos = _process.Memory.Read<MHWTenderizeInfoStructure>(
+        MHWTenderizeInfoStructure[] tenderizeInfos = Process.Memory.Read<MHWTenderizeInfoStructure>(
             _address + 0x1C458,
             10
         );
@@ -411,16 +411,16 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
         {
             _ailments = new(32);
             long monsterAilmentArrayElement = _address + 0x1BC40;
-            long monsterAilmentPtr = _process.Memory.Read<long>(monsterAilmentArrayElement);
+            long monsterAilmentPtr = Process.Memory.Read<long>(monsterAilmentArrayElement);
 
             while (monsterAilmentPtr > 1)
             {
                 long currentMonsterAilmentPtr = monsterAilmentPtr;
                 // Comment from V1 so I don't forget: There's a gap between the monsterAilmentPtr and the actual ailment data
-                MHWMonsterAilmentStructure structure = _process.Memory.Read<MHWMonsterAilmentStructure>(currentMonsterAilmentPtr + 0x148);
+                MHWMonsterAilmentStructure structure = Process.Memory.Read<MHWMonsterAilmentStructure>(currentMonsterAilmentPtr + 0x148);
 
                 monsterAilmentArrayElement += sizeof(long);
-                monsterAilmentPtr = _process.Memory.Read<long>(monsterAilmentArrayElement);
+                monsterAilmentPtr = Process.Memory.Read<long>(monsterAilmentArrayElement);
 
                 if (structure.Owner != _address)
                     break;
@@ -445,7 +445,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
         {
             (long address, MHWMonsterAilment ailment) = _ailments[i];
 
-            MHWMonsterAilmentStructure structure = _process.Memory.Read<MHWMonsterAilmentStructure>(address + 0x148);
+            MHWMonsterAilmentStructure structure = Process.Memory.Read<MHWMonsterAilmentStructure>(address + 0x148);
             IUpdatable<MHWMonsterAilmentStructure> updatable = ailment;
             updatable.Update(structure);
         }

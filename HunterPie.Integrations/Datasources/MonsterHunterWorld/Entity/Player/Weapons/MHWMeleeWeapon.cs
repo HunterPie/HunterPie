@@ -63,7 +63,7 @@ public class MHWMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
     [ScannableMethod]
     private void GetWeaponSharpness()
     {
-        long weaponDataPtr = _process.Memory.Read(
+        long weaponDataPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("WEAPON_DATA_ADDRESS"),
             AddressMap.Get<int[]>("WEAPON_DATA_OFFSETS")
         );
@@ -71,20 +71,20 @@ public class MHWMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
         if (weaponDataPtr.IsNullPointer())
             return;
 
-        int weaponId = _process.Memory.Deref<int>(
+        int weaponId = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("WEAPON_ADDRESS"),
             AddressMap.Get<int[]>("WEAPON_ID_OFFSETS")
         );
 
-        MHWSharpnessStructure sharpness = _process.Memory.Deref<MHWSharpnessStructure>(
+        MHWSharpnessStructure sharpness = Process.Memory.Deref<MHWSharpnessStructure>(
             AddressMap.GetAbsolute("WEAPON_ADDRESS"),
             AddressMap.Get<int[]>("WEAPON_SHARPNESS_OFFSETS")
         );
 
         if (SharpnessThresholds is null || _weaponId != weaponId)
         {
-            long weaponSharpnessArrayPtr = _process.Memory.Read(weaponDataPtr, new[] { weaponId * sizeof(long), 0x0C });
-            short[] sharpnesses = _process.Memory.Read<short>(weaponSharpnessArrayPtr, 7);
+            long weaponSharpnessArrayPtr = Process.Memory.Read(weaponDataPtr, new[] { weaponId * sizeof(long), 0x0C });
+            short[] sharpnesses = Process.Memory.Read<short>(weaponSharpnessArrayPtr, 7);
 
             SharpnessThresholds = sharpnesses.Select(t => (int)t)
                                              .ToArray();
@@ -95,12 +95,12 @@ public class MHWMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
         if (sharpness.Level >= Sharpness.Invalid)
             sharpness.Level = SharpnessThresholds.ToSharpnessLevel(sharpness.Sharpness);
 
-        long gearSkillsPtr = _process.Memory.Read(
+        long gearSkillsPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITY_ADDRESS"),
             AddressMap.Get<int[]>("GEAR_SKILL_OFFSETS")
         );
 
-        MHWGearSkill handicraft = _process.Memory.Read<MHWGearSkill>(gearSkillsPtr + (Marshal.SizeOf<MHWGearSkill>() * 0x36));
+        MHWGearSkill handicraft = Process.Memory.Read<MHWGearSkill>(gearSkillsPtr + (Marshal.SizeOf<MHWGearSkill>() * 0x36));
 
         int maxHits = SharpnessThresholds.MaximumSharpness(handicraft);
         Sharpness = sharpness.Level;

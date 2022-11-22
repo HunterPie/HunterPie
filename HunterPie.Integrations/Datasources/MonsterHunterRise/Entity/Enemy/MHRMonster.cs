@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.DTO;
 using HunterPie.Core.Domain.DTO.Monster;
@@ -45,7 +46,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
             {
                 _id = value;
                 GetMonsterWeaknesses();
-                this.Dispatch(OnSpawn);
+                this.Dispatch(_onSpawn);
             }
         }
     }
@@ -60,10 +61,10 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
             if (_health != value)
             {
                 _health = value;
-                this.Dispatch(OnHealthChange);
+                this.Dispatch(_onHealthChange);
 
                 if (Health <= 0)
-                    this.Dispatch(OnDeath);
+                    this.Dispatch(_onDeath);
             }
         }
     }
@@ -78,7 +79,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
             if (value != _stamina)
             {
                 _stamina = value;
-                this.Dispatch(OnStaminaChange);
+                this.Dispatch(_onStaminaChange);
             }
         }
     }
@@ -93,7 +94,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
             if (_isTarget != value)
             {
                 _isTarget = value;
-                this.Dispatch(OnTarget);
+                this.Dispatch(_onTarget);
             }
         }
     }
@@ -106,7 +107,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
             if (_target != value)
             {
                 _target = value;
-                this.Dispatch(OnTargetChange);
+                this.Dispatch(_onTargetChange);
             }
         }
     }
@@ -119,7 +120,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
             if (_crown != value)
             {
                 _crown = value;
-                this.Dispatch(OnCrownChange);
+                this.Dispatch(_onCrownChange);
             }
         }
     }
@@ -148,7 +149,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
             if (value != _isEnraged)
             {
                 _isEnraged = value;
-                this.Dispatch(OnEnrageStateChange);
+                this.Dispatch(_onEnrageStateChange);
             }
         }
     }
@@ -165,7 +166,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
             if (value != _captureThreshold)
             {
                 _captureThreshold = value;
-                this.Dispatch(OnCaptureThresholdChange, this);
+                this.Dispatch(_onCaptureThresholdChange, this);
             }
         }
     }
@@ -173,22 +174,117 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     public MonsterType MonsterType { get; private set; }
     public bool IsQurioActive { get; private set; }
 
-    public event EventHandler<EventArgs>? OnSpawn;
-    public event EventHandler<EventArgs>? OnLoad;
-    public event EventHandler<EventArgs>? OnDespawn;
-    public event EventHandler<EventArgs>? OnDeath;
-    public event EventHandler<EventArgs>? OnCapture;
-    public event EventHandler<EventArgs>? OnTarget;
-    public event EventHandler<EventArgs>? OnCrownChange;
-    public event EventHandler<EventArgs>? OnHealthChange;
-    public event EventHandler<EventArgs>? OnStaminaChange;
-    public event EventHandler<EventArgs>? OnActionChange;
-    public event EventHandler<EventArgs>? OnEnrageStateChange;
-    public event EventHandler<EventArgs>? OnTargetChange;
-    public event EventHandler<IMonsterPart>? OnNewPartFound;
-    public event EventHandler<IMonsterAilment>? OnNewAilmentFound;
-    public event EventHandler<Element[]>? OnWeaknessesChange;
-    public event EventHandler<IMonster>? OnCaptureThresholdChange;
+    private readonly SmartEvent<EventArgs> _onSpawn = new();
+    public event EventHandler<EventArgs> OnSpawn
+    {
+        add => _onSpawn.Hook(value);
+        remove => _onSpawn.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onLoad = new();
+    public event EventHandler<EventArgs> OnLoad
+    {
+        add => _onLoad.Hook(value);
+        remove => _onLoad.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onDespawn = new();
+    public event EventHandler<EventArgs> OnDespawn
+    {
+        add => _onDespawn.Hook(value);
+        remove => _onDespawn.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onDeath = new();
+    public event EventHandler<EventArgs> OnDeath
+    {
+        add => _onDeath.Hook(value);
+        remove => _onDeath.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onCapture = new();
+    public event EventHandler<EventArgs> OnCapture
+    {
+        add => _onCapture.Hook(value);
+        remove => _onCapture.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onTarget = new();
+    public event EventHandler<EventArgs> OnTarget
+    {
+        add => _onTarget.Hook(value);
+        remove => _onTarget.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onCrownChange = new();
+    public event EventHandler<EventArgs> OnCrownChange
+    {
+        add => _onCrownChange.Hook(value);
+        remove => _onCrownChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onHealthChange = new();
+    public event EventHandler<EventArgs> OnHealthChange
+    {
+        add => _onHealthChange.Hook(value);
+        remove => _onHealthChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onStaminaChange = new();
+    public event EventHandler<EventArgs> OnStaminaChange
+    {
+        add => _onStaminaChange.Hook(value);
+        remove => _onStaminaChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onActionChange = new();
+    public event EventHandler<EventArgs> OnActionChange
+    {
+        add => _onActionChange.Hook(value);
+        remove => _onActionChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onEnrageStateChange = new();
+    public event EventHandler<EventArgs> OnEnrageStateChange
+    {
+        add => _onEnrageStateChange.Hook(value);
+        remove => _onEnrageStateChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onTargetChange = new();
+    public event EventHandler<EventArgs> OnTargetChange
+    {
+        add => _onTargetChange.Hook(value);
+        remove => _onTargetChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterPart> _onNewPartFound = new();
+    public event EventHandler<IMonsterPart> OnNewPartFound
+    {
+        add => _onNewPartFound.Hook(value);
+        remove => _onNewPartFound.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterAilment> _onNewAilmentFound = new();
+    public event EventHandler<IMonsterAilment> OnNewAilmentFound
+    {
+        add => _onNewAilmentFound.Hook(value);
+        remove => _onNewAilmentFound.Unhook(value);
+    }
+
+    private readonly SmartEvent<Element[]> _onWeaknessesChange = new();
+    public event EventHandler<Element[]> OnWeaknessesChange
+    {
+        add => _onWeaknessesChange.Hook(value);
+        remove => _onWeaknessesChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonster> _onCaptureThresholdChange = new();
+    public event EventHandler<IMonster> OnCaptureThresholdChange
+    {
+        add => _onCaptureThresholdChange.Hook(value);
+        remove => _onCaptureThresholdChange.Unhook(value);
+    }
 
     public MHRMonster(IProcessManager process, long address) : base(process)
     {
@@ -208,17 +304,17 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
         if (data.HasValue)
         {
             _weaknesses.AddRange(data.Value.Weaknesses);
-            this.Dispatch(OnWeaknessesChange, Weaknesses);
+            this.Dispatch(_onWeaknessesChange, Weaknesses);
         }
     }
 
     private void GetMonsterType()
     {
-        long monsterTypePtr = _process.Memory.ReadPtr(
+        long monsterTypePtr = Process.Memory.ReadPtr(
             _address,
             AddressMap.Get<int[]>("MONSTER_TYPE_OFFSETS")
         );
-        int monsterType = _process.Memory.Read<int>(monsterTypePtr + 0x5C);
+        int monsterType = Process.Memory.Read<int>(monsterTypePtr + 0x5C);
         MonsterType = (MonsterType)monsterType;
     }
 
@@ -227,7 +323,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     {
         MonsterInformationData dto = new();
 
-        int monsterId = _process.Memory.Read<int>(_address + 0x2D4);
+        int monsterId = Process.Memory.Read<int>(_address + 0x2D4);
 
         dto.Id = monsterId;
 
@@ -243,17 +339,17 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     {
         HealthData dto = new();
 
-        long healthComponent = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_OFFSETS"));
-        long encodedPtr = _process.Memory.ReadPtr(healthComponent, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+        long healthComponent = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_OFFSETS"));
+        long encodedPtr = Process.Memory.ReadPtr(healthComponent, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
 
-        uint healthEncodedMod = _process.Memory.Read<uint>(encodedPtr + 0x18) & 3;
-        uint healthEncoded = _process.Memory.Read<uint>(encodedPtr + (healthEncodedMod * 4) + 0x1C);
-        uint healthEncodedKey = _process.Memory.Read<uint>(encodedPtr + 0x14);
+        uint healthEncodedMod = Process.Memory.Read<uint>(encodedPtr + 0x18) & 3;
+        uint healthEncoded = Process.Memory.Read<uint>(encodedPtr + (healthEncodedMod * 4) + 0x1C);
+        uint healthEncodedKey = Process.Memory.Read<uint>(encodedPtr + 0x14);
 
         float currentHealth = MHRCrypto.DecodeHealth(healthEncoded, healthEncodedKey);
 
         dto.Health = currentHealth;
-        dto.MaxHealth = _process.Memory.Read<float>(healthComponent + 0x18);
+        dto.MaxHealth = Process.Memory.Read<float>(healthComponent + 0x18);
 
         Next(ref dto);
 
@@ -277,11 +373,11 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
             return;
         }
 
-        long captureHealthPtr = _process.Memory.ReadPtr(
+        long captureHealthPtr = Process.Memory.ReadPtr(
             _address,
             AddressMap.Get<int[]>("MONSTER_CAPTURE_HEALTH_THRESHOLD")
         );
-        float captureHealth = _process.Memory.Read<float>(captureHealthPtr + 0x1C);
+        float captureHealth = Process.Memory.Read<float>(captureHealthPtr + 0x1C);
 
         CaptureThreshold = captureHealth / MaxHealth;
     }
@@ -289,35 +385,35 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterParts()
     {
-        long qurioDataPtr = _process.Memory.ReadPtr(
+        long qurioDataPtr = Process.Memory.ReadPtr(
             _address,
             AddressMap.Get<int[]>("MONSTER_QURIO_DATA")
         );
-        bool isQurioActive = _process.Memory.Read<byte>(qurioDataPtr + 0x12) == 2;
+        bool isQurioActive = Process.Memory.Read<byte>(qurioDataPtr + 0x12) == 2;
 
         // Flinch array
-        long monsterFlinchPartsPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_FLINCH_HEALTH_COMPONENT_OFFSETS"));
-        uint monsterFlinchPartsArrayLength = _process.Memory.Read<uint>(monsterFlinchPartsPtr + 0x1C);
+        long monsterFlinchPartsPtr = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_FLINCH_HEALTH_COMPONENT_OFFSETS"));
+        uint monsterFlinchPartsArrayLength = Process.Memory.Read<uint>(monsterFlinchPartsPtr + 0x1C);
 
         // Breakable array
-        long monsterBreakPartsArrayPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_BREAK_HEALTH_COMPONENT_OFFSETS"));
-        uint monsterBreakPartsArrayLength = _process.Memory.Read<uint>(monsterBreakPartsArrayPtr + 0x1C);
+        long monsterBreakPartsArrayPtr = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_BREAK_HEALTH_COMPONENT_OFFSETS"));
+        uint monsterBreakPartsArrayLength = Process.Memory.Read<uint>(monsterBreakPartsArrayPtr + 0x1C);
 
         // Severable array
-        long monsterSeverPartsArrayPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_SEVER_HEALTH_COMPONENT_OFFSETS"));
-        uint monsterSeverPartsArrayLength = _process.Memory.Read<uint>(monsterSeverPartsArrayPtr + 0x1C);
+        long monsterSeverPartsArrayPtr = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_SEVER_HEALTH_COMPONENT_OFFSETS"));
+        uint monsterSeverPartsArrayLength = Process.Memory.Read<uint>(monsterSeverPartsArrayPtr + 0x1C);
 
         // Qurio array
-        long monsterQurioPartsArrayPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_QURIO_HEALTH_COMPONENT_OFFSETS"));
-        uint monsterQurioPartsArrayLength = _process.Memory.Read<uint>(monsterQurioPartsArrayPtr + 0x1C);
+        long monsterQurioPartsArrayPtr = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_QURIO_HEALTH_COMPONENT_OFFSETS"));
+        uint monsterQurioPartsArrayLength = Process.Memory.Read<uint>(monsterQurioPartsArrayPtr + 0x1C);
 
         if (monsterFlinchPartsArrayLength == monsterBreakPartsArrayLength
             && monsterFlinchPartsArrayLength == monsterSeverPartsArrayLength)
         {
-            long[] monsterFlinchArray = _process.Memory.Read<long>(monsterFlinchPartsPtr + 0x20, monsterFlinchPartsArrayLength);
-            long[] monsterBreakArray = _process.Memory.Read<long>(monsterBreakPartsArrayPtr + 0x20, monsterBreakPartsArrayLength);
-            long[] monsterSeverArray = _process.Memory.Read<long>(monsterSeverPartsArrayPtr + 0x20, monsterSeverPartsArrayLength);
-            long[] monsterQurioArray = isQurioActive ? _process.Memory.Read<long>(monsterQurioPartsArrayPtr + 0x20, monsterQurioPartsArrayLength) : Array.Empty<long>();
+            long[] monsterFlinchArray = Process.Memory.Read<long>(monsterFlinchPartsPtr + 0x20, monsterFlinchPartsArrayLength);
+            long[] monsterBreakArray = Process.Memory.Read<long>(monsterBreakPartsArrayPtr + 0x20, monsterBreakPartsArrayLength);
+            long[] monsterSeverArray = Process.Memory.Read<long>(monsterSeverPartsArrayPtr + 0x20, monsterSeverPartsArrayLength);
+            long[] monsterQurioArray = isQurioActive ? Process.Memory.Read<long>(monsterQurioPartsArrayPtr + 0x20, monsterQurioPartsArrayLength) : Array.Empty<long>();
 
             DerefPartsAndScan(monsterFlinchArray, monsterBreakArray, monsterSeverArray, monsterQurioArray);
         }
@@ -343,9 +439,9 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
 
             MHRPartStructure partInfo = new()
             {
-                MaxHealth = _process.Memory.Read<float>(breakablePart + 0x18),
-                MaxFlinch = _process.Memory.Read<float>(flinchPart + 0x18),
-                MaxSever = _process.Memory.Read<float>(severablePart + 0x18)
+                MaxHealth = Process.Memory.Read<float>(breakablePart + 0x18),
+                MaxFlinch = Process.Memory.Read<float>(flinchPart + 0x18),
+                MaxSever = Process.Memory.Read<float>(severablePart + 0x18)
             };
 
             MHRQurioPartData qurioInfo = new();
@@ -354,28 +450,28 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
             if (partInfo.MaxFlinch < 0 && partInfo.MaxHealth < 0 && partInfo.MaxSever < 0)
                 continue;
 
-            long encodedFlinchHealthPtr = _process.Memory.ReadPtr(flinchPart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
-            long encodedBreakableHealthPtr = _process.Memory.ReadPtr(breakablePart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
-            long encodedSeverableHealthPtr = _process.Memory.ReadPtr(severablePart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+            long encodedFlinchHealthPtr = Process.Memory.ReadPtr(flinchPart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+            long encodedBreakableHealthPtr = Process.Memory.ReadPtr(breakablePart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+            long encodedSeverableHealthPtr = Process.Memory.ReadPtr(severablePart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
 
             if (qurioPart is { } qurioPartPtr)
             {
-                MHRQurioPartStructure qurioStructure = _process.Memory.Read<MHRQurioPartStructure>(qurioPartPtr);
+                MHRQurioPartStructure qurioStructure = Process.Memory.Read<MHRQurioPartStructure>(qurioPartPtr);
 
                 long encryptedHealthPtr =
-                    _process.Memory.ReadPtr(qurioStructure.EncryptedHealthPtr, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+                    Process.Memory.ReadPtr(qurioStructure.EncryptedHealthPtr, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
 
                 qurioInfo = new MHRQurioPartData
                 {
                     MaxHealth = qurioStructure.MaxHealth,
-                    Health = _process.Memory.ReadEncryptedFloat(encryptedHealthPtr),
+                    Health = Process.Memory.ReadEncryptedFloat(encryptedHealthPtr),
                     IsInQurioState = qurioStructure.IsActive
                 };
             }
 
-            partInfo.Flinch = _process.Memory.ReadEncryptedFloat(encodedFlinchHealthPtr);
-            partInfo.Health = _process.Memory.ReadEncryptedFloat(encodedBreakableHealthPtr);
-            partInfo.Sever = _process.Memory.ReadEncryptedFloat(encodedSeverableHealthPtr);
+            partInfo.Flinch = Process.Memory.ReadEncryptedFloat(encodedFlinchHealthPtr);
+            partInfo.Health = Process.Memory.ReadEncryptedFloat(encodedBreakableHealthPtr);
+            partInfo.Sever = Process.Memory.ReadEncryptedFloat(encodedSeverableHealthPtr);
 
             if (!_parts.ContainsKey(flinchPart))
             {
@@ -384,7 +480,7 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
                 _parts.Add(flinchPart, dummy);
 
                 Log.Debug($"Found {partName} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X} Qurio: {qurioPart:X}");
-                this.Dispatch(OnNewPartFound, dummy);
+                this.Dispatch(_onNewPartFound, dummy);
             }
 
             _parts[flinchPart].Update(partInfo);
@@ -398,11 +494,11 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
         if (_qurioThreshold is null)
             return;
 
-        long qurioDataPtr = _process.Memory.ReadPtr(
+        long qurioDataPtr = Process.Memory.ReadPtr(
             _address,
             AddressMap.Get<int[]>("MONSTER_QURIO_DATA")
         );
-        MHRQurioThresholdStructure structure = _process.Memory.Read<MHRQurioThresholdStructure>(qurioDataPtr + 0x14);
+        MHRQurioThresholdStructure structure = Process.Memory.Read<MHRQurioThresholdStructure>(qurioDataPtr + 0x14);
         var data = new MHRQurioPartData
         {
             IsInQurioState = true,
@@ -416,13 +512,13 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterAilments()
     {
-        long ailmentsArrayPtr = _process.Memory.ReadPtr(
+        long ailmentsArrayPtr = Process.Memory.ReadPtr(
             _address,
             AddressMap.Get<int[]>("MONSTER_AILMENTS_OFFSETS")
         );
 
-        int ailmentsArrayLength = _process.Memory.Read<int>(ailmentsArrayPtr + 0x1C);
-        long[] ailmentsArray = _process.Memory.Read<long>(ailmentsArrayPtr + 0x20, (uint)ailmentsArrayLength);
+        int ailmentsArrayLength = Process.Memory.Read<int>(ailmentsArrayPtr + 0x1C);
+        long[] ailmentsArray = Process.Memory.Read<long>(ailmentsArrayPtr + 0x20, (uint)ailmentsArrayLength);
 
         DerefAilmentsAndScan(ailmentsArray);
     }
@@ -431,19 +527,19 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     private void GetLockon()
     {
 
-        int cameraStyleType = _process.Memory.Deref<int>(
+        int cameraStyleType = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("LOCKON_ADDRESS"),
             AddressMap.Get<int[]>("LOCKON_CAMERA_STYLE_OFFSETS")
         );
 
-        long cameraStylePtr = _process.Memory.Read(
+        long cameraStylePtr = Process.Memory.Read(
             AddressMap.GetAbsolute("LOCKON_ADDRESS"),
             AddressMap.Get<int[]>("LOCKON_OFFSETS")
         );
 
         cameraStylePtr += cameraStyleType * 8;
 
-        long monsterAddress = _process.Memory.Deref<long>(
+        long monsterAddress = Process.Memory.Deref<long>(
                 cameraStylePtr,
                 new[] { 0x78 }
         );
@@ -456,8 +552,8 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterCrown()
     {
-        long monsterSizePtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_CROWN_OFFSETS"));
-        MHRSizeStructure monsterSize = _process.Memory.Read<MHRSizeStructure>(monsterSizePtr + 0x24);
+        long monsterSizePtr = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_CROWN_OFFSETS"));
+        MHRSizeStructure monsterSize = Process.Memory.Read<MHRSizeStructure>(monsterSizePtr + 0x24);
         float monsterSizeMultiplier = monsterSize.SizeMultiplier * monsterSize.UnkMultiplier;
 
         MonsterSizeSchema? crownData = MonsterData.GetMonsterData(Id)?.Size;
@@ -475,9 +571,9 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod(typeof(MHREnrageStructure))]
     private void GetMonsterEnrage()
     {
-        long enragePtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_ENRAGE_OFFSETS"));
+        long enragePtr = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_ENRAGE_OFFSETS"));
 
-        MHREnrageStructure structure = _process.Memory.Read<MHREnrageStructure>(enragePtr);
+        MHREnrageStructure structure = Process.Memory.Read<MHREnrageStructure>(enragePtr);
 
         structure.Timer = structure.Timer > 0 ? structure.MaxTimer - structure.Timer : 0;
 
@@ -489,9 +585,9 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod(typeof(MHRStaminaStructure))]
     private void GetMonsterStamina()
     {
-        long staminaPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_STAMINA_OFFSETS"));
+        long staminaPtr = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_STAMINA_OFFSETS"));
 
-        MHRStaminaStructure structure = _process.Memory.Read<MHRStaminaStructure>(staminaPtr);
+        MHRStaminaStructure structure = Process.Memory.Read<MHRStaminaStructure>(staminaPtr);
 
         MaxStamina = structure.MaxStamina;
         Stamina = structure.Stamina;
@@ -502,18 +598,18 @@ public class MHRMonster : Scannable, IMonster, IEventDispatcher
         int ailmentId = 0;
         foreach (long ailmentAddress in ailmentsPointers)
         {
-            MHRMonsterAilmentStructure structure = _process.Memory.Read<MHRMonsterAilmentStructure>(ailmentAddress);
+            MHRMonsterAilmentStructure structure = Process.Memory.Read<MHRMonsterAilmentStructure>(ailmentAddress);
 
-            int counter = _process.Memory.Read<int>(structure.CounterPtr + 0x20);
-            float buildup = _process.Memory.Read<float>(structure.BuildUpPtr + 0x20);
-            float maxBuildup = _process.Memory.Read<float>(structure.MaxBuildUpPtr + 0x20);
+            int counter = Process.Memory.Read<int>(structure.CounterPtr + 0x20);
+            float buildup = Process.Memory.Read<float>(structure.BuildUpPtr + 0x20);
+            float maxBuildup = Process.Memory.Read<float>(structure.MaxBuildUpPtr + 0x20);
 
             if (!_ailments.ContainsKey(ailmentAddress))
             {
                 MHRMonsterAilment dummy = new(MonsterData.GetAilmentData(ailmentId).String);
                 _ailments.Add(ailmentAddress, dummy);
 
-                this.Dispatch(OnNewAilmentFound, dummy);
+                this.Dispatch(_onNewAilmentFound, dummy);
                 //Log.Debug($"Found new ailment at {ailmentAddress:X08}");
             }
 

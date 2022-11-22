@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Architecture;
+﻿using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Logger;
 using System;
@@ -8,7 +8,7 @@ namespace HunterPie.Core.Extensions;
 public static class IDispatchableExtensions
 {
 
-    public static void Dispatch<T>(this IEventDispatcher self, SmartEvent<T> toDispatch, T data) where T : EventArgs
+    public static void Dispatch<T>(this IEventDispatcher self, SmartEvent<T> toDispatch, T data)
     {
         toDispatch.Invoke(self, data);
     }

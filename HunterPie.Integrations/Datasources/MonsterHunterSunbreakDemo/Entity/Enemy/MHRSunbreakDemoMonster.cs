@@ -182,7 +182,7 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
     {
         MonsterInformationData dto = new();
 
-        int monsterId = _process.Memory.Read<int>(_address + 0x2B4);
+        int monsterId = Process.Memory.Read<int>(_address + 0x2B4);
 
         dto.Id = monsterId;
 
@@ -196,13 +196,13 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
     {
         HealthData dto = new();
 
-        long healthComponent = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_OFFSETS"));
-        long healthPtr = _process.Memory.ReadPtr(healthComponent, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+        long healthComponent = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_OFFSETS"));
+        long healthPtr = Process.Memory.ReadPtr(healthComponent, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
 
-        float currentHealth = _process.Memory.Read<float>(healthPtr + 0x18);
+        float currentHealth = Process.Memory.Read<float>(healthPtr + 0x18);
 
         dto.Health = currentHealth;
-        dto.MaxHealth = _process.Memory.Read<float>(healthComponent + 0x18);
+        dto.MaxHealth = Process.Memory.Read<float>(healthComponent + 0x18);
 
         Next(ref dto);
 
@@ -214,19 +214,19 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
     private void ScanLockon()
     {
 
-        int cameraStyleType = _process.Memory.Deref<int>(
+        int cameraStyleType = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("LOCKON_ADDRESS"),
             AddressMap.Get<int[]>("LOCKON_CAMERA_STYLE_OFFSETS")
         );
 
-        long cameraStylePtr = _process.Memory.Read(
+        long cameraStylePtr = Process.Memory.Read(
             AddressMap.GetAbsolute("LOCKON_ADDRESS"),
             AddressMap.Get<int[]>("LOCKON_OFFSETS")
         );
 
         cameraStylePtr += cameraStyleType * 8;
 
-        long monsterAddress = _process.Memory.Deref<long>(
+        long monsterAddress = Process.Memory.Deref<long>(
                 cameraStylePtr,
                 new[] { 0x78 }
         );
@@ -240,9 +240,9 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
     private void GetMonsterStamina()
 
     {
-        long staminaPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_STAMINA_OFFSETS"));
+        long staminaPtr = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_STAMINA_OFFSETS"));
 
-        MHRStaminaStructure structure = _process.Memory.Read<MHRStaminaStructure>(staminaPtr);
+        MHRStaminaStructure structure = Process.Memory.Read<MHRStaminaStructure>(staminaPtr);
 
         MaxStamina = structure.MaxStamina;
         Stamina = structure.Stamina;
@@ -252,23 +252,23 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
     private void GetMonsterParts()
     {
         // Flinch array
-        long monsterFlinchPartsPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_FLINCH_HEALTH_COMPONENT_OFFSETS"));
-        uint monsterFlinchPartsArrayLength = _process.Memory.Read<uint>(monsterFlinchPartsPtr + 0x1C);
+        long monsterFlinchPartsPtr = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_FLINCH_HEALTH_COMPONENT_OFFSETS"));
+        uint monsterFlinchPartsArrayLength = Process.Memory.Read<uint>(monsterFlinchPartsPtr + 0x1C);
 
         // Breakable array
-        long monsterBreakPartsArrayPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_BREAK_HEALTH_COMPONENT_OFFSETS"));
-        uint monsterBreakPartsArrayLength = _process.Memory.Read<uint>(monsterBreakPartsArrayPtr + 0x1C);
+        long monsterBreakPartsArrayPtr = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_BREAK_HEALTH_COMPONENT_OFFSETS"));
+        uint monsterBreakPartsArrayLength = Process.Memory.Read<uint>(monsterBreakPartsArrayPtr + 0x1C);
 
         // Severable array
-        long monsterSeverPartsArrayPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_SEVER_HEALTH_COMPONENT_OFFSETS"));
-        uint monsterSeverPartsArrayLenght = _process.Memory.Read<uint>(monsterSeverPartsArrayPtr + 0x1C);
+        long monsterSeverPartsArrayPtr = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_SEVER_HEALTH_COMPONENT_OFFSETS"));
+        uint monsterSeverPartsArrayLenght = Process.Memory.Read<uint>(monsterSeverPartsArrayPtr + 0x1C);
 
         if (monsterFlinchPartsArrayLength == monsterBreakPartsArrayLength
             && monsterFlinchPartsArrayLength == monsterSeverPartsArrayLenght)
         {
-            long[] monsterFlinchArray = _process.Memory.Read<long>(monsterFlinchPartsPtr + 0x20, monsterFlinchPartsArrayLength);
-            long[] monsterBreakArray = _process.Memory.Read<long>(monsterBreakPartsArrayPtr + 0x20, monsterBreakPartsArrayLength);
-            long[] monsterSeverArray = _process.Memory.Read<long>(monsterSeverPartsArrayPtr + 0x20, monsterSeverPartsArrayLenght);
+            long[] monsterFlinchArray = Process.Memory.Read<long>(monsterFlinchPartsPtr + 0x20, monsterFlinchPartsArrayLength);
+            long[] monsterBreakArray = Process.Memory.Read<long>(monsterBreakPartsArrayPtr + 0x20, monsterBreakPartsArrayLength);
+            long[] monsterSeverArray = Process.Memory.Read<long>(monsterSeverPartsArrayPtr + 0x20, monsterSeverPartsArrayLenght);
 
             DerefPartsAndScan(monsterFlinchArray, monsterBreakArray, monsterSeverArray);
         }
@@ -286,9 +286,9 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
 
             MHRPartStructure partInfo = new()
             {
-                MaxHealth = _process.Memory.Read<float>(breakablePart + 0x18),
-                MaxFlinch = _process.Memory.Read<float>(flinchPart + 0x18),
-                MaxSever = _process.Memory.Read<float>(severablePart + 0x18)
+                MaxHealth = Process.Memory.Read<float>(breakablePart + 0x18),
+                MaxFlinch = Process.Memory.Read<float>(flinchPart + 0x18),
+                MaxSever = Process.Memory.Read<float>(severablePart + 0x18)
             };
 
             // Skip invalid parts
@@ -296,18 +296,18 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
                 continue;
 
             // TODO: Read all this in 1 pass
-            long encodedFlinchHealthPtr = _process.Memory.ReadPtr(flinchPart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
-            long encodedBreakableHealthPtr = _process.Memory.ReadPtr(breakablePart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
-            long encodedSeverableHealthPtr = _process.Memory.ReadPtr(severablePart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+            long encodedFlinchHealthPtr = Process.Memory.ReadPtr(flinchPart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+            long encodedBreakableHealthPtr = Process.Memory.ReadPtr(breakablePart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+            long encodedSeverableHealthPtr = Process.Memory.ReadPtr(severablePart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
 
             // Flinch values
-            partInfo.Flinch = _process.Memory.Read<float>(encodedFlinchHealthPtr + 0x18);
+            partInfo.Flinch = Process.Memory.Read<float>(encodedFlinchHealthPtr + 0x18);
 
             // Break values
-            partInfo.Health = _process.Memory.Read<float>(encodedBreakableHealthPtr + 0x18);
+            partInfo.Health = Process.Memory.Read<float>(encodedBreakableHealthPtr + 0x18);
 
             // Sever values
-            partInfo.Sever = _process.Memory.Read<float>(encodedSeverableHealthPtr + 0x18);
+            partInfo.Sever = Process.Memory.Read<float>(encodedSeverableHealthPtr + 0x18);
 
             if (!_parts.ContainsKey(flinchPart))
             {

@@ -62,7 +62,7 @@ public class MHRMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
     [ScannableMethod]
     private void GetWeaponSharpness()
     {
-        long sharpnessArrayPtr = _process.Memory.Read(
+        long sharpnessArrayPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("SHARPNESS_ADDRESS"),
             AddressMap.Get<int[]>("SHARPNESS_ARRAY_OFFSETS")
         );
@@ -70,14 +70,14 @@ public class MHRMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
         if (sharpnessArrayPtr.IsNullPointer())
             return;
 
-        MHRSharpnessStructure structure = _process.Memory.Deref<MHRSharpnessStructure>(
+        MHRSharpnessStructure structure = Process.Memory.Deref<MHRSharpnessStructure>(
             AddressMap.GetAbsolute("SHARPNESS_ADDRESS"),
             AddressMap.Get<int[]>("SHARPNESS_OFFSETS")
         );
 
         if (SharpnessThresholds is null || _weaponSharpnessPointer != sharpnessArrayPtr)
         {
-            int[] sharpnessValues = _process.Memory.ReadArray<int>(sharpnessArrayPtr);
+            int[] sharpnessValues = Process.Memory.ReadArray<int>(sharpnessArrayPtr);
             SharpnessThresholds = CalculateThresholds(sharpnessValues);
             _weaponSharpnessPointer = sharpnessArrayPtr;
         }

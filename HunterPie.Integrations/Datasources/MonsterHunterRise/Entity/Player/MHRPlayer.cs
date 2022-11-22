@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
-using HunterPie.Core.Architecture;
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
@@ -27,7 +27,7 @@ using WeaponType = HunterPie.Core.Game.Enums.Weapon;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 
-public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
+public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
 {
     #region Private
     private int _saveSlotId;
@@ -205,9 +205,26 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         remove => _onWeaponChange.Unhook(value);
     }
 
-    public event EventHandler<IAbnormality> OnAbnormalityStart;
-    public event EventHandler<IAbnormality> OnAbnormalityEnd;
-    public event EventHandler<MHRWirebug[]> OnWirebugsRefresh;
+    private readonly SmartEvent<IAbnormality> _onAbnormalityStart = new();
+    public event EventHandler<IAbnormality> OnAbnormalityStart
+    {
+        add => _onAbnormalityStart.Hook(value);
+        remove => _onAbnormalityStart.Unhook(value);
+    }
+
+    private readonly SmartEvent<IAbnormality> _onAbnormalityEnd = new();
+    public event EventHandler<IAbnormality> OnAbnormalityEnd
+    {
+        add => _onAbnormalityEnd.Hook(value);
+        remove => _onAbnormalityEnd.Unhook(value);
+    }
+
+    private readonly SmartEvent<MHRWirebug[]> _onWirebugsRefresh = new();
+    public event EventHandler<MHRWirebug[]> OnWirebugsRefresh
+    {
+        add => _onWirebugsRefresh.Hook(value);
+        remove => _onWirebugsRefresh.Unhook(value);
+    }
 
     private readonly SmartEvent<LevelChangeEventArgs> _onLevelChange = new();
     public event EventHandler<LevelChangeEventArgs> OnLevelChange
@@ -226,7 +243,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     [ScannableMethod]
     private void GetStageData()
     {
-        long stageAddress = _process.Memory.Read(
+        long stageAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("STAGE_ADDRESS"),
             AddressMap.Get<int[]>("STAGE_OFFSETS")
         );
@@ -234,7 +251,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         if (stageAddress == 0x00000000)
             return;
 
-        MHRStageStructure stageData = _process.Memory.Read<MHRStageStructure>(stageAddress + 0x60);
+        MHRStageStructure stageData = Process.Memory.Read<MHRStageStructure>(stageAddress + 0x60);
 
         int zoneId = stageData.IsMainMenu()
             ? -1
@@ -257,14 +274,14 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             return;
         }
 
-        long currentPlayerSaveAddress = _process.Memory.Read(
+        long currentPlayerSaveAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("CHARACTER_ADDRESS"),
             AddressMap.Get<int[]>("CHARACTER_OFFSETS")
         );
 
-        long namePtr = _process.Memory.Read<long>(currentPlayerSaveAddress);
-        int nameLength = _process.Memory.Read<int>(namePtr + 0x10);
-        string name = _process.Memory.Read(namePtr + 0x14, (uint)(nameLength * 2), encoding: Encoding.Unicode);
+        long namePtr = Process.Memory.Read<long>(currentPlayerSaveAddress);
+        int nameLength = Process.Memory.Read<int>(namePtr + 0x10);
+        string name = Process.Memory.Read(namePtr + 0x14, (uint)(nameLength * 2), encoding: Encoding.Unicode);
 
         Name = name;
     }
@@ -278,13 +295,13 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             return;
         }
 
-        long currentPlayerSaveAddress = _process.Memory.Read(
+        long currentPlayerSaveAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("CHARACTER_ADDRESS"),
             AddressMap.Get<int[]>("CHARACTER_OFFSETS")
         );
-        long namePtr = _process.Memory.Read<long>(currentPlayerSaveAddress);
+        long namePtr = Process.Memory.Read<long>(currentPlayerSaveAddress);
 
-        long saveAddress = _process.Memory.Read(
+        long saveAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("SAVE_ADDRESS"),
             AddressMap.Get<int[]>("SAVE_OFFSETS")
         );
@@ -293,7 +310,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         {
             int[] nameOffsets = { (i * 8) + 0x20, 0x10 };
 
-            long saveNamePtr = _process.Memory.Deref<long>(saveAddress, nameOffsets);
+            long saveNamePtr = Process.Memory.Deref<long>(saveAddress, nameOffsets);
 
             if (saveNamePtr == namePtr)
             {
@@ -309,14 +326,14 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         if (_saveSlotId < 0)
             return;
 
-        long saveAddress = _process.Memory.Read(
+        long saveAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("SAVE_ADDRESS"),
             AddressMap.Get<int[]>("SAVE_OFFSETS")
         );
 
         int[] levelOffsets = { (_saveSlotId * 8) + 0x20, 0x18 };
 
-        MHRPlayerLevelStructure level = _process.Memory.Deref<MHRPlayerLevelStructure>(saveAddress, levelOffsets);
+        MHRPlayerLevelStructure level = Process.Memory.Deref<MHRPlayerLevelStructure>(saveAddress, levelOffsets);
 
         HighRank = level.HighRank;
         MasterRank = level.MasterRank;
@@ -325,12 +342,12 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     [ScannableMethod]
     private void GetPlayerWeaponData()
     {
-        long weaponIdPtr = _process.Memory.Read(
+        long weaponIdPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("WEAPON_ADDRESS"),
             AddressMap.Get<int[]>("WEAPON_OFFSETS")
         );
 
-        int weaponId = _process.Memory.Read<int>(weaponIdPtr + 0x8C);
+        int weaponId = Process.Memory.Read<int>(weaponIdPtr + 0x8C);
 
         WeaponType weapon = weaponId.ToWeaponId();
 
@@ -343,7 +360,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         IWeapon? weaponInstance = null;
         if (weapon.IsMelee())
         {
-            var meleeWeapon = new MHRMeleeWeapon(_process, weapon);
+            var meleeWeapon = new MHRMeleeWeapon(Process, weapon);
             weaponInstance = meleeWeapon;
 
             ScanManager.Add(meleeWeapon);
@@ -374,7 +391,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     [ScannableMethod]
     private void GetPlayerAbnormalitiesCleanup()
     {
-        long debuffsPtr = _process.Memory.Read(
+        long debuffsPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("DEBUFF_ABNORMALITIES_OFFSETS")
         );
@@ -389,7 +406,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         if (!InHuntingZone)
             return;
 
-        long consumableBuffs = _process.Memory.Read(
+        long consumableBuffs = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("CONS_ABNORMALITIES_OFFSETS")
         );
@@ -404,7 +421,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             int abnormSubId = schema.DependsOn switch
             {
                 0 => 0,
-                _ => _process.Memory.Read<int>(consumableBuffs + schema.DependsOn)
+                _ => Process.Memory.Read<int>(consumableBuffs + schema.DependsOn)
             };
 
             MHRConsumableStructure abnormality = new();
@@ -412,7 +429,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             if (schema.IsInfinite)
                 abnormality.Timer = abnormSubId == schema.WithValue ? AbnormalityData.TIMER_MULTIPLIER : 0;
             else if (abnormSubId == schema.WithValue)
-                abnormality = _process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
+                abnormality = Process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
 
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
@@ -427,7 +444,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         if (!InHuntingZone)
             return;
 
-        long debuffsPtr = _process.Memory.Read(
+        long debuffsPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("DEBUFF_ABNORMALITIES_OFFSETS")
         );
@@ -442,14 +459,14 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             int abnormSubId = schema.DependsOn switch
             {
                 0 => 0,
-                _ => _process.Memory.Read<int>(debuffsPtr + schema.DependsOn)
+                _ => Process.Memory.Read<int>(debuffsPtr + schema.DependsOn)
             };
 
             MHRDebuffStructure abnormality = new();
 
             // Only read memory if the required sub Id is the required one for this abnormality
             if (abnormSubId == schema.WithValue)
-                abnormality = _process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
+                abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
 
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
@@ -460,7 +477,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     [ScannableMethod]
     private void GetSessionPlayers()
     {
-        int questState = _process.Memory.Deref<int>(
+        int questState = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("QUEST_ADDRESS"),
             AddressMap.Get<int[]>("QUEST_STATUS_OFFSETS")
         );
@@ -475,39 +492,39 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             return;
         }
 
-        long playersArrayPtr = _process.Memory.Deref<long>(
+        long playersArrayPtr = Process.Memory.Deref<long>(
             AddressMap.GetAbsolute("CHARACTER_ADDRESS"),
             AddressMap.Get<int[]>("SOS_SESSION_PLAYER_OFFSETS")
         );
 
-        long playersWeaponPtr = _process.Memory.Deref<long>(
+        long playersWeaponPtr = Process.Memory.Deref<long>(
             AddressMap.GetAbsolute("SESSION_PLAYERS_ADDRESS"),
             AddressMap.Get<int[]>("SESSION_PLAYER_OFFSETS")
         );
 
-        (int index, bool isValid, MHRCharacterData data)[] sessionPlayersArray = _process.Memory.Read<long>(playersArrayPtr + 0x20, 4)
+        (int index, bool isValid, MHRCharacterData data)[] sessionPlayersArray = Process.Memory.Read<long>(playersArrayPtr + 0x20, 4)
             .Select(pointer => (isValid: pointer != 0, pointer))
-            .Select((player, index) => (index, player.isValid, _process.Memory.Read<MHRCharacterData>(player.pointer)))
+            .Select((player, index) => (index, player.isValid, Process.Memory.Read<MHRCharacterData>(player.pointer)))
             .ToArray();
 
         bool isSos = sessionPlayersArray.Any(player => player.isValid);
 
         if (!isSos)
         {
-            playersArrayPtr = _process.Memory.Deref<long>(
+            playersArrayPtr = Process.Memory.Deref<long>(
                 AddressMap.GetAbsolute("CHARACTER_ADDRESS"),
                 AddressMap.Get<int[]>("CHARACTER_INFO_OFFSETS")
             );
 
-            sessionPlayersArray = _process.Memory.Read<long>(playersArrayPtr + 0x20, 4)
+            sessionPlayersArray = Process.Memory.Read<long>(playersArrayPtr + 0x20, 4)
                                                  .Select(pointer => (isValid: pointer != 0, pointer))
-                                                 .Select((player, index) => (index, player.isValid, _process.Memory.Read<MHRCharacterData>(player.pointer)))
+                                                 .Select((player, index) => (index, player.isValid, Process.Memory.Read<MHRCharacterData>(player.pointer)))
                                                  .ToArray();
         }
 
         bool isOnlineSession = sessionPlayersArray.Any(player => player.isValid);
 
-        long[] playerWeaponsPtr = _process.Memory.Read<long>(playersWeaponPtr + 0x20, 4);
+        long[] playerWeaponsPtr = Process.Memory.Read<long>(playersWeaponPtr + 0x20, 4);
 
         // In case player DC'd
         if (!isOnlineSession)
@@ -530,7 +547,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         foreach ((int index, bool isValid, MHRCharacterData data) in sessionPlayersArray)
         {
             long weaponPtr = playerWeaponsPtr[index];
-            string name = _process.Memory.Read(data.NamePointer + 0x14, 32, Encoding.Unicode);
+            string name = Process.Memory.Read(data.NamePointer + 0x14, 32, Encoding.Unicode);
 
             if (weaponPtr == 0 && !isValid)
             {
@@ -538,7 +555,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
                 continue;
             }
 
-            Weapon weapon = _process.Memory.Read<int>(weaponPtr + 0x134).ToWeaponId();
+            Weapon weapon = Process.Memory.Read<int>(weaponPtr + 0x134).ToWeaponId();
 
             var memberData = new MHRPartyMemberData
             {
@@ -560,7 +577,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         if (!InHuntingZone)
             return;
 
-        long songBuffsPtr = _process.Memory.Read(
+        long songBuffsPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("HH_ABNORMALITIES_OFFSETS")
         );
@@ -568,8 +585,8 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         if (songBuffsPtr == 0)
             return;
 
-        uint songBuffsLength = _process.Memory.Read<uint>(songBuffsPtr + 0x1C);
-        long[] songBuffPtrs = _process.Memory.Read<long>(songBuffsPtr + 0x20, songBuffsLength);
+        uint songBuffsLength = Process.Memory.Read<uint>(songBuffsPtr + 0x1C);
+        long[] songBuffPtrs = Process.Memory.Read<long>(songBuffsPtr + 0x20, songBuffsLength);
 
         DerefSongBuffs(songBuffPtrs);
     }
@@ -580,7 +597,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         if (!InHuntingZone)
             return;
 
-        long playerHudPtr = _process.Memory.Read(
+        long playerHudPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("UI_ADDRESS"),
             AddressMap.Get<int[]>("PLAYER_HUD_OFFSETS")
         );
@@ -588,7 +605,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         if (playerHudPtr.IsNullPointer())
             return;
 
-        MHRPlayerHudStructure playerHud = _process.Memory.Read<MHRPlayerHudStructure>(playerHudPtr);
+        MHRPlayerHudStructure playerHud = Process.Memory.Read<MHRPlayerHudStructure>(playerHudPtr);
 
         MHRPetalaceStatsStructure? petalace = GetEquippedPetalaceStats();
 
@@ -620,19 +637,19 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     [ScannableMethod(typeof(MHRWirebugData))]
     private void GetPlayerWirebugs()
     {
-        long wirebugsArrayPtr = _process.Memory.Read(
+        long wirebugsArrayPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("WIREBUG_DATA_OFFSETS")
         );
 
         if (wirebugsArrayPtr.IsNullPointer())
         {
-            this.Dispatch(OnWirebugsRefresh, Array.Empty<MHRWirebug>());
+            this.Dispatch(_onWirebugsRefresh, Array.Empty<MHRWirebug>());
             return;
         }
 
-        int wirebugsArrayLength = Math.Min(Wirebugs.Length, _process.Memory.Read<int>(wirebugsArrayPtr + 0x1C));
-        long[] wirebugsPtrs = _process.Memory.Read<long>(wirebugsArrayPtr + 0x20, (uint)wirebugsArrayLength);
+        int wirebugsArrayLength = Math.Min(Wirebugs.Length, Process.Memory.Read<int>(wirebugsArrayPtr + 0x1C));
+        long[] wirebugsPtrs = Process.Memory.Read<long>(wirebugsArrayPtr + 0x20, (uint)wirebugsArrayLength);
 
         bool shouldDispatchEvent = false;
         for (int i = 0; i < wirebugsArrayLength; i++)
@@ -641,11 +658,11 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
 
             var data = new MHRWirebugData
             {
-                IsBlocked = _process.Memory.Deref<int>(
+                IsBlocked = Process.Memory.Deref<int>(
                     AddressMap.GetAbsolute("UI_ADDRESS"),
                     AddressMap.Get<int[]>("IS_WIREBUG_BLOCKED_OFFSETS")
                 ) != 0,
-                Structure = _process.Memory.Read<MHRWirebugStructure>(wirebugPtr)
+                Structure = Process.Memory.Read<MHRWirebugStructure>(wirebugPtr)
             };
             data.Structure.Cooldown /= AbnormalityData.TIMER_MULTIPLIER;
             data.Structure.MaxCooldown /= AbnormalityData.TIMER_MULTIPLIER;
@@ -661,7 +678,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         }
 
         // Update last Wirebug with extra data
-        MHRWirebugExtrasStructure extraData = _process.Memory.Deref<MHRWirebugExtrasStructure>(
+        MHRWirebugExtrasStructure extraData = Process.Memory.Deref<MHRWirebugExtrasStructure>(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_OFFSETS")
         );
@@ -670,28 +687,28 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         lastWirebug.Update(extraData);
 
         if (shouldDispatchEvent)
-            this.Dispatch(OnWirebugsRefresh, Wirebugs);
+            this.Dispatch(_onWirebugsRefresh, Wirebugs);
     }
 
     [ScannableMethod(typeof(MHRSubmarineData))]
     private void GetArgosy()
     {
 
-        long argosyAddress = _process.Memory.Read(
+        long argosyAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("ARGOSY_ADDRESS"),
             AddressMap.Get<int[]>("ARGOSY_OFFSETS")
         );
 
-        int submarineArrayLength = _process.Memory.Read<int>(argosyAddress + 0x1C);
+        int submarineArrayLength = Process.Memory.Read<int>(argosyAddress + 0x1C);
         var submarines = new MHRSubmarineData[submarineArrayLength];
 
-        long[] submarinePtrs = _process.Memory.Read<long>(argosyAddress + 0x20, (uint)submarineArrayLength);
+        long[] submarinePtrs = Process.Memory.Read<long>(argosyAddress + 0x20, (uint)submarineArrayLength);
 
         // Read submarines data
         for (int i = 0; i < submarineArrayLength; i++)
         {
             ref long submarinePtr = ref submarinePtrs[i];
-            MHRSubmarineStructure data = _process.Memory.Read<MHRSubmarineStructure>(submarinePtr);
+            MHRSubmarineStructure data = Process.Memory.Read<MHRSubmarineStructure>(submarinePtr);
             submarines[i].Data = data;
         }
 
@@ -700,14 +717,14 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         {
             ref MHRSubmarineData submarine = ref submarines[i];
 
-            int itemsArrayLength = _process.Memory.Read<int>(submarine.Data.ItemArrayPtr + 0x1C);
-            long[] itemsPtr = _process.Memory.Read<long>(submarine.Data.ItemArrayPtr + 0x20, (uint)itemsArrayLength)
-                                             .Select(ptr => _process.Memory.Read<long>(ptr + 0x20))
+            int itemsArrayLength = Process.Memory.Read<int>(submarine.Data.ItemArrayPtr + 0x1C);
+            long[] itemsPtr = Process.Memory.Read<long>(submarine.Data.ItemArrayPtr + 0x20, (uint)itemsArrayLength)
+                                             .Select(ptr => Process.Memory.Read<long>(ptr + 0x20))
                                              .ToArray();
             var items = new MHRSubmarineItemStructure[itemsArrayLength];
 
             for (int j = 0; j < itemsArrayLength; j++)
-                items[j] = _process.Memory.Read<MHRSubmarineItemStructure>(itemsPtr[j]);
+                items[j] = Process.Memory.Read<MHRSubmarineItemStructure>(itemsPtr[j]);
 
             submarine.Items = items;
         }
@@ -722,7 +739,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     [ScannableMethod(typeof(MHRCohootStructure))]
     private void GetCohoot()
     {
-        MHRCohootStructure cohoot = _process.Memory.Deref<MHRCohootStructure>(
+        MHRCohootStructure cohoot = Process.Memory.Deref<MHRCohootStructure>(
             AddressMap.GetAbsolute("COHOOT_ADDRESS"),
             AddressMap.Get<int[]>("COHOOT_COUNT_OFFSETS")
         );
@@ -736,7 +753,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     [ScannableMethod(typeof(MHRTrainingDojoData))]
     private void GetTrainingDojo()
     {
-        int[] staticTrainingData = _process.Memory.Read<int>(AddressMap.GetAbsolute("DATA_TRAINING_DOJO_ROUNDS_LEFT"), 5);
+        int[] staticTrainingData = Process.Memory.Read<int>(AddressMap.GetAbsolute("DATA_TRAINING_DOJO_ROUNDS_LEFT"), 5);
         MHRTrainingDojoData data = new()
         {
             Rounds = staticTrainingData[0],
@@ -746,19 +763,19 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             Buddies = new MHRBuddyData[6]
         };
 
-        long trainingDojo = _process.Memory.Read(
+        long trainingDojo = Process.Memory.Read(
             AddressMap.GetAbsolute("TRAINING_DOJO_ADDRESS"),
             AddressMap.Get<int[]>("TRAINING_DOJO_OFFSETS")
         );
 
-        data.BuddiesCount = _process.Memory.Read<int>(trainingDojo + 0x18);
+        data.BuddiesCount = Process.Memory.Read<int>(trainingDojo + 0x18);
 
-        long trainingDojoBuddyArray = _process.Memory.Read(
+        long trainingDojoBuddyArray = Process.Memory.Read(
             AddressMap.GetAbsolute("TRAINING_DOJO_ADDRESS"),
             AddressMap.Get<int[]>("TRAINING_DOJO_BUDDY_ARRAY_OFFSETS")
         );
 
-        long[] buddyPtrs = _process.Memory.Read<long>(trainingDojoBuddyArray + 0x20, 6);
+        long[] buddyPtrs = Process.Memory.Read<long>(trainingDojoBuddyArray + 0x20, 6);
 
         for (int i = 0; i < data.BuddiesCount; i++)
             data.Buddies[i] = DerefBuddyData(buddyPtrs[i]);
@@ -771,17 +788,17 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     [ScannableMethod(typeof(MHRMeowmasterData))]
     private void GetMeowcenaries()
     {
-        long meowmastersAddress = _process.Memory.Read(
+        long meowmastersAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("MEOWMASTERS_ADDRESS"),
             AddressMap.Get<int[]>("MEOWMASTERS_OFFSETS")
         );
 
-        MHRMeowmasterStructure structure = _process.Memory.Read<MHRMeowmasterStructure>(meowmastersAddress);
+        MHRMeowmasterStructure structure = Process.Memory.Read<MHRMeowmasterStructure>(meowmastersAddress);
         MHRMeowmasterData data = new()
         {
             IsDeployed = structure.IsDeployed,
             IsLagniappleActive = structure.IsLagniappleActive,
-            BuddiesCount = _process.Memory.Read<int>(structure.BuddiesPointer + 0x18),
+            BuddiesCount = Process.Memory.Read<int>(structure.BuddiesPointer + 0x18),
             CurrentStep = structure.CurrentStep,
             MaxStep = 5
         };
@@ -795,12 +812,12 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     [ScannableMethod]
     private void GetPartyData()
     {
-        long partyArrayPtr = _process.Memory.Read(
+        long partyArrayPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("SESSION_PLAYERS_ADDRESS"),
             AddressMap.Get<int[]>("SESSION_PLAYERS_ARRAY_OFFSETS")
         );
 
-        long[] playerAddresses = _process.Memory.Read<long>(partyArrayPtr + 0x20, (uint)_party.MaxSize);
+        long[] playerAddresses = Process.Memory.Read<long>(partyArrayPtr + 0x20, (uint)_party.MaxSize);
 
         int membersCount = playerAddresses.Count(address => address != 0x0);
 
@@ -810,14 +827,14 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private MHRBuddyData DerefBuddyData(long buddyPtr)
     {
-        long namePtr = _process.Memory.ReadPtr(buddyPtr, AddressMap.Get<int[]>("BUDDY_NAME_OFFSETS"));
-        long levelPtr = _process.Memory.ReadPtr(buddyPtr, AddressMap.Get<int[]>("BUDDY_LEVEL_OFFSETS"));
-        int nameLength = _process.Memory.Read<int>(namePtr + 0x10);
+        long namePtr = Process.Memory.ReadPtr(buddyPtr, AddressMap.Get<int[]>("BUDDY_NAME_OFFSETS"));
+        long levelPtr = Process.Memory.ReadPtr(buddyPtr, AddressMap.Get<int[]>("BUDDY_LEVEL_OFFSETS"));
+        int nameLength = Process.Memory.Read<int>(namePtr + 0x10);
 
         MHRBuddyData data = new()
         {
-            Name = _process.Memory.Read(namePtr + 0x14, (uint)nameLength * 2, Encoding.Unicode),
-            Level = _process.Memory.Read<int>(levelPtr + 0x24)
+            Name = Process.Memory.Read(namePtr + 0x14, (uint)nameLength * 2, Encoding.Unicode),
+            Level = Process.Memory.Read<int>(levelPtr + 0x24)
         };
 
         return data;
@@ -830,7 +847,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         AbnormalitySchema[] schemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Songs);
         foreach (long buffPtr in buffs)
         {
-            MHRHHAbnormality abnormality = _process.Memory.Read<MHRHHAbnormality>(buffPtr);
+            MHRHHAbnormality abnormality = Process.Memory.Read<MHRHHAbnormality>(buffPtr);
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
             AbnormalitySchema maybeSchema = schemas[id];
@@ -846,7 +863,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     private void ClearAbnormalities()
     {
         foreach (IAbnormality abnormality in _abnormalities.Values)
-            this.Dispatch(OnAbnormalityEnd, abnormality);
+            this.Dispatch(_onAbnormalityEnd, abnormality);
 
         _abnormalities.Clear();
     }
@@ -862,7 +879,7 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             abnorm.Update(newData);
 
             _ = _abnormalities.Remove(schema.Id);
-            this.Dispatch(OnAbnormalityEnd, (IAbnormality)abnorm);
+            this.Dispatch(_onAbnormalityEnd, (IAbnormality)abnorm);
         }
         else if (_abnormalities.ContainsKey(schema.Id) && timer > 0)
         {
@@ -879,13 +896,13 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
 
             _abnormalities.Add(schema.Id, (IAbnormality)abnorm);
             abnorm.Update(newData);
-            this.Dispatch(OnAbnormalityStart, (IAbnormality)abnorm);
+            this.Dispatch(_onAbnormalityStart, (IAbnormality)abnorm);
         }
     }
 
     private MHRPetalaceStatsStructure? GetEquippedPetalaceStats()
     {
-        long petalaceArray = _process.Memory.Read(
+        long petalaceArray = Process.Memory.Read(
             AddressMap.GetAbsolute("GEAR_ADDRESS"),
             AddressMap.Get<int[]>("PETALACES_ARRAY_OFFSETS")
         );
@@ -893,21 +910,21 @@ public class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         if (petalaceArray == 0)
             return null;
 
-        int selectedPetalaceId = _process.Memory.Deref<int>(
+        int selectedPetalaceId = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("PLAYER_GEAR_ADDRESS"),
             AddressMap.Get<int[]>("SELECTED_PETALACE_OFFSETS")
         ) & 0x0000FFFF;
 
-        uint petalaceArrayLength = _process.Memory.Read<uint>(petalaceArray + 0x1C);
-        long[] petalacePtrs = _process.Memory.Read<long>(petalaceArray + 0x20, petalaceArrayLength);
+        uint petalaceArrayLength = Process.Memory.Read<uint>(petalaceArray + 0x1C);
+        long[] petalacePtrs = Process.Memory.Read<long>(petalaceArray + 0x20, petalaceArrayLength);
 
-        MHRPetalaceStructure structure = _process.Memory.Read<MHRPetalaceStructure>(
+        MHRPetalaceStructure structure = Process.Memory.Read<MHRPetalaceStructure>(
             petalacePtrs[selectedPetalaceId % petalacePtrs.Length]
         );
 
-        MHRPetalaceDataStructure data = _process.Memory.Read<MHRPetalaceDataStructure>(structure.Data);
+        MHRPetalaceDataStructure data = Process.Memory.Read<MHRPetalaceDataStructure>(structure.Data);
 
-        return _process.Memory.Read<MHRPetalaceStatsStructure>(data.Stats);
+        return Process.Memory.Read<MHRPetalaceStatsStructure>(data.Stats);
     }
 
     internal void UpdatePartyMembersDamage(EntityDamageData[] entities)

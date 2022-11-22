@@ -83,12 +83,12 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
     [ScannableMethod]
     private void GetStageData()
     {
-        long stageAddress = _process.Memory.Read(
+        long stageAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("STAGE_ADDRESS"),
             AddressMap.Get<int[]>("STAGE_OFFSETS")
         );
 
-        int[] stageIds = _process.Memory.Read<int>(stageAddress + 0x150, 4);
+        int[] stageIds = Process.Memory.Read<int>(stageAddress + 0x150, 4);
 
         bool isVillage = stageIds[0] == 4;
         bool isMainMenu = stageIds[0] == 0;
@@ -116,14 +116,14 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
             return;
         }
 
-        long currentPlayerSaveAddress = _process.Memory.Read(
+        long currentPlayerSaveAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("CHARACTER_ADDRESS"),
             AddressMap.Get<int[]>("CHARACTER_OFFSETS")
         );
 
-        long namePtr = _process.Memory.Read<long>(currentPlayerSaveAddress);
-        int nameLength = _process.Memory.Read<int>(namePtr + 0x10);
-        string name = _process.Memory.Read(namePtr + 0x14, (uint)(nameLength * 2), encoding: Encoding.Unicode);
+        long namePtr = Process.Memory.Read<long>(currentPlayerSaveAddress);
+        int nameLength = Process.Memory.Read<int>(namePtr + 0x10);
+        string name = Process.Memory.Read(namePtr + 0x14, (uint)(nameLength * 2), encoding: Encoding.Unicode);
 
         Name = name;
     }
@@ -136,13 +136,13 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
             return;
         }
 
-        long currentPlayerSaveAddress = _process.Memory.Read(
+        long currentPlayerSaveAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("CHARACTER_ADDRESS"),
             AddressMap.Get<int[]>("CHARACTER_OFFSETS")
         );
-        long namePtr = _process.Memory.Read<long>(currentPlayerSaveAddress);
+        long namePtr = Process.Memory.Read<long>(currentPlayerSaveAddress);
 
-        long saveAddress = _process.Memory.Read(
+        long saveAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("SAVE_ADDRESS"),
             AddressMap.Get<int[]>("SAVE_OFFSETS")
         );
@@ -151,7 +151,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
         {
             int[] nameOffsets = { (i * 8) + 0x20, 0x10 };
 
-            long saveNamePtr = _process.Memory.Deref<long>(saveAddress, nameOffsets);
+            long saveNamePtr = Process.Memory.Deref<long>(saveAddress, nameOffsets);
 
             if (saveNamePtr == namePtr)
                 return;
@@ -161,7 +161,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
     [ScannableMethod]
     private void AbnormalitiesCleanup()
     {
-        long debuffsPtr = _process.Memory.Read(
+        long debuffsPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("DEBUFF_ABNORMALITIES_OFFSETS")
         );
@@ -174,7 +174,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
     private void GetPlayerConsumableAbnormalities()
     {
 
-        long consumableBuffs = _process.Memory.Read(
+        long consumableBuffs = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("CONS_ABNORMALITIES_OFFSETS")
         );
@@ -189,13 +189,13 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
             int abnormSubId = schema.DependsOn switch
             {
                 0 => 0,
-                _ => _process.Memory.Read<int>(consumableBuffs + schema.DependsOn)
+                _ => Process.Memory.Read<int>(consumableBuffs + schema.DependsOn)
             };
 
             MHRConsumableStructure abnormality = new();
 
             if (abnormSubId == schema.WithValue)
-                abnormality = _process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
+                abnormality = Process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
 
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
@@ -207,7 +207,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
     private void GetPlayerDebuffAbnormalities()
     {
 
-        long debuffsPtr = _process.Memory.Read(
+        long debuffsPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("DEBUFF_ABNORMALITIES_OFFSETS")
         );
@@ -222,14 +222,14 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
             int abnormSubId = schema.DependsOn switch
             {
                 0 => 0,
-                _ => _process.Memory.Read<int>(debuffsPtr + schema.DependsOn)
+                _ => Process.Memory.Read<int>(debuffsPtr + schema.DependsOn)
             };
 
             MHRDebuffStructure abnormality = new();
 
             // Only read memory if the required sub Id is the required one for this abnormality
             if (abnormSubId == schema.WithValue)
-                abnormality = _process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
+                abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
 
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
@@ -241,7 +241,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
     private void GetPlayerSongAbnormalities()
     {
 
-        long songBuffsPtr = _process.Memory.Read(
+        long songBuffsPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("HH_ABNORMALITIES_OFFSETS")
         );
@@ -249,8 +249,8 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
         if (songBuffsPtr == 0)
             return;
 
-        uint songBuffsLength = _process.Memory.Read<uint>(songBuffsPtr + 0x1C);
-        long[] songBuffPtrs = _process.Memory.Read<long>(songBuffsPtr + 0x20, songBuffsLength);
+        uint songBuffsLength = Process.Memory.Read<uint>(songBuffsPtr + 0x1C);
+        long[] songBuffPtrs = Process.Memory.Read<long>(songBuffsPtr + 0x20, songBuffsLength);
 
         DerefSongBuffs(songBuffPtrs);
     }
@@ -262,7 +262,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
         AbnormalitySchema[] schemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Songs);
         foreach (long buffPtr in buffs)
         {
-            MHRHHAbnormality abnormality = _process.Memory.Read<MHRHHAbnormality>(buffPtr);
+            MHRHHAbnormality abnormality = Process.Memory.Read<MHRHHAbnormality>(buffPtr);
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
             AbnormalitySchema maybeSchema = schemas[id];
