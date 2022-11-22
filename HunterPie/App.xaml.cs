@@ -119,6 +119,7 @@ public partial class App : Application
 
         UnhookEvents();
         _richPresence?.Dispose();
+        _richPresence = null;
 
         ScanManager.Stop();
         _context.Dispose();
