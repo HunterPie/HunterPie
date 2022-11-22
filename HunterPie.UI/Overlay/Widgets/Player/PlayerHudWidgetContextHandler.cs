@@ -55,6 +55,12 @@ public class PlayerHudWidgetContextHandler : IContextHandler
         Player.OnAbnormalityStart -= OnPlayerAbnormalityStart;
         Player.OnAbnormalityEnd -= OnPlayerAbnormalityEnd;
 
+        if (Player.Weapon is IMeleeWeapon weapon)
+        {
+            weapon.OnSharpnessChange -= OnSharpnessChange;
+            weapon.OnSharpnessLevelChange -= OnSharpnessLevelChange;
+        }
+
         _ = WidgetManager.Unregister<PlayerHudView, PlayerHudWidgetConfig>(_view);
     }
 
