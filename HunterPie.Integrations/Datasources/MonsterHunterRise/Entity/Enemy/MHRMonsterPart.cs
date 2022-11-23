@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
@@ -25,7 +26,7 @@ public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPart
             if (value != _health)
             {
                 _health = value;
-                this.Dispatch(OnHealthUpdate, this);
+                this.Dispatch(_onHealthUpdate, this);
             }
         }
     }
@@ -40,7 +41,7 @@ public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPart
             if (value != _flinch)
             {
                 _flinch = value;
-                this.Dispatch(OnFlinchUpdate, this);
+                this.Dispatch(_onFlinchUpdate, this);
             }
         }
     }
@@ -58,7 +59,7 @@ public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPart
             if (value != _sever)
             {
                 _sever = value;
-                this.Dispatch(OnSeverUpdate, this);
+                this.Dispatch(_onSeverUpdate, this);
             }
         }
     }
@@ -73,7 +74,7 @@ public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPart
             if (value != _qurioHealth)
             {
                 _qurioHealth = value;
-                this.Dispatch(OnQurioHealthChange, this);
+                this.Dispatch(_onQurioHealthChange, this);
             }
         }
     }
@@ -88,20 +89,61 @@ public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPart
             if (value != _type)
             {
                 _type = value;
-                this.Dispatch(OnPartTypeChange, this);
+                this.Dispatch(_onPartTypeChange, this);
             }
         }
     }
 
     public int Count => 0;
 
-    public event EventHandler<IMonsterPart>? OnHealthUpdate;
-    public event EventHandler<IMonsterPart>? OnQurioHealthChange;
-    public event EventHandler<IMonsterPart>? OnBreakCountUpdate;
-    public event EventHandler<IMonsterPart>? OnTenderizeUpdate;
-    public event EventHandler<IMonsterPart>? OnFlinchUpdate;
-    public event EventHandler<IMonsterPart>? OnSeverUpdate;
-    public event EventHandler<IMonsterPart>? OnPartTypeChange;
+    private readonly SmartEvent<IMonsterPart> _onHealthUpdate = new();
+    public event EventHandler<IMonsterPart> OnHealthUpdate
+    {
+        add => _onHealthUpdate.Hook(value);
+        remove => _onHealthUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterPart> _onQurioHealthChange = new();
+    public event EventHandler<IMonsterPart> OnQurioHealthChange
+    {
+        add => _onQurioHealthChange.Hook(value);
+        remove => _onQurioHealthChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterPart> _onBreakCountUpdate = new();
+    public event EventHandler<IMonsterPart> OnBreakCountUpdate
+    {
+        add => _onBreakCountUpdate.Hook(value);
+        remove => _onBreakCountUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterPart> _onTenderizeUpdate = new();
+    public event EventHandler<IMonsterPart> OnTenderizeUpdate
+    {
+        add => _onTenderizeUpdate.Hook(value);
+        remove => _onTenderizeUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterPart> _onFlinchUpdate = new();
+    public event EventHandler<IMonsterPart> OnFlinchUpdate
+    {
+        add => _onFlinchUpdate.Hook(value);
+        remove => _onFlinchUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterPart> _onSeverUpdate = new();
+    public event EventHandler<IMonsterPart> OnSeverUpdate
+    {
+        add => _onSeverUpdate.Hook(value);
+        remove => _onSeverUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterPart> _onPartTypeChange = new();
+    public event EventHandler<IMonsterPart> OnPartTypeChange
+    {
+        add => _onPartTypeChange.Hook(value);
+        remove => _onPartTypeChange.Unhook(value);
+    }
 
     public MHRMonsterPart(string id)
     {

@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
@@ -19,7 +20,7 @@ public class MHRMeowmasters : IEventDispatcher, IUpdatable<MHRMeowmasterData>
             if (_step != value)
             {
                 _step = value;
-                this.Dispatch(OnStepChange, this);
+                this.Dispatch(_onStepChange, this);
             }
         }
     }
@@ -34,7 +35,7 @@ public class MHRMeowmasters : IEventDispatcher, IUpdatable<MHRMeowmasterData>
             if (value != _expectedOutcome)
             {
                 _expectedOutcome = value;
-                this.Dispatch(OnExpectedOutcomeChange, this);
+                this.Dispatch(_onExpectedOutcomeChange, this);
             }
         }
     }
@@ -47,7 +48,7 @@ public class MHRMeowmasters : IEventDispatcher, IUpdatable<MHRMeowmasterData>
             if (_isDeployed != value)
             {
                 _isDeployed = value;
-                this.Dispatch(OnDeployStateChange, this);
+                this.Dispatch(_onDeployStateChange, this);
             }
         }
     }
@@ -60,7 +61,7 @@ public class MHRMeowmasters : IEventDispatcher, IUpdatable<MHRMeowmasterData>
             if (_buddyCount != value)
             {
                 _buddyCount = value;
-                this.Dispatch(OnBuddyCountChange, this);
+                this.Dispatch(_onBuddyCountChange, this);
             }
         }
     }
@@ -69,10 +70,33 @@ public class MHRMeowmasters : IEventDispatcher, IUpdatable<MHRMeowmasterData>
 
     public bool HasLagniapple { get; private set; }
 
-    public event EventHandler<MHRMeowmasters> OnStepChange;
-    public event EventHandler<MHRMeowmasters> OnDeployStateChange;
-    public event EventHandler<MHRMeowmasters> OnExpectedOutcomeChange;
-    public event EventHandler<MHRMeowmasters> OnBuddyCountChange;
+    private readonly SmartEvent<MHRMeowmasters> _onStepChange = new();
+    public event EventHandler<MHRMeowmasters> OnStepChange
+    {
+        add => _onStepChange.Hook(value);
+        remove => _onStepChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<MHRMeowmasters> _onDeployStateChange = new();
+    public event EventHandler<MHRMeowmasters> OnDeployStateChange
+    {
+        add => _onDeployStateChange.Hook(value);
+        remove => _onDeployStateChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<MHRMeowmasters> _onExpectedOutcomeChange = new();
+    public event EventHandler<MHRMeowmasters> OnExpectedOutcomeChange
+    {
+        add => _onExpectedOutcomeChange.Hook(value);
+        remove => _onExpectedOutcomeChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<MHRMeowmasters> _onBuddyCountChange = new();
+    public event EventHandler<MHRMeowmasters> OnBuddyCountChange
+    {
+        add => _onBuddyCountChange.Hook(value);
+        remove => _onBuddyCountChange.Unhook(value);
+    }
 
     void IUpdatable<MHRMeowmasterData>.Update(MHRMeowmasterData data)
     {

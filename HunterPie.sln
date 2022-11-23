@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HunterPie.Native", "HunterPie.Native\HunterPie.Native.vcxproj", "{71B29FF7-DCF6-421C-AA01-A8E5671FBB52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HunterPie.Integrations", "HunterPie.Integrations\HunterPie.Integrations.csproj", "{71312F08-EC45-4117-B7AA-911A8FF368C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HunterPie.Integrations", "HunterPie.Integrations\HunterPie.Integrations.csproj", "{71312F08-EC45-4117-B7AA-911A8FF368C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -166,7 +166,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9BF75590-F213-418A-8657-32D49F05BD13}
 		BuildVersion_StartDate = 2000/1/1
+		SolutionGuid = {9BF75590-F213-418A-8657-32D49F05BD13}
 	EndGlobalSection
 EndGlobal

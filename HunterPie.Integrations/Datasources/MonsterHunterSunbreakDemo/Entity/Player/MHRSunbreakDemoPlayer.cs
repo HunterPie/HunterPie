@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
@@ -35,8 +36,8 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
                 _name = value;
                 FindPlayerSaveSlot();
                 this.Dispatch(value is ""
-                    ? OnLogout
-                    : OnLogin);
+                    ? _onLogout
+                    : _onLogin);
 
             }
         }
@@ -62,33 +63,101 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
 
     public IWeapon Weapon { get; private set; }
 
-    public event EventHandler<EventArgs>? OnLogin;
-    public event EventHandler<EventArgs>? OnLogout;
-    public event EventHandler<EventArgs>? OnDeath;
-    public event EventHandler<EventArgs>? OnActionUpdate;
-    public event EventHandler<EventArgs>? OnStageUpdate;
-    public event EventHandler<EventArgs>? OnVillageEnter;
-    public event EventHandler<EventArgs>? OnVillageLeave;
-    public event EventHandler<EventArgs>? OnAilmentUpdate;
-    public event EventHandler<WeaponChangeEventArgs>? OnWeaponChange;
-    public event EventHandler<IAbnormality>? OnAbnormalityStart;
-    public event EventHandler<IAbnormality>? OnAbnormalityEnd;
-    public event EventHandler<HealthChangeEventArgs>? OnHealthChange;
-    public event EventHandler<StaminaChangeEventArgs>? OnStaminaChange;
-    public event EventHandler<LevelChangeEventArgs>? OnLevelChange;
-    public event EventHandler<HealthChangeEventArgs>? OnHeal;
+    private readonly SmartEvent<EventArgs> _onLogin = new();
+    public event EventHandler<EventArgs> OnLogin
+    {
+        add => _onLogin.Hook(value);
+        remove => _onLogin.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onLogout = new();
+    public event EventHandler<EventArgs> OnLogout
+    {
+        add => _onLogout.Hook(value);
+        remove => _onLogout.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onDeath = new();
+    public event EventHandler<EventArgs> OnDeath
+    {
+        add => _onDeath.Hook(value);
+        remove => _onDeath.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onActionUpdate = new();
+    public event EventHandler<EventArgs> OnActionUpdate
+    {
+        add => _onActionUpdate.Hook(value);
+        remove => _onActionUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onStageUpdate = new();
+    public event EventHandler<EventArgs> OnStageUpdate
+    {
+        add => _onStageUpdate.Hook(value);
+        remove => _onStageUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onVillageEnter = new();
+    public event EventHandler<EventArgs> OnVillageEnter
+    {
+        add => _onVillageEnter.Hook(value);
+        remove => _onVillageEnter.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onVillageLeave = new();
+    public event EventHandler<EventArgs> OnVillageLeave
+    {
+        add => _onVillageLeave.Hook(value);
+        remove => _onVillageLeave.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onAilmentUpdate = new();
+    public event EventHandler<EventArgs> OnAilmentUpdate
+    {
+        add => _onAilmentUpdate.Hook(value);
+        remove => _onAilmentUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<WeaponChangeEventArgs> _onWeaponChange = new();
+    public event EventHandler<WeaponChangeEventArgs> OnWeaponChange
+    {
+        add => _onWeaponChange.Hook(value);
+        remove => _onWeaponChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<IAbnormality> _onAbnormalityStart = new();
+    public event EventHandler<IAbnormality> OnAbnormalityStart
+    {
+        add => _onAbnormalityStart.Hook(value);
+        remove => _onAbnormalityStart.Unhook(value);
+    }
+
+    private readonly SmartEvent<IAbnormality> _onAbnormalityEnd = new();
+    public event EventHandler<IAbnormality> OnAbnormalityEnd
+    {
+        add => _onAbnormalityEnd.Hook(value);
+        remove => _onAbnormalityEnd.Unhook(value);
+    }
+
+    private readonly SmartEvent<LevelChangeEventArgs> _onLevelChange = new();
+    public event EventHandler<LevelChangeEventArgs> OnLevelChange
+    {
+        add => _onLevelChange.Hook(value);
+        remove => _onLevelChange.Unhook(value);
+    }
 
     public MHRSunbreakDemoPlayer(IProcessManager process) : base(process) { }
 
     [ScannableMethod]
     private void GetStageData()
     {
-        long stageAddress = _process.Memory.Read(
+        long stageAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("STAGE_ADDRESS"),
             AddressMap.Get<int[]>("STAGE_OFFSETS")
         );
 
-        int[] stageIds = _process.Memory.Read<int>(stageAddress + 0x150, 4);
+        int[] stageIds = Process.Memory.Read<int>(stageAddress + 0x150, 4);
 
         bool isVillage = stageIds[0] == 4;
         bool isMainMenu = stageIds[0] == 0;
@@ -116,14 +185,14 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
             return;
         }
 
-        long currentPlayerSaveAddress = _process.Memory.Read(
+        long currentPlayerSaveAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("CHARACTER_ADDRESS"),
             AddressMap.Get<int[]>("CHARACTER_OFFSETS")
         );
 
-        long namePtr = _process.Memory.Read<long>(currentPlayerSaveAddress);
-        int nameLength = _process.Memory.Read<int>(namePtr + 0x10);
-        string name = _process.Memory.Read(namePtr + 0x14, (uint)(nameLength * 2), encoding: Encoding.Unicode);
+        long namePtr = Process.Memory.Read<long>(currentPlayerSaveAddress);
+        int nameLength = Process.Memory.Read<int>(namePtr + 0x10);
+        string name = Process.Memory.Read(namePtr + 0x14, (uint)(nameLength * 2), encoding: Encoding.Unicode);
 
         Name = name;
     }
@@ -136,13 +205,13 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
             return;
         }
 
-        long currentPlayerSaveAddress = _process.Memory.Read(
+        long currentPlayerSaveAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("CHARACTER_ADDRESS"),
             AddressMap.Get<int[]>("CHARACTER_OFFSETS")
         );
-        long namePtr = _process.Memory.Read<long>(currentPlayerSaveAddress);
+        long namePtr = Process.Memory.Read<long>(currentPlayerSaveAddress);
 
-        long saveAddress = _process.Memory.Read(
+        long saveAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("SAVE_ADDRESS"),
             AddressMap.Get<int[]>("SAVE_OFFSETS")
         );
@@ -151,7 +220,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
         {
             int[] nameOffsets = { (i * 8) + 0x20, 0x10 };
 
-            long saveNamePtr = _process.Memory.Deref<long>(saveAddress, nameOffsets);
+            long saveNamePtr = Process.Memory.Deref<long>(saveAddress, nameOffsets);
 
             if (saveNamePtr == namePtr)
                 return;
@@ -161,7 +230,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
     [ScannableMethod]
     private void AbnormalitiesCleanup()
     {
-        long debuffsPtr = _process.Memory.Read(
+        long debuffsPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("DEBUFF_ABNORMALITIES_OFFSETS")
         );
@@ -174,7 +243,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
     private void GetPlayerConsumableAbnormalities()
     {
 
-        long consumableBuffs = _process.Memory.Read(
+        long consumableBuffs = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("CONS_ABNORMALITIES_OFFSETS")
         );
@@ -189,13 +258,13 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
             int abnormSubId = schema.DependsOn switch
             {
                 0 => 0,
-                _ => _process.Memory.Read<int>(consumableBuffs + schema.DependsOn)
+                _ => Process.Memory.Read<int>(consumableBuffs + schema.DependsOn)
             };
 
             MHRConsumableStructure abnormality = new();
 
             if (abnormSubId == schema.WithValue)
-                abnormality = _process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
+                abnormality = Process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
 
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
@@ -207,7 +276,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
     private void GetPlayerDebuffAbnormalities()
     {
 
-        long debuffsPtr = _process.Memory.Read(
+        long debuffsPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("DEBUFF_ABNORMALITIES_OFFSETS")
         );
@@ -222,14 +291,14 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
             int abnormSubId = schema.DependsOn switch
             {
                 0 => 0,
-                _ => _process.Memory.Read<int>(debuffsPtr + schema.DependsOn)
+                _ => Process.Memory.Read<int>(debuffsPtr + schema.DependsOn)
             };
 
             MHRDebuffStructure abnormality = new();
 
             // Only read memory if the required sub Id is the required one for this abnormality
             if (abnormSubId == schema.WithValue)
-                abnormality = _process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
+                abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
 
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
@@ -241,7 +310,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
     private void GetPlayerSongAbnormalities()
     {
 
-        long songBuffsPtr = _process.Memory.Read(
+        long songBuffsPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("HH_ABNORMALITIES_OFFSETS")
         );
@@ -249,8 +318,8 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
         if (songBuffsPtr == 0)
             return;
 
-        uint songBuffsLength = _process.Memory.Read<uint>(songBuffsPtr + 0x1C);
-        long[] songBuffPtrs = _process.Memory.Read<long>(songBuffsPtr + 0x20, songBuffsLength);
+        uint songBuffsLength = Process.Memory.Read<uint>(songBuffsPtr + 0x1C);
+        long[] songBuffPtrs = Process.Memory.Read<long>(songBuffsPtr + 0x20, songBuffsLength);
 
         DerefSongBuffs(songBuffPtrs);
     }
@@ -262,7 +331,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
         AbnormalitySchema[] schemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Songs);
         foreach (long buffPtr in buffs)
         {
-            MHRHHAbnormality abnormality = _process.Memory.Read<MHRHHAbnormality>(buffPtr);
+            MHRHHAbnormality abnormality = Process.Memory.Read<MHRHHAbnormality>(buffPtr);
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
             AbnormalitySchema maybeSchema = schemas[id];
@@ -285,7 +354,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
             abnorm.Update(newData);
 
             _ = _abnormalities.Remove(schema.Id);
-            this.Dispatch(OnAbnormalityEnd, (IAbnormality)abnorm);
+            this.Dispatch(_onAbnormalityEnd, (IAbnormality)abnorm);
         }
         else if (_abnormalities.ContainsKey(schema.Id) && timer > 0)
         {
@@ -302,7 +371,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
 
             _abnormalities.Add(schema.Id, (IAbnormality)abnorm);
             abnorm.Update(newData);
-            this.Dispatch(OnAbnormalityStart, (IAbnormality)abnorm);
+            this.Dispatch(_onAbnormalityStart, (IAbnormality)abnorm);
         }
     }
 
@@ -310,7 +379,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
     private void ClearAbnormalities()
     {
         foreach (IAbnormality abnormality in _abnormalities.Values)
-            this.Dispatch(OnAbnormalityEnd, abnormality);
+            this.Dispatch(_onAbnormalityEnd, abnormality);
 
         _abnormalities.Clear();
     }

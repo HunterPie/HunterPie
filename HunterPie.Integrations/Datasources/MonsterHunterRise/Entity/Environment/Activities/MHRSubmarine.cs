@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
@@ -18,7 +19,7 @@ public class MHRSubmarine : IEventDispatcher, IUpdatable<MHRSubmarineData>
             if (value != _count)
             {
                 _count = value;
-                this.Dispatch(OnItemCountChange, this);
+                this.Dispatch(_onItemCountChange, this);
             }
         }
     }
@@ -33,7 +34,7 @@ public class MHRSubmarine : IEventDispatcher, IUpdatable<MHRSubmarineData>
             if (value != _daysLeft)
             {
                 _daysLeft = value;
-                this.Dispatch(OnDaysLeftChange, this);
+                this.Dispatch(_onDaysLeftChange, this);
             }
         }
     }
@@ -46,14 +47,31 @@ public class MHRSubmarine : IEventDispatcher, IUpdatable<MHRSubmarineData>
             if (value != _isUnlocked)
             {
                 _isUnlocked = value;
-                this.Dispatch(OnLockStateChange, this);
+                this.Dispatch(_onLockStateChange, this);
             }
         }
     }
 
-    public event EventHandler<MHRSubmarine> OnItemCountChange;
-    public event EventHandler<MHRSubmarine> OnDaysLeftChange;
-    public event EventHandler<MHRSubmarine> OnLockStateChange;
+    private readonly SmartEvent<MHRSubmarine> _onItemCountChange = new();
+    public event EventHandler<MHRSubmarine> OnItemCountChange
+    {
+        add => _onItemCountChange.Hook(value);
+        remove => _onItemCountChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<MHRSubmarine> _onDaysLeftChange = new();
+    public event EventHandler<MHRSubmarine> OnDaysLeftChange
+    {
+        add => _onDaysLeftChange.Hook(value);
+        remove => _onDaysLeftChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<MHRSubmarine> _onLockStateChange = new();
+    public event EventHandler<MHRSubmarine> OnLockStateChange
+    {
+        add => _onLockStateChange.Hook(value);
+        remove => _onLockStateChange.Unhook(value);
+    }
 
     void IUpdatable<MHRSubmarineData>.Update(MHRSubmarineData data)
     {

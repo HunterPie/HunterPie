@@ -1,4 +1,5 @@
 ﻿#nullable enable
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Party;
@@ -35,8 +36,20 @@ public class MHRParty : IParty, IEventDispatcher
         }
     }
 
-    public event EventHandler<IPartyMember> OnMemberJoin;
-    public event EventHandler<IPartyMember> OnMemberLeave;
+
+    private readonly SmartEvent<IPartyMember> _onMemberJoin = new();
+    public event EventHandler<IPartyMember> OnMemberJoin
+    {
+        add => _onMemberJoin.Hook(value);
+        remove => _onMemberJoin.Unhook(value);
+    }
+
+    private readonly SmartEvent<IPartyMember> _onMemberLeave = new();
+    public event EventHandler<IPartyMember> OnMemberLeave
+    {
+        add => _onMemberLeave.Hook(value);
+        remove => _onMemberLeave.Unhook(value);
+    }
 
     public void Update(MHRPartyMemberData data)
     {
@@ -94,8 +107,8 @@ public class MHRParty : IParty, IEventDispatcher
 
         Log.Debug("Added new player to party: id: {0} name: {1} weap: {2}, hash: {3:X}", data.Index, data.Name, data.WeaponId, updatable.GetHashCode());
 
-        this.Dispatch(OnMemberJoin, member);
-        this.Dispatch(OnMemberJoin, memberPet);
+        this.Dispatch(_onMemberJoin, member);
+        this.Dispatch(_onMemberJoin, memberPet);
     }
 
     public void Remove(int memberIndex)
@@ -114,8 +127,8 @@ public class MHRParty : IParty, IEventDispatcher
 
         Log.Debug("Removed player: id: {0} name: {1} hash: {2:X}", memberIndex, member.Name, member.GetHashCode());
 
-        this.Dispatch(OnMemberLeave, member);
-        this.Dispatch(OnMemberLeave, memberPet);
+        this.Dispatch(_onMemberLeave, member);
+        this.Dispatch(_onMemberLeave, memberPet);
     }
 
     public void Clear()

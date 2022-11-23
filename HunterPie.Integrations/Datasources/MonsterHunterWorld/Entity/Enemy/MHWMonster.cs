@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
@@ -40,7 +41,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
                 _id = value;
                 GetMonsterWeaknesses();
                 GetMonsterCaptureThreshold();
-                this.Dispatch(OnSpawn);
+                this.Dispatch(_onSpawn);
             }
         }
     }
@@ -57,10 +58,10 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
             if (value != _health)
             {
                 _health = value;
-                this.Dispatch(OnHealthChange);
+                this.Dispatch(_onHealthChange);
 
                 if (Health <= 0)
-                    this.Dispatch(OnDeath);
+                    this.Dispatch(_onDeath);
             }
         }
     }
@@ -75,7 +76,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
             if (value != _stamina)
             {
                 _stamina = value;
-                this.Dispatch(OnStaminaChange);
+                this.Dispatch(_onStaminaChange);
             }
         }
     }
@@ -90,7 +91,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
             if (_isTarget != value)
             {
                 _isTarget = value;
-                this.Dispatch(OnTarget);
+                this.Dispatch(_onTarget);
             }
         }
     }
@@ -110,7 +111,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
             if (_target != value)
             {
                 _target = value;
-                this.Dispatch(OnTargetChange);
+                this.Dispatch(_onTargetChange);
             }
         }
     }
@@ -123,7 +124,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
             if (_crown != value)
             {
                 _crown = value;
-                this.Dispatch(OnCrownChange);
+                this.Dispatch(_onCrownChange);
             }
         }
     }
@@ -136,7 +137,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
             if (value != _isEnraged)
             {
                 _isEnraged = value;
-                this.Dispatch(OnEnrageStateChange);
+                this.Dispatch(_onEnrageStateChange);
             }
         }
     }
@@ -154,27 +155,122 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
             if (value != _captureThreshold)
             {
                 _captureThreshold = value;
-                this.Dispatch(OnCaptureThresholdChange, this);
+                this.Dispatch(_onCaptureThresholdChange, this);
             }
         }
     }
 
-    public event EventHandler<EventArgs> OnSpawn;
-    public event EventHandler<EventArgs> OnLoad;
-    public event EventHandler<EventArgs> OnDespawn;
-    public event EventHandler<EventArgs> OnDeath;
-    public event EventHandler<EventArgs> OnCapture;
-    public event EventHandler<EventArgs> OnTarget;
-    public event EventHandler<EventArgs> OnCrownChange;
-    public event EventHandler<EventArgs> OnHealthChange;
-    public event EventHandler<EventArgs> OnStaminaChange;
-    public event EventHandler<EventArgs> OnActionChange;
-    public event EventHandler<EventArgs> OnTargetChange;
-    public event EventHandler<IMonsterPart> OnNewPartFound;
-    public event EventHandler<IMonsterAilment> OnNewAilmentFound;
-    public event EventHandler<EventArgs> OnEnrageStateChange;
-    public event EventHandler<Element[]> OnWeaknessesChange;
-    public event EventHandler<IMonster> OnCaptureThresholdChange;
+    private readonly SmartEvent<EventArgs> _onSpawn = new();
+    public event EventHandler<EventArgs> OnSpawn
+    {
+        add => _onSpawn.Hook(value);
+        remove => _onSpawn.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onLoad = new();
+    public event EventHandler<EventArgs> OnLoad
+    {
+        add => _onLoad.Hook(value);
+        remove => _onLoad.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onDespawn = new();
+    public event EventHandler<EventArgs> OnDespawn
+    {
+        add => _onDespawn.Hook(value);
+        remove => _onDespawn.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onDeath = new();
+    public event EventHandler<EventArgs> OnDeath
+    {
+        add => _onDeath.Hook(value);
+        remove => _onDeath.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onCapture = new();
+    public event EventHandler<EventArgs> OnCapture
+    {
+        add => _onCapture.Hook(value);
+        remove => _onCapture.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onTarget = new();
+    public event EventHandler<EventArgs> OnTarget
+    {
+        add => _onTarget.Hook(value);
+        remove => _onTarget.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onCrownChange = new();
+    public event EventHandler<EventArgs> OnCrownChange
+    {
+        add => _onCrownChange.Hook(value);
+        remove => _onCrownChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onHealthChange = new();
+    public event EventHandler<EventArgs> OnHealthChange
+    {
+        add => _onHealthChange.Hook(value);
+        remove => _onHealthChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onStaminaChange = new();
+    public event EventHandler<EventArgs> OnStaminaChange
+    {
+        add => _onStaminaChange.Hook(value);
+        remove => _onStaminaChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onActionChange = new();
+    public event EventHandler<EventArgs> OnActionChange
+    {
+        add => _onActionChange.Hook(value);
+        remove => _onActionChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onEnrageStateChange = new();
+    public event EventHandler<EventArgs> OnEnrageStateChange
+    {
+        add => _onEnrageStateChange.Hook(value);
+        remove => _onEnrageStateChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onTargetChange = new();
+    public event EventHandler<EventArgs> OnTargetChange
+    {
+        add => _onTargetChange.Hook(value);
+        remove => _onTargetChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterPart> _onNewPartFound = new();
+    public event EventHandler<IMonsterPart> OnNewPartFound
+    {
+        add => _onNewPartFound.Hook(value);
+        remove => _onNewPartFound.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterAilment> _onNewAilmentFound = new();
+    public event EventHandler<IMonsterAilment> OnNewAilmentFound
+    {
+        add => _onNewAilmentFound.Hook(value);
+        remove => _onNewAilmentFound.Unhook(value);
+    }
+
+    private readonly SmartEvent<Element[]> _onWeaknessesChange = new();
+    public event EventHandler<Element[]> OnWeaknessesChange
+    {
+        add => _onWeaknessesChange.Hook(value);
+        remove => _onWeaknessesChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonster> _onCaptureThresholdChange = new();
+    public event EventHandler<IMonster> OnCaptureThresholdChange
+    {
+        add => _onCaptureThresholdChange.Hook(value);
+        remove => _onCaptureThresholdChange.Unhook(value);
+    }
 
     public MHWMonster(IProcessManager process, long address, string em) : base(process)
     {
@@ -202,14 +298,14 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
             return;
 
         _weaknesses.AddRange(data.Value.Weaknesses);
-        this.Dispatch(OnWeaknessesChange, Weaknesses);
+        this.Dispatch(_onWeaknessesChange, Weaknesses);
     }
 
     [ScannableMethod]
     private void GetMonsterBasicInformation()
     {
-        int monsterId = _process.Memory.Read<int>(_address + 0x12280);
-        int doubleLinkedListIndex = _process.Memory.Read<int>(_address + 0x1228C);
+        int monsterId = Process.Memory.Read<int>(_address + 0x12280);
+        int doubleLinkedListIndex = Process.Memory.Read<int>(_address + 0x1228C);
 
         Id = monsterId;
         _doubleLinkedListIndex = doubleLinkedListIndex;
@@ -218,8 +314,8 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterHealthData()
     {
-        long monsterHealthPtr = _process.Memory.Read<long>(_address + 0x7670);
-        float[] healthValues = _process.Memory.Read<float>(monsterHealthPtr + 0x60, 2);
+        long monsterHealthPtr = Process.Memory.Read<long>(_address + 0x7670);
+        float[] healthValues = Process.Memory.Read<float>(monsterHealthPtr + 0x60, 2);
 
         MaxHealth = healthValues[0];
         Health = healthValues[1];
@@ -228,7 +324,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterStaminaData()
     {
-        float[] staminaValues = _process.Memory.Read<float>(_address + 0x1C0F0, 2);
+        float[] staminaValues = Process.Memory.Read<float>(_address + 0x1C0F0, 2);
 
         MaxStamina = staminaValues[1];
         Stamina = staminaValues[0];
@@ -237,8 +333,8 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterCrownData()
     {
-        float sizeModifier = _process.Memory.Read<float>(_address + 0x7730);
-        float sizeMultiplier = _process.Memory.Read<float>(_address + 0x188);
+        float sizeModifier = Process.Memory.Read<float>(_address + 0x7730);
+        float sizeMultiplier = Process.Memory.Read<float>(_address + 0x188);
 
         if (sizeModifier is <= 0 or >= 2)
             sizeModifier = 1;
@@ -260,7 +356,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterEnrage()
     {
-        MHWMonsterStatusStructure enrageStructure = _process.Memory.Read<MHWMonsterStatusStructure>(_address + 0x1BE30);
+        MHWMonsterStatusStructure enrageStructure = Process.Memory.Read<MHWMonsterStatusStructure>(_address + 0x1BE30);
         IUpdatable<MHWMonsterStatusStructure> enrage = _enrage;
 
         IsEnraged = enrageStructure.Duration > 0;
@@ -271,7 +367,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetLockedOnMonster()
     {
-        int lockedOnDoubleLinkedListIndex = _process.Memory.Deref<int>(
+        int lockedOnDoubleLinkedListIndex = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("LOCKON_ADDRESS"),
             AddressMap.Get<int[]>("LOCKEDON_MONSTER_INDEX_OFFSETS")
         );
@@ -284,7 +380,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterParts()
     {
-        long monsterPartPtr = _process.Memory.Read<long>(_address + 0x1D058);
+        long monsterPartPtr = Process.Memory.Read<long>(_address + 0x1D058);
 
         if (monsterPartPtr == 0)
             return;
@@ -318,24 +414,23 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
             // If the part address has been cached already, we can just read them
             if (cachedAddress > 0)
             {
-                partStructure = _process.Memory.Read<MHWMonsterPartStructure>(cachedAddress);
+                partStructure = Process.Memory.Read<MHWMonsterPartStructure>(cachedAddress);
 
                 // Alatreon elemental explosion level
                 if (Id == 87 && partStructure.Index == 3)
-                    partStructure.Counter = _process.Memory.Read<int>(_address + 0x20920);
+                    partStructure.Counter = Process.Memory.Read<int>(_address + 0x20920);
 
                 updatable.Update(partStructure);
                 continue;
             }
 
             if (partSchema.IsSeverable)
-            {
                 while (monsterSeverableAddress < (monsterSeverableAddress + (0x120 * 32)))
                 {
-                    if (_process.Memory.Read<int>(monsterSeverableAddress) <= 0xA0)
+                    if (Process.Memory.Read<int>(monsterSeverableAddress) <= 0xA0)
                         monsterSeverableAddress += 0x8;
 
-                    partStructure = _process.Memory.Read<MHWMonsterPartStructure>(monsterSeverableAddress);
+                    partStructure = Process.Memory.Read<MHWMonsterPartStructure>(monsterSeverableAddress);
 
                     if (partStructure.Index == partSchema.Id && partStructure.MaxHealth > 0)
                     {
@@ -346,23 +441,21 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
                         );
                         _parts[pIndex] = (monsterSeverableAddress, newPart);
 
-                        this.Dispatch(OnNewPartFound, newPart);
+                        this.Dispatch(_onNewPartFound, newPart);
 
                         do
-                        {
                             monsterSeverableAddress += 0x78;
-                        } while (partStructure.Equals(_process.Memory.Read<MHWMonsterPartStructure>(monsterSeverableAddress)));
+                        while (partStructure.Equals(Process.Memory.Read<MHWMonsterPartStructure>(monsterSeverableAddress)));
 
                         break;
                     }
 
                     monsterSeverableAddress += 0x78;
                 }
-            }
             else
             {
                 long address = monsterPartAddress + (normalPartIndex * 0x1F8);
-                partStructure = _process.Memory.Read<MHWMonsterPartStructure>(address);
+                partStructure = Process.Memory.Read<MHWMonsterPartStructure>(address);
 
                 MHWMonsterPart newPart = new(
                     partSchema.String,
@@ -372,7 +465,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
 
                 _parts[pIndex] = (address, newPart);
 
-                this.Dispatch(OnNewPartFound, newPart);
+                this.Dispatch(_onNewPartFound, newPart);
 
                 normalPartIndex++;
             }
@@ -385,7 +478,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterPartTenderizes()
     {
-        MHWTenderizeInfoStructure[] tenderizeInfos = _process.Memory.Read<MHWTenderizeInfoStructure>(
+        MHWTenderizeInfoStructure[] tenderizeInfos = Process.Memory.Read<MHWTenderizeInfoStructure>(
             _address + 0x1C458,
             10
         );
@@ -411,16 +504,16 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
         {
             _ailments = new(32);
             long monsterAilmentArrayElement = _address + 0x1BC40;
-            long monsterAilmentPtr = _process.Memory.Read<long>(monsterAilmentArrayElement);
+            long monsterAilmentPtr = Process.Memory.Read<long>(monsterAilmentArrayElement);
 
             while (monsterAilmentPtr > 1)
             {
                 long currentMonsterAilmentPtr = monsterAilmentPtr;
                 // Comment from V1 so I don't forget: There's a gap between the monsterAilmentPtr and the actual ailment data
-                MHWMonsterAilmentStructure structure = _process.Memory.Read<MHWMonsterAilmentStructure>(currentMonsterAilmentPtr + 0x148);
+                MHWMonsterAilmentStructure structure = Process.Memory.Read<MHWMonsterAilmentStructure>(currentMonsterAilmentPtr + 0x148);
 
                 monsterAilmentArrayElement += sizeof(long);
-                monsterAilmentPtr = _process.Memory.Read<long>(monsterAilmentArrayElement);
+                monsterAilmentPtr = Process.Memory.Read<long>(monsterAilmentArrayElement);
 
                 if (structure.Owner != _address)
                     break;
@@ -432,7 +525,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
                 var ailment = new MHWMonsterAilment(ailmentSchema.String);
 
                 _ailments.Add((currentMonsterAilmentPtr, ailment));
-                this.Dispatch(OnNewAilmentFound, ailment);
+                this.Dispatch(_onNewAilmentFound, ailment);
 
                 IUpdatable<MHWMonsterAilmentStructure> updatable = ailment;
                 updatable.Update(structure);
@@ -445,7 +538,7 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
         {
             (long address, MHWMonsterAilment ailment) = _ailments[i];
 
-            MHWMonsterAilmentStructure structure = _process.Memory.Read<MHWMonsterAilmentStructure>(address + 0x148);
+            MHWMonsterAilmentStructure structure = Process.Memory.Read<MHWMonsterAilmentStructure>(address + 0x148);
             IUpdatable<MHWMonsterAilmentStructure> updatable = ailment;
             updatable.Update(structure);
         }

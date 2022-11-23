@@ -57,6 +57,9 @@
     <Compile Update="GUI\Parts\Console\LogView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="GUI\Parts\Debug\Views\EventTrackerView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="GUI\Parts\HeaderBar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -126,6 +129,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Console\LogView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Parts\Debug\Views\EventTrackerView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\HeaderBar.xaml">

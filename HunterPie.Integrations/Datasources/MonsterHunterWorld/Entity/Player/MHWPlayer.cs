@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.DTO;
 using HunterPie.Core.Domain.Interfaces;
@@ -74,13 +75,10 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 
                 this.Dispatch(
                     value != 0
-                    ? OnLogin
-                    : OnLogout,
-                    EventArgs.Empty
+                    ? _onLogin
+                    : _onLogout
                 );
 
-                if (value != 0)
-                    Log.Debug($"Logged in! Name: {Name}, HR: {HighRank}, MR: {MasterRank}, PlayTime: {PlayTime} seconds");
             }
         }
     }
@@ -93,7 +91,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             if (value != _highRank)
             {
                 _highRank = value;
-                this.Dispatch(OnLevelChange, new LevelChangeEventArgs(this));
+                this.Dispatch(_onLevelChange, new LevelChangeEventArgs(this));
             }
         }
     }
@@ -105,7 +103,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             if (value != _masterRank)
             {
                 _masterRank = value;
-                this.Dispatch(OnLevelChange, new LevelChangeEventArgs(this));
+                this.Dispatch(_onLevelChange, new LevelChangeEventArgs(this));
             }
         }
     }
@@ -122,12 +120,12 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             if (value != _zoneId)
             {
                 if (peaceZones.Contains(value) && !peaceZones.Contains(_zoneId))
-                    this.Dispatch(OnVillageEnter);
+                    this.Dispatch(_onVillageEnter);
                 else if (!peaceZones.Contains(value) && peaceZones.Contains(_zoneId))
-                    this.Dispatch(OnVillageLeave);
+                    this.Dispatch(_onVillageLeave);
 
                 _zoneId = value;
-                this.Dispatch(OnStageUpdate);
+                this.Dispatch(_onStageUpdate);
             }
         }
     }
@@ -158,25 +156,100 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             {
                 IWeapon temp = _weapon;
                 _weapon = value;
-                this.Dispatch(OnWeaponChange, new WeaponChangeEventArgs(temp, _weapon));
+                this.Dispatch(_onWeaponChange, new WeaponChangeEventArgs(temp, _weapon));
             }
         }
     }
 
     #endregion
 
-    public event EventHandler<EventArgs> OnLogin;
-    public event EventHandler<EventArgs> OnLogout;
-    public event EventHandler<EventArgs> OnDeath;
-    public event EventHandler<EventArgs> OnActionUpdate;
-    public event EventHandler<EventArgs> OnStageUpdate;
-    public event EventHandler<EventArgs> OnVillageEnter;
-    public event EventHandler<EventArgs> OnVillageLeave;
-    public event EventHandler<EventArgs> OnAilmentUpdate;
-    public event EventHandler<WeaponChangeEventArgs> OnWeaponChange;
-    public event EventHandler<IAbnormality> OnAbnormalityStart;
-    public event EventHandler<IAbnormality> OnAbnormalityEnd;
-    public event EventHandler<LevelChangeEventArgs> OnLevelChange;
+    #region Events
+
+    private readonly SmartEvent<EventArgs> _onLogin = new();
+    public event EventHandler<EventArgs> OnLogin
+    {
+        add => _onLogin.Hook(value);
+        remove => _onLogin.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onLogout = new();
+    public event EventHandler<EventArgs> OnLogout
+    {
+        add => _onLogout.Hook(value);
+        remove => _onLogout.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onDeath = new();
+    public event EventHandler<EventArgs> OnDeath
+    {
+        add => _onDeath.Hook(value);
+        remove => _onDeath.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onActionUpdate = new();
+    public event EventHandler<EventArgs> OnActionUpdate
+    {
+        add => _onActionUpdate.Hook(value);
+        remove => _onActionUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onStageUpdate = new();
+    public event EventHandler<EventArgs> OnStageUpdate
+    {
+        add => _onStageUpdate.Hook(value);
+        remove => _onStageUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onVillageEnter = new();
+    public event EventHandler<EventArgs> OnVillageEnter
+    {
+        add => _onVillageEnter.Hook(value);
+        remove => _onVillageEnter.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onVillageLeave = new();
+    public event EventHandler<EventArgs> OnVillageLeave
+    {
+        add => _onVillageLeave.Hook(value);
+        remove => _onVillageLeave.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onAilmentUpdate = new();
+    public event EventHandler<EventArgs> OnAilmentUpdate
+    {
+        add => _onAilmentUpdate.Hook(value);
+        remove => _onAilmentUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<WeaponChangeEventArgs> _onWeaponChange = new();
+    public event EventHandler<WeaponChangeEventArgs> OnWeaponChange
+    {
+        add => _onWeaponChange.Hook(value);
+        remove => _onWeaponChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<IAbnormality> _onAbnormalityStart = new();
+    public event EventHandler<IAbnormality> OnAbnormalityStart
+    {
+        add => _onAbnormalityStart.Hook(value);
+        remove => _onAbnormalityStart.Unhook(value);
+    }
+
+    private readonly SmartEvent<IAbnormality> _onAbnormalityEnd = new();
+    public event EventHandler<IAbnormality> OnAbnormalityEnd
+    {
+        add => _onAbnormalityEnd.Hook(value);
+        remove => _onAbnormalityEnd.Unhook(value);
+    }
+
+    private readonly SmartEvent<LevelChangeEventArgs> _onLevelChange = new();
+    public event EventHandler<LevelChangeEventArgs> OnLevelChange
+    {
+        add => _onLevelChange.Hook(value);
+        remove => _onLevelChange.Unhook(value);
+    }
+
+    #endregion
 
     internal MHWPlayer(IProcessManager process) : base(process)
     {
@@ -188,12 +261,12 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     {
         ZoneData data = new();
 
-        long zoneAddress = _process.Memory.Read(
+        long zoneAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("ZONE_OFFSET"),
             AddressMap.Get<int[]>("ZoneOffsets")
         );
 
-        data.ZoneId = (Stage)_process.Memory.Read<int>(zoneAddress);
+        data.ZoneId = (Stage)Process.Memory.Read<int>(zoneAddress);
 
         Next(ref data);
 
@@ -210,22 +283,22 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             return;
         }
 
-        long firstSaveAddress = _process.Memory.Read(
+        long firstSaveAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("LEVEL_OFFSET"),
             AddressMap.Get<int[]>("LevelOffsets")
         );
 
-        uint currentSaveSlot = _process.Memory.Read<uint>(firstSaveAddress + 0x44);
+        uint currentSaveSlot = Process.Memory.Read<uint>(firstSaveAddress + 0x44);
         long nextPlayerSave = 0x27E9F0;
         long currentPlayerSaveHeader =
-            _process.Memory.Read<long>(firstSaveAddress) + (nextPlayerSave * currentSaveSlot);
+            Process.Memory.Read<long>(firstSaveAddress) + (nextPlayerSave * currentSaveSlot);
 
         if (currentPlayerSaveHeader != _playerSaveAddress)
         {
-            data.Name = _process.Memory.Read(currentPlayerSaveHeader + 0x50, 32);
-            data.HighRank = _process.Memory.Read<short>(currentPlayerSaveHeader + 0x90);
-            data.MasterRank = _process.Memory.Read<short>(currentPlayerSaveHeader + 0xD4);
-            data.PlayTime = _process.Memory.Read<int>(currentPlayerSaveHeader + 0xA0);
+            data.Name = Process.Memory.Read(currentPlayerSaveHeader + 0x50, 32);
+            data.HighRank = Process.Memory.Read<short>(currentPlayerSaveHeader + 0x90);
+            data.MasterRank = Process.Memory.Read<short>(currentPlayerSaveHeader + 0xD4);
+            data.PlayTime = Process.Memory.Read<int>(currentPlayerSaveHeader + 0xA0);
 
             Next(ref data);
 
@@ -241,25 +314,25 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     [ScannableMethod]
     private void GetGearSkills()
     {
-        long gearSkillsPtr = _process.Memory.Read(
+        long gearSkillsPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITY_ADDRESS"),
             AddressMap.Get<int[]>("GEAR_SKILL_OFFSETS")
         );
 
-        _skills = _process.Memory.Read<MHWGearSkill>(gearSkillsPtr, 226);
+        _skills = Process.Memory.Read<MHWGearSkill>(gearSkillsPtr, 226);
     }
 
     [ScannableMethod]
     private void GetPlayerHudData()
     {
-        long basicPlayerDataPtr = _process.Memory.Read(
+        long basicPlayerDataPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("EQUIPMENT_ADDRESS"),
             AddressMap.Get<int[]>("PLAYER_BASIC_INFORMATION_OFFSETS")
         );
 
-        MHWHudStructure hudStructure = _process.Memory.Read<MHWHudStructure>(basicPlayerDataPtr);
+        MHWHudStructure hudStructure = Process.Memory.Read<MHWHudStructure>(basicPlayerDataPtr);
 
-        MHWHealingStructure totalHealings = _process.Memory.Read<MHWHealingStructure>(hudStructure.HealingArrayPointer + 0xEBB0, 4)
+        MHWHealingStructure totalHealings = Process.Memory.Read<MHWHealingStructure>(hudStructure.HealingArrayPointer + 0xEBB0, 4)
                                                            .ToTotal();
 
         var healthData = new HealthData
@@ -291,12 +364,12 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
         if (!IsLoggedOn)
             return;
 
-        long address = _process.Memory.Read(
+        long address = Process.Memory.Read(
             AddressMap.GetAbsolute("WEAPON_ADDRESS"),
             AddressMap.Get<int[]>("WEAPON_OFFSETS")
         );
 
-        data.WeaponType = (Weapon)_process.Memory.Read<byte>(address);
+        data.WeaponType = (Weapon)Process.Memory.Read<byte>(address);
 
         if (data.WeaponType == _weaponId)
             return;
@@ -307,13 +380,12 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
         IWeapon? weaponInstance = null;
         if (data.WeaponType.IsMelee())
         {
-            var meleeWeapon = new MHWMeleeWeapon(_process, data.WeaponType);
+            var meleeWeapon = new MHWMeleeWeapon(Process, data.WeaponType);
             weaponInstance = meleeWeapon;
 
             ScanManager.Add(meleeWeapon);
         }
         else
-        {
             weaponInstance = (data.WeaponType) switch
             {
                 WeaponType.Bow => new MHWBow(),
@@ -321,7 +393,6 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
                 WeaponType.LightBowgun => new MHWLightBowgun(),
                 _ => null
             };
-        }
 
         if (weaponInstance is not null)
             Weapon = weaponInstance;
@@ -332,7 +403,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     [ScannableMethod]
     private void GetParty()
     {
-        int questInformation = _process.Memory.Deref<int>(
+        int questInformation = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
             AddressMap.Get<int[]>("QUEST_STATE_OFFSETS")
         );
@@ -340,23 +411,22 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
         if (questInformation.IsMHWQuestOver())
             return;
 
-        long partyInformationPtr = _process.Memory.Read(
+        long partyInformationPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("PARTY_ADDRESS"),
             AddressMap.Get<int[]>("PARTY_OFFSETS")
         );
 
-        long damageInformation = _process.Memory.Read(
+        long damageInformation = Process.Memory.Read(
             AddressMap.GetAbsolute("DAMAGE_ADDRESS"),
             AddressMap.Get<int[]>("DAMAGE_OFFSETS")
         );
 
-        int partySize = _process.Memory.Deref<int>(
+        int partySize = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("SESSION_OFFSET"),
             AddressMap.Get<int[]>("SESSION_PARTY_OFFSETS")
         );
 
         if (partySize is 0)
-        {
             _party.Update(0, new MHWPartyMemberData
             {
                 Name = Name,
@@ -366,11 +436,10 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
                 IsMyself = true,
                 MasterRank = MasterRank
             });
-        }
         else
             _party.Remove(0);
 
-        MHWPartyMemberStructure[] partyMembers = _process.Memory.Read<MHWPartyMemberStructure>(partyInformationPtr, 4);
+        MHWPartyMemberStructure[] partyMembers = Process.Memory.Read<MHWPartyMemberStructure>(partyInformationPtr, 4);
 
         long localPlayerReference = 0;
         int index = -1;
@@ -384,7 +453,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
                 continue;
             }
 
-            string name = _process.Memory.Read(partyMember.Address + 0x49, 32);
+            string name = Process.Memory.Read(partyMember.Address + 0x49, 32);
 
             if (string.IsNullOrEmpty(name))
                 continue;
@@ -394,12 +463,12 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             if (isLocalPlayer)
                 localPlayerReference = partyMember.Address;
 
-            MHWPartyMemberLevelStructure levels = _process.Memory.Read<MHWPartyMemberLevelStructure>(partyMember.Address + 0x70);
+            MHWPartyMemberLevelStructure levels = Process.Memory.Read<MHWPartyMemberLevelStructure>(partyMember.Address + 0x70);
             var data = new MHWPartyMemberData
             {
                 Name = name,
-                Weapon = isLocalPlayer ? _weaponId : (Weapon)_process.Memory.Read<byte>(partyMember.Address + 0x7C),
-                Damage = _process.Memory.Read<int>(damageInformation + (index * 0x2A0)),
+                Weapon = isLocalPlayer ? _weaponId : (Weapon)Process.Memory.Read<byte>(partyMember.Address + 0x7C),
+                Damage = Process.Memory.Read<int>(damageInformation + (index * 0x2A0)),
                 Slot = index,
                 IsMyself = isLocalPlayer,
                 MasterRank = levels.MasterRank
@@ -414,22 +483,22 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     [ScannableMethod]
     private void GetMantlesData()
     {
-        long address = _process.Memory.Read(
+        long address = Process.Memory.Read(
             AddressMap.GetAbsolute("WEAPON_ADDRESS"),
             AddressMap.Get<int[]>("WEAPON_OFFSETS")
         );
-        SpecializedToolType[] ids = _process.Memory.Read<int>(address + 0x34, 2)
+        SpecializedToolType[] ids = Process.Memory.Read<int>(address + 0x34, 2)
             .Select(e => (SpecializedToolType)e)
             .ToArray();
 
-        long equipmentAddress = _process.Memory.Read(
+        long equipmentAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("EQUIPMENT_ADDRESS"),
             AddressMap.Get<int[]>("EQUIPMENT_OFFSETS")
         );
 
         const int specializedTools = 20;
-        float[] cooldowns = _process.Memory.Read<float>(equipmentAddress + 0x99C, specializedTools * 2);
-        float[] timers = _process.Memory.Read<float>(equipmentAddress + 0xA8C, specializedTools * 2);
+        float[] cooldowns = Process.Memory.Read<float>(equipmentAddress + 0x99C, specializedTools * 2);
+        float[] timers = Process.Memory.Read<float>(equipmentAddress + 0xA8C, specializedTools * 2);
 
         for (int i = 0; i < Tools.Length; i++)
         {
@@ -450,7 +519,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     [ScannableMethod]
     private void GetAbnormalitiesCleanup()
     {
-        long abnormalityBaseAddress = _process.Memory.Read(
+        long abnormalityBaseAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITY_ADDRESS"),
             AddressMap.Get<int[]>("ABNORMALITY_OFFSETS")
         );
@@ -465,12 +534,12 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
         if (!InHuntingZone)
             return;
 
-        long abnormalityBaseAddress = _process.Memory.Read(
+        long abnormalityBaseAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITY_ADDRESS"),
             AddressMap.Get<int[]>("ABNORMALITY_OFFSETS")
         );
 
-        MHWAbnormalityStructure[] abnormalities = _process.Memory.Read<MHWAbnormalityStructure>(abnormalityBaseAddress + 0x38, 75);
+        MHWAbnormalityStructure[] abnormalities = Process.Memory.Read<MHWAbnormalityStructure>(abnormalityBaseAddress + 0x38, 75);
 
         GetHuntingHornAbnormalities(abnormalities);
         GetOrchestraAbnormalities(abnormalities);
@@ -522,11 +591,11 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             int abnormSubId = abnormalitySchema.DependsOn switch
             {
                 0 => 0,
-                _ => _process.Memory.Read<int>(baseAddress + abnormalitySchema.DependsOn)
+                _ => Process.Memory.Read<int>(baseAddress + abnormalitySchema.DependsOn)
             };
 
             if (abnormSubId == abnormalitySchema.WithValue)
-                structure = _process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
+                structure = Process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
 
             HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
         }
@@ -538,7 +607,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 
         foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
         {
-            MHWAbnormalityStructure structure = _process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
+            MHWAbnormalityStructure structure = Process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
 
             HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
         }
@@ -550,7 +619,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 
         foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
         {
-            MHWAbnormalityStructure structure = _process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
+            MHWAbnormalityStructure structure = Process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
 
             HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
         }
@@ -558,7 +627,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 
     private void GetFoodAbnormalities()
     {
-        long canteenAddress = _process.Memory.Read(
+        long canteenAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("CANTEEN_ADDRESS"),
             AddressMap.Get<int[]>("ABNORMALITY_CANTEEN_OFFSETS")
         );
@@ -566,7 +635,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
         AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Foods);
         foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
         {
-            MHWAbnormalityStructure structure = _process.Memory.Read<MHWAbnormalityStructure>(canteenAddress + abnormalitySchema.Offset);
+            MHWAbnormalityStructure structure = Process.Memory.Read<MHWAbnormalityStructure>(canteenAddress + abnormalitySchema.Offset);
 
             HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
         }
@@ -574,7 +643,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 
     private void GetGearAbnormalities()
     {
-        long gearAddress = _process.Memory.Read(
+        long gearAddress = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITY_ADDRESS"),
             AddressMap.Get<int[]>("ABNORMALITY_GEAR_OFFSETS")
         );
@@ -582,7 +651,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
         AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Gears);
         foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
         {
-            MHWAbnormalityStructure structure = _process.Memory.Read<MHWAbnormalityStructure>(gearAddress + abnormalitySchema.Offset);
+            MHWAbnormalityStructure structure = Process.Memory.Read<MHWAbnormalityStructure>(gearAddress + abnormalitySchema.Offset);
 
             HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(abnormalitySchema, structure.Timer, structure);
         }
@@ -599,7 +668,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             abnorm.Update(newData);
 
             _ = _abnormalities.Remove(schema.Id);
-            this.Dispatch(OnAbnormalityEnd, (IAbnormality)abnorm);
+            this.Dispatch(_onAbnormalityEnd, (IAbnormality)abnorm);
         }
         else if (_abnormalities.ContainsKey(schema.Id) && timer > 0)
         {
@@ -616,7 +685,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 
             _abnormalities.Add(schema.Id, (IAbnormality)abnorm);
             abnorm.Update(newData);
-            this.Dispatch(OnAbnormalityStart, (IAbnormality)abnorm);
+            this.Dispatch(_onAbnormalityStart, (IAbnormality)abnorm);
         }
     }
 
@@ -624,7 +693,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     private void ClearAbnormalities()
     {
         foreach (IAbnormality abnormality in _abnormalities.Values)
-            this.Dispatch(OnAbnormalityEnd, abnormality);
+            this.Dispatch(_onAbnormalityEnd, abnormality);
 
         _abnormalities.Clear();
     }
@@ -632,10 +701,8 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     internal void UpdatePartyMembersDamage(EntityDamageData[] entities)
     {
         foreach (EntityDamageData entity in entities)
-        {
             // For now we are only tracking local player.
             if (entity.Entity.Index == 0)
                 _party.Update(_localPlayerAddress, entity);
-        }
     }
 }

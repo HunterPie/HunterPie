@@ -1,3 +1,4 @@
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Party;
@@ -32,8 +33,19 @@ public class MHWParty : IParty, IEventDispatcher
         }
     }
 
-    public event EventHandler<IPartyMember>? OnMemberJoin;
-    public event EventHandler<IPartyMember>? OnMemberLeave;
+    private readonly SmartEvent<IPartyMember> _onMemberJoin = new();
+    public event EventHandler<IPartyMember> OnMemberJoin
+    {
+        add => _onMemberJoin.Hook(value);
+        remove => _onMemberJoin.Unhook(value);
+    }
+
+    private readonly SmartEvent<IPartyMember> _onMemberLeave = new();
+    public event EventHandler<IPartyMember> OnMemberLeave
+    {
+        add => _onMemberLeave.Hook(value);
+        remove => _onMemberLeave.Unhook(value);
+    }
 
     public void Update(long memberAddress, MHWPartyMemberData data)
     {
@@ -67,7 +79,7 @@ public class MHWParty : IParty, IEventDispatcher
 
         _partyMembers.Add(memberAddress, member);
 
-        this.Dispatch(OnMemberJoin, member);
+        this.Dispatch(_onMemberJoin, member);
     }
 
     public void Remove(long memberAddress)
@@ -77,6 +89,6 @@ public class MHWParty : IParty, IEventDispatcher
             if (!_partyMembers.Remove(memberAddress, out member))
                 return;
 
-        this.Dispatch(OnMemberLeave, member);
+        this.Dispatch(_onMemberLeave, member);
     }
 }

@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
@@ -6,8 +7,8 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environmen
 
 public class MHRBuddy : IEventDispatcher, IUpdatable<MHRBuddyData>
 {
-    public string _name;
-    public int _level;
+    private string _name = string.Empty;
+    private int _level;
 
     public string Name
     {
@@ -17,7 +18,7 @@ public class MHRBuddy : IEventDispatcher, IUpdatable<MHRBuddyData>
             if (value != _name)
             {
                 _name = value;
-                this.Dispatch(OnNameChange, this);
+                this.Dispatch(_onNameChange, this);
             }
         }
     }
@@ -30,13 +31,24 @@ public class MHRBuddy : IEventDispatcher, IUpdatable<MHRBuddyData>
             if (value != _level)
             {
                 _level = value;
-                this.Dispatch(OnLevelChange, this);
+                this.Dispatch(_onLevelChange, this);
             }
         }
     }
 
-    public event EventHandler<MHRBuddy> OnNameChange;
-    public event EventHandler<MHRBuddy> OnLevelChange;
+    private readonly SmartEvent<MHRBuddy> _onNameChange = new();
+    public event EventHandler<MHRBuddy> OnNameChange
+    {
+        add => _onNameChange.Hook(value);
+        remove => _onNameChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<MHRBuddy> _onLevelChange = new();
+    public event EventHandler<MHRBuddy> OnLevelChange
+    {
+        add => _onLevelChange.Hook(value);
+        remove => _onLevelChange.Unhook(value);
+    }
 
     void IUpdatable<MHRBuddyData>.Update(MHRBuddyData data)
     {

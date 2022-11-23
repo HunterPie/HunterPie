@@ -1,3 +1,4 @@
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
@@ -127,10 +128,12 @@ public partial class App : Application
         _process = null;
         _context = null;
 
-        _ = Dispatcher.InvokeAsync(WidgetInitializers.Unload);
+        Dispatcher.Invoke(WidgetInitializers.Unload);
         WidgetManager.Dispose();
 
         Log.Info("{0} has been closed", e.ProcessName);
+
+        SmartEventsTracker.DisposeEvents();
 
         if (e.Process.HasExitedNormally == false
             && e.Process.Game == GameProcess.MonsterHunterWorld
@@ -170,6 +173,8 @@ public partial class App : Application
             await Dispatcher.InvokeAsync(() => WidgetInitializers.Initialize(context));
 
             ScanManager.Start();
+
+            Log.Debug("Active events: {0} with {1} total references", SmartEventsTracker.ActiveEvents(), SmartEventsTracker.CountReferences());
         }
         catch (Exception ex)
         {

@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
@@ -33,11 +34,40 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
     private readonly Stopwatch _localTimerStopwatch = new();
     private readonly Stopwatch _damageUpdateThrottleStopwatch = new();
 
-    public event EventHandler<IMonster> OnMonsterSpawn;
-    public event EventHandler<IMonster> OnMonsterDespawn;
-    public event EventHandler<IGame> OnHudStateChange;
-    public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange;
-    public event EventHandler<IGame> OnDeathCountChange;
+    private readonly SmartEvent<IMonster> _onMonsterSpawn = new();
+    public event EventHandler<IMonster> OnMonsterSpawn
+    {
+        add => _onMonsterSpawn.Hook(value);
+        remove => _onMonsterSpawn.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonster> _onMonsterDespawn = new();
+    public event EventHandler<IMonster> OnMonsterDespawn
+    {
+        add => _onMonsterDespawn.Hook(value);
+        remove => _onMonsterDespawn.Unhook(value);
+    }
+
+    private readonly SmartEvent<IGame> _onHudStateChange = new();
+    public event EventHandler<IGame> OnHudStateChange
+    {
+        add => _onHudStateChange.Hook(value);
+        remove => _onHudStateChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<TimeElapsedChangeEventArgs> _onTimeElapsedChange = new();
+    public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange
+    {
+        add => _onTimeElapsedChange.Hook(value);
+        remove => _onTimeElapsedChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<IGame> _onDeathCountChange = new();
+    public event EventHandler<IGame> OnDeathCountChange
+    {
+        add => _onDeathCountChange.Hook(value);
+        remove => _onDeathCountChange.Unhook(value);
+    }
 
     public IPlayer Player => _player;
     public List<IMonster> Monsters { get; } = new();
@@ -52,7 +82,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
             if (value != _isMouseVisible)
             {
                 _isMouseVisible = value;
-                this.Dispatch(OnHudStateChange, this);
+                this.Dispatch(_onHudStateChange, this);
             }
         }
     }
@@ -68,7 +98,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
             return;
 
         TimeElapsed = value;
-        this.Dispatch(OnTimeElapsedChange, new TimeElapsedChangeEventArgs(isReset, value));
+        this.Dispatch(_onTimeElapsedChange, new TimeElapsedChangeEventArgs(isReset, value));
     }
 
     public int MaxDeaths => 0;
@@ -80,7 +110,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
             if (value != _deaths)
             {
                 _deaths = value;
-                this.Dispatch(OnDeathCountChange, this);
+                this.Dispatch(_onDeathCountChange, this);
             }
         }
     }
@@ -99,7 +129,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
     [ScannableMethod]
     private void GetMouseVisibilityState()
     {
-        bool isMouseVisible = _process.Memory.Deref<int>(
+        bool isMouseVisible = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("GAME_MOUSE_INFO_ADDRESS"),
             AddressMap.Get<int[]>("MOUSE_VISIBILITY_OFFSETS")
         ) == 1;
@@ -110,14 +140,14 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
     [ScannableMethod]
     private void GetTimeElapsed()
     {
-        long questEndTimerPtrs = _process.Memory.Read(
+        long questEndTimerPtrs = Process.Memory.Read(
             AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
             AddressMap.Get<int[]>("QUEST_TIMER_OFFSETS")
         );
-        ulong[] timers = _process.Memory.Read<ulong>(questEndTimerPtrs, 2);
+        ulong[] timers = Process.Memory.Read<ulong>(questEndTimerPtrs, 2);
         ulong encryptKey = timers[0];
         ulong encryptedValue = timers[1];
-        uint questMaxTimerRaw = _process.Memory.Read<uint>(questEndTimerPtrs + 0x1C);
+        uint questMaxTimerRaw = Process.Memory.Read<uint>(questEndTimerPtrs + 0x1C);
 
         float elapsed = MHWCrypto.DecryptQuestTimer(encryptedValue, encryptKey);
 
@@ -171,7 +201,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
     [ScannableMethod]
     private void GetDeathCounter()
     {
-        int deathCounter = _process.Memory.Deref<int>(
+        int deathCounter = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
             AddressMap.Get<int[]>("QUEST_DEATH_COUNTER_OFFSETS")
         );
@@ -182,7 +212,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
     [ScannableMethod]
     private void GetMonsterDoubleLinkedList()
     {
-        long doubleLinkedListHead = _process.Memory.Read(
+        long doubleLinkedListHead = Process.Memory.Read(
             AddressMap.GetAbsolute("MONSTER_ADDRESS"),
             AddressMap.Get<int[]>("MONSTER_OFFSETS")
         );
@@ -192,8 +222,8 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
         HashSet<long> monsterAddresses = new();
         do
         {
-            long monsterEmPtr = _process.Memory.Read<long>(next + 0x2A0);
-            string monsterEm = _process.Memory.Read(monsterEmPtr + 0x0C, 64);
+            long monsterEmPtr = Process.Memory.Read<long>(next + 0x2A0);
+            string monsterEm = Process.Memory.Read(monsterEmPtr + 0x0C, 64);
 
             isBigMonster = monsterEmPtr != 0
                 && monsterEm.StartsWith("em\\em")
@@ -212,7 +242,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
 
             HandleMonsterSpawn(next, em);
 
-            next = _process.Memory.Read<long>(next - 0x30) + 0x40;
+            next = Process.Memory.Read<long>(next - 0x30) + 0x40;
         } while (isBigMonster);
 
         long[] toDespawn = _monsters.Keys.Where(address => !monsterAddresses.Contains(address))
@@ -227,12 +257,12 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
         if (_monsters.ContainsKey(address))
             return;
 
-        IMonster monster = new MHWMonster(_process, address, em);
+        IMonster monster = new MHWMonster(Process, address, em);
         _monsters.Add(address, monster);
         Monsters.Add(monster);
         ScanManager.Add(monster as Scannable);
 
-        this.Dispatch(OnMonsterSpawn, monster);
+        this.Dispatch(_onMonsterSpawn, monster);
     }
 
     private void HandleMonsterDespawn(long address)
@@ -242,7 +272,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
         _ = Monsters.Remove(monster);
         ScanManager.Remove(monster as Scannable);
 
-        this.Dispatch(OnMonsterDespawn, monster);
+        this.Dispatch(_onMonsterDespawn, monster);
     }
 
     public void Dispose()

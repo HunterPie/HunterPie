@@ -91,9 +91,9 @@ public class WidgetManager : Bindable
         if (Instance._context is null)
             return;
 
-        Instance._context.Process.OnGameFocus += OnGameFocus;
-        Instance._context.Process.OnGameUnfocus += OnGameUnfocus;
-        Instance._context.Game.OnHudStateChange += OnHudStateChange;
+        Instance._context.Process.OnGameFocus -= OnGameFocus;
+        Instance._context.Process.OnGameUnfocus -= OnGameUnfocus;
+        Instance._context.Game.OnHudStateChange -= OnHudStateChange;
         Instance._context = null;
     }
 

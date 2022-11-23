@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
@@ -31,7 +32,7 @@ public class MHWMonsterPart :
             if (value != _flinch)
             {
                 _flinch = value;
-                this.Dispatch(OnFlinchUpdate, this);
+                this.Dispatch(_onFlinchUpdate, this);
             }
         }
     }
@@ -46,7 +47,7 @@ public class MHWMonsterPart :
             if (value != _sever)
             {
                 _sever = value;
-                this.Dispatch(OnSeverUpdate, this);
+                this.Dispatch(_onSeverUpdate, this);
             }
         }
     }
@@ -61,7 +62,7 @@ public class MHWMonsterPart :
             if (value != _tenderize)
             {
                 _tenderize = value;
-                this.Dispatch(OnTenderizeUpdate, this);
+                this.Dispatch(_onTenderizeUpdate, this);
             }
         }
     }
@@ -75,18 +76,53 @@ public class MHWMonsterPart :
             if (value != _count)
             {
                 _count = value;
-                this.Dispatch(OnBreakCountUpdate, this);
+                this.Dispatch(_onBreakCountUpdate, this);
             }
         }
     }
     public PartType Type { get; private set; }
 
-    public event EventHandler<IMonsterPart> OnHealthUpdate;
-    public event EventHandler<IMonsterPart> OnTenderizeUpdate;
-    public event EventHandler<IMonsterPart> OnFlinchUpdate;
-    public event EventHandler<IMonsterPart> OnSeverUpdate;
-    public event EventHandler<IMonsterPart> OnBreakCountUpdate;
-    public event EventHandler<IMonsterPart> OnPartTypeChange;
+    private readonly SmartEvent<IMonsterPart> _onHealthUpdate = new();
+    public event EventHandler<IMonsterPart> OnHealthUpdate
+    {
+        add => _onHealthUpdate.Hook(value);
+        remove => _onHealthUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterPart> _onBreakCountUpdate = new();
+    public event EventHandler<IMonsterPart> OnBreakCountUpdate
+    {
+        add => _onBreakCountUpdate.Hook(value);
+        remove => _onBreakCountUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterPart> _onTenderizeUpdate = new();
+    public event EventHandler<IMonsterPart> OnTenderizeUpdate
+    {
+        add => _onTenderizeUpdate.Hook(value);
+        remove => _onTenderizeUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterPart> _onFlinchUpdate = new();
+    public event EventHandler<IMonsterPart> OnFlinchUpdate
+    {
+        add => _onFlinchUpdate.Hook(value);
+        remove => _onFlinchUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterPart> _onSeverUpdate = new();
+    public event EventHandler<IMonsterPart> OnSeverUpdate
+    {
+        add => _onSeverUpdate.Hook(value);
+        remove => _onSeverUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterPart> _onPartTypeChange = new();
+    public event EventHandler<IMonsterPart> OnPartTypeChange
+    {
+        add => _onPartTypeChange.Hook(value);
+        remove => _onPartTypeChange.Unhook(value);
+    }
 
     public MHWMonsterPart(
         string id,

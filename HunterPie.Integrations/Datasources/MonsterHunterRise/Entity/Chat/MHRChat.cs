@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Game.Chat;
 
@@ -18,13 +19,24 @@ public class MHRChat : IChat, IEventDispatcher
             if (value != _isChatOpen)
             {
                 _isChatOpen = value;
-                this.Dispatch(OnChatOpen, this);
+                this.Dispatch(_onChatOpen, this);
             }
         }
     }
 
-    public event EventHandler<IChatMessage>? OnNewChatMessage;
-    public event EventHandler<IChat>? OnChatOpen;
+    private readonly SmartEvent<IChatMessage> _onNewChatMessage = new();
+    public event EventHandler<IChatMessage> OnNewChatMessage
+    {
+        add => _onNewChatMessage.Hook(value);
+        remove => _onNewChatMessage.Unhook(value);
+    }
+
+    private readonly SmartEvent<IChat> _onChatOpen = new();
+    public event EventHandler<IChat> OnChatOpen
+    {
+        add => _onChatOpen.Hook(value);
+        remove => _onChatOpen.Unhook(value);
+    }
 
     internal bool ContainsMessage(long messageAddress) => _messages.ContainsKey(messageAddress);
 
@@ -35,6 +47,6 @@ public class MHRChat : IChat, IEventDispatcher
 
         _messages.Add(messageAddress, message);
 
-        this.Dispatch(OnNewChatMessage, message);
+        this.Dispatch(_onNewChatMessage, message);
     }
 }

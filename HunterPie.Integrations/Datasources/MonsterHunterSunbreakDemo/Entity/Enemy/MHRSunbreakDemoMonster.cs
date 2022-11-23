@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.DTO;
 using HunterPie.Core.Domain.DTO.Monster;
@@ -41,7 +42,7 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
                 _id = value;
                 GetMonsterWeaknesses();
 
-                this.Dispatch(OnSpawn);
+                this.Dispatch(_onSpawn);
             }
         }
     }
@@ -56,10 +57,10 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
             if (_health != value)
             {
                 _health = value;
-                this.Dispatch(OnHealthChange);
+                this.Dispatch(_onHealthChange);
 
                 if (Health <= 0)
-                    this.Dispatch(OnDeath);
+                    this.Dispatch(_onDeath);
             }
         }
     }
@@ -74,7 +75,7 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
             if (value != _stamina)
             {
                 _stamina = value;
-                this.Dispatch(OnStaminaChange);
+                this.Dispatch(_onStaminaChange);
             }
         }
     }
@@ -89,7 +90,7 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
             if (_isTarget != value)
             {
                 _isTarget = value;
-                this.Dispatch(OnTarget);
+                this.Dispatch(_onTarget);
             }
         }
     }
@@ -102,7 +103,7 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
             if (_target != value)
             {
                 _target = value;
-                this.Dispatch(OnTargetChange);
+                this.Dispatch(_onTargetChange);
             }
         }
     }
@@ -115,7 +116,7 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
             if (_crown != value)
             {
                 _crown = value;
-                this.Dispatch(OnCrownChange);
+                this.Dispatch(_onCrownChange);
             }
         }
     }
@@ -131,7 +132,7 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
             if (value != _isEnraged)
             {
                 _isEnraged = value;
-                this.Dispatch(OnEnrageStateChange);
+                this.Dispatch(_onEnrageStateChange);
             }
         }
     }
@@ -142,22 +143,117 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
 
     public float CaptureThreshold => 0;
 
-    public event EventHandler<EventArgs> OnSpawn;
-    public event EventHandler<EventArgs> OnLoad;
-    public event EventHandler<EventArgs> OnDespawn;
-    public event EventHandler<EventArgs> OnDeath;
-    public event EventHandler<EventArgs> OnCapture;
-    public event EventHandler<EventArgs> OnTarget;
-    public event EventHandler<EventArgs> OnCrownChange;
-    public event EventHandler<EventArgs> OnHealthChange;
-    public event EventHandler<EventArgs> OnStaminaChange;
-    public event EventHandler<EventArgs> OnActionChange;
-    public event EventHandler<EventArgs> OnEnrageStateChange;
-    public event EventHandler<EventArgs> OnTargetChange;
-    public event EventHandler<IMonsterPart> OnNewPartFound;
-    public event EventHandler<IMonsterAilment> OnNewAilmentFound;
-    public event EventHandler<Element[]> OnWeaknessesChange;
-    public event EventHandler<IMonster> OnCaptureThresholdChange;
+    private readonly SmartEvent<EventArgs> _onSpawn = new();
+    public event EventHandler<EventArgs> OnSpawn
+    {
+        add => _onSpawn.Hook(value);
+        remove => _onSpawn.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onLoad = new();
+    public event EventHandler<EventArgs> OnLoad
+    {
+        add => _onLoad.Hook(value);
+        remove => _onLoad.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onDespawn = new();
+    public event EventHandler<EventArgs> OnDespawn
+    {
+        add => _onDespawn.Hook(value);
+        remove => _onDespawn.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onDeath = new();
+    public event EventHandler<EventArgs> OnDeath
+    {
+        add => _onDeath.Hook(value);
+        remove => _onDeath.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onCapture = new();
+    public event EventHandler<EventArgs> OnCapture
+    {
+        add => _onCapture.Hook(value);
+        remove => _onCapture.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onTarget = new();
+    public event EventHandler<EventArgs> OnTarget
+    {
+        add => _onTarget.Hook(value);
+        remove => _onTarget.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onCrownChange = new();
+    public event EventHandler<EventArgs> OnCrownChange
+    {
+        add => _onCrownChange.Hook(value);
+        remove => _onCrownChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onHealthChange = new();
+    public event EventHandler<EventArgs> OnHealthChange
+    {
+        add => _onHealthChange.Hook(value);
+        remove => _onHealthChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onStaminaChange = new();
+    public event EventHandler<EventArgs> OnStaminaChange
+    {
+        add => _onStaminaChange.Hook(value);
+        remove => _onStaminaChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onActionChange = new();
+    public event EventHandler<EventArgs> OnActionChange
+    {
+        add => _onActionChange.Hook(value);
+        remove => _onActionChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onEnrageStateChange = new();
+    public event EventHandler<EventArgs> OnEnrageStateChange
+    {
+        add => _onEnrageStateChange.Hook(value);
+        remove => _onEnrageStateChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onTargetChange = new();
+    public event EventHandler<EventArgs> OnTargetChange
+    {
+        add => _onTargetChange.Hook(value);
+        remove => _onTargetChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterPart> _onNewPartFound = new();
+    public event EventHandler<IMonsterPart> OnNewPartFound
+    {
+        add => _onNewPartFound.Hook(value);
+        remove => _onNewPartFound.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterAilment> _onNewAilmentFound = new();
+    public event EventHandler<IMonsterAilment> OnNewAilmentFound
+    {
+        add => _onNewAilmentFound.Hook(value);
+        remove => _onNewAilmentFound.Unhook(value);
+    }
+
+    private readonly SmartEvent<Element[]> _onWeaknessesChange = new();
+    public event EventHandler<Element[]> OnWeaknessesChange
+    {
+        add => _onWeaknessesChange.Hook(value);
+        remove => _onWeaknessesChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonster> _onCaptureThresholdChange = new();
+    public event EventHandler<IMonster> OnCaptureThresholdChange
+    {
+        add => _onCaptureThresholdChange.Hook(value);
+        remove => _onCaptureThresholdChange.Unhook(value);
+    }
 
     public MHRSunbreakDemoMonster(IProcessManager process, long address) : base(process)
     {
@@ -173,7 +269,7 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
         if (data.HasValue)
         {
             _weaknesses.AddRange(data.Value.Weaknesses);
-            this.Dispatch(OnWeaknessesChange, Weaknesses);
+            this.Dispatch(_onWeaknessesChange, Weaknesses);
         }
     }
 
@@ -182,7 +278,7 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
     {
         MonsterInformationData dto = new();
 
-        int monsterId = _process.Memory.Read<int>(_address + 0x2B4);
+        int monsterId = Process.Memory.Read<int>(_address + 0x2B4);
 
         dto.Id = monsterId;
 
@@ -196,13 +292,13 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
     {
         HealthData dto = new();
 
-        long healthComponent = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_OFFSETS"));
-        long healthPtr = _process.Memory.ReadPtr(healthComponent, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+        long healthComponent = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_OFFSETS"));
+        long healthPtr = Process.Memory.ReadPtr(healthComponent, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
 
-        float currentHealth = _process.Memory.Read<float>(healthPtr + 0x18);
+        float currentHealth = Process.Memory.Read<float>(healthPtr + 0x18);
 
         dto.Health = currentHealth;
-        dto.MaxHealth = _process.Memory.Read<float>(healthComponent + 0x18);
+        dto.MaxHealth = Process.Memory.Read<float>(healthComponent + 0x18);
 
         Next(ref dto);
 
@@ -214,19 +310,19 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
     private void ScanLockon()
     {
 
-        int cameraStyleType = _process.Memory.Deref<int>(
+        int cameraStyleType = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("LOCKON_ADDRESS"),
             AddressMap.Get<int[]>("LOCKON_CAMERA_STYLE_OFFSETS")
         );
 
-        long cameraStylePtr = _process.Memory.Read(
+        long cameraStylePtr = Process.Memory.Read(
             AddressMap.GetAbsolute("LOCKON_ADDRESS"),
             AddressMap.Get<int[]>("LOCKON_OFFSETS")
         );
 
         cameraStylePtr += cameraStyleType * 8;
 
-        long monsterAddress = _process.Memory.Deref<long>(
+        long monsterAddress = Process.Memory.Deref<long>(
                 cameraStylePtr,
                 new[] { 0x78 }
         );
@@ -240,9 +336,9 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
     private void GetMonsterStamina()
 
     {
-        long staminaPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_STAMINA_OFFSETS"));
+        long staminaPtr = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_STAMINA_OFFSETS"));
 
-        MHRStaminaStructure structure = _process.Memory.Read<MHRStaminaStructure>(staminaPtr);
+        MHRStaminaStructure structure = Process.Memory.Read<MHRStaminaStructure>(staminaPtr);
 
         MaxStamina = structure.MaxStamina;
         Stamina = structure.Stamina;
@@ -252,23 +348,23 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
     private void GetMonsterParts()
     {
         // Flinch array
-        long monsterFlinchPartsPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_FLINCH_HEALTH_COMPONENT_OFFSETS"));
-        uint monsterFlinchPartsArrayLength = _process.Memory.Read<uint>(monsterFlinchPartsPtr + 0x1C);
+        long monsterFlinchPartsPtr = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_FLINCH_HEALTH_COMPONENT_OFFSETS"));
+        uint monsterFlinchPartsArrayLength = Process.Memory.Read<uint>(monsterFlinchPartsPtr + 0x1C);
 
         // Breakable array
-        long monsterBreakPartsArrayPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_BREAK_HEALTH_COMPONENT_OFFSETS"));
-        uint monsterBreakPartsArrayLength = _process.Memory.Read<uint>(monsterBreakPartsArrayPtr + 0x1C);
+        long monsterBreakPartsArrayPtr = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_BREAK_HEALTH_COMPONENT_OFFSETS"));
+        uint monsterBreakPartsArrayLength = Process.Memory.Read<uint>(monsterBreakPartsArrayPtr + 0x1C);
 
         // Severable array
-        long monsterSeverPartsArrayPtr = _process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_SEVER_HEALTH_COMPONENT_OFFSETS"));
-        uint monsterSeverPartsArrayLenght = _process.Memory.Read<uint>(monsterSeverPartsArrayPtr + 0x1C);
+        long monsterSeverPartsArrayPtr = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_SEVER_HEALTH_COMPONENT_OFFSETS"));
+        uint monsterSeverPartsArrayLenght = Process.Memory.Read<uint>(monsterSeverPartsArrayPtr + 0x1C);
 
         if (monsterFlinchPartsArrayLength == monsterBreakPartsArrayLength
             && monsterFlinchPartsArrayLength == monsterSeverPartsArrayLenght)
         {
-            long[] monsterFlinchArray = _process.Memory.Read<long>(monsterFlinchPartsPtr + 0x20, monsterFlinchPartsArrayLength);
-            long[] monsterBreakArray = _process.Memory.Read<long>(monsterBreakPartsArrayPtr + 0x20, monsterBreakPartsArrayLength);
-            long[] monsterSeverArray = _process.Memory.Read<long>(monsterSeverPartsArrayPtr + 0x20, monsterSeverPartsArrayLenght);
+            long[] monsterFlinchArray = Process.Memory.Read<long>(monsterFlinchPartsPtr + 0x20, monsterFlinchPartsArrayLength);
+            long[] monsterBreakArray = Process.Memory.Read<long>(monsterBreakPartsArrayPtr + 0x20, monsterBreakPartsArrayLength);
+            long[] monsterSeverArray = Process.Memory.Read<long>(monsterSeverPartsArrayPtr + 0x20, monsterSeverPartsArrayLenght);
 
             DerefPartsAndScan(monsterFlinchArray, monsterBreakArray, monsterSeverArray);
         }
@@ -286,9 +382,9 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
 
             MHRPartStructure partInfo = new()
             {
-                MaxHealth = _process.Memory.Read<float>(breakablePart + 0x18),
-                MaxFlinch = _process.Memory.Read<float>(flinchPart + 0x18),
-                MaxSever = _process.Memory.Read<float>(severablePart + 0x18)
+                MaxHealth = Process.Memory.Read<float>(breakablePart + 0x18),
+                MaxFlinch = Process.Memory.Read<float>(flinchPart + 0x18),
+                MaxSever = Process.Memory.Read<float>(severablePart + 0x18)
             };
 
             // Skip invalid parts
@@ -296,18 +392,18 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
                 continue;
 
             // TODO: Read all this in 1 pass
-            long encodedFlinchHealthPtr = _process.Memory.ReadPtr(flinchPart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
-            long encodedBreakableHealthPtr = _process.Memory.ReadPtr(breakablePart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
-            long encodedSeverableHealthPtr = _process.Memory.ReadPtr(severablePart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+            long encodedFlinchHealthPtr = Process.Memory.ReadPtr(flinchPart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+            long encodedBreakableHealthPtr = Process.Memory.ReadPtr(breakablePart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+            long encodedSeverableHealthPtr = Process.Memory.ReadPtr(severablePart, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
 
             // Flinch values
-            partInfo.Flinch = _process.Memory.Read<float>(encodedFlinchHealthPtr + 0x18);
+            partInfo.Flinch = Process.Memory.Read<float>(encodedFlinchHealthPtr + 0x18);
 
             // Break values
-            partInfo.Health = _process.Memory.Read<float>(encodedBreakableHealthPtr + 0x18);
+            partInfo.Health = Process.Memory.Read<float>(encodedBreakableHealthPtr + 0x18);
 
             // Sever values
-            partInfo.Sever = _process.Memory.Read<float>(encodedSeverableHealthPtr + 0x18);
+            partInfo.Sever = Process.Memory.Read<float>(encodedSeverableHealthPtr + 0x18);
 
             if (!_parts.ContainsKey(flinchPart))
             {
@@ -316,7 +412,7 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
                 _parts.Add(flinchPart, dummy);
 
                 Log.Debug($"Found {partName} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X}");
-                this.Dispatch(OnNewPartFound, dummy);
+                this.Dispatch(_onNewPartFound, dummy);
             }
 
             IUpdatable<MHRPartStructure> monsterPart = _parts[flinchPart];

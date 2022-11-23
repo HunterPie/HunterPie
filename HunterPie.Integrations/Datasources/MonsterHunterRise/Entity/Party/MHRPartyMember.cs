@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Enums;
@@ -22,7 +23,7 @@ public class MHRPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHRPart
             if (value != _damage)
             {
                 _damage = value;
-                this.Dispatch(OnDamageDealt, this);
+                this.Dispatch(_onDamageDealt, this);
             }
         }
     }
@@ -35,7 +36,7 @@ public class MHRPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHRPart
             if (value != _weapon)
             {
                 _weapon = value;
-                this.Dispatch(OnWeaponChange, this);
+                this.Dispatch(_onWeaponChange, this);
             }
         }
     }
@@ -47,8 +48,19 @@ public class MHRPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHRPart
 
     public int MasterRank { get; private set; }
 
-    public event EventHandler<IPartyMember> OnDamageDealt;
-    public event EventHandler<IPartyMember> OnWeaponChange;
+    private readonly SmartEvent<IPartyMember> _onDamageDealt = new();
+    public event EventHandler<IPartyMember> OnDamageDealt
+    {
+        add => _onDamageDealt.Hook(value);
+        remove => _onDamageDealt.Unhook(value);
+    }
+
+    private readonly SmartEvent<IPartyMember> _onWeaponChange = new();
+    public event EventHandler<IPartyMember> OnWeaponChange
+    {
+        add => _onWeaponChange.Hook(value);
+        remove => _onWeaponChange.Unhook(value);
+    }
 
     public MHRPartyMember() { }
 

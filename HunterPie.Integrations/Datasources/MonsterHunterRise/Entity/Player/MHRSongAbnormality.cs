@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Entity.Player;
@@ -24,7 +25,7 @@ public class MHRSongAbnormality : IAbnormality, IUpdatable<MHRHHAbnormality>, IE
             if (_timer != value)
             {
                 _timer = value;
-                this.Dispatch(OnTimerUpdate, this);
+                this.Dispatch(_onTimerUpdate, this);
             }
         }
     }
@@ -34,7 +35,12 @@ public class MHRSongAbnormality : IAbnormality, IUpdatable<MHRHHAbnormality>, IE
 
     public bool IsBuildup { get; private set; }
 
-    public event EventHandler<IAbnormality> OnTimerUpdate;
+    private readonly SmartEvent<IAbnormality> _onTimerUpdate = new();
+    public event EventHandler<IAbnormality> OnTimerUpdate
+    {
+        add => _onTimerUpdate.Hook(value);
+        remove => _onTimerUpdate.Unhook(value);
+    }
 
     public MHRSongAbnormality(AbnormalitySchema schema)
     {

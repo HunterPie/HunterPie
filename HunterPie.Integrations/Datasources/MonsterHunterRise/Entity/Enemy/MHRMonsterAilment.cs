@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
@@ -11,7 +12,7 @@ public class MHRMonsterAilment : IMonsterAilment, IEventDispatcher, IUpdatable<M
     private float _timer;
     private float _buildup;
 
-    public string Id { get; private set; }
+    public string Id { get; }
     public int Counter
     {
         get => _counter;
@@ -20,7 +21,7 @@ public class MHRMonsterAilment : IMonsterAilment, IEventDispatcher, IUpdatable<M
             if (value != _counter)
             {
                 _counter = value;
-                this.Dispatch(OnCounterUpdate, this);
+                this.Dispatch(_onCounterUpdate, this);
             }
         }
     }
@@ -32,7 +33,7 @@ public class MHRMonsterAilment : IMonsterAilment, IEventDispatcher, IUpdatable<M
             if (value != _timer)
             {
                 _timer = value;
-                this.Dispatch(OnTimerUpdate, this);
+                this.Dispatch(_onTimerUpdate, this);
             }
         }
     }
@@ -45,15 +46,32 @@ public class MHRMonsterAilment : IMonsterAilment, IEventDispatcher, IUpdatable<M
             if (value != _buildup)
             {
                 _buildup = value;
-                this.Dispatch(OnBuildUpUpdate, this);
+                this.Dispatch(_onBuildUpUpdate, this);
             }
         }
     }
     public float MaxBuildUp { get; private set; }
 
-    public event EventHandler<IMonsterAilment> OnTimerUpdate;
-    public event EventHandler<IMonsterAilment> OnBuildUpUpdate;
-    public event EventHandler<IMonsterAilment> OnCounterUpdate;
+    private readonly SmartEvent<IMonsterAilment> _onTimerUpdate = new();
+    public event EventHandler<IMonsterAilment> OnTimerUpdate
+    {
+        add => _onTimerUpdate.Hook(value);
+        remove => _onTimerUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterAilment> _onBuildUpUpdate = new();
+    public event EventHandler<IMonsterAilment> OnBuildUpUpdate
+    {
+        add => _onBuildUpUpdate.Hook(value);
+        remove => _onBuildUpUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonsterAilment> _onCounterUpdate = new();
+    public event EventHandler<IMonsterAilment> OnCounterUpdate
+    {
+        add => _onCounterUpdate.Hook(value);
+        remove => _onCounterUpdate.Unhook(value);
+    }
 
     public MHRMonsterAilment(string ailmentId)
     {

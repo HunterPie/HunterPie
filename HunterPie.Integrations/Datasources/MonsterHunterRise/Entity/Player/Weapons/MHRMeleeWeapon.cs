@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
@@ -27,7 +28,7 @@ public class MHRMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
             if (value != _sharpness)
             {
                 _sharpness = value;
-                this.Dispatch(OnSharpnessLevelChange, new SharpnessEventArgs(this));
+                this.Dispatch(_onSharpnessLevelChange, new SharpnessEventArgs(this));
             }
         }
     }
@@ -40,7 +41,7 @@ public class MHRMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
             if (value != _currentSharpness)
             {
                 _currentSharpness = value;
-                this.Dispatch(OnSharpnessChange, new SharpnessEventArgs(this));
+                this.Dispatch(_onSharpnessChange, new SharpnessEventArgs(this));
             }
         }
     }
@@ -51,8 +52,20 @@ public class MHRMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
 
     public int Threshold { get; set; }
 
-    public event EventHandler<SharpnessEventArgs> OnSharpnessChange;
-    public event EventHandler<SharpnessEventArgs> OnSharpnessLevelChange;
+    private readonly SmartEvent<SharpnessEventArgs> _onSharpnessChange = new();
+    public event EventHandler<SharpnessEventArgs> OnSharpnessChange
+    {
+        add => _onSharpnessChange.Hook(value);
+        remove => _onSharpnessChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<SharpnessEventArgs> _onSharpnessLevelChange = new();
+    public event EventHandler<SharpnessEventArgs> OnSharpnessLevelChange
+    {
+        add => _onSharpnessLevelChange.Hook(value);
+        remove => _onSharpnessLevelChange.Unhook(value);
+    }
+
 
     public MHRMeleeWeapon(IProcessManager process, Weapon id) : base(process)
     {
@@ -62,7 +75,7 @@ public class MHRMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
     [ScannableMethod]
     private void GetWeaponSharpness()
     {
-        long sharpnessArrayPtr = _process.Memory.Read(
+        long sharpnessArrayPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("SHARPNESS_ADDRESS"),
             AddressMap.Get<int[]>("SHARPNESS_ARRAY_OFFSETS")
         );
@@ -70,14 +83,14 @@ public class MHRMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
         if (sharpnessArrayPtr.IsNullPointer())
             return;
 
-        MHRSharpnessStructure structure = _process.Memory.Deref<MHRSharpnessStructure>(
+        MHRSharpnessStructure structure = Process.Memory.Deref<MHRSharpnessStructure>(
             AddressMap.GetAbsolute("SHARPNESS_ADDRESS"),
             AddressMap.Get<int[]>("SHARPNESS_OFFSETS")
         );
 
         if (SharpnessThresholds is null || _weaponSharpnessPointer != sharpnessArrayPtr)
         {
-            int[] sharpnessValues = _process.Memory.ReadArray<int>(sharpnessArrayPtr);
+            int[] sharpnessValues = Process.Memory.ReadArray<int>(sharpnessArrayPtr);
             SharpnessThresholds = CalculateThresholds(sharpnessValues);
             _weaponSharpnessPointer = sharpnessArrayPtr;
         }

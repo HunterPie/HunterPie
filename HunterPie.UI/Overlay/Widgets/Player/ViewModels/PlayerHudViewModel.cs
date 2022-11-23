@@ -1,6 +1,6 @@
-﻿using HunterPie.Core.Game.Enums;
+﻿using HunterPie.Core.Architecture.Collections;
+using HunterPie.Core.Game.Enums;
 using HunterPie.UI.Architecture;
-using HunterPie.UI.Architecture.Collections;
 
 namespace HunterPie.UI.Overlay.Widgets.Player.ViewModels;
 

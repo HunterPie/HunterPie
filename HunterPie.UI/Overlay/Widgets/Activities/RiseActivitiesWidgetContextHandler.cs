@@ -14,10 +14,10 @@ public class RiseActivitiesWidgetContextHandler : IContextHandler
     private readonly MHRContext _context;
     private readonly MHRPlayer _player;
     private readonly IContextHandler[] _handlers;
-    private readonly ActivitiesViewModel ViewModel;
-    private readonly ActivitiesView View;
+    private readonly ActivitiesViewModel _viewModel;
+    private readonly ActivitiesView _view;
 
-    private readonly SubmarinesContextHandler _submarinesHandler;
+    private readonly SubmarinesContextHandler _submarinesContextHandler;
     private readonly TrainingDojoContextHandler _trainingDojoContextHandler;
     private readonly MeowcenariesContextHandler _meowcenariesContextHandler;
     private readonly CohootContextHandler _cohootContextHandler;
@@ -27,19 +27,19 @@ public class RiseActivitiesWidgetContextHandler : IContextHandler
         _context = context;
         _player = (MHRPlayer)context.Game.Player;
 
-        View = new ActivitiesView(ClientConfig.Config.Rise.Overlay.ActivitiesWidget);
-        _ = WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(View);
+        _view = new ActivitiesView(ClientConfig.Config.Rise.Overlay.ActivitiesWidget);
+        _ = WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(_view);
 
-        ViewModel = View.ViewModel;
+        _viewModel = _view.ViewModel;
 
-        _submarinesHandler = new(_context);
+        _submarinesContextHandler = new(_context);
         _trainingDojoContextHandler = new(_context);
         _meowcenariesContextHandler = new(_context);
         _cohootContextHandler = new(_context);
 
         _handlers = new IContextHandler[]
         {
-            _submarinesHandler,
+            _submarinesContextHandler,
             _trainingDojoContextHandler,
             _meowcenariesContextHandler,
             _cohootContextHandler,
@@ -53,17 +53,17 @@ public class RiseActivitiesWidgetContextHandler : IContextHandler
         foreach (IContextHandler handler in _handlers)
             handler.HookEvents();
 
-        ViewModel.Activities.Add(_submarinesHandler.ViewModel);
-        ViewModel.Activities.Add(_trainingDojoContextHandler.ViewModel);
-        ViewModel.Activities.Add(_meowcenariesContextHandler.ViewModel);
-        ViewModel.Activities.Add(_cohootContextHandler.ViewModel);
+        _viewModel.Activities.Add(_submarinesContextHandler.ViewModel);
+        _viewModel.Activities.Add(_trainingDojoContextHandler.ViewModel);
+        _viewModel.Activities.Add(_meowcenariesContextHandler.ViewModel);
+        _viewModel.Activities.Add(_cohootContextHandler.ViewModel);
 
         _player.OnStageUpdate += OnStageChange;
     }
 
-    private void UpdateData() => ViewModel.InVisibleStage = !_player.InHuntingZone && _player.StageId != -1;
+    private void UpdateData() => _viewModel.InVisibleStage = !_player.InHuntingZone && _player.StageId != -1;
 
-    private void OnStageChange(object sender, EventArgs e) => ViewModel.InVisibleStage = !_player.InHuntingZone && _player.StageId != -1;
+    private void OnStageChange(object sender, EventArgs e) => _viewModel.InVisibleStage = !_player.InHuntingZone && _player.StageId != -1;
 
     public void UnhookEvents()
     {
@@ -71,6 +71,6 @@ public class RiseActivitiesWidgetContextHandler : IContextHandler
             handler.UnhookEvents();
 
         _player.OnStageUpdate -= OnStageChange;
-        _ = WidgetManager.Unregister<ActivitiesView, ActivitiesWidgetConfig>(View);
+        _ = WidgetManager.Unregister<ActivitiesView, ActivitiesWidgetConfig>(_view);
     }
 }

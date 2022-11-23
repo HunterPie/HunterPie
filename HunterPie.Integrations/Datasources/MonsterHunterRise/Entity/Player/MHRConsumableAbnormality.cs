@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Entity.Player;
@@ -11,8 +12,8 @@ public class MHRConsumableAbnormality : IAbnormality, IUpdatable<MHRConsumableSt
 {
     private float _timer;
 
-    public string Id { get; private set; }
-    public string Icon { get; private set; }
+    public string Id { get; }
+    public string Icon { get; }
     public AbnormalityType Type => AbnormalityType.Consumable;
 
     public float Timer
@@ -23,18 +24,23 @@ public class MHRConsumableAbnormality : IAbnormality, IUpdatable<MHRConsumableSt
             if (_timer != value)
             {
                 _timer = value;
-                this.Dispatch(OnTimerUpdate, this);
+                this.Dispatch(_onTimerUpdate, this);
             }
         }
     }
 
     public float MaxTimer { get; private set; }
-    public bool IsInfinite { get; private set; }
-    public int Level { get; private set; }
+    public bool IsInfinite { get; }
+    public int Level => 0;
 
-    public bool IsBuildup { get; private set; }
+    public bool IsBuildup => false;
 
-    public event EventHandler<IAbnormality> OnTimerUpdate;
+    private readonly SmartEvent<IAbnormality> _onTimerUpdate = new();
+    public event EventHandler<IAbnormality> OnTimerUpdate
+    {
+        add => _onTimerUpdate.Hook(value);
+        remove => _onTimerUpdate.Unhook(value);
+    }
 
     public MHRConsumableAbnormality(AbnormalitySchema data)
     {

@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
@@ -20,7 +21,7 @@ public class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasStructure
             if (value != _timer)
             {
                 _timer = value;
-                this.Dispatch(OnTimerUpdate, this);
+                this.Dispatch(_onTimerUpdate, this);
             }
         }
     }
@@ -34,7 +35,7 @@ public class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasStructure
             if (value != _cooldown)
             {
                 _cooldown = value;
-                this.Dispatch(OnCooldownUpdate, this);
+                this.Dispatch(_onCooldownUpdate, this);
             }
         }
     }
@@ -48,7 +49,7 @@ public class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasStructure
             if (value != _isAvailable)
             {
                 _isAvailable = value;
-                this.Dispatch(OnAvailable, this);
+                this.Dispatch(_onAvailable, this);
             }
         }
     }
@@ -61,15 +62,38 @@ public class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasStructure
             if (value != _isBlocked)
             {
                 _isBlocked = value;
-                this.Dispatch(OnBlockedStateChange, this);
+                this.Dispatch(_onBlockedStateChange, this);
             }
         }
     }
 
-    public event EventHandler<MHRWirebug> OnTimerUpdate;
-    public event EventHandler<MHRWirebug> OnCooldownUpdate;
-    public event EventHandler<MHRWirebug> OnAvailable;
-    public event EventHandler<MHRWirebug> OnBlockedStateChange;
+    private readonly SmartEvent<MHRWirebug> _onTimerUpdate = new();
+    public event EventHandler<MHRWirebug> OnTimerUpdate
+    {
+        add => _onTimerUpdate.Hook(value);
+        remove => _onTimerUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<MHRWirebug> _onCooldownUpdate = new();
+    public event EventHandler<MHRWirebug> OnCooldownUpdate
+    {
+        add => _onCooldownUpdate.Hook(value);
+        remove => _onCooldownUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<MHRWirebug> _onAvailable = new();
+    public event EventHandler<MHRWirebug> OnAvailable
+    {
+        add => _onAvailable.Hook(value);
+        remove => _onAvailable.Unhook(value);
+    }
+
+    private readonly SmartEvent<MHRWirebug> _onBlockedStateChange = new();
+    public event EventHandler<MHRWirebug> OnBlockedStateChange
+    {
+        add => _onBlockedStateChange.Hook(value);
+        remove => _onBlockedStateChange.Unhook(value);
+    }
 
     void IUpdatable<MHRWirebugExtrasStructure>.Update(MHRWirebugExtrasStructure data)
     {

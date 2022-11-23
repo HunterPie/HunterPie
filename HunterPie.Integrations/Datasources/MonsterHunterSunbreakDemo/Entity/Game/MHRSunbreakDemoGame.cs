@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
@@ -16,7 +17,7 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo.Entity.Ga
 
 public class MHRSunbreakDemoGame : Scannable, IGame, IEventDispatcher
 {
-    public const uint MaximumMonsterArraySize = 5;
+    private const uint MaximumMonsterArraySize = 5;
 
     private readonly HashSet<int> _monsterAreas = new() { 5, 201, 202, 203, 204, 205, 207, 209, 210, 211, 212 };
     private readonly Dictionary<long, IMonster> _monsters = new();
@@ -32,11 +33,40 @@ public class MHRSunbreakDemoGame : Scannable, IGame, IEventDispatcher
     public int Deaths => throw new NotImplementedException();
     public IAbnormalityCategorizationService AbnormalityCategorizationService => throw new NotImplementedException();
 
-    public event EventHandler<IMonster>? OnMonsterSpawn;
-    public event EventHandler<IMonster>? OnMonsterDespawn;
-    public event EventHandler<IGame>? OnHudStateChange;
-    public event EventHandler<TimeElapsedChangeEventArgs>? OnTimeElapsedChange;
-    public event EventHandler<IGame>? OnDeathCountChange;
+    private readonly SmartEvent<IMonster> _onMonsterSpawn = new();
+    public event EventHandler<IMonster> OnMonsterSpawn
+    {
+        add => _onMonsterSpawn.Hook(value);
+        remove => _onMonsterSpawn.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonster> _onMonsterDespawn = new();
+    public event EventHandler<IMonster> OnMonsterDespawn
+    {
+        add => _onMonsterDespawn.Hook(value);
+        remove => _onMonsterDespawn.Unhook(value);
+    }
+
+    private readonly SmartEvent<IGame> _onHudStateChange = new();
+    public event EventHandler<IGame> OnHudStateChange
+    {
+        add => _onHudStateChange.Hook(value);
+        remove => _onHudStateChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<TimeElapsedChangeEventArgs> _onTimeElapsedChange = new();
+    public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange
+    {
+        add => _onTimeElapsedChange.Hook(value);
+        remove => _onTimeElapsedChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<IGame> _onDeathCountChange = new();
+    public event EventHandler<IGame> OnDeathCountChange
+    {
+        add => _onDeathCountChange.Hook(value);
+        remove => _onDeathCountChange.Unhook(value);
+    }
 
     public MHRSunbreakDemoGame(IProcessManager process) : base(process)
     {
@@ -58,13 +88,13 @@ public class MHRSunbreakDemoGame : Scannable, IGame, IEventDispatcher
             return;
         }
 
-        long address = _process.Memory.Read(
+        long address = Process.Memory.Read(
             AddressMap.GetAbsolute("MONSTERS_ADDRESS"),
             AddressMap.Get<int[]>("MONSTER_LIST_OFFSETS")
         );
 
-        uint monsterArraySize = _process.Memory.Read<uint>(address - 0x8);
-        var monsterAddresses = _process.Memory.Read<long>(address + 0x20, Math.Min(MaximumMonsterArraySize, monsterArraySize))
+        uint monsterArraySize = Process.Memory.Read<uint>(address - 0x8);
+        var monsterAddresses = Process.Memory.Read<long>(address + 0x20, Math.Min(MaximumMonsterArraySize, monsterArraySize))
             .ToHashSet();
 
         long[] toDespawn = _monsters.Keys.Where(address => !monsterAddresses.Contains(address))
@@ -86,12 +116,12 @@ public class MHRSunbreakDemoGame : Scannable, IGame, IEventDispatcher
         if (monsterAddress == 0 || _monsters.ContainsKey(monsterAddress))
             return;
 
-        IMonster monster = new MHRSunbreakDemoMonster(_process, monsterAddress);
+        IMonster monster = new MHRSunbreakDemoMonster(Process, monsterAddress);
         _monsters.Add(monsterAddress, monster);
         Monsters.Add(monster);
         ScanManager.Add(monster as Scannable);
 
-        this.Dispatch(OnMonsterSpawn, monster);
+        this.Dispatch(_onMonsterSpawn, monster);
     }
 
     private void HandleMonsterDespawn(long address)
@@ -101,7 +131,7 @@ public class MHRSunbreakDemoGame : Scannable, IGame, IEventDispatcher
         _ = Monsters.Remove(monster);
         ScanManager.Remove(monster as Scannable);
 
-        this.Dispatch(OnMonsterDespawn, monster);
+        this.Dispatch(_onMonsterDespawn, monster);
     }
 
     public void Dispose() { }
