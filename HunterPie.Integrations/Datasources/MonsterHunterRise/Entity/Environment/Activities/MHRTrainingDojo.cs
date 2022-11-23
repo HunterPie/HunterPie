@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.NPC;
@@ -19,7 +20,7 @@ public class MHRTrainingDojo : IEventDispatcher, IUpdatable<MHRTrainingDojoData>
             if (value != _rounds)
             {
                 _rounds = value;
-                this.Dispatch(OnRoundsLeftChange, this);
+                this.Dispatch(_onRoundsLeftChange, this);
             }
         }
     }
@@ -33,7 +34,7 @@ public class MHRTrainingDojo : IEventDispatcher, IUpdatable<MHRTrainingDojoData>
             if (value != _boosts)
             {
                 _boosts = value;
-                this.Dispatch(OnBoostsLeftChange, this);
+                this.Dispatch(_onBoostsLeftChange, this);
             }
         }
     }
@@ -47,16 +48,33 @@ public class MHRTrainingDojo : IEventDispatcher, IUpdatable<MHRTrainingDojoData>
             if (value != _buddiesCount)
             {
                 _buddiesCount = value;
-                this.Dispatch(OnBuddyCountChange, this);
+                this.Dispatch(_onBuddyCountChange, this);
             }
         }
     }
 
     public readonly MHRBuddy[] Buddies = { new(), new(), new(), new(), new(), new() };
 
-    public event EventHandler<MHRTrainingDojo> OnRoundsLeftChange;
-    public event EventHandler<MHRTrainingDojo> OnBoostsLeftChange;
-    public event EventHandler<MHRTrainingDojo> OnBuddyCountChange;
+    private readonly SmartEvent<MHRTrainingDojo> _onRoundsLeftChange = new();
+    public event EventHandler<MHRTrainingDojo> OnRoundsLeftChange
+    {
+        add => _onRoundsLeftChange.Hook(value);
+        remove => _onRoundsLeftChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<MHRTrainingDojo> _onBoostsLeftChange = new();
+    public event EventHandler<MHRTrainingDojo> OnBoostsLeftChange
+    {
+        add => _onBoostsLeftChange.Hook(value);
+        remove => _onBoostsLeftChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<MHRTrainingDojo> _onBuddyCountChange = new();
+    public event EventHandler<MHRTrainingDojo> OnBuddyCountChange
+    {
+        add => _onBuddyCountChange.Hook(value);
+        remove => _onBuddyCountChange.Unhook(value);
+    }
 
     public void Update(MHRTrainingDojoData data)
     {

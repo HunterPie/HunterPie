@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
@@ -17,7 +18,7 @@ public class MHRCohoot : IEventDispatcher, IUpdatable<MHRCohootStructure>
             if (value != _kamuraCount)
             {
                 _kamuraCount = value;
-                this.Dispatch(OnKamuraCountChange, this);
+                this.Dispatch(_onKamuraCountChange, this);
             }
         }
     }
@@ -30,15 +31,26 @@ public class MHRCohoot : IEventDispatcher, IUpdatable<MHRCohootStructure>
             if (value != _elgadoCount)
             {
                 _elgadoCount = value;
-                this.Dispatch(OnElgadoCountChange, this);
+                this.Dispatch(_onElgadoCountChange, this);
             }
         }
     }
 
-    public int MaxCount { get; private set; } = 5;
+    public int MaxCount => 5;
 
-    public event EventHandler<MHRCohoot> OnKamuraCountChange;
-    public event EventHandler<MHRCohoot> OnElgadoCountChange;
+    private readonly SmartEvent<MHRCohoot> _onKamuraCountChange = new();
+    public event EventHandler<MHRCohoot> OnKamuraCountChange
+    {
+        add => _onKamuraCountChange.Hook(value);
+        remove => _onKamuraCountChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<MHRCohoot> _onElgadoCountChange = new();
+    public event EventHandler<MHRCohoot> OnElgadoCountChange
+    {
+        add => _onElgadoCountChange.Hook(value);
+        remove => _onElgadoCountChange.Unhook(value);
+    }
 
     void IUpdatable<MHRCohootStructure>.Update(MHRCohootStructure data)
     {

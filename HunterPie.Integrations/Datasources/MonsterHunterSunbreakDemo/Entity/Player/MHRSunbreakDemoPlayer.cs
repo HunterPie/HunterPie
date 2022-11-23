@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
@@ -35,8 +36,8 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
                 _name = value;
                 FindPlayerSaveSlot();
                 this.Dispatch(value is ""
-                    ? OnLogout
-                    : OnLogin);
+                    ? _onLogout
+                    : _onLogin);
 
             }
         }
@@ -62,21 +63,89 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
 
     public IWeapon Weapon { get; private set; }
 
-    public event EventHandler<EventArgs>? OnLogin;
-    public event EventHandler<EventArgs>? OnLogout;
-    public event EventHandler<EventArgs>? OnDeath;
-    public event EventHandler<EventArgs>? OnActionUpdate;
-    public event EventHandler<EventArgs>? OnStageUpdate;
-    public event EventHandler<EventArgs>? OnVillageEnter;
-    public event EventHandler<EventArgs>? OnVillageLeave;
-    public event EventHandler<EventArgs>? OnAilmentUpdate;
-    public event EventHandler<WeaponChangeEventArgs>? OnWeaponChange;
-    public event EventHandler<IAbnormality>? OnAbnormalityStart;
-    public event EventHandler<IAbnormality>? OnAbnormalityEnd;
-    public event EventHandler<HealthChangeEventArgs>? OnHealthChange;
-    public event EventHandler<StaminaChangeEventArgs>? OnStaminaChange;
-    public event EventHandler<LevelChangeEventArgs>? OnLevelChange;
-    public event EventHandler<HealthChangeEventArgs>? OnHeal;
+    private readonly SmartEvent<EventArgs> _onLogin = new();
+    public event EventHandler<EventArgs> OnLogin
+    {
+        add => _onLogin.Hook(value);
+        remove => _onLogin.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onLogout = new();
+    public event EventHandler<EventArgs> OnLogout
+    {
+        add => _onLogout.Hook(value);
+        remove => _onLogout.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onDeath = new();
+    public event EventHandler<EventArgs> OnDeath
+    {
+        add => _onDeath.Hook(value);
+        remove => _onDeath.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onActionUpdate = new();
+    public event EventHandler<EventArgs> OnActionUpdate
+    {
+        add => _onActionUpdate.Hook(value);
+        remove => _onActionUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onStageUpdate = new();
+    public event EventHandler<EventArgs> OnStageUpdate
+    {
+        add => _onStageUpdate.Hook(value);
+        remove => _onStageUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onVillageEnter = new();
+    public event EventHandler<EventArgs> OnVillageEnter
+    {
+        add => _onVillageEnter.Hook(value);
+        remove => _onVillageEnter.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onVillageLeave = new();
+    public event EventHandler<EventArgs> OnVillageLeave
+    {
+        add => _onVillageLeave.Hook(value);
+        remove => _onVillageLeave.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onAilmentUpdate = new();
+    public event EventHandler<EventArgs> OnAilmentUpdate
+    {
+        add => _onAilmentUpdate.Hook(value);
+        remove => _onAilmentUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<WeaponChangeEventArgs> _onWeaponChange = new();
+    public event EventHandler<WeaponChangeEventArgs> OnWeaponChange
+    {
+        add => _onWeaponChange.Hook(value);
+        remove => _onWeaponChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<IAbnormality> _onAbnormalityStart = new();
+    public event EventHandler<IAbnormality> OnAbnormalityStart
+    {
+        add => _onAbnormalityStart.Hook(value);
+        remove => _onAbnormalityStart.Unhook(value);
+    }
+
+    private readonly SmartEvent<IAbnormality> _onAbnormalityEnd = new();
+    public event EventHandler<IAbnormality> OnAbnormalityEnd
+    {
+        add => _onAbnormalityEnd.Hook(value);
+        remove => _onAbnormalityEnd.Unhook(value);
+    }
+
+    private readonly SmartEvent<LevelChangeEventArgs> _onLevelChange = new();
+    public event EventHandler<LevelChangeEventArgs> OnLevelChange
+    {
+        add => _onLevelChange.Hook(value);
+        remove => _onLevelChange.Unhook(value);
+    }
 
     public MHRSunbreakDemoPlayer(IProcessManager process) : base(process) { }
 
@@ -285,7 +354,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
             abnorm.Update(newData);
 
             _ = _abnormalities.Remove(schema.Id);
-            this.Dispatch(OnAbnormalityEnd, (IAbnormality)abnorm);
+            this.Dispatch(_onAbnormalityEnd, (IAbnormality)abnorm);
         }
         else if (_abnormalities.ContainsKey(schema.Id) && timer > 0)
         {
@@ -302,7 +371,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
 
             _abnormalities.Add(schema.Id, (IAbnormality)abnorm);
             abnorm.Update(newData);
-            this.Dispatch(OnAbnormalityStart, (IAbnormality)abnorm);
+            this.Dispatch(_onAbnormalityStart, (IAbnormality)abnorm);
         }
     }
 
@@ -310,7 +379,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
     private void ClearAbnormalities()
     {
         foreach (IAbnormality abnormality in _abnormalities.Values)
-            this.Dispatch(OnAbnormalityEnd, abnormality);
+            this.Dispatch(_onAbnormalityEnd, abnormality);
 
         _abnormalities.Clear();
     }

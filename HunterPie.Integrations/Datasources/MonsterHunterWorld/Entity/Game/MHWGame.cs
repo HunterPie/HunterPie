@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
@@ -33,11 +34,40 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
     private readonly Stopwatch _localTimerStopwatch = new();
     private readonly Stopwatch _damageUpdateThrottleStopwatch = new();
 
-    public event EventHandler<IMonster> OnMonsterSpawn;
-    public event EventHandler<IMonster> OnMonsterDespawn;
-    public event EventHandler<IGame> OnHudStateChange;
-    public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange;
-    public event EventHandler<IGame> OnDeathCountChange;
+    private readonly SmartEvent<IMonster> _onMonsterSpawn = new();
+    public event EventHandler<IMonster> OnMonsterSpawn
+    {
+        add => _onMonsterSpawn.Hook(value);
+        remove => _onMonsterSpawn.Unhook(value);
+    }
+
+    private readonly SmartEvent<IMonster> _onMonsterDespawn = new();
+    public event EventHandler<IMonster> OnMonsterDespawn
+    {
+        add => _onMonsterDespawn.Hook(value);
+        remove => _onMonsterDespawn.Unhook(value);
+    }
+
+    private readonly SmartEvent<IGame> _onHudStateChange = new();
+    public event EventHandler<IGame> OnHudStateChange
+    {
+        add => _onHudStateChange.Hook(value);
+        remove => _onHudStateChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<TimeElapsedChangeEventArgs> _onTimeElapsedChange = new();
+    public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange
+    {
+        add => _onTimeElapsedChange.Hook(value);
+        remove => _onTimeElapsedChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<IGame> _onDeathCountChange = new();
+    public event EventHandler<IGame> OnDeathCountChange
+    {
+        add => _onDeathCountChange.Hook(value);
+        remove => _onDeathCountChange.Unhook(value);
+    }
 
     public IPlayer Player => _player;
     public List<IMonster> Monsters { get; } = new();
@@ -52,7 +82,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
             if (value != _isMouseVisible)
             {
                 _isMouseVisible = value;
-                this.Dispatch(OnHudStateChange, this);
+                this.Dispatch(_onHudStateChange, this);
             }
         }
     }
@@ -68,7 +98,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
             return;
 
         TimeElapsed = value;
-        this.Dispatch(OnTimeElapsedChange, new TimeElapsedChangeEventArgs(isReset, value));
+        this.Dispatch(_onTimeElapsedChange, new TimeElapsedChangeEventArgs(isReset, value));
     }
 
     public int MaxDeaths => 0;
@@ -80,7 +110,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
             if (value != _deaths)
             {
                 _deaths = value;
-                this.Dispatch(OnDeathCountChange, this);
+                this.Dispatch(_onDeathCountChange, this);
             }
         }
     }
@@ -232,7 +262,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
         Monsters.Add(monster);
         ScanManager.Add(monster as Scannable);
 
-        this.Dispatch(OnMonsterSpawn, monster);
+        this.Dispatch(_onMonsterSpawn, monster);
     }
 
     private void HandleMonsterDespawn(long address)
@@ -242,7 +272,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
         _ = Monsters.Remove(monster);
         ScanManager.Remove(monster as Scannable);
 
-        this.Dispatch(OnMonsterDespawn, monster);
+        this.Dispatch(_onMonsterDespawn, monster);
     }
 
     public void Dispose()

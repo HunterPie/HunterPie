@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
@@ -28,7 +29,7 @@ public class MHWMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
             if (value != _sharpness)
             {
                 _sharpness = value;
-                this.Dispatch(OnSharpnessLevelChange, new SharpnessEventArgs(this));
+                this.Dispatch(_onSharpnessLevelChange, new SharpnessEventArgs(this));
             }
         }
     }
@@ -41,7 +42,7 @@ public class MHWMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
             if (value != _currentSharpness)
             {
                 _currentSharpness = value;
-                this.Dispatch(OnSharpnessChange, new SharpnessEventArgs(this));
+                this.Dispatch(_onSharpnessChange, new SharpnessEventArgs(this));
             }
         }
     }
@@ -52,8 +53,19 @@ public class MHWMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
 
     public int Threshold { get; private set; }
 
-    public event EventHandler<SharpnessEventArgs> OnSharpnessChange;
-    public event EventHandler<SharpnessEventArgs> OnSharpnessLevelChange;
+    private readonly SmartEvent<SharpnessEventArgs> _onSharpnessChange = new();
+    public event EventHandler<SharpnessEventArgs> OnSharpnessChange
+    {
+        add => _onSharpnessChange.Hook(value);
+        remove => _onSharpnessChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<SharpnessEventArgs> _onSharpnessLevelChange = new();
+    public event EventHandler<SharpnessEventArgs> OnSharpnessLevelChange
+    {
+        add => _onSharpnessLevelChange.Hook(value);
+        remove => _onSharpnessLevelChange.Unhook(value);
+    }
 
     public MHWMeleeWeapon(IProcessManager process, Weapon id) : base(process)
     {

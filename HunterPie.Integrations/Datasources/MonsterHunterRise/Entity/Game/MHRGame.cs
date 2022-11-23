@@ -381,7 +381,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher
         string messageString = Process.Memory.Read(message.Message + 0x14, (uint)messageStringLength * 2, Encoding.Unicode);
         string messageAuthor = Process.Memory.Read(message.Author + 0x14, (uint)messageAuthorLength * 2, Encoding.Unicode);
 
-        return new()
+        return new MHRChatMessage
         {
             Message = messageString,
             Author = messageAuthor,
@@ -395,7 +395,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher
         int messageAuthorLength = Process.Memory.Read<int>(message.Author + 0x10);
         string messageAuthor = Process.Memory.Read(messageAuthorLength + 0x14, (uint)messageAuthorLength * 2, Encoding.Unicode);
 
-        return new()
+        return new MHRChatMessage
         {
             Message = "<Auto message>",
             Author = messageAuthor,

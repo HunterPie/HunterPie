@@ -1,3 +1,4 @@
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Party;
@@ -23,7 +24,7 @@ public class MHWPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHWPart
             if (value != _damage)
             {
                 _damage = value;
-                this.Dispatch(OnDamageDealt, this);
+                this.Dispatch(_onDamageDealt, this);
             }
         }
     }
@@ -36,7 +37,7 @@ public class MHWPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHWPart
             if (value != _weapon)
             {
                 _weapon = value;
-                this.Dispatch(OnWeaponChange, this);
+                this.Dispatch(_onWeaponChange, this);
             }
         }
     }
@@ -55,8 +56,19 @@ public class MHWPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHWPart
         _anyNonTrivialStatisticalDamage = false;
     }
 
-    public event EventHandler<IPartyMember>? OnDamageDealt;
-    public event EventHandler<IPartyMember>? OnWeaponChange;
+    private readonly SmartEvent<IPartyMember> _onDamageDealt = new();
+    public event EventHandler<IPartyMember> OnDamageDealt
+    {
+        add => _onDamageDealt.Hook(value);
+        remove => _onDamageDealt.Unhook(value);
+    }
+
+    private readonly SmartEvent<IPartyMember> _onWeaponChange = new();
+    public event EventHandler<IPartyMember> OnWeaponChange
+    {
+        add => _onWeaponChange.Hook(value);
+        remove => _onWeaponChange.Unhook(value);
+    }
 
     public void Update(MHWPartyMemberData data)
     {

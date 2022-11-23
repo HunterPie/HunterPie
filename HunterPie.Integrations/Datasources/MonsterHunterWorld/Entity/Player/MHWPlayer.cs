@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.DTO;
 using HunterPie.Core.Domain.Interfaces;
@@ -74,13 +75,10 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 
                 this.Dispatch(
                     value != 0
-                    ? OnLogin
-                    : OnLogout,
-                    EventArgs.Empty
+                    ? _onLogin
+                    : _onLogout
                 );
 
-                if (value != 0)
-                    Log.Debug($"Logged in! Name: {Name}, HR: {HighRank}, MR: {MasterRank}, PlayTime: {PlayTime} seconds");
             }
         }
     }
@@ -93,7 +91,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             if (value != _highRank)
             {
                 _highRank = value;
-                this.Dispatch(OnLevelChange, new LevelChangeEventArgs(this));
+                this.Dispatch(_onLevelChange, new LevelChangeEventArgs(this));
             }
         }
     }
@@ -105,7 +103,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             if (value != _masterRank)
             {
                 _masterRank = value;
-                this.Dispatch(OnLevelChange, new LevelChangeEventArgs(this));
+                this.Dispatch(_onLevelChange, new LevelChangeEventArgs(this));
             }
         }
     }
@@ -122,12 +120,12 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             if (value != _zoneId)
             {
                 if (peaceZones.Contains(value) && !peaceZones.Contains(_zoneId))
-                    this.Dispatch(OnVillageEnter);
+                    this.Dispatch(_onVillageEnter);
                 else if (!peaceZones.Contains(value) && peaceZones.Contains(_zoneId))
-                    this.Dispatch(OnVillageLeave);
+                    this.Dispatch(_onVillageLeave);
 
                 _zoneId = value;
-                this.Dispatch(OnStageUpdate);
+                this.Dispatch(_onStageUpdate);
             }
         }
     }
@@ -158,25 +156,100 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             {
                 IWeapon temp = _weapon;
                 _weapon = value;
-                this.Dispatch(OnWeaponChange, new WeaponChangeEventArgs(temp, _weapon));
+                this.Dispatch(_onWeaponChange, new WeaponChangeEventArgs(temp, _weapon));
             }
         }
     }
 
     #endregion
 
-    public event EventHandler<EventArgs> OnLogin;
-    public event EventHandler<EventArgs> OnLogout;
-    public event EventHandler<EventArgs> OnDeath;
-    public event EventHandler<EventArgs> OnActionUpdate;
-    public event EventHandler<EventArgs> OnStageUpdate;
-    public event EventHandler<EventArgs> OnVillageEnter;
-    public event EventHandler<EventArgs> OnVillageLeave;
-    public event EventHandler<EventArgs> OnAilmentUpdate;
-    public event EventHandler<WeaponChangeEventArgs> OnWeaponChange;
-    public event EventHandler<IAbnormality> OnAbnormalityStart;
-    public event EventHandler<IAbnormality> OnAbnormalityEnd;
-    public event EventHandler<LevelChangeEventArgs> OnLevelChange;
+    #region Events
+
+    private readonly SmartEvent<EventArgs> _onLogin = new();
+    public event EventHandler<EventArgs> OnLogin
+    {
+        add => _onLogin.Hook(value);
+        remove => _onLogin.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onLogout = new();
+    public event EventHandler<EventArgs> OnLogout
+    {
+        add => _onLogout.Hook(value);
+        remove => _onLogout.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onDeath = new();
+    public event EventHandler<EventArgs> OnDeath
+    {
+        add => _onDeath.Hook(value);
+        remove => _onDeath.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onActionUpdate = new();
+    public event EventHandler<EventArgs> OnActionUpdate
+    {
+        add => _onActionUpdate.Hook(value);
+        remove => _onActionUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onStageUpdate = new();
+    public event EventHandler<EventArgs> OnStageUpdate
+    {
+        add => _onStageUpdate.Hook(value);
+        remove => _onStageUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onVillageEnter = new();
+    public event EventHandler<EventArgs> OnVillageEnter
+    {
+        add => _onVillageEnter.Hook(value);
+        remove => _onVillageEnter.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onVillageLeave = new();
+    public event EventHandler<EventArgs> OnVillageLeave
+    {
+        add => _onVillageLeave.Hook(value);
+        remove => _onVillageLeave.Unhook(value);
+    }
+
+    private readonly SmartEvent<EventArgs> _onAilmentUpdate = new();
+    public event EventHandler<EventArgs> OnAilmentUpdate
+    {
+        add => _onAilmentUpdate.Hook(value);
+        remove => _onAilmentUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<WeaponChangeEventArgs> _onWeaponChange = new();
+    public event EventHandler<WeaponChangeEventArgs> OnWeaponChange
+    {
+        add => _onWeaponChange.Hook(value);
+        remove => _onWeaponChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<IAbnormality> _onAbnormalityStart = new();
+    public event EventHandler<IAbnormality> OnAbnormalityStart
+    {
+        add => _onAbnormalityStart.Hook(value);
+        remove => _onAbnormalityStart.Unhook(value);
+    }
+
+    private readonly SmartEvent<IAbnormality> _onAbnormalityEnd = new();
+    public event EventHandler<IAbnormality> OnAbnormalityEnd
+    {
+        add => _onAbnormalityEnd.Hook(value);
+        remove => _onAbnormalityEnd.Unhook(value);
+    }
+
+    private readonly SmartEvent<LevelChangeEventArgs> _onLevelChange = new();
+    public event EventHandler<LevelChangeEventArgs> OnLevelChange
+    {
+        add => _onLevelChange.Hook(value);
+        remove => _onLevelChange.Unhook(value);
+    }
+
+    #endregion
 
     internal MHWPlayer(IProcessManager process) : base(process)
     {
@@ -313,7 +386,6 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             ScanManager.Add(meleeWeapon);
         }
         else
-        {
             weaponInstance = (data.WeaponType) switch
             {
                 WeaponType.Bow => new MHWBow(),
@@ -321,7 +393,6 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
                 WeaponType.LightBowgun => new MHWLightBowgun(),
                 _ => null
             };
-        }
 
         if (weaponInstance is not null)
             Weapon = weaponInstance;
@@ -356,7 +427,6 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
         );
 
         if (partySize is 0)
-        {
             _party.Update(0, new MHWPartyMemberData
             {
                 Name = Name,
@@ -366,7 +436,6 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
                 IsMyself = true,
                 MasterRank = MasterRank
             });
-        }
         else
             _party.Remove(0);
 
@@ -599,7 +668,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
             abnorm.Update(newData);
 
             _ = _abnormalities.Remove(schema.Id);
-            this.Dispatch(OnAbnormalityEnd, (IAbnormality)abnorm);
+            this.Dispatch(_onAbnormalityEnd, (IAbnormality)abnorm);
         }
         else if (_abnormalities.ContainsKey(schema.Id) && timer > 0)
         {
@@ -616,7 +685,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
 
             _abnormalities.Add(schema.Id, (IAbnormality)abnorm);
             abnorm.Update(newData);
-            this.Dispatch(OnAbnormalityStart, (IAbnormality)abnorm);
+            this.Dispatch(_onAbnormalityStart, (IAbnormality)abnorm);
         }
     }
 
@@ -624,7 +693,7 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     private void ClearAbnormalities()
     {
         foreach (IAbnormality abnormality in _abnormalities.Values)
-            this.Dispatch(OnAbnormalityEnd, abnormality);
+            this.Dispatch(_onAbnormalityEnd, abnormality);
 
         _abnormalities.Clear();
     }
@@ -632,10 +701,8 @@ public class MHWPlayer : Scannable, IPlayer, IEventDispatcher
     internal void UpdatePartyMembersDamage(EntityDamageData[] entities)
     {
         foreach (EntityDamageData entity in entities)
-        {
             // For now we are only tracking local player.
             if (entity.Entity.Index == 0)
                 _party.Update(_localPlayerAddress, entity);
-        }
     }
 }

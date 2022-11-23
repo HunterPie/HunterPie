@@ -142,6 +142,8 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         }
     }
 
+    #region Events
+
     private readonly SmartEvent<EventArgs> _onLogin = new();
     public event EventHandler<EventArgs> OnLogin
     {
@@ -232,6 +234,8 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         add => _onLevelChange.Hook(value);
         remove => _onLevelChange.Unhook(value);
     }
+
+    #endregion
 
     public MHRPlayer(IProcessManager process) : base(process)
     {

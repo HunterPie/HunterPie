@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity;
 using HunterPie.Core.Game.Enums;
@@ -20,7 +21,7 @@ public class MHWSpecializedTool : ISpecializedTool, IEventDispatcher, IUpdatable
             if (value != _id)
             {
                 _id = value;
-                this.Dispatch(OnChange, this);
+                this.Dispatch(_onChange, this);
             }
         }
     }
@@ -33,7 +34,7 @@ public class MHWSpecializedTool : ISpecializedTool, IEventDispatcher, IUpdatable
             if (value != _cooldown)
             {
                 _cooldown = value;
-                this.Dispatch(OnCooldownUpdate, this);
+                this.Dispatch(_onCooldownUpdate, this);
             }
         }
     }
@@ -48,16 +49,33 @@ public class MHWSpecializedTool : ISpecializedTool, IEventDispatcher, IUpdatable
             if (value != _timer)
             {
                 _timer = value;
-                this.Dispatch(OnTimerUpdate, this);
+                this.Dispatch(_onTimerUpdate, this);
             }
         }
     }
 
     public float MaxTimer { get; private set; }
 
-    public event EventHandler<ISpecializedTool> OnCooldownUpdate;
-    public event EventHandler<ISpecializedTool> OnTimerUpdate;
-    public event EventHandler<ISpecializedTool> OnChange;
+    private readonly SmartEvent<ISpecializedTool> _onCooldownUpdate = new();
+    public event EventHandler<ISpecializedTool> OnCooldownUpdate
+    {
+        add => _onCooldownUpdate.Hook(value);
+        remove => _onCooldownUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<ISpecializedTool> _onTimerUpdate = new();
+    public event EventHandler<ISpecializedTool> OnTimerUpdate
+    {
+        add => _onTimerUpdate.Hook(value);
+        remove => _onTimerUpdate.Unhook(value);
+    }
+
+    private readonly SmartEvent<ISpecializedTool> _onChange = new();
+    public event EventHandler<ISpecializedTool> OnChange
+    {
+        add => _onChange.Hook(value);
+        remove => _onChange.Unhook(value);
+    }
 
     void IUpdatable<MHWSpecializedToolStructure>.Update(MHWSpecializedToolStructure data)
     {

@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
@@ -26,7 +27,7 @@ public class MHWAbnormality : IAbnormality, IEventDispatcher, IUpdatable<MHWAbno
             if (value != _timer)
             {
                 _timer = value;
-                this.Dispatch(OnTimerUpdate, this);
+                this.Dispatch(_onTimerUpdate, this);
             }
         }
     }
@@ -39,7 +40,12 @@ public class MHWAbnormality : IAbnormality, IEventDispatcher, IUpdatable<MHWAbno
 
     public bool IsBuildup { get; set; }
 
-    public event EventHandler<IAbnormality> OnTimerUpdate;
+    private readonly SmartEvent<IAbnormality> _onTimerUpdate = new();
+    public event EventHandler<IAbnormality> OnTimerUpdate
+    {
+        add => _onTimerUpdate.Hook(value);
+        remove => _onTimerUpdate.Unhook(value);
+    }
 
     public MHWAbnormality(AbnormalitySchema schema)
     {
