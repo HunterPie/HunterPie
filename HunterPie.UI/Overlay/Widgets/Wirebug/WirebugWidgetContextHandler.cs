@@ -16,18 +16,18 @@ public class WirebugWidgetContextHandler : IContextHandler
         3, // Gathering Hub
         4, // Hub Prep Plaza
     };
-    private readonly MHRContext Context;
-    private readonly WirebugsViewModel ViewModel;
-    private readonly WirebugsView View;
-    private MHRPlayer Player => (MHRPlayer)Context.Game.Player;
+    private readonly MHRContext _context;
+    private readonly WirebugsViewModel _viewModel;
+    private readonly WirebugsView _view;
+    private MHRPlayer Player => (MHRPlayer)_context.Game.Player;
 
     public WirebugWidgetContextHandler(MHRContext context)
     {
-        View = new WirebugsView(ClientConfig.Config.Rise.Overlay.WirebugWidget);
-        _ = WidgetManager.Register<WirebugsView, WirebugWidgetConfig>(View);
+        _view = new WirebugsView(ClientConfig.Config.Rise.Overlay.WirebugWidget);
+        _ = WidgetManager.Register<WirebugsView, WirebugWidgetConfig>(_view);
 
-        ViewModel = View.ViewModel;
-        Context = context;
+        _viewModel = _view.ViewModel;
+        _context = context;
 
         HookEvents();
         UpdateData();
@@ -43,31 +43,38 @@ public class WirebugWidgetContextHandler : IContextHandler
     {
         Player.OnStageUpdate -= OnStageUpdate;
         Player.OnWirebugsRefresh -= OnWirebugsRefresh;
-        _ = WidgetManager.Unregister<WirebugsView, WirebugWidgetConfig>(View);
+
+        foreach (WirebugViewModel vm in _viewModel.Elements)
+            if (vm is WirebugContextHandler model)
+                model.UnhookEvents();
+
+        _viewModel.Elements.Clear();
+
+        _ = WidgetManager.Unregister<WirebugsView, WirebugWidgetConfig>(_view);
     }
 
-    private void OnStageUpdate(object sender, EventArgs e) => ViewModel.IsAvailable = !UnavailableStages.Contains(Player.StageId);
+    private void OnStageUpdate(object sender, EventArgs e) => _viewModel.IsAvailable = !UnavailableStages.Contains(Player.StageId);
 
     private void OnWirebugsRefresh(object sender, MHRWirebug[] e)
     {
-        View.Dispatcher.Invoke(() =>
+        _view.Dispatcher.Invoke(() =>
         {
-            foreach (WirebugViewModel vm in ViewModel.Elements)
+            foreach (WirebugViewModel vm in _viewModel.Elements)
                 if (vm is WirebugContextHandler model)
                     model.UnhookEvents();
 
-            ViewModel.Elements.Clear();
+            _viewModel.Elements.Clear();
 
             foreach (MHRWirebug wirebug in e)
-                ViewModel.Elements.Add(new WirebugContextHandler(wirebug));
+                _viewModel.Elements.Add(new WirebugContextHandler(wirebug));
         });
     }
 
     private void UpdateData()
     {
-        ViewModel.IsAvailable = !UnavailableStages.Contains(Player.StageId);
+        _viewModel.IsAvailable = !UnavailableStages.Contains(Player.StageId);
 
         foreach (MHRWirebug wirebug in Player.Wirebugs)
-            ViewModel.Elements.Add(new WirebugContextHandler(wirebug));
+            _viewModel.Elements.Add(new WirebugContextHandler(wirebug));
     }
 }
