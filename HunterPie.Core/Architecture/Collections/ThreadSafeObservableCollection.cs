@@ -55,11 +55,16 @@ public class ThreadSafeObservableCollection<T> : INotifyCollectionChanged, IColl
     public bool Remove(T item)
     {
         bool success;
-
+        int index = 0;
         lock (_list)
+        {
+            index = _list.IndexOf(item);
             success = _list.Remove(item);
+        }
 
-        CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item));
+        if (success)
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
+
         return success;
     }
 

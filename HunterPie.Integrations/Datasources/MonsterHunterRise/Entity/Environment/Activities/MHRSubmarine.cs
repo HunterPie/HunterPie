@@ -63,14 +63,14 @@ public class MHRSubmarine : IEventDispatcher, IUpdatable<MHRSubmarineData>
     public event EventHandler<MHRSubmarine> OnDaysLeftChange
     {
         add => _onDaysLeftChange.Hook(value);
-        remove => _onItemCountChange.Unhook(value);
+        remove => _onDaysLeftChange.Unhook(value);
     }
 
     private readonly SmartEvent<MHRSubmarine> _onLockStateChange = new();
     public event EventHandler<MHRSubmarine> OnLockStateChange
     {
         add => _onLockStateChange.Hook(value);
-        remove => _onItemCountChange.Unhook(value);
+        remove => _onLockStateChange.Unhook(value);
     }
 
     void IUpdatable<MHRSubmarineData>.Update(MHRSubmarineData data)

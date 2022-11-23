@@ -1,6 +1,7 @@
-﻿using HunterPie.Core.Architecture.Collections;
-using HunterPie.Core.Logger;
+﻿using HunterPie.Core.Logger;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 
 namespace HunterPie.Core.Architecture.Events;
@@ -19,10 +20,14 @@ public class SmartEvent<TSource, TEventArgs> : ISmartEvent
     private readonly object _sync = new();
     private EventHandler<TEventArgs>? _event;
 
-    public ThreadSafeObservableCollection<MethodInfo> References { get; } = new();
+    public string Name { get; }
+
+    public List<MethodInfo> References { get; } = new();
 
     public SmartEvent()
     {
+        MethodBase? method = new StackTrace().GetFrame(2)?.GetMethod();
+        Name = method?.ReflectedType?.Name ?? "Unknown";
         SmartEventsTracker.Track(this);
     }
 

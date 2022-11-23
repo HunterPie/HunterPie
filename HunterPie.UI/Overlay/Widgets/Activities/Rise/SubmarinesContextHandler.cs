@@ -25,7 +25,6 @@ internal class SubmarinesContextHandler : IContextHandler
         foreach (MHRSubmarine submarine in Player.Argosy.Submarines)
         {
             if (!_submarineViewModels.ContainsKey(submarine))
-            {
                 _submarineViewModels[submarine] = new()
                 {
                     Count = submarine.Count,
@@ -33,7 +32,6 @@ internal class SubmarinesContextHandler : IContextHandler
                     DaysLeft = submarine.DaysLeft,
                     IsActive = submarine.IsUnlocked
                 };
-            }
 
             submarine.OnDaysLeftChange += OnDaysLeftChange;
             submarine.OnItemCountChange += OnItemCountChange;

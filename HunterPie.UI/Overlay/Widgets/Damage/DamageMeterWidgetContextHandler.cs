@@ -78,6 +78,10 @@ public class DamageMeterWidgetContextHandler : IContextHandler
         _context.Game.OnTimeElapsedChange -= OnTimeElapsedChange;
         _context.Game.Player.OnStageUpdate -= OnStageUpdate;
         _context.Game.OnDeathCountChange -= OnDeathCountChange;
+
+        foreach (IPartyMember member in _members.Keys.ToArray())
+            HandleRemoveMember(member);
+
         _ = WidgetManager.Unregister<MeterView, DamageMeterWidgetConfig>(_view);
     }
 
@@ -101,10 +105,8 @@ public class DamageMeterWidgetContextHandler : IContextHandler
             _members.Clear();
 
             if (_context.Game.Player.InHuntingZone)
-            {
                 foreach (IPartyMember member in _context.Game.Player.Party.Members)
                     HandleAddMember(member);
-            }
         });
     }
 
@@ -119,11 +121,9 @@ public class DamageMeterWidgetContextHandler : IContextHandler
             vm.Bar.Percentage = totalDamage > 0 ? member.Damage / totalDamage * 100 : 0;
 
             if (isTimerReset)
-            {
                 // If there is a timer reset, IGame.TimeElapsed may experience sudden change.
                 // This may occur when we are switching from local timer to game timer.
                 points.Clear();
-            }
 
             double newDps = CalculateDpsByConfiguredStrategy(memberInfo);
             vm.IsIncreasing = newDps > vm.DPS;

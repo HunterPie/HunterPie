@@ -31,6 +31,7 @@ internal class MeowcenariesContextHandler : IContextHandler
         _player.Meowmasters.OnDeployStateChange -= OnDeployStateChange;
         _player.Meowmasters.OnStepChange -= OnStepChange;
         _player.Meowmasters.OnBuddyCountChange -= OnBuddyCountChange;
+        _player.Meowmasters.OnExpectedOutcomeChange -= OnExpectedOutcomeChange;
     }
 
     private void UpdateData()
