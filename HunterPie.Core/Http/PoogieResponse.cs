@@ -68,7 +68,7 @@ public class PoogieResponse : IEventDispatcher, IDisposable
     {
         long totalBytes = (long)Content.Headers.ContentLength;
 
-        using Stream stream = await Content.ReadAsStreamAsync();
+        await using Stream stream = await Content.ReadAsStreamAsync();
         long totalBytesRead = 0;
         bool isMoreToRead = true;
         byte[] buffer = new byte[8192];
@@ -78,7 +78,7 @@ public class PoogieResponse : IEventDispatcher, IDisposable
             if (!Directory.Exists(path))
                 _ = Directory.CreateDirectory(Path.GetDirectoryName(path));
 
-            using var output = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None, buffer.Length, true);
+            await using var output = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None, buffer.Length, true);
 
             do
             {
@@ -103,7 +103,6 @@ public class PoogieResponse : IEventDispatcher, IDisposable
         catch (Exception err)
         {
             Log.Error(err.ToString());
-            return;
         }
     }
 

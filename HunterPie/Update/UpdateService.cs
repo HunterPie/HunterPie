@@ -30,7 +30,7 @@ internal class UpdateService
         return parsed;
     }
 
-    public async Task DownloadZip(EventHandler<PoogieDownloadEventArgs> callback) => await api.DownloadVersion(latest, callback);
+    public async Task<bool> DownloadZip(EventHandler<PoogieDownloadEventArgs> callback) => await api.DownloadVersion(latest, callback);
 
     public bool ExtractZip()
     {

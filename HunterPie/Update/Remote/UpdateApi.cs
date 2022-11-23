@@ -22,19 +22,21 @@ public class UpdateApi
         return response.Response?.LatestVersion;
     }
 
-    public async Task DownloadVersion(string version, EventHandler<PoogieDownloadEventArgs> callback)
+    public async Task<bool> DownloadVersion(string version, EventHandler<PoogieDownloadEventArgs> callback)
     {
         using PoogieResponse resp = await PoogieApi.DownloadVersion(version);
 
         if (!resp.Success)
-            return;
+            return false;
 
         if (resp.Status != HttpStatusCode.OK)
-            return;
+            return false;
 
         resp.OnDownloadProgressChanged += callback;
         await resp.Download(ClientInfo.GetPathFor(@"temp/HunterPie.zip"));
         resp.OnDownloadProgressChanged -= callback;
+
+        return true;
     }
 
     public async Task<Dictionary<string, string>> GetLocalizationsChecksum()
