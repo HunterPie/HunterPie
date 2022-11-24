@@ -378,6 +378,7 @@
             <Monster Id="97" String="Espinas"/>
             <Monster Id="98" String="Flaming Espinas"/>
             <Monster Id="108" String="Risen Chameleos"/>
+            <Monster Id="113" String="Chaotic Gore Magala"/>
         </Rise>
         <World>
             <Monster Id="0" String="Anjanath"/>
