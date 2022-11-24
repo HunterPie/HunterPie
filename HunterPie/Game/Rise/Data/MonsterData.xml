@@ -1256,5 +1256,24 @@
 				<Part Id="7" String="PART_WINGS" />
 			</Parts>
 		</Monster>
+	    <Monster Id="113"
+	             Size="1765.78">
+		    <Crowns Silver="1.11"
+		            Gold="1.17"/>
+		    <Weaknesses>
+			    <Weakness Name="Fire"/>
+			    <Weakness Name="Dragon"/>
+		    </Weaknesses>
+		    <Parts>
+			    <Part Id="0" String="PART_HEAD" />
+			    <Part Id="1" String="PART_TORSO" />
+			    <Part Id="2" String="PART_L_WING" />
+			    <Part Id="3" String="PART_R_WING" />
+			    <Part Id="4" String="PART_FORELEGS" />
+			    <Part Id="5" String="PART_H_LEGS" />
+			    <Part Id="6" String="PART_TAIL" />
+			    <Part Id="7" String="PART_ANTENNA" />
+		    </Parts>
+	    </Monster>
     </Monsters>
 </GameData>

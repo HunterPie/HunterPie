@@ -56,7 +56,7 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
                 FindPlayerSaveSlot();
 
                 this.Dispatch(
-                    value is ""
+                    value != ""
                         ? _onLogin
                         : _onLogout
                 );
