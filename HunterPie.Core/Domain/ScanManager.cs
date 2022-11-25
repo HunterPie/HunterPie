@@ -12,9 +12,9 @@ namespace HunterPie.Core.Domain;
 
 public static class ScanManager
 {
-    private static Thread thread;
-    private static CancellationTokenSource token = new();
-    private static readonly HashSet<Scannable> scannables = new();
+    private static Thread _thread;
+    private static CancellationTokenSource _token = new();
+    private static readonly HashSet<Scannable> Scannables = new();
 
     // Metrics
 
@@ -22,58 +22,59 @@ public static class ScanManager
 
     internal static void Start()
     {
-        if (thread is null)
+        if (_thread is not null)
+            return;
+
+        _thread = new Thread(() =>
         {
-            thread = new Thread(() =>
-            {
-                do
+            do
+                try
                 {
-                    try
-                    {
-                        var sw = Stopwatch.StartNew();
-                        Scan();
-                        sw.Stop();
-                        ScanTime.Value = sw.ElapsedMilliseconds;
+                    var sw = Stopwatch.StartNew();
+                    Scan();
+                    sw.Stop();
+                    ScanTime.Value = sw.ElapsedMilliseconds;
 
-                        if (token.IsCancellationRequested)
-                            break;
+                    if (_token.IsCancellationRequested)
+                        break;
 
-                        Thread.Sleep((int)ClientConfig.Config.Client.PollingRate.Current);
-                    }
-                    catch (Exception err)
-                    {
-                        // Logs the error if it came from a generic exception instead of a
-                        // cancel request
-                        Log.Error(err.ToString());
-                        continue;
-                    }
-                } while (true);
+                    Thread.Sleep((int)ClientConfig.Config.Client.PollingRate.Current);
+                }
+                catch (Exception err)
+                {
+                    // Logs the error if it came from a generic exception instead of a
+                    // cancel request
+                    Log.Error(err.ToString());
+                }
+            while (true);
 
-                token = new();
-            })
-            {
-                Name = "ScanManager",
-                IsBackground = true,
-                Priority = ThreadPriority.AboveNormal
-            };
-            thread.Start();
-        }
+            _token = new();
+        })
+        {
+            Name = "ScanManager",
+            IsBackground = true,
+            Priority = ThreadPriority.AboveNormal
+        };
+        _thread.Start();
     }
 
     internal static void Stop()
     {
-        if (thread is not null)
+        if (_thread is null)
+            return;
+
+        lock (Scannables)
         {
-            scannables.Clear();
-            token.Cancel();
-            thread = null;
+            Scannables.Clear();
+            _token.Cancel();
+            _thread = null;
         }
     }
 
     private static void Scan()
     {
 
-        Scannable[] readOnlyScannables = scannables.ToArray();
+        Scannable[] readOnlyScannables = Scannables.ToArray();
         var tasks = new Task[readOnlyScannables.Length];
 
         for (int i = 0; i < readOnlyScannables.Length; i++)
@@ -90,23 +91,23 @@ public static class ScanManager
 
     public static void Add(Scannable scannable)
     {
-        lock (scannables)
+        lock (Scannables)
         {
-            if (scannables.Contains(scannable))
+            if (Scannables.Contains(scannable))
                 return;
 
-            _ = scannables.Add(scannable);
+            _ = Scannables.Add(scannable);
         }
     }
 
     public static void Remove(Scannable scannable)
     {
-        lock (scannables)
+        lock (Scannables)
         {
-            if (!scannables.Contains(scannable))
+            if (!Scannables.Contains(scannable))
                 return;
 
-            _ = scannables.Remove(scannable);
+            _ = Scannables.Remove(scannable);
         }
     }
 }
