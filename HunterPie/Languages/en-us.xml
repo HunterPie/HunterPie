@@ -377,7 +377,9 @@
             <Monster Id="96" String="Gaismagorm"/>
             <Monster Id="97" String="Espinas"/>
             <Monster Id="98" String="Flaming Espinas"/>
+            <Monster Id="107" String="Risen Kushala Daora"/>
             <Monster Id="108" String="Risen Chameleos"/>
+            <Monster Id="109" String="Risen Teostra"/>
             <Monster Id="113" String="Chaotic Gore Magala"/>
         </Rise>
         <World>
