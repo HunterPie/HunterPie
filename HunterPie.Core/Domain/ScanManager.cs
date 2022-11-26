@@ -33,7 +33,7 @@ public static class ScanManager
                     var sw = Stopwatch.StartNew();
                     Scan();
                     sw.Stop();
-                    ScanTime.Value = sw.ElapsedMilliseconds;
+                    ScanTime.Value = sw.ElapsedTicks / (TimeSpan.TicksPerMillisecond / 1000);
 
                     if (_token.IsCancellationRequested)
                         break;

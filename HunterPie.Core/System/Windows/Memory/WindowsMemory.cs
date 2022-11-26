@@ -51,10 +51,14 @@ public class WindowsMemory : IMemory
     {
         foreach (int offset in offsets)
         {
-            long tmp = Read<long>(address);
+            long? cachedValue = _cache.Get<long>(address);
+            long tmp = cachedValue ?? Read<long>(address);
 
             if (tmp == NULLPTR)
                 return NULLPTR;
+
+            if (!cachedValue.HasValue)
+                _cache.Set(address, tmp, 10);
 
             address = tmp + offset;
         }
@@ -66,10 +70,15 @@ public class WindowsMemory : IMemory
     {
         foreach (int offset in offsets)
         {
-            long tmp = Read<long>(address + offset);
+            long newAddress = address + offset;
+            long? cachedValue = _cache.Get<long>(newAddress);
+            long tmp = cachedValue ?? Read<long>(newAddress);
 
             if (tmp == NULLPTR)
                 return NULLPTR;
+
+            if (!cachedValue.HasValue)
+                _cache.Set(newAddress, tmp, 10);
 
             address = tmp;
         }
