@@ -17,6 +17,7 @@ using HunterPie.Core.Native.IPC.Models.Common;
 using HunterPie.Integrations.Datasources.Common.Definition;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Activities;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Weapons;
@@ -43,6 +44,7 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     private int _masterRank;
     private IWeapon _weapon;
     private Weapon _weaponId = WeaponType.None;
+    private readonly Dictionary<int, MHREquipmentSkillStructure> _armorSkills = new(46);
     #endregion
 
     public string Name
@@ -141,6 +143,8 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             }
         }
     }
+
+    public Scroll SwitchScroll { get; private set; }
 
     #region Events
 
@@ -405,6 +409,32 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     }
 
     [ScannableMethod]
+    private void GetPlayerEquipmentSkills()
+    {
+        long armorSkillsPtr = Memory.Read(
+            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("PLAYER_GEAR_SKILLS_ARRAY_OFFSETS")
+        );
+
+        MHREquipmentSkillStructure[] armorSkills = Memory.ReadArrayOfPtrs<MHREquipmentSkillStructure>(armorSkillsPtr);
+
+        _armorSkills.Clear();
+
+        foreach (MHREquipmentSkillStructure skill in armorSkills)
+            if (skill.Id > 0)
+                _armorSkills.Add(skill.Id, skill);
+    }
+
+    [ScannableMethod]
+    private void GetPlayerSwitchState()
+    {
+        SwitchScroll = (Scroll)Memory.Deref<int>(
+            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("PLAYER_SWITCH_SCROLL_OFFSETS")
+        );
+    }
+
+    [ScannableMethod]
     private void GetConsumableAbnormalities()
     {
         if (!InHuntingZone)
@@ -624,6 +654,15 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             MaxPossibleHealth = petalace.Value.CalculateMaxPlayerHealth(),
             Heal = playerHud.Heal
         };
+
+        // For when Berserk skill is active
+        if (_armorSkills.ContainsKey(137) && SwitchScroll == Scroll.Blue)
+            healthData = healthData with
+            {
+                Health = 0,
+                RecoverableHealth = healthData.Health,
+                Heal = healthData.Heal > healthData.Health ? healthData.Heal : 0
+            };
 
         _health.Update(healthData);
 

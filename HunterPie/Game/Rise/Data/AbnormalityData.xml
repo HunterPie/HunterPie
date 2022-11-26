@@ -197,13 +197,13 @@
                      Icon="ICON_PALICO_BLUE"/>
         <Abnormality Id="ABN_RUBY_WIREBUG"
                      Offset="1A0"
-                     DependsOn="244"
+                     DependsOn="254"
                      WithValue="4"
                      Name="ABNORMALITY_RUBY_WIREBUG"
                      Icon="ICON_RUBY_WIREBUG"/>
         <Abnormality Id="ABN_GOLD_WIREBUG"
                      Offset="1A0"
-                     DependsOn="244"
+                     DependsOn="254"
                      WithValue="16"
                      Name="ABNORMALITY_GOLD_WIREBUG"
                      Icon="ICON_GOLD_WIREBUG"/>
