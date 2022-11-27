@@ -5,7 +5,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.NPC;
 
-public class MHRBuddy : IEventDispatcher, IUpdatable<MHRBuddyData>
+public class MHRBuddy : IEventDispatcher, IUpdatable<MHRBuddyData>, IDisposable
 {
     private string _name = string.Empty;
     private int _level;
@@ -54,5 +54,11 @@ public class MHRBuddy : IEventDispatcher, IUpdatable<MHRBuddyData>
     {
         Name = data.Name;
         Level = data.Level;
+    }
+
+    public void Dispose()
+    {
+        _onNameChange.Dispose();
+        _onLevelChange.Dispose();
     }
 }

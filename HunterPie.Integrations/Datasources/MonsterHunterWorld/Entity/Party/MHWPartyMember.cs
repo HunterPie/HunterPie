@@ -1,25 +1,24 @@
-using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Native.IPC.Models.Common;
+using HunterPie.Integrations.Datasources.Common.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Party;
 
-public class MHWPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHWPartyMemberData>, IUpdatable<EntityDamageData>
+public sealed class MHWPartyMember : CommonPartyMember, IUpdatable<MHWPartyMemberData>, IUpdatable<EntityDamageData>
 {
     private int _damage;
     private Weapon _weapon;
     private bool _anyNonTrivialStatisticalDamage;
 
-    public string Name { get; private set; } = string.Empty;
+    public override string Name { get; protected set; } = string.Empty;
 
-    public int Damage
+    public override int Damage
     {
         get => _damage;
-        private set
+        protected set
         {
             if (value != _damage)
             {
@@ -29,10 +28,10 @@ public class MHWPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHWPart
         }
     }
 
-    public Weapon Weapon
+    public override Weapon Weapon
     {
         get => _weapon;
-        private set
+        protected set
         {
             if (value != _weapon)
             {
@@ -42,32 +41,22 @@ public class MHWPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHWPart
         }
     }
 
-    public int Slot { get; private set; }
+    public override int Slot { get; protected set; }
 
-    public bool IsMyself { get; private set; }
+    public override bool IsMyself { get; protected set; }
 
-    public MemberType Type => MemberType.Player;
+    public override MemberType Type
+    {
+        get => MemberType.Player;
+        protected set => throw new NotSupportedException();
+    }
 
-    public int MasterRank { get; private set; }
+    public override int MasterRank { get; protected set; }
 
     internal void ResetDamage()
     {
         _damage = 0;
         _anyNonTrivialStatisticalDamage = false;
-    }
-
-    private readonly SmartEvent<IPartyMember> _onDamageDealt = new();
-    public event EventHandler<IPartyMember> OnDamageDealt
-    {
-        add => _onDamageDealt.Hook(value);
-        remove => _onDamageDealt.Unhook(value);
-    }
-
-    private readonly SmartEvent<IPartyMember> _onWeaponChange = new();
-    public event EventHandler<IPartyMember> OnWeaponChange
-    {
-        add => _onWeaponChange.Hook(value);
-        remove => _onWeaponChange.Unhook(value);
     }
 
     public void Update(MHWPartyMemberData data)

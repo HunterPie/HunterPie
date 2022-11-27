@@ -3,11 +3,12 @@ using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
 
-public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPartStructure>, IUpdatable<MHRQurioPartData>
+public sealed class MHRMonsterPart : CommonPart, IUpdatable<MHRPartStructure>, IUpdatable<MHRQurioPartData>
 {
     private float _qurioHealth;
     private float _health;
@@ -16,12 +17,12 @@ public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPart
     private PartType _type;
     private bool _isInQurio;
 
-    public string Id { get; }
+    public override string Id { get; protected set; }
 
-    public float Health
+    public override float Health
     {
         get => _health;
-        private set
+        protected set
         {
             if (value != _health)
             {
@@ -31,12 +32,12 @@ public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPart
         }
     }
 
-    public float MaxHealth { get; private set; }
+    public override float MaxHealth { get; protected set; }
 
-    public float Flinch
+    public override float Flinch
     {
         get => _flinch;
-        private set
+        protected set
         {
             if (value != _flinch)
             {
@@ -46,15 +47,15 @@ public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPart
         }
     }
 
-    public float MaxFlinch { get; private set; }
+    public override float MaxFlinch { get; protected set; }
 
-    public float Tenderize => 0;
-    public float MaxTenderize => 0;
+    public override float Tenderize { get; protected set; }
+    public override float MaxTenderize { get; protected set; }
 
-    public float Sever
+    public override float Sever
     {
         get => _sever;
-        private set
+        protected set
         {
             if (value != _sever)
             {
@@ -64,7 +65,7 @@ public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPart
         }
     }
 
-    public float MaxSever { get; private set; }
+    public override float MaxSever { get; protected set; }
 
     public float QurioHealth
     {
@@ -81,10 +82,10 @@ public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPart
 
     public float QurioMaxHealth { get; private set; }
 
-    public PartType Type
+    public override PartType Type
     {
         get => _type;
-        private set
+        protected set
         {
             if (value != _type)
             {
@@ -94,55 +95,13 @@ public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPart
         }
     }
 
-    public int Count => 0;
-
-    private readonly SmartEvent<IMonsterPart> _onHealthUpdate = new();
-    public event EventHandler<IMonsterPart> OnHealthUpdate
-    {
-        add => _onHealthUpdate.Hook(value);
-        remove => _onHealthUpdate.Unhook(value);
-    }
+    public override int Count { get; protected set; }
 
     private readonly SmartEvent<IMonsterPart> _onQurioHealthChange = new();
     public event EventHandler<IMonsterPart> OnQurioHealthChange
     {
         add => _onQurioHealthChange.Hook(value);
         remove => _onQurioHealthChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonsterPart> _onBreakCountUpdate = new();
-    public event EventHandler<IMonsterPart> OnBreakCountUpdate
-    {
-        add => _onBreakCountUpdate.Hook(value);
-        remove => _onBreakCountUpdate.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonsterPart> _onTenderizeUpdate = new();
-    public event EventHandler<IMonsterPart> OnTenderizeUpdate
-    {
-        add => _onTenderizeUpdate.Hook(value);
-        remove => _onTenderizeUpdate.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonsterPart> _onFlinchUpdate = new();
-    public event EventHandler<IMonsterPart> OnFlinchUpdate
-    {
-        add => _onFlinchUpdate.Hook(value);
-        remove => _onFlinchUpdate.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonsterPart> _onSeverUpdate = new();
-    public event EventHandler<IMonsterPart> OnSeverUpdate
-    {
-        add => _onSeverUpdate.Hook(value);
-        remove => _onSeverUpdate.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonsterPart> _onPartTypeChange = new();
-    public event EventHandler<IMonsterPart> OnPartTypeChange
-    {
-        add => _onPartTypeChange.Hook(value);
-        remove => _onPartTypeChange.Unhook(value);
     }
 
     public MHRMonsterPart(string id)
@@ -195,5 +154,11 @@ public class MHRMonsterPart : IMonsterPart, IEventDispatcher, IUpdatable<MHRPart
             Type = PartType.Breakable;
         else if (structure.MaxFlinch > 0)
             Type = PartType.Flinch;
+    }
+
+    public override void Dispose()
+    {
+        _onQurioHealthChange.Dispose();
+        base.Dispose();
     }
 }

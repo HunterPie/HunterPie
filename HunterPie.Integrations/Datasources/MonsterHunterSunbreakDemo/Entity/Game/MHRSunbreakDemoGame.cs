@@ -1,21 +1,18 @@
 ﻿using HunterPie.Core.Address.Map;
-using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
-using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
-using HunterPie.Core.Game.Entity.Game;
 using HunterPie.Core.Game.Entity.Game.Chat;
 using HunterPie.Core.Game.Entity.Player;
-using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
+using HunterPie.Integrations.Datasources.Common.Entity.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo.Entity.Player;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo.Entity.Game;
 
-public class MHRSunbreakDemoGame : Scannable, IGame, IEventDispatcher
+public class MHRSunbreakDemoGame : CommonGame
 {
     private const uint MaximumMonsterArraySize = 5;
 
@@ -23,50 +20,30 @@ public class MHRSunbreakDemoGame : Scannable, IGame, IEventDispatcher
     private readonly Dictionary<long, IMonster> _monsters = new();
     private readonly MHRSunbreakDemoPlayer _player;
 
-    public IPlayer Player => _player;
-    public List<IMonster> Monsters { get; } = new();
-    public bool IsHudOpen { get; set; }
+    public override IPlayer Player => _player;
+    public override List<IMonster> Monsters { get; } = new();
+    public override bool IsHudOpen { get; protected set; }
 
-    public IChat Chat => throw new NotImplementedException();
-    public float TimeElapsed => throw new NotImplementedException();
-    public int MaxDeaths => throw new NotImplementedException();
-    public int Deaths => throw new NotImplementedException();
-    public IAbnormalityCategorizationService AbnormalityCategorizationService => throw new NotImplementedException();
-
-    private readonly SmartEvent<IMonster> _onMonsterSpawn = new();
-    public event EventHandler<IMonster> OnMonsterSpawn
+    public override IChat Chat => throw new NotImplementedException();
+    public override float TimeElapsed
     {
-        add => _onMonsterSpawn.Hook(value);
-        remove => _onMonsterSpawn.Unhook(value);
+        get => throw new NotImplementedException();
+        protected set => throw new NotImplementedException();
     }
 
-    private readonly SmartEvent<IMonster> _onMonsterDespawn = new();
-    public event EventHandler<IMonster> OnMonsterDespawn
+    public override int MaxDeaths
     {
-        add => _onMonsterDespawn.Hook(value);
-        remove => _onMonsterDespawn.Unhook(value);
+        get => throw new NotImplementedException();
+        protected set => throw new NotImplementedException();
     }
 
-    private readonly SmartEvent<IGame> _onHudStateChange = new();
-    public event EventHandler<IGame> OnHudStateChange
+    public override int Deaths
     {
-        add => _onHudStateChange.Hook(value);
-        remove => _onHudStateChange.Unhook(value);
+        get => throw new NotImplementedException();
+        protected set => throw new NotImplementedException();
     }
 
-    private readonly SmartEvent<TimeElapsedChangeEventArgs> _onTimeElapsedChange = new();
-    public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange
-    {
-        add => _onTimeElapsedChange.Hook(value);
-        remove => _onTimeElapsedChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<IGame> _onDeathCountChange = new();
-    public event EventHandler<IGame> OnDeathCountChange
-    {
-        add => _onDeathCountChange.Hook(value);
-        remove => _onDeathCountChange.Unhook(value);
-    }
+    public override IAbnormalityCategorizationService AbnormalityCategorizationService => throw new NotImplementedException();
 
     public MHRSunbreakDemoGame(IProcessManager process) : base(process)
     {
@@ -126,13 +103,15 @@ public class MHRSunbreakDemoGame : Scannable, IGame, IEventDispatcher
 
     private void HandleMonsterDespawn(long address)
     {
-        IMonster monster = _monsters[address];
+        if (_monsters[address] is not MHRSunbreakDemoMonster monster)
+            return;
+
         _ = _monsters.Remove(address);
         _ = Monsters.Remove(monster);
-        ScanManager.Remove(monster as Scannable);
+        ScanManager.Remove(monster);
 
         this.Dispatch(_onMonsterDespawn, monster);
-    }
 
-    public void Dispose() { }
+        monster.Dispose();
+    }
 }

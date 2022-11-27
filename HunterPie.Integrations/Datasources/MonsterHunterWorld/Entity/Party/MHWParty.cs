@@ -1,50 +1,40 @@
-using HunterPie.Core.Architecture.Events;
-using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Native.IPC.Models.Common;
+using HunterPie.Integrations.Datasources.Common.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Party;
 
-public class MHWParty : IParty, IEventDispatcher
+public sealed class MHWParty : CommonParty
 {
-    public const int MaximumSize = 4;
+    public const int MAXIMUM_SIZE = 4;
 
-    private readonly Dictionary<long, MHWPartyMember> _partyMembers = new(MaximumSize);
+    private readonly Dictionary<long, MHWPartyMember> _partyMembers = new(MAXIMUM_SIZE);
 
-    public int Size
+    public override int Size
     {
         get
         {
             lock (_partyMembers)
                 return _partyMembers.Count;
         }
+        protected set => throw new NotSupportedException();
     }
 
-    public int MaxSize => MaximumSize;
+    public override int MaxSize
+    {
+        get => MAXIMUM_SIZE;
+        protected set => throw new NotSupportedException();
+    }
 
-    public List<IPartyMember> Members
+    public override List<IPartyMember> Members
     {
         get
         {
             lock (_partyMembers)
                 return _partyMembers.Values.ToList<IPartyMember>();
         }
-    }
-
-    private readonly SmartEvent<IPartyMember> _onMemberJoin = new();
-    public event EventHandler<IPartyMember> OnMemberJoin
-    {
-        add => _onMemberJoin.Hook(value);
-        remove => _onMemberJoin.Unhook(value);
-    }
-
-    private readonly SmartEvent<IPartyMember> _onMemberLeave = new();
-    public event EventHandler<IPartyMember> OnMemberLeave
-    {
-        add => _onMemberLeave.Hook(value);
-        remove => _onMemberLeave.Unhook(value);
     }
 
     public void Update(long memberAddress, MHWPartyMemberData data)
@@ -90,5 +80,7 @@ public class MHWParty : IParty, IEventDispatcher
                 return;
 
         this.Dispatch(_onMemberLeave, member);
+
+        member.Dispose();
     }
 }

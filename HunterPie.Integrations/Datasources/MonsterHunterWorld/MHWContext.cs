@@ -15,9 +15,4 @@ public sealed class MHWContext : Context
         Game = new MHWGame(process);
         Process = process;
     }
-
-    public override void Dispose()
-    {
-        Game.Dispose();
-    }
 }

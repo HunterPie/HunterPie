@@ -1,25 +1,24 @@
-﻿using HunterPie.Core.Architecture.Events;
-using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data.Schemas;
-using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 
 // TODO: Make this a generic Abnormality
-public class MHRDebuffAbnormality : IAbnormality, IUpdatable<MHRDebuffStructure>, IEventDispatcher
+public sealed class MHRDebuffAbnormality : CommonAbnormality, IUpdatable<MHRDebuffStructure>
 {
     private float _timer;
 
-    public string Id { get; }
-    public string Icon { get; }
-    public AbnormalityType Type { get; }
-    public float Timer
+    public override string Id { get; protected set; }
+    public override string Icon { get; protected set; }
+    public override AbnormalityType Type { get; protected set; }
+    public override float Timer
     {
         get => _timer;
-        private set
+        protected set
         {
             if (_timer != value)
             {
@@ -28,18 +27,10 @@ public class MHRDebuffAbnormality : IAbnormality, IUpdatable<MHRDebuffStructure>
             }
         }
     }
-    public float MaxTimer { get; private set; }
-    public bool IsInfinite => false;
-    public int Level => 0;
-
-    public bool IsBuildup { get; }
-
-    private readonly SmartEvent<IAbnormality> _onTimerUpdate = new();
-    public event EventHandler<IAbnormality> OnTimerUpdate
-    {
-        add => _onTimerUpdate.Hook(value);
-        remove => _onTimerUpdate.Unhook(value);
-    }
+    public override float MaxTimer { get; protected set; }
+    public override bool IsInfinite { get; protected set; }
+    public override int Level { get; protected set; }
+    public override bool IsBuildup { get; protected set; }
 
     public MHRDebuffAbnormality(AbnormalitySchema data)
     {

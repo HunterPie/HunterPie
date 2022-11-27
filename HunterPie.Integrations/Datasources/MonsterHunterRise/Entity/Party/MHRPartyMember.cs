@@ -1,24 +1,23 @@
-﻿using HunterPie.Core.Architecture.Events;
-using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Native.IPC.Models.Common;
+using HunterPie.Integrations.Datasources.Common.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Party;
 
-public class MHRPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHRPartyMemberData>, IUpdatable<EntityDamageData>
+public sealed class MHRPartyMember : CommonPartyMember, IUpdatable<MHRPartyMemberData>, IUpdatable<EntityDamageData>
 {
     private int _damage;
     private Weapon _weapon;
 
-    public string Name { get; private set; }
+    public override string Name { get; protected set; }
 
-    public int Damage
+    public override int Damage
     {
         get => _damage;
-        private set
+        protected set
         {
             if (value != _damage)
             {
@@ -28,10 +27,10 @@ public class MHRPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHRPart
         }
     }
 
-    public Weapon Weapon
+    public override Weapon Weapon
     {
         get => _weapon;
-        private set
+        protected set
         {
             if (value != _weapon)
             {
@@ -41,26 +40,12 @@ public class MHRPartyMember : IPartyMember, IEventDispatcher, IUpdatable<MHRPart
         }
     }
 
-    public int Slot { get; private set; }
+    public override int Slot { get; protected set; }
 
-    public bool IsMyself { get; private set; } = true;
-    public MemberType Type { get; private set; }
+    public override bool IsMyself { get; protected set; } = true;
+    public override MemberType Type { get; protected set; }
 
-    public int MasterRank { get; private set; }
-
-    private readonly SmartEvent<IPartyMember> _onDamageDealt = new();
-    public event EventHandler<IPartyMember> OnDamageDealt
-    {
-        add => _onDamageDealt.Hook(value);
-        remove => _onDamageDealt.Unhook(value);
-    }
-
-    private readonly SmartEvent<IPartyMember> _onWeaponChange = new();
-    public event EventHandler<IPartyMember> OnWeaponChange
-    {
-        add => _onWeaponChange.Hook(value);
-        remove => _onWeaponChange.Unhook(value);
-    }
+    public override int MasterRank { get; protected set; }
 
     public MHRPartyMember() { }
 

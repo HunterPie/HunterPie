@@ -7,7 +7,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
 
-public class MHWSpecializedTool : ISpecializedTool, IEventDispatcher, IUpdatable<MHWSpecializedToolStructure>
+public class MHWSpecializedTool : ISpecializedTool, IEventDispatcher, IUpdatable<MHWSpecializedToolStructure>, IDisposable
 {
     private SpecializedToolType _id;
     private float _cooldown;
@@ -84,5 +84,12 @@ public class MHWSpecializedTool : ISpecializedTool, IEventDispatcher, IUpdatable
         Timer = data.Timer;
         MaxCooldown = data.MaxCooldown;
         Cooldown = data.Cooldown;
+    }
+
+    public void Dispose()
+    {
+        _onCooldownUpdate.Dispose();
+        _onTimerUpdate.Dispose();
+        _onChange.Dispose();
     }
 }

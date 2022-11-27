@@ -1,25 +1,29 @@
-﻿using HunterPie.Core.Architecture.Events;
-using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data.Schemas;
-using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 
-public class MHRConsumableAbnormality : IAbnormality, IUpdatable<MHRConsumableStructure>, IEventDispatcher
+public sealed class MHRConsumableAbnormality : CommonAbnormality, IUpdatable<MHRConsumableStructure>
 {
     private float _timer;
 
-    public string Id { get; }
-    public string Icon { get; }
-    public AbnormalityType Type => AbnormalityType.Consumable;
+    public override string Id { get; protected set; }
+    public override string Icon { get; protected set; }
 
-    public float Timer
+    public override AbnormalityType Type
+    {
+        get => AbnormalityType.Consumable;
+        protected set => throw new NotSupportedException();
+    }
+
+    public override float Timer
     {
         get => _timer;
-        private set
+        protected set
         {
             if (_timer != value)
             {
@@ -29,18 +33,11 @@ public class MHRConsumableAbnormality : IAbnormality, IUpdatable<MHRConsumableSt
         }
     }
 
-    public float MaxTimer { get; private set; }
-    public bool IsInfinite { get; }
-    public int Level => 0;
+    public override float MaxTimer { get; protected set; }
+    public override bool IsInfinite { get; protected set; }
+    public override int Level { get; protected set; }
 
-    public bool IsBuildup => false;
-
-    private readonly SmartEvent<IAbnormality> _onTimerUpdate = new();
-    public event EventHandler<IAbnormality> OnTimerUpdate
-    {
-        add => _onTimerUpdate.Hook(value);
-        remove => _onTimerUpdate.Unhook(value);
-    }
+    public override bool IsBuildup { get; protected set; }
 
     public MHRConsumableAbnormality(AbnormalitySchema data)
     {

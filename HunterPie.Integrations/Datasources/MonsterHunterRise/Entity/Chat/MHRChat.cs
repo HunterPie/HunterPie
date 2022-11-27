@@ -1,20 +1,20 @@
-﻿using HunterPie.Core.Architecture.Events;
-using HunterPie.Core.Domain.Interfaces;
-using HunterPie.Core.Extensions;
+﻿using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Game.Chat;
+using HunterPie.Integrations.Datasources.Common.Entity.Chat;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Chat;
 
-public class MHRChat : IChat, IEventDispatcher
+public class MHRChat : CommonChat
 {
     private bool _isChatOpen;
     private readonly Dictionary<long, MHRChatMessage> _messages = new();
-    public List<IChatMessage> Messages => _messages.Values.ToList<IChatMessage>();
 
-    public bool IsChatOpen
+    public override List<IChatMessage> Messages => _messages.Values.ToList<IChatMessage>();
+
+    public override bool IsChatOpen
     {
         get => _isChatOpen;
-        internal set
+        protected set
         {
             if (value != _isChatOpen)
             {
@@ -22,20 +22,6 @@ public class MHRChat : IChat, IEventDispatcher
                 this.Dispatch(_onChatOpen, this);
             }
         }
-    }
-
-    private readonly SmartEvent<IChatMessage> _onNewChatMessage = new();
-    public event EventHandler<IChatMessage> OnNewChatMessage
-    {
-        add => _onNewChatMessage.Hook(value);
-        remove => _onNewChatMessage.Unhook(value);
-    }
-
-    private readonly SmartEvent<IChat> _onChatOpen = new();
-    public event EventHandler<IChat> OnChatOpen
-    {
-        add => _onChatOpen.Hook(value);
-        remove => _onChatOpen.Unhook(value);
     }
 
     internal bool ContainsMessage(long messageAddress) => _messages.ContainsKey(messageAddress);
@@ -49,4 +35,6 @@ public class MHRChat : IChat, IEventDispatcher
 
         this.Dispatch(_onNewChatMessage, message);
     }
+
+    internal void SetChatState(bool isOpen) => IsChatOpen = isOpen;
 }

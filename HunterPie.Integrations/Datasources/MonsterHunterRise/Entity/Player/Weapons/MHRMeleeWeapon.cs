@@ -1,29 +1,26 @@
 ﻿using HunterPie.Core.Address.Map;
-using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
-using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Entity;
-using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
+using HunterPie.Integrations.Datasources.Common.Entity.Player.Weapons;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Weapons;
-public class MHRMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
+public class MHRMeleeWeapon : CommonMeleeWeapon
 {
     private long _weaponSharpnessPointer;
     private Sharpness _sharpness;
     private int _currentSharpness;
 
-    public Weapon Id { get; }
+    public override Weapon Id { get; }
 
-    public Sharpness Sharpness
+    public override Sharpness Sharpness
     {
         get => _sharpness;
-        private set
+        protected set
         {
             if (value != _sharpness)
             {
@@ -33,10 +30,10 @@ public class MHRMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
         }
     }
 
-    public int CurrentSharpness
+    public override int CurrentSharpness
     {
         get => _currentSharpness;
-        private set
+        protected set
         {
             if (value != _currentSharpness)
             {
@@ -46,26 +43,11 @@ public class MHRMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
         }
     }
 
-    public int[] SharpnessThresholds { get; private set; }
+    public override int[]? SharpnessThresholds { get; protected set; }
 
-    public int MaxSharpness { get; private set; }
+    public override int MaxSharpness { get; protected set; }
 
-    public int Threshold { get; set; }
-
-    private readonly SmartEvent<SharpnessEventArgs> _onSharpnessChange = new();
-    public event EventHandler<SharpnessEventArgs> OnSharpnessChange
-    {
-        add => _onSharpnessChange.Hook(value);
-        remove => _onSharpnessChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<SharpnessEventArgs> _onSharpnessLevelChange = new();
-    public event EventHandler<SharpnessEventArgs> OnSharpnessLevelChange
-    {
-        add => _onSharpnessLevelChange.Hook(value);
-        remove => _onSharpnessLevelChange.Unhook(value);
-    }
-
+    public override int Threshold { get; protected set; }
 
     public MHRMeleeWeapon(IProcessManager process, Weapon id) : base(process)
     {
@@ -101,12 +83,12 @@ public class MHRMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
         CurrentSharpness = structure.Hits;
     }
 
-    private static int[] CalculateThresholds(int[] sharpnesses)
+    private static int[] CalculateThresholds(IReadOnlyList<int> sharpnesses)
     {
-        int[] thresholds = new int[sharpnesses.Length];
+        int[] thresholds = new int[sharpnesses.Count];
 
         int sum = 0;
-        for (int i = 0; i < sharpnesses.Length; i++)
+        for (int i = 0; i < sharpnesses.Count; i++)
         {
             if (sharpnesses[i] == 0)
                 continue;
@@ -118,23 +100,5 @@ public class MHRMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher
         return thresholds;
     }
 
-    private static int CalculateCurrentThreshold(Sharpness currentLevel, int[] thresholds)
-    {
-        Sharpness previousLevel = currentLevel - 1;
 
-        if (previousLevel <= Sharpness.Broken)
-            return 0;
-
-        return thresholds[(int)previousLevel];
-    }
-
-    private static int CalculateMaxThreshold(Sharpness currentLevel, int[] thresholds, int maxHits)
-    {
-        int nextLevel = (int)currentLevel + 1;
-
-        if (nextLevel > (int)Sharpness.Purple || thresholds[nextLevel] == 0)
-            return maxHits;
-
-        return thresholds[(int)currentLevel];
-    }
 }

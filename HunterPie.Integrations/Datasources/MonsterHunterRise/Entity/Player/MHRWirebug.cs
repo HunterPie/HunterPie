@@ -5,7 +5,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 
-public class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasStructure>, IUpdatable<MHRWirebugData>
+public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasStructure>, IUpdatable<MHRWirebugData>, IDisposable
 {
     private double _timer;
     private double _cooldown;
@@ -107,5 +107,12 @@ public class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasStructure
         IsBlocked = data.IsBlocked;
         MaxCooldown = data.Structure.MaxCooldown;
         Cooldown = data.Structure.Cooldown;
+    }
+
+    public void Dispose()
+    {
+        IDisposable[] events = { _onTimerUpdate, _onCooldownUpdate, _onAvailable, _onBlockedStateChange };
+
+        events.DisposeAll();
     }
 }

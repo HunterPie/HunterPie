@@ -1,22 +1,22 @@
-﻿using HunterPie.Core.Architecture.Events;
-using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Entity.Enemy;
+using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enemy;
 
-public class MHWMonsterAilment : IMonsterAilment, IEventDispatcher, IUpdatable<MHWMonsterStatusStructure>, IUpdatable<MHWMonsterAilmentStructure>
+public sealed class MHWMonsterAilment : CommonAilment, IUpdatable<MHWMonsterStatusStructure>, IUpdatable<MHWMonsterAilmentStructure>
 {
     private int _counter;
     private float _timer;
     private float _buildup;
 
-    public string Id { get; }
-    public int Counter
+    public override string Id { get; protected set; }
+
+    public override int Counter
     {
         get => _counter;
-        private set
+        protected set
         {
             if (value != _counter)
             {
@@ -25,10 +25,11 @@ public class MHWMonsterAilment : IMonsterAilment, IEventDispatcher, IUpdatable<M
             }
         }
     }
-    public float Timer
+
+    public override float Timer
     {
         get => _timer;
-        private set
+        protected set
         {
             if (value != _timer)
             {
@@ -37,11 +38,12 @@ public class MHWMonsterAilment : IMonsterAilment, IEventDispatcher, IUpdatable<M
             }
         }
     }
-    public float MaxTimer { get; private set; }
-    public float BuildUp
+
+    public override float MaxTimer { get; protected set; }
+    public override float BuildUp
     {
         get => _buildup;
-        private set
+        protected set
         {
             if (value != _buildup)
             {
@@ -50,28 +52,8 @@ public class MHWMonsterAilment : IMonsterAilment, IEventDispatcher, IUpdatable<M
             }
         }
     }
-    public float MaxBuildUp { get; private set; }
 
-    private readonly SmartEvent<IMonsterAilment> _onTimerUpdate = new();
-    public event EventHandler<IMonsterAilment> OnTimerUpdate
-    {
-        add => _onTimerUpdate.Hook(value);
-        remove => _onTimerUpdate.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonsterAilment> _onBuildUpUpdate = new();
-    public event EventHandler<IMonsterAilment> OnBuildUpUpdate
-    {
-        add => _onBuildUpUpdate.Hook(value);
-        remove => _onBuildUpUpdate.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonsterAilment> _onCounterUpdate = new();
-    public event EventHandler<IMonsterAilment> OnCounterUpdate
-    {
-        add => _onCounterUpdate.Hook(value);
-        remove => _onCounterUpdate.Unhook(value);
-    }
+    public override float MaxBuildUp { get; protected set; }
 
     public MHWMonsterAilment(string ailmentId)
     {

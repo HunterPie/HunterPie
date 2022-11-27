@@ -17,7 +17,9 @@ public class PercentageToRelativeSizeConverter : IMultiValueConverter
             double max = Math.Max(1, Converter.ToDouble(values[1]));
             double relativeSize = Converter.ToDouble(values[2]);
 
-            return current / max * relativeSize;
+            double result = current / max * relativeSize;
+
+            return result < 0 ? 0 : result;
         }
         catch (Exception)
         {

@@ -1,5 +1,4 @@
 ﻿using HunterPie.Core.Address.Map;
-using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
@@ -9,11 +8,12 @@ using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Logger;
+using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enemy;
 
-public class MHWMonster : Scannable, IMonster, IEventDispatcher
+public class MHWMonster : CommonMonster
 {
     #region Private
     private readonly long _address;
@@ -31,10 +31,10 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
     private List<(long, MHWMonsterAilment)> _ailments;
     #endregion
 
-    public int Id
+    public override int Id
     {
         get => _id;
-        private set
+        protected set
         {
             if (value != _id)
             {
@@ -46,14 +46,14 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 
-    public string Em { get; private set; }
+    public string Em { get; }
 
-    public string Name => MHWContext.Strings.GetMonsterNameById(Id);
+    public override string Name => MHWContext.Strings.GetMonsterNameById(Id);
 
-    public float Health
+    public override float Health
     {
         get => _health;
-        private set
+        protected set
         {
             if (value != _health)
             {
@@ -66,12 +66,12 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 
-    public float MaxHealth { get; private set; }
+    public override float MaxHealth { get; protected set; }
 
-    public float Stamina
+    public override float Stamina
     {
         get => _stamina;
-        private set
+        protected set
         {
             if (value != _stamina)
             {
@@ -81,12 +81,12 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 
-    public float MaxStamina { get; private set; }
+    public override float MaxStamina { get; protected set; }
 
-    public bool IsTarget
+    public override bool IsTarget
     {
         get => _isTarget;
-        private set
+        protected set
         {
             if (_isTarget != value)
             {
@@ -96,17 +96,18 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 
-    public IMonsterPart[] Parts => _parts?
+    public override IMonsterPart[] Parts => _parts?
                                     .Select(v => v.Item2)
                                     .ToArray<IMonsterPart>() ?? Array.Empty<IMonsterPart>();
 
-    public IMonsterAilment[] Ailments => _ailments?
+    public override IMonsterAilment[] Ailments => _ailments?
                                           .Select(a => a.Item2)
                                           .ToArray<IMonsterAilment>() ?? Array.Empty<IMonsterAilment>();
-    public Target Target
+
+    public override Target Target
     {
         get => _target;
-        private set
+        protected set
         {
             if (_target != value)
             {
@@ -116,10 +117,10 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 
-    public Crown Crown
+    public override Crown Crown
     {
         get => _crown;
-        private set
+        protected set
         {
             if (_crown != value)
             {
@@ -129,10 +130,10 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 
-    public bool IsEnraged
+    public override bool IsEnraged
     {
         get => _isEnraged;
-        private set
+        protected set
         {
             if (value != _isEnraged)
             {
@@ -142,15 +143,15 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 
-    public IMonsterAilment Enrage => _enrage;
+    public override IMonsterAilment Enrage => _enrage;
 
     private readonly List<Element> _weaknesses = new();
-    public Element[] Weaknesses => _weaknesses.ToArray();
+    public override Element[] Weaknesses => _weaknesses.ToArray();
 
-    public float CaptureThreshold
+    public override float CaptureThreshold
     {
         get => _captureThreshold;
-        private set
+        protected set
         {
             if (value != _captureThreshold)
             {
@@ -158,118 +159,6 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
                 this.Dispatch(_onCaptureThresholdChange, this);
             }
         }
-    }
-
-    private readonly SmartEvent<EventArgs> _onSpawn = new();
-    public event EventHandler<EventArgs> OnSpawn
-    {
-        add => _onSpawn.Hook(value);
-        remove => _onSpawn.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onLoad = new();
-    public event EventHandler<EventArgs> OnLoad
-    {
-        add => _onLoad.Hook(value);
-        remove => _onLoad.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onDespawn = new();
-    public event EventHandler<EventArgs> OnDespawn
-    {
-        add => _onDespawn.Hook(value);
-        remove => _onDespawn.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onDeath = new();
-    public event EventHandler<EventArgs> OnDeath
-    {
-        add => _onDeath.Hook(value);
-        remove => _onDeath.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onCapture = new();
-    public event EventHandler<EventArgs> OnCapture
-    {
-        add => _onCapture.Hook(value);
-        remove => _onCapture.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onTarget = new();
-    public event EventHandler<EventArgs> OnTarget
-    {
-        add => _onTarget.Hook(value);
-        remove => _onTarget.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onCrownChange = new();
-    public event EventHandler<EventArgs> OnCrownChange
-    {
-        add => _onCrownChange.Hook(value);
-        remove => _onCrownChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onHealthChange = new();
-    public event EventHandler<EventArgs> OnHealthChange
-    {
-        add => _onHealthChange.Hook(value);
-        remove => _onHealthChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onStaminaChange = new();
-    public event EventHandler<EventArgs> OnStaminaChange
-    {
-        add => _onStaminaChange.Hook(value);
-        remove => _onStaminaChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onActionChange = new();
-    public event EventHandler<EventArgs> OnActionChange
-    {
-        add => _onActionChange.Hook(value);
-        remove => _onActionChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onEnrageStateChange = new();
-    public event EventHandler<EventArgs> OnEnrageStateChange
-    {
-        add => _onEnrageStateChange.Hook(value);
-        remove => _onEnrageStateChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onTargetChange = new();
-    public event EventHandler<EventArgs> OnTargetChange
-    {
-        add => _onTargetChange.Hook(value);
-        remove => _onTargetChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonsterPart> _onNewPartFound = new();
-    public event EventHandler<IMonsterPart> OnNewPartFound
-    {
-        add => _onNewPartFound.Hook(value);
-        remove => _onNewPartFound.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonsterAilment> _onNewAilmentFound = new();
-    public event EventHandler<IMonsterAilment> OnNewAilmentFound
-    {
-        add => _onNewAilmentFound.Hook(value);
-        remove => _onNewAilmentFound.Unhook(value);
-    }
-
-    private readonly SmartEvent<Element[]> _onWeaknessesChange = new();
-    public event EventHandler<Element[]> OnWeaknessesChange
-    {
-        add => _onWeaknessesChange.Hook(value);
-        remove => _onWeaknessesChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonster> _onCaptureThresholdChange = new();
-    public event EventHandler<IMonster> OnCaptureThresholdChange
-    {
-        add => _onCaptureThresholdChange.Hook(value);
-        remove => _onCaptureThresholdChange.Unhook(value);
     }
 
     public MHWMonster(IProcessManager process, long address, string em) : base(process)
@@ -534,13 +423,26 @@ public class MHWMonster : Scannable, IMonster, IEventDispatcher
             return;
         }
 
-        for (int i = 0; i < _ailments.Count; i++)
+        foreach ((long, MHWMonsterAilment) value in _ailments)
         {
-            (long address, MHWMonsterAilment ailment) = _ailments[i];
+            (long address, MHWMonsterAilment ailment) = value;
 
             MHWMonsterAilmentStructure structure = Process.Memory.Read<MHWMonsterAilmentStructure>(address + 0x148);
             IUpdatable<MHWMonsterAilmentStructure> updatable = ailment;
             updatable.Update(structure);
         }
+    }
+
+    public override void Dispose()
+    {
+        _enrage.Dispose();
+
+        _parts.Select(it => it.Item2)
+            .DisposeAll();
+
+        _ailments.Select(it => it.Item2)
+            .DisposeAll();
+
+        base.Dispose();
     }
 }

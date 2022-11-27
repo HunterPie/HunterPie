@@ -1,11 +1,12 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Player.Vitals;
 using HunterPie.Core.Game.Events;
 using HunterPie.Integrations.Datasources.Common.Definition;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
-public class StaminaComponent : IStaminaComponent, IEventDispatcher, IUpdatable<StaminaData>
+public class StaminaComponent : IStaminaComponent, IEventDispatcher, IUpdatable<StaminaData>, IDisposable
 {
     private double _current;
     private double _max;
@@ -20,7 +21,7 @@ public class StaminaComponent : IStaminaComponent, IEventDispatcher, IUpdatable<
             if (value != _current)
             {
                 _current = value;
-                this.Dispatch(OnStaminaChange, new StaminaChangeEventArgs(this));
+                this.Dispatch(_onStaminaChange, new StaminaChangeEventArgs(this));
             }
         }
     }
@@ -33,7 +34,7 @@ public class StaminaComponent : IStaminaComponent, IEventDispatcher, IUpdatable<
             if (value != _max)
             {
                 _max = value;
-                this.Dispatch(OnStaminaChange, new StaminaChangeEventArgs(this));
+                this.Dispatch(_onStaminaChange, new StaminaChangeEventArgs(this));
             }
         }
     }
@@ -46,7 +47,7 @@ public class StaminaComponent : IStaminaComponent, IEventDispatcher, IUpdatable<
             if (value != _maxRecoverableStamina)
             {
                 _maxRecoverableStamina = value;
-                this.Dispatch(OnStaminaChange, new StaminaChangeEventArgs(this));
+                this.Dispatch(_onStaminaChange, new StaminaChangeEventArgs(this));
             }
         }
     }
@@ -59,12 +60,17 @@ public class StaminaComponent : IStaminaComponent, IEventDispatcher, IUpdatable<
             if (value != _maxPossibleStamina)
             {
                 _maxPossibleStamina = value;
-                this.Dispatch(OnStaminaChange, new StaminaChangeEventArgs(this));
+                this.Dispatch(_onStaminaChange, new StaminaChangeEventArgs(this));
             }
         }
     }
 
-    public event EventHandler<StaminaChangeEventArgs>? OnStaminaChange;
+    protected readonly SmartEvent<StaminaChangeEventArgs> _onStaminaChange = new();
+    public event EventHandler<StaminaChangeEventArgs> OnStaminaChange
+    {
+        add => _onStaminaChange.Hook(value);
+        remove => _onStaminaChange.Unhook(value);
+    }
 
     public void Update(StaminaData data)
     {
@@ -72,5 +78,10 @@ public class StaminaComponent : IStaminaComponent, IEventDispatcher, IUpdatable<
         Current = data.Stamina;
         MaxRecoverableStamina = data.MaxRecoverableStamina;
         MaxPossibleStamina = data.MaxPossibleStamina;
+    }
+
+    public virtual void Dispose()
+    {
+        _onStaminaChange.Dispose();
     }
 }

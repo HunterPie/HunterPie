@@ -1,5 +1,4 @@
 ﻿using HunterPie.Core.Address.Map;
-using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.DTO;
 using HunterPie.Core.Domain.DTO.Monster;
@@ -10,13 +9,14 @@ using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Logger;
+using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
 using System.Runtime.CompilerServices;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo.Entity.Enemy;
 
-public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
+public sealed class MHRSunbreakDemoMonster : CommonMonster
 {
     private readonly long _address;
 
@@ -32,10 +32,10 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
     private readonly Dictionary<long, MHRMonsterAilment> _ailments = new();
     private readonly List<Element> _weaknesses = new();
 
-    public int Id
+    public override int Id
     {
         get => _id;
-        private set
+        protected set
         {
             if (_id != value)
             {
@@ -47,12 +47,12 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 
-    public string Name => MHRSunbreakDemoContext.Strings.GetMonsterNameById(Id);
+    public override string Name => MHRSunbreakDemoContext.Strings.GetMonsterNameById(Id);
 
-    public float Health
+    public override float Health
     {
         get => _health;
-        private set
+        protected set
         {
             if (_health != value)
             {
@@ -65,12 +65,12 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 
-    public float MaxHealth { get; private set; }
+    public override float MaxHealth { get; protected set; }
 
-    public float Stamina
+    public override float Stamina
     {
         get => _stamina;
-        private set
+        protected set
         {
             if (value != _stamina)
             {
@@ -80,12 +80,12 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 
-    public float MaxStamina { get; private set; }
+    public override float MaxStamina { get; protected set; }
 
-    public bool IsTarget
+    public override bool IsTarget
     {
         get => _isTarget;
-        private set
+        protected set
         {
             if (_isTarget != value)
             {
@@ -95,10 +95,10 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 
-    public Target Target
+    public override Target Target
     {
         get => _target;
-        private set
+        protected set
         {
             if (_target != value)
             {
@@ -108,10 +108,10 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 
-    public Crown Crown
+    public override Crown Crown
     {
         get => _crown;
-        private set
+        protected set
         {
             if (_crown != value)
             {
@@ -121,13 +121,13 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 
-    public IMonsterPart[] Parts => _parts.Values.ToArray();
-    public IMonsterAilment[] Ailments => _ailments.Values.ToArray();
+    public override IMonsterPart[] Parts => _parts.Values.ToArray();
+    public override IMonsterAilment[] Ailments => _ailments.Values.ToArray();
 
-    public bool IsEnraged
+    public override bool IsEnraged
     {
         get => _isEnraged;
-        private set
+        protected set
         {
             if (value != _isEnraged)
             {
@@ -137,123 +137,11 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
         }
     }
 
-    public IMonsterAilment Enrage => _enrage;
+    public override IMonsterAilment Enrage => _enrage;
 
-    public Element[] Weaknesses => _weaknesses.ToArray();
+    public override Element[] Weaknesses => _weaknesses.ToArray();
 
-    public float CaptureThreshold => 0;
-
-    private readonly SmartEvent<EventArgs> _onSpawn = new();
-    public event EventHandler<EventArgs> OnSpawn
-    {
-        add => _onSpawn.Hook(value);
-        remove => _onSpawn.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onLoad = new();
-    public event EventHandler<EventArgs> OnLoad
-    {
-        add => _onLoad.Hook(value);
-        remove => _onLoad.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onDespawn = new();
-    public event EventHandler<EventArgs> OnDespawn
-    {
-        add => _onDespawn.Hook(value);
-        remove => _onDespawn.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onDeath = new();
-    public event EventHandler<EventArgs> OnDeath
-    {
-        add => _onDeath.Hook(value);
-        remove => _onDeath.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onCapture = new();
-    public event EventHandler<EventArgs> OnCapture
-    {
-        add => _onCapture.Hook(value);
-        remove => _onCapture.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onTarget = new();
-    public event EventHandler<EventArgs> OnTarget
-    {
-        add => _onTarget.Hook(value);
-        remove => _onTarget.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onCrownChange = new();
-    public event EventHandler<EventArgs> OnCrownChange
-    {
-        add => _onCrownChange.Hook(value);
-        remove => _onCrownChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onHealthChange = new();
-    public event EventHandler<EventArgs> OnHealthChange
-    {
-        add => _onHealthChange.Hook(value);
-        remove => _onHealthChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onStaminaChange = new();
-    public event EventHandler<EventArgs> OnStaminaChange
-    {
-        add => _onStaminaChange.Hook(value);
-        remove => _onStaminaChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onActionChange = new();
-    public event EventHandler<EventArgs> OnActionChange
-    {
-        add => _onActionChange.Hook(value);
-        remove => _onActionChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onEnrageStateChange = new();
-    public event EventHandler<EventArgs> OnEnrageStateChange
-    {
-        add => _onEnrageStateChange.Hook(value);
-        remove => _onEnrageStateChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onTargetChange = new();
-    public event EventHandler<EventArgs> OnTargetChange
-    {
-        add => _onTargetChange.Hook(value);
-        remove => _onTargetChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonsterPart> _onNewPartFound = new();
-    public event EventHandler<IMonsterPart> OnNewPartFound
-    {
-        add => _onNewPartFound.Hook(value);
-        remove => _onNewPartFound.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonsterAilment> _onNewAilmentFound = new();
-    public event EventHandler<IMonsterAilment> OnNewAilmentFound
-    {
-        add => _onNewAilmentFound.Hook(value);
-        remove => _onNewAilmentFound.Unhook(value);
-    }
-
-    private readonly SmartEvent<Element[]> _onWeaknessesChange = new();
-    public event EventHandler<Element[]> OnWeaknessesChange
-    {
-        add => _onWeaknessesChange.Hook(value);
-        remove => _onWeaknessesChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonster> _onCaptureThresholdChange = new();
-    public event EventHandler<IMonster> OnCaptureThresholdChange
-    {
-        add => _onCaptureThresholdChange.Hook(value);
-        remove => _onCaptureThresholdChange.Unhook(value);
-    }
+    public override float CaptureThreshold { get; protected set; } = 0f;
 
     public MHRSunbreakDemoMonster(IProcessManager process, long address) : base(process)
     {
@@ -418,5 +306,14 @@ public class MHRSunbreakDemoMonster : Scannable, IMonster, IEventDispatcher
             IUpdatable<MHRPartStructure> monsterPart = _parts[flinchPart];
             monsterPart.Update(partInfo);
         }
+    }
+
+    public override void Dispose()
+    {
+        _parts.Values.DisposeAll();
+        _ailments.Values.DisposeAll();
+        _parts.Clear();
+        _ailments.Clear();
+        base.Dispose();
     }
 }

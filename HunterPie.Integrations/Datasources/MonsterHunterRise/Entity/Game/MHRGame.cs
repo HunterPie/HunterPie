@@ -1,11 +1,9 @@
-﻿using HunterPie.Core.Address.Map;
-using HunterPie.Core.Architecture.Events;
+﻿
+using HunterPie.Core.Address.Map;
 using HunterPie.Core.Domain;
-using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
-using HunterPie.Core.Game.Entity.Game;
 using HunterPie.Core.Game.Entity.Game.Chat;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Enums;
@@ -15,6 +13,7 @@ using HunterPie.Core.Native.IPC.Handlers.Internal.Damage;
 using HunterPie.Core.Native.IPC.Handlers.Internal.Damage.Models;
 using HunterPie.Core.Native.IPC.Models.Common;
 using HunterPie.Integrations.Datasources.Common;
+using HunterPie.Integrations.Datasources.Common.Entity.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Chat;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
@@ -25,7 +24,7 @@ using System.Text;
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Game;
 
 #pragma warning disable IDE0051 // Remove unused private members
-public class MHRGame : Scannable, IGame, IEventDispatcher
+public sealed class MHRGame : CommonGame
 {
     public const uint MAXIMUM_MONSTER_ARRAY_SIZE = 5;
     public const int TRAINING_ROOM_ID = 5;
@@ -41,15 +40,15 @@ public class MHRGame : Scannable, IGame, IEventDispatcher
     private readonly Dictionary<long, IMonster> _monsters = new();
     private readonly Dictionary<long, EntityDamageData[]> _damageDone = new();
 
-    public IPlayer Player => _player;
-    public List<IMonster> Monsters { get; } = new();
+    public override IPlayer Player => _player;
+    public override List<IMonster> Monsters { get; } = new();
 
-    public IChat Chat => _chat;
+    public override IChat Chat => _chat;
 
-    public bool IsHudOpen
+    public override bool IsHudOpen
     {
         get => _isHudOpen;
-        private set
+        protected set
         {
             if (value != _isHudOpen)
             {
@@ -59,10 +58,10 @@ public class MHRGame : Scannable, IGame, IEventDispatcher
         }
     }
 
-    public float TimeElapsed
+    public override float TimeElapsed
     {
         get => _timeElapsed;
-        private set
+        protected set
         {
             if (value != _timeElapsed)
             {
@@ -74,10 +73,10 @@ public class MHRGame : Scannable, IGame, IEventDispatcher
         }
     }
 
-    public int MaxDeaths
+    public override int MaxDeaths
     {
         get => _maxDeaths;
-        private set
+        protected set
         {
             if (value != _maxDeaths)
             {
@@ -87,10 +86,10 @@ public class MHRGame : Scannable, IGame, IEventDispatcher
         }
     }
 
-    public int Deaths
+    public override int Deaths
     {
         get => _deaths;
-        private set
+        protected set
         {
             if (value != _deaths)
             {
@@ -100,42 +99,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher
         }
     }
 
-    public IAbnormalityCategorizationService AbnormalityCategorizationService { get; } = new MHRAbnormalityCategorizationService();
-
-    private readonly SmartEvent<IMonster> _onMonsterSpawn = new();
-    public event EventHandler<IMonster> OnMonsterSpawn
-    {
-        add => _onMonsterSpawn.Hook(value);
-        remove => _onMonsterSpawn.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonster> _onMonsterDespawn = new();
-    public event EventHandler<IMonster> OnMonsterDespawn
-    {
-        add => _onMonsterDespawn.Hook(value);
-        remove => _onMonsterDespawn.Unhook(value);
-    }
-
-    private readonly SmartEvent<IGame> _onHudStateChange = new();
-    public event EventHandler<IGame> OnHudStateChange
-    {
-        add => _onHudStateChange.Hook(value);
-        remove => _onHudStateChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<TimeElapsedChangeEventArgs> _onTimeElapsedChange = new();
-    public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange
-    {
-        add => _onTimeElapsedChange.Hook(value);
-        remove => _onTimeElapsedChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<IGame> _onDeathCountChange = new();
-    public event EventHandler<IGame> OnDeathCountChange
-    {
-        add => _onDeathCountChange.Hook(value);
-        remove => _onDeathCountChange.Unhook(value);
-    }
+    public override IAbnormalityCategorizationService AbnormalityCategorizationService { get; } = new MHRAbnormalityCategorizationService();
 
     public MHRGame(IProcessManager process) : base(process)
     {
@@ -155,10 +119,11 @@ public class MHRGame : Scannable, IGame, IEventDispatcher
         _player.OnStageUpdate += OnPlayerStageUpdate;
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
         DamageMessageHandler.OnReceived -= OnReceivePlayersDamage;
         _player.OnStageUpdate -= OnPlayerStageUpdate;
+        base.Dispose();
     }
 
     [ScannableMethod]
@@ -204,7 +169,7 @@ public class MHRGame : Scannable, IGame, IEventDispatcher
                 AddressMap.Get<int[]>("CHAT_UI_OFFSETS")
             ) == 1;
 
-        _chat.IsChatOpen = isChatOpen;
+        _chat.SetChatState(isChatOpen);
     }
 
     [ScannableMethod]
@@ -311,23 +276,28 @@ public class MHRGame : Scannable, IGame, IEventDispatcher
         if (monsterAddress == 0 || _monsters.ContainsKey(monsterAddress))
             return;
 
-        IMonster monster = new MHRMonster(Process, monsterAddress);
+        var monster = new MHRMonster(Process, monsterAddress);
         _monsters.Add(monsterAddress, monster);
         Monsters.Add(monster);
-        ScanManager.Add(monster as Scannable);
+        ScanManager.Add(monster);
 
         this.Dispatch(_onMonsterSpawn, monster);
     }
 
     private void HandleMonsterDespawn(long address)
     {
-        IMonster monster = _monsters[address];
+        if (_monsters[address] is not MHRMonster monster)
+            return;
+
         _ = _monsters.Remove(address);
         _ = _damageDone.Remove(address);
         _ = Monsters.Remove(monster);
-        ScanManager.Remove(monster as Scannable);
+        ScanManager.Remove(monster);
+
 
         this.Dispatch(_onMonsterDespawn, monster);
+
+        monster.Dispose();
     }
 
     #region Damage helpers

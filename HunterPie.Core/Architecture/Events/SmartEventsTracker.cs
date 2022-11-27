@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace HunterPie.Core.Architecture.Events;
 #nullable enable
-internal class SmartEventsTracker
+public class SmartEventsTracker
 {
     private static SmartEventsTracker? _instance;
     public static SmartEventsTracker Instance => _instance ??= new SmartEventsTracker();
 
-    public List<ISmartEvent> TrackedEvents { get; } = new();
+    public readonly HashSet<ISmartEvent> TrackedEvents = new();
 
     public static void Track(ISmartEvent smartEvent)
     {
@@ -40,5 +40,8 @@ internal class SmartEventsTracker
 
             @event.Dispose();
         }
+
+        lock (Instance.TrackedEvents)
+            Instance.TrackedEvents.Clear();
     }
 }

@@ -1,8 +1,15 @@
-﻿namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Activities;
+﻿using HunterPie.Core.Extensions;
 
-public class MHRArgosy
+namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Activities;
+
+public class MHRArgosy : IDisposable
 {
     public MHRSubmarine[] Submarines { get; } = {
         new(), new(), new()
     };
+
+    public void Dispose()
+    {
+        Submarines.DisposeAll();
+    }
 }

@@ -24,4 +24,5 @@ public partial class MonstersView : View<MonstersViewModel>, IWidget<MonsterWidg
     IWidgetSettings IWidgetWindow.Settings => Settings;
 
     public event EventHandler<WidgetType> OnWidgetTypeChange;
+
 }
