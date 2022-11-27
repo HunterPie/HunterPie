@@ -15,6 +15,7 @@ using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Utils;
 using HunterPie.Core.Native.IPC.Models.Common;
 using HunterPie.Integrations.Datasources.Common.Definition;
+using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
@@ -28,7 +29,7 @@ using WeaponType = HunterPie.Core.Game.Enums.Weapon;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 
-public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
+public sealed class MHRPlayer : CommonPlayer
 {
     #region Private
     private int _saveSlotId;
@@ -47,10 +48,10 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     private readonly Dictionary<int, MHREquipmentSkillStructure> _armorSkills = new(46);
     #endregion
 
-    public string Name
+    public override string Name
     {
         get => _name;
-        private set
+        protected set
         {
             if (value != _name)
             {
@@ -66,10 +67,10 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         }
     }
 
-    public int HighRank
+    public override int HighRank
     {
         get => _highRank;
-        private set
+        protected set
         {
             if (value != _highRank)
             {
@@ -79,10 +80,10 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         }
     }
 
-    public int MasterRank
+    public override int MasterRank
     {
         get => _masterRank;
-        private set
+        protected set
         {
             if (value != _masterRank)
             {
@@ -92,10 +93,10 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         }
     }
 
-    public int StageId
+    public override int StageId
     {
         get => _stageId;
-        private set
+        protected set
         {
             if (value != _stageId)
             {
@@ -110,15 +111,35 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         }
     }
 
-    public bool InHuntingZone => _stageData.IsHuntingZone() || StageId == 5;
+    public override bool InHuntingZone
+    {
+        get => _stageData.IsHuntingZone() || StageId == 5;
+        protected set => throw new NotImplementedException();
+    }
 
-    public IParty Party => _party;
+    public override IParty Party
+    {
+        get => _party;
+        protected set => throw new NotImplementedException();
+    }
 
-    public IReadOnlyCollection<IAbnormality> Abnormalities => _abnormalities.Values;
+    public override IReadOnlyCollection<IAbnormality> Abnormalities
+    {
+        get => _abnormalities.Values;
+        protected set => throw new NotImplementedException();
+    }
 
-    public IHealthComponent Health => _health;
+    public override IHealthComponent Health
+    {
+        get => _health;
+        protected set => throw new NotImplementedException();
+    }
 
-    public IStaminaComponent Stamina => _stamina;
+    public override IStaminaComponent Stamina
+    {
+        get => _stamina;
+        protected set => throw new NotImplementedException();
+    }
 
     public MHRWirebug[] Wirebugs { get; } = { new(), new(), new() };
 
@@ -130,10 +151,10 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
 
     public MHRCohoot Cohoot { get; } = new();
 
-    public IWeapon Weapon
+    public override IWeapon Weapon
     {
         get => _weapon;
-        private set
+        protected set
         {
             if (value != _weapon)
             {
@@ -148,95 +169,11 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
 
     #region Events
 
-    private readonly SmartEvent<EventArgs> _onLogin = new();
-    public event EventHandler<EventArgs> OnLogin
-    {
-        add => _onLogin.Hook(value);
-        remove => _onLogin.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onLogout = new();
-    public event EventHandler<EventArgs> OnLogout
-    {
-        add => _onLogout.Hook(value);
-        remove => _onLogout.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onDeath = new();
-    public event EventHandler<EventArgs> OnDeath
-    {
-        add => _onDeath.Hook(value);
-        remove => _onDeath.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onActionUpdate = new();
-    public event EventHandler<EventArgs> OnActionUpdate
-    {
-        add => _onActionUpdate.Hook(value);
-        remove => _onActionUpdate.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onStageUpdate = new();
-    public event EventHandler<EventArgs> OnStageUpdate
-    {
-        add => _onStageUpdate.Hook(value);
-        remove => _onStageUpdate.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onVillageEnter = new();
-    public event EventHandler<EventArgs> OnVillageEnter
-    {
-        add => _onVillageEnter.Hook(value);
-        remove => _onVillageEnter.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onVillageLeave = new();
-    public event EventHandler<EventArgs> OnVillageLeave
-    {
-        add => _onVillageLeave.Hook(value);
-        remove => _onVillageLeave.Unhook(value);
-    }
-
-    private readonly SmartEvent<EventArgs> _onAilmentUpdate = new();
-    public event EventHandler<EventArgs> OnAilmentUpdate
-    {
-        add => _onAilmentUpdate.Hook(value);
-        remove => _onAilmentUpdate.Unhook(value);
-    }
-
-    private readonly SmartEvent<WeaponChangeEventArgs> _onWeaponChange = new();
-    public event EventHandler<WeaponChangeEventArgs> OnWeaponChange
-    {
-        add => _onWeaponChange.Hook(value);
-        remove => _onWeaponChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<IAbnormality> _onAbnormalityStart = new();
-    public event EventHandler<IAbnormality> OnAbnormalityStart
-    {
-        add => _onAbnormalityStart.Hook(value);
-        remove => _onAbnormalityStart.Unhook(value);
-    }
-
-    private readonly SmartEvent<IAbnormality> _onAbnormalityEnd = new();
-    public event EventHandler<IAbnormality> OnAbnormalityEnd
-    {
-        add => _onAbnormalityEnd.Hook(value);
-        remove => _onAbnormalityEnd.Unhook(value);
-    }
-
     private readonly SmartEvent<MHRWirebug[]> _onWirebugsRefresh = new();
     public event EventHandler<MHRWirebug[]> OnWirebugsRefresh
     {
         add => _onWirebugsRefresh.Hook(value);
         remove => _onWirebugsRefresh.Unhook(value);
-    }
-
-    private readonly SmartEvent<LevelChangeEventArgs> _onLevelChange = new();
-    public event EventHandler<LevelChangeEventArgs> OnLevelChange
-    {
-        add => _onLevelChange.Hook(value);
-        remove => _onLevelChange.Unhook(value);
     }
 
     #endregion
@@ -365,7 +302,7 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
         if (Weapon is Scannable scannable)
             ScanManager.Remove(scannable);
 
-        IWeapon? weaponInstance = null;
+        IWeapon? weaponInstance;
         if (weapon.IsMelee())
         {
             var meleeWeapon = new MHRMeleeWeapon(Process, weapon);
@@ -386,12 +323,22 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
                     weaponInstance = new MHRLightBowgun();
                     break;
                 case WeaponType.None:
+                case WeaponType.Greatsword:
+                case WeaponType.SwordAndShield:
+                case WeaponType.DualBlades:
+                case WeaponType.Longsword:
+                case WeaponType.Hammer:
+                case WeaponType.HuntingHorn:
+                case WeaponType.Lance:
+                case WeaponType.GunLance:
+                case WeaponType.SwitchAxe:
+                case WeaponType.ChargeBlade:
+                case WeaponType.InsectGlaive:
                 default:
                     return;
             }
 
-        if (weaponInstance is not null)
-            Weapon = weaponInstance;
+        Weapon = weaponInstance;
 
         _weaponId = weapon;
     }
@@ -467,7 +414,12 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
 
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
-            HandleAbnormality<MHRConsumableAbnormality, MHRConsumableStructure>(schema, abnormality.Timer, abnormality);
+            HandleAbnormality<MHRConsumableAbnormality, MHRConsumableStructure>(
+                _abnormalities,
+                schema,
+                abnormality.Timer,
+                abnormality
+            );
         }
     }
 
@@ -504,7 +456,12 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
 
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
-            HandleAbnormality<MHRDebuffAbnormality, MHRDebuffStructure>(schema, abnormality.Timer, abnormality);
+            HandleAbnormality<MHRDebuffAbnormality, MHRDebuffStructure>(
+                _abnormalities,
+                schema,
+                abnormality.Timer,
+                abnormality
+            );
         }
     }
 
@@ -864,7 +821,7 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
 
         int membersCount = playerAddresses.Count(address => address != 0x0);
 
-        _party.Size = membersCount;
+        _party.SetSize(membersCount);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -896,7 +853,12 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             AbnormalitySchema maybeSchema = schemas[id];
 
             if (maybeSchema is AbnormalitySchema schema)
-                HandleAbnormality<MHRSongAbnormality, MHRHHAbnormality>(schema, abnormality.Timer, abnormality);
+                HandleAbnormality<MHRSongAbnormality, MHRHHAbnormality>(
+                    _abnormalities,
+                    schema,
+                    abnormality.Timer,
+                    abnormality
+                );
 
             id++;
         }
@@ -909,38 +871,6 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
             this.Dispatch(_onAbnormalityEnd, abnormality);
 
         _abnormalities.Clear();
-    }
-
-    private void HandleAbnormality<T, S>(AbnormalitySchema schema, float timer, S newData)
-        where T : IAbnormality, IUpdatable<S>
-        where S : struct
-    {
-        if (_abnormalities.ContainsKey(schema.Id) && timer <= 0)
-        {
-            var abnorm = (IUpdatable<S>)_abnormalities[schema.Id];
-
-            abnorm.Update(newData);
-
-            _ = _abnormalities.Remove(schema.Id);
-            this.Dispatch(_onAbnormalityEnd, (IAbnormality)abnorm);
-        }
-        else if (_abnormalities.ContainsKey(schema.Id) && timer > 0)
-        {
-
-            var abnorm = (IUpdatable<S>)_abnormalities[schema.Id];
-            abnorm.Update(newData);
-        }
-        else if (!_abnormalities.ContainsKey(schema.Id) && timer > 0)
-        {
-            if (schema.Icon == "ICON_MISSING")
-                Core.Logger.Log.Info($"Missing abnormality: {schema.Id}");
-
-            var abnorm = (IUpdatable<S>)Activator.CreateInstance(typeof(T), schema);
-
-            _abnormalities.Add(schema.Id, (IAbnormality)abnorm);
-            abnorm.Update(newData);
-            this.Dispatch(_onAbnormalityStart, (IAbnormality)abnorm);
-        }
     }
 
     private MHRPetalaceStatsStructure? GetEquippedPetalaceStats()
@@ -974,6 +904,16 @@ public sealed class MHRPlayer : Scannable, IPlayer, IEventDispatcher
     {
         foreach (EntityDamageData entity in entities)
             _party.Update(entity);
+    }
 
+    public override void Dispose()
+    {
+        Wirebugs.DisposeAll();
+        Argosy.Dispose();
+        TrainingDojo.Dispose();
+        Meowmasters.Dispose();
+        Cohoot.Dispose();
+        _onWirebugsRefresh.Dispose();
+        base.Dispose();
     }
 }

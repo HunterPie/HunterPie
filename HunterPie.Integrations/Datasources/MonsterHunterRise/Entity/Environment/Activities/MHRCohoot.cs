@@ -5,7 +5,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Activities;
 
-public class MHRCohoot : IEventDispatcher, IUpdatable<MHRCohootStructure>
+public class MHRCohoot : IEventDispatcher, IUpdatable<MHRCohootStructure>, IDisposable
 {
     private int _kamuraCount;
     private int _elgadoCount;
@@ -56,5 +56,11 @@ public class MHRCohoot : IEventDispatcher, IUpdatable<MHRCohootStructure>
     {
         ElgadoCount = data.ElgadoCount;
         KamuraCount = data.KamuraCount;
+    }
+
+    public void Dispose()
+    {
+        _onKamuraCountChange.Dispose();
+        _onElgadoCountChange.Dispose();
     }
 }

@@ -28,6 +28,7 @@ public class SmartEvent<TSource, TEventArgs> : ISmartEvent
     {
         MethodBase? method = new StackTrace().GetFrame(2)?.GetMethod();
         Name = method?.ReflectedType?.Name ?? "Unknown";
+
         SmartEventsTracker.Track(this);
     }
 
@@ -68,10 +69,25 @@ public class SmartEvent<TSource, TEventArgs> : ISmartEvent
         }
     }
 
+    private void UnhookAll()
+    {
+        lock (_sync)
+        {
+            if (_event is null)
+                return;
+
+            foreach (EventHandler<TEventArgs> sub in _event.GetInvocationList())
+            {
+                _event -= sub;
+                References.Remove(sub.Method);
+            }
+        }
+    }
+
     public void Dispose()
     {
+        UnhookAll();
         SmartEventsTracker.Untrack(this);
-        GC.SuppressFinalize(this);
     }
 }
 

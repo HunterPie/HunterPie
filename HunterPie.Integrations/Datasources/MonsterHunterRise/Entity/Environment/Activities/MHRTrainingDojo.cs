@@ -6,7 +6,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.NP
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Activities;
 
-public class MHRTrainingDojo : IEventDispatcher, IUpdatable<MHRTrainingDojoData>
+public class MHRTrainingDojo : IEventDispatcher, IUpdatable<MHRTrainingDojoData>, IDisposable
 {
     private int _rounds;
     private int _boosts;
@@ -91,5 +91,13 @@ public class MHRTrainingDojo : IEventDispatcher, IUpdatable<MHRTrainingDojoData>
         MaxBoosts = data.MaxBoosts;
         Boosts = data.Boosts;
 
+    }
+
+    public void Dispose()
+    {
+        Buddies.DisposeAll();
+        _onRoundsLeftChange.Dispose();
+        _onBoostsLeftChange.Dispose();
+        _onBuddyCountChange.Dispose();
     }
 }

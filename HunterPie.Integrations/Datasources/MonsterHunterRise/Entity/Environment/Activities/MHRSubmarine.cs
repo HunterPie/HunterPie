@@ -5,7 +5,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Activities;
 
-public class MHRSubmarine : IEventDispatcher, IUpdatable<MHRSubmarineData>
+public class MHRSubmarine : IEventDispatcher, IUpdatable<MHRSubmarineData>, IDisposable
 {
     private int _count;
     private int _daysLeft;
@@ -79,5 +79,12 @@ public class MHRSubmarine : IEventDispatcher, IUpdatable<MHRSubmarineData>
         MaxCount = data.Items.Length;
         Count = data.Items.Count(item => item.IsNotEmpty());
         IsUnlocked = data.Data.Buddy != 0;
+    }
+
+    public void Dispose()
+    {
+        _onItemCountChange.Dispose();
+        _onDaysLeftChange.Dispose();
+        _onLockStateChange.Dispose();
     }
 }

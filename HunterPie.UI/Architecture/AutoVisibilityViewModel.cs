@@ -10,8 +10,8 @@ namespace HunterPie.UI.Architecture;
 public class AutoVisibilityViewModel : ViewModel, IDisposable
 {
     private const int MILLISECOND = 1000;
-    private readonly Range Timeout;
-    private Timer _timer;
+    private readonly Range _timeout;
+    private readonly Timer _timer;
 
     private bool _isActive;
 
@@ -19,8 +19,8 @@ public class AutoVisibilityViewModel : ViewModel, IDisposable
 
     public AutoVisibilityViewModel(Range timeout)
     {
-        Timeout = timeout;
-        _timer = new(Timeout.Current * MILLISECOND)
+        _timeout = timeout;
+        _timer = new(_timeout.Current * MILLISECOND)
         {
             AutoReset = true,
         };
@@ -33,7 +33,7 @@ public class AutoVisibilityViewModel : ViewModel, IDisposable
     private void SetupHooks()
     {
         _timer.Elapsed += OnTimerElapsed;
-        Timeout.PropertyChanged += OnTimeoutValueChanged;
+        _timeout.PropertyChanged += OnTimeoutValueChanged;
     }
 
     private void OnTimerElapsed(object sender, ElapsedEventArgs e)
@@ -56,7 +56,7 @@ public class AutoVisibilityViewModel : ViewModel, IDisposable
 
     private void OnTimeoutValueChanged(object sender, PropertyChangedEventArgs e)
     {
-        _timer.Interval = Timeout.Current * MILLISECOND;
+        _timer.Interval = _timeout.Current * MILLISECOND;
         RefreshTimer();
     }
 
@@ -71,10 +71,9 @@ public class AutoVisibilityViewModel : ViewModel, IDisposable
 
     public virtual void Dispose()
     {
+        _timer.Close();
         _timer.Elapsed -= OnTimerElapsed;
         _timer.Dispose();
-        _timer = null;
-        Timeout.PropertyChanged -= OnTimeoutValueChanged;
-        GC.SuppressFinalize(this);
+        _timeout.PropertyChanged -= OnTimeoutValueChanged;
     }
 }

@@ -5,7 +5,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Activities;
 
-public class MHRMeowmasters : IEventDispatcher, IUpdatable<MHRMeowmasterData>
+public class MHRMeowmasters : IEventDispatcher, IUpdatable<MHRMeowmasterData>, IDisposable
 {
     private int _step;
     private int _expectedOutcome;
@@ -106,5 +106,13 @@ public class MHRMeowmasters : IEventDispatcher, IUpdatable<MHRMeowmasterData>
         HasLagniapple = data.IsLagniappleActive;
         ExpectedOutcome = data.BuddiesCount + (HasLagniapple ? 1 : 0);
         IsDeployed = data.IsDeployed;
+    }
+
+    public void Dispose()
+    {
+        _onStepChange.Dispose();
+        _onDeployStateChange.Dispose();
+        _onExpectedOutcomeChange.Dispose();
+        _onBuddyCountChange.Dispose();
     }
 }

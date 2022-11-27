@@ -1,26 +1,29 @@
-﻿using HunterPie.Core.Architecture.Events;
-using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data.Schemas;
-using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 
-public class MHRSongAbnormality : IAbnormality, IUpdatable<MHRHHAbnormality>, IEventDispatcher
+public sealed class MHRSongAbnormality : CommonAbnormality, IUpdatable<MHRHHAbnormality>
 {
 
     private float _timer;
 
-    public string Id { get; private set; }
-    public string Name { get; private set; }
-    public string Icon { get; private set; }
-    public AbnormalityType Type => AbnormalityType.Song;
-    public float Timer
+    public override string Id { get; protected set; }
+    public override string Icon { get; protected set; }
+
+    public override AbnormalityType Type
+    {
+        get => AbnormalityType.Song;
+        protected set => throw new NotSupportedException();
+    }
+    public override float Timer
     {
         get => _timer;
-        private set
+        protected set
         {
             if (_timer != value)
             {
@@ -29,23 +32,14 @@ public class MHRSongAbnormality : IAbnormality, IUpdatable<MHRHHAbnormality>, IE
             }
         }
     }
-    public float MaxTimer { get; private set; }
-    public bool IsInfinite { get; private set; }
-    public int Level { get; private set; }
-
-    public bool IsBuildup { get; private set; }
-
-    private readonly SmartEvent<IAbnormality> _onTimerUpdate = new();
-    public event EventHandler<IAbnormality> OnTimerUpdate
-    {
-        add => _onTimerUpdate.Hook(value);
-        remove => _onTimerUpdate.Unhook(value);
-    }
+    public override float MaxTimer { get; protected set; }
+    public override bool IsInfinite { get; protected set; }
+    public override int Level { get; protected set; }
+    public override bool IsBuildup { get; protected set; }
 
     public MHRSongAbnormality(AbnormalitySchema schema)
     {
         Id = schema.Id;
-        Name = schema.Name;
         Icon = schema.Icon;
         IsBuildup = schema.IsBuildup;
     }

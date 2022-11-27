@@ -15,6 +15,4 @@ public sealed class MHRContext : Context
         Game = new MHRGame(process);
         Process = process;
     }
-
-    public override void Dispose() => Game.Dispose();
 }

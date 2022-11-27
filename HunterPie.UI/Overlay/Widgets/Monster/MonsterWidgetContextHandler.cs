@@ -8,7 +8,6 @@ using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Monster.Views;
 using System;
 using System.Linq;
-using System.Windows;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster;
 
@@ -54,12 +53,21 @@ public class MonsterWidgetContextHandler : IContextHandler
     {
         _context.Game.OnMonsterSpawn -= OnMonsterSpawn;
         _context.Game.OnMonsterDespawn -= OnMonsterDespawn;
+
+        _view.Dispatcher.Invoke(() =>
+        {
+            foreach (MonsterContextHandler ctxHandler in _viewModel.Monsters.Cast<MonsterContextHandler>())
+                ctxHandler.Dispose();
+
+            _viewModel.Monsters.Clear();
+        });
+
         _ = WidgetManager.Unregister<MonstersView, MonsterWidgetConfig>(_view);
     }
 
     private void OnMonsterDespawn(object sender, IMonster e)
     {
-        Application.Current.Dispatcher.Invoke(() =>
+        _view.Dispatcher.Invoke(() =>
         {
             MonsterContextHandler monster = _viewModel.Monsters
                 .Cast<MonsterContextHandler>()
@@ -67,6 +75,8 @@ public class MonsterWidgetContextHandler : IContextHandler
 
             if (monster is null)
                 return;
+
+            monster.Dispose();
 
             _ = _viewModel.Monsters.Remove(monster);
         });

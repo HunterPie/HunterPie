@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster;
 
-public class MonsterContextHandler : BossMonsterViewModel
+public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDisposable
 {
     public readonly IMonster Context;
 
@@ -23,7 +23,7 @@ public class MonsterContextHandler : BossMonsterViewModel
         UpdateData();
     }
 
-    private void HookEvents()
+    public void HookEvents()
     {
         Context.OnHealthChange += OnHealthUpdate;
         Context.OnStaminaChange += OnStaminaUpdate;
@@ -39,7 +39,7 @@ public class MonsterContextHandler : BossMonsterViewModel
         Context.OnWeaknessesChange += OnWeaknessesChange;
     }
 
-    private void UnhookEvents()
+    public void UnhookEvents()
     {
         Context.OnHealthChange -= OnHealthUpdate;
         Context.OnStaminaChange -= OnStaminaUpdate;
@@ -57,7 +57,7 @@ public class MonsterContextHandler : BossMonsterViewModel
 
     private void OnSpawn(object sender, EventArgs e)
     {
-        IsQurio = Context is MHRMonster monster && monster.MonsterType == MonsterType.Qurio;
+        IsQurio = Context is MHRMonster { MonsterType: MonsterType.Qurio };
         Name = Context.Name;
 
         Em = BuildMonsterEmByContext();
@@ -69,19 +69,7 @@ public class MonsterContextHandler : BossMonsterViewModel
 
     private void OnDespawn(object sender, EventArgs e)
     {
-        UnhookEvents();
         IsAlive = false;
-        _ = UIThread.InvokeAsync(() =>
-        {
-            foreach (MonsterPartContextHandler part in Parts)
-                part.Dispose();
-
-            foreach (MonsterAilmentContextHandler ailment in Ailments)
-                ailment.Dispose();
-
-            Parts.Clear();
-            Ailments.Clear();
-        });
     }
 
     private void OnCaptureThresholdChange(object sender, IMonster e)
@@ -159,7 +147,7 @@ public class MonsterContextHandler : BossMonsterViewModel
 
     private void UpdateData()
     {
-        IsQurio = Context is MHRMonster monster && monster.MonsterType == MonsterType.Qurio;
+        IsQurio = Context is MHRMonster { MonsterType: MonsterType.Qurio };
 
         if (Context.Id > -1)
         {
@@ -183,14 +171,14 @@ public class MonsterContextHandler : BossMonsterViewModel
         IsCapturable = CaptureThreshold >= (Health / MaxHealth);
 
         if (Parts.Count != Context.Parts.Length || Ailments.Count != Context.Ailments.Length)
-        {
             _ = UIThread.InvokeAsync(() =>
             {
                 foreach (IMonsterPart part in Context.Parts)
                 {
-                    bool contains = Parts.ToArray()
+                    bool contains = Parts
+                        .ToArray()
                         .Cast<MonsterPartContextHandler>()
-                        .Where(p => p.Context == part).Count() > 0;
+                        .Any(p => p.Context == part);
 
                     if (contains)
                         continue;
@@ -200,9 +188,10 @@ public class MonsterContextHandler : BossMonsterViewModel
 
                 foreach (IMonsterAilment ailment in Context.Ailments)
                 {
-                    bool contains = Ailments.ToArray()
+                    bool contains = Ailments
+                        .ToArray()
                         .Cast<MonsterAilmentContextHandler>()
-                        .Where(p => p.Context == ailment).Count() > 0;
+                        .Any(p => p.Context == ailment);
 
                     if (contains)
                         continue;
@@ -213,7 +202,6 @@ public class MonsterContextHandler : BossMonsterViewModel
                 foreach (Element weakness in Context.Weaknesses)
                     Weaknesses.Add(weakness);
             });
-        }
     }
 
     private void AddEnrage() => UIThread.Invoke(() => Ailments.Add(new MonsterAilmentContextHandler(Context.Enrage, Config)));
@@ -227,5 +215,19 @@ public class MonsterContextHandler : BossMonsterViewModel
             MHRSunbreakDemoMonster ctx => $"Rise_{ctx.Id:00}",
             _ => throw new NotImplementedException("unreachable")
         };
+    }
+
+    public void Dispose()
+    {
+        UnhookEvents();
+
+        foreach (MonsterPartViewModel part in Parts)
+            part.Dispose();
+
+        foreach (MonsterAilmentViewModel ailment in Ailments)
+            ailment.Dispose();
+
+        Parts.Clear();
+        Ailments.Clear();
     }
 }

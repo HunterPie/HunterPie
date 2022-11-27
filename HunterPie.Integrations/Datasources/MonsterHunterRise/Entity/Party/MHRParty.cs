@@ -1,16 +1,15 @@
-﻿#nullable enable
-using HunterPie.Core.Architecture.Events;
-using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Logger;
 using HunterPie.Core.Native.IPC.Models.Common;
+using HunterPie.Integrations.Datasources.Common.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Party;
 
-public class MHRParty : IParty, IEventDispatcher
+public sealed class MHRParty : CommonParty, IUpdatable<EntityDamageData>, IUpdatable<MHRPartyMemberData>
 {
     private readonly Dictionary<int, MHRPartyMember> _partyMembers = new();
     private readonly Dictionary<int, MHRPartyMember> _partyMemberPets = new()
@@ -20,10 +19,15 @@ public class MHRParty : IParty, IEventDispatcher
     private readonly Dictionary<string, MHRPartyMember> _partyMemberNameLookup = new();
 
     public const int MAX_PARTY_SIZE = 4;
-    public int Size { get; internal set; }
-    public int MaxSize => MAX_PARTY_SIZE;
+    public override int Size { get; protected set; }
 
-    public List<IPartyMember> Members
+    public override int MaxSize
+    {
+        get => MAX_PARTY_SIZE;
+        protected set => throw new NotSupportedException();
+    }
+
+    public override List<IPartyMember> Members
     {
         get
         {
@@ -34,21 +38,7 @@ public class MHRParty : IParty, IEventDispatcher
 
             return members.ToList<IPartyMember>();
         }
-    }
-
-
-    private readonly SmartEvent<IPartyMember> _onMemberJoin = new();
-    public event EventHandler<IPartyMember> OnMemberJoin
-    {
-        add => _onMemberJoin.Hook(value);
-        remove => _onMemberJoin.Unhook(value);
-    }
-
-    private readonly SmartEvent<IPartyMember> _onMemberLeave = new();
-    public event EventHandler<IPartyMember> OnMemberLeave
-    {
-        add => _onMemberLeave.Hook(value);
-        remove => _onMemberLeave.Unhook(value);
+        protected set => throw new NotSupportedException();
     }
 
     public void Update(MHRPartyMemberData data)
@@ -85,6 +75,8 @@ public class MHRParty : IParty, IEventDispatcher
         updatable.Update(data);
     }
 
+    public void SetSize(int size) => Size = size;
+
     public void Add(MHRPartyMemberData data)
     {
         if (_partyMembers.ContainsKey(data.Index))
@@ -118,8 +110,8 @@ public class MHRParty : IParty, IEventDispatcher
 
         int petIndex = memberIndex.ToPetId();
 
-        IPartyMember member = _partyMembers[memberIndex];
-        IPartyMember memberPet = _partyMemberPets[petIndex];
+        MHRPartyMember member = _partyMembers[memberIndex];
+        MHRPartyMember memberPet = _partyMemberPets[petIndex];
 
         _ = _partyMembers.Remove(memberIndex);
         _ = _partyMemberPets.Remove(petIndex);
@@ -129,6 +121,9 @@ public class MHRParty : IParty, IEventDispatcher
 
         this.Dispatch(_onMemberLeave, member);
         this.Dispatch(_onMemberLeave, memberPet);
+
+        member.Dispose();
+        memberPet.Dispose();
     }
 
     public void Clear()
@@ -140,5 +135,10 @@ public class MHRParty : IParty, IEventDispatcher
         IUpdatable<MHRPartyMemberData> updatable = _partyMemberPets[4];
         updatable.Update(new MHRPartyMemberData { Index = 4, MemberType = MemberType.Pet });
     }
+
+    public override void Dispose()
+    {
+        _partyMemberPets.Clear();
+        base.Dispose();
+    }
 }
-#nullable restore
