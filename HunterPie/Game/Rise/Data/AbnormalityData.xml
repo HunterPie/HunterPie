@@ -312,7 +312,12 @@
         <Abnormality Id="ABN_CHAIN_CRIT"
                      Offset="16C"
                      Name="ABNORMALITY_CHAIN_CRIT"
-                     Icon="ICON_ARMORSKILL_ORANGE"
+                     Icon="ICON_ARMORSKILL_SALMON"
+                     Category="Consumables"/>
+        <Abnormality Id="ABN_ADRENALINE_RUSH"
+                     Offset="174"
+                     Name="ABNORMALITY_ADRENALINE_RUSH"
+                     Icon="ICON_ARMORSKILL_SALMON"
                      Category="Consumables"/>
         <Abnormality Id="ABN_GRINDER_S"
                      Offset="190"
