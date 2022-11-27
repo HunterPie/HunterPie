@@ -71,3 +71,11 @@ It's also possible to override those colors with theme files, in case you want c
 <Color x:Key="WIDGET_SHARPNESS_PURPLE">#cd55e6</Color>
 ```
 {: file='SharpnessColors.xaml'}
+
+## In-Game HUD
+
+To avoid cluttering the screen, you can disable the in-game HUD:
+
+### Monster Hunter Rise
+
+![in-game-hud-settings-no-hp](/Static/in-game-hud-settings-no-hp.png)
