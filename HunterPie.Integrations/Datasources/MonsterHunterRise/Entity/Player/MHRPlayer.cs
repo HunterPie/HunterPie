@@ -111,35 +111,15 @@ public sealed class MHRPlayer : CommonPlayer
         }
     }
 
-    public override bool InHuntingZone
-    {
-        get => _stageData.IsHuntingZone() || StageId == 5;
-        protected set => throw new NotImplementedException();
-    }
+    public override bool InHuntingZone => _stageData.IsHuntingZone() || StageId == 5;
 
-    public override IParty Party
-    {
-        get => _party;
-        protected set => throw new NotImplementedException();
-    }
+    public override IParty Party => _party;
 
-    public override IReadOnlyCollection<IAbnormality> Abnormalities
-    {
-        get => _abnormalities.Values;
-        protected set => throw new NotImplementedException();
-    }
+    public override IReadOnlyCollection<IAbnormality> Abnormalities => _abnormalities.Values;
 
-    public override IHealthComponent Health
-    {
-        get => _health;
-        protected set => throw new NotImplementedException();
-    }
+    public override IHealthComponent Health => _health;
 
-    public override IStaminaComponent Stamina
-    {
-        get => _stamina;
-        protected set => throw new NotImplementedException();
-    }
+    public override IStaminaComponent Stamina => _stamina;
 
     public MHRWirebug[] Wirebugs { get; } = { new(), new(), new() };
 
@@ -161,6 +141,9 @@ public sealed class MHRPlayer : CommonPlayer
                 IWeapon lastWeapon = _weapon;
                 _weapon = value;
                 this.Dispatch(_onWeaponChange, new WeaponChangeEventArgs(lastWeapon, _weapon));
+
+                if (lastWeapon is IDisposable disposable)
+                    disposable.Dispose();
             }
         }
     }
@@ -352,7 +335,7 @@ public sealed class MHRPlayer : CommonPlayer
         );
 
         if (!InHuntingZone || debuffsPtr == 0)
-            ClearAbnormalities();
+            ClearAbnormalities(_abnormalities);
     }
 
     [ScannableMethod]
@@ -862,15 +845,6 @@ public sealed class MHRPlayer : CommonPlayer
 
             id++;
         }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private void ClearAbnormalities()
-    {
-        foreach (IAbnormality abnormality in _abnormalities.Values)
-            this.Dispatch(_onAbnormalityEnd, abnormality);
-
-        _abnormalities.Clear();
     }
 
     private MHRPetalaceStatsStructure? GetEquippedPetalaceStats()

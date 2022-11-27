@@ -100,20 +100,5 @@ public class MHRMeleeWeapon : CommonMeleeWeapon
         return thresholds;
     }
 
-    private static int CalculateCurrentThreshold(Sharpness currentLevel, IReadOnlyList<int> thresholds)
-    {
-        Sharpness previousLevel = currentLevel - 1;
 
-        return previousLevel <= Sharpness.Broken ? 0 : thresholds[(int)previousLevel];
-    }
-
-    private static int CalculateMaxThreshold(Sharpness currentLevel, IReadOnlyList<int> thresholds, int maxHits)
-    {
-        int nextLevel = (int)currentLevel + 1;
-
-        if (nextLevel > (int)Sharpness.Purple || thresholds[nextLevel] == 0)
-            return maxHits;
-
-        return thresholds[(int)currentLevel];
-    }
 }

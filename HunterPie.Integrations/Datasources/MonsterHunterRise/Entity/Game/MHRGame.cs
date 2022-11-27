@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Address.Map;
+﻿
+using HunterPie.Core.Address.Map;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
@@ -39,18 +40,10 @@ public sealed class MHRGame : CommonGame
     private readonly Dictionary<long, IMonster> _monsters = new();
     private readonly Dictionary<long, EntityDamageData[]> _damageDone = new();
 
-    public override IPlayer Player
-    {
-        get => _player;
-        protected set => throw new NotSupportedException();
-    }
+    public override IPlayer Player => _player;
     public override List<IMonster> Monsters { get; } = new();
 
-    public override IChat Chat
-    {
-        get => _chat;
-        protected set => throw new NotSupportedException();
-    }
+    public override IChat Chat => _chat;
 
     public override bool IsHudOpen
     {
@@ -283,10 +276,10 @@ public sealed class MHRGame : CommonGame
         if (monsterAddress == 0 || _monsters.ContainsKey(monsterAddress))
             return;
 
-        IMonster monster = new MHRMonster(Process, monsterAddress);
+        var monster = new MHRMonster(Process, monsterAddress);
         _monsters.Add(monsterAddress, monster);
         Monsters.Add(monster);
-        ScanManager.Add(monster as Scannable);
+        ScanManager.Add(monster);
 
         this.Dispatch(_onMonsterSpawn, monster);
     }

@@ -537,8 +537,7 @@ public class MHRMonster : CommonMonster
     {
         lock (_syncAilments)
         {
-            foreach (KeyValuePair<long, MHRMonsterAilment> ailment in _ailments)
-                ailment.Value.Dispose();
+            _ailments.Values.DisposeAll();
 
             _ailments.Clear();
 
@@ -549,8 +548,7 @@ public class MHRMonster : CommonMonster
         {
             _qurioThreshold?.Dispose();
 
-            foreach (KeyValuePair<long, MHRMonsterPart> part in _parts)
-                part.Value.Dispose();
+            _parts.Values.DisposeAll();
 
             _parts.Clear();
         }

@@ -1,11 +1,8 @@
 ﻿using HunterPie.Core.Address.Map;
-using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
-using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
-using HunterPie.Core.Game.Entity.Game;
 using HunterPie.Core.Game.Entity.Game.Chat;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Events;
@@ -14,6 +11,7 @@ using HunterPie.Core.Native.IPC.Handlers.Internal.Damage;
 using HunterPie.Core.Native.IPC.Handlers.Internal.Damage.Models;
 using HunterPie.Core.Native.IPC.Models.Common;
 using HunterPie.Integrations.Datasources.Common;
+using HunterPie.Integrations.Datasources.Common.Entity.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Party;
@@ -24,7 +22,7 @@ using System.Diagnostics;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Game;
 
-public class MHWGame : Scannable, IGame, IEventDispatcher
+public sealed class MHWGame : CommonGame
 {
     private readonly MHWPlayer _player;
     private readonly Dictionary<long, IMonster> _monsters = new();
@@ -34,50 +32,15 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
     private readonly Stopwatch _localTimerStopwatch = new();
     private readonly Stopwatch _damageUpdateThrottleStopwatch = new();
 
-    private readonly SmartEvent<IMonster> _onMonsterSpawn = new();
-    public event EventHandler<IMonster> OnMonsterSpawn
-    {
-        add => _onMonsterSpawn.Hook(value);
-        remove => _onMonsterSpawn.Unhook(value);
-    }
+    public override IPlayer Player => _player;
+    public override List<IMonster> Monsters { get; } = new();
 
-    private readonly SmartEvent<IMonster> _onMonsterDespawn = new();
-    public event EventHandler<IMonster> OnMonsterDespawn
-    {
-        add => _onMonsterDespawn.Hook(value);
-        remove => _onMonsterDespawn.Unhook(value);
-    }
+    public override IChat Chat => throw new NotSupportedException();
 
-    private readonly SmartEvent<IGame> _onHudStateChange = new();
-    public event EventHandler<IGame> OnHudStateChange
-    {
-        add => _onHudStateChange.Hook(value);
-        remove => _onHudStateChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<TimeElapsedChangeEventArgs> _onTimeElapsedChange = new();
-    public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange
-    {
-        add => _onTimeElapsedChange.Hook(value);
-        remove => _onTimeElapsedChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<IGame> _onDeathCountChange = new();
-    public event EventHandler<IGame> OnDeathCountChange
-    {
-        add => _onDeathCountChange.Hook(value);
-        remove => _onDeathCountChange.Unhook(value);
-    }
-
-    public IPlayer Player => _player;
-    public List<IMonster> Monsters { get; } = new();
-
-    public IChat Chat => throw new NotImplementedException();
-
-    public bool IsHudOpen
+    public override bool IsHudOpen
     {
         get => _isMouseVisible;
-        private set
+        protected set
         {
             if (value != _isMouseVisible)
             {
@@ -87,10 +50,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
         }
     }
 
-    /// <summary>
-    /// Gets time elapsed in seconds since the quest starts.
-    /// </summary>
-    public float TimeElapsed { get; private set; }
+    public override float TimeElapsed { get; protected set; }
 
     private void SetTimeElapsed(float value, bool isReset)
     {
@@ -101,11 +61,16 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
         this.Dispatch(_onTimeElapsedChange, new TimeElapsedChangeEventArgs(isReset, value));
     }
 
-    public int MaxDeaths => 0;
-    public int Deaths
+    public override int MaxDeaths
+    {
+        get => 0;
+        protected set => throw new NotSupportedException();
+    }
+
+    public override int Deaths
     {
         get => _deaths;
-        private set
+        protected set
         {
             if (value != _deaths)
             {
@@ -115,7 +80,7 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
         }
     }
 
-    public IAbnormalityCategorizationService AbnormalityCategorizationService { get; } = new MHWAbnormalityCategorizatonService();
+    public override IAbnormalityCategorizationService AbnormalityCategorizationService { get; } = new MHWAbnormalityCategorizatonService();
 
     public MHWGame(IProcessManager process) : base(process)
     {
@@ -257,28 +222,33 @@ public class MHWGame : Scannable, IGame, IEventDispatcher
         if (_monsters.ContainsKey(address))
             return;
 
-        IMonster monster = new MHWMonster(Process, address, em);
+        var monster = new MHWMonster(Process, address, em);
         _monsters.Add(address, monster);
         Monsters.Add(monster);
-        ScanManager.Add(monster as Scannable);
+        ScanManager.Add(monster);
 
         this.Dispatch(_onMonsterSpawn, monster);
     }
 
     private void HandleMonsterDespawn(long address)
     {
-        IMonster monster = _monsters[address];
+        if (_monsters[address] is not MHWMonster monster)
+            return;
+
         _ = _monsters.Remove(address);
         _ = Monsters.Remove(monster);
-        ScanManager.Remove(monster as Scannable);
+        ScanManager.Remove(monster);
 
         this.Dispatch(_onMonsterDespawn, monster);
+
+        monster.Dispose();
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
         DamageMessageHandler.OnReceived -= OnReceivePlayersDamage;
         _player.OnStageUpdate -= OnPlayerStageUpdate;
+        base.Dispose();
     }
 
     #region Damage helpers

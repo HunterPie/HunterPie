@@ -1,7 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
-using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
-using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data;
@@ -10,7 +8,7 @@ using HunterPie.Core.Game.Entity;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Entity.Player.Vitals;
-using HunterPie.Core.Game.Events;
+using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
@@ -19,17 +17,17 @@ using System.Text;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo.Entity.Player;
 
-public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
+public sealed class MHRSunbreakDemoPlayer : CommonPlayer
 {
     #region Private
     private string _name;
     private readonly Dictionary<string, IAbnormality> _abnormalities = new();
     #endregion
 
-    public string Name
+    public override string Name
     {
         get => _name;
-        private set
+        protected set
         {
             if (value != _name)
             {
@@ -43,109 +41,31 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
         }
     }
 
-    public int HighRank => 0;
-
-    public int StageId { get; private set; }
-
-    public bool InHuntingZone { get; private set; }
-
-    public IParty Party { get; private set; }
-
-    public IReadOnlyCollection<IAbnormality> Abnormalities => _abnormalities.Values;
-
-    public int MasterRank => 0;
-
-    public IStaminaComponent Stamina { get; } = new StaminaComponent();
-
-    public IHealthComponent Health { get; } = new HealthComponent();
-
-    public double Heal => 0;
-
-    public IWeapon Weapon { get; private set; }
-
-    private readonly SmartEvent<EventArgs> _onLogin = new();
-    public event EventHandler<EventArgs> OnLogin
+    public override int HighRank
     {
-        add => _onLogin.Hook(value);
-        remove => _onLogin.Unhook(value);
+        get => 0;
+        protected set => throw new NotSupportedException();
     }
 
-    private readonly SmartEvent<EventArgs> _onLogout = new();
-    public event EventHandler<EventArgs> OnLogout
+    public override int StageId
     {
-        add => _onLogout.Hook(value);
-        remove => _onLogout.Unhook(value);
+        get => 0;
+        protected set => throw new NotSupportedException();
     }
 
-    private readonly SmartEvent<EventArgs> _onDeath = new();
-    public event EventHandler<EventArgs> OnDeath
-    {
-        add => _onDeath.Hook(value);
-        remove => _onDeath.Unhook(value);
-    }
+    public override bool InHuntingZone => false;
 
-    private readonly SmartEvent<EventArgs> _onActionUpdate = new();
-    public event EventHandler<EventArgs> OnActionUpdate
-    {
-        add => _onActionUpdate.Hook(value);
-        remove => _onActionUpdate.Unhook(value);
-    }
+    public override IParty Party => throw new NotSupportedException();
 
-    private readonly SmartEvent<EventArgs> _onStageUpdate = new();
-    public event EventHandler<EventArgs> OnStageUpdate
-    {
-        add => _onStageUpdate.Hook(value);
-        remove => _onStageUpdate.Unhook(value);
-    }
+    public override IReadOnlyCollection<IAbnormality> Abnormalities => _abnormalities.Values;
 
-    private readonly SmartEvent<EventArgs> _onVillageEnter = new();
-    public event EventHandler<EventArgs> OnVillageEnter
-    {
-        add => _onVillageEnter.Hook(value);
-        remove => _onVillageEnter.Unhook(value);
-    }
+    public override int MasterRank { get; protected set; }
 
-    private readonly SmartEvent<EventArgs> _onVillageLeave = new();
-    public event EventHandler<EventArgs> OnVillageLeave
-    {
-        add => _onVillageLeave.Hook(value);
-        remove => _onVillageLeave.Unhook(value);
-    }
+    public override IStaminaComponent Stamina { get; } = new StaminaComponent();
 
-    private readonly SmartEvent<EventArgs> _onAilmentUpdate = new();
-    public event EventHandler<EventArgs> OnAilmentUpdate
-    {
-        add => _onAilmentUpdate.Hook(value);
-        remove => _onAilmentUpdate.Unhook(value);
-    }
+    public override IHealthComponent Health { get; } = new HealthComponent();
 
-    private readonly SmartEvent<WeaponChangeEventArgs> _onWeaponChange = new();
-    public event EventHandler<WeaponChangeEventArgs> OnWeaponChange
-    {
-        add => _onWeaponChange.Hook(value);
-        remove => _onWeaponChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<IAbnormality> _onAbnormalityStart = new();
-    public event EventHandler<IAbnormality> OnAbnormalityStart
-    {
-        add => _onAbnormalityStart.Hook(value);
-        remove => _onAbnormalityStart.Unhook(value);
-    }
-
-    private readonly SmartEvent<IAbnormality> _onAbnormalityEnd = new();
-    public event EventHandler<IAbnormality> OnAbnormalityEnd
-    {
-        add => _onAbnormalityEnd.Hook(value);
-        remove => _onAbnormalityEnd.Unhook(value);
-    }
-
-    private readonly SmartEvent<LevelChangeEventArgs> _onLevelChange = new();
-    public event EventHandler<LevelChangeEventArgs> OnLevelChange
-    {
-        add => _onLevelChange.Hook(value);
-        remove => _onLevelChange.Unhook(value);
-    }
+    public override IWeapon Weapon { get; protected set; }
 
     public MHRSunbreakDemoPlayer(IProcessManager process) : base(process) { }
 
@@ -236,7 +156,7 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
         );
 
         if (debuffsPtr == 0)
-            ClearAbnormalities();
+            ClearAbnormalities(_abnormalities);
     }
 
     [ScannableMethod]
@@ -268,7 +188,12 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
 
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
-            HandleAbnormality<MHRConsumableAbnormality, MHRConsumableStructure>(schema, abnormality.Timer, abnormality);
+            HandleAbnormality<MHRConsumableAbnormality, MHRConsumableStructure>(
+                _abnormalities,
+                schema,
+                abnormality.Timer,
+                abnormality
+            );
         }
     }
 
@@ -302,7 +227,12 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
 
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
-            HandleAbnormality<MHRDebuffAbnormality, MHRDebuffStructure>(schema, abnormality.Timer, abnormality);
+            HandleAbnormality<MHRDebuffAbnormality, MHRDebuffStructure>(
+                _abnormalities,
+                schema,
+                abnormality.Timer,
+                abnormality
+            );
         }
     }
 
@@ -337,50 +267,14 @@ public class MHRSunbreakDemoPlayer : Scannable, IPlayer, IEventDispatcher
             AbnormalitySchema maybeSchema = schemas[id];
 
             if (maybeSchema is AbnormalitySchema schema)
-                HandleAbnormality<MHRSongAbnormality, MHRHHAbnormality>(schema, abnormality.Timer, abnormality);
+                HandleAbnormality<MHRSongAbnormality, MHRHHAbnormality>(
+                    _abnormalities,
+                    schema,
+                    abnormality.Timer,
+                    abnormality
+                );
 
             id++;
         }
-    }
-
-    private void HandleAbnormality<T, S>(AbnormalitySchema schema, float timer, S newData)
-        where T : IAbnormality, IUpdatable<S>
-        where S : struct
-    {
-        if (_abnormalities.ContainsKey(schema.Id) && timer <= 0)
-        {
-            var abnorm = (IUpdatable<S>)_abnormalities[schema.Id];
-
-            abnorm.Update(newData);
-
-            _ = _abnormalities.Remove(schema.Id);
-            this.Dispatch(_onAbnormalityEnd, (IAbnormality)abnorm);
-        }
-        else if (_abnormalities.ContainsKey(schema.Id) && timer > 0)
-        {
-
-            var abnorm = (IUpdatable<S>)_abnormalities[schema.Id];
-            abnorm.Update(newData);
-        }
-        else if (!_abnormalities.ContainsKey(schema.Id) && timer > 0)
-        {
-            if (schema.Icon == "ICON_MISSING")
-                Core.Logger.Log.Info($"Missing abnormality: {schema.Id}");
-
-            var abnorm = (IUpdatable<S>)Activator.CreateInstance(typeof(T), schema);
-
-            _abnormalities.Add(schema.Id, (IAbnormality)abnorm);
-            abnorm.Update(newData);
-            this.Dispatch(_onAbnormalityStart, (IAbnormality)abnorm);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private void ClearAbnormalities()
-    {
-        foreach (IAbnormality abnormality in _abnormalities.Values)
-            this.Dispatch(_onAbnormalityEnd, abnormality);
-
-        _abnormalities.Clear();
     }
 }

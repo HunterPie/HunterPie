@@ -75,5 +75,6 @@ public class AutoVisibilityViewModel : ViewModel, IDisposable
         _timer.Elapsed -= OnTimerElapsed;
         _timer.Dispose();
         _timeout.PropertyChanged -= OnTimeoutValueChanged;
+        GC.SuppressFinalize(this);
     }
 }

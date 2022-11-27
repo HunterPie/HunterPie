@@ -9,6 +9,8 @@ using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Entity.Player.Vitals;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Logger;
+using System.Runtime.CompilerServices;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Player;
 public abstract class CommonPlayer : Scannable, IPlayer, IEventDispatcher, IDisposable
@@ -17,11 +19,11 @@ public abstract class CommonPlayer : Scannable, IPlayer, IEventDispatcher, IDisp
     public abstract int HighRank { get; protected set; }
     public abstract int MasterRank { get; protected set; }
     public abstract int StageId { get; protected set; }
-    public abstract bool InHuntingZone { get; protected set; }
-    public abstract IParty Party { get; protected set; }
-    public abstract IReadOnlyCollection<IAbnormality> Abnormalities { get; protected set; }
-    public abstract IHealthComponent Health { get; protected set; }
-    public abstract IStaminaComponent Stamina { get; protected set; }
+    public abstract bool InHuntingZone { get; }
+    public abstract IParty Party { get; }
+    public abstract IReadOnlyCollection<IAbnormality> Abnormalities { get; }
+    public abstract IHealthComponent Health { get; }
+    public abstract IStaminaComponent Stamina { get; }
     public abstract IWeapon Weapon { get; protected set; }
 
     protected readonly SmartEvent<EventArgs> _onLogin = new();
@@ -136,7 +138,7 @@ public abstract class CommonPlayer : Scannable, IPlayer, IEventDispatcher, IDisp
         else if (!abnormalities.ContainsKey(schema.Id) && timer > 0)
         {
             if (schema.Icon == "ICON_MISSING")
-                Core.Logger.Log.Info($"Missing abnormality: {schema.Id}");
+                Log.Info($"Missing abnormality: {schema.Id}");
 
             var abnorm = (IUpdatable<S>)Activator.CreateInstance(typeof(T), schema);
 
@@ -147,6 +149,20 @@ public abstract class CommonPlayer : Scannable, IPlayer, IEventDispatcher, IDisp
             abnorm.Update(newData);
             this.Dispatch(_onAbnormalityStart, (IAbnormality)abnorm);
         }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    protected void ClearAbnormalities(Dictionary<string, IAbnormality> abnormalities)
+    {
+        foreach (IAbnormality abnormality in abnormalities.Values)
+        {
+            this.Dispatch(_onAbnormalityEnd, abnormality);
+
+            if (abnormality is IDisposable disposable)
+                disposable.Dispose();
+        }
+
+        abnormalities.Clear();
     }
 
     public virtual void Dispose()

@@ -14,10 +14,10 @@ namespace HunterPie.Integrations.Datasources.Common.Entity.Game;
 public abstract class CommonGame : Scannable, IGame, IEventDispatcher
 {
 
-    public abstract IPlayer Player { get; protected set; }
+    public abstract IPlayer Player { get; }
     public abstract IAbnormalityCategorizationService AbnormalityCategorizationService { get; }
     public abstract List<IMonster> Monsters { get; }
-    public abstract IChat Chat { get; protected set; }
+    public abstract IChat Chat { get; }
     public abstract bool IsHudOpen { get; protected set; }
     public abstract float TimeElapsed { get; protected set; }
     public abstract int MaxDeaths { get; protected set; }

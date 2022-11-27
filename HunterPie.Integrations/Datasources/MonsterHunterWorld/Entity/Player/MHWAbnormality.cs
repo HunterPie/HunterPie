@@ -1,28 +1,27 @@
-﻿using HunterPie.Core.Architecture.Events;
-using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
-using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
 
-public class MHWAbnormality : IAbnormality, IEventDispatcher, IUpdatable<MHWAbnormalityStructure>
+public sealed class MHWAbnormality : CommonAbnormality, IUpdatable<MHWAbnormalityStructure>
 {
     private float _timer;
 
-    public string Id { get; }
+    public override string Id { get; protected set; }
 
-    public string Icon { get; }
+    public override string Icon { get; protected set; }
 
-    public AbnormalityType Type { get; }
+    public override AbnormalityType Type { get; protected set; }
 
-    public float Timer
+    public override float Timer
     {
         get => _timer;
-        private set
+        protected set
         {
             if (value != _timer)
             {
@@ -32,20 +31,13 @@ public class MHWAbnormality : IAbnormality, IEventDispatcher, IUpdatable<MHWAbno
         }
     }
 
-    public float MaxTimer { get; private set; }
+    public override float MaxTimer { get; protected set; }
 
-    public bool IsInfinite { get; }
+    public override bool IsInfinite { get; protected set; }
 
-    public int Level { get; }
+    public override int Level { get; protected set; }
 
-    public bool IsBuildup { get; set; }
-
-    private readonly SmartEvent<IAbnormality> _onTimerUpdate = new();
-    public event EventHandler<IAbnormality> OnTimerUpdate
-    {
-        add => _onTimerUpdate.Hook(value);
-        remove => _onTimerUpdate.Unhook(value);
-    }
+    public override bool IsBuildup { get; protected set; }
 
     public MHWAbnormality(AbnormalitySchema schema)
     {

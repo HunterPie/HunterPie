@@ -11,6 +11,7 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Party;
 
 public sealed class MHRParty : CommonParty, IUpdatable<EntityDamageData>, IUpdatable<MHRPartyMemberData>
 {
+    private readonly object _syncParty = new();
     private readonly Dictionary<int, MHRPartyMember> _partyMembers = new();
     private readonly Dictionary<int, MHRPartyMember> _partyMemberPets = new()
     {
@@ -31,14 +32,16 @@ public sealed class MHRParty : CommonParty, IUpdatable<EntityDamageData>, IUpdat
     {
         get
         {
-            var members = _partyMembers.Values.ToList();
-            var pets = _partyMemberPets.Values.ToList();
+            lock (_syncParty)
+            {
+                var members = _partyMembers.Values.ToList();
+                var pets = _partyMemberPets.Values.ToList();
 
-            members.AddRange(pets);
+                members.AddRange(pets);
 
-            return members.ToList<IPartyMember>();
+                return members.ToList<IPartyMember>();
+            }
         }
-        protected set => throw new NotSupportedException();
     }
 
     public void Update(MHRPartyMemberData data)
@@ -46,38 +49,44 @@ public sealed class MHRParty : CommonParty, IUpdatable<EntityDamageData>, IUpdat
         if (string.IsNullOrEmpty(data.Name))
             return;
 
-        if (!_partyMemberNameLookup.ContainsKey(data.Name))
-            Add(data);
+        lock (_syncParty)
+        {
+            if (!_partyMemberNameLookup.ContainsKey(data.Name))
+                Add(data);
 
-        if (!_partyMembers.ContainsKey(data.Index))
-            return;
+            if (!_partyMembers.ContainsKey(data.Index))
+                return;
 
-        IUpdatable<MHRPartyMemberData> updatable = _partyMembers[data.Index];
-        updatable.Update(data);
+            IUpdatable<MHRPartyMemberData> updatable = _partyMembers[data.Index];
+            updatable.Update(data);
+        }
     }
 
     public void Update(EntityDamageData data)
     {
-        Dictionary<int, MHRPartyMember>? localData = data.Entity.Type switch
+        lock (_syncParty)
         {
-            EntityType.PLAYER => _partyMembers,
-            EntityType.PET => _partyMemberPets,
-            _ => null
-        };
+            Dictionary<int, MHRPartyMember>? localData = data.Entity.Type switch
+            {
+                EntityType.PLAYER => _partyMembers,
+                EntityType.PET => _partyMemberPets,
+                _ => null
+            };
 
-        if (localData is null)
-            return;
+            if (localData is null)
+                return;
 
-        if (!localData.ContainsKey(data.Entity.Index))
-            return;
+            if (!localData.ContainsKey(data.Entity.Index))
+                return;
 
-        IUpdatable<EntityDamageData> updatable = localData[data.Entity.Index];
-        updatable.Update(data);
+            IUpdatable<EntityDamageData> updatable = localData[data.Entity.Index];
+            updatable.Update(data);
+        }
     }
 
     public void SetSize(int size) => Size = size;
 
-    public void Add(MHRPartyMemberData data)
+    private void Add(MHRPartyMemberData data)
     {
         if (_partyMembers.ContainsKey(data.Index))
             Remove(data.Index);
@@ -105,35 +114,41 @@ public sealed class MHRParty : CommonParty, IUpdatable<EntityDamageData>, IUpdat
 
     public void Remove(int memberIndex)
     {
-        if (!_partyMembers.ContainsKey(memberIndex))
-            return;
+        lock (_syncParty)
+        {
+            if (!_partyMembers.ContainsKey(memberIndex))
+                return;
 
-        int petIndex = memberIndex.ToPetId();
+            int petIndex = memberIndex.ToPetId();
 
-        MHRPartyMember member = _partyMembers[memberIndex];
-        MHRPartyMember memberPet = _partyMemberPets[petIndex];
+            MHRPartyMember member = _partyMembers[memberIndex];
+            MHRPartyMember memberPet = _partyMemberPets[petIndex];
 
-        _ = _partyMembers.Remove(memberIndex);
-        _ = _partyMemberPets.Remove(petIndex);
-        _ = _partyMemberNameLookup.Remove(member.Name);
+            _ = _partyMembers.Remove(memberIndex);
+            _ = _partyMemberPets.Remove(petIndex);
+            _ = _partyMemberNameLookup.Remove(member.Name);
 
-        Log.Debug("Removed player: id: {0} name: {1} hash: {2:X}", memberIndex, member.Name, member.GetHashCode());
+            Log.Debug("Removed player: id: {0} name: {1} hash: {2:X}", memberIndex, member.Name, member.GetHashCode());
 
-        this.Dispatch(_onMemberLeave, member);
-        this.Dispatch(_onMemberLeave, memberPet);
+            this.Dispatch(_onMemberLeave, member);
+            this.Dispatch(_onMemberLeave, memberPet);
 
-        member.Dispose();
-        memberPet.Dispose();
+            member.Dispose();
+            memberPet.Dispose();
+        }
     }
 
     public void Clear()
     {
-        foreach (int index in _partyMembers.Keys.ToArray())
-            Remove(index);
+        lock (_syncParty)
+        {
+            foreach (int index in _partyMembers.Keys.ToArray())
+                Remove(index);
 
-        // Reset pet damage
-        IUpdatable<MHRPartyMemberData> updatable = _partyMemberPets[4];
-        updatable.Update(new MHRPartyMemberData { Index = 4, MemberType = MemberType.Pet });
+            // Reset pet damage
+            IUpdatable<MHRPartyMemberData> updatable = _partyMemberPets[4];
+            updatable.Update(new MHRPartyMemberData { Index = 4, MemberType = MemberType.Pet });
+        }
     }
 
     public override void Dispose()

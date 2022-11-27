@@ -307,4 +307,13 @@ public sealed class MHRSunbreakDemoMonster : CommonMonster
             monsterPart.Update(partInfo);
         }
     }
+
+    public override void Dispose()
+    {
+        _parts.Values.DisposeAll();
+        _ailments.Values.DisposeAll();
+        _parts.Clear();
+        _ailments.Clear();
+        base.Dispose();
+    }
 }

@@ -46,7 +46,7 @@ public class MHWMonster : CommonMonster
         }
     }
 
-    public string Em { get; private set; }
+    public string Em { get; }
 
     public override string Name => MHWContext.Strings.GetMonsterNameById(Id);
 
@@ -103,6 +103,7 @@ public class MHWMonster : CommonMonster
     public override IMonsterAilment[] Ailments => _ailments?
                                           .Select(a => a.Item2)
                                           .ToArray<IMonsterAilment>() ?? Array.Empty<IMonsterAilment>();
+
     public override Target Target
     {
         get => _target;
@@ -430,5 +431,18 @@ public class MHWMonster : CommonMonster
             IUpdatable<MHWMonsterAilmentStructure> updatable = ailment;
             updatable.Update(structure);
         }
+    }
+
+    public override void Dispose()
+    {
+        _enrage.Dispose();
+
+        _parts.Select(it => it.Item2)
+            .DisposeAll();
+
+        _ailments.Select(it => it.Item2)
+            .DisposeAll();
+
+        base.Dispose();
     }
 }

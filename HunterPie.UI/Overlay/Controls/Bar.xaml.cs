@@ -79,6 +79,9 @@ public partial class Bar : UserControl
 
         newValue = Math.Max(1.0, newValue);
 
+        if (double.IsNaN(newValue))
+            return;
+
         DoubleAnimation animation = owner._cachedAnimation;
         animation.From = owner.ActualValue;
         animation.To = newValue;
@@ -89,7 +92,7 @@ public partial class Bar : UserControl
     private void OnSizeChanged(object sender, SizeChangedEventArgs e)
     {
 
-        double value = ((double)e.NewSize.Width * ((double)Value / MaxValue)) - (BorderThickness.Left + BorderThickness.Right);
+        double value = (e.NewSize.Width * (Value / MaxValue)) - (BorderThickness.Left + BorderThickness.Right);
 
         value = Math.Max(1.0, value);
 

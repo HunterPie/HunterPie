@@ -1,14 +1,13 @@
-﻿using HunterPie.Core.Architecture.Events;
-using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enemy;
 
-public class MHWMonsterPart :
-    IMonsterPart, IEventDispatcher,
+public sealed class MHWMonsterPart :
+    CommonPart,
     IUpdatable<MHWMonsterPartStructure>,
     IUpdatable<MHWTenderizeInfoStructure>
 {
@@ -18,16 +17,24 @@ public class MHWMonsterPart :
     private int _count;
     private readonly HashSet<uint> _tenderizeIds;
 
-    public string Id { get; }
+    public override string Id { get; protected set; }
 
-    public float Health => 0;
+    public override float Health
+    {
+        get => 0;
+        protected set => throw new NotSupportedException();
+    }
 
-    public float MaxHealth => 0;
+    public override float MaxHealth
+    {
+        get => 0;
+        protected set => throw new NotSupportedException();
+    }
 
-    public float Flinch
+    public override float Flinch
     {
         get => _flinch;
-        private set
+        protected set
         {
             if (value != _flinch)
             {
@@ -37,12 +44,12 @@ public class MHWMonsterPart :
         }
     }
 
-    public float MaxFlinch { get; private set; }
+    public override float MaxFlinch { get; protected set; }
 
-    public float Sever
+    public override float Sever
     {
         get => _sever;
-        private set
+        protected set
         {
             if (value != _sever)
             {
@@ -52,12 +59,12 @@ public class MHWMonsterPart :
         }
     }
 
-    public float MaxSever { get; private set; }
+    public override float MaxSever { get; protected set; }
 
-    public float Tenderize
+    public override float Tenderize
     {
         get => _tenderize;
-        private set
+        protected set
         {
             if (value != _tenderize)
             {
@@ -67,11 +74,12 @@ public class MHWMonsterPart :
         }
     }
 
-    public float MaxTenderize { get; private set; }
-    public int Count
+    public override float MaxTenderize { get; protected set; }
+
+    public override int Count
     {
         get => _count;
-        private set
+        protected set
         {
             if (value != _count)
             {
@@ -80,49 +88,7 @@ public class MHWMonsterPart :
             }
         }
     }
-    public PartType Type { get; private set; }
-
-    private readonly SmartEvent<IMonsterPart> _onHealthUpdate = new();
-    public event EventHandler<IMonsterPart> OnHealthUpdate
-    {
-        add => _onHealthUpdate.Hook(value);
-        remove => _onHealthUpdate.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonsterPart> _onBreakCountUpdate = new();
-    public event EventHandler<IMonsterPart> OnBreakCountUpdate
-    {
-        add => _onBreakCountUpdate.Hook(value);
-        remove => _onBreakCountUpdate.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonsterPart> _onTenderizeUpdate = new();
-    public event EventHandler<IMonsterPart> OnTenderizeUpdate
-    {
-        add => _onTenderizeUpdate.Hook(value);
-        remove => _onTenderizeUpdate.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonsterPart> _onFlinchUpdate = new();
-    public event EventHandler<IMonsterPart> OnFlinchUpdate
-    {
-        add => _onFlinchUpdate.Hook(value);
-        remove => _onFlinchUpdate.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonsterPart> _onSeverUpdate = new();
-    public event EventHandler<IMonsterPart> OnSeverUpdate
-    {
-        add => _onSeverUpdate.Hook(value);
-        remove => _onSeverUpdate.Unhook(value);
-    }
-
-    private readonly SmartEvent<IMonsterPart> _onPartTypeChange = new();
-    public event EventHandler<IMonsterPart> OnPartTypeChange
-    {
-        add => _onPartTypeChange.Hook(value);
-        remove => _onPartTypeChange.Unhook(value);
-    }
+    public override PartType Type { get; protected set; }
 
     public MHWMonsterPart(
         string id,

@@ -8,7 +8,7 @@ public abstract class CommonParty : IParty, IEventDispatcher, IDisposable
 {
     public abstract int Size { get; protected set; }
     public abstract int MaxSize { get; protected set; }
-    public abstract List<IPartyMember> Members { get; protected set; }
+    public abstract List<IPartyMember> Members { get; }
 
     protected readonly SmartEvent<IPartyMember> _onMemberJoin = new();
     public event EventHandler<IPartyMember> OnMemberJoin
