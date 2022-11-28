@@ -70,6 +70,9 @@ public class MHRMeleeWeapon : CommonMeleeWeapon
             AddressMap.Get<int[]>("SHARPNESS_OFFSETS")
         );
 
+        if (structure.Level is >= Sharpness.Invalid or < Sharpness.Red)
+            return;
+
         if (SharpnessThresholds is null || _weaponSharpnessPointer != sharpnessArrayPtr)
         {
             int[] sharpnessValues = Process.Memory.ReadArray<int>(sharpnessArrayPtr);

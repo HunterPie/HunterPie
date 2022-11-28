@@ -76,6 +76,9 @@ public sealed class MHWMeleeWeapon : CommonMeleeWeapon
             AddressMap.Get<int[]>("WEAPON_SHARPNESS_OFFSETS")
         );
 
+        if (sharpness.Level is >= Sharpness.Invalid or < Sharpness.Red)
+            return;
+
         if (SharpnessThresholds is null || _weaponId != weaponId)
         {
             long weaponSharpnessArrayPtr = Process.Memory.Read(weaponDataPtr, new[] { weaponId * sizeof(long), 0x0C });
