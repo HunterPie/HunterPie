@@ -1,7 +1,7 @@
 ﻿using DiscordRPC;
 using DiscordRPC.Message;
 using HunterPie.Core.Client.Configuration.Integrations;
-using HunterPie.Core.Game;
+using HunterPie.Core.Game.Entity.Game;
 using HunterPie.Core.Logger;
 using System;
 using System.ComponentModel;

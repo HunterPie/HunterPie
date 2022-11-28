@@ -15,6 +15,7 @@ internal static class SideBar
         new PatreonSideBarElementViewModel(),
         new DiscordSideBarElementViewModel(),
         new GithubSideBarElementViewModel(),
+        //new DebugSideBarElementViewModel(),
     };
 
     public static T? GetInstance<T>() => (T?)Menu.FirstOrDefault(vm => vm is T);

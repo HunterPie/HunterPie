@@ -62,7 +62,7 @@
          --><Run Text="{Binding Value, Mode=OneWay, Source={x:Static core:ScanManager.ScanTime}}"
                  Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
                  FontWeight="Medium"/><!--
-         --><Run Text="ms"
+         --><Run Text="μs"
                  Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
                  FontWeight="Medium"/>
         </TextBlock>

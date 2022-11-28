@@ -3,6 +3,7 @@ using HunterPie.Domain.Interfaces;
 using HunterPie.Internal.Initializers;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace HunterPie.Internal;
@@ -44,12 +45,12 @@ internal class InitializerManager
         new DebugWidgetInitializer(),
     };
 
-    public static void Initialize()
+    public static async Task Initialize()
     {
         Log.Benchmark();
 
         foreach (IInitializer initializer in _initializers)
-            initializer.Init();
+            await initializer.Init();
 
         Log.BenchmarkEnd();
     }
@@ -59,10 +60,10 @@ internal class InitializerManager
         Log.Benchmark();
 
         // Make sure to run UI initializers in the main thread
-        Dispatcher.CurrentDispatcher.Invoke(() =>
+        Dispatcher.CurrentDispatcher.Invoke(async () =>
         {
             foreach (IInitializer initializer in _uiInitializers)
-                initializer.Init();
+                await initializer.Init();
         });
 
         Log.BenchmarkEnd();

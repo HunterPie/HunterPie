@@ -5,6 +5,7 @@ using HunterPie.UI.Platform.Windows.Native;
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;
 
@@ -20,11 +21,12 @@ internal class CustomFontsInitializer : IInitializer, IDisposable
                         .ToArray();
     });
 
-    public void Init()
+    public Task Init()
     {
         foreach (string fontName in _fonts.Value)
             _ = Gdi32.AddFontResourceW(fontName);
 
+        return Task.CompletedTask;
     }
 
     public void Dispose()

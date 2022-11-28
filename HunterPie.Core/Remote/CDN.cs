@@ -46,6 +46,25 @@ public class CDN
         return localImage;
     }
 
+    public static async Task GetFile(string path, string outPath)
+    {
+        using Poogie request = new PoogieBuilder(CDN_BASE_URL)
+            .Get(path)
+            .WithTimeout(TimeSpan.FromSeconds(6))
+            .WithRetry(3)
+            .Build();
+
+        using PoogieResponse response = await request.RequestAsync();
+
+        if (!response.Success)
+            return;
+
+        if (response.Status != HttpStatusCode.OK)
+            return;
+
+        await response.Download(outPath);
+    }
+
     public static async Task<string> GetAsset(string uri)
     {
         string fileName = Path.GetFileName(uri);

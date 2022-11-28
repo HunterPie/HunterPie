@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using Config = HunterPie.Core.Client.Configuration.Config;
 
 namespace HunterPie.Internal.Initializers;
@@ -20,14 +21,14 @@ internal class ClientConfigMigrationInitializer : IInitializer
         { 1, new V3SettingsMigrator() },
     };
 
-    public void Init()
+    public Task Init()
     {
         CreateConfigIfNeeded();
 
         IVersionedConfig versionedConfig = ReadSettingsAs<VersionedConfig>();
 
         if (!_migrators.ContainsKey(versionedConfig.Version))
-            return;
+            return Task.CompletedTask;
 
         ISettingsMigrator migrator = _migrators[versionedConfig.Version];
         versionedConfig = ReadSettingsAs<IVersionedConfig>(migrator.GetRequiredType());
@@ -35,12 +36,14 @@ internal class ClientConfigMigrationInitializer : IInitializer
         while (_migrators.ContainsKey(versionedConfig.Version))
         {
             if (!migrator.CanMigrate(versionedConfig))
-                return;
+                return Task.CompletedTask;
 
             versionedConfig = migrator.Migrate(versionedConfig);
         }
 
         RewriteSettings(versionedConfig);
+
+        return Task.CompletedTask;
     }
 
     private static void CreateConfigIfNeeded()

@@ -24,6 +24,9 @@ internal static class UpdateUseCase
         UpdateService service = new();
         service.CleanupOldFiles();
 
+        vm.State = "Checking for new localization files...";
+        await service.UpdateLocalizationFiles();
+
         vm.State = "Checking for latest version...";
         Version latest = await service.GetLatestVersion();
 
@@ -47,11 +50,18 @@ internal static class UpdateUseCase
         }
 
         vm.State = "Downloading package...";
-        await service.DownloadZip((_, args) =>
+        bool success = await service.DownloadZip((_, args) =>
         {
             vm.DownloadedBytes = args.BytesDownloaded;
             vm.TotalBytes = args.TotalBytes;
         });
+
+        if (!success)
+        {
+            vm.State = "Failed to update HunterPie";
+            Log.Warn("Failed to update HunterPie");
+            return false;
+        }
 
         vm.State = "Calculating file hashes...";
         Dictionary<string, string> localFiles = await service.IndexAllFilesRecursively(ClientInfo.ClientPath);

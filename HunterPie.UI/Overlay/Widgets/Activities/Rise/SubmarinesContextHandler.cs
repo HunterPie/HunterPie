@@ -1,6 +1,6 @@
-﻿using HunterPie.Core.Game.Rise;
-using HunterPie.Core.Game.Rise.Entities;
-using HunterPie.Core.Game.Rise.Entities.Activities;
+﻿using HunterPie.Integrations.Datasources.MonsterHunterRise;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Activities;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 using HunterPie.UI.Overlay.Widgets.Activities.ViewModel;
 using System.Collections.Generic;
 
@@ -25,7 +25,6 @@ internal class SubmarinesContextHandler : IContextHandler
         foreach (MHRSubmarine submarine in Player.Argosy.Submarines)
         {
             if (!_submarineViewModels.ContainsKey(submarine))
-            {
                 _submarineViewModels[submarine] = new()
                 {
                     Count = submarine.Count,
@@ -33,7 +32,6 @@ internal class SubmarinesContextHandler : IContextHandler
                     DaysLeft = submarine.DaysLeft,
                     IsActive = submarine.IsUnlocked
                 };
-            }
 
             submarine.OnDaysLeftChange += OnDaysLeftChange;
             submarine.OnItemCountChange += OnItemCountChange;

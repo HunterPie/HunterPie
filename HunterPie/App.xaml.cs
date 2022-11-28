@@ -1,3 +1,4 @@
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
@@ -9,6 +10,7 @@ using HunterPie.Core.System;
 using HunterPie.Features;
 using HunterPie.Features.Backups;
 using HunterPie.Features.Overlay;
+using HunterPie.Integrations;
 using HunterPie.Integrations.Discord;
 using HunterPie.Internal;
 using HunterPie.UI.Overlay;
@@ -43,7 +45,8 @@ public partial class App : Application
 
         base.OnStartup(e);
 
-        InitializerManager.Initialize();
+        await InitializerManager.Initialize();
+
         SetRenderingMode();
 
         await SelfUpdate();
@@ -117,6 +120,7 @@ public partial class App : Application
 
         UnhookEvents();
         _richPresence?.Dispose();
+        _richPresence = null;
 
         ScanManager.Stop();
         _context.Dispose();
@@ -124,18 +128,20 @@ public partial class App : Application
         _process = null;
         _context = null;
 
-        _ = Dispatcher.InvokeAsync(WidgetInitializers.Unload);
+        Dispatcher.Invoke(WidgetInitializers.Unload);
         WidgetManager.Dispose();
+
         Log.Info("{0} has been closed", e.ProcessName);
+
+        SmartEventsTracker.DisposeEvents();
+
         if (e.Process.HasExitedNormally == false
             && e.Process.Game == GameProcess.MonsterHunterWorld
             && ClientConfig.Config.Client.EnableNativeModule)
-        {
             Log.Info(
                 "{0} has exited abnormally. If you have not installed Stracker's Loader and CRC bypass mod, turning off \"Enable native module\" in Client Settings may help.",
                 e.ProcessName
             );
-        }
 
         if (ClientConfig.Config.Client.ShouldShutdownOnGameExit)
             Dispatcher.Invoke(Shutdown);
@@ -152,8 +158,7 @@ public partial class App : Application
         try
         {
             _process = e.Process;
-            _ = GameManager.InitializeGameData(e.ProcessName);
-            Context context = GameManager.GetGameContext(e.ProcessName, _process);
+            Context context = GameIntegrationService.CreateNewGameContext(e.ProcessName, _process);
 
             Log.Debug("Initialized game context");
             _context = context;
@@ -168,6 +173,8 @@ public partial class App : Application
             await Dispatcher.InvokeAsync(() => WidgetInitializers.Initialize(context));
 
             ScanManager.Start();
+
+            Log.Debug("Active events: {0} with {1} total references", SmartEventsTracker.ActiveEvents(), SmartEventsTracker.CountReferences());
         }
         catch (Exception ex)
         {
@@ -206,7 +213,7 @@ public partial class App : Application
     }
 
     private void OnPlayerLogin(object sender, EventArgs e) => Log.Info($"Logged in as {_context.Game.Player.Name}");
-    private void OnStageUpdate(object sender, EventArgs e) => Log.Debug(string.Format("StageId: {0} | InHuntingZone: {1}", _context.Game.Player.StageId, _context.Game.Player.InHuntingZone));
+    private void OnStageUpdate(object sender, EventArgs e) => Log.Debug("StageId: {0} | InHuntingZone: {1}", _context.Game.Player.StageId, _context.Game.Player.InHuntingZone);
 
     public static void Restart()
     {

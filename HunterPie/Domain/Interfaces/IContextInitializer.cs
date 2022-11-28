@@ -13,5 +13,5 @@ internal interface IContextInitializer
     /// To make sure certain operations are taken place on the main thread (e.g., direct UI object model manipulation), the implementation
     /// should use <c>DispatcherObject.Dispatcher.DispatchAsync</c>.
     /// </remarks>
-    public Task InitializeAsync(Context context);
+    public Task InitializeAsync(IContext context);
 }

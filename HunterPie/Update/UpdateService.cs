@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Http.Events;
 using HunterPie.Core.Logger;
+using HunterPie.Core.Remote;
 using HunterPie.Update.Remote;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ internal class UpdateService
         return parsed;
     }
 
-    public async Task DownloadZip(EventHandler<PoogieDownloadEventArgs> callback) => await api.DownloadVersion(latest, callback);
+    public async Task<bool> DownloadZip(EventHandler<PoogieDownloadEventArgs> callback) => await api.DownloadVersion(latest, callback);
 
     public bool ExtractZip()
     {
@@ -156,6 +157,25 @@ internal class UpdateService
                     }
                 }
             }
+        }
+    }
+
+    public async Task UpdateLocalizationFiles()
+    {
+        Dictionary<string, string> remoteChecksums = await api.GetLocalizationsChecksum();
+
+        foreach ((string remoteName, string remoteChecksum) in remoteChecksums)
+        {
+            string fileName = remoteName.Replace("localization/", string.Empty);
+            string localFilePath = ClientInfo.GetPathFor($"Languages/{fileName}");
+
+            string localChecksum = File.Exists(localFilePath) ? ComputeSHA256Checksum(localFilePath) : "";
+
+            if (remoteChecksum == localChecksum)
+                continue;
+
+            Log.Debug("Downloading {0}... Remote checksum: {1} | Local checksum: {2}", remoteName, remoteChecksum, localChecksum);
+            await CDN.GetFile($"/{remoteName}", localFilePath);
         }
     }
 }

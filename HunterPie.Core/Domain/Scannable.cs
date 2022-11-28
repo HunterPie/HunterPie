@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Domain.Memory;
 using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Logger;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,19 +15,20 @@ public delegate void Middleware<T>(ref T dto) where T : struct;
 /// </summary>
 public abstract class Scannable
 {
-    protected readonly IProcessManager _process;
-    protected IMemory Memory => _process.Memory;
-    private readonly Dictionary<Type, HashSet<Delegate>> middlewares = new();
-    private readonly List<Delegate> scanners = new();
+    protected readonly IProcessManager Process;
+    protected IMemory Memory => Process.Memory;
+    private readonly Dictionary<Type, HashSet<Delegate>> _middlewares = new();
+    private readonly List<Delegate> _scanners = new();
+    private readonly Dictionary<Delegate, int> _troublesomeScannables = new();
 
-    public Scannable(IProcessManager process)
+    protected Scannable(IProcessManager process)
     {
-        _process = process;
+        Process = process;
 
         AppendScannableMethods();
     }
 
-    public Scannable()
+    protected Scannable()
     {
         AppendScannableMethods();
     }
@@ -43,11 +45,11 @@ public abstract class Scannable
             if (scannableAttributes.Length <= 0)
                 continue;
 
-            var attrib = (ScannableMethod)scannableAttributes.First();
+            var attributes = (ScannableMethod)scannableAttributes.First();
 
             var func = (Action)Delegate.CreateDelegate(typeof(Action), this, method.Name);
 
-            _ = Add(attrib.DtoType, func);
+            _ = Add(attributes.DtoType, func);
         }
     }
 
@@ -56,8 +58,29 @@ public abstract class Scannable
     /// </summary>
     internal void Scan()
     {
-        foreach (Delegate scanner in scanners)
-            _ = scanner.DynamicInvoke();
+        Delegate[] readOnlyScanners = _scanners.ToArray();
+
+        foreach (Delegate scanner in readOnlyScanners)
+            try
+            {
+                _ = scanner.DynamicInvoke();
+            }
+            catch (Exception err)
+            {
+                if (!_troublesomeScannables.ContainsKey(scanner))
+                    _troublesomeScannables.Add(scanner, 0);
+
+                _troublesomeScannables[scanner]++;
+
+                if (_troublesomeScannables[scanner] >= 3)
+                {
+                    Log.Warn($"Scanner: {scanner.Method.Name} had multiple exceptions. Disabling scanner for now;\n{err}");
+
+                    _scanners.Remove(scanner);
+
+                    _troublesomeScannables.Remove(scanner);
+                }
+            }
     }
 
     /// <summary>
@@ -71,23 +94,23 @@ public abstract class Scannable
     {
         Type type = typeof(T);
 
-        scanners.Add(scanner);
+        _scanners.Add(scanner);
 
-        if (!middlewares.ContainsKey(type))
-            middlewares.Add(type, new HashSet<Delegate>());
+        if (!_middlewares.ContainsKey(type))
+            _middlewares.Add(type, new HashSet<Delegate>());
 
         return true;
     }
 
     protected bool Add(Type type, Action scanner)
     {
-        scanners.Add(scanner);
+        _scanners.Add(scanner);
 
         if (type is null)
             return true;
 
-        if (!middlewares.ContainsKey(type))
-            middlewares.Add(type, new());
+        if (!_middlewares.ContainsKey(type))
+            _middlewares.Add(type, new());
 
         return true;
     }
@@ -99,7 +122,7 @@ public abstract class Scannable
     /// <param name="data">DTO to pass to the middlewares</param>
     protected void Next<T>(ref T data) where T : struct
     {
-        foreach (Delegate mid in middlewares[data.GetType()])
+        foreach (Delegate mid in _middlewares[data.GetType()])
         {
             var function = (Middleware<T>)mid;
             function(ref data);
@@ -116,10 +139,10 @@ public abstract class Scannable
     public bool MiddlewareFor<T>(Middleware<T> middleware) where T : struct
     {
         Type type = typeof(T);
-        if (!middlewares.ContainsKey(type))
+        if (!_middlewares.ContainsKey(type))
             return false;
 
-        _ = middlewares[type].Add(middleware);
+        _ = _middlewares[type].Add(middleware);
 
         return true;
     }
@@ -133,10 +156,10 @@ public abstract class Scannable
     public bool RemoveMiddleware<T>(Middleware<T> middleware) where T : struct
     {
         Type type = typeof(T);
-        if (!middlewares.ContainsKey(type))
+        if (!_middlewares.ContainsKey(type))
             return false;
 
-        _ = middlewares[type].Remove(middleware);
+        _ = _middlewares[type].Remove(middleware);
 
         return true;
     }

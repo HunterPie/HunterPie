@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.Core.Game.Environment;
+using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster;
@@ -15,11 +15,6 @@ public class MonsterAilmentContextHandler : MonsterAilmentViewModel
 
         Update();
         HookEvents();
-    }
-
-    ~MonsterAilmentContextHandler()
-    {
-        UnhookEvents();
     }
 
     private void HookEvents()
@@ -64,5 +59,11 @@ public class MonsterAilmentContextHandler : MonsterAilmentViewModel
         Buildup = Context.BuildUp;
         MaxTimer = Context.MaxTimer;
         Timer = Context.Timer;
+    }
+
+    public override void Dispose()
+    {
+        UnhookEvents();
+        base.Dispose();
     }
 }

@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Game.Rise.Entities;
+﻿using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
 
 namespace HunterPie.UI.Overlay.Widgets.Wirebug;
