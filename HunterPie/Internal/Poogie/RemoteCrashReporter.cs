@@ -25,7 +25,7 @@ public class RemoteCrashReporter
         public string Stacktrace { get; init; }
     }
 
-    public static void Send(Exception exception)
+    public static void Send(Exception exception, bool isUIError = false)
     {
         CrashReportSchema schema = new()
         {
@@ -37,6 +37,7 @@ public class RemoteCrashReporter
 
         PoogieClient poogie = PoogieFactory.Default()
                                            .Post(REPORT_CRASH)
+                                           .WithHeader("X-Ui-Error", isUIError.ToString())
                                            .WithJson(schema)
                                            .Build();
 
