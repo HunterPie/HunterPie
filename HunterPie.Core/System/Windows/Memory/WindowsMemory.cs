@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Domain.Cache;
-using HunterPie.Core.Domain.Memory;
+﻿using HunterPie.Core.Domain.Memory;
 using HunterPie.Core.Logger;
 using HunterPie.Core.System.Windows.Native;
 using HunterPie.Core.Utils;
@@ -17,7 +16,6 @@ public class WindowsMemory : IMemory
 
     private readonly IntPtr _pHandle;
     private readonly ArrayPool<byte> _bufferPool = ArrayPool<byte>.Shared;
-    private readonly IMemoryCache _cache = new ThreadSafeMemoryCache();
 
     public WindowsMemory(IntPtr processHandle)
     {
@@ -51,14 +49,10 @@ public class WindowsMemory : IMemory
     {
         foreach (int offset in offsets)
         {
-            long? cachedValue = _cache.Get<long>(address);
-            long tmp = cachedValue ?? Read<long>(address);
+            long tmp = Read<long>(address);
 
             if (tmp == NULLPTR)
                 return NULLPTR;
-
-            if (!cachedValue.HasValue)
-                _cache.Set(address, tmp, 10);
 
             address = tmp + offset;
         }
@@ -71,14 +65,10 @@ public class WindowsMemory : IMemory
         foreach (int offset in offsets)
         {
             long newAddress = address + offset;
-            long? cachedValue = _cache.Get<long>(newAddress);
-            long tmp = cachedValue ?? Read<long>(newAddress);
+            long tmp = Read<long>(newAddress);
 
             if (tmp == NULLPTR)
                 return NULLPTR;
-
-            if (!cachedValue.HasValue)
-                _cache.Set(newAddress, tmp, 10);
 
             address = tmp;
         }
