@@ -322,19 +322,19 @@ public class MHRMonster : CommonMonster
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void DerefPartsAndScan(
-        long[] flinchPointers,
-        long[] partsPointers,
-        long[] severablePointers,
-        long[] qurioPointers
+        IReadOnlyList<long> flinchPointers,
+        IReadOnlyList<long> partsPointers,
+        IReadOnlyList<long> severablePointers,
+        IReadOnlyList<long> qurioPointers
     )
     {
-        for (int i = 0; i < flinchPointers.Length; i++)
+        for (int i = 0; i < flinchPointers.Count; i++)
         {
 
             long flinchPart = flinchPointers[i];
             long breakablePart = partsPointers[i];
             long severablePart = severablePointers[i];
-            long? qurioPart = qurioPointers.Length > 0 ? qurioPointers[i] : null;
+            long? qurioPart = qurioPointers.Count > 0 ? qurioPointers[i] : null;
 
             MHRPartStructure partInfo = new()
             {
@@ -418,6 +418,9 @@ public class MHRMonster : CommonMonster
             _address,
             AddressMap.Get<int[]>("MONSTER_AILMENTS_OFFSETS")
         );
+
+        if (ailmentsArrayPtr.IsNullPointer())
+            return;
 
         int ailmentsArrayLength = Process.Memory.Read<int>(ailmentsArrayPtr + 0x1C);
         long[] ailmentsArray = Process.Memory.Read<long>(ailmentsArrayPtr + 0x20, (uint)ailmentsArrayLength);
