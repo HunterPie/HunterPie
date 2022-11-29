@@ -80,7 +80,6 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
         while (ShouldPollProcess)
         {
             if (_shouldPauseThread)
-            {
                 try
                 {
                     Thread.Sleep(Timeout.Infinite);
@@ -89,7 +88,6 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
                 {
                     continue;
                 }
-            }
 
             PollProcessInfo();
             Thread.Sleep(150);

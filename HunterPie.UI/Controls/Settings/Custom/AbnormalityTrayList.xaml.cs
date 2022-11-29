@@ -47,7 +47,10 @@ public partial class AbnormalityTrayList : UserControl, INotifyPropertyChanged
 
     private void OnRemoveTrayClick(object sender, EventArgs e)
     {
-        AbnormalityWidgetConfig config = ViewModel.Trays[SelectedIndex];
+        AbnormalityWidgetConfig? config = TryFetchConfig();
+
+        if (config is null)
+            return;
 
         NativeDialogResult confirmation = DialogManager.Warn(
             Localization.QueryString("//Strings/Client/Dialogs/Dialog[@Id='CONFIRMATION_TITLE_STRING']"),
@@ -65,8 +68,29 @@ public partial class AbnormalityTrayList : UserControl, INotifyPropertyChanged
 
     private void OnOpenConfigClick(object sender, EventArgs e)
     {
-        AbnormalityWidgetConfig vm = ViewModel.Trays[SelectedIndex];
+        AbnormalityWidgetConfig? vm = TryFetchConfig();
+
+        if (vm is null)
+            return;
+
         var window = new AbnormalityWidgetConfigWindow(vm);
         _ = window.ShowDialog();
+    }
+
+    private AbnormalityWidgetConfig? TryFetchConfig()
+    {
+        try
+        {
+            return ViewModel.Trays[SelectedIndex];
+        }
+        catch
+        {
+            DialogManager.Error(
+                title: "Not found",
+                description: "Failed to find Abnormality Tray, if this issue keeps happening, try restarting HunterPie.",
+                NativeDialogButtons.Accept
+            );
+            return null;
+        }
     }
 }
