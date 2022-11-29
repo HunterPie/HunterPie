@@ -11,7 +11,7 @@ public class SecondsToTimeString : IValueConverter
         string timeFormat = "mm\\:ss";
         if (value is double val)
         {
-            if (val > TimeSpan.MaxValue.TotalSeconds)
+            if (val > TimeSpan.MaxValue.TotalSeconds || double.IsNaN(val))
                 return string.Empty;
 
             var span = TimeSpan.FromSeconds(val);

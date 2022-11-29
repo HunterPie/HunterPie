@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
@@ -6,6 +7,15 @@ namespace HunterPie.Core.Client;
 
 public static class ClientInfo
 {
+    public static string ClientFileName
+    {
+        get
+        {
+            using var selfProcess = Process.GetCurrentProcess();
+
+            return selfProcess.MainModule.FileName;
+        }
+    }
     public static string ClientPath => AppDomain.CurrentDomain.BaseDirectory;
     public static string PluginsPath => Path.Combine(ClientPath, "Modules");
     public static string LanguagesPath => Path.Combine(ClientPath, "Languages");

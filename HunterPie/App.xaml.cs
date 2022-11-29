@@ -71,7 +71,7 @@ public partial class App : Application
     {
         Process[] processes = Process.GetProcessesByName("HunterPie")
             .Where(p => p.Id != Environment.ProcessId
-                    && p.MainModule.FileName == Process.GetCurrentProcess().MainModule.FileName)
+                    && p.MainModule.FileName == ClientInfo.ClientFileName)
             .ToArray();
 
         foreach (Process process in processes)
