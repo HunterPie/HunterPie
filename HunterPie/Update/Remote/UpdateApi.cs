@@ -43,7 +43,7 @@ public class UpdateApi
     {
         PoogieApiResult<LocalizationsResponse> result = await PoogieApi.GetLocalizationsChecksums();
 
-        if (result.Response is null)
+        if (result?.Response is null)
             return new();
 
         return result.Response.Localizations;
