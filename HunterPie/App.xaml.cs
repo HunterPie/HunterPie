@@ -13,7 +13,7 @@ using HunterPie.Features.Overlay;
 using HunterPie.Integrations;
 using HunterPie.Integrations.Discord;
 using HunterPie.Internal;
-using HunterPie.Internal.Poogie;
+using HunterPie.Internal.Exceptions;
 using HunterPie.UI.Overlay;
 using HunterPie.Update;
 using HunterPie.Update.Presentation;
@@ -187,10 +187,9 @@ public partial class App : Application
 
     private void OnUIException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
-        RemoteCrashReporter.Send(e.Exception, isUIError: true);
-
-        Log.Error(e.Exception.ToString());
         e.Handled = true;
+
+        ExceptionTracker.TrackException(e.Exception);
     }
 
     protected override void OnExit(ExitEventArgs e)
