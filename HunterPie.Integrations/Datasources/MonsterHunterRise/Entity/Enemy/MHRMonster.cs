@@ -10,14 +10,12 @@ using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Logger;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
-using HunterPie.Integrations.Datasources.MonsterHunterRise.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 using System.Runtime.CompilerServices;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
 
-#nullable enable
 public class MHRMonster : CommonMonster
 {
     private readonly long _address;
@@ -241,11 +239,7 @@ public class MHRMonster : CommonMonster
         long healthComponent = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_OFFSETS"));
         long encodedPtr = Process.Memory.ReadPtr(healthComponent, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
 
-        uint healthEncodedMod = Process.Memory.Read<uint>(encodedPtr + 0x18) & 3;
-        uint healthEncoded = Process.Memory.Read<uint>(encodedPtr + (healthEncodedMod * 4) + 0x1C);
-        uint healthEncodedKey = Process.Memory.Read<uint>(encodedPtr + 0x14);
-
-        float currentHealth = MHRCrypto.DecodeHealth(healthEncoded, healthEncodedKey);
+        float currentHealth = Memory.ReadEncryptedFloat(encodedPtr);
 
         dto.Health = currentHealth;
         dto.MaxHealth = Process.Memory.Read<float>(healthComponent + 0x18);
@@ -266,7 +260,7 @@ public class MHRMonster : CommonMonster
         }
 
         MonsterDataSchema? data = MonsterData.GetMonsterData(Id);
-        if (data.HasValue && data.Value.IsNotCapturable == true)
+        if (data is { IsNotCapturable: true })
         {
             CaptureThreshold = 0.0f;
             return;
@@ -422,8 +416,7 @@ public class MHRMonster : CommonMonster
         if (ailmentsArrayPtr.IsNullPointer())
             return;
 
-        int ailmentsArrayLength = Process.Memory.Read<int>(ailmentsArrayPtr + 0x1C);
-        long[] ailmentsArray = Process.Memory.Read<long>(ailmentsArrayPtr + 0x20, (uint)ailmentsArrayLength);
+        long[] ailmentsArray = Memory.ReadArraySafe<long>(ailmentsArrayPtr, 17);
 
         DerefAilmentsAndScan(ailmentsArray);
     }
