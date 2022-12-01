@@ -73,7 +73,7 @@
                      Icon="ICON_INFERNALMELODY"/>
         <Abnormality Id="26"
                      Name="ABNORMALITY_SHARPNESS_REGEN"
-                     Icon="ICON_SHARPNESSUSERED"/>
+                     Icon="ICON_SHARPNESSREGEN"/>
         <Abnormality Id="27"/>
     </Songs>
     <Consumables>
