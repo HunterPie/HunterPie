@@ -195,6 +195,10 @@
                      Offset="104"
                      Name="ABNORMALITY_ROUSING_ROAR"
                      Icon="ICON_PALICO_BLUE"/>
+        <Abnormality Id="ABN_FRENZY_IMMUNITY"
+                     Offset="194"
+                     Name="ABNORMALITY_FRENZY_IMMUNITY"
+                     Icon="ICON_FRENZY_IMMUNITY"/>
         <Abnormality Id="ABN_RUBY_WIREBUG"
                      Offset="1A0"
                      DependsOn="254"
