@@ -5,7 +5,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo.Entity.Game;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo;
 
-public class MHRSunbreakDemoContext : Context
+public sealed class MHRSunbreakDemoContext : Context
 {
     public static MHRStrings Strings { get; private set; }
 
@@ -14,10 +14,5 @@ public class MHRSunbreakDemoContext : Context
         Strings = new MHRStrings(process);
         Game = new MHRSunbreakDemoGame(process);
         Process = process;
-    }
-
-    public override void Dispose()
-    {
-        Game.Dispose();
     }
 }

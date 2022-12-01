@@ -7,12 +7,13 @@ using HunterPie.Core.Game.Entity.Game.Chat;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Services;
 using HunterPie.Integrations.Datasources.Common.Entity.Game;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Services;
 using HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo.Entity.Player;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo.Entity.Game;
 
-public class MHRSunbreakDemoGame : CommonGame
+public sealed class MHRSunbreakDemoGame : CommonGame
 {
     private const uint MaximumMonsterArraySize = 5;
 
@@ -24,7 +25,7 @@ public class MHRSunbreakDemoGame : CommonGame
     public override List<IMonster> Monsters { get; } = new();
     public override bool IsHudOpen { get; protected set; }
 
-    public override IChat Chat => throw new NotImplementedException();
+    public override IChat? Chat => null;
     public override float TimeElapsed
     {
         get => throw new NotImplementedException();
@@ -43,7 +44,7 @@ public class MHRSunbreakDemoGame : CommonGame
         protected set => throw new NotImplementedException();
     }
 
-    public override IAbnormalityCategorizationService AbnormalityCategorizationService => throw new NotImplementedException();
+    public override IAbnormalityCategorizationService AbnormalityCategorizationService { get; } = new MHRAbnormalityCategorizationService();
 
     public MHRSunbreakDemoGame(IProcessManager process) : base(process)
     {
