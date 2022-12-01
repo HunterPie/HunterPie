@@ -12,7 +12,7 @@ internal class ExceptionTracker
 
     public static void TrackException(Exception exception)
     {
-        string exceptionHash = HashService.Hash(exception.ToString());
+        string exceptionHash = HashService.Hash(exception.Message);
 
         lock (Exceptions)
         {
