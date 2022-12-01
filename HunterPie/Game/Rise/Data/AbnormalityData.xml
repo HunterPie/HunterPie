@@ -367,5 +367,13 @@
                      Name="ABNORMALITY_DANGO_GLUTTON"
                      Icon="ICON_DANGOGLUTTON"
                      Category="Consumables"/>
+        <Abnormality Id="ABN_DANGO_DEFENDER"
+                     Offset="154"
+                     DependsOn="154"
+                     WithValue="1"
+                     Name="ABNORMALITY_DANGO_DEFENDER"
+                     Icon="ICON_DANGODEFENDER"
+                     Category="Consumables"
+                     IsInfinite="True"/>
     </Foods>
 </Abnormalities>
