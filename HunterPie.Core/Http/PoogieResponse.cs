@@ -50,7 +50,14 @@ public class PoogieResponse : IEventDispatcher, IDisposable
         catch { }
 
         if (error is null || error.Code == ErrorCode.NOT_ERROR)
-            response = JsonProvider.Deserializer<T>(content);
+            try
+            {
+                response = JsonProvider.Deserializer<T>(content);
+            }
+            catch
+            {
+                Log.Error("Failed to deserialize response body to JSON");
+            }
 
         var result = new PoogieApiResult<T>
         {

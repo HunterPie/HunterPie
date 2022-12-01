@@ -67,4 +67,11 @@ public static class MHRiseUtils
 
         return MHRCrypto.DecodeHealth(structure.GetValue(), structure.Key);
     }
+
+    public static T[] ReadArraySafe<T>(this IMemory memory, long address, uint size) where T : struct
+    {
+        uint arraySize = memory.Read<uint>(address + 0x1C);
+        arraySize = Math.Min(size, arraySize);
+        return memory.Read<T>(address + 0x20, arraySize);
+    }
 }

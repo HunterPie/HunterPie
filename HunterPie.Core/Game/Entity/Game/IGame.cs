@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 namespace HunterPie.Core.Game.Entity.Game;
 
+#nullable enable
 public interface IGame : IDisposable
 {
 
@@ -15,7 +16,7 @@ public interface IGame : IDisposable
     public IAbnormalityCategorizationService AbnormalityCategorizationService { get; }
     public List<IMonster> Monsters { get; }
 
-    public IChat Chat { get; }
+    public IChat? Chat { get; }
 
     public bool IsHudOpen { get; }
 

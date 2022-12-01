@@ -35,7 +35,7 @@ public sealed class MHWGame : CommonGame
     public override IPlayer Player => _player;
     public override List<IMonster> Monsters { get; } = new();
 
-    public override IChat Chat => throw new NotSupportedException();
+    public override IChat Chat => null;
 
     public override bool IsHudOpen
     {
