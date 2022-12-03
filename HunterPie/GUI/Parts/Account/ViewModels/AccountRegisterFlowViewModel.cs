@@ -67,6 +67,15 @@ public class AccountRegisterFlowViewModel : ViewModel
 
         IsRegistering = false;
 
+        if (register is null)
+        {
+            AppNotificationManager.Push(
+                Push.Error("Failed to register, try again later."),
+                TimeSpan.FromSeconds(5)
+            );
+            return;
+        }
+
         if (!register.Success)
         {
             AppNotificationManager.Push(

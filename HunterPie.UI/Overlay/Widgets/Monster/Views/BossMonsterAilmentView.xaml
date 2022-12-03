@@ -47,7 +47,7 @@
         <overlay:Arc d:Percentage="0.5"
                      StrokeThickness="3"
                      Width="40"
-                     Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                     Height="40"
                      VerticalAlignment="Top"
                      Grid.Row="1">
             <overlay:Arc.Percentage>
@@ -68,7 +68,7 @@
         <overlay:Arc d:Percentage="0.3"
                      StrokeThickness="3"
                      Width="40"
-                     Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                     Height="40"
                      VerticalAlignment="Top"
                      Grid.Row="1"
                      Stroke="{Binding Name, Mode=OneWay, Converter={StaticResource MonsterAilmentIdToColorConverter}}"
