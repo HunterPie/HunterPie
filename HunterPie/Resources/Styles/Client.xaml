@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="HUNTERPIE_LOGO_TEXT" TargetType="Label">
+        <Setter Property="Content">
+            <Setter.Value>
+                <TextBlock>
+                    <Run Text="Hunter"
+                         FontWeight="Medium"/><!--
+                         --><Run Text="Pie"
+                        FontWeight="ExtraLight"/>
+                </TextBlock>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground" Value="{StaticResource WHITE_50}"/>
+        <Setter Property="FontSize" Value="40"/>
+        <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+    </Style>
+</ResourceDictionary>

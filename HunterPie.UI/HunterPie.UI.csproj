@@ -5,11 +5,12 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.6.2.197</AssemblyVersion>
-    <FileVersion>2.6.2.197</FileVersion>
-    <Version>2.2.0.0</Version>
+    <AssemblyVersion>2.6.0.158</AssemblyVersion>
+    <FileVersion>2.6.0.158</FileVersion>
+    <Version>2.2022.1203.2133</Version>
     <LangVersion>10.0</LangVersion>
     <Authors>Haato</Authors>
+    <IncrementVersionOnBuild>2.yyyy.Mdd.Hmm</IncrementVersionOnBuild>
  </PropertyGroup>
 
   <ItemGroup>

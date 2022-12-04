@@ -99,10 +99,12 @@ public partial class MainWindow : Window
         {
             EasingFunction = new QuarticEase()
         };
+
         var opacityAnimation = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(500))
         {
             EasingFunction = new SineEase()
         };
+
         MainHost.Instance.PropertyChanged += (_, __) =>
         {
             PART_ContentPresenter.BeginAnimation(FrameworkElement.OpacityProperty, opacityAnimation);
