@@ -4,10 +4,11 @@
     <TargetFramework>net6.0</TargetFramework>
     <Authors>Haato</Authors>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <Version>2.2.0.0</Version>
-    <AssemblyVersion>2.6.2.149</AssemblyVersion>
-    <FileVersion>2.6.2.149</FileVersion>
+    <Version>2.2022.1203.2133</Version>
+    <AssemblyVersion>2.6.0.158</AssemblyVersion>
+    <FileVersion>2.6.0.158</FileVersion>
     <LangVersion>10.0</LangVersion>
+    <IncrementVersionOnBuild>2.yyyy.Mdd.Hmm</IncrementVersionOnBuild>
  </PropertyGroup>
 
   <ItemGroup>
