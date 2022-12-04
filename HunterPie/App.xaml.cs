@@ -50,7 +50,8 @@ public partial class App : Application
 
         SetRenderingMode();
 
-        await SelfUpdate();
+        if (await SelfUpdate())
+            return;
 
         ShutdownMode = ShutdownMode.OnMainWindowClose;
 
@@ -80,10 +81,10 @@ public partial class App : Application
 
     private void SetUIThreadPriority() => Dispatcher.Thread.Priority = ThreadPriority.Highest;
 
-    private async Task SelfUpdate()
+    private static async Task<bool> SelfUpdate()
     {
         if (!ClientConfig.Config.Client.EnableAutoUpdate)
-            return;
+            return false;
 
         UpdateViewModel vm = new();
         UpdateView view = new() { DataContext = vm };
@@ -98,6 +99,7 @@ public partial class App : Application
         if (result)
             Restart();
 
+        return result;
     }
 
     private void InitializeProcessScanners()
