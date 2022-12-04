@@ -13,7 +13,9 @@
         xmlns:notifications="clr-namespace:HunterPie.GUI.Parts.Notifications.Views"
         xmlns:appNotifications="clr-namespace:HunterPie.Features.Notification"
         xmlns:accountPromo="clr-namespace:HunterPie.GUI.Parts.Account.Views.Promotional"
+        xmlns:images="clr-namespace:HunterPie.UI.Architecture.Images;assembly=HunterPie.UI"
         xmlns:account="clr-namespace:HunterPie.GUI.Parts.Account.Views"
+        xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
         Title="HunterPie v2" 
         Height="600" 
         Width="1000"
@@ -71,6 +73,47 @@
         <Grid Background="{StaticResource GRAY_300}" 
               Margin="0,25,0,0">
 
+            <!-- WinterPie -->
+            <image:Icon Image="{StaticResource SNOWFLAKE}"
+                        Height="30"
+                        Width="30"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Foreground="{StaticResource GRAY}" 
+                        Margin="65,15,0,0"/>
+
+            <image:Icon Image="{StaticResource SNOWFLAKE}"
+                        Height="50"
+                        Width="50"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Foreground="{StaticResource GRAY_50}" 
+                        Margin="300,50,0,0"/>
+
+            <image:Icon Image="{StaticResource SNOWFLAKE}"
+                        Height="150"
+                        Width="150"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Foreground="{StaticResource GRAY_100}" 
+                        Margin="400,25,0,0"/>
+
+            <image:Icon Image="{StaticResource SNOWFLAKE}"
+                        Height="30"
+                        Width="30"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Foreground="{StaticResource GRAY_100}" 
+                        Margin="700,25,0,0"/>
+
+            <image:Icon Image="{StaticResource SNOWFLAKE}"
+                        Height="45"
+                        Width="45"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Foreground="{StaticResource GRAY}" 
+                        Margin="630,50,0,0"/>
+
             <StackPanel Orientation="Horizontal" 
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
@@ -78,19 +121,8 @@
 
                 <Image Source="{StaticResource ICON_HUNTERPIE}"
                        Height="55"/>
-                <Label Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                       FontSize="40"
-                       FontFamily="Work Sans"
-                       VerticalAlignment="Center">
-                    <Label.Content>
-                        <TextBlock>
-                            <Run Text="Hunter"
-                                 FontWeight="Medium"/><!--
-                         --><Run Text="Pie"
-                                 FontWeight="ExtraLight"/>
-                        </TextBlock>
-                    </Label.Content>
-                </Label>
+                
+                <Label Style="{StaticResource HUNTERPIE_LOGO_TEXT}"/>
 
             </StackPanel>
 
@@ -125,7 +157,6 @@
                     </Grid>
                 </native:Button.Content>
             </native:Button>
-
         </Grid>
 
         <sidebar:SideBarContainer Grid.Row="1"
