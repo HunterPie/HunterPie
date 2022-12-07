@@ -39,7 +39,7 @@
                      Icon="ICON_WINDRES+_MHRS"/>
         <Abnormality Id="12"
                      Name="ABNORMALITY_STUN_NEG"
-                     Icon="ICON_STUNNEG"/>
+                     Icon="ICON_STUNNEG_MHRS"/>
         <Abnormality Id="13"
                      Name="ABNORMALITY_BLIGHT_NEG"
                      Icon="ICON_BLIGHTSNEG_MHRS"/>
