@@ -99,7 +99,7 @@ public partial class Bar : UserControl
 
         value = Math.Max(1.0, value);
 
-        if (double.IsNaN(value))
+        if (double.IsNaN(value) || double.IsInfinity(value))
         {
             InvalidateVisual();
             return;
