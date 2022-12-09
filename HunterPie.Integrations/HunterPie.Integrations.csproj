@@ -8,7 +8,7 @@
     <FileVersion>2.6.0.158</FileVersion>
     <Authors>Haato</Authors>
     <Description></Description>
-    <Version>2.2022.1203.2133</Version>
+    <Version>2.2022.1208.2320</Version>
     <IncrementVersionOnBuild>2.yyyy.Mdd.Hmm</IncrementVersionOnBuild>
   </PropertyGroup>
 

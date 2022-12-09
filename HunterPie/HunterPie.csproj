@@ -10,7 +10,7 @@
     <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Authors>Haato</Authors>
-    <Version>1.2022.1203.2133</Version>
+    <Version>1.2022.1208.2320</Version>
     <DebugType>full</DebugType>
     <SignAssembly>True</SignAssembly>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -105,6 +105,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Address\MonsterHunterRise.13.0.0.1.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Address\MonsterHunterRise.13.0.0.0.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
