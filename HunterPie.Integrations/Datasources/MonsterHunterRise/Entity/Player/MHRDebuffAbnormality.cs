@@ -39,6 +39,7 @@ public sealed class MHRDebuffAbnormality : CommonAbnormality, IUpdatable<MHRDebu
         Type = data.Group.StartsWith("Debuffs")
             ? AbnormalityType.Debuff
             : AbnormalityType.Skill;
+        IsInfinite = data.IsInfinite;
         IsBuildup = data.IsBuildup;
 
         if (IsBuildup)

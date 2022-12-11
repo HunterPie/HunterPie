@@ -299,6 +299,13 @@
                      WithValue="2"
                      Name="ABNORMALITY_BUBBLES_PLUS"
                      Icon="ICON_BUBBLE+"/>
+        <Abnormality Id="ABN_LEECHED"
+                     Offset="8B0"
+                     DependsOn="8B0"
+                     WithValue="-1"
+                     Name="ABNORMALITY_LEECHED"
+                     Icon="ICON_LEECHED"
+                     IsInfinite="True"/>
         <Abnormality Id="ABN_BLEED"
                      Offset="8CC"
                      Name="ABNORMALITY_BLEED"
