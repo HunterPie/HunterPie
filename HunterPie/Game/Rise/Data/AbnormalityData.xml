@@ -293,7 +293,7 @@
                      WithValue="1"
                      Name="ABNORMALITY_BUBBLES"
                      Icon="ICON_BUBBLE"/>
-		<Abnormality Id="ABN_BUBBLES_PLUS"
+        <Abnormality Id="ABN_BUBBLES_PLUS"
                      Offset="8A8"
                      DependsOn="8C0"
                      WithValue="2"
