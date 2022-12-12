@@ -2,18 +2,22 @@
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Events;
 using HunterPie.Core.Domain.Enums;
+using HunterPie.Integrations.Poogie.Common.Models;
+using HunterPie.Integrations.Poogie.Version;
+using HunterPie.Integrations.Poogie.Version.Models;
+using HunterPie.UI.Controls.Settings.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Windows;
 
-namespace HunterPie.UI.Controls.Settings.ViewModel;
+namespace HunterPie.GUI.Parts.Settings.ViewModels;
 
 public class SettingHostViewModel : Bindable
 {
+    private readonly PoogieVersionConnector _versionConnector = new();
+
     private int _currentTabIndex;
     private bool _isFetchingVersion;
     private bool _isLatestVersion;
@@ -58,26 +62,21 @@ public class SettingHostViewModel : Bindable
             field.Match = Regex.IsMatch(field.Name, query, RegexOptions.IgnoreCase) || query.Length == 0;
     }
 
-    /*
+
     public async void FetchVersion()
     {
         IsFetchingVersion = true;
 
-        PoogieApiResult<VersionResponse> schema = await PoogieApi.GetLatestVersion();
+        PoogieResult<VersionResponse> schema = await _versionConnector.Latest();
 
-        if (schema is not null && schema.Response is { } resp)
+        if (schema.Response is { } resp)
         {
             var version = new Version(resp.LatestVersion);
             IsLatestVersion = ClientInfo.IsVersionGreaterOrEq(version);
         }
 
         IsFetchingVersion = false;
-    }*/
-
-    public void ExecuteRestart()
-    {
-        string path = Process.GetCurrentProcess().MainModule.FileName;
-        _ = Process.Start(path.Replace(".dll", ".exe"));
-        Application.Current.Shutdown();
     }
+
+    public void ExecuteRestart() => App.Restart();
 }

@@ -1,10 +1,10 @@
-﻿using HunterPie.UI.Controls.Settings.ViewModel;
+﻿using HunterPie.GUI.Parts.Settings.ViewModels;
 using HunterPie.UI.Controls.TextBox.Events;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
-namespace HunterPie.UI.Controls.Settings;
+namespace HunterPie.GUI.Parts.Settings.Views;
 
 /// <summary>
 /// Interaction logic for SettingHost.xaml
@@ -22,7 +22,7 @@ public partial class SettingHost : UserControl
     }
 
     private void OnRealTimeSearch(object sender, SearchTextChangedEventArgs e) => ViewModel.SearchSetting(e.Text);
-    private void OnLoaded(object sender, RoutedEventArgs e) { }
+    private void OnLoaded(object sender, RoutedEventArgs e) => ViewModel.FetchVersion();
     private void OnUnloaded(object sender, RoutedEventArgs e) => ViewModel.UnhookEvents();
     private void OnExecuteUpdateClick(object sender, RoutedEventArgs e) => ViewModel.ExecuteRestart();
 

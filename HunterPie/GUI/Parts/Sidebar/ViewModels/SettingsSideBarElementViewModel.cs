@@ -3,6 +3,8 @@ using HunterPie.Core.Client;
 using HunterPie.Core.Domain.Generics;
 using HunterPie.Features.Account.Config;
 using HunterPie.GUI.Parts.Host;
+using HunterPie.GUI.Parts.Settings.ViewModels;
+using HunterPie.GUI.Parts.Settings.Views;
 using HunterPie.Internal.Initializers;
 using HunterPie.UI.Assets.Application;
 using HunterPie.UI.Controls.Flags;
