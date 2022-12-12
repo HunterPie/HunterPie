@@ -1,6 +1,4 @@
-﻿using HunterPie.Core.API;
-using HunterPie.Core.API.Entities;
-using HunterPie.Core.Client;
+﻿using HunterPie.Core.Client;
 using HunterPie.Core.Game;
 using HunterPie.Core.Logger;
 using HunterPie.Domain.Interfaces;
@@ -9,6 +7,9 @@ using HunterPie.Features.Account.Config;
 using HunterPie.Features.Backups.Games;
 using HunterPie.Integrations.Datasources.MonsterHunterRise;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld;
+using HunterPie.Integrations.Poogie.Backup;
+using HunterPie.Integrations.Poogie.Backup.Models;
+using HunterPie.Integrations.Poogie.Common.Models;
 using Microsoft.Win32;
 using System;
 using System.IO;
@@ -19,6 +20,8 @@ namespace HunterPie.Features.Backups;
 #nullable enable
 internal class GameSaveBackupService : IContextInitializer
 {
+    private static readonly PoogieBackupConnector BackupConnector = new();
+
     private const string LAST_BACKUP_KEY = "HUNTERPIE_LAST_BACKUP";
     private const string LAST_BACKUP_SUCCESS_KEY = "HUNTERPIE_LAST_BACKUP_SUCCESS";
     private static IBackupService? _backupService;
@@ -51,9 +54,9 @@ internal class GameSaveBackupService : IContextInitializer
         if (!LocalAccountConfig.Config.IsBackupEnabled)
             return false;
 
-        PoogieApiResult<CanUploadBackupResponse>? canUploadResponse = await PoogieApi.GetCanUploadBackup();
+        PoogieResult<CanUploadBackupResponse> canUploadResult = await BackupConnector.CanUploadBackup();
 
-        if (canUploadResponse?.Response?.CanUpload != true)
+        if (canUploadResult.Response is not { CanUpload: true })
             return false;
 
         string registryKey = $"{LAST_BACKUP_KEY}_{_backupService!.Type}";
@@ -62,15 +65,12 @@ internal class GameSaveBackupService : IContextInitializer
         if (!ShouldBackup())
             return false;
 
-        if (_backupService is null)
-            return false;
-
         string backupFile = await _backupService.ExecuteAsync();
 
         if (backupFile is null)
             return false;
 
-        PoogieApiResult<BackupResponse>? result = await PoogieApi.UploadBackup(_backupService.Type, backupFile);
+        PoogieResult<BackupResponse> result = await BackupConnector.Upload(_backupService.Type, backupFile);
 
         if (File.Exists(backupFile))
             try
@@ -79,19 +79,16 @@ internal class GameSaveBackupService : IContextInitializer
             }
             catch { }
 
-        if (result is null)
+        if (result.Response is null)
             return false;
 
-        if (result.Success)
-        {
-            Log.Debug("Successfully uploaded save file {0}", result.Response!.Id);
+        Log.Debug("Successfully uploaded save file {0}", result.Response!.Id);
 
-            RegistryConfig.Set(registryKey, DateTime.UtcNow.Ticks);
-        }
+        RegistryConfig.Set(registryKey, DateTime.UtcNow.Ticks);
 
-        RegistryConfig.Set(successRegistryKey, result.Success);
+        RegistryConfig.Set(successRegistryKey, true);
 
-        return result.Success;
+        return true;
     }
 
     private static bool ShouldBackup()

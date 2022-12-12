@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.API.Entities;
+﻿using HunterPie.Integrations.Poogie.Common.Models;
 using System.Threading.Tasks;
 
 namespace HunterPie.Features.Backups;

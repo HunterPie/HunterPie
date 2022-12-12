@@ -1,7 +1,8 @@
-﻿using HunterPie.Core.API;
-using HunterPie.Core.API.Entities;
-using HunterPie.Core.Client.Localization;
+﻿using HunterPie.Core.Client.Localization;
 using HunterPie.Features.Notification;
+using HunterPie.Integrations.Poogie.Account;
+using HunterPie.Integrations.Poogie.Account.Models;
+using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Controls.Notfication;
 using System;
@@ -9,6 +10,8 @@ using System;
 namespace HunterPie.GUI.Parts.Account.ViewModels;
 public class AccountRegisterFlowViewModel : ViewModel
 {
+    private readonly PoogieAccountConnector _accountConnector = new();
+
     private string _username = string.Empty;
     private string _email = string.Empty;
     private string _password = string.Empty;
@@ -56,31 +59,21 @@ public class AccountRegisterFlowViewModel : ViewModel
 
         IsRegistering = true;
 
-        var request = new RegisterRequest
-        {
-            Username = Username,
-            Email = Email,
-            Password = Password
-        };
+        var request = new RegisterRequest(
+            Username: Username,
+            Email: Email,
+            Password: Password
+        );
 
-        PoogieApiResult<RegisterResponse> register = await PoogieApi.Register(request);
+        PoogieResult<RegisterResponse> register = await _accountConnector.Register(request);
 
         IsRegistering = false;
 
-        if (register is null)
-        {
-            AppNotificationManager.Push(
-                Push.Error("Failed to register, try again later."),
-                TimeSpan.FromSeconds(5)
-            );
-            return;
-        }
-
-        if (!register.Success)
+        if (register.Error is { } error)
         {
             AppNotificationManager.Push(
                 Push.Error(
-                    Localization.GetEnumString(register.Error!.Code)
+                    Localization.GetEnumString(error.Code)
                 ),
                 TimeSpan.FromSeconds(5)
             );
@@ -91,7 +84,7 @@ public class AccountRegisterFlowViewModel : ViewModel
         AppNotificationManager.Push(
             Push.Success(
                 Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='ACCOUNT_REGISTER_SUCCESS']")
-                            .Replace("{Email}", register.Response.Email)
+                            .Replace("{Email}", register.Response!.Email)
             ),
             TimeSpan.FromSeconds(10)
         );

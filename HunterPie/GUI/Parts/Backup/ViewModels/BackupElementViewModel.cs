@@ -1,7 +1,7 @@
-﻿using HunterPie.Core.API;
-using HunterPie.Core.Client;
-using HunterPie.Core.Http;
+﻿using HunterPie.Core.Client;
+using HunterPie.Core.Networking.Http;
 using HunterPie.Features.Notification;
+using HunterPie.Integrations.Poogie.Backup;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Controls.Notfication;
 using System;
@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 namespace HunterPie.GUI.Parts.Backup.ViewModels;
 public class BackupElementViewModel : ViewModel
 {
+    private readonly PoogieBackupConnector _backupConnector = new();
+
     private string _backupId;
     private string _gameName;
     private string _gameIcon;
@@ -35,7 +37,7 @@ public class BackupElementViewModel : ViewModel
     {
         IsDownloading = true;
 
-        using PoogieResponse response = await PoogieApi.DownloadBackup(BackupId);
+        using HttpClientResponse response = await _backupConnector.Download(BackupId);
 
 
         if (!response.Success)
@@ -50,7 +52,7 @@ public class BackupElementViewModel : ViewModel
             BytesToDownload = args.TotalBytes;
         };
 
-        await response.Download(
+        await response.DownloadAsync(
             ClientInfo.GetPathFor($"Backups/{BackupId}.zip")
         );
 
@@ -70,7 +72,7 @@ public class BackupElementViewModel : ViewModel
     public async Task Delete()
     {
         IsDownloading = true;
-        await PoogieApi.DeleteBackup(BackupId);
+        await _backupConnector.Delete(BackupId);
         IsDownloading = false;
     }
 }

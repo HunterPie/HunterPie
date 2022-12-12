@@ -1,6 +1,4 @@
-﻿using HunterPie.Core.API;
-using HunterPie.Core.API.Entities;
-using HunterPie.Core.Architecture;
+﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Events;
 using HunterPie.Core.Domain.Enums;
@@ -19,7 +17,7 @@ public class SettingHostViewModel : Bindable
     private int _currentTabIndex;
     private bool _isFetchingVersion;
     private bool _isLatestVersion;
-    public string _lastSync = DateTime.Now.ToString("G");
+    private string _lastSync = DateTime.Now.ToString("G");
     private readonly HashSet<GameProcess> _ignorableGames = new() { GameProcess.None, GameProcess.All };
 
     public ObservableCollection<ISettingElement> Elements { get; } = new();
@@ -38,10 +36,8 @@ public class SettingHostViewModel : Bindable
             Elements.Add(el);
 
         foreach (GameProcess gameType in Enum.GetValues<GameProcess>())
-        {
             if (!_ignorableGames.Contains(gameType))
                 Games.Add(gameType);
-        }
     }
 
     public void UnhookEvents() => ConfigManager.OnSync -= OnConfigSync;
@@ -62,20 +58,21 @@ public class SettingHostViewModel : Bindable
             field.Match = Regex.IsMatch(field.Name, query, RegexOptions.IgnoreCase) || query.Length == 0;
     }
 
+    /*
     public async void FetchVersion()
     {
         IsFetchingVersion = true;
 
         PoogieApiResult<VersionResponse> schema = await PoogieApi.GetLatestVersion();
 
-        if (schema is not null && schema.Response is VersionResponse resp)
+        if (schema is not null && schema.Response is { } resp)
         {
             var version = new Version(resp.LatestVersion);
             IsLatestVersion = ClientInfo.IsVersionGreaterOrEq(version);
         }
 
         IsFetchingVersion = false;
-    }
+    }*/
 
     public void ExecuteRestart()
     {
