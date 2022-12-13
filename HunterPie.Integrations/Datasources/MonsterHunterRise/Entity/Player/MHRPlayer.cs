@@ -435,20 +435,10 @@ public sealed class MHRPlayer : CommonPlayer
 
             // Only read memory if the required sub Id is the required one for this abnormality
             // For Leeched debuff, Compares whether "WithValue" is negative or positive
-            if (schema.WithValue >= 0)
-            {
-                if (schema.IsInfinite)
-                    abnormality.Timer = abnormSubId == schema.WithValue ? AbnormalityData.TIMER_MULTIPLIER : 0;
-                else if (abnormSubId == schema.WithValue)
-                    abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
-            }
-            else
-            {
-                if (schema.IsInfinite)
-                    abnormality.Timer = abnormSubId != schema.WithValue ? AbnormalityData.TIMER_MULTIPLIER : 0;
-                else if (abnormSubId != schema.WithValue)
-                    abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
-            }
+            if (schema.IsInfinite)
+                abnormality.Timer = (schema.WithValue >= 0 && abnormSubId == schema.WithValue) || (schema.WithValue < 0 && abnormSubId != schema.WithValue) ? AbnormalityData.TIMER_MULTIPLIER : 0;
+            else if ((schema.WithValue >= 0 && abnormSubId == schema.WithValue) || (schema.WithValue < 0 && abnormSubId != schema.WithValue))
+                abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
 
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
