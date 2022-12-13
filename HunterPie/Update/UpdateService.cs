@@ -1,26 +1,25 @@
 ﻿using HunterPie.Core.Client;
-using HunterPie.Core.Http.Events;
+using HunterPie.Core.Crypto;
 using HunterPie.Core.Logger;
+using HunterPie.Core.Networking.Http.Events;
 using HunterPie.Core.Remote;
 using HunterPie.Update.Remote;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HunterPie.Update;
 
 internal class UpdateService
 {
-    private readonly UpdateApi api = new();
+    private readonly UpdateApi _api = new();
     private string latest;
 
     public async Task<Version> GetLatestVersion()
     {
-        latest = await api.GetLatestVersion();
+        latest = await _api.GetLatestVersion();
 
         if (latest is null)
             return null;
@@ -30,7 +29,7 @@ internal class UpdateService
         return parsed;
     }
 
-    public async Task<bool> DownloadZip(EventHandler<PoogieDownloadEventArgs> callback) => await api.DownloadVersion(latest, callback);
+    public async Task<bool> DownloadZip(EventHandler<DownloadEventArgs> callback) => await _api.DownloadVersion(latest, callback);
 
     public bool ExtractZip()
     {
@@ -51,21 +50,6 @@ internal class UpdateService
         return true;
     }
 
-    private static string ComputeSHA256Checksum(string filename)
-    {
-        using var sha256 = SHA256.Create();
-        using FileStream stream = File.OpenRead(filename);
-        Span<byte> buffer = stackalloc byte[256];
-        buffer = sha256.ComputeHash(stream);
-
-        StringBuilder builder = new(256 * 2);
-
-        foreach (byte b in buffer)
-            _ = builder.Append($"{b:x2}");
-
-        return builder.ToString();
-    }
-
     public async Task<Dictionary<string, string>> IndexAllFilesRecursively(string basePath, string relativePath = "", Dictionary<string, string> files = null)
     {
         files ??= new Dictionary<string, string>();
@@ -79,7 +63,7 @@ internal class UpdateService
             if ((attrib & FileAttributes.Directory) == FileAttributes.Directory)
                 _ = await IndexAllFilesRecursively(absolute, relative, files);
             else
-                files.Add(relative, ComputeSHA256Checksum(absolute));
+                files.Add(relative, await HashService.HashAsync(absolute));
 
         }
 
@@ -113,11 +97,9 @@ internal class UpdateService
             string localFile = ClientInfo.GetPathFor(file);
 
             if (!File.Exists(localFile))
-            {
                 _ = Directory.CreateDirectory(
                     Path.GetDirectoryName(localFile)
                 );
-            }
 
             File.Move(updatedFile, localFile);
         }
@@ -135,18 +117,14 @@ internal class UpdateService
         directories.Push(ClientInfo.ClientPath);
 
         while (directories.Count > 0)
-        {
             foreach (string entry in Directory.GetFileSystemEntries(directories.Pop()))
             {
                 FileAttributes attrib = File.GetAttributes(entry);
 
                 if (attrib.HasFlag(FileAttributes.Directory))
-                {
                     directories.Push(entry);
-                }
                 else
-                    if (entry.EndsWith(".old"))
-                {
+                if (entry.EndsWith(".old"))
                     try
                     {
                         File.Delete(entry);
@@ -155,21 +133,21 @@ internal class UpdateService
                     {
                         Log.Error(err.ToString());
                     }
-                }
             }
-        }
     }
 
     public async Task UpdateLocalizationFiles()
     {
-        Dictionary<string, string> remoteChecksums = await api.GetLocalizationsChecksum();
+        Dictionary<string, string> remoteChecksums = await _api.GetLocalizationsChecksum();
 
         foreach ((string remoteName, string remoteChecksum) in remoteChecksums)
         {
             string fileName = remoteName.Replace("localization/", string.Empty);
             string localFilePath = ClientInfo.GetPathFor($"Languages/{fileName}");
 
-            string localChecksum = File.Exists(localFilePath) ? ComputeSHA256Checksum(localFilePath) : "";
+            string localChecksum = File.Exists(localFilePath)
+                ? await HashService.HashAsync(localFilePath)
+                : "";
 
             if (remoteChecksum == localChecksum)
                 continue;

@@ -1,7 +1,8 @@
-﻿using HunterPie.Core.API;
-using HunterPie.Core.API.Entities;
-using HunterPie.Core.Client.Localization;
+﻿using HunterPie.Core.Client.Localization;
 using HunterPie.Features.Notification;
+using HunterPie.Integrations.Poogie.Account;
+using HunterPie.Integrations.Poogie.Account.Models;
+using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Controls.Notfication;
 using System;
@@ -12,6 +13,8 @@ namespace HunterPie.GUI.Parts.Account.ViewModels;
 #nullable enable
 public class AccountPasswordResetFlowViewModel : ViewModel
 {
+    private readonly PoogieAccountConnector _accountConnector = new();
+
     private bool _isRequestingCode;
     private bool _hasCodeBeenSent;
     private bool _isResetInProgress;
@@ -34,18 +37,16 @@ public class AccountPasswordResetFlowViewModel : ViewModel
     {
         IsRequestingCode = true;
 
-        PoogieApiResult<PasswordChangeResponse>? response = await PoogieApi.RequestPasswordResetCode(new PasswordResetRequest
-        {
-            Email = Email
-        });
+        PoogieResult<PasswordChangeResponse> response =
+            await _accountConnector.ForgotPassword(new PasswordResetRequest(Email: Email));
 
         IsRequestingCode = false;
 
-        if (response?.Success != true)
+        if (response.Error is { } error)
         {
             AppNotificationManager.Push(
                 Push.Error(
-                    Localization.GetEnumString(response?.Error?.Code ?? ErrorCode.ERROR_GENERIC)
+                    Localization.GetEnumString(error.Code)
                 ),
                 TimeSpan.FromSeconds(10)
             );
@@ -67,20 +68,21 @@ public class AccountPasswordResetFlowViewModel : ViewModel
     {
         IsResetInProgress = true;
 
-        PoogieApiResult<PasswordChangeResponse>? response = await PoogieApi.ChangePassword(new ChangePasswordRequest
-        {
-            Email = Email,
-            Code = Code,
-            NewPassword = Password,
-        });
+        PoogieResult<PasswordChangeResponse> response =
+            await _accountConnector.ChangePassword(new ChangePasswordRequest
+            (
+                Email: Email,
+                Code: Code,
+                NewPassword: Password
+            ));
 
         IsResetInProgress = false;
 
-        if (response?.Success != true)
+        if (response.Error is { } error)
         {
             AppNotificationManager.Push(
                 Push.Error(
-                    Localization.GetEnumString(response?.Error?.Code ?? ErrorCode.ERROR_GENERIC)
+                    Localization.GetEnumString(error.Code)
                 ),
                 TimeSpan.FromSeconds(10)
             );

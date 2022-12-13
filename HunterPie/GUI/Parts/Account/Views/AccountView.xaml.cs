@@ -2,6 +2,8 @@
 using HunterPie.Features.Account.Config;
 using HunterPie.GUI.Parts.Account.ViewModels;
 using HunterPie.GUI.Parts.Host;
+using HunterPie.GUI.Parts.Settings.ViewModels;
+using HunterPie.GUI.Parts.Settings.Views;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Controls.Settings;
 using HunterPie.UI.Controls.Settings.ViewModel;

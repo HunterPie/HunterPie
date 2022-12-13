@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.Client;
-using HunterPie.Core.Http;
+using HunterPie.Core.Networking.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,57 +12,50 @@ public class CDN
 {
     private const string CDN_BASE_URL = "https://cdn.hunterpie.com";
 
-    private static readonly HashSet<string> _notFoundCache = new();
+    private static readonly HashSet<string> NotFoundCache = new();
 
-    public static async Task<string> GetMonsterIconUrl(string imagename)
+    public static async Task<string> GetMonsterIconUrl(string imageName)
     {
-        if (_notFoundCache.Contains(imagename))
+        if (NotFoundCache.Contains(imageName))
             return null;
 
-        string localImage = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{imagename}.png");
+        string localImage = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{imageName}.png");
 
         if (File.Exists(localImage))
             return localImage;
 
-        using Poogie request = new PoogieBuilder(CDN_BASE_URL)
-                                    .Get($"/Assets/Monsters/Icons/{imagename}.png")
-                                    .WithTimeout(TimeSpan.FromSeconds(5))
-                                    .Build();
+        using HttpClient client = new HttpClientBuilder(CDN_BASE_URL)
+            .Get($"/Assets/Monsters/Icons/{imageName}.png")
+            .WithTimeout(TimeSpan.FromSeconds(5))
+            .Build();
 
-        using PoogieResponse response = await request.RequestAsync();
+        using HttpClientResponse response = await client.RequestAsync();
+
+        if (response.StatusCode != HttpStatusCode.OK)
         {
-            if (!response.Success)
-                return null;
-
-            if (response.Status != HttpStatusCode.OK)
-            {
-                _ = _notFoundCache.Add(imagename);
-                return null;
-            }
-
-            await response.Download(localImage);
+            _ = NotFoundCache.Add(imageName);
+            return null;
         }
+
+        await response.DownloadAsync(localImage);
 
         return localImage;
     }
 
     public static async Task GetFile(string path, string outPath)
     {
-        using Poogie request = new PoogieBuilder(CDN_BASE_URL)
+        using HttpClient request = new HttpClientBuilder(CDN_BASE_URL)
             .Get(path)
             .WithTimeout(TimeSpan.FromSeconds(6))
             .WithRetry(3)
             .Build();
 
-        using PoogieResponse response = await request.RequestAsync();
+        using HttpClientResponse response = await request.RequestAsync();
 
-        if (!response.Success)
+        if (response.StatusCode != HttpStatusCode.OK)
             return;
 
-        if (response.Status != HttpStatusCode.OK)
-            return;
-
-        await response.Download(outPath);
+        await response.DownloadAsync(outPath);
     }
 
     public static async Task<string> GetAsset(string uri)
@@ -75,20 +68,17 @@ public class CDN
 
         string filePath = uri.Replace(CDN_BASE_URL, string.Empty);
 
-        using Poogie request = new PoogieBuilder(CDN_BASE_URL)
+        using HttpClient request = new HttpClientBuilder(CDN_BASE_URL)
             .Get(filePath)
             .WithTimeout(TimeSpan.FromSeconds(5))
             .Build();
 
-        using PoogieResponse response = await request.RequestAsync();
+        using HttpClientResponse response = await request.RequestAsync();
 
-        if (!response.Success)
+        if (response.StatusCode != HttpStatusCode.OK)
             return null;
 
-        if (response.Status != HttpStatusCode.OK)
-            return null;
-
-        await response.Download(localImage);
+        await response.DownloadAsync(localImage);
 
         return localImage;
     }

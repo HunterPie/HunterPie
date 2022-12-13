@@ -47,9 +47,6 @@
     <Compile Update="Controls\Settings\SettingElementHost.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\Settings\SettingHost.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Controls\Sliders\Range.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -212,9 +209,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\SettingElementHost.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Controls\Settings\SettingHost.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Sliders\Range.xaml">

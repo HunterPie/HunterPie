@@ -1,7 +1,7 @@
-﻿using HunterPie.Core.API.Entities;
-using HunterPie.Core.Client;
+﻿using HunterPie.Core.Client;
 using HunterPie.Core.Logger;
 using HunterPie.Core.Zip;
+using HunterPie.Integrations.Poogie.Common.Models;
 using System;
 using System.IO;
 using System.Linq;

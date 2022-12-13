@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.API.Entities;
+﻿using HunterPie.Integrations.Poogie.Notification.Models;
 using HunterPie.UI.Architecture;
 using System;
 
