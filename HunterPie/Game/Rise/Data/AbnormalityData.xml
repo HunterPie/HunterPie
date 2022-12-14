@@ -74,7 +74,9 @@
         <Abnormality Id="26"
                      Name="ABNORMALITY_SHARPNESS_REGEN"
                      Icon="ICON_SHARPNESSREGEN"/>
-        <Abnormality Id="27"/>
+        <Abnormality Id="27"
+                     Name="ABNORMALITY_SHARPNESS_EXTENSION"
+                     Icon="ICON_SHARPNESSEXTENSION"/>
     </Songs>
     <Consumables>
         <Abnormality Id="ABN_DEMONDRUG"

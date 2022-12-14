@@ -2065,6 +2065,34 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+    <DrawingImage x:Key="ICON_SHARPNESSEXTENSION">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V16.933334 H16.933333 V0 H0 Z">
+                <DrawingGroup Opacity="1" Transform="1,0,0,1,0,-280.06665">
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M16.933333,16.933334z M0,0z M7.0969378,292.76665L9.2135976,292.76665 9.2135976,285.35832 5.5094378,281.65415 2.3344377,281.65415 2.3344377,295.41248 7.0969378,295.41248z">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="#FF000000" Thickness="0.26458332" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF00D600" Geometry="F1 M16.933333,16.933334z M0,0z M7.0969365,292.76666L9.2135966,292.76666 9.2135966,285.35833 5.5094365,281.65416 2.3344364,281.65416 2.3344364,295.4125 7.0969365,295.4125z" />
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M16.933333,16.933334z M0,0z M6.5677664,294.88333L2.8635964,294.88333 2.8635964,282.18332 5.2448465,282.18332 8.6844365,285.6229 8.6844365,292.2375 6.5677664,292.2375z" />
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M16.933333,16.933334z M0,0z M7.6260965,291.17916L6.3031865,291.17916 5.5094365,290.38541 6.5677664,289.32707 5.5094365,288.26874 6.5677664,287.2104 5.5094365,286.15208 6.3031865,285.35833 6.8323465,285.35833 7.6260965,286.15208z" />
+                    <GeometryDrawing Brush="#FF3D3F3D" Geometry="F1 M16.933333,16.933334z M0,0z M5.7740164,291.17916L4.9802664,290.38541 6.0385965,289.32707 4.9802664,288.26874 6.0385965,287.2104 4.9802664,286.15208 6.0385965,285.09374 6.0385965,284.56458 4.7156865,283.24165 3.9219364,283.24165 3.9219364,291.17916z" />
+                    <GeometryDrawing Brush="#FF5B290A" Geometry="F1 M16.933333,16.933334z M0,0z M5.5094365,292.2375L5.5094365,293.825 3.9219364,293.825 3.9219364,292.2375z" />
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M16.933333,16.933334z M0,0z M11.860088,285.24896L8.9499378,288.15911 8.9499378,288.79778 10.535878,288.79778 10.535878,291.17864 11.860088,291.17864 13.182358,291.17864 13.182358,288.79778 14.770248,288.79778 14.770248,288.15911z M10.535828,291.97356L10.535828,294.35442 13.182308,294.35442 13.182308,291.97356z">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="#FF000000" Thickness="0.26458332" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF3582ED" Geometry="F1 M16.933333,16.933334z M0,0z M11.859427,285.62287L9.2135966,288.2687 9.2135966,288.53328 10.801097,288.53328 10.801097,290.91453 11.859427,290.91453 12.917767,290.91453 12.917767,288.53328 14.505267,288.53328 14.505267,288.2687z M10.801097,292.23746L10.801097,294.08953 11.859427,294.08953 12.917767,294.08953 12.917767,292.23746 11.859427,292.23746z">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="#FF000000" Thickness="0.52916664" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
     <DrawingImage x:Key="ICON_SONICBARRIER">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V3980 H3990 V0 H0 Z">
