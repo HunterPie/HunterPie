@@ -18,10 +18,10 @@
                      Icon="ICON_ELEATTACKUP_MHRS"/>
         <Abnormality Id="5"
                      Name="ABNORMALITY_ATTACK_DEF_UP"
-                     Icon="ICON_ATTACKUP_MHRS"/>
+                     Icon="ICON_ATKDEFUP_MHRS"/>
         <Abnormality Id="6"
                      Name="ABNORMALITY_ATTACK_AFFINITY_UP"
-                     Icon="ICON_AFFINITY_MHRS"/>
+                     Icon="ICON_ATKAFFUP_MHRS"/>
         <Abnormality Id="7"
                      Name="ABNORMALITY_KNOCKBACK_NEG"
                      Icon="ICON_KNOCKBACKNEG_MHRS"/>
@@ -293,7 +293,7 @@
                      WithValue="1"
                      Name="ABNORMALITY_BUBBLES"
                      Icon="ICON_BUBBLE"/>
-		<Abnormality Id="ABN_BUBBLES_PLUS"
+        <Abnormality Id="ABN_BUBBLES_PLUS"
                      Offset="8A8"
                      DependsOn="8C0"
                      WithValue="2"
