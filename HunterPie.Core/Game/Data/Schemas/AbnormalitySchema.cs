@@ -11,7 +11,9 @@ public struct AbnormalitySchema
     public string Id;
     public int Offset;
     public int DependsOn;
+    public int CompareOpr;
     public int WithValue;
+    public int WithValueNot;
     public string Name;
     public string Icon;
     public string Category;
