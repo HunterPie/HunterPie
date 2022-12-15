@@ -57,6 +57,7 @@ public class AbnormalityData
             string offset = abnormality.Attributes["Offset"]?.Value ?? id;
             string dependsOn = abnormality.Attributes["DependsOn"]?.Value ?? "0";
             string withValue = abnormality.Attributes["WithValue"]?.Value ?? "0";
+            string withValueNot = abnormality.Attributes["WithValueNot"]?.Value;
             string group = abnormality.ParentNode.Name;
             string category = abnormality.Attributes["Category"]?.Value ?? group;
             string isBuildup = abnormality.Attributes["IsBuildup"]?.Value ?? "False";
@@ -68,6 +69,7 @@ public class AbnormalityData
                 Id = BuildAbnormalityId(id, group),
                 Name = name,
                 Icon = icon,
+                CompareOpr = withValueNot != null ? (int)CompareType.WithValueNot : (int)CompareType.WithValue,
                 Category = category,
                 Group = group
             };
@@ -75,6 +77,7 @@ public class AbnormalityData
             _ = int.TryParse(offset, NumberStyles.HexNumber, null, out schema.Offset);
             _ = int.TryParse(dependsOn, NumberStyles.HexNumber, null, out schema.DependsOn);
             _ = int.TryParse(withValue, out schema.WithValue);
+            _ = int.TryParse(withValueNot, out schema.WithValueNot);
             _ = bool.TryParse(isBuildup, out schema.IsBuildup);
             _ = int.TryParse(maxBuildup, out schema.MaxBuildup);
             _ = bool.TryParse(isInfinite, out schema.IsInfinite);

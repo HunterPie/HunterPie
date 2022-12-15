@@ -1,5 +1,11 @@
 ﻿namespace HunterPie.Core.Game.Data.Schemas;
 
+public enum CompareType
+{
+    WithValue,
+    WithValueNot
+}
+
 public struct AbnormalitySchema
 {
     public string Id;
