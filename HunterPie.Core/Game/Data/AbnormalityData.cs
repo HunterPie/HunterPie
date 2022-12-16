@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Game.Data.Schemas;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Logger;
 using System.Collections.Generic;
 using System.Globalization;
@@ -69,7 +70,7 @@ public class AbnormalityData
                 Id = BuildAbnormalityId(id, group),
                 Name = name,
                 Icon = icon,
-                CompareOpr = withValueNot != null ? (int)CompareType.WithValueNot : (int)CompareType.WithValue,
+                CompareOpr = withValueNot != null ? AbnormalityCompareType.WithValueNot : AbnormalityCompareType.WithValue,
                 Category = category,
                 Group = group
             };

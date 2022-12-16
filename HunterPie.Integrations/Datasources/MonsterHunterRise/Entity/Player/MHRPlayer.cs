@@ -431,13 +431,23 @@ public sealed class MHRPlayer : CommonPlayer
                 _ => Process.Memory.Read<int>(debuffsPtr + schema.DependsOn)
             };
 
+            AbnormalityCompareType CompareType;
+
             MHRDebuffStructure abnormality = new();
 
-            // Only read memory if the required sub Id is the required one for this abnormality
-            if (schema.IsInfinite)
-                abnormality.Timer = (schema.CompareOpr == (int)CompareType.WithValue && abnormSubId == schema.WithValue) || (schema.CompareOpr == (int)CompareType.WithValueNot && abnormSubId != schema.WithValueNot) ? AbnormalityData.TIMER_MULTIPLIER : 0;
-            else if ((schema.CompareOpr == (int)CompareType.WithValue && abnormSubId == schema.WithValue) || (schema.CompareOpr == (int)CompareType.WithValueNot && abnormSubId != schema.WithValueNot))
-                abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
+            switch (schema.CompareOperator)
+            {
+                case AbnormalityCompareType.WithValue:
+                    abnormality.Timer = schema.IsInfinite && abnormSubId == schema.WithValue ? AbnormalityData.TIMER_MULTIPLIER : 0;
+                    if (!schema.IsInfinite && abnormSubId == schema.WithValue)
+                        abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
+                    break;
+                case AbnormalityCompareType.WithValueNot:
+                    abnormality.Timer = schema.IsInfinite && abnormSubId != schema.WithValueNot ? AbnormalityData.TIMER_MULTIPLIER : 0;
+                    if (!schema.IsInfinite && abnormSubId != schema.WithValueNot)
+                        abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
+                    break;
+            }
 
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
