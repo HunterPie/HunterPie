@@ -431,8 +431,6 @@ public sealed class MHRPlayer : CommonPlayer
                 _ => Process.Memory.Read<int>(debuffsPtr + schema.DependsOn)
             };
 
-            AbnormalityCompareType CompareType;
-
             MHRDebuffStructure abnormality = new();
 
             switch (schema.CompareOperator)
