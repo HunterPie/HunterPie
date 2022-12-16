@@ -70,7 +70,7 @@ public class AbnormalityData
                 Id = BuildAbnormalityId(id, group),
                 Name = name,
                 Icon = icon,
-                CompareOpr = withValueNot != null ? AbnormalityCompareType.WithValueNot : AbnormalityCompareType.WithValue,
+                CompareOperator = withValueNot != null ? AbnormalityCompareType.WithValueNot : AbnormalityCompareType.WithValue,
                 Category = category,
                 Group = group
             };

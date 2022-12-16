@@ -433,19 +433,9 @@ public sealed class MHRPlayer : CommonPlayer
 
             MHRDebuffStructure abnormality = new();
 
-            switch (schema.CompareOperator)
-            {
-                case AbnormalityCompareType.WithValue:
-                    abnormality.Timer = schema.IsInfinite && abnormSubId == schema.WithValue ? AbnormalityData.TIMER_MULTIPLIER : 0;
-                    if (!schema.IsInfinite && abnormSubId == schema.WithValue)
-                        abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
-                    break;
-                case AbnormalityCompareType.WithValueNot:
-                    abnormality.Timer = schema.IsInfinite && abnormSubId != schema.WithValueNot ? AbnormalityData.TIMER_MULTIPLIER : 0;
-                    if (!schema.IsInfinite && abnormSubId != schema.WithValueNot)
-                        abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
-                    break;
-            }
+            abnormality.Timer = schema.IsInfinite && ((schema.CompareOperator == AbnormalityCompareType.WithValue && abnormSubId == schema.WithValue) || (schema.CompareOperator == AbnormalityCompareType.WithValueNot && abnormSubId != schema.WithValueNot)) ? AbnormalityData.TIMER_MULTIPLIER : 0;
+            if (!schema.IsInfinite && ((schema.CompareOperator == AbnormalityCompareType.WithValue && abnormSubId == schema.WithValue) || (schema.CompareOperator == AbnormalityCompareType.WithValueNot && abnormSubId != schema.WithValueNot)))
+                abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
 
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
