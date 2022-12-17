@@ -440,6 +440,7 @@ public sealed class MHRPlayer : CommonPlayer
 
             MHRDebuffStructure abnormality = new();
 
+            // Only read memory if the required sub Id is the required one for this abnormality
             if (schema.IsInfinite)
                 abnormality.Timer = isConditionValid ? AbnormalityData.TIMER_MULTIPLIER : 0;
             else if (isConditionValid)
