@@ -302,7 +302,7 @@
         <Abnormality Id="ABN_LEECHED"
                      Offset="8B0"
                      DependsOn="8B0"
-                     WithValue="-1"
+                     WithValueNot="-1"
                      Name="ABNORMALITY_LEECHED"
                      Icon="ICON_LEECHED"
                      IsInfinite="True"/>
