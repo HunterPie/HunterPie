@@ -17,7 +17,7 @@ public class CombatStatusToIconConverter : IValueConverter
             switch (CombatStatus)
             {
                 case CombatStatus.None:
-                    retun null;
+                    return null;
                 case CombatStatus.Battle:
                     iconName = "ICON_BATTLE_EYE";
                     break;
