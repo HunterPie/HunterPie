@@ -166,6 +166,12 @@ public sealed class MHWPlayer : CommonPlayer
         }
     }
 
+    public override CombatStatus CombatStatus
+    {
+        get => 0;
+        protected set => throw new NotSupportedException();
+    }
+
     #endregion
 
     internal MHWPlayer(IProcessManager process) : base(process)

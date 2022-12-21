@@ -8,6 +8,7 @@ using HunterPie.Core.Game.Entity;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Entity.Player.Vitals;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
@@ -66,6 +67,12 @@ public sealed class MHRSunbreakDemoPlayer : CommonPlayer
     public override IHealthComponent Health { get; } = new HealthComponent();
 
     public override IWeapon Weapon { get; protected set; }
+
+    public override CombatStatus CombatStatus
+    {
+        get => 0;
+        protected set => throw new NotSupportedException();
+    }
 
     public MHRSunbreakDemoPlayer(IProcessManager process) : base(process) { }
 

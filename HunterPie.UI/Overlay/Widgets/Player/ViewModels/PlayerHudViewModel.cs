@@ -43,6 +43,9 @@ public class PlayerHudViewModel : ViewModel
     private bool _inHuntingZone;
     public bool InHuntingZone { get => _inHuntingZone; set => SetValue(ref _inHuntingZone, value); }
 
+    private CombatStatus _combatStatus;
+    public CombatStatus CombatStatus { get => _combatStatus; set => SetValue(ref _combatStatus, value); }
+
     private Weapon _weapon;
     public Weapon Weapon { get => _weapon; set => SetValue(ref _weapon, value); }
 

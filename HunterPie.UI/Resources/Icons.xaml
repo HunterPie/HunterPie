@@ -910,6 +910,66 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="ICON_BATTLE_EYE">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V33.866668 H33.866666 V0 H0 Z">
+                <DrawingGroup Opacity="1" Transform="1,0,0,1,0,-263.13332">
+                    <GeometryDrawing Brush="#FFFF0013" Geometry="F1 M33.866666,33.866668z M0,0z M3.7041668,271.59998L3.7041668,278.74373C3.7041668,285.35832 10.31875,288.53332 16.933333,288.53332 23.547915,288.53332 30.1625,285.35832 30.1625,278.74373L30.1625,271.59998 16.933333,271.59998z">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="#FF000000" Thickness="2.11666669" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FFFF0013" Geometry="F1 M33.866666,33.866668z M0,0z M10.583333,271.59998L10.583333,279.00832C10.583333,281.91873 13.49375,284.29998 16.933333,284.29998 20.372916,284.29998 23.283333,281.91873 23.283333,279.00832L23.283333,271.59998 16.933333,271.59998z">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="#FF000000" Thickness="2.11666669" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M33.866666,33.866668z M0,0z M16.933333,271.59998L15.345833,271.59998 15.345833,278.47915C15.345833,278.47915 15.345833,279.53748 16.933333,279.53748 18.520833,279.53748 18.520833,278.47915 18.520833,278.47915L18.520833,271.59998z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_CAUTION_EYE">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V33.866668 H33.866666 V0 H0 Z">
+                <DrawingGroup Opacity="1" Transform="1,0,0,1,0,-263.13332">
+                    <GeometryDrawing Brush="#FFFFED60" Geometry="F1 M33.866666,33.866668z M0,0z M3.7041668,271.59998L3.7041668,278.74373C3.7041668,285.35832 10.31875,288.53332 16.933333,288.53332 23.547915,288.53332 30.1625,285.35832 30.1625,278.74373L30.1625,271.59998 16.933333,271.59998z">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="#FF000000" Thickness="2.11666669" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FFFFED60" Geometry="F1 M33.866666,33.866668z M0,0z M10.583333,271.59998L10.583333,279.00832C10.583333,281.91873 13.49375,284.29998 16.933333,284.29998 20.372916,284.29998 23.283333,281.91873 23.283333,279.00832L23.283333,271.59998 16.933333,271.59998z">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="#FF000000" Thickness="2.11666669" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M33.866666,33.866668z M0,0z M16.933333,271.59998L15.345833,271.59998 15.345833,278.47915C15.345833,278.47915 15.345833,279.53748 16.933333,279.53748 18.520833,279.53748 18.520833,278.47915 18.520833,278.47915L18.520833,271.59998z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ICON_BATTLE_MOVE_EYE">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V33.866668 H33.866666 V0 H0 Z">
+                <DrawingGroup Opacity="1" Transform="1,0,0,1,0,-263.13332">
+                    <GeometryDrawing Brush="#FF934AB3" Geometry="F1 M33.866666,33.866668z M0,0z M3.7041668,271.59998L3.7041668,278.74373C3.7041668,285.35832 10.31875,288.53332 16.933333,288.53332 23.547915,288.53332 30.1625,285.35832 30.1625,278.74373L30.1625,271.59998 16.933333,271.59998z">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="#FF000000" Thickness="2.11666669" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF934AB3" Geometry="F1 M33.866666,33.866668z M0,0z M10.583333,271.59998L10.583333,279.00832C10.583333,281.91873 13.49375,284.29998 16.933333,284.29998 20.372916,284.29998 23.283333,281.91873 23.283333,279.00832L23.283333,271.59998 16.933333,271.59998z">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="#FF000000" Thickness="2.11666669" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M33.866666,33.866668z M0,0z M16.933333,271.59998L15.345833,271.59998 15.345833,278.47915C15.345833,278.47915 15.345833,279.53748 16.933333,279.53748 18.520833,279.53748 18.520833,278.47915 18.520833,278.47915L18.520833,271.59998z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="ICON_FLAG">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">

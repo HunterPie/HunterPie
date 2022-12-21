@@ -43,6 +43,7 @@ public sealed class MHRPlayer : CommonPlayer
     private readonly StaminaComponent _stamina = new();
     private int _highRank;
     private int _masterRank;
+    private CombatStatus _combatStatus = CombatStatus.None;
     private IWeapon _weapon;
     private Weapon _weaponId = WeaponType.None;
     private readonly Dictionary<int, MHREquipmentSkillStructure> _armorSkills = new(46);
@@ -149,6 +150,19 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     public Scroll SwitchScroll { get; private set; }
+
+    public override CombatStatus CombatStatus
+    {
+        get => _combatStatus;
+        protected set
+        {
+            if (value != _combatStatus)
+            {
+                _combatStatus = value;
+                this.Dispatch(_onCombatStatusChange);
+            }
+        }
+    }
 
     #region Events
 
@@ -624,6 +638,18 @@ public sealed class MHRPlayer : CommonPlayer
         };
 
         _stamina.Update(staminaData);
+    }
+
+    [ScannableMethod]
+    private void GetPlayerCombatStatus()
+    {
+        if (!InHuntingZone)
+            return;
+
+        CombatStatus = (CombatStatus)Memory.Deref<int>(
+            AddressMap.GetAbsolute("UI_ADDRESS"),
+            AddressMap.Get<int[]>("PLAYER_COMBAT_STATUS_OFFSETS")
+        );
     }
 
     [ScannableMethod(typeof(MHRWirebugData))]

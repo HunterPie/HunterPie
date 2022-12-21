@@ -25,6 +25,7 @@
         
         <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
         <converters:PercentageToLeftMargingDistanceConverter x:Key="PercentageToLeftMargingDistanceConverter"/>
+        <converters:CombatStatusToIconConverter x:Key="CombatStatusToIconConverter"/>
         <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:WeaponToMeleeVisibility x:Key="WeaponToMeleeVisibility"/>
@@ -40,11 +41,19 @@
         </Grid.ColumnDefinitions>
         
         <!-- Player name -->
+        <Image d:Source="{StaticResource ICON_BATTLE_EYE}"
+               Source="{Binding CombatStatus, Mode=OneWay, Converter={StaticResource CombatStatusToIconConverter}}"
+               Height="20"
+               Width="20"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Left"
+               Margin="5,5,0,0"
+               Grid.Column="1"/>
         <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    Foreground="{StaticResource WHITE_100}"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
-                   Margin="5,5,0,0" 
+                   Margin="25,5,0,0" 
                    Grid.Column="1">
             <Run Text="Lv."
                  Foreground="{StaticResource WHITE_400}"

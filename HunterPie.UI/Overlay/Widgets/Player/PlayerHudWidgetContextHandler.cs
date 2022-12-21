@@ -41,6 +41,7 @@ public class PlayerHudWidgetContextHandler : IContextHandler
         Player.Health.OnHeal += OnHeal;
         Player.OnAbnormalityStart += OnPlayerAbnormalityStart;
         Player.OnAbnormalityEnd += OnPlayerAbnormalityEnd;
+        Player.OnCombatStatusChange += OnCombatStatusChange;
     }
 
     public void UnhookEvents()
@@ -54,6 +55,7 @@ public class PlayerHudWidgetContextHandler : IContextHandler
         Player.Health.OnHeal -= OnHeal;
         Player.OnAbnormalityStart -= OnPlayerAbnormalityStart;
         Player.OnAbnormalityEnd -= OnPlayerAbnormalityEnd;
+        Player.OnCombatStatusChange -= OnCombatStatusChange;
 
         if (Player.Weapon is IMeleeWeapon weapon)
         {
@@ -142,6 +144,8 @@ public class PlayerHudWidgetContextHandler : IContextHandler
         _viewModel.RecoverableHealth = e.RecoverableHealth;
     }
 
+    private void OnCombatStatusChange(object sender, EventArgs e) => _viewModel.CombatStatus = Player.CombatStatus;
+
     private void UpdateData()
     {
         _viewModel.MaxHealth = Player.Health.Max;
@@ -154,5 +158,6 @@ public class PlayerHudWidgetContextHandler : IContextHandler
         _viewModel.Stamina = Player.Stamina.Current;
         _viewModel.Name = Player.Name;
         _viewModel.Level = Player.MasterRank;
+        _viewModel.CombatStatus = Player.CombatStatus;
     }
 }
