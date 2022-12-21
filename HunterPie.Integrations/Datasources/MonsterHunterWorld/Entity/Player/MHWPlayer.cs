@@ -168,7 +168,7 @@ public sealed class MHWPlayer : CommonPlayer
 
     public override CombatStatus CombatStatus
     {
-        get => 0;
+        get => CombatStatus.None;
         protected set => throw new NotSupportedException();
     }
 

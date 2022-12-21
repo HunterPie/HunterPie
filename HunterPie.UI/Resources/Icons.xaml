@@ -950,7 +950,7 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
-    <DrawingImage x:Key="ICON_BATTLE_MOVE_EYE">
+    <DrawingImage x:Key="ICON_ENEMY_MOVE_EYE">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V33.866668 H33.866666 V0 H0 Z">
                 <DrawingGroup Opacity="1" Transform="1,0,0,1,0,-263.13332">

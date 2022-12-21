@@ -179,7 +179,7 @@ public abstract class CommonPlayer : Scannable, IPlayer, IEventDispatcher, IDisp
         IDisposable[] events =
         {
             _onLogin, _onLogout, _onDeath, _onActionUpdate, _onStageUpdate, _onVillageEnter, _onVillageLeave,
-            _onAilmentUpdate, _onWeaponChange, _onAbnormalityStart, _onAbnormalityEnd, _onLevelChange
+            _onAilmentUpdate, _onWeaponChange, _onAbnormalityStart, _onAbnormalityEnd, _onLevelChange , _onCombatStatusChange
         };
 
         if (Health is IDisposable health)

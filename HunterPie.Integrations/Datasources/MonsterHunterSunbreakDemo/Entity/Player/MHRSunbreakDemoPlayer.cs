@@ -70,7 +70,7 @@ public sealed class MHRSunbreakDemoPlayer : CommonPlayer
 
     public override CombatStatus CombatStatus
     {
-        get => 0;
+        get => CombatStatus.None;
         protected set => throw new NotSupportedException();
     }
 

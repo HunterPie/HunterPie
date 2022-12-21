@@ -16,14 +16,16 @@ public class CombatStatusToIconConverter : IValueConverter
 
             switch (CombatStatus)
             {
+                case CombatStatus.None:
+                    retun null;
                 case CombatStatus.Battle:
                     iconName = "ICON_BATTLE_EYE";
                     break;
                 case CombatStatus.Caution:
                     iconName = "ICON_CAUTION_EYE";
                     break;
-                case CombatStatus.Battle_Move:
-                    iconName = "ICON_BATTLE_MOVE_EYE";
+                case CombatStatus.EnemyMove:
+                    iconName = "ICON_ENEMY_MOVE_EYE";
                     break;
                 default:
                     return null;

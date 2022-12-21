@@ -5,5 +5,5 @@ public enum CombatStatus
     None,
     Battle,
     Caution,
-    Battle_Move
+    EnemyMove
 }

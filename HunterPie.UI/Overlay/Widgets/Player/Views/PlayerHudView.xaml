@@ -26,6 +26,7 @@
         <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
         <converters:PercentageToLeftMargingDistanceConverter x:Key="PercentageToLeftMargingDistanceConverter"/>
         <converters:CombatStatusToIconConverter x:Key="CombatStatusToIconConverter"/>
+        <converters:CombatStatusToVisibilityConverter x:Key="CombatStatusToVisibilityConverter"/>
         <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:WeaponToMeleeVisibility x:Key="WeaponToMeleeVisibility"/>
@@ -39,16 +40,17 @@
             <ColumnDefinition Width="80"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
-        <!-- Player name -->
+
+        <!-- Combat Status Icon -->
         <Image d:Source="{StaticResource ICON_BATTLE_EYE}"
                Source="{Binding CombatStatus, Mode=OneWay, Converter={StaticResource CombatStatusToIconConverter}}"
-               Height="20"
-               Width="20"
-               VerticalAlignment="Center"
-               HorizontalAlignment="Left"
-               Margin="5,5,0,0"
-               Grid.Column="1"/>
+               Height="24"
+               Width="24"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Right"
+               Visibility="{Binding CombatStatus, Mode=OneWay, Converter={StaticResource CombatStatusToVisibilityConverter}}"/>
+
+        <!-- Player name -->
         <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    Foreground="{StaticResource WHITE_100}"
                    VerticalAlignment="Center"
@@ -68,8 +70,8 @@
                  FontWeight="Medium"/>
             <TextBlock.Effect>
                 <DropShadowEffect Color="Black"
-                                      BlurRadius="2" 
-                                      ShadowDepth="0"/>
+                                  BlurRadius="2" 
+                                  ShadowDepth="0"/>
             </TextBlock.Effect>
         </TextBlock>
 
