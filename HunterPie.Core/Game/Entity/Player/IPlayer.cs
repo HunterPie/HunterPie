@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Entity.Player.Vitals;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using System;
 using System.Collections.Generic;
