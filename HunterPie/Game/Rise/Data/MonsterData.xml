@@ -43,7 +43,7 @@
         </Monster>
         <Monster Id="1"
                  Size="2017.53"
-                 IsNotCapturable="true">
+                 IsNotCapturable="True">
             <Crowns Mini="0.96"
                     Silver="1.1"
                     Gold="1.14"/>
@@ -80,7 +80,7 @@
         </Monster>
         <Monster Id="3"
                  Size="1874.64"
-                 IsNotCapturable="true">
+                 IsNotCapturable="True">
             <Crowns Mini="0.97"
                     Silver="1.17"/>
             <Weaknesses>
@@ -150,7 +150,7 @@
         </Monster>
         <Monster Id="7"
                  Size="2270.94"
-                 IsNotCapturable="true">
+                 IsNotCapturable="True">
             <Crowns Mini="0.97"
                     Silver="1.17"/>
             <Weaknesses>
@@ -186,7 +186,7 @@
         </Monster>
         <Monster Id="9"
                  Size="1913.13"
-                 IsNotCapturable="true">
+                 IsNotCapturable="True">
             <Crowns Mini="0.97"
                     Silver="1.17"/>
             <Weaknesses>
@@ -203,7 +203,7 @@
         </Monster>
         <Monster Id="10"
                  Size="2249.06"
-                 IsNotCapturable="true">
+                 IsNotCapturable="True">
             <Crowns Mini="0.97"
                     Silver="1.17"/>
             <Weaknesses>
@@ -223,7 +223,7 @@
         </Monster>
         <Monster Id="11"
                  Size="1790.15"
-                 IsNotCapturable="true">
+                 IsNotCapturable="True">
             <Crowns Mini="0.97"
                     Silver="1.17"/>
             <Weaknesses>
@@ -354,7 +354,7 @@
         </Monster>
         <Monster Id="19"
                  Size="1540.66"
-                 IsNotCapturable="true">
+                 IsNotCapturable="True">
             <Crowns Mini="0.97"
                     Silver="1.17"/>
             <Weaknesses>
@@ -400,7 +400,7 @@
         </Monster>
         <Monster Id="22"
                  Size="710.3"
-                 IsNotCapturable="true">
+                 IsNotCapturable="True">
             <Crowns Mini="0.96"
                     Silver="1.03"
                     Gold="1.05"/>
@@ -462,7 +462,7 @@
         </Monster>
         <Monster Id="26"
                  Size="2198.52"
-                 IsNotCapturable="true">
+                 IsNotCapturable="True">
             <Crowns Mini="0.96"
                     Silver="1.1"
                     Gold="1.14"/>
@@ -483,7 +483,7 @@
         </Monster>
         <Monster Id="27"
                  Size="2040.98"
-                 IsNotCapturable="true">
+                 IsNotCapturable="True">
             <Crowns Silver="1.11"
                     Gold="1.17"/>
             <Weaknesses>
@@ -628,7 +628,7 @@
         </Monster>
         <Monster Id="35"
                  Size="3068.6"
-                 IsNotCapturable="true">
+                 IsNotCapturable="True">
             <Weaknesses>
                 <Weakness Name="Dragon"/>
                 <Weakness Name="Fire"/>
@@ -677,7 +677,7 @@
         </Monster>
         <Monster Id="38"
                  Size="3875.05"
-                 IsNotCapturable="true">
+                 IsNotCapturable="True">
             <Weaknesses>
                 <Weakness Name="Dragon"/>
                 <Weakness Name="Ice"/>
@@ -696,7 +696,7 @@
         </Monster>
         <Monster Id="39"
                  Size="3875.05"
-                 IsNotCapturable="true">
+                 IsNotCapturable="True">
             <Weaknesses>
                 <Weakness Name="Dragon"/>
                 <Weakness Name="Ice"/>
@@ -808,7 +808,7 @@
         </Monster>
         <Monster Id="46"
                  Size="0"
-                 IsNotCapturable="true">
+                 IsNotCapturable="True">
             <Weaknesses>
                 <Weakness Name="Fire"/>
                 <Weakness Name="Water"/>
@@ -957,7 +957,7 @@
         </Monster>
         <Monster Id="83"
                  Size="1735.54"
-                 IsNotCapturable="true">
+                 IsNotCapturable="True">
             <Crowns Silver="1.11"
                     Gold="1.17"/>
             <Weaknesses>
@@ -1134,7 +1134,7 @@
         </Monster>
         <Monster Id="93"
                  Size="2081.64"
-                 IsNotCapturable="true">
+                 IsNotCapturable="True">
             <Crowns Silver="1.11"
                     Gold="1.17"/>
             <Weaknesses>
@@ -1187,7 +1187,7 @@
         </Monster>
         <Monster Id="96"
                  Size="4807.54"
-                 IsNotCapturable="true">
+                 IsNotCapturable="True">
             <Weaknesses>
                 <Weakness Name="Dragon"/>
                 <Weakness Name="Thunder"/>

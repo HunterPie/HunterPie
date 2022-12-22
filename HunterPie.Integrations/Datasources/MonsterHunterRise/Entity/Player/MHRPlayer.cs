@@ -650,10 +650,10 @@ public sealed class MHRPlayer : CommonPlayer
 
             var data = new MHRWirebugData
             {
-                IsBlocked = Process.Memory.Deref<int>(
+                IsBlocked = Process.Memory.Deref<bool>(
                     AddressMap.GetAbsolute("UI_ADDRESS"),
                     AddressMap.Get<int[]>("IS_WIREBUG_BLOCKED_OFFSETS")
-                ) != 0,
+                ),
                 Structure = Process.Memory.Read<MHRWirebugStructure>(wirebugPtr)
             };
             data.Structure.Cooldown /= AbnormalityData.TIMER_MULTIPLIER;

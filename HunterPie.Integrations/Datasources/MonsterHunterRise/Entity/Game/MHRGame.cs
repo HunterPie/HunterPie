@@ -226,12 +226,12 @@ public sealed class MHRGame : CommonGame
             AddressMap.Get<int[]>("MOUSE_OFFSETS")
         );
 
-        byte isCutsceneActive = Process.Memory.Deref<byte>(
+        bool isCutsceneActive = Process.Memory.Deref<bool>(
             AddressMap.GetAbsolute("EVENTCAMERA_ADDRESS"),
             AddressMap.Get<int[]>("CUTSCENE_STATE_OFFSETS")
         );
 
-        IsHudOpen = isHudOpen == 1 || isCutsceneActive != 0;
+        IsHudOpen = isHudOpen == 1 || isCutsceneActive == true;
     }
 
     [ScannableMethod]
