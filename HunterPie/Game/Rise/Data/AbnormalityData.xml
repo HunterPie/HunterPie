@@ -396,5 +396,15 @@
                      Icon="ICON_DANGODEFENDER"
                      Category="Consumables"
                      IsInfinite="True"/>
+        <Abnormality Id="ABN_DANGO_HUNTER"
+                     Offset="158"
+                     Name="ABNORMALITY_DANGO_HUNTER"
+                     Icon="ICON_ATTACKUP_MHRS"
+                     Category="Consumables"/>
+        <Abnormality Id="ABN_DANGO_CONNECTOR"
+                     Offset="160"
+                     Name="ABNORMALITY_DANGO_CONNECTOR"
+                     Icon="ICON_DEFUP_MHRS"
+                     Category="Consumables"/>
     </Foods>
 </Abnormalities>
