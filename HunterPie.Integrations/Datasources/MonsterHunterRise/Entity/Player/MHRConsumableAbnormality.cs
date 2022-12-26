@@ -12,6 +12,7 @@ public sealed class MHRConsumableAbnormality : CommonAbnormality, IUpdatable<MHR
     private float _timer;
 
     public override string Id { get; protected set; }
+    public override string Name { get; protected set; }
     public override string Icon { get; protected set; }
 
     public override AbnormalityType Type
@@ -42,6 +43,7 @@ public sealed class MHRConsumableAbnormality : CommonAbnormality, IUpdatable<MHR
     public MHRConsumableAbnormality(AbnormalitySchema data)
     {
         Id = data.Id;
+        Name = data.Name;
         Icon = data.Icon;
         IsInfinite = data.IsInfinite;
 

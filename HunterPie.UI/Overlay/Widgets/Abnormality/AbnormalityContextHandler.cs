@@ -33,7 +33,8 @@ internal class AbnormalityContextHandler : AbnormalityViewModel, IContextHandler
     private void UpdateData()
     {
         IsBuff = Context.Type != AbnormalityType.Debuff;
-        Name = Context.Id;
+        Id = Context.Id;
+        Name = Context.Name;
         Icon = Context.Icon;
         MaxTimer = Context.MaxTimer;
         Timer = Context.Timer;

@@ -13,6 +13,7 @@ public sealed class MHRDebuffAbnormality : CommonAbnormality, IUpdatable<MHRDebu
     private float _timer;
 
     public override string Id { get; protected set; }
+    public override string Name { get; protected set; }
     public override string Icon { get; protected set; }
     public override AbnormalityType Type { get; protected set; }
     public override float Timer
@@ -35,6 +36,7 @@ public sealed class MHRDebuffAbnormality : CommonAbnormality, IUpdatable<MHRDebu
     public MHRDebuffAbnormality(AbnormalitySchema data)
     {
         Id = data.Id;
+        Name = data.Name;
         Icon = data.Icon;
         Type = data.Group.StartsWith("Debuffs")
             ? AbnormalityType.Debuff
