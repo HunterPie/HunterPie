@@ -7,6 +7,7 @@ namespace HunterPie.Integrations.Datasources.Common.Entity.Player;
 public abstract class CommonAbnormality : IAbnormality, IEventDispatcher, IDisposable
 {
     public abstract string Id { get; protected set; }
+    public abstract string Name { get; protected set; }
     public abstract string Icon { get; protected set; }
     public abstract AbnormalityType Type { get; protected set; }
     public abstract float Timer { get; protected set; }
