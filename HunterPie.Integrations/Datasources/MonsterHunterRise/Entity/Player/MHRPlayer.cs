@@ -431,10 +431,19 @@ public sealed class MHRPlayer : CommonPlayer
                 _ => Process.Memory.Read<int>(debuffsPtr + schema.DependsOn)
             };
 
+            bool isConditionValid = schema.CompareOperator switch
+            {
+                AbnormalityCompareType.WithValue => abnormSubId == schema.WithValue,
+                AbnormalityCompareType.WithValueNot => abnormSubId != schema.WithValueNot,
+                _ => false
+            };
+
             MHRDebuffStructure abnormality = new();
 
             // Only read memory if the required sub Id is the required one for this abnormality
-            if (abnormSubId == schema.WithValue)
+            if (schema.IsInfinite)
+                abnormality.Timer = isConditionValid ? AbnormalityData.TIMER_MULTIPLIER : 0;
+            else if (isConditionValid)
                 abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
 
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;

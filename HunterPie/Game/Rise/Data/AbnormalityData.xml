@@ -18,10 +18,10 @@
                      Icon="ICON_ELEATTACKUP_MHRS"/>
         <Abnormality Id="5"
                      Name="ABNORMALITY_ATTACK_DEF_UP"
-                     Icon="ICON_ATTACKUP_MHRS"/>
+                     Icon="ICON_ATKDEFUP_MHRS"/>
         <Abnormality Id="6"
                      Name="ABNORMALITY_ATTACK_AFFINITY_UP"
-                     Icon="ICON_AFFINITY_MHRS"/>
+                     Icon="ICON_ATKAFFUP_MHRS"/>
         <Abnormality Id="7"
                      Name="ABNORMALITY_KNOCKBACK_NEG"
                      Icon="ICON_KNOCKBACKNEG_MHRS"/>
@@ -74,7 +74,9 @@
         <Abnormality Id="26"
                      Name="ABNORMALITY_SHARPNESS_REGEN"
                      Icon="ICON_SHARPNESSREGEN"/>
-        <Abnormality Id="27"/>
+        <Abnormality Id="27"
+                     Name="ABNORMALITY_SHARPNESS_EXTENSION"
+                     Icon="ICON_SHARPNESSEXTENSION"/>
     </Songs>
     <Consumables>
         <Abnormality Id="ABN_DEMONDRUG"
@@ -82,28 +84,28 @@
                      DependsOn="7C"
                      WithValue="5"
                      Name="ABNORMALITY_DEMONDRUG"
-                     Icon="ITEM_DEMONDRUG"
+                     Icon="ITEM_DEMONDRUG_MHRS"
                      IsInfinite="True"/>
         <Abnormality Id="ABN_MEGA_DEMONDRUG"
                      Offset="7C"
                      DependsOn="7C"
                      WithValue="7"
                      Name="ABNORMALITY_MEGA_DEMONDRUG"
-                     Icon="ITEM_DEMONDRUG++"
+                     Icon="ITEM_DEMONDRUG++_MHRS"
                      IsInfinite="True"/>
         <Abnormality Id="ABN_ARMORSKIN"
                      Offset="80"
                      DependsOn="80"
                      WithValue="15"
                      Name="ABNORMALITY_ARMORSKIN"
-                     Icon="ITEM_ARMORSKIN"
+                     Icon="ITEM_ARMORSKIN_MHRS"
                      IsInfinite="True"/>
         <Abnormality Id="ABN_MEGA_ARMORSKIN"
                      Offset="80"
                      DependsOn="80"
                      WithValue="25"
                      Name="ABNORMALITY_MEGA_ARMORSKIN"
-                     Icon="ITEM_ARMORSKIN++"
+                     Icon="ITEM_ARMORSKIN++_MHRS"
                      IsInfinite="True"/>
         <Abnormality Id="ABN_MIGHT_SEED"
                      Offset="90"
@@ -293,12 +295,19 @@
                      WithValue="1"
                      Name="ABNORMALITY_BUBBLES"
                      Icon="ICON_BUBBLE"/>
-		<Abnormality Id="ABN_BUBBLES_PLUS"
+        <Abnormality Id="ABN_BUBBLES_PLUS"
                      Offset="8A8"
                      DependsOn="8C0"
                      WithValue="2"
                      Name="ABNORMALITY_BUBBLES_PLUS"
                      Icon="ICON_BUBBLE+"/>
+        <Abnormality Id="ABN_LEECHED"
+                     Offset="8B0"
+                     DependsOn="8B0"
+                     WithValueNot="-1"
+                     Name="ABNORMALITY_LEECHED"
+                     Icon="ICON_LEECHED"
+                     IsInfinite="True"/>
         <Abnormality Id="ABN_BLEED"
                      Offset="8CC"
                      Name="ABNORMALITY_BLEED"
@@ -328,7 +337,7 @@
         <Abnormality Id="ABN_COUNTERSTRIKE"
                      Offset="120"
                      Name="ABNORMALITY_COUNTERSTRIKE"
-                     Icon="ICON_ARMORSKILL_ORANGE"
+                     Icon="ICON_ARMORSKILL_DARKRED"
                      Category="Consumables"/>
         <Abnormality Id="ABN_COALESCENCE"
                      Offset="168"
@@ -338,12 +347,12 @@
         <Abnormality Id="ABN_CHAIN_CRIT"
                      Offset="16C"
                      Name="ABNORMALITY_CHAIN_CRIT"
-                     Icon="ICON_ARMORSKILL_SALMON"
+                     Icon="ICON_ARMORSKILL_DARKRED"
                      Category="Consumables"/>
         <Abnormality Id="ABN_ADRENALINE_RUSH"
                      Offset="174"
                      Name="ABNORMALITY_ADRENALINE_RUSH"
-                     Icon="ICON_ARMORSKILL_SALMON"
+                     Icon="ICON_ARMORSKILL_DARKRED"
                      Category="Consumables"/>
         <Abnormality Id="ABN_GRINDER_S"
                      Offset="190"
@@ -387,5 +396,15 @@
                      Icon="ICON_DANGODEFENDER"
                      Category="Consumables"
                      IsInfinite="True"/>
+        <Abnormality Id="ABN_DANGO_HUNTER"
+                     Offset="158"
+                     Name="ABNORMALITY_DANGO_HUNTER"
+                     Icon="ICON_ATTACKUP_MHRS"
+                     Category="Consumables"/>
+        <Abnormality Id="ABN_DANGO_CONNECTOR"
+                     Offset="160"
+                     Name="ABNORMALITY_DANGO_CONNECTOR"
+                     Icon="ICON_DEFUP_MHRS"
+                     Category="Consumables"/>
     </Foods>
 </Abnormalities>

@@ -6,6 +6,7 @@ namespace HunterPie.Core.Game.Entity.Player;
 public interface IAbnormality
 {
     public string Id { get; }
+    public string Name { get; }
     public string Icon { get; }
     public AbnormalityType Type { get; }
     public float Timer { get; }
