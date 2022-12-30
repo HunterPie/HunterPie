@@ -25,4 +25,12 @@ public static class ConfigHelper
             Log.Error(err.ToString());
         }
     }
+
+    public static string GetFullPath(string path)
+    {
+        if (!Path.IsPathFullyQualified(path))
+            path = Path.Combine(ClientInfo.ClientPath, path);
+
+        return path;
+    }
 }

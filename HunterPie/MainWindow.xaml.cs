@@ -2,6 +2,7 @@
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Logger;
 using HunterPie.Features.Account;
+using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.UseCase;
 using HunterPie.Features.Debug;
 using HunterPie.GUI.Parts.Account.Views;
@@ -26,7 +27,7 @@ namespace HunterPie;
 /// </summary>
 public partial class MainWindow : Window
 {
-
+    private readonly RemoteAccountConfigService _remoteConfigService = new();
     private MainViewModel ViewModel => (MainViewModel)DataContext;
 
     public MainWindow()
@@ -40,6 +41,8 @@ public partial class MainWindow : Window
 
     protected override void OnClosing(CancelEventArgs e)
     {
+        ConfigManager.SaveAll();
+
         if (!ClientConfig.Config.Client.EnableSeamlessShutdown)
         {
             NativeDialogResult result = DialogManager.Info(
@@ -54,6 +57,10 @@ public partial class MainWindow : Window
                 return;
             }
         }
+
+        Hide();
+
+        _remoteConfigService.UploadClientConfig();
 
         base.OnClosing(e);
     }

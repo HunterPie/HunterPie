@@ -196,9 +196,6 @@ public partial class App : Application
 
     protected override void OnExit(ExitEventArgs e)
     {
-        if (e.ApplicationExitCode == 0)
-            ConfigManager.SaveAll();
-
         InitializerManager.Unload();
 
         base.OnExit(e);

@@ -41,7 +41,7 @@ public class ConfigManager
     /// <param name="default">Base class for the config to be serialized to</param>
     public static void Register(string path, object @default)
     {
-        path = GetFullPath(path);
+        path = ConfigHelper.GetFullPath(path);
 
         if (!Directory.Exists(path))
             _ = Directory.CreateDirectory(Path.GetDirectoryName(path));
@@ -77,7 +77,7 @@ public class ConfigManager
 
     public static void Reload(string path)
     {
-        path = GetFullPath(path);
+        path = ConfigHelper.GetFullPath(path);
 
         if (!Settings.ContainsKey(path))
         {
@@ -99,7 +99,7 @@ public class ConfigManager
 
     public static void Save(string path)
     {
-        path = GetFullPath(path);
+        path = ConfigHelper.GetFullPath(path);
 
         if (!Settings.ContainsKey(path))
         {
@@ -153,9 +153,7 @@ public class ConfigManager
     private static void WriteSettings(string path)
     {
         lock (_settings[path])
-        {
             ConfigHelper.WriteObject(path, _settings[path]);
-        }
     }
 
     public static void BindAndSaveOnChanges(string path, object data)
@@ -198,15 +196,5 @@ public class ConfigManager
                 }
             }
         }
-    }
-
-    private static string GetFullPath(string path)
-    {
-        if (!Path.IsPathFullyQualified(path))
-        {
-            path = Path.Combine(ClientInfo.ClientPath, path);
-        }
-
-        return path;
     }
 }
