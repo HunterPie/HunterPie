@@ -39,7 +39,7 @@ public partial class MainWindow : Window
         Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata { DefaultValue = (int)ClientConfig.Config.Client.RenderFramePerSecond.Current });
     }
 
-    protected override void OnClosing(CancelEventArgs e)
+    protected override async void OnClosing(CancelEventArgs e)
     {
         ConfigManager.SaveAll();
 
@@ -58,11 +58,15 @@ public partial class MainWindow : Window
             }
         }
 
-        Hide();
+        e.Cancel = true;
 
-        _remoteConfigService.UploadClientConfig();
+        await Dispatcher.InvokeAsync(Hide);
 
-        base.OnClosing(e);
+        await _remoteConfigService.UploadClientConfig();
+
+        InitializerManager.Unload();
+
+        await Dispatcher.InvokeAsync(() => Application.Current.Shutdown(0));
     }
 
     private async void OnInitialized(object sender, EventArgs e)

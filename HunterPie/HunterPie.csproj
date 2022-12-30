@@ -10,14 +10,12 @@
     <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Authors>Haato</Authors>
-    <Version>1.2022.1208.2323</Version>
     <DebugType>full</DebugType>
     <SignAssembly>True</SignAssembly>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Nullable>disable</Nullable>
     <LangVersion>10.0</LangVersion>
     <DelaySign>False</DelaySign>
-    <IncrementVersionOnBuild>1.yyyy.Mdd.Hmm</IncrementVersionOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

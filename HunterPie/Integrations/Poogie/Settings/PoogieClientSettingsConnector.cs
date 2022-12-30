@@ -8,7 +8,7 @@ internal class PoogieClientSettingsConnector
 {
     private readonly PoogieConnector _connector = new();
 
-    private const string CLIENT_SETTINGS_ENDPOINT = "/v1/client/settings";
+    private const string CLIENT_SETTINGS_ENDPOINT = "/v1/account/client/settings";
 
     public async Task<PoogieResult<ClientSettingsResponse>> UploadClientSettings(ClientSettingsRequest request) =>
         await _connector.Patch<ClientSettingsRequest, ClientSettingsResponse>(CLIENT_SETTINGS_ENDPOINT, request);
