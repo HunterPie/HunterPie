@@ -15,6 +15,7 @@ internal class InitializerManager
         new CustomFontsInitializer(),
         
         // Core
+        new CredentialVaultInitializer(),
         new LocalConfigInitializer(),
         new ClientConfigMigrationInitializer(),
         new ClientConfigInitializer(),
@@ -31,7 +32,6 @@ internal class InitializerManager
         new ClientLocalizationInitializer(),
         new SystemTrayInitializer(),
         new ClientConfigBindingsInitializer(),
-        new CredentialVaultInitializer(),
         
         // GUI
         new MenuInitializer(),

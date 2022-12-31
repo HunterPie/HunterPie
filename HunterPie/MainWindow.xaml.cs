@@ -28,6 +28,7 @@ namespace HunterPie;
 public partial class MainWindow : Window
 {
     private readonly RemoteAccountConfigService _remoteConfigService = new();
+    private RemoteConfigSyncService _remoteConfigSyncService;
     private MainViewModel ViewModel => (MainViewModel)DataContext;
 
     public MainWindow()
@@ -75,12 +76,22 @@ public partial class MainWindow : Window
 
         InitializerManager.InitializeGUI();
 
+        await SetupRemoteConfigServices();
+
         InitializeDebugWidgets();
 
         SetupTrayIcon();
         SetupMainNavigator();
         SetupAccountEvents();
+
         await SetupPromoViewAsync();
+    }
+
+    private async Task SetupRemoteConfigServices()
+    {
+        await _remoteConfigService.FetchClientConfig();
+        _remoteConfigSyncService = new(_remoteConfigService);
+        _remoteConfigSyncService.Start();
     }
 
     private async Task SetupPromoViewAsync() => ViewModel.ShouldShowPromo = await AccountPromotionalUseCase.ShouldShow();

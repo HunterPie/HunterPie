@@ -2,14 +2,12 @@
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Json;
 using HunterPie.Core.Logger;
-using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Reflection;
-using System.Text;
 
 namespace HunterPie.Core.Client;
 
@@ -119,27 +117,9 @@ public class ConfigManager
     private static void ReadSettings(string path)
     {
         lock (_settings[path])
-        {
             try
             {
-                using FileStream stream = File.OpenRead(path);
-                byte[] buffer = new byte[stream.Length];
-                _ = stream.Read(buffer, 0, buffer.Length);
-
-                string str = Encoding.UTF8.GetString(buffer);
-
-                if (string.IsNullOrEmpty(str)
-                    || str[0] == '\x00'
-                    || str == "null")
-                {
-                    throw new Exception("Configuration file was empty");
-                }
-
-                var serializerSettings = new JsonSerializerSettings()
-                {
-                    NullValueHandling = NullValueHandling.Ignore,
-                    TypeNameHandling = TypeNameHandling.Auto
-                };
+                string str = ConfigHelper.ReadObject(path);
 
                 JsonProvider.Populate(str, _settings[path]);
             }
@@ -147,7 +127,6 @@ public class ConfigManager
             {
                 Log.Error(err.ToString());
             }
-        }
     }
 
     private static void WriteSettings(string path)
@@ -163,7 +142,6 @@ public class ConfigManager
 
         Type type = data.GetType();
         foreach (PropertyInfo propertyInfo in type.GetProperties())
-        {
             if (typeof(IEnumerable).IsAssignableFrom(propertyInfo.PropertyType))
             {
                 var array = (IEnumerable)propertyInfo.GetValue(data);
@@ -195,6 +173,5 @@ public class ConfigManager
                     continue;
                 }
             }
-        }
     }
 }
