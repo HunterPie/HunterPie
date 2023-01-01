@@ -4,11 +4,9 @@
     <TargetFramework>net6.0</TargetFramework>
     <Authors>Haato</Authors>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <Version>2.2022.1208.2323</Version>
-    <AssemblyVersion>2.7.0.5</AssemblyVersion>
-    <FileVersion>2.7.0.5</FileVersion>
+    <AssemblyVersion>2.7.0.28</AssemblyVersion>
+    <FileVersion>2.7.0.28</FileVersion>
     <LangVersion>10.0</LangVersion>
-    <IncrementVersionOnBuild>2.yyyy.Mdd.Hmm</IncrementVersionOnBuild>
  </PropertyGroup>
 
   <ItemGroup>

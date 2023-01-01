@@ -194,16 +194,6 @@ public partial class App : Application
         ExceptionTracker.TrackException(e.Exception);
     }
 
-    protected override void OnExit(ExitEventArgs e)
-    {
-        if (e.ApplicationExitCode == 0)
-            ConfigManager.SaveAll();
-
-        InitializerManager.Unload();
-
-        base.OnExit(e);
-    }
-
     private void HookEvents()
     {
         _context.Game.Player.OnLogin += OnPlayerLogin;

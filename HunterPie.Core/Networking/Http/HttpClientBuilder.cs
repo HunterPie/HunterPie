@@ -53,6 +53,14 @@ public class HttpClientBuilder
         return this;
     }
 
+    public HttpClientBuilder Patch(string path)
+    {
+        _method = HttpMethod.Patch;
+        _path = path;
+
+        return this;
+    }
+
     public HttpClientBuilder WithHeader(string key, string value)
     {
         _headers.Add(key, value);

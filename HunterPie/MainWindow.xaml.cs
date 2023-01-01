@@ -2,6 +2,7 @@
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Logger;
 using HunterPie.Features.Account;
+using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.UseCase;
 using HunterPie.Features.Debug;
 using HunterPie.GUI.Parts.Account.Views;
@@ -26,7 +27,8 @@ namespace HunterPie;
 /// </summary>
 public partial class MainWindow : Window
 {
-
+    private readonly RemoteAccountConfigService _remoteConfigService = new();
+    private RemoteConfigSyncService _remoteConfigSyncService;
     private MainViewModel ViewModel => (MainViewModel)DataContext;
 
     public MainWindow()
@@ -38,8 +40,10 @@ public partial class MainWindow : Window
         Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata { DefaultValue = (int)ClientConfig.Config.Client.RenderFramePerSecond.Current });
     }
 
-    protected override void OnClosing(CancelEventArgs e)
+    protected override async void OnClosing(CancelEventArgs e)
     {
+        ConfigManager.SaveAll();
+
         if (!ClientConfig.Config.Client.EnableSeamlessShutdown)
         {
             NativeDialogResult result = DialogManager.Info(
@@ -55,7 +59,15 @@ public partial class MainWindow : Window
             }
         }
 
-        base.OnClosing(e);
+        e.Cancel = true;
+
+        await Dispatcher.InvokeAsync(Hide);
+
+        await _remoteConfigService.UploadClientConfig();
+
+        InitializerManager.Unload();
+
+        await Dispatcher.InvokeAsync(() => Application.Current.Shutdown(0));
     }
 
     private async void OnInitialized(object sender, EventArgs e)
@@ -64,12 +76,22 @@ public partial class MainWindow : Window
 
         InitializerManager.InitializeGUI();
 
+        await SetupRemoteConfigServices();
+
         InitializeDebugWidgets();
 
         SetupTrayIcon();
         SetupMainNavigator();
         SetupAccountEvents();
+
         await SetupPromoViewAsync();
+    }
+
+    private async Task SetupRemoteConfigServices()
+    {
+        await _remoteConfigService.FetchClientConfig();
+        _remoteConfigSyncService = new(_remoteConfigService);
+        _remoteConfigSyncService.Start();
     }
 
     private async Task SetupPromoViewAsync() => ViewModel.ShouldShowPromo = await AccountPromotionalUseCase.ShouldShow();
