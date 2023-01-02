@@ -63,4 +63,16 @@ internal class PoogieConnector
 
         return await PoogieResult<TOut>.From(response);
     }
+
+    public async Task<PoogieResult<TOut>> Patch<TIn, TOut>(string path, TIn payload)
+    {
+        using HttpClient client = PoogieProvider.Default()
+            .Patch(path)
+            .WithJson(payload)
+            .Build();
+
+        using HttpClientResponse response = await client.RequestAsync();
+
+        return await PoogieResult<TOut>.From(response);
+    }
 }

@@ -27,6 +27,8 @@ internal class AccountManager : IEventDispatcher
     public static event EventHandler<EventArgs>? OnSignOut;
     public static event EventHandler<AccountAvatarEventArgs>? OnAvatarChange;
 
+    public static async Task<bool> IsLoggedIn() => GetSessionToken() is not null;
+
     public static async Task<bool> ValidateSessionToken()
     {
         if (await FetchAccount() is null)
