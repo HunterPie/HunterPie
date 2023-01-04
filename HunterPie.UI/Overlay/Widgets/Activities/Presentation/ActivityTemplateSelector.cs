@@ -11,7 +11,7 @@ public class ActivityTemplateSelector : DataTemplateSelector
     public DataTemplate SubmarineTemplate { get; set; }
     public DataTemplate TrainingDojoTemplate { get; set; }
     public DataTemplate MeowcenariesTemplate { get; set; }
-    public DataTemplate CohootTemplae { get; set; }
+    public DataTemplate CohootTemplate { get; set; }
 
     public override DataTemplate SelectTemplate(object item, DependencyObject container)
     {
@@ -23,8 +23,8 @@ public class ActivityTemplateSelector : DataTemplateSelector
                 ActivityType.Submarine => SubmarineTemplate,
                 ActivityType.Meowcenaries => MeowcenariesTemplate,
                 ActivityType.TrainingDojo => TrainingDojoTemplate,
-                ActivityType.Cohoot => CohootTemplae,
-                _ => throw new NotImplementedException(string.Format("Missing implementation for {0}", nameof(activity.Type)))
+                ActivityType.Cohoot => CohootTemplate,
+                _ => throw new NotImplementedException($"Missing implementation for {nameof(activity.Type)}")
             }
             : throw new ArgumentException($"item must be an {nameof(IActivity)}");
     }

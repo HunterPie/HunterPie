@@ -664,6 +664,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Overlay\Widgets\Activities\World\" />
     <Folder Include="Overlay\Widgets\Player\Model\" />
     <Folder Include="Properties\" />
   </ItemGroup>
