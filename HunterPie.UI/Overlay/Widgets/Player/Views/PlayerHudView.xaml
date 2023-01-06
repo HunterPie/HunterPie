@@ -14,17 +14,10 @@
            x:TypeArguments="viewmodels:PlayerHudViewModel"
            d:DataContext="{d:DesignInstance Type=viewmodels:PlayerHudViewModel}"
            mc:Ignorable="d"
-           Width="800">
+           Width="800"
+           Style="{StaticResource STYLE_PLAYER_HUD_WIDGET}">
     <UserControl.Resources>
-        <enums:AbnormalityCategory x:Key="STATE_NORMAL">None</enums:AbnormalityCategory>
-        <enums:AbnormalityCategory x:Key="STATE_FIRE">Fire</enums:AbnormalityCategory>
-        <enums:AbnormalityCategory x:Key="STATE_ICE">Ice</enums:AbnormalityCategory>
-        <enums:AbnormalityCategory x:Key="STATE_WATER">Water</enums:AbnormalityCategory>
-        <enums:AbnormalityCategory x:Key="STATE_BLEED">Bleed</enums:AbnormalityCategory>
-        <enums:AbnormalityCategory x:Key="STATE_POISON">Poison</enums:AbnormalityCategory>
-        
         <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
-        <converters:PercentageToLeftMargingDistanceConverter x:Key="PercentageToLeftMargingDistanceConverter"/>
         <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:WeaponToMeleeVisibility x:Key="WeaponToMeleeVisibility"/>
