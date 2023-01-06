@@ -14,6 +14,9 @@ public class HarvestFertilizerViewModel : Bindable
     private int _amount;
     public int Amount { get => _amount; set => SetValue(ref _amount, value); }
 
+    private int _maxAmount;
+    public int MaxAmount { get => _maxAmount; set => SetValue(ref _maxAmount, value); }
+
     private bool _isExpiring;
     public bool IsExpiring { get => _isExpiring; set => SetValue(ref _isExpiring, value); }
 }

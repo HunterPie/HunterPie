@@ -39,7 +39,7 @@
                                                SubmarineTemplate="{StaticResource TEMPLATE_SUBMARINES_VIEW}"
                                                TrainingDojoTemplate="{StaticResource TEMPLATE_TRAINING_DOJO_VIEW}"
                                                MeowcenariesTemplate="{StaticResource TEMPLATE_MEOWCENARIES_VIEW}"
-                                               CohootTemplae="{StaticResource TEMPLATE_COHOOT_VIEW}"/>
+                                               CohootTemplate="{StaticResource TEMPLATE_COHOOT_VIEW}"/>
     </UserControl.Resources>
     <ItemsControl ItemsSource="{Binding Activities, Mode=OneWay}"
                   ItemTemplateSelector="{StaticResource ActivityTemplateSelector}"

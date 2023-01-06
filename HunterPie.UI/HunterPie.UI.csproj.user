@@ -86,6 +86,12 @@
     <Compile Update="Overlay\Widgets\Activities\View\CohootNestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Activities\View\HarvestBoxView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Activities\View\HarvestFertilizerView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Activities\View\MeowcenariesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -248,6 +254,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Activities\View\CohootNestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Activities\View\HarvestBoxView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Activities\View\HarvestFertilizerView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Activities\View\MeowcenariesView.xaml">
