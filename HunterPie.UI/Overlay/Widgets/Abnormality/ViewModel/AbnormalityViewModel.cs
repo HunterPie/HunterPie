@@ -15,7 +15,7 @@ public class AbnormalityViewModel : Bindable
     public string Id
     {
         get => _id;
-        set => SetValue(ref _name, value);
+        set => SetValue(ref _id, value);
     }
 
     private string _name;
