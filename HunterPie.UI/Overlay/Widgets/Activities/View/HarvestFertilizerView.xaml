@@ -5,30 +5,34 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.View"
              xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.ViewModel"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="30" 
              d:DesignWidth="270"
              d:DataContext="{d:DesignInstance vm:HarvestFertilizerViewModel}">
+    <UserControl.Resources>
+        <converters:CurrentValueToWidthConverter x:Key="CurrentValueToWidthConverter"/>
+        <converters:FertilizerToIconConverter x:Key="FertilizerToIconConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Border Grid.ColumnSpan="2"
-                Grid.Column="0"
+        <Border Grid.ColumnSpan="1"
+                Grid.Column="1"
                 BorderThickness="1"
                 BorderBrush="{StaticResource GRAY_300}"/>
         <!-- Background bar -->
         <Grid Grid.Column="1"
               HorizontalAlignment="Left"
-              d:Width="200"
               MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
               Margin="1,1,0,1"
               ClipToBounds="True">
             <Grid.Width>
                 <MultiBinding Converter="{StaticResource CurrentValueToWidthConverter}">
-                    <Binding Path="DataContext.Amount" RelativeSource="{RelativeSource AncestorType=local:CohootNestView}" FallbackValue="0"/>
-                    <Binding Path="DataContext.MaxAmount" RelativeSource="{RelativeSource AncestorType=local:CohootNestView}" FallbackValue="1"/>
+                    <Binding Path="DataContext.Amount" RelativeSource="{RelativeSource AncestorType=local:HarvestFertilizerView}" FallbackValue="0"/>
+                    <Binding Path="DataContext.MaxAmount" RelativeSource="{RelativeSource AncestorType=local:HarvestFertilizerView}" FallbackValue="1"/>
                     <Binding Path="MaxWidth" RelativeSource="{RelativeSource Self}"/>
                     <Binding Path="Margin" RelativeSource="{RelativeSource Self}"/>
                 </MultiBinding>
@@ -74,28 +78,38 @@
         </Grid>
 
         <Rectangle Grid.Column="0"
-                   Fill="{StaticResource GRAY_300}"/>
+                   Fill="{StaticResource GRAY_300}"
+                   Stroke="{StaticResource GRAY_400}"
+                   StrokeThickness="1"/>
 
-        <Image Source="{StaticResource ICON_FERTILIZER_GROWTH_S}"
+        <Image Source="{Binding Fertilizer, Mode=OneWay, Converter={StaticResource FertilizerToIconConverter}}"
                Grid.Column="0"
-               Margin="3"/>
+               Margin="3"
+               Opacity="0.7"/>
 
         <TextBlock Grid.Column="1"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
-                   Text="Fertilizer name"
+                   Text="{Binding Name, Mode=OneWay}"
                    Margin="2"
                    Foreground="{StaticResource WHITE_100}"
                    FontSize="14"
-                   FontWeight="Medium"/>
+                   FontWeight="Medium"
+                   d:Text="Fertilizer name"/>
 
         <TextBlock Grid.Column="1"
                    VerticalAlignment="Center"
-                   Text="x4"
                    HorizontalAlignment="Right"
                    Margin="2"
                    FontSize="14"
                    Foreground="{StaticResource WHITE_100}"
-                   FontWeight="Light"/>
+                   FontWeight="Light">
+            <Run Text="x "
+                 FontSize="10"
+                 Foreground="{StaticResource WHITE_400}"/><!--
+         --><Run Text="{Binding Amount, Mode=OneWay}"
+                 d:Text="4"
+                 FontWeight="Regular"/>
+        </TextBlock>
     </Grid>
 </UserControl>

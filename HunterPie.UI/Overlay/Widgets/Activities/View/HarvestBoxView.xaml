@@ -4,14 +4,37 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.View"
+             xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.ViewModel"
              mc:Ignorable="d"  
-             d:DesignWidth="270">
-    <Grid>
+             d:DesignWidth="270"
+             d:DataContext="{d:DesignInstance vm:HarvestBoxViewModel}">
+    <UserControl.Resources>
+        <vm:MockHarvestBoxViewModel x:Key="MockHarvestBoxViewModel"/>
+    </UserControl.Resources>
+    <Grid Background="{StaticResource GRAY_200}"
+          d:DataContext="{StaticResource MockHarvestBoxViewModel}">
         <StackPanel>
-            <local:HarvestFertilizerView/>
-            <local:HarvestFertilizerView/>
-            <local:HarvestFertilizerView/>
-            <local:HarvestFertilizerView/>
+            <ItemsControl ItemsSource="{Binding Fertilizers, Mode=OneWay}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:HarvestFertilizerView/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <TextBlock VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="14"
+                       Foreground="{StaticResource WHITE_300}">
+                <Run Text="{Binding Count}"
+                     Foreground="{StaticResource WHITE_100}"/><!--
+             --><Run Text="{Binding MaxCount, StringFormat='/{0}'}"/>
+            </TextBlock>
         </StackPanel>
     </Grid>
 </UserControl>

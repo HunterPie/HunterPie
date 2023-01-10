@@ -11,5 +11,5 @@ public class HarvestBoxViewModel : Bindable
     public int Count { get => _count; set => SetValue(ref _count, value); }
 
     private int _maxCount;
-    private int MaxCount { get => _maxCount; set => SetValue(ref _maxCount, value); }
+    public int MaxCount { get => _maxCount; set => SetValue(ref _maxCount, value); }
 }
