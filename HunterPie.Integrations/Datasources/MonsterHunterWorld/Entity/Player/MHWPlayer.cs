@@ -261,7 +261,7 @@ public sealed class MHWPlayer : CommonPlayer
             Health = hudStructure.Health,
             RecoverableHealth = hudStructure.RecoverableHealth,
             Heal = hudStructure.Health + totalHealings.MaxHeal - totalHealings.Heal,
-            MaxPossibleHealth = _skills.ToMaximumHealthPossible(),
+            MaxPossibleHealth = Math.Max(_skills.ToMaximumHealthPossible(), hudStructure.MaxHealth),
         };
 
         _health.Update(healthData);
@@ -270,7 +270,7 @@ public sealed class MHWPlayer : CommonPlayer
         {
             MaxStamina = hudStructure.MaxStamina,
             Stamina = hudStructure.Stamina,
-            MaxPossibleStamina = _skills.ToMaximumStaminaPossible()
+            MaxPossibleStamina = Math.Max(_skills.ToMaximumStaminaPossible(), hudStructure.MaxStamina)
         };
 
         _stamina.Update(staminaData);
