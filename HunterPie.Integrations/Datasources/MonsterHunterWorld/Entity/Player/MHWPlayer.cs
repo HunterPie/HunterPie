@@ -18,6 +18,7 @@ using HunterPie.Integrations.Datasources.Common.Definition;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Environment.Activities;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
@@ -165,6 +166,8 @@ public sealed class MHWPlayer : CommonPlayer
             }
         }
     }
+
+    public MHWHarvestBox HarvestBox { get; } = new();
 
     #endregion
 
@@ -395,6 +398,22 @@ public sealed class MHWPlayer : CommonPlayer
         }
 
         _localPlayerAddress = localPlayerReference;
+    }
+
+    [ScannableMethod]
+    private void GetHarvestBoxData()
+    {
+        long harvestBoxPtr = PlayerSaveAddress + 0x103068;
+
+        MHWFertilizerStructure[] fertilizers = Memory.Read<MHWFertilizerStructure>(harvestBoxPtr, 4);
+        MHWItemStructure[] harvestBoxItems = Memory.Read<MHWItemStructure>(harvestBoxPtr + 0x30, 50);
+
+        var data = new MHWHarvestBoxData(
+            Items: harvestBoxItems,
+            Fertilizers: fertilizers
+        );
+
+        HarvestBox.Update(data);
     }
 
     [ScannableMethod]

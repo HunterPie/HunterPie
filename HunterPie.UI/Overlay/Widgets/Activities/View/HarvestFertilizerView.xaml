@@ -13,6 +13,7 @@
     <UserControl.Resources>
         <converters:CurrentValueToWidthConverter x:Key="CurrentValueToWidthConverter"/>
         <converters:FertilizerToIconConverter x:Key="FertilizerToIconConverter"/>
+        <converters:FertilizerToNameConverter x:Key="FertilizerToNameConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -90,17 +91,16 @@
         <TextBlock Grid.Column="1"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
-                   Text="{Binding Name, Mode=OneWay}"
-                   Margin="2"
-                   Foreground="{StaticResource WHITE_100}"
-                   FontSize="14"
-                   FontWeight="Medium"
+                   Text="{Binding Fertilizer, Mode=OneWay, Converter={StaticResource FertilizerToNameConverter}}"
+                   Margin="5,2,2,2"
+                   Foreground="{StaticResource WHITE_200}"
+                   FontSize="13"
                    d:Text="Fertilizer name"/>
 
         <TextBlock Grid.Column="1"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
-                   Margin="2"
+                   Margin="2,2,5,2"
                    FontSize="14"
                    Foreground="{StaticResource WHITE_100}"
                    FontWeight="Light">

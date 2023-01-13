@@ -12,13 +12,14 @@ public class ActivityTemplateSelector : DataTemplateSelector
     public DataTemplate TrainingDojoTemplate { get; set; }
     public DataTemplate MeowcenariesTemplate { get; set; }
     public DataTemplate CohootTemplate { get; set; }
+    public DataTemplate HarvestBoxTemplate { get; set; }
 
     public override DataTemplate SelectTemplate(object item, DependencyObject container)
     {
         return item is IActivity activity
             ? activity.Type switch
             {
-                ActivityType.HarvestBox => throw new NotImplementedException(),
+                ActivityType.HarvestBox => HarvestBoxTemplate,
                 ActivityType.Argosy => throw new NotImplementedException(),
                 ActivityType.Submarine => SubmarineTemplate,
                 ActivityType.Meowcenaries => MeowcenariesTemplate,

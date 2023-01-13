@@ -23,7 +23,7 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:HarvestFertilizerView/>
+                        <local:HarvestFertilizerView Height="30"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

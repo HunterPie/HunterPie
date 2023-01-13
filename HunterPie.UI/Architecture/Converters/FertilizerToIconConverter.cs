@@ -7,8 +7,6 @@ using System.Windows.Data;
 namespace HunterPie.UI.Architecture.Converters;
 public class FertilizerToIconConverter : IValueConverter
 {
-
-
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         if (value is not Fertilizer fertilizer)
@@ -16,7 +14,7 @@ public class FertilizerToIconConverter : IValueConverter
 
         string? iconName = fertilizer switch
         {
-            Fertilizer.None => null,
+            Fertilizer.None => "ICON_WARN",
             Fertilizer.PlantS => "ICON_FERTILIZER_PLANT_S",
             Fertilizer.PlantL => "ICON_FERTILIZER_PLANT_L",
             Fertilizer.FungiS => "ICON_FERTILIZER_FUNGI_S",

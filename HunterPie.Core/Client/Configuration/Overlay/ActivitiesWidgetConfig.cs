@@ -5,7 +5,7 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay;
 
-[SettingsGroup("ACTIVITIES_WIDGET_STRING", "ICON_ARGOSY", availableGames: GameProcess.MonsterHunterRise)]
+[SettingsGroup("ACTIVITIES_WIDGET_STRING", "ICON_ARGOSY", availableGames: GameProcess.MonsterHunterRise | GameProcess.MonsterHunterWorld)]
 public class ActivitiesWidgetConfig : IWidgetSettings, ISettings
 {
     [SettingField("INITIALIZE_WIDGET_STRING", requiresRestart: true)]
@@ -20,14 +20,17 @@ public class ActivitiesWidgetConfig : IWidgetSettings, ISettings
     [SettingField("ACTIVITIES_ENABLE_ARGOSY_STRING")]
     public Observable<bool> IsArgosyEnabled { get; set; } = true;
 
-    [SettingField("ACTIVITIES_ENABLE_TRAINING_DOJO_STRING")]
+    [SettingField("ACTIVITIES_ENABLE_TRAINING_DOJO_STRING", availableGames: GameProcess.MonsterHunterRise)]
     public Observable<bool> IsTrainingDojoEnabled { get; set; } = true;
 
     [SettingField("ACTIVITIES_ENABLE_MEOWMASTERS_STRING")]
     public Observable<bool> IsMeowmastersEnabled { get; set; } = true;
 
-    [SettingField("ACTIVITIES_ENABLE_COHOOT_STRING")]
+    [SettingField("ACTIVITIES_ENABLE_COHOOT_STRING", availableGames: GameProcess.MonsterHunterRise)]
     public Observable<bool> IsCohootEnabled { get; set; } = true;
+
+    [SettingField("ACTIVITIES_ENABLE_HARVEST_BOX_STRING", availableGames: GameProcess.MonsterHunterWorld)]
+    public Observable<bool> IsHarvestBoxEnabled { get; set; } = true;
 
     [SettingField("WIDGET_OPACITY")]
     public Range Opacity { get; set; } = new(1, 1, 0.1, 0.1);

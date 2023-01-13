@@ -19,7 +19,6 @@ internal class MockHarvestBoxViewModel : HarvestBoxViewModel
                 Amount = 8,
                 Fertilizer = Fertilizer.FungiL,
                 MaxAmount = 8,
-                Name = "Fungi (L)"
             }
         );
         Fertilizers.Add(
@@ -29,7 +28,6 @@ internal class MockHarvestBoxViewModel : HarvestBoxViewModel
                 Fertilizer = Fertilizer.GrowthL,
                 MaxAmount = 8,
                 IsExpiring = true,
-                Name = "Growth (L)"
             }
         );
         Fertilizers.Add(
@@ -38,7 +36,6 @@ internal class MockHarvestBoxViewModel : HarvestBoxViewModel
                 Amount = 5,
                 Fertilizer = Fertilizer.HoneyL,
                 MaxAmount = 8,
-                Name = "Honey (L)"
             }
         );
         Fertilizers.Add(
@@ -46,8 +43,7 @@ internal class MockHarvestBoxViewModel : HarvestBoxViewModel
             {
                 Amount = 6,
                 Fertilizer = Fertilizer.PlantL,
-                MaxAmount = 8,
-                Name = "Plant (L)"
+                MaxAmount = 8
             }
         );
     }

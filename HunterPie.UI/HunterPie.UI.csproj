@@ -5,8 +5,8 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.7.0.61</AssemblyVersion>
-    <FileVersion>2.7.0.61</FileVersion>
+    <AssemblyVersion>2.7.0.79</AssemblyVersion>
+    <FileVersion>2.7.0.79</FileVersion>
     <LangVersion>10.0</LangVersion>
     <Authors>Haato</Authors>
  </PropertyGroup>
@@ -664,7 +664,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Overlay\Widgets\Activities\World\" />
     <Folder Include="Overlay\Widgets\Player\Model\" />
     <Folder Include="Properties\" />
   </ItemGroup>

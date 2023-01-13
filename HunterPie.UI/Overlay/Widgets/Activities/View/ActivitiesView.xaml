@@ -35,11 +35,16 @@
                                   Visibility="{Binding Settings.IsCohootEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:ActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </DataTemplate>
 
+        <DataTemplate x:Key="TEMPLATE_HARVEST_BOX">
+            <local:HarvestBoxView Visibility="{Binding Settings.IsHarvestBoxEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:ActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        </DataTemplate>
+
         <presentation:ActivityTemplateSelector x:Key="ActivityTemplateSelector"
                                                SubmarineTemplate="{StaticResource TEMPLATE_SUBMARINES_VIEW}"
                                                TrainingDojoTemplate="{StaticResource TEMPLATE_TRAINING_DOJO_VIEW}"
                                                MeowcenariesTemplate="{StaticResource TEMPLATE_MEOWCENARIES_VIEW}"
-                                               CohootTemplate="{StaticResource TEMPLATE_COHOOT_VIEW}"/>
+                                               CohootTemplate="{StaticResource TEMPLATE_COHOOT_VIEW}"
+                                               HarvestBoxTemplate="{StaticResource TEMPLATE_HARVEST_BOX}"/>
     </UserControl.Resources>
     <ItemsControl ItemsSource="{Binding Activities, Mode=OneWay}"
                   ItemTemplateSelector="{StaticResource ActivityTemplateSelector}"

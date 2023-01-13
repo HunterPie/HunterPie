@@ -5,9 +5,6 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.ViewModel;
 
 public class HarvestFertilizerViewModel : Bindable
 {
-    private string _name;
-    public string Name { get => _name; set => SetValue(ref _name, value); }
-
     private Fertilizer _fertilizer;
     public Fertilizer Fertilizer { get => _fertilizer; set => SetValue(ref _fertilizer, value); }
 
