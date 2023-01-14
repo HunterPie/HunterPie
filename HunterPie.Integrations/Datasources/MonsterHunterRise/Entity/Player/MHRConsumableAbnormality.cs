@@ -14,13 +14,7 @@ public sealed class MHRConsumableAbnormality : CommonAbnormality, IUpdatable<MHR
     public override string Id { get; protected set; }
     public override string Name { get; protected set; }
     public override string Icon { get; protected set; }
-
-    public override AbnormalityType Type
-    {
-        get => AbnormalityType.Consumable;
-        protected set => throw new NotSupportedException();
-    }
-
+    public override AbnormalityType Type { get; protected set; }
     public override float Timer
     {
         get => _timer;
@@ -45,10 +39,12 @@ public sealed class MHRConsumableAbnormality : CommonAbnormality, IUpdatable<MHR
         Id = data.Id;
         Name = data.Name;
         Icon = data.Icon;
+        Type = data.Group.StartsWith("Consumables")
+            ? AbnormalityType.Consumable
+            : AbnormalityType.Skill;
         IsInfinite = data.IsInfinite;
-
-        if (IsBuildup)
-            MaxTimer = data.MaxBuildup;
+        IsBuildup = data.IsBuildup;
+        MaxTimer = IsBuildup ? data.MaxBuildup : data.MaxTimer;
     }
 
     void IUpdatable<MHRConsumableStructure>.Update(MHRConsumableStructure data)

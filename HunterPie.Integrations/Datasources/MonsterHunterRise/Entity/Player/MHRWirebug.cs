@@ -11,6 +11,7 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
     private double _cooldown;
     private bool _isAvailable = true;
     private bool _isBlocked;
+    private string _wirebugCondition = "None";
 
     public long Address { get; internal set; }
     public double Timer
@@ -67,6 +68,19 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
         }
     }
 
+    public string WirebugCondition
+    {
+        get => _wirebugCondition;
+        private set
+        {
+            if (value != _wirebugCondition)
+            {
+                _wirebugCondition = value;
+                this.Dispatch(_onWirebugConditionChange, this);
+            }
+        }
+    }
+
     private readonly SmartEvent<MHRWirebug> _onTimerUpdate = new();
     public event EventHandler<MHRWirebug> OnTimerUpdate
     {
@@ -95,6 +109,13 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
         remove => _onBlockedStateChange.Unhook(value);
     }
 
+    private readonly SmartEvent<MHRWirebug> _onWirebugConditionChange = new();
+    public event EventHandler<MHRWirebug> OnWirebugConditionChange
+    {
+        add => _onWirebugConditionChange.Hook(value);
+        remove => _onWirebugConditionChange.Unhook(value);
+    }
+
     void IUpdatable<MHRWirebugExtrasStructure>.Update(MHRWirebugExtrasStructure data)
     {
         MaxTimer = Math.Max(MaxTimer, data.Timer);
@@ -105,13 +126,14 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
     void IUpdatable<MHRWirebugData>.Update(MHRWirebugData data)
     {
         IsBlocked = data.IsBlocked;
+        WirebugCondition = data.WirebugCondition;
         MaxCooldown = data.Structure.MaxCooldown;
         Cooldown = data.Structure.Cooldown;
     }
 
     public void Dispose()
     {
-        IDisposable[] events = { _onTimerUpdate, _onCooldownUpdate, _onAvailable, _onBlockedStateChange };
+        IDisposable[] events = { _onTimerUpdate, _onCooldownUpdate, _onAvailable, _onBlockedStateChange, _onWirebugConditionChange };
 
         events.DisposeAll();
     }

@@ -192,6 +192,9 @@ public sealed class MHRGame : CommonGame
     [ScannableMethod]
     private void GetDeathCounter()
     {
+        if (!Player.InHuntingZone)
+            return;
+
         int maxDeathsCounter = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("QUEST_ADDRESS"),
             AddressMap.Get<int[]>("QUEST_MAX_DEATHS_OFFSETS")

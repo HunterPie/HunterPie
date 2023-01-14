@@ -16,6 +16,8 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:RatioConverter x:Key="RatioConverter"/>
         <converters:ReverseRatioConverter x:Key="ReverseRatioConverter"/>
+        <!-- <converters:WirebugConditionToIconConverter x:Key="WirebugConditionToIconConverter"/> -->
+        <!-- <converters:WirebugConditionToColorConverter x:Key="WirebugConditionToColorConverter"/> -->
     </UserControl.Resources>
     <Grid>
         <Ellipse Width="1"
@@ -117,10 +119,12 @@
         </controls:Arc>
         <Image Margin="5,10,8,10"
                Source="{StaticResource ICON_WIREBUG}">
+               <!-- Source="{Binding WirebugCondition, Mode=OneWay, Converter={StaticResource WirebugConditionToIconConverter}}" -->
             <Image.Effect>
                 <DropShadowEffect ShadowDepth="0" 
                                   BlurRadius="10" 
                                   Color="#FF00D6F7"/>
+                                  <!-- Color="{Binding WirebugCondition, Mode=OneWay, Converter={StaticResource WirebugConditionToColorConverter}}" -->
             </Image.Effect>
         </Image>
         <Grid Visibility="{Binding OnCooldown, Converter={StaticResource BooleanToVisibilityConverter}}"

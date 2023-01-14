@@ -21,6 +21,7 @@ internal class WirebugContextHandler : WirebugViewModel, IContextHandler
         Context.OnTimerUpdate += OnTimerUpdate;
         Context.OnAvailable += OnAvailable;
         Context.OnBlockedStateChange += OnBlockedStateChange;
+        Context.OnWirebugConditionChange += OnWirebugConditionChange;
     }
 
     public void UnhookEvents()
@@ -29,9 +30,12 @@ internal class WirebugContextHandler : WirebugViewModel, IContextHandler
         Context.OnTimerUpdate -= OnTimerUpdate;
         Context.OnAvailable -= OnAvailable;
         Context.OnBlockedStateChange -= OnBlockedStateChange;
+        Context.OnWirebugConditionChange -= OnWirebugConditionChange;
     }
 
     private void OnBlockedStateChange(object sender, MHRWirebug e) => IsBlocked = e.IsBlocked;
+
+    private void OnWirebugConditionChange(object sender, MHRWirebug e) => WirebugCondition = e.WirebugCondition;
 
     private void OnTimerUpdate(object sender, MHRWirebug e)
     {
@@ -52,8 +56,10 @@ internal class WirebugContextHandler : WirebugViewModel, IContextHandler
     private void UpdateData()
     {
         IsBlocked = Context.IsBlocked;
+        WirebugCondition = Context.WirebugCondition;
         MaxCooldown = Context.MaxCooldown == 0 ? 400 : Context.MaxCooldown;
         Cooldown = Context.Cooldown;
+        OnCooldown = Cooldown > 0;
         IsAvailable = Context.IsAvailable;
 
         MaxTimer = Context.MaxTimer;
