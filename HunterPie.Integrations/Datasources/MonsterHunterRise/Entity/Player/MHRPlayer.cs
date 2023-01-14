@@ -418,6 +418,8 @@ public sealed class MHRPlayer : CommonPlayer
                         abnormality = Process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
                         abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
                     }
+                    else
+                        abnormality.Timer = 0;
 
                     break;
                 case "ABN_GOLD_WIREBUG":
@@ -426,6 +428,8 @@ public sealed class MHRPlayer : CommonPlayer
                         abnormality = Process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
                         abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
                     }
+                    else
+                        abnormality.Timer = 0;
 
                     break;
                 default:
@@ -493,7 +497,9 @@ public sealed class MHRPlayer : CommonPlayer
                 case "ABN_STUN_BUILDUP":
                     long subPtr = Process.Memory.Read<long>(debuffsPtr + 0x848);
 
-                    if (subPtr != 0)
+                    if (subPtr == 0)
+                        abnormality.Timer = 0;
+                    else
                         abnormality = Process.Memory.Read<MHRDebuffStructure>(subPtr + schema.Offset);
 
                     break;
