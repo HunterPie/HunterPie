@@ -50,7 +50,7 @@ public abstract class CommonMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEve
     {
         int nextLevel = (int)currentLevel + 1;
 
-        if (nextLevel > (int)Sharpness.Purple || thresholds[nextLevel] == 0)
+        if (nextLevel > (int)Sharpness.Purple || nextLevel >= thresholds.Count || thresholds[nextLevel] == 0)
             return maxHits;
 
         return thresholds[(int)currentLevel];
