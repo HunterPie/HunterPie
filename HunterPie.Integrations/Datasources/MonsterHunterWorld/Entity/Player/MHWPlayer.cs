@@ -403,6 +403,9 @@ public sealed class MHWPlayer : CommonPlayer
     [ScannableMethod]
     private void GetHarvestBoxData()
     {
+        if (PlayerSaveAddress.IsNullPointer())
+            return;
+
         long harvestBoxPtr = PlayerSaveAddress + 0x103068;
 
         MHWFertilizerStructure[] fertilizers = Memory.Read<MHWFertilizerStructure>(harvestBoxPtr, 4);

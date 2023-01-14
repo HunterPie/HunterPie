@@ -5,11 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.View"
              xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.ViewModel"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              mc:Ignorable="d"  
              d:DesignWidth="270"
              d:DataContext="{d:DesignInstance vm:HarvestBoxViewModel}">
     <UserControl.Resources>
         <vm:MockHarvestBoxViewModel x:Key="MockHarvestBoxViewModel"/>
+        <converters:FertilizerToVisibilityConverter x:Key="FertilizerToVisibilityConverter"/>
     </UserControl.Resources>
     <Grid Background="{StaticResource GRAY_200}"
           d:DataContext="{StaticResource MockHarvestBoxViewModel}">
@@ -23,7 +25,8 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:HarvestFertilizerView Height="30"/>
+                        <local:HarvestFertilizerView Height="30"
+                                                     Visibility="{Binding Fertilizer, Mode=OneWay, Converter={StaticResource FertilizerToVisibilityConverter}}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

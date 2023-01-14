@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
 using HunterPie.UI.Overlay.Widgets.Activities.View;
@@ -46,10 +47,10 @@ public class WorldActivitiesWidgetContextHandler : IContextHandler
     }
 
     private void UpdateData() =>
-        _viewModel.InVisibleStage = !_player.InHuntingZone && _player.StageId != -1;
+        _viewModel.InVisibleStage = !_player.InHuntingZone && _player.ZoneId != Stage.MainMenu;
 
     private void OnStageUpdate(object sender, EventArgs e) =>
-        _viewModel.InVisibleStage = !_player.InHuntingZone && _player.StageId != -1;
+        _viewModel.InVisibleStage = !_player.InHuntingZone && _player.ZoneId != Stage.MainMenu;
 
     public void UnhookEvents()
     {
