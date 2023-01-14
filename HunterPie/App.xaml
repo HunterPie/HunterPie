@@ -13,8 +13,10 @@
                     Spooky season
                 <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Seasons/SpookyPie.xaml"/>
                 -->
-                <!-- Winter season -->
+                <!-- 
+                    Winter season 
                 <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Seasons/WinterPie.xaml"/>
+                -->
                 <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Styles.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Abnormalities.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Interface.xaml"/>
