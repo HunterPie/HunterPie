@@ -46,9 +46,9 @@
         <Abnormality Id="14"
                      Name="ABNORMALITY_DIVINE_PROTECTION"
                      Icon="ICON_DIVINEPROTECTION_MHRS"/>
-        <Abnormality Id="15"/>
-        <Abnormality Id="16"/>
-        <Abnormality Id="17"/>
+		<Abnormality Id="15"/>
+		<Abnormality Id="16"/>
+		<Abnormality Id="17"/>
         <Abnormality Id="18"
                      Name="ABNORMALITY_HEALTH_REGEN"
                      Icon="ICON_EXT_HEALTHRECOVERY_MHRS"/>
@@ -64,7 +64,7 @@
         <Abnormality Id="22"
                      Name="ABNORMALITY_ENV_NEG"
                      Icon="ICON_ENVNEG_MHRS"/>
-        <Abnormality Id="23"/>
+		<Abnormality Id="23"/>
         <Abnormality Id="24"
                      Name="ABNORMALITY_SONIC_BARRIER"
                      Icon="ICON_SONICBARRIER"/>
@@ -201,14 +201,12 @@
                      Offset="1A0"
                      Name="ABNORMALITY_RUBY_WIREBUG"
                      Icon="ICON_RUBY_WIREBUG"
-                     FlagType="Buff"
-                     WithFlag="MarionetteTypeRuby"/>
+                     FlagType="Buff"/>
         <Abnormality Id="ABN_GOLD_WIREBUG"
                      Offset="1A0"
                      Name="ABNORMALITY_GOLD_WIREBUG"
                      Icon="ICON_GOLD_WIREBUG"
-                     FlagType="Buff"
-                     WithFlag="MarionetteTypeGold"/>
+                     FlagType="Buff"/>
     </Consumables>
     <Debuffs>
         <Abnormality Id="ABN_BLOOD"
@@ -298,21 +296,20 @@
                      Icon="ELEMENT_DRAGON"/>
         <Abnormality Id="ABN_BUBBLES"
                      Offset="8A8"
-                     DependsOn="8C0"
-                     WithValue="1"
+					 DependsOn="8C0"
+					 WithValue="1"
                      Name="ABNORMALITY_BUBBLES"
                      Icon="ICON_BUBBLE"/>
         <Abnormality Id="ABN_BUBBLES_PLUS"
                      Offset="8A8"
-                     DependsOn="8C0"
-                     WithValue="2"
+					 DependsOn="8C0"
+					 WithValue="2"
                      Name="ABNORMALITY_BUBBLES_PLUS"
                      Icon="ICON_BUBBLE+"/>
         <Abnormality Id="ABN_LEECHED"
                      Name="ABNORMALITY_LEECHED"
                      Icon="ICON_LEECHED"
                      FlagType="Debuff"
-                     WithFlag="Leeched"
                      IsInfinite="True"/>
         <Abnormality Id="ABN_BLEED"
                      Offset="8CC"
@@ -339,7 +336,6 @@
                      Name="ABNORMALITY_AGITATOR"
                      Icon="ICON_ARMORSKILL_RED"
                      FlagType="Buff"
-                     WithFlag="Agitator"
                      IsInfinite="True"
                      Category="Consumables"/>
         <Abnormality Id="ABN_AFFINITY_SLIDING"
@@ -376,7 +372,6 @@
                      Name="ABNORMALITY_DEFIANCE"
                      Icon="ICON_ARMORSKILL_ORANGE"
                      FlagType="Buff"
-                     WithFlag="Defiance"
                      IsInfinite="True"
                      Category="Consumables"/>
         <Abnormality Id="ABN_INTERPID_HEART"
@@ -390,21 +385,18 @@
                      Name="ABNORMALITY_HEROICS"
                      Icon="ICON_ARMORSKILL_RED"
                      FlagType="Buff"
-                     WithFlag="Heroics"
                      IsInfinite="True"
                      Category="Consumables"/>
         <Abnormality Id="ABN_PEAK_PERFORMANCE"
                      Name="ABNORMALITY_PEAK_PERFORMANCE"
                      Icon="ICON_ARMORSKILL_RED"
                      FlagType="Buff"
-                     WithFlag="PeakPerformance"
                      IsInfinite="True"
                      Category="Consumables"/>
         <Abnormality Id="ABN_DRAGONHEART"
                      Name="ABNORMALITY_DRAGONHEART"
                      Icon="ICON_ARMORSKILL_ORANGE"
                      FlagType="Buff"
-                     WithFlag="DragonHeart"
                      IsInfinite="True"
                      Category="Consumables"/>
         <Abnormality Id="ABN_PROTECTIVE_POLISH"
@@ -422,7 +414,6 @@
                      Name="ABNORMALITY_WINDMANTLE"
                      Icon="ICON_ARMORSKILL_GREEN"
                      FlagType="Buff"
-                     WithFlag="WindMantle"
                      MaxTimer="15"
                      Category="Debuffs"/>
     </Skills>
@@ -448,7 +439,6 @@
                      Name="ABNORMALITY_DANGO_DEFENDER"
                      Icon="ICON_DANGODEFENDER"
                      FlagType="Buff"
-                     WithFlag="DangoDefender"
                      IsInfinite="True"
                      Category="Consumables"/>
         <Abnormality Id="ABN_DANGO_HUNTER"

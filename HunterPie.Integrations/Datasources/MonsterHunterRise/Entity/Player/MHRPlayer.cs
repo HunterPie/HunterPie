@@ -392,8 +392,8 @@ public sealed class MHRPlayer : CommonPlayer
 
             bool conditionValid = schema.FlagType switch
             {
-                "Buff" => _commonCondition.HasFlag((CommonConditions)Enum.Parse(typeof(CommonConditions), schema.WithFlag)) && abnormSubId == schema.WithValue,
-                "Debuff" => _debuffCondition.HasFlag((DebuffConditions)Enum.Parse(typeof(DebuffConditions), schema.WithFlag)) && abnormSubId == schema.WithValue,
+                "Buff" => _commonCondition.HasFlag((CommonConditions)Enum.Parse(typeof(CommonConditions), schema.Id)) && abnormSubId == schema.WithValue,
+                "Debuff" => _debuffCondition.HasFlag((DebuffConditions)Enum.Parse(typeof(DebuffConditions), schema.Id)) && abnormSubId == schema.WithValue,
                 _ => abnormSubId == schema.WithValue
             };
 
@@ -448,8 +448,8 @@ public sealed class MHRPlayer : CommonPlayer
 
             bool conditionValid = schema.FlagType switch
             {
-                "Buff" => _commonCondition.HasFlag((CommonConditions)Enum.Parse(typeof(CommonConditions), schema.WithFlag)) && abnormSubId == schema.WithValue,
-                "Debuff" => _debuffCondition.HasFlag((DebuffConditions)Enum.Parse(typeof(DebuffConditions), schema.WithFlag)) && abnormSubId == schema.WithValue,
+                "Buff" => _commonCondition.HasFlag((CommonConditions)Enum.Parse(typeof(CommonConditions), schema.Id)) && abnormSubId == schema.WithValue,
+                "Debuff" => _debuffCondition.HasFlag((DebuffConditions)Enum.Parse(typeof(DebuffConditions), schema.Id)) && abnormSubId == schema.WithValue,
                 _ => abnormSubId == schema.WithValue
             };
 
@@ -672,8 +672,8 @@ public sealed class MHRPlayer : CommonPlayer
                     AddressMap.GetAbsolute("UI_ADDRESS"),
                     AddressMap.Get<int[]>("IS_WIREBUG_BLOCKED_OFFSETS")
                 ) != 0,
-                WirebugCondition = _commonCondition.HasFlag(CommonConditions.WindMantle) ? WirebugConditions.WindMantle
-                                 : _debuffCondition.HasFlag(DebuffConditions.IceL) ? WirebugConditions.IceL
+                WirebugCondition = _commonCondition.HasFlag(CommonConditions.ABN_WINDMANTLE) ? WirebugConditions.ABN_WINDMANTLE
+                                 : _debuffCondition.HasFlag(DebuffConditions.ABN_ICE) ? WirebugConditions.ABN_ICE
                                  : WirebugConditions.None,
                 Structure = Process.Memory.Read<MHRWirebugStructure>(wirebugPtr)
             };

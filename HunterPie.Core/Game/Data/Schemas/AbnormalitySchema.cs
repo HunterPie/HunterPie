@@ -12,7 +12,6 @@ public struct AbnormalitySchema
     public string Category;
     public string Group;
     public string FlagType;
-    public string WithFlag;
     public bool IsBuildup;
     public int MaxBuildup;
     public bool IsInfinite;

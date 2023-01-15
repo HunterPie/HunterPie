@@ -65,7 +65,6 @@ public class AbnormalityData
             string isInfinite = abnormality.Attributes["IsInfinite"]?.Value ?? "False";
             string maxTimer = abnormality.Attributes["MaxTimer"]?.Value ?? "0";
             string flagType = abnormality.Attributes["FlagType"]?.Value;
-            string withFlag = abnormality.Attributes["WithFlag"]?.Value ?? "None";
 
             AbnormalitySchema schema = new()
             {
@@ -74,8 +73,7 @@ public class AbnormalityData
                 Icon = icon,
                 Category = category,
                 Group = group,
-                FlagType = flagType,
-                WithFlag = withFlag
+                FlagType = flagType
             };
 
             _ = int.TryParse(offset, NumberStyles.HexNumber, null, out schema.Offset);

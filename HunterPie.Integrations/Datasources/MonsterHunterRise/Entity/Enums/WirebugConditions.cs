@@ -1,11 +1,10 @@
 ﻿namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
 
-[Flags]
-public enum WirebugConditions : ulong
+public enum WirebugConditions
 {
-    None = 0,
-    IceL = 1 << 7,
-    MarionetteTypeRuby = 1UL << 34,
-    MarionetteTypeGold = 1UL << 36,
-    WindMantle = 1UL << 57,
+    None,
+    ABN_ICE,
+    ABN_RUBY_WIREBUG,
+    ABN_GOLD_WIREBUG,
+    ABN_WINDMANTLE
 }
