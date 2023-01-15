@@ -1,7 +1,9 @@
-﻿namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
+﻿using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
+
+namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 public struct MHRWirebugData
 {
     public bool IsBlocked;
-    public string WirebugCondition;
+    public WirebugConditions WirebugCondition;
     public MHRWirebugStructure Structure;
 }

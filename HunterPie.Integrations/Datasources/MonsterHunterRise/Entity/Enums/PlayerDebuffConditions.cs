@@ -48,7 +48,7 @@ public enum DebuffConditions : ulong
     BubbleDaruma = 1UL << 41,
     RedBubbleDaruma = 1UL << 42,
     GreenBubbleDaruma = 1UL << 43,
-    Blooding = 1UL << 44,
+    Leeched = 1UL << 44,
     Bleeding = 1UL << 45,
     Confusion = 1UL << 46,
     DefenceDownS = 1UL << 47,

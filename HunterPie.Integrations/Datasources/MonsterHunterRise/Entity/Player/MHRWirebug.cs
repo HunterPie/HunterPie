@@ -2,6 +2,7 @@
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 
@@ -11,7 +12,7 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
     private double _cooldown;
     private bool _isAvailable = true;
     private bool _isBlocked;
-    private string _wirebugCondition = "None";
+    private WirebugConditions _wirebugCondition = WirebugConditions.None;
 
     public long Address { get; internal set; }
     public double Timer
@@ -68,7 +69,7 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
         }
     }
 
-    public string WirebugCondition
+    public WirebugConditions WirebugCondition
     {
         get => _wirebugCondition;
         private set

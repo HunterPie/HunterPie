@@ -55,6 +55,7 @@ public class AbnormalityData
             string name = abnormality.Attributes["Name"]?.Value ?? "ABNORMALITY_UNKNOWN";
             string icon = abnormality.Attributes["Icon"]?.Value ?? "ICON_MISSING";
             string offset = abnormality.Attributes["Offset"]?.Value ?? id;
+            string subPtr = abnormality.Attributes["SubPtr"]?.Value ?? "0";
             string dependsOn = abnormality.Attributes["DependsOn"]?.Value ?? "0";
             string withValue = abnormality.Attributes["WithValue"]?.Value ?? "0";
             string group = abnormality.ParentNode.Name;
@@ -63,6 +64,8 @@ public class AbnormalityData
             string maxBuildup = abnormality.Attributes["MaxBuildup"]?.Value ?? "0";
             string isInfinite = abnormality.Attributes["IsInfinite"]?.Value ?? "False";
             string maxTimer = abnormality.Attributes["MaxTimer"]?.Value ?? "0";
+            string flagType = abnormality.Attributes["FlagType"]?.Value;
+            string withFlag = abnormality.Attributes["WithFlag"]?.Value ?? "None";
 
             AbnormalitySchema schema = new()
             {
@@ -70,10 +73,13 @@ public class AbnormalityData
                 Name = name,
                 Icon = icon,
                 Category = category,
-                Group = group
+                Group = group,
+                FlagType = flagType,
+                WithFlag = withFlag
             };
 
             _ = int.TryParse(offset, NumberStyles.HexNumber, null, out schema.Offset);
+            _ = int.TryParse(subPtr, NumberStyles.HexNumber, null, out schema.SubPtr);
             _ = int.TryParse(dependsOn, NumberStyles.HexNumber, null, out schema.DependsOn);
             _ = int.TryParse(withValue, out schema.WithValue);
             _ = bool.TryParse(isBuildup, out schema.IsBuildup);
