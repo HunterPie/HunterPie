@@ -11,8 +11,7 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
     private double _timer;
     private double _cooldown;
     private bool _isAvailable = true;
-    private bool _isBlocked;
-    private WirebugConditions _wirebugCondition = WirebugConditions.None;
+    private WirebugState _wirebugState = WirebugState.None;
 
     public long Address { get; internal set; }
     public double Timer
@@ -56,28 +55,15 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
         }
     }
 
-    public bool IsBlocked
+    public WirebugState WirebugState
     {
-        get => _isBlocked;
+        get => _wirebugState;
         private set
         {
-            if (value != _isBlocked)
+            if (value != _wirebugState)
             {
-                _isBlocked = value;
-                this.Dispatch(_onBlockedStateChange, this);
-            }
-        }
-    }
-
-    public WirebugConditions WirebugCondition
-    {
-        get => _wirebugCondition;
-        private set
-        {
-            if (value != _wirebugCondition)
-            {
-                _wirebugCondition = value;
-                this.Dispatch(_onWirebugConditionChange, this);
+                _wirebugState = value;
+                this.Dispatch(_onWirebugStateChange, this);
             }
         }
     }
@@ -103,18 +89,11 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
         remove => _onAvailable.Unhook(value);
     }
 
-    private readonly SmartEvent<MHRWirebug> _onBlockedStateChange = new();
-    public event EventHandler<MHRWirebug> OnBlockedStateChange
+    private readonly SmartEvent<MHRWirebug> _onWirebugStateChange = new();
+    public event EventHandler<MHRWirebug> OnWirebugStateChange
     {
-        add => _onBlockedStateChange.Hook(value);
-        remove => _onBlockedStateChange.Unhook(value);
-    }
-
-    private readonly SmartEvent<MHRWirebug> _onWirebugConditionChange = new();
-    public event EventHandler<MHRWirebug> OnWirebugConditionChange
-    {
-        add => _onWirebugConditionChange.Hook(value);
-        remove => _onWirebugConditionChange.Unhook(value);
+        add => _onWirebugStateChange.Hook(value);
+        remove => _onWirebugStateChange.Unhook(value);
     }
 
     void IUpdatable<MHRWirebugExtrasStructure>.Update(MHRWirebugExtrasStructure data)
@@ -126,15 +105,14 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
 
     void IUpdatable<MHRWirebugData>.Update(MHRWirebugData data)
     {
-        IsBlocked = data.IsBlocked;
-        WirebugCondition = data.WirebugCondition;
+        WirebugState = data.WirebugState;
         MaxCooldown = data.Structure.MaxCooldown;
         Cooldown = data.Structure.Cooldown;
     }
 
     public void Dispose()
     {
-        IDisposable[] events = { _onTimerUpdate, _onCooldownUpdate, _onAvailable, _onBlockedStateChange, _onWirebugConditionChange };
+        IDisposable[] events = { _onTimerUpdate, _onCooldownUpdate, _onAvailable, _onWirebugStateChange };
 
         events.DisposeAll();
     }

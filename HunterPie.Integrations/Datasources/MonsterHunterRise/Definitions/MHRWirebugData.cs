@@ -3,7 +3,6 @@
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 public struct MHRWirebugData
 {
-    public bool IsBlocked;
-    public WirebugConditions WirebugCondition;
+    public WirebugState WirebugState;
     public MHRWirebugStructure Structure;
 }

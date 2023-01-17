@@ -1,4 +1,6 @@
-﻿namespace HunterPie.Core.Game.Data.Schemas;
+﻿using HunterPie.Core.Game.Enums;
+
+namespace HunterPie.Core.Game.Data.Schemas;
 
 public struct AbnormalitySchema
 {
@@ -11,7 +13,8 @@ public struct AbnormalitySchema
     public string Icon;
     public string Category;
     public string Group;
-    public string FlagType;
+    public AbnormalityFlagType FlagType;
+    public string Flag;
     public bool IsBuildup;
     public int MaxBuildup;
     public bool IsInfinite;

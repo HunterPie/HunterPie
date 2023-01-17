@@ -390,18 +390,18 @@ public sealed class MHRPlayer : CommonPlayer
                 _ => Process.Memory.Read<int>(consumableBuffs + schema.DependsOn)
             };
 
-            bool conditionValid = schema.FlagType switch
+            bool isConditionValid = schema.FlagType switch
             {
-                "Buff" => _commonCondition.HasFlag((CommonConditions)Enum.Parse(typeof(CommonConditions), schema.Id)) && abnormSubId == schema.WithValue,
-                "Debuff" => _debuffCondition.HasFlag((DebuffConditions)Enum.Parse(typeof(DebuffConditions), schema.Id)) && abnormSubId == schema.WithValue,
+                AbnormalityFlagType.Common => _commonCondition.HasFlag(Enum.Parse<CommonConditions>(schema.Flag)) && abnormSubId == schema.WithValue,
+                AbnormalityFlagType.Debuff => _debuffCondition.HasFlag(Enum.Parse<DebuffConditions>(schema.Flag)) && abnormSubId == schema.WithValue,
                 _ => abnormSubId == schema.WithValue
             };
 
             MHRConsumableStructure abnormality = new();
 
             if (schema.IsInfinite)
-                abnormality.Timer = conditionValid ? AbnormalityData.TIMER_MULTIPLIER : 0;
-            else if (conditionValid)
+                abnormality.Timer = isConditionValid ? AbnormalityData.TIMER_MULTIPLIER : 0;
+            else if (isConditionValid)
                 abnormality = Process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
 
             if (!schema.IsBuildup)
@@ -434,31 +434,25 @@ public sealed class MHRPlayer : CommonPlayer
 
         foreach (AbnormalitySchema schema in debuffSchemas)
         {
-            long Ptr = schema.SubPtr switch
-            {
-                0 => debuffsPtr,
-                _ => Process.Memory.Read<long>(debuffsPtr + schema.SubPtr)
-            };
-
             int abnormSubId = schema.DependsOn switch
             {
                 0 => 0,
                 _ => Process.Memory.Read<int>(debuffsPtr + schema.DependsOn)
             };
 
-            bool conditionValid = schema.FlagType switch
+            bool isConditionValid = schema.FlagType switch
             {
-                "Buff" => _commonCondition.HasFlag((CommonConditions)Enum.Parse(typeof(CommonConditions), schema.Id)) && abnormSubId == schema.WithValue,
-                "Debuff" => _debuffCondition.HasFlag((DebuffConditions)Enum.Parse(typeof(DebuffConditions), schema.Id)) && abnormSubId == schema.WithValue,
+                AbnormalityFlagType.Common => _commonCondition.HasFlag(Enum.Parse<CommonConditions>(schema.Flag)) && abnormSubId == schema.WithValue,
+                AbnormalityFlagType.Debuff => _debuffCondition.HasFlag(Enum.Parse<DebuffConditions>(schema.Flag)) && abnormSubId == schema.WithValue,
                 _ => abnormSubId == schema.WithValue
             };
 
             MHRDebuffStructure abnormality = new();
 
             if (schema.IsInfinite)
-                abnormality.Timer = conditionValid ? AbnormalityData.TIMER_MULTIPLIER : 0;
-            else if (conditionValid)
-                abnormality = Process.Memory.Read<MHRDebuffStructure>(Ptr + schema.Offset);
+                abnormality.Timer = isConditionValid ? AbnormalityData.TIMER_MULTIPLIER : 0;
+            else if (isConditionValid)
+                abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
 
             if (!schema.IsBuildup)
                 abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
@@ -658,6 +652,11 @@ public sealed class MHRPlayer : CommonPlayer
             return;
         }
 
+        bool IsBlocked = Process.Memory.Deref<int>(
+            AddressMap.GetAbsolute("UI_ADDRESS"),
+            AddressMap.Get<int[]>("IS_WIREBUG_BLOCKED_OFFSETS")
+        ) != 0;
+
         int wirebugsArrayLength = Math.Min(Wirebugs.Length, Process.Memory.Read<int>(wirebugsArrayPtr + 0x1C));
         long[] wirebugsPtrs = Process.Memory.Read<long>(wirebugsArrayPtr + 0x20, (uint)wirebugsArrayLength);
 
@@ -668,13 +667,10 @@ public sealed class MHRPlayer : CommonPlayer
 
             var data = new MHRWirebugData
             {
-                IsBlocked = Process.Memory.Deref<int>(
-                    AddressMap.GetAbsolute("UI_ADDRESS"),
-                    AddressMap.Get<int[]>("IS_WIREBUG_BLOCKED_OFFSETS")
-                ) != 0,
-                WirebugCondition = _commonCondition.HasFlag(CommonConditions.ABN_WINDMANTLE) ? WirebugConditions.ABN_WINDMANTLE
-                                 : _debuffCondition.HasFlag(DebuffConditions.ABN_ICE) ? WirebugConditions.ABN_ICE
-                                 : WirebugConditions.None,
+                WirebugState = IsBlocked ? WirebugState.Blocked
+                    : _commonCondition.HasFlag(CommonConditions.WindMantle) ? WirebugState.WindMantle
+                    : _debuffCondition.HasFlag(DebuffConditions.IceBlight) ? WirebugState.IceBlight
+                    : WirebugState.None,
                 Structure = Process.Memory.Read<MHRWirebugStructure>(wirebugPtr)
             };
 
