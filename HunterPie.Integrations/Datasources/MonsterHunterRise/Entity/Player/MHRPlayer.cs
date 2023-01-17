@@ -456,7 +456,7 @@ public sealed class MHRPlayer : CommonPlayer
 
             if (!schema.IsBuildup)
                 abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
-            // For WindMantle timer;
+
             if (schema.MaxTimer > 0 && abnormality.Timer > 0)
                 abnormality.Timer = schema.MaxTimer - abnormality.Timer;
 
