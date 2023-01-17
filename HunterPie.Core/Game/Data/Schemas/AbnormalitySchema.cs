@@ -6,7 +6,6 @@ public struct AbnormalitySchema
 {
     public string Id;
     public int Offset;
-    public int SubPtr;
     public int DependsOn;
     public int WithValue;
     public string Name;

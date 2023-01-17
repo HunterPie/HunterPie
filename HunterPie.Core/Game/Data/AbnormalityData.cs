@@ -78,7 +78,6 @@ public class AbnormalityData
             };
 
             _ = int.TryParse(offset, NumberStyles.HexNumber, null, out schema.Offset);
-            _ = int.TryParse(subPtr, NumberStyles.HexNumber, null, out schema.SubPtr);
             _ = int.TryParse(dependsOn, NumberStyles.HexNumber, null, out schema.DependsOn);
             _ = int.TryParse(withValue, out schema.WithValue);
             _ = bool.TryParse(isBuildup, out schema.IsBuildup);
