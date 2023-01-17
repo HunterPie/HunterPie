@@ -7,5 +7,6 @@ public enum ActivityType
     Submarine,
     Meowcenaries,
     TrainingDojo,
-    Cohoot
+    Cohoot,
+    Steamworks,
 }

@@ -169,6 +169,7 @@ public sealed class MHWPlayer : CommonPlayer
 
     public MHWHarvestBox HarvestBox { get; } = new();
 
+    public MHWSteamworks Steamworks { get; } = new();
     #endregion
 
     internal MHWPlayer(IProcessManager process) : base(process)
@@ -420,6 +421,22 @@ public sealed class MHWPlayer : CommonPlayer
     }
 
     [ScannableMethod]
+    private void GetSteamFuel()
+    {
+        if (PlayerSaveAddress.IsNullPointer())
+            return;
+
+        MHWSteamFuelStructure structure = Memory.Read<MHWSteamFuelStructure>(PlayerSaveAddress + 0x102FDC);
+
+        var data = new MHWSteamFuelData(
+            NaturalFuel: structure.NaturalFuel,
+            StoredFuel: structure.StoredFuel
+        );
+
+        Steamworks.Update(data);
+    }
+
+    [ScannableMethod]
     private void GetMantlesData()
     {
         long address = Process.Memory.Read(
@@ -642,6 +659,8 @@ public sealed class MHWPlayer : CommonPlayer
     public override void Dispose()
     {
         Tools.DisposeAll();
+        HarvestBox.Dispose();
+        Steamworks.Dispose();
         base.Dispose();
     }
 }

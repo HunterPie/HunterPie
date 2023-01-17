@@ -3,6 +3,7 @@ using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
+using HunterPie.UI.Overlay.Widgets.Activities.Common;
 using HunterPie.UI.Overlay.Widgets.Activities.View;
 using HunterPie.UI.Overlay.Widgets.Activities.ViewModel;
 using HunterPie.UI.Overlay.Widgets.Activities.World;
@@ -13,11 +14,9 @@ public class WorldActivitiesWidgetContextHandler : IContextHandler
 {
 
     private readonly MHWPlayer _player;
-    private readonly IContextHandler[] _handlers;
+    private readonly IActivityContextHandler[] _handlers;
     private readonly ActivitiesViewModel _viewModel;
     private readonly ActivitiesView _view;
-
-    private readonly HarvestBoxContextHandler _harvestBoxContextHandler;
 
     public WorldActivitiesWidgetContextHandler(MHWContext context)
     {
@@ -29,19 +28,21 @@ public class WorldActivitiesWidgetContextHandler : IContextHandler
 
         _viewModel = _view.ViewModel;
 
-        _harvestBoxContextHandler = new(context);
+        HarvestBoxContextHandler harvestBoxContextHandler = new(context);
+        SteamworksContextHandler steamworksContextHandler = new(context);
 
-        _handlers = new IContextHandler[] { _harvestBoxContextHandler };
+        _handlers = new IActivityContextHandler[] { harvestBoxContextHandler, steamworksContextHandler };
 
         UpdateData();
     }
 
     public void HookEvents()
     {
-        foreach (IContextHandler handler in _handlers)
+        foreach (IActivityContextHandler handler in _handlers)
+        {
             handler.HookEvents();
-
-        _viewModel.Activities.Add(_harvestBoxContextHandler.ViewModel);
+            _viewModel.Activities.Add(handler.ViewModel);
+        }
 
         _player.OnStageUpdate += OnStageUpdate;
     }
@@ -54,7 +55,7 @@ public class WorldActivitiesWidgetContextHandler : IContextHandler
 
     public void UnhookEvents()
     {
-        foreach (IContextHandler handler in _handlers)
+        foreach (IActivityContextHandler handler in _handlers)
             handler.UnhookEvents();
 
         _player.OnStageUpdate -= OnStageUpdate;

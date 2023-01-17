@@ -1,19 +1,22 @@
-﻿using HunterPie.Integrations.Datasources.MonsterHunterWorld;
+﻿using HunterPie.Core.Game.Entity.Environment;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Environment;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Environment.Activities;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
+using HunterPie.UI.Overlay.Widgets.Activities.Common;
 using HunterPie.UI.Overlay.Widgets.Activities.ViewModel;
 using System.Collections.Generic;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.World;
-public class HarvestBoxContextHandler : IContextHandler
+public class HarvestBoxContextHandler : IActivityContextHandler
 {
-
     private readonly MHWContext _context;
     private readonly Dictionary<MHWFertilizer, HarvestFertilizerViewModel> _fertilizerViewModels;
     private MHWPlayer Player => (MHWPlayer)_context.Game.Player;
 
-    public readonly HarvestBoxViewModel ViewModel = new();
+    private readonly HarvestBoxViewModel _viewModel = new();
+
+    public IActivity ViewModel => _viewModel;
 
     public HarvestBoxContextHandler(MHWContext context)
     {
@@ -38,7 +41,7 @@ public class HarvestBoxContextHandler : IContextHandler
         }
 
         foreach (HarvestFertilizerViewModel vm in _fertilizerViewModels.Values)
-            ViewModel.Fertilizers.Add(vm);
+            _viewModel.Fertilizers.Add(vm);
 
         Player.HarvestBox.OnItemsCountChange += OnHarvestBoxItemsCountChange;
     }
@@ -52,15 +55,15 @@ public class HarvestBoxContextHandler : IContextHandler
         }
 
         _fertilizerViewModels.Clear();
-        ViewModel.Fertilizers.Clear();
+        _viewModel.Fertilizers.Clear();
 
         Player.HarvestBox.OnItemsCountChange -= OnHarvestBoxItemsCountChange;
     }
 
     private void OnHarvestBoxItemsCountChange(object sender, MHWHarvestBox e)
     {
-        ViewModel.Count = e.Count;
-        ViewModel.MaxCount = 50;
+        _viewModel.Count = e.Count;
+        _viewModel.MaxCount = 50;
     }
 
     private void OnFertilizerIdChange(object sender, MHWFertilizer e)

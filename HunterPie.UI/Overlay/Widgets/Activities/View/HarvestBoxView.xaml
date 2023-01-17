@@ -13,8 +13,7 @@
         <vm:MockHarvestBoxViewModel x:Key="MockHarvestBoxViewModel"/>
         <converters:FertilizerToVisibilityConverter x:Key="FertilizerToVisibilityConverter"/>
     </UserControl.Resources>
-    <Grid Background="{StaticResource GRAY_200}"
-          d:DataContext="{StaticResource MockHarvestBoxViewModel}">
+    <Grid d:DataContext="{StaticResource MockHarvestBoxViewModel}">
         <StackPanel>
             <ItemsControl ItemsSource="{Binding Fertilizers, Mode=OneWay}">
                 <ItemsControl.ItemsPanel>
@@ -31,9 +30,11 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
             <TextBlock VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
+                       HorizontalAlignment="Stretch"
+                       TextAlignment="Center"
                        FontSize="14"
-                       Foreground="{StaticResource WHITE_300}">
+                       Foreground="{StaticResource WHITE_300}"
+                       Background="{StaticResource GRAY_300}">
                 <Run Text="{Binding Count}"
                      Foreground="{StaticResource WHITE_100}"/><!--
              --><Run Text="{Binding MaxCount, StringFormat='/{0}'}"/>

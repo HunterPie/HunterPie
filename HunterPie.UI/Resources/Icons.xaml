@@ -1,6 +1,24 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <DrawingImage x:Key="ICON_STEAMWORKS">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="{StaticResource WHITE_200}" Geometry="F1 M 11.6657,49.9855L 15.8552,49.9855L 15.8552,57.6662L 23.8351,57.6662L 23.8351,49.9855L 28.1493,49.9855L 28.1493,57.6662L 36.1541,57.6662L 36.1541,49.9855L 40.3685,49.9855L 40.3685,57.6662L 48.6228,57.6662L 48.6228,49.9855L 52.7624,49.9855L 52.7624,62.9779L 11.6657,63.0028L 11.6657,49.9855 Z "/>
+                    <GeometryDrawing Brush="{StaticResource WHITE_200}" Geometry="F1 M 15.7305,35.3557L 23.8351,35.3557L 23.8434,45.6381L 21.5492,45.6381L 21.5492,54.9647L 18.1411,54.9813L 18.1577,45.5384L 15.7305,45.5218L 15.7305,35.3557 Z "/>
+                    <GeometryDrawing Brush="{StaticResource WHITE_200}" Geometry="F1 M 3.41146,20.9751L 19.4378,33.078L 45.1399,33.0781L 61,21.3741C 61,21.3741 48.9644,2.51025 37.7751,1.73187C 26.3039,0.933872 24.1427,2.39686 23.7437,2.49661C 20.7992,3.23272 10.5269,8.27375 3.41146,20.9751 Z "/>
+                    <GeometryDrawing Brush="{StaticResource WHITE_200}" Geometry="F1 M 28.1576,35.3557L 36.2622,35.3557L 36.2705,45.6381L 33.9763,45.6381L 33.9763,54.9647L 30.5682,54.9813L 30.5848,45.5384L 28.1576,45.5218L 28.1576,35.3557 Z "/>
+                    <GeometryDrawing Brush="{StaticResource WHITE_200}" Geometry="F1 M 40.4267,35.3557L 48.5314,35.3557L 48.5397,45.6381L 46.2454,45.6381L 46.2454,54.9647L 42.8373,54.9813L 42.854,45.5384L 40.4267,45.5218L 40.4267,35.3557 Z "/>
+                    <GeometryDrawing Brush="{StaticResource GRAY_200}" Geometry="F1 M 33.3113,22.6626L 33.3113,29.4538L 34.0261,29.4538L 38.4317,24.9319L 42.056,9.10499L 33.3113,22.6626 Z "/>
+                    <GeometryDrawing Brush="{StaticResource GRAY_200}" Geometry="F1 M 10.5352,15.8381L 13.6773,12.3967L 19.1136,18.232L 16.8693,20.5263L 10.5352,15.8381 Z "/>
+                    <GeometryDrawing Brush="{StaticResource GRAY_200}" Geometry="F1 M 29.8201,3.98453L 34.4252,3.9679L 33.7103,11.9645L 30.6181,11.9645L 29.8201,3.98453 Z "/>
+                    <GeometryDrawing Brush="{StaticResource GRAY_200}" Geometry="F1 M 45.2646,18.2154L 47.3094,20.5595L 53.7432,15.7217L 50.7508,12.5297L 45.2646,18.2154 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <!-- Fertilizers -->
     <DrawingImage x:Key="ICON_FERTILIZER_PLANT_S">
         <DrawingImage.Drawing>

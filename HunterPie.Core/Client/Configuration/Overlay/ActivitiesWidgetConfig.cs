@@ -32,6 +32,9 @@ public class ActivitiesWidgetConfig : IWidgetSettings, ISettings
     [SettingField("ACTIVITIES_ENABLE_HARVEST_BOX_STRING", availableGames: GameProcess.MonsterHunterWorld)]
     public Observable<bool> IsHarvestBoxEnabled { get; set; } = true;
 
+    [SettingField("ACTIVITIES_ENABLE_STEAMWORKS_STRING", availableGames: GameProcess.MonsterHunterWorld)]
+    public Observable<bool> IsSteamworksEnabled { get; set; } = true;
+
     [SettingField("WIDGET_OPACITY")]
     public Range Opacity { get; set; } = new(1, 1, 0.1, 0.1);
 

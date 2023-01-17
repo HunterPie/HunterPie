@@ -7,6 +7,7 @@
              xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.ViewModel"
              xmlns:animation="clr-namespace:HunterPie.UI.Architecture.Animation"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:effects="clr-namespace:HunterPie.UI.Architecture.Effects"
              mc:Ignorable="d" 
              d:DesignHeight="30" 
              d:DesignWidth="270"
@@ -17,13 +18,13 @@
         <converters:FertilizerToNameConverter x:Key="FertilizerToNameConverter"/>
 
         <LinearGradientBrush x:Key="FertilizerBackgroundColor" EndPoint="1,0.5" StartPoint="0.5,1">
-            <GradientStop Color="#3361FFC9" Offset="0"/>
-            <GradientStop Color="#3300F9FF" Offset="1"/>
+            <GradientStop Color="#3300F9FF" Offset="0"/>
+            <GradientStop Color="#33088A3A" Offset="1"/>
         </LinearGradientBrush>
 
         <LinearGradientBrush x:Key="FertilizerExpiringBackgroundColor" EndPoint="1,0.5" StartPoint="0.5,1">
-            <GradientStop Color="#33FF6161" Offset="0"/>
-            <GradientStop Color="#33FF0000" Offset="1"/>
+            <GradientStop Color="#33A60C30" Offset="0"/>
+            <GradientStop Color="#33A60C0C" Offset="1"/>
         </LinearGradientBrush>
     </UserControl.Resources>
     <Grid>
@@ -40,7 +41,8 @@
               HorizontalAlignment="Left"
               MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
               Margin="1,1,0,1"
-              ClipToBounds="True">
+              ClipToBounds="True"
+              d:Width="200">
             <Grid.Width>
                 <MultiBinding Converter="{StaticResource CurrentValueToWidthConverter}">
                     <Binding Path="DataContext.Amount" RelativeSource="{RelativeSource AncestorType=local:HarvestFertilizerView}" FallbackValue="0"/>
@@ -49,7 +51,10 @@
                     <Binding Path="Margin" RelativeSource="{RelativeSource Self}"/>
                 </MultiBinding>
             </Grid.Width>
-            <Rectangle>
+            <Rectangle d:Fill="{StaticResource FertilizerBackgroundColor}">
+                <Rectangle.Effect>
+                    <effects:AlligatorShaderEffect Ratio="1"/>
+                </Rectangle.Effect>
                 <Rectangle.Style>
                     <Style TargetType="Rectangle">
                         <Style.Triggers>
