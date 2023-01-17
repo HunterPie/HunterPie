@@ -457,7 +457,7 @@ public sealed class MHRPlayer : CommonPlayer
             if (!schema.IsBuildup)
                 abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
-            if (schema.MaxTimer > 0 && abnormality.Timer > 0)
+            if (schema.MaxTimer > 0 && isConditionValid)
                 abnormality.Timer = schema.MaxTimer - abnormality.Timer;
 
             HandleAbnormality<MHRDebuffAbnormality, MHRDebuffStructure>(
