@@ -652,7 +652,7 @@ public sealed class MHRPlayer : CommonPlayer
             return;
         }
 
-        bool IsBlocked = Process.Memory.Deref<int>(
+        bool isBlocked = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("UI_ADDRESS"),
             AddressMap.Get<int[]>("IS_WIREBUG_BLOCKED_OFFSETS")
         ) != 0;
