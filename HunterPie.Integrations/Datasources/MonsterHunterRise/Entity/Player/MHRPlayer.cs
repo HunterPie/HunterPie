@@ -46,6 +46,8 @@ public sealed class MHRPlayer : CommonPlayer
     private IWeapon _weapon;
     private Weapon _weaponId = WeaponType.None;
     private readonly Dictionary<int, MHREquipmentSkillStructure> _armorSkills = new(46);
+    private CommonConditions _commonCondition;
+    private DebuffConditions _debuffCondition;
     #endregion
 
     public override string Name
@@ -388,14 +390,22 @@ public sealed class MHRPlayer : CommonPlayer
                 _ => Process.Memory.Read<int>(consumableBuffs + schema.DependsOn)
             };
 
+            bool isConditionValid = schema.FlagType switch
+            {
+                AbnormalityFlagType.Common => _commonCondition.HasFlag(Enum.Parse<CommonConditions>(schema.Flag)) && abnormSubId == schema.WithValue,
+                AbnormalityFlagType.Debuff => _debuffCondition.HasFlag(Enum.Parse<DebuffConditions>(schema.Flag)) && abnormSubId == schema.WithValue,
+                _ => abnormSubId == schema.WithValue
+            };
+
             MHRConsumableStructure abnormality = new();
 
             if (schema.IsInfinite)
-                abnormality.Timer = abnormSubId == schema.WithValue ? AbnormalityData.TIMER_MULTIPLIER : 0;
-            else if (abnormSubId == schema.WithValue)
+                abnormality.Timer = isConditionValid ? AbnormalityData.TIMER_MULTIPLIER : 0;
+            else if (isConditionValid)
                 abnormality = Process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
 
-            abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+            if (!schema.IsBuildup)
+                abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
             HandleAbnormality<MHRConsumableAbnormality, MHRConsumableStructure>(
                 _abnormalities,
@@ -409,7 +419,6 @@ public sealed class MHRPlayer : CommonPlayer
     [ScannableMethod]
     private void GetPlayerDebuffAbnormalities()
     {
-        // Only scan in hunting zone due to invalid pointer when not in a hunting zone...
         if (!InHuntingZone)
             return;
 
@@ -431,22 +440,25 @@ public sealed class MHRPlayer : CommonPlayer
                 _ => Process.Memory.Read<int>(debuffsPtr + schema.DependsOn)
             };
 
-            bool isConditionValid = schema.CompareOperator switch
+            bool isConditionValid = schema.FlagType switch
             {
-                AbnormalityCompareType.WithValue => abnormSubId == schema.WithValue,
-                AbnormalityCompareType.WithValueNot => abnormSubId != schema.WithValueNot,
-                _ => false
+                AbnormalityFlagType.Common => _commonCondition.HasFlag(Enum.Parse<CommonConditions>(schema.Flag)) && abnormSubId == schema.WithValue,
+                AbnormalityFlagType.Debuff => _debuffCondition.HasFlag(Enum.Parse<DebuffConditions>(schema.Flag)) && abnormSubId == schema.WithValue,
+                _ => abnormSubId == schema.WithValue
             };
 
             MHRDebuffStructure abnormality = new();
 
-            // Only read memory if the required sub Id is the required one for this abnormality
             if (schema.IsInfinite)
                 abnormality.Timer = isConditionValid ? AbnormalityData.TIMER_MULTIPLIER : 0;
             else if (isConditionValid)
                 abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
 
-            abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+            if (!schema.IsBuildup)
+                abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+
+            if (schema.MaxTimer > 0 && isConditionValid)
+                abnormality.Timer = schema.MaxTimer - abnormality.Timer;
 
             HandleAbnormality<MHRDebuffAbnormality, MHRDebuffStructure>(
                 _abnormalities,
@@ -640,6 +652,11 @@ public sealed class MHRPlayer : CommonPlayer
             return;
         }
 
+        bool isBlocked = Process.Memory.Deref<int>(
+            AddressMap.GetAbsolute("UI_ADDRESS"),
+            AddressMap.Get<int[]>("IS_WIREBUG_BLOCKED_OFFSETS")
+        ) != 0;
+
         int wirebugsArrayLength = Math.Min(Wirebugs.Length, Process.Memory.Read<int>(wirebugsArrayPtr + 0x1C));
         long[] wirebugsPtrs = Process.Memory.Read<long>(wirebugsArrayPtr + 0x20, (uint)wirebugsArrayLength);
 
@@ -650,12 +667,13 @@ public sealed class MHRPlayer : CommonPlayer
 
             var data = new MHRWirebugData
             {
-                IsBlocked = Process.Memory.Deref<int>(
-                    AddressMap.GetAbsolute("UI_ADDRESS"),
-                    AddressMap.Get<int[]>("IS_WIREBUG_BLOCKED_OFFSETS")
-                ) != 0,
+                WirebugState = isBlocked ? WirebugState.Blocked
+                    : _commonCondition.HasFlag(CommonConditions.WindMantle) ? WirebugState.WindMantle
+                    : _debuffCondition.HasFlag(DebuffConditions.IceBlight) ? WirebugState.IceBlight
+                    : WirebugState.None,
                 Structure = Process.Memory.Read<MHRWirebugStructure>(wirebugPtr)
             };
+
             data.Structure.Cooldown /= AbnormalityData.TIMER_MULTIPLIER;
             data.Structure.MaxCooldown /= AbnormalityData.TIMER_MULTIPLIER;
 
@@ -680,6 +698,32 @@ public sealed class MHRPlayer : CommonPlayer
 
         if (shouldDispatchEvent)
             this.Dispatch(_onWirebugsRefresh, Wirebugs);
+    }
+
+    [ScannableMethod]
+    private void GetPlayerConditions()
+    {
+        if (!InHuntingZone)
+        {
+            _commonCondition = CommonConditions.None;
+            _debuffCondition = DebuffConditions.None;
+            return;
+        }
+
+        long conditionPtr = Process.Memory.Read(
+            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("PLAYER_CONDITION_OFFSETS")
+        );
+
+        if (conditionPtr.IsNullPointer())
+        {
+            _commonCondition = CommonConditions.None;
+            _debuffCondition = DebuffConditions.None;
+            return;
+        }
+
+        _commonCondition = (CommonConditions)Process.Memory.Read<ulong>(conditionPtr + 0x10);
+        _debuffCondition = (DebuffConditions)Process.Memory.Read<ulong>(conditionPtr + 0x38);
     }
 
     [ScannableMethod(typeof(MHRSubmarineData))]

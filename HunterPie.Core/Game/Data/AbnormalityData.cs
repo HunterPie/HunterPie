@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Game.Data.Schemas;
-using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Logger;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -58,30 +58,33 @@ public class AbnormalityData
             string offset = abnormality.Attributes["Offset"]?.Value ?? id;
             string dependsOn = abnormality.Attributes["DependsOn"]?.Value ?? "0";
             string withValue = abnormality.Attributes["WithValue"]?.Value ?? "0";
-            string withValueNot = abnormality.Attributes["WithValueNot"]?.Value;
             string group = abnormality.ParentNode.Name;
             string category = abnormality.Attributes["Category"]?.Value ?? group;
             string isBuildup = abnormality.Attributes["IsBuildup"]?.Value ?? "False";
             string maxBuildup = abnormality.Attributes["MaxBuildup"]?.Value ?? "0";
             string isInfinite = abnormality.Attributes["IsInfinite"]?.Value ?? "False";
+            string maxTimer = abnormality.Attributes["MaxTimer"]?.Value ?? "0";
+            string flagType = abnormality.Attributes["FlagType"]?.Value ?? "None";
+            string flag = abnormality.Attributes["Flag"]?.Value ?? "None";
 
             AbnormalitySchema schema = new()
             {
                 Id = BuildAbnormalityId(id, group),
                 Name = name,
                 Icon = icon,
-                CompareOperator = withValueNot != null ? AbnormalityCompareType.WithValueNot : AbnormalityCompareType.WithValue,
                 Category = category,
-                Group = group
+                Group = group,
+                Flag = flag
             };
 
             _ = int.TryParse(offset, NumberStyles.HexNumber, null, out schema.Offset);
             _ = int.TryParse(dependsOn, NumberStyles.HexNumber, null, out schema.DependsOn);
             _ = int.TryParse(withValue, out schema.WithValue);
-            _ = int.TryParse(withValueNot, out schema.WithValueNot);
             _ = bool.TryParse(isBuildup, out schema.IsBuildup);
             _ = int.TryParse(maxBuildup, out schema.MaxBuildup);
             _ = bool.TryParse(isInfinite, out schema.IsInfinite);
+            _ = int.TryParse(maxTimer, out schema.MaxTimer);
+            _ = Enum.TryParse(flagType, out schema.FlagType);
 
             Abnormalities.Add(schema.Id, schema);
         }

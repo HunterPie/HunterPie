@@ -16,6 +16,7 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:RatioConverter x:Key="RatioConverter"/>
         <converters:ReverseRatioConverter x:Key="ReverseRatioConverter"/>
+        <converters:WirebugStateToVisibilityConverter x:Key="WirebugStateToVisibilityConverter"/>
     </UserControl.Resources>
     <Grid>
         <Ellipse Width="1"
@@ -159,10 +160,10 @@
         </Grid>
 
         <Ellipse Fill="{StaticResource RED_600}"
-                 Visibility="{Binding IsBlocked, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                 Visibility="{Binding WirebugState, Mode=OneWay, Converter={StaticResource WirebugStateToVisibilityConverter}}"
                  Opacity="1"/>
         <Ellipse Fill="{StaticResource RED_LIGHT_300}"
-                 Visibility="{Binding IsBlocked, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                 Visibility="{Binding WirebugState, Mode=OneWay, Converter={StaticResource WirebugStateToVisibilityConverter}}">
             <Ellipse.OpacityMask>
                 <ImageBrush ImageSource="{StaticResource ICON_ERROR_MASK}"/>
             </Ellipse.OpacityMask>
