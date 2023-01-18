@@ -10,8 +10,10 @@ public class WirebugStateToVisibilityConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        var wirebugState = (WirebugState)value;
-        return wirebugState == WirebugState.Blocked
+        if (value is not WirebugState state)
+            throw new ArgumentException($"Argument must be of type {nameof(WirebugState)} but got {value?.GetType()}");
+
+        return state == WirebugState.Blocked
             ? Visibility.Visible
             : Visibility.Collapsed;
     }

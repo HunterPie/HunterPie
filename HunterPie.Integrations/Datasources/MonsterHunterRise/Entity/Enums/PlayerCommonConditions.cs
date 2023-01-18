@@ -7,7 +7,7 @@ public enum CommonConditions : ulong
     AttackUp = 1,
     DefenceUp = 1 << 1,
     StaminaUp = 1 << 2,
-    DebuffPrevention = 1 << 3,
+    Immunity = 1 << 3,
     CriticalUp = 1 << 4,
     SuperArmor = 1 << 5,
     ElementAttackUp = 1 << 6,
