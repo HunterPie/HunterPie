@@ -667,7 +667,7 @@ public sealed class MHRPlayer : CommonPlayer
 
             var data = new MHRWirebugData
             {
-                WirebugState = IsBlocked ? WirebugState.Blocked
+                WirebugState = isBlocked ? WirebugState.Blocked
                     : _commonCondition.HasFlag(CommonConditions.WindMantle) ? WirebugState.WindMantle
                     : _debuffCondition.HasFlag(DebuffConditions.IceBlight) ? WirebugState.IceBlight
                     : WirebugState.None,
