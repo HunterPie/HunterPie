@@ -73,7 +73,7 @@
                 Grid.ColumnSpan="2"
                 Margin="1"/>
 
-        <Image Source="{StaticResource ICON_ARGOSY}"
+        <Image Source="{StaticResource ICON_SUBMARINE}"
                VerticalAlignment="Center"
                HorizontalAlignment="Center"
                Margin="5"

@@ -80,19 +80,34 @@
     <Compile Update="Overlay\Widgets\Activities\View\ActivitiesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Activities\View\ArgosyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Activities\View\BuddyDojoView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Activities\View\CohootNestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Activities\View\HarvestBoxView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Activities\View\HarvestFertilizerView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Activities\View\MeowcenariesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Activities\View\SteamFuelView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Activities\View\SubmarinesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Activities\View\SubmarineView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Activities\View\TailraidersView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Activities\View\TrainingDojoView.xaml.cs">
@@ -244,19 +259,34 @@
     <Page Update="Overlay\Widgets\Activities\View\ActivitiesView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Overlay\Widgets\Activities\View\ArgosyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Overlay\Widgets\Activities\View\BuddyDojoView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Activities\View\CohootNestView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Overlay\Widgets\Activities\View\HarvestBoxView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Activities\View\HarvestFertilizerView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Overlay\Widgets\Activities\View\MeowcenariesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Activities\View\SteamFuelView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Activities\View\SubmarinesView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Activities\View\SubmarineView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Activities\View\TailraidersView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Activities\View\TrainingDojoView.xaml">

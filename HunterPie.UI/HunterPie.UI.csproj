@@ -5,9 +5,9 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.7.0.46</AssemblyVersion>
-    <FileVersion>2.7.0.46</FileVersion>
-	<LangVersion>10.0</LangVersion>
+    <AssemblyVersion>2.7.0.107</AssemblyVersion>
+    <FileVersion>2.7.0.107</FileVersion>
+    <LangVersion>10.0</LangVersion>
     <Authors>Haato</Authors>
  </PropertyGroup>
 
