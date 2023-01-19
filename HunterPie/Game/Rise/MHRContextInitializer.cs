@@ -8,6 +8,7 @@ using HunterPie.Domain.Interfaces;
 using HunterPie.Features.Native;
 using HunterPie.Features.Patcher;
 using HunterPie.Integrations.Datasources.MonsterHunterRise;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Services;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,7 +39,8 @@ internal class MHRContextInitializer : IContextInitializer
         );
 
         AbnormalityData.Init(
-            ClientInfo.GetPathFor("Game/Rise/Data/AbnormalityData.xml")
+            ClientInfo.GetPathFor("Game/Rise/Data/AbnormalityData.xml"),
+            new MHRAbnormalityFlagTypeParser()
         );
     }
 

@@ -3,6 +3,6 @@
 public enum AbnormalityFlagType
 {
     None,
-    Common,
-    Debuff
+    RiseCommon,
+    RiseDebuff
 }

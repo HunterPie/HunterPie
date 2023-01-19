@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Address.Map;
+﻿
+using HunterPie.Core.Address.Map;
 using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
@@ -392,10 +393,10 @@ public sealed class MHRPlayer : CommonPlayer
 
             bool isConditionValid = schema.FlagType switch
             {
-                AbnormalityFlagType.Common => _commonCondition.HasFlag(Enum.Parse<CommonConditions>(schema.Flag)) && abnormSubId == schema.WithValue,
-                AbnormalityFlagType.Debuff => _debuffCondition.HasFlag(Enum.Parse<DebuffConditions>(schema.Flag)) && abnormSubId == schema.WithValue,
-                _ => abnormSubId == schema.WithValue
-            };
+                AbnormalityFlagType.RiseCommon => _commonCondition.HasFlag(schema.GetFlagAs<CommonConditions>()),
+                AbnormalityFlagType.RiseDebuff => _debuffCondition.HasFlag(schema.GetFlagAs<DebuffConditions>()),
+                _ => true
+            } && abnormSubId == schema.WithValue;
 
             MHRConsumableStructure abnormality = new();
 
@@ -442,10 +443,10 @@ public sealed class MHRPlayer : CommonPlayer
 
             bool isConditionValid = schema.FlagType switch
             {
-                AbnormalityFlagType.Common => _commonCondition.HasFlag(Enum.Parse<CommonConditions>(schema.Flag)) && abnormSubId == schema.WithValue,
-                AbnormalityFlagType.Debuff => _debuffCondition.HasFlag(Enum.Parse<DebuffConditions>(schema.Flag)) && abnormSubId == schema.WithValue,
-                _ => abnormSubId == schema.WithValue
-            };
+                AbnormalityFlagType.RiseCommon => _commonCondition.HasFlag(schema.GetFlagAs<CommonConditions>()),
+                AbnormalityFlagType.RiseDebuff => _debuffCondition.HasFlag(schema.GetFlagAs<DebuffConditions>()),
+                _ => true
+            } && abnormSubId == schema.WithValue;
 
             MHRDebuffStructure abnormality = new();
 
