@@ -2,11 +2,11 @@
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.View;
 /// <summary>
-/// Interaction logic for HarvestBoxView.xaml
+/// Interaction logic for ArgosyView.xaml
 /// </summary>
-public partial class HarvestBoxView : UserControl
+public partial class ArgosyView : UserControl
 {
-    public HarvestBoxView()
+    public ArgosyView()
     {
         InitializeComponent();
     }

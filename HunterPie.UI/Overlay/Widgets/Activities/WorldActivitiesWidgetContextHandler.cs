@@ -28,10 +28,13 @@ public class WorldActivitiesWidgetContextHandler : IContextHandler
 
         _viewModel = _view.ViewModel;
 
-        HarvestBoxContextHandler harvestBoxContextHandler = new(context);
-        SteamworksContextHandler steamworksContextHandler = new(context);
-
-        _handlers = new IActivityContextHandler[] { harvestBoxContextHandler, steamworksContextHandler };
+        _handlers = new IActivityContextHandler[]
+        {
+            new HarvestBoxContextHandler(context),
+            new SteamworksContextHandler(context),
+            new ArgosyContextHandler(context),
+            new TailraidersContextHandler(context)
+        };
 
         UpdateData();
     }

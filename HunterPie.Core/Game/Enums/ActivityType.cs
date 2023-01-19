@@ -9,4 +9,5 @@ public enum ActivityType
     TrainingDojo,
     Cohoot,
     Steamworks,
+    Tailraiders
 }

@@ -17,30 +17,49 @@
 
         <DataTemplate x:Key="TEMPLATE_SUBMARINES_VIEW">
             <local:SubmarinesView Height="40"
+                                  Width="270"
                                   Visibility="{Binding Settings.IsArgosyEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:ActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </DataTemplate>
 
         <DataTemplate x:Key="TEMPLATE_TRAINING_DOJO_VIEW">
             <local:TrainingDojoView Height="40"
+                                    Width="270"
                                     Visibility="{Binding Settings.IsTrainingDojoEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:ActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </DataTemplate>
 
         <DataTemplate x:Key="TEMPLATE_MEOWCENARIES_VIEW">
             <local:MeowcenariesView Height="40"
+                                    Width="270"
                                     Visibility="{Binding Settings.IsMeowmastersEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:ActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </DataTemplate>
 
         <DataTemplate x:Key="TEMPLATE_COHOOT_VIEW">
             <local:CohootNestView Height="40"
+                                  Width="270"
                                   Visibility="{Binding Settings.IsCohootEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:ActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </DataTemplate>
 
         <DataTemplate x:Key="TEMPLATE_HARVEST_BOX">
-            <local:HarvestBoxView Visibility="{Binding Settings.IsHarvestBoxEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:ActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <local:HarvestBoxView Width="270"
+                                  Visibility="{Binding Settings.IsHarvestBoxEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:ActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </DataTemplate>
 
         <DataTemplate x:Key="TEMPLATE_STEAMWORKS">
-            <local:SteamFuelView Visibility="{Binding Settings.IsSteamworksEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:ActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <local:SteamFuelView Height="40"
+                                 Width="270"
+                                 Visibility="{Binding Settings.IsSteamworksEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:ActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TEMPLATE_ARGOSY">
+            <local:ArgosyView Height="40"
+                              Width="135"
+                              Visibility="{Binding Settings.IsArgosyEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:ActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TEMPLATE_TAILRAIDERS">
+            <local:TailraidersView Height="40"
+                                   Width="135"
+                                   Visibility="{Binding Settings.IsMeowmastersEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:ActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </DataTemplate>
 
         <presentation:ActivityTemplateSelector x:Key="ActivityTemplateSelector"
@@ -49,7 +68,9 @@
                                                MeowcenariesTemplate="{StaticResource TEMPLATE_MEOWCENARIES_VIEW}"
                                                CohootTemplate="{StaticResource TEMPLATE_COHOOT_VIEW}"
                                                HarvestBoxTemplate="{StaticResource TEMPLATE_HARVEST_BOX}"
-                                               SteamworksTemplate="{StaticResource TEMPLATE_STEAMWORKS}"/>
+                                               SteamworksTemplate="{StaticResource TEMPLATE_STEAMWORKS}"
+                                               ArgosyTemplate="{StaticResource TEMPLATE_ARGOSY}"
+                                               TailraidersTemplate="{StaticResource TEMPLATE_TAILRAIDERS}"/>
     </UserControl.Resources>
     <ItemsControl ItemsSource="{Binding Activities, Mode=OneWay}"
                   ItemTemplateSelector="{StaticResource ActivityTemplateSelector}"
@@ -60,7 +81,6 @@
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <WrapPanel Width="270"
-                           ItemWidth="270"
                            Background="#DF202327"/>
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>

@@ -170,6 +170,10 @@ public sealed class MHWPlayer : CommonPlayer
     public MHWHarvestBox HarvestBox { get; } = new();
 
     public MHWSteamworks Steamworks { get; } = new();
+
+    public MHWArgosy Argosy { get; } = new();
+
+    public MHWTailraiders Tailraiders { get; } = new();
     #endregion
 
     internal MHWPlayer(IProcessManager process) : base(process)
@@ -434,6 +438,48 @@ public sealed class MHWPlayer : CommonPlayer
         );
 
         Steamworks.Update(data);
+    }
+
+    [ScannableMethod]
+    private void GetArgosy()
+    {
+        if (PlayerSaveAddress.IsNullPointer())
+            return;
+
+        long argosyPtr = PlayerSaveAddress + 0x1034C0;
+
+        byte argosyDays = Memory.Read<byte>(argosyPtr);
+        bool isInTown = argosyDays < 250;
+
+        if (!isInTown)
+            argosyDays = (byte)(byte.MaxValue - argosyDays + 1);
+
+        var data = new MHWArgosyData(
+            DaysLeft: argosyDays,
+            IsInTown: isInTown
+        );
+
+        Argosy.Update(data);
+    }
+
+    [ScannableMethod]
+    private void GetTailraiders()
+    {
+        if (PlayerSaveAddress.IsNullPointer())
+            return;
+
+        long tailraidersPtr = PlayerSaveAddress + 0x1034DC;
+
+        byte tailraidersQuests = Memory.Read<byte>(tailraidersPtr);
+        bool isDeployed = tailraidersQuests != byte.MaxValue;
+        int questsLeft = isDeployed ? Tailraiders.MaxDays - tailraidersQuests : 0;
+
+        var data = new MHWTailraidersData(
+            QuestsLeft: questsLeft,
+            IsDeployed: isDeployed
+        );
+
+        Tailraiders.Update(data);
     }
 
     [ScannableMethod]

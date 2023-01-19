@@ -17,7 +17,7 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="40"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -101,7 +101,8 @@
                Grid.Column="0"
                Grid.Row="0"
                Grid.RowSpan="2"
-               Margin="4"/>
+               Margin="8"
+               Opacity="0.6"/>
         
         <TextBlock Grid.Column="1"
                    Grid.Row="0"
