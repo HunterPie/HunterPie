@@ -58,9 +58,9 @@ public enum CommonConditions : ulong
     WireStopRegene = 1UL << 55,
     VirusOvercomeIcon = 1UL << 56,
     WindMantle = 1UL << 57,
-    BerserkRed = 1UL << 58,
-    BerserkBlue = 1UL << 59,
-    StrifeSmall = 1UL << 60,
-    StrifeLarge = 1UL << 61,
-    PowderMantle = 1UL << 62
+    PowderMantleRed = 1UL << 58,
+    PowderMantleBlue = 1UL << 59,
+    StrifeS = 1UL << 60,
+    StrifeL = 1UL << 61,
+    Berserk = 1UL << 62
 }
