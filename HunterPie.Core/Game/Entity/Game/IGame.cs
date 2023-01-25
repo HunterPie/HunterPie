@@ -26,6 +26,8 @@ public interface IGame : IDisposable
 
     public int Deaths { get; }
 
+    public bool IsInQuest { get; }
+
     public event EventHandler<IMonster> OnMonsterSpawn;
     public event EventHandler<IMonster> OnMonsterDespawn;
     public event EventHandler<IGame> OnHudStateChange;

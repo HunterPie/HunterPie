@@ -22,6 +22,7 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
     public abstract float TimeElapsed { get; protected set; }
     public abstract int MaxDeaths { get; protected set; }
     public abstract int Deaths { get; protected set; }
+    public abstract bool IsInQuest { get; protected set; }
 
     protected readonly SmartEvent<IMonster> _onMonsterSpawn = new();
     public event EventHandler<IMonster> OnMonsterSpawn
@@ -58,13 +59,29 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
         remove => _onDeathCountChange.Unhook(value);
     }
 
+    protected readonly SmartEvent<IGame> _onQuestStart = new();
+    public event EventHandler<IGame> OnQuestStart
+    {
+        add => _onQuestStart.Hook(value);
+        remove => _onQuestStart.Unhook(value);
+    }
+
+    protected readonly SmartEvent<IGame> _onQuestEnd = new();
+    public event EventHandler<IGame> OnQuestEnd
+    {
+        add => _onQuestEnd.Hook(value);
+        remove => _onQuestEnd.Unhook(value);
+    }
+
     protected CommonGame(IProcessManager process) : base(process) { }
 
     public virtual void Dispose()
     {
         IDisposable[] events =
         {
-            _onMonsterSpawn, _onMonsterDespawn, _onHudStateChange, _onTimeElapsedChange, _onDeathCountChange
+            _onMonsterSpawn, _onMonsterDespawn, _onHudStateChange,
+            _onTimeElapsedChange, _onDeathCountChange, _onQuestStart,
+            _onQuestEnd,
         };
 
         Monsters.TryCast<IDisposable>()

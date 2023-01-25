@@ -29,6 +29,7 @@ public sealed class MHWGame : CommonGame
     private readonly Dictionary<long, EntityDamageData[]> _damageDone = new();
     private bool _isMouseVisible;
     private int _deaths;
+    private bool _isInQuest;
     private readonly Stopwatch _localTimerStopwatch = new();
     private readonly Stopwatch _damageUpdateThrottleStopwatch = new();
 
@@ -76,6 +77,19 @@ public sealed class MHWGame : CommonGame
             {
                 _deaths = value;
                 this.Dispatch(_onDeathCountChange, this);
+            }
+        }
+    }
+
+    public override bool IsInQuest
+    {
+        get => _isInQuest;
+        protected set
+        {
+            if (value != _isInQuest)
+            {
+                _isInQuest = value;
+                this.Dispatch(value ? _onQuestStart : _onQuestEnd, this);
             }
         }
     }

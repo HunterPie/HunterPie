@@ -17,8 +17,10 @@ using HunterPie.Integrations.Datasources.Common.Entity.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Chat;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Services;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 using System.Text;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Game;
@@ -36,6 +38,7 @@ public sealed class MHRGame : CommonGame
     private int _maxDeaths;
     private int _deaths;
     private bool _isHudOpen;
+    private bool _isInQuest;
     private DateTime _lastDamageUpdate = DateTime.MinValue;
     private readonly Dictionary<long, IMonster> _monsters = new();
     private readonly Dictionary<long, EntityDamageData[]> _damageDone = new();
@@ -95,6 +98,19 @@ public sealed class MHRGame : CommonGame
             {
                 _deaths = value;
                 this.Dispatch(_onDeathCountChange, this);
+            }
+        }
+    }
+
+    public override bool IsInQuest
+    {
+        get => _isInQuest;
+        protected set
+        {
+            if (value != _isInQuest)
+            {
+                _isInQuest = value;
+                this.Dispatch(value ? _onQuestStart : _onQuestEnd, this);
             }
         }
     }
@@ -207,6 +223,28 @@ public sealed class MHRGame : CommonGame
 
         MaxDeaths = maxDeathsCounter;
         Deaths = deathCounter;
+    }
+
+    [ScannableMethod]
+    private void GetQuestState()
+    {
+        if (!Player.InHuntingZone)
+        {
+            IsInQuest = false;
+            return;
+        }
+
+        bool inQuest = Memory.Deref<QuestState>(
+            AddressMap.GetAbsolute("QUEST_ADDRESS"),
+            AddressMap.Get<int[]>("QUEST_MAX_DEATHS_OFFSETS")
+        ) == QuestState.InQuest;
+
+        bool isHunting = Memory.Deref<QuestType>(
+            AddressMap.GetAbsolute("QUEST_ADDRESS"),
+            AddressMap.Get<int[]>("QUEST_MAX_DEATHS_OFFSETS")
+        ).IsHuntQuest();
+
+        IsInQuest = inQuest && isHunting;
     }
 
     [ScannableMethod]

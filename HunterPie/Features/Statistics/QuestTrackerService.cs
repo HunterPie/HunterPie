@@ -37,13 +37,15 @@ internal class QuestTrackerService : IDisposable
 
         if (exported is null)
             return;
+
+        // TODO: Upload quest to remote server
     }
 
     private void OnQuestStart(object? sender, IGame e)
     {
         _statisticsService = new HuntStatisticsService(_context);
 
-        // TODO: Upload quest to remote server
+
     }
 
     public void Dispose()
