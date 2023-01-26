@@ -31,17 +31,34 @@ internal class PartyMemberStatisticsService : IHuntStatisticsService<PartyMember
         _partyMember = partyMember;
         _context = context;
         _name = partyMember.Name;
+        _weapon = partyMember.Weapon;
 
         HookEvents();
     }
 
-    public PartyMemberModel Export() => new(
-        Name: _name,
-        Weapon: _weapon,
-        Damages: _damages.ToArray(),
-        Abnormalities: _abnormalities.Select(pair => new AbnormalityModel(Id: pair.Key, Activations: pair.Value.ToArray())).ToArray(),
-        IsHunterPieUser: _partyMember.IsMyself
-    );
+    public PartyMemberModel Export()
+    {
+        foreach (Stack<TimeFrameModel> timeFrames in _abnormalities.Values)
+        {
+            TimeFrameModel? lastTimeFrame = timeFrames.PopOrDefault();
+
+            if (lastTimeFrame is null)
+                continue;
+
+            if (lastTimeFrame.IsRunning())
+                lastTimeFrame = lastTimeFrame.End(_startedAt);
+
+            timeFrames.Push(lastTimeFrame);
+        }
+
+        return new(
+            Name: _name,
+            Weapon: _weapon,
+            Damages: _damages.ToArray(),
+            Abnormalities: _abnormalities.Select(pair => new AbnormalityModel(Id: pair.Key, Activations: pair.Value.ToArray())).ToArray(),
+            IsHunterPieUser: _partyMember.IsMyself
+        );
+    }
 
     private void HookEvents()
     {
@@ -54,6 +71,10 @@ internal class PartyMemberStatisticsService : IHuntStatisticsService<PartyMember
         _context.Game.Player.OnWeaponChange += OnWeaponChange;
         _context.Game.Player.OnAbnormalityStart += OnAbnormalityStart;
         _context.Game.Player.OnAbnormalityEnd += OnAbnormalityEnd;
+
+        foreach (IAbnormality abnormality in _context.Game.Player.Abnormalities)
+            HandleAbnormalityStart(abnormality);
+
     }
 
     private void UnhookEvents()
@@ -80,15 +101,7 @@ internal class PartyMemberStatisticsService : IHuntStatisticsService<PartyMember
         timeFrames.PushNotNull(lastOccurrence?.End(_startedAt));
     }
 
-    private void OnAbnormalityStart(object? sender, IAbnormality e)
-    {
-        if (!_abnormalities.ContainsKey(e.Id))
-            _abnormalities[e.Id] = new Stack<TimeFrameModel>();
-
-        Stack<TimeFrameModel> timeFrames = _abnormalities[e.Id];
-
-        timeFrames.Push(TimeFrameModel.Start(_startedAt));
-    }
+    private void OnAbnormalityStart(object? sender, IAbnormality e) => HandleAbnormalityStart(e);
 
     private void OnWeaponChange(object? sender, WeaponChangeEventArgs e) => _weapon = e.NewWeapon.Id;
 
@@ -102,6 +115,16 @@ internal class PartyMemberStatisticsService : IHuntStatisticsService<PartyMember
         _damages.Add(new PlayerDamageFrameModel(Damage: hitDamage, DealtAt: now));
 
         _currentDamage = e.Damage;
+    }
+
+    private void HandleAbnormalityStart(IAbnormality abnormality)
+    {
+        if (!_abnormalities.ContainsKey(abnormality.Id))
+            _abnormalities[abnormality.Id] = new Stack<TimeFrameModel>();
+
+        Stack<TimeFrameModel> timeFrames = _abnormalities[abnormality.Id];
+
+        timeFrames.Push(TimeFrameModel.Start(_startedAt));
     }
 
     public void Dispose() => UnhookEvents();

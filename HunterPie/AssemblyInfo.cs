@@ -31,5 +31,5 @@ using System.Windows;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("667a0603-41ec-4da6-a125-ce231da19b53")]
 
-[assembly: AssemblyVersion("2.7.0.29")]
-[assembly: AssemblyFileVersion("2.7.0.29")]
+[assembly: AssemblyVersion("2.7.0.34")]
+[assembly: AssemblyFileVersion("2.7.0.34")]

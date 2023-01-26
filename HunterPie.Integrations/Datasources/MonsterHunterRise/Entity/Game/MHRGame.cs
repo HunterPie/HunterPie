@@ -234,17 +234,19 @@ public sealed class MHRGame : CommonGame
             return;
         }
 
-        bool inQuest = Memory.Deref<QuestState>(
+        var questState = (QuestState)Memory.Deref<int>(
             AddressMap.GetAbsolute("QUEST_ADDRESS"),
-            AddressMap.Get<int[]>("QUEST_MAX_DEATHS_OFFSETS")
-        ) == QuestState.InQuest;
+            AddressMap.Get<int[]>("QUEST_STATUS_OFFSETS")
+        );
 
-        bool isHunting = Memory.Deref<QuestType>(
+        var questType = (QuestType)Memory.Deref<uint>(
             AddressMap.GetAbsolute("QUEST_ADDRESS"),
-            AddressMap.Get<int[]>("QUEST_MAX_DEATHS_OFFSETS")
-        ).IsHuntQuest();
+            AddressMap.Get<int[]>("QUEST_TYPE_OFFSETS")
+        );
 
-        IsInQuest = inQuest && isHunting;
+        bool isInQuest = questState == QuestState.InQuest;
+
+        IsInQuest = isInQuest && questType.IsHuntQuest();
     }
 
     [ScannableMethod]

@@ -1,7 +1,11 @@
-﻿using HunterPie.Core.Game;
+﻿using HunterPie.Core.Client;
+using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Game;
+using HunterPie.Core.Json;
+using HunterPie.Core.Logger;
 using HunterPie.Features.Statistics.Models;
 using System;
+using System.IO;
 
 namespace HunterPie.Features.Statistics;
 
@@ -35,17 +39,18 @@ internal class QuestTrackerService : IDisposable
     {
         HuntStatisticsModel? exported = _statisticsService?.Export();
 
+        _statisticsService?.Dispose();
+
         if (exported is null)
             return;
 
-        // TODO: Upload quest to remote server
+        File.WriteAllText(ClientInfo.GetPathFor("test.json"), JsonProvider.Serializer(exported, indented: true));
+        Log.Debug("Exported hunt with hash: {0}", exported.Hash);
     }
 
     private void OnQuestStart(object? sender, IGame e)
     {
         _statisticsService = new HuntStatisticsService(_context);
-
-
     }
 
     public void Dispose()

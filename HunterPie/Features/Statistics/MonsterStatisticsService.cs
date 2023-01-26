@@ -15,8 +15,8 @@ internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
     private readonly IContext _context;
     private readonly IMonster _monster;
 
-    private readonly int _monsterId;
-    private readonly float _startHealth;
+    private int _monsterId;
+    private float? _startHealth;
     private readonly Stack<TimeFrameModel> _enrages = new();
 
     private DateTime? _huntStart;
@@ -28,26 +28,37 @@ internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
     {
         _context = context;
         _monster = monster;
-        _monsterId = monster.Id;
-        _startHealth = monster.Health;
+        _monsterId = _monster.Id;
 
         HookEvents();
     }
 
-    public MonsterModel Export() => new(
-        Id: _monsterId,
-        MaxHealth: _maxHealth,
-        Crown: _crown,
-        Enrage: new MonsterStatusModel(
-            Id: "",
-            Activations: _enrages.ToArray()
-        ),
-        HuntStartedAt: _huntStart,
-        HuntFinishedAt: _huntEnd
-    );
+    public MonsterModel Export()
+    {
+        TimeFrameModel? lastEnrage = _enrages.PopOrDefault();
+
+        if (_huntStart is { } huntStart)
+            _enrages.PushNotNull(
+                lastEnrage?.IsRunning() == true
+                    ? lastEnrage.End(huntStart)
+                    : lastEnrage
+                );
+
+        return new(
+            Id: _monsterId,
+            MaxHealth: _maxHealth,
+            Crown: _crown,
+            Enrage: new MonsterStatusModel(
+                Activations: _enrages.ToArray()
+            ),
+            HuntStartedAt: _huntStart,
+            HuntFinishedAt: _huntEnd
+        );
+    }
 
     private void HookEvents()
     {
+        _monster.OnSpawn += OnMonsterSpawn;
         _monster.OnEnrageStateChange += OnEnrageStateChange;
         _monster.OnCapture += OnCapture;
         _monster.OnDeath += OnDeath;
@@ -57,6 +68,7 @@ internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
 
     private void UnhookEvents()
     {
+        _monster.OnSpawn -= OnMonsterSpawn;
         _monster.OnEnrageStateChange -= OnEnrageStateChange;
         _monster.OnCapture -= OnCapture;
         _monster.OnDeath -= OnDeath;
@@ -64,11 +76,21 @@ internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
         _monster.OnHealthChange -= OnHealthChange;
     }
 
+    private void OnMonsterSpawn(object? sender, EventArgs e)
+    {
+        _monsterId = _monster.Id;
+    }
+
     private void OnHealthChange(object? sender, EventArgs e)
     {
-        if (_huntStart is null && _monster.Health < _startHealth)
-            _huntStart = DateTime.UtcNow;
+        if (Math.Abs(_monster.Health - _monster.MaxHealth) < 0.1)
+            return;
 
+        if (_huntStart is not null || _startHealth is not null)
+            return;
+
+        _huntStart = DateTime.UtcNow;
+        _startHealth = _monster.Health;
         _maxHealth = _monster.MaxHealth;
     }
 

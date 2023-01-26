@@ -1,5 +1,6 @@
 ﻿namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
-public enum QuestState
+
+public enum QuestState : int
 {
     Idle,
     Ready,
