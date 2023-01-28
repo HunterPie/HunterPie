@@ -27,7 +27,7 @@ public enum DebuffConditions : ulong
     FrenzyOvercome = 1 << 20,
     Territory = 1 << 21,
     HellfireBlight = 1 << 22,
-    HellfireCloak = 1 << 23,
+    HellfireBlastNearness = 1 << 23,
     BlastBlight = 1 << 24,
     BlastNearness = 1 << 25,
     Blast = 1 << 26,
