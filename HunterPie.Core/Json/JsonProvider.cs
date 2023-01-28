@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
+using System.Globalization;
 
 #nullable enable
 namespace HunterPie.Core.Json;
@@ -24,7 +25,8 @@ public static class JsonProvider
         var serializer = new JsonSerializerSettings()
         {
             TypeNameHandling = TypeNameHandling.Auto,
-            NullValueHandling = NullValueHandling.Ignore
+            NullValueHandling = NullValueHandling.Ignore,
+            Culture = CultureInfo.InvariantCulture
         };
         serializer.Converters.Add(new StringEnumConverter());
 

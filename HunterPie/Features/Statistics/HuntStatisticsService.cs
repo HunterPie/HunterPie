@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Crypto;
+﻿using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Crypto;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Enemy;
@@ -6,6 +7,8 @@ using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Features.Statistics.Interfaces;
 using HunterPie.Features.Statistics.Models;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Game;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +38,7 @@ internal class HuntStatisticsService : IHuntStatisticsService<HuntStatisticsMode
             .ToList();
 
         return new HuntStatisticsModel(
+            Game: GetGameType(),
             Players: players,
             Monsters: monsters,
             StartedAt: _startedAt,
@@ -90,5 +94,15 @@ internal class HuntStatisticsService : IHuntStatisticsService<HuntStatisticsMode
 
         _partyMembersStatisticsServices.DisposeAll();
         _partyMembersStatisticsServices.Clear();
+    }
+
+    private GameType GetGameType()
+    {
+        return (_context.Game) switch
+        {
+            MHRGame => GameType.Rise,
+            MHWGame => GameType.World,
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 }

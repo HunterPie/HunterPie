@@ -1,0 +1,22 @@
+﻿using HunterPie.Features.Statistics.Models;
+using Newtonsoft.Json;
+using System;
+
+namespace HunterPie.Integrations.Poogie.Statistics.Models;
+
+internal record PoogieTimeFrameModel(
+    [JsonProperty("started_at")] TimeSpan StartedAt,
+    [JsonProperty("finished_at")] TimeSpan FinishedAt
+)
+{
+    public TimeFrameModel ToEntity() => new TimeFrameModel(
+        StartedAt: StartedAt,
+        FinishedAt: FinishedAt
+    );
+
+    public static PoogieTimeFrameModel From(TimeFrameModel model) =>
+        new PoogieTimeFrameModel(
+            StartedAt: model.StartedAt,
+            FinishedAt: model.FinishedAt
+        );
+}

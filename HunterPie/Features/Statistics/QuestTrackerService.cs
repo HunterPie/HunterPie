@@ -1,41 +1,35 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Game;
+﻿using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Game;
-using HunterPie.Core.Json;
-using HunterPie.Core.Logger;
+using HunterPie.Domain.Interfaces;
 using HunterPie.Features.Statistics.Models;
+using HunterPie.Integrations.Poogie.Statistics;
+using HunterPie.Integrations.Poogie.Statistics.Models;
 using System;
-using System.IO;
+using System.Threading.Tasks;
 
 namespace HunterPie.Features.Statistics;
 
 #nullable enable
-internal class QuestTrackerService : IDisposable
+internal class QuestTrackerService : IContextInitializer, IDisposable
 {
-    private readonly IContext _context;
+    private IContext? _context;
+    private readonly PoogieStatisticsConnector _connector = new();
 
     private HuntStatisticsService? _statisticsService;
 
-    public QuestTrackerService(IContext context)
-    {
-        _context = context;
-
-        HookEvents();
-    }
-
     private void HookEvents()
     {
-        _context.Game.OnQuestStart += OnQuestStart;
+        _context!.Game.OnQuestStart += OnQuestStart;
         _context.Game.OnQuestEnd += OnQuestEnd;
     }
 
     private void UnhookEvents()
     {
-        _context.Game.OnQuestStart -= OnQuestStart;
+        _context!.Game.OnQuestStart -= OnQuestStart;
         _context.Game.OnQuestEnd -= OnQuestEnd;
     }
 
-    private void OnQuestEnd(object? sender, IGame e)
+    private async void OnQuestEnd(object? sender, IGame e)
     {
         HuntStatisticsModel? exported = _statisticsService?.Export();
 
@@ -44,8 +38,10 @@ internal class QuestTrackerService : IDisposable
         if (exported is null)
             return;
 
-        File.WriteAllText(ClientInfo.GetPathFor("test.json"), JsonProvider.Serializer(exported, indented: true));
-        Log.Debug("Exported hunt with hash: {0}", exported.Hash);
+        var exportedRequest = PoogieQuestStatisticsModel.From(exported);
+
+        await _connector.Upload(exportedRequest)
+            .ConfigureAwait(false);
     }
 
     private void OnQuestStart(object? sender, IGame e)
@@ -57,5 +53,12 @@ internal class QuestTrackerService : IDisposable
     {
         UnhookEvents();
         _statisticsService?.Dispose();
+    }
+
+    public Task InitializeAsync(IContext context)
+    {
+        _context = context;
+
+        return Task.CompletedTask;
     }
 }

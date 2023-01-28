@@ -37,12 +37,14 @@ internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
     {
         TimeFrameModel? lastEnrage = _enrages.PopOrDefault();
 
-        if (_huntStart is { } huntStart)
+        if (_huntStart is { })
             _enrages.PushNotNull(
                 lastEnrage?.IsRunning() == true
-                    ? lastEnrage.End(huntStart)
+                    ? lastEnrage.End()
                     : lastEnrage
                 );
+
+        _huntEnd = _huntStart is { } ? DateTime.UtcNow : null;
 
         return new(
             Id: _monsterId,
@@ -118,12 +120,12 @@ internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
 
         if (_monster.IsEnraged)
         {
-            _enrages.PushNotNull(lastEnrage?.End(huntStart));
-            _enrages.Push(TimeFrameModel.Start(huntStart));
+            _enrages.PushNotNull(lastEnrage?.End());
+            _enrages.Push(TimeFrameModel.Start());
             return;
         }
 
-        _enrages.PushNotNull(lastEnrage?.End(huntStart));
+        _enrages.PushNotNull(lastEnrage?.End());
     }
 
     public void Dispose() => UnhookEvents();

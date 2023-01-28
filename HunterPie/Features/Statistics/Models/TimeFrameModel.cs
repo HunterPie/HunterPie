@@ -3,16 +3,16 @@
 namespace HunterPie.Features.Statistics.Models;
 
 internal record TimeFrameModel(
-    TimeSpan StartedAt,
-    TimeSpan FinishedAt
+    DateTime StartedAt,
+    DateTime FinishedAt
 )
 {
-    public static TimeFrameModel Start(DateTime start) => new TimeFrameModel(
-        StartedAt: DateTime.UtcNow - start,
-        FinishedAt: TimeSpan.MaxValue
+    public static TimeFrameModel Start() => new TimeFrameModel(
+        StartedAt: DateTime.UtcNow,
+        FinishedAt: DateTime.MaxValue
     );
 
-    public TimeFrameModel End(DateTime start) => this with { FinishedAt = DateTime.UtcNow - start };
+    public TimeFrameModel End() => this with { FinishedAt = DateTime.UtcNow };
 
-    public bool IsRunning() => FinishedAt == TimeSpan.MaxValue;
+    public bool IsRunning() => FinishedAt == DateTime.MaxValue;
 }

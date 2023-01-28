@@ -15,7 +15,6 @@ namespace HunterPie.Features.Statistics;
 #nullable enable
 internal class PartyMemberStatisticsService : IHuntStatisticsService<PartyMemberModel>
 {
-    private readonly DateTime _startedAt = DateTime.UtcNow;
     private readonly IPartyMember _partyMember;
     private readonly IContext _context;
     private readonly string _name;
@@ -46,7 +45,7 @@ internal class PartyMemberStatisticsService : IHuntStatisticsService<PartyMember
                 continue;
 
             if (lastTimeFrame.IsRunning())
-                lastTimeFrame = lastTimeFrame.End(_startedAt);
+                lastTimeFrame = lastTimeFrame.End();
 
             timeFrames.Push(lastTimeFrame);
         }
@@ -98,7 +97,7 @@ internal class PartyMemberStatisticsService : IHuntStatisticsService<PartyMember
         Stack<TimeFrameModel> timeFrames = _abnormalities[e.Id];
 
         TimeFrameModel? lastOccurrence = timeFrames.PopOrDefault();
-        timeFrames.PushNotNull(lastOccurrence?.End(_startedAt));
+        timeFrames.PushNotNull(lastOccurrence?.End());
     }
 
     private void OnAbnormalityStart(object? sender, IAbnormality e) => HandleAbnormalityStart(e);
@@ -124,7 +123,7 @@ internal class PartyMemberStatisticsService : IHuntStatisticsService<PartyMember
 
         Stack<TimeFrameModel> timeFrames = _abnormalities[abnormality.Id];
 
-        timeFrames.Push(TimeFrameModel.Start(_startedAt));
+        timeFrames.Push(TimeFrameModel.Start());
     }
 
     public void Dispose() => UnhookEvents();

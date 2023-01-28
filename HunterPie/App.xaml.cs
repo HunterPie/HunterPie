@@ -10,7 +10,6 @@ using HunterPie.Core.System;
 using HunterPie.Features;
 using HunterPie.Features.Backups;
 using HunterPie.Features.Overlay;
-using HunterPie.Features.Statistics;
 using HunterPie.Integrations;
 using HunterPie.Integrations.Discord;
 using HunterPie.Internal;
@@ -39,7 +38,6 @@ public partial class App : Application
     private IProcessManager? _process;
     private RichPresence? _richPresence;
     private Context? _context;
-    private QuestTrackerService? _questTrackerService;
 
     public static MainWindow UI { get; private set; }
 
@@ -128,9 +126,6 @@ public partial class App : Application
         _richPresence?.Dispose();
         _richPresence = null;
 
-        _questTrackerService?.Dispose();
-        _questTrackerService = null;
-
         ScanManager.Stop();
         _context?.Dispose();
 
@@ -143,6 +138,8 @@ public partial class App : Application
         Log.Info("{0} has been closed", e.ProcessName);
 
         SmartEventsTracker.DisposeEvents();
+
+        ContextInitializers.Dispose();
 
         if (e.Process.HasExitedNormally == false
             && e.Process.Game == GameProcess.MonsterHunterWorld
@@ -174,8 +171,6 @@ public partial class App : Application
 
             HookEvents();
             _richPresence = DiscordPresenceController.GetPresenceBy(context);
-
-            _questTrackerService = new QuestTrackerService(context);
 
             WidgetManager.Hook(context);
 
