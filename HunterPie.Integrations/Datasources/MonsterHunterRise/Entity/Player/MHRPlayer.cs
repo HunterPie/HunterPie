@@ -1,4 +1,3 @@
-﻿
 using HunterPie.Core.Address.Map;
 using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
@@ -392,7 +391,7 @@ public sealed class MHRPlayer : CommonPlayer
                 _ => Process.Memory.Read<int>(consumableBuffs + schema.DependsOn)
             };
 
-             bool isConditionValid = schema.FlagType switch
+            bool isConditionValid = schema.FlagType switch
             {
                 AbnormalityFlagType.RiseCommon => _commonCondition.HasFlag(schema.GetFlagAs<CommonConditions>()),
                 AbnormalityFlagType.RiseDebuff => _debuffCondition.HasFlag(schema.GetFlagAs<DebuffConditions>()),
@@ -756,7 +755,7 @@ public sealed class MHRPlayer : CommonPlayer
             return;
         }
         
-        _actionFlag = (ActionFlags)Process.Memory.Read<ulong>(actionFlagArray + 0x20);
+        _actionFlag = (ActionFlags)Process.Memory.Read<uint>(actionFlagArray + 0x20);
     }
 
     [ScannableMethod(typeof(MHRSubmarineData))]
