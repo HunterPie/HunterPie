@@ -110,7 +110,7 @@ public sealed class MHRGame : CommonGame
             if (value != _isInQuest)
             {
                 _isInQuest = value;
-                this.Dispatch(value ? _onQuestStart : _onQuestEnd, this);
+                this.Dispatch(value ? _onQuestStart : _onQuestEnd, new QuestStateChangeEventArgs(this));
             }
         }
     }

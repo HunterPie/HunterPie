@@ -89,7 +89,7 @@ public sealed class MHWGame : CommonGame
             if (value != _isInQuest)
             {
                 _isInQuest = value;
-                this.Dispatch(value ? _onQuestStart : _onQuestEnd, this);
+                this.Dispatch(value ? _onQuestStart : _onQuestEnd, new QuestStateChangeEventArgs(this));
             }
         }
     }
@@ -163,6 +163,28 @@ public sealed class MHWGame : CommonGame
 
         _localTimerStopwatch.Reset();
         SetTimeElapsed(timeElapsed, true);
+    }
+
+    [ScannableMethod]
+    private void GetQuestState()
+    {
+        if (!_player.InHuntingZone)
+        {
+            IsInQuest = false;
+            return;
+        }
+
+        bool isInQuest = Memory.Deref<int>(
+            AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("QUEST_MAX_TIMER_OFFSETS")
+        ) != 0;
+
+        bool isQuestOver = Memory.Deref<int>(
+            AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("QUEST_STATE_OFFSETS")
+        ).IsMHWQuestOver();
+
+        IsInQuest = isInQuest && !isQuestOver;
     }
 
     [ScannableMethod]

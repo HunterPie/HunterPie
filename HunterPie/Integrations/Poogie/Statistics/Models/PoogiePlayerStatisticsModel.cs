@@ -6,11 +6,11 @@ using System.Linq;
 namespace HunterPie.Integrations.Poogie.Statistics.Models;
 
 internal record PoogiePlayerStatisticsModel(
-    [JsonProperty("name")] string Name,
-    [JsonProperty("weapon")] Weapon Weapon,
-    [JsonProperty("damages")] PoogiePlayerDamageStatisticsModel[] Damages,
-    [JsonProperty("abnormalities")] PoogieAbnormalityStatisticsModel[] Abnormalities,
-    [JsonProperty("is_hunterpie_user")] bool IsHunterPieUser
+    [property: JsonProperty("name")] string Name,
+    [property: JsonProperty("weapon")] Weapon Weapon,
+    [property: JsonProperty("damages")] PoogiePlayerDamageStatisticsModel[] Damages,
+    [property: JsonProperty("abnormalities")] PoogieAbnormalityStatisticsModel[] Abnormalities,
+    [property: JsonProperty("is_hunterpie_user")] bool IsHunterPieUser
 )
 {
     public PartyMemberModel ToEntity() => new PartyMemberModel(

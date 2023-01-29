@@ -59,15 +59,15 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
         remove => _onDeathCountChange.Unhook(value);
     }
 
-    protected readonly SmartEvent<IGame> _onQuestStart = new();
-    public event EventHandler<IGame> OnQuestStart
+    protected readonly SmartEvent<QuestStateChangeEventArgs> _onQuestStart = new();
+    public event EventHandler<QuestStateChangeEventArgs> OnQuestStart
     {
         add => _onQuestStart.Hook(value);
         remove => _onQuestStart.Unhook(value);
     }
 
-    protected readonly SmartEvent<IGame> _onQuestEnd = new();
-    public event EventHandler<IGame> OnQuestEnd
+    protected readonly SmartEvent<QuestStateChangeEventArgs> _onQuestEnd = new();
+    public event EventHandler<QuestStateChangeEventArgs> OnQuestEnd
     {
         add => _onQuestEnd.Hook(value);
         remove => _onQuestEnd.Unhook(value);

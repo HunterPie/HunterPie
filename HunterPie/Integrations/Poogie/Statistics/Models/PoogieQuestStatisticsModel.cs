@@ -7,12 +7,12 @@ using System.Linq;
 namespace HunterPie.Integrations.Poogie.Statistics.Models;
 
 internal record PoogieQuestStatisticsModel(
-    [JsonProperty("game_type")] GameType GameType,
-    [JsonProperty("started_at")] DateTime StartedAt,
-    [JsonProperty("finished_at")] DateTime FinishedAt,
-    [JsonProperty("player")] PoogiePlayerStatisticsModel[] Players,
-    [JsonProperty("monsters")] PoogieMonsterStatisticsModel[] Monsters,
-    [JsonProperty("hash")] string Hash
+    [property: JsonProperty("game_type")] GameType GameType,
+    [property: JsonProperty("started_at")] DateTime StartedAt,
+    [property: JsonProperty("finished_at")] DateTime FinishedAt,
+    [property: JsonProperty("player")] PoogiePlayerStatisticsModel[] Players,
+    [property: JsonProperty("monsters")] PoogieMonsterStatisticsModel[] Monsters,
+    [property: JsonProperty("hash")] string Hash
 )
 {
     public HuntStatisticsModel ToEntity() =>

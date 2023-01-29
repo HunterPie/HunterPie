@@ -33,6 +33,6 @@ public interface IGame : IDisposable
     public event EventHandler<IGame> OnHudStateChange;
     public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange;
     public event EventHandler<IGame> OnDeathCountChange;
-    public event EventHandler<IGame> OnQuestStart;
-    public event EventHandler<IGame> OnQuestEnd;
+    public event EventHandler<QuestStateChangeEventArgs> OnQuestStart;
+    public event EventHandler<QuestStateChangeEventArgs> OnQuestEnd;
 }

@@ -5,7 +5,7 @@ using System.Linq;
 namespace HunterPie.Integrations.Poogie.Statistics.Models;
 
 internal record PoogieMonsterStatusStatisticsModel(
-    [JsonProperty("activations")] PoogieTimeFrameModel[] Activations
+    [property: JsonProperty("activations")] PoogieTimeFrameModel[] Activations
 )
 {
     public MonsterStatusModel ToEntity() =>

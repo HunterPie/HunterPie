@@ -6,12 +6,12 @@ using System;
 namespace HunterPie.Integrations.Poogie.Statistics.Models;
 
 internal record PoogieMonsterStatisticsModel(
-    [JsonProperty("id")] int Id,
-    [JsonProperty("max_health")] float MaxHealth,
-    [JsonProperty("crown")] Crown Crown,
-    [JsonProperty("enrage")] PoogieMonsterStatusStatisticsModel Enrage,
-    [JsonProperty("hunt_started_at")] DateTime? HuntStartedAt,
-    [JsonProperty("hunt_finished_at")] DateTime? HuntFinishedAt
+    [property: JsonProperty("id")] int Id,
+    [property: JsonProperty("max_health")] float MaxHealth,
+    [property: JsonProperty("crown")] Crown Crown,
+    [property: JsonProperty("enrage")] PoogieMonsterStatusStatisticsModel Enrage,
+    [property: JsonProperty("hunt_started_at")] DateTime? HuntStartedAt,
+    [property: JsonProperty("hunt_finished_at")] DateTime? HuntFinishedAt
 )
 {
     public MonsterModel ToEntity() => new MonsterModel(

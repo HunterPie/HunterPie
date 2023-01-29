@@ -5,8 +5,8 @@ using System;
 namespace HunterPie.Integrations.Poogie.Statistics.Models;
 
 internal record PoogiePlayerDamageStatisticsModel(
-    [JsonProperty("damage")] float Damage,
-    [JsonProperty("dealt_at")] DateTime DealtAt
+    [property: JsonProperty("damage")] float Damage,
+    [property: JsonProperty("dealt_at")] DateTime DealtAt
 )
 {
     public PlayerDamageFrameModel ToEntity() => new PlayerDamageFrameModel(
