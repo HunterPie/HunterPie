@@ -1,7 +1,9 @@
 ﻿using HunterPie.Core.Game.Enums;
+using System;
 
 namespace HunterPie.Core.Game.Data.Schemas;
 
+#nullable enable
 public struct AbnormalitySchema
 {
     public string Id;
@@ -13,9 +15,17 @@ public struct AbnormalitySchema
     public string Category;
     public string Group;
     public AbnormalityFlagType FlagType;
-    public string Flag;
+    public Enum? Flag;
     public bool IsBuildup;
     public int MaxBuildup;
     public bool IsInfinite;
     public int MaxTimer;
+
+    public T? GetFlagAs<T>()
+    {
+        if (Flag is T flag)
+            return flag;
+
+        return default(T);
+    }
 }

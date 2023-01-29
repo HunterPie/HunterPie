@@ -442,6 +442,13 @@
                      Flag="WindMantle"
                      MaxTimer="15"
                      Category="Debuffs"/>
+        <Abnormality Id="ABN_MAXIMUM_MIGHT"
+                     Name="ABNORMALITY_MAXIMUM_MIGHT"
+                     Icon="ICON_ARMORSKILL_SALMON"
+                     FlagType="RiseAction"
+                     Flag="MaximumMight"
+                     IsInfinite="True"
+                     Category="Debuffs"/>
         <Abnormality Id="ABN_STRIFE_S"
                      Name="ABNORMALITY_STRIFE_S"
                      Icon="ICON_ARMORSKILL_RED"
@@ -454,6 +461,13 @@
                      Icon="ICON_ARMORSKILL_RED"
                      FlagType="RiseCommon"
                      Flag="StrifeL"
+                     IsInfinite="True"
+                     Category="Consumables"/>
+        <Abnormality Id="ABN_BERSERK"
+                     Name="ABNORMALITY_BERSERK"
+                     Icon="ICON_ARMORSKILL_ORANGE"
+                     FlagType="RiseCommon"
+                     Flag="Berserk"
                      IsInfinite="True"
                      Category="Consumables"/>
     </Skills>

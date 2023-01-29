@@ -58,7 +58,7 @@ public class AbnormalityData
             string offset = abnormality.Attributes["Offset"]?.Value ?? id;
             string dependsOn = abnormality.Attributes["DependsOn"]?.Value ?? "0";
             string withValue = abnormality.Attributes["WithValue"]?.Value ?? "0";
-            string group = abnormality.ParentNode.Name;
+            string group = abnormality.ParentNode!.Name;
             string category = abnormality.Attributes["Category"]?.Value ?? group;
             string isBuildup = abnormality.Attributes["IsBuildup"]?.Value ?? "False";
             string maxBuildup = abnormality.Attributes["MaxBuildup"]?.Value ?? "0";
@@ -74,17 +74,18 @@ public class AbnormalityData
                 Icon = icon,
                 Category = category,
                 Group = group,
-                Flag = flag
             };
 
-            _ = int.TryParse(offset, NumberStyles.HexNumber, null, out schema.Offset);
-            _ = int.TryParse(dependsOn, NumberStyles.HexNumber, null, out schema.DependsOn);
-            _ = int.TryParse(withValue, out schema.WithValue);
-            _ = bool.TryParse(isBuildup, out schema.IsBuildup);
-            _ = int.TryParse(maxBuildup, out schema.MaxBuildup);
-            _ = bool.TryParse(isInfinite, out schema.IsInfinite);
-            _ = int.TryParse(maxTimer, out schema.MaxTimer);
-            _ = Enum.TryParse(flagType, out schema.FlagType);
+            int.TryParse(offset, NumberStyles.HexNumber, null, out schema.Offset);
+            int.TryParse(dependsOn, NumberStyles.HexNumber, null, out schema.DependsOn);
+            int.TryParse(withValue, out schema.WithValue);
+            bool.TryParse(isBuildup, out schema.IsBuildup);
+            int.TryParse(maxBuildup, out schema.MaxBuildup);
+            bool.TryParse(isInfinite, out schema.IsInfinite);
+            int.TryParse(maxTimer, out schema.MaxTimer);
+            Enum.TryParse(flagType, out schema.FlagType);
+
+            schema.Flag = _flagTypeParser?.Parse(schema.FlagType, flag);
 
             Abnormalities.Add(schema.Id, schema);
         }

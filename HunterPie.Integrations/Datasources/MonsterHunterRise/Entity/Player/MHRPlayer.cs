@@ -48,6 +48,7 @@ public sealed class MHRPlayer : CommonPlayer
     private readonly Dictionary<int, MHREquipmentSkillStructure> _armorSkills = new(46);
     private CommonConditions _commonCondition;
     private DebuffConditions _debuffCondition;
+    private ActionFlags _actionFlag;
     #endregion
 
     public override string Name
@@ -390,12 +391,13 @@ public sealed class MHRPlayer : CommonPlayer
                 _ => Process.Memory.Read<int>(consumableBuffs + schema.DependsOn)
             };
 
-            bool isConditionValid = schema.FlagType switch
+             bool isConditionValid = schema.FlagType switch
             {
-                AbnormalityFlagType.Common => _commonCondition.HasFlag(Enum.Parse<CommonConditions>(schema.Flag)) && abnormSubId == schema.WithValue,
-                AbnormalityFlagType.Debuff => _debuffCondition.HasFlag(Enum.Parse<DebuffConditions>(schema.Flag)) && abnormSubId == schema.WithValue,
-                _ => abnormSubId == schema.WithValue
-            };
+                AbnormalityFlagType.RiseCommon => _commonCondition.HasFlag(schema.GetFlagAs<CommonConditions>()),
+                AbnormalityFlagType.RiseDebuff => _debuffCondition.HasFlag(schema.GetFlagAs<DebuffConditions>()),
+                AbnormalityFlagType.RiseAction => _actionFlag.HasFlag(schema.GetFlagAs<ActionFlags>()),
+                _ => true
+            } && abnormSubId == schema.WithValue;
 
             MHRConsumableStructure abnormality = new();
 
@@ -444,10 +446,11 @@ public sealed class MHRPlayer : CommonPlayer
 
             bool isConditionValid = schema.FlagType switch
             {
-                AbnormalityFlagType.Common => _commonCondition.HasFlag(Enum.Parse<CommonConditions>(schema.Flag)) && abnormSubId == schema.WithValue,
-                AbnormalityFlagType.Debuff => _debuffCondition.HasFlag(Enum.Parse<DebuffConditions>(schema.Flag)) && abnormSubId == schema.WithValue,
-                _ => abnormSubId == schema.WithValue
-            };
+                AbnormalityFlagType.RiseCommon => _commonCondition.HasFlag(schema.GetFlagAs<CommonConditions>()),
+                AbnormalityFlagType.RiseDebuff => _debuffCondition.HasFlag(schema.GetFlagAs<DebuffConditions>()),
+                AbnormalityFlagType.RiseAction => _actionFlag.HasFlag(schema.GetFlagAs<ActionFlags>()),
+                _ => true
+            } && abnormSubId == schema.WithValue;
 
             MHRDebuffStructure abnormality = new();
 
@@ -461,7 +464,7 @@ public sealed class MHRPlayer : CommonPlayer
                     abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
                 
                 if (schema.MaxTimer > 0)
-                    abnormality.Timer = schema.MaxTimer - abnormality.Timer;
+                    abnormality.Timer = (schema.MaxTimer - abnormality.Timer) > 0 ? (schema.MaxTimer - abnormality.Timer) : 0;
             }
 
             HandleAbnormality<MHRDebuffAbnormality, MHRDebuffStructure>(
@@ -730,6 +733,29 @@ public sealed class MHRPlayer : CommonPlayer
 
         _commonCondition = (CommonConditions)Process.Memory.Read<ulong>(conditionPtr + 0x10);
         _debuffCondition = (DebuffConditions)Process.Memory.Read<ulong>(conditionPtr + 0x38);
+    }
+
+    [ScannableMethod]
+    private void GetPlayerActionArgs()
+    {
+        if (!InHuntingZone)
+        {
+            _actionFlag = ActionFlags.None;
+            return;
+        }
+
+        long actionFlagArray = Process.Memory.Read(
+            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("PLAYER_ACTIONFLAG_OFFSETS")
+        );
+
+        if (actionFlagArray == 0)
+        {
+            _actionFlag = ActionFlags.None;
+            return;
+        }
+        
+        _actionFlag = (ActionFlags)Process.Memory.Read<ulong>(actionFlagArray + 0x20);
     }
 
     [ScannableMethod(typeof(MHRSubmarineData))]
