@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Game.Data.Schemas;
+﻿using HunterPie.Core.Game.Data.Interfaces;
+using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Logger;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Xml;
 
 namespace HunterPie.Core.Game.Data;
 
+#nullable enable
 public class AbnormalityData
 {
     public const string SongPrefix = "Songs_";
@@ -28,10 +30,13 @@ public class AbnormalityData
     public const string Orchestra = "Palico";
 
     private static XmlDocument _abnormalityData;
+    private static IAbnormalityFlagTypeParser? _flagTypeParser;
     public static Dictionary<string, AbnormalitySchema> Abnormalities { get; private set; }
 
-    internal static void Init(string path)
+
+    internal static void Init(string path, IAbnormalityFlagTypeParser? flagTypeParser = null)
     {
+        _flagTypeParser = flagTypeParser;
         _abnormalityData = new();
         _abnormalityData.Load(path);
 

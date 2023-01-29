@@ -18,6 +18,7 @@ using HunterPie.Integrations.Datasources.Common.Definition;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Environment.Activities;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
@@ -166,6 +167,13 @@ public sealed class MHWPlayer : CommonPlayer
         }
     }
 
+    public MHWHarvestBox HarvestBox { get; } = new();
+
+    public MHWSteamworks Steamworks { get; } = new();
+
+    public MHWArgosy Argosy { get; } = new();
+
+    public MHWTailraiders Tailraiders { get; } = new();
     #endregion
 
     internal MHWPlayer(IProcessManager process) : base(process)
@@ -398,6 +406,83 @@ public sealed class MHWPlayer : CommonPlayer
     }
 
     [ScannableMethod]
+    private void GetHarvestBoxData()
+    {
+        if (PlayerSaveAddress.IsNullPointer())
+            return;
+
+        long harvestBoxPtr = PlayerSaveAddress + 0x103068;
+
+        MHWFertilizerStructure[] fertilizers = Memory.Read<MHWFertilizerStructure>(harvestBoxPtr, 4);
+        MHWItemStructure[] harvestBoxItems = Memory.Read<MHWItemStructure>(harvestBoxPtr + 0x30, 50);
+
+        var data = new MHWHarvestBoxData(
+            Items: harvestBoxItems,
+            Fertilizers: fertilizers
+        );
+
+        HarvestBox.Update(data);
+    }
+
+    [ScannableMethod]
+    private void GetSteamFuel()
+    {
+        if (PlayerSaveAddress.IsNullPointer())
+            return;
+
+        MHWSteamFuelStructure structure = Memory.Read<MHWSteamFuelStructure>(PlayerSaveAddress + 0x102FDC);
+
+        var data = new MHWSteamFuelData(
+            NaturalFuel: structure.NaturalFuel,
+            StoredFuel: structure.StoredFuel
+        );
+
+        Steamworks.Update(data);
+    }
+
+    [ScannableMethod]
+    private void GetArgosy()
+    {
+        if (PlayerSaveAddress.IsNullPointer())
+            return;
+
+        long argosyPtr = PlayerSaveAddress + 0x1034C0;
+
+        byte argosyDays = Memory.Read<byte>(argosyPtr);
+        bool isInTown = argosyDays < 250;
+
+        if (!isInTown)
+            argosyDays = (byte)(byte.MaxValue - argosyDays + 1);
+
+        var data = new MHWArgosyData(
+            DaysLeft: argosyDays,
+            IsInTown: isInTown
+        );
+
+        Argosy.Update(data);
+    }
+
+    [ScannableMethod]
+    private void GetTailraiders()
+    {
+        if (PlayerSaveAddress.IsNullPointer())
+            return;
+
+        long tailraidersPtr = PlayerSaveAddress + 0x1034DC;
+
+        byte tailraidersQuests = Memory.Read<byte>(tailraidersPtr);
+        bool isDeployed = tailraidersQuests != byte.MaxValue;
+        int questsLeft = isDeployed ? Tailraiders.MaxDays - tailraidersQuests : 0;
+
+        var data = new MHWTailraidersData(
+            QuestsLeft: questsLeft,
+            IsDeployed: isDeployed
+        );
+
+        Tailraiders.Update(data);
+    }
+
+    [ScannableMethod]
     private void GetMantlesData()
     {
         long address = Process.Memory.Read(
@@ -620,6 +705,8 @@ public sealed class MHWPlayer : CommonPlayer
     public override void Dispose()
     {
         Tools.DisposeAll();
+        HarvestBox.Dispose();
+        Steamworks.Dispose();
         base.Dispose();
     }
 }

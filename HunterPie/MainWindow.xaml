@@ -72,48 +72,6 @@
 
         <Grid Background="{StaticResource GRAY_300}" 
               Margin="0,25,0,0">
-
-            <!-- WinterPie -->
-            <image:Icon Image="{StaticResource SNOWFLAKE}"
-                        Height="30"
-                        Width="30"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Left"
-                        Foreground="{StaticResource GRAY}" 
-                        Margin="65,15,0,0"/>
-
-            <image:Icon Image="{StaticResource SNOWFLAKE}"
-                        Height="50"
-                        Width="50"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Left"
-                        Foreground="{StaticResource GRAY_50}" 
-                        Margin="300,50,0,0"/>
-
-            <image:Icon Image="{StaticResource SNOWFLAKE}"
-                        Height="150"
-                        Width="150"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Left"
-                        Foreground="{StaticResource GRAY_100}" 
-                        Margin="400,25,0,0"/>
-
-            <image:Icon Image="{StaticResource SNOWFLAKE}"
-                        Height="30"
-                        Width="30"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Left"
-                        Foreground="{StaticResource GRAY_100}" 
-                        Margin="700,25,0,0"/>
-
-            <image:Icon Image="{StaticResource SNOWFLAKE}"
-                        Height="45"
-                        Width="45"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Left"
-                        Foreground="{StaticResource GRAY}" 
-                        Margin="630,50,0,0"/>
-
             <StackPanel Orientation="Horizontal" 
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"

@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.View"
-             xmlns:System="clr-namespace:System;assembly=System.Runtime" 
              xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets"
              mc:Ignorable="d" 
              d:DesignHeight="35" 
