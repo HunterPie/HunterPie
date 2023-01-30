@@ -1,15 +1,12 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Game;
+﻿using HunterPie.Core.Game;
 using HunterPie.Core.Game.Events;
-using HunterPie.Core.Json;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Features.Account;
+using HunterPie.Features.Account.Config;
 using HunterPie.Features.Statistics.Models;
-using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.Integrations.Poogie.Statistics;
 using HunterPie.Integrations.Poogie.Statistics.Models;
 using System;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace HunterPie.Features.Statistics;
@@ -36,7 +33,7 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
 
     private async void OnQuestEnd(object? sender, QuestStateChangeEventArgs e)
     {
-        if (!await AccountManager.IsLoggedIn())
+        if (!await AccountManager.IsLoggedIn() || !LocalAccountConfig.Config.IsHuntUploadEnabled)
             return;
 
         HuntStatisticsModel? exported = _statisticsService?.Export();
@@ -53,9 +50,7 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
 
         var exportedRequest = PoogieQuestStatisticsModel.From(exported);
 
-        await File.WriteAllTextAsync(ClientInfo.GetPathFor("test.json"), JsonProvider.Serializer(exportedRequest));
-
-        PoogieResult<PoogieQuestStatisticsModel> x = await _connector.Upload(exportedRequest)
+        await _connector.Upload(exportedRequest)
             .ConfigureAwait(false);
     }
 
