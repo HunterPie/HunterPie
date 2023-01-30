@@ -49,6 +49,12 @@ internal class HuntStatisticsService : IHuntStatisticsService<HuntStatisticsMode
 
     private void HookEvents()
     {
+        foreach (IPartyMember player in _context.Game.Player.Party.Members)
+            HandlePartyMember(player);
+
+        foreach (IMonster monster in _context.Game.Monsters)
+            HandleMonster(monster);
+
         _context.Game.Player.Party.OnMemberJoin += OnPartyMemberJoin;
         _context.Game.OnMonsterSpawn += OnMonsterSpawn;
     }
@@ -59,20 +65,24 @@ internal class HuntStatisticsService : IHuntStatisticsService<HuntStatisticsMode
         _context.Game.OnMonsterSpawn -= OnMonsterSpawn;
     }
 
-    private void OnMonsterSpawn(object sender, IMonster e)
+    private void OnMonsterSpawn(object sender, IMonster e) => HandleMonster(e);
+
+    private void OnPartyMemberJoin(object sender, IPartyMember e) => HandlePartyMember(e);
+
+    private void HandleMonster(IMonster e)
     {
         _monsterStatisticsServices.Add(new MonsterStatisticsService(_context, e));
     }
 
-    private void OnPartyMemberJoin(object sender, IPartyMember e)
+    private void HandlePartyMember(IPartyMember member)
     {
-        if (e.Type != MemberType.Player)
+        if (member.Type != MemberType.Player)
             return;
 
-        _partyMembersStatisticsServices.Add(new PartyMemberStatisticsService(_context, e));
+        _partyMembersStatisticsServices.Add(new PartyMemberStatisticsService(_context, member));
     }
 
-    private string GenerateHuntHash(List<PartyMemberModel> players, List<MonsterModel> monsters)
+    private static string GenerateHuntHash(List<PartyMemberModel> players, List<MonsterModel> monsters)
     {
         string[] data = players.Select(p => p.Name)
             .Concat(monsters.Select(m => m.Id.ToString()))
