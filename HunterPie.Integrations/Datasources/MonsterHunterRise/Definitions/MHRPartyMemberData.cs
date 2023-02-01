@@ -20,4 +20,6 @@ public struct MHRPartyMemberData
         copy.MemberType = MemberType.Pet;
         return copy;
     }
+
+    public string GetHash() => $"{Name}:{HighRank}:{MasterRank}";
 }

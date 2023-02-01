@@ -17,7 +17,7 @@ public sealed class MHRParty : CommonParty, IUpdatable<EntityDamageData>, IUpdat
     {
         { 4, new MHRPartyMember(MemberType.Pet) }
     };
-    private readonly Dictionary<string, MHRPartyMember> _partyMemberNameLookup = new();
+    private readonly Dictionary<string, MHRPartyMember> _partyHashNameLookup = new();
 
     public const int MAX_PARTY_SIZE = 4;
     public override int Size { get; protected set; }
@@ -51,7 +51,7 @@ public sealed class MHRParty : CommonParty, IUpdatable<EntityDamageData>, IUpdat
 
         lock (_syncParty)
         {
-            if (!_partyMemberNameLookup.ContainsKey(data.Name))
+            if (!_partyHashNameLookup.ContainsKey(data.GetHash()))
                 Add(data);
 
             if (!_partyMembers.ContainsKey(data.Index))
@@ -98,7 +98,7 @@ public sealed class MHRParty : CommonParty, IUpdatable<EntityDamageData>, IUpdat
 
         _partyMembers.Add(data.Index, member);
         _partyMemberPets.Add(petData.Index, memberPet);
-        _partyMemberNameLookup.Add(data.Name, member);
+        _partyHashNameLookup.Add(data.GetHash(), member);
 
         IUpdatable<MHRPartyMemberData> updatable = member;
         IUpdatable<MHRPartyMemberData> updatablePet = memberPet;
@@ -126,7 +126,7 @@ public sealed class MHRParty : CommonParty, IUpdatable<EntityDamageData>, IUpdat
 
             _ = _partyMembers.Remove(memberIndex);
             _ = _partyMemberPets.Remove(petIndex);
-            _ = _partyMemberNameLookup.Remove(member.Name);
+            _ = _partyHashNameLookup.Remove(member.GetHash());
 
             Log.Debug("Removed player: id: {0} name: {1} hash: {2:X}", memberIndex, member.Name, member.GetHashCode());
 
