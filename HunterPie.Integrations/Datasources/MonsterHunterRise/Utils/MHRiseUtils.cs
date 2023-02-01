@@ -2,17 +2,21 @@
 using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
 using System.Runtime.CompilerServices;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 
 public static class MHRiseUtils
 {
+    private readonly static HashSet<QuestType> HuntQuestTypes = new() { QuestType.Normal, QuestType.Kill, QuestType.Capture, QuestType.Arena };
     private const double MAX_DEFAULT_STAMINA = 1500.0;
     private const double FOOD_BONUS_STAMINA = 3000.0;
     private const double MAX_DEFAULT_HEALTH = 100.0;
     private const double FOOD_BONUS_HEALTH = 50.0;
     private const double PETALACE_STAMINA_MULTIPLIER = 30.0;
+
+    public static bool IsHuntQuest(this QuestType type) => HuntQuestTypes.Contains(type);
 
     public static Weapon ToWeaponId(this int self)
     {

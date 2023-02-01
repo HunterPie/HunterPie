@@ -1,6 +1,6 @@
 ﻿namespace HunterPie.Core.Domain.Interfaces;
 
-public interface IMapper<T, K>
+public interface IMapper<in TIn, out TOut>
 {
-    public K Map(T data);
+    public TOut Map(TIn data);
 }

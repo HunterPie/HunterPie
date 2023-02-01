@@ -24,7 +24,7 @@ public static class JsonProvider
         var serializer = new JsonSerializerSettings()
         {
             TypeNameHandling = TypeNameHandling.Auto,
-            NullValueHandling = NullValueHandling.Ignore
+            NullValueHandling = NullValueHandling.Ignore,
         };
         serializer.Converters.Add(new StringEnumConverter());
 
