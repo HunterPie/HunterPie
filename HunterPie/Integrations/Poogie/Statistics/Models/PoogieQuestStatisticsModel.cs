@@ -10,7 +10,7 @@ internal record PoogieQuestStatisticsModel(
     [property: JsonProperty("game_type")] GameType GameType,
     [property: JsonProperty("started_at")] DateTime StartedAt,
     [property: JsonProperty("finished_at")] DateTime FinishedAt,
-    [property: JsonProperty("player")] PoogiePlayerStatisticsModel[] Players,
+    [property: JsonProperty("players")] PoogiePlayerStatisticsModel[] Players,
     [property: JsonProperty("monsters")] PoogieMonsterStatisticsModel[] Monsters,
     [property: JsonProperty("hash")] string Hash
 )

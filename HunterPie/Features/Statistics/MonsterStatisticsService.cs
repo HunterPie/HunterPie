@@ -85,6 +85,8 @@ internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
 
     private void OnHealthChange(object? sender, EventArgs e)
     {
+        _maxHealth = _monster.MaxHealth;
+
         if (Math.Abs(_monster.Health - _monster.MaxHealth) < 0.1)
             return;
 
@@ -93,7 +95,6 @@ internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
 
         _huntStart = DateTime.UtcNow;
         _startHealth = _monster.Health;
-        _maxHealth = _monster.MaxHealth;
     }
 
     private void OnCrownChange(object? sender, EventArgs e)

@@ -49,14 +49,14 @@ internal class HuntStatisticsService : IHuntStatisticsService<HuntStatisticsMode
 
     private void HookEvents()
     {
+        _context.Game.Player.Party.OnMemberJoin += OnPartyMemberJoin;
+        _context.Game.OnMonsterSpawn += OnMonsterSpawn;
+
         foreach (IPartyMember player in _context.Game.Player.Party.Members)
             HandlePartyMember(player);
 
         foreach (IMonster monster in _context.Game.Monsters)
             HandleMonster(monster);
-
-        _context.Game.Player.Party.OnMemberJoin += OnPartyMemberJoin;
-        _context.Game.OnMonsterSpawn += OnMonsterSpawn;
     }
 
     private void UnhookEvents()
