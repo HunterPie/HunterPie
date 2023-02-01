@@ -54,7 +54,7 @@ public enum CommonConditions : ulong
     VirusOvercomeCriticalUp = 1UL << 51,
     BloodySkillHeal = 1UL << 52,
     FuriousStaminaBuff = 1UL << 53,
-    InterpidHeart = 1UL << 54,
+    StatusTrigger = 1UL << 54,
     WireStopRegene = 1UL << 55,
     VirusOvercomeIcon = 1UL << 56,
     WindMantle = 1UL << 57,

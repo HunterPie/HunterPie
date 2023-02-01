@@ -375,6 +375,13 @@
                      Name="ABNORMALITY_GRINDER_S"
                      Icon="ICON_GRINDER_S"
                      Category="Consumables"/>
+        <Abnormality Id="ABN_STATUS_TRIGGER"
+                     Offset="1AC"
+                     Name="ABNORMALITY_STATUS_TRIGGER"
+                     Icon="ICON_ARMORSKILL_PURPLE"
+                     FlagType="RiseCommon"
+                     Flag="StatusTrigger"
+                     Category="Comsumables"/>
         <Abnormality Id="ABN_DEFIANCE"
                      Name="ABNORMALITY_DEFIANCE"
                      Icon="ICON_ARMORSKILL_ORANGE"
