@@ -372,23 +372,23 @@ public sealed class MHWPlayer : CommonPlayer
         {
             index++;
 
-            if (index >= partySize)
+            string name = Process.Memory.Read(partyMember.Address + 0x49, 32);
+
+            bool isInParty = !string.IsNullOrEmpty(name);
+
+            if (!isInParty)
             {
                 _party.Remove(partyMember.Address);
                 continue;
             }
 
-            string name = Process.Memory.Read(partyMember.Address + 0x49, 32);
+            MHWPartyMemberLevelStructure levels = Process.Memory.Read<MHWPartyMemberLevelStructure>(partyMember.Address + 0x70);
 
-            if (string.IsNullOrEmpty(name))
-                continue;
-
-            bool isLocalPlayer = name == Name;
+            bool isLocalPlayer = name == Name && levels.HighRank == HighRank && levels.MasterRank == MasterRank;
 
             if (isLocalPlayer)
                 localPlayerReference = partyMember.Address;
 
-            MHWPartyMemberLevelStructure levels = Process.Memory.Read<MHWPartyMemberLevelStructure>(partyMember.Address + 0x70);
             var data = new MHWPartyMemberData
             {
                 Name = name,
