@@ -749,7 +749,7 @@ public sealed class MHRPlayer : CommonPlayer
             AddressMap.Get<int[]>("PLAYER_ACTIONFLAG_OFFSETS")
         );
 
-        if (actionFlagArray == 0)
+        if (actionFlagArray.IsNullPointer())
         {
             _actionFlag = ActionFlags.None;
             return;
