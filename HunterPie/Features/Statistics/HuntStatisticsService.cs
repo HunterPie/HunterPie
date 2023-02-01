@@ -43,6 +43,7 @@ internal class HuntStatisticsService : IHuntStatisticsService<HuntStatisticsMode
             Monsters: monsters,
             StartedAt: _startedAt,
             FinishedAt: DateTime.UtcNow,
+            UploadedAt: DateTime.UtcNow,
             Hash: GenerateHuntHash(players, monsters)
         );
     }

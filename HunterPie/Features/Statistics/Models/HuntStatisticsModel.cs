@@ -10,5 +10,6 @@ internal record HuntStatisticsModel(
     List<MonsterModel> Monsters,
     DateTime StartedAt,
     DateTime FinishedAt,
+    DateTime UploadedAt,
     string Hash
 );
