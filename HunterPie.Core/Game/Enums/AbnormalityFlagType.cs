@@ -4,5 +4,6 @@ public enum AbnormalityFlagType
 {
     None,
     RiseCommon,
-    RiseDebuff
+    RiseDebuff,
+    RiseAction
 }

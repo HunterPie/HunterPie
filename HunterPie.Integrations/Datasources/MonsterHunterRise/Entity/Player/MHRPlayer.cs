@@ -1,4 +1,3 @@
-﻿
 using HunterPie.Core.Address.Map;
 using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
@@ -49,6 +48,7 @@ public sealed class MHRPlayer : CommonPlayer
     private readonly Dictionary<int, MHREquipmentSkillStructure> _armorSkills = new(46);
     private CommonConditions _commonCondition;
     private DebuffConditions _debuffCondition;
+    private ActionFlags _actionFlag;
     #endregion
 
     public override string Name
@@ -395,18 +395,21 @@ public sealed class MHRPlayer : CommonPlayer
             {
                 AbnormalityFlagType.RiseCommon => _commonCondition.HasFlag(schema.GetFlagAs<CommonConditions>()),
                 AbnormalityFlagType.RiseDebuff => _debuffCondition.HasFlag(schema.GetFlagAs<DebuffConditions>()),
+                AbnormalityFlagType.RiseAction => _actionFlag.HasFlag(schema.GetFlagAs<ActionFlags>()),
                 _ => true
             } && abnormSubId == schema.WithValue;
 
             MHRConsumableStructure abnormality = new();
 
             if (schema.IsInfinite)
-                abnormality.Timer = isConditionValid ? AbnormalityData.TIMER_MULTIPLIER : 0;
+                abnormality.Timer = isConditionValid ? 1 : 0;
             else if (isConditionValid)
+            {
                 abnormality = Process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
 
-            if (!schema.IsBuildup)
-                abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                if (!schema.IsBuildup)
+                    abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+            }
 
             HandleAbnormality<MHRConsumableAbnormality, MHRConsumableStructure>(
                 _abnormalities,
@@ -445,21 +448,24 @@ public sealed class MHRPlayer : CommonPlayer
             {
                 AbnormalityFlagType.RiseCommon => _commonCondition.HasFlag(schema.GetFlagAs<CommonConditions>()),
                 AbnormalityFlagType.RiseDebuff => _debuffCondition.HasFlag(schema.GetFlagAs<DebuffConditions>()),
+                AbnormalityFlagType.RiseAction => _actionFlag.HasFlag(schema.GetFlagAs<ActionFlags>()),
                 _ => true
             } && abnormSubId == schema.WithValue;
 
             MHRDebuffStructure abnormality = new();
 
             if (schema.IsInfinite)
-                abnormality.Timer = isConditionValid ? AbnormalityData.TIMER_MULTIPLIER : 0;
+                abnormality.Timer = isConditionValid ? 1 : 0;
             else if (isConditionValid)
+            {
                 abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
 
-            if (!schema.IsBuildup)
-                abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
-
-            if (schema.MaxTimer > 0 && isConditionValid)
-                abnormality.Timer = schema.MaxTimer - abnormality.Timer;
+                if (!schema.IsBuildup)
+                    abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                
+                if (schema.MaxTimer > 0)
+                    abnormality.Timer = (schema.MaxTimer - abnormality.Timer) > 0 ? (schema.MaxTimer - abnormality.Timer) : 0;
+            }
 
             HandleAbnormality<MHRDebuffAbnormality, MHRDebuffStructure>(
                 _abnormalities,
@@ -658,6 +664,11 @@ public sealed class MHRPlayer : CommonPlayer
             AddressMap.Get<int[]>("IS_WIREBUG_BLOCKED_OFFSETS")
         ) != 0;
 
+        WirebugState wirebugState = isBlocked ? WirebugState.Blocked :
+            _commonCondition.HasFlag(CommonConditions.WindMantle) ? WirebugState.WindMantle :
+            _debuffCondition.HasFlag(DebuffConditions.IceBlight) ? WirebugState.IceBlight :
+            WirebugState.None;
+
         int wirebugsArrayLength = Math.Min(Wirebugs.Length, Process.Memory.Read<int>(wirebugsArrayPtr + 0x1C));
         long[] wirebugsPtrs = Process.Memory.Read<long>(wirebugsArrayPtr + 0x20, (uint)wirebugsArrayLength);
 
@@ -668,10 +679,7 @@ public sealed class MHRPlayer : CommonPlayer
 
             var data = new MHRWirebugData
             {
-                WirebugState = isBlocked ? WirebugState.Blocked
-                    : _commonCondition.HasFlag(CommonConditions.WindMantle) ? WirebugState.WindMantle
-                    : _debuffCondition.HasFlag(DebuffConditions.IceBlight) ? WirebugState.IceBlight
-                    : WirebugState.None,
+                WirebugState = wirebugState,
                 Structure = Process.Memory.Read<MHRWirebugStructure>(wirebugPtr)
             };
 
@@ -725,6 +733,29 @@ public sealed class MHRPlayer : CommonPlayer
 
         _commonCondition = (CommonConditions)Process.Memory.Read<ulong>(conditionPtr + 0x10);
         _debuffCondition = (DebuffConditions)Process.Memory.Read<ulong>(conditionPtr + 0x38);
+    }
+
+    [ScannableMethod]
+    private void GetPlayerActionArgs()
+    {
+        if (!InHuntingZone)
+        {
+            _actionFlag = ActionFlags.None;
+            return;
+        }
+
+        long actionFlagArray = Process.Memory.Read(
+            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("PLAYER_ACTIONFLAG_OFFSETS")
+        );
+
+        if (actionFlagArray.IsNullPointer())
+        {
+            _actionFlag = ActionFlags.None;
+            return;
+        }
+        
+        _actionFlag = (ActionFlags)Process.Memory.Read<uint>(actionFlagArray + 0x20);
     }
 
     [ScannableMethod(typeof(MHRSubmarineData))]

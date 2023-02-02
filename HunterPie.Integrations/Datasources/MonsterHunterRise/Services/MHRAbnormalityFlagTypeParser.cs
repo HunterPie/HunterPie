@@ -12,6 +12,7 @@ public class MHRAbnormalityFlagTypeParser : IAbnormalityFlagTypeParser
             AbnormalityFlagType.None => null,
             AbnormalityFlagType.RiseCommon => typeof(CommonConditions),
             AbnormalityFlagType.RiseDebuff => typeof(DebuffConditions),
+            AbnormalityFlagType.RiseAction => typeof(ActionFlags),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
 
