@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Text;
 
 namespace HunterPie.Core.Networking.Http;
+
+#nullable enable
 public class HttpClientBuilder
 {
 
@@ -61,7 +63,7 @@ public class HttpClientBuilder
         return this;
     }
 
-    public HttpClientBuilder WithHeader(string key, string value)
+    public HttpClientBuilder WithHeader(string key, string? value)
     {
         _headers.Add(key, value);
 
@@ -101,7 +103,7 @@ public class HttpClientBuilder
         return this;
     }
 
-    public HttpClient Build() => new HttpClient()
+    public HttpClient Build() => new()
     {
         Content = _content,
         Headers = _headers,
