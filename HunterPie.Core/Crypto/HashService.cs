@@ -35,4 +35,18 @@ public static class HashService
 
         return builder.ToString();
     }
+
+    public static async Task<string> ChecksumAsync(string filePath)
+    {
+        using var sha256 = SHA256.Create();
+        using FileStream stream = File.OpenRead(filePath);
+        byte[] buffer = await sha256.ComputeHashAsync(stream);
+
+        StringBuilder builder = new(32);
+
+        foreach (byte @byte in buffer)
+            builder.Append(@byte.ToString("X2"));
+
+        return builder.ToString();
+    }
 }

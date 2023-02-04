@@ -63,7 +63,7 @@ internal class UpdateService
             if ((attrib & FileAttributes.Directory) == FileAttributes.Directory)
                 _ = await IndexAllFilesRecursively(absolute, relative, files);
             else
-                files.Add(relative, await HashService.HashAsync(absolute));
+                files.Add(relative, await HashService.ChecksumAsync(absolute));
 
         }
 
@@ -86,6 +86,10 @@ internal class UpdateService
             if (localHash != hash)
             {
                 string oldFile = ClientInfo.GetPathFor(path) + ".old";
+
+                if (File.Exists(oldFile))
+                    File.Delete(oldFile);
+
                 File.Move(ClientInfo.GetPathFor(path), oldFile);
                 files.Add(path);
             }
@@ -146,7 +150,7 @@ internal class UpdateService
             string localFilePath = ClientInfo.GetPathFor($"Languages/{fileName}");
 
             string localChecksum = File.Exists(localFilePath)
-                ? await HashService.HashAsync(localFilePath)
+                ? await HashService.ChecksumAsync(localFilePath)
                 : "";
 
             if (remoteChecksum == localChecksum)
