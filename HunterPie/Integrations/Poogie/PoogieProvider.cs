@@ -6,19 +6,63 @@ using HunterPie.Core.Vault;
 using System;
 
 namespace HunterPie.Integrations.Poogie;
+
+/// <summary>
+/// HTTP client provider for requesting to HunterPie's backend
+/// </summary>
 internal static class PoogieProvider
 {
+    /// <summary>
+    /// The Id of this HunterPie installation, it is sent in every request so it's easier to debug exceptions
+    /// </summary>
     private const string CLIENT_ID = "X-Client-Id";
+
+    /// <summary>
+    /// HunterPie version
+    /// </summary>
     private const string APP_VERSION = "X-App-Version";
+
+    /// <summary>
+    /// Type of HunterPie (always v2)
+    /// </summary>
     private const string CLIENT_TYPE = "X-HunterPie-Client";
+
+    /// <summary>
+    /// HunterPie's default user agent
+    /// </summary>
     private const string USER_AGENT = "User-Agent";
+
+    /// <summary>
+    /// HunterPie Account's session token
+    /// </summary>
     private const string TOKEN = "X-Token";
+
+    /// <summary>
+    /// HunterPie supporter token in case the user is a supporter
+    /// </summary>
     private const string SUPPORTER = "X-Supporter-Token";
+
+    /// <summary>
+    /// Unique identifier that is generated every time HunterPie restarts so it is easier to debug exceptions
+    /// </summary>
+    private const string SESSION_ID = "X-Session-Id";
+
+    /// <summary>
+    /// This HunterPie version
+    /// </summary>
     private const string CLIENT_TYPE_VALUE = "v2";
+
+    /// <summary>
+    /// Unique identifier for this user's HunterPie session
+    /// </summary>
+    private static readonly Guid SessionId = Guid.NewGuid();
 
     private static readonly string[] Hosts = { "https://api.hunterpie.com", "https://mirror.hunterpie.com/mirror" };
 
-
+    /// <summary>
+    /// Builds the default HttpClient with default parameters for sending requests to HunterPie's backend
+    /// </summary>
+    /// <returns>A builder that can be used to add extra information</returns>
     public static HttpClientBuilder Default()
     {
         string clientId = RegistryConfig.Exists("client_id")
@@ -29,8 +73,8 @@ internal static class PoogieProvider
             FeatureFlags.FEATURE_REDIRECT_POOGIE
         );
 
-        HttpClientBuilder builder = shouldRedirect && ClientConfig.Config is { } config
-            ? new HttpClientBuilder(config.Development.PoogieApiHost)
+        HttpClientBuilder builder = shouldRedirect
+            ? new HttpClientBuilder(ClientConfig.Config.Development.PoogieApiHost)
             : new HttpClientBuilder(Hosts);
 
         string token = CredentialVaultService.GetCredential()?.Password;
@@ -38,9 +82,10 @@ internal static class PoogieProvider
         return builder.WithTimeout(TimeSpan.FromSeconds(10))
                       .WithRetry(3)
                       .WithHeader(CLIENT_ID, clientId)
-                      .WithHeader(SUPPORTER, ClientConfig.Config?.Client.SupporterSecretToken)
+                      .WithHeader(SUPPORTER, ClientConfig.Config.Client.SupporterSecretToken)
                       .WithHeader(APP_VERSION, ClientInfo.Version.ToString())
                       .WithHeader(CLIENT_TYPE, CLIENT_TYPE_VALUE)
+                      .WithHeader(SESSION_ID, SessionId.ToString())
                       .WithHeader(USER_AGENT, GetUserAgent())
                       .WithHeader(TOKEN, token);
     }

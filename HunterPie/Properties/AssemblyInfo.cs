@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Windows;
 
 [assembly: ThemeInfo(
@@ -11,8 +10,5 @@ using System.Windows;
                                               // app, or any theme specific resource dictionaries)
 )]
 
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("667a0603-41ec-4da6-a125-ce231da19b53")]
-
-[assembly: AssemblyVersion("2.7.0.51")]
-[assembly: AssemblyFileVersion("2.7.0.51")]
+[assembly: AssemblyVersion("2.7.0.52")]
+[assembly: AssemblyFileVersion("2.7.0.52")]
