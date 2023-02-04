@@ -30,8 +30,8 @@ public static class ClientInfo
             return name.Version;
         }
     }
-    public const string ConfigName = "config.json";
-    public const string ConfigBackupName = ConfigName + ".bak";
+    public const string CONFIG_NAME = "config.json";
+    public const string CONFIG_BACKUP_NAME = CONFIG_NAME + ".bak";
 
     public static bool IsVersionGreaterOrEq(Version other)
     {
@@ -45,4 +45,8 @@ public static class ClientInfo
     public static string GetPathFor(string relative) => Path.Combine(ClientPath, relative);
 
     public static string GetRandomTempFile() => Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+
+    public static string GetRandomTempDirectory() => Directory.CreateDirectory(
+        Path.Combine(Path.GetTempPath(), Path.GetRandomFileName())
+    ).FullName;
 }

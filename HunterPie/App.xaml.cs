@@ -39,7 +39,7 @@ public partial class App : Application
     private RichPresence? _richPresence;
     private Context? _context;
 
-    public static MainWindow UI { get; private set; }
+    public static MainWindow? UI { get; private set; }
 
     protected override async void OnStartup(StartupEventArgs e)
     {
@@ -48,6 +48,8 @@ public partial class App : Application
         base.OnStartup(e);
 
         await InitializerManager.Initialize();
+
+        UpdateService.CleanupOldFiles();
 
         SetRenderingMode();
 
@@ -97,8 +99,11 @@ public partial class App : Application
 
         view.Close();
 
-        if (result)
-            Restart();
+        if (!result)
+            return result;
+
+        InitializerManager.Unload();
+        Restart();
 
         return result;
     }
@@ -209,8 +214,8 @@ public partial class App : Application
         _context.Game.Player.OnStageUpdate -= OnStageUpdate;
     }
 
-    private void OnPlayerLogin(object? sender, EventArgs e) => Log.Info($"Logged in as {_context.Game.Player.Name}");
-    private void OnStageUpdate(object? sender, EventArgs e) => Log.Debug("StageId: {0} | InHuntingZone: {1}", _context.Game.Player.StageId, _context.Game.Player.InHuntingZone);
+    private void OnPlayerLogin(object? sender, EventArgs e) => Log.Info($"Logged in as {_context!.Game.Player.Name}");
+    private void OnStageUpdate(object? sender, EventArgs e) => Log.Debug("StageId: {0} | InHuntingZone: {1}", _context!.Game.Player.StageId, _context.Game.Player.InHuntingZone);
 
     public static void Restart()
     {

@@ -8,54 +8,93 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HunterPie.Update;
 
+#nullable enable
 internal class UpdateService
 {
     private readonly UpdateApi _api = new();
-    private string latest;
+    private string? _latest;
+    private readonly string _tempFile = ClientInfo.GetRandomTempFile();
+    private readonly string _tempFolder = ClientInfo.GetRandomTempDirectory();
 
-    public async Task<Version> GetLatestVersion()
+    public async Task<Version?> GetLatestVersion()
     {
-        latest = await _api.GetLatestVersion();
+        _latest = await _api.GetLatestVersion();
 
-        if (latest is null)
+        if (_latest is null)
             return null;
 
-        var parsed = new Version(latest);
+        var parsed = new Version(_latest);
 
         return parsed;
     }
 
-    public async Task<bool> DownloadZip(EventHandler<DownloadEventArgs> callback) => await _api.DownloadVersion(latest, callback);
+    public async Task<bool> DownloadZip(EventHandler<DownloadEventArgs> callback) => await _api.DownloadVersion(_latest, _tempFile, callback);
 
     public bool ExtractZip()
     {
-        string filePath = ClientInfo.GetPathFor(@"temp/HunterPie.zip");
-        string extractPath = ClientInfo.GetPathFor(@"temp/HunterPie");
-
         try
         {
-            ZipFile.ExtractToDirectory(filePath, extractPath);
+            ZipFile.ExtractToDirectory(_tempFile, _tempFolder);
+            File.Delete(_tempFile);
+            return true;
         }
         catch (Exception err)
         {
             Log.Error(err.ToString());
-            Directory.Delete(ClientInfo.GetPathFor("temp"), true);
             return false;
         }
-
-        return true;
     }
 
-    public async Task<Dictionary<string, string>> IndexAllFilesRecursively(string basePath, string relativePath = "", Dictionary<string, string> files = null)
+    public async Task<Dictionary<string, string>?> TryIndexAllNewFilesRecursively()
+    {
+        try
+        {
+            return await IndexAllFilesRecursively(_tempFolder);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    public async Task<Dictionary<string, string>?> TryIndexLocalFilesFrom(Dictionary<string, string> remoteFiles)
+    {
+        Dictionary<string, string> localFiles = new(remoteFiles.Count);
+        string[] remoteFileRelativeNames = remoteFiles.Keys.ToArray();
+
+        foreach (string remoteFile in remoteFileRelativeNames)
+            try
+            {
+                string absolutePath = ClientInfo.GetPathFor(remoteFile);
+
+                if (!File.Exists(absolutePath))
+                    continue;
+
+                localFiles.Add(remoteFile, await HashService.ChecksumAsync(absolutePath));
+            }
+            catch (Exception err)
+            {
+                Log.Error(err.ToString());
+                return null;
+            }
+
+        return localFiles;
+    }
+
+    private async Task<Dictionary<string, string>> IndexAllFilesRecursively(string basePath, string relativePath = "", Dictionary<string, string>? files = null, HashSet<string>? ignorableFiles = null)
     {
         files ??= new Dictionary<string, string>();
 
         foreach (string entry in Directory.GetFileSystemEntries(basePath))
         {
+            if (ignorableFiles?.Contains(entry) == true)
+                continue;
+
             FileAttributes attrib = File.GetAttributes(entry);
             string absolute = Path.Combine(basePath, entry);
             string relative = Path.Combine(relativePath, Path.GetRelativePath(basePath, entry));
@@ -83,38 +122,41 @@ internal class UpdateService
 
             string localHash = local[path];
 
-            if (localHash != hash)
-            {
-                string oldFile = ClientInfo.GetPathFor(path) + ".old";
+            if (localHash == hash)
+                continue;
 
-                if (File.Exists(oldFile))
-                    File.Delete(oldFile);
+            string oldFile = ClientInfo.GetPathFor(path) + ".old";
 
-                File.Move(ClientInfo.GetPathFor(path), oldFile);
-                files.Add(path);
-            }
+            if (File.Exists(oldFile))
+                File.Delete(oldFile);
+
+            File.Move(ClientInfo.GetPathFor(path), oldFile);
+            files.Add(path);
         }
 
         foreach (string file in files)
         {
-            string updatedFile = Path.Combine(ClientInfo.ClientPath, @"temp/HunterPie", file);
+            string updatedFile = Path.Combine(_tempFolder, file);
             string localFile = ClientInfo.GetPathFor(file);
 
             if (!File.Exists(localFile))
-                _ = Directory.CreateDirectory(
-                    Path.GetDirectoryName(localFile)
-                );
+            {
+                string? directoryName = Path.GetDirectoryName(localFile);
+
+                if (directoryName is { })
+                    Directory.CreateDirectory(directoryName);
+            }
 
             File.Move(updatedFile, localFile);
         }
 
         // Cleanup
-        Directory.Delete(ClientInfo.GetPathFor("temp"), true);
+        Directory.Delete(_tempFolder, true);
 
         return true;
     }
 
-    public void CleanupOldFiles()
+    public static void CleanupOldFiles()
     {
         Stack<string> directories = new();
 
@@ -128,7 +170,10 @@ internal class UpdateService
                 if (attrib.HasFlag(FileAttributes.Directory))
                     directories.Push(entry);
                 else
-                if (entry.EndsWith(".old"))
+                {
+                    if (!entry.EndsWith(".old"))
+                        continue;
+
                     try
                     {
                         File.Delete(entry);
@@ -137,6 +182,7 @@ internal class UpdateService
                     {
                         Log.Error(err.ToString());
                     }
+                }
             }
     }
 

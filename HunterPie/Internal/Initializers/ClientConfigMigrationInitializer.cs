@@ -66,7 +66,7 @@ internal class ClientConfigMigrationInitializer : IInitializer
 
     private static T? ReadSettingsAs<T>(Type type)
     {
-        string configPath = ClientInfo.GetPathFor(ClientInfo.ConfigName);
+        string configPath = ClientInfo.GetPathFor(ClientInfo.CONFIG_NAME);
 
         if (!File.Exists(configPath))
             return default;
@@ -81,7 +81,7 @@ internal class ClientConfigMigrationInitializer : IInitializer
         string serializedConfig = JsonProvider.Serialize(newSettings);
 
         File.WriteAllText(
-            ClientInfo.GetPathFor(ClientInfo.ConfigName),
+            ClientInfo.GetPathFor(ClientInfo.CONFIG_NAME),
             serializedConfig
         );
     }

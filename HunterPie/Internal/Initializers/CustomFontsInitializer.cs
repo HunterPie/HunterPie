@@ -18,6 +18,7 @@ internal class CustomFontsInitializer : IInitializer, IDisposable
         return !Directory.Exists(_fontsFolder)
             ? Array.Empty<string>()
             : Directory.EnumerateFiles(_fontsFolder)
+                        .Where(it => !it.EndsWith(".old"))
                         .ToArray();
     });
 

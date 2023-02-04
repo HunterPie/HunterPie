@@ -28,7 +28,6 @@ namespace HunterPie;
 public partial class MainWindow : Window
 {
     private readonly RemoteAccountConfigService _remoteConfigService = new();
-    private RemoteConfigSyncService _remoteConfigSyncService;
     private MainViewModel ViewModel => (MainViewModel)DataContext;
 
     public MainWindow()

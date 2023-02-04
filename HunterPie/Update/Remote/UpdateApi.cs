@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Networking.Http;
+﻿using HunterPie.Core.Networking.Http;
 using HunterPie.Core.Networking.Http.Events;
 using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.Integrations.Poogie.Localization;
@@ -25,7 +24,7 @@ public class UpdateApi
         return response.Response is not { } resp ? null : resp.LatestVersion;
     }
 
-    public async Task<bool> DownloadVersion(string version, EventHandler<DownloadEventArgs> callback)
+    public async Task<bool> DownloadVersion(string version, string output, EventHandler<DownloadEventArgs> callback)
     {
         using HttpClientResponse resp = await _versionConnector.Download(version);
 
@@ -33,9 +32,7 @@ public class UpdateApi
             return false;
 
         resp.OnDownloadProgressChanged += callback;
-        await resp.DownloadAsync(
-            ClientInfo.GetPathFor(@"temp/HunterPie.zip")
-        );
+        await resp.DownloadAsync(output);
         resp.OnDownloadProgressChanged -= callback;
 
         return true;
