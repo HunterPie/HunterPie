@@ -76,8 +76,6 @@ public partial class MainWindow : Window
 
         InitializerManager.InitializeGUI();
 
-        await SetupRemoteConfigServices();
-
         InitializeDebugWidgets();
 
         SetupTrayIcon();
@@ -85,13 +83,6 @@ public partial class MainWindow : Window
         SetupAccountEvents();
 
         await SetupPromoViewAsync();
-    }
-
-    private async Task SetupRemoteConfigServices()
-    {
-        await _remoteConfigService.FetchClientConfig();
-        _remoteConfigSyncService = new(_remoteConfigService);
-        _remoteConfigSyncService.Start();
     }
 
     private async Task SetupPromoViewAsync() => ViewModel.ShouldShowPromo = await AccountPromotionalUseCase.ShouldShow();

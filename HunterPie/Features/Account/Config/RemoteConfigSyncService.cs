@@ -11,7 +11,7 @@ internal class RemoteConfigSyncService
 {
     private readonly RemoteAccountConfigService _remoteAccountConfigService;
     private readonly SemaphoreSlim _semaphore = new(1, 1);
-    private readonly Timer _timer = new(5000) { AutoReset = true };
+    private readonly Timer _timer = new(1000) { AutoReset = true };
 
     private DateTime _lastSync = DateTime.Now;
     private DateTime _lastUpload = DateTime.Now;
