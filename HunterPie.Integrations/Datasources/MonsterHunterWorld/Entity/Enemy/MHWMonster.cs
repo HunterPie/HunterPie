@@ -263,7 +263,12 @@ public class MHWMonster : CommonMonster
 
         IsTarget = lockedOnDoubleLinkedListIndex == _doubleLinkedListIndex;
 
-        Target = IsTarget ? Target.Self : lockedOnDoubleLinkedListIndex != -1 ? Target.Another : Target.None;
+        if (IsTarget)
+            Target = Target.Self;
+        else if (lockedOnDoubleLinkedListIndex <= 0)
+            Target = Target.None;
+        else
+            Target = Target.Another;
     }
 
     [ScannableMethod]
