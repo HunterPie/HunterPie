@@ -12,6 +12,7 @@ internal class InitializerManager
 {
     private static readonly HashSet<IInitializer> Initializers = new()
     {
+        new FileStreamLoggerInitializer(),
         new CustomFontsInitializer(),
         
         // Core
