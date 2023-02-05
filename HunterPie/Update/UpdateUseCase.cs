@@ -90,15 +90,14 @@ internal static class UpdateUseCase
         {
             RemoteCrashReporter.Send(err);
 
-            string? dialogMessage = err switch
+            string dialogMessage = err switch
             {
                 IOException => "Failed to replace old files, make sure HunterPie has permissions to move files.",
                 UnauthorizedAccessException => "HunterPie is missing permissions to manage files.",
-                _ => null,
+                _ => "Failed to update HunterPie. Please check it is in a non-special folder and that it has permissions to write to files.",
             };
 
-            if (dialogMessage != null)
-                _ = DialogManager.Error("Update error", dialogMessage, NativeDialogButtons.Accept);
+            DialogManager.Error("Update error", dialogMessage, NativeDialogButtons.Accept);
 
             Log.Error(err.ToString());
         }
