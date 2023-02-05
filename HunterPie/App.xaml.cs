@@ -219,7 +219,7 @@ public partial class App : Application
 
     public static void Restart()
     {
-        _ = Process.Start(typeof(MainWindow).Assembly.Location.Replace(".dll", ".exe"));
+        Process.Start(typeof(MainWindow).Assembly.Location.Replace(".dll", ".exe"));
         Current.Shutdown();
     }
 }

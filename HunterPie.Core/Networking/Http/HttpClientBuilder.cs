@@ -65,7 +65,8 @@ public class HttpClientBuilder
 
     public HttpClientBuilder WithHeader(string key, string? value)
     {
-        _headers.Add(key, value);
+        if (value is { } header)
+            _headers.Add(key, header.Replace("\n", string.Empty));
 
         return this;
     }

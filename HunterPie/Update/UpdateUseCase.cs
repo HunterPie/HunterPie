@@ -100,6 +100,7 @@ internal static class UpdateUseCase
             DialogManager.Error("Update error", dialogMessage, NativeDialogButtons.Accept);
 
             Log.Error(err.ToString());
+            return false;
         }
 
         RegistryConfig.Set(JUST_UPDATED_KEY, true);
