@@ -21,6 +21,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Activities;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Party;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Entities;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Weapons;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 using System.Runtime.CompilerServices;
@@ -462,7 +463,7 @@ public sealed class MHRPlayer : CommonPlayer
 
                 if (!schema.IsBuildup)
                     abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
-                
+
                 if (schema.MaxTimer > 0)
                     abnormality.Timer = (schema.MaxTimer - abnormality.Timer) > 0 ? (schema.MaxTimer - abnormality.Timer) : 0;
             }
@@ -504,12 +505,12 @@ public sealed class MHRPlayer : CommonPlayer
             AddressMap.Get<int[]>("SESSION_PLAYER_OFFSETS")
         );
 
-        (int index, bool isValid, MHRCharacterData data)[] sessionPlayersArray = Process.Memory.Read<long>(playersArrayPtr + 0x20, 4)
+        PartyMemberMetadata[] sessionPlayersArray = Process.Memory.Read<long>(playersArrayPtr + 0x20, 4)
             .Select(pointer => (isValid: pointer != 0, pointer))
-            .Select((player, index) => (index, player.isValid, Process.Memory.Read<MHRCharacterData>(player.pointer)))
+            .Select((player, index) => new PartyMemberMetadata(index, player.isValid, Process.Memory.Read<MHRCharacterData>(player.pointer)))
             .ToArray();
 
-        bool isSos = sessionPlayersArray.Any(player => player.isValid);
+        bool isSos = sessionPlayersArray.Any(player => player.IsValid);
 
         if (!isSos)
         {
@@ -518,19 +519,21 @@ public sealed class MHRPlayer : CommonPlayer
                 AddressMap.Get<int[]>("CHARACTER_INFO_OFFSETS")
             );
 
-            sessionPlayersArray = Process.Memory.Read<long>(playersArrayPtr + 0x20, 4)
+            sessionPlayersArray = Process.Memory.Read<long>(playersArrayPtr + 0x20, 6)
                                                  .Select(pointer => (isValid: pointer != 0, pointer))
-                                                 .Select((player, index) => (index, player.isValid, Process.Memory.Read<MHRCharacterData>(player.pointer)))
+                                                 .Select((player, index) => new PartyMemberMetadata(index, player.isValid, Process.Memory.Read<MHRCharacterData>(player.pointer)))
                                                  .ToArray();
         }
 
-        bool isOnlineSession = sessionPlayersArray.Any(player => player.isValid);
+        bool isOnlineSession = sessionPlayersArray[..4].Any(player => player.IsValid);
 
-        long[] playerWeaponsPtr = Process.Memory.Read<long>(playersWeaponPtr + 0x20, 4);
+        long[] playerWeaponsPtr = Process.Memory.Read<long>(playersWeaponPtr + 0x20, 6);
 
         // In case player DC'd
         if (!isOnlineSession)
         {
+            bool hasNpcsInParty = sessionPlayersArray[4..6].Any(player => player.IsValid);
+
             if (string.IsNullOrEmpty(Name))
                 return;
 
@@ -543,7 +546,11 @@ public sealed class MHRPlayer : CommonPlayer
                 WeaponId = _weaponId,
                 IsMyself = true
             });
-            return;
+
+            if (!hasNpcsInParty)
+                return;
+
+            sessionPlayersArray = GetServantsData(sessionPlayersArray);
         }
 
         foreach ((int index, bool isValid, MHRCharacterData data) in sessionPlayersArray)
@@ -551,9 +558,11 @@ public sealed class MHRPlayer : CommonPlayer
             long weaponPtr = playerWeaponsPtr[index];
             string name = Process.Memory.Read(data.NamePointer + 0x14, 32, Encoding.Unicode);
 
-            if (weaponPtr == 0 && !isValid)
+            if (!isValid)
             {
-                _party.Remove(index);
+                if (isOnlineSession)
+                    _party.Remove(index);
+
                 continue;
             }
 
@@ -571,6 +580,29 @@ public sealed class MHRPlayer : CommonPlayer
 
             _party.Update(memberData);
         }
+    }
+
+    private PartyMemberMetadata[] GetServantsData(PartyMemberMetadata[] members)
+    {
+        long servantsArrayPtr = Memory.Read(
+            AddressMap.GetAbsolute("SERVANTS_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("SERVANTS_DATA_ARRAY_OFFSETS")
+        );
+
+        long[] servantsArray = Memory.ReadArray<long>(servantsArrayPtr);
+
+        long[] servantsNamePtrs = servantsArray.Select(pointer => Memory.ReadPtr(
+            pointer,
+            AddressMap.Get<int[]>("SERVANT_NAME_OFFSETS")
+        )).ToArray();
+
+        for (int i = 4; i < members.Length; i++)
+            members[i] = members[i] with
+            {
+                Data = new MHRCharacterData { NamePointer = servantsNamePtrs.ElementAtOrDefault(i - 4), HighRank = HighRank, MasterRank = MasterRank }
+            };
+
+        return members;
     }
 
     [ScannableMethod]
@@ -754,7 +786,7 @@ public sealed class MHRPlayer : CommonPlayer
             _actionFlag = ActionFlags.None;
             return;
         }
-        
+
         _actionFlag = (ActionFlags)Process.Memory.Read<uint>(actionFlagArray + 0x20);
     }
 

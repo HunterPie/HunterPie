@@ -37,6 +37,8 @@ internal class Program
 
             new("FUNC_WIREBUG_HIDE_AIM_ADDRESS", "49 8B 84 24 ?? ?? ?? ?? 48 83 60 50 FE 49 83 BC 24", 8, false),
 
+            new("SERVANTS_DATA_ADDRESS", "48 8B 15 ?? ?? ?? ?? 48 85 D2 74 ?? 48 83 7A ?? 00 74 04 32 C0 EB 02 B0 01 0F B6 C0 48 89 74 24 ?? 48", 3),
+
             // CRC
             new("CRC_FUNC_1", "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 48 89 7C 24 20 41 56 48 83 EC 20 44 8B 05 ?? ?? ?? ?? 48 8B EA 8B 05 ?? ?? ?? ??", 0, false),
             new("CRC_FUNC_2", "48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 48 83 EC 20 48 8B 5A 10 48 8B F2 48 8B 52 20 48 8B E9", 0, false),
