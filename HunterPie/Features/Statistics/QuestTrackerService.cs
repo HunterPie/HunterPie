@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Game;
+﻿using HunterPie.Core.Crypto;
+using HunterPie.Core.Game;
 using HunterPie.Core.Game.Events;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Features.Account;
@@ -7,6 +8,7 @@ using HunterPie.Features.Statistics.Models;
 using HunterPie.Integrations.Poogie.Statistics;
 using HunterPie.Integrations.Poogie.Statistics.Models;
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace HunterPie.Features.Statistics;
@@ -46,7 +48,14 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
         if (!ShouldUpload(exported))
             return;
 
-        exported = exported with { FinishedAt = exported.StartedAt.Add(e.QuestTime) };
+        DateTime questFinishedAt = exported.StartedAt.Add(e.QuestTime);
+        string newHash = await GenerateUniqueHashAsync(questFinishedAt, exported.Hash);
+
+        exported = exported with
+        {
+            FinishedAt = questFinishedAt,
+            Hash = newHash
+        };
 
         var exportedRequest = PoogieQuestStatisticsModel.From(exported);
 
@@ -63,6 +72,12 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
     {
         UnhookEvents();
         _statisticsService?.Dispose();
+    }
+
+    private static async Task<string> GenerateUniqueHashAsync(DateTime questFinishedAt, string currentHash)
+    {
+        string questTimeFormatted = questFinishedAt.ToString("MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture);
+        return await HashService.HashAsync($"{currentHash}:{questTimeFormatted}");
     }
 
     private static bool ShouldUpload(HuntStatisticsModel model)
