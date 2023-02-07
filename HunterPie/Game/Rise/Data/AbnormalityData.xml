@@ -226,7 +226,7 @@
                      Name="ABNORMALITY_BLOOD"
                      Icon="ICON_BLOODBLIGHT"/>
         <Abnormality Id="ABN_PRE_SLEEP"
-                     Offset="7E0"
+                     Offset="7F0"
                      Name="ABNORMALITY_PRE_SLEEP"
                      Icon="ICON_SLEEP"/>
         <Abnormality Id="ABN_POISON"
@@ -300,7 +300,7 @@
                      Name="ABNORMALITY_DRAGON"
                      Icon="ELEMENT_DRAGON"/>
         <Abnormality Id="ABN_BUBBLES"
-                     Offset="8A8"
+                     Offset="8B8"
                      Name="ABNORMALITY_BUBBLES"
                      Icon="ICON_BUBBLE"
                      FlagType="RiseDebuff"
