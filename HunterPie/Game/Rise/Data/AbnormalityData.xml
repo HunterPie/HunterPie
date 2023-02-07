@@ -232,13 +232,13 @@
         <Abnormality Id="ABN_POISON"
                      Offset="86C"
                      Name="ABNORMALITY_POISON"
-                     FlagType="Debuff"
+                     FlagType="RiseDebuff"
                      Flag="Poison"
                      Icon="ICON_POISON"/>
         <Abnormality Id="ABN_VENOM"
                      Offset="86C"
                      Name="ABNORMALITY_VENOM"
-                     FlagType="Debuff"
+                     FlagType="RiseDebuff"
                      Flag="NoxiousPoison"
                      Icon="ICON_VENOM"/>
         <Abnormality Id="ABN_STUN"
