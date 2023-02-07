@@ -11,7 +11,7 @@ public enum CommonConditions : ulong
     CriticalUp = 1 << 4,
     SuperArmor = 1 << 5,
     ElementAttackUp = 1 << 6,
-    Stamina = 1 << 7,
+    StaminaUseReduce = 1 << 7,
     NaturalHealing = 1 << 8,
     GourmetFish = 1 << 9,
     HyperArmor = 1 << 10,
@@ -62,5 +62,6 @@ public enum CommonConditions : ulong
     PowderMantleBlue = 1UL << 59,
     StrifeS = 1UL << 60,
     StrifeL = 1UL << 61,
-    Berserk = 1UL << 62
+    Berserk = 1UL << 62,
+    ResistUp = 1UL << 63
 }
