@@ -13,13 +13,9 @@ public struct MHRPartyMemberData
     public bool IsMyself;
     public MemberType MemberType;
 
-    public MHRPartyMemberData ToPetData()
-    {
-        MHRPartyMemberData copy = this.Copy();
-        copy.Index = copy.Index.ToPetId();
-        copy.MemberType = MemberType.Pet;
-        return copy;
-    }
+    public MHRPartyMemberData ToPetData() => this with { Index = Index.ToPetId(), MemberType = MemberType.Pet };
+
+    public MHRPartyMemberData ToCompanionData() => this with { MemberType = MemberType.Companion };
 
     public string GetHash() => $"{Name}:{HighRank}:{MasterRank}";
 }
