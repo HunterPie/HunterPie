@@ -1308,5 +1308,28 @@
                 <Part Id="7" String="PART_ANTENNA" />
             </Parts>
         </Monster>
+	    <Monster Id="114"
+	             Size="1765.78">
+		    <Crowns Silver="1.11"
+		            Gold="1.17"/>
+		    <Weaknesses>
+			    <Weakness Name="Fire"/>
+			    <Weakness Name="Dragon"/>
+		    </Weaknesses>
+		    <Parts>
+			    <Part Id="0" String="PART_TO_BE_MAPPED" />
+			    <Part Id="1" String="PART_TO_BE_MAPPED" />
+			    <Part Id="2" String="PART_TO_BE_MAPPED" />
+			    <Part Id="3" String="PART_TO_BE_MAPPED" />
+			    <Part Id="4" String="PART_TO_BE_MAPPED" />
+			    <Part Id="5" String="PART_TO_BE_MAPPED" />
+			    <Part Id="6" String="PART_TO_BE_MAPPED" />
+			    <Part Id="7" String="PART_TO_BE_MAPPED" />
+			    <Part Id="8" String="PART_TO_BE_MAPPED" />
+			    <Part Id="9" String="PART_TO_BE_MAPPED" />
+			    <Part Id="10" String="PART_TO_BE_MAPPED" />
+			    <Part Id="11" String="PART_TO_BE_MAPPED" />
+		    </Parts>
+	    </Monster>
     </Monsters>
 </GameData>
