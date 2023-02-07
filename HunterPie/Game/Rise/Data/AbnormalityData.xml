@@ -378,7 +378,7 @@
         <Abnormality Id="ABN_STATUS_TRIGGER"
                      Offset="1AC"
                      Name="ABNORMALITY_STATUS_TRIGGER"
-                     Icon="ICON_ARMORSKILL_PURPLE"
+                     Icon="ICON_STATUS_TRIGGER"
                      FlagType="RiseCommon"
                      Flag="StatusTrigger"
                      Category="Comsumables"/>
