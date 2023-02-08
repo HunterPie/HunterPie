@@ -3,9 +3,9 @@
 public enum WirebugState
 {
     None,
+    Blocked,
     IceBlight,
-    RubyWirebug,
-    GoldWirebug,
     WindMantle,
-    Blocked
+    RubyWirebug,
+    GoldWirebug
 }
