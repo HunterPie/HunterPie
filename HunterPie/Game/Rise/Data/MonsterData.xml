@@ -1330,7 +1330,7 @@
         </Monster>
         <Monster Id="114"
                  Size="1765.78"
-                 IsNotCapturable="True">
+                 IsNotCapturable="true">
             <Crowns Silver="1.11"
                     Gold="1.17"/>
             <Weaknesses>

@@ -5,7 +5,5 @@ public enum WirebugState
     None,
     Blocked,
     IceBlight,
-    WindMantle,
-    RubyWirebug,
-    GoldWirebug
+    WindMantle
 }

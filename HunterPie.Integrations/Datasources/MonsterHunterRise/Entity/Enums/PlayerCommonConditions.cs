@@ -63,5 +63,5 @@ public enum CommonConditions : ulong
     StrifeS = 1UL << 60,
     StrifeL = 1UL << 61,
     Berserk = 1UL << 62,
-    DragonConversion = 1UL << 63
+    ResistUp = 1UL << 63
 }
