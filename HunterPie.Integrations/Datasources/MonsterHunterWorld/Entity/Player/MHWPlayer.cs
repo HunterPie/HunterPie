@@ -624,7 +624,21 @@ public sealed class MHWPlayer : CommonPlayer
 
         foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
         {
-            MHWAbnormalityStructure structure = Process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
+            MHWAbnormalityStructure structure = new();
+
+            int abnormSubId = abnormalitySchema.DependsOn switch
+            {
+                0 => 0,
+                _ => Memory.Read<int>(baseAddress + abnormalitySchema.DependsOn)
+            };
+
+            if (abnormSubId == abnormalitySchema.WithValue)
+            {
+                structure = Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
+
+                if (abnormalitySchema.IsInfinite)
+                    structure.Timer = 1;
+            }
 
             HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(
                 _abnormalities,

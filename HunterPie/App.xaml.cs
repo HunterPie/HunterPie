@@ -8,6 +8,7 @@ using HunterPie.Core.Game;
 using HunterPie.Core.Logger;
 using HunterPie.Core.System;
 using HunterPie.Features;
+using HunterPie.Features.Account.Config;
 using HunterPie.Features.Backups;
 using HunterPie.Features.Overlay;
 using HunterPie.Integrations;
@@ -35,6 +36,7 @@ namespace HunterPie;
 #nullable enable
 public partial class App : Application
 {
+    private static readonly RemoteAccountConfigService RemoteConfigService = new();
     private IProcessManager? _process;
     private RichPresence? _richPresence;
     private Context? _context;
@@ -217,8 +219,12 @@ public partial class App : Application
     private void OnPlayerLogin(object? sender, EventArgs e) => Log.Info($"Logged in as {_context!.Game.Player.Name}");
     private void OnStageUpdate(object? sender, EventArgs e) => Log.Debug("StageId: {0} | InHuntingZone: {1}", _context!.Game.Player.StageId, _context.Game.Player.InHuntingZone);
 
-    public static void Restart()
+    public static async void Restart()
     {
+        UI?.Dispatcher.InvokeAsync(() => UI.Hide());
+
+        await RemoteConfigService.UploadClientConfig();
+
         Process.Start(typeof(MainWindow).Assembly.Location.Replace(".dll", ".exe"));
         Current.Shutdown();
     }
