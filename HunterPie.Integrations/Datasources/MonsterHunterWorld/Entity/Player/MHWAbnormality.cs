@@ -58,6 +58,7 @@ public sealed class MHWAbnormality : CommonAbnormality, IUpdatable<MHWAbnormalit
             _ => throw new NotImplementedException("unreachable")
         };
         IsBuildup = schema.IsBuildup;
+        IsInfinite = schema.IsInfinite;
 
         if (IsBuildup)
             MaxTimer = schema.MaxBuildup;
