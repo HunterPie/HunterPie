@@ -1,5 +1,4 @@
-﻿
-using System.Reflection;
+﻿using System.Reflection;
 using System.Windows;
 
 [assembly: ThemeInfo(
@@ -11,5 +10,5 @@ using System.Windows;
                                               // app, or any theme specific resource dictionaries)
 )]
 
-[assembly: AssemblyVersion("2.7.0.78")]
-[assembly: AssemblyFileVersion("2.7.0.78")]
+[assembly: AssemblyVersion("2.7.0.79")]
+[assembly: AssemblyFileVersion("2.7.0.79")]
