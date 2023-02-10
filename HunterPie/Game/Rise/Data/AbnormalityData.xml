@@ -477,6 +477,13 @@
                      Flag="Berserk"
                      IsInfinite="True"
                      Category="Consumables"/>
+        <Abnormality Id="ABN_DRAGON_CONVERSION"
+                     Name="ABNORMALITY_DRAGON_CONVERSION"
+                     Icon="ICON_ALLRESUP_MHRS"
+                     FlagType="RiseCommon"
+                     Flag="ResistUp"
+                     IsInfinite="True"
+                     Category="Consumables"/>
     </Skills>
     <Foods>
         <Abnormality Id="ABN_DANGO_BULKER"
