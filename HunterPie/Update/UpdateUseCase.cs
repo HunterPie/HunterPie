@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Update;
 
+#nullable enable
 internal static class UpdateUseCase
 {
     private const string JUST_UPDATED_KEY = "JustUpdated";
@@ -22,13 +23,12 @@ internal static class UpdateUseCase
     {
         vm.State = "Initializing HunterPie";
         UpdateService service = new();
-        service.CleanupOldFiles();
 
         vm.State = "Checking for new localization files...";
         await service.UpdateLocalizationFiles();
 
         vm.State = "Checking for latest version...";
-        Version latest = await service.GetLatestVersion();
+        Version? latest = await service.GetLatestVersion();
 
         OpenPatchNotesIfJustUpdated();
 
@@ -63,9 +63,6 @@ internal static class UpdateUseCase
             return false;
         }
 
-        vm.State = "Calculating file hashes...";
-        Dictionary<string, string> localFiles = await service.IndexAllFilesRecursively(ClientInfo.ClientPath);
-
         vm.State = "Extracting package...";
         if (!service.ExtractZip())
         {
@@ -73,12 +70,21 @@ internal static class UpdateUseCase
             return false;
         }
 
-        Dictionary<string, string> remoteFiles = await service.IndexAllFilesRecursively(ClientInfo.GetPathFor(@"temp/HunterPie"));
+        vm.State = "Calculating file hashes...";
+        Dictionary<string, string>? remoteFiles = await service.TryIndexAllNewFilesRecursively();
+
+        if (remoteFiles is not { })
+            return false;
+
+        Dictionary<string, string>? localFiles = await service.TryIndexLocalFilesFrom(remoteFiles);
+
+        if (localFiles is not { })
+            return false;
 
         vm.State = "Replacing old files";
         try
         {
-            _ = service.ReplaceOldFiles(localFiles, remoteFiles);
+            service.ReplaceOldFiles(localFiles, remoteFiles);
         }
         catch (Exception err)
         {
@@ -88,13 +94,13 @@ internal static class UpdateUseCase
             {
                 IOException => "Failed to replace old files, make sure HunterPie has permissions to move files.",
                 UnauthorizedAccessException => "HunterPie is missing permissions to manage files.",
-                _ => null,
+                _ => "Failed to update HunterPie. Please check it is in a non-special folder and that it has permissions to write to files.",
             };
 
-            if (dialogMessage is string message)
-                _ = DialogManager.Error("Update error", message, NativeDialogButtons.Accept);
+            DialogManager.Error("Update error", dialogMessage, NativeDialogButtons.Accept);
 
             Log.Error(err.ToString());
+            return false;
         }
 
         RegistryConfig.Set(JUST_UPDATED_KEY, true);

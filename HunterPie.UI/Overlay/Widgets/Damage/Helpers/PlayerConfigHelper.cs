@@ -20,6 +20,7 @@ public static class PlayerConfigHelper
                 1 => config.PlayerSecond,
                 2 => config.PlayerThird,
                 3 => config.PlayerFourth,
+                4 or 5 => config.NpcColor,
                 _ => throw new Exception("invalid player slot")
             };
     }

@@ -25,10 +25,8 @@ internal class FeatureFlagsInitializer : IInitializer
         string[] loadedFlags = Features.Flags.Keys.ToArray();
 
         foreach (string loadedFlag in loadedFlags)
-        {
             if (!supportedFlags.Contains(loadedFlag))
-                _ = Features.Flags.Remove(loadedFlag);
-        }
+                Features.Flags.Remove(loadedFlag);
 
         FeatureFlagManager.Initialize(localRepository);
 

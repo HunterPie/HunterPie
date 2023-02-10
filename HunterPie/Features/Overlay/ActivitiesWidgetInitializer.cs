@@ -26,10 +26,12 @@ internal class ActivitiesWidgetInitializer : IWidgetInitializer
         _handler = context switch
         {
             MHRContext ctx => new RiseActivitiesWidgetContextHandler(ctx),
-            MHWContext => null,
+            MHWContext ctx => new WorldActivitiesWidgetContextHandler(ctx),
             MHRSunbreakDemoContext => null,
             _ => throw new NotImplementedException("unreachable")
         };
+
+        _handler?.HookEvents();
     }
 
     public void Unload()

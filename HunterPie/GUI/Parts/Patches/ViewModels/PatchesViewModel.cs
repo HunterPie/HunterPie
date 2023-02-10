@@ -1,5 +1,6 @@
-﻿using HunterPie.Core.API;
-using HunterPie.Core.API.Entities;
+﻿using HunterPie.Integrations.Poogie.Common.Models;
+using HunterPie.Integrations.Poogie.Patch;
+using HunterPie.Integrations.Poogie.Patch.Models;
 using HunterPie.UI.Architecture;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -9,6 +10,8 @@ namespace HunterPie.GUI.Parts.Patches.ViewModels;
 #nullable enable
 public class PatchesViewModel : ViewModel
 {
+    private readonly PoogiePatchConnector _patchConnector = new();
+
     private bool _isFetching;
 
     public bool IsFetching { get => _isFetching; set => SetValue(ref _isFetching, value); }
@@ -17,10 +20,10 @@ public class PatchesViewModel : ViewModel
     public async Task FetchPatchesAsync()
     {
         IsFetching = true;
-        PoogieApiResult<PatchResponse[]>? patches = await PoogieApi.GetPatchNotes();
+        PoogieResult<PatchResponse[]> patches = await _patchConnector.FindAll();
         IsFetching = false;
 
-        if (patches is null || !patches.Success || patches.Response is null)
+        if (patches.Response is null)
             return;
 
         await UIThread.InvokeAsync(() =>

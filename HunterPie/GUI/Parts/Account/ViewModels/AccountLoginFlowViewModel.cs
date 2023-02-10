@@ -1,7 +1,8 @@
-﻿using HunterPie.Core.API.Entities;
-using HunterPie.Core.Client.Localization;
+﻿using HunterPie.Core.Client.Localization;
 using HunterPie.Features.Account;
 using HunterPie.Features.Notification;
+using HunterPie.Integrations.Poogie.Account.Models;
+using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Controls.Notfication;
 using System;
@@ -48,12 +49,12 @@ public class AccountLoginFlowViewModel : ViewModel
         CanLogIn = false;
 
         var request = new LoginRequest
-        {
-            Email = Email,
-            Password = Password,
-        };
+        (
+            Email: Email,
+            Password: Password
+        );
 
-        PoogieApiResult<LoginResponse>? result = await AccountManager.Login(request);
+        PoogieResult<LoginResponse>? result = await AccountManager.Login(request);
 
         IsLoggingIn = false;
         CanLogIn = true;
@@ -61,11 +62,11 @@ public class AccountLoginFlowViewModel : ViewModel
         if (result is null)
             return false;
 
-        if (!result.Success)
+        if (result.Error is { } error)
         {
             AppNotificationManager.Push(
                 Push.Error(
-                    Localization.GetEnumString(result.Error!.Code)
+                    Localization.GetEnumString(error.Code)
                 ),
                 TimeSpan.FromSeconds(5)
             );
@@ -73,7 +74,7 @@ public class AccountLoginFlowViewModel : ViewModel
             return false;
         }
 
-        return result.Success;
+        return true;
     }
 
     public void NavigateToPasswordResetFlow() => PasswordResetFlowViewModel.IsFlowActive = true;

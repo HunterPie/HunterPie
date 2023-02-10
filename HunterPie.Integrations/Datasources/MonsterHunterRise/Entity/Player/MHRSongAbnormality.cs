@@ -13,6 +13,7 @@ public sealed class MHRSongAbnormality : CommonAbnormality, IUpdatable<MHRHHAbno
     private float _timer;
 
     public override string Id { get; protected set; }
+    public override string Name { get; protected set; }
     public override string Icon { get; protected set; }
 
     public override AbnormalityType Type
@@ -40,6 +41,7 @@ public sealed class MHRSongAbnormality : CommonAbnormality, IUpdatable<MHRHHAbno
     public MHRSongAbnormality(AbnormalitySchema schema)
     {
         Id = schema.Id;
+        Name = schema.Name;
         Icon = schema.Icon;
         IsBuildup = schema.IsBuildup;
     }

@@ -1,6 +1,4 @@
-﻿using HunterPie.Core.API;
-using HunterPie.Core.API.Entities;
-using HunterPie.Core.Client.Localization;
+﻿using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Vault;
@@ -8,6 +6,9 @@ using HunterPie.Core.Vault.Model;
 using HunterPie.Features.Account.Event;
 using HunterPie.Features.Account.Model;
 using HunterPie.Features.Notification;
+using HunterPie.Integrations.Poogie.Account;
+using HunterPie.Integrations.Poogie.Account.Models;
+using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.UI.Controls.Notfication;
 using System;
 using System.Threading.Tasks;
@@ -18,21 +19,15 @@ namespace HunterPie.Features.Account;
 internal class AccountManager : IEventDispatcher
 {
     private UserAccount? _cachedAccount = null;
+    private readonly PoogieAccountConnector _accountConnector = new();
     private static AccountManager? _instance;
-    private static AccountManager Instance
-    {
-        get
-        {
-            if (_instance is null)
-                _instance = new();
-
-            return _instance;
-        }
-    }
+    private static readonly AccountManager Instance = _instance ??= new AccountManager();
 
     public static event EventHandler<AccountLoginEventArgs>? OnSignIn;
     public static event EventHandler<EventArgs>? OnSignOut;
     public static event EventHandler<AccountAvatarEventArgs>? OnAvatarChange;
+
+    public static async Task<bool> IsLoggedIn() => GetSessionToken() is not null;
 
     public static async Task<bool> ValidateSessionToken()
     {
@@ -46,17 +41,14 @@ internal class AccountManager : IEventDispatcher
         return GetSessionToken() is not null;
     }
 
-    public static async Task<PoogieApiResult<LoginResponse>?> Login(LoginRequest request)
+    public static async Task<PoogieResult<LoginResponse>?> Login(LoginRequest request)
     {
-        PoogieApiResult<LoginResponse>? loginResponse = await PoogieApi.Login(request);
+        PoogieResult<LoginResponse> loginResponse = await Instance._accountConnector.Login(request);
 
-        if (loginResponse is null || !loginResponse.Success)
-            return loginResponse;
+        if (loginResponse.Response is not { } response)
+            return null;
 
-        if (loginResponse.Response is null)
-            return loginResponse;
-
-        CredentialVaultService.SaveCredential(request.Email, loginResponse.Response.Token);
+        CredentialVaultService.SaveCredential(request.Email, response.Token);
 
         UserAccount? account = await FetchAccount();
 
@@ -77,7 +69,8 @@ internal class AccountManager : IEventDispatcher
 
     public static async void Logout()
     {
-        _ = await PoogieApi.Logout();
+        _ = await Instance._accountConnector.Logout();
+
         CredentialVaultService.DeleteCredential();
         Instance._cachedAccount = null;
 
@@ -93,16 +86,13 @@ internal class AccountManager : IEventDispatcher
 
     public static async Task UploadAvatar(string path)
     {
-        PoogieApiResult<MyUserAccountResponse>? account = await PoogieApi.UploadAvatar(path);
+        PoogieResult<MyUserAccountResponse> account = await Instance._accountConnector.UploadAvatar(path);
 
-        if (account is null)
-            return;
-
-        if (!account.Success)
+        if (account.Error is { } error)
         {
             AppNotificationManager.Push(
                 Push.Error(
-                    Localization.GetEnumString(account.Error!.Code)
+                    Localization.GetEnumString(error.Code)
                 ),
                 TimeSpan.FromSeconds(10)
             );
@@ -116,7 +106,7 @@ internal class AccountManager : IEventDispatcher
             TimeSpan.FromSeconds(5)
         );
 
-        Instance._cachedAccount = account.Response.ToModel();
+        Instance._cachedAccount = account.Response!.ToModel();
 
         Instance.Dispatch(OnAvatarChange, new AccountAvatarEventArgs { AvatarUrl = Instance._cachedAccount.AvatarUrl });
     }
@@ -128,17 +118,16 @@ internal class AccountManager : IEventDispatcher
         if (credential is null)
             return null;
 
-        if (Instance._cachedAccount is not null)
-            return Instance._cachedAccount;
+        if (Instance._cachedAccount is { } cached)
+            return cached;
 
-        PoogieApiResult<MyUserAccountResponse>? account = await PoogieApi.GetMyUserAccount();
+        PoogieResult<MyUserAccountResponse> result = await Instance._accountConnector.MyUserAccount();
 
-        if (account is null || account.Response is null)
+        if (result.Response is not { } account)
             return null;
 
-        Instance._cachedAccount = account.Response.ToModel();
+        Instance._cachedAccount = account.ToModel();
 
         return Instance._cachedAccount;
     }
 }
-#nullable restore

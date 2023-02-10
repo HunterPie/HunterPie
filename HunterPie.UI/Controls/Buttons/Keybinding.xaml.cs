@@ -12,7 +12,7 @@ namespace HunterPie.UI.Controls.Buttons;
 /// </summary>
 public partial class Keybinding : UserControl
 {
-    public ObservableCollection<string> Keys { get; private set; } = new();
+    public ObservableCollection<string> Keys { get; } = new();
 
     public string HotKey
     {
@@ -21,7 +21,7 @@ public partial class Keybinding : UserControl
     }
 
     public static readonly DependencyProperty HotKeyProperty =
-        DependencyProperty.Register("HotKey", typeof(string), typeof(Keybinding));
+        DependencyProperty.Register(nameof(HotKey), typeof(string), typeof(Keybinding));
 
     public Keybinding()
     {
@@ -30,25 +30,18 @@ public partial class Keybinding : UserControl
 
     private void OnKeyDown(object sender, KeyEventArgs e)
     {
-        // Credits to this stackoverflow post I found: https://stackoverflow.com/questions/2136431/how-do-i-read-custom-keyboard-shortcut-from-user-in-wpf
-        // The text box grabs all input.
         e.Handled = true;
 
-        // Fetch the actual shortcut key.
         Key key = e.Key == Key.System ? e.SystemKey : e.Key;
 
-        // Ignore modifier keys.
         if (key is Key.LeftShift or Key.RightShift
             or Key.LeftCtrl or Key.RightCtrl
             or Key.LeftAlt or Key.RightAlt
             or Key.LWin or Key.RWin)
-        {
             return;
-        }
 
         Keys.Clear();
 
-        // Delete key removes the HotKey
         if (key == Key.Delete)
         {
             Keys.Add("None");
@@ -56,7 +49,6 @@ public partial class Keybinding : UserControl
             return;
         }
 
-        // Build the shortcut key name.
         var shortcutText = new StringBuilder();
         if ((Keyboard.Modifiers & ModifierKeys.Control) != 0)
         {
@@ -86,6 +78,9 @@ public partial class Keybinding : UserControl
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
         Keys.Clear();
+
+        if (HotKey is null)
+            return;
 
         foreach (string key in HotKey.Split("+"))
             Keys.Add(key);

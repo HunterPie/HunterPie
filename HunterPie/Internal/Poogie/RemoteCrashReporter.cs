@@ -1,10 +1,10 @@
 ﻿using HunterPie.Core.Client;
-using HunterPie.Core.Http;
+using HunterPie.Core.Networking.Http;
+using HunterPie.Integrations.Poogie;
 using Microsoft.VisualBasic.Devices;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
-using PoogieClient = HunterPie.Core.Http.Poogie;
 
 namespace HunterPie.Internal.Poogie;
 
@@ -65,12 +65,12 @@ public class RemoteCrashReporter
             }
         };
 
-        PoogieClient poogie = PoogieFactory.Default()
-                                           .Post(REPORT_CRASH)
-                                           .WithHeader("X-Ui-Error", isUIError.ToString())
-                                           .WithJson(schema)
-                                           .Build();
+        HttpClient poogie = PoogieProvider.Default()
+                                          .Post(REPORT_CRASH)
+                                          .WithHeader("X-Ui-Error", isUIError.ToString())
+                                          .WithJson(schema)
+                                          .Build();
 
-        using PoogieResponse response = poogie.Request();
+        using HttpClientResponse response = poogie.Request();
     }
 }

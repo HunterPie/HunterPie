@@ -11,7 +11,7 @@ namespace HunterPie.Core.Client.Localization;
 public class Localization
 {
 
-    private readonly XmlDocument document;
+    private readonly XmlDocument? document;
     private static Localization? _instance;
 
     public static Localization Instance
@@ -85,9 +85,9 @@ public class Localization
             : GetFullParentPath(node.ParentNode, $"{node.ParentNode.Name}/{path}");
     }
 
-    public static XmlNode? Query(string query) => Instance.document.SelectSingleNode(query);
-    public static XmlNodeList? QueryMany(string query) => Instance.document.SelectNodes(query);
-    public static string QueryString(string query) => Instance.document.SelectSingleNode(query)?.Attributes?["String"]?.Value ?? query;
+    public static XmlNode? Query(string query) => Instance.document?.SelectSingleNode(query);
+    public static XmlNodeList? QueryMany(string query) => Instance.document?.SelectNodes(query);
+    public static string QueryString(string query) => Instance.document?.SelectSingleNode(query)?.Attributes?["String"]?.Value ?? query;
     public static string QueryDescription(string query) => Query(query)?.Attributes?["Description"]?.Value ?? query;
 
     public static string GetEnumString<T>(T enumValue)

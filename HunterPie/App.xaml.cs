@@ -8,6 +8,7 @@ using HunterPie.Core.Game;
 using HunterPie.Core.Logger;
 using HunterPie.Core.System;
 using HunterPie.Features;
+using HunterPie.Features.Account.Config;
 using HunterPie.Features.Backups;
 using HunterPie.Features.Overlay;
 using HunterPie.Integrations;
@@ -32,13 +33,15 @@ namespace HunterPie;
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
+#nullable enable
 public partial class App : Application
 {
-    private IProcessManager _process;
-    private RichPresence _richPresence;
-    private Context _context;
+    private static readonly RemoteAccountConfigService RemoteConfigService = new();
+    private IProcessManager? _process;
+    private RichPresence? _richPresence;
+    private Context? _context;
 
-    public static MainWindow UI { get; private set; }
+    public static MainWindow? UI { get; private set; }
 
     protected override async void OnStartup(StartupEventArgs e)
     {
@@ -47,6 +50,8 @@ public partial class App : Application
         base.OnStartup(e);
 
         await InitializerManager.Initialize();
+
+        UpdateService.CleanupOldFiles();
 
         SetRenderingMode();
 
@@ -72,7 +77,7 @@ public partial class App : Application
     {
         Process[] processes = Process.GetProcessesByName("HunterPie")
             .Where(p => p.Id != Environment.ProcessId
-                    && p.MainModule.FileName == ClientInfo.ClientFileName)
+                    && p.MainModule?.FileName == ClientInfo.ClientFileName)
             .ToArray();
 
         foreach (Process process in processes)
@@ -96,8 +101,11 @@ public partial class App : Application
 
         view.Close();
 
-        if (result)
-            Restart();
+        if (!result)
+            return result;
+
+        InitializerManager.Unload();
+        Restart();
 
         return result;
     }
@@ -116,7 +124,7 @@ public partial class App : Application
             : RenderMode.SoftwareOnly;
     }
 
-    private void OnProcessClosed(object sender, ProcessManagerEventArgs e)
+    private void OnProcessClosed(object? sender, ProcessManagerEventArgs e)
     {
         if (_process is null)
             return;
@@ -126,7 +134,7 @@ public partial class App : Application
         _richPresence = null;
 
         ScanManager.Stop();
-        _context.Dispose();
+        _context?.Dispose();
 
         _process = null;
         _context = null;
@@ -137,6 +145,8 @@ public partial class App : Application
         Log.Info("{0} has been closed", e.ProcessName);
 
         SmartEventsTracker.DisposeEvents();
+
+        ContextInitializers.Dispose();
 
         if (e.Process.HasExitedNormally == false
             && e.Process.Game == GameProcess.MonsterHunterWorld
@@ -150,7 +160,7 @@ public partial class App : Application
             Dispatcher.Invoke(Shutdown);
     }
 
-    private async void OnProcessFound(object sender, ProcessManagerEventArgs e)
+    private async void OnProcessFound(object? sender, ProcessManagerEventArgs e)
     {
         if (_process is not null)
         {
@@ -194,34 +204,28 @@ public partial class App : Application
         ExceptionTracker.TrackException(e.Exception);
     }
 
-    protected override void OnExit(ExitEventArgs e)
-    {
-        if (e.ApplicationExitCode == 0)
-            ConfigManager.SaveAll();
-
-        InitializerManager.Unload();
-
-        base.OnExit(e);
-    }
-
     private void HookEvents()
     {
-        _context.Game.Player.OnLogin += OnPlayerLogin;
+        _context!.Game.Player.OnLogin += OnPlayerLogin;
         _context.Game.Player.OnStageUpdate += OnStageUpdate;
     }
 
     private void UnhookEvents()
     {
-        _context.Game.Player.OnLogin -= OnPlayerLogin;
+        _context!.Game.Player.OnLogin -= OnPlayerLogin;
         _context.Game.Player.OnStageUpdate -= OnStageUpdate;
     }
 
-    private void OnPlayerLogin(object sender, EventArgs e) => Log.Info($"Logged in as {_context.Game.Player.Name}");
-    private void OnStageUpdate(object sender, EventArgs e) => Log.Debug("StageId: {0} | InHuntingZone: {1}", _context.Game.Player.StageId, _context.Game.Player.InHuntingZone);
+    private void OnPlayerLogin(object? sender, EventArgs e) => Log.Info($"Logged in as {_context!.Game.Player.Name}");
+    private void OnStageUpdate(object? sender, EventArgs e) => Log.Debug("StageId: {0} | InHuntingZone: {1}", _context!.Game.Player.StageId, _context.Game.Player.InHuntingZone);
 
-    public static void Restart()
+    public static async void Restart()
     {
-        _ = Process.Start(typeof(MainWindow).Assembly.Location.Replace(".dll", ".exe"));
+        UI?.Dispatcher.InvokeAsync(() => UI.Hide());
+
+        await RemoteConfigService.UploadClientConfig();
+
+        Process.Start(typeof(MainWindow).Assembly.Location.Replace(".dll", ".exe"));
         Current.Shutdown();
     }
 }

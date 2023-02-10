@@ -44,6 +44,12 @@ public sealed class MHRSunbreakDemoGame : CommonGame
         protected set => throw new NotImplementedException();
     }
 
+    public override bool IsInQuest
+    {
+        get => throw new NotImplementedException();
+        protected set => throw new NotImplementedException();
+    }
+
     public override IAbnormalityCategorizationService AbnormalityCategorizationService { get; } = new MHRAbnormalityCategorizationService();
 
     public MHRSunbreakDemoGame(IProcessManager process) : base(process)

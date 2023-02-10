@@ -2,6 +2,7 @@
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 
@@ -10,7 +11,7 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
     private double _timer;
     private double _cooldown;
     private bool _isAvailable = true;
-    private bool _isBlocked;
+    private WirebugState _wirebugState = WirebugState.None;
 
     public long Address { get; internal set; }
     public double Timer
@@ -54,15 +55,15 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
         }
     }
 
-    public bool IsBlocked
+    public WirebugState WirebugState
     {
-        get => _isBlocked;
+        get => _wirebugState;
         private set
         {
-            if (value != _isBlocked)
+            if (value != _wirebugState)
             {
-                _isBlocked = value;
-                this.Dispatch(_onBlockedStateChange, this);
+                _wirebugState = value;
+                this.Dispatch(_onWirebugStateChange, this);
             }
         }
     }
@@ -88,11 +89,11 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
         remove => _onAvailable.Unhook(value);
     }
 
-    private readonly SmartEvent<MHRWirebug> _onBlockedStateChange = new();
-    public event EventHandler<MHRWirebug> OnBlockedStateChange
+    private readonly SmartEvent<MHRWirebug> _onWirebugStateChange = new();
+    public event EventHandler<MHRWirebug> OnWirebugStateChange
     {
-        add => _onBlockedStateChange.Hook(value);
-        remove => _onBlockedStateChange.Unhook(value);
+        add => _onWirebugStateChange.Hook(value);
+        remove => _onWirebugStateChange.Unhook(value);
     }
 
     void IUpdatable<MHRWirebugExtrasStructure>.Update(MHRWirebugExtrasStructure data)
@@ -104,14 +105,14 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
 
     void IUpdatable<MHRWirebugData>.Update(MHRWirebugData data)
     {
-        IsBlocked = data.IsBlocked;
+        WirebugState = data.WirebugState;
         MaxCooldown = data.Structure.MaxCooldown;
         Cooldown = data.Structure.Cooldown;
     }
 
     public void Dispose()
     {
-        IDisposable[] events = { _onTimerUpdate, _onCooldownUpdate, _onAvailable, _onBlockedStateChange };
+        IDisposable[] events = { _onTimerUpdate, _onCooldownUpdate, _onAvailable, _onWirebugStateChange };
 
         events.DisposeAll();
     }

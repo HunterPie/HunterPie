@@ -10,16 +10,24 @@ namespace HunterPie.Internal;
 
 internal class InitializerManager
 {
-    private static readonly HashSet<IInitializer> _initializers = new()
+    private static readonly HashSet<IInitializer> Initializers = new()
     {
+        new FileStreamLoggerInitializer(),
         new CustomFontsInitializer(),
         
         // Core
+        new CredentialVaultInitializer(),
         new LocalConfigInitializer(),
+        
+        // Feature Flags
+        new FeatureFlagsInitializer(),
+
+        // Config
+        new RemoteConfigSyncInitializer(),
         new ClientConfigMigrationInitializer(),
         new ClientConfigInitializer(),
         new ConfigManagerInitializer(),
-        new FeatureFlagsInitializer(),
+
         new NativeLoggerInitializer(),
         new HunterPieLoggerInitializer(),
         new MapperFactoryInitializer(),
@@ -31,13 +39,12 @@ internal class InitializerManager
         new ClientLocalizationInitializer(),
         new SystemTrayInitializer(),
         new ClientConfigBindingsInitializer(),
-        new CredentialVaultInitializer(),
         
         // GUI
         new MenuInitializer(),
     };
 
-    private static readonly HashSet<IInitializer> _uiInitializers = new()
+    private static readonly HashSet<IInitializer> UiInitializers = new()
     {
         new HotkeyInitializer(),
 
@@ -49,7 +56,7 @@ internal class InitializerManager
     {
         Log.Benchmark();
 
-        foreach (IInitializer initializer in _initializers)
+        foreach (IInitializer initializer in Initializers)
             await initializer.Init();
 
         Log.BenchmarkEnd();
@@ -62,7 +69,7 @@ internal class InitializerManager
         // Make sure to run UI initializers in the main thread
         Dispatcher.CurrentDispatcher.Invoke(async () =>
         {
-            foreach (IInitializer initializer in _uiInitializers)
+            foreach (IInitializer initializer in UiInitializers)
                 await initializer.Init();
         });
 
@@ -71,16 +78,12 @@ internal class InitializerManager
 
     public static void Unload()
     {
-        foreach (IInitializer initializer in _initializers)
-        {
+        foreach (IInitializer initializer in Initializers)
             if (initializer is IDisposable disposable)
                 disposable.Dispose();
-        }
 
-        foreach (IInitializer initializer in _uiInitializers)
-        {
+        foreach (IInitializer initializer in UiInitializers)
             if (initializer is IDisposable disposable)
                 disposable.Dispose();
-        }
     }
 }

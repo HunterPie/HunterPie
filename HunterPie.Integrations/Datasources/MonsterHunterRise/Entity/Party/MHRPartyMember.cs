@@ -45,6 +45,7 @@ public sealed class MHRPartyMember : CommonPartyMember, IUpdatable<MHRPartyMembe
     public override bool IsMyself { get; protected set; } = true;
     public override MemberType Type { get; protected set; }
 
+    public int HighRank { get; private set; }
     public override int MasterRank { get; protected set; }
 
     public MHRPartyMember() { }
@@ -61,6 +62,7 @@ public sealed class MHRPartyMember : CommonPartyMember, IUpdatable<MHRPartyMembe
         IsMyself = data.IsMyself;
         Slot = data.Index;
         Type = data.MemberType;
+        HighRank = data.HighRank;
         MasterRank = data.MasterRank;
     }
 
@@ -69,4 +71,6 @@ public sealed class MHRPartyMember : CommonPartyMember, IUpdatable<MHRPartyMembe
         float totalDamage = data.RawDamage + data.ElementalDamage;
         Damage = (int)totalDamage;
     }
+
+    public string GetHash() => $"{Name}:{HighRank}:{MasterRank}";
 }

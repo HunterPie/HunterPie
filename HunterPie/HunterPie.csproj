@@ -10,14 +10,12 @@
     <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Authors>Haato</Authors>
-    <Version>1.2022.1208.2323</Version>
     <DebugType>full</DebugType>
     <SignAssembly>True</SignAssembly>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Nullable>disable</Nullable>
     <LangVersion>10.0</LangVersion>
     <DelaySign>False</DelaySign>
-    <IncrementVersionOnBuild>1.yyyy.Mdd.Hmm</IncrementVersionOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -53,6 +51,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="AssemblyInfo.cs~RF34c238c.TMP" />
     <None Remove="Resources\Icon.ico" />
   </ItemGroup>
 
@@ -90,6 +89,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="GUI\Parts\Settings\Views\SettingHost.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -196,6 +198,10 @@
 
   <ItemGroup>
     <Folder Include="GUI\Parts\Debug\ViewModels\" />
+    <Folder Include="Integrations\Poogie\Localization\Models\" />
+    <Folder Include="Integrations\Poogie\Patch\Models\" />
+    <Folder Include="Integrations\Poogie\Report\Models\" />
+    <Folder Include="Integrations\Poogie\Supporter\Models\" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

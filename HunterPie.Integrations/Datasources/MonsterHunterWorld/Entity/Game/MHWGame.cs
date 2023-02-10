@@ -29,6 +29,7 @@ public sealed class MHWGame : CommonGame
     private readonly Dictionary<long, EntityDamageData[]> _damageDone = new();
     private bool _isMouseVisible;
     private int _deaths;
+    private bool _isInQuest;
     private readonly Stopwatch _localTimerStopwatch = new();
     private readonly Stopwatch _damageUpdateThrottleStopwatch = new();
 
@@ -76,6 +77,19 @@ public sealed class MHWGame : CommonGame
             {
                 _deaths = value;
                 this.Dispatch(_onDeathCountChange, this);
+            }
+        }
+    }
+
+    public override bool IsInQuest
+    {
+        get => _isInQuest;
+        protected set
+        {
+            if (value != _isInQuest)
+            {
+                _isInQuest = value;
+                this.Dispatch(value ? _onQuestStart : _onQuestEnd, new QuestStateChangeEventArgs(this));
             }
         }
     }
@@ -149,6 +163,28 @@ public sealed class MHWGame : CommonGame
 
         _localTimerStopwatch.Reset();
         SetTimeElapsed(timeElapsed, true);
+    }
+
+    [ScannableMethod]
+    private void GetQuestState()
+    {
+        if (!_player.InHuntingZone)
+        {
+            IsInQuest = false;
+            return;
+        }
+
+        bool isInQuest = Memory.Deref<int>(
+            AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("QUEST_MAX_TIMER_OFFSETS")
+        ) != 0;
+
+        bool isQuestOver = Memory.Deref<int>(
+            AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("QUEST_STATE_OFFSETS")
+        ).IsMHWQuestOver();
+
+        IsInQuest = isInQuest && !isQuestOver;
     }
 
     [ScannableMethod]

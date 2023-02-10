@@ -49,6 +49,9 @@ public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     [SettingField("DAMAGE_METER_PLAYER_4_COLOR_STRING")]
     public Color PlayerFourth { get; set; } = "#FFF0F465";
 
+    [SettingField("DAMAGE_METER_NPC_COLOR_STRING", availableGames: GameProcess.MonsterHunterRise)]
+    public Color NpcColor { get; set; } = "#FF9534EB";
+
     [SettingField("DAMAGE_METER_ENABLE_DPS_PLOT")]
     public Observable<bool> ShouldShowPlots { get; set; } = true;
 

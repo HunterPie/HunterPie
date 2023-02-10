@@ -18,6 +18,7 @@ using HunterPie.Integrations.Datasources.Common.Definition;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Environment.Activities;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
@@ -166,6 +167,13 @@ public sealed class MHWPlayer : CommonPlayer
         }
     }
 
+    public MHWHarvestBox HarvestBox { get; } = new();
+
+    public MHWSteamworks Steamworks { get; } = new();
+
+    public MHWArgosy Argosy { get; } = new();
+
+    public MHWTailraiders Tailraiders { get; } = new();
     #endregion
 
     internal MHWPlayer(IProcessManager process) : base(process)
@@ -364,23 +372,23 @@ public sealed class MHWPlayer : CommonPlayer
         {
             index++;
 
-            if (index >= partySize)
+            string name = Process.Memory.Read(partyMember.Address + 0x49, 32);
+
+            bool isInParty = !string.IsNullOrEmpty(name);
+
+            if (!isInParty)
             {
                 _party.Remove(partyMember.Address);
                 continue;
             }
 
-            string name = Process.Memory.Read(partyMember.Address + 0x49, 32);
+            MHWPartyMemberLevelStructure levels = Process.Memory.Read<MHWPartyMemberLevelStructure>(partyMember.Address + 0x70);
 
-            if (string.IsNullOrEmpty(name))
-                continue;
-
-            bool isLocalPlayer = name == Name;
+            bool isLocalPlayer = name == Name && levels.HighRank == HighRank && levels.MasterRank == MasterRank;
 
             if (isLocalPlayer)
                 localPlayerReference = partyMember.Address;
 
-            MHWPartyMemberLevelStructure levels = Process.Memory.Read<MHWPartyMemberLevelStructure>(partyMember.Address + 0x70);
             var data = new MHWPartyMemberData
             {
                 Name = name,
@@ -395,6 +403,83 @@ public sealed class MHWPlayer : CommonPlayer
         }
 
         _localPlayerAddress = localPlayerReference;
+    }
+
+    [ScannableMethod]
+    private void GetHarvestBoxData()
+    {
+        if (PlayerSaveAddress.IsNullPointer())
+            return;
+
+        long harvestBoxPtr = PlayerSaveAddress + 0x103068;
+
+        MHWFertilizerStructure[] fertilizers = Memory.Read<MHWFertilizerStructure>(harvestBoxPtr, 4);
+        MHWItemStructure[] harvestBoxItems = Memory.Read<MHWItemStructure>(harvestBoxPtr + 0x30, 50);
+
+        var data = new MHWHarvestBoxData(
+            Items: harvestBoxItems,
+            Fertilizers: fertilizers
+        );
+
+        HarvestBox.Update(data);
+    }
+
+    [ScannableMethod]
+    private void GetSteamFuel()
+    {
+        if (PlayerSaveAddress.IsNullPointer())
+            return;
+
+        MHWSteamFuelStructure structure = Memory.Read<MHWSteamFuelStructure>(PlayerSaveAddress + 0x102FDC);
+
+        var data = new MHWSteamFuelData(
+            NaturalFuel: structure.NaturalFuel,
+            StoredFuel: structure.StoredFuel
+        );
+
+        Steamworks.Update(data);
+    }
+
+    [ScannableMethod]
+    private void GetArgosy()
+    {
+        if (PlayerSaveAddress.IsNullPointer())
+            return;
+
+        long argosyPtr = PlayerSaveAddress + 0x1034C0;
+
+        byte argosyDays = Memory.Read<byte>(argosyPtr);
+        bool isInTown = argosyDays < 250;
+
+        if (!isInTown)
+            argosyDays = (byte)(byte.MaxValue - argosyDays + 1);
+
+        var data = new MHWArgosyData(
+            DaysLeft: argosyDays,
+            IsInTown: isInTown
+        );
+
+        Argosy.Update(data);
+    }
+
+    [ScannableMethod]
+    private void GetTailraiders()
+    {
+        if (PlayerSaveAddress.IsNullPointer())
+            return;
+
+        long tailraidersPtr = PlayerSaveAddress + 0x1034DC;
+
+        byte tailraidersQuests = Memory.Read<byte>(tailraidersPtr);
+        bool isDeployed = tailraidersQuests != byte.MaxValue;
+        int questsLeft = isDeployed ? Tailraiders.MaxDays - tailraidersQuests : 0;
+
+        var data = new MHWTailraidersData(
+            QuestsLeft: questsLeft,
+            IsDeployed: isDeployed
+        );
+
+        Tailraiders.Update(data);
     }
 
     [ScannableMethod]
@@ -539,7 +624,21 @@ public sealed class MHWPlayer : CommonPlayer
 
         foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
         {
-            MHWAbnormalityStructure structure = Process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
+            MHWAbnormalityStructure structure = new();
+
+            int abnormSubId = abnormalitySchema.DependsOn switch
+            {
+                0 => 0,
+                _ => Memory.Read<int>(baseAddress + abnormalitySchema.DependsOn)
+            };
+
+            if (abnormSubId == abnormalitySchema.WithValue)
+            {
+                structure = Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
+
+                if (abnormalitySchema.IsInfinite)
+                    structure.Timer = 1;
+            }
 
             HandleAbnormality<MHWAbnormality, MHWAbnormalityStructure>(
                 _abnormalities,
@@ -620,6 +719,8 @@ public sealed class MHWPlayer : CommonPlayer
     public override void Dispose()
     {
         Tools.DisposeAll();
+        HarvestBox.Dispose();
+        Steamworks.Dispose();
         base.Dispose();
     }
 }

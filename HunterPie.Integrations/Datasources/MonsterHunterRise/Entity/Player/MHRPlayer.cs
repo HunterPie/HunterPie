@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Address.Map;
 using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
@@ -21,6 +21,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Activities;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Party;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Entities;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Weapons;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 using System.Runtime.CompilerServices;
@@ -46,6 +47,9 @@ public sealed class MHRPlayer : CommonPlayer
     private IWeapon _weapon;
     private Weapon _weaponId = WeaponType.None;
     private readonly Dictionary<int, MHREquipmentSkillStructure> _armorSkills = new(46);
+    private CommonConditions _commonCondition;
+    private DebuffConditions _debuffCondition;
+    private ActionFlags _actionFlag;
     #endregion
 
     public override string Name
@@ -388,14 +392,25 @@ public sealed class MHRPlayer : CommonPlayer
                 _ => Process.Memory.Read<int>(consumableBuffs + schema.DependsOn)
             };
 
+            bool isConditionValid = schema.FlagType switch
+            {
+                AbnormalityFlagType.RiseCommon => _commonCondition.HasFlag(schema.GetFlagAs<CommonConditions>()),
+                AbnormalityFlagType.RiseDebuff => _debuffCondition.HasFlag(schema.GetFlagAs<DebuffConditions>()),
+                AbnormalityFlagType.RiseAction => _actionFlag.HasFlag(schema.GetFlagAs<ActionFlags>()),
+                _ => true
+            } && abnormSubId == schema.WithValue;
+
             MHRConsumableStructure abnormality = new();
 
             if (schema.IsInfinite)
-                abnormality.Timer = abnormSubId == schema.WithValue ? AbnormalityData.TIMER_MULTIPLIER : 0;
-            else if (abnormSubId == schema.WithValue)
+                abnormality.Timer = isConditionValid ? 1 : 0;
+            else if (isConditionValid)
+            {
                 abnormality = Process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
 
-            abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                if (!schema.IsBuildup)
+                    abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+            }
 
             HandleAbnormality<MHRConsumableAbnormality, MHRConsumableStructure>(
                 _abnormalities,
@@ -409,7 +424,6 @@ public sealed class MHRPlayer : CommonPlayer
     [ScannableMethod]
     private void GetPlayerDebuffAbnormalities()
     {
-        // Only scan in hunting zone due to invalid pointer when not in a hunting zone...
         if (!InHuntingZone)
             return;
 
@@ -431,13 +445,28 @@ public sealed class MHRPlayer : CommonPlayer
                 _ => Process.Memory.Read<int>(debuffsPtr + schema.DependsOn)
             };
 
+            bool isConditionValid = schema.FlagType switch
+            {
+                AbnormalityFlagType.RiseCommon => _commonCondition.HasFlag(schema.GetFlagAs<CommonConditions>()),
+                AbnormalityFlagType.RiseDebuff => _debuffCondition.HasFlag(schema.GetFlagAs<DebuffConditions>()),
+                AbnormalityFlagType.RiseAction => _actionFlag.HasFlag(schema.GetFlagAs<ActionFlags>()),
+                _ => true
+            } && abnormSubId == schema.WithValue;
+
             MHRDebuffStructure abnormality = new();
 
-            // Only read memory if the required sub Id is the required one for this abnormality
-            if (abnormSubId == schema.WithValue)
+            if (schema.IsInfinite)
+                abnormality.Timer = isConditionValid ? 1 : 0;
+            else if (isConditionValid)
+            {
                 abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
 
-            abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                if (!schema.IsBuildup)
+                    abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+
+                if (schema.MaxTimer > 0)
+                    abnormality.Timer = (schema.MaxTimer - abnormality.Timer) > 0 ? (schema.MaxTimer - abnormality.Timer) : 0;
+            }
 
             HandleAbnormality<MHRDebuffAbnormality, MHRDebuffStructure>(
                 _abnormalities,
@@ -476,12 +505,12 @@ public sealed class MHRPlayer : CommonPlayer
             AddressMap.Get<int[]>("SESSION_PLAYER_OFFSETS")
         );
 
-        (int index, bool isValid, MHRCharacterData data)[] sessionPlayersArray = Process.Memory.Read<long>(playersArrayPtr + 0x20, 4)
+        PartyMemberMetadata[] sessionPlayersArray = Process.Memory.Read<long>(playersArrayPtr + 0x20, 4)
             .Select(pointer => (isValid: pointer != 0, pointer))
-            .Select((player, index) => (index, player.isValid, Process.Memory.Read<MHRCharacterData>(player.pointer)))
+            .Select((player, index) => new PartyMemberMetadata(index, player.isValid, Process.Memory.Read<MHRCharacterData>(player.pointer)))
             .ToArray();
 
-        bool isSos = sessionPlayersArray.Any(player => player.isValid);
+        bool isSos = sessionPlayersArray.Any(player => player.IsValid);
 
         if (!isSos)
         {
@@ -490,19 +519,21 @@ public sealed class MHRPlayer : CommonPlayer
                 AddressMap.Get<int[]>("CHARACTER_INFO_OFFSETS")
             );
 
-            sessionPlayersArray = Process.Memory.Read<long>(playersArrayPtr + 0x20, 4)
+            sessionPlayersArray = Process.Memory.Read<long>(playersArrayPtr + 0x20, 6)
                                                  .Select(pointer => (isValid: pointer != 0, pointer))
-                                                 .Select((player, index) => (index, player.isValid, Process.Memory.Read<MHRCharacterData>(player.pointer)))
+                                                 .Select((player, index) => new PartyMemberMetadata(index, player.isValid, Process.Memory.Read<MHRCharacterData>(player.pointer)))
                                                  .ToArray();
         }
 
-        bool isOnlineSession = sessionPlayersArray.Any(player => player.isValid);
+        bool isOnlineSession = sessionPlayersArray[..4].Any(player => player.IsValid);
 
-        long[] playerWeaponsPtr = Process.Memory.Read<long>(playersWeaponPtr + 0x20, 4);
+        long[] playerWeaponsPtr = Process.Memory.Read<long>(playersWeaponPtr + 0x20, 6);
 
         // In case player DC'd
         if (!isOnlineSession)
         {
+            bool hasNpcsInParty = sessionPlayersArray[4..6].Any(player => player.IsValid);
+
             if (string.IsNullOrEmpty(Name))
                 return;
 
@@ -515,7 +546,11 @@ public sealed class MHRPlayer : CommonPlayer
                 WeaponId = _weaponId,
                 IsMyself = true
             });
-            return;
+
+            if (!hasNpcsInParty)
+                return;
+
+            sessionPlayersArray = GetServantsData(sessionPlayersArray);
         }
 
         foreach ((int index, bool isValid, MHRCharacterData data) in sessionPlayersArray)
@@ -523,9 +558,11 @@ public sealed class MHRPlayer : CommonPlayer
             long weaponPtr = playerWeaponsPtr[index];
             string name = Process.Memory.Read(data.NamePointer + 0x14, 32, Encoding.Unicode);
 
-            if (weaponPtr == 0 && !isValid)
+            if (!isValid)
             {
-                _party.Remove(index);
+                if (isOnlineSession)
+                    _party.Remove(index);
+
                 continue;
             }
 
@@ -543,6 +580,29 @@ public sealed class MHRPlayer : CommonPlayer
 
             _party.Update(memberData);
         }
+    }
+
+    private PartyMemberMetadata[] GetServantsData(PartyMemberMetadata[] members)
+    {
+        long servantsArrayPtr = Memory.Read(
+            AddressMap.GetAbsolute("SERVANTS_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("SERVANTS_DATA_ARRAY_OFFSETS")
+        );
+
+        long[] servantsArray = Memory.ReadArray<long>(servantsArrayPtr);
+
+        long[] servantsNamePtrs = servantsArray.Select(pointer => Memory.ReadPtr(
+            pointer,
+            AddressMap.Get<int[]>("SERVANT_NAME_OFFSETS")
+        )).ToArray();
+
+        for (int i = 4; i < members.Length; i++)
+            members[i] = members[i] with
+            {
+                Data = new MHRCharacterData { NamePointer = servantsNamePtrs.ElementAtOrDefault(i - 4), HighRank = HighRank, MasterRank = MasterRank }
+            };
+
+        return members;
     }
 
     [ScannableMethod]
@@ -631,6 +691,16 @@ public sealed class MHRPlayer : CommonPlayer
             return;
         }
 
+        bool isBlocked = Process.Memory.Deref<int>(
+            AddressMap.GetAbsolute("UI_ADDRESS"),
+            AddressMap.Get<int[]>("IS_WIREBUG_BLOCKED_OFFSETS")
+        ) != 0;
+
+        WirebugState wirebugState = isBlocked ? WirebugState.Blocked :
+            _commonCondition.HasFlag(CommonConditions.WindMantle) ? WirebugState.WindMantle :
+            _debuffCondition.HasFlag(DebuffConditions.IceBlight) ? WirebugState.IceBlight :
+            WirebugState.None;
+
         int wirebugsArrayLength = Math.Min(Wirebugs.Length, Process.Memory.Read<int>(wirebugsArrayPtr + 0x1C));
         long[] wirebugsPtrs = Process.Memory.Read<long>(wirebugsArrayPtr + 0x20, (uint)wirebugsArrayLength);
 
@@ -641,12 +711,10 @@ public sealed class MHRPlayer : CommonPlayer
 
             var data = new MHRWirebugData
             {
-                IsBlocked = Process.Memory.Deref<int>(
-                    AddressMap.GetAbsolute("UI_ADDRESS"),
-                    AddressMap.Get<int[]>("IS_WIREBUG_BLOCKED_OFFSETS")
-                ) != 0,
+                WirebugState = wirebugState,
                 Structure = Process.Memory.Read<MHRWirebugStructure>(wirebugPtr)
             };
+
             data.Structure.Cooldown /= AbnormalityData.TIMER_MULTIPLIER;
             data.Structure.MaxCooldown /= AbnormalityData.TIMER_MULTIPLIER;
 
@@ -671,6 +739,55 @@ public sealed class MHRPlayer : CommonPlayer
 
         if (shouldDispatchEvent)
             this.Dispatch(_onWirebugsRefresh, Wirebugs);
+    }
+
+    [ScannableMethod]
+    private void GetPlayerConditions()
+    {
+        if (!InHuntingZone)
+        {
+            _commonCondition = CommonConditions.None;
+            _debuffCondition = DebuffConditions.None;
+            return;
+        }
+
+        long conditionPtr = Process.Memory.Read(
+            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("PLAYER_CONDITION_OFFSETS")
+        );
+
+        if (conditionPtr.IsNullPointer())
+        {
+            _commonCondition = CommonConditions.None;
+            _debuffCondition = DebuffConditions.None;
+            return;
+        }
+
+        _commonCondition = (CommonConditions)Process.Memory.Read<ulong>(conditionPtr + 0x10);
+        _debuffCondition = (DebuffConditions)Process.Memory.Read<ulong>(conditionPtr + 0x38);
+    }
+
+    [ScannableMethod]
+    private void GetPlayerActionArgs()
+    {
+        if (!InHuntingZone)
+        {
+            _actionFlag = ActionFlags.None;
+            return;
+        }
+
+        long actionFlagArray = Process.Memory.Read(
+            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("PLAYER_ACTIONFLAG_OFFSETS")
+        );
+
+        if (actionFlagArray.IsNullPointer())
+        {
+            _actionFlag = ActionFlags.None;
+            return;
+        }
+
+        _actionFlag = (ActionFlags)Process.Memory.Read<uint>(actionFlagArray + 0x20);
     }
 
     [ScannableMethod(typeof(MHRSubmarineData))]

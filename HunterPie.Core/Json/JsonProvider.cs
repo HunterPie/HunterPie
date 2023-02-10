@@ -8,23 +8,23 @@ namespace HunterPie.Core.Json;
 public static class JsonProvider
 {
 
-    private static readonly JsonSerializerSettings _deserializerSettings = new()
+    private static readonly JsonSerializerSettings DeserializerSettings = new()
     {
         NullValueHandling = NullValueHandling.Ignore,
         TypeNameHandling = TypeNameHandling.Auto
     };
 
-    private static readonly JsonSerializerSettings _serializerSettings = new()
+    private static readonly JsonSerializerSettings SerializerSettings = new()
     {
         TypeNameHandling = TypeNameHandling.Auto,
     };
 
-    private static readonly Lazy<JsonSerializerSettings> _newSerializeSettings = new(() =>
+    private static readonly Lazy<JsonSerializerSettings> NewSerializeSettings = new(() =>
     {
         var serializer = new JsonSerializerSettings()
         {
             TypeNameHandling = TypeNameHandling.Auto,
-            NullValueHandling = NullValueHandling.Ignore
+            NullValueHandling = NullValueHandling.Ignore,
         };
         serializer.Converters.Add(new StringEnumConverter());
 
@@ -32,17 +32,20 @@ public static class JsonProvider
     });
 
     public static void Populate(string value, object target) =>
-        JsonConvert.PopulateObject(value, target, _deserializerSettings);
+        JsonConvert.PopulateObject(value, target, DeserializerSettings);
 
     public static string Serializer(object? value, bool indented = false) =>
-        JsonConvert.SerializeObject(value, indented ? Formatting.Indented : Formatting.None, _newSerializeSettings.Value);
+        JsonConvert.SerializeObject(value, indented ? Formatting.Indented : Formatting.None, NewSerializeSettings.Value);
 
     public static T Deserializer<T>(string value) =>
-        JsonConvert.DeserializeObject<T>(value, _newSerializeSettings.Value)!;
+        JsonConvert.DeserializeObject<T>(value, NewSerializeSettings.Value)!;
+
+    public static object Deserializer(string value, Type type) =>
+        JsonConvert.DeserializeObject(value, type, NewSerializeSettings.Value)!;
 
     [Obsolete("This method is deprecated, use Serializer instead.")]
     public static string Serialize(object? value) =>
-        JsonConvert.SerializeObject(value, Formatting.Indented, _serializerSettings);
+        JsonConvert.SerializeObject(value, Formatting.Indented, SerializerSettings);
 
     [Obsolete("This method is deprecated, use Deserializer instead.")]
     public static T Deserialize<T>(string value) =>

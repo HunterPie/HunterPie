@@ -11,7 +11,6 @@ namespace HunterPie.UI.Overlay.Widgets.Activities;
 
 public class RiseActivitiesWidgetContextHandler : IContextHandler
 {
-    private readonly MHRContext _context;
     private readonly MHRPlayer _player;
     private readonly IContextHandler[] _handlers;
     private readonly ActivitiesViewModel _viewModel;
@@ -24,7 +23,6 @@ public class RiseActivitiesWidgetContextHandler : IContextHandler
 
     public RiseActivitiesWidgetContextHandler(MHRContext context)
     {
-        _context = context;
         _player = (MHRPlayer)context.Game.Player;
 
         _view = new ActivitiesView(ClientConfig.Config.Rise.Overlay.ActivitiesWidget);
@@ -32,10 +30,10 @@ public class RiseActivitiesWidgetContextHandler : IContextHandler
 
         _viewModel = _view.ViewModel;
 
-        _submarinesContextHandler = new(_context);
-        _trainingDojoContextHandler = new(_context);
-        _meowcenariesContextHandler = new(_context);
-        _cohootContextHandler = new(_context);
+        _submarinesContextHandler = new(context);
+        _trainingDojoContextHandler = new(context);
+        _meowcenariesContextHandler = new(context);
+        _cohootContextHandler = new(context);
 
         _handlers = new IContextHandler[]
         {
@@ -45,7 +43,6 @@ public class RiseActivitiesWidgetContextHandler : IContextHandler
             _cohootContextHandler,
         };
         UpdateData();
-        HookEvents();
     }
 
     public void HookEvents()

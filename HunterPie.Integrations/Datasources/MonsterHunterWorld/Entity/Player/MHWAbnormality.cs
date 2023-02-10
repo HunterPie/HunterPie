@@ -14,6 +14,8 @@ public sealed class MHWAbnormality : CommonAbnormality, IUpdatable<MHWAbnormalit
 
     public override string Id { get; protected set; }
 
+    public override string Name { get; protected set; }
+
     public override string Icon { get; protected set; }
 
     public override AbnormalityType Type { get; protected set; }
@@ -42,6 +44,7 @@ public sealed class MHWAbnormality : CommonAbnormality, IUpdatable<MHWAbnormalit
     public MHWAbnormality(AbnormalitySchema schema)
     {
         Id = schema.Id;
+        Name = schema.Name;
         Icon = schema.Icon;
         Type = schema.Category switch
         {
@@ -55,6 +58,7 @@ public sealed class MHWAbnormality : CommonAbnormality, IUpdatable<MHWAbnormalit
             _ => throw new NotImplementedException("unreachable")
         };
         IsBuildup = schema.IsBuildup;
+        IsInfinite = schema.IsInfinite;
 
         if (IsBuildup)
             MaxTimer = schema.MaxBuildup;

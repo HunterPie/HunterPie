@@ -1,7 +1,8 @@
-﻿using HunterPie.Core.API;
-using HunterPie.Core.API.Entities;
-using HunterPie.Core.Client;
+﻿using HunterPie.Core.Client;
 using HunterPie.Features.Account.Config;
+using HunterPie.Integrations.Poogie.Backup;
+using HunterPie.Integrations.Poogie.Backup.Models;
+using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.UI.Architecture;
 using System;
 using System.Collections.ObjectModel;
@@ -13,6 +14,8 @@ namespace HunterPie.GUI.Parts.Backup.ViewModels;
 #nullable enable
 public class BackupsViewModel : ViewModel, IDisposable
 {
+    private readonly PoogieBackupConnector _backupConnector = new();
+
     private int _count;
     private int _maxCount;
     private DateTime _lastSync;
@@ -34,21 +37,21 @@ public class BackupsViewModel : ViewModel, IDisposable
 
     public void HookEvents()
     {
-        PoogieApi.OnBackupDeleted += OnBackupDeleted;
+        PoogieBackupConnector.OnBackupDeleted += OnBackupDeleted;
     }
 
     public void UnhookEvents()
     {
-        PoogieApi.OnBackupDeleted -= OnBackupDeleted;
+        PoogieBackupConnector.OnBackupDeleted -= OnBackupDeleted;
     }
 
     public async void FetchBackups()
     {
         IsFetching = true;
-        PoogieApiResult<UserBackupDetailsResponse>? backupDetails = await PoogieApi.GetUserBackups();
+        PoogieResult<UserBackupDetailsResponse> backupDetails = await _backupConnector.FindAll();
         IsFetching = false;
 
-        if (backupDetails is null || !backupDetails.Success || backupDetails.Response is null)
+        if (backupDetails.Response is null)
             return;
 
         UserBackupDetailsResponse response = backupDetails.Response;
@@ -89,4 +92,3 @@ public class BackupsViewModel : ViewModel, IDisposable
 
     public void Dispose() => UnhookEvents();
 }
-#nullable restore
