@@ -40,7 +40,10 @@ public class HttpClientResponse : IEventDispatcher, IDisposable
 
     public async Task<T?> AsJsonAsync<T>()
     {
-        string content = await Content!.ReadAsStringAsync();
+        if (Content is null)
+            return default;
+
+        string content = await Content.ReadAsStringAsync();
 
         try
         {
@@ -53,9 +56,9 @@ public class HttpClientResponse : IEventDispatcher, IDisposable
         }
     }
 
-    public async Task<byte[]> AsRawAsync() => await Content!.ReadAsByteArrayAsync();
+    public async Task<byte[]?> AsRawAsync() => Content is { } content ? await content.ReadAsByteArrayAsync() : null;
 
-    public async Task<string> AsTextAsync() => await Content!.ReadAsStringAsync();
+    public async Task<string?> AsTextAsync() => Content is { } content ? await content.ReadAsStringAsync() : null;
 
     public async Task DownloadAsync(string outPath)
     {

@@ -13,7 +13,10 @@ internal record PoogieResult<T>(
 {
     public static async Task<PoogieResult<T>> From(HttpClientResponse response)
     {
-        string rawResponse = await response.AsTextAsync();
+        string? rawResponse = await response.AsTextAsync();
+
+        if (rawResponse is null)
+            return new PoogieResult<T>(Response: default(T), Error: PoogieError.Default());
 
         var resp = default(T);
         PoogieError? error = null;

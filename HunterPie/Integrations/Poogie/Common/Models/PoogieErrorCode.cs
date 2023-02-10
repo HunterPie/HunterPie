@@ -52,5 +52,7 @@ internal enum PoogieErrorCode
     INTERNAL_ERROR,
 
     [Localization("//Strings/Client/Integrations/Poogie[@Id='ERROR_INVALID_PASSWORD_RESET_CODE']")]
-    INVALID_PASSWORD_RESET_CODE
+    INVALID_PASSWORD_RESET_CODE,
+
+    UNKNOWN_ERROR
 }
