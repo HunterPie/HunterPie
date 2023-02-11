@@ -197,10 +197,4 @@
     <Color x:Key="WIDGET_SHARPNESS_BLUE">#49B2E3</Color>
     <Color x:Key="WIDGET_SHARPNESS_WHITE">#EAF5F4</Color>
     <Color x:Key="WIDGET_SHARPNESS_PURPLE">#cd55e6</Color>
-    
-    <Color x:Key="WIREBUG_NORMAL">#FF64BAAC</Color>
-    <Color x:Key="WIREBUG_ICEBLIGHT">#FF70D0F7</Color>
-    <Color x:Key="WIREBUG_WINDMANTLE">#FF00D600</Color>
-    <Color x:Key="WIREBUG_GOLD">#FFFFE21D</Color>
-    <Color x:Key="WIREBUG_RUBY">#FFFE4A0D</Color>
 </ResourceDictionary>
