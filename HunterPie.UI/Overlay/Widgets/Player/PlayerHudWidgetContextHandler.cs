@@ -41,6 +41,12 @@ public class PlayerHudWidgetContextHandler : IContextHandler
         Player.Health.OnHeal += OnHeal;
         Player.OnAbnormalityStart += OnPlayerAbnormalityStart;
         Player.OnAbnormalityEnd += OnPlayerAbnormalityEnd;
+
+        if (Player.Weapon is IMeleeWeapon weapon)
+        {
+            weapon.OnSharpnessChange += OnSharpnessChange;
+            weapon.OnSharpnessLevelChange += OnSharpnessLevelChange;
+        }
     }
 
     public void UnhookEvents()
@@ -154,5 +160,13 @@ public class PlayerHudWidgetContextHandler : IContextHandler
         _viewModel.Stamina = Player.Stamina.Current;
         _viewModel.Name = Player.Name;
         _viewModel.Level = Player.MasterRank;
+        _viewModel.Weapon = Player.Weapon.Id;
+
+        if (Player.Weapon is IMeleeWeapon weapon)
+        {
+            _viewModel.SharpnessViewModel.MaxSharpness = weapon.MaxSharpness - weapon.Threshold;
+            _viewModel.SharpnessViewModel.Sharpness = weapon.CurrentSharpness - weapon.Threshold;
+            _viewModel.SharpnessViewModel.SharpnessLevel = weapon.Sharpness;
+        }
     }
 }

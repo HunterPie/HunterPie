@@ -18,14 +18,17 @@ internal class CustomFontsInitializer : IInitializer, IDisposable
         return !Directory.Exists(_fontsFolder)
             ? Array.Empty<string>()
             : Directory.EnumerateFiles(_fontsFolder)
-                        .Where(it => !it.EndsWith(".old"))
+                        .Where(it => it.EndsWith(".ttf"))
                         .ToArray();
     });
 
     public Task Init()
     {
+        foreach (string fontName in Directory.EnumerateFiles(_fontsFolder))
+            Gdi32.RemoveFontResourceW(fontName);
+
         foreach (string fontName in _fonts.Value)
-            _ = Gdi32.AddFontResourceW(fontName);
+            Gdi32.AddFontResourceW(fontName);
 
         return Task.CompletedTask;
     }

@@ -56,11 +56,11 @@ internal class GameSaveBackupService : IContextInitializer
 
         PoogieResult<CanUploadBackupResponse> canUploadResult = await BackupConnector.CanUploadBackup();
 
-        if (canUploadResult.Response is not { CanUpload: true })
+        if (canUploadResult?.Response is not { CanUpload: true })
             return false;
 
         string registryKey = $"{LAST_BACKUP_KEY}_{_backupService!.Type}";
-        string successRegistryKey = $"{LAST_BACKUP_SUCCESS_KEY}_{_backupService!.Type}";
+        string successRegistryKey = $"{LAST_BACKUP_SUCCESS_KEY}_{_backupService.Type}";
 
         if (!ShouldBackup())
             return false;
