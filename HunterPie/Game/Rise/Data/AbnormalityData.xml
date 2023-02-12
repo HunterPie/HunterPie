@@ -344,10 +344,10 @@
                      Icon="ICON_ARMORSKILL_SALMON"
                      Category="Consumables"/>
         <Abnormality Id="ABN_WALLRUNNER_ATKUP"
-					 Offset="11C"
-					 Name="ABNORMALITY_WALL_RUNNER"
-					 Icon="ICON_ARMORSKILL_GREEN"
-					 Category="Consumables"/>
+                     Offset="11C"
+                     Name="ABNORMALITY_WALL_RUNNER"
+                     Icon="ICON_ARMORSKILL_GREEN"
+                     Category="Consumables"/>
         <Abnormality Id="ABN_COUNTERSTRIKE"
                      Offset="120"
                      Name="ABNORMALITY_COUNTERSTRIKE"
