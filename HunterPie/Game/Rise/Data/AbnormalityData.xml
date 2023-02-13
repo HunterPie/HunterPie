@@ -454,6 +454,13 @@
                      Flag="Dragonheart"
                      IsInfinite="True"
                      Category="Consumables"/>
+        <Abnormality Id="ABN_EMBOLDEN"
+                     Name="ABNORMALITY_EMBOLDEN"
+                     Icon="ICON_ARMORSKILL_ORANGE"
+                     FlagType="RiseCommon"
+                     Flag="Embolden"
+                     IsInfinite="True"
+                     Category="Consumables"/>
         <Abnormality Id="ABN_STRIFE_S"
                      Name="ABNORMALITY_STRIFE_S"
                      Icon="ICON_ARMORSKILL_RED"
