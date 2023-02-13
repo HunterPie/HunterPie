@@ -167,7 +167,14 @@ public sealed class MHRPlayer : CommonPlayer
 
     public MHRPlayer(IProcessManager process) : base(process)
     {
-        _weapon = new MHRMeleeWeapon(process, WeaponType.Greatsword);
+        _weapon = CreateDefaultWeapon(process);
+    }
+
+    private static IWeapon CreateDefaultWeapon(IProcessManager process)
+    {
+        var weapon = new MHRMeleeWeapon(process, WeaponType.Greatsword);
+        ScanManager.Add(weapon);
+        return weapon;
     }
 
     // TODO: Add DTOs for middlewares
@@ -274,6 +281,9 @@ public sealed class MHRPlayer : CommonPlayer
     [ScannableMethod]
     private void GetPlayerWeaponData()
     {
+        if (_stageData.IsMainMenu())
+            return;
+
         long weaponIdPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("WEAPON_ADDRESS"),
             AddressMap.Get<int[]>("WEAPON_OFFSETS")
