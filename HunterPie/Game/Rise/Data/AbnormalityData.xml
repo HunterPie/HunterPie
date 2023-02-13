@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Abnormalities>
     <Songs>
         <Abnormality Id="0"
@@ -475,6 +475,13 @@
                      Flag="Berserk"
                      IsInfinite="True"
                      Category="Consumables"/>
+        <Abnormality Id="ABN_DRAGON_CONVERSION"
+                     Name="ABNORMALITY_DRAGON_CONVERSION"
+                     Icon="ICON_ALLRESUP_MHRS"
+                     FlagType="RiseCommon"
+                     Flag="ResistUp"
+                     IsInfinite="True"
+                     Category="Consumables"/>
         <Abnormality Id="ABN_MAXIMUM_MIGHT"
                      Name="ABNORMALITY_MAXIMUM_MIGHT"
                      Icon="ICON_ARMORSKILL_SALMON"
@@ -482,7 +489,6 @@
                      Flag="MaximumMight"
                      IsInfinite="True"
                      Category="Consumables"/>
-
     </Skills>
     <Foods>
         <Abnormality Id="ABN_DANGO_BULKER"
