@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="HunterPie.GUI.Parts.Statistics.Views.MonsterSummaryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.GUI.Parts.Statistics.Views"
+             xmlns:vm="clr-namespace:HunterPie.GUI.Parts.Statistics.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="80" 
+             d:DesignWidth="80"
+             d:DataContext="{d:DesignInstance vm:MonsterSummaryViewModel}">
+    <Border CornerRadius="5"
+            BorderThickness="1"
+            BorderBrush="{StaticResource GRAY_400}"
+            Background="{StaticResource GRAY_100}">
+        <Image d:Source="https://cdn.hunterpie.com/Assets/Monsters/Icons/Rise_109.png"
+               Margin="5"/>
+    </Border>
+</UserControl>
