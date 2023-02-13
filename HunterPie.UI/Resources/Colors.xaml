@@ -197,5 +197,4 @@
     <Color x:Key="WIDGET_SHARPNESS_BLUE">#49B2E3</Color>
     <Color x:Key="WIDGET_SHARPNESS_WHITE">#EAF5F4</Color>
     <Color x:Key="WIDGET_SHARPNESS_PURPLE">#cd55e6</Color>
-    
 </ResourceDictionary>
