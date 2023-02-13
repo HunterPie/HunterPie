@@ -716,7 +716,7 @@ public sealed class MHRPlayer : CommonPlayer
             };
 
             data.Structure.Cooldown /= AbnormalityData.TIMER_MULTIPLIER;
-            data.Structure.MaxCooldown /= AbnormalityData.TIMER_MULTIPLIER;
+            data.Structure.MaxCooldown = data.Structure.MaxCooldown == 0 ? 400 : data.Structure.MaxCooldown / AbnormalityData.TIMER_MULTIPLIER;
 
             if (wirebugPtr != Wirebugs[i].Address)
             {
