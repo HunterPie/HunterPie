@@ -37,7 +37,7 @@ internal class WirebugContextHandler : WirebugViewModel, IContextHandler
     {
         MaxTimer = e.MaxTimer;
         Timer = e.Timer;
-        IsTemporary = Context.Timer > 0;
+        IsTemporary = Timer > 0;
     }
 
     private void OnAvailable(object sender, MHRWirebug e) => IsAvailable = e.IsAvailable;
@@ -52,13 +52,13 @@ internal class WirebugContextHandler : WirebugViewModel, IContextHandler
     private void UpdateData()
     {
         WirebugState = Context.WirebugState;
-        MaxCooldown = Context.MaxCooldown == 0 ? 400 : Context.MaxCooldown;
+        MaxCooldown = Context.MaxCooldown;
         Cooldown = Context.Cooldown;
         OnCooldown = Cooldown > 0;
         IsAvailable = Context.IsAvailable;
 
         MaxTimer = Context.MaxTimer;
         Timer = Context.Timer;
-        IsTemporary = Context.Timer > 0;
+        IsTemporary = Timer > 0;
     }
 }

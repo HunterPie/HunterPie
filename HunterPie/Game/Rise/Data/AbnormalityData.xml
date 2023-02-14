@@ -382,8 +382,6 @@
                      Offset="1AC"
                      Name="ABNORMALITY_STATUS_TRIGGER"
                      Icon="ICON_STATUS_TRIGGER"
-                     FlagType="RiseCommon"
-                     Flag="StatusTrigger"
                      Category="Comsumables"/>
         <Abnormality Id="ABN_INTERPID_HEART"
                      Offset="1B0"
