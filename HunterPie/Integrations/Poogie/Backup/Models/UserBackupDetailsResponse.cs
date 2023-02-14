@@ -2,7 +2,7 @@
 
 namespace HunterPie.Integrations.Poogie.Backup.Models;
 internal record UserBackupDetailsResponse(
-    [JsonProperty("count")] int Count,
-    [JsonProperty("max_count")] int MaxCount,
-    [JsonProperty("backups")] BackupResponse[] Backups
+    [property: JsonProperty("count")] int Count,
+    [property: JsonProperty("max_count")] int MaxCount,
+    [property: JsonProperty("backups")] BackupResponse[] Backups
 );

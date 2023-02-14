@@ -3,5 +3,5 @@
 namespace HunterPie.Integrations.Poogie.Version.Models;
 
 internal record VersionResponse(
-    [JsonProperty("latest_version")] string LatestVersion
+    [property: JsonProperty("latest_version")] string LatestVersion
 );

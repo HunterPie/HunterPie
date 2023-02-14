@@ -2,4 +2,4 @@
 
 namespace HunterPie.Integrations.Poogie.Account.Models;
 
-internal record LoginResponse([JsonProperty("token")] string Token);
+internal record LoginResponse([property: JsonProperty("token")] string Token);
