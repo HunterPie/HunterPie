@@ -353,6 +353,11 @@
                      Name="ABNORMALITY_COUNTERSTRIKE"
                      Icon="ICON_ARMORSKILL_RED"
                      Category="Consumables"/>
+        <Abnormality Id="ABN_KUSHALA_DAORA_SOUL"
+                     Offset="12C"
+                     Name="ABNORMALITY_KUSHALA_DAORA_SOUL"
+                     Icon="ICON_AFFINITY_MHRS"
+                     Category="Consumables"/>
         <Abnormality Id="ABN_COALESCENCE"
                      Offset="168"
                      Name="ABNORMALITY_COALESCENCE"
@@ -452,6 +457,13 @@
                      Icon="ICON_ARMORSKILL_ORANGE"
                      FlagType="RiseCommon"
                      Flag="Dragonheart"
+                     IsInfinite="True"
+                     Category="Consumables"/>
+        <Abnormality Id="ABN_EMBOLDEN"
+                     Name="ABNORMALITY_EMBOLDEN"
+                     Icon="ICON_ARMORSKILL_ORANGE"
+                     FlagType="RiseCommon"
+                     Flag="Embolden"
                      IsInfinite="True"
                      Category="Consumables"/>
         <Abnormality Id="ABN_STRIFE_S"
