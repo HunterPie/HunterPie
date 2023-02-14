@@ -2,4 +2,4 @@
 
 namespace HunterPie.Integrations.Poogie.Backup.Models;
 
-internal record BackupDeleteResponse([JsonProperty("id")] string Id);
+internal record BackupDeleteResponse([property: JsonProperty("id")] string Id);

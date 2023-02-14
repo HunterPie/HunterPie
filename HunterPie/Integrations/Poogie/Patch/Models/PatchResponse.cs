@@ -3,8 +3,8 @@
 namespace HunterPie.Integrations.Poogie.Patch.Models;
 
 public record PatchResponse(
-    [JsonProperty("title")] string Title,
-    [JsonProperty("description")] string Description,
-    [JsonProperty("banner")] string Banner,
-    [JsonProperty("link")] string Link
+    [property: JsonProperty("title")] string Title,
+    [property: JsonProperty("description")] string Description,
+    [property: JsonProperty("banner")] string Banner,
+    [property: JsonProperty("link")] string Link
 );

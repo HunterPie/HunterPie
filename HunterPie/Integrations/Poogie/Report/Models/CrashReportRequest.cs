@@ -3,10 +3,10 @@
 namespace HunterPie.Integrations.Poogie.Report.Models;
 
 public record CrashReportRequest(
-    [JsonProperty("version")] string Version,
-    [JsonProperty("game_build")] string GameBuild,
-    [JsonProperty("exception")] string Exception,
-    [JsonProperty("stacktrace")] string Stacktrace,
-    [JsonProperty("is_ui_error")] bool IsUiError,
-    [JsonProperty("context")] CrashReportContextRequest Context
+    [property: JsonProperty("version")] string Version,
+    [property: JsonProperty("game_build")] string GameBuild,
+    [property: JsonProperty("exception")] string Exception,
+    [property: JsonProperty("stacktrace")] string Stacktrace,
+    [property: JsonProperty("is_ui_error")] bool IsUiError,
+    [property: JsonProperty("context")] CrashReportContextRequest Context
 );

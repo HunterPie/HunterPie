@@ -2,4 +2,4 @@
 
 namespace HunterPie.Integrations.Poogie.Backup.Models;
 
-internal record CanUploadBackupResponse([JsonProperty("can_upload")] bool CanUpload);
+internal record CanUploadBackupResponse([property: JsonProperty("can_upload")] bool CanUpload);
