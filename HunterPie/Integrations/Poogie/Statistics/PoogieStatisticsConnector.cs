@@ -1,6 +1,7 @@
 ﻿using HunterPie.Integrations.Poogie.Common;
 using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.Integrations.Poogie.Statistics.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Statistics;
@@ -12,4 +13,7 @@ internal class PoogieStatisticsConnector
 
     public async Task<PoogieResult<PoogieQuestStatisticsModel>> Upload(PoogieQuestStatisticsModel model) =>
         await _connector.Post<PoogieQuestStatisticsModel, PoogieQuestStatisticsModel>($"{STATISTICS_ENDPOINT}/upload", model);
+
+    public async Task<PoogieResult<List<PoogieQuestSummaryModel>>> GetUserQuestSummaries() =>
+        await _connector.Get<List<PoogieQuestSummaryModel>>($"{STATISTICS_ENDPOINT}");
 }

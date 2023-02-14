@@ -13,7 +13,7 @@
             BorderThickness="1"
             BorderBrush="{StaticResource GRAY_400}"
             Background="{StaticResource GRAY_100}">
-        <Image d:Source="https://cdn.hunterpie.com/Assets/Monsters/Icons/Rise_109.png"
+        <Image Source="https://cdn.hunterpie.com/Assets/Monsters/Icons/Rise_109.png"
                Margin="5"/>
     </Border>
 </UserControl>

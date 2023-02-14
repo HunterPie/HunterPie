@@ -2,7 +2,7 @@
 using HunterPie.UI.Architecture;
 
 namespace HunterPie.GUI.Parts.Statistics.ViewModels;
-internal class MonsterSummaryViewModel : ViewModel
+public class MonsterSummaryViewModel : ViewModel
 {
     private GameType _gameType;
     public GameType GameType
