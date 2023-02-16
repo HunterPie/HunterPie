@@ -3929,6 +3929,32 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+    <DrawingImage x:Key="ICON_INFINITE_STAMINA_MHRS">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V16.933334 H16.933333 V0 H0 Z">
+                <DrawingGroup Opacity="1" Transform="1,0,0,1,0,-280.06665">
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M16.933333,16.933334z M0,0z M15.874997,283.10208L5.5562461,283.10208 1.058336,290.51041 11.377087,290.51041z">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="#FF000000" Thickness="0.26458332" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF00D600" Geometry="F1 M16.933333,16.933334z M0,0z M15.874997,283.10208L5.5562465,283.10208 1.0583364,290.51041 11.377087,290.51041z" />
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M16.933333,16.933334z M0,0z M2.1166665,289.98124L5.8208365,283.63124 14.816667,283.63124 11.112497,289.98124z" />
+                    <GeometryDrawing Brush="#FFE0DC0A" Geometry="F1 M16.933333,16.933334z M0,0z M3.1749965,289.45208L6.3499965,284.16041 13.758327,284.16041 10.583337,289.45208z" />
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M16.933333,16.933334z M0,0z M12.433987,287.22694L8.9945262,290.6664 8.9945262,291.56874 10.582417,291.56874 10.582417,294.21522 10.848047,294.21522 14.287497,294.21522 14.287497,291.56874 15.875387,291.56874 15.875387,290.6664z">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="#FF000000" Thickness="0.26458332" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF088E00" Geometry="F1 M16.933333,16.933334z M0,0z M10.847897,293.94999L10.847907,291.30416 9.2603966,291.30415 9.2603966,290.77499 12.435397,287.59999 15.610397,290.77499 15.610397,291.30415 14.022907,291.30416 14.022897,293.94999z">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="#FF000000" Thickness="0.52916664" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
     <DrawingImage x:Key="ICON_SELFIMPROVEMENT">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V128 H128 V0 H0 Z">

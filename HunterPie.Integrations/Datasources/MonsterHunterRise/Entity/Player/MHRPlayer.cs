@@ -416,10 +416,18 @@ public sealed class MHRPlayer : CommonPlayer
                 abnormality.Timer = isConditionValid ? 1 : 0;
             else if (isConditionValid)
             {
-                abnormality = Process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
+                if (schema.IsInteger)
+                    abnormality.Timer = Process.Memory.Read<int>(consumableBuffs + schema.Offset);
+                else
+                {
+                    abnormality = Process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
 
-                if (!schema.IsBuildup)
-                    abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                    if (!schema.IsBuildup)
+                        abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                }
+
+                if (schema.MaxTimer > 0)
+                    abnormality.Timer = (schema.MaxTimer - abnormality.Timer) > 0 ? (schema.MaxTimer - abnormality.Timer) : 0;
             }
 
             HandleAbnormality<MHRConsumableAbnormality, MHRConsumableStructure>(
@@ -469,10 +477,15 @@ public sealed class MHRPlayer : CommonPlayer
                 abnormality.Timer = isConditionValid ? 1 : 0;
             else if (isConditionValid)
             {
-                abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
+                if (schema.IsInteger)
+                    abnormality.Timer = Process.Memory.Read<int>(debuffsPtr + schema.Offset);
+                else
+                {
+                    abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
 
-                if (!schema.IsBuildup)
-                    abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                    if (!schema.IsBuildup)
+                        abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                }
 
                 if (schema.MaxTimer > 0)
                     abnormality.Timer = (schema.MaxTimer - abnormality.Timer) > 0 ? (schema.MaxTimer - abnormality.Timer) : 0;
