@@ -410,36 +410,30 @@ public sealed class MHRPlayer : CommonPlayer
                 _ => true
             } && abnormSubId == schema.WithValue;
 
-            MHRConsumableStructure consumable = new();
+            MHRAbnormalityData abnormality = new();
 
             if (isConditionValid)
             {
                 if (schema.IsInfinite)
-                    consumable.Timer = 1;
+                    abnormality.Timer = 1;
                 else
                 {
-                    MHRAbnormalityStructure abnormality = Process.Memory.Read<MHRAbnormalityStructure>(consumableBuffs + schema.Offset);
+                    MHRAbnormalityStructure abnormalityStructure = Process.Memory.Read<MHRAbnormalityStructure>(consumableBuffs + schema.Offset);
+                    abnormality = MHRAbnormalityAdapter.Convert(schema, abnormalityStructure);
 
-                    if (schema.IsInteger)
-                        consumable.Timer = abnormality.Timer;
-                    else
-                    {
-                        consumable = abnormality.Consumable;
-
-                        if (!schema.IsBuildup)
-                            consumable.Timer /= AbnormalityData.TIMER_MULTIPLIER;
-                    }
+                    if (!schema.IsInteger && !schema.IsBuildup)
+                        abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
                     if (schema.MaxTimer > 0)
-                        consumable.Timer = schema.MaxTimer - consumable.Timer > 0 ? schema.MaxTimer - consumable.Timer : 0;
+                        abnormality.Timer = schema.MaxTimer - abnormality.Timer > 0 ? schema.MaxTimer - abnormality.Timer : 0;
                 }
             }
 
-            HandleAbnormality<MHRConsumableAbnormality, MHRConsumableStructure>(
+            HandleAbnormality<MHRConsumableAbnormality, MHRAbnormalityData>(
                 _abnormalities,
                 schema,
-                consumable.Timer,
-                consumable
+                abnormality.Timer,
+                abnormality
             );
         }
     }
@@ -476,7 +470,7 @@ public sealed class MHRPlayer : CommonPlayer
                 _ => true
             } && abnormSubId == schema.WithValue;
 
-            MHRDebuffStructure debuff = new();
+            MHRAbnormalityData abnormality = new();
 
             if (isConditionValid)
             {
@@ -484,28 +478,22 @@ public sealed class MHRPlayer : CommonPlayer
                     debuff.Timer = 1;
                 else
                 {
-                    MHRAbnormalityStructure abnormality = Process.Memory.Read<MHRAbnormalityStructure>(debuffsPtr + schema.Offset);
+                    MHRAbnormalityStructure abnormalityStructure = Process.Memory.Read<MHRAbnormalityStructure>(debuffsPtr + schema.Offset);
+                    abnormality = MHRAbnormalityAdapter.Convert(schema, abnormalityStructure);
 
-                    if (schema.IsInteger)
-                        debuff.Timer = abnormality.Timer;
-                    else
-                    {
-                        debuff = abnormality.Debuff;
-
-                        if (!schema.IsBuildup)
-                            debuff.Timer /= AbnormalityData.TIMER_MULTIPLIER;
-                    }
+                    if (!schema.IsInteger && !schema.IsBuildup)
+                        abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
                     if (schema.MaxTimer > 0)
-                        debuff.Timer = schema.MaxTimer - debuff.Timer > 0 ? schema.MaxTimer - debuff.Timer : 0;
+                        abnormality.Timer = schema.MaxTimer - abnormality.Timer > 0 ? schema.MaxTimer - abnormality.Timer : 0;
                 }
             }
 
-            HandleAbnormality<MHRDebuffAbnormality, MHRDebuffStructure>(
+            HandleAbnormality<MHRDebuffAbnormality, MHRAbnormalityData>(
                 _abnormalities,
                 schema,
-                debuff.Timer,
-                debuff
+                abnormality.Timer,
+                abnormality
             );
         }
     }
