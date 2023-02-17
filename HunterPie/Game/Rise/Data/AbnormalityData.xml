@@ -373,6 +373,12 @@
                      Name="ABNORMALITY_ADRENALINE_RUSH"
                      Icon="ICON_ARMORSKILL_RED"
                      Category="Consumables"/>
+        <Abnormality Id="ABN_SPIRIBIRDS_CALL"
+                     Offset="17C"
+                     Name="ABNORMALITY_SPIRIBIRDS_CALL"
+                     Icon="ICON_ARMORSKILL_WHITE"
+                     MaxTimer="60"
+                     Category="Consumables"/>
         <Abnormality Id="ABN_GRINDER_S"
                      Offset="190"
                      Name="ABNORMALITY_GRINDER_S"
