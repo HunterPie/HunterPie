@@ -475,7 +475,7 @@ public sealed class MHRPlayer : CommonPlayer
             if (isConditionValid)
             {
                 if (schema.IsInfinite)
-                    debuff.Timer = 1;
+                    abnormality.Timer = 1;
                 else
                 {
                     MHRAbnormalityStructure abnormalityStructure = Process.Memory.Read<MHRAbnormalityStructure>(debuffsPtr + schema.Offset);
