@@ -10,10 +10,10 @@
              d:DesignWidth="80"
              d:DataContext="{d:DesignInstance vm:MonsterSummaryViewModel}">
     <Border CornerRadius="5"
-            BorderThickness="1"
-            BorderBrush="{StaticResource GRAY_400}"
-            Background="{StaticResource GRAY_100}">
-        <Image Source="https://cdn.hunterpie.com/Assets/Monsters/Icons/Rise_109.png"
-               Margin="5"/>
+            Background="{StaticResource GRAY_200}">
+        <Image d:Source="https://cdn.hunterpie.com/Assets/Monsters/Icons/Rise_109.png"
+               Source="{Binding Icon, Mode=OneWay}"
+               RenderOptions.BitmapScalingMode="Fant"
+               Margin="3"/>
     </Border>
 </UserControl>
