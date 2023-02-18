@@ -1,15 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
-public struct MHRConsumableStructure
-{
-    public float Timer;
-}
-
-public struct MHRDebuffStructure
-{
-    public float Timer;
-}
 
 [StructLayout(LayoutKind.Explicit)]
 public struct MHRAbnormalityStructure

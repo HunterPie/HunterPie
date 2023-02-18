@@ -23,6 +23,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Ac
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Entities;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Weapons;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Services;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -389,7 +390,7 @@ public sealed class MHRPlayer : CommonPlayer
             AddressMap.Get<int[]>("CONS_ABNORMALITIES_OFFSETS")
         );
 
-        if (consumableBuffs == 0)
+        if (consumableBuffs.IsNullPointer())
             return;
 
         AbnormalitySchema[] consumableSchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Consumables);
@@ -425,7 +426,9 @@ public sealed class MHRPlayer : CommonPlayer
                         abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
                     if (schema.MaxTimer > 0)
-                        abnormality.Timer = schema.MaxTimer - abnormality.Timer > 0 ? schema.MaxTimer - abnormality.Timer : 0;
+                        abnormality.Timer = schema.MaxTimer - abnormality.Timer > 0
+                            ? schema.MaxTimer - abnormality.Timer
+                            : 0;
                 }
             }
 
@@ -449,7 +452,7 @@ public sealed class MHRPlayer : CommonPlayer
             AddressMap.Get<int[]>("DEBUFF_ABNORMALITIES_OFFSETS")
         );
 
-        if (debuffsPtr == 0)
+        if (debuffsPtr.IsNullPointer())
             return;
 
         AbnormalitySchema[] debuffSchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Debuffs);
@@ -485,7 +488,9 @@ public sealed class MHRPlayer : CommonPlayer
                         abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
                     if (schema.MaxTimer > 0)
-                        abnormality.Timer = schema.MaxTimer - abnormality.Timer > 0 ? schema.MaxTimer - abnormality.Timer : 0;
+                        abnormality.Timer = schema.MaxTimer - abnormality.Timer > 0
+                            ? schema.MaxTimer - abnormality.Timer
+                            : 0;
                 }
             }
 

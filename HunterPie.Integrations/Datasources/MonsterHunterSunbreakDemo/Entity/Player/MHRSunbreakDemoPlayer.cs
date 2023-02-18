@@ -12,6 +12,7 @@ using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Services;
 using System.Runtime.CompilerServices;
 using System.Text;
 
