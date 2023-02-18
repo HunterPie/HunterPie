@@ -358,6 +358,11 @@
                      Name="ABNORMALITY_KUSHALA_DAORA_SOUL"
                      Icon="ICON_AFFINITY_MHRS"
                      Category="Consumables"/>
+        <Abnormality Id="ABN_CHAMELEOS_SOUL"
+                     Offset="134"
+                     Name="ABNORMALITY_CHAMELEOS_SOUL"
+                     Icon="ICON_ARMORSKILL_PURPLE"
+                     Category="Consumables"/>
         <Abnormality Id="ABN_COALESCENCE"
                      Offset="168"
                      Name="ABNORMALITY_COALESCENCE"
@@ -467,6 +472,13 @@
                      FlagType="RiseCommon"
                      Flag="WindMantle"
                      MaxTimer="15"
+                     Category="Debuffs"/>
+        <Abnormality Id="ABN_FROSTCRAFT"
+                     Offset="7A8"
+                     Name="ABNORMALITY_FROSTCRAFT"
+                     Icon="ICON_ARMORSKILL_WHITE"
+                     IsBuildup="True"
+                     MaxBuildup="100"
                      Category="Debuffs"/>
         <Abnormality Id="ABN_AGITATOR"
                      Name="ABNORMALITY_AGITATOR"
