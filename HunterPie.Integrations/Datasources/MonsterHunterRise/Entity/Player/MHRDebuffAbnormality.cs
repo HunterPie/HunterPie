@@ -8,7 +8,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 
 // TODO: Make this a generic Abnormality
-public sealed class MHRDebuffAbnormality : CommonAbnormality, IUpdatable<MHRDebuffStructure>
+public sealed class MHRDebuffAbnormality : CommonAbnormality, IUpdatable<MHRAbnormalityData>
 {
     private float _timer;
 
@@ -46,9 +46,9 @@ public sealed class MHRDebuffAbnormality : CommonAbnormality, IUpdatable<MHRDebu
         MaxTimer = IsBuildup ? data.MaxBuildup : data.MaxTimer;
     }
 
-    void IUpdatable<MHRDebuffStructure>.Update(MHRDebuffStructure structure)
+    void IUpdatable<MHRAbnormalityData>.Update(MHRAbnormalityData data)
     {
-        MaxTimer = Math.Max(MaxTimer, structure.Timer);
-        Timer = structure.Timer;
+        MaxTimer = Math.Max(MaxTimer, data.Timer);
+        Timer = data.Timer;
     }
 }

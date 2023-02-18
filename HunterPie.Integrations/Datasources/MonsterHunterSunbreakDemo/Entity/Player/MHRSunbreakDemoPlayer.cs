@@ -12,6 +12,7 @@ using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Services;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -181,14 +182,17 @@ public sealed class MHRSunbreakDemoPlayer : CommonPlayer
                 _ => Process.Memory.Read<int>(consumableBuffs + schema.DependsOn)
             };
 
-            MHRConsumableStructure abnormality = new();
+            MHRAbnormalityData abnormality = new();
 
             if (abnormSubId == schema.WithValue)
-                abnormality = Process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
+            {
+                MHRAbnormalityStructure abnormalityStructure = Process.Memory.Read<MHRAbnormalityStructure>(consumableBuffs + schema.Offset);
+                abnormality = MHRAbnormalityAdapter.Convert(schema, abnormalityStructure);
+            }
 
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
-            HandleAbnormality<MHRConsumableAbnormality, MHRConsumableStructure>(
+            HandleAbnormality<MHRConsumableAbnormality, MHRAbnormalityData>(
                 _abnormalities,
                 schema,
                 abnormality.Timer,
@@ -219,15 +223,18 @@ public sealed class MHRSunbreakDemoPlayer : CommonPlayer
                 _ => Process.Memory.Read<int>(debuffsPtr + schema.DependsOn)
             };
 
-            MHRDebuffStructure abnormality = new();
+            MHRAbnormalityData abnormality = new();
 
             // Only read memory if the required sub Id is the required one for this abnormality
             if (abnormSubId == schema.WithValue)
-                abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
+            {
+                MHRAbnormalityStructure abnormalityStructure = Process.Memory.Read<MHRAbnormalityStructure>(debuffsPtr + schema.Offset);
+                abnormality = MHRAbnormalityAdapter.Convert(schema, abnormalityStructure);
+            }
 
             abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
-            HandleAbnormality<MHRDebuffAbnormality, MHRDebuffStructure>(
+            HandleAbnormality<MHRDebuffAbnormality, MHRAbnormalityData>(
                 _abnormalities,
                 schema,
                 abnormality.Timer,
