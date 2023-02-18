@@ -426,9 +426,7 @@ public sealed class MHRPlayer : CommonPlayer
                         abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
                     if (schema.MaxTimer > 0)
-                        abnormality.Timer = schema.MaxTimer - abnormality.Timer > 0
-                            ? schema.MaxTimer - abnormality.Timer
-                            : 0;
+                        abnormality.Timer = Math.Max(0.0f, schema.MaxTimer - abnormality.Timer);
                 }
             }
 
@@ -488,9 +486,7 @@ public sealed class MHRPlayer : CommonPlayer
                         abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
                     if (schema.MaxTimer > 0)
-                        abnormality.Timer = schema.MaxTimer - abnormality.Timer > 0
-                            ? schema.MaxTimer - abnormality.Timer
-                            : 0;
+                        abnormality.Timer = Math.Max(0.0f, schema.MaxTimer - abnormality.Timer);
                 }
             }
 
