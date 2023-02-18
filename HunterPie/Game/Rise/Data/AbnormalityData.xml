@@ -378,6 +378,7 @@
                      Name="ABNORMALITY_SPIRIBIRDS_CALL"
                      Icon="ICON_ARMORSKILL_WHITE"
                      MaxTimer="60"
+                     Category="Consumables"/>
         <Abnormality Id="ABN_FURIOUS_BUILDUP"
                      Offset="188"
                      Name="ABNORMALITY_FURIOUS_BUILDUP"
