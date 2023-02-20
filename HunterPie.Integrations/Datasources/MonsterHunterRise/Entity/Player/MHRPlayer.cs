@@ -23,6 +23,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Ac
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Entities;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Weapons;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Services;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -389,7 +390,7 @@ public sealed class MHRPlayer : CommonPlayer
             AddressMap.Get<int[]>("CONS_ABNORMALITIES_OFFSETS")
         );
 
-        if (consumableBuffs == 0)
+        if (consumableBuffs.IsNullPointer())
             return;
 
         AbnormalitySchema[] consumableSchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Consumables);
@@ -410,19 +411,26 @@ public sealed class MHRPlayer : CommonPlayer
                 _ => true
             } && abnormSubId == schema.WithValue;
 
-            MHRConsumableStructure abnormality = new();
+            MHRAbnormalityData abnormality = new();
 
-            if (schema.IsInfinite)
-                abnormality.Timer = isConditionValid ? 1 : 0;
-            else if (isConditionValid)
+            if (isConditionValid)
             {
-                abnormality = Process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
+                if (schema.IsInfinite)
+                    abnormality.Timer = 1;
+                else
+                {
+                    MHRAbnormalityStructure abnormalityStructure = Process.Memory.Read<MHRAbnormalityStructure>(consumableBuffs + schema.Offset);
+                    abnormality = MHRAbnormalityAdapter.Convert(schema, abnormalityStructure);
 
-                if (!schema.IsBuildup)
-                    abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                    if (!schema.IsInteger && !schema.IsBuildup)
+                        abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+
+                    if (schema.MaxTimer > 0)
+                        abnormality.Timer = Math.Max(0.0f, schema.MaxTimer - abnormality.Timer);
+                }
             }
 
-            HandleAbnormality<MHRConsumableAbnormality, MHRConsumableStructure>(
+            HandleAbnormality<MHRConsumableAbnormality, MHRAbnormalityData>(
                 _abnormalities,
                 schema,
                 abnormality.Timer,
@@ -442,7 +450,7 @@ public sealed class MHRPlayer : CommonPlayer
             AddressMap.Get<int[]>("DEBUFF_ABNORMALITIES_OFFSETS")
         );
 
-        if (debuffsPtr == 0)
+        if (debuffsPtr.IsNullPointer())
             return;
 
         AbnormalitySchema[] debuffSchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Debuffs);
@@ -463,22 +471,26 @@ public sealed class MHRPlayer : CommonPlayer
                 _ => true
             } && abnormSubId == schema.WithValue;
 
-            MHRDebuffStructure abnormality = new();
+            MHRAbnormalityData abnormality = new();
 
-            if (schema.IsInfinite)
-                abnormality.Timer = isConditionValid ? 1 : 0;
-            else if (isConditionValid)
+            if (isConditionValid)
             {
-                abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
+                if (schema.IsInfinite)
+                    abnormality.Timer = 1;
+                else
+                {
+                    MHRAbnormalityStructure abnormalityStructure = Process.Memory.Read<MHRAbnormalityStructure>(debuffsPtr + schema.Offset);
+                    abnormality = MHRAbnormalityAdapter.Convert(schema, abnormalityStructure);
 
-                if (!schema.IsBuildup)
-                    abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                    if (!schema.IsInteger && !schema.IsBuildup)
+                        abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
-                if (schema.MaxTimer > 0)
-                    abnormality.Timer = (schema.MaxTimer - abnormality.Timer) > 0 ? (schema.MaxTimer - abnormality.Timer) : 0;
+                    if (schema.MaxTimer > 0)
+                        abnormality.Timer = Math.Max(0.0f, schema.MaxTimer - abnormality.Timer);
+                }
             }
 
-            HandleAbnormality<MHRDebuffAbnormality, MHRDebuffStructure>(
+            HandleAbnormality<MHRDebuffAbnormality, MHRAbnormalityData>(
                 _abnormalities,
                 schema,
                 abnormality.Timer,
