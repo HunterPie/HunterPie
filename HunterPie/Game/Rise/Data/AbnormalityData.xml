@@ -475,7 +475,7 @@
                      Category="Debuffs"/>
         <Abnormality Id="ABN_FROSTCRAFT"
                      Offset="7A8"
-                     Name="ABNORMALITY_FROSTCRAFT"
+                     Name="ABNORMALITY_FROSTCRAFT_RISE"
                      Icon="ICON_ARMORSKILL_WHITE"
                      IsBuildup="True"
                      MaxBuildup="100"
