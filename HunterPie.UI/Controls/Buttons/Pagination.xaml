@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="HunterPie.UI.Controls.Buttons.Pagination"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Controls.Buttons"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" 
+             d:DesignWidth="250"
+             x:Name="PaginationControl">
+    <Grid>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <local:Button Content="⮜"
+                          Foreground="{StaticResource WHITE_300}"
+                          FontSize="14"
+                          Click="OnPreviousPageClick"/>
+            <TextBlock Foreground="{StaticResource WHITE_200}"
+                       FontSize="14"
+                       VerticalAlignment="Center"
+                       Margin="5">
+                <Run Text="{Binding CurrentPage, ElementName=PaginationControl, Mode=OneWay}"
+                     d:Text="1"/>
+                <Run Text="/"/>
+                <Run Text="{Binding LastPage, ElementName=PaginationControl, Mode=OneWay}"
+                     d:Text="10"
+                     FontWeight="Medium"/>
+            </TextBlock>
+            <local:Button Content="⮞"
+                          Foreground="{StaticResource WHITE_300}"
+                          FontSize="14"
+                          Click="OnNextPageClick"/>
+        </StackPanel>
+        
+    </Grid>
+</UserControl>

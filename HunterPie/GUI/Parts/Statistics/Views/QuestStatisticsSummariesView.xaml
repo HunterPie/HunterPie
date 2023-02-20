@@ -8,12 +8,35 @@
                    xmlns:viewModels="clr-namespace:HunterPie.GUI.Parts.Statistics.ViewModels"
                    xmlns:architecture="clr-namespace:HunterPie.UI.Architecture;assembly=HunterPie.UI"
                    xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
+                   xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
                    mc:Ignorable="d" 
                    d:DesignHeight="450" 
                    d:DesignWidth="800"
                    d:DataContext="{d:DesignInstance viewModels:QuestStatisticsSummariesViewModel}">
     <Grid>
-        <viewer:SmoothScrollViewer>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   Text="Summaries"
+                   Foreground="{StaticResource WHITE_300}"
+                   VerticalAlignment="Center"
+                   Margin="5"
+                   FontSize="15"/>
+        <buttons:Pagination Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            PageUpdate="OnRequestPageUpdate"
+                            CurrentPage="{Binding CurrentPage, Mode=TwoWay}"
+                            LastPage="{Binding LastPage, Mode=TwoWay}"/>
+        <viewer:SmoothScrollViewer Grid.Row="1"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="2">
             <ItemsControl ItemsSource="{Binding Summaries, Mode=OneTime}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -24,7 +47,7 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:QuestStatisticsSummaryView Height="120"/>
+                        <local:QuestStatisticsSummaryView Height="130"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

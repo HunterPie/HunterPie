@@ -1,5 +1,6 @@
 ﻿using HunterPie.GUI.Parts.Statistics.ViewModels;
 using HunterPie.UI.Architecture;
+using System.Windows;
 
 namespace HunterPie.GUI.Parts.Statistics.Views;
 
@@ -14,4 +15,6 @@ public partial class QuestStatisticsSummariesView : View<QuestStatisticsSummarie
     }
 
     protected override void Initialize() => ViewModel.FetchQuests();
+
+    private void OnRequestPageUpdate(object sender, RoutedEventArgs e) => ViewModel.RequestPageUpdate();
 }

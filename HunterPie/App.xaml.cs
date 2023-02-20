@@ -55,8 +55,10 @@ public partial class App : Application
 
         SetRenderingMode();
 
+#if !DEBUG
         if (await SelfUpdate())
             return;
+#endif
 
         ShutdownMode = ShutdownMode.OnMainWindowClose;
 

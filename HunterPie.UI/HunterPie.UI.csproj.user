@@ -14,6 +14,9 @@
     <Compile Update="Controls\Buttons\Keybinding.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Buttons\Pagination.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Buttons\Skeleton\BannerCardSkeleton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -191,6 +194,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Buttons\Keybinding.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Buttons\Pagination.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Buttons\Skeleton\BannerCardSkeleton.xaml">

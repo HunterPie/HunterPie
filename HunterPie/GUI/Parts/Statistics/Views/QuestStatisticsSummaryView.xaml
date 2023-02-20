@@ -8,6 +8,7 @@
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
              xmlns:viewModels="clr-namespace:HunterPie.GUI.Parts.Statistics.ViewModels"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
+             xmlns:gl="clr-namespace:System.Globalization;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="150" 
              d:DesignWidth="800"
@@ -16,12 +17,13 @@
     <UserControl.Resources>
         <converters:GameTypeToGameNameConverter x:Key="GameTypeToGameNameConverter"/>
     </UserControl.Resources>
-    <buttons:Button BorderBrush="{StaticResource GRAY}"
+    <buttons:Button BorderBrush="{StaticResource GRAY_200}"
                     Background="{StaticResource GRAY_50}"
                     BorderThickness="1"
                     CornerRadius="5"
                     HorizontalContentAlignment="Stretch"
-                    VerticalContentAlignment="Stretch">
+                    VerticalContentAlignment="Stretch"
+                    Padding="0">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -45,35 +47,53 @@
 
             <TextBlock Grid.Row="1"
                        Grid.Column="0"
-                       Text="{Binding UploadedAt, Mode=OneWay, StringFormat=\{0:g\}}"
+                       Text="{Binding UploadedAt, Mode=OneWay, StringFormat='G', ConverterCulture={x:Static gl:CultureInfo.CurrentCulture}}"
                        d:Text="01/12/2022 12:34PM"
                        Foreground="{StaticResource WHITE_500}"
                        VerticalAlignment="Center"
                        Margin="5"/>
+            
+            <StackPanel Orientation="Vertical"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Margin="5">
+                <TextBlock Text="Monsters"
+                           FontSize="13"
+                           Foreground="{StaticResource WHITE_300}"/>
+                <ItemsControl ItemsSource="{Binding Monsters, Mode=OneTime}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
 
-            <ItemsControl Grid.Row="2"
-                          Grid.Column="0"
-                          ItemsSource="{Binding Monsters, Mode=OneTime}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:MonsterSummaryView Height="55"
+                                                      Width="55"
+                                                      Margin="0,5,5,0">
+                                <local:MonsterSummaryView.Effect>
+                                    <DropShadowEffect Color="Cyan"
+                                                      Opacity="1"
+                                                      ShadowDepth="0"
+                                                      BlurRadius="2"/>
+                                </local:MonsterSummaryView.Effect>
+                            </local:MonsterSummaryView>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+                
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <local:MonsterSummaryView Height="55"
-                                                  Width="55"
-                                                  Margin="3"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-
+            <Rectangle Grid.Column="1"
+                       Grid.Row="0"
+                       Grid.RowSpan="3"
+                       Fill="{StaticResource GRAY_200}"/>
             <image:Icon Grid.Column="1" 
                         Grid.Row="0"
                         Grid.RowSpan="3"
                         Image="{StaticResource ICON_ARROW_RIGHT}"
-                        Foreground="{StaticResource HUNTERPIE_ACCENT_COLOR_TRANSPARENT}"
+                        Foreground="{StaticResource GRAY}"
                         Height="20"
                         Margin="5"/>
 
