@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Game;
 using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Overlay;
@@ -11,9 +12,9 @@ internal class MonsterWidgetInitializer : IWidgetInitializer
 {
     private IContextHandler _handler;
 
-    public void Load(Context context)
+    public void Load(IContext context)
     {
-        Core.Client.Configuration.OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
+        OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
 
         if (!config.BossesWidget.Initialize)
             return;
@@ -21,5 +22,9 @@ internal class MonsterWidgetInitializer : IWidgetInitializer
         _handler = new MonsterWidgetContextHandler(context);
     }
 
-    public void Unload() => _handler?.UnhookEvents();
+    public void Unload()
+    {
+        _handler?.UnhookEvents();
+        _handler = null;
+    }
 }

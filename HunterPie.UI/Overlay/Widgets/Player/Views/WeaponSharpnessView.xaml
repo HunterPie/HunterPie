@@ -1,0 +1,125 @@
+﻿<UserControl x:Class="HunterPie.UI.Overlay.Widgets.Player.Views.WeaponSharpnessView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.Views"
+             xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.ViewModels"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:effects="clr-namespace:HunterPie.UI.Architecture.Effects"
+             mc:Ignorable="d" 
+             d:DesignHeight="40"
+             d:DataContext="{d:DesignInstance vm:WeaponSharpnessViewModel}">
+    <UserControl.Resources>
+        <converters:SharpnessToColorConverter x:Key="SharpnessToColorConverter"/>
+        <converters:SharpnessToPreviousColorConverter x:Key="SharpnessToPreviousColorConverter"/>
+        <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
+
+        <sys:Boolean x:Key="ConvertToBrush">True</sys:Boolean>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="34"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sharpness gauge -->
+        <Grid Margin="0,7,0,0"
+              VerticalAlignment="Top"
+              Grid.Column="1" 
+              Height="13"
+              Width="110"
+              ClipToBounds="True">
+            <Rectangle Fill="{StaticResource GRAY_400}"
+                       Width="94"
+                       Height="13"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left">
+                <Rectangle.RenderTransform>
+                    <SkewTransform AngleX="45"/>
+                </Rectangle.RenderTransform>
+                <Rectangle.Effect>
+                    <effects:AlligatorShaderEffect Ratio="2"/>
+                </Rectangle.Effect>
+            </Rectangle>
+
+            <!-- Current blade -->
+            <Rectangle d:Fill="White"
+                       Fill="{Binding SharpnessLevel, Mode=OneWay, Converter={StaticResource SharpnessToColorConverter}, ConverterParameter={StaticResource ConvertToBrush}}"
+                       d:Width="50"
+                       MaxWidth="89"
+                       Height="10"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Margin="4,0,0,0">
+                <Rectangle.RenderTransform>
+                    <SkewTransform AngleX="45"/>
+                </Rectangle.RenderTransform>
+                <Rectangle.Effect>
+                    <effects:AlligatorShaderEffect Ratio="1"/>
+                </Rectangle.Effect>
+                <Rectangle.Width>
+                    <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
+                        <Binding Path="Sharpness"
+                             Mode="OneWay"/>
+                        <Binding Path="MaxSharpness"
+                             Mode="OneWay"/>
+                        <Binding Path="MaxWidth"
+                             Mode="OneWay"
+                             RelativeSource="{RelativeSource Self}"/>
+                    </MultiBinding>
+                </Rectangle.Width>
+            </Rectangle>
+
+            <Border BorderBrush="{StaticResource GRAY_200}"
+                    BorderThickness="3,2,3,2"
+                    Width="94"
+                    Height="13"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Margin="0,0,0,0">
+                <Border.RenderTransform>
+                    <SkewTransform AngleX="45"/>
+                </Border.RenderTransform>
+            </Border>
+        </Grid>
+
+        <Grid Margin="15,0,0,0"
+              HorizontalAlignment="Left"
+              Grid.ColumnSpan="2">
+            <Rectangle Fill="{StaticResource GRAY_100}"
+                       Width="25"
+                       Height="25"
+                       HorizontalAlignment="Left" 
+                       RenderTransformOrigin="0.5,0.5">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="45"/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+                <Rectangle.Effect>
+                    <DropShadowEffect Color="{Binding SharpnessLevel, Mode=OneWay, Converter={StaticResource SharpnessToColorConverter}}"
+                                      ShadowDepth="0"
+                                      d:Color="White"
+                                      BlurRadius="10"/>
+                </Rectangle.Effect>
+            </Rectangle>
+
+            <TextBlock d:Text="50"
+                       Text="{Binding Sharpness, Mode=OneWay, StringFormat='\{0:00}'}"
+                       Foreground="{Binding SharpnessLevel, Mode=OneWay, Converter={StaticResource SharpnessToColorConverter}, ConverterParameter={StaticResource ConvertToBrush}}"
+                       VerticalAlignment="Center"
+                       FontSize="14"
+                       FontWeight="Medium"
+                       HorizontalAlignment="Center"
+                       d:Foreground="White">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="Black"
+                                  ShadowDepth="0"
+                                  BlurRadius="10"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </Grid>
+    </Grid>
+</UserControl>

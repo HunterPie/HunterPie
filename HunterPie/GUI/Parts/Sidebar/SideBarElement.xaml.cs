@@ -1,4 +1,5 @@
-﻿using HunterPie.GUI.Parts.Sidebar.ViewModels;
+﻿using HunterPie.GUI.Parts.Sidebar.Service;
+using HunterPie.GUI.Parts.Sidebar.ViewModels;
 using System;
 using System.Windows.Controls;
 
@@ -16,5 +17,5 @@ public partial class SideBarElement : UserControl
         InitializeComponent();
     }
 
-    private void OnButtonClick(object sender, EventArgs e) => Model.ExecuteOnClick();
+    private void OnButtonClick(object sender, EventArgs e) => SideBarService.Navigate(Model);
 }

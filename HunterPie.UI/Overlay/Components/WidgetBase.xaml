@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HunterPie.UI.Overlay.Components"
         xmlns:overlay="clr-namespace:HunterPie.UI.Overlay"
+        xmlns:client="clr-namespace:HunterPie.Core.Client;assembly=HunterPie.Core"
         xmlns:DEBUG="DEBUG_MODE"
         xmlns:enums="clr-namespace:HunterPie.UI.Overlay.Enums"
         mc:Ignorable="d"
@@ -19,8 +20,8 @@
         Top="{Binding Widget.Settings.Position.Y, Mode=TwoWay}"
         Left="{Binding Widget.Settings.Position.X, Mode=TwoWay}"
         Opacity="{Binding Widget.Settings.Opacity.Current, Mode=OneWay}"
-        UseLayoutRounding="True"
-        SnapsToDevicePixels="True"
+        UseLayoutRounding="False"
+        SnapsToDevicePixels="False"
         Loaded="OnLoaded"
         ShowInTaskbar="False"
         ResizeMode="NoResize" 
@@ -113,7 +114,7 @@
                         </EventTrigger>
                         <EventTrigger RoutedEvent="Unloaded">
                             <RemoveStoryboard BeginStoryboardName="SB_Useless"/>
-                        </EventTrigger>
+                        </EventTrigger>  
                     </Style.Triggers>
                 </Style>
             </Grid.Style>
@@ -151,6 +152,10 @@
                                 </MultiDataTrigger.Conditions>
                                 <Setter Property="Visibility" Value="Visible"/>
                             </MultiDataTrigger>
+
+                            <DataTrigger Binding="{Binding Overlay.IsEnabled.Value, Source={x:Static client:ClientConfig.Config}, Mode=OneWay}" Value="False">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </ContentControl.Style>

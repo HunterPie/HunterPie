@@ -4,6 +4,7 @@ using HunterPie.Internal.Tray;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;
 
@@ -11,7 +12,7 @@ internal class SystemTrayInitializer : IInitializer, IDisposable
 {
     public void Dispose() => TrayService.Dispose();
 
-    public void Init()
+    public Task Init()
     {
         TrayService.Initialize(
             "HunterPie",
@@ -20,5 +21,7 @@ internal class SystemTrayInitializer : IInitializer, IDisposable
                 Path.Combine(ClientInfo.ClientPath, "HunterPie.exe")
             )
         );
+
+        return Task.CompletedTask;
     }
 }

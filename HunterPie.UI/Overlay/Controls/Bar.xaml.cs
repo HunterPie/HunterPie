@@ -12,6 +12,8 @@ namespace HunterPie.UI.Overlay.Controls;
 public partial class Bar : UserControl
 {
 
+    private readonly DoubleAnimation _cachedAnimation = new DoubleAnimation() { EasingFunction = new QuadraticEase(), Duration = new Duration(TimeSpan.FromMilliseconds(200)) };
+
     public double ActualValueDelayed
     {
         get => (double)GetValue(ActualValueDelayedProperty);
@@ -70,45 +72,43 @@ public partial class Bar : UserControl
     {
         var owner = d as Bar;
 
-        if ((double)e.NewValue == 0.0 || owner.MaxValue == 0.0)
+        if (owner.MaxValue == 0.0)
             return;
 
-        double oldValue = (owner.ActualWidth * ((double)e.OldValue / owner.MaxValue)) - 4;
         double newValue = (owner.ActualWidth * ((double)e.NewValue / owner.MaxValue)) - 4;
 
-        oldValue = Math.Max(1.0, oldValue);
         newValue = Math.Max(1.0, newValue);
 
-        var smoothAnimation = new DoubleAnimation(oldValue, newValue, new TimeSpan(0, 0, 0, 0, 150))
-        {
-            EasingFunction = new QuadraticEase(),
-        };
-        owner.BeginAnimation(Bar.ActualValueProperty, smoothAnimation, HandoffBehavior.Compose);
+        if (double.IsNaN(newValue))
+            return;
 
-        var smoothDelayedAnimation = new DoubleAnimation(oldValue, newValue, new TimeSpan(0, 0, 0, 0, 150))
-        {
-            BeginTime = new TimeSpan(0, 0, 0, 0, 500),
-            EasingFunction = new QuadraticEase(),
-        };
-        owner.BeginAnimation(Bar.ActualValueDelayedProperty, smoothDelayedAnimation, HandoffBehavior.Compose);
+        if (double.IsInfinity(owner.ActualValue) || double.IsInfinity(newValue))
+            return;
+
+        DoubleAnimation animation = owner._cachedAnimation;
+        animation.From = owner.ActualValue;
+        animation.To = newValue;
+
+        owner.BeginAnimation(Bar.ActualValueProperty, animation, HandoffBehavior.SnapshotAndReplace);
     }
 
     private void OnSizeChanged(object sender, SizeChangedEventArgs e)
     {
 
-        double value = ((double)e.NewSize.Width * ((double)Value / MaxValue)) - (BorderThickness.Left + BorderThickness.Right);
+        double value = (e.NewSize.Width * (Value / MaxValue)) - (BorderThickness.Left + BorderThickness.Right);
 
         value = Math.Max(1.0, value);
 
-        if (double.IsNaN(value))
+        if (double.IsNaN(value) || double.IsInfinity(value))
         {
-            (sender as Bar).InvalidateVisual();
+            InvalidateVisual();
             return;
         }
 
-        var smoothAnimation = new DoubleAnimation(value, value, new TimeSpan(0, 0, 0, 0, 50));
+        DoubleAnimation smoothAnimation = _cachedAnimation;
+        smoothAnimation.From = value;
+        smoothAnimation.To = value;
 
-        BeginAnimation(Bar.ActualValueProperty, smoothAnimation, HandoffBehavior.Compose);
-        BeginAnimation(Bar.ActualValueDelayedProperty, smoothAnimation, HandoffBehavior.Compose);
+        BeginAnimation(Bar.ActualValueProperty, smoothAnimation, HandoffBehavior.SnapshotAndReplace);
     }
 }

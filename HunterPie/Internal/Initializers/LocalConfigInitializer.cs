@@ -6,6 +6,7 @@ using HunterPie.Domain.Interfaces;
 using System;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;
 
@@ -14,11 +15,13 @@ public class LocalConfigInitializer : IInitializer
     private const string KEY_SECRET = "secret";
     private const string CLIENT_ID = "client_id";
 
-    public void Init()
+    public Task Init()
     {
         InitializeLocalRegistry();
         GenerateSecretKey();
         GenerateClientId();
+
+        return Task.CompletedTask;
     }
 
     private void InitializeLocalRegistry()

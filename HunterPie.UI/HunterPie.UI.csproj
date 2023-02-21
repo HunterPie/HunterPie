@@ -5,16 +5,22 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.5.2.185</AssemblyVersion>
-    <FileVersion>2.5.2.185</FileVersion>
-    <Version>2.2.0.0</Version>
+    <AssemblyVersion>2.7.0.278</AssemblyVersion>
+    <FileVersion>2.7.0.278</FileVersion>
     <LangVersion>10.0</LangVersion>
+    <Authors>Haato</Authors>
  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Architecture\Shaders\noise.ps" />
+    <None Remove="Assets\Textures\alligator_noise_512x512.jpg" />
+  </ItemGroup>
 
   <ItemGroup>
     <Page Remove="Resources\Abnormalities.xaml" />
     <Page Remove="Resources\Colors.xaml" />
     <Page Remove="Resources\Icons.xaml" />
+    <Page Remove="Resources\Interface.xaml" />
     <Page Remove="Resources\Styles.xaml" />
   </ItemGroup>
 
@@ -24,9 +30,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HunterPie.Core\HunterPie.Core.csproj" />
+    <ProjectReference Include="..\HunterPie.Integrations\HunterPie.Integrations.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Architecture\Shaders\noise.ps" />
+    <Resource Include="Assets\Textures\alligator_noise_512x512.jpg" />
     <Resource Include="Resources\Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Resource>
@@ -35,6 +44,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Resource>
     <Resource Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="Resources\Interface.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Resource>
     <Resource Include="Resources\Styles.xaml">
@@ -646,9 +658,13 @@
     <None Update="Assets\Monsters\Icons\World_99.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Monsters\Masks\qurio_mask.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Overlay\Widgets\Player\Model\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 

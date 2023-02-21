@@ -3,11 +3,12 @@ using HunterPie.Core.System.Windows.Vault;
 using HunterPie.Core.Vault;
 using HunterPie.Domain.Interfaces;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;
 internal class CredentialVaultInitializer : IInitializer
 {
-    public void Init()
+    public Task Init()
     {
         if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             throw new UnsupportedPlatformException();
@@ -15,5 +16,7 @@ internal class CredentialVaultInitializer : IInitializer
         var credentialVault = new WindowsCredentialVault();
 
         _ = new CredentialVaultService(credentialVault);
+
+        return Task.CompletedTask;
     }
 }

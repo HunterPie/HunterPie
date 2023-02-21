@@ -133,4 +133,73 @@
     <SolidColorBrush x:Key="YELLOW_600">#665c2e</SolidColorBrush>
     <SolidColorBrush x:Key="YELLOW_700">#4d4523</SolidColorBrush>
     
+    <!-- Player Hud -->
+    <LinearGradientBrush x:Key="WIDGET_PLAYER_HEALTH_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#3ecfa6"/>
+        <GradientStop Color="#3ecf87" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="WIDGET_PLAYER_HEALTH_FIRE_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFCF5F3E"/>
+        <GradientStop Color="#FFCF733E" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="WIDGET_PLAYER_POISON_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF563ECF"/>
+        <GradientStop Color="#FF7445DE" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="WIDGET_PLAYER_BLEED_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF7F0F29"/>
+        <GradientStop Color="#FFCF3E5F" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="WIDGET_PLAYER_HEAL_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFBFFFED"/>
+        <GradientStop Color="#FFCFFFE7" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="WIDGET_PLAYER_STAMINA_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFFF9A36" Offset="1"/>
+        <GradientStop Color="#FFFF2E00" Offset="0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="WIDGET_PLAYER_RECOVERABLE_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFA52F45" Offset="1"/>
+        <GradientStop Color="#FFA52F2F" Offset="0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="WIDGET_PLAYER_EFFLUVIA_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#a67f00" Offset="1"/>
+        <GradientStop Color="#5e4800" Offset="0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="WIDGET_PLAYER_ICE_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#93d1f5" Offset="1"/>
+        <GradientStop Color="#6bb7e3" Offset="0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="WIDGET_PLAYER_WATER_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#87abff" Offset="1"/>
+        <GradientStop Color="#4973d6" Offset="0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="WIDGET_PLAYER_NATURAL_HEAL_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#ffd942" Offset="1"/>
+        <GradientStop Color="#deb100" Offset="0"/>
+    </LinearGradientBrush>
+
+    <Color x:Key="WIDGET_SHARPNESS_BROKEN">#000000</Color>
+    <Color x:Key="WIDGET_SHARPNESS_RED">#D13232</Color>
+    <Color x:Key="WIDGET_SHARPNESS_ORANGE">#F78B00</Color>
+    <Color x:Key="WIDGET_SHARPNESS_YELLOW">#F7E024</Color>
+    <Color x:Key="WIDGET_SHARPNESS_GREEN">#5BF77F</Color>
+    <Color x:Key="WIDGET_SHARPNESS_BLUE">#49B2E3</Color>
+    <Color x:Key="WIDGET_SHARPNESS_WHITE">#EAF5F4</Color>
+    <Color x:Key="WIDGET_SHARPNESS_PURPLE">#cd55e6</Color>
+    
+    <LinearGradientBrush x:Key="HUNTERPIE_SUPPORTER_T2" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF563ECF"/>
+        <GradientStop Color="#FF7445DE" Offset="1"/>
+    </LinearGradientBrush>
 </ResourceDictionary>

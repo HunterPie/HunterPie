@@ -35,9 +35,9 @@ MHREntityData* Hook::CalculateEntityDamage(
     if (!Utils::IsBigMonster(target->id))
         return damageData;
 
-    LOG("Hit monster id: %d", target->id);
+    LOG("[%d] Hit monster id: %d", damageData->attackerDamageType, target->id);
 
-    Entity entity = Entity{
+    auto entity = Entity{
         damageData->Id,
         GetEntityByDamageType(damageData->attackerDamageType)
     };
@@ -46,8 +46,8 @@ MHREntityData* Hook::CalculateEntityDamage(
     if (entity.type == PET && entity.index <= 3)
         entity.index = entity.index + 4 + 1;
 
-    EntityDamageData entityData = EntityDamageData{
-        (intptr_t)target,
+    const auto entityData = EntityDamageData{
+        reinterpret_cast<intptr_t>(target),
         entity,
         damageData->rawDamage,
         damageData->elementalDamage,

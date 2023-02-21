@@ -15,7 +15,7 @@
     <Grid>
         <WrapPanel Orientation="Horizontal">
             <!-- Timestamp -->
-            <TextBlock Text="{Binding Timestamp, Mode=OneWay}"
+            <TextBlock Text="{Binding Timestamp, Mode=OneTime}"
                        d:Text="[12:03:59]"
                        Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
@@ -26,27 +26,27 @@
 
             <!-- Level -->
             <Grid>
-                <Rectangle Fill="{Binding Level, Mode=OneWay, Converter={StaticResource LogLevelToColorConverter}}"
+                <Rectangle Fill="{Binding Level, Mode=OneTime, Converter={StaticResource LogLevelToColorConverter}}"
                            Opacity="0.2"
                            d:Fill="AliceBlue"
                            RadiusX="2"
                            RadiusY="2"/>
-                <Rectangle Stroke="{Binding Level, Mode=OneWay, Converter={StaticResource LogLevelToColorConverter}}"
+                <Rectangle Stroke="{Binding Level, Mode=OneTime, Converter={StaticResource LogLevelToColorConverter}}"
                            d:Stroke="AliceBlue"
                            StrokeThickness="1"
                            RadiusX="2"
                            RadiusY="2"/>
-                <TextBlock Text="{Binding Level, Mode=OneWay}"
+                <TextBlock Text="{Binding Level, Mode=OneTime}"
                            d:Text="Info"
                            d:Foreground="AliceBlue"
-                           Foreground="{Binding Level, Mode=OneWay, Converter={StaticResource LogLevelToColorConverter}}"
+                           Foreground="{Binding Level, Mode=OneTime, Converter={StaticResource LogLevelToColorConverter}}"
                            FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                            FontWeight="Medium"
                            TextAlignment="Center"
                            Padding="5,2,5,2"/>
             </Grid>
 
-            <TextBlock Text="{Binding Message, Mode=OneWay}"
+            <TextBlock Text="{Binding Message, Mode=OneTime}"
                        d:Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                        Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
                        FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"

@@ -8,9 +8,18 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Colors.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Icons.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/HunterPie;component/Resources/Styles/Client.xaml"/>
+                <!--
+                    Spooky season
                 <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Seasons/SpookyPie.xaml"/>
+                -->
+                <!-- 
+                    Winter season 
+                <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Seasons/WinterPie.xaml"/>
+                -->
                 <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Styles.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Abnormalities.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Interface.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

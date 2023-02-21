@@ -2,6 +2,7 @@
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Events;
 using HunterPie.Core.Game;
+using HunterPie.Core.Game.Entity.Game;
 using HunterPie.Core.Input;
 using HunterPie.Core.Logger;
 using HunterPie.Core.Settings;
@@ -11,9 +12,10 @@ using ClientConfig = HunterPie.Core.Client.ClientConfig;
 
 namespace HunterPie.UI.Overlay;
 
+#nullable enable
 public class WidgetManager : Bindable
 {
-    private Context _context;
+    private IContext? _context;
     private bool _isDesignModeEnabled;
     private bool _isGameFocused;
     private bool _isGameHudOpen;
@@ -25,14 +27,13 @@ public class WidgetManager : Bindable
     public ref readonly Dictionary<IWidgetWindow, WidgetBase> Widgets => ref _widgets;
     public OverlayClientConfig Settings => ClientConfig.Config.Overlay;
 
-    private static WidgetManager _instance;
+    private static WidgetManager? _instance;
 
     public static WidgetManager Instance
     {
         get
         {
-            if (_instance is null)
-                _instance = new WidgetManager();
+            _instance ??= new WidgetManager();
 
             return _instance;
         }
@@ -41,9 +42,10 @@ public class WidgetManager : Bindable
     private WidgetManager()
     {
         _ = Hotkey.Register(Settings.ToggleDesignMode, ToggleDesignMode);
+        _ = Hotkey.Register(Settings.ToggleVisibility, ToggleVisibility);
     }
 
-    internal static void Hook(Context context)
+    internal static void Hook(IContext context)
     {
         Instance._context = context;
         context.Process.OnGameFocus += OnGameFocus;
@@ -51,14 +53,14 @@ public class WidgetManager : Bindable
         context.Game.OnHudStateChange += OnHudStateChange;
     }
 
-    private static void OnHudStateChange(object sender, IGame e) => Instance.IsGameHudOpen = e.IsHudOpen;
+    private static void OnHudStateChange(object? sender, IGame e) => Instance.IsGameHudOpen = e.IsHudOpen;
 
-    private static void OnGameUnfocus(object sender, ProcessEventArgs e) => Instance.IsGameFocused = false;
+    private static void OnGameUnfocus(object? sender, ProcessEventArgs e) => Instance.IsGameFocused = false;
 
-    private static void OnGameFocus(object sender, ProcessEventArgs e) => Instance.IsGameFocused = true;
+    private static void OnGameFocus(object? sender, ProcessEventArgs e) => Instance.IsGameFocused = true;
 
-    public static bool Register<T, K>(T widget) where T : IWidgetWindow, IWidget<K>
-                                                where K : IWidgetSettings
+    public static bool Register<T, TK>(T widget) where T : IWidgetWindow, IWidget<TK>
+                                                where TK : IWidgetSettings
     {
         if (Instance.Widgets.ContainsKey(widget))
             return false;
@@ -72,8 +74,8 @@ public class WidgetManager : Bindable
         return true;
     }
 
-    public static bool Unregister<T, K>(T widget) where T : IWidgetWindow, IWidget<K>
-                                                  where K : IWidgetSettings
+    public static bool Unregister<T, TK>(T widget) where T : IWidgetWindow, IWidget<TK>
+                                                  where TK : IWidgetSettings
     {
         if (!Instance.Widgets.ContainsKey(widget))
             return false;
@@ -86,9 +88,13 @@ public class WidgetManager : Bindable
 
     internal static void Dispose()
     {
-        Instance._context.Process.OnGameFocus += OnGameFocus;
-        Instance._context.Process.OnGameUnfocus += OnGameUnfocus;
-        Instance._context.Game.OnHudStateChange += OnHudStateChange;
+        if (Instance._context is null)
+            return;
+
+        Instance._context.Process.OnGameFocus -= OnGameFocus;
+        Instance._context.Process.OnGameUnfocus -= OnGameUnfocus;
+        Instance._context.Game.OnHudStateChange -= OnHudStateChange;
+        Instance._context = null;
     }
 
     private void ToggleDesignMode()
@@ -97,5 +103,10 @@ public class WidgetManager : Bindable
 
         foreach (WidgetBase widget in Widgets.Values)
             widget.HandleTransparencyFlag(!IsDesignModeEnabled);
+    }
+
+    private void ToggleVisibility()
+    {
+        Settings.IsEnabled.Value = !Settings.IsEnabled;
     }
 }

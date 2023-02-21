@@ -30,6 +30,9 @@ public class DevelopmentConfig : ISettings
     [SettingField("DEV_MOCK_SPECIALIZED_TOOL_WIDGET_STRING", requiresRestart: true)]
     public Observable<bool> MockSpecializedToolWidget { get; set; } = false;
 
+    [SettingField("DEV_MOCK_PLAYER_HUD_WIDGET_STRING", requiresRestart: true)]
+    public Observable<bool> MockPlayerHudWidget { get; set; } = false;
+
     [SettingField("DEV_POOGIE_API_HOST_STRING")]
     public Observable<string> PoogieApiHost { get; set; } = "";
 

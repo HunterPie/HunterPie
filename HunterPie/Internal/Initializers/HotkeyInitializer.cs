@@ -1,30 +1,34 @@
 ﻿using HunterPie.Core.Input;
 using HunterPie.Domain.Interfaces;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Interop;
 
 namespace HunterPie.Internal.Initializers;
 
+#nullable enable
 internal class HotkeyInitializer : IInitializer, IDisposable
 {
-    private static HwndSource source;
-    private static IntPtr hWnd;
+    private static HwndSource? _source;
+    private static IntPtr _hWnd;
 
-    public void Init()
+    public Task Init()
     {
-        hWnd = new WindowInteropHelper(App.UI)
+        _hWnd = new WindowInteropHelper(App.UI)
             .EnsureHandle();
 
-        source = HwndSource.FromHwnd(hWnd);
+        _source = HwndSource.FromHwnd(_hWnd);
 
-        source.AddHook(Hotkey.HwndHook);
-        Hotkey.hWnd = hWnd;
+        _source.AddHook(Hotkey.HwndHook);
+        Hotkey.hWnd = _hWnd;
+
+        return Task.CompletedTask;
     }
 
     public void Dispose()
     {
-        source.RemoveHook(Hotkey.HwndHook);
-        source.Dispose();
-        hWnd = IntPtr.Zero;
+        _source?.RemoveHook(Hotkey.HwndHook);
+        _source?.Dispose();
+        _hWnd = IntPtr.Zero;
     }
 }

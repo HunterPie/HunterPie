@@ -13,7 +13,9 @@
         xmlns:notifications="clr-namespace:HunterPie.GUI.Parts.Notifications.Views"
         xmlns:appNotifications="clr-namespace:HunterPie.Features.Notification"
         xmlns:accountPromo="clr-namespace:HunterPie.GUI.Parts.Account.Views.Promotional"
+        xmlns:images="clr-namespace:HunterPie.UI.Architecture.Images;assembly=HunterPie.UI"
         xmlns:account="clr-namespace:HunterPie.GUI.Parts.Account.Views"
+        xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
         Title="HunterPie v2" 
         Height="600" 
         Width="1000"
@@ -75,27 +77,15 @@
 
         <Grid Background="{StaticResource GRAY_300}" 
               Margin="0,25,0,0">
-
             <StackPanel Orientation="Horizontal" 
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
-                        Margin="75,0,0,0">
+                        Margin="25,0,0,0">
 
                 <Image Source="{StaticResource ICON_HUNTERPIE}"
                        Height="55"/>
-                <Label Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                       FontSize="40"
-                       FontFamily="Work Sans"
-                       VerticalAlignment="Center">
-                    <Label.Content>
-                        <TextBlock>
-                            <Run Text="Hunter"
-                                 FontWeight="Medium"/><!--
-                         --><Run Text="Pie"
-                                 FontWeight="ExtraLight"/>
-                        </TextBlock>
-                    </Label.Content>
-                </Label>
+                
+                <Label Style="{StaticResource HUNTERPIE_LOGO_TEXT}"/>
 
             </StackPanel>
 
@@ -130,7 +120,6 @@
                     </Grid>
                 </native:Button.Content>
             </native:Button>
-
         </Grid>
 
         <sidebar:SideBarContainer Grid.Row="1"
@@ -138,39 +127,6 @@
                                   HorizontalAlignment="Left"
                                   ItemsHeight="40"
                                   x:Name="PART_Sidebar"/>
-
-        <!-- SpookyPie :monkaS: -->
-        <Image Source="{StaticResource IMAGE_SPIDER_WEB}"
-               VerticalAlignment="Top"
-               HorizontalAlignment="Left"
-               Margin="-60,-46,0,0"
-               IsHitTestVisible="False"/>
-
-        <Image Source="{StaticResource IMAGE_BAT}"
-               Height="25"
-               VerticalAlignment="Top"
-               HorizontalAlignment="Left" 
-               RenderTransformOrigin="0.5,0.5"
-               Margin="295,45,0,0">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <RotateTransform Angle="30"/>
-                </TransformGroup>
-            </Image.RenderTransform>
-        </Image>
-
-        <Image Source="{StaticResource IMAGE_BAT}"
-               Height="25"
-               VerticalAlignment="Top"
-               HorizontalAlignment="Left" 
-               RenderTransformOrigin="0.5,0.5"
-               Margin="395,80,0,0">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <RotateTransform Angle="-20"/>
-                </TransformGroup>
-            </Image.RenderTransform>
-        </Image>
 
         <ContentPresenter x:Name="PART_SigninView"
                           Margin="0,30,0,0"
@@ -264,6 +220,7 @@
         <accountPromo:AccountPromotionalView Grid.ColumnSpan="2"
                                              Grid.RowSpan="2"
                                              Margin="80"
-                                             Visibility="{Binding ShouldShowPromo, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                             Visibility="{Binding ShouldShowPromo, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                             d:Visibility="Collapsed"/>
     </Grid>
 </Window>

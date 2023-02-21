@@ -1,7 +1,8 @@
-﻿using HunterPie.Core.API;
-using HunterPie.Core.API.Entities;
-using HunterPie.Core.Architecture;
+﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
+using HunterPie.Integrations.Poogie.Common.Models;
+using HunterPie.Integrations.Poogie.Supporter;
+using HunterPie.Integrations.Poogie.Supporter.Models;
 using System;
 using System.Reflection;
 using System.Security.Principal;
@@ -11,7 +12,7 @@ namespace HunterPie.GUI.Parts;
 
 public class HeaderBarViewModel : Bindable
 {
-
+    private readonly PoogieSupporterConnector _supporterConnector = new();
     private bool _isSupporter;
     private bool _isFetchingSupporter;
     private bool _isNotificationsToggled;
@@ -41,25 +42,23 @@ public class HeaderBarViewModel : Bindable
         Application.Current.MainWindow.WindowState = WindowState.Minimized;
 
         if (ClientConfig.Config.Client.MinimizeToSystemTray)
-        {
             Application.Current.MainWindow.Hide();
-        }
     }
 
     public async void FetchSupporterStatus()
     {
         IsFetchingSupporter = true;
 
-        PoogieApiResult<SupporterValidationResponse> res = await PoogieApi.ValidateSupporterToken();
+        PoogieResult<SupporterValidationResponse> res = await _supporterConnector.IsValidSupporter();
 
         IsSupporter = res?.Response?.IsValid ?? false;
 
         IsFetchingSupporter = false;
     }
 
-    public void CloseApplication() => Application.Current.MainWindow.Close();
+    public void CloseApplication() => Application.Current.MainWindow?.Close();
 
-    public void DragApplication() => Application.Current.MainWindow.DragMove();
+    public void DragApplication() => Application.Current.MainWindow?.DragMove();
 
     private bool GetAdminState()
     {

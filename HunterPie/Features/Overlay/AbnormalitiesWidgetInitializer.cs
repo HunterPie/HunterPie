@@ -14,7 +14,7 @@ internal class AbnormalitiesWidgetInitializer : IWidgetInitializer
 {
     private readonly List<IContextHandler> _handlers = new();
 
-    public void Load(Context context)
+    public void Load(IContext context)
     {
         Core.Client.Configuration.OverlayConfig config = ProcessManager.Game switch
         {

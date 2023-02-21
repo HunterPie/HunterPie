@@ -9,7 +9,8 @@
                     xmlns:activities="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.View;assembly=HunterPie.UI"
                     xmlns:chat="clr-namespace:HunterPie.UI.Overlay.Widgets.Chat.Views;assembly=HunterPie.UI"
                     xmlns:wirebug="clr-namespace:HunterPie.UI.Overlay.Widgets.Wirebug.Views;assembly=HunterPie.UI"
-                    xmlns:specialized="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.Views;assembly=HunterPie.UI">
+                    xmlns:specialized="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.Views;assembly=HunterPie.UI"
+                    xmlns:playerHud="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.Views;assembly=HunterPie.UI">
     <!-- Converters -->
     <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
     
@@ -727,5 +728,5 @@
     <Style x:Key="STYLE_CHAT_WIDGET" TargetType="{x:Type chat:ChatView}"/>
     <Style x:Key="STYLE_WIREBUG_WIDGET" TargetType="{x:Type wirebug:WirebugsView}"/>
     <Style x:Key="STYLE_SPECIALIZED_TOOLS_WIDGET" TargetType="{x:Type specialized:SpecializedToolView}"/>
-    
+    <Style x:Key="STYLE_PLAYER_HUD_WIDGET" TargetType="{x:Type playerHud:PlayerHudView}"/>
 </ResourceDictionary>

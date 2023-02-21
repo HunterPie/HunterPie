@@ -2,6 +2,9 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="Controls\Buttons\BannerCard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Buttons\Button.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -9,6 +12,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Buttons\Keybinding.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Buttons\Pagination.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Buttons\Skeleton\BannerCardSkeleton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Buttons\Switch.xaml.cs">
@@ -26,6 +35,9 @@
     <Compile Update="Controls\Misc\Badge.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Notfication\Prompt.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Notfication\Push.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -39,9 +51,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Settings\SettingElementHost.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Controls\Settings\SettingHost.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Sliders\Range.xaml.cs">
@@ -77,19 +86,34 @@
     <Compile Update="Overlay\Widgets\Activities\View\ActivitiesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Activities\View\ArgosyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Activities\View\BuddyDojoView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Activities\View\CohootNestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Activities\View\HarvestBoxView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Activities\View\HarvestFertilizerView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Activities\View\MeowcenariesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Activities\View\SteamFuelView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Activities\View\SubmarinesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Activities\View\SubmarineView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Activities\View\TailraidersView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Activities\View\TrainingDojoView.xaml.cs">
@@ -143,6 +167,9 @@
     <Compile Update="Overlay\Widgets\Player\Views\PlayerHudView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Player\Views\WeaponSharpnessView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\SpecializedTools\Views\SpecializedToolView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -160,6 +187,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Controls\Buttons\BannerCard.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\Buttons\Button.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -167,6 +197,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Buttons\Keybinding.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Buttons\Pagination.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Buttons\Skeleton\BannerCardSkeleton.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Buttons\Switch.xaml">
@@ -184,6 +220,9 @@
     <Page Update="Controls\Misc\Badge.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\Notfication\Prompt.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\Notfication\Push.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -197,9 +236,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\SettingElementHost.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Controls\Settings\SettingHost.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Sliders\Range.xaml">
@@ -235,19 +271,34 @@
     <Page Update="Overlay\Widgets\Activities\View\ActivitiesView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Overlay\Widgets\Activities\View\ArgosyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Overlay\Widgets\Activities\View\BuddyDojoView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Activities\View\CohootNestView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Overlay\Widgets\Activities\View\HarvestBoxView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Activities\View\HarvestFertilizerView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Overlay\Widgets\Activities\View\MeowcenariesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Activities\View\SteamFuelView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Activities\View\SubmarinesView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Activities\View\SubmarineView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Activities\View\TailraidersView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Activities\View\TrainingDojoView.xaml">
@@ -301,6 +352,9 @@
     <Page Update="Overlay\Widgets\Player\Views\PlayerHudView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Overlay\Widgets\Player\Views\WeaponSharpnessView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Overlay\Widgets\SpecializedTools\Views\SpecializedToolView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -310,6 +364,12 @@
     <Page Update="Overlay\Widgets\Wirebug\Views\WirebugView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Resources\Seasons\WinterPie.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Resource Update="Resources\Interface.xaml">
+      <SubType>Designer</SubType>
+    </Resource>
     <Page Update="Resources\Seasons\SpookyPie.xaml">
       <SubType>Designer</SubType>
     </Page>

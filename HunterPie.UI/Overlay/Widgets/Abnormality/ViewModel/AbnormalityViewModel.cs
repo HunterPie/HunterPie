@@ -11,6 +11,13 @@ public class AbnormalityViewModel : Bindable
         set => SetValue(ref _icon, value);
     }
 
+    private string _id;
+    public string Id
+    {
+        get => _id;
+        set => SetValue(ref _id, value);
+    }
+
     private string _name;
     public string Name
     {
@@ -45,4 +52,7 @@ public class AbnormalityViewModel : Bindable
         get => _isBuildup;
         set => SetValue(ref _isBuildup, value);
     }
+
+    private bool _isInfinite;
+    public bool IsInfinite { get => _isInfinite; set => SetValue(ref _isInfinite, value); }
 }

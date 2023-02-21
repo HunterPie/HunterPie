@@ -80,7 +80,6 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
         while (ShouldPollProcess)
         {
             if (_shouldPauseThread)
-            {
                 try
                 {
                     Thread.Sleep(Timeout.Infinite);
@@ -89,7 +88,6 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
                 {
                     continue;
                 }
-            }
 
             PollProcessInfo();
             Thread.Sleep(150);
@@ -117,40 +115,38 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
             return;
         }
 
-        if (ShouldOpenProcess(mhProcess))
+        if (!ShouldOpenProcess(mhProcess))
+            return;
+
+        try
         {
-            try
-            {
-                if (mhProcess.MainModule is null)
-                    throw new InvalidOperationException("Process main module is null.");
+            if (mhProcess.MainModule is null)
+                throw new InvalidOperationException("Process main module is null.");
 
-                Process = mhProcess;
-                ProcessId = mhProcess.Id;
-                HasExitedNormally = null;
-                // We want to retrieve process exit code, so force Process to call OpenProcess by explicitly retrieving its SafeHandle.
-                // Otherwise there will be InvalidOperationException: Process was not started by this object, so requested information cannot be determined.
-                _ = Process.SafeHandle;
-                pHandle = Kernel32.OpenProcess(Kernel32.PROCESS_ALL_ACCESS, false, ProcessId);
+            Process = mhProcess;
+            ProcessId = mhProcess.Id;
+            HasExitedNormally = null;
+            // We want to retrieve process exit code, so force Process to call OpenProcess by explicitly retrieving its SafeHandle.
+            // Otherwise there will be InvalidOperationException: Process was not started by this object, so requested information cannot be determined.
+            _ = Process.SafeHandle;
+            pHandle = Kernel32.OpenProcess(Kernel32.PROCESS_ALL_ACCESS, false, ProcessId);
 
-                if (pHandle == IntPtr.Zero)
-                {
-                    throw new Win32Exception();
-                }
+            if (pHandle == IntPtr.Zero)
+                throw new Win32Exception();
 
-                IsRunning = true;
+            IsRunning = true;
 
-                _memory = new WindowsMemory(pHandle);
+            _memory = new WindowsMemory(pHandle);
 
-                AddressMap.Add("BASE", (long)Process.MainModule.BaseAddress);
+            AddressMap.Add("BASE", (long)Process.MainModule.BaseAddress);
 
-                this.Dispatch(OnGameStart, new(Name));
-            }
-            catch (Exception ex)
-            {
-                Log.Error("Failed to open game process. Run HunterPie as Administrator!");
-                Log.Info("Error details: {0}", ex);
-                ShouldPollProcess = false;
-            }
+            this.Dispatch(OnGameStart, new(Name));
+        }
+        catch (Exception ex)
+        {
+            Log.Error("Failed to open game process. Run HunterPie as Administrator!");
+            Log.Info("Error details: {0}", ex);
+            ShouldPollProcess = false;
         }
     }
 

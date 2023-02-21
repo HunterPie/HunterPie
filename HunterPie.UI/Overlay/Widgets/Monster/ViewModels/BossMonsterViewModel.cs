@@ -3,8 +3,10 @@ using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Remote;
 using HunterPie.UI.Architecture;
+using HunterPie.UI.Architecture.Images;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 
@@ -113,6 +115,8 @@ public class BossMonsterViewModel : ViewModel
         set => SetValue(ref _canBeCaptured, value);
     }
 
+    public bool IsQurio { get; set; }
+
     public ref readonly ObservableCollection<MonsterPartViewModel> Parts => ref _parts;
     public ref readonly ObservableCollection<MonsterAilmentViewModel> Ailments => ref _ailments;
     public ref readonly ObservableCollection<Element> Weaknesses => ref _weaknesses;
@@ -144,7 +148,7 @@ public class BossMonsterViewModel : ViewModel
 
     public bool IsAlive { get => _isAlive; set => SetValue(ref _isAlive, value); }
 
-    public async void FetchMonsterIcon()
+    public async Task FetchMonsterIcon()
     {
         IsLoadingIcon = true;
 
@@ -155,7 +159,28 @@ public class BossMonsterViewModel : ViewModel
         if (!File.Exists(imagePath))
             imagePath = await CDN.GetMonsterIconUrl(imageName);
 
+        if (IsQurio)
+            imagePath = await FetchQurioIcon(imagePath);
+
         IsLoadingIcon = false;
         Icon = imagePath;
+    }
+
+    private async Task<string> FetchQurioIcon(string defaultImagePath)
+    {
+        string maskPath = ClientInfo.GetPathFor($"Assets/Monsters/Masks/qurio_mask.png");
+        string imageName = $"{Em}_qurio";
+        string imagePath = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{imageName}.png");
+
+        if (File.Exists(imagePath))
+            return imagePath;
+
+        imagePath = await ImageMergerService.MergeAsync(
+            imagePath,
+            defaultImagePath,
+            maskPath
+        );
+
+        return imagePath;
     }
 }

@@ -6,6 +6,7 @@ public struct MonsterDataSchema
 {
     public int Id;
     public int Capture;
+    public bool IsNotCapturable;
     public MonsterSizeSchema Size;
     public MonsterPartSchema[] Parts;
     public Element[] Weaknesses;

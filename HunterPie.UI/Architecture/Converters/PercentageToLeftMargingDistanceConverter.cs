@@ -10,11 +10,19 @@ public class PercentageToLeftMargingDistanceConverter : IMultiValueConverter
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
         double width = (double)values[0];
-        double percentage = (double)values[1];
         var oldThickness = parameter.ToThickness();
-        oldThickness.Left = width * percentage;
 
-        return oldThickness;
+        if (double.IsNaN(width))
+            return oldThickness;
+
+        double percentage = (double)values[1];
+
+        double left = width * percentage;
+
+        if (double.IsNaN(left) || double.IsInfinity(left))
+            return oldThickness;
+
+        return oldThickness with { Left = left };
     }
 
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => throw new NotImplementedException();

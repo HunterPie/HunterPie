@@ -2,12 +2,13 @@
 using HunterPie.Domain.Interfaces;
 using HunterPie.Internal.Poogie;
 using System;
+using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;
 
 internal class ExceptionCatcherInitializer : IInitializer
 {
-    public void Init()
+    public Task Init()
     {
         AppDomain.CurrentDomain.UnhandledException += (_, args) =>
         {
@@ -15,5 +16,7 @@ internal class ExceptionCatcherInitializer : IInitializer
 
             RemoteCrashReporter.Send(args.ExceptionObject as Exception);
         };
+
+        return Task.CompletedTask;
     }
 }

@@ -1,5 +1,8 @@
-﻿namespace HunterPie.Core.Domain.Dialog;
+﻿using System;
 
+namespace HunterPie.Core.Domain.Dialog;
+
+[Flags]
 public enum NativeDialogButtons
 {
     Accept = 1 << 0,

@@ -1,0 +1,48 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <DrawingImage x:Key="PLAYER_WEAPON_SHARPNESS_GAUGE">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V40 H100 V0 H0 Z">
+                <DrawingGroup Opacity="1">
+                    <GeometryDrawing Geometry="F1 M100,40z M0,0z M8.7089844,10.806641C6.9474223,10.824291 1.2304688,17.765625 1.2304688,17.765625 1.2304688,17.765625 7.20819,25.18687 8.7089844,25.207031 9.4730536,25.217261 12.570312,20.951172 12.570312,20.951172L24.867188,21.017582C24.867188,21.017582 24.829568,23.283498 24.908208,24.308598 24.945448,24.794037 26.675786,24.679692 26.675786,24.679692 26.675786,24.679692 33.09149,24.686092 33.972661,24.687492 34.983714,24.689092 34.996099,23.675773 34.996099,23.675773 34.996099,23.675773 72.428333,23.812924 90.884771,23.675773 94.492171,23.648963 98.333989,17.765617 98.333989,17.765617L95.912114,13.39843C95.912114,13.39843 56.070253,13.37882 34.976567,13.39843 34.353685,13.399007 33.679693,11.990226 33.679693,11.990226L24.869146,12.005856 24.867146,14.744138 12.57027,14.750038C12.57027,14.750038,9.2448056,10.801279,8.7089424,10.806679z">
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="52.415272,25.031734" EndPoint="52.415272,13.650774" MappingMode="Absolute" SpreadMethod="Pad" Opacity="1" Transform="1.1261499,0,0,1.1261499,-5.3275686,-3.3831537">
+                                <GradientStop Color="#FF111111" Offset="0" />
+                                <GradientStop Color="#FF2C2C2C" Offset="0.54040176000000006" />
+                                <GradientStop Color="#FF202020" Offset="1" />
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="PLAYER_WEAPON_SHARPNESS_BLADE">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V40 H100 V0 H0 Z">
+                <DrawingGroup Opacity="1">
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M100,40z M0,0z M0.72032077,8.9101333C0.72032077,8.9101333 64.125495,8.8927213 95.716403,8.8927363 96.493186,8.8927363 99.332863,14.849477 99.332863,14.849477 99.332863,14.849477 93.018742,23.254779 88.696591,23.254779 62.370232,23.25478 0.720320770000001,23.396804 0.720320770000001,23.396804L0.720323910000001,20.021707C0.720323910000001,20.021707 4.1278127,16.645656 4.1137708,15.772234 4.1019628,15.035615 0.720320770000001,12.098844 0.720320770000001,12.098844z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="PLAYER_WEAPON_SHARPNESS_GAUGE_V2">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V40 H150 V0 H0 Z">
+                <DrawingGroup Opacity="1">
+                    <GeometryDrawing Geometry="F1 M150,40z M0,0z M140.2025,7.8052082L135.13329,25.888146 129.29064,31.653912 14.445852,31.587762 14.445852,25.822 23.722724,7.7390624z">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="{StaticResource GRAY}" Thickness="3" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="{StaticResource GRAY}" Geometry="F1 M150,40z M0,0z M21.8447,6.2206984L12.880918,22.954251 8.9649841,13.856009 14.257373,6.2206984z" />
+                    <GeometryDrawing Brush="{StaticResource GRAY}" Geometry="F1 M150,40z M0,0z M9.2804789,11.250472L6.6156795,6.2206984 12.899507,6.2206984z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>

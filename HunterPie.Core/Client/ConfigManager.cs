@@ -2,14 +2,12 @@
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Json;
 using HunterPie.Core.Logger;
-using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Reflection;
-using System.Text;
 
 namespace HunterPie.Core.Client;
 
@@ -41,7 +39,7 @@ public class ConfigManager
     /// <param name="default">Base class for the config to be serialized to</param>
     public static void Register(string path, object @default)
     {
-        path = GetFullPath(path);
+        path = ConfigHelper.GetFullPath(path);
 
         if (!Directory.Exists(path))
             _ = Directory.CreateDirectory(Path.GetDirectoryName(path));
@@ -77,7 +75,7 @@ public class ConfigManager
 
     public static void Reload(string path)
     {
-        path = GetFullPath(path);
+        path = ConfigHelper.GetFullPath(path);
 
         if (!Settings.ContainsKey(path))
         {
@@ -99,7 +97,7 @@ public class ConfigManager
 
     public static void Save(string path)
     {
-        path = GetFullPath(path);
+        path = ConfigHelper.GetFullPath(path);
 
         if (!Settings.ContainsKey(path))
         {
@@ -119,27 +117,9 @@ public class ConfigManager
     private static void ReadSettings(string path)
     {
         lock (_settings[path])
-        {
             try
             {
-                using FileStream stream = File.OpenRead(path);
-                byte[] buffer = new byte[stream.Length];
-                _ = stream.Read(buffer, 0, buffer.Length);
-
-                string str = Encoding.UTF8.GetString(buffer);
-
-                if (string.IsNullOrEmpty(str)
-                    || str[0] == '\x00'
-                    || str == "null")
-                {
-                    throw new Exception("Configuration file was empty");
-                }
-
-                var serializerSettings = new JsonSerializerSettings()
-                {
-                    NullValueHandling = NullValueHandling.Ignore,
-                    TypeNameHandling = TypeNameHandling.Auto
-                };
+                string str = ConfigHelper.ReadObject(path);
 
                 JsonProvider.Populate(str, _settings[path]);
             }
@@ -147,15 +127,12 @@ public class ConfigManager
             {
                 Log.Error(err.ToString());
             }
-        }
     }
 
     private static void WriteSettings(string path)
     {
         lock (_settings[path])
-        {
             ConfigHelper.WriteObject(path, _settings[path]);
-        }
     }
 
     public static void BindAndSaveOnChanges(string path, object data)
@@ -165,7 +142,6 @@ public class ConfigManager
 
         Type type = data.GetType();
         foreach (PropertyInfo propertyInfo in type.GetProperties())
-        {
             if (typeof(IEnumerable).IsAssignableFrom(propertyInfo.PropertyType))
             {
                 var array = (IEnumerable)propertyInfo.GetValue(data);
@@ -197,16 +173,5 @@ public class ConfigManager
                     continue;
                 }
             }
-        }
-    }
-
-    private static string GetFullPath(string path)
-    {
-        if (!Path.IsPathFullyQualified(path))
-        {
-            path = Path.Combine(ClientInfo.ClientPath, path);
-        }
-
-        return path;
     }
 }

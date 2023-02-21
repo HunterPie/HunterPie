@@ -5,13 +5,14 @@ using Newtonsoft.Json;
 
 namespace HunterPie.Core.Settings.Types;
 
+#nullable enable
 [JsonConverter(typeof(SecretConverter))]
 public class Secret : Bindable
 {
-    private string _value;
+    private string? _value;
 
     [JsonIgnore]
-    public string Value
+    public string? Value
     {
         get => _value;
         set => SetValue(ref _value, value);
@@ -25,5 +26,5 @@ public class Secret : Bindable
 
     public override string ToString() => Value;
 
-    public static implicit operator string(Secret self) => self.Value;
+    public static implicit operator string?(Secret? self) => self?.Value;
 }

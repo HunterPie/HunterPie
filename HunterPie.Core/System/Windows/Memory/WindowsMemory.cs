@@ -14,23 +14,23 @@ public class WindowsMemory : IMemory
 {
     private const long NULLPTR = 0;
 
-    private readonly IntPtr pHandle;
-    private readonly ArrayPool<byte> bufferPool = ArrayPool<byte>.Shared;
+    private readonly IntPtr _pHandle;
+    private readonly ArrayPool<byte> _bufferPool = ArrayPool<byte>.Shared;
 
     public WindowsMemory(IntPtr processHandle)
     {
-        pHandle = processHandle;
+        _pHandle = processHandle;
     }
 
     public string Read(long address, uint length, Encoding encoding = null)
     {
-        byte[] buffer = bufferPool.Rent((int)length);
+        byte[] buffer = _bufferPool.Rent((int)length);
 
-        _ = Kernel32.ReadProcessMemory(pHandle, (IntPtr)address, buffer, (int)length, out _);
+        _ = Kernel32.ReadProcessMemory(_pHandle, (IntPtr)address, buffer, (int)length, out _);
 
         string raw = (encoding ?? Encoding.UTF8).GetString(buffer, 0, (int)length);
 
-        bufferPool.Return(buffer, true);
+        _bufferPool.Return(buffer, true);
         int nullCharIdx = raw.IndexOf('\x00');
 
         return nullCharIdx < 0 ? raw : raw[..nullCharIdx];
@@ -64,7 +64,8 @@ public class WindowsMemory : IMemory
     {
         foreach (int offset in offsets)
         {
-            long tmp = Read<long>(address + offset);
+            long newAddress = address + offset;
+            long tmp = Read<long>(newAddress);
 
             if (tmp == NULLPTR)
                 return NULLPTR;
@@ -79,7 +80,7 @@ public class WindowsMemory : IMemory
     {
         int size = Marshal.SizeOf<T>() * (int)count;
         IntPtr bufferAddress = Marshal.AllocHGlobal(size);
-        _ = Kernel32.ReadProcessMemory(pHandle, (IntPtr)address, bufferAddress, size, out _);
+        _ = Kernel32.ReadProcessMemory(_pHandle, (IntPtr)address, bufferAddress, size, out _);
 
         T[] structures = MarshalHelper.BufferToStructures<T>(bufferAddress, (int)count);
 
@@ -93,7 +94,7 @@ public class WindowsMemory : IMemory
         int lpByteCount = Marshal.SizeOf<T>() * (int)count;
         var buffer = new T[count];
 
-        _ = Kernel32.ReadProcessMemory(pHandle, (IntPtr)address, buffer, lpByteCount, out _);
+        _ = Kernel32.ReadProcessMemory(_pHandle, (IntPtr)address, buffer, lpByteCount, out _);
 
         return buffer;
     }
@@ -116,16 +117,16 @@ public class WindowsMemory : IMemory
     {
         byte[] buffer = StructureToBuffer(data);
 
-        if (!Kernel32.WriteProcessMemory(pHandle, (IntPtr)address, buffer, buffer.Length, out int _))
+        if (!Kernel32.WriteProcessMemory(_pHandle, (IntPtr)address, buffer, buffer.Length, out int _))
             throw new Win32Exception();
     }
 
     public void InjectAsm(long address, byte[] asm)
     {
-        if (!Kernel32.VirtualProtectEx(pHandle, (IntPtr)address, (UIntPtr)asm.Length, 0x40, out uint oldProtect))
+        if (!Kernel32.VirtualProtectEx(_pHandle, (IntPtr)address, (UIntPtr)asm.Length, 0x40, out uint oldProtect))
             throw new Win32Exception();
         Write(address, asm);
-        if (!Kernel32.VirtualProtectEx(pHandle, (IntPtr)address, (UIntPtr)asm.Length, oldProtect, out _))
+        if (!Kernel32.VirtualProtectEx(_pHandle, (IntPtr)address, (UIntPtr)asm.Length, oldProtect, out _))
             throw new Win32Exception();
     }
 
@@ -151,7 +152,7 @@ public class WindowsMemory : IMemory
         byte[] dllPath = Encoding.Unicode.GetBytes(dll);
 
         IntPtr dllNamePtr = Kernel32.VirtualAllocEx(
-            pHandle,
+            _pHandle,
             IntPtr.Zero,
             (uint)dllPath.Length + 1,
             Kernel32.AllocationType.Commit,
@@ -177,7 +178,7 @@ public class WindowsMemory : IMemory
 
         IntPtr lpThreadId = IntPtr.Zero;
         IntPtr thread = Kernel32.CreateRemoteThread(
-            pHandle,
+            _pHandle,
             IntPtr.Zero,
             0,
             loadLibraryW,

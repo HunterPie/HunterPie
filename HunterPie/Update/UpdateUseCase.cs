@@ -2,24 +2,35 @@
 using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Logger;
+using HunterPie.Domain.Sidebar;
+using HunterPie.GUI.Parts.Sidebar.Service;
+using HunterPie.GUI.Parts.Sidebar.ViewModels;
 using HunterPie.Internal.Poogie;
 using HunterPie.Update.Presentation;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
 namespace HunterPie.Update;
 
+#nullable enable
 internal static class UpdateUseCase
 {
+    private const string JUST_UPDATED_KEY = "JustUpdated";
+
     public static async Task<bool> Exec(UpdateViewModel vm)
     {
         vm.State = "Initializing HunterPie";
         UpdateService service = new();
-        _ = service.CleanupOldFiles();
+
+        vm.State = "Checking for new localization files...";
+        await service.UpdateLocalizationFiles();
 
         vm.State = "Checking for latest version...";
-        Version latest = await service.GetLatestVersion();
+        Version? latest = await service.GetLatestVersion();
+
+        OpenPatchNotesIfJustUpdated();
 
         if (latest is null || ClientInfo.IsVersionGreaterOrEq(latest))
             return false;
@@ -39,14 +50,18 @@ internal static class UpdateUseCase
         }
 
         vm.State = "Downloading package...";
-        await service.DownloadZip((_, args) =>
+        bool success = await service.DownloadZip((_, args) =>
         {
             vm.DownloadedBytes = args.BytesDownloaded;
             vm.TotalBytes = args.TotalBytes;
         });
 
-        vm.State = "Calculating file hashes...";
-        System.Collections.Generic.Dictionary<string, string> localFiles = await service.IndexAllFilesRecursively(ClientInfo.ClientPath);
+        if (!success)
+        {
+            vm.State = "Failed to update HunterPie";
+            Log.Warn("Failed to update HunterPie");
+            return false;
+        }
 
         vm.State = "Extracting package...";
         if (!service.ExtractZip())
@@ -55,12 +70,21 @@ internal static class UpdateUseCase
             return false;
         }
 
-        System.Collections.Generic.Dictionary<string, string> remoteFiles = await service.IndexAllFilesRecursively(ClientInfo.GetPathFor(@"temp/HunterPie"));
+        vm.State = "Calculating file hashes...";
+        Dictionary<string, string>? remoteFiles = await service.TryIndexAllNewFilesRecursively();
+
+        if (remoteFiles is not { })
+            return false;
+
+        Dictionary<string, string>? localFiles = await service.TryIndexLocalFilesFrom(remoteFiles);
+
+        if (localFiles is not { })
+            return false;
 
         vm.State = "Replacing old files";
         try
         {
-            _ = service.ReplaceOldFiles(localFiles, remoteFiles);
+            service.ReplaceOldFiles(localFiles, remoteFiles);
         }
         catch (Exception err)
         {
@@ -70,15 +94,27 @@ internal static class UpdateUseCase
             {
                 IOException => "Failed to replace old files, make sure HunterPie has permissions to move files.",
                 UnauthorizedAccessException => "HunterPie is missing permissions to manage files.",
-                _ => null,
+                _ => "Failed to update HunterPie. Please check it is in a non-special folder and that it has permissions to write to files.",
             };
 
-            if (dialogMessage is string message)
-                _ = DialogManager.Error("Update error", message, NativeDialogButtons.Accept);
+            DialogManager.Error("Update error", dialogMessage, NativeDialogButtons.Accept);
 
             Log.Error(err.ToString());
+            return false;
         }
 
+        RegistryConfig.Set(JUST_UPDATED_KEY, true);
+
         return true;
+    }
+
+    private static void OpenPatchNotesIfJustUpdated()
+    {
+        if (RegistryConfig.Exists(JUST_UPDATED_KEY) && !RegistryConfig.Get<bool>(JUST_UPDATED_KEY))
+            return;
+
+        SideBarService.Navigate(SideBar.GetInstance<PatchNotesSideBarElementViewModel>());
+
+        RegistryConfig.Set(JUST_UPDATED_KEY, false);
     }
 }

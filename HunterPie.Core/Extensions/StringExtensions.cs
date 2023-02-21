@@ -13,8 +13,7 @@ public static class StringExtensions
     /// <returns>Pretty string</returns>
     public static string RemoveChars(this string value, char[] chars = null)
     {
-        if (chars is null)
-            chars = new char[] { ' ', '\x0A', '\x0B', '\x0C', '\x0D' };
+        chars ??= new char[] { ' ', '\x0A', '\x0B', '\x0C', '\x0D' };
 
         // Apparently this is faster than using Regex to replace
         string[] temp = value.Split(chars, StringSplitOptions.RemoveEmptyEntries);
@@ -38,4 +37,20 @@ public static class StringExtensions
     /// Allows case insensitive checks
     /// </summary>
     public static bool Contains(this string source, string toCheck, StringComparison comp) => source.IndexOf(toCheck, comp) >= 0;
+
+    /// <summary>
+    /// Checks if a string contains any of the substrings
+    /// </summary>
+    /// <param name="source">String to be compared</param>
+    /// <param name="substrings">Substrings</param>
+    /// <param name="comp">Comparision strategy</param>
+    /// <returns>True if source contains any of the substrings, false otherwise</returns>
+    public static bool ContainsAny(this string source, string[] substrings, StringComparison comp = StringComparison.InvariantCultureIgnoreCase)
+    {
+        for (int i = 0; i < substrings.Length; i++)
+            if (source.Contains(substrings[i], comp))
+                return true;
+
+        return false;
+    }
 }

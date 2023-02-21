@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="HunterPie.GUI.Parts.Statistics.Views.QuestStatisticsSummaryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.GUI.Parts.Statistics.Views"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+             xmlns:viewModels="clr-namespace:HunterPie.GUI.Parts.Statistics.ViewModels"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
+             xmlns:gl="clr-namespace:System.Globalization;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" 
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewModels:QuestStatisticsSummaryViewModel}"
+             Margin="2">
+    <UserControl.Resources>
+        <converters:GameTypeToGameNameConverter x:Key="GameTypeToGameNameConverter"/>
+    </UserControl.Resources>
+    <buttons:Button BorderBrush="{StaticResource GRAY_200}"
+                    Background="{StaticResource GRAY_50}"
+                    BorderThickness="1"
+                    CornerRadius="5"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    Padding="0"
+                    Click="OnClick">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="18"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+
+            <Rectangle Fill="{StaticResource GRAY_100}"
+                       Grid.Row="0"
+                       Grid.RowSpan="2"/>
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Text="{Binding GameType, Mode=OneWay, Converter={StaticResource GameTypeToGameNameConverter}}"
+                       d:Text="Game Name"
+                       Foreground="{StaticResource WHITE_300}"
+                       VerticalAlignment="Center"
+                       Margin="5"
+                       FontSize="14"
+                       FontWeight="Medium"/>
+
+            <TextBlock Grid.Row="1"
+                       Grid.Column="0"
+                       Text="{Binding UploadedAt, Mode=OneWay, StringFormat='g', ConverterCulture={x:Static gl:CultureInfo.CurrentCulture}}"
+                       d:Text="01/12/2022 12:34PM"
+                       Foreground="{StaticResource WHITE_500}"
+                       VerticalAlignment="Center"
+                       Margin="5"/>
+            
+            <StackPanel Orientation="Vertical"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Margin="5">
+                <TextBlock Text="Monsters"
+                           FontSize="13"
+                           Foreground="{StaticResource WHITE_300}"/>
+                <ItemsControl ItemsSource="{Binding Monsters, Mode=OneTime}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:MonsterSummaryView Height="55"
+                                                      Width="55"
+                                                      Margin="0,5,5,0">
+                                <local:MonsterSummaryView.Effect>
+                                    <DropShadowEffect Color="Cyan"
+                                                      Opacity="1"
+                                                      ShadowDepth="0"
+                                                      BlurRadius="2"/>
+                                </local:MonsterSummaryView.Effect>
+                            </local:MonsterSummaryView>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+                
+
+            <Rectangle Grid.Column="1"
+                       Grid.Row="0"
+                       Grid.RowSpan="3"
+                       Fill="{StaticResource GRAY_200}"/>
+            <image:Icon Grid.Column="1" 
+                        Grid.Row="0"
+                        Grid.RowSpan="3"
+                        Image="{StaticResource ICON_ARROW_RIGHT}"
+                        Foreground="{StaticResource GRAY}"
+                        Height="20"
+                        Margin="5"/>
+
+        </Grid>
+    </buttons:Button>
+</UserControl>

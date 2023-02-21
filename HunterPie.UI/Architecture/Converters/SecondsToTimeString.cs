@@ -10,17 +10,19 @@ public class SecondsToTimeString : IValueConverter
     {
         string timeFormat = "mm\\:ss";
         if (value is double val)
-        {
-            if (val > TimeSpan.MaxValue.TotalSeconds)
+            try
+            {
+                var span = TimeSpan.FromSeconds(val);
+
+                if (parameter is string format)
+                    timeFormat = format;
+
+                return span.ToString(timeFormat);
+            }
+            catch
+            {
                 return string.Empty;
-
-            var span = TimeSpan.FromSeconds(val);
-
-            if (parameter is string format)
-                timeFormat = format;
-
-            return span.ToString(timeFormat);
-        }
+            }
 
         return string.Empty;
     }
