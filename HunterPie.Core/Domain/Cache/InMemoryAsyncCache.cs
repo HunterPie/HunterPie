@@ -26,7 +26,7 @@ public class InMemoryAsyncCache : IAsyncCache
             if (!exists)
                 return default;
 
-            return value is T typedValue ? typedValue : default;
+            return value.Value is T typedValue ? typedValue : default;
         }
         catch
         {

@@ -35,6 +35,9 @@
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
 
+            <Rectangle Fill="{StaticResource GRAY_100}"
+                       Grid.Row="0"
+                       Grid.RowSpan="2"/>
             <TextBlock Grid.Row="0"
                        Grid.Column="0"
                        Text="{Binding GameType, Mode=OneWay, Converter={StaticResource GameTypeToGameNameConverter}}"
@@ -47,7 +50,7 @@
 
             <TextBlock Grid.Row="1"
                        Grid.Column="0"
-                       Text="{Binding UploadedAt, Mode=OneWay, StringFormat='G', ConverterCulture={x:Static gl:CultureInfo.CurrentCulture}}"
+                       Text="{Binding UploadedAt, Mode=OneWay, StringFormat='g', ConverterCulture={x:Static gl:CultureInfo.CurrentCulture}}"
                        d:Text="01/12/2022 12:34PM"
                        Foreground="{StaticResource WHITE_500}"
                        VerticalAlignment="Center"

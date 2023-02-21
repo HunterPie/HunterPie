@@ -198,4 +198,8 @@
     <Color x:Key="WIDGET_SHARPNESS_WHITE">#EAF5F4</Color>
     <Color x:Key="WIDGET_SHARPNESS_PURPLE">#cd55e6</Color>
     
+    <LinearGradientBrush x:Key="HUNTERPIE_SUPPORTER_T2" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF563ECF"/>
+        <GradientStop Color="#FF7445DE" Offset="1"/>
+    </LinearGradientBrush>
 </ResourceDictionary>

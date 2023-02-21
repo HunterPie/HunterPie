@@ -1190,6 +1190,24 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="ICON_SUPPORTER_TIER_2">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">
+                <DrawingGroup Opacity="1" Transform="1,0,0,1,-64,0">
+                    <DrawingGroup Opacity="1" Transform="1,0,0,1,-192,-256">
+                        <DrawingGroup Opacity="1" Transform="1,0,0,1,192,256">
+                            <GeometryDrawing Brush="#FFBCBCBC" Geometry="F0 M64,64z M0,0z M78,47C80,47,85,57.5,85,57.5L71,57.5C71,57.5,76,47,78,47z M114,47C116,47,121,57.5,121,57.5L107,57.5C107,57.5,112,47,114,47z M79,8L69,18 69,28 83,46 109,46 123,28 123,18 113,8 79,8z M80,10L71,19 71,27 84,44 108,44 121,27 121,19 112,10 80,10z M85,23L94,42 79,23 85,23z M107,23L98,42 113,23 107,23z M87,12L87,18 93,12 87,12z M105,12L105,18 99,12 105,12z" />
+                        </DrawingGroup>
+                        <GeometryDrawing Brush="#FFE5E5E5" Geometry="F0 M64,64z M0,0z M279,279L297,279 288,298 279,279z" />
+                        <DrawingGroup Opacity="1" Transform="1,0,0,1,64,0">
+                            <GeometryDrawing Brush="#FFFFFFFF" Geometry="F0 M64,64z M0,0z M215,277L224,268 233,277 215,277z M213,268L213,277 207,277 213,268z M235,268L235,277 241,277 235,268z" />
+                        </DrawingGroup>
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="ICON_SUPPORTER_TIER_1">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">
