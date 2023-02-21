@@ -1,7 +1,4 @@
-﻿using HunterPie.GUI.Parts.Sidebar.ViewModels;
-using System.Linq;
-
-namespace HunterPie.Domain.Sidebar;
+﻿namespace HunterPie.Domain.Sidebar;
 
 #nullable enable
 internal static class SideBar

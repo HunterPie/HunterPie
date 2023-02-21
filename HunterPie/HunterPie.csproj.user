@@ -9,6 +9,15 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Features\Statistics\Views\HuntSummaryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Features\Statistics\Views\MonsterSummaryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Features\Statistics\Views\PartyMemberSummaryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Features\Tools\Localization\Views\LocalizableStringView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -92,6 +101,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Features\Statistics\Views\HuntSummaryView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Features\Statistics\Views\MonsterSummaryView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Features\Statistics\Views\PartyMemberSummaryView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Features\Tools\Localization\Views\LocalizableStringView.xaml">
       <SubType>Designer</SubType>
     </Page>

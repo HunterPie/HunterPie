@@ -1,0 +1,237 @@
+﻿<UserControl x:Class="HunterPie.Features.Statistics.Views.HuntSummaryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.Features.Statistics.Views"
+             xmlns:vm="clr-namespace:HunterPie.Features.Statistics.ViewModels"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
+             xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
+             xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" 
+             d:DesignWidth="1000"
+             d:DataContext="{d:DesignInstance vm:HuntSummaryViewModel}">
+    <UserControl.Resources>
+        <vm:MockHuntSummaryViewModel x:Key="MockHuntSummaryViewModel"/>
+        <converters:AbnormalityStringToIconConverter x:Key="AbnormalityStringToIconConverter"/>
+        <converters:ParentSizePercentageConverter x:Key="ParentSizePercentageConverter"/>
+        <converters:BoolPickConverter x:Key="BoolPickConverter"/>
+    </UserControl.Resources>
+    <Border Padding="3"
+            BorderThickness="1"
+            BorderBrush="{StaticResource GRAY}"
+            Background="{StaticResource GRAY_200}"
+            CornerRadius="5">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="271*"/>
+                <ColumnDefinition Width="671*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <!-- Header details -->
+            <Image Source="https://cdn.hunterpie.com/Assets/Monsters/Icons/World_95.png"
+                   HorizontalAlignment="Center"
+                   Margin="0,2,0,2" Width="36"/>
+
+            <TextBlock Text="Stygian Zinogre" 
+                       Grid.Column="1"
+                       Foreground="{StaticResource WHITE_200}"
+                       FontSize="18"
+                       VerticalAlignment="Top"
+                       FontWeight="Medium"
+                       Margin="5,2,0,0"
+                       HorizontalAlignment="Left"/>
+            <TextBlock d:Text="27/10/2022 09:30 AM" 
+                       Text="{Binding HuntedAt, Mode=OneTime}"
+                       Grid.Column="1"
+                       Foreground="{StaticResource WHITE_600}"
+                       FontSize="13"
+                       VerticalAlignment="Bottom"
+                       FontWeight="Light"
+                       Margin="5,0,0,2"
+                       HorizontalAlignment="Left"/>
+
+            <viewer:SmoothScrollViewer Grid.ColumnSpan="3"
+                                       Grid.Row="1">
+                <StackPanel>
+                    <!-- Monster Data -->
+                    <local:MonsterSummaryView Margin="10"/>
+
+                    <!-- Players -->
+                    <Border Background="{StaticResource GRAY_50}"
+                            BorderBrush="{StaticResource GRAY}"
+                            BorderThickness="1"
+                            CornerRadius="5"
+                            Padding="5"
+                            Margin="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <lvc:CartesianChart Series="{Binding DamageSeries, Mode=OneTime}"
+                                                DisableAnimations="True"
+                                                Margin="5"
+                                                Zoom="X"
+                                                Grid.Column="1"
+                                                Height="250"
+                                                d:DataContext="{StaticResource MockHuntSummaryViewModel}"
+                                                DataTooltip="{x:Null}"
+                                                Hoverable="False"
+                                                Background="{StaticResource GRAY_200}"
+                                                x:Name="PART_Graph">
+                                <lvc:CartesianChart.CacheMode>
+                                    <BitmapCache EnableClearType="True"
+                                                 RenderAtScale="1"
+                                                 SnapsToDevicePixels="True"/>
+                                </lvc:CartesianChart.CacheMode>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis MinValue="0"
+                                              MaxValue="100"
+                                              LabelFormatter="{Binding DamageFormatter, Mode=OneWay}"
+                                              FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Stroke="{StaticResource GRAY}"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisY>
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis LabelFormatter="{Binding TimeFormatter, Mode=OneWay}" 
+                                              FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                              Sections="{Binding Sections, Mode=OneWay}"
+                                              MinValue="0"
+                                              MaxValue="{Binding TimeElapsed, Mode=OneWay}">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator IsEnabled="False"/>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                            </lvc:CartesianChart>
+
+                            <!-- Party members -->
+                            <viewer:SmoothScrollViewer Grid.Column="0">
+                                <ItemsControl ItemsSource="{Binding Players, Mode=OneTime}"
+                                              d:DataContext="{StaticResource MockHuntSummaryViewModel}">
+                                    <ItemsControl.Template>
+                                        <ControlTemplate>
+                                            <VirtualizingStackPanel VirtualizingPanel.VirtualizationMode="Recycling"
+                                                                    VirtualizingPanel.IsVirtualizing="True"
+                                                                    IsItemsHost="True"/>
+                                        </ControlTemplate>
+                                    </ItemsControl.Template>
+
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <local:PartyMemberSummaryView Margin="5"
+                                                                          Height="35"
+                                                                          Click="OnPartyMemberClick"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </viewer:SmoothScrollViewer>
+                        </Grid>
+                    </Border>
+                    
+                    <!-- Abnormalities Summary -->
+                    <Border Background="{StaticResource GRAY_50}"
+                            BorderBrush="{StaticResource GRAY}"
+                            BorderThickness="1"
+                            CornerRadius="5"
+                            Padding="5"
+                            Margin="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="Abnormalities Summary"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="15"
+                                       Foreground="{StaticResource WHITE_500}"/>
+
+                            <Separator Margin="5,0,5,0"
+                                       Grid.Row="1"
+                                       VerticalAlignment="Top"
+                                       Background="{StaticResource GRAY}"/>
+
+                            <ItemsControl Grid.Row="1"
+                                          Margin="5"
+                                          ItemsSource="{Binding SelectedPlayer.Abnormalities, Mode=OneWay}"
+                                          d:DataContext="{StaticResource MockHuntSummaryViewModel}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate d:DataType="{x:Type vm:AbnormalitySummaryViewModel}">
+                                        <buttons:Button Padding="0"
+                                                        BorderThickness="1"
+                                                        CornerRadius="5"
+                                                        Background="{StaticResource GRAY_200}"
+                                                        Margin="5"
+                                                        OnClick="OnAbnormalityClick">
+                                            <buttons:Button.BorderBrush>
+                                                <MultiBinding Converter="{StaticResource BoolPickConverter}">
+                                                    <Binding Path="DataContext.IsToggled" RelativeSource="{RelativeSource Self}"/>
+                                                    <Binding Source="{StaticResource GREEN_300}"/>
+                                                    <Binding Source="{StaticResource GRAY}"/>
+                                                </MultiBinding>
+                                            </buttons:Button.BorderBrush>
+                                            <Grid Width="50">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="40"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <Rectangle VerticalAlignment="Bottom"
+                                                           HorizontalAlignment="Stretch"
+                                                           Grid.RowSpan="2"
+                                                           MaxHeight="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
+                                                           Fill="{Binding Color, Mode=OneWay}"
+                                                           Opacity="0.1"
+                                                           RadiusX="4.5"
+                                                           RadiusY="4.5">
+                                                    <Rectangle.Height>
+                                                        <MultiBinding Converter="{StaticResource ParentSizePercentageConverter}"
+                                                                      ConverterParameter="1">
+                                                            <Binding Path="DataContext.Uptime" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type buttons:Button}}"/>
+                                                            <Binding Path="MaxHeight" RelativeSource="{RelativeSource Self}"/>
+                                                        </MultiBinding>
+                                                    </Rectangle.Height>
+                                                </Rectangle>
+
+                                                <Image Source="{Binding Id, Mode=OneWay, Converter={StaticResource AbnormalityStringToIconConverter}}"
+                                                       Margin="8"
+                                                       Grid.Row="0"/>
+
+                                                <TextBlock Text="{Binding Uptime, Mode=OneWay, StringFormat='{}{0:P0}'}"
+                                                           Grid.Row="1"
+                                                           HorizontalAlignment="Center"
+                                                           Foreground="{StaticResource WHITE_200}"
+                                                           FontWeight="Medium"
+                                                           FontSize="13"/>
+                                            </Grid>
+                                        </buttons:Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal"
+                                                   HorizontalAlignment="Center"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </Grid>
+                    </Border>
+                    
+                </StackPanel>
+            </viewer:SmoothScrollViewer>
+        </Grid>
+    </Border>
+</UserControl>
