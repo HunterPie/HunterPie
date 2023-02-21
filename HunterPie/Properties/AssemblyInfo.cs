@@ -1,4 +1,7 @@
 ﻿
+using System.Reflection;
+using System.Windows;
+
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
                                      //(used if a resource is not found in the page,
@@ -8,5 +11,5 @@
                                               // app, or any theme specific resource dictionaries)
 )]
 
-[assembly: AssemblyVersion("2.7.0.95")]
-[assembly: AssemblyFileVersion("2.7.0.95")]
+[assembly: AssemblyVersion("2.7.0.96")]
+[assembly: AssemblyFileVersion("2.7.0.96")]
