@@ -23,7 +23,8 @@
                     CornerRadius="5"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
-                    Padding="0">
+                    Padding="0"
+                    Click="OnClick">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>

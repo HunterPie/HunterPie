@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Json;
 using HunterPie.Core.Logger;
 using HunterPie.Core.Networking.Http;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Common.Models;
@@ -26,6 +27,9 @@ internal record PoogieResult<T>(
         }
         catch
         { }
+
+        if (error is null && response.StatusCode >= HttpStatusCode.BadRequest)
+            error = new PoogieError(PoogieErrorCode.UNKNOWN_ERROR, "Unmapped error");
 
         if (error is null || error.Code == PoogieErrorCode.NOT_ERROR)
             try
