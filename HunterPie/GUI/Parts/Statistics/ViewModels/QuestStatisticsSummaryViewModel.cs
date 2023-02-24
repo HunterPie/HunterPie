@@ -1,4 +1,6 @@
 ﻿using HunterPie.Features.Notification;
+using HunterPie.GUI.Parts.Host;
+using HunterPie.GUI.Parts.Statistics.Views;
 using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.Integrations.Poogie.Statistics;
 using HunterPie.Integrations.Poogie.Statistics.Models;
@@ -69,7 +71,7 @@ public class QuestStatisticsSummaryViewModel : ViewModel
             return;
         }
 
-        // TODO: Navigate to quest details
-        // MainHost.SetMain();
+        var details = new HuntDetailsView();
+        MainHost.SetMain(details);
     }
 }

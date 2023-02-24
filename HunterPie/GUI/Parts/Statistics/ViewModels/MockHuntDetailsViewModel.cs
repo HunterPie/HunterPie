@@ -8,8 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
 
-namespace HunterPie.Features.Statistics.ViewModels;
-public class MockHuntSummaryViewModel : HuntSummaryViewModel
+namespace HunterPie.GUI.Parts.Statistics.ViewModels;
+public class MockHuntDetailsViewModel : HuntDetailsViewModel
 {
 
     private readonly Color[] _colors = {
@@ -22,7 +22,7 @@ public class MockHuntSummaryViewModel : HuntSummaryViewModel
     private readonly int[] seeds = { 14580223, 3842582, 14252523, 1765317 };
 
     [Obsolete]
-    public MockHuntSummaryViewModel()
+    public MockHuntDetailsViewModel()
     {
         MockMonster();
         MockHuntDetails();
@@ -126,8 +126,8 @@ public class MockHuntSummaryViewModel : HuntSummaryViewModel
             Colors.Turquoise,
             Colors.Teal
         };
-        PartyMemberSummaryViewModel firstMember = Players.First();
-        List<AbnormalitySummaryViewModel> vms = new(abnormalities.Length);
+        PartyMemberDetailsViewModel firstMember = Players.First();
+        List<AbnormalityDetailsViewModel> vms = new(abnormalities.Length);
         foreach (string abnormality in abnormalities)
         {
             Brush color = new SolidColorBrush(colors[rng.Next(0, colors.Length)]);
@@ -149,7 +149,7 @@ public class MockHuntSummaryViewModel : HuntSummaryViewModel
                 });
             }
 
-            var summary = new AbnormalitySummaryViewModel
+            var summary = new AbnormalityDetailsViewModel
             {
                 Id = abnormality,
                 Uptime = rng.NextDouble(),
@@ -161,7 +161,7 @@ public class MockHuntSummaryViewModel : HuntSummaryViewModel
             vms.Add(summary);
         }
 
-        foreach (AbnormalitySummaryViewModel vm in vms.OrderByDescending(vm => vm.Uptime).ToArray())
+        foreach (AbnormalityDetailsViewModel vm in vms.OrderByDescending(vm => vm.Uptime).ToArray())
             firstMember.Abnormalities.Add(vm);
     }
 
@@ -184,7 +184,7 @@ public class MockHuntSummaryViewModel : HuntSummaryViewModel
 
             DamageSeries.Add(damageSeries);
             Players.Add(
-                new PartyMemberSummaryViewModel
+                new PartyMemberDetailsViewModel
                 {
                     Name = playerName,
                     Series = damageSeries,

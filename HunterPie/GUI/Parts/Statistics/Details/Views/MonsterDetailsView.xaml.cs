@@ -13,13 +13,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HunterPie.Features.Statistics.Views;
+namespace HunterPie.GUI.Parts.Statistics.Details.Views;
 /// <summary>
-/// Interaction logic for MonsterSummaryView.xaml
+/// Interaction logic for MonsterDetailsView.xaml
 /// </summary>
-public partial class MonsterSummaryView : UserControl
+public partial class MonsterDetailsView : UserControl
 {
-    public MonsterSummaryView()
+    public MonsterDetailsView()
     {
         InitializeComponent();
     }

@@ -3,8 +3,8 @@ using LiveCharts.Wpf;
 using System.Collections.Generic;
 using System.Windows.Media;
 
-namespace HunterPie.Features.Statistics.ViewModels;
-public class AbnormalitySummaryViewModel : ViewModel
+namespace HunterPie.GUI.Parts.Statistics.ViewModels;
+public class AbnormalityDetailsViewModel : ViewModel
 {
     private string _id;
     private double _uptime;

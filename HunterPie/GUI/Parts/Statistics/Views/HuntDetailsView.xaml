@@ -1,21 +1,20 @@
-﻿<UserControl x:Class="HunterPie.Features.Statistics.Views.HuntSummaryView"
+﻿<UserControl x:Class="HunterPie.GUI.Parts.Statistics.Views.HuntDetailsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.Features.Statistics.Views"
-             xmlns:vm="clr-namespace:HunterPie.Features.Statistics.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
              xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
              xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:local="clr-namespace:HunterPie.GUI.Parts.Statistics.Views"
+             xmlns:viewModels="clr-namespace:HunterPie.GUI.Parts.Statistics.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="1000" 
              d:DesignWidth="1000"
-             d:DataContext="{d:DesignInstance vm:HuntSummaryViewModel}">
+             d:DataContext="{d:DesignInstance viewModels:HuntDetailsViewModel}">
     <UserControl.Resources>
-        <vm:MockHuntSummaryViewModel x:Key="MockHuntSummaryViewModel"/>
         <converters:AbnormalityStringToIconConverter x:Key="AbnormalityStringToIconConverter"/>
         <converters:ParentSizePercentageConverter x:Key="ParentSizePercentageConverter"/>
         <converters:BoolPickConverter x:Key="BoolPickConverter"/>
@@ -63,7 +62,7 @@
                                        Grid.Row="1">
                 <StackPanel>
                     <!-- Monster Data -->
-                    <local:MonsterSummaryView Margin="10"/>
+                    <local:MonsterDetailsView Margin="10"/>
 
                     <!-- Players -->
                     <Border Background="{StaticResource GRAY_50}"
@@ -83,7 +82,6 @@
                                                 Zoom="X"
                                                 Grid.Column="1"
                                                 Height="250"
-                                                d:DataContext="{StaticResource MockHuntSummaryViewModel}"
                                                 DataTooltip="{x:Null}"
                                                 Hoverable="False"
                                                 Background="{StaticResource GRAY_200}"
@@ -118,8 +116,7 @@
 
                             <!-- Party members -->
                             <viewer:SmoothScrollViewer Grid.Column="0">
-                                <ItemsControl ItemsSource="{Binding Players, Mode=OneTime}"
-                                              d:DataContext="{StaticResource MockHuntSummaryViewModel}">
+                                <ItemsControl ItemsSource="{Binding Players, Mode=OneTime}">
                                     <ItemsControl.Template>
                                         <ControlTemplate>
                                             <VirtualizingStackPanel VirtualizingPanel.VirtualizationMode="Recycling"
@@ -130,7 +127,7 @@
 
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <local:PartyMemberSummaryView Margin="5"
+                                            <local:PartyMemberDetailsView Margin="5"
                                                                           Height="35"
                                                                           Click="OnPartyMemberClick"/>
                                         </DataTemplate>
@@ -166,10 +163,9 @@
 
                             <ItemsControl Grid.Row="1"
                                           Margin="5"
-                                          ItemsSource="{Binding SelectedPlayer.Abnormalities, Mode=OneWay}"
-                                          d:DataContext="{StaticResource MockHuntSummaryViewModel}">
+                                          ItemsSource="{Binding SelectedPlayer.Abnormalities, Mode=OneWay}">
                                 <ItemsControl.ItemTemplate>
-                                    <DataTemplate d:DataType="{x:Type vm:AbnormalitySummaryViewModel}">
+                                    <DataTemplate d:DataType="{x:Type viewModels:AbnormalityDetailsViewModel}">
                                         <buttons:Button Padding="0"
                                                         BorderThickness="1"
                                                         CornerRadius="5"

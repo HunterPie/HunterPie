@@ -9,13 +9,16 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Features\Statistics\Views\HuntSummaryView.xaml.cs">
+    <Compile Update="GUI\Parts\Statistics\Details\Views\MonsterDetailsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Statistics\Views\MonsterSummaryView.xaml.cs">
+    <Compile Update="GUI\Parts\Statistics\Views\HuntDetailsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Statistics\Views\PartyMemberSummaryView.xaml.cs">
+    <Compile Update="GUI\Parts\Statistics\Views\MonsterDetailsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GUI\Parts\Statistics\Views\PartyMemberDetailsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Features\Tools\Localization\Views\LocalizableStringView.xaml.cs">
@@ -101,13 +104,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Features\Statistics\Views\HuntSummaryView.xaml">
+    <Page Update="GUI\Parts\Statistics\Details\Views\MonsterDetailsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Features\Statistics\Views\MonsterSummaryView.xaml">
+    <Page Update="GUI\Parts\Statistics\Views\HuntDetailsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Features\Statistics\Views\PartyMemberSummaryView.xaml">
+    <Page Update="GUI\Parts\Statistics\Views\MonsterDetailsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Parts\Statistics\Views\PartyMemberDetailsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Features\Tools\Localization\Views\LocalizableStringView.xaml">

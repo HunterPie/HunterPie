@@ -1,10 +1,7 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Enums;
-using HunterPie.Core.Remote;
+﻿using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Integrations.Poogie.Statistics.Models;
 using HunterPie.UI.Architecture;
-using System.IO;
-using System.Threading.Tasks;
+using HunterPie.UI.Architecture.Adapter;
 
 namespace HunterPie.GUI.Parts.Statistics.ViewModels;
 public class MonsterSummaryViewModel : ViewModel
@@ -40,17 +37,8 @@ public class MonsterSummaryViewModel : ViewModel
         FetchMonsterIcon();
     }
 
-    private async Task FetchMonsterIcon()
+    private async void FetchMonsterIcon()
     {
-        string imageName = GetEm();
-        string imagePath = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{imageName}.png");
-
-        // If file doesn't exist locally, we can check for the CDN
-        if (!File.Exists(imagePath))
-            imagePath = await CDN.GetMonsterIconUrl(imageName);
-
-        Icon = imagePath;
+        Icon = await MonsterIconAdapter.UriFrom(GameType, Id);
     }
-
-    private string GetEm() => $"{GameType}_{Id:00}";
 }

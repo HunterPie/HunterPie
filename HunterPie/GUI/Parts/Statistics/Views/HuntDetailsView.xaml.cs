@@ -1,31 +1,31 @@
-﻿using HunterPie.Features.Statistics.ViewModels;
+﻿using HunterPie.GUI.Parts.Statistics.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace HunterPie.Features.Statistics.Views;
+namespace HunterPie.GUI.Parts.Statistics.Views;
 /// <summary>
-/// Interaction logic for HuntSummaryView.xaml
+/// Interaction logic for HuntDetailsView.xaml
 /// </summary>
-public partial class HuntSummaryView : UserControl
+public partial class HuntDetailsView : UserControl
 {
     // TODO: Turn this into view later
-    private HuntSummaryViewModel ViewModel => (HuntSummaryViewModel)DataContext;
+    private HuntDetailsViewModel ViewModel => (HuntDetailsViewModel)DataContext;
 
-    public HuntSummaryView()
+    public HuntDetailsView()
     {
         InitializeComponent();
     }
 
     private void OnPartyMemberClick(object sender, EventArgs e)
     {
-        if (sender is PartyMemberSummaryView view && view.DataContext is PartyMemberSummaryViewModel vm)
+        if (sender is PartyMemberDetailsView { DataContext: PartyMemberDetailsViewModel vm })
             ViewModel.FilterOnly(vm);
     }
 
     private void OnAbnormalityClick(object sender, EventArgs e)
     {
-        if (sender is FrameworkElement view && view.DataContext is AbnormalitySummaryViewModel vm)
+        if (sender is FrameworkElement { DataContext: AbnormalityDetailsViewModel vm })
         {
             if (!vm.IsToggled)
             {

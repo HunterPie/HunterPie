@@ -3,8 +3,8 @@ using HunterPie.UI.Architecture;
 using LiveCharts.Wpf;
 using System.Collections.ObjectModel;
 
-namespace HunterPie.Features.Statistics.ViewModels;
-public class PartyMemberSummaryViewModel : ViewModel
+namespace HunterPie.GUI.Parts.Statistics.ViewModels;
+public class PartyMemberDetailsViewModel : ViewModel
 {
     private string _name;
     private int _damage;
@@ -14,5 +14,5 @@ public class PartyMemberSummaryViewModel : ViewModel
     public int Damage { get => _damage; set => SetValue(ref _damage, value); }
     public Weapon Weapon { get => _weapon; set => SetValue(ref _weapon, value); }
     public Series Series { get; init; }
-    public ObservableCollection<AbnormalitySummaryViewModel> Abnormalities { get; } = new();
+    public ObservableCollection<AbnormalityDetailsViewModel> Abnormalities { get; } = new();
 }

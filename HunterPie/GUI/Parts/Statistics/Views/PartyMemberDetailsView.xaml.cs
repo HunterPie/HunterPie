@@ -4,15 +4,15 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace HunterPie.Features.Statistics.Views;
+namespace HunterPie.GUI.Parts.Statistics.Views;
 /// <summary>
 /// Interaction logic for PartyMemberSummary.xaml
 /// </summary>
-public partial class PartyMemberSummaryView : UserControl, IEventDispatcher
+public partial class PartyMemberDetailsView : UserControl, IEventDispatcher
 {
     public event EventHandler<EventArgs> Click;
 
-    public PartyMemberSummaryView()
+    public PartyMemberDetailsView()
     {
         InitializeComponent();
     }

@@ -7,16 +7,16 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace HunterPie.Features.Statistics.ViewModels;
-public class HuntSummaryViewModel : ViewModel
+namespace HunterPie.GUI.Parts.Statistics.ViewModels;
+public class HuntDetailsViewModel : ViewModel
 {
 
-    private PartyMemberSummaryViewModel _selectedPlayer = new();
+    private PartyMemberDetailsViewModel _selectedPlayer = new();
     private int _monsterId;
     private DateTime _huntedAt;
 
-    public ObservableCollection<PartyMemberSummaryViewModel> Players { get; } = new();
-    public PartyMemberSummaryViewModel SelectedPlayer { get => _selectedPlayer; set => SetValue(ref _selectedPlayer, value); }
+    public ObservableCollection<PartyMemberDetailsViewModel> Players { get; } = new();
+    public PartyMemberDetailsViewModel SelectedPlayer { get => _selectedPlayer; set => SetValue(ref _selectedPlayer, value); }
     public SeriesCollection DamageSeries { get; } = new();
     public SectionsCollection Sections { get; } = new();
     public int MonsterId { get => _monsterId; set => SetValue(ref _monsterId, value); }
@@ -27,7 +27,7 @@ public class HuntSummaryViewModel : ViewModel
 
     public Func<double, string> DamageFormatter => new((damage) => $"{damage:0.00}/s");
 
-    public void FilterOnly(PartyMemberSummaryViewModel member)
+    public void FilterOnly(PartyMemberDetailsViewModel member)
     {
         ISeriesView[] series = DamageSeries.ToArray();
 
@@ -47,5 +47,5 @@ public class HuntSummaryViewModel : ViewModel
             _ = Sections.Remove(section);
     }
 
-    private void SelectPlayer(PartyMemberSummaryViewModel member) => SelectedPlayer = member;
+    private void SelectPlayer(PartyMemberDetailsViewModel member) => SelectedPlayer = member;
 }
