@@ -403,19 +403,13 @@ public sealed class MHRPlayer : CommonPlayer
                 _ => Process.Memory.Read<int>(consumableBuffs + schema.DependsOn)
             };
 
-            bool hasSkill = schema.EquipSkillId switch
-            {
-                0 => true,
-                _ => _armorSkills.ContainsKey(schema.EquipSkillId);
-            };
-
             bool isConditionValid = schema.FlagType switch
             {
                 AbnormalityFlagType.RiseCommon => _commonCondition.HasFlag(schema.GetFlagAs<CommonConditions>()),
                 AbnormalityFlagType.RiseDebuff => _debuffCondition.HasFlag(schema.GetFlagAs<DebuffConditions>()),
                 AbnormalityFlagType.RiseAction => _actionFlag.HasFlag(schema.GetFlagAs<ActionFlags>()),
                 _ => true
-            } && abnormSubId == schema.WithValue && hasSkill;
+            } && abnormSubId == schema.WithValue;
 
             MHRAbnormalityData abnormality = new();
 
@@ -469,19 +463,13 @@ public sealed class MHRPlayer : CommonPlayer
                 _ => Process.Memory.Read<int>(debuffsPtr + schema.DependsOn)
             };
 
-            bool hasSkill = schema.EquipSkillId switch
-            {
-                0 => true,
-                _ => _armorSkills.ContainsKey(schema.EquipSkillId);
-            }
-
             bool isConditionValid = schema.FlagType switch
             {
                 AbnormalityFlagType.RiseCommon => _commonCondition.HasFlag(schema.GetFlagAs<CommonConditions>()),
                 AbnormalityFlagType.RiseDebuff => _debuffCondition.HasFlag(schema.GetFlagAs<DebuffConditions>()),
                 AbnormalityFlagType.RiseAction => _actionFlag.HasFlag(schema.GetFlagAs<ActionFlags>()),
                 _ => true
-            } && abnormSubId == schema.WithValue && hasSkill;
+            } && abnormSubId == schema.WithValue;
 
             MHRAbnormalityData abnormality = new();
 

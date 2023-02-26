@@ -72,7 +72,6 @@ public class AbnormalityData
             string flagType = abnormality.Attributes["FlagType"]?.Value ?? "None";
             string flag = abnormality.Attributes["Flag"]?.Value ?? "None";
             string isInteger = abnormality.Attributes["IsInteger"]?.Value ?? "False";
-            string equipSkillId = abnormality.Attributes["EquipSkillId"]?.Value ?? "0";
 
             AbnormalitySchema schema = new()
             {
@@ -92,7 +91,6 @@ public class AbnormalityData
             int.TryParse(maxTimer, out schema.MaxTimer);
             Enum.TryParse(flagType, out schema.FlagType);
             bool.TryParse(isInteger, out schema.IsInteger);
-            byte.TryParse(equipSkillId, out schema.EquipSkillId);
 
             schema.Flag = _flagTypeParser?.Parse(schema.FlagType, flag);
 

@@ -378,13 +378,6 @@
                      Name="ABNORMALITY_ADRENALINE_RUSH"
                      Icon="ICON_ARMORSKILL_RED"
                      Category="Consumables"/>
-        <Abnormality Id="ABN_SPIRIBIRDS_CALL"
-                     Offset="17C"
-                     Name="ABNORMALITY_SPIRIBIRDS_CALL"
-                     Icon="ICON_ARMORSKILL_WHITE"
-                     MaxTimer="60"
-                     EquipSkillId="123"
-                     Category="Consumables"/>
         <Abnormality Id="ABN_DERELICTION_S"
                      Offset="184"
                      Name="ABNORMALITY_DERELICTION_S"
