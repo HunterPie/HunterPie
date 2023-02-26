@@ -383,6 +383,7 @@
                      Name="ABNORMALITY_SPIRIBIRDS_CALL"
                      Icon="ICON_ARMORSKILL_WHITE"
                      MaxTimer="60"
+                     EquipSkillId="123"
                      Category="Consumables"/>
         <Abnormality Id="ABN_DERELICTION_S"
                      Offset="184"
