@@ -1,6 +1,6 @@
 ﻿using HunterPie.Features.Notification;
 using HunterPie.GUI.Parts.Host;
-using HunterPie.GUI.Parts.Statistics.Views;
+using HunterPie.GUI.Parts.Statistics.Details.Views;
 using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.Integrations.Poogie.Statistics;
 using HunterPie.Integrations.Poogie.Statistics.Models;
@@ -71,7 +71,7 @@ public class QuestStatisticsSummaryViewModel : ViewModel
             return;
         }
 
-        var details = new HuntDetailsView();
+        var details = new MonsterDetailsView();
         MainHost.SetMain(details);
     }
 }
