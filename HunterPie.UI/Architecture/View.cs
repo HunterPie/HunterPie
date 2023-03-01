@@ -8,7 +8,7 @@ using System.Windows.Threading;
 
 namespace HunterPie.UI.Architecture;
 
-public class View<TViewModel> : UserControl, IDisposable
+public class View<TViewModel> : UserControl, IDisposable, IView<TViewModel>
     where TViewModel : Bindable
 {
     public TViewModel ViewModel => (TViewModel)DataContext;
@@ -17,14 +17,14 @@ public class View<TViewModel> : UserControl, IDisposable
 
     protected virtual TViewModel InitializeViewModel(params object[] args)
     {
-        if (this is IWidgetWindow)
+        if (this is not IWidgetWindow)
+            return Activator.CreateInstance<TViewModel>();
+
+        try
         {
-            try
-            {
-                return (TViewModel)Activator.CreateInstance(typeof(TViewModel), args);
-            }
-            catch { }
-        };
+            return (TViewModel)Activator.CreateInstance(typeof(TViewModel), args);
+        }
+        catch { }
 
         return Activator.CreateInstance<TViewModel>();
     }

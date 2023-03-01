@@ -12,6 +12,9 @@
     <Compile Update="GUI\Parts\Statistics\Details\Views\MonsterDetailsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="GUI\Parts\Statistics\Details\Views\QuestDetailsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="GUI\Parts\Statistics\Views\HuntDetailsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -105,6 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="GUI\Parts\Statistics\Details\Views\MonsterDetailsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Parts\Statistics\Details\Views\QuestDetailsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Statistics\Views\HuntDetailsView.xaml">

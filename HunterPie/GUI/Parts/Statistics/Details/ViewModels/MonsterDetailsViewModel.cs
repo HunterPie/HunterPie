@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace HunterPie.GUI.Parts.Statistics.Details.ViewModels;
 
-internal class MonsterDetailsViewModel : ViewModel
+public class MonsterDetailsViewModel : ViewModel
 {
     private string _name;
     public string Name { get => _name; set => SetValue(ref _name, value); }
