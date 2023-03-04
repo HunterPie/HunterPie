@@ -552,7 +552,7 @@ public sealed class MHRPlayer : CommonPlayer
         long[] playerWeaponsPtr = Process.Memory.Read<long>(playersWeaponPtr + 0x20, 6);
         PartyMemberMetadata[] servantsData = GetServantsData();
 
-        if (servantsData.Any())
+        if (!isSos && servantsData.Any())
             Array.Copy(servantsData, 0, sessionPlayersArray, 4, 2);
 
         // In case player DC'd
