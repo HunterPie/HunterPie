@@ -246,6 +246,15 @@ public sealed class MHRGame : CommonGame
 
         bool isInQuest = questState == QuestState.InQuest;
 
+        QuestStatus = questState switch
+        {
+            QuestState.InQuest => Core.Game.Enums.QuestStatus.InProgress,
+            QuestState.Success => Core.Game.Enums.QuestStatus.Success,
+            QuestState.Failed => Core.Game.Enums.QuestStatus.Fail,
+            QuestState.Returning or QuestState.Reset => Core.Game.Enums.QuestStatus.Quit,
+            _ => Core.Game.Enums.QuestStatus.None
+        };
+
         IsInQuest = isInQuest && questType.IsHuntQuest();
     }
 
