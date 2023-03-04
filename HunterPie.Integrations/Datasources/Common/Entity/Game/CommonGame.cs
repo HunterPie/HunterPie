@@ -7,6 +7,7 @@ using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Entity.Game;
 using HunterPie.Core.Game.Entity.Game.Chat;
 using HunterPie.Core.Game.Entity.Player;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
 
@@ -23,6 +24,7 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
     public abstract int MaxDeaths { get; protected set; }
     public abstract int Deaths { get; protected set; }
     public abstract bool IsInQuest { get; protected set; }
+    public QuestStatus QuestStatus { get; protected set; }
 
     protected readonly SmartEvent<IMonster> _onMonsterSpawn = new();
     public event EventHandler<IMonster> OnMonsterSpawn

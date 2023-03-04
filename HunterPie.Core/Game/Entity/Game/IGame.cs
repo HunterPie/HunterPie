@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Entity.Game.Chat;
 using HunterPie.Core.Game.Entity.Player;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
 using System;
@@ -27,6 +28,8 @@ public interface IGame : IDisposable
     public int Deaths { get; }
 
     public bool IsInQuest { get; }
+
+    public QuestStatus QuestStatus { get; }
 
     public event EventHandler<IMonster> OnMonsterSpawn;
     public event EventHandler<IMonster> OnMonsterDespawn;

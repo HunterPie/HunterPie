@@ -550,16 +550,18 @@ public sealed class MHRPlayer : CommonPlayer
         bool isOnlineSession = sessionPlayersArray[..4].Any(player => player.IsValid);
 
         long[] playerWeaponsPtr = Process.Memory.Read<long>(playersWeaponPtr + 0x20, 6);
+        PartyMemberMetadata[] servantsData = GetServantsData();
+
+        if (servantsData.Any())
+            Array.Copy(servantsData, 0, sessionPlayersArray, 4, 2);
 
         // In case player DC'd
         if (!isOnlineSession)
         {
-            bool hasNpcsInParty = sessionPlayersArray[4..6].Any(player => player.IsValid);
-
             if (string.IsNullOrEmpty(Name))
                 return;
 
-            _party.Update(new MHRPartyMemberData()
+            _party.Update(new MHRPartyMemberData
             {
                 Index = 0,
                 Name = Name,
@@ -569,10 +571,8 @@ public sealed class MHRPlayer : CommonPlayer
                 IsMyself = true
             });
 
-            if (!hasNpcsInParty)
+            if (!servantsData.Any())
                 return;
-
-            sessionPlayersArray = GetServantsData(sessionPlayersArray);
         }
 
         foreach ((int index, bool isValid, MHRCharacterData data) in sessionPlayersArray)
@@ -580,7 +580,7 @@ public sealed class MHRPlayer : CommonPlayer
             long weaponPtr = playerWeaponsPtr[index];
             string name = Process.Memory.Read(data.NamePointer + 0x14, 32, Encoding.Unicode);
 
-            if (!isValid)
+            if (!isValid || weaponPtr.IsNullPointer())
             {
                 if (isOnlineSession)
                     _party.Remove(index);
@@ -604,7 +604,7 @@ public sealed class MHRPlayer : CommonPlayer
         }
     }
 
-    private PartyMemberMetadata[] GetServantsData(PartyMemberMetadata[] members)
+    private PartyMemberMetadata[] GetServantsData()
     {
         long servantsArrayPtr = Memory.Read(
             AddressMap.GetAbsolute("SERVANTS_DATA_ADDRESS"),
@@ -613,18 +613,24 @@ public sealed class MHRPlayer : CommonPlayer
 
         long[] servantsArray = Memory.ReadArray<long>(servantsArrayPtr);
 
+        if (!servantsArray.Any())
+            return Array.Empty<PartyMemberMetadata>();
+
+        var servants = new PartyMemberMetadata[servantsArray.Length];
+
         long[] servantsNamePtrs = servantsArray.Select(pointer => Memory.ReadPtr(
             pointer,
             AddressMap.Get<int[]>("SERVANT_NAME_OFFSETS")
         )).ToArray();
 
-        for (int i = 4; i < members.Length; i++)
-            members[i] = members[i] with
-            {
-                Data = new MHRCharacterData { NamePointer = servantsNamePtrs.ElementAtOrDefault(i - 4), HighRank = HighRank, MasterRank = MasterRank }
-            };
+        for (int i = 0; i < servants.Length; i++)
+            servants[i] = new PartyMemberMetadata(
+                Index: i + 4,
+                IsValid: !servantsArray[i].IsNullPointer(),
+                Data: new MHRCharacterData { NamePointer = servantsNamePtrs.ElementAtOrDefault(i), HighRank = HighRank, MasterRank = MasterRank }
+            );
 
-        return members;
+        return servants;
     }
 
     [ScannableMethod]
