@@ -47,7 +47,7 @@ public sealed class MHRPlayer : CommonPlayer
     private int _masterRank;
     private IWeapon _weapon;
     private Weapon _weaponId = WeaponType.None;
-    private readonly Dictionary<byte, MHREquipmentSkillStructure> _armorSkills = new(48);
+    private readonly Dictionary<int, MHREquipmentSkillStructure> _armorSkills = new(48);
     private CommonConditions _commonCondition;
     private DebuffConditions _debuffCondition;
     private ActionFlags _actionFlag;
