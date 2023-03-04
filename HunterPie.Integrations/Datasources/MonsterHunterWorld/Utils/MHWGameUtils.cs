@@ -92,6 +92,16 @@ public static class MHWGameUtils
         return level;
     }
 
+    public static bool IsQuestOver(this QuestState state) => state switch
+    {
+        QuestState.Success or
+            QuestState.Completed or
+            QuestState.Failed or
+            QuestState.Abandon or
+            QuestState.Quit => true,
+        _ => false
+    };
+
     public static QuestStatus ToStatus(this QuestState state) => state switch
     {
         QuestState.InQuest => QuestStatus.InProgress,

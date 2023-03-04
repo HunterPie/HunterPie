@@ -158,6 +158,12 @@ public sealed class MHWGame : CommonGame
 
         float timeElapsed = Math.Max(0, questMaxTimer - elapsed);
 
+        if (!_localTimerStopwatch.IsRunning)
+        {
+            SetTimeElapsed(timeElapsed, TimeElapsed == 0);
+            return;
+        }
+
         _localTimerStopwatch.Reset();
         SetTimeElapsed(timeElapsed, true);
     }
@@ -165,12 +171,6 @@ public sealed class MHWGame : CommonGame
     [ScannableMethod]
     private void GetQuestState()
     {
-        if (!_player.InHuntingZone)
-        {
-            IsInQuest = false;
-            return;
-        }
-
         var questState = (QuestState)Memory.Deref<int>(
             AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
             AddressMap.Get<int[]>("QUEST_STATE_OFFSETS")

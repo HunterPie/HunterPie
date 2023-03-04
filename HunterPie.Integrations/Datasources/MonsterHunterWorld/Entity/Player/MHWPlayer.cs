@@ -341,7 +341,7 @@ public sealed class MHWPlayer : CommonPlayer
             AddressMap.Get<int[]>("QUEST_STATE_OFFSETS")
         );
 
-        if (questInformation != QuestState.InQuest)
+        if (questInformation.IsQuestOver())
             return;
 
         long partyInformationPtr = Process.Memory.Read(
@@ -360,6 +360,9 @@ public sealed class MHWPlayer : CommonPlayer
         );
 
         if (partySize is 0)
+        {
+            _party.ClearExcept(0);
+
             _party.Update(0, new MHWPartyMemberData
             {
                 Name = Name,
@@ -369,8 +372,11 @@ public sealed class MHWPlayer : CommonPlayer
                 IsMyself = true,
                 MasterRank = MasterRank
             });
-        else
-            _party.Remove(0);
+
+            return;
+        }
+
+        _party.Remove(0);
 
         MHWPartyMemberStructure[] partyMembers = Process.Memory.Read<MHWPartyMemberStructure>(partyInformationPtr, 4);
 
