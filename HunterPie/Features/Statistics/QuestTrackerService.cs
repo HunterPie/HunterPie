@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Crypto;
 using HunterPie.Core.Game;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Features.Account;
@@ -42,13 +43,10 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
 
         _statisticsService?.Dispose();
 
-        if (exported is null)
+        if (e.Status != QuestStatus.Success || !ShouldUpload(exported))
             return;
 
-        if (!ShouldUpload(exported))
-            return;
-
-        DateTime questFinishedAt = exported.StartedAt.Add(e.QuestTime);
+        DateTime questFinishedAt = exported!.StartedAt.Add(e.QuestTime);
         string newHash = await GenerateUniqueHashAsync(questFinishedAt, exported.Hash);
 
         exported = exported with
@@ -65,6 +63,7 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
 
     private void OnQuestStart(object? sender, QuestStateChangeEventArgs e)
     {
+        _statisticsService?.Dispose();
         _statisticsService = new HuntStatisticsService(_context);
     }
 
@@ -80,9 +79,9 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
         return await HashService.HashAsync($"{currentHash}:{questTimeFormatted}");
     }
 
-    private static bool ShouldUpload(HuntStatisticsModel model)
+    private static bool ShouldUpload(HuntStatisticsModel? model)
     {
-        return model.Monsters.Count > 0;
+        return model is { } && model.Monsters.Count > 0;
     }
 
     public Task InitializeAsync(IContext context)
