@@ -1,6 +1,7 @@
 ﻿using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.Integrations.Poogie.Statistics.Models;
 using HunterPie.UI.Architecture.Adapter;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,10 +28,18 @@ internal class QuestDetailsViewModelBuilder
         PoogieMonsterStatisticsModel monster
     )
     {
+        TimeSpan? timeElapsed = null;
+        if (monster.HuntStartedAt is { } startedAt && monster.HuntFinishedAt is { } finishedAt)
+            timeElapsed = finishedAt - startedAt;
+
         return new MonsterDetailsViewModel
         {
             Name = MonsterNameAdapter.From(quest.GameType.ToEntity(), monster.Id),
-            Icon = await MonsterIconAdapter.UriFrom(quest.GameType.ToEntity(), monster.Id)
+            Icon = await MonsterIconAdapter.UriFrom(quest.GameType.ToEntity(), monster.Id),
+            HuntedAt = monster.HuntStartedAt ?? DateTime.MinValue,
+            MaxHealth = monster.MaxHealth,
+            TimeElapsed = timeElapsed,
+            Crown = monster.Crown,
         };
     }
 }

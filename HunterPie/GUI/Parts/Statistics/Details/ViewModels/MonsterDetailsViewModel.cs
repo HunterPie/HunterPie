@@ -1,4 +1,5 @@
-﻿using HunterPie.UI.Architecture;
+﻿using HunterPie.Core.Game.Enums;
+using HunterPie.UI.Architecture;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System;
@@ -17,8 +18,14 @@ public class MonsterDetailsViewModel : ViewModel
     private DateTime _huntedAt;
     public DateTime HuntedAt { get => _huntedAt; set => SetValue(ref _huntedAt, value); }
 
-    private TimeSpan _timeElapsed;
-    public TimeSpan TimeElapsed { get => _timeElapsed; set => SetValue(ref _timeElapsed, value); }
+    private TimeSpan? _timeElapsed;
+    public TimeSpan? TimeElapsed { get => _timeElapsed; set => SetValue(ref _timeElapsed, value); }
+
+    private Crown _crown;
+    public Crown Crown { get => _crown; set => SetValue(ref _crown, value); }
+
+    private double _maxHealth;
+    public double MaxHealth { get => _maxHealth; set => SetValue(ref _maxHealth, value); }
 
     public ObservableCollection<PartyMemberDetailsViewModel> Players { get; } = new();
 

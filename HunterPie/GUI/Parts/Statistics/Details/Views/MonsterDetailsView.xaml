@@ -29,12 +29,14 @@
                 BorderThickness="1"
                 CornerRadius="5">
             <StackPanel Orientation="Horizontal">
-                <Image Source="{StaticResource ICON_SKULL}"
+                <Image d:Source="{StaticResource ICON_SKULL}"
+                       Source="{Binding Icon, Mode=OneWay}"
                        Margin="5"
                        RenderOptions.BitmapScalingMode="Fant"/>
 
                 <TextBlock Margin="3"
-                           Text="Monster Name"
+                           d:Text="Monster Name"
+                           Text="{Binding Name, Mode=OneWay}"
                            FontSize="14"
                            VerticalAlignment="Center"
                            Foreground="{StaticResource WHITE_400}"
@@ -81,15 +83,16 @@
                         <StackPanel Orientation="Vertical"
                                     Margin="5">
                             <text:LabeledText Label="Quest Time"
-                                              Text="00:00:00'000"
+                                              d:Text="00:00:00.000"
+                                              Text="{Binding TimeElapsed, Mode=OneWay, StringFormat='hh\\:mm\\:ss\\&quot;fff', TargetNullValue='---'}"
                                               Margin="2"/>
 
                             <text:LabeledText Label="Health"
-                                              Text="99,999"
+                                              Text="{Binding MaxHealth, Mode=OneWay, StringFormat=\{0:N0\}}"
                                               Margin="2"/>
 
                             <text:LabeledText Label="Size"
-                                              Text="Gold"
+                                              Text="{Binding Crown, Mode=OneWay}"
                                               Margin="2"/>
                         </StackPanel>
                     </StackPanel>
@@ -125,10 +128,10 @@
                                               StrokeThickness="4"
                                               Stroke="{StaticResource RED_100}"
                                               Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                              Percentage="1"
+                                              Percentage="0.8"
                                               Margin="5"/>
                                 <TextBlock Grid.Row="0"
-                                           Text="100%"
+                                           Text="80%"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Center"
                                            FontWeight="Medium"
@@ -297,7 +300,7 @@
                                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                               Sections="{Binding Sections, Mode=OneWay}"
                                               MinValue="0"
-                                              MaxValue="{Binding TimeElapsed, Mode=OneWay}">
+                                              MaxValue="0">
                                         <lvc:Axis.Separator>
                                             <lvc:Separator IsEnabled="False"/>
                                         </lvc:Axis.Separator>
