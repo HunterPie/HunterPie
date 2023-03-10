@@ -27,9 +27,9 @@ public class MonsterDetailsViewModel : ViewModel
     private double _maxHealth;
     public double MaxHealth { get => _maxHealth; set => SetValue(ref _maxHealth, value); }
 
-    public ObservableCollection<PartyMemberDetailsViewModel> Players { get; } = new();
+    public ObservableCollection<PartyMemberDetailsViewModel> Players { get; init; } = new();
 
-    public ObservableCollection<StatusDetailsViewModel> Statuses { get; } = new();
+    public ObservableCollection<StatusDetailsViewModel> Statuses { get; init; } = new();
 
     public SeriesCollection DamageSeries { get; } = new();
 

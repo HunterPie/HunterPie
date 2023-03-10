@@ -60,7 +60,7 @@
                              RenderAtScale="1"
                              SnapsToDevicePixels="False"/>
             </Grid.CacheMode>
-            <ContentControl Content="{Binding Source={x:Static host:MainHost.Instance}, Path=Element, IsAsync=True}" 
+            <ContentControl Content="{Binding Source={x:Static host:MainHost.Instance}, Path=Element, IsAsync=True, NotifyOnTargetUpdated=True}" 
                             RenderTransformOrigin="0.5,0.5"
                             x:Name="PART_ContentPresenter">
                 <ContentControl.RenderTransform>

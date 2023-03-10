@@ -1,4 +1,5 @@
-﻿using HunterPie.Features.Notification;
+﻿using HunterPie.Core.Logger;
+using HunterPie.Features.Notification;
 using HunterPie.GUI.Parts.Host;
 using HunterPie.GUI.Parts.Statistics.Details.ViewModels;
 using HunterPie.GUI.Parts.Statistics.Details.Views;
@@ -72,7 +73,10 @@ public class QuestStatisticsSummaryViewModel : ViewModel
             return;
         }
 
-        var details = new QuestDetailsView { DataContext = await QuestDetailsViewModelBuilder.From(questDetails) };
+        Log.Benchmark(nameof(QuestDetailsViewModel));
+        QuestDetailsViewModel viewModel = await QuestDetailsViewModelBuilder.From(questDetails.ToEntity());
+        Log.BenchmarkEnd(nameof(QuestDetailsViewModel));
+        var details = new QuestDetailsView { DataContext = viewModel };
         MainHost.SetMain(details);
     }
 }

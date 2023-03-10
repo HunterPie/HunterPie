@@ -15,15 +15,6 @@
     <Compile Update="GUI\Parts\Statistics\Details\Views\QuestDetailsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Statistics\Views\HuntDetailsView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="GUI\Parts\Statistics\Views\MonsterDetailsView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="GUI\Parts\Statistics\Views\PartyMemberDetailsView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Features\Tools\Localization\Views\LocalizableStringView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -111,15 +102,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Statistics\Details\Views\QuestDetailsView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="GUI\Parts\Statistics\Views\HuntDetailsView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="GUI\Parts\Statistics\Views\MonsterDetailsView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="GUI\Parts\Statistics\Views\PartyMemberDetailsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Features\Tools\Localization\Views\LocalizableStringView.xaml">

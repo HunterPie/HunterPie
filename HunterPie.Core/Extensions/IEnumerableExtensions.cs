@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace HunterPie.Core.Extensions;
@@ -30,5 +31,10 @@ public static class IEnumerableExtensions
                 list.Add(casted);
 
         return list;
+    }
+
+    public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> enumerable)
+    {
+        return new ObservableCollection<T>(enumerable);
     }
 }

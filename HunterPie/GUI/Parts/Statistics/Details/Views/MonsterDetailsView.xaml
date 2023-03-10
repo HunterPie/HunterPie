@@ -10,11 +10,15 @@
              xmlns:controls="clr-namespace:HunterPie.UI.Overlay.Controls;assembly=HunterPie.UI"
              xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:MonsterDetailsViewModel}"
              Background="{StaticResource GRAY_200}">
+    <UserControl.Resources>
+        <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -107,44 +111,59 @@
                                    Foreground="{StaticResource WHITE_300}"
                                    FontSize="13"/>
                     </Border>
+                    
+                    <!-- Monster ailments -->
+                    <ItemsControl Grid.Row="1"
+                                  Grid.Column="1"
+                                  Margin="5"
+                                  ItemsSource="{Binding Statuses, Mode=OneWay}">
+                        <ItemsControl.Template>
+                            <ControlTemplate>
+                                <StackPanel Orientation="Horizontal"
+                                            IsItemsHost="True"/>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
 
-                    <StackPanel Orientation="Horizontal"
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Margin="5">
-                        <buttons:Button Padding="0"
-                                        HorizontalContentAlignment="Stretch"
-                                        VerticalContentAlignment="Stretch"
-                                        BorderThickness="1"
-                                        BorderBrush="{StaticResource GRAY}"
-                                        Background="{StaticResource GRAY_300}"
-                                        CornerRadius="5">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="3*"/>
-                                    <RowDefinition Height="1*"/>
-                                </Grid.RowDefinitions>
-                                <controls:Arc Grid.Row="0"
-                                              StrokeThickness="4"
-                                              Stroke="{StaticResource RED_100}"
-                                              Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                              Percentage="0.8"
-                                              Margin="5"/>
-                                <TextBlock Grid.Row="0"
-                                           Text="80%"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center"
-                                           FontWeight="Medium"
-                                           Foreground="{StaticResource WHITE_50}"/>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <buttons:Button Padding="0"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                VerticalContentAlignment="Stretch"
+                                                BorderThickness="1"
+                                                BorderBrush="{StaticResource GRAY}"
+                                                Background="{StaticResource GRAY_300}"
+                                                CornerRadius="5"
+                                                Height="80">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="3*"/>
+                                            <RowDefinition Height="1*"/>
+                                        </Grid.RowDefinitions>
+                                        <controls:Arc Grid.Row="0"
+                                                      StrokeThickness="4"
+                                                      Stroke="{Binding Color, Mode=OneWay}"
+                                                      Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                                      Percentage="{Binding UpTime, Mode=OneWay}"
+                                                      Margin="5"/>
+                                        <TextBlock Grid.Row="0"
+                                                   Text="{Binding UpTime, Mode=OneWay, StringFormat='P0'}"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   FontWeight="Medium"
+                                                   Foreground="{StaticResource WHITE_50}"/>
 
-                                <TextBlock Grid.Row="1"
-                                           Text="Enrage"
-                                           HorizontalAlignment="Center"
-                                           Foreground="{StaticResource WHITE_100}"
-                                           Margin="2"/>
-                            </Grid>
-                        </buttons:Button>
-                    </StackPanel>
+                                        <TextBlock Grid.Row="1"
+                                                   Text="{Binding Name, Mode=OneWay}"
+                                                   HorizontalAlignment="Center"
+                                                   Foreground="{StaticResource WHITE_100}"
+                                                   Margin="2"/>
+                                    </Grid>
+                                </buttons:Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Grid>
             </Border>
             
@@ -176,86 +195,50 @@
                                    FontSize="13"/>
                     </Border>
 
-                    <viewer:SmoothScrollViewer Grid.Row="1"
-                                               Grid.Column="0">
-                        <StackPanel Margin="5">
-                            <buttons:Button Padding="5"
-                                            HorizontalContentAlignment="Stretch"
-                                            VerticalContentAlignment="Stretch"
-                                            Background="{StaticResource GRAY_300}"
-                                            BorderThickness="1"
-                                            BorderBrush="{StaticResource GRAY_50}"
-                                            CornerRadius="5"
-                                            Margin="0,3,0,3">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="30"/>
-                                        <ColumnDefinition Width="1*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0"
-                                           Margin="3"
-                                           Source="{StaticResource ICON_BOW}"/>
+                    <!-- Party members -->
+                    <ItemsControl Grid.Row="1"
+                                  Grid.Column="0"
+                                  ItemsSource="{Binding Players, Mode=OneWay}">
+                        <ItemsControl.Template>
+                            <ControlTemplate>
+                                <viewer:SmoothScrollViewer>
+                                    <StackPanel Margin="5"
+                                                IsItemsHost="True"/>
+                                </viewer:SmoothScrollViewer>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
 
-                                    <TextBlock Grid.Column="1"
-                                               Text="Player"
-                                               VerticalAlignment="Center"
-                                               Margin="5"
-                                               FontSize="15"
-                                               Foreground="{StaticResource WHITE_100}"/>
-                                </Grid>
-                            </buttons:Button>
-                            <buttons:Button Padding="5"
-                                            HorizontalContentAlignment="Stretch"
-                                            VerticalContentAlignment="Stretch"
-                                            Background="{StaticResource GRAY_300}"
-                                            BorderThickness="1"
-                                            BorderBrush="{StaticResource GRAY_50}"
-                                            CornerRadius="5"
-                                            Margin="0,3,0,3">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="30"/>
-                                        <ColumnDefinition Width="1*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0"
-                                           Margin="3"
-                                           Source="{StaticResource ICON_BOW}"/>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <buttons:Button Padding="5"
+                                                HorizontalContentAlignment="Stretch"
+                                                VerticalContentAlignment="Stretch"
+                                                Background="{StaticResource GRAY_300}"
+                                                BorderThickness="1"
+                                                BorderBrush="{StaticResource GRAY_50}"
+                                                CornerRadius="5"
+                                                Margin="0,3,0,3"
+                                                Height="40">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition Width="1*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0"
+                                               Margin="3"
+                                               Source="{Binding Weapon, Mode=OneWay, Converter={StaticResource WeaponToIconConverter}}"/>
 
-                                    <TextBlock Grid.Column="1"
-                                               Text="Player"
-                                               VerticalAlignment="Center"
-                                               Margin="5"
-                                               FontSize="15"
-                                               Foreground="{StaticResource WHITE_100}"/>
-                                </Grid>
-                            </buttons:Button>
-                            <buttons:Button Padding="5"
-                                            HorizontalContentAlignment="Stretch"
-                                            VerticalContentAlignment="Stretch"
-                                            Background="{StaticResource GRAY_300}"
-                                            BorderThickness="1"
-                                            BorderBrush="{StaticResource GRAY_50}"
-                                            CornerRadius="5"
-                                            Margin="0,3,0,3">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="30"/>
-                                        <ColumnDefinition Width="1*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0"
-                                           Margin="3"
-                                           Source="{StaticResource ICON_BOW}"/>
-
-                                    <TextBlock Grid.Column="1"
-                                               Text="Player"
-                                               VerticalAlignment="Center"
-                                               Margin="5"
-                                               FontSize="15"
-                                               Foreground="{StaticResource WHITE_100}"/>
-                                </Grid>
-                            </buttons:Button>
-                        </StackPanel>
-                    </viewer:SmoothScrollViewer>
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding Name, Mode=OneWay}"
+                                                   VerticalAlignment="Center"
+                                                   Margin="5"
+                                                   FontSize="15"
+                                                   Foreground="{StaticResource WHITE_100}"/>
+                                    </Grid>
+                                </buttons:Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                     
                     <!-- Details -->
                     <Border Grid.Column="1" 
@@ -269,6 +252,7 @@
                                    FontSize="13"/>
                     </Border>
 
+                    <!-- TODO: Graph
                     <lvc:CartesianChart Series="{Binding DamageSeries, Mode=OneTime}"
                                         DisableAnimations="True"
                                         Margin="5"
@@ -306,7 +290,7 @@
                                         </lvc:Axis.Separator>
                                     </lvc:Axis>
                                 </lvc:CartesianChart.AxisX>
-                            </lvc:CartesianChart>
+                            </lvc:CartesianChart>-->
 
                     <GridSplitter Grid.Row="0"
                                   Grid.Column="0"

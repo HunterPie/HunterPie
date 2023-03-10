@@ -1,7 +1,7 @@
 ﻿using HunterPie.UI.Architecture;
 using LiveCharts.Wpf;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Windows.Media;
 
 namespace HunterPie.GUI.Parts.Statistics.Details.ViewModels;
 
