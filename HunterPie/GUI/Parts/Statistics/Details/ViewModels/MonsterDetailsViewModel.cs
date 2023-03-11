@@ -3,7 +3,9 @@ using HunterPie.UI.Architecture;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace HunterPie.GUI.Parts.Statistics.Details.ViewModels;
 
@@ -15,11 +17,11 @@ public class MonsterDetailsViewModel : ViewModel
     private string _icon;
     public string Icon { get => _icon; set => SetValue(ref _icon, value); }
 
-    private DateTime _huntedAt;
-    public DateTime HuntedAt { get => _huntedAt; set => SetValue(ref _huntedAt, value); }
+    private TimeSpan? _huntElapsed;
+    public TimeSpan? HuntElapsed { get => _huntElapsed; set => SetValue(ref _huntElapsed, value); }
 
-    private TimeSpan? _timeElapsed;
-    public TimeSpan? TimeElapsed { get => _timeElapsed; set => SetValue(ref _timeElapsed, value); }
+    private TimeSpan _timeElapsed;
+    public TimeSpan TimeElapsed { get => _timeElapsed; set => SetValue(ref _timeElapsed, value); }
 
     private Crown _crown;
     public Crown Crown { get => _crown; set => SetValue(ref _crown, value); }
@@ -39,5 +41,16 @@ public class MonsterDetailsViewModel : ViewModel
 
     public Func<double, string> DamageFormatter => new((damage) => $"{damage:0.00}/s");
 
+    public void SetupGraph()
+    {
+        IEnumerable<Series> playerDamages = Players.Select(it => it.Damages);
 
+        DamageSeries.AddRange(playerDamages);
+    }
+
+    public void SetGraphTo(PartyMemberDetailsViewModel player)
+    {
+        DamageSeries.Clear();
+        DamageSeries.Add(player.Damages);
+    }
 }

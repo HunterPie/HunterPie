@@ -15,7 +15,8 @@
              d:DesignHeight="450" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:MonsterDetailsViewModel}"
-             Background="{StaticResource GRAY_200}">
+             Background="{StaticResource GRAY_200}"
+             Loaded="OnViewLoaded">
     <UserControl.Resources>
         <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>
     </UserControl.Resources>
@@ -88,7 +89,11 @@
                                     Margin="5">
                             <text:LabeledText Label="Quest Time"
                                               d:Text="00:00:00.000"
-                                              Text="{Binding TimeElapsed, Mode=OneWay, StringFormat='hh\\:mm\\:ss\\&quot;fff', TargetNullValue='---'}"
+                                              Text="{Binding TimeElapsed, Mode=OneWay, StringFormat='mm\\:ss\\&quot;fff', TargetNullValue='---'}"
+                                              Margin="2"/>
+
+                            <text:LabeledText Label="Hunt Time"
+                                              Text="{Binding HuntElapsed, Mode=OneWay, StringFormat='mm\\:ss\\&quot;fff', TargetNullValue='---'}"
                                               Margin="2"/>
 
                             <text:LabeledText Label="Health"
@@ -215,10 +220,11 @@
                                                 VerticalContentAlignment="Stretch"
                                                 Background="{StaticResource GRAY_300}"
                                                 BorderThickness="1"
-                                                BorderBrush="{StaticResource GRAY_50}"
+                                                BorderBrush="{Binding Color, Mode=OneWay}"
                                                 CornerRadius="5"
                                                 Margin="0,3,0,3"
-                                                Height="40">
+                                                Height="40"
+                                                Click="OnPlayerClick">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="30"/>
@@ -233,7 +239,7 @@
                                                    VerticalAlignment="Center"
                                                    Margin="5"
                                                    FontSize="15"
-                                                   Foreground="{StaticResource WHITE_100}"/>
+                                                   Foreground="{StaticResource WHITE_300}"/>
                                     </Grid>
                                 </buttons:Button>
                             </DataTemplate>
@@ -252,7 +258,7 @@
                                    FontSize="13"/>
                     </Border>
 
-                    <!-- TODO: Graph
+                    
                     <lvc:CartesianChart Series="{Binding DamageSeries, Mode=OneTime}"
                                         DisableAnimations="True"
                                         Margin="5"
@@ -271,7 +277,6 @@
                                 </lvc:CartesianChart.CacheMode>
                                 <lvc:CartesianChart.AxisY>
                                     <lvc:Axis MinValue="0"
-                                              MaxValue="100"
                                               LabelFormatter="{Binding DamageFormatter, Mode=OneWay}"
                                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}">
                                         <lvc:Axis.Separator>
@@ -283,14 +288,13 @@
                                     <lvc:Axis LabelFormatter="{Binding TimeFormatter, Mode=OneWay}" 
                                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                               Sections="{Binding Sections, Mode=OneWay}"
-                                              MinValue="0"
-                                              MaxValue="0">
+                                              MinValue="0">
                                         <lvc:Axis.Separator>
                                             <lvc:Separator IsEnabled="False"/>
                                         </lvc:Axis.Separator>
                                     </lvc:Axis>
                                 </lvc:CartesianChart.AxisX>
-                            </lvc:CartesianChart>-->
+                            </lvc:CartesianChart>
 
                     <GridSplitter Grid.Row="0"
                                   Grid.Column="0"

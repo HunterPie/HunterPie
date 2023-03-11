@@ -1,26 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HunterPie.GUI.Parts.Statistics.Details.ViewModels;
+using HunterPie.UI.Architecture;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace HunterPie.GUI.Parts.Statistics.Details.Views;
 /// <summary>
 /// Interaction logic for MonsterDetailsView.xaml
 /// </summary>
-public partial class MonsterDetailsView : UserControl
+public partial class MonsterDetailsView : UserControl, IView<MonsterDetailsViewModel>
 {
+    public MonsterDetailsViewModel ViewModel => (MonsterDetailsViewModel)DataContext;
+
     public MonsterDetailsView()
     {
         InitializeComponent();
+    }
+
+    private void OnViewLoaded(object sender, RoutedEventArgs e) => ViewModel.SetupGraph();
+
+    private void OnPlayerClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is FrameworkElement { DataContext: PartyMemberDetailsViewModel vm })
+            ViewModel.SetGraphTo(vm);
     }
 }
