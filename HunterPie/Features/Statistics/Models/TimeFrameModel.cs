@@ -12,7 +12,7 @@ internal record TimeFrameModel(
         FinishedAt: DateTime.MaxValue
     );
 
-    public TimeFrameModel End() => this with { FinishedAt = DateTime.UtcNow };
+    public TimeFrameModel End() => IsRunning() ? this with { FinishedAt = DateTime.UtcNow } : this;
 
     public bool IsRunning() => FinishedAt == DateTime.MaxValue;
 }
