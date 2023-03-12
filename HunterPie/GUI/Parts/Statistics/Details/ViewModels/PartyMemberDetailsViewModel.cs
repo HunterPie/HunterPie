@@ -19,5 +19,5 @@ public class PartyMemberDetailsViewModel : ViewModel
 
     public Series Damages { get; init; }
 
-    public ObservableCollection<AbnormalityDetailsViewModel> Abnormalities { get; } = new();
+    public ObservableCollection<AbnormalityDetailsViewModel> Abnormalities { get; init; } = new();
 }

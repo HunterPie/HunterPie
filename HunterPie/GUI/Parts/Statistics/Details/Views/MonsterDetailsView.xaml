@@ -12,13 +12,16 @@
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
              mc:Ignorable="d" 
-             d:DesignHeight="450" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:MonsterDetailsViewModel}"
              Background="{StaticResource GRAY_200}"
              Loaded="OnViewLoaded">
     <UserControl.Resources>
         <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>
+        <converters:BoolPickConverter x:Key="BoolPickConverter"/>
+        <converters:ParentSizePercentageConverter x:Key="ParentSizePercentageConverter"/>
+        <converters:AbnormalityNameConverter x:Key="AbnormalityNameConverter"/>
+        <converters:AbnormalityStringToIconConverter x:Key="AbnormalityStringToIconConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -140,7 +143,8 @@
                                                 BorderBrush="{StaticResource GRAY}"
                                                 Background="{StaticResource GRAY_300}"
                                                 CornerRadius="5"
-                                                Height="80">
+                                                Height="80"
+                                                Click="OnMonsterStatusClick">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="3*"/>
@@ -301,6 +305,101 @@
                                   Grid.RowSpan="2"
                                   Width="2"
                                   Background="{StaticResource GRAY}"/>
+                </Grid>
+            </Border>
+
+
+            <!-- Abnormalities -->
+            <Border Margin="5"
+                    Background="{StaticResource GRAY_100}"
+                    BorderBrush="{StaticResource GRAY}"
+                    BorderThickness="1"
+                    CornerRadius="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Column="0" 
+                            Grid.Row="0" 
+                            Background="{StaticResource GRAY_300}"
+                            BorderBrush="{StaticResource GRAY_100}"
+                            BorderThickness="0,0,1,0"
+                            CornerRadius="5,0,0,0">
+                        <TextBlock Text="Abnormalities"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Foreground="{StaticResource WHITE_300}"
+                                   FontSize="13"/>
+                    </Border>
+    
+                    <ItemsControl Grid.Row="1"
+                                  ItemsSource="{Binding SelectedAbnormalities, Mode=OneWay}">
+                        <ItemsControl.Template>
+                            <ControlTemplate>
+                                <WrapPanel IsItemsHost="True"/>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <buttons:Button Padding="0"
+                                                VerticalContentAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                Width="50"
+                                                Height="50"
+                                                Margin="5"
+                                                Background="{StaticResource GRAY_300}"
+                                                BorderThickness="1"
+                                                CornerRadius="5"
+                                                Click="OnAbnormalityClick"
+                                                ToolTip="{Binding Name, Mode=OneWay, Converter={StaticResource AbnormalityNameConverter}}">
+                                    <buttons:Button.BorderBrush>
+                                        <MultiBinding Converter="{StaticResource BoolPickConverter}">
+                                            <Binding Path="DataContext.IsToggled" RelativeSource="{RelativeSource Self}"/>
+                                            <Binding Source="{StaticResource GREEN_300}"/>
+                                            <Binding Source="{StaticResource GRAY}"/>
+                                        </MultiBinding>
+                                    </buttons:Button.BorderBrush>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2*"/>
+                                            <RowDefinition Height="1*"/>
+                                        </Grid.RowDefinitions>
+                                        <Rectangle Grid.Row="0" 
+                                                   VerticalAlignment="Bottom"
+                                                   HorizontalAlignment="Stretch"
+                                                   Grid.RowSpan="2"
+                                                   MaxHeight="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
+                                                   Fill="{Binding Color, Mode=OneWay}"
+                                                   RadiusX="4.5"
+                                                   RadiusY="4.5">
+                                            <Rectangle.Height>
+                                                <MultiBinding Converter="{StaticResource ParentSizePercentageConverter}"
+                                                              ConverterParameter="1">
+                                                    <Binding Path="DataContext.UpTime" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type buttons:Button}}"/>
+                                                    <Binding Path="MaxHeight" RelativeSource="{RelativeSource Self}"/>
+                                                </MultiBinding>
+                                            </Rectangle.Height>
+                                        </Rectangle>
+
+                                        <Image Source="{Binding Icon, Mode=OneWay, Converter={StaticResource AbnormalityStringToIconConverter}}"
+                                               Margin="2"
+                                               Grid.Row="0"/>
+
+                                        <TextBlock Grid.Row="1"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   d:Text="50%"
+                                                   Text="{Binding UpTime, Mode=OneWay, StringFormat='P0'}"
+                                                   FontWeight="Medium"
+                                                   Foreground="{StaticResource WHITE_300}"/>
+                                    </Grid>
+                                </buttons:Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Grid>
             </Border>
         </StackPanel>

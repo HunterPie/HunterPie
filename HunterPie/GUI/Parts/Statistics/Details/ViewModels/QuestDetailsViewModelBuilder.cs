@@ -1,4 +1,6 @@
 ﻿using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Data.Schemas;
+using HunterPie.Core.Game.Services;
 using HunterPie.Features.Statistics.Models;
 using HunterPie.UI.Architecture.Adapter;
 using HunterPie.UI.Architecture.Brushes;
@@ -7,6 +9,8 @@ using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media;
@@ -42,6 +46,13 @@ internal class QuestDetailsViewModelBuilder
         if (monster.HuntStartedAt is { } startedAt && monster.HuntFinishedAt is { } finishedAt)
             huntElapsed = finishedAt - startedAt;
 
+        StatusDetailsViewModel? enrage = BuildEnrage(quest, huntElapsed ?? TimeSpan.Zero, monster.Enrage);
+
+        var statuses = new ObservableCollection<StatusDetailsViewModel>();
+
+        if (enrage != null)
+            statuses.Add(enrage);
+
         return new MonsterDetailsViewModel
         {
             Name = MonsterNameAdapter.From(quest.Game, monster.Id),
@@ -49,7 +60,7 @@ internal class QuestDetailsViewModelBuilder
             TimeElapsed = quest.FinishedAt - quest.StartedAt,
             MaxHealth = monster.MaxHealth,
             HuntElapsed = huntElapsed,
-            Statuses = { BuildEnrage(huntElapsed ?? TimeSpan.Zero, monster.Enrage) },
+            Statuses = statuses,
             Players = quest.Players.Select(it => BuildPlayer(quest, monster, it))
                                    .Where(it => it != null)
                                    .ToObservableCollection(),
@@ -57,7 +68,8 @@ internal class QuestDetailsViewModelBuilder
         };
     }
 
-    private static StatusDetailsViewModel BuildEnrage(
+    private static StatusDetailsViewModel? BuildEnrage(
+        HuntStatisticsModel quest,
         TimeSpan huntTimeElapsed,
         MonsterStatusModel status
     )
@@ -67,11 +79,22 @@ internal class QuestDetailsViewModelBuilder
         double activationsTotalSeconds = status.Activations.Select(it => it.FinishedAt - it.StartedAt)
             .Sum(it => it.TotalSeconds);
 
+        var activations = status.Activations.Select(it => new AxisSection
+        {
+            StrokeThickness = 1,
+            Stroke = new SolidColorBrush(Colors.Red) { Opacity = 0.15 },
+            Fill = new SolidColorBrush(Colors.Red) { Opacity = 0.05 },
+            StrokeDashArray = new DoubleCollection { 4, 4 },
+            Value = (it.StartedAt - quest.StartedAt).TotalSeconds,
+            SectionWidth = (it.FinishedAt - it.StartedAt).TotalSeconds
+        }).ToList();
+
         return new StatusDetailsViewModel
         {
             Color = Brushes.Red,
             Name = "Enrage",
-            UpTime = activationsTotalSeconds / Math.Max(1.0, timeElapsed)
+            UpTime = activationsTotalSeconds / Math.Max(1.0, timeElapsed),
+            Activations = activations
         };
     }
 
@@ -98,6 +121,11 @@ internal class QuestDetailsViewModelBuilder
                   };
               });
 
+        var abnormalities =
+            player.Abnormalities.Select(it => BuildAbnormality(quest, monster, it))
+                .Where(it => it != null)
+                .ToObservableCollection();
+
         var damagePoints = new ChartValues<ObservablePoint>(damageFrames);
         Color color = RandomColor();
 
@@ -110,21 +138,64 @@ internal class QuestDetailsViewModelBuilder
                 Title = player.Name,
                 Stroke = new SolidColorBrush(color),
                 Fill = ColorFadeGradient.FromColor(color),
-                PointGeometrySize = 1,
+                PointGeometry = null,
                 StrokeThickness = 2,
                 LineSmoothness = 1,
                 Values = damagePoints
             },
-            Color = new SolidColorBrush(color)
+            Color = new SolidColorBrush(color),
+            Abnormalities = abnormalities
+        };
+    }
+
+    private static AbnormalityDetailsViewModel? BuildAbnormality(
+        HuntStatisticsModel quest,
+        MonsterModel monster,
+        AbnormalityModel abnormality
+    )
+    {
+        if (monster.HuntFinishedAt is not { } finishedAt || monster.HuntStartedAt is not { } startedAt)
+            return null;
+
+        AbnormalitySchema? schema = AbnormalityService.FindBy(quest.Game, abnormality.Id);
+
+        if (schema is not { } abnormalityData)
+            return null;
+
+        double questTime = (finishedAt - startedAt).TotalSeconds;
+
+        var timeFrames = abnormality.Activations
+            .Where(it => (it.StartedAt >= startedAt || it.FinishedAt >= startedAt) && it.StartedAt < finishedAt)
+            .ToImmutableArray();
+
+        double upTime = timeFrames.Sum(it => (it.FinishedAt - it.StartedAt).TotalSeconds) / questTime;
+
+        Color color = RandomColor() with { A = 90 };
+
+        var activations = timeFrames.Select(it => new AxisSection
+        {
+            StrokeThickness = 0,
+            Fill = new SolidColorBrush(color),
+            Value = (it.StartedAt - quest.StartedAt).TotalSeconds,
+            SectionWidth = (it.FinishedAt - it.StartedAt).TotalSeconds,
+        }).ToList();
+
+        return new AbnormalityDetailsViewModel
+        {
+            Name = abnormalityData.Name,
+            Icon = abnormalityData.Icon,
+            Color = new SolidColorBrush(color),
+            UpTime = Math.Min(1.0, upTime),
+            Activations = activations
         };
     }
 
     private static Color RandomColor()
     {
         Random rng = new();
-        byte r = (byte)rng.Next(256);
-        byte g = (byte)rng.Next(256);
-        byte b = (byte)rng.Next(256);
+        byte r = (byte)rng.Next(115, 256);
+        byte g = (byte)rng.Next(180, 256);
+        byte b = (byte)rng.Next(120, 256);
         return Color.FromRgb(r, g, b);
     }
 }

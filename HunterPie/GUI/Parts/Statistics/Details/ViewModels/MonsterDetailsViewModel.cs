@@ -11,6 +11,8 @@ namespace HunterPie.GUI.Parts.Statistics.Details.ViewModels;
 
 public class MonsterDetailsViewModel : ViewModel
 {
+    private readonly AxisSection _dummySection = new();
+
     private string _name;
     public string Name { get => _name; set => SetValue(ref _name, value); }
 
@@ -31,6 +33,13 @@ public class MonsterDetailsViewModel : ViewModel
 
     public ObservableCollection<PartyMemberDetailsViewModel> Players { get; init; } = new();
 
+    private ObservableCollection<AbnormalityDetailsViewModel> _selectedAbnormalities = new();
+    public ObservableCollection<AbnormalityDetailsViewModel> SelectedAbnormalities
+    {
+        get => _selectedAbnormalities;
+        set => SetValue(ref _selectedAbnormalities, value);
+    }
+
     public ObservableCollection<StatusDetailsViewModel> Statuses { get; init; } = new();
 
     public SeriesCollection DamageSeries { get; } = new();
@@ -46,11 +55,28 @@ public class MonsterDetailsViewModel : ViewModel
         IEnumerable<Series> playerDamages = Players.Select(it => it.Damages);
 
         DamageSeries.AddRange(playerDamages);
+
+        PartyMemberDetailsViewModel player = Players
+            .FirstOrDefault(it => it.Abnormalities.Any());
+
+        if (player is { })
+            SelectedAbnormalities = player.Abnormalities;
     }
 
     public void SetGraphTo(PartyMemberDetailsViewModel player)
     {
         DamageSeries.Clear();
         DamageSeries.Add(player.Damages);
+        SelectedAbnormalities = player.Abnormalities;
+    }
+
+    public void ToggleSections(ISectionControllable controllable)
+    {
+        controllable.IsToggled = !controllable.IsToggled;
+
+        if (controllable.IsToggled)
+            Sections.AddRange(controllable.Activations);
+        else
+            controllable.Activations.ForEach(it => Sections.Remove(it));
     }
 }

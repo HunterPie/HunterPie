@@ -1,14 +1,17 @@
 ﻿using HunterPie.UI.Architecture;
 using LiveCharts.Wpf;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Windows.Media;
 
 namespace HunterPie.GUI.Parts.Statistics.Details.ViewModels;
 
-public class AbnormalityDetailsViewModel : ViewModel
+public class AbnormalityDetailsViewModel : ViewModel, ISectionControllable
 {
-    private string _id;
-    public string Id { get => _id; set => SetValue(ref _id, value); }
+    private string _name;
+    public string Name { get => _name; set => SetValue(ref _name, value); }
+
+    private string _icon;
+    public string Icon { get => _icon; set => SetValue(ref _icon, value); }
 
     private double _upTime;
     public double UpTime { get => _upTime; set => SetValue(ref _upTime, value); }
@@ -16,7 +19,7 @@ public class AbnormalityDetailsViewModel : ViewModel
     private bool _isToggled;
     public bool IsToggled { get => _isToggled; set => SetValue(ref _isToggled, value); }
 
-    public List<AxisSection> Activations { get; } = new();
+    public List<AxisSection> Activations { get; init; } = new();
 
     private Brush _color;
     public Brush Color { get => _color; set => SetValue(ref _color, value); }

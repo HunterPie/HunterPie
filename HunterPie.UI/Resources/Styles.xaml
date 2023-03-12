@@ -180,8 +180,8 @@
         <Setter Property="BorderBrush" Value="{StaticResource GRAY}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="MaxWidth" Value="350"/>
-        <Setter Property="ToolTipService.InitialShowDelay" Value="10"/>
-        <Setter Property="ToolTipService.BetweenShowDelay" Value="10"/>
+        <Setter Property="ToolTipService.InitialShowDelay" Value="1000"/>
+        <Setter Property="ToolTipService.BetweenShowDelay" Value="0"/>
         <Style.Triggers>
             <Trigger Property="IsVisible" Value="True">
                 <Trigger.EnterActions>

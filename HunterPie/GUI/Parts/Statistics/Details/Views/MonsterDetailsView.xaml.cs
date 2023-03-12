@@ -23,4 +23,29 @@ public partial class MonsterDetailsView : UserControl, IView<MonsterDetailsViewM
         if (sender is FrameworkElement { DataContext: PartyMemberDetailsViewModel vm })
             ViewModel.SetGraphTo(vm);
     }
+
+    private void OnAbnormalityClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is FrameworkElement { DataContext: AbnormalityDetailsViewModel vm })
+            ViewModel.ToggleSections(vm);
+
+
+        ForceGraphRender();
+    }
+
+    private void OnMonsterStatusClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is FrameworkElement { DataContext: StatusDetailsViewModel vm })
+            ViewModel.ToggleSections(vm);
+
+        ForceGraphRender();
+    }
+
+    private void ForceGraphRender()
+    {
+        // HACK: For some reason adding Sections to the collection will not update the graph
+        PART_Graph.Update(true);
+    }
+
+
 }

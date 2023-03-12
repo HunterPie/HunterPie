@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 namespace HunterPie.GUI.Parts.Statistics.Details.ViewModels;
 
-public class StatusDetailsViewModel : ViewModel
+public class StatusDetailsViewModel : ViewModel, ISectionControllable
 {
     private string _name;
     public string Name { get => _name; set => SetValue(ref _name, value); }
@@ -16,7 +16,7 @@ public class StatusDetailsViewModel : ViewModel
     private bool _isToggled;
     public bool IsToggled { get => _isToggled; set => SetValue(ref _isToggled, value); }
 
-    public List<AxisSection> Activations { get; } = new();
+    public List<AxisSection> Activations { get; init; } = new();
 
     private Brush _color;
     public Brush Color { get => _color; set => SetValue(ref _color, value); }
