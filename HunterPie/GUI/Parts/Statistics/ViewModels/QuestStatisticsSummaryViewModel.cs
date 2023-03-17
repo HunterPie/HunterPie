@@ -1,5 +1,6 @@
 ﻿using HunterPie.Features.Notification;
 using HunterPie.GUI.Parts.Host;
+using HunterPie.GUI.Parts.Statistics.Details.Builders;
 using HunterPie.GUI.Parts.Statistics.Details.ViewModels;
 using HunterPie.GUI.Parts.Statistics.Details.Views;
 using HunterPie.Integrations.Poogie.Common.Models;

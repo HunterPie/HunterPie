@@ -56,8 +56,7 @@ public class MonsterDetailsViewModel : ViewModel
 
         DamageSeries.AddRange(playerDamages);
 
-        PartyMemberDetailsViewModel player = Players
-            .FirstOrDefault(it => it.Abnormalities.Any());
+        PartyMemberDetailsViewModel? player = Players.FirstOrDefault(it => it.Abnormalities.Any());
 
         if (player is { })
             SelectedAbnormalities = player.Abnormalities;

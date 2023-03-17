@@ -22,6 +22,7 @@
         <converters:ParentSizePercentageConverter x:Key="ParentSizePercentageConverter"/>
         <converters:AbnormalityNameConverter x:Key="AbnormalityNameConverter"/>
         <converters:AbnormalityStringToIconConverter x:Key="AbnormalityStringToIconConverter"/>
+        <converters:IntToKFormat x:Key="NumberToKFormat"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -219,7 +220,7 @@
 
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <buttons:Button Padding="5"
+                                <buttons:Button Padding="0"
                                                 HorizontalContentAlignment="Stretch"
                                                 VerticalContentAlignment="Stretch"
                                                 Background="{StaticResource GRAY_300}"
@@ -234,8 +235,23 @@
                                             <ColumnDefinition Width="30"/>
                                             <ColumnDefinition Width="1*"/>
                                         </Grid.ColumnDefinitions>
+                                        <Rectangle Grid.Column="0"
+                                                   Grid.ColumnSpan="2"
+                                                   Fill="{Binding Color, Mode=OneWay}"
+                                                   Opacity="0.15"
+                                                   VerticalAlignment="Stretch"
+                                                   HorizontalAlignment="Left"
+                                                   MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}">
+                                            <Rectangle.Width>
+                                                <MultiBinding Converter="{StaticResource ParentSizePercentageConverter}"
+                                                              ConverterParameter="1">
+                                                    <Binding Path="DataContext.Contribution" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type buttons:Button}}"/>
+                                                    <Binding Path="MaxWidth" RelativeSource="{RelativeSource Self}"/>
+                                                </MultiBinding>
+                                            </Rectangle.Width>
+                                        </Rectangle>
                                         <Image Grid.Column="0"
-                                               Margin="3"
+                                               Margin="4"
                                                Source="{Binding Weapon, Mode=OneWay, Converter={StaticResource WeaponToIconConverter}}"/>
 
                                         <TextBlock Grid.Column="1"
@@ -243,7 +259,15 @@
                                                    VerticalAlignment="Center"
                                                    Margin="5"
                                                    FontSize="15"
-                                                   Foreground="{StaticResource WHITE_300}"/>
+                                                   Foreground="{StaticResource WHITE_100}"/>
+
+                                        <TextBlock Grid.Column="1"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right"
+                                                   Text="{Binding Damage, Converter={StaticResource NumberToKFormat}}"
+                                                   Foreground="{StaticResource WHITE_300}"
+                                                   FontSize="13"
+                                                   Margin="5"/>
                                     </Grid>
                                 </buttons:Button>
                             </DataTemplate>
@@ -371,6 +395,7 @@
                                                    VerticalAlignment="Bottom"
                                                    HorizontalAlignment="Stretch"
                                                    Grid.RowSpan="2"
+                                                   Opacity="0.35"
                                                    MaxHeight="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
                                                    Fill="{Binding Color, Mode=OneWay}"
                                                    RadiusX="4.5"

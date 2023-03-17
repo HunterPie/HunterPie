@@ -202,4 +202,10 @@
         <GradientStop Color="#FF563ECF"/>
         <GradientStop Color="#FF7445DE" Offset="1"/>
     </LinearGradientBrush>
+
+    <!-- Hunt export details -->
+    <LinearGradientBrush x:Key="HUNT_EXPORT_ENRAGE_BRUSH" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFCB2D3E"/>
+        <GradientStop Color="#FFEF473A" Offset="1"/>
+    </LinearGradientBrush>
 </ResourceDictionary>
