@@ -7,7 +7,7 @@ namespace HunterPie.GUI.Parts.Statistics.Details.ViewModels;
 
 public class StatusDetailsViewModel : ViewModel, ISectionControllable
 {
-    private string _name;
+    private string _name = string.Empty;
     public string Name { get => _name; set => SetValue(ref _name, value); }
 
     private double _upTime;
@@ -18,6 +18,6 @@ public class StatusDetailsViewModel : ViewModel, ISectionControllable
 
     public List<AxisSection> Activations { get; init; } = new();
 
-    private Brush _color;
+    private Brush _color = Brushes.Transparent;
     public Brush Color { get => _color; set => SetValue(ref _color, value); }
 }

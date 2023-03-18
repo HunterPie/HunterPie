@@ -43,4 +43,10 @@ public static class IEnumerableExtensions
     public static IEnumerable<T> FilterNull<T>(this IEnumerable<T?> enumerable) =>
         enumerable.Where(it => it is not null)
             .Cast<T>();
+
+    public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
+    {
+        foreach (T? item in enumerable)
+            action(item);
+    }
 }

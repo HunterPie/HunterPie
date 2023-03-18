@@ -111,7 +111,7 @@ internal class PartyMemberDetailsViewModelBuilder
         {
             Name = abnormalityData.Name,
             Icon = abnormalityData.Icon,
-            Color = new SolidColorBrush(color),
+            Color = ColorFadeGradient.FromColor(color),
             UpTime = Math.Min(1.0, upTime),
             Activations = activations
         };

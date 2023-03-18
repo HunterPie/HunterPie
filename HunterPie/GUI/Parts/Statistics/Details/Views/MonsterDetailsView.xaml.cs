@@ -16,12 +16,20 @@ public partial class MonsterDetailsView : UserControl, IView<MonsterDetailsViewM
         InitializeComponent();
     }
 
-    private void OnViewLoaded(object sender, RoutedEventArgs e) => ViewModel.SetupGraph();
+    public void InitializeView()
+    {
+        // HACK: LiveCharts has a pretty awful support for sections
+        PART_Graph.AxisX[0].Sections?.Clear();
+
+        ViewModel.SetupView();
+
+
+    }
 
     private void OnPlayerClick(object sender, RoutedEventArgs e)
     {
         if (sender is FrameworkElement { DataContext: PartyMemberDetailsViewModel vm })
-            ViewModel.SetGraphTo(vm);
+            ViewModel.ToggleMember(vm);
     }
 
     private void OnAbnormalityClick(object sender, RoutedEventArgs e)
@@ -46,6 +54,4 @@ public partial class MonsterDetailsView : UserControl, IView<MonsterDetailsViewM
         // HACK: For some reason adding Sections to the collection will not update the graph
         PART_Graph.Update(true);
     }
-
-
 }

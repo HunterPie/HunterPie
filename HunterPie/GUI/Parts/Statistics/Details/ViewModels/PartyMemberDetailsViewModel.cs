@@ -23,6 +23,9 @@ public class PartyMemberDetailsViewModel : ViewModel
     private double _contribution;
     public double Contribution { get => _contribution; set => SetValue(ref _contribution, value); }
 
+    private bool _isToggled;
+    public bool IsToggled { get => _isToggled; set => SetValue(ref _isToggled, value); }
+
     public Series Damages { get; init; } = new LineSeries();
 
     public ObservableCollection<AbnormalityDetailsViewModel> Abnormalities { get; init; } = new();

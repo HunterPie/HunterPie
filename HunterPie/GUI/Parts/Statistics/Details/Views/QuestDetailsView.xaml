@@ -43,7 +43,8 @@
                       DataType="{x:Type viewModels:MonsterDetailsViewModel}">
             <viewer:SmoothScrollViewer>
                 <local:MonsterDetailsView DataContext="{Binding ., Mode=OneWay}"
-                                          DataContextChanged="OnMonsterPanelViewModelChanged"/>
+                                          DataContextChanged="OnMonsterPanelViewModelChanged"
+                                          Loaded="OnMonsterPanelLoaded"/>
             </viewer:SmoothScrollViewer>
         </DataTemplate>
     
@@ -74,7 +75,6 @@
                     ItemTemplate="{StaticResource HeaderTemplate}"
                     ContentTemplate="{StaticResource PanelTemplate}"
                     SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
-                    Loaded="OnMonsterPanelLoaded"
                     Grid.Row="0"
                     Grid.RowSpan="2"
                     Grid.Column="1"

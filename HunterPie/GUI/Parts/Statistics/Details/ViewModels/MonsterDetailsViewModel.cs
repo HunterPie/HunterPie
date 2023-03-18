@@ -1,9 +1,9 @@
-﻿using HunterPie.Core.Game.Enums;
+﻿using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Enums;
 using HunterPie.UI.Architecture;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -11,12 +11,12 @@ namespace HunterPie.GUI.Parts.Statistics.Details.ViewModels;
 
 public class MonsterDetailsViewModel : ViewModel
 {
-    private readonly AxisSection _dummySection = new();
+    private bool _isInitialized;
 
-    private string _name;
+    private string _name = string.Empty;
     public string Name { get => _name; set => SetValue(ref _name, value); }
 
-    private string _icon;
+    private string _icon = string.Empty;
     public string Icon { get => _icon; set => SetValue(ref _icon, value); }
 
     private TimeSpan? _huntElapsed;
@@ -50,32 +50,52 @@ public class MonsterDetailsViewModel : ViewModel
 
     public Func<double, string> DamageFormatter => new((damage) => $"{damage:0.00}/s");
 
-    public void SetupGraph()
+    public void SetupView()
     {
-        IEnumerable<Series> playerDamages = Players.Select(it => it.Damages);
+        EnableEnrageSections();
 
-        DamageSeries.AddRange(playerDamages);
+        foreach (PartyMemberDetailsViewModel player in Players)
+            ToggleMember(player, !_isInitialized || player.IsToggled);
 
-        PartyMemberDetailsViewModel? player = Players.FirstOrDefault(it => it.Abnormalities.Any());
+        SelectedAbnormalities.Clear();
 
-        if (player is { })
-            SelectedAbnormalities = player.Abnormalities;
+        Players.Where(it => it.Abnormalities.Any())
+               .SelectMany(it => it.Abnormalities)
+               .ForEach(it => SelectedAbnormalities.Add(it));
+
+        SelectedAbnormalities.Where(it => it.IsToggled)
+                             .ForEach(it => ToggleSections(it, true));
+
+        _isInitialized = true;
     }
 
-    public void SetGraphTo(PartyMemberDetailsViewModel player)
+    public void ToggleMember(PartyMemberDetailsViewModel player, bool? state = null)
     {
-        DamageSeries.Clear();
-        DamageSeries.Add(player.Damages);
-        SelectedAbnormalities = player.Abnormalities;
+        player.IsToggled = state ?? !player.IsToggled;
+
+        if (player.IsToggled)
+            DamageSeries.Add(player.Damages);
+        else
+            DamageSeries.Remove(player.Damages);
     }
 
-    public void ToggleSections(ISectionControllable controllable)
+    public void ToggleSections(ISectionControllable controllable, bool? state = null)
     {
-        controllable.IsToggled = !controllable.IsToggled;
+        controllable.IsToggled = state ?? !controllable.IsToggled;
 
         if (controllable.IsToggled)
             Sections.AddRange(controllable.Activations);
         else
             controllable.Activations.ForEach(it => Sections.Remove(it));
+    }
+
+    private void EnableEnrageSections()
+    {
+        StatusDetailsViewModel? enrage = Statuses.FirstOrDefault();
+
+        if (enrage is not { })
+            return;
+
+        ToggleSections(enrage, !_isInitialized || enrage.IsToggled);
     }
 }

@@ -12,26 +12,29 @@ namespace HunterPie.GUI.Parts.Statistics.Details.Views;
 public partial class QuestDetailsView : UserControl, IView<QuestDetailsViewModel>
 {
     private readonly Storyboard _slideInAnimation;
-    public QuestDetailsViewModel ViewModel => DataContext as QuestDetailsViewModel;
+    public QuestDetailsViewModel ViewModel => (QuestDetailsViewModel)DataContext;
 
     public QuestDetailsView()
     {
         InitializeComponent();
-        _slideInAnimation = FindResource("SlideInAnimation") as Storyboard;
+        _slideInAnimation = (Storyboard)FindResource("SlideInAnimation");
     }
 
     private void OnBackButtonClick(object sender, RoutedEventArgs e) => ViewModel.NavigateToPreviousPage();
 
-    private void OnMonsterPanelViewModelChanged(object sender, DependencyPropertyChangedEventArgs _)
-    {
-        if (sender is FrameworkElement element)
-            AnimatePanel(element);
-    }
+    private void OnMonsterPanelViewModelChanged(object sender, DependencyPropertyChangedEventArgs _) =>
+        SetupView(sender);
 
-    private void OnMonsterPanelLoaded(object sender, RoutedEventArgs e)
+    private void OnMonsterPanelLoaded(object sender, RoutedEventArgs _) =>
+        SetupView(sender);
+
+    private void SetupView(object obj)
     {
-        if (sender is FrameworkElement element)
-            AnimatePanel(element);
+        if (obj is not MonsterDetailsView view)
+            return;
+
+        view.InitializeView();
+        AnimatePanel(view);
     }
 
     private void AnimatePanel(FrameworkElement element) => _slideInAnimation.Begin(element);
