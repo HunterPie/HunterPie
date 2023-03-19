@@ -33,12 +33,7 @@ public class MonsterDetailsViewModel : ViewModel
 
     public ObservableCollection<PartyMemberDetailsViewModel> Players { get; init; } = new();
 
-    private ObservableCollection<AbnormalityDetailsViewModel> _selectedAbnormalities = new();
-    public ObservableCollection<AbnormalityDetailsViewModel> SelectedAbnormalities
-    {
-        get => _selectedAbnormalities;
-        set => SetValue(ref _selectedAbnormalities, value);
-    }
+    public ObservableCollection<AbnormalityDetailsViewModel> SelectedAbnormalities { get; init; } = new();
 
     public ObservableCollection<StatusDetailsViewModel> Statuses { get; init; } = new();
 

@@ -1226,13 +1226,6 @@
                 <DrawingGroup Opacity="1" Transform="1,0,0,1,0,-320">
                     <DrawingGroup Opacity="1" Transform="1,0,0,1,0,320">
                         <DrawingGroup Opacity="1" Transform="1,0,0,1,-256,-256">
-                            <DrawingGroup Opacity="1" Transform="1.04,0,0,1.05882,121.6,-16.6471">
-                                <GeometryDrawing Geometry="F0 M64,64z M0,0z M144,266L135,275 135,283 148,300 172,300 185,283 185,275 176,266 144,266z">
-                                    <GeometryDrawing.Brush>
-                                        <SolidColorBrush Color="#FF000000" Opacity="0.76" />
-                                    </GeometryDrawing.Brush>
-                                </GeometryDrawing>
-                            </DrawingGroup>
                             <DrawingGroup Opacity="1" Transform="1,0,0,1,256,256">
                                 <GeometryDrawing Brush="{StaticResource HUNTERPIE_ACCENT_COLOR}" Geometry="F0 M64,64z M0,0z M32,48.5C34,48.5,39,59,39,59L25,59C25,59,30,48.5,32,48.5z M15,8L5,18 5,28 19,46 45,46 59,28 59,18 49,8 15,8z M16,10L7,19 7,27 20,44 44,44 57,27 57,19 48,10 16,10z M25,24L30,42 20,24 25,24z M39,24L34,42 44,24 39,24z M25,21L30,12 20,21 25,21z M39,21L34,12 44,21 39,21z" />
                             </DrawingGroup>

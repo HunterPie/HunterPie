@@ -14,6 +14,37 @@
                    d:DesignHeight="450" 
                    d:DesignWidth="800"
                    d:DataContext="{d:DesignInstance viewModels:QuestStatisticsSummariesViewModel}">
+    <UserControl.Resources>
+        <DataTemplate x:Key="PromptSupporterTier1">
+            <buttons:Button Padding="0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            VerticalContentAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            Margin="5"
+                            Click="OnSupporterPromptClick">
+                <notfication:Prompt Message="Become a Supporter to see more than 7 days of hunts!"
+                                    HorizontalAlignment="Center"
+                                    Icon="{StaticResource ICON_SUPPORTER_TIER_1}"
+                                    BorderBrush="{StaticResource HUNTERPIE_SUPPORTER_T1}"/>
+            </buttons:Button>
+        </DataTemplate>
+
+        <DataTemplate x:Key="PromptSupporterTier2">
+            <buttons:Button Padding="0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            VerticalContentAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            Margin="5"
+                            Click="OnSupporterPromptClick">
+                <notfication:Prompt Message="Become a Tier 2 Supporter to see more than 30 days of hunts!"
+                                    HorizontalAlignment="Center"
+                                    Icon="{StaticResource ICON_SUPPORTER_TIER_2}"
+                                    BorderBrush="{StaticResource HUNTERPIE_SUPPORTER_T2}"/>
+            </buttons:Button>
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid Background="{StaticResource GRAY_300}">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -36,25 +67,111 @@
 
         <viewer:SmoothScrollViewer Grid.Row="1">
             <StackPanel Orientation="Vertical">
-                <notfication:Prompt Message="Become a Supporter to see more than 7 days of logs!"
-                                    HorizontalAlignment="Center"
-                                    Icon="{StaticResource ICON_SUPPORTER_TIER_2}"
-                                    BorderBrush="{StaticResource HUNTERPIE_SUPPORTER_T2}"
-                                    Margin="5"/>
-                <ItemsControl ItemsSource="{Binding Summaries, Mode=OneTime}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical"
-                                        Margin="5"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
+                
+                <!-- Supporter prompts -->
+                <ContentControl>
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding MessageType, Mode=OneWay}"
+                                             Value="{x:Static viewModels:QuestSupporterTierMessageType.LowTierMessage}">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource PromptSupporterTier1}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding MessageType, Mode=OneWay}"
+                                             Value="{x:Static viewModels:QuestSupporterTierMessageType.HighTierMessage}">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource PromptSupporterTier2}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+                
+                <!-- Summaries -->
+                <ContentControl>
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Style.Triggers>
+                                <!-- Is fetching quests -->
+                                <DataTrigger Binding="{Binding IsFetchingQuests, Mode=OneWay}"
+                                             Value="True">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <StackPanel Margin="5">
+                                                <local:QuestStatisticsSummarySkeletonView Height="130"/>
+                                                <local:QuestStatisticsSummarySkeletonView Height="130"/>
+                                                <local:QuestStatisticsSummarySkeletonView Height="130"/>
+                                                <local:QuestStatisticsSummarySkeletonView Height="130"/>
+                                                <local:QuestStatisticsSummarySkeletonView Height="130"/>
+                                            </StackPanel>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
 
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <local:QuestStatisticsSummaryView Height="130"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                                <!-- Failed to fetch quests -->
+                                <DataTrigger Binding="{Binding HasFetchingFailed, Mode=OneWay}"
+                                             Value="True">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <notfication:Prompt Margin="10"
+                                                                Icon="{StaticResource ICON_ERROR_MASK}"
+                                                                Message="Failed to fetch exported hunts. Try again later."
+                                                                BorderBrush="{StaticResource RED_50}"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+
+                                <!-- Found no quests -->
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding HasQuests, Mode=OneWay}"
+                                                   Value="False"/>
+                                        <Condition Binding="{Binding IsFetchingQuests, Mode=OneWay}"
+                                                   Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <notfication:Prompt Margin="10"
+                                                                Icon="{StaticResource ICON_INFO}"
+                                                                Message="There were no exported hunts available in the period available for your account."
+                                                                BorderBrush="{StaticResource WHITE_600}"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </MultiDataTrigger>
+
+                                <!-- Found quests -->
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding HasQuests, Mode=OneWay}"
+                                                   Value="True"/>
+                                        <Condition Binding="{Binding IsFetchingQuests, Mode=OneWay}"
+                                                   Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <ItemsControl ItemsSource="{Binding Summaries, Mode=OneTime}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel Orientation="Vertical"
+                                                                    Margin="5"/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <local:QuestStatisticsSummaryView Height="130"/>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </Setter.Value>
+                                    </Setter>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+                
+                
+                
             </StackPanel>
                 
         </viewer:SmoothScrollViewer>

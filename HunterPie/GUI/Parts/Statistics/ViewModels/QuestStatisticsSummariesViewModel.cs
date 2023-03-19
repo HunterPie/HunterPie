@@ -1,4 +1,6 @@
-﻿using HunterPie.Integrations.Poogie.Common.Models;
+﻿using HunterPie.Features.Account;
+using HunterPie.Features.Account.Model;
+using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.Integrations.Poogie.Statistics;
 using HunterPie.Integrations.Poogie.Statistics.Models;
 using HunterPie.UI.Architecture;
@@ -29,6 +31,13 @@ public class QuestStatisticsSummariesViewModel : ViewModel
         set => SetValue(ref _isFetchingQuests, value);
     }
 
+    private bool _hasFetchingFailed;
+    public bool HasFetchingFailed
+    {
+        get => _hasFetchingFailed;
+        set => SetValue(ref _hasFetchingFailed, value);
+    }
+
     private int _currentPage;
     public int CurrentPage
     {
@@ -43,13 +52,29 @@ public class QuestStatisticsSummariesViewModel : ViewModel
         set => SetValue(ref _lastPage, value);
     }
 
+    private QuestSupporterTierMessageType _messageType;
+    public QuestSupporterTierMessageType MessageType { get => _messageType; set => SetValue(ref _messageType, value); }
+
     public ObservableCollection<QuestStatisticsSummaryViewModel> Summaries { get; } = new();
 
     public async void FetchQuests()
     {
+        UserAccount? account = await AccountManager.FetchAccount();
+
+        if (account is not { })
+            return;
+
+        MessageType = ConvertTierToMessageType(account.Tier);
+
         IsFetchingQuests = true;
 
         PoogieResult<List<PoogieQuestSummaryModel>> summariesResponse = await _connector.GetUserQuestSummaries();
+
+        if (summariesResponse.Error is { } error && error.Code != PoogieErrorCode.NOT_ERROR)
+        {
+            HasFetchingFailed = true;
+            return;
+        }
 
         IsFetchingQuests = false;
 
@@ -63,6 +88,7 @@ public class QuestStatisticsSummariesViewModel : ViewModel
             .ToArray();
 
         LastPage = summaries.Count / MAX_PER_PAGE;
+        HasQuests = true;
 
         UpdateSummariesContainer();
     }
@@ -76,4 +102,13 @@ public class QuestStatisticsSummariesViewModel : ViewModel
         foreach (PoogieQuestSummaryModel summary in _summaries.Skip(CurrentPage * MAX_PER_PAGE).Take(MAX_PER_PAGE))
             Summaries.Add(new QuestStatisticsSummaryViewModel(summary));
     }
+
+    private QuestSupporterTierMessageType ConvertTierToMessageType(AccountTier tier) =>
+        tier switch
+        {
+            >= AccountTier.HighRank => QuestSupporterTierMessageType.NoTierMessage,
+            >= AccountTier.LowRank => QuestSupporterTierMessageType.HighTierMessage,
+            >= AccountTier.None => QuestSupporterTierMessageType.LowTierMessage,
+            _ => throw new ArgumentOutOfRangeException(nameof(tier), tier, null)
+        };
 }

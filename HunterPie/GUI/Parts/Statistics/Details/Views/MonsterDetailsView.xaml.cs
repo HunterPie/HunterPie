@@ -22,8 +22,6 @@ public partial class MonsterDetailsView : UserControl, IView<MonsterDetailsViewM
         PART_Graph.AxisX[0].Sections?.Clear();
 
         ViewModel.SetupView();
-
-
     }
 
     private void OnPlayerClick(object sender, RoutedEventArgs e)
