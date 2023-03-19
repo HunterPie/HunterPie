@@ -18,6 +18,7 @@ using HunterPie.Integrations.Datasources.Common.Definition;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Environment.Activities;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
@@ -335,12 +336,12 @@ public sealed class MHWPlayer : CommonPlayer
     [ScannableMethod]
     private void GetParty()
     {
-        int questInformation = Process.Memory.Deref<int>(
+        var questInformation = (QuestState)Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
             AddressMap.Get<int[]>("QUEST_STATE_OFFSETS")
         );
 
-        if (questInformation.IsMHWQuestOver())
+        if (questInformation.IsQuestOver())
             return;
 
         long partyInformationPtr = Process.Memory.Read(
@@ -359,6 +360,9 @@ public sealed class MHWPlayer : CommonPlayer
         );
 
         if (partySize is 0)
+        {
+            _party.ClearExcept(0);
+
             _party.Update(0, new MHWPartyMemberData
             {
                 Name = Name,
@@ -368,8 +372,11 @@ public sealed class MHWPlayer : CommonPlayer
                 IsMyself = true,
                 MasterRank = MasterRank
             });
-        else
-            _party.Remove(0);
+
+            return;
+        }
+
+        _party.Remove(0);
 
         MHWPartyMemberStructure[] partyMembers = Process.Memory.Read<MHWPartyMemberStructure>(partyInformationPtr, 4);
 

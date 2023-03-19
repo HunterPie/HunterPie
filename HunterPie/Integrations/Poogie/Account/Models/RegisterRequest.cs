@@ -3,7 +3,7 @@
 namespace HunterPie.Integrations.Poogie.Account.Models;
 
 internal record RegisterRequest(
-    [JsonProperty("email")] string Email,
-    [JsonProperty("username")] string Username,
-    [JsonProperty("password")] string Password
+    [property: JsonProperty("email")] string Email,
+    [property: JsonProperty("username")] string Username,
+    [property: JsonProperty("password")] string Password
 );

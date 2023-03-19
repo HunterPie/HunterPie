@@ -7,7 +7,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 
-public sealed class MHRConsumableAbnormality : CommonAbnormality, IUpdatable<MHRConsumableStructure>
+public sealed class MHRConsumableAbnormality : CommonAbnormality, IUpdatable<MHRAbnormalityData>
 {
     private float _timer;
 
@@ -47,7 +47,7 @@ public sealed class MHRConsumableAbnormality : CommonAbnormality, IUpdatable<MHR
         MaxTimer = IsBuildup ? data.MaxBuildup : data.MaxTimer;
     }
 
-    void IUpdatable<MHRConsumableStructure>.Update(MHRConsumableStructure data)
+    void IUpdatable<MHRAbnormalityData>.Update(MHRAbnormalityData data)
     {
         MaxTimer = Math.Max(MaxTimer, data.Timer);
         Timer = data.Timer;

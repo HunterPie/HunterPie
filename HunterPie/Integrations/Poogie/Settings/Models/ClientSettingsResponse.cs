@@ -3,5 +3,5 @@
 namespace HunterPie.Integrations.Poogie.Settings.Models;
 
 internal record ClientSettingsResponse(
-    [JsonProperty("configuration")] string Configuration
+    [property: JsonProperty("configuration")] string Configuration
 );

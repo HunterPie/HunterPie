@@ -20,6 +20,7 @@ public struct AbnormalitySchema
     public int MaxBuildup;
     public bool IsInfinite;
     public int MaxTimer;
+    public bool IsInteger;
 
     public T? GetFlagAs<T>()
     {

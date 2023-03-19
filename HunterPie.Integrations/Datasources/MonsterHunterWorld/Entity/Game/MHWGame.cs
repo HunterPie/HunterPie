@@ -5,6 +5,7 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Entity.Game.Chat;
 using HunterPie.Core.Game.Entity.Player;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
 using HunterPie.Core.Native.IPC.Handlers.Internal.Damage;
@@ -14,6 +15,7 @@ using HunterPie.Integrations.Datasources.Common;
 using HunterPie.Integrations.Datasources.Common.Entity.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enemy;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Services;
@@ -130,7 +132,7 @@ public sealed class MHWGame : CommonGame
 
         float elapsed = MHWCrypto.DecryptQuestTimer(encryptedValue, encryptKey);
 
-        if (questMaxTimerRaw is 0 or 180000 && elapsed is 0.0f or 3000.0f)
+        if (QuestStatus == QuestStatus.None)
         {
             if (!Player.InHuntingZone)
             {
@@ -146,6 +148,7 @@ public sealed class MHWGame : CommonGame
             }
 
             SetTimeElapsed(_localTimerStopwatch.ElapsedMilliseconds / 1000.0f, false);
+
             return;
         }
 
@@ -168,23 +171,14 @@ public sealed class MHWGame : CommonGame
     [ScannableMethod]
     private void GetQuestState()
     {
-        if (!_player.InHuntingZone)
-        {
-            IsInQuest = false;
-            return;
-        }
-
-        bool isInQuest = Memory.Deref<int>(
-            AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
-            AddressMap.Get<int[]>("QUEST_MAX_TIMER_OFFSETS")
-        ) != 0;
-
-        bool isQuestOver = Memory.Deref<int>(
+        var questState = (QuestState)Memory.Deref<int>(
             AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
             AddressMap.Get<int[]>("QUEST_STATE_OFFSETS")
-        ).IsMHWQuestOver();
+        );
 
-        IsInQuest = isInQuest && !isQuestOver;
+        QuestStatus = questState.ToStatus();
+
+        IsInQuest = questState == QuestState.InQuest;
     }
 
     [ScannableMethod]

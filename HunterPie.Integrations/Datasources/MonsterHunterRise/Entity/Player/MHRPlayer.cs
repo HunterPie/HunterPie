@@ -23,6 +23,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Ac
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Entities;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Weapons;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Services;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -389,7 +390,7 @@ public sealed class MHRPlayer : CommonPlayer
             AddressMap.Get<int[]>("CONS_ABNORMALITIES_OFFSETS")
         );
 
-        if (consumableBuffs == 0)
+        if (consumableBuffs.IsNullPointer())
             return;
 
         AbnormalitySchema[] consumableSchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Consumables);
@@ -410,19 +411,26 @@ public sealed class MHRPlayer : CommonPlayer
                 _ => true
             } && abnormSubId == schema.WithValue;
 
-            MHRConsumableStructure abnormality = new();
+            MHRAbnormalityData abnormality = new();
 
-            if (schema.IsInfinite)
-                abnormality.Timer = isConditionValid ? 1 : 0;
-            else if (isConditionValid)
+            if (isConditionValid)
             {
-                abnormality = Process.Memory.Read<MHRConsumableStructure>(consumableBuffs + schema.Offset);
+                if (schema.IsInfinite)
+                    abnormality.Timer = 1;
+                else
+                {
+                    MHRAbnormalityStructure abnormalityStructure = Process.Memory.Read<MHRAbnormalityStructure>(consumableBuffs + schema.Offset);
+                    abnormality = MHRAbnormalityAdapter.Convert(schema, abnormalityStructure);
 
-                if (!schema.IsBuildup)
-                    abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                    if (!schema.IsInteger && !schema.IsBuildup)
+                        abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+
+                    if (schema.MaxTimer > 0)
+                        abnormality.Timer = Math.Max(0.0f, schema.MaxTimer - abnormality.Timer);
+                }
             }
 
-            HandleAbnormality<MHRConsumableAbnormality, MHRConsumableStructure>(
+            HandleAbnormality<MHRConsumableAbnormality, MHRAbnormalityData>(
                 _abnormalities,
                 schema,
                 abnormality.Timer,
@@ -442,7 +450,7 @@ public sealed class MHRPlayer : CommonPlayer
             AddressMap.Get<int[]>("DEBUFF_ABNORMALITIES_OFFSETS")
         );
 
-        if (debuffsPtr == 0)
+        if (debuffsPtr.IsNullPointer())
             return;
 
         AbnormalitySchema[] debuffSchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Debuffs);
@@ -463,22 +471,26 @@ public sealed class MHRPlayer : CommonPlayer
                 _ => true
             } && abnormSubId == schema.WithValue;
 
-            MHRDebuffStructure abnormality = new();
+            MHRAbnormalityData abnormality = new();
 
-            if (schema.IsInfinite)
-                abnormality.Timer = isConditionValid ? 1 : 0;
-            else if (isConditionValid)
+            if (isConditionValid)
             {
-                abnormality = Process.Memory.Read<MHRDebuffStructure>(debuffsPtr + schema.Offset);
+                if (schema.IsInfinite)
+                    abnormality.Timer = 1;
+                else
+                {
+                    MHRAbnormalityStructure abnormalityStructure = Process.Memory.Read<MHRAbnormalityStructure>(debuffsPtr + schema.Offset);
+                    abnormality = MHRAbnormalityAdapter.Convert(schema, abnormalityStructure);
 
-                if (!schema.IsBuildup)
-                    abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                    if (!schema.IsInteger && !schema.IsBuildup)
+                        abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
 
-                if (schema.MaxTimer > 0)
-                    abnormality.Timer = (schema.MaxTimer - abnormality.Timer) > 0 ? (schema.MaxTimer - abnormality.Timer) : 0;
+                    if (schema.MaxTimer > 0)
+                        abnormality.Timer = Math.Max(0.0f, schema.MaxTimer - abnormality.Timer);
+                }
             }
 
-            HandleAbnormality<MHRDebuffAbnormality, MHRDebuffStructure>(
+            HandleAbnormality<MHRDebuffAbnormality, MHRAbnormalityData>(
                 _abnormalities,
                 schema,
                 abnormality.Timer,
@@ -538,16 +550,18 @@ public sealed class MHRPlayer : CommonPlayer
         bool isOnlineSession = sessionPlayersArray[..4].Any(player => player.IsValid);
 
         long[] playerWeaponsPtr = Process.Memory.Read<long>(playersWeaponPtr + 0x20, 6);
+        PartyMemberMetadata[] servantsData = GetServantsData();
+
+        if (!isSos && servantsData.Any())
+            Array.Copy(servantsData, 0, sessionPlayersArray, 4, 2);
 
         // In case player DC'd
         if (!isOnlineSession)
         {
-            bool hasNpcsInParty = sessionPlayersArray[4..6].Any(player => player.IsValid);
-
             if (string.IsNullOrEmpty(Name))
                 return;
 
-            _party.Update(new MHRPartyMemberData()
+            _party.Update(new MHRPartyMemberData
             {
                 Index = 0,
                 Name = Name,
@@ -557,10 +571,8 @@ public sealed class MHRPlayer : CommonPlayer
                 IsMyself = true
             });
 
-            if (!hasNpcsInParty)
+            if (!servantsData.Any())
                 return;
-
-            sessionPlayersArray = GetServantsData(sessionPlayersArray);
         }
 
         foreach ((int index, bool isValid, MHRCharacterData data) in sessionPlayersArray)
@@ -568,7 +580,7 @@ public sealed class MHRPlayer : CommonPlayer
             long weaponPtr = playerWeaponsPtr[index];
             string name = Process.Memory.Read(data.NamePointer + 0x14, 32, Encoding.Unicode);
 
-            if (!isValid)
+            if (!isValid || weaponPtr.IsNullPointer())
             {
                 if (isOnlineSession)
                     _party.Remove(index);
@@ -592,7 +604,7 @@ public sealed class MHRPlayer : CommonPlayer
         }
     }
 
-    private PartyMemberMetadata[] GetServantsData(PartyMemberMetadata[] members)
+    private PartyMemberMetadata[] GetServantsData()
     {
         long servantsArrayPtr = Memory.Read(
             AddressMap.GetAbsolute("SERVANTS_DATA_ADDRESS"),
@@ -601,18 +613,24 @@ public sealed class MHRPlayer : CommonPlayer
 
         long[] servantsArray = Memory.ReadArray<long>(servantsArrayPtr);
 
+        if (!servantsArray.Any())
+            return Array.Empty<PartyMemberMetadata>();
+
+        var servants = new PartyMemberMetadata[servantsArray.Length];
+
         long[] servantsNamePtrs = servantsArray.Select(pointer => Memory.ReadPtr(
             pointer,
             AddressMap.Get<int[]>("SERVANT_NAME_OFFSETS")
         )).ToArray();
 
-        for (int i = 4; i < members.Length; i++)
-            members[i] = members[i] with
-            {
-                Data = new MHRCharacterData { NamePointer = servantsNamePtrs.ElementAtOrDefault(i - 4), HighRank = HighRank, MasterRank = MasterRank }
-            };
+        for (int i = 0; i < servants.Length; i++)
+            servants[i] = new PartyMemberMetadata(
+                Index: i + 4,
+                IsValid: !servantsArray[i].IsNullPointer(),
+                Data: new MHRCharacterData { NamePointer = servantsNamePtrs.ElementAtOrDefault(i), HighRank = HighRank, MasterRank = MasterRank }
+            );
 
-        return members;
+        return servants;
     }
 
     [ScannableMethod]
@@ -707,8 +725,10 @@ public sealed class MHRPlayer : CommonPlayer
         ) != 0;
 
         WirebugState wirebugState = isBlocked ? WirebugState.Blocked :
-            _commonCondition.HasFlag(CommonConditions.WindMantle) ? WirebugState.WindMantle :
             _debuffCondition.HasFlag(DebuffConditions.IceBlight) ? WirebugState.IceBlight :
+            _commonCondition.HasFlag(CommonConditions.WindMantle) ? WirebugState.WindMantle :
+            _commonCondition.HasFlag(CommonConditions.RubyWirebug) ? WirebugState.RubyWirebug :
+            _commonCondition.HasFlag(CommonConditions.GoldWirebug) ? WirebugState.GoldWirebug :
             WirebugState.None;
 
         int wirebugsArrayLength = Math.Min(Wirebugs.Length, Process.Memory.Read<int>(wirebugsArrayPtr + 0x1C));
@@ -726,7 +746,7 @@ public sealed class MHRPlayer : CommonPlayer
             };
 
             data.Structure.Cooldown /= AbnormalityData.TIMER_MULTIPLIER;
-            data.Structure.MaxCooldown /= AbnormalityData.TIMER_MULTIPLIER;
+            data.Structure.MaxCooldown = data.Structure.MaxCooldown == 0 ? 400 : data.Structure.MaxCooldown / AbnormalityData.TIMER_MULTIPLIER;
 
             if (wirebugPtr != Wirebugs[i].Address)
             {

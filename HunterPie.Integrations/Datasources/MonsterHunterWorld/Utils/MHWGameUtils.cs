@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enums;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
 
@@ -90,4 +91,25 @@ public static class MHWGameUtils
 
         return level;
     }
+
+    public static bool IsQuestOver(this QuestState state) => state switch
+    {
+        QuestState.Success or
+            QuestState.Completed or
+            QuestState.Failed or
+            QuestState.Abandon or
+            QuestState.Quit => true,
+        _ => false
+    };
+
+    public static QuestStatus ToStatus(this QuestState state) => state switch
+    {
+        QuestState.InQuest => QuestStatus.InProgress,
+        QuestState.Success or
+        QuestState.Completed => QuestStatus.Success,
+        QuestState.Failed => QuestStatus.Fail,
+        QuestState.Abandon or
+        QuestState.Quit => QuestStatus.Quit,
+        _ => QuestStatus.None
+    };
 }

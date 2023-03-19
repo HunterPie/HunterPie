@@ -83,4 +83,16 @@ public sealed class MHWParty : CommonParty
 
         member.Dispose();
     }
+
+    public void ClearExcept(long memberAddress)
+    {
+        lock (_partyMembers)
+        {
+            long[] addresses = _partyMembers.Keys.Where(it => it != memberAddress)
+                .ToArray();
+
+            foreach (long address in addresses)
+                Remove(address);
+        }
+    }
 }

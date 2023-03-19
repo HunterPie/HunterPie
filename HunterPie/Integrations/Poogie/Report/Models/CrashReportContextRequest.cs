@@ -3,7 +3,7 @@
 namespace HunterPie.Integrations.Poogie.Report.Models;
 
 public record CrashReportContextRequest(
-    [JsonProperty("ram_total")] ulong RamTotal,
-    [JsonProperty("ram_used")] long RamUsed,
-    [JsonProperty("windows_version")] string WindowsVersion
+    [property: JsonProperty("ram_total")] ulong RamTotal,
+    [property: JsonProperty("ram_used")] long RamUsed,
+    [property: JsonProperty("windows_version")] string WindowsVersion
 );
