@@ -21,9 +21,12 @@ public class InMemoryAsyncCache : IAsyncCache
         {
             await _semaphore.WaitAsync();
 
-            bool exists = _innerCache.TryGetValue(key, out ThreadSafeCacheEntry value);
+            bool exists = _innerCache.TryGetValue(key, out ThreadSafeCacheEntry? value);
 
-            if (!exists)
+            if (!exists || value is null)
+                return default;
+
+            if (value.ExpiresAt >= DateTime.UtcNow)
                 return default;
 
             return value.Value is T typedValue ? typedValue : default;
