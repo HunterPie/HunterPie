@@ -30,7 +30,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
-            <ColumnDefinition/>
+            <ColumnDefinition x:Name="PART_ContentColumn"/>
         </Grid.ColumnDefinitions>
         <Border Grid.ColumnSpan="1"
                 Grid.Column="1"
@@ -39,7 +39,7 @@
         <!-- Background bar -->
         <Grid Grid.Column="1"
               HorizontalAlignment="Left"
-              MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
+              MaxWidth="{Binding ActualWidth, ElementName=PART_ContentColumn}"
               Margin="1,1,0,1"
               ClipToBounds="True"
               d:Width="200">
@@ -57,6 +57,9 @@
                 </Rectangle.Effect>
                 <Rectangle.Style>
                     <Style TargetType="Rectangle">
+                        <Style.Setters>
+                            <Setter Property="Fill" Value="{StaticResource FertilizerBackgroundColor}"/>
+                        </Style.Setters>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsExpiring}" Value="True">
                                 <DataTrigger.EnterActions>
