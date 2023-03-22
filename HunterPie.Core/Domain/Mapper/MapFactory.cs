@@ -10,7 +10,7 @@ namespace HunterPie.Core.Domain.Mapper;
 /// </summary>
 public static class MapFactory
 {
-    private static readonly Dictionary<Type, Dictionary<Type, Type>> _mappers = new();
+    private static readonly Dictionary<(Type, Type), object> _mappers = new();
 
     /// <summary>
     /// Adds a new IMapper to the MapFactory
@@ -20,13 +20,14 @@ public static class MapFactory
     /// <param name="mapper">Mapper implementation</param>
     public static void Add<TIn, TOut>(IMapper<TIn, TOut> mapper)
     {
-        if (!_mappers.ContainsKey(typeof(TIn)))
-            _mappers[typeof(TIn)] = new Dictionary<Type, Type>();
+        Type typeIn = typeof(TIn);
+        Type typeOut = typeof(TOut);
+        (Type, Type) key = (typeIn, typeOut);
 
-        if (_mappers[typeof(TIn)].ContainsKey(typeof(TOut)))
-            return;
+        if (_mappers.ContainsKey(key))
+            throw new Exception($"There is already a mapper for {typeIn.Name} to {typeOut.Name}");
 
-        _mappers[typeof(TIn)][typeof(TOut)] = mapper.GetType();
+        _mappers[key] = mapper;
     }
 
     /// <summary>
@@ -39,15 +40,14 @@ public static class MapFactory
     /// <returns>Mapped object</returns>
     public static TOut Map<TIn, TOut>(TIn @object)
     {
-        if (!_mappers.ContainsKey(@object.GetType()))
+        Type typeIn = typeof(TIn);
+        Type typeOut = typeof(TOut);
+        (Type, Type) key = (typeIn, typeOut);
+
+        if (!_mappers.ContainsKey(key))
             return default;
 
-        if (!_mappers[@object.GetType()].ContainsKey(typeof(TOut)))
-            return default;
-
-        Type mapperType = _mappers[@object.GetType()][typeof(TOut)];
-
-        var mapper = (IMapper<TIn, TOut>)Activator.CreateInstance(mapperType);
+        var mapper = (IMapper<TIn, TOut>)_mappers[key];
 
         return mapper.Map(@object);
     }

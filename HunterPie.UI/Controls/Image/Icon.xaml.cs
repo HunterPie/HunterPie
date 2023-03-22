@@ -28,6 +28,5 @@ public partial class Icon : UserControl
     public Icon()
     {
         InitializeComponent();
-        DataContext = this;
     }
 }

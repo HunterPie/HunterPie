@@ -12,9 +12,7 @@ public class AbnormalityStringToIconConverter : IValueConverter
     {
         object icon = Application.Current.TryFindResource(value);
 
-        return icon is null
-                ? null
-                : (ImageSource)icon;
+        return (ImageSource)icon;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();

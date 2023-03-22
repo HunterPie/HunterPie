@@ -1,6 +1,8 @@
-﻿namespace HunterPie.Core.Domain.Cache.Model;
-internal class ThreadSafeCacheEntry
-{
-    public int Count { get; set; }
-    public object Value { get; init; }
-}
+﻿using System;
+
+namespace HunterPie.Core.Domain.Cache.Model;
+
+internal record ThreadSafeCacheEntry(
+    DateTime ExpiresAt,
+    object Value
+);

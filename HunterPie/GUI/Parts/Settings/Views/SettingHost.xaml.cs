@@ -11,14 +11,13 @@ namespace HunterPie.GUI.Parts.Settings.Views;
 /// </summary>
 public partial class SettingHost : UserControl
 {
-    private readonly Storyboard SlideInAnimation;
+    private readonly Storyboard _slideInAnimation;
     public SettingHostViewModel ViewModel => (SettingHostViewModel)DataContext;
 
     public SettingHost()
     {
         InitializeComponent();
-        SlideInAnimation = FindResource("SlideInAnimation") as Storyboard;
-
+        _slideInAnimation = FindResource("SlideInAnimation") as Storyboard;
     }
 
     private void OnRealTimeSearch(object sender, SearchTextChangedEventArgs e) => ViewModel.SearchSetting(e.Text);
@@ -38,5 +37,5 @@ public partial class SettingHost : UserControl
             AnimatePanel(element);
     }
 
-    private void AnimatePanel(FrameworkElement element) => SlideInAnimation.Begin(element);
+    private void AnimatePanel(FrameworkElement element) => _slideInAnimation.Begin(element);
 }

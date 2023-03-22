@@ -11,6 +11,7 @@ internal static class SideBar
         new ConsoleSideBarElementViewModel(),
         new SettingsSideBarElementViewModel(),
         new PatchNotesSideBarElementViewModel(),
+        new QuestStatisticsSideBarElementViewModel(),
         //new PluginsSideBarElementViewModel(),
         new PatreonSideBarElementViewModel(),
         new DiscordSideBarElementViewModel(),

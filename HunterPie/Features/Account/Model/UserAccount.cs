@@ -7,6 +7,7 @@ internal record UserAccount(
     string Username,
     string Email,
     string AvatarUrl,
+    AccountTier Tier,
     bool IsSupporter
 );
 
@@ -19,6 +20,7 @@ internal static class UserAccountExtensions
             Username: response.Username,
             Email: response.Email,
             AvatarUrl: response.AvatarUrl,
+            Tier: response.SupporterTier.ToEntity(),
             IsSupporter: response.IsSupporter
         );
     }
