@@ -22,4 +22,9 @@ public static class DateTimeExtensions
     {
         return time >= start && time <= end;
     }
+
+    public static DateTime Max(this DateTime time, DateTime other)
+    {
+        return time > other ? time : other;
+    }
 }
