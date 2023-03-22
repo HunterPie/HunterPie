@@ -93,7 +93,7 @@ internal class PartyMemberDetailsViewModelBuilder
             .Where(it => (it.StartedAt >= startedAt || it.FinishedAt >= startedAt) && it.StartedAt < finishedAt)
             .ToImmutableArray();
 
-        double upTime = timeFrames.Sum(it => (it.FinishedAt - it.StartedAt).TotalSeconds) / questTime;
+        double upTime = timeFrames.Sum(it => (it.FinishedAt - it.StartedAt.Max(startedAt)).TotalSeconds);
 
         Color color = RandomColor();
 
@@ -112,7 +112,7 @@ internal class PartyMemberDetailsViewModelBuilder
             Name = abnormalityData.Name,
             Icon = abnormalityData.Icon,
             Color = ColorFadeGradient.FromColor(color),
-            UpTime = Math.Min(1.0, upTime),
+            UpTime = Math.Min(1.0, upTime / questTime),
             Activations = activations
         };
     }

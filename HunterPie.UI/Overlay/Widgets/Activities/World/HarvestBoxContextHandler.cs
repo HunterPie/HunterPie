@@ -10,6 +10,7 @@ using System.Collections.Generic;
 namespace HunterPie.UI.Overlay.Widgets.Activities.World;
 public class HarvestBoxContextHandler : IActivityContextHandler
 {
+    private const int MAX_FERTILIZER = 9;
     private readonly MHWContext _context;
     private readonly Dictionary<MHWFertilizer, HarvestFertilizerViewModel> _fertilizerViewModels;
     private MHWPlayer Player => (MHWPlayer)_context.Game.Player;
@@ -33,7 +34,7 @@ public class HarvestBoxContextHandler : IActivityContextHandler
                 Amount = fertilizer.Count,
                 Fertilizer = fertilizer.Id,
                 IsExpiring = fertilizer.Count <= 4,
-                MaxAmount = 8
+                MaxAmount = MAX_FERTILIZER
             };
 
             fertilizer.OnCountChange += OnFertilizerCountChange;
@@ -79,6 +80,6 @@ public class HarvestBoxContextHandler : IActivityContextHandler
 
         vm.Amount = e.Count;
         vm.IsExpiring = e.Count <= 4;
-        vm.MaxAmount = 8;
+        vm.MaxAmount = MAX_FERTILIZER;
     }
 }
