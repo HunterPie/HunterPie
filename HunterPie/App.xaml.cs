@@ -55,7 +55,7 @@ public partial class App : Application
 
         SetRenderingMode();
 
-#if !DEBUG
+#if RELEASE
         if (await SelfUpdate())
             return;
 #endif
