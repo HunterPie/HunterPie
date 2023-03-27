@@ -12,7 +12,7 @@
     <Border CornerRadius="5"
             Background="{StaticResource GRAY_200}">
         <Image d:Source="https://cdn.hunterpie.com/Assets/Monsters/Icons/Rise_109.png"
-               Source="{Binding Icon, Mode=OneWay}"
+               Source="{Binding Icon, Mode=OneWay, TargetNullValue={StaticResource ICON_MISSING}}"
                RenderOptions.BitmapScalingMode="Fant"
                Margin="3"/>
     </Border>

@@ -13,7 +13,7 @@ public class MonsterIconAdapter
         string localUri = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{monsterEm}.png");
 
         if (!File.Exists(localUri))
-            localUri = await CDN.GetMonsterIconUrl(localUri);
+            localUri = await CDN.GetMonsterIconUrl(monsterEm);
 
         return localUri;
     }
