@@ -43,3 +43,18 @@ docs::before {
     background-color: #4b8fee3d;
     font-size: 1vh;
 }
+
+blog::before {
+    content: "Blog";
+    font-family: 'Source Sans Pro', 'Microsoft Yahei', sans-serif; ;
+    color: whitesmoke;
+    font-weight: 600;
+    display: inline-flex;
+    vertical-align: super;
+    padding: 5px;
+    border-radius: 5px;
+    color: #64ffb1;
+    border: 1px solid #64ffb1; 
+    background-color: #64ffb141;
+    font-size: 1vh;
+}
