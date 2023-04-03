@@ -667,6 +667,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Overlay\Widgets\Classes\ViewModels\" />
     <Folder Include="Overlay\Widgets\Player\Model\" />
     <Folder Include="Properties\" />
   </ItemGroup>
