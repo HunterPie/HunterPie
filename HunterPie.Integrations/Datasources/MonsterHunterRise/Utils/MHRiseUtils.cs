@@ -9,7 +9,7 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 
 public static class MHRiseUtils
 {
-    private readonly static HashSet<QuestType> HuntQuestTypes = new() { QuestType.Normal, QuestType.Kill, QuestType.Capture, QuestType.Arena };
+    private static readonly HashSet<QuestType> HuntQuestTypes = new() { QuestType.Normal, QuestType.Kill, QuestType.Capture, QuestType.Arena };
     private const double MAX_DEFAULT_STAMINA = 1500.0;
     private const double FOOD_BONUS_STAMINA = 3000.0;
     private const double MAX_DEFAULT_HEALTH = 100.0;

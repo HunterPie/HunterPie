@@ -10,7 +10,7 @@ namespace HunterPie.Features.Overlay;
 
 internal class MonsterWidgetInitializer : IWidgetInitializer
 {
-    private IContextHandler _handler;
+    private IContextHandler? _handler;
 
     public void Load(IContext context)
     {

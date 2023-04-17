@@ -3,8 +3,10 @@ using HunterPie.UI.Architecture;
 
 namespace HunterPie.UI.Overlay.Widgets.Classes.ViewModels;
 
-public class InsectGlaiveViewModel : ViewModel
+public class InsectGlaiveViewModel : ViewModel, IClassViewModel
 {
+    public Weapon WeaponId => Weapon.InsectGlaive;
+
     private KinsectBuff _primaryQueuedBuff;
     public KinsectBuff PrimaryQueuedBuff { get => _primaryQueuedBuff; set => SetValue(ref _primaryQueuedBuff, value); }
 
@@ -14,6 +16,9 @@ public class InsectGlaiveViewModel : ViewModel
     private double _stamina;
     public double Stamina { get => _stamina; set => SetValue(ref _stamina, value); }
 
+    private double _maxStamina;
+    public double MaxStamina { get => _maxStamina; set => SetValue(ref _maxStamina, value); }
+
     private double _attackTimer;
     public double AttackTimer { get => _attackTimer; set => SetValue(ref _attackTimer, value); }
 
@@ -22,4 +27,5 @@ public class InsectGlaiveViewModel : ViewModel
 
     private double _defenseTimer;
     public double DefenseTimer { get => _defenseTimer; set => SetValue(ref _defenseTimer, value); }
+
 }

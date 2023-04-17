@@ -213,4 +213,14 @@
         <GradientStop Color="#FFCB2D3E"/>
         <GradientStop Color="#FFEF473A" Offset="1"/>
     </LinearGradientBrush>
+
+    <!-- Insect Glaive -->
+    <Color x:Key="INSECT_GLAIVE_EXTRACT_ATTACK_COLOR">#A83248</Color>
+    <Color x:Key="INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR">#d97925</Color>
+    <Color x:Key="INSECT_GLAIVE_EXTRACT_HEAL_COLOR">#5BF77F</Color>
+    <Color x:Key="INSECT_GLAIVE_EXTRACT_SPEED_COLOR">#fff3e8</Color>
+    <LinearGradientBrush x:Key="INSECT_GLAIVE_KINSECT_STAMINA" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFFFB342" Offset="0"/>
+        <GradientStop Color="#FFFFD200" Offset="1"/>
+    </LinearGradientBrush>
 </ResourceDictionary>
