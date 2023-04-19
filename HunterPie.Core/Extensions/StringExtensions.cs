@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace HunterPie.Core.Extensions;
 
+#nullable enable
 public static class StringExtensions
 {
     /// <summary>
@@ -11,7 +12,7 @@ public static class StringExtensions
     /// <param name="value">string</param>
     /// <param name="chars">characters to remove (default is ' ', '\x0A', '\x0B', '\x0C', '\x0D')</param>
     /// <returns>Pretty string</returns>
-    public static string RemoveChars(this string value, char[] chars = null)
+    public static string RemoveChars(this string value, char[]? chars = null)
     {
         chars ??= new char[] { ' ', '\x0A', '\x0B', '\x0C', '\x0D' };
 
@@ -52,5 +53,16 @@ public static class StringExtensions
                 return true;
 
         return false;
+    }
+
+    /// <summary>
+    /// Formats a string with given arguments
+    /// </summary>
+    /// <param name="source">String to be used as base</param>
+    /// <param name="args">Arguments to format the string</param>
+    /// <returns>Formatted string</returns>
+    public static string Format(this string source, params object?[] args)
+    {
+        return string.Format(source, args);
     }
 }

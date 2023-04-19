@@ -22,4 +22,10 @@ public partial class QuestStatisticsSummariesView : View<QuestStatisticsSummarie
     private void OnRequestPageUpdate(object sender, RoutedEventArgs e) => ViewModel.RequestPageUpdate();
 
     private void OnSupporterPromptClick(object sender, RoutedEventArgs e) => BrowserService.OpenUrl(PATREON_LINK);
+
+    private void OnSummaryClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is IView<QuestStatisticsSummaryViewModel> view && view.ViewModel.UploadId is { } uploadId)
+            ViewModel.NavigateToHuntDetails(uploadId);
+    }
 }

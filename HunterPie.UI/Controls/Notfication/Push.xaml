@@ -8,10 +8,10 @@
              MinWidth="200"
              MaxWidth="350">
     <Border CornerRadius="5"
-            d:BorderBrush="{StaticResource GREEN_LIGHT_300}"
+            d:BorderBrush="{StaticResource BLUE_LIGHT_300}"
             BorderBrush="{Binding Foreground, Mode=OneTime}"
             BorderThickness="1"
-            d:Background="{StaticResource GREEN_700}"
+            d:Background="{StaticResource BLUE_700}"
             Background="{Binding Background, Mode=OneTime}">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -19,13 +19,13 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Rectangle d:Fill="{StaticResource GREEN_LIGHT_400}"
+            <Rectangle d:Fill="{StaticResource BLUE_LIGHT_400}"
                        Fill="{Binding Foreground, Mode=OneTime}"
                        Margin="6"
                        Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                        VerticalAlignment="Center">
                 <Rectangle.OpacityMask>
-                    <ImageBrush d:ImageSource="{StaticResource ICON_CHECKMARK}"
+                    <ImageBrush d:ImageSource="{StaticResource ICON_INFO}"
                                 ImageSource="{Binding Icon, Mode=OneTime}"
                                 Stretch="Uniform"/>
                 </Rectangle.OpacityMask>
@@ -33,7 +33,7 @@
 
             <TextBlock d:Text="Testing asdljkhaskj hkasdhkaj shdkjash jas açskdjkl aaldk jaslk ajsldkjlak jdlkasjd alksdj kl alkshdla h ajsdhskj kjas hdkjas"
                        Text="{Binding Message, Mode=OneTime}"
-                       d:Foreground="{StaticResource GREEN_LIGHT_400}"
+                       d:Foreground="{StaticResource BLUE_LIGHT_400}"
                        Foreground="{Binding Foreground, Mode=OneTime}"
                        VerticalAlignment="center"
                        Grid.Column="1"

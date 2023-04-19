@@ -6,6 +6,10 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  {% if page.image.src %}
+  <meta property="og:image" content="{{ site.img_cdn }}{{ page.image.src }}">
+  <meta property="twitter:image" content="{{ site.img_cdn }}{{ page.image.src }}">
+  {% endif %}
   <!-- Allow having a localized datetime different from the appearance language -->
   {% if site.prefer_datetime_locale %}
     <meta name="prefer-datetime-locale" content="{{ site.prefer_datetime_locale }}">
