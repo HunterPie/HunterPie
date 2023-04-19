@@ -10,5 +10,6 @@ internal record MyUserAccountResponse(
     [property: JsonProperty("experience")] int Experience,
     [property: JsonProperty("rating")] int Rating,
     [property: JsonProperty("badges")] List<object> Badges,
-    [property: JsonProperty("is_supporter")] bool IsSupporter
+    [property: JsonProperty("is_supporter")] bool IsSupporter,
+    [property: JsonProperty("tier")] SupporterTier SupporterTier
 );

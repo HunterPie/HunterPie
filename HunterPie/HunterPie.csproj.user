@@ -9,6 +9,12 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="GUI\Parts\Statistics\Details\Views\MonsterDetailsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GUI\Parts\Statistics\Details\Views\QuestDetailsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Features\Tools\Localization\Views\LocalizableStringView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -78,11 +84,29 @@
     <Compile Update="GUI\Parts\Sidebar\SideBarElement.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="GUI\Parts\Statistics\Views\MonsterSummaryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GUI\Parts\Statistics\Views\QuestStatisticsSummariesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GUI\Parts\Statistics\Views\QuestStatisticsSummarySkeletonView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GUI\Parts\Statistics\Views\QuestStatisticsSummaryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Update\Presentation\UpdateView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="GUI\Parts\Statistics\Details\Views\MonsterDetailsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Parts\Statistics\Details\Views\QuestDetailsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Features\Tools\Localization\Views\LocalizableStringView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -153,6 +177,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Sidebar\SideBarElement.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Parts\Statistics\Views\MonsterSummaryView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Parts\Statistics\Views\QuestStatisticsSummariesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Parts\Statistics\Views\QuestStatisticsSummarySkeletonView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Parts\Statistics\Views\QuestStatisticsSummaryView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">

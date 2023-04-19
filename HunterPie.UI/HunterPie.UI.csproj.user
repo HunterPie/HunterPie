@@ -14,6 +14,9 @@
     <Compile Update="Controls\Buttons\Keybinding.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Buttons\Pagination.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Buttons\Skeleton\BannerCardSkeleton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -30,6 +33,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Misc\Badge.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Notfication\Prompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Notfication\Push.xaml.cs">
@@ -57,6 +63,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\TextBox\SecretTextBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Text\LabeledText.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Dialog\DialogView.xaml.cs">
@@ -193,6 +202,9 @@
     <Page Update="Controls\Buttons\Keybinding.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\Buttons\Pagination.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\Buttons\Skeleton\BannerCardSkeleton.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -209,6 +221,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Misc\Badge.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Notfication\Prompt.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Notfication\Push.xaml">
@@ -236,6 +251,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\TextBox\SecretTextBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Text\LabeledText.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Dialog\DialogView.xaml">

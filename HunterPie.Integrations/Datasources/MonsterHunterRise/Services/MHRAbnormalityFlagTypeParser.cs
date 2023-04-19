@@ -9,11 +9,10 @@ public class MHRAbnormalityFlagTypeParser : IAbnormalityFlagTypeParser
     {
         Type? enumType = type switch
         {
-            AbnormalityFlagType.None => null,
             AbnormalityFlagType.RiseCommon => typeof(CommonConditions),
             AbnormalityFlagType.RiseDebuff => typeof(DebuffConditions),
             AbnormalityFlagType.RiseAction => typeof(ActionFlags),
-            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+            _ => null
         };
 
         if (enumType is null)

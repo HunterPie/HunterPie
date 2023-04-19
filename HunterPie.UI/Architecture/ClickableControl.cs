@@ -12,7 +12,7 @@ public class ClickableControl : UserControl
 
     public event EventHandler<EventArgs> OnClick;
 
-    public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Direct, typeof(RoutedEventHandler), typeof(ClickableControl));
+    public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ClickableControl));
 
     public event RoutedEventHandler Click
     {

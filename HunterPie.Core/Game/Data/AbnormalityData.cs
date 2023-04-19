@@ -1,6 +1,5 @@
 ﻿using HunterPie.Core.Game.Data.Interfaces;
 using HunterPie.Core.Game.Data.Schemas;
-using HunterPie.Core.Logger;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,6 +9,7 @@ using System.Xml;
 namespace HunterPie.Core.Game.Data;
 
 #nullable enable
+[Obsolete("AbnormalityData is deprecated and will be removed in a later release, use AbnormalityService instead.")]
 public class AbnormalityData
 {
     public const string SongPrefix = "Songs_";
@@ -103,44 +103,6 @@ public class AbnormalityData
         return self.StartsWith("ABN_")
             ? self
             : $"{group}_{self}";
-    }
-
-    public static AbnormalitySchema? GetSongAbnormalityData(int id) => GetAbnormalityData($"{SongPrefix}{id}");
-
-    public static AbnormalitySchema? GetConsumableAbnormalityData(int id, int subId = int.MinValue)
-    {
-        string stringId = subId switch
-        {
-            int.MinValue => $"{ConsumablePrefix}{id}",
-            _ => $"{ConsumablePrefix}{id}-{subId}"
-        };
-
-        return GetAbnormalityData(stringId);
-    }
-
-    public static AbnormalitySchema? GetDebuffAbnormalityData(int id, int subId = int.MinValue)
-    {
-
-        string stringId = subId switch
-        {
-            int.MinValue => $"{DebuffPrefix}{id}",
-            _ => $"{DebuffPrefix}{id}-{subId}"
-        };
-
-        return GetAbnormalityData(stringId);
-    }
-
-    private static AbnormalitySchema? GetAbnormalityData(string id)
-    {
-        if (!Abnormalities.ContainsKey(id))
-            return null;
-
-        AbnormalitySchema schema = Abnormalities[id];
-
-        if (schema.Icon == "ICON_MISSING")
-            Log.Info($"Missing abnormality {id}");
-
-        return schema;
     }
 
     public static AbnormalitySchema[] GetAllAbnormalitiesFromCategory(string category)

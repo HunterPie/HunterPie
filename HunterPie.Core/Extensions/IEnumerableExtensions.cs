@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace HunterPie.Core.Extensions;
+
+#nullable enable
 public static class IEnumerableExtensions
 {
 
@@ -30,5 +33,20 @@ public static class IEnumerableExtensions
                 list.Add(casted);
 
         return list;
+    }
+
+    public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> enumerable)
+    {
+        return new ObservableCollection<T>(enumerable);
+    }
+
+    public static IEnumerable<T> FilterNull<T>(this IEnumerable<T?> enumerable) =>
+        enumerable.Where(it => it is not null)
+            .Cast<T>();
+
+    public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
+    {
+        foreach (T? item in enumerable)
+            action(item);
     }
 }
