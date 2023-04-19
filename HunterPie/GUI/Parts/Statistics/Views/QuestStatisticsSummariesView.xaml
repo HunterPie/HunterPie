@@ -9,12 +9,15 @@
                    xmlns:architecture="clr-namespace:HunterPie.UI.Architecture;assembly=HunterPie.UI"
                    xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
                    xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+                   xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
                    xmlns:notfication="clr-namespace:HunterPie.UI.Controls.Notfication;assembly=HunterPie.UI"
+                   xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
                    mc:Ignorable="d" 
                    d:DesignHeight="450" 
                    d:DesignWidth="800"
                    d:DataContext="{d:DesignInstance viewModels:QuestStatisticsSummariesViewModel}">
     <UserControl.Resources>
+        <converters:InvertBooleanConverter x:Key="InvertBooleanConverter"/>
         <DataTemplate x:Key="PromptSupporterTier1">
             <buttons:Button Padding="0"
                             VerticalAlignment="Center"
@@ -23,10 +26,12 @@
                             HorizontalContentAlignment="Stretch"
                             Margin="5"
                             Click="OnSupporterPromptClick">
-                <notfication:Prompt Message="Become a Supporter to see more than 7 days of hunts!"
+                <notfication:Prompt d:Message="Become a Supporter to see more than 7 days of hunts!"
+                                    Message="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_SUPPORTER_FREE_TIER_STRING&quot;]'}"
                                     HorizontalAlignment="Center"
+                                    IconMargin="10"
                                     Icon="{StaticResource ICON_SUPPORTER_TIER_1}"
-                                    BorderBrush="{StaticResource HUNTERPIE_SUPPORTER_T1}"/>
+                                    BorderBrush="{StaticResource BLUE}"/>
             </buttons:Button>
         </DataTemplate>
 
@@ -38,12 +43,19 @@
                             HorizontalContentAlignment="Stretch"
                             Margin="5"
                             Click="OnSupporterPromptClick">
-                <notfication:Prompt Message="Become a Tier 2 Supporter to see more than 30 days of hunts!"
+                <notfication:Prompt d:Message="Become a Tier 2 Supporter to see more than 30 days of hunts!"
+                                    Message="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_SUPPORTER_LOW_TIER_STRING&quot;]'}"
                                     HorizontalAlignment="Center"
                                     Icon="{StaticResource ICON_SUPPORTER_TIER_2}"
                                     BorderBrush="{StaticResource HUNTERPIE_SUPPORTER_T2}"/>
             </buttons:Button>
         </DataTemplate>
+
+        <DataTemplate x:Key="QuestSummaryTemplate">
+            <local:QuestStatisticsSummaryView Height="130"
+                                              Click="OnSummaryClick"/>
+        </DataTemplate>
+        
     </UserControl.Resources>
     <Grid Background="{StaticResource GRAY_300}">
         <Grid.RowDefinitions>
@@ -53,7 +65,8 @@
         <Rectangle Grid.Row="0"
                    Fill="{StaticResource GRAY_500}"/>
         <TextBlock Grid.Row="0"
-                   Text="Exported Hunts"
+                   d:Text="Exported Hunts"
+                   Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_SUMMARY_TITLE_STRING&quot;]'}"
                    Foreground="{StaticResource WHITE_300}"
                    VerticalAlignment="Center"
                    Margin="5"
@@ -114,7 +127,8 @@
                                         <Setter.Value>
                                             <notfication:Prompt Margin="10"
                                                                 Icon="{StaticResource ICON_ERROR_MASK}"
-                                                                Message="Failed to fetch exported hunts. Try again later."
+                                                                d:Message="Failed to fetch exported hunts. Try again later."
+                                                                Message="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_FETCH_FAILED_ERROR_STRING&quot;]'}"
                                                                 BorderBrush="{StaticResource RED_50}"/>
                                         </Setter.Value>
                                     </Setter>
@@ -132,7 +146,8 @@
                                         <Setter.Value>
                                             <notfication:Prompt Margin="10"
                                                                 Icon="{StaticResource ICON_INFO}"
-                                                                Message="There were no exported hunts available in the period available for your account."
+                                                                d:Message="There were no exported hunts available in the period available for your account."
+                                                                Message="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_NO_LOGS_STRING&quot;]'}"
                                                                 BorderBrush="{StaticResource WHITE_600}"/>
                                         </Setter.Value>
                                     </Setter>
@@ -148,19 +163,15 @@
                                     </MultiDataTrigger.Conditions>
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <ItemsControl ItemsSource="{Binding Summaries, Mode=OneTime}">
+                                            <ItemsControl ItemsSource="{Binding Summaries, Mode=OneTime}"
+                                                          ItemTemplate="{StaticResource QuestSummaryTemplate}"
+                                                          IsEnabled="{Binding IsFetchingDetails, Mode=OneWay, Converter={StaticResource InvertBooleanConverter}}">
                                                 <ItemsControl.ItemsPanel>
                                                     <ItemsPanelTemplate>
                                                         <StackPanel Orientation="Vertical"
                                                                     Margin="5"/>
                                                     </ItemsPanelTemplate>
                                                 </ItemsControl.ItemsPanel>
-
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <local:QuestStatisticsSummaryView Height="130"/>
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
                                             </ItemsControl>
                                         </Setter.Value>
                                     </Setter>

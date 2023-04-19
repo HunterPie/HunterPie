@@ -10,14 +10,19 @@ namespace HunterPie.UI.Controls.Notfication;
 /// </summary>
 public partial class Push : UserControl
 {
-    private static readonly Brush _normalForeground = AppResources.Get<Brush>("WHITE_600");
-    private static readonly Brush _normalBackground = AppResources.Get<Brush>("GRAY_300");
-    private static readonly Brush _errorForeground = AppResources.Get<Brush>("RED_LIGHT_200");
-    private static readonly Brush _errorBackground = AppResources.Get<Brush>("RED_700");
-    private static readonly ImageSource _errorIcon = AppResources.Icon("ICON_ERROR_MASK");
-    private static readonly Brush _successForeground = AppResources.Get<Brush>("GREEN_LIGHT_300");
-    private static readonly Brush _successBackground = AppResources.Get<Brush>("GREEN_700");
-    private static readonly ImageSource _successIcon = AppResources.Icon("ICON_CHECKMARK");
+    // TODO: Remove all this messy stuff from here and make UI agnostic
+
+    private static readonly Brush NormalForeground = AppResources.Get<Brush>("WHITE_600");
+    private static readonly Brush NormalBackground = AppResources.Get<Brush>("GRAY_300");
+    private static readonly Brush ErrorForeground = AppResources.Get<Brush>("RED_LIGHT_200");
+    private static readonly Brush ErrorBackground = AppResources.Get<Brush>("RED_700");
+    private static readonly ImageSource ErrorIcon = AppResources.Icon("ICON_ERROR_MASK");
+    private static readonly Brush SuccessForeground = AppResources.Get<Brush>("GREEN_LIGHT_300");
+    private static readonly Brush SuccessBackground = AppResources.Get<Brush>("GREEN_700");
+    private static readonly ImageSource SuccessIcon = AppResources.Icon("ICON_CHECKMARK");
+    private static readonly Brush InfoForeground = AppResources.Get<Brush>("BLUE_LIGHT_400");
+    private static readonly Brush InfoBackground = AppResources.Get<Brush>("BLUE_700");
+    private static readonly ImageSource InfoIcon = AppResources.Icon("ICON_INFO");
 
     public new Brush Background
     {
@@ -72,9 +77,9 @@ public partial class Push : UserControl
         return new Push
         {
             Message = message,
-            Background = _errorBackground,
-            Foreground = _errorForeground,
-            Icon = _errorIcon
+            Background = ErrorBackground,
+            Foreground = ErrorForeground,
+            Icon = ErrorIcon
         };
     }
 
@@ -83,9 +88,20 @@ public partial class Push : UserControl
         return new Push
         {
             Message = message,
-            Background = _successBackground,
-            Foreground = _successForeground,
-            Icon = _successIcon
+            Background = SuccessBackground,
+            Foreground = SuccessForeground,
+            Icon = SuccessIcon
+        };
+    }
+
+    public static Push Info(string message)
+    {
+        return new Push
+        {
+            Message = message,
+            Background = InfoBackground,
+            Foreground = InfoForeground,
+            Icon = InfoIcon
         };
     }
 
@@ -99,8 +115,8 @@ public partial class Push : UserControl
         return new Push
         {
             Message = message,
-            Background = _normalBackground,
-            Foreground = _normalForeground
+            Background = NormalBackground,
+            Foreground = NormalForeground
         };
     }
 }

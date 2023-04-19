@@ -9,6 +9,7 @@
              xmlns:text="clr-namespace:HunterPie.UI.Controls.Text;assembly=HunterPie.UI"
              xmlns:controls="clr-namespace:HunterPie.UI.Overlay.Controls;assembly=HunterPie.UI"
              xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
+             xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
              mc:Ignorable="d" 
@@ -79,7 +80,8 @@
                             BorderBrush="{StaticResource GRAY_100}"
                             BorderThickness="0,0,1,0"
                             CornerRadius="5,0,0,0">
-                        <TextBlock Text="Hunt Details"
+                        <TextBlock d:Text="Hunt Details"
+                                   Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_HUNT_DETAILS_STRING&quot;]'}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    Foreground="{StaticResource WHITE_300}"
@@ -113,7 +115,8 @@
                             Grid.Row="0" 
                             Background="{StaticResource GRAY_300}"
                             CornerRadius="0,5,0,0">
-                        <TextBlock Text="Ailments"
+                        <TextBlock d:Text="Status Details"
+                                   Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_STATUS_DETAILS_STRING&quot;]'}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    Foreground="{StaticResource WHITE_300}"
@@ -140,7 +143,6 @@
                                                 HorizontalContentAlignment="Stretch"
                                                 VerticalContentAlignment="Stretch"
                                                 BorderThickness="1"
-                                                Background="{StaticResource GRAY_300}"
                                                 CornerRadius="5"
                                                 Height="80"
                                                 Click="OnMonsterStatusClick">
@@ -151,6 +153,13 @@
                                             <Binding Source="{StaticResource GRAY}"/>
                                         </MultiBinding>
                                     </buttons:Button.BorderBrush>
+                                    <buttons:Button.Background>
+                                        <MultiBinding Converter="{StaticResource BoolPickConverter}">
+                                            <Binding Path="DataContext.IsToggled" RelativeSource="{RelativeSource Self}"/>
+                                            <Binding Source="{StaticResource GREEN_700}"/>
+                                            <Binding Source="{StaticResource GRAY_300}"/>
+                                        </MultiBinding>
+                                    </buttons:Button.Background>
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="3*"/>
@@ -203,7 +212,8 @@
                             BorderBrush="{StaticResource GRAY_100}"
                             BorderThickness="0,0,1,0"
                             CornerRadius="5,0,0,0">
-                        <TextBlock Text="Party Members"
+                        <TextBlock d:Text="Party Members"
+                                   Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_PARTY_MEMBERS_STRING&quot;]'}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    Foreground="{StaticResource WHITE_300}"
@@ -290,7 +300,8 @@
                             Grid.Row="0" 
                             Background="{StaticResource GRAY_300}"
                             CornerRadius="0,5,0,0">
-                        <TextBlock Text="Details"
+                        <TextBlock d:Text="Details"
+                                   Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_DETAILS_STRING&quot;]'}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    Foreground="{StaticResource WHITE_300}"
@@ -362,7 +373,8 @@
                             BorderBrush="{StaticResource GRAY_100}"
                             BorderThickness="0,0,1,0"
                             CornerRadius="5,0,0,0">
-                        <TextBlock Text="Abnormalities"
+                        <TextBlock d:Text="Abnormalities"
+                                   Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_ABNORMALITIES_STRING&quot;]'}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    Foreground="{StaticResource WHITE_300}"
@@ -385,7 +397,6 @@
                                                 Width="50"
                                                 Height="50"
                                                 Margin="5"
-                                                Background="{StaticResource GRAY_300}"
                                                 BorderThickness="1"
                                                 CornerRadius="5"
                                                 Click="OnAbnormalityClick"
@@ -397,6 +408,13 @@
                                             <Binding Source="{StaticResource GRAY}"/>
                                         </MultiBinding>
                                     </buttons:Button.BorderBrush>
+                                    <buttons:Button.Background>
+                                        <MultiBinding Converter="{StaticResource BoolPickConverter}">
+                                            <Binding Path="DataContext.IsToggled" RelativeSource="{RelativeSource Self}"/>
+                                            <Binding Source="{StaticResource GREEN_700}"/>
+                                            <Binding Source="{StaticResource GRAY_300}"/>
+                                        </MultiBinding>
+                                    </buttons:Button.Background>
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="2*"/>
