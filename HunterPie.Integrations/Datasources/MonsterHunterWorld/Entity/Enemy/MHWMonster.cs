@@ -165,6 +165,7 @@ public class MHWMonster : CommonMonster
     {
         _address = address;
         Em = em;
+        GetMonsterBasicInformation();
 
         Log.Debug($"Initialized monster at address {address:X}");
     }
