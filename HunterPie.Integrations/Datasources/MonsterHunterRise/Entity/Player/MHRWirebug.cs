@@ -96,18 +96,21 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
         remove => _onWirebugStateChange.Unhook(value);
     }
 
-    void IUpdatable<MHRWirebugExtrasStructure>.Update(MHRWirebugExtrasStructure data)
+    public void Update(MHRWirebugExtrasStructure data)
     {
         MaxTimer = Math.Max(MaxTimer, data.Timer);
         Timer = data.Timer;
         IsAvailable = data.Timer > 0;
     }
 
-    void IUpdatable<MHRWirebugData>.Update(MHRWirebugData data)
+    public void Update(MHRWirebugData data)
     {
         WirebugState = data.WirebugState;
         MaxCooldown = data.Structure.MaxCooldown;
         Cooldown = data.Structure.Cooldown;
+
+        if (data.Structure.MaxCooldown <= 0 && Timer == 0)
+            IsAvailable = false;
     }
 
     public void Dispose()
