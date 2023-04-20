@@ -30,16 +30,16 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
-            <ColumnDefinition x:Name="PART_ContentColumn"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.ColumnSpan="1"
-                Grid.Column="1"
+        <Border Grid.Column="1"
                 BorderThickness="1"
-                BorderBrush="{StaticResource GRAY_300}"/>
+                BorderBrush="{StaticResource GRAY_300}"
+                x:Name="PART_BarBorder"/>
         <!-- Background bar -->
         <Grid Grid.Column="1"
               HorizontalAlignment="Left"
-              MaxWidth="{Binding ActualWidth, ElementName=PART_ContentColumn}"
+              MaxWidth="{Binding ActualWidth, ElementName=PART_BarBorder}"
               Margin="1,1,0,1"
               ClipToBounds="True"
               d:Width="200">

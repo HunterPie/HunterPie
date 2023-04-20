@@ -41,6 +41,8 @@ public class MHWMonster : CommonMonster
                 _id = value;
                 GetMonsterWeaknesses();
                 GetMonsterCaptureThreshold();
+
+                Log.Debug($"Initialized monster at address {_address:X} with id: {value}");
                 this.Dispatch(_onSpawn);
             }
         }
@@ -165,9 +167,6 @@ public class MHWMonster : CommonMonster
     {
         _address = address;
         Em = em;
-        GetMonsterBasicInformation();
-
-        Log.Debug($"Initialized monster at address {address:X}");
     }
 
     private void GetMonsterCaptureThreshold()
@@ -257,16 +256,25 @@ public class MHWMonster : CommonMonster
     [ScannableMethod]
     private void GetLockedOnMonster()
     {
-        int lockedOnDoubleLinkedListIndex = Process.Memory.Deref<int>(
+        long lockedOnDoubleLinkedListAddress = Memory.Read(
             AddressMap.GetAbsolute("LOCKON_ADDRESS"),
             AddressMap.Get<int[]>("LOCKEDON_MONSTER_INDEX_OFFSETS")
         );
+
+        if (lockedOnDoubleLinkedListAddress.IsNullPointer())
+        {
+            IsTarget = false;
+            Target = Target.None;
+            return;
+        }
+
+        int lockedOnDoubleLinkedListIndex = Memory.Read<int>(lockedOnDoubleLinkedListAddress + 0x950);
 
         IsTarget = lockedOnDoubleLinkedListIndex == _doubleLinkedListIndex;
 
         if (IsTarget)
             Target = Target.Self;
-        else if (lockedOnDoubleLinkedListIndex <= 0)
+        else if (lockedOnDoubleLinkedListIndex < 0)
             Target = Target.None;
         else
             Target = Target.Another;
