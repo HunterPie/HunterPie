@@ -747,7 +747,7 @@ public sealed class MHRPlayer : CommonPlayer
 
             data.Structure.Cooldown /= AbnormalityData.TIMER_MULTIPLIER;
 
-            if (data.Structure.MaxCooldown == 0 && i <= 1)
+            if (data.Structure.MaxCooldown == 0.0f && i <= 1)
                 data.Structure.MaxCooldown = 480.0f;
 
             data.Structure.MaxCooldown /= AbnormalityData.TIMER_MULTIPLIER;
@@ -763,12 +763,30 @@ public sealed class MHRPlayer : CommonPlayer
         }
 
         // Update temporary wirebug
+        Index lastIdx = ^2;
+
         MHRWirebugExtrasStructure extraData = Process.Memory.Deref<MHRWirebugExtrasStructure>(
-            AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
+            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
             AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_OFFSETS")
         );
-        extraData.Timer /= AbnormalityData.TIMER_MULTIPLIER;
-        Wirebugs[^2].Update(extraData);
+        extraData.Timer /= AbnormalityService.TIMER_MULTIPLIER;
+        Wirebugs[lastIdx].Update(extraData);
+
+        // Temporary wirebug by Frienzied Bloodlust skill
+        if (Wirebugs[lastIdx].IsAvailable)
+            lastIdx = ^1;
+
+        bool isActive = Process.Memory.Deref<uint>(
+            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("WIREBUG_NUM_FROM_SKILL_OFFSETS")
+        ) > 0;
+
+        MHRWirebugExtrasStructure temporaryData = Process.Memory.Deref<MHRWirebugExtrasStructure>(
+            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_FROM_SKILL_OFFSETS")
+        );
+        temporaryData.Timer = isActive ? temporaryData.Timer / AbnormalityService.TIMER_MULTIPLIER : 0.0f;
+        Wirebugs[lastIdx].Update(temporaryData);
 
         if (shouldDispatchEvent)
             this.Dispatch(_onWirebugsRefresh, Wirebugs);
