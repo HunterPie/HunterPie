@@ -208,7 +208,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
             Title = name,
             Stroke = new SolidColorBrush(actualColor),
             Fill = ColorFadeGradient.FromColor(actualColor),
-            PointGeometrySize = 0,
+            PointGeometry = null,
             StrokeThickness = 2,
             LineSmoothness = 1,
             Values = points
