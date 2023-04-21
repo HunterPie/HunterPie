@@ -769,7 +769,7 @@ public sealed class MHRPlayer : CommonPlayer
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_OFFSETS")
         );
-        extraData.Timer /= AbnormalityService.TIMER_MULTIPLIER;
+        extraData.Timer /= AbnormalityData.TIMER_MULTIPLIER;
         Wirebugs[lastIdx].Update(extraData);
 
         // Update temporary wirebug from Frenzied Bloodlust skill
@@ -785,7 +785,7 @@ public sealed class MHRPlayer : CommonPlayer
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_FROM_SKILL_OFFSETS")
         );
-        temporaryData.Timer = isActive ? temporaryData.Timer / AbnormalityService.TIMER_MULTIPLIER : 0.0f;
+        temporaryData.Timer = isActive ? temporaryData.Timer / AbnormalityData.TIMER_MULTIPLIER : 0.0f;
         Wirebugs[lastIdx].Update(temporaryData);
 
         if (shouldDispatchEvent)
