@@ -1289,6 +1289,23 @@
                 <Part Id="5" String="PART_TAIL" />
             </Parts>
         </Monster>
+	    <Monster Id="110">
+		    <Crowns Silver="1.11"
+		            Gold="1.17"/>
+		    <Weaknesses>
+			    <Weakness Name="Dragon"/>
+			    <Weakness Name="Fire"/>
+		    </Weaknesses>
+		    <Parts>
+			    <Part Id="0" String="PART_HEAD" />
+			    <Part Id="1" String="PART_TORSO" />
+			    <Part Id="2" String="PART_L_WING" />
+			    <Part Id="3" String="PART_R_WING" />
+			    <Part Id="4" String="PART_FORELEGS" />
+			    <Part Id="5" String="PART_H_LEGS" />
+			    <Part Id="6" String="PART_TAIL" />
+		    </Parts>
+	    </Monster>
         <Monster Id="111"
                  Size="2040.98"
                  IsNotCapturable="true">
@@ -1360,15 +1377,15 @@
 			    <Weakness Name="Fire"/>
 		    </Weaknesses>
 		    <Parts>
-			    <Part Id="0" String="PART_TO_BE_MAPPED" />
-			    <Part Id="1" String="PART_TO_BE_MAPPED" />
-			    <Part Id="2" String="PART_TO_BE_MAPPED" />
-			    <Part Id="3" String="PART_TO_BE_MAPPED" />
-			    <Part Id="4" String="PART_TO_BE_MAPPED" />
-			    <Part Id="5" String="PART_TO_BE_MAPPED" />
+			    <Part Id="0" String="PART_HEAD" />
+			    <Part Id="1" String="PART_L_ARM" />
+			    <Part Id="2" String="PART_R_ARM" />
+			    <Part Id="3" String="PART_ABDOMEN" />
+			    <Part Id="4" String="PART_TAIL" />
+			    <Part Id="5" String="PART_BACK" />
 			    <Part Id="6" String="PART_TO_BE_MAPPED" />
-			    <Part Id="7" String="PART_TO_BE_MAPPED" />
-			    <Part Id="8" String="PART_TO_BE_MAPPED" />
+			    <Part Id="7" String="PART_L_LEG" />
+			    <Part Id="8" String="PART_R_LEG" />
 		    </Parts>
 	    </Monster>
     </Monsters>
