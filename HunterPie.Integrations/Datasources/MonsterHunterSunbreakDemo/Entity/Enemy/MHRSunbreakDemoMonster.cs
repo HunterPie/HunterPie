@@ -140,6 +140,7 @@ public sealed class MHRSunbreakDemoMonster : CommonMonster
     public override IMonsterAilment Enrage => _enrage;
 
     public override Element[] Weaknesses => _weaknesses.ToArray();
+    public override string[] Types { get; } = Array.Empty<string>();
 
     public override float CaptureThreshold { get; protected set; } = 0f;
 

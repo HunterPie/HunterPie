@@ -11,9 +11,9 @@ namespace HunterPie.Core.Game.Data;
 
 public class MonsterData
 {
-    private static XmlDocument _monsterXmlDocument;
-    public static Dictionary<int, MonsterDataSchema> Monsters { get; private set; }
-    public static Dictionary<int, AilmentDataSchema> Ailments { get; private set; }
+    private static XmlDocument? _monsterXmlDocument;
+    public static Dictionary<int, MonsterDataSchema> Monsters { get; private set; } = new();
+    public static Dictionary<int, AilmentDataSchema> Ailments { get; private set; } = new();
 
     internal static void Init(string path)
     {
@@ -46,7 +46,6 @@ public class MonsterData
         XmlNodeList monsters = _monsterXmlDocument.SelectNodes("//GameData/Monsters/Monster");
 
         Monsters = new Dictionary<int, MonsterDataSchema>(monsters.Count);
-        int i = 0;
         foreach (XmlNode monster in monsters)
         {
             XmlNodeList parts = monster.SelectNodes("Parts/Part");
@@ -66,6 +65,7 @@ public class MonsterData
 
             MonsterSizeSchema sizeSchema = ParseSize(monster);
             Element[] weaknesses = ParseWeakness(monster);
+            string[] types = ParseTypes(monster);
 
             MonsterDataSchema schema = new()
             {
@@ -74,12 +74,11 @@ public class MonsterData
                 IsNotCapturable = bool.Parse(monster.Attributes["IsNotCapturable"]?.Value ?? "false"),
                 Size = sizeSchema,
                 Parts = partsArray,
-                Weaknesses = weaknesses
+                Weaknesses = weaknesses,
+                Types = types
             };
 
             Monsters.Add(schema.Id, schema);
-
-            i++;
         }
     }
 
@@ -92,9 +91,24 @@ public class MonsterData
             : Array.Empty<uint>();
     }
 
+    private static string[] ParseTypes(XmlNode monster)
+    {
+        XmlNodeList? types = monster.SelectNodes("Types/Type");
+
+        if (types is null)
+            return Array.Empty<string>();
+
+        string[] typesArray = new string[types.Count];
+
+        for (int i = 0; i < types.Count; i++)
+            typesArray[i] = types[i]!.Attributes!["Name"]!.Value;
+
+        return typesArray;
+    }
+
     private static MonsterSizeSchema ParseSize(XmlNode monster)
     {
-        XmlNode crowns = monster.SelectSingleNode("Crowns")!;
+        XmlNode? crowns = monster.SelectSingleNode("Crowns")!;
 
         float mini = 0.9f;
         float silver = 1.15f;
@@ -109,39 +123,32 @@ public class MonsterData
 
         if (crowns is not null)
         {
-
-            if (crowns.Attributes!["Mini"]?.Value is string miniValue)
-            {
+            if (crowns.Attributes!["Mini"]?.Value is { } miniValue)
                 _ = float.TryParse(
                     miniValue,
                     NumberStyles.Float,
                     CultureInfo.InvariantCulture,
                     out mini
                 );
-            }
 
-            if (crowns.Attributes["Silver"]?.Value is string silverValue)
-            {
+            if (crowns.Attributes["Silver"]?.Value is { } silverValue)
                 _ = float.TryParse(
                     silverValue,
                     NumberStyles.Float,
                     CultureInfo.InvariantCulture,
                     out silver
                 );
-            }
 
-            if (crowns.Attributes["Gold"]?.Value is string goldValue)
-            {
+            if (crowns.Attributes["Gold"]?.Value is { } goldValue)
                 _ = float.TryParse(
                     goldValue,
                     NumberStyles.Float,
                     CultureInfo.InvariantCulture,
                     out gold
                 );
-            }
         }
 
-        return new()
+        return new MonsterSizeSchema
         {
             Size = size,
             Mini = mini,

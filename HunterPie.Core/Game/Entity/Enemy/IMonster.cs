@@ -20,6 +20,7 @@ public interface IMonster
     public IMonsterAilment Enrage { get; }
     public Crown Crown { get; }
     public Element[] Weaknesses { get; }
+    public string[] Types { get; }
 
     public event EventHandler<EventArgs> OnSpawn;
     public event EventHandler<EventArgs> OnLoad;
