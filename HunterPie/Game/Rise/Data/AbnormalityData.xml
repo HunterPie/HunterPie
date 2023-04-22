@@ -433,7 +433,7 @@
                      Offset="1AC"
                      Name="ABNORMALITY_STATUS_TRIGGER"
                      Icon="ICON_STATUS_TRIGGER"
-                     Category="Comsumables"/>
+                     Category="Consumables"/>
         <Abnormality Id="ABN_INTERPID_HEART"
                      Offset="1B0"
                      Name="ABNORMALITY_INTERPID_HEART"
