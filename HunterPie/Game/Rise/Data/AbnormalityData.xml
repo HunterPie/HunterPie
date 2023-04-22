@@ -312,7 +312,7 @@
                      FlagType="RiseDebuff"
                      Flag="BubbleBlightL"/>
         <Abnormality Id="ABN_BLEED"
-                     Offset="8E8"
+                     Offset="904"
                      Name="ABNORMALITY_BLEED"
                      Icon="ICON_BLEED"/>
         <Abnormality Id="ABN_FRENZY_BUILDUP"
@@ -466,7 +466,7 @@
                      Icon="ICON_ARMORSKILL_SALMON"
                      Category="Debuffs"/>
         <Abnormality Id="ABN_WINDMANTLE"
-                     Offset="77C"
+                     Offset="78C"
                      Name="ABNORMALITY_WINDMANTLE"
                      Icon="ICON_ARMORSKILL_GREEN"
                      FlagType="RiseCommon"
@@ -474,7 +474,7 @@
                      MaxTimer="15"
                      Category="Debuffs"/>
         <Abnormality Id="ABN_FROSTCRAFT"
-                     Offset="7A8"
+                     Offset="7B8"
                      Name="ABNORMALITY_FROSTCRAFT_RISE"
                      Icon="ICON_ARMORSKILL_WHITE"
                      IsBuildup="True"
