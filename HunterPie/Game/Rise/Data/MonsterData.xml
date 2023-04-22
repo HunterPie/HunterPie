@@ -29,7 +29,7 @@
                  Size="1754.37">
             <Types>
                 <Type Name="TYPE_FLYING_WYVERN"/>
-                <Type Name="TYPE_ARIAL"/>
+                <Type Name="TYPE_AERIAL"/>
             </Types>
 	        <Weaknesses>
                 <Weakness Name="Dragon"/>
@@ -50,7 +50,7 @@
                  IsNotCapturable="true">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Mini="0.96"
 	                Silver="1.1"
@@ -73,7 +73,7 @@
                  Size="1704.22">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Weaknesses>
                 <Weakness Name="Dragon"/>
@@ -95,7 +95,7 @@
                  IsNotCapturable="true">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Mini="0.97"
 	                Silver="1.17"/>
@@ -118,7 +118,7 @@
                  Size="881.28">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Silver="1.09"
 	                Gold="1.14"/>
@@ -140,7 +140,7 @@
                  Size="1413.01">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Weaknesses>
                 <Weakness Name="Dragon"/>
@@ -160,7 +160,7 @@
                  Size="2096.25">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -181,7 +181,7 @@
                  IsNotCapturable="true">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Mini="0.97"
 	                Silver="1.17"/>
@@ -224,7 +224,7 @@
                  IsNotCapturable="true">
 	        <Types>
 		        <Type Name="TYPE_ELDER_DRAGON"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Mini="0.97"
 	                Silver="1.17"/>
@@ -245,7 +245,7 @@
                  IsNotCapturable="true">
 	        <Types>
 		        <Type Name="TYPE_ELDER_DRAGON"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
             <Crowns Mini="0.97"
                     Silver="1.17"/>
@@ -269,7 +269,7 @@
                  IsNotCapturable="true">
 	        <Types>
 		        <Type Name="TYPE_ELDER_DRAGON"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Mini="0.97"
 	                Silver="1.17"/>
@@ -290,7 +290,7 @@
                  Size="1941.89">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -310,7 +310,7 @@
                  Size="1914.14">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -331,7 +331,7 @@
                  Size="2091">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Weaknesses>
                 <Weakness Name="Fire"/>
@@ -584,7 +584,7 @@
                  IsNotCapturable="true">
 	        <Types>
 		        <Type Name="TYPE_ELDER_DRAGON"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Silver="1.11"
 	                Gold="1.17"/>
@@ -646,7 +646,7 @@
                  Size="998.33">
 	        <Types>
 		        <Type Name="TYPE_FANGED_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Mini="0.765"
 	                Silver="0.9775"
@@ -758,7 +758,7 @@
                  IsNotCapturable="true">
 	        <Types>
 		        <Type Name="TYPE_ELDER_DRAGON"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Weaknesses>
                 <Weakness Name="Dragon"/>
@@ -817,7 +817,7 @@
                  IsNotCapturable="true">
 	        <Types>
 		        <Type Name="TYPE_ELDER_DRAGON"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Weaknesses>
                 <Weakness Name="Dragon"/>
@@ -840,7 +840,7 @@
                  IsNotCapturable="true">
 	        <Types>
 		        <Type Name="TYPE_ELDER_DRAGON"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Weaknesses>
                 <Weakness Name="Dragon"/>
@@ -878,7 +878,7 @@
                  Size="1102.45">
 	        <Types>
 		        <Type Name="TYPE_BIRD_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -955,7 +955,7 @@
                  Size="1928.38">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -992,7 +992,7 @@
                  Size="1754.37">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Mini="0.97"
 	                Silver="1.17"/>
@@ -1015,7 +1015,7 @@
                  Size="1704.22">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Mini="0.97"
 	                Silver="1.17"/>
@@ -1103,7 +1103,7 @@
                  Size="2012.03">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Mini="0.97"
 	                Silver="1.17"/>
@@ -1126,7 +1126,7 @@
         <Monster Id="82"
                  Size="1765.78">
 	        <Types>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Silver="1.11"
 	                Gold="1.17"/>
@@ -1149,7 +1149,7 @@
                  IsNotCapturable="true">
 	        <Types>
 		        <Type Name="TYPE_ELDER_DRAGON"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Silver="1.11"
 	                Gold="1.17"/>
@@ -1171,7 +1171,7 @@
                  Size="1679">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -1191,7 +1191,7 @@
                  Size="1740.84">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -1343,7 +1343,7 @@
                  Size="1928.38">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -1363,7 +1363,7 @@
                  IsNotCapturable="true">
 	        <Types>
 		        <Type Name="TYPE_ELDER_DRAGON"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Silver="1.11"
 	                Gold="1.17"/>
@@ -1453,7 +1453,7 @@
                  Size="1755.25">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Weaknesses>
                 <Weakness Name="Ice"/>
@@ -1470,7 +1470,7 @@
                  Size="1755.25">
 	        <Types>
 		        <Type Name="TYPE_FLYING_WYVERN"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Weaknesses>
                 <Weakness Name="Water"/>
@@ -1487,7 +1487,7 @@
                  Size="1913.13">
 	        <Types>
 		        <Type Name="TYPE_ELDER_DRAGON"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Mini="0.97"
 	                Silver="1.17"/>
@@ -1508,7 +1508,7 @@
                  Size="2249.06">
 	        <Types>
 		        <Type Name="TYPE_ELDER_DRAGON"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Mini="0.97"
 	                Silver="1.17"/>
@@ -1531,7 +1531,7 @@
                  Size="1790.15">
 	        <Types>
 		        <Type Name="TYPE_ELDER_DRAGON"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Mini="0.97"
 	                Silver="1.17"/>
@@ -1551,7 +1551,7 @@
 	    <Monster Id="110">
 		    <Types>
 			    <Type Name="TYPE_ELDER_DRAGON"/>
-			    <Type Name="TYPE_ARIAL"/>
+			    <Type Name="TYPE_AERIAL"/>
 		    </Types>
 		    <Crowns Silver="1.11"
 		            Gold="1.17"/>
@@ -1593,7 +1593,7 @@
         <Monster Id="113"
                  Size="1765.78">
 	        <Types>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Silver="1.11"
 	                Gold="1.17"/>
@@ -1617,7 +1617,7 @@
                  IsNotCapturable="true">
 	        <Types>
 		        <Type Name="TYPE_ELDER_DRAGON"/>
-		        <Type Name="TYPE_ARIAL"/>
+		        <Type Name="TYPE_AERIAL"/>
 	        </Types>
 	        <Crowns Mini="0.97"
 	                Silver="1.15"/>
@@ -1645,7 +1645,7 @@
 	             IsNotCapturable="true">
 		    <Types>
 			    <Type Name="TYPE_ELDER_DRAGON"/>
-			    <Type Name="TYPE_ARIAL"/>
+			    <Type Name="TYPE_AERIAL"/>
 		    </Types>
 		    <Weaknesses>
 			    <Weakness Name="Dragon"/>
