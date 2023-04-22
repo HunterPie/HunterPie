@@ -764,7 +764,6 @@ public sealed class MHRPlayer : CommonPlayer
 
         // Update temporary wirebug from wild wirebug
         Index lastIdx = ^2;
-
         MHRWirebugExtrasStructure extraData = Process.Memory.Deref<MHRWirebugExtrasStructure>(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_OFFSETS")
@@ -774,20 +773,26 @@ public sealed class MHRPlayer : CommonPlayer
 
         // Update temporary wirebug from Frenzied Bloodlust skill
         bool hasWild = Wirebugs[lastIdx].IsAvailable;
-
-        if (hasWild)
-            lastIdx = ^1;
-
         bool isSkillActive = Process.Memory.Deref<uint>(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("WIREBUG_NUM_FROM_SKILL_OFFSETS")
         ) > 0;
+        MHRWirebugExtrasStructure temporaryData = new();
 
-        MHRWirebugExtrasStructure temporaryData = Process.Memory.Deref<MHRWirebugExtrasStructure>(
-            AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
-            AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_FROM_SKILL_OFFSETS")
-        );
-        temporaryData.Timer = isSkillActive ? temporaryData.Timer / AbnormalityData.TIMER_MULTIPLIER : 0.0f;
+        if (isSkillActive)
+        {
+            temporaryData = Process.Memory.Deref<MHRWirebugExtrasStructure>(
+                AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
+                AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_FROM_SKILL_OFFSETS")
+            );
+            temporaryData.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+        }
+        else
+            temporaryData.Timer = 0.0f;
+
+        if (hasWild)
+            lastIdx = ^1;
+
         Wirebugs[lastIdx].Update(temporaryData);
 
         if (shouldDispatchEvent)
