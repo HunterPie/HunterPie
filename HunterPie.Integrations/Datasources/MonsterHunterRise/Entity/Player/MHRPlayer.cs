@@ -713,17 +713,17 @@ public sealed class MHRPlayer : CommonPlayer
             AddressMap.Get<int[]>("WIREBUG_NUM_OFFSETS")
         );
 
-        int wildbugNum = Math.Max(Process.Memory.Deref<int>(
+        int wildbugNum = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
             AddressMap.Get<int[]>("WIREBUG_WILD_NUM_OFFSETS")
-        ), 0);
+        );
 
-        int skillbugNum = Math.Max(Process.Memory.Deref<int>(
+        int skillbugNum = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
             AddressMap.Get<int[]>("WIREBUG_SKILL_NUM_OFFSETS")
-        ), 0);
+        );
 
-        int totalbugsNum = defaultbugsNum + wildbugNum + skillbugNum;
+        int totalbugsNum = Math.Max(defaultbugsNum + wildbugNum + skillbugNum, 0);
 
         long wirebugsArrayPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
@@ -773,9 +773,7 @@ public sealed class MHRPlayer : CommonPlayer
             switch (wirebugType)
             {
                 case WirebugType.None:
-                    break;
                 case WirebugType.Default:
-                    break;
                 case WirebugType.Wild:
                     temporaryData = Process.Memory.Deref<MHRWirebugExtrasStructure>(
                         AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
@@ -789,6 +787,8 @@ public sealed class MHRPlayer : CommonPlayer
                         AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_FROM_SKILL_OFFSETS")
                     );
                     temporaryData.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                    break;
+                default:
                     break;
             }
 
