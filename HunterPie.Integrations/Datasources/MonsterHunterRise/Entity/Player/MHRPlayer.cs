@@ -708,12 +708,29 @@ public sealed class MHRPlayer : CommonPlayer
     [ScannableMethod(typeof(MHRWirebugData))]
     private void GetPlayerWirebugs()
     {
+        int defaultbugsNum = Process.Memory.Deref<int>(
+            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("WIREBUG_NUM_OFFSETS")
+        );
+
+        int wildbugNum = Math.Max(Process.Memory.Deref<int>(
+            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("WIREBUG_WILD_NUM_OFFSETS")
+        ), 0);
+
+        int skillbugNum = Math.Max(Process.Memory.Deref<int>(
+            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("WIREBUG_SKILL_NUM_OFFSETS")
+        ), 0);
+
+        int totalbugsNum = defaultbugsNum + wildbugNum + skillbugNum;
+
         long wirebugsArrayPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("WIREBUG_DATA_OFFSETS")
         );
 
-        if (wirebugsArrayPtr.IsNullPointer())
+        if (totalbugsNum <= 0 || wirebugsArrayPtr.IsNullPointer())
         {
             this.Dispatch(_onWirebugsRefresh, Array.Empty<MHRWirebug>());
             return;
@@ -737,63 +754,61 @@ public sealed class MHRPlayer : CommonPlayer
         bool shouldDispatchEvent = false;
         for (int i = 0; i < wirebugsArrayLength; i++)
         {
+            MHRWirebug wirebug = Wirebugs[i];
             long wirebugPtr = wirebugsPtrs[i];
+            WirebugType wirebugType = i < defaultbugsNum ? WirebugType.Default :
+                wildbugNum > 0 && i == defaultbugsNum ? WirebugType.Wild :
+                skillbugNum > 0 && i == defaultbugsNum + wildbugNum ? WirebugType.Skill :
+                WirebugType.None;
 
             var data = new MHRWirebugData
             {
+                IsAvailable = wirebugType != WirebugType.None,
+                IsTemporary = wirebugType is WirebugType.Wild or WirebugType.Skill,
                 WirebugState = wirebugState,
                 Structure = Process.Memory.Read<MHRWirebugStructure>(wirebugPtr)
             };
+            MHRWirebugExtrasStructure temporaryData = new();
+
+            switch (wirebugType)
+            {
+                case WirebugType.None:
+                    break;
+                case WirebugType.Default:
+                    break;
+                case WirebugType.Wild:
+                    temporaryData = Process.Memory.Deref<MHRWirebugExtrasStructure>(
+                        AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+                        AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_OFFSETS")
+                    );
+                    temporaryData.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                    break;
+                case WirebugType.Skill:
+                    temporaryData = Process.Memory.Deref<MHRWirebugExtrasStructure>(
+                        AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+                        AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_FROM_SKILL_OFFSETS")
+                    );
+                    temporaryData.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                    break;
+            }
 
             data.Structure.Cooldown /= AbnormalityData.TIMER_MULTIPLIER;
 
-            if (data.Structure.MaxCooldown == 0.0f && i <= 1)
+            if (data.Structure.MaxCooldown == 0.0f && data.IsAvailable)
                 data.Structure.MaxCooldown = 480.0f;
 
             data.Structure.MaxCooldown /= AbnormalityData.TIMER_MULTIPLIER;
 
-            if (wirebugPtr != Wirebugs[i].Address)
+            if (wirebugPtr != wirebug.Address)
             {
                 shouldDispatchEvent = true;
-                Wirebugs[i].Address = wirebugPtr;
+                wirebug.Address = wirebugPtr;
             }
 
-            IUpdatable<MHRWirebugData> wirebug = Wirebugs[i];
-            wirebug.Update(data);
+            IUpdatable<MHRWirebugData> wirebugInterface = wirebug;
+            wirebug.Update(temporaryData);
+            wirebugInterface.Update(data);
         }
-
-        // Update temporary wirebug from wild wirebug
-        Index lastIdx = ^2;
-        MHRWirebugExtrasStructure extraData = Process.Memory.Deref<MHRWirebugExtrasStructure>(
-            AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
-            AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_OFFSETS")
-        );
-        extraData.Timer /= AbnormalityData.TIMER_MULTIPLIER;
-        Wirebugs[lastIdx].Update(extraData);
-
-        // Update temporary wirebug from Frenzied Bloodlust skill
-        bool hasWild = Wirebugs[lastIdx].IsAvailable;
-        bool isSkillActive = Process.Memory.Deref<uint>(
-            AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
-            AddressMap.Get<int[]>("WIREBUG_NUM_FROM_SKILL_OFFSETS")
-        ) > 0;
-        MHRWirebugExtrasStructure temporaryData = new();
-
-        if (isSkillActive)
-        {
-            temporaryData = Process.Memory.Deref<MHRWirebugExtrasStructure>(
-                AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
-                AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_FROM_SKILL_OFFSETS")
-            );
-            temporaryData.Timer /= AbnormalityData.TIMER_MULTIPLIER;
-        }
-        else
-            temporaryData.Timer = 0.0f;
-
-        if (hasWild)
-            lastIdx = ^1;
-
-        Wirebugs[lastIdx].Update(temporaryData);
 
         if (shouldDispatchEvent)
             this.Dispatch(_onWirebugsRefresh, Wirebugs);

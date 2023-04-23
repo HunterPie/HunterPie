@@ -8,12 +8,42 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 
 public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasStructure>, IUpdatable<MHRWirebugData>, IDisposable
 {
+    private bool _isAvailable;
+    private bool _isTemporary;
     private double _timer;
+    private double _maxTimer;
     private double _cooldown;
-    private bool _isAvailable = true;
+    private double _maxCooldown;
     private WirebugState _wirebugState = WirebugState.None;
 
     public long Address { get; internal set; }
+
+    public bool IsAvailable
+    {
+        get => _isAvailable;
+        private set
+        {
+            if (value != _isAvailable)
+            {
+                _isAvailable = value;
+                this.Dispatch(_onAvailableChange, this);
+            }
+        }
+    }
+
+    public bool IsTemporary
+    {
+        get => _isTemporary;
+        private set
+        {
+            if (value != _isTemporary)
+            {
+                _isTemporary = value;
+                this.Dispatch(_onTemporaryChange, this);
+            }
+        }
+    }
+
     public double Timer
     {
         get => _timer;
@@ -26,7 +56,19 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
             }
         }
     }
-    public double MaxTimer { get; private set; }
+
+    public double MaxTimer
+    {
+        get => _maxTimer;
+        private set
+        {
+            if (value != _maxTimer)
+            {
+                _maxTimer = value;
+                this.Dispatch(_onTimerUpdate, this);
+            }
+        }
+    }
 
     public double Cooldown
     {
@@ -40,17 +82,16 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
             }
         }
     }
-    public double MaxCooldown { get; private set; }
 
-    public bool IsAvailable
+    public double MaxCooldown
     {
-        get => _isAvailable;
+        get => _maxCooldown;
         private set
         {
-            if (value != _isAvailable)
+            if (value != _maxCooldown)
             {
-                _isAvailable = value;
-                this.Dispatch(_onAvailable, this);
+                _maxCooldown = value;
+                this.Dispatch(_onCooldownUpdate, this);
             }
         }
     }
@@ -68,6 +109,20 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
         }
     }
 
+    private readonly SmartEvent<MHRWirebug> _onAvailableChange = new();
+    public event EventHandler<MHRWirebug> OnAvailableChange
+    {
+        add => _onAvailableChange.Hook(value);
+        remove => _onAvailableChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<MHRWirebug> _onTemporaryChange = new();
+    public event EventHandler<MHRWirebug> OnTemporaryChange
+    {
+        add => _onTemporaryChange.Hook(value);
+        remove => _onTemporaryChange.Unhook(value);
+    }
+
     private readonly SmartEvent<MHRWirebug> _onTimerUpdate = new();
     public event EventHandler<MHRWirebug> OnTimerUpdate
     {
@@ -82,13 +137,6 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
         remove => _onCooldownUpdate.Unhook(value);
     }
 
-    private readonly SmartEvent<MHRWirebug> _onAvailable = new();
-    public event EventHandler<MHRWirebug> OnAvailable
-    {
-        add => _onAvailable.Hook(value);
-        remove => _onAvailable.Unhook(value);
-    }
-
     private readonly SmartEvent<MHRWirebug> _onWirebugStateChange = new();
     public event EventHandler<MHRWirebug> OnWirebugStateChange
     {
@@ -100,22 +148,20 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
     {
         MaxTimer = Math.Max(MaxTimer, data.Timer);
         Timer = data.Timer;
-        IsAvailable = data.Timer > 0;
     }
 
     public void Update(MHRWirebugData data)
     {
-        WirebugState = data.WirebugState;
+        IsAvailable = data.IsAvailable;
+        IsTemporary = data.IsTemporary;
         MaxCooldown = data.Structure.MaxCooldown;
         Cooldown = data.Structure.Cooldown;
-
-        if (data.Structure.MaxCooldown <= 0 && Timer == 0)
-            IsAvailable = false;
+        WirebugState = data.WirebugState;
     }
 
     public void Dispose()
     {
-        IDisposable[] events = { _onTimerUpdate, _onCooldownUpdate, _onAvailable, _onWirebugStateChange };
+        IDisposable[] events = { _onAvailableChange, _onTemporaryChange, _onTimerUpdate, _onCooldownUpdate, _onWirebugStateChange };
 
         events.DisposeAll();
     }
