@@ -10,4 +10,5 @@ public struct MonsterDataSchema
     public MonsterSizeSchema Size;
     public MonsterPartSchema[] Parts;
     public Element[] Weaknesses;
+    public string[] Types;
 }

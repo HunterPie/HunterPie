@@ -34,6 +34,7 @@ public class BossMonsterViewModel : ViewModel
     private readonly ObservableCollection<MonsterPartViewModel> _parts = new();
     private readonly ObservableCollection<MonsterAilmentViewModel> _ailments = new();
     private readonly ObservableCollection<Element> _weaknesses = new();
+    private readonly ObservableCollection<string> _types = new();
 
     public BossMonsterViewModel(MonsterWidgetConfig config)
     {
@@ -120,6 +121,7 @@ public class BossMonsterViewModel : ViewModel
     public ref readonly ObservableCollection<MonsterPartViewModel> Parts => ref _parts;
     public ref readonly ObservableCollection<MonsterAilmentViewModel> Ailments => ref _ailments;
     public ref readonly ObservableCollection<Element> Weaknesses => ref _weaknesses;
+    public ref readonly ObservableCollection<string> Types => ref _types;
 
     // Monster states
     public bool IsEnraged
@@ -148,7 +150,7 @@ public class BossMonsterViewModel : ViewModel
 
     public bool IsAlive { get => _isAlive; set => SetValue(ref _isAlive, value); }
 
-    public async Task FetchMonsterIcon()
+    public async void FetchMonsterIcon()
     {
         IsLoadingIcon = true;
 

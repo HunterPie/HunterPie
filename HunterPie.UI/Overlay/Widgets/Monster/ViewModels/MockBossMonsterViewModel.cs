@@ -20,6 +20,7 @@ internal class MockBossMonsterViewModel : BossMonsterViewModel
         MockParts();
         MockAilments();
         MockWeakenesses();
+        MockTypes();
 
         MockBehavior.Run(() =>
         {
@@ -144,6 +145,21 @@ internal class MockBossMonsterViewModel : BossMonsterViewModel
                 }
             );
         }
+    }
+
+    private void MockTypes()
+    {
+        Random random = new();
+
+        string[] typeIds =
+        {
+            "TYPE_ARIAL", "TYPE_FLYING_WYVERN", "TYPE_BRUTE_WYVERN", "TYPE_FANGED_BEAST", "TYPE_LEVIATHAN",
+            "TYPE_AQUATIC", "TYPE_BIRD_WYVERN", "TYPE_FANGED_WYVERN", "TYPE_ELDER_DRAGON", "TYPE_AMPHIBIAN",
+            "TYPE_TEMNOCERAN", "TYPE_PISCINE_WYVERN", "TYPE_CARAPACEON"
+        };
+
+        for (int i = 0; i < 2; i++)
+            Types.Add(typeIds[random.Next(typeIds.Length)]);
     }
 
     private void MockWeakenesses()

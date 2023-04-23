@@ -149,6 +149,7 @@ public class MHWMonster : CommonMonster
 
     private readonly List<Element> _weaknesses = new();
     public override Element[] Weaknesses => _weaknesses.ToArray();
+    public override string[] Types { get; } = Array.Empty<string>();
 
     public override float CaptureThreshold
     {
