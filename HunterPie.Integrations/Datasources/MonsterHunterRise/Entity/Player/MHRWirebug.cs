@@ -91,7 +91,7 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
             if (value != _maxCooldown)
             {
                 _maxCooldown = value;
-                this.Dispatch(_onCooldownUpdate, this);
+                this.Dispatch(_onMaxCooldownUpdate, this);
             }
         }
     }
@@ -137,6 +137,13 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
         remove => _onCooldownUpdate.Unhook(value);
     }
 
+    private readonly SmartEvent<MHRWirebug> _onMaxCooldownUpdate = new();
+    public event EventHandler<MHRWirebug> OnMaxCooldownUpdate
+    {
+        add => _onMaxCooldownUpdate.Hook(value);
+        remove => _onMaxCooldownUpdate.Unhook(value);
+    }
+
     private readonly SmartEvent<MHRWirebug> _onWirebugStateChange = new();
     public event EventHandler<MHRWirebug> OnWirebugStateChange
     {
@@ -161,7 +168,7 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
 
     public void Dispose()
     {
-        IDisposable[] events = { _onAvailableChange, _onTemporaryChange, _onTimerUpdate, _onCooldownUpdate, _onWirebugStateChange };
+        IDisposable[] events = { _onAvailableChange, _onTemporaryChange, _onTimerUpdate, _onCooldownUpdate, _onMaxCooldownUpdate, _onWirebugStateChange };
 
         events.DisposeAll();
     }

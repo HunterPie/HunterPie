@@ -709,17 +709,17 @@ public sealed class MHRPlayer : CommonPlayer
     private void GetPlayerWirebugs()
     {
         int defaultbugsNum = Process.Memory.Deref<int>(
-            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+            AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("WIREBUG_NUM_OFFSETS")
         );
 
         int wildbugNum = Process.Memory.Deref<int>(
-            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+            AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("WIREBUG_WILD_NUM_OFFSETS")
         );
 
         int skillbugNum = Process.Memory.Deref<int>(
-            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+            AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("WIREBUG_SKILL_NUM_OFFSETS")
         );
 
@@ -730,7 +730,7 @@ public sealed class MHRPlayer : CommonPlayer
             AddressMap.Get<int[]>("WIREBUG_DATA_OFFSETS")
         );
 
-        if (totalbugsNum <= 0 || wirebugsArrayPtr.IsNullPointer())
+        if (totalbugsNum == 0 || wirebugsArrayPtr.IsNullPointer())
         {
             this.Dispatch(_onWirebugsRefresh, Array.Empty<MHRWirebug>());
             return;
@@ -768,29 +768,6 @@ public sealed class MHRPlayer : CommonPlayer
                 WirebugState = wirebugState,
                 Structure = Process.Memory.Read<MHRWirebugStructure>(wirebugPtr)
             };
-            MHRWirebugExtrasStructure temporaryData = new();
-
-            switch (wirebugType)
-            {
-                case WirebugType.None:
-                case WirebugType.Default:
-                case WirebugType.Wild:
-                    temporaryData = Process.Memory.Deref<MHRWirebugExtrasStructure>(
-                        AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
-                        AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_OFFSETS")
-                    );
-                    temporaryData.Timer /= AbnormalityData.TIMER_MULTIPLIER;
-                    break;
-                case WirebugType.Skill:
-                    temporaryData = Process.Memory.Deref<MHRWirebugExtrasStructure>(
-                        AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
-                        AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_FROM_SKILL_OFFSETS")
-                    );
-                    temporaryData.Timer /= AbnormalityData.TIMER_MULTIPLIER;
-                    break;
-                default:
-                    break;
-            }
 
             data.Structure.Cooldown /= AbnormalityData.TIMER_MULTIPLIER;
 
@@ -805,8 +782,22 @@ public sealed class MHRPlayer : CommonPlayer
                 wirebug.Address = wirebugPtr;
             }
 
+            if (data.IsTemporary)
+            {
+                MHRWirebugExtrasStructure temporaryData = wirebugType == WirebugType.Wild ?
+                    Process.Memory.Deref<MHRWirebugExtrasStructure>(
+                        AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
+                        AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_OFFSETS")
+                    ) :
+                    Process.Memory.Deref<MHRWirebugExtrasStructure>(
+                        AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
+                        AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_FROM_SKILL_OFFSETS")
+                    );
+                temporaryData.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                wirebug.Update(temporaryData);
+            }
+
             IUpdatable<MHRWirebugData> wirebugInterface = wirebug;
-            wirebug.Update(temporaryData);
             wirebugInterface.Update(data);
         }
 

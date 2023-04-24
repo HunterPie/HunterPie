@@ -1,4 +1,5 @@
-﻿using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
+﻿using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
 
 namespace HunterPie.UI.Overlay.Widgets.Wirebug;
@@ -20,6 +21,7 @@ internal class WirebugContextHandler : WirebugViewModel, IContextHandler
         Context.OnAvailableChange += OnAvailableChange;
         Context.OnTemporaryChange += OnTemporaryChange;
         Context.OnCooldownUpdate += OnCooldownUpdate;
+        Context.OnMaxCooldownUpdate += OnMaxCooldownUpdate;
         Context.OnTimerUpdate += OnTimerUpdate;
         Context.OnWirebugStateChange += OnWirebugStateChange;
     }
@@ -29,20 +31,21 @@ internal class WirebugContextHandler : WirebugViewModel, IContextHandler
         Context.OnAvailableChange -= OnAvailableChange;
         Context.OnTemporaryChange -= OnTemporaryChange;
         Context.OnCooldownUpdate -= OnCooldownUpdate;
+        Context.OnMaxCooldownUpdate -= OnMaxCooldownUpdate;
         Context.OnTimerUpdate -= OnTimerUpdate;
         Context.OnWirebugStateChange -= OnWirebugStateChange;
     }
 
     private void OnAvailableChange(object sender, MHRWirebug e) => IsAvailable = e.IsAvailable;
-
     private void OnTemporaryChange(object sender, MHRWirebug e) => IsTemporary = e.IsTemporary;
 
     private void OnCooldownUpdate(object sender, MHRWirebug e)
     {
-        MaxCooldown = e.MaxCooldown;
         Cooldown = e.Cooldown;
         OnCooldown = Cooldown > 0;
     }
+
+    private void OnMaxCooldownUpdate(object sender, MHRWirebug e) => MaxCooldown = e.MaxCooldown;
 
     private void OnTimerUpdate(object sender, MHRWirebug e)
     {
