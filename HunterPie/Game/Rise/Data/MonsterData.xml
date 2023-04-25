@@ -860,7 +860,10 @@
         </Monster>
         <Monster Id="40"
                  Size="1646.46">
-            <Weaknesses>
+	        <Types>
+		        <Type Name="TYPE_BRUTE_WYVERN"/>
+	        </Types>
+	        <Weaknesses>
                 <Weakness Name="Water"/>
                 <Weakness Name="Ice"/>
             </Weaknesses>
@@ -1572,8 +1575,12 @@
         <Monster Id="111"
                  Size="2040.98"
                  IsNotCapturable="true">
-            <Crowns Silver="1.11"
-                    Gold="1.17"/>
+	        <Types>
+		        <Type Name="TYPE_ELDER_DRAGON"/>
+		        <Type Name="TYPE_AERIAL"/>
+	        </Types>
+	        <Crowns Silver="1.11"
+	                Gold="1.17"/>
             <Weaknesses>
                 <Weakness Name="Fire"/>
                 <Weakness Name="Water"/>
