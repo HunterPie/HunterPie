@@ -4,6 +4,6 @@ public enum WirebugType
 {
     None,
     Default,
-    Wild,
+    Environment,
     Skill
 }
