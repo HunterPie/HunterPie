@@ -161,8 +161,8 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
     {
         IsAvailable = data.IsAvailable;
         IsTemporary = data.IsTemporary;
-        MaxCooldown = data.Structure.MaxCooldown;
-        Cooldown = data.Structure.Cooldown;
+        Cooldown = data.Structure.Cooldown + data.Structure.ExtraCooldown;
+        MaxCooldown = Math.Max(MaxCooldown, Cooldown);
         WirebugState = data.WirebugState;
     }
 
