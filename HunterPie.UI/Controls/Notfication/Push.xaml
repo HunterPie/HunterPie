@@ -4,22 +4,42 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Controls.Notfication"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              mc:Ignorable="d"
              MinWidth="200"
              MaxWidth="350">
+    <UserControl.Resources>
+        <converters:BorderClipConverter x:Key="BorderClipConverter"/>
+    </UserControl.Resources>
     <Border CornerRadius="5"
-            d:BorderBrush="{StaticResource BLUE_LIGHT_300}"
+            d:BorderBrush="{StaticResource BLUE_400}"
             BorderBrush="{Binding Foreground, Mode=OneTime}"
             BorderThickness="1"
-            d:Background="{StaticResource BLUE_700}"
+            d:Background="{StaticResource GRAY_500}"
             Background="{Binding Background, Mode=OneTime}">
+        <Border.Clip>
+            <MultiBinding Converter="{StaticResource BorderClipConverter}">
+                <Binding Path="ActualWidth"
+                         RelativeSource="{RelativeSource Self}"/>
+                <Binding Path="ActualHeight"
+                         RelativeSource="{RelativeSource Self}"/>
+                <Binding Path="CornerRadius"
+                         RelativeSource="{RelativeSource Self}"/>
+                <Binding Path="BorderThickness"
+                         RelativeSource="{RelativeSource Self}"/>
+            </MultiBinding>
+        </Border.Clip>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="33"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Rectangle d:Fill="{StaticResource BLUE_LIGHT_400}"
+            <Rectangle d:Fill="{StaticResource BLUE_400}"
+                       RadiusX="2"
+                       RadiusY="2"/>
+            <Rectangle Grid.Column="0" 
+                       d:Fill="{StaticResource GRAY_300}"
                        Fill="{Binding Foreground, Mode=OneTime}"
                        Margin="6"
                        Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
@@ -33,7 +53,7 @@
 
             <TextBlock d:Text="Testing asdljkhaskj hkasdhkaj shdkjash jas açskdjkl aaldk jaslk ajsldkjlak jdlkasjd alksdj kl alkshdla h ajsdhskj kjas hdkjas"
                        Text="{Binding Message, Mode=OneTime}"
-                       d:Foreground="{StaticResource BLUE_LIGHT_400}"
+                       d:Foreground="{StaticResource WHITE_300}"
                        Foreground="{Binding Foreground, Mode=OneTime}"
                        VerticalAlignment="center"
                        Grid.Column="1"

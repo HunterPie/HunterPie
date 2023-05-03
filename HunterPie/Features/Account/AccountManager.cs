@@ -1,11 +1,11 @@
 ﻿using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Notification;
 using HunterPie.Core.Vault;
 using HunterPie.Core.Vault.Model;
 using HunterPie.Features.Account.Event;
 using HunterPie.Features.Account.Model;
-using HunterPie.Features.Notification;
 using HunterPie.Integrations.Poogie.Account;
 using HunterPie.Integrations.Poogie.Account.Models;
 using HunterPie.Integrations.Poogie.Common.Models;
@@ -55,11 +55,10 @@ internal class AccountManager : IEventDispatcher
         if (account is null)
             return null;
 
-        AppNotificationManager.Push(
-            Push.Success(
-                Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='LOGIN_SUCCESS']")
-                            .Replace("{Username}", account.Username)
-            ),
+        NotificationService.Success(
+            string.Empty,
+            Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='LOGIN_SUCCESS']")
+                .Replace("{Username}", account.Username),
             TimeSpan.FromSeconds(5)
         );
         Instance.Dispatch(OnSignIn, new AccountLoginEventArgs { Account = account });

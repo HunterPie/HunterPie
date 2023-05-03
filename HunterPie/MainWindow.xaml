@@ -16,6 +16,7 @@
         xmlns:images="clr-namespace:HunterPie.UI.Architecture.Images;assembly=HunterPie.UI"
         xmlns:account="clr-namespace:HunterPie.GUI.Parts.Account.Views"
         xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+        xmlns:notfication="clr-namespace:HunterPie.UI.Controls.Notfication;assembly=HunterPie.UI"
         Title="HunterPie v2" 
         Height="600" 
         Width="1000"
@@ -198,7 +199,7 @@
         </notifications:NotificationsPanelView>
         
         <!-- In-App notifications -->
-        <ItemsControl ItemsSource="{Binding Source={x:Static appNotifications:AppNotificationManager.Notifications}, Mode=OneWay}"
+        <ItemsControl ItemsSource="{Binding Source={x:Static appNotifications:InAppNotificationService.Notifications}, Mode=OneWay}"
                       VerticalAlignment="Bottom"
                       Grid.Row="1"
                       HorizontalAlignment="Stretch"
@@ -210,6 +211,10 @@
                                 IsItemsHost="True"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <notfication:Push />
+            </ItemsControl.ItemTemplate>
         </ItemsControl>
         
         <accountPromo:AccountPromotionalView Grid.ColumnSpan="2"
