@@ -39,7 +39,7 @@
                        RadiusX="2"
                        RadiusY="2"/>
             <Rectangle Grid.Column="0" 
-                       d:Fill="{StaticResource GRAY_300}"
+                       d:Fill="{StaticResource BLUE_LIGHT_200}"
                        Fill="{Binding Foreground, Mode=OneTime}"
                        Margin="6"
                        Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
