@@ -14,12 +14,15 @@ public class NotificationService
         _instance = this;
     }
 
-    public static void Info(string title, string message, TimeSpan visibility) =>
-        _instance?._service.Info(title, message, visibility);
+    public static void Show(string message, TimeSpan visibility) =>
+        _instance?._service.Show(string.Empty, message, visibility);
 
-    public static void Error(string title, string message, TimeSpan visibility) =>
-        _instance?._service.Error(title, message, visibility);
+    public static void Info(string message, TimeSpan visibility) =>
+        _instance?._service.Info(string.Empty, message, visibility);
 
-    public static void Success(string title, string message, TimeSpan visibility) =>
-        _instance?._service.Success(title, message, visibility);
+    public static void Error(string message, TimeSpan visibility) =>
+        _instance?._service.Error(string.Empty, message, visibility);
+
+    public static void Success(string message, TimeSpan visibility) =>
+        _instance?._service.Success(string.Empty, message, visibility);
 }

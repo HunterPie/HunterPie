@@ -17,6 +17,7 @@
         xmlns:account="clr-namespace:HunterPie.GUI.Parts.Account.Views"
         xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
         xmlns:notfication="clr-namespace:HunterPie.UI.Controls.Notfication;assembly=HunterPie.UI"
+        xmlns:presentation="clr-namespace:HunterPie.Features.Notification.Presentation"
         Title="HunterPie v2" 
         Height="600" 
         Width="1000"
@@ -37,6 +38,9 @@
     <Window.Resources>
         <converters:GameTypeToGameNameConverter x:Key="GameTypeToGameNameConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <presentation:AppNotificationTypeToAccentConverter x:Key="AppNotificationTypeToAccentConverter"/>
+        <presentation:AppNotificationTypeToForegroundConverter x:Key="AppNotificationTypeToForegroundConverter"/>
+        <presentation:AppNotificationTypeToIconConverter x:Key="AppNotificationTypeToIconConverter"/>
     </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"
@@ -66,12 +70,14 @@
             </ContentControl>
         </Grid>
 
-        <part:HeaderBar x:Name="PART_HeaderBar"
+        <part:HeaderBar Grid.Row="0"
+                        x:Name="PART_HeaderBar"
                         Height="25"
                         Background="{StaticResource GRAY_300}"
                         VerticalAlignment="Top"/>
 
-        <Grid Background="{StaticResource GRAY_300}" 
+        <Grid Grid.Row="0" 
+              Background="{StaticResource GRAY_300}" 
               Margin="0,25,0,0">
             <StackPanel Orientation="Horizontal" 
                         VerticalAlignment="Center"
@@ -213,7 +219,12 @@
             </ItemsControl.ItemsPanel>
 
             <ItemsControl.ItemTemplate>
-                <notfication:Push />
+                <DataTemplate>
+                    <notfication:Push Message="{Binding Message, Mode=OneTime}"
+                                      Icon="{Binding Type, Mode=OneTime, Converter={StaticResource AppNotificationTypeToIconConverter}}"
+                                      Foreground="{Binding Type, Mode=OneTime, Converter={StaticResource AppNotificationTypeToForegroundConverter}}"
+                                      Background="{Binding Type, Mode=OneTime, Converter={StaticResource AppNotificationTypeToAccentConverter}}"/>
+                </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         

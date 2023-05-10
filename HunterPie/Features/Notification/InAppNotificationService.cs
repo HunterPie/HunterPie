@@ -11,6 +11,9 @@ internal class InAppNotificationService : INotificationService
 {
     public static ObservableCollection<AppNotificationViewModel> Notifications { get; } = new();
 
+    public void Show(string title, string message, TimeSpan visibility) =>
+        SendNotification(AppNotificationType.Default, title, message, visibility);
+
     public void Info(string title, string message, TimeSpan visibility) =>
         SendNotification(AppNotificationType.Info, title, message, visibility);
 

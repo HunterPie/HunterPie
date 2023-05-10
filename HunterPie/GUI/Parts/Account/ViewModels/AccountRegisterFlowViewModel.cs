@@ -1,10 +1,9 @@
 ﻿using HunterPie.Core.Client.Localization;
-using HunterPie.Features.Notification;
+using HunterPie.Core.Notification;
 using HunterPie.Integrations.Poogie.Account;
 using HunterPie.Integrations.Poogie.Account.Models;
 using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.UI.Architecture;
-using HunterPie.UI.Controls.Notfication;
 using System;
 
 namespace HunterPie.GUI.Parts.Account.ViewModels;
@@ -71,21 +70,17 @@ public class AccountRegisterFlowViewModel : ViewModel
 
         if (register.Error is { } error)
         {
-            AppNotificationManager.Push(
-                Push.Error(
-                    Localization.GetEnumString(error.Code)
-                ),
+            NotificationService.Error(
+                Localization.GetEnumString(error.Code),
                 TimeSpan.FromSeconds(5)
             );
 
             return;
         }
 
-        AppNotificationManager.Push(
-            Push.Success(
-                Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='ACCOUNT_REGISTER_SUCCESS']")
-                            .Replace("{Email}", register.Response!.Email)
-            ),
+        NotificationService.Success(
+            Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='ACCOUNT_REGISTER_SUCCESS']")
+                .Replace("{Email}", register.Response!.Email),
             TimeSpan.FromSeconds(10)
         );
     }

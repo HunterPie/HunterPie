@@ -9,25 +9,22 @@ using HunterPie.Features.Account.Model;
 using HunterPie.Integrations.Poogie.Account;
 using HunterPie.Integrations.Poogie.Account.Models;
 using HunterPie.Integrations.Poogie.Common.Models;
-using HunterPie.UI.Controls.Notfication;
 using System;
 using System.Threading.Tasks;
 
 namespace HunterPie.Features.Account;
 
-#nullable enable
 internal class AccountManager : IEventDispatcher
 {
     private UserAccount? _cachedAccount = null;
     private readonly PoogieAccountConnector _accountConnector = new();
-    private static AccountManager? _instance;
-    private static readonly AccountManager Instance = _instance ??= new AccountManager();
+    private static readonly AccountManager Instance = new();
 
     public static event EventHandler<AccountLoginEventArgs>? OnSignIn;
     public static event EventHandler<EventArgs>? OnSignOut;
     public static event EventHandler<AccountAvatarEventArgs>? OnAvatarChange;
 
-    public static async Task<bool> IsLoggedIn() => GetSessionToken() is not null;
+    public static bool IsLoggedIn() => GetSessionToken() is not null;
 
     public static async Task<bool> ValidateSessionToken()
     {
@@ -56,7 +53,6 @@ internal class AccountManager : IEventDispatcher
             return null;
 
         NotificationService.Success(
-            string.Empty,
             Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='LOGIN_SUCCESS']")
                 .Replace("{Username}", account.Username),
             TimeSpan.FromSeconds(5)
@@ -89,19 +85,15 @@ internal class AccountManager : IEventDispatcher
 
         if (account.Error is { } error)
         {
-            AppNotificationManager.Push(
-                Push.Error(
-                    Localization.GetEnumString(error.Code)
-                ),
+            NotificationService.Error(
+                Localization.GetEnumString(error.Code),
                 TimeSpan.FromSeconds(10)
             );
             return;
         }
 
-        AppNotificationManager.Push(
-            Push.Show(
-                Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='AVATAR_UPLOAD_SUCCESS']")
-            ),
+        NotificationService.Show(
+            Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='AVATAR_UPLOAD_SUCCESS']"),
             TimeSpan.FromSeconds(5)
         );
 
