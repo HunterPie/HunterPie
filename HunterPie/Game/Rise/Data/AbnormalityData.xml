@@ -550,6 +550,13 @@
                      Flag="ResistUp"
                      IsInfinite="True"
                      Category="Consumables"/>
+        <Abnormality Id="ABN_HEAVEN_SENT"
+                     Name="ABNORMALITY_HEAVEN_SENT"
+                     Icon="ICON_ARMORSKILL_WHITE"
+                     FlagType="RiseCommon"
+                     Flag="HeavenSentInvocation"
+                     IsInfinite="True"
+                     Category="Consumables"/>
         <Abnormality Id="ABN_MAXIMUM_MIGHT"
                      Name="ABNORMALITY_MAXIMUM_MIGHT"
                      Icon="ICON_ARMORSKILL_SALMON"
