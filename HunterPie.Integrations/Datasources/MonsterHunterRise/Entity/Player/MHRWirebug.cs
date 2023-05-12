@@ -91,7 +91,7 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
             if (value != _maxCooldown)
             {
                 _maxCooldown = value;
-                this.Dispatch(_onMaxCooldownUpdate, this);
+                this.Dispatch(_onCooldownUpdate, this);
             }
         }
     }
@@ -137,13 +137,6 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
         remove => _onCooldownUpdate.Unhook(value);
     }
 
-    private readonly SmartEvent<MHRWirebug> _onMaxCooldownUpdate = new();
-    public event EventHandler<MHRWirebug> OnMaxCooldownUpdate
-    {
-        add => _onMaxCooldownUpdate.Hook(value);
-        remove => _onMaxCooldownUpdate.Unhook(value);
-    }
-
     private readonly SmartEvent<MHRWirebug> _onWirebugStateChange = new();
     public event EventHandler<MHRWirebug> OnWirebugStateChange
     {
@@ -163,13 +156,12 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
         IsTemporary = data.IsTemporary;
         WirebugState = data.WirebugState;
         Cooldown = data.Structure.Cooldown + data.Structure.ExtraCooldown;
-        var maxExtraCooldown = data.Structure.ExtraCooldown > 0.0f ? Math.Max(MaxCooldown - data.Structure.MaxCooldown, data.Structure.ExtraCooldown) : 0.0;
-        MaxCooldown = Cooldown > 0.0 ? Math.Max(MaxCooldown, data.Structure.MaxCooldown + maxExtraCooldown) : 0.0;
+        MaxCooldown = Cooldown > 0.0 ? Math.Max(MaxCooldown, data.Structure.MaxCooldown + data.Structure.ExtraCooldown) : 0.0;
     }
 
     public void Dispose()
     {
-        IDisposable[] events = { _onAvailableChange, _onTemporaryChange, _onTimerUpdate, _onCooldownUpdate, _onMaxCooldownUpdate, _onWirebugStateChange };
+        IDisposable[] events = { _onAvailableChange, _onTemporaryChange, _onTimerUpdate, _onCooldownUpdate, _onWirebugStateChange };
 
         events.DisposeAll();
     }

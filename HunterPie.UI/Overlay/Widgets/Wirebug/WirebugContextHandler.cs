@@ -21,7 +21,6 @@ internal class WirebugContextHandler : WirebugViewModel, IContextHandler
         Context.OnAvailableChange += OnAvailableChange;
         Context.OnTemporaryChange += OnTemporaryChange;
         Context.OnCooldownUpdate += OnCooldownUpdate;
-        Context.OnMaxCooldownUpdate += OnMaxCooldownUpdate;
         Context.OnTimerUpdate += OnTimerUpdate;
         Context.OnWirebugStateChange += OnWirebugStateChange;
     }
@@ -31,7 +30,6 @@ internal class WirebugContextHandler : WirebugViewModel, IContextHandler
         Context.OnAvailableChange -= OnAvailableChange;
         Context.OnTemporaryChange -= OnTemporaryChange;
         Context.OnCooldownUpdate -= OnCooldownUpdate;
-        Context.OnMaxCooldownUpdate -= OnMaxCooldownUpdate;
         Context.OnTimerUpdate -= OnTimerUpdate;
         Context.OnWirebugStateChange -= OnWirebugStateChange;
     }
@@ -43,6 +41,7 @@ internal class WirebugContextHandler : WirebugViewModel, IContextHandler
     {
         Cooldown = e.Cooldown;
         OnCooldown = Cooldown > 0;
+        MaxCooldown = e.MaxCooldown;
     }
 
     private void OnMaxCooldownUpdate(object sender, MHRWirebug e) => MaxCooldown = e.MaxCooldown;
