@@ -15,10 +15,10 @@
         <converters:BorderClipConverter x:Key="BorderClipConverter"/>
     </UserControl.Resources>
     <Border CornerRadius="5"
-            d:BorderBrush="{StaticResource GRAY_50}"
+            d:BorderBrush="{StaticResource BLUE_400}"
             BorderBrush="{Binding Background, Mode=OneTime, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Push}}}"
             BorderThickness="1"
-            Background="{StaticResource GRAY_500}"
+            Background="{StaticResource GRAY_400}"
             ClipToBounds="True">
         <Border.Clip>
             <MultiBinding Converter="{StaticResource BorderClipConverter}">
@@ -39,10 +39,10 @@
             </Grid.ColumnDefinitions>
 
             <Rectangle Grid.Column="0" 
-                       d:Fill="{StaticResource GRAY_50}"
+                       d:Fill="{StaticResource BLUE_400}"
                        Fill="{Binding Background, Mode=OneTime, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Push}}}"/>
             <Rectangle Grid.Column="0" 
-                       d:Fill="{StaticResource WHITE_500}"
+                       d:Fill="{StaticResource BLUE_LIGHT_200}"
                        Fill="{Binding Foreground, Mode=OneTime, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Push}}}"
                        Margin="6"
                        Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
@@ -56,7 +56,7 @@
 
             <TextBlock d:Text="Testing asdljkhaskj hkasdhkaj shdkjash jas açskdjkl aaldk jaslk ajsldkjlak jdlkasjd alksdj kl alkshdla h ajsdhskj kjas hdkjas"
                        Text="{Binding Message, Mode=OneTime, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Push}}}"
-                       Foreground="{StaticResource WHITE_300}"
+                       Foreground="{StaticResource WHITE_200}"
                        VerticalAlignment="center"
                        Grid.Column="1"
                        Margin="5"

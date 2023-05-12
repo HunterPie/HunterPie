@@ -17,7 +17,11 @@ public class BorderClipConverter : IMultiValueConverter
         if (width < double.Epsilon || height < double.Epsilon)
             return Geometry.Empty;
 
-        var clip = new RectangleGeometry(new Rect(0, 0, width, height), radius.TopLeft + borderThickness.Top, radius.TopLeft + borderThickness.Left);
+        var clip = new RectangleGeometry(
+            new Rect(0, 0, width, height),
+            radius.TopLeft + borderThickness.Top,
+            radius.TopLeft + borderThickness.Left
+        );
         clip.Freeze();
 
         return clip;

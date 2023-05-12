@@ -223,7 +223,9 @@
                     <notfication:Push Message="{Binding Message, Mode=OneTime}"
                                       Icon="{Binding Type, Mode=OneTime, Converter={StaticResource AppNotificationTypeToIconConverter}}"
                                       Foreground="{Binding Type, Mode=OneTime, Converter={StaticResource AppNotificationTypeToForegroundConverter}}"
-                                      Background="{Binding Type, Mode=OneTime, Converter={StaticResource AppNotificationTypeToAccentConverter}}"/>
+                                      Background="{Binding Type, Mode=OneTime, Converter={StaticResource AppNotificationTypeToAccentConverter}}"
+                                      Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                      Click="OnNotificationClick"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

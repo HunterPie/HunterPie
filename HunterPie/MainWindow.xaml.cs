@@ -5,11 +5,13 @@ using HunterPie.Features.Account;
 using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.UseCase;
 using HunterPie.Features.Debug;
+using HunterPie.Features.Notification.ViewModels;
 using HunterPie.GUI.Parts.Account.Views;
 using HunterPie.GUI.Parts.Host;
 using HunterPie.GUI.ViewModels;
 using HunterPie.Internal;
 using HunterPie.Internal.Tray;
+using HunterPie.UI.Controls.Notfication;
 using HunterPie.Usecases;
 using System;
 using System.ComponentModel;
@@ -190,5 +192,11 @@ public partial class MainWindow : Window
         );
 
         Application.Current.Shutdown();
+    }
+
+    private void OnNotificationClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is Push { DataContext: AppNotificationViewModel vm })
+            vm.IsVisible = false;
     }
 }
