@@ -14,7 +14,6 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
     private double _maxTimer;
     private double _cooldown;
     private double _maxCooldown;
-    private double _maxExtraCooldown = 0.0;
     private WirebugState _wirebugState = WirebugState.None;
 
     public long Address { get; internal set; }
@@ -164,8 +163,8 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
         IsTemporary = data.IsTemporary;
         WirebugState = data.WirebugState;
         Cooldown = data.Structure.Cooldown + data.Structure.ExtraCooldown;
-        _maxExtraCooldown = data.Structure.ExtraCooldown > 0.0f ? Math.Max(_maxExtraCooldown, data.Structure.ExtraCooldown) : 0.0;
-        MaxCooldown = Cooldown > 0.0 ? Math.Max(MaxCooldown, data.Structure.MaxCooldown + _maxExtraCooldown) : 0.0;
+        var maxExtraCooldown = data.Structure.ExtraCooldown > 0.0f ? Math.Max(MaxCooldown - data.Structure.MaxCooldown, data.Structure.ExtraCooldown) : 0.0;
+        MaxCooldown = Cooldown > 0.0 ? Math.Max(MaxCooldown, data.Structure.MaxCooldown + maxExtraCooldown) : 0.0;
     }
 
     public void Dispose()

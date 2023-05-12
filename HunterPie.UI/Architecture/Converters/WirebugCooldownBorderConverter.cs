@@ -11,22 +11,16 @@ public class WirebugCooldownBorderConverter : IMultiValueConverter
         if (values.Length < 4)
             return 0.0;
 
-        if (values[0] is not double
-            || values[1] is not double)
-        {
+        if (values[0] is not double cooldown
+            || values[1] is not double maxCooldown
+            || values[2] is not bool isAvailable
+            || values[3] is not bool onCooldown)
             return 0.0;
-        }
 
-        object isAvailable = values[2];
-        object onCooldown = values[3];
-
-        if (isAvailable is true && onCooldown is false)
+        if (isAvailable && !onCooldown)
             return 1.0;
 
-        double cooldown = (double)values[0];
-        double maxCooldown = (double)values[1];
-
-        return 1 - (cooldown / maxCooldown);
+        return 1 - (cooldown / Math.Max(1.0, maxCooldown));
     }
 
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => throw new NotImplementedException();
