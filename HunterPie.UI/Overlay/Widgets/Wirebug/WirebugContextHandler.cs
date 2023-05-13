@@ -44,8 +44,6 @@ internal class WirebugContextHandler : WirebugViewModel, IContextHandler
         MaxCooldown = e.MaxCooldown;
     }
 
-    private void OnMaxCooldownUpdate(object sender, MHRWirebug e) => MaxCooldown = e.MaxCooldown;
-
     private void OnTimerUpdate(object sender, MHRWirebug e)
     {
         MaxTimer = e.MaxTimer;
