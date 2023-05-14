@@ -15,7 +15,7 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:RatioConverter x:Key="RatioConverter"/>
-        <converters:ReverseRatioConverter x:Key="ReverseRatioConverter"/>
+        <converters:WirebugCooldownBorderConverter x:Key="WirebugCooldownBorderConverter"/>
         <converters:WirebugStateToVisibilityConverter x:Key="WirebugStateToVisibilityConverter"/>
         <converters:WirebugStateToIconConverter x:Key="WirebugStateToIconConverter"/>
         <converters:WirebugStateToColorConverter x:Key="WirebugStateToColorConverter"/>
@@ -97,9 +97,11 @@
                 </LinearGradientBrush>
             </controls:Arc.Stroke>
             <controls:Arc.Percentage>
-                <MultiBinding Converter="{StaticResource ReverseRatioConverter}">
+                <MultiBinding Converter="{StaticResource WirebugCooldownBorderConverter}">
                     <Binding Path="Cooldown"/>
                     <Binding Path="MaxCooldown"/>
+                    <Binding Path="IsAvailable"/>
+                    <Binding Path="OnCooldown"/>
                 </MultiBinding>
             </controls:Arc.Percentage>
         </controls:Arc>

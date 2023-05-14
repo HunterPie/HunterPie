@@ -17,7 +17,7 @@ public class ElementToIconConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         return value is Element element
-            ? (object)(element switch
+            ? element switch
             {
                 Element.Fire => Resources.Icon(FIRE),
                 Element.Water => Resources.Icon(WATER),
@@ -25,8 +25,8 @@ public class ElementToIconConverter : IValueConverter
                 Element.Thunder => Resources.Icon(THUNDER),
                 Element.Dragon => Resources.Icon(DRAGON),
                 _ => throw new NotImplementedException($"element {value} not a valid element")
-            })
-            : throw new ArgumentException($"argument must be of type {typeof(Element)}");
+            }
+            : null;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();

@@ -26,6 +26,7 @@ public abstract class CommonMonster : Scannable, IMonster, IDisposable, IEventDi
     public abstract IMonsterAilment Enrage { get; }
     public abstract Crown Crown { get; protected set; }
     public abstract Element[] Weaknesses { get; }
+    public abstract string[] Types { get; }
 
     protected readonly SmartEvent<EventArgs> _onSpawn = new();
     public event EventHandler<EventArgs> OnSpawn

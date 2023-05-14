@@ -65,6 +65,15 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
         IsAlive = true;
 
         FetchMonsterIcon();
+
+        UIThread.InvokeAsync(() =>
+        {
+            if (Types.Count > 0)
+                return;
+
+            foreach (string typeId in Context.Types)
+                Types.Add(typeId);
+        });
     }
 
     private void OnDespawn(object sender, EventArgs e)
@@ -169,6 +178,12 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
         CaptureThreshold = Context.CaptureThreshold;
         CanBeCaptured = Context.CaptureThreshold > 0;
         IsCapturable = CaptureThreshold >= (Health / MaxHealth);
+
+        UIThread.InvokeAsync(() =>
+        {
+            foreach (string typeId in Context.Types)
+                Types.Add(typeId);
+        });
 
         if (Parts.Count != Context.Parts.Length || Ailments.Count != Context.Ailments.Length)
             _ = UIThread.InvokeAsync(() =>

@@ -35,7 +35,7 @@ public sealed class MHRPlayer : CommonPlayer
 {
     #region Private
     private int _saveSlotId;
-    private string _name;
+    private string _name = string.Empty;
     private int _stageId = -1;
     private readonly Dictionary<string, IAbnormality> _abnormalities = new();
     private readonly MHRParty _party = new();
@@ -126,7 +126,7 @@ public sealed class MHRPlayer : CommonPlayer
 
     public override IStaminaComponent Stamina => _stamina;
 
-    public MHRWirebug[] Wirebugs { get; } = { new(), new(), new() };
+    public MHRWirebug[] Wirebugs { get; } = { new(), new(), new(), new() };
 
     public MHRArgosy Argosy { get; } = new();
 
@@ -188,7 +188,7 @@ public sealed class MHRPlayer : CommonPlayer
             AddressMap.Get<int[]>("STAGE_OFFSETS")
         );
 
-        if (stageAddress == 0x00000000)
+        if (stageAddress.IsNullPointer())
             return;
 
         MHRStageStructure stageData = Process.Memory.Read<MHRStageStructure>(stageAddress + 0x60);
@@ -708,12 +708,17 @@ public sealed class MHRPlayer : CommonPlayer
     [ScannableMethod(typeof(MHRWirebugData))]
     private void GetPlayerWirebugs()
     {
+        MHRWirebugCountStructure wirebugCount = Memory.Deref<MHRWirebugCountStructure>(
+            AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
+            AddressMap.Get<int[]>("WIREBUG_COUNT_OFFSETS")
+        );
+
         long wirebugsArrayPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
             AddressMap.Get<int[]>("WIREBUG_DATA_OFFSETS")
         );
 
-        if (wirebugsArrayPtr.IsNullPointer())
+        if (wirebugCount.Total() is 0 || wirebugsArrayPtr.IsNullPointer())
         {
             this.Dispatch(_onWirebugsRefresh, Array.Empty<MHRWirebug>());
             return;
@@ -731,41 +736,50 @@ public sealed class MHRPlayer : CommonPlayer
             _commonCondition.HasFlag(CommonConditions.GoldWirebug) ? WirebugState.GoldWirebug :
             WirebugState.None;
 
-        int wirebugsArrayLength = Math.Min(Wirebugs.Length, Process.Memory.Read<int>(wirebugsArrayPtr + 0x1C));
-        long[] wirebugsPtrs = Process.Memory.Read<long>(wirebugsArrayPtr + 0x20, (uint)wirebugsArrayLength);
+        long[] wirebugsPtrs = Memory.ReadArraySafe<long>(wirebugsArrayPtr, (uint)Wirebugs.Length);
 
         bool shouldDispatchEvent = false;
-        for (int i = 0; i < wirebugsArrayLength; i++)
+        for (int i = 0; i < wirebugsPtrs.Length; i++)
         {
+            MHRWirebug wirebug = Wirebugs[i];
             long wirebugPtr = wirebugsPtrs[i];
+            WirebugType wirebugType = wirebugCount.ToType(i);
 
             var data = new MHRWirebugData
             {
+                IsAvailable = wirebugType != WirebugType.None,
+                IsTemporary = wirebugType is WirebugType.Environment or WirebugType.Skill,
                 WirebugState = wirebugState,
                 Structure = Process.Memory.Read<MHRWirebugStructure>(wirebugPtr)
             };
 
             data.Structure.Cooldown /= AbnormalityData.TIMER_MULTIPLIER;
-            data.Structure.MaxCooldown = data.Structure.MaxCooldown == 0 ? 400 : data.Structure.MaxCooldown / AbnormalityData.TIMER_MULTIPLIER;
+            data.Structure.MaxCooldown /= AbnormalityData.TIMER_MULTIPLIER;
+            data.Structure.ExtraCooldown /= AbnormalityData.TIMER_MULTIPLIER;
 
-            if (wirebugPtr != Wirebugs[i].Address)
+            if (wirebugPtr != wirebug.Address)
             {
                 shouldDispatchEvent = true;
-                Wirebugs[i].Address = wirebugPtr;
+                wirebug.Address = wirebugPtr;
             }
 
-            IUpdatable<MHRWirebugData> wirebug = Wirebugs[i];
+            if (data.IsTemporary)
+            {
+                int[] wirebugExtraOffsets = wirebugType switch
+                {
+                    WirebugType.Environment => AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_OFFSETS"),
+                    _ => AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_FROM_SKILL_OFFSETS")
+                };
+                MHRWirebugExtrasStructure temporaryData = Memory.Deref<MHRWirebugExtrasStructure>(
+                    AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
+                    wirebugExtraOffsets
+                );
+                temporaryData.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                wirebug.Update(temporaryData);
+            }
+
             wirebug.Update(data);
         }
-
-        // Update last Wirebug with extra data
-        MHRWirebugExtrasStructure extraData = Process.Memory.Deref<MHRWirebugExtrasStructure>(
-            AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
-            AddressMap.Get<int[]>("WIREBUG_EXTRA_DATA_OFFSETS")
-        );
-        extraData.Timer /= AbnormalityData.TIMER_MULTIPLIER;
-        IUpdatable<MHRWirebugExtrasStructure> lastWirebug = Wirebugs[^1];
-        lastWirebug.Update(extraData);
 
         if (shouldDispatchEvent)
             this.Dispatch(_onWirebugsRefresh, Wirebugs);

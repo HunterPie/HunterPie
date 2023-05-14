@@ -15,6 +15,7 @@
              xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading"
              xmlns:selectors="clr-namespace:HunterPie.UI.Architecture.Selectors"
              xmlns:genums="clr-namespace:HunterPie.Core.Game.Enums;assembly=HunterPie.Core"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
              d:DataContext="{d:DesignInstance Type=viewmodels:BossMonsterViewModel}"
              IsHitTestVisible="False"
              d:DesignWidth="600">
@@ -28,6 +29,7 @@
         <converters:TargetTypeToVisibility x:Key="TargetTypeToVisibility"/>
         <converters:IsValidPartConverter x:Key="IsValidPartConverter"/>
         <converters:PercentageToLeftMargingDistanceConverter x:Key="PercentageToLeftMargingDistanceConverter"/>
+        <converters:MonsterTypeToLocalizationConverter x:Key="MonsterTypeToLocalizationConverter"/>
 
         <LinearGradientBrush x:Key="MonsterHealthEnraged" EndPoint="1,1" StartPoint="0,1">
             <GradientStop Color="#d42c2c"/>
@@ -149,8 +151,42 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Grid Margin="50,10,10,9"
+
+        <!-- Monster types -->
+        <ItemsControl Grid.Column="0"
+                      Margin="60,2,0,0"
+                      VerticalAlignment="Top"
+                      ItemsSource="{Binding Types, Mode=OneWay}"
+                      d:DataContext="{x:Static viewmodels:DesignModeViewModels.MockBossMonsterViewModel}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type system:String}">
+                    <Border Padding="2"
+                            Background="{StaticResource GRAY_50}"
+                            BorderBrush="{StaticResource GRAY}"
+                            BorderThickness="1"
+                            CornerRadius="5"
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Top"
+                            Opacity="0.7">
+                        <TextBlock Text="{Binding ., Mode=OneTime, Converter={StaticResource MonsterTypeToLocalizationConverter}}"
+                                   FontSize="9"
+                                   VerticalAlignment="Center"
+                                   Foreground="{StaticResource WHITE_300}"/>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Grid Grid.Column="0" 
+              Margin="50,20,10,9"
               VerticalAlignment="Top">
+            <!-- Name -->
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Left"
@@ -347,19 +383,21 @@
         </Grid>
 
         <!-- Capture indicator -->
-        <Image Source="{StaticResource ICON_TRAP}"
+        <Image Grid.Column="0"
+               Source="{StaticResource ICON_TRAP}"
                Height="25"
                Width="25"
                VerticalAlignment="Top"
                HorizontalAlignment="Right"
-               Margin="0,2,30,0"
+               Margin="0,12,30,0"
                Visibility="{Binding IsCapturable, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
         <!-- Monster Icon -->
-        <Grid Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+        <Grid Grid.Column="0" 
+              Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
               HorizontalAlignment="Left"
               VerticalAlignment="Top"
-              Margin="20,37,0,0"
+              Margin="20,47,0,0"
               Height="40">
             <Rectangle Fill="#FF191A1B"
                        RenderTransformOrigin="0.5,0.5" 
@@ -390,11 +428,12 @@
         </Grid>
 
         <!-- Weaknesses -->
-        <ItemsControl ItemsSource="{Binding Weaknesses, Mode=OneWay}"
+        <ItemsControl Grid.Column="0" 
+                      ItemsSource="{Binding Weaknesses, Mode=OneWay}"
                       d:DataContext="{x:Static viewmodels:DesignModeViewModels.MockBossMonsterViewModel}"
                       VerticalAlignment="Top"
                       HorizontalAlignment="Left"
-                      Margin="60,67,0,0">
+                      Margin="60,77,0,0">
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type genums:Element}">
                     <local:BossMonsterWeaknessView Width="20"
@@ -410,10 +449,10 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
 
-        <StackPanel Grid.Row="1"
+        <StackPanel Grid.Column="0"
                     Orientation="Vertical"
                     x:Name="PART_Bottom"
-                    Margin="0,90,0,0"
+                    Margin="0,100,0,0"
                     Visibility="{Binding TargetType, Converter={StaticResource TargetTypeToVisibility}}">
             
             <!-- Ailments -->

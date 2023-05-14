@@ -133,6 +133,25 @@
     <SolidColorBrush x:Key="YELLOW_600">#665c2e</SolidColorBrush>
     <SolidColorBrush x:Key="YELLOW_700">#4d4523</SolidColorBrush>
     
+    <!-- Blue -->
+    <SolidColorBrush x:Key="BLUE_LIGHT_700">#D2E3FB</SolidColorBrush>
+    <SolidColorBrush x:Key="BLUE_LIGHT_600">#C0D7F9</SolidColorBrush>
+    <SolidColorBrush x:Key="BLUE_LIGHT_500">#A5C7F7</SolidColorBrush>
+    <SolidColorBrush x:Key="BLUE_LIGHT_400">#93BBF5</SolidColorBrush>
+    <SolidColorBrush x:Key="BLUE_LIGHT_300">#81B0F3</SolidColorBrush>
+    <SolidColorBrush x:Key="BLUE_LIGHT_200">#6FA5F1</SolidColorBrush>
+    <SolidColorBrush x:Key="BLUE_LIGHT_100">#5D99F0</SolidColorBrush>
+    <SolidColorBrush x:Key="BLUE_LIGHT_50">#5494EF</SolidColorBrush>
+    <SolidColorBrush x:Key="BLUE">#FF4B8EEE</SolidColorBrush>
+    <SolidColorBrush x:Key="BLUE_50">#4787E2</SolidColorBrush>
+    <SolidColorBrush x:Key="BLUE_100">#4480D6</SolidColorBrush>
+    <SolidColorBrush x:Key="BLUE_200">#3C72BE</SolidColorBrush>
+    <SolidColorBrush x:Key="BLUE_300">#3563A7</SolidColorBrush>
+    <SolidColorBrush x:Key="BLUE_400">#2D558F</SolidColorBrush>
+    <SolidColorBrush x:Key="BLUE_500">#264777</SolidColorBrush>
+    <SolidColorBrush x:Key="BLUE_600">#1E395F</SolidColorBrush>
+    <SolidColorBrush x:Key="BLUE_700">#172B47</SolidColorBrush>
+
     <!-- Player Hud -->
     <LinearGradientBrush x:Key="WIDGET_PLAYER_HEALTH_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#3ecfa6"/>

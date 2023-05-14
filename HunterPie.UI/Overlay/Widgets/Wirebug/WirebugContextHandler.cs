@@ -1,4 +1,5 @@
-﻿using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
+﻿using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
 
 namespace HunterPie.UI.Overlay.Widgets.Wirebug;
@@ -17,48 +18,49 @@ internal class WirebugContextHandler : WirebugViewModel, IContextHandler
 
     public void HookEvents()
     {
+        Context.OnAvailableChange += OnAvailableChange;
+        Context.OnTemporaryChange += OnTemporaryChange;
         Context.OnCooldownUpdate += OnCooldownUpdate;
         Context.OnTimerUpdate += OnTimerUpdate;
-        Context.OnAvailable += OnAvailable;
         Context.OnWirebugStateChange += OnWirebugStateChange;
     }
 
     public void UnhookEvents()
     {
+        Context.OnAvailableChange -= OnAvailableChange;
+        Context.OnTemporaryChange -= OnTemporaryChange;
         Context.OnCooldownUpdate -= OnCooldownUpdate;
         Context.OnTimerUpdate -= OnTimerUpdate;
-        Context.OnAvailable -= OnAvailable;
         Context.OnWirebugStateChange -= OnWirebugStateChange;
     }
 
-    private void OnWirebugStateChange(object sender, MHRWirebug e) => WirebugState = e.WirebugState;
+    private void OnAvailableChange(object sender, MHRWirebug e) => IsAvailable = e.IsAvailable;
+    private void OnTemporaryChange(object sender, MHRWirebug e) => IsTemporary = e.IsTemporary;
+
+    private void OnCooldownUpdate(object sender, MHRWirebug e)
+    {
+        Cooldown = e.Cooldown;
+        OnCooldown = Cooldown > 0;
+        MaxCooldown = e.MaxCooldown;
+    }
 
     private void OnTimerUpdate(object sender, MHRWirebug e)
     {
         MaxTimer = e.MaxTimer;
         Timer = e.Timer;
-        IsTemporary = Timer > 0;
     }
 
-    private void OnAvailable(object sender, MHRWirebug e) => IsAvailable = e.IsAvailable;
-
-    private void OnCooldownUpdate(object sender, MHRWirebug e)
-    {
-        MaxCooldown = e.MaxCooldown;
-        Cooldown = e.Cooldown;
-        OnCooldown = Cooldown > 0;
-    }
+    private void OnWirebugStateChange(object sender, MHRWirebug e) => WirebugState = e.WirebugState;
 
     private void UpdateData()
     {
-        WirebugState = Context.WirebugState;
+        IsAvailable = Context.IsAvailable;
+        IsTemporary = Context.IsTemporary;
         MaxCooldown = Context.MaxCooldown;
         Cooldown = Context.Cooldown;
         OnCooldown = Cooldown > 0;
-        IsAvailable = Context.IsAvailable;
-
         MaxTimer = Context.MaxTimer;
         Timer = Context.Timer;
-        IsTemporary = Timer > 0;
+        WirebugState = Context.WirebugState;
     }
 }

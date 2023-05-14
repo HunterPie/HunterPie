@@ -18,6 +18,16 @@ The summaries page displays all the hunts that are available for you to visualiz
 
 ![summaries-page](/Static/hunt-summaries.png)
 
+### Account Tiers
+
+Tier                | Access
+--------------------|------------------------
+Free                | Up to 7 days of hunts.
+Low Rank ($1)       | Up to 30 days of hunts.
+High Rank ($5)      | Unlimited
+Tempered ($10)      | Unlimited
+Arch-Tempered ($20) | Unlimited
+
 ### Dashboard
 
 The dashboard is where you can visualize the details of the hunt, this includes:
@@ -32,3 +42,9 @@ The dashboard is where you can visualize the details of the hunt, this includes:
 {:.prompt-info}
 
 ![dashboard-page](/Static/hunt-dashboard.gif)
+
+### Known Issues
+
+- Quests that were joined mid-hunt are not tracked properly
+- Otomos are not displayed
+- Really old exported hunts have 100% enrage uptimes

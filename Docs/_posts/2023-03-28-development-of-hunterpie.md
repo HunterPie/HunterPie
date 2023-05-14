@@ -130,7 +130,7 @@ And the damage meter had a lot of UI improvements too:
 
 ## Final Considerations
 
-There were a lot of enhancements to HunterPie's user interface throghout time, most of the things were just trial and error, see what works and whatnot. Some came with time and experience after I started working as a software engineer and started having more contact with real world software.
+There were a lot of enhancements to HunterPie's user interface throghout time, most of the things were just trial and error, see what works and what does not. Some came with time and experience after I started working as a software engineer and started having more contact with real world software.
 
 The user interface is just the tip of the iceberg for HunterPie, there's a lot going on behind it, a lot of time and effort put into researching the games, designing and coding HunterPie's UI, coding internal things used in the core of HunterPie, coding the native part that is required for some features, coding the backend, maintaining all the infrastructure, etc.
 

@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Extensions;
+﻿using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Extensions;
 using HunterPie.Features.Statistics.Models;
 using HunterPie.GUI.Parts.Statistics.Details.ViewModels;
 using HunterPie.UI.Architecture.Adapter;
@@ -59,7 +60,7 @@ internal static class MonsterDetailsViewModelBuilder
         return new StatusDetailsViewModel
         {
             Color = EnrageBrush,
-            Name = "Enrage",
+            Name = Localization.QueryString("//Strings/Ailments/Rise/Ailment[@Id='STATUS_ENRAGE']"),
             UpTime = activationsTotalSeconds / Math.Max(1.0, timeElapsed),
             Activations = activations
         };

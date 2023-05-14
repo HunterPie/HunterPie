@@ -159,7 +159,7 @@ public partial class App : Application
             );
 
         if (ClientConfig.Config.Client.ShouldShutdownOnGameExit)
-            Dispatcher.Invoke(Shutdown);
+            Dispatcher.Invoke(Close);
     }
 
     private async void OnProcessFound(object? sender, ProcessManagerEventArgs e)
@@ -229,5 +229,11 @@ public partial class App : Application
 
         Process.Start(typeof(MainWindow).Assembly.Location.Replace(".dll", ".exe"));
         Current.Shutdown();
+    }
+
+    private void Close()
+    {
+        InitializerManager.Unload();
+        Shutdown();
     }
 }

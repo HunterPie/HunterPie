@@ -3,6 +3,8 @@
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 public struct MHRWirebugData
 {
+    public bool IsAvailable;
+    public bool IsTemporary;
     public WirebugState WirebugState;
     public MHRWirebugStructure Structure;
 }

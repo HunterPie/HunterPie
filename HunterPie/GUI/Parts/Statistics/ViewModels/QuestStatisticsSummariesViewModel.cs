@@ -1,9 +1,17 @@
-﻿using HunterPie.Features.Account;
+﻿using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Extensions;
+using HunterPie.Features.Account;
 using HunterPie.Features.Account.Model;
+using HunterPie.Features.Notification;
+using HunterPie.GUI.Parts.Host;
+using HunterPie.GUI.Parts.Statistics.Details.Builders;
+using HunterPie.GUI.Parts.Statistics.Details.ViewModels;
+using HunterPie.GUI.Parts.Statistics.Details.Views;
 using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.Integrations.Poogie.Statistics;
 using HunterPie.Integrations.Poogie.Statistics.Models;
 using HunterPie.UI.Architecture;
+using HunterPie.UI.Controls.Notfication;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -52,6 +60,13 @@ public class QuestStatisticsSummariesViewModel : ViewModel
         set => SetValue(ref _lastPage, value);
     }
 
+    private bool _isFetchingDetails;
+    public bool IsFetchingDetails
+    {
+        get => _isFetchingDetails;
+        set => SetValue(ref _isFetchingDetails, value);
+    }
+
     private QuestSupporterTierMessageType _messageType;
     public QuestSupporterTierMessageType MessageType { get => _messageType; set => SetValue(ref _messageType, value); }
 
@@ -94,6 +109,45 @@ public class QuestStatisticsSummariesViewModel : ViewModel
     }
 
     public void RequestPageUpdate() => UpdateSummariesContainer();
+
+    public async void NavigateToHuntDetails(string uploadId)
+    {
+        AppNotificationManager.Push(
+            Push.Info(
+                Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_IN_PROGRESS_STRING']")
+                    .Format(uploadId)
+            ),
+            TimeSpan.FromSeconds(5)
+        );
+        IsFetchingDetails = true;
+
+        PoogieResult<PoogieQuestStatisticsModel> questResponse = await _connector.Get(uploadId);
+
+        if (questResponse.Response is not { } questDetails)
+        {
+            AppNotificationManager.Push(
+                Push.Error(
+                    Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_FAILED_ERROR_STRING']")
+                ),
+                TimeSpan.FromSeconds(10)
+            );
+            IsFetchingDetails = false;
+            return;
+        }
+
+        IsFetchingDetails = false;
+
+        AppNotificationManager.Push(
+                Push.Success(
+                    Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_SUCCESS_STRING']")
+                ),
+                TimeSpan.FromSeconds(5)
+            );
+
+        QuestDetailsViewModel viewModel = await QuestDetailsViewModelBuilder.From(questDetails.ToEntity());
+        var details = new QuestDetailsView { DataContext = viewModel };
+        MainHost.SetMain(details);
+    }
 
     private void UpdateSummariesContainer()
     {

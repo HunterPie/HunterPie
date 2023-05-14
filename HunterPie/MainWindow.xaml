@@ -201,8 +201,8 @@
         <ItemsControl ItemsSource="{Binding Source={x:Static appNotifications:AppNotificationManager.Notifications}, Mode=OneWay}"
                       VerticalAlignment="Bottom"
                       Grid.Row="1"
-                      Grid.RowSpan="3"
-                      HorizontalAlignment="Center"
+                      HorizontalAlignment="Stretch"
+                      HorizontalContentAlignment="Center"
                       Margin="30">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>

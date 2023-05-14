@@ -78,4 +78,18 @@ public static class MHRiseUtils
         arraySize = Math.Min(size, arraySize);
         return memory.Read<T>(address + 0x20, arraySize);
     }
+
+    public static WirebugType ToType(this MHRWirebugCountStructure count, int index)
+    {
+        int obtainableWirebugs = count.Default + count.Environment;
+
+        if (index < count.Default)
+            return WirebugType.Default;
+        else if (count.AnyEnvironment() && index == count.Default)
+            return WirebugType.Environment;
+        else if (count.AnySkill() && index == obtainableWirebugs)
+            return WirebugType.Skill;
+        else
+            return WirebugType.None;
+    }
 }
