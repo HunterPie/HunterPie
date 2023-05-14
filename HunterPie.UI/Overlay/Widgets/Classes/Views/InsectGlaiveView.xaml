@@ -18,7 +18,7 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
@@ -30,15 +30,13 @@
                    Grid.RowSpan="2"
                    HorizontalAlignment="Left"
                    RenderTransformOrigin="0.5,0.5"
-                   Margin="12,0,0,0"
+                   Margin="14,0,0,0"
                    Height="40"
                    Width="40"
-                   RadiusX="5"
-                   RadiusY="5"
                    Fill="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
             <Rectangle.Effect>
                 <DropShadowEffect BlurRadius="10"
-                                  d:Color="{StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}"
+                                  Color="{StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}"
                                   ShadowDepth="0"/>
             </Rectangle.Effect>
             <Rectangle.RenderTransform>
@@ -54,15 +52,13 @@
                    Grid.Column="0"
                    HorizontalAlignment="Right"
                    RenderTransformOrigin="0.5,0.5"
-                   Margin="0,0,12,0"
+                   Margin="0,0,14,0"
                    Height="40"
                    Width="40"
-                   RadiusX="5"
-                   RadiusY="5"
-                   Fill="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_HEAL_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
+                   Fill="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
             <Rectangle.Effect>
-                <DropShadowEffect BlurRadius="10"
-                                  d:Color="{StaticResource INSECT_GLAIVE_EXTRACT_HEAL_COLOR}"
+                <DropShadowEffect BlurRadius="20"
+                                  Color="{StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}"
                                   ShadowDepth="0"/>
             </Rectangle.Effect>
             <Rectangle.RenderTransform>
@@ -78,7 +74,8 @@
                 RenderTransformOrigin="0.5,0.5"
                 Grid.Row="0"
                 Grid.RowSpan="2"
-                BorderThickness="2"
+                CornerRadius="1"
+                BorderThickness="1"
                 BorderBrush="{StaticResource GRAY_50}">
             <Border.Background>
                 <RadialGradientBrush>
@@ -99,11 +96,11 @@
                     Orientation="Horizontal">
             <!-- Attack -->
             <Border Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                    Margin="8"
+                    Margin="5,11,5,11"
                     RenderTransformOrigin="0.5,0.5"
-                    BorderThickness="3"
+                    BorderThickness="1"
                     CornerRadius="1"
-                    d:BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
+                    BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
                 <Border.Background>
                     <RadialGradientBrush>
                         <GradientStop Color="#202427"/>
@@ -113,11 +110,17 @@
                 <Border.RenderTransform>
                     <RotateTransform Angle="45"/>
                 </Border.RenderTransform>
-                <TextBlock Text="2:00"
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10"
+                                      ShadowDepth="0"
+                                      Color="{StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}"/>
+                </Border.Effect>
+                <TextBlock Text="X:XX"
                            Foreground="{StaticResource WHITE_100}"
                            RenderTransformOrigin="0.5,0.5"
                            VerticalAlignment="Center"
-                           HorizontalAlignment="Center">
+                           HorizontalAlignment="Center"
+                           FontSize="12">
                     <TextBlock.RenderTransform>
                         <RotateTransform Angle="-45"/>
                     </TextBlock.RenderTransform>
@@ -126,11 +129,11 @@
 
             <!-- Speed -->
             <Border Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                    Margin="8"
+                    Margin="8,11,5,11"
                     RenderTransformOrigin="0.5,0.5"
-                    BorderThickness="3"
+                    BorderThickness="1"
                     CornerRadius="1"
-                    d:BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
+                    BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
                 <Border.Background>
                     <RadialGradientBrush>
                         <GradientStop Color="#202427"/>
@@ -140,11 +143,17 @@
                 <Border.RenderTransform>
                     <RotateTransform Angle="45"/>
                 </Border.RenderTransform>
-                <TextBlock Text="2:00"
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10"
+                                      ShadowDepth="0"
+                                      Color="{StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}"/>
+                </Border.Effect>
+                <TextBlock Text="X:XX"
                            Foreground="{StaticResource WHITE_100}"
                            RenderTransformOrigin="0.5,0.5"
                            VerticalAlignment="Center"
-                           HorizontalAlignment="Center">
+                           HorizontalAlignment="Center"
+                           FontSize="12">
                     <TextBlock.RenderTransform>
                         <RotateTransform Angle="-45"/>
                     </TextBlock.RenderTransform>
@@ -153,11 +162,11 @@
 
             <!-- Defense -->
             <Border Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                    Margin="8"
+                    Margin="8,11,5,11"
                     RenderTransformOrigin="0.5,0.5"
-                    BorderThickness="3"
+                    BorderThickness="1"
                     CornerRadius="1"
-                    d:BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
+                    BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
                 <Border.Background>
                     <RadialGradientBrush>
                         <GradientStop Color="#202427"/>
@@ -167,11 +176,17 @@
                 <Border.RenderTransform>
                     <RotateTransform Angle="45"/>
                 </Border.RenderTransform>
-                <TextBlock Text="2:00"
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10"
+                                      ShadowDepth="0"
+                                      Color="{StaticResource INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR}"/>
+                </Border.Effect>
+                <TextBlock Text="X:XX"
                            Foreground="{StaticResource WHITE_100}"
                            RenderTransformOrigin="0.5,0.5"
                            VerticalAlignment="Center"
-                           HorizontalAlignment="Center">
+                           HorizontalAlignment="Center"
+                           FontSize="12">
                     <TextBlock.RenderTransform>
                         <RotateTransform Angle="-45"/>
                     </TextBlock.RenderTransform>
@@ -181,9 +196,11 @@
 
         <controls:Bar Grid.Row="1"
                       Grid.Column="1"
-                      Margin="5,0,0,0"
-                      Height="5"
+                      Margin="-10,0,0,0"
+                      Height="7"
+                      Width="200"
                       VerticalAlignment="Top"
+                      HorizontalAlignment="Left"
                       BorderThickness="1"
                       BorderBrush="{StaticResource GRAY}"
                       Background="{StaticResource INSECT_GLAIVE_KINSECT_STAMINA}">

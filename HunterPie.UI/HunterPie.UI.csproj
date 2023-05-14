@@ -5,8 +5,8 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.8.0.25</AssemblyVersion>
-    <FileVersion>2.8.0.25</FileVersion>
+    <AssemblyVersion>2.8.0.35</AssemblyVersion>
+    <FileVersion>2.8.0.35</FileVersion>
     <LangVersion>10.0</LangVersion>
     <Authors>Haato</Authors>
  </PropertyGroup>

@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Game.Entity.Party;
+using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Entity.Player.Vitals;
 using HunterPie.Core.Game.Events;
 using System;
