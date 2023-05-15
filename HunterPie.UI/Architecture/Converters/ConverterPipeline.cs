@@ -1,19 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Data;
 
 namespace HunterPie.UI.Architecture.Converters;
 
-public class FloatFloorConverter : IValueConverter
+/// <summary>
+/// Pipeline that allows multiple converters to run in a single binding
+/// </summary>
+public class ConverterPipeline : List<IValueConverter>, IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return value switch
-        {
-            float f => Math.Floor(f),
-            double d => Math.Floor(d),
-            _ => 0
-        };
+        return this.Aggregate(value,
+            (current, converter) => converter.Convert(current, targetType, parameter, culture));
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();

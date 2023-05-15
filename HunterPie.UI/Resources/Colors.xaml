@@ -238,6 +238,7 @@
     <Color x:Key="INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR">#d97925</Color>
     <Color x:Key="INSECT_GLAIVE_EXTRACT_HEAL_COLOR">#5BF77F</Color>
     <Color x:Key="INSECT_GLAIVE_EXTRACT_SPEED_COLOR">#fff3e8</Color>
+    <Color x:Key="INSECT_GLAIVE_EXTRACT_NONE_COLOR">#3a3e40</Color>
     <LinearGradientBrush x:Key="INSECT_GLAIVE_KINSECT_STAMINA" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FFE6F542" Offset="1"/>
         <GradientStop Color="#FFF57B42" Offset="0"/>

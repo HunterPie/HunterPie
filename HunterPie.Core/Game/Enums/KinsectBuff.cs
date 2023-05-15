@@ -4,5 +4,6 @@ public enum KinsectBuff
     Attack,
     Speed,
     Defense,
+    Heal,
     None
 }

@@ -11,10 +11,13 @@ public interface IInsectGlaive : IMeleeWeapon
     public float AttackTimer { get; }
     public float SpeedTimer { get; }
     public float DefenseTimer { get; }
+    public float Stamina { get; }
+    public float MaxStamina { get; }
 
     public event EventHandler<InsectGlaiveExtractChangeEventArgs> OnPrimaryExtractChange;
     public event EventHandler<InsectGlaiveExtractChangeEventArgs> OnSecondaryExtractChange;
     public event EventHandler<InsectGlaiveBuffTimerChangeEventArgs> OnAttackTimerChange;
     public event EventHandler<InsectGlaiveBuffTimerChangeEventArgs> OnSpeedTimerChange;
     public event EventHandler<InsectGlaiveBuffTimerChangeEventArgs> OnDefenseTimerChange;
+    public event EventHandler<KinsectStaminaChangeEventArgs> OnKinsectStaminaChange;
 }

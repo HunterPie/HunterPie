@@ -1,10 +1,14 @@
-﻿using HunterPie.Core.Architecture.Events;
+﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Weapons;
 public class MHRInsectGlaive : MHRMeleeWeapon, IInsectGlaive
@@ -14,6 +18,7 @@ public class MHRInsectGlaive : MHRMeleeWeapon, IInsectGlaive
     private float _attackTimer;
     private float _speedTimer;
     private float _defenseTimer;
+    private float _stamina;
 
     public KinsectBuff PrimaryExtract
     {
@@ -80,6 +85,21 @@ public class MHRInsectGlaive : MHRMeleeWeapon, IInsectGlaive
         }
     }
 
+    public float Stamina
+    {
+        get => _stamina;
+        private set
+        {
+            if (value == _stamina)
+                return;
+
+            _stamina = value;
+            this.Dispatch(_onKinsectStaminaChange, new KinsectStaminaChangeEventArgs(this));
+        }
+    }
+
+    public float MaxStamina { get; private set; }
+
     private readonly SmartEvent<InsectGlaiveExtractChangeEventArgs> _onPrimaryExtractChange = new();
     public event EventHandler<InsectGlaiveExtractChangeEventArgs> OnPrimaryExtractChange
     {
@@ -115,11 +135,62 @@ public class MHRInsectGlaive : MHRMeleeWeapon, IInsectGlaive
         remove => _onDefenseTimerChange.Unhook(value);
     }
 
-    public MHRInsectGlaive(IProcessManager process, Weapon id) : base(process, id) { }
+    private readonly SmartEvent<KinsectStaminaChangeEventArgs> _onKinsectStaminaChange = new();
+    public event EventHandler<KinsectStaminaChangeEventArgs> OnKinsectStaminaChange
+    {
+        add => _onKinsectStaminaChange.Hook(value);
+        remove => _onKinsectStaminaChange.Unhook(value);
+    }
+
+    public MHRInsectGlaive(IProcessManager process) : base(process, Weapon.InsectGlaive) { }
 
     [ScannableMethod]
-    private void GetKinsectExtracts()
+    private void GetKinsectData()
     {
+        MHRInsectGlaiveDataStructure structure = Memory.Deref<MHRInsectGlaiveDataStructure>(
+            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("CURRENT_WEAPON_OFFSETS")
+        );
+        KinsectBuff[] extracts = Memory.ReadArraySafe<int>(structure.ExtractsArray, 2)
+            .Select(it => (KinsectExtract)it)
+            .Select(it => it.ToBuff())
+            .ToArray();
 
+        if (extracts.Length < 2)
+            return;
+
+        (KinsectBuff primary, KinsectBuff secondary) = (extracts.First(), extracts.Last());
+
+        PrimaryExtract = primary;
+        SecondaryExtract = secondary != KinsectBuff.None ? secondary : primary;
+        AttackTimer = structure.AttackTimer.ToAbnormalitySeconds();
+        SpeedTimer = structure.SpeedTimer.ToAbnormalitySeconds();
+        DefenseTimer = structure.DefenseTimer.ToAbnormalitySeconds();
+    }
+
+    [ScannableMethod]
+    private void GetKinsectStamina()
+    {
+        MHRKinsectStaminaStructure structure = Memory.Deref<MHRKinsectStaminaStructure>(
+            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+            AddressMap.Get<int[]>("KINSECT_STAMINA_OFFSETS")
+        );
+
+        MaxStamina = structure.Max;
+        Stamina = structure.Current;
+    }
+
+
+    public override void Dispose()
+    {
+        new IDisposable[]
+        {
+            _onPrimaryExtractChange,
+            _onSecondaryExtractChange,
+            _onAttackTimerChange,
+            _onSpeedTimerChange,
+            _onDefenseTimerChange,
+            _onKinsectStaminaChange
+        }.DisposeAll();
     }
 }

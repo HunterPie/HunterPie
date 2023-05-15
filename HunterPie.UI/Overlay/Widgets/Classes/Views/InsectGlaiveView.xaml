@@ -6,11 +6,21 @@
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.Views"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:controls="clr-namespace:HunterPie.UI.Overlay.Controls"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="70" 
-             d:DesignWidth="280">
+             d:DesignWidth="280"
+             d:DataContext="{d:DesignInstance viewModels:InsectGlaiveViewModel}">
     <UserControl.Resources>
+        <converters:ConverterPipeline x:Key="KinsectBuffToBrushConverter">
+            <converters:KinsectBuffToColorConverter/>
+            <converters:ColorToBrushConverter/>
+        </converters:ConverterPipeline>
+
+        <converters:KinsectBuffToColorConverter x:Key="KinsectBuffToColorConverter"/>
         <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+        <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
+        <converters:KinsectBuffToBooleanConverter x:Key="KinsectBuffToBooleanConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -28,15 +38,18 @@
         <Rectangle Grid.Column="0"
                    Grid.Row="0"
                    Grid.RowSpan="2"
-                   HorizontalAlignment="Left"
+                   HorizontalAlignment="Center"
                    RenderTransformOrigin="0.5,0.5"
-                   Margin="14,0,0,0"
+                   Margin="0"
+                   d:Margin="-13,0,0,0"
                    Height="40"
                    Width="40"
-                   Fill="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
+                   d:Fill="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}, Converter={StaticResource ColorToBrushConverter}}"
+                   Fill="{Binding PrimaryQueuedBuff, Mode=OneWay, Converter={StaticResource KinsectBuffToBrushConverter}}">
             <Rectangle.Effect>
                 <DropShadowEffect BlurRadius="10"
-                                  Color="{StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}"
+                                  d:Color="{StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}"
+                                  Color="{Binding PrimaryQueuedBuff, Mode=OneWay, Converter={StaticResource KinsectBuffToColorConverter}}"
                                   ShadowDepth="0"/>
             </Rectangle.Effect>
             <Rectangle.RenderTransform>
@@ -44,21 +57,59 @@
                     <RotateTransform Angle="45"/>
                 </TransformGroup>
             </Rectangle.RenderTransform>
+            <Rectangle.Style>
+                <Style TargetType="Rectangle">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding PrimaryQueuedBuff, Mode=OneWay, Converter={StaticResource KinsectBuffToBooleanConverter}}"
+                                     Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard FillBehavior="HoldEnd">
+                                        <ThicknessAnimation To="-14,0,0,0"
+                                                            Duration="0:0:0.25"
+                                                            Storyboard.TargetProperty="Margin">
+                                            <ThicknessAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseOut"/>
+                                            </ThicknessAnimation.EasingFunction>
+                                        </ThicknessAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard FillBehavior="HoldEnd">
+                                        <ThicknessAnimation To="0,0,0,0"
+                                                            Duration="0:0:0.25"
+                                                            Storyboard.TargetProperty="Margin">
+                                            <ThicknessAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseOut"/>
+                                            </ThicknessAnimation.EasingFunction>
+                                        </ThicknessAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
         </Rectangle>
 
         <!-- Right extract -->
         <Rectangle Grid.Row="0"
                    Grid.RowSpan="2"
                    Grid.Column="0"
-                   HorizontalAlignment="Right"
+                   HorizontalAlignment="Center"
                    RenderTransformOrigin="0.5,0.5"
-                   Margin="0,0,14,0"
+                   Margin="0"
+                   d:Margin="13,0,0,0"
                    Height="40"
                    Width="40"
-                   Fill="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
+                   d:Fill="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}, Converter={StaticResource ColorToBrushConverter}}"
+                   Fill="{Binding SecondaryQueuedBuff, Mode=OneWay, Converter={StaticResource KinsectBuffToBrushConverter}}">
             <Rectangle.Effect>
                 <DropShadowEffect BlurRadius="20"
-                                  Color="{StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}"
+                                  d:Color="{StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}"
+                                  Color="{Binding SecondaryQueuedBuff, Mode=OneWay, Converter={StaticResource KinsectBuffToColorConverter}}"
                                   ShadowDepth="0"/>
             </Rectangle.Effect>
             <Rectangle.RenderTransform>
@@ -66,6 +117,41 @@
                     <RotateTransform Angle="-135"/>
                 </TransformGroup>
             </Rectangle.RenderTransform>
+            <Rectangle.Style>
+                <Style TargetType="Rectangle">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SecondaryQueuedBuff, Mode=OneWay, Converter={StaticResource KinsectBuffToBooleanConverter}}"
+                                     Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard FillBehavior="HoldEnd">
+                                        <ThicknessAnimation To="14,0,0,0"
+                                                            Duration="0:0:0.25"
+                                                            Storyboard.TargetProperty="Margin">
+                                            <ThicknessAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseOut"/>
+                                            </ThicknessAnimation.EasingFunction>
+                                        </ThicknessAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard FillBehavior="HoldEnd">
+                                        <ThicknessAnimation To="0,0,0,0"
+                                                            Duration="0:0:0.25"
+                                                            Storyboard.TargetProperty="Margin">
+                                            <ThicknessAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseOut"/>
+                                            </ThicknessAnimation.EasingFunction>
+                                        </ThicknessAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
         </Rectangle>
 
         <Border Grid.Column="0"
@@ -115,7 +201,8 @@
                                       ShadowDepth="0"
                                       Color="{StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}"/>
                 </Border.Effect>
-                <TextBlock Text="X:XX"
+                <TextBlock d:Text="X:XX"
+                           Text="{Binding AttackTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}, ConverterParameter='m\\:ss'}"
                            Foreground="{StaticResource WHITE_100}"
                            RenderTransformOrigin="0.5,0.5"
                            VerticalAlignment="Center"
@@ -148,7 +235,8 @@
                                       ShadowDepth="0"
                                       Color="{StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}"/>
                 </Border.Effect>
-                <TextBlock Text="X:XX"
+                <TextBlock d:Text="X:XX"
+                           Text="{Binding MovementSpeedTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}, ConverterParameter='m\\:ss'}"
                            Foreground="{StaticResource WHITE_100}"
                            RenderTransformOrigin="0.5,0.5"
                            VerticalAlignment="Center"
@@ -181,7 +269,8 @@
                                       ShadowDepth="0"
                                       Color="{StaticResource INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR}"/>
                 </Border.Effect>
-                <TextBlock Text="X:XX"
+                <TextBlock d:Text="X:XX"
+                           Text="{Binding DefenseTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}, ConverterParameter='m\\:ss'}"
                            Foreground="{StaticResource WHITE_100}"
                            RenderTransformOrigin="0.5,0.5"
                            VerticalAlignment="Center"
@@ -199,11 +288,14 @@
                       Margin="-10,0,0,0"
                       Height="7"
                       Width="200"
+                      MaxValue="{Binding MaxStamina, Mode=OneWay}"
+                      Value="{Binding Stamina, Mode=OneWay}"
                       VerticalAlignment="Top"
                       HorizontalAlignment="Left"
                       BorderThickness="1"
                       BorderBrush="{StaticResource GRAY}"
-                      Background="{StaticResource INSECT_GLAIVE_KINSECT_STAMINA}">
+                      Background="{StaticResource GRAY_100}"
+                      Foreground="{StaticResource INSECT_GLAIVE_KINSECT_STAMINA}">
             <controls:Bar.RenderTransform>
                 <SkewTransform AngleX="-50"/>
             </controls:Bar.RenderTransform>

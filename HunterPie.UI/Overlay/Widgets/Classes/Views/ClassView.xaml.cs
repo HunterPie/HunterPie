@@ -13,7 +13,7 @@ namespace HunterPie.UI.Overlay.Widgets.Classes.Views;
 public partial class ClassView : View<ClassViewModel>, IWidget<ClassWidgetConfig>, IWidgetWindow
 {
     public WidgetType Type => WidgetType.ClickThrough;
-    IWidgetSettings IWidgetWindow.Settings => Settings;
+    IWidgetSettings IWidgetWindow.Settings => ViewModel.CurrentSettings;
     public event EventHandler<WidgetType> OnWidgetTypeChange;
     public ClassWidgetConfig Settings => ViewModel.CurrentSettings;
     public string Title => "Class Widget";
