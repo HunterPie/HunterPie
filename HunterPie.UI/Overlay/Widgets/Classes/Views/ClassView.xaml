@@ -22,8 +22,10 @@
         <presentation:ClassTemplateSelector x:Key="ClassTemplateSelector" 
                                             InsectGlaiveTemplate="{StaticResource InsectGlaiveTemplate}"
                                             EmptyTemplate="{StaticResource EmptyTemplate}"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
 
     <ContentControl Content="{Binding Current, Mode=OneWay}"
-                    ContentTemplateSelector="{StaticResource ClassTemplateSelector}"/>
+                    ContentTemplateSelector="{StaticResource ClassTemplateSelector}"
+                    Visibility="{Binding InHuntingZone, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 </architecture:View>

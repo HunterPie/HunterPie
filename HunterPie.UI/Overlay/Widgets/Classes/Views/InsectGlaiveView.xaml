@@ -7,6 +7,7 @@
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:controls="clr-namespace:HunterPie.UI.Overlay.Controls"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.ViewModels"
+             xmlns:animation="clr-namespace:HunterPie.UI.Architecture.Animation"
              mc:Ignorable="d" 
              d:DesignHeight="70" 
              d:DesignWidth="280"
@@ -21,6 +22,13 @@
         <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:KinsectBuffToBooleanConverter x:Key="KinsectBuffToBooleanConverter"/>
+        <converters:NumberToBooleanConverter x:Key="NumberToBooleanConverter"/>
+        <SolidColorBrush Color="{StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}"
+                         x:Key="InsectGlaiveAttackBrush"/>
+        <SolidColorBrush Color="{StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}"
+                         x:Key="InsectGlaiveSpeedBrush"/>
+        <SolidColorBrush Color="{StaticResource INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR}"
+                         x:Key="InsectGlaiveDefenseBrush"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -174,6 +182,8 @@
                     <RotateTransform Angle="45"/>
                 </TransformGroup>
             </Border.RenderTransform>
+
+
         </Border>
 
         <!-- Buffs -->
@@ -186,7 +196,7 @@
                     RenderTransformOrigin="0.5,0.5"
                     BorderThickness="1"
                     CornerRadius="1"
-                    BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
+                    d:BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
                 <Border.Background>
                     <RadialGradientBrush>
                         <GradientStop Color="#202427"/>
@@ -199,6 +209,7 @@
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="10"
                                       ShadowDepth="0"
+                                      Opacity="0"
                                       Color="{StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}"/>
                 </Border.Effect>
                 <TextBlock d:Text="X:XX"
@@ -212,6 +223,40 @@
                         <RotateTransform Angle="-45"/>
                     </TextBlock.RenderTransform>
                 </TextBlock>
+
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding AttackTimer, Mode=OneWay, Converter={StaticResource NumberToBooleanConverter}}"
+                                         Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <animation:BrushAnimation To="{StaticResource InsectGlaiveAttackBrush}"
+                                                                      Duration="0:0:0.3"
+                                                                      Storyboard.TargetProperty="BorderBrush"/>
+                                            <DoubleAnimation To="1"
+                                                             Duration="0:0:0.3"
+                                                             Storyboard.TargetProperty="(Effect).Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <animation:BrushAnimation To="{StaticResource GRAY_50}"
+                                                                      Duration="0:0:0.3"
+                                                                      Storyboard.TargetProperty="BorderBrush"/>
+                                            <DoubleAnimation To="0"
+                                                             Duration="0:0:0.3"
+                                                             Storyboard.TargetProperty="(Effect).Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
             </Border>
 
             <!-- Speed -->
@@ -220,7 +265,7 @@
                     RenderTransformOrigin="0.5,0.5"
                     BorderThickness="1"
                     CornerRadius="1"
-                    BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
+                    d:BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
                 <Border.Background>
                     <RadialGradientBrush>
                         <GradientStop Color="#202427"/>
@@ -233,6 +278,7 @@
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="10"
                                       ShadowDepth="0"
+                                      Opacity="0"
                                       Color="{StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}"/>
                 </Border.Effect>
                 <TextBlock d:Text="X:XX"
@@ -246,6 +292,40 @@
                         <RotateTransform Angle="-45"/>
                     </TextBlock.RenderTransform>
                 </TextBlock>
+
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding MovementSpeedTimer, Mode=OneWay, Converter={StaticResource NumberToBooleanConverter}}"
+                                         Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <animation:BrushAnimation To="{StaticResource InsectGlaiveSpeedBrush}"
+                                                                      Duration="0:0:0.3"
+                                                                      Storyboard.TargetProperty="BorderBrush"/>
+                                            <DoubleAnimation To="1"
+                                                             Duration="0:0:0.3"
+                                                             Storyboard.TargetProperty="(Effect).Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <animation:BrushAnimation To="{StaticResource GRAY_50}"
+                                                                      Duration="0:0:0.3"
+                                                                      Storyboard.TargetProperty="BorderBrush"/>
+                                            <DoubleAnimation To="0"
+                                                             Duration="0:0:0.3"
+                                                             Storyboard.TargetProperty="(Effect).Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
             </Border>
 
             <!-- Defense -->
@@ -254,7 +334,7 @@
                     RenderTransformOrigin="0.5,0.5"
                     BorderThickness="1"
                     CornerRadius="1"
-                    BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
+                    d:BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
                 <Border.Background>
                     <RadialGradientBrush>
                         <GradientStop Color="#202427"/>
@@ -267,6 +347,7 @@
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="10"
                                       ShadowDepth="0"
+                                      Opacity="0"
                                       Color="{StaticResource INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR}"/>
                 </Border.Effect>
                 <TextBlock d:Text="X:XX"
@@ -280,6 +361,40 @@
                         <RotateTransform Angle="-45"/>
                     </TextBlock.RenderTransform>
                 </TextBlock>
+
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DefenseTimer, Mode=OneWay, Converter={StaticResource NumberToBooleanConverter}}"
+                                         Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <animation:BrushAnimation To="{StaticResource InsectGlaiveDefenseBrush}"
+                                                                      Duration="0:0:0.3"
+                                                                      Storyboard.TargetProperty="BorderBrush"/>
+                                            <DoubleAnimation To="1"
+                                                             Duration="0:0:0.3"
+                                                             Storyboard.TargetProperty="(Effect).Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <animation:BrushAnimation To="{StaticResource GRAY_50}"
+                                                                      Duration="0:0:0.3"
+                                                                      Storyboard.TargetProperty="BorderBrush"/>
+                                            <DoubleAnimation To="0"
+                                                             Duration="0:0:0.3"
+                                                             Storyboard.TargetProperty="(Effect).Opacity"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
             </Border>
         </StackPanel>
 
@@ -288,6 +403,8 @@
                       Margin="-10,0,0,0"
                       Height="7"
                       Width="200"
+                      d:Value="50"
+                      d:MaxValue="100"
                       MaxValue="{Binding MaxStamina, Mode=OneWay}"
                       Value="{Binding Stamina, Mode=OneWay}"
                       VerticalAlignment="Top"

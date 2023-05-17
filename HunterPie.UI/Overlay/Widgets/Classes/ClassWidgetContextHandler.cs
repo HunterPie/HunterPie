@@ -9,6 +9,7 @@ using HunterPie.Core.System;
 using HunterPie.UI.Overlay.Widgets.Classes.Controllers;
 using HunterPie.UI.Overlay.Widgets.Classes.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Classes.Views;
+using System;
 
 namespace HunterPie.UI.Overlay.Widgets.Classes;
 
@@ -35,11 +36,15 @@ public class ClassWidgetContextHandler : IContextHandler
     public void HookEvents()
     {
         _context.Game.Player.OnWeaponChange += OnWeaponChange;
+        _context.Game.Player.OnStageUpdate += OnStageUpdate;
     }
+
+    private void OnStageUpdate(object? sender, EventArgs e) => _viewModel.InHuntingZone = _context.Game.Player.InHuntingZone;
 
     public void UnhookEvents()
     {
         _context.Game.Player.OnWeaponChange -= OnWeaponChange;
+        _context.Game.Player.OnStageUpdate -= OnStageUpdate;
         _ = WidgetManager.Unregister<ClassView, ClassWidgetConfig>(_view);
     }
 
@@ -76,5 +81,6 @@ public class ClassWidgetContextHandler : IContextHandler
     {
         UpdateConfig(_context.Game.Player.Weapon);
         UpdateController(_context.Game.Player.Weapon);
+        _viewModel.InHuntingZone = _context.Game.Player.InHuntingZone;
     }
 }
