@@ -8,6 +8,9 @@
              xmlns:controls="clr-namespace:HunterPie.UI.Overlay.Controls"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.ViewModels"
              xmlns:animation="clr-namespace:HunterPie.UI.Architecture.Animation"
+             xmlns:effects="clr-namespace:HunterPie.UI.Architecture.Effects"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+             xmlns:enums="clr-namespace:HunterPie.Core.Game.Enums;assembly=HunterPie.Core"
              mc:Ignorable="d" 
              d:DesignHeight="70" 
              d:DesignWidth="280"
@@ -16,6 +19,11 @@
         <converters:ConverterPipeline x:Key="KinsectBuffToBrushConverter">
             <converters:KinsectBuffToColorConverter/>
             <converters:ColorToBrushConverter/>
+        </converters:ConverterPipeline>
+
+        <converters:ConverterPipeline x:Key="NumberToVisibilityConverter">
+            <converters:NumberToBooleanConverter/>
+            <BooleanToVisibilityConverter/>
         </converters:ConverterPipeline>
 
         <converters:KinsectBuffToColorConverter x:Key="KinsectBuffToColorConverter"/>
@@ -162,6 +170,7 @@
             </Rectangle.Style>
         </Rectangle>
 
+        <!-- Kinsect charge -->
         <Border Grid.Column="0"
                 Width="44"
                 Height="44"
@@ -183,7 +192,62 @@
                 </TransformGroup>
             </Border.RenderTransform>
 
+            <Grid RenderTransformOrigin="0.5,0.5">
+                <image:Icon Image="{StaticResource ICON_DISABLED_KINSECT}"
+                            d:Foreground="{StaticResource INSECT_GLAIVE_CHARGE_DISABLED_BRUSH}"
+                            Margin="3">
+                    <image:Icon.Effect>
+                        <DropShadowEffect BlurRadius="20"
+                                          ShadowDepth="0"
+                                          Color="#3d4347"/>
+                    </image:Icon.Effect>
 
+                    <image:Icon.Style>
+                        <Style TargetType="image:Icon">
+                            <Setter Property="Opacity" Value="0.4"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ChargeType, Mode=OneWay}"
+                                             Value="{x:Static enums:KinsectChargeType.None}">
+                                    <Setter Property="Foreground" Value="{StaticResource INSECT_GLAIVE_CHARGE_DISABLED_BRUSH}"/>
+                                    <Setter Property="Opacity" Value="1"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ChargeType, Mode=OneWay}"
+                                             Value="{x:Static enums:KinsectChargeType.Red}">
+                                    <Setter Property="Foreground" Value="{StaticResource INSECT_GLAIVE_CHARGE_RED_BRUSH}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ChargeType, Mode=OneWay}"
+                                             Value="{x:Static enums:KinsectChargeType.Yellow}">
+                                    <Setter Property="Foreground" Value="{StaticResource INSECT_GLAIVE_CHARGE_YELLOW_BRUSH}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ChargeType, Mode=OneWay}"
+                                             Value="{x:Static enums:KinsectChargeType.RedAndYellow}">
+                                    <Setter Property="Foreground" Value="{StaticResource INSECT_GLAIVE_CHARGE_RED_YELLOW_BRUSH}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </image:Icon.Style>
+                </image:Icon>
+
+                <TextBlock d:Text="00:00"
+                           Text="{Binding ChargeTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"
+                           Foreground="{StaticResource WHITE_50}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Medium"
+                           Visibility="{Binding ChargeTimer, Mode=OneWay, Converter={StaticResource NumberToVisibilityConverter}}">
+                    <TextBlock.Effect>
+                        <DropShadowEffect BlurRadius="10"
+                                          ShadowDepth="0"
+                                          Color="Black"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-45"/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+            </Grid>
         </Border>
 
         <!-- Buffs -->
@@ -210,9 +274,10 @@
                     <DropShadowEffect BlurRadius="10"
                                       ShadowDepth="0"
                                       Opacity="0"
+                                      d:Opacity="1"
                                       Color="{StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}"/>
                 </Border.Effect>
-                <TextBlock d:Text="X:XX"
+                <TextBlock d:Text="0:00"
                            Text="{Binding AttackTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}, ConverterParameter='m\\:ss'}"
                            Foreground="{StaticResource WHITE_100}"
                            RenderTransformOrigin="0.5,0.5"
@@ -279,9 +344,10 @@
                     <DropShadowEffect BlurRadius="10"
                                       ShadowDepth="0"
                                       Opacity="0"
+                                      d:Opacity="1"
                                       Color="{StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}"/>
                 </Border.Effect>
-                <TextBlock d:Text="X:XX"
+                <TextBlock d:Text="0:00"
                            Text="{Binding MovementSpeedTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}, ConverterParameter='m\\:ss'}"
                            Foreground="{StaticResource WHITE_100}"
                            RenderTransformOrigin="0.5,0.5"
@@ -348,9 +414,10 @@
                     <DropShadowEffect BlurRadius="10"
                                       ShadowDepth="0"
                                       Opacity="0"
+                                      d:Opacity="1"
                                       Color="{StaticResource INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR}"/>
                 </Border.Effect>
-                <TextBlock d:Text="X:XX"
+                <TextBlock d:Text="0:00"
                            Text="{Binding DefenseTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}, ConverterParameter='m\\:ss'}"
                            Foreground="{StaticResource WHITE_100}"
                            RenderTransformOrigin="0.5,0.5"

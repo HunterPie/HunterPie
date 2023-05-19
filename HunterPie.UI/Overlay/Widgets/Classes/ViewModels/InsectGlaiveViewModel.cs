@@ -28,4 +28,9 @@ public class InsectGlaiveViewModel : ViewModel, IClassViewModel
     private double _defenseTimer;
     public double DefenseTimer { get => _defenseTimer; set => SetValue(ref _defenseTimer, value); }
 
+    private KinsectChargeType _chargeType;
+    public KinsectChargeType ChargeType { get => _chargeType; set => SetValue(ref _chargeType, value); }
+
+    private double _chargeTimer;
+    public double ChargeTimer { get => _chargeTimer; set => SetValue(ref _chargeTimer, value); }
 }

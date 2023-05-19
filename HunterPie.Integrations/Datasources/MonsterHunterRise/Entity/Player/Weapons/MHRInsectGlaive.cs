@@ -19,6 +19,8 @@ public class MHRInsectGlaive : MHRMeleeWeapon, IInsectGlaive
     private float _speedTimer;
     private float _defenseTimer;
     private float _stamina;
+    private KinsectChargeType _chargeType;
+    private float _charge;
 
     public KinsectBuff PrimaryExtract
     {
@@ -43,6 +45,19 @@ public class MHRInsectGlaive : MHRMeleeWeapon, IInsectGlaive
 
             _secondaryExtract = value;
             this.Dispatch(_onSecondaryExtractChange, new InsectGlaiveExtractChangeEventArgs(value));
+        }
+    }
+
+    public KinsectChargeType ChargeType
+    {
+        get => _chargeType;
+        private set
+        {
+            if (value == _chargeType)
+                return;
+
+            _chargeType = value;
+            this.Dispatch(_onChargeChange, new KinsectChargeChangeEventArgs(this));
         }
     }
 
@@ -100,6 +115,19 @@ public class MHRInsectGlaive : MHRMeleeWeapon, IInsectGlaive
 
     public float MaxStamina { get; private set; }
 
+    public float Charge
+    {
+        get => _charge;
+        private set
+        {
+            if (value == _charge)
+                return;
+
+            _charge = value;
+            this.Dispatch(_onChargeChange, new KinsectChargeChangeEventArgs(this));
+        }
+    }
+
     private readonly SmartEvent<InsectGlaiveExtractChangeEventArgs> _onPrimaryExtractChange = new();
     public event EventHandler<InsectGlaiveExtractChangeEventArgs> OnPrimaryExtractChange
     {
@@ -140,6 +168,13 @@ public class MHRInsectGlaive : MHRMeleeWeapon, IInsectGlaive
     {
         add => _onKinsectStaminaChange.Hook(value);
         remove => _onKinsectStaminaChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<KinsectChargeChangeEventArgs> _onChargeChange = new();
+    public event EventHandler<KinsectChargeChangeEventArgs> OnChargeChange
+    {
+        add => _onChargeChange.Hook(value);
+        remove => _onChargeChange.Unhook(value);
     }
 
     public MHRInsectGlaive(IProcessManager process) : base(process, Weapon.InsectGlaive) { }
@@ -190,7 +225,8 @@ public class MHRInsectGlaive : MHRMeleeWeapon, IInsectGlaive
             _onAttackTimerChange,
             _onSpeedTimerChange,
             _onDefenseTimerChange,
-            _onKinsectStaminaChange
+            _onKinsectStaminaChange,
+            _onChargeChange
         }.DisposeAll();
     }
 }
