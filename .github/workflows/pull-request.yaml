@@ -5,6 +5,11 @@ on:
     branches:
       - main
       - 'release/**'
+  push:
+    branches:
+      - main
+      - 'release/**'
+      
 defaults:
   run:
     shell: bash
