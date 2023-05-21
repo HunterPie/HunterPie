@@ -32,6 +32,7 @@ public class InsectGlaiveController : IClassController<InsectGlaiveViewModel>
         _weapon.OnSpeedTimerChange += OnSpeedTimerChange;
         _weapon.OnDefenseTimerChange += OnDefenseTimerChange;
         _weapon.OnKinsectStaminaChange += OnKinsectStaminaChange;
+        _weapon.OnChargeChange += OnChargeChange;
     }
 
     public void UnhookEvents()
@@ -42,6 +43,13 @@ public class InsectGlaiveController : IClassController<InsectGlaiveViewModel>
         _weapon.OnSpeedTimerChange -= OnSpeedTimerChange;
         _weapon.OnDefenseTimerChange -= OnDefenseTimerChange;
         _weapon.OnKinsectStaminaChange -= OnKinsectStaminaChange;
+        _weapon.OnChargeChange -= OnChargeChange;
+    }
+
+    private void OnChargeChange(object sender, KinsectChargeChangeEventArgs e)
+    {
+        ViewModel.ChargeType = e.Type;
+        ViewModel.ChargeTimer = e.Timer;
     }
 
     private void OnKinsectStaminaChange(object sender, KinsectStaminaChangeEventArgs e)
@@ -84,5 +92,7 @@ public class InsectGlaiveController : IClassController<InsectGlaiveViewModel>
         ViewModel.DefenseTimer = _weapon.DefenseTimer;
         ViewModel.PrimaryQueuedBuff = _weapon.PrimaryExtract;
         ViewModel.SecondaryQueuedBuff = _weapon.SecondaryExtract;
+        ViewModel.ChargeTimer = _weapon.Charge;
+        ViewModel.ChargeType = _weapon.ChargeType; ;
     }
 }

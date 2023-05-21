@@ -6,19 +6,22 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
-using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
-using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
-using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
 
-namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Weapons;
-public sealed class MHRInsectGlaive : MHRMeleeWeapon, IInsectGlaive
+namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
+
+public sealed class MHWInsectGlaive : MHWMeleeWeapon, IInsectGlaive
 {
+    private static readonly KinsectBuff[] EmptyBuffs = { KinsectBuff.None, KinsectBuff.None };
     private KinsectBuff _primaryExtract;
     private KinsectBuff _secondaryExtract;
     private float _attackTimer;
     private float _speedTimer;
     private float _defenseTimer;
     private float _stamina;
+    private KinsectChargeType _chargeType;
+    private float _charge;
 
     public KinsectBuff PrimaryExtract
     {
@@ -46,7 +49,18 @@ public sealed class MHRInsectGlaive : MHRMeleeWeapon, IInsectGlaive
         }
     }
 
-    public KinsectChargeType ChargeType => KinsectChargeType.None;
+    public KinsectChargeType ChargeType
+    {
+        get => _chargeType;
+        private set
+        {
+            if (value == _chargeType)
+                return;
+
+            _chargeType = value;
+            this.Dispatch(_onChargeChange, new KinsectChargeChangeEventArgs(this));
+        }
+    }
 
     public float AttackTimer
     {
@@ -102,7 +116,18 @@ public sealed class MHRInsectGlaive : MHRMeleeWeapon, IInsectGlaive
 
     public float MaxStamina { get; private set; }
 
-    public float Charge => 0.0f;
+    public float Charge
+    {
+        get => _charge;
+        private set
+        {
+            if (value == _charge)
+                return;
+
+            _charge = value;
+            this.Dispatch(_onChargeChange, new KinsectChargeChangeEventArgs(this));
+        }
+    }
 
     private readonly SmartEvent<InsectGlaiveExtractChangeEventArgs> _onPrimaryExtractChange = new();
     public event EventHandler<InsectGlaiveExtractChangeEventArgs> OnPrimaryExtractChange
@@ -153,44 +178,46 @@ public sealed class MHRInsectGlaive : MHRMeleeWeapon, IInsectGlaive
         remove => _onChargeChange.Unhook(value);
     }
 
-    public MHRInsectGlaive(IProcessManager process) : base(process, Weapon.InsectGlaive) { }
+    public MHWInsectGlaive(IProcessManager process) : base(process, Weapon.InsectGlaive) { }
 
     [ScannableMethod]
-    private void GetKinsectData()
+    private void GetWeaponData()
     {
-        MHRInsectGlaiveDataStructure structure = Memory.Deref<MHRInsectGlaiveDataStructure>(
-            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
-            AddressMap.Get<int[]>("CURRENT_WEAPON_OFFSETS")
+        MHWInsectGlaiveStructure structure = Memory.Deref<MHWInsectGlaiveStructure>(
+            AddressMap.GetAbsolute("WEAPON_MECHANICS_ADDRESS"),
+            AddressMap.Get<int[]>("WEAPON_MECHANICS_OFFSETS")
         );
-        KinsectBuff[] extracts = Memory.ReadArraySafe<int>(structure.ExtractsArray, 2)
-            .Select(it => (KinsectExtract)it)
-            .Select(it => it.ToBuff())
-            .ToArray();
-
-        if (extracts.Length < 2)
-            return;
-
-        (KinsectBuff primary, KinsectBuff secondary) = (extracts.First(), extracts.Last());
-
-        PrimaryExtract = primary;
-        SecondaryExtract = secondary != KinsectBuff.None ? secondary : primary;
-        AttackTimer = structure.AttackTimer.ToAbnormalitySeconds();
-        SpeedTimer = structure.SpeedTimer.ToAbnormalitySeconds();
-        DefenseTimer = structure.DefenseTimer.ToAbnormalitySeconds();
-    }
-
-    [ScannableMethod]
-    private void GetKinsectStamina()
-    {
-        MHRKinsectStaminaStructure structure = Memory.Deref<MHRKinsectStaminaStructure>(
-            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
-            AddressMap.Get<int[]>("KINSECT_STAMINA_OFFSETS")
+        MHWInsectGlaiveExtraStructure extraStructure = Memory.Deref<MHWInsectGlaiveExtraStructure>(
+            AddressMap.GetAbsolute("WEAPON_MECHANICS_ADDRESS"),
+            AddressMap.Get<int[]>("WEAPON_EXTRA_MECHANICS_DATA_OFFSETS")
         );
+        MHWKinsectStructure kinsectStructure = Memory.Read<MHWKinsectStructure>(structure.KinsectPointer);
 
-        MaxStamina = structure.Max;
-        Stamina = structure.Current;
+        KinsectBuff[] buffs = structure.QueuedBuffsCount > 0
+            ? structure.BuffsQueue.TakeRolling(structure.QueuedIndex, structure.QueuedBuffsCount)
+                                  .Select(it => it.ToBuff())
+                                  .ToArray()
+            : EmptyBuffs;
+
+        // TODO: Adjust timer based on Power Prolonger buff
+        AttackTimer = Math.Max(0.0f, structure.AttackTimer);
+        SpeedTimer = Math.Max(0.0f, structure.SpeedTimer);
+        DefenseTimer = Math.Max(0.0f, structure.DefenseTimer);
+        PrimaryExtract = buffs.First();
+        SecondaryExtract = buffs.Length > 1 ? buffs.Last() : KinsectBuff.None;
+        MaxStamina = extraStructure.MaxStamina;
+        Stamina = kinsectStructure.Stamina;
+        ChargeType = kinsectStructure switch
+        {
+            { RedCharge: > 0.0f, YellowCharge: > 0.0f } => KinsectChargeType.RedAndYellow,
+            { RedCharge: > 0.0f } => KinsectChargeType.Red,
+            { YellowCharge: > 0.0f } => KinsectChargeType.Yellow,
+            _ => KinsectChargeType.None
+        };
+
+        float chargeTimer = Math.Max(kinsectStructure.RedCharge, kinsectStructure.YellowCharge);
+        Charge = ChargeType != KinsectChargeType.None ? Math.Max(0.0f, chargeTimer) : 0.0f;
     }
-
 
     public override void Dispose()
     {

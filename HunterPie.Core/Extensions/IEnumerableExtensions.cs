@@ -49,4 +49,19 @@ public static class IEnumerableExtensions
         foreach (T? item in enumerable)
             action(item);
     }
+
+    public static IEnumerable<T> TakeRolling<T>(this T[] array, int skip, int take)
+    {
+        int lastIndex = skip + take;
+
+        if (lastIndex < array.Length)
+            return array.Skip(skip)
+                .Take(take);
+
+        int takeFromStart = lastIndex - array.Length;
+
+        return array.Take(takeFromStart)
+            .Concat(array.Skip(skip)
+                .Take(array.Length));
+    }
 }

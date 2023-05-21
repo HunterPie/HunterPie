@@ -36,7 +36,7 @@ public abstract class Scannable
     private void AppendScannableMethods()
     {
         Type self = GetType();
-        MethodInfo[] methods = self.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+        MethodInfo[] methods = self.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
 
         foreach (MethodInfo method in methods)
         {
