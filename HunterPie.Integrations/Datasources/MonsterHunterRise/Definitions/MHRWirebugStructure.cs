@@ -7,7 +7,7 @@ public struct MHRWirebugStructure
     public int Unk1; // 8 + 4 
     public float Cooldown;
     public float MaxCooldown;
-    public long Unk2;
+    public float ExtraCooldown;
 }
 
 public struct MHRWirebugExtrasStructure

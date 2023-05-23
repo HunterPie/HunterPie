@@ -24,14 +24,14 @@ namespace HunterPie.UI.Overlay.Components;
 /// </summary>
 public partial class WidgetBase : Window, INotifyPropertyChanged
 {
-    private DateTime LastRender;
+    private DateTime _lastRender;
     private double _renderingTime;
 
     public double RenderingTime { get => _renderingTime; private set => SetValue(ref _renderingTime, value); }
 
 #if DEBUG
     public SeriesCollection RenderSeries { get; private set; }
-    private readonly ChartValues<ObservablePoint> RenderPoints = new();
+    private readonly ChartValues<ObservablePoint> _renderPoints = new();
 #endif
 
     // TODO: Move this to platform dependent classes
@@ -71,7 +71,7 @@ public partial class WidgetBase : Window, INotifyPropertyChanged
     {
 #if DEBUG
         RenderSeries = new LinearSeriesCollectionBuilder()
-            .AddSeries(RenderPoints, "Render", Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF))
+            .AddSeries(_renderPoints, "Render", Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF))
             .Build();
 #endif
 
@@ -81,18 +81,18 @@ public partial class WidgetBase : Window, INotifyPropertyChanged
         CompositionTarget.Rendering += OnRender;
     }
 
-    private int counter = 0;
+    private int _counter = 0;
     private void OnRender(object sender, EventArgs e)
     {
-        if (counter >= 60)
+        if (_counter >= 60)
         {
-            RenderingTime = (DateTime.Now - LastRender).TotalMilliseconds;
+            RenderingTime = (DateTime.Now - _lastRender).TotalMilliseconds;
             ForceAlwaysOnTop();
-            counter = 0;
+            _counter = 0;
         }
 
-        LastRender = DateTime.Now;
-        counter++;
+        _lastRender = DateTime.Now;
+        _counter++;
     }
 
     protected override void OnClosing(CancelEventArgs e)

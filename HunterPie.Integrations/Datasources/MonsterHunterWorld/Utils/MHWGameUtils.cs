@@ -112,4 +112,13 @@ public static class MHWGameUtils
         QuestState.Quit => QuestStatus.Quit,
         _ => QuestStatus.None
     };
+
+    public static KinsectBuff ToBuff(this KinsectBuffType type) => type switch
+    {
+        KinsectBuffType.Attack => KinsectBuff.Attack,
+        KinsectBuffType.Speed => KinsectBuff.Speed,
+        KinsectBuffType.Defense => KinsectBuff.Defense,
+        KinsectBuffType.Heal => KinsectBuff.Heal,
+        _ => KinsectBuff.None
+    };
 }

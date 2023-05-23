@@ -9,12 +9,13 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 
 public static class MHRiseUtils
 {
-    private readonly static HashSet<QuestType> HuntQuestTypes = new() { QuestType.Normal, QuestType.Kill, QuestType.Capture, QuestType.Arena };
+    private static readonly HashSet<QuestType> HuntQuestTypes = new() { QuestType.Normal, QuestType.Kill, QuestType.Capture, QuestType.Arena };
     private const double MAX_DEFAULT_STAMINA = 1500.0;
     private const double FOOD_BONUS_STAMINA = 3000.0;
     private const double MAX_DEFAULT_HEALTH = 100.0;
     private const double FOOD_BONUS_HEALTH = 50.0;
     private const double PETALACE_STAMINA_MULTIPLIER = 30.0;
+    private const float TIMER_MULTIPLIER = 60.0f;
 
     public static bool IsHuntQuest(this QuestType type) => HuntQuestTypes.Contains(type);
 
@@ -92,4 +93,17 @@ public static class MHRiseUtils
         else
             return WirebugType.None;
     }
+
+    public static KinsectBuff ToBuff(this KinsectExtract extract) =>
+        extract switch
+        {
+            KinsectExtract.Attack => KinsectBuff.Attack,
+            KinsectExtract.Speed => KinsectBuff.Speed,
+            KinsectExtract.Defense => KinsectBuff.Defense,
+            KinsectExtract.None => KinsectBuff.None,
+            _ => throw new ArgumentOutOfRangeException(nameof(extract), extract, null)
+        };
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static float ToAbnormalitySeconds(this float timer) => timer / TIMER_MULTIPLIER;
 }

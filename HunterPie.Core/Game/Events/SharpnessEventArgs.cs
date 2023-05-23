@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Game.Entity.Player;
+﻿using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Enums;
 using System;
 

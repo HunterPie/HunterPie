@@ -10,7 +10,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
 using System.Runtime.InteropServices;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
-public sealed class MHWMeleeWeapon : CommonMeleeWeapon
+public class MHWMeleeWeapon : CommonMeleeWeapon
 {
     private int _weaponId;
     private Sharpness _sharpness;
@@ -56,7 +56,7 @@ public sealed class MHWMeleeWeapon : CommonMeleeWeapon
     }
 
     [ScannableMethod]
-    private void GetWeaponSharpness()
+    protected void GetWeaponSharpness()
     {
         long weaponDataPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("WEAPON_DATA_ADDRESS"),

@@ -6,13 +6,12 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
-using HunterPie.Core.Game.Entity;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Entity.Player;
+using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Entity.Player.Vitals;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
-using HunterPie.Core.Game.Utils;
 using HunterPie.Core.Native.IPC.Models.Common;
 using HunterPie.Integrations.Datasources.Common.Definition;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
@@ -300,41 +299,36 @@ public sealed class MHRPlayer : CommonPlayer
         if (Weapon is Scannable scannable)
             ScanManager.Remove(scannable);
 
-        IWeapon? weaponInstance;
-        if (weapon.IsMelee())
+        IWeapon? weaponInstance = weapon switch
         {
-            var meleeWeapon = new MHRMeleeWeapon(Process, weapon);
-            weaponInstance = meleeWeapon;
+            WeaponType.InsectGlaive => new MHRInsectGlaive(Process),
+            WeaponType.Bow => new MHRBow(),
+            WeaponType.HeavyBowgun => new MHRHeavyBowgun(),
+            WeaponType.LightBowgun => new MHRLightBowgun(),
 
-            ScanManager.Add(meleeWeapon);
+            WeaponType.Greatsword
+            or WeaponType.SwordAndShield
+            or WeaponType.DualBlades
+            or WeaponType.Longsword
+            or WeaponType.Hammer
+            or WeaponType.HuntingHorn
+            or WeaponType.Lance
+            or WeaponType.GunLance
+            or WeaponType.SwitchAxe
+            or WeaponType.ChargeBlade => new MHRMeleeWeapon(Process, weapon),
+
+            _ => null
+        };
+
+        switch (weaponInstance)
+        {
+            case null:
+                return;
+
+            case Scannable weaponScannable:
+                ScanManager.Add(weaponScannable);
+                break;
         }
-        else
-            switch (weapon)
-            {
-                case WeaponType.Bow:
-                    weaponInstance = new MHRBow();
-                    break;
-                case WeaponType.HeavyBowgun:
-                    weaponInstance = new MHRHeavyBowgun();
-                    break;
-                case WeaponType.LightBowgun:
-                    weaponInstance = new MHRLightBowgun();
-                    break;
-                case WeaponType.None:
-                case WeaponType.Greatsword:
-                case WeaponType.SwordAndShield:
-                case WeaponType.DualBlades:
-                case WeaponType.Longsword:
-                case WeaponType.Hammer:
-                case WeaponType.HuntingHorn:
-                case WeaponType.Lance:
-                case WeaponType.GunLance:
-                case WeaponType.SwitchAxe:
-                case WeaponType.ChargeBlade:
-                case WeaponType.InsectGlaive:
-                default:
-                    return;
-            }
 
         Weapon = weaponInstance;
 
@@ -754,11 +748,8 @@ public sealed class MHRPlayer : CommonPlayer
             };
 
             data.Structure.Cooldown /= AbnormalityData.TIMER_MULTIPLIER;
-
-            if (data.Structure.MaxCooldown == 0.0f && data.IsAvailable)
-                data.Structure.MaxCooldown = 480.0f;
-
             data.Structure.MaxCooldown /= AbnormalityData.TIMER_MULTIPLIER;
+            data.Structure.ExtraCooldown /= AbnormalityData.TIMER_MULTIPLIER;
 
             if (wirebugPtr != wirebug.Address)
             {

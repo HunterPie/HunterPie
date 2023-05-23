@@ -42,6 +42,16 @@ internal class AccountManager : IEventDispatcher
     {
         PoogieResult<LoginResponse> loginResponse = await Instance._accountConnector.Login(request);
 
+        if (loginResponse.Error is { } err)
+        {
+            AppNotificationManager.Push(
+                Push.Error(Localization.GetEnumString(err.Code)),
+                TimeSpan.FromSeconds(10)
+            );
+
+            return null;
+        }
+
         if (loginResponse.Response is not { } response)
             return null;
 
