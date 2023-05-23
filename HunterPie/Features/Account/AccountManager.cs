@@ -28,14 +28,13 @@ internal class AccountManager : IEventDispatcher
 
     public static async Task<bool> ValidateSessionToken()
     {
-        if (await FetchAccount() is null)
-        {
-            CredentialVaultService.DeleteCredential();
-            Instance.Dispatch(OnSignOut);
-            return false;
-        }
+        if (await FetchAccount() is not null)
+            return GetSessionToken() is not null;
 
-        return GetSessionToken() is not null;
+        CredentialVaultService.DeleteCredential();
+        Instance.Dispatch(OnSignOut);
+        return false;
+
     }
 
     public static async Task<PoogieResult<LoginResponse>?> Login(LoginRequest request)
@@ -44,8 +43,8 @@ internal class AccountManager : IEventDispatcher
 
         if (loginResponse.Error is { } err)
         {
-            AppNotificationManager.Push(
-                Push.Error(Localization.GetEnumString(err.Code)),
+            NotificationService.Error(
+                Localization.GetEnumString(err.Code),
                 TimeSpan.FromSeconds(10)
             );
 
