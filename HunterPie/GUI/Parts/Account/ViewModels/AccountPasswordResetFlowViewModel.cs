@@ -1,10 +1,9 @@
 ﻿using HunterPie.Core.Client.Localization;
-using HunterPie.Features.Notification;
+using HunterPie.Core.Notification;
 using HunterPie.Integrations.Poogie.Account;
 using HunterPie.Integrations.Poogie.Account.Models;
 using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.UI.Architecture;
-using HunterPie.UI.Controls.Notfication;
 using System;
 using System.Threading.Tasks;
 
@@ -44,21 +43,17 @@ public class AccountPasswordResetFlowViewModel : ViewModel
 
         if (response.Error is { } error)
         {
-            AppNotificationManager.Push(
-                Push.Error(
-                    Localization.GetEnumString(error.Code)
-                ),
+            NotificationService.Error(
+                Localization.GetEnumString(error.Code),
                 TimeSpan.FromSeconds(10)
             );
             return;
         }
 
-        AppNotificationManager.Push(
-            Push.Success(
-                Localization.QueryString(
-                    "//Strings/Client/Integrations/Poogie[@Id='PASSWORD_RESET_EMAIL_STRING']"
-                ).Replace("{Email}", Email)
-            ),
+        NotificationService.Success(
+            Localization.QueryString(
+                "//Strings/Client/Integrations/Poogie[@Id='PASSWORD_RESET_EMAIL_STRING']"
+            ).Replace("{Email}", Email),
             TimeSpan.FromSeconds(10)
         );
         HasCodeBeenSent = true;
@@ -80,19 +75,15 @@ public class AccountPasswordResetFlowViewModel : ViewModel
 
         if (response.Error is { } error)
         {
-            AppNotificationManager.Push(
-                Push.Error(
-                    Localization.GetEnumString(error.Code)
-                ),
+            NotificationService.Error(
+                Localization.GetEnumString(error.Code),
                 TimeSpan.FromSeconds(10)
             );
             return;
         }
 
-        AppNotificationManager.Push(
-            Push.Success(
-                Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='PASSWORD_RESET_SUCCESS_STRING']")
-            ),
+        NotificationService.Success(
+            Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='PASSWORD_RESET_SUCCESS_STRING']"),
             TimeSpan.FromSeconds(10)
         );
 

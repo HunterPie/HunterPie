@@ -1,10 +1,9 @@
 ﻿using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Notification;
 using HunterPie.Features.Account;
-using HunterPie.Features.Notification;
 using HunterPie.Integrations.Poogie.Account.Models;
 using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.UI.Architecture;
-using HunterPie.UI.Controls.Notfication;
 using System;
 using System.Threading.Tasks;
 
@@ -64,10 +63,8 @@ public class AccountLoginFlowViewModel : ViewModel
 
         if (result.Error is { } error)
         {
-            AppNotificationManager.Push(
-                Push.Error(
-                    Localization.GetEnumString(error.Code)
-                ),
+            NotificationService.Error(
+                Localization.GetEnumString(error.Code),
                 TimeSpan.FromSeconds(5)
             );
 

@@ -16,6 +16,8 @@
         xmlns:images="clr-namespace:HunterPie.UI.Architecture.Images;assembly=HunterPie.UI"
         xmlns:account="clr-namespace:HunterPie.GUI.Parts.Account.Views"
         xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+        xmlns:notfication="clr-namespace:HunterPie.UI.Controls.Notfication;assembly=HunterPie.UI"
+        xmlns:presentation="clr-namespace:HunterPie.Features.Notification.Presentation"
         Title="HunterPie v2" 
         Height="600" 
         Width="1000"
@@ -36,6 +38,9 @@
     <Window.Resources>
         <converters:GameTypeToGameNameConverter x:Key="GameTypeToGameNameConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <presentation:AppNotificationTypeToAccentConverter x:Key="AppNotificationTypeToAccentConverter"/>
+        <presentation:AppNotificationTypeToForegroundConverter x:Key="AppNotificationTypeToForegroundConverter"/>
+        <presentation:AppNotificationTypeToIconConverter x:Key="AppNotificationTypeToIconConverter"/>
     </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"
@@ -65,12 +70,14 @@
             </ContentControl>
         </Grid>
 
-        <part:HeaderBar x:Name="PART_HeaderBar"
+        <part:HeaderBar Grid.Row="0"
+                        x:Name="PART_HeaderBar"
                         Height="25"
                         Background="{StaticResource GRAY_300}"
                         VerticalAlignment="Top"/>
 
-        <Grid Background="{StaticResource GRAY_300}" 
+        <Grid Grid.Row="0" 
+              Background="{StaticResource GRAY_300}" 
               Margin="0,25,0,0">
             <StackPanel Orientation="Horizontal" 
                         VerticalAlignment="Center"
@@ -198,7 +205,7 @@
         </notifications:NotificationsPanelView>
         
         <!-- In-App notifications -->
-        <ItemsControl ItemsSource="{Binding Source={x:Static appNotifications:AppNotificationManager.Notifications}, Mode=OneWay}"
+        <ItemsControl ItemsSource="{Binding Source={x:Static appNotifications:InAppNotificationService.Notifications}, Mode=OneWay}"
                       VerticalAlignment="Bottom"
                       Grid.Row="1"
                       HorizontalAlignment="Stretch"
@@ -210,6 +217,17 @@
                                 IsItemsHost="True"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <notfication:Push Message="{Binding Message, Mode=OneTime}"
+                                      Icon="{Binding Type, Mode=OneTime, Converter={StaticResource AppNotificationTypeToIconConverter}}"
+                                      Foreground="{Binding Type, Mode=OneTime, Converter={StaticResource AppNotificationTypeToForegroundConverter}}"
+                                      Background="{Binding Type, Mode=OneTime, Converter={StaticResource AppNotificationTypeToAccentConverter}}"
+                                      Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                      Click="OnNotificationClick"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
         </ItemsControl>
         
         <accountPromo:AccountPromotionalView Grid.ColumnSpan="2"

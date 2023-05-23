@@ -1,9 +1,8 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Networking.Http;
-using HunterPie.Features.Notification;
+using HunterPie.Core.Notification;
 using HunterPie.Integrations.Poogie.Backup;
 using HunterPie.UI.Architecture;
-using HunterPie.UI.Controls.Notfication;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -13,9 +12,9 @@ public class BackupElementViewModel : ViewModel
 {
     private readonly PoogieBackupConnector _backupConnector = new();
 
-    private string _backupId;
-    private string _gameName;
-    private string _gameIcon;
+    private string _backupId = string.Empty;
+    private string _gameName = string.Empty;
+    private string _gameIcon = string.Empty;
     private DateTime _uploadedAt;
     private long _byteSize;
     private bool _isDownloading;
@@ -58,8 +57,9 @@ public class BackupElementViewModel : ViewModel
 
         IsDownloading = false;
         IsDownloaded = true;
-        AppNotificationManager.Push(
-            Push.Success("Successfully downloaded backup"),
+
+        NotificationService.Success(
+            "Successfully downloaded backup",
             TimeSpan.FromSeconds(5)
         );
     }

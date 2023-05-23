@@ -29,9 +29,9 @@ internal class QuestStatisticsSideBarElementViewModel : ViewModel, ISideBarEleme
         MainHost.SetMain(view);
     }
 
-    private async void VerifyIfShouldEnable()
+    private void VerifyIfShouldEnable()
     {
-        IsEnabled = await AccountManager.IsLoggedIn();
+        IsEnabled = AccountManager.IsLoggedIn();
 
         AccountManager.OnSignOut += (_, __) => IsEnabled = false;
         AccountManager.OnSignIn += (_, __) => IsEnabled = true;

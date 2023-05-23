@@ -1,44 +1,40 @@
 ﻿using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Notification;
 using HunterPie.Core.Vault;
 using HunterPie.Core.Vault.Model;
 using HunterPie.Features.Account.Event;
 using HunterPie.Features.Account.Model;
-using HunterPie.Features.Notification;
 using HunterPie.Integrations.Poogie.Account;
 using HunterPie.Integrations.Poogie.Account.Models;
 using HunterPie.Integrations.Poogie.Common.Models;
-using HunterPie.UI.Controls.Notfication;
 using System;
 using System.Threading.Tasks;
 
 namespace HunterPie.Features.Account;
 
-#nullable enable
 internal class AccountManager : IEventDispatcher
 {
     private UserAccount? _cachedAccount = null;
     private readonly PoogieAccountConnector _accountConnector = new();
-    private static AccountManager? _instance;
-    private static readonly AccountManager Instance = _instance ??= new AccountManager();
+    private static readonly AccountManager Instance = new();
 
     public static event EventHandler<AccountLoginEventArgs>? OnSignIn;
     public static event EventHandler<EventArgs>? OnSignOut;
     public static event EventHandler<AccountAvatarEventArgs>? OnAvatarChange;
 
-    public static async Task<bool> IsLoggedIn() => GetSessionToken() is not null;
+    public static bool IsLoggedIn() => GetSessionToken() is not null;
 
     public static async Task<bool> ValidateSessionToken()
     {
-        if (await FetchAccount() is null)
-        {
-            CredentialVaultService.DeleteCredential();
-            Instance.Dispatch(OnSignOut);
-            return false;
-        }
+        if (await FetchAccount() is not null)
+            return GetSessionToken() is not null;
 
-        return GetSessionToken() is not null;
+        CredentialVaultService.DeleteCredential();
+        Instance.Dispatch(OnSignOut);
+        return false;
+
     }
 
     public static async Task<PoogieResult<LoginResponse>?> Login(LoginRequest request)
@@ -47,8 +43,8 @@ internal class AccountManager : IEventDispatcher
 
         if (loginResponse.Error is { } err)
         {
-            AppNotificationManager.Push(
-                Push.Error(Localization.GetEnumString(err.Code)),
+            NotificationService.Error(
+                Localization.GetEnumString(err.Code),
                 TimeSpan.FromSeconds(10)
             );
 
@@ -65,11 +61,9 @@ internal class AccountManager : IEventDispatcher
         if (account is null)
             return null;
 
-        AppNotificationManager.Push(
-            Push.Success(
-                Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='LOGIN_SUCCESS']")
-                            .Replace("{Username}", account.Username)
-            ),
+        NotificationService.Success(
+            Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='LOGIN_SUCCESS']")
+                .Replace("{Username}", account.Username),
             TimeSpan.FromSeconds(5)
         );
         Instance.Dispatch(OnSignIn, new AccountLoginEventArgs { Account = account });
@@ -100,19 +94,15 @@ internal class AccountManager : IEventDispatcher
 
         if (account.Error is { } error)
         {
-            AppNotificationManager.Push(
-                Push.Error(
-                    Localization.GetEnumString(error.Code)
-                ),
+            NotificationService.Error(
+                Localization.GetEnumString(error.Code),
                 TimeSpan.FromSeconds(10)
             );
             return;
         }
 
-        AppNotificationManager.Push(
-            Push.Show(
-                Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='AVATAR_UPLOAD_SUCCESS']")
-            ),
+        NotificationService.Show(
+            Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='AVATAR_UPLOAD_SUCCESS']"),
             TimeSpan.FromSeconds(5)
         );
 

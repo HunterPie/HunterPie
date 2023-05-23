@@ -42,6 +42,7 @@ internal class InitializerManager
         
         // GUI
         new MenuInitializer(),
+        new AppNotificationsInitializer(),
     };
 
     private static readonly HashSet<IInitializer> UiInitializers = new()
