@@ -33,11 +33,11 @@ public class BrushAnimation : AnimationTimeline
         defaultOriginValue = From ?? defaultOriginValue;
         defaultDestinationValue = To ?? defaultDestinationValue;
 
-        return animationClock.CurrentProgress.Value == 0
-            ? defaultOriginValue
-            : animationClock.CurrentProgress.Value == 1
-            ? defaultDestinationValue
-            : (object)new VisualBrush(new Border()
+        return animationClock.CurrentProgress.Value switch
+        {
+            0 => defaultOriginValue,
+            1 => defaultDestinationValue,
+            _ => new VisualBrush(new Border()
             {
                 Width = 1,
                 Height = 1,
@@ -47,7 +47,8 @@ public class BrushAnimation : AnimationTimeline
                     Background = defaultDestinationValue,
                     Opacity = animationClock.CurrentProgress.Value,
                 }
-            });
+            })
+        };
     }
 
     protected override Freezable CreateInstanceCore() => new BrushAnimation();

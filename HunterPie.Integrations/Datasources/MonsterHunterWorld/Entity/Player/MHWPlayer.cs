@@ -6,13 +6,12 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
-using HunterPie.Core.Game.Entity;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Entity.Player;
+using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Entity.Player.Vitals;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
-using HunterPie.Core.Game.Utils;
 using HunterPie.Core.Native.IPC.Models.Common;
 using HunterPie.Integrations.Datasources.Common.Definition;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
@@ -59,7 +58,7 @@ public sealed class MHWPlayer : CommonPlayer
     private int _masterRank;
     private readonly HealthComponent _health = new();
     private readonly StaminaComponent _stamina = new();
-    private MHWGearSkill[] _skills;
+    private MHWGearSkill[] _skills = Array.Empty<MHWGearSkill>();
     #endregion
 
     #region Public Properties
@@ -82,7 +81,8 @@ public sealed class MHWPlayer : CommonPlayer
             }
         }
     }
-    public override string Name { get; protected set; }
+
+    public override string Name { get; protected set; } = string.Empty;
 
     public override int HighRank
     {
@@ -222,7 +222,7 @@ public sealed class MHWPlayer : CommonPlayer
         );
 
         uint currentSaveSlot = Process.Memory.Read<uint>(firstSaveAddress + 0x44);
-        long nextPlayerSave = 0x27E9F0;
+        const long nextPlayerSave = 0x27E9F0;
         long currentPlayerSaveHeader =
             Process.Memory.Read<long>(firstSaveAddress) + (nextPlayerSave * currentSaveSlot);
 
@@ -310,25 +310,38 @@ public sealed class MHWPlayer : CommonPlayer
         if (Weapon is Scannable scannable)
             ScanManager.Remove(scannable);
 
-        IWeapon? weaponInstance;
-        if (data.WeaponType.IsMelee())
+        IWeapon? weaponInstance = data.WeaponType switch
         {
-            var meleeWeapon = new MHWMeleeWeapon(Process, data.WeaponType);
-            weaponInstance = meleeWeapon;
+            WeaponType.InsectGlaive => new MHWInsectGlaive(Process),
+            WeaponType.Bow => new MHWBow(),
+            WeaponType.HeavyBowgun => new MHWHeavyBowgun(),
+            WeaponType.LightBowgun => new MHWLightBowgun(),
 
-            ScanManager.Add(meleeWeapon);
+            WeaponType.Greatsword
+                or WeaponType.SwordAndShield
+                or WeaponType.DualBlades
+                or WeaponType.Longsword
+                or WeaponType.Hammer
+                or WeaponType.HuntingHorn
+                or WeaponType.Lance
+                or WeaponType.GunLance
+                or WeaponType.SwitchAxe
+                or WeaponType.ChargeBlade => new MHWMeleeWeapon(Process, data.WeaponType),
+
+            _ => null
+        };
+
+        switch (weaponInstance)
+        {
+            case null:
+                return;
+
+            case Scannable weaponScannable:
+                ScanManager.Add(weaponScannable);
+                break;
         }
-        else
-            weaponInstance = (data.WeaponType) switch
-            {
-                WeaponType.Bow => new MHWBow(),
-                WeaponType.HeavyBowgun => new MHWHeavyBowgun(),
-                WeaponType.LightBowgun => new MHWLightBowgun(),
-                _ => null
-            };
 
-        if (weaponInstance is not null)
-            Weapon = weaponInstance;
+        Weapon = weaponInstance;
 
         _weaponId = data.WeaponType;
     }

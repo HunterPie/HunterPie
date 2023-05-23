@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
-using HunterPie.Core.Domain.Enums;
+using HunterPie.Core.Client.Configuration;
+using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game;
 using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Overlay;
@@ -16,17 +17,13 @@ internal class AbnormalitiesWidgetInitializer : IWidgetInitializer
 
     public void Load(IContext context)
     {
-        Core.Client.Configuration.OverlayConfig config = ProcessManager.Game switch
-        {
-            GameProcess.MonsterHunterRise => ClientConfig.Config.Rise.Overlay,
-            GameProcess.MonsterHunterWorld => ClientConfig.Config.World.Overlay,
-            _ => throw new System.NotImplementedException(),
-        };
 
-        Core.Client.Configuration.Overlay.AbnormalityWidgetConfig[] configs = config.AbnormalityTray.Trays.Trays.ToArray();
+        OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
+
+        AbnormalityWidgetConfig[] configs = config.AbnormalityTray.Trays.Trays.ToArray();
         for (int i = 0; i < config.AbnormalityTray.Trays.Trays.Count; i++)
         {
-            ref Core.Client.Configuration.Overlay.AbnormalityWidgetConfig abnormConfig = ref configs[i];
+            ref AbnormalityWidgetConfig abnormConfig = ref configs[i];
 
             if (!abnormConfig.Initialize)
                 continue;

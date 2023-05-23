@@ -2,7 +2,7 @@
 using HunterPie.Core.Game.Events;
 using System;
 
-namespace HunterPie.Core.Game.Entity.Player;
+namespace HunterPie.Core.Game.Entity.Player.Classes;
 public interface IMeleeWeapon
 {
     public Sharpness Sharpness { get; }

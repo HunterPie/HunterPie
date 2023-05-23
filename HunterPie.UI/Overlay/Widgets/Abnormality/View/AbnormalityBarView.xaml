@@ -18,12 +18,10 @@
            Style="{StaticResource STYLE_ABNORMALITIES_BAR_WIDGET}"
            d:DataContext="{d:DesignInstance vm:AbnormalityBarViewModel}">
     <UserControl.Resources>
-        <converter:AbnormalityStringToIconConverter x:Key="AbnormalityStringToIconConverter"/>
         <converter:OrientationToOppositeConverter x:Key="OrientationToOppositeConverter"/>
         <converter:OrientationConverter x:Key="OrientationConverter"/>
         <converter:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converter:RatioConverter x:Key="RatioConverter"/>
-        <converter:TestMultibinding x:Key="TestMultibinding"/>
     </UserControl.Resources>
     <Grid>
         <ItemsControl ItemsSource="{Binding Abnormalities, Mode=OneWay}">
