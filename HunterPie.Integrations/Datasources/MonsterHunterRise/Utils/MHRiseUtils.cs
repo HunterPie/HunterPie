@@ -100,8 +100,7 @@ public static class MHRiseUtils
             KinsectExtract.Attack => KinsectBuff.Attack,
             KinsectExtract.Speed => KinsectBuff.Speed,
             KinsectExtract.Defense => KinsectBuff.Defense,
-            KinsectExtract.None => KinsectBuff.None,
-            _ => throw new ArgumentOutOfRangeException(nameof(extract), extract, null)
+            _ => KinsectBuff.None,
         };
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

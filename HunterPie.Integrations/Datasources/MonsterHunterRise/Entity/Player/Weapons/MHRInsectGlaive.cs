@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Address.Map;
+﻿
+using HunterPie.Core.Address.Map;
 using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Process;
