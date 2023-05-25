@@ -11,6 +11,9 @@
     <Compile Update="Controls\Buttons\ColorPicker.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Buttons\ComboButton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Buttons\Keybinding.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -203,6 +206,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Buttons\ColorPicker.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Buttons\ComboButton.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Buttons\Keybinding.xaml">
