@@ -131,6 +131,9 @@
     <Compile Update="Overlay\Widgets\Chat\Views\ChatView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Classes\Views\ChargeBladeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Classes\Views\ClassView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -326,6 +329,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Chat\Views\ChatView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Classes\Views\ChargeBladeView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Classes\Views\ClassView.xaml">

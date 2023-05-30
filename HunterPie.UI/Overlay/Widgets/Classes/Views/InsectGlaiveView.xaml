@@ -179,13 +179,8 @@
                 Grid.RowSpan="2"
                 CornerRadius="1"
                 BorderThickness="1"
-                BorderBrush="{StaticResource GRAY_50}">
-            <Border.Background>
-                <RadialGradientBrush>
-                    <GradientStop Color="#202427"/>
-                    <GradientStop Color="#16181a" Offset="1"/>
-                </RadialGradientBrush>
-            </Border.Background>
+                BorderBrush="{StaticResource GRAY_50}"
+                Background="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}">
             <Border.RenderTransform>
                 <TransformGroup>
                     <RotateTransform Angle="45"/>
@@ -260,13 +255,8 @@
                     RenderTransformOrigin="0.5,0.5"
                     BorderThickness="1"
                     CornerRadius="1"
-                    d:BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
-                <Border.Background>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#202427"/>
-                        <GradientStop Color="#16181a" Offset="1"/>
-                    </RadialGradientBrush>
-                </Border.Background>
+                    d:BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}, Converter={StaticResource ColorToBrushConverter}}"
+                    Background="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}">
                 <Border.RenderTransform>
                     <RotateTransform Angle="45"/>
                 </Border.RenderTransform>
@@ -330,13 +320,8 @@
                     RenderTransformOrigin="0.5,0.5"
                     BorderThickness="1"
                     CornerRadius="1"
-                    d:BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
-                <Border.Background>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#202427"/>
-                        <GradientStop Color="#16181a" Offset="1"/>
-                    </RadialGradientBrush>
-                </Border.Background>
+                    d:BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}, Converter={StaticResource ColorToBrushConverter}}"
+                    Background="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}">
                 <Border.RenderTransform>
                     <RotateTransform Angle="45"/>
                 </Border.RenderTransform>
@@ -400,13 +385,8 @@
                     RenderTransformOrigin="0.5,0.5"
                     BorderThickness="1"
                     CornerRadius="1"
-                    d:BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR}, Converter={StaticResource ColorToBrushConverter}}">
-                <Border.Background>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#202427"/>
-                        <GradientStop Color="#16181a" Offset="1"/>
-                    </RadialGradientBrush>
-                </Border.Background>
+                    d:BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR}, Converter={StaticResource ColorToBrushConverter}}"
+                    Background="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}">
                 <Border.RenderTransform>
                     <RotateTransform Angle="45"/>
                 </Border.RenderTransform>

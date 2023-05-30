@@ -233,6 +233,11 @@
         <GradientStop Color="#FFEF473A" Offset="1"/>
     </LinearGradientBrush>
 
+    <RadialGradientBrush x:Key="COMMON_CLASS_HELPER_BACKGROUND">
+        <GradientStop Color="#202427"/>
+        <GradientStop Color="#16181a" Offset="1"/>
+    </RadialGradientBrush>
+
     <!-- Insect Glaive -->
     <Color x:Key="INSECT_GLAIVE_EXTRACT_ATTACK_COLOR">#A83248</Color>
     <Color x:Key="INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR">#d97925</Color>

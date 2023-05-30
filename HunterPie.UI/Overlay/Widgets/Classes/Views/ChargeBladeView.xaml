@@ -1,0 +1,145 @@
+﻿<UserControl x:Class="HunterPie.UI.Overlay.Widgets.Classes.Views.ChargeBladeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.Views"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.ViewModels"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="72" 
+             d:DesignWidth="260"
+             d:DataContext="{d:DesignInstance viewModels:ChargeBladeViewModel}">
+    <UserControl.Resources>
+        <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
+    </UserControl.Resources>
+    <Grid>
+        <!-- Axe Buff -->
+        <Border Background="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}"
+                BorderBrush="{StaticResource GRAY_50}"
+                BorderThickness="1"
+                Width="70"
+                Height="24"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Margin="127,11,0,0"
+                RenderTransformOrigin="0.5,0.5">
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <SkewTransform AngleX="45"/>
+                </TransformGroup>
+            </Border.RenderTransform>
+            <Grid Margin="15,2,2,2">
+                <Image Source="{StaticResource ICON_CHARGE_BLADE_AXE}"
+                       HorizontalAlignment="Left"
+                       d:Opacity="0.3"/>
+
+                <TextBlock d:Text="00:00"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           Foreground="{StaticResource WHITE_300}"/>
+                <Grid.RenderTransform>
+                    <SkewTransform AngleX="-45"/>
+                </Grid.RenderTransform>
+            </Grid>
+        </Border>
+
+        <!-- Sword Buff -->
+        <Border Background="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}"
+                BorderBrush="{StaticResource GRAY_50}"
+                BorderThickness="1"
+                Width="70"
+                Height="24"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Margin="58,11,0,0"
+                RenderTransformOrigin="0.5,0.5">
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <SkewTransform AngleX="45"/>
+                </TransformGroup>
+            </Border.RenderTransform>
+            <Grid Margin="20,2,2,2">
+                <Image Source="{StaticResource ICON_CHARGE_BLADE_SWORD}"
+                       HorizontalAlignment="Left"
+                       d:Opacity="0.3"/>
+
+                <TextBlock d:Text="00:00"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           Foreground="{StaticResource WHITE_300}"/>
+                <Grid.RenderTransform>
+                    <SkewTransform AngleX="-45"/>
+                </Grid.RenderTransform>
+            </Grid>
+        </Border>
+
+        <!-- Charge Gauge -->
+        <Border Background="{StaticResource GRAY_500}"
+                BorderBrush="{StaticResource GRAY_50}"
+                BorderThickness="1"
+                Width="180"
+                Height="15"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Margin="64,36,0,0"
+                RenderTransformOrigin="0.5,0.5">
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <SkewTransform AngleX="-45"/>
+                </TransformGroup>
+            </Border.RenderTransform>
+        </Border>
+
+        <!-- Shield Buff -->
+        <Border Width="50"
+                Height="50"
+                BorderBrush="{StaticResource GRAY_50}"
+                BorderThickness="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left" 
+                RenderTransformOrigin="0.5,0.5"
+                Margin="12,0,0,0"
+                Background="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}">
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="45"/>
+                </TransformGroup>
+            </Border.RenderTransform>
+
+            <Grid RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-45"/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <Image Source="{StaticResource ICON_CHARGE_BLADE_SHIELD}"
+                       Margin="5"
+                       d:Opacity="0.3"/>
+                <TextBlock d:Text="00:00"
+                           Text="{Binding ShieldBuff, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           FontWeight="Medium"
+                           Foreground="{StaticResource WHITE_100}"/>
+            </Grid>
+        </Border>
+
+        <!-- Charge Level -->
+        <Path Data="M3 3.50001L12 12.5L3 21.5"
+              Stroke="{StaticResource WHITE_600}"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Left"
+              StrokeThickness="2"
+              Width="16"
+              Height="25"
+              Margin="59,0,0,0">
+            <Path.Effect>
+                <DropShadowEffect BlurRadius="2"
+                                  ShadowDepth="0"
+                                  Color="#bdbfbf"/>
+            </Path.Effect>
+        </Path>
+
+    </Grid>
+</UserControl>
