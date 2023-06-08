@@ -85,10 +85,19 @@
                 Margin="64,36,0,0"
                 RenderTransformOrigin="0.5,0.5">
             <Border.RenderTransform>
-                <TransformGroup>
-                    <SkewTransform AngleX="-45"/>
-                </TransformGroup>
+                <SkewTransform AngleX="-45"/>
             </Border.RenderTransform>
+
+            <Grid>
+                <!-- Threshold -->
+
+                <StackPanel Margin="0,0,13,0"
+                            Orientation="Horizontal">
+                    <StackPanel.RenderTransform>
+                        <SkewTransform AngleX="45"/>
+                    </StackPanel.RenderTransform>
+                </StackPanel>
+            </Grid>
         </Border>
 
         <!-- Shield Buff -->
