@@ -1597,6 +1597,28 @@
                 <Part Id="8" String="PART_CHEST" />
             </Parts>
         </Monster>
+	    <Monster Id="112"
+	             Size="2081.64"
+	             IsNotCapturable="true">
+		    <Types>
+			    <Type Name="TYPE_ELDER_DRAGON"/>
+			    <Type Name="TYPE_AERIAL"/>
+		    </Types>
+		    <Crowns Silver="1.11"
+		            Gold="1.17"/>
+		    <Weaknesses>
+			    <Weakness Name="Dragon"/>
+		    </Weaknesses>
+		    <Parts>
+			    <Part Id="0" String="PART_HEAD" />
+			    <Part Id="1" String="PART_TORSO" />
+			    <Part Id="2" String="PART_L_ARM" />
+			    <Part Id="3" String="PART_R_ARM" />
+			    <Part Id="4" String="PART_H_LEGS" />
+			    <Part Id="5" String="PART_WINGS" />
+			    <Part Id="6" String="PART_TAIL" />
+		    </Parts>
+	    </Monster>
         <Monster Id="113"
                  Size="1765.78">
 	        <Types>
