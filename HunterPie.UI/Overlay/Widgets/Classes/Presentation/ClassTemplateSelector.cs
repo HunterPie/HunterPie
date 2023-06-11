@@ -10,6 +10,7 @@ namespace HunterPie.UI.Overlay.Widgets.Classes.Presentation;
 public class ClassTemplateSelector : DataTemplateSelector
 {
     public DataTemplate? InsectGlaiveTemplate { get; set; }
+    public DataTemplate? ChargeBladeTemplate { get; set; }
     public DataTemplate? EmptyTemplate { get; set; }
 
     public override DataTemplate? SelectTemplate(object? item, DependencyObject container)
@@ -18,6 +19,7 @@ public class ClassTemplateSelector : DataTemplateSelector
             ? viewModel.WeaponId switch
             {
                 Weapon.InsectGlaive => InsectGlaiveTemplate,
+                Weapon.ChargeBlade => ChargeBladeTemplate,
                 _ => throw new NotImplementedException($"Missing implementation for {viewModel.WeaponId}")
             }
             : EmptyTemplate;

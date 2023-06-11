@@ -36,6 +36,9 @@ public class DevelopmentConfig : ISettings
     [SettingField("DEV_MOCK_INSECT_GLAIVE_WIDGET_STRING", requiresRestart: true)]
     public Observable<bool> MockInsectGlaiveWidget { get; set; } = false;
 
+    [SettingField("DEV_MOCK_CHARGE_BLADE_WIDGET_STRING", requiresRestart: true)]
+    public Observable<bool> MockChargeBladeWidget { get; set; } = false;
+
     [SettingField("DEV_POOGIE_API_HOST_STRING")]
     public Observable<string> PoogieApiHost { get; set; } = "";
 
