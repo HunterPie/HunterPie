@@ -1,6 +1,5 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay.Class;
-using HunterPie.Core.Extensions;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Classes.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Classes.Views;
@@ -27,7 +26,7 @@ internal class ChargeBladeWidgetMocker : IWidgetMocker
     {
         var vm = new ChargeBladeViewModel();
 
-        foreach (int _ in 0..5)
+        for (int i = 0; i < 5; i++)
             vm.Phials.Add(new ChargeBladePhialViewModel());
 
         return vm;

@@ -60,6 +60,7 @@ public class ClassWidgetContextHandler : IContextHandler
         ClassWidgetConfig? config = weapon.Id switch
         {
             Weapon.InsectGlaive => overlayConfig.InsectGlaiveWidget,
+            Weapon.ChargeBlade => overlayConfig.ChargeBladeWidget,
             _ => null
         };
         _viewModel.CurrentSettings = config;
@@ -72,6 +73,7 @@ public class ClassWidgetContextHandler : IContextHandler
         _weaponController = weapon switch
         {
             IInsectGlaive insectGlaive => new InsectGlaiveController(_context, insectGlaive),
+            IChargeBlade chargeBlade => new ChargeBladeController(_context, chargeBlade),
             _ => null
         };
         _viewModel.Current = _weaponController?.ViewModel;

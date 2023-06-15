@@ -24,4 +24,7 @@ public class ChargeBladeViewModel : ViewModel, IClassViewModel
 
     private float _chargeBuildUp;
     public float ChargeBuildUp { get => _chargeBuildUp; set => SetValue(ref _chargeBuildUp, value); }
+
+    private float _chargeMaxBuildUp;
+    public float ChargeMaxBuildUp { get => _chargeMaxBuildUp; set => SetValue(ref _chargeMaxBuildUp, value); }
 }
