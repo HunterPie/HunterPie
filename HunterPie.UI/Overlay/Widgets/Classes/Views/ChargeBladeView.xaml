@@ -16,10 +16,18 @@
         <converters:SizeAndCountToSizeConverter x:Key="SizeAndCountToSizeConverter"/>
         <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
         <converters:CurrentValueToWidthConverter x:Key="CurrentValueToWidthConverter"/>
+        <converters:NumberToBooleanConverter x:Key="NumberToBooleanConverter"/>
         <converters:ConverterPipeline x:Key="NumberToVisibilityConverter">
             <converters:NumberToBooleanConverter/>
             <BooleanToVisibilityConverter/>
         </converters:ConverterPipeline>
+
+        <SolidColorBrush x:Key="ShieldBuffBrush" 
+                         Color="{StaticResource CHARGE_BLADE_SHIELD_BUFF}"/>
+        <SolidColorBrush x:Key="SwordBuffBrush" 
+                         Color="{StaticResource CHARGE_BLADE_SWORD_BUFF}"/>
+        <SolidColorBrush x:Key="AxeBuffBrush" 
+                         Color="{StaticResource CHARGE_BLADE_AXE_BUFF}"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -28,8 +36,8 @@
         </Grid.RowDefinitions>
         <!-- Axe Buff -->
         <Border Grid.Row="0" 
-                Background="{StaticResource GRAY_400}"
-                BorderBrush="{StaticResource GRAY_50}"
+                d:Background="{StaticResource GRAY_400}"
+                d:BorderBrush="{StaticResource GRAY_50}"
                 BorderThickness="1"
                 Width="79"
                 Height="27"
@@ -45,25 +53,84 @@
             <Grid Margin="15,2,2,2">
                 <Image Source="{StaticResource ICON_CHARGE_BLADE_AXE}"
                        HorizontalAlignment="Left"
-                       d:Opacity="0.3"/>
+                       d:Opacity="0.3">
+                    <Image.Style>
+                        <Style TargetType="Image">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding AxeBuff, Mode=OneWay, Converter={StaticResource NumberToBooleanConverter}}"
+                                             Value="True">
+                                    <Setter Property="Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect Color="{StaticResource CHARGE_BLADE_AXE_BUFF}"
+                                                              ShadowDepth="0"
+                                                              BlurRadius="20"
+                                                              Opacity="1"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Opacity" Value="0.75"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding AxeBuff, Mode=OneWay, Converter={StaticResource NumberToBooleanConverter}}"
+                                             Value="False">
+                                    <Setter Property="Effect" Value="{x:Null}"/>
+                                    <Setter Property="Opacity" Value="1"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
 
                 <TextBlock d:Text="00:00"
-                           Text="{Binding AxeBuff, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"
                            HorizontalAlignment="Right"
                            VerticalAlignment="Center"
                            FontWeight="Medium"
-                           Foreground="{StaticResource WHITE_300}"
-                           Visibility="{Binding AxeBuff, Mode=OneWay, Converter={StaticResource NumberToVisibilityConverter}}"/>
+                           Foreground="{StaticResource WHITE_100}">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding AxeBuff, Mode=OneWay, Converter={StaticResource NumberToBooleanConverter}}"
+                                             Value="True">
+                                    <Setter Property="Opacity" Value="1"/>
+                                    <Setter Property="Text" Value="{Binding AxeBuff, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding AxeBuff, Mode=OneWay, Converter={StaticResource NumberToBooleanConverter}}"
+                                             Value="False">
+                                    <Setter Property="Opacity" Value="0.7"/>
+                                    <Setter Property="Text" Value="--:--"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 <Grid.RenderTransform>
                     <SkewTransform AngleX="-45"/>
                 </Grid.RenderTransform>
             </Grid>
+
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <!-- Axe buff is active-->
+                        <DataTrigger Binding="{Binding AxeBuff, Converter={StaticResource NumberToBooleanConverter}}"
+                                     Value="True">
+                            <Setter Property="BorderBrush" Value="{StaticResource AxeBuffBrush}"/>
+                            <Setter Property="Background" Value="{StaticResource CHARGE_BLADE_AXE_ACTIVE}"/>
+                        </DataTrigger>
+
+                        <!-- Axe buff is not active-->
+                        <DataTrigger Binding="{Binding AxeBuff, Converter={StaticResource NumberToBooleanConverter}}"
+                                     Value="False">
+                            <Setter Property="BorderBrush" Value="{StaticResource GRAY_50}"/>
+                            <Setter Property="Background" Value="{StaticResource GRAY_400}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
         </Border>
 
         <!-- Sword Buff -->
         <Border Grid.Row="0" 
-                Background="{StaticResource GRAY_400}"
-                BorderBrush="{StaticResource GRAY_50}"
+                d:Background="{StaticResource CHARGE_BLADE_SWORD_ACTIVE}"
+                d:BorderBrush="{StaticResource SwordBuffBrush}"
                 BorderThickness="1"
                 Width="80"
                 Height="27"
@@ -79,19 +146,78 @@
             <Grid Margin="20,2,2,2">
                 <Image Source="{StaticResource ICON_CHARGE_BLADE_SWORD}"
                        HorizontalAlignment="Left"
-                       d:Opacity="0.3"/>
+                       d:Opacity="0.3">
+                    <Image.Style>
+                        <Style TargetType="Image">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SwordBuff, Mode=OneWay, Converter={StaticResource NumberToBooleanConverter}}"
+                                             Value="True">
+                                    <Setter Property="Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect Color="{StaticResource CHARGE_BLADE_SWORD_BUFF}"
+                                                              ShadowDepth="0"
+                                                              BlurRadius="20"
+                                                              Opacity="1"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Opacity" Value="0.75"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding SwordBuff, Mode=OneWay, Converter={StaticResource NumberToBooleanConverter}}"
+                                             Value="False">
+                                    <Setter Property="Effect" Value="{x:Null}"/>
+                                    <Setter Property="Opacity" Value="1"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
 
                 <TextBlock d:Text="00:00"
-                           Text="{Binding SwordBuff, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"
                            HorizontalAlignment="Right"
                            VerticalAlignment="Center"
                            FontWeight="Medium"
-                           Foreground="{StaticResource WHITE_300}"
-                           Visibility="{Binding SwordBuff, Mode=OneWay, Converter={StaticResource NumberToVisibilityConverter}}"/>
+                           Foreground="{StaticResource WHITE_100}">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SwordBuff, Mode=OneWay, Converter={StaticResource NumberToBooleanConverter}}"
+                                             Value="True">
+                                    <Setter Property="Opacity" Value="1"/>
+                                    <Setter Property="Text" Value="{Binding SwordBuff, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding SwordBuff, Mode=OneWay, Converter={StaticResource NumberToBooleanConverter}}"
+                                             Value="False">
+                                    <Setter Property="Opacity" Value="0.7"/>
+                                    <Setter Property="Text" Value="--:--"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 <Grid.RenderTransform>
                     <SkewTransform AngleX="-45"/>
                 </Grid.RenderTransform>
             </Grid>
+
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <!-- Sword buff is active-->
+                        <DataTrigger Binding="{Binding SwordBuff, Converter={StaticResource NumberToBooleanConverter}}"
+                                     Value="True">
+                            <Setter Property="BorderBrush" Value="{StaticResource SwordBuffBrush}"/>
+                            <Setter Property="Background" Value="{StaticResource CHARGE_BLADE_SWORD_ACTIVE}"/>
+                        </DataTrigger>
+
+                        <!-- Sword buff is not active-->
+                        <DataTrigger Binding="{Binding SwordBuff, Converter={StaticResource NumberToBooleanConverter}}"
+                                     Value="False">
+                            <Setter Property="BorderBrush" Value="{StaticResource GRAY_50}"/>
+                            <Setter Property="Background" Value="{StaticResource GRAY_400}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
         </Border>
 
         <!-- Charge Gauge -->
@@ -181,13 +307,13 @@
                 Grid.RowSpan="2" 
                 Width="56"
                 Height="56"
-                BorderBrush="{StaticResource GRAY_50}"
+                d:BorderBrush="{StaticResource ShieldBuffBrush}"
                 BorderThickness="1"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left" 
                 RenderTransformOrigin="0.5,0.5"
                 Margin="12,0,0,0"
-                Background="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}">
+                d:Background="{StaticResource CHARGE_BLADE_SHIELD_ACTIVE}">
             <Border.RenderTransform>
                 <TransformGroup>
                     <RotateTransform Angle="45"/>
@@ -202,15 +328,73 @@
                 </Grid.RenderTransform>
                 <Image Source="{StaticResource ICON_CHARGE_BLADE_SHIELD}"
                        Margin="5"
-                       d:Opacity="0.3"/>
+                       d:Opacity="0.3">
+                    <Image.Style>
+                        <Style TargetType="Image">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ShieldBuff, Mode=OneWay, Converter={StaticResource NumberToBooleanConverter}}"
+                                             Value="True">
+                                    <Setter Property="Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect Color="{StaticResource CHARGE_BLADE_SHIELD_BUFF}"
+                                                              ShadowDepth="0"
+                                                              BlurRadius="10"
+                                                              Opacity="1"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Opacity" Value="0.75"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ShieldBuff, Mode=OneWay, Converter={StaticResource NumberToBooleanConverter}}"
+                                             Value="False">
+                                    <Setter Property="Effect" Value="{x:Null}"/>
+                                    <Setter Property="Opacity" Value="0.3"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
                 <TextBlock d:Text="00:00"
-                           Text="{Binding ShieldBuff, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
-                           Foreground="{StaticResource WHITE_100}"
-                           Visibility="{Binding ShieldBuff, Mode=OneWay, Converter={StaticResource NumberToVisibilityConverter}}"/>
+                           Foreground="{StaticResource WHITE_100}">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ShieldBuff, Mode=OneWay, Converter={StaticResource NumberToBooleanConverter}}"
+                                             Value="True">
+                                    <Setter Property="Opacity" Value="1"/>
+                                    <Setter Property="Text" Value="{Binding ShieldBuff, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ShieldBuff, Mode=OneWay, Converter={StaticResource NumberToBooleanConverter}}"
+                                             Value="False">
+                                    <Setter Property="Opacity" Value="0.7"/>
+                                    <Setter Property="Text" Value="--:--"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
             </Grid>
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <!-- Shield buff is active-->
+                        <DataTrigger Binding="{Binding ShieldBuff, Converter={StaticResource NumberToBooleanConverter}}"
+                                     Value="True">
+                            <Setter Property="BorderBrush" Value="{StaticResource ShieldBuffBrush}"/>
+                            <Setter Property="Background" Value="{StaticResource CHARGE_BLADE_SHIELD_ACTIVE}"/>
+                        </DataTrigger>
+
+                        <!-- Shield buff is not active-->
+                        <DataTrigger Binding="{Binding ShieldBuff, Converter={StaticResource NumberToBooleanConverter}}"
+                                     Value="False">
+                            <Setter Property="BorderBrush" Value="{StaticResource GRAY_50}"/>
+                            <Setter Property="Background" Value="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
         </Border>
 
         <!-- Charge Level -->

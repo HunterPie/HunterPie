@@ -262,4 +262,21 @@
     <Color x:Key="CHARGE_BLADE_YELLOW_CHARGE">#E7C507</Color>
     <Color x:Key="CHARGE_BLADE_RED_CHARGE">#D6114B</Color>
     <Color x:Key="CHARGE_BLADE_OVER_CHARGE">#E7FFFE</Color>
+    <Color x:Key="CHARGE_BLADE_SHIELD_BUFF">#4787E2</Color>
+    <Color x:Key="CHARGE_BLADE_SWORD_BUFF">#D6114B</Color>
+    <Color x:Key="CHARGE_BLADE_AXE_BUFF">#48C373</Color>
+    <RadialGradientBrush x:Key="CHARGE_BLADE_SHIELD_ACTIVE" RadiusX="5" RadiusY="5">
+        <GradientStop Color="#1A1D20"/>
+        <GradientStop Color="{StaticResource CHARGE_BLADE_SHIELD_BUFF}" Offset="1"/>
+    </RadialGradientBrush>
+    <RadialGradientBrush x:Key="CHARGE_BLADE_SWORD_ACTIVE" RadiusX="5" RadiusY="5">
+        <GradientStop Color="#1A1D20"/>
+        <GradientStop Color="{StaticResource CHARGE_BLADE_SWORD_BUFF}" Offset="1"/>
+    </RadialGradientBrush>
+    <RadialGradientBrush x:Key="CHARGE_BLADE_AXE_ACTIVE" RadiusX="5" RadiusY="5">
+        <GradientStop Color="#1A1D20"/>
+        <GradientStop Color="{StaticResource CHARGE_BLADE_AXE_BUFF}" Offset="1"/>
+    </RadialGradientBrush>
+    
+
 </ResourceDictionary>
