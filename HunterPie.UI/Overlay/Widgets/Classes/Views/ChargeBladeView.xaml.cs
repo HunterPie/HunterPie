@@ -2,11 +2,11 @@
 
 namespace HunterPie.UI.Overlay.Widgets.Classes.Views;
 /// <summary>
-/// Interaction logic for InsectGlaiveView.xaml
+/// Interaction logic for ChargeBladeView.xaml
 /// </summary>
-public partial class InsectGlaiveView : UserControl
+public partial class ChargeBladeView : UserControl
 {
-    public InsectGlaiveView()
+    public ChargeBladeView()
     {
         InitializeComponent();
     }

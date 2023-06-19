@@ -58,7 +58,8 @@ public sealed class MHWPlayer : CommonPlayer
     private int _masterRank;
     private readonly HealthComponent _health = new();
     private readonly StaminaComponent _stamina = new();
-    private MHWGearSkill[] _skills = Array.Empty<MHWGearSkill>();
+    private readonly MHWSkillService _skillService;
+
     #endregion
 
     #region Public Properties
@@ -180,6 +181,7 @@ public sealed class MHWPlayer : CommonPlayer
     internal MHWPlayer(IProcessManager process) : base(process)
     {
         _weapon = CreateDefaultWeapon(process);
+        _skillService = new MHWSkillService(process);
     }
 
     private static IWeapon CreateDefaultWeapon(IProcessManager process)
@@ -226,34 +228,25 @@ public sealed class MHWPlayer : CommonPlayer
         long currentPlayerSaveHeader =
             Process.Memory.Read<long>(firstSaveAddress) + (nextPlayerSave * currentSaveSlot);
 
-        if (currentPlayerSaveHeader != _playerSaveAddress)
-        {
-            data.Name = Process.Memory.Read(currentPlayerSaveHeader + 0x50, 32);
-            data.HighRank = Process.Memory.Read<short>(currentPlayerSaveHeader + 0x90);
-            data.MasterRank = Process.Memory.Read<short>(currentPlayerSaveHeader + 0xD4);
-            data.PlayTime = Process.Memory.Read<int>(currentPlayerSaveHeader + 0xA0);
+        if (currentPlayerSaveHeader == _playerSaveAddress)
+            return;
 
-            Next(ref data);
+        data.Name = Process.Memory.Read(currentPlayerSaveHeader + 0x50, 32);
+        data.HighRank = Process.Memory.Read<short>(currentPlayerSaveHeader + 0x90);
+        data.MasterRank = Process.Memory.Read<short>(currentPlayerSaveHeader + 0xD4);
+        data.PlayTime = Process.Memory.Read<int>(currentPlayerSaveHeader + 0xA0);
 
-            Name = data.Name;
-            HighRank = data.HighRank;
-            MasterRank = data.MasterRank;
-            PlayTime = data.PlayTime;
+        Next(ref data);
 
-            PlayerSaveAddress = currentPlayerSaveHeader;
-        }
+        Name = data.Name;
+        HighRank = data.HighRank;
+        MasterRank = data.MasterRank;
+        PlayTime = data.PlayTime;
+
+        PlayerSaveAddress = currentPlayerSaveHeader;
     }
 
-    [ScannableMethod]
-    private void GetGearSkills()
-    {
-        long gearSkillsPtr = Process.Memory.Read(
-            AddressMap.GetAbsolute("ABNORMALITY_ADDRESS"),
-            AddressMap.Get<int[]>("GEAR_SKILL_OFFSETS")
-        );
 
-        _skills = Process.Memory.Read<MHWGearSkill>(gearSkillsPtr, 226);
-    }
 
     [ScannableMethod]
     private void GetPlayerHudData()
@@ -274,7 +267,7 @@ public sealed class MHWPlayer : CommonPlayer
             Health = hudStructure.Health,
             RecoverableHealth = hudStructure.RecoverableHealth,
             Heal = hudStructure.Health + totalHealings.MaxHeal - totalHealings.Heal,
-            MaxPossibleHealth = Math.Max(_skills.ToMaximumHealthPossible(), hudStructure.MaxHealth),
+            MaxPossibleHealth = Math.Max(_skillService.ToMaximumHealthPossible(), hudStructure.MaxHealth),
         };
 
         _health.Update(healthData);
@@ -283,7 +276,7 @@ public sealed class MHWPlayer : CommonPlayer
         {
             MaxStamina = hudStructure.MaxStamina,
             Stamina = hudStructure.Stamina,
-            MaxPossibleStamina = Math.Max(_skills.ToMaximumStaminaPossible(), hudStructure.MaxStamina)
+            MaxPossibleStamina = Math.Max(_skillService.ToMaximumStaminaPossible(), hudStructure.MaxStamina)
         };
 
         _stamina.Update(staminaData);
@@ -312,6 +305,7 @@ public sealed class MHWPlayer : CommonPlayer
 
         IWeapon? weaponInstance = data.WeaponType switch
         {
+            WeaponType.ChargeBlade => new MHWChargeBlade(Process, _skillService),
             WeaponType.InsectGlaive => new MHWInsectGlaive(Process),
             WeaponType.Bow => new MHWBow(),
             WeaponType.HeavyBowgun => new MHWHeavyBowgun(),
@@ -325,8 +319,7 @@ public sealed class MHWPlayer : CommonPlayer
                 or WeaponType.HuntingHorn
                 or WeaponType.Lance
                 or WeaponType.GunLance
-                or WeaponType.SwitchAxe
-                or WeaponType.ChargeBlade => new MHWMeleeWeapon(Process, data.WeaponType),
+                or WeaponType.SwitchAxe => new MHWMeleeWeapon(Process, data.WeaponType),
 
             _ => null
         };
@@ -745,6 +738,7 @@ public sealed class MHWPlayer : CommonPlayer
 
     public override void Dispose()
     {
+        _skillService.Dispose();
         Tools.DisposeAll();
         HarvestBox.Dispose();
         Steamworks.Dispose();

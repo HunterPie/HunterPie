@@ -301,6 +301,7 @@ public sealed class MHRPlayer : CommonPlayer
 
         IWeapon? weaponInstance = weapon switch
         {
+            WeaponType.ChargeBlade => new MHRChargeBlade(Process),
             WeaponType.InsectGlaive => new MHRInsectGlaive(Process),
             WeaponType.Bow => new MHRBow(),
             WeaponType.HeavyBowgun => new MHRHeavyBowgun(),
@@ -314,8 +315,7 @@ public sealed class MHRPlayer : CommonPlayer
             or WeaponType.HuntingHorn
             or WeaponType.Lance
             or WeaponType.GunLance
-            or WeaponType.SwitchAxe
-            or WeaponType.ChargeBlade => new MHRMeleeWeapon(Process, weapon),
+            or WeaponType.SwitchAxe => new MHRMeleeWeapon(Process, weapon),
 
             _ => null
         };

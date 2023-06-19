@@ -17,6 +17,7 @@ public class OverlayConfig : ISettings
     public WirebugWidgetConfig WirebugWidget { get; set; } = new();
     public ActivitiesWidgetConfig ActivitiesWidget { get; set; } = new();
     public InsectGlaiveWidgetConfig InsectGlaiveWidget { get; set; } = new();
+    public ChargeBladeWidgetConfig ChargeBladeWidget { get; set; } = new();
     public ChatWidgetConfig ChatWidget { get; set; } = new();
     public SpecializedToolWidgetConfig PrimarySpecializedToolWidget { get; set; } = new()
     {

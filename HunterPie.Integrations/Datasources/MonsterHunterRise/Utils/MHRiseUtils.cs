@@ -105,4 +105,15 @@ public static class MHRiseUtils
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static float ToAbnormalitySeconds(this float timer) => timer / TIMER_MULTIPLIER;
+
+    public static PhialChargeLevel ToPhialChargeLevel(this float buildup)
+    {
+        return buildup switch
+        {
+            >= 72.0f => PhialChargeLevel.Overcharged,
+            >= 46.0f => PhialChargeLevel.Red,
+            >= 30.0f => PhialChargeLevel.Yellow,
+            _ => PhialChargeLevel.None,
+        };
+    }
 }

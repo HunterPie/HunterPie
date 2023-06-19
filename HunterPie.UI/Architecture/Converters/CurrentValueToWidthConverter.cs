@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using Converter = System.Convert;
@@ -13,7 +14,7 @@ public class CurrentValueToWidthConverter : IMultiValueConverter
         double currentValue = Converter.ToDouble(values[0]);
         double maxValue = Converter.ToDouble(values[1]);
         double maxWidth = Converter.ToDouble(values[2]);
-        var border = (Thickness)values[3];
+        Thickness border = ((Thickness?)values.ElementAtOrDefault(3)) ?? new Thickness();
         double sides = border.Left + border.Right;
 
         double width = (maxWidth * (currentValue / Math.Max(maxValue, 1))) - sides;

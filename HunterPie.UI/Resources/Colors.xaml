@@ -233,6 +233,11 @@
         <GradientStop Color="#FFEF473A" Offset="1"/>
     </LinearGradientBrush>
 
+    <RadialGradientBrush x:Key="COMMON_CLASS_HELPER_BACKGROUND">
+        <GradientStop Color="#202427"/>
+        <GradientStop Color="#16181a" Offset="1"/>
+    </RadialGradientBrush>
+
     <!-- Insect Glaive -->
     <Color x:Key="INSECT_GLAIVE_EXTRACT_ATTACK_COLOR">#A83248</Color>
     <Color x:Key="INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR">#d97925</Color>
@@ -251,4 +256,27 @@
         <GradientStop Color="#FFE7C507" Offset="0.500001"/>
         <GradientStop Color="#A83248" Offset="0.5"/>
     </LinearGradientBrush>
+
+    <!-- Charge Blade -->
+    <Color x:Key="CHARGE_BLADE_NONE_CHARGE">#bdbfbf</Color>
+    <Color x:Key="CHARGE_BLADE_YELLOW_CHARGE">#E7C507</Color>
+    <Color x:Key="CHARGE_BLADE_RED_CHARGE">#D6114B</Color>
+    <Color x:Key="CHARGE_BLADE_OVER_CHARGE">#eb4dcb</Color>
+    <Color x:Key="CHARGE_BLADE_SHIELD_BUFF">#4787E2</Color>
+    <Color x:Key="CHARGE_BLADE_SWORD_BUFF">#D6114B</Color>
+    <Color x:Key="CHARGE_BLADE_AXE_BUFF">#48C373</Color>
+    <RadialGradientBrush x:Key="CHARGE_BLADE_SHIELD_ACTIVE" RadiusX="5" RadiusY="5">
+        <GradientStop Color="#1A1D20"/>
+        <GradientStop Color="{StaticResource CHARGE_BLADE_SHIELD_BUFF}" Offset="1"/>
+    </RadialGradientBrush>
+    <RadialGradientBrush x:Key="CHARGE_BLADE_SWORD_ACTIVE" RadiusX="5" RadiusY="5">
+        <GradientStop Color="#1A1D20"/>
+        <GradientStop Color="{StaticResource CHARGE_BLADE_SWORD_BUFF}" Offset="1"/>
+    </RadialGradientBrush>
+    <RadialGradientBrush x:Key="CHARGE_BLADE_AXE_ACTIVE" RadiusX="5" RadiusY="5">
+        <GradientStop Color="#1A1D20"/>
+        <GradientStop Color="{StaticResource CHARGE_BLADE_AXE_BUFF}" Offset="1"/>
+    </RadialGradientBrush>
+    
+
 </ResourceDictionary>
