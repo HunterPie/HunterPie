@@ -276,9 +276,15 @@
                                 <Rectangle.Style>
                                     <Style TargetType="Rectangle">
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsActive, Mode=OneWay}"
-                                                         Value="True">
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding IsActive, Mode=OneWay}"
+                                                               Value="True"/>
+                                                    <Condition Binding="{Binding DataContext.Charge, RelativeSource={RelativeSource AncestorType={x:Type local:ChargeBladeView}}}"
+                                                               Value="{x:Static enums:PhialChargeLevel.None}"/>
+                                                </MultiDataTrigger.Conditions>
                                                 <Setter Property="Fill" Value="{StaticResource WHITE_50}"/>
+                                                <Setter Property="StrokeThickness" Value="0"/>
                                                 <Setter Property="Effect">
                                                     <Setter.Value>
                                                         <DropShadowEffect Color="WhiteSmoke"
@@ -286,12 +292,131 @@
                                                                           BlurRadius="5"/>
                                                     </Setter.Value>
                                                 </Setter>
-                                            </DataTrigger>
+                                            </MultiDataTrigger>
 
-                                            <DataTrigger Binding="{Binding IsActive, Mode=OneWay}"
-                                                         Value="False">
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding IsActive, Mode=OneWay}"
+                                                               Value="True"/>
+                                                    <Condition Binding="{Binding DataContext.Charge, RelativeSource={RelativeSource AncestorType={x:Type local:ChargeBladeView}}}"
+                                                               Value="{x:Static enums:PhialChargeLevel.Yellow}"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Fill" Value="{Binding Source={StaticResource CHARGE_BLADE_YELLOW_CHARGE}, Converter={StaticResource ColorToBrushConverter}}"/>
+                                                <Setter Property="StrokeThickness" Value="0"/>
+                                                <Setter Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect Color="{StaticResource CHARGE_BLADE_YELLOW_CHARGE}"
+                                                                          ShadowDepth="0"
+                                                                          BlurRadius="5"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </MultiDataTrigger>
+
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding IsActive, Mode=OneWay}"
+                                                               Value="True"/>
+                                                    <Condition Binding="{Binding DataContext.Charge, RelativeSource={RelativeSource AncestorType={x:Type local:ChargeBladeView}}}"
+                                                               Value="{x:Static enums:PhialChargeLevel.Red}"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Fill" Value="{Binding Source={StaticResource CHARGE_BLADE_RED_CHARGE}, Converter={StaticResource ColorToBrushConverter}}"/>
+                                                <Setter Property="StrokeThickness" Value="0"/>
+                                                <Setter Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect Color="{StaticResource CHARGE_BLADE_RED_CHARGE}"
+                                                                          ShadowDepth="0"
+                                                                          BlurRadius="5"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </MultiDataTrigger>
+
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding IsActive, Mode=OneWay}"
+                                                               Value="True"/>
+                                                    <Condition Binding="{Binding DataContext.Charge, RelativeSource={RelativeSource AncestorType={x:Type local:ChargeBladeView}}}"
+                                                               Value="{x:Static enums:PhialChargeLevel.Overcharged}"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Fill" Value="{Binding Source={StaticResource CHARGE_BLADE_OVER_CHARGE}, Converter={StaticResource ColorToBrushConverter}}"/>
+                                                <Setter Property="StrokeThickness" Value="0"/>
+                                                <Setter Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect Color="{StaticResource CHARGE_BLADE_OVER_CHARGE}"
+                                                                          ShadowDepth="0"
+                                                                          BlurRadius="5"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </MultiDataTrigger>
+
+
+                                            <!-- Not active -->
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding IsActive, Mode=OneWay}"
+                                                               Value="False"/>
+                                                    <Condition Binding="{Binding DataContext.Charge, RelativeSource={RelativeSource AncestorType={x:Type local:ChargeBladeView}}}"
+                                                               Value="{x:Static enums:PhialChargeLevel.Overcharged}"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Stroke" Value="{Binding Source={StaticResource CHARGE_BLADE_OVER_CHARGE}, Converter={StaticResource ColorToBrushConverter}}"/>
+                                                <Setter Property="StrokeThickness" Value="1"/>
                                                 <Setter Property="Fill" Value="{StaticResource WHITE_700}"/>
-                                            </DataTrigger>
+                                                <Setter Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect Color="{StaticResource CHARGE_BLADE_OVER_CHARGE}"
+                                                                          ShadowDepth="0"
+                                                                          BlurRadius="5"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </MultiDataTrigger>
+
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding IsActive, Mode=OneWay}"
+                                                               Value="False"/>
+                                                    <Condition Binding="{Binding DataContext.Charge, RelativeSource={RelativeSource AncestorType={x:Type local:ChargeBladeView}}}"
+                                                               Value="{x:Static enums:PhialChargeLevel.Red}"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Stroke" Value="{Binding Source={StaticResource CHARGE_BLADE_RED_CHARGE}, Converter={StaticResource ColorToBrushConverter}}"/>
+                                                <Setter Property="StrokeThickness" Value="1"/>
+                                                <Setter Property="Fill" Value="{StaticResource WHITE_700}"/>
+                                                <Setter Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect Color="{StaticResource CHARGE_BLADE_RED_CHARGE}"
+                                                                          ShadowDepth="0"
+                                                                          BlurRadius="5"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </MultiDataTrigger>
+
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding IsActive, Mode=OneWay}"
+                                                               Value="False"/>
+                                                    <Condition Binding="{Binding DataContext.Charge, RelativeSource={RelativeSource AncestorType={x:Type local:ChargeBladeView}}}"
+                                                               Value="{x:Static enums:PhialChargeLevel.Yellow}"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Stroke" Value="{Binding Source={StaticResource CHARGE_BLADE_YELLOW_CHARGE}, Converter={StaticResource ColorToBrushConverter}}"/>
+                                                <Setter Property="StrokeThickness" Value="1"/>
+                                                <Setter Property="Fill" Value="{StaticResource WHITE_700}"/>
+                                                <Setter Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect Color="{StaticResource CHARGE_BLADE_YELLOW_CHARGE}"
+                                                                          ShadowDepth="0"
+                                                                          BlurRadius="5"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </MultiDataTrigger>
+
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding IsActive, Mode=OneWay}"
+                                                               Value="False"/>
+                                                    <Condition Binding="{Binding DataContext.Charge, RelativeSource={RelativeSource AncestorType={x:Type local:ChargeBladeView}}}"
+                                                               Value="{x:Static enums:PhialChargeLevel.None}"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="StrokeThickness" Value="0"/>
+                                                <Setter Property="Fill" Value="{StaticResource WHITE_700}"/>
+                                            </MultiDataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </Rectangle.Style>
