@@ -11,8 +11,8 @@
              d:Height="40">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="59*"/>
-            <ColumnDefinition Width="16*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Slider Value="{Binding Value}"
                 Maximum="{Binding Maximum}"
@@ -35,7 +35,9 @@
                  FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                  KeyDown="OnKeyDown"
                  LostFocus="OnLostFocus"
-                 VerticalContentAlignment="Center">
+                 VerticalContentAlignment="Center"
+                 Margin="2"
+                 FontSize="14">
             <TextBox.Text>
                 <Binding Path="Value"
                          Mode="TwoWay"

@@ -10,38 +10,42 @@
              d:DesignHeight="35" 
              d:DesignWidth="200">
     <Grid>
-        <TextBox Width="80"
-                 Margin="10,0,0,15"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox Grid.Column="0" 
                  d:Text="120"
-                 HorizontalAlignment="Left"
+                 HorizontalAlignment="Stretch"
+                 Margin="2"
                  Text="{Binding X}"
                  FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                 FontSize="16"
-                 DockPanel.Dock="Left"
+                 FontSize="14"
                  VerticalContentAlignment="Center"
                  HorizontalContentAlignment="Center"/>
-        <TextBlock Text="X"
-                   Margin="45,0,0,0"
+        <TextBlock Grid.Column="0" 
+                   Text="X"
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    VerticalAlignment="Bottom"
                    FontWeight="Medium"
-                   HorizontalAlignment="Left"/>
-        <TextBox Width="80"
-                 Margin="0,0,10,15"
+                   HorizontalAlignment="Center"/>
+
+        <TextBox Grid.Column="1" 
                  Text="{Binding Y}"
+                 Margin="2"
                  d:Text="120"
                  FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                 HorizontalAlignment="Right"
-                 FontSize="16"
+                 HorizontalAlignment="Stretch"
+                 FontSize="14"
                  VerticalContentAlignment="Center"
                  HorizontalContentAlignment="Center"/>
-        <TextBlock Text="Y"
-                   Margin="0,0,45,0"
+        <TextBlock Grid.Column="1" 
+                   Text="Y"
                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    FontWeight="Medium"
                    VerticalAlignment="Bottom"
-                   HorizontalAlignment="Right"/>
+                   HorizontalAlignment="Center"/>
     </Grid>
 </UserControl>

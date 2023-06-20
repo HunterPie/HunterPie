@@ -4,30 +4,50 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Controls.Buttons"
+             xmlns:types="clr-namespace:HunterPie.Core.Settings.Types;assembly=HunterPie.Core"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="45" 
-             d:DesignWidth="300">
-    <Grid>
-        <local:Button HorizontalContentAlignment="Stretch"
-                      VerticalContentAlignment="Stretch"
-                      OnClick="OnButtonClick">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="23*"/>
-                    <ColumnDefinition Width="125*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock d:Text="#FF03A9FC"
-                           Text="{Binding Value}"
-                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                           FontSize="15"
-                           VerticalAlignment="Center"
-                           Margin="5,0,5,0"
-                           Grid.Column="1"/>
-                <Ellipse d:Fill="#FF03A9FC"
-                         Fill="{Binding Value}"
-                         Grid.Column="0"
-                         Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"/>
-            </Grid>
-        </local:Button>
-    </Grid>
+             d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance types:Color}">
+    <UserControl.Resources>
+        <converters:PrefixFilterConverter Prefix="#"
+                                          x:Key="HashPrefixFilterConverter"/>
+    </UserControl.Resources>
+    <local:Button HorizontalContentAlignment="Stretch"
+                  VerticalContentAlignment="Stretch"
+                  OnClick="OnButtonClick"
+                  Padding="0"
+                  Background="{StaticResource GRAY_100}"
+                  BorderBrush="{StaticResource GRAY}"
+                  BorderThickness="1"
+                  CornerRadius="5">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       Foreground="{StaticResource WHITE_200}"
+                       FontSize="15"
+                       VerticalAlignment="Center"
+                       Margin="5,0,5,0"
+                       Grid.Column="1"
+                       HorizontalAlignment="Right"
+                       FontWeight="Medium">
+                <Run Text="#"
+                     Foreground="{StaticResource WHITE_700}"
+                     FontWeight="Regular"/><!--
+             --><Run Text="{Binding Value, Mode=OneWay, Converter={StaticResource HashPrefixFilterConverter}}"
+                     d:Text="FF03A9FC"/>
+            </TextBlock>
+            <Border d:Background="#FF03A9FC"
+                    Background="{Binding Value, Mode=OneWay}"
+                    Grid.Column="0"
+                    BorderBrush="{StaticResource GRAY}"
+                    BorderThickness="0,0,1,0"
+                    CornerRadius="4.5,0,0,4.5"
+                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"/>
+        </Grid>
+    </local:Button>
 </UserControl>

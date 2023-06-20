@@ -12,18 +12,20 @@ namespace HunterPie.UI.Controls.TextBox;
 /// </summary>
 public partial class SearchTextBox : UserControl
 {
+    private const string SearchPlaceholder = "Search...";
+
     /// <summary>
-    /// Event fired everytime the search string has changed
+    /// Event fired every time the search string has changed
     /// </summary>
     public event EventHandler<SearchTextChangedEventArgs> OnSearchTextChanged;
 
     /// <summary>
-    /// Event fired everytime the search button is clicked or when the user press enter while
+    /// Event fired every time the search button is clicked or when the user press enter while
     /// the SearchBox is focused
     /// </summary>
     public event EventHandler<SearchTextChangedEventArgs> OnSearch;
 
-    public Observable<string> SearchText { get; } = "Search";
+    public Observable<string> SearchText { get; } = SearchPlaceholder;
 
     private bool IsPlaceholderVisible { get; set; } = true;
 
@@ -52,25 +54,24 @@ public partial class SearchTextBox : UserControl
 
     private void OnGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
     {
-        if (sender is TB tb)
-        {
-            if (tb.Text.Length > 0 && IsPlaceholderVisible)
-            {
-                IsPlaceholderVisible = false;
-                tb.Text = string.Empty;
-            }
-        }
+        if (sender is not TB tb)
+            return;
+        if (tb.Text.Length <= 0 || !IsPlaceholderVisible)
+            return;
+
+        IsPlaceholderVisible = false;
+        tb.Text = string.Empty;
     }
 
     private void OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
     {
-        if (sender is TB tb)
-        {
-            if (tb.Text.Length == 0 && !IsPlaceholderVisible)
-            {
-                IsPlaceholderVisible = true;
-                tb.Text = "Search";
-            }
-        }
+        if (sender is not TB tb)
+            return;
+
+        if (tb.Text.Length != 0 || IsPlaceholderVisible)
+            return;
+
+        IsPlaceholderVisible = true;
+        tb.Text = SearchPlaceholder;
     }
 }
