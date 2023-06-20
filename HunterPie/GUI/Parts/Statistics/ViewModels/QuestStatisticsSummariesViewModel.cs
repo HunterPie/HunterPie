@@ -3,7 +3,6 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Notification;
 using HunterPie.Features.Account;
 using HunterPie.Features.Account.Model;
-using HunterPie.GUI.Parts.Host;
 using HunterPie.GUI.Parts.Statistics.Details.Builders;
 using HunterPie.GUI.Parts.Statistics.Details.ViewModels;
 using HunterPie.GUI.Parts.Statistics.Details.Views;
@@ -11,6 +10,7 @@ using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.Integrations.Poogie.Statistics;
 using HunterPie.Integrations.Poogie.Statistics.Models;
 using HunterPie.UI.Architecture;
+using HunterPie.UI.Architecture.Navigator;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -139,7 +139,7 @@ public class QuestStatisticsSummariesViewModel : ViewModel
 
         QuestDetailsViewModel viewModel = await QuestDetailsViewModelBuilder.From(questDetails.ToEntity());
         var details = new QuestDetailsView { DataContext = viewModel };
-        MainHost.SetMain(details);
+        Navigator.Navigate(details);
     }
 
     private void UpdateSummariesContainer()

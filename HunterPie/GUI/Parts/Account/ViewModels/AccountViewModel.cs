@@ -3,8 +3,8 @@ using HunterPie.Features.Account;
 using HunterPie.Features.Account.Event;
 using HunterPie.Features.Account.Model;
 using HunterPie.GUI.Parts.Account.Views;
-using HunterPie.GUI.Parts.Host;
 using HunterPie.UI.Architecture;
+using HunterPie.UI.Architecture.Navigator;
 using System;
 
 namespace HunterPie.GUI.Parts.Account.ViewModels;
@@ -45,7 +45,7 @@ public class AccountViewModel : ViewModel, IDisposable
     public void SignOut()
     {
         IsLoggedIn = false;
-        MainHost.Return();
+        Navigator.Return();
         AccountManager.Logout();
     }
 
@@ -71,7 +71,7 @@ public class AccountViewModel : ViewModel, IDisposable
     public void OpenAccountPreferences()
     {
         var preferences = new AccountPreferencesView();
-        MainHost.SetMain(preferences);
+        Navigator.Navigate(preferences);
     }
 
     public void Dispose()

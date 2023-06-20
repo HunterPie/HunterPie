@@ -400,10 +400,7 @@
                 <Setter Property="Shape.Fill" TargetName="Arrow" Value="#FF8D979E"/>
             </Trigger>
             <Trigger Property="UIElement.IsEnabled" Value="False">
-                <Setter Property="Panel.Background" TargetName="Border" Value="Red"/>
-                <Setter Property="Panel.Background" TargetName="ButtonBorder" Value="Green"/>
-                <Setter Property="Border.BorderBrush" TargetName="ButtonBorder" Value="Lime"/>
-                <Setter Property="TextElement.Foreground" Value="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/>
+                <Setter Property="TextElement.Foreground" Value="{StaticResource WHITE_50}"/>
                 <Setter Property="Shape.Fill" TargetName="Arrow" Value="#999"/>
             </Trigger>
         </ControlTemplate.Triggers>
@@ -461,7 +458,7 @@
                                       IsChecked="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                                       Template="{StaticResource ComboBoxToggleButtonTemplate}"/>
                         <ContentPresenter Name="ContentSite" 
-                                          Margin="5,3,23,3" 
+                                          Margin="5,3,40,3" 
                                           IsHitTestVisible="False"
                                           HorizontalAlignment="Left" 
                                           VerticalAlignment="Center"
@@ -502,7 +499,8 @@
                                         BorderBrush="{StaticResource GRAY}"/>
                                 <ScrollViewer Margin="0" 
                                               SnapsToDevicePixels="True">
-                                    <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"
+                                                    Cursor="Hand"/>
                                 </ScrollViewer>
                             </Grid>
                         </Popup>

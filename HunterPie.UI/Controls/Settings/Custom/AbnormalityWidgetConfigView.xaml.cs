@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.UI.Architecture.Navigator;
 using HunterPie.UI.Controls.Settings.Custom.Abnormality;
 using HunterPie.UI.Controls.Settings.ViewModel;
 using HunterPie.UI.Controls.TextBox.Events;
@@ -10,13 +11,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace HunterPie.UI.Controls.Settings.Custom;
-
 /// <summary>
-/// Interaction logic for AbnormalityWidgetConfig.xaml
+/// Interaction logic for AbnormalityWidgetConfigView.xaml
 /// </summary>
-public partial class AbnormalityWidgetConfigWindow : Window, INotifyPropertyChanged
+public partial class AbnormalityWidgetConfigView : UserControl, INotifyPropertyChanged
 {
     // TODO: Separate View from ViewModel
 
@@ -42,7 +43,7 @@ public partial class AbnormalityWidgetConfigWindow : Window, INotifyPropertyChan
 
     public event PropertyChangedEventHandler PropertyChanged;
 
-    public AbnormalityWidgetConfigWindow(AbnormalityWidgetConfig config)
+    public AbnormalityWidgetConfigView(AbnormalityWidgetConfig config)
     {
         Config = config;
         DataContext = config;
@@ -51,6 +52,7 @@ public partial class AbnormalityWidgetConfigWindow : Window, INotifyPropertyChan
         BuildVisualConfig();
         LoadAbnormalities();
     }
+
 
     private void BuildVisualConfig()
     {
@@ -76,29 +78,26 @@ public partial class AbnormalityWidgetConfigWindow : Window, INotifyPropertyChan
         Config.AllowedAbnormalities.Clear();
 
         foreach (AbnormalityCollectionViewModel collection in Collections)
-        {
             foreach (AbnormalityViewModel abnorm in collection.Abnormalities.Where(a => a.IsEnabled))
                 _ = Config.AllowedAbnormalities.Add(abnorm.Id);
-        }
     }
 
     private void OnSearchTextChanged(object sender, SearchTextChangedEventArgs e)
     {
         if (SelectedCollection is not null)
-        {
             foreach (AbnormalityViewModel vm in SelectedCollection.Abnormalities)
-            {
                 vm.IsMatch = string.IsNullOrEmpty(e.Text) || Regex.IsMatch(vm.Name, e.Text, RegexOptions.IgnoreCase);
-            }
-        }
     }
 
     private void OnSelectAllClick(object sender, EventArgs e)
     {
         if (SelectedCollection is not null)
-        {
             foreach (AbnormalityViewModel vm in SelectedCollection.Abnormalities)
                 vm.IsEnabled = true;
-        }
+    }
+
+    private void OnBackButtonClick(object sender, RoutedEventArgs e)
+    {
+        Navigator.Return();
     }
 }

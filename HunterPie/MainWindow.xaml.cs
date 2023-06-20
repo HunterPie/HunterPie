@@ -119,7 +119,7 @@ public partial class MainWindow : Window
             EasingFunction = new SineEase()
         };
 
-        MainHost.Instance.PropertyChanged += (_, __) =>
+        MainApplicationNavigator.Instance.PropertyChanged += (_, __) =>
         {
             PART_ContentPresenter.BeginAnimation(FrameworkElement.OpacityProperty, opacityAnimation);
             PART_ContentPresenter.RenderTransform.BeginAnimation(ScaleTransform.ScaleXProperty, shrinkAnimation);

@@ -50,6 +50,9 @@
     <Compile Update="Controls\Settings\Custom\AbnormalityView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Settings\Custom\AbnormalityWidgetConfigView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Settings\Custom\AbnormalityWidgetConfigWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -248,6 +251,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\Custom\AbnormalityView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Settings\Custom\AbnormalityWidgetConfigView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\Custom\AbnormalityWidgetConfigWindow.xaml">
