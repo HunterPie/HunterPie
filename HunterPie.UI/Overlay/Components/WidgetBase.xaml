@@ -29,7 +29,6 @@
         AllowsTransparency="True">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <animation:BrushAnimation x:Key="BrushAnimation"/>
         <enums:WidgetType x:Key="WidgetType_Window">Window</enums:WidgetType>
     </Window.Resources>
     <WindowChrome.WindowChrome>
@@ -39,15 +38,22 @@
     <Grid>
         <Grid x:Name="PART_Base"
               d:Opacity="1">
-            <local:WidgetHeader Height="30"
-                            Margin="20,0,20,0"
-                            VerticalAlignment="Top"/>
-            <Border Margin="0,40,0,0"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            
+            <Border Grid.Row="1"
                     x:Name="PART_Highlight"
-                    BorderThickness="2"
+                    BorderThickness="1,0,1,1"
                     Background="{StaticResource HUNTERPIE_HIGHLIGHT_BACKGROUND}"
-                    BorderBrush="{StaticResource HUNTERPIE_HIGHLIGHT_BORDER}">
-            </Border>
+                    BorderBrush="{StaticResource HUNTERPIE_HIGHLIGHT_BORDER}"
+                    CornerRadius="0,0,5,5"/>
+            
+            <local:WidgetHeader Grid.Row="0" 
+                                Height="30"
+                                VerticalAlignment="Top"/>
+
             <Grid.Style>
                 <Style TargetType="{x:Type Grid}">
                     <Setter Property="Opacity" Value="0"/>
@@ -121,7 +127,7 @@
         </Grid>
 
         <!-- Widget content -->
-        <Grid Margin="10,50,10,10">
+        <Grid Margin="10,30,10,10">
             <ContentControl Content="{Binding Widget}"
                             Opacity="{Binding Widget.Settings.Opacity.Current, Mode=OneWay}">
                 <ContentControl.Style>

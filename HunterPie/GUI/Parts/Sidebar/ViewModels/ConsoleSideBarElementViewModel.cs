@@ -1,5 +1,5 @@
 ﻿using HunterPie.GUI.Parts.Console;
-using HunterPie.GUI.Parts.Host;
+using HunterPie.UI.Architecture.Navigator;
 using HunterPie.UI.Assets.Application;
 using System.Windows.Media;
 using Localization = HunterPie.Core.Client.Localization.Localization;
@@ -21,6 +21,6 @@ internal class ConsoleSideBarElementViewModel : ISideBarElement
     public void ExecuteOnClick()
     {
         var console = new ConsoleView();
-        MainHost.SetMain(console);
+        Navigator.Navigate(console);
     }
 }

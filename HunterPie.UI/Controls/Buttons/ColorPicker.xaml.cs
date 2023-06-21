@@ -21,12 +21,10 @@ public partial class ColorPicker : UserControl
     {
         using ColorDialog colorDialog = new();
 
-        if (colorDialog.ShowDialog() == DialogResult.OK)
-        {
-            if (DataContext is Color color)
-            {
-                color.Value = colorDialog.Color.ToHexString();
-            }
-        }
+        if (colorDialog.ShowDialog() != DialogResult.OK)
+            return;
+
+        if (DataContext is Color color)
+            color.Value = colorDialog.Color.ToHexString();
     }
 }

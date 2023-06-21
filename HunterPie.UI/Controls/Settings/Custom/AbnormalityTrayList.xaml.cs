@@ -2,6 +2,7 @@
 using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Settings.Types;
+using HunterPie.UI.Architecture.Navigator;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -73,8 +74,8 @@ public partial class AbnormalityTrayList : UserControl, INotifyPropertyChanged
         if (vm is null)
             return;
 
-        var window = new AbnormalityWidgetConfigWindow(vm);
-        _ = window.ShowDialog();
+        var view = new AbnormalityWidgetConfigView(vm);
+        Navigator.Navigate(view);
     }
 
     private AbnormalityWidgetConfig? TryFetchConfig()

@@ -6,65 +6,103 @@
              mc:Ignorable="d"
              xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:viewModel="clr-namespace:HunterPie.UI.Controls.Settings.ViewModel"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              Background="Transparent"
              d:DesignWidth="400"
-             ClipToBounds="True">
+             ClipToBounds="True"
+             d:DataContext="{d:DesignInstance viewModel:ISettingElementType}">
     <UserControl.Resources>
         <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="227*"/>
-            <ColumnDefinition Width="173*"/>
-        </Grid.ColumnDefinitions>
-        <Canvas Grid.ColumnSpan="2">
-            <Rectangle x:Name="PART_Highlight"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Left"
-                   Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
-                   Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=2}"
-                   Opacity="0"
-                   Style="{StaticResource StyleHighlight}">
-                <Rectangle.Fill>
-                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,1">
-                        <GradientStop Offset="1" Color="#0CFFFFFF"/>
-                        <GradientStop Color="#0CFFFFFF" Offset="0.25"/>
-                        <GradientStop Color="#33FFFFFF" Offset="0.5"/>
-                        <GradientStop Color="#0CFFFFFF" Offset="0.75"/>
-                        <GradientStop Color="#0CFFFFFF" Offset="0"/>
-                    </LinearGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-        </Canvas>
+    <Border Background="{StaticResource GRAY_50}"
+            CornerRadius="5">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Canvas Grid.ColumnSpan="2">
+                <Rectangle x:Name="PART_Highlight"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                       Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=2}"
+                       Opacity="0"
+                       Style="{StaticResource StyleHighlight}">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush EndPoint="1,1" StartPoint="0,1">
+                            <GradientStop Offset="1" Color="#0CFFFFFF"/>
+                            <GradientStop Color="#0CFFFFFF" Offset="0.25"/>
+                            <GradientStop Color="#33FFFFFF" Offset="0.5"/>
+                            <GradientStop Color="#0CFFFFFF" Offset="0.75"/>
+                            <GradientStop Color="#0CFFFFFF" Offset="0"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Canvas>
 
-        <Label VerticalContentAlignment="Center"
-               HorizontalAlignment="Stretch">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Foreground="{StaticResource WHITE_50}"
-                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                           FontSize="14"
-                           Text="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
-                           d:Text="Placeholder"
-                           Margin="0,0,5,0"/>
-                <TextBlock Foreground="{StaticResource WHITE_300}"
-                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                           FontSize="8"
-                           Text="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;REQUIRES_RESTART_STRING&quot;]'}"
-                           VerticalAlignment="Center"
-                           Visibility="{Binding RequiresRestart, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            </StackPanel>
-        </Label>
-        <Grid HorizontalAlignment="Stretch" 
-                   Grid.Column="1">
-            <ContentControl Content="{Binding Hosted, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
-                            Margin="5,5,25,5"/>
-            <Image Source="{StaticResource ICON_INFO}"
-                   ToolTip="{Binding Description, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
-                   Width="18"
-                   Margin="2"
-                   HorizontalAlignment="Right"/>
+            <Label Grid.Column="0" 
+                   VerticalContentAlignment="Center"
+                   HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Foreground="{StaticResource WHITE_50}"
+                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                               FontSize="14"
+                               Text="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                               d:Text="Placeholder"
+                               Margin="0,0,5,0"/>
+                    
+                </StackPanel>
+            </Label>
+            <image:Icon Grid.Column="0" 
+                        Image="{StaticResource ICON_WARN}"
+                        Width="15"
+                        Foreground="{StaticResource YELLOW}"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Right"
+                        Opacity="0.5"
+                        Visibility="{Binding RequiresRestart, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        ToolTip="{loc:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;REQUIRES_RESTART_STRING&quot;]'}"/>
+            <Grid HorizontalAlignment="Stretch" 
+                       Grid.Column="1">
+                <ContentControl Content="{Binding Hosted, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                                Margin="5,5,25,5"/>
+                <Image Source="{StaticResource ICON_INFO}"
+                       ToolTip="{Binding Description, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                       Width="18"
+                       Margin="2"
+                       HorizontalAlignment="Right"/>
+            </Grid>
         </Grid>
 
-    </Grid>
+        <Border.Style>
+            <Style TargetType="Border">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Match, Mode=OneWay}"
+                                 Value="False">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                     To="0.3"
+                                                     Duration="0:0:0.25"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                        <DataTrigger.ExitActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                     To="1"
+                                                     Duration="0:0:0.25"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.ExitActions>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+    </Border>
 </UserControl>

@@ -26,14 +26,10 @@
     <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_PRIMARY">WhiteSmoke</SolidColorBrush>
     <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_SECONDARY">#cccccc</SolidColorBrush>
     <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_DARKER">#FF49575F</SolidColorBrush>
-    <LinearGradientBrush x:Key="HUNTERPIE_HIGHLIGHT_BORDER" EndPoint="0.5,1" StartPoint="0,0">
-        <GradientStop Color="#7FF3F3F3"/>
-        <GradientStop Color="#4CFFFFFF" Offset="1"/>
-    </LinearGradientBrush>
-    <RadialGradientBrush x:Key="HUNTERPIE_HIGHLIGHT_BACKGROUND" SpreadMethod="Reflect" RadiusY="1" RadiusX="1" Center="0.5,0.5">
-        <GradientStop Color="#00000000" Offset="0"/>
-        <GradientStop Color="#7FFFFFFF" Offset="1"/>
-        <GradientStop Color="#00BDBDBD" Offset="0.35"/>
+    <SolidColorBrush x:Key="HUNTERPIE_HIGHLIGHT_BORDER">#50FFFFFF</SolidColorBrush>
+    <RadialGradientBrush x:Key="HUNTERPIE_HIGHLIGHT_BACKGROUND" SpreadMethod="Pad"  RadiusY="1" RadiusX="1" Center="0.5,0.5">
+        <GradientStop Color="#10D9D9D9" Offset="0"/>
+        <GradientStop Color="#20D9D9D9" Offset="1"/>
     </RadialGradientBrush>
     <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_DARK">#7c858a</SolidColorBrush>
 
@@ -77,23 +73,23 @@
     <SolidColorBrush x:Key="WHITE_700">#505355</SolidColorBrush>
     
     <!-- Red -->
-    <SolidColorBrush x:Key="RED_LIGHT_700">#e4bacb</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_LIGHT_600">#dba3ba</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_LIGHT_500">#d38ca9</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_LIGHT_400">#ca7597</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_LIGHT_300">#c15e86</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_LIGHT_200">#b84775</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_LIGHT_100">#af3063</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_LIGHT_50">#aa255b</SolidColorBrush>
-    <SolidColorBrush x:Key="RED">#a61952</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_50">#9e184e</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_100">#95174a</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_200">#851442</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_300">#741239</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_400">#640f31</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_500">#530d29</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_600">#420a21</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_700">#320819</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_700">#f3b8c9</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_600">#efa0b7</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_500">#eb88a5</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_400">#e67093</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_300">#e25881</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_200">#de416f</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_100">#da295d</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_50">#d81d54</SolidColorBrush>
+    <SolidColorBrush x:Key="RED">#D6114B</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_50">#cb1047</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_100">#c10f44</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_200">#ab0e3c</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_300">#960c35</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_400">#800a2d</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_500">#6b0926</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_600">#56071e</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_700">#400517</SolidColorBrush>
     
     <!-- Green -->
     <SolidColorBrush x:Key="GREEN_LIGHT_700">#c8edd5</SolidColorBrush>
