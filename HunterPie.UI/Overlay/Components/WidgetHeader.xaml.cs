@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -17,7 +16,10 @@ public partial class WidgetHeader : UserControl
         InitializeComponent();
     }
 
-    private void OnCloseButtonClick(object sender, EventArgs e) => Owner.Widget.Settings.Enabled.Value = false;
+    private void OnCloseButtonClick(object sender, RoutedEventArgs e) => Owner.Widget.Settings.Initialize.Value = false;
+
+    private void OnHideButtonClick(object sender, RoutedEventArgs e) =>
+        Owner.Widget.Settings.Enabled.Value = !Owner.Widget.Settings.Enabled.Value;
 
     private void OnLoaded(object sender, RoutedEventArgs e) => Owner = (WidgetBase)Window.GetWindow(this);
 

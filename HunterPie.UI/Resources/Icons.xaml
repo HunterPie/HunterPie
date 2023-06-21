@@ -1300,6 +1300,15 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="ICON_EYE_INVISIBLE">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V20 H20 V0 H0 Z">
+                <GeometryDrawing Brush="{StaticResource WHITE_500}" Geometry="F0 M20,20z M0,0z M3.28,2.22A0.75,0.75,0,0,0,2.22,3.28L16.72,17.78A0.75,0.75,0,1,0,17.78,16.72L16.035,14.975A10.029,10.029,0,0,0,19.335,10.595A1.651,1.651,0,0,0,19.335,9.41A10.004,10.004,0,0,0,9.999,3A9.956,9.956,0,0,0,5.255,4.194L3.28,2.22z M7.752,6.69L8.844,7.782A2.5,2.5,0,0,1,12.218,11.155L13.309,12.247A4,4,0,0,0,7.752,6.69z" />
+                <GeometryDrawing Brush="{StaticResource WHITE_500}" Geometry="F1 M20,20z M0,0z M10.748,13.93L13.271,16.453A9.987,9.987,0,0,1,10.001,17C5.743,17,2.107,14.34,0.664,10.59A1.651,1.651,0,0,1,0.664,9.404A10.007,10.007,0,0,1,2.839,6.02L6.07,9.252A4,4,0,0,0,10.748,13.93z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="ICON_FLAG">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
