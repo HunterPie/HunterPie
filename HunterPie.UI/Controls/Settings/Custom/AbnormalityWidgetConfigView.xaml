@@ -11,7 +11,8 @@
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
-             d:DesignWidth="800">
+             d:DesignWidth="800"
+             Unloaded="OnUnload">
     <UserControl.Resources>
         <converters:ObjectToUiConverter x:Key="ObjectToUiConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -23,7 +24,7 @@
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <VirtualizingStackPanel IsItemsHost="True"
                                                     Orientation="Vertical"
-                                                    Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"/>
+                                                    Background="{StaticResource GRAY_300}"/>
                         </ScrollViewer>
                     </ControlTemplate>
                 </ItemsControl.Template>
@@ -43,7 +44,7 @@
                             Title="{Binding Name}"
                             Description="{Binding Description}"
                             Icon="{Binding Icon}"
-                            Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
+                            Background="{StaticResource GRAY_300}"
                             FontSize="13"/>
         </DataTemplate>
     </UserControl.Resources>
@@ -62,6 +63,7 @@
         <buttons:Button Padding="0"
                         VerticalContentAlignment="Stretch"
                         HorizontalContentAlignment="Left"
+                        HorizontalAlignment="Left"
                         Grid.Column="0"
                         Grid.Row="0"
                         Click="OnBackButtonClick">
@@ -70,6 +72,16 @@
                         Margin="6"
                         Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"/>
         </buttons:Button>
+
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   Foreground="{StaticResource WHITE_600}"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center">
+            <Run Text="Note:"
+                 FontWeight="Bold"/>
+            <Run Text="Settings are saved when exiting this screen."/>
+        </TextBlock>
 
         <ItemsControl Grid.Row="1" 
                       ItemsSource="{Binding Elements, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityWidgetConfigView}}}" 
@@ -100,7 +112,10 @@
                            DockPanel.Dock="Left"
                            Margin="5,0,10,0"
                            Padding="5,0,5,0"
-                           Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
+                           Background="{StaticResource GRAY_100}"
+                           BorderBrush="{StaticResource GRAY}"
+                           BorderThickness="1"
+                           CornerRadius="5"
                            OnClick="OnSelectAllClick"/>
             <textBox:SearchTextBox DockPanel.Dock="Right"
                                    OnSearchTextChanged="OnSearchTextChanged"/>

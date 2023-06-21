@@ -73,31 +73,40 @@ public partial class AbnormalityWidgetConfigView : UserControl, INotifyPropertyC
             Collections.Add(coll);
     }
 
-    private void OnClosing(object sender, CancelEventArgs e)
-    {
-        Config.AllowedAbnormalities.Clear();
-
-        foreach (AbnormalityCollectionViewModel collection in Collections)
-            foreach (AbnormalityViewModel abnorm in collection.Abnormalities.Where(a => a.IsEnabled))
-                _ = Config.AllowedAbnormalities.Add(abnorm.Id);
-    }
-
     private void OnSearchTextChanged(object sender, SearchTextChangedEventArgs e)
     {
-        if (SelectedCollection is not null)
-            foreach (AbnormalityViewModel vm in SelectedCollection.Abnormalities)
-                vm.IsMatch = string.IsNullOrEmpty(e.Text) || Regex.IsMatch(vm.Name, e.Text, RegexOptions.IgnoreCase);
+        if (SelectedCollection is null)
+            return;
+
+        foreach (AbnormalityViewModel vm in SelectedCollection.Abnormalities)
+            vm.IsMatch = string.IsNullOrEmpty(e.Text) || Regex.IsMatch(vm.Name, e.Text, RegexOptions.IgnoreCase);
     }
 
     private void OnSelectAllClick(object sender, EventArgs e)
     {
-        if (SelectedCollection is not null)
-            foreach (AbnormalityViewModel vm in SelectedCollection.Abnormalities)
-                vm.IsEnabled = true;
+        if (SelectedCollection is null)
+            return;
+
+        foreach (AbnormalityViewModel vm in SelectedCollection.Abnormalities)
+            vm.IsEnabled = true;
     }
 
     private void OnBackButtonClick(object sender, RoutedEventArgs e)
     {
         Navigator.Return();
+    }
+
+    private void SaveAbnormalities()
+    {
+        Config.AllowedAbnormalities.Clear();
+
+        foreach (AbnormalityCollectionViewModel collection in Collections)
+            foreach (AbnormalityViewModel abnorm in collection.Abnormalities.Where(a => a.IsEnabled))
+                Config.AllowedAbnormalities.Add(abnorm.Id);
+    }
+
+    private void OnUnload(object sender, RoutedEventArgs e)
+    {
+        SaveAbnormalities();
     }
 }
