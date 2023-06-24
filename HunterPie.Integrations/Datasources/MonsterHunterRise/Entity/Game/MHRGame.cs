@@ -309,18 +309,19 @@ public sealed class MHRGame : CommonGame
             .Where(mAddress => mAddress != 0)
             .ToHashSet();
 
-        long[] toDespawn = _monsters.Keys.Where(address => !monsterAddresses.Contains(address))
+        long[] toDespawn = _monsters.Keys.Where(address => !monsterAddresses.Contains(address)
+            || (MonsterDieCategory)Process.Memory.ReadPtr(address, AddressMap.Get<int[]>("MONSTER_DIE_CATEGORY_OFFSETS")) != MonsterDieCategory.None)
             .ToArray();
 
         foreach (long mAddress in toDespawn)
             HandleMonsterDespawn(mAddress);
 
-        long[] toSpawn = monsterAddresses.Where(address => !_monsters.ContainsKey(address))
+        long[] toSpawn = monsterAddresses.Where(address => !_monsters.ContainsKey(address)
+            && (MonsterDieCategory)Process.Memory.ReadPtr(address, AddressMap.Get<int[]>("MONSTER_DIE_CATEGORY_OFFSETS")) == MonsterDieCategory.None)
             .ToArray();
 
         foreach (long mAddress in toSpawn)
             HandleMonsterSpawn(mAddress);
-
     }
 
     private void HandleMonsterSpawn(long monsterAddress)
