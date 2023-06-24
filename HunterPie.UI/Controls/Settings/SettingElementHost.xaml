@@ -46,7 +46,7 @@
             <Label Grid.Column="0" 
                    VerticalContentAlignment="Center"
                    HorizontalAlignment="Stretch">
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical">
                     <TextBlock Foreground="{StaticResource WHITE_50}"
                                FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                                FontSize="14"
@@ -54,6 +54,12 @@
                                d:Text="Placeholder"
                                Margin="0,0,5,0"/>
                     
+                    <TextBlock d:Text="Setting description here adas das dasd asd asas das  asd asd "
+                               TextWrapping="WrapWithOverflow"
+                               FontSize="10"
+                               Foreground="{StaticResource WHITE_500}"
+                               Text="{Binding Description, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                               Margin="0,5,20,0"/>
                 </StackPanel>
             </Label>
             <image:Icon Grid.Column="0" 
@@ -68,12 +74,7 @@
             <Grid HorizontalAlignment="Stretch" 
                        Grid.Column="1">
                 <ContentControl Content="{Binding Hosted, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
-                                Margin="5,5,25,5"/>
-                <Image Source="{StaticResource ICON_INFO}"
-                       ToolTip="{Binding Description, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
-                       Width="18"
-                       Margin="2"
-                       HorizontalAlignment="Right"/>
+                                Margin="5,5,5,5"/>
             </Grid>
         </Grid>
 
