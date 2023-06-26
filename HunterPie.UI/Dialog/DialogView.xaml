@@ -11,6 +11,7 @@
         xmlns:btn="clr-namespace:HunterPie.UI.Controls.Buttons"
         xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets"
         mc:Ignorable="d"
+        MinWidth="400"
         Width="400"
         SizeToContent="Height"
         Background="#01000000"
@@ -25,12 +26,12 @@
         <sys:Int32 x:Key="Reject">2</sys:Int32>
         <sys:Int32 x:Key="Cancel">4</sys:Int32>
         <Style x:Key="DefaultButton" TargetType="{x:Type btn:Button}">
-            <Setter Property="Background" Value="{StaticResource GRAY_200}"/>
+            <Setter Property="Background" Value="{StaticResource GRAY_100}"/>
             <Setter Property="Foreground" Value="{StaticResource WHITE_200}"/>
             <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="Margin" Value="10"/>
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Padding" Value="10,5,10,5"/>
+            <Setter Property="Padding" Value="30,5"/>
             <Setter Property="BorderBrush" Value="{StaticResource GRAY}"/>
             <Setter Property="CornerRadius" Value="5"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -44,27 +45,6 @@
     <wnd:WindowChrome>
         <wnd:WindowChrome.Container>
             <Grid>
-                <Label VerticalAlignment="Top"
-                       HorizontalAlignment="Center"
-                       HorizontalContentAlignment="Center"
-                       VerticalContentAlignment="Center">
-                    <Label.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Icon, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                                   d:Source="{StaticResource ICON_ERROR}"
-                                   Width="16"
-                                   Height="16"/>
-                            <TextBlock Text="{Binding DialogTitle, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                                       d:Text="Error"
-                                       VerticalAlignment="Center"
-                                       FontSize="16"
-                                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                                       FontWeight="Medium"
-                                       Foreground="{StaticResource WHITE_400}"
-                                       Margin="10,0,0,0"/>
-                        </StackPanel>
-                    </Label.Content>
-                </Label>
                 <StackPanel>
                     <Label VerticalAlignment="Top"
                            HorizontalAlignment="Stretch"
@@ -76,8 +56,9 @@
                            HorizontalContentAlignment="Center">
                         <Label.Content>
                             <TextBlock Text="{Binding Description, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, FallbackValue='Sample Text'}"
-                                       d:Text="Do you want to accept this very cool popup? "
+                                       d:Text="Do you want to accept this very cool popup? ASJDHK ASD JA JASDJAAJ DJSDJAS DJKSA KASD"
                                        VerticalAlignment="Stretch"
+                                       MaxWidth="400"
                                        HorizontalAlignment="Stretch"
                                        TextWrapping="WrapWithOverflow"
                                        Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"

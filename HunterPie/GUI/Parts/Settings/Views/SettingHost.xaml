@@ -59,11 +59,11 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewModel:ISettingElementType}">
                         <settings:SettingElementHost Hosted="{Binding ., Converter={StaticResource ObjectToUiConverter}, IsAsync=True}"
-                                                  Text="{Binding Name}"
-                                                  Description="{Binding Description}"
-                                                  Margin="5,3,5,3"
-                                                  Height="45"
-                                                  HorizontalAlignment="Stretch"/>
+                                                     Text="{Binding Name}"
+                                                     Description="{Binding Description}"
+                                                     Margin="5,3,5,3"
+                                                     HorizontalAlignment="Stretch"
+                                                     MinHeight="45"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -73,7 +73,7 @@
                             Title="{Binding Title}"
                             Description="{Binding Description}"
                             Icon="{Binding Icon}"
-                            Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
+                            Background="{StaticResource GRAY_300}"
                             FontSize="13"/>
         </DataTemplate>
     </UserControl.Resources>
