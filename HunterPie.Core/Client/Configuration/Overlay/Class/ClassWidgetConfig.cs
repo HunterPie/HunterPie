@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
 
@@ -6,7 +7,7 @@ namespace HunterPie.Core.Client.Configuration.Overlay.Class;
 
 public class ClassWidgetConfig : IWidgetSettings, ISettings
 {
-    [SettingField("INITIALIZE_WIDGET_STRING", requiresRestart: true)]
+    [SettingField("INITIALIZE_WIDGET_STRING", requiresRestart: true, availableGames: GameProcess.None)]
     public Observable<bool> Initialize { get; set; } = true;
 
     [SettingField("ENABLE_WIDGET_STRING")]

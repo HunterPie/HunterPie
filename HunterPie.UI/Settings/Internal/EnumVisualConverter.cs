@@ -27,6 +27,8 @@ internal class EnumVisualConverter : IVisualConverter
         {
             ItemsSource = elements,
             ItemTemplate = EnumElementDataTemplate,
+            MinHeight = 35,
+            VerticalAlignment = VerticalAlignment.Center
         };
         _ = BindingOperations.SetBinding(box, ComboBox.SelectedItemProperty, binding);
 

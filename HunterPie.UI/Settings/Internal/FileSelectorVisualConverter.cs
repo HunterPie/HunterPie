@@ -17,7 +17,9 @@ internal class FileSelectorVisualConverter : IVisualConverter
 
         ComboBox ui = new()
         {
-            ItemsSource = child.Elements
+            ItemsSource = child.Elements,
+            MinHeight = 35,
+            VerticalAlignment = VerticalAlignment.Center
         };
 
         _ = BindingOperations.SetBinding(ui, ComboBox.SelectedValueProperty, binding);

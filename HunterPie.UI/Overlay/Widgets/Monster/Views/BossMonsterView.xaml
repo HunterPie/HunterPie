@@ -28,7 +28,7 @@
         <converters:CrownToVisibilityConverter x:Key="CrownToVisibilityConverter"/>
         <converters:TargetTypeToVisibility x:Key="TargetTypeToVisibility"/>
         <converters:IsValidPartConverter x:Key="IsValidPartConverter"/>
-        <converters:PercentageToLeftMargingDistanceConverter x:Key="PercentageToLeftMargingDistanceConverter"/>
+        <converters:PercentageToLeftMarginDistanceConverter x:Key="PercentageToLeftMarginDistanceConverter"/>
         <converters:MonsterTypeToLocalizationConverter x:Key="MonsterTypeToLocalizationConverter"/>
 
         <LinearGradientBrush x:Key="MonsterHealthEnraged" EndPoint="1,1" StartPoint="0,1">
@@ -374,7 +374,7 @@
                        Height="10"
                        Width="10"/>
                 <StackPanel.Margin>
-                    <MultiBinding Converter="{StaticResource PercentageToLeftMargingDistanceConverter}" ConverterParameter="0,30,0,0">
+                    <MultiBinding Converter="{StaticResource PercentageToLeftMarginDistanceConverter}" ConverterParameter="0,30,0,0">
                         <Binding Path="ActualWidth" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Grid}}"/>
                         <Binding Path="DataContext.CaptureThreshold" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type local:BossMonsterView}}"/>
                     </MultiBinding>
