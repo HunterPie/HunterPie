@@ -14,7 +14,10 @@ public class ColorToBrushConverter : IValueConverter
         if (value is not Color color)
             return Default;
 
-        return new SolidColorBrush(color);
+        var brush = new SolidColorBrush(color);
+        brush.Freeze();
+
+        return brush;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
