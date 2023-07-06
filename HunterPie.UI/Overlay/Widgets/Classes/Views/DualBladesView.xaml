@@ -12,7 +12,9 @@
              Width="295"
              d:DataContext="{d:DesignInstance viewModels:DualBladesViewModel}">
     <UserControl.Resources>
-        <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+        <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
+        <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
+        <converters:RatioConverter x:Key="RatioConverter"/>
 
         <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource DUAL_BLADES_DEMON_BRUSH}, Mode=OneTime}"
                              Opacity="1"
@@ -54,6 +56,7 @@
             </Border.RenderTransform>
             
             <TextBlock d:Text="00:00"
+                       Text="{Binding PiercingBindTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"
                        HorizontalAlignment="Center"
                        Foreground="{StaticResource WHITE_300}"
                        FontWeight="Medium"
@@ -94,6 +97,13 @@
             <Border.RenderTransform>
                 <SkewTransform AngleX="45"/>
             </Border.RenderTransform>
+            <Border.Width>
+                <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
+                    <Binding Path="PiercingBindTimer" Mode="OneWay"/>
+                    <Binding Path="PiercingBindMaxTimer" Mode="OneWay"/>
+                    <Binding Path="ActualWidth" ElementName="PART_PiercingBindGauge" Mode="OneWay"/>
+                </MultiBinding>
+            </Border.Width>
         </Border>
 
         <!-- Demon Gauge -->
@@ -121,6 +131,12 @@
                 <TextBlock.RenderTransform>
                     <SkewTransform AngleX="45"/>
                 </TextBlock.RenderTransform>
+                <TextBlock.Text>
+                    <MultiBinding Converter="{StaticResource RatioConverter}" StringFormat="{}{0:P0}">
+                        <Binding Path="DemonBuildUp"/>
+                        <Binding Path="DemonMaxBuildUp"/>
+                    </MultiBinding>
+                </TextBlock.Text>
             </TextBlock>
         </Border>
 
@@ -151,6 +167,13 @@
             <Border.RenderTransform>
                 <SkewTransform AngleX="-45"/>
             </Border.RenderTransform>
+            <Border.Width>
+                <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
+                    <Binding Path="DemonBuildUp" Mode="OneWay"/>
+                    <Binding Path="DemonMaxBuildUp" Mode="OneWay"/>
+                    <Binding Path="ActualWidth" ElementName="PART_DemonGauge" Mode="OneWay"/>
+                </MultiBinding>
+            </Border.Width>
         </Border>
 
         <Border Grid.Column="0" 
@@ -160,8 +183,8 @@
                 HorizontalAlignment="Left"
                 Margin="15" 
                 RenderTransformOrigin="0.5,0.5"
-                Background="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}"
-                BorderBrush="{StaticResource GRAY_50}"
+                d:Background="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}"
+                d:BorderBrush="{StaticResource GRAY_50}"
                 BorderThickness="1">
             <Border.RenderTransform>
                 <TransformGroup>
@@ -169,7 +192,7 @@
                 </TransformGroup>
             </Border.RenderTransform>
             <image:Icon Image="{StaticResource ICON_DEMON_MODE}"
-                        d:Foreground="{StaticResource DUAL_BLADES_DEMON_BRUSH}"
+                        d:Foreground="{StaticResource GRAY_50}"
                         Margin="8,8,5,5" 
                         RenderTransformOrigin="0.5,0.5">
                 <image:Icon.RenderTransform>
@@ -207,6 +230,23 @@
                     </Style>
                 </image:Icon.Style>
             </image:Icon>
+
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding InDemonMode, Mode=OneWay}"
+                                     Value="True">
+                            <Setter Property="Background" Value="{StaticResource DUAL_BLADES_DEMON_MODE_ACTIVE}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource DUAL_BLADES_DEMON_BRUSH}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding InDemonMode, Mode=OneWay}"
+                                     Value="False">
+                            <Setter Property="Background" Value="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource GRAY_50}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
         </Border>
 
         
