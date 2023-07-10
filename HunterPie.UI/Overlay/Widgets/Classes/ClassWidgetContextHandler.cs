@@ -61,6 +61,7 @@ public class ClassWidgetContextHandler : IContextHandler
         {
             Weapon.InsectGlaive => overlayConfig.InsectGlaiveWidget,
             Weapon.ChargeBlade => overlayConfig.ChargeBladeWidget,
+            Weapon.DualBlades => overlayConfig.DualBladesWidget,
             _ => null
         };
         _viewModel.CurrentSettings = config;
@@ -74,8 +75,10 @@ public class ClassWidgetContextHandler : IContextHandler
         {
             IInsectGlaive insectGlaive => new InsectGlaiveController(_context, insectGlaive),
             IChargeBlade chargeBlade => new ChargeBladeController(_context, chargeBlade),
+            IDualBlades dualBlades => new DualBladesController(_context, dualBlades),
             _ => null
         };
+        _weaponController?.HookEvents();
         _viewModel.Current = _weaponController?.ViewModel;
     }
 

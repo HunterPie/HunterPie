@@ -306,10 +306,10 @@ public sealed class MHRPlayer : CommonPlayer
             WeaponType.Bow => new MHRBow(),
             WeaponType.HeavyBowgun => new MHRHeavyBowgun(),
             WeaponType.LightBowgun => new MHRLightBowgun(),
+            WeaponType.DualBlades => new MHRDualBlades(Process),
 
             WeaponType.Greatsword
             or WeaponType.SwordAndShield
-            or WeaponType.DualBlades
             or WeaponType.Longsword
             or WeaponType.Hammer
             or WeaponType.HuntingHorn

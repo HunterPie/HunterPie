@@ -21,7 +21,6 @@ public class InsectGlaiveController : IClassController<InsectGlaiveViewModel>
         _weapon = weapon;
 
         Update();
-        HookEvents();
     }
 
     public void HookEvents()

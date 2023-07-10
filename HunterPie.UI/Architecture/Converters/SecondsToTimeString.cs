@@ -12,6 +12,9 @@ public class SecondsToTimeString : IValueConverter
         string timeFormat = "mm\\:ss";
         double val = Converter.ToDouble(value);
 
+        if (val is double.NaN)
+            val = 0.0;
+
         var span = TimeSpan.FromSeconds(val);
 
         if (parameter is string format)
