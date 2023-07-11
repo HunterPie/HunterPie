@@ -21,4 +21,7 @@ public class DualBladesViewModel : ViewModel, IClassViewModel
 
     private float _piercingBindMaxTimer;
     public float PiercingBindMaxTimer { get => _piercingBindMaxTimer; set => SetValue(ref _piercingBindMaxTimer, value); }
+
+    private bool _inArchDemonMode;
+    public bool InArchDemonMode { get => _inArchDemonMode; set => SetValue(ref _inArchDemonMode, value); }
 }

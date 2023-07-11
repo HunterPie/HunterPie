@@ -6,17 +6,15 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
-using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
-using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
-namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Weapons;
+namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
 
-public sealed class MHRDualBlades : MHRMeleeWeapon, IDualBlades
+public sealed class MHWDualBlades : MHWMeleeWeapon, IDualBlades
 {
     private bool _isDemonMode;
     private bool _isArchDemonMode;
     private float _demonBuildUp;
-    private float _piercingBindTimer;
 
     public bool IsDemonMode
     {
@@ -57,22 +55,11 @@ public sealed class MHRDualBlades : MHRMeleeWeapon, IDualBlades
         }
     }
 
-    public float MaxDemonBuildUp { get; private set; }
+    public float MaxDemonBuildUp => 100.0f;
 
-    public float PiercingBindTimer
-    {
-        get => _piercingBindTimer;
-        private set
-        {
-            if (value == _piercingBindTimer)
-                return;
+    public float PiercingBindTimer => 0.0f;
 
-            _piercingBindTimer = value;
-            this.Dispatch(_onPiercingBindTimerChange, new TimerChangeEventArgs(value, MaxPiercingBindTimer));
-        }
-    }
-
-    public float MaxPiercingBindTimer { get; private set; }
+    public float MaxPiercingBindTimer => 0.0f;
 
     private readonly SmartEvent<StateChangeEventArgs<bool>> _onDemonModeStateChange = new();
     public event EventHandler<StateChangeEventArgs<bool>> OnDemonModeStateChange
@@ -102,42 +89,19 @@ public sealed class MHRDualBlades : MHRMeleeWeapon, IDualBlades
         remove => _onPiercingBindTimerChange.Unhook(value);
     }
 
-    public MHRDualBlades(IProcessManager process) : base(process, Weapon.DualBlades) { }
+    public MHWDualBlades(IProcessManager process) : base(process, Weapon.DualBlades) { }
 
     [ScannableMethod]
     private void GetData()
     {
-        MHRDualBladesStructure structure = Memory.Deref<MHRDualBladesStructure>(
-            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
-            AddressMap.Get<int[]>("CURRENT_WEAPON_OFFSETS")
+        MHWDualBladesStructure structure = Memory.Deref<MHWDualBladesStructure>(
+            AddressMap.GetAbsolute("WEAPON_MECHANICS_ADDRESS"),
+            AddressMap.Get<int[]>("WEAPON_MECHANICS_OFFSETS")
         );
 
         IsDemonMode = structure.IsDemonModeActive;
         IsArchDemonMode = structure.IsArchDemonModeActive;
-        MaxDemonBuildUp = structure.DemonBuildUpMax;
-        DemonBuildUp = structure.DemonBuildUp;
-
-        GetPiercingBind(structure.PiercingBindArrayPointer);
-    }
-
-    private void GetPiercingBind(long arrayPointer)
-    {
-        long[] piercingBindPtrs = Memory.ReadArraySafe<long>(arrayPointer, 2)
-            .Where(it => !it.IsNullPointer())
-            .ToArray();
-
-        if (piercingBindPtrs.Length == 0)
-        {
-            MaxPiercingBindTimer = 0.0f;
-            PiercingBindTimer = 0.0f;
-            return;
-        }
-
-        float maxPiercingBindTimer = piercingBindPtrs.Select(it => Memory.Read<MHRPiercingBindStructure>(it))
-            .Max(it => it.Timer);
-
-        MaxPiercingBindTimer = Math.Max(MaxPiercingBindTimer, maxPiercingBindTimer);
-        PiercingBindTimer = maxPiercingBindTimer;
+        DemonBuildUp = structure.DemonBuildUp * 100.0f;
     }
 
     public override void Dispose()

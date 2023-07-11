@@ -28,6 +28,7 @@ public class DualBladesController : IClassController<DualBladesViewModel>
         _weapon.OnDemonBuildUpChange += OnDemonBuildUpChange;
         _weapon.OnDemonModeStateChange += OnDemonModeStateChange;
         _weapon.OnPiercingBindTimerChange += OnPiercingBindTimerChange;
+        _weapon.OnArchDemonModeStateChange += OnArchDemonModeStateChange;
     }
 
     public void UnhookEvents()
@@ -35,6 +36,12 @@ public class DualBladesController : IClassController<DualBladesViewModel>
         _weapon.OnDemonBuildUpChange -= OnDemonBuildUpChange;
         _weapon.OnDemonModeStateChange -= OnDemonModeStateChange;
         _weapon.OnPiercingBindTimerChange -= OnPiercingBindTimerChange;
+        _weapon.OnArchDemonModeStateChange -= OnArchDemonModeStateChange;
+    }
+
+    private void OnArchDemonModeStateChange(object sender, StateChangeEventArgs<bool> e)
+    {
+        ViewModel.InArchDemonMode = e.State;
     }
 
     private void OnPiercingBindTimerChange(object sender, TimerChangeEventArgs e)
@@ -61,5 +68,6 @@ public class DualBladesController : IClassController<DualBladesViewModel>
         ViewModel.PiercingBindTimer = _weapon.PiercingBindTimer;
         ViewModel.DemonMaxBuildUp = _weapon.MaxDemonBuildUp;
         ViewModel.DemonBuildUp = _weapon.DemonBuildUp;
+        ViewModel.InArchDemonMode = _weapon.IsArchDemonMode;
     }
 }

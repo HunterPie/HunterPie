@@ -4,9 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.Views"
+             xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.ViewModels"
+             xmlns:animation="clr-namespace:HunterPie.UI.Architecture.Animation"
              mc:Ignorable="d" 
              Height="82" 
              Width="295"
@@ -15,6 +17,7 @@
         <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:RatioConverter x:Key="RatioConverter"/>
+        <converters:EqualityToBooleanConverter x:Key="EqualityToBooleanConverter"/>
 
         <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource DUAL_BLADES_DEMON_BRUSH}, Mode=OneTime}"
                              Opacity="1"
@@ -158,7 +161,7 @@
                 Grid.Column="1"
                 Background="{StaticResource DualBladesDemonBrushBackground}"
                 BorderBrush="{StaticResource DualBladesDemonBrushBorder}"
-                BorderThickness="1,1,0,1"
+                d:BorderThickness="1,1,0,1"
                 Height="{Binding Height, ElementName=PART_DemonGauge, Mode=OneWay}"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Left"
@@ -174,6 +177,53 @@
                     <Binding Path="ActualWidth" ElementName="PART_DemonGauge" Mode="OneWay"/>
                 </MultiBinding>
             </Border.Width>
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <DataTrigger Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource EqualityToBooleanConverter}">
+                                    <Binding Path="DemonBuildUp" Mode="OneWay"/>
+                                    <Binding Path="DemonMaxBuildUp" Mode="OneWay"/>
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="BorderThickness" Value="1"/>
+                        </DataTrigger>
+
+                        <DataTrigger Value="False">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource EqualityToBooleanConverter}">
+                                    <Binding Path="DemonBuildUp" Mode="OneWay"/>
+                                    <Binding Path="DemonMaxBuildUp" Mode="OneWay"/>
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="BorderThickness" Value="1,1,0,1"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding InArchDemonMode, Mode=OneWay}"
+                                     Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard Name="ArchDemonBlinkAnimation">
+                                    <Storyboard RepeatBehavior="Forever"
+                                                Duration="0:0:1.6">
+                                        <animation:BrushAnimation To="{StaticResource DUAL_BLADES_ARCH_DEMON_BLINK_BACKGROUND_BRUSH}"
+                                                                  Storyboard.TargetProperty="Background"
+                                                                  Duration="0:0:0.4"
+                                                                  AutoReverse="True"/>
+                                        <animation:BrushAnimation To="{StaticResource DUAL_BLADES_ARCH_DEMON_BLINK_BRUSH}"
+                                                                  Storyboard.TargetProperty="BorderBrush"
+                                                                  Duration="0:0:0.4"
+                                                                  AutoReverse="True"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <RemoveStoryboard BeginStoryboardName="ArchDemonBlinkAnimation"/>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
         </Border>
 
         <Border Grid.Column="0" 

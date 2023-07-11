@@ -289,5 +289,7 @@
         <GradientStop Color="#1A1D20"/>
         <GradientStop Color="{StaticResource DUAL_BLADES_DEMON_COLOR}" Offset="1"/>
     </RadialGradientBrush>
+    <SolidColorBrush x:Key="DUAL_BLADES_ARCH_DEMON_BLINK_BRUSH" Color="#bdbfbf"/>
+    <SolidColorBrush x:Key="DUAL_BLADES_ARCH_DEMON_BLINK_BACKGROUND_BRUSH" Color="#bdbfbf" Opacity="0.3"/>
 
 </ResourceDictionary>

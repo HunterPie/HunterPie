@@ -310,10 +310,10 @@ public sealed class MHWPlayer : CommonPlayer
             WeaponType.Bow => new MHWBow(),
             WeaponType.HeavyBowgun => new MHWHeavyBowgun(),
             WeaponType.LightBowgun => new MHWLightBowgun(),
+            WeaponType.DualBlades => new MHWDualBlades(Process),
 
             WeaponType.Greatsword
                 or WeaponType.SwordAndShield
-                or WeaponType.DualBlades
                 or WeaponType.Longsword
                 or WeaponType.Hammer
                 or WeaponType.HuntingHorn
