@@ -1,28 +1,17 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using Converter = System.Convert;
 
 namespace HunterPie.UI.Architecture.Converters;
 
-public class RatioConverter : IMultiValueConverter
+public class EqualityToBooleanConverter : IMultiValueConverter
 {
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
         if (values.Length < 2)
-            return 0.0;
+            throw new ArgumentException("Expected at least 2 parameters");
 
-        try
-        {
-            double a = Converter.ToDouble(values[0]);
-            double b = Converter.ToDouble(values[1]);
-
-            return a / Math.Max(1, b);
-        }
-        catch
-        {
-            return 0.0;
-        }
+        return values[0].Equals(values[1]);
     }
 
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => throw new NotImplementedException();

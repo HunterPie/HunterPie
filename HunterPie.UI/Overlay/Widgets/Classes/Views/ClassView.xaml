@@ -21,11 +21,16 @@
             <local:ChargeBladeView/>
         </DataTemplate>
 
+        <DataTemplate x:Key="DualBladesTemplate">
+            <local:DualBladesView/>
+        </DataTemplate>
+
         <DataTemplate x:Key="EmptyTemplate"/>
 
         <presentation:ClassTemplateSelector x:Key="ClassTemplateSelector" 
                                             InsectGlaiveTemplate="{StaticResource InsectGlaiveTemplate}"
                                             ChargeBladeTemplate="{StaticResource ChargeBladeTemplate}"
+                                            DualBladesTemplate="{StaticResource DualBladesTemplate}"
                                             EmptyTemplate="{StaticResource EmptyTemplate}"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>

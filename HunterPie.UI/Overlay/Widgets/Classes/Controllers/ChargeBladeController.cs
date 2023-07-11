@@ -21,7 +21,6 @@ public class ChargeBladeController : IClassController<ChargeBladeViewModel>
         _weapon = weapon;
 
         Update();
-        HookEvents();
     }
 
     public void HookEvents()
