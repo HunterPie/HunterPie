@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Client.Configuration.Overlay.Class;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Types;
 
@@ -15,6 +16,9 @@ public class OverlayConfig : ISettings
     public TelemetricsWidgetConfig DebugWidget { get; set; } = new();
     public WirebugWidgetConfig WirebugWidget { get; set; } = new();
     public ActivitiesWidgetConfig ActivitiesWidget { get; set; } = new();
+    public InsectGlaiveWidgetConfig InsectGlaiveWidget { get; set; } = new();
+    public ChargeBladeWidgetConfig ChargeBladeWidget { get; set; } = new();
+    public DualBladesWidgetConfig DualBladesWidget { get; set; } = new();
     public ChatWidgetConfig ChatWidget { get; set; } = new();
     public SpecializedToolWidgetConfig PrimarySpecializedToolWidget { get; set; } = new()
     {

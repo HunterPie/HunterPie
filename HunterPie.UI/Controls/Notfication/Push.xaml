@@ -1,45 +1,67 @@
-﻿<UserControl x:Class="HunterPie.UI.Controls.Notfication.Push"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Controls.Notfication"
-             mc:Ignorable="d"
-             MinWidth="200"
-             MaxWidth="350">
+﻿<architecture:ClickableControl x:Class="HunterPie.UI.Controls.Notfication.Push"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:local="clr-namespace:HunterPie.UI.Controls.Notfication"
+                               xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+                               xmlns:architecture="clr-namespace:HunterPie.UI.Architecture"
+                               mc:Ignorable="d"
+                               MinWidth="200"
+                               MaxWidth="350"
+                               d:DesignWidth="350"
+                               Cursor="Hand">
+    <UserControl.Resources>
+        <converters:BorderClipConverter x:Key="BorderClipConverter"/>
+    </UserControl.Resources>
     <Border CornerRadius="5"
-            d:BorderBrush="{StaticResource BLUE_LIGHT_300}"
-            BorderBrush="{Binding Foreground, Mode=OneTime}"
+            d:BorderBrush="{StaticResource BLUE_400}"
+            BorderBrush="{Binding Background, Mode=OneTime, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Push}}}"
             BorderThickness="1"
-            d:Background="{StaticResource BLUE_700}"
-            Background="{Binding Background, Mode=OneTime}">
+            Background="{StaticResource GRAY_400}"
+            ClipToBounds="True">
+        <Border.Clip>
+            <MultiBinding Converter="{StaticResource BorderClipConverter}">
+                <Binding Path="ActualWidth"
+                         RelativeSource="{RelativeSource Self}"/>
+                <Binding Path="ActualHeight"
+                         RelativeSource="{RelativeSource Self}"/>
+                <Binding Path="CornerRadius"
+                         RelativeSource="{RelativeSource Self}"/>
+                <Binding Path="BorderThickness"
+                         RelativeSource="{RelativeSource Self}"/>
+            </MultiBinding>
+        </Border.Clip>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="33"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Rectangle d:Fill="{StaticResource BLUE_LIGHT_400}"
-                       Fill="{Binding Foreground, Mode=OneTime}"
+            <Rectangle Grid.Column="0" 
+                       d:Fill="{StaticResource BLUE_400}"
+                       Fill="{Binding Background, Mode=OneTime, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Push}}}"/>
+            <Rectangle Grid.Column="0" 
+                       d:Fill="{StaticResource BLUE_LIGHT_200}"
+                       Fill="{Binding Foreground, Mode=OneTime, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Push}}}"
                        Margin="6"
                        Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                        VerticalAlignment="Center">
                 <Rectangle.OpacityMask>
                     <ImageBrush d:ImageSource="{StaticResource ICON_INFO}"
-                                ImageSource="{Binding Icon, Mode=OneTime}"
+                                ImageSource="{Binding Icon, Mode=OneTime, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Push}}}"
                                 Stretch="Uniform"/>
                 </Rectangle.OpacityMask>
             </Rectangle>
 
             <TextBlock d:Text="Testing asdljkhaskj hkasdhkaj shdkjash jas açskdjkl aaldk jaslk ajsldkjlak jdlkasjd alksdj kl alkshdla h ajsdhskj kjas hdkjas"
-                       Text="{Binding Message, Mode=OneTime}"
-                       d:Foreground="{StaticResource BLUE_LIGHT_400}"
-                       Foreground="{Binding Foreground, Mode=OneTime}"
+                       Text="{Binding Message, Mode=OneTime, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Push}}}"
+                       Foreground="{StaticResource WHITE_200}"
                        VerticalAlignment="center"
                        Grid.Column="1"
                        Margin="5"
                        TextWrapping="WrapWithOverflow"
-                       FontSize="13"/>
+                       FontSize="14"/>
         </Grid>
     </Border>
     <UserControl.Style>
@@ -67,4 +89,4 @@
             </Style.Triggers>
         </Style>
     </UserControl.Style>
-</UserControl>
+</architecture:ClickableControl>

@@ -26,14 +26,10 @@
     <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_PRIMARY">WhiteSmoke</SolidColorBrush>
     <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_SECONDARY">#cccccc</SolidColorBrush>
     <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_DARKER">#FF49575F</SolidColorBrush>
-    <LinearGradientBrush x:Key="HUNTERPIE_HIGHLIGHT_BORDER" EndPoint="0.5,1" StartPoint="0,0">
-        <GradientStop Color="#7FF3F3F3"/>
-        <GradientStop Color="#4CFFFFFF" Offset="1"/>
-    </LinearGradientBrush>
-    <RadialGradientBrush x:Key="HUNTERPIE_HIGHLIGHT_BACKGROUND" SpreadMethod="Reflect" RadiusY="1" RadiusX="1" Center="0.5,0.5">
-        <GradientStop Color="#00000000" Offset="0"/>
-        <GradientStop Color="#7FFFFFFF" Offset="1"/>
-        <GradientStop Color="#00BDBDBD" Offset="0.35"/>
+    <SolidColorBrush x:Key="HUNTERPIE_HIGHLIGHT_BORDER">#50FFFFFF</SolidColorBrush>
+    <RadialGradientBrush x:Key="HUNTERPIE_HIGHLIGHT_BACKGROUND" SpreadMethod="Pad"  RadiusY="1" RadiusX="1" Center="0.5,0.5">
+        <GradientStop Color="#10D9D9D9" Offset="0"/>
+        <GradientStop Color="#20D9D9D9" Offset="1"/>
     </RadialGradientBrush>
     <SolidColorBrush x:Key="HUNTERPIE_FOREGROUND_DARK">#7c858a</SolidColorBrush>
 
@@ -77,23 +73,23 @@
     <SolidColorBrush x:Key="WHITE_700">#505355</SolidColorBrush>
     
     <!-- Red -->
-    <SolidColorBrush x:Key="RED_LIGHT_700">#e4bacb</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_LIGHT_600">#dba3ba</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_LIGHT_500">#d38ca9</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_LIGHT_400">#ca7597</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_LIGHT_300">#c15e86</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_LIGHT_200">#b84775</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_LIGHT_100">#af3063</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_LIGHT_50">#aa255b</SolidColorBrush>
-    <SolidColorBrush x:Key="RED">#a61952</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_50">#9e184e</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_100">#95174a</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_200">#851442</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_300">#741239</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_400">#640f31</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_500">#530d29</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_600">#420a21</SolidColorBrush>
-    <SolidColorBrush x:Key="RED_700">#320819</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_700">#f3b8c9</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_600">#efa0b7</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_500">#eb88a5</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_400">#e67093</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_300">#e25881</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_200">#de416f</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_100">#da295d</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_LIGHT_50">#d81d54</SolidColorBrush>
+    <SolidColorBrush x:Key="RED">#D6114B</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_50">#cb1047</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_100">#c10f44</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_200">#ab0e3c</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_300">#960c35</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_400">#800a2d</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_500">#6b0926</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_600">#56071e</SolidColorBrush>
+    <SolidColorBrush x:Key="RED_700">#400517</SolidColorBrush>
     
     <!-- Green -->
     <SolidColorBrush x:Key="GREEN_LIGHT_700">#c8edd5</SolidColorBrush>
@@ -232,4 +228,68 @@
         <GradientStop Color="#FFCB2D3E"/>
         <GradientStop Color="#FFEF473A" Offset="1"/>
     </LinearGradientBrush>
+
+    <RadialGradientBrush x:Key="COMMON_CLASS_HELPER_BACKGROUND">
+        <GradientStop Color="#202427"/>
+        <GradientStop Color="#16181a" Offset="1"/>
+    </RadialGradientBrush>
+
+    <!-- Insect Glaive -->
+    <Color x:Key="INSECT_GLAIVE_EXTRACT_ATTACK_COLOR">#A83248</Color>
+    <Color x:Key="INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR">#d97925</Color>
+    <Color x:Key="INSECT_GLAIVE_EXTRACT_HEAL_COLOR">#5BF77F</Color>
+    <Color x:Key="INSECT_GLAIVE_EXTRACT_SPEED_COLOR">#fff3e8</Color>
+    <Color x:Key="INSECT_GLAIVE_EXTRACT_NONE_COLOR">#3a3e40</Color>
+    <LinearGradientBrush x:Key="INSECT_GLAIVE_KINSECT_STAMINA" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFE6F542" Offset="1"/>
+        <GradientStop Color="#FFF57B42" Offset="0"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="INSECT_GLAIVE_CHARGE_DISABLED_BRUSH">#292d30</SolidColorBrush>
+    <SolidColorBrush x:Key="INSECT_GLAIVE_CHARGE_RED_BRUSH">#A83248</SolidColorBrush>
+    <SolidColorBrush x:Key="INSECT_GLAIVE_CHARGE_YELLOW_BRUSH">#FFE7C507</SolidColorBrush>
+    <LinearGradientBrush x:Key="INSECT_GLAIVE_CHARGE_RED_YELLOW_BRUSH" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFE7C507" Offset="1"/>
+        <GradientStop Color="#FFE7C507" Offset="0.500001"/>
+        <GradientStop Color="#A83248" Offset="0.5"/>
+    </LinearGradientBrush>
+
+    <!-- Charge Blade -->
+    <Color x:Key="CHARGE_BLADE_NONE_CHARGE">#bdbfbf</Color>
+    <Color x:Key="CHARGE_BLADE_YELLOW_CHARGE">#E7C507</Color>
+    <Color x:Key="CHARGE_BLADE_RED_CHARGE">#D6114B</Color>
+    <Color x:Key="CHARGE_BLADE_OVER_CHARGE">#eb4dcb</Color>
+    <Color x:Key="CHARGE_BLADE_SHIELD_BUFF">#4787E2</Color>
+    <Color x:Key="CHARGE_BLADE_SWORD_BUFF">#D6114B</Color>
+    <Color x:Key="CHARGE_BLADE_AXE_BUFF">#48C373</Color>
+    <RadialGradientBrush x:Key="CHARGE_BLADE_SHIELD_ACTIVE" RadiusX="5" RadiusY="5">
+        <GradientStop Color="#1A1D20"/>
+        <GradientStop Color="{StaticResource CHARGE_BLADE_SHIELD_BUFF}" Offset="1"/>
+    </RadialGradientBrush>
+    <RadialGradientBrush x:Key="CHARGE_BLADE_SWORD_ACTIVE" RadiusX="5" RadiusY="5">
+        <GradientStop Color="#1A1D20"/>
+        <GradientStop Color="{StaticResource CHARGE_BLADE_SWORD_BUFF}" Offset="1"/>
+    </RadialGradientBrush>
+    <RadialGradientBrush x:Key="CHARGE_BLADE_AXE_ACTIVE" RadiusX="5" RadiusY="5">
+        <GradientStop Color="#1A1D20"/>
+        <GradientStop Color="{StaticResource CHARGE_BLADE_AXE_BUFF}" Offset="1"/>
+    </RadialGradientBrush>
+    
+    <!-- Dual Blades -->
+    <Color x:Key="DUAL_BLADES_DEMON_COLOR">#AA2A2A</Color>
+    <LinearGradientBrush x:Key="DUAL_BLADES_DEMON_BRUSH" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#C24327" Offset="1"/>
+        <GradientStop Color="#AA2A2A" Offset="0"/>
+    </LinearGradientBrush>
+    <Color x:Key="DUAL_BLADES_PIERCING_BIND_COLOR">#4480D6</Color>
+    <LinearGradientBrush x:Key="DUAL_BLADES_PIERCING_BIND_BRUSH" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#3CA7BE" Offset="1"/>
+        <GradientStop Color="{StaticResource DUAL_BLADES_PIERCING_BIND_COLOR}" Offset="0"/>
+    </LinearGradientBrush>
+    <RadialGradientBrush x:Key="DUAL_BLADES_DEMON_MODE_ACTIVE" RadiusX="3" RadiusY="3">
+        <GradientStop Color="#1A1D20"/>
+        <GradientStop Color="{StaticResource DUAL_BLADES_DEMON_COLOR}" Offset="1"/>
+    </RadialGradientBrush>
+    <SolidColorBrush x:Key="DUAL_BLADES_ARCH_DEMON_BLINK_BRUSH" Color="#bdbfbf"/>
+    <SolidColorBrush x:Key="DUAL_BLADES_ARCH_DEMON_BLINK_BACKGROUND_BRUSH" Color="#bdbfbf" Opacity="0.3"/>
+
 </ResourceDictionary>

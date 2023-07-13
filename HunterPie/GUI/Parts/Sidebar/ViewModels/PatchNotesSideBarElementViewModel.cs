@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Architecture;
-using HunterPie.GUI.Parts.Host;
 using HunterPie.GUI.Parts.Patches.Views;
+using HunterPie.UI.Architecture.Navigator;
 using HunterPie.UI.Assets.Application;
 using System.Windows.Media;
 using Localization = HunterPie.Core.Client.Localization.Localization;
@@ -22,6 +22,6 @@ internal class PatchNotesSideBarElementViewModel : Bindable, ISideBarElement
     {
         var view = new PatchesView();
 
-        MainHost.SetMain(view);
+        Navigator.Navigate(view);
     }
 }

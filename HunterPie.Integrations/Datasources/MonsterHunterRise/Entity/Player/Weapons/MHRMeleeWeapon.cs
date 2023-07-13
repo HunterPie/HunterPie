@@ -55,7 +55,7 @@ public class MHRMeleeWeapon : CommonMeleeWeapon
     }
 
     [ScannableMethod]
-    private void GetWeaponSharpness()
+    protected void GetWeaponSharpness()
     {
         long sharpnessArrayPtr = Process.Memory.Read(
             AddressMap.GetAbsolute("SHARPNESS_ADDRESS"),

@@ -2,10 +2,10 @@
 using HunterPie.Core.Client;
 using HunterPie.Core.Domain.Generics;
 using HunterPie.Features.Account.Config;
-using HunterPie.GUI.Parts.Host;
 using HunterPie.GUI.Parts.Settings.ViewModels;
 using HunterPie.GUI.Parts.Settings.Views;
 using HunterPie.Internal.Initializers;
+using HunterPie.UI.Architecture.Navigator;
 using HunterPie.UI.Assets.Application;
 using HunterPie.UI.Controls.Flags;
 using HunterPie.UI.Controls.Settings.ViewModel;
@@ -62,13 +62,13 @@ internal class SettingsSideBarElementViewModel : ISideBarElement
             if (ClientConfig.Config.Client.EnableFeatureFlags)
                 vm.Elements.Add(new FeatureFlagsView(FeatureFlagsInitializer.Features.Flags));
 
-            MainHost.SetMain(host, forceRefresh);
+            Navigator.Navigate(host, forceRefresh);
         });
     }
 
     private void RefreshWindowOnChange(Bindable observable) => observable.PropertyChanged += (_, __) =>
     {
-        if (!MainHost.IsInstanceOf<SettingHost>())
+        if (!Navigator.IsInstanceOf<SettingHost>())
             return;
 
         RefreshSettingsWindow(true);

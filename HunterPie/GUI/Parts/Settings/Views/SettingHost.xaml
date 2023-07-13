@@ -59,12 +59,11 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewModel:ISettingElementType}">
                         <settings:SettingElementHost Hosted="{Binding ., Converter={StaticResource ObjectToUiConverter}, IsAsync=True}"
-                                                  Text="{Binding Name}"
-                                                  Description="{Binding Description}"
-                                                  Visibility="{Binding Match, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                  Margin="5,3,5,3"
-                                                  Height="45"
-                                                  HorizontalAlignment="Stretch"/>
+                                                     Text="{Binding Name}"
+                                                     Description="{Binding Description}"
+                                                     Margin="5,3,5,3"
+                                                     HorizontalAlignment="Stretch"
+                                                     MinHeight="45"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -74,7 +73,7 @@
                             Title="{Binding Title}"
                             Description="{Binding Description}"
                             Icon="{Binding Icon}"
-                            Background="{StaticResource HUNTERPIE_BACKGROUND_DARK}"
+                            Background="{StaticResource GRAY_300}"
                             FontSize="13"/>
         </DataTemplate>
     </UserControl.Resources>
@@ -85,9 +84,9 @@
             <ColumnDefinition Width="54*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="7*"/>
-            <RowDefinition Height="76*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+            <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal"
                     Height="30"
@@ -179,24 +178,28 @@
                     Grid.ColumnSpan="3">
             <TabControl.Template>
                 <ControlTemplate TargetType="TabControl">
-                    <DockPanel>
-                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <viewer:SmoothScrollViewer Grid.Column="0" 
+                                      VerticalScrollBarVisibility="Auto"
                                       DockPanel.Dock="Left">
                             <TabPanel x:Name="HeaderPanel"
-                                      Grid.Column="0"
-                                      Grid.Row="0"
                                       IsItemsHost="True"/>
-                        </ScrollViewer>
-                        <ContentPresenter x:Name="PART_SelectedContentHost"
+                        </viewer:SmoothScrollViewer>
+                        <ContentPresenter Grid.Column="1" 
+                                          x:Name="PART_SelectedContentHost"
                                           DockPanel.Dock="Right"
                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                           Margin="{TemplateBinding Padding}"
                                           ContentSource="SelectedContent"/>
-                    </DockPanel>
+                    </Grid>
                 </ControlTemplate>
             </TabControl.Template>
         </TabControl>
-        
+
         <DockPanel Grid.Row="2"
                    Grid.Column="0"
                    Grid.ColumnSpan="2">
@@ -220,6 +223,6 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </DockPanel>
-        
+
     </Grid>
 </UserControl>

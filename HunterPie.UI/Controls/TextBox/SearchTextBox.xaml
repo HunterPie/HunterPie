@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:HunterPie.UI.Controls.TextBox"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              mc:Ignorable="d" 
              d:DesignHeight="30" 
              d:DesignWidth="200">
@@ -13,17 +14,39 @@
         <converters:RelativeSizeRectConverter x:Key="RelativeSizeRectConverter"/>
     </UserControl.Resources>
     <Border CornerRadius="5"
-            Background="{StaticResource GRAY_500}"
-            BorderBrush="{StaticResource GRAY_100}"
+            Background="{StaticResource GRAY_100}"
+            BorderBrush="{StaticResource GRAY}"
             BorderThickness="1">
         <Grid>
-            <TextBox Background="{Binding Background}"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <buttons:Button Grid.Column="0"
+                            HorizontalAlignment="Stretch"
+                            Background="{StaticResource GRAY_300}"
+                            BorderThickness="0,0,1,0"
+                            BorderBrush="{StaticResource GRAY}"
+                            OnClick="OnSearchClick"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            CornerRadius="4.5,0,0,4.5">
+                <image:Icon Image="{StaticResource ICON_SEARCH}"
+                            Foreground="{StaticResource GRAY}"
+                            VerticalContentAlignment="Stretch"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"/>
+            </buttons:Button>
+
+            <TextBox Grid.Column="1" 
+                     Background="Transparent"
                      VerticalContentAlignment="Center"
                      HorizontalAlignment="Stretch"
-                     Padding="10,0,30,0"
+                     Padding="2,0,30,0"
                      TextAlignment="Left"
                      FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                     d:Text="Search"
+                     d:Text="Search..."
                      Text="{Binding SearchText.Value, UpdateSourceTrigger=PropertyChanged}"
                      BorderThickness="0"
                      TextChanged="OnTextChanged"
@@ -48,19 +71,15 @@
                         <Style.Triggers>
                             <Trigger Property="IsKeyboardFocused" Value="False">
                                 <Trigger.Setters>
-                                    <Setter Property="Foreground" Value="{StaticResource WHITE_500}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource WHITE_600}"/>
+                                    <Setter Property="FontWeight" Value="Medium"/>
                                 </Trigger.Setters>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
                 </TextBox.Style>
             </TextBox>
-            <buttons:Button Width="30"
-                            HorizontalAlignment="Right"
-                            Background="{Binding Background}"
-                            OnClick="OnSearchClick">
-                <Image Source="{StaticResource ICON_SEARCH}"/>
-            </buttons:Button>
+            
         </Grid>
     </Border>
 </UserControl>

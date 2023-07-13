@@ -9,26 +9,29 @@
              d:DesignWidth="300"
              d:DesignHeight="150"
              Loaded="OnLoaded">
-    <Border BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}"
-            BorderThickness="1">
-        <Border.Effect>
-            <DropShadowEffect BlurRadius="15" ShadowDepth="0" Opacity="0.5" Direction="0"/>
-        </Border.Effect>
+    <Border BorderBrush="{StaticResource GRAY}"
+            Background="{StaticResource GRAY_200}"
+            BorderThickness="1"
+            CornerRadius="5">
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
             <!-- Content -->
-            <Grid Margin="0,30,0,0"
-                  Background="{StaticResource GRAY_100}">
-                <Border BorderThickness="2"
-                        Margin="2"
-                        BorderBrush="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}">
-                    <ContentControl Content="{Binding Container, ElementName=PART_WndContainer}"
-                                    Margin="5"/>
+            <Border Grid.Row="1"
+                    BorderThickness="0,1,0,0"
+                    Background="{StaticResource GRAY_100}"
+                    BorderBrush="{StaticResource GRAY}"
+                    CornerRadius="0,0,5,5">
+                <ContentControl Content="{Binding Container, ElementName=PART_WndContainer}"
+                                Margin="5"/>
 
-                </Border>
-            </Grid>
+            </Border>
 
             <!-- Header -->
-            <local:WindowHeader x:Name="PART_Header"
+            <local:WindowHeader Grid.Row="0" 
+                                x:Name="PART_Header"
                                 Height="30"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Stretch"/>

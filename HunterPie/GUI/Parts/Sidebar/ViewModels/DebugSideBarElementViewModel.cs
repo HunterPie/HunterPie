@@ -1,6 +1,6 @@
 ﻿
 using HunterPie.GUI.Parts.Debug.Views;
-using HunterPie.GUI.Parts.Host;
+using HunterPie.UI.Architecture.Navigator;
 using HunterPie.UI.Assets.Application;
 using System.Windows.Media;
 
@@ -17,6 +17,6 @@ internal class DebugSideBarElementViewModel : ISideBarElement
     public void ExecuteOnClick()
     {
         var view = new EventTrackerView();
-        MainHost.SetMain(view);
+        Navigator.Navigate(view);
     }
 }

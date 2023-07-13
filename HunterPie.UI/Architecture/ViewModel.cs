@@ -6,5 +6,5 @@ namespace HunterPie.UI.Architecture;
 
 public class ViewModel : Bindable
 {
-    protected Dispatcher UIThread => Application.Current.Dispatcher;
+    public Dispatcher UIThread => Application.Current.Dispatcher;
 }

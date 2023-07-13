@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:native="clr-namespace:HunterPie.UI.Controls.Buttons"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              mc:Ignorable="d" 
              d:DesignHeight="30" 
              d:DesignWidth="800"
@@ -11,25 +12,23 @@
     <Grid x:Name="PART_Header"
                   Height="30"
                   VerticalAlignment="Top"
-                  Background="{StaticResource GRAY_300}"
+                  Background="Transparent"
                   MouseLeftButtonDown="OnLeftMouseDown">
-        <Grid.Effect>
-            <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.2" Direction="180"/>
-        </Grid.Effect>
         <!-- Left container -->
         <StackPanel HorizontalAlignment="Left"
                     Orientation="Horizontal"
                     Margin="5,0,0,0">
-            <Image Source="{Binding Owner.Icon}"
-                   Width="20"
-                   Opacity="0.3"
-                   Margin="0,0,5,0"
-                   Height="20"/>
+            <image:Icon Image="{Binding Owner.Icon, Mode=OneWay}"
+                        d:Image="{StaticResource ICON_INFO}"
+                        Foreground="{StaticResource GRAY}"
+                        Width="20"
+                        Margin="0,0,5,0"
+                        Height="20"/>
             <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                        Text="{Binding Owner.Title}"
                        FontSize="14"
-                       Foreground="{StaticResource WHITE_50}" 
-                       Opacity="0.3"
+                       d:Text="HunterPie"
+                       Foreground="{StaticResource GRAY}"
                        HorizontalAlignment="Stretch" 
                        VerticalAlignment="Center"/>
         </StackPanel>
@@ -40,16 +39,16 @@
             <native:Button 
                 Content="_"
                 FontSize="14"
+                Foreground="{StaticResource GRAY}"
                 Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
-                OnClick="OnMinimizeButtonClick"
-                />
+                OnClick="OnMinimizeButtonClick"/>
 
             <native:Button 
                 Content="✕"
-                Background="{StaticResource GRAY_300}"
                 FontSize="15"
                 Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
                 OnClick="OnCloseButtonClick"
+                Foreground="{StaticResource GRAY}"
                 HorizontalAlignment="Right"/>
 
         </StackPanel>

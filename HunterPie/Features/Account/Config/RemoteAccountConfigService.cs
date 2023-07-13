@@ -17,7 +17,7 @@ internal class RemoteAccountConfigService
 
     public async Task UploadClientConfig()
     {
-        if (!await AccountManager.IsLoggedIn())
+        if (!AccountManager.IsLoggedIn())
             return;
 
         IAbstractHunterPieConfig config = ClientConfig.Config;
@@ -34,7 +34,7 @@ internal class RemoteAccountConfigService
 
     public async Task FetchClientConfig()
     {
-        if (!await AccountManager.IsLoggedIn())
+        if (!AccountManager.IsLoggedIn())
             return;
 
         PoogieResult<ClientSettingsResponse> result = await _settingsConnector.GetClientSettings();

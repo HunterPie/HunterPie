@@ -1,16 +1,20 @@
 ﻿using HunterPie.UI.Architecture.Extensions;
 using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 
 namespace HunterPie.UI.Architecture.Converters;
 
-public class PercentageToLeftMargingDistanceConverter : IMultiValueConverter
+#nullable enable
+public class PercentageToLeftMarginDistanceConverter : IMultiValueConverter
 {
-    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object[] values, Type targetType, object? parameter, CultureInfo culture)
     {
-        double width = (double)values[0];
-        var oldThickness = parameter.ToThickness();
+        Thickness oldThickness = parameter?.ToThickness() ?? new Thickness();
+
+        if (values[0] is not double width)
+            return oldThickness;
 
         if (double.IsNaN(width))
             return oldThickness;

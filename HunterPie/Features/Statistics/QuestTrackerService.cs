@@ -36,7 +36,7 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
 
     private async void OnQuestEnd(object? sender, QuestStateChangeEventArgs e)
     {
-        if (!await AccountManager.IsLoggedIn() || !LocalAccountConfig.Config.IsHuntUploadEnabled)
+        if (!AccountManager.IsLoggedIn() || !LocalAccountConfig.Config.IsHuntUploadEnabled)
             return;
 
         HuntStatisticsModel? exported = _statisticsService?.Export();

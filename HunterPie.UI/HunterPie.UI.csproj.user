@@ -11,6 +11,9 @@
     <Compile Update="Controls\Buttons\ColorPicker.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Buttons\ComboButton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Buttons\Keybinding.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -47,7 +50,7 @@
     <Compile Update="Controls\Settings\Custom\AbnormalityView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\Settings\Custom\AbnormalityWidgetConfigWindow.xaml.cs">
+    <Compile Update="Controls\Settings\Custom\AbnormalityWidgetConfigView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Settings\SettingElementHost.xaml.cs">
@@ -128,6 +131,18 @@
     <Compile Update="Overlay\Widgets\Chat\Views\ChatView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Classes\Views\ChargeBladeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Classes\Views\ClassView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Classes\Views\DualBladesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Classes\Views\InsectGlaiveView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Damage\View\DamageBarView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -199,6 +214,9 @@
     <Page Update="Controls\Buttons\ColorPicker.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\Buttons\ComboButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\Buttons\Keybinding.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -235,7 +253,7 @@
     <Page Update="Controls\Settings\Custom\AbnormalityView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Controls\Settings\Custom\AbnormalityWidgetConfigWindow.xaml">
+    <Page Update="Controls\Settings\Custom\AbnormalityWidgetConfigView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\SettingElementHost.xaml">
@@ -314,6 +332,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Chat\Views\ChatView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Classes\Views\ChargeBladeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Classes\Views\ClassView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Classes\Views\DualBladesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Classes\Views\InsectGlaiveView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Damage\View\DamageBarView.xaml">

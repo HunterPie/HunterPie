@@ -1,7 +1,7 @@
 ﻿using HunterPie.Features.Account;
-using HunterPie.GUI.Parts.Host;
 using HunterPie.GUI.Parts.Statistics.Views;
 using HunterPie.UI.Architecture;
+using HunterPie.UI.Architecture.Navigator;
 using HunterPie.UI.Assets.Application;
 using System.Windows.Media;
 
@@ -26,12 +26,12 @@ internal class QuestStatisticsSideBarElementViewModel : ViewModel, ISideBarEleme
     {
         QuestStatisticsSummariesView view = new();
 
-        MainHost.SetMain(view);
+        Navigator.Navigate(view);
     }
 
-    private async void VerifyIfShouldEnable()
+    private void VerifyIfShouldEnable()
     {
-        IsEnabled = await AccountManager.IsLoggedIn();
+        IsEnabled = AccountManager.IsLoggedIn();
 
         AccountManager.OnSignOut += (_, __) => IsEnabled = false;
         AccountManager.OnSignIn += (_, __) => IsEnabled = true;

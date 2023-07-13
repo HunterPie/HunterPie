@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+using Converter = System.Convert;
 
 namespace HunterPie.UI.Architecture.Converters;
 
@@ -9,22 +10,22 @@ public class SecondsToTimeString : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         string timeFormat = "mm\\:ss";
-        if (value is double val)
-            try
-            {
-                var span = TimeSpan.FromSeconds(val);
+        double val = Converter.ToDouble(value);
 
-                if (parameter is string format)
-                    timeFormat = format;
+        if (val is double.NaN)
+            val = 0.0;
+        try
+        {
+            var span = TimeSpan.FromSeconds(val);
 
-                return span.ToString(timeFormat);
-            }
-            catch
-            {
-                return string.Empty;
-            }
+            if (parameter is string format)
+                timeFormat = format;
 
-        return string.Empty;
+            return span.ToString(timeFormat);
+        }
+        catch (OverflowException) { }
+
+        return TimeSpan.Zero.ToString(timeFormat);
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();

@@ -9,11 +9,11 @@
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="40" 
-             d:DesignWidth="400">
+             d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="125"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <ComboBox ItemsSource="{Binding Trays}"
                   SelectedIndex="{Binding SelectedIndex, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityTrayList}}}">
@@ -23,26 +23,49 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <btn:Button HorizontalAlignment="Left"
-                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                    Grid.Column="1"
-                    OnClick="OnAddTrayClick">
-            <Image Source="{StaticResource ICON_ADD}"
-                   Margin="5"/>
-        </btn:Button>
-        <btn:Button HorizontalAlignment="Center"
-                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                    Grid.Column="1"
-                    OnClick="OnRemoveTrayClick">
-            <Image Source="{StaticResource ICON_REMOVE}"
-                   Margin="5"/>
-        </btn:Button>
-        <btn:Button HorizontalAlignment="Right"
-                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                    Grid.Column="1"
-                    OnClick="OnOpenConfigClick">
-            <Image Source="{StaticResource ICON_SETTINGS_FILLED}"
-                   Margin="5"/>
-        </btn:Button>
+        <StackPanel Grid.Column="1"
+                    Orientation="Horizontal">
+            <btn:Button HorizontalAlignment="Left"
+                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                        Grid.Column="1"
+                        OnClick="OnAddTrayClick"
+                        BorderBrush="{StaticResource GRAY}"
+                        BorderThickness="1"
+                        Background="{StaticResource GRAY_100}"
+                        CornerRadius="5"
+                        VerticalAlignment="Stretch"
+                        Padding="1"
+                        Margin="1, 2">
+                <Image Source="{StaticResource ICON_ADD}"
+                       Margin="5"/>
+            </btn:Button>
+            <btn:Button HorizontalAlignment="Center"
+                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                        OnClick="OnRemoveTrayClick"
+                        BorderBrush="{StaticResource GRAY}"
+                        BorderThickness="1"
+                        Background="{StaticResource GRAY_100}"
+                        CornerRadius="5"
+                        VerticalAlignment="Stretch"
+                        Padding="1"
+                        Margin="1, 2">
+                <Image Source="{StaticResource ICON_REMOVE}"
+                       Margin="5"/>
+            </btn:Button>
+            <btn:Button HorizontalAlignment="Right"
+                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                        Grid.Column="1"
+                        OnClick="OnOpenConfigClick"
+                        BorderBrush="{StaticResource GRAY}"
+                        BorderThickness="1"
+                        Background="{StaticResource GRAY_100}"
+                        CornerRadius="5"
+                        VerticalAlignment="Stretch"
+                        Padding="1"
+                        Margin="1, 2">
+                <Image Source="{StaticResource ICON_SETTINGS_FILLED}"
+                       Margin="5"/>
+            </btn:Button>
+        </StackPanel>
     </Grid>
 </UserControl>

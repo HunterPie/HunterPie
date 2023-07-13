@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Game.Enums;
+﻿using HunterPie.Core.Game.Entity.Player.Skills;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enums;
 
@@ -41,30 +42,21 @@ public static class MHWGameUtils
         return totalHealing;
     }
 
-    public static float ToMaximumHealthPossible(this MHWGearSkill[] skills)
+    public static float ToMaximumHealthPossible(this ISkillService skillService)
     {
-        if (skills.Length > 0)
-        {
-            MHWGearSkill vitalitySkill = skills[0x15];
-            return DefaultMaxHealth + HealthIncrements[Math.Min(vitalitySkill.LevelGear, HealthIncrements.Length - 1)];
-        }
-        return DefaultMaxHealth;
+        Skill vitalitySkill = skillService.GetSkillBy(0x15);
+        return DefaultMaxHealth + HealthIncrements[Math.Min(vitalitySkill.Level, HealthIncrements.Length - 1)];
     }
 
-    public static float ToMaximumStaminaPossible(this MHWGearSkill[] skills)
+    public static float ToMaximumStaminaPossible(this ISkillService skillService)
     {
-        if (skills.Length > 0)
-        {
-            bool lunaFavor = skills[0xA3].LevelGear >= 2;
-            bool anjaDominance = skills[0xB6].LevelGear >= 2;
-            bool anjaWill = skills[0x84].LevelGear >= 4;
+        bool lunaFavor = skillService.GetSkillBy(0xA3).Level >= 2;
+        bool anjaDominance = skillService.GetSkillBy(0xB6).Level >= 2;
+        bool anjaWill = skillService.GetSkillBy(0x84).Level >= 4;
 
-            bool staminaCapUp = lunaFavor || anjaDominance || anjaWill;
+        bool staminaCapUp = lunaFavor || anjaDominance || anjaWill;
 
-            return staminaCapUp ? DefaultMaxStamina + StaminaIncrement : DefaultMaxStamina;
-        }
-
-        return DefaultMaxStamina;
+        return staminaCapUp ? DefaultMaxStamina + StaminaIncrement : DefaultMaxStamina;
     }
 
     public static int MaximumSharpness(this int[] sharpnesses, MHWGearSkill handicraft)
@@ -112,4 +104,24 @@ public static class MHWGameUtils
         QuestState.Quit => QuestStatus.Quit,
         _ => QuestStatus.None
     };
+
+    public static KinsectBuff ToBuff(this KinsectBuffType type) => type switch
+    {
+        KinsectBuffType.Attack => KinsectBuff.Attack,
+        KinsectBuffType.Speed => KinsectBuff.Speed,
+        KinsectBuffType.Defense => KinsectBuff.Defense,
+        KinsectBuffType.Heal => KinsectBuff.Heal,
+        _ => KinsectBuff.None
+    };
+
+    public static PhialChargeLevel ToPhialChargeLevel(this float buildup)
+    {
+        return buildup switch
+        {
+            >= 72.0f => PhialChargeLevel.Overcharged,
+            >= 46.0f => PhialChargeLevel.Red,
+            >= 30.0f => PhialChargeLevel.Yellow,
+            _ => PhialChargeLevel.None,
+        };
+    }
 }

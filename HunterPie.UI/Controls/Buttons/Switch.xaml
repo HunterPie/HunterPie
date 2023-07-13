@@ -16,7 +16,7 @@
         <converters:SizeToDoubleSizeConverter x:Key="SizeToDoubleSizeConverter"/>
 
         <Style x:Key="StyleBubble"
-               TargetType="{x:Type Ellipse}">
+               TargetType="{x:Type Rectangle}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsMouseOver, ElementName=PART_Slider}" 
                              Value="True">
@@ -48,14 +48,14 @@
             </Style.Triggers>
         </Style>
         <Style x:Key="StyleForeground"
-               TargetType="{x:Type Ellipse}">
+               TargetType="{x:Type Rectangle}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type arch:ClickableControl}}}"
                              Value="True">
                     <DataTrigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard>
-                                <ThicknessAnimation To="37,0,0,0"
+                                <ThicknessAnimation To="35,0,0,0"
                                                     Duration="0:0:0.15"
                                                  Storyboard.TargetProperty="Margin">
                                     <ThicknessAnimation.EasingFunction>
@@ -78,7 +78,7 @@
                                         <QuadraticEase/>
                                     </ThicknessAnimation.EasingFunction>
                                 </ThicknessAnimation>
-                                <anim:BrushAnimation To="{StaticResource GRAY_50}"
+                                <anim:BrushAnimation To="{StaticResource GRAY}"
                                                      Duration="0:0:0.15"
                                                      Storyboard.TargetProperty="Fill"/>
                             </Storyboard>
@@ -104,7 +104,7 @@
                     <DataTrigger.ExitActions>
                         <BeginStoryboard>
                             <Storyboard Storyboard.TargetProperty="Width">
-                                <anim:BrushAnimation To="{StaticResource GRAY_300}"
+                                <anim:BrushAnimation To="{StaticResource GRAY_100}"
                                                  Duration="0:0:0.25"
                                                  Storyboard.TargetProperty="Fill"/>
                             </Storyboard>
@@ -116,23 +116,25 @@
         
     </arch:ClickableControl.Resources>
     <Grid>
-        <Rectangle Fill="{StaticResource GRAY_300}"
+        <Rectangle Fill="{StaticResource GRAY_100}"
                    RadiusX="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.5}"
                    RadiusY="{Binding RadiusX, RelativeSource={RelativeSource Self}}"
-                   Stroke="{StaticResource GRAY_300}"
+                   Stroke="{StaticResource GRAY}"
                    Style="{StaticResource SwitchBackground}"
-                   StrokeThickness="2"/>
+                   StrokeThickness="1"/>
 
-        <Ellipse x:Name="PART_Bubble"
-                 Fill="{StaticResource WHITE_100}"
-                 Width="0"
-                 Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                 VerticalAlignment="Stretch"
-                 HorizontalAlignment="Left"
-                 Opacity="0"
-                 StrokeThickness="2"
-                 Style="{StaticResource StyleBubble}">
-            <Ellipse.Margin>
+        <Rectangle x:Name="PART_Bubble"
+                   Fill="{StaticResource WHITE_100}"
+                   Width="0"
+                   Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                   VerticalAlignment="Stretch"
+                   HorizontalAlignment="Left"
+                   Opacity="0"
+                   StrokeThickness="2"
+                   RadiusX="20"
+                   RadiusY="20"
+                   Style="{StaticResource StyleBubble}">
+            <Rectangle.Margin>
                 <MultiBinding Converter="{StaticResource SizeToDoubleSizeConverter}">
                     <Binding ElementName="PART_Bubble" 
                              Path="ActualWidth" 
@@ -150,20 +152,20 @@
                         <sys:Double>5</sys:Double>
                     </MultiBinding.ConverterParameter>
                 </MultiBinding>
-            </Ellipse.Margin>
-        </Ellipse>
+            </Rectangle.Margin>
+        </Rectangle>
         
-        <Ellipse x:Name="PART_Slider"
-                 Fill="{StaticResource GRAY_50}"
-                 Height="{Binding ActualHeight, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.60, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
-                 Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
-                 Stroke="#4C202427"
-                 StrokeThickness="2"
-                 Margin="5,0,0,0"
-                 Cursor="Hand"
-                 VerticalAlignment="Stretch"
-                 HorizontalAlignment="Left"
-                 Style="{StaticResource StyleForeground}"/>
+        <Rectangle x:Name="PART_Slider"
+                   Fill="{StaticResource GRAY}"
+                   Height="{Binding ActualHeight, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.70, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
+                   Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
+                   Margin="5,0,0,0"
+                   Cursor="Hand"
+                   VerticalAlignment="Stretch"
+                   HorizontalAlignment="Left"
+                   RadiusX="20"
+                   RadiusY="20"
+                   Style="{StaticResource StyleForeground}"/>
 
         
     </Grid>

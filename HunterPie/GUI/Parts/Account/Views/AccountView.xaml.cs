@@ -1,11 +1,10 @@
 ﻿using HunterPie.Features.Account;
 using HunterPie.Features.Account.Config;
 using HunterPie.GUI.Parts.Account.ViewModels;
-using HunterPie.GUI.Parts.Host;
 using HunterPie.GUI.Parts.Settings.ViewModels;
 using HunterPie.GUI.Parts.Settings.Views;
 using HunterPie.UI.Architecture;
-using HunterPie.UI.Controls.Settings;
+using HunterPie.UI.Architecture.Navigator;
 using HunterPie.UI.Controls.Settings.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -53,10 +52,10 @@ public partial class AccountView : View<AccountViewModel>
     {
         ISettingElement[] accountConfig = await LocalAccountConfig.CreateAccountSettingsTab();
 
-        SettingHost host = new SettingHost()
+        var host = new SettingHost()
         {
             DataContext = new SettingHostViewModel(accountConfig)
         };
-        MainHost.SetMain(host);
+        Navigator.Navigate(host);
     }
 }
