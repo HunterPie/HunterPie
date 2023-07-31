@@ -137,17 +137,17 @@
                  FontWeight="Light"/>
         </TextBlock>
 
-            <TextBlock d:Text="26,354"
-                   Text="{Binding Damage}"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
-                   FontSize="12"
-                   Visibility="{Binding ShouldShowDamage.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
-                   VerticalAlignment="Bottom"
-                   HorizontalAlignment="Right"
-                   Margin="0,0,2,0" 
-                   Grid.Column="3"
-                   TextAlignment="Right"/>
+        <TextBlock d:Text="26,354"
+                 Text="{Binding Damage}"
+                 FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                 FontSize="12"
+                 Visibility="{Binding ShouldShowDamage.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
+                 VerticalAlignment="Bottom"
+                 HorizontalAlignment="Right"
+                 Margin="0,0,2,0" 
+                 Grid.Column="3"
+                 TextAlignment="Right"/>
 
     </Grid>
     <UserControl.Style>
