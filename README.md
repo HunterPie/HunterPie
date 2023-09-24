@@ -77,5 +77,5 @@ Suggestions and pull requests are very appreciated, just keep in mind to follow 
 [Badge PayPal]: https://img.shields.io/badge/donate-Paypal-blue.svg?color=62b2fc&logo=paypal&label=Support
 [Badge License]: https://img.shields.io/github/license/Haato3o/HunterPie-v2?color=c20067
 [Badge Wakatime]: https://wakatime.com/badge/github/Haato3o/HunterPie.svg
-[Badge Lines]: https://img.shields.io/tokei/lines/github/haato3o/hunterpie-v2
+[Badge Lines]: https://tokei.rs/b1/github/HunterPie/HunterPie
 [Badge Version]: https://img.shields.io/badge/dynamic/json?color=%2303a9fc&label=Version&prefix=v&query=latest_version&url=https%3A%2F%2Fapi.hunterpie.com%2Fv1%2Fversion
