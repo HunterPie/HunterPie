@@ -97,7 +97,7 @@ public class Scanner
         foreach (Signature signature in Signatures)
         {
             if (signature.HasBeenFound)
-                Console.WriteLine("Address {0} {1:X08}", signature.Name, signature.IsRelative ? signature.Value : signature.AtAddress + signature.Offset);
+                Console.WriteLine("Address {0} 0x{1:X08}", signature.Name, signature.IsRelative ? signature.Value : signature.AtAddress + signature.Offset);
             else
                 Console.WriteLine("Failed to find pattern for {0}", signature.Name);
 
