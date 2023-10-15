@@ -17,6 +17,7 @@
         <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>
         <converters:HexColorToFadeConverter x:Key="HexColorToFadeConverter"/>
         <converters:ParentSizePercentageConverter x:Key="ParentSizePercentageConverter"/>
+        <converters:DoubleFlooringConverter x:Key="DoubleFlooringConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -82,7 +83,7 @@
         </TextBlock>
 
         <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                   Foreground="{StaticResource WHITE}"
                    FontWeight="Medium"
                    FontSize="16"
                    VerticalAlignment="Center" 
@@ -105,20 +106,20 @@
                 </Run.Style>
             </Run>
             <Run d:Text="75"
-                 Text="{Binding Bar.Percentage, StringFormat=\{0:F0\}}"/><!--
+                 Text="{Binding Bar.Percentage, Converter={StaticResource DoubleFlooringConverter}, StringFormat=\{0:F0\}}"/><!--
          --><Run d:Text=".37"
                  Text="{Binding Bar.Percentage, Converter={StaticResource DoubleToDecimalConverter}, StringFormat={}.{0:D2}}"
-                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                 Foreground="{StaticResource WHITE_500}"
                  FontSize="14"
                  FontWeight="Normal"/><!--
          --><Run Text="%"
-                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                 Foreground="{StaticResource WHITE_500}"
                  FontSize="12"
                  FontWeight="Light"/>
         </TextBlock>
 
         <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                   Foreground="{StaticResource WHITE}"
                    FontSize="16"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
