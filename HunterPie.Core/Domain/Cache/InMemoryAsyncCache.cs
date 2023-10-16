@@ -26,7 +26,7 @@ public class InMemoryAsyncCache : IAsyncCache
             if (!exists || value is null)
                 return default;
 
-            if (value.ExpiresAt >= DateTime.UtcNow)
+            if (value.ExpiresAt < DateTime.UtcNow)
                 return default;
 
             return value.Value is T typedValue ? typedValue : default;

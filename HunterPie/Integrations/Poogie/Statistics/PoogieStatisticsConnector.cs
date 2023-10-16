@@ -40,7 +40,7 @@ internal class PoogieStatisticsConnector
             await Cache.Set(
                 key: SUMMARIES_CACHE_KEY,
                 value: result,
-                options: new CacheOptions(Ttl: TimeSpan.FromMinutes(10))
+                options: new CacheOptions(Ttl: TimeSpan.FromMinutes(1))
             );
 
         return result;
