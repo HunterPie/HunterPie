@@ -14,12 +14,12 @@ public struct MHWHudStructure
     [FieldOffset(0x64)]
     public float Health;
 
-    [FieldOffset(0x13C)]
+    [FieldOffset(0x12c)]
     public float Stamina;
 
-    [FieldOffset(0x144)]
+    [FieldOffset(0x130)]
     public float MaxStamina;
 
-    [FieldOffset(0x2DE4)]
+    [FieldOffset(0x2DD4)]
     public float RecoverableHealth;
 }

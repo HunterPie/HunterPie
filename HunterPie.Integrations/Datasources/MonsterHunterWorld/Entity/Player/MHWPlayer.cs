@@ -434,7 +434,7 @@ public sealed class MHWPlayer : CommonPlayer
         long harvestBoxPtr = PlayerSaveAddress + 0x103068;
 
         MHWFertilizerStructure[] fertilizers = Memory.Read<MHWFertilizerStructure>(harvestBoxPtr, 4);
-        MHWItemStructure[] harvestBoxItems = Memory.Read<MHWItemStructure>(harvestBoxPtr + 0x30, 50);
+        MHWItemStructure[] harvestBoxItems = Memory.Read<MHWItemStructure>(harvestBoxPtr + 0x50, 50);
 
         var data = new MHWHarvestBoxData(
             Items: harvestBoxItems,
