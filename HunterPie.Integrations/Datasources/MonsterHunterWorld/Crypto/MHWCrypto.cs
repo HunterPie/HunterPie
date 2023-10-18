@@ -1,4 +1,6 @@
-﻿namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Crypto;
+﻿using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
+
+namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Crypto;
 
 public static class MHWCrypto
 {
@@ -46,5 +48,15 @@ public static class MHWCrypto
 
         ulong decryptedData = BitConverter.ToUInt64(encryptedData);
         return decryptedData / 60.0f;
+    }
+
+    /// <summary>
+    /// Build 421631 changes the quest timer calculation from the shit above to the shit below
+    /// </summary>
+    /// <param name="value">The quest timer</param>
+    /// <returns>Quest timer in float</returns>
+    public static float LiterallyWhyCapcom(ulong value)
+    {
+        return value.ToSeconds();
     }
 }

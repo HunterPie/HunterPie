@@ -125,12 +125,10 @@ public sealed class MHWGame : CommonGame
             AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
             AddressMap.Get<int[]>("QUEST_TIMER_OFFSETS")
         );
-        ulong[] timers = Process.Memory.Read<ulong>(questEndTimerPtrs, 2);
-        ulong encryptKey = timers[0];
-        ulong encryptedValue = timers[1];
-        uint questMaxTimerRaw = Process.Memory.Read<uint>(questEndTimerPtrs + 0x1C);
+        ulong timer = Process.Memory.Read<ulong>(questEndTimerPtrs);
+        uint questMaxTimerRaw = Process.Memory.Read<uint>(questEndTimerPtrs + 0x10);
 
-        float elapsed = MHWCrypto.DecryptQuestTimer(encryptedValue, encryptKey);
+        float elapsed = MHWCrypto.LiterallyWhyCapcom(timer);
 
         if (QuestStatus == QuestStatus.None)
         {

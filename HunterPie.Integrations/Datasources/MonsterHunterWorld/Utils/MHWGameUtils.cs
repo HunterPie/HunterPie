@@ -17,6 +17,8 @@ public static class MHWGameUtils
 
     public static float ToSeconds(this uint self) => self / 60.0f;
 
+    public static float ToSeconds(this ulong self) => self / 60.0f;
+
     public static MHWHealingStructure ToTotal(this MHWHealingStructure[] self)
     {
         var totalHealing = new MHWHealingStructure
