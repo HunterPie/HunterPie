@@ -224,7 +224,7 @@ public sealed class MHWPlayer : CommonPlayer
         );
 
         uint currentSaveSlot = Process.Memory.Read<uint>(firstSaveAddress + 0x44);
-        const long nextPlayerSave = 0x27E9F0;
+        const long nextPlayerSave = 0x26CC00;
         long currentPlayerSaveHeader =
             Process.Memory.Read<long>(firstSaveAddress) + (nextPlayerSave * currentSaveSlot);
 
