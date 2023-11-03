@@ -39,4 +39,7 @@ internal class PoogieAccountConnector
     public async Task<PoogieResult<PasswordChangeResponse>> ChangePassword(ChangePasswordRequest request) =>
         await _connector.Post<ChangePasswordRequest, PasswordChangeResponse>($"{ACCOUNT_ENDPOINT}/password", request);
 
+    public async Task<PoogieResult<RequestAccountVerificationResponse>> RequestAccountVerification(RequestAccountVerifyRequest request) =>
+        await _connector.Post<RequestAccountVerifyRequest, RequestAccountVerificationResponse>($"{ACCOUNT_ENDPOINT}/verify", request);
+
 }
