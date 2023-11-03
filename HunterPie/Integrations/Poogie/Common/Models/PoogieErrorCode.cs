@@ -24,7 +24,7 @@ internal enum PoogieErrorCode
     [Localization("//Strings/Client/Integrations/Poogie[@Id='ERROR_INVALID_CREDENTIALS']")]
     INVALID_CREDENTIALS,
 
-    [Localization("//Strings/Client/Integrations/Poogie[@Id='ERROR_INVALID_USER_NOT_FOUND']")]
+    [Localization("//Strings/Client/Integrations/Poogie[@Id='ERROR_USER_NOT_FOUND']")]
     USER_NOT_FOUND,
 
     [Localization("//Strings/Client/Integrations/Poogie[@Id='ERROR_USER_ALREADY_EXISTS']")]
