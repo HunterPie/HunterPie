@@ -63,7 +63,7 @@
                 </StackPanel>
             </Label>
             <image:Icon Grid.Column="0" 
-                        Image="{StaticResource ICON_WARN}"
+                        Image="{StaticResource ICON_RELOAD}"
                         Width="15"
                         Foreground="{StaticResource YELLOW}"
                         VerticalAlignment="Stretch"

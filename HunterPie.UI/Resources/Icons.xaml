@@ -1,6 +1,18 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <DrawingImage x:Key="ICON_RELOAD">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V18 H21 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M21,18z M0,0z M14.7734,6.348L19.7654,6.348 16.5844,3.165C15.5603,2.14087 14.2846,1.40439 12.8856,1.02961 11.4866,0.654818 10.0136,0.654928 8.61464,1.02992 7.2157,1.40492 5.94014,2.14159 4.91617,3.16587 3.89221,4.19015 3.15594,5.46595 2.78138,6.865 M1.73537,16.644L1.73537,11.652 M1.73537,11.652L6.72738,11.652 M1.73537,11.652L4.91537,14.835C5.93949,15.8591 7.21517,16.5956 8.61416,16.9704 10.0132,17.3452 11.4862,17.3451 12.8851,16.9701 14.284,16.5951 15.5596,15.8584 16.5836,14.8341 17.6075,13.8099 18.3438,12.5341 18.7184,11.135 M19.7654,1.356L19.7654,6.346">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF3A3E40" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="ICON_DEMON_MODE">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V250 H220 V0 H0 Z">

@@ -9,44 +9,11 @@
                        xmlns:sys="clr-namespace:System;assembly=mscorlib"
                        xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
                        mc:Ignorable="d" 
-                       Width="60"
-                       Height="30">
+                       Width="50"
+                       Height="25">
     <arch:ClickableControl.Resources>
         <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
         <converters:SizeToDoubleSizeConverter x:Key="SizeToDoubleSizeConverter"/>
-
-        <Style x:Key="StyleBubble"
-               TargetType="{x:Type Rectangle}">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding IsMouseOver, ElementName=PART_Slider}" 
-                             Value="True">
-                    <DataTrigger.EnterActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation To="25"
-                                                 Duration="0:0:0.25"
-                                                 Storyboard.TargetProperty="Width"/>
-                                <DoubleAnimation To="0.4"
-                                                 Duration="0:0:0.25"
-                                                 Storyboard.TargetProperty="Opacity"/>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </DataTrigger.EnterActions>
-                    <DataTrigger.ExitActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation To="0"
-                                                 Duration="0:0:0.25"
-                                                 Storyboard.TargetProperty="Width"/>
-                                <DoubleAnimation To="0"
-                                                 Duration="0:0:0.25"
-                                                 Storyboard.TargetProperty="Opacity"/>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </DataTrigger.ExitActions>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
         <Style x:Key="StyleForeground"
                TargetType="{x:Type Rectangle}">
             <Style.Triggers>
@@ -55,7 +22,7 @@
                     <DataTrigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard>
-                                <ThicknessAnimation To="35,0,0,0"
+                                <ThicknessAnimation To="22,0,0,0"
                                                     Duration="0:0:0.15"
                                                  Storyboard.TargetProperty="Margin">
                                     <ThicknessAnimation.EasingFunction>
@@ -71,7 +38,7 @@
                     <DataTrigger.ExitActions>
                         <BeginStoryboard>
                             <Storyboard>
-                                <ThicknessAnimation To="5,0,0,0"
+                                <ThicknessAnimation To="0,0,0,0"
                                                     Duration="0:0:0.15"
                                                     Storyboard.TargetProperty="Margin">
                                     <ThicknessAnimation.EasingFunction>
@@ -95,7 +62,7 @@
                     <DataTrigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard>
-                                <anim:BrushAnimation To="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                                <anim:BrushAnimation To="{StaticResource BLUE_LIGHT_200}"
                                                  Duration="0:0:0.25"
                                                  Storyboard.TargetProperty="Fill"/>
                             </Storyboard>
@@ -121,45 +88,14 @@
                    RadiusY="{Binding RadiusX, RelativeSource={RelativeSource Self}}"
                    Stroke="{StaticResource GRAY}"
                    Style="{StaticResource SwitchBackground}"
-                   StrokeThickness="1"/>
-
-        <Rectangle x:Name="PART_Bubble"
-                   Fill="{StaticResource WHITE_100}"
-                   Width="0"
-                   Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                   VerticalAlignment="Stretch"
-                   HorizontalAlignment="Left"
-                   Opacity="0"
-                   StrokeThickness="2"
-                   RadiusX="20"
-                   RadiusY="20"
-                   Style="{StaticResource StyleBubble}">
-            <Rectangle.Margin>
-                <MultiBinding Converter="{StaticResource SizeToDoubleSizeConverter}">
-                    <Binding ElementName="PART_Bubble" 
-                             Path="ActualWidth" 
-                             Mode="OneWay" 
-                             UpdateSourceTrigger="PropertyChanged"/>
-                    <Binding ElementName="PART_Slider" 
-                             Path="Margin" 
-                             Mode="OneWay" 
-                             UpdateSourceTrigger="PropertyChanged"/>
-                    <Binding ElementName="PART_Slider" 
-                             Path="ActualWidth" 
-                             Mode="OneWay" 
-                             UpdateSourceTrigger="PropertyChanged"/>
-                    <MultiBinding.ConverterParameter>
-                        <sys:Double>5</sys:Double>
-                    </MultiBinding.ConverterParameter>
-                </MultiBinding>
-            </Rectangle.Margin>
-        </Rectangle>
+                   StrokeThickness="1"
+                   Margin="2"/>
         
         <Rectangle x:Name="PART_Slider"
                    Fill="{StaticResource GRAY}"
-                   Height="{Binding ActualHeight, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.70, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
+                   Height="{Binding ActualHeight, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=1, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
                    Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
-                   Margin="5,0,0,0"
+                   Margin="0,0,0,0"
                    Cursor="Hand"
                    VerticalAlignment="Stretch"
                    HorizontalAlignment="Left"
