@@ -22,7 +22,6 @@ public class MHRMonster : CommonMonster
 
     private int _id = -1;
     private float _health = -1;
-    private bool _isTarget;
     private bool _isEnraged;
     private Target _target;
     private Crown _crown;
@@ -86,19 +85,6 @@ public class MHRMonster : CommonMonster
     }
 
     public override float MaxStamina { get; protected set; }
-
-    public override bool IsTarget
-    {
-        get => _isTarget;
-        protected set
-        {
-            if (_isTarget != value)
-            {
-                _isTarget = value;
-                this.Dispatch(_onTarget);
-            }
-        }
-    }
 
     public override Target Target
     {
@@ -454,9 +440,9 @@ public class MHRMonster : CommonMonster
                 new[] { 0x78 }
         );
 
-        IsTarget = monsterAddress == _address;
+        bool isTarget = monsterAddress == _address;
 
-        Target = IsTarget ? Target.Self : monsterAddress != 0 ? Target.Another : Target.None;
+        Target = isTarget ? Target.Self : monsterAddress != 0 ? Target.Another : Target.None;
     }
 
     [ScannableMethod]

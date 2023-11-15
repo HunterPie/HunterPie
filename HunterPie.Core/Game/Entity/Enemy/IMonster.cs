@@ -12,9 +12,9 @@ public interface IMonster
     public float Stamina { get; }
     public float MaxStamina { get; }
     public float CaptureThreshold { get; }
-    public bool IsTarget { get; }
     public bool IsEnraged { get; }
     public Target Target { get; }
+    public Target ManualTarget { get; }
     public IMonsterPart[] Parts { get; }
     public IMonsterAilment[] Ailments { get; }
     public IMonsterAilment Enrage { get; }
@@ -27,7 +27,6 @@ public interface IMonster
     public event EventHandler<EventArgs> OnDespawn;
     public event EventHandler<EventArgs> OnDeath;
     public event EventHandler<EventArgs> OnCapture;
-    public event EventHandler<EventArgs> OnTarget;
     public event EventHandler<EventArgs> OnTargetChange;
     public event EventHandler<EventArgs> OnCrownChange;
     public event EventHandler<EventArgs> OnHealthChange;

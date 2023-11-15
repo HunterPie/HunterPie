@@ -3,6 +3,7 @@ using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Enemy;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Core.System;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Monster.Views;
@@ -97,7 +98,7 @@ public class MonsterWidgetContextHandler : IContextHandler
 
     private void CalculateVisibleMonsters()
     {
-        int targets = _context.Game.Monsters.Count(m => m.IsTarget);
+        int targets = _context.Game.Monsters.Count(m => m.Target == Target.Self);
 
         _viewModel.VisibleMonsters = Settings.ShowOnlyTarget.Value switch
         {

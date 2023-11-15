@@ -22,7 +22,6 @@ public sealed class MHRSunbreakDemoMonster : CommonMonster
 
     private int _id = -1;
     private float _health = -1;
-    private bool _isTarget;
     private bool _isEnraged;
     private Target _target;
     private Crown _crown;
@@ -82,19 +81,6 @@ public sealed class MHRSunbreakDemoMonster : CommonMonster
 
     public override float MaxStamina { get; protected set; }
 
-    public override bool IsTarget
-    {
-        get => _isTarget;
-        protected set
-        {
-            if (_isTarget != value)
-            {
-                _isTarget = value;
-                this.Dispatch(_onTarget);
-            }
-        }
-    }
-
     public override Target Target
     {
         get => _target;
@@ -107,6 +93,8 @@ public sealed class MHRSunbreakDemoMonster : CommonMonster
             }
         }
     }
+
+    public override Target ManualTarget { get; protected set; } = Target.None;
 
     public override Crown Crown
     {
@@ -216,9 +204,9 @@ public sealed class MHRSunbreakDemoMonster : CommonMonster
                 new[] { 0x78 }
         );
 
-        IsTarget = monsterAddress == _address;
+        bool isTarget = monsterAddress == _address;
 
-        Target = IsTarget ? Target.Self : monsterAddress != 0 ? Target.Another : Target.None;
+        Target = isTarget ? Target.Self : monsterAddress != 0 ? Target.Another : Target.None;
     }
 
     [ScannableMethod(typeof(MHRStaminaStructure))]

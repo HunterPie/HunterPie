@@ -18,9 +18,9 @@ public abstract class CommonMonster : Scannable, IMonster, IDisposable, IEventDi
     public abstract float Stamina { get; protected set; }
     public abstract float MaxStamina { get; protected set; }
     public abstract float CaptureThreshold { get; protected set; }
-    public abstract bool IsTarget { get; protected set; }
     public abstract bool IsEnraged { get; protected set; }
     public abstract Target Target { get; protected set; }
+    public abstract Target ManualTarget { get; protected set; }
     public abstract IMonsterPart[] Parts { get; }
     public abstract IMonsterAilment[] Ailments { get; }
     public abstract IMonsterAilment Enrage { get; }
@@ -61,13 +61,6 @@ public abstract class CommonMonster : Scannable, IMonster, IDisposable, IEventDi
     {
         add => _onCapture.Hook(value);
         remove => _onCapture.Unhook(value);
-    }
-
-    protected readonly SmartEvent<EventArgs> _onTarget = new();
-    public event EventHandler<EventArgs> OnTarget
-    {
-        add => _onTarget.Hook(value);
-        remove => _onTarget.Unhook(value);
     }
 
     protected readonly SmartEvent<EventArgs> _onCrownChange = new();
@@ -146,7 +139,7 @@ public abstract class CommonMonster : Scannable, IMonster, IDisposable, IEventDi
     {
         IDisposable[] events =
         {
-            _onSpawn, _onLoad, _onDespawn, _onDeath, _onCapture, _onTarget, _onCrownChange, _onHealthChange,
+            _onSpawn, _onLoad, _onDespawn, _onDeath, _onCapture, _onCrownChange, _onHealthChange,
             _onStaminaChange, _onActionChange, _onEnrageStateChange, _onTargetChange, _onNewPartFound,
             _onNewAilmentFound, _onWeaknessesChange, _onCaptureThresholdChange,
         };

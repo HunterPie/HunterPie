@@ -20,15 +20,15 @@ public class MHWMonster : CommonMonster
     private int _id = -1;
     private int _doubleLinkedListIndex;
     private float _health = -1;
-    private bool _isTarget;
     private bool _isEnraged;
     private Target _target;
+    private Target _manualTarget;
     private Crown _crown;
     private float _stamina;
     private float _captureThreshold;
     private readonly MHWMonsterAilment _enrage = new("STATUS_ENRAGE");
     private (long, MHWMonsterPart)[] _parts;
-    private List<(long, MHWMonsterAilment)> _ailments;
+    private List<(long, MHWMonsterAilment)>? _ailments;
     #endregion
 
     public override int Id
@@ -85,19 +85,6 @@ public class MHWMonster : CommonMonster
 
     public override float MaxStamina { get; protected set; }
 
-    public override bool IsTarget
-    {
-        get => _isTarget;
-        protected set
-        {
-            if (_isTarget != value)
-            {
-                _isTarget = value;
-                this.Dispatch(_onTarget);
-            }
-        }
-    }
-
     public override IMonsterPart[] Parts => _parts?
                                     .Select(v => v.Item2)
                                     .ToArray<IMonsterPart>() ?? Array.Empty<IMonsterPart>();
@@ -111,13 +98,27 @@ public class MHWMonster : CommonMonster
         get => _target;
         protected set
         {
-            if (_target != value)
-            {
-                _target = value;
-                this.Dispatch(_onTargetChange);
-            }
+            if (_target == value)
+                return;
+
+            _target = value;
+            this.Dispatch(_onTargetChange);
         }
     }
+
+    public override Target ManualTarget
+    {
+        get => _manualTarget;
+        protected set
+        {
+            if (_manualTarget == value)
+                return;
+
+            _manualTarget = value;
+            this.Dispatch(_onTargetChange);
+        }
+    }
+
 
     public override Crown Crown
     {
@@ -264,21 +265,38 @@ public class MHWMonster : CommonMonster
 
         if (lockedOnDoubleLinkedListAddress.IsNullPointer())
         {
-            IsTarget = false;
             Target = Target.None;
             return;
         }
 
         int lockedOnDoubleLinkedListIndex = Memory.Read<int>(lockedOnDoubleLinkedListAddress + 0x950);
 
-        IsTarget = lockedOnDoubleLinkedListIndex == _doubleLinkedListIndex;
+        bool isTarget = lockedOnDoubleLinkedListIndex == _doubleLinkedListIndex;
 
-        if (IsTarget)
+        if (isTarget)
             Target = Target.Self;
         else if (lockedOnDoubleLinkedListIndex < 0)
             Target = Target.None;
         else
             Target = Target.Another;
+    }
+
+    [ScannableMethod]
+    private void GetManualTargetedMonster()
+    {
+        MHWMapMonsterSelectionStructure mapSelection = Memory.Deref<MHWMapMonsterSelectionStructure>(
+            AddressMap.GetAbsolute("MONSTER_MANUAL_TARGET_ADDRESS"),
+            AddressMap.Get<int[]>("MONSTER_MANUAL_TARGET_OFFSETS")
+        );
+        bool isTargetPinned = !mapSelection.MapInsectsRef.IsNullPointer();
+        bool isSelected = mapSelection.SelectedMonster == _address;
+
+        ManualTarget = isTargetPinned switch
+        {
+            true when isSelected => Target.Self,
+            true => Target.Another,
+            _ => Target.None
+        };
     }
 
     [ScannableMethod]
@@ -455,7 +473,7 @@ public class MHWMonster : CommonMonster
         _parts.Select(it => it.Item2)
             .DisposeAll();
 
-        _ailments.Select(it => it.Item2)
+        _ailments?.Select(it => it.Item2)
             .DisposeAll();
 
         base.Dispose();
