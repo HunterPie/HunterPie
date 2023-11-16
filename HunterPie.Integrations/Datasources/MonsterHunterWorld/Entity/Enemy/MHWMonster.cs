@@ -7,6 +7,7 @@ using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Events;
 using HunterPie.Core.Logger;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
@@ -42,7 +43,7 @@ public class MHWMonster : CommonMonster
                 GetMonsterWeaknesses();
                 GetMonsterCaptureThreshold();
 
-                Log.Debug($"Initialized monster at address {_address:X} with id: {value}");
+                Log.Debug($"Initialized ${Name} at address {_address:X} with id: {value}");
                 this.Dispatch(_onSpawn);
             }
         }
@@ -102,7 +103,7 @@ public class MHWMonster : CommonMonster
                 return;
 
             _target = value;
-            this.Dispatch(_onTargetChange);
+            this.Dispatch(_onTargetChange, new MonsterTargetEventArgs(this));
         }
     }
 
@@ -115,7 +116,7 @@ public class MHWMonster : CommonMonster
                 return;
 
             _manualTarget = value;
-            this.Dispatch(_onTargetChange);
+            this.Dispatch(_onTargetChange, new MonsterTargetEventArgs(this));
         }
     }
 

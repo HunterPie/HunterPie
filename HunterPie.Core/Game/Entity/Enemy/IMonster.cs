@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Events;
 using System;
 
 namespace HunterPie.Core.Game.Entity.Enemy;
@@ -27,7 +28,7 @@ public interface IMonster
     public event EventHandler<EventArgs> OnDespawn;
     public event EventHandler<EventArgs> OnDeath;
     public event EventHandler<EventArgs> OnCapture;
-    public event EventHandler<EventArgs> OnTargetChange;
+    public event EventHandler<MonsterTargetEventArgs> OnTargetChange;
     public event EventHandler<EventArgs> OnCrownChange;
     public event EventHandler<EventArgs> OnHealthChange;
     public event EventHandler<EventArgs> OnStaminaChange;

@@ -8,6 +8,7 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Events;
 using HunterPie.Core.Logger;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
@@ -89,7 +90,7 @@ public sealed class MHRSunbreakDemoMonster : CommonMonster
             if (_target != value)
             {
                 _target = value;
-                this.Dispatch(_onTargetChange);
+                this.Dispatch(_onTargetChange, new MonsterTargetEventArgs(this));
             }
         }
     }

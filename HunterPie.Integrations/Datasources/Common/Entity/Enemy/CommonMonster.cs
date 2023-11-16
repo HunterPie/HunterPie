@@ -5,6 +5,7 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Events;
 using HunterPie.Core.Logger;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Enemy;
@@ -98,8 +99,8 @@ public abstract class CommonMonster : Scannable, IMonster, IDisposable, IEventDi
         remove => _onEnrageStateChange.Unhook(value);
     }
 
-    protected readonly SmartEvent<EventArgs> _onTargetChange = new();
-    public event EventHandler<EventArgs> OnTargetChange
+    protected readonly SmartEvent<MonsterTargetEventArgs> _onTargetChange = new();
+    public event EventHandler<MonsterTargetEventArgs> OnTargetChange
     {
         add => _onTargetChange.Hook(value);
         remove => _onTargetChange.Unhook(value);

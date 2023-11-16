@@ -35,6 +35,9 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
     [SettingField("MONSTER_WIDGET_MIN_WIDTH_STRING")]
     public Range MinWidth { get; set; } = new(400, 600, 200, 1);
 
+    [SettingField("MONSTER_WIDGET_TARGET_MODE_STRING")]
+    public Observable<TargetModeType> TargetMode { get; set; } = TargetModeType.LockOn;
+
     [SettingField("MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING")]
     public Observable<bool> ShowOnlyTarget { get; set; } = false;
 

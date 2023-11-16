@@ -8,6 +8,7 @@ using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Events;
 using HunterPie.Core.Logger;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
@@ -24,6 +25,7 @@ public class MHRMonster : CommonMonster
     private float _health = -1;
     private bool _isEnraged;
     private Target _target;
+    private Target _manualTarget;
     private Crown _crown;
     private float _stamina;
     private float _captureThreshold;
@@ -94,8 +96,21 @@ public class MHRMonster : CommonMonster
             if (_target != value)
             {
                 _target = value;
-                this.Dispatch(_onTargetChange);
+                this.Dispatch(_onTargetChange, new MonsterTargetEventArgs(this));
             }
+        }
+    }
+
+    public override Target ManualTarget
+    {
+        get => _manualTarget;
+        protected set
+        {
+            if (_manualTarget == value)
+                return;
+
+            _manualTarget = value;
+            this.Dispatch(_onTargetChange, new MonsterTargetEventArgs(this));
         }
     }
 

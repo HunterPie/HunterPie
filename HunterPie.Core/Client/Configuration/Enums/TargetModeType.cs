@@ -1,8 +1,9 @@
 ﻿namespace HunterPie.Core.Client.Configuration.Enums;
 
-public enum TargetMode
+public enum TargetModeType
 {
     LockOn,
-    Manual,
+    MapPin,
+    AutoQuest,
     Infer
 }
