@@ -161,6 +161,9 @@
     <None Update="Address\MonsterHunterRise.3.6.1.1.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Address\MonsterHunterWorld.421652.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Address\MonsterHunterWorld.421631.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
