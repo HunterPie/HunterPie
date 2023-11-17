@@ -103,8 +103,8 @@ public class VisualConverterManager
                 continue;
 
             XmlNode locNode = Localization.Query($"//Strings/Client/Settings/Setting[@Id='{metadata.Name}']");
-            string title = locNode?.Attributes["String"]?.Value ?? metadata.Name;
-            string description = locNode?.Attributes["Description"]?.Value ?? metadata.Description;
+            string title = locNode?.Attributes?["String"]?.Value ?? metadata.Name;
+            string description = locNode?.Attributes?["Description"]?.Value ?? metadata.Description;
 
             SettingElementType settingHost = new(
                 name: title,

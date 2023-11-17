@@ -435,9 +435,8 @@ public class MHRMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private void GetLockon()
+    private void GetLockedOnMonster()
     {
-
         int cameraStyleType = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("LOCKON_ADDRESS"),
             AddressMap.Get<int[]>("LOCKON_CAMERA_STYLE_OFFSETS")
@@ -450,14 +449,36 @@ public class MHRMonster : CommonMonster
 
         cameraStylePtr += cameraStyleType * 8;
 
-        long monsterAddress = Process.Memory.Deref<long>(
+        long targetAddress = Process.Memory.Deref<long>(
                 cameraStylePtr,
                 new[] { 0x78 }
         );
 
-        bool isTarget = monsterAddress == _address;
+        bool isTarget = targetAddress == _address;
 
-        Target = isTarget ? Target.Self : monsterAddress != 0 ? Target.Another : Target.None;
+        Target = (isTarget, targetAddress) switch
+        {
+            (true, _) => Target.Self,
+            (false, 0) => Target.None,
+            (false, _) => Target.Another,
+        };
+    }
+
+    [ScannableMethod]
+    private void GetQuestTarget()
+    {
+        long targetAddress = Memory.Deref<long>(
+            AddressMap.GetAbsolute("QUEST_GUI_ADDRESS"),
+            AddressMap.GetOffsets("QUEST_AUTOMATIC_TARGET")
+        );
+        bool isTarget = targetAddress == _address;
+
+        ManualTarget = (isTarget, targetAddress) switch
+        {
+            (true, _) => Target.Self,
+            (false, 0) => Target.None,
+            (false, _) => Target.Another,
+        };
     }
 
     [ScannableMethod]
