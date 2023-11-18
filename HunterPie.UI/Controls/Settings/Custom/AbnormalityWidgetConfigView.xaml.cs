@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.UI.Architecture.Navigator;
 using HunterPie.UI.Controls.Settings.Custom.Abnormality;
 using HunterPie.UI.Controls.Settings.ViewModel;
@@ -20,7 +21,7 @@ namespace HunterPie.UI.Controls.Settings.Custom;
 public partial class AbnormalityWidgetConfigView : UserControl, INotifyPropertyChanged
 {
     // TODO: Separate View from ViewModel
-
+    private readonly GameProcess? _game;
     private AbnormalityCollectionViewModel _selectedElement;
 
     public ObservableCollection<AbnormalityCollectionViewModel> Collections { get; } = new();
@@ -43,8 +44,9 @@ public partial class AbnormalityWidgetConfigView : UserControl, INotifyPropertyC
 
     public event PropertyChangedEventHandler PropertyChanged;
 
-    public AbnormalityWidgetConfigView(AbnormalityWidgetConfig config)
+    public AbnormalityWidgetConfigView(GameProcess? game, AbnormalityWidgetConfig config)
     {
+        _game = game;
         Config = config;
         DataContext = config;
         InitializeComponent();
@@ -56,7 +58,7 @@ public partial class AbnormalityWidgetConfigView : UserControl, INotifyPropertyC
 
     private void BuildVisualConfig()
     {
-        foreach (ISettingElementType element in VisualConverterManager.BuildSubElements(Config))
+        foreach (ISettingElementType element in VisualConverterManager.BuildSubElements(_game, Config))
             Elements.Add(element);
     }
 

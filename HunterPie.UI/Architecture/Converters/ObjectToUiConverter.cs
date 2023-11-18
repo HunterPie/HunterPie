@@ -12,7 +12,7 @@ public class ObjectToUiConverter : IValueConverter
     {
         var element = (ISettingElementType)value;
 
-        return VisualConverterManager.ConvertElement(element.Parent, element.Information);
+        return VisualConverterManager.ConvertElement(element.Game, element.Parent, element.Information);
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();

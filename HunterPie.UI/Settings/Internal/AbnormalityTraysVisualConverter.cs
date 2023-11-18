@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Settings.Types;
+﻿using HunterPie.Core.Domain.Enums;
+using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Controls.Settings.Custom;
 using HunterPie.UI.Settings.Converter;
 using System.Reflection;
@@ -8,11 +9,12 @@ namespace HunterPie.UI.Settings.Internal;
 
 public class AbnormalityTraysVisualConverter : IVisualConverter
 {
-    public FrameworkElement Build(object parent, PropertyInfo childInfo)
+    public FrameworkElement Build(GameProcess? game, object parent, PropertyInfo childInfo)
     {
         var viewModel = (AbnormalityTrays)childInfo.GetValue(parent);
         return new AbnormalityTrayList()
         {
+            Game = game,
             DataContext = viewModel
         };
     }

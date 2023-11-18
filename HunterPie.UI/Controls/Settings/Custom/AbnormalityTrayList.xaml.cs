@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Dialog;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Architecture.Navigator;
 using System;
@@ -20,6 +21,8 @@ public partial class AbnormalityTrayList : UserControl, INotifyPropertyChanged
     private int _selectedIndex;
 
     public int SelectedIndex { get => _selectedIndex; set => SetValue(ref _selectedIndex, value); }
+
+    public GameProcess? Game { get; set; }
 
     private AbnormalityTrays ViewModel => (AbnormalityTrays)DataContext;
 
@@ -74,7 +77,7 @@ public partial class AbnormalityTrayList : UserControl, INotifyPropertyChanged
         if (vm is null)
             return;
 
-        var view = new AbnormalityWidgetConfigView(vm);
+        var view = new AbnormalityWidgetConfigView(Game, vm);
         Navigator.Navigate(view);
     }
 

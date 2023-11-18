@@ -26,7 +26,7 @@ internal class MockSettingHostViewModel
         public MockSettingElement()
         {
             for (int i = 0; i < 15; i++)
-                Elements.Add(new SettingElementType("Mock", "Mock", this, GetType().GetProperty(nameof(Mock)), false));
+                Elements.Add(new SettingElementType(null, "Mock", "Mock", this, GetType().GetProperty(nameof(Mock)), false));
 
             foreach (GameProcess gameProcess in Enum.GetValues<GameProcess>())
                 Games.Add(gameProcess);

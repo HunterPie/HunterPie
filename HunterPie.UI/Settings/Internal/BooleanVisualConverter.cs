@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.UI.Controls.Buttons;
 using HunterPie.UI.Settings.Converter;
 using System.Reflection;
@@ -9,7 +10,7 @@ namespace HunterPie.UI.Settings.Internal;
 
 internal class BooleanVisualConverter : IVisualConverter
 {
-    public FrameworkElement Build(object parent, PropertyInfo childInfo)
+    public FrameworkElement Build(GameProcess? game, object parent, PropertyInfo childInfo)
     {
         var observable = (Observable<bool>)childInfo.GetValue(parent);
         Binding binding = VisualConverterHelper.CreateBinding(observable);

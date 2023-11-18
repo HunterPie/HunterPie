@@ -6,10 +6,10 @@ namespace HunterPie.Core.Settings;
 [AttributeUsage(AttributeTargets.Property)]
 public class SettingField : Attribute
 {
-    public string Name;
-    public string Description;
-    public bool RequiresRestart;
-    public readonly GameProcess AvailableGames;
+    public string Name { get; init; }
+    public string Description { get; init; }
+    public bool RequiresRestart { get; init; }
+    public GameProcess AvailableGames { get; init; }
 
     public SettingField(
         string name,

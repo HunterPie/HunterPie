@@ -18,6 +18,7 @@ using Range = HunterPie.Core.Settings.Types.Range;
 #nullable enable
 namespace HunterPie.UI.Settings;
 
+// TODO: Refactor this class
 public class VisualConverterManager
 {
     private static VisualConverterManager _instance;
@@ -58,38 +59,37 @@ public class VisualConverterManager
         foreach (PropertyInfo property in parentType.GetProperties())
         {
             Type type = property.PropertyType;
-            if (type.GetInterfaces().Contains(typeof(ISettings)))
-            {
-                var metadata = (SettingsGroup)Attribute.GetCustomAttribute(type, typeof(SettingsGroup));
 
-                if (metadata.DependsOnFeature is not null &&
-                    !FeatureFlagManager.IsEnabled(metadata.DependsOnFeature))
-                {
-                    continue;
-                }
+            if (!type.GetInterfaces().Contains(typeof(ISettings)))
+                continue;
 
-                if (!metadata.AvailableGames.HasFlag(currentConfiguration))
-                    continue;
+            var metadata = (SettingsGroup)Attribute.GetCustomAttribute(type, typeof(SettingsGroup));
 
-                XmlNode locNode = Localization.Query($"//Strings/Client/Settings/Setting[@Id='{metadata.Name}']");
-                string title = locNode?.Attributes["String"].Value ?? metadata.Name;
-                string description = locNode?.Attributes["Description"].Value ?? metadata.Description;
+            if (metadata.DependsOnFeature is not null &&
+                !FeatureFlagManager.IsEnabled(metadata.DependsOnFeature))
+                continue;
 
-                SettingElementViewModel vm = new(title, description, metadata.Icon);
+            if (!metadata.AvailableGames.HasFlag(currentConfiguration))
+                continue;
 
-                object parent = property.GetValue(settings);
-                BuildChildren(parent, vm, holder);
+            XmlNode locNode = Localization.Query($"//Strings/Client/Settings/Setting[@Id='{metadata.Name}']");
+            string title = locNode?.Attributes["String"].Value ?? metadata.Name;
+            string description = locNode?.Attributes["Description"].Value ?? metadata.Description;
 
-                // Only adds panel if it has elements in it
-                if (vm.Elements.Count > 0)
-                    holder.Add(vm);
-            }
+            SettingElementViewModel vm = new(title, description, metadata.Icon);
+
+            object parent = property.GetValue(settings);
+            BuildChildren(currentConfiguration, parent, vm, holder);
+
+            // Only adds panel if it has elements in it
+            if (vm.Elements.Count > 0)
+                holder.Add(vm);
         }
 
         return holder.ToArray();
     }
 
-    public static ISettingElementType[] BuildSubElements(object parent)
+    public static ISettingElementType[] BuildSubElements(GameProcess? game, object parent)
     {
         List<ISettingElementType> elements = new();
 
@@ -107,6 +107,7 @@ public class VisualConverterManager
             string description = locNode?.Attributes?["Description"]?.Value ?? metadata.Description;
 
             SettingElementType settingHost = new(
+                game: game,
                 name: title,
                 description: description,
                 parent,
@@ -120,16 +121,15 @@ public class VisualConverterManager
         return elements.ToArray();
     }
 
-    private static void BuildChildren(object parent, ISettingElement panel, List<ISettingElement> parentPanel)
+    private static void BuildChildren(GameProcess game, object parent, ISettingElement panel, List<ISettingElement> parentPanel)
     {
         Type parentType = parent.GetType();
-        GameProcess currentConfiguration = ClientConfig.Config.Client.LastConfiguredGame.Value;
 
         foreach (PropertyInfo prop in parentType.GetProperties())
         {
             SettingField? metadata = prop.GetCustomAttribute<SettingField>();
 
-            if (metadata is not null && !metadata.AvailableGames.HasFlag(currentConfiguration))
+            if (metadata is not null && !metadata.AvailableGames.HasFlag(game))
                 continue;
 
             if (prop.PropertyType.GetInterfaces().Contains(typeof(ISettings)))
@@ -138,11 +138,9 @@ public class VisualConverterManager
 
                 if (meta.DependsOnFeature is not null &&
                     !FeatureFlagManager.IsEnabled(meta.DependsOnFeature))
-                {
                     continue;
-                }
 
-                if (!meta.AvailableGames.HasFlag(currentConfiguration))
+                if (!meta.AvailableGames.HasFlag(game))
                     continue;
 
                 XmlNode locNode = Localization.Query($"//Strings/Client/Settings/Setting[@Id='{meta.Name}']");
@@ -152,7 +150,7 @@ public class VisualConverterManager
                 SettingElementViewModel vm = new(title, description, meta.Icon);
 
                 object newParent = prop.GetValue(parent);
-                BuildChildren(newParent, vm, parentPanel);
+                BuildChildren(game, newParent, vm, parentPanel);
 
                 parentPanel.Add(vm);
             }
@@ -166,6 +164,7 @@ public class VisualConverterManager
                 string description = locNode?.Attributes?["Description"]?.Value ?? metadata.Description;
 
                 SettingElementType settingHost = new(
+                    game: game,
                     name: title,
                     description: description,
                     parent,
@@ -186,14 +185,12 @@ public class VisualConverterManager
         Instance._converters.Add(typeof(T), converter);
     }
 
-    public static UIElement ConvertElement(object parent, PropertyInfo childInfo)
+    public static UIElement ConvertElement(GameProcess? game, object parent, PropertyInfo childInfo)
     {
         // In case of interfaces we can still convert property
         foreach (Type @interface in childInfo.PropertyType.GetInterfaces())
-        {
             if (Instance._converters.ContainsKey(@interface))
-                return ConvertElementHelper(@interface, parent, childInfo);
-        }
+                return ConvertElementHelper(game, @interface, parent, childInfo);
 
         Type type = childInfo.PropertyType;
 
@@ -201,13 +198,13 @@ public class VisualConverterManager
             type = type.GenericTypeArguments.FirstOrDefault();
 
         return type.IsEnum
-            ? ConvertElementHelper(typeof(Enum), parent, childInfo)
-            : !Instance._converters.ContainsKey(type) ? null : (UIElement)ConvertElementHelper(type, parent, childInfo);
+            ? ConvertElementHelper(game, typeof(Enum), parent, childInfo)
+            : !Instance._converters.ContainsKey(type) ? null : (UIElement)ConvertElementHelper(game, type, parent, childInfo);
     }
 
-    private static FrameworkElement ConvertElementHelper(Type type, object parent, PropertyInfo childInfo)
+    private static FrameworkElement ConvertElementHelper(GameProcess? game, Type type, object parent, PropertyInfo childInfo)
     {
-        FrameworkElement uiElement = Instance._converters[type].Build(parent, childInfo);
+        FrameworkElement uiElement = Instance._converters[type].Build(game, parent, childInfo);
 
         uiElement.Unloaded += UICleanup;
 
