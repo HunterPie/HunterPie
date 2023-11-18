@@ -8,6 +8,7 @@ using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Events;
 using HunterPie.Core.Logger;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
@@ -22,9 +23,9 @@ public class MHRMonster : CommonMonster
 
     private int _id = -1;
     private float _health = -1;
-    private bool _isTarget;
     private bool _isEnraged;
     private Target _target;
+    private Target _manualTarget;
     private Crown _crown;
     private float _stamina;
     private float _captureThreshold;
@@ -87,19 +88,6 @@ public class MHRMonster : CommonMonster
 
     public override float MaxStamina { get; protected set; }
 
-    public override bool IsTarget
-    {
-        get => _isTarget;
-        protected set
-        {
-            if (_isTarget != value)
-            {
-                _isTarget = value;
-                this.Dispatch(_onTarget);
-            }
-        }
-    }
-
     public override Target Target
     {
         get => _target;
@@ -108,8 +96,21 @@ public class MHRMonster : CommonMonster
             if (_target != value)
             {
                 _target = value;
-                this.Dispatch(_onTargetChange);
+                this.Dispatch(_onTargetChange, new MonsterTargetEventArgs(this));
             }
+        }
+    }
+
+    public override Target ManualTarget
+    {
+        get => _manualTarget;
+        protected set
+        {
+            if (_manualTarget == value)
+                return;
+
+            _manualTarget = value;
+            this.Dispatch(_onTargetChange, new MonsterTargetEventArgs(this));
         }
     }
 
@@ -434,9 +435,8 @@ public class MHRMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private void GetLockon()
+    private void GetLockedOnMonster()
     {
-
         int cameraStyleType = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("LOCKON_ADDRESS"),
             AddressMap.Get<int[]>("LOCKON_CAMERA_STYLE_OFFSETS")
@@ -449,14 +449,36 @@ public class MHRMonster : CommonMonster
 
         cameraStylePtr += cameraStyleType * 8;
 
-        long monsterAddress = Process.Memory.Deref<long>(
+        long targetAddress = Process.Memory.Deref<long>(
                 cameraStylePtr,
                 new[] { 0x78 }
         );
 
-        IsTarget = monsterAddress == _address;
+        bool isTarget = targetAddress == _address;
 
-        Target = IsTarget ? Target.Self : monsterAddress != 0 ? Target.Another : Target.None;
+        Target = (isTarget, targetAddress) switch
+        {
+            (true, _) => Target.Self,
+            (false, 0) => Target.None,
+            (false, _) => Target.Another,
+        };
+    }
+
+    [ScannableMethod]
+    private void GetQuestTarget()
+    {
+        long targetAddress = Memory.Deref<long>(
+            AddressMap.GetAbsolute("QUEST_GUI_ADDRESS"),
+            AddressMap.GetOffsets("QUEST_AUTOMATIC_TARGET")
+        );
+        bool isTarget = targetAddress == _address;
+
+        ManualTarget = (isTarget, targetAddress) switch
+        {
+            (true, _) => Target.Self,
+            (false, 0) => Target.None,
+            (false, _) => Target.Another,
+        };
     }
 
     [ScannableMethod]

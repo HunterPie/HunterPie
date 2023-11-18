@@ -10,13 +10,17 @@ using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
+using HunterPie.Core.Game.Services.Monster;
+using HunterPie.Integrations.Datasources.Common.Monster;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Game;
 public abstract class CommonGame : Scannable, IGame, IEventDispatcher
 {
+    private readonly SimpleTargetDetectionService _targetDetectionService;
 
     public abstract IPlayer Player { get; }
     public abstract IAbnormalityCategorizationService AbnormalityCategorizationService { get; }
+    public ITargetDetectionService TargetDetectionService => _targetDetectionService;
     public abstract List<IMonster> Monsters { get; }
     public abstract IChat? Chat { get; }
     public abstract bool IsHudOpen { get; protected set; }
@@ -75,7 +79,10 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
         remove => _onQuestEnd.Unhook(value);
     }
 
-    protected CommonGame(IProcessManager process) : base(process) { }
+    protected CommonGame(IProcessManager process) : base(process)
+    {
+        _targetDetectionService = new SimpleTargetDetectionService(this);
+    }
 
     public virtual void Dispose()
     {
@@ -83,7 +90,7 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
         {
             _onMonsterSpawn, _onMonsterDespawn, _onHudStateChange,
             _onTimeElapsedChange, _onDeathCountChange, _onQuestStart,
-            _onQuestEnd,
+            _onQuestEnd, _targetDetectionService
         };
 
         Monsters.TryCast<IDisposable>()

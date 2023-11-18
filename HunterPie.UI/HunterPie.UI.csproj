@@ -668,6 +668,7 @@
 
   <ItemGroup>
     <Folder Include="Architecture\Navigator\" />
+    <Folder Include="Overlay\Widgets\Monster\Adapters\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Domain.Enums;
 using System.Reflection;
 
 namespace HunterPie.UI.Controls.Settings.ViewModel;
@@ -7,11 +8,12 @@ internal class SettingElementType : Bindable, ISettingElementType
 {
     private bool _match = true;
 
-    public object Parent { get; private set; }
-    public PropertyInfo Information { get; private set; }
-    public string Name { get; private set; }
-    public string Description { get; private set; }
-    public bool RequiresRestart { get; private set; }
+    public object Parent { get; }
+    public PropertyInfo Information { get; }
+    public GameProcess? Game { get; }
+    public string Name { get; }
+    public string Description { get; }
+    public bool RequiresRestart { get; }
 
     public bool Match
     {
@@ -19,8 +21,16 @@ internal class SettingElementType : Bindable, ISettingElementType
         set => SetValue(ref _match, value);
     }
 
-    public SettingElementType(string name, string description, object parent, PropertyInfo info, bool restart)
+    public SettingElementType(
+        GameProcess? game,
+        string name,
+        string description,
+        object parent,
+        PropertyInfo info,
+        bool restart
+    )
     {
+        Game = game;
         Name = name;
         Description = description;
         Parent = parent;

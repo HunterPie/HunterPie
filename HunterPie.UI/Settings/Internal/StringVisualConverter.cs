@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.UI.Settings.Converter;
 using System.Reflection;
 using System.Windows;
@@ -9,7 +10,7 @@ namespace HunterPie.UI.Settings.Internal;
 
 internal class StringVisualConverter : IVisualConverter
 {
-    public FrameworkElement Build(object parent, PropertyInfo childInfo)
+    public FrameworkElement Build(GameProcess? game, object parent, PropertyInfo childInfo)
     {
         var observable = (Observable<string>)childInfo.GetValue(parent);
         Binding binding = VisualConverterHelper.CreateBinding(observable);

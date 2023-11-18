@@ -22,8 +22,7 @@ public class FeatureFlagsView : ISettingElement
         foreach ((string featName, IFeature feat) in features)
         {
             System.Reflection.PropertyInfo info = feat.GetType().GetProperty(nameof(IFeature.IsEnabled));
-            //string name = featName.Replace("_", "__");
-            ISettingElementType el = new SettingElementType(featName, featName, feat, info, true);
+            ISettingElementType el = new SettingElementType(null, featName, featName, feat, info, true);
             Elements.Add(el);
         }
     }

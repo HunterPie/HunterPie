@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Settings.Types;
+﻿using HunterPie.Core.Domain.Enums;
+using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Settings.Converter;
 using System.Reflection;
 using System.Windows;
@@ -9,7 +10,7 @@ namespace HunterPie.UI.Settings.Internal;
 
 public class KeybindingVisualConverter : IVisualConverter
 {
-    public FrameworkElement Build(object parent, PropertyInfo childInfo)
+    public FrameworkElement Build(GameProcess? game, object parent, PropertyInfo childInfo)
     {
         var key = (Keybinding)childInfo.GetValue(parent);
         Binding binding = VisualConverterHelper.CreateBinding(key, nameof(Keybinding.KeyCombo));
