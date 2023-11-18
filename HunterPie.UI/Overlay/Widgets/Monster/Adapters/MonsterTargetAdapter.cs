@@ -10,14 +10,15 @@ public static class MonsterTargetAdapter
     public static Target Adapt(
         MonsterWidgetConfig config,
         Target lockOnTarget,
-        Target manualTarget
+        Target manualTarget,
+        Target inferredTarget
     )
     {
         return config.TargetMode.Value switch
         {
             TargetModeType.LockOn => lockOnTarget,
             TargetModeType.MapPin or TargetModeType.AutoQuest => manualTarget,
-            TargetModeType.Infer => throw new NotImplementedException(),
+            TargetModeType.Infer => inferredTarget,
             _ => throw new ArgumentOutOfRangeException()
         };
     }

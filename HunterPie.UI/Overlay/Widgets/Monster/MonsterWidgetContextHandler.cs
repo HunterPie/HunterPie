@@ -43,7 +43,7 @@ public class MonsterWidgetContextHandler : IContextHandler
         foreach (IMonster monster in _context.Game.Monsters)
         {
             monster.OnTargetChange += OnTargetChange;
-            _viewModel.Monsters.Add(new MonsterContextHandler(monster, Settings));
+            _viewModel.Monsters.Add(new MonsterContextHandler(_context.Game, monster, Settings));
         }
 
         CalculateVisibleMonsters();
@@ -95,11 +95,11 @@ public class MonsterWidgetContextHandler : IContextHandler
         CalculateVisibleMonsters();
     }
 
-    private void OnMonsterSpawn(object sender, IMonster e)
+    private void OnMonsterSpawn(object sender, IMonster monster)
     {
-        _view.Dispatcher.Invoke(() => _viewModel.Monsters.Add(new MonsterContextHandler(e, Settings)));
+        _view.Dispatcher.Invoke(() => _viewModel.Monsters.Add(new MonsterContextHandler(_context.Game, monster, Settings)));
 
-        e.OnTargetChange += OnTargetChange;
+        monster.OnTargetChange += OnTargetChange;
         CalculateVisibleMonsters();
     }
 
@@ -112,7 +112,8 @@ public class MonsterWidgetContextHandler : IContextHandler
             Target target = MonsterTargetAdapter.Adapt(
                 config: _config,
                 lockOnTarget: monster.Target,
-                manualTarget: monster.ManualTarget
+                manualTarget: monster.ManualTarget,
+                inferredTarget: _context.Game.TargetDetectionService.Infer(monster)
             );
             return target == Target.Self;
         });
