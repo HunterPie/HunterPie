@@ -3,6 +3,7 @@ using System;
 
 namespace HunterPie.Core.Settings;
 
+[Obsolete]
 [AttributeUsage(AttributeTargets.Property)]
 public class SettingAdapter : Attribute
 {

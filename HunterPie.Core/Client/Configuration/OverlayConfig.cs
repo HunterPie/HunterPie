@@ -2,11 +2,12 @@
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Client.Configuration.Overlay.Class;
 using HunterPie.Core.Settings;
+using HunterPie.Core.Settings.Annotations;
 using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration;
 
-[SettingsGroup("OVERLAY_STRING", "ICON_OVERLAY")]
+[Configuration("OVERLAY_STRING", "ICON_OVERLAY")]
 public class OverlayConfig : ISettings
 {
     public PlayerHudWidgetConfig PlayerHudWidget { get; set; } = new();

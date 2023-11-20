@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="HunterPie.UI.Settings.Views.ConfigurationPropertyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Settings.Views"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+             mc:Ignorable="d" 
+             d:DesignWidth="400">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical"
+                    Margin="0,0,5,0"
+                    Grid.Column="0">
+            <TextBlock d:Text="Setting name"
+                       FontSize="14"
+                       Foreground="{StaticResource WHITE_200}"
+                       Text="{Binding Title, 
+                                        Mode=OneWay, 
+                                        RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ConfigurationPropertyView}}}"
+                       FontWeight="Medium"/>
+            <TextBlock d:Text="This is the setting description, it should describe what this setting does with a lot of information."
+                       Text="{Binding Description, 
+                                        Mode=OneWay, 
+                                        RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ConfigurationPropertyView}}}"
+                       TextWrapping="WrapWithOverflow"
+                       Foreground="{StaticResource WHITE_500}"
+                       Margin="0,5,0,0"/>
+        </StackPanel>
+
+        <image:Icon Width="15"
+                    Height="15"
+                    DockPanel.Dock="Right"
+                    VerticalAlignment="Center"
+                    Image="{StaticResource ICON_RELOAD}"
+                    Foreground="{StaticResource YELLOW}"
+                    Grid.Column="1"
+                    Visibility="{Binding RequiresRestart, 
+                                            Mode=OneWay, 
+                                            RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ConfigurationPropertyView}}, 
+                                            Converter={StaticResource BooleanToVisibilityConverter}}"/>
+    </Grid>
+</UserControl>

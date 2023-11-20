@@ -19,6 +19,7 @@ using Range = HunterPie.Core.Settings.Types.Range;
 namespace HunterPie.UI.Settings;
 
 // TODO: Refactor this class
+[Obsolete]
 public class VisualConverterManager
 {
     private static VisualConverterManager _instance;

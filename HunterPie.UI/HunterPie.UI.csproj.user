@@ -197,6 +197,27 @@
     <Compile Update="Overlay\Widgets\Wirebug\Views\WirebugView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Settings\Views\BooleanConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Settings\Views\ConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Settings\Views\EnumConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Settings\Views\FileSelectorConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Settings\Views\KeybindingConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Settings\Views\PositionConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Settings\Views\StringConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\WindowChrome.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -401,6 +422,27 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\Seasons\WinterPie.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\BooleanConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\ConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\EnumConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\FileSelectorConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\KeybindingConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\PositionConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\StringConfigurationPropertyView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Resource Update="Resources\Interface.xaml">

@@ -4,8 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <Authors>Haato</Authors>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.10.0.0</AssemblyVersion>
-    <FileVersion>2.10.0.0</FileVersion>
+    <AssemblyVersion>2.10.0.9</AssemblyVersion>
+    <FileVersion>2.10.0.9</FileVersion>
     <LangVersion>10.0</LangVersion>
  </PropertyGroup>
 
@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Settings\Adapters\" />
+    <Folder Include="Settings\Common\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties BuildVersion_StartDate="2000/1/1" /></VisualStudio></ProjectExtensions>

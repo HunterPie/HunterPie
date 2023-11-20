@@ -1,5 +1,7 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration.Games;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Generics;
 using HunterPie.Features.Account.Config;
 using HunterPie.GUI.Parts.Settings.ViewModels;
@@ -10,6 +12,8 @@ using HunterPie.UI.Assets.Application;
 using HunterPie.UI.Controls.Flags;
 using HunterPie.UI.Controls.Settings.ViewModel;
 using HunterPie.UI.Settings;
+using HunterPie.UI.Settings.Models;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -35,7 +39,18 @@ internal class SettingsSideBarElementViewModel : ISideBarElement
         RefreshWindowOnChange(ClientConfig.Config.Client.EnableFeatureFlags);
     }
 
-    public void ExecuteOnClick() => RefreshSettingsWindow();
+    public void ExecuteOnClick()
+    {
+        Application.Current.Dispatcher.InvokeAsync(() =>
+        {
+            GameProcess game = ClientConfig.Config.Client.LastConfiguredGame.Value;
+            GameConfig lastConfig = ClientConfigHelper.GetGameConfigBy(game);
+            ObservableCollection<ConfigurationCategory> configurationViewModels = ConfigurationAdapter.Adapt(lastConfig, game);
+
+            var host = new SettingsView { DataContext = new SettingsViewModel(configurationViewModels) };
+            Navigator.Navigate(host, true);
+        });
+    }
 
     private async void RefreshSettingsWindow(bool forceRefresh = false)
     {

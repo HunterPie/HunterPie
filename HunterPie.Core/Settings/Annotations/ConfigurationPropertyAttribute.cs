@@ -1,27 +1,28 @@
 ﻿using HunterPie.Core.Domain.Enums;
+using HunterPie.Core.Settings.Common;
 using System;
 
-namespace HunterPie.Core.Settings;
+namespace HunterPie.Core.Settings.Annotations;
 
-[Obsolete]
+#nullable enable
 [AttributeUsage(AttributeTargets.Property)]
-public class SettingField : Attribute
+public class ConfigurationPropertyAttribute : Attribute
 {
     public string Name { get; init; }
-    public string Description { get; init; }
     public bool RequiresRestart { get; init; }
     public GameProcess AvailableGames { get; init; }
+    public string Group { get; init; }
 
-    public SettingField(
+    public ConfigurationPropertyAttribute(
         string name,
-        string description = null,
         bool requiresRestart = false,
-        GameProcess availableGames = GameProcess.All
+        GameProcess availableGames = GameProcess.All,
+        string group = CommonConfigurationGroups.MISCELLANEOUS
     )
     {
         Name = name;
-        Description = description ?? $"{name}_DESC";
         RequiresRestart = requiresRestart;
         AvailableGames = availableGames;
+        Group = group;
     }
 }

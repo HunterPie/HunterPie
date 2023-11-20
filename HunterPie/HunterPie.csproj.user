@@ -12,6 +12,9 @@
     <Compile Update="GUI\Parts\Account\Views\RequestAccountVerificationFlowView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="GUI\Parts\Settings\Views\SettingsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="GUI\Parts\Statistics\Details\Views\MonsterDetailsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -105,6 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="GUI\Parts\Account\Views\RequestAccountVerificationFlowView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\Parts\Settings\Views\SettingsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Statistics\Details\Views\MonsterDetailsView.xaml">
