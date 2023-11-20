@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
+using ConfigurationPropertyAttribute = HunterPie.Core.Settings.Annotations.ConfigurationPropertyAttribute;
 
 namespace HunterPie.UI.Settings;
 
@@ -19,25 +20,31 @@ namespace HunterPie.UI.Settings;
 public class ConfigurationAdapter
 {
     private const string DEFAULT_SETTING_LOCALIZATION_PATH = "//Strings/Client/Settings/Setting[@Id='{0}']";
+    private const string DEFAULT_CONFIGURATION_GROUP_PATH = "//Strings/Client/ConfigurationGroups/Group[@Id='{0}']";
 
     public static ObservableCollection<ConfigurationCategory> Adapt<T>(T configuration, GameProcess game = GameProcess.None)
     {
         Type configurationType = typeof(T);
-        PropertyInfo[] configurationProperties = configurationType.GetProperties();
+        ConfigurationCategory[] categories = BuildCategoryParent(configurationType, configuration, game);
+
+        return new ObservableCollection<ConfigurationCategory>(categories);
+    }
+
+    private static ConfigurationCategory[] BuildCategoryParent(Type parentType, object? parent, GameProcess game)
+    {
+        PropertyInfo[] parentProperties = parentType.GetProperties();
 
         ConfigurationCategory[] AdaptCategory(PropertyInfo property)
         {
             return BuildCategory(
                 categoryType: property.PropertyType,
-                category: property.GetValue(configuration),
+                category: property.GetValue(parent),
                 game: game
             );
         }
 
-        ConfigurationCategory[] categories = configurationProperties.SelectMany(AdaptCategory)
-                                                                    .ToArray();
-
-        return new ObservableCollection<ConfigurationCategory>(categories);
+        return parentProperties.SelectMany(AdaptCategory)
+                               .ToArray();
     }
 
     private static ConfigurationCategory[] BuildCategory(Type categoryType, object? category, GameProcess game)
@@ -51,7 +58,7 @@ public class ConfigurationAdapter
         ConfigurationAttribute? configurationAttribute = categoryType.GetCustomAttribute<ConfigurationAttribute>();
 
         if (configurationAttribute is not { })
-            return Array.Empty<ConfigurationCategory>();
+            return BuildCategoryParent(categoryType, category, game);
 
         if (configurationAttribute.DependsOnFeature is { } featureFlag
             && !FeatureFlagManager.IsEnabled(featureFlag))
@@ -84,7 +91,8 @@ public class ConfigurationAdapter
                 continue;
 
             (string propertyName, string propertyDescription) =
-                Localization.Resolve(propertyAttribute.Name);
+                Localization.Resolve(DEFAULT_SETTING_LOCALIZATION_PATH.Format(propertyAttribute.Name));
+            string groupName = Localization.QueryString(DEFAULT_CONFIGURATION_GROUP_PATH.Format(propertyAttribute.Group));
 
             GameConfigurationAdapterAttribute? adapterAttribute =
                 property.GetCustomAttribute<GameConfigurationAdapterAttribute>();
@@ -92,7 +100,7 @@ public class ConfigurationAdapter
             var data = new PropertyData(
                 Name: propertyName,
                 Description: propertyDescription,
-                Group: propertyAttribute.Group,
+                Group: groupName,
                 Value: propertyValue,
                 Adapter: adapterAttribute?.Adapter,
                 RequiresRestart: propertyAttribute.RequiresRestart

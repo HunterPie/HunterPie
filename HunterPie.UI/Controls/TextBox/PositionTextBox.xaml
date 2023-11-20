@@ -19,7 +19,7 @@
                  Margin="2"
                  Text="{Binding X, RelativeSource={RelativeSource AncestorType={x:Type local:PositionTextBox}}}"
                  FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                 FontSize="14"
+                 FontSize="15"
                  VerticalContentAlignment="Top"
                  HorizontalContentAlignment="Center"/>
         <TextBlock Grid.Column="0" 
@@ -35,7 +35,7 @@
                  Margin="2"
                  d:Text="120"
                  HorizontalAlignment="Stretch"
-                 FontSize="14"
+                 FontSize="15"
                  VerticalContentAlignment="Top"
                  HorizontalContentAlignment="Center"/>
         <TextBlock Grid.Column="1" 

@@ -11,18 +11,20 @@
              xmlns:models="clr-namespace:HunterPie.UI.Settings.Models;assembly=HunterPie.UI"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
              xmlns:presentation="clr-namespace:HunterPie.UI.Settings.Presentation;assembly=HunterPie.UI"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:SettingsViewModel}">
     <UserControl.Resources>
+        <converters:IconResolver x:Key="IconResolver"/>
         <presentation:ConfigurationPropertyDataTemplateSelector x:Key="ConfigurationPropertyDataTemplateSelector"/>
         <DataTemplate x:Key="HeaderTemplate"
                       DataType="{x:Type models:ConfigurationCategory}">
             <buttons:TabItem Padding="10,5"
                              Title="{Binding Name, Mode=OneTime}"
                              Description="{Binding Description, Mode=OneTime}"
-                             Icon="{StaticResource ICON_HUNTERPIE}"
+                             Icon="{Binding Icon, Mode=OneTime, Converter={StaticResource IconResolver}}"
                              Background="{StaticResource GRAY_300}"
                              FontSize="13"/>
         </DataTemplate>
@@ -44,11 +46,21 @@
                     <DataTemplate DataType="{x:Type models:ConfigurationGroup}">
                         <StackPanel Orientation="Vertical"
                                     Margin="0,0,0,20">
-                            <TextBlock Text="{Binding Name, Mode=OneTime}"
-                                       FontSize="15"
-                                       Foreground="{StaticResource WHITE_50}"
-                                       Margin="5"
-                                       FontWeight="Medium"/>
+                            <Grid Margin="0,0,10,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" 
+                                           Text="{Binding Name, Mode=OneTime}"
+                                           FontSize="15"
+                                           Foreground="{StaticResource WHITE_600}"
+                                           Margin="5"
+                                           FontWeight="Medium"/>
+                                <Separator Grid.Column="1" 
+                                           Background="{StaticResource GRAY}"/>
+                            </Grid>
+                            
                             <ItemsControl ItemsSource="{Binding Properties, Mode=OneTime}"
                                           ItemTemplateSelector="{StaticResource ConfigurationPropertyDataTemplateSelector}">
                                 <ItemsControl.Template>
@@ -71,7 +83,7 @@
         </Grid.RowDefinitions>
         <Border Grid.Row="0"
                 Background="{StaticResource GRAY_200}"
-                BorderThickness="0,0,0,1"
+                BorderThickness="1"
                 BorderBrush="{StaticResource GRAY}"
                 CornerRadius="5,5,0,0">
             <Grid>

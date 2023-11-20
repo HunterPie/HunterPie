@@ -3,6 +3,7 @@ using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Games;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Generics;
+using HunterPie.Core.Extensions;
 using HunterPie.Features.Account.Config;
 using HunterPie.GUI.Parts.Settings.ViewModels;
 using HunterPie.GUI.Parts.Settings.Views;
@@ -25,7 +26,7 @@ internal class SettingsSideBarElementViewModel : ISideBarElement
 {
     public ImageSource Icon => Resources.Icon("ICON_SETTINGS");
 
-    public string Text => Localization.Query("//Strings/Client/Tabs/Tab[@Id='SETTINGS_STRING']").Attributes["String"].Value;
+    public string Text => Localization.QueryString("//Strings/Client/Tabs/Tab[@Id='SETTINGS_STRING']");
 
     public bool IsActivable => true;
 
@@ -41,11 +42,18 @@ internal class SettingsSideBarElementViewModel : ISideBarElement
 
     public void ExecuteOnClick()
     {
-        Application.Current.Dispatcher.InvokeAsync(() =>
+        Application.Current.Dispatcher.InvokeAsync(async () =>
         {
             GameProcess game = ClientConfig.Config.Client.LastConfiguredGame.Value;
             GameConfig lastConfig = ClientConfigHelper.GetGameConfigBy(game);
-            ObservableCollection<ConfigurationCategory> configurationViewModels = ConfigurationAdapter.Adapt(lastConfig, game);
+
+            ObservableCollection<ConfigurationCategory> generalConfig = ConfigurationAdapter.Adapt(ClientConfig.Config);
+            ObservableCollection<ConfigurationCategory> gameConfig = ConfigurationAdapter.Adapt(lastConfig, game);
+            ObservableCollection<ConfigurationCategory> accountConfig = await LocalAccountConfig.BuildAccountConfig();
+
+            var configurationViewModels = accountConfig.Concat(generalConfig)
+                .Concat(gameConfig)
+                .ToObservableCollection();
 
             var host = new SettingsView { DataContext = new SettingsViewModel(configurationViewModels) };
             Navigator.Navigate(host, true);

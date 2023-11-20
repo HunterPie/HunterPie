@@ -200,6 +200,9 @@
     <Compile Update="Settings\Views\BooleanConfigurationPropertyView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Settings\Views\ColorConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Settings\Views\ConfigurationPropertyView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -431,6 +434,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Settings\Views\BooleanConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\ColorConfigurationPropertyView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Settings\Views\ConfigurationPropertyView.xaml">

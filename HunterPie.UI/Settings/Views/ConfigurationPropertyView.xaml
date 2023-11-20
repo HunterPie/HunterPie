@@ -30,7 +30,7 @@
                                         Mode=OneWay, 
                                         RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ConfigurationPropertyView}}}"
                        TextWrapping="WrapWithOverflow"
-                       Foreground="{StaticResource WHITE_500}"
+                       Foreground="{StaticResource WHITE_400}"
                        Margin="0,5,0,0"/>
         </StackPanel>
 
