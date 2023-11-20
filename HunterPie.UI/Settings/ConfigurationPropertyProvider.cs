@@ -1,8 +1,10 @@
-﻿using HunterPie.UI.Settings.Converter;
+﻿using HunterPie.Core.Settings.Types;
+using HunterPie.UI.Settings.Converter;
 using HunterPie.UI.Settings.Converter.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Range = HunterPie.Core.Settings.Types.Range;
 
 namespace HunterPie.UI.Settings;
 
@@ -11,8 +13,15 @@ public static class ConfigurationPropertyProvider
 {
     private static readonly Dictionary<Type, IConfigurationPropertyBuilder> Builders = new()
     {
+        { typeof(bool), new BooleanConfigurationPropertyBuilder() },
+        { typeof(Color), new ColorConfigurationPropertyBuilder() },
+        { typeof(Enum), new EnumConfigurationPropertyBuilder() },
+        { typeof(IFileSelector), new FileSelectorConfigurationPropertyBuilder() },
+        { typeof(Keybinding), new KeybindingConfigurationPropertyBuilder() },
+        { typeof(Position), new PositionConfigurationPropertyBuilder() },
+        { typeof(Range), new RangeConfigurationPropertyBuilder() },
+        { typeof(Secret), new SecretConfigurationPropertyBuilder() },
         { typeof(string), new StringConfigurationPropertyBuilder() },
-        { typeof(Enum), new EnumConfigurationPropertyBuilder() }
     };
 
     public static IConfigurationPropertyBuilder? FindBy(Type type)

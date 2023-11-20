@@ -11,8 +11,14 @@ public static class ConfigurationTemplateProvider
 {
     private static readonly Dictionary<Type, DataTemplate> Templates = new()
     {
+        { typeof(BooleanPropertyViewModel), DataTemplateFactory.Create<BooleanConfigurationPropertyView>() },
         { typeof(EnumPropertyViewModel), DataTemplateFactory.Create<EnumConfigurationPropertyView>() },
-        { typeof(StringPropertyViewModel), DataTemplateFactory.Create<StringConfigurationPropertyView>() }
+        { typeof(FileSelectorPropertyViewModel), DataTemplateFactory.Create<FileSelectorConfigurationPropertyView>() },
+        { typeof(KeybindingPropertyViewModel), DataTemplateFactory.Create<KeybindingConfigurationPropertyView>() },
+        { typeof(PositionPropertyViewModel), DataTemplateFactory.Create<PositionConfigurationPropertyView>() },
+        { typeof(RangePropertyViewModel), DataTemplateFactory.Create<RangeConfigurationPropertyView>() },
+        { typeof(SecretPropertyViewModel), DataTemplateFactory.Create<SecretConfigurationPropertyView>() },
+        { typeof(StringPropertyViewModel), DataTemplateFactory.Create<StringConfigurationPropertyView>() },
     };
 
     public static DataTemplate? FindBy(Type type)

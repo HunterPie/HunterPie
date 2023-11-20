@@ -1,5 +1,5 @@
-﻿using HunterPie.Core.Architecture;
-using HunterPie.Core.Domain.Enums;
+﻿using HunterPie.Core.Domain.Enums;
+using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Settings.Converter.Model;
 using HunterPie.UI.Settings.Models;
 using HunterPie.UI.Settings.ViewModels.Internal;
@@ -8,14 +8,14 @@ using System;
 namespace HunterPie.UI.Settings.Converter.Internal;
 
 #nullable enable
-internal class StringConfigurationPropertyBuilder : IConfigurationPropertyBuilder
+internal class FileSelectorConfigurationPropertyBuilder : IConfigurationPropertyBuilder
 {
     public IConfigurationProperty Build(PropertyData data, GameProcess game)
     {
-        if (data.Value is not Observable<string> value)
-            throw new ArgumentException($"Property must be of type {nameof(Observable<string>)}");
+        if (data.Value is not IFileSelector value)
+            throw new ArgumentException($"Property must be of type {nameof(IFileSelector)}");
 
-        return new StringPropertyViewModel(value)
+        return new FileSelectorPropertyViewModel(value)
         {
             Name = data.Name,
             Description = data.Description,
