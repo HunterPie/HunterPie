@@ -2,7 +2,7 @@
 
 namespace HunterPie.UI.Settings.ViewModels.Internal;
 
-public class RangePropertyViewModel : ConfigurationPropertyViewModel
+internal class RangePropertyViewModel : ConfigurationPropertyViewModel
 {
     public Range Range { get; }
 

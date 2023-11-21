@@ -22,6 +22,7 @@ public static class ConfigurationPropertyProvider
         { typeof(Range), new RangeConfigurationPropertyBuilder() },
         { typeof(Secret), new SecretConfigurationPropertyBuilder() },
         { typeof(string), new StringConfigurationPropertyBuilder() },
+        { typeof(AbnormalityTrays), new AbnormalityTrayConfigurationPropertyBuilder() },
     };
 
     public static IConfigurationPropertyBuilder? FindBy(Type type)

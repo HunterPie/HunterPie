@@ -78,7 +78,7 @@
 
             <Canvas Clip="{Binding Clip, ElementName=PART_Border}">
                 <Ellipse x:Name="PART_Ripple"
-                         Fill="#40F5F5F5" 
+                         Fill="#10F5F5F5" 
                          HorizontalAlignment="Left" 
                          Height="{Binding Path=Width, RelativeSource={RelativeSource Self}}"
                          VerticalAlignment="Top"/>

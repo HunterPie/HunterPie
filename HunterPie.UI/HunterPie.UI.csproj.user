@@ -197,6 +197,9 @@
     <Compile Update="Overlay\Widgets\Wirebug\Views\WirebugView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Settings\Views\AbnormalityTrayConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Settings\Views\BooleanConfigurationPropertyView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -431,6 +434,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\Seasons\WinterPie.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\AbnormalityTrayConfigurationPropertyView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Settings\Views\BooleanConfigurationPropertyView.xaml">

@@ -2,7 +2,7 @@
 
 namespace HunterPie.UI.Settings.ViewModels.Internal;
 
-public class PositionPropertyViewModel : ConfigurationPropertyViewModel
+internal class PositionPropertyViewModel : ConfigurationPropertyViewModel
 {
     public Position Position { get; }
 

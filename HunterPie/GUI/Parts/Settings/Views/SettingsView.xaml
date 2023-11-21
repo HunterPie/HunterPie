@@ -34,7 +34,7 @@
             <ItemsControl ItemsSource="{Binding Groups}">
                 <ItemsControl.Template>
                     <ControlTemplate>
-                        <viewer:SmoothScrollViewer>
+                        <viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto">
                             <!-- TODO: Add hooks for animations -->
                             <VirtualizingStackPanel IsItemsHost="True"
                                                     CanVerticallyScroll="True"/>

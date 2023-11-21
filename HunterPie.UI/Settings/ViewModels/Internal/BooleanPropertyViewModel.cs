@@ -2,7 +2,7 @@
 
 namespace HunterPie.UI.Settings.ViewModels.Internal;
 
-public class BooleanPropertyViewModel : ConfigurationPropertyViewModel
+internal class BooleanPropertyViewModel : ConfigurationPropertyViewModel
 {
     public Observable<bool> Boolean { get; }
 

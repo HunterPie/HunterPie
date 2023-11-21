@@ -2,7 +2,7 @@
 
 namespace HunterPie.UI.Settings.ViewModels.Internal;
 
-public class FileSelectorPropertyViewModel : ConfigurationPropertyViewModel
+internal class FileSelectorPropertyViewModel : ConfigurationPropertyViewModel
 {
     public IFileSelector FileSelector { get; }
 

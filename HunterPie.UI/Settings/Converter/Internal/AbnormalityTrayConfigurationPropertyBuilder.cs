@@ -1,0 +1,25 @@
+﻿using HunterPie.Core.Domain.Enums;
+using HunterPie.Core.Settings.Types;
+using HunterPie.UI.Settings.Converter.Model;
+using HunterPie.UI.Settings.Models;
+using HunterPie.UI.Settings.ViewModels.Internal;
+using System;
+
+namespace HunterPie.UI.Settings.Converter.Internal;
+
+internal class AbnormalityTrayConfigurationPropertyBuilder : IConfigurationPropertyBuilder
+{
+    public IConfigurationProperty Build(PropertyData data, GameProcess game)
+    {
+        if (data.Value is not AbnormalityTrays value)
+            throw new ArgumentException($"Property must be of type {nameof(AbnormalityTrays)}");
+
+        return new AbnormalityTrayPropertyViewModel(value.Trays, game)
+        {
+            Name = data.Name,
+            Description = data.Description,
+            Group = data.Group,
+            RequiresRestart = data.RequiresRestart
+        };
+    }
+}

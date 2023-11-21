@@ -2,7 +2,7 @@
 
 namespace HunterPie.UI.Settings.ViewModels.Internal;
 
-public class KeybindingPropertyViewModel : ConfigurationPropertyViewModel
+internal class KeybindingPropertyViewModel : ConfigurationPropertyViewModel
 {
     public Keybinding KeyBinding { get; }
 

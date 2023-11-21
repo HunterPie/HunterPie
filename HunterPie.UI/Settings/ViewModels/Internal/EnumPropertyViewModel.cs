@@ -3,7 +3,7 @@
 namespace HunterPie.UI.Settings.ViewModels.Internal;
 
 #nullable enable
-public class EnumPropertyViewModel : ConfigurationPropertyViewModel
+internal class EnumPropertyViewModel : ConfigurationPropertyViewModel
 {
     private object _selectedElement;
     public object SelectedElement { get => _selectedElement; set => SetValue(ref _selectedElement, value); }
