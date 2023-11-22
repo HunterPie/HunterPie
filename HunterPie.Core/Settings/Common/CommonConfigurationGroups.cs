@@ -17,4 +17,10 @@ public static class CommonConfigurationGroups
     public const string MOCKS = "CONFIGURATION_GROUP_MOCKS";
     public const string DEVELOPMENT = "CONFIGURATION_GROUP_DEVELOPMENT";
     public const string LOGGING = "CONFIGURATION_GROUP_LOGGING";
+    public const string SELF_UDPATE = "CONFIGURATION_GROUP_SELF_UPDATE";
+    public const string SUPPORTER = "CONFIGURATION_GROUP_SUPPORTER";
+    public const string IN_GAME = "CONFIGURATION_GROUP_IN_GAME";
+    public const string NATIVE = "CONFIGURATION_GROUP_NATIVE";
+    public const string RENDERING = "CONFIGURATION_GROUP_RENDERING";
+    public const string SCANNING = "CONFIGURATION_GROUP_SCANNING";
 }

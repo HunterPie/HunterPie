@@ -26,13 +26,15 @@ public class WirebugWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("WIDGET_SCALE", group: CommonConfigurationGroups.GENERAL)]
     public Range Scale { get; set; } = new(1, 2, 0.1, 0.1);
 
-    [ConfigurationProperty("WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING", requiresRestart: true, group: CommonConfigurationGroups.GENERAL)]
-    public Observable<bool> PatchInGameHud { get; set; } = false;
-
     [ConfigurationProperty("ENABLE_STREAMER_MODE", group: CommonConfigurationGroups.GENERAL)]
     public Observable<bool> StreamerMode { get; set; } = false;
 
     [ConfigurationProperty("WIDGET_POSITION", group: CommonConfigurationGroups.GENERAL)]
     public Position Position { get; set; } = new(840, 920);
+    #endregion
+
+    #region In-Game Settings
+    [ConfigurationProperty("WIREBUG_WIDGET_PATCH_IN_GAME_HUD_STRING", requiresRestart: true, group: CommonConfigurationGroups.IN_GAME)]
+    public Observable<bool> PatchInGameHud { get; set; } = false;
     #endregion
 }

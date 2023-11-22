@@ -6,27 +6,30 @@
              xmlns:local="clr-namespace:HunterPie.UI.Settings.Views"
              xmlns:internal="clr-namespace:HunterPie.UI.Settings.ViewModels.Internal"
              xmlns:sliders="clr-namespace:HunterPie.UI.Controls.Sliders"
+             xmlns:effects="clr-namespace:HunterPie.UI.Controls.Effects"
              mc:Ignorable="d" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance internal:RangePropertyViewModel}">
-    <Grid Margin="5">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
+    <effects:CursorHighLight>
+        <Grid Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <local:ConfigurationPropertyView Grid.Column="0"
+                                             Title="{Binding Name, Mode=OneTime}"
+                                             Description="{Binding Description, Mode=OneTime}"
+                                             RequiresRestart="{Binding RequiresRestart, Mode=OneTime}"
+                                             d:RequiresRestart="True"/>
     
-        <local:ConfigurationPropertyView Grid.Column="0"
-                                         Title="{Binding Name, Mode=OneTime}"
-                                         Description="{Binding Description, Mode=OneTime}"
-                                         RequiresRestart="{Binding RequiresRestart, Mode=OneTime}"
-                                         d:RequiresRestart="True"/>
-        
-        <sliders:Range Grid.Column="1"
-                       Height="35"
-                       Margin="5,0,0,0"
-                       Value="{Binding Range.Current, Mode=TwoWay}"
-                       Maximum="{Binding Range.Max, Mode=OneWay}"
-                       Minimum="{Binding Range.Min, Mode=OneWay}"
-                       Change="{Binding Range.Step, Mode=OneWay}"/>
-    </Grid>
+            <sliders:Range Grid.Column="1"
+                           Height="35"
+                           Margin="5,0,0,0"
+                           Value="{Binding Range.Current, Mode=TwoWay}"
+                           Maximum="{Binding Range.Max, Mode=OneWay}"
+                           Minimum="{Binding Range.Min, Mode=OneWay}"
+                           Change="{Binding Range.Step, Mode=OneWay}"/>
+        </Grid>
+    </effects:CursorHighLight>
 </UserControl>
