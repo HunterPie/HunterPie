@@ -7,6 +7,7 @@
                        xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
                        xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
                        xmlns:local="clr-namespace:HunterPie.UI.Controls.Buttons"
+                       xmlns:effects="clr-namespace:HunterPie.UI.Controls.Effects"
                        mc:Ignorable="d" 
                        d:DesignHeight="25" 
                        d:DesignWidth="60" 
@@ -46,47 +47,27 @@
     <Border CornerRadius="{Binding CornerRadius, ElementName=NativeButtonControl}"
             BorderThickness="{Binding BorderThickness, ElementName=NativeButtonControl}"
             BorderBrush="{Binding BorderBrush, ElementName=NativeButtonControl}"
-            Background="{Binding Background, ElementName=NativeButtonControl}"
-            x:Name="PART_Border">
-        <Grid ClipToBounds="True">
-            <Canvas>
-                <Rectangle x:Name="PART_Highlight"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"
-                           Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=2}"
-                           Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Canvas}}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=2}"
-                           Opacity="0"
-                           Style="{StaticResource StyleHighlight}">
-                    <Rectangle.Fill>
-                        <LinearGradientBrush EndPoint="1,1" StartPoint="0,1">
-                            <GradientStop Offset="1" Color="#0CFFFFFF"/>
-                            <GradientStop Color="#0CFFFFFF" Offset="0.25"/>
-                            <GradientStop Color="#33FFFFFF" Offset="0.5"/>
-                            <GradientStop Color="#0CFFFFFF" Offset="0.75"/>
-                            <GradientStop Color="#0CFFFFFF" Offset="0"/>
-                        </LinearGradientBrush>
-                    </Rectangle.Fill>
-                </Rectangle>
-            </Canvas>
-            
-            <Label Content="{Binding Content, ElementName=NativeButtonControl}"
-                   Foreground="{Binding Foreground, ElementName=NativeButtonControl}"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Padding="{Binding Padding, ElementName=NativeButtonControl}"
-                   HorizontalContentAlignment="{Binding HorizontalContentAlignment, ElementName=NativeButtonControl}"
-                   VerticalContentAlignment="{Binding VerticalContentAlignment, ElementName=NativeButtonControl}"/>
-
-            <Canvas Clip="{Binding Clip, ElementName=PART_Border}">
+            Background="{Binding Background, ElementName=NativeButtonControl}">
+        <Grid>
+            <Canvas Clip="{Binding Clip, RelativeSource={RelativeSource AncestorType={x:Type Border}}}">
                 <Ellipse x:Name="PART_Ripple"
                          Fill="#10F5F5F5" 
                          HorizontalAlignment="Left" 
                          Height="{Binding Path=Width, RelativeSource={RelativeSource Self}}"
                          VerticalAlignment="Top"/>
             </Canvas>
+            <effects:CursorHighLight>
+                <Label Content="{Binding Content, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
+                       Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
+                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       Padding="{Binding Padding, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
+                       HorizontalContentAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
+                       VerticalContentAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"/>
+            </effects:CursorHighLight>
         </Grid>
     </Border>
     <arch:ClickableControl.Style>
-        <Style TargetType="{x:Type local:Button}">
+        <Style TargetType="{x:Type arch:ClickableControl}">
             <Style.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
                     <Setter Property="Opacity" Value="0.2"/>

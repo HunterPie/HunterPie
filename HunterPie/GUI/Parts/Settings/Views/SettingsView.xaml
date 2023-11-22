@@ -21,8 +21,7 @@
         <presentation:ConfigurationPropertyDataTemplateSelector x:Key="ConfigurationPropertyDataTemplateSelector"/>
         <DataTemplate x:Key="HeaderTemplate"
                       DataType="{x:Type models:ConfigurationCategory}">
-            <buttons:TabItem Padding="10,5"
-                             Title="{Binding Name, Mode=OneTime}"
+            <buttons:TabItem Title="{Binding Name, Mode=OneTime}"
                              Description="{Binding Description, Mode=OneTime}"
                              Icon="{Binding Icon, Mode=OneTime, Converter={StaticResource IconResolver}}"
                              Background="{StaticResource GRAY_300}"

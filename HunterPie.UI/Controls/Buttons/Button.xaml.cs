@@ -20,7 +20,7 @@ public partial class Button : ClickableControl
         set => SetValue(ContentProperty, value);
     }
     public static new readonly DependencyProperty ContentProperty =
-        DependencyProperty.Register("Content", typeof(object), typeof(Button));
+        DependencyProperty.Register(nameof(Content), typeof(object), typeof(Button));
 
     public new Brush Foreground
     {
@@ -28,7 +28,7 @@ public partial class Button : ClickableControl
         set => SetValue(ForegroundProperty, value);
     }
     public static new readonly DependencyProperty ForegroundProperty =
-        DependencyProperty.Register("Foreground", typeof(Brush), typeof(Button), new PropertyMetadata(Brushes.WhiteSmoke));
+        DependencyProperty.Register(nameof(Foreground), typeof(Brush), typeof(Button), new PropertyMetadata(Brushes.WhiteSmoke));
 
     public new Brush Background
     {
@@ -38,7 +38,7 @@ public partial class Button : ClickableControl
 
     // Using a DependencyProperty as the backing store for Background.  This enables animation, styling, binding, etc...
     public static new readonly DependencyProperty BackgroundProperty =
-        DependencyProperty.Register("Background", typeof(Brush), typeof(Button));
+        DependencyProperty.Register(nameof(Background), typeof(Brush), typeof(Button));
 
     public new VerticalAlignment VerticalContentAlignment
     {
@@ -47,7 +47,7 @@ public partial class Button : ClickableControl
     }
 
     public static new readonly DependencyProperty VerticalContentAlignmentProperty =
-        DependencyProperty.Register("VerticalContentAlignment", typeof(VerticalAlignment), typeof(Button), new PropertyMetadata(VerticalAlignment.Center));
+        DependencyProperty.Register(nameof(VerticalContentAlignment), typeof(VerticalAlignment), typeof(Button), new PropertyMetadata(VerticalAlignment.Center));
 
     public new HorizontalAlignment HorizontalContentAlignment
     {
@@ -57,7 +57,7 @@ public partial class Button : ClickableControl
 
     // Using a DependencyProperty as the backing store for HorizontalContentAlignment.  This enables animation, styling, binding, etc...
     public static new readonly DependencyProperty HorizontalContentAlignmentProperty =
-        DependencyProperty.Register("HorizontalContentAlignment", typeof(HorizontalAlignment), typeof(Button), new PropertyMetadata(HorizontalAlignment.Center));
+        DependencyProperty.Register(nameof(HorizontalContentAlignment), typeof(HorizontalAlignment), typeof(Button), new PropertyMetadata(HorizontalAlignment.Center));
 
     public new Thickness Padding
     {
@@ -67,7 +67,7 @@ public partial class Button : ClickableControl
 
     // Using a DependencyProperty as the backing store for Padding.  This enables animation, styling, binding, etc...
     public static new readonly DependencyProperty PaddingProperty =
-        DependencyProperty.Register("Padding", typeof(Thickness), typeof(Button), new PropertyMetadata(new Thickness(2, 5, 2, 5)));
+        DependencyProperty.Register(nameof(Padding), typeof(Thickness), typeof(Button), new PropertyMetadata(new Thickness(2, 5, 2, 5)));
 
     public new Thickness BorderThickness
     {
@@ -77,7 +77,7 @@ public partial class Button : ClickableControl
 
     // Using a DependencyProperty as the backing store for BorderThickness.  This enables animation, styling, binding, etc...
     public static new readonly DependencyProperty BorderThicknessProperty =
-        DependencyProperty.Register("BorderThickness", typeof(Thickness), typeof(Button));
+        DependencyProperty.Register(nameof(BorderThickness), typeof(Thickness), typeof(Button));
 
     public CornerRadius CornerRadius
     {
@@ -87,7 +87,7 @@ public partial class Button : ClickableControl
 
     // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty CornerRadiusProperty =
-        DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(Button), new PropertyMetadata(new CornerRadius(0)));
+        DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(Button), new PropertyMetadata(new CornerRadius(0)));
 
     public Button()
     {
@@ -109,20 +109,5 @@ public partial class Button : ClickableControl
         PART_Ripple.BeginStoryboard(_rippleAnimation);
 
         e.Handled = true;
-    }
-
-    protected override void OnMouseMove(MouseEventArgs e)
-    {
-        base.OnMouseMove(e);
-
-        if (!IsMouseOver)
-            return;
-
-        Point pos = e.GetPosition(this);
-
-        double left = pos.X - (PART_Highlight.ActualWidth / 2);
-        double top = pos.Y - (PART_Highlight.ActualHeight / 2);
-
-        PART_Highlight.Margin = new Thickness(left, top, 0, 0);
     }
 }
