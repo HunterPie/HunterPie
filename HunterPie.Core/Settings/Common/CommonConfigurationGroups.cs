@@ -12,4 +12,9 @@ public static class CommonConfigurationGroups
     public const string ABNORMALITY_TRAYS = "CONFIGURATION_GROUP_ABNORMALITY_TRAYS";
     public const string DAMAGE_PLOT = "CONFIGURATION_GROUP_DAMAGE_PLOT";
     public const string COLORS = "CONFIGURATION_GROUP_COLORS";
+    public const string ACTIVITIES = "CONFIGURATION_GROUP_ACTIVITIES";
+    public const string HOTKEYS = "CONFIGURATION_GROUP_HOTKEYS";
+    public const string MOCKS = "CONFIGURATION_GROUP_MOCKS";
+    public const string DEVELOPMENT = "CONFIGURATION_GROUP_DEVELOPMENT";
+    public const string LOGGING = "CONFIGURATION_GROUP_LOGGING";
 }
