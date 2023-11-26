@@ -5,7 +5,7 @@ namespace HunterPie.UI.Settings.ViewModels;
 
 public class ConfigurationPropertyViewModel : ViewModel, IConfigurationProperty
 {
-    private bool _isMatch;
+    private bool _isMatch = true;
 
     public string Name { get; init; }
     public string Description { get; init; }

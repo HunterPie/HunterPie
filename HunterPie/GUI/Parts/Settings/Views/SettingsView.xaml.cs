@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using HunterPie.GUI.Parts.Settings.ViewModels;
+using HunterPie.UI.Controls.TextBox.Events;
+using System.Windows.Controls;
 
 namespace HunterPie.GUI.Parts.Settings.Views;
 /// <summary>
@@ -9,5 +11,21 @@ public partial class SettingsView : UserControl
     public SettingsView()
     {
         InitializeComponent();
+    }
+
+    private void OnSearchTextChanged(object? sender, SearchTextChangedEventArgs e)
+    {
+        if (DataContext is not SettingsViewModel vm)
+            return;
+
+        vm.Search(e.Text);
+    }
+
+    private void OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (DataContext is not SettingsViewModel vm)
+            return;
+
+        vm.ChangeSettingsGroup();
     }
 }

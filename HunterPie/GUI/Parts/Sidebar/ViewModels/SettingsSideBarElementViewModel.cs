@@ -14,6 +14,7 @@ using HunterPie.UI.Controls.Flags;
 using HunterPie.UI.Controls.Settings.ViewModel;
 using HunterPie.UI.Settings;
 using HunterPie.UI.Settings.Models;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -44,20 +45,45 @@ internal class SettingsSideBarElementViewModel : ISideBarElement
     {
         Application.Current.Dispatcher.InvokeAsync(async () =>
         {
-            GameProcess game = ClientConfig.Config.Client.LastConfiguredGame.Value;
-            GameConfig lastConfig = ClientConfigHelper.GetGameConfigBy(game);
+            Observable<GameProcess> game = ClientConfig.Config.Client.LastConfiguredGame;
 
             ObservableCollection<ConfigurationCategory> generalConfig = ConfigurationAdapter.Adapt(ClientConfig.Config);
-            ObservableCollection<ConfigurationCategory> gameConfig = ConfigurationAdapter.Adapt(lastConfig, game);
             ObservableCollection<ConfigurationCategory> accountConfig = await LocalAccountConfig.BuildAccountConfig();
 
-            var configurationViewModels = accountConfig.Concat(generalConfig)
-                .Concat(gameConfig)
+            var commonConfig = accountConfig.Concat(generalConfig)
                 .ToObservableCollection();
+            var configurations = new Dictionary<GameProcess, ObservableCollection<ConfigurationCategory>>
+            {
+                { GameProcess.MonsterHunterRise, BuildConfiguration(commonConfig, ClientConfig.Config.Rise, GameProcess.MonsterHunterRise) },
+                { GameProcess.MonsterHunterWorld, BuildConfiguration(commonConfig, ClientConfig.Config.World, GameProcess.MonsterHunterWorld) },
+                { GameProcess.MonsterHunterRiseSunbreakDemo, BuildConfiguration(commonConfig, ClientConfig.Config.Rise, GameProcess.MonsterHunterRiseSunbreakDemo) }
+            };
+            var supportedConfigurations =
+                new ObservableCollection<GameProcess>(new List<GameProcess>
+                {
+                    GameProcess.MonsterHunterRise,
+                    GameProcess.MonsterHunterWorld,
+                    GameProcess.MonsterHunterRiseSunbreakDemo
+                });
 
-            var host = new SettingsView { DataContext = new SettingsViewModel(configurationViewModels) };
+            var host = new SettingsView
+            {
+                DataContext = new SettingsViewModel(configurations, supportedConfigurations, game)
+            };
             Navigator.Navigate(host, true);
         });
+    }
+
+    private ObservableCollection<ConfigurationCategory> BuildConfiguration(
+        IEnumerable<ConfigurationCategory> commonConfiguration,
+        GameConfig configuration,
+        GameProcess gameProcess
+    )
+    {
+        ObservableCollection<ConfigurationCategory> configCategory = ConfigurationAdapter.Adapt(configuration, gameProcess);
+
+        return commonConfiguration.Concat(configCategory)
+            .ToObservableCollection();
     }
 
     private async void RefreshSettingsWindow(bool forceRefresh = false)

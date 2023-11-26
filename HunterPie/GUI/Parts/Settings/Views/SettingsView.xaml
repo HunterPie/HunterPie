@@ -12,12 +12,14 @@
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
              xmlns:presentation="clr-namespace:HunterPie.UI.Settings.Presentation;assembly=HunterPie.UI"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
+             xmlns:settings="clr-namespace:HunterPie.UI.Settings.ViewModels;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:SettingsViewModel}">
-    <UserControl.Resources>
+    <UserControl.Resources> 
         <converters:IconResolver x:Key="IconResolver"/>
+        <converters:GameProcessToGameNameConverter x:Key="GameProcessToGameNameConverter"/>
         <presentation:ConfigurationPropertyDataTemplateSelector x:Key="ConfigurationPropertyDataTemplateSelector"/>
         <DataTemplate x:Key="HeaderTemplate"
                       DataType="{x:Type models:ConfigurationCategory}">
@@ -27,6 +29,7 @@
                              Background="{StaticResource GRAY_300}"
                              FontSize="13"/>
         </DataTemplate>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
         <DataTemplate x:Key="PanelTemplate"
                       DataType="{x:Type models:ConfigurationCategory}">
@@ -60,14 +63,47 @@
                                            Background="{StaticResource GRAY}"/>
                             </Grid>
                             
-                            <ItemsControl ItemsSource="{Binding Properties, Mode=OneTime}"
-                                          ItemTemplateSelector="{StaticResource ConfigurationPropertyDataTemplateSelector}">
+                            <ItemsControl ItemsSource="{Binding Properties, Mode=OneTime}">
                                 <ItemsControl.Template>
                                     <ControlTemplate>
                                         <VirtualizingStackPanel IsItemsHost="True"
                                                                 CanVerticallyScroll="False"/>
                                     </ControlTemplate>
                                 </ItemsControl.Template>
+
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type settings:ConfigurationPropertyViewModel}">
+                                        <ContentPresenter ContentTemplateSelector="{StaticResource ConfigurationPropertyDataTemplateSelector}">
+                                            <ContentPresenter.Style>
+                                                <Style TargetType="ContentPresenter">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsMatch, Mode=OneWay}"
+                                                                     Value="True">
+                                                            <DataTrigger.EnterActions>
+                                                                <BeginStoryboard>
+                                                                    <Storyboard>
+                                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                                         To="1"
+                                                                                         Duration="0:0:0.25"/>
+                                                                    </Storyboard>
+                                                                </BeginStoryboard>
+                                                            </DataTrigger.EnterActions>
+                                                            <DataTrigger.ExitActions>
+                                                                <BeginStoryboard>
+                                                                    <Storyboard>
+                                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                                         To="0.3"
+                                                                                         Duration="0:0:0.25"/>
+                                                                    </Storyboard>
+                                                                </BeginStoryboard>
+                                                            </DataTrigger.ExitActions>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ContentPresenter.Style>
+                                        </ContentPresenter>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </StackPanel>
                     </DataTemplate>
@@ -129,19 +165,27 @@
                 <ComboBox Grid.Row="1"
                           Grid.Column="0"
                           Grid.ColumnSpan="2"
-                          Margin="5">
-
+                          Margin="5"
+                          ItemsSource="{Binding ConfigurableGames, Mode=OneTime}"
+                          SelectedItem="{Binding SelectedGameConfiguration.Value, Mode=TwoWay}"
+                          SelectionChanged="OnSelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ., Converter={StaticResource GameProcessToGameNameConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                 </ComboBox>
 
                 <!-- Search -->
                 <textBox:SearchTextBox Grid.Row="1"
                                        Grid.Column="2"
-                                       Margin="5"/>
+                                       Margin="5"
+                                       OnSearchTextChanged="OnSearchTextChanged"/>
             </Grid>
         </Border>
 
         <TabControl Grid.Row="1"
-                    ItemsSource="{Binding Categories, Mode=OneTime}"
+                    ItemsSource="{Binding Categories, Mode=OneWay}"
                     ContentTemplate="{StaticResource PanelTemplate}"
                     ItemTemplate="{StaticResource HeaderTemplate}"
                     Margin="1"
