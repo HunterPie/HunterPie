@@ -13,11 +13,13 @@
              xmlns:presentation="clr-namespace:HunterPie.UI.Settings.Presentation;assembly=HunterPie.UI"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
              xmlns:settings="clr-namespace:HunterPie.UI.Settings.ViewModels;assembly=HunterPie.UI"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:SettingsViewModel}">
-    <UserControl.Resources> 
+    <UserControl.Resources>
+        <system:Boolean x:Key="True">True</system:Boolean>
         <converters:IconResolver x:Key="IconResolver"/>
         <converters:GameProcessToGameNameConverter x:Key="GameProcessToGameNameConverter"/>
         <presentation:ConfigurationPropertyDataTemplateSelector x:Key="ConfigurationPropertyDataTemplateSelector"/>
@@ -73,11 +75,14 @@
 
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type settings:ConfigurationPropertyViewModel}">
-                                        <ContentPresenter ContentTemplateSelector="{StaticResource ConfigurationPropertyDataTemplateSelector}">
+                                        <ContentPresenter ContentTemplateSelector="{StaticResource ConfigurationPropertyDataTemplateSelector}"
+                                                          Visibility="{Binding IsMatch, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                          IsEnabled="{Binding Condition.Value, Mode=OneWay, FallbackValue={StaticResource True}}">
                                             <ContentPresenter.Style>
                                                 <Style TargetType="ContentPresenter">
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsMatch, Mode=OneWay}"
+                                                        <!-- IsEnabled animation -->
+                                                        <DataTrigger Binding="{Binding Condition.Value, Mode=OneWay, FallbackValue={StaticResource True}}"
                                                                      Value="True">
                                                             <DataTrigger.EnterActions>
                                                                 <BeginStoryboard>

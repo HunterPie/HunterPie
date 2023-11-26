@@ -51,5 +51,6 @@ public class SettingsViewModel : ViewModel
     public void ChangeSettingsGroup()
     {
         Categories = _configurations[SelectedGameConfiguration];
+        CurrentTabIndex = 0;
     }
 }

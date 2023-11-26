@@ -51,7 +51,9 @@
                                                 Height="{Binding Width, RelativeSource={RelativeSource Self}}"
                                                 VerticalContentAlignment="Stretch"
                                                 HorizontalContentAlignment="Stretch"
-                                                Background="{StaticResource GRAY_100}">
+                                                Background="{StaticResource GRAY_100}"
+                                                Click="OnConfigureTrayButtonClick"
+                                                Key="{Binding ., Mode=OneWay}">
                                     <image:Icon Image="{StaticResource ICON_SETTINGS}"
                                                 Foreground="{StaticResource WHITE_700}"/>
                                 </buttons:Button>
@@ -63,7 +65,9 @@
                                                 Height="{Binding Width, RelativeSource={RelativeSource Self}}"
                                                 VerticalContentAlignment="Stretch"
                                                 HorizontalContentAlignment="Stretch"
-                                                Background="{StaticResource GRAY_100}">
+                                                Background="{StaticResource GRAY_100}"
+                                                Click="OnDeleteTrayButtonClick"
+                                                Key="{Binding ., Mode=OneWay}">
                                     <image:Icon Image="{StaticResource ICON_TRASH}"
                                                 Foreground="{StaticResource WHITE_700}"/>
                                 </buttons:Button>
@@ -76,7 +80,8 @@
         
         <buttons:Button Background="{StaticResource GRAY_100}"
                         BorderThickness="1"
-                        CornerRadius="5">
+                        CornerRadius="5"
+                        Click="OnCreateNewTrayButtonClick">
             <buttons:Button.BorderBrush>
                 <DrawingBrush Viewport="0,0,15,15" ViewportUnits="Absolute" TileMode="Tile">
                     <DrawingBrush.Drawing>

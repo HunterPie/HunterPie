@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Client.Localization;
+﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Features;
 using HunterPie.Core.Extensions;
@@ -73,6 +74,7 @@ public class ConfigurationAdapter
         List<ConfigurationCategory> categories = new();
         List<IConfigurationProperty> configurationProperties = new();
         PropertyInfo[] properties = categoryType.GetProperties();
+        Observable<bool>? conditionalConfiguration = null;
 
         foreach (PropertyInfo property in properties)
         {
@@ -91,7 +93,7 @@ public class ConfigurationAdapter
                 continue;
 
             (string propertyName, string propertyDescription) =
-                Localization.Resolve(DEFAULT_SETTING_LOCALIZATION_PATH.Format(propertyAttribute.Name));
+                    Localization.Resolve(DEFAULT_SETTING_LOCALIZATION_PATH.Format(propertyAttribute.Name));
             string groupName = Localization.QueryString(DEFAULT_CONFIGURATION_GROUP_PATH.Format(propertyAttribute.Group));
 
             GameConfigurationAdapterAttribute? adapterAttribute =
@@ -103,12 +105,17 @@ public class ConfigurationAdapter
                 Group: groupName,
                 Value: propertyValue,
                 Adapter: adapterAttribute?.Adapter,
+                Condition: conditionalConfiguration,
                 RequiresRestart: propertyAttribute.RequiresRestart
             );
             if (BuildProperty(propertyType, data, game) is not { } configurationProperty)
                 continue;
 
             configurationProperties.Add(configurationProperty);
+
+            if (property.GetCustomAttribute<ConfigurationConditionAttribute>() is { }
+                && propertyValue is Observable<bool> condition)
+                conditionalConfiguration = condition;
         }
 
         ObservableCollection<ConfigurationGroup> observableGroups =
@@ -126,7 +133,11 @@ public class ConfigurationAdapter
         return categories.ToArray();
     }
 
-    private static IConfigurationProperty? BuildProperty(Type type, PropertyData data, GameProcess game)
+    private static IConfigurationProperty? BuildProperty(
+        Type type,
+        PropertyData data,
+        GameProcess game
+    )
     {
         IConfigurationPropertyBuilder? builder = ConfigurationPropertyProvider.FindBy(type);
 

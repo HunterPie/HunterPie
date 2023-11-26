@@ -10,6 +10,7 @@ namespace HunterPie.Core.Client.Configuration.Integrations;
 public class DiscordRichPresence : ISettings
 {
     [ConfigurationProperty("DRPC_ENABLE_RICH_PRESENCE", group: CommonConfigurationGroups.GENERAL)]
+    [ConfigurationCondition]
     public Observable<bool> EnableRichPresence { get; set; } = true;
 
     [ConfigurationProperty("DRPC_ENABLE_SHOW_CHARACTER_INFO", group: CommonConfigurationGroups.CUSTOMIZATIONS)]

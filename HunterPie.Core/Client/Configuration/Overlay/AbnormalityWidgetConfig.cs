@@ -16,6 +16,7 @@ public class AbnormalityWidgetConfig : IWidgetSettings, ISettings
     public Observable<string> Name { get; set; } = "Abnormality Tray";
 
     [ConfigurationProperty("INITIALIZE_WIDGET_STRING", requiresRestart: true, group: CommonConfigurationGroups.GENERAL)]
+    [ConfigurationCondition]
     public Observable<bool> Initialize { get; set; } = true;
 
     [ConfigurationProperty("ENABLE_WIDGET_STRING", group: CommonConfigurationGroups.GENERAL)]

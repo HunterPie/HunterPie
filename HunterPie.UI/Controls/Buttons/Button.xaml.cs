@@ -89,6 +89,16 @@ public partial class Button : ClickableControl
     public static readonly DependencyProperty CornerRadiusProperty =
         DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(Button), new PropertyMetadata(new CornerRadius(0)));
 
+    public object? Key
+    {
+        get => (object?)GetValue(KeyProperty);
+        set => SetValue(KeyProperty, value);
+    }
+
+    // Using a DependencyProperty as the backing store for Key.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty KeyProperty =
+        DependencyProperty.Register(nameof(Key), typeof(object), typeof(Button), new PropertyMetadata(null));
+
     public Button()
     {
         InitializeComponent();

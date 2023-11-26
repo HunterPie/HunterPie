@@ -19,7 +19,8 @@ internal class SecretConfigurationPropertyBuilder : IConfigurationPropertyBuilde
             Name = data.Name,
             Description = data.Description,
             Group = data.Group,
-            RequiresRestart = data.RequiresRestart
+            RequiresRestart = data.RequiresRestart,
+            Condition = data.Condition,
         };
     }
 }

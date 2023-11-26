@@ -11,6 +11,7 @@ namespace HunterPie.Core.Client.Configuration.Overlay;
 public class ChatWidgetConfig : IWidgetSettings, ISettings
 {
     [ConfigurationProperty("INITIALIZE_WIDGET_STRING", requiresRestart: true, group: CommonConfigurationGroups.GENERAL)]
+    [ConfigurationCondition]
     public Observable<bool> Initialize { get; set; } = true;
 
     [ConfigurationProperty("ENABLE_WIDGET_STRING", group: CommonConfigurationGroups.GENERAL)]
