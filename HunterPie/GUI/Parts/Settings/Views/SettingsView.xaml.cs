@@ -1,5 +1,6 @@
 ﻿using HunterPie.GUI.Parts.Settings.ViewModels;
 using HunterPie.UI.Controls.TextBox.Events;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace HunterPie.GUI.Parts.Settings.Views;
@@ -27,5 +28,13 @@ public partial class SettingsView : UserControl
             return;
 
         vm.ChangeSettingsGroup();
+    }
+
+    private void OnLoaded(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not SettingsViewModel vm)
+            return;
+
+        vm.FetchVersion();
     }
 }
