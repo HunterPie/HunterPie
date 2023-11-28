@@ -37,4 +37,20 @@ public partial class SettingsView : UserControl
 
         vm.FetchVersion();
     }
+
+    private void OnRetryVersionFetchClick(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not SettingsViewModel vm)
+            return;
+
+        vm.FetchVersion();
+    }
+
+    private void OnDownloadVersionClick(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not SettingsViewModel vm)
+            return;
+
+        vm.ExecuteUpdate();
+    }
 }

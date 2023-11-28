@@ -17,6 +17,7 @@
              xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading;assembly=HunterPie.UI"
              xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
              xmlns:settingsPresentation="clr-namespace:HunterPie.GUI.Parts.Settings.Presentation"
+             xmlns:gl="clr-namespace:System.Globalization;assembly=System.Runtime"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
@@ -43,7 +44,7 @@
                 <loading:CircleLoading Width="15"
                                        Height="15"
                                        HorizontalAlignment="Left"/>
-                <TextBlock Text="Fetching latest version"
+                <TextBlock Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_FETCH_IN_PROGRESS_VERSION&quot;]'}"
                            VerticalAlignment="Center"
                            FontWeight="Medium"
                            FontSize="13"
@@ -68,33 +69,47 @@
         </DataTemplate>
 
         <DataTemplate x:Key="ErrorVersionTemplate">
-            <StackPanel Orientation="Horizontal">
-                <image:Icon Image="{StaticResource ICON_CHECKMARK_GREEN}"
-                            Foreground="{StaticResource GREEN_100}"
-                            Width="20"
-                            Height="20"/>
-                <TextBlock Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_IS_LATEST_VERSION&quot;]'}"
-                           Foreground="{StaticResource GREEN_100}"
-                           VerticalAlignment="Center"
-                           FontWeight="Medium"
-                           FontSize="13"
-                           Margin="5,0,0,0"/>
-            </StackPanel>
+            <buttons:Button HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Padding="2"
+                            CornerRadius="5"
+                            Click="OnRetryVersionFetchClick">
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,10,0">
+                    <image:Icon Image="{StaticResource ICON_ERROR_MASK}"
+                                Foreground="{StaticResource RED_50}"
+                                Width="20"
+                                Height="20"/>
+                    <TextBlock Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_FETCH_FAILED_VERSION&quot;]'}"
+                               Foreground="{StaticResource RED_50}"
+                               VerticalAlignment="Center"
+                               FontWeight="Medium"
+                               FontSize="13"
+                               Margin="5,0,0,0"/>
+                </StackPanel>
+            </buttons:Button>
         </DataTemplate>
 
         <DataTemplate x:Key="NeedsUpdateVersionTemplate">
-            <StackPanel Orientation="Horizontal">
-                <image:Icon Image="{StaticResource ICON_CHECKMARK_GREEN}"
-                            Foreground="{StaticResource GREEN_100}"
-                            Width="20"
-                            Height="20"/>
-                <TextBlock Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_IS_LATEST_VERSION&quot;]'}"
-                           Foreground="{StaticResource GREEN_100}"
-                           VerticalAlignment="Center"
-                           FontWeight="Medium"
-                           FontSize="13"
-                           Margin="5,0,0,0"/>
-            </StackPanel>
+            <buttons:Button HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Padding="2"
+                            CornerRadius="5"
+                            Click="OnDownloadVersionClick">
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,10,0">
+                    <image:Icon Image="{StaticResource ICON_DOWNLOAD_YELLOW}"
+                                Foreground="{StaticResource YELLOW}"
+                                Width="20"
+                                Height="20"/>
+                    <TextBlock Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_NOT_LATEST_VERSION&quot;]'}"
+                               Foreground="{StaticResource YELLOW}"
+                               VerticalAlignment="Center"
+                               FontWeight="Medium"
+                               FontSize="13"
+                               Margin="5,0,0,0"/>
+                </StackPanel>
+            </buttons:Button>
         </DataTemplate>
         <settingsPresentation:UpdateStatusTemplateSelector x:Key="UpdateStatusTemplateSelector"
                                                            LoadingTemplate="{StaticResource LoadingTemplate}"
@@ -110,7 +125,8 @@
                         <viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto">
                             <!-- TODO: Add hooks for animations -->
                             <VirtualizingStackPanel IsItemsHost="True"
-                                                    CanVerticallyScroll="True"/>
+                                                    CanVerticallyScroll="True"
+                                                    VirtualizationMode="Recycling"/>
                         </viewer:SmoothScrollViewer>
                     </ControlTemplate>
                 </ItemsControl.Template>
@@ -230,8 +246,9 @@
                                HorizontalAlignment="Right"
                                FontSize="13"
                                Foreground="{StaticResource WHITE_400}">
-                        <Run Text="Last save at"/>
-                        <Run Text="00/00/0000 00:00:00"
+                        <Run Text="Synchronized at"/>
+                        <Run Text="{Binding SynchronizedAt, Mode=OneWay, StringFormat='G', ConverterCulture={x:Static gl:CultureInfo.CurrentCulture}}"
+                             d:Text="00/00/0000 00:00"
                              Foreground="{StaticResource WHITE_100}"/>
                     </TextBlock>
                 </StackPanel>

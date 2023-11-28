@@ -1,8 +1,12 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.UI.Architecture.Navigator;
-using HunterPie.UI.Controls.Settings.Custom;
+using HunterPie.UI.Controls.Settings.Abnormality.Builders;
+using HunterPie.UI.Controls.Settings.Abnormality.ViewModels;
+using HunterPie.UI.Controls.Settings.Abnormality.Views;
+using HunterPie.UI.Settings.Models;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace HunterPie.UI.Settings.ViewModels.Internal;
 
@@ -32,7 +36,17 @@ internal class AbnormalityTrayPropertyViewModel : ConfigurationPropertyViewModel
 
     public void ConfigureTray(AbnormalityWidgetConfig tray)
     {
-        var view = new AbnormalityWidgetConfigView(Game, tray);
+        ConfigurationCategory configuration = ConfigurationAdapter.Adapt(tray).First();
+        ObservableCollection<AbnormalityCategoryViewModel> abnormalities = AbnormalityCategoryViewModelBuilder.Build(Game);
+
+        var view = new AbnormalityWidgetSettingsView
+        {
+            DataContext = new AbnormalityWidgetSettingsViewModel(
+                configuration: configuration,
+                categories: abnormalities,
+                selectedAbnormalities: tray.AllowedAbnormalities
+            )
+        };
 
         Navigator.Navigate(view);
     }

@@ -1,6 +1,6 @@
 ﻿namespace HunterPie.GUI.Parts.Settings.ViewModels;
 
-public enum UpdateFetchStatus
+internal enum UpdateFetchStatus
 {
     Latest,
     NeedsUpdate,

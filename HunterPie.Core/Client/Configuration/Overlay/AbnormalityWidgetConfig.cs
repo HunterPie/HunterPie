@@ -4,7 +4,6 @@ using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Annotations;
 using HunterPie.Core.Settings.Common;
 using HunterPie.Core.Settings.Types;
-using System.Collections.Generic;
 
 namespace HunterPie.Core.Client.Configuration.Overlay;
 
@@ -39,7 +38,7 @@ public class AbnormalityWidgetConfig : IWidgetSettings, ISettings
     #endregion
 
     #region Customization Settings
-    [ConfigurationProperty("ABNORMALITY_TRAY_SORT_BY_STRING")]
+    [ConfigurationProperty("ABNORMALITY_TRAY_SORT_BY_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
     public Observable<SortBy> SortByAlgorithm { get; set; } = SortBy.Off;
 
     [ConfigurationProperty("ABNORMALITY_TRAY_MAX_SIZE_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
@@ -49,5 +48,5 @@ public class AbnormalityWidgetConfig : IWidgetSettings, ISettings
     public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Horizontal;
     #endregion
 
-    public HashSet<string> AllowedAbnormalities { get; set; } = new();
+    public ObservableHashSet<string> AllowedAbnormalities { get; set; } = new();
 }

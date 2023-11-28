@@ -33,6 +33,11 @@ public class ConfigurationAdapter
 
     private static ConfigurationCategory[] BuildCategoryParent(Type parentType, object? parent, GameProcess game)
     {
+        ConfigurationAttribute? configurationAttribute = parentType.GetCustomAttribute<ConfigurationAttribute>();
+
+        if (configurationAttribute is { })
+            return BuildCategory(parentType, parent, game);
+
         PropertyInfo[] parentProperties = parentType.GetProperties();
 
         ConfigurationCategory[] AdaptCategory(PropertyInfo property)

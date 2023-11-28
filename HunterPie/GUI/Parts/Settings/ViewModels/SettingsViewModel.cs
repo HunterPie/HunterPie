@@ -16,21 +16,25 @@ using System.Linq;
 
 namespace HunterPie.GUI.Parts.Settings.ViewModels;
 
-#nullable enable
-public class SettingsViewModel : ViewModel
+internal class SettingsViewModel : ViewModel
 {
     private readonly PoogieVersionConnector _connector = new();
-    private int _currentTabIndex;
-    private UpdateFetchStatus _updateStatus = UpdateFetchStatus.Fetching;
     private readonly Dictionary<GameProcess, ObservableCollection<ConfigurationCategory>> _configurations;
-    private ObservableCollection<ConfigurationCategory> _categories;
 
     public ObservableCollection<GameProcess> ConfigurableGames { get; }
     public Observable<GameProcess> SelectedGameConfiguration { get; }
 
+    private UpdateFetchStatus _updateStatus = UpdateFetchStatus.Fetching;
     public UpdateFetchStatus UpdateStatus { get => _updateStatus; set => SetValue(ref _updateStatus, value); }
-    public ObservableCollection<ConfigurationCategory> Categories { get => _categories; set => SetValue(ref _categories, value); }
+
+    private int _currentTabIndex;
     public int CurrentTabIndex { get => _currentTabIndex; set => SetValue(ref _currentTabIndex, value); }
+
+    private ObservableCollection<ConfigurationCategory> _categories;
+    public ObservableCollection<ConfigurationCategory> Categories { get => _categories; set => SetValue(ref _categories, value); }
+
+    private DateTime _synchronizedAt = DateTime.Now;
+    public DateTime SynchronizedAt { get => _synchronizedAt; set => SetValue(ref _synchronizedAt, value); }
 
     public SettingsViewModel(
         Dictionary<GameProcess, ObservableCollection<ConfigurationCategory>> configurations,
@@ -80,4 +84,6 @@ public class SettingsViewModel : ViewModel
         Categories = _configurations[SelectedGameConfiguration];
         CurrentTabIndex = 0;
     }
+
+    public void ExecuteUpdate() => App.Restart();
 }

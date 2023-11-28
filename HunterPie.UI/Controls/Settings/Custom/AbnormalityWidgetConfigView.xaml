@@ -73,16 +73,6 @@
                         Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"/>
         </buttons:Button>
 
-        <TextBlock Grid.Row="0"
-                   Grid.Column="0"
-                   Foreground="{StaticResource WHITE_600}"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center">
-            <Run Text="Note:"
-                 FontWeight="Bold"/>
-            <Run Text="Settings are saved when exiting this screen."/>
-        </TextBlock>
-
         <ItemsControl Grid.Row="1" 
                       ItemsSource="{Binding Elements, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityWidgetConfigView}}}" 
                       Grid.Column="0">

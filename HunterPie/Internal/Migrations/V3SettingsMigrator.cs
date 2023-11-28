@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Client.Configuration;
+﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Client.Configuration.Versions;
 using HunterPie.Core.Domain.Interfaces;
@@ -39,7 +40,7 @@ internal class V3SettingsMigrator : ISettingsMigrator
                                                                   .Where(id => id != null)
                                                                   .ToHashSet();
 
-                tray.AllowedAbnormalities = newIds;
+                tray.AllowedAbnormalities = new ObservableHashSet<string>(newIds);
             }
 
             return newConfig;

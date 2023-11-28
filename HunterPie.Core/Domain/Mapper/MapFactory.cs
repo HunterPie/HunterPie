@@ -10,7 +10,7 @@ namespace HunterPie.Core.Domain.Mapper;
 /// </summary>
 public static class MapFactory
 {
-    private static readonly Dictionary<(Type, Type), object> _mappers = new();
+    private static readonly Dictionary<(Type, Type), object> Mappers = new();
 
     /// <summary>
     /// Adds a new IMapper to the MapFactory
@@ -24,10 +24,10 @@ public static class MapFactory
         Type typeOut = typeof(TOut);
         (Type, Type) key = (typeIn, typeOut);
 
-        if (_mappers.ContainsKey(key))
+        if (Mappers.ContainsKey(key))
             throw new Exception($"There is already a mapper for {typeIn.Name} to {typeOut.Name}");
 
-        _mappers[key] = mapper;
+        Mappers[key] = mapper;
     }
 
     /// <summary>
@@ -44,10 +44,10 @@ public static class MapFactory
         Type typeOut = typeof(TOut);
         (Type, Type) key = (typeIn, typeOut);
 
-        if (!_mappers.ContainsKey(key))
+        if (!Mappers.ContainsKey(key))
             return default;
 
-        var mapper = (IMapper<TIn, TOut>)_mappers[key];
+        var mapper = (IMapper<TIn, TOut>)Mappers[key];
 
         return mapper.Map(@object);
     }

@@ -1,0 +1,146 @@
+﻿<UserControl x:Class="HunterPie.UI.Controls.Settings.Abnormality.Views.AbnormalityWidgetSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Controls.Settings.Abnormality.Views"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.Controls.Settings.Abnormality.ViewModels"
+             xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer"
+             xmlns:settings="clr-namespace:HunterPie.UI.Settings.ViewModels"
+             xmlns:presentation="clr-namespace:HunterPie.UI.Settings.Presentation"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+             xmlns:textBox="clr-namespace:HunterPie.UI.Controls.TextBox"
+             xmlns:models="clr-namespace:HunterPie.UI.Settings.Models"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" 
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewModels:AbnormalityWidgetSettingsViewModel}">
+    <UserControl.Resources>
+        <presentation:ConfigurationPropertyDataTemplateSelector x:Key="ConfigurationPropertyDataTemplateSelector"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <buttons:Button Grid.Column="0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Margin="5"
+                            Padding="5"
+                            BorderBrush="{StaticResource GRAY}"
+                            BorderThickness="1"
+                            CornerRadius="5"
+                            Cursor="Hand"
+                            Click="OnBackButtonClick">
+                <StackPanel Orientation="Horizontal">
+                    <image:Icon Image="{StaticResource ICON_LEFT_ARROW}"
+                                Height="15"
+                                Width="15"
+                                Foreground="{StaticResource WHITE_400}"
+                                Margin="0,0,5,0"/>
+                    <TextBlock Text="Back"
+                               Foreground="{StaticResource WHITE_400}"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+            </buttons:Button>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <textBox:SearchTextBox Grid.Row="0" 
+                                       HorizontalAlignment="Stretch"
+                                       Margin="5"/>
+
+                <StackPanel Grid.Row="1"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <buttons:Button VerticalAlignment="Center"
+                                    Margin="5"
+                                    Padding="5"
+                                    BorderBrush="{StaticResource GRAY}"
+                                    BorderThickness="1"
+                                    CornerRadius="5"
+                                    Cursor="Hand"
+                                    Content="Select All"
+                                    Foreground="{StaticResource WHITE_400}"/>
+                    <buttons:Button VerticalAlignment="Center"
+                                    Margin="5"
+                                    Padding="5"
+                                    BorderBrush="{StaticResource GRAY}"
+                                    BorderThickness="1"
+                                    CornerRadius="5"
+                                    Cursor="Hand"
+                                    Content="Unselect All"
+                                    Foreground="{StaticResource WHITE_400}"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Configuration properties -->
+            <ItemsControl Grid.Column="0"
+                          ItemsSource="{Binding Category.Groups, Mode=OneTime}">
+                <ItemsControl.Template>
+                    <ControlTemplate>
+                        <viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto">
+                            <VirtualizingStackPanel IsItemsHost="True"
+                                                    CanVerticallyScroll="True"
+                                                    VirtualizationMode="Recycling"/>
+                        </viewer:SmoothScrollViewer>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:ConfigurationGroup}">
+                        <StackPanel Orientation="Vertical"
+                                    Margin="0,0,0,20">
+                            <Grid Margin="0,0,10,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" 
+                                           Text="{Binding Name, Mode=OneTime}"
+                                           FontSize="15"
+                                           Foreground="{StaticResource WHITE_600}"
+                                           Margin="5"
+                                           FontWeight="Medium"/>
+                                <Separator Grid.Column="1" 
+                                           Background="{StaticResource GRAY}"/>
+                            </Grid>
+                            
+                            <ItemsControl ItemsSource="{Binding Properties, Mode=OneTime}"
+                                          ItemTemplateSelector="{StaticResource ConfigurationPropertyDataTemplateSelector}">
+                                <ItemsControl.Template>
+                                    <ControlTemplate>
+                                        <VirtualizingStackPanel IsItemsHost="True"
+                                                                CanVerticallyScroll="False"/>
+                                    </ControlTemplate>
+                                </ItemsControl.Template>
+                            </ItemsControl>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- Splitter -->
+            <GridSplitter Grid.Column="0"/>
+        </Grid>
+    </Grid>
+</UserControl>

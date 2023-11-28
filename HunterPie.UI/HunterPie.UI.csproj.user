@@ -47,6 +47,12 @@
     <Compile Update="Controls\Notfication\Push.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Settings\Abnormality\Views\AbnormalityElementView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Settings\Abnormality\Views\AbnormalityWidgetSettingsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Settings\Custom\AbnormalityTrayList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -284,6 +290,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Notfication\Push.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Settings\Abnormality\Views\AbnormalityElementView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Settings\Abnormality\Views\AbnormalityWidgetSettingsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\Custom\AbnormalityTrayList.xaml">

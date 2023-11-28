@@ -1,0 +1,68 @@
+﻿<architecture:ClickableControl x:Class="HunterPie.UI.Controls.Settings.Abnormality.Views.AbnormalityElementView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:local="clr-namespace:HunterPie.UI.Controls.Settings.Abnormality.Views"
+                               xmlns:viewModels="clr-namespace:HunterPie.UI.Controls.Settings.Abnormality.ViewModels"
+                               xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+                               xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
+                               xmlns:architecture="clr-namespace:HunterPie.UI.Architecture"
+                               mc:Ignorable="d" 
+                               d:DesignHeight="40" 
+                               d:DesignWidth="200"
+                               d:DataContext="{d:DesignInstance viewModels:AbnormalityElementViewModel}">
+    <UserControl.Resources>
+        <converters:AbnormalityStringToIconConverter x:Key="AbnormalityStringToIconConverter"/>
+    </UserControl.Resources>
+    <buttons:Button Padding="0"
+                    HorizontalContentAlignment="Stretch"
+                    BorderBrush="{StaticResource GRAY}"
+                    BorderThickness="1"
+                    CornerRadius="5"
+                    Background="{StaticResource GRAY_100}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1.5*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Background="{StaticResource GRAY_300}"
+                    CornerRadius="4.5,0,0,4.5"/>
+            <Image Grid.Column="0"
+                   Grid.Row="0"
+                   Grid.RowSpan="2"
+                   Margin="5"
+                   Source="{Binding Icon, Mode=OneWay, Converter={StaticResource AbnormalityStringToIconConverter}}"
+                   d:Source="{StaticResource ICON_DANGOBOOSTER}"/>
+
+            <!-- Text -->
+            <TextBlock Grid.Column="1"
+                       Grid.Row="0"
+                       d:Text="Abnormality"
+                       Text="{Binding Name, Mode=OneWay}"
+                       FontWeight="Medium"
+                       VerticalAlignment="Bottom"
+                       Margin="2,0,0,0"
+                       FontSize="14"
+                       TextTrimming="CharacterEllipsis"/>
+            <TextBlock Grid.Column="1"
+                       Grid.Row="1"
+                       d:Text="Category"
+                       Text="{Binding Name, Mode=OneWay}"
+                       FontWeight="Regular"
+                       VerticalAlignment="Top"
+                       Margin="2,0,0,0"
+                       Foreground="{StaticResource WHITE_600}"
+                       FontSize="12"/>
+
+        </Grid>
+    </buttons:Button>
+</architecture:ClickableControl>

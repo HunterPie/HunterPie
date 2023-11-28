@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Games;
+using HunterPie.Core.Client.Events;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Generics;
 using HunterPie.Core.Extensions;
@@ -16,6 +17,7 @@ using HunterPie.UI.Settings;
 using HunterPie.UI.Settings.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -25,6 +27,7 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels;
 
 internal class SettingsSideBarElementViewModel : ISideBarElement
 {
+    private SettingsViewModel? _viewModel;
     public ImageSource Icon => Resources.Icon("ICON_SETTINGS");
 
     public string Text => Localization.QueryString("//Strings/Client/Tabs/Tab[@Id='SETTINGS_STRING']");
@@ -37,8 +40,20 @@ internal class SettingsSideBarElementViewModel : ISideBarElement
 
     public SettingsSideBarElementViewModel()
     {
+        ConfigManager.OnSync += OnConfigurationSync;
         RefreshWindowOnChange(ClientConfig.Config.Client.LastConfiguredGame);
         RefreshWindowOnChange(ClientConfig.Config.Client.EnableFeatureFlags);
+    }
+
+    private void OnConfigurationSync(object? sender, ConfigSaveEventArgs e)
+    {
+        if (Path.GetFileNameWithoutExtension(e.Path) != "config")
+            return;
+
+        if (_viewModel is not { })
+            return;
+
+        _viewModel.SynchronizedAt = e.SyncedAt;
     }
 
     public void ExecuteOnClick()
@@ -66,15 +81,17 @@ internal class SettingsSideBarElementViewModel : ISideBarElement
                     GameProcess.MonsterHunterRiseSunbreakDemo
                 });
 
+            _viewModel = new SettingsViewModel(configurations, supportedConfigurations, game);
             var host = new SettingsView
             {
-                DataContext = new SettingsViewModel(configurations, supportedConfigurations, game)
+                DataContext = _viewModel
             };
+
             Navigator.Navigate(host, true);
         });
     }
 
-    private ObservableCollection<ConfigurationCategory> BuildConfiguration(
+    private static ObservableCollection<ConfigurationCategory> BuildConfiguration(
         IEnumerable<ConfigurationCategory> commonConfiguration,
         GameConfig configuration,
         GameProcess gameProcess
