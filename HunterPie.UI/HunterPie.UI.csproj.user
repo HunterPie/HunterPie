@@ -53,18 +53,6 @@
     <Compile Update="Controls\Settings\Abnormality\Views\AbnormalityWidgetSettingsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\Settings\Custom\AbnormalityTrayList.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Controls\Settings\Custom\AbnormalityView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Controls\Settings\Custom\AbnormalityWidgetConfigView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Controls\Settings\SettingElementHost.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Controls\Sliders\Range.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -296,18 +284,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\Abnormality\Views\AbnormalityWidgetSettingsView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Controls\Settings\Custom\AbnormalityTrayList.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Controls\Settings\Custom\AbnormalityView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Controls\Settings\Custom\AbnormalityWidgetConfigView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Controls\Settings\SettingElementHost.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Sliders\Range.xaml">

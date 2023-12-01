@@ -1,11 +1,6 @@
 ﻿using HunterPie.Features.Account;
-using HunterPie.Features.Account.Config;
 using HunterPie.GUI.Parts.Account.ViewModels;
-using HunterPie.GUI.Parts.Settings.ViewModels;
-using HunterPie.GUI.Parts.Settings.Views;
 using HunterPie.UI.Architecture;
-using HunterPie.UI.Architecture.Navigator;
-using HunterPie.UI.Controls.Settings.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -48,14 +43,5 @@ public partial class AccountView : View<AccountViewModel>
     private void OnLoginClick(object sender, RoutedEventArgs e) => AccountNavigationService.NavigateToSignIn();
     private void OnRegisterClick(object sender, RoutedEventArgs e) => AccountNavigationService.NavigateToSignUp();
     private void OnLogoutClick(object sender, RoutedEventArgs e) => ViewModel.SignOut();
-    private async void OnSettingsClick(object sender, RoutedEventArgs e)
-    {
-        ISettingElement[] accountConfig = await LocalAccountConfig.CreateAccountSettingsTab();
-
-        var host = new SettingHost()
-        {
-            DataContext = new SettingHostViewModel(accountConfig)
-        };
-        Navigator.Navigate(host);
-    }
+    private void OnSettingsClick(object sender, RoutedEventArgs e) => ViewModel.NavigateToSettings();
 }

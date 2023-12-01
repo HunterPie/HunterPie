@@ -1,8 +1,6 @@
 ﻿using HunterPie.Core.Client;
-using HunterPie.UI.Controls.Settings.ViewModel;
 using HunterPie.UI.Settings;
 using HunterPie.UI.Settings.Models;
-using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -29,17 +27,6 @@ internal class LocalAccountConfig
     {
         ConfigManager.Register(ACCOUNT_CONFIG, AccountConfig);
         ConfigManager.BindAndSaveOnChanges(ACCOUNT_CONFIG, AccountConfig);
-    }
-
-    [Obsolete]
-    public static async Task<ISettingElement[]> CreateAccountSettingsTab()
-    {
-        bool isLoggedIn = await AccountManager.ValidateSessionToken();
-
-        if (!isLoggedIn)
-            return Array.Empty<ISettingElement>();
-
-        return VisualConverterManager.Build(Instance);
     }
 
     public static async Task<ObservableCollection<ConfigurationCategory>> BuildAccountConfig()

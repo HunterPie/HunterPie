@@ -1,8 +1,11 @@
 ﻿using HunterPie.Core.Remote;
+using HunterPie.Domain.Sidebar;
 using HunterPie.Features.Account;
 using HunterPie.Features.Account.Event;
 using HunterPie.Features.Account.Model;
 using HunterPie.GUI.Parts.Account.Views;
+using HunterPie.GUI.Parts.Sidebar.Service;
+using HunterPie.GUI.Parts.Sidebar.ViewModels;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Architecture.Navigator;
 using System;
@@ -31,6 +34,7 @@ public class AccountViewModel : ViewModel, IDisposable
     }
 
     private void OnAvatarChange(object sender, AccountAvatarEventArgs e) => AvatarUrl = e.AvatarUrl;
+
     private void OnAccountSignOut(object sender, EventArgs e) => IsLoggedIn = false;
 
     private async void OnAccountSignIn(object sender, AccountLoginEventArgs e)
@@ -40,6 +44,13 @@ public class AccountViewModel : ViewModel, IDisposable
         AvatarUrl = await CDN.GetAsset(e.Account.AvatarUrl);
         IsLoggedIn = true;
         IsLoggingIn = false;
+    }
+
+    public void NavigateToSettings()
+    {
+        SideBarService.Navigate(
+            element: SideBar.GetInstance<SettingsSideBarElementViewModel>()
+        );
     }
 
     public void SignOut()

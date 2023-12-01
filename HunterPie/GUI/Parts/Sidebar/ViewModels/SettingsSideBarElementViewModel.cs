@@ -3,16 +3,12 @@ using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Games;
 using HunterPie.Core.Client.Events;
 using HunterPie.Core.Domain.Enums;
-using HunterPie.Core.Domain.Generics;
 using HunterPie.Core.Extensions;
 using HunterPie.Features.Account.Config;
 using HunterPie.GUI.Parts.Settings.ViewModels;
 using HunterPie.GUI.Parts.Settings.Views;
-using HunterPie.Internal.Initializers;
 using HunterPie.UI.Architecture.Navigator;
 using HunterPie.UI.Assets.Application;
-using HunterPie.UI.Controls.Flags;
-using HunterPie.UI.Controls.Settings.ViewModel;
 using HunterPie.UI.Settings;
 using HunterPie.UI.Settings.Models;
 using System.Collections.Generic;
@@ -41,8 +37,6 @@ internal class SettingsSideBarElementViewModel : ISideBarElement
     public SettingsSideBarElementViewModel()
     {
         ConfigManager.OnSync += OnConfigurationSync;
-        RefreshWindowOnChange(ClientConfig.Config.Client.LastConfiguredGame);
-        RefreshWindowOnChange(ClientConfig.Config.Client.EnableFeatureFlags);
     }
 
     private void OnConfigurationSync(object? sender, ConfigSaveEventArgs e)
@@ -102,42 +96,4 @@ internal class SettingsSideBarElementViewModel : ISideBarElement
         return commonConfiguration.Concat(configCategory)
             .ToObservableCollection();
     }
-
-    private async void RefreshSettingsWindow(bool forceRefresh = false)
-    {
-        await Application.Current.Dispatcher.InvokeAsync(async () =>
-        {
-            ISettingElement[] settingTabs = VisualConverterManager.Build(ClientConfig.Config);
-
-            ISettingElement[] gameSpecificTabs = VisualConverterManager.Build(
-                ClientConfigHelper.GetGameConfigBy(ClientConfig.Config.Client.LastConfiguredGame.Value)
-            );
-
-            ISettingElement[] accountConfig = await LocalAccountConfig.CreateAccountSettingsTab();
-
-            accountConfig = accountConfig.Concat(settingTabs)
-                .Concat(gameSpecificTabs)
-                .ToArray();
-
-            GenericFileSelector _ = ClientConfig.Config.Client.Language;
-
-            SettingHostViewModel vm = new(accountConfig);
-            var host = new SettingHost() { DataContext = vm };
-
-            // Also add feature flags if enabled
-            if (ClientConfig.Config.Client.EnableFeatureFlags)
-                vm.Elements.Add(new FeatureFlagsView(FeatureFlagsInitializer.Features.Flags));
-
-            Navigator.Navigate(host, forceRefresh);
-        });
-    }
-
-    private void RefreshWindowOnChange(Bindable observable) => observable.PropertyChanged += (_, __) =>
-    {
-        if (!Navigator.IsInstanceOf<SettingHost>())
-            return;
-
-        RefreshSettingsWindow(true);
-    };
-
 }
