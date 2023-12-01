@@ -26,7 +26,7 @@ internal class LocalAccountConfig
     private LocalAccountConfig()
     {
         ConfigManager.Register(ACCOUNT_CONFIG, AccountConfig);
-        ConfigManager.BindAndSaveOnChanges(ACCOUNT_CONFIG, AccountConfig);
+        ConfigManager.BindConfiguration(ACCOUNT_CONFIG, AccountConfig);
     }
 
     public static async Task<ObservableCollection<ConfigurationCategory>> BuildAccountConfig()

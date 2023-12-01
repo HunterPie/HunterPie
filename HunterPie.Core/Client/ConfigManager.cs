@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client.Events;
+using HunterPie.Core.Client.Observer;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Json;
 using HunterPie.Core.Logger;
@@ -136,8 +137,19 @@ public class ConfigManager
             ConfigHelper.WriteObject(path, _settings[path]);
     }
 
+    public static void BindConfiguration(string path, object data)
+    {
+        ConfigurationBinder.Bind(data, () => Save(path));
+    }
+
+    [Obsolete]
     public static void BindAndSaveOnChanges(string path, object data)
     {
+        void HandleSaveConfig(object source, EventArgs args)
+        {
+            Save(path);
+        }
+
         if (data is null)
             return;
 
@@ -151,10 +163,23 @@ public class ConfigManager
                     BindAndSaveOnChanges(path, item);
 
                 if (array is INotifyCollectionChanged collection)
-                    collection.CollectionChanged += (_, __) => Save(path);
+                    collection.CollectionChanged += (_, e) =>
+                    {
+                        if (e.OldItems is { })
+                            foreach (object item in e.OldItems)
+                                if (item is INotifyPropertyChanged observable)
+                                    observable.PropertyChanged -= HandleSaveConfig;
 
-                if (array is INotifyPropertyChanged observable)
-                    observable.PropertyChanged += (_, __) => Save(path);
+                        if (e.NewItems is { })
+                            foreach (object item in e.NewItems)
+                                if (item is INotifyPropertyChanged observable)
+                                    observable.PropertyChanged += HandleSaveConfig;
+
+                        Save(path);
+                    };
+
+                if (array is INotifyPropertyChanged observableCollection)
+                    observableCollection.PropertyChanged += HandleSaveConfig;
             }
             else
             {
@@ -167,7 +192,7 @@ public class ConfigManager
 
                     if (value is INotifyPropertyChanged bindable)
                     {
-                        bindable.PropertyChanged += (_, __) => Save(path);
+                        bindable.PropertyChanged += HandleSaveConfig;
                         continue;
                     }
 

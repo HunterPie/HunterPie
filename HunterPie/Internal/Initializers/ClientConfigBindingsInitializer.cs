@@ -9,7 +9,7 @@ internal class ClientConfigBindingsInitializer : IInitializer
 
     public Task Init()
     {
-        ConfigManager.BindAndSaveOnChanges(ClientConfig.CONFIG_NAME, ClientConfig.Config);
+        ConfigManager.BindConfiguration(ClientConfig.CONFIG_NAME, ClientConfig.Config);
 
         return Task.CompletedTask;
     }
