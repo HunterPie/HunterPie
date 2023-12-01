@@ -5,6 +5,7 @@ using HunterPie.Core.Logger;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Reflection;
@@ -149,6 +150,11 @@ public class ConfigManager
                 foreach (object item in array)
                     BindAndSaveOnChanges(path, item);
 
+                if (array is INotifyCollectionChanged collection)
+                    collection.CollectionChanged += (_, __) => Save(path);
+
+                if (array is INotifyPropertyChanged observable)
+                    observable.PropertyChanged += (_, __) => Save(path);
             }
             else
             {

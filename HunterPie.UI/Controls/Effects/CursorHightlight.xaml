@@ -8,7 +8,8 @@
       d:DesignHeight="450" 
       d:DesignWidth="800" 
       MouseMove="OnMouseMove">
-    <Canvas ClipToBounds="True">
+    <Canvas ClipToBounds="True"
+            Background="Transparent">
         <Rectangle x:Name="PART_Highlight"
                    Height="500"
                    Width="500"

@@ -1,15 +1,20 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Converters;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Annotations;
 using HunterPie.Core.Settings.Common;
 using HunterPie.Core.Settings.Types;
+using Newtonsoft.Json;
 
 namespace HunterPie.Core.Client.Configuration.Overlay;
 
 [Configuration("ABNORMALITY_WIDGET", "ICON_STOPWATCH")]
 public class AbnormalityWidgetConfig : IWidgetSettings, ISettings
 {
+    [JsonConverter(typeof(ObservableHashSetConverter<string>))]
+    public ObservableHashSet<string> AllowedAbnormalities { get; set; } = new();
+
     #region General Settings
     [ConfigurationProperty("ABNORMALITY_TRAY_NAME_STRING", group: CommonConfigurationGroups.GENERAL)]
     public Observable<string> Name { get; set; } = "Abnormality Tray";
@@ -48,5 +53,5 @@ public class AbnormalityWidgetConfig : IWidgetSettings, ISettings
     public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Horizontal;
     #endregion
 
-    public ObservableHashSet<string> AllowedAbnormalities { get; set; } = new();
+
 }

@@ -15,7 +15,8 @@ namespace HunterPie.UI.Controls.Settings.Abnormality.Builders;
 #nullable enable
 public static class AbnormalityCategoryViewModelBuilder
 {
-    private const string CATEGORY_PATH = "//Strings/Client/Settings/Setting[@Id='{0}']";
+    private const string CATEGORY_PATH = "//Strings/Client/Settings/Setting[@Id='ABNORMALITY_{0}_STRING']";
+    private const string ABNORMALITY_XPATH = "//Strings/Abnormalities/Abnormality[@Id='{0}']";
     private const string ICON_SONGS = "ICON_SELFIMPROVEMENT";
     private const string ICON_PALICO = "ICON_ORCHESTRA";
     private const string ICON_CONSUMABLES = "ITEM_DEMONDRUG";
@@ -45,7 +46,8 @@ public static class AbnormalityCategoryViewModelBuilder
                 Elements = group.Select(element =>
                     new AbnormalityElementViewModel
                     {
-                        Name = element.Name,
+                        Id = element.Id,
+                        Name = Localization.QueryString(ABNORMALITY_XPATH.Format(element.Name)),
                         Category = categoryName,
                         Icon = element.Icon
                     }

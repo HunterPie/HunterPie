@@ -39,7 +39,7 @@ public static class AbnormalityService
     {
         Dictionary<string, AbnormalitySchema> dataSource = GetDataSourceBy(game);
 
-        return dataSource.Values.GroupBy(it => it.Category);
+        return dataSource.Values.GroupBy(it => it.Group);
     }
 
     /// <summary>

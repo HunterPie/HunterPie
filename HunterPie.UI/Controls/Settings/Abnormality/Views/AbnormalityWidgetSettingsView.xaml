@@ -12,12 +12,58 @@
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:textBox="clr-namespace:HunterPie.UI.Controls.TextBox"
              xmlns:models="clr-namespace:HunterPie.UI.Settings.Models"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:localPresentation="clr-namespace:HunterPie.UI.Controls.Settings.Abnormality.Presentation"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:AbnormalityWidgetSettingsViewModel}">
     <UserControl.Resources>
         <presentation:ConfigurationPropertyDataTemplateSelector x:Key="ConfigurationPropertyDataTemplateSelector"/>
+        <localPresentation:AbnormalityElementSelectedConverter x:Key="AbnormalityElementSelectedConverter"/>
+
+        <!-- Abnormality Container Templates -->
+        <DataTemplate x:Key="HeaderTemplate"
+                      DataType="{x:Type viewModels:AbnormalityCategoryViewModel}">
+            <buttons:TabItem Title="{Binding Name, Mode=OneWay}"
+                             Description="{Binding Description, Mode=OneWay}"
+                             Background="{StaticResource GRAY_300}"
+                             FontSize="13"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="PanelTemplate"
+                      DataType="{x:Type viewModels:AbnormalityCategoryViewModel}">
+            <ItemsControl ItemsSource="{Binding Elements, Mode=OneTime}">
+                <ItemsControl.Template>
+                    <ControlTemplate>
+                        <viewer:SmoothScrollViewer>
+                            <VirtualizingStackPanel IsItemsHost="True"
+                                                    Orientation="Vertical"
+                                                    VirtualizationMode="Recycling"/>
+                        </viewer:SmoothScrollViewer>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type viewModels:AbnormalityElementViewModel}">
+                        <local:AbnormalityElementView Click="OnAbnormalityClick">
+                            <local:AbnormalityElementView.IsSelected>
+                                <MultiBinding Converter="{StaticResource AbnormalityElementSelectedConverter}">
+                                    <Binding Path="Id" 
+                                             Mode="OneTime"/>
+                                    <Binding Path="DataContext.SelectedAbnormalities" 
+                                             Mode="OneTime" 
+                                             RelativeSource="{RelativeSource AncestorType={x:Type local:AbnormalityWidgetSettingsView}}"/>
+                                    <Binding Path="DataContext.SelectedAbnormalities.Count" 
+                                             Mode="OneWay" 
+                                             RelativeSource="{RelativeSource AncestorType={x:Type local:AbnormalityWidgetSettingsView}}"/>
+                                </MultiBinding>
+                            </local:AbnormalityElementView.IsSelected>
+                        </local:AbnormalityElementView>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </DataTemplate>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -73,7 +119,8 @@
                                     CornerRadius="5"
                                     Cursor="Hand"
                                     Content="Select All"
-                                    Foreground="{StaticResource WHITE_400}"/>
+                                    Foreground="{StaticResource WHITE_400}"
+                                    Click="OnSelectAllClick"/>
                     <buttons:Button VerticalAlignment="Center"
                                     Margin="5"
                                     Padding="5"
@@ -82,7 +129,8 @@
                                     CornerRadius="5"
                                     Cursor="Hand"
                                     Content="Unselect All"
-                                    Foreground="{StaticResource WHITE_400}"/>
+                                    Foreground="{StaticResource WHITE_400}"
+                                    Click="OnUnselectAllClick"/>
                 </StackPanel>
             </Grid>
         </Grid>
@@ -95,7 +143,7 @@
 
             <!-- Configuration properties -->
             <ItemsControl Grid.Column="0"
-                          ItemsSource="{Binding Category.Groups, Mode=OneTime}">
+                          ItemsSource="{Binding Configuration.Groups, Mode=OneTime}">
                 <ItemsControl.Template>
                     <ControlTemplate>
                         <viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto">
@@ -140,7 +188,18 @@
             </ItemsControl>
 
             <!-- Splitter -->
-            <GridSplitter Grid.Column="0"/>
+            <GridSplitter Grid.Column="0"
+                          Width="2"
+                          Background="Transparent"/>
+
+            <!-- Abnormalities -->
+            <TabControl Grid.Column="1"
+                        ItemsSource="{Binding Categories, Mode=OneTime}"
+                        Background="Transparent"
+                        ItemTemplate="{StaticResource HeaderTemplate}"
+                        SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
+                        ContentTemplate="{StaticResource PanelTemplate}"
+                        BorderThickness="0"/>
         </Grid>
     </Grid>
 </UserControl>
