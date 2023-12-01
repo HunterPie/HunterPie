@@ -14,6 +14,7 @@
              xmlns:models="clr-namespace:HunterPie.UI.Settings.Models"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:localPresentation="clr-namespace:HunterPie.UI.Controls.Settings.Abnormality.Presentation"
+             xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
@@ -92,7 +93,7 @@
                                 Width="15"
                                 Foreground="{StaticResource WHITE_400}"
                                 Margin="0,0,5,0"/>
-                    <TextBlock Text="Back"
+                    <TextBlock Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;BACK_STRING&quot;]'}"
                                Foreground="{StaticResource WHITE_400}"
                                VerticalAlignment="Center"/>
                 </StackPanel>
@@ -118,7 +119,7 @@
                                     BorderThickness="1"
                                     CornerRadius="5"
                                     Cursor="Hand"
-                                    Content="Select All"
+                                    Content="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;SELECT_ALL_STRING&quot;]'}"
                                     Foreground="{StaticResource WHITE_400}"
                                     Click="OnSelectAllClick"/>
                     <buttons:Button VerticalAlignment="Center"
@@ -128,7 +129,7 @@
                                     BorderThickness="1"
                                     CornerRadius="5"
                                     Cursor="Hand"
-                                    Content="Unselect All"
+                                    Content="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;UNSELECT_ALL_STRING&quot;]'}"
                                     Foreground="{StaticResource WHITE_400}"
                                     Click="OnUnselectAllClick"/>
                 </StackPanel>

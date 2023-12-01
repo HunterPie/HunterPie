@@ -246,7 +246,7 @@
                                HorizontalAlignment="Right"
                                FontSize="13"
                                Foreground="{StaticResource WHITE_400}">
-                        <Run Text="Synchronized at"/>
+                        <Run Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;CONFIGURATION_SYNC_AT_STRING&quot;]'}"/>
                         <Run Text="{Binding SynchronizedAt, Mode=OneWay, StringFormat='G', ConverterCulture={x:Static gl:CultureInfo.CurrentCulture}}"
                              d:Text="00/00/0000 00:00"
                              Foreground="{StaticResource WHITE_100}"/>
