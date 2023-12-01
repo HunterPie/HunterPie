@@ -8,8 +8,7 @@
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="45" 
-             d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance types:Color}">
+             d:DesignWidth="300">
     <UserControl.Resources>
         <converters:PrefixFilterConverter Prefix="#"
                                           x:Key="HashPrefixFilterConverter"/>
@@ -38,11 +37,11 @@
                 <Run Text="#"
                      Foreground="{StaticResource WHITE_700}"
                      FontWeight="Regular"/><!--
-             --><Run Text="{Binding Value, Mode=OneWay, Converter={StaticResource HashPrefixFilterConverter}}"
+             --><Run Text="{Binding Color, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPicker}}, Mode=OneWay, Converter={StaticResource HashPrefixFilterConverter}}"
                      d:Text="FF03A9FC"/>
             </TextBlock>
             <Border d:Background="#FF03A9FC"
-                    Background="{Binding Value, Mode=OneWay}"
+                    Background="{Binding Color, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPicker}}, Mode=OneWay}"
                     Grid.Column="0"
                     BorderBrush="{StaticResource GRAY}"
                     BorderThickness="0,0,1,0"

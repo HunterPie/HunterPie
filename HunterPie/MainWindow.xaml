@@ -54,7 +54,8 @@
                       CornerRadius="2"
                       GlassFrameThickness="-1"
                       ResizeBorderThickness="5"
-                      UseAeroCaptionButtons="False"/>
+                      UseAeroCaptionButtons="False"
+                      NonClientFrameEdges="Right"/>
     </WindowChrome.WindowChrome>
     <Grid>
         <Grid.RowDefinitions>

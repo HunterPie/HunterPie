@@ -90,6 +90,14 @@ public class Localization
     public static string QueryString(string query) => Instance.document?.SelectSingleNode(query)?.Attributes?["String"]?.Value ?? query;
     public static string QueryDescription(string query) => Query(query)?.Attributes?["Description"]?.Value ?? query;
 
+    public static (string, string) Resolve(string path)
+    {
+        XmlNode? node = Query(path);
+        XmlAttributeCollection? attributes = node?.Attributes;
+
+        return (attributes?["String"]?.Value ?? path, attributes?["Description"]?.Value ?? path);
+    }
+
     public static string GetEnumString<T>(T enumValue)
     {
         MemberInfo memberInfo = enumValue.GetType()

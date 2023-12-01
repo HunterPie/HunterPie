@@ -21,7 +21,7 @@
                       Width="20"
                       Margin="10,0,0,0"
                       ClipToBounds="False">
-                    <Rectangle Fill="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                    <Rectangle Fill="{StaticResource WHITE_300}"
                                >
                         <Rectangle.OpacityMask>
                             <ImageBrush ImageSource="{Binding Icon}"
@@ -39,7 +39,7 @@
                            FontSize="18"
                            Margin="30,0,0,0"
                            VerticalAlignment="Center"
-                           Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/>
+                           Foreground="{StaticResource WHITE_600}"/>
             </StackPanel>
         </native:Button.Content>
     </native:Button>

@@ -29,6 +29,9 @@
     <Compile Update="Controls\Buttons\TabItem.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Effects\CursorHightlight.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Image\Icon.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -44,16 +47,10 @@
     <Compile Update="Controls\Notfication\Push.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\Settings\Custom\AbnormalityTrayList.xaml.cs">
+    <Compile Update="Controls\Settings\Abnormality\Views\AbnormalityElementView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\Settings\Custom\AbnormalityView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Controls\Settings\Custom\AbnormalityWidgetConfigView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Controls\Settings\SettingElementHost.xaml.cs">
+    <Compile Update="Controls\Settings\Abnormality\Views\AbnormalityWidgetSettingsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Sliders\Range.xaml.cs">
@@ -197,6 +194,39 @@
     <Compile Update="Overlay\Widgets\Wirebug\Views\WirebugView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Settings\Views\AbnormalityTrayConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Settings\Views\BooleanConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Settings\Views\ColorConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Settings\Views\ConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Settings\Views\EnumConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Settings\Views\FileSelectorConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Settings\Views\KeybindingConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Settings\Views\PositionConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Settings\Views\RangeConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Settings\Views\SecretConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Settings\Views\StringConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\WindowChrome.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -232,6 +262,9 @@
     <Page Update="Controls\Buttons\TabItem.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\Effects\CursorHightLight.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\Image\Icon.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -247,16 +280,10 @@
     <Page Update="Controls\Notfication\Push.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Controls\Settings\Custom\AbnormalityTrayList.xaml">
+    <Page Update="Controls\Settings\Abnormality\Views\AbnormalityElementView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Controls\Settings\Custom\AbnormalityView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Controls\Settings\Custom\AbnormalityWidgetConfigView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Controls\Settings\SettingElementHost.xaml">
+    <Page Update="Controls\Settings\Abnormality\Views\AbnormalityWidgetSettingsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Sliders\Range.xaml">
@@ -401,6 +428,39 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\Seasons\WinterPie.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\AbnormalityTrayConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\BooleanConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\ColorConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\ConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\EnumConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\FileSelectorConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\KeybindingConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\PositionConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\RangeConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\SecretConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\StringConfigurationPropertyView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Resource Update="Resources\Interface.xaml">

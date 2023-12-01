@@ -31,6 +31,18 @@ public static class AbnormalityService
     }
 
     /// <summary>
+    /// Returns all abnormalities grouped by category
+    /// </summary>
+    /// <param name="game">The game type</param>
+    /// <returns>Groups of abnormalities</returns>
+    public static IEnumerable<IGrouping<string, AbnormalitySchema>> FindAllAbnormalitiesBy(GameType game)
+    {
+        Dictionary<string, AbnormalitySchema> dataSource = GetDataSourceBy(game);
+
+        return dataSource.Values.GroupBy(it => it.Group);
+    }
+
+    /// <summary>
     /// Returns an array with all abnormalities that match the given category
     /// </summary>
     /// <param name="game">The game type</param>

@@ -14,15 +14,15 @@
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Slider Value="{Binding Value}"
-                Maximum="{Binding Maximum}"
-                Minimum="{Binding Minimum}"
-                SmallChange="{Binding Change}"
-                LargeChange="{Binding Change}"
+        <Slider Value="{Binding Value, RelativeSource={RelativeSource AncestorType={x:Type local:Range}}}"
+                Maximum="{Binding Maximum, RelativeSource={RelativeSource AncestorType={x:Type local:Range}}}"
+                Minimum="{Binding Minimum, RelativeSource={RelativeSource AncestorType={x:Type local:Range}}}"
+                SmallChange="{Binding Change, RelativeSource={RelativeSource AncestorType={x:Type local:Range}}}"
+                LargeChange="{Binding Change, RelativeSource={RelativeSource AncestorType={x:Type local:Range}}}"
                 d:Value="50"
                 d:Minimum="0"
                 d:Maximum="100"
-                TickFrequency="{Binding Change}"
+                TickFrequency="{Binding Change, RelativeSource={RelativeSource AncestorType={x:Type local:Range}}}"
                 Style="{StaticResource SliderDefault}"
                 Margin="3,0,3,0" 
                 AutoToolTipPlacement="TopLeft"
@@ -40,6 +40,7 @@
                  FontSize="14">
             <TextBox.Text>
                 <Binding Path="Value"
+                         RelativeSource="{RelativeSource AncestorType={x:Type local:Range}}"
                          Mode="TwoWay"
                          UpdateSourceTrigger="Explicit"
                          ValidatesOnDataErrors="True"

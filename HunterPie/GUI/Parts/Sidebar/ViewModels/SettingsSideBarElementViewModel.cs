@@ -1,15 +1,19 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
-using HunterPie.Core.Domain.Generics;
+using HunterPie.Core.Client.Configuration.Games;
+using HunterPie.Core.Client.Events;
+using HunterPie.Core.Domain.Enums;
+using HunterPie.Core.Extensions;
 using HunterPie.Features.Account.Config;
 using HunterPie.GUI.Parts.Settings.ViewModels;
 using HunterPie.GUI.Parts.Settings.Views;
-using HunterPie.Internal.Initializers;
 using HunterPie.UI.Architecture.Navigator;
 using HunterPie.UI.Assets.Application;
-using HunterPie.UI.Controls.Flags;
-using HunterPie.UI.Controls.Settings.ViewModel;
 using HunterPie.UI.Settings;
+using HunterPie.UI.Settings.Models;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -19,9 +23,10 @@ namespace HunterPie.GUI.Parts.Sidebar.ViewModels;
 
 internal class SettingsSideBarElementViewModel : ISideBarElement
 {
+    private SettingsViewModel? _viewModel;
     public ImageSource Icon => Resources.Icon("ICON_SETTINGS");
 
-    public string Text => Localization.Query("//Strings/Client/Tabs/Tab[@Id='SETTINGS_STRING']").Attributes["String"].Value;
+    public string Text => Localization.QueryString("//Strings/Client/Tabs/Tab[@Id='SETTINGS_STRING']");
 
     public bool IsActivable => true;
 
@@ -31,47 +36,64 @@ internal class SettingsSideBarElementViewModel : ISideBarElement
 
     public SettingsSideBarElementViewModel()
     {
-        RefreshWindowOnChange(ClientConfig.Config.Client.LastConfiguredGame);
-        RefreshWindowOnChange(ClientConfig.Config.Client.EnableFeatureFlags);
+        ConfigManager.OnSync += OnConfigurationSync;
     }
 
-    public void ExecuteOnClick() => RefreshSettingsWindow();
-
-    private async void RefreshSettingsWindow(bool forceRefresh = false)
+    private void OnConfigurationSync(object? sender, ConfigSaveEventArgs e)
     {
-        await Application.Current.Dispatcher.InvokeAsync(async () =>
+        if (Path.GetFileNameWithoutExtension(e.Path) != "config")
+            return;
+
+        if (_viewModel is not { })
+            return;
+
+        _viewModel.SynchronizedAt = e.SyncedAt;
+    }
+
+    public void ExecuteOnClick()
+    {
+        Application.Current.Dispatcher.InvokeAsync(async () =>
         {
-            ISettingElement[] settingTabs = VisualConverterManager.Build(ClientConfig.Config);
+            Observable<GameProcess> game = ClientConfig.Config.Client.LastConfiguredGame;
 
-            ISettingElement[] gameSpecificTabs = VisualConverterManager.Build(
-                ClientConfigHelper.GetGameConfigBy(ClientConfig.Config.Client.LastConfiguredGame.Value)
-            );
+            ObservableCollection<ConfigurationCategory> generalConfig = ConfigurationAdapter.Adapt(ClientConfig.Config);
+            ObservableCollection<ConfigurationCategory> accountConfig = await LocalAccountConfig.BuildAccountConfig();
 
-            ISettingElement[] accountConfig = await LocalAccountConfig.CreateAccountSettingsTab();
+            var commonConfig = accountConfig.Concat(generalConfig)
+                .ToObservableCollection();
+            var configurations = new Dictionary<GameProcess, ObservableCollection<ConfigurationCategory>>
+            {
+                { GameProcess.MonsterHunterRise, BuildConfiguration(commonConfig, ClientConfig.Config.Rise, GameProcess.MonsterHunterRise) },
+                { GameProcess.MonsterHunterWorld, BuildConfiguration(commonConfig, ClientConfig.Config.World, GameProcess.MonsterHunterWorld) },
+                { GameProcess.MonsterHunterRiseSunbreakDemo, BuildConfiguration(commonConfig, ClientConfig.Config.Rise, GameProcess.MonsterHunterRiseSunbreakDemo) }
+            };
+            var supportedConfigurations =
+                new ObservableCollection<GameProcess>(new List<GameProcess>
+                {
+                    GameProcess.MonsterHunterRise,
+                    GameProcess.MonsterHunterWorld,
+                    GameProcess.MonsterHunterRiseSunbreakDemo
+                });
 
-            accountConfig = accountConfig.Concat(settingTabs)
-                .Concat(gameSpecificTabs)
-                .ToArray();
+            _viewModel = new SettingsViewModel(configurations, supportedConfigurations, game);
+            var host = new SettingsView
+            {
+                DataContext = _viewModel
+            };
 
-            GenericFileSelector _ = ClientConfig.Config.Client.Language;
-
-            SettingHostViewModel vm = new(accountConfig);
-            var host = new SettingHost() { DataContext = vm };
-
-            // Also add feature flags if enabled
-            if (ClientConfig.Config.Client.EnableFeatureFlags)
-                vm.Elements.Add(new FeatureFlagsView(FeatureFlagsInitializer.Features.Flags));
-
-            Navigator.Navigate(host, forceRefresh);
+            Navigator.Navigate(host, true);
         });
     }
 
-    private void RefreshWindowOnChange(Bindable observable) => observable.PropertyChanged += (_, __) =>
+    private static ObservableCollection<ConfigurationCategory> BuildConfiguration(
+        IEnumerable<ConfigurationCategory> commonConfiguration,
+        GameConfig configuration,
+        GameProcess gameProcess
+    )
     {
-        if (!Navigator.IsInstanceOf<SettingHost>())
-            return;
+        ObservableCollection<ConfigurationCategory> configCategory = ConfigurationAdapter.Adapt(configuration, gameProcess);
 
-        RefreshSettingsWindow(true);
-    };
-
+        return commonConfiguration.Concat(configCategory)
+            .ToObservableCollection();
+    }
 }
