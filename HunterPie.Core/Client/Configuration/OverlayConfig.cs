@@ -19,6 +19,7 @@ public class OverlayConfig : ISettings
     public InsectGlaiveWidgetConfig InsectGlaiveWidget { get; set; } = new();
     public ChargeBladeWidgetConfig ChargeBladeWidget { get; set; } = new();
     public DualBladesWidgetConfig DualBladesWidget { get; set; } = new();
+    public SwitchAxeWidgetConfig SwitchAxeWidget { get; set; } = new();
     public ChatWidgetConfig ChatWidget { get; set; } = new();
     public SpecializedToolWidgetConfig PrimarySpecializedToolWidget { get; set; } = new()
     {

@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="HunterPie.UI.Overlay.Controls.Progress.Bar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Controls.Progress"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" 
+             d:DesignWidth="300"
+             BorderThickness="0"
+             x:Name="BarControl">
+    <UserControl.Resources>
+        <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
+        <converters:NoRightStrokeConverter x:Key="NoRightStrokeConverter"/>
+        <converters:EqualityToBooleanConverter x:Key="EqualityToBooleanConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <!-- Background bar -->
+        <Border DataContext="{Binding ., ElementName=BarControl}" 
+                Background="{Binding BackgroundColor, Mode=OneWay}"
+                BorderBrush="{Binding BackgroundBorder, Mode=OneWay}"
+                BorderThickness="{Binding Border, Mode=OneWay}"/>
+
+        <!-- Foreground Bar -->
+        <Border DataContext="{Binding ., ElementName=BarControl}"
+                Background="{Binding ForegroundColor, Mode=OneWay}"
+                BorderBrush="{Binding ForegroundBorder, Mode=OneWay}"
+                HorizontalAlignment="Left">
+            <Border.Width>
+                <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
+                    <Binding Path="Value" Mode="OneWay"/>
+                    <Binding Path="MaxValue" Mode="OneWay"/>
+                    <Binding Path="ActualWidth" Mode="OneWay"/>
+                </MultiBinding>
+            </Border.Width>
+
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <DataTrigger Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource EqualityToBooleanConverter}">
+                                    <Binding Path="Value" Mode="OneWay"/>
+                                    <Binding Path="MaxValue" Mode="OneWay"/>
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="BorderThickness" Value="{Binding Border, Mode=OneWay}"/>
+                        </DataTrigger>
+
+                        <DataTrigger Value="False">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource EqualityToBooleanConverter}">
+                                    <Binding Path="Value" Mode="OneWay"/>
+                                    <Binding Path="MaxValue" Mode="OneWay"/>
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="BorderThickness" Value="{Binding Border, Mode=OneWay, Converter={StaticResource NoRightStrokeConverter}}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+        </Border>
+
+        <ContentControl Content="{Binding Content, Mode=OneWay}"
+                        DataContext="{Binding ., ElementName=BarControl}"/>
+    </Grid>
+</UserControl>
