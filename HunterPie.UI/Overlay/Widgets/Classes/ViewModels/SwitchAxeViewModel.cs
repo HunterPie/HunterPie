@@ -19,9 +19,18 @@ public class SwitchAxeViewModel : ViewModel, IClassViewModel
     private float _maxBuildUp;
     public float MaxBuildUp { get => _maxBuildUp; set => SetValue(ref _maxBuildUp, value); }
 
+    private bool _isChargeActive;
+    public bool IsChargeActive { get => _isChargeActive; set => SetValue(ref _isChargeActive, value); }
+
+    private float _chargedBuildUp;
+    public float ChargedBuildUp { get => _chargedBuildUp; set => SetValue(ref _chargedBuildUp, value); }
+
+    private float _maxChargedBuildUp;
+    public float MaxChargedBuildUp { get => _maxChargedBuildUp; set => SetValue(ref _maxChargedBuildUp, value); }
+
     private float _chargedTimer;
     public float ChargedTimer { get => _chargedTimer; set => SetValue(ref _chargedTimer, value); }
 
-    private float _maxChargeTimer;
-    public float MaxChargeTimer { get => _maxChargeTimer; set => SetValue(ref _maxChargeTimer, value); }
+    private float _maxChargedTimer;
+    public float MaxChargedTimer { get => _maxChargedTimer; set => SetValue(ref _maxChargedTimer, value); }
 }

@@ -119,13 +119,36 @@
                     Background="{StaticResource GRAY_300}" 
                     Width="51">
                 <TextBlock d:Text="00:00"
-                           Text="{Binding ChargedTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"
+                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                           HorizontalAlignment="Center"
                            FontWeight="Medium"
-                           Foreground="{StaticResource WHITE_300}"
+                           Foreground="{StaticResource WHITE_100}"
                            RenderTransformOrigin="0.5, 0.5">
                     <TextBlock.RenderTransform>
                         <SkewTransform AngleX="-45"/>
                     </TextBlock.RenderTransform>
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsChargeActive, Mode=OneWay}"
+                                             Value="True">
+                                    <Setter Property="Text" Value="{Binding ChargedTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"/>
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding IsChargeActive, Mode=OneWay}"
+                                             Value="False">
+                                    <Setter Property="Text">
+                                        <Setter.Value>
+                                            <MultiBinding Converter="{StaticResource RatioConverter}" StringFormat="{}{0:P0}">
+                                                <Binding Path="ChargedBuildUp"/>
+                                                <Binding Path="MaxChargedBuildUp"/>
+                                            </MultiBinding>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
                 </TextBlock>
             </Border>
 
@@ -134,12 +157,28 @@
                           Border="1"
                           d:Value="100"
                           d:MaxValue="100"
-                          Value="{Binding ChargedTimer, Mode=OneWay}"
-                          MaxValue="{Binding MaxChargeTimer, Mode=OneWay}"
                           ForegroundBorder="{StaticResource SWITCH_AXE_CHARGED_BRUSH}"
                           ForegroundColor="{StaticResource SwitchAxeChargeBrushBackground}"
                           BackgroundBorder="{StaticResource GRAY_50}"
-                          BackgroundColor="{StaticResource GRAY_400}"/>
+                          BackgroundColor="{StaticResource GRAY_400}">
+                <progress:Bar.Style>
+                    <Style TargetType="{x:Type progress:Bar}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsChargeActive, Mode=OneWay}"
+                                         Value="True">
+                                <Setter Property="Value" Value="{Binding ChargedTimer, Mode=OneWay}"/>
+                                <Setter Property="MaxValue" Value="{Binding MaxChargedTimer, Mode=OneWay}"/>
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IsChargeActive, Mode=OneWay}"
+                                         Value="False">
+                                <Setter Property="Value" Value="{Binding ChargedBuildUp, Mode=OneWay}"/>
+                                <Setter Property="MaxValue" Value="{Binding MaxChargedBuildUp, Mode=OneWay}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </progress:Bar.Style>
+            </progress:Bar>
         </Grid>
         
 
@@ -175,7 +214,7 @@
                     Background="{StaticResource GRAY_300}">
                 <TextBlock d:Text="0%"
                            FontWeight="Medium"
-                           Foreground="{StaticResource WHITE_300}"
+                           Foreground="{StaticResource WHITE_100}"
                            RenderTransformOrigin="0.5, 0.5">
                     <TextBlock.Text>
                         <MultiBinding Converter="{StaticResource RatioConverter}" StringFormat="{}{0:P0}">
