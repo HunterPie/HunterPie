@@ -8,9 +8,9 @@ public struct MHRCharacterData
     [FieldOffset(0x18)]
     public long NamePointer;
 
-    [FieldOffset(0x38)]
+    [FieldOffset(0x40)]
     public int HighRank;
 
-    [FieldOffset(0x90)]
+    [FieldOffset(0x98)]
     public int MasterRank;
 }
