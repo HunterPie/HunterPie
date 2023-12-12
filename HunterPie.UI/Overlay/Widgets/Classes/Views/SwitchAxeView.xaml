@@ -7,14 +7,17 @@
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.ViewModels"
              xmlns:progress="clr-namespace:HunterPie.UI.Overlay.Controls.Progress"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image" xmlns:sys="clr-namespace:System;assembly=netstandard"
              mc:Ignorable="d" 
              Height="82" 
              Width="295"
              d:DataContext="{d:DesignInstance viewModels:SwitchAxeViewModel}">
     <UserControl.Resources>
+        <sys:Double x:Key="MarkPercentage">0.3</sys:Double>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:RatioConverter x:Key="RatioConverter"/>
         <converters:TimerToSizeConverter x:Key="TimerToSizeConverter"/>
+        <converters:PercentageToLeftMarginDistanceConverter x:Key="PercentageToLeftMarginDistanceConverter"/>
         <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource SWITCH_AXE_BUILD_UP_BRUSH}, Mode=OneTime}"
                              Opacity="0.3"
                              x:Key="SwitchAxeBuildUpBrushBackground"/>
@@ -35,7 +38,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Temporary buff -->
+        <!-- Awakened gauge -->
         <Grid Grid.Row="0"
               Grid.Column="0"
               Grid.RowSpan="2">
@@ -155,7 +158,7 @@
             </Border>
         </Grid>
         
-        <!-- Build Up -->
+        <!-- Heavy Slam Buff -->
         <Grid Grid.Row="0"
               Grid.Column="1"
               Margin="-42,0,47,0">
@@ -202,6 +205,7 @@
         </Grid>
         
 
+        <!-- Gauge -->
         <Grid Grid.Row="1"
               Grid.Column="1"
               Margin="-1,0,6,0">
@@ -247,6 +251,30 @@
                     </TextBlock.RenderTransform>
                 </TextBlock>
             </Border>
+
+            <image:Icon Grid.Row="0"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Left"
+                        Width="10"
+                        Height="10"
+                        Image="{StaticResource ICON_FUNNEL}"
+                        Foreground="{StaticResource WHITE_600}"
+                        RenderTransformOrigin="0.5,0.5"
+                        d:Margin="50,0,0,-2">
+                <image:Icon.Margin>
+                    <MultiBinding Converter="{StaticResource PercentageToLeftMarginDistanceConverter}"
+                                  ConverterCulture="0,0,0,-2">
+                        <Binding Path="ActualWidth" Mode="OneWay" RelativeSource="{RelativeSource AncestorType={x:Type Grid}}"/>
+                        <Binding Source="{StaticResource MarkPercentage}" Mode="OneWay"/>
+                    </MultiBinding>
+                </image:Icon.Margin>
+                <image:Icon.RenderTransform>
+                    <TransformGroup>
+                        <SkewTransform AngleX="45"/>
+                        <RotateTransform Angle="180"/>
+                    </TransformGroup>
+                </image:Icon.RenderTransform>
+            </image:Icon>
         </Grid>
     </Grid>
 </UserControl>
