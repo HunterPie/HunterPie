@@ -33,7 +33,7 @@
     </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="-1"
-                      CaptionHeight="0"/>
+                      CaptionHeight="0" />
     </WindowChrome.WindowChrome>
     <Grid>
         <Grid x:Name="PART_Base"

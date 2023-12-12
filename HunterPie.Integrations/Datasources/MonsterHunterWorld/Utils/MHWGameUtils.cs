@@ -61,6 +61,25 @@ public static class MHWGameUtils
         return staminaCapUp ? DefaultMaxStamina + StaminaIncrement : DefaultMaxStamina;
     }
 
+    public static float GetPowerProlongerMultiplier(this ISkillService skillService, Weapon weapon)
+    {
+        Skill powerProlonger = skillService.GetSkillBy(0x35);
+        int skillLevel = Math.Min(3, powerProlonger.Level);
+
+        if (skillLevel <= 0)
+            return 1.0f;
+
+        float baseFormula = 1.0f + ((float)Math.Pow(2.0f, skillLevel - 1.0f) / 10.0f);
+
+        return weapon switch
+        {
+            Weapon.SwitchAxe or
+                Weapon.DualBlades => baseFormula + (2.0f * skillLevel / 10.0f),
+
+            _ => baseFormula
+        };
+    }
+
     public static int MaximumSharpness(this int[] sharpnesses, MHWGearSkill handicraft)
     {
         int handicraftLevel = Math.Min((int)handicraft.LevelGear, 5);

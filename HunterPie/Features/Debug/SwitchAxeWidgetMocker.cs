@@ -17,7 +17,11 @@ internal class SwitchAxeWidgetMocker : IWidgetMocker
 
         view.ViewModel.CurrentSettings = ClientConfig.Config.Rise.Overlay.SwitchAxeWidget;
         view.ViewModel.InHuntingZone = true;
-        view.ViewModel.Current = new SwitchAxeViewModel();
+        view.ViewModel.Current = new SwitchAxeViewModel
+        {
+            MaxChargedTimer = 100.0f,
+            ChargedTimer = 50.0f
+        };
 
         WidgetManager.Register<ClassView, ClassWidgetConfig>(view);
     }

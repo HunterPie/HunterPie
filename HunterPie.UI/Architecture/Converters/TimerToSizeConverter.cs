@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+using Converter = System.Convert;
 
 namespace HunterPie.UI.Architecture.Converters;
 
@@ -8,14 +9,14 @@ public class TimerToSizeConverter : IMultiValueConverter
 {
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
-        if (values.Length < 2)
-            throw new Exception("Expected at least 2 arguments");
+        if (values.Length < 3)
+            throw new Exception("Expected at least 3 arguments");
 
-        double timer = (double)values[0];
-        double maxTimer = (double)values[1];
-        double maxSize = (double)values[2];
+        double timer = Converter.ToDouble(values[0]);
+        double maxTimer = Math.Max(1.0, Converter.ToDouble(values[1]));
+        double maxSize = Converter.ToDouble(values[2]);
 
-        return maxSize * (timer / maxTimer);
+        return Math.Max(0.0, maxSize * (timer / maxTimer));
     }
 
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => throw new NotImplementedException();

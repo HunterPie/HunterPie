@@ -14,6 +14,7 @@
     <UserControl.Resources>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:RatioConverter x:Key="RatioConverter"/>
+        <converters:TimerToSizeConverter x:Key="TimerToSizeConverter"/>
         <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource SWITCH_AXE_BUILD_UP_BRUSH}, Mode=OneTime}"
                              Opacity="0.3"
                              x:Key="SwitchAxeBuildUpBrushBackground"/>
@@ -57,8 +58,8 @@
                     <RotateTransform Angle="180"/>
                 </Canvas.RenderTransform>
                 <Rectangle RenderTransformOrigin="0.5, 0.5"
-                           Width="{Binding Width, ElementName=PART_BuffBackground, Mode=OneWay}"
-                           Height="{Binding Height, ElementName=PART_BuffBackground, Mode=OneWay}"
+                           Width="{Binding ActualWidth, ElementName=PART_BuffBackground, Mode=OneWay}"
+                           Height="{Binding ActualHeight, ElementName=PART_BuffBackground, Mode=OneWay}"
                            Canvas.Top="13"
                            Canvas.Left="13"
                            d:Width="56"
@@ -74,13 +75,45 @@
                         </TransformGroup>
                     </Rectangle.RenderTransform>
                 </Rectangle>
+                <Canvas.Style>
+                    <Style TargetType="{x:Type Canvas}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsChargeActive, Mode=OneWay}"
+                                         Value="True">
+                                <Setter Property="Height">
+                                    <Setter.Value>
+                                        <MultiBinding Converter="{StaticResource TimerToSizeConverter}">
+                                            <Binding Path="ChargedTimer" Mode="OneWay"/>
+                                            <Binding Path="MaxChargedTimer" Mode="OneWay"/>
+                                            <Binding Path="ActualHeight" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Grid}}"/>
+                                        </MultiBinding>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IsChargeActive, Mode=OneWay}"
+                                         Value="False">
+                                <Setter Property="Height">
+                                    <Setter.Value>
+                                        <MultiBinding Converter="{StaticResource TimerToSizeConverter}">
+                                            <Binding Path="ChargedBuildUp" Mode="OneWay"/>
+                                            <Binding Path="MaxChargedBuildUp" Mode="OneWay"/>
+                                            <Binding Path="ActualHeight" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Grid}}"/>
+                                        </MultiBinding>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Canvas.Style>
             </Canvas>
 
             <Border RenderTransformOrigin="0.5, 0.5"
-                    Margin="20,20,20,20"
-                    BorderBrush="{StaticResource GRAY_50}"
-                    BorderThickness="1"
-                    Background="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}">
+                    Margin="17">
+                <Border.Background>
+                    <LinearGradientBrush GradientStops="{Binding GradientStops, Mode=OneTime, Source={StaticResource COMMON_CLASS_HELPER_BACKGROUND}}"
+                                         Opacity="0.8"/>
+                </Border.Background>
                 <Border.RenderTransform>
                     <RotateTransform Angle="45"/>
                 </Border.RenderTransform>
@@ -88,44 +121,13 @@
                 <TextBlock d:Text="00:00"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
-                           Foreground="{StaticResource WHITE_300}"
+                           Foreground="{StaticResource WHITE_100}"
+                           FontWeight="Medium"
+                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                            FontSize="14"
                            RenderTransformOrigin="0.5, 0.5">
                     <TextBlock.RenderTransform>
                         <RotateTransform Angle="-45"/>
-                    </TextBlock.RenderTransform>
-                </TextBlock>
-            </Border>
-        </Grid>
-        
-        <!-- Build Up -->
-        <Grid Grid.Row="0"
-              Grid.Column="1"
-              Margin="-42,0,47,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="12"/>
-            </Grid.RowDefinitions>
-            <Grid.RenderTransform>
-                <SkewTransform AngleX="45"/>
-            </Grid.RenderTransform>
-
-            <Border Grid.Row="0"
-                    Padding="8,1"
-                    VerticalAlignment="Bottom"
-                    HorizontalAlignment="Left"
-                    BorderThickness="1"
-                    BorderBrush="{StaticResource GRAY_50}"
-                    Background="{StaticResource GRAY_300}" 
-                    Width="51">
-                <TextBlock d:Text="00:00"
-                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                           HorizontalAlignment="Center"
-                           FontWeight="Medium"
-                           Foreground="{StaticResource WHITE_100}"
-                           RenderTransformOrigin="0.5, 0.5">
-                    <TextBlock.RenderTransform>
-                        <SkewTransform AngleX="-45"/>
                     </TextBlock.RenderTransform>
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
@@ -151,34 +153,52 @@
                     </TextBlock.Style>
                 </TextBlock>
             </Border>
+        </Grid>
+        
+        <!-- Build Up -->
+        <Grid Grid.Row="0"
+              Grid.Column="1"
+              Margin="-42,0,47,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5"/>
+            </Grid.RowDefinitions>
+            <Grid.RenderTransform>
+                <SkewTransform AngleX="45"/>
+            </Grid.RenderTransform>
+
+            <Border Grid.Row="0"
+                    Padding="8,1"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Left"
+                    BorderThickness="1"
+                    BorderBrush="{StaticResource GRAY_50}"
+                    Background="{StaticResource GRAY_300}" 
+                    Width="51">
+                <TextBlock d:Text="00:00"
+                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                           HorizontalAlignment="Center"
+                           FontWeight="Medium"
+                           Foreground="{StaticResource WHITE_100}"
+                           Text="{Binding PowerBuffTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"
+                           RenderTransformOrigin="0.5, 0.5">
+                    <TextBlock.RenderTransform>
+                        <SkewTransform AngleX="-45"/>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+            </Border>
 
             <progress:Bar Grid.Row="1" 
                           VerticalAlignment="Stretch"
                           Border="1"
                           d:Value="100"
                           d:MaxValue="100"
+                          Value="{Binding PowerBuffTimer, Mode=OneWay}"
+                          MaxValue="{Binding MaxPowerBuffTimer, Mode=OneWay}"
                           ForegroundBorder="{StaticResource SWITCH_AXE_CHARGED_BRUSH}"
                           ForegroundColor="{StaticResource SwitchAxeChargeBrushBackground}"
                           BackgroundBorder="{StaticResource GRAY_50}"
-                          BackgroundColor="{StaticResource GRAY_400}">
-                <progress:Bar.Style>
-                    <Style TargetType="{x:Type progress:Bar}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsChargeActive, Mode=OneWay}"
-                                         Value="True">
-                                <Setter Property="Value" Value="{Binding ChargedTimer, Mode=OneWay}"/>
-                                <Setter Property="MaxValue" Value="{Binding MaxChargedTimer, Mode=OneWay}"/>
-                            </DataTrigger>
-
-                            <DataTrigger Binding="{Binding IsChargeActive, Mode=OneWay}"
-                                         Value="False">
-                                <Setter Property="Value" Value="{Binding ChargedBuildUp, Mode=OneWay}"/>
-                                <Setter Property="MaxValue" Value="{Binding MaxChargedBuildUp, Mode=OneWay}"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </progress:Bar.Style>
-            </progress:Bar>
+                          BackgroundColor="{StaticResource GRAY_400}"/>
         </Grid>
         
 

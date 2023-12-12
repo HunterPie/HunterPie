@@ -4,16 +4,17 @@ using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Player.Classes;
+using HunterPie.Core.Game.Entity.Player.Skills;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
-using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
-using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
 
-namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Weapons;
+namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
 
-public sealed class MHRSwitchAxe : MHRMeleeWeapon, ISwitchAxe
+public sealed class MHWSwitchAxe : MHWMeleeWeapon, ISwitchAxe
 {
-    private int[] _maxChargeBuildUpOffsets = { 0x20, 0x10 };
+    private readonly ISkillService _skillService;
 
     private float _buildUp;
     public float BuildUp
@@ -28,7 +29,6 @@ public sealed class MHRSwitchAxe : MHRMeleeWeapon, ISwitchAxe
             this.Dispatch(_onBuildUpChange, new BuildUpChangeEventArgs(value, MaxBuildUp));
         }
     }
-
     public float MaxBuildUp => 100.0f;
 
     private float _chargeTimer;
@@ -59,7 +59,7 @@ public sealed class MHRSwitchAxe : MHRMeleeWeapon, ISwitchAxe
             this.Dispatch(_onChargeBuildUpChange, new BuildUpChangeEventArgs(value, MaxChargeBuildUp));
         }
     }
-    public float MaxChargeBuildUp { get; private set; }
+    public float MaxChargeBuildUp => 100.0f;
 
     private float _slamBuffTimer;
     public float SlamBuffTimer
@@ -109,50 +109,29 @@ public sealed class MHRSwitchAxe : MHRMeleeWeapon, ISwitchAxe
     [ScannableMethod]
     private void GetData()
     {
-        MHRSwitchAxeStructure structure = Memory.Deref<MHRSwitchAxeStructure>(
-            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
-            AddressMap.GetOffsets("CURRENT_WEAPON_OFFSETS")
+        MHWSwitchAxeStructure structure = Memory.Deref<MHWSwitchAxeStructure>(
+            AddressMap.GetAbsolute("WEAPON_MECHANICS_ADDRESS"),
+            AddressMap.GetOffsets("WEAPON_MECHANICS_OFFSETS")
         );
-        float[] maxChargeBuildUps = Memory.ReadArray<float>(structure.MaxChargeBuildUpsPointer);
+
+        float powerProlongerMultiplier = _skillService.GetPowerProlongerMultiplier(Weapon.SwitchAxe);
 
         BuildUp = structure.BuildUp;
 
-        DeferMaxChargeBuildUp(
-            maxChargeBuildUps: maxChargeBuildUps,
-            weaponDataPtr: structure.WeaponDataPointer
-        );
-        ChargeBuildUp = structure.ChargeBuildUp;
-
-        float chargeTimer = structure.ChargeTimer.ToAbnormalitySeconds();
+        float chargeTimer = structure.ChargeTimer * powerProlongerMultiplier;
         MaxChargeTimer = Math.Max(chargeTimer, MaxChargeTimer);
         ChargeTimer = chargeTimer;
 
-        float slamBuffTimer = structure.SlamBuffTimer.ToAbnormalitySeconds();
+        ChargeBuildUp = structure.ChargeBuildUp;
+
+        float slamBuffTimer = structure.SlamBuffTimer * powerProlongerMultiplier;
         MaxSlamBuffTimer = Math.Max(slamBuffTimer, MaxSlamBuffTimer);
         SlamBuffTimer = slamBuffTimer;
     }
 
-    private void DeferMaxChargeBuildUp(float[] maxChargeBuildUps, long weaponDataPtr)
+    public MHWSwitchAxe(IProcessManager process, ISkillService skillService) : base(process, Weapon.SwitchAxe)
     {
-        MHRSwitchAxeWeaponDataStructure weaponData = Memory.DerefPtr<MHRSwitchAxeWeaponDataStructure>(weaponDataPtr, _maxChargeBuildUpOffsets);
-
-        // MHRise has a jump table to convert the bottle type into an index
-        int buildUpIndex = (weaponData.PhialType - 1) switch
-        {
-            0 => 1,
-            2 => 5,
-            3 => 4,
-            6 => 3,
-            7 => 2,
-            _ => 0
-        };
-        float maxBuildUp = maxChargeBuildUps.ElementAtOrDefault(buildUpIndex);
-
-        MaxChargeBuildUp = maxBuildUp;
-    }
-
-    public MHRSwitchAxe(IProcessManager process) : base(process, Weapon.SwitchAxe)
-    {
+        _skillService = skillService;
     }
 
     public override void Dispose()
