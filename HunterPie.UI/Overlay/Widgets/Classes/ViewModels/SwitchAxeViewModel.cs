@@ -19,6 +19,9 @@ public class SwitchAxeViewModel : ViewModel, IClassViewModel
     private float _maxBuildUp;
     public float MaxBuildUp { get => _maxBuildUp; set => SetValue(ref _maxBuildUp, value); }
 
+    private float _lowBuildUp;
+    public float LowBuildUp { get => _lowBuildUp; set => SetValue(ref _lowBuildUp, value); }
+
     private bool _isChargeActive;
     public bool IsChargeActive { get => _isChargeActive; set => SetValue(ref _isChargeActive, value); }
 

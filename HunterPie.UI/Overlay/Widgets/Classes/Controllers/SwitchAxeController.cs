@@ -19,6 +19,8 @@ internal sealed class SwitchAxeController : IClassController<SwitchAxeViewModel>
     {
         _context = context;
         _weapon = weapon;
+
+        Update();
     }
 
     public void HookEvents()
@@ -61,5 +63,19 @@ internal sealed class SwitchAxeController : IClassController<SwitchAxeViewModel>
     {
         ViewModel.BuildUp = e.Current;
         ViewModel.MaxBuildUp = e.Max;
+    }
+
+    private void Update()
+    {
+        ViewModel.PowerBuffTimer = _weapon.SlamBuffTimer;
+        ViewModel.MaxPowerBuffTimer = _weapon.MaxSlamBuffTimer;
+        ViewModel.IsChargeActive = _weapon.ChargeTimer > 0;
+        ViewModel.ChargedTimer = _weapon.ChargeTimer;
+        ViewModel.MaxChargedTimer = _weapon.MaxChargeTimer;
+        ViewModel.ChargedBuildUp = _weapon.ChargeBuildUp;
+        ViewModel.MaxChargedBuildUp = _weapon.MaxChargeBuildUp;
+        ViewModel.BuildUp = _weapon.BuildUp;
+        ViewModel.MaxBuildUp = _weapon.MaxBuildUp;
+        ViewModel.LowBuildUp = _weapon.LowBuildUp;
     }
 }

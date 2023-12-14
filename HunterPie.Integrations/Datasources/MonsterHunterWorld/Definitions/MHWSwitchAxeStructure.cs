@@ -8,5 +8,4 @@ public struct MHWSwitchAxeStructure
     [FieldOffset(0x2350)] public float BuildUp;
     [FieldOffset(0x2360)] public float ChargeBuildUp;
     [FieldOffset(0x2364)] public float ChargeTimer;
-    [FieldOffset(0x2A54)] public float SlamBuffTimer;
 }

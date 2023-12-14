@@ -29,7 +29,10 @@ public sealed class MHWSwitchAxe : MHWMeleeWeapon, ISwitchAxe
             this.Dispatch(_onBuildUpChange, new BuildUpChangeEventArgs(value, MaxBuildUp));
         }
     }
+
     public float MaxBuildUp => 100.0f;
+
+    public float LowBuildUp => 30.0f;
 
     private float _chargeTimer;
     public float ChargeTimer
@@ -123,10 +126,21 @@ public sealed class MHWSwitchAxe : MHWMeleeWeapon, ISwitchAxe
         ChargeTimer = chargeTimer;
 
         ChargeBuildUp = structure.ChargeBuildUp;
+    }
 
-        float slamBuffTimer = structure.SlamBuffTimer * powerProlongerMultiplier;
-        MaxSlamBuffTimer = Math.Max(slamBuffTimer, MaxSlamBuffTimer);
-        SlamBuffTimer = slamBuffTimer;
+    [ScannableMethod]
+    private void GetSlamBuff()
+    {
+        long abnormalitiesPointer = Memory.Read(
+            AddressMap.GetAbsolute("ABNORMALITY_ADDRESS"),
+            AddressMap.GetOffsets("ABNORMALITY_OFFSETS")
+        );
+        float powerProlongerMultiplier = _skillService.GetPowerProlongerMultiplier(Weapon.SwitchAxe);
+        float slamBuffTimer = Memory.Read<float>(abnormalitiesPointer + 0x6E8);
+        float slamBuffTimerAdjusted = slamBuffTimer * powerProlongerMultiplier;
+
+        MaxSlamBuffTimer = Math.Max(MaxSlamBuffTimer, slamBuffTimerAdjusted);
+        SlamBuffTimer = slamBuffTimerAdjusted;
     }
 
     public MHWSwitchAxe(IProcessManager process, ISkillService skillService) : base(process, Weapon.SwitchAxe)

@@ -13,13 +13,12 @@ public class PercentageToLeftMarginDistanceConverter : IMultiValueConverter
     {
         Thickness oldThickness = parameter?.ToThickness() ?? new Thickness();
 
-        if (values[0] is not double width)
+        if (values[0] is not double width ||
+            values[1] is not double percentage)
             return oldThickness;
 
         if (double.IsNaN(width))
             return oldThickness;
-
-        double percentage = (double)values[1];
 
         double left = width * percentage;
 

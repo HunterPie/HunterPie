@@ -13,7 +13,7 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Wea
 
 public sealed class MHRSwitchAxe : MHRMeleeWeapon, ISwitchAxe
 {
-    private int[] _maxChargeBuildUpOffsets = { 0x20, 0x10 };
+    private readonly int[] _maxChargeBuildUpOffsets = { 0x20, 0x10 };
 
     private float _buildUp;
     public float BuildUp
@@ -30,6 +30,8 @@ public sealed class MHRSwitchAxe : MHRMeleeWeapon, ISwitchAxe
     }
 
     public float MaxBuildUp => 100.0f;
+
+    public float LowBuildUp => 37.0f;
 
     private float _chargeTimer;
     public float ChargeTimer

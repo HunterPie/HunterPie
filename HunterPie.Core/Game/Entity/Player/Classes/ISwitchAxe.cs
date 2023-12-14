@@ -7,6 +7,7 @@ public interface ISwitchAxe : IMeleeWeapon
 {
     public float BuildUp { get; }
     public float MaxBuildUp { get; }
+    public float LowBuildUp { get; }
     public float ChargeTimer { get; }
     public float MaxChargeTimer { get; }
     public float ChargeBuildUp { get; }

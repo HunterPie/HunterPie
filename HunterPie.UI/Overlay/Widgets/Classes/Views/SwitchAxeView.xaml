@@ -8,25 +8,44 @@
              xmlns:progress="clr-namespace:HunterPie.UI.Overlay.Controls.Progress"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image" xmlns:sys="clr-namespace:System;assembly=netstandard"
+             xmlns:conditionals="clr-namespace:HunterPie.UI.Architecture.Converters.Conditionals"
+             xmlns:bindings="clr-namespace:HunterPie.UI.Architecture.Bindings"
+             xmlns:animation="clr-namespace:HunterPie.UI.Architecture.Animation"
              mc:Ignorable="d" 
              Height="82" 
              Width="295"
              d:DataContext="{d:DesignInstance viewModels:SwitchAxeViewModel}">
     <UserControl.Resources>
-        <sys:Double x:Key="MarkPercentage">0.3</sys:Double>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:RatioConverter x:Key="RatioConverter"/>
         <converters:TimerToSizeConverter x:Key="TimerToSizeConverter"/>
         <converters:PercentageToLeftMarginDistanceConverter x:Key="PercentageToLeftMarginDistanceConverter"/>
-        <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource SWITCH_AXE_BUILD_UP_BRUSH}, Mode=OneTime}"
-                             Opacity="0.3"
-                             x:Key="SwitchAxeBuildUpBrushBackground"/>
+        <conditionals:LessThanOrEqualConverter x:Key="LessThanOrEqualConverter"/>
         <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource SWITCH_AXE_CHARGED_BRUSH}, Mode=OneTime}"
                              Opacity="0.3"
                              x:Key="SwitchAxeChargeBrushBackground"/>
         <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource SWITCH_AXE_POWER_AXE_BRUSH}, Mode=OneTime}"
                              Opacity="0.3"
                              x:Key="SwitchAxePowerAxeBrushBackground"/>
+
+        <!-- Bindings -->
+        <bindings:BindingProxy x:Key="BuildUpPercentage">
+            <bindings:BindingProxy.Data>
+                <MultiBinding Converter="{StaticResource RatioConverter}">
+                    <Binding Path="BuildUp" Mode="OneWay"/>
+                    <Binding Path="MaxBuildUp" Mode="OneWay"/>
+                </MultiBinding>
+            </bindings:BindingProxy.Data>
+        </bindings:BindingProxy>
+
+        <bindings:BindingProxy x:Key="LowBuildUpPercentage">
+            <bindings:BindingProxy.Data>
+                <MultiBinding Converter="{StaticResource RatioConverter}">
+                    <Binding Path="LowBuildUp" Mode="OneWay"/>
+                    <Binding Path="MaxBuildUp" Mode="OneWay"/>
+                </MultiBinding>
+            </bindings:BindingProxy.Data>
+        </bindings:BindingProxy>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -115,7 +134,7 @@
                     Margin="17">
                 <Border.Background>
                     <LinearGradientBrush GradientStops="{Binding GradientStops, Mode=OneTime, Source={StaticResource COMMON_CLASS_HELPER_BACKGROUND}}"
-                                         Opacity="0.8"/>
+                                         Opacity="0.9"/>
                 </Border.Background>
                 <Border.RenderTransform>
                     <RotateTransform Angle="45"/>
@@ -205,7 +224,7 @@
         </Grid>
         
 
-        <!-- Gauge -->
+        <!-- Build Up Gauge -->
         <Grid Grid.Row="1"
               Grid.Column="1"
               Margin="-1,0,6,0">
@@ -224,10 +243,52 @@
                           Border="1"
                           Value="{Binding BuildUp, Mode=OneWay}"
                           MaxValue="{Binding MaxBuildUp, Mode=OneWay}"
-                          ForegroundBorder="{StaticResource SWITCH_AXE_BUILD_UP_BRUSH}"
-                          ForegroundColor="{StaticResource SwitchAxeBuildUpBrushBackground}"
+                          d:ForegroundBorder="{StaticResource SWITCH_AXE_BUILD_UP_LOW_BRUSH}"
+                          d:ForegroundColor="{StaticResource SWITCH_AXE_BUILD_UP_LOW_BACKGROUND_BRUSH}"
                           BackgroundBorder="{StaticResource GRAY_50}"
-                          BackgroundColor="{StaticResource GRAY_400}"/>
+                          BackgroundColor="{StaticResource GRAY_400}">
+                <progress:Bar.Style>
+                    <Style TargetType="progress:Bar">
+                        <Setter Property="ForegroundBorder" Value="{StaticResource SWITCH_AXE_BUILD_UP_HIGH_BRUSH}"/>
+                        <Setter Property="ForegroundColor" Value="{StaticResource SWITCH_AXE_BUILD_UP_HIGH_BACKGROUND_BRUSH}"/>
+                        <Style.Triggers>
+                            <DataTrigger Value="True">
+                                <DataTrigger.Binding>
+                                    <MultiBinding Converter="{StaticResource LessThanOrEqualConverter}">
+                                        <Binding Path="Data" Source="{StaticResource BuildUpPercentage}"/>
+                                        <Binding Path="Data" Source="{StaticResource LowBuildUpPercentage}"/>
+                                    </MultiBinding>
+                                </DataTrigger.Binding>
+                                
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <animation:BrushAnimation Storyboard.TargetProperty="ForegroundBorder"
+                                                                      To="{StaticResource SWITCH_AXE_BUILD_UP_LOW_BRUSH}"
+                                                                      Duration="0:0:0.25"/>
+                                            <animation:BrushAnimation Storyboard.TargetProperty="ForegroundColor"
+                                                                      To="{StaticResource SWITCH_AXE_BUILD_UP_LOW_BACKGROUND_BRUSH}"
+                                                                      Duration="0:0:0.25"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <animation:BrushAnimation Storyboard.TargetProperty="ForegroundBorder"
+                                                                      To="{StaticResource SWITCH_AXE_BUILD_UP_HIGH_BRUSH}"
+                                                                      Duration="0:0:0.25"/>
+                                            <animation:BrushAnimation Storyboard.TargetProperty="ForegroundColor"
+                                                                      To="{StaticResource SWITCH_AXE_BUILD_UP_HIGH_BACKGROUND_BRUSH}"
+                                                                      Duration="0:0:0.25"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </progress:Bar.Style>
+            </progress:Bar>
 
             <Border Grid.Row="1"
                     Padding="15,1"
@@ -252,20 +313,21 @@
                 </TextBlock>
             </Border>
 
+            <!-- Low Build Up Indicator -->
             <image:Icon Grid.Row="0"
                         VerticalAlignment="Bottom"
                         HorizontalAlignment="Left"
                         Width="10"
                         Height="10"
                         Image="{StaticResource ICON_FUNNEL}"
-                        Foreground="{StaticResource WHITE_600}"
+                        Foreground="{StaticResource WHITE_300}"
                         RenderTransformOrigin="0.5,0.5"
                         d:Margin="50,0,0,-2">
                 <image:Icon.Margin>
                     <MultiBinding Converter="{StaticResource PercentageToLeftMarginDistanceConverter}"
-                                  ConverterCulture="0,0,0,-2">
+                                  ConverterParameter="0,0,0,-2">
                         <Binding Path="ActualWidth" Mode="OneWay" RelativeSource="{RelativeSource AncestorType={x:Type Grid}}"/>
-                        <Binding Source="{StaticResource MarkPercentage}" Mode="OneWay"/>
+                        <Binding Path="Data" Source="{StaticResource LowBuildUpPercentage}" Mode="OneWay"/>
                     </MultiBinding>
                 </image:Icon.Margin>
                 <image:Icon.RenderTransform>
