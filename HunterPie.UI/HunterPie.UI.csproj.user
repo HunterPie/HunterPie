@@ -83,6 +83,9 @@
     <Compile Update="Overlay\Controls\Bar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Controls\Progress\Bar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -138,6 +141,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Classes\Views\InsectGlaiveView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Classes\Views\SwitchAxeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Damage\View\DamageBarView.xaml.cs">
@@ -316,6 +322,9 @@
     <Page Update="Overlay\Controls\Bar.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Overlay\Controls\Progress\Bar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -371,6 +380,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Classes\Views\InsectGlaiveView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Classes\Views\SwitchAxeView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Damage\View\DamageBarView.xaml">

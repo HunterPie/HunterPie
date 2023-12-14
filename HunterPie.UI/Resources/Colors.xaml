@@ -291,5 +291,30 @@
     </RadialGradientBrush>
     <SolidColorBrush x:Key="DUAL_BLADES_ARCH_DEMON_BLINK_BRUSH" Color="#bdbfbf"/>
     <SolidColorBrush x:Key="DUAL_BLADES_ARCH_DEMON_BLINK_BACKGROUND_BRUSH" Color="#bdbfbf" Opacity="0.3"/>
-
+    <LinearGradientBrush x:Key="SWITCH_AXE_BUILD_UP_LOW_BRUSH" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#9C3CBE" Offset="1"/>
+        <GradientStop Color="#4464D6" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="SWITCH_AXE_BUILD_UP_LOW_BACKGROUND_BRUSH" EndPoint="1,1" StartPoint="0,1"
+                         Opacity="0.3">
+        <GradientStop Color="#9C3CBE" Offset="1"/>
+        <GradientStop Color="#4464D6" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="SWITCH_AXE_BUILD_UP_HIGH_BRUSH" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#3F8AE2" Offset="1"/>
+        <GradientStop Color="#2BCE8A" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="SWITCH_AXE_BUILD_UP_HIGH_BACKGROUND_BRUSH" EndPoint="1,1" StartPoint="0,1"
+                         Opacity="0.3">
+        <GradientStop Color="#3F8AE2" Offset="1"/>
+        <GradientStop Color="#2BCE8A" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="SWITCH_AXE_CHARGED_BRUSH" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#BE7A3C" Offset="1"/>
+        <GradientStop Color="#D64444" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="SWITCH_AXE_POWER_AXE_BRUSH" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#00B7AC" Offset="1"/>
+        <GradientStop Color="#0085FF" Offset="0"/>
+    </LinearGradientBrush>
 </ResourceDictionary>

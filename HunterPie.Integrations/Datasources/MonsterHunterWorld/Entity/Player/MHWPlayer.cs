@@ -311,6 +311,7 @@ public sealed class MHWPlayer : CommonPlayer
             WeaponType.HeavyBowgun => new MHWHeavyBowgun(),
             WeaponType.LightBowgun => new MHWLightBowgun(),
             WeaponType.DualBlades => new MHWDualBlades(Process),
+            WeaponType.SwitchAxe => new MHWSwitchAxe(Process, _skillService),
 
             WeaponType.Greatsword
                 or WeaponType.SwordAndShield
@@ -318,8 +319,7 @@ public sealed class MHWPlayer : CommonPlayer
                 or WeaponType.Hammer
                 or WeaponType.HuntingHorn
                 or WeaponType.Lance
-                or WeaponType.GunLance
-                or WeaponType.SwitchAxe => new MHWMeleeWeapon(Process, data.WeaponType),
+                or WeaponType.GunLance => new MHWMeleeWeapon(Process, data.WeaponType),
 
             _ => null
         };
