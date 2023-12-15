@@ -115,7 +115,7 @@ public sealed class MHRSwitchAxe : MHRMeleeWeapon, ISwitchAxe
             AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
             AddressMap.GetOffsets("CURRENT_WEAPON_OFFSETS")
         );
-        float[] maxChargeBuildUps = Memory.ReadArray<float>(structure.MaxChargeBuildUpsPointer);
+        float[] maxChargeBuildUps = Memory.ReadArraySafe<float>(structure.MaxChargeBuildUpsPointer, 6);
 
         BuildUp = structure.BuildUp;
 
