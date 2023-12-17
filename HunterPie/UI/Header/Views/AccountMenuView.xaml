@@ -17,6 +17,10 @@
             <EventSetter Event="Click" Handler="OnClick"/>
         </Style>
 
+        <Style x:Key="SignInButton" TargetType="buttons:Button">
+            <EventSetter Event="Click" Handler="OnSignInButtonClick"/>
+        </Style>
+
         <Style x:Key="PopupButton" TargetType="buttons:Button">
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="Padding" Value="10,5"/>
@@ -36,7 +40,8 @@
                                             BorderBrush="{StaticResource GRAY}"
                                             BorderThickness="1,0,1,1"
                                             CornerRadius="0,0,5,5"
-                                            Click="OnSignInButtonClick">
+                                            Cursor="Hand"
+                                            Style="{StaticResource SignInButton}">
                                 <StackPanel Orientation="Horizontal">
                                     <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                                                 Image="{StaticResource ICON_ACCOUNT}"

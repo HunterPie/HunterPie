@@ -26,7 +26,7 @@
              WindowStyle="None"
              d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
     <Window.Resources>
-        <presentation:NavigationDataTemplateConverter x:Key="NavigationDataTemplateConverter"/>
+        <presentation:NavigationDataTemplateSelector x:Key="NavigationDataTemplateSelector"/>
     </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"
@@ -48,7 +48,7 @@
         <!-- Content Navigation -->
         <ContentControl Grid.Column="1"
                         Grid.Row="1"
-                        ContentTemplate="{Binding NavigationViewModel, Mode=OneWay,  Converter={StaticResource NavigationDataTemplateConverter}}"
+                        ContentTemplateSelector="{StaticResource NavigationDataTemplateSelector}"
                         Content="{Binding NavigationViewModel, Mode=OneWay, NotifyOnTargetUpdated=True}"
                         TargetUpdated="OnNavigationTargetUpdated"
                         RenderTransformOrigin="0.5,0.5"

@@ -52,14 +52,14 @@ internal class SettingsSideBarViewModel : ViewModel, ISideBarViewModel
 
     public void Execute()
     {
-        UIThread.Invoke(async () =>
+        BuildViewModel().ContinueWith(async (it) =>
         {
-            _viewModel = await BuildViewModel();
+            _viewModel = await it;
             Navigator.Navigate(_viewModel);
         });
     }
 
-    public async Task<SettingsViewModel> BuildViewModel()
+    private async Task<SettingsViewModel> BuildViewModel()
     {
         Observable<GameProcess> game = ClientConfig.Config.Client.LastConfiguredGame;
 

@@ -1,20 +1,17 @@
 ﻿using HunterPie.UI.Navigation;
-using System;
-using System.Globalization;
-using System.Windows.Data;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace HunterPie.UI.Main.Presentation;
 
-internal class NavigationDataTemplateConverter : IValueConverter
+internal class NavigationDataTemplateSelector : DataTemplateSelector
 {
-    public object? Convert(object? value, Type targetType, object parameter, CultureInfo culture)
+    public override DataTemplate? SelectTemplate(object? item, DependencyObject container)
     {
-        return value switch
+        return item switch
         {
             null => null,
-            { } => NavigationProvider.FindBy(value.GetType())
+            { } => NavigationProvider.FindBy(item.GetType())
         };
     }
-
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }

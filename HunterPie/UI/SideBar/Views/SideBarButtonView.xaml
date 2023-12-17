@@ -71,7 +71,7 @@
             </Rectangle>
 
             <image:Icon Grid.Column="1"
-                        Padding="10"
+                        Padding="12"
                         Image="{Binding Icon, Mode=OneWay, Converter={StaticResource IconResolver}}"
                         d:Image="{StaticResource ICON_HUNTERPIE}"
                         Foreground="{StaticResource WHITE_400}"/>

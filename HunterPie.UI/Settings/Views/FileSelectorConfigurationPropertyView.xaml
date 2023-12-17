@@ -24,7 +24,7 @@
             <ComboBox Grid.Column="1"
                       Height="35"
                       Margin="5,0,0,0"
-                      ItemsSource="{Binding FileSelector.Elements, Mode=OneTime}"
+                      ItemsSource="{Binding Elements, Mode=OneTime}"
                       SelectedItem="{Binding FileSelector.Current, Mode=TwoWay}"/>
         </Grid>
     </effects:CursorHighLight>
