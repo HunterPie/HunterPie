@@ -98,17 +98,6 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-
-            <account:AccountView VerticalAlignment="Bottom"
-                                 x:Name="PART_UserAccount"
-                                 Height="50">
-                <account:AccountView.Effect>
-                    <DropShadowEffect Direction="90" 
-                                      ShadowDepth="2" 
-                                      BlurRadius="5" 
-                                      Opacity="0.2"/>
-                </account:AccountView.Effect>
-            </account:AccountView>
         </Grid>
     </Grid>
     

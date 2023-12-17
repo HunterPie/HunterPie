@@ -102,6 +102,21 @@
     <Compile Update="GUI\Parts\Statistics\Views\QuestStatisticsSummaryView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UI\Header\Views\AccountMenuView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Header\Views\HeaderView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Main\Views\MainView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\SideBar\Views\SideBarButtonView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\SideBar\Views\SideBarView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Update\Presentation\UpdateView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -210,6 +225,21 @@
       <SubType>Designer</SubType>
     </None>
     <Page Update="Resources\Styles\Client.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Header\Views\AccountMenuView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Header\Views\HeaderView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Main\Views\MainView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\SideBar\Views\SideBarButtonView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\SideBar\Views\SideBarView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Update\Presentation\UpdateView.xaml">

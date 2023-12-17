@@ -59,8 +59,8 @@
     </WindowChrome.WindowChrome>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="73*"/>
-            <RowDefinition Height="226*"/>
+            <RowDefinition Height="146"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Grid x:Name="PART_Host"
@@ -82,7 +82,8 @@
                         x:Name="PART_HeaderBar"
                         Height="25"
                         Background="{StaticResource GRAY_300}"
-                        VerticalAlignment="Top"/>
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Stretch"/>
 
         <Grid Grid.Row="0" 
               Background="{StaticResource GRAY_300}" 
@@ -94,7 +95,7 @@
 
                 <Image Source="{StaticResource ICON_HUNTERPIE}"
                        Height="55"/>
-                
+
                 <Label Style="{DynamicResource HUNTERPIE_LOGO_TEXT}"/>
 
             </StackPanel>
@@ -236,7 +237,7 @@
                 </Style>
             </notifications:NotificationsPanelView.Style>
         </notifications:NotificationsPanelView>
-        
+
         <!-- In-App notifications -->
         <ItemsControl ItemsSource="{Binding Source={x:Static appNotifications:InAppNotificationService.Notifications}, Mode=OneWay}"
                       VerticalAlignment="Bottom"
@@ -262,7 +263,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        
+
         <accountPromo:AccountPromotionalView Grid.ColumnSpan="2"
                                              Grid.RowSpan="2"
                                              Margin="80"

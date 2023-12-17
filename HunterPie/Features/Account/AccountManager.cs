@@ -21,6 +21,7 @@ internal class AccountManager : IEventDispatcher
     private static readonly AccountManager Instance = new();
 
     public static event EventHandler<AccountLoginEventArgs>? OnSignIn;
+    public static event EventHandler<AccountLoginEventArgs>? OnSessionStart;
     public static event EventHandler<EventArgs>? OnSignOut;
     public static event EventHandler<AccountAvatarEventArgs>? OnAvatarChange;
 
@@ -127,6 +128,8 @@ internal class AccountManager : IEventDispatcher
             return null;
 
         Instance._cachedAccount = account.ToModel();
+
+        Instance.Dispatch(OnSessionStart, new AccountLoginEventArgs { Account = Instance._cachedAccount });
 
         return Instance._cachedAccount;
     }

@@ -7,15 +7,24 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Game;
 using HunterPie.Core.Logger;
 using HunterPie.Core.System;
+using HunterPie.Domain.Sidebar;
 using HunterPie.Features;
+using HunterPie.Features.Account;
 using HunterPie.Features.Account.Config;
+using HunterPie.Features.Account.Controller;
 using HunterPie.Features.Backups;
 using HunterPie.Features.Overlay;
 using HunterPie.Integrations;
 using HunterPie.Integrations.Discord;
 using HunterPie.Internal;
 using HunterPie.Internal.Exceptions;
+using HunterPie.UI.Header.ViewModels;
+using HunterPie.UI.Main;
+using HunterPie.UI.Main.ViewModels;
+using HunterPie.UI.Main.Views;
+using HunterPie.UI.Navigation;
 using HunterPie.UI.Overlay;
+using HunterPie.UI.SideBar.ViewModels;
 using HunterPie.Update;
 using HunterPie.Update.Presentation;
 using System;
@@ -40,7 +49,9 @@ public partial class App : Application
     private IProcessManager? _process;
     private RichPresence? _richPresence;
     private Context? _context;
+    private readonly AccountController _accountController = new();
 
+    internal static MainController? MainController { get; private set; }
     public static MainWindow? UI { get; private set; }
 
     protected override async void OnStartup(StartupEventArgs e)
@@ -62,17 +73,33 @@ public partial class App : Application
 
         ShutdownMode = ShutdownMode.OnMainWindowClose;
 
-        UI = Dispatcher.Invoke(() => new MainWindow());
+        InitializeMainView();
 
-        UI.InitializeComponent();
+        await AccountManager.ValidateSessionToken();
 
-        if (!ClientConfig.Config.Client.EnableSeamlessStartup)
-            UI.Show();
+        //UI = Dispatcher.Invoke(() => new MainWindow());
 
-        _ = WidgetManager.Instance;
+        //UI.InitializeComponent();
+
+        //if (!ClientConfig.Config.Client.EnableSeamlessStartup)
+        //    UI.Show();
+
+        //_ = WidgetManager.Instance;
 
         InitializeProcessScanners();
         SetUIThreadPriority();
+    }
+
+    private void InitializeMainView()
+    {
+        var headerViewModel = new HeaderViewModel(_accountController.GetAccountMenuViewModel());
+        var sideBarViewModel = new SideBarViewModel(SideBarProvider.SideBar.Elements);
+        var viewModel = new MainViewModel(headerViewModel, sideBarViewModel);
+        MainView view = Dispatcher.Invoke(() => new MainView { DataContext = viewModel });
+        MainController = new MainController(view, viewModel);
+
+        Navigator.SetNavigator(MainController);
+        view.Show();
     }
 
     private void CheckForRunningInstances()

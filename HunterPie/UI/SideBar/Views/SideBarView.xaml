@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="HunterPie.UI.SideBar.Views.SideBarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.SideBar.Views"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.SideBar.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance viewModels:SideBarViewModel}"
+             Width="{StaticResource HUNTERPIE_SIDEBAR_WIDTH}"
+             d:DesignHeight="450"
+             PreviewMouseMove="OnPreviewMouseMove"
+             MouseLeave="OnMouseLeave">
+    <UserControl.Effect>
+        <DropShadowEffect RenderingBias="Quality" 
+                          Direction="0" 
+                          BlurRadius="10" 
+                          Opacity="0.03"/>
+    </UserControl.Effect>
+    <Grid>
+        <Rectangle Width="1"
+                   Fill="White"
+                   VerticalAlignment="Stretch"
+                   HorizontalAlignment="Left"
+                   x:Name="PART_HitTest">
+            <Rectangle.RenderTransform>
+                <ScaleTransform ScaleX="50"/>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+
+        <ItemsControl ItemsSource="{Binding Elements, Mode=OneTime}"
+                      Background="{StaticResource GRAY_50}"
+                      x:Name="PART_SideBar">
+            <ItemsControl.OpacityMask>
+                <VisualBrush Visual="{Binding ., ElementName=PART_HitTest}"
+                             Stretch="None"
+                             AlignmentX="Left"/>
+            </ItemsControl.OpacityMask>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:SideBarButtonView Height="40"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

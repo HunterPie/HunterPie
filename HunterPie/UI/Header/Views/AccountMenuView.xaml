@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="HunterPie.UI.Header.Views.AccountMenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Header.Views"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.Header.ViewModels"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="30"
+             d:DataContext="{d:DesignInstance viewModels:AccountMenuViewModel}"
+             Loaded="OnLoaded"
+             PreviewMouseUp="OnPreviewMouseButtonUp">
+    <UserControl.Resources>
+        <Style x:Key="LoggedInButton" TargetType="buttons:Button">
+            <EventSetter Event="Click" Handler="OnClick"/>
+        </Style>
+
+        <Style x:Key="PopupButton" TargetType="buttons:Button">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <ContentPresenter>
+            <ContentPresenter.Style>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <buttons:Button HorizontalContentAlignment="Stretch"
+                                            VerticalContentAlignment="Stretch"
+                                            Padding="5,0,10,0"
+                                            BorderBrush="{StaticResource GRAY}"
+                                            BorderThickness="1,0,1,1"
+                                            CornerRadius="0,0,5,5"
+                                            Click="OnSignInButtonClick">
+                                <StackPanel Orientation="Horizontal">
+                                    <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                                Image="{StaticResource ICON_ACCOUNT}"
+                                                Foreground="{StaticResource WHITE_500}"
+                                                Padding="0,3"
+                                                Margin="0,0,5,0"/>
+                                    <TextBlock Text="Sign In"
+                                               VerticalAlignment="Center"
+                                               Foreground="{StaticResource WHITE_200}"
+                                               FontSize="12"/>
+                                </StackPanel>
+                            </buttons:Button>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DataContext.IsLoggedIn, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:AccountMenuView}}}"
+                                     Value="True">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <buttons:Button VerticalContentAlignment="Stretch"
+                                                    HorizontalContentAlignment="Stretch"
+                                                    Padding="0"
+                                                    BorderBrush="{StaticResource GRAY_50}"
+                                                    BorderThickness="1"
+                                                    Background="{StaticResource GRAY_300}"
+                                                    Style="{StaticResource LoggedInButton}"
+                                                    Cursor="Hand">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="https://cdn.hunterpie.com/avatars/ad51e2e548eb0d91a75a8e5c354cec034c1caa434cc41fe28df0babf2e59131d.png"
+                                                   Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" 
+                                                   Stretch="UniformToFill"
+                                                   RenderOptions.BitmapScalingMode="Fant"/>
+                                            <TextBlock Text="Haato"
+                                                       VerticalAlignment="Center"
+                                                       Margin="5,0,0,0"/>
+                                            <Path Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
+                                                  HorizontalAlignment="Center" 
+                                                  Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                                                  VerticalAlignment="Center"
+                                                  Margin="5"/>
+                                        </StackPanel>
+                                    </buttons:Button>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentPresenter.Style>
+        </ContentPresenter>
+
+        <Popup IsOpen="{Binding IsOpen, Mode=OneWay, NotifyOnTargetUpdated=True}"
+               AllowsTransparency="True"
+               TargetUpdated="OnDropDownChanged">
+            <Border Background="{StaticResource GRAY_300}"
+                    BorderThickness="1"
+                    BorderBrush="{StaticResource GRAY_50}"
+                    CornerRadius="0, 0, 5, 5">
+                <StackPanel Orientation="Vertical">
+                    <buttons:Button Content="View my account"
+                                    Style="{StaticResource PopupButton}"/>
+                    <buttons:Button Content="Account settings"
+                                    Style="{StaticResource PopupButton}"/>
+                    <buttons:Button Content="Sign out"
+                                    Style="{StaticResource PopupButton}"/>
+                </StackPanel>
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl>

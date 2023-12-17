@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="HunterPie.UI.SideBar.Views.SideBarButtonView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.SideBar.Views"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.SideBar.ViewModels"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" 
+             d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance viewModels:ISideBarViewModel}">
+    <UserControl.Resources>
+        <converters:IconResolver x:Key="IconResolver"/>
+        <converters:LocalizationResolver x:Key="LocalizationResolver"/>
+    </UserControl.Resources>
+    <buttons:Button HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    Padding="0"
+                    IsEnabled="{Binding IsAvailable, Mode=OneWay}"
+                    Click="OnClick">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Rectangle Grid.Column="0"
+                       Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}">
+                <Rectangle.Style>
+                    <Style TargetType="Rectangle">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsSelected, Mode=OneWay}"
+                                         Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation To="3"
+                                                             From="0"
+                                                             Storyboard.TargetProperty="Width"
+                                                             Duration="0:0:0.25">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <QuadraticEase EasingMode="EaseIn"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation To="0"
+                                                             From="3"
+                                                             Storyboard.TargetProperty="Width"
+                                                             Duration="0:0:0.25">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <QuadraticEase EasingMode="EaseIn"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Rectangle.Style>
+            </Rectangle>
+
+            <image:Icon Grid.Column="1"
+                        Padding="10"
+                        Image="{Binding Icon, Mode=OneWay, Converter={StaticResource IconResolver}}"
+                        d:Image="{StaticResource ICON_HUNTERPIE}"
+                        Foreground="{StaticResource WHITE_400}"/>
+
+            <TextBlock Grid.Column="2"
+                       VerticalAlignment="Center"
+                       d:Text="Button"
+                       Text="{Binding Label, Mode=OneWay, Converter={StaticResource LocalizationResolver}}"
+                       FontSize="18"
+                       FontWeight="Medium"
+                       Margin="10,0"
+                       Foreground="{StaticResource WHITE_600}"/>
+        </Grid>
+    </buttons:Button>
+</UserControl>

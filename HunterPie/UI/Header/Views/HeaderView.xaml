@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="HunterPie.UI.Header.Views.HeaderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Header.Views"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.Header.ViewModels"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" 
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewModels:HeaderViewModel}">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid MouseLeftButtonDown="OnMouseLeftDown"
+          Background="{StaticResource GRAY_300}">
+        <!-- Left panel -->
+        <StackPanel Orientation="Horizontal">
+            <image:Icon Image="{StaticResource ICON_ADMINISTRATOR}"
+                        Foreground="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                        Width="15"
+                        Margin="5,0,0,0"
+                        Visibility="{Binding IsAdmin, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <image:Icon Image="{StaticResource ICON_HUNTERPIE}"
+                        Foreground="{StaticResource WHITE_700}"
+                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                        Padding="5"/>
+            <TextBlock FontWeight="Light"
+                       Foreground="{StaticResource WHITE_700}"
+                       VerticalAlignment="Center"
+                       FontSize="13">
+                <Run Text="Hunter"
+                     FontWeight="Medium"/><!--
+             --><Run Text="Pie"/>
+                <Run d:Text="v2.10.0.0"
+                     FontSize="10"/>
+            </TextBlock>
+        </StackPanel>
+
+        <!-- Right Panel -->
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <local:AccountMenuView Margin="0,0,10,0"
+                                   DataContext="{Binding AccountMenuViewModel, Mode=OneWay}"/>
+
+            <buttons:Button Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                            Background="{StaticResource GRAY_300}"
+                            Click="OnMinimizeClick">_</buttons:Button>
+            <buttons:Button Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                            Background="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                            Click="OnCloseClick">✕</buttons:Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
