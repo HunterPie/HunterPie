@@ -730,6 +730,22 @@
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
     </DataTemplate>
 
+    <Style TargetType="{x:Type ListBox}">
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <ContentPresenter/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- Themes support -->
     <Style x:Key="STYLE_MONSTERS_WIDGET" TargetType="{x:Type monster:MonstersView}"/>
     <Style x:Key="STYLE_DAMAGE_METER_WIDGET" TargetType="{x:Type meter:MeterView}"/>

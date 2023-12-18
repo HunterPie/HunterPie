@@ -11,23 +11,24 @@
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:ConsoleViewModel}">
     <Grid>
-        <ItemsControl ItemsSource="{Binding Logs, Mode=OneTime}">
-            <ItemsControl.Template>
+        <ListBox ItemsSource="{Binding Logs, Mode=OneTime}"
+                 Background="Transparent"
+                 BorderThickness="0"
+                 VirtualizingPanel.ScrollUnit="Pixel"
+                 VirtualizingPanel.VirtualizationMode="Standard">
+            <ListBox.Template>
                 <ControlTemplate>
-                    <viewer:SmoothScrollViewer VirtualizingPanel.IsVirtualizing="True"
-                                               VirtualizingStackPanel.VirtualizationMode="Recycling"
-                                               VerticalScrollBarVisibility="Auto">
-                        <VirtualizingStackPanel IsItemsHost="True"
-                                                VirtualizingStackPanel.VirtualizationMode="Recycling"/>
+                    <viewer:SmoothScrollViewer>
+                        <ItemsPresenter/>
                     </viewer:SmoothScrollViewer>
                 </ControlTemplate>
-            </ItemsControl.Template>
+            </ListBox.Template>
 
-            <ItemsControl.ItemTemplate>
+            <ListBox.ItemTemplate>
                 <DataTemplate>
                     <local:LogView Margin="0,0,0,2"/>
                 </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>

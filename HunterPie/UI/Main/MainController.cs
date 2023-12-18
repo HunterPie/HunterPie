@@ -1,15 +1,17 @@
-﻿using HunterPie.UI.Architecture;
+﻿using HunterPie.Core.Extensions;
+using HunterPie.UI.Architecture;
 using HunterPie.UI.Main.ViewModels;
 using HunterPie.UI.Main.Views;
 using HunterPie.UI.Navigation;
 using System;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 
 namespace HunterPie.UI.Main;
 
 internal class MainController : INavigator
 {
-    private readonly OrderedDictionary _viewModels = new OrderedDictionary();
+    private readonly Dictionary<Type, ViewModel> _viewModels = new();
+    private readonly Stack<ViewModel> _stack = new();
     public readonly MainViewModel ViewModel;
     public readonly MainView View;
 
@@ -21,9 +23,9 @@ internal class MainController : INavigator
 
     public void Navigate<TViewModel>(TViewModel viewModel) where TViewModel : ViewModel
     {
-        Type viewModelType = typeof(TViewModel);
+        Type viewModelType = viewModel.GetType();
 
-        if (_viewModels.Contains(viewModelType))
+        if (_viewModels.ContainsKey(viewModelType))
             _viewModels.Remove(viewModelType);
 
         _viewModels.Add(viewModelType, viewModel);
@@ -32,9 +34,19 @@ internal class MainController : INavigator
 
     public void Navigate<TViewModel>() where TViewModel : ViewModel
     {
-        if (!_viewModels.Contains(typeof(TViewModel)))
+        if (!_viewModels.ContainsKey(typeof(TViewModel)))
             return;
 
-        ViewModel.ContentViewModel = _viewModels[typeof(TViewModel)] as ViewModel;
+        Navigate(_viewModels[typeof(TViewModel)]);
+    }
+
+    public void Return()
+    {
+        _stack.PopOrDefault();
+
+        if (!_stack.TryPop(out ViewModel? viewModel))
+            return;
+
+        Navigate(viewModel);
     }
 }

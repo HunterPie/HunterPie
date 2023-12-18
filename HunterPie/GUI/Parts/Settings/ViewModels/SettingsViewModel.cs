@@ -81,7 +81,11 @@ internal class SettingsViewModel : ViewModel
 
     public void ChangeSettingsGroup()
     {
-        Categories = _configurations[SelectedGameConfiguration];
+        ObservableCollection<ConfigurationCategory> newCategories = _configurations[SelectedGameConfiguration];
+        if (Categories == newCategories)
+            return;
+
+        Categories = newCategories;
         CurrentTabIndex = 0;
     }
 

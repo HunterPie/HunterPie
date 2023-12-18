@@ -5,6 +5,8 @@ using HunterPie.GUI.Parts.Patches.ViewModels;
 using HunterPie.GUI.Parts.Patches.Views;
 using HunterPie.GUI.Parts.Settings.ViewModels;
 using HunterPie.GUI.Parts.Settings.Views;
+using HunterPie.UI.Controls.Settings.Abnormality.ViewModels;
+using HunterPie.UI.Controls.Settings.Abnormality.Views;
 using HunterPie.UI.Logging.ViewModels;
 using HunterPie.UI.Logging.Views;
 using HunterPie.UI.Main.ViewModels;
@@ -25,6 +27,7 @@ internal class NavigationTemplatesInitializer : IInitializer
         NavigationProvider.Bind<SettingsView, SettingsViewModel>();
         NavigationProvider.Bind<PatchesView, PatchesViewModel>();
         NavigationProvider.Bind<AccountPreferencesView, AccountPreferencesViewModel>();
+        NavigationProvider.Bind<AbnormalityWidgetSettingsView, AbnormalityWidgetSettingsViewModel>();
 
         return Task.CompletedTask;
     }
