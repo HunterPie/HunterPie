@@ -11,7 +11,12 @@ public static class NavigationProvider
 {
     private static readonly Dictionary<Type, DataTemplate> Templates = new();
 
-    public static void Register<TView, TViewModel>()
+    /// <summary>
+    /// Binds a view model to an specific view type
+    /// </summary>
+    /// <typeparam name="TView">Type of the view</typeparam>
+    /// <typeparam name="TViewModel">Type of the view's view model</typeparam>
+    public static void Bind<TView, TViewModel>()
         where TView : FrameworkElement
         where TViewModel : ViewModel
     {

@@ -21,6 +21,6 @@ internal class PatchNotesSideBarViewModel : ViewModel, ISideBarViewModel
 
     public void Execute()
     {
-        Navigator.Navigate(new PatchesViewModel());
+        Navigator.Body.Navigate(new PatchesViewModel());
     }
 }

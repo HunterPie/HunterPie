@@ -63,10 +63,10 @@
     <Compile Update="GUI\Parts\Backup\Views\BackupsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Console\ConsoleView.xaml.cs">
+    <Compile Update="UI\Logging\Views\ConsoleView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Console\LogView.xaml.cs">
+    <Compile Update="UI\Logging\Views\LogView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="GUI\Parts\Debug\Views\EventTrackerView.xaml.cs">
@@ -106,6 +106,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\Header\Views\HeaderView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Main\Views\MainBodyView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\Main\Views\MainView.xaml.cs">
@@ -176,10 +179,10 @@
     <Page Update="GUI\Parts\Backup\Views\BackupsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Console\ConsoleView.xaml">
+    <Page Update="UI\Logging\Views\ConsoleView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Console\LogView.xaml">
+    <Page Update="UI\Logging\Views\LogView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Debug\Views\EventTrackerView.xaml">
@@ -231,6 +234,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\Header\Views\HeaderView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Main\Views\MainBodyView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\Main\Views\MainView.xaml">

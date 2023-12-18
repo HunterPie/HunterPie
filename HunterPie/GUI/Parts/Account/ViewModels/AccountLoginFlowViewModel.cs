@@ -4,6 +4,8 @@ using HunterPie.Features.Account;
 using HunterPie.Integrations.Poogie.Account.Models;
 using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.UI.Architecture;
+using HunterPie.UI.Main.ViewModels;
+using HunterPie.UI.Navigation;
 using System;
 using System.Threading.Tasks;
 
@@ -71,6 +73,8 @@ public class AccountLoginFlowViewModel : ViewModel
 
             return false;
         }
+
+        Navigator.App.Navigate<MainBodyViewModel>();
 
         return true;
     }

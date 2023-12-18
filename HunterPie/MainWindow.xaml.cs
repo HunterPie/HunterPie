@@ -1,12 +1,10 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Logger;
-using HunterPie.Features.Account;
 using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.UseCase;
 using HunterPie.Features.Debug;
 using HunterPie.Features.Notification.ViewModels;
-using HunterPie.GUI.Parts.Account.Views;
 using HunterPie.GUI.Parts.Host;
 using HunterPie.GUI.ViewModels;
 using HunterPie.Internal;
@@ -81,7 +79,6 @@ public partial class MainWindow : Window
 
         SetupTrayIcon();
         SetupMainNavigator();
-        SetupAccountEvents();
 
         await SetupPromoViewAsync();
     }
@@ -125,29 +122,6 @@ public partial class MainWindow : Window
             PART_ContentPresenter.RenderTransform.BeginAnimation(ScaleTransform.ScaleXProperty, shrinkAnimation);
             PART_ContentPresenter.RenderTransform.BeginAnimation(ScaleTransform.ScaleYProperty, shrinkAnimation);
         };
-    }
-
-    private void SetupAccountEvents()
-    {
-        AccountNavigationService.OnNavigateToSignIn += (_, __) => CreateSignFlowView(true);
-        AccountNavigationService.OnNavigateToSignUp += (_, __) => CreateSignFlowView(false);
-    }
-
-    private void CreateSignFlowView(bool isLoggingIn)
-    {
-        AccountSignFlowView view = new();
-        view.ViewModel.SelectedIndex = isLoggingIn ? 0 : 1;
-        view.OnFormClose += OnSignFormClose;
-        PART_SigninView.Content = view;
-    }
-
-    private void OnSignFormClose(object sender, EventArgs e)
-    {
-        if (sender is AccountSignFlowView view)
-        {
-            view.OnFormClose -= OnSignFormClose;
-            PART_SigninView.Content = null;
-        }
     }
 
     private void OnTrayShowClick(object sender, EventArgs e)

@@ -1,19 +1,16 @@
-﻿using HunterPie.UI.Architecture;
-
-namespace HunterPie.UI.Navigation;
+﻿namespace HunterPie.UI.Navigation;
 
 #nullable enable
 public static class Navigator
 {
-    private static INavigator? _navigator;
+#pragma warning disable CS8618
+    public static INavigator Body;
+    public static INavigator App;
+#pragma warning restore CS8618
 
-    internal static void SetNavigator(INavigator navigator)
+    internal static void SetNavigators(INavigator body, INavigator app)
     {
-        _navigator = navigator;
-    }
-
-    public static void Navigate<TViewModel>(TViewModel viewModel) where TViewModel : ViewModel
-    {
-        _navigator?.Navigate(viewModel);
+        Body = body;
+        App = app;
     }
 }

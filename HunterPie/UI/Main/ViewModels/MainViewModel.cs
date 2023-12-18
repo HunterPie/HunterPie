@@ -1,23 +1,19 @@
 ﻿using HunterPie.UI.Architecture;
 using HunterPie.UI.Header.ViewModels;
-using HunterPie.UI.SideBar.ViewModels;
 
 namespace HunterPie.UI.Main.ViewModels;
 
 internal class MainViewModel : ViewModel
 {
     public HeaderViewModel HeaderViewModel { get; init; }
-    public SideBarViewModel SideBarViewModel { get; init; }
 
-    private ViewModel? _navigationViewModel;
-    public ViewModel? NavigationViewModel { get => _navigationViewModel; set => SetValue(ref _navigationViewModel, value); }
+    private ViewModel? _contentViewModel;
+    public ViewModel? ContentViewModel { get => _contentViewModel; set => SetValue(ref _contentViewModel, value); }
 
     public MainViewModel(
-        HeaderViewModel headerViewModel,
-        SideBarViewModel sideBarViewModel
+        HeaderViewModel headerViewModel
     )
     {
         HeaderViewModel = headerViewModel;
-        SideBarViewModel = sideBarViewModel;
     }
 }

@@ -1,6 +1,6 @@
-﻿using HunterPie.GUI.Parts.Console;
-using HunterPie.UI.Architecture.Navigator;
+﻿using HunterPie.UI.Architecture.Navigator;
 using HunterPie.UI.Assets.Application;
+using HunterPie.UI.Logging.Views;
 using System.Windows.Media;
 using Localization = HunterPie.Core.Client.Localization.Localization;
 

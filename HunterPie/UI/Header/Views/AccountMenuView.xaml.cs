@@ -49,7 +49,7 @@ public partial class AccountMenuView : UserControl
         parentWindow.Deactivated += (_, __) => vm.IsOpen = false;
     }
 
-    private void OnPreviewMouseButtonUp(object sender, MouseButtonEventArgs e)
+    private void OnMouseButtonUp(object sender, MouseButtonEventArgs e)
     {
         if (DataContext is not AccountMenuViewModel vm)
             return;
@@ -71,6 +71,30 @@ public partial class AccountMenuView : UserControl
         if (DataContext is not AccountMenuViewModel vm)
             return;
 
+        vm.OpenSignInScreen();
+    }
 
+    private void OnSignOutClick(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not AccountMenuViewModel vm)
+            return;
+
+        vm.SignOut();
+    }
+
+    private void OnAccountDetailsClick(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not AccountMenuViewModel vm)
+            return;
+
+        vm.OpenAccountDetails();
+    }
+
+    private void OnAccountSettingsClick(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not AccountMenuViewModel vm)
+            return;
+
+        vm.OpenAccountSettings();
     }
 }

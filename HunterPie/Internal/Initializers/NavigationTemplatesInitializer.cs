@@ -1,8 +1,14 @@
 ﻿using HunterPie.Domain.Interfaces;
+using HunterPie.GUI.Parts.Account.ViewModels;
+using HunterPie.GUI.Parts.Account.Views;
 using HunterPie.GUI.Parts.Patches.ViewModels;
 using HunterPie.GUI.Parts.Patches.Views;
 using HunterPie.GUI.Parts.Settings.ViewModels;
 using HunterPie.GUI.Parts.Settings.Views;
+using HunterPie.UI.Logging.ViewModels;
+using HunterPie.UI.Logging.Views;
+using HunterPie.UI.Main.ViewModels;
+using HunterPie.UI.Main.Views;
 using HunterPie.UI.Navigation;
 using System.Threading.Tasks;
 
@@ -12,8 +18,13 @@ internal class NavigationTemplatesInitializer : IInitializer
 {
     public Task Init()
     {
-        NavigationProvider.Register<SettingsView, SettingsViewModel>();
-        NavigationProvider.Register<PatchesView, PatchesViewModel>();
+        NavigationProvider.Bind<MainBodyView, MainBodyViewModel>();
+        NavigationProvider.Bind<AccountSignFlowView, AccountSignFlowViewModel>();
+
+        NavigationProvider.Bind<ConsoleView, ConsoleViewModel>();
+        NavigationProvider.Bind<SettingsView, SettingsViewModel>();
+        NavigationProvider.Bind<PatchesView, PatchesViewModel>();
+        NavigationProvider.Bind<AccountPreferencesView, AccountPreferencesViewModel>();
 
         return Task.CompletedTask;
     }

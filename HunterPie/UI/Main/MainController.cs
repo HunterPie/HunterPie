@@ -2,12 +2,14 @@
 using HunterPie.UI.Main.ViewModels;
 using HunterPie.UI.Main.Views;
 using HunterPie.UI.Navigation;
-using HunterPie.UI.SideBar.ViewModels;
+using System;
+using System.Collections.Specialized;
 
 namespace HunterPie.UI.Main;
 
 internal class MainController : INavigator
 {
+    private readonly OrderedDictionary _viewModels = new OrderedDictionary();
     public readonly MainViewModel ViewModel;
     public readonly MainView View;
 
@@ -17,12 +19,22 @@ internal class MainController : INavigator
         ViewModel = viewModel;
     }
 
-    public void Navigate<TViewModel>(TViewModel viewModel)
-        where TViewModel : ViewModel
+    public void Navigate<TViewModel>(TViewModel viewModel) where TViewModel : ViewModel
     {
-        ViewModel.NavigationViewModel = viewModel;
+        Type viewModelType = typeof(TViewModel);
 
-        foreach (ISideBarViewModel sideBarViewModel in ViewModel.SideBarViewModel.Elements)
-            sideBarViewModel.IsSelected = sideBarViewModel.Type == typeof(TViewModel);
+        if (_viewModels.Contains(viewModelType))
+            _viewModels.Remove(viewModelType);
+
+        _viewModels.Add(viewModelType, viewModel);
+        ViewModel.ContentViewModel = viewModel;
+    }
+
+    public void Navigate<TViewModel>() where TViewModel : ViewModel
+    {
+        if (!_viewModels.Contains(typeof(TViewModel)))
+            return;
+
+        ViewModel.ContentViewModel = _viewModels[typeof(TViewModel)] as ViewModel;
     }
 }

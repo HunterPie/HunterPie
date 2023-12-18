@@ -1,7 +1,7 @@
 ﻿using HunterPie.UI.Logger;
 using System.Collections.ObjectModel;
 
-namespace HunterPie.GUI.Parts.Console.ViewModels;
+namespace HunterPie.UI.Logging.ViewModels;
 
 internal class MockConsoleViewModel
 {

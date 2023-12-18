@@ -55,7 +55,7 @@ internal class SettingsSideBarViewModel : ViewModel, ISideBarViewModel
         BuildViewModel().ContinueWith(async (it) =>
         {
             _viewModel = await it;
-            Navigator.Navigate(_viewModel);
+            Navigator.Body.Navigate(_viewModel);
         });
     }
 

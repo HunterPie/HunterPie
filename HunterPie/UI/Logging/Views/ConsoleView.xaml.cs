@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace HunterPie.GUI.Parts.Console;
+namespace HunterPie.UI.Logging.Views;
 
 /// <summary>
 /// Interaction logic for ConsoleView.xaml

@@ -19,6 +19,7 @@ using HunterPie.Integrations.Discord;
 using HunterPie.Internal;
 using HunterPie.Internal.Exceptions;
 using HunterPie.UI.Header.ViewModels;
+using HunterPie.UI.Logging.ViewModels;
 using HunterPie.UI.Main;
 using HunterPie.UI.Main.ViewModels;
 using HunterPie.UI.Main.Views;
@@ -52,7 +53,7 @@ public partial class App : Application
     private readonly AccountController _accountController = new();
 
     internal static MainController? MainController { get; private set; }
-    public static MainWindow? UI { get; private set; }
+    public static MainView? Ui => MainController?.View;
 
     protected override async void OnStartup(StartupEventArgs e)
     {
@@ -77,28 +78,29 @@ public partial class App : Application
 
         await AccountManager.ValidateSessionToken();
 
-        //UI = Dispatcher.Invoke(() => new MainWindow());
-
-        //UI.InitializeComponent();
-
-        //if (!ClientConfig.Config.Client.EnableSeamlessStartup)
-        //    UI.Show();
-
-        //_ = WidgetManager.Instance;
-
         InitializeProcessScanners();
-        SetUIThreadPriority();
+        SetUiThreadPriority();
     }
 
     private void InitializeMainView()
     {
         var headerViewModel = new HeaderViewModel(_accountController.GetAccountMenuViewModel());
-        var sideBarViewModel = new SideBarViewModel(SideBarProvider.SideBar.Elements);
-        var viewModel = new MainViewModel(headerViewModel, sideBarViewModel);
+
+        var viewModel = new MainViewModel(headerViewModel);
         MainView view = Dispatcher.Invoke(() => new MainView { DataContext = viewModel });
         MainController = new MainController(view, viewModel);
 
-        Navigator.SetNavigator(MainController);
+        // Initialize UI navigation
+        var sideBarViewModel = new SideBarViewModel(SideBarProvider.SideBar.Elements);
+        var mainBodyViewModel = new MainBodyViewModel(sideBarViewModel);
+        var mainBodyNavigator = new MainBodyNavigator(mainBodyViewModel);
+        Navigator.SetNavigators(mainBodyNavigator, MainController);
+        Navigator.Body.Navigate<ConsoleViewModel>();
+        Navigator.App.Navigate(mainBodyViewModel);
+
+        if (ClientConfig.Config.Client.EnableSeamlessStartup)
+            return;
+
         view.Show();
     }
 
@@ -113,7 +115,7 @@ public partial class App : Application
             process.Kill();
     }
 
-    private void SetUIThreadPriority() => Dispatcher.Thread.Priority = ThreadPriority.Highest;
+    private void SetUiThreadPriority() => Dispatcher.Thread.Priority = ThreadPriority.Highest;
 
     private static async Task<bool> SelfUpdate()
     {
@@ -250,7 +252,7 @@ public partial class App : Application
 
     public static async void Restart()
     {
-        UI?.Dispatcher.InvokeAsync(() => UI.Hide());
+        Ui?.Dispatcher.InvokeAsync(() => Ui.Hide());
 
         await RemoteConfigService.UploadClientConfig();
 

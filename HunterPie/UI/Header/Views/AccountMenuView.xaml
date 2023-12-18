@@ -7,11 +7,12 @@
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Header.ViewModels"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+             xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignHeight="30"
              d:DataContext="{d:DesignInstance viewModels:AccountMenuViewModel}"
              Loaded="OnLoaded"
-             PreviewMouseUp="OnPreviewMouseButtonUp">
+             MouseUp="OnMouseButtonUp">
     <UserControl.Resources>
         <Style x:Key="LoggedInButton" TargetType="buttons:Button">
             <EventSetter Event="Click" Handler="OnClick"/>
@@ -68,13 +69,18 @@
                                                     BorderThickness="1"
                                                     Background="{StaticResource GRAY_300}"
                                                     Style="{StaticResource LoggedInButton}"
-                                                    Cursor="Hand">
+                                                    Cursor="Hand"
+                                                    CornerRadius="0,0,5,5">
                                         <StackPanel Orientation="Horizontal">
-                                            <Image Source="https://cdn.hunterpie.com/avatars/ad51e2e548eb0d91a75a8e5c354cec034c1caa434cc41fe28df0babf2e59131d.png"
-                                                   Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" 
-                                                   Stretch="UniformToFill"
-                                                   RenderOptions.BitmapScalingMode="Fant"/>
-                                            <TextBlock Text="Haato"
+                                            <Border Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                                    CornerRadius="0,0,0,2">
+                                                <Border.Background>
+                                                    <ImageBrush ImageSource="{Binding AvatarUrl, Mode=OneWay}"
+                                                                Stretch="UniformToFill"
+                                                                RenderOptions.BitmapScalingMode="Fant"/>
+                                                </Border.Background>
+                                            </Border>
+                                            <TextBlock Text="{Binding Username, Mode=OneWay}"
                                                        VerticalAlignment="Center"
                                                        Margin="5,0,0,0"/>
                                             <Path Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
@@ -87,6 +93,28 @@
                                 </Setter.Value>
                             </Setter>
                         </DataTrigger>
+
+                        <DataTrigger Binding="{Binding DataContext.IsLoading, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:AccountMenuView}}}"
+                                     Value="True">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <Border BorderThickness="1"
+                                            BorderBrush="{StaticResource GRAY_50}"
+                                            Background="{StaticResource GRAY_300}"
+                                            CornerRadius="0,0,5,5"
+                                            Padding="2">
+                                        <StackPanel Orientation="Horizontal">
+                                            <loading:Skeleton Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                                              Background="{StaticResource GRAY_50}"/>
+                                            <loading:Skeleton Width="80"
+                                                              VerticalAlignment="Stretch"
+                                                              Padding="2, 5, 0, 5"
+                                                              Background="{StaticResource GRAY_50}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </ContentPresenter.Style>
@@ -94,17 +122,22 @@
 
         <Popup IsOpen="{Binding IsOpen, Mode=OneWay, NotifyOnTargetUpdated=True}"
                AllowsTransparency="True"
-               TargetUpdated="OnDropDownChanged">
+               TargetUpdated="OnDropDownChanged"
+               PopupAnimation="Fade"
+               x:Name="PART_Popup">
             <Border Background="{StaticResource GRAY_300}"
                     BorderThickness="1"
                     BorderBrush="{StaticResource GRAY_50}"
                     CornerRadius="0, 0, 5, 5">
                 <StackPanel Orientation="Vertical">
                     <buttons:Button Content="View my account"
+                                    Click="OnAccountDetailsClick"
                                     Style="{StaticResource PopupButton}"/>
                     <buttons:Button Content="Account settings"
+                                    Click="OnAccountSettingsClick"
                                     Style="{StaticResource PopupButton}"/>
                     <buttons:Button Content="Sign out"
+                                    Click="OnSignOutClick"
                                     Style="{StaticResource PopupButton}"/>
                 </StackPanel>
             </Border>

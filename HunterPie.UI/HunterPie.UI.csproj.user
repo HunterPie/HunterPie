@@ -38,6 +38,9 @@
     <Compile Update="Controls\Loading\CircleLoading.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Loading\Skeleton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Misc\Badge.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -275,6 +278,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Loading\CircleLoading.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Loading\Skeleton.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Misc\Badge.xaml">

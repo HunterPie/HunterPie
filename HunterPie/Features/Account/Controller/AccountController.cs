@@ -1,14 +1,17 @@
 ﻿using HunterPie.Core.Remote;
 using HunterPie.Features.Account.Event;
 using HunterPie.Features.Account.Model;
+using HunterPie.GUI.Parts.Account.ViewModels;
 using HunterPie.UI.Header.ViewModels;
 using System;
+using System.Threading.Tasks;
 
 namespace HunterPie.Features.Account.Controller;
 
 internal class AccountController
 {
     private readonly AccountMenuViewModel _menuViewModel = new() { IsLoading = true };
+    private static AccountPreferencesViewModel? _preferencesViewModel;
 
     public AccountController()
     {
@@ -39,6 +42,25 @@ internal class AccountController
         _menuViewModel.AvatarUrl = await CDN.GetAsset(account.AvatarUrl);
         _menuViewModel.IsLoggedIn = true;
         _menuViewModel.IsLoading = false;
+    }
+
+    public static async Task<AccountPreferencesViewModel> GetPreferencesViewModel()
+    {
+        UserAccount? account = await AccountManager.FetchAccount();
+
+        _preferencesViewModel = new AccountPreferencesViewModel { IsFetchingAccount = true };
+
+        if (account is null)
+            return _preferencesViewModel;
+
+        return new AccountPreferencesViewModel
+        {
+            Email = account.Email,
+            Username = account.Username,
+            AvatarUrl = await CDN.GetAsset(account.AvatarUrl),
+            IsSupporter = account.IsSupporter,
+            IsFetchingAccount = false
+        };
     }
 
     public AccountMenuViewModel GetAccountMenuViewModel()
