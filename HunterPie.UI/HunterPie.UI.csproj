@@ -5,8 +5,8 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.10.0.390</AssemblyVersion>
-    <FileVersion>2.10.0.390</FileVersion>
+    <AssemblyVersion>2.10.0.409</AssemblyVersion>
+    <FileVersion>2.10.0.409</FileVersion>
     <LangVersion>10.0</LangVersion>
     <Authors>Haato</Authors>
  </PropertyGroup>
@@ -667,7 +667,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Architecture\Navigator\" />
     <Folder Include="Architecture\Bindings\" />
     <Folder Include="Controls\Settings\Abnormality\Builders\" />
     <Folder Include="Overlay\Widgets\Monster\Adapters\" />

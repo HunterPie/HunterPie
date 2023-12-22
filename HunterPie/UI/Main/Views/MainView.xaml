@@ -10,6 +10,9 @@
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
              xmlns:sb="clr-namespace:HunterPie.UI.SideBar.Views"
              xmlns:presentation="clr-namespace:HunterPie.UI.Main.Presentation"
+             xmlns:appNotifications="clr-namespace:HunterPie.Features.Notification"
+             xmlns:notfication="clr-namespace:HunterPie.UI.Controls.Notfication;assembly=HunterPie.UI"
+             xmlns:presentation1="clr-namespace:HunterPie.Features.Notification.Presentation"
              mc:Ignorable="d" 
              Icon="pack://application:,,,/Resources/Icon.ico"
              BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}"
@@ -27,6 +30,10 @@
              d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
     <Window.Resources>
         <presentation:MainBodyDataTemplateSelector x:Key="MainBodyDataTemplateSelector"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <presentation1:AppNotificationTypeToAccentConverter x:Key="AppNotificationTypeToAccentConverter"/>
+        <presentation1:AppNotificationTypeToForegroundConverter x:Key="AppNotificationTypeToForegroundConverter"/>
+        <presentation1:AppNotificationTypeToIconConverter x:Key="AppNotificationTypeToIconConverter"/>
     </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"
@@ -55,5 +62,22 @@
                           CloseClick="OnCloseClick"
                           MinimizeClick="OnMinimizeClick"
                           Height="30"/>
+
+        <ItemsControl Grid.Row="1"
+                      ItemsSource="{Binding Source={x:Static appNotifications:InAppNotificationService.Notifications}, Mode=OneWay}"
+                      Background="Transparent"
+                      HorizontalAlignment="Right"
+                      VerticalContentAlignment="Bottom"
+                      HorizontalContentAlignment="Right">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <notfication:Push Message="{Binding Message, Mode=OneTime}"
+                                      Icon="{Binding Type, Mode=OneTime, Converter={StaticResource AppNotificationTypeToIconConverter}}"
+                                      Foreground="{Binding Type, Mode=OneTime, Converter={StaticResource AppNotificationTypeToForegroundConverter}}"
+                                      Background="{Binding Type, Mode=OneTime, Converter={StaticResource AppNotificationTypeToAccentConverter}}"
+                                      Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Window>

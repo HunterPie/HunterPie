@@ -8,6 +8,7 @@ internal static class SideBarProvider
         .WithButton(new ConsoleSideBarViewModel())
         .WithButton(new SettingsSideBarViewModel())
         .WithButton(new PatchNotesSideBarViewModel())
+        .WithButton(new QuestStatisticsSideBarViewModel())
         .WithButton(new DiscordSideBarViewModel())
         .WithButton(new PatreonSideBarViewModel())
         .WithButton(new GitHubSideBarViewModel())

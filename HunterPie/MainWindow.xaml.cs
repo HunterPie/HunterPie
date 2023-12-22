@@ -5,7 +5,6 @@ using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.UseCase;
 using HunterPie.Features.Debug;
 using HunterPie.Features.Notification.ViewModels;
-using HunterPie.GUI.Parts.Host;
 using HunterPie.GUI.ViewModels;
 using HunterPie.Internal;
 using HunterPie.Internal.Tray;
@@ -115,13 +114,6 @@ public partial class MainWindow : Window
         {
             EasingFunction = new SineEase()
         };
-
-        MainApplicationNavigator.Instance.PropertyChanged += (_, __) =>
-        {
-            PART_ContentPresenter.BeginAnimation(FrameworkElement.OpacityProperty, opacityAnimation);
-            PART_ContentPresenter.RenderTransform.BeginAnimation(ScaleTransform.ScaleXProperty, shrinkAnimation);
-            PART_ContentPresenter.RenderTransform.BeginAnimation(ScaleTransform.ScaleYProperty, shrinkAnimation);
-        };
     }
 
     private void OnTrayShowClick(object sender, EventArgs e)
@@ -137,11 +129,6 @@ public partial class MainWindow : Window
 
     private void OnMouseDown(object sender, MouseButtonEventArgs e)
     {
-        if (IsMouseOverElement(e, PART_HeaderBar))
-            return;
-
-        if (!IsMouseOverElement(e, PART_NotificationsPanel))
-            PART_HeaderBar.ViewModel.IsNotificationsToggled = false;
     }
 
     private bool IsMouseOverElement(MouseEventArgs args, FrameworkElement element)

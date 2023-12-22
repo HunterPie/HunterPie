@@ -7,8 +7,6 @@
         xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
         xmlns:client="clr-namespace:HunterPie.Core.Client;assembly=HunterPie.Core"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-        xmlns:sidebar="clr-namespace:HunterPie.GUI.Parts.Sidebar"
-        xmlns:host="clr-namespace:HunterPie.GUI.Parts.Host"
         xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
         xmlns:notifications="clr-namespace:HunterPie.GUI.Parts.Notifications.Views"
         xmlns:appNotifications="clr-namespace:HunterPie.Features.Notification"
@@ -68,22 +66,7 @@
               VerticalAlignment="Stretch"
               Margin="60,5,5,5"
               ClipToBounds="True">
-            <ContentControl Content="{Binding Source={x:Static host:MainApplicationNavigator.Instance}, Path=Element, IsAsync=True, NotifyOnTargetUpdated=True}" 
-                            RenderTransformOrigin="0.5,0.5"
-                            x:Name="PART_ContentPresenter">
-                <ContentControl.RenderTransform>
-                    <ScaleTransform ScaleY="1"
-                                    ScaleX="1"/>
-                </ContentControl.RenderTransform>
-            </ContentControl>
         </Grid>
-
-        <part:HeaderBar Grid.Row="0"
-                        x:Name="PART_HeaderBar"
-                        Height="25"
-                        Background="{StaticResource GRAY_300}"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Stretch"/>
 
         <Grid Grid.Row="0" 
               Background="{StaticResource GRAY_300}" 
@@ -158,11 +141,6 @@
             </native:ComboButton>
         </Grid>
 
-        <sidebar:SideBarContainer Grid.Row="1"
-                                  VerticalAlignment="Stretch"
-                                  HorizontalAlignment="Left"
-                                  ItemsHeight="40"
-                                  x:Name="PART_Sidebar"/>
 
         <ContentPresenter x:Name="PART_SigninView"
                           Margin="0,30,0,0"

@@ -16,7 +16,7 @@ namespace HunterPie.Features.Account;
 
 internal class AccountManager : IEventDispatcher
 {
-    private UserAccount? _cachedAccount = null;
+    private UserAccount? _cachedAccount;
     private readonly PoogieAccountConnector _accountConnector = new();
     private static readonly AccountManager Instance = new();
 

@@ -12,6 +12,7 @@
              xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
              xmlns:enums="clr-namespace:HunterPie.Core.Client.Configuration.Enums;assembly=HunterPie.Core"
+             xmlns:effects="clr-namespace:HunterPie.UI.Controls.Effects;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
@@ -119,8 +120,13 @@
                 </buttons:ComboButton.Content>
                 <buttons:ComboButton.ItemTemplate>
                     <DataTemplate DataType="{x:Type enums:GameType}">
-                        <TextBlock Text="{Binding ., Converter={StaticResource GameTypeToGameNameConverter}}"
-                                   FontSize="15"/>
+                        <effects:CursorHighLight>
+                            <TextBlock Text="{Binding ., Converter={StaticResource GameTypeToGameNameConverter}}"
+                                       FontSize="15"
+                                       Foreground="{StaticResource WHITE_200}"
+                                       Cursor="Hand"
+                                       Padding="2,5"/>
+                        </effects:CursorHighLight>
                     </DataTemplate>
                 </buttons:ComboButton.ItemTemplate>
             </buttons:ComboButton>
