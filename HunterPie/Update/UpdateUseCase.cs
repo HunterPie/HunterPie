@@ -29,8 +29,6 @@ internal static class UpdateUseCase
         vm.State = "Checking for latest version...";
         Version? latest = await service.GetLatestVersion();
 
-        OpenPatchNotesIfJustUpdated();
-
         if (latest is null || ClientInfo.IsVersionGreaterOrEq(latest))
             return false;
 
@@ -107,7 +105,7 @@ internal static class UpdateUseCase
         return true;
     }
 
-    private static void OpenPatchNotesIfJustUpdated()
+    public static void OpenPatchNotesIfJustUpdated()
     {
         if (RegistryConfig.Exists(JUST_UPDATED_KEY) && !RegistryConfig.Get<bool>(JUST_UPDATED_KEY))
             return;

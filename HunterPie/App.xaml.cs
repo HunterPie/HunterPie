@@ -91,6 +91,10 @@ public partial class App : Application
 
         InitializeProcessScanners();
         SetUiThreadPriority();
+
+#if RELEASE
+        UpdateUseCase.OpenPatchNotesIfJustUpdated();
+#endif
     }
 
     protected override void OnExit(ExitEventArgs e)
