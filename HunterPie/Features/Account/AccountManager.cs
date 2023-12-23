@@ -41,18 +41,27 @@ internal class AccountManager : IEventDispatcher
 
     public static async Task<PoogieResult<LoginResponse>?> Login(LoginRequest request)
     {
+        (string title, string description) =
+            Localization.Resolve("//Strings/Client/Integrations/Poogie[@Id='SIGN_IN_NOTIFICATION']");
+
+        var progressNotification = new NotificationOptions(
+            Type: NotificationType.InProgress,
+            Title: title,
+            Description: description,
+            DisplayTime: TimeSpan.FromSeconds(10)
+        );
+        Guid notificationId = await NotificationService.Show(progressNotification);
+
         PoogieResult<LoginResponse> loginResponse = await Instance._accountConnector.Login(request);
 
         if (loginResponse.Error is { } err)
         {
-            var options = new NotificationOptions(
-                Type: NotificationType.Error,
-                Title: "Error",
-                Description: Localization.GetEnumString(err.Code),
-                DisplayTime: TimeSpan.FromSeconds(10)
-            );
-            await NotificationService.Show(options);
-
+            NotificationOptions errorNotification = progressNotification with
+            {
+                Type = NotificationType.Error,
+                Description = Localization.GetEnumString(err.Code)
+            };
+            NotificationService.Update(notificationId, errorNotification);
 
             return null;
         }
@@ -67,14 +76,13 @@ internal class AccountManager : IEventDispatcher
         if (account is null)
             return null;
 
-        var successOptions = new NotificationOptions(
-            Type: NotificationType.Success,
-            Title: "Success",
-            Description: Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='LOGIN_SUCCESS']")
-                .Replace("{Username}", account.Username),
-            DisplayTime: TimeSpan.FromSeconds(10)
-        );
-        await NotificationService.Show(successOptions);
+        NotificationOptions successOptions = progressNotification with
+        {
+            Type = NotificationType.Success,
+            Description = Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='LOGIN_SUCCESS']")
+                .Replace("{Username}", account.Username)
+        };
+        NotificationService.Update(notificationId, successOptions);
 
         Instance.Dispatch(OnSignIn, new AccountLoginEventArgs { Account = account });
 

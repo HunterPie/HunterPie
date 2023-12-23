@@ -1,13 +1,9 @@
-﻿using HunterPie.Core.Client.Localization;
-using HunterPie.Core.Notification;
-using HunterPie.Core.Notification.Model;
-using HunterPie.Features.Account;
+﻿using HunterPie.Features.Account;
 using HunterPie.Integrations.Poogie.Account.Models;
 using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Main.ViewModels;
 using HunterPie.UI.Navigation;
-using System;
 using System.Threading.Tasks;
 
 namespace HunterPie.GUI.Parts.Account.ViewModels;
@@ -56,28 +52,13 @@ public class AccountLoginFlowViewModel : ViewModel
             Email: Email,
             Password: Password
         );
-
         PoogieResult<LoginResponse>? result = await AccountManager.Login(request);
 
         IsLoggingIn = false;
         CanLogIn = true;
 
-        if (result is null)
+        if (result is null || result.Error is { })
             return false;
-
-        if (result.Error is { } error)
-        {
-            var options = new NotificationOptions(
-                Type: NotificationType.Error,
-                Title: "Error",
-                Description: Localization.GetEnumString(error.Code),
-                DisplayTime: TimeSpan.FromSeconds(5)
-            );
-
-            await NotificationService.Show(options);
-
-            return false;
-        }
 
         Navigator.App.Navigate<MainBodyViewModel>();
 

@@ -3,6 +3,8 @@ using HunterPie.Features.Account.Event;
 using HunterPie.Features.Account.Model;
 using HunterPie.GUI.Parts.Account.ViewModels;
 using HunterPie.UI.Header.ViewModels;
+using HunterPie.UI.Logging.ViewModels;
+using HunterPie.UI.Navigation;
 using System;
 using System.Threading.Tasks;
 
@@ -30,6 +32,8 @@ internal class AccountController
     {
         _menuViewModel.IsLoggedIn = false;
         _menuViewModel.IsLoading = false;
+
+        Navigator.Body.Navigate<ConsoleViewModel>();
     }
 
     private void OnSessionStart(object? sender, AccountLoginEventArgs e) => UpdateViewModels(e.Account);
