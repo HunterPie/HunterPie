@@ -215,11 +215,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="GUI\Parts\Debug\ViewModels\" />
     <Folder Include="Integrations\Poogie\Localization\Models\" />
     <Folder Include="Integrations\Poogie\Patch\Models\" />
     <Folder Include="Integrations\Poogie\Report\Models\" />
     <Folder Include="Integrations\Poogie\Supporter\Models\" />
+    <Folder Include="UI\Main\ViewModels\" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

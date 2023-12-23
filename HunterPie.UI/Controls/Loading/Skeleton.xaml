@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="HunterPie.UI.Controls.Loading.Skeleton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Controls.Loading"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" 
+             d:DesignWidth="200">
+    <UserControl.Resources>
+        <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Rectangle Fill="{Binding Background, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:Skeleton}}}"
+                   d:Fill="{StaticResource GRAY_50}"
+                   RadiusX="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.1}"
+                   RadiusY="{Binding RadiusX, RelativeSource={RelativeSource Self}}"
+                   x:Name="PART_Background"/>
+
+        <Rectangle Fill="#20FFFFFF">
+            <Rectangle.OpacityMask>
+                <VisualBrush Visual="{Binding ElementName=PART_Background}"/>
+            </Rectangle.OpacityMask>
+            <Rectangle.Style>
+                <Style TargetType="Rectangle">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsVisible, RelativeSource={RelativeSource Self}}"
+                                     Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity"
+                                                                       Duration="0:0:1.5"
+                                                                       RepeatBehavior="Forever">
+                                            <LinearDoubleKeyFrame Value="0" KeyTime="0:0:0"/>
+                                            <LinearDoubleKeyFrame Value="1" KeyTime="0:0:0.5"/>
+                                            <LinearDoubleKeyFrame Value="0" KeyTime="0:0:1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
+        </Rectangle>
+    </Grid>
+</UserControl>

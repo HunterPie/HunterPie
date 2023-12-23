@@ -77,14 +77,7 @@
                         <DataTemplate>
                             <local:MonsterSummaryView Height="55"
                                                       Width="55"
-                                                      Margin="0,5,5,0">
-                                <local:MonsterSummaryView.Effect>
-                                    <DropShadowEffect Color="Cyan"
-                                                      Opacity="1"
-                                                      ShadowDepth="0"
-                                                      BlurRadius="2"/>
-                                </local:MonsterSummaryView.Effect>
-                            </local:MonsterSummaryView>
+                                                      Margin="0,5,5,0"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

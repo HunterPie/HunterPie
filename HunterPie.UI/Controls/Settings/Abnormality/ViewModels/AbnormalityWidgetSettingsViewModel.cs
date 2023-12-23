@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.Architecture;
-using HunterPie.UI.Architecture.Navigator;
+using HunterPie.UI.Navigation;
 using HunterPie.UI.Settings.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -51,6 +51,6 @@ public class AbnormalityWidgetSettingsViewModel : Architecture.ViewModel
 
     public void ExitScreen()
     {
-        Navigator.Return();
+        Navigator.Body.Return();
     }
 }

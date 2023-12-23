@@ -102,18 +102,17 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
             return;
         }
 
+        if (Process is not null)
+        {
+            IsProcessForeground = User32.GetForegroundWindow() == Process.MainWindowHandle;
+            return;
+        }
+
         Process? mhProcess = Process.GetProcessesByName(Name)
             .FirstOrDefault(process => !string.IsNullOrEmpty(process.MainWindowTitle));
 
         if (mhProcess is null)
             return;
-
-        if (Process is not null)
-        {
-            IsProcessForeground = User32.GetForegroundWindow() == Process.MainWindowHandle;
-            mhProcess.Dispose();
-            return;
-        }
 
         if (!ShouldOpenProcess(mhProcess))
             return;

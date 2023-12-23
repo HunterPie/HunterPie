@@ -39,9 +39,9 @@ internal class InitializerManager
         new ClientLocalizationInitializer(),
         new SystemTrayInitializer(),
         new ClientConfigBindingsInitializer(),
-        
+
         // GUI
-        new MenuInitializer(),
+        new NavigationTemplatesInitializer(),
         new AppNotificationsInitializer(),
     };
 

@@ -6,21 +6,22 @@ using System.Windows.Data;
 
 namespace HunterPie.UI.Architecture.Converters;
 
+#nullable enable
 public class GameProcessToGameNameConverter : IValueConverter
 {
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert(object? value, Type targetType, object parameter, CultureInfo culture)
     {
         return value is GameProcess game
-            ? (object)(game switch
+            ? game switch
             {
                 GameProcess.None => "None",
                 GameProcess.MonsterHunterRiseSunbreakDemo => Games.MONSTER_HUNTER_RISE_SUNBREAK_DEMO,
                 GameProcess.MonsterHunterRise => Games.MONSTER_HUNTER_RISE,
                 GameProcess.MonsterHunterWorld => Games.MONSTER_HUNTER_WORLD,
                 _ => throw new NotImplementedException(),
-            })
-            : throw new ArgumentException($"Expected type {typeof(GameProcess)}, found {targetType}");
+            }
+            : null;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -24,9 +24,6 @@
     <Compile Update="Features\Tools\Localization\Views\LocalizableStringView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Account\Controls\UploadableAccountAvatar.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="GUI\Parts\Account\Views\AccountLoginFlowView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -45,12 +42,6 @@
     <Compile Update="GUI\Parts\Account\Views\AccountSignFlowView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Account\Views\AccountSkeletonView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="GUI\Parts\Account\Views\AccountView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="GUI\Parts\Account\Views\Components\AccountDetailsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -63,16 +54,13 @@
     <Compile Update="GUI\Parts\Backup\Views\BackupsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Console\ConsoleView.xaml.cs">
+    <Compile Update="UI\Logging\Views\ConsoleView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Console\LogView.xaml.cs">
+    <Compile Update="UI\Logging\Views\LogView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="GUI\Parts\Debug\Views\EventTrackerView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="GUI\Parts\HeaderBar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="GUI\Parts\Notifications\Views\NotificationsPanelView.xaml.cs">
@@ -82,12 +70,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="GUI\Parts\Patches\Views\PatchesView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="GUI\Parts\Sidebar\SideBarContainer.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="GUI\Parts\Sidebar\SideBarElement.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="GUI\Parts\Statistics\Views\MonsterSummaryView.xaml.cs">
@@ -100,6 +82,24 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="GUI\Parts\Statistics\Views\QuestStatisticsSummaryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Header\Views\AccountMenuView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Header\Views\HeaderView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Main\Views\MainBodyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Main\Views\MainView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\SideBar\Views\SideBarButtonView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\SideBar\Views\SideBarView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Update\Presentation\UpdateView.xaml.cs">
@@ -122,9 +122,6 @@
     <Page Update="Features\Tools\Localization\Views\LocalizableStringView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Account\Controls\UploadableAccountAvatar.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="GUI\Parts\Account\Views\AccountLoginFlowView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -143,12 +140,6 @@
     <Page Update="GUI\Parts\Account\Views\AccountSignFlowView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Account\Views\AccountSkeletonView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="GUI\Parts\Account\Views\AccountView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="GUI\Parts\Account\Views\Components\AccountDetailsView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -161,16 +152,13 @@
     <Page Update="GUI\Parts\Backup\Views\BackupsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Console\ConsoleView.xaml">
+    <Page Update="UI\Logging\Views\ConsoleView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Console\LogView.xaml">
+    <Page Update="UI\Logging\Views\LogView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Debug\Views\EventTrackerView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="GUI\Parts\HeaderBar.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Notifications\Views\NotificationsPanelView.xaml">
@@ -180,12 +168,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Patches\Views\PatchesView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="GUI\Parts\Sidebar\SideBarContainer.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="GUI\Parts\Sidebar\SideBarElement.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Statistics\Views\MonsterSummaryView.xaml">
@@ -200,9 +182,6 @@
     <Page Update="GUI\Parts\Statistics\Views\QuestStatisticsSummaryView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="MainWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <None Update="Themes\Default\Template.xaml">
       <SubType>Designer</SubType>
     </None>
@@ -210,6 +189,24 @@
       <SubType>Designer</SubType>
     </None>
     <Page Update="Resources\Styles\Client.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Header\Views\AccountMenuView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Header\Views\HeaderView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Main\Views\MainBodyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Main\Views\MainView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\SideBar\Views\SideBarButtonView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\SideBar\Views\SideBarView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Update\Presentation\UpdateView.xaml">

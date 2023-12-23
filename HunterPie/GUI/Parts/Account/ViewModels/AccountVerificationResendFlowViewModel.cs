@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Notification;
+using HunterPie.Core.Notification.Model;
 using HunterPie.Integrations.Poogie.Account;
 using HunterPie.Integrations.Poogie.Account.Models;
 using HunterPie.Integrations.Poogie.Common.Models;
@@ -58,20 +59,26 @@ public class AccountVerificationResendFlowViewModel : ViewModel
 
         if (response.Error is { } error)
         {
-            NotificationService.Error(
-                Localization.GetEnumString(error.Code),
-                TimeSpan.FromSeconds(10)
+            var options = new NotificationOptions(
+                Type: NotificationType.Error,
+                Title: "Error",
+                Description: Localization.GetEnumString(error.Code),
+                DisplayTime: TimeSpan.FromSeconds(10)
             );
+            await NotificationService.Show(options);
 
             return;
         }
 
-        NotificationService.Success(
-            Localization.QueryString(
+        var successOptions = new NotificationOptions(
+            Type: NotificationType.Success,
+            Title: "Success",
+            Description: Localization.QueryString(
                 "//Strings/Client/Integrations/Poogie[@Id='ACCOUNT_REGISTER_SUCCESS']"
             ).Replace("{Email}", Email),
-            TimeSpan.FromSeconds(10)
+            DisplayTime: TimeSpan.FromSeconds(10)
         );
+        await NotificationService.Show(successOptions);
 
         IsFlowActive = false;
         Email = string.Empty;

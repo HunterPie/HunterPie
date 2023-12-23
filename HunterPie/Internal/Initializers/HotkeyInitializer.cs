@@ -14,12 +14,12 @@ internal class HotkeyInitializer : IInitializer, IDisposable
 
     public Task Init()
     {
-        _hWnd = new WindowInteropHelper(App.UI)
+        _hWnd = new WindowInteropHelper(App.Ui!)
             .EnsureHandle();
 
         _source = HwndSource.FromHwnd(_hWnd);
 
-        _source.AddHook(Hotkey.HwndHook);
+        _source?.AddHook(Hotkey.HwndHook);
         Hotkey.hWnd = _hWnd;
 
         return Task.CompletedTask;

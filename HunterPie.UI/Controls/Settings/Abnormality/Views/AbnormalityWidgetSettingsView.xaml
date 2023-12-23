@@ -34,18 +34,20 @@
 
         <DataTemplate x:Key="PanelTemplate"
                       DataType="{x:Type viewModels:AbnormalityCategoryViewModel}">
-            <ItemsControl ItemsSource="{Binding Elements, Mode=OneTime}">
-                <ItemsControl.Template>
-                    <ControlTemplate>
+
+            <ListBox ItemsSource="{Binding Elements, Mode=OneTime}"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     VirtualizingPanel.ScrollUnit="Pixel"
+                     VirtualizingPanel.VirtualizationMode="Standard">
+                <ListBox.Template>
+                    <ControlTemplate TargetType="ListBox">
                         <viewer:SmoothScrollViewer>
-                            <VirtualizingStackPanel IsItemsHost="True"
-                                                    Orientation="Vertical"
-                                                    VirtualizationMode="Recycling"/>
+                            <ItemsPresenter/>
                         </viewer:SmoothScrollViewer>
                     </ControlTemplate>
-                </ItemsControl.Template>
-
-                <ItemsControl.ItemTemplate>
+                </ListBox.Template>
+                <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewModels:AbnormalityElementViewModel}">
                         <local:AbnormalityElementView Click="OnAbnormalityClick">
                             <local:AbnormalityElementView.IsSelected>
@@ -62,8 +64,8 @@
                             </local:AbnormalityElementView.IsSelected>
                         </local:AbnormalityElementView>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </DataTemplate>
     </UserControl.Resources>
     <Grid>

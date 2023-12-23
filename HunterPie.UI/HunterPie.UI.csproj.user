@@ -38,6 +38,9 @@
     <Compile Update="Controls\Loading\CircleLoading.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Loading\Skeleton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Misc\Badge.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -45,6 +48,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Notfication\Push.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Notification\Toast.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Settings\Abnormality\Views\AbnormalityElementView.xaml.cs">
@@ -277,6 +283,9 @@
     <Page Update="Controls\Loading\CircleLoading.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\Loading\Skeleton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\Misc\Badge.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -284,6 +293,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Notfication\Push.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Notification\Toast.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\Abnormality\Views\AbnormalityElementView.xaml">

@@ -5,12 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.GUI.Parts.Statistics.Views"
              xmlns:vm="clr-namespace:HunterPie.GUI.Parts.Statistics.ViewModels"
+             xmlns:effects="clr-namespace:HunterPie.UI.Architecture.Effects;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignHeight="80" 
              d:DesignWidth="80"
              d:DataContext="{d:DesignInstance vm:MonsterSummaryViewModel}">
     <Border CornerRadius="5"
-            Background="{StaticResource GRAY_200}">
+            BorderThickness="1"
+            BorderBrush="{StaticResource GRAY}">
         <Image d:Source="https://cdn.hunterpie.com/Assets/Monsters/Icons/Rise_109.png"
                Source="{Binding Icon, Mode=OneWay, TargetNullValue={StaticResource ICON_MISSING}}"
                RenderOptions.BitmapScalingMode="Fant"

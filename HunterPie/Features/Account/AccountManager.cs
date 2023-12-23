@@ -2,6 +2,7 @@
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Notification;
+using HunterPie.Core.Notification.Model;
 using HunterPie.Core.Vault;
 using HunterPie.Core.Vault.Model;
 using HunterPie.Features.Account.Event;
@@ -16,11 +17,12 @@ namespace HunterPie.Features.Account;
 
 internal class AccountManager : IEventDispatcher
 {
-    private UserAccount? _cachedAccount = null;
+    private UserAccount? _cachedAccount;
     private readonly PoogieAccountConnector _accountConnector = new();
     private static readonly AccountManager Instance = new();
 
     public static event EventHandler<AccountLoginEventArgs>? OnSignIn;
+    public static event EventHandler<AccountLoginEventArgs>? OnSessionStart;
     public static event EventHandler<EventArgs>? OnSignOut;
     public static event EventHandler<AccountAvatarEventArgs>? OnAvatarChange;
 
@@ -39,14 +41,27 @@ internal class AccountManager : IEventDispatcher
 
     public static async Task<PoogieResult<LoginResponse>?> Login(LoginRequest request)
     {
+        (string title, string description) =
+            Localization.Resolve("//Strings/Client/Integrations/Poogie[@Id='SIGN_IN_NOTIFICATION']");
+
+        var progressNotification = new NotificationOptions(
+            Type: NotificationType.InProgress,
+            Title: title,
+            Description: description,
+            DisplayTime: TimeSpan.FromSeconds(10)
+        );
+        Guid notificationId = await NotificationService.Show(progressNotification);
+
         PoogieResult<LoginResponse> loginResponse = await Instance._accountConnector.Login(request);
 
         if (loginResponse.Error is { } err)
         {
-            NotificationService.Error(
-                Localization.GetEnumString(err.Code),
-                TimeSpan.FromSeconds(10)
-            );
+            NotificationOptions errorNotification = progressNotification with
+            {
+                Type = NotificationType.Error,
+                Description = Localization.GetEnumString(err.Code)
+            };
+            NotificationService.Update(notificationId, errorNotification);
 
             return null;
         }
@@ -61,11 +76,14 @@ internal class AccountManager : IEventDispatcher
         if (account is null)
             return null;
 
-        NotificationService.Success(
-            Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='LOGIN_SUCCESS']")
-                .Replace("{Username}", account.Username),
-            TimeSpan.FromSeconds(5)
-        );
+        NotificationOptions successOptions = progressNotification with
+        {
+            Type = NotificationType.Success,
+            Description = Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='LOGIN_SUCCESS']")
+                .Replace("{Username}", account.Username)
+        };
+        NotificationService.Update(notificationId, successOptions);
+
         Instance.Dispatch(OnSignIn, new AccountLoginEventArgs { Account = account });
 
         return loginResponse;
@@ -90,21 +108,35 @@ internal class AccountManager : IEventDispatcher
 
     public static async Task UploadAvatar(string path)
     {
+        var notificationOptions = new NotificationOptions(
+            Type: NotificationType.InProgress,
+            Title: "Upload",
+            Description: "Uploading profile picture...",
+            DisplayTime: TimeSpan.FromSeconds(10)
+        );
+        Guid notificationId = await NotificationService.Show(notificationOptions);
+
         PoogieResult<MyUserAccountResponse> account = await Instance._accountConnector.UploadAvatar(path);
 
         if (account.Error is { } error)
         {
-            NotificationService.Error(
-                Localization.GetEnumString(error.Code),
-                TimeSpan.FromSeconds(10)
-            );
+            NotificationOptions errorOptions = notificationOptions with
+            {
+                Type = NotificationType.Error,
+                Description = Localization.GetEnumString(error.Code),
+                DisplayTime = TimeSpan.FromSeconds(10)
+            };
+            NotificationService.Update(notificationId, errorOptions);
+
             return;
         }
 
-        NotificationService.Show(
-            Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='AVATAR_UPLOAD_SUCCESS']"),
-            TimeSpan.FromSeconds(5)
-        );
+        NotificationOptions successOptions = notificationOptions with
+        {
+            Type = NotificationType.Success,
+            Description = Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='AVATAR_UPLOAD_SUCCESS']"),
+        };
+        NotificationService.Update(notificationId, successOptions);
 
         Instance._cachedAccount = account.Response!.ToModel();
 
@@ -127,6 +159,8 @@ internal class AccountManager : IEventDispatcher
             return null;
 
         Instance._cachedAccount = account.ToModel();
+
+        Instance.Dispatch(OnSessionStart, new AccountLoginEventArgs { Account = Instance._cachedAccount });
 
         return Instance._cachedAccount;
     }
