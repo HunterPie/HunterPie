@@ -1,49 +1,78 @@
 ﻿using HunterPie.Core.Notification;
-using HunterPie.Features.Notification.ViewModels;
+using HunterPie.Core.Notification.Model;
 using HunterPie.UI.Architecture.Dispatchers;
+using HunterPie.UI.Controls.Notification.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace HunterPie.Features.Notification;
 
 internal class InAppNotificationService : INotificationService
 {
-    public static ObservableCollection<AppNotificationViewModel> Notifications { get; } = new();
+    private static readonly Dictionary<Guid, (DispatcherJob, ToastViewModel)> ViewModelsLookup = new();
+    public static ObservableCollection<ToastViewModel> Notifications { get; } = new();
 
-    public void Show(string title, string message, TimeSpan visibility) =>
-        SendNotification(AppNotificationType.Default, title, message, visibility);
+    public async Task<Guid> Show(NotificationOptions options)
+    {
+        var notificationId = Guid.NewGuid();
+        var notification = new ToastViewModel
+        {
+            Type = options.Type,
+            Title = options.Title,
+            Description = options.Description,
+            IsVisible = true,
+            PrimaryLabel = options.PrimaryCallback?.Label,
+            PrimaryHandler = options.PrimaryCallback?.Handler,
+            SecondaryLabel = options.SecondaryCallback?.Label,
+            SecondaryHandler = options.SecondaryCallback?.Handler,
+        };
 
-    public void Info(string title, string message, TimeSpan visibility) =>
-        SendNotification(AppNotificationType.Info, title, message, visibility);
-
-    public void Success(string title, string message, TimeSpan visibility) =>
-        SendNotification(AppNotificationType.Success, title, message, visibility);
-
-    public void Error(string title, string message, TimeSpan visibility) =>
-        SendNotification(AppNotificationType.Error, title, message, visibility);
-
-    private void SendNotification(
-        AppNotificationType type,
-        string title,
-        string message,
-        TimeSpan visibility
-    ) => Application.Current.Dispatcher.Invoke(
-            () =>
+        await Application.Current.Dispatcher.InvokeAsync(() =>
+        {
+            lock (Notifications)
             {
-                lock (Notifications)
-                {
-                    var notification = new AppNotificationViewModel { Title = title, Message = message, Type = type };
+                var job = new DispatcherJob(() => HandleVisibilityTimeout(notificationId), options.DisplayTime);
 
-                    _ = new DispatcherJob(() => HandleVisibilityTimeout(notification), visibility);
+                ViewModelsLookup.Add(notificationId, (job, notification));
+                Notifications.Add(notification);
+            }
+        });
 
-                    Notifications.Add(notification);
-                }
-            });
+        return notificationId;
+    }
 
-    private static void HandleVisibilityTimeout(AppNotificationViewModel notification)
+    public void Update(Guid id, NotificationOptions options)
+    {
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            lock (Notifications)
+            {
+                if (!ViewModelsLookup.TryGetValue(id, out (DispatcherJob, ToastViewModel vm) value))
+                    return;
+
+                value.vm.Type = options.Type;
+                value.vm.Title = options.Title;
+                value.vm.Description = options.Description;
+                value.vm.PrimaryLabel = options.PrimaryCallback?.Label;
+                value.vm.PrimaryHandler = options.PrimaryCallback?.Handler;
+                value.vm.SecondaryLabel = options.SecondaryCallback?.Label;
+                value.vm.SecondaryHandler = options.SecondaryCallback?.Handler;
+            }
+        });
+    }
+
+    private static void HandleVisibilityTimeout(Guid notificationId)
     {
         lock (Notifications)
-            Notifications.Remove(notification);
+        {
+            if (!ViewModelsLookup.TryGetValue(notificationId, out (DispatcherJob, ToastViewModel vm) value))
+                return;
+
+            ViewModelsLookup.Remove(notificationId);
+            Notifications.Remove(value.vm);
+        }
     }
 }

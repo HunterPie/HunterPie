@@ -11,8 +11,7 @@
              xmlns:sb="clr-namespace:HunterPie.UI.SideBar.Views"
              xmlns:presentation="clr-namespace:HunterPie.UI.Main.Presentation"
              xmlns:appNotifications="clr-namespace:HunterPie.Features.Notification"
-             xmlns:notfication="clr-namespace:HunterPie.UI.Controls.Notfication;assembly=HunterPie.UI"
-             xmlns:presentation1="clr-namespace:HunterPie.Features.Notification.Presentation"
+             xmlns:notification="clr-namespace:HunterPie.UI.Controls.Notification;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              Icon="pack://application:,,,/Resources/Icon.ico"
              BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}"
@@ -31,9 +30,6 @@
     <Window.Resources>
         <presentation:MainBodyDataTemplateSelector x:Key="MainBodyDataTemplateSelector"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <presentation1:AppNotificationTypeToAccentConverter x:Key="AppNotificationTypeToAccentConverter"/>
-        <presentation1:AppNotificationTypeToForegroundConverter x:Key="AppNotificationTypeToForegroundConverter"/>
-        <presentation1:AppNotificationTypeToIconConverter x:Key="AppNotificationTypeToIconConverter"/>
     </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"
@@ -68,14 +64,71 @@
                       Background="Transparent"
                       HorizontalAlignment="Right"
                       VerticalContentAlignment="Bottom"
-                      HorizontalContentAlignment="Right">
+                      HorizontalContentAlignment="Right"
+                      VerticalAlignment="Bottom">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <notfication:Push Message="{Binding Message, Mode=OneTime}"
-                                      Icon="{Binding Type, Mode=OneTime, Converter={StaticResource AppNotificationTypeToIconConverter}}"
-                                      Foreground="{Binding Type, Mode=OneTime, Converter={StaticResource AppNotificationTypeToForegroundConverter}}"
-                                      Background="{Binding Type, Mode=OneTime, Converter={StaticResource AppNotificationTypeToAccentConverter}}"
-                                      Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <notification:Toast Margin="10,5"
+                                        Cursor="Hand"
+                                        MouseUp="OnNotificationClick">
+                        <notification:Toast.RenderTransform>
+                            <TranslateTransform X="30"/>
+                        </notification:Toast.RenderTransform>
+                        <notification:Toast.Style>
+                            <Style TargetType="notification:Toast">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsVisible, Mode=OneWay}"
+                                                 Value="True">
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TranslateTransform.X)"
+                                                                     From="30"
+                                                                     To="0"
+                                                                     Duration="0:0:0.2">
+                                                        <DoubleAnimation.EasingFunction>
+                                                            <QuadraticEase />
+                                                        </DoubleAnimation.EasingFunction>
+                                                    </DoubleAnimation>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                     From="0"
+                                                                     To="1"
+                                                                     Duration="0:0:0.3">
+                                                        <DoubleAnimation.EasingFunction>
+                                                            <QuadraticEase />
+                                                        </DoubleAnimation.EasingFunction>
+                                                    </DoubleAnimation>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.EnterActions>
+
+                                        <DataTrigger.ExitActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TranslateTransform.X)"
+                                                                     From="0"
+                                                                     To="30"
+                                                                     Duration="0:0:0.2">
+                                                        <DoubleAnimation.EasingFunction>
+                                                            <QuadraticEase />
+                                                        </DoubleAnimation.EasingFunction>
+                                                    </DoubleAnimation>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                     From="1"
+                                                                     To="0"
+                                                                     Duration="0:0:0.3">
+                                                        <DoubleAnimation.EasingFunction>
+                                                            <QuadraticEase />
+                                                        </DoubleAnimation.EasingFunction>
+                                                    </DoubleAnimation>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.ExitActions>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </notification:Toast.Style>
+                    </notification:Toast>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

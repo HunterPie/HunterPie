@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Notification;
+using HunterPie.Core.Notification.Model;
 using HunterPie.Features.Account;
 using HunterPie.Integrations.Poogie.Account.Models;
 using HunterPie.Integrations.Poogie.Common.Models;
@@ -66,10 +67,14 @@ public class AccountLoginFlowViewModel : ViewModel
 
         if (result.Error is { } error)
         {
-            NotificationService.Error(
-                Localization.GetEnumString(error.Code),
-                TimeSpan.FromSeconds(5)
+            var options = new NotificationOptions(
+                Type: NotificationType.Error,
+                Title: "Error",
+                Description: Localization.GetEnumString(error.Code),
+                DisplayTime: TimeSpan.FromSeconds(5)
             );
+
+            await NotificationService.Show(options);
 
             return false;
         }

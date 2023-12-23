@@ -1,10 +1,11 @@
-﻿using System;
+﻿using HunterPie.Core.Notification.Model;
+using System;
+using System.Threading.Tasks;
 
 namespace HunterPie.Core.Notification;
 public interface INotificationService
 {
-    public void Show(string title, string message, TimeSpan visibility);
-    public void Info(string title, string message, TimeSpan visibility);
-    public void Success(string title, string message, TimeSpan visibility);
-    public void Error(string title, string message, TimeSpan visibility);
+    public Task<Guid> Show(NotificationOptions options);
+
+    public void Update(Guid id, NotificationOptions options);
 }

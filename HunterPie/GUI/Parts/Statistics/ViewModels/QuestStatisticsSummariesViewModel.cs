@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Notification;
+using HunterPie.Core.Notification.Model;
 using HunterPie.Features.Account;
 using HunterPie.Features.Account.Model;
 using HunterPie.GUI.Parts.Statistics.Details.Builders;
@@ -110,31 +111,38 @@ public class QuestStatisticsSummariesViewModel : ViewModel
 
     public async void NavigateToHuntDetails(string uploadId)
     {
-        NotificationService.Info(
-            Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_IN_PROGRESS_STRING']")
-            .Format(uploadId),
-            TimeSpan.FromSeconds(5)
+        var downloadingNotificationOptions = new NotificationOptions(
+            Type: NotificationType.InProgress,
+            Title: "Quest",
+            Description: Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_IN_PROGRESS_STRING']")
+                .Format(uploadId),
+            DisplayTime: TimeSpan.FromSeconds(10)
         );
+        Guid notificationId = await NotificationService.Show(downloadingNotificationOptions);
         IsFetchingDetails = true;
 
         PoogieResult<PoogieQuestStatisticsModel> questResponse = await _connector.Get(uploadId);
 
         if (questResponse.Response is not { } questDetails)
         {
-            NotificationService.Error(
-                Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_FAILED_ERROR_STRING']"),
-                TimeSpan.FromSeconds(10)
-            );
+            NotificationOptions failedNotification = downloadingNotificationOptions with
+            {
+                Type = NotificationType.Error,
+                Description = Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_FAILED_ERROR_STRING']")
+            };
+            NotificationService.Update(notificationId, failedNotification);
             IsFetchingDetails = false;
             return;
         }
 
         IsFetchingDetails = false;
 
-        NotificationService.Success(
-            Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_SUCCESS_STRING']"),
-            TimeSpan.FromSeconds(5)
-        );
+        NotificationOptions successNotification = downloadingNotificationOptions with
+        {
+            Type = NotificationType.Success,
+            Description = Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_SUCCESS_STRING']")
+        };
+        NotificationService.Update(notificationId, successNotification);
 
         QuestDetailsViewModel viewModel = await QuestDetailsViewModelBuilder.From(questDetails.ToEntity());
         Navigator.Body.Navigate(viewModel);

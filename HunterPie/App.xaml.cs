@@ -256,7 +256,7 @@ public partial class App : Application
 
         await RemoteConfigService.UploadClientConfig();
 
-        Process.Start(typeof(MainWindow).Assembly.Location.Replace(".dll", ".exe"));
+        Process.Start(typeof(App).Assembly.Location.Replace(".dll", ".exe"));
         Current.Shutdown();
     }
 

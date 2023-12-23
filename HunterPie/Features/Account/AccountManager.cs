@@ -2,6 +2,7 @@
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Notification;
+using HunterPie.Core.Notification.Model;
 using HunterPie.Core.Vault;
 using HunterPie.Core.Vault.Model;
 using HunterPie.Features.Account.Event;
@@ -44,10 +45,14 @@ internal class AccountManager : IEventDispatcher
 
         if (loginResponse.Error is { } err)
         {
-            NotificationService.Error(
-                Localization.GetEnumString(err.Code),
-                TimeSpan.FromSeconds(10)
+            var options = new NotificationOptions(
+                Type: NotificationType.Error,
+                Title: "Error",
+                Description: Localization.GetEnumString(err.Code),
+                DisplayTime: TimeSpan.FromSeconds(10)
             );
+            await NotificationService.Show(options);
+
 
             return null;
         }
@@ -62,11 +67,15 @@ internal class AccountManager : IEventDispatcher
         if (account is null)
             return null;
 
-        NotificationService.Success(
-            Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='LOGIN_SUCCESS']")
+        var successOptions = new NotificationOptions(
+            Type: NotificationType.Success,
+            Title: "Success",
+            Description: Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='LOGIN_SUCCESS']")
                 .Replace("{Username}", account.Username),
-            TimeSpan.FromSeconds(5)
+            DisplayTime: TimeSpan.FromSeconds(10)
         );
+        await NotificationService.Show(successOptions);
+
         Instance.Dispatch(OnSignIn, new AccountLoginEventArgs { Account = account });
 
         return loginResponse;
@@ -91,21 +100,35 @@ internal class AccountManager : IEventDispatcher
 
     public static async Task UploadAvatar(string path)
     {
+        var notificationOptions = new NotificationOptions(
+            Type: NotificationType.InProgress,
+            Title: "Upload",
+            Description: "Uploading profile picture...",
+            DisplayTime: TimeSpan.FromSeconds(10)
+        );
+        Guid notificationId = await NotificationService.Show(notificationOptions);
+
         PoogieResult<MyUserAccountResponse> account = await Instance._accountConnector.UploadAvatar(path);
 
         if (account.Error is { } error)
         {
-            NotificationService.Error(
-                Localization.GetEnumString(error.Code),
-                TimeSpan.FromSeconds(10)
-            );
+            NotificationOptions errorOptions = notificationOptions with
+            {
+                Type = NotificationType.Error,
+                Description = Localization.GetEnumString(error.Code),
+                DisplayTime = TimeSpan.FromSeconds(10)
+            };
+            NotificationService.Update(notificationId, errorOptions);
+
             return;
         }
 
-        NotificationService.Show(
-            Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='AVATAR_UPLOAD_SUCCESS']"),
-            TimeSpan.FromSeconds(5)
-        );
+        NotificationOptions successOptions = notificationOptions with
+        {
+            Type = NotificationType.Success,
+            Description = Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='AVATAR_UPLOAD_SUCCESS']"),
+        };
+        NotificationService.Update(notificationId, successOptions);
 
         Instance._cachedAccount = account.Response!.ToModel();
 

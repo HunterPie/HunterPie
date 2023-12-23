@@ -1,5 +1,8 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.UI.Controls.Notification;
+using HunterPie.UI.Controls.Notification.ViewModels;
 using System.Windows;
+using System.Windows.Input;
 
 namespace HunterPie.UI.Main.Views;
 /// <summary>
@@ -22,5 +25,13 @@ public partial class MainView : Window
 
         if (ClientConfig.Config.Client.MinimizeToSystemTray)
             Hide();
+    }
+
+    private void OnNotificationClick(object sender, MouseButtonEventArgs e)
+    {
+        if (sender is not Toast { DataContext: ToastViewModel vm })
+            return;
+
+        vm.IsVisible = false;
     }
 }
