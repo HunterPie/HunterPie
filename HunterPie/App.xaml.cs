@@ -2,6 +2,7 @@ using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
+using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Game;
@@ -13,11 +14,13 @@ using HunterPie.Features.Account;
 using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.Controller;
 using HunterPie.Features.Backups;
+using HunterPie.Features.Debug;
 using HunterPie.Features.Overlay;
 using HunterPie.Integrations;
 using HunterPie.Integrations.Discord;
 using HunterPie.Internal;
 using HunterPie.Internal.Exceptions;
+using HunterPie.Internal.Tray;
 using HunterPie.UI.Header.ViewModels;
 using HunterPie.UI.Logging.ViewModels;
 using HunterPie.UI.Main;
@@ -28,6 +31,7 @@ using HunterPie.UI.Overlay;
 using HunterPie.UI.SideBar.ViewModels;
 using HunterPie.Update;
 using HunterPie.Update.Presentation;
+using HunterPie.Usecases;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -36,6 +40,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
 namespace HunterPie;
@@ -74,7 +79,13 @@ public partial class App : Application
 
         ShutdownMode = ShutdownMode.OnMainWindowClose;
 
+        CheckIfHunterPiePathIsSafe();
+        SetupFrameRate();
         InitializeMainView();
+        SetupTrayIcon();
+
+        InitializerManager.InitializeGUI();
+        DebugWidgets.MockIfNeeded();
 
         await AccountManager.ValidateSessionToken();
 
@@ -82,9 +93,43 @@ public partial class App : Application
         SetUiThreadPriority();
     }
 
+    protected override void OnExit(ExitEventArgs e)
+    {
+        InitializerManager.Unload();
+    }
+
+    private void CheckIfHunterPiePathIsSafe()
+    {
+        bool isSafe = VerifyHunterPiePathUseCase.Invoke();
+
+        if (isSafe)
+            return;
+
+        DialogManager.Warn(
+            "Unsafe path",
+            "It looks like you're executing HunterPie directly from the zip file. Please extract it first before running the client.",
+            NativeDialogButtons.Accept
+        );
+
+        Shutdown();
+    }
+
+    private void SetupFrameRate()
+    {
+        Timeline.DesiredFrameRateProperty.OverrideMetadata(
+            forType: typeof(Timeline),
+            typeMetadata: new FrameworkPropertyMetadata { DefaultValue = (int)ClientConfig.Config.Client.RenderFramePerSecond.Current }
+        );
+    }
+
     private void InitializeMainView()
     {
-        var headerViewModel = new HeaderViewModel(_accountController.GetAccountMenuViewModel());
+        Log.Info("Initializing HunterPie client UI");
+        var headerViewModel = new HeaderViewModel(_accountController.GetAccountMenuViewModel())
+        {
+            IsAdmin = ClientInfo.IsAdmin,
+            Version = $"v{ClientInfo.Version}",
+        };
 
         var viewModel = new MainViewModel(headerViewModel);
         MainView view = Dispatcher.Invoke(() => new MainView { DataContext = viewModel });
@@ -153,6 +198,32 @@ public partial class App : Application
         RenderOptions.ProcessRenderMode = ClientConfig.Config.Client.Render == RenderingStrategy.Hardware
             ? RenderMode.Default
             : RenderMode.SoftwareOnly;
+    }
+
+    private void OnTrayShowClick(object? sender, EventArgs e)
+    {
+        if (Ui is null)
+            return;
+
+        Ui.Show();
+        Ui.WindowState = WindowState.Normal;
+        Ui.Focus();
+    }
+
+    private void OnTrayClockClick(object? sender, EventArgs e)
+    {
+        Ui?.Close();
+    }
+
+    private void SetupTrayIcon()
+    {
+        TrayService.AddDoubleClickHandler(OnTrayShowClick);
+
+        TrayService.AddItem("Show")
+            .Click += OnTrayShowClick;
+
+        TrayService.AddItem("Close")
+            .Click += OnTrayClockClick;
     }
 
     private void OnProcessClosed(object? sender, ProcessManagerEventArgs e)

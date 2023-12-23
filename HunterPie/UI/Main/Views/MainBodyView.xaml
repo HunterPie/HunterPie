@@ -77,7 +77,8 @@
                                  Height="45"
                                  Margin="20"
                                  ItemsSource="{Binding Games, Mode=OneTime}"
-                                 SelectedValue="{Binding SelectedGame.Value, Mode=TwoWay, Converter={StaticResource GameTypeToGameNameConverter}}">
+                                 SelectedValue="{Binding SelectedGame.Value, Mode=TwoWay, Converter={StaticResource GameTypeToGameNameConverter}}"
+                                 Click="OnLaunchButtonClick">
                 <buttons:ComboButton.Content>
                     <Grid>
                         <Grid.ColumnDefinitions>

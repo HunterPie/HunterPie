@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Security.Principal;
 
 namespace HunterPie.Core.Client;
 
@@ -16,11 +17,17 @@ public static class ClientInfo
             return selfProcess.MainModule.FileName;
         }
     }
+
     public static string ClientPath => AppDomain.CurrentDomain.BaseDirectory;
+
     public static string PluginsPath => Path.Combine(ClientPath, "Modules");
+
     public static string LanguagesPath => Path.Combine(ClientPath, "Languages");
+
     public static string AddressPath => Path.Combine(ClientPath, "Address");
+
     public static string ThemesPath => Path.Combine(ClientPath, "Themes");
+
     public static Version Version
     {
         get
@@ -30,7 +37,20 @@ public static class ClientInfo
             return name.Version;
         }
     }
+
+    public static bool IsAdmin
+    {
+        get
+        {
+            var winIdentity = WindowsIdentity.GetCurrent();
+            var principal = new WindowsPrincipal(winIdentity);
+
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
+    }
+
     public const string CONFIG_NAME = "config.json";
+
     public const string CONFIG_BACKUP_NAME = CONFIG_NAME + ".bak";
 
     public static bool IsVersionGreaterOrEq(Version other)

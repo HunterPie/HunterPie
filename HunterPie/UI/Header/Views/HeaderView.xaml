@@ -35,6 +35,7 @@
                      FontWeight="Medium"/><!--
              --><Run Text="Pie"/>
                 <Run d:Text="v2.10.0.0"
+                     Text="{Binding Version, Mode=OneWay}"
                      FontSize="10"/>
             </TextBlock>
         </StackPanel>

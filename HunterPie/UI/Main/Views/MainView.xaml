@@ -29,7 +29,6 @@
              d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
     <Window.Resources>
         <presentation:MainBodyDataTemplateSelector x:Key="MainBodyDataTemplateSelector"/>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"

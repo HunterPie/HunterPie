@@ -1,8 +1,12 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Domain.Dialog;
 using HunterPie.UI.Controls.Notification;
 using HunterPie.UI.Controls.Notification.ViewModels;
+using HunterPie.UI.Main.ViewModels;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using Localization = HunterPie.Core.Client.Localization.Localization;
 
 namespace HunterPie.UI.Main.Views;
 /// <summary>
@@ -33,5 +37,29 @@ public partial class MainView : Window
             return;
 
         vm.IsVisible = false;
+    }
+
+    protected override async void OnClosing(CancelEventArgs e)
+    {
+        if (DataContext is not MainViewModel vm)
+            return;
+
+        if (!ClientConfig.Config.Client.EnableSeamlessShutdown)
+        {
+            NativeDialogResult result = DialogManager.Info(
+                title: Localization.QueryString("//Strings/Client/Dialogs/Dialog[@Id='CONFIRMATION_TITLE_STRING']"),
+                description: Localization.QueryString("//Strings/Client/Dialogs/Dialog[@Id='EXIT_CONFIRMATION_DESCRIPTION_STRING']"),
+                buttons: NativeDialogButtons.Accept | NativeDialogButtons.Cancel
+            );
+
+            if (result != NativeDialogResult.Accept)
+            {
+                e.Cancel = true;
+                return;
+            }
+        }
+
+        await Dispatcher.InvokeAsync(Hide);
+        await vm.GracefulShutdown();
     }
 }

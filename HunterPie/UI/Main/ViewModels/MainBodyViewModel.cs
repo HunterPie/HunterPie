@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Internal;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.SideBar.ViewModels;
 using System.Collections.ObjectModel;
@@ -21,5 +22,10 @@ internal class MainBodyViewModel : ViewModel
     public MainBodyViewModel(SideBarViewModel sideBarViewModel)
     {
         SideBarViewModel = sideBarViewModel;
+    }
+
+    public void LaunchGame()
+    {
+        Steam.RunGameBy(SelectedGame.Value);
     }
 }

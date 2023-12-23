@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HunterPie.UI.Main.ViewModels;
+using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -30,5 +32,13 @@ public partial class MainBodyView : UserControl
         PART_NavigationHost.BeginAnimation(OpacityProperty, FadeInAnimation);
         PART_NavigationHost.RenderTransform.BeginAnimation(ScaleTransform.ScaleXProperty, ScaleDownAnimation);
         PART_NavigationHost.RenderTransform.BeginAnimation(ScaleTransform.ScaleYProperty, ScaleDownAnimation);
+    }
+
+    private void OnLaunchButtonClick(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainBodyViewModel vm)
+            return;
+
+        vm.LaunchGame();
     }
 }
