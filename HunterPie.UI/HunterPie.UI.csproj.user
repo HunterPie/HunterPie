@@ -32,6 +32,9 @@
     <Compile Update="Controls\Effects\CursorHightlight.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Feedback\Prompt.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Image\Icon.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -42,12 +45,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Misc\Badge.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Controls\Notfication\Prompt.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Controls\Notfication\Push.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Notification\Toast.xaml.cs">
@@ -277,6 +274,9 @@
     <Page Update="Controls\Effects\CursorHightLight.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\Feedback\Prompt.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\Image\Icon.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -287,12 +287,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Misc\Badge.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Controls\Notfication\Prompt.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Controls\Notfication\Push.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Notification\Toast.xaml">

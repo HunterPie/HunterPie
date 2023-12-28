@@ -10,8 +10,8 @@
                    xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
                    xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
                    xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
-                   xmlns:notfication="clr-namespace:HunterPie.UI.Controls.Notfication;assembly=HunterPie.UI"
                    xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
+                   xmlns:feedback="clr-namespace:HunterPie.UI.Controls.Feedback;assembly=HunterPie.UI"
                    mc:Ignorable="d" 
                    d:DesignHeight="450" 
                    d:DesignWidth="800"
@@ -26,12 +26,15 @@
                             HorizontalContentAlignment="Stretch"
                             Margin="5"
                             Click="OnSupporterPromptClick">
-                <notfication:Prompt d:Message="Become a Supporter to see more than 7 days of hunts!"
-                                    Message="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_SUPPORTER_FREE_TIER_STRING&quot;]'}"
-                                    HorizontalAlignment="Center"
-                                    IconMargin="10"
-                                    Icon="{StaticResource ICON_SUPPORTER_TIER_1}"
-                                    BorderBrush="{StaticResource BLUE}"/>
+                <feedback:Prompt d:Text="Become a Supporter to see more than 7 days of hunts!"
+                                 Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_SUPPORTER_FREE_TIER_STRING&quot;]'}"
+                                 HorizontalAlignment="Center"
+                                 Icon="{StaticResource ICON_SUPPORTER_TIER_1}"
+                                 BorderBrush="{StaticResource BLUE_200}"
+                                 BorderThickness="1"
+                                 CornerRadius="5"
+                                 Background="{StaticResource BLUE_700}"
+                                 Foreground="{StaticResource WHITE_100}"/>
             </buttons:Button>
         </DataTemplate>
 
@@ -43,11 +46,15 @@
                             HorizontalContentAlignment="Stretch"
                             Margin="5"
                             Click="OnSupporterPromptClick">
-                <notfication:Prompt d:Message="Become a Tier 2 Supporter to see more than 30 days of hunts!"
-                                    Message="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_SUPPORTER_LOW_TIER_STRING&quot;]'}"
-                                    HorizontalAlignment="Center"
-                                    Icon="{StaticResource ICON_SUPPORTER_TIER_2}"
-                                    BorderBrush="{StaticResource HUNTERPIE_SUPPORTER_T2}"/>
+                <feedback:Prompt d:Text="Become a Tier 2 Supporter to see more than 30 days of hunts!"
+                                 Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_SUPPORTER_LOW_TIER_STRING&quot;]'}"
+                                 HorizontalAlignment="Center"
+                                 Icon="{StaticResource ICON_SUPPORTER_TIER_2}"
+                                 Background="{StaticResource HUNTERPIE_SUPPORTER_T2_BACKGROUND}"
+                                 BorderBrush="{StaticResource HUNTERPIE_SUPPORTER_T2}"
+                                 BorderThickness="1"
+                                 CornerRadius="5"
+                                 Foreground="{StaticResource WHITE_100}"/>
             </buttons:Button>
         </DataTemplate>
 
@@ -125,11 +132,11 @@
                                              Value="True">
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <notfication:Prompt Margin="10"
-                                                                Icon="{StaticResource ICON_ERROR_MASK}"
-                                                                d:Message="Failed to fetch exported hunts. Try again later."
-                                                                Message="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_FETCH_FAILED_ERROR_STRING&quot;]'}"
-                                                                BorderBrush="{StaticResource RED_50}"/>
+                                            <feedback:Prompt Margin="10"
+                                                             Icon="{StaticResource ICON_ERROR_MASK}"
+                                                             d:Text="Failed to fetch exported hunts. Try again later."
+                                                             Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_FETCH_FAILED_ERROR_STRING&quot;]'}"
+                                                             BorderBrush="{StaticResource RED_50}"/>
                                         </Setter.Value>
                                     </Setter>
                                 </DataTrigger>
@@ -144,11 +151,11 @@
                                     </MultiDataTrigger.Conditions>
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <notfication:Prompt Margin="10"
-                                                                Icon="{StaticResource ICON_INFO}"
-                                                                d:Message="There were no exported hunts available in the period available for your account."
-                                                                Message="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_NO_LOGS_STRING&quot;]'}"
-                                                                BorderBrush="{StaticResource WHITE_600}"/>
+                                            <feedback:Prompt Margin="10"
+                                                             Icon="{StaticResource ICON_INFO}"
+                                                             d:Text="There were no exported hunts available in the period available for your account."
+                                                             Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_NO_LOGS_STRING&quot;]'}"
+                                                             BorderBrush="{StaticResource WHITE_600}"/>
                                         </Setter.Value>
                                     </Setter>
                                 </MultiDataTrigger>

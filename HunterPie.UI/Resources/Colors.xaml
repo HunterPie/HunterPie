@@ -223,6 +223,12 @@
         <GradientStop Color="#FF7445DE" Offset="1"/>
     </LinearGradientBrush>
 
+    <LinearGradientBrush x:Key="HUNTERPIE_SUPPORTER_T2_BACKGROUND" EndPoint="1,1" StartPoint="0,1"
+                         Opacity="0.20">
+        <GradientStop Color="#FF563ECF"/>
+        <GradientStop Color="#FF7445DE" Offset="1"/>
+    </LinearGradientBrush>
+
     <!-- Hunt export details -->
     <LinearGradientBrush x:Key="HUNT_EXPORT_ENRAGE_BRUSH" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FFCB2D3E"/>

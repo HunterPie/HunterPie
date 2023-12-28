@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="HunterPie.UI.Controls.Feedback.Prompt"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Controls.Feedback"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" 
+             d:DesignWidth="500"
+             x:Name="PromptControl">
+    <Border Background="{Binding Background, ElementName=PromptControl}"
+            BorderThickness="{Binding BorderThickness, ElementName=PromptControl}"
+            CornerRadius="{Binding CornerRadius, ElementName=PromptControl}"
+            BorderBrush="{Binding BorderBrush, ElementName=PromptControl}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <image:Icon Grid.Column="0"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Stretch"
+                        Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                        Image="{Binding Icon, ElementName=PromptControl}"
+                        Foreground="{Binding Foreground, ElementName=PromptControl}"
+                        Margin="8"/>
+
+            <TextBlock Grid.Column="1"
+                       Margin="10"
+                       TextWrapping="WrapWithOverflow"
+                       VerticalAlignment="Center"
+                       Text="{Binding Text, ElementName=PromptControl}"
+                       Foreground="{Binding Foreground, ElementName=PromptControl}"/>
+        </Grid>
+    </Border>
+</UserControl>
