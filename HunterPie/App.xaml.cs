@@ -285,7 +285,7 @@ public partial class App : Application
             HookEvents();
             _richPresence = DiscordPresenceController.GetPresenceBy(context);
 
-            WidgetManager.Hook(context);
+            await Dispatcher.InvokeAsync(() => WidgetManager.Hook(context));
 
             await ContextInitializers.InitializeAsync(context).ConfigureAwait(false);
 
