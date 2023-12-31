@@ -4,7 +4,7 @@ using HunterPie.Internal.Initializers;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows.Threading;
+using System.Windows;
 
 namespace HunterPie.Internal;
 
@@ -68,7 +68,7 @@ internal class InitializerManager
         Log.Benchmark();
 
         // Make sure to run UI initializers in the main thread
-        Dispatcher.CurrentDispatcher.Invoke(async () =>
+        Application.Current.Dispatcher.Invoke(async () =>
         {
             foreach (IInitializer initializer in UiInitializers)
                 await initializer.Init();

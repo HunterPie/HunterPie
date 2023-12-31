@@ -62,4 +62,10 @@ public partial class MainView : Window
         await Dispatcher.InvokeAsync(Hide);
         await vm.GracefulShutdown();
     }
+
+    private void OnKeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) && e.KeyboardDevice.IsKeyDown(Key.R))
+            App.Restart();
+    }
 }

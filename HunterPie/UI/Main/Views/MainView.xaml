@@ -26,6 +26,7 @@
              SnapsToDevicePixels="True"
              UseLayoutRounding="True"
              WindowStyle="None"
+             PreviewKeyDown="OnKeyDown"
              d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
     <Window.Resources>
         <presentation:MainBodyDataTemplateSelector x:Key="MainBodyDataTemplateSelector"/>
