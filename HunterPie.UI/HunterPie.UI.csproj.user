@@ -146,6 +146,9 @@
     <Compile Update="Overlay\Widgets\Classes\Views\InsectGlaiveView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Classes\Views\LongSwordView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Classes\Views\SwitchAxeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -386,6 +389,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Classes\Views\InsectGlaiveView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Classes\Views\LongSwordView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Classes\Views\SwitchAxeView.xaml">

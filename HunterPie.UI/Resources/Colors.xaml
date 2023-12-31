@@ -323,4 +323,33 @@
         <GradientStop Color="#00B7AC" Offset="1"/>
         <GradientStop Color="#0085FF" Offset="0"/>
     </LinearGradientBrush>
+    <LinearGradientBrush x:Key="LONG_SWORD_BUILD_UP_BRUSH" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#61f4de" Offset="1"/>
+        <GradientStop Color="#6e78ff" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="LONG_SWORD_LEVEL_ONE_BRUSH" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#ebf4f5" Offset="1"/>
+        <GradientStop Color="#b5c6e0" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource LONG_SWORD_LEVEL_ONE_BRUSH}, Mode=OneTime}"
+                         Opacity="0.3"
+                         x:Key="LONG_SWORD_LEVEL_ONE_BACKGROUND_BRUSH"/>
+    <LinearGradientBrush x:Key="LONG_SWORD_LEVEL_TWO_BRUSH" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#f4d941" Offset="1"/>
+        <GradientStop Color="#ff930f" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource LONG_SWORD_LEVEL_TWO_BRUSH}, Mode=OneTime}"
+                         Opacity="0.3"
+                         x:Key="LONG_SWORD_LEVEL_TWO_BACKGROUND_BRUSH"/>
+    <LinearGradientBrush x:Key="LONG_SWORD_LEVEL_MAX_BRUSH" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#fd4b2f" Offset="1"/>
+        <GradientStop Color="#f83d5c" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource LONG_SWORD_LEVEL_MAX_BRUSH}, Mode=OneTime}"
+                         Opacity="0.3"
+                         x:Key="LONG_SWORD_LEVEL_MAX_BACKGROUND_BRUSH"/>
+    <LinearGradientBrush x:Key="LONG_SWORD_BUILD_UP_REGEN_BRUSH" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#f89b29" Offset="1"/>
+        <GradientStop Color="#ff0f7b" Offset="0"/>
+    </LinearGradientBrush>
 </ResourceDictionary>
