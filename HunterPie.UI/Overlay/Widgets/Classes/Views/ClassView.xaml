@@ -29,6 +29,10 @@
             <local:SwitchAxeView/>
         </DataTemplate>
 
+        <DataTemplate x:Key="LongswordTemplate">
+            <local:LongSwordView/>
+        </DataTemplate>
+
         <DataTemplate x:Key="EmptyTemplate"/>
 
         <presentation:ClassTemplateSelector x:Key="ClassTemplateSelector" 
@@ -36,6 +40,7 @@
                                             ChargeBladeTemplate="{StaticResource ChargeBladeTemplate}"
                                             DualBladesTemplate="{StaticResource DualBladesTemplate}"
                                             SwitchAxeTemplate="{StaticResource SwitchAxeTemplate}"
+                                            LongswordTemplate="{StaticResource LongswordTemplate}"
                                             EmptyTemplate="{StaticResource EmptyTemplate}"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>

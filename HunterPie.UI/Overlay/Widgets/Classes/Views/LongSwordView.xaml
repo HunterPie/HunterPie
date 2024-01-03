@@ -22,6 +22,7 @@
 
         <converters:TimerToSizeConverter x:Key="TimerToSizeConverter"/>
         <converters:RatioConverter x:Key="RatioConverter"/>
+        <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -101,8 +102,9 @@
                     <image:Icon Image="{StaticResource ICON_LONGSWORD}"
                                 Foreground="{StaticResource WHITE}"
                                 Margin="5"
-                                Opacity="0.2"/>
+                                Opacity="0.1"/>
                     <TextBlock d:Text="3"
+                               Text="{Binding SpiritLevel, Mode=OneWay}"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                Foreground="{StaticResource WHITE_100}"
@@ -112,6 +114,7 @@
                                Margin="0,0,0,15"/>
 
                     <TextBlock d:Text="00:00"
+                               Text="{Binding SpiritLevelTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                Foreground="{StaticResource WHITE_400}"
@@ -152,6 +155,12 @@
                     <TextBlock.RenderTransform>
                         <SkewTransform AngleX="-45"/>
                     </TextBlock.RenderTransform>
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{StaticResource RatioConverter}" StringFormat="{}{0:P0}">
+                            <Binding Path="SpiritGaugeBuildUp"/>
+                            <Binding Path="SpiritGaugeMaxBuildUp"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
                 </TextBlock>
             </Border>
 
@@ -189,8 +198,8 @@
                           Border="1"
                           Value="{Binding SpiritGaugeRegenTimer, Mode=OneWay}"
                           MaxValue="{Binding SpiritGaugeRegenMaxTimer, Mode=OneWay}"
-                          d:ForegroundBorder="{StaticResource LONG_SWORD_BUILD_UP_REGEN_BRUSH}"
-                          d:ForegroundColor="{StaticResource LongSwordBuildUpRegenBrushBackground}"
+                          ForegroundBorder="{StaticResource LONG_SWORD_BUILD_UP_REGEN_BRUSH}"
+                          ForegroundColor="{StaticResource LongSwordBuildUpRegenBrushBackground}"
                           BackgroundBorder="{StaticResource GRAY_50}"
                           BackgroundColor="{StaticResource GRAY_400}"/>
 
@@ -202,15 +211,10 @@
                     BorderBrush="{StaticResource GRAY_50}"
                     Background="{StaticResource GRAY_300}">
                 <TextBlock d:Text="00:00"
+                           Text="{Binding SpiritGaugeRegenTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"
                            FontWeight="Medium"
                            Foreground="{StaticResource WHITE_100}"
                            RenderTransformOrigin="0.5, 0.5">
-                    <TextBlock.Text>
-                        <MultiBinding Converter="{StaticResource RatioConverter}" StringFormat="{}{0:P0}">
-                            <Binding Path="SpiritGaugeRegenTimer" Mode="OneWay"/>
-                            <Binding Path="SpiritGaugeRegenMaxTimer" Mode="OneWay"/>
-                        </MultiBinding>
-                    </TextBlock.Text>
                     <TextBlock.RenderTransform>
                         <SkewTransform AngleX="45"/>
                     </TextBlock.RenderTransform>

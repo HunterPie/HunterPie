@@ -1,9 +1,12 @@
-﻿using HunterPie.UI.Architecture;
+﻿using HunterPie.Core.Game.Enums;
+using HunterPie.UI.Architecture;
 
 namespace HunterPie.UI.Overlay.Widgets.Classes.ViewModels;
 
-public class LongSwordViewModel : ViewModel
+public class LongSwordViewModel : ViewModel, IClassViewModel
 {
+    public Weapon WeaponId => Weapon.Longsword;
+
     private float _spiritGaugeRegenTimer;
     public float SpiritGaugeRegenTimer { get => _spiritGaugeRegenTimer; set => SetValue(ref _spiritGaugeRegenTimer, value); }
 
