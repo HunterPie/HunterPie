@@ -94,6 +94,9 @@ public class ConfigurationAdapter
                 continue;
             }
 
+            if (!propertyAttribute.AvailableGames.HasFlag(game))
+                continue;
+
             if (propertyValue is null)
                 continue;
 
