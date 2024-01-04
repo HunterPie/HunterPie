@@ -143,7 +143,7 @@ public sealed class MHWSwitchAxe : MHWMeleeWeapon, ISwitchAxe
         SlamBuffTimer = slamBuffTimerAdjusted;
     }
 
-    public MHWSwitchAxe(IProcessManager process, ISkillService skillService) : base(process, Weapon.SwitchAxe)
+    public MHWSwitchAxe(IProcessManager process, ISkillService skillService) : base(skillService, process, Weapon.SwitchAxe)
     {
         _skillService = skillService;
     }

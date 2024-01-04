@@ -306,12 +306,10 @@ public sealed class MHWGame : CommonGame
             {
                 EntityDamageData entity = group.ElementAt(0);
 
-                return new EntityDamageData
+                return entity with
                 {
-                    Target = entity.Target,
-                    Entity = entity.Entity,
-                    RawDamage = group.Sum(e => e.RawDamage),
-                    ElementalDamage = group.Sum(e => e.ElementalDamage)
+                    RawDamage = group.Sum(it => it.RawDamage),
+                    ElementalDamage = group.Sum(it => it.ElementalDamage)
                 };
             })
             .ToArray();

@@ -4,6 +4,7 @@ using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Player.Classes;
+using HunterPie.Core.Game.Entity.Player.Skills;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
@@ -178,7 +179,7 @@ public sealed class MHWInsectGlaive : MHWMeleeWeapon, IInsectGlaive
         remove => _onChargeChange.Unhook(value);
     }
 
-    public MHWInsectGlaive(IProcessManager process) : base(process, Weapon.InsectGlaive) { }
+    public MHWInsectGlaive(IProcessManager process, ISkillService skillService) : base(skillService, process, Weapon.InsectGlaive) { }
 
     [ScannableMethod]
     private void GetWeaponData()
