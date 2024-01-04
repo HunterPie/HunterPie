@@ -61,10 +61,10 @@ public static class MHWGameUtils
         return staminaCapUp ? DefaultMaxStamina + StaminaIncrement : DefaultMaxStamina;
     }
 
-    public static int MaximumSharpness(this int[] sharpnesses, MHWGearSkill handicraft)
+    public static int MaximumSharpness(this int[] sharpnesses, Skill handicraft)
     {
-        int handicraftLevel = Math.Min((int)handicraft.LevelGear, 5);
-        return sharpnesses.Last(s => s > 0) - MaxHandicraft - (HandicraftMultiplier * handicraftLevel);
+        int handicraftLevel = Math.Min(handicraft.Level, 5);
+        return sharpnesses.Last(s => s > 0) - MaxHandicraft + (HandicraftMultiplier * handicraftLevel);
     }
 
     public static Sharpness ToSharpnessLevel(this int[] sharpnesses, int sharpness)
