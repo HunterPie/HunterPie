@@ -180,13 +180,13 @@ public sealed class MHWPlayer : CommonPlayer
 
     internal MHWPlayer(IProcessManager process) : base(process)
     {
-        _weapon = CreateDefaultWeapon(process);
         _skillService = new MHWSkillService(process);
+        _weapon = CreateDefaultWeapon(process);
     }
 
-    private static IWeapon CreateDefaultWeapon(IProcessManager process)
+    private IWeapon CreateDefaultWeapon(IProcessManager process)
     {
-        var weapon = new MHWMeleeWeapon(process, WeaponType.Greatsword);
+        var weapon = new MHWMeleeWeapon(_skillService, process, WeaponType.Greatsword);
         ScanManager.Add(weapon);
         return weapon;
     }
@@ -306,21 +306,20 @@ public sealed class MHWPlayer : CommonPlayer
         IWeapon? weaponInstance = data.WeaponType switch
         {
             WeaponType.ChargeBlade => new MHWChargeBlade(Process, _skillService),
-            WeaponType.InsectGlaive => new MHWInsectGlaive(Process),
+            WeaponType.InsectGlaive => new MHWInsectGlaive(Process, _skillService),
             WeaponType.Bow => new MHWBow(),
             WeaponType.HeavyBowgun => new MHWHeavyBowgun(),
             WeaponType.LightBowgun => new MHWLightBowgun(),
-            WeaponType.DualBlades => new MHWDualBlades(Process),
+            WeaponType.DualBlades => new MHWDualBlades(Process, _skillService),
             WeaponType.SwitchAxe => new MHWSwitchAxe(Process, _skillService),
-
             WeaponType.Greatsword
                 or WeaponType.SwordAndShield
                 or WeaponType.Longsword
                 or WeaponType.Hammer
                 or WeaponType.HuntingHorn
                 or WeaponType.Lance
-                or WeaponType.GunLance => new MHWMeleeWeapon(Process, data.WeaponType),
-
+                or WeaponType.GunLance
+                or WeaponType.GunLance => new MHWMeleeWeapon(_skillService, Process, data.WeaponType),
             _ => null
         };
 
@@ -368,7 +367,7 @@ public sealed class MHWPlayer : CommonPlayer
         if (partySize is 0)
         {
             _party.ClearExcept(0);
-
+            _localPlayerAddress = 0;
             _party.Update(0, new MHWPartyMemberData
             {
                 Name = Name,
@@ -730,10 +729,9 @@ public sealed class MHWPlayer : CommonPlayer
 
     internal void UpdatePartyMembersDamage(EntityDamageData[] entities)
     {
-        foreach (EntityDamageData entity in entities)
-            // For now we are only tracking local player.
-            if (entity.Entity.Index == 0)
-                _party.Update(_localPlayerAddress, entity);
+        // Only update damage for index 0 since it is only possible to track the local player's damage
+        entities.Where(it => it.Entity.Index == 0)
+            .ForEach(it => _party.Update(_localPlayerAddress, it));
     }
 
     public override void Dispose()

@@ -36,7 +36,7 @@ public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("DAMAGE_METER_DAMAGE_PLOT_STRATEGY_STRING", group: CommonConfigurationGroups.DAMAGE_PLOT)]
     public Observable<DamagePlotStrategy> DamagePlotStrategy { get; set; } = Enums.DamagePlotStrategy.DamagePerSecond;
 
-    [ConfigurationProperty("INITIALIZE_WIDGET_STRING", group: CommonConfigurationGroups.DAMAGE_PLOT)]
+    [ConfigurationProperty("DAMAGE_METER_ENABLE_DPS_PLOT", group: CommonConfigurationGroups.DAMAGE_PLOT)]
     public Observable<bool> ShouldShowPlots { get; set; } = true;
 
     [ConfigurationProperty("DAMAGE_METER_SELF_COLOR_STRING", group: CommonConfigurationGroups.COLORS)]
@@ -54,7 +54,7 @@ public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("DAMAGE_METER_PLAYER_4_COLOR_STRING", group: CommonConfigurationGroups.COLORS)]
     public Color PlayerFourth { get; set; } = "#FFF0F465";
 
-    [ConfigurationProperty("DAMAGE_METER_NPC_COLOR_STRING", group: CommonConfigurationGroups.COLORS)]
+    [ConfigurationProperty("DAMAGE_METER_NPC_COLOR_STRING", availableGames: GameProcess.MonsterHunterRise, group: CommonConfigurationGroups.COLORS)]
     public Color NpcColor { get; set; } = "#FF9534EB";
 
     [ConfigurationProperty("WIDGET_POSITION", group: CommonConfigurationGroups.WIDGET)]

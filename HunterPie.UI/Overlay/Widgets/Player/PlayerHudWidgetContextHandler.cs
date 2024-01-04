@@ -125,6 +125,8 @@ public class PlayerHudWidgetContextHandler : IContextHandler
     private void OnSharpnessLevelChange(object sender, SharpnessEventArgs e)
     {
         _viewModel.SharpnessViewModel.SharpnessLevel = e.Sharpness;
+        _viewModel.SharpnessViewModel.MaxSharpness = e.MaxSharpness - e.Threshold;
+        _viewModel.SharpnessViewModel.Sharpness = e.CurrentSharpness - e.Threshold;
     }
 
     private void OnPlayerLogin(object sender, EventArgs e)
