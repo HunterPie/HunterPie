@@ -85,7 +85,8 @@
             </Border>
         </Grid>
 
-        <Grid Margin="15,0,0,0"
+        <Grid Grid.Column="0" 
+              Margin="15,0,0,0"
               HorizontalAlignment="Left"
               Grid.ColumnSpan="2">
             <Rectangle Fill="{StaticResource GRAY_100}"

@@ -180,13 +180,13 @@ public sealed class MHWPlayer : CommonPlayer
 
     internal MHWPlayer(IProcessManager process) : base(process)
     {
-        _weapon = CreateDefaultWeapon(process);
         _skillService = new MHWSkillService(process);
+        _weapon = CreateDefaultWeapon(process);
     }
 
-    private static IWeapon CreateDefaultWeapon(IProcessManager process)
+    private IWeapon CreateDefaultWeapon(IProcessManager process)
     {
-        var weapon = new MHWMeleeWeapon(process, WeaponType.Greatsword);
+        var weapon = new MHWMeleeWeapon(_skillService, process, WeaponType.Greatsword);
         ScanManager.Add(weapon);
         return weapon;
     }
@@ -306,11 +306,11 @@ public sealed class MHWPlayer : CommonPlayer
         IWeapon? weaponInstance = data.WeaponType switch
         {
             WeaponType.ChargeBlade => new MHWChargeBlade(Process, _skillService),
-            WeaponType.InsectGlaive => new MHWInsectGlaive(Process),
+            WeaponType.InsectGlaive => new MHWInsectGlaive(Process, _skillService),
             WeaponType.Bow => new MHWBow(),
             WeaponType.HeavyBowgun => new MHWHeavyBowgun(),
             WeaponType.LightBowgun => new MHWLightBowgun(),
-            WeaponType.DualBlades => new MHWDualBlades(Process),
+            WeaponType.DualBlades => new MHWDualBlades(Process, _skillService),
 
             WeaponType.Greatsword
                 or WeaponType.SwordAndShield
@@ -319,7 +319,7 @@ public sealed class MHWPlayer : CommonPlayer
                 or WeaponType.HuntingHorn
                 or WeaponType.Lance
                 or WeaponType.GunLance
-                or WeaponType.SwitchAxe => new MHWMeleeWeapon(Process, data.WeaponType),
+                or WeaponType.SwitchAxe => new MHWMeleeWeapon(_skillService, Process, data.WeaponType),
 
             _ => null
         };
