@@ -368,7 +368,7 @@ public sealed class MHWPlayer : CommonPlayer
         if (partySize is 0)
         {
             _party.ClearExcept(0);
-
+            _localPlayerAddress = 0;
             _party.Update(0, new MHWPartyMemberData
             {
                 Name = Name,
@@ -730,10 +730,9 @@ public sealed class MHWPlayer : CommonPlayer
 
     internal void UpdatePartyMembersDamage(EntityDamageData[] entities)
     {
-        foreach (EntityDamageData entity in entities)
-            // For now we are only tracking local player.
-            if (entity.Entity.Index == 0)
-                _party.Update(_localPlayerAddress, entity);
+        // Only update damage for index 0 since it is only possible to track the local player's damage
+        entities.Where(it => it.Entity.Index == 0)
+            .ForEach(it => _party.Update(_localPlayerAddress, it));
     }
 
     public override void Dispose()
