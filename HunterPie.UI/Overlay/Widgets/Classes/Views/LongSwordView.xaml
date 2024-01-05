@@ -8,6 +8,7 @@
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:progress="clr-namespace:HunterPie.UI.Overlay.Controls.Progress"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+             xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.Presentation"
              mc:Ignorable="d" 
              Height="82" 
              Width="295"
@@ -23,6 +24,16 @@
         <converters:TimerToSizeConverter x:Key="TimerToSizeConverter"/>
         <converters:RatioConverter x:Key="RatioConverter"/>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
+        <presentation:LongSwordLevelColorConverter x:Key="LongSwordLevelBackgroundColorConverter"
+                                                   DefaultBrush="Transparent"
+                                                   LevelOneBrush="{StaticResource LONG_SWORD_LEVEL_ONE_BACKGROUND_BRUSH}"
+                                                   LevelTwoBrush="{StaticResource LONG_SWORD_LEVEL_TWO_BACKGROUND_BRUSH}"
+                                                   LevelMaxBrush="{StaticResource LONG_SWORD_LEVEL_MAX_BACKGROUND_BRUSH}"/>
+        <presentation:LongSwordLevelColorConverter x:Key="LongSwordLevelBorderColorConverter"
+                                                   DefaultBrush="Transparent"
+                                                   LevelOneBrush="{StaticResource LONG_SWORD_LEVEL_ONE_BRUSH}"
+                                                   LevelTwoBrush="{StaticResource LONG_SWORD_LEVEL_TWO_BRUSH}"
+                                                   LevelMaxBrush="{StaticResource LONG_SWORD_LEVEL_MAX_BRUSH}"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -71,9 +82,9 @@
                            Canvas.Left="13"
                            d:Width="56"
                            d:Height="56"
-                           Stroke="{StaticResource LONG_SWORD_LEVEL_MAX_BRUSH}"
+                           Stroke="{Binding SpiritLevel, Mode=OneWay, Converter={StaticResource LongSwordLevelBorderColorConverter}}"
                            StrokeThickness="1"
-                           Fill="{StaticResource LONG_SWORD_LEVEL_MAX_BACKGROUND_BRUSH}"
+                           Fill="{Binding SpiritLevel, Mode=OneWay, Converter={StaticResource LongSwordLevelBackgroundColorConverter}}"
                            HorizontalAlignment="Stretch"
                            Visibility="Visible">
                     <Rectangle.RenderTransform>

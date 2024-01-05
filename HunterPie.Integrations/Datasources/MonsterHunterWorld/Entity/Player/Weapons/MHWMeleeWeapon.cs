@@ -63,7 +63,7 @@ public class MHWMeleeWeapon : CommonMeleeWeapon
         }
     }
 
-    public MHWMeleeWeapon(ISkillService skillService, IProcessManager process, Weapon id) : base(process)
+    public MHWMeleeWeapon(IProcessManager process, ISkillService skillService, Weapon id) : base(process)
     {
         _skillService = skillService;
         Id = id;
