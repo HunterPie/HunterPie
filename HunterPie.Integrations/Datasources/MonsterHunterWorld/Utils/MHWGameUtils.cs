@@ -80,29 +80,40 @@ public static class MHWGameUtils
         };
     }
 
-    public static int MaximumSharpness(this int[] sharpnesses, Skill handicraft)
+    public static int MaximumSharpness(
+        this int[] sharpnesses,
+        int[] minimumSharpnesses,
+        Sharpness currentLevel,
+        int maxSharpnessIndex,
+        Skill handicraft
+    )
     {
         int handicraftLevel = Math.Min(handicraft.Level, 5);
-        return sharpnesses.Last(s => s > 0) - MaxHandicraft + (HandicraftMultiplier * handicraftLevel);
+        int handicraftSharpness = HandicraftMultiplier * handicraftLevel;
+
+        int currentUpperBoundSharpness = sharpnesses.ElementAtOrDefault((int)currentLevel);
+        int currentActualMaxSharpness = minimumSharpnesses.ElementAtOrDefault(maxSharpnessIndex);
+        bool isLastLevel = currentActualMaxSharpness < currentUpperBoundSharpness;
+        int maximumSharpness = Math.Min(currentUpperBoundSharpness, currentActualMaxSharpness);
+
+        return maximumSharpness + (isLastLevel ? handicraftSharpness : 0);
     }
 
-    public static Sharpness ToSharpnessLevel(this int[] sharpnesses, int sharpness)
+    public static Sharpness GetCurrentSharpness(this int[] sharpnesses, int currentSharpness)
     {
-        Sharpness level = Sharpness.Red;
-        int previousThreshold = 0;
-        foreach (int threshold in sharpnesses)
+        for (int i = sharpnesses.Length - 1; i > 0; i--)
         {
-            if (threshold == 0)
-                return level;
+            int sharpnessEnd = sharpnesses[i];
+            int sharpnessStart = sharpnesses[i - 1];
 
-            if (sharpness > previousThreshold && sharpness <= threshold)
-                return level;
+            if (sharpnessEnd is 0)
+                continue;
 
-            level++;
-            previousThreshold = threshold;
+            if (currentSharpness > sharpnessStart && currentSharpness <= sharpnessEnd)
+                return (Sharpness)i;
         }
 
-        return level;
+        return Sharpness.Red;
     }
 
     public static bool IsQuestOver(this QuestState state) => state switch

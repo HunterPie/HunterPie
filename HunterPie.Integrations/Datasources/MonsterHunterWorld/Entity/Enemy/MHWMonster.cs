@@ -285,14 +285,19 @@ public class MHWMonster : CommonMonster
     [ScannableMethod]
     private void GetManualTargetedMonster()
     {
+        long questTargetAddress = Memory.Deref<long>(
+            AddressMap.GetAbsolute("MONSTER_QUEST_TARGET_ADDRESS"),
+            AddressMap.GetOffsets("MONSTER_QUEST_TARGET_OFFSETS")
+        );
         MHWMapMonsterSelectionStructure mapSelection = Memory.Deref<MHWMapMonsterSelectionStructure>(
             AddressMap.GetAbsolute("MONSTER_MANUAL_TARGET_ADDRESS"),
-            AddressMap.Get<int[]>("MONSTER_MANUAL_TARGET_OFFSETS")
+            AddressMap.GetOffsets("MONSTER_MANUAL_TARGET_OFFSETS")
         );
-        bool isTargetPinned = !mapSelection.MapInsectsRef.IsNullPointer();
-        bool isSelected = mapSelection.SelectedMonster == _address;
+        bool isTargetByQuest = !questTargetAddress.IsNullPointer();
+        bool isTargetPinned = !mapSelection.MapInsectsRef.IsNullPointer() && !mapSelection.GuiRadarRef.IsNullPointer();
+        bool isSelected = isTargetByQuest ? questTargetAddress == _address : mapSelection.SelectedMonster == _address;
 
-        ManualTarget = isTargetPinned switch
+        ManualTarget = (isTargetPinned || isTargetByQuest) switch
         {
             true when isSelected => Target.Self,
             true => Target.Another,

@@ -12,9 +12,10 @@ using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
 public class MHWMeleeWeapon : CommonMeleeWeapon
 {
+    private readonly int[] _minimumSharpnessByLevel;
     private readonly ISkillService _skillService;
     private int _weaponId;
-    private Sharpness _sharpness;
+    private Sharpness _sharpness = Sharpness.Red;
     private int _currentSharpness;
     private int _threshold;
 
@@ -66,6 +67,10 @@ public class MHWMeleeWeapon : CommonMeleeWeapon
     public MHWMeleeWeapon(IProcessManager process, ISkillService skillService, Weapon id) : base(process)
     {
         _skillService = skillService;
+        _minimumSharpnessByLevel = Memory.Read<int>(
+            AddressMap.GetAbsolute("MINIMUM_SHARPNESSES_ADDRESS"),
+            8
+        );
         Id = id;
     }
 
@@ -104,14 +109,14 @@ public class MHWMeleeWeapon : CommonMeleeWeapon
             _weaponId = weaponId;
         }
 
-        sharpness.Level = SharpnessThresholds.ToSharpnessLevel(sharpness.Sharpness);
+        Sharpness currentLevel = SharpnessThresholds.GetCurrentSharpness(sharpness.Sharpness);
 
         Skill handicraft = _skillService.GetSkillBy(54);
+        int maxHits = SharpnessThresholds.MaximumSharpness(_minimumSharpnessByLevel, currentLevel, sharpness.MaxLevel, handicraft);
 
-        int maxHits = SharpnessThresholds.MaximumSharpness(handicraft);
-        Sharpness = sharpness.Level;
-        MaxSharpness = CalculateMaxThreshold(sharpness.Level, SharpnessThresholds, maxHits);
-        Threshold = CalculateCurrentThreshold(sharpness.Level, SharpnessThresholds);
+        Sharpness = currentLevel;
+        MaxSharpness = maxHits;
+        Threshold = CalculateCurrentThreshold(currentLevel, SharpnessThresholds);
         CurrentSharpness = sharpness.Sharpness;
     }
 }
