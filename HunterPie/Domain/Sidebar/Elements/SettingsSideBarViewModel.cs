@@ -6,6 +6,7 @@ using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Extensions;
 using HunterPie.Features.Account.Config;
 using HunterPie.GUI.Parts.Settings.ViewModels;
+using HunterPie.Internal.Initializers;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Navigation;
 using HunterPie.UI.Settings;
@@ -65,8 +66,14 @@ internal class SettingsSideBarViewModel : ViewModel, ISideBarViewModel
 
         ObservableCollection<ConfigurationCategory> generalConfig = ConfigurationAdapter.Adapt(ClientConfig.Config);
         ObservableCollection<ConfigurationCategory> accountConfig = await LocalAccountConfig.BuildAccountConfig();
+        ObservableCollection<ConfigurationCategory> featureFlags = ClientConfig.Config.Client.EnableFeatureFlags.Value switch
+        {
+            true => FeatureFlagAdapter.Adapt(FeatureFlagsInitializer.Features.Flags),
+            _ => new ObservableCollection<ConfigurationCategory>()
+        };
 
         var commonConfig = accountConfig.Concat(generalConfig)
+            .Concat(featureFlags)
             .ToObservableCollection();
         var configurations = new Dictionary<GameProcess, ObservableCollection<ConfigurationCategory>>
         {
