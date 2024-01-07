@@ -48,7 +48,6 @@ namespace HunterPie;
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
-#nullable enable
 public partial class App : Application
 {
     private static readonly RemoteAccountConfigService RemoteConfigService = new();

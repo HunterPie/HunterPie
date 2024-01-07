@@ -37,9 +37,9 @@
                       GlassFrameThickness="-1"
                       ResizeBorderThickness="5"
                       UseAeroCaptionButtons="False"
-                      NonClientFrameEdges="Right"/>
+                      NonClientFrameEdges="Bottom"/>
     </WindowChrome.WindowChrome>
-    <Grid Margin="0,1,3,0">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

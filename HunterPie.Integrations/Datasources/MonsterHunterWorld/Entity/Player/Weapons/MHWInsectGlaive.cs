@@ -179,7 +179,7 @@ public sealed class MHWInsectGlaive : MHWMeleeWeapon, IInsectGlaive
         remove => _onChargeChange.Unhook(value);
     }
 
-    public MHWInsectGlaive(IProcessManager process, ISkillService skillService) : base(skillService, process, Weapon.InsectGlaive) { }
+    public MHWInsectGlaive(IProcessManager process, ISkillService skillService) : base(process, skillService, Weapon.InsectGlaive) { }
 
     [ScannableMethod]
     private void GetWeaponData()
@@ -222,8 +222,7 @@ public sealed class MHWInsectGlaive : MHWMeleeWeapon, IInsectGlaive
 
     public override void Dispose()
     {
-        new IDisposable[]
-        {
+        IDisposableExtensions.DisposeAll(
             _onPrimaryExtractChange,
             _onSecondaryExtractChange,
             _onAttackTimerChange,
@@ -231,7 +230,7 @@ public sealed class MHWInsectGlaive : MHWMeleeWeapon, IInsectGlaive
             _onDefenseTimerChange,
             _onKinsectStaminaChange,
             _onChargeChange
-        }.DisposeAll();
+        );
 
         base.Dispose();
     }

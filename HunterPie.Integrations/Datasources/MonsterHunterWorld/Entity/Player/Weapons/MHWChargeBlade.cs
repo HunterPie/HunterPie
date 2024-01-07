@@ -154,7 +154,7 @@ public class MHWChargeBlade : MHWMeleeWeapon, IChargeBlade
     public MHWChargeBlade(
         IProcessManager process,
         ISkillService skillService
-    ) : base(skillService, process, Weapon.ChargeBlade)
+    ) : base(process, skillService, Weapon.ChargeBlade)
     {
         _skillService = skillService;
     }

@@ -186,7 +186,7 @@ public sealed class MHWPlayer : CommonPlayer
 
     private IWeapon CreateDefaultWeapon(IProcessManager process)
     {
-        var weapon = new MHWMeleeWeapon(_skillService, process, WeaponType.Greatsword);
+        var weapon = new MHWMeleeWeapon(process, _skillService, WeaponType.Greatsword);
         ScanManager.Add(weapon);
         return weapon;
     }
@@ -312,14 +312,14 @@ public sealed class MHWPlayer : CommonPlayer
             WeaponType.LightBowgun => new MHWLightBowgun(),
             WeaponType.DualBlades => new MHWDualBlades(Process, _skillService),
             WeaponType.SwitchAxe => new MHWSwitchAxe(Process, _skillService),
+            WeaponType.Longsword => new MHWLongSword(Process, _skillService),
             WeaponType.Greatsword
                 or WeaponType.SwordAndShield
-                or WeaponType.Longsword
                 or WeaponType.Hammer
                 or WeaponType.HuntingHorn
                 or WeaponType.Lance
                 or WeaponType.GunLance
-                or WeaponType.GunLance => new MHWMeleeWeapon(_skillService, Process, data.WeaponType),
+                or WeaponType.GunLance => new MHWMeleeWeapon(Process, _skillService, data.WeaponType),
             _ => null
         };
 

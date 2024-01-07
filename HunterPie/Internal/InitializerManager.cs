@@ -22,13 +22,15 @@ internal class InitializerManager
         // Feature Flags
         new FeatureFlagsInitializer(),
 
+        new NativeLoggerInitializer(),
+
         // Config
         new RemoteConfigSyncInitializer(),
         new ClientConfigMigrationInitializer(),
         new ClientConfigInitializer(),
         new ConfigManagerInitializer(),
 
-        new NativeLoggerInitializer(),
+
         new HunterPieLoggerInitializer(),
         new MapperFactoryInitializer(),
         new CustomThemeInitializer(),

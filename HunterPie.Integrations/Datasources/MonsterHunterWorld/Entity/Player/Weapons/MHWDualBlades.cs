@@ -90,7 +90,7 @@ public sealed class MHWDualBlades : MHWMeleeWeapon, IDualBlades
         remove => _onPiercingBindTimerChange.Unhook(value);
     }
 
-    public MHWDualBlades(IProcessManager process, ISkillService skillService) : base(skillService, process, Weapon.DualBlades) { }
+    public MHWDualBlades(IProcessManager process, ISkillService skillService) : base(process, skillService, Weapon.DualBlades) { }
 
     [ScannableMethod]
     private void GetData()

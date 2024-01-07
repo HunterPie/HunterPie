@@ -45,6 +45,9 @@ public class DevelopmentConfig : ISettings
     [ConfigurationProperty("DEV_MOCK_SWITCH_AXE_WIDGET_STRING", requiresRestart: true, group: CommonConfigurationGroups.MOCKS)]
     public Observable<bool> MockSwitchAxeWidget { get; set; } = false;
 
+    [ConfigurationProperty("DEV_MOCK_LONG_SWORD_WIDGET_STRING", requiresRestart: true, group: CommonConfigurationGroups.MOCKS)]
+    public Observable<bool> MockLongSwordWidget { get; set; } = false;
+
     [ConfigurationProperty("DEV_MOCK_DUAL_BLADES_WIDGET_STRING", requiresRestart: true, group: CommonConfigurationGroups.MOCKS)]
     public Observable<bool> MockDualBladesWidget { get; set; } = false;
     #endregion

@@ -64,7 +64,7 @@ public class MHWMeleeWeapon : CommonMeleeWeapon
         }
     }
 
-    public MHWMeleeWeapon(ISkillService skillService, IProcessManager process, Weapon id) : base(process)
+    public MHWMeleeWeapon(IProcessManager process, ISkillService skillService, Weapon id) : base(process)
     {
         _skillService = skillService;
         _minimumSharpnessByLevel = Memory.Read<int>(
@@ -110,6 +110,9 @@ public class MHWMeleeWeapon : CommonMeleeWeapon
         }
 
         Sharpness currentLevel = SharpnessThresholds.GetCurrentSharpness(sharpness.Sharpness);
+
+        if (currentLevel is >= Sharpness.Invalid or <= Sharpness.Broken)
+            return;
 
         Skill handicraft = _skillService.GetSkillBy(54);
         int maxHits = SharpnessThresholds.MaximumSharpness(_minimumSharpnessByLevel, currentLevel, sharpness.MaxLevel, handicraft);

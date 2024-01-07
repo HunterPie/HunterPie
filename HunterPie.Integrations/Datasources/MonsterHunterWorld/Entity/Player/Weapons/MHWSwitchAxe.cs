@@ -131,19 +131,19 @@ public sealed class MHWSwitchAxe : MHWMeleeWeapon, ISwitchAxe
     [ScannableMethod]
     private void GetSlamBuff()
     {
-        long abnormalitiesPointer = Memory.Read(
+        float powerProlongerMultiplier = _skillService.GetPowerProlongerMultiplier(Weapon.SwitchAxe);
+        MHWSwitchAxeSlamStructure slamBuff = Memory.Deref<MHWSwitchAxeSlamStructure>(
             AddressMap.GetAbsolute("ABNORMALITY_ADDRESS"),
             AddressMap.GetOffsets("ABNORMALITY_OFFSETS")
         );
-        float powerProlongerMultiplier = _skillService.GetPowerProlongerMultiplier(Weapon.SwitchAxe);
-        float slamBuffTimer = Memory.Read<float>(abnormalitiesPointer + 0x6E8);
+        float slamBuffTimer = slamBuff.IsActive ? slamBuff.Timer : 0.0f;
         float slamBuffTimerAdjusted = slamBuffTimer * powerProlongerMultiplier;
 
         MaxSlamBuffTimer = Math.Max(MaxSlamBuffTimer, slamBuffTimerAdjusted);
         SlamBuffTimer = slamBuffTimerAdjusted;
     }
 
-    public MHWSwitchAxe(IProcessManager process, ISkillService skillService) : base(skillService, process, Weapon.SwitchAxe)
+    public MHWSwitchAxe(IProcessManager process, ISkillService skillService) : base(process, skillService, Weapon.SwitchAxe)
     {
         _skillService = skillService;
     }
