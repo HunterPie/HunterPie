@@ -1,8 +1,11 @@
-﻿using HunterPie.UI.Main.ViewModels;
+﻿using HunterPie.Core.System;
+using HunterPie.Domain.Common;
+using HunterPie.UI.Main.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
@@ -40,5 +43,18 @@ public partial class MainBodyView : UserControl
             return;
 
         vm.LaunchGame();
+    }
+
+    private void OnCloseSupporterFeedback(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainBodyViewModel vm)
+            return;
+
+        vm.CloseSupporterPrompt();
+    }
+
+    private void OnBannerClick(object sender, MouseButtonEventArgs e)
+    {
+        BrowserService.OpenUrl(CommonLinks.PATREON);
     }
 }

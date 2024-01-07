@@ -352,4 +352,13 @@
         <GradientStop Color="#f89b29" Offset="1"/>
         <GradientStop Color="#ff0f7b" Offset="0"/>
     </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="SUPPORTER_BANNER_BORDER" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#f89b29" Offset="1"/>
+        <GradientStop Color="#ff0f7b" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="SUPPORTER_BANNER_BACKGROUND" EndPoint="1,1" StartPoint="0,1" Opacity="0.3">
+        <GradientStop Color="#f89b29" Offset="1"/>
+        <GradientStop Color="#ff0f7b" Offset="0"/>
+    </LinearGradientBrush>
 </ResourceDictionary>

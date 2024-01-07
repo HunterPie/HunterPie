@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using HunterPie.UI.Architecture;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace HunterPie.UI.Controls.Feedback;
@@ -8,6 +10,14 @@ namespace HunterPie.UI.Controls.Feedback;
 /// </summary>
 public partial class Prompt : UserControl
 {
+    public static readonly RoutedEvent CloseClickEvent = EventManager.RegisterRoutedEvent(nameof(CloseClick), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ClickableControl));
+
+    public event RoutedEventHandler CloseClick
+    {
+        add => AddHandler(CloseClickEvent, value);
+        remove => RemoveHandler(CloseClickEvent, value);
+    }
+
     public string Text
     {
         get => (string)GetValue(TextProperty);
@@ -64,8 +74,24 @@ public partial class Prompt : UserControl
     public static new readonly DependencyProperty BackgroundProperty =
         DependencyProperty.Register(nameof(Background), typeof(Brush), typeof(Prompt));
 
+    public bool IsCloseable
+    {
+        get => (bool)GetValue(IsCloseableProperty);
+        set => SetValue(IsCloseableProperty, value);
+    }
+    public static readonly DependencyProperty IsCloseableProperty =
+        DependencyProperty.Register(nameof(IsCloseable), typeof(bool), typeof(Prompt), new PropertyMetadata(false));
+
     public Prompt()
     {
         InitializeComponent();
+    }
+
+    private void OnCloseButtonClick(object sender, RoutedEventArgs e) =>
+        RaiseEvent(new RoutedEventArgs(CloseClickEvent, this));
+
+    private void OnCloseLeftMouseUp(object sender, MouseButtonEventArgs e)
+    {
+        e.Handled = true;
     }
 }
