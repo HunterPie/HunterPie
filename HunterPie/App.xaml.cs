@@ -141,7 +141,7 @@ public partial class App : Application
         // Initialize UI navigation
         var sideBarViewModel = new SideBarViewModel(SideBarProvider.SideBar.Elements);
         var mainBodyViewModel = new MainBodyViewModel(sideBarViewModel);
-        var mainBodyNavigator = new MainBodyNavigator(mainBodyViewModel);
+        var mainBodyNavigator = new MainBodyController(mainBodyViewModel);
         Navigator.SetNavigators(mainBodyNavigator, MainController);
         Navigator.Body.Navigate<ConsoleViewModel>();
         Navigator.App.Navigate(mainBodyViewModel);

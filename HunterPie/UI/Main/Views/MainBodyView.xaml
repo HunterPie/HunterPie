@@ -13,6 +13,7 @@
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
              xmlns:enums="clr-namespace:HunterPie.Core.Client.Configuration.Enums;assembly=HunterPie.Core"
              xmlns:effects="clr-namespace:HunterPie.UI.Controls.Effects;assembly=HunterPie.UI"
+             xmlns:feedback="clr-namespace:HunterPie.UI.Controls.Feedback;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
@@ -20,9 +21,11 @@
     <UserControl.Resources>
         <presentation:NavigationDataTemplateSelector x:Key="NavigationDataTemplateSelector"/>
         <converters:GameTypeToGameNameConverter x:Key="GameTypeToGameNameConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -33,7 +36,7 @@
 
         <!-- Content Navigation -->
         <ContentControl Grid.Column="1"
-                        Grid.Row="1"
+                        Grid.Row="2"
                         ContentTemplateSelector="{StaticResource NavigationDataTemplateSelector}"
                         Content="{Binding NavigationViewModel, Mode=OneWay, NotifyOnTargetUpdated=True}"
                         TargetUpdated="OnNavigationTargetUpdated"
@@ -46,7 +49,7 @@
         </ContentControl>
 
         <Grid Grid.Column="0"
-              Grid.Row="0" 
+              Grid.Row="1" 
               Grid.ColumnSpan="2" 
               Height="120"
               Background="{StaticResource GRAY_300}">
@@ -135,9 +138,26 @@
 
         <!-- SideBar -->
         <views:SideBarView Grid.Column="0" 
-                           Grid.Row="1"
+                           Grid.Row="2"
                            Grid.ColumnSpan="2"
                            HorizontalAlignment="Left"
                            DataContext="{Binding SideBarViewModel, Mode=OneWay}"/>
+
+        <feedback:Prompt Grid.Row="0"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="2"
+                         Cursor="Hand"
+                         Text="Want to support HunterPie's development and have access to BETA updates? Support the project on Patreon!"
+                         Icon="{StaticResource ICON_PATREON}"
+                         Padding="1"
+                         Background="{StaticResource SUPPORTER_BANNER_BACKGROUND}"
+                         BorderBrush="{StaticResource SUPPORTER_BANNER_BORDER}"
+                         BorderThickness="0,1"
+                         FontSize="13"
+                         Foreground="{StaticResource WHITE_50}"
+                         CloseClick="OnCloseSupporterFeedback"
+                         IsCloseable="True"
+                         MouseLeftButtonUp="OnBannerClick"
+                         Visibility="{Binding ShouldDisplaySupporterPrompt, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
     </Grid>
 </UserControl>

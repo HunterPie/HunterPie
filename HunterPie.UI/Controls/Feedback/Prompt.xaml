@@ -5,10 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Controls.Feedback"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
              mc:Ignorable="d" 
              d:DesignHeight="100" 
              d:DesignWidth="500"
              x:Name="PromptControl">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
     <Border Background="{Binding Background, ElementName=PromptControl}"
             BorderThickness="{Binding BorderThickness, ElementName=PromptControl}"
             CornerRadius="{Binding CornerRadius, ElementName=PromptControl}"
@@ -17,6 +21,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="40"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <image:Icon Grid.Column="0"
@@ -33,6 +38,14 @@
                        VerticalAlignment="Center"
                        Text="{Binding Text, ElementName=PromptControl}"
                        Foreground="{Binding Foreground, ElementName=PromptControl}"/>
+
+            <buttons:Button Grid.Column="2"
+                            Content="✕"
+                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                            Margin="2"
+                            Click="OnCloseButtonClick"
+                            MouseLeftButtonUp="OnCloseLeftMouseUp"
+                            Visibility="{Binding IsCloseable, ElementName=PromptControl, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </Grid>
     </Border>
 </UserControl>

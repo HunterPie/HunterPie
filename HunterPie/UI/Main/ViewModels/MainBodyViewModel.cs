@@ -10,6 +10,7 @@ namespace HunterPie.UI.Main.ViewModels;
 
 internal class MainBodyViewModel : ViewModel
 {
+    private const string SUPPORTER_PROMPT_KEY = "supporter_prompt_closed";
     public SideBarViewModel SideBarViewModel { get; init; }
 
     private ViewModel? _navigationViewModel;
@@ -19,6 +20,9 @@ internal class MainBodyViewModel : ViewModel
 
     public ObservableCollection<GameType> Games { get; } = new() { GameType.Rise, GameType.World };
 
+    private bool _shouldDisplaySupporterPrompt;
+    public bool ShouldDisplaySupporterPrompt { get => _shouldDisplaySupporterPrompt; set => SetValue(ref _shouldDisplaySupporterPrompt, value); }
+
     public MainBodyViewModel(SideBarViewModel sideBarViewModel)
     {
         SideBarViewModel = sideBarViewModel;
@@ -27,5 +31,18 @@ internal class MainBodyViewModel : ViewModel
     public void LaunchGame()
     {
         Steam.RunGameBy(SelectedGame.Value);
+    }
+
+    public void InitializeSupporterPrompt(bool isSupporter)
+    {
+        bool hasClosedPrompt = RegistryConfig.Exists(SUPPORTER_PROMPT_KEY);
+
+        ShouldDisplaySupporterPrompt = !hasClosedPrompt && !isSupporter;
+    }
+
+    public void CloseSupporterPrompt()
+    {
+        ShouldDisplaySupporterPrompt = false;
+        RegistryConfig.Set(SUPPORTER_PROMPT_KEY, true);
     }
 }
