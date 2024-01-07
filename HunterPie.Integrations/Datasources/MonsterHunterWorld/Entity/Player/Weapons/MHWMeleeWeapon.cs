@@ -111,6 +111,9 @@ public class MHWMeleeWeapon : CommonMeleeWeapon
 
         Sharpness currentLevel = SharpnessThresholds.GetCurrentSharpness(sharpness.Sharpness);
 
+        if (currentLevel is >= Sharpness.Invalid or <= Sharpness.Broken)
+            return;
+
         Skill handicraft = _skillService.GetSkillBy(54);
         int maxHits = SharpnessThresholds.MaximumSharpness(_minimumSharpnessByLevel, currentLevel, sharpness.MaxLevel, handicraft);
 
