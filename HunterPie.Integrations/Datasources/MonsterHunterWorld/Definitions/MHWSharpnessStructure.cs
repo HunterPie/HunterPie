@@ -4,9 +4,10 @@ using System.Runtime.InteropServices;
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
 
-[StructLayout(LayoutKind.Sequential)]
+[StructLayout(LayoutKind.Explicit)]
 public struct MHWSharpnessStructure
 {
-    public int Sharpness;
-    public Sharpness Level;
+    [FieldOffset(0x1D10)] public int MaxLevel;
+    [FieldOffset(0x20F8)] public int Sharpness;
+    [FieldOffset(0x20FC)] public Sharpness Level;
 }
