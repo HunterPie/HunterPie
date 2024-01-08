@@ -9,6 +9,7 @@
              xmlns:progress="clr-namespace:HunterPie.UI.Overlay.Controls.Progress"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.Presentation"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
              mc:Ignorable="d" 
              Height="82" 
              Width="295"
@@ -24,6 +25,7 @@
         <converters:TimerToSizeConverter x:Key="TimerToSizeConverter"/>
         <converters:RatioConverter x:Key="RatioConverter"/>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
+        <converters:PercentageToLeftMarginDistanceConverter x:Key="PercentageToLeftMarginDistanceConverter"/>
         <presentation:LongSwordLevelColorConverter x:Key="LongSwordLevelBackgroundColorConverter"
                                                    DefaultBrush="Transparent"
                                                    LevelOneBrush="{StaticResource LONG_SWORD_LEVEL_ONE_BACKGROUND_BRUSH}"
@@ -34,6 +36,8 @@
                                                    LevelOneBrush="{StaticResource LONG_SWORD_LEVEL_ONE_BRUSH}"
                                                    LevelTwoBrush="{StaticResource LONG_SWORD_LEVEL_TWO_BRUSH}"
                                                    LevelMaxBrush="{StaticResource LONG_SWORD_LEVEL_MAX_BRUSH}"/>
+
+        <system:Double x:Key="ComboMinimumSpiritBuildUp">0.75</system:Double>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -186,6 +190,30 @@
                           ForegroundColor="{StaticResource LongSwordBuildUpBrushBackground}"
                           BackgroundBorder="{StaticResource GRAY_50}"
                           BackgroundColor="{StaticResource GRAY_400}"/>
+
+            <!-- Combo tick -->
+            <image:Icon Grid.Row="1"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Width="10"
+                        Height="10"
+                        Image="{StaticResource ICON_FUNNEL}"
+                        Foreground="{StaticResource WHITE_300}"
+                        RenderTransformOrigin="0.5,0.5"
+                        d:Margin="50,-2,0,0">
+                <image:Icon.Margin>
+                    <MultiBinding Converter="{StaticResource PercentageToLeftMarginDistanceConverter}"
+                                  ConverterParameter="0,-2,0,0">
+                        <Binding Path="ActualWidth" Mode="OneWay" RelativeSource="{RelativeSource AncestorType={x:Type Grid}}"/>
+                        <Binding Source="{StaticResource ComboMinimumSpiritBuildUp}" Mode="OneWay"/>
+                    </MultiBinding>
+                </image:Icon.Margin>
+                <image:Icon.RenderTransform>
+                    <TransformGroup>
+                        <SkewTransform AngleX="-45"/>
+                    </TransformGroup>
+                </image:Icon.RenderTransform>
+            </image:Icon>
         </Grid>
 
         <!-- Build Up regen timer -->
