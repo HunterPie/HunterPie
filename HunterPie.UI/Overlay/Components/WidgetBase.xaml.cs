@@ -162,7 +162,7 @@ public partial class WidgetBase : Window, INotifyPropertyChanged
 
     private void OnMouseWheel(object sender, MouseWheelEventArgs e)
     {
-        double step = 0.01 * (e.Delta > 0 ? 1 : -1);
+        double step = 0.05 * (e.Delta > 0 ? 1 : -1);
 
         if (Keyboard.IsKeyDown(Key.LeftCtrl))
             Widget.Settings.Opacity.Current += step;

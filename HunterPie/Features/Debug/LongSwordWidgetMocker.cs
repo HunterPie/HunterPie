@@ -14,17 +14,13 @@ internal class LongSwordWidgetMocker : IWidgetMocker
             return;
 
         var mockSettings = new ClassWidgetConfig();
-        WidgetManager.Register<ClassView, ClassWidgetConfig>(
-            new ClassView
-            {
-                DataContext = new ClassViewModel
-                {
-                    CurrentSettings = mockSettings,
-                    InHuntingZone = true,
-                    Current = MockViewModel()
-                }
-            }
-        );
+
+        var view = new ClassView();
+        view.ViewModel.Current = MockViewModel();
+        view.ViewModel.InHuntingZone = true;
+        view.ViewModel.CurrentSettings = mockSettings;
+
+        WidgetManager.Register<ClassView, ClassWidgetConfig>(view);
     }
 
     private static LongSwordViewModel MockViewModel()
