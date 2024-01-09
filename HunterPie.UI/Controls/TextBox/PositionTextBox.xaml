@@ -17,7 +17,7 @@
                  d:Text="120"
                  HorizontalAlignment="Stretch"
                  Margin="2"
-                 Text="{Binding X, RelativeSource={RelativeSource AncestorType={x:Type local:PositionTextBox}}}"
+                 Text="{Binding X, RelativeSource={RelativeSource AncestorType={x:Type local:PositionTextBox}}, UpdateSourceTrigger=PropertyChanged}"
                  FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                  FontSize="15"
                  VerticalContentAlignment="Top"
@@ -31,7 +31,7 @@
                    Margin="2"/>
 
         <TextBox Grid.Column="1" 
-                 Text="{Binding Y, RelativeSource={RelativeSource AncestorType={x:Type local:PositionTextBox}}}"
+                 Text="{Binding Y, RelativeSource={RelativeSource AncestorType={x:Type local:PositionTextBox}}, UpdateSourceTrigger=PropertyChanged}"
                  Margin="2"
                  d:Text="120"
                  HorizontalAlignment="Stretch"
