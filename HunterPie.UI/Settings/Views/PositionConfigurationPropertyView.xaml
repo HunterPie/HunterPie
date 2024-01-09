@@ -27,8 +27,8 @@
                                      Margin="5,2,0,2"
                                      Height="40"
                                      FontSize="12"
-                                     X="{Binding Position.X, Mode=TwoWay}"
-                                     Y="{Binding Position.Y, Mode=TwoWay}"/>
+                                     X="{Binding Position.X, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Y="{Binding Position.Y, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
     </effects:CursorHighLight>
 </UserControl>

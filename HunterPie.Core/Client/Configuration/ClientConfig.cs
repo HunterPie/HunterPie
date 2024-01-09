@@ -62,7 +62,7 @@ public class ClientConfig : ISettings
 
     #region Scanning Settings
     [ConfigurationProperty("POLLING_RATE_STRING", group: CommonConfigurationGroups.SCANNING)]
-    public Range PollingRate { get; set; } = new(100, 1000, 1, 1);
+    public Range PollingRate { get; set; } = new(50, 1000, 1, 1);
     #endregion
 
     #region Development Settings

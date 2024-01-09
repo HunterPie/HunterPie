@@ -14,7 +14,6 @@
         Background="#01000000"
         Topmost="True"
         SizeToContent="WidthAndHeight"
-        xmlns:animation="clr-namespace:HunterPie.UI.Architecture.Animation"
         d:Height="400"
         d:Width="500"
         Top="{Binding Widget.Settings.Position.Y, Mode=TwoWay}"
