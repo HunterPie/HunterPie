@@ -143,6 +143,9 @@ public partial class WidgetBase : Window, INotifyPropertyChanged
 
     private void ForceAlwaysOnTop()
     {
+        if (WidgetManager.Instance.IsDesignModeEnabled)
+            return;
+
         IntPtr hWnd = new WindowInteropHelper(this)
             .EnsureHandle();
 

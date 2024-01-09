@@ -51,6 +51,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <AdditionalFiles Remove="app.manifest" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="AssemblyInfo.cs~RF34c238c.TMP" />
     <None Remove="Resources\Icon.ico" />
   </ItemGroup>
