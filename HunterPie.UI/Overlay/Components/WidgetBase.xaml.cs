@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Threading;
 #if DEBUG
 using LiveCharts;
 using LiveCharts.Defaults;
@@ -84,10 +85,10 @@ public partial class WidgetBase : Window, INotifyPropertyChanged
     private int _counter = 0;
     private void OnRender(object sender, EventArgs e)
     {
-        if (_counter >= 60)
+        if (_counter >= 30)
         {
             RenderingTime = (DateTime.Now - _lastRender).TotalMilliseconds;
-            ForceAlwaysOnTop();
+            Dispatcher.Invoke(ForceAlwaysOnTop, DispatcherPriority.Render);
             _counter = 0;
         }
 
