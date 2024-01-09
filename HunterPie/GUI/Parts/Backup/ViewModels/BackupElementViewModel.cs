@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Networking.Http;
 using HunterPie.Core.Notification;
+using HunterPie.Core.Notification.Model;
 using HunterPie.Integrations.Poogie.Backup;
 using HunterPie.UI.Architecture;
 using System;
@@ -58,10 +59,13 @@ public class BackupElementViewModel : ViewModel
         IsDownloading = false;
         IsDownloaded = true;
 
-        NotificationService.Success(
-            "Successfully downloaded backup",
-            TimeSpan.FromSeconds(5)
+        var options = new NotificationOptions(
+            Type: NotificationType.Success,
+            Title: "Download",
+            Description: "Successfully downloaded backup",
+            DisplayTime: TimeSpan.FromSeconds(5)
         );
+        await NotificationService.Show(options);
     }
 
     public void OpenBackupFolder()

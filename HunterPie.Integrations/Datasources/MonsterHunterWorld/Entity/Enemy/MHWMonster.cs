@@ -7,6 +7,7 @@ using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Events;
 using HunterPie.Core.Logger;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
@@ -20,15 +21,15 @@ public class MHWMonster : CommonMonster
     private int _id = -1;
     private int _doubleLinkedListIndex;
     private float _health = -1;
-    private bool _isTarget;
     private bool _isEnraged;
     private Target _target;
+    private Target _manualTarget;
     private Crown _crown;
     private float _stamina;
     private float _captureThreshold;
     private readonly MHWMonsterAilment _enrage = new("STATUS_ENRAGE");
     private (long, MHWMonsterPart)[] _parts;
-    private List<(long, MHWMonsterAilment)> _ailments;
+    private List<(long, MHWMonsterAilment)>? _ailments;
     #endregion
 
     public override int Id
@@ -42,7 +43,7 @@ public class MHWMonster : CommonMonster
                 GetMonsterWeaknesses();
                 GetMonsterCaptureThreshold();
 
-                Log.Debug($"Initialized monster at address {_address:X} with id: {value}");
+                Log.Debug($"Initialized ${Name} at address {_address:X} with id: {value}");
                 this.Dispatch(_onSpawn);
             }
         }
@@ -85,19 +86,6 @@ public class MHWMonster : CommonMonster
 
     public override float MaxStamina { get; protected set; }
 
-    public override bool IsTarget
-    {
-        get => _isTarget;
-        protected set
-        {
-            if (_isTarget != value)
-            {
-                _isTarget = value;
-                this.Dispatch(_onTarget);
-            }
-        }
-    }
-
     public override IMonsterPart[] Parts => _parts?
                                     .Select(v => v.Item2)
                                     .ToArray<IMonsterPart>() ?? Array.Empty<IMonsterPart>();
@@ -111,13 +99,27 @@ public class MHWMonster : CommonMonster
         get => _target;
         protected set
         {
-            if (_target != value)
-            {
-                _target = value;
-                this.Dispatch(_onTargetChange);
-            }
+            if (_target == value)
+                return;
+
+            _target = value;
+            this.Dispatch(_onTargetChange, new MonsterTargetEventArgs(this));
         }
     }
+
+    public override Target ManualTarget
+    {
+        get => _manualTarget;
+        protected set
+        {
+            if (_manualTarget == value)
+                return;
+
+            _manualTarget = value;
+            this.Dispatch(_onTargetChange, new MonsterTargetEventArgs(this));
+        }
+    }
+
 
     public override Crown Crown
     {
@@ -264,21 +266,43 @@ public class MHWMonster : CommonMonster
 
         if (lockedOnDoubleLinkedListAddress.IsNullPointer())
         {
-            IsTarget = false;
             Target = Target.None;
             return;
         }
 
         int lockedOnDoubleLinkedListIndex = Memory.Read<int>(lockedOnDoubleLinkedListAddress + 0x950);
 
-        IsTarget = lockedOnDoubleLinkedListIndex == _doubleLinkedListIndex;
+        bool isTarget = lockedOnDoubleLinkedListIndex == _doubleLinkedListIndex;
 
-        if (IsTarget)
+        if (isTarget)
             Target = Target.Self;
         else if (lockedOnDoubleLinkedListIndex < 0)
             Target = Target.None;
         else
             Target = Target.Another;
+    }
+
+    [ScannableMethod]
+    private void GetManualTargetedMonster()
+    {
+        long questTargetAddress = Memory.Deref<long>(
+            AddressMap.GetAbsolute("MONSTER_QUEST_TARGET_ADDRESS"),
+            AddressMap.GetOffsets("MONSTER_QUEST_TARGET_OFFSETS")
+        );
+        MHWMapMonsterSelectionStructure mapSelection = Memory.Deref<MHWMapMonsterSelectionStructure>(
+            AddressMap.GetAbsolute("MONSTER_MANUAL_TARGET_ADDRESS"),
+            AddressMap.GetOffsets("MONSTER_MANUAL_TARGET_OFFSETS")
+        );
+        bool isTargetByQuest = !questTargetAddress.IsNullPointer();
+        bool isTargetPinned = !mapSelection.MapInsectsRef.IsNullPointer() && !mapSelection.GuiRadarRef.IsNullPointer();
+        bool isSelected = isTargetByQuest ? questTargetAddress == _address : mapSelection.SelectedMonster == _address;
+
+        ManualTarget = (isTargetPinned || isTargetByQuest) switch
+        {
+            true when isSelected => Target.Self,
+            true => Target.Another,
+            _ => Target.None
+        };
     }
 
     [ScannableMethod]
@@ -455,7 +479,7 @@ public class MHWMonster : CommonMonster
         _parts.Select(it => it.Item2)
             .DisposeAll();
 
-        _ailments.Select(it => it.Item2)
+        _ailments?.Select(it => it.Item2)
             .DisposeAll();
 
         base.Dispose();

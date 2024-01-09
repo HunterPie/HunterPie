@@ -41,18 +41,22 @@
 
         <Popup Grid.Column="0"
                IsOpen="{Binding IsDropDownOpen, ElementName=ComboButtonControl, Mode=OneWay}"
-               PopupAnimation="Slide"
+               PopupAnimation="Fade"
                AllowsTransparency="True">
-            <Grid MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}">
-                <ScrollViewer>
-                    <ListBox Background="{StaticResource GRAY_100}"
-                             FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                             BorderBrush="{StaticResource GRAY}"
+            <Border MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
+                    BorderThickness="1"
+                    BorderBrush="{StaticResource GRAY_50}"
+                    Background="{StaticResource GRAY_300}"
+                    CornerRadius="0,0,5,5">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ListBox FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                              SelectedItem="{Binding SelectedValue, ElementName=ComboButtonControl, Mode=TwoWay}"
                              ItemsSource="{Binding ItemsSource, ElementName=ComboButtonControl, Mode=OneWay}"
-                             ItemTemplate="{Binding ItemTemplate, ElementName=ComboButtonControl, Mode=OneWay}"/>
+                             ItemTemplate="{Binding ItemTemplate, ElementName=ComboButtonControl, Mode=OneWay}"
+                             BorderThickness="0"
+                             Background="Transparent"/>
                 </ScrollViewer>
-            </Grid>
+            </Border>
         </Popup>
     </Grid>
 </UserControl>

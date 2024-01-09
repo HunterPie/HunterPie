@@ -5,6 +5,7 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Events;
 using HunterPie.Core.Logger;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Enemy;
@@ -18,9 +19,9 @@ public abstract class CommonMonster : Scannable, IMonster, IDisposable, IEventDi
     public abstract float Stamina { get; protected set; }
     public abstract float MaxStamina { get; protected set; }
     public abstract float CaptureThreshold { get; protected set; }
-    public abstract bool IsTarget { get; protected set; }
     public abstract bool IsEnraged { get; protected set; }
     public abstract Target Target { get; protected set; }
+    public abstract Target ManualTarget { get; protected set; }
     public abstract IMonsterPart[] Parts { get; }
     public abstract IMonsterAilment[] Ailments { get; }
     public abstract IMonsterAilment Enrage { get; }
@@ -63,13 +64,6 @@ public abstract class CommonMonster : Scannable, IMonster, IDisposable, IEventDi
         remove => _onCapture.Unhook(value);
     }
 
-    protected readonly SmartEvent<EventArgs> _onTarget = new();
-    public event EventHandler<EventArgs> OnTarget
-    {
-        add => _onTarget.Hook(value);
-        remove => _onTarget.Unhook(value);
-    }
-
     protected readonly SmartEvent<EventArgs> _onCrownChange = new();
     public event EventHandler<EventArgs> OnCrownChange
     {
@@ -105,8 +99,8 @@ public abstract class CommonMonster : Scannable, IMonster, IDisposable, IEventDi
         remove => _onEnrageStateChange.Unhook(value);
     }
 
-    protected readonly SmartEvent<EventArgs> _onTargetChange = new();
-    public event EventHandler<EventArgs> OnTargetChange
+    protected readonly SmartEvent<MonsterTargetEventArgs> _onTargetChange = new();
+    public event EventHandler<MonsterTargetEventArgs> OnTargetChange
     {
         add => _onTargetChange.Hook(value);
         remove => _onTargetChange.Unhook(value);
@@ -146,7 +140,7 @@ public abstract class CommonMonster : Scannable, IMonster, IDisposable, IEventDi
     {
         IDisposable[] events =
         {
-            _onSpawn, _onLoad, _onDespawn, _onDeath, _onCapture, _onTarget, _onCrownChange, _onHealthChange,
+            _onSpawn, _onLoad, _onDespawn, _onDeath, _onCapture, _onCrownChange, _onHealthChange,
             _onStaminaChange, _onActionChange, _onEnrageStateChange, _onTargetChange, _onNewPartFound,
             _onNewAilmentFound, _onWeaknessesChange, _onCaptureThresholdChange,
         };

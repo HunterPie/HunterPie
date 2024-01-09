@@ -61,29 +61,59 @@ public static class MHWGameUtils
         return staminaCapUp ? DefaultMaxStamina + StaminaIncrement : DefaultMaxStamina;
     }
 
-    public static int MaximumSharpness(this int[] sharpnesses, Skill handicraft)
+    public static float GetPowerProlongerMultiplier(this ISkillService skillService, Weapon weapon)
     {
-        int handicraftLevel = Math.Min(handicraft.Level, 5);
-        return sharpnesses.Last(s => s > 0) - MaxHandicraft + (HandicraftMultiplier * handicraftLevel);
+        Skill powerProlonger = skillService.GetSkillBy(0x35);
+        int skillLevel = Math.Min(3, powerProlonger.Level);
+
+        if (skillLevel <= 0)
+            return 1.0f;
+
+        float baseFormula = 1.0f + ((float)Math.Pow(2.0f, skillLevel - 1.0f) / 10.0f);
+
+        return weapon switch
+        {
+            Weapon.SwitchAxe or
+                Weapon.DualBlades => baseFormula + (2.0f * skillLevel / 10.0f),
+
+            _ => baseFormula
+        };
     }
 
-    public static Sharpness ToSharpnessLevel(this int[] sharpnesses, int sharpness)
+    public static int MaximumSharpness(
+        this int[] sharpnesses,
+        int[] minimumSharpnesses,
+        Sharpness currentLevel,
+        int maxSharpnessIndex,
+        Skill handicraft
+    )
     {
-        Sharpness level = Sharpness.Red;
-        int previousThreshold = 0;
-        foreach (int threshold in sharpnesses)
+        int handicraftLevel = Math.Min(handicraft.Level, 5);
+        int handicraftSharpness = HandicraftMultiplier * handicraftLevel;
+
+        int currentUpperBoundSharpness = sharpnesses.ElementAtOrDefault((int)currentLevel);
+        int currentActualMaxSharpness = minimumSharpnesses.ElementAtOrDefault(maxSharpnessIndex);
+        bool isLastLevel = currentActualMaxSharpness < currentUpperBoundSharpness;
+        int maximumSharpness = Math.Min(currentUpperBoundSharpness, currentActualMaxSharpness);
+
+        return maximumSharpness + (isLastLevel ? handicraftSharpness : 0);
+    }
+
+    public static Sharpness GetCurrentSharpness(this int[] sharpnesses, int currentSharpness)
+    {
+        for (int i = sharpnesses.Length - 1; i > 0; i--)
         {
-            if (threshold == 0)
-                return level;
+            int sharpnessEnd = sharpnesses[i];
+            int sharpnessStart = sharpnesses[i - 1];
 
-            if (sharpness > previousThreshold && sharpness <= threshold)
-                return level;
+            if (sharpnessEnd is 0)
+                continue;
 
-            level++;
-            previousThreshold = threshold;
+            if (currentSharpness > sharpnessStart && currentSharpness <= sharpnessEnd)
+                return (Sharpness)i;
         }
 
-        return level;
+        return Sharpness.Red;
     }
 
     public static bool IsQuestOver(this QuestState state) => state switch

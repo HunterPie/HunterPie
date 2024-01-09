@@ -5,8 +5,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Controls.Buttons"
+             xmlns:effects="clr-namespace:HunterPie.UI.Controls.Effects"
              mc:Ignorable="d" 
-             d:DesignHeight="30" d:DesignWidth="120"
+             d:DesignHeight="30" 
+             d:DesignWidth="120"
              ClipToBounds="True"
              ToolTip="{Binding Description, ElementName=TabItemControl}"
              Cursor="Hand">
@@ -21,35 +23,42 @@
         </Storyboard>
     </UserControl.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="31"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Canvas Grid.ColumnSpan="2">
+        <Canvas>
             <Ellipse x:Name="PART_Ripple"
                     Fill="#40F5F5F5" 
                     HorizontalAlignment="Left" 
                     Height="{Binding Path=Width, RelativeSource={RelativeSource Self}}"
                     VerticalAlignment="Top"/>
         </Canvas>
-        <Rectangle HorizontalAlignment="Stretch"
-                   VerticalAlignment="Stretch"
-                   Width="20"
-                   Height="{Binding Width, RelativeSource={RelativeSource Self}}"
-                   Fill="{Binding Foreground, ElementName=PART_HeaderTitle}">
-            <Rectangle.OpacityMask>
-                <ImageBrush d:ImageSource="{StaticResource ICON_DISCORD}"
-                            ImageSource="{Binding Icon, ElementName=TabItemControl}"
-                            TileMode="Tile" 
-                            Stretch="Uniform"/>
-            </Rectangle.OpacityMask>
-        </Rectangle>
-        <TextBlock Text="{Binding Title, ElementName=TabItemControl}"
-                   x:Name="PART_HeaderTitle"
-                   Grid.Column="1"
-                   Margin="10,0,0,0"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   FontWeight="Medium"
-                   VerticalAlignment="Center"/>
+
+        <effects:CursorHighLight>
+            <Grid Margin="10,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Rectangle Grid.Column="0" 
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch"
+                           Width="20"
+                           Height="{Binding Width, RelativeSource={RelativeSource Self}}"
+                           Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type local:TabItem}}}">
+                    <Rectangle.OpacityMask>
+                        <ImageBrush d:ImageSource="{StaticResource ICON_DISCORD}"
+                                    ImageSource="{Binding Icon, RelativeSource={RelativeSource AncestorType={x:Type local:TabItem}}}"
+                                    TileMode="Tile" 
+                                    Stretch="Uniform"/>
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+
+                <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType={x:Type local:TabItem}}}"
+                           Grid.Column="1"
+                           Margin="10,0,0,0"
+                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                           FontWeight="Medium"
+                           VerticalAlignment="Center"/>
+            </Grid>
+        </effects:CursorHighLight>
     </Grid>
 </UserControl>

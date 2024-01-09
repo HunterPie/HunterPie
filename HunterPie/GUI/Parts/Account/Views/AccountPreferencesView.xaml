@@ -8,16 +8,13 @@
              xmlns:components="clr-namespace:HunterPie.GUI.Parts.Account.Views.Components"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
              xmlns:backup="clr-namespace:HunterPie.GUI.Parts.Backup.Views"
+             xmlns:viewModels="clr-namespace:HunterPie.GUI.Parts.Account.ViewModels"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="400"
-             Background="{StaticResource GRAY_300}"
-             Loaded="OnLoad"
-             Unloaded="OnUnload">
-    <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-    </UserControl.Resources>
-    <viewer:SmoothScrollViewer>
+             Background="{StaticResource GRAY_200}"
+             d:DataContext="{d:DesignInstance viewModels:AccountPreferencesViewModel}">
+    <viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel>
             <ContentPresenter Margin="20,10,20,10">
                 <ContentPresenter.Style>

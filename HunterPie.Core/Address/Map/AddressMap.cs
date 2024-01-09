@@ -8,7 +8,7 @@ namespace HunterPie.Core.Address.Map;
 public static class AddressMap
 {
 
-    private static IAddressMapParser parser;
+    private static IAddressMapParser _parser;
     public static bool IsLoaded { get; private set; }
 
     public static bool Parse(string filePath)
@@ -22,7 +22,7 @@ public static class AddressMap
         using FileStream file = File.OpenRead(filePath);
         using var stream = new StreamReader(file);
 
-        parser = new LegacyAddressMapParser(stream);
+        _parser = new LegacyAddressMapParser(stream);
 
         Log.Info($"Loaded {Path.GetFileName(filePath)} successfully");
 
@@ -40,8 +40,11 @@ public static class AddressMap
         return Parse(Path.Combine(mapsDir, latestMap));
     }
 
-    public static T Get<T>(string key) => parser.Get<T>(key);
-    public static long GetAbsolute(string key) => parser.Get<long>("BASE") + parser.Get<long>(key);
-    public static void Add<T>(string key, T value) => parser.Add(key, value);
+    public static T Get<T>(string key) => _parser.Get<T>(key);
 
+    public static long GetAbsolute(string key) => _parser.Get<long>("BASE") + _parser.Get<long>(key);
+
+    public static void Add<T>(string key, T value) => _parser.Add(key, value);
+
+    public static int[] GetOffsets(string key) => Get<int[]>(key);
 }

@@ -26,6 +26,8 @@ public class HttpClient : IDisposable
     public HttpClientResponse Request()
     {
         foreach (string host in Urls)
+        {
+            Log.Debug($"Making request to {Path}");
             for (int retry = 0; retry < Math.Max(1, Retry); retry++)
             {
                 _httpClient = new() { Timeout = TimeOut };
@@ -56,6 +58,8 @@ public class HttpClient : IDisposable
 
                 return new HttpClientResponse(response);
             }
+        }
+
 
         return new HttpClientResponse(null);
     }
@@ -63,6 +67,8 @@ public class HttpClient : IDisposable
     public async Task<HttpClientResponse> RequestAsync()
     {
         foreach (string host in Urls)
+        {
+            Log.Debug($"Making request to {Path}");
             for (int retry = 0; retry < Math.Max(1, Retry); retry++)
             {
                 _httpClient = new() { Timeout = TimeOut };
@@ -73,8 +79,8 @@ public class HttpClient : IDisposable
 
                 foreach ((string key, string value) in
                          Headers.Where(k => k.Value is not null)
-                                .Cast<KeyValuePair<string, string>>()
-                         )
+                             .Cast<KeyValuePair<string, string>>()
+                        )
                     _request.Headers.Add(key, value);
 
                 HttpResponseMessage response;
@@ -93,6 +99,8 @@ public class HttpClient : IDisposable
 
                 return new HttpClientResponse(response);
             }
+        }
+
 
         return new HttpClientResponse(null);
     }

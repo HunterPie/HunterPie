@@ -14,6 +14,7 @@ internal class MapperFactoryInitializer : IInitializer
         MapFactory.Add(new XmlNodeToAbnormalitySchemaMapper(
             new MHRAbnormalityFlagTypeParser()
         ));
+        MapFactory.Add(new GameProcessToGameTypeMapper());
 
         return Task.CompletedTask;
     }

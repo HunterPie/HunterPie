@@ -1,21 +1,27 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Settings;
+using HunterPie.Core.Settings.Annotations;
+using HunterPie.Core.Settings.Common;
 using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay;
 
-[SettingsGroup("OVERLAY_STRING", "ICON_OVERLAY")]
+[Configuration("OVERLAY_STRING", "ICON_OVERLAY")]
 public class OverlayClientConfig : ISettings
 {
-    [SettingField("OVERLAY_ENABLED_STRING")]
+    #region General Settings
+    [ConfigurationProperty("OVERLAY_ENABLED_STRING", group: CommonConfigurationGroups.GENERAL)]
     public Observable<bool> IsEnabled { get; set; } = true;
 
-    [SettingField("OVERLAY_KEYBINDING_TOGGLE_VISIBILITY_STRING")]
+    [ConfigurationProperty("OVERLAY_HIDE_WHEN_GAME_UNFOCUS_STRING", group: CommonConfigurationGroups.GENERAL)]
+    public Observable<bool> HideWhenUnfocus { get; set; } = false;
+    #endregion
+
+    #region Hotkeys Settings
+    [ConfigurationProperty("OVERLAY_KEYBINDING_TOGGLE_VISIBILITY_STRING", requiresRestart: true, group: CommonConfigurationGroups.HOTKEYS)]
     public Keybinding ToggleVisibility { get; set; } = "Ctrl+Alt+O";
 
-    [SettingField("OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE", requiresRestart: true)]
+    [ConfigurationProperty("OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE", requiresRestart: true, group: CommonConfigurationGroups.HOTKEYS)]
     public Keybinding ToggleDesignMode { get; set; } = "ScrollLock";
-
-    [SettingField("OVERLAY_HIDE_WHEN_GAME_UNFOCUS_STRING")]
-    public Observable<bool> HideWhenUnfocus { get; set; } = false;
+    #endregion
 }

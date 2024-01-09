@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Controls.TextBox"
              xmlns:types="clr-namespace:HunterPie.Core.Settings.Types;assembly=HunterPie.Core"
-             d:DataContext="{d:DesignData Type=types:Position}"
              mc:Ignorable="d" 
              d:DesignHeight="35" 
              d:DesignWidth="200">
@@ -18,34 +17,33 @@
                  d:Text="120"
                  HorizontalAlignment="Stretch"
                  Margin="2"
-                 Text="{Binding X}"
+                 Text="{Binding X, RelativeSource={RelativeSource AncestorType={x:Type local:PositionTextBox}}}"
                  FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                 FontSize="14"
-                 VerticalContentAlignment="Center"
+                 FontSize="15"
+                 VerticalContentAlignment="Top"
                  HorizontalContentAlignment="Center"/>
         <TextBlock Grid.Column="0" 
                    Text="X"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   Foreground="{StaticResource WHITE_500}"
                    VerticalAlignment="Bottom"
                    FontWeight="Medium"
-                   HorizontalAlignment="Center"/>
+                   HorizontalAlignment="Center"
+                   Margin="2"/>
 
         <TextBox Grid.Column="1" 
-                 Text="{Binding Y}"
+                 Text="{Binding Y, RelativeSource={RelativeSource AncestorType={x:Type local:PositionTextBox}}}"
                  Margin="2"
                  d:Text="120"
-                 FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                  HorizontalAlignment="Stretch"
-                 FontSize="14"
-                 VerticalContentAlignment="Center"
+                 FontSize="15"
+                 VerticalContentAlignment="Top"
                  HorizontalContentAlignment="Center"/>
         <TextBlock Grid.Column="1" 
                    Text="Y"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   Foreground="{StaticResource WHITE_500}"
                    FontWeight="Medium"
                    VerticalAlignment="Bottom"
-                   HorizontalAlignment="Center"/>
+                   HorizontalAlignment="Center"
+                   Margin="2"/>
     </Grid>
 </UserControl>

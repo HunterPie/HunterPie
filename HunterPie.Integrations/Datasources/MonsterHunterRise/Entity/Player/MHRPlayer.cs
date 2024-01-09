@@ -307,15 +307,15 @@ public sealed class MHRPlayer : CommonPlayer
             WeaponType.HeavyBowgun => new MHRHeavyBowgun(),
             WeaponType.LightBowgun => new MHRLightBowgun(),
             WeaponType.DualBlades => new MHRDualBlades(Process),
+            WeaponType.SwitchAxe => new MHRSwitchAxe(Process),
+            WeaponType.Longsword => new MHRLongSword(Process),
 
             WeaponType.Greatsword
             or WeaponType.SwordAndShield
-            or WeaponType.Longsword
             or WeaponType.Hammer
             or WeaponType.HuntingHorn
             or WeaponType.Lance
-            or WeaponType.GunLance
-            or WeaponType.SwitchAxe => new MHRMeleeWeapon(Process, weapon),
+            or WeaponType.GunLance => new MHRMeleeWeapon(Process, weapon),
 
             _ => null
         };

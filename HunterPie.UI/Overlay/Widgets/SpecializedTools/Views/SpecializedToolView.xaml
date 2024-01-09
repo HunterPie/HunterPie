@@ -64,8 +64,8 @@
                        Height="{Binding ActualHeight, ElementName=PART_Background, Mode=OneWay}"
                        d:Width="49"
                        d:Height="49"
-                       Canvas.Top="11"
-                       Canvas.Left="11"
+                       Canvas.Top="10.5"
+                       Canvas.Left="10.5"
                        HorizontalAlignment="Stretch">
                 <Rectangle.RenderTransform>
                     <TransformGroup>

@@ -10,7 +10,7 @@ namespace HunterPie.UI.Architecture.Converters;
 public class SharpnessToColorConverter : IValueConverter
 {
 
-    private readonly Dictionary<Sharpness, Color> _associatedColors = new Dictionary<Sharpness, Color>(7)
+    private readonly Dictionary<Sharpness, Color> _associatedColors = new(7)
     {
         { Sharpness.Broken, Resources.Get<Color>("WIDGET_SHARPNESS_BROKEN") },
         { Sharpness.Red, Resources.Get<Color>("WIDGET_SHARPNESS_RED") },
