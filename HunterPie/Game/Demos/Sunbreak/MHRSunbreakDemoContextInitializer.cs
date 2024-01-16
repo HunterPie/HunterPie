@@ -10,22 +10,20 @@ namespace HunterPie.Game.Demos.Sunbreak;
 internal class MHRSunbreakDemoContextInitializer : IContextInitializer
 {
 
-    public async Task InitializeAsync(IContext context)
+    public Task InitializeAsync(IContext context)
     {
         if (context is not MHRSunbreakDemoContext)
-            return;
+            return Task.CompletedTask;
 
         InitializeGameData();
+
+        return Task.CompletedTask;
     }
 
     private static void InitializeGameData()
     {
         MonsterData.Init(
             ClientInfo.GetPathFor("Game/Rise/Data/MonsterData.xml")
-        );
-
-        AbnormalityData.Init(
-            ClientInfo.GetPathFor("Game/Rise/Data/AbnormalityData.xml")
         );
     }
 }

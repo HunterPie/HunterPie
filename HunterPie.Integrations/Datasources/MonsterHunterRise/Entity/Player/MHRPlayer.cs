@@ -1,10 +1,10 @@
 using HunterPie.Core.Address.Map;
 using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Entity.Player;
@@ -12,6 +12,7 @@ using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Entity.Player.Vitals;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Game.Services;
 using HunterPie.Core.Native.IPC.Models.Common;
 using HunterPie.Integrations.Datasources.Common.Definition;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
@@ -387,7 +388,8 @@ public sealed class MHRPlayer : CommonPlayer
         if (consumableBuffs.IsNullPointer())
             return;
 
-        AbnormalitySchema[] consumableSchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Consumables);
+        AbnormalitySchema[] consumableSchemas =
+            AbnormalityService.FindAllAbnormalitiesBy(GameType.Rise, AbnormalityGroup.CONSUMABLES);
 
         foreach (AbnormalitySchema schema in consumableSchemas)
         {
@@ -417,7 +419,7 @@ public sealed class MHRPlayer : CommonPlayer
                     abnormality = MHRAbnormalityAdapter.Convert(schema, abnormalityStructure);
 
                     if (!schema.IsInteger && !schema.IsBuildup)
-                        abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                        abnormality.Timer = abnormality.Timer.ToAbnormalitySeconds();
 
                     if (schema.MaxTimer > 0)
                         abnormality.Timer = Math.Max(0.0f, schema.MaxTimer - abnormality.Timer);
@@ -447,7 +449,7 @@ public sealed class MHRPlayer : CommonPlayer
         if (debuffsPtr.IsNullPointer())
             return;
 
-        AbnormalitySchema[] debuffSchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Debuffs);
+        AbnormalitySchema[] debuffSchemas = AbnormalityService.FindAllAbnormalitiesBy(GameType.Rise, AbnormalityGroup.DEBUFFS);
 
         foreach (AbnormalitySchema schema in debuffSchemas)
         {
@@ -477,7 +479,7 @@ public sealed class MHRPlayer : CommonPlayer
                     abnormality = MHRAbnormalityAdapter.Convert(schema, abnormalityStructure);
 
                     if (!schema.IsInteger && !schema.IsBuildup)
-                        abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                        abnormality.Timer = abnormality.Timer.ToAbnormalitySeconds();
 
                     if (schema.MaxTimer > 0)
                         abnormality.Timer = Math.Max(0.0f, schema.MaxTimer - abnormality.Timer);
@@ -747,9 +749,9 @@ public sealed class MHRPlayer : CommonPlayer
                 Structure = Process.Memory.Read<MHRWirebugStructure>(wirebugPtr)
             };
 
-            data.Structure.Cooldown /= AbnormalityData.TIMER_MULTIPLIER;
-            data.Structure.MaxCooldown /= AbnormalityData.TIMER_MULTIPLIER;
-            data.Structure.ExtraCooldown /= AbnormalityData.TIMER_MULTIPLIER;
+            data.Structure.Cooldown = data.Structure.Cooldown.ToAbnormalitySeconds();
+            data.Structure.MaxCooldown = data.Structure.MaxCooldown.ToAbnormalitySeconds();
+            data.Structure.ExtraCooldown = data.Structure.ExtraCooldown.ToAbnormalitySeconds();
 
             if (wirebugPtr != wirebug.Address)
             {
@@ -768,7 +770,7 @@ public sealed class MHRPlayer : CommonPlayer
                     AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
                     wirebugExtraOffsets
                 );
-                temporaryData.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                temporaryData.Timer = temporaryData.Timer.ToAbnormalitySeconds();
                 wirebug.Update(temporaryData);
             }
 
@@ -982,21 +984,20 @@ public sealed class MHRPlayer : CommonPlayer
     private void DerefSongBuffs(long[] buffs)
     {
         int id = 0;
-        AbnormalitySchema[] schemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Songs);
+        AbnormalitySchema[] schemas = AbnormalityService.FindAllAbnormalitiesBy(GameType.Rise, AbnormalityGroup.SONGS);
         foreach (long buffPtr in buffs)
         {
             MHRHHAbnormality abnormality = Process.Memory.Read<MHRHHAbnormality>(buffPtr);
-            abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+            abnormality.Timer = abnormality.Timer.ToAbnormalitySeconds();
 
-            AbnormalitySchema maybeSchema = schemas[id];
+            AbnormalitySchema schema = schemas[id];
 
-            if (maybeSchema is AbnormalitySchema schema)
-                HandleAbnormality<MHRSongAbnormality, MHRHHAbnormality>(
-                    _abnormalities,
-                    schema,
-                    abnormality.Timer,
-                    abnormality
-                );
+            HandleAbnormality<MHRSongAbnormality, MHRHHAbnormality>(
+                _abnormalities,
+                schema,
+                abnormality.Timer,
+                abnormality
+            );
 
             id++;
         }

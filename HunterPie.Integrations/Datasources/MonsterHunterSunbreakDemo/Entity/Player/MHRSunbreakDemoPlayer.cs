@@ -1,18 +1,20 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Schemas;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Entity.Player.Vitals;
+using HunterPie.Core.Game.Services;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Services;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -172,7 +174,7 @@ public sealed class MHRSunbreakDemoPlayer : CommonPlayer
         if (consumableBuffs == 0)
             return;
 
-        AbnormalitySchema[] consumableSchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Consumables);
+        AbnormalitySchema[] consumableSchemas = AbnormalityService.FindAllAbnormalitiesBy(GameType.Rise, AbnormalityGroup.CONSUMABLES);
 
         foreach (AbnormalitySchema schema in consumableSchemas)
         {
@@ -190,7 +192,7 @@ public sealed class MHRSunbreakDemoPlayer : CommonPlayer
                 abnormality = MHRAbnormalityAdapter.Convert(schema, abnormalityStructure);
             }
 
-            abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+            abnormality.Timer = abnormality.Timer.ToAbnormalitySeconds();
 
             HandleAbnormality<MHRConsumableAbnormality, MHRAbnormalityData>(
                 _abnormalities,
@@ -213,7 +215,7 @@ public sealed class MHRSunbreakDemoPlayer : CommonPlayer
         if (debuffsPtr == 0)
             return;
 
-        AbnormalitySchema[] debuffSchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Debuffs);
+        AbnormalitySchema[] debuffSchemas = AbnormalityService.FindAllAbnormalitiesBy(GameType.Rise, AbnormalityGroup.DEBUFFS);
 
         foreach (AbnormalitySchema schema in debuffSchemas)
         {
@@ -232,7 +234,7 @@ public sealed class MHRSunbreakDemoPlayer : CommonPlayer
                 abnormality = MHRAbnormalityAdapter.Convert(schema, abnormalityStructure);
             }
 
-            abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+            abnormality.Timer = abnormality.Timer.ToAbnormalitySeconds();
 
             HandleAbnormality<MHRDebuffAbnormality, MHRAbnormalityData>(
                 _abnormalities,
@@ -265,21 +267,20 @@ public sealed class MHRSunbreakDemoPlayer : CommonPlayer
     private void DerefSongBuffs(long[] buffs)
     {
         int id = 0;
-        AbnormalitySchema[] schemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Songs);
+        AbnormalitySchema[] schemas = AbnormalityService.FindAllAbnormalitiesBy(GameType.Rise, AbnormalityGroup.SONGS);
         foreach (long buffPtr in buffs)
         {
             MHRHHAbnormality abnormality = Process.Memory.Read<MHRHHAbnormality>(buffPtr);
-            abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+            abnormality.Timer = abnormality.Timer.ToAbnormalitySeconds();
 
-            AbnormalitySchema maybeSchema = schemas[id];
+            AbnormalitySchema schema = schemas[id];
 
-            if (maybeSchema is AbnormalitySchema schema)
-                HandleAbnormality<MHRSongAbnormality, MHRHHAbnormality>(
-                    _abnormalities,
-                    schema,
-                    abnormality.Timer,
-                    abnormality
-                );
+            HandleAbnormality<MHRSongAbnormality, MHRHHAbnormality>(
+                _abnormalities,
+                schema,
+                abnormality.Timer,
+                abnormality
+            );
 
             id++;
         }
