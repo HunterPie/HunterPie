@@ -240,9 +240,10 @@ public class MHWMonster : CommonMonster
 
         MonsterSizeSchema crown = crownData.Value;
 
-        Crown = monsterSizeMultiplier >= crown.Gold
-            ? Crown.Gold
-            : monsterSizeMultiplier >= crown.Silver ? Crown.Silver : monsterSizeMultiplier <= crown.Mini ? Crown.Mini : Crown.None;
+        Crown = monsterSizeMultiplier >= crown.Gold ? Crown.Gold
+            : monsterSizeMultiplier >= crown.Silver ? Crown.Silver
+                : monsterSizeMultiplier <= crown.Mini ? Crown.Mini
+                    : Crown.None;
     }
 
     [ScannableMethod]
