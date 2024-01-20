@@ -1,4 +1,6 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Extensions;
+using HunterPie.Core.Search;
 using HunterPie.UI.Navigation;
 using HunterPie.UI.Settings.Models;
 using System.Collections.Generic;
@@ -39,6 +41,16 @@ public class AbnormalityWidgetSettingsViewModel : Architecture.ViewModel
     {
         IEnumerable<string> removedElements = SelectedCategory.Elements.Select(it => it.Id);
         SelectedAbnormalities.ExceptWith(removedElements);
+    }
+
+    public void Search(string query)
+    {
+        Categories.ForEach(it =>
+            it.Elements.AsParallel()
+                .ForEach(vm =>
+                    vm.IsMatch = string.IsNullOrEmpty(query) || SearchEngine.IsMatch(vm.Name, query)
+                )
+        );
     }
 
     public void ToggleAbnormality(string abnormalityId)

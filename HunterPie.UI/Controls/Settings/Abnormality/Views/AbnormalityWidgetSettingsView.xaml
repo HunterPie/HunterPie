@@ -22,6 +22,7 @@
     <UserControl.Resources>
         <presentation:ConfigurationPropertyDataTemplateSelector x:Key="ConfigurationPropertyDataTemplateSelector"/>
         <localPresentation:AbnormalityElementSelectedConverter x:Key="AbnormalityElementSelectedConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
         <!-- Abnormality Container Templates -->
         <DataTemplate x:Key="HeaderTemplate"
@@ -49,7 +50,8 @@
                 </ListBox.Template>
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewModels:AbnormalityElementViewModel}">
-                        <local:AbnormalityElementView Click="OnAbnormalityClick">
+                        <local:AbnormalityElementView Click="OnAbnormalityClick"
+                                                      Visibility="{Binding IsMatch, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <local:AbnormalityElementView.IsSelected>
                                 <MultiBinding Converter="{StaticResource AbnormalityElementSelectedConverter}">
                                     <Binding Path="Id" 
@@ -109,7 +111,8 @@
 
                 <textBox:SearchTextBox Grid.Row="0" 
                                        HorizontalAlignment="Stretch"
-                                       Margin="5"/>
+                                       Margin="5"
+                                       OnSearchTextChanged="OnSearchTextChange"/>
 
                 <StackPanel Grid.Row="1"
                             Orientation="Horizontal"
