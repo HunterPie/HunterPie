@@ -1,0 +1,15 @@
+﻿using HunterPie.UI.Architecture;
+
+namespace HunterPie.UI.Controls.Paginating.ViewModels;
+
+public class PaginationItemViewModel : ViewModel
+{
+    private int _page;
+    public int Page { get => _page; set => SetValue(ref _page, value); }
+
+    private bool _isActive;
+    public bool IsActive { get => _isActive; set => SetValue(ref _isActive, value); }
+
+    private bool _isGap;
+    public bool IsGap { get => _isGap; set => SetValue(ref _isGap, value); }
+}

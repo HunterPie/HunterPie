@@ -12,6 +12,7 @@
                    xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
                    xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
                    xmlns:feedback="clr-namespace:HunterPie.UI.Controls.Feedback;assembly=HunterPie.UI"
+                   xmlns:paginating="clr-namespace:HunterPie.UI.Controls.Paginating;assembly=HunterPie.UI"
                    mc:Ignorable="d" 
                    d:DesignHeight="450" 
                    d:DesignWidth="800"
@@ -79,11 +80,10 @@
                    Margin="5"
                    FontSize="15"
                    FontWeight="Medium"/>
-        <buttons:Pagination Grid.Row="0"
-                            HorizontalAlignment="Right"
-                            PageUpdate="OnRequestPageUpdate"
-                            CurrentPage="{Binding CurrentPage, Mode=TwoWay}"
-                            LastPage="{Binding LastPage, Mode=TwoWay}"/>
+        <paginating:Pagination Grid.Row="0"
+                               CurrentPage="10"
+                               TotalPages="15"
+                               HorizontalAlignment="Right"/>
 
         <viewer:SmoothScrollViewer Grid.Row="1">
             <StackPanel Orientation="Vertical">
