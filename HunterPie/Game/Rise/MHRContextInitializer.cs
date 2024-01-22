@@ -40,15 +40,18 @@ internal class MHRContextInitializer : IContextInitializer
 
     private static async Task InitializeNativeModule(IContext context)
     {
-        RiseIntegrityPatcher.Patch(context);
+        if (!ClientConfig.Config.Client.EnableNativeModule)
+            return;
 
-        _ = IPCInjectorInitializer.InjectNativeModule(context);
-        await NativeIPCInitializer.WaitForIPCInitialization();
+        RiseIntegrityPatcher.Patch(context);
+        RiseIntegrityPatcher.PatchProtectVirtualMemory(context);
 
         UIntPtr[] addresses = Addresses.Select(name => (UIntPtr)AddressMap.GetAbsolute(name))
             .ToArray();
 
-        IPCInitializationMessageHandler.RequestIPCInitialization(IPCInitializationHostType.MHRise, addresses);
+        _ = IPCInjectorInitializer.InjectNativeModule(context);
+        await NativeIPCInitializer.WaitForIPCInitialization();
 
+        IPCInitializationMessageHandler.RequestIPCInitialization(IPCInitializationHostType.MHRise, addresses);
     }
 }

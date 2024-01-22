@@ -250,11 +250,9 @@ public class MHRMonster : CommonMonster
         HealthData dto = new();
 
         long healthComponent = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_OFFSETS"));
-        long encodedPtr = Process.Memory.ReadPtr(healthComponent, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+        long currentHealthPtr = Process.Memory.ReadPtr(healthComponent, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
 
-        float currentHealth = Memory.ReadEncryptedFloat(encodedPtr);
-
-        dto.Health = currentHealth;
+        dto.Health = Memory.Read<float>(currentHealthPtr + 0x18);
         dto.MaxHealth = Process.Memory.Read<float>(healthComponent + 0x18);
 
         Next(ref dto);
@@ -364,20 +362,20 @@ public class MHRMonster : CommonMonster
             {
                 MHRQurioPartStructure qurioStructure = Process.Memory.Read<MHRQurioPartStructure>(qurioPartPtr);
 
-                long encryptedHealthPtr =
-                    Process.Memory.ReadPtr(qurioStructure.EncryptedHealthPtr, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+                long healthPtr =
+                    Process.Memory.ReadPtr(qurioStructure.HealthPtr, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
 
                 qurioInfo = new MHRQurioPartData
                 {
                     MaxHealth = qurioStructure.MaxHealth,
-                    Health = Process.Memory.ReadEncryptedFloat(encryptedHealthPtr),
+                    Health = Memory.Read<float>(healthPtr + 0x18),
                     IsInQurioState = qurioStructure.IsActive
                 };
             }
 
-            partInfo.Flinch = Process.Memory.ReadEncryptedFloat(encodedFlinchHealthPtr);
-            partInfo.Health = Process.Memory.ReadEncryptedFloat(encodedBreakableHealthPtr);
-            partInfo.Sever = Process.Memory.ReadEncryptedFloat(encodedSeverableHealthPtr);
+            partInfo.Flinch = Memory.Read<float>(encodedFlinchHealthPtr + 0x18);
+            partInfo.Health = Memory.Read<float>(encodedBreakableHealthPtr + 0x18);
+            partInfo.Sever = Memory.Read<float>(encodedSeverableHealthPtr + 0x18);
 
             lock (_syncParts)
             {

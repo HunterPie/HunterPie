@@ -62,7 +62,7 @@ HRESULT DamageHooks::Init(uintptr_t* pointers)
 {
     fnCalculateEntityDamagePtr = pointers[FUN_CALCULATE_ENTITY_DAMAGE];
 
-    LOG("Added trampoline to function %016X", fnCalculateEntityDamagePtr);
+    LOG("Added trampoline to function at %p", fnCalculateEntityDamagePtr);
 
     return HookFunctions();
 }
