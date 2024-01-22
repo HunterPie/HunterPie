@@ -107,6 +107,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Address\MonsterHunterRise.16.0.2.0.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Address\MonsterHunterRise.16.0.1.1.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -231,11 +234,7 @@
 
   <ProjectExtensions>
 	  <VisualStudio>
-		  <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.Increment" 
-		                  BuildVersion_DetectChanges="False" 
-		                  BuildVersion_StartDate="2000/1/1" 
-		                  BuildVersion_UpdateAssemblyVersion="True" 
-		                  BuildVersion_UpdateFileVersion="True" />
+		  <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.Increment" BuildVersion_DetectChanges="False" BuildVersion_StartDate="2000/1/1" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" />
 	  </VisualStudio>
   </ProjectExtensions>
 
