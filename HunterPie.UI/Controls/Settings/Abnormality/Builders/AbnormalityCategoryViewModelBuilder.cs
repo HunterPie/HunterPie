@@ -49,7 +49,8 @@ public static class AbnormalityCategoryViewModelBuilder
                         Id = element.Id,
                         Name = Localization.QueryString(ABNORMALITY_XPATH.Format(element.Name)),
                         Category = categoryName,
-                        Icon = element.Icon
+                        Icon = element.Icon,
+                        IsMatch = true
                     }
                 ).ToObservableCollection()
             };

@@ -1,4 +1,5 @@
 ﻿using HunterPie.UI.Controls.Settings.Abnormality.ViewModels;
+using HunterPie.UI.Controls.TextBox.Events;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -46,5 +47,13 @@ public partial class AbnormalityWidgetSettingsView : UserControl
             return;
 
         vm.UnselectAllFromCurrentCategory();
+    }
+
+    private void OnSearchTextChange(object sender, SearchTextChangedEventArgs e)
+    {
+        if (DataContext is not AbnormalityWidgetSettingsViewModel vm)
+            return;
+
+        vm.Search(e.Text);
     }
 }

@@ -66,6 +66,13 @@ public static class MHRiseUtils
             .ToArray();
     }
 
+    public static T[] ReadArrayOfPtrsSafe<T>(this IMemory memory, long address, uint size) where T : struct
+    {
+        return memory.ReadArraySafe<long>(address, size)
+            .Select(memory.Read<T>)
+            .ToArray();
+    }
+
     public static float ReadEncryptedFloat(this IMemory memory, long encryptedFloatPtr)
     {
         MHRCryptoFloatStructure structure = memory.Read<MHRCryptoFloatStructure>(encryptedFloatPtr + 0x14);
