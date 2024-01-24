@@ -18,5 +18,5 @@ public struct MHRSubmarineStructure
     public int DaysLeft;
 
     [FieldOffset(0x40)]
-    public int ItemArrayPtr;
+    public long ItemArrayPtr;
 }

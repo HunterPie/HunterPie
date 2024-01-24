@@ -833,47 +833,31 @@ public sealed class MHRPlayer : CommonPlayer
     [ScannableMethod(typeof(MHRSubmarineData))]
     private void GetArgosy()
     {
-
-        long argosyAddress = Process.Memory.Read(
+        uint maxSubmarinesCount = (uint)Argosy.Submarines.Length;
+        long argosyAddress = Memory.Read(
             AddressMap.GetAbsolute("ARGOSY_ADDRESS"),
             AddressMap.Get<int[]>("ARGOSY_OFFSETS")
         );
 
-        int submarineArrayLength = Process.Memory.Read<int>(argosyAddress + 0x1C);
-        var submarines = new MHRSubmarineData[submarineArrayLength];
+        if (argosyAddress.IsNullPointer())
+            return;
 
-        long[] submarinePtrs = Process.Memory.Read<long>(argosyAddress + 0x20, (uint)submarineArrayLength);
+        MHRSubmarineStructure[] submarineStructs = Memory.ReadArrayOfPtrsSafe<MHRSubmarineStructure>(argosyAddress, maxSubmarinesCount);
+        var submarines = new MHRSubmarineData[submarineStructs.Length];
 
-        // Read submarines data
-        for (int i = 0; i < submarineArrayLength; i++)
-        {
-            ref long submarinePtr = ref submarinePtrs[i];
-            MHRSubmarineStructure data = Process.Memory.Read<MHRSubmarineStructure>(submarinePtr);
-            submarines[i].Data = data;
-        }
-
-        // Read submarine items array data
         for (int i = 0; i < submarines.Length; i++)
         {
             ref MHRSubmarineData submarine = ref submarines[i];
+            MHRSubmarineStructure structure = submarineStructs[i];
 
-            int itemsArrayLength = Process.Memory.Read<int>(submarine.Data.ItemArrayPtr + 0x1C);
-            long[] itemsPtr = Process.Memory.Read<long>(submarine.Data.ItemArrayPtr + 0x20, (uint)itemsArrayLength)
-                                             .Select(ptr => Process.Memory.Read<long>(ptr + 0x20))
-                                             .ToArray();
-            var items = new MHRSubmarineItemStructure[itemsArrayLength];
-
-            for (int j = 0; j < itemsArrayLength; j++)
-                items[j] = Process.Memory.Read<MHRSubmarineItemStructure>(itemsPtr[j]);
-
-            submarine.Items = items;
+            submarine.Data = submarineStructs[i];
+            submarine.Items = Memory.ReadArrayOfPtrsSafe<MHRSubmarineItemEntryStructure>(structure.ItemArrayPtr, 20)
+                .Select(it => Memory.Read<MHRSubmarineItemStructure>(it.ItemPointer))
+                .ToArray();
         }
 
-        for (int i = 0; i < Math.Min(Argosy.Submarines.Length, submarineArrayLength); i++)
-        {
-            IUpdatable<MHRSubmarineData> localData = Argosy.Submarines[i];
-            localData.Update(submarines[i]);
-        }
+        for (int i = 0; i < submarines.Length; i++)
+            Argosy.Submarines[i].Update(submarines[i]);
     }
 
     [ScannableMethod(typeof(MHRCohootStructure))]

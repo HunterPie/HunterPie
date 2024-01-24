@@ -73,7 +73,7 @@ public class MHRSubmarine : IEventDispatcher, IUpdatable<MHRSubmarineData>, IDis
         remove => _onLockStateChange.Unhook(value);
     }
 
-    void IUpdatable<MHRSubmarineData>.Update(MHRSubmarineData data)
+    public void Update(MHRSubmarineData data)
     {
         DaysLeft = data.Data.DaysLeft;
         MaxCount = data.Items.Length;
