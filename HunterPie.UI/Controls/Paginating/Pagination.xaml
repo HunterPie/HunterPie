@@ -12,35 +12,7 @@
              d:DesignHeight="40"
              x:Name="PaginationControl">
     <UserControl.Resources>
-
-        <DataTemplate DataType="{x:Type viewModels:PaginationItemViewModel}"
-                      x:Key="NormalPaginationItemTemplate">
-            <buttons:Button>
-                <buttons:Button.Style>
-                    <Style TargetType="buttons:Button">
-                        <Setter Property="Content" Value="aaaaaaa"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsActive, Mode=OneWay}"
-                                         Value="True">
-                                <Setter Property="Content" Value="Active"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </buttons:Button.Style>
-            </buttons:Button>
-        </DataTemplate>
-
-        <DataTemplate DataType="{x:Type viewModels:PaginationItemViewModel}"
-                      x:Key="GapPaginationItemTemplate">
-            <TextBlock Text="..."
-                       Foreground="{StaticResource WHITE_300}"
-                       VerticalAlignment="Center"/>
-        </DataTemplate>
-
-        <presentation:PaginationItemDataTemplateSelector x:Key="PaginationItemDataTemplateSelector"
-                                                         DefaultTemplate="{StaticResource NormalPaginationItemTemplate}"
-                                                         GapTemplate="{StaticResource GapPaginationItemTemplate}"/>
-
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <Style x:Key="PaginationButtonStyle" TargetType="buttons:Button">
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Width" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"/>
@@ -51,17 +23,66 @@
             <Setter Property="BorderBrush" Value="{StaticResource GRAY}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="CornerRadius" Value="5"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}"
+                             Value="False">
+                    <Setter Property="Opacity" Value="0.4"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
+
+        <DataTemplate DataType="{x:Type viewModels:PaginationItemViewModel}"
+                      x:Key="NormalPaginationItemTemplate">
+            <ContentControl Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Setter Property="Content">
+                            <Setter.Value>
+                                <buttons:Button Content="{Binding Page, Mode=OneWay}"
+                                                Foreground="{StaticResource WHITE_100}"
+                                                Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                                Background="{StaticResource GRAY_100}"
+                                                BorderBrush="{StaticResource GRAY}"
+                                                BorderThickness="1"
+                                                CornerRadius="5"
+                                                Margin="1,0"
+                                                Click="OnPageButtonClick"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsActive, Mode=OneWay}"
+                                         Value="True">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <buttons:Button Content="{Binding Page, Mode=OneWay}"
+                                                        Foreground="{StaticResource WHITE_100}"
+                                                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                                        Background="{StaticResource HUNTERPIE_ACCENT_COLOR_TRANSPARENT}"
+                                                        BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                                                        BorderThickness="1"
+                                                        CornerRadius="5"
+                                                        Margin="1,0"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
+        </DataTemplate>
+
     </UserControl.Resources>
     <StackPanel Orientation="Horizontal">
-        <buttons:Button Style="{StaticResource PaginationButtonStyle}">
+        <buttons:Button Style="{StaticResource PaginationButtonStyle}"
+                        Click="OnPreviousPageClick"
+                        IsEnabled="{Binding CanPaginatePrevious, ElementName=PaginationControl}">
             <image:Icon Image="{StaticResource ICON_CHEVRON_LEFT}"
                         Foreground="{StaticResource WHITE_300}"/>
         </buttons:Button>
 
         <ItemsControl ItemsSource="{Binding Pages, Mode=OneTime, ElementName=PaginationControl}"
-                      ItemTemplateSelector="{StaticResource PaginationItemDataTemplateSelector}"
-                      Margin="2,2">
+                      ItemTemplate="{StaticResource NormalPaginationItemTemplate}"
+                      Margin="2,0">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"
@@ -70,7 +91,9 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
 
-        <buttons:Button Style="{StaticResource PaginationButtonStyle}">
+        <buttons:Button Style="{StaticResource PaginationButtonStyle}"
+                        Click="OnNextPageClick"
+                        IsEnabled="{Binding CanPaginateNext, ElementName=PaginationControl}">
             <image:Icon Image="{StaticResource ICON_CHEVRON_RIGHT}"
                         Foreground="{StaticResource WHITE_300}"/>
         </buttons:Button>

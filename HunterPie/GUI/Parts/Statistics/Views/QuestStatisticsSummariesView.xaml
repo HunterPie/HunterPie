@@ -67,7 +67,7 @@
     </UserControl.Resources>
     <Grid Background="{StaticResource GRAY_300}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="35"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Rectangle Grid.Row="0"
@@ -81,9 +81,11 @@
                    FontSize="15"
                    FontWeight="Medium"/>
         <paginating:Pagination Grid.Row="0"
-                               CurrentPage="10"
-                               TotalPages="15"
-                               HorizontalAlignment="Right"/>
+                               CurrentPage="{Binding CurrentPage, Mode=OneWay}"
+                               TotalPages="{Binding LastPage, Mode=OneWay}"
+                               HorizontalAlignment="Right"
+                               PageClick="OnPageClick"
+                               Margin="5,2"/>
 
         <viewer:SmoothScrollViewer Grid.Row="1">
             <StackPanel Orientation="Vertical">

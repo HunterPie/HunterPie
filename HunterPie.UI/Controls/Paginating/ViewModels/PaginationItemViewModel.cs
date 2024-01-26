@@ -10,6 +10,6 @@ public class PaginationItemViewModel : ViewModel
     private bool _isActive;
     public bool IsActive { get => _isActive; set => SetValue(ref _isActive, value); }
 
-    private bool _isGap;
-    public bool IsGap { get => _isGap; set => SetValue(ref _isGap, value); }
+    private bool _isVisible;
+    public bool IsVisible { get => _isVisible; set => SetValue(ref _isVisible, value); }
 }
