@@ -49,6 +49,7 @@ public partial class ClassView : View<ClassViewModel>, IWidget<ClassWidgetConfig
         if (e.PropertyName != nameof(ClassViewModel.CurrentSettings))
             return;
 
+        Dispatcher.Invoke(() => Settings = null);
         Dispatcher.Invoke(() => Settings = ViewModel.CurrentSettings);
     }
 
