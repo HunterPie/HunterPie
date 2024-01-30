@@ -1,7 +1,6 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
 using HunterPie.UI.Architecture.Graphs;
-using HunterPie.UI.Architecture.Test;
 using LiveCharts;
 using LiveCharts.Defaults;
 using System;
@@ -28,7 +27,7 @@ public class MockMeterViewModel : MeterViewModel
         MockPlayerSeries();
         MockPets();
 
-        MockBehavior.Run(() => MockInGameAction(), (float)TimeSpan.FromMilliseconds(16).TotalSeconds);
+        //MockBehavior.Run(() => MockInGameAction(), (float)TimeSpan.FromMilliseconds(16).TotalSeconds);
     }
 
     private void MockPets()
