@@ -126,7 +126,7 @@
                    Margin="25,0,0,0"
                    Grid.Column="3">
             <Run d:Text="50"
-                 Text="{Binding DPS, StringFormat=\{0:F0\}}"/><!--
+                 Text="{Binding DPS, Converter={StaticResource DoubleFlooringConverter}, StringFormat=\{0:F0\}}"/><!--
          --><Run d:Text=".32"
                  Text="{Binding DPS, Converter={StaticResource DoubleToDecimalConverter}, StringFormat={}.{0:D2}}"
                  Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
