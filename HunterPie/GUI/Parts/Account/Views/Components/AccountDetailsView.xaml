@@ -32,13 +32,16 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="ACCOUNT DETAILS"
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0" 
+                       Text="ACCOUNT DETAILS"
                        Foreground="{StaticResource WHITE_400}"
                        FontWeight="Medium"
                        Grid.ColumnSpan="2"
                        FontSize="15"
                        VerticalAlignment="Top"/>
-            <Separator Grid.ColumnSpan="2"
+            <Separator Grid.Column="0" 
+                       Grid.ColumnSpan="2"
                        Grid.Row="0"
                        VerticalAlignment="Bottom"
                        Background="{StaticResource GRAY}"/>
@@ -171,7 +174,6 @@
                             Text="Supporter" 
                             Background="{StaticResource GREEN_700}" 
                             Foreground="{StaticResource GREEN_LIGHT_200}"
-                            Height="15"
                             Visibility="{Binding IsSupporter, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
                 <!-- Badges

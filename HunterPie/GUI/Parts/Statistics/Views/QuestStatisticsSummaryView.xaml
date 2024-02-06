@@ -11,15 +11,16 @@
                                xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
                                xmlns:gl="clr-namespace:System.Globalization;assembly=mscorlib"
                                xmlns:architecture="clr-namespace:HunterPie.UI.Architecture;assembly=HunterPie.UI"
+                               xmlns:misc="clr-namespace:HunterPie.UI.Controls.Misc;assembly=HunterPie.UI"
                                mc:Ignorable="d" 
                                d:DesignHeight="150" 
                                d:DesignWidth="800"
                                d:DataContext="{d:DesignInstance viewModels:QuestStatisticsSummaryViewModel}"
                                Margin="2">
     <architecture:ClickableControl.Resources>
-        <converters:GameTypeToGameNameConverter x:Key="GameTypeToGameNameConverter"/>
+        <converters:GameTypeToGameAliasConverter x:Key="GameTypeToGameAliasConverter"/>
     </architecture:ClickableControl.Resources>
-    <buttons:Button BorderBrush="{StaticResource GRAY_200}"
+    <buttons:Button BorderBrush="{StaticResource GRAY}"
                     Background="{StaticResource GRAY_50}"
                     BorderThickness="1"
                     CornerRadius="5"
@@ -28,44 +29,70 @@
                     Padding="0">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="18"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
 
-            <Rectangle Fill="{StaticResource GRAY_100}"
-                       Grid.Row="0"
-                       Grid.RowSpan="2"/>
-            <TextBlock Grid.Row="0"
-                       Grid.Column="0"
-                       Text="{Binding GameType, Mode=OneWay, Converter={StaticResource GameTypeToGameNameConverter}}"
-                       d:Text="Game Name"
-                       Foreground="{StaticResource WHITE_300}"
-                       VerticalAlignment="Center"
-                       Margin="5"
-                       FontSize="14"
-                       FontWeight="Medium"/>
+            <!-- Header -->
+            <Border Grid.Row="0"
+                    Grid.Column="0"
+                    CornerRadius="5,0,0,0"
+                    BorderThickness="0,0,0,1"
+                    BorderBrush="{StaticResource GRAY}"
+                    Background="{StaticResource GRAY_100}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="1"
-                       Grid.Column="0"
-                       Text="{Binding UploadedAt, Mode=OneWay, StringFormat='g', ConverterCulture={x:Static gl:CultureInfo.CurrentCulture}}"
-                       d:Text="01/12/2022 12:34PM"
-                       Foreground="{StaticResource WHITE_500}"
-                       VerticalAlignment="Center"
-                       Margin="5"/>
-            
-            <StackPanel Orientation="Vertical"
-                        Grid.Row="2"
+                    <misc:Badge Grid.Column="0"
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                Text="{Binding GameType, Converter={StaticResource GameTypeToGameAliasConverter}}"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Margin="5"
+                                Background="{StaticResource GREEN_600}"
+                                Foreground="{StaticResource GREEN_100}"/>
+
+                    <TextBlock Grid.Column="1" 
+                               Grid.Row="0"
+                               Text="Unknown mission"
+                               VerticalAlignment="Center"
+                               FontSize="14"
+                               FontWeight="Medium"
+                               Foreground="{StaticResource WHITE_200}"
+                               Margin="5,0,0,0"/>
+                    <TextBlock Grid.Row="1" 
+                               Grid.Column="1"
+                               d:Text="01/12/2022 12:34PM"
+                               Foreground="{StaticResource WHITE_500}"
+                               VerticalAlignment="Center"
+                               Margin="5">
+                        <Run Text="Hunt"/>
+                        <Run Text="•"/>
+                        <Run Text="{Binding UploadedAt, Mode=OneWay, StringFormat='g', ConverterCulture={x:Static gl:CultureInfo.CurrentCulture}}"/>
+                    </TextBlock>
+                </Grid>
+            </Border>
+
+            <StackPanel Grid.Row="1"
                         Grid.Column="0"
+                        Orientation="Vertical"
                         Margin="5">
                 <TextBlock d:Text="Monsters"
                            Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_MONSTERS_STRING&quot;]'}"
                            FontSize="13"
-                           Foreground="{StaticResource WHITE_300}"/>
+                           Foreground="{StaticResource WHITE_200}"/>
                 <ItemsControl ItemsSource="{Binding Monsters, Mode=OneTime}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -82,20 +109,19 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </StackPanel>
-                
 
-            <Rectangle Grid.Column="1"
-                       Grid.Row="0"
-                       Grid.RowSpan="3"
-                       Fill="{StaticResource GRAY_200}"/>
-            <image:Icon Grid.Column="1" 
-                        Grid.Row="0"
-                        Grid.RowSpan="3"
-                        Image="{StaticResource ICON_ARROW_RIGHT}"
-                        Foreground="{StaticResource GRAY}"
-                        Height="20"
-                        Margin="5"/>
-
+            <Border Grid.Row="0"
+                    Grid.Column="1"
+                    Grid.RowSpan="2"
+                    Background="{StaticResource GRAY_50}"
+                    CornerRadius="0,5,5,0"
+                    BorderThickness="1,0,0,0"
+                    BorderBrush="{StaticResource GRAY}">
+                <image:Icon Image="{StaticResource ICON_ARROW_RIGHT}"
+                            Foreground="{StaticResource WHITE_400}"
+                            Height="15"
+                            Margin="5"/>
+            </Border>
         </Grid>
     </buttons:Button>
 </architecture:ClickableControl>

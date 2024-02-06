@@ -27,12 +27,20 @@ public class MonsterSummaryViewModel : ViewModel
         set => SetValue(ref _icon, value);
     }
 
+    private bool _isTarget;
+    public bool IsTarget
+    {
+        get => _isTarget;
+        set => SetValue(ref _isTarget, value);
+    }
+
     public MonsterSummaryViewModel() { }
 
     internal MonsterSummaryViewModel(GameType game, PoogieMonsterSummaryModel model)
     {
         GameType = game;
         Id = model.Id;
+        IsTarget = model.IsTarget == true;
 
         FetchMonsterIcon();
     }

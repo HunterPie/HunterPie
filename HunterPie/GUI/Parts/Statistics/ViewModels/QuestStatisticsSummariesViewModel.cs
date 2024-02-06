@@ -66,6 +66,11 @@ public class QuestStatisticsSummariesViewModel : ViewModel
         set => SetValue(ref _isFetchingDetails, value);
     }
 
+    public ObservableCollection<int> PageLimitSizes { get; } = new() { 10, 20, 30, 40, 50 };
+
+    private int _limitSize = 10;
+    public int LimitSize { get => _limitSize; set => SetValue(ref _limitSize, value); }
+
     private QuestSupporterTierMessageType _messageType;
     public QuestSupporterTierMessageType MessageType { get => _messageType; set => SetValue(ref _messageType, value); }
 
