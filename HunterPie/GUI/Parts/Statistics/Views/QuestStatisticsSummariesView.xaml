@@ -81,7 +81,8 @@
                           HorizontalAlignment="Left"
                           ItemsSource="{Binding PageLimitSizes, Mode=OneTime}"
                           SelectedItem="{Binding LimitSize, Mode=TwoWay}"
-                          ItemStringFormat="Display {0}"/>
+                          ItemStringFormat="Display {0}"
+                          SelectionChanged="OnLimitSelectionChange"/>
 
                 <TextBlock Grid.Row="0"
                            d:Text="Hunts"
@@ -136,26 +137,17 @@
                                         <Setter Property="Content">
                                             <Setter.Value>
                                                 <StackPanel Margin="5">
-                                                    <local:QuestStatisticsSummarySkeletonView Height="130"/>
-                                                    <local:QuestStatisticsSummarySkeletonView Height="130"/>
-                                                    <local:QuestStatisticsSummarySkeletonView Height="130"/>
-                                                    <local:QuestStatisticsSummarySkeletonView Height="130"/>
-                                                    <local:QuestStatisticsSummarySkeletonView Height="130"/>
+                                                    <local:QuestStatisticsSummarySkeletonView Height="130" 
+                                                                                              Margin="2"/>
+                                                    <local:QuestStatisticsSummarySkeletonView Height="130" 
+                                                                                              Margin="2"/>
+                                                    <local:QuestStatisticsSummarySkeletonView Height="130" 
+                                                                                              Margin="2"/>
+                                                    <local:QuestStatisticsSummarySkeletonView Height="130" 
+                                                                                              Margin="2"/>
+                                                    <local:QuestStatisticsSummarySkeletonView Height="130" 
+                                                                                              Margin="2"/>
                                                 </StackPanel>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-
-                                    <!-- Failed to fetch quests -->
-                                    <DataTrigger Binding="{Binding HasFetchingFailed, Mode=OneWay}"
-                                                 Value="True">
-                                        <Setter Property="Content">
-                                            <Setter.Value>
-                                                <feedback:Prompt Margin="10"
-                                                                 Icon="{StaticResource ICON_ERROR_MASK}"
-                                                                 d:Text="Failed to fetch exported hunts. Try again later."
-                                                                 Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_FETCH_FAILED_ERROR_STRING&quot;]'}"
-                                                                 BorderBrush="{StaticResource RED_50}"/>
                                             </Setter.Value>
                                         </Setter>
                                     </DataTrigger>
@@ -174,7 +166,12 @@
                                                                  Icon="{StaticResource ICON_INFO}"
                                                                  d:Text="There were no exported hunts available in the period available for your account."
                                                                  Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_NO_LOGS_STRING&quot;]'}"
-                                                                 BorderBrush="{StaticResource WHITE_600}"/>
+                                                                 BorderBrush="{StaticResource BLUE}"
+                                                                 Background="{StaticResource BLUE_700}"
+                                                                 BorderThickness="1"
+                                                                 CornerRadius="5"
+                                                                 Foreground="{StaticResource WHITE_100}"
+                                                                 HorizontalAlignment="Center"/>
                                             </Setter.Value>
                                         </Setter>
                                     </MultiDataTrigger>
@@ -202,6 +199,25 @@
                                             </Setter.Value>
                                         </Setter>
                                     </MultiDataTrigger>
+
+                                    <!-- Failed to fetch quests -->
+                                    <DataTrigger Binding="{Binding HasFetchingFailed, Mode=OneWay}"
+                                                 Value="True">
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <feedback:Prompt Margin="10"
+                                                                 Icon="{StaticResource ICON_ERROR_MASK}"
+                                                                 d:Text="Failed to fetch exported hunts. Try again later."
+                                                                 Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_FETCH_FAILED_ERROR_STRING&quot;]'}"
+                                                                 BorderBrush="{StaticResource RED}"
+                                                                 HorizontalAlignment="Center"
+                                                                 Background="{StaticResource RED_700}"
+                                                                 BorderThickness="1"
+                                                                 CornerRadius="5"
+                                                                 Foreground="{StaticResource WHITE_100}"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </ContentControl.Style>

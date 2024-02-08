@@ -3,6 +3,7 @@ using HunterPie.GUI.Parts.Statistics.ViewModels;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Controls.Paginating.Events;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace HunterPie.GUI.Parts.Statistics.Views;
 
@@ -31,6 +32,17 @@ public partial class QuestStatisticsSummariesView : View<QuestStatisticsSummarie
     private void OnPageClick(object sender, PaginationEventArgs e)
     {
         ViewModel.CurrentPage = e.Page;
-        ViewModel.RequestPageUpdate();
+    }
+
+    private void OnLimitSelectionChange(object sender, SelectionChangedEventArgs e)
+    {
+        bool mustForceFetch = ViewModel.CurrentPage == 0;
+
+        ViewModel.CurrentPage = 0;
+
+        if (!mustForceFetch)
+            return;
+
+        ViewModel.FetchQuests();
     }
 }

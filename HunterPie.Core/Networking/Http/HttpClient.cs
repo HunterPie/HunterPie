@@ -22,6 +22,7 @@ public class HttpClient : IDisposable
     public TimeSpan TimeOut { get; init; } = TimeSpan.MaxValue;
     public int Retry { get; init; } = 1;
     public IReadOnlyDictionary<string, string?> Headers { get; init; } = new Dictionary<string, string?>();
+    public string Query { get; init; } = string.Empty;
 
     public HttpClientResponse Request()
     {
@@ -31,7 +32,7 @@ public class HttpClient : IDisposable
             for (int retry = 0; retry < Math.Max(1, Retry); retry++)
             {
                 _httpClient = new() { Timeout = TimeOut };
-                _request = new(Method!, $"{host}{Path}");
+                _request = new(Method!, $"{host}{Path}{Query}");
 
                 if (Content is not null)
                     _request.Content = Content;
@@ -72,7 +73,7 @@ public class HttpClient : IDisposable
             for (int retry = 0; retry < Math.Max(1, Retry); retry++)
             {
                 _httpClient = new() { Timeout = TimeOut };
-                _request = new(Method!, $"{host}{Path}");
+                _request = new(Method!, $"{host}{Path}{Query}");
 
                 if (Content is not null)
                     _request.Content = Content;

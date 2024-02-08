@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Web;
 
 namespace HunterPie.Core.Networking.Http;
 
@@ -18,6 +20,7 @@ public class HttpClientBuilder
     private readonly List<string> _urls = new();
     private readonly Dictionary<string, string?> _headers = new();
     private int _retry = 1;
+    private string _query = string.Empty;
 
     public HttpClientBuilder() { }
 
@@ -59,6 +62,15 @@ public class HttpClientBuilder
     {
         _method = HttpMethod.Patch;
         _path = path;
+
+        return this;
+    }
+
+    public HttpClientBuilder WithQuery(Dictionary<string, object> parameters)
+    {
+        IEnumerable<string> encodedStrings = parameters.Select(it => $"{it.Key}={HttpUtility.UrlEncode(it.Value.ToString())}");
+
+        _query = "?" + string.Join("&", encodedStrings);
 
         return this;
     }
@@ -112,6 +124,7 @@ public class HttpClientBuilder
         Method = _method,
         Path = _path,
         Retry = _retry,
-        TimeOut = _timeout
+        TimeOut = _timeout,
+        Query = _query
     };
 }
