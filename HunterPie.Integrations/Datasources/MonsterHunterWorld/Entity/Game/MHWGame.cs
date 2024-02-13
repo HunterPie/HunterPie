@@ -4,8 +4,8 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Entity.Game.Chat;
+using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Player;
-using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
 using HunterPie.Core.Native.IPC.Handlers.Internal.Damage;
@@ -14,8 +14,9 @@ using HunterPie.Core.Native.IPC.Models.Common;
 using HunterPie.Integrations.Datasources.Common;
 using HunterPie.Integrations.Datasources.Common.Entity.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Crypto;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enemy;
-using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enums;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Game.Quest;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Services;
@@ -30,12 +31,11 @@ public sealed class MHWGame : CommonGame
     private readonly Dictionary<long, IMonster> _monsters = new();
     private readonly Dictionary<long, EntityDamageData[]> _damageDone = new();
     private bool _isMouseVisible;
-    private int _deaths;
-    private bool _isInQuest;
     private readonly Stopwatch _localTimerStopwatch = new();
     private readonly Stopwatch _damageUpdateThrottleStopwatch = new();
 
     public override IPlayer Player => _player;
+
     public override List<IMonster> Monsters { get; } = new();
 
     public override IChat Chat => null;
@@ -55,52 +55,14 @@ public sealed class MHWGame : CommonGame
 
     public override float TimeElapsed { get; protected set; }
 
-    private void SetTimeElapsed(float value, bool isReset)
-    {
-        if (value == TimeElapsed)
-            return;
-
-        TimeElapsed = value;
-        this.Dispatch(_onTimeElapsedChange, new TimeElapsedChangeEventArgs(isReset, value));
-    }
-
-    public override int MaxDeaths
-    {
-        get => 0;
-        protected set => throw new NotSupportedException();
-    }
-
-    public override int Deaths
-    {
-        get => _deaths;
-        protected set
-        {
-            if (value != _deaths)
-            {
-                _deaths = value;
-                this.Dispatch(_onDeathCountChange, this);
-            }
-        }
-    }
-
-    public override bool IsInQuest
-    {
-        get => _isInQuest;
-        protected set
-        {
-            if (value != _isInQuest)
-            {
-                _isInQuest = value;
-                this.Dispatch(value ? _onQuestStart : _onQuestEnd, new QuestStateChangeEventArgs(this));
-            }
-        }
-    }
+    private MHWQuest? _quest;
+    public override IQuest? Quest => _quest;
 
     public override IAbnormalityCategorizationService AbnormalityCategorizationService { get; } = new MHWAbnormalityCategorizatonService();
 
     public MHWGame(IProcessManager process) : base(process)
     {
-        _player = new(process);
+        _player = new MHWPlayer(process);
         DamageMessageHandler.OnReceived += OnReceivePlayersDamage;
         _player.OnStageUpdate += OnPlayerStageUpdate;
 
@@ -108,7 +70,7 @@ public sealed class MHWGame : CommonGame
     }
 
     [ScannableMethod]
-    private void GetMouseVisibilityState()
+    private void GetHudVisibility()
     {
         bool isMouseVisible = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("GAME_MOUSE_INFO_ADDRESS"),
@@ -130,7 +92,7 @@ public sealed class MHWGame : CommonGame
 
         float elapsed = MHWCrypto.LiterallyWhyCapcom(timer);
 
-        if (QuestStatus == QuestStatus.None)
+        if (Quest is null)
         {
             if (!Player.InHuntingZone)
             {
@@ -167,16 +129,38 @@ public sealed class MHWGame : CommonGame
     }
 
     [ScannableMethod]
-    private void GetQuestState()
+    private void GetQuest()
     {
-        var questState = (QuestState)Memory.Deref<int>(
+        MHWQuestStructure quest = Memory.Deref<MHWQuestStructure>(
             AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
-            AddressMap.Get<int[]>("QUEST_STATE_OFFSETS")
+            AddressMap.GetOffsets("QUEST_DATA_OFFSETS")
         );
 
-        QuestStatus = questState.ToStatus();
+        bool isQuestOver = quest.State.IsQuestOver();
+        bool isQuestInvalid = quest.Id == int.MaxValue;
 
-        IsInQuest = questState == QuestState.InQuest;
+        if (_quest is not null
+            && (isQuestOver || isQuestInvalid))
+        {
+            this.Dispatch(_onQuestEnd, new QuestEndEventArgs(quest.State.ToStatus(), TimeElapsed));
+            ScanManager.Remove(_quest);
+            _quest = null;
+        }
+
+        if (_quest is null
+            && !isQuestOver
+            && !isQuestInvalid)
+        {
+            _quest = new MHWQuest(
+                process: Process,
+                id: quest.Id,
+                stars: quest.Stars,
+                questType: quest.Category.ToQuestType()
+            );
+            ScanManager.Add(_quest);
+            this.Dispatch(_onQuestStart, _quest);
+        }
+
     }
 
     [ScannableMethod]
@@ -189,17 +173,6 @@ public sealed class MHWGame : CommonGame
 
         if (Player.InHuntingZone)
             DamageMessageHandler.RequestHuntStatistics(CommonConstants.AllTargets);
-    }
-
-    [ScannableMethod]
-    private void GetDeathCounter()
-    {
-        int deathCounter = Process.Memory.Deref<int>(
-            AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
-            AddressMap.Get<int[]>("QUEST_DEATH_COUNTER_OFFSETS")
-        );
-
-        Deaths = deathCounter;
     }
 
     [ScannableMethod]
@@ -277,6 +250,15 @@ public sealed class MHWGame : CommonGame
         DamageMessageHandler.OnReceived -= OnReceivePlayersDamage;
         _player.OnStageUpdate -= OnPlayerStageUpdate;
         base.Dispose();
+    }
+
+    private void SetTimeElapsed(float value, bool isReset)
+    {
+        if (value == TimeElapsed)
+            return;
+
+        TimeElapsed = value;
+        this.Dispatch(_onTimeElapsedChange, new TimeElapsedChangeEventArgs(isReset, value));
     }
 
     #region Damage helpers

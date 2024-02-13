@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Crypto;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Events;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Features.Account;
@@ -24,17 +24,23 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
 
     private void HookEvents()
     {
+        if (_context is null)
+            return;
+
         _context!.Game.OnQuestStart += OnQuestStart;
         _context.Game.OnQuestEnd += OnQuestEnd;
     }
 
     private void UnhookEvents()
     {
+        if (_context is null)
+            return;
+
         _context!.Game.OnQuestStart -= OnQuestStart;
         _context.Game.OnQuestEnd -= OnQuestEnd;
     }
 
-    private async void OnQuestEnd(object? sender, QuestStateChangeEventArgs e)
+    private async void OnQuestEnd(object? sender, QuestEndEventArgs e)
     {
         if (!AccountManager.IsLoggedIn() || !LocalAccountConfig.Config.IsHuntUploadEnabled)
             return;
@@ -46,7 +52,7 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
         if (e.Status != QuestStatus.Success || !ShouldUpload(exported))
             return;
 
-        DateTime questFinishedAt = exported!.StartedAt.Add(e.QuestTime);
+        DateTime questFinishedAt = exported!.StartedAt.Add(e.TimeElapsed);
         string newHash = await GenerateUniqueHashAsync(questFinishedAt, exported.Hash);
 
         exported = exported with
@@ -61,7 +67,7 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
             .ConfigureAwait(false);
     }
 
-    private void OnQuestStart(object? sender, QuestStateChangeEventArgs e)
+    private void OnQuestStart(object? sender, IQuest e)
     {
         _statisticsService?.Dispose();
         _statisticsService = new HuntStatisticsService(_context);

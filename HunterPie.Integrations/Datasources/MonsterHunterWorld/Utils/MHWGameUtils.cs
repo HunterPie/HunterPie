@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Game.Entity.Player.Skills;
+﻿using HunterPie.Core.Game.Entity.Game.Quest;
+using HunterPie.Core.Game.Entity.Player.Skills;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enums;
@@ -154,6 +155,18 @@ public static class MHWGameUtils
             >= 46.0f => PhialChargeLevel.Red,
             >= 30.0f => PhialChargeLevel.Yellow,
             _ => PhialChargeLevel.None,
+        };
+    }
+
+    public static QuestType ToQuestType(this byte flag)
+    {
+        return flag switch
+        {
+            1 or 16 => QuestType.Hunt,
+            2 => QuestType.Slay,
+            4 => QuestType.Capture,
+            8 => QuestType.Delivery,
+            _ => QuestType.Special
         };
     }
 }

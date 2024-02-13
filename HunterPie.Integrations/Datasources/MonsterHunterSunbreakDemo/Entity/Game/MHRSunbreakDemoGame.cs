@@ -4,6 +4,7 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Entity.Game.Chat;
+using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Services;
 using HunterPie.Integrations.Datasources.Common.Entity.Game;
@@ -32,23 +33,7 @@ public sealed class MHRSunbreakDemoGame : CommonGame
         protected set => throw new NotImplementedException();
     }
 
-    public override int MaxDeaths
-    {
-        get => throw new NotImplementedException();
-        protected set => throw new NotImplementedException();
-    }
-
-    public override int Deaths
-    {
-        get => throw new NotImplementedException();
-        protected set => throw new NotImplementedException();
-    }
-
-    public override bool IsInQuest
-    {
-        get => throw new NotImplementedException();
-        protected set => throw new NotImplementedException();
-    }
+    public override IQuest? Quest { get; } = null;
 
     public override IAbnormalityCategorizationService AbnormalityCategorizationService { get; } = new MHRAbnormalityCategorizationService();
 

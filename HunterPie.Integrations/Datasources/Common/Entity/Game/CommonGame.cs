@@ -6,8 +6,8 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Entity.Game;
 using HunterPie.Core.Game.Entity.Game.Chat;
+using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Player;
-using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
 using HunterPie.Core.Game.Services.Monster;
@@ -25,10 +25,7 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
     public abstract IChat? Chat { get; }
     public abstract bool IsHudOpen { get; protected set; }
     public abstract float TimeElapsed { get; protected set; }
-    public abstract int MaxDeaths { get; protected set; }
-    public abstract int Deaths { get; protected set; }
-    public abstract bool IsInQuest { get; protected set; }
-    public QuestStatus QuestStatus { get; protected set; }
+    public abstract IQuest? Quest { get; }
 
     protected readonly SmartEvent<IMonster> _onMonsterSpawn = new();
     public event EventHandler<IMonster> OnMonsterSpawn
@@ -58,22 +55,15 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
         remove => _onTimeElapsedChange.Unhook(value);
     }
 
-    protected readonly SmartEvent<IGame> _onDeathCountChange = new();
-    public event EventHandler<IGame> OnDeathCountChange
-    {
-        add => _onDeathCountChange.Hook(value);
-        remove => _onDeathCountChange.Unhook(value);
-    }
-
-    protected readonly SmartEvent<QuestStateChangeEventArgs> _onQuestStart = new();
-    public event EventHandler<QuestStateChangeEventArgs> OnQuestStart
+    protected readonly SmartEvent<IQuest> _onQuestStart = new();
+    public event EventHandler<IQuest> OnQuestStart
     {
         add => _onQuestStart.Hook(value);
         remove => _onQuestStart.Unhook(value);
     }
 
-    protected readonly SmartEvent<QuestStateChangeEventArgs> _onQuestEnd = new();
-    public event EventHandler<QuestStateChangeEventArgs> OnQuestEnd
+    protected readonly SmartEvent<QuestEndEventArgs> _onQuestEnd = new();
+    public event EventHandler<QuestEndEventArgs> OnQuestEnd
     {
         add => _onQuestEnd.Hook(value);
         remove => _onQuestEnd.Unhook(value);
@@ -89,7 +79,7 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
         IDisposable[] events =
         {
             _onMonsterSpawn, _onMonsterDespawn, _onHudStateChange,
-            _onTimeElapsedChange, _onDeathCountChange, _onQuestStart,
+            _onTimeElapsedChange, _onQuestStart,
             _onQuestEnd, _targetDetectionService
         };
 

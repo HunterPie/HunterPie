@@ -4,7 +4,7 @@ using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Entity.Game;
+using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
@@ -25,6 +25,7 @@ using ObservableColor = HunterPie.Core.Settings.Types.Color;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage;
 
+#nullable enable
 public class DamageMeterWidgetContextHandler : IContextHandler
 {
     private readonly MeterViewModel _viewModel;
@@ -33,6 +34,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
     private readonly Dictionary<IPartyMember, MemberInfo> _members = new();
     private readonly Dictionary<IPartyMember, DamageBarViewModel> _pets = new();
     private double _lastTimeElapsed;
+    private IQuest? _quest;
 
     public DamageMeterWidgetContextHandler(IContext context)
     {
@@ -52,8 +54,8 @@ public class DamageMeterWidgetContextHandler : IContextHandler
     {
         _viewModel.Pets.Name = Localization.QueryString("//Strings/Client/Overlay/String[@Id='DAMAGE_METER_OTOMOS_NAME_STRING']");
         _viewModel.InHuntingZone = _context.Game.Player.InHuntingZone;
-        _viewModel.MaxDeaths = _context.Game.MaxDeaths;
-        _viewModel.Deaths = _context.Game.Deaths;
+        _viewModel.MaxDeaths = _context.Game.Quest?.MaxDeaths ?? 0;
+        _viewModel.Deaths = _context.Game.Quest?.Deaths ?? 0;
         _viewModel.TimeElapsed = _context.Game.TimeElapsed;
 
         foreach (IPartyMember member in _context.Game.Player.Party.Members)
@@ -68,7 +70,8 @@ public class DamageMeterWidgetContextHandler : IContextHandler
         _context.Game.Player.Party.OnMemberLeave += OnMemberLeave;
         _context.Game.OnTimeElapsedChange += OnTimeElapsedChange;
         _context.Game.Player.OnStageUpdate += OnStageUpdate;
-        _context.Game.OnDeathCountChange += OnDeathCountChange;
+        _context.Game.OnQuestStart += OnQuestStart;
+        _context.Game.OnQuestEnd += OnQuestEnd;
     }
 
     public void UnhookEvents()
@@ -77,22 +80,39 @@ public class DamageMeterWidgetContextHandler : IContextHandler
         _context.Game.Player.Party.OnMemberLeave -= OnMemberLeave;
         _context.Game.OnTimeElapsedChange -= OnTimeElapsedChange;
         _context.Game.Player.OnStageUpdate -= OnStageUpdate;
-        _context.Game.OnDeathCountChange -= OnDeathCountChange;
 
         foreach (IPartyMember member in _members.Keys.ToArray())
             HandleRemoveMember(member);
 
+        if (_quest is { })
+            _quest.OnDeathCounterChange -= OnDeathCounterChange;
+
         _ = WidgetManager.Unregister<MeterView, DamageMeterWidgetConfig>(_view);
     }
 
-    #region Player events
-    private void OnDeathCountChange(object sender, IGame e)
+    #region Events
+    private void OnQuestStart(object? sender, IQuest e)
     {
-        _viewModel.MaxDeaths = e.MaxDeaths;
-        _viewModel.Deaths = e.Deaths;
+        _quest = e;
+        _quest.OnDeathCounterChange += OnDeathCounterChange;
     }
 
-    private void OnStageUpdate(object sender, EventArgs e)
+    private void OnQuestEnd(object? sender, QuestEndEventArgs e)
+    {
+        if (_quest is null)
+            return;
+
+        _quest.OnDeathCounterChange -= OnDeathCounterChange;
+        _quest = null;
+    }
+
+    private void OnDeathCounterChange(object? sender, CounterChangeEventArgs e)
+    {
+        _viewModel.MaxDeaths = e.Max;
+        _viewModel.Deaths = e.Current;
+    }
+
+    private void OnStageUpdate(object? sender, EventArgs e)
     {
         bool inHuntingZone = _context.Game.Player.InHuntingZone;
         _viewModel.InHuntingZone = inHuntingZone;
@@ -141,11 +161,13 @@ public class DamageMeterWidgetContextHandler : IContextHandler
             vm.Percentage = pet.Damage / (double)_viewModel.Pets.TotalDamage * 100;
     }
 
-    private void OnMemberJoin(object sender, IPartyMember e) => _view.Dispatcher.Invoke(() => HandleAddMember(e));
+    private void OnMemberJoin(object? sender, IPartyMember e) =>
+        _view.Dispatcher.Invoke(() => HandleAddMember(e));
 
-    private void OnMemberLeave(object sender, IPartyMember e) => _view.Dispatcher.Invoke(() => HandleRemoveMember(e));
+    private void OnMemberLeave(object? sender, IPartyMember e) =>
+        _view.Dispatcher.Invoke(() => HandleRemoveMember(e));
 
-    private void OnTimeElapsedChange(object sender, TimeElapsedChangeEventArgs e)
+    private void OnTimeElapsedChange(object? sender, TimeElapsedChangeEventArgs e)
     {
         _viewModel.TimeElapsed = e.TimeElapsed;
         bool isTimerReset = e.IsTimerReset;
@@ -176,7 +198,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
         _lastTimeElapsed = _viewModel.TimeElapsed;
     }
 
-    private void OnDamageDealt(object sender, IPartyMember e)
+    private void OnDamageDealt(object? sender, IPartyMember e)
     {
         MemberInfo member = _members[e];
         PlayerViewModel vm = member.ViewModel;
@@ -190,7 +212,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
         vm.DPS = newDps;
     }
 
-    private void OnWeaponChange(object sender, IPartyMember e)
+    private void OnWeaponChange(object? sender, IPartyMember e)
     {
         PlayerViewModel member = _members[e].ViewModel;
         member.Weapon = e.Weapon;

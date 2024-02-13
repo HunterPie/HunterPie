@@ -5,6 +5,7 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Entity.Game.Chat;
+using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
@@ -20,8 +21,8 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Services;
-using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 using System.Text;
+using QuestType = HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums.QuestType;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Game;
 
@@ -35,10 +36,7 @@ public sealed class MHRGame : CommonGame
     private readonly MHRPlayer _player;
     private float _timeElapsed;
     private (int, DateTime) _lastTeleport = (0, DateTime.Now);
-    private int _maxDeaths;
-    private int _deaths;
     private bool _isHudOpen;
-    private bool _isInQuest;
     private DateTime _lastDamageUpdate = DateTime.MinValue;
     private readonly Dictionary<long, IMonster> _monsters = new();
     private readonly Dictionary<long, EntityDamageData[]> _damageDone = new();
@@ -76,44 +74,7 @@ public sealed class MHRGame : CommonGame
         }
     }
 
-    public override int MaxDeaths
-    {
-        get => _maxDeaths;
-        protected set
-        {
-            if (value != _maxDeaths)
-            {
-                _maxDeaths = value;
-                this.Dispatch(_onDeathCountChange, this);
-            }
-        }
-    }
-
-    public override int Deaths
-    {
-        get => _deaths;
-        protected set
-        {
-            if (value != _deaths)
-            {
-                _deaths = value;
-                this.Dispatch(_onDeathCountChange, this);
-            }
-        }
-    }
-
-    public override bool IsInQuest
-    {
-        get => _isInQuest;
-        protected set
-        {
-            if (value != _isInQuest)
-            {
-                _isInQuest = value;
-                this.Dispatch(value ? _onQuestStart : _onQuestEnd, new QuestStateChangeEventArgs(this));
-            }
-        }
-    }
+    public override IQuest? Quest { get; } = null;
 
     public override IAbnormalityCategorizationService AbnormalityCategorizationService { get; } = new MHRAbnormalityCategorizationService();
 
@@ -220,9 +181,6 @@ public sealed class MHRGame : CommonGame
             AddressMap.GetAbsolute("QUEST_ADDRESS"),
             AddressMap.Get<int[]>("QUEST_DEATH_COUNTER_OFFSETS")
         );
-
-        MaxDeaths = maxDeathsCounter;
-        Deaths = deathCounter;
     }
 
     [ScannableMethod]
@@ -230,7 +188,7 @@ public sealed class MHRGame : CommonGame
     {
         if (!Player.InHuntingZone)
         {
-            IsInQuest = false;
+            // IsInQuest = false;
             return;
         }
 
@@ -246,16 +204,16 @@ public sealed class MHRGame : CommonGame
 
         bool isInQuest = questState == QuestState.InQuest;
 
-        QuestStatus = questState switch
-        {
-            QuestState.InQuest => Core.Game.Enums.QuestStatus.InProgress,
-            QuestState.Success => Core.Game.Enums.QuestStatus.Success,
-            QuestState.Failed => Core.Game.Enums.QuestStatus.Fail,
-            QuestState.Returning or QuestState.Reset => Core.Game.Enums.QuestStatus.Quit,
-            _ => Core.Game.Enums.QuestStatus.None
-        };
+        //QuestStatus = questState switch
+        //{
+        //    QuestState.InQuest => Core.Game.Enums.QuestStatus.InProgress,
+        //    QuestState.Success => Core.Game.Enums.QuestStatus.Success,
+        //    QuestState.Failed => Core.Game.Enums.QuestStatus.Fail,
+        //    QuestState.Returning or QuestState.Reset => Core.Game.Enums.QuestStatus.Quit,
+        //    _ => Core.Game.Enums.QuestStatus.None
+        //};
 
-        IsInQuest = isInQuest && questType.IsHuntQuest();
+        //IsInQuest = isInQuest && questType.IsHuntQuest();
     }
 
     [ScannableMethod]
