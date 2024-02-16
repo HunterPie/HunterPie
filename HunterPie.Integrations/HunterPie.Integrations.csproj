@@ -4,8 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AssemblyVersion>2.9.0.323</AssemblyVersion>
-    <FileVersion>2.9.0.323</FileVersion>
+    <AssemblyVersion>2.9.0.324</AssemblyVersion>
+    <FileVersion>2.9.0.324</FileVersion>
 	<Authors>Haato</Authors>
 	<Description></Description>
     <Version>2.2022.1208.2323</Version>

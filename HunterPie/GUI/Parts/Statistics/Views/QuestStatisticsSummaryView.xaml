@@ -48,21 +48,37 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
-                    <misc:Badge Grid.Column="0"
-                                Grid.Row="0"
-                                Grid.RowSpan="2"
-                                Text="{Binding GameType, Converter={StaticResource GameTypeToGameAliasConverter}}"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Margin="5"
-                                Background="{StaticResource GREEN_600}"
-                                Foreground="{StaticResource GREEN_100}"/>
+                    <!-- Quest level -->
+                    <Border Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="0"
+                            Background="{StaticResource GRAY_100}"
+                            BorderThickness="1"
+                            BorderBrush="{StaticResource GRAY}"
+                            CornerRadius="12"
+                            HorizontalAlignment="Left"
+                            Margin="5"
+                            Padding="2,0,5,0"
+                            ToolTip="Quest Level">
+                        <StackPanel Orientation="Horizontal">
+                            <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                        Foreground="{StaticResource RED}"
+                                        Image="{StaticResource ICON_STAR}"
+                                        Margin="5"/>
+                            <TextBlock Text="9"
+                                       Foreground="{StaticResource WHITE_200}"
+                                       VerticalAlignment="Center"
+                                       FontSize="14"
+                                       FontWeight="Medium"/>
+                        </StackPanel>
+                    </Border>
 
                     <TextBlock Grid.Column="1" 
                                Grid.Row="0"
@@ -74,25 +90,50 @@
                                Margin="5,0,0,0"/>
                     <TextBlock Grid.Row="1" 
                                Grid.Column="1"
-                               d:Text="01/12/2022 12:34PM"
                                Foreground="{StaticResource WHITE_500}"
                                VerticalAlignment="Center"
                                Margin="5">
                         <Run Text="Hunt"/>
                         <Run Text="•"/>
-                        <Run Text="{Binding UploadedAt, Mode=OneWay, StringFormat='g', ConverterCulture={x:Static gl:CultureInfo.CurrentCulture}}"/>
+                        <Run Text="{Binding UploadedAt, Mode=OneWay, StringFormat='g', ConverterCulture={x:Static gl:CultureInfo.CurrentCulture}}"
+                             d:Text="01/12/2022 12:34PM"/>
                     </TextBlock>
+
+                    <!-- Deaths -->
+                    <Border Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="2"
+                            Background="{StaticResource GRAY_100}"
+                            BorderThickness="1"
+                            BorderBrush="{StaticResource GRAY}"
+                            CornerRadius="5"
+                            HorizontalAlignment="Center"
+                            Margin="5"
+                            Padding="2,0,5,0"
+                            Height="18"
+                            ToolTip="Deaths">
+                        <StackPanel Orientation="Horizontal">
+                            <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                        Foreground="{StaticResource WHITE_700}"
+                                        Image="{StaticResource ICON_SKULL}"
+                                        Margin="1"/>
+                            <TextBlock Text="0/3"
+                                       Margin="5,0,0,0"
+                                       Foreground="{StaticResource WHITE_200}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
                 </Grid>
             </Border>
 
-            <StackPanel Grid.Row="1"
+            <StackPanel Orientation="Vertical"
+                        Grid.Row="1"
                         Grid.Column="0"
-                        Orientation="Vertical"
                         Margin="5">
                 <TextBlock d:Text="Monsters"
                            Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_MONSTERS_STRING&quot;]'}"
                            FontSize="13"
-                           Foreground="{StaticResource WHITE_200}"/>
+                           Foreground="{StaticResource WHITE_300}"/>
                 <ItemsControl ItemsSource="{Binding Monsters, Mode=OneTime}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>

@@ -36,7 +36,7 @@
                               Grid.Column="0"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Center"
-                              Height="15"
+                              Height="30"
                               Background="{StaticResource GRAY_50}"
                               Margin="5"/>
 

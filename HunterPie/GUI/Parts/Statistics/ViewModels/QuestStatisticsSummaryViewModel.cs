@@ -1,5 +1,4 @@
 ﻿using HunterPie.Integrations.Poogie.Common.Models;
-using HunterPie.Integrations.Poogie.Statistics;
 using HunterPie.Integrations.Poogie.Statistics.Models;
 using HunterPie.UI.Architecture;
 using System;
@@ -9,7 +8,6 @@ using GameType = HunterPie.Core.Client.Configuration.Enums.GameType;
 namespace HunterPie.GUI.Parts.Statistics.ViewModels;
 public class QuestStatisticsSummaryViewModel : ViewModel
 {
-    private readonly PoogieStatisticsConnector _connector = new();
     public string? UploadId { get; }
 
     private GameType _gameType;
@@ -24,13 +22,6 @@ public class QuestStatisticsSummaryViewModel : ViewModel
     {
         get => _uploadedAt;
         set => SetValue(ref _uploadedAt, value);
-    }
-
-    private bool _isFetchingDetails;
-    public bool IsFetchingDetails
-    {
-        get => _isFetchingDetails;
-        set => SetValue(ref _isFetchingDetails, value);
     }
 
     public ObservableCollection<MonsterSummaryViewModel> Monsters { get; } = new();
