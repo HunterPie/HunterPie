@@ -43,7 +43,7 @@ public class MHWMonster : CommonMonster
                 GetMonsterWeaknesses();
                 GetMonsterCaptureThreshold();
 
-                Log.Debug($"Initialized ${Name} at address {_address:X} with id: {value}");
+                Log.Debug($"Initialized {Name} at address {_address:X} with id: {value}");
                 this.Dispatch(_onSpawn);
             }
         }

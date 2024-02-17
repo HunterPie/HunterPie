@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Game.Entity.Game.Quest;
+﻿using HunterPie.Core.Domain.Memory;
+using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Player.Skills;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
@@ -15,6 +16,13 @@ public static class MHWGameUtils
     public static float[] HealthIncrements = { 0.0f, 15f, 30f, 50f };
     public const int HandicraftMultiplier = 10;
     public const int MaxHandicraft = 50;
+
+    public static string ReadString(this IMemory memory, long address, uint length)
+    {
+        long stringPtr = memory.Read<long>(address);
+
+        return memory.Read(stringPtr + 0x0C, length);
+    }
 
     public static float ToSeconds(this uint self) => self / 60.0f;
 

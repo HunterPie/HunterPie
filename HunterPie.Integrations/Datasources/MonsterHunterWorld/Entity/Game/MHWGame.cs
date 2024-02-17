@@ -184,46 +184,28 @@ public sealed class MHWGame : CommonGame
     }
 
     [ScannableMethod]
-    private void GetMonsterDoubleLinkedList()
+    private void GetMonsters()
     {
-        long doubleLinkedListHead = Process.Memory.Read(
-            AddressMap.GetAbsolute("MONSTER_ADDRESS"),
-            AddressMap.Get<int[]>("MONSTER_OFFSETS")
+        long monsterComponentsPointer = Memory.Read(
+            AddressMap.GetAbsolute("MONSTER_LIST_ADDRESS"),
+            AddressMap.GetOffsets("MONSTER_LIST_OFFSETS")
         );
-
-        long next = doubleLinkedListHead;
-        bool isBigMonster;
-        HashSet<long> monsterAddresses = new();
-        do
-        {
-            long monsterEmPtr = Process.Memory.Read<long>(next + 0x2A0);
-            string monsterEm = Process.Memory.Read(monsterEmPtr + 0x0C, 64);
-
-            isBigMonster = monsterEmPtr != 0
-                && monsterEm.StartsWith("em\\em")
-                && !monsterEm.StartsWith("em\\ems");
-
-            if (!isBigMonster)
-                break;
-
-            _ = monsterAddresses.Add(next);
-
-            string? em = monsterEm.Split('\\')
-                                  .ElementAtOrDefault(1);
-
-            if (em is null)
-                break;
-
-            HandleMonsterSpawn(next, em);
-
-            next = Process.Memory.Read<long>(next - 0x30) + 0x40;
-        } while (isBigMonster);
-
-        long[] toDespawn = _monsters.Keys.Where(address => !monsterAddresses.Contains(address))
+        (long monsterPtr, string em)[] bigMonsters = Memory.Read<long>(monsterComponentsPointer, 128)
+            .AsParallel()
+            .Where(component => !component.IsNullPointer())
+            .Select(component => Memory.Read<long>(component + 0x138))
+            .Select(monsterPtr => (monsterPtr: monsterPtr, em: Memory.ReadString(monsterPtr + 0x2A0, 64)))
+            .Where(it => it.em.StartsWith("em\\em") && !it.em.StartsWith("em\\ems"))
             .ToArray();
 
-        foreach (long monsterAddress in toDespawn)
-            HandleMonsterDespawn(monsterAddress);
+        foreach ((long monsterPtr, string em) in bigMonsters)
+            HandleMonsterSpawn(monsterPtr, em);
+
+        long[] monsterPtrs = bigMonsters.Select(it => it.monsterPtr)
+            .ToArray();
+
+        _monsters.Keys.Where(monsterPtr => !monsterPtrs.Contains(monsterPtr))
+            .ForEach(HandleMonsterDespawn);
     }
 
     private void HandleMonsterSpawn(long address, string em)
