@@ -9,5 +9,6 @@ internal record MonsterModel(
     Crown Crown,
     MonsterStatusModel Enrage,
     DateTime? HuntStartedAt,
-    DateTime? HuntFinishedAt
+    DateTime? HuntFinishedAt,
+    MonsterHuntType? HuntType
 );

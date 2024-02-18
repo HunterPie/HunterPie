@@ -11,6 +11,7 @@ using HunterPie.Core.Game.Events;
 using HunterPie.Core.Logger;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enemy;
 
@@ -120,7 +121,6 @@ public class MHWMonster : CommonMonster
         }
     }
 
-
     public override Crown Crown
     {
         get => _crown;
@@ -150,8 +150,24 @@ public class MHWMonster : CommonMonster
     public override IMonsterAilment Enrage => _enrage;
 
     private readonly List<Element> _weaknesses = new();
+
     public override Element[] Weaknesses => _weaknesses.ToArray();
+
     public override string[] Types { get; } = Array.Empty<string>();
+
+    private bool _isCaptured;
+    public bool IsCaptured
+    {
+        get => _isCaptured;
+        private set
+        {
+            if (value == _isCaptured)
+                return;
+
+            _isCaptured = value;
+            this.Dispatch(_onCapture, EventArgs.Empty);
+        }
+    }
 
     public override float CaptureThreshold
     {
@@ -244,6 +260,22 @@ public class MHWMonster : CommonMonster
             : monsterSizeMultiplier >= crown.Silver ? Crown.Silver
                 : monsterSizeMultiplier <= crown.Mini ? Crown.Mini
                     : Crown.None;
+    }
+
+    [ScannableMethod]
+    private void GetAction()
+    {
+        long actionPtr = _address + 0x61C8;
+        int actionId = Memory.Read<int>(actionPtr + 0xB0);
+        actionPtr = Memory.ReadPtr(actionPtr, new[] { (2 * 8) + 0x68, actionId * 8, 0, 0x20 });
+        uint actionOffset = Memory.Read<uint>(actionPtr + 3);
+        long actionRef = Memory.Read<long>(actionPtr + actionOffset + 7 + 8);
+        string? action = Memory.Read(actionRef, 64).SanitizeActionString();
+
+        if (action is null)
+            return;
+
+        IsCaptured = action.Contains("Capture");
     }
 
     [ScannableMethod]

@@ -11,7 +11,6 @@
             CornerRadius="3"
             Padding="5,2">
         <TextBlock Text="{Binding Text, ElementName=BadgeControl}"
-                   d:Text="Badge"
                    Foreground="{StaticResource WHITE_100}"/>
     </Border>
 </UserControl>

@@ -177,4 +177,17 @@ public static class MHWGameUtils
             _ => QuestType.Special
         };
     }
+
+    public static string? SanitizeActionString(this string action)
+    {
+        string? actionRefName = action.Split('<')
+            .FirstOrDefault()?
+            .Split(':')
+            .LastOrDefault();
+
+        if (actionRefName is null)
+            return null;
+
+        return string.Concat(actionRefName.Select((c, i) => i > 0 && char.IsUpper(c) ? " " + c : c.ToString()));
+    }
 }
