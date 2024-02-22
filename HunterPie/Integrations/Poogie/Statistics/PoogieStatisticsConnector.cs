@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Statistics;
-#nullable enable
+
 internal class PoogieStatisticsConnector
 {
     private const string SUMMARIES_CACHE_KEY = "summaries";
