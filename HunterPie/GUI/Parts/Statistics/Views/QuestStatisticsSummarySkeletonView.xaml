@@ -15,7 +15,7 @@
             ClipToBounds="True">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -36,7 +36,16 @@
                               Grid.Column="0"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Center"
-                              Height="30"
+                              Height="20"
+                              Background="{StaticResource GRAY_50}"
+                              Margin="5"/>
+
+            <loading:Skeleton Grid.Row="0"
+                              Grid.Column="1"
+                              Width="50"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top"
+                              Height="15"
                               Background="{StaticResource GRAY_50}"
                               Margin="5"/>
 
@@ -47,7 +56,27 @@
                               VerticalAlignment="Top"
                               Height="15"
                               Background="{StaticResource GRAY_50}"
-                              Margin="5"/>
+                              Margin="60,5,5,5"/>
+
+            <loading:Skeleton Grid.Row="1"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="2"
+                              Width="100"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top"
+                              Height="15"
+                              Background="{StaticResource GRAY_50}"
+                              Margin="5,5,5,5"/>
+
+            <loading:Skeleton Grid.Row="1"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="2"
+                              Width="50"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top"
+                              Height="15"
+                              Background="{StaticResource GRAY_50}"
+                              Margin="110,5,5,5"/>
 
             <loading:Skeleton Grid.Row="0" 
                               Grid.Column="1"
@@ -66,7 +95,7 @@
                               Background="{StaticResource GRAY_50}"
                               VerticalAlignment="Bottom"
                               HorizontalAlignment="Left"
-                              Margin="10"/>
+                              Margin="5"/>
             <loading:Skeleton Grid.Row="1"
                               Grid.Column="0"
                               Grid.ColumnSpan="2"
@@ -75,7 +104,7 @@
                               Background="{StaticResource GRAY_50}"
                               VerticalAlignment="Bottom"
                               HorizontalAlignment="Left"
-                              Margin="60,10"/>
+                              Margin="50,5"/>
             <loading:Skeleton Grid.Row="1"
                               Grid.Column="0"
                               Grid.ColumnSpan="2"
@@ -84,7 +113,7 @@
                               Background="{StaticResource GRAY_50}"
                               VerticalAlignment="Bottom"
                               HorizontalAlignment="Left"
-                              Margin="110,10"/>
+                              Margin="95,5"/>
         </Grid>
     </Border>
 </UserControl>

@@ -1,5 +1,7 @@
 ﻿using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Features.Statistics.Models;
 using System;
+using QuestLevelType = HunterPie.Core.Game.Entity.Game.Quest.QuestLevel;
 
 namespace HunterPie.GUI.Parts.Statistics.ViewModels;
 
@@ -7,15 +9,16 @@ public class MockQuestStatisticsSummaryViewModel : QuestStatisticsSummaryViewMod
 {
     private static readonly MonsterSummaryViewModel[] MonsterVms =
     {
-        new MonsterSummaryViewModel { GameType = GameType.Rise, Id = 64, IsTarget = true },
-        new MonsterSummaryViewModel { GameType = GameType.Rise, Id = 64, IsTarget = false },
-        new MonsterSummaryViewModel { GameType = GameType.Rise, Id = 64, IsTarget = true }
+        new MonsterSummaryViewModel { GameType = GameType.Rise, Id = 64, IsTarget = true, HuntType = MonsterHuntType.Slay},
+        new MonsterSummaryViewModel { GameType = GameType.Rise, Id = 64, IsTarget = false, HuntType = MonsterHuntType.None },
+        new MonsterSummaryViewModel { GameType = GameType.Rise, Id = 64, IsTarget = true, HuntType = MonsterHuntType.Capture }
     };
 
     public MockQuestStatisticsSummaryViewModel()
     {
         QuestName = "A Visitor from Eorzea (Extreme)";
-        QuestLevel = 9;
+        QuestLevel = QuestLevelType.MasterRank;
+        Stars = 5;
         QuestType = "Slay";
         QuestTime = TimeSpan.FromSeconds(262);
         GameType = GameType.Rise;

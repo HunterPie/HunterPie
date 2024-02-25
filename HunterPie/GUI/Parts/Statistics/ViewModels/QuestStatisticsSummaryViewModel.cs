@@ -1,4 +1,6 @@
 ﻿using HunterPie.Core.Architecture.Collections;
+using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.Integrations.Poogie.Statistics.Models;
 using HunterPie.UI.Architecture;
@@ -15,8 +17,11 @@ public class QuestStatisticsSummaryViewModel : ViewModel
     private string? _questName;
     public string? QuestName { get => _questName; set => SetValue(ref _questName, value); }
 
-    private int? _questLevel;
-    public int? QuestLevel { get => _questLevel; set => SetValue(ref _questLevel, value); }
+    private QuestLevel? _questLevel;
+    public QuestLevel? QuestLevel { get => _questLevel; set => SetValue(ref _questLevel, value); }
+
+    private int? _stars;
+    public int? Stars { get => _stars; set => SetValue(ref _stars, value); }
 
     private string? _questType;
     public string? QuestType { get => _questType; set => SetValue(ref _questType, value); }
@@ -51,14 +56,22 @@ public class QuestStatisticsSummaryViewModel : ViewModel
     internal QuestStatisticsSummaryViewModel(PoogieQuestSummaryModel model)
     {
         UploadId = model.Id;
-
         GameType = model.GameType.ToEntity();
-
         UploadedAt = model.CreatedAt.ToLocalTime();
+        QuestTime = model.ElapsedTime;
 
         IEnumerable<MonsterSummaryViewModel> monsterVms =
             model.Monsters.Select(it => new MonsterSummaryViewModel(GameType, it));
 
         Monsters.Replace(monsterVms);
+
+        if (model.QuestDetails is not { } details)
+            return;
+
+        Deaths = details.Deaths;
+        MaxDeaths = details.MaxDeaths;
+        QuestType = Localization.GetEnumString(details.Type);
+        QuestLevel = details.Level;
+        Stars = details.Stars;
     }
 }

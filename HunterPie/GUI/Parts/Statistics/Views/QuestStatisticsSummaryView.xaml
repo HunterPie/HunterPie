@@ -12,6 +12,8 @@
                                xmlns:gl="clr-namespace:System.Globalization;assembly=mscorlib"
                                xmlns:architecture="clr-namespace:HunterPie.UI.Architecture;assembly=HunterPie.UI"
                                xmlns:misc="clr-namespace:HunterPie.UI.Controls.Misc;assembly=HunterPie.UI"
+                               xmlns:enums="clr-namespace:HunterPie.Core.Game.Entity.Game.Quest;assembly=HunterPie.Core"
+                               xmlns:visibilities="clr-namespace:HunterPie.UI.Architecture.Converters.Visibilities;assembly=HunterPie.UI"
                                mc:Ignorable="d" 
                                d:DesignHeight="150" 
                                d:DesignWidth="800"
@@ -20,6 +22,7 @@
     <architecture:ClickableControl.Resources>
         <converters:GameTypeToGameAliasConverter x:Key="GameTypeToGameAliasConverter"/>
         <viewModels:MockQuestStatisticsSummaryViewModel x:Key="MockQuestStatisticsSummaryViewModel"/>
+        <visibilities:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter"/>
     </architecture:ClickableControl.Resources>
     <buttons:Button BorderBrush="{StaticResource GRAY}"
                     Background="{StaticResource GRAY_50}"
@@ -32,7 +35,8 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="36*"/>
+                <RowDefinition Height="13*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
@@ -71,19 +75,41 @@
                                 VerticalAlignment="Stretch"
                                 Orientation="Horizontal">
                         <!-- Quest level -->
-                        <Border Background="{StaticResource GRAY_100}"
-                                BorderThickness="1"
+                        <Border Background="{StaticResource GRAY_200}"
+                                BorderThickness="1,0,1,1"
                                 BorderBrush="{StaticResource GRAY}"
-                                CornerRadius="5"
+                                CornerRadius="0,0,5,5"
                                 HorizontalAlignment="Left"
-                                Margin="5,2"
-                                ToolTip="Quest Level">
+                                Margin="5,0,0,2"
+                                ToolTip="Quest Level"
+                                Visibility="{Binding QuestLevel, Mode=OneWay, Converter={StaticResource NullableToVisibilityConverter}}">
                             <StackPanel Orientation="Horizontal">
                                 <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                            Foreground="{StaticResource RED}"
+                                            d:Foreground="{StaticResource RED}"
                                             Image="{StaticResource ICON_STAR}"
-                                            Margin="3"/>
-                                <TextBlock Text="{Binding QuestLevel, Mode=OneWay, TargetNullValue='?'}"
+                                            Margin="3">
+                                    <image:Icon.Style>
+                                        <Style TargetType="image:Icon">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding QuestLevel, Mode=OneWay}"
+                                                             Value="{x:Static enums:QuestLevel.LowRank}">
+                                                    <Setter Property="Foreground" Value="#33A8FF"/>
+                                                </DataTrigger>
+
+                                                <DataTrigger Binding="{Binding QuestLevel, Mode=OneWay}"
+                                                             Value="{x:Static enums:QuestLevel.HighRank}">
+                                                    <Setter Property="Foreground" Value="#FF3333"/>
+                                                </DataTrigger>
+
+                                                <DataTrigger Binding="{Binding QuestLevel, Mode=OneWay}"
+                                                             Value="{x:Static enums:QuestLevel.MasterRank}">
+                                                    <Setter Property="Foreground" Value="#FFD91D "/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </image:Icon.Style>
+                                </image:Icon>
+                                <TextBlock Text="{Binding Stars, Mode=OneWay, TargetNullValue='?'}"
                                            Foreground="{StaticResource WHITE_200}"
                                            VerticalAlignment="Center"
                                            FontSize="14"
@@ -95,9 +121,10 @@
                                    VerticalAlignment="Center"
                                    FontSize="14"
                                    FontWeight="Medium"
-                                   Foreground="{StaticResource WHITE_200}"/>
+                                   Foreground="{StaticResource WHITE_200}"
+                                   Margin="5,0,0,0"/>
                     </StackPanel>
-                    
+
                     <TextBlock Grid.Row="1" 
                                Grid.Column="1"
                                Foreground="{StaticResource WHITE_500}"
@@ -108,13 +135,13 @@
                         <Run Text="{Binding UploadedAt, Mode=OneWay, StringFormat='g', ConverterCulture={x:Static gl:CultureInfo.CurrentCulture}}"/>
                     </TextBlock>
 
-                    
+
                 </Grid>
             </Border>
 
             <Grid Grid.Row="1"
                   Grid.Column="0"
-                  Margin="5">
+                  Margin="5,5,5,5" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -197,7 +224,7 @@
 
             <Border Grid.Row="0"
                     Grid.Column="1"
-                    Grid.RowSpan="2"
+                    Grid.RowSpan="3"
                     Background="{StaticResource GRAY_50}"
                     CornerRadius="0,5,5,0"
                     BorderThickness="1,0,0,0"

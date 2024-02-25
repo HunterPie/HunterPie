@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Features.Statistics.Models;
 using HunterPie.Integrations.Poogie.Statistics.Models;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Architecture.Adapter;
@@ -34,13 +35,17 @@ public class MonsterSummaryViewModel : ViewModel
         set => SetValue(ref _isTarget, value);
     }
 
+    private MonsterHuntType? _huntType;
+    public MonsterHuntType? HuntType { get => _huntType; set => SetValue(ref _huntType, value); }
+
     public MonsterSummaryViewModel() { }
 
     internal MonsterSummaryViewModel(GameType game, PoogieMonsterSummaryModel model)
     {
         GameType = game;
         Id = model.Id;
-        IsTarget = model.IsTarget == true;
+        IsTarget = model.IsTarget;
+        HuntType = model.HuntType;
 
         FetchMonsterIcon();
     }
