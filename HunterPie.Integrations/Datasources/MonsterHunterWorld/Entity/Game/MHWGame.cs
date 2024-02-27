@@ -17,6 +17,7 @@ using HunterPie.Integrations.Datasources.Common.Entity.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enemy;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Game.Quest;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
@@ -137,7 +138,8 @@ public sealed class MHWGame : CommonGame
             AddressMap.GetOffsets("QUEST_DATA_OFFSETS")
         );
 
-        bool isQuestOver = quest.State.IsQuestOver();
+        bool hasQuestStarted = quest.State == QuestState.InQuest;
+        bool isQuestOver = quest.State.IsQuestOver() || !hasQuestStarted;
         bool isQuestInvalid = quest.Id <= 0;
 
         if (_quest is not null

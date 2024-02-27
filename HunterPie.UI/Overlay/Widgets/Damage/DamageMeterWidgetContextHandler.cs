@@ -80,6 +80,8 @@ public class DamageMeterWidgetContextHandler : IContextHandler
         _context.Game.Player.Party.OnMemberLeave -= OnMemberLeave;
         _context.Game.OnTimeElapsedChange -= OnTimeElapsedChange;
         _context.Game.Player.OnStageUpdate -= OnStageUpdate;
+        _context.Game.OnQuestStart -= OnQuestStart;
+        _context.Game.OnQuestEnd -= OnQuestEnd;
 
         foreach (IPartyMember member in _members.Keys.ToArray())
             HandleRemoveMember(member);
@@ -93,8 +95,16 @@ public class DamageMeterWidgetContextHandler : IContextHandler
     #region Events
     private void OnQuestStart(object? sender, IQuest e)
     {
+        if (_quest is { })
+        {
+            _quest.OnDeathCounterChange -= OnDeathCounterChange;
+            _quest = null;
+        }
+
         _quest = e;
         _quest.OnDeathCounterChange += OnDeathCounterChange;
+        _viewModel.MaxDeaths = e.MaxDeaths;
+        _viewModel.Deaths = e.Deaths;
     }
 
     private void OnQuestEnd(object? sender, QuestEndEventArgs e)
@@ -176,17 +186,12 @@ public class DamageMeterWidgetContextHandler : IContextHandler
             return;
 
         if (isTimerReset)
-        {
-            Log.Debug("Timer has reset");
-
             // If the timer has just been reset, it usually means the local timer is being replaced with real game timer.
             // Note the info of party members in the current hunting party can be loaded before the real game timer gets ready in MHW.
             // Use 0 sec as other player's join time in this case to prevent a very large dps result.
             // We don't know when the others have joined after all.
             foreach ((IPartyMember member, MemberInfo memberInfo) in _members)
                 memberInfo.JoinedAt = member.IsMyself ? e.TimeElapsed : 0;
-
-        }
 
         _view.Dispatcher.Invoke(() =>
         {

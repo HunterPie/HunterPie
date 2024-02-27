@@ -167,30 +167,11 @@ public sealed class MHRGame : CommonGame
     }
 
     [ScannableMethod]
-    private void GetDeathCounter()
-    {
-        if (!Player.InHuntingZone)
-            return;
-
-        int maxDeathsCounter = Process.Memory.Deref<int>(
-            AddressMap.GetAbsolute("QUEST_ADDRESS"),
-            AddressMap.Get<int[]>("QUEST_MAX_DEATHS_OFFSETS")
-        );
-
-        int deathCounter = Process.Memory.Deref<int>(
-            AddressMap.GetAbsolute("QUEST_ADDRESS"),
-            AddressMap.Get<int[]>("QUEST_DEATH_COUNTER_OFFSETS")
-        );
-    }
-
-    [ScannableMethod]
     private void GetQuestState()
     {
         if (!Player.InHuntingZone)
-        {
             // IsInQuest = false;
             return;
-        }
 
         var questState = (QuestState)Memory.Deref<int>(
             AddressMap.GetAbsolute("QUEST_ADDRESS"),
