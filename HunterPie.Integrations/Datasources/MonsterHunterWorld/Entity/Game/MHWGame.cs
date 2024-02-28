@@ -8,7 +8,6 @@ using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
-using HunterPie.Core.Logger;
 using HunterPie.Core.Native.IPC.Handlers.Internal.Damage;
 using HunterPie.Core.Native.IPC.Handlers.Internal.Damage.Models;
 using HunterPie.Core.Native.IPC.Models.Common;
@@ -145,8 +144,6 @@ public sealed class MHWGame : CommonGame
         if (_quest is not null
             && (isQuestOver || isQuestInvalid))
         {
-            Log.Debug("Finished quest id {0}", quest.Id);
-
             this.Dispatch(_onQuestEnd, new QuestEndEventArgs(quest.State.ToStatus(), TimeElapsed));
             ScanManager.Remove(_quest);
             _quest = null;
@@ -164,8 +161,6 @@ public sealed class MHWGame : CommonGame
                 stars: quest.Stars,
                 questType: questType
             );
-
-            Log.Debug("Started new quest id: {0} stars: {1} category: {2}", quest.Id, quest.Stars, questType);
 
             ScanManager.Add(_quest);
             this.Dispatch(_onQuestStart, _quest);

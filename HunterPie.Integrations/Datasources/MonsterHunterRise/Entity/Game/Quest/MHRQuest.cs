@@ -1,12 +1,17 @@
-﻿using HunterPie.Core.Architecture.Events;
+﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
+using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Events;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions.Quest;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Game.Quest;
 
-public class MHRQuest : IQuest, IDisposable, IEventDispatcher
+public class MHRQuest : Scannable, IQuest, IDisposable, IEventDispatcher
 {
     /// <inheritdoc />
     public int Id { get; }
@@ -77,7 +82,32 @@ public class MHRQuest : IQuest, IDisposable, IEventDispatcher
         remove => _onDeathCounterChange.Unhook(value);
     }
 
+    public MHRQuest(
+        IProcessManager process,
+        int id,
+        QuestType type,
+        QuestLevel level,
+        int stars
+    ) : base(process)
+    {
+        Id = id;
+        Type = type;
+        Level = level;
+        Stars = stars;
+    }
 
+    [ScannableMethod]
+    private void GetData()
+    {
+        MHRQuestStructure questStructure = Memory.Deref<MHRQuestStructure>(
+            AddressMap.GetAbsolute("QUEST_ADDRESS"),
+            AddressMap.GetOffsets("QUEST_OFFSETS")
+        );
+
+        Status = questStructure.State.ToQuestStatus();
+        MaxDeaths = questStructure.MaxDeaths;
+        Deaths = questStructure.Deaths;
+    }
 
     public void Dispose()
     {

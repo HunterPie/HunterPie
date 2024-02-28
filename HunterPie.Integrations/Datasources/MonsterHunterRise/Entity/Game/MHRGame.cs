@@ -16,13 +16,15 @@ using HunterPie.Core.Native.IPC.Models.Common;
 using HunterPie.Integrations.Datasources.Common;
 using HunterPie.Integrations.Datasources.Common.Entity.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions.Quest;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Chat;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Game.Quest;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Services;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 using System.Text;
-using QuestType = HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums.QuestType;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Game;
 
@@ -74,7 +76,8 @@ public sealed class MHRGame : CommonGame
         }
     }
 
-    public override IQuest? Quest { get; } = null;
+    private MHRQuest? _quest;
+    public override IQuest? Quest => _quest;
 
     public override IAbnormalityCategorizationService AbnormalityCategorizationService { get; } = new MHRAbnormalityCategorizationService();
 
@@ -167,34 +170,45 @@ public sealed class MHRGame : CommonGame
     }
 
     [ScannableMethod]
-    private void GetQuestState()
+    private void GetQuest()
     {
-        if (!Player.InHuntingZone)
-            // IsInQuest = false;
-            return;
-
-        var questState = (QuestState)Memory.Deref<int>(
+        MHRQuestStructure questStructure = Memory.Deref<MHRQuestStructure>(
             AddressMap.GetAbsolute("QUEST_ADDRESS"),
-            AddressMap.Get<int[]>("QUEST_STATUS_OFFSETS")
+            AddressMap.GetOffsets("QUEST_OFFSETS")
         );
 
-        var questType = (QuestType)Memory.Deref<uint>(
-            AddressMap.GetAbsolute("QUEST_ADDRESS"),
-            AddressMap.Get<int[]>("QUEST_TYPE_OFFSETS")
-        );
+        MHRQuestDataStructure questData = Memory.Read<MHRQuestDataStructure>(questStructure.QuestDataPointer);
+        MHRQuestData? currentQuest = questData.GetCurrentQuest(Process);
 
-        bool isInQuest = questState == QuestState.InQuest;
+        var questType = questStructure.Type.ToQuestType();
+        bool hasQuestStarted = questStructure.State == QuestState.InQuest;
+        bool isQuestOver = questStructure.State.IsQuestOver() || !hasQuestStarted;
+        bool isQuestInvalid = (currentQuest?.Id ?? 0) <= 0 || questType is null;
 
-        //QuestStatus = questState switch
-        //{
-        //    QuestState.InQuest => Core.Game.Enums.QuestStatus.InProgress,
-        //    QuestState.Success => Core.Game.Enums.QuestStatus.Success,
-        //    QuestState.Failed => Core.Game.Enums.QuestStatus.Fail,
-        //    QuestState.Returning or QuestState.Reset => Core.Game.Enums.QuestStatus.Quit,
-        //    _ => Core.Game.Enums.QuestStatus.None
-        //};
+        if (_quest is not null
+            && (isQuestOver || isQuestInvalid))
+        {
+            this.Dispatch(_onQuestEnd, new QuestEndEventArgs(questStructure.State.ToQuestStatus(), TimeElapsed));
+            ScanManager.Remove(_quest);
+            _quest = null;
+        }
 
-        //IsInQuest = isInQuest && questType.IsHuntQuest();
+        if (_quest is null
+            && !isQuestOver
+            && !isQuestInvalid
+            && currentQuest is { } quest)
+        {
+            _quest = new MHRQuest(
+                process: Process,
+                id: quest.Id,
+                type: questType!.Value,
+                level: quest.Level,
+                stars: quest.Stars
+            );
+
+            ScanManager.Add(_quest);
+            this.Dispatch(_onQuestStart, _quest);
+        }
     }
 
     [ScannableMethod]

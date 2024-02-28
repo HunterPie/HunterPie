@@ -4,5 +4,6 @@ public enum QuestLevel
 {
     LowRank,
     HighRank,
-    MasterRank
+    MasterRank,
+    Anomaly
 }
