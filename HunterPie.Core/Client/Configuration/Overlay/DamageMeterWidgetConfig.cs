@@ -39,6 +39,12 @@ public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("DAMAGE_METER_ENABLE_DPS_PLOT", group: CommonConfigurationGroups.DAMAGE_PLOT)]
     public Observable<bool> ShouldShowPlots { get; set; } = true;
 
+    [ConfigurationProperty("DAMAGE_METER_PLOT_LINE_SMOOTHING_STRING", group: CommonConfigurationGroups.DAMAGE_PLOT)]
+    public Range PlotLineSmoothing { get; set; } = new Range(1.0, 1.0, 0.0, 0.01);
+
+    [ConfigurationProperty("DAMAGE_METER_PLOT_LINE_THICKNESS_STRING", group: CommonConfigurationGroups.DAMAGE_PLOT)]
+    public Range PlotLineThickness { get; set; } = new Range(2.0, 3.0, 0.2, 0.01);
+
     [ConfigurationProperty("DAMAGE_METER_SELF_COLOR_STRING", group: CommonConfigurationGroups.COLORS)]
     public Color PlayerSelf { get; set; } = "#FF725AC1";
 

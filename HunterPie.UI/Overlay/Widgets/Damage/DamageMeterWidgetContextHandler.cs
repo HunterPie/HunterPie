@@ -14,14 +14,17 @@ using HunterPie.UI.Architecture.Brushes;
 using HunterPie.UI.Overlay.Widgets.Damage.Helpers;
 using HunterPie.UI.Overlay.Widgets.Damage.View;
 using HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
+using HunterPie.UI.Settings.Converter;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Data;
 using System.Windows.Media;
 using ObservableColor = HunterPie.Core.Settings.Types.Color;
+using Range = HunterPie.Core.Settings.Types.Range;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage;
 
@@ -209,10 +212,14 @@ public class DamageMeterWidgetContextHandler : IContextHandler
             Stroke = new SolidColorBrush(actualColor),
             Fill = ColorFadeGradient.FromColor(actualColor),
             PointGeometry = null,
-            StrokeThickness = 2,
-            LineSmoothness = 1,
             Values = points
         };
+        Binding smoothingBinding = VisualConverterHelper.CreateBinding(_viewModel.Settings.PlotLineSmoothing, nameof(Range.Current));
+        Binding thicknessBinding =
+            VisualConverterHelper.CreateBinding(_viewModel.Settings.PlotLineThickness, nameof(Range.Current));
+
+        series.SetBinding(Series.StrokeThicknessProperty, thicknessBinding);
+        series.SetBinding(LineSeries.LineSmoothnessProperty, smoothingBinding);
 
         _viewModel.Series.Add(series);
         return series;
