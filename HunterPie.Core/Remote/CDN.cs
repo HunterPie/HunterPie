@@ -16,6 +16,7 @@ public class CDN
     private static readonly HashSet<string> NotFoundCache = new();
 
     private static readonly SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
+
     public static async Task<string> GetMonsterIconUrl(string imageName)
     {
         if (NotFoundCache.Contains(imageName))
@@ -23,13 +24,13 @@ public class CDN
 
         string localImage = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{imageName}.png");
 
-        if (File.Exists(localImage))
-            return localImage;
-
         await semaphore.WaitAsync();
 
         try
         {
+            if (File.Exists(localImage))
+                return localImage;
+
             using HttpClient client = new HttpClientBuilder(CDN_BASE_URL)
                 .Get($"/Assets/Monsters/Icons/{imageName}.png")
                 .WithTimeout(TimeSpan.FromSeconds(5))
