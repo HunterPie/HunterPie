@@ -34,7 +34,7 @@ public static class ConfigHelper
         lock (Sync)
             try
             {
-                string serialized = JsonProvider.Serialize(obj);
+                string serialized = JsonProvider.Serializer(obj);
                 ReadOnlySpan<byte> buffer = Encoding.UTF8.GetBytes(serialized);
                 using FileStream stream = File.OpenWrite(path);
                 stream.SetLength(0);

@@ -45,7 +45,7 @@ public class LocalConfigInitializer : IInitializer
         if (RegistryConfig.Exists(KEY_SECRET))
             return;
 
-        using RandomNumberGenerator rng = new RNGCryptoServiceProvider();
+        using RandomNumberGenerator rng = RandomNumberGenerator.Create();
 
         byte[] token = new byte[16];
         rng.GetBytes(token);
@@ -61,7 +61,7 @@ public class LocalConfigInitializer : IInitializer
         if (RegistryConfig.Exists(CLIENT_ID))
             return;
 
-        using RandomNumberGenerator rng = new RNGCryptoServiceProvider();
+        using RandomNumberGenerator rng = RandomNumberGenerator.Create();
 
         byte[] bytes = new byte[16];
         rng.GetBytes(bytes);

@@ -28,7 +28,7 @@ public static class ObjectExtensions
 
     public static TOut CopyAs<TIn, TOut>(this TIn @object)
     {
-        string serialized = JsonProvider.Serialize(@object);
-        return JsonProvider.Deserialize<TOut>(serialized);
+        string serialized = JsonProvider.Serializer(@object);
+        return JsonProvider.Deserializer<TOut>(serialized);
     }
 }
