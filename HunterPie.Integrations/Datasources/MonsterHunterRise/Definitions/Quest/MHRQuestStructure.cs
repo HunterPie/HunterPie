@@ -17,7 +17,7 @@ public struct MHRQuestStructure
     [FieldOffset(0x120)]
     [MarshalAs(UnmanagedType.I4)] public QuestType Type;
 
-    [FieldOffset(0x15C)] public int Deaths;
+    [FieldOffset(0x15C)] public int MaxDeaths;
 
-    [FieldOffset(0x160)] public int MaxDeaths;
+    [FieldOffset(0x160)] public int Deaths;
 }
