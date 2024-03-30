@@ -60,6 +60,8 @@ public class QuestStatisticsSummaryViewModel : ViewModel
         UploadedAt = model.CreatedAt.ToLocalTime();
         QuestTime = model.ElapsedTime;
 
+
+
         IEnumerable<MonsterSummaryViewModel> monsterVms =
             model.Monsters.Select(it => new MonsterSummaryViewModel(GameType, it));
 
@@ -68,6 +70,7 @@ public class QuestStatisticsSummaryViewModel : ViewModel
         if (model.QuestDetails is not { } details)
             return;
 
+        QuestName = Localization.GetQuestNameBy(GameType, details.Id);
         Deaths = details.Deaths;
         MaxDeaths = details.MaxDeaths;
         QuestType = Localization.GetEnumString(details.Type);

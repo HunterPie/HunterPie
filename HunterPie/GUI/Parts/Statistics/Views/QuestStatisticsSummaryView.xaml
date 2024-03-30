@@ -85,8 +85,8 @@
                                 Visibility="{Binding QuestLevel, Mode=OneWay, Converter={StaticResource NullableToVisibilityConverter}}">
                             <StackPanel Orientation="Horizontal">
                                 <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                            d:Foreground="{StaticResource RED}"
-                                            Image="{StaticResource ICON_STAR}"
+                                            d:Foreground="#FFD91D"
+                                            d:Image="{StaticResource ICON_MASTER_RANK}"
                                             Margin="3">
                                     <image:Icon.Style>
                                         <Style TargetType="image:Icon">
@@ -94,16 +94,19 @@
                                                 <DataTrigger Binding="{Binding QuestLevel, Mode=OneWay}"
                                                              Value="{x:Static enums:QuestLevel.LowRank}">
                                                     <Setter Property="Foreground" Value="#33A8FF"/>
+                                                    <Setter Property="Image" Value="{StaticResource ICON_STAR}"/>
                                                 </DataTrigger>
 
                                                 <DataTrigger Binding="{Binding QuestLevel, Mode=OneWay}"
                                                              Value="{x:Static enums:QuestLevel.HighRank}">
                                                     <Setter Property="Foreground" Value="#FF3333"/>
+                                                    <Setter Property="Image" Value="{StaticResource ICON_STAR}"/>
                                                 </DataTrigger>
 
                                                 <DataTrigger Binding="{Binding QuestLevel, Mode=OneWay}"
                                                              Value="{x:Static enums:QuestLevel.MasterRank}">
                                                     <Setter Property="Foreground" Value="#FFD91D "/>
+                                                    <Setter Property="Image" Value="{StaticResource ICON_MASTER_RANK}"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
