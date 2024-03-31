@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace HunterPie.Core.Remote;
@@ -14,6 +15,8 @@ public class CDN
 
     private static readonly HashSet<string> NotFoundCache = new();
 
+    private static readonly SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
+
     public static async Task<string> GetMonsterIconUrl(string imageName)
     {
         if (NotFoundCache.Contains(imageName))
@@ -21,23 +24,32 @@ public class CDN
 
         string localImage = ClientInfo.GetPathFor($"Assets/Monsters/Icons/{imageName}.png");
 
-        if (File.Exists(localImage))
-            return localImage;
+        await semaphore.WaitAsync();
 
-        using HttpClient client = new HttpClientBuilder(CDN_BASE_URL)
-            .Get($"/Assets/Monsters/Icons/{imageName}.png")
-            .WithTimeout(TimeSpan.FromSeconds(5))
-            .Build();
-
-        using HttpClientResponse response = await client.RequestAsync();
-
-        if (response.StatusCode != HttpStatusCode.OK)
+        try
         {
-            _ = NotFoundCache.Add(imageName);
-            return null;
-        }
+            if (File.Exists(localImage))
+                return localImage;
 
-        await response.DownloadAsync(localImage);
+            using HttpClient client = new HttpClientBuilder(CDN_BASE_URL)
+                .Get($"/Assets/Monsters/Icons/{imageName}.png")
+                .WithTimeout(TimeSpan.FromSeconds(5))
+                .Build();
+
+            using HttpClientResponse response = await client.RequestAsync();
+
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                _ = NotFoundCache.Add(imageName);
+                return null;
+            }
+
+            await response.DownloadAsync(localImage);
+        }
+        finally
+        {
+            semaphore.Release();
+        }
 
         return localImage;
     }
