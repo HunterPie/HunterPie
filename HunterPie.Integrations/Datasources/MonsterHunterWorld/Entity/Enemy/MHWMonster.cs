@@ -242,12 +242,12 @@ public class MHWMonster : CommonMonster
     private void GetMonsterCrownData()
     {
         float sizeModifier = Process.Memory.Read<float>(_address + 0x7730);
-        float sizeMultiplier = Process.Memory.Read<float>(_address + 0x188);
+        float sizeMultiplier = Process.Memory.Read<float>(_address + 0x184);
 
         if (sizeModifier is <= 0 or >= 2)
             sizeModifier = 1;
 
-        float monsterSizeMultiplier = sizeMultiplier / sizeModifier;
+        float monsterSizeMultiplier = (float)Math.Round(sizeMultiplier / sizeModifier * 100f) / 100f;
 
         MonsterSizeSchema? crownData = MonsterData.GetMonsterData(Id)?.Size;
 

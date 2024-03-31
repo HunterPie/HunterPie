@@ -39,7 +39,7 @@ public sealed class MHWGame : CommonGame
 
     public override List<IMonster> Monsters { get; } = new();
 
-    public override IChat Chat => null;
+    public override IChat? Chat => null;
 
     public override bool IsHudOpen
     {
@@ -74,8 +74,8 @@ public sealed class MHWGame : CommonGame
     private void GetHudVisibility()
     {
         bool isMouseVisible = Process.Memory.Deref<int>(
-            AddressMap.GetAbsolute("GAME_MOUSE_INFO_ADDRESS"),
-            AddressMap.Get<int[]>("MOUSE_VISIBILITY_OFFSETS")
+            AddressMap.GetAbsolute("HUD_MENU_ADDRESS"),
+            AddressMap.Get<int[]>("HUD_MENU_OPEN_OFFSETS")
         ) == 1;
 
         IsHudOpen = isMouseVisible;
