@@ -17,9 +17,6 @@
     <Compile Update="Controls\Buttons\Keybinding.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\Buttons\Pagination.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Controls\Buttons\Skeleton\BannerCardSkeleton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -48,6 +45,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Notification\Toast.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Paginating\Pagination.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Settings\Abnormality\Views\AbnormalityElementView.xaml.cs">
@@ -262,9 +262,6 @@
     <Page Update="Controls\Buttons\Keybinding.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Controls\Buttons\Pagination.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Controls\Buttons\Skeleton\BannerCardSkeleton.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -293,6 +290,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Notification\Toast.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Paginating\Pagination.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\Abnormality\Views\AbnormalityElementView.xaml">

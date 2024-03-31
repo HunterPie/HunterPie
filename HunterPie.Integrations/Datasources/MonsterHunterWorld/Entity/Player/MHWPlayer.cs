@@ -18,7 +18,6 @@ using HunterPie.Integrations.Datasources.Common.Definition;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
-using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Environment.Activities;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
@@ -342,12 +341,12 @@ public sealed class MHWPlayer : CommonPlayer
     [ScannableMethod]
     private void GetParty()
     {
-        var questInformation = (QuestState)Process.Memory.Deref<int>(
+        MHWQuestStructure quest = Memory.Deref<MHWQuestStructure>(
             AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
-            AddressMap.Get<int[]>("QUEST_STATE_OFFSETS")
+            AddressMap.GetOffsets("QUEST_DATA_OFFSETS")
         );
 
-        if (questInformation.IsQuestOver())
+        if (quest.State.IsQuestOver() || quest.Id <= 0)
             return;
 
         long partyInformationPtr = Process.Memory.Read(

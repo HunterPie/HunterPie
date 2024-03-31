@@ -31,6 +31,19 @@ internal class HuntStatisticsService : IHuntStatisticsService<HuntStatisticsMode
 
     public HuntStatisticsModel Export()
     {
+        QuestDetailsModel? questModel = _context.Game.Quest switch
+        {
+            { } quest => new QuestDetailsModel(
+                Id: quest.Id,
+                Type: quest.Type,
+                Deaths: quest.Deaths,
+                MaxDeaths: quest.MaxDeaths,
+                Level: quest.Level,
+                Stars: quest.Stars
+            ),
+            _ => null
+        };
+
         var players = _partyMembersStatisticsServices.Select(s => s.Export())
             .ToList();
 
@@ -39,6 +52,7 @@ internal class HuntStatisticsService : IHuntStatisticsService<HuntStatisticsMode
 
         return new HuntStatisticsModel(
             Game: GetGameType(),
+            Quest: questModel,
             Players: players,
             Monsters: monsters,
             StartedAt: _startedAt,
@@ -52,6 +66,7 @@ internal class HuntStatisticsService : IHuntStatisticsService<HuntStatisticsMode
     {
         _context.Game.Player.Party.OnMemberJoin += OnPartyMemberJoin;
         _context.Game.OnMonsterSpawn += OnMonsterSpawn;
+
 
         foreach (IPartyMember player in _context.Game.Player.Party.Members)
             HandlePartyMember(player);

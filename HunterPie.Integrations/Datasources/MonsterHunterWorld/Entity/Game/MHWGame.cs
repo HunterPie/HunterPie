@@ -4,8 +4,8 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Entity.Game.Chat;
+using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Player;
-using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
 using HunterPie.Core.Native.IPC.Handlers.Internal.Damage;
@@ -14,8 +14,10 @@ using HunterPie.Core.Native.IPC.Models.Common;
 using HunterPie.Integrations.Datasources.Common;
 using HunterPie.Integrations.Datasources.Common.Entity.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Crypto;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enums;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Game.Quest;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Services;
@@ -30,12 +32,11 @@ public sealed class MHWGame : CommonGame
     private readonly Dictionary<long, IMonster> _monsters = new();
     private readonly Dictionary<long, EntityDamageData[]> _damageDone = new();
     private bool _isMouseVisible;
-    private int _deaths;
-    private bool _isInQuest;
     private readonly Stopwatch _localTimerStopwatch = new();
     private readonly Stopwatch _damageUpdateThrottleStopwatch = new();
 
     public override IPlayer Player => _player;
+
     public override List<IMonster> Monsters { get; } = new();
 
     public override IChat? Chat => null;
@@ -55,52 +56,14 @@ public sealed class MHWGame : CommonGame
 
     public override float TimeElapsed { get; protected set; }
 
-    private void SetTimeElapsed(float value, bool isReset)
-    {
-        if (value == TimeElapsed)
-            return;
-
-        TimeElapsed = value;
-        this.Dispatch(_onTimeElapsedChange, new TimeElapsedChangeEventArgs(isReset, value));
-    }
-
-    public override int MaxDeaths
-    {
-        get => 0;
-        protected set => throw new NotSupportedException();
-    }
-
-    public override int Deaths
-    {
-        get => _deaths;
-        protected set
-        {
-            if (value != _deaths)
-            {
-                _deaths = value;
-                this.Dispatch(_onDeathCountChange, this);
-            }
-        }
-    }
-
-    public override bool IsInQuest
-    {
-        get => _isInQuest;
-        protected set
-        {
-            if (value != _isInQuest)
-            {
-                _isInQuest = value;
-                this.Dispatch(value ? _onQuestStart : _onQuestEnd, new QuestStateChangeEventArgs(this));
-            }
-        }
-    }
+    private MHWQuest? _quest;
+    public override IQuest? Quest => _quest;
 
     public override IAbnormalityCategorizationService AbnormalityCategorizationService { get; } = new MHWAbnormalityCategorizatonService();
 
     public MHWGame(IProcessManager process) : base(process)
     {
-        _player = new(process);
+        _player = new MHWPlayer(process);
         DamageMessageHandler.OnReceived += OnReceivePlayersDamage;
         _player.OnStageUpdate += OnPlayerStageUpdate;
 
@@ -108,7 +71,7 @@ public sealed class MHWGame : CommonGame
     }
 
     [ScannableMethod]
-    private void GetMouseVisibilityState()
+    private void GetHudVisibility()
     {
         bool isMouseVisible = Process.Memory.Deref<int>(
             AddressMap.GetAbsolute("HUD_MENU_ADDRESS"),
@@ -130,7 +93,7 @@ public sealed class MHWGame : CommonGame
 
         float elapsed = MHWCrypto.LiterallyWhyCapcom(timer);
 
-        if (QuestStatus == QuestStatus.None)
+        if (Quest is null)
         {
             if (!Player.InHuntingZone)
             {
@@ -167,16 +130,42 @@ public sealed class MHWGame : CommonGame
     }
 
     [ScannableMethod]
-    private void GetQuestState()
+    private void GetQuest()
     {
-        var questState = (QuestState)Memory.Deref<int>(
+        MHWQuestStructure quest = Memory.Deref<MHWQuestStructure>(
             AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
-            AddressMap.Get<int[]>("QUEST_STATE_OFFSETS")
+            AddressMap.GetOffsets("QUEST_DATA_OFFSETS")
         );
 
-        QuestStatus = questState.ToStatus();
+        bool hasQuestStarted = quest.State == QuestState.InQuest;
+        bool isQuestOver = quest.State.IsQuestOver() || !hasQuestStarted;
+        bool isQuestInvalid = quest.Id <= 0;
 
-        IsInQuest = questState == QuestState.InQuest;
+        if (_quest is not null
+            && (isQuestOver || isQuestInvalid))
+        {
+            this.Dispatch(_onQuestEnd, new QuestEndEventArgs(quest.State.ToStatus(), TimeElapsed));
+            ScanManager.Remove(_quest);
+            _quest = null;
+        }
+
+        if (_quest is null
+            && !isQuestOver
+            && !isQuestInvalid)
+        {
+            var questType = quest.Category.ToQuestType();
+
+            _quest = new MHWQuest(
+                process: Process,
+                id: quest.Id,
+                stars: quest.Stars,
+                questType: questType
+            );
+
+            ScanManager.Add(_quest);
+            this.Dispatch(_onQuestStart, _quest);
+        }
+
     }
 
     [ScannableMethod]
@@ -192,57 +181,28 @@ public sealed class MHWGame : CommonGame
     }
 
     [ScannableMethod]
-    private void GetDeathCounter()
+    private void GetMonsters()
     {
-        int deathCounter = Process.Memory.Deref<int>(
-            AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
-            AddressMap.Get<int[]>("QUEST_DEATH_COUNTER_OFFSETS")
+        long monsterComponentsPointer = Memory.Read(
+            AddressMap.GetAbsolute("MONSTER_LIST_ADDRESS"),
+            AddressMap.GetOffsets("MONSTER_LIST_OFFSETS")
         );
-
-        Deaths = deathCounter;
-    }
-
-    [ScannableMethod]
-    private void GetMonsterDoubleLinkedList()
-    {
-        long doubleLinkedListHead = Process.Memory.Read(
-            AddressMap.GetAbsolute("MONSTER_ADDRESS"),
-            AddressMap.Get<int[]>("MONSTER_OFFSETS")
-        );
-
-        long next = doubleLinkedListHead;
-        bool isBigMonster;
-        HashSet<long> monsterAddresses = new();
-        do
-        {
-            long monsterEmPtr = Process.Memory.Read<long>(next + 0x2A0);
-            string monsterEm = Process.Memory.Read(monsterEmPtr + 0x0C, 64);
-
-            isBigMonster = monsterEmPtr != 0
-                && monsterEm.StartsWith("em\\em")
-                && !monsterEm.StartsWith("em\\ems");
-
-            if (!isBigMonster)
-                break;
-
-            _ = monsterAddresses.Add(next);
-
-            string? em = monsterEm.Split('\\')
-                                  .ElementAtOrDefault(1);
-
-            if (em is null)
-                break;
-
-            HandleMonsterSpawn(next, em);
-
-            next = Process.Memory.Read<long>(next - 0x30) + 0x40;
-        } while (isBigMonster);
-
-        long[] toDespawn = _monsters.Keys.Where(address => !monsterAddresses.Contains(address))
+        (long monsterPtr, string em)[] bigMonsters = Memory.Read<long>(monsterComponentsPointer, 128)
+            .AsParallel()
+            .Where(component => !component.IsNullPointer())
+            .Select(component => Memory.Read<long>(component + 0x138))
+            .Select(monsterPtr => (monsterPtr: monsterPtr, em: Memory.ReadString(monsterPtr + 0x2A0, 64)))
+            .Where(it => it.em.StartsWith("em\\em") && !it.em.StartsWith("em\\ems"))
             .ToArray();
 
-        foreach (long monsterAddress in toDespawn)
-            HandleMonsterDespawn(monsterAddress);
+        foreach ((long monsterPtr, string em) in bigMonsters)
+            HandleMonsterSpawn(monsterPtr, em);
+
+        long[] monsterPtrs = bigMonsters.Select(it => it.monsterPtr)
+            .ToArray();
+
+        _monsters.Keys.Where(monsterPtr => !monsterPtrs.Contains(monsterPtr))
+            .ForEach(HandleMonsterDespawn);
     }
 
     private void HandleMonsterSpawn(long address, string em)
@@ -277,6 +237,15 @@ public sealed class MHWGame : CommonGame
         DamageMessageHandler.OnReceived -= OnReceivePlayersDamage;
         _player.OnStageUpdate -= OnPlayerStageUpdate;
         base.Dispose();
+    }
+
+    private void SetTimeElapsed(float value, bool isReset)
+    {
+        if (value == TimeElapsed)
+            return;
+
+        TimeElapsed = value;
+        this.Dispatch(_onTimeElapsedChange, new TimeElapsedChangeEventArgs(isReset, value));
     }
 
     #region Damage helpers

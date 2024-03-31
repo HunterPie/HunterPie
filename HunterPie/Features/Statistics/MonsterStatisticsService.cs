@@ -23,6 +23,7 @@ internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
     private DateTime? _huntEnd;
     private float _maxHealth;
     private Crown _crown;
+    private MonsterHuntType _huntType;
 
     public MonsterStatisticsService(IContext context, IMonster monster)
     {
@@ -47,7 +48,7 @@ internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
 
         _huntEnd = _huntStart is { } ? DateTime.UtcNow : null;
 
-        return new(
+        return new MonsterModel(
             Id: _monsterId,
             MaxHealth: _maxHealth,
             Crown: _crown,
@@ -55,7 +56,8 @@ internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
                 Activations: _enrages.ToArray()
             ),
             HuntStartedAt: _huntStart,
-            HuntFinishedAt: _huntEnd
+            HuntFinishedAt: _huntEnd,
+            HuntType: _huntType
         );
     }
 
@@ -106,11 +108,13 @@ internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
     private void OnDeath(object? sender, EventArgs e)
     {
         _huntEnd = DateTime.UtcNow;
+        _huntType = MonsterHuntType.Slay;
     }
 
     private void OnCapture(object? sender, EventArgs e)
     {
         _huntEnd = DateTime.UtcNow;
+        _huntType = MonsterHuntType.Capture;
     }
 
     private void OnEnrageStateChange(object? sender, EventArgs e)
