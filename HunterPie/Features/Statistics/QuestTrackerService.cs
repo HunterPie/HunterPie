@@ -2,6 +2,7 @@
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Logger;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Features.Account;
 using HunterPie.Features.Account.Config;
@@ -42,6 +43,8 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
 
     private async void OnQuestEnd(object? sender, QuestEndEventArgs e)
     {
+        Log.Debug("Quest ended with status {0}", e.Status);
+
         if (_statisticsService is null)
             return;
 
@@ -49,8 +52,6 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
             return;
 
         HuntStatisticsModel exported = _statisticsService.Export();
-
-        _statisticsService.Dispose();
 
         if (e.Status != QuestStatus.Success || !ShouldUpload(exported))
             return;
@@ -68,10 +69,14 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
 
         await _connector.Upload(exportedRequest)
             .ConfigureAwait(false);
+
+        _statisticsService.Dispose();
     }
 
     private void OnQuestStart(object? sender, IQuest e)
     {
+        Log.Debug("Quest started (id: {0}, type: {1})", e.Id, e.Type);
+
         if (_context is null)
             return;
 

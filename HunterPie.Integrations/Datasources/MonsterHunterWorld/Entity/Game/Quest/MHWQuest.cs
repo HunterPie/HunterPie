@@ -55,8 +55,20 @@ public class MHWQuest : Scannable, IQuest, IDisposable, IEventDispatcher
         }
     }
 
+    private int _maxDeaths;
     /// <inheritdoc />
-    public int MaxDeaths { get; private set; }
+    public int MaxDeaths
+    {
+        get => _maxDeaths;
+        private set
+        {
+            if (value == _maxDeaths)
+                return;
+
+            _maxDeaths = value;
+            this.Dispatch(_onDeathCounterChange, new CounterChangeEventArgs(Deaths, value));
+        }
+    }
 
     /// <inheritdoc />
     public QuestLevel Level { get; }

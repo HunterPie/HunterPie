@@ -93,7 +93,12 @@ public sealed class MHWGame : CommonGame
 
         float elapsed = MHWCrypto.LiterallyWhyCapcom(timer);
 
-        if (Quest is null)
+        MHWQuestStructure quest = Memory.Deref<MHWQuestStructure>(
+            AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
+            AddressMap.GetOffsets("QUEST_DATA_OFFSETS")
+        );
+
+        if (Quest is null && !quest.State.IsQuestOver())
         {
             if (!Player.InHuntingZone)
             {

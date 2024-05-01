@@ -81,9 +81,9 @@ internal class HuntStatisticsService : IHuntStatisticsService<HuntStatisticsMode
         _context.Game.OnMonsterSpawn -= OnMonsterSpawn;
     }
 
-    private void OnMonsterSpawn(object sender, IMonster e) => HandleMonster(e);
+    private void OnMonsterSpawn(object? sender, IMonster e) => HandleMonster(e);
 
-    private void OnPartyMemberJoin(object sender, IPartyMember e) => HandlePartyMember(e);
+    private void OnPartyMemberJoin(object? sender, IPartyMember e) => HandlePartyMember(e);
 
     private void HandleMonster(IMonster e)
     {
