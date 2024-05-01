@@ -200,11 +200,12 @@ public sealed class MHWInsectGlaive : MHWMeleeWeapon, IInsectGlaive
                                   .ToArray()
             : EmptyBuffs;
 
-        AttackTimer = Math.Max(0.0f, structure.AttackTimer);
-        SpeedTimer = Math.Max(0.0f, structure.SpeedTimer);
-        DefenseTimer = Math.Max(0.0f, structure.DefenseTimer);
-        PrimaryExtract = buffs.Length > 0 ? buffs.First() : KinsectBuff.None;
-        SecondaryExtract = buffs.Length > 1 ? buffs.Last() : KinsectBuff.None;
+        float powerProlonger = _skillService.GetPowerProlongerMultiplier(Weapon.InsectGlaive);
+        AttackTimer = Math.Max(0.0f, structure.AttackTimer * powerProlonger);
+        SpeedTimer = Math.Max(0.0f, structure.SpeedTimer * powerProlonger);
+        DefenseTimer = Math.Max(0.0f, structure.DefenseTimer * powerProlonger);
+        PrimaryExtract = buffs.FirstOrDefault(KinsectBuff.None);
+        SecondaryExtract = buffs.LastOrDefault(KinsectBuff.None);
         MaxStamina = extraStructure.MaxStamina;
         Stamina = kinsectStructure.Stamina;
         ChargeType = kinsectStructure switch
@@ -216,7 +217,7 @@ public sealed class MHWInsectGlaive : MHWMeleeWeapon, IInsectGlaive
         };
 
         float chargeTimer = Math.Max(kinsectStructure.RedCharge, kinsectStructure.YellowCharge);
-        Charge = ChargeType != KinsectChargeType.None ? Math.Max(0.0f, chargeTimer) : 0.0f;
+        Charge = ChargeType != KinsectChargeType.None ? Math.Max(0.0f, chargeTimer * powerProlonger) : 0.0f;
     }
 
     public override void Dispose()
