@@ -200,11 +200,10 @@ public sealed class MHWInsectGlaive : MHWMeleeWeapon, IInsectGlaive
                                   .ToArray()
             : EmptyBuffs;
 
-        // TODO: Adjust timer based on Power Prolonger buff
         AttackTimer = Math.Max(0.0f, structure.AttackTimer);
         SpeedTimer = Math.Max(0.0f, structure.SpeedTimer);
         DefenseTimer = Math.Max(0.0f, structure.DefenseTimer);
-        PrimaryExtract = buffs.First();
+        PrimaryExtract = buffs.Length > 0 ? buffs.First() : KinsectBuff.None;
         SecondaryExtract = buffs.Length > 1 ? buffs.Last() : KinsectBuff.None;
         MaxStamina = extraStructure.MaxStamina;
         Stamina = kinsectStructure.Stamina;
