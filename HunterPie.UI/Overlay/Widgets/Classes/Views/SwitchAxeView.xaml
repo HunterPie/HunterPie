@@ -248,7 +248,8 @@
                           BackgroundBorder="{StaticResource GRAY_50}"
                           BackgroundColor="{StaticResource GRAY_400}">
                 <progress:Bar.Style>
-                    <Style TargetType="progress:Bar">
+                    <Style TargetType="progress:Bar"
+                           BasedOn="{StaticResource DefaultProgressBarStyle}">
                         <Setter Property="ForegroundBorder" Value="{StaticResource SWITCH_AXE_BUILD_UP_HIGH_BRUSH}"/>
                         <Setter Property="ForegroundColor" Value="{StaticResource SWITCH_AXE_BUILD_UP_HIGH_BACKGROUND_BRUSH}"/>
                         <Style.Triggers>

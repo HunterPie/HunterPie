@@ -11,7 +11,8 @@
                     xmlns:wirebug="clr-namespace:HunterPie.UI.Overlay.Widgets.Wirebug.Views;assembly=HunterPie.UI"
                     xmlns:specialized="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.Views;assembly=HunterPie.UI"
                     xmlns:playerHud="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.Views;assembly=HunterPie.UI"
-                    xmlns:effects="clr-namespace:HunterPie.UI.Controls.Effects;assembly=HunterPie.UI">
+                    xmlns:effects="clr-namespace:HunterPie.UI.Controls.Effects;assembly=HunterPie.UI"
+                    xmlns:progress="clr-namespace:HunterPie.UI.Overlay.Controls.Progress;assembly=HunterPie.UI">
     <!-- Converters -->
     <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
     
@@ -752,6 +753,71 @@
         </Setter>
     </Style>
 
+    <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
+    <converters:NoRightStrokeConverter x:Key="NoRightStrokeConverter"/>
+    <converters:EqualityToBooleanConverter x:Key="EqualityToBooleanConverter"/>
+
+    <Style TargetType="{x:Type progress:Bar}"
+           x:Key="DefaultProgressBarStyle">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid DataContext="{Binding ., RelativeSource={RelativeSource AncestorType={x:Type progress:Bar}}}">
+                        <!-- Background bar -->
+                        <Border Background="{Binding BackgroundColor, Mode=OneWay}"
+                                BorderBrush="{Binding BackgroundBorder, Mode=OneWay}"
+                                BorderThickness="{Binding Border, Mode=OneWay}"
+                                x:Name="PART_Background"/>
+
+                        <!-- Foreground Bar -->
+                        <Border Background="{Binding ForegroundColor, Mode=OneWay}"
+                                BorderBrush="{Binding ForegroundBorder, Mode=OneWay}"
+                                HorizontalAlignment="Left">
+                            <Border.Width>
+                                <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
+                                    <Binding Path="Value" Mode="OneWay"/>
+                                    <Binding Path="MaxValue" Mode="OneWay"/>
+                                    <Binding Path="ActualWidth" Mode="OneWay" ElementName="PART_Background"/>
+                                </MultiBinding>
+                            </Border.Width>
+
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Style.Triggers>
+                                        <DataTrigger Value="True">
+                                            <DataTrigger.Binding>
+                                                <MultiBinding Converter="{StaticResource EqualityToBooleanConverter}">
+                                                    <Binding Path="Value" Mode="OneWay"/>
+                                                    <Binding Path="MaxValue" Mode="OneWay"/>
+                                                </MultiBinding>
+                                            </DataTrigger.Binding>
+                                            <Setter Property="BorderThickness" Value="{Binding Border, Mode=OneWay}"/>
+                                        </DataTrigger>
+
+                                        <DataTrigger Value="False">
+                                            <DataTrigger.Binding>
+                                                <MultiBinding Converter="{StaticResource EqualityToBooleanConverter}">
+                                                    <Binding Path="Value" Mode="OneWay"/>
+                                                    <Binding Path="MaxValue" Mode="OneWay"/>
+                                                </MultiBinding>
+                                            </DataTrigger.Binding>
+                                            <Setter Property="BorderThickness" Value="{Binding Border, Mode=OneWay, Converter={StaticResource NoRightStrokeConverter}}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+
+                        <ContentControl Content="{Binding Content, Mode=OneWay}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type progress:Bar}"
+           BasedOn="{StaticResource DefaultProgressBarStyle}"/>
+    
     <!-- Themes support -->
     <Style x:Key="STYLE_MONSTERS_WIDGET" TargetType="{x:Type monster:MonstersView}"/>
     <Style x:Key="STYLE_DAMAGE_METER_WIDGET" TargetType="{x:Type meter:MeterView}"/>
