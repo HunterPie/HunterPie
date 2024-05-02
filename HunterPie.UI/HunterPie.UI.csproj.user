@@ -86,9 +86,6 @@
     <Compile Update="Overlay\Controls\Bar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Overlay\Controls\Progress\Bar.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -329,9 +326,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Controls\Bar.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Overlay\Controls\Progress\Bar.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml">
