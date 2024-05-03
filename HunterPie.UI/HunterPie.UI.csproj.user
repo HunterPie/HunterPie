@@ -149,6 +149,9 @@
     <Compile Update="Overlay\Widgets\Classes\Views\SwitchAxeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Clock\Views\ClockView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Damage\View\DamageBarView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -389,6 +392,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Classes\Views\SwitchAxeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Clock\Views\ClockView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Damage\View\DamageBarView.xaml">

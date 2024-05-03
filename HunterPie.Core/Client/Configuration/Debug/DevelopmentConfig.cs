@@ -50,6 +50,9 @@ public class DevelopmentConfig : ISettings
 
     [ConfigurationProperty("DEV_MOCK_DUAL_BLADES_WIDGET_STRING", requiresRestart: true, group: CommonConfigurationGroups.MOCKS)]
     public Observable<bool> MockDualBladesWidget { get; set; } = false;
+
+    [ConfigurationProperty("DEV_MOCK_CLOCK_WIDGET_STRING", requiresRestart: true, group: CommonConfigurationGroups.MOCKS)]
+    public Observable<bool> MockClockWidget { get; set; } = false;
     #endregion
 
     #region Development Settings
