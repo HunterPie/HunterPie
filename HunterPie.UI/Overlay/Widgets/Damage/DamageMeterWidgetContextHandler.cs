@@ -37,7 +37,6 @@ public class DamageMeterWidgetContextHandler : IContextHandler
     private readonly Dictionary<IPartyMember, MemberInfo> _members = new();
     private readonly Dictionary<IPartyMember, DamageBarViewModel> _pets = new();
     private double _lastTimeElapsed;
-    private IQuest? _quest;
 
     public DamageMeterWidgetContextHandler(IContext context)
     {
@@ -89,8 +88,8 @@ public class DamageMeterWidgetContextHandler : IContextHandler
         foreach (IPartyMember member in _members.Keys.ToArray())
             HandleRemoveMember(member);
 
-        if (_quest is { })
-            _quest.OnDeathCounterChange -= OnDeathCounterChange;
+        if (_context.Game.Quest is { } quest)
+            quest.OnDeathCounterChange -= OnDeathCounterChange;
 
         _ = WidgetManager.Unregister<MeterView, DamageMeterWidgetConfig>(_view);
     }
@@ -98,25 +97,14 @@ public class DamageMeterWidgetContextHandler : IContextHandler
     #region Events
     private void OnQuestStart(object? sender, IQuest e)
     {
-        if (_quest is { })
-        {
-            _quest.OnDeathCounterChange -= OnDeathCounterChange;
-            _quest = null;
-        }
-
-        _quest = e;
-        _quest.OnDeathCounterChange += OnDeathCounterChange;
+        e.OnDeathCounterChange += OnDeathCounterChange;
         _viewModel.MaxDeaths = e.MaxDeaths;
         _viewModel.Deaths = e.Deaths;
     }
 
     private void OnQuestEnd(object? sender, QuestEndEventArgs e)
     {
-        if (_quest is null)
-            return;
-
-        _quest.OnDeathCounterChange -= OnDeathCounterChange;
-        _quest = null;
+        e.Quest.OnDeathCounterChange -= OnDeathCounterChange;
     }
 
     private void OnDeathCounterChange(object? sender, CounterChangeEventArgs e)

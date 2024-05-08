@@ -82,6 +82,19 @@ public sealed class MHWGame : CommonGame
     }
 
     [ScannableMethod]
+    private void GetWorldData()
+    {
+        MHWWorldDataStructure worldData = Memory.Deref<MHWWorldDataStructure>(
+            address: AddressMap.GetAbsolute("WORLD_DATA_ADDRESS"),
+            offsets: AddressMap.GetOffsets("WORLD_DATA_OFFSETS")
+        );
+
+        float hour = Math.Abs(worldData.WorldTime);
+        float minute = Math.Abs(60 * (worldData.WorldTime % 1));
+        WorldTime = new TimeOnly((int)hour, (int)minute);
+    }
+
+    [ScannableMethod]
     private void GetTimeElapsed()
     {
         long questEndTimerPtrs = Process.Memory.Read(
@@ -149,7 +162,7 @@ public sealed class MHWGame : CommonGame
         if (_quest is not null
             && (isQuestOver || isQuestInvalid))
         {
-            this.Dispatch(_onQuestEnd, new QuestEndEventArgs(quest.State.ToStatus(), TimeElapsed));
+            this.Dispatch(_onQuestEnd, new QuestEndEventArgs(_quest, quest.State.ToStatus(), TimeElapsed));
             ScanManager.Remove(_quest);
             _quest = null;
         }

@@ -36,7 +36,7 @@
                             Foreground="{StaticResource WHITE_600}"/>
                 <TextBlock Grid.Column="1" 
                            d:Text="00:00:00"
-                           Text="{Binding QuestTimeLeft, Mode=OneWay, StringFormat='hh\\:mm\\:ss'}"
+                           Text="{Binding QuestTimeLeft, Mode=OneWay, StringFormat='hh\\:mm\\:ss', TargetNullValue='--:--:--'}"
                            Foreground="{StaticResource WHITE_200}"
                            HorizontalAlignment="Right"
                            Margin="5,0,0,0"

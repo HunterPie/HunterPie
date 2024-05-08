@@ -188,7 +188,7 @@ public sealed class MHRGame : CommonGame
         if (_quest is not null
             && (isQuestOver || isQuestInvalid))
         {
-            this.Dispatch(_onQuestEnd, new QuestEndEventArgs(questStructure.State.ToQuestStatus(), TimeElapsed));
+            this.Dispatch(_onQuestEnd, new QuestEndEventArgs(_quest, questStructure.State.ToQuestStatus(), TimeElapsed));
             ScanManager.Remove(_quest);
             _quest = null;
         }

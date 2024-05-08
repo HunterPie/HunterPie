@@ -28,7 +28,7 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
         if (_context is null)
             return;
 
-        _context!.Game.OnQuestStart += OnQuestStart;
+        _context.Game.OnQuestStart += OnQuestStart;
         _context.Game.OnQuestEnd += OnQuestEnd;
     }
 
@@ -37,7 +37,7 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
         if (_context is null)
             return;
 
-        _context!.Game.OnQuestStart -= OnQuestStart;
+        _context.Game.OnQuestStart -= OnQuestStart;
         _context.Game.OnQuestEnd -= OnQuestEnd;
     }
 

@@ -6,6 +6,7 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Events;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
 
@@ -76,6 +77,23 @@ public class MHWQuest : Scannable, IQuest, IDisposable, IEventDispatcher
     /// <inheritdoc />
     public int Stars { get; }
 
+    private TimeSpan _timeLeft = TimeSpan.Zero;
+
+    /// <inheritdoc />
+    public TimeSpan TimeLeft
+    {
+        get => _timeLeft;
+        protected set
+        {
+            if (value == _timeLeft)
+                return;
+
+            TimeSpan oldValue = _timeLeft;
+            _timeLeft = value;
+            this.Dispatch(_onTimeLeftChange, new SimpleValueChangeEventArgs<TimeSpan>(oldValue, value));
+        }
+    }
+
     private readonly SmartEvent<SimpleValueChangeEventArgs<QuestStatus>> _onQuestStatusChange = new();
 
     /// <inheritdoc />
@@ -92,6 +110,15 @@ public class MHWQuest : Scannable, IQuest, IDisposable, IEventDispatcher
     {
         add => _onDeathCounterChange.Hook(value);
         remove => _onDeathCounterChange.Unhook(value);
+    }
+
+    private readonly SmartEvent<SimpleValueChangeEventArgs<TimeSpan>> _onTimeLeftChange = new();
+
+    /// <inheritdoc />
+    public event EventHandler<SimpleValueChangeEventArgs<TimeSpan>> OnTimeLeftChange
+    {
+        add => _onTimeLeftChange.Hook(value);
+        remove => _onTimeLeftChange.Unhook(value);
     }
 
     public MHWQuest(
@@ -124,11 +151,25 @@ public class MHWQuest : Scannable, IQuest, IDisposable, IEventDispatcher
         Deaths = questData.Deaths;
     }
 
+    [ScannableMethod]
+    private void GetTimer()
+    {
+        ulong timeLeft = Memory.Deref<ulong>(
+            address: AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
+            offsets: AddressMap.GetOffsets("QUEST_TIMER_OFFSETS")
+        );
+
+        TimeLeft = TimeSpan.FromSeconds(
+            value: MHWCrypto.LiterallyWhyCapcom(timeLeft)
+        );
+    }
+
     public void Dispose()
     {
         IDisposableExtensions.DisposeAll(
             _onQuestStatusChange,
-            _onDeathCounterChange
+            _onDeathCounterChange,
+            _onTimeLeftChange
         );
     }
 
