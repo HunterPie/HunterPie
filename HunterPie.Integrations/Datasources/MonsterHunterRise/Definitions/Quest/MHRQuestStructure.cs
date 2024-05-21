@@ -20,4 +20,8 @@ public struct MHRQuestStructure
     [FieldOffset(0x15C)] public int MaxDeaths;
 
     [FieldOffset(0x160)] public int Deaths;
+
+    [FieldOffset(0x170)] public float TimeElapsed;
+
+    [FieldOffset(0x178)] public float TimeLimit;
 }

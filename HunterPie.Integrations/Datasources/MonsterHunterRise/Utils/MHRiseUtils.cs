@@ -79,6 +79,27 @@ public static class MHRiseUtils
         return memory.Read<T>(address + 0x20, arraySize);
     }
 
+    public static IReadOnlyCollection<T> ReadListOfPtrsSafe<T>(this IMemory memory, long address, uint size)
+        where T : struct
+    {
+        return memory.ReadListSafe<long>(address, size)
+            .Select(memory.Read<T>)
+            .ToArray();
+    }
+
+    public static IReadOnlyCollection<T> ReadListSafe<T>(this IMemory memory, long address, uint size) where T : struct
+    {
+        uint listSize = memory.Read<uint>(address + 0x18);
+        listSize = Math.Min(listSize, size);
+        return memory.Read<T>(address + 0x20, listSize);
+    }
+
+    public static IReadOnlyCollection<T> ReadList<T>(this IMemory memory, long address) where T : struct
+    {
+        uint listSize = memory.Read<uint>(address + 0x18);
+        return memory.Read<T>(address + 0x20, listSize);
+    }
+
     public static WirebugType ToType(this MHRWirebugCountStructure count, int index)
     {
         int obtainableWirebugs = count.Default + count.Environment;

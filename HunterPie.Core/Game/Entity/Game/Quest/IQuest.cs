@@ -46,6 +46,11 @@ public interface IQuest
     public int Stars { get; }
 
     /// <summary>
+    /// Quest time left
+    /// </summary>
+    public TimeSpan TimeLeft { get; }
+
+    /// <summary>
     /// Event dispatched whenever the quest status change
     /// </summary>
     public event EventHandler<SimpleValueChangeEventArgs<QuestStatus>> OnQuestStatusChange;
@@ -54,4 +59,9 @@ public interface IQuest
     /// Event dispatched whenever someone dies
     /// </summary>
     public event EventHandler<CounterChangeEventArgs> OnDeathCounterChange;
+
+    /// <summary>
+    /// Event dispatched whenever the time left is updated
+    /// </summary>
+    public event EventHandler<SimpleValueChangeEventArgs<TimeSpan>> OnTimeLeftChange;
 }

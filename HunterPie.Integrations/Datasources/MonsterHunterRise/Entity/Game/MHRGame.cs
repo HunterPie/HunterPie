@@ -17,6 +17,7 @@ using HunterPie.Integrations.Datasources.Common;
 using HunterPie.Integrations.Datasources.Common.Entity.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions.Quest;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions.World;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Chat;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
@@ -170,6 +171,25 @@ public sealed class MHRGame : CommonGame
     }
 
     [ScannableMethod]
+    private void GetWorldData()
+    {
+        long timersArrayPtr = Memory.Deref<long>(
+            address: AddressMap.GetAbsolute("STAGE_MANAGER_ADDRESS"),
+            offsets: AddressMap.GetOffsets("WORLD_TIME_OFFSETS")
+        );
+        IReadOnlyCollection<MHRWorldTimeStructure> timers = Memory.ReadListOfPtrsSafe<MHRWorldTimeStructure>(
+           address: timersArrayPtr,
+           size: 3
+        );
+        MHRWorldTimeStructure lastTimer = timers.LastOrDefault(default(MHRWorldTimeStructure));
+
+        if (lastTimer is not { Hours: <= 24 and >= 0, Minutes: <= 60 and >= 0, Seconds: <= 60 and >= 0 })
+            return;
+
+        WorldTime = new TimeOnly(lastTimer.Hours, lastTimer.Minutes, lastTimer.Seconds);
+    }
+
+    [ScannableMethod]
     private void GetQuest()
     {
         MHRQuestStructure questStructure = Memory.Deref<MHRQuestStructure>(
@@ -188,7 +208,7 @@ public sealed class MHRGame : CommonGame
         if (_quest is not null
             && (isQuestOver || isQuestInvalid))
         {
-            this.Dispatch(_onQuestEnd, new QuestEndEventArgs(questStructure.State.ToQuestStatus(), TimeElapsed));
+            this.Dispatch(_onQuestEnd, new QuestEndEventArgs(_quest, questStructure.State.ToQuestStatus(), TimeElapsed));
             ScanManager.Remove(_quest);
             _quest = null;
         }

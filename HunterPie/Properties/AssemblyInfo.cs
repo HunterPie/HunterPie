@@ -12,5 +12,5 @@ using System.Windows;
 )]
 
 
-[assembly: AssemblyVersion("2.11.0.37")]
-[assembly: AssemblyFileVersion("2.11.0.37")]
+[assembly: AssemblyVersion("2.11.0.47")]
+[assembly: AssemblyFileVersion("2.11.0.47")]

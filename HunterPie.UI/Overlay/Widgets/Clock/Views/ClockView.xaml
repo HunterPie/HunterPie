@@ -1,0 +1,66 @@
+﻿<architecture:View x:TypeArguments="viewModels:ClockViewModel" 
+                   x:Class="HunterPie.UI.Overlay.Widgets.Clock.Views.ClockView"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                   xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Clock.Views"
+                   xmlns:architecture="clr-namespace:HunterPie.UI.Architecture"
+                   xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Clock.ViewModels"
+                   xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+                   xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
+                   xmlns:system="clr-namespace:System;assembly=System.Runtime"
+                   xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+                   mc:Ignorable="d"
+                   d:DataContext="{d:DesignInstance Type=viewModels:ClockViewModel}"
+                   HorizontalAlignment="Center"
+                   Width="120">
+    <UserControl.Resources>
+        <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
+        <system:Double x:Key="BackgroundOpacity">0.8</system:Double>
+    </UserControl.Resources>
+    <Border Padding="5"
+            BorderThickness="1"
+            BorderBrush="{Binding Source={StaticResource GRAY_50}, ConverterParameter={StaticResource BackgroundOpacity}, Converter={StaticResource BrushOpacityConverter}}"
+            Background="{Binding Source={StaticResource GRAY_500}, ConverterParameter={StaticResource BackgroundOpacity}, Converter={StaticResource BrushOpacityConverter}}"
+            CornerRadius="5">
+        <StackPanel Orientation="Vertical">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <image:Icon Grid.Column="0" 
+                            Image="{StaticResource ICON_HOUR_GLASS}"
+                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                            Foreground="{StaticResource WHITE_600}"/>
+                <TextBlock Grid.Column="1" 
+                           d:Text="00:00:00"
+                           Text="{Binding QuestTimeLeft, Mode=OneWay, StringFormat='hh\\:mm\\:ss', TargetNullValue='--:--:--'}"
+                           Foreground="{StaticResource WHITE_200}"
+                           HorizontalAlignment="Right"
+                           Margin="5,0,0,0"
+                           FontSize="13"/>
+            </Grid>
+            <Separator Margin="2"
+                       Background="{StaticResource GRAY_50}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <image:Icon Grid.Column="0" 
+                            Image="{StaticResource ICON_GLOBE}"
+                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                            Foreground="{StaticResource WHITE_600}"/>
+                <TextBlock Grid.Column="1" 
+                           d:Text="10:00 PM"
+                           Text="{Binding WorldTime, Mode=OneWay, StringFormat='h:mm tt'}"
+                           Foreground="{StaticResource WHITE_200}"
+                           HorizontalAlignment="Right"
+                           Margin="5,0,0,0"
+                           FontSize="13"/>
+            </Grid>
+        </StackPanel>
+    </Border>
+</architecture:View>

@@ -29,10 +29,13 @@ public interface IGame : IDisposable
 
     public IQuest? Quest { get; }
 
+    public TimeOnly WorldTime { get; }
+
     public event EventHandler<IMonster> OnMonsterSpawn;
     public event EventHandler<IMonster> OnMonsterDespawn;
     public event EventHandler<IGame> OnHudStateChange;
     public event EventHandler<TimeElapsedChangeEventArgs> OnTimeElapsedChange;
     public event EventHandler<IQuest> OnQuestStart;
     public event EventHandler<QuestEndEventArgs> OnQuestEnd;
+    public event EventHandler<SimpleValueChangeEventArgs<TimeOnly>> OnWorldTimeChange;
 }

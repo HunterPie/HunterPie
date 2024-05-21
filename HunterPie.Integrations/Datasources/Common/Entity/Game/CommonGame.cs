@@ -19,13 +19,36 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
     private readonly SimpleTargetDetectionService _targetDetectionService;
 
     public abstract IPlayer Player { get; }
+
     public abstract IAbnormalityCategorizationService AbnormalityCategorizationService { get; }
+
     public ITargetDetectionService TargetDetectionService => _targetDetectionService;
+
     public abstract List<IMonster> Monsters { get; }
+
     public abstract IChat? Chat { get; }
+
     public abstract bool IsHudOpen { get; protected set; }
+
     public abstract float TimeElapsed { get; protected set; }
+
     public abstract IQuest? Quest { get; }
+
+    private TimeOnly _worldTime;
+
+    public TimeOnly WorldTime
+    {
+        get => _worldTime;
+        protected set
+        {
+            if (_worldTime == value)
+                return;
+
+            TimeOnly oldValue = _worldTime;
+            _worldTime = value;
+            this.Dispatch(_onWorldTimeChange, new SimpleValueChangeEventArgs<TimeOnly>(oldValue, value));
+        }
+    }
 
     protected readonly SmartEvent<IMonster> _onMonsterSpawn = new();
     public event EventHandler<IMonster> OnMonsterSpawn
@@ -69,6 +92,13 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
         remove => _onQuestEnd.Unhook(value);
     }
 
+    protected readonly SmartEvent<SimpleValueChangeEventArgs<TimeOnly>> _onWorldTimeChange = new();
+    public event EventHandler<SimpleValueChangeEventArgs<TimeOnly>> OnWorldTimeChange
+    {
+        add => _onWorldTimeChange.Hook(value);
+        remove => _onWorldTimeChange.Unhook(value);
+    }
+
     protected CommonGame(IProcessManager process) : base(process)
     {
         _targetDetectionService = new SimpleTargetDetectionService(this);
@@ -76,13 +106,6 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
 
     public virtual void Dispose()
     {
-        IDisposable[] events =
-        {
-            _onMonsterSpawn, _onMonsterDespawn, _onHudStateChange,
-            _onTimeElapsedChange, _onQuestStart,
-            _onQuestEnd, _targetDetectionService
-        };
-
         Monsters.TryCast<IDisposable>()
                 .DisposeAll();
 
@@ -92,6 +115,10 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
         if (Chat is IDisposable chat)
             chat.Dispose();
 
-        events.DisposeAll();
+        IDisposableExtensions.DisposeAll(
+            _onMonsterSpawn, _onMonsterDespawn, _onHudStateChange,
+            _onTimeElapsedChange, _onQuestStart,
+            _onQuestEnd, _targetDetectionService, _onWorldTimeChange
+        );
     }
 }
