@@ -133,12 +133,7 @@ public class MHRQuest : Scannable, IQuest, IDisposable, IEventDispatcher
         Status = questStructure.State.ToQuestStatus();
         MaxDeaths = questStructure.MaxDeaths;
         Deaths = questStructure.Deaths;
-    }
-
-    [ScannableMethod]
-    private void GetTimer()
-    {
-
+        TimeLeft = TimeSpan.FromSeconds(questStructure.TimeLimit - questStructure.TimeElapsed);
     }
 
     public void Dispose()
