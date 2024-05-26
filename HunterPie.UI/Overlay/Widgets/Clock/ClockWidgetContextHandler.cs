@@ -1,9 +1,7 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Events;
-using HunterPie.Core.System;
 using HunterPie.UI.Overlay.Widgets.Clock.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Clock.Views;
 using System;
@@ -16,14 +14,12 @@ public class ClockWidgetContextHandler : IContextHandler
     private readonly ClockView _view;
     private readonly IContext _context;
 
-    public ClockWidgetContextHandler(IContext context)
+    public ClockWidgetContextHandler(
+        IContext context,
+        ClockWidgetConfig configuration
+    )
     {
-        ClockWidgetConfig config = ClientConfigHelper.DeferOverlayConfig(
-            game: ProcessManager.Game,
-            (cfg) => cfg.ClockWidget
-        );
-
-        _view = new ClockView(config);
+        _view = new ClockView(configuration);
         _viewModel = _view.ViewModel;
         _context = context;
 
