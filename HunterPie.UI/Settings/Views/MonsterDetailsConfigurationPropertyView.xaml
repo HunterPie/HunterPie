@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="HunterPie.UI.Settings.Views.MonsterDetailsConfigurationPropertyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Settings.Views"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
+             xmlns:internal="clr-namespace:HunterPie.UI.Settings.ViewModels.Internal"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+             mc:Ignorable="d" 
+             d:DesignWidth="400"
+             Margin="5"
+             d:DataContext="{d:DesignInstance internal:MonsterDetailsPropertyViewModel}">
+    <StackPanel Orientation="Vertical">
+        <!-- Monster parts -->
+        <buttons:Button Padding="0"
+                        BorderThickness="1"
+                        BorderBrush="{StaticResource GRAY}"
+                        Background="{StaticResource GRAY_50}"
+                        CornerRadius="5"
+                        HorizontalContentAlignment="Stretch"
+                        MinHeight="40"
+                        Margin="0,2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" 
+                            Orientation="Horizontal"
+                            Margin="5">
+                    <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                Image="{StaticResource ICON_SETTINGS}"
+                                Foreground="{StaticResource WHITE_600}"
+                                Margin="5,0"/>
+                    <TextBlock Text="Configure individual parts"
+                               VerticalAlignment="Center"
+                               Foreground="{StaticResource WHITE_500}"
+                               FontSize="14"/>
+                </StackPanel>
+
+                <image:Icon Grid.Column="1"
+                            Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                            Image="{StaticResource ICON_CHEVRON_RIGHT}"
+                            Foreground="{StaticResource WHITE_600}"
+                            Margin="10,5"/>
+            </Grid>
+        </buttons:Button>
+
+        <!-- Monster ailments -->
+        <buttons:Button Padding="0"
+                        BorderThickness="1"
+                        BorderBrush="{StaticResource GRAY}"
+                        Background="{StaticResource GRAY_50}"
+                        CornerRadius="5"
+                        HorizontalContentAlignment="Stretch"
+                        MinHeight="40"
+                        Margin="0,2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" 
+                            Orientation="Horizontal"
+                            Margin="5">
+                    <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                Image="{StaticResource ICON_SETTINGS}"
+                                Foreground="{StaticResource WHITE_600}"
+                                Margin="5,0"/>
+                    <TextBlock Text="Configure individual ailments"
+                               VerticalAlignment="Center"
+                               Foreground="{StaticResource WHITE_500}"
+                               FontSize="14"/>
+                </StackPanel>
+
+                <image:Icon Grid.Column="1"
+                            Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                            Image="{StaticResource ICON_CHEVRON_RIGHT}"
+                            Foreground="{StaticResource WHITE_600}"
+                            Margin="10,5"/>
+            </Grid>
+        </buttons:Button>
+    </StackPanel>
+    
+</UserControl>

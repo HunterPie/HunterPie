@@ -227,6 +227,9 @@
     <Compile Update="Settings\Views\KeybindingConfigurationPropertyView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Settings\Views\MonsterDetailsConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Settings\Views\PositionConfigurationPropertyView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -473,6 +476,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Settings\Views\KeybindingConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\MonsterDetailsConfigurationPropertyView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Settings\Views\PositionConfigurationPropertyView.xaml">

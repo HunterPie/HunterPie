@@ -23,6 +23,7 @@ public static class ConfigurationPropertyProvider
         { typeof(Secret), new SecretConfigurationPropertyBuilder() },
         { typeof(string), new StringConfigurationPropertyBuilder() },
         { typeof(AbnormalityTrays), new AbnormalityTrayConfigurationPropertyBuilder() },
+        { typeof(MonsterDetails), new MonsterDetailsConfigurationPropertyBuilder() }
     };
 
     public static IConfigurationPropertyBuilder? FindBy(Type type)
