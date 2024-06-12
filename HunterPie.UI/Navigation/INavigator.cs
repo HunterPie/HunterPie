@@ -9,4 +9,6 @@ public interface INavigator
     public void Navigate<TViewModel>() where TViewModel : ViewModel;
 
     public void Return();
+
+    public void ReturnWhen<TViewModel>();
 }

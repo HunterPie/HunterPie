@@ -49,4 +49,12 @@ internal class MainController : INavigator
 
         Navigate(viewModel);
     }
+
+    public void ReturnWhen<TViewModel>()
+    {
+        if (_stack.Peek() is TViewModel)
+        {
+            Return();
+        }
+    }
 }
