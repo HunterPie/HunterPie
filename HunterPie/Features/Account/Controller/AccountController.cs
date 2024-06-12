@@ -33,7 +33,7 @@ internal class AccountController
         _menuViewModel.IsLoggedIn = false;
         _menuViewModel.IsLoading = false;
 
-        Navigator.Body.Navigate<ConsoleViewModel>();
+        //Navigator.Body.Return();
     }
 
     private void OnSessionStart(object? sender, AccountLoginEventArgs e) => UpdateViewModels(e.Account);
