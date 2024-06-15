@@ -1,4 +1,6 @@
-﻿using HunterPie.Core.Game.Entity.Player.Skills;
+﻿using HunterPie.Core.Domain.Memory;
+using HunterPie.Core.Game.Entity.Game.Quest;
+using HunterPie.Core.Game.Entity.Player.Skills;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enums;
@@ -14,6 +16,13 @@ public static class MHWGameUtils
     public static float[] HealthIncrements = { 0.0f, 15f, 30f, 50f };
     public const int HandicraftMultiplier = 10;
     public const int MaxHandicraft = 50;
+
+    public static string ReadString(this IMemory memory, long address, uint length)
+    {
+        long stringPtr = memory.Read<long>(address);
+
+        return memory.Read(stringPtr + 0x0C, length);
+    }
 
     public static float ToSeconds(this uint self) => self / 60.0f;
 
@@ -155,5 +164,30 @@ public static class MHWGameUtils
             >= 30.0f => PhialChargeLevel.Yellow,
             _ => PhialChargeLevel.None,
         };
+    }
+
+    public static QuestType ToQuestType(this byte flag)
+    {
+        return flag switch
+        {
+            1 or 16 => QuestType.Hunt,
+            2 => QuestType.Slay,
+            4 => QuestType.Capture,
+            8 => QuestType.Delivery,
+            _ => QuestType.Special
+        };
+    }
+
+    public static string? SanitizeActionString(this string action)
+    {
+        string? actionRefName = action.Split('<')
+            .FirstOrDefault()?
+            .Split(':')
+            .LastOrDefault();
+
+        if (actionRefName is null)
+            return null;
+
+        return string.Concat(actionRefName.Select((c, i) => i > 0 && char.IsUpper(c) ? " " + c : c.ToString()));
     }
 }

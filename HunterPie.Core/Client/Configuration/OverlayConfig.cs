@@ -22,6 +22,7 @@ public class OverlayConfig : ISettings
     public SwitchAxeWidgetConfig SwitchAxeWidget { get; set; } = new();
     public LongSwordWidgetConfig LongSwordWidget { get; set; } = new();
     public ChatWidgetConfig ChatWidget { get; set; } = new();
+    public ClockWidgetConfig ClockWidget { get; set; } = new();
     public SpecializedToolWidgetConfig PrimarySpecializedToolWidget { get; set; } = new()
     {
         Position = new(950, 400)

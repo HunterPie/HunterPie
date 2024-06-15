@@ -12,6 +12,7 @@ using HunterPie.Core.Game.Events;
 using HunterPie.Core.Logger;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions.Monster;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 using System.Runtime.CompilerServices;
 
@@ -186,6 +187,7 @@ public class MHRMonster : CommonMonster
     }
 
     public MonsterType MonsterType { get; private set; }
+
     public bool IsQurioActive { get; private set; }
 
     public MHRMonster(IProcessManager process, long address) : base(process)
@@ -249,16 +251,22 @@ public class MHRMonster : CommonMonster
     {
         HealthData dto = new();
 
-        long healthComponent = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_OFFSETS"));
-        long currentHealthPtr = Process.Memory.ReadPtr(healthComponent, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+        long healthComponent = Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_OFFSETS"));
+        long currentHealthPtr = Memory.ReadPtr(healthComponent, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
 
         dto.Health = Memory.Read<float>(currentHealthPtr + 0x18);
-        dto.MaxHealth = Process.Memory.Read<float>(healthComponent + 0x18);
+        dto.MaxHealth = Memory.Read<float>(healthComponent + 0x18);
+
+        long monsterStatusPtr = Memory.Read<long>(_address + 0x310);
+        var aliveStatus = (MonsterAliveStatus)Memory.Read<int>(monsterStatusPtr + 0x20);
 
         Next(ref dto);
 
         MaxHealth = dto.MaxHealth;
         Health = dto.Health;
+
+        if (aliveStatus == MonsterAliveStatus.Dead && Health > 0)
+            this.Dispatch(_onCapture, EventArgs.Empty);
     }
 
     [ScannableMethod]

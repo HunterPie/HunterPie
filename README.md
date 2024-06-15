@@ -14,7 +14,7 @@
 
 ---
 
-**[<kbd> <br> :rocket: Install <br> </kbd>][Installation]** 
+**[<kbd> <br> 🚀 Install <br> </kbd>][Installation]** 
 **[<kbd> <br> 📘 Documentation <br> </kbd>][Documentation]** 
 **[<kbd> <br> 🕹 Features <br> </kbd>][Features]** 
 **[<kbd> <br> 💙 Contribute <br> </kbd>][Contribution]**  

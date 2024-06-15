@@ -13,12 +13,11 @@
     </UserControl.Resources>
     <Grid>
         <Rectangle Fill="{Binding Background, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:Skeleton}}}"
-                   d:Fill="{StaticResource GRAY_50}"
                    RadiusX="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.1}"
                    RadiusY="{Binding RadiusX, RelativeSource={RelativeSource Self}}"
                    x:Name="PART_Background"/>
 
-        <Rectangle Fill="#20FFFFFF">
+        <Rectangle Fill="#10FFFFFF">
             <Rectangle.OpacityMask>
                 <VisualBrush Visual="{Binding ElementName=PART_Background}"/>
             </Rectangle.OpacityMask>
@@ -33,9 +32,9 @@
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity"
                                                                        Duration="0:0:1.5"
                                                                        RepeatBehavior="Forever">
-                                            <LinearDoubleKeyFrame Value="0" KeyTime="0:0:0"/>
+                                            <LinearDoubleKeyFrame Value="0.2" KeyTime="0:0:0"/>
                                             <LinearDoubleKeyFrame Value="1" KeyTime="0:0:0.5"/>
-                                            <LinearDoubleKeyFrame Value="0" KeyTime="0:0:1"/>
+                                            <LinearDoubleKeyFrame Value="0.2" KeyTime="0:0:1"/>
                                         </DoubleAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </BeginStoryboard>

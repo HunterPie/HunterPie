@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using HunterPie.Core.Json.Converters;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 
@@ -27,6 +28,7 @@ public static class JsonProvider
             NullValueHandling = NullValueHandling.Ignore,
         };
         serializer.Converters.Add(new StringEnumConverter());
+        serializer.Converters.Add(new DurationConverter());
 
         return serializer;
     });

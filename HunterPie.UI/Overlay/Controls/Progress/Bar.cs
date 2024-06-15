@@ -1,24 +1,14 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 
 namespace HunterPie.UI.Overlay.Controls.Progress;
 
 /// <summary>
 /// Interaction logic for Bar.xaml
 /// </summary>
-public partial class Bar : UserControl
+public class Bar : UserControl
 {
-    private static class BarAnimationsCache
-    {
-        public static readonly DoubleAnimation SmoothDouble = new()
-        {
-            EasingFunction = new QuadraticEase(),
-            Duration = new Duration(TimeSpan.FromSeconds(200))
-        };
-    }
 
     /// <summary>
     /// Controls the current value of the bar
@@ -107,9 +97,4 @@ public partial class Bar : UserControl
     }
     public static new readonly DependencyProperty ContentProperty =
         DependencyProperty.Register(nameof(Content), typeof(FrameworkElement), typeof(Bar));
-
-    public Bar()
-    {
-        InitializeComponent();
-    }
 }

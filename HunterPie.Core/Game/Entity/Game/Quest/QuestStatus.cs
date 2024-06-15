@@ -1,4 +1,4 @@
-﻿namespace HunterPie.Core.Game.Enums;
+﻿namespace HunterPie.Core.Game.Entity.Game.Quest;
 
 public enum QuestStatus
 {

@@ -1,7 +1,8 @@
 ﻿using HunterPie.Core.Crypto;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Logger;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Features.Account;
 using HunterPie.Features.Account.Config;
@@ -24,29 +25,38 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
 
     private void HookEvents()
     {
-        _context!.Game.OnQuestStart += OnQuestStart;
+        if (_context is null)
+            return;
+
+        _context.Game.OnQuestStart += OnQuestStart;
         _context.Game.OnQuestEnd += OnQuestEnd;
     }
 
     private void UnhookEvents()
     {
-        _context!.Game.OnQuestStart -= OnQuestStart;
+        if (_context is null)
+            return;
+
+        _context.Game.OnQuestStart -= OnQuestStart;
         _context.Game.OnQuestEnd -= OnQuestEnd;
     }
 
-    private async void OnQuestEnd(object? sender, QuestStateChangeEventArgs e)
+    private async void OnQuestEnd(object? sender, QuestEndEventArgs e)
     {
+        Log.Debug("Quest ended with status {0}", e.Status);
+
+        if (_statisticsService is null)
+            return;
+
         if (!AccountManager.IsLoggedIn() || !LocalAccountConfig.Config.IsHuntUploadEnabled)
             return;
 
-        HuntStatisticsModel? exported = _statisticsService?.Export();
-
-        _statisticsService?.Dispose();
+        HuntStatisticsModel exported = _statisticsService.Export();
 
         if (e.Status != QuestStatus.Success || !ShouldUpload(exported))
             return;
 
-        DateTime questFinishedAt = exported!.StartedAt.Add(e.QuestTime);
+        DateTime questFinishedAt = exported.StartedAt.Add(e.TimeElapsed);
         string newHash = await GenerateUniqueHashAsync(questFinishedAt, exported.Hash);
 
         exported = exported with
@@ -59,10 +69,20 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
 
         await _connector.Upload(exportedRequest)
             .ConfigureAwait(false);
+
+        _statisticsService.Dispose();
     }
 
-    private void OnQuestStart(object? sender, QuestStateChangeEventArgs e)
+    private void OnQuestStart(object? sender, IQuest e)
     {
+        Log.Debug("Quest started (id: {0}, type: {1})", e.Id, e.Type);
+
+        if (_context is null)
+            return;
+
+        if (e.Type is not QuestType.Hunt or QuestType.Slay or QuestType.Capture)
+            return;
+
         _statisticsService?.Dispose();
         _statisticsService = new HuntStatisticsService(_context);
     }
@@ -79,9 +99,9 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
         return await HashService.HashAsync($"{currentHash}:{questTimeFormatted}");
     }
 
-    private static bool ShouldUpload(HuntStatisticsModel? model)
+    private static bool ShouldUpload(HuntStatisticsModel model)
     {
-        return model is { } && model.Monsters.Count > 0;
+        return model.Monsters.Count > 0;
     }
 
     public Task InitializeAsync(IContext context)
