@@ -20,7 +20,8 @@
                         CornerRadius="5"
                         HorizontalContentAlignment="Stretch"
                         MinHeight="40"
-                        Margin="0,2">
+                        Margin="0,2"
+                        Click="OnPartsConfigurationClick">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

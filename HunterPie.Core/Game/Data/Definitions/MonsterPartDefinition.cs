@@ -1,6 +1,6 @@
-﻿namespace HunterPie.Core.Game.Data.Schemas;
+﻿namespace HunterPie.Core.Game.Data.Definitions;
 
-public struct MonsterPartSchema
+public struct MonsterPartDefinition
 {
     public int Id;
     public string String;

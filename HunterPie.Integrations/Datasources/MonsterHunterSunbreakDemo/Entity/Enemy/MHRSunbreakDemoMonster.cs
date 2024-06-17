@@ -6,6 +6,7 @@ using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data;
+using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
@@ -142,7 +143,7 @@ public sealed class MHRSunbreakDemoMonster : CommonMonster
 
     private void GetMonsterWeaknesses()
     {
-        Core.Game.Data.Schemas.MonsterDataSchema? data = MonsterData.GetMonsterData(Id);
+        MonsterDefinition? data = MonsterData.GetMonsterData(Id);
 
         if (data.HasValue)
         {

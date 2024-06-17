@@ -45,7 +45,7 @@ public static class MapFactory
         (Type, Type) key = (typeIn, typeOut);
 
         if (!Mappers.ContainsKey(key))
-            return default;
+            throw new Exception($"Mapper for {typeIn.Name} to {typeOut.Name} not registered");
 
         var mapper = (IMapper<TIn, TOut>)Mappers[key];
 
