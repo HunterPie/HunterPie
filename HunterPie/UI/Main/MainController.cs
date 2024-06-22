@@ -50,7 +50,7 @@ internal class MainController : INavigator
         Navigate(viewModel);
     }
 
-    public void ReturnWhen<TViewModel>()
+    public void ReturnWhen<TViewModel>() where TViewModel: ViewModel
     {
         if (_stack.Peek() is TViewModel)
         {
