@@ -62,6 +62,9 @@
     <Compile Update="Controls\Settings\Monsters\Views\MonsterConfigurationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Settings\Monsters\Views\MonsterPartConfigurationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Sliders\Range.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -314,6 +317,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\Monsters\Views\MonsterConfigurationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Settings\Monsters\Views\MonsterPartConfigurationView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Sliders\Range.xaml">

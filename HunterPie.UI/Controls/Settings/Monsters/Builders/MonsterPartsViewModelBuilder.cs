@@ -38,11 +38,12 @@ public static class MonsterPartsViewModelBuilder
 
                 IEnumerable<MonsterPartConfiguration> parts = it.Parts.Select(part =>
                 {
-                    MonsterPartConfiguration? partConfiguration = partConfigurations?.GetValueOrDefault(part.String);
+                    MonsterPartConfiguration? partConfiguration = partConfigurations?.GetValueOrDefault(part.Id);
 
                     return new MonsterPartConfiguration
                     {
-                        Id = part.String,
+                        Id = part.Id,
+                        StringId = part.String,
                         IsEnabled = partConfiguration?.IsEnabled ?? new Observable<bool>(true)
                     };
                 });
