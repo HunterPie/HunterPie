@@ -300,7 +300,9 @@
         </TextBlock>
 
         <!-- Player weapon -->
-        <Grid Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+        <Grid Grid.Row="0" 
+              Grid.Column="0"
+              Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
               VerticalAlignment="Top"
               HorizontalAlignment="Left"
               Margin="15,15,0,0"

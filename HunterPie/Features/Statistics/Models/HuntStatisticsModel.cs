@@ -6,6 +6,7 @@ namespace HunterPie.Features.Statistics.Models;
 
 internal record HuntStatisticsModel(
     GameType Game,
+    QuestDetailsModel? Quest,
     List<PartyMemberModel> Players,
     List<MonsterModel> Monsters,
     DateTime StartedAt,

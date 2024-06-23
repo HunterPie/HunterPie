@@ -70,10 +70,9 @@ public class HttpClientResponse : IEventDispatcher, IDisposable
 
         try
         {
-            if (!Directory.Exists(outPath))
-                Directory.CreateDirectory(
-                    Path.GetDirectoryName(outPath)!
-                );
+            string directoryPath = Path.GetDirectoryName(outPath)!;
+            if (!Directory.Exists(directoryPath))
+                Directory.CreateDirectory(directoryPath);
 
             await using var output = new FileStream(
                 outPath,

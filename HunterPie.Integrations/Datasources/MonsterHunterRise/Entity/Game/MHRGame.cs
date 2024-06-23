@@ -5,6 +5,7 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Entity.Game.Chat;
+using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
@@ -15,9 +16,12 @@ using HunterPie.Core.Native.IPC.Models.Common;
 using HunterPie.Integrations.Datasources.Common;
 using HunterPie.Integrations.Datasources.Common.Entity.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions.Quest;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions.World;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Chat;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Game.Quest;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Services;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
@@ -35,10 +39,7 @@ public sealed class MHRGame : CommonGame
     private readonly MHRPlayer _player;
     private float _timeElapsed;
     private (int, DateTime) _lastTeleport = (0, DateTime.Now);
-    private int _maxDeaths;
-    private int _deaths;
     private bool _isHudOpen;
-    private bool _isInQuest;
     private DateTime _lastDamageUpdate = DateTime.MinValue;
     private readonly Dictionary<long, IMonster> _monsters = new();
     private readonly Dictionary<long, EntityDamageData[]> _damageDone = new();
@@ -76,44 +77,8 @@ public sealed class MHRGame : CommonGame
         }
     }
 
-    public override int MaxDeaths
-    {
-        get => _maxDeaths;
-        protected set
-        {
-            if (value != _maxDeaths)
-            {
-                _maxDeaths = value;
-                this.Dispatch(_onDeathCountChange, this);
-            }
-        }
-    }
-
-    public override int Deaths
-    {
-        get => _deaths;
-        protected set
-        {
-            if (value != _deaths)
-            {
-                _deaths = value;
-                this.Dispatch(_onDeathCountChange, this);
-            }
-        }
-    }
-
-    public override bool IsInQuest
-    {
-        get => _isInQuest;
-        protected set
-        {
-            if (value != _isInQuest)
-            {
-                _isInQuest = value;
-                this.Dispatch(value ? _onQuestStart : _onQuestEnd, new QuestStateChangeEventArgs(this));
-            }
-        }
-    }
+    private MHRQuest? _quest;
+    public override IQuest? Quest => _quest;
 
     public override IAbnormalityCategorizationService AbnormalityCategorizationService { get; } = new MHRAbnormalityCategorizationService();
 
@@ -206,56 +171,64 @@ public sealed class MHRGame : CommonGame
     }
 
     [ScannableMethod]
-    private void GetDeathCounter()
+    private void GetWorldData()
     {
-        if (!Player.InHuntingZone)
+        long timersArrayPtr = Memory.Deref<long>(
+            address: AddressMap.GetAbsolute("STAGE_MANAGER_ADDRESS"),
+            offsets: AddressMap.GetOffsets("WORLD_TIME_OFFSETS")
+        );
+        IReadOnlyCollection<MHRWorldTimeStructure> timers = Memory.ReadListOfPtrsSafe<MHRWorldTimeStructure>(
+           address: timersArrayPtr,
+           size: 3
+        );
+        MHRWorldTimeStructure lastTimer = timers.LastOrDefault(default(MHRWorldTimeStructure));
+
+        if (lastTimer is not { Hours: <= 24 and >= 0, Minutes: <= 60 and >= 0, Seconds: <= 60 and >= 0 })
             return;
 
-        int maxDeathsCounter = Process.Memory.Deref<int>(
-            AddressMap.GetAbsolute("QUEST_ADDRESS"),
-            AddressMap.Get<int[]>("QUEST_MAX_DEATHS_OFFSETS")
-        );
-
-        int deathCounter = Process.Memory.Deref<int>(
-            AddressMap.GetAbsolute("QUEST_ADDRESS"),
-            AddressMap.Get<int[]>("QUEST_DEATH_COUNTER_OFFSETS")
-        );
-
-        MaxDeaths = maxDeathsCounter;
-        Deaths = deathCounter;
+        WorldTime = new TimeOnly(lastTimer.Hours, lastTimer.Minutes, lastTimer.Seconds);
     }
 
     [ScannableMethod]
-    private void GetQuestState()
+    private void GetQuest()
     {
-        if (!Player.InHuntingZone)
+        MHRQuestStructure questStructure = Memory.Deref<MHRQuestStructure>(
+            AddressMap.GetAbsolute("QUEST_ADDRESS"),
+            AddressMap.GetOffsets("QUEST_OFFSETS")
+        );
+
+        MHRQuestDataStructure questData = Memory.Read<MHRQuestDataStructure>(questStructure.QuestDataPointer);
+        MHRQuestData? currentQuest = questData.GetCurrentQuest(Process);
+
+        var questType = questStructure.Type.ToQuestType();
+        bool hasQuestStarted = questStructure.State == QuestState.InQuest;
+        bool isQuestOver = questStructure.State.IsQuestOver() || !hasQuestStarted;
+        bool isQuestInvalid = (currentQuest?.Id ?? 0) <= 0 || questType is null;
+
+        if (_quest is not null
+            && (isQuestOver || isQuestInvalid))
         {
-            IsInQuest = false;
-            return;
+            this.Dispatch(_onQuestEnd, new QuestEndEventArgs(_quest, questStructure.State.ToQuestStatus(), TimeElapsed));
+            ScanManager.Remove(_quest);
+            _quest = null;
         }
 
-        var questState = (QuestState)Memory.Deref<int>(
-            AddressMap.GetAbsolute("QUEST_ADDRESS"),
-            AddressMap.Get<int[]>("QUEST_STATUS_OFFSETS")
-        );
-
-        var questType = (QuestType)Memory.Deref<uint>(
-            AddressMap.GetAbsolute("QUEST_ADDRESS"),
-            AddressMap.Get<int[]>("QUEST_TYPE_OFFSETS")
-        );
-
-        bool isInQuest = questState == QuestState.InQuest;
-
-        QuestStatus = questState switch
+        if (_quest is null
+            && !isQuestOver
+            && !isQuestInvalid
+            && currentQuest is { } quest)
         {
-            QuestState.InQuest => Core.Game.Enums.QuestStatus.InProgress,
-            QuestState.Success => Core.Game.Enums.QuestStatus.Success,
-            QuestState.Failed => Core.Game.Enums.QuestStatus.Fail,
-            QuestState.Returning or QuestState.Reset => Core.Game.Enums.QuestStatus.Quit,
-            _ => Core.Game.Enums.QuestStatus.None
-        };
+            _quest = new MHRQuest(
+                process: Process,
+                id: quest.Id,
+                type: questType!.Value,
+                level: quest.Level,
+                stars: quest.Stars
+            );
 
-        IsInQuest = isInQuest && questType.IsHuntQuest();
+            ScanManager.Add(_quest);
+            this.Dispatch(_onQuestStart, _quest);
+        }
     }
 
     [ScannableMethod]

@@ -30,6 +30,12 @@ public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("DAMAGE_METER_ENABLE_OTOMOS", group: CommonConfigurationGroups.CUSTOMIZATIONS, availableGames: GameProcess.MonsterHunterRise)]
     public Observable<bool> ShouldShowOtomos { get; set; } = true;
 
+    [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_DPS", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    public Observable<bool> ShouldShowDPS { get; set; } = true;
+
+    [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_DAMAGE", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    public Observable<bool> ShouldShowDamage { get; set; } = true;
+
     [ConfigurationProperty("DAMAGE_METER_DPS_CALCULATION_STRATEGY_STRING", group: CommonConfigurationGroups.WIDGET)]
     public Observable<DPSCalculationStrategy> DpsCalculationStrategy { get; set; } = DPSCalculationStrategy.RelativeToJoin;
 

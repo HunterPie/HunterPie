@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Domain.Memory;
+using HunterPie.Core.Extensions;
 using HunterPie.Core.Logger;
 using HunterPie.Core.System.Windows.Native;
 using HunterPie.Core.Utils;
@@ -102,12 +103,20 @@ public class WindowsMemory : IMemory
     public T Deref<T>(long address, int[] offsets) where T : struct
     {
         long ptr = Read(address, offsets);
+
+        if (ptr.IsNullPointer())
+            return default;
+
         return Read<T>(ptr);
     }
 
     public T DerefPtr<T>(long address, int[] offsets) where T : struct
     {
         long ptr = ReadPtr(address, offsets);
+
+        if (ptr.IsNullPointer())
+            return default;
+
         return Read<T>(ptr);
     }
 
