@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Settings.Types;
+﻿using HunterPie.Core.Search;
+using HunterPie.Core.Settings.Types;
 using HunterPie.UI.Architecture;
 using System;
 using System.Collections.ObjectModel;
@@ -9,6 +10,10 @@ namespace HunterPie.UI.Controls.Settings.Monsters.ViewModels;
 public class MonsterConfigurationsViewModel : ViewModel, IDisposable
 {
     private readonly MonsterDetails _configuration;
+
+    private bool _isSearching;
+    public bool IsSearching { get => _isSearching; set => SetValue(ref _isSearching, value); }
+
     public ObservableCollection<MonsterConfigurationViewModel> Elements { get; }
 
     public MonsterConfigurationsViewModel(
@@ -30,6 +35,12 @@ public class MonsterConfigurationsViewModel : ViewModel, IDisposable
     {
         foreach (MonsterConfigurationViewModel viewModel in Elements)
             viewModel.PropertyChanged -= OnViewModelPropertyChange;
+    }
+
+    public void FilterQuery(string query)
+    {
+        foreach (MonsterConfigurationViewModel viewModel in Elements)
+            viewModel.IsMatch = string.IsNullOrEmpty(query) || SearchEngine.IsMatch(viewModel.Name, query);
     }
 
     private void OnViewModelPropertyChange(object sender, PropertyChangedEventArgs e)

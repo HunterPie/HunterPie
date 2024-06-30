@@ -50,6 +50,9 @@
     <Compile Update="Controls\Paginating\Pagination.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Popup\SearchPopup.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Settings\Abnormality\Views\AbnormalityElementView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -305,6 +308,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Paginating\Pagination.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Popup\SearchPopup.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\Abnormality\Views\AbnormalityElementView.xaml">
