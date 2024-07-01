@@ -1,31 +1,31 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain.Mapper;
-using HunterPie.Core.Game.Data.Schemas;
+using HunterPie.Core.Game.Data.Definitions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 
-namespace HunterPie.Core.Game.Services;
+namespace HunterPie.Core.Game.Data.Repository;
 
 #nullable enable
-public static class AbnormalityService
+public static class AbnormalityRepository
 {
     private const string RISE_ABNORMALITIES_FILE = "Game/Rise/Data/AbnormalityData.xml";
     private const string WORLD_ABNORMALITIES_FILE = "Game/World/Data/AbnormalityData.xml";
 
-    private static readonly Lazy<Dictionary<string, AbnormalitySchema>> LazyRiseDataSource = new(() => Load(RISE_ABNORMALITIES_FILE));
-    private static readonly Lazy<Dictionary<string, AbnormalitySchema>> LazyWorldDataSource = new(() => Load(WORLD_ABNORMALITIES_FILE));
+    private static readonly Lazy<Dictionary<string, AbnormalityDefinition>> LazyRiseDataSource = new(() => Load(RISE_ABNORMALITIES_FILE));
+    private static readonly Lazy<Dictionary<string, AbnormalityDefinition>> LazyWorldDataSource = new(() => Load(WORLD_ABNORMALITIES_FILE));
 
     /// <summary>
     /// Returns an abnormality with the given internal unique identifier
     /// </summary>
     /// <param name="game">The game type</param>
     /// <param name="id">The abnormality id</param>
-    public static AbnormalitySchema? FindBy(GameType game, string id)
+    public static AbnormalityDefinition? FindBy(GameType game, string id)
     {
-        Dictionary<string, AbnormalitySchema> dataSource = GetDataSourceBy(game);
+        Dictionary<string, AbnormalityDefinition> dataSource = GetDataSourceBy(game);
 
         return dataSource.ContainsKey(id) ? dataSource[id] : null;
     }
@@ -35,9 +35,9 @@ public static class AbnormalityService
     /// </summary>
     /// <param name="game">The game type</param>
     /// <returns>Groups of abnormalities</returns>
-    public static IEnumerable<IGrouping<string, AbnormalitySchema>> FindAllAbnormalitiesBy(GameType game)
+    public static IEnumerable<IGrouping<string, AbnormalityDefinition>> FindAllAbnormalitiesBy(GameType game)
     {
-        Dictionary<string, AbnormalitySchema> dataSource = GetDataSourceBy(game);
+        Dictionary<string, AbnormalityDefinition> dataSource = GetDataSourceBy(game);
 
         return dataSource.Values.GroupBy(it => it.Group);
     }
@@ -48,17 +48,17 @@ public static class AbnormalityService
     /// <param name="game">The game type</param>
     /// <param name="category">The category name</param>
     /// <returns>An array with the abnormalities</returns>
-    public static AbnormalitySchema[] FindAllAbnormalitiesBy(GameType game, string category)
+    public static AbnormalityDefinition[] FindAllAbnormalitiesBy(GameType game, string category)
     {
-        Dictionary<string, AbnormalitySchema> dataSource = GetDataSourceBy(game);
+        Dictionary<string, AbnormalityDefinition> dataSource = GetDataSourceBy(game);
 
         return dataSource.Values.Where(it => it.Category == category)
             .ToArray();
     }
 
-    private static Dictionary<string, AbnormalitySchema> GetDataSourceBy(GameType game)
+    private static Dictionary<string, AbnormalityDefinition> GetDataSourceBy(GameType game)
     {
-        Lazy<Dictionary<string, AbnormalitySchema>> dataSource = game switch
+        Lazy<Dictionary<string, AbnormalityDefinition>> dataSource = game switch
         {
             GameType.Rise => LazyRiseDataSource,
             GameType.World => LazyWorldDataSource,
@@ -68,7 +68,7 @@ public static class AbnormalityService
         return dataSource.Value;
     }
 
-    private static Dictionary<string, AbnormalitySchema> Load(string file)
+    private static Dictionary<string, AbnormalityDefinition> Load(string file)
     {
         XmlDocument document = new();
         document.Load(ClientInfo.GetPathFor(file));
@@ -76,20 +76,20 @@ public static class AbnormalityService
         return LoadAbnormalities(document);
     }
 
-    private static Dictionary<string, AbnormalitySchema> LoadAbnormalities(XmlDocument document)
+    private static Dictionary<string, AbnormalityDefinition> LoadAbnormalities(XmlDocument document)
     {
         XmlNodeList? abnormalityNodes = document.SelectNodes("//Abnormalities/*/Abnormality");
 
         if (abnormalityNodes is not { })
-            return new Dictionary<string, AbnormalitySchema>();
+            return new Dictionary<string, AbnormalityDefinition>();
 
         int abnormalityCount = abnormalityNodes.Count;
 
-        var dictionary = new Dictionary<string, AbnormalitySchema>(abnormalityCount);
+        var dictionary = new Dictionary<string, AbnormalityDefinition>(abnormalityCount);
 
         foreach (XmlNode node in abnormalityNodes)
         {
-            AbnormalitySchema schema = MapFactory.Map<XmlNode, AbnormalitySchema>(node);
+            AbnormalityDefinition schema = MapFactory.Map<XmlNode, AbnormalityDefinition>(node);
             dictionary[schema.Id] = schema;
         }
 

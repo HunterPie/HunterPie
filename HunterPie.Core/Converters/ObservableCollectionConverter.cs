@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Reflection;
 
@@ -34,6 +35,10 @@ public class ObservableCollectionConverter<T> : JsonConverter
     private void CopyToExistingRecursively(object existingObject, object newObject)
     {
         Type objectType = existingObject.GetType();
+
+        if (existingObject is ICollection)
+            return;
+
         foreach (PropertyInfo property in objectType.GetProperties())
         {
             Type propertyType = property.PropertyType;

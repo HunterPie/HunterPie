@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
+using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Data.Interfaces;
-using HunterPie.Core.Game.Data.Schemas;
 using System;
 using System.Globalization;
 using System.Linq;
@@ -8,8 +8,7 @@ using System.Xml;
 
 namespace HunterPie.Core.Domain.Mapper.Internal;
 
-#nullable enable
-internal class XmlNodeToAbnormalitySchemaMapper : IMapper<XmlNode, AbnormalitySchema>
+internal class XmlNodeToAbnormalityDefinitionMapper : IMapper<XmlNode, AbnormalityDefinition>
 {
 
     private const string UNKNOWN_ABNORMALITY_NAME = "ABNORMALITY_UNKNOWN";
@@ -17,12 +16,12 @@ internal class XmlNodeToAbnormalitySchemaMapper : IMapper<XmlNode, AbnormalitySc
 
     private readonly IAbnormalityFlagTypeParser[] _flagParsers;
 
-    public XmlNodeToAbnormalitySchemaMapper(params IAbnormalityFlagTypeParser[] flagParsers)
+    public XmlNodeToAbnormalityDefinitionMapper(params IAbnormalityFlagTypeParser[] flagParsers)
     {
         _flagParsers = flagParsers;
     }
 
-    public AbnormalitySchema Map(XmlNode data)
+    public AbnormalityDefinition Map(XmlNode data)
     {
         string id = data.Attributes!["Id"]!.Value;
         string name = data.Attributes["Name"]?.Value ?? UNKNOWN_ABNORMALITY_NAME;
@@ -39,7 +38,7 @@ internal class XmlNodeToAbnormalitySchemaMapper : IMapper<XmlNode, AbnormalitySc
         string flagType = data.Attributes["FlagType"]?.Value ?? "None";
         string flag = data.Attributes["Flag"]?.Value ?? "None";
 
-        var schema = new AbnormalitySchema
+        var schema = new AbnormalityDefinition
         {
             Id = BuildId(id, group),
             Name = name,

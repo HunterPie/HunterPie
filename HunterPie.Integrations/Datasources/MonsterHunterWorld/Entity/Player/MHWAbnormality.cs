@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Data.Schemas;
+using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Services;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
@@ -41,7 +41,7 @@ public sealed class MHWAbnormality : CommonAbnormality, IUpdatable<MHWAbnormalit
 
     public override bool IsBuildup { get; protected set; }
 
-    public MHWAbnormality(AbnormalitySchema schema)
+    public MHWAbnormality(AbnormalityDefinition schema)
     {
         Id = schema.Id;
         Name = schema.Name;

@@ -5,7 +5,7 @@ using HunterPie.Core.Domain.DTO.Monster;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data;
-using HunterPie.Core.Game.Data.Schemas;
+using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
@@ -203,7 +203,7 @@ public class MHRMonster : CommonMonster
 
     private void GetMonsterTypes()
     {
-        MonsterDataSchema? data = MonsterData.GetMonsterData(Id);
+        MonsterDefinition? data = MonsterData.GetMonsterData(Id);
 
         if (data is { } schema)
             _types.AddRange(schema.Types);
@@ -211,7 +211,7 @@ public class MHRMonster : CommonMonster
 
     private void GetMonsterWeaknesses()
     {
-        MonsterDataSchema? data = MonsterData.GetMonsterData(Id);
+        MonsterDefinition? data = MonsterData.GetMonsterData(Id);
 
         if (data.HasValue)
         {
@@ -278,7 +278,7 @@ public class MHRMonster : CommonMonster
             return;
         }
 
-        MonsterDataSchema? data = MonsterData.GetMonsterData(Id);
+        MonsterDefinition? data = MonsterData.GetMonsterData(Id);
         if (data is { IsNotCapturable: true })
         {
             CaptureThreshold = 0.0f;
@@ -494,12 +494,12 @@ public class MHRMonster : CommonMonster
         MHRSizeStructure monsterSize = Process.Memory.Read<MHRSizeStructure>(monsterSizePtr + 0x24);
         float monsterSizeMultiplier = monsterSize.SizeMultiplier * monsterSize.UnkMultiplier;
 
-        MonsterSizeSchema? crownData = MonsterData.GetMonsterData(Id)?.Size;
+        MonsterSizeDefinition? crownData = MonsterData.GetMonsterData(Id)?.Size;
 
         if (crownData is null)
             return;
 
-        MonsterSizeSchema crown = crownData.Value;
+        MonsterSizeDefinition crown = crownData.Value;
 
         Crown = monsterSizeMultiplier >= crown.Gold
             ? Crown.Gold

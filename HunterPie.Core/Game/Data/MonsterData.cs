@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Game.Data.Schemas;
+﻿using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Enums;
 using System;
 using System.Collections.Generic;
@@ -6,14 +6,14 @@ using System.Globalization;
 using System.Linq;
 using System.Xml;
 
-#nullable enable
 namespace HunterPie.Core.Game.Data;
 
+[Obsolete("Deprecated in favor of the MonsterRepository")]
 public class MonsterData
 {
     private static XmlDocument? _monsterXmlDocument;
-    public static Dictionary<int, MonsterDataSchema> Monsters { get; private set; } = new();
-    public static Dictionary<int, AilmentDataSchema> Ailments { get; private set; } = new();
+    public static Dictionary<int, MonsterDefinition> Monsters { get; private set; } = new();
+    public static Dictionary<int, AilmentDefinition> Ailments { get; private set; } = new();
 
     internal static void Init(string path)
     {
@@ -32,7 +32,7 @@ public class MonsterData
         foreach (XmlNode ailment in ailments)
         {
             int id = int.Parse(ailment.Attributes["Id"].Value);
-            AilmentDataSchema ailm = new()
+            AilmentDefinition ailm = new()
             {
                 String = ailment.Attributes["String"]?.Value
             };
@@ -45,11 +45,11 @@ public class MonsterData
     {
         XmlNodeList monsters = _monsterXmlDocument.SelectNodes("//GameData/Monsters/Monster");
 
-        Monsters = new Dictionary<int, MonsterDataSchema>(monsters.Count);
+        Monsters = new Dictionary<int, MonsterDefinition>(monsters.Count);
         foreach (XmlNode monster in monsters)
         {
             XmlNodeList parts = monster.SelectNodes("Parts/Part");
-            var partsArray = new MonsterPartSchema[parts.Count];
+            var partsArray = new MonsterPartDefinition[parts.Count];
 
             for (int j = 0; j < partsArray.Length; j++)
             {
@@ -63,11 +63,11 @@ public class MonsterData
                 _ = bool.TryParse(parts[j].Attributes["IsSeverable"]?.Value, out partsArray[j].IsSeverable);
             }
 
-            MonsterSizeSchema sizeSchema = ParseSize(monster);
+            MonsterSizeDefinition sizeSchema = ParseSize(monster);
             Element[] weaknesses = ParseWeakness(monster);
             string[] types = ParseTypes(monster);
 
-            MonsterDataSchema schema = new()
+            MonsterDefinition schema = new()
             {
                 Id = int.Parse(monster.Attributes["Id"].Value),
                 Capture = int.Parse(monster.Attributes["Capture"]?.Value ?? "0"),
@@ -106,7 +106,7 @@ public class MonsterData
         return typesArray;
     }
 
-    private static MonsterSizeSchema ParseSize(XmlNode monster)
+    private static MonsterSizeDefinition ParseSize(XmlNode monster)
     {
         XmlNode? crowns = monster.SelectSingleNode("Crowns")!;
 
@@ -148,7 +148,7 @@ public class MonsterData
                 );
         }
 
-        return new MonsterSizeSchema
+        return new MonsterSizeDefinition
         {
             Size = size,
             Mini = mini,
@@ -177,15 +177,15 @@ public class MonsterData
         return elements;
     }
 
-    public static MonsterDataSchema? GetMonsterData(int id) => !Monsters.ContainsKey(id) ? null : Monsters[id];
+    public static MonsterDefinition? GetMonsterData(int id) => !Monsters.ContainsKey(id) ? null : Monsters[id];
 
-    public static MonsterPartSchema? GetMonsterPartData(int id, int index)
+    public static MonsterPartDefinition? GetMonsterPartData(int id, int index)
     {
         return !Monsters.ContainsKey(id)
             ? null
             : Monsters[id].Parts.Length == 0 || index >= Monsters[id].Parts.Length ? null : Monsters[id].Parts[index];
     }
 
-    public static AilmentDataSchema GetAilmentData(int id) => !Ailments.ContainsKey(id) ? new AilmentDataSchema() { String = $"{id}_UNKNOWN", IsUnknown = true } : Ailments[id];
+    public static AilmentDefinition GetAilmentData(int id) => !Ailments.ContainsKey(id) ? new AilmentDefinition() { String = $"{id}_UNKNOWN", IsUnknown = true } : Ailments[id];
 }
 #nullable restore

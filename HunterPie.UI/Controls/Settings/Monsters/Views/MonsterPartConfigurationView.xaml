@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="HunterPie.UI.Controls.Settings.Monsters.Views.MonsterPartConfigurationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Controls.Settings.Monsters.Views"
+             xmlns:monster="clr-namespace:HunterPie.Core.Client.Configuration.Overlay.Monster;assembly=HunterPie.Core"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" 
+             d:DesignWidth="200"
+             d:DataContext="{d:DesignInstance monster:MonsterPartConfiguration}">
+    <UserControl.Resources>
+        <converters:MonsterPartIdToNameConverter x:Key="MonsterPartIdToNameConverter"/>
+        <brushes:BrushToColorConverter x:Key="BrushToColorConverter"/>
+    </UserControl.Resources>
+
+    <buttons:Button VerticalContentAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    Padding="2"
+                    BorderThickness="1"
+                    BorderBrush="{StaticResource GRAY}"
+                    CornerRadius="5"
+                    Background="{StaticResource GRAY_100}"
+                    Click="OnClick">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Ellipse Grid.Column="0"
+                     Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                     Margin="10">
+                <Ellipse.Effect>
+                    <DropShadowEffect Color="{Binding Fill, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Ellipse}}, Converter={StaticResource BrushToColorConverter}}"
+                                      ShadowDepth="0"
+                                      BlurRadius="10"/>
+                </Ellipse.Effect>
+                <Ellipse.Style>
+                    <Style TargetType="Ellipse">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsEnabled.Value, Mode=OneWay}"
+                                         Value="True">
+                                <Setter Property="Fill" Value="{StaticResource GREEN_200}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsEnabled.Value, Mode=OneWay}"
+                                         Value="False">
+                                <Setter Property="Fill" Value="{StaticResource RED_200}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Ellipse.Style>
+            </Ellipse>
+
+            <TextBlock Grid.Column="1"
+                       Foreground="{StaticResource WHITE_200}"
+                       d:Text="Part name"
+                       Text="{Binding StringId, Mode=OneTime, Converter={StaticResource MonsterPartIdToNameConverter}}"
+                       FontSize="13"
+                       VerticalAlignment="Center"/>
+        </Grid>
+    </buttons:Button>
+</UserControl>

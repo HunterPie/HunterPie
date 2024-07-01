@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Data.Schemas;
+using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
@@ -34,7 +34,7 @@ public sealed class MHRConsumableAbnormality : CommonAbnormality, IUpdatable<MHR
 
     public override bool IsBuildup { get; protected set; }
 
-    public MHRConsumableAbnormality(AbnormalitySchema data)
+    public MHRConsumableAbnormality(AbnormalityDefinition data)
     {
         Id = data.Id;
         Name = data.Name;

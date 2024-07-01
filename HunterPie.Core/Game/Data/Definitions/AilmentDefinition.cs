@@ -1,6 +1,6 @@
-﻿namespace HunterPie.Core.Game.Data.Schemas;
+﻿namespace HunterPie.Core.Game.Data.Definitions;
 
-public struct AilmentDataSchema
+public struct AilmentDefinition
 {
     public string String { get; set; }
     public bool IsUnknown { get; set; }

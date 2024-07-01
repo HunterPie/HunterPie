@@ -1,11 +1,11 @@
-﻿using HunterPie.Core.Game.Data.Schemas;
+﻿using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Services;
 
 public static class MHRAbnormalityAdapter
 {
-    public static MHRAbnormalityData Convert(AbnormalitySchema schema, MHRAbnormalityStructure abnormality)
+    public static MHRAbnormalityData Convert(AbnormalityDefinition schema, MHRAbnormalityStructure abnormality)
     {
         if (schema.IsInteger)
             return new MHRAbnormalityData { Timer = (float)abnormality.Timer };

@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Data.Schemas;
+using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
@@ -38,7 +38,7 @@ public sealed class MHRSongAbnormality : CommonAbnormality, IUpdatable<MHRHHAbno
     public override int Level { get; protected set; }
     public override bool IsBuildup { get; protected set; }
 
-    public MHRSongAbnormality(AbnormalitySchema schema)
+    public MHRSongAbnormality(AbnormalityDefinition schema)
     {
         Id = schema.Id;
         Name = schema.Name;

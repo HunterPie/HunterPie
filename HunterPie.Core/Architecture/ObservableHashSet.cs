@@ -15,8 +15,8 @@ public sealed class ObservableHashSet<T> : ISet<T>, INotifyPropertyChanged, INot
 {
     private readonly HashSet<T> _set;
 
-    public event NotifyCollectionChangedEventHandler CollectionChanged;
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event NotifyCollectionChangedEventHandler? CollectionChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     private int _count;
     public int Count { get => _count; set => SetValue(ref _count, value); }

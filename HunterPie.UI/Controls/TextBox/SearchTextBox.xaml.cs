@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.UI.Controls.TextBox.Events;
 using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TB = System.Windows.Controls.TextBox;
@@ -28,6 +29,16 @@ public partial class SearchTextBox : UserControl
     public Observable<string> SearchText { get; } = SearchPlaceholder;
 
     private bool IsPlaceholderVisible { get; set; } = true;
+
+    public CornerRadius CornerRadius
+    {
+        get => (CornerRadius)GetValue(CornerRadiusProperty);
+        set => SetValue(CornerRadiusProperty, value);
+    }
+
+    // Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty CornerRadiusProperty =
+        DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(SearchTextBox), new PropertyMetadata(new CornerRadius(5)));
 
     public SearchTextBox()
     {

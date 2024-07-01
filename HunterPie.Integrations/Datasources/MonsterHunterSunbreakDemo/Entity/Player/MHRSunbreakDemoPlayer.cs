@@ -3,7 +3,8 @@ using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Data.Schemas;
+using HunterPie.Core.Game.Data.Definitions;
+using HunterPie.Core.Game.Data.Repository;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Entity.Player.Classes;
@@ -174,9 +175,9 @@ public sealed class MHRSunbreakDemoPlayer : CommonPlayer
         if (consumableBuffs == 0)
             return;
 
-        AbnormalitySchema[] consumableSchemas = AbnormalityService.FindAllAbnormalitiesBy(GameType.Rise, AbnormalityGroup.CONSUMABLES);
+        AbnormalityDefinition[] consumableSchemas = AbnormalityRepository.FindAllAbnormalitiesBy(GameType.Rise, AbnormalityGroup.CONSUMABLES);
 
-        foreach (AbnormalitySchema schema in consumableSchemas)
+        foreach (AbnormalityDefinition schema in consumableSchemas)
         {
             int abnormSubId = schema.DependsOn switch
             {
@@ -215,9 +216,9 @@ public sealed class MHRSunbreakDemoPlayer : CommonPlayer
         if (debuffsPtr == 0)
             return;
 
-        AbnormalitySchema[] debuffSchemas = AbnormalityService.FindAllAbnormalitiesBy(GameType.Rise, AbnormalityGroup.DEBUFFS);
+        AbnormalityDefinition[] debuffSchemas = AbnormalityRepository.FindAllAbnormalitiesBy(GameType.Rise, AbnormalityGroup.DEBUFFS);
 
-        foreach (AbnormalitySchema schema in debuffSchemas)
+        foreach (AbnormalityDefinition schema in debuffSchemas)
         {
             int abnormSubId = schema.DependsOn switch
             {
@@ -267,13 +268,13 @@ public sealed class MHRSunbreakDemoPlayer : CommonPlayer
     private void DerefSongBuffs(long[] buffs)
     {
         int id = 0;
-        AbnormalitySchema[] schemas = AbnormalityService.FindAllAbnormalitiesBy(GameType.Rise, AbnormalityGroup.SONGS);
+        AbnormalityDefinition[] schemas = AbnormalityRepository.FindAllAbnormalitiesBy(GameType.Rise, AbnormalityGroup.SONGS);
         foreach (long buffPtr in buffs)
         {
             MHRHHAbnormality abnormality = Process.Memory.Read<MHRHHAbnormality>(buffPtr);
             abnormality.Timer = abnormality.Timer.ToAbnormalitySeconds();
 
-            AbnormalitySchema schema = schemas[id];
+            AbnormalityDefinition schema = schemas[id];
 
             HandleAbnormality<MHRSongAbnormality, MHRHHAbnormality>(
                 _abnormalities,

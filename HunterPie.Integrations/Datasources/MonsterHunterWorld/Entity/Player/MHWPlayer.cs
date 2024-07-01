@@ -5,7 +5,8 @@ using HunterPie.Core.Domain.DTO;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Data.Schemas;
+using HunterPie.Core.Game.Data.Definitions;
+using HunterPie.Core.Game.Data.Repository;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Entity.Player.Classes;
@@ -573,11 +574,11 @@ public sealed class MHWPlayer : CommonPlayer
 
     private void GetHuntingHornAbnormalities(MHWAbnormalityStructure[] buffs)
     {
-        AbnormalitySchema[] abnormalitySchemas =
-            AbnormalityService.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.SONGS);
+        AbnormalityDefinition[] abnormalitySchemas =
+            AbnormalityRepository.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.SONGS);
         int offsetFirstAbnormality = abnormalitySchemas[0].Offset;
 
-        foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+        foreach (AbnormalityDefinition abnormalitySchema in abnormalitySchemas)
         {
             // We can calculate the index of the abnormality based on their offset and the size of a float
             int index = (abnormalitySchema.Offset - offsetFirstAbnormality) / sizeof(float);
@@ -594,12 +595,12 @@ public sealed class MHWPlayer : CommonPlayer
 
     private void GetOrchestraAbnormalities(MHWAbnormalityStructure[] buffs)
     {
-        AbnormalitySchema[] abnormalitySchemas =
-            AbnormalityService.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.ORCHESTRA);
+        AbnormalityDefinition[] abnormalitySchemas =
+            AbnormalityRepository.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.ORCHESTRA);
         int offsetFirstAbnormality = abnormalitySchemas[0].Offset;
         int indexFirstOrchestraAbnormality = (offsetFirstAbnormality - 0x38) / sizeof(float);
 
-        foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+        foreach (AbnormalityDefinition abnormalitySchema in abnormalitySchemas)
         {
             int index = ((abnormalitySchema.Offset - offsetFirstAbnormality) / sizeof(float)) + indexFirstOrchestraAbnormality;
             MHWAbnormalityStructure structure = buffs[index];
@@ -615,9 +616,9 @@ public sealed class MHWPlayer : CommonPlayer
 
     private void GetDebuffAbnormalities(long baseAddress)
     {
-        AbnormalitySchema[] abnormalitySchemas = AbnormalityService.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.DEBUFFS);
+        AbnormalityDefinition[] abnormalitySchemas = AbnormalityRepository.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.DEBUFFS);
 
-        foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+        foreach (AbnormalityDefinition abnormalitySchema in abnormalitySchemas)
         {
             MHWAbnormalityStructure structure = new();
 
@@ -641,9 +642,9 @@ public sealed class MHWPlayer : CommonPlayer
 
     private void GetConsumableAbnormalities(long baseAddress)
     {
-        AbnormalitySchema[] abnormalitySchemas = AbnormalityService.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.CONSUMABLES);
+        AbnormalityDefinition[] abnormalitySchemas = AbnormalityRepository.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.CONSUMABLES);
 
-        foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+        foreach (AbnormalityDefinition abnormalitySchema in abnormalitySchemas)
         {
             MHWAbnormalityStructure structure = new();
 
@@ -672,9 +673,9 @@ public sealed class MHWPlayer : CommonPlayer
 
     private void GetSkillAbnormalities(long baseAddress)
     {
-        AbnormalitySchema[] abnormalitySchemas = AbnormalityService.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.SKILLS);
+        AbnormalityDefinition[] abnormalitySchemas = AbnormalityRepository.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.SKILLS);
 
-        foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+        foreach (AbnormalityDefinition abnormalitySchema in abnormalitySchemas)
         {
             MHWAbnormalityStructure structure = Process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
 
@@ -694,8 +695,8 @@ public sealed class MHWPlayer : CommonPlayer
             AddressMap.Get<int[]>("ABNORMALITY_CANTEEN_OFFSETS")
         );
 
-        AbnormalitySchema[] abnormalitySchemas = AbnormalityService.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.FOODS);
-        foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+        AbnormalityDefinition[] abnormalitySchemas = AbnormalityRepository.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.FOODS);
+        foreach (AbnormalityDefinition abnormalitySchema in abnormalitySchemas)
         {
             MHWAbnormalityStructure structure = Process.Memory.Read<MHWAbnormalityStructure>(canteenAddress + abnormalitySchema.Offset);
 
@@ -715,8 +716,8 @@ public sealed class MHWPlayer : CommonPlayer
             AddressMap.Get<int[]>("ABNORMALITY_GEAR_OFFSETS")
         );
 
-        AbnormalitySchema[] abnormalitySchemas = AbnormalityService.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.GEARS);
-        foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+        AbnormalityDefinition[] abnormalitySchemas = AbnormalityRepository.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.GEARS);
+        foreach (AbnormalityDefinition abnormalitySchema in abnormalitySchemas)
         {
             MHWAbnormalityStructure structure = Process.Memory.Read<MHWAbnormalityStructure>(gearAddress + abnormalitySchema.Offset);
 

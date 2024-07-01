@@ -4,7 +4,7 @@ using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data;
-using HunterPie.Core.Game.Data.Schemas;
+using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
@@ -190,7 +190,7 @@ public class MHWMonster : CommonMonster
 
     private void GetMonsterCaptureThreshold()
     {
-        MonsterDataSchema? data = MonsterData.GetMonsterData(Id);
+        MonsterDefinition? data = MonsterData.GetMonsterData(Id);
 
         if (!data.HasValue)
             return;
@@ -200,7 +200,7 @@ public class MHWMonster : CommonMonster
 
     private void GetMonsterWeaknesses()
     {
-        MonsterDataSchema? data = MonsterData.GetMonsterData(Id);
+        MonsterDefinition? data = MonsterData.GetMonsterData(Id);
 
         if (!data.HasValue)
             return;
@@ -249,12 +249,12 @@ public class MHWMonster : CommonMonster
 
         float monsterSizeMultiplier = (float)Math.Round(sizeMultiplier / sizeModifier * 100f) / 100f;
 
-        MonsterSizeSchema? crownData = MonsterData.GetMonsterData(Id)?.Size;
+        MonsterSizeDefinition? crownData = MonsterData.GetMonsterData(Id)?.Size;
 
         if (crownData is null)
             return;
 
-        MonsterSizeSchema crown = crownData.Value;
+        MonsterSizeDefinition crown = crownData.Value;
 
         Crown = monsterSizeMultiplier >= crown.Gold ? Crown.Gold
             : monsterSizeMultiplier >= crown.Silver ? Crown.Silver
@@ -349,12 +349,12 @@ public class MHWMonster : CommonMonster
         long monsterPartAddress = monsterPartPtr + 0x40;
         long monsterSeverableAddress = monsterPartPtr + 0x1FC8;
 
-        MonsterDataSchema? monsterSchema = MonsterData.GetMonsterData(Id);
+        MonsterDefinition? monsterSchema = MonsterData.GetMonsterData(Id);
 
         if (!monsterSchema.HasValue)
             return;
 
-        MonsterDataSchema monsterInfo = monsterSchema.Value;
+        MonsterDefinition monsterInfo = monsterSchema.Value;
 
         if (_parts is null)
         {
@@ -369,7 +369,7 @@ public class MHWMonster : CommonMonster
         {
             (long cachedAddress, MHWMonsterPart part) = _parts[pIndex];
             IUpdatable<MHWMonsterPartStructure> updatable = _parts[pIndex].Item2;
-            MonsterPartSchema partSchema = monsterInfo.Parts[pIndex];
+            MonsterPartDefinition partSchema = monsterInfo.Parts[pIndex];
             MHWMonsterPartStructure partStructure = new();
 
             // If the part address has been cached already, we can just read them
@@ -479,7 +479,7 @@ public class MHWMonster : CommonMonster
                 if (structure.Owner != _address)
                     break;
 
-                AilmentDataSchema ailmentSchema = MonsterData.GetAilmentData(structure.Id);
+                AilmentDefinition ailmentSchema = MonsterData.GetAilmentData(structure.Id);
                 if (ailmentSchema.IsUnknown)
                     continue;
 

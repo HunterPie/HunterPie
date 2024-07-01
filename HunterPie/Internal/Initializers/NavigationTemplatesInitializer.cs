@@ -11,6 +11,8 @@ using HunterPie.GUI.Parts.Statistics.ViewModels;
 using HunterPie.GUI.Parts.Statistics.Views;
 using HunterPie.UI.Controls.Settings.Abnormality.ViewModels;
 using HunterPie.UI.Controls.Settings.Abnormality.Views;
+using HunterPie.UI.Controls.Settings.Monsters.ViewModels;
+using HunterPie.UI.Controls.Settings.Monsters.Views;
 using HunterPie.UI.Logging.ViewModels;
 using HunterPie.UI.Logging.Views;
 using HunterPie.UI.Main.ViewModels;
@@ -34,6 +36,7 @@ internal class NavigationTemplatesInitializer : IInitializer
         NavigationProvider.Bind<AbnormalityWidgetSettingsView, AbnormalityWidgetSettingsViewModel>();
         NavigationProvider.Bind<QuestStatisticsSummariesView, QuestStatisticsSummariesViewModel>();
         NavigationProvider.Bind<QuestDetailsView, QuestDetailsViewModel>();
+        NavigationProvider.Bind<MonsterConfigurationsView, MonsterConfigurationsViewModel>();
 
         return Task.CompletedTask;
     }

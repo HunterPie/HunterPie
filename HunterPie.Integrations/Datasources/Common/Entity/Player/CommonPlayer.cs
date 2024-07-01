@@ -3,7 +3,7 @@ using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Data.Schemas;
+using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Entity.Player.Classes;
@@ -112,7 +112,7 @@ public abstract class CommonPlayer : Scannable, IPlayer, IEventDispatcher, IDisp
 
     protected CommonPlayer(IProcessManager process) : base(process) { }
 
-    protected void HandleAbnormality<T, S>(Dictionary<string, IAbnormality> abnormalities, AbnormalitySchema schema, float timer, S newData)
+    protected void HandleAbnormality<T, S>(Dictionary<string, IAbnormality> abnormalities, AbnormalityDefinition schema, float timer, S newData)
         where T : IAbnormality, IUpdatable<S>
         where S : struct
     {

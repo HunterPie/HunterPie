@@ -1,14 +1,14 @@
 ﻿using HunterPie.Core.Game.Enums;
 
-namespace HunterPie.Core.Game.Data.Schemas;
+namespace HunterPie.Core.Game.Data.Definitions;
 
-public struct MonsterDataSchema
+public struct MonsterDefinition
 {
     public int Id;
     public int Capture;
     public bool IsNotCapturable;
-    public MonsterSizeSchema Size;
-    public MonsterPartSchema[] Parts;
+    public MonsterSizeDefinition Size;
+    public MonsterPartDefinition[] Parts;
     public Element[] Weaknesses;
     public string[] Types;
 }

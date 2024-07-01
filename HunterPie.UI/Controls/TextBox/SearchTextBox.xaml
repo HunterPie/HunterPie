@@ -13,7 +13,7 @@
     <UserControl.Resources>
         <converters:RelativeSizeRectConverter x:Key="RelativeSizeRectConverter"/>
     </UserControl.Resources>
-    <Border CornerRadius="5"
+    <Border CornerRadius="{Binding CornerRadius, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:SearchTextBox}}}"
             Background="{StaticResource GRAY_100}"
             BorderBrush="{StaticResource GRAY}"
             BorderThickness="1">

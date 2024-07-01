@@ -11,10 +11,13 @@ internal class MapperFactoryInitializer : IInitializer
     public Task Init()
     {
         MapFactory.Add(new GameTypeToGameProcessMapper());
-        MapFactory.Add(new XmlNodeToAbnormalitySchemaMapper(
+        MapFactory.Add(new XmlNodeToAbnormalityDefinitionMapper(
             new MHRAbnormalityFlagTypeParser()
         ));
         MapFactory.Add(new GameProcessToGameTypeMapper());
+        MapFactory.Add(new XmlNodeToMonsterDefinitionMapper());
+        MapFactory.Add(new XmlNodeToMonsterPartDefinitionMapper());
+        MapFactory.Add(new XmlNodeToMonsterSizeDefinitionMapper());
 
         return Task.CompletedTask;
     }

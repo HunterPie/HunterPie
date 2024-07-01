@@ -1,6 +1,6 @@
-﻿namespace HunterPie.Core.Game.Data.Schemas;
+﻿namespace HunterPie.Core.Game.Data.Definitions;
 
-public struct MonsterSizeSchema
+public struct MonsterSizeDefinition
 {
     public float Size;
     public float Mini;

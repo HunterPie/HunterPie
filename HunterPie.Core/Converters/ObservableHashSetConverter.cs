@@ -6,15 +6,14 @@ using System.Linq;
 
 namespace HunterPie.Core.Converters;
 
-#nullable enable
 public class ObservableHashSetConverter<T> : JsonConverter
 {
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) =>
+    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) =>
         JsonSerializer.CreateDefault().Serialize(writer, value);
 
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
     {
-        var existingCollection = (ObservableHashSet<T>)existingValue;
+        var existingCollection = (ObservableHashSet<T>)existingValue!;
         var hashSet = (ObservableHashSet<T>?)JsonSerializer.CreateDefault().Deserialize(reader, objectType);
 
         if (hashSet is not { })

@@ -1,10 +1,9 @@
 ﻿using HunterPie.Core.Game.Enums;
 using System;
 
-namespace HunterPie.Core.Game.Data.Schemas;
+namespace HunterPie.Core.Game.Data.Definitions;
 
-#nullable enable
-public struct AbnormalitySchema
+public struct AbnormalityDefinition
 {
     public string Id;
     public int Offset;
