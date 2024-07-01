@@ -20,4 +20,12 @@ public partial class MonsterConfigurationView : UserControl
 
         vm.IsEditing = !vm.IsEditing;
     }
+
+    private void OnDeleteClick(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MonsterConfigurationViewModel vm)
+            return;
+
+        vm.IsEditing = !vm.IsEditing;
+    }
 }

@@ -35,6 +35,8 @@
                          ItemsSource="{Binding ItemsSource, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:SearchPopup}}}"
                          VirtualizingPanel.ScrollUnit="Pixel"
                          VirtualizingPanel.VirtualizationMode="Standard"
+                         VirtualizingPanel.CacheLength="20"
+                         VirtualizingPanel.CacheLengthUnit="Item"
                          MaxHeight="{Binding MaxResultsHeight, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:SearchPopup}}}"
                          ItemTemplate="{Binding ItemTemplate, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:SearchPopup}}}">
                     <ListBox.Template>

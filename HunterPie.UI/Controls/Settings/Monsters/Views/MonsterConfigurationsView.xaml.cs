@@ -1,5 +1,6 @@
 ﻿using HunterPie.UI.Controls.Popup.Events;
 using HunterPie.UI.Controls.Settings.Monsters.ViewModels;
+using HunterPie.UI.Navigation;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -52,5 +53,10 @@ public partial class MonsterConfigurationsView : UserControl
             return;
 
         vm.FilterQuery(e.Query);
+    }
+
+    private void OnBackButtonClick(object sender, RoutedEventArgs e)
+    {
+        Navigator.Body.Return();
     }
 }

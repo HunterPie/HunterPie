@@ -28,7 +28,10 @@ public class MonsterConfigurationsViewModel : ViewModel, IDisposable
     public void BindAndUpdateSettings()
     {
         foreach (MonsterConfigurationViewModel viewModel in Elements)
+        {
+            viewModel.FetchIcon();
             viewModel.PropertyChanged += OnViewModelPropertyChange;
+        }
     }
 
     public void Dispose()

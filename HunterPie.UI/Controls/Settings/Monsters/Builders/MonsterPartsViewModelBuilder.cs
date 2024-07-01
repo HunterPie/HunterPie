@@ -51,6 +51,7 @@ public static class MonsterPartsViewModelBuilder
                 return new MonsterConfigurationViewModel
                 {
                     Name = MonsterNameAdapter.From(gameType.Value, it.Id),
+                    GameType = gameType.Value,
                     Configuration = new MonsterConfiguration
                     {
                         Id = it.Id,

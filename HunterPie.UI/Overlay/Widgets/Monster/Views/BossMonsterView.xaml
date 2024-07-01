@@ -21,7 +21,6 @@
              d:DesignWidth="600">
     <UserControl.Resources>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
-        <converters:MonsterEmToIconConverter x:Key="MonsterEmToIconConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:FloatFloorConverter x:Key="FloatFloorConverter"/>
         <converters:CrownToIconConverter x:Key="CrownToIconConverter"/>

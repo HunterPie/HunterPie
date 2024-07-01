@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:HunterPie.UI.Controls.Settings.Monsters.Views"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Controls.Settings.Monsters.ViewModels"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:MonsterConfigurationViewModel}"
              d:DesignWidth="500">
@@ -62,14 +63,21 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
                 <!-- Monster icon -->
                 <Image Grid.Row="0"
+                       Grid.RowSpan="2"
                        Grid.Column="0"
                        Height="{Binding Width, RelativeSource={RelativeSource Self}}"
                        VerticalAlignment="Center"
-                       Source="{StaticResource ICON_SKULL}"
-                       Margin="10"/>
+                       Source="{Binding Icon, Mode=OneWay}"
+                       d:Source="{StaticResource ICON_SKULL}"
+                       RenderOptions.BitmapScalingMode="Linear"
+                       Margin="5"/>
 
                 <!-- Monster name -->
                 <TextBlock Grid.Row="0"
@@ -77,8 +85,34 @@
                            Text="{Binding Name, Mode=OneTime}"
                            d:Text="Monster Name"
                            VerticalAlignment="Center"
-                           Foreground="{StaticResource WHITE_200}"
+                           Foreground="{StaticResource WHITE_100}"
+                           FontWeight="Medium"
                            FontSize="13"/>
+
+                <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           VerticalAlignment="Top"
+                           Foreground="{StaticResource WHITE_500}"
+                           FontSize="13">
+                    <Run Text="{Binding Configuration.Parts.Count, Mode=OneTime}"/>
+                    <Run Text="parts"/>
+                </TextBlock>
+
+                <!-- Delete override -->
+                <buttons:Button Grid.Row="0"
+                                Grid.RowSpan="2"
+                                Grid.Column="2"
+                                BorderBrush="{StaticResource GRAY_100}"
+                                Background="{StaticResource GRAY_200}"
+                                BorderThickness="1"
+                                CornerRadius="5"
+                                VerticalContentAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch"
+                                Margin="5"
+                                Click="OnDeleteClick">
+                    <image:Icon Foreground="{StaticResource WHITE_400}"
+                                Image="{StaticResource ICON_TRASH}"/>
+                </buttons:Button>
             </Grid>
         </buttons:Button>
 
