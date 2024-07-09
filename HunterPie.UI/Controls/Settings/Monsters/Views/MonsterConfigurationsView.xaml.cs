@@ -1,4 +1,5 @@
-﻿using HunterPie.UI.Controls.Popup.Events;
+﻿using HunterPie.UI.Architecture.Events;
+using HunterPie.UI.Controls.Popup.Events;
 using HunterPie.UI.Controls.Settings.Monsters.ViewModels;
 using HunterPie.UI.Navigation;
 using System.Windows;
@@ -20,15 +21,7 @@ public partial class MonsterConfigurationsView : UserControl
         if (DataContext is not MonsterConfigurationsViewModel vm)
             return;
 
-        vm.BindAndUpdateSettings();
-    }
-
-    private void OnUnloaded(object sender, RoutedEventArgs e)
-    {
-        if (DataContext is not MonsterConfigurationsViewModel vm)
-            return;
-
-        vm.Dispose();
+        vm.FetchIcons();
     }
 
     private void OnOverrideMonsterClick(object sender, RoutedEventArgs e)
@@ -41,10 +34,23 @@ public partial class MonsterConfigurationsView : UserControl
 
     private void OnSelectMonsterClick(object sender, RoutedEventArgs e)
     {
-        if (sender is not FrameworkElement { DataContext: MonsterConfigurationViewModel vm })
+        if (DataContext is not MonsterConfigurationsViewModel vm)
             return;
 
-        vm.IsOverriding = true;
+        if (sender is not FrameworkElement { DataContext: MonsterConfigurationViewModel configurationViewModel })
+            return;
+
+        vm.CreateOverride(configurationViewModel);
+    }
+
+    private void OnMonsterDeleteClick(object sender, DataRoutedEventArgs<MonsterConfigurationViewModel> e)
+    {
+        if (DataContext is not MonsterConfigurationsViewModel vm)
+            return;
+
+        MonsterConfigurationViewModel configurationViewModel = e.Data;
+
+        vm.RemoveOverride(configurationViewModel);
     }
 
     private void OnSearch(object sender, RoutedSearchEventArgs e)

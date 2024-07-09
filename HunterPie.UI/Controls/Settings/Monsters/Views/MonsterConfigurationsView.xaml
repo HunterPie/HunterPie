@@ -17,11 +17,9 @@
              d:DesignHeight="450" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:MonsterConfigurationsViewModel}"
-             Loaded="OnLoaded"
-             Unloaded="OnUnloaded">
+             Loaded="OnLoaded">
     <UserControl.Resources>
-        <visibilities:BooleansToVisibilityMultiConverter x:Key="BooleansToVisibilityMultiConverter"/>
-        <converters:InvertBooleanConverter x:Key="InvertBooleanConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -100,7 +98,7 @@
 
         <popup:SearchPopup Grid.Row="0" 
                            IsOpen="{Binding IsSearching, Mode=TwoWay}"
-                           ItemsSource="{Binding Elements, Mode=OneTime}"
+                           ItemsSource="{Binding SearchElements, Mode=OneTime}"
                            MaxResultsHeight="300"
                            Margin="5,0"
                            d:IsOpen="False"
@@ -111,13 +109,8 @@
                     <buttons:Button Click="OnSelectMonsterClick"
                                     HorizontalContentAlignment="Stretch"
                                     VerticalContentAlignment="Stretch"
-                                    Padding="0">
-                        <buttons:Button.Visibility>
-                            <MultiBinding Converter="{StaticResource BooleansToVisibilityMultiConverter}">
-                                <Binding Path="IsMatch" Mode="OneWay"/>
-                                <Binding Path="IsOverriding" Mode="OneWay" Converter="{StaticResource InvertBooleanConverter}"/>
-                            </MultiBinding>
-                        </buttons:Button.Visibility>
+                                    Padding="0"
+                                    Visibility="{Binding IsMatch, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="30"/>
@@ -145,29 +138,27 @@
             </popup:SearchPopup.ItemTemplate>
         </popup:SearchPopup>
 
-        <ListBox Grid.Row="2"
-                 ItemsSource="{Binding Elements, Mode=OneTime}"
-                 Background="Transparent"
-                 BorderThickness="0"
-                 VirtualizingPanel.ScrollUnit="Pixel"
-                 Margin="0,2,0,0"
-                 VirtualizingPanel.VirtualizationMode="Standard"
-                 VirtualizingPanel.CacheLength="20"
-                 VirtualizingPanel.CacheLengthUnit="Item"
-                 d:ItemsSource="{d:SampleData ItemCount=5}">
-            <ListBox.Template>
-                <ControlTemplate>
-                    <viewer:SmoothScrollViewer HorizontalScrollBarVisibility="Disabled">
-                        <ItemsPresenter/>
-                    </viewer:SmoothScrollViewer>
-                </ControlTemplate>
-            </ListBox.Template>
+        <viewer:SmoothScrollViewer Grid.Row="2"
+                                   HorizontalScrollBarVisibility="Disabled"
+                                   Margin="2,0">
+            <StackPanel Orientation="Vertical">
+                <local:MonsterGlobalConfigurationView DataContext="{Binding GlobalConfiguration, Mode=OneTime}"/>
 
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <local:MonsterConfigurationView />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                <ItemsControl ItemsSource="{Binding Overrides, Mode=OneTime}"
+                              Background="Transparent"
+                              BorderThickness="0"
+                              VirtualizingPanel.ScrollUnit="Pixel"
+                              VirtualizingPanel.VirtualizationMode="Standard"
+                              VirtualizingPanel.CacheLength="20"
+                              VirtualizingPanel.CacheLengthUnit="Item"
+                              d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:MonsterConfigurationView DeleteClick="OnMonsterDeleteClick"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </viewer:SmoothScrollViewer>
     </Grid>
 </UserControl>

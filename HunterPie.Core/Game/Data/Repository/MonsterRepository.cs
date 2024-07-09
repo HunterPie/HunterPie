@@ -29,7 +29,6 @@ public static class MonsterRepository
         return dataSource.ContainsKey(id) ? dataSource[id] : null;
     }
 
-
     /// <summary>
     /// Returns all monsters based on game
     /// </summary>

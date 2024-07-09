@@ -7,6 +7,7 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data.Repository;
 using HunterPie.UI.Architecture.Adapter;
 using HunterPie.UI.Controls.Settings.Monsters.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -16,9 +17,7 @@ namespace HunterPie.UI.Controls.Settings.Monsters.Builders;
 #nullable enable
 public static class MonsterPartsViewModelBuilder
 {
-    private static readonly ObservableCollection<MonsterConfigurationViewModel> EmptyCached = new();
-
-    public static ObservableCollection<MonsterConfigurationViewModel> Build(
+    public static MonsterConfigurationViewModel[] Build(
         GameProcess game,
         ICollection<MonsterConfiguration> configurations
     )
@@ -26,7 +25,7 @@ public static class MonsterPartsViewModelBuilder
         GameType? gameType = MapFactory.Map<GameProcess, GameType?>(game);
 
         if (gameType is not { })
-            return EmptyCached;
+            return Array.Empty<MonsterConfigurationViewModel>();
 
         var monsterConfigurations = configurations.ToDictionary(it => it.Id);
 
@@ -62,6 +61,6 @@ public static class MonsterPartsViewModelBuilder
                 };
             });
 
-        return viewModels.ToObservableCollection();
+        return viewModels.ToArray();
     }
 }

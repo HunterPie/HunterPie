@@ -1,0 +1,145 @@
+﻿<UserControl x:Class="HunterPie.UI.Controls.Settings.Monsters.Views.MonsterGlobalConfigurationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Controls.Settings.Monsters.Views"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.Controls.Settings.Monsters.ViewModels"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
+             mc:Ignorable="d" 
+             d:DesignWidth="500"
+             d:DataContext="{d:DesignInstance viewModels:MonsterGlobalConfigurationViewModel}">
+    <UserControl.Resources>
+        <brushes:BrushToColorConverter x:Key="BrushToColorConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <buttons:Button Grid.Row="0"
+                        Background="{StaticResource GRAY_50}"
+                        BorderThickness="1"
+                        BorderBrush="{StaticResource GRAY}"
+                        Margin="1"
+                        Padding="0"
+                        VerticalContentAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        CornerRadius="5"
+                        Click="OnClick">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Monster icon -->
+                <image:Icon Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="0"
+                            Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                            VerticalAlignment="Center"
+                            Image="{StaticResource ICON_SETTINGS}"
+                            RenderOptions.BitmapScalingMode="Linear"
+                            Margin="10"
+                            Foreground="{StaticResource WHITE_500}"/>
+
+                <!-- Monster name -->
+                <TextBlock Grid.Row="0"
+                           Grid.Column="1"
+                           Text="Global settings"
+                           VerticalAlignment="Center"
+                           Foreground="{StaticResource WHITE_100}"
+                           FontWeight="Medium"
+                           FontSize="13"/>
+
+                <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           VerticalAlignment="Top"
+                           Foreground="{StaticResource WHITE_500}"
+                           FontSize="13"
+                           Text="Apply settings globally for all monsters."/>
+            </Grid>
+        </buttons:Button>
+
+        <Expander Grid.Row="1"
+                  Margin="5,0"
+                  IsExpanded="{Binding IsExpanded, Mode=TwoWay}"
+                  Style="{StaticResource ExpanderNoHeaderStyle}">
+            <Border BorderThickness="1,0,1,1"
+                    BorderBrush="{StaticResource GRAY}"
+                    Background="{StaticResource GRAY_200}"
+                    CornerRadius="0,0,5,5">
+                <StackPanel>
+                    <ItemsControl ItemsSource="{Binding Parts, Mode=OneTime}">
+                        <ItemsControl.Template>
+                            <ControlTemplate>
+                                <StackPanel IsItemsHost="True"
+                                            Orientation="Vertical"/>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type viewModels:MonsterPartGroupViewModel}">
+                                <buttons:Button Margin="2,2"
+                                                VerticalContentAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                Padding="2"
+                                                BorderThickness="1"
+                                                BorderBrush="{StaticResource GRAY}"
+                                                CornerRadius="5"
+                                                Background="{StaticResource GRAY_100}"
+                                                Click="OnPartGroupClick">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Ellipse Grid.Column="0"
+                                                 Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                                                 Margin="10">
+                                            <Ellipse.Effect>
+                                                <DropShadowEffect Color="{Binding Fill, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Ellipse}}, Converter={StaticResource BrushToColorConverter}}"
+                                                                  ShadowDepth="0"
+                                                                  BlurRadius="10"/>
+                                            </Ellipse.Effect>
+                                            <Ellipse.Style>
+                                                <Style TargetType="Ellipse">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsEnabled, Mode=OneWay}"
+                                                                     Value="True">
+                                                            <Setter Property="Fill" Value="{StaticResource GREEN_200}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsEnabled, Mode=OneWay}"
+                                                                     Value="False">
+                                                            <Setter Property="Fill" Value="{StaticResource RED_200}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Ellipse.Style>
+                                        </Ellipse>
+
+                                        <TextBlock Grid.Column="1"
+                                                   Foreground="{StaticResource WHITE_200}"
+                                                   d:Text="Part name"
+                                                   Text="{Binding Type, Mode=OneTime}"
+                                                   FontSize="13"
+                                                   VerticalAlignment="Center"/>
+                                    </Grid>
+                                </buttons:Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+        </Expander>
+    </Grid>
+</UserControl>

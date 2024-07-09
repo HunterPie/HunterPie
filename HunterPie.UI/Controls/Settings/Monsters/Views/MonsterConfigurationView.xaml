@@ -10,39 +10,7 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:MonsterConfigurationViewModel}"
              d:DesignWidth="500">
-    <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <Style x:Key="ExpanderNoHeaderStyle" TargetType="Expander">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Expander">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}">
-                            <ContentPresenter x:Name="PART_Presenter"/>
-                        </Border>
-
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsExpanded"
-                                     Value="True">
-                                <Setter Property="Visibility"
-                                        TargetName="PART_Presenter"
-                                        Value="Visible"/>
-                            </Trigger>
-
-                            <Trigger Property="IsExpanded"
-                                     Value="False">
-                                <Setter Property="Visibility"
-                                        TargetName="PART_Presenter"
-                                        Value="Collapsed"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </UserControl.Resources>
-    <Grid Visibility="{Binding IsOverriding, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="Auto"/>
@@ -94,7 +62,8 @@
                            VerticalAlignment="Top"
                            Foreground="{StaticResource WHITE_500}"
                            FontSize="13">
-                    <Run Text="{Binding Configuration.Parts.Count, Mode=OneTime}"/>
+                    <Run Text="{Binding Configuration.Parts.Count, Mode=OneTime}"
+                         d:Text="0"/>
                     <Run Text="parts"/>
                 </TextBlock>
 
@@ -142,19 +111,5 @@
                 </StackPanel>
             </Border>
         </Expander>
-        <Grid.Style>
-            <Style TargetType="Grid">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsOverriding, Mode=OneWay}"
-                                 Value="True">
-                        <Setter Property="Opacity" Value="1"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding IsOverriding, Mode=OneWay}"
-                                 Value="False">
-                        <Setter Property="Opacity" Value="0.5"/>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </Grid.Style>
     </Grid>
 </UserControl>

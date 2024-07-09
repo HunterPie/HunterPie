@@ -1,6 +1,8 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Game.Data.Definitions;
+using HunterPie.Core.Game.Data.Repository;
 using System;
+using System.IO;
 using System.Linq;
 using System.Xml;
 
@@ -26,7 +28,8 @@ public class XmlNodeToMonsterPartDefinitionMapper : IMapper<XmlNode, MonsterPart
         var output = new MonsterPartDefinition
         {
             String = localizationId ?? string.Empty,
-            TenderizeIds = tenderizeIds
+            TenderizeIds = tenderizeIds,
+            Group = MonsterPartRepository.FindBy(localizationId ?? string.Empty) ?? throw new InvalidDataException($"Part group for '{localizationId}' not found")
         };
 
         int.TryParse(id, out output.Id);

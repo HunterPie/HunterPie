@@ -6,4 +6,5 @@ public struct MonsterPartDefinition
     public string String;
     public bool IsSeverable;
     public uint[] TenderizeIds;
+    public PartGroupType Group;
 }

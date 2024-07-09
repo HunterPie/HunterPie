@@ -6,7 +6,6 @@ using HunterPie.Core.Domain.Enums;
 using HunterPie.UI.Controls.Settings.Monsters.Builders;
 using HunterPie.UI.Controls.Settings.Monsters.ViewModels;
 using HunterPie.UI.Navigation;
-using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.Settings.ViewModels.Internal;
 
@@ -17,13 +16,16 @@ public class MonsterDetailsPropertyViewModel : ConfigurationPropertyViewModel
 
     public void ConfigureParts()
     {
-        ObservableCollection<MonsterConfigurationViewModel> monsterViewModels = MonsterPartsViewModelBuilder.Build(
+        MonsterConfigurationViewModel[] monsterViewModels = MonsterPartsViewModelBuilder.Build(
             game: Game,
             configurations: Configurations
         );
         OverlayConfig configuration = ClientConfigHelper.GetOverlayConfigFrom(Game);
+        MonsterGlobalConfigurationViewModel globalConfigurationViewModel =
+            MonsterGlobalConfigurationViewModelBuilder.Build(configuration.BossesWidget.Details.AllowedPartGroups);
 
         var vm = new MonsterConfigurationsViewModel(
+            globalConfiguration: globalConfigurationViewModel,
             configuration: configuration.BossesWidget.Details,
             elements: monsterViewModels
         );

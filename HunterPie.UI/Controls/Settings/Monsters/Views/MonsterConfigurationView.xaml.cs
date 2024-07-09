@@ -1,4 +1,5 @@
-﻿using HunterPie.UI.Controls.Settings.Monsters.ViewModels;
+﻿using HunterPie.UI.Architecture.Events;
+using HunterPie.UI.Controls.Settings.Monsters.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -8,6 +9,20 @@ namespace HunterPie.UI.Controls.Settings.Monsters.Views;
 /// </summary>
 public partial class MonsterConfigurationView : UserControl
 {
+    public static readonly RoutedEvent DeleteClickEvent =
+        EventManager.RegisterRoutedEvent(
+            nameof(DeleteClick),
+            RoutingStrategy.Bubble,
+            typeof(DataRoutedEventHandler<MonsterConfigurationViewModel>),
+            typeof(MonsterConfigurationView)
+        );
+
+    public event DataRoutedEventHandler<MonsterConfigurationViewModel> DeleteClick
+    {
+        add => AddHandler(DeleteClickEvent, value);
+        remove => RemoveHandler(DeleteClickEvent, value);
+    }
+
     public MonsterConfigurationView()
     {
         InitializeComponent();
@@ -26,6 +41,6 @@ public partial class MonsterConfigurationView : UserControl
         if (DataContext is not MonsterConfigurationViewModel vm)
             return;
 
-        vm.IsEditing = !vm.IsEditing;
+        RaiseEvent(new DataRoutedEventArgs<MonsterConfigurationViewModel>(DeleteClickEvent, this, vm));
     }
 }
