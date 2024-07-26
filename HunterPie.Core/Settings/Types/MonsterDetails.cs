@@ -10,8 +10,11 @@ namespace HunterPie.Core.Settings.Types;
 public class MonsterDetails
 {
     [JsonConverter(typeof(ObservableHashSetConverter<PartGroupType>))]
-    public ObservableHashSet<PartGroupType> AllowedPartGroups { get; } = new(Enum.GetValues<PartGroupType>());
+    public ObservableHashSet<PartGroupType> AllowedPartGroups { get; init; } = new(Enum.GetValues<PartGroupType>());
+
+    [JsonConverter(typeof(ObservableHashSetConverter<int>))]
+    public ObservableHashSet<int> AllowedAilments { get; init; } = new();
 
     [JsonConverter(typeof(ObservableHashSetConverter<MonsterConfiguration>))]
-    public ObservableHashSet<MonsterConfiguration> Monsters { get; } = new();
+    public ObservableHashSet<MonsterConfiguration> Monsters { get; init; } = new();
 }

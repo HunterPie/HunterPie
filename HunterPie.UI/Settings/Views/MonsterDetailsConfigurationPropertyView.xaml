@@ -34,42 +34,7 @@
                                 Image="{StaticResource ICON_SETTINGS}"
                                 Foreground="{StaticResource WHITE_600}"
                                 Margin="5,0"/>
-                    <TextBlock Text="Configure individual parts"
-                               VerticalAlignment="Center"
-                               Foreground="{StaticResource WHITE_500}"
-                               FontSize="14"/>
-                </StackPanel>
-
-                <image:Icon Grid.Column="1"
-                            Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                            Image="{StaticResource ICON_CHEVRON_RIGHT}"
-                            Foreground="{StaticResource WHITE_600}"
-                            Margin="10,5"/>
-            </Grid>
-        </buttons:Button>
-
-        <!-- Monster ailments -->
-        <buttons:Button Padding="0"
-                        BorderThickness="1"
-                        BorderBrush="{StaticResource GRAY}"
-                        Background="{StaticResource GRAY_50}"
-                        CornerRadius="5"
-                        HorizontalContentAlignment="Stretch"
-                        MinHeight="40"
-                        Margin="0,2">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="30"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" 
-                            Orientation="Horizontal"
-                            Margin="5">
-                    <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                Image="{StaticResource ICON_SETTINGS}"
-                                Foreground="{StaticResource WHITE_600}"
-                                Margin="5,0"/>
-                    <TextBlock Text="Configure individual ailments"
+                    <TextBlock Text="Configure monsters"
                                VerticalAlignment="Center"
                                Foreground="{StaticResource WHITE_500}"
                                FontSize="14"/>
@@ -83,5 +48,4 @@
             </Grid>
         </buttons:Button>
     </StackPanel>
-    
 </UserControl>

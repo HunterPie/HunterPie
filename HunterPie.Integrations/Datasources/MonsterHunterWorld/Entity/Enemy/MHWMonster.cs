@@ -1,10 +1,12 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Definitions;
+using HunterPie.Core.Game.Data.Repository;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
@@ -479,11 +481,11 @@ public class MHWMonster : CommonMonster
                 if (structure.Owner != _address)
                     break;
 
-                AilmentDefinition ailmentSchema = MonsterData.GetAilmentData(structure.Id);
-                if (ailmentSchema.IsUnknown)
+                AilmentDefinition? ailmentDef = MonsterAilmentRepository.FindBy(GameType.World, structure.Id);
+                if (ailmentDef is not { } definition || definition.IsUnknown)
                     continue;
 
-                var ailment = new MHWMonsterAilment(ailmentSchema.String);
+                var ailment = new MHWMonsterAilment(definition.String);
 
                 _ailments.Add((currentMonsterAilmentPtr, ailment));
                 this.Dispatch(_onNewAilmentFound, ailment);

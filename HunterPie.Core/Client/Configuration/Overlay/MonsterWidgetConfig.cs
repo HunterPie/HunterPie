@@ -73,7 +73,7 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
     public Observable<bool> AutoHideParts { get; set; } = true;
 
     [ConfigurationProperty("MONSTER_WIDGET_DETAILS_CONFIGURATIONS_STRING", group: CommonConfigurationGroups.MONSTER_PARTS)]
-    public MonsterDetails Details { get; set; } = new();
+    public virtual MonsterDetails Details { get; set; } = new();
 
     [ConfigurationProperty("MONSTER_WIDGET_AUTO_HIDE_PARTS_DELAY_STRING", group: CommonConfigurationGroups.MONSTER_PARTS)]
     public Range AutoHidePartsDelay { get; set; } = new(15, 300, 1, 1);

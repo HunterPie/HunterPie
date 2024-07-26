@@ -2,6 +2,7 @@
 
 public struct AilmentDefinition
 {
-    public string String { get; set; }
-    public bool IsUnknown { get; set; }
+    public int Id;
+    public string String;
+    public bool IsUnknown;
 }

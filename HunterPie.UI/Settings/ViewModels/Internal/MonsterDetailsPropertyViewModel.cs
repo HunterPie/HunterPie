@@ -22,7 +22,11 @@ public class MonsterDetailsPropertyViewModel : ConfigurationPropertyViewModel
         );
         OverlayConfig configuration = ClientConfigHelper.GetOverlayConfigFrom(Game);
         MonsterGlobalConfigurationViewModel globalConfigurationViewModel =
-            MonsterGlobalConfigurationViewModelBuilder.Build(configuration.BossesWidget.Details.AllowedPartGroups);
+            MonsterGlobalConfigurationViewModelBuilder.Build(
+                game: Game,
+                partGroups: configuration.BossesWidget.Details.AllowedPartGroups,
+                allowedAilments: configuration.BossesWidget.Details.AllowedAilments
+            );
 
         var vm = new MonsterConfigurationsViewModel(
             globalConfiguration: globalConfigurationViewModel,

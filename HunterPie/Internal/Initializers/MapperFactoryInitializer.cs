@@ -18,6 +18,7 @@ internal class MapperFactoryInitializer : IInitializer
         MapFactory.Add(new XmlNodeToMonsterDefinitionMapper());
         MapFactory.Add(new XmlNodeToMonsterPartDefinitionMapper());
         MapFactory.Add(new XmlNodeToMonsterSizeDefinitionMapper());
+        MapFactory.Add(new XmlNodeToAilmentDefinitionMapper());
 
         return Task.CompletedTask;
     }

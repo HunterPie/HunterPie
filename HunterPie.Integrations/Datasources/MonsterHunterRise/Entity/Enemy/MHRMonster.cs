@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.DTO;
 using HunterPie.Core.Domain.DTO.Monster;
@@ -6,6 +7,7 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Definitions;
+using HunterPie.Core.Game.Data.Repository;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
@@ -546,11 +548,15 @@ public class MHRMonster : CommonMonster
 
                 if (!_ailments.ContainsKey(ailmentAddress))
                 {
-                    MHRMonsterAilment dummy = new(MonsterData.GetAilmentData(ailmentId).String);
+                    AilmentDefinition? ailmentDef = MonsterAilmentRepository.FindBy(GameType.Rise, ailmentId);
+
+                    if (ailmentDef is not { } definition)
+                        continue;
+
+                    MHRMonsterAilment dummy = new(definition.String);
                     _ailments.Add(ailmentAddress, dummy);
 
                     this.Dispatch(_onNewAilmentFound, dummy);
-                    //Log.Debug($"Found new ailment at {ailmentAddress:X08}");
                 }
 
                 var data = new MHRAilmentData
