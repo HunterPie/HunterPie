@@ -8,11 +8,13 @@
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              mc:Ignorable="d" 
              d:DesignWidth="500"
              d:DataContext="{d:DesignInstance viewModels:MonsterGlobalConfigurationViewModel}">
     <UserControl.Resources>
         <brushes:BrushToColorConverter x:Key="BrushToColorConverter"/>
+        <converters:RiseMonsterAilmentIdToNameConverter x:Key="RiseMonsterAilmentIdToNameConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -201,8 +203,8 @@
 
                                         <TextBlock Grid.Column="1"
                                                    Foreground="{StaticResource WHITE_200}"
-                                                   d:Text="Part name"
-                                                   Text="{Binding Type, Mode=OneTime}"
+                                                   d:Text="Ailment name"
+                                                   Text="{Binding Name, Mode=OneTime, Converter={StaticResource RiseMonsterAilmentIdToNameConverter}}"
                                                    FontSize="13"
                                                    VerticalAlignment="Center"/>
                                     </Grid>

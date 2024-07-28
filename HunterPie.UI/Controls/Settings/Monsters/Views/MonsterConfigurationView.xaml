@@ -93,8 +93,16 @@
                     BorderBrush="{StaticResource GRAY}"
                     Background="{StaticResource GRAY_200}"
                     CornerRadius="0,0,5,5">
-                <StackPanel>
-                    <ItemsControl ItemsSource="{Binding Configuration.Parts, Mode=OneTime}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ItemsControl Grid.Column="0" 
+                                  ItemsSource="{Binding Configuration.Parts, Mode=OneTime}"
+                                  d:ItemsSource="{d:SampleData ItemCount=5}"
+                                  Margin="2">
                         <ItemsControl.Template>
                             <ControlTemplate>
                                 <StackPanel IsItemsHost="True"
@@ -108,7 +116,29 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                </StackPanel>
+
+                    <GridSplitter Grid.Column="0"
+                                  Width="1"
+                                  Background="{StaticResource GRAY}"/>
+
+                    <ItemsControl Grid.Column="1" 
+                                  ItemsSource="{Binding Configuration.Ailments, Mode=OneTime}"
+                                  d:ItemsSource="{d:SampleData ItemCount=5}"
+                                  Margin="2">
+                        <ItemsControl.Template>
+                            <ControlTemplate>
+                                <StackPanel IsItemsHost="True"
+                                            Orientation="Vertical"/>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <local:MonsterAilmentConfigurationView Margin="2,2"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
             </Border>
         </Expander>
     </Grid>

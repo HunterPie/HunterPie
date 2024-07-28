@@ -59,6 +59,9 @@
     <Compile Update="Controls\Settings\Abnormality\Views\AbnormalityWidgetSettingsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Settings\Monsters\Views\MonsterAilmentConfigurationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Settings\Monsters\Views\MonsterConfigurationsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -320,6 +323,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\Abnormality\Views\AbnormalityWidgetSettingsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Settings\Monsters\Views\MonsterAilmentConfigurationView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\Monsters\Views\MonsterConfigurationsView.xaml">

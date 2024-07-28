@@ -4,12 +4,12 @@ using HunterPie.Core.Client.Configuration.Overlay.Monster;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Mapper;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Data.Repository;
 using HunterPie.UI.Architecture.Adapter;
 using HunterPie.UI.Controls.Settings.Monsters.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace HunterPie.UI.Controls.Settings.Monsters.Builders;
@@ -28,12 +28,14 @@ public static class MonsterPartsViewModelBuilder
             return Array.Empty<MonsterConfigurationViewModel>();
 
         var monsterConfigurations = configurations.ToDictionary(it => it.Id);
+        AilmentDefinition[] ailmentDefinitions = MonsterAilmentRepository.FindAllBy(gameType.Value);
 
         IEnumerable<MonsterConfigurationViewModel> viewModels = MonsterRepository.FindAllBy(gameType.Value)
             .Select(it =>
             {
                 MonsterConfiguration? configuration = monsterConfigurations.GetValueOrDefault(it.Id);
                 var partConfigurations = configuration?.Parts.ToDictionary(part => part.Id);
+                var ailmentConfigurations = configuration?.Ailments.ToDictionary(ailment => ailment.Id);
 
                 IEnumerable<MonsterPartConfiguration> parts = it.Parts.Select(part =>
                 {
@@ -46,6 +48,18 @@ public static class MonsterPartsViewModelBuilder
                         IsEnabled = partConfiguration?.IsEnabled ?? new Observable<bool>(true)
                     };
                 });
+                IEnumerable<MonsterAilmentConfiguration> ailments = ailmentDefinitions.Select(ailment =>
+                {
+                    MonsterAilmentConfiguration? ailmentConfiguration =
+                        ailmentConfigurations?.GetValueOrDefault(ailment.Id);
+
+                    return new MonsterAilmentConfiguration
+                    {
+                        Id = ailment.Id,
+                        StringId = ailment.String,
+                        IsEnabled = ailmentConfiguration?.IsEnabled ?? new Observable<bool>(true)
+                    };
+                });
 
                 return new MonsterConfigurationViewModel
                 {
@@ -55,7 +69,7 @@ public static class MonsterPartsViewModelBuilder
                     {
                         Id = it.Id,
                         Parts = parts.ToObservableCollection(),
-                        Ailments = new ObservableCollection<MonsterAilmentConfiguration>()
+                        Ailments = ailments.ToObservableCollection(),
                     },
                     IsOverriding = configuration is not null
                 };

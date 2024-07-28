@@ -37,29 +37,8 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
     #endregion
 
     #region Customization Settings
-    [ConfigurationProperty("ORIENTATION_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
-    public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Vertical;
-
-    [ConfigurationProperty("MONSTER_WIDGET_DYNAMIC_RESIZE_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
-    public Observable<bool> DynamicResize { get; set; } = false;
-
-    [ConfigurationProperty("MONSTER_WIDGET_MAX_WIDTH_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
-    public Range MaxWidth { get; set; } = new(600, 1000, 200, 1);
-
-    [ConfigurationProperty("MONSTER_WIDGET_MIN_WIDTH_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
-    public Range MinWidth { get; set; } = new(400, 600, 200, 1);
-
-    [ConfigurationProperty("MONSTER_WIDGET_ENABLE_STAMINA_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
-    public Observable<bool> EnableStamina { get; set; } = true;
-    #endregion
-
-    #region Target settings
-    [ConfigurationProperty("MONSTER_WIDGET_TARGET_MODE_STRING", availableGames: GameProcess.MonsterHunterRise | GameProcess.MonsterHunterWorld, group: CommonConfigurationGroups.MONSTER_TARGET)]
-    [GameConfigurationAdapter(typeof(TargetModeEnumAdapter))]
-    public Observable<TargetModeType> TargetMode { get; set; } = TargetModeType.LockOn;
-
-    [ConfigurationProperty("MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING", group: CommonConfigurationGroups.MONSTER_TARGET)]
-    public Observable<bool> ShowOnlyTarget { get; set; } = false;
+    [ConfigurationProperty("MONSTER_WIDGET_DETAILS_CONFIGURATIONS_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    public virtual MonsterDetails Details { get; set; } = new();
     #endregion
 
     #region Part Settings
@@ -71,9 +50,6 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
 
     [ConfigurationProperty("MONSTER_WIDGET_AUTO_HIDE_PARTS_STRING", group: CommonConfigurationGroups.MONSTER_PARTS)]
     public Observable<bool> AutoHideParts { get; set; } = true;
-
-    [ConfigurationProperty("MONSTER_WIDGET_DETAILS_CONFIGURATIONS_STRING", group: CommonConfigurationGroups.MONSTER_PARTS)]
-    public virtual MonsterDetails Details { get; set; } = new();
 
     [ConfigurationProperty("MONSTER_WIDGET_AUTO_HIDE_PARTS_DELAY_STRING", group: CommonConfigurationGroups.MONSTER_PARTS)]
     public Range AutoHidePartsDelay { get; set; } = new(15, 300, 1, 1);
@@ -88,5 +64,31 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
 
     [ConfigurationProperty("MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING", group: CommonConfigurationGroups.MONSTER_AILMENTS)]
     public Range AutoHideAilmentsDelay { get; set; } = new(15, 300, 1, 1);
+    #endregion
+
+    #region Widget Settings
+    [ConfigurationProperty("ORIENTATION_STRING", group: CommonConfigurationGroups.WIDGET)]
+    public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Vertical;
+
+    [ConfigurationProperty("MONSTER_WIDGET_DYNAMIC_RESIZE_STRING", group: CommonConfigurationGroups.WIDGET)]
+    public Observable<bool> DynamicResize { get; set; } = false;
+
+    [ConfigurationProperty("MONSTER_WIDGET_MAX_WIDTH_STRING", group: CommonConfigurationGroups.WIDGET)]
+    public Range MaxWidth { get; set; } = new(600, 1000, 200, 1);
+
+    [ConfigurationProperty("MONSTER_WIDGET_MIN_WIDTH_STRING", group: CommonConfigurationGroups.WIDGET)]
+    public Range MinWidth { get; set; } = new(400, 600, 200, 1);
+
+    [ConfigurationProperty("MONSTER_WIDGET_ENABLE_STAMINA_STRING", group: CommonConfigurationGroups.WIDGET)]
+    public Observable<bool> EnableStamina { get; set; } = true;
+    #endregion
+
+    #region Target settings
+    [ConfigurationProperty("MONSTER_WIDGET_TARGET_MODE_STRING", availableGames: GameProcess.MonsterHunterRise | GameProcess.MonsterHunterWorld, group: CommonConfigurationGroups.MONSTER_TARGET)]
+    [GameConfigurationAdapter(typeof(TargetModeEnumAdapter))]
+    public Observable<TargetModeType> TargetMode { get; set; } = TargetModeType.LockOn;
+
+    [ConfigurationProperty("MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING", group: CommonConfigurationGroups.MONSTER_TARGET)]
+    public Observable<bool> ShowOnlyTarget { get; set; } = false;
     #endregion
 }
