@@ -16,6 +16,8 @@ public static class MonsterAilmentRepository
     private static readonly Lazy<Dictionary<int, AilmentDefinition>> LazyRiseAilmentsDataSource = new(() => LoadAilments(RISE_DATA_FILE));
     private static readonly Lazy<Dictionary<int, AilmentDefinition>> LazyWorldAilmentsDataSource = new(() => LoadAilments(WORLD_DATA_FILE));
 
+    public static readonly AilmentDefinition Enrage = new AilmentDefinition { Id = 99, String = "STATUS_ENRAGE" };
+
     /// <summary>
     /// Finds the ailment definition based on game and id
     /// </summary>
@@ -60,9 +62,13 @@ public static class MonsterAilmentRepository
 
     private static Dictionary<int, AilmentDefinition> LoadAilmentsFromDocument(XmlDocument document)
     {
-        return document.SelectNodes("//GameData/Ailments/Ailment")!
+        var definitions = document.SelectNodes("//GameData/Ailments/Ailment")!
             .Cast<XmlNode>()
             .Select(MapFactory.Map<XmlNode, AilmentDefinition>)
             .ToDictionary(it => it.Id);
+
+        definitions.Add(Enrage.Id, Enrage);
+
+        return definitions;
     }
 }

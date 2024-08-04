@@ -38,7 +38,7 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
 
     #region Customization Settings
     [ConfigurationProperty("MONSTER_WIDGET_DETAILS_CONFIGURATIONS_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
-    public virtual MonsterDetails Details { get; set; } = new();
+    public virtual MonsterDetailsConfiguration Details { get; set; } = new();
     #endregion
 
     #region Part Settings

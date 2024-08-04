@@ -1,12 +1,12 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.DTO;
-using HunterPie.Core.Domain.DTO.Monster;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Definitions;
+using HunterPie.Core.Game.Data.Repository;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
@@ -20,6 +20,7 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo.Entity.En
 
 public sealed class MHRSunbreakDemoMonster : CommonMonster
 {
+    private readonly MonsterDefinition _definition;
     private readonly long _address;
 
     private int _id = -1;
@@ -28,7 +29,7 @@ public sealed class MHRSunbreakDemoMonster : CommonMonster
     private Target _target;
     private Crown _crown;
     private float _stamina;
-    private readonly MHRMonsterAilment _enrage = new("STATUS_ENRAGE");
+    private readonly MHRMonsterAilment _enrage = new(MonsterAilmentRepository.Enrage);
     private readonly Dictionary<long, MHRMonsterPart> _parts = new();
     private readonly Dictionary<long, MHRMonsterAilment> _ailments = new();
     private readonly List<Element> _weaknesses = new();
@@ -41,8 +42,6 @@ public sealed class MHRSunbreakDemoMonster : CommonMonster
             if (_id != value)
             {
                 _id = value;
-                GetMonsterWeaknesses();
-
                 this.Dispatch(_onSpawn);
             }
         }
@@ -138,32 +137,17 @@ public sealed class MHRSunbreakDemoMonster : CommonMonster
     {
         _address = address;
 
+        Id = Process.Memory.Read<int>(_address + 0x2B4);
+
+        _definition = MonsterRepository.FindBy(GameType.Rise, Id) ?? MonsterRepository.UnknownDefinition;
+
         Log.Debug($"Initialized monster at address {address:X}");
     }
 
-    private void GetMonsterWeaknesses()
+    private void UpdateData()
     {
-        MonsterDefinition? data = MonsterData.GetMonsterData(Id);
-
-        if (data.HasValue)
-        {
-            _weaknesses.AddRange(data.Value.Weaknesses);
-            this.Dispatch(_onWeaknessesChange, Weaknesses);
-        }
-    }
-
-    [ScannableMethod(typeof(MonsterInformationData))]
-    private void GetMonsterBasicInformation()
-    {
-        MonsterInformationData dto = new();
-
-        int monsterId = Process.Memory.Read<int>(_address + 0x2B4);
-
-        dto.Id = monsterId;
-
-        Next(ref dto);
-
-        Id = dto.Id;
+        _weaknesses.AddRange(_definition.Weaknesses);
+        this.Dispatch(_onWeaknessesChange, Weaknesses);
     }
 
     [ScannableMethod(typeof(HealthData))]
@@ -286,11 +270,14 @@ public sealed class MHRSunbreakDemoMonster : CommonMonster
 
             if (!_parts.ContainsKey(flinchPart))
             {
-                string partName = MonsterData.GetMonsterPartData(Id, i)?.String ?? "PART_UNKNOWN";
-                var dummy = new MHRMonsterPart(partName, partInfo);
+                MonsterPartDefinition definition = _definition.Parts.Length > i
+                    ? _definition.Parts[i]
+                    : MonsterRepository.UnknownPartDefinition;
+
+                var dummy = new MHRMonsterPart(definition, partInfo);
                 _parts.Add(flinchPart, dummy);
 
-                Log.Debug($"Found {partName} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X}");
+                Log.Debug($"Found {definition.String} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X}");
                 this.Dispatch(_onNewPartFound, dummy);
             }
 

@@ -16,6 +16,10 @@ public static class MonsterRepository
     private static readonly Lazy<Dictionary<int, MonsterDefinition>> LazyRiseMonstersDataSource = new(() => LoadMonsters(RISE_MONSTERS_FILE));
     private static readonly Lazy<Dictionary<int, MonsterDefinition>> LazyWorldMonstersDataSource = new(() => LoadMonsters(WORLD_MONSTERS_FILE));
 
+    public static MonsterDefinition UnknownDefinition = new();
+
+    public static MonsterPartDefinition UnknownPartDefinition = new MonsterPartDefinition { String = "PART_UNKNOWN" };
+
     /// <summary>
     /// Finds a monster schema based on the game and their internal Id
     /// </summary>

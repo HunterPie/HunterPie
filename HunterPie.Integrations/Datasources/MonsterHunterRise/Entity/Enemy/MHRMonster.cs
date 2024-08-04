@@ -5,7 +5,6 @@ using HunterPie.Core.Domain.DTO;
 using HunterPie.Core.Domain.DTO.Monster;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Data;
 using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Data.Repository;
 using HunterPie.Core.Game.Entity.Enemy;
@@ -20,8 +19,9 @@ using System.Runtime.CompilerServices;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
 
-public class MHRMonster : CommonMonster
+public sealed class MHRMonster : CommonMonster
 {
+    private readonly MonsterDefinition _definition;
     private readonly long _address;
 
     private int _id = -1;
@@ -32,7 +32,7 @@ public class MHRMonster : CommonMonster
     private Crown _crown;
     private float _stamina;
     private float _captureThreshold;
-    private readonly MHRMonsterAilment _enrage = new("STATUS_ENRAGE");
+    private readonly MHRMonsterAilment _enrage = new(MonsterAilmentRepository.Enrage);
     private readonly MHRMonsterPart? _qurioThreshold;
     private readonly Dictionary<long, MHRMonsterPart> _parts = new();
     private readonly object _syncParts = new();
@@ -49,8 +49,6 @@ public class MHRMonster : CommonMonster
             if (_id != value)
             {
                 _id = value;
-                GetMonsterTypes();
-                GetMonsterWeaknesses();
                 this.Dispatch(_onSpawn);
             }
         }
@@ -192,34 +190,31 @@ public class MHRMonster : CommonMonster
 
     public bool IsQurioActive { get; private set; }
 
-    public MHRMonster(IProcessManager process, long address) : base(process)
+    public MHRMonster(
+        IProcessManager process,
+        long address
+    ) : base(process)
     {
         _address = address;
+
+        Id = Memory.Read<int>(_address + 0x2D4);
+
+        _definition = MonsterRepository.FindBy(GameType.Rise, Id) ?? MonsterRepository.UnknownDefinition;
+
+        UpdateData();
         GetMonsterType();
 
         if (MonsterType == MonsterType.Qurio)
-            _qurioThreshold = new("PART_QURIO_THRESHOLD");
+            _qurioThreshold = new MHRMonsterPart(MHRiseUtils.QurioPartDefinition);
 
         Log.Debug($"Initialized monster at address {address:X}");
     }
 
-    private void GetMonsterTypes()
+    private void UpdateData()
     {
-        MonsterDefinition? data = MonsterData.GetMonsterData(Id);
-
-        if (data is { } schema)
-            _types.AddRange(schema.Types);
-    }
-
-    private void GetMonsterWeaknesses()
-    {
-        MonsterDefinition? data = MonsterData.GetMonsterData(Id);
-
-        if (data.HasValue)
-        {
-            _weaknesses.AddRange(data.Value.Weaknesses);
-            this.Dispatch(_onWeaknessesChange, Weaknesses);
-        }
+        _types.AddRange(_definition.Types);
+        _weaknesses.AddRange(_definition.Weaknesses);
+        this.Dispatch(_onWeaknessesChange, Weaknesses);
     }
 
     private void GetMonsterType()
@@ -280,8 +275,7 @@ public class MHRMonster : CommonMonster
             return;
         }
 
-        MonsterDefinition? data = MonsterData.GetMonsterData(Id);
-        if (data is { IsNotCapturable: true })
+        if (_definition is { IsNotCapturable: true })
         {
             CaptureThreshold = 0.0f;
             return;
@@ -391,11 +385,12 @@ public class MHRMonster : CommonMonster
             {
                 if (!_parts.ContainsKey(flinchPart))
                 {
-                    string partName = MonsterData.GetMonsterPartData(Id, i)?.String ?? "PART_UNKNOWN";
-                    var dummy = new MHRMonsterPart(partName, partInfo);
+                    MonsterPartDefinition definition = _definition.Parts.Length > i ? _definition.Parts[i] : MonsterRepository.UnknownPartDefinition;
+
+                    var dummy = new MHRMonsterPart(definition, partInfo);
                     _parts.Add(flinchPart, dummy);
 
-                    Log.Debug($"Found {partName} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X} Qurio: {qurioPart:X}");
+                    Log.Debug($"Found {definition.String} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X} Qurio: {qurioPart:X}");
                     this.Dispatch(_onNewPartFound, dummy);
                 }
 
@@ -496,12 +491,7 @@ public class MHRMonster : CommonMonster
         MHRSizeStructure monsterSize = Process.Memory.Read<MHRSizeStructure>(monsterSizePtr + 0x24);
         float monsterSizeMultiplier = monsterSize.SizeMultiplier * monsterSize.UnkMultiplier;
 
-        MonsterSizeDefinition? crownData = MonsterData.GetMonsterData(Id)?.Size;
-
-        if (crownData is null)
-            return;
-
-        MonsterSizeDefinition crown = crownData.Value;
+        MonsterSizeDefinition crown = _definition.Size;
 
         Crown = monsterSizeMultiplier >= crown.Gold
             ? Crown.Gold
@@ -553,7 +543,7 @@ public class MHRMonster : CommonMonster
                     if (ailmentDef is not { } definition)
                         continue;
 
-                    MHRMonsterAilment dummy = new(definition.String);
+                    MHRMonsterAilment dummy = new(definition);
                     _ailments.Add(ailmentAddress, dummy);
 
                     this.Dispatch(_onNewAilmentFound, dummy);

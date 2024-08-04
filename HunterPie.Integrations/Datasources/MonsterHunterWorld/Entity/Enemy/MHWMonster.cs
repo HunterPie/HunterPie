@@ -17,9 +17,10 @@ using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enemy;
 
-public class MHWMonster : CommonMonster
+public sealed class MHWMonster : CommonMonster
 {
     #region Private
+    private MonsterDefinition _definition;
     private readonly long _address;
     private int _id = -1;
     private int _doubleLinkedListIndex;
@@ -30,8 +31,8 @@ public class MHWMonster : CommonMonster
     private Crown _crown;
     private float _stamina;
     private float _captureThreshold;
-    private readonly MHWMonsterAilment _enrage = new("STATUS_ENRAGE");
-    private (long, MHWMonsterPart)[] _parts;
+    private readonly MHWMonsterAilment _enrage = new(MonsterAilmentRepository.Enrage);
+    private readonly (long, MHWMonsterPart)[] _parts;
     private List<(long, MHWMonsterAilment)>? _ailments;
     #endregion
 
@@ -40,15 +41,14 @@ public class MHWMonster : CommonMonster
         get => _id;
         protected set
         {
-            if (value != _id)
-            {
-                _id = value;
-                GetMonsterWeaknesses();
-                GetMonsterCaptureThreshold();
+            if (value == _id)
+                return;
 
-                Log.Debug($"Initialized {Name} at address {_address:X} with id: {value}");
-                this.Dispatch(_onSpawn);
-            }
+            _id = value;
+
+            Log.Debug($"Initialized {Name} at address {_address:X} with id: {value}");
+
+            this.Dispatch(_onSpawn);
         }
     }
 
@@ -89,9 +89,9 @@ public class MHWMonster : CommonMonster
 
     public override float MaxStamina { get; protected set; }
 
-    public override IMonsterPart[] Parts => _parts?
-                                    .Select(v => v.Item2)
-                                    .ToArray<IMonsterPart>() ?? Array.Empty<IMonsterPart>();
+    public override IMonsterPart[] Parts => _parts.Where(it => it.Item1 != 0)
+                                                .Select(it => it.Item2)
+                                                .ToArray<IMonsterPart>();
 
     public override IMonsterAilment[] Ailments => _ailments?
                                           .Select(a => a.Item2)
@@ -188,36 +188,26 @@ public class MHWMonster : CommonMonster
     {
         _address = address;
         Em = em;
+        Id = Memory.Read<int>(_address + 0x12280);
+
+        _definition = MonsterRepository.FindBy(GameType.World, Id) ?? MonsterRepository.UnknownDefinition;
+        _parts = _definition.Parts.Select(it => (0L, new MHWMonsterPart(it)))
+            .ToArray();
+        UpdateDetails();
     }
 
-    private void GetMonsterCaptureThreshold()
+    private void UpdateDetails()
     {
-        MonsterDefinition? data = MonsterData.GetMonsterData(Id);
-
-        if (!data.HasValue)
-            return;
-
-        CaptureThreshold = MonsterData.GetMonsterData(Id)?.Capture / 100f ?? 0;
-    }
-
-    private void GetMonsterWeaknesses()
-    {
-        MonsterDefinition? data = MonsterData.GetMonsterData(Id);
-
-        if (!data.HasValue)
-            return;
-
-        _weaknesses.AddRange(data.Value.Weaknesses);
+        CaptureThreshold = _definition.Capture / 100f;
+        _weaknesses.AddRange(_definition.Weaknesses);
         this.Dispatch(_onWeaknessesChange, Weaknesses);
     }
 
     [ScannableMethod]
     private void GetMonsterBasicInformation()
     {
-        int monsterId = Process.Memory.Read<int>(_address + 0x12280);
         int doubleLinkedListIndex = Process.Memory.Read<int>(_address + 0x1228C);
 
-        Id = monsterId;
         _doubleLinkedListIndex = doubleLinkedListIndex;
     }
 
@@ -351,27 +341,12 @@ public class MHWMonster : CommonMonster
         long monsterPartAddress = monsterPartPtr + 0x40;
         long monsterSeverableAddress = monsterPartPtr + 0x1FC8;
 
-        MonsterDefinition? monsterSchema = MonsterData.GetMonsterData(Id);
-
-        if (!monsterSchema.HasValue)
-            return;
-
-        MonsterDefinition monsterInfo = monsterSchema.Value;
-
-        if (_parts is null)
-        {
-            _parts = new (long, MHWMonsterPart)[monsterInfo.Parts.Length];
-            for (int i = 0; i < _parts.Length; i++)
-                _parts[i] = (0, null);
-        }
-
         int normalPartIndex = 0;
 
-        for (int pIndex = 0; pIndex < monsterInfo.Parts.Length; pIndex++)
+        for (int pIndex = 0; pIndex < _parts.Length; pIndex++)
         {
             (long cachedAddress, MHWMonsterPart part) = _parts[pIndex];
-            IUpdatable<MHWMonsterPartStructure> updatable = _parts[pIndex].Item2;
-            MonsterPartDefinition partSchema = monsterInfo.Parts[pIndex];
+            MonsterPartDefinition partSchema = part.Definition;
             MHWMonsterPartStructure partStructure = new();
 
             // If the part address has been cached already, we can just read them
@@ -383,7 +358,7 @@ public class MHWMonster : CommonMonster
                 if (Id == 87 && partStructure.Index == 3)
                     partStructure.Counter = Process.Memory.Read<int>(_address + 0x20920);
 
-                updatable.Update(partStructure);
+                part.Update(partStructure);
                 continue;
             }
 
@@ -397,14 +372,9 @@ public class MHWMonster : CommonMonster
 
                     if (partStructure.Index == partSchema.Id && partStructure.MaxHealth > 0)
                     {
-                        MHWMonsterPart newPart = new(
-                            partSchema.String,
-                            partSchema.IsSeverable,
-                            partSchema.TenderizeIds
-                        );
-                        _parts[pIndex] = (monsterSeverableAddress, newPart);
+                        _parts[pIndex] = (monsterSeverableAddress, part);
 
-                        this.Dispatch(_onNewPartFound, newPart);
+                        this.Dispatch(_onNewPartFound, part);
 
                         do
                             monsterSeverableAddress += 0x78;
@@ -420,21 +390,15 @@ public class MHWMonster : CommonMonster
                 long address = monsterPartAddress + (normalPartIndex * 0x1F8);
                 partStructure = Process.Memory.Read<MHWMonsterPartStructure>(address);
 
-                MHWMonsterPart newPart = new(
-                    partSchema.String,
-                    partSchema.IsSeverable,
-                    partSchema.TenderizeIds
-                );
 
-                _parts[pIndex] = (address, newPart);
+                _parts[pIndex] = (address, part);
 
-                this.Dispatch(_onNewPartFound, newPart);
+                this.Dispatch(_onNewPartFound, part);
 
                 normalPartIndex++;
             }
 
-            updatable = _parts[pIndex].Item2;
-            updatable.Update(partStructure);
+            part.Update(partStructure);
         }
     }
 
@@ -455,7 +419,7 @@ public class MHWMonster : CommonMonster
                               .Where(p => p.HasTenderizeId(tenderizeInfo.PartId))
                               .ToArray();
 
-            foreach (IUpdatable<MHWTenderizeInfoStructure> part in parts)
+            foreach (MHWMonsterPart part in parts)
                 part.Update(tenderizeInfo);
         }
     }
@@ -485,7 +449,7 @@ public class MHWMonster : CommonMonster
                 if (ailmentDef is not { } definition || definition.IsUnknown)
                     continue;
 
-                var ailment = new MHWMonsterAilment(definition.String);
+                var ailment = new MHWMonsterAilment(definition);
 
                 _ailments.Add((currentMonsterAilmentPtr, ailment));
                 this.Dispatch(_onNewAilmentFound, ailment);
@@ -502,8 +466,7 @@ public class MHWMonster : CommonMonster
             (long address, MHWMonsterAilment ailment) = value;
 
             MHWMonsterAilmentStructure structure = Process.Memory.Read<MHWMonsterAilmentStructure>(address + 0x148);
-            IUpdatable<MHWMonsterAilmentStructure> updatable = ailment;
-            updatable.Update(structure);
+            ailment.Update(structure);
         }
     }
 

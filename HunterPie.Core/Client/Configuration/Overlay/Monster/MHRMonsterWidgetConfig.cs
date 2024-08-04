@@ -7,7 +7,7 @@ namespace HunterPie.Core.Client.Configuration.Overlay.Monster;
 
 public class MHRMonsterWidgetConfig : MonsterWidgetConfig
 {
-    public override MonsterDetails Details { get; set; } = new MonsterDetails
+    public override MonsterDetailsConfiguration Details { get; set; } = new MonsterDetailsConfiguration
     {
         AllowedAilments = new(MonsterAilmentRepository.FindAllBy(GameType.Rise).Select(it => it.Id))
     };

@@ -7,7 +7,7 @@ using System;
 
 namespace HunterPie.Core.Settings.Types;
 
-public class MonsterDetails
+public class MonsterDetailsConfiguration
 {
     [JsonConverter(typeof(ObservableHashSetConverter<PartGroupType>))]
     public ObservableHashSet<PartGroupType> AllowedPartGroups { get; init; } = new(Enum.GetValues<PartGroupType>());

@@ -29,4 +29,12 @@ public partial class MonsterGlobalConfigurationView : UserControl
 
         vm.IsExpanded = !vm.IsExpanded;
     }
+
+    private void OnAilmentClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is not FrameworkElement { DataContext: MonsterGlobalAilmentViewModel vm })
+            return;
+
+        vm.Toggle();
+    }
 }

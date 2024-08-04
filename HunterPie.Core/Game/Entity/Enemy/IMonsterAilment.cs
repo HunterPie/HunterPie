@@ -1,9 +1,11 @@
-﻿using System;
+﻿using HunterPie.Core.Game.Data.Definitions;
+using System;
 
 namespace HunterPie.Core.Game.Entity.Enemy;
 
 public interface IMonsterAilment
 {
+    public AilmentDefinition Definition { get; }
     public string Id { get; }
     public int Counter { get; }
     public float Timer { get; }

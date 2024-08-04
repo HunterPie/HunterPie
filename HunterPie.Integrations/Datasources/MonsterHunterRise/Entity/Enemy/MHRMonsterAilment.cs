@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 
@@ -51,9 +52,9 @@ public sealed class MHRMonsterAilment : CommonAilment, IUpdatable<MHRAilmentData
     }
     public override float MaxBuildUp { get; protected set; }
 
-    public MHRMonsterAilment(string ailmentId)
+    public MHRMonsterAilment(AilmentDefinition definition) : base(definition)
     {
-        Id = ailmentId;
+        Id = definition.String;
     }
 
     public void Update(MHRAilmentData data)

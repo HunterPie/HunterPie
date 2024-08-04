@@ -1,15 +1,22 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Entity.Enemy;
+using HunterPie.Core.Settings.Types;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
+using System.Collections.Specialized;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster;
 
 public class MonsterPartContextHandler : MonsterPartViewModel
 {
+    private readonly MonsterDetailsConfiguration _detailsConfiguration;
+
     public readonly IMonsterPart Context;
 
-    public MonsterPartContextHandler(IMonsterPart context, MonsterWidgetConfig config) : base(config)
+    public MonsterPartContextHandler(
+        IMonsterPart context,
+        MonsterWidgetConfig config
+    ) : base(config)
     {
         Context = context;
         Type = Context.Type;
@@ -26,7 +33,13 @@ public class MonsterPartContextHandler : MonsterPartViewModel
         Context.OnSeverUpdate += OnSeverUpdate;
         Context.OnBreakCountUpdate += OnBreakCountUpdate;
         Context.OnPartTypeChange += OnPartTypeChange;
+        _detailsConfiguration.AllowedPartGroups.CollectionChanged += OnAllowedPartGroupsChanged;
         HookMHREvents();
+    }
+
+    private void OnAllowedPartGroupsChanged(object sender, NotifyCollectionChangedEventArgs e)
+    {
+
     }
 
     private void UnhookEvents()

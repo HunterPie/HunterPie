@@ -11,8 +11,8 @@ public class MonsterDetailsConfigurationPropertyBuilder : IConfigurationProperty
 {
     public IConfigurationProperty Build(PropertyData data, GameProcess game)
     {
-        if (data.Value is not MonsterDetails value)
-            throw new ArgumentException($"Property must be of type {nameof(MonsterDetails)}");
+        if (data.Value is not MonsterDetailsConfiguration value)
+            throw new ArgumentException($"Property must be of type {nameof(MonsterDetailsConfiguration)}");
 
         return new MonsterDetailsPropertyViewModel
         {

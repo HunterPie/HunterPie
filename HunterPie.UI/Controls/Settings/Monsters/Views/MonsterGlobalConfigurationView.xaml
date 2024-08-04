@@ -170,7 +170,7 @@
                                                 BorderBrush="{StaticResource GRAY}"
                                                 CornerRadius="5"
                                                 Background="{StaticResource GRAY_100}"
-                                                Click="OnPartGroupClick">
+                                                Click="OnAilmentClick">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="30"/>
