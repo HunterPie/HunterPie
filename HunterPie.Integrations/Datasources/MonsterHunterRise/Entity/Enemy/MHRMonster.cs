@@ -24,7 +24,7 @@ public sealed class MHRMonster : CommonMonster
     private readonly MonsterDefinition _definition;
     private readonly long _address;
 
-    private int _id = -1;
+    private bool _isLoaded;
     private float _health = -1;
     private bool _isEnraged;
     private Target _target;
@@ -41,18 +41,7 @@ public sealed class MHRMonster : CommonMonster
     private readonly List<Element> _weaknesses = new();
     private readonly List<string> _types = new();
 
-    public override int Id
-    {
-        get => _id;
-        protected set
-        {
-            if (_id != value)
-            {
-                _id = value;
-                this.Dispatch(_onSpawn);
-            }
-        }
-    }
+    public override int Id { get; protected set; }
 
     public override string Name => MHRContext.Strings.GetMonsterNameById(Id);
 
@@ -521,6 +510,17 @@ public sealed class MHRMonster : CommonMonster
 
         MaxStamina = structure.MaxStamina;
         Stamina = structure.Stamina;
+    }
+
+    [ScannableMethod]
+    private void FinishScan()
+    {
+        if (_isLoaded)
+            return;
+
+        Log.Debug($"Initialized {Name} at address {_address:X} with id: {Id}");
+        _isLoaded = true;
+        this.Dispatch(_onSpawn, EventArgs.Empty);
     }
 
     private void DerefAilmentsAndScan(long[] ailmentsPointers)

@@ -20,9 +20,9 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enemy;
 public sealed class MHWMonster : CommonMonster
 {
     #region Private
-    private MonsterDefinition _definition;
+    private readonly MonsterDefinition _definition;
     private readonly long _address;
-    private int _id = -1;
+    private bool _isLoaded;
     private int _doubleLinkedListIndex;
     private float _health = -1;
     private bool _isEnraged;
@@ -36,21 +36,7 @@ public sealed class MHWMonster : CommonMonster
     private List<(long, MHWMonsterAilment)>? _ailments;
     #endregion
 
-    public override int Id
-    {
-        get => _id;
-        protected set
-        {
-            if (value == _id)
-                return;
-
-            _id = value;
-
-            Log.Debug($"Initialized {Name} at address {_address:X} with id: {value}");
-
-            this.Dispatch(_onSpawn);
-        }
-    }
+    public override int Id { get; protected set; }
 
     public string Em { get; }
 
@@ -468,6 +454,17 @@ public sealed class MHWMonster : CommonMonster
             MHWMonsterAilmentStructure structure = Process.Memory.Read<MHWMonsterAilmentStructure>(address + 0x148);
             ailment.Update(structure);
         }
+    }
+
+    [ScannableMethod]
+    private void FinishScan()
+    {
+        if (_isLoaded)
+            return;
+
+        Log.Debug($"Initialized {Name} at address {_address:X} with id: {Id}");
+        _isLoaded = true;
+        this.Dispatch(_onSpawn, EventArgs.Empty);
     }
 
     public override void Dispose()

@@ -13,5 +13,5 @@ using System.Windows.Media;
 )]
 [assembly: DisableDpiAwareness]
 
-[assembly: AssemblyVersion("2.11.0.88")]
-[assembly: AssemblyFileVersion("2.11.0.88")]
+[assembly: AssemblyVersion("2.11.0.91")]
+[assembly: AssemblyFileVersion("2.11.0.91")]

@@ -465,7 +465,8 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:MonsterAilmentViewModel}">
-                        <view:BossMonsterAilmentView Width="80"/>
+                        <view:BossMonsterAilmentView Width="80"
+                                                     Visibility="{Binding IsEnabled, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -481,7 +482,8 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <ContentPresenter ContentTemplate="{Binding Type, Converter={StaticResource MonsterPartTypeToDataTemplateConverter}}"/>
+                        <ContentPresenter ContentTemplate="{Binding Type, Converter={StaticResource MonsterPartTypeToDataTemplateConverter}}"
+                                          Visibility="{Binding IsEnabled, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
