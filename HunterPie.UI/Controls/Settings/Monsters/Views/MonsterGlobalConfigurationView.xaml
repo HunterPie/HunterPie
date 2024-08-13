@@ -85,133 +85,151 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <GridSplitter Grid.Column="0"/>
+                    <GridSplitter Grid.Column="0"
+                                  Width="1"
+                                  Background="{StaticResource GRAY}"/>
 
-                    <ItemsControl Grid.Column="0" 
-                                  ItemsSource="{Binding Parts, Mode=OneTime}"
-                                  d:ItemsSource="{d:SampleData ItemCount=5}">
-                        <ItemsControl.Template>
-                            <ControlTemplate>
-                                <StackPanel IsItemsHost="True"
-                                            Orientation="Vertical"/>
-                            </ControlTemplate>
-                        </ItemsControl.Template>
+                    <StackPanel Grid.Column="0"
+                                Margin="2,2">
+                        <TextBlock FontSize="16"
+                                   Text="PART GROUPS"
+                                   FontWeight="Medium"
+                                   Foreground="{StaticResource WHITE_500}"/>
 
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type viewModels:MonsterPartGroupViewModel}">
-                                <buttons:Button Margin="2,2"
-                                                VerticalContentAlignment="Stretch"
-                                                HorizontalContentAlignment="Stretch"
-                                                Padding="2"
-                                                BorderThickness="1"
-                                                BorderBrush="{StaticResource GRAY}"
-                                                CornerRadius="5"
-                                                Background="{StaticResource GRAY_100}"
-                                                Click="OnPartGroupClick">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="30"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
+                        <ItemsControl ItemsSource="{Binding Parts, Mode=OneTime}"
+                                      d:ItemsSource="{d:SampleData ItemCount=5}">
+                            <ItemsControl.Template>
+                                <ControlTemplate>
+                                    <StackPanel IsItemsHost="True"
+                                                Orientation="Vertical"/>
+                                </ControlTemplate>
+                            </ItemsControl.Template>
 
-                                        <Ellipse Grid.Column="0"
-                                                 Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                                                 Margin="10">
-                                            <Ellipse.Effect>
-                                                <DropShadowEffect Color="{Binding Fill, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Ellipse}}, Converter={StaticResource BrushToColorConverter}}"
-                                                                  ShadowDepth="0"
-                                                                  BlurRadius="10"/>
-                                            </Ellipse.Effect>
-                                            <Ellipse.Style>
-                                                <Style TargetType="Ellipse">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsEnabled, Mode=OneWay}"
-                                                                     Value="True">
-                                                            <Setter Property="Fill" Value="{StaticResource GREEN_200}"/>
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding IsEnabled, Mode=OneWay}"
-                                                                     Value="False">
-                                                            <Setter Property="Fill" Value="{StaticResource RED_200}"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Ellipse.Style>
-                                        </Ellipse>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type viewModels:MonsterPartGroupViewModel}">
+                                    <buttons:Button Margin="0,2"
+                                                    VerticalContentAlignment="Stretch"
+                                                    HorizontalContentAlignment="Stretch"
+                                                    Padding="2"
+                                                    BorderThickness="1"
+                                                    BorderBrush="{StaticResource GRAY}"
+                                                    CornerRadius="5"
+                                                    Background="{StaticResource GRAY_100}"
+                                                    Click="OnPartGroupClick">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="30"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
 
-                                        <TextBlock Grid.Column="1"
-                                                   Foreground="{StaticResource WHITE_200}"
-                                                   d:Text="Part name"
-                                                   Text="{Binding Type, Mode=OneTime}"
-                                                   FontSize="13"
-                                                   VerticalAlignment="Center"/>
-                                    </Grid>
-                                </buttons:Button>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                                            <Ellipse Grid.Column="0"
+                                                     Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                                                     Margin="10">
+                                                <Ellipse.Effect>
+                                                    <DropShadowEffect Color="{Binding Fill, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Ellipse}}, Converter={StaticResource BrushToColorConverter}}"
+                                                                      ShadowDepth="0"
+                                                                      BlurRadius="10"/>
+                                                </Ellipse.Effect>
+                                                <Ellipse.Style>
+                                                    <Style TargetType="Ellipse">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsEnabled, Mode=OneWay}"
+                                                                         Value="True">
+                                                                <Setter Property="Fill" Value="{StaticResource GREEN_200}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding IsEnabled, Mode=OneWay}"
+                                                                         Value="False">
+                                                                <Setter Property="Fill" Value="{StaticResource RED_200}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Ellipse.Style>
+                                            </Ellipse>
 
-                    <ItemsControl Grid.Column="1"
-                                  ItemsSource="{Binding Ailments, Mode=OneTime}"
-                                  d:ItemsSource="{d:SampleData ItemCount=10}">
-                        <ItemsControl.Template>
-                            <ControlTemplate>
-                                <StackPanel IsItemsHost="True"
-                                            Orientation="Vertical"/>
-                            </ControlTemplate>
-                        </ItemsControl.Template>
+                                            <TextBlock Grid.Column="1"
+                                                       Foreground="{StaticResource WHITE_200}"
+                                                       d:Text="Part name"
+                                                       Text="{Binding Type, Mode=OneTime}"
+                                                       FontSize="13"
+                                                       VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </buttons:Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                    
 
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type viewModels:MonsterGlobalAilmentViewModel}">
-                                <buttons:Button Margin="2,2"
-                                                VerticalContentAlignment="Stretch"
-                                                HorizontalContentAlignment="Stretch"
-                                                Padding="2"
-                                                BorderThickness="1"
-                                                BorderBrush="{StaticResource GRAY}"
-                                                CornerRadius="5"
-                                                Background="{StaticResource GRAY_100}"
-                                                Click="OnAilmentClick">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="30"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="1"
+                                Margin="2,2">
+                        <TextBlock FontSize="16"
+                                   Text="AILMENTS"
+                                   FontWeight="Medium"
+                                   Foreground="{StaticResource WHITE_500}"/>
 
-                                        <Ellipse Grid.Column="0"
-                                                 Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                                                 Margin="10">
-                                            <Ellipse.Effect>
-                                                <DropShadowEffect Color="{Binding Fill, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Ellipse}}, Converter={StaticResource BrushToColorConverter}}"
-                                                                  ShadowDepth="0"
-                                                                  BlurRadius="10"/>
-                                            </Ellipse.Effect>
-                                            <Ellipse.Style>
-                                                <Style TargetType="Ellipse">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsEnabled, Mode=OneWay}"
-                                                                     Value="True">
-                                                            <Setter Property="Fill" Value="{StaticResource GREEN_200}"/>
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding IsEnabled, Mode=OneWay}"
-                                                                     Value="False">
-                                                            <Setter Property="Fill" Value="{StaticResource RED_200}"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Ellipse.Style>
-                                        </Ellipse>
+                        <ItemsControl ItemsSource="{Binding Ailments, Mode=OneTime}"
+                                      d:ItemsSource="{d:SampleData ItemCount=10}">
+                            <ItemsControl.Template>
+                                <ControlTemplate>
+                                    <StackPanel IsItemsHost="True"
+                                                Orientation="Vertical"/>
+                                </ControlTemplate>
+                            </ItemsControl.Template>
 
-                                        <TextBlock Grid.Column="1"
-                                                   Foreground="{StaticResource WHITE_200}"
-                                                   d:Text="Ailment name"
-                                                   Text="{Binding Name, Mode=OneTime, Converter={StaticResource RiseMonsterAilmentIdToNameConverter}}"
-                                                   FontSize="13"
-                                                   VerticalAlignment="Center"/>
-                                    </Grid>
-                                </buttons:Button>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type viewModels:MonsterGlobalAilmentViewModel}">
+                                    <buttons:Button Margin="0,2"
+                                                    VerticalContentAlignment="Stretch"
+                                                    HorizontalContentAlignment="Stretch"
+                                                    Padding="2"
+                                                    BorderThickness="1"
+                                                    BorderBrush="{StaticResource GRAY}"
+                                                    CornerRadius="5"
+                                                    Background="{StaticResource GRAY_100}"
+                                                    Click="OnAilmentClick">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="30"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Ellipse Grid.Column="0"
+                                                     Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                                                     Margin="10">
+                                                <Ellipse.Effect>
+                                                    <DropShadowEffect Color="{Binding Fill, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Ellipse}}, Converter={StaticResource BrushToColorConverter}}"
+                                                                      ShadowDepth="0"
+                                                                      BlurRadius="10"/>
+                                                </Ellipse.Effect>
+                                                <Ellipse.Style>
+                                                    <Style TargetType="Ellipse">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsEnabled, Mode=OneWay}"
+                                                                         Value="True">
+                                                                <Setter Property="Fill" Value="{StaticResource GREEN_200}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding IsEnabled, Mode=OneWay}"
+                                                                         Value="False">
+                                                                <Setter Property="Fill" Value="{StaticResource RED_200}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Ellipse.Style>
+                                            </Ellipse>
+
+                                            <TextBlock Grid.Column="1"
+                                                       Foreground="{StaticResource WHITE_200}"
+                                                       d:Text="Ailment name"
+                                                       Text="{Binding Name, Mode=OneTime, Converter={StaticResource RiseMonsterAilmentIdToNameConverter}}"
+                                                       FontSize="13"
+                                                       VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </buttons:Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                    
                 </Grid>
             </Border>
         </Expander>

@@ -164,9 +164,13 @@ public class MonsterPartContextHandler : MonsterPartViewModel
     private void HandleEnabledState()
     {
         bool isGloballyEnabled = _detailsConfiguration.AllowedPartGroups.Contains(Context.Definition.Group);
-        bool isSpecificallyEnabled = _monsterConfiguration?.Parts.FirstOrDefault(it => it.Id == Context.Definition.Id)
-            ?.IsEnabled ?? true;
-        IsEnabled = isSpecificallyEnabled && isGloballyEnabled;
+        bool? isSpecificallyEnabled = _monsterConfiguration?.Parts.FirstOrDefault(it => it.Id == Context.Definition.Id)
+            ?.IsEnabled.Value;
+        IsEnabled = isSpecificallyEnabled switch
+        {
+            { } enabled => enabled,
+            _ => isGloballyEnabled
+        };
     }
 
     public override void Dispose()

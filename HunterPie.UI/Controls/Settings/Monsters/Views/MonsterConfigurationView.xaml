@@ -99,45 +99,58 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ItemsControl Grid.Column="0" 
-                                  ItemsSource="{Binding Configuration.Parts, Mode=OneTime}"
-                                  d:ItemsSource="{d:SampleData ItemCount=5}"
-                                  Margin="2">
-                        <ItemsControl.Template>
-                            <ControlTemplate>
-                                <StackPanel IsItemsHost="True"
-                                            Orientation="Vertical"/>
-                            </ControlTemplate>
-                        </ItemsControl.Template>
+                    <StackPanel Grid.Column="0"
+                                Margin="2,2">
+                        <TextBlock FontSize="16"
+                                   Text="PARTS"
+                                   FontWeight="Medium"
+                                   Foreground="{StaticResource WHITE_500}"/>
 
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <local:MonsterPartConfigurationView Margin="2,2"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                        <ItemsControl ItemsSource="{Binding Configuration.Parts, Mode=OneTime}"
+                                      d:ItemsSource="{d:SampleData ItemCount=5}">
+                            <ItemsControl.Template>
+                                <ControlTemplate>
+                                    <StackPanel IsItemsHost="True"
+                                                Orientation="Vertical"/>
+                                </ControlTemplate>
+                            </ItemsControl.Template>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <local:MonsterPartConfigurationView Margin="0,2"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                    
 
                     <GridSplitter Grid.Column="0"
                                   Width="1"
                                   Background="{StaticResource GRAY}"/>
 
-                    <ItemsControl Grid.Column="1" 
-                                  ItemsSource="{Binding Configuration.Ailments, Mode=OneTime}"
-                                  d:ItemsSource="{d:SampleData ItemCount=5}"
-                                  Margin="2">
-                        <ItemsControl.Template>
-                            <ControlTemplate>
-                                <StackPanel IsItemsHost="True"
-                                            Orientation="Vertical"/>
-                            </ControlTemplate>
-                        </ItemsControl.Template>
+                    <StackPanel Grid.Column="1"
+                                Margin="2,2">
+                        <TextBlock FontSize="16"
+                                   Text="AILMENTS"
+                                   FontWeight="Medium"
+                                   Foreground="{StaticResource WHITE_500}"/>
 
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <local:MonsterAilmentConfigurationView Margin="2,2"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                        <ItemsControl ItemsSource="{Binding Configuration.Ailments, Mode=OneTime}"
+                                      d:ItemsSource="{d:SampleData ItemCount=5}">
+                            <ItemsControl.Template>
+                                <ControlTemplate>
+                                    <StackPanel IsItemsHost="True"
+                                                Orientation="Vertical"/>
+                                </ControlTemplate>
+                            </ItemsControl.Template>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <local:MonsterAilmentConfigurationView Margin="0,2"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
                 </Grid>
             </Border>
         </Expander>

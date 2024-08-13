@@ -118,9 +118,13 @@ public class MonsterAilmentContextHandler : MonsterAilmentViewModel
     private void HandleEnabledState()
     {
         bool isGloballyEnabled = _detailsConfiguration.AllowedAilments.Contains(Context.Definition.Id);
-        bool isSpecificallyEnabled = _monsterConfiguration?.Ailments.FirstOrDefault(it => it.Id == Context.Definition.Id)
-            ?.IsEnabled ?? true;
-        IsEnabled = isSpecificallyEnabled && isGloballyEnabled;
+        bool? isSpecificallyEnabled = _monsterConfiguration?.Ailments.FirstOrDefault(it => it.Id == Context.Definition.Id)
+            ?.IsEnabled.Value;
+        IsEnabled = isSpecificallyEnabled switch
+        {
+            { } enabled => enabled,
+            _ => isGloballyEnabled
+        };
     }
 
     public override void Dispose()
