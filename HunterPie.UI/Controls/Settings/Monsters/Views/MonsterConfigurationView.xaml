@@ -7,6 +7,7 @@
              xmlns:viewModels="clr-namespace:HunterPie.UI.Controls.Settings.Monsters.ViewModels"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+             xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:MonsterConfigurationViewModel}"
              d:DesignWidth="500">
@@ -42,7 +43,7 @@
                        Grid.Column="0"
                        Height="{Binding Width, RelativeSource={RelativeSource Self}}"
                        VerticalAlignment="Center"
-                       Source="{Binding Icon, Mode=OneWay}"
+                       Source="{Binding Icon, Mode=OneWay, TargetNullValue={StaticResource ICON_SKULL}}"
                        d:Source="{StaticResource ICON_SKULL}"
                        RenderOptions.BitmapScalingMode="Linear"
                        Margin="5"/>
@@ -64,7 +65,8 @@
                            FontSize="13">
                     <Run Text="{Binding Configuration.Parts.Count, Mode=OneTime}"
                          d:Text="0"/>
-                    <Run Text="parts"/>
+                    <Run Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;MONSTER_PARTS_COUNT_STRING&quot;]'}"
+                         d:Text="parts"/>
                 </TextBlock>
 
                 <!-- Delete override -->
@@ -102,7 +104,8 @@
                     <StackPanel Grid.Column="0"
                                 Margin="2,2">
                         <TextBlock FontSize="16"
-                                   Text="PARTS"
+                                   d:Text="PARTS"
+                                   Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;MONSTER_PARTS_STRING&quot;]'}"
                                    FontWeight="Medium"
                                    Foreground="{StaticResource WHITE_500}"/>
 
@@ -131,7 +134,8 @@
                     <StackPanel Grid.Column="1"
                                 Margin="2,2">
                         <TextBlock FontSize="16"
-                                   Text="AILMENTS"
+                                   d:Text="AILMENTS"
+                                   Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;MONSTER_AILMENTS_STRING&quot;]'}"
                                    FontWeight="Medium"
                                    Foreground="{StaticResource WHITE_500}"/>
 

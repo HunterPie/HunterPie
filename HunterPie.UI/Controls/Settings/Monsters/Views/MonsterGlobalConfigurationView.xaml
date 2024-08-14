@@ -9,6 +9,7 @@
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets"
              mc:Ignorable="d" 
              d:DesignWidth="500"
              d:DataContext="{d:DesignInstance viewModels:MonsterGlobalConfigurationViewModel}">
@@ -56,7 +57,8 @@
                 <!-- Monster name -->
                 <TextBlock Grid.Row="0"
                            Grid.Column="1"
-                           Text="Global settings"
+                           d:Text="Global settings"
+                           Text="{assets:LocalizationString '//Strings/Client/Settings/Setting[@Id=&quot;MONSTER_GLOBAL_SETTINGS_STRING&quot;]'}"
                            VerticalAlignment="Center"
                            Foreground="{StaticResource WHITE_100}"
                            FontWeight="Medium"
@@ -67,7 +69,8 @@
                            VerticalAlignment="Top"
                            Foreground="{StaticResource WHITE_500}"
                            FontSize="13"
-                           Text="Apply settings globally for all monsters."/>
+                           Text="{assets:LocalizationDescription '//Strings/Client/Settings/Setting[@Id=&quot;MONSTER_GLOBAL_SETTINGS_STRING&quot;]'}"
+                           d:Text="Apply settings globally for all monsters."/>
             </Grid>
         </buttons:Button>
 
@@ -92,7 +95,8 @@
                     <StackPanel Grid.Column="0"
                                 Margin="2,2">
                         <TextBlock FontSize="16"
-                                   Text="PART GROUPS"
+                                   d:Text="PART GROUPS"
+                                   Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;MONSTER_PART_GROUPS_STRING&quot;]'}"
                                    FontWeight="Medium"
                                    Foreground="{StaticResource WHITE_500}"/>
 
@@ -163,7 +167,8 @@
                     <StackPanel Grid.Column="1"
                                 Margin="2,2">
                         <TextBlock FontSize="16"
-                                   Text="AILMENTS"
+                                   d:Text="AILMENTS"
+                                   Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;MONSTER_AILMENTS_STRING&quot;]'}"
                                    FontWeight="Medium"
                                    Foreground="{StaticResource WHITE_500}"/>
 

@@ -44,6 +44,7 @@
                             Foreground="{StaticResource WHITE_400}"
                             Margin="0,0,5,0"/>
                 <TextBlock Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;BACK_STRING&quot;]'}"
+                           d:Text="Back"
                            Foreground="{StaticResource WHITE_400}"
                            VerticalAlignment="Center"/>
             </StackPanel>
@@ -85,7 +86,8 @@
                                 Width="15"
                                 Foreground="{StaticResource WHITE_600}"
                                 VerticalAlignment="Center"/>
-                    <TextBlock Text="Override monster"
+                    <TextBlock d:Text="Override monster"
+                               Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;MONSTER_OVERRIDE_STRING&quot;]'}"
                                Foreground="{StaticResource WHITE_600}"
                                Margin="5,0,0,0"
                                FontSize="14"
@@ -119,7 +121,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Image Grid.Column="0"
-                                   Source="{Binding Icon, Mode=OneWay}"
+                                   Source="{Binding Icon, Mode=OneWay, TargetNullValue={StaticResource ICON_SKULL}}"
                                    Height="30"
                                    RenderOptions.BitmapScalingMode="Fant"/>
 
