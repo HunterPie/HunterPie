@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Data.Schemas;
-using HunterPie.Core.Game.Services;
+using HunterPie.Core.Game.Data.Definitions;
+using HunterPie.Core.Game.Data.Repository;
 using HunterPie.Features.Statistics.Models;
 using HunterPie.GUI.Parts.Statistics.Details.ViewModels;
 using HunterPie.UI.Architecture.Brushes;
@@ -82,7 +82,7 @@ internal class PartyMemberDetailsViewModelBuilder
         if (monster.HuntFinishedAt is not { } finishedAt || monster.HuntStartedAt is not { } startedAt)
             return null;
 
-        AbnormalitySchema? schema = AbnormalityService.FindBy(quest.Game, abnormality.Id);
+        AbnormalityDefinition? schema = AbnormalityRepository.FindBy(quest.Game, abnormality.Id);
 
         if (schema is not { } abnormalityData)
             return null;

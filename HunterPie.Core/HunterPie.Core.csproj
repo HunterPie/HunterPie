@@ -1,13 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Authors>Haato</Authors>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.11.0.30</AssemblyVersion>
-    <FileVersion>2.11.0.30</FileVersion>
-    <LangVersion>10.0</LangVersion>
- </PropertyGroup>
+    <AssemblyVersion>2.11.0.84</AssemblyVersion>
+    <FileVersion>2.11.0.84</FileVersion>
+    <LangVersion>11.0</LangVersion>
+	<Nullable>enable</Nullable>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="ClrHeapAllocationAnalyzer" Version="3.0.0" Condition="'$(ConfigurationName)' == 'Debug'" />

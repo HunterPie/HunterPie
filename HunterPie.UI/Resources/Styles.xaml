@@ -815,6 +815,36 @@
         </Setter>
     </Style>
 
+    <Style x:Key="ExpanderNoHeaderStyle" TargetType="Expander">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Expander">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter x:Name="PART_Presenter"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded"
+                                 Value="True">
+                            <Setter Property="Visibility"
+                                    TargetName="PART_Presenter"
+                                    Value="Visible"/>
+                        </Trigger>
+
+                        <Trigger Property="IsExpanded"
+                                 Value="False">
+                            <Setter Property="Visibility"
+                                    TargetName="PART_Presenter"
+                                    Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="{x:Type progress:Bar}"
            BasedOn="{StaticResource DefaultProgressBarStyle}"/>
     

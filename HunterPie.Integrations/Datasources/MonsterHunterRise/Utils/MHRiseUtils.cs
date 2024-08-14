@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Domain.Memory;
+using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
@@ -17,6 +18,9 @@ public static class MHRiseUtils
     private const double FOOD_BONUS_HEALTH = 50.0;
     private const double PETALACE_STAMINA_MULTIPLIER = 30.0;
     private const float TIMER_MULTIPLIER = 60.0f;
+
+    public static MonsterPartDefinition QurioPartDefinition =
+        new MonsterPartDefinition { String = "PART_QURIO_THRESHOLD" };
 
     public static Weapon ToWeaponId(this int self)
     {

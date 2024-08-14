@@ -151,7 +151,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
             if (contains)
                 return;
 
-            Ailments.Add(new MonsterAilmentContextHandler(e, Config));
+            Ailments.Add(new MonsterAilmentContextHandler(Context, e, Config));
         });
     }
 
@@ -166,7 +166,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
             if (contains)
                 return;
 
-            Parts.Add(new MonsterPartContextHandler(e, Config));
+            Parts.Add(new MonsterPartContextHandler(Context, e, Config));
         });
     }
 
@@ -232,7 +232,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
                     if (contains)
                         continue;
 
-                    Parts.Add(new MonsterPartContextHandler(part, Config));
+                    Parts.Add(new MonsterPartContextHandler(Context, part, Config));
                 }
 
                 foreach (IMonsterAilment ailment in Context.Ailments)
@@ -245,7 +245,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
                     if (contains)
                         continue;
 
-                    Ailments.Add(new MonsterAilmentContextHandler(ailment, Config));
+                    Ailments.Add(new MonsterAilmentContextHandler(Context, ailment, Config));
                 }
 
                 foreach (Element weakness in Context.Weaknesses)
@@ -253,7 +253,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
             });
     }
 
-    private void AddEnrage() => UIThread.Invoke(() => Ailments.Add(new MonsterAilmentContextHandler(Context.Enrage, Config)));
+    private void AddEnrage() => UIThread.Invoke(() => Ailments.Add(new MonsterAilmentContextHandler(Context, Context.Enrage, Config)));
 
     private string BuildMonsterEmByContext()
     {

@@ -1,3 +1,8 @@
-﻿namespace HunterPie.Core.Client.Configuration.Games;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
 
-public sealed class MHRConfig : GameConfig { }
+namespace HunterPie.Core.Client.Configuration.Games;
+
+public sealed class MHRConfig : GameConfig
+{
+    public override OverlayConfig Overlay { get; set; } = new MHROverlayConfig();
+}

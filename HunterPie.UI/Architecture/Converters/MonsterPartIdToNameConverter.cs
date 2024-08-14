@@ -10,7 +10,7 @@ public class MonsterPartIdToNameConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         string id = (string)value;
-        return Localization.Query($"//Strings/Monsters/Shared/Part[@Id='{id}']")?.Attributes["String"].Value
+        return Localization.Query($"//Strings/Monsters/Shared/Part[@Id='{id}']")?.Attributes?["String"]?.Value
             ?? id;
     }
 

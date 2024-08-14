@@ -1,11 +1,12 @@
-﻿using HunterPie.Core.Game.Enums;
+﻿using HunterPie.Core.Game.Data.Definitions;
+using HunterPie.Core.Game.Enums;
 using System;
 
 namespace HunterPie.Core.Game.Entity.Enemy;
 
 public interface IMonsterPart
 {
-
+    public MonsterPartDefinition Definition { get; }
     public string Id { get; }
     public float Health { get; }
     public float MaxHealth { get; }
