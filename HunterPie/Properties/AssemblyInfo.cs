@@ -1,7 +1,6 @@
 
 using System.Reflection;
 using System.Windows;
-using System.Windows.Media;
 
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
@@ -12,5 +11,5 @@ using System.Windows.Media;
                                               // app, or any theme specific resource dictionaries)
 )]
 
-[assembly: AssemblyVersion("2.11.0.103")]
-[assembly: AssemblyFileVersion("2.11.0.103")]
+[assembly: AssemblyVersion("2.11.0.104")]
+[assembly: AssemblyFileVersion("2.11.0.104")]
