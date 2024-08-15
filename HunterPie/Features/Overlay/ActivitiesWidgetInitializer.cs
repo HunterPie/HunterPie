@@ -3,7 +3,6 @@ using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Game;
 using HunterPie.Core.System;
 using HunterPie.Integrations.Datasources.MonsterHunterRise;
-using HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
@@ -27,7 +26,6 @@ internal class ActivitiesWidgetInitializer : IWidgetInitializer
         {
             MHRContext ctx => new RiseActivitiesWidgetContextHandler(ctx),
             MHWContext ctx => new WorldActivitiesWidgetContextHandler(ctx),
-            MHRSunbreakDemoContext => null,
             _ => throw new NotImplementedException("unreachable")
         };
 

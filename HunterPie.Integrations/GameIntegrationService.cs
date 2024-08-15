@@ -2,7 +2,6 @@
 using HunterPie.Core.Game;
 using HunterPie.Integrations.Datasources;
 using HunterPie.Integrations.Datasources.MonsterHunterRise;
-using HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 
 namespace HunterPie.Integrations;
@@ -17,9 +16,8 @@ internal static class GameIntegrationService
         // TODO: Make this a dictionary
         return processName switch
         {
-            SupportedGameNames.MonsterHunterWorld => new MHWContext(process),
-            SupportedGameNames.MonsterHunterRise => new MHRContext(process),
-            SupportedGameNames.MonsterHunterRiseSunbreakDemo => new MHRSunbreakDemoContext(process),
+            SupportedGameNames.MONSTER_HUNTER_WORLD => new MHWContext(process),
+            SupportedGameNames.MONSTER_HUNTER_RISE => new MHRContext(process),
             _ => throw new Exception("Game context not implemented"),
         };
     }

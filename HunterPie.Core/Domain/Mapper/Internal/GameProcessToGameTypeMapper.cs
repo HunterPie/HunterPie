@@ -15,7 +15,6 @@ internal class GameProcessToGameTypeMapper : IMapper<GameProcess, GameType?>
             GameProcess.None => null,
             GameProcess.MonsterHunterRise => GameType.Rise,
             GameProcess.MonsterHunterWorld => GameType.World,
-            GameProcess.MonsterHunterRiseSunbreakDemo => GameType.Rise,
             GameProcess.All => null,
             _ => throw new ArgumentOutOfRangeException(nameof(data), data, null)
         };
