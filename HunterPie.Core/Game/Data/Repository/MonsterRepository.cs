@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Client.Configuration.Enums;
+﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain.Mapper;
 using HunterPie.Core.Game.Data.Definitions;
 using System;
@@ -60,7 +61,7 @@ public static class MonsterRepository
     private static Dictionary<int, MonsterDefinition> LoadMonsters(string file)
     {
         var document = new XmlDocument();
-        document.Load(file);
+        document.Load(ClientInfo.GetPathFor(file));
         return LoadMonsterFromDocument(document);
     }
 
