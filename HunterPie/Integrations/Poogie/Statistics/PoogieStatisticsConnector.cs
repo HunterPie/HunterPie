@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Statistics;
-#nullable enable
+
 internal class PoogieStatisticsConnector
 {
     private const string SUMMARIES_CACHE_KEY = "summaries";
@@ -23,8 +23,24 @@ internal class PoogieStatisticsConnector
 
     private const string STATISTICS_ENDPOINT = "/v1/hunt";
 
+    private const string STATISTICS_ENDPOINT_V2 = "/v2/hunt";
+
     public async Task<PoogieResult<PoogieQuestStatisticsModel>> Upload(PoogieQuestStatisticsModel model) =>
         await _connector.Post<PoogieQuestStatisticsModel, PoogieQuestStatisticsModel>($"{STATISTICS_ENDPOINT}/upload", model);
+
+    public async Task<PoogieResult<Paginated<PoogieQuestSummaryModel>>> GetUserQuestSummariesV2(int page, int limit)
+    {
+        PoogieResult<Paginated<PoogieQuestSummaryModel>> result =
+            await _connector.Get<Paginated<PoogieQuestSummaryModel>>(
+                path: STATISTICS_ENDPOINT_V2,
+                query: new Dictionary<string, object>
+                {
+                    { nameof(page), page },
+                    { nameof(limit), limit}
+                });
+
+        return result;
+    }
 
     public async Task<PoogieResult<List<PoogieQuestSummaryModel>>> GetUserQuestSummaries()
     {
@@ -40,7 +56,7 @@ internal class PoogieStatisticsConnector
             await Cache.Set(
                 key: SUMMARIES_CACHE_KEY,
                 value: result,
-                options: new CacheOptions(Ttl: TimeSpan.FromMinutes(10))
+                options: new CacheOptions(Ttl: TimeSpan.FromMinutes(1))
             );
 
         return result;

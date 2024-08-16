@@ -1,0 +1,156 @@
+﻿<UserControl x:Class="HunterPie.UI.Controls.Notification.Toast"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Controls.Notification"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
+             xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading"
+             xmlns:model="clr-namespace:HunterPie.Core.Notification.Model;assembly=HunterPie.Core"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.Controls.Notification.ViewModels"
+             xmlns:visibilities="clr-namespace:HunterPie.UI.Architecture.Converters.Visibilities"
+             mc:Ignorable="d"  
+             Width="320"
+             d:DataContext="{d:DesignInstance viewModels:ToastViewModel}">
+    <UserControl.Resources>
+        <visibilities:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter"/>
+        <Style x:Key="ButtonStyles"
+               TargetType="buttons:Button">
+            <Setter Property="Background" Value="{StaticResource GRAY_200}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="BorderBrush" Value="{StaticResource GRAY_50}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </UserControl.Resources>
+    <Border CornerRadius="5"
+            Background="{StaticResource GRAY_300}"
+            BorderThickness="1"
+            BorderBrush="{StaticResource GRAY_50}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0"
+                    Background="{StaticResource GRAY_400}"
+                    CornerRadius="4.5,4.5,0,0"
+                    BorderThickness="0,0,0,1"
+                    BorderBrush="{StaticResource GRAY_50}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ContentControl Grid.Column="0"
+                                      Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
+                        <ContentControl.Style>
+                            <Style TargetType="ContentControl">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Type, Mode=OneWay}"
+                                                 Value="{x:Static model:NotificationType.Info}">
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <image:Icon Width="20"
+                                                            Height="20"
+                                                            Image="{StaticResource ICON_INFO}"
+                                                            Foreground="{StaticResource BLUE_100}"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding Type, Mode=OneWay}"
+                                                 Value="{x:Static model:NotificationType.Error}">
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                                            Padding="5"
+                                                            Image="{StaticResource ICON_ERROR}"
+                                                            Foreground="{StaticResource RED_500}"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding Type, Mode=OneWay}"
+                                                 Value="{x:Static model:NotificationType.Success}">
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                                            Padding="5"
+                                                            Image="{StaticResource ICON_CHECKMARK}"
+                                                            Foreground="{StaticResource GREEN_400}"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding Type, Mode=OneWay}"
+                                                 Value="{x:Static model:NotificationType.Warning}">
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                                            Padding="6"
+                                                            Image="{StaticResource ICON_WARN}"
+                                                            Foreground="{StaticResource YELLOW_300}"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding Type, Mode=OneWay}"
+                                                 Value="{x:Static model:NotificationType.InProgress}">
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <loading:CircleLoading Margin="5"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentControl.Style>
+                    </ContentControl>
+                    
+
+                    <TextBlock Grid.Column="1"
+                               d:Text="Title"
+                               Text="{Binding Title, Mode=OneWay}"
+                               Foreground="{StaticResource WHITE_500}"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               FontWeight="Medium"/>
+                </Grid>
+            </Border>
+
+            <TextBlock Grid.Row="1"
+                       d:Text="Hello world this is a toast notification"
+                       Text="{Binding Description, Mode=OneWay}"
+                       Padding="4"
+                       Margin="10,5"
+                       FontSize="13"
+                       Foreground="{StaticResource WHITE_200}"
+                       TextWrapping="WrapWithOverflow"/>
+
+            <UniformGrid Grid.Row="2"
+                         d:Columns="2"
+                         Columns="{Binding ButtonCount, Mode=OneWay}">
+                <buttons:Button d:Content="Primary"
+                                Content="{Binding PrimaryLabel, Mode=OneWay}"
+                                Foreground="{StaticResource WHITE_100}"
+                                Style="{StaticResource ButtonStyles}"
+                                BorderThickness="0,1,1,0"
+                                CornerRadius="0,0,0,4.5"
+                                Click="OnPrimaryButtonClick"
+                                Visibility="{Binding PrimaryHandler, Mode=OneWay, Converter={StaticResource NullableToVisibilityConverter}}"/>
+                <buttons:Button d:Content="Primary"
+                                Content="{Binding SecondaryLabel, Mode=OneWay}"
+                                Foreground="{StaticResource WHITE_400}"
+                                Style="{StaticResource ButtonStyles}"
+                                BorderThickness="0,1,0,0"
+                                CornerRadius="0,0,4.5,0"
+                                Click="OnSecondaryButtonClick"
+                                Visibility="{Binding SecondaryHandler, Mode=OneWay, Converter={StaticResource NullableToVisibilityConverter}}"/>
+            </UniformGrid>
+        </Grid>
+    </Border>
+</UserControl>

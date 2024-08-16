@@ -35,6 +35,18 @@ public static class IEnumerableExtensions
         return list;
     }
 
+    public static TOut? SingleOrNull<TOut>(this IEnumerable<TOut> enumerable)
+    {
+        IEnumerable<TOut> outs = enumerable as TOut[] ?? enumerable.ToArray();
+        int count = outs.Count();
+
+        return count switch
+        {
+            <= 0 or > 1 => default,
+            _ => outs.ElementAtOrDefault(1)
+        };
+    }
+
     public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> enumerable)
     {
         return new ObservableCollection<T>(enumerable);

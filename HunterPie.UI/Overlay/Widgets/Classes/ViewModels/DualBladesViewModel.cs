@@ -24,4 +24,7 @@ public class DualBladesViewModel : ViewModel, IClassViewModel
 
     private bool _inArchDemonMode;
     public bool InArchDemonMode { get => _inArchDemonMode; set => SetValue(ref _inArchDemonMode, value); }
+
+    private bool _isPiercingBindVisible;
+    public bool IsPiercingBindVisible { get => _isPiercingBindVisible; set => SetValue(ref _isPiercingBindVisible, value); }
 }

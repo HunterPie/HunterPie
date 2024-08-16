@@ -1,18 +1,24 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Authors>Haato</Authors>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.9.0.72</AssemblyVersion>
-    <FileVersion>2.9.0.72</FileVersion>
-    <LangVersion>10.0</LangVersion>
- </PropertyGroup>
+    <AssemblyVersion>2.11.0.92</AssemblyVersion>
+    <FileVersion>2.11.0.92</FileVersion>
+    <LangVersion>11.0</LangVersion>
+	<Nullable>enable</Nullable>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="ClrHeapAllocationAnalyzer" Version="3.0.0" Condition="'$(ConfigurationName)' == 'Debug'" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Settings\Adapters\" />
+    <Folder Include="Settings\Common\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties BuildVersion_StartDate="2000/1/1" /></VisualStudio></ProjectExtensions>

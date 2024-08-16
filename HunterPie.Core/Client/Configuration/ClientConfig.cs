@@ -3,57 +3,74 @@ using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Generics;
 using HunterPie.Core.Settings;
+using HunterPie.Core.Settings.Annotations;
+using HunterPie.Core.Settings.Common;
 using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration;
 
-[SettingsGroup("CLIENT_STRING", "ICON_HUNTERPIE")]
+[Configuration("CLIENT_STRING", "ICON_HUNTERPIE")]
 public class ClientConfig : ISettings
 {
-    [SettingField("ENABLE_SELF_UPDATE")]
+    #region Auto Update
+    [ConfigurationProperty("ENABLE_SELF_UPDATE", group: CommonConfigurationGroups.SELF_UDPATE)]
     public Observable<bool> EnableAutoUpdate { get; set; } = true;
 
-    [SettingField("ENABLE_SELF_UPDATE_CONFIRMATION")]
+    [ConfigurationProperty("ENABLE_SELF_UPDATE_CONFIRMATION", group: CommonConfigurationGroups.SELF_UDPATE)]
     public Observable<bool> EnableAutoUpdateConfirmation { get; set; } = true;
+    #endregion
 
-    [SettingField("SUPPORTER_SECRET_TOKEN_STRING")]
+    #region Supporter
+    [ConfigurationProperty("SUPPORTER_SECRET_TOKEN_STRING", group: CommonConfigurationGroups.SUPPORTER)]
     public Secret SupporterSecretToken { get; set; } = new();
+    #endregion
 
-    [SettingField("LANGUAGE_STRING", requiresRestart: true)]
+    #region General Settings
+    [ConfigurationProperty("LANGUAGE_STRING", requiresRestart: true, group: CommonConfigurationGroups.GENERAL)]
     public GenericFileSelector Language { get; set; } = new GenericFileSelector("en-us.xml", "*.xml", ClientInfo.LanguagesPath);
 
-    [SettingField("THEME_STRING", requiresRestart: true)]
+    [ConfigurationProperty("THEME_STRING", requiresRestart: true, group: CommonConfigurationGroups.GENERAL)]
     public GenericFolderSelector Theme { get; set; } = new GenericFolderSelector("Default", "*", ClientInfo.ThemesPath);
+    #endregion
 
-    [SettingField("MINIMIZE_TO_SYSTEM_TRAY_STRING")]
+    #region Customization Settings
+    [ConfigurationProperty("MINIMIZE_TO_SYSTEM_TRAY_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
     public Observable<bool> MinimizeToSystemTray { get; set; } = true;
 
-    [SettingField("DEFAULT_RUN_GAME_TYPE")]
-    public Observable<GameType> DefaultGameType { get; set; } = GameType.Rise;
-
-    [SettingField("SEAMLESS_STARTUP_STRING")]
+    [ConfigurationProperty("SEAMLESS_STARTUP_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
     public Observable<bool> EnableSeamlessStartup { get; set; } = false;
 
-    [SettingField("SEAMLESS_SHUTDOWN_STRING")]
+    [ConfigurationProperty("SEAMLESS_SHUTDOWN_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
     public Observable<bool> EnableSeamlessShutdown { get; set; } = false;
 
-    [SettingField("SHUTDOWN_ON_GAME_EXIT")]
+    [ConfigurationProperty("SHUTDOWN_ON_GAME_EXIT", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
     public Observable<bool> ShouldShutdownOnGameExit { get; set; } = false;
+    #endregion
 
-    [SettingField("ENABLE_NATIVE_MODULE_STRING", availableGames: GameProcess.MonsterHunterWorld)]
+    #region Native Settings
+    [ConfigurationProperty("ENABLE_NATIVE_MODULE_STRING", availableGames: GameProcess.MonsterHunterWorld, group: CommonConfigurationGroups.NATIVE)]
     public Observable<bool> EnableNativeModule { get; set; } = true;
+    #endregion
 
-    [SettingField("RENDERING_STRATEGY_STRING", requiresRestart: true)]
+    #region Rendering Settings
+    [ConfigurationProperty("RENDERING_STRATEGY_STRING", requiresRestart: true, group: CommonConfigurationGroups.RENDERING)]
     public Observable<RenderingStrategy> Render { get; set; } = RenderingStrategy.Software;
 
-    [SettingField("RENDERING_FPS_STRING", requiresRestart: true)]
+    [ConfigurationProperty("RENDERING_FPS_STRING", requiresRestart: true, group: CommonConfigurationGroups.RENDERING)]
     public Range RenderFramePerSecond { get; set; } = new Range(60, 60, 1, 1);
+    #endregion
 
-    [SettingField("POLLING_RATE_STRING")]
-    public Range PollingRate { get; set; } = new(100, 1000, 1, 1);
+    #region Scanning Settings
+    [ConfigurationProperty("POLLING_RATE_STRING", group: CommonConfigurationGroups.SCANNING)]
+    public Range PollingRate { get; set; } = new(50, 1000, 1, 1);
+    #endregion
 
-    [SettingField("DEV_ENABLE_FEATURE_FLAG", requiresRestart: true)]
+    #region Development Settings
+    [ConfigurationProperty("DEV_ENABLE_FEATURE_FLAG", requiresRestart: true, group: CommonConfigurationGroups.DEVELOPMENT)]
     public Observable<bool> EnableFeatureFlags { get; set; } = false;
+    #endregion
+
+    public Observable<GameType> DefaultGameType { get; set; } = GameType.Rise;
 
     // States
     public Observable<GameProcess> LastConfiguredGame { get; set; } = GameProcess.MonsterHunterRise;

@@ -16,22 +16,16 @@ public class ObservableCollectionConverter<T> : JsonConverter
         var collection = (ObservableCollection<T>)JsonSerializer.CreateDefault().Deserialize(reader, objectType);
 
         if (collection.Count < existingCollection.Count)
-        {
             for (int i = existingCollection.Count - 1; i >= collection.Count; i--)
                 existingCollection.RemoveAt(i);
-        }
 
         if (existingCollection.Count > 0 && collection.Count >= existingCollection.Count)
-        {
             for (int i = 0; i < existingCollection.Count; i++)
                 CopyToExistingRecursively(existingCollection[i], collection[i]);
-        }
 
         if (collection.Count > existingCollection.Count)
-        {
             for (int i = existingCollection.Count; i < collection.Count; i++)
                 existingCollection.Add(collection[i]);
-        }
 
         return existingCollection;
     }
@@ -41,9 +35,14 @@ public class ObservableCollectionConverter<T> : JsonConverter
     private void CopyToExistingRecursively(object existingObject, object newObject)
     {
         Type objectType = existingObject.GetType();
+
+        if (existingObject is ICollection)
+            return;
+
         foreach (PropertyInfo property in objectType.GetProperties())
         {
-            if (property.CanWrite && (property.PropertyType.IsPrimitive || typeof(IEnumerable).IsAssignableFrom(property.PropertyType)))
+            Type propertyType = property.PropertyType;
+            if (property.CanWrite && (propertyType.IsPrimitive || propertyType == typeof(string)))
             {
                 object value = property.GetValue(newObject);
                 property.SetValue(existingObject, value);

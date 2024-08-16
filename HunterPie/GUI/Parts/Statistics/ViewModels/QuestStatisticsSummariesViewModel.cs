@@ -1,18 +1,18 @@
-﻿using HunterPie.Core.Client.Localization;
+﻿using HunterPie.Core.Architecture.Collections;
+using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Notification;
+using HunterPie.Core.Notification.Model;
 using HunterPie.Features.Account;
 using HunterPie.Features.Account.Model;
 using HunterPie.GUI.Parts.Statistics.Details.Builders;
 using HunterPie.GUI.Parts.Statistics.Details.ViewModels;
-using HunterPie.GUI.Parts.Statistics.Details.Views;
 using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.Integrations.Poogie.Statistics;
 using HunterPie.Integrations.Poogie.Statistics.Models;
 using HunterPie.UI.Architecture;
-using HunterPie.UI.Architecture.Navigator;
+using HunterPie.UI.Navigation;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -20,8 +20,6 @@ namespace HunterPie.GUI.Parts.Statistics.ViewModels;
 
 public class QuestStatisticsSummariesViewModel : ViewModel
 {
-    private const int MAX_PER_PAGE = 5;
-    private PoogieQuestSummaryModel[] _summaries = Array.Empty<PoogieQuestSummaryModel>();
     private readonly PoogieStatisticsConnector _connector = new();
 
     private bool _hasQuests;
@@ -49,7 +47,7 @@ public class QuestStatisticsSummariesViewModel : ViewModel
     public int CurrentPage
     {
         get => _currentPage;
-        set => SetValue(ref _currentPage, value);
+        set => SetValueThenExecute(ref _currentPage, value, FetchQuests);
     }
 
     private int _lastPage;
@@ -66,10 +64,15 @@ public class QuestStatisticsSummariesViewModel : ViewModel
         set => SetValue(ref _isFetchingDetails, value);
     }
 
+    public ObservableCollection<int> PageLimitSizes { get; } = new() { 10, 20, 30, 40, 50 };
+
+    private int _limitSize = 10;
+    public int LimitSize { get => _limitSize; set => SetValue(ref _limitSize, value); }
+
     private QuestSupporterTierMessageType _messageType;
     public QuestSupporterTierMessageType MessageType { get => _messageType; set => SetValue(ref _messageType, value); }
 
-    public ObservableCollection<QuestStatisticsSummaryViewModel> Summaries { get; } = new();
+    public ObservableCollectionRange<QuestStatisticsSummaryViewModel> Summaries { get; } = new();
 
     public async void FetchQuests()
     {
@@ -82,7 +85,8 @@ public class QuestStatisticsSummariesViewModel : ViewModel
 
         IsFetchingQuests = true;
 
-        PoogieResult<List<PoogieQuestSummaryModel>> summariesResponse = await _connector.GetUserQuestSummaries();
+        PoogieResult<Paginated<PoogieQuestSummaryModel>> summariesResponse =
+            await _connector.GetUserQuestSummariesV2(CurrentPage, LimitSize);
 
         if (summariesResponse.Error is { } error && error.Code != PoogieErrorCode.NOT_ERROR)
         {
@@ -92,62 +96,57 @@ public class QuestStatisticsSummariesViewModel : ViewModel
 
         IsFetchingQuests = false;
 
-        if (summariesResponse.Response is not { } summaries || !summaries.Any())
+        if (summariesResponse.Response is not { } summaries || !summaries.Elements.Any())
         {
             HasQuests = false;
             return;
         }
 
-        _summaries = summaries.OrderByDescending(it => it.CreatedAt)
-            .ToArray();
+        Summaries.Replace(
+            collection: summaries.Elements.Select(it => new QuestStatisticsSummaryViewModel(it))
+        );
 
-        LastPage = summaries.Count / MAX_PER_PAGE;
+        LastPage = summaries.TotalPages;
         HasQuests = true;
-
-        UpdateSummariesContainer();
     }
-
-    public void RequestPageUpdate() => UpdateSummariesContainer();
 
     public async void NavigateToHuntDetails(string uploadId)
     {
-        NotificationService.Info(
-            Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_IN_PROGRESS_STRING']")
-            .Format(uploadId),
-            TimeSpan.FromSeconds(5)
+        var downloadingNotificationOptions = new NotificationOptions(
+            Type: NotificationType.InProgress,
+            Title: "Quest",
+            Description: Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_IN_PROGRESS_STRING']")
+                .Format(uploadId),
+            DisplayTime: TimeSpan.FromSeconds(10)
         );
+        Guid notificationId = await NotificationService.Show(downloadingNotificationOptions);
         IsFetchingDetails = true;
 
         PoogieResult<PoogieQuestStatisticsModel> questResponse = await _connector.Get(uploadId);
 
         if (questResponse.Response is not { } questDetails)
         {
-            NotificationService.Error(
-                Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_FAILED_ERROR_STRING']"),
-                TimeSpan.FromSeconds(10)
-            );
+            NotificationOptions failedNotification = downloadingNotificationOptions with
+            {
+                Type = NotificationType.Error,
+                Description = Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_FAILED_ERROR_STRING']")
+            };
+            NotificationService.Update(notificationId, failedNotification);
             IsFetchingDetails = false;
             return;
         }
 
         IsFetchingDetails = false;
 
-        NotificationService.Success(
-            Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_SUCCESS_STRING']"),
-            TimeSpan.FromSeconds(5)
-        );
+        NotificationOptions successNotification = downloadingNotificationOptions with
+        {
+            Type = NotificationType.Success,
+            Description = Localization.QueryString("//Strings/Client/Main/String[@Id='CLIENT_HUNT_EXPORT_FETCH_SUCCESS_STRING']")
+        };
+        NotificationService.Update(notificationId, successNotification);
 
         QuestDetailsViewModel viewModel = await QuestDetailsViewModelBuilder.From(questDetails.ToEntity());
-        var details = new QuestDetailsView { DataContext = viewModel };
-        Navigator.Navigate(details);
-    }
-
-    private void UpdateSummariesContainer()
-    {
-        Summaries.Clear();
-
-        foreach (PoogieQuestSummaryModel summary in _summaries.Skip(CurrentPage * MAX_PER_PAGE).Take(MAX_PER_PAGE))
-            Summaries.Add(new QuestStatisticsSummaryViewModel(summary));
+        Navigator.Body.Navigate(viewModel);
     }
 
     private static QuestSupporterTierMessageType ConvertTierToMessageType(AccountTier tier) =>

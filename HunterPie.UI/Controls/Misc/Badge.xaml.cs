@@ -17,7 +17,7 @@ public partial class Badge : UserControl
 
     // Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty TextProperty =
-        DependencyProperty.Register("Text", typeof(string), typeof(Badge), new PropertyMetadata("New"));
+        DependencyProperty.Register(nameof(Text), typeof(string), typeof(Badge), new PropertyMetadata("New"));
 
     public new Brush Foreground
     {
@@ -27,7 +27,7 @@ public partial class Badge : UserControl
 
     // Using a DependencyProperty as the backing store for Foreground.  This enables animation, styling, binding, etc...
     public static new readonly DependencyProperty ForegroundProperty =
-        DependencyProperty.Register("Foreground", typeof(Brush), typeof(Badge), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(0xCC, 0x70, 0x00, 0x00))));
+        DependencyProperty.Register(nameof(Foreground), typeof(Brush), typeof(Badge), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xA8, 0xA8))));
 
     public new Brush Background
     {
@@ -37,7 +37,7 @@ public partial class Badge : UserControl
 
     // Using a DependencyProperty as the backing store for Background.  This enables animation, styling, binding, etc...
     public static new readonly DependencyProperty BackgroundProperty =
-        DependencyProperty.Register("Background", typeof(Brush), typeof(Badge), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xA8, 0xA8))));
+        DependencyProperty.Register(nameof(Background), typeof(Brush), typeof(Badge), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(0xCC, 0x70, 0x00, 0x00))));
 
     public Badge()
     {

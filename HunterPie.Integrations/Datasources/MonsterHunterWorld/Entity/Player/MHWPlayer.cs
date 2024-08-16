@@ -1,23 +1,24 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.DTO;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Data;
-using HunterPie.Core.Game.Data.Schemas;
+using HunterPie.Core.Game.Data.Definitions;
+using HunterPie.Core.Game.Data.Repository;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Entity.Player.Vitals;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Game.Services;
 using HunterPie.Core.Native.IPC.Models.Common;
 using HunterPie.Integrations.Datasources.Common.Definition;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
-using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Environment.Activities;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
@@ -180,13 +181,13 @@ public sealed class MHWPlayer : CommonPlayer
 
     internal MHWPlayer(IProcessManager process) : base(process)
     {
-        _weapon = CreateDefaultWeapon(process);
         _skillService = new MHWSkillService(process);
+        _weapon = CreateDefaultWeapon(process);
     }
 
-    private static IWeapon CreateDefaultWeapon(IProcessManager process)
+    private IWeapon CreateDefaultWeapon(IProcessManager process)
     {
-        var weapon = new MHWMeleeWeapon(process, WeaponType.Greatsword);
+        var weapon = new MHWMeleeWeapon(process, _skillService, WeaponType.Greatsword);
         ScanManager.Add(weapon);
         return weapon;
     }
@@ -224,7 +225,7 @@ public sealed class MHWPlayer : CommonPlayer
         );
 
         uint currentSaveSlot = Process.Memory.Read<uint>(firstSaveAddress + 0x44);
-        const long nextPlayerSave = 0x27E9F0;
+        const long nextPlayerSave = 0x26CC00;
         long currentPlayerSaveHeader =
             Process.Memory.Read<long>(firstSaveAddress) + (nextPlayerSave * currentSaveSlot);
 
@@ -306,21 +307,20 @@ public sealed class MHWPlayer : CommonPlayer
         IWeapon? weaponInstance = data.WeaponType switch
         {
             WeaponType.ChargeBlade => new MHWChargeBlade(Process, _skillService),
-            WeaponType.InsectGlaive => new MHWInsectGlaive(Process),
+            WeaponType.InsectGlaive => new MHWInsectGlaive(Process, _skillService),
             WeaponType.Bow => new MHWBow(),
             WeaponType.HeavyBowgun => new MHWHeavyBowgun(),
             WeaponType.LightBowgun => new MHWLightBowgun(),
-            WeaponType.DualBlades => new MHWDualBlades(Process),
-
+            WeaponType.DualBlades => new MHWDualBlades(Process, _skillService),
+            WeaponType.SwitchAxe => new MHWSwitchAxe(Process, _skillService),
+            WeaponType.Longsword => new MHWLongSword(Process, _skillService),
             WeaponType.Greatsword
                 or WeaponType.SwordAndShield
-                or WeaponType.Longsword
                 or WeaponType.Hammer
                 or WeaponType.HuntingHorn
                 or WeaponType.Lance
                 or WeaponType.GunLance
-                or WeaponType.SwitchAxe => new MHWMeleeWeapon(Process, data.WeaponType),
-
+                or WeaponType.GunLance => new MHWMeleeWeapon(Process, _skillService, data.WeaponType),
             _ => null
         };
 
@@ -342,12 +342,12 @@ public sealed class MHWPlayer : CommonPlayer
     [ScannableMethod]
     private void GetParty()
     {
-        var questInformation = (QuestState)Process.Memory.Deref<int>(
+        MHWQuestStructure quest = Memory.Deref<MHWQuestStructure>(
             AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
-            AddressMap.Get<int[]>("QUEST_STATE_OFFSETS")
+            AddressMap.GetOffsets("QUEST_DATA_OFFSETS")
         );
 
-        if (questInformation.IsQuestOver())
+        if (quest.State.IsQuestOver() || quest.Id <= 0)
             return;
 
         long partyInformationPtr = Process.Memory.Read(
@@ -368,7 +368,7 @@ public sealed class MHWPlayer : CommonPlayer
         if (partySize is 0)
         {
             _party.ClearExcept(0);
-
+            _localPlayerAddress = 0;
             _party.Update(0, new MHWPartyMemberData
             {
                 Name = Name,
@@ -404,7 +404,7 @@ public sealed class MHWPlayer : CommonPlayer
 
             MHWPartyMemberLevelStructure levels = Process.Memory.Read<MHWPartyMemberLevelStructure>(partyMember.Address + 0x70);
 
-            bool isLocalPlayer = name == Name && levels.HighRank == HighRank && levels.MasterRank == MasterRank;
+            bool isLocalPlayer = name == Name;
 
             if (isLocalPlayer)
                 localPlayerReference = partyMember.Address;
@@ -434,7 +434,7 @@ public sealed class MHWPlayer : CommonPlayer
         long harvestBoxPtr = PlayerSaveAddress + 0x103068;
 
         MHWFertilizerStructure[] fertilizers = Memory.Read<MHWFertilizerStructure>(harvestBoxPtr, 4);
-        MHWItemStructure[] harvestBoxItems = Memory.Read<MHWItemStructure>(harvestBoxPtr + 0x30, 50);
+        MHWItemStructure[] harvestBoxItems = Memory.Read<MHWItemStructure>(harvestBoxPtr + 0x50, 50);
 
         var data = new MHWHarvestBoxData(
             Items: harvestBoxItems,
@@ -574,10 +574,11 @@ public sealed class MHWPlayer : CommonPlayer
 
     private void GetHuntingHornAbnormalities(MHWAbnormalityStructure[] buffs)
     {
-        AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Songs);
+        AbnormalityDefinition[] abnormalitySchemas =
+            AbnormalityRepository.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.SONGS);
         int offsetFirstAbnormality = abnormalitySchemas[0].Offset;
 
-        foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+        foreach (AbnormalityDefinition abnormalitySchema in abnormalitySchemas)
         {
             // We can calculate the index of the abnormality based on their offset and the size of a float
             int index = (abnormalitySchema.Offset - offsetFirstAbnormality) / sizeof(float);
@@ -594,11 +595,12 @@ public sealed class MHWPlayer : CommonPlayer
 
     private void GetOrchestraAbnormalities(MHWAbnormalityStructure[] buffs)
     {
-        AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Orchestra);
+        AbnormalityDefinition[] abnormalitySchemas =
+            AbnormalityRepository.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.ORCHESTRA);
         int offsetFirstAbnormality = abnormalitySchemas[0].Offset;
         int indexFirstOrchestraAbnormality = (offsetFirstAbnormality - 0x38) / sizeof(float);
 
-        foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+        foreach (AbnormalityDefinition abnormalitySchema in abnormalitySchemas)
         {
             int index = ((abnormalitySchema.Offset - offsetFirstAbnormality) / sizeof(float)) + indexFirstOrchestraAbnormality;
             MHWAbnormalityStructure structure = buffs[index];
@@ -614,9 +616,9 @@ public sealed class MHWPlayer : CommonPlayer
 
     private void GetDebuffAbnormalities(long baseAddress)
     {
-        AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Debuffs);
+        AbnormalityDefinition[] abnormalitySchemas = AbnormalityRepository.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.DEBUFFS);
 
-        foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+        foreach (AbnormalityDefinition abnormalitySchema in abnormalitySchemas)
         {
             MHWAbnormalityStructure structure = new();
 
@@ -640,9 +642,9 @@ public sealed class MHWPlayer : CommonPlayer
 
     private void GetConsumableAbnormalities(long baseAddress)
     {
-        AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Consumables);
+        AbnormalityDefinition[] abnormalitySchemas = AbnormalityRepository.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.CONSUMABLES);
 
-        foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+        foreach (AbnormalityDefinition abnormalitySchema in abnormalitySchemas)
         {
             MHWAbnormalityStructure structure = new();
 
@@ -671,9 +673,9 @@ public sealed class MHWPlayer : CommonPlayer
 
     private void GetSkillAbnormalities(long baseAddress)
     {
-        AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Skills);
+        AbnormalityDefinition[] abnormalitySchemas = AbnormalityRepository.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.SKILLS);
 
-        foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+        foreach (AbnormalityDefinition abnormalitySchema in abnormalitySchemas)
         {
             MHWAbnormalityStructure structure = Process.Memory.Read<MHWAbnormalityStructure>(baseAddress + abnormalitySchema.Offset);
 
@@ -693,8 +695,8 @@ public sealed class MHWPlayer : CommonPlayer
             AddressMap.Get<int[]>("ABNORMALITY_CANTEEN_OFFSETS")
         );
 
-        AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Foods);
-        foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+        AbnormalityDefinition[] abnormalitySchemas = AbnormalityRepository.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.FOODS);
+        foreach (AbnormalityDefinition abnormalitySchema in abnormalitySchemas)
         {
             MHWAbnormalityStructure structure = Process.Memory.Read<MHWAbnormalityStructure>(canteenAddress + abnormalitySchema.Offset);
 
@@ -714,8 +716,8 @@ public sealed class MHWPlayer : CommonPlayer
             AddressMap.Get<int[]>("ABNORMALITY_GEAR_OFFSETS")
         );
 
-        AbnormalitySchema[] abnormalitySchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Gears);
-        foreach (AbnormalitySchema abnormalitySchema in abnormalitySchemas)
+        AbnormalityDefinition[] abnormalitySchemas = AbnormalityRepository.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.GEARS);
+        foreach (AbnormalityDefinition abnormalitySchema in abnormalitySchemas)
         {
             MHWAbnormalityStructure structure = Process.Memory.Read<MHWAbnormalityStructure>(gearAddress + abnormalitySchema.Offset);
 
@@ -730,10 +732,9 @@ public sealed class MHWPlayer : CommonPlayer
 
     internal void UpdatePartyMembersDamage(EntityDamageData[] entities)
     {
-        foreach (EntityDamageData entity in entities)
-            // For now we are only tracking local player.
-            if (entity.Entity.Index == 0)
-                _party.Update(_localPlayerAddress, entity);
+        // Only update damage for index 0 since it is only possible to track the local player's damage
+        entities.Where(it => it.Entity.Index == 0)
+            .ForEach(it => _party.Update(_localPlayerAddress, it));
     }
 
     public override void Dispose()

@@ -17,6 +17,7 @@
         <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>
         <converters:HexColorToFadeConverter x:Key="HexColorToFadeConverter"/>
         <converters:ParentSizePercentageConverter x:Key="ParentSizePercentageConverter"/>
+        <converters:DoubleFlooringConverter x:Key="DoubleFlooringConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -82,7 +83,7 @@
         </TextBlock>
 
         <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                   Foreground="{StaticResource WHITE}"
                    FontWeight="Medium"
                    FontSize="16"
                    VerticalAlignment="Center" 
@@ -105,27 +106,28 @@
                 </Run.Style>
             </Run>
             <Run d:Text="75"
-                 Text="{Binding Bar.Percentage, StringFormat=\{0:F0\}}"/><!--
+                 Text="{Binding Bar.Percentage, Converter={StaticResource DoubleFlooringConverter}, StringFormat=\{0:F0\}}"/><!--
          --><Run d:Text=".37"
                  Text="{Binding Bar.Percentage, Converter={StaticResource DoubleToDecimalConverter}, StringFormat={}.{0:D2}}"
-                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                 Foreground="{StaticResource WHITE_500}"
                  FontSize="14"
                  FontWeight="Normal"/><!--
          --><Run Text="%"
-                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
+                 Foreground="{StaticResource WHITE_500}"
                  FontSize="12"
                  FontWeight="Light"/>
         </TextBlock>
 
         <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                   Foreground="{StaticResource WHITE}"
                    FontSize="16"
+                   Visibility="{Binding ShouldShowDPS.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Margin="25,0,0,0"
                    Grid.Column="3">
             <Run d:Text="50"
-                 Text="{Binding DPS, StringFormat=\{0:F0\}}"/><!--
+                 Text="{Binding DPS, Converter={StaticResource DoubleFlooringConverter}, StringFormat=\{0:F0\}}"/><!--
          --><Run d:Text=".32"
                  Text="{Binding DPS, Converter={StaticResource DoubleToDecimalConverter}, StringFormat={}.{0:D2}}"
                  Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
@@ -140,13 +142,29 @@
         <TextBlock d:Text="26,354"
                    Text="{Binding Damage}"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
-                   FontSize="12"
-                   VerticalAlignment="Bottom"
-                   HorizontalAlignment="Right"
-                   Margin="0,0,2,0" 
-                   Grid.Column="3"
-                   TextAlignment="Right"/>
+                   Visibility="{Binding ShouldShowDamage.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
+                   Grid.Column="3">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Foreground" Value="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"/>
+                    <Setter Property="FontSize" Value="12"/>
+                    <Setter Property="VerticalAlignment" Value="Bottom"/>
+                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                    <Setter Property="Margin" Value="0,0,2,0"/>
+                    <Setter Property="TextAlignment" Value="Right"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ShouldShowDPS.Value}" Value="False">
+                            <Setter Property="Foreground" Value="{StaticResource WHITE}"/>
+                            <Setter Property="FontSize" Value="16"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                            <Setter Property="Margin" Value="25,0,0,0"/>
+                            <Setter Property="TextAlignment" Value="Left"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
 
     </Grid>
     <UserControl.Style>

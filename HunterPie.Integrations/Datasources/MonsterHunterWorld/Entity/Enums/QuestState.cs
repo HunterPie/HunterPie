@@ -1,6 +1,6 @@
 ﻿namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enums;
 
-public enum QuestState
+public enum QuestState : int
 {
     None,
     Ready,

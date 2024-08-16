@@ -2,10 +2,9 @@
 using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Logger;
-using HunterPie.Domain.Sidebar;
-using HunterPie.GUI.Parts.Sidebar.Service;
-using HunterPie.GUI.Parts.Sidebar.ViewModels;
+using HunterPie.GUI.Parts.Patches.ViewModels;
 using HunterPie.Internal.Poogie;
+using HunterPie.UI.Navigation;
 using HunterPie.Update.Presentation;
 using System;
 using System.Collections.Generic;
@@ -29,8 +28,6 @@ internal static class UpdateUseCase
 
         vm.State = "Checking for latest version...";
         Version? latest = await service.GetLatestVersion();
-
-        OpenPatchNotesIfJustUpdated();
 
         if (latest is null || ClientInfo.IsVersionGreaterOrEq(latest))
             return false;
@@ -108,12 +105,12 @@ internal static class UpdateUseCase
         return true;
     }
 
-    private static void OpenPatchNotesIfJustUpdated()
+    public static void OpenPatchNotesIfJustUpdated()
     {
         if (RegistryConfig.Exists(JUST_UPDATED_KEY) && !RegistryConfig.Get<bool>(JUST_UPDATED_KEY))
             return;
 
-        SideBarService.Navigate(SideBar.GetInstance<PatchNotesSideBarElementViewModel>());
+        Navigator.Body.Navigate(new PatchesViewModel());
 
         RegistryConfig.Set(JUST_UPDATED_KEY, false);
     }

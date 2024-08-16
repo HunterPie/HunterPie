@@ -7,8 +7,6 @@
            xmlns:arch="clr-namespace:HunterPie.UI.Architecture;assembly=HunterPie.UI"
            xmlns:vm="clr-namespace:HunterPie.GUI.Parts.Account.ViewModels"
            xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
-           xmlns:textbox="clr-namespace:HunterPie.UI.Controls.TextBox;assembly=HunterPie.UI"
-           xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
            mc:Ignorable="d" 
            d:DataContext="{d:DesignInstance vm:AccountSignFlowViewModel}"
            d:DesignHeight="450" 
@@ -67,7 +65,8 @@
                                Margin="5,0,0,0"/>
                 </StackPanel>
 
-                <buttons:Button Content="✕"
+                <buttons:Button Grid.Row="0" 
+                                Content="✕"
                                 HorizontalAlignment="Right"
                                 FontSize="15"
                                 Padding="10,0,10,0"
@@ -79,14 +78,17 @@
                            VerticalAlignment="Top"
                            Margin="10,0,10,0"/>
                 <!-- Workaround for same tab width -->
-                <UniformGrid Columns="2" Margin="12">
+                <UniformGrid Grid.Row="0" 
+                             Columns="2" 
+                             Margin="12">
                     <FrameworkElement x:Name="PART_Dummy"/>
                 </UniformGrid>
                 <Rectangle Grid.Row="1"
                            VerticalAlignment="Top"
                            HorizontalAlignment="Left"
                            Height="30"
-                           Margin="12,12,0,10" 
+                           d:Width="50"
+                           Margin="12, 12, 0, 10" 
                            RadiusX="2"
                            RadiusY="20"
                            Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"
@@ -105,7 +107,9 @@
                             Background="Transparent"
                             BorderThickness="0"
                             Margin="10"
-                            SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
+                            SelectedIndex="{Binding SelectedIndex, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                            TargetUpdated="OnTabUpdate"
+                            SourceUpdated="OnTabUpdate">
                     <!-- Login View -->
                     <TabItem>
                         <TabItem.Header>
@@ -114,7 +118,6 @@
                                              Icon="{StaticResource ICON_DISCONNECTED_ACCOUNT}"
                                              FontSize="15"
                                              Width="{Binding ActualWidth, ElementName=PART_Dummy}"
-                                             Padding="5"
                                              Background="Transparent"/>
                         </TabItem.Header>
 

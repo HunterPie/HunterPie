@@ -1,15 +1,18 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Settings;
+using HunterPie.Core.Settings.Annotations;
+using HunterPie.Core.Settings.Common;
 
 namespace HunterPie.Features.Account.Config;
 
-[SettingsGroup("ACCOUNT_STRING", "ICON_ACCOUNT")]
+[Configuration("ACCOUNT_STRING", "ICON_ACCOUNT")]
 internal class AccountConfig : ISettings
 {
-
-    [SettingField("ACCOUNT_ENABLE_BACKUP_STRING")]
+    #region General settings
+    [ConfigurationProperty("ACCOUNT_ENABLE_BACKUP_STRING", group: CommonConfigurationGroups.GENERAL)]
     public Observable<bool> IsBackupEnabled { get; set; } = true;
 
-    [SettingField("ACCOUNT_ENABLE_HUNT_UPLOAD_STRING")]
+    [ConfigurationProperty("ACCOUNT_ENABLE_HUNT_UPLOAD_STRING", group: CommonConfigurationGroups.GENERAL)]
     public Observable<bool> IsHuntUploadEnabled { get; set; } = true;
+    #endregion
 }

@@ -154,7 +154,7 @@ public class MHWChargeBlade : MHWMeleeWeapon, IChargeBlade
     public MHWChargeBlade(
         IProcessManager process,
         ISkillService skillService
-    ) : base(process, Weapon.ChargeBlade)
+    ) : base(process, skillService, Weapon.ChargeBlade)
     {
         _skillService = skillService;
     }
@@ -173,10 +173,11 @@ public class MHWChargeBlade : MHWMeleeWeapon, IChargeBlade
         Charge = structure.ChargeBuildUp.ToPhialChargeLevel();
         ChargeBuildUp = structure.ChargeBuildUp;
 
-        // TODO: Multiply buffs by power prolonger buff
-        ShieldBuff = structure.ShieldBuff;
-        SwordBuff = structure.SwordBuff;
-        AxeBuff = structure.AxeBuff;
+        float powerProlongerMultiplier = _skillService.GetPowerProlongerMultiplier(Weapon.ChargeBlade);
+
+        ShieldBuff = structure.ShieldBuff * powerProlongerMultiplier;
+        SwordBuff = structure.SwordBuff * powerProlongerMultiplier;
+        AxeBuff = structure.AxeBuff * powerProlongerMultiplier;
     }
 
     public override void Dispose()

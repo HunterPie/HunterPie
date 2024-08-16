@@ -2,19 +2,22 @@
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Entity.Player.Skills;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Weapons;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
-using System.Runtime.InteropServices;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
 public class MHWMeleeWeapon : CommonMeleeWeapon
 {
+    private readonly int[] _minimumSharpnessByLevel;
+    protected readonly ISkillService _skillService;
     private int _weaponId;
-    private Sharpness _sharpness;
+    private Sharpness _sharpness = Sharpness.Red;
     private int _currentSharpness;
+    private int _threshold;
 
     public override Weapon Id { get; }
 
@@ -48,10 +51,26 @@ public class MHWMeleeWeapon : CommonMeleeWeapon
 
     public override int MaxSharpness { get; protected set; }
 
-    public override int Threshold { get; protected set; }
-
-    public MHWMeleeWeapon(IProcessManager process, Weapon id) : base(process)
+    public override int Threshold
     {
+        get => _threshold;
+        protected set
+        {
+            if (value == _threshold)
+                return;
+
+            _threshold = value;
+            this.Dispatch(_onSharpnessChange, new SharpnessEventArgs(this));
+        }
+    }
+
+    public MHWMeleeWeapon(IProcessManager process, ISkillService skillService, Weapon id) : base(process)
+    {
+        _skillService = skillService;
+        _minimumSharpnessByLevel = Memory.Read<int>(
+            AddressMap.GetAbsolute("MINIMUM_SHARPNESSES_ADDRESS"),
+            8
+        );
         Id = id;
     }
 
@@ -90,20 +109,17 @@ public class MHWMeleeWeapon : CommonMeleeWeapon
             _weaponId = weaponId;
         }
 
-        if (sharpness.Level >= Sharpness.Invalid)
-            sharpness.Level = SharpnessThresholds.ToSharpnessLevel(sharpness.Sharpness);
+        Sharpness currentLevel = SharpnessThresholds.GetCurrentSharpness(sharpness.Sharpness);
 
-        long gearSkillsPtr = Process.Memory.Read(
-            AddressMap.GetAbsolute("ABNORMALITY_ADDRESS"),
-            AddressMap.Get<int[]>("GEAR_SKILL_OFFSETS")
-        );
+        if (currentLevel is >= Sharpness.Invalid or <= Sharpness.Broken)
+            return;
 
-        MHWGearSkill handicraft = Process.Memory.Read<MHWGearSkill>(gearSkillsPtr + (Marshal.SizeOf<MHWGearSkill>() * 0x36));
+        Skill handicraft = _skillService.GetSkillBy(54);
+        int maxHits = SharpnessThresholds.MaximumSharpness(_minimumSharpnessByLevel, currentLevel, sharpness.MaxLevel, handicraft);
 
-        int maxHits = SharpnessThresholds.MaximumSharpness(handicraft);
-        Sharpness = sharpness.Level;
-        MaxSharpness = CalculateMaxThreshold(sharpness.Level, SharpnessThresholds, maxHits);
-        Threshold = CalculateCurrentThreshold(sharpness.Level, SharpnessThresholds);
+        Sharpness = currentLevel;
+        MaxSharpness = maxHits;
+        Threshold = CalculateCurrentThreshold(currentLevel, SharpnessThresholds);
         CurrentSharpness = sharpness.Sharpness;
     }
 }

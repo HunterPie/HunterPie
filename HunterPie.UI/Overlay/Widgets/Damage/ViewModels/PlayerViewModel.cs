@@ -59,5 +59,7 @@ public class PlayerViewModel : ViewModel
     // Settings related
     public Observable<bool> ShouldHighlightMyself => _config.ShouldHighlightMyself;
     public Observable<bool> ShouldBlurNames => _config.ShouldBlurNames;
+    public Observable<bool> ShouldShowDPS => _config.ShouldShowDPS;
+    public Observable<bool> ShouldShowDamage => _config.ShouldShowDamage;
 
 }

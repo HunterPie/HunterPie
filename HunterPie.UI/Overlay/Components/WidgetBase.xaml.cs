@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Threading;
 #if DEBUG
 using LiveCharts;
 using LiveCharts.Defaults;
@@ -84,10 +85,10 @@ public partial class WidgetBase : Window, INotifyPropertyChanged
     private int _counter = 0;
     private void OnRender(object sender, EventArgs e)
     {
-        if (_counter >= 60)
+        if (_counter >= 30)
         {
             RenderingTime = (DateTime.Now - _lastRender).TotalMilliseconds;
-            ForceAlwaysOnTop();
+            Dispatcher.Invoke(ForceAlwaysOnTop, DispatcherPriority.Render);
             _counter = 0;
         }
 
@@ -143,6 +144,9 @@ public partial class WidgetBase : Window, INotifyPropertyChanged
 
     private void ForceAlwaysOnTop()
     {
+        if (WidgetManager.Instance.IsDesignModeEnabled)
+            return;
+
         IntPtr hWnd = new WindowInteropHelper(this)
             .EnsureHandle();
 
@@ -162,7 +166,7 @@ public partial class WidgetBase : Window, INotifyPropertyChanged
 
     private void OnMouseWheel(object sender, MouseWheelEventArgs e)
     {
-        double step = 0.01 * (e.Delta > 0 ? 1 : -1);
+        double step = 0.05 * (e.Delta > 0 ? 1 : -1);
 
         if (Keyboard.IsKeyDown(Key.LeftCtrl))
             Widget.Settings.Opacity.Current += step;

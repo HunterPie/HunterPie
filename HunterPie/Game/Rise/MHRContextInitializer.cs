@@ -8,7 +8,6 @@ using HunterPie.Domain.Interfaces;
 using HunterPie.Features.Native;
 using HunterPie.Features.Patcher;
 using HunterPie.Integrations.Datasources.MonsterHunterRise;
-using HunterPie.Integrations.Datasources.MonsterHunterRise.Services;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,24 +36,22 @@ internal class MHRContextInitializer : IContextInitializer
         MonsterData.Init(
             ClientInfo.GetPathFor("Game/Rise/Data/MonsterData.xml")
         );
-
-        AbnormalityData.Init(
-            ClientInfo.GetPathFor("Game/Rise/Data/AbnormalityData.xml"),
-            new MHRAbnormalityFlagTypeParser()
-        );
     }
 
     private static async Task InitializeNativeModule(IContext context)
     {
-        RiseIntegrityPatcher.Patch(context);
+        if (!ClientConfig.Config.Client.EnableNativeModule)
+            return;
 
-        _ = IPCInjectorInitializer.InjectNativeModule(context);
-        await NativeIPCInitializer.WaitForIPCInitialization();
+        RiseIntegrityPatcher.Patch(context);
+        RiseIntegrityPatcher.PatchProtectVirtualMemory(context);
 
         UIntPtr[] addresses = Addresses.Select(name => (UIntPtr)AddressMap.GetAbsolute(name))
             .ToArray();
 
-        IPCInitializationMessageHandler.RequestIPCInitialization(IPCInitializationHostType.MHRise, addresses);
+        _ = IPCInjectorInitializer.InjectNativeModule(context);
+        await NativeIPCInitializer.WaitForIPCInitialization();
 
+        IPCInitializationMessageHandler.RequestIPCInitialization(IPCInitializationHostType.MHRise, addresses);
     }
 }

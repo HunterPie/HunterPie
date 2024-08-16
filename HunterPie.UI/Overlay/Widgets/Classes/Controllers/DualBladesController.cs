@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Events;
+using HunterPie.Integrations.Datasources.MonsterHunterRise;
 using HunterPie.UI.Overlay.Widgets.Classes.ViewModels;
 
 namespace HunterPie.UI.Overlay.Widgets.Classes.Controllers;
@@ -63,6 +64,7 @@ public class DualBladesController : IClassController<DualBladesViewModel>
 
     private void Update()
     {
+        ViewModel.IsPiercingBindVisible = _context is MHRContext;
         ViewModel.InDemonMode = _weapon.IsDemonMode;
         ViewModel.PiercingBindMaxTimer = _weapon.MaxPiercingBindTimer;
         ViewModel.PiercingBindTimer = _weapon.PiercingBindTimer;

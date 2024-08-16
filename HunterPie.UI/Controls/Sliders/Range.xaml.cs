@@ -11,14 +11,13 @@ namespace HunterPie.UI.Controls.Sliders;
 /// </summary>
 public partial class Range : UserControl
 {
-
     public double Value
     {
         get => (double)GetValue(ValueProperty);
         set => SetValue(ValueProperty, value);
     }
     public static readonly DependencyProperty ValueProperty =
-        DependencyProperty.Register("Value", typeof(double), typeof(Range), new PropertyMetadata(0.0));
+        DependencyProperty.Register(nameof(Value), typeof(double), typeof(Range), new PropertyMetadata(0.0));
 
     public double Maximum
     {
@@ -26,7 +25,7 @@ public partial class Range : UserControl
         set => SetValue(MaximumProperty, value);
     }
     public static readonly DependencyProperty MaximumProperty =
-        DependencyProperty.Register("Maximum", typeof(double), typeof(Range), new PropertyMetadata(0.0));
+        DependencyProperty.Register(nameof(Maximum), typeof(double), typeof(Range), new PropertyMetadata(0.0));
 
     public double Minimum
     {
@@ -34,7 +33,7 @@ public partial class Range : UserControl
         set => SetValue(MinimumProperty, value);
     }
     public static readonly DependencyProperty MinimumProperty =
-        DependencyProperty.Register("Minimum", typeof(double), typeof(Range), new PropertyMetadata(0.0));
+        DependencyProperty.Register(nameof(Minimum), typeof(double), typeof(Range), new PropertyMetadata(0.0));
 
     public double Change
     {
@@ -42,19 +41,17 @@ public partial class Range : UserControl
         set => SetValue(ChangeProperty, value);
     }
     public static readonly DependencyProperty ChangeProperty =
-        DependencyProperty.Register("Change", typeof(double), typeof(Range), new PropertyMetadata(1.0));
+        DependencyProperty.Register(nameof(Change), typeof(double), typeof(Range), new PropertyMetadata(1.0));
 
     public Range()
     {
         InitializeComponent();
-        DataContext = this;
     }
 
     private void OnKeyDown(object sender, KeyEventArgs e)
     {
         if (e.Key == Key.Enter && sender is TB textbox)
             UpdateBinding(textbox);
-
     }
 
     private void OnLostFocus(object sender, RoutedEventArgs e) => UpdateBinding(sender as TB);

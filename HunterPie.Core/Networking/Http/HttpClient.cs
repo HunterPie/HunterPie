@@ -22,14 +22,17 @@ public class HttpClient : IDisposable
     public TimeSpan TimeOut { get; init; } = TimeSpan.MaxValue;
     public int Retry { get; init; } = 1;
     public IReadOnlyDictionary<string, string?> Headers { get; init; } = new Dictionary<string, string?>();
+    public string Query { get; init; } = string.Empty;
 
     public HttpClientResponse Request()
     {
         foreach (string host in Urls)
+        {
+            Log.Debug($"Making request to {Path}");
             for (int retry = 0; retry < Math.Max(1, Retry); retry++)
             {
                 _httpClient = new() { Timeout = TimeOut };
-                _request = new(Method!, $"{host}{Path}");
+                _request = new(Method!, $"{host}{Path}{Query}");
 
                 if (Content is not null)
                     _request.Content = Content;
@@ -56,6 +59,8 @@ public class HttpClient : IDisposable
 
                 return new HttpClientResponse(response);
             }
+        }
+
 
         return new HttpClientResponse(null);
     }
@@ -63,18 +68,20 @@ public class HttpClient : IDisposable
     public async Task<HttpClientResponse> RequestAsync()
     {
         foreach (string host in Urls)
+        {
+            Log.Debug($"Making request to {Path}");
             for (int retry = 0; retry < Math.Max(1, Retry); retry++)
             {
                 _httpClient = new() { Timeout = TimeOut };
-                _request = new(Method!, $"{host}{Path}");
+                _request = new(Method!, $"{host}{Path}{Query}");
 
                 if (Content is not null)
                     _request.Content = Content;
 
                 foreach ((string key, string value) in
                          Headers.Where(k => k.Value is not null)
-                                .Cast<KeyValuePair<string, string>>()
-                         )
+                             .Cast<KeyValuePair<string, string>>()
+                        )
                     _request.Headers.Add(key, value);
 
                 HttpResponseMessage response;
@@ -93,6 +100,8 @@ public class HttpClient : IDisposable
 
                 return new HttpClientResponse(response);
             }
+        }
+
 
         return new HttpClientResponse(null);
     }

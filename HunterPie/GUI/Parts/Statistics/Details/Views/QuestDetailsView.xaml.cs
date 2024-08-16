@@ -30,7 +30,7 @@ public partial class QuestDetailsView : UserControl, IView<QuestDetailsViewModel
 
     private void SetupView(object obj)
     {
-        if (obj is not MonsterDetailsView view)
+        if (obj is not MonsterDetailsView { DataContext: MonsterDetailsViewModel } view)
             return;
 
         view.InitializeView();

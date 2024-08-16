@@ -9,6 +9,7 @@
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.ViewModels"
              xmlns:animation="clr-namespace:HunterPie.UI.Architecture.Animation"
+             xmlns:progress="clr-namespace:HunterPie.UI.Overlay.Controls.Progress"
              mc:Ignorable="d" 
              Height="82" 
              Width="295"
@@ -18,6 +19,7 @@
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:RatioConverter x:Key="RatioConverter"/>
         <converters:EqualityToBooleanConverter x:Key="EqualityToBooleanConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
         <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource DUAL_BLADES_DEMON_BRUSH}, Mode=OneTime}"
                              Opacity="1"
@@ -53,7 +55,8 @@
                 HorizontalAlignment="Left"
                 Width="50"
                 RenderTransformOrigin="0.5,0.5"
-                Margin="-22,0,18,12">
+                Margin="-22,0,18,12"
+                Visibility="{Binding IsPiercingBindVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Border.RenderTransform>
                 <SkewTransform AngleX="45"/>
             </Border.RenderTransform>
@@ -71,43 +74,26 @@
             </TextBlock>
         </Border>
 
-        <Rectangle Grid.Row="0"
-                   Grid.Column="1"
-                   Fill="{StaticResource GRAY_400}"
-                   Stroke="{StaticResource GRAY_50}"
-                   StrokeThickness="1"
-                   Height="12"
-                   VerticalAlignment="Bottom"
-                   Margin="-9.5,0,18,1"
-                   RenderTransformOrigin="0.5,0.5"
-                   x:Name="PART_PiercingBindGauge">
-            <Rectangle.RenderTransform>
+        <progress:Bar Grid.Row="0"
+                      Grid.Column="1"
+                      Border="1"
+                      d:Value="50"
+                      d:MaxValue="100"
+                      Value="{Binding PiercingBindTimer, Mode=OneWay}"
+                      MaxValue="{Binding PiercingBindMaxTimer, Mode=OneWay}"
+                      Height="12"
+                      VerticalAlignment="Bottom"
+                      Margin="-9.5,0,18,1"
+                      RenderTransformOrigin="0.5,0.5"
+                      ForegroundColor="{StaticResource DualBladesPiercingBindBrushBackground}"
+                      ForegroundBorder="{StaticResource DualBladesPiercingBindBrushBorder}"
+                      BackgroundColor="{StaticResource GRAY_400}"
+                      BackgroundBorder="{StaticResource GRAY_50}"
+                      Visibility="{Binding IsPiercingBindVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <progress:Bar.RenderTransform>
                 <SkewTransform AngleX="45"/>
-            </Rectangle.RenderTransform>
-        </Rectangle>
-
-        <Border Grid.Row="0"
-                Grid.Column="1"
-                Background="{StaticResource DualBladesPiercingBindBrushBackground}"
-                BorderBrush="{StaticResource DualBladesPiercingBindBrushBorder}"
-                BorderThickness="1,1,0,1"
-                Height="{Binding Height, ElementName=PART_PiercingBindGauge, Mode=OneWay}"
-                VerticalAlignment="Bottom"
-                HorizontalAlignment="Left"
-                d:Width="150"
-                Margin="{Binding Margin, ElementName=PART_PiercingBindGauge, Mode=OneWay}"
-                RenderTransformOrigin="0.5,0.5">
-            <Border.RenderTransform>
-                <SkewTransform AngleX="45"/>
-            </Border.RenderTransform>
-            <Border.Width>
-                <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
-                    <Binding Path="PiercingBindTimer" Mode="OneWay"/>
-                    <Binding Path="PiercingBindMaxTimer" Mode="OneWay"/>
-                    <Binding Path="ActualWidth" ElementName="PART_PiercingBindGauge" Mode="OneWay"/>
-                </MultiBinding>
-            </Border.Width>
-        </Border>
+            </progress:Bar.RenderTransform>
+        </progress:Bar>
 
         <!-- Demon Gauge -->
         <Border Grid.Row="1"
@@ -143,88 +129,54 @@
             </TextBlock>
         </Border>
 
-        <Rectangle Grid.Row="1"
-                   Grid.Column="1"
-                   Fill="{StaticResource GRAY_400}"
-                   Stroke="{StaticResource GRAY_50}"
-                   StrokeThickness="1"
-                   Height="12"
-                   VerticalAlignment="Top"
-                   Margin="-3.5,1,12,0"
-                   x:Name="PART_DemonGauge">
-            <Rectangle.RenderTransform>
+        <progress:Bar Grid.Row="1"
+                      Grid.Column="1"
+                      Border="1"
+                      d:Value="50"
+                      d:MaxValue="100"
+                      Value="{Binding DemonBuildUp, Mode=OneWay}"
+                      MaxValue="{Binding DemonMaxBuildUp, Mode=OneWay}"
+                      Height="12"
+                      VerticalAlignment="Top"
+                      Margin="-9.5,0,18,1"
+                      RenderTransformOrigin="0.5,0.5"
+                      ForegroundColor="{StaticResource DualBladesDemonBrushBackground}"
+                      ForegroundBorder="{StaticResource DualBladesDemonBrushBorder}"
+                      BackgroundColor="{StaticResource GRAY_400}"
+                      BackgroundBorder="{StaticResource GRAY_50}">
+            <progress:Bar.RenderTransform>
                 <SkewTransform AngleX="-45"/>
-            </Rectangle.RenderTransform>
-        </Rectangle>
-
-        <Border Grid.Row="1"
-                Grid.Column="1"
-                Background="{StaticResource DualBladesDemonBrushBackground}"
-                BorderBrush="{StaticResource DualBladesDemonBrushBorder}"
-                d:BorderThickness="1,1,0,1"
-                Height="{Binding Height, ElementName=PART_DemonGauge, Mode=OneWay}"
-                VerticalAlignment="Top"
-                HorizontalAlignment="Left"
-                d:Width="100"
-                Margin="{Binding Margin, ElementName=PART_DemonGauge, Mode=OneWay}">
-            <Border.RenderTransform>
-                <SkewTransform AngleX="-45"/>
-            </Border.RenderTransform>
-            <Border.Width>
-                <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
-                    <Binding Path="DemonBuildUp" Mode="OneWay"/>
-                    <Binding Path="DemonMaxBuildUp" Mode="OneWay"/>
-                    <Binding Path="ActualWidth" ElementName="PART_DemonGauge" Mode="OneWay"/>
-                </MultiBinding>
-            </Border.Width>
-            <Border.Style>
-                <Style TargetType="Border">
+            </progress:Bar.RenderTransform>
+            <progress:Bar.Style>
+                <Style TargetType="{x:Type progress:Bar}"
+                       BasedOn="{StaticResource DefaultProgressBarStyle}">
                     <Style.Triggers>
-                        <DataTrigger Value="True">
-                            <DataTrigger.Binding>
-                                <MultiBinding Converter="{StaticResource EqualityToBooleanConverter}">
-                                    <Binding Path="DemonBuildUp" Mode="OneWay"/>
-                                    <Binding Path="DemonMaxBuildUp" Mode="OneWay"/>
-                                </MultiBinding>
-                            </DataTrigger.Binding>
-                            <Setter Property="BorderThickness" Value="1"/>
-                        </DataTrigger>
-
-                        <DataTrigger Value="False">
-                            <DataTrigger.Binding>
-                                <MultiBinding Converter="{StaticResource EqualityToBooleanConverter}">
-                                    <Binding Path="DemonBuildUp" Mode="OneWay"/>
-                                    <Binding Path="DemonMaxBuildUp" Mode="OneWay"/>
-                                </MultiBinding>
-                            </DataTrigger.Binding>
-                            <Setter Property="BorderThickness" Value="1,1,0,1"/>
-                        </DataTrigger>
-
-                        <DataTrigger Binding="{Binding InArchDemonMode, Mode=OneWay}"
+                        <DataTrigger Binding="{Binding InArchDemonMode, Mode=OneWay, NotifyOnTargetUpdated=True}"
                                      Value="True">
                             <DataTrigger.EnterActions>
-                                <BeginStoryboard Name="ArchDemonBlinkAnimation">
+                                <BeginStoryboard HandoffBehavior="SnapshotAndReplace"
+                                                 Name="SbArchDemon">
                                     <Storyboard RepeatBehavior="Forever"
                                                 Duration="0:0:1.6">
                                         <animation:BrushAnimation To="{StaticResource DUAL_BLADES_ARCH_DEMON_BLINK_BACKGROUND_BRUSH}"
-                                                                  Storyboard.TargetProperty="Background"
+                                                                  Storyboard.TargetProperty="ForegroundColor"
                                                                   Duration="0:0:0.4"
                                                                   AutoReverse="True"/>
                                         <animation:BrushAnimation To="{StaticResource DUAL_BLADES_ARCH_DEMON_BLINK_BRUSH}"
-                                                                  Storyboard.TargetProperty="BorderBrush"
+                                                                  Storyboard.TargetProperty="ForegroundBorder"
                                                                   Duration="0:0:0.4"
                                                                   AutoReverse="True"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.EnterActions>
                             <DataTrigger.ExitActions>
-                                <RemoveStoryboard BeginStoryboardName="ArchDemonBlinkAnimation"/>
+                                <RemoveStoryboard BeginStoryboardName="SbArchDemon"/>
                             </DataTrigger.ExitActions>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </Border.Style>
-        </Border>
+            </progress:Bar.Style>
+        </progress:Bar>
 
         <Border Grid.Column="0" 
                 Grid.Row="0"

@@ -1,8 +1,8 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Data;
-using HunterPie.Core.Game.Data.Schemas;
+using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Game.Services;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
@@ -41,20 +41,20 @@ public sealed class MHWAbnormality : CommonAbnormality, IUpdatable<MHWAbnormalit
 
     public override bool IsBuildup { get; protected set; }
 
-    public MHWAbnormality(AbnormalitySchema schema)
+    public MHWAbnormality(AbnormalityDefinition schema)
     {
         Id = schema.Id;
         Name = schema.Name;
         Icon = schema.Icon;
         Type = schema.Category switch
         {
-            AbnormalityData.Consumables => AbnormalityType.Consumable,
-            AbnormalityData.Songs => AbnormalityType.Song,
-            AbnormalityData.Debuffs => AbnormalityType.Debuff,
-            AbnormalityData.Skills => AbnormalityType.Skill,
-            AbnormalityData.Orchestra => AbnormalityType.Orchestra,
-            AbnormalityData.Gears => AbnormalityType.Gear,
-            AbnormalityData.Foods => AbnormalityType.Food,
+            AbnormalityGroup.CONSUMABLES => AbnormalityType.Consumable,
+            AbnormalityGroup.SONGS => AbnormalityType.Song,
+            AbnormalityGroup.DEBUFFS => AbnormalityType.Debuff,
+            AbnormalityGroup.SKILLS => AbnormalityType.Skill,
+            AbnormalityGroup.ORCHESTRA => AbnormalityType.Orchestra,
+            AbnormalityGroup.GEARS => AbnormalityType.Gear,
+            AbnormalityGroup.FOODS => AbnormalityType.Food,
             _ => throw new NotImplementedException("unreachable")
         };
         IsBuildup = schema.IsBuildup;

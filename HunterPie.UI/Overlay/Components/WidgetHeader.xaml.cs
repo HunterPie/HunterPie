@@ -16,10 +16,21 @@ public partial class WidgetHeader : UserControl
         InitializeComponent();
     }
 
-    private void OnCloseButtonClick(object sender, RoutedEventArgs e) => Owner.Widget.Settings.Initialize.Value = false;
+    private void OnCloseButtonClick(object sender, RoutedEventArgs e)
+    {
+        if (Owner.Widget.Settings is null)
+            return;
 
-    private void OnHideButtonClick(object sender, RoutedEventArgs e) =>
+        Owner.Widget.Settings.Initialize.Value = false;
+    }
+
+    private void OnHideButtonClick(object sender, RoutedEventArgs e)
+    {
+        if (Owner.Widget.Settings is null)
+            return;
+
         Owner.Widget.Settings.Enabled.Value = !Owner.Widget.Settings.Enabled.Value;
+    }
 
     private void OnLoaded(object sender, RoutedEventArgs e) => Owner = (WidgetBase)Window.GetWindow(this);
 

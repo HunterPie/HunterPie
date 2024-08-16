@@ -5,6 +5,7 @@ using HunterPie.UI.Architecture;
 using LiveCharts;
 using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
 
@@ -60,19 +61,20 @@ public class MeterViewModel : ViewModel
         SetupFormatters();
     }
 
-    private void SetupFormatters() => DamageFormatter = new Func<double, string>((value) => FormatDamageByStrategy(value));
+    private void SetupFormatters() => DamageFormatter = FormatDamageByStrategy;
 
     private string FormatDamageByStrategy(double damage)
     {
         return Settings.DamagePlotStrategy.Value switch
         {
-            DamagePlotStrategy.TotalDamage => damage.ToString(),
+            DamagePlotStrategy.TotalDamage => damage.ToString(CultureInfo.InvariantCulture),
             DamagePlotStrategy.DamagePerSecond => $"{damage:0.00}/s",
             _ => throw new NotImplementedException()
         };
     }
 
     public void ToggleHighlight() => Settings.ShouldHighlightMyself.Value = !Settings.ShouldHighlightMyself;
+
     public void ToggleBlur() => Settings.ShouldBlurNames.Value = !Settings.ShouldBlurNames;
 
     public void SortMembers()

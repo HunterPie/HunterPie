@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
@@ -55,12 +56,12 @@ public sealed class MHWMonsterAilment : CommonAilment, IUpdatable<MHWMonsterStat
 
     public override float MaxBuildUp { get; protected set; }
 
-    public MHWMonsterAilment(string ailmentId)
+    public MHWMonsterAilment(AilmentDefinition definition) : base(definition)
     {
-        Id = ailmentId;
+        Id = definition.String;
     }
 
-    void IUpdatable<MHWMonsterStatusStructure>.Update(MHWMonsterStatusStructure data)
+    public void Update(MHWMonsterStatusStructure data)
     {
         MaxTimer = data.MaxDuration;
         Timer = data.Duration > 0
@@ -71,7 +72,7 @@ public sealed class MHWMonsterAilment : CommonAilment, IUpdatable<MHWMonsterStat
         Counter = data.Counter;
     }
 
-    void IUpdatable<MHWMonsterAilmentStructure>.Update(MHWMonsterAilmentStructure data)
+    public void Update(MHWMonsterAilmentStructure data)
     {
         MaxTimer = data.MaxDuration;
         Timer = data.Duration;

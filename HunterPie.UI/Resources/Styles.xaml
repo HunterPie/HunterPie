@@ -10,7 +10,9 @@
                     xmlns:chat="clr-namespace:HunterPie.UI.Overlay.Widgets.Chat.Views;assembly=HunterPie.UI"
                     xmlns:wirebug="clr-namespace:HunterPie.UI.Overlay.Widgets.Wirebug.Views;assembly=HunterPie.UI"
                     xmlns:specialized="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.Views;assembly=HunterPie.UI"
-                    xmlns:playerHud="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.Views;assembly=HunterPie.UI">
+                    xmlns:playerHud="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.Views;assembly=HunterPie.UI"
+                    xmlns:effects="clr-namespace:HunterPie.UI.Controls.Effects;assembly=HunterPie.UI"
+                    xmlns:progress="clr-namespace:HunterPie.UI.Overlay.Controls.Progress;assembly=HunterPie.UI">
     <!-- Converters -->
     <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
     
@@ -434,13 +436,18 @@
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
                 <Style TargetType="ComboBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ComboBoxItem">
+                                <effects:CursorHighLight>
+                                    <ContentPresenter Margin="2,3"/>
+                                </effects:CursorHighLight>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
                     <Setter Property="BorderThickness" Value="0"/>
                     <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource GRAY_400}"/>
-                        </Trigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="{StaticResource GRAY_400}"/>
                             <Setter Property="Foreground" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
                         </Trigger>
                     </Style.Triggers>
@@ -491,12 +498,12 @@
                                   SnapsToDevicePixels="True"
                                   MinWidth="{TemplateBinding FrameworkElement.ActualWidth}"
                                   MaxHeight="{TemplateBinding ComboBox.MaxDropDownHeight}">
-                                <Border Name="DropDownBorder" 
-                                        Background="{StaticResource GRAY_100}" 
+                                <Border Name="DropDownBorder"  
                                         Margin="0,0,0,0"
                                         CornerRadius="5" 
                                         BorderThickness="1,1,1,1"
-                                        BorderBrush="{StaticResource GRAY}"/>
+                                        BorderBrush="{StaticResource GRAY}"
+                                        Background="{StaticResource GRAY_200}"/>
                                 <ScrollViewer Margin="0" 
                                               SnapsToDevicePixels="True">
                                     <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"
@@ -508,9 +515,6 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="ItemsControl.HasItems" Value="False">
                             <Setter Property="FrameworkElement.MinHeight" TargetName="DropDownBorder" Value="95"/>
-                        </Trigger>
-                        <Trigger Property="UIElement.IsEnabled" Value="False">
-                            <Setter Property="TextElement.Foreground" Value="Lime"/>
                         </Trigger>
                         <Trigger Property="ItemsControl.IsGrouping" Value="True">
                             <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
@@ -733,6 +737,117 @@
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
     </DataTemplate>
 
+    <Style TargetType="{x:Type ListBox}">
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <ContentPresenter/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
+    <converters:NoRightStrokeConverter x:Key="NoRightStrokeConverter"/>
+    <converters:EqualityToBooleanConverter x:Key="EqualityToBooleanConverter"/>
+
+    <Style TargetType="{x:Type progress:Bar}"
+           x:Key="DefaultProgressBarStyle">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid DataContext="{Binding ., RelativeSource={RelativeSource AncestorType={x:Type progress:Bar}}}">
+                        <!-- Background bar -->
+                        <Border Background="{Binding BackgroundColor, Mode=OneWay}"
+                                BorderBrush="{Binding BackgroundBorder, Mode=OneWay}"
+                                BorderThickness="{Binding Border, Mode=OneWay}"
+                                x:Name="PART_Background"/>
+
+                        <!-- Foreground Bar -->
+                        <Border Background="{Binding ForegroundColor, Mode=OneWay}"
+                                BorderBrush="{Binding ForegroundBorder, Mode=OneWay}"
+                                HorizontalAlignment="Left">
+                            <Border.Width>
+                                <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
+                                    <Binding Path="Value" Mode="OneWay"/>
+                                    <Binding Path="MaxValue" Mode="OneWay"/>
+                                    <Binding Path="ActualWidth" Mode="OneWay" ElementName="PART_Background"/>
+                                </MultiBinding>
+                            </Border.Width>
+
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Style.Triggers>
+                                        <DataTrigger Value="True">
+                                            <DataTrigger.Binding>
+                                                <MultiBinding Converter="{StaticResource EqualityToBooleanConverter}">
+                                                    <Binding Path="Value" Mode="OneWay"/>
+                                                    <Binding Path="MaxValue" Mode="OneWay"/>
+                                                </MultiBinding>
+                                            </DataTrigger.Binding>
+                                            <Setter Property="BorderThickness" Value="{Binding Border, Mode=OneWay}"/>
+                                        </DataTrigger>
+
+                                        <DataTrigger Value="False">
+                                            <DataTrigger.Binding>
+                                                <MultiBinding Converter="{StaticResource EqualityToBooleanConverter}">
+                                                    <Binding Path="Value" Mode="OneWay"/>
+                                                    <Binding Path="MaxValue" Mode="OneWay"/>
+                                                </MultiBinding>
+                                            </DataTrigger.Binding>
+                                            <Setter Property="BorderThickness" Value="{Binding Border, Mode=OneWay, Converter={StaticResource NoRightStrokeConverter}}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+
+                        <ContentControl Content="{Binding Content, Mode=OneWay}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ExpanderNoHeaderStyle" TargetType="Expander">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Expander">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter x:Name="PART_Presenter"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded"
+                                 Value="True">
+                            <Setter Property="Visibility"
+                                    TargetName="PART_Presenter"
+                                    Value="Visible"/>
+                        </Trigger>
+
+                        <Trigger Property="IsExpanded"
+                                 Value="False">
+                            <Setter Property="Visibility"
+                                    TargetName="PART_Presenter"
+                                    Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type progress:Bar}"
+           BasedOn="{StaticResource DefaultProgressBarStyle}"/>
+    
     <!-- Themes support -->
     <Style x:Key="STYLE_MONSTERS_WIDGET" TargetType="{x:Type monster:MonstersView}"/>
     <Style x:Key="STYLE_DAMAGE_METER_WIDGET" TargetType="{x:Type meter:MeterView}"/>

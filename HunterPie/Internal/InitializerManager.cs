@@ -4,7 +4,7 @@ using HunterPie.Internal.Initializers;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows.Threading;
+using System.Windows;
 
 namespace HunterPie.Internal;
 
@@ -16,11 +16,14 @@ internal class InitializerManager
         new CustomFontsInitializer(),
         
         // Core
+        new MapperFactoryInitializer(),
         new CredentialVaultInitializer(),
         new LocalConfigInitializer(),
         
         // Feature Flags
         new FeatureFlagsInitializer(),
+
+        new NativeLoggerInitializer(),
 
         // Config
         new RemoteConfigSyncInitializer(),
@@ -28,9 +31,8 @@ internal class InitializerManager
         new ClientConfigInitializer(),
         new ConfigManagerInitializer(),
 
-        new NativeLoggerInitializer(),
+
         new HunterPieLoggerInitializer(),
-        new MapperFactoryInitializer(),
         new CustomThemeInitializer(),
 
         new ExceptionCatcherInitializer(),
@@ -39,9 +41,9 @@ internal class InitializerManager
         new ClientLocalizationInitializer(),
         new SystemTrayInitializer(),
         new ClientConfigBindingsInitializer(),
-        
+
         // GUI
-        new MenuInitializer(),
+        new NavigationTemplatesInitializer(),
         new AppNotificationsInitializer(),
     };
 
@@ -68,7 +70,7 @@ internal class InitializerManager
         Log.Benchmark();
 
         // Make sure to run UI initializers in the main thread
-        Dispatcher.CurrentDispatcher.Invoke(async () =>
+        Application.Current.Dispatcher.Invoke(async () =>
         {
             foreach (IInitializer initializer in UiInitializers)
                 await initializer.Init();

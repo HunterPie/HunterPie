@@ -2,7 +2,6 @@
 using HunterPie.Domain.Interfaces;
 using HunterPie.Features.Backups;
 using HunterPie.Features.Statistics;
-using HunterPie.Game.Demos.Sunbreak;
 using HunterPie.Game.Rise;
 using HunterPie.Game.World;
 using System;
@@ -17,7 +16,6 @@ internal static class ContextInitializers
     {
         new MHWContextInitializer(),
         new MHRContextInitializer(),
-        new MHRSunbreakDemoContextInitializer(),
 
         new GameSaveBackupService(),
         new QuestTrackerService(),

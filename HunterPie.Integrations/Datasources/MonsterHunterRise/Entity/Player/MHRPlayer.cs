@@ -1,17 +1,19 @@
 using HunterPie.Core.Address.Map;
 using HunterPie.Core.Architecture.Events;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Data;
-using HunterPie.Core.Game.Data.Schemas;
+using HunterPie.Core.Game.Data.Definitions;
+using HunterPie.Core.Game.Data.Repository;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Entity.Player.Vitals;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Game.Services;
 using HunterPie.Core.Native.IPC.Models.Common;
 using HunterPie.Integrations.Datasources.Common.Definition;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
@@ -307,15 +309,15 @@ public sealed class MHRPlayer : CommonPlayer
             WeaponType.HeavyBowgun => new MHRHeavyBowgun(),
             WeaponType.LightBowgun => new MHRLightBowgun(),
             WeaponType.DualBlades => new MHRDualBlades(Process),
+            WeaponType.SwitchAxe => new MHRSwitchAxe(Process),
+            WeaponType.Longsword => new MHRLongSword(Process),
 
             WeaponType.Greatsword
             or WeaponType.SwordAndShield
-            or WeaponType.Longsword
             or WeaponType.Hammer
             or WeaponType.HuntingHorn
             or WeaponType.Lance
-            or WeaponType.GunLance
-            or WeaponType.SwitchAxe => new MHRMeleeWeapon(Process, weapon),
+            or WeaponType.GunLance => new MHRMeleeWeapon(Process, weapon),
 
             _ => null
         };
@@ -387,9 +389,10 @@ public sealed class MHRPlayer : CommonPlayer
         if (consumableBuffs.IsNullPointer())
             return;
 
-        AbnormalitySchema[] consumableSchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Consumables);
+        AbnormalityDefinition[] consumableSchemas =
+            AbnormalityRepository.FindAllAbnormalitiesBy(GameType.Rise, AbnormalityGroup.CONSUMABLES);
 
-        foreach (AbnormalitySchema schema in consumableSchemas)
+        foreach (AbnormalityDefinition schema in consumableSchemas)
         {
             int abnormSubId = schema.DependsOn switch
             {
@@ -417,7 +420,7 @@ public sealed class MHRPlayer : CommonPlayer
                     abnormality = MHRAbnormalityAdapter.Convert(schema, abnormalityStructure);
 
                     if (!schema.IsInteger && !schema.IsBuildup)
-                        abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                        abnormality.Timer = abnormality.Timer.ToAbnormalitySeconds();
 
                     if (schema.MaxTimer > 0)
                         abnormality.Timer = Math.Max(0.0f, schema.MaxTimer - abnormality.Timer);
@@ -447,9 +450,9 @@ public sealed class MHRPlayer : CommonPlayer
         if (debuffsPtr.IsNullPointer())
             return;
 
-        AbnormalitySchema[] debuffSchemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Debuffs);
+        AbnormalityDefinition[] debuffSchemas = AbnormalityRepository.FindAllAbnormalitiesBy(GameType.Rise, AbnormalityGroup.DEBUFFS);
 
-        foreach (AbnormalitySchema schema in debuffSchemas)
+        foreach (AbnormalityDefinition schema in debuffSchemas)
         {
             int abnormSubId = schema.DependsOn switch
             {
@@ -477,7 +480,7 @@ public sealed class MHRPlayer : CommonPlayer
                     abnormality = MHRAbnormalityAdapter.Convert(schema, abnormalityStructure);
 
                     if (!schema.IsInteger && !schema.IsBuildup)
-                        abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                        abnormality.Timer = abnormality.Timer.ToAbnormalitySeconds();
 
                     if (schema.MaxTimer > 0)
                         abnormality.Timer = Math.Max(0.0f, schema.MaxTimer - abnormality.Timer);
@@ -747,9 +750,9 @@ public sealed class MHRPlayer : CommonPlayer
                 Structure = Process.Memory.Read<MHRWirebugStructure>(wirebugPtr)
             };
 
-            data.Structure.Cooldown /= AbnormalityData.TIMER_MULTIPLIER;
-            data.Structure.MaxCooldown /= AbnormalityData.TIMER_MULTIPLIER;
-            data.Structure.ExtraCooldown /= AbnormalityData.TIMER_MULTIPLIER;
+            data.Structure.Cooldown = data.Structure.Cooldown.ToAbnormalitySeconds();
+            data.Structure.MaxCooldown = data.Structure.MaxCooldown.ToAbnormalitySeconds();
+            data.Structure.ExtraCooldown = data.Structure.ExtraCooldown.ToAbnormalitySeconds();
 
             if (wirebugPtr != wirebug.Address)
             {
@@ -768,7 +771,7 @@ public sealed class MHRPlayer : CommonPlayer
                     AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
                     wirebugExtraOffsets
                 );
-                temporaryData.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+                temporaryData.Timer = temporaryData.Timer.ToAbnormalitySeconds();
                 wirebug.Update(temporaryData);
             }
 
@@ -831,47 +834,31 @@ public sealed class MHRPlayer : CommonPlayer
     [ScannableMethod(typeof(MHRSubmarineData))]
     private void GetArgosy()
     {
-
-        long argosyAddress = Process.Memory.Read(
+        uint maxSubmarinesCount = (uint)Argosy.Submarines.Length;
+        long argosyAddress = Memory.Read(
             AddressMap.GetAbsolute("ARGOSY_ADDRESS"),
             AddressMap.Get<int[]>("ARGOSY_OFFSETS")
         );
 
-        int submarineArrayLength = Process.Memory.Read<int>(argosyAddress + 0x1C);
-        var submarines = new MHRSubmarineData[submarineArrayLength];
+        if (argosyAddress.IsNullPointer())
+            return;
 
-        long[] submarinePtrs = Process.Memory.Read<long>(argosyAddress + 0x20, (uint)submarineArrayLength);
+        MHRSubmarineStructure[] submarineStructs = Memory.ReadArrayOfPtrsSafe<MHRSubmarineStructure>(argosyAddress, maxSubmarinesCount);
+        var submarines = new MHRSubmarineData[submarineStructs.Length];
 
-        // Read submarines data
-        for (int i = 0; i < submarineArrayLength; i++)
-        {
-            ref long submarinePtr = ref submarinePtrs[i];
-            MHRSubmarineStructure data = Process.Memory.Read<MHRSubmarineStructure>(submarinePtr);
-            submarines[i].Data = data;
-        }
-
-        // Read submarine items array data
         for (int i = 0; i < submarines.Length; i++)
         {
             ref MHRSubmarineData submarine = ref submarines[i];
+            MHRSubmarineStructure structure = submarineStructs[i];
 
-            int itemsArrayLength = Process.Memory.Read<int>(submarine.Data.ItemArrayPtr + 0x1C);
-            long[] itemsPtr = Process.Memory.Read<long>(submarine.Data.ItemArrayPtr + 0x20, (uint)itemsArrayLength)
-                                             .Select(ptr => Process.Memory.Read<long>(ptr + 0x20))
-                                             .ToArray();
-            var items = new MHRSubmarineItemStructure[itemsArrayLength];
-
-            for (int j = 0; j < itemsArrayLength; j++)
-                items[j] = Process.Memory.Read<MHRSubmarineItemStructure>(itemsPtr[j]);
-
-            submarine.Items = items;
+            submarine.Data = submarineStructs[i];
+            submarine.Items = Memory.ReadArrayOfPtrsSafe<MHRSubmarineItemEntryStructure>(structure.ItemArrayPtr, 20)
+                .Select(it => Memory.Read<MHRSubmarineItemStructure>(it.ItemPointer))
+                .ToArray();
         }
 
-        for (int i = 0; i < Math.Min(Argosy.Submarines.Length, submarineArrayLength); i++)
-        {
-            IUpdatable<MHRSubmarineData> localData = Argosy.Submarines[i];
-            localData.Update(submarines[i]);
-        }
+        for (int i = 0; i < submarines.Length; i++)
+            Argosy.Submarines[i].Update(submarines[i]);
     }
 
     [ScannableMethod(typeof(MHRCohootStructure))]
@@ -982,21 +969,20 @@ public sealed class MHRPlayer : CommonPlayer
     private void DerefSongBuffs(long[] buffs)
     {
         int id = 0;
-        AbnormalitySchema[] schemas = AbnormalityData.GetAllAbnormalitiesFromCategory(AbnormalityData.Songs);
+        AbnormalityDefinition[] schemas = AbnormalityRepository.FindAllAbnormalitiesBy(GameType.Rise, AbnormalityGroup.SONGS);
         foreach (long buffPtr in buffs)
         {
             MHRHHAbnormality abnormality = Process.Memory.Read<MHRHHAbnormality>(buffPtr);
-            abnormality.Timer /= AbnormalityData.TIMER_MULTIPLIER;
+            abnormality.Timer = abnormality.Timer.ToAbnormalitySeconds();
 
-            AbnormalitySchema maybeSchema = schemas[id];
+            AbnormalityDefinition schema = schemas[id];
 
-            if (maybeSchema is AbnormalitySchema schema)
-                HandleAbnormality<MHRSongAbnormality, MHRHHAbnormality>(
-                    _abnormalities,
-                    schema,
-                    abnormality.Timer,
-                    abnormality
-                );
+            HandleAbnormality<MHRSongAbnormality, MHRHHAbnormality>(
+                _abnormalities,
+                schema,
+                abnormality.Timer,
+                abnormality
+            );
 
             id++;
         }

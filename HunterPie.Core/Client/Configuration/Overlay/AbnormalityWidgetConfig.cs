@@ -1,46 +1,57 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Converters;
 using HunterPie.Core.Settings;
+using HunterPie.Core.Settings.Annotations;
+using HunterPie.Core.Settings.Common;
 using HunterPie.Core.Settings.Types;
-using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace HunterPie.Core.Client.Configuration.Overlay;
 
-[SettingsGroup("ABNORMALITY_WIDGET", "ICON_STOPWATCH")]
+[Configuration("ABNORMALITY_WIDGET", "ICON_STOPWATCH")]
 public class AbnormalityWidgetConfig : IWidgetSettings, ISettings
 {
-    [SettingField("ABNORMALITY_TRAY_NAME_STRING")]
+    [JsonConverter(typeof(ObservableHashSetConverter<string>))]
+    public ObservableHashSet<string> AllowedAbnormalities { get; set; } = new();
+
+    #region General Settings
+    [ConfigurationProperty("ABNORMALITY_TRAY_NAME_STRING", group: CommonConfigurationGroups.GENERAL)]
     public Observable<string> Name { get; set; } = "Abnormality Tray";
 
-    [SettingField("INITIALIZE_WIDGET_STRING", requiresRestart: true)]
+    [ConfigurationProperty("INITIALIZE_WIDGET_STRING", requiresRestart: true, group: CommonConfigurationGroups.GENERAL)]
+    [ConfigurationCondition]
     public Observable<bool> Initialize { get; set; } = true;
 
-    [SettingField("ENABLE_WIDGET_STRING")]
+    [ConfigurationProperty("ENABLE_WIDGET_STRING", group: CommonConfigurationGroups.GENERAL)]
     public Observable<bool> Enabled { get; set; } = true;
 
-    [SettingField("HIDE_WHEN_UI_VISIBLE_STRING")]
+    [ConfigurationProperty("HIDE_WHEN_UI_VISIBLE_STRING", group: CommonConfigurationGroups.GENERAL)]
     public Observable<bool> HideWhenUiOpen { get; set; } = false;
 
-    [SettingField("ABNORMALITY_TRAY_MAX_SIZE_STRING")]
-    public Range MaxSize { get; set; } = new Range(300, 1200, 30, 30);
-
-    [SettingField("ABNORMALITY_TRAY_SORT_BY_STRING")]
-    public Observable<SortBy> SortByAlgorithm { get; set; } = SortBy.Off;
-
-    [SettingField("WIDGET_OPACITY")]
+    [ConfigurationProperty("WIDGET_OPACITY", group: CommonConfigurationGroups.GENERAL)]
     public Range Opacity { get; set; } = new(1, 1, 0.1, 0.1);
 
-    [SettingField("WIDGET_SCALE")]
+    [ConfigurationProperty("WIDGET_SCALE", group: CommonConfigurationGroups.GENERAL)]
     public Range Scale { get; set; } = new(1, 2, 0.1, 0.1);
 
-    [SettingField("ENABLE_STREAMER_MODE")]
+    [ConfigurationProperty("ENABLE_STREAMER_MODE", group: CommonConfigurationGroups.GENERAL)]
     public Observable<bool> StreamerMode { get; set; } = false;
 
-    [SettingField("ORIENTATION_STRING")]
-    public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Horizontal;
-
-    [SettingField("WIDGET_POSITION")]
+    [ConfigurationProperty("WIDGET_POSITION", group: CommonConfigurationGroups.GENERAL)]
     public Position Position { get; set; } = new(100, 100);
+    #endregion
 
-    public HashSet<string> AllowedAbnormalities { get; set; } = new();
+    #region Customization Settings
+    [ConfigurationProperty("ABNORMALITY_TRAY_SORT_BY_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    public Observable<SortBy> SortByAlgorithm { get; set; } = SortBy.Off;
+
+    [ConfigurationProperty("ABNORMALITY_TRAY_MAX_SIZE_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    public Range MaxSize { get; set; } = new(300, 1200, 30, 30);
+
+    [ConfigurationProperty("ORIENTATION_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Horizontal;
+    #endregion
+
+
 }

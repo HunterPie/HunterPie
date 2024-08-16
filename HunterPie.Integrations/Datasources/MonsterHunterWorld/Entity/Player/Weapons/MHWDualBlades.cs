@@ -4,6 +4,7 @@ using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Player.Classes;
+using HunterPie.Core.Game.Entity.Player.Skills;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
@@ -89,7 +90,7 @@ public sealed class MHWDualBlades : MHWMeleeWeapon, IDualBlades
         remove => _onPiercingBindTimerChange.Unhook(value);
     }
 
-    public MHWDualBlades(IProcessManager process) : base(process, Weapon.DualBlades) { }
+    public MHWDualBlades(IProcessManager process, ISkillService skillService) : base(process, skillService, Weapon.DualBlades) { }
 
     [ScannableMethod]
     private void GetData()

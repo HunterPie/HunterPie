@@ -6,25 +6,49 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Entity.Game;
 using HunterPie.Core.Game.Entity.Game.Chat;
+using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Player;
-using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
+using HunterPie.Core.Game.Services.Monster;
+using HunterPie.Integrations.Datasources.Common.Monster;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Game;
 public abstract class CommonGame : Scannable, IGame, IEventDispatcher
 {
+    private readonly SimpleTargetDetectionService _targetDetectionService;
 
     public abstract IPlayer Player { get; }
+
     public abstract IAbnormalityCategorizationService AbnormalityCategorizationService { get; }
+
+    public ITargetDetectionService TargetDetectionService => _targetDetectionService;
+
     public abstract List<IMonster> Monsters { get; }
+
     public abstract IChat? Chat { get; }
+
     public abstract bool IsHudOpen { get; protected set; }
+
     public abstract float TimeElapsed { get; protected set; }
-    public abstract int MaxDeaths { get; protected set; }
-    public abstract int Deaths { get; protected set; }
-    public abstract bool IsInQuest { get; protected set; }
-    public QuestStatus QuestStatus { get; protected set; }
+
+    public abstract IQuest? Quest { get; }
+
+    private TimeOnly _worldTime;
+
+    public TimeOnly WorldTime
+    {
+        get => _worldTime;
+        protected set
+        {
+            if (_worldTime == value)
+                return;
+
+            TimeOnly oldValue = _worldTime;
+            _worldTime = value;
+            this.Dispatch(_onWorldTimeChange, new SimpleValueChangeEventArgs<TimeOnly>(oldValue, value));
+        }
+    }
 
     protected readonly SmartEvent<IMonster> _onMonsterSpawn = new();
     public event EventHandler<IMonster> OnMonsterSpawn
@@ -54,38 +78,34 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
         remove => _onTimeElapsedChange.Unhook(value);
     }
 
-    protected readonly SmartEvent<IGame> _onDeathCountChange = new();
-    public event EventHandler<IGame> OnDeathCountChange
-    {
-        add => _onDeathCountChange.Hook(value);
-        remove => _onDeathCountChange.Unhook(value);
-    }
-
-    protected readonly SmartEvent<QuestStateChangeEventArgs> _onQuestStart = new();
-    public event EventHandler<QuestStateChangeEventArgs> OnQuestStart
+    protected readonly SmartEvent<IQuest> _onQuestStart = new();
+    public event EventHandler<IQuest> OnQuestStart
     {
         add => _onQuestStart.Hook(value);
         remove => _onQuestStart.Unhook(value);
     }
 
-    protected readonly SmartEvent<QuestStateChangeEventArgs> _onQuestEnd = new();
-    public event EventHandler<QuestStateChangeEventArgs> OnQuestEnd
+    protected readonly SmartEvent<QuestEndEventArgs> _onQuestEnd = new();
+    public event EventHandler<QuestEndEventArgs> OnQuestEnd
     {
         add => _onQuestEnd.Hook(value);
         remove => _onQuestEnd.Unhook(value);
     }
 
-    protected CommonGame(IProcessManager process) : base(process) { }
+    protected readonly SmartEvent<SimpleValueChangeEventArgs<TimeOnly>> _onWorldTimeChange = new();
+    public event EventHandler<SimpleValueChangeEventArgs<TimeOnly>> OnWorldTimeChange
+    {
+        add => _onWorldTimeChange.Hook(value);
+        remove => _onWorldTimeChange.Unhook(value);
+    }
+
+    protected CommonGame(IProcessManager process) : base(process)
+    {
+        _targetDetectionService = new SimpleTargetDetectionService(this);
+    }
 
     public virtual void Dispose()
     {
-        IDisposable[] events =
-        {
-            _onMonsterSpawn, _onMonsterDespawn, _onHudStateChange,
-            _onTimeElapsedChange, _onDeathCountChange, _onQuestStart,
-            _onQuestEnd,
-        };
-
         Monsters.TryCast<IDisposable>()
                 .DisposeAll();
 
@@ -95,6 +115,10 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
         if (Chat is IDisposable chat)
             chat.Dispose();
 
-        events.DisposeAll();
+        IDisposableExtensions.DisposeAll(
+            _onMonsterSpawn, _onMonsterDespawn, _onHudStateChange,
+            _onTimeElapsedChange, _onQuestStart,
+            _onQuestEnd, _targetDetectionService, _onWorldTimeChange
+        );
     }
 }

@@ -22,7 +22,7 @@
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
     </UserControl.Resources>
     <Grid>
-        <StackPanel Visibility="{Binding PasswordResetFlowViewModel.IsFlowActive, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+        <StackPanel d:Visibility="Hidden">
             <StackPanel Orientation="Vertical"
                         Margin="10,20,10,10">
                 <TextBlock Text="Email"
@@ -43,6 +43,12 @@
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
+                <buttons:Button Content="Resend verification"
+                                HorizontalAlignment="Right"
+                                Padding="5,10,5,10"
+                                Foreground="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                                CornerRadius="5"
+                                Click="OnResendVerificationClick"/>
             </StackPanel>
 
             <StackPanel Orientation="Vertical"
@@ -55,8 +61,9 @@
                                         IsEnabled="{Binding IsLoggingIn, Mode=OneWay, Converter={StaticResource InvertBooleanConverter}}"/>
             </StackPanel>
 
-            <UniformGrid Columns="2">
-                <buttons:Button Content="Forgot password"
+            <UniformGrid Columns="2"
+                         Margin="10,0">
+                <buttons:Button Content="Forgot password?"
                                 FontSize="13"
                                 Padding="20,5,20,5"
                                 CornerRadius="5"
@@ -65,7 +72,7 @@
                                 Foreground="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
 
                 <buttons:Button FontSize="15"
-                                HorizontalAlignment="Center"
+                                HorizontalAlignment="Right"
                                 BorderThickness="1"
                                 BorderBrush="{StaticResource GRAY}"
                                 CornerRadius="5"
@@ -90,8 +97,28 @@
                     </buttons:Button.Style>
                 </buttons:Button>
             </UniformGrid>
+
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding AccountVerificationResendFlowViewModel.IsFlowActive, Mode=OneWay}"
+                                     Value="True">
+                            <Setter Property="Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding PasswordResetFlowViewModel.IsFlowActive, Mode=OneWay}"
+                                     Value="True">
+                            <Setter Property="Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
         </StackPanel>
 
-        <local:AccountPasswordResetFlowView DataContext="{Binding PasswordResetFlowViewModel, Mode=OneTime}"/>
+        <local:RequestAccountVerificationFlowView DataContext="{Binding AccountVerificationResendFlowViewModel, Mode=OneTime}"
+                                                  d:Visibility="Visible"/>
+
+        <local:AccountPasswordResetFlowView DataContext="{Binding PasswordResetFlowViewModel, Mode=OneTime}"
+                                            d:Visibility="Hidden"/>
     </Grid>
 </arch:View>

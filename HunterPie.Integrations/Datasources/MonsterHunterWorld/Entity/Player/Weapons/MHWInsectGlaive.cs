@@ -4,6 +4,7 @@ using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Player.Classes;
+using HunterPie.Core.Game.Entity.Player.Skills;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
@@ -178,7 +179,7 @@ public sealed class MHWInsectGlaive : MHWMeleeWeapon, IInsectGlaive
         remove => _onChargeChange.Unhook(value);
     }
 
-    public MHWInsectGlaive(IProcessManager process) : base(process, Weapon.InsectGlaive) { }
+    public MHWInsectGlaive(IProcessManager process, ISkillService skillService) : base(process, skillService, Weapon.InsectGlaive) { }
 
     [ScannableMethod]
     private void GetWeaponData()
@@ -199,12 +200,12 @@ public sealed class MHWInsectGlaive : MHWMeleeWeapon, IInsectGlaive
                                   .ToArray()
             : EmptyBuffs;
 
-        // TODO: Adjust timer based on Power Prolonger buff
-        AttackTimer = Math.Max(0.0f, structure.AttackTimer);
-        SpeedTimer = Math.Max(0.0f, structure.SpeedTimer);
-        DefenseTimer = Math.Max(0.0f, structure.DefenseTimer);
-        PrimaryExtract = buffs.First();
-        SecondaryExtract = buffs.Length > 1 ? buffs.Last() : KinsectBuff.None;
+        float powerProlonger = _skillService.GetPowerProlongerMultiplier(Weapon.InsectGlaive);
+        AttackTimer = Math.Max(0.0f, structure.AttackTimer * powerProlonger);
+        SpeedTimer = Math.Max(0.0f, structure.SpeedTimer * powerProlonger);
+        DefenseTimer = Math.Max(0.0f, structure.DefenseTimer * powerProlonger);
+        PrimaryExtract = buffs.FirstOrDefault(KinsectBuff.None);
+        SecondaryExtract = buffs.LastOrDefault(KinsectBuff.None);
         MaxStamina = extraStructure.MaxStamina;
         Stamina = kinsectStructure.Stamina;
         ChargeType = kinsectStructure switch
@@ -216,13 +217,12 @@ public sealed class MHWInsectGlaive : MHWMeleeWeapon, IInsectGlaive
         };
 
         float chargeTimer = Math.Max(kinsectStructure.RedCharge, kinsectStructure.YellowCharge);
-        Charge = ChargeType != KinsectChargeType.None ? Math.Max(0.0f, chargeTimer) : 0.0f;
+        Charge = ChargeType != KinsectChargeType.None ? Math.Max(0.0f, chargeTimer * powerProlonger) : 0.0f;
     }
 
     public override void Dispose()
     {
-        new IDisposable[]
-        {
+        IDisposableExtensions.DisposeAll(
             _onPrimaryExtractChange,
             _onSecondaryExtractChange,
             _onAttackTimerChange,
@@ -230,7 +230,7 @@ public sealed class MHWInsectGlaive : MHWMeleeWeapon, IInsectGlaive
             _onDefenseTimerChange,
             _onKinsectStaminaChange,
             _onChargeChange
-        }.DisposeAll();
+        );
 
         base.Dispose();
     }

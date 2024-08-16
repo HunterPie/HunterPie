@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.9.0.258</AssemblyVersion>
-    <FileVersion>2.9.0.258</FileVersion>
-    <LangVersion>10.0</LangVersion>
+    <AssemblyVersion>2.11.0.280</AssemblyVersion>
+    <FileVersion>2.11.0.280</FileVersion>
+    <LangVersion>11.0</LangVersion>
     <Authors>Haato</Authors>
  </PropertyGroup>
 
@@ -667,8 +667,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Architecture\Navigator\" />
+    <Folder Include="Architecture\Bindings\" />
+    <Folder Include="Controls\Notification\ViewModels\" />
+    <Folder Include="Controls\Paginating\Events\" />
+    <Folder Include="Controls\Settings\Abnormality\Builders\" />
+    <Folder Include="Overlay\Controls\Progress\" />
+    <Folder Include="Overlay\Widgets\Monster\Adapters\" />
     <Folder Include="Properties\" />
+    <Folder Include="Settings\Converter\Model\" />
+    <Folder Include="Settings\Presentation\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties BuildVersion_StartDate="2000/1/1" /></VisualStudio></ProjectExtensions>

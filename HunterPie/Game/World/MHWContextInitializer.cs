@@ -31,10 +31,6 @@ internal class MHWContextInitializer : IContextInitializer
         MonsterData.Init(
             ClientInfo.GetPathFor("Game/World/Data/MonsterData.xml")
         );
-
-        AbnormalityData.Init(
-            ClientInfo.GetPathFor("Game/World/Data/AbnormalityData.xml")
-        );
     }
 
     private static async Task InitializeNativeModule(IContext context)

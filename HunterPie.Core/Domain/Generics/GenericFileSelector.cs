@@ -3,7 +3,7 @@ using HunterPie.Core.Converters;
 using HunterPie.Core.Settings.Types;
 using Newtonsoft.Json;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -12,29 +12,14 @@ namespace HunterPie.Core.Domain.Generics;
 [JsonConverter(typeof(FileSelectorConverter))]
 public class GenericFileSelector : Bindable, IFileSelector
 {
-    private string _current;
     private readonly string _filter;
     private readonly string _basePath;
-    private readonly ObservableCollection<string> _elements = new();
 
+    private string _current;
     public string Current
     {
         get => _current;
         set => SetValue(ref _current, value);
-    }
-
-    public ObservableCollection<string> Elements
-    {
-        get
-        {
-            _elements.Clear();
-            foreach (string file in ListFiles())
-            {
-                _elements.Add(file);
-            }
-
-            return _elements;
-        }
     }
 
     [JsonConstructor]
@@ -50,13 +35,12 @@ public class GenericFileSelector : Bindable, IFileSelector
         _basePath = basePath;
     }
 
-    private string[] ListFiles()
+    public IEnumerable<string> GetElements()
     {
         return !Directory.Exists(_basePath)
             ? Array.Empty<string>()
             : Directory.GetFiles(_basePath, _filter)
-            .Select(f => Path.GetFileName(f))
-            .ToArray();
+                .Select(it => Path.GetFileName(it)!);
     }
 
     public static implicit operator string(GenericFileSelector selector) => selector.Current;

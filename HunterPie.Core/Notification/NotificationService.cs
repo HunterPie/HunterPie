@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HunterPie.Core.Notification.Model;
+using System;
+using System.Threading.Tasks;
 
 namespace HunterPie.Core.Notification;
 
@@ -14,15 +16,7 @@ public class NotificationService
         _instance = this;
     }
 
-    public static void Show(string message, TimeSpan visibility) =>
-        _instance?._service.Show(string.Empty, message, visibility);
+    public static async Task<Guid> Show(NotificationOptions options) => await _instance!._service.Show(options);
 
-    public static void Info(string message, TimeSpan visibility) =>
-        _instance?._service.Info(string.Empty, message, visibility);
-
-    public static void Error(string message, TimeSpan visibility) =>
-        _instance?._service.Error(string.Empty, message, visibility);
-
-    public static void Success(string message, TimeSpan visibility) =>
-        _instance?._service.Success(string.Empty, message, visibility);
+    public static void Update(Guid id, NotificationOptions options) => _instance!._service.Update(id, options);
 }

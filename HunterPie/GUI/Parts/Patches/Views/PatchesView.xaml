@@ -16,10 +16,10 @@
            d:DataContext="{d:DesignInstance vm:PatchesViewModel}">
     <Grid>
         <ContentControl>
-            
             <ContentControl.Style>
                 <Style TargetType="{x:Type ContentControl}">
                     <Style.Setters>
+                        <!-- Loading state -->
                         <Setter Property="Content">
                             <Setter.Value>
                                 <StackPanel>
