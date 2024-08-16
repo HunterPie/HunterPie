@@ -21,6 +21,7 @@ public static class ConfigurationTemplateProvider
         { typeof(StringPropertyViewModel), DataTemplateFactory.Create<StringConfigurationPropertyView>() },
         { typeof(ColorPropertyViewModel), DataTemplateFactory.Create<ColorConfigurationPropertyView>() },
         { typeof(AbnormalityTrayPropertyViewModel), DataTemplateFactory.Create<AbnormalityTrayConfigurationPropertyView>() },
+        { typeof(MonsterDetailsPropertyViewModel), DataTemplateFactory.Create<MonsterDetailsConfigurationPropertyView>() }
     };
 
     public static DataTemplate? FindBy(Type type)

@@ -21,7 +21,6 @@
              d:DesignWidth="600">
     <UserControl.Resources>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
-        <converters:MonsterEmToIconConverter x:Key="MonsterEmToIconConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:FloatFloorConverter x:Key="FloatFloorConverter"/>
         <converters:CrownToIconConverter x:Key="CrownToIconConverter"/>
@@ -37,7 +36,7 @@
         </LinearGradientBrush>
         <SolidColorBrush x:Key="MonsterHealthEnragedDelayed" Color="#FFEB6C5B"/>
 
-        <Style x:Key="{x:Type local:BossMonsterAilmentView}" TargetType="{x:Type local:BossMonsterAilmentView}">
+        <Style x:Key="BEHAVIOR_AILMENT_VIEW" TargetType="{x:Type local:BossMonsterAilmentView}">
             <Style.Triggers>
                 <MultiDataTrigger>
                     <MultiDataTrigger.Conditions>
@@ -68,6 +67,15 @@
                     </MultiDataTrigger.Conditions>
                     <MultiDataTrigger.Setters>
                         <Setter Property="Visibility" Value="Visible"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding DataContext.IsEnabled, RelativeSource={RelativeSource Self}}"
+                                   Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Collapsed"/>
                     </MultiDataTrigger.Setters>
                 </MultiDataTrigger>
             </Style.Triggers>
@@ -110,6 +118,15 @@
                         <Condition Binding="{Binding Widget.Settings.HideUnknownParts.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}}"
                                    Value="True"/>
                         <Condition Binding="{Binding DataContext.IsKnownPart, RelativeSource={RelativeSource Self}}"
+                                   Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding DataContext.IsEnabled, RelativeSource={RelativeSource Self}}"
                                    Value="False"/>
                     </MultiDataTrigger.Conditions>
                     <MultiDataTrigger.Setters>
@@ -466,7 +483,8 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:MonsterAilmentViewModel}">
-                        <view:BossMonsterAilmentView Width="80"/>
+                        <view:BossMonsterAilmentView Width="80"
+                                                     Style="{StaticResource BEHAVIOR_AILMENT_VIEW}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -482,7 +500,8 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <ContentPresenter ContentTemplate="{Binding Type, Converter={StaticResource MonsterPartTypeToDataTemplateConverter}}"/>
+                        <ContentPresenter ContentTemplate="{Binding Type, Converter={StaticResource MonsterPartTypeToDataTemplateConverter}}"
+                                          Visibility="{Binding IsEnabled, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

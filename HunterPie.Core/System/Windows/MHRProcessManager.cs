@@ -9,6 +9,7 @@ using System.Xml;
 
 namespace HunterPie.Core.System.Windows;
 
+#nullable enable
 internal class MHRProcessManager : WindowsProcessManager
 {
     private const string GamePassManifestFile = "appxmanifest.xml";
@@ -62,14 +63,6 @@ internal class MHRProcessManager : WindowsProcessManager
         return version ?? throw new UnsupportedGameVersion();
     }
 
-    private string? DetectSteamVersion(Process process)
-    {
-        if (process.MainModule is not { } module)
-            return null;
-
-        return module.FileVersionInfo.FileVersion;
-    }
-
     private string? DetectGamePassVersion(Process process)
     {
         if (process.MainModule is not { } module)
@@ -94,4 +87,11 @@ internal class MHRProcessManager : WindowsProcessManager
         return null;
     }
 
+    private string? DetectSteamVersion(Process process)
+    {
+        if (process.MainModule is not { } module)
+            return null;
+
+        return module.FileVersionInfo.FileVersion;
+    }
 }

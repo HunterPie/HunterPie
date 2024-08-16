@@ -27,7 +27,6 @@
         <Ailment Id="22" String="AILMENT_CLAW"/>
         <Ailment Id="23" String="AILMENT_CLAWFLINCH"/>
         <Ailment Id="24" String="AILMENT_BANISHINGBALL"/>
-        <Ailment Id="999" String="AILMENT_ENRAGE"/>
     </Ailments>
     <Monsters>
         <Monster Id="0" Capture="25">

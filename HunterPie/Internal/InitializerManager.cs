@@ -16,6 +16,7 @@ internal class InitializerManager
         new CustomFontsInitializer(),
         
         // Core
+        new MapperFactoryInitializer(),
         new CredentialVaultInitializer(),
         new LocalConfigInitializer(),
         
@@ -32,7 +33,6 @@ internal class InitializerManager
 
 
         new HunterPieLoggerInitializer(),
-        new MapperFactoryInitializer(),
         new CustomThemeInitializer(),
 
         new ExceptionCatcherInitializer(),

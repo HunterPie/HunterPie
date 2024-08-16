@@ -44,5 +44,20 @@ public class LocalizationString : MarkupExtension
         LocalizationId = localizationId;
     }
 
-    public override object ProvideValue(IServiceProvider serviceProvider) => Localization.Query(LocalizationId)?.Attributes["String"].Value;
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        Localization.QueryString(LocalizationId);
+}
+
+[MarkupExtensionReturnType(typeof(string))]
+public class LocalizationDescription : MarkupExtension
+{
+    public string LocalizationId { get; set; }
+
+    public LocalizationDescription(string localizationId)
+    {
+        LocalizationId = localizationId;
+    }
+
+    public override object ProvideValue(IServiceProvider serviceProvider) =>
+        Localization.QueryDescription(LocalizationId);
 }

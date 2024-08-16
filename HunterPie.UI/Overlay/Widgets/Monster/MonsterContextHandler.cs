@@ -5,7 +5,6 @@ using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services.Monster.Events;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
-using HunterPie.Integrations.Datasources.MonsterHunterSunbreakDemo.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enemy;
 using HunterPie.UI.Overlay.Widgets.Monster.Adapters;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
@@ -151,7 +150,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
             if (contains)
                 return;
 
-            Ailments.Add(new MonsterAilmentContextHandler(e, Config));
+            Ailments.Add(new MonsterAilmentContextHandler(Context, e, Config));
         });
     }
 
@@ -166,7 +165,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
             if (contains)
                 return;
 
-            Parts.Add(new MonsterPartContextHandler(e, Config));
+            Parts.Add(new MonsterPartContextHandler(Context, e, Config));
         });
     }
 
@@ -232,7 +231,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
                     if (contains)
                         continue;
 
-                    Parts.Add(new MonsterPartContextHandler(part, Config));
+                    Parts.Add(new MonsterPartContextHandler(Context, part, Config));
                 }
 
                 foreach (IMonsterAilment ailment in Context.Ailments)
@@ -245,7 +244,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
                     if (contains)
                         continue;
 
-                    Ailments.Add(new MonsterAilmentContextHandler(ailment, Config));
+                    Ailments.Add(new MonsterAilmentContextHandler(Context, ailment, Config));
                 }
 
                 foreach (Element weakness in Context.Weaknesses)
@@ -253,7 +252,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
             });
     }
 
-    private void AddEnrage() => UIThread.Invoke(() => Ailments.Add(new MonsterAilmentContextHandler(Context.Enrage, Config)));
+    private void AddEnrage() => UIThread.Invoke(() => Ailments.Add(new MonsterAilmentContextHandler(Context, Context.Enrage, Config)));
 
     private string BuildMonsterEmByContext()
     {
@@ -261,7 +260,6 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
         {
             MHRMonster ctx => $"Rise_{ctx.Id:00}",
             MHWMonster ctx => $"World_{ctx.Id:00}",
-            MHRSunbreakDemoMonster ctx => $"Rise_{ctx.Id:00}",
             _ => throw new NotImplementedException("unreachable")
         };
     }
