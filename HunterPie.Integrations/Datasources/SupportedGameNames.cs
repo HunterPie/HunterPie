@@ -2,7 +2,6 @@
 
 public static class SupportedGameNames
 {
-    public const string MonsterHunterWorld = "MonsterHunterWorld";
-    public const string MonsterHunterRise = "MonsterHunterRise";
-    public const string MonsterHunterRiseSunbreakDemo = "MHRiseSunbreakDemo";
+    public const string MONSTER_HUNTER_WORLD = "MonsterHunterWorld";
+    public const string MONSTER_HUNTER_RISE = "MonsterHunterRise";
 }
