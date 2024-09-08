@@ -25,6 +25,8 @@ namespace HunterPie.UI.Overlay.Components;
 /// </summary>
 public partial class WidgetBase : Window, INotifyPropertyChanged
 {
+    private readonly object _sync = new();
+    private bool _isClosed;
     private DateTime _lastRender;
     private double _renderingTime;
 
@@ -80,6 +82,15 @@ public partial class WidgetBase : Window, INotifyPropertyChanged
         DataContext = this;
 
         CompositionTarget.Rendering += OnRender;
+    }
+
+    protected override void OnClosed(EventArgs e)
+    {
+        lock (_sync)
+        {
+            _isClosed = true;
+            base.OnClosed(e);
+        }
     }
 
     private int _counter = 0;
@@ -138,8 +149,6 @@ public partial class WidgetBase : Window, INotifyPropertyChanged
 
         if (result == 0)
             Log.Error("Failed to set widget {0} flags due to error code: {1}", Widget.GetType().Name, Marshal.GetLastWin32Error());
-        else
-            Log.Debug("Changed widget flags to {0:X}", result);
     }
 
     private void ForceAlwaysOnTop()
@@ -147,10 +156,14 @@ public partial class WidgetBase : Window, INotifyPropertyChanged
         if (WidgetManager.Instance.IsDesignModeEnabled)
             return;
 
+        lock (_sync)
+            if (_isClosed)
+                return;
+
         IntPtr hWnd = new WindowInteropHelper(this)
             .EnsureHandle();
 
-        _ = User32.SetWindowPos(hWnd, -1, 0, 0, 0, 0, Flags);
+        User32.SetWindowPos(hWnd, -1, 0, 0, 0, 0, Flags);
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
@@ -166,12 +179,15 @@ public partial class WidgetBase : Window, INotifyPropertyChanged
 
     private void OnMouseWheel(object sender, MouseWheelEventArgs e)
     {
+        if (Widget.Settings is not { } settings)
+            return;
+
         double step = 0.05 * (e.Delta > 0 ? 1 : -1);
 
         if (Keyboard.IsKeyDown(Key.LeftCtrl))
-            Widget.Settings.Opacity.Current += step;
+            settings.Opacity.Current += step;
         else
-            Widget.Settings.Scale.Current += step;
+            settings.Scale.Current += step;
     }
     private void OnWidgetTypeChange(object sender, WidgetType e)
     {
