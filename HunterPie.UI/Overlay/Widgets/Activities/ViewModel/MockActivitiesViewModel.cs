@@ -84,6 +84,7 @@ internal class MockActivitiesViewModel : ActivitiesViewModel
 
         SetupMeowmasters();
         SetupCohoot();
+        SetupSteamworks();
 
         InVisibleStage = true;
     }
@@ -115,5 +116,17 @@ internal class MockActivitiesViewModel : ActivitiesViewModel
         };
 
         Activities.Add(cohootActivity);
+    }
+
+    private void SetupSteamworks()
+    {
+        var steamworksActivity = new SteamFuelViewModel
+        {
+            MaxNaturalFuel = 700,
+            NaturalFuel = 600,
+            StoredFuel = 1000
+        };
+
+        Activities.Add(steamworksActivity);
     }
 }
