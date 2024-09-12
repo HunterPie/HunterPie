@@ -41,7 +41,7 @@ end;
 
 procedure InitializeWizard;
 begin
-  Dependency_AddDotNet60Desktop
+  Dependency_AddDotNet80Desktop
   DownloadPage := CreateDownloadPage(SetupMessage(msgWizardPreparing), SetupMessage(msgPreparingDesc), @OnDownloadProgress);
 end;
 
