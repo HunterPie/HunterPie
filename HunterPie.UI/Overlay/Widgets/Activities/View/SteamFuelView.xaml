@@ -30,7 +30,7 @@
               Grid.Column="1"
               Grid.RowSpan="2"
               HorizontalAlignment="Left"
-              MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
+              MaxWidth="{Binding ColumnDefinitions[1].ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
               Margin="1,1,0,1"
               ClipToBounds="True"
               d:Width="50">

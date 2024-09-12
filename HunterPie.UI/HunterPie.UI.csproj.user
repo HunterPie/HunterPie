@@ -17,9 +17,6 @@
     <Compile Update="Controls\Buttons\Keybinding.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\Buttons\Pagination.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Controls\Buttons\Skeleton\BannerCardSkeleton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -50,10 +47,31 @@
     <Compile Update="Controls\Notification\Toast.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Paginating\Pagination.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Popup\SearchPopup.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Settings\Abnormality\Views\AbnormalityElementView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Settings\Abnormality\Views\AbnormalityWidgetSettingsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Settings\Monsters\Views\MonsterAilmentConfigurationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Settings\Monsters\Views\MonsterConfigurationsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Settings\Monsters\Views\MonsterConfigurationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Settings\Monsters\Views\MonsterGlobalConfigurationView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\Settings\Monsters\Views\MonsterPartConfigurationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Sliders\Range.xaml.cs">
@@ -84,9 +102,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Controls\Bar.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Overlay\Controls\Progress\Bar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml.cs">
@@ -150,6 +165,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Classes\Views\SwitchAxeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Clock\Views\ClockView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Damage\View\DamageBarView.xaml.cs">
@@ -227,6 +245,9 @@
     <Compile Update="Settings\Views\KeybindingConfigurationPropertyView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Settings\Views\MonsterDetailsConfigurationPropertyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Settings\Views\PositionConfigurationPropertyView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -262,9 +283,6 @@
     <Page Update="Controls\Buttons\Keybinding.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Controls\Buttons\Pagination.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Controls\Buttons\Skeleton\BannerCardSkeleton.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -295,10 +313,31 @@
     <Page Update="Controls\Notification\Toast.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\Paginating\Pagination.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Popup\SearchPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\Settings\Abnormality\Views\AbnormalityElementView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\Abnormality\Views\AbnormalityWidgetSettingsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Settings\Monsters\Views\MonsterAilmentConfigurationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Settings\Monsters\Views\MonsterConfigurationsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Settings\Monsters\Views\MonsterConfigurationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Settings\Monsters\Views\MonsterGlobalConfigurationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Settings\Monsters\Views\MonsterPartConfigurationView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Sliders\Range.xaml">
@@ -329,9 +368,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Controls\Bar.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Overlay\Controls\Progress\Bar.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml">
@@ -395,6 +431,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Classes\Views\SwitchAxeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Clock\Views\ClockView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Damage\View\DamageBarView.xaml">
@@ -473,6 +512,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Settings\Views\KeybindingConfigurationPropertyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings\Views\MonsterDetailsConfigurationPropertyView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Settings\Views\PositionConfigurationPropertyView.xaml">

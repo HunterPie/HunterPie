@@ -11,6 +11,7 @@ internal record PoogieQuestStatisticsModel(
     [property: JsonProperty("started_at")] DateTime StartedAt,
     [property: JsonProperty("finished_at")] DateTime FinishedAt,
     [property: JsonProperty("uploaded_at")] DateTime UploadedAt,
+    [property: JsonProperty("quest")] PoogieQuestDetailsModel? Quest,
     [property: JsonProperty("players")] PoogiePlayerStatisticsModel[] Players,
     [property: JsonProperty("monsters")] PoogieMonsterStatisticsModel[] Monsters,
     [property: JsonProperty("hash")] string Hash
@@ -22,6 +23,7 @@ internal record PoogieQuestStatisticsModel(
             StartedAt: StartedAt,
             FinishedAt: FinishedAt,
             UploadedAt: UploadedAt,
+            Quest: Quest?.ToEntity(),
             Players: Players.Select(it => it.ToEntity()).ToList(),
             Monsters: Monsters.Select(it => it.ToEntity()).ToList(),
             Hash: Hash
@@ -33,6 +35,7 @@ internal record PoogieQuestStatisticsModel(
             StartedAt: model.StartedAt,
             FinishedAt: model.FinishedAt,
             UploadedAt: model.UploadedAt,
+            Quest: model.Quest is null ? null : PoogieQuestDetailsModel.From(model.Quest),
             Players: model.Players.Select(PoogiePlayerStatisticsModel.From).ToArray(),
             Monsters: model.Monsters.Select(PoogieMonsterStatisticsModel.From).ToArray(),
             Hash: model.Hash

@@ -14,7 +14,6 @@ public class AutoVisibilityViewModel : ViewModel, IDisposable
     private readonly Timer _timer;
 
     private bool _isActive;
-
     public bool IsActive { get => _isActive; set => SetValue(ref _isActive, value); }
 
     public AutoVisibilityViewModel(Range timeout)

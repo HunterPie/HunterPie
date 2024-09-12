@@ -121,6 +121,7 @@
         <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    Foreground="{StaticResource WHITE}"
                    FontSize="16"
+                   Visibility="{Binding ShouldShowDPS.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Margin="25,0,0,0"
@@ -141,13 +142,29 @@
         <TextBlock d:Text="26,354"
                    Text="{Binding Damage}"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
-                   FontSize="12"
-                   VerticalAlignment="Bottom"
-                   HorizontalAlignment="Right"
-                   Margin="0,0,2,0" 
-                   Grid.Column="3"
-                   TextAlignment="Right"/>
+                   Visibility="{Binding ShouldShowDamage.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
+                   Grid.Column="3">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Foreground" Value="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"/>
+                    <Setter Property="FontSize" Value="12"/>
+                    <Setter Property="VerticalAlignment" Value="Bottom"/>
+                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                    <Setter Property="Margin" Value="0,0,2,0"/>
+                    <Setter Property="TextAlignment" Value="Right"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ShouldShowDPS.Value}" Value="False">
+                            <Setter Property="Foreground" Value="{StaticResource WHITE}"/>
+                            <Setter Property="FontSize" Value="16"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                            <Setter Property="Margin" Value="25,0,0,0"/>
+                            <Setter Property="TextAlignment" Value="Left"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
 
     </Grid>
     <UserControl.Style>

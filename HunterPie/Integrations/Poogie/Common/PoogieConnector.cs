@@ -1,16 +1,21 @@
 ﻿using HunterPie.Core.Networking.Http;
 using HunterPie.Integrations.Poogie.Common.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Common;
 internal class PoogieConnector
 {
-    public async Task<PoogieResult<T>> Get<T>(string path)
+    public async Task<PoogieResult<T>> Get<T>(string path, Dictionary<string, object>? query = null)
     {
-        using HttpClient client = PoogieProvider.Default()
-            .Get(path)
-            .Build();
+        HttpClientBuilder clientBuilder = PoogieProvider.Default()
+            .Get(path);
+
+        if (query is not null)
+            clientBuilder.WithQuery(query);
+
+        using HttpClient client = clientBuilder.Build();
 
         using HttpClientResponse response = await client.RequestAsync();
 

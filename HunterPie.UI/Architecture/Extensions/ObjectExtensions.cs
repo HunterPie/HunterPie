@@ -31,4 +31,15 @@ public static class ObjectExtensions
         string serialized = JsonProvider.Serialize(@object);
         return JsonProvider.Deserialize<TOut>(serialized);
     }
+
+    /// <summary>
+    /// Applies values to T
+    /// </summary>
+    /// <typeparam name="T">The input type</typeparam>
+    /// <param name="object">Object to apply properties to</param>
+    /// <param name="block">Function that applies properties</param>
+    public static void Apply<T>(this T @object, Action<T> block) where T : class
+    {
+        block(@object);
+    }
 }

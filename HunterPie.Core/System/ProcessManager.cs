@@ -17,7 +17,6 @@ public static class ProcessManager
     {
         new MHWProcessManager(),
         new MHRProcessManager(),
-        new MHRSunbreakDemoProcessManager(),
     };
 
     public static void Start()

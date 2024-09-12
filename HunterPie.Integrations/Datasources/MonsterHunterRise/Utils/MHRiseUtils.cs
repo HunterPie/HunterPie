@@ -1,15 +1,17 @@
 ﻿using HunterPie.Core.Domain.Memory;
+using HunterPie.Core.Game.Data.Definitions;
+using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Enums;
-using HunterPie.Integrations.Datasources.MonsterHunterRise.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
 using System.Runtime.CompilerServices;
+using QuestType = HunterPie.Core.Game.Entity.Game.Quest.QuestType;
+using QuestTypeRise = HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums.QuestType;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 
 public static class MHRiseUtils
 {
-    private static readonly HashSet<QuestType> HuntQuestTypes = new() { QuestType.Normal, QuestType.Kill, QuestType.Capture, QuestType.Arena };
     private const double MAX_DEFAULT_STAMINA = 1500.0;
     private const double FOOD_BONUS_STAMINA = 3000.0;
     private const double MAX_DEFAULT_HEALTH = 100.0;
@@ -17,7 +19,8 @@ public static class MHRiseUtils
     private const double PETALACE_STAMINA_MULTIPLIER = 30.0;
     private const float TIMER_MULTIPLIER = 60.0f;
 
-    public static bool IsHuntQuest(this QuestType type) => HuntQuestTypes.Contains(type);
+    public static MonsterPartDefinition QurioPartDefinition =
+        new MonsterPartDefinition { String = "PART_QURIO_THRESHOLD" };
 
     public static Weapon ToWeaponId(this int self)
     {
@@ -73,18 +76,32 @@ public static class MHRiseUtils
             .ToArray();
     }
 
-    public static float ReadEncryptedFloat(this IMemory memory, long encryptedFloatPtr)
-    {
-        MHRCryptoFloatStructure structure = memory.Read<MHRCryptoFloatStructure>(encryptedFloatPtr + 0x14);
-
-        return MHRCrypto.DecodeHealth(structure.GetValue(), structure.Key);
-    }
-
     public static T[] ReadArraySafe<T>(this IMemory memory, long address, uint size) where T : struct
     {
         uint arraySize = memory.Read<uint>(address + 0x1C);
         arraySize = Math.Min(size, arraySize);
         return memory.Read<T>(address + 0x20, arraySize);
+    }
+
+    public static IReadOnlyCollection<T> ReadListOfPtrsSafe<T>(this IMemory memory, long address, uint size)
+        where T : struct
+    {
+        return memory.ReadListSafe<long>(address, size)
+            .Select(memory.Read<T>)
+            .ToArray();
+    }
+
+    public static IReadOnlyCollection<T> ReadListSafe<T>(this IMemory memory, long address, uint size) where T : struct
+    {
+        uint listSize = memory.Read<uint>(address + 0x18);
+        listSize = Math.Min(listSize, size);
+        return memory.Read<T>(address + 0x20, listSize);
+    }
+
+    public static IReadOnlyCollection<T> ReadList<T>(this IMemory memory, long address) where T : struct
+    {
+        uint listSize = memory.Read<uint>(address + 0x18);
+        return memory.Read<T>(address + 0x20, listSize);
     }
 
     public static WirebugType ToType(this MHRWirebugCountStructure count, int index)
@@ -121,6 +138,48 @@ public static class MHRiseUtils
             >= 46.0f => PhialChargeLevel.Red,
             >= 30.0f => PhialChargeLevel.Yellow,
             _ => PhialChargeLevel.None,
+        };
+    }
+
+    public static QuestStatus ToQuestStatus(this QuestState state)
+    {
+        return state switch
+        {
+            QuestState.InQuest => QuestStatus.InProgress,
+            QuestState.Success => QuestStatus.Success,
+            QuestState.Failed => QuestStatus.Fail,
+            QuestState.Reset or QuestState.Returning => QuestStatus.Quit,
+            _ => QuestStatus.None
+        };
+    }
+
+    public static QuestLevel ToQuestLevel(this int level)
+    {
+        return level switch
+        {
+            2 => QuestLevel.HighRank,
+            3 => QuestLevel.MasterRank,
+            _ => QuestLevel.LowRank
+        };
+    }
+
+    public static bool IsQuestOver(this QuestState state)
+    {
+        return state is QuestState.Failed or QuestState.Reset or QuestState.Returning;
+    }
+
+    public static QuestType? ToQuestType(this QuestTypeRise type)
+    {
+        return type switch
+        {
+            QuestTypeRise.Normal => QuestType.Hunt,
+            QuestTypeRise.Kill => QuestType.Slay,
+            QuestTypeRise.Capture => QuestType.Capture,
+            QuestTypeRise.Gather => QuestType.Delivery,
+            QuestTypeRise.Arena or
+            QuestTypeRise.Boss or
+            QuestTypeRise.Special => QuestType.Special,
+            _ => null
         };
     }
 }

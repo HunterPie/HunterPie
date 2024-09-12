@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Logger;
+﻿using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Logger;
 using System;
 using System.IO;
 using System.Linq;
@@ -107,6 +108,13 @@ public class Localization
         LocalizationAttribute? attribute = memberInfo.GetCustomAttribute<LocalizationAttribute>();
 
         return attribute is null ? enumValue.ToString()! : QueryString(attribute.XPath)!;
+    }
+
+    public static string? GetQuestNameBy(GameType game, int questId)
+    {
+        XmlNode? translation = Query($"//Strings/Quests/{game}/Quest[@Id='{questId}']");
+
+        return translation?.Attributes?["String"]?.Value;
     }
 }
 #nullable restore

@@ -1,27 +1,30 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.DTO;
 using HunterPie.Core.Domain.DTO.Monster;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Data;
-using HunterPie.Core.Game.Data.Schemas;
+using HunterPie.Core.Game.Data.Definitions;
+using HunterPie.Core.Game.Data.Repository;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Logger;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions.Monster;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 using System.Runtime.CompilerServices;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
 
-public class MHRMonster : CommonMonster
+public sealed class MHRMonster : CommonMonster
 {
+    private readonly MonsterDefinition _definition;
     private readonly long _address;
 
-    private int _id = -1;
+    private bool _isLoaded;
     private float _health = -1;
     private bool _isEnraged;
     private Target _target;
@@ -29,7 +32,7 @@ public class MHRMonster : CommonMonster
     private Crown _crown;
     private float _stamina;
     private float _captureThreshold;
-    private readonly MHRMonsterAilment _enrage = new("STATUS_ENRAGE");
+    private readonly MHRMonsterAilment _enrage = new(MonsterAilmentRepository.Enrage);
     private readonly MHRMonsterPart? _qurioThreshold;
     private readonly Dictionary<long, MHRMonsterPart> _parts = new();
     private readonly object _syncParts = new();
@@ -38,20 +41,7 @@ public class MHRMonster : CommonMonster
     private readonly List<Element> _weaknesses = new();
     private readonly List<string> _types = new();
 
-    public override int Id
-    {
-        get => _id;
-        protected set
-        {
-            if (_id != value)
-            {
-                _id = value;
-                GetMonsterTypes();
-                GetMonsterWeaknesses();
-                this.Dispatch(_onSpawn);
-            }
-        }
-    }
+    public override int Id { get; protected set; }
 
     public override string Name => MHRContext.Strings.GetMonsterNameById(Id);
 
@@ -186,36 +176,34 @@ public class MHRMonster : CommonMonster
     }
 
     public MonsterType MonsterType { get; private set; }
+
     public bool IsQurioActive { get; private set; }
 
-    public MHRMonster(IProcessManager process, long address) : base(process)
+    public MHRMonster(
+        IProcessManager process,
+        long address
+    ) : base(process)
     {
         _address = address;
+
+        Id = Memory.Read<int>(_address + 0x2D4);
+
+        _definition = MonsterRepository.FindBy(GameType.Rise, Id) ?? MonsterRepository.UnknownDefinition;
+
+        UpdateData();
         GetMonsterType();
 
         if (MonsterType == MonsterType.Qurio)
-            _qurioThreshold = new("PART_QURIO_THRESHOLD");
+            _qurioThreshold = new MHRMonsterPart(MHRiseUtils.QurioPartDefinition);
 
         Log.Debug($"Initialized monster at address {address:X}");
     }
 
-    private void GetMonsterTypes()
+    private void UpdateData()
     {
-        MonsterDataSchema? data = MonsterData.GetMonsterData(Id);
-
-        if (data is { } schema)
-            _types.AddRange(schema.Types);
-    }
-
-    private void GetMonsterWeaknesses()
-    {
-        MonsterDataSchema? data = MonsterData.GetMonsterData(Id);
-
-        if (data.HasValue)
-        {
-            _weaknesses.AddRange(data.Value.Weaknesses);
-            this.Dispatch(_onWeaknessesChange, Weaknesses);
-        }
+        _types.AddRange(_definition.Types);
+        _weaknesses.AddRange(_definition.Weaknesses);
+        this.Dispatch(_onWeaknessesChange, Weaknesses);
     }
 
     private void GetMonsterType()
@@ -249,16 +237,22 @@ public class MHRMonster : CommonMonster
     {
         HealthData dto = new();
 
-        long healthComponent = Process.Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_OFFSETS"));
-        long currentHealthPtr = Process.Memory.ReadPtr(healthComponent, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
+        long healthComponent = Memory.ReadPtr(_address, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_OFFSETS"));
+        long currentHealthPtr = Memory.ReadPtr(healthComponent, AddressMap.Get<int[]>("MONSTER_HEALTH_COMPONENT_ENCODED_OFFSETS"));
 
         dto.Health = Memory.Read<float>(currentHealthPtr + 0x18);
-        dto.MaxHealth = Process.Memory.Read<float>(healthComponent + 0x18);
+        dto.MaxHealth = Memory.Read<float>(healthComponent + 0x18);
+
+        long monsterStatusPtr = Memory.Read<long>(_address + 0x310);
+        var aliveStatus = (MonsterAliveStatus)Memory.Read<int>(monsterStatusPtr + 0x20);
 
         Next(ref dto);
 
         MaxHealth = dto.MaxHealth;
         Health = dto.Health;
+
+        if (aliveStatus == MonsterAliveStatus.Dead && Health > 0)
+            this.Dispatch(_onCapture, EventArgs.Empty);
     }
 
     [ScannableMethod]
@@ -270,8 +264,7 @@ public class MHRMonster : CommonMonster
             return;
         }
 
-        MonsterDataSchema? data = MonsterData.GetMonsterData(Id);
-        if (data is { IsNotCapturable: true })
+        if (_definition is { IsNotCapturable: true })
         {
             CaptureThreshold = 0.0f;
             return;
@@ -381,11 +374,12 @@ public class MHRMonster : CommonMonster
             {
                 if (!_parts.ContainsKey(flinchPart))
                 {
-                    string partName = MonsterData.GetMonsterPartData(Id, i)?.String ?? "PART_UNKNOWN";
-                    var dummy = new MHRMonsterPart(partName, partInfo);
+                    MonsterPartDefinition definition = _definition.Parts.Length > i ? _definition.Parts[i] : MonsterRepository.UnknownPartDefinition;
+
+                    var dummy = new MHRMonsterPart(definition, partInfo);
                     _parts.Add(flinchPart, dummy);
 
-                    Log.Debug($"Found {partName} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X} Qurio: {qurioPart:X}");
+                    Log.Debug($"Found {definition.String} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X} Qurio: {qurioPart:X}");
                     this.Dispatch(_onNewPartFound, dummy);
                 }
 
@@ -486,12 +480,7 @@ public class MHRMonster : CommonMonster
         MHRSizeStructure monsterSize = Process.Memory.Read<MHRSizeStructure>(monsterSizePtr + 0x24);
         float monsterSizeMultiplier = monsterSize.SizeMultiplier * monsterSize.UnkMultiplier;
 
-        MonsterSizeSchema? crownData = MonsterData.GetMonsterData(Id)?.Size;
-
-        if (crownData is null)
-            return;
-
-        MonsterSizeSchema crown = crownData.Value;
+        MonsterSizeDefinition crown = _definition.Size;
 
         Crown = monsterSizeMultiplier >= crown.Gold
             ? Crown.Gold
@@ -523,6 +512,17 @@ public class MHRMonster : CommonMonster
         Stamina = structure.Stamina;
     }
 
+    [ScannableMethod]
+    private void FinishScan()
+    {
+        if (_isLoaded)
+            return;
+
+        Log.Debug($"Initialized {Name} at address {_address:X} with id: {Id}");
+        _isLoaded = true;
+        this.Dispatch(_onSpawn, EventArgs.Empty);
+    }
+
     private void DerefAilmentsAndScan(long[] ailmentsPointers)
     {
         lock (_syncAilments)
@@ -538,11 +538,15 @@ public class MHRMonster : CommonMonster
 
                 if (!_ailments.ContainsKey(ailmentAddress))
                 {
-                    MHRMonsterAilment dummy = new(MonsterData.GetAilmentData(ailmentId).String);
+                    AilmentDefinition? ailmentDef = MonsterAilmentRepository.FindBy(GameType.Rise, ailmentId);
+
+                    if (ailmentDef is not { } definition)
+                        continue;
+
+                    MHRMonsterAilment dummy = new(definition);
                     _ailments.Add(ailmentAddress, dummy);
 
                     this.Dispatch(_onNewAilmentFound, dummy);
-                    //Log.Debug($"Found new ailment at {ailmentAddress:X08}");
                 }
 
                 var data = new MHRAilmentData

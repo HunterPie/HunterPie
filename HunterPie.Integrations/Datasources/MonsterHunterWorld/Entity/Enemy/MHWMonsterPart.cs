@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
@@ -91,20 +92,18 @@ public sealed class MHWMonsterPart :
     public override PartType Type { get; protected set; }
 
     public MHWMonsterPart(
-        string id,
-        bool isSeverable,
-        uint[] tenderizeIds
-    )
+        MonsterPartDefinition definition
+    ) : base(definition)
     {
-        Id = id;
+        Id = definition.String;
 
-        Type = isSeverable ? PartType.Severable : PartType.Flinch;
-        _tenderizeIds = tenderizeIds.ToHashSet();
+        Type = definition.IsSeverable ? PartType.Severable : PartType.Flinch;
+        _tenderizeIds = definition.TenderizeIds.ToHashSet();
     }
 
     public bool HasTenderizeId(uint id) => _tenderizeIds.Contains(id);
 
-    void IUpdatable<MHWMonsterPartStructure>.Update(MHWMonsterPartStructure data)
+    public void Update(MHWMonsterPartStructure data)
     {
         switch (Type)
         {
@@ -132,7 +131,7 @@ public sealed class MHWMonsterPart :
         Count = data.Counter;
     }
 
-    void IUpdatable<MHWTenderizeInfoStructure>.Update(MHWTenderizeInfoStructure data)
+    public void Update(MHWTenderizeInfoStructure data)
     {
         Tenderize = data.Duration;
         MaxTenderize = data.MaxDuration;

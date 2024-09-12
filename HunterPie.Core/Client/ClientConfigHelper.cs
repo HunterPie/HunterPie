@@ -14,7 +14,6 @@ public static class ClientConfigHelper
     {
         return game switch
         {
-            GameProcess.MonsterHunterRiseSunbreakDemo or
             GameProcess.MonsterHunterRise => ClientConfig.Config.Rise.Overlay,
 
             GameProcess.MonsterHunterWorld => ClientConfig.Config.World.Overlay,
@@ -43,7 +42,6 @@ public static class ClientConfigHelper
     {
         return game switch
         {
-            GameProcess.MonsterHunterRiseSunbreakDemo or
             GameProcess.MonsterHunterRise => ClientConfig.Config.Rise,
 
             GameProcess.MonsterHunterWorld => ClientConfig.Config.World,

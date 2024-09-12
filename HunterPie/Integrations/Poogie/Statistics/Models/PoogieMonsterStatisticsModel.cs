@@ -11,7 +11,8 @@ internal record PoogieMonsterStatisticsModel(
     [property: JsonProperty("crown")] Crown Crown,
     [property: JsonProperty("enrage")] PoogieMonsterStatusStatisticsModel Enrage,
     [property: JsonProperty("hunt_started_at")] DateTime? HuntStartedAt,
-    [property: JsonProperty("hunt_finished_at")] DateTime? HuntFinishedAt
+    [property: JsonProperty("hunt_finished_at")] DateTime? HuntFinishedAt,
+    [property: JsonProperty("hunt_type")] MonsterHuntType? HuntType
 )
 {
     public MonsterModel ToEntity() => new MonsterModel(
@@ -20,7 +21,8 @@ internal record PoogieMonsterStatisticsModel(
         Crown: Crown,
         Enrage: Enrage.ToEntity(),
         HuntStartedAt: HuntStartedAt,
-        HuntFinishedAt: HuntFinishedAt
+        HuntFinishedAt: HuntFinishedAt,
+        HuntType: HuntType
     );
 
     public static PoogieMonsterStatisticsModel From(MonsterModel model) =>
@@ -30,6 +32,7 @@ internal record PoogieMonsterStatisticsModel(
             Crown: model.Crown,
             Enrage: PoogieMonsterStatusStatisticsModel.From(model.Enrage),
             HuntStartedAt: model.HuntStartedAt,
-            HuntFinishedAt: model.HuntFinishedAt
+            HuntFinishedAt: model.HuntFinishedAt,
+            HuntType: model.HuntType
         );
 }

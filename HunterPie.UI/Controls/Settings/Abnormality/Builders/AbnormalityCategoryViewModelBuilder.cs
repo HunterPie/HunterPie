@@ -3,8 +3,8 @@ using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Mapper;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Game.Data.Schemas;
-using HunterPie.Core.Game.Services;
+using HunterPie.Core.Game.Data.Definitions;
+using HunterPie.Core.Game.Data.Repository;
 using HunterPie.UI.Controls.Settings.Abnormality.ViewModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,7 +32,7 @@ public static class AbnormalityCategoryViewModelBuilder
         if (gameType is null)
             return EmptyCached;
 
-        IEnumerable<IGrouping<string, AbnormalitySchema>> abnormalities = AbnormalityService.FindAllAbnormalitiesBy(gameType.Value);
+        IEnumerable<IGrouping<string, AbnormalityDefinition>> abnormalities = AbnormalityRepository.FindAllAbnormalitiesBy(gameType.Value);
 
         return abnormalities.Select(group =>
         {

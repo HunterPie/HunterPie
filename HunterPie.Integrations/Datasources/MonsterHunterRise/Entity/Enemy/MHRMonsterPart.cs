@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
@@ -104,14 +105,14 @@ public sealed class MHRMonsterPart : CommonPart, IUpdatable<MHRPartStructure>, I
         remove => _onQurioHealthChange.Unhook(value);
     }
 
-    public MHRMonsterPart(string id)
+    public MHRMonsterPart(MonsterPartDefinition definition) : base(definition)
     {
-        Id = id;
+        Id = definition.String;
     }
 
-    public MHRMonsterPart(string id, MHRPartStructure structure)
+    public MHRMonsterPart(MonsterPartDefinition definition, MHRPartStructure structure) : base(definition)
     {
-        Id = id;
+        Id = definition.String;
 
         GetCurrentType(structure);
     }

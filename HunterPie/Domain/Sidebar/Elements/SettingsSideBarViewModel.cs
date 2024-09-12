@@ -78,15 +78,13 @@ internal class SettingsSideBarViewModel : ViewModel, ISideBarViewModel
         var configurations = new Dictionary<GameProcess, ObservableCollection<ConfigurationCategory>>
         {
             { GameProcess.MonsterHunterRise, BuildConfiguration(commonConfig, ClientConfig.Config.Rise, GameProcess.MonsterHunterRise) },
-            { GameProcess.MonsterHunterWorld, BuildConfiguration(commonConfig, ClientConfig.Config.World, GameProcess.MonsterHunterWorld) },
-            { GameProcess.MonsterHunterRiseSunbreakDemo, BuildConfiguration(commonConfig, ClientConfig.Config.Rise, GameProcess.MonsterHunterRiseSunbreakDemo) }
+            { GameProcess.MonsterHunterWorld, BuildConfiguration(commonConfig, ClientConfig.Config.World, GameProcess.MonsterHunterWorld) }
         };
         var supportedConfigurations =
             new ObservableCollection<GameProcess>(new List<GameProcess>
             {
                 GameProcess.MonsterHunterRise,
-                GameProcess.MonsterHunterWorld,
-                GameProcess.MonsterHunterRiseSunbreakDemo
+                GameProcess.MonsterHunterWorld
             });
 
         return new SettingsViewModel(configurations, supportedConfigurations, game);

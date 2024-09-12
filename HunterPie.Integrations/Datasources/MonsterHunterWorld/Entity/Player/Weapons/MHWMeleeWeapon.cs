@@ -13,7 +13,7 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.We
 public class MHWMeleeWeapon : CommonMeleeWeapon
 {
     private readonly int[] _minimumSharpnessByLevel;
-    private readonly ISkillService _skillService;
+    protected readonly ISkillService _skillService;
     private int _weaponId;
     private Sharpness _sharpness = Sharpness.Red;
     private int _currentSharpness;
