@@ -5,9 +5,11 @@ using System.Globalization;
 using System.Windows.Data;
 
 namespace HunterPie.UI.Architecture.Converters;
+
+#nullable enable
 public class FertilizerToIconConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not Fertilizer fertilizer)
             throw new ArgumentException("value must be a Fertilizer");
@@ -23,7 +25,7 @@ public class FertilizerToIconConverter : IValueConverter
             Fertilizer.HoneyL => "ICON_FERTILIZER_HONEY_L",
             Fertilizer.GrowthS => "ICON_FERTILIZER_GROWTH_S",
             Fertilizer.GrowthL => "ICON_FERTILIZER_GROWTH_L",
-            _ => throw new ArgumentOutOfRangeException(nameof(value), value, null)
+            _ => null
         };
 
         return iconName is null ? "" : Resources.Icon(iconName);

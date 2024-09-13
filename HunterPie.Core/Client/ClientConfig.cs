@@ -8,7 +8,7 @@ public static class ClientConfig
 {
     public const string CONFIG_NAME = "config.json";
 
-    public static V3Config Config { get; } = new();
+    public static V4Config Config { get; } = new();
 
     internal static void Initialize()
     {

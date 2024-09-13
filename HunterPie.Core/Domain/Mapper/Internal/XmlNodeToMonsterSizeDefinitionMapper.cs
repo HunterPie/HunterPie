@@ -23,32 +23,35 @@ public class XmlNodeToMonsterSizeDefinitionMapper : IMapper<XmlNode, MonsterSize
         XmlNode? crownsNode = data.SelectSingleNode("Crowns");
 
         float.TryParse(
-            data.Attributes?["Size"]?.Value,
+            crownsNode?.Attributes?["Size"]?.Value,
             NumberStyles.Float,
             CultureInfo.InvariantCulture,
             out schema.Size
         );
 
-        float.TryParse(
-            crownsNode?.Attributes?["Mini"]?.Value,
-            NumberStyles.Float,
-            CultureInfo.InvariantCulture,
-            out schema.Mini
-        );
+        if (crownsNode?.Attributes?["Mini"]?.Value is { } mini)
+            float.TryParse(
+                mini,
+                NumberStyles.Float,
+                CultureInfo.InvariantCulture,
+                out schema.Mini
+            );
 
-        float.TryParse(
-            crownsNode?.Attributes?["Silver"]?.Value,
-            NumberStyles.Float,
-            CultureInfo.InvariantCulture,
-            out schema.Silver
-        );
+        if (crownsNode?.Attributes?["Silver"]?.Value is { } silver)
+            float.TryParse(
+                silver,
+                NumberStyles.Float,
+                CultureInfo.InvariantCulture,
+                out schema.Silver
+            );
 
-        float.TryParse(
-            crownsNode?.Attributes?["Gold"]?.Value,
-            NumberStyles.Float,
-            CultureInfo.InvariantCulture,
-            out schema.Gold
-        );
+        if (crownsNode?.Attributes?["Gold"]?.Value is { } gold)
+            float.TryParse(
+                gold,
+                NumberStyles.Float,
+                CultureInfo.InvariantCulture,
+                out schema.Gold
+            );
 
         return schema;
     }
