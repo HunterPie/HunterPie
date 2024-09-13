@@ -21,6 +21,7 @@ internal class ClientConfigMigrationInitializer : IInitializer
     {
         { 0, new V2SettingsMigrator() },
         { 1, new V3SettingsMigrator() },
+        { 2, new V4SettingsMigrator() }
     };
 
     public Task Init()
