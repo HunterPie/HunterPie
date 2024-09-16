@@ -43,6 +43,22 @@ public class ClockWidgetContextHandler : IContextHandler
         quest.OnTimeLeftChange += OnQuestTimeLeftChange;
     }
 
+    public void UnhookEvents()
+    {
+        WidgetManager.Unregister<ClockView, ClockWidgetConfig>(
+            widget: _view
+        );
+
+        _context.Game.OnQuestStart -= OnQuestStart;
+        _context.Game.OnQuestEnd -= OnQuestEnd;
+        _context.Game.OnWorldTimeChange -= OnWorldTimeChange;
+
+        if (_context.Game.Quest is not { } quest)
+            return;
+
+        quest.OnTimeLeftChange -= OnQuestTimeLeftChange;
+    }
+
     private void OnQuestEnd(object sender, QuestEndEventArgs e)
     {
         e.Quest.OnTimeLeftChange -= OnQuestTimeLeftChange;
@@ -55,18 +71,6 @@ public class ClockWidgetContextHandler : IContextHandler
         _viewModel.QuestTimeLeft = e.TimeLeft;
 
         e.OnTimeLeftChange += OnQuestTimeLeftChange;
-    }
-
-    public void UnhookEvents()
-    {
-        _context.Game.OnQuestStart -= OnQuestStart;
-        _context.Game.OnQuestEnd -= OnQuestEnd;
-        _context.Game.OnWorldTimeChange -= OnWorldTimeChange;
-
-        if (_context.Game.Quest is not { } quest)
-            return;
-
-        quest.OnTimeLeftChange -= OnQuestTimeLeftChange;
     }
 
     private void UpdateData()
