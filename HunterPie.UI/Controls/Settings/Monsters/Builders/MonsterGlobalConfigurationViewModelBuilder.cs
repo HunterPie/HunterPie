@@ -26,8 +26,10 @@ public static class MonsterGlobalConfigurationViewModelBuilder
 
         AilmentDefinition[] ailmentDefinitions = MonsterAilmentRepository.FindAllBy(gameType.Value);
 
+        PartGroupType[] allPartGroups = Enum.GetValues<PartGroupType>();
+
         return new MonsterGlobalConfigurationViewModel(
-            parts: partGroups.Select(it => new MonsterPartGroupViewModel(it, partGroups)
+            parts: allPartGroups.Select(it => new MonsterPartGroupViewModel(it, partGroups)
             {
                 IsEnabled = partGroups.Contains(it)
             }).ToObservableCollection(),
