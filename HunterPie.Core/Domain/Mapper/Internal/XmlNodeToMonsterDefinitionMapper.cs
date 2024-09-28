@@ -16,6 +16,7 @@ public class XmlNodeToMonsterDefinitionMapper : IMapper<XmlNode, MonsterDefiniti
             .Cast<XmlNode>()
             .Select(MapFactory.Map<XmlNode, MonsterPartDefinition>)
             .ToArray() ?? Array.Empty<MonsterPartDefinition>();
+
         MonsterSizeDefinition size = MapFactory.Map<XmlNode, MonsterSizeDefinition>(data);
         Element[] elements = GetMonsterElements(data);
         string[] types = GetMonsterTypes(data);
