@@ -34,20 +34,30 @@ public static class MonsterPartsViewModelBuilder
             .Select(it =>
             {
                 MonsterConfiguration? configuration = monsterConfigurations.GetValueOrDefault(it.Id);
-                var partConfigurations = configuration?.Parts.ToDictionary(part => part.Id);
+                var partConfigurations = configuration?.Parts.DistinctBy(it => it.Id)
+                                                                                           .ToDictionary(part => part.Id);
                 var ailmentConfigurations = configuration?.Ailments.ToDictionary(ailment => ailment.Id);
 
                 IEnumerable<MonsterPartConfiguration> parts = it.Parts.Select(part =>
                 {
                     MonsterPartConfiguration? partConfiguration = partConfigurations?.GetValueOrDefault(part.Id);
 
-                    return new MonsterPartConfiguration
+                    var newPartConfig = new MonsterPartConfiguration
                     {
                         Id = part.Id,
                         StringId = part.String,
                         IsEnabled = partConfiguration?.IsEnabled ?? new Observable<bool>(true)
                     };
+
+                    // We need to inject a new configuration if a monster is already being overriden
+                    // and we don't have a part configuration
+                    if (partConfiguration is not { } && configuration is { })
+                        configuration.Parts.Add(newPartConfig);
+
+
+                    return newPartConfig;
                 });
+
                 IEnumerable<MonsterAilmentConfiguration> ailments = ailmentDefinitions.Select(ailment =>
                 {
                     MonsterAilmentConfiguration? ailmentConfiguration =

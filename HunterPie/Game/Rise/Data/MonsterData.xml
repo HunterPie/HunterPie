@@ -1123,7 +1123,6 @@
                 <Part Id="5" String="PART_H_LEG" />
                 <Part Id="6" String="PART_R_CUTWING" />
                 <Part Id="7" String="PART_H_LEG" />
-                <Part Id="7" String="PART_H_LEG" />
             </Parts>
         </Monster>
         <Monster Id="82"
