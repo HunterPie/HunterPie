@@ -7,6 +7,7 @@ using HunterPie.Domain.Interfaces;
 using HunterPie.Features.Account;
 using HunterPie.Features.Account.Config;
 using HunterPie.Features.Statistics.Models;
+using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.Integrations.Poogie.Statistics;
 using HunterPie.Integrations.Poogie.Statistics.Models;
 using System;
@@ -54,7 +55,10 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
         HuntStatisticsModel exported = _statisticsService.Export();
 
         if (e.Status != QuestStatus.Success || !ShouldUpload(exported))
+        {
+            Log.Debug("Quest not uploaded (status: {0}, monsters: {1})", e.Status, exported.Monsters.Count);
             return;
+        }
 
         DateTime questFinishedAt = exported.StartedAt.Add(e.TimeElapsed);
         string newHash = await GenerateUniqueHashAsync(questFinishedAt, exported.Hash);
@@ -67,21 +71,32 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
 
         var exportedRequest = PoogieQuestStatisticsModel.From(exported);
 
-        await _connector.Upload(exportedRequest)
+        PoogieResult<PoogieQuestStatisticsModel> result = await _connector.Upload(exportedRequest)
             .ConfigureAwait(false);
+
+        if (result.Error is not { })
+            Log.Debug("Quest uploaded successfully");
 
         _statisticsService.Dispose();
     }
 
     private void OnQuestStart(object? sender, IQuest e)
     {
-        Log.Debug("Quest started (id: {0}, type: {1})", e.Id, e.Type);
-
         if (_context is null)
             return;
 
-        if (e.Type is not QuestType.Hunt or QuestType.Slay or QuestType.Capture)
+        bool shouldIgnore = e.Type switch
+        {
+            QuestType.Hunt
+                or QuestType.Slay
+                or QuestType.Capture => false,
+            _ => true
+        };
+
+        if (shouldIgnore)
             return;
+
+        Log.Debug("Quest started (id: {0}, type: {1})", e.Id, e.Type);
 
         _statisticsService?.Dispose();
         _statisticsService = new HuntStatisticsService(_context);
