@@ -76,6 +76,9 @@ public class QuestStatisticsSummariesViewModel : ViewModel
 
     public async void FetchQuests()
     {
+        if (IsFetchingQuests)
+            return;
+
         UserAccount? account = await AccountManager.FetchAccount();
 
         if (account is not { })
