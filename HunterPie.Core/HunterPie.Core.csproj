@@ -4,8 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Authors>Haato</Authors>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.11.0.128</AssemblyVersion>
-    <FileVersion>2.11.0.128</FileVersion>
+    <AssemblyVersion>2.11.0.129</AssemblyVersion>
+    <FileVersion>2.11.0.129</FileVersion>
     <LangVersion>11.0</LangVersion>
 	<Nullable>enable</Nullable>
   </PropertyGroup>
