@@ -30,7 +30,7 @@ HunterPie v2 is a version of HunterPie completely rewritten from scratch, howeve
 
 ### Requirements
 
-- [.NET Desktop Runtime 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-6.0.7-windows-x64-installer)
+- [.NET Desktop Runtime 8.0](https://dotnet.microsoft.com/pt-br/download/dotnet/thank-you/runtime-desktop-8.0.10-windows-x64-installer)
 
 ### Installation
 
@@ -51,6 +51,7 @@ HunterPie's official documentation can be found [here](https://docs.hunterpie.co
 - [Chat Widget](https://docs.hunterpie.com/posts/chat-widget/)
 - [Damage Meter Widget](https://docs.hunterpie.com/posts/damage-meter-widget/)
 - [Specialized Tool Widget](https://docs.hunterpie.com/posts/specialized-tools-widget/)
+- Clock Widget
 - Discord Rich Presence
 
 ## Suggestions & PRs
