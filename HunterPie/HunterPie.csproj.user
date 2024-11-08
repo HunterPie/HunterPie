@@ -54,6 +54,15 @@
     <Compile Update="GUI\Parts\Backup\Views\BackupsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UI\Home\HomeSideBarViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Home\Views\HomeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Home\Views\SupportedGameView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UI\Logging\Views\ConsoleView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -150,6 +159,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Backup\Views\BackupsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Home\Views\HomeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Home\Views\SupportedGameView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\Logging\Views\ConsoleView.xaml">
