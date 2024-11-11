@@ -29,6 +29,9 @@
     <Compile Update="Controls\Display\Carousel.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Display\Section.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Effects\CursorHightlight.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -299,6 +302,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Display\Carousel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Display\Section.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Effects\CursorHightLight.xaml">

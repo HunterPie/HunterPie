@@ -9,48 +9,70 @@
              xmlns:text="clr-namespace:HunterPie.UI.Controls.Text;assembly=HunterPie.UI"
              xmlns:display="clr-namespace:HunterPie.UI.Controls.Display;assembly=HunterPie.UI"
              mc:Ignorable="d" 
-             d:DesignHeight="450" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:HomeViewModel}">
     <viewer:SmoothScrollViewer>
         <StackPanel Margin="5">
-            <text:Title Text="Games"
-                        Foreground="{StaticResource WHITE_100}"
-                        Margin="0,0,0,5"/>
+            <display:Section Title="News">
+                <display:Carousel Height="250"
+                                  d:ItemsSource="{d:SampleData ItemCount=5}"
+                                  ItemsSource="{Binding News}">
+                    <display:Carousel.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding .}"
+                                   Stretch="UniformToFill"/>
+                        </DataTemplate>
+                    </display:Carousel.ItemTemplate>
+                </display:Carousel>
+            </display:Section>
 
-            <ItemsControl ItemsSource="{Binding SupportedGames, Mode=OneTime}"
-                          d:ItemsSource="{d:SampleData ItemCount=5}">
-                <ItemsControl.Template>
-                    <ControlTemplate>
-                        <viewer:SmoothScrollViewer>
-                            <StackPanel Orientation="Horizontal"
-                                        IsItemsHost="True"/>
-                        </viewer:SmoothScrollViewer>
-                    </ControlTemplate>
-                </ItemsControl.Template>
+            <!-- Games section -->
+            <display:Section Title="Games">
+                <ItemsControl ItemsSource="{Binding SupportedGames, Mode=OneTime}"
+                              d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ItemsControl.Template>
+                        <ControlTemplate>
+                            <viewer:SmoothScrollViewer VerticalScrollBarVisibility="Disabled"
+                                                       HorizontalScrollBarVisibility="Auto"
+                                                       IsHorizontal="True">
+                                <StackPanel Orientation="Horizontal"
+                                            IsItemsHost="True"/>
+                            </viewer:SmoothScrollViewer>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="0,0,3,0">
-                            <local:SupportedGameView />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,0,3,0">
+                                <local:SupportedGameView />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </display:Section>
 
-            <text:Title Text="News"
-                        Foreground="{StaticResource WHITE_100}"
-                        Margin="0,10,0,5"/>
-            <display:Carousel Height="400"
-                              d:ItemsSource="{d:SampleData ItemCount=5}"
-                              ItemsSource="{Binding News}">
-                <display:Carousel.ItemTemplate>
-                    <DataTemplate>
-                        <Image Source="{Binding .}"
-                               Stretch="UniformToFill"/>
-                    </DataTemplate>
-                </display:Carousel.ItemTemplate>
-            </display:Carousel>
+            <display:Section Title="Quick Access">
+                <ItemsControl ItemsSource="{Binding SupportedGames, Mode=OneTime}"
+                              d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ItemsControl.Template>
+                        <ControlTemplate>
+                            <viewer:SmoothScrollViewer VerticalScrollBarVisibility="Disabled"
+                                                       HorizontalScrollBarVisibility="Auto"
+                                                       IsHorizontal="True">
+                                <StackPanel Orientation="Horizontal"
+                                            IsItemsHost="True"/>
+                            </viewer:SmoothScrollViewer>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:HomeCallToActionView Margin="0,0,3,0"
+                                                        Height="30"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </display:Section>
         </StackPanel>
     </viewer:SmoothScrollViewer>
 </UserControl>

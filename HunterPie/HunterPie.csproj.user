@@ -57,6 +57,12 @@
     <Compile Update="UI\Home\HomeSideBarViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UI\Home\ViewModels\HomeCallToActionViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Home\Views\HomeCallToActionView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UI\Home\Views\HomeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -159,6 +165,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Backup\Views\BackupsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Home\Views\HomeCallToActionView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\Home\Views\HomeView.xaml">

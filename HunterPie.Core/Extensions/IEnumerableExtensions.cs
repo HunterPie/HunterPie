@@ -76,4 +76,18 @@ public static class IEnumerableExtensions
             .Concat(array.Skip(skip)
                 .Take(array.Length));
     }
+
+    public static int Count(this IEnumerable enumerable)
+    {
+        if (enumerable is ICollection collection)
+            return collection.Count;
+
+        int count = 0;
+        IEnumerator enumerator = enumerable.GetEnumerator();
+
+        while (enumerator.MoveNext())
+            count++;
+
+        return count;
+    }
 }
