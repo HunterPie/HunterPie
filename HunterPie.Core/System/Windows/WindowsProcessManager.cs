@@ -5,6 +5,7 @@ using HunterPie.Core.Domain.Memory;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Events;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Events;
 using HunterPie.Core.Logger;
 using HunterPie.Core.System.Windows.Memory;
 using HunterPie.Core.System.Windows.Native;
@@ -32,6 +33,7 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
     public event EventHandler<ProcessEventArgs>? OnGameClosed;
     public event EventHandler<ProcessEventArgs>? OnGameFocus;
     public event EventHandler<ProcessEventArgs>? OnGameUnfocus;
+    public event EventHandler<SimpleValueChangeEventArgs<ProcessStatus>>? OnProcessStatusChange;
 
     public abstract string Name { get; }
     public abstract GameProcess Game { get; }

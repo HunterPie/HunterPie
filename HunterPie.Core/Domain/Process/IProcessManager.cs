@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Memory;
 using HunterPie.Core.Events;
+using HunterPie.Core.Game.Events;
 using System;
 using SystemProcess = System.Diagnostics.Process;
 
@@ -19,6 +20,7 @@ public interface IProcessManager
     public event EventHandler<ProcessEventArgs> OnGameClosed;
     public event EventHandler<ProcessEventArgs> OnGameFocus;
     public event EventHandler<ProcessEventArgs> OnGameUnfocus;
+    public event EventHandler<SimpleValueChangeEventArgs<ProcessStatus>> OnProcessStatusChange;
 
     public IMemory Memory { get; }
 

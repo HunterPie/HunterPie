@@ -74,12 +74,18 @@ public partial class Carousel : UserControl
         if (d is not Carousel carousel)
             return;
 
+        if (carousel.ItemsSource is null)
+            return;
+
         carousel.Item = carousel.ItemsSource[0];
     }
 
     private static void OnSelectedItemChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is not Carousel carousel)
+            return;
+
+        if (carousel.ItemsSource is null)
             return;
 
         carousel.Item = carousel.ItemsSource[carousel.SelectedItem];

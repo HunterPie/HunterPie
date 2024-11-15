@@ -8,13 +8,36 @@
              xmlns:viewModels="clr-namespace:HunterPie.UI.Home.ViewModels"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
              xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes;assembly=HunterPie.UI"
+             xmlns:process="clr-namespace:HunterPie.Core.Domain.Process;assembly=HunterPie.Core"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:SupportedGameViewModel}"
              Width="200"
              Height="80">
     <UserControl.Resources>
         <converters:BorderClipConverter x:Key="BorderClipConverter"/>
-        <brushes:BrushToColorConverter x:Key="BrushToColorConverter"/>
+
+        <Style TargetType="Ellipse"
+               x:Key="StyleIndicatorLight">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Status, Mode=OneWay}"
+                             Value="{x:Static process:ProcessStatus.NotFound}">
+                    <Setter Property="Fill" Value="{StaticResource RED_200}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status, Mode=OneWay}"
+                             Value="{x:Static process:ProcessStatus.Waiting}">
+                    <Setter Property="Fill" Value="{StaticResource YELLOW_300}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status, Mode=OneWay}"
+                             Value="{x:Static process:ProcessStatus.Paused}">
+                    <Setter Property="Fill" Value="{StaticResource BLUE_LIGHT_200}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status, Mode=OneWay}"
+                             Value="{x:Static process:ProcessStatus.Hooked}">
+                    <Setter Property="Fill" Value="{StaticResource GREEN_200}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <buttons:Button Background="{StaticResource GRAY_300}"
                     HorizontalContentAlignment="Stretch"
@@ -25,13 +48,15 @@
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            <!-- Upper part -->
             <Border Grid.Row="0"
                     BorderThickness="1"
                     BorderBrush="{StaticResource GRAY}"
                     CornerRadius="5,5,0,0"
                     Background="{StaticResource GRAY_400}">
                 <Grid>
-                    <Image Source="https://www.monsterhunter.com/rise/assets/images/mv-am.jpg"
+                    <Image d:Source="https://cdn.hunterpie.com/resources/monster-hunter-world-banner.png"
+                           Source="{Binding Banner, Mode=OneWay}"
                            Stretch="UniformToFill"
                            RenderTransformOrigin="0.5,0.5">
                         <Image.RenderTransform>
@@ -41,8 +66,9 @@
                         <Image.OpacityMask>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                 <GradientStop Color="#FFFFFFFF" Offset="0"/>
-                                <GradientStop Color="#50FFFFFF" Offset="0.3"/>
-                                <GradientStop Color="Transparent" Offset="0.7"/>
+                                <GradientStop Color="#4BFFFFFF" Offset="0.54"/>
+                                <GradientStop Color="#11FFFFFF" Offset="0.70"/>
+                                <GradientStop Color="#05FFFFFF" Offset="1"/>
                             </LinearGradientBrush>
                         </Image.OpacityMask>
                         <Image.Clip>
@@ -54,7 +80,7 @@
                         </Image.Clip>
                         <Image.Effect>
                             <BlurEffect KernelType="Gaussian"
-                                        Radius="10"/>
+                                        Radius="5"/>
                         </Image.Effect>
 
                         <Image.Style>
@@ -94,7 +120,7 @@
                                                 <Storyboard>
                                                     <DoubleAnimation Duration="0:0:0.2"
                                                                      Storyboard.TargetProperty="Effect.Radius"
-                                                                     To="10">
+                                                                     To="5">
                                                         <DoubleAnimation.EasingFunction>
                                                             <QuadraticEase/>
                                                         </DoubleAnimation.EasingFunction>
@@ -122,7 +148,59 @@
                         </Image.Style>
                     </Image>
                     <Grid Margin="5">
-                        <TextBlock Text="Monster Hunter Rise"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="25"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" 
+                                   d:Text="Monster Hunter Rise"
+                                   Text="{Binding Name, Mode=OneWay}"
+                                   FontSize="14"
+                                   FontWeight="Normal"
+                                   Opacity="0"
+                                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                   Foreground="{StaticResource WHITE_100}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type buttons:Button}}}"
+                                                     Value="True">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation To="1"
+                                                                         Storyboard.TargetProperty="Opacity"
+                                                                         Duration="0:0:0.25"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation To="0"
+                                                                         Storyboard.TargetProperty="Opacity"
+                                                                         Duration="0:0:0.25"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+                        <buttons:Button Grid.Column="1"
+                                        VerticalContentAlignment="Stretch"
+                                        HorizontalContentAlignment="Stretch"
+                                        Padding="5"
+                                        VerticalAlignment="Top"
+                                        BorderBrush="{StaticResource GRAY}"
+                                        BorderThickness="1"
+                                        CornerRadius="5">
+                            <image:Icon Image="{StaticResource ICON_SETTINGS}"
+                                        Foreground="{StaticResource WHITE_500}"
+                                        Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"/>
+                        </buttons:Button>
                     </Grid>
                 </Grid>
             </Border>
@@ -137,21 +215,66 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Ellipse Grid.Column="0"
-                             Fill="{StaticResource YELLOW_300}"
-                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                             Margin="5">
-                        <Ellipse.Effect>
-                            <DropShadowEffect BlurRadius="10"
-                                              ShadowDepth="0"
-                                              Color="{Binding Fill, RelativeSource={RelativeSource AncestorType={x:Type Ellipse}}, Converter={StaticResource BrushToColorConverter}}"/>
-                        </Ellipse.Effect>
+
+                    <!-- Indicator -->
+                    <Ellipse Grid.Column="0" 
+                             Width="1"
+                             Height="1"
+                             RenderTransformOrigin="0.5, 0.5">
+                        <Ellipse.RenderTransform>
+                            <ScaleTransform ScaleX="1"
+                                            ScaleY="1"/>
+                        </Ellipse.RenderTransform>
+                        <Ellipse.Style>
+                            <Style TargetType="Ellipse"
+                                   BasedOn="{StaticResource StyleIndicatorLight}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsVisible, RelativeSource={RelativeSource Self}}"
+                                                 Value="True">
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard RepeatBehavior="Forever"
+                                                            Duration="0:0:2.5">
+                                                    <DoubleAnimation To="20"
+                                                                     Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                                     Duration="0:0:0.8">
+                                                        <DoubleAnimation.EasingFunction>
+                                                            <QuadraticEase EasingMode="EaseOut"/>
+                                                        </DoubleAnimation.EasingFunction>
+                                                    </DoubleAnimation>
+                                                    <DoubleAnimation To="20"
+                                                                     Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                                     Duration="0:0:0.8">
+                                                        <DoubleAnimation.EasingFunction>
+                                                            <QuadraticEase EasingMode="EaseOut"/>
+                                                        </DoubleAnimation.EasingFunction>
+                                                    </DoubleAnimation>
+                                                    <DoubleAnimation To="0"
+                                                                     Storyboard.TargetProperty="Opacity"
+                                                                     Duration="0:0:0.8">
+                                                        <DoubleAnimation.EasingFunction>
+                                                            <QuadraticEase EasingMode="EaseOut"/>
+                                                        </DoubleAnimation.EasingFunction>
+                                                    </DoubleAnimation>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.EnterActions>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Ellipse.Style>
                     </Ellipse>
+                    <Ellipse Grid.Column="0" 
+                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                             Margin="5"
+                             Style="{StaticResource StyleIndicatorLight}"/>
+                    
 
                     <TextBlock Grid.Column="1"
                                Text="Waiting for game..."
-                               FontSize="10"
+                               FontSize="11"
                                VerticalAlignment="Center"
+                               FontWeight="Medium"
                                Foreground="{StaticResource WHITE_700}"/>
                 </Grid>
             </Border>

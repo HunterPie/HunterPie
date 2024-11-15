@@ -8,8 +8,8 @@ namespace HunterPie.Core.System;
 
 public static class ProcessManager
 {
-    public static event EventHandler<ProcessManagerEventArgs> OnProcessFound;
-    public static event EventHandler<ProcessManagerEventArgs> OnProcessClosed;
+    public static event EventHandler<ProcessManagerEventArgs>? OnProcessFound;
+    public static event EventHandler<ProcessManagerEventArgs>? OnProcessClosed;
 
     public static GameProcess Game { get; private set; } = GameProcess.None;
 
@@ -32,39 +32,35 @@ public static class ProcessManager
 
     private static void OnGameClosedCallback(object sender, ProcessEventArgs e)
     {
-        if (sender is IProcessManager manager)
-        {
-            ResumeAllPollingThreads(manager);
-            Game = GameProcess.None;
-            OnProcessClosed?.Invoke(sender, new(manager, e.ProcessName));
-        }
+        if (sender is not IProcessManager manager)
+            return;
+
+        ResumeAllPollingThreads(manager);
+        Game = GameProcess.None;
+        OnProcessClosed?.Invoke(sender, new(manager, e.ProcessName));
     }
 
     private static void OnGameStartCallback(object sender, ProcessEventArgs e)
     {
-        if (sender is IProcessManager manager)
-        {
-            PauseAllPollingThreads(manager);
-            Game = manager.Game;
-            OnProcessFound?.Invoke(sender, new((IProcessManager)sender, e.ProcessName));
-        }
+        if (sender is not IProcessManager manager)
+            return;
+
+        PauseAllPollingThreads(manager);
+        Game = manager.Game;
+        OnProcessFound?.Invoke(manager, new(manager, e.ProcessName));
     }
 
     private static void PauseAllPollingThreads(IProcessManager activeManager)
     {
         foreach (IProcessManager manager in Managers)
-        {
             if (manager != activeManager)
                 manager.Pause();
-        }
     }
 
     private static void ResumeAllPollingThreads(IProcessManager activeManager)
     {
         foreach (IProcessManager manager in Managers)
-        {
             if (manager != activeManager)
                 manager.Resume();
-        }
     }
 }
