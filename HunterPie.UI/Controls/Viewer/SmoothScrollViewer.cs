@@ -30,6 +30,15 @@ public class SmoothScrollViewer : ScrollViewer
 
     protected override void OnMouseWheel(MouseWheelEventArgs e)
     {
+        double scrollableSize = IsHorizontal switch
+        {
+            true => ScrollableWidth,
+            _ => ScrollableHeight,
+        };
+
+        if (scrollableSize == 0.0)
+            return;
+
         e.Handled = true;
 
         double offset = IsHorizontal switch
@@ -37,11 +46,7 @@ public class SmoothScrollViewer : ScrollViewer
             true => HorizontalOffset,
             _ => VerticalOffset,
         };
-        double scrollableSize = IsHorizontal switch
-        {
-            true => ScrollableWidth,
-            _ => ScrollableHeight,
-        };
+
 
         if (!_isScrolling)
         {

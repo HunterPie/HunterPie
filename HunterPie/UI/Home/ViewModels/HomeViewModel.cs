@@ -7,11 +7,20 @@ internal class HomeViewModel : ViewModel
 {
     public ObservableCollection<SupportedGameViewModel> SupportedGames { get; }
 
-    public ObservableCollection<string> News { get; } = new()
+    public ObservableCollection<HomeNewsItemViewModel> News { get; } = new()
     {
-        "https://www.monsterhunter.com/rise/assets/images/mv-am.jpg",
-        "https://www.monsterhunter.com/rise/assets/images/mv-am.jpg",
-        "https://www.monsterhunter.com/rise/assets/images/mv-am.jpg"
+        new HomeNewsItemViewModel
+        {
+            Banner = "https://cdn.hunterpie.com/Static/update-2.11.0-banner.png",
+            Description = "Click here to read the patch notes",
+            Title = "Update v2.11.0"
+        },
+        new HomeNewsItemViewModel
+        {
+            Banner = "https://cdn.hunterpie.com/resources/patreon-banner.png",
+            Description = "Read more...",
+            Title = "Patreon"
+        }
     };
 
     public HomeViewModel(ObservableCollection<SupportedGameViewModel> supportedGames)

@@ -6,8 +6,6 @@
              xmlns:local="clr-namespace:HunterPie.UI.Home.Views"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Home.ViewModels"
-             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
-             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes;assembly=HunterPie.UI"
              xmlns:process="clr-namespace:HunterPie.Core.Domain.Process;assembly=HunterPie.Core"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
              mc:Ignorable="d"
@@ -15,7 +13,27 @@
              Width="200"
              Height="80">
     <UserControl.Resources>
-        <converters:BorderClipConverter x:Key="BorderClipConverter"/>
+        <Style TargetType="TextBlock"
+               x:Key="StyleIndicatorText">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Status, Mode=OneWay}"
+                             Value="{x:Static process:ProcessStatus.NotFound}">
+                    <Setter Property="Text" Value="Game not found"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status, Mode=OneWay}"
+                             Value="{x:Static process:ProcessStatus.Waiting}">
+                    <Setter Property="Text" Value="Waiting for game..."/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status, Mode=OneWay}"
+                             Value="{x:Static process:ProcessStatus.Paused}">
+                    <Setter Property="Text" Value="Another game is running"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status, Mode=OneWay}"
+                             Value="{x:Static process:ProcessStatus.Hooked}">
+                    <Setter Property="Text" Value="Running..."/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
 
         <Style TargetType="Ellipse"
                x:Key="StyleIndicatorLight">
@@ -26,7 +44,7 @@
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.Waiting}">
-                    <Setter Property="Fill" Value="{StaticResource YELLOW_300}"/>
+                    <Setter Property="Fill" Value="{StaticResource YELLOW_100}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.Paused}">
@@ -34,7 +52,7 @@
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.Hooked}">
-                    <Setter Property="Fill" Value="{StaticResource GREEN_200}"/>
+                    <Setter Property="Fill" Value="{StaticResource GREEN_LIGHT_100}"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -42,7 +60,8 @@
     <buttons:Button Background="{StaticResource GRAY_300}"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
-                    Padding="0">
+                    Padding="0"
+                    Click="OnRunGameClick">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
@@ -58,6 +77,7 @@
                     <Image d:Source="https://cdn.hunterpie.com/resources/monster-hunter-world-banner.png"
                            Source="{Binding Banner, Mode=OneWay}"
                            Stretch="UniformToFill"
+                           UseLayoutRounding="True"
                            RenderTransformOrigin="0.5,0.5">
                         <Image.RenderTransform>
                             <ScaleTransform ScaleX="1"
@@ -65,19 +85,12 @@
                         </Image.RenderTransform>
                         <Image.OpacityMask>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="#FFFFFFFF" Offset="0"/>
-                                <GradientStop Color="#4BFFFFFF" Offset="0.54"/>
-                                <GradientStop Color="#11FFFFFF" Offset="0.70"/>
-                                <GradientStop Color="#05FFFFFF" Offset="1"/>
+                                <GradientStop Color="#FF000000" Offset="0"/>
+                                <GradientStop Color="#4B000000" Offset="0.54"/>
+                                <GradientStop Color="#11000000" Offset="0.70"/>
+                                <GradientStop Color="#05000000" Offset="1"/>
                             </LinearGradientBrush>
                         </Image.OpacityMask>
-                        <Image.Clip>
-                            <MultiBinding Converter="{StaticResource BorderClipConverter}">
-                                <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType={x:Type Grid}}"/>
-                                <Binding Path="ActualHeight" RelativeSource="{RelativeSource AncestorType={x:Type Grid}}"/>
-                                <Binding Path="CornerRadius" RelativeSource="{RelativeSource AncestorType={x:Type buttons:Button}}"/>
-                            </MultiBinding>
-                        </Image.Clip>
                         <Image.Effect>
                             <BlurEffect KernelType="Gaussian"
                                         Radius="5"/>
@@ -189,6 +202,7 @@
                             </TextBlock.Style>
                         </TextBlock>
 
+                        <!-- Settings button -->
                         <buttons:Button Grid.Column="1"
                                         VerticalContentAlignment="Stretch"
                                         HorizontalContentAlignment="Stretch"
@@ -196,7 +210,8 @@
                                         VerticalAlignment="Top"
                                         BorderBrush="{StaticResource GRAY}"
                                         BorderThickness="1"
-                                        CornerRadius="5">
+                                        CornerRadius="5"
+                                        Click="OnSettingsClick">
                             <image:Icon Image="{StaticResource ICON_SETTINGS}"
                                         Foreground="{StaticResource WHITE_500}"
                                         Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"/>
@@ -271,11 +286,12 @@
                     
 
                     <TextBlock Grid.Column="1"
-                               Text="Waiting for game..."
+                               d:Text="Waiting for game..."
                                FontSize="11"
                                VerticalAlignment="Center"
                                FontWeight="Medium"
-                               Foreground="{StaticResource WHITE_700}"/>
+                               Foreground="{StaticResource WHITE_700}"
+                               Style="{StaticResource StyleIndicatorText}"/>
                 </Grid>
             </Border>
         </Grid>

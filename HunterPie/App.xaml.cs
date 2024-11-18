@@ -22,7 +22,7 @@ using HunterPie.Internal;
 using HunterPie.Internal.Exceptions;
 using HunterPie.Internal.Tray;
 using HunterPie.UI.Header.ViewModels;
-using HunterPie.UI.Logging.ViewModels;
+using HunterPie.UI.Home.ViewModels;
 using HunterPie.UI.Main;
 using HunterPie.UI.Main.ViewModels;
 using HunterPie.UI.Main.Views;
@@ -143,7 +143,7 @@ public partial class App : Application
         var mainBodyViewModel = new MainBodyViewModel(sideBarViewModel);
         var mainBodyNavigator = new MainBodyController(mainBodyViewModel);
         Navigator.SetNavigators(mainBodyNavigator, MainController);
-        Navigator.Body.Navigate<ConsoleViewModel>();
+        Navigator.Body.Navigate<HomeViewModel>();
         Navigator.App.Navigate(mainBodyViewModel);
 
         if (ClientConfig.Config.Client.EnableSeamlessStartup)

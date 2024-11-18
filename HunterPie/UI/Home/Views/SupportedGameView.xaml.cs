@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using SupportedGameViewModel = HunterPie.UI.Home.ViewModels.SupportedGameViewModel;
 
 namespace HunterPie.UI.Home.Views;
 /// <summary>
@@ -22,5 +11,24 @@ public partial class SupportedGameView : UserControl
     public SupportedGameView()
     {
         InitializeComponent();
+    }
+
+    private void OnSettingsClick(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not SupportedGameViewModel viewModel)
+            return;
+
+        e.Handled = true;
+
+        viewModel.OnSettings?.Invoke();
+    }
+
+    private void OnRunGameClick(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not SupportedGameViewModel viewModel)
+            return;
+
+        e.Handled = true;
+        //viewModel.Execute?.Invoke();
     }
 }

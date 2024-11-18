@@ -59,7 +59,7 @@ public partial class Carousel : UserControl
     {
         int nextSlide = SelectedItem - 1;
 
-        SelectedItem = nextSlide >= 0 ? nextSlide : ItemsSource.Count();
+        SelectedItem = nextSlide >= 0 ? nextSlide : ItemsSource.Count() - 1;
     }
 
     private void OnNextClick(object sender, RoutedEventArgs e)

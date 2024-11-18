@@ -13,13 +13,14 @@
              d:DataContext="{d:DesignInstance viewModels:HomeViewModel}">
     <viewer:SmoothScrollViewer>
         <StackPanel Margin="5">
-            <display:Section Title="News">
-                <display:Carousel Height="250"
-                                  d:ItemsSource="{d:SampleData ItemCount=5}"
-                                  ItemsSource="{Binding News}">
+            <display:Section Title="News"
+                             Visibility="Collapsed">
+                <display:Carousel d:ItemsSource="{d:SampleData ItemCount=5}"
+                                  ItemsSource="{Binding News, Mode=OneWay}"
+                                  d:Height="200">
                     <display:Carousel.ItemTemplate>
-                        <DataTemplate>
-                            <Image Source="{Binding .}"
+                        <DataTemplate DataType="{x:Type viewModels:HomeNewsItemViewModel}">
+                            <Image Source="{Binding Banner, Mode=OneWay}"
                                    Stretch="UniformToFill"/>
                         </DataTemplate>
                     </display:Carousel.ItemTemplate>

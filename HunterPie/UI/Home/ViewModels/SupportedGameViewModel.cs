@@ -20,4 +20,7 @@ internal class SupportedGameViewModel : ViewModel
 
     private Action? _execute;
     public Action? Execute { get => _execute; set => SetValue(ref _execute, value); }
+
+    private Action? _onSettings;
+    public Action? OnSettings { get => _onSettings; set => SetValue(ref _onSettings, value); }
 }
