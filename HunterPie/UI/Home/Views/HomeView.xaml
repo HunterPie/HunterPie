@@ -13,15 +13,28 @@
              d:DataContext="{d:DesignInstance viewModels:HomeViewModel}">
     <viewer:SmoothScrollViewer>
         <StackPanel Margin="5">
-            <display:Section Title="News"
-                             Visibility="Collapsed">
+            <display:Section Title="News">
                 <display:Carousel d:ItemsSource="{d:SampleData ItemCount=5}"
                                   ItemsSource="{Binding News, Mode=OneWay}"
-                                  d:Height="200">
+                                  MaxHeight="200"
+                                  MaxWidth="1000">
                     <display:Carousel.ItemTemplate>
                         <DataTemplate DataType="{x:Type viewModels:HomeNewsItemViewModel}">
-                            <Image Source="{Binding Banner, Mode=OneWay}"
-                                   Stretch="UniformToFill"/>
+                            <Grid>
+                                <Image Source="{Binding Banner, Mode=OneWay}"
+                                       Stretch="UniformToFill" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       Opacity="0.5">
+                                    <Image.Effect>
+                                        <BlurEffect Radius="30"
+                                                    RenderingBias="Performance"/>
+                                    </Image.Effect>
+                                </Image>
+                                <Image Source="{Binding Banner, Mode=OneWay}"/>
+                                
+                            </Grid>
+                            
                         </DataTemplate>
                     </display:Carousel.ItemTemplate>
                 </display:Carousel>
@@ -53,7 +66,7 @@
             </display:Section>
 
             <display:Section Title="Quick Access">
-                <ItemsControl ItemsSource="{Binding SupportedGames, Mode=OneTime}"
+                <ItemsControl ItemsSource="{Binding QuickActions, Mode=OneTime}"
                               d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ItemsControl.Template>
                         <ControlTemplate>
@@ -61,15 +74,21 @@
                                                        HorizontalScrollBarVisibility="Auto"
                                                        IsHorizontal="True">
                                 <StackPanel Orientation="Horizontal"
-                                            IsItemsHost="True"/>
+                                           IsItemsHost="True"
+                                           Grid.IsSharedSizeScope="True"/>
                             </viewer:SmoothScrollViewer>
                         </ControlTemplate>
                     </ItemsControl.Template>
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <local:HomeCallToActionView Margin="0,0,3,0"
-                                                        Height="30"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition SharedSizeGroup="SharedGroup"/>
+                                </Grid.ColumnDefinitions>
+                                <local:HomeCallToActionView Margin="0,0,3,0"
+                                                            MaxWidth="200"/>
+                            </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

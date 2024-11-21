@@ -6,7 +6,7 @@ namespace HunterPie.Domain.Sidebar;
 internal static class SideBarProvider
 {
     public static ISideBarCollection SideBar = new SimpleSideBarBuilder()
-        .WithButton(new HomeSideBarViewModel(new HomeProvider()))
+        .WithButton(new HomeSideBarViewModel(new HomeService(), new HomeCallToActionsService()))
         .WithButton(new ConsoleSideBarViewModel())
         .WithButton(new SettingsSideBarViewModel())
         .WithButton(new PatchNotesSideBarViewModel())

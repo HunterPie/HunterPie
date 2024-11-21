@@ -9,7 +9,8 @@ namespace HunterPie.UI.Home;
 
 internal class HomeSideBarViewModel : ViewModel, ISideBarViewModel
 {
-    private readonly HomeProvider _provider;
+    private readonly HomeService _homeService;
+    private readonly HomeCallToActionsService _callToActionsService;
 
     public Type Type => typeof(HomeViewModel);
 
@@ -22,17 +23,22 @@ internal class HomeSideBarViewModel : ViewModel, ISideBarViewModel
     private bool _isSelected;
     public bool IsSelected { get => _isSelected; set => SetValue(ref _isSelected, value); }
 
-    public HomeSideBarViewModel(HomeProvider provider)
+    public HomeSideBarViewModel(
+        HomeService homeService,
+        HomeCallToActionsService callToActionsService)
     {
-        _provider = provider;
+        _homeService = homeService;
+        _callToActionsService = callToActionsService;
 
-        _provider.Subscribe();
+        _homeService.Subscribe();
     }
 
     public void Execute()
     {
-        ObservableCollection<SupportedGameViewModel> supportedGames = _provider.GetSupportedGameViewModels();
+        ObservableCollection<SupportedGameViewModel> supportedGames = _homeService.GetSupportedGameViewModels();
+        ObservableCollection<HomeCallToActionViewModel> quickActions = _callToActionsService.GetAll();
+        var homeViewModel = new HomeViewModel(supportedGames, quickActions);
 
-        Navigator.Body.Navigate(new HomeViewModel(supportedGames));
+        Navigator.Body.Navigate(homeViewModel);
     }
 }

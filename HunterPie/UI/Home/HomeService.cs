@@ -20,7 +20,7 @@ using System.Linq;
 
 namespace HunterPie.UI.Home;
 
-internal class HomeProvider
+internal class HomeService
 {
 
     private static readonly Dictionary<GameType, SupportedGameViewModel> SupportedGames = new()

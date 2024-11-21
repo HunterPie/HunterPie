@@ -29,6 +29,6 @@ public partial class SupportedGameView : UserControl
             return;
 
         e.Handled = true;
-        //viewModel.Execute?.Invoke();
+        viewModel.Execute?.Invoke();
     }
 }

@@ -7,10 +7,13 @@ using SystemProcess = System.Diagnostics.Process;
 
 namespace HunterPie.Core.Domain.Process;
 
+
+// TODO: Refactor this whole thing
 public interface IProcessManager
 {
     public SystemProcess Process { get; }
     public GameProcess Game { get; }
+    public ProcessStatus Status { get; }
 
     /// <summary>Whether the last process exit is a normal exit (rather than crash).</summary>
     /// <value><c>null</c> if the game has not ever started, or is currently running.</value>

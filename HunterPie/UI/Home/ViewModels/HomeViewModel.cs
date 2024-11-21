@@ -7,6 +7,8 @@ internal class HomeViewModel : ViewModel
 {
     public ObservableCollection<SupportedGameViewModel> SupportedGames { get; }
 
+    public ObservableCollection<HomeCallToActionViewModel> QuickActions { get; }
+
     public ObservableCollection<HomeNewsItemViewModel> News { get; } = new()
     {
         new HomeNewsItemViewModel
@@ -23,8 +25,12 @@ internal class HomeViewModel : ViewModel
         }
     };
 
-    public HomeViewModel(ObservableCollection<SupportedGameViewModel> supportedGames)
+    public HomeViewModel(
+        ObservableCollection<SupportedGameViewModel> supportedGames,
+        ObservableCollection<HomeCallToActionViewModel> quickActions
+    )
     {
         SupportedGames = supportedGames;
+        QuickActions = quickActions;
     }
 }

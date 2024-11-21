@@ -7,8 +7,8 @@
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Home.ViewModels"
-             mc:Ignorable="d" 
-             d:DesignHeight="40"
+             mc:Ignorable="d"
+             d:DesignWidth="200"
              d:DataContext="{d:DesignInstance viewModels:HomeCallToActionViewModel}">
     <buttons:Button Background="{StaticResource GRAY_200}"
                     BorderThickness="1"
@@ -19,21 +19,57 @@
                     Padding="0">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type local:HomeCallToActionView}}}"/>
+                <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-            <image:Icon Grid.Column="0"
-                        Margin="5"
-                        Image="{StaticResource ICON_ADD}"
-                        Foreground="{StaticResource WHITE_400}"/>
+            <image:Icon Grid.Row="0" 
+                        Grid.Column="0"
+                        Margin="8"
+                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                        Image="{Binding Icon, Mode=OneTime}"
+                        d:Image="{StaticResource ICON_ADD}"
+                        Foreground="{StaticResource WHITE_400}"
+                        HorizontalAlignment="Left"/>
 
-            <TextBlock Grid.Column="1"
-                       Text="Something"
+            <TextBlock Grid.Row="0" 
+                       Grid.Column="1"
+                       Text="{Binding Title, Mode=OneTime}"
                        VerticalAlignment="Center"
                        FontSize="14"
+                       FontWeight="Medium"
                        Foreground="{StaticResource WHITE_200}"
                        Margin="0,0,20,0"/>
+
+            <TextBlock Grid.Row="1"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Text="{Binding Description, Mode=OneTime}"
+                       d:Text="Join our Discord server for real-time assistance and support from our community."
+                       FontSize="13"
+                       TextWrapping="WrapWithOverflow"
+                       Foreground="{StaticResource WHITE_300}"
+                       Margin="10,5"/>
+
+            <StackPanel Grid.Column="0"
+                        Grid.ColumnSpan="2" 
+                        Grid.Row="2"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Right"
+                        Margin="10,10,5,10"
+                        Orientation="Horizontal">
+                <TextBlock Text="Go to"
+                           Foreground="{StaticResource WHITE_600}"/>
+                <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                            Image="{StaticResource ICON_CHEVRON_RIGHT}"
+                            Margin="2"
+                            Foreground="{StaticResource WHITE_600}"/>
+            </StackPanel>
         </Grid>
     </buttons:Button>
 </UserControl>

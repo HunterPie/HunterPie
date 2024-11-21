@@ -8,12 +8,14 @@ internal class HomeCallToActionViewModel : ViewModel
 {
     public ImageSource Icon { get; init; }
     public string Title { get; init; }
+    public string Description { get; init; }
     public Action Execute { get; init; }
 
-    public HomeCallToActionViewModel(ImageSource icon, string title, Action execute)
+    public HomeCallToActionViewModel(ImageSource icon, string title, Action execute, string description)
     {
         Icon = icon;
         Title = title;
         Execute = execute;
+        Description = description;
     }
 }
