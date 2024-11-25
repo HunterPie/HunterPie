@@ -6,6 +6,6 @@ internal class VerifyHunterPiePathUseCase
 {
 
     public static bool Invoke() => !ClientInfo.ClientPath.ToLowerInvariant()
-        .ContainsAny(new[] { "temp", "appdata" });
+        .ContainsAny(new[] { "temp", ".zip" });
 
 }
