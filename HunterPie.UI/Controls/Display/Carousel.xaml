@@ -7,12 +7,16 @@
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
-             d:DesignWidth="800">
+             d:DesignWidth="800"
+             Loaded="OnLoaded"
+             Unloaded="OnUnloaded">
     <UserControl.Resources>
-        <converters:BorderClipConverter x:Key="BorderClipConverter"/>
+        <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
 
+        <system:Double x:Key="One">1</system:Double>
         <Style x:Key="CarouselButton" 
                TargetType="{x:Type buttons:Button}">
             <Setter Property="Opacity" Value="0"/>
@@ -57,61 +61,79 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="40"/>
-        </Grid.ColumnDefinitions>
+    <Border BorderThickness="1"
+            BorderBrush="{StaticResource GRAY}"
+            CornerRadius="5"
+            Background="{StaticResource GRAY_200}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+            <Grid.OpacityMask>
+                <VisualBrush>
+                    <VisualBrush.Visual>
+                        <Border Background="Black"
+                                CornerRadius="5"
+                                Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type local:Carousel}}}"
+                                Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type local:Carousel}}}"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Grid.OpacityMask>
 
-        <!-- Content Display -->
-        <Border Grid.Column="0"
-                Grid.ColumnSpan="3"
-                BorderThickness="1"
-                BorderBrush="{StaticResource GRAY}"
-                CornerRadius="5"
-                Background="{StaticResource GRAY_200}"
-                ClipToBounds="True">
-            <ContentPresenter ContentTemplateSelector="{Binding ItemTemplateSelector, Mode=OneWay,RelativeSource={RelativeSource AncestorType={x:Type local:Carousel}}}"
+            <!-- Content Display -->
+            <ContentPresenter Grid.Column="0" 
+                              Grid.ColumnSpan="3" 
+                              ContentTemplateSelector="{Binding ItemTemplateSelector, Mode=OneWay,RelativeSource={RelativeSource AncestorType={x:Type local:Carousel}}}"
                               ContentTemplate="{Binding ItemTemplate, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:Carousel}}}"
-                              Content="{Binding Item, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:Carousel}}}">
-                <ContentPresenter.OpacityMask>
-                    <VisualBrush>
-                        <VisualBrush.Visual>
-                            <Border Background="Black"
-                                    BorderBrush="Transparent"
-                                    BorderThickness="1"
-                                    CornerRadius="5"
-                                    Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type local:Carousel}}}"
-                                    Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type local:Carousel}}}"/>
-                        </VisualBrush.Visual>
-                    </VisualBrush>
-                </ContentPresenter.OpacityMask>
-            </ContentPresenter>
-        </Border>
+                              Content="{Binding Item, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:Carousel}}}"/>
 
-        <!-- Previous button -->
-        <buttons:Button Grid.Column="0" 
-                        CornerRadius="0,5,5,0"
-                        BorderThickness="0,1,1,1"
-                        Style="{StaticResource CarouselButton}"
-                        Click="OnPreviousClick">
-            <image:Icon Foreground="{StaticResource WHITE_200}"
-                        Image="{StaticResource ICON_CHEVRON_LEFT}"
-                        Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                        Margin="5"/>
-        </buttons:Button>
+            <!-- Previous button -->
+            <buttons:Button Grid.Column="0" 
+                            CornerRadius="0,5,5,0"
+                            BorderThickness="0,1,1,1"
+                            Style="{StaticResource CarouselButton}"
+                            Click="OnPreviousClick">
+                <image:Icon Foreground="{StaticResource WHITE_200}"
+                            Image="{StaticResource ICON_CHEVRON_LEFT}"
+                            Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                            Margin="5"/>
+            </buttons:Button>
 
-        <!-- Next button -->
-        <buttons:Button Grid.Column="2" 
-                        CornerRadius="5,0,0,5"
-                        BorderThickness="1,1,0,1"
-                        Style="{StaticResource CarouselButton}"
-                        Click="OnNextClick">
-            <image:Icon Foreground="{StaticResource WHITE_200}"
-                        Image="{StaticResource ICON_CHEVRON_RIGHT}"
-                        Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                        Margin="5"/>
-        </buttons:Button>
-    </Grid>
+            <!-- Next button -->
+            <buttons:Button Grid.Column="2" 
+                            CornerRadius="5,0,0,5"
+                            BorderThickness="1,1,0,1"
+                            Style="{StaticResource CarouselButton}"
+                            Click="OnNextClick">
+                <image:Icon Foreground="{StaticResource WHITE_200}"
+                            Image="{StaticResource ICON_CHEVRON_RIGHT}"
+                            Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                            Margin="5"/>
+            </buttons:Button>
+
+            <!-- Progress bar -->
+            <Rectangle Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="3"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Left"
+                       Height="2"
+                       Width="1"
+                       Fill="{StaticResource HunterPie::Accent::Horizontal}">
+                <Rectangle.RenderTransform>
+                    <ScaleTransform d:ScaleX="500">
+                        <ScaleTransform.ScaleX>
+                            <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
+                                <Binding Path="ProgressPercentage" RelativeSource="{RelativeSource AncestorType={x:Type local:Carousel}}"/>
+                                <Binding Source="{StaticResource One}"/>
+                                <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType={x:Type Grid}}"/>
+                            </MultiBinding>
+                        </ScaleTransform.ScaleX>
+                    </ScaleTransform>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+        </Grid>
+    </Border>
 </UserControl>

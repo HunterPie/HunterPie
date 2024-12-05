@@ -11,7 +11,7 @@
     <StackPanel Orientation="Vertical"
                 Margin="0,5">
         <text:Title Text="{Binding Title, RelativeSource={RelativeSource AncestorType={x:Type local:Section}}}"
-                    Foreground="{StaticResource WHITE_100}"
+                    Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type local:Section}}}"
                     Margin="0,0,0,10"/>
 
         <ContentPresenter Content="{Binding Content, RelativeSource={RelativeSource AncestorType={x:Type local:Section}}}"/>
