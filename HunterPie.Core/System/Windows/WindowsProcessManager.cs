@@ -5,6 +5,7 @@ using HunterPie.Core.Domain.Memory;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Events;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Events;
 using HunterPie.Core.Logger;
 using HunterPie.Core.System.Windows.Memory;
 using HunterPie.Core.System.Windows.Native;
@@ -14,7 +15,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 
-#nullable enable
 namespace HunterPie.Core.System.Windows;
 
 internal abstract class WindowsProcessManager : IProcessManager, IEventDispatcher
@@ -27,11 +27,13 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
 
     private IMemory? _memory;
     private IntPtr pHandle;
+    private ProcessStatus _status = ProcessStatus.NotFound;
 
     public event EventHandler<ProcessEventArgs>? OnGameStart;
     public event EventHandler<ProcessEventArgs>? OnGameClosed;
     public event EventHandler<ProcessEventArgs>? OnGameFocus;
     public event EventHandler<ProcessEventArgs>? OnGameUnfocus;
+    public event EventHandler<SimpleValueChangeEventArgs<ProcessStatus>>? OnProcessStatusChange;
 
     public abstract string Name { get; }
     public abstract GameProcess Game { get; }
@@ -62,6 +64,20 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
                     new ProcessEventArgs(Name)
                 );
             }
+        }
+    }
+
+    public ProcessStatus Status
+    {
+        get => _status;
+        protected set
+        {
+            if (value == _status)
+                return;
+
+            ProcessStatus temp = _status;
+            _status = value;
+            this.Dispatch(OnProcessStatusChange, new SimpleValueChangeEventArgs<ProcessStatus>(temp, _status));
         }
     }
 
@@ -108,6 +124,8 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
             return;
         }
 
+        Status = ProcessStatus.Waiting;
+
         Process? mhProcess = Process.GetProcessesByName(Name)
             .FirstOrDefault(process => !string.IsNullOrEmpty(process.MainWindowTitle));
 
@@ -140,6 +158,7 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
             AddressMap.Add("BASE", (long)Process.MainModule.BaseAddress);
 
             this.Dispatch(OnGameStart, new(Name));
+            Status = ProcessStatus.Hooked;
         }
         catch (Exception ex)
         {
@@ -164,15 +183,23 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
         pHandle = IntPtr.Zero;
 
         this.Dispatch(OnGameClosed, new(Name));
+        Status = ProcessStatus.Waiting;
     }
 
-    public void Pause() => _shouldPauseThread = true;
+    public void Pause()
+    {
+        _shouldPauseThread = true;
+
+        if (Status != ProcessStatus.Hooked)
+            Status = ProcessStatus.Paused;
+    }
 
     public void Resume()
     {
         _shouldPauseThread = false;
         _pooler?.Interrupt();
+
+        Status = ProcessStatus.Waiting;
     }
 
 }
-#nullable restore
