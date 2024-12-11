@@ -32,7 +32,6 @@ internal class HomeService
                 Banner = "https://cdn.hunterpie.com/resources/monster-hunter-world-banner.png",
                 Execute = () => Steam.RunGameBy(GameType.World),
                 Name = Games.MONSTER_HUNTER_WORLD,
-                Status = ProcessStatus.Waiting,
                 OnSettings = BuildSettingsHandler(GameProcess.MonsterHunterWorld)
             }
         },
@@ -43,7 +42,6 @@ internal class HomeService
                     "https://cdn.hunterpie.com/resources/monster-hunter-rise-banner.png",
                 Execute = () => Steam.RunGameBy(GameType.Rise),
                 Name = Games.MONSTER_HUNTER_RISE,
-                Status = ProcessStatus.Waiting,
                 OnSettings = BuildSettingsHandler(GameProcess.MonsterHunterRise)
             }
         }
@@ -63,7 +61,14 @@ internal class HomeService
             if (supportedGame is not { })
                 continue;
 
-            manager.OnProcessStatusChange += (_, args) => supportedGame.Status = args.NewValue;
+            supportedGame.IsAvailable = manager.Status == ProcessStatus.Waiting;
+            supportedGame.Status = manager.Status;
+
+            manager.OnProcessStatusChange += (_, args) =>
+            {
+                supportedGame.IsAvailable = args.NewValue == ProcessStatus.Waiting;
+                supportedGame.Status = args.NewValue;
+            };
         }
     }
 

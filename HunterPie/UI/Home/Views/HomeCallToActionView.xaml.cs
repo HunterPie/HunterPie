@@ -1,28 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HunterPie.UI.Home.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace HunterPie.UI.Home.Views
+namespace HunterPie.UI.Home.Views;
+
+/// <summary>
+/// Interaction logic for HomeCallToActionView.xaml
+/// </summary>
+public partial class HomeCallToActionView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for HomeCallToActionView.xaml
-    /// </summary>
-    public partial class HomeCallToActionView : UserControl
+    public HomeCallToActionView()
     {
-        public HomeCallToActionView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
+
+    private void OnClick(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not HomeCallToActionViewModel vm)
+            return;
+
+        vm.Execute();
     }
 }

@@ -20,7 +20,8 @@
                     BorderThickness="1"
                     BorderBrush="{StaticResource GRAY}"
                     CornerRadius="5"
-                    Padding="5">
+                    Padding="5"
+                    Visibility="Collapsed">
                 <display:Section Title="News"
                                  Foreground="{StaticResource WHITE_100}">
                     <display:Carousel d:ItemsSource="{d:SampleData ItemCount=5}"

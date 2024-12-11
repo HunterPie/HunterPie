@@ -83,7 +83,7 @@
         <Style TargetType="{x:Type arch:ClickableControl}">
             <Style.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Opacity" Value="0.2"/>
+                    <Setter Property="Opacity" Value="0.7"/>
                     <Setter Property="Cursor" Value="Hand"/>
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="True">

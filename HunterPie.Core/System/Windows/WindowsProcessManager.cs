@@ -124,6 +124,8 @@ internal abstract class WindowsProcessManager : IProcessManager, IEventDispatche
             return;
         }
 
+        Status = ProcessStatus.Waiting;
+
         Process? mhProcess = Process.GetProcessesByName(Name)
             .FirstOrDefault(process => !string.IsNullOrEmpty(process.MainWindowTitle));
 

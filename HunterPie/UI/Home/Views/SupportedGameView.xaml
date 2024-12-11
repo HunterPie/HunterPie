@@ -8,6 +8,7 @@
              xmlns:viewModels="clr-namespace:HunterPie.UI.Home.ViewModels"
              xmlns:process="clr-namespace:HunterPie.Core.Domain.Process;assembly=HunterPie.Core"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+             xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:SupportedGameViewModel}"
              Width="200"
@@ -18,19 +19,19 @@
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.NotFound}">
-                    <Setter Property="Text" Value="Game not found"/>
+                    <Setter Property="Text" Value="{assets:LocalizationString '//Strings/Client/Home/GameStatus[@Id=&quot;NOT_FOUND&quot;]'}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.Waiting}">
-                    <Setter Property="Text" Value="Waiting for game..."/>
+                    <Setter Property="Text" Value="{assets:LocalizationString '//Strings/Client/Home/GameStatus[@Id=&quot;WAITING&quot;]'}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.Paused}">
-                    <Setter Property="Text" Value="Another game is running"/>
+                    <Setter Property="Text" Value="{assets:LocalizationString '//Strings/Client/Home/GameStatus[@Id=&quot;ANOTHER_RUNNING&quot;]'}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.Hooked}">
-                    <Setter Property="Text" Value="Running..."/>
+                    <Setter Property="Text" Value="{assets:LocalizationString '//Strings/Client/Home/GameStatus[@Id=&quot;RUNNING&quot;]'}"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -61,6 +62,7 @@
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
                     Padding="0"
+                    IsEnabled="{Binding IsAvailable, Mode=OneWay}"
                     Click="OnRunGameClick">
         <Grid>
             <Grid.RowDefinitions>
