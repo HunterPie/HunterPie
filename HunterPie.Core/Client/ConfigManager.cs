@@ -55,7 +55,7 @@ public class ConfigManager
 
     internal static void Initialize()
     {
-        Action<string> reloadSetting = (string path) => Reload(path);
+        Action<string> reloadSetting = Reload;
         Action<string> debounceReload = reloadSetting.Debounce(200);
 
         _fileSystemWatcher.Changed += (_, args) =>

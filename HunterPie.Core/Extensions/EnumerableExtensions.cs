@@ -7,7 +7,7 @@ using System.Linq;
 namespace HunterPie.Core.Extensions;
 
 #nullable enable
-public static class IEnumerableExtensions
+public static class EnumerableExtensions
 {
 
     public static IEnumerable<T> PrependNotNull<T>(this IEnumerable<T> enumerable, T? value) => value is not null ? enumerable.Prepend(value) : enumerable;
@@ -52,9 +52,16 @@ public static class IEnumerableExtensions
         return new ObservableCollection<T>(enumerable);
     }
 
-    public static IEnumerable<T> FilterNull<T>(this IEnumerable<T?> enumerable) =>
-        enumerable.Where(it => it is not null)
+    public static IEnumerable<T> FilterNull<T>(this IEnumerable<T?> enumerable)
+    {
+        static bool IsNotNull<TIn>(TIn? something)
+        {
+            return something is not null;
+        }
+
+        return enumerable.Where(IsNotNull)
             .Cast<T>();
+    }
 
     public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
     {
