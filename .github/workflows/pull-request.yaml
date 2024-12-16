@@ -29,8 +29,11 @@ jobs:
       with:
         dotnet-version: 8.0
     
+    - name: Build project
+      run: dotnet build HunterPie --nologo -v q --property WarningLevel=0 /clp:ErrorsOnly
+
     - name: Run unit tests
-      run: dotnet test
+      run: dotnet test *.Tests
 
     - name: Run formatter
-      run: dotnet format --verify-no-changes --exclue-diagnostics HAA0401 HAA0102
+      run: dotnet format --verify-no-changes
