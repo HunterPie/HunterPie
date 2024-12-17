@@ -1,0 +1,26 @@
+﻿namespace HunterPie.DI;
+
+public interface IDependencyRegistry
+{
+    /// <summary>
+    /// Retrieves an implementation from the dependency registry
+    /// </summary>
+    /// <typeparam name="T">Type of implementation</typeparam>
+    /// <returns>Implementation</returns>
+    public T Get<T>() where T : class;
+
+    /// <summary>
+    /// Retrieves an implementation from the dependency registry
+    /// </summary>
+    /// <param name="type">Type of implementation</param>
+    /// <returns>Implementation</returns>
+    public object Get(Type type);
+
+    public IDependencyRegistry WithService<TInterface, TImpl>() where TImpl : TInterface;
+    public IDependencyRegistry WithService<TImpl>() where TImpl : class;
+    public IDependencyRegistry WithService<T>(T impl) where T : class;
+
+    public IDependencyRegistry WithSingle<TInterface, TImpl>() where TImpl : TInterface;
+    public IDependencyRegistry WithSingle<TImpl>() where TImpl : class;
+    public IDependencyRegistry WithSingle<T>(T impl) where T : class;
+}

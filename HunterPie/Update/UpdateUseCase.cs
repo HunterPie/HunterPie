@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Update;
 
-#nullable enable
 internal static class UpdateUseCase
 {
     private const string JUST_UPDATED_KEY = "JustUpdated";

@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Account.Config;
 
-#nullable enable
 internal class RemoteAccountConfigService
 {
 

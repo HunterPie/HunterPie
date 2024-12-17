@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Core.Domain.Cache;
 
-#nullable enable
 /// <summary>
 /// A thread safe and asynchronous in-memory cache
 /// </summary>
@@ -41,7 +40,7 @@ public class InMemoryAsyncCache : IAsyncCache
         }
     }
 
-    public async Task Set<T>(string key, T value, CacheOptions? options = null)
+    public async Task Set<T>(string key, T value, CacheOptions? options = null) where T : notnull
     {
         options ??= CacheOptions.Default;
 

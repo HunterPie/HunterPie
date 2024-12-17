@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Logger;
+using HunterPie.DI;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Internal.Initializers;
 using System;
@@ -12,6 +13,7 @@ internal class InitializerManager
 {
     private static readonly HashSet<IInitializer> Initializers = new()
     {
+        new DependencyProvider(),
         new FileStreamLoggerInitializer(),
         new CustomFontsInitializer(),
         

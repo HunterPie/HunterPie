@@ -2,8 +2,8 @@
 using HunterPie.Features.Account.Event;
 using HunterPie.Features.Account.Model;
 using HunterPie.GUI.Parts.Account.ViewModels;
+using HunterPie.UI.Architecture.Extensions;
 using HunterPie.UI.Header.ViewModels;
-using HunterPie.UI.Logging.ViewModels;
 using HunterPie.UI.Navigation;
 using System;
 using System.Threading.Tasks;
@@ -12,15 +12,26 @@ namespace HunterPie.Features.Account.Controller;
 
 internal class AccountController
 {
-    private readonly AccountMenuViewModel _menuViewModel = new() { IsLoading = true };
+    private readonly IAccountUseCase _accountUseCase;
+    private readonly AccountMenuViewModel _menuViewModel;
     private static AccountPreferencesViewModel? _preferencesViewModel;
 
-    public AccountController()
+    public AccountController(
+        IAccountUseCase accountUseCase,
+        AccountMenuViewModel menuViewModel)
     {
-        AccountManager.OnSignIn += OnSignIn;
-        AccountManager.OnSessionStart += OnSessionStart;
-        AccountManager.OnSignOut += OnSignOut;
-        AccountManager.OnAvatarChange += OnAvatarChange;
+        _accountUseCase = accountUseCase;
+        _menuViewModel = menuViewModel.Apply(it => it.IsLoading = true);
+
+        Subscribe();
+    }
+
+    private void Subscribe()
+    {
+        _accountUseCase.SignIn += OnSignIn;
+        _accountUseCase.SessionStart += OnSessionStart;
+        _accountUseCase.SignOut += OnSignOut;
+        _accountUseCase.AvatarChange += OnAvatarChange;
     }
 
     private async void OnAvatarChange(object? sender, AccountAvatarEventArgs e)

@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Update;
 
-#nullable enable
 internal class UpdateService
 {
     private readonly UpdateApi _api = new();

@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Common;
-internal class PoogieConnector
+
+internal class PoogieConnector : IPoogieClient
 {
     public async Task<PoogieResult<T>> Get<T>(string path, Dictionary<string, object>? query = null)
     {
