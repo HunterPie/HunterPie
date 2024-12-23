@@ -16,7 +16,6 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Statistics;
 
-#nullable enable
 internal class QuestTrackerService : IContextInitializer, IDisposable
 {
     private IContext? _context;

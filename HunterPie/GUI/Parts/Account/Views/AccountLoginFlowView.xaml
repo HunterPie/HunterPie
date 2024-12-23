@@ -16,7 +16,8 @@
            mc:Ignorable="d" 
            d:DesignHeight="450" 
            d:DesignWidth="400"
-           PreviewKeyDown="OnPreviewKeyDown">
+           PreviewKeyDown="OnPreviewKeyDown" 
+           x:ClassModifier="internal">
     <UserControl.Resources>
         <converters:InvertBooleanConverter x:Key="InvertBooleanConverter"/>
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>

@@ -4,5 +4,5 @@ namespace HunterPie.Update;
 
 public interface IUpdateUseCase
 {
-    Task Invoke();
+    Task<bool> Invoke();
 }

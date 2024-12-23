@@ -11,42 +11,40 @@ namespace HunterPie.Internal;
 
 internal class InitializerManager
 {
-    private static readonly HashSet<IInitializer> Initializers = new()
+    private static readonly Type[] Initializers =
     {
-        new DependencyProvider(),
-        new FileStreamLoggerInitializer(),
-        new CustomFontsInitializer(),
+        typeof(FileStreamLoggerInitializer),
+        typeof(CustomFontsInitializer),
         
         // Core
-        new MapperFactoryInitializer(),
-        new CredentialVaultInitializer(),
-        new LocalConfigInitializer(),
+        typeof(MapperFactoryInitializer),
+        typeof(CredentialVaultInitializer),
+        typeof(LocalConfigInitializer),
         
         // Feature Flags
-        new FeatureFlagsInitializer(),
+        typeof(FeatureFlagsInitializer),
 
-        new NativeLoggerInitializer(),
-
+        typeof(NativeLoggerInitializer),
+        
         // Config
-        new RemoteConfigSyncInitializer(),
-        new ClientConfigMigrationInitializer(),
-        new ClientConfigInitializer(),
-        new ConfigManagerInitializer(),
+        typeof(RemoteConfigSyncInitializer),
+        typeof(ClientConfigMigrationInitializer),
+        typeof(ClientConfigInitializer),
+        typeof(ConfigManagerInitializer),
 
+        typeof(HunterPieLoggerInitializer),
+        typeof(CustomThemeInitializer),
 
-        new HunterPieLoggerInitializer(),
-        new CustomThemeInitializer(),
-
-        new ExceptionCatcherInitializer(),
-        new DialogManagerInitializer(),
-        new UITracerInitializer(),
-        new ClientLocalizationInitializer(),
-        new SystemTrayInitializer(),
-        new ClientConfigBindingsInitializer(),
+        typeof(ExceptionCatcherInitializer),
+        typeof(DialogManagerInitializer),
+        typeof(UITracerInitializer),
+        typeof(ClientLocalizationInitializer),
+        typeof(SystemTrayInitializer),
+        typeof(ClientConfigBindingsInitializer),
 
         // GUI
-        new NavigationTemplatesInitializer(),
-        new AppNotificationsInitializer(),
+        typeof(NavigationTemplatesInitializer),
+        typeof(AppNotificationsInitializer),
     };
 
     private static readonly HashSet<IInitializer> UiInitializers = new()
@@ -57,12 +55,18 @@ internal class InitializerManager
         new DebugWidgetInitializer(),
     };
 
-    public static async Task Initialize()
+    public static async Task InitializeAsync()
     {
         Log.Benchmark();
 
-        foreach (IInitializer initializer in Initializers)
+        foreach (Type initializerType in Initializers)
+        {
+            if (DependencyContainer.Get(initializerType) is not IInitializer initializer)
+                continue;
+
             await initializer.Init();
+
+        }
 
         Log.BenchmarkEnd();
     }
@@ -83,9 +87,13 @@ internal class InitializerManager
 
     public static void Unload()
     {
-        foreach (IInitializer initializer in Initializers)
-            if (initializer is IDisposable disposable)
-                disposable.Dispose();
+        foreach (Type initializerType in Initializers)
+        {
+            if (DependencyContainer.Get(initializerType) is not IDisposable disposable)
+                continue;
+
+            disposable.Dispose();
+        }
 
         foreach (IInitializer initializer in UiInitializers)
             if (initializer is IDisposable disposable)

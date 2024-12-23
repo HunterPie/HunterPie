@@ -8,11 +8,9 @@ using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Game;
 using HunterPie.Core.Logger;
 using HunterPie.Core.System;
+using HunterPie.DI;
 using HunterPie.Domain.Sidebar;
 using HunterPie.Features;
-using HunterPie.Features.Account;
-using HunterPie.Features.Account.Config;
-using HunterPie.Features.Account.Controller;
 using HunterPie.Features.Backups;
 using HunterPie.Features.Debug;
 using HunterPie.Features.Overlay;
@@ -21,6 +19,7 @@ using HunterPie.Integrations.Discord;
 using HunterPie.Internal;
 using HunterPie.Internal.Exceptions;
 using HunterPie.Internal.Tray;
+using HunterPie.UI.Architecture.Extensions;
 using HunterPie.UI.Header.ViewModels;
 using HunterPie.UI.Home.ViewModels;
 using HunterPie.UI.Main;
@@ -30,13 +29,11 @@ using HunterPie.UI.Navigation;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.SideBar.ViewModels;
 using HunterPie.Update;
-using HunterPie.Update.Presentation;
 using HunterPie.Usecases;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -50,12 +47,11 @@ namespace HunterPie;
 /// </summary>
 public partial class App : Application
 {
-    private static readonly RemoteAccountConfigService RemoteConfigService = new();
     private IProcessManager? _process;
     private RichPresence? _richPresence;
     private Context? _context;
-    private readonly AccountController _accountController = new();
 
+    private MainApplication? _mainApplication;
     internal static MainController? MainController { get; private set; }
     public static MainView? Ui => MainController?.View;
 
@@ -65,7 +61,9 @@ public partial class App : Application
 
         base.OnStartup(e);
 
-        await InitializerManager.Initialize();
+        DependencyProvider.LoadModules();
+        await InitializerManager.InitializeAsync();
+        _mainApplication = DependencyContainer.Get<MainApplication>();
 
         UpdateService.CleanupOldFiles();
 
@@ -86,7 +84,8 @@ public partial class App : Application
         InitializerManager.InitializeGUI();
         DebugWidgets.MockIfNeeded();
 
-        await AccountManager.ValidateSessionToken();
+        await _mainApplication.Start();
+        //await AccountManager.ValidateSessionToken();
 
         InitializeProcessScanners();
         SetUiThreadPriority();
@@ -128,13 +127,14 @@ public partial class App : Application
     private void InitializeMainView()
     {
         Log.Info("Initializing HunterPie client UI");
-        var headerViewModel = new HeaderViewModel(_accountController.GetAccountMenuViewModel())
-        {
-            IsAdmin = ClientInfo.IsAdmin,
-            Version = $"v{ClientInfo.Version}",
-        };
+        DependencyContainer.Get<HeaderViewModel>()
+            .Apply(it =>
+            {
+                it.IsAdmin = ClientInfo.IsAdmin;
+                it.Version = $"v{ClientInfo.Version}";
+            });
 
-        var viewModel = new MainViewModel(headerViewModel);
+        MainViewModel viewModel = DependencyContainer.Get<MainViewModel>();
         MainView view = Dispatcher.Invoke(() => new MainView { DataContext = viewModel });
         MainController = new MainController(view, viewModel);
 
@@ -165,7 +165,7 @@ public partial class App : Application
 
     private void SetUiThreadPriority() => Dispatcher.Thread.Priority = ThreadPriority.Highest;
 
-    private static async Task<bool> SelfUpdate()
+    /*private static async Task<bool> SelfUpdate()
     {
         if (!ClientConfig.Config.Client.EnableAutoUpdate)
             return false;
@@ -187,7 +187,7 @@ public partial class App : Application
         Restart();
 
         return result;
-    }
+    }*/
 
     private void InitializeProcessScanners()
     {
@@ -328,9 +328,10 @@ public partial class App : Application
     {
         Ui?.Dispatcher.InvokeAsync(() => Ui.Hide());
 
-        await RemoteConfigService.UploadClientConfig();
+        MainApplication mainApplication = DependencyContainer.Get<MainApplication>();
 
-        Process.Start(typeof(App).Assembly.Location.Replace(".dll", ".exe"));
+        await mainApplication.Restart();
+
         Current.Shutdown();
     }
 

@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace HunterPie.GUI.Parts.Account.ViewModels;
 
-#nullable enable
-public class AccountLoginFlowViewModel : ViewModel
+internal class AccountLoginFlowViewModel : ViewModel
 {
     private string _email = "";
     private string _password = "";
@@ -36,8 +35,20 @@ public class AccountLoginFlowViewModel : ViewModel
     }
     public bool IsLoggingIn { get => _isLoggingIn; set => SetValue(ref _isLoggingIn, value); }
     public bool CanLogIn { get => _canLogIn; set => SetValue(ref _canLogIn, value); }
-    public AccountPasswordResetFlowViewModel PasswordResetFlowViewModel { get; } = new();
-    public AccountVerificationResendFlowViewModel AccountVerificationResendFlowViewModel { get; } = new();
+
+    private readonly IAccountUseCase _accountUseCase;
+    public readonly AccountPasswordResetFlowViewModel PasswordResetFlowViewModel;
+    public readonly AccountVerificationResendFlowViewModel AccountVerificationResendFlowViewModel;
+
+    public AccountLoginFlowViewModel(
+        AccountPasswordResetFlowViewModel passwordResetFlowViewModel,
+        IAccountUseCase accountUseCase,
+        AccountVerificationResendFlowViewModel accountVerificationResendFlowViewModel)
+    {
+        PasswordResetFlowViewModel = passwordResetFlowViewModel;
+        _accountUseCase = accountUseCase;
+        AccountVerificationResendFlowViewModel = accountVerificationResendFlowViewModel;
+    }
 
     public async Task<bool> SignIn()
     {
@@ -52,7 +63,7 @@ public class AccountLoginFlowViewModel : ViewModel
             Email: Email,
             Password: Password
         );
-        PoogieResult<LoginResponse>? result = await AccountManager.Login(request);
+        PoogieResult<LoginResponse>? result = await _accountUseCase.LoginAsync(request);
 
         IsLoggingIn = false;
         CanLogIn = true;

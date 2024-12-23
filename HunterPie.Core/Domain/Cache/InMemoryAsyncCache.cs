@@ -49,11 +49,26 @@ public class InMemoryAsyncCache : IAsyncCache
             await _semaphore.WaitAsync();
 
             _innerCache[key] = new ThreadSafeCacheEntry(
-                ExpiresAt: DateTime.UtcNow + options.Ttl,
+                ExpiresAt: options.Ttl == TimeSpan.MaxValue
+                    ? DateTime.MaxValue
+                    : DateTime.UtcNow + options.Ttl,
                 Value: value
             );
         }
-        catch { }
+        finally
+        {
+            _semaphore.Release();
+        }
+    }
+
+    public async Task Clear(string key)
+    {
+        try
+        {
+            await _semaphore.WaitAsync();
+
+            _innerCache.Remove(key);
+        }
         finally
         {
             _semaphore.Release();

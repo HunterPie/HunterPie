@@ -8,9 +8,9 @@ using HunterPie.UI.Architecture;
 using System;
 
 namespace HunterPie.GUI.Parts.Account.ViewModels;
-public class AccountRegisterFlowViewModel : ViewModel
+internal class AccountRegisterFlowViewModel : ViewModel
 {
-    private readonly PoogieAccountConnector _accountConnector = new();
+    private readonly PoogieAccountConnector _accountConnector;
 
     private string _username = string.Empty;
     private string _email = string.Empty;
@@ -51,6 +51,11 @@ public class AccountRegisterFlowViewModel : ViewModel
     public bool CanRegister { get => _canRegister; set => SetValue(ref _canRegister, value); }
 
     public bool IsRegistering { get => _isRegistering; set => SetValue(ref _isRegistering, value); }
+
+    public AccountRegisterFlowViewModel(PoogieAccountConnector accountConnector)
+    {
+        _accountConnector = accountConnector;
+    }
 
     public async void SignUp()
     {

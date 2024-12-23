@@ -6,7 +6,7 @@ namespace HunterPie.GUI.Parts.Account.Views;
 /// <summary>
 /// Interaction logic for RequestAccountVerificationFlowView.xaml
 /// </summary>
-public partial class RequestAccountVerificationFlowView : View<AccountVerificationResendFlowViewModel>
+internal partial class RequestAccountVerificationFlowView : View<AccountVerificationResendFlowViewModel>
 {
     public RequestAccountVerificationFlowView()
     {

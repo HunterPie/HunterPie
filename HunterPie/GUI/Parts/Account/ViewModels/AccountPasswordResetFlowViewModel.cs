@@ -10,10 +10,9 @@ using System.Threading.Tasks;
 
 namespace HunterPie.GUI.Parts.Account.ViewModels;
 
-#nullable enable
-public class AccountPasswordResetFlowViewModel : ViewModel
+internal class AccountPasswordResetFlowViewModel : ViewModel
 {
-    private readonly PoogieAccountConnector _accountConnector = new();
+    private readonly PoogieAccountConnector _accountConnector;
 
     private bool _isRequestingCode;
     private bool _hasCodeBeenSent;
@@ -32,6 +31,11 @@ public class AccountPasswordResetFlowViewModel : ViewModel
     public string Email { get => _email; set => SetValueAndUpdateState(ref _email, value); }
     public string Code { get => _code; set => SetValueAndUpdateState(ref _code, value); }
     public string Password { get => _password; set => SetValueAndUpdateState(ref _password, value); }
+
+    public AccountPasswordResetFlowViewModel(PoogieAccountConnector accountConnector)
+    {
+        _accountConnector = accountConnector;
+    }
 
     public async Task RequestResetCodeAsync()
     {

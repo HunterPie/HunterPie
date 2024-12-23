@@ -234,6 +234,7 @@
     <Folder Include="Integrations\Poogie\Report\Models\" />
     <Folder Include="Integrations\Poogie\Supporter\Models\" />
     <Folder Include="UI\Main\ViewModels\" />
+    <Folder Include="Update\Usecase\" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

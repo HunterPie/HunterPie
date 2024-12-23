@@ -8,7 +8,7 @@ namespace HunterPie.GUI.Parts.Account.Views;
 /// <summary>
 /// Interaction logic for AccountLoginFlowView.xaml
 /// </summary>
-public partial class AccountLoginFlowView : View<AccountLoginFlowViewModel>
+internal partial class AccountLoginFlowView : View<AccountLoginFlowViewModel>
 {
     public AccountLoginFlowView()
     {

@@ -15,10 +15,11 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Account;
 
+[Obsolete("Use IAccountUseCase instead")]
 internal class AccountManager : IEventDispatcher
 {
     private UserAccount? _cachedAccount;
-    private readonly PoogieAccountConnector _accountConnector = new();
+    private readonly PoogieAccountConnector _accountConnector = null;
     private static readonly AccountManager Instance = new();
 
     public static event EventHandler<AccountLoginEventArgs>? OnSignIn;

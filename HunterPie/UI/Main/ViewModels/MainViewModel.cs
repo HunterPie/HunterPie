@@ -8,23 +8,24 @@ namespace HunterPie.UI.Main.ViewModels;
 
 internal class MainViewModel : ViewModel
 {
-    private readonly RemoteAccountConfigService _remoteConfigService = new();
+    private readonly IRemoteAccountConfigUseCase _remoteConfigService;
 
-    public HeaderViewModel HeaderViewModel { get; init; }
+    public HeaderViewModel HeaderViewModel { get; }
 
     private ViewModel? _contentViewModel;
     public ViewModel? ContentViewModel { get => _contentViewModel; set => SetValue(ref _contentViewModel, value); }
 
     public MainViewModel(
-        HeaderViewModel headerViewModel
-    )
+        HeaderViewModel headerViewModel,
+        IRemoteAccountConfigUseCase remoteConfigService)
     {
         HeaderViewModel = headerViewModel;
+        _remoteConfigService = remoteConfigService;
     }
 
     public async Task GracefulShutdown()
     {
         ConfigManager.SaveAll();
-        await _remoteConfigService.UploadClientConfig();
+        await _remoteConfigService.Upload();
     }
 }

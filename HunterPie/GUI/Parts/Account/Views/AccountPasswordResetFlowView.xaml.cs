@@ -7,7 +7,7 @@ namespace HunterPie.GUI.Parts.Account.Views;
 /// <summary>
 /// Interaction logic for AccountPasswordResetFlowView.xaml
 /// </summary>
-public partial class AccountPasswordResetFlowView : View<AccountPasswordResetFlowViewModel>
+internal partial class AccountPasswordResetFlowView : View<AccountPasswordResetFlowViewModel>
 {
     public AccountPasswordResetFlowView()
     {

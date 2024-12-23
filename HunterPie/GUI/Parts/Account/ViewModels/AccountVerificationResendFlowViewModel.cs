@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace HunterPie.GUI.Parts.Account.ViewModels;
 
-public class AccountVerificationResendFlowViewModel : ViewModel
+internal class AccountVerificationResendFlowViewModel : ViewModel
 {
-    private readonly PoogieAccountConnector _accountConnector = new();
+    private readonly PoogieAccountConnector _accountConnector;
 
     private bool _isRequestingVerification;
     private bool _canRequestVerification;
@@ -45,6 +45,11 @@ public class AccountVerificationResendFlowViewModel : ViewModel
             CanRequestVerification = _email.Length > 0;
             SetValue(ref _email, value);
         }
+    }
+
+    public AccountVerificationResendFlowViewModel(PoogieAccountConnector accountConnector)
+    {
+        _accountConnector = accountConnector;
     }
 
     public async Task RequestAccountVerification()

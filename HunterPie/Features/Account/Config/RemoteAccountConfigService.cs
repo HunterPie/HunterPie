@@ -9,21 +9,32 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Account.Config;
 
-internal class RemoteAccountConfigService
+internal class RemoteAccountConfigService : IRemoteAccountConfigUseCase
 {
+    private readonly IAccountUseCase _accountUseCase;
+    private readonly PoogieClientSettingsConnector _settingsConnector;
 
-    private readonly PoogieClientSettingsConnector _settingsConnector = new();
-
-    public async Task UploadClientConfig()
+    public RemoteAccountConfigService(
+        IAccountUseCase accountUseCase,
+        PoogieClientSettingsConnector settingsConnector
+    )
     {
-        if (!AccountManager.IsLoggedIn())
+        _accountUseCase = accountUseCase;
+        _settingsConnector = settingsConnector;
+    }
+
+    public async Task Upload()
+    {
+        if (!await _accountUseCase.IsValidSessionAsync())
             return;
 
         IAbstractHunterPieConfig config = ClientConfig.Config;
         string serializedConfig = JsonProvider.Serializer(config);
         string encodedConfig = Base64Service.Encode(serializedConfig);
 
-        PoogieResult<ClientSettingsResponse> result = await _settingsConnector.UploadClientSettings(new ClientSettingsRequest(encodedConfig));
+        PoogieResult<ClientSettingsResponse> result = await _settingsConnector.UploadClientSettings(
+            request: new ClientSettingsRequest(encodedConfig)
+        );
 
         if (result.Response is not { } response)
             return;
@@ -31,9 +42,9 @@ internal class RemoteAccountConfigService
         Log.Debug("Uploaded config with length {0}", response.Configuration.Length);
     }
 
-    public async Task FetchClientConfig()
+    public async Task Download()
     {
-        if (!AccountManager.IsLoggedIn())
+        if (!await _accountUseCase.IsValidSessionAsync())
             return;
 
         PoogieResult<ClientSettingsResponse> result = await _settingsConnector.GetClientSettings();
@@ -48,8 +59,8 @@ internal class RemoteAccountConfigService
         object config = JsonProvider.Deserializer(decodedConfig, ClientConfig.Config.GetType());
 
         ConfigHelper.WriteObject(
-            ConfigHelper.GetFullPath(ClientConfig.CONFIG_NAME),
-            config
+            path: ConfigHelper.GetFullPath(ClientConfig.CONFIG_NAME),
+            obj: config
         );
     }
 }

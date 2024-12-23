@@ -1,22 +1,22 @@
 ﻿using HunterPie.DI.Modules;
-using HunterPie.Domain.Interfaces;
-using System.Threading.Tasks;
+using HunterPie.DI.Registry;
 
 namespace HunterPie.DI;
 
-internal class DependencyProvider : IInitializer
+internal static class DependencyProvider
 {
-    public static readonly IDependencyRegistry Registry = DependencyRegistryBuilder.Create();
-
-    private readonly IDependencyModule[] _modules = {
+    private static readonly IDependencyModule[] Modules = {
+        new InitializersModule(),
         new HunterPieModule()
     };
 
-    public Task Init()
+    public static void LoadModules()
     {
-        foreach (IDependencyModule module in _modules)
-            module.Register(Registry);
+        DependencyRegistry registry = DependencyRegistryBuilder.Create();
 
-        return Task.CompletedTask;
+        foreach (IDependencyModule module in Modules)
+            module.Register(registry);
+
+        DependencyContainer.SetRegistry(registry.Build());
     }
 }

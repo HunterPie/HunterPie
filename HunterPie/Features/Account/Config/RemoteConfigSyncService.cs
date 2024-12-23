@@ -9,14 +9,14 @@ using Timer = System.Timers.Timer;
 namespace HunterPie.Features.Account.Config;
 internal class RemoteConfigSyncService
 {
-    private readonly RemoteAccountConfigService _remoteAccountConfigService;
+    private readonly IRemoteAccountConfigUseCase _remoteAccountConfigService;
     private readonly SemaphoreSlim _semaphore = new(1, 1);
     private readonly Timer _timer = new(1000) { AutoReset = true };
 
     private DateTime _lastSync = DateTime.Now;
     private DateTime _lastUpload = DateTime.Now;
 
-    public RemoteConfigSyncService(RemoteAccountConfigService remoteAccountConfigService)
+    public RemoteConfigSyncService(IRemoteAccountConfigUseCase remoteAccountConfigService)
     {
         _remoteAccountConfigService = remoteAccountConfigService;
     }
@@ -28,7 +28,7 @@ internal class RemoteConfigSyncService
         _timer.Start();
     }
 
-    private async void OnTimerTick(object sender, ElapsedEventArgs e)
+    private async void OnTimerTick(object? sender, ElapsedEventArgs e)
     {
         try
         {
@@ -39,7 +39,7 @@ internal class RemoteConfigSyncService
 
             _lastUpload = _lastSync;
 
-            await _remoteAccountConfigService.UploadClientConfig();
+            await _remoteAccountConfigService.Upload();
         }
         catch { }
         finally
@@ -48,7 +48,7 @@ internal class RemoteConfigSyncService
         }
     }
 
-    private async void OnConfigSync(object sender, ConfigSaveEventArgs e)
+    private async void OnConfigSync(object? sender, ConfigSaveEventArgs e)
     {
         try
         {

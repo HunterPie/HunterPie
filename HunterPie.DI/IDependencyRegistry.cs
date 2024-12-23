@@ -18,7 +18,6 @@ public interface IDependencyRegistry
 
     public IDependencyRegistry WithService<TInterface, TImpl>() where TImpl : TInterface;
     public IDependencyRegistry WithService<TImpl>() where TImpl : class;
-    public IDependencyRegistry WithService<T>(T impl) where T : class;
 
     public IDependencyRegistry WithSingle<TInterface, TImpl>() where TImpl : TInterface;
     public IDependencyRegistry WithSingle<TImpl>() where TImpl : class;
