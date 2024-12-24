@@ -5,8 +5,8 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.12.0.114</AssemblyVersion>
-    <FileVersion>2.12.0.114</FileVersion>
+    <AssemblyVersion>2.12.0.119</AssemblyVersion>
+    <FileVersion>2.12.0.119</FileVersion>
     <LangVersion>11.0</LangVersion>
     <Authors>Haato</Authors>
     <Version>2.12.0.0</Version>
@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HunterPie.Core\HunterPie.Core.csproj" />
+    <ProjectReference Include="..\HunterPie.DI\HunterPie.DI.csproj" />
     <ProjectReference Include="..\HunterPie.Integrations\HunterPie.Integrations.csproj" />
   </ItemGroup>
 

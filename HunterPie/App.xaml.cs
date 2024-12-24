@@ -28,7 +28,6 @@ using HunterPie.UI.Main.Views;
 using HunterPie.UI.Navigation;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.SideBar.ViewModels;
-using HunterPie.Update;
 using HunterPie.Usecases;
 using System;
 using System.Diagnostics;
@@ -63,16 +62,8 @@ public partial class App : Application
 
         DependencyProvider.LoadModules();
         await InitializerManager.InitializeAsync();
-        _mainApplication = DependencyContainer.Get<MainApplication>();
-
-        UpdateService.CleanupOldFiles();
 
         SetRenderingMode();
-
-#if RELEASE
-        if (await SelfUpdate())
-            return;
-#endif
 
         ShutdownMode = ShutdownMode.OnMainWindowClose;
 
@@ -84,15 +75,10 @@ public partial class App : Application
         InitializerManager.InitializeGUI();
         DebugWidgets.MockIfNeeded();
 
-        await _mainApplication.Start();
         //await AccountManager.ValidateSessionToken();
 
         InitializeProcessScanners();
         SetUiThreadPriority();
-
-#if RELEASE
-        UpdateUseCase.OpenPatchNotesIfJustUpdated();
-#endif
     }
 
     protected override void OnExit(ExitEventArgs e)
@@ -124,7 +110,7 @@ public partial class App : Application
         );
     }
 
-    private void InitializeMainView()
+    private async void InitializeMainView()
     {
         Log.Info("Initializing HunterPie client UI");
         DependencyContainer.Get<HeaderViewModel>()
@@ -148,6 +134,9 @@ public partial class App : Application
 
         if (ClientConfig.Config.Client.EnableSeamlessStartup)
             return;
+
+        _mainApplication = DependencyContainer.Get<MainApplication>();
+        await _mainApplication.Start();
 
         view.Show();
     }

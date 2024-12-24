@@ -10,14 +10,14 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace HunterPie.Update.Remote;
+namespace HunterPie.Update.Gateway;
 
-public class UpdateApi
+internal class UpdateGateway
 {
     private readonly PoogieVersionConnector _versionConnector = new();
     private readonly PoogieLocalizationConnector _localizationConnector = new();
 
-    public async Task<string> GetLatestVersion()
+    public async Task<string?> GetLatestVersion()
     {
         PoogieResult<VersionResponse> response = await _versionConnector.Latest();
 

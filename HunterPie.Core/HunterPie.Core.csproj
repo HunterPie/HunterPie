@@ -4,8 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Authors>Haato</Authors>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.12.0.38</AssemblyVersion>
-    <FileVersion>2.12.0.38</FileVersion>
+    <AssemblyVersion>2.12.0.42</AssemblyVersion>
+    <FileVersion>2.12.0.42</FileVersion>
     <LangVersion>11.0</LangVersion>
 	<Nullable>enable</Nullable>
 	<Version>2.12.0.0</Version>
@@ -19,6 +19,10 @@
   <ItemGroup>
     <Folder Include="Settings\Adapters\" />
     <Folder Include="Settings\Common\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HunterPie.DI\HunterPie.DI.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties BuildVersion_StartDate="2000/1/1" /></VisualStudio></ProjectExtensions>

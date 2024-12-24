@@ -1,4 +1,6 @@
 ﻿using HunterPie.Core.Domain.Cache;
+using HunterPie.Core.Domain.Interfaces;
+using HunterPie.Core.System.Windows.Registry;
 using HunterPie.Core.System.Windows.Vault;
 using HunterPie.Core.Vault;
 using HunterPie.Features.Account;
@@ -11,8 +13,6 @@ using HunterPie.Integrations.Poogie.Common;
 using HunterPie.Integrations.Poogie.Settings;
 using HunterPie.UI.Header.ViewModels;
 using HunterPie.UI.Main.ViewModels;
-using HunterPie.Update;
-using UpdateService = HunterPie.Update.Usecase.UpdateService;
 
 namespace HunterPie.DI.Modules;
 
@@ -27,7 +27,7 @@ internal class HunterPieModule : IDependencyModule
             .WithService<IPoogieClient, PoogieConnector>()
             .WithService<IAsyncCache, InMemoryAsyncCache>()
             .WithService<ICredentialVault, WindowsCredentialVault>()
-            .WithService<IUpdateUseCase, UpdateService>();
+            .WithSingle<ILocalRegistry, WindowsRegistry>();
 
         // Connectors
         registry

@@ -1,7 +1,7 @@
 ﻿using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.Controller;
 using HunterPie.Internal;
-using HunterPie.Update;
+using HunterPie.Update.Usecase;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -28,14 +28,9 @@ internal class MainApplication
 
     public async Task Start()
     {
-        bool hasUpdated = await _updateUseCase.Invoke();
-
-        if (hasUpdated)
-        {
-            InitializerManager.Unload();
-            await Restart();
-            return;
-        }
+#if RELEASE
+        await SelfUpdate();
+#endif
 
         _remoteConfigSyncService.Start();
     }
@@ -46,5 +41,17 @@ internal class MainApplication
 
         string executablePath = typeof(MainApplication).Assembly.Location.Replace(".dll", ".exe");
         Process.Start(executablePath);
+    }
+
+    private async Task SelfUpdate()
+    {
+        bool hasUpdated = await _updateUseCase.InvokeAsync();
+
+        if (hasUpdated)
+        {
+            InitializerManager.Unload();
+            await Restart();
+            return;
+        }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace HunterPie.Update;
+namespace HunterPie.Update.Usecase;
 
 public interface IUpdateUseCase
 {
-    Task<bool> Invoke();
+    Task<bool> InvokeAsync();
 }
