@@ -9,7 +9,7 @@ using HunterPie.UI.Navigation;
 using HunterPie.Update.Gateway;
 using HunterPie.Update.Presentation;
 using HunterPie.Update.Service.Entity;
-using HunterPie.Update.Usecase;
+using HunterPie.Update.UseCase;
 using System;
 using System.Collections.Generic;
 using System.IO;

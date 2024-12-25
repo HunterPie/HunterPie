@@ -1,11 +1,11 @@
 ﻿using HunterPie.UI.Architecture;
+using HunterPie.UI.Home.Services;
 using HunterPie.UI.Home.ViewModels;
 using HunterPie.UI.Navigation;
-using HunterPie.UI.SideBar.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 
-namespace HunterPie.UI.Home;
+namespace HunterPie.UI.SideBar.ViewModels;
 
 internal class HomeSideBarViewModel : ViewModel, ISideBarViewModel
 {

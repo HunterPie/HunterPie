@@ -18,11 +18,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace HunterPie.UI.Home;
+namespace HunterPie.UI.Home.Services;
 
 internal class HomeService
 {
-
     private static readonly Dictionary<GameType, SupportedGameViewModel> SupportedGames = new()
     {
         {

@@ -2,6 +2,7 @@
 using HunterPie.Core.Client;
 using HunterPie.Core.Json;
 using HunterPie.Core.Logger;
+using HunterPie.Features.Account.UseCase;
 using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.Integrations.Poogie.Settings;
 using HunterPie.Integrations.Poogie.Settings.Models;

@@ -9,7 +9,6 @@ using HunterPie.Core.Game;
 using HunterPie.Core.Logger;
 using HunterPie.Core.System;
 using HunterPie.DI;
-using HunterPie.Domain.Sidebar;
 using HunterPie.Features;
 using HunterPie.Features.Backups;
 using HunterPie.Features.Debug;
@@ -19,15 +18,9 @@ using HunterPie.Integrations.Discord;
 using HunterPie.Internal;
 using HunterPie.Internal.Exceptions;
 using HunterPie.Internal.Tray;
-using HunterPie.UI.Architecture.Extensions;
-using HunterPie.UI.Header.ViewModels;
-using HunterPie.UI.Home.ViewModels;
-using HunterPie.UI.Main;
-using HunterPie.UI.Main.ViewModels;
+using HunterPie.UI.Main.Navigators;
 using HunterPie.UI.Main.Views;
-using HunterPie.UI.Navigation;
 using HunterPie.UI.Overlay;
-using HunterPie.UI.SideBar.ViewModels;
 using HunterPie.Usecases;
 using System;
 using System.Diagnostics;
@@ -50,7 +43,6 @@ public partial class App : Application
     private RichPresence? _richPresence;
     private Context? _context;
 
-    private MainApplication? _mainApplication;
     internal static MainController? MainController { get; private set; }
     public static MainView? Ui => MainController?.View;
 
@@ -60,6 +52,7 @@ public partial class App : Application
 
         base.OnStartup(e);
 
+        await InitializerManager.InitializeCore();
         DependencyProvider.LoadModules();
         await InitializerManager.InitializeAsync();
 
@@ -74,8 +67,6 @@ public partial class App : Application
 
         InitializerManager.InitializeGUI();
         DebugWidgets.MockIfNeeded();
-
-        //await AccountManager.ValidateSessionToken();
 
         InitializeProcessScanners();
         SetUiThreadPriority();
@@ -113,32 +104,15 @@ public partial class App : Application
     private async void InitializeMainView()
     {
         Log.Info("Initializing HunterPie client UI");
-        DependencyContainer.Get<HeaderViewModel>()
-            .Apply(it =>
-            {
-                it.IsAdmin = ClientInfo.IsAdmin;
-                it.Version = $"v{ClientInfo.Version}";
-            });
+        MainController = DependencyContainer.Get<MainController>();
 
-        MainViewModel viewModel = DependencyContainer.Get<MainViewModel>();
-        MainView view = Dispatcher.Invoke(() => new MainView { DataContext = viewModel });
-        MainController = new MainController(view, viewModel);
-
-        // Initialize UI navigation
-        var sideBarViewModel = new SideBarViewModel(SideBarProvider.SideBar.Elements);
-        var mainBodyViewModel = new MainBodyViewModel(sideBarViewModel);
-        var mainBodyNavigator = new MainBodyController(mainBodyViewModel);
-        Navigator.SetNavigators(mainBodyNavigator, MainController);
-        Navigator.Body.Navigate<HomeViewModel>();
-        Navigator.App.Navigate(mainBodyViewModel);
+        MainApplication application = DependencyContainer.Get<MainApplication>();
+        await application.Start();
 
         if (ClientConfig.Config.Client.EnableSeamlessStartup)
             return;
 
-        _mainApplication = DependencyContainer.Get<MainApplication>();
-        await _mainApplication.Start();
-
-        view.Show();
+        MainController.View.Show();
     }
 
     private void CheckForRunningInstances()
@@ -153,30 +127,6 @@ public partial class App : Application
     }
 
     private void SetUiThreadPriority() => Dispatcher.Thread.Priority = ThreadPriority.Highest;
-
-    /*private static async Task<bool> SelfUpdate()
-    {
-        if (!ClientConfig.Config.Client.EnableAutoUpdate)
-            return false;
-
-        UpdateViewModel vm = new();
-        UpdateView view = new() { DataContext = vm };
-
-        if (!ClientConfig.Config.Client.EnableSeamlessStartup)
-            view.Show();
-
-        bool result = await UpdateUseCase.Exec(vm);
-
-        view.Close();
-
-        if (!result)
-            return result;
-
-        InitializerManager.Unload();
-        Restart();
-
-        return result;
-    }*/
 
     private void InitializeProcessScanners()
     {

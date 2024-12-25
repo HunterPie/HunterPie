@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Logger;
-using HunterPie.Update.Usecase;
+using HunterPie.Update.UseCase;
 using System;
 using System.Collections.Generic;
 using System.IO;

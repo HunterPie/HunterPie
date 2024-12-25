@@ -1,26 +1,36 @@
 ﻿using HunterPie.Core.Extensions;
-using HunterPie.Features.Account;
 using HunterPie.Features.Account.Model;
+using HunterPie.Features.Account.UseCase;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Main.ViewModels;
 using HunterPie.UI.Navigation;
 using HunterPie.UI.SideBar.ViewModels;
 using System.Collections.Generic;
 
-namespace HunterPie.UI.Main;
+namespace HunterPie.UI.Main.Navigators;
 
 internal class MainBodyController : INavigator
 {
     private readonly MainBodyViewModel _viewModel;
+    private readonly IAccountUseCase _accountUseCase;
     private readonly Stack<ViewModel> _stack = new();
 
-    public MainBodyController(MainBodyViewModel viewModel)
+    public MainBodyController(
+        MainBodyViewModel viewModel,
+        IAccountUseCase accountUseCase)
     {
         _viewModel = viewModel;
-        AccountManager.OnSessionStart += (_, e) => SetupViewModel(e.Account);
-        AccountManager.OnSignIn += (_, e) => SetupViewModel(e.Account);
-        AccountManager.OnSignOut += (_, e) => SetupViewModel(null);
+        _accountUseCase = accountUseCase;
+
+        Subscribe();
         SetupViewModel(null);
+    }
+
+    private void Subscribe()
+    {
+        _accountUseCase.SessionStart += (_, e) => SetupViewModel(e.Account);
+        _accountUseCase.SignIn += (_, e) => SetupViewModel(e.Account);
+        _accountUseCase.SignOut += (_, e) => SetupViewModel(null);
     }
 
     private void SetupViewModel(UserAccount? account)

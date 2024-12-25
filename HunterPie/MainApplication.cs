@@ -1,7 +1,7 @@
 ﻿using HunterPie.Features.Account.Config;
-using HunterPie.Features.Account.Controller;
+using HunterPie.Features.Account.UseCase;
 using HunterPie.Internal;
-using HunterPie.Update.Usecase;
+using HunterPie.Update.UseCase;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -9,18 +9,18 @@ namespace HunterPie;
 
 internal class MainApplication
 {
-    private readonly AccountController _accountController;
+    private readonly IAccountUseCase _accountUseCase;
     private readonly IUpdateUseCase _updateUseCase;
     private readonly IRemoteAccountConfigUseCase _remoteAccountConfigUseCase;
     private readonly RemoteConfigSyncService _remoteConfigSyncService;
 
     public MainApplication(
-        AccountController accountController,
+        IAccountUseCase accountUseCase,
         IUpdateUseCase updateUseCase,
         IRemoteAccountConfigUseCase remoteAccountConfigUseCase,
         RemoteConfigSyncService remoteConfigSyncService)
     {
-        _accountController = accountController;
+        _accountUseCase = accountUseCase;
         _updateUseCase = updateUseCase;
         _remoteAccountConfigUseCase = remoteAccountConfigUseCase;
         _remoteConfigSyncService = remoteConfigSyncService;
@@ -31,7 +31,6 @@ internal class MainApplication
 #if RELEASE
         await SelfUpdate();
 #endif
-
         _remoteConfigSyncService.Start();
     }
 

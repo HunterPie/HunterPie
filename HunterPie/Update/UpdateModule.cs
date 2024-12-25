@@ -2,7 +2,7 @@
 using HunterPie.DI.Modules;
 using HunterPie.Update.Gateway;
 using HunterPie.Update.Service;
-using HunterPie.Update.Usecase;
+using HunterPie.Update.UseCase;
 
 namespace HunterPie.Update;
 

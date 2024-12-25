@@ -6,6 +6,7 @@ namespace HunterPie.DI.Registry;
 public class DependencyRegistry : IDependencyRegistry
 {
     private readonly Queue<Dependency> _singletonQueue = new();
+    private readonly Dictionary<Type, Func<object>> _builders = new();
     private readonly Dictionary<Type, object> _singletons = new();
     private readonly Dictionary<Type, Type> _dependencies = new();
 
@@ -39,6 +40,13 @@ public class DependencyRegistry : IDependencyRegistry
         return this;
     }
 
+    public IDependencyRegistry WithService<T>(Func<T> builder) where T : class
+    {
+        _builders[typeof(T)] = builder;
+        _dependencies[typeof(T)] = typeof(T);
+        return this;
+    }
+
     public IDependencyRegistry WithSingle<TInterface, TImpl>() where TImpl : TInterface
     {
         _singletonQueue.Enqueue(
@@ -62,11 +70,11 @@ public class DependencyRegistry : IDependencyRegistry
         return this;
     }
 
-    public IDependencyRegistry WithSingle<T>(T impl) where T : class
+    public IDependencyRegistry WithSingle<T>(Func<T> builder) where T : class
     {
-        _singletons[typeof(T)] = impl;
+        _builders[typeof(T)] = builder;
 
-        return this;
+        return WithSingle<T>();
     }
 
     public IDependencyRegistry Build()
@@ -89,6 +97,11 @@ public class DependencyRegistry : IDependencyRegistry
                     object singletonInstance = Create(dependency.ConcreteType);
                     _singletons[key] = singletonInstance;
                 }
+                catch (DependencyNotRegisteredException err)
+                {
+                    failedDependencies.Enqueue(dependency);
+                    exceptions.Add(err);
+                }
                 catch (DependencyArgumentException err)
                 {
                     failedDependencies.Enqueue(dependency);
@@ -109,6 +122,9 @@ public class DependencyRegistry : IDependencyRegistry
 
     private object Create(Type type)
     {
+        if (_builders.ContainsKey(type))
+            return _builders[type]();
+
         ConstructorInfo? constructor = type.GetConstructors()
             .MinBy(it => it.GetParameters().Length);
 

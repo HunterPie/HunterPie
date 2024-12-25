@@ -4,7 +4,6 @@ using HunterPie.UI.Navigation;
 
 namespace HunterPie.GUI.Parts.Account.ViewModels;
 
-#nullable enable
 public class AccountSignFlowViewModel : ViewModel
 {
     private int _selectedIndex;
@@ -15,4 +14,3 @@ public class AccountSignFlowViewModel : ViewModel
         Navigator.App.Navigate<MainBodyViewModel>();
     }
 }
-#nullable restore

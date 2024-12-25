@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Events;
 using HunterPie.Core.Extensions;
+using HunterPie.Features.Account.UseCase;
 using System;
 using System.Threading;
 using System.Timers;

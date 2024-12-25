@@ -1,10 +1,9 @@
 ﻿using HunterPie.Core.System;
 using HunterPie.Domain.Common;
 using HunterPie.UI.Architecture;
-using HunterPie.UI.SideBar.ViewModels;
 using System;
 
-namespace HunterPie.Domain.Sidebar.Elements;
+namespace HunterPie.UI.SideBar.ViewModels;
 
 internal class DiscordSideBarViewModel : ViewModel, ISideBarViewModel
 {

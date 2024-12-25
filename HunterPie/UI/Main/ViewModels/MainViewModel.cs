@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.Client;
-using HunterPie.Features.Account.Config;
+using HunterPie.Features.Account.UseCase;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Header.ViewModels;
 using System.Threading.Tasks;

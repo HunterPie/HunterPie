@@ -1,4 +1,4 @@
-﻿using HunterPie.Features.Account;
+﻿using HunterPie.Features.Account.UseCase;
 using HunterPie.Integrations.Poogie.Account.Models;
 using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.UI.Architecture;

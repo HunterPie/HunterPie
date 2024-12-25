@@ -1,5 +1,6 @@
 ﻿using HunterPie.Domain.Interfaces;
 using HunterPie.Features.Account.Config;
+using HunterPie.Features.Account.UseCase;
 using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;

@@ -1,10 +1,9 @@
 ﻿using HunterPie.GUI.Parts.Patches.ViewModels;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Navigation;
-using HunterPie.UI.SideBar.ViewModels;
 using System;
 
-namespace HunterPie.Domain.Sidebar.Elements;
+namespace HunterPie.UI.SideBar.ViewModels;
 
 internal class PatchNotesSideBarViewModel : ViewModel, ISideBarViewModel
 {

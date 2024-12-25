@@ -11,7 +11,6 @@ using HunterPie.UI.Architecture;
 using HunterPie.UI.Navigation;
 using HunterPie.UI.Settings;
 using HunterPie.UI.Settings.Models;
-using HunterPie.UI.SideBar.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,7 +18,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HunterPie.Domain.Sidebar.Elements;
+namespace HunterPie.UI.SideBar.ViewModels;
 
 internal class SettingsSideBarViewModel : ViewModel, ISideBarViewModel
 {

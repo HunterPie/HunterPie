@@ -11,13 +11,14 @@ namespace HunterPie.Internal;
 
 internal class InitializerManager
 {
+    private static readonly HashSet<IInitializer> CoreInitializers = new() { new MapperFactoryInitializer() };
+
     private static readonly Type[] Initializers =
     {
         typeof(FileStreamLoggerInitializer),
         typeof(CustomFontsInitializer),
         
         // Core
-        typeof(MapperFactoryInitializer),
         typeof(CredentialVaultInitializer),
         typeof(LocalConfigInitializer),
         
@@ -43,6 +44,7 @@ internal class InitializerManager
         typeof(ClientConfigBindingsInitializer),
 
         // GUI
+        typeof(NavigationInitializer),
         typeof(NavigationTemplatesInitializer),
         typeof(AppNotificationsInitializer),
     };
@@ -54,6 +56,16 @@ internal class InitializerManager
         // Debugging
         new DebugWidgetInitializer(),
     };
+
+    public static async Task InitializeCore()
+    {
+        Log.Benchmark();
+
+        foreach (IInitializer initializer in CoreInitializers)
+            await initializer.Init();
+
+        Log.BenchmarkEnd();
+    }
 
     public static async Task InitializeAsync()
     {
@@ -87,6 +99,10 @@ internal class InitializerManager
 
     public static void Unload()
     {
+        foreach (IInitializer initializer in CoreInitializers)
+            if (initializer is IDisposable disposable)
+                disposable.Dispose();
+
         foreach (Type initializerType in Initializers)
         {
             if (DependencyContainer.Get(initializerType) is not IDisposable disposable)

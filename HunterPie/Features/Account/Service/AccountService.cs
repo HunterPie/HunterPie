@@ -8,13 +8,14 @@ using HunterPie.Core.Vault;
 using HunterPie.Core.Vault.Model;
 using HunterPie.Features.Account.Event;
 using HunterPie.Features.Account.Model;
+using HunterPie.Features.Account.UseCase;
 using HunterPie.Integrations.Poogie.Account;
 using HunterPie.Integrations.Poogie.Account.Models;
 using HunterPie.Integrations.Poogie.Common.Models;
 using System;
 using System.Threading.Tasks;
 
-namespace HunterPie.Features.Account.Internal;
+namespace HunterPie.Features.Account.Service;
 
 internal class AccountService : IAccountUseCase, IEventDispatcher
 {
@@ -70,8 +71,8 @@ internal class AccountService : IAccountUseCase, IEventDispatcher
 
     public async Task<bool> IsValidSessionAsync()
     {
-        if (await GetAsync() is not { })
-            return GetSessionToken() is not null;
+        if (await GetAsync() is { })
+            return true;
 
         _credentialVault.Delete();
         this.Dispatch(toDispatch: SignOut);

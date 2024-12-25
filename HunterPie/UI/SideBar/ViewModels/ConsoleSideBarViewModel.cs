@@ -2,10 +2,9 @@
 using HunterPie.UI.Logger;
 using HunterPie.UI.Logging.ViewModels;
 using HunterPie.UI.Navigation;
-using HunterPie.UI.SideBar.ViewModels;
 using System;
 
-namespace HunterPie.Domain.Sidebar.Elements;
+namespace HunterPie.UI.SideBar.ViewModels;
 
 internal class ConsoleSideBarViewModel : ViewModel, ISideBarViewModel
 {

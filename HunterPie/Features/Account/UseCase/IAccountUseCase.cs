@@ -5,7 +5,7 @@ using HunterPie.Integrations.Poogie.Common.Models;
 using System;
 using System.Threading.Tasks;
 
-namespace HunterPie.Features.Account;
+namespace HunterPie.Features.Account.UseCase;
 
 internal interface IAccountUseCase
 {

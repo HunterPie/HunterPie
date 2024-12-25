@@ -5,7 +5,7 @@ using System;
 
 namespace HunterPie.GUI.Parts.Account.ViewModels;
 
-public class AccountPreferencesViewModel : ViewModel
+internal class AccountPreferencesViewModel : ViewModel
 {
     private string _username = string.Empty;
     public string Username { get => _username; set => SetValue(ref _username, value); }

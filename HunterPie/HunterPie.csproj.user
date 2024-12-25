@@ -45,16 +45,13 @@
     <Compile Update="GUI\Parts\Account\Views\Components\AccountDetailsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Account\Views\Promotional\AccountPromotionalView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="GUI\Parts\Backup\Views\BackupElementView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="GUI\Parts\Backup\Views\BackupsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UI\Home\HomeSideBarViewModel.cs">
+    <Compile Update="UI\SideBar\ViewModels\HomeSideBarViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\Home\ViewModels\HomeCallToActionViewModel.cs">
@@ -156,9 +153,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Account\Views\Components\AccountDetailsView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="GUI\Parts\Account\Views\Promotional\AccountPromotionalView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Backup\Views\BackupElementView.xaml">

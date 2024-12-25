@@ -6,7 +6,7 @@ using HunterPie.UI.Assets.Application;
 using HunterPie.UI.Home.ViewModels;
 using System.Collections.ObjectModel;
 
-namespace HunterPie.UI.Home;
+namespace HunterPie.UI.Home.Services;
 
 internal class HomeCallToActionsService
 {

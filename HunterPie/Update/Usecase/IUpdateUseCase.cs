@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace HunterPie.Update.Usecase;
+namespace HunterPie.Update.UseCase;
 
 public interface IUpdateUseCase
 {

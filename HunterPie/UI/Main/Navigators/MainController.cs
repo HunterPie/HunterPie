@@ -6,7 +6,7 @@ using HunterPie.UI.Navigation;
 using System;
 using System.Collections.Generic;
 
-namespace HunterPie.UI.Main;
+namespace HunterPie.UI.Main.Navigators;
 
 internal class MainController : INavigator
 {
