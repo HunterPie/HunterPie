@@ -8,7 +8,7 @@ using HunterPie.UI.Architecture;
 using System;
 using System.Threading.Tasks;
 
-namespace HunterPie.GUI.Parts.Account.ViewModels;
+namespace HunterPie.Features.Account.ViewModels;
 
 internal class AccountPasswordResetFlowViewModel : ViewModel
 {

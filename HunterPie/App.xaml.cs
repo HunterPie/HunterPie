@@ -43,7 +43,7 @@ public partial class App : Application
     private RichPresence? _richPresence;
     private Context? _context;
 
-    internal static MainController? MainController { get; private set; }
+    internal static MainNavigator? MainController { get; private set; }
     public static MainView? Ui => MainController?.View;
 
     protected override async void OnStartup(StartupEventArgs e)
@@ -104,7 +104,7 @@ public partial class App : Application
     private async void InitializeMainView()
     {
         Log.Info("Initializing HunterPie client UI");
-        MainController = DependencyContainer.Get<MainController>();
+        MainController = DependencyContainer.Get<MainNavigator>();
 
         MainApplication application = DependencyContainer.Get<MainApplication>();
         await application.Start();

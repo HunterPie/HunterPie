@@ -1,17 +1,17 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
-using HunterPie.GUI.Parts.Account.ViewModels;
+using HunterPie.Features.Account.ViewModels;
 using HunterPie.UI.Architecture;
 using System;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media.Animation;
 
-namespace HunterPie.GUI.Parts.Account.Views;
+namespace HunterPie.Features.Account.Views;
 
 /// <summary>
 /// Interaction logic for AccountSignFlowView.xaml
 /// </summary>
-public partial class AccountSignFlowView : View<AccountSignFlowViewModel>, IEventDispatcher
+internal partial class AccountSignFlowView : View<AccountSignFlowViewModel>, IEventDispatcher
 {
     private readonly ThicknessAnimation[] _animations = {
         new(new Thickness(12, 12, 0, 10), TimeSpan.FromMilliseconds(200), FillBehavior.HoldEnd),

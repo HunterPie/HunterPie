@@ -6,7 +6,7 @@ using HunterPie.UI.Main.ViewModels;
 using HunterPie.UI.Navigation;
 using System.Threading.Tasks;
 
-namespace HunterPie.GUI.Parts.Account.ViewModels;
+namespace HunterPie.Features.Account.ViewModels;
 
 internal class AccountLoginFlowViewModel : ViewModel
 {
@@ -37,8 +37,8 @@ internal class AccountLoginFlowViewModel : ViewModel
     public bool CanLogIn { get => _canLogIn; set => SetValue(ref _canLogIn, value); }
 
     private readonly IAccountUseCase _accountUseCase;
-    public readonly AccountPasswordResetFlowViewModel PasswordResetFlowViewModel;
-    public readonly AccountVerificationResendFlowViewModel AccountVerificationResendFlowViewModel;
+    public AccountPasswordResetFlowViewModel PasswordResetFlowViewModel { get; }
+    public AccountVerificationResendFlowViewModel AccountVerificationResendFlowViewModel { get; }
 
     public AccountLoginFlowViewModel(
         AccountPasswordResetFlowViewModel passwordResetFlowViewModel,

@@ -12,8 +12,8 @@ internal class MainModule : IDependencyModule
     {
         registry
             .WithSingle<MainBodyViewModel>()
-            .WithSingle<MainBodyController>()
-            .WithSingle<MainController>()
+            .WithSingle<MainBodyNavigator>()
+            .WithSingle<MainNavigator>()
             .WithSingle<MainViewModel>()
             .WithSingle(() =>
                 new MainView

@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Json;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace HunterPie.UI.Architecture.Extensions;
@@ -41,6 +42,13 @@ public static class ObjectExtensions
     public static T Apply<T>(this T @object, Action<T> block) where T : class
     {
         block(@object);
+
+        return @object;
+    }
+
+    public static async Task<T> ApplyAsync<T>(this T @object, Func<T, Task> block) where T : class
+    {
+        await block(@object);
 
         return @object;
     }

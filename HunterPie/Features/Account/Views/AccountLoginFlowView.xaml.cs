@@ -1,10 +1,10 @@
-﻿using HunterPie.GUI.Parts.Account.ViewModels;
+﻿using HunterPie.Features.Account.ViewModels;
 using HunterPie.UI.Architecture;
 using System;
 using System.Windows;
 using System.Windows.Input;
 
-namespace HunterPie.GUI.Parts.Account.Views;
+namespace HunterPie.Features.Account.Views;
 /// <summary>
 /// Interaction logic for AccountLoginFlowView.xaml
 /// </summary>

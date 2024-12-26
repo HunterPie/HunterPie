@@ -9,13 +9,13 @@ using System.Collections.Generic;
 
 namespace HunterPie.UI.Main.Navigators;
 
-internal class MainBodyController : INavigator
+internal class MainBodyNavigator : INavigator
 {
     private readonly MainBodyViewModel _viewModel;
     private readonly IAccountUseCase _accountUseCase;
     private readonly Stack<ViewModel> _stack = new();
 
-    public MainBodyController(
+    public MainBodyNavigator(
         MainBodyViewModel viewModel,
         IAccountUseCase accountUseCase)
     {
@@ -69,9 +69,7 @@ internal class MainBodyController : INavigator
 
     public void ReturnWhen<TViewModel>() where TViewModel : ViewModel
     {
-        if (_stack.Peek() is TViewModel)
-        {
+        if (_stack.TryPeek(out ViewModel? vm) && vm is TViewModel)
             Return();
-        }
     }
 }

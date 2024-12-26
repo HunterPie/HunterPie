@@ -138,7 +138,7 @@ public class DependencyRegistry : IDependencyRegistry
                 {
                     return Get(param.ParameterType);
                 }
-                catch (DependencyNotRegisteredException err)
+                catch (Exception err)
                 {
                     throw new DependencyArgumentException(type, err);
                 }

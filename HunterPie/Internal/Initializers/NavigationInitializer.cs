@@ -9,25 +9,25 @@ namespace HunterPie.Internal.Initializers;
 
 internal class NavigationInitializer : IInitializer
 {
-    private readonly MainBodyController _mainBodyController;
-    private readonly MainController _mainController;
+    private readonly MainBodyNavigator _mainBodyNavigator;
+    private readonly MainNavigator _mainNavigator;
     private readonly MainBodyViewModel _mainBodyViewModel;
 
     public NavigationInitializer(
-        MainBodyController mainBodyController,
-        MainController mainController,
+        MainBodyNavigator mainBodyNavigator,
+        MainNavigator mainNavigator,
         MainBodyViewModel mainBodyViewModel)
     {
-        _mainBodyController = mainBodyController;
-        _mainController = mainController;
+        _mainBodyNavigator = mainBodyNavigator;
+        _mainNavigator = mainNavigator;
         _mainBodyViewModel = mainBodyViewModel;
     }
 
     public Task Init()
     {
         Navigator.SetNavigators(
-            body: _mainBodyController,
-            app: _mainController
+            body: _mainBodyNavigator,
+            app: _mainNavigator
         );
 
         Navigator.Body.Navigate<HomeViewModel>();

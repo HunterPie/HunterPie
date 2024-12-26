@@ -2,23 +2,26 @@
 using HunterPie.Features.Account.Event;
 using HunterPie.Features.Account.Model;
 using HunterPie.Features.Account.UseCase;
-using HunterPie.GUI.Parts.Account.ViewModels;
+using HunterPie.Features.Account.ViewModels;
 using HunterPie.UI.Architecture.Extensions;
 using HunterPie.UI.Header.ViewModels;
-using HunterPie.UI.Navigation;
+using HunterPie.UI.Main.Navigators;
 using System;
 
 namespace HunterPie.Features.Account.Controller;
 
 internal class AccountController
 {
+    private readonly MainBodyNavigator _mainBodyNavigator;
     private readonly IAccountUseCase _accountUseCase;
     private readonly AccountMenuViewModel _menuViewModel;
 
     public AccountController(
         IAccountUseCase accountUseCase,
-        AccountMenuViewModel menuViewModel)
+        AccountMenuViewModel menuViewModel,
+        MainBodyNavigator mainBodyNavigator)
     {
+        _mainBodyNavigator = mainBodyNavigator;
         _accountUseCase = accountUseCase;
         _menuViewModel = menuViewModel.Apply(it => it.IsLoading = true);
 
@@ -43,7 +46,7 @@ internal class AccountController
         _menuViewModel.IsLoggedIn = false;
         _menuViewModel.IsLoading = false;
 
-        Navigator.Body.ReturnWhen<AccountPreferencesViewModel>();
+        _mainBodyNavigator.ReturnWhen<AccountPreferencesViewModel>();
     }
 
     private void OnSessionStart(object? sender, AccountLoginEventArgs e) => UpdateViewModels(e.Account);

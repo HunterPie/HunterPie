@@ -1,9 +1,11 @@
 ﻿using HunterPie.Core.Remote;
+using HunterPie.DI;
 using HunterPie.Features.Account.Model;
 using HunterPie.Features.Account.UseCase;
-using HunterPie.GUI.Parts.Account.ViewModels;
+using HunterPie.Features.Account.ViewModels;
 using HunterPie.GUI.Parts.Settings.ViewModels;
 using HunterPie.UI.Architecture;
+using HunterPie.UI.Architecture.Extensions;
 using HunterPie.UI.Navigation;
 
 namespace HunterPie.UI.Header.ViewModels;
@@ -28,7 +30,7 @@ internal class AccountMenuViewModel : ViewModel
 
     public AccountMenuViewModel(
         IAccountUseCase accountUseCase
-        )
+    )
     {
         _accountUseCase = accountUseCase;
     }
@@ -37,31 +39,32 @@ internal class AccountMenuViewModel : ViewModel
 
     public void OpenSignInScreen()
     {
-        Navigator.App.Navigate<AccountSignFlowViewModel>();
+        AccountSignFlowViewModel vm = DependencyContainer.Get<AccountSignFlowViewModel>();
+
+        Navigator.App.Navigate(vm);
     }
 
     public void OpenAccountSettings()
     {
-        Navigator.Body.Navigate<SettingsViewModel>();
+        Navigator.App.Navigate<SettingsViewModel>();
     }
 
     public async void OpenAccountDetails()
     {
+        AccountPreferencesViewModel viewModel = DependencyContainer.Get<AccountPreferencesViewModel>()
+            .Apply(it => it.IsFetchingAccount = true);
         UserAccount? account = await _accountUseCase.GetAsync();
 
-        AccountPreferencesViewModel viewModel = account switch
-        {
-            { } => new AccountPreferencesViewModel
+        if (account is not null)
+            await viewModel.ApplyAsync(async it =>
             {
-                Email = account.Email,
-                Username = account.Username,
-                AvatarUrl = await CDN.GetAsset(account.AvatarUrl),
-                IsSupporter = account.IsSupporter,
-                IsFetchingAccount = false
-            },
+                it.Email = account.Email;
+                it.Username = account.Username;
+                it.AvatarUrl = await CDN.GetAsset(account.AvatarUrl);
+                it.IsSupporter = account.IsSupporter;
+                it.IsFetchingAccount = false;
+            });
 
-            _ => new AccountPreferencesViewModel { IsFetchingAccount = true }
-        };
 
         Navigator.Body.Navigate(viewModel);
     }

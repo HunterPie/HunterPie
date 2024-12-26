@@ -1,8 +1,8 @@
-﻿using HunterPie.GUI.Parts.Account.ViewModels;
+﻿using HunterPie.Features.Account.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace HunterPie.GUI.Parts.Account.Views.Components;
+namespace HunterPie.Features.Account.Views.Components;
 /// <summary>
 /// Interaction logic for AccountDetailsView.xaml
 /// </summary>

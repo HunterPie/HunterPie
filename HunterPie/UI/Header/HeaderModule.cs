@@ -9,6 +9,7 @@ internal class HeaderModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
-            .WithSingle<HeaderViewModel>();
+            .WithSingle<HeaderViewModel>()
+            .WithSingle<AccountMenuViewModel>();
     }
 }

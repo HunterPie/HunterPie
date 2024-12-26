@@ -1,6 +1,6 @@
 ﻿using HunterPie.Domain.Interfaces;
-using HunterPie.GUI.Parts.Account.ViewModels;
-using HunterPie.GUI.Parts.Account.Views;
+using HunterPie.Features.Account.ViewModels;
+using HunterPie.Features.Account.Views;
 using HunterPie.GUI.Parts.Patches.ViewModels;
 using HunterPie.GUI.Parts.Patches.Views;
 using HunterPie.GUI.Parts.Settings.ViewModels;

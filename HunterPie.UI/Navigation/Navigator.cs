@@ -1,6 +1,5 @@
 ﻿namespace HunterPie.UI.Navigation;
 
-#nullable enable
 public static class Navigator
 {
 #pragma warning disable CS8618

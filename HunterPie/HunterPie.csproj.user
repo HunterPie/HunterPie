@@ -9,7 +9,7 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="GUI\Parts\Account\Views\RequestAccountVerificationFlowView.xaml.cs">
+    <Compile Update="Features\Account\Views\RequestAccountVerificationFlowView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="GUI\Parts\Settings\Views\SettingsView.xaml.cs">
@@ -24,25 +24,25 @@
     <Compile Update="Features\Tools\Localization\Views\LocalizableStringView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Account\Views\AccountLoginFlowView.xaml.cs">
+    <Compile Update="Features\Account\Views\AccountLoginFlowView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Account\Views\AccountPasswordResetFlowView.xaml.cs">
+    <Compile Update="Features\Account\Views\AccountPasswordResetFlowView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Account\Views\AccountPreferencesSkeletonView.xaml.cs">
+    <Compile Update="Features\Account\Views\AccountPreferencesSkeletonView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Account\Views\AccountPreferencesView.xaml.cs">
+    <Compile Update="Features\Account\Views\AccountPreferencesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Account\Views\AccountRegisterFlowView.xaml.cs">
+    <Compile Update="Features\Account\Views\AccountRegisterFlowView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Account\Views\AccountSignFlowView.xaml.cs">
+    <Compile Update="Features\Account\Views\AccountSignFlowView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Account\Views\Components\AccountDetailsView.xaml.cs">
+    <Compile Update="Features\Account\Views\Components\AccountDetailsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="GUI\Parts\Backup\Views\BackupElementView.xaml.cs">
@@ -119,7 +119,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="GUI\Parts\Account\Views\RequestAccountVerificationFlowView.xaml">
+    <Page Update="Features\Account\Views\RequestAccountVerificationFlowView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Settings\Views\SettingsView.xaml">
@@ -134,25 +134,25 @@
     <Page Update="Features\Tools\Localization\Views\LocalizableStringView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Account\Views\AccountLoginFlowView.xaml">
+    <Page Update="Features\Account\Views\AccountLoginFlowView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Account\Views\AccountPasswordResetFlowView.xaml">
+    <Page Update="Features\Account\Views\AccountPasswordResetFlowView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Account\Views\AccountPreferencesSkeletonView.xaml">
+    <Page Update="Features\Account\Views\AccountPreferencesSkeletonView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Account\Views\AccountPreferencesView.xaml">
+    <Page Update="Features\Account\Views\AccountPreferencesView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Account\Views\AccountRegisterFlowView.xaml">
+    <Page Update="Features\Account\Views\AccountRegisterFlowView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Account\Views\AccountSignFlowView.xaml">
+    <Page Update="Features\Account\Views\AccountSignFlowView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Account\Views\Components\AccountDetailsView.xaml">
+    <Page Update="Features\Account\Views\Components\AccountDetailsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\Parts\Backup\Views\BackupElementView.xaml">

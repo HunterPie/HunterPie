@@ -4,8 +4,7 @@ using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.Controller;
 using HunterPie.Features.Account.Service;
 using HunterPie.Features.Account.UseCase;
-using HunterPie.GUI.Parts.Account.ViewModels;
-using HunterPie.UI.Header.ViewModels;
+using HunterPie.Features.Account.ViewModels;
 
 namespace HunterPie.Features.Account;
 
@@ -21,9 +20,11 @@ internal class AccountModule : IDependencyModule
             .WithSingle<MainApplication>();
 
         registry
-            .WithSingle<AccountMenuViewModel>()
-            .WithService<AccountPasswordResetFlowViewModel>()
             .WithService<AccountLoginFlowViewModel>()
-            .WithService<AccountRegisterFlowViewModel>();
+            .WithService<AccountPasswordResetFlowViewModel>()
+            .WithService<AccountPreferencesViewModel>()
+            .WithService<AccountRegisterFlowViewModel>()
+            .WithService<AccountSignFlowViewModel>()
+            .WithService<AccountVerificationResendFlowViewModel>();
     }
 }

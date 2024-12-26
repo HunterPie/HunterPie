@@ -1,12 +1,14 @@
-﻿using HunterPie.Features.Account;
+﻿using HunterPie.Features.Account.UseCase;
 using HunterPie.UI.Architecture;
 using Microsoft.Win32;
 using System;
 
-namespace HunterPie.GUI.Parts.Account.ViewModels;
+namespace HunterPie.Features.Account.ViewModels;
 
 internal class AccountPreferencesViewModel : ViewModel
 {
+    private readonly IAccountUseCase _accountUseCase;
+
     private string _username = string.Empty;
     public string Username { get => _username; set => SetValue(ref _username, value); }
 
@@ -25,6 +27,11 @@ internal class AccountPreferencesViewModel : ViewModel
     private bool _isUploadingAvatar;
     public bool IsUploadingAvatar { get => _isUploadingAvatar; set => SetValue(ref _isUploadingAvatar, value); }
 
+    public AccountPreferencesViewModel(IAccountUseCase accountUseCase)
+    {
+        _accountUseCase = accountUseCase;
+    }
+
     public async void UploadAvatar()
     {
         var dialog = new OpenFileDialog
@@ -38,7 +45,7 @@ internal class AccountPreferencesViewModel : ViewModel
             return;
 
         IsUploadingAvatar = true;
-        await AccountManager.UploadAvatar(dialog.FileName);
+        await _accountUseCase.UploadAvatarAsync(dialog.FileName);
         IsUploadingAvatar = false;
     }
 }
