@@ -1,55 +1,46 @@
-﻿using HunterPie.Core.Extensions;
-using HunterPie.Features.Account.Model;
-using HunterPie.Features.Account.UseCase;
+﻿using HunterPie.Core.Domain.Interfaces;
+using HunterPie.Core.Extensions;
+using HunterPie.Domain.Sidebar;
 using HunterPie.UI.Architecture;
-using HunterPie.UI.Main.ViewModels;
+using HunterPie.UI.Main.Navigators.Events;
 using HunterPie.UI.Navigation;
 using HunterPie.UI.SideBar.ViewModels;
+using System;
 using System.Collections.Generic;
 
 namespace HunterPie.UI.Main.Navigators;
 
-internal class MainBodyNavigator : INavigator
+internal class MainBodyNavigator : IBodyNavigator, IBodyNavigationDispatcher, IEventDispatcher
 {
-    private readonly MainBodyViewModel _viewModel;
-    private readonly IAccountUseCase _accountUseCase;
+    private readonly ISideBarCollection _sideBar;
     private readonly Stack<ViewModel> _stack = new();
 
-    public MainBodyNavigator(
-        MainBodyViewModel viewModel,
-        IAccountUseCase accountUseCase)
-    {
-        _viewModel = viewModel;
-        _accountUseCase = accountUseCase;
+    public event EventHandler<NavigationRequestEventArgs>? NavigationRequest;
 
-        Subscribe();
-        SetupViewModel(null);
-    }
-
-    private void Subscribe()
+    public MainBodyNavigator(ISideBarCollection sideBar)
     {
-        _accountUseCase.SessionStart += (_, e) => SetupViewModel(e.Account);
-        _accountUseCase.SignIn += (_, e) => SetupViewModel(e.Account);
-        _accountUseCase.SignOut += (_, e) => SetupViewModel(null);
-    }
-
-    private void SetupViewModel(UserAccount? account)
-    {
-        _viewModel.InitializeSupporterPrompt(account?.IsSupporter ?? false);
+        _sideBar = sideBar;
     }
 
     public void Navigate<TViewModel>(TViewModel viewModel) where TViewModel : ViewModel
     {
         _stack.Push(viewModel);
-        _viewModel.NavigationViewModel = viewModel;
 
-        foreach (ISideBarViewModel sideBarViewModel in _viewModel.SideBarViewModel.Elements)
+        foreach (ISideBarViewModel sideBarViewModel in _sideBar.Elements)
             sideBarViewModel.IsSelected = sideBarViewModel.Type == viewModel.GetType();
+
+        this.Dispatch(
+            toDispatch: NavigationRequest,
+            data: new NavigationRequestEventArgs
+            {
+                ViewModel = viewModel
+            });
+
     }
 
     public void Navigate<TViewModel>() where TViewModel : ViewModel
     {
-        foreach (ISideBarViewModel sideBarViewModel in _viewModel.SideBarViewModel.Elements)
+        foreach (ISideBarViewModel sideBarViewModel in _sideBar.Elements)
         {
             sideBarViewModel.IsSelected = sideBarViewModel.Type == typeof(TViewModel);
             if (sideBarViewModel.IsSelected)

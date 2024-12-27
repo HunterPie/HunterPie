@@ -6,75 +6,72 @@ namespace HunterPie.DI.Registry;
 public class DependencyRegistry : IDependencyRegistry
 {
     private readonly Queue<Dependency> _singletonQueue = new();
-    private readonly Dictionary<Type, Func<object>> _builders = new();
-    private readonly Dictionary<Type, object> _singletons = new();
-    private readonly Dictionary<Type, Type> _dependencies = new();
+    private readonly Dictionary<Type, List<object>> _singletons = new();
+    private readonly Dictionary<Type, List<Dependency>> _dependencies = new();
 
     public T Get<T>() where T : class
     {
-        return Get(typeof(T)) as T ?? throw new ArgumentException();
+        return Get(typeof(T)) as T ?? throw new Exception();
     }
 
     public object Get(Type type)
     {
-        if (_singletons.ContainsKey(type))
-            return _singletons[type];
+        if (_singletons.TryGetValue(type, out List<object>? value))
+            return value switch
+            {
+                { Count: > 1 } => throw new ManyPossibleDependenciesException(type, value.Select(it => it.GetType()).ToArray()),
+                _ => value.First()
+            };
 
         if (!_dependencies.ContainsKey(type))
             throw new DependencyNotRegisteredException(type);
 
-        return Create(_dependencies[type]);
+        List<Dependency> instances = _dependencies[type];
+
+        if (instances.Count > 1)
+            throw new ManyPossibleDependenciesException(type, instances.Select(it => it.Type).ToArray());
+
+        return Create(instances.First());
     }
 
-    public IDependencyRegistry WithService<TInterface, TImpl>() where TImpl : TInterface
+    public IDependencyRegistry WithService<T>() where T : class
     {
-        _dependencies[typeof(TInterface)] = typeof(TImpl);
-
-        return this;
-    }
-
-    public IDependencyRegistry WithService<TImpl>() where TImpl : class
-    {
-        _dependencies[typeof(TImpl)] = typeof(TImpl);
+        RegisterService(typeof(T));
 
         return this;
     }
 
     public IDependencyRegistry WithService<T>(Func<T> builder) where T : class
     {
-        _builders[typeof(T)] = builder;
-        _dependencies[typeof(T)] = typeof(T);
-        return this;
-    }
+        Type concreteType = typeof(T);
 
-    public IDependencyRegistry WithSingle<TInterface, TImpl>() where TImpl : TInterface
-    {
-        _singletonQueue.Enqueue(
-            item: new Dependency(
-                ConcreteType: typeof(TImpl),
-                AbstractType: typeof(TInterface)
-            )
-        );
+        RegisterService(concreteType, builder);
 
         return this;
     }
 
-    public IDependencyRegistry WithSingle<TImpl>() where TImpl : class
+    public IDependencyRegistry WithSingle<T>() where T : class
     {
         _singletonQueue.Enqueue(
             item: new Dependency(
-                ConcreteType: typeof(TImpl),
-                AbstractType: typeof(TImpl)
+                Type: typeof(T),
+                Activator: null
             )
         );
+
         return this;
     }
 
     public IDependencyRegistry WithSingle<T>(Func<T> builder) where T : class
     {
-        _builders[typeof(T)] = builder;
+        _singletonQueue.Enqueue(
+            item: new Dependency(
+                Type: typeof(T),
+                Activator: builder
+            )
+        );
 
-        return WithSingle<T>();
+        return this;
     }
 
     public IDependencyRegistry Build()
@@ -93,9 +90,7 @@ public class DependencyRegistry : IDependencyRegistry
             while (_singletonQueue.TryDequeue(out Dependency? dependency))
                 try
                 {
-                    Type key = dependency.AbstractType;
-                    object singletonInstance = Create(dependency.ConcreteType);
-                    _singletons[key] = singletonInstance;
+                    RegisterSingleton(dependency);
                 }
                 catch (DependencyNotRegisteredException err)
                 {
@@ -113,18 +108,19 @@ public class DependencyRegistry : IDependencyRegistry
                 }
 
             if (failedDependencies.Count >= count)
-                throw new SingletonsCreationException(failedDependencies.Select(it => it.ConcreteType), exceptions.ToArray());
+                throw new SingletonsCreationException(failedDependencies.Select(it => it.Type), exceptions.ToArray());
 
             while (failedDependencies.TryDequeue(out Dependency? dependency))
                 _singletonQueue.Enqueue(dependency);
         }
     }
 
-    private object Create(Type type)
+    private object Create(Dependency concrete)
     {
-        if (_builders.ContainsKey(type))
-            return _builders[type]();
+        if (concrete.Activator is { } activator)
+            return activator();
 
+        Type type = concrete.Type;
         ConstructorInfo? constructor = type.GetConstructors()
             .MinBy(it => it.GetParameters().Length);
 
@@ -148,5 +144,47 @@ public class DependencyRegistry : IDependencyRegistry
         object instance = constructor.Invoke(args);
 
         return instance;
+    }
+
+    private void RegisterSingleton(Dependency dependency)
+    {
+        Type[] interfaces = dependency.Type.GetInterfaces();
+        object instance = Create(dependency);
+
+        foreach (Type interfaceType in interfaces)
+        {
+            if (!_singletons.ContainsKey(interfaceType))
+                _singletons[interfaceType] = new List<object>();
+
+            _singletons[interfaceType].Add(instance);
+        }
+
+        if (!_singletons.ContainsKey(dependency.Type))
+            _singletons[dependency.Type] = new List<object>();
+
+        _singletons[dependency.Type].Add(instance);
+    }
+
+    private void RegisterService(Type concreteType, Func<object>? activator = null)
+    {
+        Type[] interfaces = concreteType.GetInterfaces();
+
+        foreach (Type interfaceType in interfaces)
+            RegisterServiceWithAbstraction(interfaceType, concreteType, activator);
+
+        RegisterServiceWithAbstraction(concreteType, concreteType, activator);
+    }
+
+    private void RegisterServiceWithAbstraction(Type abstraction, Type concrete, Func<object>? activator)
+    {
+        if (!_dependencies.ContainsKey(abstraction))
+            _dependencies[abstraction] = new List<Dependency>();
+
+        _dependencies[abstraction].Add(
+            item: new Dependency(
+                Type: concrete,
+                Activator: activator
+            )
+        );
     }
 }

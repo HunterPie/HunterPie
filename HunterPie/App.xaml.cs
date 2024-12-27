@@ -18,7 +18,6 @@ using HunterPie.Integrations.Discord;
 using HunterPie.Internal;
 using HunterPie.Internal.Exceptions;
 using HunterPie.Internal.Tray;
-using HunterPie.UI.Main.Navigators;
 using HunterPie.UI.Main.Views;
 using HunterPie.UI.Overlay;
 using HunterPie.Usecases;
@@ -42,9 +41,7 @@ public partial class App : Application
     private IProcessManager? _process;
     private RichPresence? _richPresence;
     private Context? _context;
-
-    internal static MainNavigator? MainController { get; private set; }
-    public static MainView? Ui => MainController?.View;
+    private static MainView Window => DependencyContainer.Get<MainView>();
 
     protected override async void OnStartup(StartupEventArgs e)
     {
@@ -104,7 +101,6 @@ public partial class App : Application
     private async void InitializeMainView()
     {
         Log.Info("Initializing HunterPie client UI");
-        MainController = DependencyContainer.Get<MainNavigator>();
 
         MainApplication application = DependencyContainer.Get<MainApplication>();
         await application.Start();
@@ -112,7 +108,7 @@ public partial class App : Application
         if (ClientConfig.Config.Client.EnableSeamlessStartup)
             return;
 
-        MainController.View.Show();
+        Window.Show();
     }
 
     private void CheckForRunningInstances()
@@ -144,17 +140,14 @@ public partial class App : Application
 
     private void OnTrayShowClick(object? sender, EventArgs e)
     {
-        if (Ui is null)
-            return;
-
-        Ui.Show();
-        Ui.WindowState = WindowState.Normal;
-        Ui.Focus();
+        Window.Show();
+        Window.WindowState = WindowState.Normal;
+        Window.Focus();
     }
 
     private void OnTrayClockClick(object? sender, EventArgs e)
     {
-        Ui?.Close();
+        Window.Close();
     }
 
     private void SetupTrayIcon()
@@ -265,7 +258,7 @@ public partial class App : Application
 
     public static async void Restart()
     {
-        Ui?.Dispatcher.InvokeAsync(() => Ui.Hide());
+        await Window.Dispatcher.InvokeAsync(() => Window.Hide());
 
         MainApplication mainApplication = DependencyContainer.Get<MainApplication>();
 

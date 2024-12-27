@@ -1,6 +1,5 @@
 ﻿using HunterPie.Domain.Interfaces;
 using HunterPie.UI.Home.ViewModels;
-using HunterPie.UI.Main.Navigators;
 using HunterPie.UI.Main.ViewModels;
 using HunterPie.UI.Navigation;
 using System.Threading.Tasks;
@@ -9,13 +8,13 @@ namespace HunterPie.Internal.Initializers;
 
 internal class NavigationInitializer : IInitializer
 {
-    private readonly MainBodyNavigator _mainBodyNavigator;
-    private readonly MainNavigator _mainNavigator;
+    private readonly IBodyNavigator _mainBodyNavigator;
+    private readonly IAppNavigator _mainNavigator;
     private readonly MainBodyViewModel _mainBodyViewModel;
 
     public NavigationInitializer(
-        MainBodyNavigator mainBodyNavigator,
-        MainNavigator mainNavigator,
+        IBodyNavigator mainBodyNavigator,
+        IAppNavigator mainNavigator,
         MainBodyViewModel mainBodyViewModel)
     {
         _mainBodyNavigator = mainBodyNavigator;

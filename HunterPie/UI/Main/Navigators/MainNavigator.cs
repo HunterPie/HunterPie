@@ -1,25 +1,19 @@
-﻿using HunterPie.Core.Extensions;
+﻿using HunterPie.Core.Domain.Interfaces;
+using HunterPie.Core.Extensions;
 using HunterPie.UI.Architecture;
-using HunterPie.UI.Main.ViewModels;
-using HunterPie.UI.Main.Views;
+using HunterPie.UI.Main.Navigators.Events;
 using HunterPie.UI.Navigation;
 using System;
 using System.Collections.Generic;
 
 namespace HunterPie.UI.Main.Navigators;
 
-internal class MainNavigator : INavigator
+internal class MainNavigator : IAppNavigator, IAppNavigationDispatcher, IEventDispatcher
 {
     private readonly Dictionary<Type, ViewModel> _viewModels = new();
     private readonly Stack<ViewModel> _stack = new();
-    public readonly MainViewModel ViewModel;
-    public readonly MainView View;
 
-    public MainNavigator(MainView view, MainViewModel viewModel)
-    {
-        View = view;
-        ViewModel = viewModel;
-    }
+    public event EventHandler<NavigationRequestEventArgs>? NavigationRequest;
 
     public void Navigate<TViewModel>(TViewModel viewModel) where TViewModel : ViewModel
     {
@@ -29,7 +23,13 @@ internal class MainNavigator : INavigator
             _viewModels.Remove(viewModelType);
 
         _viewModels.Add(viewModelType, viewModel);
-        ViewModel.ContentViewModel = viewModel;
+
+        this.Dispatch(
+            toDispatch: NavigationRequest,
+            data: new NavigationRequestEventArgs
+            {
+                ViewModel = viewModel
+            });
     }
 
     public void Navigate<TViewModel>() where TViewModel : ViewModel
@@ -55,4 +55,5 @@ internal class MainNavigator : INavigator
         if (_stack.TryPeek(out ViewModel? vm) && vm is TViewModel)
             Return();
     }
+
 }

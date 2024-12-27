@@ -16,11 +16,9 @@ public interface IDependencyRegistry
     /// <returns>Implementation</returns>
     public object Get(Type type);
 
-    public IDependencyRegistry WithService<TInterface, TImpl>() where TImpl : TInterface;
-    public IDependencyRegistry WithService<TImpl>() where TImpl : class;
+    public IDependencyRegistry WithService<T>() where T : class;
     public IDependencyRegistry WithService<T>(Func<T> builder) where T : class;
 
-    public IDependencyRegistry WithSingle<TInterface, TImpl>() where TImpl : TInterface;
-    public IDependencyRegistry WithSingle<TImpl>() where TImpl : class;
+    public IDependencyRegistry WithSingle<T>() where T : class;
     public IDependencyRegistry WithSingle<T>(Func<T> builder) where T : class;
 }

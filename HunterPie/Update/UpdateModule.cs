@@ -2,7 +2,6 @@
 using HunterPie.DI.Modules;
 using HunterPie.Update.Gateway;
 using HunterPie.Update.Service;
-using HunterPie.Update.UseCase;
 
 namespace HunterPie.Update;
 
@@ -11,8 +10,8 @@ internal class UpdateModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
-            .WithService<IUpdateCleanUpUseCase, UpdateCleanUpService>()
-            .WithService<IUpdateUseCase, UpdateService>()
+            .WithService<UpdateCleanUpService>()
+            .WithService<UpdateService>()
             .WithService<LocalizationUpdateService>()
             .WithService<ChecksumService>()
             .WithService<UpdateGateway>();

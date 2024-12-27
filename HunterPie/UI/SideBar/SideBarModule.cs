@@ -18,7 +18,7 @@ internal class SideBarModule : IDependencyModule
             .WithSingle<PatreonSideBarViewModel>()
             .WithSingle<QuestStatisticsSideBarViewModel>()
             .WithSingle<SettingsSideBarViewModel>()
-            .WithService(() => SideBarProvider.Get(registry))
+            .WithSingle(() => SideBarProvider.Get(registry))
             .WithSingle<SideBarViewModel>();
     }
 }

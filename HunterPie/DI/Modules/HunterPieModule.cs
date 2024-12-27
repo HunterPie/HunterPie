@@ -1,8 +1,6 @@
 ﻿using HunterPie.Core.Domain.Cache;
-using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.System.Windows.Registry;
 using HunterPie.Core.System.Windows.Vault;
-using HunterPie.Core.Vault;
 using HunterPie.Integrations.Poogie.Account;
 using HunterPie.Integrations.Poogie.Common;
 using HunterPie.Integrations.Poogie.Settings;
@@ -15,10 +13,10 @@ internal class HunterPieModule : IDependencyModule
     {
         // Intrinsic
         registry
-            .WithService<IPoogieClient, PoogieConnector>()
-            .WithService<IAsyncCache, InMemoryAsyncCache>()
-            .WithService<ICredentialVault, WindowsCredentialVault>()
-            .WithSingle<ILocalRegistry, WindowsRegistry>();
+            .WithService<PoogieConnector>()
+            .WithService<InMemoryAsyncCache>()
+            .WithService<WindowsCredentialVault>()
+            .WithSingle<WindowsRegistry>();
 
         // Connectors
         registry

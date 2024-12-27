@@ -3,7 +3,6 @@ using HunterPie.DI.Modules;
 using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.Controller;
 using HunterPie.Features.Account.Service;
-using HunterPie.Features.Account.UseCase;
 using HunterPie.Features.Account.ViewModels;
 
 namespace HunterPie.Features.Account;
@@ -13,8 +12,8 @@ internal class AccountModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
-            .WithSingle<IAccountUseCase, AccountService>()
-            .WithSingle<IRemoteAccountConfigUseCase, RemoteAccountConfigService>()
+            .WithSingle<AccountService>()
+            .WithSingle<RemoteAccountConfigService>()
             .WithSingle<RemoteConfigSyncService>()
             .WithSingle<AccountController>()
             .WithSingle<MainApplication>();

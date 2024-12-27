@@ -1,6 +1,7 @@
 ﻿using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.UseCase;
 using HunterPie.Internal;
+using HunterPie.UI.Main.ViewModels;
 using HunterPie.Update.UseCase;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -13,17 +14,20 @@ internal class MainApplication
     private readonly IUpdateUseCase _updateUseCase;
     private readonly IRemoteAccountConfigUseCase _remoteAccountConfigUseCase;
     private readonly RemoteConfigSyncService _remoteConfigSyncService;
+    private readonly MainBodyViewModel _mainBodyViewModel;
 
     public MainApplication(
         IAccountUseCase accountUseCase,
         IUpdateUseCase updateUseCase,
         IRemoteAccountConfigUseCase remoteAccountConfigUseCase,
-        RemoteConfigSyncService remoteConfigSyncService)
+        RemoteConfigSyncService remoteConfigSyncService,
+        MainBodyViewModel mainBodyViewModel)
     {
         _accountUseCase = accountUseCase;
         _updateUseCase = updateUseCase;
         _remoteAccountConfigUseCase = remoteAccountConfigUseCase;
         _remoteConfigSyncService = remoteConfigSyncService;
+        _mainBodyViewModel = mainBodyViewModel;
     }
 
     public async Task Start()

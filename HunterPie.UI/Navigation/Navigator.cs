@@ -7,7 +7,9 @@ public static class Navigator
     public static INavigator App;
 #pragma warning restore CS8618
 
-    internal static void SetNavigators(INavigator body, INavigator app)
+    internal static void SetNavigators(
+        IBodyNavigator body,
+        IAppNavigator app)
     {
         Body = body;
         App = app;

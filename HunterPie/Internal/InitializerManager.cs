@@ -49,12 +49,12 @@ internal class InitializerManager
         typeof(AppNotificationsInitializer),
     };
 
-    private static readonly HashSet<IInitializer> UiInitializers = new()
+    private static readonly Type[] UiInitializers =
     {
-        new HotkeyInitializer(),
+        typeof(HotkeyInitializer),
 
         // Debugging
-        new DebugWidgetInitializer(),
+        typeof(DebugWidgetInitializer)
     };
 
     public static async Task InitializeCore()
@@ -77,7 +77,6 @@ internal class InitializerManager
                 continue;
 
             await initializer.Init();
-
         }
 
         Log.BenchmarkEnd();
@@ -90,8 +89,13 @@ internal class InitializerManager
         // Make sure to run UI initializers in the main thread
         Application.Current.Dispatcher.Invoke(async () =>
         {
-            foreach (IInitializer initializer in UiInitializers)
+            foreach (Type initializerType in UiInitializers)
+            {
+                if (DependencyContainer.Get(initializerType) is not IInitializer initializer)
+                    continue;
+
                 await initializer.Init();
+            }
         });
 
         Log.BenchmarkEnd();
