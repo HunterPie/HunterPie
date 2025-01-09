@@ -2,7 +2,7 @@
 using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
-using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Events;
@@ -109,7 +109,7 @@ public class MHRQuest : Scannable, IQuest, IDisposable, IEventDispatcher
     }
 
     public MHRQuest(
-        IProcessManager process,
+        IGameProcess process,
         int id,
         QuestType type,
         QuestLevel level,
@@ -123,11 +123,11 @@ public class MHRQuest : Scannable, IQuest, IDisposable, IEventDispatcher
     }
 
     [ScannableMethod]
-    private void GetData()
+    private async Task GetData()
     {
-        MHRQuestStructure questStructure = Memory.Deref<MHRQuestStructure>(
-            AddressMap.GetAbsolute("QUEST_ADDRESS"),
-            AddressMap.GetOffsets("QUEST_OFFSETS")
+        MHRQuestStructure questStructure = await Memory.DerefAsync<MHRQuestStructure>(
+            address: AddressMap.GetAbsolute("QUEST_ADDRESS"),
+            offsets: AddressMap.GetOffsets("QUEST_OFFSETS")
         );
 
         Status = questStructure.State.ToQuestStatus();

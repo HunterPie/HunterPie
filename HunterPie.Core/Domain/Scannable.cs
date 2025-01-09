@@ -1,35 +1,33 @@
 ﻿using HunterPie.Core.Domain.Memory;
-using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Logger;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace HunterPie.Core.Domain;
 
-public delegate void Middleware<T>(ref T dto) where T : struct;
+public delegate Task AsyncMiddleware<in T>(T dto) where T : class;
+
+public delegate Task AsyncDelegate();
+
 
 /// <summary>
 /// Implementation for a scannable entity, handles the scan and middlewares internally
 /// </summary>
 public abstract class Scannable
 {
-    protected readonly IProcessManager Process;
-    protected IMemory Memory => Process.Memory;
+    protected readonly IGameProcess Process;
+    protected IMemoryAsync Memory => Process.Memory;
     private readonly Dictionary<Type, HashSet<Delegate>> _middlewares = new();
-    private readonly List<Delegate> _scanners = new();
-    private readonly Dictionary<Delegate, int> _troublesomeScannables = new();
+    private readonly List<AsyncDelegate> _scanners = new();
+    private readonly Dictionary<AsyncDelegate, int> _troublesomeScannables = new();
 
-    protected Scannable(IProcessManager process)
+    protected Scannable(IGameProcess process)
     {
         Process = process;
 
-        AppendScannableMethods();
-    }
-
-    protected Scannable()
-    {
         AppendScannableMethods();
     }
 
@@ -40,36 +38,34 @@ public abstract class Scannable
 
         foreach (MethodInfo method in methods)
         {
-            object[] scannableAttributes = method.GetCustomAttributes(typeof(ScannableMethod), true);
 
-            if (scannableAttributes.Length <= 0)
+            ScannableMethod? attribute = method.GetCustomAttribute<ScannableMethod>(inherit: true);
+
+            if (attribute is not { })
                 continue;
 
-            var attributes = (ScannableMethod)scannableAttributes.First();
+            var func = (AsyncDelegate)Delegate.CreateDelegate(typeof(AsyncDelegate), this, method.Name);
 
-            var func = (Action)Delegate.CreateDelegate(typeof(Action), this, method.Name);
-
-            _ = Add(attributes.DtoType, func);
+            _ = Add(attribute.DtoType, func);
         }
     }
 
     /// <summary>
     /// Calls each scanning function added to the scanners list
     /// </summary>
-    internal void Scan()
+    internal async Task Scan()
     {
-        Delegate[] readOnlyScanners = _scanners.ToArray();
+        AsyncDelegate[] readOnlyScanners = _scanners.ToArray();
 
-        foreach (Delegate scanner in readOnlyScanners)
+        foreach (AsyncDelegate scanner in readOnlyScanners)
             try
             {
-                _ = scanner.DynamicInvoke();
+                await scanner.Invoke()
+                    .ConfigureAwait(false);
             }
             catch (Exception err)
             {
-                if (!_troublesomeScannables.ContainsKey(scanner))
-                    _troublesomeScannables.Add(scanner, 0);
-
+                _troublesomeScannables.TryAdd(scanner, 0);
                 _troublesomeScannables[scanner]++;
 
                 if (_troublesomeScannables[scanner] >= 3)
@@ -90,7 +86,7 @@ public abstract class Scannable
     /// <param name="type">Type of DTO this action will handle</param>
     /// <param name="scanner">Action to handle this DTO</param>
     /// <returns>True if scanner was added successfully, false otherwise</returns>
-    protected bool Add<T>(Func<T> scanner)
+    protected bool Add<T>(AsyncDelegate scanner)
     {
         Type type = typeof(T);
 
@@ -102,7 +98,7 @@ public abstract class Scannable
         return true;
     }
 
-    protected bool Add(Type type, Action scanner)
+    protected bool Add(Type? type, AsyncDelegate scanner)
     {
         _scanners.Add(scanner);
 
@@ -110,7 +106,7 @@ public abstract class Scannable
             return true;
 
         if (!_middlewares.ContainsKey(type))
-            _middlewares.Add(type, new());
+            _middlewares.Add(type, new HashSet<Delegate>());
 
         return true;
     }
@@ -120,12 +116,14 @@ public abstract class Scannable
     /// </summary>
     /// <typeparam name="T">Type of the DTO</typeparam>
     /// <param name="data">DTO to pass to the middlewares</param>
-    protected void Next<T>(ref T data) where T : struct
+    protected async Task Next<T>(T data) where T : class
     {
-        foreach (Delegate mid in _middlewares[data.GetType()])
+        foreach (Delegate middleware in _middlewares[data.GetType()])
         {
-            var function = (Middleware<T>)mid;
-            function(ref data);
+            if (middleware is not AsyncMiddleware<T> func)
+                continue;
+
+            await func(data);
         }
     }
 
@@ -136,13 +134,13 @@ public abstract class Scannable
     /// <typeparam name="T">Type of the DTO</typeparam>
     /// <param name="middleware">Function to be called</param>
     /// <returns>true if the middleware was added successfully, false otherwise</returns>
-    public bool MiddlewareFor<T>(Middleware<T> middleware) where T : struct
+    public bool MiddlewareFor<T>(AsyncMiddleware<T> middleware) where T : class
     {
         Type type = typeof(T);
-        if (!_middlewares.ContainsKey(type))
+        if (!_middlewares.TryGetValue(type, out HashSet<Delegate>? value))
             return false;
 
-        _ = _middlewares[type].Add(middleware);
+        value.Add(middleware);
 
         return true;
     }
@@ -153,13 +151,13 @@ public abstract class Scannable
     /// <typeparam name="T">Type of the DTO</typeparam>
     /// <param name="middleware">Function to remove</param>
     /// <returns>true if the middleware was removed successfully, false otherwise</returns>
-    public bool RemoveMiddleware<T>(Middleware<T> middleware) where T : struct
+    public bool RemoveMiddleware<T>(AsyncMiddleware<T> middleware) where T : class
     {
         Type type = typeof(T);
-        if (!_middlewares.ContainsKey(type))
+        if (!_middlewares.TryGetValue(type, out HashSet<Delegate>? value))
             return false;
 
-        _ = _middlewares[type].Remove(middleware);
+        _ = value.Remove(middleware);
 
         return true;
     }

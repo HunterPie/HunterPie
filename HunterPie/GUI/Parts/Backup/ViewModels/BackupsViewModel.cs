@@ -11,7 +11,6 @@ using System.Linq;
 
 namespace HunterPie.GUI.Parts.Backup.ViewModels;
 
-#nullable enable
 public class BackupsViewModel : ViewModel, IDisposable
 {
     private readonly PoogieBackupConnector _backupConnector = new();
@@ -29,21 +28,6 @@ public class BackupsViewModel : ViewModel, IDisposable
     public bool IsFetching { get => _isFetching; set => SetValue(ref _isFetching, value); }
     public bool HasBackups { get => _hasBackups; set => SetValue(ref _hasBackups, value); }
     public bool IsBackupEnabled => LocalAccountConfig.Config.IsBackupEnabled.Value;
-
-    public BackupsViewModel()
-    {
-        HookEvents();
-    }
-
-    public void HookEvents()
-    {
-        PoogieBackupConnector.OnBackupDeleted += OnBackupDeleted;
-    }
-
-    public void UnhookEvents()
-    {
-        PoogieBackupConnector.OnBackupDeleted -= OnBackupDeleted;
-    }
 
     public async void FetchBackups()
     {

@@ -1,7 +1,7 @@
 ﻿using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
-using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
@@ -23,7 +23,7 @@ public abstract class CommonMonster : Scannable, IMonster, IDisposable, IEventDi
     public abstract Target Target { get; protected set; }
     public abstract Target ManualTarget { get; protected set; }
     public abstract IMonsterPart[] Parts { get; }
-    public abstract IMonsterAilment[] Ailments { get; }
+    public abstract IReadOnlyCollection<IMonsterAilment> Ailments { get; }
     public abstract IMonsterAilment Enrage { get; }
     public abstract Crown Crown { get; protected set; }
     public abstract Element[] Weaknesses { get; }
@@ -134,7 +134,7 @@ public abstract class CommonMonster : Scannable, IMonster, IDisposable, IEventDi
         remove => _onCaptureThresholdChange.Unhook(value);
     }
 
-    public CommonMonster(IProcessManager process) : base(process) { }
+    public CommonMonster(IGameProcess process) : base(process) { }
 
     public virtual void Dispose()
     {

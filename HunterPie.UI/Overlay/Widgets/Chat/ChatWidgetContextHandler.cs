@@ -30,7 +30,7 @@ public class ChatWidgetContextHandler : IContextHandler
         _context = context;
         _view = new ChatView(ProcessManager.Game switch
         {
-            GameProcess.MonsterHunterRise => ClientConfig.Config.Rise.Overlay.ChatWidget,
+            GameProcessType.MonsterHunterRise => ClientConfig.Config.Rise.Overlay.ChatWidget,
             _ => throw new NotImplementedException()
         });
         _viewModel = _view.ViewModel;

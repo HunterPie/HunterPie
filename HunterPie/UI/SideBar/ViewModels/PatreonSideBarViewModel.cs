@@ -2,6 +2,7 @@
 using HunterPie.Domain.Common;
 using HunterPie.UI.Architecture;
 using System;
+using System.Threading.Tasks;
 
 namespace HunterPie.UI.SideBar.ViewModels;
 
@@ -17,8 +18,10 @@ internal class PatreonSideBarViewModel : ViewModel, ISideBarViewModel
 
     public bool IsSelected { get; set; }
 
-    public void Execute()
+    public Task ExecuteAsync()
     {
         BrowserService.OpenUrl(CommonLinks.PATREON);
+
+        return Task.CompletedTask;
     }
 }

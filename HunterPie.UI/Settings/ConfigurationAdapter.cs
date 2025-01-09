@@ -23,7 +23,7 @@ public class ConfigurationAdapter
     private const string DEFAULT_SETTING_LOCALIZATION_PATH = "//Strings/Client/Settings/Setting[@Id='{0}']";
     private const string DEFAULT_CONFIGURATION_GROUP_PATH = "//Strings/Client/ConfigurationGroups/Group[@Id='{0}']";
 
-    public static ObservableCollection<ConfigurationCategory> Adapt<T>(T configuration, GameProcess game = GameProcess.None)
+    public static ObservableCollection<ConfigurationCategory> Adapt<T>(T configuration, GameProcessType game = GameProcessType.None)
     {
         Type configurationType = typeof(T);
         ConfigurationCategory[] categories = BuildCategoryParent(configurationType, configuration, game);
@@ -31,7 +31,7 @@ public class ConfigurationAdapter
         return new ObservableCollection<ConfigurationCategory>(categories);
     }
 
-    private static ConfigurationCategory[] BuildCategoryParent(Type parentType, object? parent, GameProcess game)
+    private static ConfigurationCategory[] BuildCategoryParent(Type parentType, object? parent, GameProcessType game)
     {
         ConfigurationAttribute? configurationAttribute = parentType.GetCustomAttribute<ConfigurationAttribute>();
 
@@ -53,7 +53,7 @@ public class ConfigurationAdapter
                                .ToArray();
     }
 
-    private static ConfigurationCategory[] BuildCategory(Type categoryType, object? category, GameProcess game)
+    private static ConfigurationCategory[] BuildCategory(Type categoryType, object? category, GameProcessType game)
     {
         if (category is null)
             return Array.Empty<ConfigurationCategory>();
@@ -144,7 +144,7 @@ public class ConfigurationAdapter
     private static IConfigurationProperty? BuildProperty(
         Type type,
         PropertyData data,
-        GameProcess game
+        GameProcessType game
     )
     {
         IConfigurationPropertyBuilder? builder = ConfigurationPropertyProvider.FindBy(type);

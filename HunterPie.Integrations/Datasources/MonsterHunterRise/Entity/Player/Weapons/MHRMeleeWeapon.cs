@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Domain;
-using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
@@ -49,25 +49,25 @@ public class MHRMeleeWeapon : CommonMeleeWeapon
 
     public override int Threshold { get; protected set; }
 
-    public MHRMeleeWeapon(IProcessManager process, Weapon id) : base(process)
+    public MHRMeleeWeapon(IGameProcess process, Weapon id) : base(process)
     {
         Id = id;
     }
 
     [ScannableMethod]
-    protected void GetWeaponSharpness()
+    protected async Task GetWeaponSharpness()
     {
-        long sharpnessArrayPtr = Process.Memory.Read(
-            AddressMap.GetAbsolute("SHARPNESS_ADDRESS"),
-            AddressMap.Get<int[]>("SHARPNESS_ARRAY_OFFSETS")
+        nint sharpnessArrayPtr = await Memory.ReadAsync(
+            address: AddressMap.GetAbsolute("SHARPNESS_ADDRESS"),
+            offsets: AddressMap.Get<int[]>("SHARPNESS_ARRAY_OFFSETS")
         );
 
         if (sharpnessArrayPtr.IsNullPointer())
             return;
 
-        MHRSharpnessStructure structure = Process.Memory.Deref<MHRSharpnessStructure>(
-            AddressMap.GetAbsolute("SHARPNESS_ADDRESS"),
-            AddressMap.Get<int[]>("SHARPNESS_OFFSETS")
+        MHRSharpnessStructure structure = await Memory.DerefAsync<MHRSharpnessStructure>(
+            address: AddressMap.GetAbsolute("SHARPNESS_ADDRESS"),
+            offsets: AddressMap.Get<int[]>("SHARPNESS_OFFSETS")
         );
 
         if (structure.Level is >= Sharpness.Invalid or < Sharpness.Red)
@@ -75,7 +75,7 @@ public class MHRMeleeWeapon : CommonMeleeWeapon
 
         if (SharpnessThresholds is null || _weaponSharpnessPointer != sharpnessArrayPtr)
         {
-            int[] sharpnessValues = Process.Memory.ReadArray<int>(sharpnessArrayPtr);
+            int[] sharpnessValues = await Memory.ReadArrayAsync<int>(sharpnessArrayPtr);
             SharpnessThresholds = CalculateThresholds(sharpnessValues);
             _weaponSharpnessPointer = sharpnessArrayPtr;
         }

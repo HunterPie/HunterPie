@@ -12,11 +12,11 @@ namespace HunterPie.UI.Settings.ViewModels.Internal;
 internal class AbnormalityTrayPropertyViewModel : ConfigurationPropertyViewModel
 {
     public ObservableCollection<AbnormalityWidgetConfig> Trays { get; }
-    public GameProcess Game { get; }
+    public GameProcessType Game { get; }
 
     public AbnormalityTrayPropertyViewModel(
         ObservableCollection<AbnormalityWidgetConfig> trays,
-        GameProcess game
+        GameProcessType game
     )
     {
         Trays = trays;

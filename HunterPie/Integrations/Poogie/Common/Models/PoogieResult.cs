@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Common.Models;
 
-#nullable enable
 internal record PoogieResult<T>(
     T? Response,
     PoogieError? Error
 )
 {
-    public static async Task<PoogieResult<T>> From(HttpClientResponse response)
+    public static async Task<PoogieResult<T>> FromAsync(HttpClientResponse response)
     {
         string? rawResponse = await response.AsTextAsync();
 

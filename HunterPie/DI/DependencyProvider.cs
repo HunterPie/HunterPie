@@ -1,4 +1,4 @@
-﻿using HunterPie.DI.Modules;
+﻿using HunterPie.DI.Module;
 using HunterPie.DI.Registry;
 using System;
 using System.Linq;

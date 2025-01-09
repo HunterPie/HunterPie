@@ -1,10 +1,10 @@
-﻿using HunterPie.Core.Client;
+﻿using HunterPie.Core.Analytics;
+using HunterPie.Core.Client;
 using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Logger;
 using HunterPie.GUI.Parts.Patches.ViewModels;
-using HunterPie.Internal.Poogie;
 using HunterPie.UI.Navigation;
 using HunterPie.Update.Gateway;
 using HunterPie.Update.Presentation;
@@ -27,19 +27,22 @@ internal class UpdateService : IUpdateUseCase
     private readonly ChecksumService _checksumService;
     private readonly ILocalRegistry _localRegistry;
     private readonly IUpdateCleanUpUseCase _updateCleanUpUseCase;
+    private readonly IAnalyticsService _analyticsService;
 
     public UpdateService(
         LocalizationUpdateService localizationUpdateService,
         UpdateGateway gateway,
         ChecksumService checksumService,
         ILocalRegistry localRegistry,
-        IUpdateCleanUpUseCase updateCleanUpUseCase)
+        IUpdateCleanUpUseCase updateCleanUpUseCase,
+        IAnalyticsService analyticsService)
     {
         _localizationUpdateService = localizationUpdateService;
         _gateway = gateway;
         _checksumService = checksumService;
         _localRegistry = localRegistry;
         _updateCleanUpUseCase = updateCleanUpUseCase;
+        _analyticsService = analyticsService;
     }
 
     public async Task<bool> InvokeAsync()
@@ -121,7 +124,9 @@ internal class UpdateService : IUpdateUseCase
         }
         catch (Exception err)
         {
-            RemoteCrashReporter.Send(err);
+            await _analyticsService.SendAsync(
+                analyticsEvent: AnalyticsEvent.FromException(err, false)
+            );
 
             string dialogMessage = err switch
             {

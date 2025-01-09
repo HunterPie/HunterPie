@@ -1,7 +1,9 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
+using System;
 
 namespace HunterPie.Core.Client;
 
+[Obsolete("Deprecated, use ILocalRegistry with DI instead")]
 public static class RegistryConfig
 {
     private static ILocalRegistry _localRegistry;

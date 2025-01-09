@@ -12,7 +12,7 @@ public sealed class MHRPartyMember : CommonPartyMember, IUpdatable<MHRPartyMembe
     private int _damage;
     private Weapon _weapon;
 
-    public override string Name { get; protected set; }
+    public override string Name { get; protected set; } = string.Empty;
 
     public override int Damage
     {

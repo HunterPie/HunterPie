@@ -14,7 +14,7 @@ public class InMemoryAsyncCache : IAsyncCache
     private readonly SemaphoreSlim _semaphore = new(1);
     private readonly Dictionary<string, ThreadSafeCacheEntry> _innerCache = new(50);
 
-    public async Task<T?> Get<T>(string key)
+    public async Task<T?> GetAsync<T>(string key)
     {
         try
         {
@@ -40,7 +40,7 @@ public class InMemoryAsyncCache : IAsyncCache
         }
     }
 
-    public async Task Set<T>(string key, T value, CacheOptions? options = null) where T : notnull
+    public async Task SetAsync<T>(string key, T value, CacheOptions? options = null) where T : notnull
     {
         options ??= CacheOptions.Default;
 
@@ -61,7 +61,7 @@ public class InMemoryAsyncCache : IAsyncCache
         }
     }
 
-    public async Task Clear(string key)
+    public async Task ClearAsync(string key)
     {
         try
         {

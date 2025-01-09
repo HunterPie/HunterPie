@@ -1,4 +1,5 @@
-﻿using HunterPie.Internal.Initializers;
+﻿using HunterPie.DI.Module;
+using HunterPie.Internal.Initializers;
 
 namespace HunterPie.DI.Modules;
 

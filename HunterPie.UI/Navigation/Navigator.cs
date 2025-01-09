@@ -1,5 +1,8 @@
-﻿namespace HunterPie.UI.Navigation;
+﻿using System;
 
+namespace HunterPie.UI.Navigation;
+
+[Obsolete("Deprecated, use IAppNavigator or IBodyNavigator instead")]
 public static class Navigator
 {
 #pragma warning disable CS8618

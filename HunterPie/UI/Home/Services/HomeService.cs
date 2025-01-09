@@ -31,7 +31,7 @@ internal class HomeService
                 Banner = "https://cdn.hunterpie.com/resources/monster-hunter-world-banner.png",
                 Execute = () => Steam.RunGameBy(GameType.World),
                 Name = Games.MONSTER_HUNTER_WORLD,
-                OnSettings = BuildSettingsHandler(GameProcess.MonsterHunterWorld)
+                OnSettings = BuildSettingsHandler(GameProcessType.MonsterHunterWorld)
             }
         },
         {
@@ -41,7 +41,7 @@ internal class HomeService
                     "https://cdn.hunterpie.com/resources/monster-hunter-rise-banner.png",
                 Execute = () => Steam.RunGameBy(GameType.Rise),
                 Name = Games.MONSTER_HUNTER_RISE,
-                OnSettings = BuildSettingsHandler(GameProcess.MonsterHunterRise)
+                OnSettings = BuildSettingsHandler(GameProcessType.MonsterHunterRise)
             }
         }
     };
@@ -50,7 +50,7 @@ internal class HomeService
     {
         foreach (IProcessManager manager in ProcessManager.Managers)
         {
-            GameType? possibleGameType = MapFactory.Map<GameProcess, GameType?>(manager.Game);
+            GameType? possibleGameType = MapFactory.Map<GameProcessType, GameType?>(manager.Game);
 
             if (possibleGameType is not { } gameType)
                 continue;
@@ -74,25 +74,25 @@ internal class HomeService
     public ObservableCollection<SupportedGameViewModel> GetSupportedGameViewModels() =>
         SupportedGames.Values.ToObservableCollection();
 
-    private static Action BuildSettingsHandler(GameProcess gameProcess)
+    private static Action BuildSettingsHandler(GameProcessType gameProcessType)
     {
         return () =>
         {
-            GameConfig gameConfig = ClientConfigHelper.GetGameConfigBy(gameProcess);
+            GameConfig gameConfig = ClientConfigHelper.GetGameConfigBy(gameProcessType);
 
             ObservableCollection<ConfigurationCategory> generalConfig = ConfigurationAdapter.Adapt(ClientConfig.Config);
             ObservableCollection<ConfigurationCategory> gameCategories =
-                ConfigurationAdapter.Adapt(gameConfig, gameProcess);
+                ConfigurationAdapter.Adapt(gameConfig, gameProcessType);
 
             var configurationCategories = generalConfig.Concat(gameCategories)
                 .ToObservableCollection();
-            var configurations = new Dictionary<GameProcess, ObservableCollection<ConfigurationCategory>>()
+            var configurations = new Dictionary<GameProcessType, ObservableCollection<ConfigurationCategory>>()
             {
-                { gameProcess, configurationCategories }
+                { gameProcessType, configurationCategories }
             };
-            var supportedConfigurations = new[] { gameProcess }.ToObservableCollection();
+            var supportedConfigurations = new[] { gameProcessType }.ToObservableCollection();
 
-            var settingsViewModel = new SettingsViewModel(configurations, supportedConfigurations, gameProcess);
+            var settingsViewModel = new SettingsViewModel(configurations, supportedConfigurations, gameProcessType);
 
             Navigator.Body.Navigate(settingsViewModel);
         };

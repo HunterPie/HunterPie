@@ -1,10 +1,12 @@
-﻿namespace HunterPie.Core.Domain.Interfaces;
+﻿using System.Threading.Tasks;
+
+namespace HunterPie.Core.Domain.Interfaces;
 public interface ILocalRegistry
 {
 
-    public void Set<T>(string name, T value);
-    public bool Exists(string name);
-    public object Get(string name);
-    public T Get<T>(string name);
-    public void Delete(string name);
+    public Task SetAsync<T>(string name, T value) where T : class;
+    public Task<bool> ExistsAsync(string name);
+    public Task<object?> GetAsync(string name);
+    public Task<T?> GetAsync<T>(string name) where T : class;
+    public Task DeleteAsync(string name);
 }

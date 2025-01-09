@@ -1,7 +1,7 @@
 ﻿using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
-using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Entity.Game;
@@ -99,7 +99,7 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
         remove => _onWorldTimeChange.Unhook(value);
     }
 
-    protected CommonGame(IProcessManager process) : base(process)
+    protected CommonGame(IGameProcess process) : base(process)
     {
         _targetDetectionService = new SimpleTargetDetectionService(this);
     }

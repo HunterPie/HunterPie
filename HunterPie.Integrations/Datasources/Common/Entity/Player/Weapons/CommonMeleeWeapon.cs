@@ -1,7 +1,7 @@
 ﻿using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
-using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
@@ -30,7 +30,7 @@ public abstract class CommonMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEve
         remove => _onSharpnessLevelChange.Unhook(value);
     }
 
-    protected CommonMeleeWeapon(IProcessManager process) : base(process) { }
+    protected CommonMeleeWeapon(IGameProcess process) : base(process) { }
 
     public virtual void Dispose()
     {

@@ -1,13 +1,17 @@
-﻿using HunterPie.Features.Account;
+﻿using HunterPie.Features.Account.UseCase;
 using HunterPie.GUI.Parts.Statistics.ViewModels;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Navigation;
 using System;
+using System.Threading.Tasks;
 
 namespace HunterPie.UI.SideBar.ViewModels;
 
 internal class QuestStatisticsSideBarViewModel : ViewModel, ISideBarViewModel
 {
+    private readonly IBodyNavigator _bodyNavigator;
+    private readonly IAccountUseCase _accountUseCase;
+
     public Type Type => typeof(QuestStatisticsSummariesViewModel);
 
     public string Label => "//Strings/Client/Tabs/Tab[@Id='QUEST_STATISTICS_STRING']";
@@ -20,17 +24,29 @@ internal class QuestStatisticsSideBarViewModel : ViewModel, ISideBarViewModel
     private bool _isSelected;
     public bool IsSelected { get => _isSelected; set => SetValue(ref _isSelected, value); }
 
-    public QuestStatisticsSideBarViewModel()
+    public QuestStatisticsSideBarViewModel(
+        IBodyNavigator bodyNavigator,
+        IAccountUseCase accountUseCase)
     {
-        AccountManager.OnSignIn += (_, __) => IsAvailable = true;
-        AccountManager.OnSessionStart += (_, __) => IsAvailable = true;
-        AccountManager.OnSignOut += (_, __) => IsAvailable = false;
+        _bodyNavigator = bodyNavigator;
+        _accountUseCase = accountUseCase;
+
+        Subscribe();
     }
 
-    public void Execute()
+    public Task ExecuteAsync()
     {
         var viewModel = new QuestStatisticsSummariesViewModel();
 
-        Navigator.Body.Navigate(viewModel);
+        _bodyNavigator.Navigate(viewModel);
+
+        return Task.CompletedTask;
+    }
+
+    private void Subscribe()
+    {
+        _accountUseCase.SignIn += (_, _) => IsAvailable = true;
+        _accountUseCase.SessionStart += (_, _) => IsAvailable = true;
+        _accountUseCase.SignOut += (_, _) => IsAvailable = false;
     }
 }

@@ -9,10 +9,8 @@ public sealed class MHWContext : Context
 {
     public static MHWStrings Strings { get; private set; }
 
-    internal MHWContext(IProcessManager process)
+    internal MHWContext(IProcessManager process) : base(new MHWGame(process), process)
     {
         Strings = new MHWStrings(process);
-        Game = new MHWGame(process);
-        Process = process;
     }
 }

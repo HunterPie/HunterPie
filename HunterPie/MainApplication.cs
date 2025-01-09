@@ -1,8 +1,11 @@
-﻿using HunterPie.Features.Account.Config;
+﻿using HunterPie.Core.Analytics;
+using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.UseCase;
+using HunterPie.Features.Game.Service;
 using HunterPie.Internal;
-using HunterPie.UI.Main.ViewModels;
+using HunterPie.UI.Main.Navigators;
 using HunterPie.Update.UseCase;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -10,24 +13,28 @@ namespace HunterPie;
 
 internal class MainApplication
 {
-    private readonly IAccountUseCase _accountUseCase;
+    private readonly IAnalyticsService _analyticsService;
     private readonly IUpdateUseCase _updateUseCase;
     private readonly IRemoteAccountConfigUseCase _remoteAccountConfigUseCase;
     private readonly RemoteConfigSyncService _remoteConfigSyncService;
-    private readonly MainBodyViewModel _mainBodyViewModel;
+    private readonly NavigatorController _navigatorController;
+    private readonly GameContextController _gameContextController;
+
 
     public MainApplication(
-        IAccountUseCase accountUseCase,
+        IAnalyticsService analyticsService,
         IUpdateUseCase updateUseCase,
         IRemoteAccountConfigUseCase remoteAccountConfigUseCase,
         RemoteConfigSyncService remoteConfigSyncService,
-        MainBodyViewModel mainBodyViewModel)
+        NavigatorController navigatorController,
+        GameContextController gameContextController)
     {
-        _accountUseCase = accountUseCase;
+        _analyticsService = analyticsService;
         _updateUseCase = updateUseCase;
         _remoteAccountConfigUseCase = remoteAccountConfigUseCase;
         _remoteConfigSyncService = remoteConfigSyncService;
-        _mainBodyViewModel = mainBodyViewModel;
+        _navigatorController = navigatorController;
+        _gameContextController = gameContextController;
     }
 
     public async Task Start()
@@ -35,7 +42,16 @@ internal class MainApplication
 #if RELEASE
         await SelfUpdate();
 #endif
+        _gameContextController.Subscribe();
         _remoteConfigSyncService.Start();
+        await _navigatorController.SetupAsync();
+    }
+
+    public async Task SendUiException(Exception exception)
+    {
+        await _analyticsService.SendAsync(
+            analyticsEvent: AnalyticsEvent.FromException(exception, isUiError: true)
+        );
     }
 
     public async Task Restart()
@@ -50,11 +66,10 @@ internal class MainApplication
     {
         bool hasUpdated = await _updateUseCase.InvokeAsync();
 
-        if (hasUpdated)
-        {
-            InitializerManager.Unload();
-            await Restart();
+        if (!hasUpdated)
             return;
-        }
+
+        InitializerManager.Unload();
+        await Restart();
     }
 }

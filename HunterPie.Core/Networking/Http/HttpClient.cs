@@ -8,7 +8,6 @@ using InternalHttpClient = System.Net.Http.HttpClient;
 
 namespace HunterPie.Core.Networking.Http;
 
-#nullable enable
 public class HttpClient : IDisposable
 {
 

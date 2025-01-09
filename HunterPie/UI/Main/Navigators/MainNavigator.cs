@@ -13,7 +13,7 @@ internal class MainNavigator : IAppNavigator, IAppNavigationDispatcher, IEventDi
     private readonly Dictionary<Type, ViewModel> _viewModels = new();
     private readonly Stack<ViewModel> _stack = new();
 
-    public event EventHandler<NavigationRequestEventArgs>? NavigationRequest;
+    public event EventHandler<NavigateRequestEventArgs>? NavigateRequest;
 
     public void Navigate<TViewModel>(TViewModel viewModel) where TViewModel : ViewModel
     {
@@ -25,8 +25,8 @@ internal class MainNavigator : IAppNavigator, IAppNavigationDispatcher, IEventDi
         _viewModels.Add(viewModelType, viewModel);
 
         this.Dispatch(
-            toDispatch: NavigationRequest,
-            data: new NavigationRequestEventArgs
+            toDispatch: NavigateRequest,
+            data: new NavigateRequestEventArgs
             {
                 ViewModel = viewModel
             });

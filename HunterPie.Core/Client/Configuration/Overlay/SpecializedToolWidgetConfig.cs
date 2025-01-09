@@ -7,7 +7,7 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay;
 
-[Configuration("SPECIALIZED_TOOL_WIDGET_STRING", "ICON_MANTLE", availableGames: GameProcess.MonsterHunterWorld)]
+[Configuration("SPECIALIZED_TOOL_WIDGET_STRING", "ICON_MANTLE", availableGames: GameProcessType.MonsterHunterWorld)]
 public class SpecializedToolWidgetConfig : IWidgetSettings, ISettings
 {
     #region General Settings

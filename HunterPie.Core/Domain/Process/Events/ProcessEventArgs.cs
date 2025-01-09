@@ -1,14 +1,9 @@
-﻿using System;
+﻿using HunterPie.Core.Domain.Process.Entity;
+using System;
 
-namespace HunterPie.Core.Events;
+namespace HunterPie.Core.Domain.Process.Events;
 
 public class ProcessEventArgs : EventArgs
 {
-
-    public string ProcessName { get; }
-
-    public ProcessEventArgs(string name)
-    {
-        ProcessName = name;
-    }
+    public required IGameProcess Game { get; init; }
 }

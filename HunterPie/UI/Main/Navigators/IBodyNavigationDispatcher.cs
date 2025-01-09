@@ -2,5 +2,4 @@
 
 internal interface IBodyNavigationDispatcher : INavigationDispatcher
 {
-
 }

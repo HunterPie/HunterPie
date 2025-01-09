@@ -48,7 +48,7 @@ public class ClientConfig : ISettings
     #endregion
 
     #region Native Settings
-    [ConfigurationProperty("ENABLE_NATIVE_MODULE_STRING", availableGames: GameProcess.MonsterHunterWorld, group: CommonConfigurationGroups.NATIVE)]
+    [ConfigurationProperty("ENABLE_NATIVE_MODULE_STRING", availableGames: GameProcessType.MonsterHunterWorld, group: CommonConfigurationGroups.NATIVE)]
     public Observable<bool> EnableNativeModule { get; set; } = true;
     #endregion
 
@@ -73,5 +73,5 @@ public class ClientConfig : ISettings
     public Observable<GameType> DefaultGameType { get; set; } = GameType.Rise;
 
     // States
-    public Observable<GameProcess> LastConfiguredGame { get; set; } = GameProcess.MonsterHunterRise;
+    public Observable<GameProcessType> LastConfiguredGame { get; set; } = GameProcessType.MonsterHunterRise;
 }

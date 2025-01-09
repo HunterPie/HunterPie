@@ -1,7 +1,7 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
-using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Enums;
@@ -106,19 +106,19 @@ public class MHRLongSword : MHRMeleeWeapon, ILongSword
     }
     #endregion
 
-    public MHRLongSword(IProcessManager process) : base(process, Weapon.Longsword)
+    public MHRLongSword(IGameProcess process) : base(process, Weapon.Longsword)
     {
     }
 
     [ScannableMethod]
-    private void GetData()
+    private async Task GetData()
     {
-        MHRLongSwordStructure structure = Memory.Deref<MHRLongSwordStructure>(
-            AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
-            AddressMap.Get<int[]>("CURRENT_WEAPON_OFFSETS")
+        MHRLongSwordStructure structure = await Memory.DerefAsync<MHRLongSwordStructure>(
+            address: AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
+            offsets: AddressMap.Get<int[]>("CURRENT_WEAPON_OFFSETS")
         );
 
-        float[] maxTimersByLevel = Memory.ReadArraySafe<float>(
+        float[] maxTimersByLevel = await Memory.ReadArraySafeAsync<float>(
             address: structure.LevelMaxTimersPointer,
             size: 4
         );

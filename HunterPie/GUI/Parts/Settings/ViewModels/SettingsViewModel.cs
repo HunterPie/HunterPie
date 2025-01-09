@@ -19,10 +19,10 @@ namespace HunterPie.GUI.Parts.Settings.ViewModels;
 internal class SettingsViewModel : ViewModel
 {
     private readonly PoogieVersionConnector _connector = new();
-    private readonly Dictionary<GameProcess, ObservableCollection<ConfigurationCategory>> _configurations;
+    private readonly Dictionary<GameProcessType, ObservableCollection<ConfigurationCategory>> _configurations;
 
-    public ObservableCollection<GameProcess> ConfigurableGames { get; }
-    public Observable<GameProcess> SelectedGameConfiguration { get; }
+    public ObservableCollection<GameProcessType> ConfigurableGames { get; }
+    public Observable<GameProcessType> SelectedGameConfiguration { get; }
 
     private UpdateFetchStatus _updateStatus = UpdateFetchStatus.Fetching;
     public UpdateFetchStatus UpdateStatus { get => _updateStatus; set => SetValue(ref _updateStatus, value); }
@@ -37,9 +37,9 @@ internal class SettingsViewModel : ViewModel
     public DateTime SynchronizedAt { get => _synchronizedAt; set => SetValue(ref _synchronizedAt, value); }
 
     public SettingsViewModel(
-        Dictionary<GameProcess, ObservableCollection<ConfigurationCategory>> configurations,
-        ObservableCollection<GameProcess> configurableGames,
-        Observable<GameProcess> currentConfiguredGame
+        Dictionary<GameProcessType, ObservableCollection<ConfigurationCategory>> configurations,
+        ObservableCollection<GameProcessType> configurableGames,
+        Observable<GameProcessType> currentConfiguredGame
     )
     {
         _configurations = configurations;

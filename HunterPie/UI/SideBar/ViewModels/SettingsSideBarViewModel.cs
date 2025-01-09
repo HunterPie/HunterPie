@@ -22,6 +22,7 @@ namespace HunterPie.UI.SideBar.ViewModels;
 
 internal class SettingsSideBarViewModel : ViewModel, ISideBarViewModel
 {
+    private readonly IBodyNavigator _bodyNavigator;
     private SettingsViewModel? _viewModel;
     public Type Type => typeof(SettingsViewModel);
 
@@ -34,8 +35,9 @@ internal class SettingsSideBarViewModel : ViewModel, ISideBarViewModel
     private bool _isSelected;
     public bool IsSelected { get => _isSelected; set => SetValue(ref _isSelected, value); }
 
-    public SettingsSideBarViewModel()
+    public SettingsSideBarViewModel(IBodyNavigator bodyNavigator)
     {
+        _bodyNavigator = bodyNavigator;
         ConfigManager.OnSync += OnConfigurationSync;
     }
 
@@ -50,18 +52,19 @@ internal class SettingsSideBarViewModel : ViewModel, ISideBarViewModel
         _viewModel.SynchronizedAt = e.SyncedAt;
     }
 
-    public void Execute()
+    public async Task ExecuteAsync()
     {
-        BuildViewModel().ContinueWith(async (it) =>
-        {
-            _viewModel = await it;
-            Navigator.Body.Navigate(_viewModel);
-        });
+        SettingsViewModel viewModel = await BuildViewModelAsync();
+
+        _bodyNavigator.Navigate(viewModel);
     }
 
-    private async Task<SettingsViewModel> BuildViewModel()
+    private async Task<SettingsViewModel> BuildViewModelAsync()
     {
-        Observable<GameProcess> game = ClientConfig.Config.Client.LastConfiguredGame;
+        if (_viewModel is { })
+            return _viewModel;
+
+        Observable<GameProcessType> game = ClientConfig.Config.Client.LastConfiguredGame;
 
         ObservableCollection<ConfigurationCategory> generalConfig = ConfigurationAdapter.Adapt(ClientConfig.Config);
         ObservableCollection<ConfigurationCategory> accountConfig = await LocalAccountConfig.BuildAccountConfig();
@@ -74,28 +77,30 @@ internal class SettingsSideBarViewModel : ViewModel, ISideBarViewModel
         var commonConfig = accountConfig.Concat(generalConfig)
             .Concat(featureFlags)
             .ToObservableCollection();
-        var configurations = new Dictionary<GameProcess, ObservableCollection<ConfigurationCategory>>
+        var configurations = new Dictionary<GameProcessType, ObservableCollection<ConfigurationCategory>>
         {
-            { GameProcess.MonsterHunterRise, BuildConfiguration(commonConfig, ClientConfig.Config.Rise, GameProcess.MonsterHunterRise) },
-            { GameProcess.MonsterHunterWorld, BuildConfiguration(commonConfig, ClientConfig.Config.World, GameProcess.MonsterHunterWorld) }
+            { GameProcessType.MonsterHunterRise, BuildConfiguration(commonConfig, ClientConfig.Config.Rise, GameProcessType.MonsterHunterRise) },
+            { GameProcessType.MonsterHunterWorld, BuildConfiguration(commonConfig, ClientConfig.Config.World, GameProcessType.MonsterHunterWorld) }
         };
         var supportedConfigurations =
-            new ObservableCollection<GameProcess>(new List<GameProcess>
+            new ObservableCollection<GameProcessType>(new List<GameProcessType>
             {
-                GameProcess.MonsterHunterRise,
-                GameProcess.MonsterHunterWorld
+                GameProcessType.MonsterHunterRise,
+                GameProcessType.MonsterHunterWorld
             });
 
-        return new SettingsViewModel(configurations, supportedConfigurations, game);
+        _viewModel = new SettingsViewModel(configurations, supportedConfigurations, game);
+
+        return _viewModel;
     }
 
     private static ObservableCollection<ConfigurationCategory> BuildConfiguration(
         IEnumerable<ConfigurationCategory> commonConfiguration,
         GameConfig configuration,
-        GameProcess gameProcess
+        GameProcessType gameProcessType
     )
     {
-        ObservableCollection<ConfigurationCategory> configCategory = ConfigurationAdapter.Adapt(configuration, gameProcess);
+        ObservableCollection<ConfigurationCategory> configCategory = ConfigurationAdapter.Adapt(configuration, gameProcessType);
 
         return commonConfiguration.Concat(configCategory)
             .ToObservableCollection();

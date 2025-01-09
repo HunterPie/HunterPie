@@ -1,7 +1,7 @@
 ﻿using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
-using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Entity.Party;
@@ -110,7 +110,7 @@ public abstract class CommonPlayer : Scannable, IPlayer, IEventDispatcher, IDisp
         remove => _onLevelChange.Unhook(value);
     }
 
-    protected CommonPlayer(IProcessManager process) : base(process) { }
+    protected CommonPlayer(IGameProcess process) : base(process) { }
 
     protected void HandleAbnormality<T, S>(Dictionary<string, IAbnormality> abnormalities, AbnormalityDefinition schema, float timer, S newData)
         where T : IAbnormality, IUpdatable<S>

@@ -5,5 +5,5 @@ namespace HunterPie.UI.Main.Navigators;
 
 internal interface INavigationDispatcher
 {
-    public event EventHandler<NavigationRequestEventArgs> NavigationRequest;
+    public event EventHandler<NavigateRequestEventArgs> NavigateRequest;
 }

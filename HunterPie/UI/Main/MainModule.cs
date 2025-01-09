@@ -1,5 +1,5 @@
 ﻿using HunterPie.DI;
-using HunterPie.DI.Modules;
+using HunterPie.DI.Module;
 using HunterPie.UI.Main.Navigators;
 using HunterPie.UI.Main.ViewModels;
 using HunterPie.UI.Main.Views;

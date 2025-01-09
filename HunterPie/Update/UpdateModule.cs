@@ -1,5 +1,5 @@
 ﻿using HunterPie.DI;
-using HunterPie.DI.Modules;
+using HunterPie.DI.Module;
 using HunterPie.Update.Gateway;
 using HunterPie.Update.Service;
 

@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Domain.Process;
+﻿using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Services;
@@ -9,10 +9,8 @@ public sealed class MHRContext : Context
 {
     public static MHRStrings Strings { get; private set; }
 
-    internal MHRContext(IProcessManager process)
+    internal MHRContext(IGameProcess process) : base(new MHRGame(process), process)
     {
-        Strings = new MHRStrings(process);
-        Game = new MHRGame(process);
-        Process = process;
+        Strings = new MHRStrings();
     }
 }

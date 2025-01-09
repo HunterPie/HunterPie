@@ -9,4 +9,4 @@ public record CrashReportRequest(
     [property: JsonProperty("stacktrace")] string Stacktrace,
     [property: JsonProperty("is_ui_error")] bool IsUiError,
     [property: JsonProperty("context")] CrashReportContextRequest Context
-);
+)

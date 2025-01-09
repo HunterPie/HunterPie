@@ -78,7 +78,7 @@ public static class ScanManager
         var tasks = new Task[readOnlyScannables.Length];
 
         for (int i = 0; i < readOnlyScannables.Length; i++)
-            tasks[i] = Task.Run(readOnlyScannables[i].Scan);
+            tasks[i] = readOnlyScannables[i].Scan();
 
         Task.WaitAll(tasks);
     }

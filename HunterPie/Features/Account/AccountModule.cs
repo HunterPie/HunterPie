@@ -1,5 +1,5 @@
 ﻿using HunterPie.DI;
-using HunterPie.DI.Modules;
+using HunterPie.DI.Module;
 using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.Controller;
 using HunterPie.Features.Account.Service;
@@ -16,7 +16,8 @@ internal class AccountModule : IDependencyModule
             .WithSingle<RemoteAccountConfigService>()
             .WithSingle<RemoteConfigSyncService>()
             .WithSingle<AccountController>()
-            .WithSingle<MainApplication>();
+            .WithSingle<MainApplication>()
+            .WithSingle<LocalAccountConfig>();
 
         registry
             .WithService<AccountLoginFlowViewModel>()

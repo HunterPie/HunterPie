@@ -9,7 +9,7 @@ namespace HunterPie.UI.Settings.Converter.Internal;
 
 internal class AbnormalityTrayConfigurationPropertyBuilder : IConfigurationPropertyBuilder
 {
-    public IConfigurationProperty Build(PropertyData data, GameProcess game)
+    public IConfigurationProperty Build(PropertyData data, GameProcessType game)
     {
         if (data.Value is not AbnormalityTrays value)
             throw new ArgumentException($"Property must be of type {nameof(AbnormalityTrays)}");

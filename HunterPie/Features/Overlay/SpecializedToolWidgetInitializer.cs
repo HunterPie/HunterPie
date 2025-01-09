@@ -36,7 +36,7 @@ internal class SpecializedToolWidgetInitializer : IWidgetInitializer
     private void InitializePrimaryTool(MHWContext context)
     {
         SpecializedToolWidgetConfig config = ClientConfigHelper.DeferOverlayConfig(
-            GameProcess.MonsterHunterWorld,
+            GameProcessType.MonsterHunterWorld,
             config => config.PrimarySpecializedToolWidget
         );
 
@@ -55,7 +55,7 @@ internal class SpecializedToolWidgetInitializer : IWidgetInitializer
     private void InitializeSecondaryTool(MHWContext context)
     {
         SpecializedToolWidgetConfig config = ClientConfigHelper.DeferOverlayConfig(
-            GameProcess.MonsterHunterWorld,
+            GameProcessType.MonsterHunterWorld,
             config => config.SecondarySpecializedToolWidget
         );
 

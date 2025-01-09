@@ -2,11 +2,14 @@
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Navigation;
 using System;
+using System.Threading.Tasks;
 
 namespace HunterPie.UI.SideBar.ViewModels;
 
 internal class PatchNotesSideBarViewModel : ViewModel, ISideBarViewModel
 {
+    private readonly IBodyNavigator _bodyNavigator;
+
     public Type Type => typeof(PatchesViewModel);
 
     public string Label => "//Strings/Client/Tabs/Tab[@Id='PATCH_NOTES_STRING']";
@@ -18,8 +21,15 @@ internal class PatchNotesSideBarViewModel : ViewModel, ISideBarViewModel
     private bool _isSelected;
     public bool IsSelected { get => _isSelected; set => SetValue(ref _isSelected, value); }
 
-    public void Execute()
+    public PatchNotesSideBarViewModel(IBodyNavigator bodyNavigator)
     {
-        Navigator.Body.Navigate(new PatchesViewModel());
+        _bodyNavigator = bodyNavigator;
+    }
+
+    public Task ExecuteAsync()
+    {
+        _bodyNavigator.Navigate(new PatchesViewModel());
+
+        return Task.CompletedTask;
     }
 }
