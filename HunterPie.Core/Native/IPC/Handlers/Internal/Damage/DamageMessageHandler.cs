@@ -3,6 +3,7 @@ using HunterPie.Core.Native.IPC.Models;
 using HunterPie.Core.Native.IPC.Utils;
 using System;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace HunterPie.Core.Native.IPC.Handlers.Internal.Damage;
 
@@ -18,7 +19,7 @@ public class DamageMessageHandler : MessageDispatcher<ResponseDamageMessage>, IM
         DispatchMessage(response);
     }
 
-    public static async void RequestHuntStatistics(long target)
+    public static async Task RequestHuntStatisticsAsync(long target)
     {
         var request = new RequestDamageMessage
         {
@@ -48,7 +49,7 @@ public class DamageMessageHandler : MessageDispatcher<ResponseDamageMessage>, IM
         _ = await IPCService.Send(request);
     }
 
-    public static async void ClearAllHuntStatisticsExcept(IntPtr[] targets)
+    public static async Task ClearAllHuntStatisticsExceptAsync(IntPtr[] targets)
     {
         nint[] buffer = new IntPtr[10];
 

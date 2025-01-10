@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Logger;
 using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.UseCase;
@@ -22,7 +21,7 @@ internal class GameSaveBackupService : IBackupService
     private readonly AccountConfig _accountConfig;
     private readonly PoogieBackupConnector _connector;
     private readonly IBackupStrategy[] _strategies;
-    private readonly ILocalRegistry _localRegistry;
+    private readonly ILocalRegistryAsync _localRegistryAsync;
 
     private const string LAST_BACKUP_AT_KEY = "lastBackupAt:";
     private const string WAS_LAST_BACKUP_SUCCESS_KEY = "wasLastBackupSuccessful:";
@@ -32,13 +31,13 @@ internal class GameSaveBackupService : IBackupService
         AccountConfig accountConfig,
         PoogieBackupConnector connector,
         IBackupStrategy[] strategies,
-        ILocalRegistry localRegistry)
+        ILocalRegistryAsync localRegistryAsync)
     {
         _accountUseCase = accountUseCase;
         _accountConfig = accountConfig;
         _connector = connector;
         _strategies = strategies;
-        _localRegistry = localRegistry;
+        _localRegistryAsync = localRegistryAsync;
     }
 
     public async Task ExecuteAsync(GameType gameType)
@@ -59,7 +58,7 @@ internal class GameSaveBackupService : IBackupService
         string registryKey = $"{LAST_BACKUP_AT_KEY}{gameType}";
         string successRegistryKey = $"{WAS_LAST_BACKUP_SUCCESS_KEY}{gameType}";
 
-        if (!CanBackupFiles(gameType))
+        if (!await CanBackupFilesAsync(gameType))
             return;
 
         IBackupStrategy? strategy = _strategies.FirstOrDefault(strategy => strategy.Type == gameType.ToApiModel());
@@ -90,18 +89,18 @@ internal class GameSaveBackupService : IBackupService
 
         Log.Debug("Successfully uploaded save file {0}", result.Response!.Id);
 
-        _localRegistry.Set(registryKey, DateTime.UtcNow.Ticks);
-        _localRegistry.Set(successRegistryKey, true);
+        await _localRegistryAsync.SetAsync(registryKey, DateTime.UtcNow.Ticks);
+        await _localRegistryAsync.SetAsync(successRegistryKey, true);
     }
 
-    private static bool CanBackupFiles(GameType gameType)
+    private async Task<bool> CanBackupFilesAsync(GameType gameType)
     {
         string registryKey = $"{LAST_BACKUP_AT_KEY}{gameType}";
 
-        if (!RegistryConfig.Exists(registryKey))
+        if (!await _localRegistryAsync.ExistsAsync(registryKey))
             return true;
 
-        long lastBackupTicks = RegistryConfig.Get<long>(registryKey);
+        long lastBackupTicks = await _localRegistryAsync.GetAsync<long>(registryKey);
 
         double timeSinceLastBackup = (DateTime.UtcNow - new DateTime(lastBackupTicks)).TotalHours;
 

@@ -134,7 +134,7 @@ public abstract class CommonMonster : Scannable, IMonster, IDisposable, IEventDi
         remove => _onCaptureThresholdChange.Unhook(value);
     }
 
-    public CommonMonster(IGameProcess process) : base(process) { }
+    protected CommonMonster(IGameProcess process) : base(process) { }
 
     public virtual void Dispose()
     {

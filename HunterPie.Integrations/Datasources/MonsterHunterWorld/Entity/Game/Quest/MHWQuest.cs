@@ -2,7 +2,7 @@
 using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Interfaces;
-using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Events;
@@ -122,7 +122,7 @@ public class MHWQuest : Scannable, IQuest, IDisposable, IEventDispatcher
     }
 
     public MHWQuest(
-        IProcessManager process,
+        IGameProcess process,
         int id,
         int stars,
         QuestType questType
@@ -135,15 +135,15 @@ public class MHWQuest : Scannable, IQuest, IDisposable, IEventDispatcher
     }
 
     [ScannableMethod]
-    private void GetQuestData()
+    private async Task GetQuestData()
     {
-        MHWQuestStructure quest = Memory.Deref<MHWQuestStructure>(
-            AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
-            AddressMap.GetOffsets("QUEST_DATA_OFFSETS")
+        MHWQuestStructure quest = await Memory.DerefAsync<MHWQuestStructure>(
+            address: AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
+            offsets: AddressMap.GetOffsets("QUEST_DATA_OFFSETS")
         );
-        MHWQuestDataStructure questData = Memory.Deref<MHWQuestDataStructure>(
-            AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
-            AddressMap.GetOffsets("QUEST_EXTRA_DATA_OFFSETS")
+        MHWQuestDataStructure questData = await Memory.DerefAsync<MHWQuestDataStructure>(
+            address: AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
+            offsets: AddressMap.GetOffsets("QUEST_EXTRA_DATA_OFFSETS")
         );
 
         Status = quest.State.ToStatus();
@@ -152,9 +152,9 @@ public class MHWQuest : Scannable, IQuest, IDisposable, IEventDispatcher
     }
 
     [ScannableMethod]
-    private void GetTimer()
+    private async Task GetTimer()
     {
-        ulong timeLeft = Memory.Deref<ulong>(
+        ulong timeLeft = await Memory.DerefAsync<ulong>(
             address: AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
             offsets: AddressMap.GetOffsets("QUEST_TIMER_OFFSETS")
         );

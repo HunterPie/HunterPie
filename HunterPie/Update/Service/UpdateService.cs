@@ -25,7 +25,7 @@ internal class UpdateService : IUpdateUseCase
     private readonly LocalizationUpdateService _localizationUpdateService;
     private readonly UpdateGateway _gateway;
     private readonly ChecksumService _checksumService;
-    private readonly ILocalRegistry _localRegistry;
+    private readonly ILocalRegistryAsync _localRegistryAsync;
     private readonly IUpdateCleanUpUseCase _updateCleanUpUseCase;
     private readonly IAnalyticsService _analyticsService;
 
@@ -33,14 +33,14 @@ internal class UpdateService : IUpdateUseCase
         LocalizationUpdateService localizationUpdateService,
         UpdateGateway gateway,
         ChecksumService checksumService,
-        ILocalRegistry localRegistry,
+        ILocalRegistryAsync localRegistryAsync,
         IUpdateCleanUpUseCase updateCleanUpUseCase,
         IAnalyticsService analyticsService)
     {
         _localizationUpdateService = localizationUpdateService;
         _gateway = gateway;
         _checksumService = checksumService;
-        _localRegistry = localRegistry;
+        _localRegistryAsync = localRegistryAsync;
         _updateCleanUpUseCase = updateCleanUpUseCase;
         _analyticsService = analyticsService;
     }
@@ -68,14 +68,14 @@ internal class UpdateService : IUpdateUseCase
 
     private void OpenPatchNotesIfNeeded()
     {
-        bool hasUpdateFlag = _localRegistry.Exists(JUST_UPDATED_KEY);
-        bool hasJustUpdated = _localRegistry.Get<bool>(JUST_UPDATED_KEY);
+        bool hasUpdateFlag = _localRegistryAsync.Exists(JUST_UPDATED_KEY);
+        bool hasJustUpdated = _localRegistryAsync.Get<bool>(JUST_UPDATED_KEY);
 
         if (hasUpdateFlag && !hasJustUpdated)
             return;
 
         Navigator.Body.Navigate<PatchesViewModel>();
-        _localRegistry.Set(JUST_UPDATED_KEY, false);
+        _localRegistryAsync.Set(JUST_UPDATED_KEY, false);
     }
 
     private async Task<bool> UpdateAsync(UpdateViewModel vm)
@@ -119,7 +119,7 @@ internal class UpdateService : IUpdateUseCase
         {
             ReplaceFiles(vm, extractedPackagePath, checksums);
             CleanUp(vm, extractedPackagePath, packageFile);
-            _localRegistry.Set("JustUpdated", true);
+            _localRegistryAsync.Set("JustUpdated", true);
             return true;
         }
         catch (Exception err)

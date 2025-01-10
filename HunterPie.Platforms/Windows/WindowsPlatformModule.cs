@@ -2,6 +2,7 @@
 using HunterPie.DI.Module;
 using HunterPie.Platforms.Windows.Process;
 using HunterPie.Platforms.Windows.Registry;
+using HunterPie.Platforms.Windows.Vault;
 
 namespace HunterPie.Platforms.Windows;
 
@@ -11,6 +12,7 @@ internal class WindowsPlatformModule : IDependencyModule
     {
         registry
             .WithSingle<WindowsProcessWatcher>()
-            .WithSingle<WindowsRegistry>();
+            .WithSingle<WindowsRegistryAsync>()
+            .WithSingle<WindowsCredentialVault>();
     }
 }

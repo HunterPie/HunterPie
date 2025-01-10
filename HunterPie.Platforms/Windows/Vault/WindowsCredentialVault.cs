@@ -2,25 +2,30 @@
 using HunterPie.Core.Logger;
 using HunterPie.Core.Utils;
 using HunterPie.Core.Vault;
-using System;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using static HunterPie.Core.System.Windows.Native.AdvApi32;
+using static HunterPie.Platforms.Windows.Api.Adv.AdvApi32;
 using Credential = HunterPie.Core.Vault.Model.Credential;
-using NativeCredential = HunterPie.Core.System.Windows.Native.AdvApi32.Credential;
+using NativeCredential = HunterPie.Platforms.Windows.Api.Adv.AdvApi32.Credential;
 
-namespace HunterPie.Core.System.Windows.Vault;
+namespace HunterPie.Platforms.Windows.Vault;
+
 internal class WindowsCredentialVault : ICredentialVault
 {
     private const string OWNER_NAME = "HunterPie";
+    private readonly ICryptoService _cryptoService;
+
+    public WindowsCredentialVault(ICryptoService cryptoService)
+    {
+        _cryptoService = cryptoService;
+    }
 
     public void Create(string username, string password)
     {
-        string encryptedPassword = CryptoService.Encrypt(password);
+        string encryptedPassword = _cryptoService.Encrypt(password);
         byte[] passwordBytes = Encoding.Unicode.GetBytes(encryptedPassword);
 
-        var credential = new NativeCredential()
+        var credential = new NativeCredential
         {
             AttributeCount = 0,
             Attributes = IntPtr.Zero,
@@ -64,17 +69,23 @@ internal class WindowsCredentialVault : ICredentialVault
             return null;
 
         int passwordLength = (int)credential.CredentialBlobSize / 2;
-        string username = Marshal.PtrToStringUni(credential.Username);
-        string password = Marshal.PtrToStringUni(credential.CredentialBlob, passwordLength);
+        string? username = Marshal.PtrToStringUni(credential.Username);
 
-        string decryptedPassword = CryptoService.Decrypt(password);
+        if (username is not { })
+            return null;
+
+        string? password = Marshal.PtrToStringUni(credential.CredentialBlob, passwordLength);
+
+        if (password is not { })
+            return null;
+
+        string decryptedPassword = _cryptoService.Decrypt(password);
 
         CredFree(handle);
 
-        return new Credential()
-        {
-            Username = username,
-            Password = decryptedPassword
-        };
+        return new Credential(
+            Username: username,
+            Password: decryptedPassword
+        );
     }
 }

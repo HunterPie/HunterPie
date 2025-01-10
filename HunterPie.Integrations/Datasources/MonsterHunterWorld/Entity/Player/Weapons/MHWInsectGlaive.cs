@@ -1,7 +1,7 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
-using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Entity.Player.Skills;
@@ -179,20 +179,22 @@ public sealed class MHWInsectGlaive : MHWMeleeWeapon, IInsectGlaive
         remove => _onChargeChange.Unhook(value);
     }
 
-    public MHWInsectGlaive(IProcessManager process, ISkillService skillService) : base(process, skillService, Weapon.InsectGlaive) { }
+    public MHWInsectGlaive(
+        IGameProcess process,
+        ISkillService skillService) : base(process, skillService, Weapon.InsectGlaive) { }
 
     [ScannableMethod]
-    private void GetWeaponData()
+    private async Task GetWeaponData()
     {
-        MHWInsectGlaiveStructure structure = Memory.Deref<MHWInsectGlaiveStructure>(
-            AddressMap.GetAbsolute("WEAPON_MECHANICS_ADDRESS"),
-            AddressMap.Get<int[]>("WEAPON_MECHANICS_OFFSETS")
+        MHWInsectGlaiveStructure structure = await Memory.DerefAsync<MHWInsectGlaiveStructure>(
+            address: AddressMap.GetAbsolute("WEAPON_MECHANICS_ADDRESS"),
+            offsets: AddressMap.Get<int[]>("WEAPON_MECHANICS_OFFSETS")
         );
-        MHWInsectGlaiveExtraStructure extraStructure = Memory.Deref<MHWInsectGlaiveExtraStructure>(
-            AddressMap.GetAbsolute("WEAPON_MECHANICS_ADDRESS"),
-            AddressMap.Get<int[]>("WEAPON_EXTRA_MECHANICS_DATA_OFFSETS")
+        MHWInsectGlaiveExtraStructure extraStructure = await Memory.DerefAsync<MHWInsectGlaiveExtraStructure>(
+            address: AddressMap.GetAbsolute("WEAPON_MECHANICS_ADDRESS"),
+            offsets: AddressMap.Get<int[]>("WEAPON_EXTRA_MECHANICS_DATA_OFFSETS")
         );
-        MHWKinsectStructure kinsectStructure = Memory.Read<MHWKinsectStructure>(structure.KinsectPointer);
+        MHWKinsectStructure kinsectStructure = await Memory.ReadAsync<MHWKinsectStructure>(structure.KinsectPointer);
 
         KinsectBuff[] buffs = structure.QueuedBuffsCount > 0
             ? structure.BuffsQueue.TakeRolling(structure.QueuedIndex, structure.QueuedBuffsCount)

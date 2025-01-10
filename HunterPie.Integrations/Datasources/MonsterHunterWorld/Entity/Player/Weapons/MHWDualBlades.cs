@@ -1,7 +1,7 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain;
-using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Entity.Player.Skills;
@@ -90,14 +90,16 @@ public sealed class MHWDualBlades : MHWMeleeWeapon, IDualBlades
         remove => _onPiercingBindTimerChange.Unhook(value);
     }
 
-    public MHWDualBlades(IProcessManager process, ISkillService skillService) : base(process, skillService, Weapon.DualBlades) { }
+    public MHWDualBlades(
+        IGameProcess process,
+        ISkillService skillService) : base(process, skillService, Weapon.DualBlades) { }
 
     [ScannableMethod]
-    private void GetData()
+    private async Task GetData()
     {
-        MHWDualBladesStructure structure = Memory.Deref<MHWDualBladesStructure>(
-            AddressMap.GetAbsolute("WEAPON_MECHANICS_ADDRESS"),
-            AddressMap.Get<int[]>("WEAPON_MECHANICS_OFFSETS")
+        MHWDualBladesStructure structure = await Memory.DerefAsync<MHWDualBladesStructure>(
+            address: AddressMap.GetAbsolute("WEAPON_MECHANICS_ADDRESS"),
+            offsets: AddressMap.Get<int[]>("WEAPON_MECHANICS_OFFSETS")
         );
 
         IsDemonMode = structure.IsDemonModeActive;

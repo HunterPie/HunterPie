@@ -9,14 +9,14 @@ namespace HunterPie.Internal.Initializers;
 
 internal class LocalConfigInitializer : IInitializer
 {
-    private readonly ILocalRegistry _localRegistry;
+    private readonly ILocalRegistryAsync _localRegistryAsync;
 
     private const string KEY_SECRET = "secret";
     private const string CLIENT_ID = "client_id";
 
-    public LocalConfigInitializer(ILocalRegistry localRegistry)
+    public LocalConfigInitializer(ILocalRegistryAsync localRegistryAsync)
     {
-        _localRegistry = localRegistry;
+        _localRegistryAsync = localRegistryAsync;
     }
 
     public async Task Init()
@@ -33,13 +33,13 @@ internal class LocalConfigInitializer : IInitializer
     /// </summary>
     private async Task GenerateSecretKeyAsync(RandomNumberGenerator rng)
     {
-        if (await _localRegistry.ExistsAsync(KEY_SECRET))
+        if (await _localRegistryAsync.ExistsAsync(KEY_SECRET))
             return;
 
         byte[] token = new byte[16];
         rng.GetBytes(token);
 
-        await _localRegistry.SetAsync(KEY_SECRET, token);
+        await _localRegistryAsync.SetAsync(KEY_SECRET, token);
     }
 
     /// <summary>
@@ -47,7 +47,7 @@ internal class LocalConfigInitializer : IInitializer
     /// </summary>
     private async Task GenerateClientIdAsync(RandomNumberGenerator rng)
     {
-        if (await _localRegistry.ExistsAsync(CLIENT_ID))
+        if (await _localRegistryAsync.ExistsAsync(CLIENT_ID))
             return;
 
         byte[] bytes = new byte[16];
@@ -56,6 +56,6 @@ internal class LocalConfigInitializer : IInitializer
         string token = BitConverter.ToString(bytes)
             .Replace("-", string.Empty);
 
-        await _localRegistry.SetAsync(CLIENT_ID, token);
+        await _localRegistryAsync.SetAsync(CLIENT_ID, token);
     }
 }

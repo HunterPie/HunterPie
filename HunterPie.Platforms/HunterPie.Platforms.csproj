@@ -5,8 +5,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<LangVersion>11.0</LangVersion>
-	<AssemblyVersion>1.0.0.4</AssemblyVersion>
-	<FileVersion>1.0.0.4</FileVersion>
+	<AssemblyVersion>1.0.0.6</AssemblyVersion>
+	<FileVersion>1.0.0.6</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <Folder Include="Windows\Memory\" />
-    <Folder Include="Windows\Registry\" />
   </ItemGroup>
 
   <ItemGroup>

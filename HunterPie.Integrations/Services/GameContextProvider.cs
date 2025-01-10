@@ -14,7 +14,11 @@ internal class GameContextProvider : IGameContextService
         return game.Type switch
         {
             GameProcessType.MonsterHunterRise => new MHRContext(game),
+
             GameProcessType.MonsterHunterWorld => new MHWContext(game),
+
+            GameProcessType.None or
+            GameProcessType.All or
             _ => throw new UnsupportedGameException(game.Name)
         };
     }

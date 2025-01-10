@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Domain.Constants;
 using HunterPie.Core.Domain.Features;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Networking.Http;
 using HunterPie.Core.Vault;
 using System;
@@ -13,6 +14,7 @@ namespace HunterPie.Integrations.Poogie;
 internal class PoogieHttpProvider
 {
     private readonly ICredentialVault _credentialVault;
+    private readonly ILocalRegistry _localRegistry;
 
     /// <summary>
     /// The Id of this HunterPie installation, it is sent in every request so it's easier to debug exceptions
@@ -61,9 +63,12 @@ internal class PoogieHttpProvider
 
     private static readonly string[] Hosts = { "https://api.hunterpie.com", "https://mirror.hunterpie.com/mirror" };
 
-    public PoogieHttpProvider(ICredentialVault credentialVault)
+    public PoogieHttpProvider(
+        ICredentialVault credentialVault,
+        ILocalRegistry localRegistry)
     {
         _credentialVault = credentialVault;
+        _localRegistry = localRegistry;
     }
 
     /// <summary>
@@ -72,8 +77,8 @@ internal class PoogieHttpProvider
     /// <returns>A builder that can be used to add extra information</returns>
     public HttpClientBuilder Default()
     {
-        string clientId = RegistryConfig.Exists("client_id")
-            ? RegistryConfig.Get<string>("client_id")
+        string clientId = _localRegistry.Exists("client_id")
+            ? _localRegistry.Get<string>("client_id")
             : "Unknown";
 
         bool shouldRedirect = FeatureFlagManager.IsEnabled(

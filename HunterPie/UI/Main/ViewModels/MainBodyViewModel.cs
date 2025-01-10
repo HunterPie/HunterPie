@@ -12,7 +12,7 @@ namespace HunterPie.UI.Main.ViewModels;
 internal class MainBodyViewModel : ViewModel
 {
     private const string SUPPORTER_PROMPT_KEY = "supporter_prompt_closed";
-    private readonly ILocalRegistry _localRegistry;
+    private readonly ILocalRegistryAsync _localRegistryAsync;
 
     public SideBarViewModel SideBarViewModel { get; init; }
 
@@ -28,10 +28,10 @@ internal class MainBodyViewModel : ViewModel
 
     public MainBodyViewModel(
         SideBarViewModel sideBarViewModel,
-        ILocalRegistry localRegistry)
+        ILocalRegistryAsync localRegistryAsync)
     {
         SideBarViewModel = sideBarViewModel;
-        _localRegistry = localRegistry;
+        _localRegistryAsync = localRegistryAsync;
     }
 
     public void LaunchGame()
@@ -41,7 +41,7 @@ internal class MainBodyViewModel : ViewModel
 
     public void InitializeSupporterPrompt(bool isSupporter)
     {
-        bool hasClosedPrompt = _localRegistry.Exists(SUPPORTER_PROMPT_KEY);
+        bool hasClosedPrompt = _localRegistryAsync.Exists(SUPPORTER_PROMPT_KEY);
 
         ShouldDisplaySupporterPrompt = !hasClosedPrompt && !isSupporter;
     }
@@ -49,6 +49,6 @@ internal class MainBodyViewModel : ViewModel
     public void CloseSupporterPrompt()
     {
         ShouldDisplaySupporterPrompt = false;
-        _localRegistry.Set(SUPPORTER_PROMPT_KEY, true);
+        _localRegistryAsync.Set(SUPPORTER_PROMPT_KEY, true);
     }
 }

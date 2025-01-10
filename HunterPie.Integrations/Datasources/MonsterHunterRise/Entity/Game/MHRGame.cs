@@ -232,15 +232,17 @@ public sealed class MHRGame : CommonGame
     }
 
     [ScannableMethod]
-    private void GetPartyMembersDamage()
+    private async Task GetPartyMembersDamage()
     {
         if ((DateTime.Now - _lastDamageUpdate).TotalMilliseconds < 100)
             return;
 
         _lastDamageUpdate = DateTime.Now;
 
-        if (Player.InHuntingZone)
-            DamageMessageHandler.RequestHuntStatistics(CommonConstants.AllTargets);
+        if (!Player.InHuntingZone)
+            return;
+
+        await DamageMessageHandler.RequestHuntStatisticsAsync(CommonConstants.AllTargets);
     }
 
     [ScannableMethod]
@@ -333,10 +335,10 @@ public sealed class MHRGame : CommonGame
 
     #region Damage helpers
 
-    private static void OnPlayerStageUpdate(object? sender, EventArgs e)
+    private static async Task OnPlayerStageUpdate(object? sender, EventArgs e)
     {
-        DamageMessageHandler.ClearAllHuntStatisticsExcept(Array.Empty<IntPtr>());
-        DamageMessageHandler.RequestHuntStatistics(CommonConstants.AllTargets);
+        await DamageMessageHandler.ClearAllHuntStatisticsExceptAsync(Array.Empty<IntPtr>());
+        await DamageMessageHandler.RequestHuntStatisticsAsync(CommonConstants.AllTargets);
     }
 
     private void OnReceivePlayersDamage(object? sender, ResponseDamageMessage e)
