@@ -20,7 +20,7 @@ internal class LocalizationUpdateService
 
     public async Task InvokeAsync()
     {
-        Dictionary<string, string> latestChecksum = await _gateway.GetLocalizationsChecksum();
+        Dictionary<string, string> latestChecksum = await _gateway.GetLocalizationsChecksumAsync();
 
         foreach ((string name, string checksum) in latestChecksum)
         {

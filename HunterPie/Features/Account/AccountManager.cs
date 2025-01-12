@@ -53,7 +53,7 @@ internal class AccountManager : IEventDispatcher
         );
         Guid notificationId = await NotificationService.Show(progressNotification);
 
-        PoogieResult<LoginResponse> loginResponse = await Instance._accountConnector.Login(request);
+        PoogieResult<LoginResponse> loginResponse = await Instance._accountConnector.LoginAsync(request);
 
         if (loginResponse.Error is { } err)
         {
@@ -92,7 +92,7 @@ internal class AccountManager : IEventDispatcher
 
     public static async void Logout()
     {
-        _ = await Instance._accountConnector.Logout();
+        _ = await Instance._accountConnector.LogoutAsync();
 
         CredentialVaultService.DeleteCredential();
         Instance._cachedAccount = null;
@@ -117,7 +117,7 @@ internal class AccountManager : IEventDispatcher
         );
         Guid notificationId = await NotificationService.Show(notificationOptions);
 
-        PoogieResult<MyUserAccountResponse> account = await Instance._accountConnector.UploadAvatar(path);
+        PoogieResult<MyUserAccountResponse> account = await Instance._accountConnector.UploadAvatarAsync(path);
 
         if (account.Error is { } error)
         {
@@ -154,7 +154,7 @@ internal class AccountManager : IEventDispatcher
         if (Instance._cachedAccount is { } cached)
             return cached;
 
-        PoogieResult<MyUserAccountResponse> result = await Instance._accountConnector.MyUserAccount();
+        PoogieResult<MyUserAccountResponse> result = await Instance._accountConnector.MyUserAccountAsync();
 
         if (result.Response is not { } account)
             return null;

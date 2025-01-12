@@ -335,7 +335,7 @@ public sealed class MHRGame : CommonGame
 
     #region Damage helpers
 
-    private static async Task OnPlayerStageUpdate(object? sender, EventArgs e)
+    private static async void OnPlayerStageUpdate(object? sender, EventArgs e)
     {
         await DamageMessageHandler.ClearAllHuntStatisticsExceptAsync(Array.Empty<IntPtr>());
         await DamageMessageHandler.RequestHuntStatisticsAsync(CommonConstants.AllTargets);

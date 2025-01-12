@@ -47,16 +47,16 @@ internal class AccountService : IAccountUseCase, IEventDispatcher
         if (credential is not { })
             return null;
 
-        if (await _cache.Get<UserAccount>(ACCOUNT_CACHE_KEY) is { } cachedAccount)
+        if (await _cache.GetAsync<UserAccount>(ACCOUNT_CACHE_KEY) is { } cachedAccount)
             return cachedAccount;
 
-        PoogieResult<MyUserAccountResponse> result = await _accountConnector.MyUserAccount();
+        PoogieResult<MyUserAccountResponse> result = await _accountConnector.MyUserAccountAsync();
 
         if (result.Response is not { } account)
             return null;
 
         UserAccount model = account.ToModel();
-        await _cache.Set(ACCOUNT_CACHE_KEY, model);
+        await _cache.SetAsync(ACCOUNT_CACHE_KEY, model);
 
         this.Dispatch(
             toDispatch: SignIn,
@@ -92,7 +92,7 @@ internal class AccountService : IAccountUseCase, IEventDispatcher
         );
         Guid notificationId = await NotificationService.Show(progressNotification);
 
-        PoogieResult<LoginResponse> loginResponse = await _accountConnector.Login(request);
+        PoogieResult<LoginResponse> loginResponse = await _accountConnector.LoginAsync(request);
 
         if (loginResponse.Error is { } err)
         {
@@ -142,7 +142,7 @@ internal class AccountService : IAccountUseCase, IEventDispatcher
         );
         Guid notificationId = await NotificationService.Show(notificationOptions);
 
-        PoogieResult<MyUserAccountResponse> account = await _accountConnector.UploadAvatar(path);
+        PoogieResult<MyUserAccountResponse> account = await _accountConnector.UploadAvatarAsync(path);
 
         if (account.Error is { } error)
         {
@@ -169,18 +169,18 @@ internal class AccountService : IAccountUseCase, IEventDispatcher
         if (model is not { })
             return;
 
-        await _cache.Set(ACCOUNT_CACHE_KEY, model);
+        await _cache.SetAsync(ACCOUNT_CACHE_KEY, model);
 
         this.Dispatch(AvatarChange, new AccountAvatarEventArgs { AvatarUrl = model.AvatarUrl });
     }
 
     public async Task LogoutAsync()
     {
-        _ = await _accountConnector.Logout();
+        _ = await _accountConnector.LogoutAsync();
 
         _credentialVault.Delete();
 
-        await _cache.Clear(ACCOUNT_CACHE_KEY);
+        await _cache.ClearAsync(ACCOUNT_CACHE_KEY);
 
         this.Dispatch(SignOut);
     }

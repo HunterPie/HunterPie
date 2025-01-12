@@ -1,4 +1,5 @@
-﻿using HunterPie.GUI.Parts.Patches.ViewModels;
+﻿using HunterPie.DI;
+using HunterPie.Features.Patches.ViewModels;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Navigation;
 using System;
@@ -28,7 +29,9 @@ internal class PatchNotesSideBarViewModel : ViewModel, ISideBarViewModel
 
     public Task ExecuteAsync()
     {
-        _bodyNavigator.Navigate(new PatchesViewModel());
+        PatchesViewModel viewModel = DependencyContainer.Get<PatchesViewModel>();
+
+        _bodyNavigator.Navigate(viewModel);
 
         return Task.CompletedTask;
     }

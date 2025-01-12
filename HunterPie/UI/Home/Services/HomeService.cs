@@ -1,37 +1,36 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Enums;
-using HunterPie.Core.Client.Configuration.Games;
+﻿using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain.Constants;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Mapper;
 using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Domain.Process.Service;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.System;
-using HunterPie.GUI.Parts.Settings.ViewModels;
+using HunterPie.Features.Settings.Factory;
+using HunterPie.Features.Settings.ViewModels;
 using HunterPie.Internal;
 using HunterPie.UI.Home.ViewModels;
 using HunterPie.UI.Navigation;
-using HunterPie.UI.Settings;
-using HunterPie.UI.Settings.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace HunterPie.UI.Home.Services;
 
 internal class HomeService
 {
+    private readonly IGameWatcher[] _gameWatchers;
+    private readonly IBodyNavigator _bodyNavigator;
+    private readonly SettingsFactory _settingsFactory;
+
     private static readonly Dictionary<GameType, SupportedGameViewModel> SupportedGames = new()
     {
         {
-            GameType.World,
-            new SupportedGameViewModel
+            GameType.World, new SupportedGameViewModel
             {
                 Banner = "https://cdn.hunterpie.com/resources/monster-hunter-world-banner.png",
-                Execute = () => Steam.RunGameBy(GameType.World),
-                Name = Games.MONSTER_HUNTER_WORLD,
-                OnSettings = BuildSettingsHandler(GameProcessType.MonsterHunterWorld)
+                Execute = new Action(static () => Steam.RunGameBy(type: GameType.World)),
+                Name = Games.MONSTER_HUNTER_WORLD
             }
         },
         {
@@ -39,18 +38,27 @@ internal class HomeService
             {
                 Banner =
                     "https://cdn.hunterpie.com/resources/monster-hunter-rise-banner.png",
-                Execute = () => Steam.RunGameBy(GameType.Rise),
-                Name = Games.MONSTER_HUNTER_RISE,
-                OnSettings = BuildSettingsHandler(GameProcessType.MonsterHunterRise)
+                Execute = new Action(static () => Steam.RunGameBy(type: GameType.Rise)),
+                Name = Games.MONSTER_HUNTER_RISE
             }
         }
     };
 
+    public HomeService(
+        IGameWatcher[] gameWatchers,
+        IBodyNavigator bodyNavigator,
+        SettingsFactory settingsFactory)
+    {
+        _gameWatchers = gameWatchers;
+        _bodyNavigator = bodyNavigator;
+        _settingsFactory = settingsFactory;
+    }
+
     public void Subscribe()
     {
-        foreach (IProcessManager manager in ProcessManager.Managers)
+        foreach (IGameWatcher watcher in _gameWatchers)
         {
-            GameType? possibleGameType = MapFactory.Map<GameProcessType, GameType?>(manager.Game);
+            GameType? possibleGameType = MapFactory.Map<GameProcessType, GameType?>(watcher.Game);
 
             if (possibleGameType is not { } gameType)
                 continue;
@@ -60,10 +68,11 @@ internal class HomeService
             if (supportedGame is not { })
                 continue;
 
-            supportedGame.IsAvailable = manager.Status == ProcessStatus.Waiting;
-            supportedGame.Status = manager.Status;
+            supportedGame.IsAvailable = watcher.Status == ProcessStatus.Waiting;
+            supportedGame.Status = watcher.Status;
+            supportedGame.OnSettings = BuildSettingsHandler(watcher.Game);
 
-            manager.OnProcessStatusChange += (_, args) =>
+            watcher.StatusChange += (_, args) =>
             {
                 supportedGame.IsAvailable = args.NewValue == ProcessStatus.Waiting;
                 supportedGame.Status = args.NewValue;
@@ -74,27 +83,12 @@ internal class HomeService
     public ObservableCollection<SupportedGameViewModel> GetSupportedGameViewModels() =>
         SupportedGames.Values.ToObservableCollection();
 
-    private static Action BuildSettingsHandler(GameProcessType gameProcessType)
+    private Func<Task> BuildSettingsHandler(GameProcessType gameProcessType)
     {
-        return () =>
+        return async () =>
         {
-            GameConfig gameConfig = ClientConfigHelper.GetGameConfigBy(gameProcessType);
-
-            ObservableCollection<ConfigurationCategory> generalConfig = ConfigurationAdapter.Adapt(ClientConfig.Config);
-            ObservableCollection<ConfigurationCategory> gameCategories =
-                ConfigurationAdapter.Adapt(gameConfig, gameProcessType);
-
-            var configurationCategories = generalConfig.Concat(gameCategories)
-                .ToObservableCollection();
-            var configurations = new Dictionary<GameProcessType, ObservableCollection<ConfigurationCategory>>()
-            {
-                { gameProcessType, configurationCategories }
-            };
-            var supportedConfigurations = new[] { gameProcessType }.ToObservableCollection();
-
-            var settingsViewModel = new SettingsViewModel(configurations, supportedConfigurations, gameProcessType);
-
-            Navigator.Body.Navigate(settingsViewModel);
+            SettingsViewModel viewModel = await _settingsFactory.CreatePartialAsync(gameProcessType);
+            _bodyNavigator.Navigate(viewModel);
         };
     }
 }

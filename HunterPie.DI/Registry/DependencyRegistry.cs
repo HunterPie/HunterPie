@@ -34,6 +34,24 @@ public class DependencyRegistry : IDependencyRegistry
         return Create(instances.First());
     }
 
+    public object[] GetAll(Type type)
+    {
+        Type? elementType = type.GetElementType();
+
+        if (!type.IsArray || elementType is not { })
+            throw new ArgumentException($"Type must be receiving an array but got {type.Name} instead");
+
+        IEnumerable<object> singletons = _singletons.GetValueOrDefault(elementType)
+            ?.AsEnumerable()
+            ?? Array.Empty<object>();
+        IEnumerable<object> services = _dependencies.GetValueOrDefault(elementType)
+            ?.Select(Create)
+            ?? Array.Empty<object>();
+
+        return services.Concat(singletons)
+            .ToArray();
+    }
+
     public IDependencyRegistry WithService<T>() where T : class
     {
         RegisterService(typeof(T));
@@ -132,7 +150,9 @@ public class DependencyRegistry : IDependencyRegistry
             {
                 try
                 {
-                    return Get(param.ParameterType);
+                    return param.ParameterType.IsArray
+                        ? GetAll(param.ParameterType)
+                        : Get(param.ParameterType);
                 }
                 catch (Exception err)
                 {

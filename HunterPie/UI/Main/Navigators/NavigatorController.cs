@@ -75,8 +75,8 @@ internal class NavigatorController
         _sideBar.Elements.ForEach(element => element.IsSelected = viewModelType == element.Type);
     }
 
-    private void SetupViewModel(UserAccount? account)
+    private async void SetupViewModel(UserAccount? account)
     {
-        _mainBodyViewModel.InitializeSupporterPrompt(account?.IsSupporter ?? false);
+        await _mainBodyViewModel.InitializeSupporterPromptAsync(account?.IsSupporter ?? false);
     }
 }

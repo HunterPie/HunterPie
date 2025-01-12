@@ -6,6 +6,7 @@ using HunterPie.Internal;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.SideBar.ViewModels;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace HunterPie.UI.Main.ViewModels;
 
@@ -39,16 +40,16 @@ internal class MainBodyViewModel : ViewModel
         Steam.RunGameBy(SelectedGame.Value);
     }
 
-    public void InitializeSupporterPrompt(bool isSupporter)
+    public async Task InitializeSupporterPromptAsync(bool isSupporter)
     {
-        bool hasClosedPrompt = _localRegistryAsync.Exists(SUPPORTER_PROMPT_KEY);
+        bool hasClosedPrompt = await _localRegistryAsync.ExistsAsync(SUPPORTER_PROMPT_KEY);
 
         ShouldDisplaySupporterPrompt = !hasClosedPrompt && !isSupporter;
     }
 
-    public void CloseSupporterPrompt()
+    public async Task CloseSupporterPromptAsync()
     {
         ShouldDisplaySupporterPrompt = false;
-        _localRegistryAsync.Set(SUPPORTER_PROMPT_KEY, true);
+        await _localRegistryAsync.SetAsync(SUPPORTER_PROMPT_KEY, true);
     }
 }

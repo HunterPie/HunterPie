@@ -3,22 +3,22 @@ using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Game;
 using HunterPie.Core.Logger;
-using HunterPie.Core.System;
 using HunterPie.Integrations.Datasources.MonsterHunterRise;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Wirebug;
 using System;
+using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay;
 
 internal class WirebugWidgetInitializer : IWidgetInitializer
 {
-    private IContextHandler _handler;
+    private IContextHandler? _handler;
 
-    public void Load(IContext context)
+    public async Task LoadAsync(IContext context)
     {
-        OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
+        OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(context.Process.Type);
 
         if (!config.WirebugWidget.Initialize)
             return;
@@ -26,7 +26,9 @@ internal class WirebugWidgetInitializer : IWidgetInitializer
         if (context is not MHRContext ctx)
             return;
 
-        PatchInGameHudAssembly(context);
+        if (config.WirebugWidget.PatchInGameHud)
+            await PatchInGameHudAssemblyAsync(context);
+
         _handler = new WirebugWidgetContextHandler(ctx);
     }
 
@@ -48,23 +50,18 @@ internal class WirebugWidgetInitializer : IWidgetInitializer
         * Patched instructions:
         * `or qword ptr[rax+50], 01`
     */
-    private void PatchInGameHudAssembly(IContext context)
+    private static async Task PatchInGameHudAssemblyAsync(IContext context)
     {
         try
         {
-            OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
-
-            if (!config.WirebugWidget.PatchInGameHud)
-                return;
-
-            long wirebugAimAddress = AddressMap.GetAbsolute("FUNC_WIREBUG_HIDE_AIM_ADDRESS");
+            nint wirebugAimAddress = AddressMap.GetAbsolute("FUNC_WIREBUG_HIDE_AIM_ADDRESS");
             byte[] assembly =
             {
                 // or qword ptr[rax+50], 01
                 0x48, 0x83, 0x48, 0x50, 0x1
             };
 
-            context.Process.Memory.InjectAsm(wirebugAimAddress, assembly);
+            await context.Process.Memory.InjectAsmAsync(wirebugAimAddress, assembly);
 
             Log.Debug("Successfully patched Wirebug aim");
         }

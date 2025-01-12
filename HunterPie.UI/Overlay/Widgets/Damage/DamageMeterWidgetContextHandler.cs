@@ -9,7 +9,6 @@ using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Logger;
-using HunterPie.Core.System;
 using HunterPie.UI.Architecture.Brushes;
 using HunterPie.UI.Overlay.Widgets.Damage.Helpers;
 using HunterPie.UI.Overlay.Widgets.Damage.View;
@@ -40,7 +39,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
 
     public DamageMeterWidgetContextHandler(IContext context)
     {
-        OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(ProcessManager.Game);
+        OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(context.Process.Type);
 
         _view = new MeterView(config.DamageMeterWidget);
         _ = WidgetManager.Register<MeterView, DamageMeterWidgetConfig>(_view);
@@ -272,7 +271,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
             return;
 
         ObservableColor playerColor = PlayerConfigHelper.GetColorFromPlayer(
-            ProcessManager.Game,
+            _context.Process.Type,
             Math.Max(pet.Slot - 5, 0),
             pet.IsMyself
         );
@@ -299,7 +298,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
             return;
 
         ObservableColor playerColor = PlayerConfigHelper.GetColorFromPlayer(
-            ProcessManager.Game,
+            _context.Process.Type,
             member.Slot,
             member.IsMyself
         );

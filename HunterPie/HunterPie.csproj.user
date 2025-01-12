@@ -12,13 +12,7 @@
     <Compile Update="Features\Account\Views\RequestAccountVerificationFlowView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Settings\Views\SettingsView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="GUI\Parts\Statistics\Details\Views\MonsterDetailsView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="GUI\Parts\Statistics\Details\Views\QuestDetailsView.xaml.cs">
+    <Compile Update="Features\Settings\Views\SettingsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Features\Tools\Localization\Views\LocalizableStringView.xaml.cs">
@@ -45,10 +39,10 @@
     <Compile Update="Features\Account\Views\Components\AccountDetailsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Backup\Views\BackupElementView.xaml.cs">
+    <Compile Update="Features\Backup\Views\BackupElementView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Backup\Views\BackupsView.xaml.cs">
+    <Compile Update="Features\Backup\Views\BackupsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\SideBar\ViewModels\HomeSideBarViewModel.cs">
@@ -75,25 +69,13 @@
     <Compile Update="GUI\Parts\Debug\Views\EventTrackerView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Notifications\Views\NotificationsPanelView.xaml.cs">
+    <Compile Update="Features\Notifications\Views\NotificationsPanelView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Notifications\Views\NotificationView.xaml.cs">
+    <Compile Update="Features\Notifications\Views\NotificationView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\Parts\Patches\Views\PatchesView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="GUI\Parts\Statistics\Views\MonsterSummaryView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="GUI\Parts\Statistics\Views\QuestStatisticsSummariesView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="GUI\Parts\Statistics\Views\QuestStatisticsSummarySkeletonView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="GUI\Parts\Statistics\Views\QuestStatisticsSummaryView.xaml.cs">
+    <Compile Update="Features\Patches\Views\PatchesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UI\Header\Views\AccountMenuView.xaml.cs">
@@ -122,13 +104,25 @@
     <Page Update="Features\Account\Views\RequestAccountVerificationFlowView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Settings\Views\SettingsView.xaml">
+    <Page Update="Features\Statistics\Details\Views\MonsterDetailsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Statistics\Details\Views\MonsterDetailsView.xaml">
+    <Page Update="Features\Statistics\Details\Views\QuestDetailsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Statistics\Details\Views\QuestDetailsView.xaml">
+    <Page Update="Features\Statistics\Views\MonsterSummaryView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Features\Statistics\Views\QuestStatisticsSummariesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Features\Statistics\Views\QuestStatisticsSummarySkeletonView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Features\Statistics\Views\QuestStatisticsSummaryView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Features\Settings\Views\SettingsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Features\Tools\Localization\Views\LocalizableStringView.xaml">
@@ -155,10 +149,10 @@
     <Page Update="Features\Account\Views\Components\AccountDetailsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Backup\Views\BackupElementView.xaml">
+    <Page Update="Features\Backup\Views\BackupElementView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Backup\Views\BackupsView.xaml">
+    <Page Update="Features\Backup\Views\BackupsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\Home\Views\HomeCallToActionView.xaml">
@@ -179,25 +173,13 @@
     <Page Update="GUI\Parts\Debug\Views\EventTrackerView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Notifications\Views\NotificationsPanelView.xaml">
+    <Page Update="Features\Notifications\Views\NotificationsPanelView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Notifications\Views\NotificationView.xaml">
+    <Page Update="Features\Notifications\Views\NotificationView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\Parts\Patches\Views\PatchesView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="GUI\Parts\Statistics\Views\MonsterSummaryView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="GUI\Parts\Statistics\Views\QuestStatisticsSummariesView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="GUI\Parts\Statistics\Views\QuestStatisticsSummarySkeletonView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="GUI\Parts\Statistics\Views\QuestStatisticsSummaryView.xaml">
+    <Page Update="Features\Patches\Views\PatchesView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <None Update="Themes\Default\Template.xaml">

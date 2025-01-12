@@ -4,7 +4,6 @@ using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Game.Chat;
 using HunterPie.Core.Game.Enums;
-using HunterPie.Core.System;
 using HunterPie.UI.Assets.Application;
 using HunterPie.UI.Overlay.Enums;
 using HunterPie.UI.Overlay.Widgets.Chat.ViewModels;
@@ -28,7 +27,7 @@ public class ChatWidgetContextHandler : IContextHandler
     public ChatWidgetContextHandler(Context context)
     {
         _context = context;
-        _view = new ChatView(ProcessManager.Game switch
+        _view = new ChatView(context.Process.Type switch
         {
             GameProcessType.MonsterHunterRise => ClientConfig.Config.Rise.Overlay.ChatWidget,
             _ => throw new NotImplementedException()

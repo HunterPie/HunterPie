@@ -1,12 +1,11 @@
-﻿using HunterPie.Core.Architecture;
-using HunterPie.Core.Client;
+﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Games;
 using HunterPie.Core.Client.Events;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Extensions;
 using HunterPie.Features.Account.Config;
-using HunterPie.GUI.Parts.Settings.ViewModels;
-using HunterPie.Internal.Initializers;
+using HunterPie.Features.Settings.Factory;
+using HunterPie.Features.Settings.ViewModels;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Navigation;
 using HunterPie.UI.Settings;
@@ -23,6 +22,9 @@ namespace HunterPie.UI.SideBar.ViewModels;
 internal class SettingsSideBarViewModel : ViewModel, ISideBarViewModel
 {
     private readonly IBodyNavigator _bodyNavigator;
+    private readonly LocalAccountConfig _localAccountConfig;
+    private readonly SettingsFactory _settingsFactory;
+
     private SettingsViewModel? _viewModel;
     public Type Type => typeof(SettingsViewModel);
 
@@ -35,9 +37,15 @@ internal class SettingsSideBarViewModel : ViewModel, ISideBarViewModel
     private bool _isSelected;
     public bool IsSelected { get => _isSelected; set => SetValue(ref _isSelected, value); }
 
-    public SettingsSideBarViewModel(IBodyNavigator bodyNavigator)
+    public SettingsSideBarViewModel(
+        IBodyNavigator bodyNavigator,
+        LocalAccountConfig localAccountConfig,
+        SettingsFactory settingsFactory)
     {
         _bodyNavigator = bodyNavigator;
+        _localAccountConfig = localAccountConfig;
+        _settingsFactory = settingsFactory;
+
         ConfigManager.OnSync += OnConfigurationSync;
     }
 
@@ -64,32 +72,7 @@ internal class SettingsSideBarViewModel : ViewModel, ISideBarViewModel
         if (_viewModel is { })
             return _viewModel;
 
-        Observable<GameProcessType> game = ClientConfig.Config.Client.LastConfiguredGame;
-
-        ObservableCollection<ConfigurationCategory> generalConfig = ConfigurationAdapter.Adapt(ClientConfig.Config);
-        ObservableCollection<ConfigurationCategory> accountConfig = await LocalAccountConfig.BuildAccountConfig();
-        ObservableCollection<ConfigurationCategory> featureFlags = ClientConfig.Config.Client.EnableFeatureFlags.Value switch
-        {
-            true => FeatureFlagAdapter.Adapt(FeatureFlagsInitializer.Features.Flags),
-            _ => new ObservableCollection<ConfigurationCategory>()
-        };
-
-        var commonConfig = accountConfig.Concat(generalConfig)
-            .Concat(featureFlags)
-            .ToObservableCollection();
-        var configurations = new Dictionary<GameProcessType, ObservableCollection<ConfigurationCategory>>
-        {
-            { GameProcessType.MonsterHunterRise, BuildConfiguration(commonConfig, ClientConfig.Config.Rise, GameProcessType.MonsterHunterRise) },
-            { GameProcessType.MonsterHunterWorld, BuildConfiguration(commonConfig, ClientConfig.Config.World, GameProcessType.MonsterHunterWorld) }
-        };
-        var supportedConfigurations =
-            new ObservableCollection<GameProcessType>(new List<GameProcessType>
-            {
-                GameProcessType.MonsterHunterRise,
-                GameProcessType.MonsterHunterWorld
-            });
-
-        _viewModel = new SettingsViewModel(configurations, supportedConfigurations, game);
+        _viewModel = await _settingsFactory.CreateFullAsync(currentGame: ClientConfig.Config.Client.LastConfiguredGame);
 
         return _viewModel;
     }

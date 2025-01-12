@@ -42,7 +42,7 @@ internal class AccountPasswordResetFlowViewModel : ViewModel
         IsRequestingCode = true;
 
         PoogieResult<PasswordChangeResponse> response =
-            await _accountConnector.ForgotPassword(new PasswordResetRequest(Email: Email));
+            await _accountConnector.ForgotPasswordAsync(new PasswordResetRequest(Email: Email));
 
         IsRequestingCode = false;
 
@@ -75,7 +75,7 @@ internal class AccountPasswordResetFlowViewModel : ViewModel
         IsResetInProgress = true;
 
         PoogieResult<PasswordChangeResponse> response =
-            await _accountConnector.ChangePassword(new ChangePasswordRequest
+            await _accountConnector.ChangePasswordAsync(new ChangePasswordRequest
             (
                 Email: Email,
                 Code: Code,

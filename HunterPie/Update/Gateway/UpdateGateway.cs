@@ -14,17 +14,25 @@ namespace HunterPie.Update.Gateway;
 
 internal class UpdateGateway
 {
-    private readonly PoogieVersionConnector _versionConnector = new();
-    private readonly PoogieLocalizationConnector _localizationConnector = new();
+    private readonly PoogieVersionConnector _versionConnector;
+    private readonly PoogieLocalizationConnector _localizationConnector;
 
-    public async Task<string?> GetLatestVersion()
+    public UpdateGateway(
+        PoogieVersionConnector versionConnector,
+        PoogieLocalizationConnector localizationConnector)
+    {
+        _localizationConnector = localizationConnector;
+        _versionConnector = versionConnector;
+    }
+
+    public async Task<string?> GetLatestVersionAsync()
     {
         PoogieResult<VersionResponse> response = await _versionConnector.Latest();
 
         return response.Response is not { } resp ? null : resp.LatestVersion;
     }
 
-    public async Task<bool> DownloadVersion(string version, string output, EventHandler<DownloadEventArgs> callback)
+    public async Task<bool> DownloadVersionAsync(string version, string output, EventHandler<DownloadEventArgs> callback)
     {
         using HttpClientResponse resp = await _versionConnector.Download(version);
 
@@ -38,9 +46,9 @@ internal class UpdateGateway
         return true;
     }
 
-    public async Task<Dictionary<string, string>> GetLocalizationsChecksum()
+    public async Task<Dictionary<string, string>> GetLocalizationsChecksumAsync()
     {
-        PoogieResult<LocalizationResponse> result = await _localizationConnector.GetChecksums();
+        PoogieResult<LocalizationResponse> result = await _localizationConnector.GetChecksumsAsync();
 
         return result.Response is not { } resp ? new() : resp.Localizations;
     }

@@ -95,6 +95,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Features\Statistics\Details\Views\MonsterDetailsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Features\Statistics\Details\Views\QuestDetailsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Features\Statistics\Views\MonsterSummaryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Features\Statistics\Views\QuestStatisticsSummariesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Features\Statistics\Views\QuestStatisticsSummarySkeletonView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Features\Statistics\Views\QuestStatisticsSummaryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -232,6 +250,7 @@
   <ItemGroup>
     <Folder Include="Features\Analytics\Strategies\" />
     <Folder Include="Features\Backup\Strategies\" />
+    <Folder Include="Features\Settings\Factory\" />
     <Folder Include="Integrations\Poogie\Localization\Models\" />
     <Folder Include="Integrations\Poogie\Patch\Models\" />
     <Folder Include="Integrations\Poogie\Report\Models\" />

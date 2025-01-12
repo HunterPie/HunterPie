@@ -4,7 +4,7 @@ using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Logger;
-using HunterPie.GUI.Parts.Patches.ViewModels;
+using HunterPie.Features.Patches.ViewModels;
 using HunterPie.UI.Navigation;
 using HunterPie.Update.Gateway;
 using HunterPie.Update.Presentation;
@@ -28,6 +28,7 @@ internal class UpdateService : IUpdateUseCase
     private readonly ILocalRegistryAsync _localRegistryAsync;
     private readonly IUpdateCleanUpUseCase _updateCleanUpUseCase;
     private readonly IAnalyticsService _analyticsService;
+    private readonly IBodyNavigator _bodyNavigator;
 
     public UpdateService(
         LocalizationUpdateService localizationUpdateService,
@@ -35,7 +36,8 @@ internal class UpdateService : IUpdateUseCase
         ChecksumService checksumService,
         ILocalRegistryAsync localRegistryAsync,
         IUpdateCleanUpUseCase updateCleanUpUseCase,
-        IAnalyticsService analyticsService)
+        IAnalyticsService analyticsService,
+        IBodyNavigator bodyNavigator)
     {
         _localizationUpdateService = localizationUpdateService;
         _gateway = gateway;
@@ -43,12 +45,13 @@ internal class UpdateService : IUpdateUseCase
         _localRegistryAsync = localRegistryAsync;
         _updateCleanUpUseCase = updateCleanUpUseCase;
         _analyticsService = analyticsService;
+        _bodyNavigator = bodyNavigator;
     }
 
     public async Task<bool> InvokeAsync()
     {
         _updateCleanUpUseCase.Invoke();
-        OpenPatchNotesIfNeeded();
+        await OpenPatchNotesIfNeeded();
 
         if (!ClientConfig.Config.Client.EnableAutoUpdate)
             return false;
@@ -66,16 +69,16 @@ internal class UpdateService : IUpdateUseCase
         return result;
     }
 
-    private void OpenPatchNotesIfNeeded()
+    private async Task OpenPatchNotesIfNeeded()
     {
-        bool hasUpdateFlag = _localRegistryAsync.Exists(JUST_UPDATED_KEY);
-        bool hasJustUpdated = _localRegistryAsync.Get<bool>(JUST_UPDATED_KEY);
+        bool hasUpdateFlag = await _localRegistryAsync.ExistsAsync(JUST_UPDATED_KEY);
+        bool hasJustUpdated = await _localRegistryAsync.GetAsync<bool>(JUST_UPDATED_KEY);
 
         if (hasUpdateFlag && !hasJustUpdated)
             return;
 
-        Navigator.Body.Navigate<PatchesViewModel>();
-        _localRegistryAsync.Set(JUST_UPDATED_KEY, false);
+        _bodyNavigator.Navigate<PatchesViewModel>();
+        await _localRegistryAsync.SetAsync(JUST_UPDATED_KEY, false);
     }
 
     private async Task<bool> UpdateAsync(UpdateViewModel vm)
@@ -119,7 +122,7 @@ internal class UpdateService : IUpdateUseCase
         {
             ReplaceFiles(vm, extractedPackagePath, checksums);
             CleanUp(vm, extractedPackagePath, packageFile);
-            _localRegistryAsync.Set("JustUpdated", true);
+            await _localRegistryAsync.SetAsync("JustUpdated", true);
             return true;
         }
         catch (Exception err)
@@ -156,7 +159,7 @@ internal class UpdateService : IUpdateUseCase
     private async Task<Version?> GetLatestVersionAsync(UpdateViewModel vm)
     {
         vm.State = "Checking for latest version";
-        string? latest = await _gateway.GetLatestVersion();
+        string? latest = await _gateway.GetLatestVersionAsync();
 
         if (latest is null)
             return null;
@@ -177,7 +180,7 @@ internal class UpdateService : IUpdateUseCase
 
         vm.State = "Downloading package...";
 
-        bool success = await _gateway.DownloadVersion(
+        bool success = await _gateway.DownloadVersionAsync(
             version: version.ToString(),
             output: packagePath,
             callback: (_, args) =>

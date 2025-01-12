@@ -56,7 +56,7 @@ internal class AccountVerificationResendFlowViewModel : ViewModel
     {
         IsRequestingVerification = true;
 
-        PoogieResult<RequestAccountVerificationResponse> response = await _accountConnector.RequestAccountVerification(
+        PoogieResult<RequestAccountVerificationResponse> response = await _accountConnector.RequestAccountVerificationAsync(
             new RequestAccountVerifyRequest(Email: Email)
         );
 

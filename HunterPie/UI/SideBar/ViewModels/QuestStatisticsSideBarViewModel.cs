@@ -1,5 +1,6 @@
-﻿using HunterPie.Features.Account.UseCase;
-using HunterPie.GUI.Parts.Statistics.ViewModels;
+﻿using HunterPie.DI;
+using HunterPie.Features.Account.UseCase;
+using HunterPie.Features.Statistics.ViewModels;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Navigation;
 using System;
@@ -36,7 +37,7 @@ internal class QuestStatisticsSideBarViewModel : ViewModel, ISideBarViewModel
 
     public Task ExecuteAsync()
     {
-        var viewModel = new QuestStatisticsSummariesViewModel();
+        QuestStatisticsSummariesViewModel viewModel = DependencyContainer.Get<QuestStatisticsSummariesViewModel>();
 
         _bodyNavigator.Navigate(viewModel);
 

@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
-             xmlns:backup="clr-namespace:HunterPie.GUI.Parts.Backup.Views"
              xmlns:viewModels="clr-namespace:HunterPie.Features.Account.ViewModels"
              xmlns:local="clr-namespace:HunterPie.Features.Account.Views"
              xmlns:components="clr-namespace:HunterPie.Features.Account.Views.Components"
+             xmlns:views="clr-namespace:HunterPie.Features.Backup.Views"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="400"
@@ -47,7 +47,7 @@
             </ContentPresenter>
 
             <!-- Backups -->
-            <backup:BackupsView Margin="20,0,20,20"/>
+            <views:BackupsView Margin="20,0,20,20"/>
         </StackPanel>
     </viewer:SmoothScrollViewer>
 </UserControl>

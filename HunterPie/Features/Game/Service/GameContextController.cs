@@ -79,7 +79,7 @@ internal class GameContextController : IDisposable
 
             await ContextInitializers.InitializeAsync(_context);
 
-            await _uiDispatcher.InvokeAsync(() => WidgetInitializers.Initialize(_context));
+            await _uiDispatcher.Invoke(async () => await WidgetInitializers.InitializeAsync(_context));
 
             ScanManager.Start();
         }

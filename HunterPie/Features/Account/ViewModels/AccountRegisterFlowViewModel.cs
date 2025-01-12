@@ -70,7 +70,7 @@ internal class AccountRegisterFlowViewModel : ViewModel
             Password: Password
         );
 
-        PoogieResult<RegisterResponse> register = await _accountConnector.Register(request);
+        PoogieResult<RegisterResponse> register = await _accountConnector.RegisterAsync(request);
 
         IsRegistering = false;
 

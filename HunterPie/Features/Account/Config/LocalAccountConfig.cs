@@ -29,7 +29,7 @@ internal class LocalAccountConfig
         ConfigManager.BindConfiguration(ACCOUNT_CONFIG, _accountConfig);
     }
 
-    public async Task<ObservableCollection<ConfigurationCategory>> BuildAccountConfig()
+    public async Task<ObservableCollection<ConfigurationCategory>> BuildAccountConfigAsync()
     {
         bool isLoggedIn = await _accountUseCase.IsValidSessionAsync();
 

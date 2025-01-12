@@ -4,6 +4,7 @@ using HunterPie.Core.Native.IPC.Models;
 using HunterPie.Core.Native.IPC.Utils;
 using System;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace HunterPie.Core.Native.IPC.Handlers.Internal.Initialiaze;
 
@@ -36,11 +37,11 @@ internal class IPCInitializationMessageHandler : IMessageHandler
         IPCHookInitializationMessageHandler.RequestInitMHHooks();
     }
 
-    public static async void RequestIPCInitialization(IPCInitializationHostType hostType, UIntPtr[] addresses)
+    public static async Task RequestIPCInitializationAsync(IPCInitializationHostType hostType, nint[] addresses)
     {
-        nuint[] buffer = new UIntPtr[256];
+        nint[] buffer = new nint[256];
 
-        Buffer.BlockCopy(addresses, 0, buffer, 0, addresses.Length * Marshal.SizeOf<UIntPtr>());
+        Buffer.BlockCopy(addresses, 0, buffer, 0, addresses.Length * Marshal.SizeOf<nint>());
 
         var request = new RequestIPCInitializationMessage()
         {
@@ -53,6 +54,6 @@ internal class IPCInitializationMessageHandler : IMessageHandler
             Addresses = buffer,
         };
 
-        _ = await IPCService.Send(request);
+        await IPCService.Send(request);
     }
 }

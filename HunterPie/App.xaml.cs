@@ -6,6 +6,7 @@ using HunterPie.DI;
 using HunterPie.Features.Debug;
 using HunterPie.Internal;
 using HunterPie.Internal.Tray;
+using HunterPie.Platforms;
 using HunterPie.UI.Main.Views;
 using HunterPie.Usecases;
 using System;
@@ -35,6 +36,9 @@ public partial class App : Application
         base.OnStartup(e);
 
         await InitializerManager.InitializeCore();
+
+        SupportedPlatformUseCase.Execute();
+
         DependencyProvider.LoadModules();
         await InitializerManager.InitializeAsync();
 

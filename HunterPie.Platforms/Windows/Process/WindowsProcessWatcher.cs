@@ -58,7 +58,7 @@ internal class WindowsProcessWatcher : IProcessWatcherService, IEventDispatcher,
 
     public async void Watch(object? _)
     {
-        if (CurrentProcess?.Process is { HasExited: true })
+        if (CurrentProcess?.SystemProcess is { HasExited: true })
         {
             CurrentProcess = null;
             return;
@@ -127,7 +127,7 @@ internal class WindowsProcessWatcher : IProcessWatcherService, IEventDispatcher,
 
         return new WindowsGameProcess
         {
-            Process = process,
+            SystemProcess = process,
             Handle = handle,
             Name = strategy.Name,
             Type = strategy.Game,

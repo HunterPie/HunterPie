@@ -2,6 +2,7 @@
 using HunterPie.DI.Module;
 using HunterPie.Features.Backup.Services;
 using HunterPie.Features.Backup.Strategies;
+using HunterPie.Features.Backup.ViewModels;
 
 namespace HunterPie.Features.Backup;
 
@@ -11,6 +12,11 @@ internal class BackupModule : IDependencyModule
     {
         registry
             .WithService<MHRBackupStrategy>()
-            .WithSingle<GameSaveBackupService>();
+            .WithService<MHWBackupStrategy>()
+            .WithSingle<GameSaveBackupService>()
+            .WithService<BackupElementFactory>();
+
+        registry
+            .WithService<BackupsViewModel>();
     }
 }

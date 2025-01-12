@@ -1,11 +1,10 @@
-﻿using HunterPie.Core.Domain.Enums;
-using SystemProcess = System.Diagnostics.Process;
+﻿using SystemProcess = System.Diagnostics.Process;
 
 namespace HunterPie.Core.Domain.Process.Service;
 
-public interface IProcessAttachStrategy
+public interface IProcessAttachStrategy : IGameWatcher
 {
-    public string Name { get; }
-    public GameProcessType Game { get; }
     public bool CanAttach(SystemProcess process);
+
+    public void SetStatus(ProcessStatus status);
 }

@@ -8,7 +8,6 @@ using HunterPie.Domain.Interfaces;
 using HunterPie.Features.Native;
 using HunterPie.Features.Patcher;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld;
-using System;
 using System.Threading.Tasks;
 
 namespace HunterPie.Game.World;
@@ -23,29 +22,30 @@ internal class MHWContextInitializer : IContextInitializer
 
 
         InitializeGameData();
-        await InitializeNativeModule(context);
+        await InitializeNativeModuleAsync(context);
     }
 
     private static void InitializeGameData()
     {
+        // TODO: Remove this
         MonsterData.Init(
             ClientInfo.GetPathFor("Game/World/Data/MonsterData.xml")
         );
     }
 
-    private static async Task InitializeNativeModule(IContext context)
+    private static async Task InitializeNativeModuleAsync(IContext context)
     {
         if (!ClientConfig.Config.Client.EnableNativeModule)
             return;
 
         WorldIntegrityPatcher.Patch(context);
 
-        _ = IPCInjectorInitializer.InjectNativeModule(context);
+        await IPCInjectorInitializer.InjectNativeModuleAsync(context);
         await NativeIPCInitializer.WaitForIPCInitialization();
 
-        IPCInitializationMessageHandler.RequestIPCInitialization(IPCInitializationHostType.MHWorld, new[]
-        {
-            (UIntPtr)AddressMap.GetAbsolute("FUN_DEAL_DAMAGE"),
-        });
+        await IPCInitializationMessageHandler.RequestIPCInitializationAsync(
+            hostType: IPCInitializationHostType.MHWorld,
+            addresses: new[] { AddressMap.GetAbsolute("FUN_DEAL_DAMAGE") }
+        );
     }
 }

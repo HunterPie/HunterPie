@@ -3,7 +3,7 @@ using HunterPie.DI;
 using HunterPie.Features.Account.Model;
 using HunterPie.Features.Account.UseCase;
 using HunterPie.Features.Account.ViewModels;
-using HunterPie.GUI.Parts.Settings.ViewModels;
+using HunterPie.Features.Settings.ViewModels;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Architecture.Extensions;
 using HunterPie.UI.Navigation;
