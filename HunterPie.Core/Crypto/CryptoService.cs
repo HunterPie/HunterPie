@@ -1,5 +1,4 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
-using HunterPie.Core.Logger;
 using System;
 using System.IO;
 using System.Security.Cryptography;
@@ -32,10 +31,8 @@ public class CryptoService : ICryptoService
 
         using var memoryStream = new MemoryStream();
         using var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write);
-        using var streamWriter = new StreamWriter(cryptoStream);
-
-        streamWriter.Write(value);
-
+        using (var streamWriter = new StreamWriter(cryptoStream))
+            streamWriter.Write(value);
 
         byte[] data = memoryStream.ToArray();
 
@@ -44,33 +41,24 @@ public class CryptoService : ICryptoService
 
     public string Decrypt(string encrypted)
     {
-        try
-        {
-            byte[] iv = new byte[16];
-            byte[] buffer = Convert.FromBase64String(encrypted);
+        byte[] iv = new byte[16];
+        byte[] buffer = Convert.FromBase64String(encrypted);
 
-            using var aes = Aes.Create();
+        using var aes = Aes.Create();
 
-            object? secret = _localRegistry.Get("secret");
+        object? secret = _localRegistry.Get("secret");
 
-            if (secret is not byte[] secretKey)
-                throw new Exception("Failed to find secret for encrypting data");
+        if (secret is not byte[] secretKey)
+            throw new Exception("Failed to find secret for encrypting data");
 
-            aes.Key = secretKey;
-            aes.IV = iv;
-            ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+        aes.Key = secretKey;
+        aes.IV = iv;
+        ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 
-            using var memoryStream = new MemoryStream(buffer);
-            using var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
-            using var streamReader = new StreamReader(cryptoStream);
+        using var memoryStream = new MemoryStream(buffer);
+        using var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
+        using var streamReader = new StreamReader(cryptoStream);
 
-            return streamReader.ReadToEnd();
-        }
-        catch (Exception err)
-        {
-            Log.Error(err.ToString());
-        }
-
-        return "";
+        return streamReader.ReadToEnd();
     }
 }

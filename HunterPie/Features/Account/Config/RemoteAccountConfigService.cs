@@ -33,7 +33,7 @@ internal class RemoteAccountConfigService : IRemoteAccountConfigUseCase
         string serializedConfig = JsonProvider.Serializer(config);
         string encodedConfig = Base64Service.Encode(serializedConfig);
 
-        PoogieResult<ClientSettingsResponse> result = await _settingsConnector.UploadClientSettings(
+        PoogieResult<ClientSettingsResponse> result = await _settingsConnector.UploadClientSettingsAsync(
             request: new ClientSettingsRequest(encodedConfig)
         );
 
@@ -48,7 +48,7 @@ internal class RemoteAccountConfigService : IRemoteAccountConfigUseCase
         if (!await _accountUseCase.IsValidSessionAsync())
             return;
 
-        PoogieResult<ClientSettingsResponse> result = await _settingsConnector.GetClientSettings();
+        PoogieResult<ClientSettingsResponse> result = await _settingsConnector.GetClientSettingsAsync();
 
         if (result.Response is not { } response)
             return;

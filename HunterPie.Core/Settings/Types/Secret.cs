@@ -1,5 +1,7 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Converters;
+using HunterPie.Core.Crypto;
+using HunterPie.DI;
 using Newtonsoft.Json;
 
 namespace HunterPie.Core.Settings.Types;
@@ -7,6 +9,8 @@ namespace HunterPie.Core.Settings.Types;
 [JsonConverter(typeof(SecretConverter))]
 public class Secret : Bindable
 {
+    private ICryptoService CryptoService => DependencyContainer.Get<ICryptoService>();
+
     private string _value = string.Empty;
 
     [JsonIgnore]
@@ -18,8 +22,8 @@ public class Secret : Bindable
 
     public string EncryptedValue
     {
-        get => Value;
-        set => Value = value;
+        get => CryptoService.Encrypt(Value);
+        set => Value = CryptoService.Decrypt(value);
     }
 
     public override string ToString() => Value;

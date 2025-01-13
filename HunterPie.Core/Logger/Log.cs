@@ -274,8 +274,6 @@ public class Log
     {
         if (Instance._benchmarkers.ContainsKey(name))
             return;
-
-        BenchmarkLog($"Starting benchmark for '{name}'");
         Instance._benchmarkers.Add(name, Stopwatch.StartNew());
     }
 

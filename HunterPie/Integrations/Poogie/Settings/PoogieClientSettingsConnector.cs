@@ -15,9 +15,9 @@ internal class PoogieClientSettingsConnector
 
     private const string CLIENT_SETTINGS_ENDPOINT = "/v1/account/client/settings";
 
-    public async Task<PoogieResult<ClientSettingsResponse>> UploadClientSettings(ClientSettingsRequest request) =>
-        await _client.PostAsync<ClientSettingsRequest, ClientSettingsResponse>(CLIENT_SETTINGS_ENDPOINT, request);
+    public async Task<PoogieResult<ClientSettingsResponse>> UploadClientSettingsAsync(ClientSettingsRequest request) =>
+        await _client.PatchAsync<ClientSettingsRequest, ClientSettingsResponse>(CLIENT_SETTINGS_ENDPOINT, request);
 
-    public async Task<PoogieResult<ClientSettingsResponse>> GetClientSettings() =>
+    public async Task<PoogieResult<ClientSettingsResponse>> GetClientSettingsAsync() =>
         await _client.GetAsync<ClientSettingsResponse>(CLIENT_SETTINGS_ENDPOINT);
 }

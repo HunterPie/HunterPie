@@ -69,17 +69,15 @@ internal class InitializerManager
 
     public static async Task InitializeAsync()
     {
-        Log.Benchmark();
-
         foreach (Type initializerType in Initializers)
         {
+            Log.Benchmark(initializerType.Name);
             if (DependencyContainer.Get(initializerType) is not IInitializer initializer)
                 continue;
 
             await initializer.Init();
+            Log.BenchmarkEnd(initializerType.Name);
         }
-
-        Log.BenchmarkEnd();
     }
 
     public static void InitializeGUI()
