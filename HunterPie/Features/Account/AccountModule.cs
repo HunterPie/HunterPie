@@ -17,7 +17,8 @@ internal class AccountModule : IDependencyModule
             .WithSingle<RemoteConfigSyncService>()
             .WithSingle<AccountController>()
             .WithSingle<MainApplication>()
-            .WithSingle<LocalAccountConfig>();
+            .WithSingle<LocalAccountConfig>()
+            .WithSingle<AccountConfig>();
 
         registry
             .WithService<AccountLoginFlowViewModel>()

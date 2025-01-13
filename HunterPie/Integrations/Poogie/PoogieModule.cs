@@ -2,6 +2,7 @@
 using HunterPie.DI.Module;
 using HunterPie.Integrations.Poogie.Account;
 using HunterPie.Integrations.Poogie.Backup;
+using HunterPie.Integrations.Poogie.Common;
 using HunterPie.Integrations.Poogie.Localization;
 using HunterPie.Integrations.Poogie.Notification;
 using HunterPie.Integrations.Poogie.Patch;
@@ -18,6 +19,7 @@ internal class PoogieModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
+            .WithService<PoogieConnector>()
             .WithSingle<PoogieHttpProvider>()
             .WithService<PoogieAccountConnector>()
             .WithService<PoogieBackupConnector>()

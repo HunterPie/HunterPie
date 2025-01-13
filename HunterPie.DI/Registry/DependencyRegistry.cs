@@ -34,7 +34,7 @@ public class DependencyRegistry : IDependencyRegistry
         return Create(instances.First());
     }
 
-    public object[] GetAll(Type type)
+    public Array GetAll(Type type)
     {
         Type? elementType = type.GetElementType();
 
@@ -48,8 +48,13 @@ public class DependencyRegistry : IDependencyRegistry
             ?.Select(Create)
             ?? Array.Empty<object>();
 
-        return services.Concat(singletons)
+        object[] elements = services.Concat(singletons)
             .ToArray();
+        var targetElements = Array.CreateInstance(elementType, elements.Length);
+
+        Array.Copy(elements, targetElements, targetElements.Length);
+
+        return targetElements;
     }
 
     public IDependencyRegistry WithService<T>() where T : class
@@ -110,18 +115,9 @@ public class DependencyRegistry : IDependencyRegistry
                 {
                     RegisterSingleton(dependency);
                 }
-                catch (DependencyNotRegisteredException err)
-                {
-                    failedDependencies.Enqueue(dependency);
-                    exceptions.Add(err);
-                }
-                catch (DependencyArgumentException err)
-                {
-                    failedDependencies.Enqueue(dependency);
-                    exceptions.Add(err);
-                }
                 catch (Exception err)
                 {
+                    failedDependencies.Enqueue(dependency);
                     exceptions.Add(err);
                 }
 
@@ -160,10 +156,14 @@ public class DependencyRegistry : IDependencyRegistry
                 }
             })
             .ToArray();
-
-        object instance = constructor.Invoke(args);
-
-        return instance;
+        try
+        {
+            return constructor.Invoke(args);
+        }
+        catch (Exception err)
+        {
+            throw new DependencyArgumentException(type, err);
+        }
     }
 
     private void RegisterSingleton(Dependency dependency)
