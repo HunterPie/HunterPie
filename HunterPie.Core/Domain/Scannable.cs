@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Domain.Memory;
 using HunterPie.Core.Domain.Process.Entity;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -18,6 +18,8 @@ public delegate Task AsyncDelegate();
 /// </summary>
 public abstract class Scannable
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     protected readonly IGameProcess Process;
     protected IMemoryAsync Memory => Process.Memory;
     private readonly Dictionary<Type, HashSet<Delegate>> _middlewares = new();
@@ -70,7 +72,7 @@ public abstract class Scannable
 
                 if (_troublesomeScannables[scanner] >= 3)
                 {
-                    Log.Warn($"Scanner: {scanner.Method.Name} had multiple exceptions. Disabling scanner for now;\n{err}");
+                    _logger.Warning($"Scanner: {scanner.Method.Name} had multiple exceptions. Disabling scanner for now;\n{err}");
 
                     _scanners.Remove(scanner);
 

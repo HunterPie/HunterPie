@@ -1,4 +1,4 @@
-﻿namespace HunterPie.UI.Logger;
+﻿namespace HunterPie.UI.Logging.Entity;
 
 public enum LogLevel
 {

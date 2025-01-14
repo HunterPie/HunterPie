@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.Game;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.UI.Architecture.Overlay;
 using System;
 using System.Collections.Generic;
@@ -10,6 +10,8 @@ namespace HunterPie.Features.Overlay;
 
 internal static class WidgetInitializers
 {
+    private static readonly ILogger Logger = LoggerFactory.Create();
+
     private static readonly Lazy<IWidgetInitializer[]> Initializers = new(() =>
     {
         return AppDomain.CurrentDomain.GetAssemblies()
@@ -30,7 +32,7 @@ internal static class WidgetInitializers
         }
         catch (Exception err)
         {
-            Log.Error(err.ToString());
+            Logger.Error(err.ToString());
         }
     }
 

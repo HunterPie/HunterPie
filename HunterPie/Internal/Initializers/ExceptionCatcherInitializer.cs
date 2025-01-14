@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.Analytics;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Utils;
 using HunterPie.Domain.Interfaces;
 using System;
@@ -9,6 +9,8 @@ namespace HunterPie.Internal.Initializers;
 
 internal class ExceptionCatcherInitializer : IInitializer
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     private readonly IAnalyticsService _analyticsService;
 
     public ExceptionCatcherInitializer(IAnalyticsService analyticsService)
@@ -31,7 +33,7 @@ internal class ExceptionCatcherInitializer : IInitializer
             });
 
 
-            Log.Error(exception.ToString());
+            _logger.Error(exception.ToString());
         };
 
         return Task.CompletedTask;

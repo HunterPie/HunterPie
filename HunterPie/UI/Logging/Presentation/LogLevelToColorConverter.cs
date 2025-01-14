@@ -1,9 +1,10 @@
 ﻿using HunterPie.UI.Assets.Application;
+using HunterPie.UI.Logging.Entity;
 using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace HunterPie.UI.Logger;
+namespace HunterPie.UI.Logging.Presentation;
 
 public class LogLevelToColorConverter : IValueConverter
 {

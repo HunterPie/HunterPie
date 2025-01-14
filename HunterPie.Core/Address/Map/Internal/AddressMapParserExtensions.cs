@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Logger;
+﻿using HunterPie.Core.Observability.Logging;
 using System;
 using System.Linq;
 using AddressMapType = HunterPie.Core.Address.Map.Internal.AddressMapKeyWords.AddressMapType;
@@ -7,6 +7,8 @@ namespace HunterPie.Core.Address.Map.Internal;
 
 internal static class AddressMapParserExtensions
 {
+    private static readonly ILogger Logger = LoggerFactory.Create();
+
     private static int[] ParseStringToVecInt32(string stringified)
     {
         return stringified.Split(",")
@@ -24,7 +26,7 @@ internal static class AddressMapParserExtensions
             }
             catch (Exception e)
             {
-                Log.Error(e.ToString());
+                Logger.Error(e.ToString());
             }
         }
 

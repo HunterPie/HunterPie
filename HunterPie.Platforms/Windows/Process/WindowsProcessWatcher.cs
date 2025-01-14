@@ -2,7 +2,7 @@
 using HunterPie.Core.Domain.Process.Events;
 using HunterPie.Core.Domain.Process.Service;
 using HunterPie.Core.Extensions;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Platforms.Windows.Api.Kernel;
 using HunterPie.Platforms.Windows.Memory;
 using System.ComponentModel;
@@ -12,6 +12,8 @@ namespace HunterPie.Platforms.Windows.Process;
 
 internal class WindowsProcessWatcher : IProcessWatcherService, IEventDispatcher, IDisposable
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     private readonly Timer _timer;
     private readonly IProcessAttachStrategy[] _strategies;
     private readonly HashSet<string> _failedProcesses;
@@ -61,7 +63,7 @@ internal class WindowsProcessWatcher : IProcessWatcherService, IEventDispatcher,
     private void Start()
     {
         foreach (IProcessAttachStrategy strategy in _strategies)
-            Log.Info("Waiting for process '{0}' to start...", strategy.Name);
+            _logger.Info($"Waiting for process '{strategy.Name}' to start...");
     }
 
     private async void Watch(object? _)
@@ -109,8 +111,8 @@ internal class WindowsProcessWatcher : IProcessWatcherService, IEventDispatcher,
         }
         catch (Exception err)
         {
-            Log.Error("Failed to open game process. Run HunterPie as Administrator!");
-            Log.Info("Error details: {0}", err);
+            _logger.Error("Failed to open game process. Run HunterPie as Administrator!");
+            _logger.Info($"Error details: {err}");
 
             _failedProcesses.Add(strategy.Name);
             process.Dispose();

@@ -1,15 +1,16 @@
-using HunterPie.Core.Logger;
-using HunterPie.Core.Native.IPC.Handlers.Internal.Initialiaze.Models;
+using HunterPie.Core.Native.IPC.Handlers.Internal.Initialize.Models;
 using HunterPie.Core.Native.IPC.Models;
 using HunterPie.Core.Native.IPC.Utils;
+using HunterPie.Core.Observability.Logging;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
-namespace HunterPie.Core.Native.IPC.Handlers.Internal.Initialiaze;
+namespace HunterPie.Core.Native.IPC.Handlers.Internal.Initialize;
 
 internal class IPCInitializationMessageHandler : IMessageHandler
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
     private const string ERROR_DIALOG_MESSAGE = "HunterPie has detected wrong version of HunterPie Native Interface currently in the game.\nYou must restart your game for it to work properly";
     public int Version => 2;
 
@@ -21,7 +22,7 @@ internal class IPCInitializationMessageHandler : IMessageHandler
 
         if (response.Header.Version != Version)
         {
-            Log.Warn(ERROR_DIALOG_MESSAGE);
+            _logger.Warning(ERROR_DIALOG_MESSAGE);
             return;
         }
 
@@ -29,8 +30,8 @@ internal class IPCInitializationMessageHandler : IMessageHandler
         Exception ex = Marshal.GetExceptionForHR(response.HResult);
         if (ex != null)
         {
-            Log.Error("Failed to initialize IPC: {0}", ex);
-            Log.Warn(ERROR_DIALOG_MESSAGE);
+            _logger.Error($"Failed to initialize IPC: {ex}");
+            _logger.Warning(ERROR_DIALOG_MESSAGE);
             return;
         }
 

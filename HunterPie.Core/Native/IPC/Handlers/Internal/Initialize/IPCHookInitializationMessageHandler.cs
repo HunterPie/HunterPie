@@ -1,12 +1,14 @@
-﻿using HunterPie.Core.Logger;
-using HunterPie.Core.Native.IPC.Handlers.Internal.Initialiaze.Models;
+﻿using HunterPie.Core.Native.IPC.Handlers.Internal.Initialize.Models;
 using HunterPie.Core.Native.IPC.Models;
 using HunterPie.Core.Native.IPC.Utils;
+using HunterPie.Core.Observability.Logging;
 
-namespace HunterPie.Core.Native.IPC.Handlers.Internal.Initialiaze;
+namespace HunterPie.Core.Native.IPC.Handlers.Internal.Initialize;
 
 internal class IPCHookInitializationMessageHandler : IMessageHandler
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     public int Version => 1;
 
     public IPCMessageType Type => IPCMessageType.INIT_MH_HOOKS;
@@ -17,11 +19,11 @@ internal class IPCHookInitializationMessageHandler : IMessageHandler
 
         if (response.Status > HookStatus.AlreadyInitialized)
         {
-            Log.Error("Failed to initialize HunterPie Native Interface hooks. Error code: {0}", response.Status);
+            _logger.Error($"Failed to initialize HunterPie Native Interface hooks. Error code: {response.Status}");
             return;
         }
 
-        Log.Native("Successfully initialized HunterPie Native Interface hooks!");
+        _logger.Native("Successfully initialized HunterPie Native Interface hooks!");
     }
 
     public static async void RequestInitMHHooks()

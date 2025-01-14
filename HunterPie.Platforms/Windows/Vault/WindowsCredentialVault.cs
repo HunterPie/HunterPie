@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.Crypto;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Utils;
 using HunterPie.Core.Vault;
 using System.Runtime.InteropServices;
@@ -12,6 +12,8 @@ namespace HunterPie.Platforms.Windows.Vault;
 
 internal class WindowsCredentialVault : ICredentialVault
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     private const string OWNER_NAME = "HunterPie";
     private readonly ICryptoService _cryptoService;
 
@@ -46,7 +48,7 @@ internal class WindowsCredentialVault : ICredentialVault
         Marshal.FreeCoTaskMem(credential.Username);
 
         if (!success)
-            Log.Error("Failed to save credentials due to error: {0}", Marshal.GetLastWin32Error());
+            _logger.Error($"Failed to save credentials due to error: {Marshal.GetLastWin32Error()}");
 
     }
 

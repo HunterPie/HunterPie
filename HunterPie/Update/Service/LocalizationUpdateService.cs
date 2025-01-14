@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Crypto;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Remote;
 using HunterPie.Update.Gateway;
 using System.Collections.Generic;
@@ -11,6 +11,8 @@ namespace HunterPie.Update.Service;
 
 internal class LocalizationUpdateService
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     private readonly UpdateGateway _gateway;
 
     public LocalizationUpdateService(UpdateGateway gateway)
@@ -35,7 +37,7 @@ internal class LocalizationUpdateService
             if (checksum == localChecksum)
                 continue;
 
-            Log.Debug("Downloading {0}... Remote checksum: {1} | Local checksum: {2}", name, checksum, localChecksum);
+            _logger.Debug($"Downloading {name}... Remote checksum: {checksum} | Local checksum: {localChecksum}");
             await CDN.GetFile($"/{name}", localFilePath);
         }
     }

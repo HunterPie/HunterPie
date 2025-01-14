@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.Address.Map.Internal;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using System;
 using System.IO;
 using System.Linq;
@@ -8,7 +8,7 @@ namespace HunterPie.Core.Address.Map;
 
 public static class AddressMap
 {
-
+    private static readonly ILogger Logger = LoggerFactory.Create();
     private static IAddressMapParser _parser;
     public static bool IsLoaded { get; private set; }
 
@@ -25,7 +25,7 @@ public static class AddressMap
 
         _parser = new LegacyAddressMapParser(stream);
 
-        Log.Info($"Loaded {Path.GetFileName(filePath)} successfully");
+        Logger.Info($"Loaded {Path.GetFileName(filePath)} successfully");
 
         IsLoaded = true;
 

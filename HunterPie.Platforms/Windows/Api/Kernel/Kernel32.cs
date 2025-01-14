@@ -57,6 +57,9 @@ internal static class Kernel32
     }
 
     [DllImport("kernel32.dll", SetLastError = true)]
+    public static extern bool AllocConsole();
+
+    [DllImport("kernel32.dll", SetLastError = true)]
     public static extern IntPtr OpenProcess(
         int dwDesiredAccess,
         bool bInheritHandle,

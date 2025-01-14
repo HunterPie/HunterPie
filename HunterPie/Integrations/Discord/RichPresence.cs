@@ -2,7 +2,7 @@
 using DiscordRPC.Message;
 using HunterPie.Core.Client.Configuration.Integrations;
 using HunterPie.Core.Game.Entity.Game;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using System;
 using System.ComponentModel;
 using System.Timers;
@@ -12,6 +12,8 @@ namespace HunterPie.Integrations.Discord;
 
 internal abstract class RichPresence : IDisposable
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     private const int DEFAULT_INTERVAL = 10000;
 
     protected abstract DiscordRichPresence Settings { get; }
@@ -53,7 +55,7 @@ internal abstract class RichPresence : IDisposable
         }
         catch (Exception ex)
         {
-            Log.Error(ex.ToString());
+            _logger.Error(ex.ToString());
         }
 
         _ = Presence.WithTimestamps(_locationTime);
@@ -79,7 +81,7 @@ internal abstract class RichPresence : IDisposable
     private void OnReady(object sender, ReadyMessage args)
     {
         if (Settings.EnableRichPresence)
-            Log.Info($"Connected to Discord: {args.User}");
+            _logger.Info($"Connected to Discord: {args.User}");
 
         UpdatePresence();
     }

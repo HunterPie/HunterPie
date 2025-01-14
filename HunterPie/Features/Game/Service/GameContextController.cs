@@ -6,7 +6,7 @@ using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Process.Events;
 using HunterPie.Core.Domain.Process.Service;
 using HunterPie.Core.Game;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Features.Backup.Services;
 using HunterPie.Features.Overlay;
 using HunterPie.Integrations.Services;
@@ -19,6 +19,8 @@ namespace HunterPie.Features.Game.Service;
 
 internal class GameContextController : IDisposable
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     private bool _isDisposed;
     private Context? _context;
     private readonly IProcessWatcherService _processWatcherService;
@@ -57,7 +59,7 @@ internal class GameContextController : IDisposable
         await _uiDispatcher.InvokeAsync(WidgetInitializers.Unload);
         WidgetManager.Dispose();
 
-        Log.Info("Process has closed");
+        _logger.Info("Process has closed");
 
         SmartEventsTracker.DisposeEvents();
         ContextInitializers.Dispose();
@@ -73,7 +75,7 @@ internal class GameContextController : IDisposable
         {
             _context = _gameContextService.Get(e.Game);
 
-            Log.Debug("Initialized game context");
+            _logger.Debug("Initialized game context");
 
             await _uiDispatcher.InvokeAsync(() => WidgetManager.Hook(_context));
 
@@ -85,7 +87,7 @@ internal class GameContextController : IDisposable
         }
         catch (Exception ex)
         {
-            Log.Error(ex.ToString());
+            _logger.Error(ex.ToString());
         }
 
         await _backupService.ExecuteAsync(e.Game.Type switch

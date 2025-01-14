@@ -2,6 +2,7 @@
 using HunterPie.Core.Domain.Cache;
 using HunterPie.Core.Zip.Service;
 using HunterPie.DI.Module;
+using HunterPie.Internal.Logger;
 using System.Windows;
 
 namespace HunterPie.DI.Modules;
@@ -15,6 +16,7 @@ internal class HunterPieModule : IDependencyModule
             .WithSingle(() => Application.Current.Dispatcher)
             .WithService<InMemoryAsyncCache>()
             .WithSingle<CryptoService>()
-            .WithService<CompressorService>();
+            .WithService<CompressorService>()
+            .WithSingle<FileStreamLogWriter>();
     }
 }

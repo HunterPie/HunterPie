@@ -1,8 +1,9 @@
-﻿using System;
+﻿using HunterPie.UI.Logging.Entity;
+using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace HunterPie.UI.Logger;
+namespace HunterPie.UI.Logging.Presentation;
 
 public class LogLevelToStringConverter : IValueConverter
 {

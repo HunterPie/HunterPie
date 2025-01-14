@@ -9,12 +9,14 @@ using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Entity.Player.Vitals;
 using HunterPie.Core.Game.Events;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using System.Runtime.CompilerServices;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Player;
 public abstract class CommonPlayer : Scannable, IPlayer, IEventDispatcher, IDisposable
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     public abstract string Name { get; protected set; }
     public abstract int HighRank { get; protected set; }
     public abstract int MasterRank { get; protected set; }
@@ -138,7 +140,7 @@ public abstract class CommonPlayer : Scannable, IPlayer, IEventDispatcher, IDisp
         else if (!abnormalities.ContainsKey(schema.Id) && timer > 0)
         {
             if (schema.Icon == "ICON_MISSING")
-                Log.Info($"Missing abnormality: {schema.Id}");
+                _logger.Info($"Missing abnormality: {schema.Id}");
 
             var abnorm = (IUpdatable<S>)Activator.CreateInstance(typeof(T), schema);
 

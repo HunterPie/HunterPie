@@ -1,7 +1,7 @@
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain.Dialog;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.DI;
 using HunterPie.Features.Debug;
 using HunterPie.Internal;
@@ -26,6 +26,8 @@ namespace HunterPie;
 /// </summary>
 public partial class App : Application
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     private static MainView Window => DependencyContainer.Get<MainView>();
     private static MainApplication MainApplication => DependencyContainer.Get<MainApplication>();
 
@@ -89,7 +91,7 @@ public partial class App : Application
 
     private async void InitializeMainView()
     {
-        Log.Info("Initializing HunterPie client UI");
+        _logger.Info("Initializing HunterPie client UI");
 
         await MainApplication.Start();
 

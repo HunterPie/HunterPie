@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.UseCase;
 using HunterPie.Features.Backup.Strategies;
@@ -17,6 +17,8 @@ namespace HunterPie.Features.Backup.Services;
 
 internal class GameSaveBackupService : IBackupService
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     private readonly IAccountUseCase _accountUseCase;
     private readonly AccountConfig _accountConfig;
     private readonly PoogieBackupConnector _connector;
@@ -87,7 +89,7 @@ internal class GameSaveBackupService : IBackupService
         if (result.Response is null)
             return;
 
-        Log.Debug("Successfully uploaded save file {0}", result.Response!.Id);
+        _logger.Debug($"Successfully uploaded save file {result.Response!.Id}");
 
         await _localRegistryAsync.SetAsync(registryKey, DateTime.UtcNow.Ticks);
         await _localRegistryAsync.SetAsync(successRegistryKey, true);

@@ -6,12 +6,14 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 
 public abstract class CommonMonster : Scannable, IMonster, IDisposable, IEventDispatcher
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     public abstract string Name { get; }
     public abstract int Id { get; protected set; }
     public abstract float Health { get; protected set; }
@@ -147,6 +149,6 @@ public abstract class CommonMonster : Scannable, IMonster, IDisposable, IEventDi
 
         events.DisposeAll();
 
-        Log.Debug("Disposing monster {0}", Name);
+        _logger.Debug($"Disposing monster {Name}");
     }
 }

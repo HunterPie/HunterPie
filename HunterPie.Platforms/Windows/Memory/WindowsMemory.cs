@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.Domain.Memory;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Utils;
 using HunterPie.Platforms.Windows.Api.Kernel;
 using System.Buffers;
@@ -11,6 +11,7 @@ namespace HunterPie.Platforms.Windows.Memory;
 
 internal class WindowsMemory : IMemoryAsync
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
     private readonly IntPtr _handle;
     private readonly ArrayPool<byte> _bufferPool = ArrayPool<byte>.Shared;
 
@@ -176,21 +177,21 @@ internal class WindowsMemory : IMemoryAsync
 
         await WriteAsync(dllNameAddress, dllPath);
 
-        Log.Debug("Wrote DLL name at {0:P}", dllNameAddress);
+        _logger.Debug($"Wrote DLL name at {dllNameAddress:P}");
 
         IntPtr kernel32Address = await Task.Run(() => Kernel32.GetModuleHandle("kernel32"));
 
         if (kernel32Address == IntPtr.Zero)
             throw new Win32Exception("Failed to find kernel32 address");
 
-        Log.Debug("Found kernel32 address at {0:P}", kernel32Address);
+        _logger.Debug($"Found kernel32 address at {kernel32Address:P}");
 
         IntPtr loadLibraryW = await Task.Run(() => Kernel32.GetProcAddress(kernel32Address, "LoadLibraryW"));
 
         if (loadLibraryW == IntPtr.Zero)
             throw new Win32Exception("Failed to find LoadLibraryW address");
 
-        Log.Debug("kernel32::LoadLibraryW -> {0:P}", loadLibraryW);
+        _logger.Debug($"kernel32::LoadLibraryW -> {loadLibraryW:P}");
 
         IntPtr threadAddress = await Task.Run(() => Kernel32.CreateRemoteThread(
                 hProcess: _handle,
@@ -206,7 +207,7 @@ internal class WindowsMemory : IMemoryAsync
         if (threadAddress == IntPtr.Zero)
             throw new Win32Exception("Failed to create remote thread");
 
-        Log.Debug("Thread {0:P}", threadAddress);
+        _logger.Debug($"Thread {threadAddress:P}");
     }
 
     private async Task<T[]> ReadStructureAsync<T>(IntPtr address, int count) where T : struct

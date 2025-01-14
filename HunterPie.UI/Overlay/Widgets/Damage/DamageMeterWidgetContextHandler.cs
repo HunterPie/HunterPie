@@ -8,7 +8,7 @@ using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.UI.Architecture.Brushes;
 using HunterPie.UI.Overlay.Widgets.Damage.Helpers;
 using HunterPie.UI.Overlay.Widgets.Damage.View;
@@ -27,9 +27,10 @@ using Range = HunterPie.Core.Settings.Types.Range;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage;
 
-#nullable enable
 public class DamageMeterWidgetContextHandler : IContextHandler
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     private readonly MeterViewModel _viewModel;
     private readonly MeterView _view;
     private readonly IContext _context;
@@ -325,7 +326,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
 
         PlayerViewModel model = _members[member].ViewModel;
 
-        Log.Debug("Added player: {0:X} {1} with joinedAt: {2}", member.GetHashCode(), member.Name, memberInfo.JoinedAt);
+        _logger.Debug($"Added player: {member.GetHashCode():X} {member.Name} with joinedAt: {memberInfo.JoinedAt}");
 
         _viewModel.Players.Add(model);
     }
@@ -342,7 +343,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
         _ = _viewModel.Series.Remove(_members[member].Series);
         _ = _members.Remove(member);
 
-        Log.Debug("Removed player {0:X}: {1}", member.GetHashCode(), member.Name);
+        _logger.Debug($"Removed player {member.GetHashCode():X}: {member.Name}");
     }
 
     private double CalculateDpsByConfiguredStrategy(MemberInfo member)

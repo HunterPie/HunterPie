@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,6 +12,7 @@ namespace HunterPie.Core.Domain;
 
 public static class ScanManager
 {
+    private static readonly ILogger Logger = LoggerFactory.Create();
     private static Thread _thread;
     private static CancellationTokenSource _token = new();
     private static readonly HashSet<Scannable> Scannables = new();
@@ -44,7 +45,7 @@ public static class ScanManager
                 {
                     // Logs the error if it came from a generic exception instead of a
                     // cancel request
-                    Log.Error(err.ToString());
+                    Logger.Error(err.ToString());
                 }
             while (true);
 

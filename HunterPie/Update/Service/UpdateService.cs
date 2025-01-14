@@ -3,7 +3,7 @@ using HunterPie.Core.Client;
 using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Domain.Interfaces;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Features.Patches.ViewModels;
 using HunterPie.UI.Navigation;
 using HunterPie.Update.Gateway;
@@ -21,6 +21,7 @@ namespace HunterPie.Update.Service;
 
 internal class UpdateService : IUpdateUseCase
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
     private const string JUST_UPDATED_KEY = "JustUpdated";
     private readonly LocalizationUpdateService _localizationUpdateService;
     private readonly UpdateGateway _gateway;
@@ -144,7 +145,7 @@ internal class UpdateService : IUpdateUseCase
                 buttons: NativeDialogButtons.Accept
             );
 
-            Log.Error("Failed to update HunterPie: {0}", err.ToString());
+            _logger.Error($"Failed to update HunterPie: {err}");
 
             return false;
         }
@@ -193,7 +194,7 @@ internal class UpdateService : IUpdateUseCase
             return packagePath;
 
         vm.State = "Failed to update HunterPie";
-        Log.Warn("Failed to update HunterPie");
+        _logger.Warning("Failed to update HunterPie");
 
         return null;
     }
@@ -215,7 +216,7 @@ internal class UpdateService : IUpdateUseCase
         }
         catch (Exception err)
         {
-            Log.Error("Failed to extract package: {0}", err.ToString());
+            _logger.Error($"Failed to update HunterPie: {err}");
 
             return null;
         }
@@ -245,7 +246,7 @@ internal class UpdateService : IUpdateUseCase
         }
         catch (Exception err)
         {
-            Log.Error("Failed to calculate file hashes: {0}", err.ToString());
+            _logger.Error($"Failed to update HunterPie: {err}");
             return null;
         }
     }

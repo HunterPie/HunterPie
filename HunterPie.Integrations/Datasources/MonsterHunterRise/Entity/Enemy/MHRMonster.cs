@@ -9,7 +9,7 @@ using HunterPie.Core.Game.Data.Repository;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions.Monster;
@@ -20,6 +20,8 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
 
 public sealed class MHRMonster : CommonMonster
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     private readonly MonsterDefinition _definition;
     private readonly nint _address;
 
@@ -184,7 +186,7 @@ public sealed class MHRMonster : CommonMonster
 
         UpdateData();
 
-        Log.Debug($"Initialized monster at address {address:X}");
+        _logger.Debug($"Initialized monster at address {address:X}");
     }
 
     private void UpdateData()
@@ -387,7 +389,7 @@ public sealed class MHRMonster : CommonMonster
                     var dummy = new MHRMonsterPart(definition, partInfo);
                     _parts.Add(flinchPart, dummy);
 
-                    Log.Debug($"Found {definition.String} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X} Qurio: {qurioPart:X}");
+                    _logger.Debug($"Found {definition.String} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X} Qurio: {qurioPart:X}");
                     this.Dispatch(_onNewPartFound, dummy);
                 }
 
@@ -539,7 +541,7 @@ public sealed class MHRMonster : CommonMonster
         if (_isLoaded)
             return Task.CompletedTask;
 
-        Log.Debug($"Initialized {Name} at address {_address:X} with id: {Id}");
+        _logger.Debug($"Initialized {Name} at address {_address:X} with id: {Id}");
         _isLoaded = true;
         this.Dispatch(_onSpawn, EventArgs.Empty);
 

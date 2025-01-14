@@ -1,7 +1,7 @@
 ﻿using HunterPie.Core.Base64;
 using HunterPie.Core.Client;
 using HunterPie.Core.Json;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Features.Account.UseCase;
 using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.Integrations.Poogie.Settings;
@@ -12,6 +12,8 @@ namespace HunterPie.Features.Account.Config;
 
 internal class RemoteAccountConfigService : IRemoteAccountConfigUseCase
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     private readonly IAccountUseCase _accountUseCase;
     private readonly PoogieClientSettingsConnector _settingsConnector;
 
@@ -40,7 +42,7 @@ internal class RemoteAccountConfigService : IRemoteAccountConfigUseCase
         if (result.Response is not { } response)
             return;
 
-        Log.Debug("Uploaded config with length {0}", response.Configuration.Length);
+        _logger.Debug($"Uploaded config with length {response.Configuration.Length}");
     }
 
     public async Task Download()

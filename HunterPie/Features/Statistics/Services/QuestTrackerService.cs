@@ -2,7 +2,7 @@
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Events;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.UseCase;
@@ -18,6 +18,8 @@ namespace HunterPie.Features.Statistics.Services;
 
 internal class QuestTrackerService : IContextInitializer, IDisposable
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     private readonly PoogieStatisticsConnector _connector;
     private readonly IAccountUseCase _accountUseCase;
     private readonly AccountConfig _accountConfig;
@@ -55,7 +57,7 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
 
     private async void OnQuestEnd(object? sender, QuestEndEventArgs e)
     {
-        Log.Debug("Quest ended with status {0}", e.Status);
+        _logger.Debug($"Quest ended with status {e.Status}");
 
         if (_statisticsService is null)
             return;
@@ -67,7 +69,7 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
 
         if (e.Status != QuestStatus.Success || !ShouldUpload(exported))
         {
-            Log.Debug("Quest not uploaded (status: {0}, monsters: {1})", e.Status, exported.Monsters.Count);
+            _logger.Debug($"Quest not uploaded (status: {e.Status}, monsters: {exported.Monsters.Count})");
             return;
         }
 
@@ -86,7 +88,7 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
             .ConfigureAwait(false);
 
         if (result.Error is not { })
-            Log.Debug("Quest uploaded successfully");
+            _logger.Debug("Quest uploaded successfully");
 
         _statisticsService.Dispose();
     }
@@ -107,7 +109,7 @@ internal class QuestTrackerService : IContextInitializer, IDisposable
         if (shouldIgnore)
             return;
 
-        Log.Debug("Quest started (id: {0}, type: {1})", e.Id, e.Type);
+        _logger.Debug($"Quest started (id: {e.Id}, type: {e.Type})");
 
         _statisticsService?.Dispose();
         _statisticsService = new HuntStatisticsService(_context);

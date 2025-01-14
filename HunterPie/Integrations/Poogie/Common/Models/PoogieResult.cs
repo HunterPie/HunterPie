@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Json;
-using HunterPie.Core.Logger;
 using HunterPie.Core.Networking.Http;
+using HunterPie.Core.Observability.Logging;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -11,6 +11,8 @@ internal record PoogieResult<T>(
     PoogieError? Error
 )
 {
+    private static readonly ILogger Logger = LoggerFactory.Create();
+
     public static async Task<PoogieResult<T>> FromAsync(HttpClientResponse response)
     {
         string? rawResponse = await response.AsTextAsync();
@@ -38,7 +40,7 @@ internal record PoogieResult<T>(
             }
             catch
             {
-                Log.Error("Failed to deserialize response body to JSON");
+                Logger.Error("Failed to deserialize response body to JSON");
             }
 
         return new PoogieResult<T>(Response: resp, Error: error);

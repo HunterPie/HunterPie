@@ -9,7 +9,7 @@ using HunterPie.Core.Game.Data.Repository;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
@@ -19,6 +19,8 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enemy;
 
 public sealed class MHWMonster : CommonMonster
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     #region Private
     private readonly MonsterDefinition _definition;
     private readonly nint _address;
@@ -466,7 +468,7 @@ public sealed class MHWMonster : CommonMonster
         if (_isLoaded)
             return;
 
-        Log.Debug($"Initialized {Name} at address {_address:X} with id: {Id}");
+        _logger.Debug($"Initialized {Name} at address {_address:X} with id: {Id}");
         _isLoaded = true;
         this.Dispatch(_onSpawn, EventArgs.Empty);
     }

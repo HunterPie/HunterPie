@@ -1,5 +1,5 @@
 ﻿using HunterPie.Core.Client;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Update.UseCase;
 using System;
 using System.Collections.Generic;
@@ -9,6 +9,8 @@ namespace HunterPie.Update.Service;
 
 internal class UpdateCleanUpService : IUpdateCleanUpUseCase
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     public void Invoke()
     {
         Stack<string> directories = new();
@@ -35,7 +37,7 @@ internal class UpdateCleanUpService : IUpdateCleanUpUseCase
                 }
                 catch (Exception err)
                 {
-                    Log.Error("Failed to delete file: {0}", err.ToString());
+                    _logger.Error($"Failed to update HunterPie: {err}");
                 }
             }
     }

@@ -2,7 +2,7 @@
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Game;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Integrations.Datasources.MonsterHunterRise;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
@@ -14,6 +14,8 @@ namespace HunterPie.Features.Overlay;
 
 internal class WirebugWidgetInitializer : IWidgetInitializer
 {
+    private static readonly ILogger Logger = LoggerFactory.Create();
+
     private IContextHandler? _handler;
 
     public async Task LoadAsync(IContext context)
@@ -63,11 +65,11 @@ internal class WirebugWidgetInitializer : IWidgetInitializer
 
             await context.Process.Memory.InjectAsmAsync(wirebugAimAddress, assembly);
 
-            Log.Debug("Successfully patched Wirebug aim");
+            Logger.Debug("Successfully patched Wirebug aim");
         }
         catch (Exception ex)
         {
-            Log.Error("Failed to patch in-game Wirebug HUD: {0}", ex);
+            Logger.Error($"Found ntdll::NtProtectVirtualMemory address at {ex}");
         }
     }
 }

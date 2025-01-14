@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Logger;
-using HunterPie.DI;
+﻿using HunterPie.DI;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Internal.Initializers;
 using System;
@@ -59,31 +58,23 @@ internal class InitializerManager
 
     public static async Task InitializeCore()
     {
-        Log.Benchmark();
-
         foreach (IInitializer initializer in CoreInitializers)
             await initializer.Init();
-
-        Log.BenchmarkEnd();
     }
 
     public static async Task InitializeAsync()
     {
         foreach (Type initializerType in Initializers)
         {
-            Log.Benchmark(initializerType.Name);
             if (DependencyContainer.Get(initializerType) is not IInitializer initializer)
                 continue;
 
             await initializer.Init();
-            Log.BenchmarkEnd(initializerType.Name);
         }
     }
 
     public static void InitializeGUI()
     {
-        Log.Benchmark();
-
         // Make sure to run UI initializers in the main thread
         Application.Current.Dispatcher.Invoke(async () =>
         {
@@ -95,8 +86,6 @@ internal class InitializerManager
                 await initializer.Init();
             }
         });
-
-        Log.BenchmarkEnd();
     }
 
     public static void Unload()

@@ -1,4 +1,4 @@
-﻿namespace HunterPie.Core.Native.IPC.Handlers.Internal.Initialiaze.Models;
+﻿namespace HunterPie.Core.Native.IPC.Handlers.Internal.Initialize.Models;
 
 public enum HookStatus : int
 {

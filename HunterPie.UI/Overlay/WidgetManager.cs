@@ -3,7 +3,7 @@ using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Game;
 using HunterPie.Core.Input;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Settings;
 using HunterPie.UI.Overlay.Components;
 using System;
@@ -15,6 +15,8 @@ namespace HunterPie.UI.Overlay;
 #nullable enable
 public class WidgetManager : Bindable
 {
+    private static readonly ILogger Logger = LoggerFactory.Create();
+
     private IContext? _context;
     private bool _isDesignModeEnabled;
     private bool _isGameFocused;
@@ -69,7 +71,7 @@ public class WidgetManager : Bindable
         Instance._widgets.Add(widget, wnd);
         wnd.Show();
 
-        Log.Debug($"Added new widget: {widget.Title}");
+        Logger.Debug($"Added new widget: {widget.Title}");
 
         return true;
     }

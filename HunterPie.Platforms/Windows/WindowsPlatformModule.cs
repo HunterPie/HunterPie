@@ -1,5 +1,6 @@
 ﻿using HunterPie.DI;
 using HunterPie.DI.Module;
+using HunterPie.Platforms.Windows.Logging;
 using HunterPie.Platforms.Windows.Process;
 using HunterPie.Platforms.Windows.Registry;
 using HunterPie.Platforms.Windows.Vault;
@@ -13,6 +14,7 @@ internal class WindowsPlatformModule : IDependencyModule
         registry
             .WithSingle<WindowsProcessWatcher>()
             .WithSingle<WindowsRegistryAsync>()
-            .WithSingle<WindowsCredentialVault>();
+            .WithSingle<WindowsCredentialVault>()
+            .WithSingle<WindowsNativeLogWriter>();
     }
 }

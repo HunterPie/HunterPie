@@ -1,7 +1,7 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.System.Windows.Native;
 using System;
 using System.Linq;
@@ -11,6 +11,8 @@ namespace HunterPie.Features.Patcher;
 
 internal static class RiseIntegrityPatcher
 {
+    private static readonly ILogger Logger = LoggerFactory.Create();
+
     /// <summary>
     /// HunterPie has assembly patches for some features to work correctly, patching in-game functions can crash the game
     /// if the integrity check is running. So we need to patch the integrity checker.
@@ -64,7 +66,7 @@ internal static class RiseIntegrityPatcher
 
             await context.Process.Memory.InjectAsmAsync(crcFunc, asmPatch);
 
-            Log.Debug("Patched 0x{0:X}", crcFunc);
+            Logger.Debug($"Patched 0x{crcFunc:X}");
         }
     }
 
@@ -78,21 +80,21 @@ internal static class RiseIntegrityPatcher
 
         if (ntdllAddress.IsNullPointer())
         {
-            Log.Error("Failed to find ntdll address");
+            Logger.Error("Failed to find ntdll address");
             return;
         }
 
-        Log.Debug("Found ntdll address at {0:X}", ntdllAddress);
+        Logger.Debug($"Found ntdll address at {ntdllAddress:X}");
 
         nint ntProtectVirtualMemory = await Task.Run(() => Kernel32.GetProcAddress(ntdllAddress, "NtProtectVirtualMemory"));
 
         if (ntProtectVirtualMemory.IsNullPointer())
         {
-            Log.Error("Failed to find ntdll::NtProtectVirtualMemory address");
+            Logger.Error("Failed to find ntdll::NtProtectVirtualMemory address");
             return;
         }
 
-        Log.Debug("Found ntdll::NtProtectVirtualMemory address at {0:X}", ntProtectVirtualMemory);
+        Logger.Debug($"Found ntdll::NtProtectVirtualMemory address at {ntProtectVirtualMemory:X}");
 
         byte[] originalBytes = { 0x4C, 0x8B, 0xD1, 0xB8, 0x50, 0x00, 0x00, 0x00 };
         await context.Process.Memory.InjectAsmAsync(ntProtectVirtualMemory, originalBytes);
