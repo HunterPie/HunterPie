@@ -1,4 +1,6 @@
 ﻿using HunterPie.Core.Analytics;
+using HunterPie.Core.Client;
+using HunterPie.Core.Utils;
 using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.UseCase;
 using HunterPie.Features.Game.Service;
@@ -11,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace HunterPie;
 
-internal class MainApplication
+internal class MainApplication : IDisposable
 {
     private readonly IAnalyticsService _analyticsService;
     private readonly IUpdateUseCase _updateUseCase;
@@ -19,7 +21,6 @@ internal class MainApplication
     private readonly RemoteConfigSyncService _remoteConfigSyncService;
     private readonly NavigatorController _navigatorController;
     private readonly GameContextController _gameContextController;
-
 
     public MainApplication(
         IAnalyticsService analyticsService,
@@ -71,5 +72,11 @@ internal class MainApplication
 
         InitializerManager.Unload();
         await Restart();
+    }
+
+    public void Dispose()
+    {
+        ConfigManager.SaveAll();
+        AsyncHelper.RunSync(_remoteAccountConfigUseCase.Upload);
     }
 }

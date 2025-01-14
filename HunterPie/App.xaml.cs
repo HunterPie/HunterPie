@@ -60,6 +60,7 @@ public partial class App : Application
     protected override void OnExit(ExitEventArgs e)
     {
         InitializerManager.Unload();
+        MainApplication.Dispose();
     }
 
     private void CheckIfHunterPiePathIsSafe()
@@ -96,6 +97,7 @@ public partial class App : Application
             return;
 
         Window.Show();
+        MainWindow = Window;
     }
 
     private void CheckForRunningInstances()
@@ -149,7 +151,7 @@ public partial class App : Application
 
     public static async void Restart()
     {
-        await Window.Dispatcher.InvokeAsync(() => Window.Hide());
+        await Window.Dispatcher.InvokeAsync(Window.Hide);
 
         await MainApplication.Restart();
 

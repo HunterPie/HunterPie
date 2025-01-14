@@ -2,7 +2,6 @@
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.UI.Controls.Notification;
 using HunterPie.UI.Controls.Notification.ViewModels;
-using HunterPie.UI.Main.ViewModels;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
@@ -41,9 +40,6 @@ public partial class MainView : Window
 
     protected override async void OnClosing(CancelEventArgs e)
     {
-        if (DataContext is not MainViewModel vm)
-            return;
-
         if (!ClientConfig.Config.Client.EnableSeamlessShutdown)
         {
             NativeDialogResult result = DialogManager.Info(
@@ -60,7 +56,6 @@ public partial class MainView : Window
         }
 
         await Dispatcher.InvokeAsync(Hide);
-        await vm.GracefulShutdown();
     }
 
     private void OnKeyDown(object sender, KeyEventArgs e)

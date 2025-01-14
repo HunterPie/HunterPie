@@ -54,9 +54,17 @@ internal class WindowsProcessWatcher : IProcessWatcherService, IEventDispatcher,
             period: TimeSpan.FromMilliseconds(150)
         );
         _strategies = strategies;
+
+        Start();
     }
 
-    public async void Watch(object? _)
+    private void Start()
+    {
+        foreach (IProcessAttachStrategy strategy in _strategies)
+            Log.Info("Waiting for process '{0}' to start...", strategy.Name);
+    }
+
+    private async void Watch(object? _)
     {
         if (CurrentProcess?.SystemProcess is { HasExited: true })
         {

@@ -9,7 +9,6 @@ namespace HunterPie.Core.Logger;
 
 public class Log
 {
-
     private readonly List<ILogger> _io = new();
     private static Log _instance;
     private static readonly SemaphoreSlim _semaphore = new(1, 1);
