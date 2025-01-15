@@ -13,16 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HunterPie.UI.Settings.Views
+namespace HunterPie.UI.Settings.Views;
+
+/// <summary>
+/// Interaction logic for SecretConfigurationPropertyView.xaml
+/// </summary>
+public partial class SecretConfigurationPropertyView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for SecretConfigurationPropertyView.xaml
-    /// </summary>
-    public partial class SecretConfigurationPropertyView : UserControl
+    public SecretConfigurationPropertyView()
     {
-        public SecretConfigurationPropertyView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

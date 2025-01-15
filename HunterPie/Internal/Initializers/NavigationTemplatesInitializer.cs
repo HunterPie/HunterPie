@@ -13,6 +13,8 @@ using HunterPie.UI.Controls.Settings.Abnormality.ViewModels;
 using HunterPie.UI.Controls.Settings.Abnormality.Views;
 using HunterPie.UI.Controls.Settings.Monsters.ViewModels;
 using HunterPie.UI.Controls.Settings.Monsters.Views;
+using HunterPie.UI.Home.ViewModels;
+using HunterPie.UI.Home.Views;
 using HunterPie.UI.Logging.ViewModels;
 using HunterPie.UI.Logging.Views;
 using HunterPie.UI.Main.ViewModels;
@@ -27,6 +29,7 @@ internal class NavigationTemplatesInitializer : IInitializer
     public Task Init()
     {
         NavigationProvider.Bind<MainBodyView, MainBodyViewModel>();
+        NavigationProvider.Bind<HomeView, HomeViewModel>();
         NavigationProvider.Bind<AccountSignFlowView, AccountSignFlowViewModel>();
 
         NavigationProvider.Bind<ConsoleView, ConsoleViewModel>();

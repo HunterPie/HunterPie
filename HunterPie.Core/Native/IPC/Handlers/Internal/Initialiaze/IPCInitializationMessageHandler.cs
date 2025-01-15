@@ -38,7 +38,7 @@ internal class IPCInitializationMessageHandler : IMessageHandler
 
     public static async void RequestIPCInitialization(IPCInitializationHostType hostType, UIntPtr[] addresses)
     {
-        var buffer = new UIntPtr[256];
+        nuint[] buffer = new UIntPtr[256];
 
         Buffer.BlockCopy(addresses, 0, buffer, 0, addresses.Length * Marshal.SizeOf<UIntPtr>());
 
