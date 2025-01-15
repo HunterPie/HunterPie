@@ -1,8 +1,8 @@
-﻿using System;
+﻿using HunterPie.Core.Client;
+using HunterPie.Core.Extensions;
+using System;
 using System.IO;
 using System.Linq;
-using HunterPie.Core.Client;
-using HunterPie.Core.Extensions;
 
 namespace HunterPie.Usecases;
 internal class VerifyHunterPiePathUseCase
