@@ -50,6 +50,10 @@ public class DependencyRegistry : IDependencyRegistry
 
         object[] elements = services.Concat(singletons)
             .ToArray();
+
+        if (elements.Length <= 0)
+            throw new DependencyNotRegisteredException(type);
+
         var targetElements = Array.CreateInstance(elementType, elements.Length);
 
         Array.Copy(elements, targetElements, targetElements.Length);

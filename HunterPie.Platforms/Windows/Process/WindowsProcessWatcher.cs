@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
+using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Domain.Process.Events;
 using HunterPie.Core.Domain.Process.Service;
 using HunterPie.Core.Extensions;
@@ -63,7 +64,10 @@ internal class WindowsProcessWatcher : IProcessWatcherService, IEventDispatcher,
     private void Start()
     {
         foreach (IProcessAttachStrategy strategy in _strategies)
+        {
             _logger.Info($"Waiting for process '{strategy.Name}' to start...");
+            strategy.SetStatus(ProcessStatus.Waiting);
+        }
     }
 
     private async void Watch(object? _)
@@ -76,6 +80,10 @@ internal class WindowsProcessWatcher : IProcessWatcherService, IEventDispatcher,
 
         if (CurrentProcess is { } current)
         {
+            _strategies
+                .Where(it => it.Status != ProcessStatus.Hooked && it.Status != ProcessStatus.Paused)
+                .ForEach(it => it.SetStatus(ProcessStatus.Paused));
+
             await current.UpdateAsync();
             return;
         }
@@ -96,6 +104,8 @@ internal class WindowsProcessWatcher : IProcessWatcherService, IEventDispatcher,
 
     private void FindAndAttach(IProcessAttachStrategy strategy)
     {
+        strategy.SetStatus(ProcessStatus.Waiting);
+
         SystemProcess? process = SystemProcess.GetProcessesByName(strategy.Name)
             .FirstOrDefault(it => !string.IsNullOrEmpty(it.MainWindowTitle));
 
@@ -134,6 +144,8 @@ internal class WindowsProcessWatcher : IProcessWatcherService, IEventDispatcher,
 
         if (handle == IntPtr.Zero)
             throw new Win32Exception("Failed to attach to process, missing permissions");
+
+        strategy.SetStatus(ProcessStatus.Hooked);
 
         return new WindowsGameProcess
         {

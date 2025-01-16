@@ -9,6 +9,6 @@ internal class MHWGameModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
-            .WithService<MHWProcessAttachStrategy>();
+            .WithSingle<MHWProcessAttachStrategy>();
     }
 }

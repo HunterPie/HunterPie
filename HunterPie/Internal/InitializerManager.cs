@@ -108,8 +108,8 @@ internal class InitializerManager
             disposable.Dispose();
         }
 
-        foreach (IInitializer initializer in UiInitializers)
-            if (initializer is IDisposable disposable)
+        foreach (Type initializerType in UiInitializers)
+            if (DependencyContainer.Get(initializerType) is IDisposable disposable)
                 disposable.Dispose();
     }
 }

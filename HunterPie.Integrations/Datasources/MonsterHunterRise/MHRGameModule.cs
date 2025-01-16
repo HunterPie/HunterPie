@@ -9,6 +9,6 @@ internal class MHRGameModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
-            .WithService<MHRProcessAttachStrategy>();
+            .WithSingle<MHRProcessAttachStrategy>();
     }
 }
