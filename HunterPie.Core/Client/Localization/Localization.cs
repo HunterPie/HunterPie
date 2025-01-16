@@ -6,9 +6,9 @@ using System.Linq;
 using System.Reflection;
 using System.Xml;
 
-#nullable enable
 namespace HunterPie.Core.Client.Localization;
 
+[Obsolete("Localization is deprecated, use ILocalizationRepository instead")]
 public class Localization
 {
     private readonly ILogger _logger = LoggerFactory.Create();
@@ -117,4 +117,3 @@ public class Localization
         return translation?.Attributes?["String"]?.Value;
     }
 }
-#nullable restore

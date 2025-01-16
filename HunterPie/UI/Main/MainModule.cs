@@ -1,4 +1,5 @@
-﻿using HunterPie.DI;
+﻿using HunterPie.Core.Client.Localization;
+using HunterPie.DI;
 using HunterPie.DI.Module;
 using HunterPie.UI.Main.Navigators;
 using HunterPie.UI.Main.ViewModels;
@@ -17,7 +18,9 @@ internal class MainModule : IDependencyModule
             .WithSingle<MainNavigator>()
             .WithSingle<NavigatorController>()
             .WithSingle(() =>
-                new MainView
+                new MainView(
+                    localizationRepository: registry.Get<ILocalizationRepository>()
+                )
                 {
                     DataContext = registry.Get<MainViewModel>()
                 }

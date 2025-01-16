@@ -1,4 +1,5 @@
-﻿using HunterPie.DI;
+﻿using HunterPie.Core.Observability.Logging;
+using HunterPie.DI;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Internal.Initializers;
 using System;
@@ -10,6 +11,7 @@ namespace HunterPie.Internal;
 
 internal class InitializerManager
 {
+    private static ILogger Logger = LoggerFactory.Create();
     private static readonly HashSet<IInitializer> CoreInitializers = new() { new MapperFactoryInitializer() };
 
     private static readonly Type[] Initializers =
@@ -59,7 +61,10 @@ internal class InitializerManager
     public static async Task InitializeCore()
     {
         foreach (IInitializer initializer in CoreInitializers)
+        {
+            Logger.Debug($"Running {initializer.GetType().Name}");
             await initializer.Init();
+        }
     }
 
     public static async Task InitializeAsync()
@@ -69,6 +74,7 @@ internal class InitializerManager
             if (DependencyContainer.Get(initializerType) is not IInitializer initializer)
                 continue;
 
+            Logger.Debug($"Running {initializer.GetType().Name}");
             await initializer.Init();
         }
     }

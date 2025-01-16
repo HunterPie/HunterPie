@@ -48,9 +48,6 @@ internal class TaggeableLogger : ILogger
 
     private void Write(LogLevel level, LogType type, string message)
     {
-        if (ClientConfig.Config.Development.ClientLogLevel > level)
-            return;
-
         message = $"[{_tag}] {message}";
 
         lock (_lock)
@@ -61,6 +58,12 @@ internal class TaggeableLogger : ILogger
                 Type = type,
                 Message = message
             });
+
+            if (!ClientConfig.IsInitialized)
+                return;
+
+            if (ClientConfig.Config.Development.ClientLogLevel > level)
+                return;
 
             IEnumerable<Action<string>> loggers = _loggers.Select(it => LoggingUtils.ResolveLoggingFunction(type, it));
 

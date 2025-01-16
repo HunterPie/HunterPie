@@ -1,11 +1,12 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Client.Localization.Entity;
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.UI.Controls.Notification;
 using HunterPie.UI.Controls.Notification.ViewModels;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using Localization = HunterPie.Core.Client.Localization.Localization;
 
 namespace HunterPie.UI.Main.Views;
 /// <summary>
@@ -13,8 +14,11 @@ namespace HunterPie.UI.Main.Views;
 /// </summary>
 public partial class MainView : Window
 {
-    public MainView()
+    private readonly ILocalizationRepository _localizationRepository;
+
+    public MainView(ILocalizationRepository localizationRepository)
     {
+        _localizationRepository = localizationRepository;
         InitializeComponent();
     }
 
@@ -42,9 +46,12 @@ public partial class MainView : Window
     {
         if (!ClientConfig.Config.Client.EnableSeamlessShutdown)
         {
+            LocalizationData confirmationTitle = _localizationRepository.FindBy("//Strings/Client/Dialogs/Dialog[@Id='CONFIRMATION_TITLE_STRING']");
+            LocalizationData exitDescription = _localizationRepository.FindBy("//Strings/Client/Dialogs/Dialog[@Id='EXIT_CONFIRMATION_DESCRIPTION_STRING']");
+
             NativeDialogResult result = DialogManager.Info(
-                title: Localization.QueryString("//Strings/Client/Dialogs/Dialog[@Id='CONFIRMATION_TITLE_STRING']"),
-                description: Localization.QueryString("//Strings/Client/Dialogs/Dialog[@Id='EXIT_CONFIRMATION_DESCRIPTION_STRING']"),
+                title: confirmationTitle.String,
+                description: exitDescription.String,
                 buttons: NativeDialogButtons.Accept | NativeDialogButtons.Cancel
             );
 
