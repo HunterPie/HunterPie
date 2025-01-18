@@ -2,7 +2,7 @@
 
 namespace HunterPie.Platforms.Common.Logging;
 
-public interface INativeLogWriter : ILogWriter
+internal interface INativeLogWriter : ILogWriter
 {
-
+    public void CreateTerminal();
 }

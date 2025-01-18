@@ -1,4 +1,6 @@
-﻿namespace HunterPie.Core.Domain.Features.Domain;
+﻿using HunterPie.Core.Domain.Features.Domain;
+
+namespace HunterPie.Core.Domain.Features.Repository;
 
 public interface IFeatureFlagRepository
 {

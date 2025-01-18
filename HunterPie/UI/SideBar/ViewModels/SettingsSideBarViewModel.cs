@@ -1,20 +1,11 @@
 ﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Games;
 using HunterPie.Core.Client.Events;
-using HunterPie.Core.Domain.Enums;
-using HunterPie.Core.Extensions;
-using HunterPie.Features.Account.Config;
 using HunterPie.Features.Settings.Factory;
 using HunterPie.Features.Settings.ViewModels;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Navigation;
-using HunterPie.UI.Settings;
-using HunterPie.UI.Settings.Models;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HunterPie.UI.SideBar.ViewModels;
@@ -22,7 +13,6 @@ namespace HunterPie.UI.SideBar.ViewModels;
 internal class SettingsSideBarViewModel : ViewModel, ISideBarViewModel
 {
     private readonly IBodyNavigator _bodyNavigator;
-    private readonly LocalAccountConfig _localAccountConfig;
     private readonly SettingsFactory _settingsFactory;
 
     private SettingsViewModel? _viewModel;
@@ -39,11 +29,9 @@ internal class SettingsSideBarViewModel : ViewModel, ISideBarViewModel
 
     public SettingsSideBarViewModel(
         IBodyNavigator bodyNavigator,
-        LocalAccountConfig localAccountConfig,
         SettingsFactory settingsFactory)
     {
         _bodyNavigator = bodyNavigator;
-        _localAccountConfig = localAccountConfig;
         _settingsFactory = settingsFactory;
 
         ConfigManager.OnSync += OnConfigurationSync;
@@ -75,17 +63,5 @@ internal class SettingsSideBarViewModel : ViewModel, ISideBarViewModel
         _viewModel = await _settingsFactory.CreateFullAsync(currentGame: ClientConfig.Config.Client.LastConfiguredGame);
 
         return _viewModel;
-    }
-
-    private static ObservableCollection<ConfigurationCategory> BuildConfiguration(
-        IEnumerable<ConfigurationCategory> commonConfiguration,
-        GameConfig configuration,
-        GameProcessType gameProcessType
-    )
-    {
-        ObservableCollection<ConfigurationCategory> configCategory = ConfigurationAdapter.Adapt(configuration, gameProcessType);
-
-        return commonConfiguration.Concat(configCategory)
-            .ToObservableCollection();
     }
 }

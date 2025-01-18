@@ -1,7 +1,8 @@
 ﻿using HunterPie.Core.Domain.Features.Domain;
+using HunterPie.Core.Domain.Features.Repository;
 using System.Collections.Generic;
 
-namespace HunterPie.Core.Domain.Features.Data;
+namespace HunterPie.Features.Flags.Repository;
 
 internal class LocalFeatureFlagRepository : IFeatureFlagRepository
 {

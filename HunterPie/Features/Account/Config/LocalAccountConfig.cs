@@ -11,16 +11,18 @@ internal class LocalAccountConfig
 {
     private readonly AccountConfig _accountConfig;
     private readonly IAccountUseCase _accountUseCase;
+    private readonly ConfigurationAdapter _configurationAdapter;
 
     private const string ACCOUNT_CONFIG = @"internal\account_config.json";
 
     public LocalAccountConfig(
         AccountConfig accountConfig,
-        IAccountUseCase accountUseCase
-    )
+        IAccountUseCase accountUseCase,
+        ConfigurationAdapter configurationAdapter)
     {
         _accountConfig = accountConfig;
         _accountUseCase = accountUseCase;
+        _configurationAdapter = configurationAdapter;
         RegisterConfiguration();
     }
 
@@ -36,7 +38,7 @@ internal class LocalAccountConfig
 
         return isLoggedIn switch
         {
-            true => ConfigurationAdapter.Adapt(_accountConfig),
+            true => _configurationAdapter.Adapt(_accountConfig),
             _ => new ObservableCollection<ConfigurationCategory>()
         };
     }

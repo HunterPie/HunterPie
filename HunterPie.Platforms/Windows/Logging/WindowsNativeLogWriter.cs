@@ -15,7 +15,7 @@ internal class WindowsNativeLogWriter : INativeLogWriter
         Native = ConsoleColor.Magenta
     }
 
-    public WindowsNativeLogWriter()
+    public void CreateTerminal()
     {
         Kernel32.AllocConsole();
         Console.Title = "[DEBUG] HunterPie Console";

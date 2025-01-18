@@ -1,6 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Domain.Constants;
-using HunterPie.Core.Domain.Features;
+using HunterPie.Core.Domain.Features.Repository;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Networking.Http;
 using HunterPie.Core.Vault;
@@ -15,6 +15,7 @@ internal class PoogieHttpProvider
 {
     private readonly ICredentialVault _credentialVault;
     private readonly ILocalRegistry _localRegistry;
+    private readonly IFeatureFlagRepository _featureFlagRepository;
 
     /// <summary>
     /// The Id of this HunterPie installation, it is sent in every request so it's easier to debug exceptions
@@ -65,10 +66,12 @@ internal class PoogieHttpProvider
 
     public PoogieHttpProvider(
         ICredentialVault credentialVault,
-        ILocalRegistry localRegistry)
+        ILocalRegistry localRegistry,
+        IFeatureFlagRepository featureFlagRepository)
     {
         _credentialVault = credentialVault;
         _localRegistry = localRegistry;
+        _featureFlagRepository = featureFlagRepository;
     }
 
     /// <summary>
@@ -77,11 +80,11 @@ internal class PoogieHttpProvider
     /// <returns>A builder that can be used to add extra information</returns>
     public HttpClientBuilder Default()
     {
-        string clientId = _localRegistry.Exists("client_id")
+        string? clientId = _localRegistry.Exists("client_id")
             ? _localRegistry.Get<string>("client_id")
             : "Unknown";
 
-        bool shouldRedirect = FeatureFlagManager.IsEnabled(
+        bool shouldRedirect = _featureFlagRepository.IsEnabled(
             FeatureFlags.FEATURE_REDIRECT_POOGIE
         );
 
