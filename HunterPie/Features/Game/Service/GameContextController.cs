@@ -38,7 +38,6 @@ internal class GameContextController : IDisposable
         _gameContextService = gameContextService;
         _backupService = backupService;
         _uiDispatcher = uiDispatcher;
-        Subscribe();
     }
 
     public void Subscribe()
@@ -81,7 +80,7 @@ internal class GameContextController : IDisposable
 
             await ContextInitializers.InitializeAsync(_context);
 
-            await _uiDispatcher.Invoke(async () => await WidgetInitializers.InitializeAsync(_context));
+            await _uiDispatcher.InvokeAsync(() => WidgetInitializers.InitializeAsync(_context));
 
             ScanManager.Start();
         }

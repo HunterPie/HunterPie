@@ -79,7 +79,7 @@ internal static class Kernel32
     public static extern bool ReadProcessMemory(
         IntPtr hProcess,
         IntPtr lpBaseAddress,
-        [Out, MarshalAs(UnmanagedType.Struct)] object lpBuffer,
+        [Out, MarshalAs(UnmanagedType.AsAny)] object lpBuffer,
         int dwSize,
         out int lpNumberOfBytesRead
     );

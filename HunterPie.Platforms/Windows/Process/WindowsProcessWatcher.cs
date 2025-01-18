@@ -1,6 +1,8 @@
-﻿using HunterPie.Core.Domain.Interfaces;
+﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Domain.Process.Events;
+using HunterPie.Core.Domain.Process.Internal;
 using HunterPie.Core.Domain.Process.Service;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Observability.Logging;
@@ -11,13 +13,14 @@ using SystemProcess = System.Diagnostics.Process;
 
 namespace HunterPie.Platforms.Windows.Process;
 
-internal class WindowsProcessWatcher : IProcessWatcherService, IEventDispatcher, IDisposable
+internal class WindowsProcessWatcher : IControllableWatcherService, IEventDispatcher, IDisposable
 {
     private readonly ILogger _logger = LoggerFactory.Create();
 
-    private readonly Timer _timer;
+    private int _isWatching;
+    private Timer? _timer;
     private readonly IProcessAttachStrategy[] _strategies;
-    private readonly HashSet<string> _failedProcesses;
+    private readonly HashSet<string> _failedProcesses = new();
 
     private WindowsGameProcess? _currentProcess;
     public WindowsGameProcess? CurrentProcess
@@ -49,57 +52,66 @@ internal class WindowsProcessWatcher : IProcessWatcherService, IEventDispatcher,
 
     public WindowsProcessWatcher(IProcessAttachStrategy[] strategies)
     {
-        _failedProcesses = new();
-        _timer = new Timer(
-            callback: Watch,
-            state: null,
-            dueTime: TimeSpan.Zero,
-            period: TimeSpan.FromMilliseconds(150)
-        );
-        _strategies = strategies;
 
-        Start();
+        _strategies = strategies;
     }
 
-    private void Start()
+    public void Start()
     {
         foreach (IProcessAttachStrategy strategy in _strategies)
         {
             _logger.Info($"Waiting for process '{strategy.Name}' to start...");
             strategy.SetStatus(ProcessStatus.Waiting);
         }
+
+        _timer = new Timer(
+            callback: Watch,
+            state: null,
+            dueTime: TimeSpan.Zero,
+            period: TimeSpan.FromMilliseconds(150)
+        );
     }
 
     private async void Watch(object? _)
     {
-        if (CurrentProcess?.SystemProcess is { HasExited: true })
-        {
-            CurrentProcess = null;
+        if (Interlocked.Exchange(ref _isWatching, 1) == 1)
             return;
-        }
 
-        if (CurrentProcess is { } current)
+        try
         {
-            _strategies
-                .Where(it => it.Status != ProcessStatus.Hooked && it.Status != ProcessStatus.Paused)
-                .ForEach(it => it.SetStatus(ProcessStatus.Paused));
+            if (CurrentProcess?.SystemProcess is { HasExited: true })
+            {
+                CurrentProcess = null;
+                return;
+            }
 
-            await current.UpdateAsync();
-            return;
+            if (CurrentProcess is { } current)
+            {
+                _strategies
+                    .Where(it => it.Status != ProcessStatus.Hooked && it.Status != ProcessStatus.Paused)
+                    .ForEach(it => it.SetStatus(ProcessStatus.Paused));
+
+                await current.UpdateAsync();
+                return;
+            }
+
+            Task[] tasks = _strategies
+                .Where(strategy => !_failedProcesses.Contains(strategy.Name))
+                .Select(strategy =>
+                    Task.Run(() => FindAndAttach(strategy))
+                ).ToArray();
+
+            Task.WaitAll(tasks);
         }
-
-        Task[] tasks = _strategies
-            .Where(strategy => !_failedProcesses.Contains(strategy.Name))
-            .Select(strategy =>
-                Task.Run(() => FindAndAttach(strategy))
-            ).ToArray();
-
-        Task.WaitAll(tasks);
+        finally
+        {
+            Interlocked.Exchange(ref _isWatching, 0);
+        }
     }
 
     public void Dispose()
     {
-        _timer.Dispose();
+        _timer?.Dispose();
     }
 
     private void FindAndAttach(IProcessAttachStrategy strategy)
@@ -146,6 +158,8 @@ internal class WindowsProcessWatcher : IProcessWatcherService, IEventDispatcher,
             throw new Win32Exception("Failed to attach to process, missing permissions");
 
         strategy.SetStatus(ProcessStatus.Hooked);
+
+        AddressMap.Add("BASE", process.MainModule.BaseAddress);
 
         return new WindowsGameProcess
         {

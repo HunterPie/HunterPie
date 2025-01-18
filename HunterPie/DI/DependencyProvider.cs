@@ -1,4 +1,5 @@
-﻿using HunterPie.DI.Module;
+﻿using HunterPie.Core.Observability.Logging;
+using HunterPie.DI.Module;
 using HunterPie.DI.Registry;
 using System;
 using System.Linq;
@@ -7,6 +8,8 @@ namespace HunterPie.DI;
 
 internal static class DependencyProvider
 {
+    private static readonly ILogger Logger = LoggerFactory.Create();
+
     private static readonly Lazy<IDependencyModule[]> Modules = new(() =>
     {
         return AppDomain.CurrentDomain.GetAssemblies()
@@ -22,7 +25,10 @@ internal static class DependencyProvider
         DependencyRegistry registry = DependencyRegistryBuilder.Create();
 
         foreach (IDependencyModule module in Modules.Value)
+        {
             module.Register(registry);
+            Logger.Info($"Loaded module {module.GetType().Name}");
+        }
 
         DependencyContainer.SetRegistry(registry.Build());
     }

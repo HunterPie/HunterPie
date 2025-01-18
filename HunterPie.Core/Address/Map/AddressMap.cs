@@ -1,6 +1,5 @@
 ﻿using HunterPie.Core.Address.Map.Internal;
 using HunterPie.Core.Observability.Logging;
-using System;
 using System.IO;
 using System.Linq;
 
@@ -43,7 +42,7 @@ public static class AddressMap
 
     public static T Get<T>(string key) => _parser.Get<T>(key);
 
-    public static IntPtr GetAbsolute(string key) => (IntPtr)(_parser.Get<long>("BASE") + _parser.Get<long>(key));
+    public static nint GetAbsolute(string key) => _parser.Get<nint>("BASE") + _parser.Get<nint>(key);
 
     public static void Add<T>(string key, T value) => _parser.Add(key, value);
 

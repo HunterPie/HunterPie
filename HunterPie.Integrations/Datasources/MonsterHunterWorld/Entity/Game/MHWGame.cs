@@ -213,7 +213,7 @@ public sealed class MHWGame : CommonGame
             .Where(component => !component.IsNullPointer())
             .Select(async component => await Memory.ReadAsync<nint>(component + 0x138))
             .AwaitResults()
-            .Select(async monsterPtr => (monsterPtr: monsterPtr, em: await Memory.ReadStringAsync(monsterPtr + 0x2A0, 64)))
+            .Select(async monsterPtr => (monsterPtr, em: await Memory.ReadStringAsync(monsterPtr + 0x2A0, 64)))
             .AwaitResults()
             .Where(it => it.em.StartsWith("em\\em") && !it.em.StartsWith("em\\ems"))
             .ToArray();

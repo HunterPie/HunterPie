@@ -463,14 +463,16 @@ public sealed class MHWMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private void FinishScan()
+    private Task FinishScan()
     {
         if (_isLoaded)
-            return;
+            return Task.CompletedTask;
 
         _logger.Debug($"Initialized {Name} at address {_address:X} with id: {Id}");
         _isLoaded = true;
         this.Dispatch(_onSpawn, EventArgs.Empty);
+
+        return Task.CompletedTask;
     }
 
     public override void Dispose()

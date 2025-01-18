@@ -241,7 +241,7 @@ internal class WindowsMemory : IMemoryAsync
                 lpBaseAddress: address,
                 lpBuffer: buffer,
                 dwSize: lpByteCount,
-                lpNumberOfBytesRead: out _
+                lpNumberOfBytesRead: out int outBytes
             )
         );
 

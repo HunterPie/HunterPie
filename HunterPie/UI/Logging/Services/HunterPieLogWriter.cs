@@ -2,7 +2,6 @@
 using HunterPie.UI.Logging.Entity;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Threading;
 
 namespace HunterPie.UI.Logging.Services;
@@ -40,10 +39,7 @@ internal class HunterPieLogWriter : ILogWriter
 
     private void WriteToBuffer(LogLevel level, string message)
     {
-        if (Application.Current is null)
-            return;
-
-        _dispatcher.Invoke(() =>
+        _dispatcher.BeginInvoke(() =>
         {
             _logs.Add(
                 item: new LogString
@@ -53,6 +49,6 @@ internal class HunterPieLogWriter : ILogWriter
                     Level = level
                 }
             );
-        });
+        }, DispatcherPriority.ApplicationIdle);
     }
 }

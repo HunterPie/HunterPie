@@ -2,7 +2,6 @@
 using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Game;
 using HunterPie.UI.Architecture.Overlay;
-using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Player;
 using System.Threading.Tasks;
 
@@ -10,7 +9,7 @@ namespace HunterPie.Features.Overlay;
 
 internal class PlayerHudWidgetInitializer : IWidgetInitializer
 {
-    private IContextHandler? _handler;
+    private PlayerHudWidgetContextHandler? _handler;
 
     public Task LoadAsync(IContext context)
     {

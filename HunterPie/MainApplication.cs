@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Analytics;
 using HunterPie.Core.Client;
+using HunterPie.Core.Domain.Process.Internal;
 using HunterPie.Core.Utils;
 using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.UseCase;
@@ -18,6 +19,7 @@ internal class MainApplication : IDisposable
     private readonly IAnalyticsService _analyticsService;
     private readonly IUpdateUseCase _updateUseCase;
     private readonly IRemoteAccountConfigUseCase _remoteAccountConfigUseCase;
+    private readonly IControllableWatcherService _controllableWatcherService;
     private readonly RemoteConfigSyncService _remoteConfigSyncService;
     private readonly NavigatorController _navigatorController;
     private readonly GameContextController _gameContextController;
@@ -28,7 +30,8 @@ internal class MainApplication : IDisposable
         IRemoteAccountConfigUseCase remoteAccountConfigUseCase,
         RemoteConfigSyncService remoteConfigSyncService,
         NavigatorController navigatorController,
-        GameContextController gameContextController)
+        GameContextController gameContextController,
+        IControllableWatcherService controllableWatcherService)
     {
         _analyticsService = analyticsService;
         _updateUseCase = updateUseCase;
@@ -36,6 +39,7 @@ internal class MainApplication : IDisposable
         _remoteConfigSyncService = remoteConfigSyncService;
         _navigatorController = navigatorController;
         _gameContextController = gameContextController;
+        _controllableWatcherService = controllableWatcherService;
     }
 
     public async Task Start()
@@ -46,6 +50,7 @@ internal class MainApplication : IDisposable
         _gameContextController.Subscribe();
         _remoteConfigSyncService.Start();
         await _navigatorController.SetupAsync();
+        _controllableWatcherService.Start();
     }
 
     public async Task SendUiException(Exception exception)
