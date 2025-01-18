@@ -11,7 +11,7 @@ namespace HunterPie.Internal;
 
 internal class InitializerManager
 {
-    private static ILogger Logger = LoggerFactory.Create();
+    private static readonly ILogger Logger = LoggerFactory.Create();
     private static readonly HashSet<IInitializer> CoreInitializers = new() { new MapperFactoryInitializer() };
 
     private static readonly Type[] Initializers =
