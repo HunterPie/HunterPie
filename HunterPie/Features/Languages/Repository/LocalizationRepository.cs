@@ -30,6 +30,16 @@ internal class LocalizationRepository : ILocalizationRepository
         );
     }
 
+    public string FindStringBy(string path)
+    {
+        XmlAttributeCollection? attributes = _document.Value.SelectSingleNode(path)?.Attributes;
+
+        if (attributes is not { } || attributes["String"]?.Value is not { } stringValue)
+            return path;
+
+        return stringValue;
+    }
+
     public LocalizationData FindByEnum<T>(T value) where T : Enum
     {
         MemberInfo? memberInfo = value.GetType()
@@ -47,6 +57,14 @@ internal class LocalizationRepository : ILocalizationRepository
             _ => CreateDefault(value.ToString())
         };
     }
+
+    public IScopedLocalizationRepository WithScope(string scope) =>
+        new ScopedLocalizationRepository(
+            scopePath: scope,
+            localizationRepository: this
+        );
+
+    #region Loading localization document
 
     private static LocalizationData CreateDefault(string path) => new LocalizationData(
         String: path,
@@ -124,4 +142,6 @@ internal class LocalizationRepository : ILocalizationRepository
             path = $"{node.Name}/{path}";
         }
     }
+
+    #endregion
 }

@@ -9,6 +9,8 @@ using HunterPie.Core.Observability.Logging;
 using HunterPie.Features.Backup.Services;
 using HunterPie.Features.Overlay;
 using HunterPie.Features.Scan.Service;
+using HunterPie.Integrations.Discord.Factory;
+using HunterPie.Integrations.Discord.Service;
 using HunterPie.Integrations.Services;
 using HunterPie.UI.Overlay;
 using System;
@@ -29,20 +31,25 @@ internal class GameContextController : IDisposable
     private readonly IGameContextService _gameContextService;
     private readonly IBackupService _backupService;
     private readonly IControllableScanService _controllableScanService;
+    private readonly DiscordPresenceFactory _discordPresenceFactory;
+
     private CancellationTokenSource? _cancellationTokenSource;
+    private DiscordPresenceService? _discordPresenceService;
 
     public GameContextController(
         Dispatcher uiDispatcher,
         IProcessWatcherService processWatcherService,
         IGameContextService gameContextService,
         IBackupService backupService,
-        IControllableScanService controllableScanService)
+        IControllableScanService controllableScanService,
+        DiscordPresenceFactory discordPresenceFactory)
     {
         _uiDispatcher = uiDispatcher;
         _processWatcherService = processWatcherService;
         _gameContextService = gameContextService;
         _backupService = backupService;
         _controllableScanService = controllableScanService;
+        _discordPresenceFactory = discordPresenceFactory;
     }
 
     public void Subscribe()
@@ -53,13 +60,15 @@ internal class GameContextController : IDisposable
 
     private async void OnProcessStart(object? sender, ProcessEventArgs e)
     {
-        // TODO: Create rich presence
         try
         {
             _cancellationTokenSource = new CancellationTokenSource();
             _context = _gameContextService.Get(e.Game);
 
             _logger.Debug("Initialized game context");
+
+            _discordPresenceService = _discordPresenceFactory.Create(_context);
+            _discordPresenceService.Start();
 
             await _uiDispatcher.InvokeAsync(() => WidgetManager.Hook(_context));
 
@@ -84,9 +93,10 @@ internal class GameContextController : IDisposable
 
     private async void OnProcessExit(object? sender, EventArgs e)
     {
-        // TODO: Dispose rich presence
         if (_cancellationTokenSource is { })
             await _cancellationTokenSource.CancelAsync();
+
+        _discordPresenceService?.Dispose();
 
         _context?.Dispose();
 
