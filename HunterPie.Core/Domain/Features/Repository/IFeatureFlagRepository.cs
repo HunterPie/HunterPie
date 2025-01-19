@@ -4,6 +4,6 @@ namespace HunterPie.Core.Domain.Features.Repository;
 
 public interface IFeatureFlagRepository
 {
-    public IFeature GetFeature(string feature);
+    public IFeature? GetFeature(string feature);
     public bool IsEnabled(string feature);
 }

@@ -25,7 +25,7 @@ internal class DebugWidgetInitializer : IInitializer
         OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(GameProcessType.MonsterHunterRise);
 
         if (_featureFlagRepository.IsEnabled(FeatureFlags.FEATURE_METRICS_WIDGET))
-            _ = WidgetManager.Register<TelemetricsView, TelemetricsWidgetConfig>(new TelemetricsView(config.DebugWidget));
+            WidgetManager.Register<TelemetricsView, TelemetricsWidgetConfig>(new TelemetricsView(config.DebugWidget));
 
         return Task.CompletedTask;
     }

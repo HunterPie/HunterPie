@@ -33,6 +33,13 @@ public class View<TViewModel> : UserControl, IDisposable, IView<TViewModel>
         {
             return (TViewModel)Activator.CreateInstance(typeof(TViewModel), args);
         }
+        catch
+        { }
+
+        try
+        {
+            return DependencyContainer.Get<TViewModel>();
+        }
         catch { }
 
         return Activator.CreateInstance<TViewModel>();

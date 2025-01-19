@@ -21,7 +21,7 @@ internal class FeatureFlagsInitializer : IInitializer
         var supportedFlags = _flagsSource.Flags.Keys.ToHashSet();
 
         ConfigManager.Register("internal/feature-flags.json", _flagsSource.Flags);
-
+        ConfigManager.BindConfiguration("internal/feature-flags.json", _flagsSource.Flags);
         string[] loadedFlags = _flagsSource.Flags.Keys.ToArray();
 
         foreach (string loadedFlag in loadedFlags)
