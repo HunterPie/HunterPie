@@ -67,8 +67,7 @@ public abstract class Scannable : IDisposable
         foreach (AsyncDelegate scanner in _scanners)
             try
             {
-                await scanner.Invoke()
-                    .ConfigureAwait(false);
+                await scanner.Invoke();
             }
             catch (Exception err)
             {

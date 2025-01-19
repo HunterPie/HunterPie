@@ -4,6 +4,7 @@ using HunterPie.Core.Domain;
 using HunterPie.Core.Observability.Logging;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -16,7 +17,8 @@ internal class ScanService : IControllableScanService, IDisposable
     private readonly ILogger _logger = LoggerFactory.Create();
     private Task? _task;
     private readonly HashSet<Scannable> _scannables = new();
-    private readonly ReaderWriterLockSlim _lock = new();
+    private readonly ReaderWriterLockSlim _lock = new(LockRecursionPolicy.SupportsRecursion);
+    private readonly Stopwatch _stopwatch = Stopwatch.StartNew();
 
     public Observable<long> ElapsedTime { get; } = 0;
 
@@ -35,11 +37,10 @@ internal class ScanService : IControllableScanService, IDisposable
         while (true)
             try
             {
-                var stopWatch = Stopwatch.StartNew();
+                _stopwatch.Restart();
                 Scan(cancellationToken);
-                stopWatch.Stop();
-
-                ElapsedTime.Value = stopWatch.ElapsedMilliseconds;
+                _stopwatch.Stop();
+                ElapsedTime.Value = _stopwatch.ElapsedTicks / TimeSpan.TicksPerMicrosecond;
 
                 Thread.Sleep(
                     timeout: TimeSpan.FromMilliseconds(
@@ -55,19 +56,14 @@ internal class ScanService : IControllableScanService, IDisposable
 
     private void Scan(CancellationToken cancellationToken)
     {
-        try
-        {
-            _lock.EnterReadLock();
+        _lock.EnterReadLock();
+        var readOnlyScannables = _scannables.ToImmutableArray();
+        _lock.ExitReadLock();
 
-            Task[] tasks = _scannables.Select(async it => await it.ScanAsync())
-                .ToArray();
+        Task[] tasks = readOnlyScannables.Select(async it => await it.ScanAsync())
+            .ToArray();
 
-            Task.WaitAll(tasks, cancellationToken);
-        }
-        finally
-        {
-            _lock.ExitReadLock();
-        }
+        Task.WaitAll(tasks, cancellationToken);
     }
 
     public void Add(Scannable scannable)
