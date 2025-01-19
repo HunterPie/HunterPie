@@ -27,7 +27,7 @@ internal static class DependencyProvider
         foreach (IDependencyModule module in Modules.Value)
         {
             module.Register(registry);
-            Logger.Info($"Loaded module {module.GetType().Name}");
+            Logger.Debug($"Loaded module {module.GetType().Name}");
         }
 
         DependencyContainer.SetRegistry(registry.Build());
