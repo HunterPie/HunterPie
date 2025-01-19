@@ -14,6 +14,7 @@ using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
 using HunterPie.Core.Native.IPC.Models.Common;
+using HunterPie.Core.Scan.Service;
 using HunterPie.Core.Utils;
 using HunterPie.Integrations.Datasources.Common.Definition;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
@@ -165,15 +166,21 @@ public sealed class MHRPlayer : CommonPlayer
 
     #endregion
 
-    public MHRPlayer(IGameProcess process) : base(process)
+    public MHRPlayer(
+        IGameProcess process,
+        IScanService scanService) : base(process, scanService)
     {
-        _weapon = CreateDefaultWeapon(process);
+        _weapon = CreateDefaultWeapon();
     }
 
-    private static IWeapon CreateDefaultWeapon(IGameProcess process)
+    private IWeapon CreateDefaultWeapon()
     {
-        var weapon = new MHRMeleeWeapon(process, WeaponType.Greatsword);
-        ScanManager.Add(weapon);
+        var weapon = new MHRMeleeWeapon(
+            process: Process,
+            scanService: ScanService,
+            id: WeaponType.Greatsword
+        );
+
         return weapon;
     }
 
@@ -302,42 +309,34 @@ public sealed class MHRPlayer : CommonPlayer
         if (weapon == _weaponId)
             return;
 
-        if (Weapon is Scannable scannable)
-            ScanManager.Remove(scannable);
+        if (Weapon is IDisposable disposable)
+            disposable.Dispose();
 
         IWeapon? weaponInstance = weapon switch
         {
-            WeaponType.ChargeBlade => new MHRChargeBlade(Process),
-            WeaponType.InsectGlaive => new MHRInsectGlaive(Process),
+            WeaponType.ChargeBlade => new MHRChargeBlade(Process, ScanService),
+            WeaponType.InsectGlaive => new MHRInsectGlaive(Process, ScanService),
             WeaponType.Bow => new MHRBow(),
             WeaponType.HeavyBowgun => new MHRHeavyBowgun(),
             WeaponType.LightBowgun => new MHRLightBowgun(),
-            WeaponType.DualBlades => new MHRDualBlades(Process),
-            WeaponType.SwitchAxe => new MHRSwitchAxe(Process),
-            WeaponType.Longsword => new MHRLongSword(Process),
+            WeaponType.DualBlades => new MHRDualBlades(Process, ScanService),
+            WeaponType.SwitchAxe => new MHRSwitchAxe(Process, ScanService),
+            WeaponType.Longsword => new MHRLongSword(Process, ScanService),
 
             WeaponType.Greatsword
             or WeaponType.SwordAndShield
             or WeaponType.Hammer
             or WeaponType.HuntingHorn
             or WeaponType.Lance
-            or WeaponType.GunLance => new MHRMeleeWeapon(Process, weapon),
+            or WeaponType.GunLance => new MHRMeleeWeapon(Process, ScanService, weapon),
 
             _ => null
         };
 
-        switch (weaponInstance)
-        {
-            case null:
-                return;
-
-            case Scannable weaponScannable:
-                ScanManager.Add(weaponScannable);
-                break;
-        }
+        if (weaponInstance is not { })
+            return;
 
         Weapon = weaponInstance;
-
         _weaponId = weapon;
     }
 

@@ -7,6 +7,7 @@ using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Entity.Player.Skills;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Scan.Service;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
@@ -92,7 +93,8 @@ public sealed class MHWDualBlades : MHWMeleeWeapon, IDualBlades
 
     public MHWDualBlades(
         IGameProcess process,
-        ISkillService skillService) : base(process, skillService, Weapon.DualBlades) { }
+        ISkillService skillService,
+        IScanService scanService) : base(process, scanService, skillService, Weapon.DualBlades) { }
 
     [ScannableMethod]
     private async Task GetData()

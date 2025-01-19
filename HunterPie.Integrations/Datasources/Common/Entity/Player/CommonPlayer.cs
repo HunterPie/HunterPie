@@ -10,6 +10,7 @@ using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Entity.Player.Vitals;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Observability.Logging;
+using HunterPie.Core.Scan.Service;
 using System.Runtime.CompilerServices;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Player;
@@ -112,7 +113,9 @@ public abstract class CommonPlayer : Scannable, IPlayer, IEventDispatcher, IDisp
         remove => _onLevelChange.Unhook(value);
     }
 
-    protected CommonPlayer(IGameProcess process) : base(process) { }
+    protected CommonPlayer(
+        IGameProcess process,
+        IScanService scanService) : base(process, scanService) { }
 
     protected void HandleAbnormality<T, S>(Dictionary<string, IAbnormality> abnormalities, AbnormalityDefinition schema, float timer, S newData)
         where T : IAbnormality, IUpdatable<S>
@@ -167,8 +170,9 @@ public abstract class CommonPlayer : Scannable, IPlayer, IEventDispatcher, IDisp
         abnormalities.Clear();
     }
 
-    public virtual void Dispose()
+    public override void Dispose()
     {
+        base.Dispose();
         IDisposable[] events =
         {
             _onLogin, _onLogout, _onDeath, _onActionUpdate, _onStageUpdate, _onVillageEnter, _onVillageLeave,

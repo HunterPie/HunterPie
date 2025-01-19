@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Domain.Memory;
 using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Observability.Logging;
+using HunterPie.Core.Scan.Service;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -16,21 +17,27 @@ public delegate Task AsyncDelegate();
 /// <summary>
 /// Implementation for a scannable entity, handles the scan and middlewares internally
 /// </summary>
-public abstract class Scannable
+public abstract class Scannable : IDisposable
 {
     private readonly ILogger _logger = LoggerFactory.Create();
 
     protected readonly IGameProcess Process;
+    protected readonly IScanService ScanService;
     protected IMemoryAsync Memory => Process.Memory;
     private readonly Dictionary<Type, HashSet<Delegate>> _middlewares = new();
     private readonly List<AsyncDelegate> _scanners = new();
     private readonly Dictionary<AsyncDelegate, int> _troublesomeScannables = new();
 
-    protected Scannable(IGameProcess process)
+    protected Scannable(
+        IGameProcess process,
+        IScanService scanService)
     {
         Process = process;
+        ScanService = scanService;
 
         AppendScannableMethods();
+
+        ScanService.Add(this);
     }
 
     private void AppendScannableMethods()
@@ -55,11 +62,9 @@ public abstract class Scannable
     /// <summary>
     /// Calls each scanning function added to the scanners list
     /// </summary>
-    internal async Task Scan()
+    internal async Task ScanAsync()
     {
-        AsyncDelegate[] readOnlyScanners = _scanners.ToArray();
-
-        foreach (AsyncDelegate scanner in readOnlyScanners)
+        foreach (AsyncDelegate scanner in _scanners)
             try
             {
                 await scanner.Invoke()
@@ -79,38 +84,6 @@ public abstract class Scannable
                     _troublesomeScannables.Remove(scanner);
                 }
             }
-    }
-
-    /// <summary>
-    /// Adds a new scanning action to the scanners list, actions added by this
-    /// will be called in order by the <seealso cref="Scan"/> method
-    /// </summary>
-    /// <param name="type">Type of DTO this action will handle</param>
-    /// <param name="scanner">Action to handle this DTO</param>
-    /// <returns>True if scanner was added successfully, false otherwise</returns>
-    protected bool Add<T>(AsyncDelegate scanner)
-    {
-        Type type = typeof(T);
-
-        _scanners.Add(scanner);
-
-        if (!_middlewares.ContainsKey(type))
-            _middlewares.Add(type, new HashSet<Delegate>());
-
-        return true;
-    }
-
-    protected bool Add(Type? type, AsyncDelegate scanner)
-    {
-        _scanners.Add(scanner);
-
-        if (type is null)
-            return true;
-
-        if (!_middlewares.ContainsKey(type))
-            _middlewares.Add(type, new HashSet<Delegate>());
-
-        return true;
     }
 
     /// <summary>
@@ -162,5 +135,23 @@ public abstract class Scannable
         _ = value.Remove(middleware);
 
         return true;
+    }
+
+    private bool Add(Type? type, AsyncDelegate scanner)
+    {
+        _scanners.Add(scanner);
+
+        if (type is null)
+            return true;
+
+        if (!_middlewares.ContainsKey(type))
+            _middlewares.Add(type, new HashSet<Delegate>());
+
+        return true;
+    }
+
+    public virtual void Dispose()
+    {
+        ScanService.Remove(this);
     }
 }

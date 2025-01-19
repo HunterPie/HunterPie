@@ -13,6 +13,7 @@ using HunterPie.Core.Game.Services;
 using HunterPie.Core.Native.IPC.Handlers.Internal.Damage;
 using HunterPie.Core.Native.IPC.Handlers.Internal.Damage.Models;
 using HunterPie.Core.Native.IPC.Models.Common;
+using HunterPie.Core.Scan.Service;
 using HunterPie.Core.Utils;
 using HunterPie.Integrations.Datasources.Common;
 using HunterPie.Integrations.Datasources.Common.Entity.Game;
@@ -82,14 +83,11 @@ public sealed class MHRGame : CommonGame
 
     public override IAbnormalityCategorizationService AbnormalityCategorizationService { get; } = new MHRAbnormalityCategorizationService();
 
-    public MHRGame(IGameProcess process) : base(process)
+    public MHRGame(
+        IGameProcess process,
+        IScanService scanService) : base(process, scanService)
     {
-        _player = new MHRPlayer(process);
-
-        ScanManager.Add(
-            this,
-            _player
-        );
+        _player = new MHRPlayer(process, scanService);
 
         HookEvents();
     }
@@ -209,7 +207,7 @@ public sealed class MHRGame : CommonGame
             && (isQuestOver || isQuestInvalid))
         {
             this.Dispatch(_onQuestEnd, new QuestEndEventArgs(_quest, questStructure.State.ToQuestStatus(), TimeElapsed));
-            ScanManager.Remove(_quest);
+            _quest.Dispose();
             _quest = null;
         }
 
@@ -220,13 +218,13 @@ public sealed class MHRGame : CommonGame
         {
             _quest = new MHRQuest(
                 process: Process,
+                scanService: ScanService,
                 id: quest.Id,
                 type: questType!.Value,
                 level: quest.Level,
                 stars: quest.Stars
             );
 
-            ScanManager.Add(_quest);
             this.Dispatch(_onQuestStart, _quest);
         }
     }
@@ -308,12 +306,12 @@ public sealed class MHRGame : CommonGame
 
         var monster = new MHRMonster(
             process: Process,
+            scanService: ScanService,
             address: monsterAddress,
             id: monsterId
         );
         _monsters.Add(monsterAddress, monster);
         Monsters.Add(monster);
-        ScanManager.Add(monster);
 
         this.Dispatch(_onMonsterSpawn, monster);
     }
@@ -326,7 +324,6 @@ public sealed class MHRGame : CommonGame
         _monsters.Remove(address);
         _damageDone.Remove(address);
         Monsters.Remove(monster);
-        ScanManager.Remove(monster);
 
         this.Dispatch(_onMonsterDespawn, monster);
 

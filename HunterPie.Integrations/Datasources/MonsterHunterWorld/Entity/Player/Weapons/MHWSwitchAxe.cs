@@ -7,6 +7,7 @@ using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Entity.Player.Skills;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Scan.Service;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
 
@@ -111,7 +112,8 @@ public sealed class MHWSwitchAxe : MHWMeleeWeapon, ISwitchAxe
 
     public MHWSwitchAxe(
         IGameProcess process,
-        ISkillService skillService) : base(process, skillService, Weapon.SwitchAxe)
+        ISkillService skillService,
+        IScanService scanService) : base(process, scanService, skillService, Weapon.SwitchAxe)
     {
         _skillService = skillService;
     }

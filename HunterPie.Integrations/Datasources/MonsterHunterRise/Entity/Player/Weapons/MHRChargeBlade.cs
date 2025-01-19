@@ -6,6 +6,7 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Scan.Service;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 
@@ -137,7 +138,9 @@ public class MHRChargeBlade : MHRMeleeWeapon, IChargeBlade
         remove => _onPhialsChange.Unhook(value);
     }
 
-    public MHRChargeBlade(IGameProcess process) : base(process, Weapon.ChargeBlade) { }
+    public MHRChargeBlade(
+        IGameProcess process,
+        IScanService scanService) : base(process, scanService, Weapon.ChargeBlade) { }
 
     [ScannableMethod]
     private async Task GetData()

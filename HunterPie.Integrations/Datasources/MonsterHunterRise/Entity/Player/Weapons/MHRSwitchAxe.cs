@@ -6,6 +6,7 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Scan.Service;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 
@@ -153,7 +154,7 @@ public sealed class MHRSwitchAxe : MHRMeleeWeapon, ISwitchAxe
         MaxChargeBuildUp = maxBuildUp;
     }
 
-    public MHRSwitchAxe(IGameProcess process) : base(process, Weapon.SwitchAxe)
+    public MHRSwitchAxe(IGameProcess process, IScanService scanService) : base(process, scanService, Weapon.SwitchAxe)
     {
     }
 

@@ -10,6 +10,7 @@ using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Observability.Logging;
+using HunterPie.Core.Scan.Service;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions.Monster;
@@ -174,9 +175,10 @@ public sealed class MHRMonster : CommonMonster
 
     public MHRMonster(
         IGameProcess process,
+        IScanService scanService,
         nint address,
         int id
-    ) : base(process)
+    ) : base(process, scanService)
     {
         _address = address;
 

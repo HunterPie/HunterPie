@@ -42,7 +42,7 @@ public static class ConfigurationPropertyProvider
         Type? builderType = innerType switch
         {
             null => null,
-            { IsEnum: true } => typeof(Enum),
+            { IsEnum: true } => Builders.GetValueOrDefault(typeof(Enum)),
             _ => Builders.GetValueOrDefault(innerType)
         };
 

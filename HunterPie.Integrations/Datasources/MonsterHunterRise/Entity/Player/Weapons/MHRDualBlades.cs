@@ -6,6 +6,7 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Scan.Service;
 using HunterPie.Core.Utils;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
@@ -103,7 +104,9 @@ public sealed class MHRDualBlades : MHRMeleeWeapon, IDualBlades
         remove => _onPiercingBindTimerChange.Unhook(value);
     }
 
-    public MHRDualBlades(IGameProcess process) : base(process, Weapon.DualBlades) { }
+    public MHRDualBlades(
+        IGameProcess process,
+        IScanService scanService) : base(process, scanService, Weapon.DualBlades) { }
 
     [ScannableMethod]
     private async Task GetData()

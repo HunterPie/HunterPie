@@ -4,6 +4,7 @@ using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Scan.Service;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Weapons;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
@@ -49,7 +50,10 @@ public class MHRMeleeWeapon : CommonMeleeWeapon
 
     public override int Threshold { get; protected set; }
 
-    public MHRMeleeWeapon(IGameProcess process, Weapon id) : base(process)
+    public MHRMeleeWeapon(
+        IGameProcess process,
+        IScanService scanService,
+        Weapon id) : base(process, scanService)
     {
         Id = id;
     }

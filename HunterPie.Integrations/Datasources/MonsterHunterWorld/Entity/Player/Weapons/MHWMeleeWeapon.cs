@@ -5,6 +5,7 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Player.Skills;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Scan.Service;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Weapons;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
@@ -66,8 +67,9 @@ public class MHWMeleeWeapon : CommonMeleeWeapon
 
     public MHWMeleeWeapon(
         IGameProcess process,
+        IScanService scanService,
         ISkillService skillService,
-        Weapon id) : base(process)
+        Weapon id) : base(process, scanService)
     {
         _skillService = skillService;
         Id = id;

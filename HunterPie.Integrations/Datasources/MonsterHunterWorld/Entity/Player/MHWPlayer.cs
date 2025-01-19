@@ -15,6 +15,7 @@ using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
 using HunterPie.Core.Native.IPC.Models.Common;
+using HunterPie.Core.Scan.Service;
 using HunterPie.Integrations.Datasources.Common.Definition;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
@@ -179,16 +180,22 @@ public sealed class MHWPlayer : CommonPlayer
     public MHWTailraiders Tailraiders { get; } = new();
     #endregion
 
-    internal MHWPlayer(IGameProcess process) : base(process)
+    internal MHWPlayer(
+        IGameProcess process,
+        IScanService scanService) : base(process, scanService)
     {
-        _skillService = new MHWSkillService(process);
-        _weapon = CreateDefaultWeapon(process);
+        _skillService = new MHWSkillService(process, scanService);
+        _weapon = CreateDefaultWeapon();
     }
 
-    private IWeapon CreateDefaultWeapon(IGameProcess process)
+    private IWeapon CreateDefaultWeapon()
     {
-        var weapon = new MHWMeleeWeapon(process, _skillService, WeaponType.Greatsword);
-        ScanManager.Add(weapon);
+        var weapon = new MHWMeleeWeapon(
+            process: Process,
+            scanService: ScanService,
+            skillService: _skillService,
+            id: WeaponType.Greatsword
+        );
         return weapon;
     }
 
@@ -285,41 +292,33 @@ public sealed class MHWPlayer : CommonPlayer
         if (data.WeaponType == _weaponId)
             return;
 
-        if (Weapon is Scannable scannable)
-            ScanManager.Remove(scannable);
+        if (Weapon is IDisposable disposable)
+            disposable.Dispose();
 
         IWeapon? weaponInstance = data.WeaponType switch
         {
-            WeaponType.ChargeBlade => new MHWChargeBlade(Process, _skillService),
-            WeaponType.InsectGlaive => new MHWInsectGlaive(Process, _skillService),
+            WeaponType.ChargeBlade => new MHWChargeBlade(Process, _skillService, ScanService),
+            WeaponType.InsectGlaive => new MHWInsectGlaive(Process, _skillService, ScanService),
             WeaponType.Bow => new MHWBow(),
             WeaponType.HeavyBowgun => new MHWHeavyBowgun(),
             WeaponType.LightBowgun => new MHWLightBowgun(),
-            WeaponType.DualBlades => new MHWDualBlades(Process, _skillService),
-            WeaponType.SwitchAxe => new MHWSwitchAxe(Process, _skillService),
-            WeaponType.Longsword => new MHWLongSword(Process, _skillService),
+            WeaponType.DualBlades => new MHWDualBlades(Process, _skillService, ScanService),
+            WeaponType.SwitchAxe => new MHWSwitchAxe(Process, _skillService, ScanService),
+            WeaponType.Longsword => new MHWLongSword(Process, _skillService, ScanService),
             WeaponType.Greatsword
                 or WeaponType.SwordAndShield
                 or WeaponType.Hammer
                 or WeaponType.HuntingHorn
                 or WeaponType.Lance
                 or WeaponType.GunLance
-                or WeaponType.GunLance => new MHWMeleeWeapon(Process, _skillService, data.WeaponType),
+                or WeaponType.GunLance => new MHWMeleeWeapon(Process, ScanService, _skillService, data.WeaponType),
             _ => null
         };
 
-        switch (weaponInstance)
-        {
-            case null:
-                return;
-
-            case Scannable weaponScannable:
-                ScanManager.Add(weaponScannable);
-                break;
-        }
+        if (weaponInstance is not { })
+            return;
 
         Weapon = weaponInstance;
-
         _weaponId = data.WeaponType;
     }
 

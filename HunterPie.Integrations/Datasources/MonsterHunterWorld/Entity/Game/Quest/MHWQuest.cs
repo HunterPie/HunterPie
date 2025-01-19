@@ -6,6 +6,7 @@ using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Scan.Service;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
@@ -123,10 +124,11 @@ public class MHWQuest : Scannable, IQuest, IDisposable, IEventDispatcher
 
     public MHWQuest(
         IGameProcess process,
+        IScanService scanService,
         int id,
         int stars,
         QuestType questType
-    ) : base(process)
+    ) : base(process, scanService)
     {
         Id = id;
         Stars = stars % 10;

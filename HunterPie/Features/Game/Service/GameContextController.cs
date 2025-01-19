@@ -1,7 +1,6 @@
 ﻿using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Enums;
-using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Process.Events;
 using HunterPie.Core.Domain.Process.Service;
@@ -9,9 +8,11 @@ using HunterPie.Core.Game;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.Features.Backup.Services;
 using HunterPie.Features.Overlay;
+using HunterPie.Features.Scan.Service;
 using HunterPie.Integrations.Services;
 using HunterPie.UI.Overlay;
 using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -23,21 +24,25 @@ internal class GameContextController : IDisposable
 
     private bool _isDisposed;
     private Context? _context;
+    private readonly Dispatcher _uiDispatcher;
     private readonly IProcessWatcherService _processWatcherService;
     private readonly IGameContextService _gameContextService;
     private readonly IBackupService _backupService;
-    private readonly Dispatcher _uiDispatcher;
+    private readonly IControllableScanService _controllableScanService;
+    private CancellationTokenSource? _cancellationTokenSource;
 
     public GameContextController(
+        Dispatcher uiDispatcher,
         IProcessWatcherService processWatcherService,
         IGameContextService gameContextService,
         IBackupService backupService,
-        Dispatcher uiDispatcher)
+        IControllableScanService controllableScanService)
     {
+        _uiDispatcher = uiDispatcher;
         _processWatcherService = processWatcherService;
         _gameContextService = gameContextService;
         _backupService = backupService;
-        _uiDispatcher = uiDispatcher;
+        _controllableScanService = controllableScanService;
     }
 
     public void Subscribe()
@@ -46,10 +51,42 @@ internal class GameContextController : IDisposable
         _processWatcherService.ProcessExit += OnProcessExit;
     }
 
+    private async void OnProcessStart(object? sender, ProcessEventArgs e)
+    {
+        // TODO: Create rich presence
+        try
+        {
+            _cancellationTokenSource = new CancellationTokenSource();
+            _context = _gameContextService.Get(e.Game);
+
+            _logger.Debug("Initialized game context");
+
+            await _uiDispatcher.InvokeAsync(() => WidgetManager.Hook(_context));
+
+            await ContextInitializers.InitializeAsync(_context);
+
+            await _uiDispatcher.InvokeAsync(() => WidgetInitializers.InitializeAsync(_context));
+
+            _controllableScanService.Start(_cancellationTokenSource.Token);
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex.ToString());
+        }
+
+        await _backupService.ExecuteAsync(e.Game.Type switch
+        {
+            GameProcessType.MonsterHunterRise => GameType.Rise,
+            GameProcessType.MonsterHunterWorld => GameType.World,
+            _ => throw new ArgumentOutOfRangeException()
+        });
+    }
+
     private async void OnProcessExit(object? sender, EventArgs e)
     {
         // TODO: Dispose rich presence
-        ScanManager.Stop();
+        if (_cancellationTokenSource is { })
+            await _cancellationTokenSource.CancelAsync();
 
         _context?.Dispose();
 
@@ -67,36 +104,6 @@ internal class GameContextController : IDisposable
             _uiDispatcher.Invoke(Application.Current.Shutdown);
     }
 
-    private async void OnProcessStart(object? sender, ProcessEventArgs e)
-    {
-        // TODO: Create rich presence
-        try
-        {
-            _context = _gameContextService.Get(e.Game);
-
-            _logger.Debug("Initialized game context");
-
-            await _uiDispatcher.InvokeAsync(() => WidgetManager.Hook(_context));
-
-            await ContextInitializers.InitializeAsync(_context);
-
-            await _uiDispatcher.InvokeAsync(() => WidgetInitializers.InitializeAsync(_context));
-
-            ScanManager.Start();
-        }
-        catch (Exception ex)
-        {
-            _logger.Error(ex.ToString());
-        }
-
-        await _backupService.ExecuteAsync(e.Game.Type switch
-        {
-            GameProcessType.MonsterHunterRise => GameType.Rise,
-            GameProcessType.MonsterHunterWorld => GameType.World,
-            _ => throw new ArgumentOutOfRangeException()
-        });
-    }
-
     public void Dispose()
     {
         if (_isDisposed)
@@ -104,6 +111,7 @@ internal class GameContextController : IDisposable
 
         _processWatcherService.ProcessStart += OnProcessStart;
         _processWatcherService.ProcessExit += OnProcessExit;
+        _cancellationTokenSource?.Dispose();
         _isDisposed = true;
     }
 }

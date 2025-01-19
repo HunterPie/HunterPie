@@ -7,6 +7,7 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Scan.Service;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
@@ -154,7 +155,9 @@ public sealed class MHRInsectGlaive : MHRMeleeWeapon, IInsectGlaive
         remove => _onChargeChange.Unhook(value);
     }
 
-    public MHRInsectGlaive(IGameProcess process) : base(process, Weapon.InsectGlaive) { }
+    public MHRInsectGlaive(
+        IGameProcess process,
+        IScanService scanService) : base(process, scanService, Weapon.InsectGlaive) { }
 
     [ScannableMethod]
     private async Task GetKinsectData()

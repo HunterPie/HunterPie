@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Analytics;
 using HunterPie.Core.Client;
 using HunterPie.Core.Domain.Process.Internal;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Utils;
 using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.UseCase;
@@ -16,6 +17,7 @@ namespace HunterPie;
 
 internal class MainApplication : IDisposable
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
     private readonly IAnalyticsService _analyticsService;
     private readonly IUpdateUseCase _updateUseCase;
     private readonly IRemoteAccountConfigUseCase _remoteAccountConfigUseCase;
@@ -55,6 +57,8 @@ internal class MainApplication : IDisposable
 
     public async Task SendUiException(Exception exception)
     {
+        _logger.Error(exception.ToString());
+
         await _analyticsService.SendAsync(
             analyticsEvent: AnalyticsEvent.FromException(exception, isUiError: true)
         );

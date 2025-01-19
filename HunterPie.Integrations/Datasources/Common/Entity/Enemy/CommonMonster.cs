@@ -7,6 +7,7 @@ using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Observability.Logging;
+using HunterPie.Core.Scan.Service;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 
@@ -136,10 +137,13 @@ public abstract class CommonMonster : Scannable, IMonster, IDisposable, IEventDi
         remove => _onCaptureThresholdChange.Unhook(value);
     }
 
-    protected CommonMonster(IGameProcess process) : base(process) { }
+    protected CommonMonster(
+        IGameProcess process,
+        IScanService scanService) : base(process, scanService) { }
 
-    public virtual void Dispose()
+    public override void Dispose()
     {
+        base.Dispose();
         IDisposable[] events =
         {
             _onSpawn, _onLoad, _onDespawn, _onDeath, _onCapture, _onCrownChange, _onHealthChange,

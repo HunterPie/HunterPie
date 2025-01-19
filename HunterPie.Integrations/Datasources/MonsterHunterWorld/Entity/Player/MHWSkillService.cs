@@ -2,20 +2,20 @@
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Game.Entity.Player.Skills;
+using HunterPie.Core.Scan.Service;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
 
-public class MHWSkillService : Scannable, ISkillService, IDisposable
+public class MHWSkillService : Scannable, ISkillService
 {
     private readonly Skill[] _skills = Enumerable.Repeat(false, 226)
         .Select(_ => new Skill())
         .ToArray();
 
-    public MHWSkillService(IGameProcess process) : base(process)
-    {
-        ScanManager.Add(this);
-    }
+    public MHWSkillService(
+        IGameProcess process,
+        IScanService scanService) : base(process, scanService) { }
 
     public Skill GetSkillBy(int id)
     {
@@ -34,10 +34,5 @@ public class MHWSkillService : Scannable, ISkillService, IDisposable
 
         for (int i = 0; i < skills.Length; i++)
             _skills[i].Level = skills[i].LevelGear;
-    }
-
-    public void Dispose()
-    {
-        ScanManager.Remove(this);
     }
 }
