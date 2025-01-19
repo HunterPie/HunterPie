@@ -44,9 +44,13 @@ internal class ScanService : IControllableScanService, IDisposable
 
                 Thread.Sleep(
                     timeout: TimeSpan.FromMilliseconds(
-                            value: ClientConfig.Config.Client.PollingRate.Current
-                        )
-                    );
+                        value: ClientConfig.Config.Client.PollingRate.Current
+                    )
+                );
+            }
+            catch (OperationCanceledException)
+            {
+                return;
             }
             catch (Exception ex)
             {
