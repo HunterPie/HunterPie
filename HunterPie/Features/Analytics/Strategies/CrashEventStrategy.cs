@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Analytics.Entity;
+using HunterPie.Features.Analytics.Entity;
 using HunterPie.Integrations.Poogie.Report;
 using HunterPie.Integrations.Poogie.Report.Models;
 using System;

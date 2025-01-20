@@ -5,6 +5,7 @@ using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Utils;
 using HunterPie.Features.Account.Config;
 using HunterPie.Features.Account.UseCase;
+using HunterPie.Features.Analytics.Entity;
 using HunterPie.Features.Game.Service;
 using HunterPie.Internal;
 using HunterPie.UI.Main.Navigators;

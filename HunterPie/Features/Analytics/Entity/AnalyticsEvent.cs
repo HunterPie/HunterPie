@@ -1,10 +1,9 @@
-﻿using HunterPie.Core.Analytics.Entity;
-using HunterPie.Core.Client;
-using HunterPie.Core.System.Windows.Native;
+﻿using HunterPie.Core.Client;
+using HunterPie.Platforms.Windows.Api.Kernel;
 using System;
 using System.Diagnostics;
 
-namespace HunterPie.Core.Analytics;
+namespace HunterPie.Features.Analytics.Entity;
 
 public static class AnalyticsEvent
 {
