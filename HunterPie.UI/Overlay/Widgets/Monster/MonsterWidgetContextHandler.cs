@@ -3,7 +3,6 @@ using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
-using HunterPie.Core.System;
 using HunterPie.UI.Overlay.Widgets.Monster.Adapters;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Monster.Views;
@@ -24,7 +23,7 @@ public class MonsterWidgetContextHandler : IContextHandler
     public MonsterWidgetContextHandler(IContext context)
     {
         _config = ClientConfigHelper.DeferOverlayConfig(
-            game: ProcessManager.Game,
+            game: context.Process.Type,
             (config) => config.BossesWidget
         );
 

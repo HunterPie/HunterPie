@@ -1,12 +1,13 @@
 ﻿using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain.Interfaces;
-using HunterPie.Core.Logger;
+using HunterPie.Core.Observability.Logging;
 using System;
 
 namespace HunterPie.Core.Extensions;
 
 public static class IDispatchableExtensions
 {
+    private static readonly ILogger Logger = LoggerFactory.Create();
 
     public static void Dispatch<T>(this IEventDispatcher self, SmartEvent<T> toDispatch, T data)
     {
@@ -30,7 +31,7 @@ public static class IDispatchableExtensions
             }
             catch (Exception err)
             {
-                Log.Error("Exception in {0}: {1}", sub.Method.Name, err);
+                Logger.Error($"Exception in {sub.Method.Name}: {err}");
             }
     }
 
@@ -46,7 +47,7 @@ public static class IDispatchableExtensions
             }
             catch (Exception err)
             {
-                Log.Error("Exception in {0}: {1}", sub.Method.Name, err);
+                Logger.Error($"Exception in {sub.Method.Name}: {err}");
             }
     }
 }

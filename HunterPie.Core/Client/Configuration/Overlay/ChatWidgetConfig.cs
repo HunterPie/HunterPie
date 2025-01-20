@@ -7,7 +7,7 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay;
 
-[Configuration("CHAT_WIDGET_STRING", "ICON_CHATBOX", availableGames: GameProcess.MonsterHunterRise)]
+[Configuration("CHAT_WIDGET_STRING", "ICON_CHATBOX", availableGames: GameProcessType.MonsterHunterRise)]
 public class ChatWidgetConfig : IWidgetSettings, ISettings
 {
     [ConfigurationProperty("INITIALIZE_WIDGET_STRING", requiresRestart: true, group: CommonConfigurationGroups.GENERAL)]

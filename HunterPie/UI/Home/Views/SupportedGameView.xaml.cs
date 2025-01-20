@@ -20,7 +20,7 @@ public partial class SupportedGameView : UserControl
 
         e.Handled = true;
 
-        viewModel.OnSettings?.Invoke();
+        viewModel.OnSettings?.DynamicInvoke();
     }
 
     private void OnRunGameClick(object sender, RoutedEventArgs e)
@@ -29,6 +29,6 @@ public partial class SupportedGameView : UserControl
             return;
 
         e.Handled = true;
-        viewModel.Execute?.Invoke();
+        viewModel.Execute?.DynamicInvoke();
     }
 }

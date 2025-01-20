@@ -37,6 +37,25 @@ internal static class Kernel32
         WriteCombineModifierflag = 0x400
     }
 
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+    public struct MemoryStatusEx
+    {
+        public uint dwLength;
+        public uint dwMemoryLoad;
+        public ulong ullTotalPhys;
+        public ulong ullAvailPhys;
+        public ulong ullTotalPageFile;
+        public ulong ullAvailPageFile;
+        public ulong ullTotalVirtual;
+        public ulong ullAvailVirtual;
+        public ulong ullAvailExtendedVirtual;
+
+        public MemoryStatusEx()
+        {
+            dwLength = (uint)Marshal.SizeOf(typeof(MemoryStatusEx));
+        }
+    }
+
     [DllImport("kernel32.dll", SetLastError = true)]
     public static extern IntPtr OpenProcess(
         int dwDesiredAccess,
@@ -117,4 +136,7 @@ internal static class Kernel32
 
     [DllImport("kernel32.dll", SetLastError = true)]
     public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    public static extern bool GlobalMemoryStatusEx([In, Out] ref MemoryStatusEx lpBuffer);
 }

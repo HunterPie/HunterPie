@@ -26,13 +26,9 @@ public static class EnumerableExtensions
 
     public static IEnumerable<TOut> TryCast<TOut>(this IEnumerable enumerable)
     {
-        var list = new List<TOut>();
-
         foreach (object value in enumerable)
             if (value is TOut casted)
-                list.Add(casted);
-
-        return list;
+                yield return casted;
     }
 
     public static TOut? SingleOrNull<TOut>(this IEnumerable<TOut> enumerable)

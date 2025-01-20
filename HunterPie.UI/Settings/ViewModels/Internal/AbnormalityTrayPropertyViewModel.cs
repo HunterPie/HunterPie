@@ -11,16 +11,22 @@ namespace HunterPie.UI.Settings.ViewModels.Internal;
 
 internal class AbnormalityTrayPropertyViewModel : ConfigurationPropertyViewModel
 {
+    private readonly ConfigurationAdapter _configurationAdapter;
+    private readonly IBodyNavigator _bodyNavigator;
+
     public ObservableCollection<AbnormalityWidgetConfig> Trays { get; }
-    public GameProcess Game { get; }
+    public GameProcessType Game { get; }
 
     public AbnormalityTrayPropertyViewModel(
         ObservableCollection<AbnormalityWidgetConfig> trays,
-        GameProcess game
-    )
+        GameProcessType game,
+        ConfigurationAdapter configurationAdapter,
+        IBodyNavigator bodyNavigator)
     {
         Trays = trays;
         Game = game;
+        _configurationAdapter = configurationAdapter;
+        _bodyNavigator = bodyNavigator;
     }
 
     public void CreateNewTray()
@@ -35,7 +41,7 @@ internal class AbnormalityTrayPropertyViewModel : ConfigurationPropertyViewModel
 
     public void ConfigureTray(AbnormalityWidgetConfig tray)
     {
-        ConfigurationCategory configuration = ConfigurationAdapter.Adapt(tray).First();
+        ConfigurationCategory configuration = _configurationAdapter.Adapt(tray).First();
         ObservableCollection<AbnormalityCategoryViewModel> abnormalities = AbnormalityCategoryViewModelBuilder.Build(Game);
 
         var viewModel = new AbnormalityWidgetSettingsViewModel(
@@ -44,6 +50,6 @@ internal class AbnormalityTrayPropertyViewModel : ConfigurationPropertyViewModel
             selectedAbnormalities: tray.AllowedAbnormalities
         );
 
-        Navigator.Body.Navigate(viewModel);
+        _bodyNavigator.Navigate(viewModel);
     }
 }
