@@ -4,6 +4,7 @@ using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Observability.Logging;
+using HunterPie.Features.Analytics.Entity;
 using HunterPie.Features.Patches.ViewModels;
 using HunterPie.UI.Navigation;
 using HunterPie.Update.Gateway;

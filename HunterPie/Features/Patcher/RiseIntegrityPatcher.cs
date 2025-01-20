@@ -2,8 +2,7 @@
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game;
 using HunterPie.Core.Observability.Logging;
-using HunterPie.Core.System.Windows.Native;
-using System;
+using HunterPie.Platforms.Windows.Api.Kernel;
 using System.Linq;
 using System.Threading.Tasks;
 

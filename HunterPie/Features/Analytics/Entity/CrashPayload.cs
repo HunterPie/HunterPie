@@ -1,4 +1,6 @@
-﻿namespace HunterPie.Core.Analytics.Entity;
+﻿using HunterPie.Core.Analytics.Entity;
+
+namespace HunterPie.Features.Analytics.Entity;
 
 public record CrashPayload(
     string Version,

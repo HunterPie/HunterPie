@@ -2,6 +2,7 @@
 using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Utils;
 using HunterPie.Domain.Interfaces;
+using HunterPie.Features.Analytics.Entity;
 using System;
 using System.Threading.Tasks;
 
