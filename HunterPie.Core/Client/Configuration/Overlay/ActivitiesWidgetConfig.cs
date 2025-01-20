@@ -7,7 +7,10 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay;
 
-[Configuration("ACTIVITIES_WIDGET_STRING", "ICON_ARGOSY", availableGames: GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld)]
+[Configuration(name: "ACTIVITIES_WIDGET_STRING",
+    icon: "ICON_ARGOSY",
+    group: CommonConfigurationGroups.OVERLAY,
+    availableGames: GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld)]
 public class ActivitiesWidgetConfig : IWidgetSettings, ISettings
 {
     #region General Settings

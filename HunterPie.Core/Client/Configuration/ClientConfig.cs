@@ -9,7 +9,10 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration;
 
-[Configuration("CLIENT_STRING", "ICON_HUNTERPIE")]
+[Configuration(
+    name: "CLIENT_STRING",
+    icon: "ICON_HUNTERPIE",
+    group: CommonConfigurationGroups.CLIENT)]
 public class ClientConfig : ISettings
 {
     #region Auto Update

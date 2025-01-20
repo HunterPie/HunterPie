@@ -34,12 +34,18 @@ public class ConfigurationAdapter
         _localizationRepository = localizationRepository;
     }
 
-    public ObservableCollection<ConfigurationCategory> Adapt<T>(T configuration, GameProcessType game = GameProcessType.None)
+    public ObservableCollection<ConfigurationCategoryGroup> Adapt<T>(T configuration, GameProcessType game = GameProcessType.None)
     {
         Type configurationType = typeof(T);
         ConfigurationCategory[] categories = BuildCategoryParent(configurationType, configuration, game);
 
-        return new ObservableCollection<ConfigurationCategory>(categories);
+        return categories.GroupBy(it => it.CategoryGroup)
+            .Select(it =>
+                new ConfigurationCategoryGroup(
+                    Name: it.Key,
+                    Categories: it.ToObservableCollection()
+                )
+            ).ToObservableCollection();
     }
 
     private ConfigurationCategory[] BuildCategoryParent(Type parentType, object? parent, GameProcessType game)
@@ -111,7 +117,7 @@ public class ConfigurationAdapter
                 continue;
 
             LocalizationData propertyLocalization = _localizationRepository.FindBy(DEFAULT_SETTING_LOCALIZATION_PATH.Format(propertyAttribute.Name));
-            LocalizationData groupLocalization = _localizationRepository.FindBy(DEFAULT_CONFIGURATION_GROUP_PATH.Format(propertyAttribute.Group));
+            string groupLocalization = _localizationRepository.FindStringBy(DEFAULT_CONFIGURATION_GROUP_PATH.Format(propertyAttribute.Group));
 
             GameConfigurationAdapterAttribute? adapterAttribute =
                 property.GetCustomAttribute<GameConfigurationAdapterAttribute>();
@@ -119,7 +125,7 @@ public class ConfigurationAdapter
             var data = new PropertyData(
                 Name: propertyLocalization.String,
                 Description: propertyLocalization.Description,
-                Group: groupLocalization.String,
+                Group: groupLocalization,
                 Value: propertyValue,
                 Adapter: adapterAttribute?.Adapter,
                 Condition: conditionalConfiguration,
@@ -138,11 +144,17 @@ public class ConfigurationAdapter
         ObservableCollection<ConfigurationGroup> observableGroups =
             new(GroupProperties(configurationProperties));
 
+        string categoryGroupName =
+            _localizationRepository.FindStringBy(
+                path: DEFAULT_CONFIGURATION_GROUP_PATH.Format(configurationAttribute.Group)
+            );
+
         categories.Add(
             item: new ConfigurationCategory(
                 Name: localization.String,
                 Description: localization.Description,
                 Icon: configurationAttribute.Icon,
+                CategoryGroup: categoryGroupName,
                 Groups: observableGroups
             )
         );

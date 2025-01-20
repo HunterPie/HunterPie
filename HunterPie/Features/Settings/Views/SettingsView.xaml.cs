@@ -2,6 +2,7 @@
 using HunterPie.UI.Controls.TextBox.Events;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace HunterPie.Features.Settings.Views;
 /// <summary>
@@ -52,5 +53,10 @@ public partial class SettingsView : UserControl
             return;
 
         vm.ExecuteUpdate();
+    }
+
+    private void OnTitleClick(object sender, MouseButtonEventArgs e)
+    {
+        e.Handled = true;
     }
 }
