@@ -3,16 +3,20 @@ using HunterPie.DI;
 using HunterPie.Features.Account.Model;
 using HunterPie.Features.Account.UseCase;
 using HunterPie.Features.Account.ViewModels;
-using HunterPie.Features.Settings.ViewModels;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Architecture.Extensions;
 using HunterPie.UI.Navigation;
+using HunterPie.UI.SideBar.ViewModels;
+using System.Threading.Tasks;
 
 namespace HunterPie.UI.Header.ViewModels;
 
 internal class AccountMenuViewModel : ViewModel
 {
     private readonly IAccountUseCase _accountUseCase;
+    private readonly IAppNavigator _appNavigator;
+    private readonly IBodyNavigator _bodyNavigator;
+    private readonly SettingsSideBarViewModel _settingsSideBarViewModel;
 
     private bool _isLoading;
     public bool IsLoading { get => _isLoading; set => SetValue(ref _isLoading, value); }
@@ -29,10 +33,15 @@ internal class AccountMenuViewModel : ViewModel
     private bool _isOpen;
 
     public AccountMenuViewModel(
-        IAccountUseCase accountUseCase
-    )
+        IAccountUseCase accountUseCase,
+        IAppNavigator appNavigator,
+        IBodyNavigator bodyNavigator,
+        SettingsSideBarViewModel settingsSideBarViewModel)
     {
         _accountUseCase = accountUseCase;
+        _appNavigator = appNavigator;
+        _bodyNavigator = bodyNavigator;
+        _settingsSideBarViewModel = settingsSideBarViewModel;
     }
 
     public bool IsOpen { get => _isOpen; set => SetValue(ref _isOpen, value); }
@@ -41,12 +50,12 @@ internal class AccountMenuViewModel : ViewModel
     {
         AccountSignFlowViewModel vm = DependencyContainer.Get<AccountSignFlowViewModel>();
 
-        Navigator.App.Navigate(vm);
+        _appNavigator.Navigate(vm);
     }
 
-    public void OpenAccountSettings()
+    public async Task OpenAccountSettingsAsync()
     {
-        Navigator.App.Navigate<SettingsViewModel>();
+        await _settingsSideBarViewModel.ExecuteAsync();
     }
 
     public async void OpenAccountDetails()
@@ -66,7 +75,7 @@ internal class AccountMenuViewModel : ViewModel
             });
 
 
-        Navigator.Body.Navigate(viewModel);
+        _bodyNavigator.Navigate(viewModel);
     }
 
     public async void SignOut()
