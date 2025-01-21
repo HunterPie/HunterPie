@@ -78,7 +78,7 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid Margin="0,0,3,0">
-                                        <local:SupportedGameView />
+                                        <local:SupportedGameView Margin="5"/>
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

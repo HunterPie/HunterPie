@@ -10,9 +10,7 @@
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
              xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance viewModels:SupportedGameViewModel}"
-             Width="200"
-             Height="80">
+             d:DataContext="{d:DesignInstance viewModels:SupportedGameViewModel}">
     <UserControl.Resources>
         <Style TargetType="TextBlock"
                x:Key="StyleIndicatorText">
@@ -58,244 +56,147 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <buttons:Button Background="{StaticResource GRAY_300}"
-                    HorizontalContentAlignment="Stretch"
-                    VerticalContentAlignment="Stretch"
-                    Padding="0"
-                    IsEnabled="{Binding IsAvailable, Mode=OneWay}"
-                    Click="OnRunGameClick">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <!-- Upper part -->
-            <Border Grid.Row="0"
-                    BorderThickness="1"
-                    BorderBrush="{StaticResource GRAY}"
-                    CornerRadius="5,5,0,0"
-                    Background="{StaticResource GRAY_400}">
-                <Grid>
-                    <Image d:Source="https://cdn.hunterpie.com/resources/monster-hunter-world-banner.png"
-                           Source="{Binding Banner, Mode=OneWay}"
-                           Stretch="UniformToFill"
-                           UseLayoutRounding="True"
-                           RenderTransformOrigin="0.5,0.5">
-                        <Image.RenderTransform>
-                            <ScaleTransform ScaleX="1"
-                                            ScaleY="1"/>
-                        </Image.RenderTransform>
-                        <Image.OpacityMask>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="#FF000000" Offset="0"/>
-                                <GradientStop Color="#4B000000" Offset="0.54"/>
-                                <GradientStop Color="#11000000" Offset="0.70"/>
-                                <GradientStop Color="#05000000" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Image.OpacityMask>
-                        <Image.Effect>
-                            <BlurEffect KernelType="Gaussian"
-                                        Radius="5"/>
-                        </Image.Effect>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-                        <Image.Style>
-                            <Style TargetType="Image">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type buttons:Button}}}"
-                                                 Value="True">
-                                        <DataTrigger.EnterActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation Duration="0:0:0.2"
-                                                                     Storyboard.TargetProperty="Effect.Radius"
-                                                                     To="0">
-                                                        <DoubleAnimation.EasingFunction>
-                                                            <QuadraticEase/>
-                                                        </DoubleAnimation.EasingFunction>
-                                                    </DoubleAnimation>
-                                                    <DoubleAnimation Duration="0:0:0.2"
-                                                                     Storyboard.TargetProperty="RenderTransform.ScaleX"
-                                                                     To="1.05">
-                                                        <DoubleAnimation.EasingFunction>
-                                                            <QuadraticEase/>
-                                                        </DoubleAnimation.EasingFunction>
-                                                    </DoubleAnimation>
-                                                    <DoubleAnimation Duration="0:0:0.2"
-                                                                     Storyboard.TargetProperty="RenderTransform.ScaleY"
-                                                                     To="1.05">
-                                                        <DoubleAnimation.EasingFunction>
-                                                            <QuadraticEase/>
-                                                        </DoubleAnimation.EasingFunction>
-                                                    </DoubleAnimation>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </DataTrigger.EnterActions>
-                                        <DataTrigger.ExitActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation Duration="0:0:0.2"
-                                                                     Storyboard.TargetProperty="Effect.Radius"
-                                                                     To="5">
-                                                        <DoubleAnimation.EasingFunction>
-                                                            <QuadraticEase/>
-                                                        </DoubleAnimation.EasingFunction>
-                                                    </DoubleAnimation>
-                                                    <DoubleAnimation Duration="0:0:0.2"
-                                                                     Storyboard.TargetProperty="RenderTransform.ScaleX"
-                                                                     To="1">
-                                                        <DoubleAnimation.EasingFunction>
-                                                            <QuadraticEase/>
-                                                        </DoubleAnimation.EasingFunction>
-                                                    </DoubleAnimation>
-                                                    <DoubleAnimation Duration="0:0:0.2"
-                                                                     Storyboard.TargetProperty="RenderTransform.ScaleY"
-                                                                     To="1">
-                                                        <DoubleAnimation.EasingFunction>
-                                                            <QuadraticEase/>
-                                                        </DoubleAnimation.EasingFunction>
-                                                    </DoubleAnimation>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </DataTrigger.ExitActions>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Image.Style>
-                    </Image>
-                    <Grid Margin="5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="25"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" 
-                                   d:Text="Monster Hunter Rise"
-                                   Text="{Binding Name, Mode=OneWay}"
-                                   FontSize="14"
-                                   FontWeight="Normal"
-                                   Opacity="0"
-                                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                                   Foreground="{StaticResource WHITE_100}">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type buttons:Button}}}"
-                                                     Value="True">
-                                            <DataTrigger.EnterActions>
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <DoubleAnimation To="1"
-                                                                         Storyboard.TargetProperty="Opacity"
-                                                                         Duration="0:0:0.25"/>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </DataTrigger.EnterActions>
-                                            <DataTrigger.ExitActions>
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <DoubleAnimation To="0"
-                                                                         Storyboard.TargetProperty="Opacity"
-                                                                         Duration="0:0:0.25"/>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </DataTrigger.ExitActions>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
+        <!-- Bottom part -->
+        <StackPanel Grid.Row="1" 
+                    Orientation="Vertical">
+            <buttons:Button Padding="5"
+                            Margin="2"
+                            Background="{StaticResource GRAY_200}"
+                            BorderBrush="{StaticResource GRAY}"
+                            BorderThickness="1"
+                            CornerRadius="5"
+                            FontSize="14"
+                            Foreground="{StaticResource WHITE_100}">
+                <StackPanel Orientation="Horizontal">
+                    <image:Icon Image="{StaticResource ICON_SETTINGS_FILLED}"
+                                Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                Height="20"
+                                Foreground="{StaticResource WHITE_300}"
+                                Margin="0,0,5,0"
+                                Padding="2"/>
+                    <TextBlock Text="Settings"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+            </buttons:Button>
+        </StackPanel>
 
-                        <!-- Settings button -->
-                        <buttons:Button Grid.Column="1"
-                                        VerticalContentAlignment="Stretch"
-                                        HorizontalContentAlignment="Stretch"
-                                        Padding="5"
-                                        VerticalAlignment="Top"
-                                        BorderBrush="{StaticResource GRAY}"
-                                        BorderThickness="1"
-                                        CornerRadius="5"
-                                        Click="OnSettingsClick">
-                            <image:Icon Image="{StaticResource ICON_SETTINGS}"
-                                        Foreground="{StaticResource WHITE_500}"
-                                        Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"/>
-                        </buttons:Button>
-                    </Grid>
-                </Grid>
-            </Border>
-            
-            <Border Grid.Row="1"
-                    BorderThickness="1,0,1,1"
-                    BorderBrush="{StaticResource GRAY}"
-                    CornerRadius="0,0,5,5">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-
-                    <!-- Indicator -->
-                    <Ellipse Grid.Column="0" 
-                             Width="1"
-                             Height="1"
-                             RenderTransformOrigin="0.5, 0.5">
-                        <Ellipse.RenderTransform>
-                            <ScaleTransform ScaleX="1"
-                                            ScaleY="1"/>
-                        </Ellipse.RenderTransform>
-                        <Ellipse.Style>
-                            <Style TargetType="Ellipse"
-                                   BasedOn="{StaticResource StyleIndicatorLight}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsVisible, RelativeSource={RelativeSource Self}}"
-                                                 Value="True">
-                                        <DataTrigger.EnterActions>
-                                            <BeginStoryboard>
-                                                <Storyboard RepeatBehavior="Forever"
-                                                            Duration="0:0:2.5">
-                                                    <DoubleAnimation To="20"
-                                                                     Storyboard.TargetProperty="RenderTransform.ScaleX"
-                                                                     Duration="0:0:0.8">
-                                                        <DoubleAnimation.EasingFunction>
-                                                            <QuadraticEase EasingMode="EaseOut"/>
-                                                        </DoubleAnimation.EasingFunction>
-                                                    </DoubleAnimation>
-                                                    <DoubleAnimation To="20"
-                                                                     Storyboard.TargetProperty="RenderTransform.ScaleY"
-                                                                     Duration="0:0:0.8">
-                                                        <DoubleAnimation.EasingFunction>
-                                                            <QuadraticEase EasingMode="EaseOut"/>
-                                                        </DoubleAnimation.EasingFunction>
-                                                    </DoubleAnimation>
-                                                    <DoubleAnimation To="0"
-                                                                     Storyboard.TargetProperty="Opacity"
-                                                                     Duration="0:0:0.8">
-                                                        <DoubleAnimation.EasingFunction>
-                                                            <QuadraticEase EasingMode="EaseOut"/>
-                                                        </DoubleAnimation.EasingFunction>
-                                                    </DoubleAnimation>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </DataTrigger.EnterActions>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Ellipse.Style>
-                    </Ellipse>
-                    <Ellipse Grid.Column="0" 
-                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                             Margin="5"
-                             Style="{StaticResource StyleIndicatorLight}"/>
-                    
-
-                    <TextBlock Grid.Column="1"
-                               d:Text="Waiting for game..."
-                               FontSize="11"
-                               VerticalAlignment="Center"
-                               FontWeight="Medium"
-                               Foreground="{StaticResource WHITE_700}"
-                               Style="{StaticResource StyleIndicatorText}"/>
-                </Grid>
-            </Border>
-        </Grid>
-    </buttons:Button>
+        <!-- Upper part -->
+        <buttons:Button Grid.Row="0"
+                        Height="240"
+                        Width="160"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Padding="0"
+                        IsEnabled="{Binding IsAvailable, Mode=OneWay}"
+                        Click="OnRunGameClick"
+                        Cursor="Hand"
+                        RenderTransformOrigin="0.5,0.5"
+                        CornerRadius="5"
+                        BorderThickness="1"
+                        BorderBrush="{StaticResource GRAY}">
+            <buttons:Button.RenderTransform>
+                <ScaleTransform ScaleX="1"
+                                ScaleY="1"/>
+            </buttons:Button.RenderTransform>
+            <Image Source="{Binding Banner, Mode=OneWay}"
+                   RenderOptions.BitmapScalingMode="HighQuality"
+                   Stretch="UniformToFill">
+                <Image.Effect>
+                    <BlurEffect KernelType="Gaussian"
+                                RenderingBias="Performance"
+                                Radius="0"/>
+                </Image.Effect>
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.2"
+                                                             Storyboard.TargetProperty="Effect.Radius"
+                                                             To="10">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <QuadraticEase/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.2"
+                                                             Storyboard.TargetProperty="Effect.Radius"
+                                                             To="0">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <QuadraticEase/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <buttons:Button.Style>
+                <Style TargetType="buttons:Button">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.2"
+                                                         Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                         To="1.05">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Duration="0:0:0.2"
+                                                         Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                         To="1.05">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.2"
+                                                         Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                         To="1">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Duration="0:0:0.2"
+                                                         Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                         To="1">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </buttons:Button.Style>
+        </buttons:Button>
+    </Grid>
 </UserControl>
