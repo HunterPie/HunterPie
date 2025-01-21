@@ -32,14 +32,14 @@ internal class LocalAccountConfig
         ConfigManager.BindConfiguration(ACCOUNT_CONFIG, _accountConfig);
     }
 
-    public async Task<ObservableCollection<ConfigurationCategory>> BuildAccountConfigAsync()
+    public async Task<ObservableCollection<ConfigurationCategoryGroup>> BuildAccountConfigAsync()
     {
         bool isLoggedIn = await _accountUseCase.IsValidSessionAsync();
 
         return isLoggedIn switch
         {
             true => _configurationAdapter.Adapt(_accountConfig),
-            _ => new ObservableCollection<ConfigurationCategory>()
+            _ => new ObservableCollection<ConfigurationCategoryGroup>()
         };
     }
 }

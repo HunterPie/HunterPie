@@ -9,7 +9,9 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay;
 
-[Configuration("MONSTER_WIDGET_STRING", "ICON_SKULL")]
+[Configuration(name: "MONSTER_WIDGET_STRING",
+    icon: "ICON_SKULL",
+    group: CommonConfigurationGroups.OVERLAY)]
 public class MonsterWidgetConfig : IWidgetSettings, ISettings
 {
     #region General Settings

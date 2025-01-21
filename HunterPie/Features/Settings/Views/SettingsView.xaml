@@ -15,7 +15,8 @@
              xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading;assembly=HunterPie.UI"
              xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
              xmlns:gl="clr-namespace:System.Globalization;assembly=System.Runtime"
-             xmlns:presentation1="clr-namespace:HunterPie.Features.Settings.Presentation"
+             xmlns:localPresentation="clr-namespace:HunterPie.Features.Settings.Presentation"
+             xmlns:viewModels="clr-namespace:HunterPie.Features.Settings.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
@@ -26,15 +27,29 @@
         <converters:IconResolver x:Key="IconResolver"/>
         <converters:GameProcessToGameNameConverter x:Key="GameProcessToGameNameConverter"/>
         <presentation:ConfigurationPropertyDataTemplateSelector x:Key="ConfigurationPropertyDataTemplateSelector"/>
-        <DataTemplate x:Key="HeaderTemplate"
-                      DataType="{x:Type models:ConfigurationCategory}">
-            <buttons:TabItem Title="{Binding Name, Mode=OneTime}"
-                             Description="{Binding Description, Mode=OneTime}"
-                             Icon="{Binding Icon, Mode=OneTime, Converter={StaticResource IconResolver}}"
-                             Background="{StaticResource GRAY_300}"
-                             FontSize="13"/>
-        </DataTemplate>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+        <DataTemplate x:Key="CategoryHeaderTemplate"
+                      DataType="{x:Type viewModels:ConfigurationCategoryTab}">
+            <buttons:TabItem Title="{Binding Category.Name, Mode=OneTime}"
+                             Description="{Binding Category.Description, Mode=OneTime}"
+                             Icon="{Binding Category.Icon, Mode=OneTime, Converter={StaticResource IconResolver}}"
+                             Background="{StaticResource GRAY_100}"
+                             FontSize="13"
+                             Margin="5, 2.5"/>
+        </DataTemplate>
+        <DataTemplate x:Key="TitleHeaderTemplate"
+                      DataType="{x:Type viewModels:ConfigurationCategoryTitle}">
+            <TextBlock Text="{Binding Title, Mode=OneWay}"
+                       FontWeight="Medium"
+                       FontSize="13"
+                       Margin="5"
+                       PreviewMouseDown="OnTitleClick"/>
+        </DataTemplate>
+
+        <localPresentation:ConfigurationCategoryTemplateSelector x:Key="ConfigurationCategoryTemplateSelector"
+                                                                 TabTemplate="{StaticResource CategoryHeaderTemplate}"
+                                                                 TitleTemplate="{StaticResource TitleHeaderTemplate}"/>
 
         <!-- Version fetch templates -->
         <DataTemplate x:Key="LoadingTemplate">
@@ -109,15 +124,16 @@
                 </StackPanel>
             </buttons:Button>
         </DataTemplate>
-        <presentation1:UpdateStatusTemplateSelector x:Key="UpdateStatusTemplateSelector"
-                                                           LoadingTemplate="{StaticResource LoadingTemplate}"
-                                                           LatestTemplate="{StaticResource LatestVersionTemplate}"
-                                                           ErrorTemplate="{StaticResource ErrorVersionTemplate}"
-                                                           NeedsUpdateTemplate="{StaticResource NeedsUpdateVersionTemplate}"/>
+        
+        <localPresentation:UpdateStatusTemplateSelector x:Key="UpdateStatusTemplateSelector"
+                                                        LoadingTemplate="{StaticResource LoadingTemplate}"
+                                                        LatestTemplate="{StaticResource LatestVersionTemplate}"
+                                                        ErrorTemplate="{StaticResource ErrorVersionTemplate}"
+                                                        NeedsUpdateTemplate="{StaticResource NeedsUpdateVersionTemplate}"/>
 
         <DataTemplate x:Key="PanelTemplate"
-                      DataType="{x:Type models:ConfigurationCategory}">
-            <ItemsControl ItemsSource="{Binding Groups}">
+                      DataType="{x:Type viewModels:ConfigurationCategoryTab}">
+            <ItemsControl ItemsSource="{Binding Category.Groups, Mode=OneWay}">
                 <ItemsControl.Template>
                     <ControlTemplate>
                         <viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto">
@@ -275,10 +291,11 @@
         </Border>
 
         <TabControl Grid.Row="1"
+                    d:ItemsSource="{d:SampleData ItemCount=5}"
                     ItemsSource="{Binding Categories, Mode=OneWay}"
                     ContentTemplate="{StaticResource PanelTemplate}"
-                    ItemTemplate="{StaticResource HeaderTemplate}"
-                    SelectedIndex="{Binding CurrentTabIndex, Mode=TwoWay}"
+                    ItemTemplateSelector="{StaticResource ConfigurationCategoryTemplateSelector}"
+                    SelectedIndex="{Binding CurrentTabIndex, Mode=TwoWay, NotifyOnSourceUpdated=True}"
                     TabStripPlacement="Left">
             <TabControl.Template>
                 <ControlTemplate TargetType="TabControl">
@@ -294,7 +311,7 @@
 
                             <viewer:SmoothScrollViewer Grid.Column="0"
                                                        VerticalScrollBarVisibility="Auto"
-                                                       Background="{StaticResource GRAY_300}">
+                                                       Background="{StaticResource GRAY_200}">
                                 <TabPanel x:Name="HeaderPanel"
                                           IsItemsHost="True"/>
                             </viewer:SmoothScrollViewer>

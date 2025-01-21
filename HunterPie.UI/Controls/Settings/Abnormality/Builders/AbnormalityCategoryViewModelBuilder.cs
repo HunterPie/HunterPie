@@ -36,13 +36,24 @@ public static class AbnormalityCategoryViewModelBuilder
 
         return abnormalities.Select(group =>
         {
+            string groupKey = group.Key.ToUpperInvariant();
             (string categoryName, string categoryDescription) =
-                Localization.Resolve(CATEGORY_PATH.Format(group.Key.ToUpperInvariant()));
+                Localization.Resolve(CATEGORY_PATH.Format(groupKey));
 
             return new AbnormalityCategoryViewModel
             {
                 Name = categoryName,
                 Description = categoryDescription,
+                Icon = groupKey switch
+                {
+                    "SONGS" => ICON_SONGS,
+                    "CONSUMABLES" => ICON_CONSUMABLES,
+                    "DEBUFFS" => ICON_DEBUFFS,
+                    "PALICO" => ICON_PALICO,
+                    "SKILLS" => ICON_SKILLS,
+                    "FOODS" => ICON_FOODS,
+                    _ => null
+                },
                 Elements = group.Select(element =>
                     new AbnormalityElementViewModel
                     {

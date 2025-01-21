@@ -36,9 +36,9 @@ internal class SettingsFactory
 
     public async Task<SettingsViewModel> CreateFullAsync(Observable<GameProcessType> currentGame)
     {
-        ConfigurationCategory[] commonConfigurations = await BuildCommonConfigurationAsync();
+        ConfigurationCategoryGroup[] commonConfigurations = await BuildCommonConfigurationAsync();
 
-        var configurations = new Dictionary<GameProcessType, ObservableCollection<ConfigurationCategory>>
+        var configurations = new Dictionary<GameProcessType, ObservableCollection<ConfigurationCategoryGroup>>
         {
             { GameProcessType.MonsterHunterRise, BuildGameConfiguration(commonConfigurations, ClientConfig.Config.Rise, GameProcessType.MonsterHunterRise) },
             { GameProcessType.MonsterHunterWorld, BuildGameConfiguration(commonConfigurations, ClientConfig.Config.World, GameProcessType.MonsterHunterWorld) }
@@ -61,9 +61,9 @@ internal class SettingsFactory
     public async Task<SettingsViewModel> CreatePartialAsync(GameProcessType game)
     {
         GameConfig config = ClientConfigHelper.GetGameConfigBy(game);
-        ConfigurationCategory[] commonConfigurations = await BuildCommonConfigurationAsync();
+        ConfigurationCategoryGroup[] commonConfigurations = await BuildCommonConfigurationAsync();
 
-        var configurations = new Dictionary<GameProcessType, ObservableCollection<ConfigurationCategory>>
+        var configurations = new Dictionary<GameProcessType, ObservableCollection<ConfigurationCategoryGroup>>
         {
             { game, BuildGameConfiguration(commonConfigurations, config, game) }
         };
@@ -77,26 +77,35 @@ internal class SettingsFactory
         );
     }
 
-    private ObservableCollection<ConfigurationCategory> BuildGameConfiguration(
-        IEnumerable<ConfigurationCategory> commonConfiguration,
+    private ObservableCollection<ConfigurationCategoryGroup> BuildGameConfiguration(
+        IEnumerable<ConfigurationCategoryGroup> commonConfiguration,
         GameConfig configuration,
         GameProcessType gameProcessType
     )
     {
-        ObservableCollection<ConfigurationCategory> configCategory = _configurationAdapter.Adapt(configuration, gameProcessType);
+        ObservableCollection<ConfigurationCategoryGroup> configCategory = _configurationAdapter.Adapt(configuration, gameProcessType);
 
-        return commonConfiguration.Concat(configCategory)
+        return commonConfiguration
+            .Concat(configCategory)
+            .GroupBy(it => it.Name)
+            .Select(it =>
+                new ConfigurationCategoryGroup(
+                    Name: it.Key,
+                    Categories: it.SelectMany(group => group.Categories)
+                        .ToObservableCollection()
+                )
+            )
             .ToObservableCollection();
     }
 
-    private async Task<ConfigurationCategory[]> BuildCommonConfigurationAsync()
+    private async Task<ConfigurationCategoryGroup[]> BuildCommonConfigurationAsync()
     {
-        ObservableCollection<ConfigurationCategory> generalConfig = _configurationAdapter.Adapt(ClientConfig.Config);
-        ObservableCollection<ConfigurationCategory> accountConfig = await _localAccountConfig.BuildAccountConfigAsync();
-        ObservableCollection<ConfigurationCategory> featureFlags = ClientConfig.Config.Client.EnableFeatureFlags.Value switch
+        ObservableCollection<ConfigurationCategoryGroup> generalConfig = _configurationAdapter.Adapt(ClientConfig.Config);
+        ObservableCollection<ConfigurationCategoryGroup> accountConfig = await _localAccountConfig.BuildAccountConfigAsync();
+        ObservableCollection<ConfigurationCategoryGroup> featureFlags = ClientConfig.Config.Client.EnableFeatureFlags.Value switch
         {
             true => FeatureFlagAdapter.Adapt(_defaultFeatureFlags.Flags),
-            _ => new ObservableCollection<ConfigurationCategory>()
+            _ => new ObservableCollection<ConfigurationCategoryGroup>()
         };
 
         return accountConfig

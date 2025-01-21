@@ -41,11 +41,11 @@ internal class AbnormalityTrayPropertyViewModel : ConfigurationPropertyViewModel
 
     public void ConfigureTray(AbnormalityWidgetConfig tray)
     {
-        ConfigurationCategory configuration = _configurationAdapter.Adapt(tray).First();
+        ConfigurationCategoryGroup configuration = _configurationAdapter.Adapt(tray).First();
         ObservableCollection<AbnormalityCategoryViewModel> abnormalities = AbnormalityCategoryViewModelBuilder.Build(Game);
 
         var viewModel = new AbnormalityWidgetSettingsViewModel(
-            configuration: configuration,
+            configuration: configuration.Categories.First(),
             categories: abnormalities,
             selectedAbnormalities: tray.AllowedAbnormalities
         );
