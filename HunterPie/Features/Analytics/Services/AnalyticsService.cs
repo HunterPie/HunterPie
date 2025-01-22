@@ -19,6 +19,9 @@ internal class AnalyticsService : IAnalyticsService
 
     public async Task SendAsync(IAnalyticsEvent analyticsEvent)
     {
+#if DEBUG
+        return;
+#endif
         IAnalyticsStrategy? strategy =
             _strategies.FirstOrDefault(it => it.CanHandle(analyticsEvent.GetType()));
 

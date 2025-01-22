@@ -28,7 +28,7 @@ internal class HomeService
         {
             GameType.World, new SupportedGameViewModel
             {
-                Banner = "https://cdn.hunterpie.com/resources/monster-hunter-world-banner.png",
+                Banner = "https://cdn.hunterpie.com/resources/monster-hunter-world-poster.jpg",
                 Execute = new Action(static () => Steam.RunGameBy(type: GameType.World)),
                 Name = Games.MONSTER_HUNTER_WORLD
             }
@@ -37,7 +37,7 @@ internal class HomeService
             GameType.Rise, new SupportedGameViewModel
             {
                 Banner =
-                    "https://cdn.hunterpie.com/resources/monster-hunter-rise-banner.png",
+                    "https://cdn.hunterpie.com/resources/monster-hunter-rise-poster.jpg",
                 Execute = new Action(static () => Steam.RunGameBy(type: GameType.Rise)),
                 Name = Games.MONSTER_HUNTER_RISE
             }
