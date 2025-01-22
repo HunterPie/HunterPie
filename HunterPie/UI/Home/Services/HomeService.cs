@@ -41,15 +41,6 @@ internal class HomeService
                 Execute = new Action(static () => Steam.RunGameBy(type: GameType.Rise)),
                 Name = Games.MONSTER_HUNTER_RISE
             }
-        },
-        {
-            GameType.Wilds, new SupportedGameViewModel
-            {
-                Banner =
-                    "https://cdn.hunterpie.com/resources/monster-hunter-wilds-poster.jpg",
-                Execute = new Action(static () => Steam.RunGameBy(type: GameType.Rise)),
-                Name = Games.MONSTER_HUNTER_RISE
-            }
         }
     };
 

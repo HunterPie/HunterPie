@@ -9,6 +9,8 @@
              xmlns:process="clr-namespace:HunterPie.Core.Domain.Process;assembly=HunterPie.Core"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
              xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
+             xmlns:display="clr-namespace:HunterPie.UI.Controls.Display;assembly=HunterPie.UI"
+             xmlns:animation="clr-namespace:HunterPie.UI.Architecture.Animation;assembly=HunterPie.UI"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:SupportedGameViewModel}">
     <UserControl.Resources>
@@ -66,13 +68,14 @@
         <StackPanel Grid.Row="1" 
                     Orientation="Vertical">
             <buttons:Button Padding="5"
-                            Margin="2"
+                            Margin="0,2"
                             Background="{StaticResource GRAY_200}"
                             BorderBrush="{StaticResource GRAY}"
                             BorderThickness="1"
                             CornerRadius="5"
                             FontSize="14"
-                            Foreground="{StaticResource WHITE_100}">
+                            Foreground="{StaticResource WHITE_100}"
+                            Click="OnSettingsClick">
                 <StackPanel Orientation="Horizontal">
                     <image:Icon Image="{StaticResource ICON_SETTINGS_FILLED}"
                                 Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
@@ -88,7 +91,7 @@
 
         <!-- Upper part -->
         <buttons:Button Grid.Row="0"
-                        Height="240"
+                        Height="230"
                         Width="160"
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="Stretch"
@@ -104,50 +107,104 @@
                 <ScaleTransform ScaleX="1"
                                 ScaleY="1"/>
             </buttons:Button.RenderTransform>
-            <Image Source="{Binding Banner, Mode=OneWay}"
-                   RenderOptions.BitmapScalingMode="HighQuality"
-                   Stretch="UniformToFill">
-                <Image.Effect>
-                    <BlurEffect KernelType="Gaussian"
-                                RenderingBias="Performance"
-                                Radius="0"/>
-                </Image.Effect>
-                <Image.Style>
-                    <Style TargetType="Image">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver"
-                                     Value="True">
-                                <Trigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Duration="0:0:0.2"
-                                                             Storyboard.TargetProperty="Effect.Radius"
-                                                             To="10">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <QuadraticEase/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.EnterActions>
-                                <Trigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Duration="0:0:0.2"
-                                                             Storyboard.TargetProperty="Effect.Radius"
-                                                             To="0">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <QuadraticEase/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Image.Style>
-            </Image>
+            <Grid>
+                <Image d:Source="https://cdn.hunterpie.com/resources/monster-hunter-wilds-poster.jpg"
+                       Source="{Binding Banner, Mode=OneWay}"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       Stretch="UniformToFill"
+                       StretchDirection="DownOnly">
+                    <Image.Effect>
+                        <BlurEffect KernelType="Gaussian"
+                                    RenderingBias="Performance"
+                                    Radius="0"/>
+                    </Image.Effect>
+                    <Image.Style>
+                        <Style TargetType="Image">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsAvailable, Mode=OneWay}"
+                                             Value="True">
+                                    <Setter Property="Opacity" Value="1"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsAvailable, Mode=OneWay}"
+                                             Value="False">
+                                    <Setter Property="Opacity" Value="0.5"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type buttons:Button}}}"
+                                             Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.2"
+                                                                 Storyboard.TargetProperty="Effect.Radius"
+                                                                 To="10">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <QuadraticEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.2"
+                                                                 Storyboard.TargetProperty="Effect.Radius"
+                                                                 To="0">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <QuadraticEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
+                <image:Icon Image="{StaticResource ICON_PLAY}"
+                            Foreground="{StaticResource WHITE_50}"
+                            Width="50"
+                            Height="50"
+                            Opacity="0">
+                    <image:Icon.Style>
+                        <Style TargetType="image:Icon">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type buttons:Button}}}"
+                                             Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.2"
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 To="1">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <QuadraticEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.2"
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 To="0">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <QuadraticEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </image:Icon.Style>
+                </image:Icon>
+            </Grid>
+            
             <buttons:Button.Style>
                 <Style TargetType="buttons:Button">
                     <Style.Triggers>
@@ -198,5 +255,6 @@
                 </Style>
             </buttons:Button.Style>
         </buttons:Button>
+        
     </Grid>
 </UserControl>

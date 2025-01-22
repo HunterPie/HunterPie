@@ -1,6 +1,14 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <DrawingImage x:Key="ICON_PLAY">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F0 M24,24z M0,0z M4.5,5.653C4.5,4.226,6.029,3.323,7.279,4.01L18.819,10.357C20.114,11.069,20.114,12.93,18.819,13.643L7.28,19.99C6.03,20.677,4.501,19.773,4.501,18.347L4.501,5.653z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="ICON_HOME">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
