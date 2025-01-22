@@ -235,7 +235,12 @@ internal class UpdateService : IUpdateUseCase
             );
             Dictionary<string, string> local = await _checksumService.IndexAsync(
                 basePath: ClientInfo.ClientPath,
-                relativePath: string.Empty
+                relativePath: string.Empty,
+                ignorableFiles: new HashSet<string>
+                {
+                    ClientInfo.GetPathFor("HunterPie_Log.txt"),
+                    ClientInfo.GetPathFor("config.json")
+                }
             );
 
             return new UpdateFileChecksums(
