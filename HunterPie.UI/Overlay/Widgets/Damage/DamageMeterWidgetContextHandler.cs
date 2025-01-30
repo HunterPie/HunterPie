@@ -118,7 +118,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
         bool inHuntingZone = _context.Game.Player.InHuntingZone;
         _viewModel.InHuntingZone = inHuntingZone;
 
-        _view.Dispatcher.Invoke(() =>
+        _view.Dispatcher.BeginInvoke(() =>
         {
             foreach (IPartyMember member in _members.Keys)
                 RemovePlayer(member);
@@ -163,10 +163,10 @@ public class DamageMeterWidgetContextHandler : IContextHandler
     }
 
     private void OnMemberJoin(object? sender, IPartyMember e) =>
-        _view.Dispatcher.Invoke(() => HandleAddMember(e));
+        _view.Dispatcher.BeginInvoke(() => HandleAddMember(e));
 
     private void OnMemberLeave(object? sender, IPartyMember e) =>
-        _view.Dispatcher.Invoke(() => HandleRemoveMember(e));
+        _view.Dispatcher.BeginInvoke(() => HandleRemoveMember(e));
 
     private void OnTimeElapsedChange(object? sender, TimeElapsedChangeEventArgs e)
     {
@@ -184,7 +184,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
             foreach ((IPartyMember member, MemberInfo memberInfo) in _members)
                 memberInfo.JoinedAt = member.IsMyself ? e.TimeElapsed : 0;
 
-        _view.Dispatcher.Invoke(() =>
+        _view.Dispatcher.BeginInvoke(() =>
         {
             GetPlayerPoints(isTimerReset);
             CalculatePetsDamage();
