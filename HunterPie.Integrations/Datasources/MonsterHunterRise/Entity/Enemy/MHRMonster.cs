@@ -37,7 +37,6 @@ public sealed class MHRMonster : CommonMonster
     private readonly MHRMonsterAilment _enrage = new(MonsterAilmentRepository.Enrage);
     private MHRMonsterPart? _qurioThreshold;
     private readonly Dictionary<long, MHRMonsterPart> _parts = new();
-    private readonly object _syncParts = new();
     private readonly ConcurrentDictionary<long, MHRMonsterAilment> _ailments = new();
     private readonly List<Element> _weaknesses = new();
     private readonly List<string> _types = new();
@@ -122,16 +121,13 @@ public sealed class MHRMonster : CommonMonster
     {
         get
         {
-            lock (_syncParts)
-            {
-                var extraParts = new List<IMonsterPart>();
+            var extraParts = new List<IMonsterPart>();
 
-                if (_qurioThreshold is not null)
-                    extraParts.Add(_qurioThreshold);
+            if (_qurioThreshold is not null)
+                extraParts.Add(_qurioThreshold);
 
-                extraParts.AddRange(_parts.Values);
-                return extraParts.ToArray();
-            }
+            extraParts.AddRange(_parts.Values);
+            return extraParts.ToArray();
         }
     }
 
@@ -382,22 +378,19 @@ public sealed class MHRMonster : CommonMonster
             partInfo.Health = await Memory.ReadAsync<float>(encodedBreakableHealthPtr + 0x18);
             partInfo.Sever = await Memory.ReadAsync<float>(encodedSeverableHealthPtr + 0x18);
 
-            lock (_syncParts)
+            if (!_parts.ContainsKey(flinchPart))
             {
-                if (!_parts.ContainsKey(flinchPart))
-                {
-                    MonsterPartDefinition definition = _definition.Parts.Length > i ? _definition.Parts[i] : MonsterRepository.UnknownPartDefinition;
+                MonsterPartDefinition definition = _definition.Parts.Length > i ? _definition.Parts[i] : MonsterRepository.UnknownPartDefinition;
 
-                    var dummy = new MHRMonsterPart(definition, partInfo);
-                    _parts.Add(flinchPart, dummy);
+                var dummy = new MHRMonsterPart(definition, partInfo);
+                _parts.Add(flinchPart, dummy);
 
-                    _logger.Debug($"Found {definition.String} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X} Qurio: {qurioPart:X}");
-                    this.Dispatch(_onNewPartFound, dummy);
-                }
-
-                _parts[flinchPart].Update(partInfo);
-                _parts[flinchPart].Update(qurioInfo);
+                _logger.Debug($"Found {definition.String} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X} Qurio: {qurioPart:X}");
+                this.Dispatch(_onNewPartFound, dummy);
             }
+
+            _parts[flinchPart].Update(partInfo);
+            _parts[flinchPart].Update(qurioInfo);
         }
     }
 
@@ -595,14 +588,9 @@ public sealed class MHRMonster : CommonMonster
         _ailments.Clear();
         _enrage.Dispose();
 
-        lock (_syncParts)
-        {
-            _qurioThreshold?.Dispose();
-
-            _parts.Values.DisposeAll();
-
-            _parts.Clear();
-        }
+        _qurioThreshold?.Dispose();
+        _parts.Values.DisposeAll();
+        _parts.Clear();
 
         base.Dispose();
     }

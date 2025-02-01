@@ -61,7 +61,7 @@ public class MonsterWidgetContextHandler : IContextHandler
         _context.Game.OnMonsterSpawn -= OnMonsterSpawn;
         _context.Game.OnMonsterDespawn -= OnMonsterDespawn;
 
-        _view.Dispatcher.Invoke(() =>
+        _view.Dispatcher.BeginInvoke(() =>
         {
             foreach (MonsterContextHandler ctxHandler in _viewModel.Monsters.Cast<MonsterContextHandler>())
                 ctxHandler.Dispose();
@@ -76,7 +76,7 @@ public class MonsterWidgetContextHandler : IContextHandler
 
     private void OnMonsterDespawn(object sender, IMonster e)
     {
-        _view.Dispatcher.Invoke(() =>
+        _view.Dispatcher.BeginInvoke(() =>
         {
             MonsterContextHandler monster = _viewModel.Monsters
                 .Cast<MonsterContextHandler>()
@@ -96,7 +96,7 @@ public class MonsterWidgetContextHandler : IContextHandler
 
     private void OnMonsterSpawn(object sender, IMonster monster)
     {
-        _view.Dispatcher.Invoke(() => _viewModel.Monsters.Add(new MonsterContextHandler(_context.Game, monster, Settings)));
+        _view.Dispatcher.BeginInvoke(() => _viewModel.Monsters.Add(new MonsterContextHandler(_context.Game, monster, Settings)));
 
         monster.OnTargetChange += OnTargetChange;
         CalculateVisibleMonsters();
