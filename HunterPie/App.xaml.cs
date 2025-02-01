@@ -90,11 +90,12 @@ public partial class App : Application
 
         await MainApplication.Start();
 
+        MainWindow = Window;
+
         if (ClientConfig.Config.Client.EnableSeamlessStartup)
             return;
 
         Window.Show();
-        MainWindow = Window;
     }
 
     private void CheckForRunningInstances()
