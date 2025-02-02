@@ -6,6 +6,8 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
+using HunterPie.UI.Overlay.Widgets.Activities.Rise.Controllers;
+using HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Activities.Views;
 using HunterPie.UI.Overlay.Widgets.Activities.World.Controllers;
 using HunterPie.UI.Overlay.Widgets.Activities.World.ViewModels;
@@ -25,12 +27,18 @@ internal class ActivitiesWidgetInitializer : IWidgetInitializer
         if (!config.ActivitiesWidget.Initialize)
             return Task.CompletedTask;
 
+        var view = new ActivitiesView(config.ActivitiesWidget);
+
         _handler = context switch
         {
-            MHRContext ctx => null,
+            MHRContext ctx => new MHRiseActivitiesController(
+                context: ctx,
+                view: view,
+                activities: DependencyContainer.Get<MHRiseActivitiesViewModel>()
+            ),
             MHWContext ctx => new MHWorldActivitiesController(
                 context: ctx,
-                view: new ActivitiesView(config.ActivitiesWidget),
+                view: view,
                 activities: DependencyContainer.Get<MHWorldActivitiesViewModel>()
             ),
             _ => throw new NotImplementedException("unreachable")

@@ -5,9 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels"
+             xmlns:views="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.Views"
              mc:Ignorable="d" 
              d:DesignHeight="35" 
-             d:DesignWidth="300">
+             d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance viewModels:CohootNestViewModel}">
     <UserControl.Resources>
         <converters:CurrentValueToWidthConverter x:Key="CurrentValueToWidthConverter"/>
     </UserControl.Resources>
@@ -24,8 +27,8 @@
               ClipToBounds="True">
             <Grid.Width>
                 <MultiBinding Converter="{StaticResource CurrentValueToWidthConverter}">
-                    <Binding Path="DataContext.Count" RelativeSource="{RelativeSource AncestorType=local:CohootNestView}" FallbackValue="0"/>
-                    <Binding Path="DataContext.MaxCount" RelativeSource="{RelativeSource AncestorType=local:CohootNestView}" FallbackValue="1"/>
+                    <Binding Path="DataContext.Count" RelativeSource="{RelativeSource AncestorType=views:CohootNestView}" FallbackValue="0"/>
+                    <Binding Path="DataContext.MaxCount" RelativeSource="{RelativeSource AncestorType=views:CohootNestView}" FallbackValue="1"/>
                     <Binding Path="MaxWidth" RelativeSource="{RelativeSource Self}"/>
                     <Binding Path="Margin" RelativeSource="{RelativeSource Self}"/>
                 </MultiBinding>

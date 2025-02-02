@@ -3,9 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:views="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Views"
-             xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.ViewModels"
-             xmlns:views1="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.Views"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels"
+             xmlns:views="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.Views"
              d:DataContext="{d:DesignInstance Type=viewModels:SubmarinesViewModel}"
              mc:Ignorable="d">
     <Grid>
@@ -21,9 +20,9 @@
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <views1:SubmarineView Margin="1">
-                        <views1:SubmarineView.Style>
-                            <Style TargetType="local:SubmarineView">
+                    <views:SubmarineView Margin="1">
+                        <views:SubmarineView.Style>
+                            <Style TargetType="views:SubmarineView">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsActive, Mode=OneWay}"
                                                  Value="True">
@@ -35,8 +34,8 @@
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </views1:SubmarineView.Style>                        
-                    </views1:SubmarineView>
+                        </views:SubmarineView.Style>                        
+                    </views:SubmarineView>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

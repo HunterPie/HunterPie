@@ -2,22 +2,24 @@
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Activities;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 using HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
-using HunterPie.UI.Overlay.Widgets.Activities.ViewModels;
 using System.Collections.Generic;
 
-namespace HunterPie.UI.Overlay.Widgets.Activities.Rise;
+namespace HunterPie.UI.Overlay.Widgets.Activities.Rise.Controllers;
 
-internal class SubmarinesContextHandler : IContextHandler
+internal class SubmarinesController : IContextHandler
 {
     private readonly MHRContext _context;
     private readonly Dictionary<MHRSubmarine, SubmarineViewModel> _submarineViewModels;
+    private readonly SubmarinesViewModel _viewModel;
     private MHRPlayer Player => (MHRPlayer)_context.Game.Player;
 
-    public readonly SubmarinesViewModel ViewModel = new();
 
-    public SubmarinesContextHandler(MHRContext context)
+    public SubmarinesController(
+        MHRContext context,
+        SubmarinesViewModel viewModel)
     {
         _context = context;
+        _viewModel = viewModel;
         _submarineViewModels = new(Player.Argosy.Submarines.Length);
     }
 
@@ -40,7 +42,7 @@ internal class SubmarinesContextHandler : IContextHandler
         }
 
         foreach (SubmarineViewModel vm in _submarineViewModels.Values)
-            ViewModel.Submarines.Add(vm);
+            _viewModel.Submarines.Add(vm);
     }
 
     public void UnhookEvents()
@@ -53,7 +55,7 @@ internal class SubmarinesContextHandler : IContextHandler
         }
 
         _submarineViewModels.Clear();
-        ViewModel.Submarines.Clear();
+        _viewModel.Submarines.Clear();
     }
 
     private void OnLockStateChange(object sender, MHRSubmarine e)

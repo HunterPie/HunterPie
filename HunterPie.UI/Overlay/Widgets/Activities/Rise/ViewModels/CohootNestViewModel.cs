@@ -1,24 +1,24 @@
-﻿using HunterPie.Core.Architecture;
-using HunterPie.Core.Game.Entity.Environment;
-using HunterPie.Core.Game.Enums;
+﻿using HunterPie.UI.Architecture;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
 
-public class CohootNestViewModel : Bindable, IActivity
+public class CohootNestViewModel : ViewModel
 {
     private int _kamuraCount;
-    private int _kamuraMaxCount;
-    private int _elgadoCount;
-    private int _elgadoMaxCount;
-    private int _count;
-    private int _maxCount;
-
     public int KamuraCount { get => _kamuraCount; set => SetValue(ref _kamuraCount, value); }
-    public int KamuraMaxCount { get => _kamuraMaxCount; set => SetValue(ref _kamuraMaxCount, value); }
-    public int ElgadoCount { get => _elgadoCount; set => SetValue(ref _elgadoCount, value); }
-    public int ElgadoMaxCount { get => _elgadoMaxCount; set => SetValue(ref _elgadoMaxCount, value); }
-    public int Count { get => _count; set => SetValue(ref _count, value); }
-    public int MaxCount { get => _maxCount; set => SetValue(ref _maxCount, value); }
 
-    public ActivityType Type => ActivityType.Cohoot;
+    private int _kamuraMaxCount;
+    public int KamuraMaxCount { get => _kamuraMaxCount; set => SetValue(ref _kamuraMaxCount, value); }
+
+    private int _elgadoCount;
+    public int ElgadoCount { get => _elgadoCount; set => SetValue(ref _elgadoCount, value); }
+
+    private int _elgadoMaxCount;
+    public int ElgadoMaxCount { get => _elgadoMaxCount; set => SetValue(ref _elgadoMaxCount, value); }
+
+    private int _count;
+    public int Count { get => _count; set => SetValue(ref _count, value); }
+
+    private int _maxCount;
+    public int MaxCount { get => _maxCount; set => SetValue(ref _maxCount, value); }
 }

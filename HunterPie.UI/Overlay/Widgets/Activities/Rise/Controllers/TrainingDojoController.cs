@@ -3,33 +3,35 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Ac
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.NPC;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 using HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
-using HunterPie.UI.Overlay.Widgets.Activities.ViewModels;
 using System.Collections.Generic;
 
-namespace HunterPie.UI.Overlay.Widgets.Activities.Rise;
+namespace HunterPie.UI.Overlay.Widgets.Activities.Rise.Controllers;
 
-internal class TrainingDojoContextHandler : IContextHandler
+internal class TrainingDojoController : IContextHandler
 {
     private readonly MHRContext _context;
     private readonly Dictionary<MHRBuddy, BuddyViewModel> _buddyViewModels;
+    private readonly TrainingDojoViewModel _viewModel;
     private MHRPlayer Player => (MHRPlayer)_context.Game.Player;
 
-    public readonly TrainingDojoViewModel ViewModel = new();
 
-    public TrainingDojoContextHandler(MHRContext context)
+    public TrainingDojoController(
+        MHRContext context,
+        TrainingDojoViewModel viewModel)
     {
         _context = context;
-        _buddyViewModels = new(Player.TrainingDojo.Buddies.Length);
+        _viewModel = viewModel;
+        _buddyViewModels = new Dictionary<MHRBuddy, BuddyViewModel>(Player.TrainingDojo.Buddies.Length);
 
         UpdateData();
     }
 
     private void UpdateData()
     {
-        ViewModel.Boosts = Player.TrainingDojo.Boosts;
-        ViewModel.MaxBoosts = Player.TrainingDojo.MaxBoosts;
-        ViewModel.Rounds = Player.TrainingDojo.Rounds;
-        ViewModel.MaxRounds = Player.TrainingDojo.MaxRounds;
+        _viewModel.Boosts = Player.TrainingDojo.Boosts;
+        _viewModel.MaxBoosts = Player.TrainingDojo.MaxBoosts;
+        _viewModel.Rounds = Player.TrainingDojo.Rounds;
+        _viewModel.MaxRounds = Player.TrainingDojo.MaxRounds;
     }
 
     public void HookEvents()
@@ -54,7 +56,7 @@ internal class TrainingDojoContextHandler : IContextHandler
         }
 
         foreach (BuddyViewModel vm in _buddyViewModels.Values)
-            ViewModel.Buddies.Add(vm);
+            _viewModel.Buddies.Add(vm);
     }
 
     public void UnhookEvents()
@@ -69,19 +71,19 @@ internal class TrainingDojoContextHandler : IContextHandler
         }
 
         _buddyViewModels.Clear();
-        ViewModel.Buddies.Clear();
+        _viewModel.Buddies.Clear();
     }
 
     private void OnRoundsChange(object sender, MHRTrainingDojo e)
     {
-        ViewModel.Rounds = e.Rounds;
-        ViewModel.MaxRounds = e.MaxRounds;
+        _viewModel.Rounds = e.Rounds;
+        _viewModel.MaxRounds = e.MaxRounds;
     }
 
     private void OnBoostsChange(object sender, MHRTrainingDojo e)
     {
-        ViewModel.Boosts = e.Boosts;
-        ViewModel.MaxBoosts = e.MaxBoosts;
+        _viewModel.Boosts = e.Boosts;
+        _viewModel.MaxBoosts = e.MaxBoosts;
     }
 
     private void OnBuddyNameChange(object sender, MHRBuddy e)

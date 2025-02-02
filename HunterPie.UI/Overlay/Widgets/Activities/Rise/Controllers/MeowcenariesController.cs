@@ -3,17 +3,18 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Ac
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 using HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
 
-namespace HunterPie.UI.Overlay.Widgets.Activities.Rise;
+namespace HunterPie.UI.Overlay.Widgets.Activities.Rise.Controllers;
 
-internal class MeowcenariesContextHandler : IContextHandler
+internal class MeowcenariesController : IContextHandler
 {
-    private readonly MHRContext _context;
     private readonly MHRPlayer _player;
-    public readonly MeowcenariesViewModel ViewModel = new();
+    private readonly MeowcenariesViewModel _viewModel;
 
-    public MeowcenariesContextHandler(MHRContext context)
+    public MeowcenariesController(
+        MHRContext context,
+        MeowcenariesViewModel viewModel)
     {
-        _context = context;
+        _viewModel = viewModel;
         _player = context.Game.Player as MHRPlayer;
         UpdateData();
     }
@@ -36,33 +37,33 @@ internal class MeowcenariesContextHandler : IContextHandler
 
     private void UpdateData()
     {
-        ViewModel.Step = _player.Meowmasters.Step;
-        ViewModel.MaxSteps = _player.Meowmasters.MaxSteps;
-        ViewModel.ExpectedOutcome = _player.Meowmasters.ExpectedOutcome;
-        ViewModel.MaxOutcome = _player.Meowmasters.MaxOutcome;
-        ViewModel.BuddyCount = _player.Meowmasters.BuddyCount;
-        ViewModel.MaxBuddyCount = _player.Meowmasters.MaxBuddies;
-        ViewModel.IsDeployed = _player.Meowmasters.IsDeployed;
+        _viewModel.Step = _player.Meowmasters.Step;
+        _viewModel.MaxSteps = _player.Meowmasters.MaxSteps;
+        _viewModel.ExpectedOutcome = _player.Meowmasters.ExpectedOutcome;
+        _viewModel.MaxOutcome = _player.Meowmasters.MaxOutcome;
+        _viewModel.BuddyCount = _player.Meowmasters.BuddyCount;
+        _viewModel.MaxBuddyCount = _player.Meowmasters.MaxBuddies;
+        _viewModel.IsDeployed = _player.Meowmasters.IsDeployed;
     }
 
     private void OnExpectedOutcomeChange(object sender, MHRMeowmasters e)
     {
-        ViewModel.ExpectedOutcome = e.ExpectedOutcome;
+        _viewModel.ExpectedOutcome = e.ExpectedOutcome;
     }
 
     private void OnBuddyCountChange(object sender, MHRMeowmasters e)
     {
-        ViewModel.MaxBuddyCount = e.MaxBuddies;
-        ViewModel.BuddyCount = e.BuddyCount;
-        ViewModel.ExpectedOutcome = e.ExpectedOutcome;
+        _viewModel.MaxBuddyCount = e.MaxBuddies;
+        _viewModel.BuddyCount = e.BuddyCount;
+        _viewModel.ExpectedOutcome = e.ExpectedOutcome;
     }
 
     private void OnStepChange(object sender, MHRMeowmasters e)
     {
-        ViewModel.Step = e.Step;
-        ViewModel.MaxSteps = e.MaxSteps;
+        _viewModel.Step = e.Step;
+        _viewModel.MaxSteps = e.MaxSteps;
     }
 
-    private void OnDeployStateChange(object sender, MHRMeowmasters e) => ViewModel.IsDeployed = e.IsDeployed;
+    private void OnDeployStateChange(object sender, MHRMeowmasters e) => _viewModel.IsDeployed = e.IsDeployed;
 
 }

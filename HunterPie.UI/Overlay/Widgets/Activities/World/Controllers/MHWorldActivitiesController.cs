@@ -2,6 +2,7 @@
 using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
+using HunterPie.UI.Overlay.Widgets.Activities.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Activities.Views;
 using HunterPie.UI.Overlay.Widgets.Activities.World.ViewModels;
 using System;
@@ -13,6 +14,7 @@ public class MHWorldActivitiesController : IContextHandler
     private readonly MHWContext _context;
     private readonly MHWPlayer _player;
     private readonly ActivitiesView _view;
+    private readonly ActivitiesViewModel _viewModel;
     private readonly IContextHandler[] _contextHandlers;
 
     public MHWorldActivitiesController(
@@ -23,7 +25,8 @@ public class MHWorldActivitiesController : IContextHandler
         _context = context;
         _player = context.Game.Player as MHWPlayer;
         _view = view;
-        _view.ViewModel.Activities = activities;
+        _viewModel = view.ViewModel;
+        _viewModel.Activities = activities;
         _contextHandlers = new IContextHandler[]
         {
             new HarvestBoxController(context, activities.HarvestBox),
@@ -59,12 +62,11 @@ public class MHWorldActivitiesController : IContextHandler
         );
     }
 
-    private void OnStageUpdate(object sender, EventArgs e) => _view.UIThread.Invoke(() =>
-        _view.ViewModel.InVisibleStage = !_player.InHuntingZone && _player.ZoneId != Stage.MainMenu
-    );
+    private void OnStageUpdate(object sender, EventArgs e) =>
+        UpdateData();
 
     private void UpdateData()
     {
-        _view.ViewModel.InVisibleStage = !_player.InHuntingZone && _player.ZoneId != Stage.MainMenu;
+        _viewModel.InVisibleStage = !_player.InHuntingZone && _player.ZoneId != Stage.MainMenu;
     }
 }

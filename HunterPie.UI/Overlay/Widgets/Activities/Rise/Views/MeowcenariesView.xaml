@@ -6,9 +6,8 @@
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets"
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Views"
-             xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.ViewModels"
-             xmlns:views="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.World.Views"
-             xmlns:views1="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.Views"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels"
+             xmlns:views="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.Views"
              d:DataContext="{d:DesignInstance Type=viewModels:MeowcenariesViewModel}"
              mc:Ignorable="d" 
              d:Height="40" 
@@ -30,8 +29,8 @@
               ClipToBounds="True">
             <Grid.Width>
                 <MultiBinding Converter="{StaticResource CurrentValueToWidthConverter}">
-                    <Binding Path="DataContext.Step" Mode="OneWay" RelativeSource="{RelativeSource AncestorType=local:MeowcenariesView}" FallbackValue="0"/>
-                    <Binding Path="DataContext.MaxSteps" Mode="OneWay" RelativeSource="{RelativeSource AncestorType=local:MeowcenariesView}" FallbackValue="1"/>
+                    <Binding Path="DataContext.Step" Mode="OneWay" RelativeSource="{RelativeSource AncestorType=views:MeowcenariesView}" FallbackValue="0"/>
+                    <Binding Path="DataContext.MaxSteps" Mode="OneWay" RelativeSource="{RelativeSource AncestorType=views:MeowcenariesView}" FallbackValue="1"/>
                     <Binding Path="MaxWidth" RelativeSource="{RelativeSource Self}"/>
                     <Binding Path="Margin" RelativeSource="{RelativeSource Self}"/>
                 </MultiBinding>
@@ -171,7 +170,7 @@
             <Style TargetType="Grid">
                 <Setter Property="Opacity" Value="1"/>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding DataContext.IsDeployed, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type views1:MeowcenariesView}}}" Value="False">
+                    <DataTrigger Binding="{Binding DataContext.IsDeployed, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type views:MeowcenariesView}}}" Value="False">
                         <Setter Property="Opacity" Value="0.4"/>
                     </DataTrigger>
                 </Style.Triggers>

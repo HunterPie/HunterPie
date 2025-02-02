@@ -62,6 +62,15 @@ public partial class Gauge : UserControl
     public static readonly DependencyProperty OrientationProperty =
         DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(Gauge), new PropertyMetadata(Orientation.Horizontal));
 
+    public double CornerRadius
+    {
+        get => (double)GetValue(CornerRadiusProperty);
+        set => SetValue(CornerRadiusProperty, value);
+    }
+
+    public static readonly DependencyProperty CornerRadiusProperty =
+        DependencyProperty.Register(nameof(CornerRadius), typeof(double), typeof(Gauge), new PropertyMetadata(5.0));
+
     public Gauge()
     {
         InitializeComponent();

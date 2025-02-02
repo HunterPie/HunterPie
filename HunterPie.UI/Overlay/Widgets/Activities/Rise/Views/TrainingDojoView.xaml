@@ -6,9 +6,8 @@
              xmlns:button="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets"
-             xmlns:views="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Views"
-             xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.ViewModels"
-             xmlns:views1="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.Views"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels"
+             xmlns:views="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.Views"
              d:DataContext="{d:DesignInstance Type=viewModels:TrainingDojoViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="40"
@@ -31,8 +30,8 @@
               ClipToBounds="True">
             <Grid.Width>
                 <MultiBinding Converter="{StaticResource CurrentValueToWidthConverter}">
-                    <Binding Path="DataContext.Rounds" RelativeSource="{RelativeSource AncestorType=local:TrainingDojoView}" FallbackValue="0"/>
-                    <Binding Path="DataContext.MaxRounds" RelativeSource="{RelativeSource AncestorType=local:TrainingDojoView}" FallbackValue="1"/>
+                    <Binding Path="DataContext.Rounds" RelativeSource="{RelativeSource AncestorType=views:TrainingDojoView}" FallbackValue="0"/>
+                    <Binding Path="DataContext.MaxRounds" RelativeSource="{RelativeSource AncestorType=views:TrainingDojoView}" FallbackValue="1"/>
                     <Binding Path="MaxWidth" RelativeSource="{RelativeSource Self}"/>
                     <Binding Path="Margin" RelativeSource="{RelativeSource Self}"/>
                 </MultiBinding>
@@ -81,7 +80,7 @@
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ShouldShowBuddies, RelativeSource={RelativeSource AncestorType=local:TrainingDojoView}}"
+                            <DataTrigger Binding="{Binding ShouldShowBuddies, RelativeSource={RelativeSource AncestorType=views:TrainingDojoView}}"
                                          Value="True">
                                 <DataTrigger.EnterActions>
                                     <BeginStoryboard>
@@ -197,7 +196,7 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <views1:BuddyDojoView/>
+                        <views:BuddyDojoView/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
