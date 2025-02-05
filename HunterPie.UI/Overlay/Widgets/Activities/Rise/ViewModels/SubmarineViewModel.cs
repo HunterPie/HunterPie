@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Architecture;
+using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
 
@@ -15,4 +16,11 @@ public class SubmarineViewModel : Bindable
 
     private bool _isActive;
     public bool IsActive { get => _isActive; set => SetValue(ref _isActive, value); }
+
+    public ObservableCollection<SubmarineBoostViewModel> Boosts { get; }
+
+    public SubmarineViewModel(ObservableCollection<SubmarineBoostViewModel> boosts)
+    {
+        Boosts = boosts;
+    }
 }

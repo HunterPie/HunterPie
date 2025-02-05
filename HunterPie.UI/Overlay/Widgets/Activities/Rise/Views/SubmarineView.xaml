@@ -41,7 +41,8 @@
                             Height="6"
                             CornerRadius="3"
                             Current="70"
-                            Max="100"/>
+                            Max="100"
+                            Margin="1.7,0,7,0"/>
 
             <TextBlock Grid.Column="1"
                        Grid.Row="0"
@@ -55,6 +56,41 @@
                      FontSize="13"
                      FontWeight="Medium"/>%
             </TextBlock>
+
+            <ItemsControl Grid.Row="1"
+                          Grid.Column="0"
+                          d:ItemsSource="{d:SampleData ItemCount=9}"
+                          ItemsSource="{Binding Boosts, Mode=OneTime}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel IsItemsHost="True"
+                                    Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <progress:Pill Width="11"
+                                       Margin="1.7, 2"
+                                       IsActive="{Binding IsActive, Mode=OneWay}">
+                            <progress:Pill.Style>
+                                <Style TargetType="progress:Pill">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsExtraBoost, Mode=OneWay}"
+                                                     Value="True">
+                                            <Setter Property="Foreground" Value="{StaticResource ORANGE}"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsExtraBoost, Mode=OneWay}"
+                                                     Value="False">
+                                            <Setter Property="Foreground" Value="{StaticResource YELLOW}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </progress:Pill.Style>
+                        </progress:Pill>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
     </Grid>
 </UserControl>
