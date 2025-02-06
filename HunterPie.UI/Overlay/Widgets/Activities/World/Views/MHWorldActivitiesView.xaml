@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.World.Views"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.World.ViewModels"
              mc:Ignorable="d"
-             d:Width="240"
+             d:DesignWidth="265"
              d:DataContext="{d:DesignInstance viewModels:MHWorldActivitiesViewModel}">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>

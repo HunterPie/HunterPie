@@ -4,6 +4,7 @@ using HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Activities.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Activities.Views;
 using System;
+using System.Windows.Threading;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.Rise.Controllers;
 
@@ -17,7 +18,8 @@ public class MHRiseActivitiesController : IContextHandler
     public MHRiseActivitiesController(
         MHRContext context,
         ActivitiesView view,
-        MHRiseActivitiesViewModel activities)
+        MHRiseActivitiesViewModel activities,
+        Dispatcher mainDispatcher)
     {
         _context = context;
         _view = view;
@@ -27,7 +29,7 @@ public class MHRiseActivitiesController : IContextHandler
         {
             new CohootNestController(context, activities.CohootNest),
             new MeowcenariesController(context, activities.Meowcenaries),
-            new SubmarinesController(context, activities.Submarines),
+            new SubmarinesController(mainDispatcher, context, activities.Submarines),
             new TrainingDojoController(context, activities.TrainingDojo)
         };
     }

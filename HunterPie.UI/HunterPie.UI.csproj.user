@@ -122,6 +122,9 @@
     <Compile Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Activities\Rise\Views\MHRiseActivitiesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Activities\Views\ActivitiesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -407,6 +410,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Activities\Rise\Views\MHRiseActivitiesView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Activities\Views\ActivitiesView.xaml">

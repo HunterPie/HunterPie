@@ -13,6 +13,7 @@ using HunterPie.UI.Overlay.Widgets.Activities.World.Controllers;
 using HunterPie.UI.Overlay.Widgets.Activities.World.ViewModels;
 using System;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace HunterPie.Features.Overlay;
 
@@ -32,6 +33,7 @@ internal class ActivitiesWidgetInitializer : IWidgetInitializer
         _handler = context switch
         {
             MHRContext ctx => new MHRiseActivitiesController(
+                mainDispatcher: DependencyContainer.Get<Dispatcher>(),
                 context: ctx,
                 view: view,
                 activities: DependencyContainer.Get<MHRiseActivitiesViewModel>()

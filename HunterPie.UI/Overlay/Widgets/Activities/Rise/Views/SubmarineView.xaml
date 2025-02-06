@@ -71,6 +71,8 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <progress:Pill Width="11"
+                                       d:Foreground="{StaticResource YELLOW}"
+                                       BorderBrush="{StaticResource GRAY}"
                                        Margin="1.7, 2"
                                        IsActive="{Binding IsActive, Mode=OneWay}">
                             <progress:Pill.Style>

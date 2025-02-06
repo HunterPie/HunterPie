@@ -7,6 +7,7 @@
            xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Presentation"
            xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.ViewModels"
            xmlns:views="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.World.Views"
+           xmlns:viewsMHR="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.Views"
            x:TypeArguments="vm:ActivitiesViewModel"
            mc:Ignorable="d"
            Style="{StaticResource STYLE_ACTIVITIES_WIDGET}"
@@ -18,8 +19,13 @@
             <views:MHWorldActivitiesView/>
         </DataTemplate>
 
+        <DataTemplate x:Key="MonsterHunterRiseActivitiesTemplate">
+            <viewsMHR:MHRiseActivitiesView/>
+        </DataTemplate>
+
         <presentation:ActivityTemplateSelector x:Key="ActivityTemplateSelector"
-                                               MonsterHunterWorldTemplate="{StaticResource MonsterHunterWorldActivitiesTemplate}"/>
+                                               MonsterHunterWorldTemplate="{StaticResource MonsterHunterWorldActivitiesTemplate}"
+                                               MonsterHunterRiseTemplate="{StaticResource MonsterHunterRiseActivitiesTemplate}"/>
     </UserControl.Resources>
 
     <ContentControl ContentTemplateSelector="{StaticResource ActivityTemplateSelector}"

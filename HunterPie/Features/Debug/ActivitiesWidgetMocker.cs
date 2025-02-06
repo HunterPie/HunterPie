@@ -3,33 +3,65 @@ using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.DI;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Environment.Activities.Enums;
 using HunterPie.UI.Overlay;
+using HunterPie.UI.Overlay.Widgets.Activities.Common;
+using HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Activities.Views;
 using HunterPie.UI.Overlay.Widgets.Activities.World.ViewModels;
 
 namespace HunterPie.Features.Debug;
 
-internal class MHWorldActivitiesWidgetMocker : IWidgetMocker
+internal class ActivitiesWidgetMocker : IWidgetMocker
 {
     public void Mock()
     {
         if (!ClientConfig.Config.Development.MockActivitiesWidget)
             return;
 
-        var config = new ActivitiesWidgetConfig();
 
-        var view = new ActivitiesView(config);
+        foreach (IActivitiesViewModel activities in new[] { SetupMHWorldActivities(), SetupMHRiseActivities() })
+        {
+            var config = new ActivitiesWidgetConfig();
+            var view = new ActivitiesView(config);
 
+            view.ViewModel.Activities = activities;
+            view.ViewModel.InVisibleStage = true;
+
+            WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(
+                widget: view
+            );
+        }
+    }
+
+    #region Monster Hunter Rise
+
+    private static IActivitiesViewModel SetupMHRiseActivities()
+    {
+        MHRiseActivitiesViewModel activities = DependencyContainer.Get<MHRiseActivitiesViewModel>();
+
+        SetupSubmarines(activities.Submarines);
+
+        return activities;
+    }
+
+    private static void SetupSubmarines(SubmarinesViewModel viewModel)
+    {
+        viewModel.Submarines.Add(new SubmarineViewModel { Count = 15, DaysLeft = 4, IsActive = true, MaxCount = 20 });
+        viewModel.Submarines.Add(new SubmarineViewModel { Count = 15, DaysLeft = 4, IsActive = true, MaxCount = 20 });
+        viewModel.Submarines.Add(new SubmarineViewModel { Count = 15, DaysLeft = 4, IsActive = true, MaxCount = 20 });
+    }
+
+    #endregion
+
+    #region Monster Hunter World
+
+    private static IActivitiesViewModel SetupMHWorldActivities()
+    {
         MHWorldActivitiesViewModel activities = DependencyContainer.Get<MHWorldActivitiesViewModel>();
 
         SetupHarvestBox(activities.HarvestBox);
         SetupSteamworks(activities.Steamworks);
 
-        view.ViewModel.Activities = activities;
-        view.ViewModel.InVisibleStage = true;
-
-        WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(
-            widget: view
-        );
+        return activities;
     }
 
     private static void SetupHarvestBox(HarvestBoxViewModel viewModel)
@@ -73,4 +105,6 @@ internal class MHWorldActivitiesWidgetMocker : IWidgetMocker
         viewModel.NaturalFuel = 584;
         viewModel.StoredFuel = 12_302;
     }
+
+    #endregion
 }

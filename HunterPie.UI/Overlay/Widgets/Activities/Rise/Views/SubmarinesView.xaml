@@ -21,8 +21,7 @@
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <views:SubmarineView Width="200"
-                                         Height="35"
+                    <views:SubmarineView Height="35"
                                          BorderThickness="0,0,0,1"
                                          BorderBrush="{StaticResource GRAY}">
                         <views:SubmarineView.Style>
