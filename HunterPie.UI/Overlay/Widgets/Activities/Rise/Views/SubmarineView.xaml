@@ -42,7 +42,7 @@
                             CornerRadius="3"
                             Current="70"
                             Max="100"
-                            Margin="1.7,0,7,0"/>
+                            Margin="1.7,0,2,0"/>
 
             <TextBlock Grid.Column="1"
                        Grid.Row="0"

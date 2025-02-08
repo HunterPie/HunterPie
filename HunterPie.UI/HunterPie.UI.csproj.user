@@ -122,6 +122,9 @@
     <Compile Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Activities\Rise\Views\CohootNestView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Activities\Rise\Views\MHRiseActivitiesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -134,7 +137,7 @@
     <Compile Update="Overlay\Widgets\Activities\Rise\Views\BuddyDojoView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Overlay\Widgets\Activities\Rise\Views\CohootNestView.xaml.cs">
+    <Compile Update="Overlay\Widgets\Activities\Rise\Views\CohootNestsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Activities\World\Views\FertilizerDayView.xaml.cs">
@@ -412,6 +415,9 @@
     <Page Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Overlay\Widgets\Activities\Rise\Views\CohootNestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Overlay\Widgets\Activities\Rise\Views\MHRiseActivitiesView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -424,7 +430,7 @@
     <Page Update="Overlay\Widgets\Activities\Rise\Views\BuddyDojoView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Overlay\Widgets\Activities\Rise\Views\CohootNestView.xaml">
+    <Page Update="Overlay\Widgets\Activities\Rise\Views\CohootNestsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Activities\World\Views\FertilizerDayView.xaml">

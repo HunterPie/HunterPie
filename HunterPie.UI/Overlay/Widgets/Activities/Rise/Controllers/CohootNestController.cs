@@ -10,11 +10,11 @@ internal class CohootNestController : IContextHandler
 {
     private readonly MHRContext _context;
     private MHRPlayer Player => (MHRPlayer)_context.Game.Player;
-    private readonly CohootNestViewModel _viewModel;
+    private readonly CohootNestsViewModel _viewModel;
 
     public CohootNestController(
         MHRContext context,
-        CohootNestViewModel viewModel)
+        CohootNestsViewModel viewModel)
     {
         _context = context;
         _viewModel = viewModel;

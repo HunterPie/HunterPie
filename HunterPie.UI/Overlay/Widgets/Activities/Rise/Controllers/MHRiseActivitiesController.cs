@@ -27,7 +27,7 @@ public class MHRiseActivitiesController : IContextHandler
         _viewModel.Activities = activities;
         _contextHandlers = new IContextHandler[]
         {
-            new CohootNestController(context, activities.CohootNest),
+            new CohootNestController(context, activities.CohootNests),
             new MeowcenariesController(context, activities.Meowcenaries),
             new SubmarinesController(mainDispatcher, context, activities.Submarines),
             new TrainingDojoController(context, activities.TrainingDojo)
