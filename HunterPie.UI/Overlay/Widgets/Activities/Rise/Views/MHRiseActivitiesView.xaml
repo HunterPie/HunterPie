@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.Views"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels"
              mc:Ignorable="d" 
-             d:DesignWidth="240"
+             Width="240"
              d:DataContext="{d:DesignInstance viewModels:MHRiseActivitiesViewModel}">
     <Grid>
         <Grid.RowDefinitions>

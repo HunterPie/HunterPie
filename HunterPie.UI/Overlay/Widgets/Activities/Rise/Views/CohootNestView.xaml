@@ -39,8 +39,8 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewModels:CohootItemViewModel}">
-                        <progress:Pill Margin="2,2"
-                                       Width="9"
+                        <progress:Pill Margin="2,1"
+                                       Width="10"
                                        BorderBrush="{StaticResource GRAY}"
                                        Foreground="{StaticResource Violet}"
                                        IsActive="{Binding IsActive, Mode=OneWay}"/>

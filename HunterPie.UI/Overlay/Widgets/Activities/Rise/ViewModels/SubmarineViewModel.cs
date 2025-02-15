@@ -1,6 +1,4 @@
-﻿using HunterPie.Core.Architecture;
-using HunterPie.UI.Architecture;
-using HunterPie.UI.Architecture.Extensions;
+﻿using HunterPie.UI.Architecture;
 using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;

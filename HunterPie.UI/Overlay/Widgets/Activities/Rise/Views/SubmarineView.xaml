@@ -6,10 +6,21 @@
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:progress="clr-namespace:HunterPie.UI.Controls.Progress"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:arithmetics="clr-namespace:HunterPie.UI.Architecture.Converters.Arithmetics"
+             xmlns:aggregation="clr-namespace:HunterPie.UI.Architecture.Converters.Aggregation"
              d:DataContext="{d:DesignInstance Type=viewModels:SubmarineViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="35" 
              d:DesignWidth="200">
+    <UserControl.Resources>
+        <converters:RatioConverter x:Key="RatioConverter"/>
+        
+        <aggregation:MultiToSingleValueConverterPipeline x:Key="PercentageConverter"
+                                                         Entrypoint="{StaticResource RatioConverter}">
+            <arithmetics:MultiplyNumberConverter Factor="100"/>
+        </aggregation:MultiToSingleValueConverterPipeline>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="35"/>
@@ -30,7 +41,7 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="40"/>
             </Grid.ColumnDefinitions>
 
             <progress:Gauge Grid.Row="0"
@@ -40,8 +51,8 @@
                             BorderBrush="{StaticResource GRAY}"
                             Height="6"
                             CornerRadius="3"
-                            Current="70"
-                            Max="100"
+                            Current="{Binding Count, Mode=OneWay}"
+                            Max="{Binding MaxCount, Mode=OneWay}"
                             Margin="1.7,0,2,0"/>
 
             <TextBlock Grid.Column="1"
@@ -51,10 +62,17 @@
                        FontSize="10"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center">
-                <Run Text="70"
+                <Run d:Text="70"
                      Foreground="{StaticResource WHITE_200}"
                      FontSize="13"
-                     FontWeight="Medium"/>%
+                     FontWeight="Medium">
+                    <Run.Text>
+                        <MultiBinding Converter="{StaticResource PercentageConverter}" StringFormat="0">
+                            <Binding Path="Count" Mode="OneWay"/>
+                            <Binding Path="MaxCount" Mode="OneWay"/>
+                        </MultiBinding>
+                    </Run.Text>
+                </Run>%
             </TextBlock>
 
             <ItemsControl Grid.Row="1"

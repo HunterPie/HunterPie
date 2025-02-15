@@ -18,7 +18,6 @@ internal class ActivitiesWidgetMocker : IWidgetMocker
         if (!ClientConfig.Config.Development.MockActivitiesWidget)
             return;
 
-
         foreach (IActivitiesViewModel activities in new[] { SetupMHWorldActivities(), SetupMHRiseActivities() })
         {
             var config = new ActivitiesWidgetConfig();
@@ -27,7 +26,7 @@ internal class ActivitiesWidgetMocker : IWidgetMocker
             view.ViewModel.Activities = activities;
             view.ViewModel.InVisibleStage = true;
 
-            WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(
+            _ = WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(
                 widget: view
             );
         }
@@ -47,17 +46,16 @@ internal class ActivitiesWidgetMocker : IWidgetMocker
     private static void SetupSubmarines(SubmarinesViewModel viewModel)
     {
         viewModel.Submarines.Add(new SubmarineViewModel { Count = 15, DaysLeft = 4, IsActive = true, MaxCount = 20 });
-        viewModel.Submarines.Add(new SubmarineViewModel { Count = 15, DaysLeft = 4, IsActive = true, MaxCount = 20 });
-        viewModel.Submarines.Add(new SubmarineViewModel { Count = 15, DaysLeft = 4, IsActive = true, MaxCount = 20 });
+        viewModel.Submarines.Add(new SubmarineViewModel { Count = 10, DaysLeft = 4, IsActive = true, MaxCount = 20 });
+        viewModel.Submarines.Add(new SubmarineViewModel { Count = 20, DaysLeft = 4, IsActive = true, MaxCount = 20 });
 
         foreach (SubmarineViewModel submarine in viewModel.Submarines)
         {
             submarine.SetMaxBoosts(9);
 
-            //int count = (int)Random.Shared.NextInt64(9);
-            //int extras = (int)Random.Shared.NextInt64(9 - count);
-            //submarine.SetBoosts(count, extras);
-            submarine.SetBoosts(2, 2);
+            int count = (int)Random.Shared.NextInt64(9);
+            int extras = (int)Random.Shared.NextInt64(9 - count);
+            submarine.SetBoosts(count, extras);
         }
     }
 
