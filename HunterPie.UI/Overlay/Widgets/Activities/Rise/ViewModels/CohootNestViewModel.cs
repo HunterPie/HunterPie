@@ -10,9 +10,22 @@ public class CohootNestViewModel : ViewModel
 
     public ObservableCollection<CohootItemViewModel> Items { get; } = new();
 
+    public void SetMaxItems(int count)
+    {
+        if (Items.Count == count)
+            return;
+
+        for (int i = 0; i < count; i++)
+            Items.Add(
+                new CohootItemViewModel
+                {
+                    IsActive = false
+                });
+    }
+
     public void SetItems(int count)
     {
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < Items.Count; i++)
             Items[i].IsActive = i < count;
     }
 }

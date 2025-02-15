@@ -19,6 +19,7 @@ internal class ActivitiesWidgetModule : IDependencyModule
 
         // Monster Hunter Rise
         registry
+            .WithService<CohootNestViewModel>()
             .WithService<CohootNestsViewModel>()
             .WithService<MeowcenariesViewModel>()
             .WithService<SubmarinesViewModel>()

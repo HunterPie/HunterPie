@@ -7,6 +7,7 @@ using HunterPie.UI.Overlay.Widgets.Activities.Common;
 using HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Activities.Views;
 using HunterPie.UI.Overlay.Widgets.Activities.World.ViewModels;
+using System;
 
 namespace HunterPie.Features.Debug;
 
@@ -39,7 +40,7 @@ internal class ActivitiesWidgetMocker : IWidgetMocker
         MHRiseActivitiesViewModel activities = DependencyContainer.Get<MHRiseActivitiesViewModel>();
 
         SetupSubmarines(activities.Submarines);
-
+        SetupCohoot(activities.CohootNests);
         return activities;
     }
 
@@ -48,8 +49,29 @@ internal class ActivitiesWidgetMocker : IWidgetMocker
         viewModel.Submarines.Add(new SubmarineViewModel { Count = 15, DaysLeft = 4, IsActive = true, MaxCount = 20 });
         viewModel.Submarines.Add(new SubmarineViewModel { Count = 15, DaysLeft = 4, IsActive = true, MaxCount = 20 });
         viewModel.Submarines.Add(new SubmarineViewModel { Count = 15, DaysLeft = 4, IsActive = true, MaxCount = 20 });
+
+        foreach (SubmarineViewModel submarine in viewModel.Submarines)
+        {
+            submarine.SetMaxBoosts(9);
+
+            //int count = (int)Random.Shared.NextInt64(9);
+            //int extras = (int)Random.Shared.NextInt64(9 - count);
+            //submarine.SetBoosts(count, extras);
+            submarine.SetBoosts(2, 2);
+        }
     }
 
+    private static void SetupCohoot(CohootNestsViewModel viewModel)
+    {
+        var kamuraNest = new CohootNestViewModel { Name = "Kamura" };
+        var elgadoNest = new CohootNestViewModel { Name = "Elgado" };
+        kamuraNest.SetMaxItems(5);
+        elgadoNest.SetMaxItems(5);
+        kamuraNest.SetItems(3);
+        elgadoNest.SetItems(5);
+        viewModel.Nests.Add(kamuraNest);
+        viewModel.Nests.Add(elgadoNest);
+    }
     #endregion
 
     #region Monster Hunter World

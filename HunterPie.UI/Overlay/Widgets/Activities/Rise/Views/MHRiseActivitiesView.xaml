@@ -9,6 +9,14 @@
              d:DesignWidth="240"
              d:DataContext="{d:DesignInstance viewModels:MHRiseActivitiesViewModel}">
     <Grid>
-        <local:SubmarinesView DataContext="{Binding Submarines, Mode=OneTime}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <local:SubmarinesView Grid.Row="0" 
+                              DataContext="{Binding Submarines, Mode=OneTime}"/>
+        <local:CohootNestsView Grid.Row="1"
+                               Height="40"
+                               DataContext="{Binding CohootNests, Mode=OneTime}"/>
     </Grid>
 </UserControl>

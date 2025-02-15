@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+             xmlns:views="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.Views"
              mc:Ignorable="d" 
              d:DesignHeight="40" 
              d:DesignWidth="240"
@@ -24,40 +25,22 @@
                         Image="{StaticResource ICON_COHOOT}"
                         Margin="5"/>
 
-            <UniformGrid Grid.Column="1"
-                         Columns="2">
-                
-                <!-- Kamura -->
-                <Border Background="{StaticResource GRAY_50}"
-                        CornerRadius="5"
-                        Margin="2">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="2*"/>
-                            <RowDefinition Height="3*"/>
-                        </Grid.RowDefinitions>
-
-                        <TextBlock Grid.Row="0"
-                                   Text="Kamura"
-                                   FontWeight="Medium"
-                                   Foreground="{StaticResource WHITE_200}"
-                                   HorizontalAlignment="Center"/>
-
-                        <ItemsControl Grid.Row="1">
-                            
-                        </ItemsControl>
-                    </Grid>
-                </Border>
-
-                <!-- Elgado -->
-                <Border Background="{StaticResource GRAY_50}"
-                        CornerRadius="5"
-                        Margin="2">
-                    <Grid>
-
-                    </Grid>
-                </Border>
-            </UniformGrid>
+            <ItemsControl Grid.Column="1"
+                          d:ItemsSource="{d:SampleData ItemCount=2}"
+                          ItemsSource="{Binding Nests, Mode=OneTime}"
+                          HorizontalAlignment="Right">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type viewModels:CohootNestViewModel}">
+                        <views:CohootNestView Margin="2"
+                                              Width="90"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
     </Border>
 </UserControl>

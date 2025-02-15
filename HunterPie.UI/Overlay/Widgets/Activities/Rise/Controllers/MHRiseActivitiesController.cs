@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.DI;
 using HunterPie.Integrations.Datasources.MonsterHunterRise;
 using HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Activities.ViewModels;
@@ -27,7 +28,12 @@ public class MHRiseActivitiesController : IContextHandler
         _viewModel.Activities = activities;
         _contextHandlers = new IContextHandler[]
         {
-            new CohootNestController(context, activities.CohootNests),
+            new CohootNestController(
+                context: context,
+                viewModel: activities.CohootNests,
+                elgadoViewModel: DependencyContainer.Get<CohootNestViewModel>(),
+                kamuraViewModel: DependencyContainer.Get<CohootNestViewModel>()
+            ),
             new MeowcenariesController(context, activities.Meowcenaries),
             new SubmarinesController(mainDispatcher, context, activities.Submarines),
             new TrainingDojoController(context, activities.TrainingDojo)

@@ -158,6 +158,10 @@
     <SolidColorBrush x:Key="BLUE_600">#002c5f</SolidColorBrush>
     <SolidColorBrush x:Key="BLUE_700">#002147</SolidColorBrush>
 
+    <!-- Violet -->
+    <SolidColorBrush x:Key="Violet">#8E51FF</SolidColorBrush>
+    <SolidColorBrush x:Key="Violet50">#874DF2</SolidColorBrush>
+
     <!-- Player Hud -->
     <LinearGradientBrush x:Key="WIDGET_PLAYER_HEALTH_FOREGROUND" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#3ecfa6"/>

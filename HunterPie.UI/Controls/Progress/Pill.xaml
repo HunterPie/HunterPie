@@ -4,14 +4,15 @@
            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
            xmlns:local="clr-namespace:HunterPie.UI.Controls.Progress"
-           mc:Ignorable="d" 
-           d:DesignHeight="16" 
-           d:DesignWidth="10">
+           xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+           mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
+    </UserControl.Resources>
     <Rectangle Stroke="{Binding BorderBrush, Mode=OneWay}"
-               d:Fill="{StaticResource GREEN}"
                d:Stroke="{StaticResource GRAY}"
-               RadiusX="5"
-               RadiusY="5"
+               RadiusY="{Binding ActualWidth, RelativeSource={RelativeSource Self}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.5}"
+               RadiusX="{Binding RadiusY, RelativeSource={RelativeSource Self}}"
                StrokeThickness="1"
                DataContext="{Binding ., RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Pill}}}">
         <Rectangle.Style>
