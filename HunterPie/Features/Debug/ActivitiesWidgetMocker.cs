@@ -40,6 +40,7 @@ internal class ActivitiesWidgetMocker : IWidgetMocker
 
         SetupSubmarines(activities.Submarines);
         SetupCohoot(activities.CohootNests);
+        SetupTrainingDojo(activities.TrainingDojo);
         return activities;
     }
 
@@ -69,6 +70,14 @@ internal class ActivitiesWidgetMocker : IWidgetMocker
         elgadoNest.SetItems(5);
         viewModel.Nests.Add(kamuraNest);
         viewModel.Nests.Add(elgadoNest);
+    }
+
+    private static void SetupTrainingDojo(TrainingDojoViewModel viewModel)
+    {
+        viewModel.Boosts = (int)Random.Shared.NextInt64(10);
+        viewModel.Rounds = (int)Random.Shared.NextInt64(10);
+        viewModel.MaxBoosts = 10;
+        viewModel.MaxRounds = 10;
     }
     #endregion
 

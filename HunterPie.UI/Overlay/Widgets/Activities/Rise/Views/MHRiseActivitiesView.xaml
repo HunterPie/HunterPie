@@ -5,18 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.Views"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels"
-             mc:Ignorable="d" 
-             Width="240"
+             mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:MHRiseActivitiesViewModel}">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <local:SubmarinesView Grid.Row="0" 
-                              DataContext="{Binding Submarines, Mode=OneTime}"/>
-        <local:CohootNestsView Grid.Row="1"
-                               Height="40"
-                               DataContext="{Binding CohootNests, Mode=OneTime}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <local:SubmarinesView DataContext="{Binding Submarines, Mode=OneTime}"
+                                  Width="240"/>
+            <local:CohootNestsView Height="40"
+                                   DataContext="{Binding CohootNests, Mode=OneTime}"
+                                   Width="240"/>
+        </StackPanel>
+        <local:TrainingDojoView Grid.Row="0"
+                                Grid.Column="1"
+                                Width="40"
+                                Height="146"
+                                Margin="2,0,0,0"
+                                DataContext="{Binding TrainingDojo, Mode=OneTime}"/>
     </Grid>
 </UserControl>

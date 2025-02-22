@@ -1,5 +1,4 @@
 ﻿using HunterPie.UI.Architecture;
-using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
 
@@ -16,6 +15,4 @@ public class TrainingDojoViewModel : ViewModel
 
     private int _maxRounds;
     public int MaxRounds { get => _maxRounds; set => SetValue(ref _maxRounds, value); }
-
-    public ObservableCollection<BuddyViewModel> Buddies { get; } = new();
 }

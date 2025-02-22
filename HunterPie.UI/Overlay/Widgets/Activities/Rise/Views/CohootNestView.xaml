@@ -42,7 +42,7 @@
                         <progress:Pill Margin="2,1"
                                        Width="10"
                                        BorderBrush="{StaticResource GRAY}"
-                                       Foreground="{StaticResource Violet}"
+                                       Foreground="{StaticResource GREEN}"
                                        IsActive="{Binding IsActive, Mode=OneWay}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
