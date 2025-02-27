@@ -3,11 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:button="clr-namespace:HunterPie.UI.Controls.Buttons"
-             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
-             xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels"
-             xmlns:views="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.Views"
              xmlns:progress="clr-namespace:HunterPie.UI.Controls.Progress"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:arithmetics="clr-namespace:HunterPie.UI.Architecture.Converters.Arithmetics"
@@ -49,6 +45,7 @@
                                     Current="{Binding Rounds, Mode=OneWay}"
                                     d:Max="100"
                                     Max="{Binding MaxRounds, Mode=OneWay}"
+                                    Markers="{Binding MaxRounds, Mode=OneWay}"
                                     Margin="4,5"
                                     BorderBrush="{StaticResource GRAY}"
                                     CornerRadius="{Binding ActualWidth, 
@@ -80,6 +77,7 @@
                                     Current="{Binding Boosts, Mode=OneWay}"
                                     d:Max="100"
                                     Max="{Binding MaxBoosts, Mode=OneWay}"
+                                    Markers="{Binding MaxRounds, Mode=OneWay}"
                                     Margin="4,5"
                                     BorderBrush="{StaticResource GRAY}"
                                     CornerRadius="{Binding ActualWidth, 

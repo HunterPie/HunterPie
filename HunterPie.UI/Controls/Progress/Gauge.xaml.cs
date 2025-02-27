@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -9,6 +10,8 @@ namespace HunterPie.UI.Controls.Progress;
 /// </summary>
 public partial class Gauge : UserControl
 {
+    public ObservableCollection<bool> MarkerCollection { get; } = new();
+
     public double Current
     {
         get => (double)GetValue(CurrentProperty);
@@ -71,8 +74,29 @@ public partial class Gauge : UserControl
     public static readonly DependencyProperty CornerRadiusProperty =
         DependencyProperty.Register(nameof(CornerRadius), typeof(double), typeof(Gauge), new PropertyMetadata(5.0));
 
+    public int Markers
+    {
+        get => (int)GetValue(MarkersProperty);
+        set => SetValue(MarkersProperty, value);
+    }
+
+    public static readonly DependencyProperty MarkersProperty =
+        DependencyProperty.Register(nameof(Markers), typeof(int), typeof(Gauge), new PropertyMetadata(OnMarkersChange));
+
     public Gauge()
     {
         InitializeComponent();
+    }
+
+
+    private static void OnMarkersChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is not Gauge gauge || e.NewValue is not int markers)
+            return;
+
+        gauge.MarkerCollection.Clear();
+
+        for (int i = 0; i < markers; i++)
+            gauge.MarkerCollection.Add(i < (markers - 1));
     }
 }
