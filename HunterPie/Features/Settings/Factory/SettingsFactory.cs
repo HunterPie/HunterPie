@@ -41,13 +41,15 @@ internal class SettingsFactory
         var configurations = new Dictionary<GameProcessType, ObservableCollection<ConfigurationCategoryGroup>>
         {
             { GameProcessType.MonsterHunterRise, BuildGameConfiguration(commonConfigurations, ClientConfig.Config.Rise, GameProcessType.MonsterHunterRise) },
-            { GameProcessType.MonsterHunterWorld, BuildGameConfiguration(commonConfigurations, ClientConfig.Config.World, GameProcessType.MonsterHunterWorld) }
+            { GameProcessType.MonsterHunterWorld, BuildGameConfiguration(commonConfigurations, ClientConfig.Config.World, GameProcessType.MonsterHunterWorld) },
+            { GameProcessType.MonsterHunterWilds, BuildGameConfiguration(commonConfigurations, ClientConfig.Config.Wilds, GameProcessType.MonsterHunterWilds ) }
         };
         var supportedConfigurations =
             new ObservableCollection<GameProcessType>(new List<GameProcessType>
             {
                 GameProcessType.MonsterHunterRise,
-                GameProcessType.MonsterHunterWorld
+                GameProcessType.MonsterHunterWorld,
+                GameProcessType.MonsterHunterWilds
             });
 
         return new SettingsViewModel(

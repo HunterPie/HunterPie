@@ -1,0 +1,5 @@
+Address Game::CameraManager 0x13378BC8
+Address Game::EnemyManager 0x13322C78
+
+Offset Environment::MonsterList 0x290
+Offset Monster::BasicData 0x30,0x40,0x100

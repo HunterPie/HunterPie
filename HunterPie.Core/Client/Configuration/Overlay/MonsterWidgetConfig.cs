@@ -11,7 +11,8 @@ namespace HunterPie.Core.Client.Configuration.Overlay;
 
 [Configuration(name: "MONSTER_WIDGET_STRING",
     icon: "ICON_SKULL",
-    group: CommonConfigurationGroups.OVERLAY)]
+    group: CommonConfigurationGroups.OVERLAY,
+    availableGames: GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld)]
 public class MonsterWidgetConfig : IWidgetSettings, ISettings
 {
     #region General Settings

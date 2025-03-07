@@ -18,6 +18,7 @@ public class GameProcessToGameNameConverter : IValueConverter
                 GameProcessType.None => "None",
                 GameProcessType.MonsterHunterRise => Games.MONSTER_HUNTER_RISE,
                 GameProcessType.MonsterHunterWorld => Games.MONSTER_HUNTER_WORLD,
+                GameProcessType.MonsterHunterWilds => Games.MONSTER_HUNTER_WILDS,
                 _ => throw new NotImplementedException(),
             }
             : null;
@@ -31,6 +32,7 @@ public class GameProcessToGameNameConverter : IValueConverter
                 "None" => GameProcessType.None,
                 Games.MONSTER_HUNTER_RISE => GameProcessType.MonsterHunterRise,
                 Games.MONSTER_HUNTER_WORLD => GameProcessType.MonsterHunterWorld,
+                Games.MONSTER_HUNTER_WILDS => GameProcessType.MonsterHunterWilds,
                 _ => throw new NotImplementedException(),
             })
             : throw new ArgumentException($"Expected type {typeof(GameProcessType)}, found {targetType}");

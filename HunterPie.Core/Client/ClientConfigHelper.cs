@@ -17,6 +17,9 @@ public static class ClientConfigHelper
             GameProcessType.MonsterHunterRise => ClientConfig.Config.Rise.Overlay,
 
             GameProcessType.MonsterHunterWorld => ClientConfig.Config.World.Overlay,
+
+            GameProcessType.MonsterHunterWilds => ClientConfig.Config.Wilds.Overlay,
+
             _ => throw new NotImplementedException(),
         };
     }
@@ -34,6 +37,7 @@ public static class ClientConfigHelper
         {
             GameProcessType.MonsterHunterRise => ClientConfig.Config.Rise.RichPresence,
             GameProcessType.MonsterHunterWorld => ClientConfig.Config.World.RichPresence,
+            GameProcessType.MonsterHunterWilds => ClientConfig.Config.Wilds.RichPresence,
             _ => throw new NotImplementedException(),
         };
     }
@@ -45,6 +49,9 @@ public static class ClientConfigHelper
             GameProcessType.MonsterHunterRise => ClientConfig.Config.Rise,
 
             GameProcessType.MonsterHunterWorld => ClientConfig.Config.World,
+
+            GameProcessType.MonsterHunterWilds => ClientConfig.Config.Wilds,
+
             _ => throw new NotImplementedException(),
         };
     }

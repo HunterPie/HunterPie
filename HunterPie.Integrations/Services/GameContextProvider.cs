@@ -3,6 +3,7 @@ using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Game;
 using HunterPie.Core.Scan.Service;
 using HunterPie.Integrations.Datasources.MonsterHunterRise;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using HunterPie.Integrations.Services.Exceptions;
 
@@ -24,6 +25,8 @@ internal class GameContextProvider : IGameContextService
             GameProcessType.MonsterHunterRise => new MHRContext(game, _scanService),
 
             GameProcessType.MonsterHunterWorld => new MHWContext(game, _scanService),
+
+            GameProcessType.MonsterHunterWilds => new MHWildsContext(game, _scanService),
 
             GameProcessType.None or
             GameProcessType.All or

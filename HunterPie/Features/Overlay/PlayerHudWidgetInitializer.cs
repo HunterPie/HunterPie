@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay.Widgets.Player;
@@ -10,6 +11,8 @@ namespace HunterPie.Features.Overlay;
 internal class PlayerHudWidgetInitializer : IWidgetInitializer
 {
     private PlayerHudWidgetContextHandler? _handler;
+
+    public GameProcessType SupportedGames => GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld;
 
     public Task LoadAsync(IContext context)
     {

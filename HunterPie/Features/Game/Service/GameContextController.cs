@@ -2,16 +2,19 @@
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain.Enums;
+using HunterPie.Core.Domain.Mapper;
 using HunterPie.Core.Domain.Process.Events;
 using HunterPie.Core.Domain.Process.Service;
 using HunterPie.Core.Game;
 using HunterPie.Core.Observability.Logging;
+using HunterPie.Core.Utils;
 using HunterPie.Features.Backup.Services;
 using HunterPie.Features.Overlay;
 using HunterPie.Features.Scan.Service;
 using HunterPie.Integrations.Discord.Factory;
 using HunterPie.Integrations.Discord.Service;
 using HunterPie.Integrations.Services;
+using HunterPie.Integrations.Services.Exceptions;
 using HunterPie.UI.Overlay;
 using System;
 using System.Threading;
@@ -60,16 +63,14 @@ internal class GameContextController : IDisposable
 
     private async void OnProcessStart(object? sender, ProcessEventArgs e)
     {
-        try
+        _cancellationTokenSource = new CancellationTokenSource();
+        _context = _gameContextService.Get(e.Game);
+
+        _logger.Debug("Initialized game context");
+
+
+        await _logger.CatchAndLogAsync(async () =>
         {
-            _cancellationTokenSource = new CancellationTokenSource();
-            _context = _gameContextService.Get(e.Game);
-
-            _logger.Debug("Initialized game context");
-
-            _discordPresenceService = _discordPresenceFactory.Create(_context);
-            _discordPresenceService.Start();
-
             await _uiDispatcher.InvokeAsync(() => WidgetManager.Hook(_context));
 
             await ContextInitializers.InitializeAsync(_context);
@@ -77,17 +78,20 @@ internal class GameContextController : IDisposable
             await _uiDispatcher.InvokeAsync(() => WidgetInitializers.InitializeAsync(_context));
 
             _controllableScanService.Start(_cancellationTokenSource.Token);
-        }
-        catch (Exception ex)
-        {
-            _logger.Error(ex.ToString());
-        }
+        });
 
-        await _backupService.ExecuteAsync(e.Game.Type switch
+        _logger.CatchAndLog(() =>
         {
-            GameProcessType.MonsterHunterRise => GameType.Rise,
-            GameProcessType.MonsterHunterWorld => GameType.World,
-            _ => throw new ArgumentOutOfRangeException()
+            _discordPresenceService = _discordPresenceFactory.Create(_context);
+            _discordPresenceService.Start();
+        });
+
+        await _logger.CatchAndLogAsync(async () =>
+        {
+            await _backupService.ExecuteAsync(
+                gameType: MapFactory.Map<GameProcessType, GameType?>(e.Game.Type)
+                          ?? throw new UnsupportedGameException(e.Game.Name)
+            );
         });
     }
 

@@ -14,6 +14,8 @@ public class V4Config : VersionedConfig
 
     public MHWConfig World { get; set; } = new();
 
+    public MHWildsConfig Wilds { get; set; } = new();
+
     public OverlayClientConfig Overlay { get; set; } = new();
 
     public DevelopmentConfig Development { get; set; } = new();
