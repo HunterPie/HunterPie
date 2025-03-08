@@ -219,7 +219,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
                 Types.Add(typeId);
         });
 
-        if (Parts.Count != Context.Parts.Length || Ailments.Count != Context.Ailments.Count)
+        if (Parts.Count != Context.Parts.Count || Ailments.Count != Context.Ailments.Count)
             UIThread.BeginInvoke(() =>
             {
                 foreach (IMonsterPart part in Context.Parts)

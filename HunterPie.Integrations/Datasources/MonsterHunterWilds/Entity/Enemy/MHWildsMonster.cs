@@ -14,12 +14,14 @@ using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 
 public sealed class MHWildsMonster : CommonMonster
 {
+    private readonly MonsterDefinition _definition;
     private bool _isInitialized;
     private readonly ILogger _logger = LoggerFactory.Create();
 
@@ -28,6 +30,7 @@ public sealed class MHWildsMonster : CommonMonster
     private readonly MHWildsMonsterAilment _enrage = new(MonsterAilmentRepository.Enrage);
 
     private readonly List<MHWildsMonsterAilment> _ailments = new(45);
+    private readonly List<MHWildsMonsterPart> _parts = new();
 
     public override string Name => "Unknown";
 
@@ -45,7 +48,7 @@ public sealed class MHWildsMonster : CommonMonster
             _health = value;
             this.Dispatch(_onHealthChange);
 
-            if (Health <= 0)
+            if (value <= 0)
                 this.Dispatch(_onDeath);
         }
     }
@@ -127,7 +130,7 @@ public sealed class MHWildsMonster : CommonMonster
         }
     }
 
-    public override IMonsterPart[] Parts => Array.Empty<IMonsterPart>();
+    public override IReadOnlyCollection<IMonsterPart> Parts => _parts;
 
     public override IReadOnlyCollection<IMonsterAilment> Ailments => _ailments;
 
@@ -161,6 +164,10 @@ public sealed class MHWildsMonster : CommonMonster
         _address = address;
         Id = basicData.Id;
         _cryptoService = cryptoService;
+        _definition = MonsterRepository.FindBy(
+            game: GameType.Wilds,
+            id: Id
+        ) ?? MonsterRepository.UnknownDefinition;
     }
 
     [ScannableMethod]
@@ -274,6 +281,51 @@ public sealed class MHWildsMonster : CommonMonster
     }
 
     [ScannableMethod]
+    internal async Task GetParts()
+    {
+        nint partsHealthArray = await Memory.ReadPtrAsync(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Monster::PartsHealth")
+        );
+        IAsyncEnumerable<MHWildsPartHealth> parts = Memory.ReadArrayOfPtrsAsync<MHWildsPartHealth>(partsHealthArray);
+
+        int index = 0;
+        await foreach (MHWildsPartHealth part in parts)
+        {
+            MHWildsEncryptedFloat encryptedHealth = await Memory.ReadAsync<MHWildsEncryptedFloat>(part.HealthPointer);
+            MHWildsEncryptedFloat encryptedMaxHealth = await Memory.ReadAsync<MHWildsEncryptedFloat>(part.MaxHealthPointer);
+
+            var data = new UpdatePartData
+            {
+                Health = await _cryptoService.DecryptFloat(encryptedHealth),
+                MaxHealth = await _cryptoService.DecryptFloat(encryptedMaxHealth)
+            };
+
+            bool isNewPart = index >= _parts.Count;
+
+            if (isNewPart)
+            {
+                MonsterPartDefinition definition = index < _definition.Parts.Length
+                    ? _definition.Parts[index]
+                    : MonsterRepository.UnknownPartDefinition;
+
+                _parts.Add(new MHWildsMonsterPart(definition));
+            }
+
+            MHWildsMonsterPart partEntity = _parts[index];
+
+            partEntity.Update(data);
+
+            if (isNewPart)
+                this.Dispatch(
+                    toDispatch: _onNewPartFound,
+                    data: partEntity
+                );
+            index++;
+        }
+    }
+
+    [ScannableMethod]
     internal Task FinishInitializationAsync()
     {
         if (_isInitialized)
@@ -282,10 +334,11 @@ public sealed class MHWildsMonster : CommonMonster
         _logger.Debug($"Initialized {Name} at address {_address:X} with id: {Id}");
         _isInitialized = true;
 
-        this.Dispatch(
-            toDispatch: _onSpawn,
-            data: EventArgs.Empty
-        );
+        if (Health > 0)
+            this.Dispatch(
+                toDispatch: _onSpawn,
+                data: EventArgs.Empty
+            );
 
         return Task.CompletedTask;
     }

@@ -48,4 +48,24 @@
         <Ailment Id="44" String="unk44"/>
         <Ailment Id="45" String="unk45"/>
     </Ailments>
+	<Monsters>
+		<Monster Id="21">
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_TORSO"/>
+				<Part Id="2" String="PART_TAIL"/>
+				<Part Id="3" String="PART_L_CLAW"/>
+				<Part Id="4" String="PART_R_CLAW"/>
+				<Part Id="5" String="PART_L_FORELEG"/>
+				<Part Id="6" String="PART_R_FORELEG"/>
+				<Part Id="7" String="PART_L_H_LEG"/>
+				<Part Id="8" String="PART_R_H_LEG"/>
+				<Part Id="9" String="PART_PETALS"/>
+			</Parts>
+		</Monster>
+	</Monsters>
 </GameData>
