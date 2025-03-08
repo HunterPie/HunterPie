@@ -26,7 +26,7 @@ public sealed class MHWildsGame : CommonGame
 
     public override IAbnormalityCategorizationService AbnormalityCategorizationService => throw new NotImplementedException();
 
-    public override List<IMonster> Monsters => new(3);
+    public override IReadOnlyCollection<IMonster> Monsters => _monsters.Values;
 
     public override IChat? Chat => null;
 
@@ -87,7 +87,6 @@ public sealed class MHWildsGame : CommonGame
         );
 
         _monsters[address] = monster;
-        Monsters.Add(monster);
 
         this.Dispatch(
             toDispatch: _onMonsterSpawn,
@@ -101,7 +100,6 @@ public sealed class MHWildsGame : CommonGame
             return;
 
         _monsters.Remove(address);
-        Monsters.Remove(monster);
 
         this.Dispatch(
             toDispatch: _onMonsterDespawn,

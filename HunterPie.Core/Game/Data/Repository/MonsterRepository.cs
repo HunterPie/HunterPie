@@ -2,6 +2,7 @@
 using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain.Mapper;
 using HunterPie.Core.Game.Data.Definitions;
+using HunterPie.Core.Game.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,12 @@ public static class MonsterRepository
     private static readonly Lazy<Dictionary<int, MonsterDefinition>> LazyWorldMonstersDataSource = new(() => LoadMonsters(WORLD_MONSTERS_FILE));
     private static readonly Lazy<Dictionary<int, MonsterDefinition>> LazyWildsMonstersDataSource = new(() => LoadMonsters(WILDS_MONSTERS_FILE));
 
-    public static MonsterDefinition UnknownDefinition = new();
+    public static MonsterDefinition UnknownDefinition = new MonsterDefinition
+    {
+        Parts = Array.Empty<MonsterPartDefinition>(),
+        Types = Array.Empty<string>(),
+        Weaknesses = Array.Empty<Element>()
+    };
 
     public static MonsterPartDefinition UnknownPartDefinition = new MonsterPartDefinition { String = "PART_UNKNOWN" };
 

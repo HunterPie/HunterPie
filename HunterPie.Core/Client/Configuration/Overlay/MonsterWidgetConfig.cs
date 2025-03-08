@@ -74,7 +74,7 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
     public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Horizontal;
 
     [ConfigurationProperty("MONSTER_WIDGET_DYNAMIC_RESIZE_STRING", group: CommonConfigurationGroups.WIDGET)]
-    public Observable<bool> DynamicResize { get; set; } = false;
+    public Observable<bool> DynamicResize { get; set; } = true;
 
     [ConfigurationProperty("MONSTER_WIDGET_MAX_WIDTH_STRING", group: CommonConfigurationGroups.WIDGET)]
     public Range MaxWidth { get; set; } = new(600, 1000, 200, 1);
@@ -87,7 +87,9 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
     #endregion
 
     #region Target settings
-    [ConfigurationProperty("MONSTER_WIDGET_TARGET_MODE_STRING", availableGames: GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld, group: CommonConfigurationGroups.MONSTER_TARGET)]
+    [ConfigurationProperty("MONSTER_WIDGET_TARGET_MODE_STRING",
+        availableGames: GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld | GameProcessType.MonsterHunterWilds,
+        group: CommonConfigurationGroups.MONSTER_TARGET)]
     [GameConfigurationAdapter(typeof(TargetModeEnumAdapter))]
     public Observable<TargetModeType> TargetMode { get; set; } = TargetModeType.LockOn;
 

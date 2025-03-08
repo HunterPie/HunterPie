@@ -25,7 +25,7 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
 
     public ITargetDetectionService TargetDetectionService => _targetDetectionService;
 
-    public abstract List<IMonster> Monsters { get; }
+    public abstract IReadOnlyCollection<IMonster> Monsters { get; }
 
     public abstract IChat? Chat { get; }
 

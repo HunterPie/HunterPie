@@ -16,7 +16,7 @@ public class MockMonstersViewModel : MonstersViewModel
             Stamina = 10000,
             MaxStamina = 10000,
             Crown = Crown.Gold,
-            TargetType = Target.Another,
+            TargetType = Target.None,
             IsTarget = false,
             IsAlive = true,
             CaptureThreshold = 0.2,
@@ -30,7 +30,7 @@ public class MockMonstersViewModel : MonstersViewModel
             Stamina = 10000,
             MaxStamina = 10000,
             Crown = Crown.Silver,
-            TargetType = Target.Another,
+            TargetType = Target.None,
             IsTarget = false,
             IsAlive = true,
             CaptureThreshold = 0.25,
@@ -44,13 +44,13 @@ public class MockMonstersViewModel : MonstersViewModel
             Stamina = 8500,
             MaxStamina = 10000,
             Crown = Crown.Mini,
-            TargetType = Target.Self,
-            IsTarget = true,
+            TargetType = Target.None,
+            IsTarget = false,
             IsAlive = true,
             CaptureThreshold = 0.5,
             IsCapturable = true,
         });
-        VisibleMonsters = 1;
+        VisibleMonsters = 3;
         MonstersCount = 3;
 
         foreach (BossMonsterViewModel vm in Monsters)
