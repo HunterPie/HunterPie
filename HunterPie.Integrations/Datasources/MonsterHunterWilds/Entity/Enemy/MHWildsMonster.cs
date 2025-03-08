@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
@@ -32,7 +33,7 @@ public sealed class MHWildsMonster : CommonMonster
     private readonly List<MHWildsMonsterAilment> _ailments = new(45);
     private readonly List<MHWildsMonsterPart> _parts = new();
 
-    public override string Name => "Unknown";
+    public override string Name { get; }
 
     public override int Id { get; protected set; }
 
@@ -159,10 +160,17 @@ public sealed class MHWildsMonster : CommonMonster
         IScanService scanService,
         nint address,
         MHWildsMonsterBasicData basicData,
-        MHWildsCryptoService cryptoService) : base(process, scanService)
+        MHWildsCryptoService cryptoService,
+        ILocalizationRepository localizationRepository) : base(process, scanService)
     {
         _address = address;
         Id = basicData.Id;
+
+        string namePath = $"//Strings/Monsters/Rise/Monster[@Id='{Id}']";
+
+        Name = localizationRepository.ExistsBy(namePath)
+            ? localizationRepository.FindStringBy(namePath)
+            : $"Unknown [id: {Id}]";
         _cryptoService = cryptoService;
         _definition = MonsterRepository.FindBy(
             game: GameType.Wilds,
@@ -281,7 +289,7 @@ public sealed class MHWildsMonster : CommonMonster
     }
 
     [ScannableMethod]
-    internal async Task GetParts()
+    internal async Task GetPartsAsync()
     {
         nint partsHealthArray = await Memory.ReadPtrAsync(
             address: _address,

@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
@@ -20,6 +21,8 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game;
 public sealed class MHWildsGame : CommonGame
 {
     private readonly MHWildsCryptoService _cryptoService;
+    private readonly ILocalizationRepository _localizationRepository;
+
     private readonly Dictionary<nint, MHWildsMonster> _monsters = new(3);
 
     public override IPlayer Player => throw new NotImplementedException();
@@ -37,8 +40,10 @@ public sealed class MHWildsGame : CommonGame
 
     public MHWildsGame(
         IGameProcess process,
-        IScanService scanService) : base(process, scanService)
+        IScanService scanService,
+        ILocalizationRepository localizationRepository) : base(process, scanService)
     {
+        _localizationRepository = localizationRepository;
         _cryptoService = new MHWildsCryptoService(process.Memory);
     }
 
@@ -83,7 +88,8 @@ public sealed class MHWildsGame : CommonGame
             scanService: ScanService,
             address: address,
             basicData: data,
-            cryptoService: _cryptoService
+            cryptoService: _cryptoService,
+            _localizationRepository
         );
 
         _monsters[address] = monster;

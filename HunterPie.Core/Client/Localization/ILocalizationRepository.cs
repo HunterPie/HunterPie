@@ -7,6 +7,8 @@ public interface ILocalizationRepository
 {
     public LocalizationData FindBy(string path);
 
+    public bool ExistsBy(string path);
+
     public string FindStringBy(string path);
 
     public LocalizationData FindByEnum<T>(T value) where T : Enum;
