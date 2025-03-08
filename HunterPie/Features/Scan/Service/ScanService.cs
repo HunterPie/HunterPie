@@ -64,7 +64,7 @@ internal class ScanService : IControllableScanService, IDisposable
         var readOnlyScannables = _scannables.ToImmutableArray();
         _lock.ExitReadLock();
 
-        Task[] tasks = readOnlyScannables.Select(async it => await it.ScanAsync())
+        Task[] tasks = readOnlyScannables.Select(async it => await it.ScanAsync().ConfigureAwait(false))
             .ToArray();
 
         Task.WaitAll(tasks, cancellationToken);

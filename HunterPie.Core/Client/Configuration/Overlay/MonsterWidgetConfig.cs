@@ -12,7 +12,7 @@ namespace HunterPie.Core.Client.Configuration.Overlay;
 [Configuration(name: "MONSTER_WIDGET_STRING",
     icon: "ICON_SKULL",
     group: CommonConfigurationGroups.OVERLAY,
-    availableGames: GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld)]
+    availableGames: GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld | GameProcessType.MonsterHunterWilds)]
 public class MonsterWidgetConfig : IWidgetSettings, ISettings
 {
     #region General Settings
@@ -71,7 +71,7 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
 
     #region Widget Settings
     [ConfigurationProperty("ORIENTATION_STRING", group: CommonConfigurationGroups.WIDGET)]
-    public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Vertical;
+    public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Horizontal;
 
     [ConfigurationProperty("MONSTER_WIDGET_DYNAMIC_RESIZE_STRING", group: CommonConfigurationGroups.WIDGET)]
     public Observable<bool> DynamicResize { get; set; } = false;

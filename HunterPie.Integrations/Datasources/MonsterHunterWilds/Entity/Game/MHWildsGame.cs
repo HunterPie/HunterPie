@@ -11,12 +11,15 @@ using HunterPie.Core.Scan.Service;
 using HunterPie.Core.Utils;
 using HunterPie.Integrations.Datasources.Common.Entity.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game;
 
 public sealed class MHWildsGame : CommonGame
 {
+    private readonly MHWildsCryptoService _cryptoService;
     private readonly Dictionary<nint, MHWildsMonster> _monsters = new(3);
 
     public override IPlayer Player => throw new NotImplementedException();
@@ -36,7 +39,7 @@ public sealed class MHWildsGame : CommonGame
         IGameProcess process,
         IScanService scanService) : base(process, scanService)
     {
-
+        _cryptoService = new MHWildsCryptoService(process.Memory);
     }
 
     [ScannableMethod]
@@ -79,7 +82,8 @@ public sealed class MHWildsGame : CommonGame
             process: Process,
             scanService: ScanService,
             address: address,
-            basicData: data
+            basicData: data,
+            cryptoService: _cryptoService
         );
 
         _monsters[address] = monster;
@@ -105,5 +109,11 @@ public sealed class MHWildsGame : CommonGame
         );
 
         monster.Dispose();
+    }
+
+    public override void Dispose()
+    {
+        base.Dispose();
+        _cryptoService.Dispose();
     }
 }
