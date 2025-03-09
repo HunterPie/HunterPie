@@ -11,6 +11,7 @@ using HunterPie.Core.Game.Services;
 using HunterPie.Core.Scan.Service;
 using HunterPie.Core.Utils;
 using HunterPie.Integrations.Datasources.Common.Entity.Game;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
@@ -66,13 +67,17 @@ public sealed class MHWildsGame : CommonGame
         (await monstersToCreate.Select(async it =>
                 (
                     address: it,
+                    context: await Memory.DerefPtrAsync<MHWildsObjectContext>(
+                        address: it,
+                        offsets: AddressMap.GetOffsets("Monster::Context")
+                    ),
                     data: await Memory.DerefPtrAsync<MHWildsMonsterBasicData>(
                         address: it,
                         offsets: AddressMap.GetOffsets("Monster::BasicData")
                     )
                 )
             ).AwaitAll())
-            .Where(it => it.data.Category == 0)
+            .Where(it => it.context is { IsReady: true, IsDestroyed: false } && it.data.Category == 0)
             .ForEach(it => HandleMonsterSpawn(it.address, it.data));
 
 
