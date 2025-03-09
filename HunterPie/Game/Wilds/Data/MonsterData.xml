@@ -15,14 +15,14 @@
         <Ailment Id="11" String="AILMENT_BLAST"/>
         <Ailment Id="12" String="unk12"/>
         <Ailment Id="13" String="AILMENT_MOUNT"/>
-        <Ailment Id="14" String="unk14"/>
+        <Ailment Id="14" String="AILMENT_EXHAUST"/>
         <Ailment Id="15" String="AILMENT_STUN"/>
         <Ailment Id="16" String="AILMENT_STUN"/>
-        <Ailment Id="17" String="unk17"/>
+        <Ailment Id="17" String="AILMENT_TRANQUILIZE"/>
         <Ailment Id="18" String="AILMENT_FLASH"/>
         <Ailment Id="19" String="AILMENT_FLASH"/>
         <Ailment Id="20" String="unk20"/>
-        <Ailment Id="21" String="unk21"/>
+        <Ailment Id="21" String="AILMENT_DUNG"/>
         <Ailment Id="22" String="unk22"/>
         <Ailment Id="23" String="unk23"/>
         <Ailment Id="24" String="unk24"/>
