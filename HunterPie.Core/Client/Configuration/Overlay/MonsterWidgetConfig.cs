@@ -71,10 +71,10 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
 
     #region Widget Settings
     [ConfigurationProperty("ORIENTATION_STRING", group: CommonConfigurationGroups.WIDGET)]
-    public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Horizontal;
+    public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Vertical;
 
     [ConfigurationProperty("MONSTER_WIDGET_DYNAMIC_RESIZE_STRING", group: CommonConfigurationGroups.WIDGET)]
-    public Observable<bool> DynamicResize { get; set; } = true;
+    public Observable<bool> DynamicResize { get; set; } = false;
 
     [ConfigurationProperty("MONSTER_WIDGET_MAX_WIDTH_STRING", group: CommonConfigurationGroups.WIDGET)]
     public Range MaxWidth { get; set; } = new(600, 1000, 200, 1);
