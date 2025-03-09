@@ -9,6 +9,7 @@ public static class MHWildsExtensions
     {
         MHWildsDynamicArray structure = await memory.ReadAsync<MHWildsDynamicArray>(address);
         count = Math.Min(count, structure.Count);
+        count = Math.Max(count, 0);
 
         return await memory.ReadAsync<nint>(structure.Elements + 0x20, count);
     }
@@ -17,6 +18,7 @@ public static class MHWildsExtensions
     {
         int size = await memory.ReadAsync<int>(address + 0x1C);
         count = Math.Min(size, count);
+        count = Math.Max(count, 0);
 
         return await memory.ReadAsync<T>(address + 0x20, count);
     }

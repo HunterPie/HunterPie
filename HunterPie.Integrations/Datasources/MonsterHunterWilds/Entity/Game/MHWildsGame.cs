@@ -25,7 +25,7 @@ public sealed class MHWildsGame : CommonGame
 
     private readonly Dictionary<nint, MHWildsMonster> _monsters = new(3);
 
-    public override IPlayer Player => throw new NotImplementedException();
+    public override IPlayer? Player => null;
 
     public override IAbnormalityCategorizationService AbnormalityCategorizationService => throw new NotImplementedException();
 
