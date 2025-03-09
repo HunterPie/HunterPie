@@ -49,7 +49,11 @@
         <Ailment Id="45" String="unk45"/>
     </Ailments>
 	<Monsters>
-		<Monster Id="0">
+		<Monster Id="0"
+		         Size="1754.37">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_FLYING_WYVERN"/>
 			</Types>
@@ -67,7 +71,11 @@
 				<Part Id="6" String="PART_R_WING"/>
 			</Parts>
 		</Monster>
-		<Monster Id="1">
+		<Monster Id="1"
+		         Size="1704.22">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_FLYING_WYVERN"/>
 			</Types>
@@ -86,7 +94,11 @@
 				<Part Id="7" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="2">
+		<Monster Id="2"
+		         Size="1704.22">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_CONSTRUCT"/>
 			</Types>
@@ -105,7 +117,11 @@
 				<Part Id="7" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="3">
+		<Monster Id="3"
+		         Size="2100.58">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_FLYING_WYVERN"/>
 			</Types>
@@ -125,7 +141,11 @@
 				<Part Id="8" String="PART_R_WING"/>
 			</Parts>
 		</Monster>
-		<Monster Id="4">
+		<Monster Id="4"
+		         Size="994.5472">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_BIRD_WYVERN"/>
 			</Types>
@@ -144,7 +164,11 @@
 				<Part Id="7" String="PART_L_WING"/>
 			</Parts>
 		</Monster>
-		<Monster Id="5">
+		<Monster Id="5"
+		         Size="964.138">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_BIRD_WYVERN"/>
 			</Types>
@@ -163,7 +187,11 @@
 				<Part Id="7" String="PART_R_WING"/>
 			</Parts>
 		</Monster>
-		<Monster Id="6">
+		<Monster Id="6"
+		         Size="1051.15">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_FANGED_BEAST"/>
 			</Types>
@@ -181,7 +209,11 @@
 				<Part Id="6" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="7">
+		<Monster Id="7"
+		         Size="899.3712">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_FANGED_BEAST"/>
 			</Types>
@@ -199,7 +231,11 @@
 				<Part Id="6" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="9">
+		<Monster Id="9"
+		         Size="731.9625">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_TEMNOCERAN"/>
 			</Types>
@@ -223,7 +259,11 @@
 				<Part Id="12" String="PART_UNKNOWN"/>
 			</Parts>
 		</Monster>
-		<Monster Id="10">
+		<Monster Id="10"
+		         Size="1765.9">
+			<Crowns Gold="117"
+			        Silver="111"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_DEMI_ELDER"/>
 			</Types>
@@ -248,7 +288,11 @@
 				<Part Id="12" String="PART_L_WING"/>
 			</Parts>
 		</Monster>
-		<Monster Id="14">
+		<Monster Id="14"
+		         Size="1646.46">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_DEMI_ELDER"/>
 			</Types>
@@ -269,7 +313,11 @@
 				<Part Id="8" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="15">
+		<Monster Id="15"
+		         Size="1388.7515">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_CONSTRUCT"/>
 			</Types>
@@ -292,7 +340,11 @@
 				<Part Id="9" String="PART_TAIL_TIP"/>
 			</Parts>
 		</Monster>
-		<Monster Id="16">
+		<Monster Id="16"
+		         Size="1390.47">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_CONSTRUCT"/>
 			</Types>
@@ -310,7 +362,11 @@
 				<Part Id="6" String="PART_TAIL_HAIR"/>
 			</Parts>
 		</Monster>
-		<Monster Id="17">
+		<Monster Id="17"
+		         Size="1390.47">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_FANGED_BEAST"/>
 			</Types>
@@ -328,7 +384,11 @@
 				<Part Id="6" String="PART_TAIL_HAIR"/>
 			</Parts>
 		</Monster>
-		<Monster Id="18">
+		<Monster Id="18"
+		         Size="1912.616">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_LEVIATHAN"/>
 			</Types>
@@ -347,7 +407,11 @@
 				<Part Id="7" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="19">
+		<Monster Id="19"
+		         Size="498.3">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_AMPHIBIAN"/>
 			</Types>
@@ -366,7 +430,11 @@
 				<Part Id="7" String="PART_TONGUE"/>
 			</Parts>
 		</Monster>
-		<Monster Id="20">
+		<Monster Id="20"
+		         Size="1244.165">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_BRUTE_WYVERN"/>
 			</Types>
@@ -384,7 +452,11 @@
 				<Part Id="6" String="PART_L_H_FORELEG"/>
 			</Parts>
 		</Monster>
-		<Monster Id="21">
+		<Monster Id="21"
+		         Size="698.7456">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_TEMNOCERAN"/>
 			</Types>
@@ -405,7 +477,11 @@
 				<Part Id="9" String="PART_PETALS"/>
 			</Parts>
 		</Monster>
-		<Monster Id="22">
+		<Monster Id="22"
+		         Size="1197.82">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_BRUTE_WYVERN"/>
 			</Types>
@@ -426,7 +502,11 @@
 				<Part Id="7" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="23">
+		<Monster Id="23"
+		         Size="2057.0854">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_FLYING_WYVERN"/>
 			</Types>
@@ -447,7 +527,11 @@
 				<Part Id="9" String="PART_UNKNOWN"/>
 			</Parts>
 		</Monster>
-		<Monster Id="24">
+		<Monster Id="24"
+		         Size="2979.2935">
+			<Crowns Gold="113"
+			        Silver="109"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_LEVIATHAN"/>
 			</Types>
@@ -474,7 +558,11 @@
 				<Part Id="15" String="PART_L_TAIL_VEIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="25">
+		<Monster Id="25"
+		         Size="2093.7">
+			<Crowns Gold="113"
+			        Silver="109"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_CEPHALOPOD"/>
 			</Types>
@@ -495,7 +583,11 @@
 				<Part Id="9" String="PART_UNKNOWN"/>
 			</Parts>
 		</Monster>
-		<Monster Id="26">
+		<Monster Id="26"
+		         Size="1164.36">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_FANGED_BEAST"/>
 			</Types>
@@ -516,7 +608,11 @@
 				<Part Id="9" String="PART_UNKNOWN"/>
 			</Parts>
 		</Monster>
-		<Monster Id="27">
+		<Monster Id="27"
+		         Size="1666.54">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_FLYING_WYVERN"/>
 			</Types>
@@ -537,7 +633,11 @@
 				<Part Id="9" String="PART_UNKNOWN"/>
 			</Parts>
 		</Monster>
-		<Monster Id="28">
+		<Monster Id="28"
+		         Size="1666.54">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_CONSTRUCT"/>
 			</Types>
@@ -558,7 +658,11 @@
 				<Part Id="9" String="PART_UNKNOWN"/>
 			</Parts>
 		</Monster>
-		<Monster Id="29">
+		<Monster Id="29"
+		         Size="1659.3395">
+			<Crowns Gold="113"
+			        Silver="109"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_LEVIATHAN"/>
 			</Types>
@@ -577,7 +681,11 @@
 				<Part Id="7" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-		<Monster Id="30">
+		<Monster Id="30"
+		         Size="4560.894">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_LEVIATHAN"/>
 			</Types>
@@ -598,7 +706,11 @@
 				<Part Id="10" String="PART_LG_ICEPLATE_EXPOSED"/>
 			</Parts>
 		</Monster>
-		<Monster Id="31">
+		<Monster Id="31"
+		         Size="1396.3015">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_CEPHALOPOD"/>
 			</Types>
@@ -619,7 +731,11 @@
 				<Part Id="10" String="PART_MOUTH"/>
 			</Parts>
 		</Monster>
-		<Monster Id="32">
+		<Monster Id="32"
+		         Size="4623.598">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
 			<Types>
 				<Type Name="TYPE_CONSTRUCT"/>
 			</Types>

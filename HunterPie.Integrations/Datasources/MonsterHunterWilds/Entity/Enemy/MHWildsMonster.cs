@@ -23,6 +23,7 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 public sealed class MHWildsMonster : CommonMonster
 {
     private readonly MonsterDefinition _definition;
+    private readonly MHWildsMonsterBasicData _basicData;
     private bool _isInitialized;
     private readonly ILogger _logger = LoggerFactory.Create();
 
@@ -163,6 +164,7 @@ public sealed class MHWildsMonster : CommonMonster
         MHWildsCryptoService cryptoService,
         ILocalizationRepository localizationRepository) : base(process, scanService)
     {
+        _basicData = basicData;
         _address = address;
         Id = basicData.Id;
 
@@ -217,6 +219,39 @@ public sealed class MHWildsMonster : CommonMonster
             MaxStamina = stamina.Max;
             Stamina = stamina.Current;
         }
+    }
+
+    [ScannableMethod]
+    internal async Task GetCrownAsync()
+    {
+        short size;
+        // to handle Alpha Doshaguma
+        // cmp dword ptr [rdx+48],10
+        // jne MonsterHunterWilds.exe+79C635F
+        // mov ax,0082
+        if (Id == 0x10 && _basicData.RoleId == 1)
+            size = 130;
+        else
+        {
+            MHWildsMonsterContext data = await Memory.DerefPtrAsync<MHWildsMonsterContext>(
+                address: _address,
+                offsets: AddressMap.GetOffsets("Monster::ContextData")
+            );
+
+            size = data switch
+            {
+                { HasFixedSize: true } => data.FixedSize,
+                _ => data.Size
+            };
+        }
+
+        Crown = size >= _definition.Size.Gold
+            ? Crown.Gold
+            : size >= _definition.Size.Silver
+                ? Crown.Silver
+                : size <= _definition.Size.Mini
+                    ? Crown.Mini
+                    : Crown.None;
     }
 
     [ScannableMethod]
