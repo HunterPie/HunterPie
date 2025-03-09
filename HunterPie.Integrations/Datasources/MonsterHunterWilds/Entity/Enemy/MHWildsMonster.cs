@@ -166,7 +166,7 @@ public sealed class MHWildsMonster : CommonMonster
         _address = address;
         Id = basicData.Id;
 
-        string namePath = $"//Strings/Monsters/Rise/Monster[@Id='{Id}']";
+        string namePath = $"//Strings/Monsters/Wilds/Monster[@Id='{Id}']";
 
         Name = localizationRepository.ExistsBy(namePath)
             ? localizationRepository.FindStringBy(namePath)
