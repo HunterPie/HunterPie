@@ -2,12 +2,11 @@
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
-using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 
-public sealed class MHWildsMonsterAilment : CommonAilment, IUpdatable<MHWildsTimer>, IUpdatable<MHWildsBuildUp>
+public sealed class MHWildsMonsterAilment : CommonAilment, IUpdatable<MHWildsAilment>, IUpdatable<MHWildsBuildUp>
 {
     public override string Id { get; protected set; }
 
@@ -56,10 +55,15 @@ public sealed class MHWildsMonsterAilment : CommonAilment, IUpdatable<MHWildsTim
         Id = definition.String;
     }
 
-    public void Update(MHWildsTimer data)
+    public void Update(MHWildsAilment data)
     {
-        MaxTimer = data.Max;
-        Timer = data.Current;
+        MaxTimer = data.Timer.Max;
+
+        Timer = data.IsActive switch
+        {
+            1 => MaxTimer - data.Timer.Current,
+            _ => 0
+        };
     }
 
     public void Update(MHWildsBuildUp data)
