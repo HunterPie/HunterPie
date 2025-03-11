@@ -79,10 +79,11 @@
         </Grid>
         
         <TextBlock Grid.Row="1"
-                   d:Text="Name"
+                   d:Text="Name of the monster"
                    Text="{Binding Name, Mode=OneWay}"
                    FontSize="14"
-                   HorizontalAlignment="Center"
+                   TextAlignment="Center"
+                   TextTrimming="CharacterEllipsis"
                    Foreground="{StaticResource WHITE_50}"/>
     </Grid>
 </UserControl>

@@ -89,6 +89,9 @@ public class MonsterWidgetContextHandler : IContextHandler
             monster.Dispose();
 
             _ = _viewModel.Monsters.Remove(monster);
+
+            if (_viewModel.Monster == monster)
+                _viewModel.Monster = null;
         });
 
         e.OnTargetChange -= OnTargetChange;
@@ -120,7 +123,7 @@ public class MonsterWidgetContextHandler : IContextHandler
                     inferredTarget: _context.Game.TargetDetectionService.Infer(it.Context)
                 );
 
-                return target == Target.Self;
+                return it.IsAlive && target == Target.Self;
             }).ToArray();
 
         _viewModel.Monster = targets.SingleOrNull();
