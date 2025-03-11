@@ -39,36 +39,6 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
     public Position Position { get; set; } = new(1200, 100);
     #endregion
 
-    #region Customization Settings
-    [ConfigurationProperty("MONSTER_WIDGET_DETAILS_CONFIGURATIONS_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
-    public virtual MonsterDetailsConfiguration Details { get; set; } = new();
-    #endregion
-
-    #region Part Settings
-    [ConfigurationProperty("MONSTER_WIDGET_ENABLE_PARTS_STRING", group: CommonConfigurationGroups.MONSTER_PARTS)]
-    public Observable<bool> EnableParts { get; set; } = true;
-
-    [ConfigurationProperty("MONSTER_WIDGET_HIDE_UNKNOWN_PARTS_STRING", group: CommonConfigurationGroups.MONSTER_PARTS)]
-    public Observable<bool> HideUnknownParts { get; set; } = true;
-
-    [ConfigurationProperty("MONSTER_WIDGET_AUTO_HIDE_PARTS_STRING", group: CommonConfigurationGroups.MONSTER_PARTS)]
-    public Observable<bool> AutoHideParts { get; set; } = true;
-
-    [ConfigurationProperty("MONSTER_WIDGET_AUTO_HIDE_PARTS_DELAY_STRING", group: CommonConfigurationGroups.MONSTER_PARTS)]
-    public Range AutoHidePartsDelay { get; set; } = new(15, 300, 1, 1);
-    #endregion
-
-    #region Ailment Settings
-    [ConfigurationProperty("MONSTER_WIDGET_ENABLE_AILMENTS_STRING", group: CommonConfigurationGroups.MONSTER_AILMENTS)]
-    public Observable<bool> EnableAilments { get; set; } = true;
-
-    [ConfigurationProperty("MONSTER_WIDGET_AUTO_HIDE_AILMENTS_STRING", group: CommonConfigurationGroups.MONSTER_AILMENTS)]
-    public Observable<bool> AutomaticallyHideAilments { get; set; } = true;
-
-    [ConfigurationProperty("MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING", group: CommonConfigurationGroups.MONSTER_AILMENTS)]
-    public Range AutoHideAilmentsDelay { get; set; } = new(15, 300, 1, 1);
-    #endregion
-
     #region Widget Settings
     [ConfigurationProperty("MONSTER_WIDGET_COMPACT_MODE", group: CommonConfigurationGroups.WIDGET)]
     public Observable<bool> IsCompactModeEnabled { get; set; } = true;
@@ -102,4 +72,36 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING", group: CommonConfigurationGroups.MONSTER_TARGET)]
     public Observable<bool> ShowOnlyTarget { get; set; } = false;
     #endregion
+
+    #region Customization Settings
+    [ConfigurationProperty("MONSTER_WIDGET_DETAILS_CONFIGURATIONS_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    public virtual MonsterDetailsConfiguration Details { get; set; } = new();
+    #endregion
+
+    #region Part Settings
+    [ConfigurationProperty("MONSTER_WIDGET_ENABLE_PARTS_STRING", group: CommonConfigurationGroups.MONSTER_PARTS)]
+    public Observable<bool> EnableParts { get; set; } = true;
+
+    [ConfigurationProperty("MONSTER_WIDGET_HIDE_UNKNOWN_PARTS_STRING", group: CommonConfigurationGroups.MONSTER_PARTS)]
+    public Observable<bool> HideUnknownParts { get; set; } = true;
+
+    [ConfigurationProperty("MONSTER_WIDGET_AUTO_HIDE_PARTS_STRING", group: CommonConfigurationGroups.MONSTER_PARTS)]
+    public Observable<bool> AutoHideParts { get; set; } = true;
+
+    [ConfigurationProperty("MONSTER_WIDGET_AUTO_HIDE_PARTS_DELAY_STRING", group: CommonConfigurationGroups.MONSTER_PARTS)]
+    public Range AutoHidePartsDelay { get; set; } = new(15, 300, 1, 1);
+    #endregion
+
+    #region Ailment Settings
+    [ConfigurationProperty("MONSTER_WIDGET_ENABLE_AILMENTS_STRING", group: CommonConfigurationGroups.MONSTER_AILMENTS)]
+    public Observable<bool> EnableAilments { get; set; } = true;
+
+    [ConfigurationProperty("MONSTER_WIDGET_AUTO_HIDE_AILMENTS_STRING", group: CommonConfigurationGroups.MONSTER_AILMENTS)]
+    public Observable<bool> AutomaticallyHideAilments { get; set; } = true;
+
+    [ConfigurationProperty("MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING", group: CommonConfigurationGroups.MONSTER_AILMENTS)]
+    public Range AutoHideAilmentsDelay { get; set; } = new(15, 300, 1, 1);
+    #endregion
+
+
 }

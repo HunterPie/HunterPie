@@ -3,6 +3,8 @@ using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Enemy;
+using HunterPie.Core.Game.Enums;
+using HunterPie.UI.Overlay.Widgets.Monster.Adapters;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Monster.Views;
 using System;
@@ -108,8 +110,18 @@ public class MonsterWidgetContextHandler : IContextHandler
 
     private void CalculateVisibleMonsters()
     {
-        BossMonsterViewModel[] targets = _viewModel.Monsters.Where(monster => monster.IsTarget)
-            .ToArray();
+        MonsterContextHandler[] targets = _viewModel.Monsters.Cast<MonsterContextHandler>()
+            .Where(it =>
+            {
+                Target target = MonsterTargetAdapter.Adapt(
+                    config: Settings,
+                    lockOnTarget: it.Context.Target,
+                    manualTarget: it.Context.ManualTarget,
+                    inferredTarget: _context.Game.TargetDetectionService.Infer(it.Context)
+                );
+
+                return target == Target.Self;
+            }).ToArray();
 
         _viewModel.Monster = targets.SingleOrNull();
         _viewModel.VisibleMonsters = Settings.ShowOnlyTarget.Value switch

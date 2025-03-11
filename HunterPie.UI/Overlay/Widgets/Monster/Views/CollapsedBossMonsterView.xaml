@@ -59,16 +59,21 @@
             <display:Conditional Condition="{Binding IsLoadingIcon, Mode=OneWay}"
                                  d:Condition="False">
                 <display:Conditional.Component>
-                    <loading:CircleLoading Height="15"
-                                           Width="15"/>
+                    <DataTemplate>
+                        <loading:CircleLoading Height="15"
+                                               Width="15"/>
+                    </DataTemplate>
                 </display:Conditional.Component>
                 <display:Conditional.Otherwise>
-                    <Image d:Source="{StaticResource ICON_SKULL}"
-                           Source="{Binding Icon, Mode=OneWay, TargetNullValue={assets:MonsterIcon Rise_Unknown}}"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           Margin="20"
-                           RenderOptions.BitmapScalingMode="Fant"/>
+                    <DataTemplate>
+                        <Image d:Source="{StaticResource ICON_SKULL}"
+                               Source="{Binding Icon, Mode=OneWay, TargetNullValue={assets:MonsterIcon Rise_Unknown}}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Margin="20"
+                               RenderOptions.BitmapScalingMode="Fant"
+                               DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type local:CollapsedBossMonsterView}}}"/>
+                    </DataTemplate>
                 </display:Conditional.Otherwise>
             </display:Conditional>
         </Grid>

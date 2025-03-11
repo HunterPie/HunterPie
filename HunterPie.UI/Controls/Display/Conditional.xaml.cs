@@ -16,21 +16,21 @@ public partial class Conditional : UserControl
     public static readonly DependencyProperty ConditionProperty =
         DependencyProperty.Register(nameof(Condition), typeof(bool), typeof(Conditional));
 
-    public object Component
+    public DataTemplate Component
     {
-        get => GetValue(ComponentProperty);
+        get => (DataTemplate)GetValue(ComponentProperty);
         set => SetValue(ComponentProperty, value);
     }
     public static readonly DependencyProperty ComponentProperty =
-        DependencyProperty.Register(nameof(Component), typeof(object), typeof(Conditional));
+        DependencyProperty.Register(nameof(Component), typeof(DataTemplate), typeof(Conditional));
 
-    public object Otherwise
+    public DataTemplate Otherwise
     {
-        get => GetValue(OtherwiseProperty);
+        get => (DataTemplate)GetValue(OtherwiseProperty);
         set => SetValue(OtherwiseProperty, value);
     }
     public static readonly DependencyProperty OtherwiseProperty =
-        DependencyProperty.Register(nameof(Otherwise), typeof(object), typeof(Conditional));
+        DependencyProperty.Register(nameof(Otherwise), typeof(DataTemplate), typeof(Conditional));
 
     public Conditional()
     {
