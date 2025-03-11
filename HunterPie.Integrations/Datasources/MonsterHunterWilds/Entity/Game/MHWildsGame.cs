@@ -11,7 +11,6 @@ using HunterPie.Core.Game.Services;
 using HunterPie.Core.Scan.Service;
 using HunterPie.Core.Utils;
 using HunterPie.Integrations.Datasources.Common.Entity.Game;
-using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
@@ -62,24 +61,27 @@ public sealed class MHWildsGame : CommonGame
         nint[] validMonsters = monsters.Where(it => !it.IsNullPointer())
             .ToArray();
 
-        IEnumerable<nint> monstersToCreate = validMonsters.Where(it => !_monsters.ContainsKey(it));
-
-        (await monstersToCreate.Select(async it =>
-                (
+        IAsyncEnumerable<(nint address, int magic, MHWildsMonsterBasicData data)> monstersToCreate = validMonsters.Where(it => !_monsters.ContainsKey(it))
+            .Select(async it => (
+                address: it,
+                magic: (int)await Memory.ReadPtrAsync(
                     address: it,
-                    context: await Memory.DerefPtrAsync<MHWildsObjectContext>(
-                        address: it,
-                        offsets: AddressMap.GetOffsets("Monster::Context")
-                    ),
-                    data: await Memory.DerefPtrAsync<MHWildsMonsterBasicData>(
-                        address: it,
-                        offsets: AddressMap.GetOffsets("Monster::BasicData")
-                    )
+                    offsets: AddressMap.GetOffsets("Monster::Magic")
+                ),
+                data: await Memory.DerefPtrAsync<MHWildsMonsterBasicData>(
+                    address: it,
+                    offsets: AddressMap.GetOffsets("Monster::BasicData")
                 )
-            ).AwaitAll())
-            .Where(it => it.context is { IsReady: true, IsDestroyed: false } && it.data.Category == 0)
-            .ForEach(it => HandleMonsterSpawn(it.address, it.data));
+            )).ToAsyncEnumerable();
 
+        await foreach ((nint address, int magic, MHWildsMonsterBasicData data) monster in monstersToCreate)
+        {
+            // 0x6D0045 are just the UTF-16 bytes for "Em", every monster asset starts with Em
+            if (monster is not { magic: 0x6D0045, data.IsEnabled: 1, data.Category: 0 })
+                continue;
+
+            HandleMonsterSpawn(monster.address, monster.data);
+        }
 
         IEnumerable<nint> monstersToDestroy = _monsters.Keys.Where(it => !validMonsters.Contains(it));
 
