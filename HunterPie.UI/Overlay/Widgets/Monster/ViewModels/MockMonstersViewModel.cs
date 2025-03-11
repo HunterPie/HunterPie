@@ -1,10 +1,26 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
+using System;
+using System.Linq;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 
 public class MockMonstersViewModel : MonstersViewModel
 {
+    private bool _isRandomMonsterSelected;
+    public bool IsRandomMonsterSelected
+    {
+        get => _isRandomMonsterSelected;
+        set
+        {
+            Monster = value
+                ? Monsters.ElementAt((int)Random.Shared.NextInt64(0, Monsters.Count))
+                : null;
+
+            SetValue(ref _isRandomMonsterSelected, value);
+        }
+    }
+
     public MockMonstersViewModel(MonsterWidgetConfig config)
     {
         Monsters.Add(new MockBossMonsterViewModel(config)

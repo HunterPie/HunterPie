@@ -39,7 +39,7 @@ public static class EnumerableExtensions
         return count switch
         {
             <= 0 or > 1 => default,
-            _ => outs.ElementAtOrDefault(1)
+            _ => outs.ElementAtOrDefault(0)
         };
     }
 

@@ -70,6 +70,12 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
     #endregion
 
     #region Widget Settings
+    [ConfigurationProperty("MONSTER_WIDGET_COMPACT_MODE", group: CommonConfigurationGroups.WIDGET)]
+    public Observable<bool> IsCompactModeEnabled { get; set; } = true;
+
+    [ConfigurationProperty("MONSTER_WIDGET_COMPACT_MODE_COLUMN_LIMIT", group: CommonConfigurationGroups.WIDGET)]
+    public Range CompactModeColumnLimit { get; set; } = new Range(5, 10, 1, 1);
+
     [ConfigurationProperty("ORIENTATION_STRING", group: CommonConfigurationGroups.WIDGET)]
     public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Vertical;
 

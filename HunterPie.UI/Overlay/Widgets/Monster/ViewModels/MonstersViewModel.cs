@@ -4,11 +4,20 @@ using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 
+#nullable enable
 public class MonstersViewModel : Bindable
 {
     private const int MINIMUM_MONSTER_COUNT = 3;
 
     public ObservableCollection<BossMonsterViewModel> Monsters { get; } = new();
+
+    private BossMonsterViewModel? _monster;
+
+    public BossMonsterViewModel? Monster
+    {
+        get => _monster;
+        set => SetValue(ref _monster, value);
+    }
 
     private int _visibleMonsters;
     public int VisibleMonsters
