@@ -152,9 +152,9 @@ public sealed class MHWildsMonster : CommonMonster
         }
     }
 
-    public override Element[] Weaknesses => Array.Empty<Element>();
+    public override Element[] Weaknesses => _definition.Weaknesses;
 
-    public override string[] Types => Array.Empty<string>();
+    public override string[] Types => _definition.Types;
 
     public MHWildsMonster(
         IGameProcess process,
@@ -386,6 +386,11 @@ public sealed class MHWildsMonster : CommonMonster
 
         _logger.Debug($"Initialized {Name} at address {_address:X} with id: {Id}");
         _isInitialized = true;
+
+        this.Dispatch(
+            toDispatch: _onWeaknessesChange,
+            data: Weaknesses
+        );
 
         if (Health > 0)
             this.Dispatch(

@@ -183,8 +183,6 @@ public sealed class MHRMonster : CommonMonster
         _definition = MonsterRepository.FindBy(GameType.Rise, Id) ?? MonsterRepository.UnknownDefinition;
 
         UpdateData();
-
-        _logger.Debug($"Initialized monster at address {address:X}");
     }
 
     private void UpdateData()
