@@ -26,6 +26,14 @@ internal class HomeService
     private static readonly Dictionary<GameType, SupportedGameViewModel> SupportedGames = new()
     {
         {
+            GameType.Wilds, new SupportedGameViewModel
+            {
+                Banner = "https://cdn.hunterpie.com/resources/monster-hunter-wilds-poster.jpg",
+                Execute = new Action(static () => Steam.RunGameBy(type: GameType.Wilds)),
+                Name = Games.MONSTER_HUNTER_WILDS
+            }
+        },
+        {
             GameType.World, new SupportedGameViewModel
             {
                 Banner = "https://cdn.hunterpie.com/resources/monster-hunter-world-poster.jpg",
@@ -41,7 +49,7 @@ internal class HomeService
                 Execute = new Action(static () => Steam.RunGameBy(type: GameType.Rise)),
                 Name = Games.MONSTER_HUNTER_RISE
             }
-        }
+        },
     };
 
     public HomeService(

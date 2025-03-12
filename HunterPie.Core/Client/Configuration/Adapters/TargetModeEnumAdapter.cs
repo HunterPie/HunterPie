@@ -7,8 +7,14 @@ namespace HunterPie.Core.Client.Configuration.Adapters;
 
 internal class TargetModeEnumAdapter : IEnumAdapter
 {
-    private static readonly Lazy<object[]> RiseValues = new(() => new object[] { TargetModeType.LockOn, TargetModeType.AutoQuest, TargetModeType.Infer });
-    private static readonly Lazy<object[]> WorldValues = new(() => new object[] { TargetModeType.LockOn, TargetModeType.MapPin, TargetModeType.Infer });
+    private static readonly Lazy<object[]> RiseValues =
+        new(() => new object[] { TargetModeType.LockOn, TargetModeType.AutoQuest, TargetModeType.Infer });
+
+    private static readonly Lazy<object[]> WorldValues =
+        new(() => new object[] { TargetModeType.LockOn, TargetModeType.MapPin, TargetModeType.Infer });
+
+    private static readonly Lazy<object[]> WildsValues =
+        new(() => new object[] { TargetModeType.LockOn, TargetModeType.Infer });
 
     public object[] GetValues(GameProcessType game)
     {
@@ -16,6 +22,7 @@ internal class TargetModeEnumAdapter : IEnumAdapter
         {
             GameProcessType.MonsterHunterRise => RiseValues.Value,
             GameProcessType.MonsterHunterWorld => WorldValues.Value,
+            GameProcessType.MonsterHunterWilds => WildsValues.Value,
             GameProcessType.None => Array.Empty<object>(),
             GameProcessType.All => Array.Empty<object>(),
             _ => throw new ArgumentOutOfRangeException(nameof(game), game, null)

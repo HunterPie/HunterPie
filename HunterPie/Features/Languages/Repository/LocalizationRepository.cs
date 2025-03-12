@@ -30,6 +30,13 @@ internal class LocalizationRepository : ILocalizationRepository
         );
     }
 
+    public bool ExistsBy(string path)
+    {
+        XmlAttributeCollection? attributes = _document.Value.SelectSingleNode(path)?.Attributes;
+
+        return attributes?["String"]?.Value != null;
+    }
+
     public string FindStringBy(string path)
     {
         XmlAttributeCollection? attributes = _document.Value.SelectSingleNode(path)?.Attributes;

@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
@@ -14,6 +15,8 @@ namespace HunterPie.Features.Overlay;
 internal class AbnormalitiesWidgetInitializer : IWidgetInitializer
 {
     private readonly List<IContextHandler> _handlers = new();
+
+    public GameProcessType SupportedGames => GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld;
 
     public Task LoadAsync(IContext context)
     {

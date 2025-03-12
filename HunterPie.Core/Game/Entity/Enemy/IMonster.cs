@@ -17,7 +17,7 @@ public interface IMonster
     public bool IsEnraged { get; }
     public Target Target { get; }
     public Target ManualTarget { get; }
-    public IMonsterPart[] Parts { get; }
+    public IReadOnlyCollection<IMonsterPart> Parts { get; }
     public IReadOnlyCollection<IMonsterAilment> Ailments { get; }
     public IMonsterAilment Enrage { get; }
     public Crown Crown { get; }

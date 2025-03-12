@@ -5,6 +5,7 @@ using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services.Monster.Events;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enemy;
 using HunterPie.UI.Overlay.Widgets.Monster.Adapters;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
@@ -218,7 +219,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
                 Types.Add(typeId);
         });
 
-        if (Parts.Count != Context.Parts.Length || Ailments.Count != Context.Ailments.Count)
+        if (Parts.Count != Context.Parts.Count || Ailments.Count != Context.Ailments.Count)
             UIThread.BeginInvoke(() =>
             {
                 foreach (IMonsterPart part in Context.Parts)
@@ -260,6 +261,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
         {
             MHRMonster ctx => $"Rise_{ctx.Id:00}",
             MHWMonster ctx => $"World_{ctx.Id:00}",
+            MHWildsMonster ctx => $"Wilds_{ctx.Id:00}",
             _ => throw new NotImplementedException("unreachable")
         };
     }
