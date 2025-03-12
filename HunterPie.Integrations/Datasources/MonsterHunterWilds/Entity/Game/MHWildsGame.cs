@@ -33,7 +33,24 @@ public sealed class MHWildsGame : CommonGame
 
     public override IChat? Chat => null;
 
-    public override bool IsHudOpen { get => throw new NotImplementedException(); protected set => throw new NotImplementedException(); }
+    private bool _isHudOpen;
+
+    public override bool IsHudOpen
+    {
+        get => _isHudOpen;
+        protected set
+        {
+            if (_isHudOpen == value)
+                return;
+
+            _isHudOpen = value;
+            this.Dispatch(
+                toDispatch: _onHudStateChange,
+                data: this
+            );
+        }
+    }
+
     public override float TimeElapsed { get => throw new NotImplementedException(); protected set => throw new NotImplementedException(); }
 
     public override IQuest? Quest => null;
@@ -45,6 +62,17 @@ public sealed class MHWildsGame : CommonGame
     {
         _localizationRepository = localizationRepository;
         _cryptoService = new MHWildsCryptoService(process.Memory);
+    }
+
+    [ScannableMethod]
+    internal async Task GetHUDState()
+    {
+        int state = await Memory.DerefAsync<int>(
+            address: AddressMap.GetAbsolute("Game::GUIManager"),
+            offsets: AddressMap.GetOffsets("GUI::VisibilityFlag")
+        );
+
+        IsHudOpen = state == 1;
     }
 
     [ScannableMethod]
