@@ -14,6 +14,7 @@ using HunterPie.Integrations.Datasources.Common.Entity.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game;
@@ -23,12 +24,13 @@ public sealed class MHWildsGame : CommonGame
     private readonly MHWildsCryptoService _cryptoService;
     private readonly ILocalizationRepository _localizationRepository;
 
-    private readonly Dictionary<nint, MHWildsMonster> _monsters = new(3);
 
-    public override IPlayer? Player => null;
+    private readonly MHWildsPlayer _player;
+    public override IPlayer Player => _player;
 
     public override IAbnormalityCategorizationService AbnormalityCategorizationService => throw new NotImplementedException();
 
+    private readonly Dictionary<nint, MHWildsMonster> _monsters = new(3);
     public override IReadOnlyCollection<IMonster> Monsters => _monsters.Values;
 
     public override IChat? Chat => null;
@@ -62,6 +64,10 @@ public sealed class MHWildsGame : CommonGame
     {
         _localizationRepository = localizationRepository;
         _cryptoService = new MHWildsCryptoService(process.Memory);
+        _player = new MHWildsPlayer(
+            process: process,
+            scanService: scanService
+        );
     }
 
     [ScannableMethod]
