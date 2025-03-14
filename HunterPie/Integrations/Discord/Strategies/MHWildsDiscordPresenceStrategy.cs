@@ -50,14 +50,14 @@ public class MHWildsDiscordPresenceStrategy : IDiscordRichPresenceStrategy
                 SmallImageKey = _context.Game.Player.Weapon.Id switch
                 {
                     Weapon.None => null,
-                    var id => Enum.GetName(typeof(Weapon), id)
+                    var id => Enum.GetName(typeof(Weapon), id)?.ToLowerInvariant()
                 },
                 SmallImageText = _configuration.ShowCharacterInfo.Value switch
                 {
                     true => _discordLocalizationRepository.FindStringBy("DRPC_RISE_CHARACTER_STRING_FORMAT")
                         .Replace("{Character}", _context.Game.Player.Name)
-                        .Replace("{HighRank}", _context.Game.Player.HighRank.ToString())
-                        .Replace("{MasterRank}", _context.Game.Player.MasterRank.ToString()),
+                        .Replace("{HighRank}", "-")
+                        .Replace("{MasterRank}", "-"),
                     _ => null
                 }
             });
