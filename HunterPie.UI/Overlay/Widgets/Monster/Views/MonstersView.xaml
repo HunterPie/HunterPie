@@ -33,6 +33,7 @@
             <display:Conditional.Component>
                 <DataTemplate DataType="{x:Type viewModels:MonstersViewModel}">
                     <ItemsControl ItemsSource="{Binding Monsters, Mode=OneWay}"
+                                  Visibility="{Binding Settings.ShowOnlyTarget.Value, RelativeSource={RelativeSource AncestorType={x:Type local:MonstersView}}, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                                   DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type local:MonstersView}}}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
