@@ -127,7 +127,7 @@ public sealed class MHWildsPlayer : CommonPlayer
     [ScannableMethod]
     internal async Task GetBasicDataAsync()
     {
-        _address = await Memory.ReadAsync(
+        _address = await Memory.DerefAsync<nint>(
             address: AddressMap.GetAbsolute("Game::PlayerManager"),
             offsets: AddressMap.GetOffsets("Player::Local")
         );

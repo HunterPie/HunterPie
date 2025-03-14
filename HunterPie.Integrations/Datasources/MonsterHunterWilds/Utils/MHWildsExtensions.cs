@@ -53,12 +53,8 @@ public static class MHWildsExtensions
     public static async Task<string> ReadStringSafeAsync(this IMemoryAsync memory, nint address, int size)
     {
         MHWildsString str = await memory.ReadAsync<MHWildsString>(address);
+        size = Math.Max(0, Math.Min(size, str.Length));
 
-        if (str.Length < str.Buffer.Length)
-            return Encoding.UTF8.GetString(str.Buffer, 0, str.Length);
-
-        size = Math.Min(size, str.Length);
-
-        return await memory.ReadAsync(address + 0x14, size, Encoding.UTF8);
+        return await memory.ReadAsync(address + 0x14, size * 2, Encoding.Unicode);
     }
 }
