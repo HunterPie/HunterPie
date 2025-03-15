@@ -56,7 +56,7 @@ public class MHWildsDiscordPresenceStrategy : IDiscordRichPresenceStrategy
                 {
                     true => _discordLocalizationRepository.FindStringBy("DRPC_RISE_CHARACTER_STRING_FORMAT")
                         .Replace("{Character}", _context.Game.Player.Name)
-                        .Replace("{HighRank}", "-")
+                        .Replace("{HighRank}", _context.Game.Player.HighRank.ToString())
                         .Replace("{MasterRank}", "-"),
                     _ => null
                 }

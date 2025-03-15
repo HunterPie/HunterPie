@@ -137,7 +137,13 @@ public sealed class MHWildsPlayer : CommonPlayer
             offsets: AddressMap.GetOffsets("Player::Context")
         );
 
+        int hunterRank = await Memory.DerefAsync<int>(
+            address: AddressMap.GetAbsolute("Game::SaveManager"),
+            offsets: AddressMap.GetOffsets("Save::Player::HunterRank")
+        );
+
         Name = await Memory.ReadStringSafeAsync(context.NamePointer, size: 64);
+        HighRank = hunterRank;
     }
 
     [ScannableMethod]
