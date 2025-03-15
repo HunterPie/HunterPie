@@ -71,14 +71,14 @@ public sealed class MHWildsGame : CommonGame
     }
 
     [ScannableMethod]
-    internal async Task GetHUDState()
+    internal async Task GetHUDStateAsync()
     {
-        int state = await Memory.DerefAsync<int>(
+        byte state = await Memory.DerefAsync<byte>(
             address: AddressMap.GetAbsolute("Game::GUIManager"),
             offsets: AddressMap.GetOffsets("GUI::VisibilityFlag")
         );
 
-        IsHudOpen = state == 1;
+        IsHudOpen = state > 0;
     }
 
     [ScannableMethod]
