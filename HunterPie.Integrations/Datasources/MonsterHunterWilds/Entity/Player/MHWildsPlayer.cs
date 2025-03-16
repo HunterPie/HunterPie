@@ -1,15 +1,23 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Data.Definitions;
+using HunterPie.Core.Game.Data.Repository;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Entity.Player.Vitals;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Game.Services;
 using HunterPie.Core.Scan.Service;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Abnormality;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Player;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Abnormalities;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Abnormalities.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player.Weapons;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
 using WeaponType = HunterPie.Core.Game.Enums.Weapon;
@@ -94,7 +102,10 @@ public sealed class MHWildsPlayer : CommonPlayer
     public override bool InHuntingZone => _inHuntingZone && StageId > 0;
 
     public override IParty Party { get; }
-    public override IReadOnlyCollection<IAbnormality> Abnormalities { get; } = Array.Empty<IAbnormality>();
+
+    private readonly Dictionary<string, IAbnormality> _abnormalities = new();
+    public override IReadOnlyCollection<IAbnormality> Abnormalities => _abnormalities.Values;
+
     public override IHealthComponent Health { get; }
     public override IStaminaComponent Stamina { get; }
 
@@ -168,5 +179,49 @@ public sealed class MHWildsPlayer : CommonPlayer
 
         if (Weapon.Id != context.WeaponId)
             Weapon = new MHWildsWeapon(context.WeaponId);
+    }
+
+    [ScannableMethod]
+    internal async Task GetSongAbnormalitiesAsync()
+    {
+        SongAbnormalities songsAbnormalities = await Memory.DerefPtrAsync<SongAbnormalities>(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Player::Abnormalities::Songs")
+        );
+
+        AbnormalityDefinition[] songDefinitions = AbnormalityRepository.FindAllAbnormalitiesBy(
+            game: GameType.Wilds,
+            category: AbnormalityGroup.SONGS
+        );
+
+        float[] songTimers = await Memory.ReadArraySafeAsync<float>(
+            address: songsAbnormalities.TimersPointer,
+            count: songDefinitions.Length
+        );
+        float[] songMaxTimers = await Memory.ReadArraySafeAsync<float>(
+            address: songsAbnormalities.MaxTimersPointer,
+            count: songDefinitions.Length
+        );
+
+        for (int i = 0; i < songDefinitions.Length; i++)
+        {
+            if (i >= songTimers.Length || i >= songMaxTimers.Length)
+                break;
+
+            AbnormalityDefinition definition = songDefinitions[i];
+            var data = new UpdateAbnormalityData
+            {
+                Timer = songTimers[i],
+                MaxTimer = songMaxTimers[i]
+            };
+
+            HandleAbnormality(
+                abnormalities: _abnormalities,
+                schema: songDefinitions[i],
+                timer: data.Timer,
+                newData: data,
+                activator: () => new MHWildsAbnormality(definition, AbnormalityType.Song)
+            );
+        }
     }
 }
