@@ -9,7 +9,7 @@ namespace HunterPie.Core.Client.Configuration.Integrations;
 [Configuration(name: "DISCORD_RPC_STRING",
     icon: "ICON_RPC",
     group: CommonConfigurationGroups.CLIENT,
-    availableGames: GameProcessType.MonsterHunterWorld | GameProcessType.MonsterHunterRise)]
+    availableGames: GameProcessType.MonsterHunterWorld | GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWilds)]
 public class DiscordRichPresence : ISettings
 {
     [ConfigurationProperty("DRPC_ENABLE_RICH_PRESENCE", group: CommonConfigurationGroups.GENERAL)]

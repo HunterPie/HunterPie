@@ -9,14 +9,15 @@ using System.Xml;
 
 namespace HunterPie.Core.Game.Data.Repository;
 
-#nullable enable
 public static class AbnormalityRepository
 {
     private const string RISE_ABNORMALITIES_FILE = "Game/Rise/Data/AbnormalityData.xml";
     private const string WORLD_ABNORMALITIES_FILE = "Game/World/Data/AbnormalityData.xml";
+    private const string WILDS_ABNORMALITIES_FILE = "Game/Wilds/Data/AbnormalityData.xml";
 
     private static readonly Lazy<Dictionary<string, AbnormalityDefinition>> LazyRiseDataSource = new(() => Load(RISE_ABNORMALITIES_FILE));
     private static readonly Lazy<Dictionary<string, AbnormalityDefinition>> LazyWorldDataSource = new(() => Load(WORLD_ABNORMALITIES_FILE));
+    private static readonly Lazy<Dictionary<string, AbnormalityDefinition>> LazyWildsDataSource = new(() => Load(WILDS_ABNORMALITIES_FILE));
 
     /// <summary>
     /// Returns an abnormality with the given internal unique identifier
@@ -62,6 +63,7 @@ public static class AbnormalityRepository
         {
             GameType.Rise => LazyRiseDataSource,
             GameType.World => LazyWorldDataSource,
+            GameType.Wilds => LazyWildsDataSource,
             _ => throw new ArgumentOutOfRangeException(nameof(game), game, null)
         };
 

@@ -69,7 +69,7 @@ internal class SettingsFactory
         {
             { game, BuildGameConfiguration(commonConfigurations, config, game) }
         };
-        var supportedConfigurations = new[] { game }.ToObservableCollection();
+        ObservableCollection<GameProcessType> supportedConfigurations = new[] { game }.ToObservableCollection();
 
         return new SettingsViewModel(
             configurations: configurations,

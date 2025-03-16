@@ -294,7 +294,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_DEMI_ELDER"/>
+				<Type Name="TYPE_CONSTRUCT"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>

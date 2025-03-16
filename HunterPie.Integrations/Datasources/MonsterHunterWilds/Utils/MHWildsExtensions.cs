@@ -1,5 +1,7 @@
 ﻿using HunterPie.Core.Domain.Memory;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Collections;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Types;
+using System.Text;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
 
@@ -46,5 +48,13 @@ public static class MHWildsExtensions
 
         foreach (nint pointer in pointers)
             yield return await memory.ReadAsync<T>(pointer);
+    }
+
+    public static async Task<string> ReadStringSafeAsync(this IMemoryAsync memory, nint address, int size)
+    {
+        MHWildsString str = await memory.ReadAsync<MHWildsString>(address);
+        size = Math.Max(0, Math.Min(size, str.Length));
+
+        return await memory.ReadAsync(address + 0x14, size * 2, Encoding.Unicode);
     }
 }

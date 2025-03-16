@@ -9,7 +9,7 @@ namespace HunterPie.Core.Client.Configuration.Overlay;
 [Configuration(name: "ABNORMALITY_TRAY_STRING",
     icon: "ICON_SELFIMPROVEMENT+",
     group: CommonConfigurationGroups.OVERLAY,
-    availableGames: GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld)]
+    availableGames: GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld | GameProcessType.MonsterHunterWilds)]
 public class AbnormalityTrayConfig : ISettings
 {
     [ConfigurationProperty("ABNORMALITY_TRAYS_STRING", requiresRestart: true, group: CommonConfigurationGroups.ABNORMALITY_TRAYS)]

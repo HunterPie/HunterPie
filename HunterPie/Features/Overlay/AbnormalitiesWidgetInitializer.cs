@@ -16,7 +16,10 @@ internal class AbnormalitiesWidgetInitializer : IWidgetInitializer
 {
     private readonly List<IContextHandler> _handlers = new();
 
-    public GameProcessType SupportedGames => GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld;
+    public GameProcessType SupportedGames =>
+        GameProcessType.MonsterHunterRise
+        | GameProcessType.MonsterHunterWorld
+        | GameProcessType.MonsterHunterWilds;
 
     public Task LoadAsync(IContext context)
     {

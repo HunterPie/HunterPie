@@ -245,6 +245,9 @@
     <None Update="Game\Rise\Data\MonsterData.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Game\Wilds\Data\AbnormalityData.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Game\Wilds\Data\MonsterData.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

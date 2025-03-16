@@ -1,0 +1,91 @@
+﻿using DiscordRPC;
+using HunterPie.Core.Client.Configuration.Integrations;
+using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Game;
+using HunterPie.Core.Game.Entity.Enemy;
+using HunterPie.Core.Game.Enums;
+using System;
+using System.Linq;
+
+namespace HunterPie.Integrations.Discord.Strategies;
+
+public class MHWildsDiscordPresenceStrategy : IDiscordRichPresenceStrategy
+{
+    public string AppId => "1346929958949224518";
+
+    private readonly DiscordRichPresence _configuration;
+    private readonly ILocalizationRepository _localizationRepository;
+    private readonly IScopedLocalizationRepository _discordLocalizationRepository;
+    private readonly IContext _context;
+
+    public MHWildsDiscordPresenceStrategy(
+        DiscordRichPresence configuration,
+        ILocalizationRepository localizationRepository,
+        IContext context)
+    {
+        _configuration = configuration;
+        _localizationRepository = localizationRepository;
+        _discordLocalizationRepository = localizationRepository.WithScope("//Strings/Client/Integrations/Discord");
+        _context = context;
+    }
+
+    public void Update(RichPresence presence)
+    {
+        string description = BuildDescription();
+        string stageName = _localizationRepository.FindStringBy(
+            path: $"//Strings/Stages/Wilds/Stage[@Id='{_context.Game.Player.StageId}']"
+        );
+        bool isUnmappedStage = stageName.StartsWith("//Strings");
+
+        presence
+            .WithDetails(description)
+            .WithAssets(new Assets
+            {
+                LargeImageKey = isUnmappedStage switch
+                {
+                    true => "unknown",
+                    _ => $"wilds-stage-{_context.Game.Player.StageId}"
+                },
+                LargeImageText = stageName,
+                SmallImageKey = _context.Game.Player.Weapon.Id switch
+                {
+                    Weapon.None => null,
+                    var id => Enum.GetName(typeof(Weapon), id)?.ToLowerInvariant()
+                },
+                SmallImageText = _configuration.ShowCharacterInfo.Value switch
+                {
+                    true => _discordLocalizationRepository.FindStringBy("DRPC_RISE_CHARACTER_STRING_FORMAT")
+                        .Replace("{Character}", _context.Game.Player.Name)
+                        .Replace("{HighRank}", _context.Game.Player.HighRank.ToString())
+                        .Replace("{MasterRank}", "-"),
+                    _ => null
+                }
+            });
+    }
+
+    private string BuildDescription()
+    {
+        string localizationStateId = (
+                _context.Game.Player.StageId,
+                _context.Game.Player.InHuntingZone) switch
+        {
+            (-1, _) => "DRPC_STATE_MAIN_MENU",
+            (13, _) => "DRPC_RISE_STATE_PRACTICE",
+            (_, false) => "DRPC_STATE_IDLE",
+            _ => "DRPC_STATE_EXPLORING"
+        };
+
+        IMonster? targetMonster = _context.Game.Monsters.FirstOrDefault(it => it.Target == Target.Self);
+
+        if (targetMonster is null)
+            return _discordLocalizationRepository.FindStringBy(localizationStateId);
+
+        string descriptionString = _configuration.ShowMonsterHealth
+            ? "DRPC_STATE_HUNTING"
+            : "DRPC_STATE_HUNTING_NO_HEALTH";
+
+        return _discordLocalizationRepository.FindStringBy(descriptionString)
+            .Replace("{Monster}", targetMonster.Name)
+            .Replace("{Percentage}", $"{targetMonster.Health / targetMonster.MaxHealth * 100:0}");
+    }
+}
