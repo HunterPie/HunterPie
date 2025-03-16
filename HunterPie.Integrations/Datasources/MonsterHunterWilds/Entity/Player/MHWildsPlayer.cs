@@ -26,6 +26,26 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
 
 public sealed class MHWildsPlayer : CommonPlayer
 {
+    private static readonly Lazy<AbnormalityDefinition[]> _consumableDefinitions = new(static () =>
+        AbnormalityRepository.FindAllAbnormalitiesBy(
+            game: GameType.Wilds,
+            category: AbnormalityGroup.CONSUMABLES
+        )
+    );
+    private static readonly Lazy<AbnormalityDefinition[]> _songsDefinitions = new(static () =>
+        AbnormalityRepository.FindAllAbnormalitiesBy(
+            game: GameType.Wilds,
+            category: AbnormalityGroup.SONGS
+        )
+    );
+    private static readonly Lazy<AbnormalityDefinition[]> _debuffDefinitions = new(static () =>
+        AbnormalityRepository.FindAllAbnormalitiesBy(
+            game: GameType.Wilds,
+            category: AbnormalityGroup.DEBUFFS
+        )
+    );
+    private static readonly Lazy<int> _debuffIndexMax = new(static () => _debuffDefinitions.Value.Max(it => it.Index));
+
     private nint _address;
 
     private string _name = string.Empty;
@@ -182,17 +202,61 @@ public sealed class MHWildsPlayer : CommonPlayer
     }
 
     [ScannableMethod]
+    internal Task GetAbnormalitiesCleanUpAsync()
+    {
+        if (InHuntingZone)
+            return Task.CompletedTask;
+
+        ClearAbnormalities(_abnormalities);
+
+        return Task.CompletedTask;
+    }
+
+    [ScannableMethod]
+    internal async Task GetConsumableAbnormalitiesAsync()
+    {
+        if (!InHuntingZone)
+            return;
+
+        ConsumableAbnormalities consumableAbnormalities = await Memory.DerefPtrAsync<ConsumableAbnormalities>(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Player::Abnormalities::Consumables")
+        );
+
+
+        foreach (AbnormalityDefinition definition in _consumableDefinitions.Value)
+        {
+            int maxTimerOffset = definition.Offset;
+            int timerOffset = maxTimerOffset + sizeof(float);
+
+            var data = new UpdateAbnormalityData
+            {
+                MaxTimer = BitConverter.ToSingle(consumableAbnormalities.Raw, maxTimerOffset),
+                Timer = BitConverter.ToSingle(consumableAbnormalities.Raw, timerOffset)
+            };
+
+            HandleAbnormality(
+                abnormalities: _abnormalities,
+                schema: definition,
+                timer: data.Timer,
+                newData: data,
+                activator: () => new MHWildsAbnormality(definition, AbnormalityType.Consumable)
+            );
+        }
+    }
+
+    [ScannableMethod]
     internal async Task GetSongAbnormalitiesAsync()
     {
+        if (!InHuntingZone)
+            return;
+
         SongAbnormalities songsAbnormalities = await Memory.DerefPtrAsync<SongAbnormalities>(
             address: _address,
             offsets: AddressMap.GetOffsets("Player::Abnormalities::Songs")
         );
 
-        AbnormalityDefinition[] songDefinitions = AbnormalityRepository.FindAllAbnormalitiesBy(
-            game: GameType.Wilds,
-            category: AbnormalityGroup.SONGS
-        );
+        AbnormalityDefinition[] songDefinitions = _songsDefinitions.Value;
 
         float[] songTimers = await Memory.ReadArraySafeAsync<float>(
             address: songsAbnormalities.TimersPointer,
@@ -221,6 +285,82 @@ public sealed class MHWildsPlayer : CommonPlayer
                 timer: data.Timer,
                 newData: data,
                 activator: () => new MHWildsAbnormality(definition, AbnormalityType.Song)
+            );
+        }
+    }
+
+    [ScannableMethod]
+    internal async Task GetDebuffsAbnormalitiesAsync()
+    {
+        if (!InHuntingZone)
+            return;
+
+        nint debuffsComponent = await Memory.ReadPtrAsync(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Player::Abnormalities::Debuffs")
+        );
+
+        AbnormalityDefinition[] definitions = _debuffDefinitions.Value;
+
+        nint[] debuffPointers = await Memory.ReadAsync<nint>(
+            address: debuffsComponent + 0x10,
+            count: _debuffIndexMax.Value + 1
+        );
+
+        foreach (AbnormalityDefinition definition in definitions)
+        {
+            if (definition.Index >= debuffPointers.Length)
+                continue;
+
+            nint debuffPointer = debuffPointers[definition.Index];
+
+            UpdateAbnormalityData data;
+
+            if (definition.IsBuildup)
+            {
+                DebuffAbnormality abnormality = await Memory.ReadAsync<DebuffAbnormality>(
+                    address: debuffPointer
+                );
+
+                data = new UpdateAbnormalityData
+                {
+                    Timer = abnormality.BuildUp,
+                    MaxTimer = definition.MaxBuildup
+                };
+            }
+            else if (!definition.HasMaxTimer)
+            {
+                data = new UpdateAbnormalityData
+                {
+                    ShouldInferMaxTimer = true,
+                    Timer = await Memory.ReadAsync<float>(
+                        address: debuffPointer + definition.Offset
+                    )
+                };
+            }
+            else
+            {
+                float[] timers = await Memory.ReadAsync<float>(
+                    address: debuffPointer + definition.Offset,
+                    count: 2
+                );
+                byte isActive = await Memory.ReadAsync<byte>(
+                    address: debuffPointer + 0x2F
+                );
+
+                data = new UpdateAbnormalityData
+                {
+                    Timer = isActive == 1 ? timers[0] : 0,
+                    MaxTimer = timers[1]
+                };
+            }
+
+            HandleAbnormality(
+                abnormalities: _abnormalities,
+                schema: definition,
+                timer: data.Timer,
+                newData: data,
+                activator: () => new MHWildsAbnormality(definition, AbnormalityType.Debuff)
             );
         }
     }

@@ -3,5 +3,6 @@
 public struct UpdateAbnormalityData
 {
     public float Timer;
+    public bool ShouldInferMaxTimer;
     public float MaxTimer;
 }

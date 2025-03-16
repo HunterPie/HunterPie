@@ -37,6 +37,8 @@ internal class XmlNodeToAbnormalityDefinitionMapper : IMapper<XmlNode, Abnormali
         string maxTimer = data.Attributes["MaxTimer"]?.Value ?? "0";
         string flagType = data.Attributes["FlagType"]?.Value ?? "None";
         string flag = data.Attributes["Flag"]?.Value ?? "None";
+        string hasMaxTimer = data.Attributes["HasMaxTimer"]?.Value ?? "True";
+        string index = data.Attributes["Index"]?.Value ?? "0";
 
         var schema = new AbnormalityDefinition
         {
@@ -55,6 +57,8 @@ internal class XmlNodeToAbnormalityDefinitionMapper : IMapper<XmlNode, Abnormali
         bool.TryParse(isInfinite, out schema.IsInfinite);
         int.TryParse(maxTimer, out schema.MaxTimer);
         Enum.TryParse(flagType, out schema.FlagType);
+        bool.TryParse(hasMaxTimer, out schema.HasMaxTimer);
+        int.TryParse(index, out schema.Index);
 
         schema.Flag = _flagParsers
             .Select(it => it.Parse(schema.FlagType, flag))

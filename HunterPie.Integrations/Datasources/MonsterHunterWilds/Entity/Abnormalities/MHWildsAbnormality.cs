@@ -51,7 +51,9 @@ public sealed class MHWildsAbnormality : CommonAbnormality, IUpdatable<UpdateAbn
 
     public void Update(UpdateAbnormalityData data)
     {
-        MaxTimer = data.MaxTimer;
+        MaxTimer = data.ShouldInferMaxTimer
+            ? Math.Max(data.Timer, MaxTimer)
+            : data.MaxTimer;
         Timer = data.Timer;
     }
 }
