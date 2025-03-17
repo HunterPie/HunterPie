@@ -119,7 +119,7 @@ public sealed class MHWildsPlayer : CommonPlayer
     }
 
     private bool _inHuntingZone;
-    public override bool InHuntingZone => _inHuntingZone && StageId > 0;
+    public override bool InHuntingZone => _inHuntingZone && StageId >= 0;
 
     public override IParty Party { get; }
 
