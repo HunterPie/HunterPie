@@ -22,6 +22,7 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 
 public sealed class MHWildsMonster : CommonMonster
 {
+    private bool _isDeadOrCaptured = false;
     private readonly MonsterDefinition _definition;
     private readonly MHWildsMonsterBasicData _basicData;
     private bool _isInitialized;
@@ -51,7 +52,10 @@ public sealed class MHWildsMonster : CommonMonster
             this.Dispatch(_onHealthChange);
 
             if (value <= 0)
+            {
+                _isDeadOrCaptured = true;
                 this.Dispatch(_onDeath);
+            }
         }
     }
 
@@ -218,6 +222,36 @@ public sealed class MHWildsMonster : CommonMonster
 
             MaxStamina = stamina.Max;
             Stamina = stamina.Current;
+        }
+    }
+
+    [ScannableMethod]
+    internal async Task GetThresholdsAsync()
+    {
+        MHWildsMonsterThresholds thresholds = await Memory.DerefPtrAsync<MHWildsMonsterThresholds>(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Monster::Thresholds")
+        );
+
+        CaptureThreshold = thresholds.Capture;
+    }
+
+    [ScannableMethod]
+    internal async Task GetAIAsync()
+    {
+        MHWildsMonsterAI ai = await Memory.DerefPtrAsync<MHWildsMonsterAI>(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Monster::AI")
+        );
+
+        if (ai.CurrentActionId == 10 && !_isDeadOrCaptured)
+        {
+            _logger.Debug($"Captured monster {Name} [{_address:X08}]");
+            _isDeadOrCaptured = true;
+            this.Dispatch(
+                toDispatch: _onCapture,
+                data: EventArgs.Empty
+            );
         }
     }
 

@@ -346,7 +346,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_CONSTRUCT"/>
+				<Type Name="TYPE_FANGED_BEAST"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -368,7 +368,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_FANGED_BEAST"/>
+				<Type Name="TYPE_CONSTRUCT"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
