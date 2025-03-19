@@ -223,7 +223,7 @@ public sealed class MHWildsPlayer : CommonPlayer
             offsets: AddressMap.GetOffsets("Player::Abnormalities::Consumables")
         );
 
-        if (consumableAbnormalities.Raw.Length <= 0)
+        if (consumableAbnormalities.Raw is not { Length: > 0 })
             return;
 
         foreach (AbnormalityDefinition definition in _consumableDefinitions.Value)
