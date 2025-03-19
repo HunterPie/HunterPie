@@ -127,6 +127,11 @@
 		<Abnormality Id="Songs.58"/>
 	</Songs>
 	<Consumables>
+		<Abnormality Id="Consumables.10"
+					 Offset="10"
+					 Name="ABNORMALITY_WIGGLY_LITCHY"
+					 Icon="ICON_STAMINAUP"
+					 HasMaxTimer="False"/>
 		<Abnormality Id="Consumables.14"
 		             Offset="14"
 					 Name="ABNORMALITY_MIGHT_SEED"
@@ -135,6 +140,11 @@
 		             Offset="1C"
 					 Name="ABNORMALITY_MIGHT_PILL"
 					 Icon="ITEM_MIGHT+"/>
+		<Abnormality Id="Consumables.24"
+					 Offset="24"
+					 Name="ABNORMALITY_DEMON_AMMO"
+					 Icon="ICON_DEMONAMMO"
+					 HasMaxTimer="False"/>
 		<Abnormality Id="Consumables.30"
 		             Offset="30"
 					 Name="ABNORMALITY_DEMON_POWDER"
@@ -147,14 +157,23 @@
 		             Offset="40"
 					 Name="ABNORMALITY_ADAMANT_PILL"
 					 Icon="ITEM_ADAMANT+"/>
+		<Abnormality Id="Consumables.48"
+					 Offset="48"
+					 Name="ABNORMALITY_ARMOR_AMMO"
+					 Icon="ICON_ARMORAMMO"
+					 HasMaxTimer="False"/>
 		<Abnormality Id="Consumables.54"
 		             Offset="54"
 					 Name="ABNORMALITY_HARDSHELL_POWDER"
 					 Icon="ITEM_DEFPOWDER"/>
 		<Abnormality Id="Consumables.5C"
-		             Offset="5C"/>
+		             Offset="5C"
+					 Name="ABNORMALITY_DASH_JUICE"
+					 Icon="ITEM_DASH"/>
 		<Abnormality Id="Consumables.64"
-		             Offset="64"/>
+		             Offset="64"
+					 Name="ABNORMALITY_NATURAL_HEALING"
+					 Icon="ICON_NATURALHEALING"/>
 		<Abnormality Id="Consumables.6C"
 		             Offset="6C"
 					 Name="ABNORMALITY_HOTDRINK"

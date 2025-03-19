@@ -228,14 +228,29 @@ public sealed class MHWildsPlayer : CommonPlayer
 
         foreach (AbnormalityDefinition definition in _consumableDefinitions.Value)
         {
-            int maxTimerOffset = definition.Offset;
-            int timerOffset = maxTimerOffset + sizeof(float);
+            UpdateAbnormalityData data;
 
-            var data = new UpdateAbnormalityData
+            if (!definition.HasMaxTimer)
             {
-                MaxTimer = BitConverter.ToSingle(consumableAbnormalities.Raw, maxTimerOffset),
-                Timer = BitConverter.ToSingle(consumableAbnormalities.Raw, timerOffset)
-            };
+                int timerOffset = definition.Offset;
+
+                data = new UpdateAbnormalityData
+                {
+                    ShouldInferMaxTimer = true,
+                    Timer = BitConverter.ToSingle(consumableAbnormalities.Raw, timerOffset)
+                };
+            }
+            else
+            {
+                int maxTimerOffset = definition.Offset;
+                int timerOffset = maxTimerOffset + sizeof(float);
+
+                data = new UpdateAbnormalityData
+                {
+                    MaxTimer = BitConverter.ToSingle(consumableAbnormalities.Raw, maxTimerOffset),
+                    Timer = BitConverter.ToSingle(consumableAbnormalities.Raw, timerOffset)
+                };
+            }
 
             HandleAbnormality(
                 abnormalities: _abnormalities,
