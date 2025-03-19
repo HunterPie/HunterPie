@@ -223,6 +223,8 @@ public sealed class MHWildsPlayer : CommonPlayer
             offsets: AddressMap.GetOffsets("Player::Abnormalities::Consumables")
         );
 
+        if (consumableAbnormalities.Raw.Length <= 0)
+            return;
 
         foreach (AbnormalityDefinition definition in _consumableDefinitions.Value)
         {
@@ -314,28 +316,52 @@ public sealed class MHWildsPlayer : CommonPlayer
 
             nint debuffPointer = debuffPointers[definition.Index];
 
+            int dependingValue = definition.DependsOn switch
+            {
+                0 => 0,
+                _ => await Memory.ReadAsync<int>(
+                    address: debuffPointer + definition.DependsOn
+                )
+            };
+
             UpdateAbnormalityData data;
 
-            if (definition.IsBuildup)
+            if (dependingValue != definition.WithValue)
+            {
+                data = new UpdateAbnormalityData
+                {
+                    Timer = 0
+                };
+            }
+            else if (definition.IsBuildup)
             {
                 DebuffAbnormality abnormality = await Memory.ReadAsync<DebuffAbnormality>(
                     address: debuffPointer
                 );
+                bool isValidValue = abnormality.BuildUp is >= 0 && abnormality.BuildUp <= definition.MaxBuildup;
 
                 data = new UpdateAbnormalityData
                 {
-                    Timer = abnormality.BuildUp,
+                    Timer = isValidValue
+                     ? abnormality.BuildUp
+                     : 0,
                     MaxTimer = definition.MaxBuildup
                 };
             }
             else if (!definition.HasMaxTimer)
             {
+                byte isActive = await Memory.ReadAsync<byte>(
+                    address: debuffPointer + 0x2F
+                );
+
                 data = new UpdateAbnormalityData
                 {
                     ShouldInferMaxTimer = true,
-                    Timer = await Memory.ReadAsync<float>(
+                    Timer = isActive == 1
+                    ? await Memory.ReadAsync<float>(
                         address: debuffPointer + definition.Offset
                     )
+                    : 0
                 };
             }
             else
