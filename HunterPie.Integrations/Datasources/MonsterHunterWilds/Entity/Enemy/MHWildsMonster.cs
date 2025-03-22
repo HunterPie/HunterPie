@@ -228,6 +228,12 @@ public sealed class MHWildsMonster : CommonMonster
     [ScannableMethod]
     internal async Task GetThresholdsAsync()
     {
+        if (_definition is { IsNotCapturable: true })
+        {
+            CaptureThreshold = 0.0f;
+            return;
+        }
+
         MHWildsMonsterThresholds thresholds = await Memory.DerefPtrAsync<MHWildsMonsterThresholds>(
             address: _address,
             offsets: AddressMap.GetOffsets("Monster::Thresholds")

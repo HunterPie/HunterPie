@@ -634,7 +634,8 @@
 			</Parts>
 		</Monster>
 		<Monster Id="28"
-		         Size="1666.54">
+		         Size="1666.54"
+		         IsNotCapturable="True">
 			<Crowns Gold="123"
 			        Silver="115"
 			        Mini="90"/>
@@ -682,7 +683,8 @@
 			</Parts>
 		</Monster>
 		<Monster Id="30"
-		         Size="4560.894">
+		         Size="4560.894"
+		         IsNotCapturable="True">
 			<Crowns Gold="123"
 			        Silver="115"
 			        Mini="90"/>
@@ -732,7 +734,8 @@
 			</Parts>
 		</Monster>
 		<Monster Id="32"
-		         Size="4623.598">
+		         Size="4623.598"
+		         IsNotCapturable="True">
 			<Crowns Gold="123"
 			        Silver="115"
 			        Mini="90"/>
