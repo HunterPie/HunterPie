@@ -231,7 +231,7 @@ public sealed class MHWildsMonster : CommonMonster
         if (_definition is { IsNotCapturable: true})
         {
             CaptureThreshold = 0.0f;
-            return
+            return;
         }
 
         MHWildsMonsterThresholds thresholds = await Memory.DerefPtrAsync<MHWildsMonsterThresholds>(
