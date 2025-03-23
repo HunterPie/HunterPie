@@ -23,6 +23,7 @@ public interface IMonster
     public Crown Crown { get; }
     public Element[] Weaknesses { get; }
     public string[] Types { get; }
+    public VariantType Variant { get; }
 
     public event EventHandler<EventArgs> OnSpawn;
     public event EventHandler<EventArgs> OnLoad;

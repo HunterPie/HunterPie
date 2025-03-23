@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using System;
 using System.Linq;
@@ -36,6 +37,7 @@ public class MockMonstersViewModel : MonstersViewModel
             IsTarget = false,
             IsAlive = true,
             CaptureThreshold = 0.2,
+            Variant = VariantType.Normal
         });
         Monsters.Add(new MockBossMonsterViewModel(config)
         {
@@ -50,6 +52,7 @@ public class MockMonstersViewModel : MonstersViewModel
             IsTarget = false,
             IsAlive = true,
             CaptureThreshold = 0.25,
+            Variant = VariantType.Tempered
         });
         Monsters.Add(new MockBossMonsterViewModel(config)
         {
@@ -65,6 +68,7 @@ public class MockMonstersViewModel : MonstersViewModel
             IsAlive = true,
             CaptureThreshold = 0.5,
             IsCapturable = true,
+            Variant = VariantType.Tempered | VariantType.Frenzy
         });
         VisibleMonsters = 3;
         MonstersCount = 3;
