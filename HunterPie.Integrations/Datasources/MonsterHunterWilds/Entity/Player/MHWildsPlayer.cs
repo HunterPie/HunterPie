@@ -38,10 +38,22 @@ public sealed class MHWildsPlayer : CommonPlayer
             category: AbnormalityGroup.SONGS
         )
     );
+    private static readonly Lazy<AbnormalityDefinition[]> _palicoSongsDefinitions = new(static () =>
+        AbnormalityRepository.FindAllAbnormalitiesBy(
+            game: GameType.Wilds,
+            category: AbnormalityGroup.ORCHESTRA
+        )
+    );
     private static readonly Lazy<AbnormalityDefinition[]> _debuffDefinitions = new(static () =>
         AbnormalityRepository.FindAllAbnormalitiesBy(
             game: GameType.Wilds,
             category: AbnormalityGroup.DEBUFFS
+        )
+    );
+    private static readonly Lazy<AbnormalityDefinition[]> _skillDefinitions = new(() =>
+        AbnormalityRepository.FindAllAbnormalitiesBy(
+            game: GameType.Wilds,
+            category: AbnormalityGroup.SKILLS
         )
     );
     private static readonly Lazy<int> _debuffIndexMax = new(static () => _debuffDefinitions.Value.Max(it => it.Index));
@@ -119,7 +131,7 @@ public sealed class MHWildsPlayer : CommonPlayer
     }
 
     private bool _inHuntingZone;
-    public override bool InHuntingZone => _inHuntingZone && StageId >= 0;
+    public override bool InHuntingZone => _inHuntingZone && StageId >= 0 && !string.IsNullOrEmpty(Name);
 
     public override IParty Party { get; }
 
@@ -302,6 +314,78 @@ public sealed class MHWildsPlayer : CommonPlayer
                 timer: data.Timer,
                 newData: data,
                 activator: () => new MHWildsAbnormality(definition, AbnormalityType.Song)
+            );
+        }
+    }
+
+    [ScannableMethod]
+    internal async Task GetPalicoSongAbnormalitiesAsync()
+    {
+        if (!InHuntingZone)
+            return;
+
+        nint palicoSongsPointer = await Memory.ReadPtrAsync(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Player::Abnormalities::PalicoSongs")
+        );
+
+        AbnormalityDefinition[] definitions = _palicoSongsDefinitions.Value;
+        float[] timers = await Memory.ReadArraySafeAsync<float>(
+            address: palicoSongsPointer,
+            count: definitions.Length
+        );
+
+        for (int i = 0; i < timers.Length; i++)
+        {
+            AbnormalityDefinition definition = definitions[i];
+            float timer = timers[i];
+
+            var data = new UpdateAbnormalityData
+            {
+                ShouldInferMaxTimer = true,
+                Timer = timer
+            };
+
+            HandleAbnormality(
+                abnormalities: _abnormalities,
+                schema: definition,
+                timer: timer,
+                newData: data,
+                activator: () => new MHWildsAbnormality(definition, AbnormalityType.Orchestra)
+            );
+        }
+    }
+
+    [ScannableMethod]
+    internal async Task GetSkillAbnormalitiesAsync()
+    {
+        if (!InHuntingZone)
+            return;
+
+        nint skillsBasePtr = await Memory.ReadPtrAsync(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Player::Abnormalities::Skills")
+        );
+
+        AbnormalityDefinition[] definitions = _skillDefinitions.Value;
+
+        foreach (AbnormalityDefinition definition in definitions)
+        {
+            nint abnormalityPointer = await Memory.ReadAsync<nint>(
+                address: skillsBasePtr + definition.Offset
+            );
+            SkillAbnormality abnormality = await Memory.ReadAsync<SkillAbnormality>(abnormalityPointer);
+
+            HandleAbnormality(
+                abnormalities: _abnormalities,
+                schema: definition,
+                timer: abnormality.Timer,
+                newData: new UpdateAbnormalityData
+                {
+                    Timer = abnormality.Timer,
+                    MaxTimer = abnormality.MaxTimer
+                },
+                activator: () => new MHWildsAbnormality(definition, AbnormalityType.Skill)
             );
         }
     }
