@@ -169,6 +169,8 @@ public sealed class MHRMonster : CommonMonster
 
     public bool IsQurioActive { get; private set; }
 
+    public override VariantType Variant { get; protected set; } = VariantType.Normal;
+
     public MHRMonster(
         IGameProcess process,
         IScanService scanService,
@@ -205,6 +207,7 @@ public sealed class MHRMonster : CommonMonster
         if (MonsterType != MonsterType.Qurio)
             return;
 
+        Variant |= VariantType.Frenzy;
         _qurioThreshold = new MHRMonsterPart(MHRiseUtils.QurioPartDefinition);
     }
 

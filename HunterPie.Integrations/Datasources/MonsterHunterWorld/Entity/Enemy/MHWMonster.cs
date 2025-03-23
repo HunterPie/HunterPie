@@ -173,6 +173,8 @@ public sealed class MHWMonster : CommonMonster
         }
     }
 
+    public override VariantType Variant { get; protected set; } = VariantType.Normal;
+
     public MHWMonster(
         IGameProcess process,
         IScanService scanService,

@@ -187,6 +187,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
     private void UpdateData()
     {
         IsQurio = Context is MHRMonster { MonsterType: MonsterType.Qurio };
+        Variant = Context.Variant;
 
         if (Context.Id > -1)
         {

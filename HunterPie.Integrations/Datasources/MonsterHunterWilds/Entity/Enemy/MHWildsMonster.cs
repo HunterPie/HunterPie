@@ -17,6 +17,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
+using System.Text;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 
@@ -136,6 +137,8 @@ public sealed class MHWildsMonster : CommonMonster
         }
     }
 
+    public override VariantType Variant { get; protected set; }
+
     public override IReadOnlyCollection<IMonsterPart> Parts => _parts;
 
     public override IReadOnlyCollection<IMonsterAilment> Ailments => _ailments;
@@ -169,14 +172,16 @@ public sealed class MHWildsMonster : CommonMonster
         ILocalizationRepository localizationRepository) : base(process, scanService)
     {
         _basicData = basicData;
+        Variant = CalculateVariant();
         _address = address;
         Id = basicData.Id;
 
-        string namePath = $"//Strings/Monsters/Wilds/Monster[@Id='{Id}']";
+        Name = BuildName(
+            localizationRepository: localizationRepository,
+            variant: Variant,
+            id: Id
+        );
 
-        Name = localizationRepository.ExistsBy(namePath)
-            ? localizationRepository.FindStringBy(namePath)
-            : $"Unknown [id: {Id}]";
         _cryptoService = cryptoService;
         _definition = MonsterRepository.FindBy(
             game: GameType.Wilds,
@@ -439,5 +444,60 @@ public sealed class MHWildsMonster : CommonMonster
             );
 
         return Task.CompletedTask;
+    }
+
+    private VariantType CalculateVariant()
+    {
+        VariantType variant = _basicData.LegendaryId switch
+        {
+            1 => VariantType.Tempered,
+            _ => VariantType.Normal
+        };
+        variant |= _basicData.RoleId switch
+        {
+            3 => VariantType.Frenzy,
+            _ => VariantType.Normal
+        };
+
+        return variant;
+    }
+
+    private static string BuildName(
+        ILocalizationRepository localizationRepository,
+        VariantType variant,
+        int id
+    )
+    {
+        var sb = new StringBuilder();
+
+        if (variant.HasFlag(VariantType.Tempered))
+        {
+            string prefix = localizationRepository.FindStringBy("//Strings/Monsters/Variants/Variant[@Id='TEMPERED']");
+            sb.Append(prefix);
+            sb.Append(' ');
+        }
+        else if (variant.HasFlag(VariantType.ArchTempered))
+        {
+            string prefix = localizationRepository.FindStringBy("//Strings/Monsters/Variants/Variant[@Id='ARCH_TEMPERED']");
+            sb.Append(prefix);
+            sb.Append(' ');
+        }
+
+        if (variant.HasFlag(VariantType.Frenzy))
+        {
+            string prefix = localizationRepository.FindStringBy("//Strings/Monsters/Variants/Variant[@Id='FRENZIED']");
+            sb.Append(prefix);
+            sb.Append(' ');
+        }
+
+        string namePath = $"//Strings/Monsters/Wilds/Monster[@Id='{id}']";
+
+        string name = localizationRepository.ExistsBy(namePath)
+            ? localizationRepository.FindStringBy(namePath)
+            : $"Unknown [id: {id}]";
+
+        sb.Append(name);
+
+        return sb.ToString();
     }
 }

@@ -9,12 +9,14 @@
              xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading"
              xmlns:display="clr-namespace:HunterPie.UI.Controls.Display"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Presentation"
              mc:Ignorable="d" 
              d:DesignWidth="100"
              d:DataContext="{d:DesignInstance Type=viewModels:BossMonsterViewModel}">
     <UserControl.Resources>
         <converters:CrownToIconConverter x:Key="CrownToIconConverter"/>
         <converters:CrownToVisibilityConverter x:Key="CrownToVisibilityConverter"/>
+        <presentation:MonsterVariantBrushConverter x:Key="MonsterVariantBrushConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
     <Grid Visibility="{Binding IsAlive, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -27,8 +29,9 @@
               Margin="0,16,0,0">
             <Rectangle Grid.Row="0"
                        Margin="16"
-                       Fill="{StaticResource YELLOW_200}"
-                       RenderTransformOrigin="0.5,0.5">
+                       RenderTransformOrigin="0.5,0.5"
+                       Fill="{Binding Variant, Mode=OneWay, Converter={StaticResource MonsterVariantBrushConverter}}"
+                       x:Name="PART_VariantBorder">
                 <Rectangle.RenderTransform>
                     <RotateTransform Angle="45"/>
                 </Rectangle.RenderTransform>
@@ -41,7 +44,7 @@
             <Rectangle Grid.Row="0"
                        Margin="17"
                        Fill="{StaticResource GRAY_50}"
-                       Stroke="{StaticResource YELLOW}"
+                       Stroke="{Binding Fill, ElementName=PART_VariantBorder}"
                        StrokeThickness="1"
                        RenderTransformOrigin="0.5,0.5">
                 <Rectangle.RenderTransform>
@@ -85,6 +88,7 @@
                    FontSize="14"
                    TextAlignment="Center"
                    TextTrimming="CharacterEllipsis"
+                   TextWrapping="WrapWithOverflow"
                    Foreground="{StaticResource WHITE_50}"/>
     </Grid>
 </UserControl>

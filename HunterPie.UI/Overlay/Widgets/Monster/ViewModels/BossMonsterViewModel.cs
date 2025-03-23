@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Remote;
@@ -33,6 +34,7 @@ public class BossMonsterViewModel : ViewModel
     private double _captureThreshold;
     private bool _isCapturable;
     private bool _canBeCaptured;
+    private VariantType _variant;
 
     public MonsterWidgetConfig Config { get; }
     private readonly ObservableCollection<MonsterPartViewModel> _parts = new();
@@ -121,6 +123,12 @@ public class BossMonsterViewModel : ViewModel
     }
 
     public bool IsQurio { get; set; }
+
+    public VariantType Variant
+    {
+        get => _variant;
+        set => SetValue(ref _variant, value);
+    }
 
     public ref readonly ObservableCollection<MonsterPartViewModel> Parts => ref _parts;
     public ref readonly ObservableCollection<MonsterAilmentViewModel> Ailments => ref _ailments;
