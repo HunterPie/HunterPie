@@ -131,12 +131,18 @@
         <Abnormality Id="Songs.50" />
         <Abnormality Id="Songs.51" />
         <Abnormality Id="Songs.52" />
-        <Abnormality Id="Songs.53" />
-        <Abnormality Id="Songs.54" />
-        <Abnormality Id="Songs.55" />
-        <Abnormality Id="Songs.56" />
-        <Abnormality Id="Songs.57" />
-        <Abnormality Id="Songs.58" />
+        <Abnormality Id="Songs.53" 
+                     Name="ABNORMALITY_BUBBLE_EV_MOV"/>
+        <Abnormality Id="Songs.54" 
+                     Name="ABNORMALITY_BUBBLE_HEALTH_REGEN"/>
+        <Abnormality Id="Songs.55" 
+                     Name="ABNORMALITY_BUBBLE_STAM_REGEN"/>
+        <Abnormality Id="Songs.56" 
+                     Name="ABNORMALITY_BUBBLE_ATK_AFFINITY"/>
+        <Abnormality Id="Songs.57" 
+                     Name="ABNORMALITY_BUBBLE_DEF_ELE_RES"/>
+        <Abnormality Id="Songs.58" 
+                     Name="ABNORMALITY_BUBBLE_AILM_NEG"/>
     </Songs>
     <Consumables>
         <Abnormality Id="Consumables.10"
