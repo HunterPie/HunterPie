@@ -26,37 +26,37 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
 
 public sealed class MHWildsPlayer : CommonPlayer
 {
-    private static readonly Lazy<AbnormalityDefinition[]> _consumableDefinitions = new(static () =>
+    private static readonly Lazy<AbnormalityDefinition[]> ConsumableDefinitions = new(static () =>
         AbnormalityRepository.FindAllAbnormalitiesBy(
             game: GameType.Wilds,
             category: AbnormalityGroup.CONSUMABLES
         )
     );
-    private static readonly Lazy<AbnormalityDefinition[]> _songsDefinitions = new(static () =>
+    private static readonly Lazy<AbnormalityDefinition[]> SongsDefinitions = new(static () =>
         AbnormalityRepository.FindAllAbnormalitiesBy(
             game: GameType.Wilds,
             category: AbnormalityGroup.SONGS
         )
     );
-    private static readonly Lazy<AbnormalityDefinition[]> _palicoSongsDefinitions = new(static () =>
+    private static readonly Lazy<AbnormalityDefinition[]> PalicoSongsDefinitions = new(static () =>
         AbnormalityRepository.FindAllAbnormalitiesBy(
             game: GameType.Wilds,
             category: AbnormalityGroup.ORCHESTRA
         )
     );
-    private static readonly Lazy<AbnormalityDefinition[]> _debuffDefinitions = new(static () =>
+    private static readonly Lazy<AbnormalityDefinition[]> DebuffDefinitions = new(static () =>
         AbnormalityRepository.FindAllAbnormalitiesBy(
             game: GameType.Wilds,
             category: AbnormalityGroup.DEBUFFS
         )
     );
-    private static readonly Lazy<AbnormalityDefinition[]> _skillDefinitions = new(() =>
+    private static readonly Lazy<AbnormalityDefinition[]> SkillDefinitions = new(() =>
         AbnormalityRepository.FindAllAbnormalitiesBy(
             game: GameType.Wilds,
             category: AbnormalityGroup.SKILLS
         )
     );
-    private static readonly Lazy<int> _debuffIndexMax = new(static () => _debuffDefinitions.Value.Max(it => it.Index));
+    private static readonly Lazy<int> DebuffIndexMax = new(static () => DebuffDefinitions.Value.Max(it => it.Index));
 
     private nint _address;
 
@@ -238,7 +238,7 @@ public sealed class MHWildsPlayer : CommonPlayer
         if (consumableAbnormalities.Raw is not { Length: > 0 })
             return;
 
-        foreach (AbnormalityDefinition definition in _consumableDefinitions.Value)
+        foreach (AbnormalityDefinition definition in ConsumableDefinitions.Value)
         {
             UpdateAbnormalityData data;
 
@@ -285,7 +285,7 @@ public sealed class MHWildsPlayer : CommonPlayer
             offsets: AddressMap.GetOffsets("Player::Abnormalities::Songs")
         );
 
-        AbnormalityDefinition[] songDefinitions = _songsDefinitions.Value;
+        AbnormalityDefinition[] songDefinitions = SongsDefinitions.Value;
 
         float[] songTimers = await Memory.ReadArraySafeAsync<float>(
             address: songsAbnormalities.TimersPointer,
@@ -329,7 +329,7 @@ public sealed class MHWildsPlayer : CommonPlayer
             offsets: AddressMap.GetOffsets("Player::Abnormalities::PalicoSongs")
         );
 
-        AbnormalityDefinition[] definitions = _palicoSongsDefinitions.Value;
+        AbnormalityDefinition[] definitions = PalicoSongsDefinitions.Value;
         float[] timers = await Memory.ReadArraySafeAsync<float>(
             address: palicoSongsPointer,
             count: definitions.Length
@@ -367,7 +367,7 @@ public sealed class MHWildsPlayer : CommonPlayer
             offsets: AddressMap.GetOffsets("Player::Abnormalities::Skills")
         );
 
-        AbnormalityDefinition[] definitions = _skillDefinitions.Value;
+        AbnormalityDefinition[] definitions = SkillDefinitions.Value;
 
         foreach (AbnormalityDefinition definition in definitions)
         {
@@ -401,11 +401,11 @@ public sealed class MHWildsPlayer : CommonPlayer
             offsets: AddressMap.GetOffsets("Player::Abnormalities::Debuffs")
         );
 
-        AbnormalityDefinition[] definitions = _debuffDefinitions.Value;
+        AbnormalityDefinition[] definitions = DebuffDefinitions.Value;
 
         nint[] debuffPointers = await Memory.ReadAsync<nint>(
             address: debuffsComponent + 0x10,
-            count: _debuffIndexMax.Value + 1
+            count: DebuffIndexMax.Value + 1
         );
 
         foreach (AbnormalityDefinition definition in definitions)

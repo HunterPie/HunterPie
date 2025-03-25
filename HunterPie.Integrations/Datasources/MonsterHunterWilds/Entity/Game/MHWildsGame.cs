@@ -9,12 +9,12 @@ using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
-using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Scan.Service;
 using HunterPie.Core.Utils;
 using HunterPie.Integrations.Datasources.Common.Entity.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Quest;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.World;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game.Quest;
@@ -25,7 +25,6 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game;
 
 public sealed class MHWildsGame : CommonGame
 {
-    private readonly ILogger _logger = LoggerFactory.Create();
     private readonly MHWildsCryptoService _cryptoService;
     private readonly ILocalizationRepository _localizationRepository;
 
@@ -128,6 +127,27 @@ public sealed class MHWildsGame : CommonGame
     }
 
     [ScannableMethod]
+    internal async Task GetWorldTimeAsync()
+    {
+        nint worldPointer = await Memory.ReadAsync<nint>(
+            address: AddressMap.GetAbsolute("Game::WorldManager")
+        );
+
+        if (worldPointer.IsNullPointer())
+        {
+            WorldTime = TimeOnly.MinValue;
+            return;
+        }
+
+        WorldTime worldTime = await Memory.ReadAsync<WorldTime>(worldPointer);
+
+        double hours = Math.Floor(worldTime.Current / 100);
+        double minutes = Math.Floor(worldTime.Current - (hours * 100));
+
+        WorldTime = new TimeOnly((int)hours % 24, (int)minutes % 60);
+    }
+
+    [ScannableMethod]
     internal async Task GetQuestAsync()
     {
         nint questPointer = await Memory.DerefAsync<nint>(
@@ -151,7 +171,6 @@ public sealed class MHWildsGame : CommonGame
 
         if (_quest is not null && isOver)
         {
-            _logger.Debug($"quest (id: {_quest.Id}) is over with status {information.ToQuestStatus()}");
             this.Dispatch(
                 toDispatch: _onQuestEnd,
                 data: new QuestEndEventArgs(
@@ -176,7 +195,6 @@ public sealed class MHWildsGame : CommonGame
                 ),
                 _ => null
             };
-            _logger.Debug($"quest (id: {quest.Id}) has just started");
             _quest = new MHWildsQuest(
                 information: quest,
                 details: details
@@ -191,6 +209,8 @@ public sealed class MHWildsGame : CommonGame
         }
 
         _quest?.Update(information);
+
+        TimeElapsed = _quest is null ? 0.0f : information.Timer;
     }
 
     private void HandleMonsterSpawn(nint address, MHWildsMonsterBasicData data)

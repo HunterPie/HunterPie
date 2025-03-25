@@ -10,7 +10,7 @@ namespace HunterPie.Core.Client.Configuration.Overlay;
 [Configuration(name: "CLOCK_WIDGET_STRING",
     icon: "ICON_STOPWATCH",
     group: CommonConfigurationGroups.OVERLAY,
-    availableGames: GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld)]
+    availableGames: GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld | GameProcessType.MonsterHunterWilds)]
 public class ClockWidgetConfig : IWidgetSettings, ISettings
 {
     #region General Settings

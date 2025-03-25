@@ -7,6 +7,7 @@ Address Game::GUIManager 0x133AB0E0
 Address Game::PlayerManager 0x1332D280
 Address Game::SaveManager 0x133CF240
 Address Game::QuestManager 0x1337D2E8
+Address Game::WorldManager 0x1330CDE8
 
 Offset Environment::MonsterList 0x298
 Offset Monster::Magic 0x10,0x28,0x14

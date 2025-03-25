@@ -119,7 +119,7 @@ public sealed class MHWildsQuest : IQuest, IEventDispatcher, IUpdatable<CurrentQ
     public void Update(CurrentQuestInformation data)
     {
         Status = data.ToQuestStatus();
-        TimeLeft = TimeSpan.FromSeconds((data.MaxTimer - data.Timer) / 100.0);
+        TimeLeft = TimeSpan.FromMilliseconds(data.MaxTimer - data.Timer);
     }
 
     public void Dispose()
