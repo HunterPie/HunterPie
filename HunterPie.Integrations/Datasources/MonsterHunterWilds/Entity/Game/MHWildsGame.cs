@@ -7,13 +7,17 @@ using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Entity.Game.Chat;
 using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Player;
+using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Scan.Service;
 using HunterPie.Core.Utils;
 using HunterPie.Integrations.Datasources.Common.Entity.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Quest;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game.Quest;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
 
@@ -21,9 +25,9 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game;
 
 public sealed class MHWildsGame : CommonGame
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
     private readonly MHWildsCryptoService _cryptoService;
     private readonly ILocalizationRepository _localizationRepository;
-
 
     private readonly MHWildsPlayer _player;
     public override IPlayer Player => _player;
@@ -53,9 +57,10 @@ public sealed class MHWildsGame : CommonGame
         }
     }
 
-    public override float TimeElapsed { get => throw new NotImplementedException(); protected set => throw new NotImplementedException(); }
+    public override float TimeElapsed { get; protected set; }
 
-    public override IQuest? Quest => null;
+    private MHWildsQuest? _quest;
+    public override IQuest? Quest => _quest;
 
     public MHWildsGame(
         IGameProcess process,
@@ -120,6 +125,72 @@ public sealed class MHWildsGame : CommonGame
         IEnumerable<nint> monstersToDestroy = _monsters.Keys.Where(it => !validMonsters.Contains(it));
 
         monstersToDestroy.ForEach(HandleMonsterDespawn);
+    }
+
+    [ScannableMethod]
+    internal async Task GetQuestAsync()
+    {
+        nint questPointer = await Memory.DerefAsync<nint>(
+            address: AddressMap.GetAbsolute("Game::QuestManager"),
+            offsets: AddressMap.GetOffsets("Quest::Data")
+        );
+        bool isQuestValid = !questPointer.IsNullPointer();
+
+        if (!isQuestValid && _quest is null)
+            return;
+
+        QuestInformation quest = await Memory.ReadAsync<QuestInformation>(questPointer);
+
+        nint informationPointer = await Memory.DerefAsync<nint>(
+            address: AddressMap.GetAbsolute("Game::QuestManager"),
+            offsets: AddressMap.GetOffsets("Quest::CurrentInformation")
+        );
+        CurrentQuestInformation information = await Memory.ReadAsync<CurrentQuestInformation>(informationPointer);
+        bool hasStarted = information is { FailureState: 0, SuccessState: 0 };
+        bool isOver = !hasStarted || !isQuestValid;
+
+        if (_quest is not null && isOver)
+        {
+            _logger.Debug($"quest (id: {_quest.Id}) is over with status {information.ToQuestStatus()}");
+            this.Dispatch(
+                toDispatch: _onQuestEnd,
+                data: new QuestEndEventArgs(
+                    quest: _quest,
+                    status: information.ToQuestStatus(),
+                    timeElapsed: TimeElapsed
+                )
+            );
+            _quest.Dispose();
+            _quest = null;
+            return;
+        }
+
+        if (_quest is null
+            && hasStarted
+            && isQuestValid)
+        {
+            QuestDetails? details = quest.DetailsPointer.IsNullPointer() switch
+            {
+                false => await Memory.ReadAsync<QuestDetails>(
+                    address: quest.DetailsPointer
+                ),
+                _ => null
+            };
+            _logger.Debug($"quest (id: {quest.Id}) has just started");
+            _quest = new MHWildsQuest(
+                information: quest,
+                details: details
+            );
+            _quest.Update(information);
+
+            this.Dispatch(
+                toDispatch: _onQuestStart,
+                data: _quest
+            );
+            return;
+        }
+
+        _quest?.Update(information);
     }
 
     private void HandleMonsterSpawn(nint address, MHWildsMonsterBasicData data)

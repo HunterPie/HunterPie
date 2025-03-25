@@ -1,18 +1,13 @@
-﻿using HunterPie.Core.Address.Map;
-using HunterPie.Core.Architecture.Events;
-using HunterPie.Core.Domain;
+﻿using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain.Interfaces;
-using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Events;
-using HunterPie.Core.Scan.Service;
-using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions.Quest;
-using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Quest;
 
-namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Game.Quest;
+namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game.Quest;
 
-public class MHRQuest : Scannable, IQuest, IDisposable, IEventDispatcher
+public sealed class MHWildsQuest : IQuest, IEventDispatcher, IUpdatable<CurrentQuestInformation>, IDisposable
 {
     /// <inheritdoc />
     public int Id { get; }
@@ -36,7 +31,9 @@ public class MHRQuest : Scannable, IQuest, IDisposable, IEventDispatcher
 
             QuestStatus temp = _status;
             _status = value;
-            this.Dispatch(_onQuestStatusChange, new SimpleValueChangeEventArgs<QuestStatus>(temp, value));
+            this.Dispatch(
+                toDispatch: _onQuestStatusChange,
+                data: new SimpleValueChangeEventArgs<QuestStatus>(temp, value));
         }
     }
 
@@ -71,7 +68,7 @@ public class MHRQuest : Scannable, IQuest, IDisposable, IEventDispatcher
     public TimeSpan TimeLeft
     {
         get => _timeLeft;
-        protected set
+        private set
         {
             if (value == _timeLeft)
                 return;
@@ -109,41 +106,27 @@ public class MHRQuest : Scannable, IQuest, IDisposable, IEventDispatcher
         remove => _onTimeLeftChange.Unhook(value);
     }
 
-    public MHRQuest(
-        IGameProcess process,
-        IScanService scanService,
-        int id,
-        QuestType type,
-        QuestLevel level,
-        int stars
-    ) : base(process, scanService)
+    public MHWildsQuest(
+        QuestInformation information,
+        QuestDetails? details)
     {
-        Id = id;
-        Type = type;
-        Level = level;
-        Stars = stars;
+        Id = information.Id;
+        Type = details?.ToQuestType() ?? QuestType.Hunt;
+        Level = details?.ToQuestLevel() ?? QuestLevel.HighRank;
+        Stars = details?.Level ?? 0;
     }
 
-    [ScannableMethod]
-    private async Task GetData()
+    public void Update(CurrentQuestInformation data)
     {
-        MHRQuestStructure questStructure = await Memory.DerefAsync<MHRQuestStructure>(
-            address: AddressMap.GetAbsolute("QUEST_ADDRESS"),
-            offsets: AddressMap.GetOffsets("QUEST_OFFSETS")
-        );
-
-        Status = questStructure.State.ToQuestStatus();
-        MaxDeaths = questStructure.MaxDeaths;
-        Deaths = questStructure.Deaths;
-        TimeLeft = TimeSpan.FromSeconds(questStructure.TimeLimit - questStructure.TimeElapsed);
+        Status = data.ToQuestStatus();
+        TimeLeft = TimeSpan.FromSeconds((data.MaxTimer - data.Timer) / 100.0);
     }
 
-    public override void Dispose()
+    public void Dispose()
     {
-        base.Dispose();
         IDisposableExtensions.DisposeAll(
-            _onQuestStatusChange,
             _onDeathCounterChange,
+            _onQuestStatusChange,
             _onTimeLeftChange
         );
     }
