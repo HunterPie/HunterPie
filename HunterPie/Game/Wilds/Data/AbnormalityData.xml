@@ -486,4 +486,10 @@
                      Icon="ICON_ATTACKUP"
                      Offset="E0"/>
     </Skills>
+    <Food>
+        <Abnormality Id="Food.2C"
+                     Offset="2C"
+                     Name="ABNORMALITY_FOOD_TIMER"
+                     Icon="ICON_MEAT">
+    </Food>
 </Abnormalities>

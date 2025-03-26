@@ -56,6 +56,12 @@ public sealed class MHWildsPlayer : CommonPlayer
             category: AbnormalityGroup.SKILLS
         )
     );
+    private static readonly Lazy<AbnormalityDefinition[]> _foodDefinitions = new(static () =>
+        AbnormalityRepository.FindAllAbnormalitiesBy(
+            game: GameType.Wilds,
+            category: AbnormalityGroup.FOODS
+        )
+    );
     private static readonly Lazy<int> _debuffIndexMax = new(static () => _debuffDefinitions.Value.Max(it => it.Index));
 
     private nint _address;
@@ -486,6 +492,42 @@ public sealed class MHWildsPlayer : CommonPlayer
                 timer: data.Timer,
                 newData: data,
                 activator: () => new MHWildsAbnormality(definition, AbnormalityType.Debuff)
+            );
+        }
+    }
+
+    [ScannableMethod]
+    internal async Task GetFoodAbnormalitiesAsync()
+    {
+        nint foodPointer = await Memory.ReadPtrAsync(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Player::Abnormalities::Food")
+        );
+
+        if (foodPointer.IsNullPointer())
+            return;
+
+        foreach (AbnormalityDefinition definition in _foodDefinitions.Value)
+        {
+            int foodTimerOffset = definition.Offset;
+            int foodMaxTimerOffset = foodTimerOffset + sizeof(float);
+
+            var data = new UpdateAbnormalityData
+            {
+                Timer = await Memory.ReadAsync<float>(
+                    address: foodPointer + foodTimerOffset
+                ),
+                MaxTimer = await Memory.ReadAsync<float>(
+                    address: foodPointer + foodMaxTimerOffset
+                )
+            };
+
+            HandleAbnormality(
+                abnormalities: _abnormalities,
+                schema: definition,
+                timer: data.Timer,
+                newData: data,
+                activator: () => new MHWildsAbnormality(definition, AbnormalityType.Consumable)
             );
         }
     }
