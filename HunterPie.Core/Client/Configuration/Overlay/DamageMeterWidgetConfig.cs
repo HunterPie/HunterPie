@@ -11,7 +11,7 @@ namespace HunterPie.Core.Client.Configuration.Overlay;
 [Configuration(name: "METER_WIDGET_STRING",
     icon: "ICON_METER",
     group: CommonConfigurationGroups.OVERLAY,
-    availableGames: GameProcessType.MonsterHunterWorld | GameProcessType.MonsterHunterRise)]
+    availableGames: GameProcessType.MonsterHunterWorld | GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWilds)]
 public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
 {
     [ConfigurationProperty("INITIALIZE_WIDGET_STRING", requiresRestart: true, group: CommonConfigurationGroups.WIDGET)]

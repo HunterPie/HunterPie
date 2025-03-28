@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Quest;
 
 [StructLayout(LayoutKind.Explicit)]
-public struct CurrentQuestInformation
+public struct MHWildsCurrentQuestInformation
 {
     [FieldOffset(0xA8)] public float Timer;
     [FieldOffset(0xAC)] public float MaxTimer;

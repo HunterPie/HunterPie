@@ -13,7 +13,10 @@ internal class DamageWidgetInitializer : IWidgetInitializer
 {
     private IContextHandler? _handler;
 
-    public GameProcessType SupportedGames => GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld;
+    public GameProcessType SupportedGames =>
+        GameProcessType.MonsterHunterRise
+        | GameProcessType.MonsterHunterWorld
+        | GameProcessType.MonsterHunterWilds;
 
     public Task LoadAsync(IContext context)
     {

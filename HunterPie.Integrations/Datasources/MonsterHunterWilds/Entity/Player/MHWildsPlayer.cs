@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
+using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data.Definitions;
@@ -13,18 +14,25 @@ using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
 using HunterPie.Core.Scan.Service;
+using HunterPie.Core.Utils;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Abnormality;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Party;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Party.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Player;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Types;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Abnormalities;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Abnormalities.Data;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Party;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Party.Data;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player.Weapons;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
 using WeaponType = HunterPie.Core.Game.Enums.Weapon;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
 
-public sealed class MHWildsPlayer : CommonPlayer
+public sealed class MHWildsPlayer : CommonPlayer, IUpdatable<MonsterTargetKeys>
 {
     private static readonly Lazy<AbnormalityDefinition[]> ConsumableDefinitions = new(static () =>
         AbnormalityRepository.FindAllAbnormalitiesBy(
@@ -57,6 +65,8 @@ public sealed class MHWildsPlayer : CommonPlayer
         )
     );
     private static readonly Lazy<int> DebuffIndexMax = new(static () => DebuffDefinitions.Value.Max(it => it.Index));
+
+    private int[] _targetKeys = Array.Empty<int>();
 
     private nint _address;
 
@@ -131,15 +141,16 @@ public sealed class MHWildsPlayer : CommonPlayer
     }
 
     private bool _inHuntingZone;
-    public override bool InHuntingZone => _inHuntingZone && StageId >= 0 && !string.IsNullOrEmpty(Name);
+    public override bool InHuntingZone => _inHuntingZone;
 
-    public override IParty Party { get; }
+    private readonly MHWildsParty _party = new();
+    public override IParty Party => _party;
 
     private readonly Dictionary<string, IAbnormality> _abnormalities = new();
     public override IReadOnlyCollection<IAbnormality> Abnormalities => _abnormalities.Values;
 
-    public override IHealthComponent Health { get; }
-    public override IStaminaComponent Stamina { get; }
+    public override IHealthComponent? Health { get; }
+    public override IStaminaComponent? Stamina { get; }
 
     private IWeapon _weapon;
     public override IWeapon Weapon
@@ -197,8 +208,15 @@ public sealed class MHWildsPlayer : CommonPlayer
             offsets: AddressMap.GetOffsets("Player::Stage")
         );
 
+        bool wasInHuntingZone = _inHuntingZone;
+        _inHuntingZone = context is { IsSafeZone: false, StageId: >= 0 } && !string.IsNullOrEmpty(Name);
+
+        if (wasInHuntingZone && !_inHuntingZone)
+            this.Dispatch(_onVillageEnter);
+        else if (!wasInHuntingZone && _inHuntingZone)
+            this.Dispatch(_onVillageLeave);
+
         StageId = context.StageId;
-        _inHuntingZone = !context.IsSafeZone;
     }
 
     [ScannableMethod]
@@ -211,6 +229,113 @@ public sealed class MHWildsPlayer : CommonPlayer
 
         if (Weapon.Id != context.WeaponId)
             Weapon = new MHWildsWeapon(context.WeaponId);
+    }
+
+    [ScannableMethod]
+    internal async Task GetPartyAsync()
+    {
+        nint partyLimitedArrayPointer = await Memory.DerefAsync<nint>(
+            address: AddressMap.GetAbsolute("Game::PlayerManager"),
+            offsets: AddressMap.GetOffsets("Player::Party")
+        );
+        MHWildsLimitedArray partyArrayPointer = await Memory.ReadAsync<MHWildsLimitedArray>(partyLimitedArrayPointer);
+        MHWildsPartyArray partyArray = await Memory.ReadAsync<MHWildsPartyArray>(partyArrayPointer.Elements);
+
+        if (partyArray.Capacity != 4 || partyArray.Members is not { Length: 4 })
+        {
+            _party.Clear();
+            return;
+        }
+
+        int membersCount = Math.Max(1, partyArrayPointer.Length);
+
+        var membersData = new UpdatePartyMember[membersCount];
+        for (int i = 0; i < membersCount; i++)
+        {
+            int index = partyArray.Members[i];
+
+            nint playerPointer = await Memory.ReadAsync(
+                address: AddressMap.GetAbsolute("Game::PlayerManager"),
+                offsets: AddressMap.GetOffsets("Player::List")
+            );
+            playerPointer += index * sizeof(long);
+
+            nint basePlayerPointer = await Memory.DerefAsync<nint>(
+                address: playerPointer,
+                offsets: AddressMap.GetOffsets("Player::Base")
+            );
+
+            Task<float> damageDefer = GetDamageByPlayer(basePlayerPointer);
+
+            bool isMyself = index == 0;
+            var data = new UpdatePartyMember
+            {
+                Id = playerPointer,
+                Index = index,
+                IsMyself = isMyself,
+                Name = isMyself ? Name : await GetPlayerName(basePlayerPointer),
+                Weapon = isMyself ? Weapon.Id : await GetPlayerWeapon(basePlayerPointer),
+                Damage = await damageDefer,
+            };
+
+            membersData[i] = data;
+        }
+
+        _party.Update(new UpdateParty
+        {
+            Players = membersData.Select(it => it.Id).ToArray()
+        });
+
+        membersData.ForEach(_party.Update);
+    }
+
+    private async Task<float> GetDamageByPlayer(nint address)
+    {
+        nint damageHistoryPointer = await Memory.ReadPtrAsync(
+            address: address,
+            offsets: AddressMap.GetOffsets("Player::DamageHistory")
+        );
+        MHWildsDamageHistory damageHistory = await Memory.ReadAsync<MHWildsDamageHistory>(damageHistoryPointer);
+
+        nint[] damagePointers = await Memory.ReadAsync<nint>(
+            address: damageHistory.Elements + 0x20,
+            count: damageHistory.Size
+        );
+        IAsyncEnumerable<MHWildsTargetDamage> damageEnumerable = damagePointers.AsParallel()
+            .Select(async it => await Memory.ReadAsync<MHWildsTargetDamage>(it))
+            .ToAsyncEnumerable();
+
+        float totalDamage = 0;
+
+        await foreach (MHWildsTargetDamage targetDamage in damageEnumerable)
+        {
+            if (!_targetKeys.Contains(targetDamage.TargetKey))
+                continue;
+
+            totalDamage += targetDamage.Damage;
+        }
+
+        return totalDamage;
+    }
+
+    private async Task<string> GetPlayerName(nint address)
+    {
+        MHWildsPlayerContext context = await Memory.DerefPtrAsync<MHWildsPlayerContext>(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Player::Context")
+        );
+
+        return await Memory.ReadStringSafeAsync(context.NamePointer, size: 64);
+    }
+
+    private async Task<WeaponType> GetPlayerWeapon(nint address)
+    {
+        MHWildsPlayerGearContext context = await Memory.DerefPtrAsync<MHWildsPlayerGearContext>(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Player::Gear")
+        );
+
+        return context.WeaponId;
     }
 
     [ScannableMethod]
@@ -426,18 +551,16 @@ public sealed class MHWildsPlayer : CommonPlayer
             UpdateAbnormalityData data;
 
             if (dependingValue != definition.WithValue)
-            {
                 data = new UpdateAbnormalityData
                 {
                     Timer = 0
                 };
-            }
             else if (definition.IsBuildup)
             {
                 DebuffAbnormality abnormality = await Memory.ReadAsync<DebuffAbnormality>(
                     address: debuffPointer
                 );
-                bool isValidValue = abnormality.BuildUp is >= 0 && abnormality.BuildUp <= definition.MaxBuildup;
+                bool isValidValue = abnormality.BuildUp >= 0 && abnormality.BuildUp <= definition.MaxBuildup;
 
                 data = new UpdateAbnormalityData
                 {
@@ -488,5 +611,10 @@ public sealed class MHWildsPlayer : CommonPlayer
                 activator: () => new MHWildsAbnormality(definition, AbnormalityType.Debuff)
             );
         }
+    }
+
+    public void Update(MonsterTargetKeys data)
+    {
+        _targetKeys = data.Keys;
     }
 }

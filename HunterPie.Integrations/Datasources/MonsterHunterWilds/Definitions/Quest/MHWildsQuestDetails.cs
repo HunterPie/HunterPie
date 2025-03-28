@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Quest;
 
 [StructLayout(LayoutKind.Explicit)]
-public struct QuestDetails
+public struct MHWildsQuestDetails
 {
     [FieldOffset(0x98)] public int Type;
     [FieldOffset(0xA6)] public byte Level;

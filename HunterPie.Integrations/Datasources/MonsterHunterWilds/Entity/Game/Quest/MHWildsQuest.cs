@@ -7,7 +7,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Quest;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game.Quest;
 
-public sealed class MHWildsQuest : IQuest, IEventDispatcher, IUpdatable<CurrentQuestInformation>, IDisposable
+public sealed class MHWildsQuest : IQuest, IEventDispatcher, IUpdatable<MHWildsCurrentQuestInformation>, IDisposable
 {
     /// <inheritdoc />
     public int Id { get; }
@@ -107,8 +107,8 @@ public sealed class MHWildsQuest : IQuest, IEventDispatcher, IUpdatable<CurrentQ
     }
 
     public MHWildsQuest(
-        QuestInformation information,
-        QuestDetails? details)
+        MHWildsQuestInformation information,
+        MHWildsQuestDetails? details)
     {
         Id = information.Id;
         Type = details?.ToQuestType() ?? QuestType.Hunt;
@@ -116,7 +116,7 @@ public sealed class MHWildsQuest : IQuest, IEventDispatcher, IUpdatable<CurrentQ
         Stars = details?.Level ?? 0;
     }
 
-    public void Update(CurrentQuestInformation data)
+    public void Update(MHWildsCurrentQuestInformation data)
     {
         Status = data.ToQuestStatus();
         TimeLeft = TimeSpan.FromMilliseconds(data.MaxTimer - data.Timer);

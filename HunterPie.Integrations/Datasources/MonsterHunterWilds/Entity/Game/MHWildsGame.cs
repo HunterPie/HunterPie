@@ -19,12 +19,15 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game.Quest;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game;
 
 public sealed class MHWildsGame : CommonGame
 {
+    private DateTime _localElapsedTime = DateTime.UtcNow;
+
     private readonly MHWildsCryptoService _cryptoService;
     private readonly ILocalizationRepository _localizationRepository;
 
@@ -33,6 +36,7 @@ public sealed class MHWildsGame : CommonGame
 
     public override IAbnormalityCategorizationService AbnormalityCategorizationService => throw new NotImplementedException();
 
+    private readonly Dictionary<nint, int> _monsterTargetKeys = new();
     private readonly Dictionary<nint, MHWildsMonster> _monsters = new(3);
     public override IReadOnlyCollection<IMonster> Monsters => _monsters.Values;
 
@@ -56,7 +60,24 @@ public sealed class MHWildsGame : CommonGame
         }
     }
 
-    public override float TimeElapsed { get; protected set; }
+    private float _timeElapsed;
+    public override float TimeElapsed
+    {
+        get => _timeElapsed;
+        protected set
+        {
+            if (_timeElapsed.Equals(value))
+                return;
+
+            bool hasReset = value - _timeElapsed > 5;
+
+            _timeElapsed = value;
+            this.Dispatch(
+                toDispatch: _onTimeElapsedChange,
+                data: new TimeElapsedChangeEventArgs(hasReset, value)
+            );
+        }
+    }
 
     private MHWildsQuest? _quest;
     public override IQuest? Quest => _quest;
@@ -99,12 +120,21 @@ public sealed class MHWildsGame : CommonGame
         nint[] validMonsters = monsters.Where(it => !it.IsNullPointer())
             .ToArray();
 
-        IAsyncEnumerable<(nint address, int magic, MHWildsMonsterBasicData data)> monstersToCreate = validMonsters.Where(it => !_monsters.ContainsKey(it))
+        IAsyncEnumerable<(
+            nint address,
+            int magic,
+            int targetKey,
+            MHWildsMonsterBasicData data
+        )> monstersToCreate = validMonsters.Where(it => !_monsters.ContainsKey(it))
             .Select(async it => (
                 address: it,
                 magic: (int)await Memory.ReadPtrAsync(
                     address: it,
                     offsets: AddressMap.GetOffsets("Monster::Magic")
+                ),
+                targetKey: (int)await Memory.ReadPtrAsync(
+                    address: it,
+                    offsets: AddressMap.GetOffsets("Monster::TargetKey")
                 ),
                 data: await Memory.DerefPtrAsync<MHWildsMonsterBasicData>(
                     address: it,
@@ -112,14 +142,19 @@ public sealed class MHWildsGame : CommonGame
                 )
             )).ToAsyncEnumerable();
 
-        await foreach ((nint address, int magic, MHWildsMonsterBasicData data) monster in monstersToCreate)
+        await foreach ((nint address, int magic, int targetKey, MHWildsMonsterBasicData data) monster in monstersToCreate)
         {
             // 0x6D0045 are just the UTF-16 bytes for "Em", every monster asset starts with Em
             if (monster is not { magic: 0x6D0045, data.IsEnabled: 1, data.Category: 0 })
                 continue;
 
-            HandleMonsterSpawn(monster.address, monster.data);
+            HandleMonsterSpawn(monster.address, monster.data, monster.targetKey);
         }
+
+        _player.Update(new MonsterTargetKeys
+        {
+            Keys = _monsterTargetKeys.Values.ToArray()
+        });
 
         IEnumerable<nint> monstersToDestroy = _monsters.Keys.Where(it => !validMonsters.Contains(it));
 
@@ -139,7 +174,7 @@ public sealed class MHWildsGame : CommonGame
             return;
         }
 
-        WorldTime worldTime = await Memory.ReadAsync<WorldTime>(worldPointer);
+        MHWildsWorldTime worldTime = await Memory.ReadAsync<MHWildsWorldTime>(worldPointer);
 
         double hours = Math.Floor(worldTime.Current / 100);
         double minutes = Math.Floor(worldTime.Current - (hours * 100));
@@ -157,20 +192,25 @@ public sealed class MHWildsGame : CommonGame
         bool isQuestValid = !questPointer.IsNullPointer();
 
         if (!isQuestValid && _quest is null)
+        {
+            TimeElapsed = (float)(DateTime.UtcNow - _localElapsedTime).TotalSeconds;
             return;
+        }
 
-        QuestInformation quest = await Memory.ReadAsync<QuestInformation>(questPointer);
+        MHWildsQuestInformation quest = await Memory.ReadAsync<MHWildsQuestInformation>(questPointer);
 
         nint informationPointer = await Memory.DerefAsync<nint>(
             address: AddressMap.GetAbsolute("Game::QuestManager"),
             offsets: AddressMap.GetOffsets("Quest::CurrentInformation")
         );
-        CurrentQuestInformation information = await Memory.ReadAsync<CurrentQuestInformation>(informationPointer);
+        MHWildsCurrentQuestInformation information = await Memory.ReadAsync<MHWildsCurrentQuestInformation>(informationPointer);
         bool hasStarted = information is { FailureState: 0, SuccessState: 0 };
         bool isOver = !hasStarted || !isQuestValid;
 
         if (_quest is not null && isOver)
         {
+            _localElapsedTime = DateTime.UtcNow;
+
             this.Dispatch(
                 toDispatch: _onQuestEnd,
                 data: new QuestEndEventArgs(
@@ -188,9 +228,9 @@ public sealed class MHWildsGame : CommonGame
             && hasStarted
             && isQuestValid)
         {
-            QuestDetails? details = quest.DetailsPointer.IsNullPointer() switch
+            MHWildsQuestDetails? details = quest.DetailsPointer.IsNullPointer() switch
             {
-                false => await Memory.ReadAsync<QuestDetails>(
+                false => await Memory.ReadAsync<MHWildsQuestDetails>(
                     address: quest.DetailsPointer
                 ),
                 _ => null
@@ -210,10 +250,15 @@ public sealed class MHWildsGame : CommonGame
 
         _quest?.Update(information);
 
-        TimeElapsed = _quest is null ? 0.0f : information.Timer;
+        TimeElapsed = _quest is null
+            ? 0.0f
+            : information.Timer / 1000;
     }
 
-    private void HandleMonsterSpawn(nint address, MHWildsMonsterBasicData data)
+    private void HandleMonsterSpawn(
+        nint address,
+        MHWildsMonsterBasicData data,
+        int targetKey)
     {
         var monster = new MHWildsMonster(
             process: Process,
@@ -225,6 +270,7 @@ public sealed class MHWildsGame : CommonGame
         );
 
         _monsters[address] = monster;
+        _monsterTargetKeys[address] = targetKey;
 
         this.Dispatch(
             toDispatch: _onMonsterSpawn,
@@ -238,6 +284,7 @@ public sealed class MHWildsGame : CommonGame
             return;
 
         _monsters.Remove(address);
+        _monsterTargetKeys.Remove(address);
 
         this.Dispatch(
             toDispatch: _onMonsterDespawn,
