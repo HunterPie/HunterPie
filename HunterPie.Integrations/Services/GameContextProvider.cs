@@ -3,8 +3,10 @@ using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Game;
 using HunterPie.Core.Scan.Service;
+using HunterPie.DI;
 using HunterPie.Integrations.Datasources.MonsterHunterRise;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using HunterPie.Integrations.Services.Exceptions;
 
@@ -31,7 +33,12 @@ internal class GameContextProvider : IGameContextService
 
             GameProcessType.MonsterHunterWorld => new MHWContext(game, _scanService),
 
-            GameProcessType.MonsterHunterWilds => new MHWildsContext(game, _scanService, _localizationRepository),
+            GameProcessType.MonsterHunterWilds => new MHWildsContext(
+                process: game,
+                scanService: _scanService,
+                localizationRepository: _localizationRepository,
+                monsterTargetKeyManager: DependencyContainer.Get<MHWildsMonsterTargetKeyManager>()
+            ),
 
             GameProcessType.None or
             GameProcessType.All or

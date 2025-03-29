@@ -19,7 +19,6 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game.Quest;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
-using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game;
@@ -30,13 +29,13 @@ public sealed class MHWildsGame : CommonGame
 
     private readonly MHWildsCryptoService _cryptoService;
     private readonly ILocalizationRepository _localizationRepository;
+    private readonly MHWildsMonsterTargetKeyManager _monsterTargetKeyManager;
 
     private readonly MHWildsPlayer _player;
     public override IPlayer Player => _player;
 
     public override IAbnormalityCategorizationService AbnormalityCategorizationService => throw new NotImplementedException();
 
-    private readonly Dictionary<nint, int> _monsterTargetKeys = new();
     private readonly Dictionary<nint, MHWildsMonster> _monsters = new(3);
     public override IReadOnlyCollection<IMonster> Monsters => _monsters.Values;
 
@@ -69,7 +68,7 @@ public sealed class MHWildsGame : CommonGame
             if (_timeElapsed.Equals(value))
                 return;
 
-            bool hasReset = value - _timeElapsed > 5;
+            bool hasReset = Math.Abs(value - _timeElapsed) > 5;
 
             _timeElapsed = value;
             this.Dispatch(
@@ -85,13 +84,16 @@ public sealed class MHWildsGame : CommonGame
     public MHWildsGame(
         IGameProcess process,
         IScanService scanService,
-        ILocalizationRepository localizationRepository) : base(process, scanService)
+        ILocalizationRepository localizationRepository,
+        MHWildsMonsterTargetKeyManager monsterTargetKeyManager) : base(process, scanService)
     {
         _localizationRepository = localizationRepository;
+        _monsterTargetKeyManager = monsterTargetKeyManager;
         _cryptoService = new MHWildsCryptoService(process.Memory);
         _player = new MHWildsPlayer(
             process: process,
-            scanService: scanService
+            scanService: scanService,
+            monsterTargetKeyManager: _monsterTargetKeyManager
         );
     }
 
@@ -123,7 +125,6 @@ public sealed class MHWildsGame : CommonGame
         IAsyncEnumerable<(
             nint address,
             int magic,
-            int targetKey,
             MHWildsMonsterBasicData data
         )> monstersToCreate = validMonsters.Where(it => !_monsters.ContainsKey(it))
             .Select(async it => (
@@ -132,29 +133,20 @@ public sealed class MHWildsGame : CommonGame
                     address: it,
                     offsets: AddressMap.GetOffsets("Monster::Magic")
                 ),
-                targetKey: (int)await Memory.ReadPtrAsync(
-                    address: it,
-                    offsets: AddressMap.GetOffsets("Monster::TargetKey")
-                ),
                 data: await Memory.DerefPtrAsync<MHWildsMonsterBasicData>(
                     address: it,
                     offsets: AddressMap.GetOffsets("Monster::BasicData")
                 )
             )).ToAsyncEnumerable();
 
-        await foreach ((nint address, int magic, int targetKey, MHWildsMonsterBasicData data) monster in monstersToCreate)
+        await foreach ((nint address, int magic, MHWildsMonsterBasicData data) monster in monstersToCreate)
         {
             // 0x6D0045 are just the UTF-16 bytes for "Em", every monster asset starts with Em
             if (monster is not { magic: 0x6D0045, data.IsEnabled: 1, data.Category: 0 })
                 continue;
 
-            HandleMonsterSpawn(monster.address, monster.data, monster.targetKey);
+            HandleMonsterSpawn(monster.address, monster.data);
         }
-
-        _player.Update(new MonsterTargetKeys
-        {
-            Keys = _monsterTargetKeys.Values.ToArray()
-        });
 
         IEnumerable<nint> monstersToDestroy = _monsters.Keys.Where(it => !validMonsters.Contains(it));
 
@@ -257,8 +249,7 @@ public sealed class MHWildsGame : CommonGame
 
     private void HandleMonsterSpawn(
         nint address,
-        MHWildsMonsterBasicData data,
-        int targetKey)
+        MHWildsMonsterBasicData data)
     {
         var monster = new MHWildsMonster(
             process: Process,
@@ -266,11 +257,11 @@ public sealed class MHWildsGame : CommonGame
             address: address,
             basicData: data,
             cryptoService: _cryptoService,
-            _localizationRepository
+            localizationRepository: _localizationRepository,
+            targetKeyManager: _monsterTargetKeyManager
         );
 
         _monsters[address] = monster;
-        _monsterTargetKeys[address] = targetKey;
 
         this.Dispatch(
             toDispatch: _onMonsterSpawn,
@@ -284,7 +275,7 @@ public sealed class MHWildsGame : CommonGame
             return;
 
         _monsters.Remove(address);
-        _monsterTargetKeys.Remove(address);
+        _monsterTargetKeyManager.Remove(address);
 
         this.Dispatch(
             toDispatch: _onMonsterDespawn,

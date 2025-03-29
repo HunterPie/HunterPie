@@ -30,6 +30,7 @@ public sealed class MHWildsMonster : CommonMonster
     private readonly ILogger _logger = LoggerFactory.Create();
 
     private readonly MHWildsCryptoService _cryptoService;
+    private readonly MHWildsMonsterTargetKeyManager _targetKeyManager;
     private readonly nint _address;
     private readonly MHWildsMonsterAilment _enrage = new(MonsterAilmentRepository.Enrage);
 
@@ -55,6 +56,7 @@ public sealed class MHWildsMonster : CommonMonster
             if (value <= 0)
             {
                 _isDeadOrCaptured = true;
+                _targetKeyManager.Remove(_address);
                 this.Dispatch(_onDeath);
             }
         }
@@ -169,7 +171,8 @@ public sealed class MHWildsMonster : CommonMonster
         nint address,
         MHWildsMonsterBasicData basicData,
         MHWildsCryptoService cryptoService,
-        ILocalizationRepository localizationRepository) : base(process, scanService)
+        ILocalizationRepository localizationRepository,
+        MHWildsMonsterTargetKeyManager targetKeyManager) : base(process, scanService)
     {
         _basicData = basicData;
         Variant = CalculateVariant();
@@ -183,6 +186,7 @@ public sealed class MHWildsMonster : CommonMonster
         );
 
         _cryptoService = cryptoService;
+        _targetKeyManager = targetKeyManager;
         _definition = MonsterRepository.FindBy(
             game: GameType.Wilds,
             id: Id
@@ -259,6 +263,7 @@ public sealed class MHWildsMonster : CommonMonster
         {
             _logger.Debug($"Captured monster {Name} [{_address:X08}]");
             _isDeadOrCaptured = true;
+            _targetKeyManager.Remove(_address);
             this.Dispatch(
                 toDispatch: _onCapture,
                 data: EventArgs.Empty
@@ -424,10 +429,17 @@ public sealed class MHWildsMonster : CommonMonster
     }
 
     [ScannableMethod]
-    internal Task FinishInitializationAsync()
+    internal async Task FinishInitializationAsync()
     {
         if (_isInitialized)
-            return Task.CompletedTask;
+            return;
+
+        int targetKey = (int)await Memory.ReadPtrAsync(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Monster::TargetKey")
+        );
+
+        _targetKeyManager.Add(_address, targetKey);
 
         _logger.Debug($"Initialized {Name} at address {_address:X} with id: {Id}");
         _isInitialized = true;
@@ -442,8 +454,6 @@ public sealed class MHWildsMonster : CommonMonster
                 toDispatch: _onSpawn,
                 data: EventArgs.Empty
             );
-
-        return Task.CompletedTask;
     }
 
     private VariantType CalculateVariant()
