@@ -95,6 +95,7 @@ public sealed class MHWildsGame : CommonGame
             scanService: scanService,
             monsterTargetKeyManager: _monsterTargetKeyManager
         );
+        _player.OnStageUpdate += (_, _) => _localElapsedTime = DateTime.UtcNow;
     }
 
     [ScannableMethod]

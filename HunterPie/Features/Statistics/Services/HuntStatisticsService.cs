@@ -48,6 +48,7 @@ internal class HuntStatisticsService : IHuntStatisticsService<HuntStatisticsMode
             .ToList();
 
         var monsters = _monsterStatisticsServices.Select(s => s.Export())
+            .Where(it => it.Enrage.Activations.Length > 0)
             .ToList();
 
         return new HuntStatisticsModel(

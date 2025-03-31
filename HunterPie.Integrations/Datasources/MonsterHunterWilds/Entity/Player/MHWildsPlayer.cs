@@ -33,6 +33,7 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
 
 public sealed class MHWildsPlayer : CommonPlayer
 {
+    private const int MAX_DAMAGE_HISTORY_SIZE = 100;
     private static readonly Lazy<AbnormalityDefinition[]> ConsumableDefinitions = new(static () =>
         AbnormalityRepository.FindAllAbnormalitiesBy(
             game: GameType.Wilds,
@@ -122,7 +123,7 @@ public sealed class MHWildsPlayer : CommonPlayer
         }
     }
 
-    private int _stageId;
+    private int _stageId = -1;
     public override int StageId
     {
         get => _stageId;
@@ -217,6 +218,11 @@ public sealed class MHWildsPlayer : CommonPlayer
         else if (!wasInHuntingZone && _inHuntingZone)
             this.Dispatch(_onVillageLeave);
 
+        // Sometimes IsSafeZone is only updated way after the StageId value, so we have to
+        // dispatch this event as well
+        if (StageId == context.StageId && wasInHuntingZone != _inHuntingZone)
+            this.Dispatch(_onStageUpdate);
+
         StageId = context.StageId;
     }
 
@@ -235,6 +241,9 @@ public sealed class MHWildsPlayer : CommonPlayer
     [ScannableMethod]
     internal async Task GetPartyAsync()
     {
+        if (StageId < 0)
+            return;
+
         nint partyLimitedArrayPointer = await Memory.DerefAsync<nint>(
             address: AddressMap.GetAbsolute("Game::PlayerManager"),
             offsets: AddressMap.GetOffsets("Player::Party")
@@ -268,6 +277,10 @@ public sealed class MHWildsPlayer : CommonPlayer
                 address: playerPointer,
                 offsets: AddressMap.GetOffsets("Player::Base")
             );
+            string name = await GetPlayerNameAsync(basePlayerPointer);
+
+            if (string.IsNullOrEmpty(name))
+                return;
 
             Task<float> damageDefer = GetDamageByPlayerAsync(basePlayerPointer);
 
@@ -275,9 +288,9 @@ public sealed class MHWildsPlayer : CommonPlayer
             var data = new UpdatePartyMember
             {
                 Id = playerPointer,
-                Index = index,
+                Index = i,
                 IsMyself = isMyself,
-                Name = isMyself ? Name : await GetPlayerNameAsync(basePlayerPointer),
+                Name = name,
                 Weapon = isMyself ? Weapon.Id : await GetPlayerWeaponAsync(basePlayerPointer),
                 Damage = await damageDefer,
             };
@@ -301,9 +314,23 @@ public sealed class MHWildsPlayer : CommonPlayer
         );
         MHWildsDamageHistory damageHistory = await Memory.ReadAsync<MHWildsDamageHistory>(damageHistoryPointer);
 
+        if (damageHistory.Size <= 0)
+            return 0;
+
+        int offset = 0x20;
+        int damageHistorySafeSize = damageHistory.Size;
+        // The history array grows infinitely and stores the damage done to each monster individually
+        // we don't need to actually read every monster damage as some of the monsters might not even be in the map anymore
+        // This also handles invalid memory addresses that sometimes makes HunterPie read insanely high lengths
+        if (damageHistorySafeSize > MAX_DAMAGE_HISTORY_SIZE)
+        {
+            offset += sizeof(long) * (damageHistorySafeSize - MAX_DAMAGE_HISTORY_SIZE);
+            damageHistorySafeSize = MAX_DAMAGE_HISTORY_SIZE;
+        }
+
         nint[] damagePointers = await Memory.ReadAsync<nint>(
-            address: damageHistory.Elements + 0x20,
-            count: damageHistory.Size
+            address: damageHistory.Elements + offset,
+            count: damageHistorySafeSize
         );
         IAsyncEnumerable<MHWildsTargetDamage> damageEnumerable = damagePointers.AsParallel()
             .Select(async it => await Memory.ReadAsync<MHWildsTargetDamage>(it))
@@ -325,7 +352,7 @@ public sealed class MHWildsPlayer : CommonPlayer
     private async Task<string> GetPlayerNameAsync(nint address)
     {
         MHWildsPlayerContext context = await Memory.DerefPtrAsync<MHWildsPlayerContext>(
-            address: _address,
+            address: address,
             offsets: AddressMap.GetOffsets("Player::Context")
         );
 
@@ -335,7 +362,7 @@ public sealed class MHWildsPlayer : CommonPlayer
     private async Task<WeaponType> GetPlayerWeaponAsync(nint address)
     {
         MHWildsPlayerGearContext context = await Memory.DerefPtrAsync<MHWildsPlayerGearContext>(
-            address: _address,
+            address: address,
             offsets: AddressMap.GetOffsets("Player::Gear")
         );
 
