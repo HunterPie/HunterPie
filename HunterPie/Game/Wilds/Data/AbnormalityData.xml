@@ -416,11 +416,19 @@
     </Debuffs>
     <Palico>
         <Abnormality Id="Palico.0" />
-        <Abnormality Id="Palico.1" />
-        <Abnormality Id="Palico.2" />
+        <Abnormality Id="Palico.1"
+                     Name="ABNORMALITY_SPORENET_PURRTECTION"
+                     Icon="ICON_DEFUP" />
+        <Abnormality Id="Palico.2"
+                     Name="ABNORMALITY_SPORENET_PURRTECTION_L"
+                     Icon="ICON_DEFUP" />
         <Abnormality Id="Palico.3" />
-        <Abnormality Id="Palico.4" />
-        <Abnormality Id="Palico.5" />
+        <Abnormality Id="Palico.4"
+                     Name="ABNORMALITY_SPORENET_POWER"
+                     Icon="ICON_ATTACKUP" />
+        <Abnormality Id="Palico.5"
+                     Name="ABNORMALITY_SPORENET_POWER_L"
+                     Icon="ICON_ATTACKUP" />
         <Abnormality Id="Palico.6" />
         <Abnormality Id="Palico.7" />
         <Abnormality Id="Palico.8" />
