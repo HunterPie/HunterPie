@@ -32,6 +32,7 @@ public class MHWildsDiscordPresenceStrategy : IDiscordRichPresenceStrategy
     public void Update(RichPresence presence)
     {
         string description = BuildDescription();
+        string state = BuildState();
         string stageName = _localizationRepository.FindStringBy(
             path: $"//Strings/Stages/Wilds/Stage[@Id='{_context.Game.Player.StageId}']"
         );
@@ -39,6 +40,7 @@ public class MHWildsDiscordPresenceStrategy : IDiscordRichPresenceStrategy
 
         presence
             .WithDetails(description)
+            .WithState(state)
             .WithAssets(new Assets
             {
                 LargeImageKey = isUnmappedStage switch
@@ -60,6 +62,13 @@ public class MHWildsDiscordPresenceStrategy : IDiscordRichPresenceStrategy
                         .Replace("{MasterRank}", "-"),
                     _ => null
                 }
+            })
+            .WithParty(new Party
+            {
+                ID = _context.Game.Player.Name,
+                Max = _context.Game.Player.Party.MaxSize,
+                Size = _context.Game.Player.Party.Size,
+                Privacy = Party.PrivacySetting.Public
             });
     }
 
@@ -87,5 +96,14 @@ public class MHWildsDiscordPresenceStrategy : IDiscordRichPresenceStrategy
         return _discordLocalizationRepository.FindStringBy(descriptionString)
             .Replace("{Monster}", targetMonster.Name)
             .Replace("{Percentage}", $"{targetMonster.Health / targetMonster.MaxHealth * 100:0}");
+    }
+
+    private string BuildState()
+    {
+        string localizationId = _context.Game.Player.Party.Size <= 1
+            ? "DRPC_PARTY_STATE_SOLO_STRING"
+            : "DRPC_PARTY_STATE_GROUP_STRING";
+
+        return _discordLocalizationRepository.FindStringBy(localizationId);
     }
 }

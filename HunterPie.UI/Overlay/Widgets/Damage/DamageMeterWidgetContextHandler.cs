@@ -52,6 +52,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
         UpdateData();
     }
 
+    [Obsolete]
     private void UpdateData()
     {
         _viewModel.Pets.Name = Localization.QueryString("//Strings/Client/Overlay/String[@Id='DAMAGE_METER_OTOMOS_NAME_STRING']");
@@ -204,7 +205,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
 
         double newDps = CalculateDpsByConfiguredStrategy(member);
         vm.IsIncreasing = newDps > vm.DPS;
-        vm.Damage = e.Damage;
+        vm.Damage = e.Damage - member.IgnorableDamage;
         vm.DPS = newDps;
     }
 
