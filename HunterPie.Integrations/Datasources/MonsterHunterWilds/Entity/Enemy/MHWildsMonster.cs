@@ -30,7 +30,6 @@ public sealed class MHWildsMonster : CommonMonster
     private readonly ILogger _logger = LoggerFactory.Create();
 
     private readonly MHWildsCryptoService _cryptoService;
-    private readonly MHWildsMonsterTargetKeyManager _targetKeyManager;
     private readonly nint _address;
     private readonly MHWildsMonsterAilment _enrage = new(MonsterAilmentRepository.Enrage);
 
@@ -179,7 +178,6 @@ public sealed class MHWildsMonster : CommonMonster
         );
 
         _cryptoService = cryptoService;
-        _targetKeyManager = targetKeyManager;
         _definition = MonsterRepository.FindBy(
             game: GameType.Wilds,
             id: Id
@@ -260,14 +258,12 @@ public sealed class MHWildsMonster : CommonMonster
             case 0:
                 _logger.Debug($"Killed monster {Name} [{_address:X08}]");
                 _isDeadOrCaptured = true;
-                _targetKeyManager.Remove(_address);
                 this.Dispatch(_onDeath);
                 break;
 
             case 10:
                 _logger.Debug($"Captured monster {Name} [{_address:X08}]");
                 _isDeadOrCaptured = true;
-                _targetKeyManager.Remove(_address);
                 this.Dispatch(_onCapture);
                 break;
         }
@@ -443,8 +439,6 @@ public sealed class MHWildsMonster : CommonMonster
             address: _address,
             offsets: AddressMap.GetOffsets("Monster::TargetKey")
         );
-
-        _targetKeyManager.Add(_address, targetKey);
 
         _logger.Debug($"Initialized {Name} at address {_address:X} with id: {Id}");
         _isInitialized = true;

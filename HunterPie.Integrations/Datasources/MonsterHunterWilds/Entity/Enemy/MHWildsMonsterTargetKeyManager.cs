@@ -1,24 +1,27 @@
-﻿namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
+﻿using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
+using System.Collections.Frozen;
+
+namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 
 public class MHWildsMonsterTargetKeyManager
 {
-    private readonly Dictionary<nint, int> _targetKeys = new();
+    private FrozenSet<int>? _targetKeys;
 
-    public void Add(nint address, int targetKey)
+    public void Set(MHWildsTargetKey[] keys)
     {
-        lock (_targetKeys)
-            _targetKeys.TryAdd(address, targetKey);
+        lock (this)
+            _targetKeys = keys.Select(it => it.Key).ToFrozenSet();
     }
 
-    public void Remove(nint address)
+    public void Clear()
     {
-        lock (_targetKeys)
-            _targetKeys.Remove(address);
+        lock (this)
+            _targetKeys = null;
     }
 
     public bool Contains(int targetKey)
     {
-        lock (_targetKeys)
-            return _targetKeys.ContainsValue(targetKey);
+        lock (this)
+            return _targetKeys?.Contains(targetKey) == true;
     }
 }

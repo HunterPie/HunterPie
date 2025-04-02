@@ -212,6 +212,7 @@ public sealed class MHWildsGame : CommonGame
                     timeElapsed: TimeElapsed
                 )
             );
+            _monsterTargetKeyManager.Clear();
             _quest.Dispose();
             _quest = null;
             return;
@@ -221,6 +222,9 @@ public sealed class MHWildsGame : CommonGame
             && hasStarted
             && isQuestValid)
         {
+            MHWildsTargetKey[] targetKeys = await Memory.ReadArrayAsync<MHWildsTargetKey>(
+                address: information.TargetKeysPointer
+            );
             MHWildsQuestDetails? details = quest.DetailsPointer.IsNullPointer() switch
             {
                 false => await Memory.ReadAsync<MHWildsQuestDetails>(
@@ -233,6 +237,7 @@ public sealed class MHWildsGame : CommonGame
                 details: details
             );
             _quest.Update(information);
+            _monsterTargetKeyManager.Set(targetKeys);
 
             this.Dispatch(
                 toDispatch: _onQuestStart,
@@ -276,7 +281,6 @@ public sealed class MHWildsGame : CommonGame
             return;
 
         _monsters.Remove(address);
-        _monsterTargetKeyManager.Remove(address);
 
         this.Dispatch(
             toDispatch: _onMonsterDespawn,
