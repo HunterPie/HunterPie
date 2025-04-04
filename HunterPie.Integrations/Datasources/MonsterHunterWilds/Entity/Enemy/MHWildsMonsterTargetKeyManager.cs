@@ -5,23 +5,47 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 
 public class MHWildsMonsterTargetKeyManager
 {
-    private FrozenSet<int>? _targetKeys;
+    private FrozenSet<int>? _questTargetKeys;
+    private readonly HashSet<int> _monsterTargetKeys = new();
 
-    public void Set(MHWildsTargetKey[] keys)
+    public bool HasQuestTargets()
     {
-        lock (this)
-            _targetKeys = keys.Select(it => it.Key).ToFrozenSet();
+        return _questTargetKeys is not null;
     }
 
-    public void Clear()
+    public void SetQuestTargets(MHWildsTargetKey[] keys)
     {
         lock (this)
-            _targetKeys = null;
+            _questTargetKeys = keys.Select(it => it.Key).ToFrozenSet();
     }
 
-    public bool Contains(int targetKey)
+    public void ClearQuestTargets()
     {
         lock (this)
-            return _targetKeys?.Contains(targetKey) == true;
+            _questTargetKeys = null;
+    }
+
+    public void AddMonster(int key)
+    {
+        lock (this)
+            _monsterTargetKeys.Add(key);
+    }
+
+    public void ClearMonsters()
+    {
+        lock (this)
+            _monsterTargetKeys.Clear();
+    }
+
+    public bool IsMonster(int targetKey)
+    {
+        lock (this)
+            return _monsterTargetKeys.Contains(targetKey);
+    }
+
+    public bool IsQuestTarget(int targetKey)
+    {
+        lock (this)
+            return _questTargetKeys?.Contains(targetKey) == true;
     }
 }

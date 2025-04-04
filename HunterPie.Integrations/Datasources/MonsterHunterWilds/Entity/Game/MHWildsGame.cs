@@ -95,7 +95,11 @@ public sealed class MHWildsGame : CommonGame
             scanService: scanService,
             monsterTargetKeyManager: _monsterTargetKeyManager
         );
-        _player.OnStageUpdate += (_, _) => _localElapsedTime = DateTime.UtcNow;
+        _player.OnStageUpdate += (_, _) =>
+        {
+            _localElapsedTime = DateTime.UtcNow;
+            _monsterTargetKeyManager.ClearMonsters();
+        };
     }
 
     [ScannableMethod]
@@ -212,9 +216,10 @@ public sealed class MHWildsGame : CommonGame
                     timeElapsed: TimeElapsed
                 )
             );
-            _monsterTargetKeyManager.Clear();
+
             _quest.Dispose();
             _quest = null;
+            _monsterTargetKeyManager.ClearQuestTargets();
             return;
         }
 
@@ -225,6 +230,11 @@ public sealed class MHWildsGame : CommonGame
             MHWildsTargetKey[] targetKeys = await Memory.ReadArrayAsync<MHWildsTargetKey>(
                 address: information.TargetKeysPointer
             );
+
+            // Quest is not fully loaded yet if the target keys are not initialized
+            if (targetKeys.Any(it => it.Key == -1))
+                return;
+
             MHWildsQuestDetails? details = quest.DetailsPointer.IsNullPointer() switch
             {
                 false => await Memory.ReadAsync<MHWildsQuestDetails>(
@@ -237,7 +247,9 @@ public sealed class MHWildsGame : CommonGame
                 details: details
             );
             _quest.Update(information);
-            _monsterTargetKeyManager.Set(targetKeys);
+            _monsterTargetKeyManager.SetQuestTargets(targetKeys);
+
+            TimeElapsed = information.Timer / 1000;
 
             this.Dispatch(
                 toDispatch: _onQuestStart,

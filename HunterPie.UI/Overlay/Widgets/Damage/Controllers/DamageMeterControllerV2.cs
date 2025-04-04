@@ -14,6 +14,7 @@ using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Data;
@@ -35,7 +36,7 @@ public class DamageMeterControllerV2 : IContextHandler
     private MeterViewModel _viewModelSnapshot;
     private readonly MeterView _view;
     private readonly DamageMeterWidgetConfig _config;
-    private readonly Dictionary<IPartyMember, PartyMemberContext> _members = new();
+    private readonly ConcurrentDictionary<IPartyMember, PartyMemberContext> _members = new();
 
     public DamageMeterControllerV2(
         IContext context,
@@ -60,8 +61,10 @@ public class DamageMeterControllerV2 : IContextHandler
     {
         _context.Game.Player.Party.OnMemberJoin += OnMemberJoin;
         _context.Game.Player.Party.OnMemberLeave += OnMemberLeave;
-        _context.Game.OnTimeElapsedChange += OnTimeElapsedChange;
+        _context.Game.Player.OnVillageEnter += OnVillageStateUpdate;
+        _context.Game.Player.OnVillageLeave += OnVillageStateUpdate;
         _context.Game.Player.OnStageUpdate += OnStageUpdate;
+        _context.Game.OnTimeElapsedChange += OnTimeElapsedChange;
         _context.Game.OnQuestStart += OnQuestStart;
         _context.Game.OnQuestEnd += OnQuestEnd;
 
@@ -73,8 +76,10 @@ public class DamageMeterControllerV2 : IContextHandler
     {
         _context.Game.Player.Party.OnMemberJoin -= OnMemberJoin;
         _context.Game.Player.Party.OnMemberLeave -= OnMemberLeave;
-        _context.Game.OnTimeElapsedChange -= OnTimeElapsedChange;
+        _context.Game.Player.OnVillageEnter -= OnVillageStateUpdate;
+        _context.Game.Player.OnVillageLeave -= OnVillageStateUpdate;
         _context.Game.Player.OnStageUpdate -= OnStageUpdate;
+        _context.Game.OnTimeElapsedChange -= OnTimeElapsedChange;
         _context.Game.OnQuestStart -= OnQuestStart;
         _context.Game.OnQuestEnd -= OnQuestEnd;
 
@@ -105,6 +110,8 @@ public class DamageMeterControllerV2 : IContextHandler
                 member.OnWeaponChange -= OnWeaponChange;
             }
 
+            _members.Clear();
+
             _viewModel.TimeElapsed = e.TimeElapsed.TotalSeconds;
             _viewModelSnapshot = _viewModel;
             _view.DataContext = _viewModelSnapshot;
@@ -117,6 +124,13 @@ public class DamageMeterControllerV2 : IContextHandler
     {
         _view.Dispatcher.BeginInvoke(() =>
         {
+            _members.Clear();
+            _viewModel.Players.Clear();
+            _viewModel.Series.Clear();
+
+            foreach (IPartyMember member in _context.Game.Player.Party.Members)
+                HandleMemberJoin(member);
+
             e.OnDeathCounterChange += OnDeathCounterChange;
             _viewModel.MaxDeaths = e.MaxDeaths;
             _viewModel.Deaths = e.Deaths;
@@ -127,6 +141,28 @@ public class DamageMeterControllerV2 : IContextHandler
     }
 
     private void OnStageUpdate(object? sender, EventArgs e)
+    {
+        if (_context.Game.Quest is not null)
+            return;
+
+        _view.Dispatcher.BeginInvoke(() =>
+        {
+            _members.Clear();
+            _viewModel.Players.Clear();
+            _viewModel.Series.Clear();
+
+            foreach (IPartyMember member in _context.Game.Player.Party.Members)
+                HandleMemberJoin(member);
+
+            _viewModel.MaxDeaths = 0;
+
+            _view.DataContext = _viewModel;
+            _viewModel.InHuntingZone = _context.Game.Player.InHuntingZone;
+        });
+    }
+
+
+    private void OnVillageStateUpdate(object? sender, EventArgs e)
     {
         bool isVisibleArea = _context.Game.Player.InHuntingZone || _context.Game.Quest is not null;
         _viewModelSnapshot.InHuntingZone = isVisibleArea;
@@ -167,15 +203,18 @@ public class DamageMeterControllerV2 : IContextHandler
 
     private void OnDamageDealt(object? sender, IPartyMember e)
     {
+        if (e.Damage <= 0)
+            return;
+
         if (!_members.TryGetValue(e, out PartyMemberContext? memberCtx))
             return;
 
         if (memberCtx.ViewModel.Damage <= 0)
             memberCtx.FirstHitAt = _context.Game.TimeElapsed;
 
+        memberCtx.ViewModel.Damage = e.Damage - memberCtx.IgnorableDamage;
         double newDps = CalculateDpsByConfiguredStrategy(memberCtx);
         memberCtx.ViewModel.IsIncreasing = newDps > memberCtx.ViewModel.DPS;
-        memberCtx.ViewModel.Damage = e.Damage - memberCtx.IgnorableDamage;
         memberCtx.ViewModel.DPS = newDps;
     }
 
@@ -209,10 +248,12 @@ public class DamageMeterControllerV2 : IContextHandler
             FirstHitAt = member.Damage > 0
                 ? _context.Game.TimeElapsed
                 : -1,
-            IgnorableDamage = 0
+            IgnorableDamage = member.Damage
         };
 
-        _members.Add(member, memberContext);
+        if (!_members.TryAdd(member, memberContext))
+            return;
+
         _viewModel.Players.Add(memberContext.ViewModel);
 
         member.OnDamageDealt += OnDamageDealt;

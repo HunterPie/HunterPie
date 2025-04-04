@@ -118,6 +118,7 @@ public sealed class MHWildsQuest : IQuest, IEventDispatcher, IUpdatable<MHWildsC
 
     public void Update(MHWildsCurrentQuestInformation data)
     {
+        MaxDeaths = (int)data.MaxDeaths.Decode();
         Status = data.ToQuestStatus();
         TimeLeft = TimeSpan.FromMilliseconds(data.MaxTimer - data.Timer);
     }

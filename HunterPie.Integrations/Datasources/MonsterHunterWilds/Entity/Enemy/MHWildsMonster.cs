@@ -29,6 +29,7 @@ public sealed class MHWildsMonster : CommonMonster
     private bool _isInitialized;
     private readonly ILogger _logger = LoggerFactory.Create();
 
+    private readonly MHWildsMonsterTargetKeyManager _targetKeyManager;
     private readonly MHWildsCryptoService _cryptoService;
     private readonly nint _address;
     private readonly MHWildsMonsterAilment _enrage = new(MonsterAilmentRepository.Enrage);
@@ -166,6 +167,7 @@ public sealed class MHWildsMonster : CommonMonster
         ILocalizationRepository localizationRepository,
         MHWildsMonsterTargetKeyManager targetKeyManager) : base(process, scanService)
     {
+        _targetKeyManager = targetKeyManager;
         _basicData = basicData;
         Variant = CalculateVariant();
         _address = address;
@@ -182,6 +184,17 @@ public sealed class MHWildsMonster : CommonMonster
             game: GameType.Wilds,
             id: Id
         ) ?? MonsterRepository.UnknownDefinition;
+    }
+
+    [ScannableMethod]
+    internal async Task GetTargetKey()
+    {
+        int targetKey = (int)await Memory.ReadPtrAsync(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Monster::TargetKey")
+        );
+
+        _targetKeyManager.AddMonster(targetKey);
     }
 
     [ScannableMethod]
@@ -430,15 +443,10 @@ public sealed class MHWildsMonster : CommonMonster
     }
 
     [ScannableMethod]
-    internal async Task FinishInitializationAsync()
+    internal Task FinishInitialization()
     {
         if (_isInitialized)
-            return;
-
-        int targetKey = (int)await Memory.ReadPtrAsync(
-            address: _address,
-            offsets: AddressMap.GetOffsets("Monster::TargetKey")
-        );
+            return Task.CompletedTask;
 
         _logger.Debug($"Initialized {Name} at address {_address:X} with id: {Id}");
         _isInitialized = true;
@@ -448,11 +456,13 @@ public sealed class MHWildsMonster : CommonMonster
             data: Weaknesses
         );
 
-        if (Health > 0)
+        if (!_isDeadOrCaptured)
             this.Dispatch(
                 toDispatch: _onSpawn,
                 data: EventArgs.Empty
             );
+
+        return Task.CompletedTask;
     }
 
     private VariantType CalculateVariant()
