@@ -288,6 +288,30 @@
 				<Part Id="12" String="PART_L_WING"/>
 			</Parts>
 		</Monster>
+        <Monster Id="13">
+            <Crowns Gold="123"
+                    Silver="115"
+                    Mini="90"/>
+            <Types>
+                <Type Name="TYPE_LEVIATHAN"/>
+            </Types>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+                <Weakness Name="Dragon"/>
+            </Weaknesses>
+            <Parts>
+                <Part Id="0" String="PART_HEAD"/>
+                <Part Id="1" String="PART_L_LEG"/>
+                <Part Id="2" String="PART_L_CLAW"/>
+                <Part Id="3" String="PART_R_LEG"/>
+                <Part Id="4" String="PART_R_CLAW"/>
+                <Part Id="5" String="PART_L_H_LEG"/>
+                <Part Id="6" String="PART_R_H_LEG"/>
+                <Part Id="7" String="PART_TORSO"/>
+                <Part Id="8" String="PART_TAIL"/>
+                <Part Id="9" String="PART_DORSAL_FIN"/>
+            </Parts>
+        </Monster>
 		<Monster Id="14"
 		         Size="1646.46">
 			<Crowns Gold="123"
