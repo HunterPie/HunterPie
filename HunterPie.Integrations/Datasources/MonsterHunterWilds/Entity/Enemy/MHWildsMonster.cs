@@ -465,6 +465,7 @@ public sealed class MHWildsMonster : CommonMonster
     {
         VariantType variant = _basicData.LegendaryId switch
         {
+            2 => VariantType.ArchTempered,
             1 => VariantType.Tempered,
             _ => VariantType.Normal
         };
