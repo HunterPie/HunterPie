@@ -48,6 +48,12 @@ public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("DAMAGE_METER_ENABLE_DPS_PLOT", group: CommonConfigurationGroups.DAMAGE_PLOT)]
     public Observable<bool> ShouldShowPlots { get; set; } = true;
 
+    [ConfigurationProperty("DAMAGE_METER_ENABLE_MOVING_WINDOW", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.MonsterHunterWilds)]
+    public Observable<bool> IsPlotMovingWindowEnabled { get; set; } = true;
+
+    [ConfigurationProperty("DAMAGE_METER_MOVING_WINDOW_SIZE", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.MonsterHunterWilds)]
+    public Range PlotMovingWindowSize { get; set; } = new Range(10.0, 60, 5.0, 1.0);
+
     [ConfigurationProperty("DAMAGE_METER_PLOT_LINE_SMOOTHING_STRING", group: CommonConfigurationGroups.DAMAGE_PLOT)]
     public Range PlotLineSmoothing { get; set; } = new Range(1.0, 1.0, 0.0, 0.01);
 

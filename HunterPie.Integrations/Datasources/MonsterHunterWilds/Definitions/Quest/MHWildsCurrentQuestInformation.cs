@@ -8,7 +8,7 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Ques
 public struct MHWildsCurrentQuestInformation
 {
     [FieldOffset(0x20)] public nint TargetKeysPointer;
-    [FieldOffset(0x90)] public MHWildsEncryptedInteger MaxDeaths;
+    [FieldOffset(0xA0)] public MHWildsEncryptedInteger MaxDeaths;
     [FieldOffset(0xB8)] public float Timer;
     [FieldOffset(0xBC)] public float MaxTimer;
     [FieldOffset(0xDC)] public int SuccessState; // 0: none, 1: leave, 2: clear, 3: failed, 4: failed

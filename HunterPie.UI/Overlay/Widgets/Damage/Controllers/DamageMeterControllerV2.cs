@@ -4,6 +4,7 @@ using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.List;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.UI.Architecture.Brushes;
 using HunterPie.UI.Overlay.Widgets.Damage.Helpers;
@@ -37,6 +38,7 @@ public class DamageMeterControllerV2 : IContextHandler
     private readonly MeterView _view;
     private readonly DamageMeterWidgetConfig _config;
     private readonly ConcurrentDictionary<IPartyMember, PartyMemberContext> _members = new();
+    private int _windowSecondsCount;
 
     public DamageMeterControllerV2(
         IContext context,
@@ -212,10 +214,7 @@ public class DamageMeterControllerV2 : IContextHandler
         if (memberCtx.ViewModel.Damage <= 0)
             memberCtx.FirstHitAt = _context.Game.TimeElapsed;
 
-        memberCtx.ViewModel.Damage = e.Damage - memberCtx.IgnorableDamage;
-        double newDps = CalculateDpsByConfiguredStrategy(memberCtx);
-        memberCtx.ViewModel.IsIncreasing = newDps > memberCtx.ViewModel.DPS;
-        memberCtx.ViewModel.DPS = newDps;
+        memberCtx.ViewModel.Damage = e.Damage;
     }
 
     private void HandleMemberJoin(IPartyMember member)
@@ -248,7 +247,7 @@ public class DamageMeterControllerV2 : IContextHandler
             FirstHitAt = member.Damage > 0
                 ? _context.Game.TimeElapsed
                 : -1,
-            IgnorableDamage = member.Damage
+            DamageHistory = new SlidingWindow<(double, int)>((int)_config.PlotMovingWindowSize.Current),
         };
 
         if (!_members.TryAdd(member, memberContext))
@@ -259,7 +258,7 @@ public class DamageMeterControllerV2 : IContextHandler
         member.OnDamageDealt += OnDamageDealt;
         member.OnWeaponChange += OnWeaponChange;
 
-        _logger.Debug($"added player {member.Name} to party [{member.GetHashCode():08X}]");
+        _logger.Debug($"added player {member.Name} | {memberContext.JoinedAt} to party [{member.GetHashCode():X08}]");
     }
 
     private void HandleMemberLeave(IPartyMember member)
@@ -273,12 +272,17 @@ public class DamageMeterControllerV2 : IContextHandler
         _viewModel.Players.Remove(memberCtx.ViewModel);
         _viewModel.Series.Remove(memberCtx.Plots);
 
-        _logger.Debug($"removed player {member.Name} from party [{member.GetHashCode():08X}]");
+        _logger.Debug($"removed player {member.Name} from party [{member.GetHashCode():X08}]");
     }
 
     private void CalculatePlayerSeries()
     {
         float totalDamage = _members.Keys.Sum(it => it.Damage);
+        bool isPlottingWindowEnabled = _config.IsPlotMovingWindowEnabled;
+        double plottingWindowSize = _config.PlotMovingWindowSize.Current;
+        int secondsCount = (int)Math.Floor(_viewModel.TimeElapsed % plottingWindowSize);
+        bool hasBeenOneSecond = secondsCount != _windowSecondsCount;
+        _windowSecondsCount = secondsCount;
 
         foreach ((IPartyMember member, PartyMemberContext memberCtx) in _members)
         {
@@ -289,16 +293,38 @@ public class DamageMeterControllerV2 : IContextHandler
                 ? member.Damage / totalDamage * 100
                 : 0;
 
+            if (hasBeenOneSecond)
+                memberCtx.DamageHistory.Add((_viewModel.TimeElapsed, memberCtx.ViewModel.Damage));
+
             double newDps = CalculateDpsByConfiguredStrategy(memberCtx);
             memberCtx.ViewModel.IsIncreasing = newDps > memberCtx.ViewModel.DPS;
             memberCtx.ViewModel.DPS = newDps;
 
-            ObservablePoint point = CalculatePointByConfiguredStrategy(memberCtx.ViewModel);
+            ObservablePoint point = CalculatePointByConfiguredStrategy(memberCtx);
 
             chartValues.Add(point);
+
+            if (isPlottingWindowEnabled)
+                ClearOldPoints(chartValues, plottingWindowSize);
         }
 
         _viewModel.SortMembers();
+    }
+
+    private void ClearOldPoints(ChartValues<ObservablePoint> chart, double plottingWindowSize)
+    {
+        bool isAboveConfiguredWindowSize;
+
+        do
+        {
+            ObservablePoint point = chart[0];
+            isAboveConfiguredWindowSize = (_viewModel.TimeElapsed - point.X) > plottingWindowSize;
+
+            if (!isAboveConfiguredWindowSize)
+                break;
+
+            chart.RemoveAt(0);
+        } while (isAboveConfiguredWindowSize);
     }
 
     private double CalculateDpsByConfiguredStrategy(PartyMemberContext memberContext)
@@ -315,12 +341,19 @@ public class DamageMeterControllerV2 : IContextHandler
         return memberContext.ViewModel.Damage / timeElapsed;
     }
 
-    private ObservablePoint CalculatePointByConfiguredStrategy(PlayerViewModel player)
+    private ObservablePoint CalculatePointByConfiguredStrategy(PartyMemberContext context)
     {
+        if (_config.IsPlotMovingWindowEnabled)
+        {
+            (double _, int previousDamage) = context.DamageHistory.GetFirst() ?? (0.0, 0);
+            double dps = (context.ViewModel.Damage - previousDamage) / _config.PlotMovingWindowSize.Current;
+            return new ObservablePoint(_viewModel.TimeElapsed, dps);
+        }
+
         double damage = _config.DamagePlotStrategy.Value switch
         {
-            DamagePlotStrategy.TotalDamage => player.Damage,
-            DamagePlotStrategy.DamagePerSecond => player.DPS,
+            DamagePlotStrategy.TotalDamage => context.ViewModel.Damage,
+            DamagePlotStrategy.DamagePerSecond => context.ViewModel.DPS,
             _ => throw new NotImplementedException(),
         };
 

@@ -4,10 +4,11 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Events;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Quest;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game.Quest.Data;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game.Quest;
 
-public sealed class MHWildsQuest : IQuest, IEventDispatcher, IUpdatable<MHWildsCurrentQuestInformation>, IDisposable
+public sealed class MHWildsQuest : IQuest, IEventDispatcher, IUpdatable<UpdateQuest>, IDisposable
 {
     /// <inheritdoc />
     public int Id { get; }
@@ -116,11 +117,12 @@ public sealed class MHWildsQuest : IQuest, IEventDispatcher, IUpdatable<MHWildsC
         Stars = details?.Level ?? 0;
     }
 
-    public void Update(MHWildsCurrentQuestInformation data)
+    public void Update(UpdateQuest data)
     {
-        MaxDeaths = (int)data.MaxDeaths.Decode();
-        Status = data.ToQuestStatus();
-        TimeLeft = TimeSpan.FromMilliseconds(data.MaxTimer - data.Timer);
+        MaxDeaths = (int)data.Information.MaxDeaths.Decode();
+        Deaths = (int)data.Deaths.Decode();
+        Status = data.Information.ToQuestStatus();
+        TimeLeft = TimeSpan.FromMilliseconds(data.Information.MaxTimer - data.Information.Timer);
     }
 
     public void Dispose()

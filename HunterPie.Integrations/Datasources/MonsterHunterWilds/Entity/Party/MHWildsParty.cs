@@ -63,10 +63,10 @@ public class MHWildsParty : CommonParty, IUpdatable<UpdateParty>, IUpdatable<Upd
 
     private void Remove(nint id)
     {
-        if (!_members.TryGetValue(id, out MHWildsPartyMember? member))
+        if (!_members.Remove(id, out MHWildsPartyMember? member))
             return;
 
-        _logger.Debug($"Removed player from party id: {id} {member.Name}");
+        _logger.Debug($"Removed player from party id: {id:X08} {member.Name}");
 
         this.Dispatch(
             toDispatch: _onMemberLeave,

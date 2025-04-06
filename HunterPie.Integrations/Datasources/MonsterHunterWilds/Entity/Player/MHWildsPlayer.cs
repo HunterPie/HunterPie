@@ -211,17 +211,19 @@ public sealed class MHWildsPlayer : CommonPlayer
         );
 
         bool wasInHuntingZone = _inHuntingZone;
-        _inHuntingZone = context is { IsSafeZone: false, StageId: >= 0 } && !string.IsNullOrEmpty(Name);
+        bool isLoading = await Memory.DerefAsync<int>(
+            address: AddressMap.GetAbsolute("Game::FadeManager"),
+            offsets: AddressMap.GetOffsets("Scene::IsFading")
+        ) > 0;
+        _inHuntingZone = context is { IsSafeZone: false, StageId: >= 0 } && !isLoading && !string.IsNullOrEmpty(Name);
 
         if (wasInHuntingZone && !_inHuntingZone)
             this.Dispatch(_onVillageEnter);
         else if (!wasInHuntingZone && _inHuntingZone)
             this.Dispatch(_onVillageLeave);
 
-        bool isLoading = await Memory.DerefAsync<int>(
-            address: AddressMap.GetAbsolute("Game::FadeManager"),
-            offsets: AddressMap.GetOffsets("Scene::IsFading")
-        ) > 0;
+        if (isLoading)
+            StageId = -1;
 
         if (context.StageId != StageId && isLoading)
             return;
@@ -290,7 +292,7 @@ public sealed class MHWildsPlayer : CommonPlayer
             bool isMyself = index == 0;
             var data = new UpdatePartyMember
             {
-                Id = playerPointer,
+                Id = basePlayerPointer,
                 Index = i,
                 IsMyself = isMyself,
                 Name = name,
