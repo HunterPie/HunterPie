@@ -521,7 +521,6 @@ public sealed class MHWildsMonster : CommonMonster
                 sb.Append(prefix);
                 sb.Append(' ');
                 sb.Append(name);
-
             }
         }
         else
