@@ -486,24 +486,19 @@ public sealed class MHWildsMonster : CommonMonster
     {
         var sb = new StringBuilder();
 
+        string prefix = "";
         if (variant.HasFlag(VariantType.Tempered))
         {
-            string prefix = localizationRepository.FindStringBy("//Strings/Monsters/Variants/Variant[@Id='TEMPERED']");
-            sb.Append(prefix);
-            sb.Append(' ');
+            prefix = localizationRepository.FindStringBy("//Strings/Monsters/Variants/Variant[@Id='TEMPERED']");
         }
         else if (variant.HasFlag(VariantType.ArchTempered))
         {
-            string prefix = localizationRepository.FindStringBy("//Strings/Monsters/Variants/Variant[@Id='ARCH_TEMPERED']");
-            sb.Append(prefix);
-            sb.Append(' ');
+            prefix = localizationRepository.FindStringBy("//Strings/Monsters/Variants/Variant[@Id='ARCH_TEMPERED']");
         }
 
         if (variant.HasFlag(VariantType.Frenzy))
         {
-            string prefix = localizationRepository.FindStringBy("//Strings/Monsters/Variants/Variant[@Id='FRENZIED']");
-            sb.Append(prefix);
-            sb.Append(' ');
+            prefix = localizationRepository.FindStringBy("//Strings/Monsters/Variants/Variant[@Id='FRENZIED']");
         }
 
         string namePath = $"//Strings/Monsters/Wilds/Monster[@Id='{id}']";
@@ -512,7 +507,27 @@ public sealed class MHWildsMonster : CommonMonster
             ? localizationRepository.FindStringBy(namePath)
             : $"Unknown [id: {id}]";
 
-        sb.Append(name);
+        bool hasPrefix = prefix.Length > 0;
+
+        if (hasPrefix)
+        {
+            bool prefixIsFormattable = prefix.Contains("{0}");
+            if (prefixIsFormattable)
+            {
+                sb.AppendFormat(prefix, name);
+            }
+            else
+            {
+                sb.Append(prefix);
+                sb.Append(' ');
+                sb.Append(name);
+
+            }
+        }
+        else
+        {
+            sb.Append(name);
+        }
 
         return sb.ToString();
     }
