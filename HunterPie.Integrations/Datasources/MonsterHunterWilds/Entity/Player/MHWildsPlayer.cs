@@ -211,10 +211,11 @@ public sealed class MHWildsPlayer : CommonPlayer
         );
 
         bool wasInHuntingZone = _inHuntingZone;
-        bool isLoading = await Memory.DerefAsync<int>(
-            address: AddressMap.GetAbsolute("Game::FadeManager"),
-            offsets: AddressMap.GetOffsets("Scene::IsFading")
-        ) > 0;
+        int pauseState = await Memory.DerefAsync<int>(
+            address: AddressMap.GetAbsolute("Game::PauseManager"),
+            offsets: AddressMap.GetOffsets("Game::PauseState")
+        );
+        bool isLoading = (pauseState & 6) > 0;
         _inHuntingZone = context is { IsSafeZone: false, StageId: >= 0 } && !isLoading && !string.IsNullOrEmpty(Name);
 
         if (wasInHuntingZone && !_inHuntingZone)

@@ -10,5 +10,6 @@ internal class PartyMemberContext
     public required Series Plots { get; init; }
     public double JoinedAt { get; set; }
     public double FirstHitAt { get; set; }
-    public required SlidingWindow<(double, int)> DamageHistory { get; set; }
+    public required SlidingWindow<int> DamageHistory { get; set; }
+    public int LastDamageRecorded { get; set; }
 }

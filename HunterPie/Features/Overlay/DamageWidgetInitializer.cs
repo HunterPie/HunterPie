@@ -36,7 +36,7 @@ internal class DamageWidgetInitializer : IWidgetInitializer
         {
             MHWildsContext => new DamageMeterControllerV2(
                 context: context,
-                view: new MeterView(config),
+                view: new MeterViewV2(config),
                 config: config
             ),
             _ => new DamageMeterWidgetContextHandler(context)

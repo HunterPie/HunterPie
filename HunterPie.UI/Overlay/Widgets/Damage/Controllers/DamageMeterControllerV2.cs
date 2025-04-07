@@ -7,6 +7,7 @@ using HunterPie.Core.Game.Events;
 using HunterPie.Core.List;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.UI.Architecture.Brushes;
+using HunterPie.UI.Architecture.Colors;
 using HunterPie.UI.Overlay.Widgets.Damage.Helpers;
 using HunterPie.UI.Overlay.Widgets.Damage.View;
 using HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
@@ -35,14 +36,14 @@ public class DamageMeterControllerV2 : IContextHandler
     private readonly IContext _context;
     private MeterViewModel _viewModel;
     private MeterViewModel _viewModelSnapshot;
-    private readonly MeterView _view;
+    private readonly MeterViewV2 _view;
     private readonly DamageMeterWidgetConfig _config;
     private readonly ConcurrentDictionary<IPartyMember, PartyMemberContext> _members = new();
     private int _windowSecondsCount;
 
     public DamageMeterControllerV2(
         IContext context,
-        MeterView view,
+        MeterViewV2 view,
         DamageMeterWidgetConfig config)
     {
         _context = context;
@@ -51,7 +52,7 @@ public class DamageMeterControllerV2 : IContextHandler
         _viewModel = _view.ViewModel;
         _viewModelSnapshot = _view.ViewModel;
 
-        WidgetManager.Register<MeterView, DamageMeterWidgetConfig>(
+        WidgetManager.Register<MeterViewV2, DamageMeterWidgetConfig>(
             widget: _view
         );
 
@@ -91,7 +92,7 @@ public class DamageMeterControllerV2 : IContextHandler
         if (_context.Game.Quest is { } quest)
             quest.OnDeathCounterChange -= OnDeathCounterChange;
 
-        WidgetManager.Unregister<MeterView, DamageMeterWidgetConfig>(
+        WidgetManager.Unregister<MeterViewV2, DamageMeterWidgetConfig>(
             widget: _view
         );
     }
@@ -247,7 +248,7 @@ public class DamageMeterControllerV2 : IContextHandler
             FirstHitAt = member.Damage > 0
                 ? _context.Game.TimeElapsed
                 : -1,
-            DamageHistory = new SlidingWindow<(double, int)>((int)_config.PlotMovingWindowSize.Current),
+            DamageHistory = new SlidingWindow<int>((int)_config.PlotMovingWindowSize.Current),
         };
 
         if (!_members.TryAdd(member, memberContext))
@@ -294,7 +295,10 @@ public class DamageMeterControllerV2 : IContextHandler
                 : 0;
 
             if (hasBeenOneSecond)
-                memberCtx.DamageHistory.Add((_viewModel.TimeElapsed, memberCtx.ViewModel.Damage));
+                memberCtx.DamageHistory.Add(memberCtx.ViewModel.Damage);
+
+            if (_windowSecondsCount == (int)(plottingWindowSize - 1))
+                memberCtx.LastDamageRecorded = memberCtx.ViewModel.Damage;
 
             double newDps = CalculateDpsByConfiguredStrategy(memberCtx);
             memberCtx.ViewModel.IsIncreasing = newDps > memberCtx.ViewModel.DPS;
@@ -345,10 +349,16 @@ public class DamageMeterControllerV2 : IContextHandler
     {
         if (_config.IsPlotMovingWindowEnabled)
         {
-            (double _, int previousDamage) = context.DamageHistory.GetFirst() ?? (0.0, 0);
+            int previousDamage = context.DamageHistory.GetFirst() ?? 0;
             double dps = (context.ViewModel.Damage - previousDamage) / _config.PlotMovingWindowSize.Current;
             return new ObservablePoint(_viewModel.TimeElapsed, dps);
         }
+
+        //if (_config.IsPlotMovingWindowEnabled)
+        //{
+        //    double dps = (context.ViewModel.Damage - context.LastDamageRecorded) / _config.PlotMovingWindowSize.Current;
+        //    return new ObservablePoint(_viewModel.TimeElapsed, dps);
+        //}
 
         double damage = _config.DamagePlotStrategy.Value switch
         {
@@ -369,7 +379,12 @@ public class DamageMeterControllerV2 : IContextHandler
         {
             Title = name,
             Stroke = new SolidColorBrush(actualColor),
-            Fill = ColorFadeGradient.FromColor(actualColor),
+            Fill = ColorFadeGradient.FromColor(
+                color: AnalogousColor.NegativeFrom(
+                    main: actualColor,
+                    angle: 41.5
+                )
+            ),
             PointGeometry = null,
             Values = points
         };

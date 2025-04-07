@@ -4,12 +4,13 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
+using PrimitiveColor = System.Windows.Media.Colors;
 
 namespace HunterPie.UI.Architecture.Converters;
 
 public class SpecializedToolToColorConverter : IValueConverter
 {
-    private static readonly Brush DefaultColor = new SolidColorBrush(Colors.White);
+    private static readonly Brush DefaultColor = new SolidColorBrush(PrimitiveColor.White);
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {

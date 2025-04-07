@@ -79,7 +79,7 @@ public class MHWildsDiscordPresenceStrategy : IDiscordRichPresenceStrategy
                 _context.Game.Player.InHuntingZone) switch
         {
             (-1, _) => "DRPC_STATE_MAIN_MENU",
-            (13, _) => "DRPC_RISE_STATE_PRACTICE",
+            (15, _) => "DRPC_RISE_STATE_PRACTICE",
             (_, false) => "DRPC_STATE_IDLE",
             _ => "DRPC_STATE_EXPLORING"
         };

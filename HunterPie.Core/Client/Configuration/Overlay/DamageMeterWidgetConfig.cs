@@ -61,19 +61,19 @@ public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     public Range PlotLineThickness { get; set; } = new Range(2.0, 3.0, 0.2, 0.01);
 
     [ConfigurationProperty("DAMAGE_METER_SELF_COLOR_STRING", group: CommonConfigurationGroups.COLORS)]
-    public Color PlayerSelf { get; set; } = "#FF725AC1";
+    public Color PlayerSelf { get; set; } = "#FFC90397";
 
     [ConfigurationProperty("DAMAGE_METER_PLAYER_1_COLOR_STRING", group: CommonConfigurationGroups.COLORS)]
     public Color PlayerFirst { get; set; } = "#FF6184D8";
 
     [ConfigurationProperty("DAMAGE_METER_PLAYER_2_COLOR_STRING", group: CommonConfigurationGroups.COLORS)]
-    public Color PlayerSecond { get; set; } = "#FF50C5B7";
+    public Color PlayerSecond { get; set; } = "#FFF6A522";
 
     [ConfigurationProperty("DAMAGE_METER_PLAYER_3_COLOR_STRING", group: CommonConfigurationGroups.COLORS)]
-    public Color PlayerThird { get; set; } = "#FF9CEC5B";
+    public Color PlayerThird { get; set; } = "#FF12FE11";
 
     [ConfigurationProperty("DAMAGE_METER_PLAYER_4_COLOR_STRING", group: CommonConfigurationGroups.COLORS)]
-    public Color PlayerFourth { get; set; } = "#FFF0F465";
+    public Color PlayerFourth { get; set; } = "#FF1A5CEB";
 
     [ConfigurationProperty("DAMAGE_METER_NPC_COLOR_STRING", availableGames: GameProcessType.MonsterHunterRise, group: CommonConfigurationGroups.COLORS)]
     public Color NpcColor { get; set; } = "#FF9534EB";

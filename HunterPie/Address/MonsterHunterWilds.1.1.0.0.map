@@ -8,7 +8,7 @@ Address Game::PlayerManager 0x137E6718
 Address Game::SaveManager 0x138805C0
 Address Game::QuestManager 0x137AF260
 Address Game::WorldManager 0x137BB108
-Address Game::FadeManager 0x1383CA80
+Address Game::PauseManager 0x13843928
 
 Offset Environment::MonsterList 0x2A0
 Offset Monster::Magic 0x10,0x28,0x14
@@ -43,4 +43,4 @@ Offset Save::Player::HunterRank 0x98,0x10,0x20
 Offset Quest::Data 0x158,0x20
 Offset Quest::DieCount 0x158,0x88
 Offset Quest::CurrentInformation 0x158,0x28,0x18
-Offset Scene::IsFading 0x60
+Offset Game::PauseState 0x50,0x10,0x20
