@@ -17,9 +17,6 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
-using System.Collections.Specialized;
-using System.Net;
-using System.Text;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 
@@ -500,13 +497,14 @@ public sealed class MHWildsMonster : CommonMonster
 
         string? GetVariantId()
         {
-            return variant switch
-            {
-                VariantType.Tempered => "TEMPERED",
-                VariantType.ArchTempered => "ARCH_TEMPERED",
-                VariantType.Frenzy => "FRENZY",
-                _ => null
-            };
+            if (variant.HasFlag(VariantType.Tempered))
+                return "TEMPERED";
+            if (variant.HasFlag(VariantType.ArchTempered))
+                return "ARCH_TEMPERED";
+            if (variant.HasFlag(VariantType.Frenzy))
+                return "FRENZIED";
+
+            return null;
         }
 
         string? GetLocalizedValiantName(string? variantId)
