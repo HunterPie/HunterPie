@@ -17,6 +17,8 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
+using System.Collections.Specialized;
+using System.Net;
 using System.Text;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
@@ -483,36 +485,46 @@ public sealed class MHWildsMonster : CommonMonster
         int id
     )
     {
-        var sb = new StringBuilder();
+        string? monsterName = GetMonsterName(id);
+        if (monsterName is null)
+            return $"Unknown [id: {id}]";
 
-        if (variant.HasFlag(VariantType.Tempered))
+        string? variantFormat = GetLocalizedValiantName(variantId: GetVariantId());
+        if (variantFormat is null)
+            return monsterName;
+
+        return variantFormat.Contains("{Name}")
+            ? variantFormat.Replace("{Name}", monsterName)
+            : $"{variantFormat} {monsterName}";
+
+        string? GetVariantId()
         {
-            string prefix = localizationRepository.FindStringBy("//Strings/Monsters/Variants/Variant[@Id='TEMPERED']");
-            sb.Append(prefix);
-            sb.Append(' ');
+            return variant switch
+            {
+                VariantType.Tempered => "TEMPERED",
+                VariantType.ArchTempered => "ARCH_TEMPERED",
+                VariantType.Frenzy => "FRENZY",
+                _ => null
+            };
         }
-        else if (variant.HasFlag(VariantType.ArchTempered))
+
+        string? GetLocalizedValiantName(string? variantId)
         {
-            string prefix = localizationRepository.FindStringBy("//Strings/Monsters/Variants/Variant[@Id='ARCH_TEMPERED']");
-            sb.Append(prefix);
-            sb.Append(' ');
+            if (variantId is null)
+                return null;
+
+            string variantPath = $"//Strings/Monsters/Variants/Variant[@Id='{variantId}']";
+            return localizationRepository.ExistsBy(variantPath)
+                ? localizationRepository.FindStringBy(variantPath)
+                : null; 
         }
 
-        if (variant.HasFlag(VariantType.Frenzy))
+        string? GetMonsterName(int monsterId)
         {
-            string prefix = localizationRepository.FindStringBy("//Strings/Monsters/Variants/Variant[@Id='FRENZIED']");
-            sb.Append(prefix);
-            sb.Append(' ');
+            string namePath = $"//Strings/Monsters/Wilds/Monster[@Id='{monsterId}']";
+            return localizationRepository.ExistsBy(namePath)
+                ? localizationRepository.FindStringBy(namePath)
+                : null;
         }
-
-        string namePath = $"//Strings/Monsters/Wilds/Monster[@Id='{id}']";
-
-        string name = localizationRepository.ExistsBy(namePath)
-            ? localizationRepository.FindStringBy(namePath)
-            : $"Unknown [id: {id}]";
-
-        sb.Append(name);
-
-        return sb.ToString();
     }
 }
