@@ -16,15 +16,18 @@ public class MonsterVariantBrushConverter : IValueConverter
     private static readonly Color NormalColor = Color.FromRgb(0x3A, 0x3E, 0x40);
     private static readonly Color TemperedColor = Color.FromRgb(0x6C, 0x24, 0xB4);
     private static readonly Color FrenzyColor = Color.FromRgb(0xFA, 0x02, 0x7E);
+    private static readonly Color ArchTemperedColor = Color.FromRgb(0xFF, 0x7A, 0x05);
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not VariantType variant)
             return null;
 
-        Color headerColor = variant.HasFlag(VariantType.Tempered)
-            ? TemperedColor
-            : NormalColor;
+        Color headerColor = variant.HasFlag(VariantType.ArchTempered)
+            ? ArchTemperedColor
+            : variant.HasFlag(VariantType.Tempered)
+                ? TemperedColor
+                : NormalColor;
 
         Color bottomColor = variant.HasFlag(VariantType.Frenzy)
             ? FrenzyColor

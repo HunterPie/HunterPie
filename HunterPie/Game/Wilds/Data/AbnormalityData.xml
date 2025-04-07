@@ -474,24 +474,24 @@
                      Offset="78"/>
         <Abnormality Id="Skills.67"
                      Name="ABNORMALITY_BUTTERY_LEATHERCRAFT"
-                     Offset="B0"/>
+                     Offset="B8"/>
         <Abnormality Id="Skills.111"
                      Name="ABNORMALITY_COUNTERSTRIKE"
                      Icon="ICON_ATTACKUP"
-                     Offset="B8"/>
+                     Offset="C0"/>
         <Abnormality Id="Skills.114"
                      Name="ABNORMALITY_COALESCENCE"
-                     Offset="C0"/>
+                     Offset="C8"/>
         <Abnormality Id="Skills.154"
                      Name="ABNORMALITY_UTH_DUNA_COVER"
-                     Offset="C8"/>
+                     Offset="D0"/>
         <Abnormality Id="Skills.117"
                      Name="ABNORMALITY_AMBUSH"
                      Icon="ICON_ATTACKUP"
-                     Offset="D0"/>
+                     Offset="D8"/>
         <Abnormality Id="Skills.116"
                      Name="ABNORMALITY_ADRENALINE_RUSH"
                      Icon="ICON_ATTACKUP"
-                     Offset="E0"/>
+                     Offset="E8"/>
     </Skills>
 </Abnormalities>
