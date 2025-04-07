@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Extensions;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Party;
@@ -11,19 +12,17 @@ using HunterPie.UI.Architecture.Colors;
 using HunterPie.UI.Overlay.Widgets.Damage.Helpers;
 using HunterPie.UI.Overlay.Widgets.Damage.View;
 using HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
-using HunterPie.UI.Settings.Converter;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Windows.Data;
 using System.Windows.Media;
 using Color = System.Windows.Media.Color;
 using ObservableColor = HunterPie.Core.Settings.Types.Color;
-using Range = HunterPie.Core.Settings.Types.Range;
 
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.Controllers;
@@ -70,6 +69,7 @@ public class DamageMeterControllerV2 : IContextHandler
         _context.Game.OnTimeElapsedChange += OnTimeElapsedChange;
         _context.Game.OnQuestStart += OnQuestStart;
         _context.Game.OnQuestEnd += OnQuestEnd;
+        _config.PlotSamplingInSeconds.PropertyChanged += OnPlotSlidingWindowChange;
 
         if (_context.Game.Quest is { } quest)
             quest.OnDeathCounterChange += OnDeathCounterChange;
@@ -85,6 +85,7 @@ public class DamageMeterControllerV2 : IContextHandler
         _context.Game.OnTimeElapsedChange -= OnTimeElapsedChange;
         _context.Game.OnQuestStart -= OnQuestStart;
         _context.Game.OnQuestEnd -= OnQuestEnd;
+        _config.PlotSamplingInSeconds.PropertyChanged -= OnPlotSlidingWindowChange;
 
         foreach (IPartyMember member in _members.Keys)
             HandleMemberLeave(member);
@@ -95,6 +96,11 @@ public class DamageMeterControllerV2 : IContextHandler
         WidgetManager.Unregister<MeterViewV2, DamageMeterWidgetConfig>(
             widget: _view
         );
+    }
+
+    private void OnPlotSlidingWindowChange(object? sender, PropertyChangedEventArgs e)
+    {
+        _members.Values.ForEach(it => it.DamageHistory.AdjustSize((int)_config.PlotSamplingInSeconds.Current));
     }
 
     private void OnDeathCounterChange(object? sender, CounterChangeEventArgs e)
@@ -174,7 +180,16 @@ public class DamageMeterControllerV2 : IContextHandler
 
     private void OnTimeElapsedChange(object? sender, TimeElapsedChangeEventArgs e)
     {
+        const double precision = 0.5;
+        double lastUpdate = _viewModel.TimeElapsed % precision;
+        double newUpdate = e.TimeElapsed % precision;
+
         _viewModel.TimeElapsed = e.TimeElapsed;
+
+        bool canUpdate = newUpdate < lastUpdate;
+
+        if (!canUpdate)
+            return;
 
         _view.Dispatcher.BeginInvoke(CalculatePlayerSeries);
     }
@@ -248,7 +263,7 @@ public class DamageMeterControllerV2 : IContextHandler
             FirstHitAt = member.Damage > 0
                 ? _context.Game.TimeElapsed
                 : -1,
-            DamageHistory = new SlidingWindow<int>((int)_config.PlotMovingWindowSize.Current),
+            DamageHistory = new SlidingWindow<int>((int)_config.PlotSamplingInSeconds.Current),
         };
 
         if (!_members.TryAdd(member, memberContext))
@@ -279,9 +294,10 @@ public class DamageMeterControllerV2 : IContextHandler
     private void CalculatePlayerSeries()
     {
         float totalDamage = _members.Keys.Sum(it => it.Damage);
-        bool isPlottingWindowEnabled = _config.IsPlotMovingWindowEnabled;
-        double plottingWindowSize = _config.PlotMovingWindowSize.Current;
-        int secondsCount = (int)Math.Floor(_viewModel.TimeElapsed % plottingWindowSize);
+        bool shouldDiscardOldPlots = _config.IsOldPlotDiscardingEnabled;
+        double plottingWindowSize = _config.PlotSlidingWindowInSeconds.Current;
+        double plotSampleRate = _config.PlotSamplingInSeconds.Current;
+        int secondsCount = (int)Math.Floor(_viewModel.TimeElapsed % plotSampleRate);
         bool hasBeenOneSecond = secondsCount != _windowSecondsCount;
         _windowSecondsCount = secondsCount;
 
@@ -297,18 +313,14 @@ public class DamageMeterControllerV2 : IContextHandler
             if (hasBeenOneSecond)
                 memberCtx.DamageHistory.Add(memberCtx.ViewModel.Damage);
 
-            if (_windowSecondsCount == (int)(plottingWindowSize - 1))
-                memberCtx.LastDamageRecorded = memberCtx.ViewModel.Damage;
-
             double newDps = CalculateDpsByConfiguredStrategy(memberCtx);
             memberCtx.ViewModel.IsIncreasing = newDps > memberCtx.ViewModel.DPS;
             memberCtx.ViewModel.DPS = newDps;
 
-            ObservablePoint point = CalculatePointByConfiguredStrategy(memberCtx);
-
+            ObservablePoint point = CalculatePointByConfiguredStrategy(memberCtx, plotSampleRate);
             chartValues.Add(point);
 
-            if (isPlottingWindowEnabled)
+            if (shouldDiscardOldPlots)
                 ClearOldPoints(chartValues, plottingWindowSize);
         }
 
@@ -345,20 +357,14 @@ public class DamageMeterControllerV2 : IContextHandler
         return memberContext.ViewModel.Damage / timeElapsed;
     }
 
-    private ObservablePoint CalculatePointByConfiguredStrategy(PartyMemberContext context)
+    private ObservablePoint CalculatePointByConfiguredStrategy(PartyMemberContext context, double plotSampleSize)
     {
-        if (_config.IsPlotMovingWindowEnabled)
+        if (_config.IsPlotSlidingWindowEnabled)
         {
             int previousDamage = context.DamageHistory.GetFirst() ?? 0;
-            double dps = (context.ViewModel.Damage - previousDamage) / _config.PlotMovingWindowSize.Current;
+            double dps = (context.ViewModel.Damage - previousDamage) / plotSampleSize;
             return new ObservablePoint(_viewModel.TimeElapsed, dps);
         }
-
-        //if (_config.IsPlotMovingWindowEnabled)
-        //{
-        //    double dps = (context.ViewModel.Damage - context.LastDamageRecorded) / _config.PlotMovingWindowSize.Current;
-        //    return new ObservablePoint(_viewModel.TimeElapsed, dps);
-        //}
 
         double damage = _config.DamagePlotStrategy.Value switch
         {
@@ -386,14 +392,10 @@ public class DamageMeterControllerV2 : IContextHandler
                 )
             ),
             PointGeometry = null,
-            Values = points
+            Values = points,
+            StrokeThickness = 1,
+            LineSmoothness = 0
         };
-        Binding smoothingBinding = VisualConverterHelper.CreateBinding(_viewModel.Settings.PlotLineSmoothing, nameof(Range.Current));
-        Binding thicknessBinding =
-            VisualConverterHelper.CreateBinding(_viewModel.Settings.PlotLineThickness, nameof(Range.Current));
-
-        series.SetBinding(Series.StrokeThicknessProperty, thicknessBinding);
-        series.SetBinding(LineSeries.LineSmoothnessProperty, smoothingBinding);
 
         _viewModel.Series.Add(series);
         return series;

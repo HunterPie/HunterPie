@@ -8,5 +8,11 @@ public struct MHWildsEncryptedInteger
     [FieldOffset(0x0)] public long Value;
     [FieldOffset(0x8)] public long Divisor;
 
-    public long Decode() => Value / Divisor;
+    public long Decode()
+    {
+        if (Divisor == 0)
+            return 0;
+
+        return Value / Divisor;
+    }
 }

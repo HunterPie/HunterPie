@@ -20,6 +20,7 @@
         <presentation:PlayerDamageBarGradientBrushConverter x:Key="PlayerDamageBarGradientBrushConverter"/>
         <presentation:PlayerDamageBarCompGradientBrushConverter x:Key="PlayerDamageBarCompGradientBrushConverter"/>
         <converters:ParentSizePercentageConverter x:Key="ParentSizePercentageConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
     <Border BorderBrush="{StaticResource GRAY}"
             BorderThickness="0,1,0,0">
@@ -75,7 +76,24 @@
                            Foreground="{StaticResource WHITE_50}"
                            VerticalAlignment="Center"
                            FontSize="14"
-                           TextTrimming="CharacterEllipsis" />
+                           TextTrimming="CharacterEllipsis"
+                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ShouldBlurNames.Value}"
+                                             Value="True">
+                                    <Setter Property="Effect">
+                                        <Setter.Value>
+                                            <BlurEffect Radius="10"
+                                                        KernelType="Gaussian"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
             </Grid>
 
             <!-- Damage Data -->
@@ -126,10 +144,11 @@
 
                 <!-- DPS -->
                 <TextBlock Grid.Column="1"
-                   Grid.Row="0"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Right"
-                   Margin="0,0,2,0">
+                           Grid.Row="0"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Margin="0,0,2,0"
+                           Visibility="{Binding ShouldShowDPS.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Run Text="DPS"
                          Foreground="{StaticResource WHITE_400}"
                          FontSize="10"
@@ -145,20 +164,37 @@
 
                 <!-- Total Damage -->
                 <TextBlock Grid.Column="1"
-                   Grid.Row="1"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Right"
-                   Margin="0,0,2,0">
-            <Run Text="DMG"
-                 Foreground="{StaticResource WHITE_400}"
-                 FontSize="10"
-                 FontWeight="SemiBold"/>
-            <Run d:Text="10.0K"
-                 Text="{Binding Damage, Mode=OneWay, Converter={StaticResource IntToKFormat}}"
-                 Foreground="{StaticResource WHITE_50}"
-                 FontWeight="Medium"/>
+                           Grid.Row="1"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Margin="0,0,2,0"
+                           Visibility="{Binding ShouldShowDamage.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Run Text="DMG"
+                         Foreground="{StaticResource WHITE_400}"
+                         FontSize="10"
+                         FontWeight="SemiBold"/>
+                    <Run d:Text="10.0K"
+                         Text="{Binding Damage, Mode=OneWay, Converter={StaticResource IntToKFormat}}"
+                         Foreground="{StaticResource WHITE_50}"
+                         FontWeight="Medium"/>
                 </TextBlock>
             </Grid>
+            
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ShouldHighlightMyself.Value, Mode=OneWay}"
+                                           Value="True"/>
+                                <Condition Binding="{Binding IsUser, Mode=OneWay}"
+                                           Value="False"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
         </Grid>
     </Border>
 </UserControl>

@@ -216,7 +216,12 @@ public sealed class MHWildsPlayer : CommonPlayer
             offsets: AddressMap.GetOffsets("Game::PauseState")
         );
         bool isLoading = (pauseState & 6) > 0;
-        _inHuntingZone = context is { IsSafeZone: false, StageId: >= 0 } && !isLoading && !string.IsNullOrEmpty(Name);
+        bool isInSafeAreaForced = context.StageId is 14 or 12;
+
+        _inHuntingZone = context is { IsSafeZone: false, StageId: >= 0 } &&
+            !isInSafeAreaForced &&
+            !isLoading &&
+            !string.IsNullOrEmpty(Name);
 
         if (wasInHuntingZone && !_inHuntingZone)
             this.Dispatch(_onVillageEnter);

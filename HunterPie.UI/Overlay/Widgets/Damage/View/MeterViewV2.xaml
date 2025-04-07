@@ -67,8 +67,7 @@
                                Foreground="{StaticResource WHITE_100}">
                         <Run Text="{Binding Deaths, Mode=OneWay}"
                              d:Text="0"/><!--
-                     --><Run Text="{Binding Deaths, Mode=OneWay}"
-                             d:Text="/"/><!--
+                     --><Run Text="/"/><!--
                      --><Run Text="{Binding MaxDeaths, Mode=OneWay}"
                                 d:Text="3"/>
                     </TextBlock>
@@ -106,11 +105,13 @@
                 BorderBrush="{StaticResource GRAY}"
                 BorderThickness="1"
                 CornerRadius="5"
+                Visibility="{Binding Settings.ShouldShowPlots.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                 Background="{Binding Source={StaticResource GRAY_300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Background.Transparency}}">
             <wpf:CartesianChart Height="120"
                                 d:DataContext="{StaticResource MockViewModel}"
                                 Hoverable="False"
                                 DataTooltip="{x:Null}"
+                                DisableAnimations="True"
                                 Series="{Binding Series, Mode=OneTime}">
                 <wpf:CartesianChart.CacheMode>
                     <BitmapCache EnableClearType="False"

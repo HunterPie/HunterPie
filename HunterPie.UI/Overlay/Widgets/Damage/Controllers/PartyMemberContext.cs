@@ -11,5 +11,4 @@ internal class PartyMemberContext
     public double JoinedAt { get; set; }
     public double FirstHitAt { get; set; }
     public required SlidingWindow<int> DamageHistory { get; set; }
-    public int LastDamageRecorded { get; set; }
 }
