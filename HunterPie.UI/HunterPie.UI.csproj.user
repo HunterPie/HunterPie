@@ -188,10 +188,16 @@
     <Compile Update="Overlay\Widgets\Damage\View\MeterView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Damage\View\MeterViewV2.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Damage\View\PetsDamageView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Damage\View\PlayerDamageView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Damage\View\PlayerViewV2.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Metrics\View\TelemetricsView.xaml.cs">

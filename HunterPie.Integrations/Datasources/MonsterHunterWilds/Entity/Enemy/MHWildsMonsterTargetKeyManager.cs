@@ -1,24 +1,51 @@
-﻿namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
+﻿using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
+using System.Collections.Frozen;
+
+namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 
 public class MHWildsMonsterTargetKeyManager
 {
-    private readonly Dictionary<nint, int> _targetKeys = new();
+    private FrozenSet<int>? _questTargetKeys;
+    private readonly HashSet<int> _monsterTargetKeys = new();
 
-    public void Add(nint address, int targetKey)
+    public bool HasQuestTargets()
     {
-        lock (_targetKeys)
-            _targetKeys.TryAdd(address, targetKey);
+        return _questTargetKeys is not null;
     }
 
-    public void Remove(nint address)
+    public void SetQuestTargets(MHWildsTargetKey[] keys)
     {
-        lock (_targetKeys)
-            _targetKeys.Remove(address);
+        lock (this)
+            _questTargetKeys = keys.Select(it => it.Key).ToFrozenSet();
     }
 
-    public bool Contains(int targetKey)
+    public void ClearQuestTargets()
     {
-        lock (_targetKeys)
-            return _targetKeys.ContainsValue(targetKey);
+        lock (this)
+            _questTargetKeys = null;
+    }
+
+    public void AddMonster(int key)
+    {
+        lock (this)
+            _monsterTargetKeys.Add(key);
+    }
+
+    public void ClearMonsters()
+    {
+        lock (this)
+            _monsterTargetKeys.Clear();
+    }
+
+    public bool IsMonster(int targetKey)
+    {
+        lock (this)
+            return _monsterTargetKeys.Contains(targetKey);
+    }
+
+    public bool IsQuestTarget(int targetKey)
+    {
+        lock (this)
+            return _questTargetKeys?.Contains(targetKey) == true;
     }
 }

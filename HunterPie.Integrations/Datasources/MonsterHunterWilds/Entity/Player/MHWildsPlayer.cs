@@ -211,17 +211,28 @@ public sealed class MHWildsPlayer : CommonPlayer
         );
 
         bool wasInHuntingZone = _inHuntingZone;
-        _inHuntingZone = context is { IsSafeZone: false, StageId: >= 0 } && !string.IsNullOrEmpty(Name);
+        int pauseState = await Memory.DerefAsync<int>(
+            address: AddressMap.GetAbsolute("Game::PauseManager"),
+            offsets: AddressMap.GetOffsets("Game::PauseState")
+        );
+        bool isLoading = (pauseState & 6) > 0;
+        bool isInSafeAreaForced = context.StageId is 14 or 12;
+
+        _inHuntingZone = context is { IsSafeZone: false, StageId: >= 0 } &&
+            !isInSafeAreaForced &&
+            !isLoading &&
+            !string.IsNullOrEmpty(Name);
 
         if (wasInHuntingZone && !_inHuntingZone)
             this.Dispatch(_onVillageEnter);
         else if (!wasInHuntingZone && _inHuntingZone)
             this.Dispatch(_onVillageLeave);
 
-        // Sometimes IsSafeZone is only updated way after the StageId value, so we have to
-        // dispatch this event as well
-        if (StageId == context.StageId && wasInHuntingZone != _inHuntingZone)
-            this.Dispatch(_onStageUpdate);
+        if (isLoading)
+            StageId = -1;
+
+        if (context.StageId != StageId && isLoading)
+            return;
 
         StageId = context.StageId;
     }
@@ -287,7 +298,7 @@ public sealed class MHWildsPlayer : CommonPlayer
             bool isMyself = index == 0;
             var data = new UpdatePartyMember
             {
-                Id = playerPointer,
+                Id = basePlayerPointer,
                 Index = i,
                 IsMyself = isMyself,
                 Name = name,
@@ -340,7 +351,11 @@ public sealed class MHWildsPlayer : CommonPlayer
 
         await foreach (MHWildsTargetDamage targetDamage in damageEnumerable)
         {
-            if (!_monsterTargetKeyManager.Contains(targetDamage.TargetKey))
+            bool hasQuestTargets = _monsterTargetKeyManager.HasQuestTargets();
+            bool isInExpedition = !hasQuestTargets && _monsterTargetKeyManager.IsMonster(targetDamage.TargetKey);
+            bool isInQuest = hasQuestTargets && _monsterTargetKeyManager.IsQuestTarget(targetDamage.TargetKey);
+
+            if (!isInQuest && !isInExpedition)
                 continue;
 
             totalDamage += targetDamage.Damage;

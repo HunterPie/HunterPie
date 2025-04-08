@@ -9,23 +9,28 @@ using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Scan.Service;
 using HunterPie.Core.Utils;
 using HunterPie.Integrations.Datasources.Common.Entity.Game;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Quest;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.World;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game.Quest;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game.Quest.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
+using System.Diagnostics;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game;
 
 public sealed class MHWildsGame : CommonGame
 {
-    private DateTime _localElapsedTime = DateTime.UtcNow;
+    private readonly ILogger _logger = LoggerFactory.Create();
+    private readonly Stopwatch _stopwatch = new();
 
     private readonly MHWildsCryptoService _cryptoService;
     private readonly ILocalizationRepository _localizationRepository;
@@ -95,7 +100,12 @@ public sealed class MHWildsGame : CommonGame
             scanService: scanService,
             monsterTargetKeyManager: _monsterTargetKeyManager
         );
-        _player.OnStageUpdate += (_, _) => _localElapsedTime = DateTime.UtcNow;
+        _player.OnStageUpdate += (_, _) =>
+        {
+            _stopwatch.Restart();
+            _timeElapsed = 0;
+            _monsterTargetKeyManager.ClearMonsters();
+        };
     }
 
     [ScannableMethod]
@@ -186,7 +196,7 @@ public sealed class MHWildsGame : CommonGame
 
         if (!isQuestValid && _quest is null)
         {
-            TimeElapsed = (float)(DateTime.UtcNow - _localElapsedTime).TotalSeconds;
+            TimeElapsed = _stopwatch.ElapsedTicks / (float)TimeSpan.TicksPerSecond;
             return;
         }
 
@@ -202,7 +212,7 @@ public sealed class MHWildsGame : CommonGame
 
         if (_quest is not null && isOver)
         {
-            _localElapsedTime = DateTime.UtcNow;
+            _stopwatch.Restart();
 
             this.Dispatch(
                 toDispatch: _onQuestEnd,
@@ -212,15 +222,35 @@ public sealed class MHWildsGame : CommonGame
                     timeElapsed: TimeElapsed
                 )
             );
+
             _quest.Dispose();
             _quest = null;
+            _monsterTargetKeyManager.ClearQuestTargets();
             return;
         }
+
+        MHWildsEncryptedInteger encryptedDeaths = await Memory.DerefAsync<MHWildsEncryptedInteger>(
+            address: AddressMap.GetAbsolute("Game::QuestManager"),
+            offsets: AddressMap.GetOffsets("Quest::DieCount")
+        );
+        var data = new UpdateQuest
+        {
+            Information = information,
+            Deaths = encryptedDeaths
+        };
 
         if (_quest is null
             && hasStarted
             && isQuestValid)
         {
+            MHWildsTargetKey[] targetKeys = await Memory.ReadArrayAsync<MHWildsTargetKey>(
+                address: information.TargetKeysPointer
+            );
+
+            // Quest is not fully loaded yet if the target keys are not initialized
+            if (targetKeys.Any(it => it.Key == -1))
+                return;
+
             MHWildsQuestDetails? details = quest.DetailsPointer.IsNullPointer() switch
             {
                 false => await Memory.ReadAsync<MHWildsQuestDetails>(
@@ -232,7 +262,13 @@ public sealed class MHWildsGame : CommonGame
                 information: quest,
                 details: details
             );
-            _quest.Update(information);
+            _quest.Update(data);
+            _monsterTargetKeyManager.SetQuestTargets(targetKeys);
+
+            TimeElapsed = information.Timer / 1000;
+
+            _monsterTargetKeyManager.ClearMonsters();
+            await _player.GetPartyAsync();
 
             this.Dispatch(
                 toDispatch: _onQuestStart,
@@ -241,7 +277,7 @@ public sealed class MHWildsGame : CommonGame
             return;
         }
 
-        _quest?.Update(information);
+        _quest?.Update(data);
 
         TimeElapsed = _quest is null
             ? 0.0f
@@ -276,7 +312,6 @@ public sealed class MHWildsGame : CommonGame
             return;
 
         _monsters.Remove(address);
-        _monsterTargetKeyManager.Remove(address);
 
         this.Dispatch(
             toDispatch: _onMonsterDespawn,

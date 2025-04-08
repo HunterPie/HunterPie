@@ -11,5 +11,7 @@ public enum DPSCalculationStrategy
     RelativeToJoin,
 
     [Localization("//Strings/Client/Enums/Enum[@Id='RELATIVE_TO_FIRST_HIT_STRING']")]
-    RelativeToFirstHit
+    RelativeToFirstHit,
+
+    MovingWindow
 }

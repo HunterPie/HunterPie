@@ -36,7 +36,7 @@
                     <Image Source="{StaticResource ICON_STOPWATCH}"
                            Margin="0,0,3,0"
                            Height="18"/>
-                    <TextBlock Text="{Binding TimeElapsed, Converter={StaticResource SecondsToTimeString}, ConverterParameter='mm\\:ss\\.fff'}"
+                    <TextBlock Text="{Binding TimeElapsed, Converter={StaticResource SecondsToTimeString}, ConverterParameter='hh\\:mm\\:ss'}"
                                d:Text="3:33"
                                Foreground="{StaticResource WHITE}"
                                FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
@@ -125,7 +125,6 @@
 
             <lvc:CartesianChart Series="{Binding Series, Mode=OneTime}"
                                 Height="120"
-                                DisableAnimations="True"
                                 Margin="1"
                                 Visibility="{Binding Settings.ShouldShowPlots.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
                                 d:DataContext="{StaticResource MockViewModel}"
@@ -143,7 +142,8 @@
                 </lvc:CartesianChart.AxisY>
                 <lvc:CartesianChart.AxisX>
                     <lvc:Axis LabelFormatter="{Binding TimeFormatter, Mode=OneTime}"
-                              FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+                              FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                              ShowLabels="False"/>
                 </lvc:CartesianChart.AxisX>
             </lvc:CartesianChart>
         </StackPanel>
