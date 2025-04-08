@@ -10,7 +10,7 @@ namespace HunterPie.Internal.Logger;
 internal class FileStreamLogWriter : ILogWriter
 {
     private bool _isClosed = false;
-    private static readonly FileStream Stream = File.OpenWrite(ClientInfo.GetPathFor("HunterPie_Log.txt"));
+    private static readonly FileStream Stream = File.Create(ClientInfo.GetPathFor("HunterPie_Log.txt"));
 
     public void Debug(string message) =>
         WriteToBuffer(LogLevel.Debug, message);
