@@ -207,8 +207,16 @@ public sealed class MHWildsGame : CommonGame
             offsets: AddressMap.GetOffsets("Quest::CurrentInformation")
         );
         MHWildsCurrentQuestInformation information = await Memory.ReadAsync<MHWildsCurrentQuestInformation>(informationPointer);
+        float timeLeft = information.MaxTimer - information.Timer;
+        isQuestValid &= DateTimeExtensions.IsValidTimeSpan(timeLeft, TimeSpan.TicksPerMillisecond);
+
+        bool isRetrying = await Memory.DerefAsync<byte>(
+            address: AddressMap.GetAbsolute("Game::QuestManager"),
+            offsets: AddressMap.GetOffsets("Quest::IsRetrying")
+        ) != 0;
+
         bool hasStarted = information is { FailureState: 0, SuccessState: 0 };
-        bool isOver = !hasStarted || !isQuestValid;
+        bool isOver = !hasStarted || !isQuestValid || isRetrying;
 
         if (_quest is not null && isOver)
         {

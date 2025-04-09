@@ -478,6 +478,7 @@
                      Offset="50"/>
         <Abnormality Id="Skills.115"
                      Name="ABNORMALITY_BURST"
+                     Icon="ICON_ATTACKUP"
                      Offset="60"/>
         <Abnormality Id="Skills.184"
                      Name="ABNORMALITY_GUARDIANS_PROTECTION"
