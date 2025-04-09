@@ -46,9 +46,9 @@ internal class MonsterDetailsViewModel : ViewModel
 
     public SectionsCollection Sections { get; } = new();
 
-    public Func<double, string> TimeFormatter => new((value) => TimeSpan.FromSeconds(value).ToString("mm\\:ss"));
+    public Func<double, string> TimeFormatter { get; } = (value) => TimeSpan.FromSeconds(value).ToString("mm\\:ss");
 
-    public Func<double, string> DamageFormatter => new((damage) => $"{damage:0.00}/s");
+    public Func<double, string> DamageFormatter { get; } = (damage) => $"{damage:0.00}/s";
 
     public void SetupView()
     {

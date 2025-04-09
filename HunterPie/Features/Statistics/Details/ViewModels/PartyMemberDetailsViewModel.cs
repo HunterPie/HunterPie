@@ -17,6 +17,8 @@ namespace HunterPie.Features.Statistics.Details.ViewModels;
 
 internal class PartyMemberDetailsViewModel : ViewModel
 {
+    private const int SLIDING_WINDOW_SIZE = 10;
+
     private readonly HuntStatisticsModel _hunt;
     private readonly MonsterModel _monster;
     private readonly IReadOnlyCollection<PlayerDamageFrameModel> _damageList;
@@ -127,11 +129,9 @@ internal class PartyMemberDetailsViewModel : ViewModel
             index++;
         }
 
+        var window = new SlidingWindow<float>(SLIDING_WINDOW_SIZE);
 
-        const int windowSize = 5;
-        var window = new SlidingWindow<float>(windowSize);
-
-        var observablePoints = new List<ObservablePoint>(normalizedPoints.Count / windowSize);
+        var observablePoints = new List<ObservablePoint>(normalizedPoints.Count / SLIDING_WINDOW_SIZE);
 
         double timeElapsed = (huntStartedAt - _hunt.StartedAt).TotalSeconds;
         foreach (float damage in normalizedPoints)
@@ -141,7 +141,7 @@ internal class PartyMemberDetailsViewModel : ViewModel
             float first = window.GetFirst() ?? 0.0f;
             float last = window.GetLast() ?? 0.0f;
 
-            observablePoints.Add(new ObservablePoint(timeElapsed, (last - first) / windowSize));
+            observablePoints.Add(new ObservablePoint(timeElapsed, (last - first) / SLIDING_WINDOW_SIZE));
             timeElapsed++;
         }
 

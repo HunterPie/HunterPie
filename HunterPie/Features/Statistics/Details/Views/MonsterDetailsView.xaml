@@ -13,6 +13,7 @@
              xmlns:viewModels="clr-namespace:HunterPie.Features.Statistics.Details.ViewModels"
              xmlns:sys="clr-namespace:System;assembly=System.Runtime"
              xmlns:enums="clr-namespace:HunterPie.Features.Statistics.Details.Enums"
+             xmlns:sliders="clr-namespace:HunterPie.UI.Controls.Sliders;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:MonsterDetailsViewModel}"
@@ -322,36 +323,37 @@
                     <StackPanel Grid.Row="1"
                                 Grid.Column="1"
                                 Orientation="Vertical">
-                        <ComboBox SelectedItem="{Binding PlotStrategy, Mode=TwoWay}"
-                                  ItemsSource="{Binding Source={StaticResource PlotStrategyOptions}}"
-                                  SelectionChanged="OnPlotStrategySelected"
-                                  HorizontalAlignment="Right"
-                                  Margin="5"
-                                  MinWidth="200"
-                                  FontSize="13">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate DataType="{x:Type enums:PlotStrategy}">
-                                    <TextBlock Text="{Binding ., Mode=OneTime, Converter={StaticResource EnumToStringConverter}}"
-                                               Padding="5,2"/>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                        <lvc:CartesianChart Series="{Binding DamageSeries, Mode=OneWay}"
-                                            DisableAnimations="True"
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Grid.Column="1" 
+                                      SelectedItem="{Binding PlotStrategy, Mode=TwoWay}"
+                                      ItemsSource="{Binding Source={StaticResource PlotStrategyOptions}}"
+                                      SelectionChanged="OnPlotStrategySelected"
+                                      HorizontalAlignment="Stretch"
+                                      Margin="5"
+                                      FontSize="13">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type enums:PlotStrategy}">
+                                        <TextBlock Text="{Binding ., Mode=OneTime, Converter={StaticResource EnumToStringConverter}}"
+                                                   Margin="5,5"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </Grid>
+
+                        <lvc:CartesianChart Series="{Binding DamageSeries, Mode=OneTime}"
+                                            DisableAnimations="True" 
                                             Margin="5"
                                             Zoom="X"
                                             Height="250"
                                             DataTooltip="{x:Null}"
                                             Hoverable="False"
                                             x:Name="PART_Graph">
-                            <lvc:CartesianChart.CacheMode>
-                                <BitmapCache EnableClearType="True"
-                                             RenderAtScale="1"
-                                             SnapsToDevicePixels="True"/>
-                            </lvc:CartesianChart.CacheMode>
                             <lvc:CartesianChart.AxisY>
-                                <lvc:Axis MinValue="0"
-                                          LabelFormatter="{Binding DamageFormatter, Mode=OneWay}"
+                                <lvc:Axis LabelFormatter="{Binding DamageFormatter, Mode=OneTime}"
                                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}">
                                     <lvc:Axis.Separator>
                                         <lvc:Separator Stroke="{StaticResource GRAY}"
@@ -360,13 +362,11 @@
                                 </lvc:Axis>
                             </lvc:CartesianChart.AxisY>
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis LabelFormatter="{Binding TimeFormatter, Mode=OneWay}" 
+                                <lvc:Axis LabelFormatter="{Binding TimeFormatter, Mode=OneTime}" 
                                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                                          Sections="{Binding Sections, Mode=OneWay}"
-                                          MinValue="0">
+                                          Sections="{Binding Sections, Mode=OneTime}">
                                     <lvc:Axis.Separator>
-                                        <lvc:Separator IsEnabled="True"
-                                                       Stroke="{StaticResource GRAY}"
+                                        <lvc:Separator Stroke="{StaticResource GRAY}"
                                                        StrokeDashArray="2"/>
                                     </lvc:Axis.Separator>
                                 </lvc:Axis>

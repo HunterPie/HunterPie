@@ -47,21 +47,23 @@ internal class LocalizationRepository : ILocalizationRepository
         return stringValue;
     }
 
-    public LocalizationData FindByEnum<T>(T value) where T : Enum
+    public LocalizationData FindByEnum<T>(T value) where T : notnull
     {
-        MemberInfo? memberInfo = value.GetType()
-            .GetMember(value.ToString())
+        string stringValue = value.ToString() ?? string.Empty;
+
+        MemberInfo? memberInfo = value!.GetType()
+            .GetMember(stringValue)
             .FirstOrDefault();
 
-        if (memberInfo is not { })
-            return CreateDefault(value.ToString());
+        if (memberInfo is null)
+            return CreateDefault(stringValue);
 
         LocalizationAttribute? attribute = memberInfo.GetCustomAttribute<LocalizationAttribute>();
 
         return attribute switch
         {
             { } => FindBy(attribute.XPath),
-            _ => CreateDefault(value.ToString())
+            _ => CreateDefault(stringValue)
         };
     }
 
@@ -73,7 +75,7 @@ internal class LocalizationRepository : ILocalizationRepository
 
     #region Loading localization document
 
-    private static LocalizationData CreateDefault(string path) => new LocalizationData(
+    private static LocalizationData CreateDefault(string path) => new(
         String: path,
         Description: path
     );
