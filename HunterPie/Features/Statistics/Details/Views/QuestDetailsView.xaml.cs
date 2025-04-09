@@ -9,7 +9,7 @@ namespace HunterPie.Features.Statistics.Details.Views;
 /// <summary>
 /// Interaction logic for QuestDetailsView.xaml
 /// </summary>
-public partial class QuestDetailsView : UserControl, IView<QuestDetailsViewModel>
+internal partial class QuestDetailsView : UserControl, IView<QuestDetailsViewModel>
 {
     private readonly Storyboard _slideInAnimation;
     public QuestDetailsViewModel ViewModel => (QuestDetailsViewModel)DataContext;
@@ -20,6 +20,7 @@ public partial class QuestDetailsView : UserControl, IView<QuestDetailsViewModel
         _slideInAnimation = (Storyboard)FindResource("SlideInAnimation");
     }
 
+    [System.Obsolete]
     private void OnBackButtonClick(object sender, RoutedEventArgs e) => ViewModel.NavigateToPreviousPage();
 
     private void OnMonsterPanelViewModelChanged(object sender, DependencyPropertyChangedEventArgs _) =>

@@ -21,6 +21,9 @@ public static class ColorFadeGradient
         }
         };
 
+        if (brush.CanFreeze)
+            brush.Freeze();
+
         return brush;
     }
 }
