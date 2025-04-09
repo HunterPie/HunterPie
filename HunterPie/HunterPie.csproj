@@ -266,6 +266,7 @@
     <Folder Include="Features\Analytics\Strategies\" />
     <Folder Include="Features\Backup\Strategies\" />
     <Folder Include="Features\Settings\Factory\" />
+    <Folder Include="Features\Statistics\Details\Enums\" />
     <Folder Include="Integrations\Poogie\Localization\Models\" />
     <Folder Include="Integrations\Poogie\Patch\Models\" />
     <Folder Include="Integrations\Poogie\Report\Models\" />
