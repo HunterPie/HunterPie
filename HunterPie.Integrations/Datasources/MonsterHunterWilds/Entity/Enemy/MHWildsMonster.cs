@@ -11,6 +11,7 @@ using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Scan.Service;
+using HunterPie.Core.Utils;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
@@ -400,22 +401,50 @@ public sealed class MHWildsMonster : CommonMonster
     [ScannableMethod]
     internal async Task GetPartsAsync()
     {
-        nint partsHealthArray = await Memory.ReadPtrAsync(
+        MHWildsMonsterPartData partsData = await Memory.DerefPtrAsync<MHWildsMonsterPartData>(
             address: _address,
-            offsets: AddressMap.GetOffsets("Monster::PartsHealth")
+            offsets: AddressMap.GetOffsets("Monster::Parts")
         );
-        IAsyncEnumerable<MHWildsPartHealth> parts = Memory.ReadArrayOfPtrsAsync<MHWildsPartHealth>(partsHealthArray);
+        List<MHWildsPartHealth> parts = Memory.ReadArrayOfPtrsAsync<MHWildsPartHealth>(partsData.PartsPointer)
+            .Collect();
+        List<MHWildsPartBreak> breaks = Memory.ReadArrayOfPtrsSafeAsync<MHWildsPartBreak>(
+            address: partsData.BreakablePartsAssociationPointer,
+            count: parts.Count
+        ).Collect();
+
+        if (!partsData.SeverablePartsPointer.IsNullPointer() && !partsData.SeverablePartsAssociationPointer.IsNullPointer())
+        {
+            List<MHWildsPartHealth> removableParts = Memory.ReadArrayOfPtrsAsync<MHWildsPartHealth>(partsData.SeverablePartsPointer)
+                .Collect();
+
+            List<MHWildsPartBreak> removableBreaks = Memory.ReadArrayOfPtrsSafeAsync<MHWildsPartBreak>(
+                address: partsData.SeverablePartsAssociationPointer,
+                count: removableParts.Count
+            ).Collect();
+
+            parts.AddRange(removableParts);
+            breaks.AddRange(removableBreaks);
+        }
+
+        if (breaks.Count != parts.Count)
+            return;
 
         int index = 0;
-        await foreach (MHWildsPartHealth part in parts)
+        foreach ((MHWildsPartHealth part, MHWildsPartBreak partBreak) in parts.Zip(breaks))
         {
             MHWildsEncryptedFloat encryptedHealth = await Memory.ReadAsync<MHWildsEncryptedFloat>(part.HealthPointer);
             MHWildsEncryptedFloat encryptedMaxHealth = await Memory.ReadAsync<MHWildsEncryptedFloat>(part.MaxHealthPointer);
 
             var data = new UpdatePartData
             {
+                IsBreakable = partBreak is { IsEnabled: true, IsSeverable: false },
+                IsSeverable = partBreak is { IsEnabled: true, IsSeverable: true },
+                BreakMultiplier = partBreak.HealthMultiplier,
+                MaxBreaks = partBreak.MaxBreaks,
+                Breaks = partBreak.Breaks,
                 Health = await _cryptoService.DecryptFloat(encryptedHealth),
-                MaxHealth = await _cryptoService.DecryptFloat(encryptedMaxHealth)
+                MaxHealth = await _cryptoService.DecryptFloat(encryptedMaxHealth),
+                HealthResetCount = part.Count
             };
 
             bool isNewPart = index >= _parts.Count;
@@ -424,7 +453,7 @@ public sealed class MHWildsMonster : CommonMonster
             {
                 MonsterPartDefinition definition = index < _definition.Parts.Length
                     ? _definition.Parts[index]
-                    : MonsterRepository.UnknownPartDefinition;
+                    : new MonsterPartDefinition { String = $"unk (id: {index})" };
 
                 _parts.Add(new MHWildsMonsterPart(definition));
             }

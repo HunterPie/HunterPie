@@ -31,7 +31,6 @@ public sealed class MHWildsMonsterPart : CommonPart, IUpdatable<UpdatePartData>
     public override float MaxHealth { get; protected set; }
 
     private float _flinch;
-
     public override float Flinch
     {
         get => _flinch;
@@ -49,15 +48,60 @@ public sealed class MHWildsMonsterPart : CommonPart, IUpdatable<UpdatePartData>
     }
     public override float MaxFlinch { get; protected set; }
 
-    public override float Sever { get; protected set; }
+    private float _sever;
+    public override float Sever
+    {
+        get => _sever;
+        protected set
+        {
+            if (_sever.Equals(value))
+                return;
+
+            _sever = value;
+            this.Dispatch(
+                toDispatch: _onSeverUpdate,
+                data: this
+            );
+        }
+    }
     public override float MaxSever { get; protected set; }
 
     public override float Tenderize { get; protected set; }
     public override float MaxTenderize { get; protected set; }
 
-    public override int Count { get; protected set; }
+    private int _count;
+    public override int Count
+    {
+        get => _count;
+        protected set
+        {
+            if (value == _count)
+                return;
 
-    public override PartType Type { get; protected set; }
+            _count = value;
+            this.Dispatch(
+                toDispatch: _onBreakCountUpdate,
+                data: this
+            );
+        }
+    }
+
+    private PartType _type;
+    public override PartType Type
+    {
+        get => _type;
+        protected set
+        {
+            if (value == _type)
+                return;
+
+            _type = value;
+            this.Dispatch(
+                toDispatch: _onPartTypeChange,
+                data: this
+            );
+        }
+    }
 
     public MHWildsMonsterPart(MonsterPartDefinition definition) : base(definition)
     {
@@ -67,6 +111,29 @@ public sealed class MHWildsMonsterPart : CommonPart, IUpdatable<UpdatePartData>
 
     public void Update(UpdatePartData data)
     {
+        Type = data switch
+        {
+            { IsSeverable: true } => PartType.Severable,
+            { IsBreakable: true } => PartType.Breakable,
+            _ => PartType.Flinch
+        };
+
+        int normalizedBreakMultiplier = Math.Max(0, data.BreakMultiplier - 1 - data.HealthResetCount);
+        if (data.IsSeverable)
+        {
+            MaxSever = data.MaxHealth * (data.BreakMultiplier * data.MaxBreaks);
+            Sever = (data.MaxHealth * normalizedBreakMultiplier) + data.Health;
+        }
+
+        if (data.IsBreakable)
+        {
+            Count = data.Breaks;
+            MaxHealth = data.MaxHealth * data.BreakMultiplier;
+            Health = data.Breaks >= data.MaxBreaks
+                ? MaxHealth
+                : (data.MaxHealth * normalizedBreakMultiplier) + data.Health;
+        }
+
         MaxFlinch = data.MaxHealth;
         Flinch = data.Health;
     }
