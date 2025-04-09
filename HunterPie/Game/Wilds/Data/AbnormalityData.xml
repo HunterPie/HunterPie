@@ -496,6 +496,10 @@
         <Abnormality Id="Skills.114"
                      Name="ABNORMALITY_COALESCENCE"
                      Offset="C8"/>
+        <Abnormality Id="Skills.118"
+                     Name="ABNORMALITY_BLANGONGA_SPIRIT"
+                     Icon="ICON_ATTACKUP"
+                     Offset="E0"/>
         <Abnormality Id="Skills.154"
                      Name="ABNORMALITY_UTH_DUNA_COVER"
                      Offset="D0"/>
