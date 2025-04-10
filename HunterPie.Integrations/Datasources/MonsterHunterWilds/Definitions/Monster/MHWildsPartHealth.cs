@@ -15,4 +15,9 @@ public struct MHWildsPartHealth
     /// <see cref="HealthPointer"/> is of type <see cref="MHWildsEncryptedFloat"/>
     /// </summary>
     [FieldOffset(0x28)] public nint HealthPointer;
+
+    [FieldOffset(0x50)] public int Count;
+
+    [FieldOffset(0x54)]
+    [MarshalAs(UnmanagedType.I1)] public bool IsEnabled;
 }
