@@ -4,6 +4,7 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Party.Dat
 
 public struct UpdatePartyMember
 {
+    public required bool IsValid;
     public required nint Id;
     public required string Name;
     public required Weapon Weapon;
