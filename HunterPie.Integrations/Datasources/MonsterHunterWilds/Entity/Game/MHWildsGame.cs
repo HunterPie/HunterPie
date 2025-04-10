@@ -251,12 +251,13 @@ public sealed class MHWildsGame : CommonGame
             && hasStarted
             && isQuestValid)
         {
-            MHWildsTargetKey[] targetKeys = await Memory.ReadArrayAsync<MHWildsTargetKey>(
-                address: information.TargetKeysPointer
+            MHWildsTargetKey[] targetKeys = await Memory.ReadArraySafeAsync<MHWildsTargetKey>(
+                address: information.TargetKeysPointer,
+                count: 10
             );
 
             // Quest is not fully loaded yet if the target keys are not initialized
-            if (targetKeys.Any(it => it.Key == -1))
+            if (targetKeys.Any(it => it.Type != 1 || it.Key == -1))
                 return;
 
             MHWildsQuestDetails? details = quest.DetailsPointer.IsNullPointer() switch
