@@ -289,7 +289,7 @@ public sealed class MHWildsPlayer : CommonPlayer
                 address: playerPointer
             );
 
-            if (!playerBase.IsReady())
+            if (!playerBase.IsReady() && !_party.Contains(playerBase.BasePointer))
                 continue;
 
             string name = await GetPlayerNameAsync(playerBase.BasePointer);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace HunterPie.Core.Architecture.Events;
-#nullable enable
+
 public class SmartEventsTracker
 {
     private static readonly ILogger Logger = LoggerFactory.Create();
