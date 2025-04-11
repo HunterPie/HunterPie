@@ -49,6 +49,9 @@ public class MHWildsParty : CommonParty, IUpdatable<UpdateParty>, IUpdatable<Upd
 
     public void Update(UpdatePartyMember data)
     {
+        if (!data.IsValid)
+            return;
+
         lock (_members)
         {
             if (!_members.TryGetValue(data.Id, out MHWildsPartyMember? member))

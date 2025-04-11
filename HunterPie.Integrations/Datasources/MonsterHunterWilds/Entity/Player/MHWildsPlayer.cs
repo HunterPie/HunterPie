@@ -283,26 +283,31 @@ public sealed class MHWildsPlayer : CommonPlayer
                 offsets: AddressMap.GetOffsets("Player::List")
             );
             playerPointer += index * sizeof(long);
+            playerPointer = await Memory.ReadAsync<nint>(playerPointer);
 
-            nint basePlayerPointer = await Memory.DerefAsync<nint>(
-                address: playerPointer,
-                offsets: AddressMap.GetOffsets("Player::Base")
+            MHWildsPlayerBase playerBase = await Memory.ReadAsync<MHWildsPlayerBase>(
+                address: playerPointer
             );
-            string name = await GetPlayerNameAsync(basePlayerPointer);
+
+            if (!playerBase.IsReady())
+                continue;
+
+            string name = await GetPlayerNameAsync(playerBase.BasePointer);
 
             if (string.IsNullOrEmpty(name))
-                return;
+                continue;
 
-            Task<float> damageDefer = GetDamageByPlayerAsync(basePlayerPointer);
+            Task<float> damageDefer = GetDamageByPlayerAsync(playerBase.BasePointer);
 
             bool isMyself = index == 0;
             var data = new UpdatePartyMember
             {
-                Id = basePlayerPointer,
+                IsValid = true,
+                Id = playerBase.BasePointer,
                 Index = i,
                 IsMyself = isMyself,
                 Name = name,
-                Weapon = isMyself ? Weapon.Id : await GetPlayerWeaponAsync(basePlayerPointer),
+                Weapon = isMyself ? Weapon.Id : await GetPlayerWeaponAsync(playerBase.BasePointer),
                 Damage = await damageDefer,
             };
 
@@ -311,7 +316,9 @@ public sealed class MHWildsPlayer : CommonPlayer
 
         _party.Update(new UpdateParty
         {
-            Players = membersData.Select(it => it.Id).ToArray()
+            Players = membersData.Where(it => it.IsValid)
+                .Select(it => it.Id)
+                .ToArray()
         });
 
         membersData.ForEach(_party.Update);

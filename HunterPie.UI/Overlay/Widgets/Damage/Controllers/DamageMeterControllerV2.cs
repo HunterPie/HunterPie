@@ -133,6 +133,8 @@ public class DamageMeterControllerV2 : IContextHandler
     {
         _view.Dispatcher.BeginInvoke(() =>
         {
+            _view.DataContext = _viewModel;
+
             _members.Clear();
             _viewModel.Players.Clear();
             _viewModel.Series.Clear();
@@ -144,7 +146,6 @@ public class DamageMeterControllerV2 : IContextHandler
             _viewModel.MaxDeaths = e.MaxDeaths;
             _viewModel.Deaths = e.Deaths;
 
-            _view.DataContext = _viewModel;
             _viewModel.InHuntingZone = true;
         });
     }
@@ -156,6 +157,8 @@ public class DamageMeterControllerV2 : IContextHandler
 
         _view.Dispatcher.BeginInvoke(() =>
         {
+            _view.DataContext = _viewModel;
+
             _members.Clear();
             _viewModel.Players.Clear();
             _viewModel.Series.Clear();
@@ -165,7 +168,6 @@ public class DamageMeterControllerV2 : IContextHandler
 
             _viewModel.MaxDeaths = 0;
 
-            _view.DataContext = _viewModel;
             _viewModel.InHuntingZone = _context.Game.Player.InHuntingZone;
         });
     }
