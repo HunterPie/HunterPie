@@ -28,7 +28,11 @@ public class MHWildsParty : CommonParty, IUpdatable<UpdateParty>, IUpdatable<Upd
         }
     }
 
-
+    public bool Contains(nint id)
+    {
+        lock (_members)
+            return _members.ContainsKey(id);
+    }
 
     public void Clear()
     {

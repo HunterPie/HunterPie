@@ -287,8 +287,11 @@ public class DamageMeterControllerV2 : IContextHandler
         if (!_members.Remove(member, out PartyMemberContext? memberCtx))
             return;
 
-        _viewModel.Players.Remove(memberCtx.ViewModel);
-        _viewModel.Series.Remove(memberCtx.Plots);
+        if (_viewModel.Players.Contains(memberCtx.ViewModel))
+            _viewModel.Players.Remove(memberCtx.ViewModel);
+
+        if (_viewModel.Series.Contains(memberCtx.Plots))
+            _viewModel.Series.Remove(memberCtx.Plots);
 
         _logger.Debug($"removed player {member.Name} from party [{member.GetHashCode():X08}]");
     }
