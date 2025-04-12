@@ -218,6 +218,9 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
         {
             foreach (string typeId in Context.Types)
                 Types.Add(typeId);
+
+            foreach (Element weakness in Context.Weaknesses)
+                Weaknesses.Add(weakness);
         });
 
         if (Parts.Count != Context.Parts.Count || Ailments.Count != Context.Ailments.Count)
@@ -249,8 +252,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
                     Ailments.Add(new MonsterAilmentContextHandler(Context, ailment, Config));
                 }
 
-                foreach (Element weakness in Context.Weaknesses)
-                    Weaknesses.Add(weakness);
+
             });
     }
 

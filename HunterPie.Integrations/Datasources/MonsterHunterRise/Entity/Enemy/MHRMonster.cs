@@ -195,7 +195,7 @@ public sealed class MHRMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetMonsterType()
+    internal async Task GetMonsterType()
     {
         nint monsterTypePtr = await Memory.ReadPtrAsync(
             address: _address,
@@ -212,7 +212,7 @@ public sealed class MHRMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetMonsterHealthData()
+    internal async Task GetMonsterHealthData()
     {
         HealthData dto = new();
 
@@ -239,7 +239,7 @@ public sealed class MHRMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetMonsterCaptureThreshold()
+    internal async Task GetMonsterCaptureThreshold()
     {
         if (MonsterType == MonsterType.Qurio)
         {
@@ -263,7 +263,7 @@ public sealed class MHRMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetMonsterParts()
+    internal async Task GetMonsterParts()
     {
         nint qurioDataPtr = await Memory.ReadPtrAsync(
             address: _address,
@@ -396,7 +396,7 @@ public sealed class MHRMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetQurioThreshold()
+    internal async Task GetQurioThreshold()
     {
         if (_qurioThreshold is null)
             return;
@@ -417,7 +417,7 @@ public sealed class MHRMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetMonsterAilments()
+    internal async Task GetMonsterAilments()
     {
         nint ailmentsArrayPtr = await Memory.ReadPtrAsync(
             address: _address,
@@ -433,7 +433,7 @@ public sealed class MHRMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetLockedOnMonster()
+    internal async Task GetLockedOnMonster()
     {
         int cameraStyleType = await Memory.DerefAsync<int>(
             address: AddressMap.GetAbsolute("LOCKON_ADDRESS"),
@@ -463,7 +463,7 @@ public sealed class MHRMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetQuestTarget()
+    internal async Task GetQuestTarget()
     {
         nint targetAddress = await Memory.DerefAsync<nint>(
             address: AddressMap.GetAbsolute("QUEST_GUI_ADDRESS"),
@@ -480,7 +480,7 @@ public sealed class MHRMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetMonsterCrown()
+    internal async Task GetMonsterCrown()
     {
         nint monsterSizePtr = await Memory.ReadPtrAsync(
             address: _address,
@@ -501,7 +501,7 @@ public sealed class MHRMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetMonsterEnrage()
+    internal async Task GetMonsterEnrage()
     {
         nint enragePtr = await Memory.ReadPtrAsync(
             address: _address,
@@ -518,7 +518,7 @@ public sealed class MHRMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetMonsterStamina()
+    internal async Task GetMonsterStamina()
     {
         nint staminaPtr = await Memory.ReadPtrAsync(
             address: _address,
@@ -532,7 +532,7 @@ public sealed class MHRMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private Task FinishScan()
+    internal Task FinishScan()
     {
         if (_isLoaded)
             return Task.CompletedTask;

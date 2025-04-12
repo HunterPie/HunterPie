@@ -200,7 +200,7 @@ public sealed class MHWMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetMonsterBasicInformation()
+    internal async Task GetMonsterBasicInformation()
     {
         int doubleLinkedListIndex = await Memory.ReadAsync<int>(_address + 0x1228C);
 
@@ -208,7 +208,7 @@ public sealed class MHWMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetMonsterHealthData()
+    internal async Task GetMonsterHealthData()
     {
         nint monsterHealthPtr = await Memory.ReadAsync<nint>(_address + 0x7670);
         float[] healthValues = await Memory.ReadAsync<float>(monsterHealthPtr + 0x60, 2);
@@ -218,7 +218,7 @@ public sealed class MHWMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetMonsterStaminaData()
+    internal async Task GetMonsterStaminaData()
     {
         float[] staminaValues = await Memory.ReadAsync<float>(_address + 0x1C0F0, 2);
 
@@ -227,7 +227,7 @@ public sealed class MHWMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetMonsterCrownData()
+    internal async Task GetMonsterCrownData()
     {
         float sizeModifier = await Memory.ReadAsync<float>(_address + 0x7730);
         float sizeMultiplier = await Memory.ReadAsync<float>(_address + 0x184);
@@ -246,7 +246,7 @@ public sealed class MHWMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetAction()
+    internal async Task GetAction()
     {
         nint actionPtr = _address + 0x61C8;
         int actionId = await Memory.ReadAsync<int>(actionPtr + 0xB0);
@@ -265,7 +265,7 @@ public sealed class MHWMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetMonsterEnrage()
+    internal async Task GetMonsterEnrage()
     {
         MHWMonsterStatusStructure enrageStructure = await Memory.ReadAsync<MHWMonsterStatusStructure>(_address + 0x1BE30);
         IUpdatable<MHWMonsterStatusStructure> enrage = _enrage;
@@ -276,7 +276,7 @@ public sealed class MHWMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetLockedOnMonster()
+    internal async Task GetLockedOnMonster()
     {
         nint lockedOnDoubleLinkedListAddress = await Memory.ReadAsync(
             address: AddressMap.GetAbsolute("LOCKON_ADDRESS"),
@@ -302,7 +302,7 @@ public sealed class MHWMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetManualTargetedMonster()
+    internal async Task GetManualTargetedMonster()
     {
         nint questTargetAddress = await Memory.DerefAsync<nint>(
             address: AddressMap.GetAbsolute("MONSTER_QUEST_TARGET_ADDRESS"),
@@ -327,7 +327,7 @@ public sealed class MHWMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetMonsterParts()
+    internal async Task GetMonsterParts()
     {
         nint monsterPartPtr = await Memory.ReadAsync<nint>(_address + 0x1D058);
 
@@ -399,7 +399,7 @@ public sealed class MHWMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetMonsterPartTenderizes()
+    internal async Task GetMonsterPartTenderizes()
     {
         MHWTenderizeInfoStructure[] tenderizeInfos = await Memory.ReadAsync<MHWTenderizeInfoStructure>(
             address: _address + 0x1C458,
@@ -421,7 +421,7 @@ public sealed class MHWMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private async Task GetMonsterAilments()
+    internal async Task GetMonsterAilments()
     {
         if (_ailments is { })
         {
@@ -467,7 +467,7 @@ public sealed class MHWMonster : CommonMonster
     }
 
     [ScannableMethod]
-    private Task FinishScan()
+    internal Task FinishScan()
     {
         if (_isLoaded)
             return Task.CompletedTask;
