@@ -17,6 +17,7 @@ public class GameTypeToGameAliasConverter : IValueConverter
         {
             GameType.Rise => "MHR",
             GameType.World => "MHW",
+            GameType.Wilds => "MHWilds",
             _ => throw new ArgumentOutOfRangeException()
         };
     }

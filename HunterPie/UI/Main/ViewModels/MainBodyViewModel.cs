@@ -22,7 +22,7 @@ internal class MainBodyViewModel : ViewModel
 
     public Observable<GameType> SelectedGame => ClientConfig.Config.Client.DefaultGameType;
 
-    public ObservableCollection<GameType> Games { get; } = new() { GameType.Rise, GameType.World };
+    public ObservableCollection<GameType> Games { get; } = new() { GameType.Rise, GameType.World, GameType.Wilds };
 
     private bool _shouldDisplaySupporterPrompt;
     public bool ShouldDisplaySupporterPrompt { get => _shouldDisplaySupporterPrompt; set => SetValue(ref _shouldDisplaySupporterPrompt, value); }

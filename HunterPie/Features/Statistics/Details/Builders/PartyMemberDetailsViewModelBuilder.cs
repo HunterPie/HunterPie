@@ -4,11 +4,8 @@ using HunterPie.Core.Game.Data.Repository;
 using HunterPie.Features.Statistics.Details.ViewModels;
 using HunterPie.Features.Statistics.Models;
 using HunterPie.UI.Architecture.Brushes;
-using LiveCharts;
-using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Windows.Media;
@@ -30,45 +27,26 @@ internal class PartyMemberDetailsViewModelBuilder
             .Where(it => it.DealtAt.IsBetween(startedAt, finishedAt))
             .Sum(it => it.Damage);
 
-        float accumulatedDamage = 0;
-        IEnumerable<ObservablePoint> damageFrames = player.Damages.Where(it => it.DealtAt.IsBetween(startedAt, finishedAt))
-            .Select(it => (it.DealtAt, Damage: accumulatedDamage = it.Damage + accumulatedDamage))
-            .Select(it =>
-              {
-                  double time = Math.Max(1.0, (it.DealtAt - quest.StartedAt).TotalSeconds);
-
-                  return new ObservablePoint
-                  {
-                      X = time,
-                      Y = it.Damage / time
-                  };
-              });
-
         var abnormalities =
             player.Abnormalities.Select(it => BuildAbnormality(quest, monster, it))
                                 .FilterNull()
                                 .ToObservableCollection();
-
-        var damagePoints = new ChartValues<ObservablePoint>(damageFrames);
         Color color = RandomColor();
 
-        return new PartyMemberDetailsViewModel
+        Brush brush = new SolidColorBrush(color);
+        brush.Freeze();
+
+        var damageList = player.Damages.Where(it => it.DealtAt.IsBetween(startedAt, finishedAt))
+            .ToImmutableArray();
+        float accumulatedDamage = damageList.Sum(it => it.Damage);
+
+        return new PartyMemberDetailsViewModel(quest, monster, damageList, color)
         {
             Name = player.Name,
             Weapon = player.Weapon,
             Damage = accumulatedDamage,
-            Damages = new LineSeries
-            {
-                Title = player.Name,
-                Stroke = new SolidColorBrush(color),
-                Fill = ColorFadeGradient.FromColor(color),
-                PointGeometry = null,
-                StrokeThickness = 2,
-                LineSmoothness = 1,
-                Values = damagePoints
-            },
             Contribution = accumulatedDamage / totalPartyDamage,
-            Color = new SolidColorBrush(color),
+            Color = brush,
             Abnormalities = abnormalities
         };
     }

@@ -19,7 +19,7 @@ public interface IGame : IDisposable
 
     public ITargetDetectionService TargetDetectionService { get; }
 
-    public List<IMonster> Monsters { get; }
+    public IReadOnlyCollection<IMonster> Monsters { get; }
 
     public IChat? Chat { get; }
 

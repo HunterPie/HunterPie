@@ -1,0 +1,811 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<GameData>
+    <Ailments>
+        <Ailment Id="0" String="AILMENT_ENRAGE"/>
+        <Ailment Id="1" String="AILMENT_EXHAUST"/>
+        <Ailment Id="2" String="unk2"/>
+        <Ailment Id="3" String="AILMENT_POISON"/>
+        <Ailment Id="4" String="AILMENT_POISON"/>
+        <Ailment Id="5" String="AILMENT_PARALYSIS"/>
+        <Ailment Id="6" String="AILMENT_PARALYSIS"/>
+        <Ailment Id="7" String="AILMENT_SLEEP"/>
+        <Ailment Id="8" String="AILMENT_SLEEP"/>
+        <Ailment Id="9" String="AILMENT_BLAST"/>
+        <Ailment Id="10" String="unk10"/>
+        <Ailment Id="11" String="AILMENT_BLAST"/>
+        <Ailment Id="12" String="unk12"/>
+        <Ailment Id="13" String="AILMENT_MOUNT"/>
+        <Ailment Id="14" String="AILMENT_EXHAUST"/>
+        <Ailment Id="15" String="AILMENT_STUN"/>
+        <Ailment Id="16" String="AILMENT_STUN"/>
+        <Ailment Id="17" String="AILMENT_TRANQUILIZE"/>
+        <Ailment Id="18" String="AILMENT_FLASH"/>
+        <Ailment Id="19" String="AILMENT_FLASH"/>
+        <Ailment Id="20" String="unk20"/>
+        <Ailment Id="21" String="AILMENT_DUNG"/>
+        <Ailment Id="22" String="unk22"/>
+        <Ailment Id="23" String="unk23"/>
+        <Ailment Id="24" String="unk24"/>
+        <Ailment Id="25" String="unk25"/>
+        <Ailment Id="26" String="unk26"/>
+        <Ailment Id="27" String="unk27"/>
+        <Ailment Id="28" String="unk28"/>
+        <Ailment Id="29" String="unk29"/>
+        <Ailment Id="30" String="unk30"/>
+        <Ailment Id="31" String="unk31"/>
+        <Ailment Id="32" String="unk32"/>
+        <Ailment Id="33" String="unk33"/>
+        <Ailment Id="34" String="unk34"/>
+        <Ailment Id="35" String="unk35"/>
+        <Ailment Id="36" String="unk36"/>
+        <Ailment Id="37" String="unk37"/>
+        <Ailment Id="38" String="unk38"/>
+        <Ailment Id="39" String="unk39"/>
+        <Ailment Id="40" String="unk40"/>
+        <Ailment Id="41" String="unk41"/>
+        <Ailment Id="42" String="unk42"/>
+        <Ailment Id="43" String="unk43"/>
+        <Ailment Id="44" String="unk44"/>
+        <Ailment Id="45" String="unk45"/>
+    </Ailments>
+	<Monsters>
+		<Monster Id="0"
+		         Size="1754.37">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_FLYING_WYVERN"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_TORSO"/>
+				<Part Id="2" String="PART_L_LEG"/>
+				<Part Id="3" String="PART_R_LEG"/>
+				<Part Id="4" String="PART_TAIL"/>
+				<Part Id="5" String="PART_L_WING"/>
+				<Part Id="6" String="PART_R_WING"/>
+			</Parts>
+		</Monster>
+		<Monster Id="1"
+		         Size="1704.22">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_FLYING_WYVERN"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_NECK"/>
+				<Part Id="2" String="PART_TORSO"/>
+				<Part Id="3" String="PART_L_WING"/>
+				<Part Id="4" String="PART_R_WING"/>
+				<Part Id="5" String="PART_L_LEG"/>
+				<Part Id="6" String="PART_R_WING"/>
+				<Part Id="7" String="PART_TAIL"/>
+			</Parts>
+		</Monster>
+		<Monster Id="2"
+		         Size="1704.22">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_CONSTRUCT"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_NECK"/>
+				<Part Id="2" String="PART_TORSO"/>
+				<Part Id="3" String="PART_L_WING"/>
+				<Part Id="4" String="PART_R_WING"/>
+				<Part Id="5" String="PART_L_LEG"/>
+				<Part Id="6" String="PART_R_WING"/>
+				<Part Id="7" String="PART_TAIL"/>
+			</Parts>
+		</Monster>
+		<Monster Id="3"
+		         Size="2100.58">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_FLYING_WYVERN"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Water"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_NECK"/>
+				<Part Id="2" String="PART_BELLY"/>
+				<Part Id="3" String="PART_BACK"/>
+				<Part Id="4" String="PART_TAIL"/>
+				<Part Id="5" String="PART_L_LEG"/>
+				<Part Id="6" String="PART_R_LEG"/>
+				<Part Id="7" String="PART_L_WING"/>
+				<Part Id="8" String="PART_R_WING"/>
+			</Parts>
+		</Monster>
+		<Monster Id="4"
+		         Size="994.5472">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_BIRD_WYVERN"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_NECK"/>
+				<Part Id="2" String="PART_TORSO"/>
+				<Part Id="3" String="PART_TAIL"/>
+				<Part Id="4" String="PART_R_LEG"/>
+				<Part Id="5" String="PART_L_LEG"/>
+				<Part Id="6" String="PART_R_WING"/>
+				<Part Id="7" String="PART_L_WING"/>
+			</Parts>
+		</Monster>
+		<Monster Id="5"
+		         Size="964.138">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_BIRD_WYVERN"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_NECK"/>
+				<Part Id="2" String="PART_TORSO"/>
+				<Part Id="3" String="PART_L_LEG"/>
+				<Part Id="4" String="PART_R_LEG"/>
+				<Part Id="5" String="PART_TAIL"/>
+				<Part Id="6" String="PART_L_WING"/>
+				<Part Id="7" String="PART_R_WING"/>
+			</Parts>
+		</Monster>
+		<Monster Id="6"
+		         Size="1051.15">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_FANGED_BEAST"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_TORSO"/>
+				<Part Id="2" String="PART_L_FORELEG"/>
+				<Part Id="3" String="PART_R_FORELEG"/>
+				<Part Id="4" String="PART_L_H_LEG"/>
+				<Part Id="5" String="PART_R_H_LEG"/>
+				<Part Id="6" String="PART_TAIL"/>
+			</Parts>
+		</Monster>
+		<Monster Id="7"
+		         Size="899.3712">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_FANGED_BEAST"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_TORSO"/>
+				<Part Id="2" String="PART_L_FORELEG"/>
+				<Part Id="3" String="PART_R_FORELEG"/>
+				<Part Id="4" String="PART_L_H_LEG"/>
+				<Part Id="5" String="PART_R_H_LEG"/>
+				<Part Id="6" String="PART_TAIL"/>
+			</Parts>
+		</Monster>
+		<Monster Id="9"
+		         Size="731.9625">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_TEMNOCERAN"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_TORSO"/>
+				<Part Id="2" String="PART_BELLY"/>
+				<Part Id="3" String="PART_L_CLAW"/>
+				<Part Id="4" String="PART_R_CLAW"/>
+				<Part Id="5" String="PART_L_FORELEG"/>
+				<Part Id="6" String="PART_R_FORELEG"/>
+				<Part Id="7" String="PART_MANTLE"/>
+				<Part Id="8" String="PART_UNKNOWN"/>
+				<Part Id="9" String="PART_L_H_LEG"/>
+				<Part Id="10" String="PART_R_H_LEG"/>
+				<Part Id="11" String="PART_STINGER"/>
+				<Part Id="12" String="PART_UNKNOWN"/>
+			</Parts>
+		</Monster>
+		<Monster Id="10"
+		         Size="1765.9">
+			<Crowns Gold="117"
+			        Silver="111"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_DEMI_ELDER"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_ANTENNA"/>
+				<Part Id="2" String="PART_R_WINGARM"/>
+				<Part Id="3" String="PART_L_WINGARM"/>
+				<Part Id="4" String="PART_R_FORELEG"/>
+				<Part Id="5" String="PART_L_FORELEG"/>
+				<Part Id="6" String="PART_TAIL"/>
+				<Part Id="7" String="PART_R_H_LEG"/>
+				<Part Id="8" String="PART_L_H_LEG"/>
+				<Part Id="9" String="PART_TORSO"/>
+				<Part Id="10" String="PART_NECK"/>
+				<Part Id="11" String="PART_R_WING"/>
+				<Part Id="12" String="PART_L_WING"/>
+			</Parts>
+		</Monster>
+        <Monster Id="13">
+            <Crowns Gold="123"
+                    Silver="115"
+                    Mini="90"/>
+            <Types>
+                <Type Name="TYPE_LEVIATHAN"/>
+            </Types>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+                <Weakness Name="Dragon"/>
+            </Weaknesses>
+            <Parts>
+                <Part Id="0" String="PART_HEAD"/>
+                <Part Id="1" String="PART_L_LEG"/>
+                <Part Id="2" String="PART_L_CLAW"/>
+                <Part Id="3" String="PART_R_LEG"/>
+                <Part Id="4" String="PART_R_CLAW"/>
+                <Part Id="5" String="PART_L_H_LEG"/>
+                <Part Id="6" String="PART_R_H_LEG"/>
+                <Part Id="7" String="PART_TORSO"/>
+                <Part Id="8" String="PART_TAIL"/>
+                <Part Id="9" String="PART_DORSAL_FIN"/>
+            </Parts>
+        </Monster>
+		<Monster Id="14"
+		         Size="1646.46">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_CONSTRUCT"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Water"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_NOSE"/>
+				<Part Id="2" String="PART_NECK"/>
+				<Part Id="3" String="PART_TORSO"/>
+				<Part Id="4" String="PART_L_WING"/>
+				<Part Id="5" String="PART_R_WING"/>
+				<Part Id="6" String="PART_L_LEG"/>
+				<Part Id="7" String="PART_R_LEG"/>
+				<Part Id="8" String="PART_TAIL"/>
+			</Parts>
+		</Monster>
+		<Monster Id="15"
+		         Size="1388.7515">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_CONSTRUCT"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_NECK"/>
+				<Part Id="2" String="PART_BACK"/>
+				<Part Id="3" String="PART_TORSO"/>
+				<Part Id="4" String="PART_L_FORELEG"/>
+				<Part Id="5" String="PART_R_FORELEG"/>
+				<Part Id="6" String="PART_L_H_LEG"/>
+				<Part Id="7" String="PART_R_H_LEG"/>
+				<Part Id="8" String="PART_TAIL"/>
+				<Part Id="9" String="PART_TAIL_TIP"/>
+			</Parts>
+		</Monster>
+		<Monster Id="16"
+		         Size="1390.47">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_FANGED_BEAST"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_TORSO"/>
+				<Part Id="2" String="PART_R_FORELEG"/>
+				<Part Id="3" String="PART_L_FORELEG"/>
+				<Part Id="4" String="PART_R_H_FORELEG"/>
+				<Part Id="5" String="PART_L_H_FORELEG"/>
+				<Part Id="6" String="PART_TAIL_HAIR"/>
+			</Parts>
+		</Monster>
+		<Monster Id="17"
+		         Size="1390.47">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_CONSTRUCT"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_TORSO"/>
+				<Part Id="2" String="PART_R_FORELEG"/>
+				<Part Id="3" String="PART_L_FORELEG"/>
+				<Part Id="4" String="PART_R_H_FORELEG"/>
+				<Part Id="5" String="PART_L_H_FORELEG"/>
+				<Part Id="6" String="PART_TAIL_HAIR"/>
+			</Parts>
+		</Monster>
+		<Monster Id="18"
+		         Size="1912.616">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_LEVIATHAN"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Fire"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_NECK"/>
+				<Part Id="2" String="PART_TORSO"/>
+				<Part Id="3" String="PART_R_FORELEG"/>
+				<Part Id="4" String="PART_L_FORELEG"/>
+				<Part Id="5" String="PART_R_H_FORELEG"/>
+				<Part Id="6" String="PART_L_H_FORELEG"/>
+				<Part Id="7" String="PART_TAIL"/>
+			</Parts>
+		</Monster>
+		<Monster Id="19"
+		         Size="498.3">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_AMPHIBIAN"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_TORSO"/>
+				<Part Id="2" String="PART_L_FORELEG"/>
+				<Part Id="3" String="PART_R_FORELEG"/>
+				<Part Id="4" String="PART_L_H_FORELEG"/>
+				<Part Id="5" String="PART_R_H_FORELEG"/>
+				<Part Id="6" String="PART_REAR"/>
+				<Part Id="7" String="PART_TONGUE"/>
+			</Parts>
+		</Monster>
+		<Monster Id="20"
+		         Size="1244.165">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_BRUTE_WYVERN"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_TORSO"/>
+				<Part Id="2" String="PART_TAIL"/>
+				<Part Id="3" String="PART_R_FORELEG"/>
+				<Part Id="4" String="PART_L_FORELEG"/>
+				<Part Id="5" String="PART_R_H_FORELEG"/>
+				<Part Id="6" String="PART_L_H_FORELEG"/>
+			</Parts>
+		</Monster>
+		<Monster Id="21"
+		         Size="698.7456">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_TEMNOCERAN"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_TORSO"/>
+				<Part Id="2" String="PART_TAIL"/>
+				<Part Id="3" String="PART_L_CLAW"/>
+				<Part Id="4" String="PART_R_CLAW"/>
+				<Part Id="5" String="PART_L_FORELEG"/>
+				<Part Id="6" String="PART_R_FORELEG"/>
+				<Part Id="7" String="PART_L_H_LEG"/>
+				<Part Id="8" String="PART_R_H_LEG"/>
+				<Part Id="9" String="PART_PETALS"/>
+			</Parts>
+		</Monster>
+		<Monster Id="22"
+		         Size="1197.82">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_BRUTE_WYVERN"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_TORSO"/>
+				<Part Id="2" String="PART_BACK"/>
+				<Part Id="3" String="PART_L_FORELEG"/>
+				<Part Id="4" String="PART_R_FORELEG"/>
+				<Part Id="5" String="PART_L_H_LEG"/>
+				<Part Id="6" String="PART_R_H_LEG"/>
+				<Part Id="7" String="PART_TAIL"/>
+			</Parts>
+		</Monster>
+		<Monster Id="23"
+		         Size="2057.0854">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_FLYING_WYVERN"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Water"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_TORSO"/>
+				<Part Id="2" String="PART_L_LEG"/>
+				<Part Id="3" String="PART_R_LEG"/>
+				<Part Id="4" String="PART_TAIL"/>
+				<Part Id="5" String="PART_L_WING"/>
+				<Part Id="6" String="PART_R_WING"/>
+				<Part Id="7" String="PART_UNKNOWN"/>
+				<Part Id="8" String="PART_UNKNOWN"/>
+				<Part Id="9" String="PART_UNKNOWN"/>
+			</Parts>
+		</Monster>
+		<Monster Id="24"
+		         Size="2979.2935">
+			<Crowns Gold="113"
+			        Silver="109"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_LEVIATHAN"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Fire"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_TORSO"/>
+				<Part Id="2" String="PART_R_FORELEG"/>
+				<Part Id="3" String="PART_L_FORELEG"/>
+				<Part Id="4" String="PART_R_H_LEG"/>
+				<Part Id="5" String="PART_L_H_LEG"/>
+				<Part Id="6" String="PART_TAIL"/>
+				<Part Id="7" String="PART_R_HEAD_VEIL"/>
+				<Part Id="8" String="PART_L_HEAD_VEIL"/>
+				<Part Id="9" String="PART_R_TORSO_VEIL"/>
+				<Part Id="10" String="PART_L_TORSO_VEIL"/>
+				<Part Id="11" String="PART_R_FORELEG_VEIL"/>
+				<Part Id="12" String="PART_L_FORELEG_VEIL"/>
+				<Part Id="13" String="PART_R_TAIL_VEIL"/>
+				<Part Id="14" String="PART_M_TAIL_VEIL"/>
+				<Part Id="15" String="PART_L_TAIL_VEIL"/>
+			</Parts>
+		</Monster>
+		<Monster Id="25"
+		         Size="2093.7">
+			<Crowns Gold="113"
+			        Silver="109"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_CEPHALOPOD"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Dragon"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_TENTACLE"/>
+				<Part Id="2" String="PART_MEMBRANE"/>
+				<Part Id="3" String="PART_TORSO"/>
+				<Part Id="4" String="PART_L_F_ARM"/>
+				<Part Id="5" String="PART_R_F_ARM"/>
+				<Part Id="6" String="PART_M_L_ARM"/>
+				<Part Id="7" String="PART_M_R_ARM"/>
+				<Part Id="8" String="PART_MOUTH"/>
+				<Part Id="9" String="PART_UNKNOWN"/>
+			</Parts>
+		</Monster>
+		<Monster Id="26"
+		         Size="1164.36">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_FANGED_BEAST"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Water"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_R_FORELEG"/>
+				<Part Id="2" String="PART_L_FORELEG"/>
+				<Part Id="3" String="PART_R_H_LEG"/>
+				<Part Id="4" String="PART_L_H_LEG"/>
+				<Part Id="5" String="PART_TAIL_TIP"/>
+				<Part Id="6" String="PART_TAIL"/>
+				<Part Id="7" String="PART_BELLY"/>
+				<Part Id="8" String="PART_UNKNOWN"/>
+				<Part Id="9" String="PART_UNKNOWN"/>
+			</Parts>
+		</Monster>
+		<Monster Id="27"
+		         Size="1666.54">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_FLYING_WYVERN"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_TORSO"/>
+				<Part Id="2" String="PART_L_LEG"/>
+				<Part Id="3" String="PART_R_LEG"/>
+				<Part Id="4" String="PART_TAIL"/>
+				<Part Id="5" String="PART_L_WING"/>
+				<Part Id="6" String="PART_R_WING"/>
+				<Part Id="7" String="PART_L_CHAINBLADE"/>
+				<Part Id="8" String="PART_R_CHAINBLADE"/>
+				<Part Id="9" String="PART_UNKNOWN"/>
+			</Parts>
+		</Monster>
+		<Monster Id="28"
+		         Size="1666.54"
+		         IsNotCapturable="True">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_CONSTRUCT"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_TORSO"/>
+				<Part Id="2" String="PART_L_LEG"/>
+				<Part Id="3" String="PART_R_LEG"/>
+				<Part Id="4" String="PART_TAIL"/>
+				<Part Id="5" String="PART_L_WING"/>
+				<Part Id="6" String="PART_R_WING"/>
+				<Part Id="7" String="PART_L_CHAINBLADE"/>
+				<Part Id="8" String="PART_R_CHAINBLADE"/>
+				<Part Id="9" String="PART_UNKNOWN"/>
+			</Parts>
+		</Monster>
+		<Monster Id="29"
+		         Size="1659.3395">
+			<Crowns Gold="113"
+			        Silver="109"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_LEVIATHAN"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Thunder"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_NECK"/>
+				<Part Id="2" String="PART_TORSO"/>
+				<Part Id="3" String="PART_R_FORELEG"/>
+				<Part Id="4" String="PART_L_FORELEG"/>
+				<Part Id="5" String="PART_R_H_LEG"/>
+				<Part Id="6" String="PART_L_H_LEG"/>
+				<Part Id="7" String="PART_TAIL"/>
+			</Parts>
+		</Monster>
+		<Monster Id="30"
+		         Size="4560.894"
+		         IsNotCapturable="True">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_LEVIATHAN"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_NECK"/>
+				<Part Id="2" String="PART_TORSO"/>
+				<Part Id="3" String="PART_R_FORELEG"/>
+				<Part Id="4" String="PART_L_FORELEG"/>
+				<Part Id="5" String="PART_R_H_LEG"/>
+				<Part Id="6" String="PART_L_H_LEG"/>
+				<Part Id="7" String="PART_TAIL"/>
+				<Part Id="8" String="PART_ABDOMINAL_ICEPLATE"/>
+				<Part Id="9" String="PART_LG_ICEPLATE_HIDDEN"/>
+				<Part Id="10" String="PART_LG_ICEPLATE_EXPOSED"/>
+			</Parts>
+		</Monster>
+		<Monster Id="31"
+		         Size="1396.3015">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_CEPHALOPOD"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD"/>
+				<Part Id="1" String="PART_TENTACLE"/>
+				<Part Id="2" String="PART_MEMBRANE"/>
+				<Part Id="3" String="PART_TORSO"/>
+				<Part Id="4" String="PART_L_F_ARM"/>
+				<Part Id="5" String="PART_R_F_ARM"/>
+				<Part Id="6" String="PART_M_L_ARM"/>
+				<Part Id="7" String="PART_M_R_ARM"/>
+				<Part Id="8" String="PART_REAR_L_ARM"/>
+				<Part Id="9" String="PART_REAR_R_ARM"/>
+				<Part Id="10" String="PART_MOUTH"/>
+			</Parts>
+		</Monster>
+		<Monster Id="32"
+		         Size="4623.598"
+		         IsNotCapturable="True">
+			<Crowns Gold="123"
+			        Silver="115"
+			        Mini="90"/>
+			<Types>
+				<Type Name="TYPE_CONSTRUCT"/>
+			</Types>
+			<Weaknesses>
+				<Weakness Name="Dragon"/>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Ice"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_HEAD_CRYSTALIZED"/>
+				<Part Id="1" String="PART_L_WINGARM_CRYSTALIZED"/>
+				<Part Id="2" String="PART_R_WINGARM_CRYSTALIZED"/>
+				<Part Id="3" String="PART_HEAD"/>
+				<Part Id="4" String="PART_L_WINGARM"/>
+				<Part Id="5" String="PART_R_WINGARM"/>
+				<Part Id="6" String="PART_HEAD"/>
+				<Part Id="7" String="PART_L_WINGARM"/>
+				<Part Id="8" String="PART_R_WINGARM"/>
+				<Part Id="9" String="PART_L_FORELEG"/>
+				<Part Id="10" String="PART_R_FORELEG"/>
+				<Part Id="11" String="PART_L_H_LEG"/>
+				<Part Id="12" String="PART_R_H_LEG"/>
+				<Part Id="13" String="PART_NECK"/>
+				<Part Id="14" String="PART_TORSO"/>
+				<Part Id="15" String="PART_TAIL"/>
+			</Parts>
+		</Monster>
+		<Monster Id="33">
+			<Weaknesses>
+				<Weakness Name="Fire"/>
+				<Weakness Name="Water"/>
+				<Weakness Name="Thunder"/>
+				<Weakness Name="Ice"/>
+				<Weakness Name="Dragon"/>
+			</Weaknesses>
+			<Parts>
+				<Part Id="0" String="PART_MISC"/>
+				<Part Id="1" String="PART_MISC"/>
+				<Part Id="2" String="PART_MISC"/>
+				<Part Id="3" String="PART_MISC"/>
+				<Part Id="4" String="PART_MISC"/>
+				<Part Id="5" String="PART_MISC"/>
+			</Parts>
+		</Monster>
+	</Monsters>
+</GameData>

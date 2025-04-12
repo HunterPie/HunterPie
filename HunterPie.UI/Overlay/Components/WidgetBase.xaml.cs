@@ -108,12 +108,12 @@ public partial class WidgetBase : Window, INotifyPropertyChanged
     {
         if (_counter >= 30)
         {
-            RenderingTime = (DateTime.Now - _lastRender).TotalMilliseconds;
+            RenderingTime = (DateTime.UtcNow - _lastRender).TotalMilliseconds;
             Dispatcher.Invoke(ForceAlwaysOnTop, DispatcherPriority.Render);
             _counter = 0;
         }
 
-        _lastRender = DateTime.Now;
+        _lastRender = DateTime.UtcNow;
         _counter++;
     }
 

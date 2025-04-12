@@ -1,7 +1,6 @@
 using HunterPie.Core.Address.Map;
 using HunterPie.Core.Client;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Data;
 using HunterPie.Core.Native.IPC.Handlers.Internal.Initialize;
 using HunterPie.Core.Native.IPC.Handlers.Internal.Initialize.Models;
 using HunterPie.Domain.Interfaces;
@@ -20,17 +19,7 @@ internal class MHWContextInitializer : IContextInitializer
         if (context is not MHWContext)
             return;
 
-
-        InitializeGameData();
         await InitializeNativeModuleAsync(context);
-    }
-
-    private static void InitializeGameData()
-    {
-        // TODO: Remove this
-        MonsterData.Init(
-            ClientInfo.GetPathFor("Game/World/Data/MonsterData.xml")
-        );
     }
 
     private static async Task InitializeNativeModuleAsync(IContext context)

@@ -46,4 +46,10 @@ public static class AsyncHelper
 
     public static IEnumerable<T> AwaitResults<T>(this IEnumerable<Task<T>> source) =>
         source.Select(it => it.Result);
+
+    public static async IAsyncEnumerable<T> ToAsyncEnumerable<T>(this IEnumerable<Task<T>> source)
+    {
+        foreach (Task<T> element in source)
+            yield return await element;
+    }
 }

@@ -24,7 +24,9 @@ internal static class WidgetInitializers
 
     public static async Task InitializeAsync(Context context)
     {
-        IEnumerable<Task> tasks = Initializers.Value.Select(it => it.LoadAsync(context));
+        IEnumerable<Task> tasks = Initializers.Value
+            .Where(it => it.SupportedGames.HasFlag(context.Process.Type))
+            .Select(it => it.LoadAsync(context));
 
         try
         {

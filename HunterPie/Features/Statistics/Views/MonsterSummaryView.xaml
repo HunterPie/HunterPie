@@ -6,10 +6,11 @@
              xmlns:effects="clr-namespace:HunterPie.UI.Architecture.Effects;assembly=HunterPie.UI"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
              xmlns:enums="clr-namespace:HunterPie.Features.Statistics.Models"
+             xmlns:viewModels="clr-namespace:HunterPie.Features.Statistics.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="40" 
              d:DesignWidth="40"
-             d:DataContext="{d:DesignInstance vm:MonsterSummaryViewModel}">
+             d:DataContext="{d:DesignInstance viewModels:MonsterSummaryViewModel}">
     <Border CornerRadius="5"
             BorderThickness="1"
             BorderBrush="{StaticResource GRAY}">

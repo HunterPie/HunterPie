@@ -11,7 +11,6 @@ using System.Linq;
 
 namespace HunterPie.Features.Statistics.Services;
 
-#nullable enable
 internal class PartyMemberStatisticsService : IHuntStatisticsService<PartyMemberModel>
 {
     private readonly IPartyMember _partyMember;
@@ -108,6 +107,10 @@ internal class PartyMemberStatisticsService : IHuntStatisticsService<PartyMember
     private void OnDamageDealt(object? sender, IPartyMember e)
     {
         float hitDamage = e.Damage - _currentDamage;
+
+        if (hitDamage < 0)
+            return;
+
         DateTime now = DateTime.UtcNow;
 
         _damages.Add(new PlayerDamageFrameModel(Damage: hitDamage, DealtAt: now));

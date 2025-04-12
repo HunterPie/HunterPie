@@ -1,6 +1,5 @@
 ﻿using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Client.Configuration.Games;
-using HunterPie.Core.Client.Configuration.Integrations;
 using HunterPie.Core.Domain.Enums;
 using System;
 
@@ -17,6 +16,9 @@ public static class ClientConfigHelper
             GameProcessType.MonsterHunterRise => ClientConfig.Config.Rise.Overlay,
 
             GameProcessType.MonsterHunterWorld => ClientConfig.Config.World.Overlay,
+
+            GameProcessType.MonsterHunterWilds => ClientConfig.Config.Wilds.Overlay,
+
             _ => throw new NotImplementedException(),
         };
     }
@@ -28,16 +30,6 @@ public static class ClientConfigHelper
         return deferDelegate(config);
     }
 
-    public static DiscordRichPresence GetDiscordRichPresenceConfigFrom(GameProcessType game)
-    {
-        return game switch
-        {
-            GameProcessType.MonsterHunterRise => ClientConfig.Config.Rise.RichPresence,
-            GameProcessType.MonsterHunterWorld => ClientConfig.Config.World.RichPresence,
-            _ => throw new NotImplementedException(),
-        };
-    }
-
     public static GameConfig GetGameConfigBy(GameProcessType game)
     {
         return game switch
@@ -45,6 +37,9 @@ public static class ClientConfigHelper
             GameProcessType.MonsterHunterRise => ClientConfig.Config.Rise,
 
             GameProcessType.MonsterHunterWorld => ClientConfig.Config.World,
+
+            GameProcessType.MonsterHunterWilds => ClientConfig.Config.Wilds,
+
             _ => throw new NotImplementedException(),
         };
     }

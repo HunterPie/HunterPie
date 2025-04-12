@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.Integrations.Datasources.MonsterHunterRise;
@@ -15,6 +16,8 @@ namespace HunterPie.Features.Overlay;
 internal class WirebugWidgetInitializer : IWidgetInitializer
 {
     private static readonly ILogger Logger = LoggerFactory.Create();
+
+    public GameProcessType SupportedGames => GameProcessType.MonsterHunterRise;
 
     private IContextHandler? _handler;
 

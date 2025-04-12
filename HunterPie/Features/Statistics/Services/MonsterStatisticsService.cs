@@ -8,7 +8,6 @@ using System.Collections.Generic;
 
 namespace HunterPie.Features.Statistics.Services;
 
-#nullable enable
 internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
 {
     private readonly IContext _context;
@@ -30,6 +29,7 @@ internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
         _monster = monster;
         _monsterId = _monster.Id;
         _maxHealth = monster.MaxHealth;
+        _crown = monster.Crown;
 
         HookEvents();
     }

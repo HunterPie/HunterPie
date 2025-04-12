@@ -1,15 +1,17 @@
 ﻿using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Features.Statistics.Details.Enums;
 using HunterPie.UI.Architecture;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace HunterPie.Features.Statistics.Details.ViewModels;
 
-public class MonsterDetailsViewModel : ViewModel
+internal class MonsterDetailsViewModel : ViewModel
 {
     private bool _isInitialized;
 
@@ -31,6 +33,9 @@ public class MonsterDetailsViewModel : ViewModel
     private double _maxHealth;
     public double MaxHealth { get => _maxHealth; set => SetValue(ref _maxHealth, value); }
 
+    private PlotStrategy _plotStrategy;
+    public PlotStrategy PlotStrategy { get => _plotStrategy; set => SetValue(ref _plotStrategy, value); }
+
     public ObservableCollection<PartyMemberDetailsViewModel> Players { get; init; } = new();
 
     public ObservableCollection<AbnormalityDetailsViewModel> SelectedAbnormalities { get; init; } = new();
@@ -41,16 +46,21 @@ public class MonsterDetailsViewModel : ViewModel
 
     public SectionsCollection Sections { get; } = new();
 
-    public Func<double, string> TimeFormatter => new((value) => TimeSpan.FromSeconds(value).ToString("mm\\:ss"));
+    public Func<double, string> TimeFormatter { get; } = (value) => TimeSpan.FromSeconds(value).ToString("mm\\:ss");
 
-    public Func<double, string> DamageFormatter => new((damage) => $"{damage:0.00}/s");
+    public Func<double, string> DamageFormatter { get; } = (damage) => $"{damage:0.00}/s";
 
     public void SetupView()
     {
         EnableEnrageSections();
 
-        foreach (PartyMemberDetailsViewModel player in Players)
-            ToggleMember(player, !_isInitialized || player.IsToggled);
+        Players.ForEach(it =>
+        {
+            if (!_isInitialized)
+                it.IsToggled = true;
+        });
+
+        PopulateSeries();
 
         SelectedAbnormalities.Clear();
 
@@ -64,14 +74,21 @@ public class MonsterDetailsViewModel : ViewModel
         _isInitialized = true;
     }
 
-    public void ToggleMember(PartyMemberDetailsViewModel player, bool? state = null)
+    public void PopulateSeries()
     {
-        player.IsToggled = state ?? !player.IsToggled;
+        DamageSeries.Clear();
 
-        if (player.IsToggled)
-            DamageSeries.Add(player.Damages);
-        else
-            DamageSeries.Remove(player.Damages);
+        IEnumerable<Series> series = Players.Where(it => it.IsToggled)
+            .Select(it => it.CalculateSeries(PlotStrategy));
+
+        DamageSeries.AddRange(series);
+    }
+
+    public void ToggleMember(PartyMemberDetailsViewModel player)
+    {
+        player.IsToggled = !player.IsToggled;
+
+        PopulateSeries();
     }
 
     public void ToggleSections(ISectionControllable controllable, bool? state = null)

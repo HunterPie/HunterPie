@@ -11,7 +11,7 @@ using HunterPie.Core.Scan.Service;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 
-public abstract class CommonMonster : Scannable, IMonster, IDisposable, IEventDispatcher
+public abstract class CommonMonster : Scannable, IMonster, IEventDispatcher
 {
     private readonly ILogger _logger = LoggerFactory.Create();
 
@@ -25,12 +25,13 @@ public abstract class CommonMonster : Scannable, IMonster, IDisposable, IEventDi
     public abstract bool IsEnraged { get; protected set; }
     public abstract Target Target { get; protected set; }
     public abstract Target ManualTarget { get; protected set; }
-    public abstract IMonsterPart[] Parts { get; }
+    public abstract IReadOnlyCollection<IMonsterPart> Parts { get; }
     public abstract IReadOnlyCollection<IMonsterAilment> Ailments { get; }
     public abstract IMonsterAilment Enrage { get; }
     public abstract Crown Crown { get; protected set; }
     public abstract Element[] Weaknesses { get; }
     public abstract string[] Types { get; }
+    public abstract VariantType Variant { get; protected set; }
 
     protected readonly SmartEvent<EventArgs> _onSpawn = new();
     public event EventHandler<EventArgs> OnSpawn

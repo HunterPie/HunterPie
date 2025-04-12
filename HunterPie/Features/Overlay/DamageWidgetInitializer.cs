@@ -1,9 +1,13 @@
 ﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration;
+using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Damage;
+using HunterPie.UI.Overlay.Widgets.Damage.Controllers;
+using HunterPie.UI.Overlay.Widgets.Damage.View;
 using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay;
@@ -12,14 +16,31 @@ internal class DamageWidgetInitializer : IWidgetInitializer
 {
     private IContextHandler? _handler;
 
+    public GameProcessType SupportedGames =>
+        GameProcessType.MonsterHunterRise
+        | GameProcessType.MonsterHunterWorld
+        | GameProcessType.MonsterHunterWilds;
+
     public Task LoadAsync(IContext context)
     {
-        OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(context.Process.Type);
+        DamageMeterWidgetConfig config = ClientConfigHelper.DeferOverlayConfig(
+            game: context.Process.Type,
+            it => it.DamageMeterWidget
+        );
 
-        if (!config.DamageMeterWidget.Initialize)
+        if (!config.Initialize)
             return Task.CompletedTask;
 
-        _handler = new DamageMeterWidgetContextHandler(context);
+
+        _handler = context switch
+        {
+            MHWildsContext => new DamageMeterControllerV2(
+                context: context,
+                view: new MeterViewV2(config),
+                config: config
+            ),
+            _ => new DamageMeterWidgetContextHandler(context)
+        };
 
         return Task.CompletedTask;
     }

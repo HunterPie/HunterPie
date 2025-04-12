@@ -19,6 +19,12 @@ public class MockMeterViewModel : MeterViewModel
     public readonly List<ChartValues<ObservablePoint>> _playerChartValues = new();
     public readonly double[] _petDamages = new double[4];
 
+    public bool ExecuteTest
+    {
+        get => false;
+        set => Test();
+    }
+
     public MockMeterViewModel() : base(_mockConfig)
     {
         InHuntingZone = true;
@@ -125,5 +131,11 @@ public class MockMeterViewModel : MeterViewModel
         }
 
         Series = builder.Build();
+    }
+
+    public void Test()
+    {
+        Series.Chart.Updater = null;
+        Series.Clear();
     }
 }
