@@ -50,6 +50,8 @@ internal class ScanService : IControllableScanService, IDisposable
             }
             catch (OperationCanceledException)
             {
+                _scannables.Clear();
+                _logger.Debug("clearing all scannable functions");
                 return;
             }
             catch (Exception ex)
