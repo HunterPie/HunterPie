@@ -5,12 +5,19 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.12.0.885</AssemblyVersion>
-    <FileVersion>2.12.0.885</FileVersion>
+    <AssemblyVersion>2.12.0.889</AssemblyVersion>
+    <FileVersion>2.12.0.889</FileVersion>
     <LangVersion>11.0</LangVersion>
     <Authors>Haato</Authors>
     <Version>2.12.0.0</Version>
  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Overlay\Widgets\Activities\World\Mocks\**" />
+    <EmbeddedResource Remove="Overlay\Widgets\Activities\World\Mocks\**" />
+    <None Remove="Overlay\Widgets\Activities\World\Mocks\**" />
+    <Page Remove="Overlay\Widgets\Activities\World\Mocks\**" />
+  </ItemGroup>
 
 	<ItemGroup>
     <None Remove="Architecture\Shaders\noise.ps" />
@@ -674,7 +681,6 @@
     <Folder Include="Controls\Paginating\Events\" />
     <Folder Include="Controls\Settings\Abnormality\Builders\" />
     <Folder Include="Overlay\Controls\Progress\" />
-    <Folder Include="Overlay\Widgets\Activities\World\Mocks\" />
     <Folder Include="Overlay\Widgets\Monster\Adapters\" />
     <Folder Include="Properties\" />
     <Folder Include="Settings\Converter\Model\" />

@@ -6,11 +6,15 @@
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.Views"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels"
              xmlns:progress="clr-namespace:HunterPie.UI.Controls.Progress"
+             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
              mc:Ignorable="d" 
              d:DesignHeight="40" 
              d:DesignWidth="100"
              d:DataContext="{d:DesignInstance viewModels:CohootNestViewModel}">
-    <Border Background="{StaticResource GRAY_50}"
+    <UserControl.Resources>
+        <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
+    </UserControl.Resources>
+    <Border Background="{Binding Source={StaticResource GRAY_50}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
             CornerRadius="5">
         <Grid>
             <Grid.RowDefinitions>

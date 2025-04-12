@@ -13,11 +13,12 @@
              d:DataContext="{d:DesignInstance viewModels:ArgosyViewModel}">
     <UserControl.Resources>
         <brushes:BrushToColorConverter x:Key="BrushToColorConverter"/>
+        <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
     </UserControl.Resources>
     <Border BorderBrush="{StaticResource GRAY}"
             BorderThickness="1"
             CornerRadius="5"
-            Background="{StaticResource GRAY_200}">
+            Background="{Binding Source={StaticResource GRAY_200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>

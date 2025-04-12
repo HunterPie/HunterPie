@@ -7,6 +7,7 @@
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.World.ViewModels"
              xmlns:views="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.World.Views"
+             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
              mc:Ignorable="d" 
              d:DesignHeight="35" 
              d:DesignWidth="200"
@@ -15,6 +16,7 @@
         <converters:FertilizerToIconConverter x:Key="FertilizerToIconConverter"/>
         <converters:FertilizerToNameConverter x:Key="FertilizerToNameConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -24,7 +26,7 @@
         <Border Grid.Column="1"
                 BorderThickness="1,1,0,0"
                 BorderBrush="{StaticResource GRAY}"
-                Background="{StaticResource GRAY_100}">
+                Background="{Binding Source={StaticResource GRAY_100}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -78,7 +80,7 @@
         </Border>
         
         <Border Grid.Column="0"
-                Background="{StaticResource GRAY_300}"
+                Background="{Binding Source={StaticResource GRAY_300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
                 BorderBrush="{StaticResource GRAY}"
                 BorderThickness="1,1,0,0">
             <Image Source="{Binding Fertilizer, Mode=OneWay, Converter={StaticResource FertilizerToIconConverter}}"

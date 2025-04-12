@@ -1,9 +1,7 @@
 ﻿using HunterPie.Integrations.Datasources.MonsterHunterRise;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Activities;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
-using HunterPie.UI.Architecture.Extensions;
 using HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
-using System;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.Rise.Controllers;
 
@@ -22,10 +20,10 @@ internal class CohootNestController : IContextHandler
         CohootNestViewModel kamuraViewModel)
     {
         _context = context;
-        UpdateData();
         _viewModel = viewModel;
         _elgadoViewModel = elgadoViewModel;
         _kamuraViewModel = kamuraViewModel;
+        UpdateData();
     }
 
     public void HookEvents()
@@ -57,6 +55,9 @@ internal class CohootNestController : IContextHandler
 
     public void UpdateData()
     {
+        _elgadoViewModel.Name = "Elgado";
+        _kamuraViewModel.Name = "Kamura";
+
         _elgadoViewModel.SetMaxItems(Player.Cohoot.MaxCount);
         _kamuraViewModel.SetMaxItems(Player.Cohoot.MaxCount);
         _viewModel.Nests.Add(_elgadoViewModel);

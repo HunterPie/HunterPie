@@ -6,11 +6,13 @@
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.World.ViewModels"
              xmlns:views="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.World.Views"
+             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
              mc:Ignorable="d"  
              d:DesignWidth="200"
              d:DataContext="{d:DesignInstance viewModels:HarvestBoxViewModel}">
     <UserControl.Resources>
         <converters:FertilizerToVisibilityConverter x:Key="FertilizerToVisibilityConverter"/>
+        <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
     </UserControl.Resources>
     <Grid>
         <StackPanel>
@@ -32,7 +34,7 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Border Background="{StaticResource GRAY_200}"
+            <Border Background="{Binding Source={StaticResource GRAY_200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
                     BorderBrush="{StaticResource GRAY}"
                     BorderThickness="1"
                     CornerRadius="0,0,5,5"

@@ -5,11 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels"
              xmlns:views="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.Views"
+             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
              d:DataContext="{d:DesignInstance Type=viewModels:SubmarinesViewModel}"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
+    </UserControl.Resources>
     <Border BorderThickness="1,1,1,0"
             BorderBrush="{StaticResource GRAY}"
-            Background="{StaticResource GRAY_100}"
+            Background="{Binding Source={StaticResource GRAY_100}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
             CornerRadius="5,5,0,0">
         <ItemsControl ItemsSource="{Binding Submarines, Mode=OneWay}"
                       d:ItemsSource="{d:SampleData ItemCount=3}">

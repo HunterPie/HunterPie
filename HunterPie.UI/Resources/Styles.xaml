@@ -881,4 +881,6 @@
     <Style x:Key="STYLE_WIREBUG_WIDGET" TargetType="{x:Type wirebug:WirebugsView}"/>
     <Style x:Key="STYLE_SPECIALIZED_TOOLS_WIDGET" TargetType="{x:Type specialized:SpecializedToolView}"/>
     <Style x:Key="STYLE_PLAYER_HUD_WIDGET" TargetType="{x:Type playerHud:PlayerHudView}"/>
+    
+    <sys:Double x:Key="Widgets.Background.Opacity">0.8</sys:Double>
 </ResourceDictionary>

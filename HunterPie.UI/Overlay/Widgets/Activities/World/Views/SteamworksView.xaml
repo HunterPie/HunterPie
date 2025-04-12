@@ -7,16 +7,17 @@
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.World.ViewModels"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:progress="clr-namespace:HunterPie.UI.Controls.Progress"
+             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
              mc:Ignorable="d" 
              d:DesignHeight="150" 
              d:DesignWidth="30"
              d:DataContext="{d:DesignInstance viewModels:SteamworksViewModel}">
     <UserControl.Resources>
-        <converters:CurrentValueToWidthConverter x:Key="CurrentValueToWidthConverter"/>
         <converters:IntToKFormat x:Key="IntToKFormatter"/>
+        <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
     </UserControl.Resources>
     <Border BorderBrush="{StaticResource GRAY}"
-            Background="{StaticResource GRAY_200}"
+            Background="{Binding Source={StaticResource GRAY_200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
             BorderThickness="1"
             CornerRadius="0,5,5,0">
         <Grid>

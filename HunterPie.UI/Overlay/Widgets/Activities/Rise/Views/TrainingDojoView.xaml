@@ -7,6 +7,7 @@
              xmlns:progress="clr-namespace:HunterPie.UI.Controls.Progress"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:arithmetics="clr-namespace:HunterPie.UI.Architecture.Converters.Arithmetics"
+             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
              d:DataContext="{d:DesignInstance Type=viewModels:TrainingDojoViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="150"
@@ -15,8 +16,9 @@
     <UserControl.Resources>
         <arithmetics:MultiplyNumberConverter x:Key="MultiplyHalfConverter"
                                              Factor="0.5"/>
+        <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
     </UserControl.Resources>
-    <Border Background="{StaticResource GRAY_200}"
+    <Border Background="{Binding Source={StaticResource GRAY_200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
             CornerRadius="8"
             BorderBrush="{StaticResource GRAY}"
             BorderThickness="1">
