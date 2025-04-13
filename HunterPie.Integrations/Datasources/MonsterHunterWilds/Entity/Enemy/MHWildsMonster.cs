@@ -502,6 +502,14 @@ public sealed class MHWildsMonster : CommonMonster
             return value.PadRight(value.Length + pad);
         });
     }
+    private static string GetName(int id, ILocalizationRepository localizationRepository)
+    {
+        string namePath = $"//Strings/Monsters/Wilds/Monster[@Id='{id}']";
+        return localizationRepository.ExistsBy(namePath)
+            ? localizationRepository.FindStringBy(namePath)
+            : $"Unknown [id: {id}]";
+    }
+
     private static string BuildName(
         ILocalizationRepository localizationRepository,
         VariantType variant,
@@ -523,11 +531,8 @@ public sealed class MHWildsMonster : CommonMonster
             variantLookupId = "FRENZIED";
         }
 
-        string namePath = $"//Strings/Monsters/Wilds/Monster[@Id='{id}']";
+        string name = GetName(id, localizationRepository);
 
-        string name = localizationRepository.ExistsBy(namePath)
-            ? localizationRepository.FindStringBy(namePath)
-            : $"Unknown [id: {id}]";
 
         bool hasPrefix = prefix.Length > 0;
 
