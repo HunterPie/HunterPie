@@ -554,12 +554,10 @@ public sealed class MHWildsMonster : CommonMonster
         string name = GetName(id, localizationRepository);
         string variantString = GetVariantString(variantLookupId, localizationRepository);
 
-        string formattedName = BuildFormattedName(
+        return BuildFormattedName(
             format: nameFormatString,
             name: name,
             variant: variantString
         );
-
-        return formattedName;
     }
 }
