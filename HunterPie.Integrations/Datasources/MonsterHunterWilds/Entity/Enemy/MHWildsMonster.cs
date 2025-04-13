@@ -18,6 +18,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 
@@ -478,6 +479,29 @@ public sealed class MHWildsMonster : CommonMonster
         return variant;
     }
 
+    private static string BuildFormattedName(string format, string name, string variant)
+    {
+        return Regex.Replace(format, @"\{(\d+)(?::(\d+))?\}", match =>
+        {
+            // The first group is the position, the second is the padding
+            int position = int.Parse(match.Groups[1].Value);
+            int pad = match.Groups[2].Success ? int.Parse(match.Groups[2].Value) : 0;
+            // The value we return is the name or variant mapped to the relevant position from the format string
+            string value = string.Empty;
+            switch (position)
+            {
+                case 0:
+                    value = name;
+                    break;
+                case 1:
+                    value = variant;
+                    break;
+                default:
+                    break;
+            }
+            return value.PadRight(value.Length + pad);
+        });
+    }
     private static string BuildName(
         ILocalizationRepository localizationRepository,
         VariantType variant,
