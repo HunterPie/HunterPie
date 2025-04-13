@@ -479,7 +479,7 @@ public sealed class MHWildsMonster : CommonMonster
         return variant;
     }
 
-    private static string BuildFormattedName(string format, string name, string variant)
+    private static string FormatName(string format, string name, string variant)
     {
         return Regex.Replace(format, @"\{(\d+)(?::(\d+))?\}", match =>
         {
@@ -554,7 +554,7 @@ public sealed class MHWildsMonster : CommonMonster
         string name = GetName(id, localizationRepository);
         string variantString = GetVariantString(variantLookupId, localizationRepository);
 
-        return BuildFormattedName(
+        return FormatName(
             format: nameFormatString,
             name: name,
             variant: variantString
