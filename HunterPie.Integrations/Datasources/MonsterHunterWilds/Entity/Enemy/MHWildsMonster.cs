@@ -502,7 +502,7 @@ public sealed class MHWildsMonster : CommonMonster
         });
     }
 
-    private static string GetVariantString(string variantId, ILocalizationRepository localizationRepository)
+    private static string GetLocalizedVariantString(string variantId, ILocalizationRepository localizationRepository)
     {
         if (variantId == string.Empty)
             return string.Empty;
@@ -552,12 +552,12 @@ public sealed class MHWildsMonster : CommonMonster
 
         string nameFormatString = GetNameFormatString(variantLookupId, localizationRepository);
         string name = GetName(id, localizationRepository);
-        string variantString = GetVariantString(variantLookupId, localizationRepository);
+        string localizedVariantString = GetLocalizedVariantString(variantLookupId, localizationRepository);
 
         return FormatName(
             format: nameFormatString,
             name: name,
-            variant: variantString
+            variant: localizedVariantString
         );
     }
 }
