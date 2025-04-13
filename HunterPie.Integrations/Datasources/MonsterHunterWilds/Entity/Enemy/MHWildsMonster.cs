@@ -483,9 +483,8 @@ public sealed class MHWildsMonster : CommonMonster
     {
         return Regex.Replace(format, @"\{(\d+)(?::(\d+))?\}", match =>
         {
-            // The first group is the position, the second is the padding
             int position = int.Parse(match.Groups[1].Value);
-            int pad = match.Groups[2].Success ? int.Parse(match.Groups[2].Value) : 0;
+            int padding = match.Groups[2].Success ? int.Parse(match.Groups[2].Value) : 0;
             // The value we return is the name or variant mapped to the relevant position from the format string
             string value = string.Empty;
             switch (position)
@@ -499,7 +498,7 @@ public sealed class MHWildsMonster : CommonMonster
                 default:
                     break;
             }
-            return value.PadRight(value.Length + pad);
+            return value.PadRight(value.Length + padding);
         });
     }
 
