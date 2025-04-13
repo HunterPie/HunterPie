@@ -518,7 +518,7 @@ public sealed class MHWildsMonster : CommonMonster
         string nameFormatPath = $"//Strings/Monsters/Formatting/Format[@Id='{variantId}']";
         return localizationRepository.ExistsBy(nameFormatPath)
             ? localizationRepository.FindStringBy(nameFormatPath)
-            : localizationRepository.FindStringBy("//Strings/Monsters/Formatting/Format[@Id='DEFAULT']");
+            : "{0:1}{1}";
     }
 
     private static string GetName(int id, ILocalizationRepository localizationRepository)
