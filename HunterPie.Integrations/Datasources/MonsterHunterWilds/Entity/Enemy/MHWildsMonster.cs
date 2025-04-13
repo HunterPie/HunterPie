@@ -555,28 +555,12 @@ public sealed class MHWildsMonster : CommonMonster
         string name = GetName(id, localizationRepository);
         string variantString = GetVariantString(variantLookupId, localizationRepository);
 
+        string formattedName = BuildFormattedName(
+            format: nameFormatString,
+            name: name,
+            variant: variantString
+        );
 
-        bool hasPrefix = prefix.Length > 0;
-
-        if (hasPrefix)
-        {
-            bool prefixIsFormattable = prefix.Contains("{0}");
-            if (prefixIsFormattable)
-            {
-                sb.AppendFormat(prefix, name);
-            }
-            else
-            {
-                sb.Append(prefix);
-                sb.Append(' ');
-                sb.Append(name);
-            }
-        }
-        else
-        {
-            sb.Append(name);
-        }
-
-        return sb.ToString();
+        return formattedName;
     }
 }
