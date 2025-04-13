@@ -513,7 +513,7 @@ public sealed class MHWildsMonster : CommonMonster
             : $"Unknown [id: {variantId}]";
     }
 
-    private static string GetNameFormatString(ILocalizationRepository localizationRepository, string variantId)
+    private static string GetNameFormatString(string variantId, ILocalizationRepository localizationRepository)
     {
         string nameFormatPath = $"//Strings/Monsters/Formatting/Format[@Id='{variantId}']";
         return localizationRepository.ExistsBy(nameFormatPath)
@@ -550,7 +550,7 @@ public sealed class MHWildsMonster : CommonMonster
             variantLookupId = "FRENZIED";
         }
 
-        string nameFormatString = GetNameFormatString(localizationRepository, variantLookupId);
+        string nameFormatString = GetNameFormatString(variantLookupId, localizationRepository);
         string name = GetName(id, localizationRepository);
         string variantString = GetVariantString(variantLookupId, localizationRepository);
 
