@@ -10,23 +10,29 @@ namespace HunterPie.Features.Statistics.Services;
 
 internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
 {
+    private const double RECORD_HEALTH_STEP = 0.05;
+
     private readonly IContext _context;
     private readonly IMonster _monster;
 
     private int _monsterId;
+    private readonly VariantType _variant;
     private float? _startHealth;
     private readonly Stack<TimeFrameModel> _enrages = new();
+    private readonly List<MonsterHealthStepModel> _healthSteps = new();
 
     private DateTime? _huntStart;
     private DateTime? _huntEnd;
     private float _maxHealth;
     private Crown _crown;
     private MonsterHuntType _huntType;
+    private float _lastPercentageRecorded;
 
     public MonsterStatisticsService(IContext context, IMonster monster)
     {
         _context = context;
         _monster = monster;
+        _variant = monster.Variant;
         _monsterId = _monster.Id;
         _maxHealth = monster.MaxHealth;
         _crown = monster.Crown;
@@ -56,7 +62,9 @@ internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
             ),
             HuntStartedAt: _huntStart,
             HuntFinishedAt: _huntEnd,
-            HuntType: _huntType
+            HuntType: _huntType,
+            Variant: _variant,
+            HealthSteps: _healthSteps
         );
     }
 
@@ -91,6 +99,18 @@ internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
 
         if (Math.Abs(_monster.Health - _monster.MaxHealth) < 0.1)
             return;
+
+        float currentPercentage = _monster.Health / _monster.MaxHealth;
+        if ((_lastPercentageRecorded - currentPercentage) <= RECORD_HEALTH_STEP)
+        {
+            _healthSteps.Add(
+                item: new MonsterHealthStepModel(
+                    Percentage: currentPercentage,
+                    Time: DateTime.UtcNow
+                )
+            );
+            _lastPercentageRecorded = currentPercentage;
+        }
 
         if (_huntStart is not null || _startHealth is not null)
             return;
