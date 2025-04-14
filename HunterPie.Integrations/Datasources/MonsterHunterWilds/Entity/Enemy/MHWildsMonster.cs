@@ -479,7 +479,7 @@ public sealed class MHWildsMonster : CommonMonster
         return variant;
     }
 
-    private static string FormatName(string format, string name, string variant)
+    private static string FormatName(string format, string name, string variant, string subVariant)
     {
         return Regex.Replace(format, @"\{(\d+)(?::(\d+))?\}", match =>
         {
@@ -494,6 +494,9 @@ public sealed class MHWildsMonster : CommonMonster
                     break;
                 case 1:
                     value = variant;
+                    break;
+                case 2:
+                    value = subVariant;
                     break;
                 default:
                     break;
@@ -518,7 +521,7 @@ public sealed class MHWildsMonster : CommonMonster
         string nameFormatPath = $"//Strings/Monsters/Formatting/Format[@Id='{variantId}']";
         return localizationRepository.ExistsBy(nameFormatPath)
             ? localizationRepository.FindStringBy(nameFormatPath)
-            : "{1:1}{0}";
+            : "{1:1}{2:1}{0}";
     }
 
     private static string GetName(int id, ILocalizationRepository localizationRepository)
@@ -535,6 +538,8 @@ public sealed class MHWildsMonster : CommonMonster
         int id
     )
     {
+        StringBuilder sbNameFormatLookupId = new StringBuilder();
+
         string variantLookupId = string.Empty;
         if (variant.HasFlag(VariantType.Tempered))
         {
@@ -545,19 +550,33 @@ public sealed class MHWildsMonster : CommonMonster
             variantLookupId = "ARCH_TEMPERED";
         }
 
+        sbNameFormatLookupId.Append(variantLookupId);
+
+        string subVariantLookupId = string.Empty;
         if (variant.HasFlag(VariantType.Frenzy))
         {
-            variantLookupId = "FRENZIED";
+            subVariantLookupId = "FRENZIED";
         }
 
-        string nameFormatString = GetNameFormatString(variantLookupId, localizationRepository);
+        if (sbNameFormatLookupId.Length > 0)
+        {
+            sbNameFormatLookupId.Append("_");
+        }
+
+        sbNameFormatLookupId.Append(subVariantLookupId);
+
         string name = GetName(id, localizationRepository);
         string localizedVariantString = GetLocalizedVariantString(variantLookupId, localizationRepository);
+        string localizedSubVariantString = GetLocalizedVariantString(subVariantLookupId, localizationRepository);
+
+        string nameFormatLookupId = sbNameFormatLookupId.ToString();
+        string nameFormatString = GetNameFormatString(nameFormatLookupId, localizationRepository);
 
         return FormatName(
-            format: nameFormatString,
+            format: nameFormatString, 
             name: name,
-            variant: localizedVariantString
+            variant: localizedVariantString,
+            subVariant: localizedSubVariantString
         );
     }
 }
