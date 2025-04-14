@@ -550,20 +550,19 @@ public sealed class MHWildsMonster : CommonMonster
             variantLookupId = "ARCH_TEMPERED";
         }
 
-        sbNameFormatLookupId.Append(variantLookupId);
-
         string subVariantLookupId = string.Empty;
         if (variant.HasFlag(VariantType.Frenzy))
         {
             subVariantLookupId = "FRENZIED";
         }
 
-        if (sbNameFormatLookupId.Length > 0)
+        if (!string.IsNullOrEmpty(variantLookupId) && !string.IsNullOrEmpty(subVariantLookupId))
         {
-            sbNameFormatLookupId.Append("_");
+            sbNameFormatLookupId.AppendJoin("_", variantLookupId, subVariantLookupId);
+        } else
+        {
+            sbNameFormatLookupId.Append(!string.IsNullOrEmpty(variantLookupId) ? variantLookupId : subVariantLookupId);
         }
-
-        sbNameFormatLookupId.Append(subVariantLookupId);
 
         string name = GetName(id, localizationRepository);
         string localizedVariantString = GetLocalizedVariantString(variantLookupId, localizationRepository);
