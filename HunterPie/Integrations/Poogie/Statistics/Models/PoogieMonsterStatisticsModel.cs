@@ -10,13 +10,13 @@ namespace HunterPie.Integrations.Poogie.Statistics.Models;
 
 internal record PoogieMonsterStatisticsModel(
     [property: JsonProperty("id")] int Id,
+    [property: JsonProperty("variant")] int? Variant,
     [property: JsonProperty("max_health")] float MaxHealth,
     [property: JsonProperty("crown")] Crown Crown,
     [property: JsonProperty("enrage")] PoogieMonsterStatusStatisticsModel Enrage,
     [property: JsonProperty("hunt_started_at")] DateTime? HuntStartedAt,
     [property: JsonProperty("hunt_finished_at")] DateTime? HuntFinishedAt,
     [property: JsonProperty("hunt_type")] MonsterHuntType? HuntType,
-    [property: JsonProperty("variant")] int? Variant,
     [property: JsonProperty("health_steps")] List<PoogieMonsterHealthStepModel>? HealthSteps
 )
 {
@@ -42,7 +42,7 @@ internal record PoogieMonsterStatisticsModel(
             HuntStartedAt: model.HuntStartedAt,
             HuntFinishedAt: model.HuntFinishedAt,
             HuntType: model.HuntType,
-            Variant: model.Variant,
+            Variant: (int)model.Variant,
             HealthSteps: model.HealthSteps.Select(PoogieMonsterHealthStepModel.From).ToList()
         );
 }

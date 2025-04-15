@@ -101,7 +101,7 @@ internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
             return;
 
         float currentPercentage = _monster.Health / _monster.MaxHealth;
-        if ((_lastPercentageRecorded - currentPercentage) <= RECORD_HEALTH_STEP)
+        if ((_lastPercentageRecorded - currentPercentage) >= RECORD_HEALTH_STEP)
         {
             _healthSteps.Add(
                 item: new MonsterHealthStepModel(

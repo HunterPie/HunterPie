@@ -1,25 +1,57 @@
-﻿using HunterPie.Core.Client.Localization;
-using HunterPie.Core.Extensions;
+﻿using HunterPie.Core.Extensions;
 using HunterPie.Features.Statistics.Details.ViewModels;
 using HunterPie.Features.Statistics.Models;
 using HunterPie.UI.Architecture.Adapter;
 using HunterPie.UI.Assets.Application;
+using LiveCharts;
+using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using Localization = HunterPie.Core.Client.Localization.Localization;
 
 namespace HunterPie.Features.Statistics.Details.Builders;
 internal static class MonsterDetailsViewModelBuilder
 {
     private static readonly Brush EnrageBrush = Resources.Get<Brush>("HUNT_EXPORT_ENRAGE_BRUSH");
+    private static readonly Brush HealthStepBrush = Resources.Get<Brush>("WHITE_400");
 
+    [Obsolete]
     public static async Task<MonsterDetailsViewModel> Build(HuntStatisticsModel hunt, MonsterModel monster)
     {
         TimeSpan? huntElapsed = null;
-        if (monster.HuntStartedAt is { } startedAt && monster.HuntFinishedAt is { } finishedAt)
+        if (monster is { HuntStartedAt: { } startedAt, HuntFinishedAt: { } finishedAt })
             huntElapsed = finishedAt - startedAt;
+
+        IEnumerable<ObservablePoint> healthPoints = monster.HealthSteps.Select(it =>
+        {
+            double capturedAt = (it.Time - hunt.StartedAt).TotalSeconds;
+            return new ObservablePoint(
+                x: capturedAt,
+                y: it.Percentage
+            );
+        });
+        var backgroundBrush = new SolidColorBrush(Colors.White)
+        {
+            Opacity = 0.1
+        };
+        backgroundBrush.Freeze();
+
+        LineSeries? healthSteps = monster.HealthSteps.Count > 0
+            ? new LineSeries
+            {
+                StrokeThickness = 1,
+                Stroke = HealthStepBrush,
+                PointForeground = backgroundBrush,
+                Values = new ChartValues<ObservablePoint>(healthPoints),
+                StrokeDashArray = new DoubleCollection(new double[] { 4, 1 }),
+                ScalesYAt = 0,
+                Fill = backgroundBrush
+            }
+            : null;
 
         return new MonsterDetailsViewModel
         {
@@ -28,6 +60,7 @@ internal static class MonsterDetailsViewModelBuilder
             TimeElapsed = hunt.FinishedAt - hunt.StartedAt,
             MaxHealth = monster.MaxHealth,
             HuntElapsed = huntElapsed,
+            HealthSteps = healthSteps,
             Statuses = { BuildEnrage(hunt, huntElapsed ?? TimeSpan.Zero, monster.Enrage) },
             Players = hunt.Players.Select(it => PartyMemberDetailsViewModelBuilder.Build(hunt, monster, it))
                                   .FilterNull()
@@ -36,6 +69,7 @@ internal static class MonsterDetailsViewModelBuilder
         };
     }
 
+    [Obsolete]
     private static StatusDetailsViewModel BuildEnrage(
         HuntStatisticsModel quest,
         TimeSpan huntTimeElapsed,

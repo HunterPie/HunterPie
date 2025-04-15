@@ -73,6 +73,7 @@ internal class PartyMemberDetailsViewModel : ViewModel
             PointGeometry = null,
             StrokeThickness = 1,
             LineSmoothness = 0,
+            ScalesYAt = 1,
             Values = new ChartValues<ObservablePoint>(points)
         };
     }

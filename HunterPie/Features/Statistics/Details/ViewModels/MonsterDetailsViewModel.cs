@@ -46,6 +46,8 @@ internal class MonsterDetailsViewModel : ViewModel
 
     public SectionsCollection Sections { get; } = new();
 
+    public required Series? HealthSteps { get; init; }
+
     public Func<double, string> TimeFormatter { get; } = (value) => TimeSpan.FromSeconds(value).ToString("mm\\:ss");
 
     public Func<double, string> DamageFormatter { get; } = (damage) => $"{damage:0.00}/s";
@@ -82,6 +84,9 @@ internal class MonsterDetailsViewModel : ViewModel
             .Select(it => it.CalculateSeries(PlotStrategy));
 
         DamageSeries.AddRange(series);
+
+        if (HealthSteps is not null)
+            DamageSeries.Add(HealthSteps);
     }
 
     public void ToggleMember(PartyMemberDetailsViewModel player)
@@ -109,5 +114,13 @@ internal class MonsterDetailsViewModel : ViewModel
             return;
 
         ToggleSections(enrage, !_isInitialized || enrage.IsToggled);
+    }
+
+    public void ToggleHealthSteps()
+    {
+        if (DamageSeries.Contains(HealthSteps))
+            DamageSeries.Remove(HealthSteps);
+        else
+            DamageSeries.Add(HealthSteps);
     }
 }
