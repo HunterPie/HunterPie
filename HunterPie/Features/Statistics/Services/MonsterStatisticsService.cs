@@ -26,7 +26,7 @@ internal class MonsterStatisticsService : IHuntStatisticsService<MonsterModel>
     private float _maxHealth;
     private Crown _crown;
     private MonsterHuntType _huntType;
-    private float _lastPercentageRecorded;
+    private float _lastPercentageRecorded = 2.0f;
 
     public MonsterStatisticsService(IContext context, IMonster monster)
     {

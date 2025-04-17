@@ -649,30 +649,30 @@
 				<Part Id="5" String="PART_R_F_ARM"/>
 				<Part Id="6" String="PART_M_L_ARM"/>
 				<Part Id="7" String="PART_M_R_ARM"/>
-				<Part Id="8" String="PART_L_B_ARM"/>
-				<Part Id="9" String="PART_R_B_ARM"/>
+				<Part Id="8" String="PART_REAR_L_ARM"/>
+				<Part Id="9" String="PART_REAR_R_ARM"/>
 				<Part Id="10" String="PART_MOUTH"/>
 				<Part Id="11" String="PART_UNKNOWN"/>
 				<Part Id="12" String="PART_L_F_ARM"/>
 				<Part Id="13" String="PART_R_F_ARM"/>
 				<Part Id="14" String="PART_M_L_ARM"/>
 				<Part Id="15" String="PART_M_R_ARM"/>
-				<Part Id="16" String="PART_L_B_ARM"/>
-				<Part Id="17" String="PART_R_B_ARM"/>
+				<Part Id="16" String="PART_REAR_L_ARM"/>
+				<Part Id="17" String="PART_REAR_R_ARM"/>
 				<Part Id="18" String="PART_FIRE_STATE"/>
 				<Part Id="19" String="PART_L_F_ARM_FIRE"/>
 				<Part Id="20" String="PART_R_F_ARM_FIRE"/>
 				<Part Id="21" String="PART_M_L_ARM_FIRE"/>
 				<Part Id="22" String="PART_M_R_ARM_FIRE"/>
-				<Part Id="23" String="PART_L_B_ARM_FIRE"/>
-				<Part Id="24" String="PART_R_B_ARM_FIRE"/>
+				<Part Id="23" String="PART_REAR_L_ARM_FIRE"/>
+				<Part Id="24" String="PART_REAR_R_ARM_FIRE"/>
 				<Part Id="25" String="PART_ARMS"/>
 				<Part Id="26" String="PART_L_F_ARM_OIL"/>
 				<Part Id="27" String="PART_R_F_ARM_OIL"/>
 				<Part Id="28" String="PART_M_L_ARM_OIL"/>
 				<Part Id="29" String="PART_M_R_ARM_OIL"/>
-				<Part Id="30" String="PART_L_B_ARM_OIL"/>
-				<Part Id="31" String="PART_R_B_ARM_OIL"/>
+				<Part Id="30" String="PART_REAR_L_ARM_OIL"/>
+				<Part Id="31" String="PART_REAR_R_ARM_OIL"/>
 			</Parts>
 		</Monster>
 		<Monster Id="26"

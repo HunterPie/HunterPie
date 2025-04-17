@@ -331,7 +331,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <buttons:Button Grid.Column="0"
-                                            Content="Toggle Health"
+                                            Content="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_TOGGLE_HEALTH_STRING&quot;]'}"
                                             HorizontalAlignment="Left"
                                             Margin="2"
                                             Padding="5"

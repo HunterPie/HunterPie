@@ -23,35 +23,47 @@ internal static class MonsterDetailsViewModelBuilder
     public static async Task<MonsterDetailsViewModel> Build(HuntStatisticsModel hunt, MonsterModel monster)
     {
         TimeSpan? huntElapsed = null;
+        LineSeries? healthSteps = null;
         if (monster is { HuntStartedAt: { } startedAt, HuntFinishedAt: { } finishedAt })
+        {
             huntElapsed = finishedAt - startedAt;
 
-        IEnumerable<ObservablePoint> healthPoints = monster.HealthSteps.Select(it =>
-        {
-            double capturedAt = (it.Time - hunt.StartedAt).TotalSeconds;
-            return new ObservablePoint(
-                x: capturedAt,
-                y: it.Percentage
-            );
-        });
-        var backgroundBrush = new SolidColorBrush(Colors.White)
-        {
-            Opacity = 0.1
-        };
-        backgroundBrush.Freeze();
+            MonsterHealthStepModel? lastHealthStep = monster.HealthSteps.LastOrDefault();
 
-        LineSeries? healthSteps = monster.HealthSteps.Count > 0
-            ? new LineSeries
+            if (lastHealthStep is { } lastModel)
+                monster.HealthSteps.Add(
+                    item: lastModel with { Time = finishedAt }
+                );
+
+            IEnumerable<ObservablePoint> healthPoints = monster.HealthSteps.Select(it =>
             {
-                StrokeThickness = 1,
-                Stroke = HealthStepBrush,
-                PointForeground = backgroundBrush,
-                Values = new ChartValues<ObservablePoint>(healthPoints),
-                StrokeDashArray = new DoubleCollection(new double[] { 4, 1 }),
-                ScalesYAt = 0,
-                Fill = backgroundBrush
-            }
-            : null;
+                TimeSpan huntStartedDelta = startedAt - hunt.StartedAt;
+                double capturedAt = (it.Time - hunt.StartedAt + huntStartedDelta).TotalSeconds;
+                return new ObservablePoint(
+                    x: capturedAt,
+                    y: it.Percentage
+                );
+            });
+
+            var backgroundBrush = new SolidColorBrush(Colors.White)
+            {
+                Opacity = 0.1
+            };
+            backgroundBrush.Freeze();
+
+            healthSteps = monster.HealthSteps.Count > 0
+                ? new LineSeries
+                {
+                    StrokeThickness = 1,
+                    Stroke = HealthStepBrush,
+                    PointForeground = backgroundBrush,
+                    Values = new ChartValues<ObservablePoint>(healthPoints),
+                    StrokeDashArray = new DoubleCollection(new double[] { 4, 1 }),
+                    ScalesYAt = 0,
+                    Fill = backgroundBrush
+                }
+                : null;
+        }
 
         return new MonsterDetailsViewModel
         {
