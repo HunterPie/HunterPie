@@ -60,4 +60,9 @@ internal partial class MonsterDetailsView : UserControl
 
         ForceGraphRender();
     }
+
+    private void OnHealthToggleClick(object sender, RoutedEventArgs e)
+    {
+        ViewModel?.ToggleHealthSteps();
+    }
 }
