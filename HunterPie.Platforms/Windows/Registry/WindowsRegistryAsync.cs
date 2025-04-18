@@ -39,7 +39,12 @@ internal class WindowsRegistryAsync : ILocalRegistryAsync, ILocalRegistry
 
     public T? Get<T>(string name)
     {
-        object? converted = Convert.ChangeType(_key.GetValue(name), typeof(T));
+        object? val = _key.GetValue(name);
+
+        if (val is null)
+            return default;
+
+        object? converted = Convert.ChangeType(val, typeof(T));
 
         if (converted is T value)
             return value;
