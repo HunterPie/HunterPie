@@ -33,9 +33,6 @@ public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
 
     [ConfigurationProperty("WIDGET_SCALE", group: CommonConfigurationGroups.WIDGET)]
     public Range Scale { get; set; } = new(1, 2, 0, 0.1);
-
-    [ConfigurationProperty("ENABLE_STREAMER_MODE", group: CommonConfigurationGroups.WIDGET)]
-    public Observable<bool> StreamerMode { get; set; } = false;
     #endregion
 
     #region Customizations
@@ -62,43 +59,43 @@ public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("DAMAGE_METER_ENABLE_DPS_PLOT", group: CommonConfigurationGroups.DAMAGE_PLOT)]
     public Observable<bool> ShouldShowPlots { get; set; } = true;
 
-    [ConfigurationProperty("DAMAGE_METER_ENABLE_SLIDING_WINDOW", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.MonsterHunterWilds)]
+    [ConfigurationProperty("DAMAGE_METER_ENABLE_SLIDING_WINDOW", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.WorldAndWilds)]
     public Observable<bool> IsPlotSlidingWindowEnabled { get; set; } = true;
 
-    [ConfigurationProperty("DAMAGE_METER_SAMPLING_RATE", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.MonsterHunterWilds)]
+    [ConfigurationProperty("DAMAGE_METER_SAMPLING_RATE", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.WorldAndWilds)]
     public Range PlotSamplingInSeconds { get; set; } = new Range(10.0, 60.0, 1.0, 1.0);
 
-    [ConfigurationProperty("DAMAGE_METER_SLIDING_WINDOW_DISCARD_OLD_PLOTS", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.MonsterHunterWilds)]
+    [ConfigurationProperty("DAMAGE_METER_SLIDING_WINDOW_DISCARD_OLD_PLOTS", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.WorldAndWilds)]
     public Observable<bool> IsOldPlotDiscardingEnabled { get; set; } = false;
 
-    [ConfigurationProperty("DAMAGE_METER_SLIDING_WINDOW_SECONDS", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.MonsterHunterWilds)]
+    [ConfigurationProperty("DAMAGE_METER_SLIDING_WINDOW_SECONDS", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.WorldAndWilds)]
     public Range PlotSlidingWindowInSeconds { get; set; } = new Range(10.0, 120, 5.0, 1.0);
 
     [ConfigurationProperty("DAMAGE_METER_DAMAGE_PLOT_STRATEGY_STRING", group: CommonConfigurationGroups.DAMAGE_PLOT)]
     public Observable<DamagePlotStrategy> DamagePlotStrategy { get; set; } = Enums.DamagePlotStrategy.DamagePerSecond;
 
-    [ConfigurationProperty("DAMAGE_METER_PLOT_LINE_SMOOTHING_STRING", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld)]
+    [ConfigurationProperty("DAMAGE_METER_PLOT_LINE_SMOOTHING_STRING", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.MonsterHunterRise)]
     public Range PlotLineSmoothing { get; set; } = new Range(0.0, 1.0, 0.0, 0.01);
 
-    [ConfigurationProperty("DAMAGE_METER_PLOT_LINE_THICKNESS_STRING", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld)]
+    [ConfigurationProperty("DAMAGE_METER_PLOT_LINE_THICKNESS_STRING", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.MonsterHunterRise)]
     public Range PlotLineThickness { get; set; } = new Range(1.0, 3.0, 0.2, 0.01);
     #endregion
 
     #region Colors
     [ConfigurationProperty("DAMAGE_METER_SELF_COLOR_STRING", group: CommonConfigurationGroups.COLORS)]
-    public Color PlayerSelf { get; set; } = "#FFC90397";
+    public Color PlayerSelf { get; set; } = "#FFA74FFF";
 
     [ConfigurationProperty("DAMAGE_METER_PLAYER_1_COLOR_STRING", group: CommonConfigurationGroups.COLORS)]
-    public Color PlayerFirst { get; set; } = "#FF6184D8";
+    public Color PlayerFirst { get; set; } = "#FFF24891";
 
     [ConfigurationProperty("DAMAGE_METER_PLAYER_2_COLOR_STRING", group: CommonConfigurationGroups.COLORS)]
-    public Color PlayerSecond { get; set; } = "#FFF6A522";
+    public Color PlayerSecond { get; set; } = "#FF50C5B7";
 
     [ConfigurationProperty("DAMAGE_METER_PLAYER_3_COLOR_STRING", group: CommonConfigurationGroups.COLORS)]
-    public Color PlayerThird { get; set; } = "#FF12FE11";
+    public Color PlayerThird { get; set; } = "#FF49CFF5";
 
     [ConfigurationProperty("DAMAGE_METER_PLAYER_4_COLOR_STRING", group: CommonConfigurationGroups.COLORS)]
-    public Color PlayerFourth { get; set; } = "#FF1A5CEB";
+    public Color PlayerFourth { get; set; } = "#FFFF8040";
 
     [ConfigurationProperty("DAMAGE_METER_NPC_COLOR_STRING", availableGames: GameProcessType.MonsterHunterRise, group: CommonConfigurationGroups.COLORS)]
     public Color NpcColor { get; set; } = "#FF9534EB";

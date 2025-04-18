@@ -35,7 +35,7 @@
             <Grid Grid.Column="0"
                   Grid.ColumnSpan="3"
                   HorizontalAlignment="Left"
-                  Opacity="0.4">
+                  Opacity=".25">
                 <Grid.Width>
                     <MultiBinding Converter="{StaticResource ParentSizePercentageConverter}">
                         <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType={x:Type Grid}}" />

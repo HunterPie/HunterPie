@@ -12,6 +12,4 @@ public enum DPSCalculationStrategy
 
     [Localization("//Strings/Client/Enums/Enum[@Id='RELATIVE_TO_FIRST_HIT_STRING']")]
     RelativeToFirstHit,
-
-    MovingWindow
 }

@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
 using HunterPie.UI.Architecture.Graphs;
 using HunterPie.UI.Architecture.Test;
@@ -15,7 +16,7 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
 public class MockMeterViewModel : MeterViewModel
 {
     private int totalDamage = 0;
-    private static readonly DamageMeterWidgetConfig _mockConfig = new();
+    private readonly DamageMeterWidgetConfig _mockConfig;
     public readonly List<ChartValues<ObservablePoint>> _playerChartValues = new();
     public readonly double[] _petDamages = new double[4];
 
@@ -25,10 +26,15 @@ public class MockMeterViewModel : MeterViewModel
         set => Test();
     }
 
-    public MockMeterViewModel() : base(_mockConfig)
+    public MockMeterViewModel() : base(ClientConfig.Config.Wilds.Overlay.DamageMeterWidget)
     {
+        _mockConfig = ClientConfig.Config.Wilds.Overlay.DamageMeterWidget;
         InHuntingZone = true;
         HasPetsToBeDisplayed = true;
+
+
+        MaxDeaths = 3;
+        Deaths = 0;
 
         MockPlayers();
         MockPlayerSeries();
