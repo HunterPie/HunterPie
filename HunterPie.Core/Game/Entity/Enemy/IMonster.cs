@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using System;
+using System.Collections.Generic;
 
 namespace HunterPie.Core.Game.Entity.Enemy;
 
@@ -16,12 +17,13 @@ public interface IMonster
     public bool IsEnraged { get; }
     public Target Target { get; }
     public Target ManualTarget { get; }
-    public IMonsterPart[] Parts { get; }
-    public IMonsterAilment[] Ailments { get; }
+    public IReadOnlyCollection<IMonsterPart> Parts { get; }
+    public IReadOnlyCollection<IMonsterAilment> Ailments { get; }
     public IMonsterAilment Enrage { get; }
     public Crown Crown { get; }
     public Element[] Weaknesses { get; }
     public string[] Types { get; }
+    public VariantType Variant { get; }
 
     public event EventHandler<EventArgs> OnSpawn;
     public event EventHandler<EventArgs> OnLoad;

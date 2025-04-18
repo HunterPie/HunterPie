@@ -20,12 +20,11 @@ public struct AbnormalityDefinition
     public bool IsInfinite;
     public int MaxTimer;
     public bool IsInteger;
+    public bool HasMaxTimer;
+    public int Index;
 
     public T? GetFlagAs<T>()
     {
-        if (Flag is T flag)
-            return flag;
-
-        return default(T);
+        return Flag is T flag ? flag : default;
     }
 }

@@ -1,14 +1,12 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Client;
 using HunterPie.Core.Game;
-using HunterPie.Core.Game.Data;
-using HunterPie.Core.Native.IPC.Handlers.Internal.Initialiaze;
-using HunterPie.Core.Native.IPC.Handlers.Internal.Initialiaze.Models;
+using HunterPie.Core.Native.IPC.Handlers.Internal.Initialize;
+using HunterPie.Core.Native.IPC.Handlers.Internal.Initialize.Models;
 using HunterPie.Domain.Interfaces;
 using HunterPie.Features.Native;
 using HunterPie.Features.Patcher;
 using HunterPie.Integrations.Datasources.MonsterHunterRise;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,15 +25,7 @@ internal class MHRContextInitializer : IContextInitializer
         if (context is not MHRContext)
             return;
 
-        InitializeGameData();
         await InitializeNativeModule(context);
-    }
-
-    private static void InitializeGameData()
-    {
-        MonsterData.Init(
-            ClientInfo.GetPathFor("Game/Rise/Data/MonsterData.xml")
-        );
     }
 
     private static async Task InitializeNativeModule(IContext context)
@@ -43,15 +33,15 @@ internal class MHRContextInitializer : IContextInitializer
         if (!ClientConfig.Config.Client.EnableNativeModule)
             return;
 
-        RiseIntegrityPatcher.Patch(context);
-        RiseIntegrityPatcher.PatchProtectVirtualMemory(context);
+        await RiseIntegrityPatcher.Patch(context);
+        await RiseIntegrityPatcher.PatchProtectVirtualMemoryAsync(context);
 
-        UIntPtr[] addresses = Addresses.Select(name => (UIntPtr)AddressMap.GetAbsolute(name))
+        nint[] addresses = Addresses.Select(AddressMap.GetAbsolute)
             .ToArray();
 
-        _ = IPCInjectorInitializer.InjectNativeModule(context);
+        await IPCInjectorInitializer.InjectNativeModuleAsync(context);
         await NativeIPCInitializer.WaitForIPCInitialization();
 
-        IPCInitializationMessageHandler.RequestIPCInitialization(IPCInitializationHostType.MHRise, addresses);
+        await IPCInitializationMessageHandler.RequestIPCInitializationAsync(IPCInitializationHostType.MHRise, addresses);
     }
 }

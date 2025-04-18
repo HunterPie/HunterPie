@@ -27,4 +27,14 @@ public static class DateTimeExtensions
     {
         return time > other ? time : other;
     }
+
+    public static bool IsValidTimeSpan(float time, long scale)
+    {
+        if (float.IsNaN(time))
+            return false;
+
+        double ticks = time * scale;
+        return !double.IsNaN(ticks) &&
+            ticks is <= long.MaxValue and >= long.MinValue;
+    }
 }

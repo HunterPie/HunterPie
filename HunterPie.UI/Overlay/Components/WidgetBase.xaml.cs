@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Logger;
+﻿using HunterPie.Core.Observability.Logging;
 using HunterPie.UI.Architecture.Extensions;
 using HunterPie.UI.Overlay.Enums;
 using HunterPie.UI.Platform.Windows.Native;
@@ -25,6 +25,8 @@ namespace HunterPie.UI.Overlay.Components;
 /// </summary>
 public partial class WidgetBase : Window, INotifyPropertyChanged
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     private readonly object _sync = new();
     private bool _isClosed;
     private DateTime _lastRender;
@@ -98,12 +100,12 @@ public partial class WidgetBase : Window, INotifyPropertyChanged
     {
         if (_counter >= 30)
         {
-            RenderingTime = (DateTime.Now - _lastRender).TotalMilliseconds;
+            RenderingTime = (DateTime.UtcNow - _lastRender).TotalMilliseconds;
             Dispatcher.Invoke(ForceAlwaysOnTop, DispatcherPriority.Render);
             _counter = 0;
         }
 
-        _lastRender = DateTime.Now;
+        _lastRender = DateTime.UtcNow;
         _counter++;
     }
 
@@ -148,7 +150,7 @@ public partial class WidgetBase : Window, INotifyPropertyChanged
         int result = User32.SetWindowLong(hWnd, User32.GWL_EXSTYLE, (int)styles);
 
         if (result == 0)
-            Log.Error("Failed to set widget {0} flags due to error code: {1}", Widget.GetType().Name, Marshal.GetLastWin32Error());
+            _logger.Error($"Failed to set widget {Widget.GetType()} flags due to error code: {Marshal.GetLastWin32Error()}");
     }
 
     private void ForceAlwaysOnTop()

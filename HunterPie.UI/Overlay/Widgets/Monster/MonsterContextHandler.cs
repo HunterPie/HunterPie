@@ -5,6 +5,7 @@ using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services.Monster.Events;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enemy;
 using HunterPie.UI.Overlay.Widgets.Monster.Adapters;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
@@ -94,7 +95,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
 
         FetchMonsterIcon();
 
-        UIThread.InvokeAsync(() =>
+        UIThread.BeginInvoke(() =>
         {
             if (Types.Count > 0)
                 return;
@@ -117,7 +118,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
     }
     private void OnWeaknessesChange(object sender, Element[] e)
     {
-        _ = UIThread.InvokeAsync(() =>
+        UIThread.BeginInvoke(() =>
         {
             lock (Weaknesses)
             {
@@ -141,7 +142,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
 
     private void OnNewAilmentFound(object sender, IMonsterAilment e)
     {
-        UIThread.Invoke(() =>
+        UIThread.BeginInvoke(() =>
         {
             bool contains = Ailments.ToArray()
                         .Cast<MonsterAilmentContextHandler>()
@@ -186,6 +187,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
     private void UpdateData()
     {
         IsQurio = Context is MHRMonster { MonsterType: MonsterType.Qurio };
+        Variant = Context.Variant;
 
         if (Context.Id > -1)
         {
@@ -212,14 +214,17 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
         CanBeCaptured = Context.CaptureThreshold > 0;
         IsCapturable = CaptureThreshold >= (Health / MaxHealth);
 
-        UIThread.InvokeAsync(() =>
+        UIThread.BeginInvoke(() =>
         {
             foreach (string typeId in Context.Types)
                 Types.Add(typeId);
+
+            foreach (Element weakness in Context.Weaknesses)
+                Weaknesses.Add(weakness);
         });
 
-        if (Parts.Count != Context.Parts.Length || Ailments.Count != Context.Ailments.Length)
-            _ = UIThread.InvokeAsync(() =>
+        if (Parts.Count != Context.Parts.Count || Ailments.Count != Context.Ailments.Count)
+            UIThread.BeginInvoke(() =>
             {
                 foreach (IMonsterPart part in Context.Parts)
                 {
@@ -247,12 +252,11 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
                     Ailments.Add(new MonsterAilmentContextHandler(Context, ailment, Config));
                 }
 
-                foreach (Element weakness in Context.Weaknesses)
-                    Weaknesses.Add(weakness);
+
             });
     }
 
-    private void AddEnrage() => UIThread.Invoke(() => Ailments.Add(new MonsterAilmentContextHandler(Context, Context.Enrage, Config)));
+    private void AddEnrage() => UIThread.BeginInvoke(() => Ailments.Add(new MonsterAilmentContextHandler(Context, Context.Enrage, Config)));
 
     private string BuildMonsterEmByContext()
     {
@@ -260,6 +264,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
         {
             MHRMonster ctx => $"Rise_{ctx.Id:00}",
             MHWMonster ctx => $"World_{ctx.Id:00}",
+            MHWildsMonster ctx => $"Wilds_{ctx.Id:00}",
             _ => throw new NotImplementedException("unreachable")
         };
     }

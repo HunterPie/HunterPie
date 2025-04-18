@@ -1,0 +1,200 @@
+﻿<UserControl x:Class="HunterPie.UI.Overlay.Widgets.Damage.View.PlayerViewV2"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.View"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.ViewModels"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.Presentation"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" 
+             d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance viewModels:PlayerViewModel}">
+    <UserControl.Resources>
+        <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>
+        <converters:DoubleFlooringConverter x:Key="DoubleFlooringConverter"/>
+        <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
+        <converters:IntToKFormat x:Key="IntToKFormat"/>
+        <presentation:PlayerDamageBarGradientBrushConverter x:Key="PlayerDamageBarGradientBrushConverter"/>
+        <presentation:PlayerDamageBarCompGradientBrushConverter x:Key="PlayerDamageBarCompGradientBrushConverter"/>
+        <converters:ParentSizePercentageConverter x:Key="ParentSizePercentageConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Border BorderBrush="{StaticResource GRAY}"
+            BorderThickness="0,1,0,0">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="36"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Contribution Bar -->
+            <Grid Grid.Column="0"
+                  Grid.ColumnSpan="3"
+                  HorizontalAlignment="Left"
+                  Opacity=".25">
+                <Grid.Width>
+                    <MultiBinding Converter="{StaticResource ParentSizePercentageConverter}">
+                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType={x:Type Grid}}" />
+                        <Binding Path="DataContext.Bar.Percentage" RelativeSource="{RelativeSource Self}" />
+                    </MultiBinding>
+                </Grid.Width>
+                <Rectangle Fill="{Binding Bar.Color.Value, Mode=OneWay, Converter={StaticResource PlayerDamageBarCompGradientBrushConverter}}" />
+                <Rectangle Fill="{Binding Bar.Color.Value, Mode=OneWay, Converter={StaticResource PlayerDamageBarGradientBrushConverter}}" />
+            </Grid>
+
+            <!-- Weapon Icon -->
+            <Image Grid.Column="0"
+                   d:Source="{StaticResource ICON_BOW}"
+                   Source="{Binding Weapon, Mode=OneWay, Converter={StaticResource WeaponToIconConverter}}"
+                   Margin="4,8"
+                   Stretch="Uniform" />
+
+            <!-- Basic Data -->
+            <Grid Grid.Column="1"
+                  Margin="0,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           Foreground="{StaticResource WHITE_50}">
+                    <Run Text="Lv."
+                         FontWeight="SemiBold"
+                         Foreground="{StaticResource WHITE_400}"
+                         FontSize="10" />
+                    <Run d:Text="180"
+                         Text="{Binding MasterRank, Mode=OneWay}"
+                         FontSize="10" />
+                </TextBlock>
+                <TextBlock Grid.Row="1"
+                           Text="{Binding Name, Mode=OneWay}"
+                           d:Text="Player Name"
+                           Foreground="{StaticResource WHITE_50}"
+                           VerticalAlignment="Center"
+                           FontSize="14"
+                           TextTrimming="CharacterEllipsis"
+                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ShouldBlurNames.Value}"
+                                             Value="True">
+                                    <Setter Property="Effect">
+                                        <Setter.Value>
+                                            <BlurEffect Radius="10"
+                                                        KernelType="Gaussian"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <!-- Damage Data -->
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Contribution -->
+                <TextBlock Grid.Column="0"
+                           Grid.Row="0"
+                           Grid.RowSpan="2"
+                           Foreground="{StaticResource WHITE}"
+                           FontWeight="Medium"
+                           FontSize="13"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           Margin="0,0,5,0">
+                    <Run d:Text="▴"
+                         d:Foreground="{StaticResource GREEN}">
+                        <Run.Style>
+                            <Style TargetType="{x:Type Run}">
+                                <Setter Property="Text" Value="▾" />
+                                <Setter Property="Foreground" Value="{StaticResource RED}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsIncreasing, Mode=OneWay}"
+                                                 Value="True">
+                                        <Setter Property="Text" Value="▴" />
+                                        <Setter Property="Foreground" Value="{StaticResource GREEN}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Run.Style>
+                    </Run>
+                    <Run d:Text="75"
+                         Text="{Binding Bar.Percentage, Converter={StaticResource DoubleFlooringConverter}, StringFormat=\{0:F0\}}" /><!--
+                 --><Run d:Text=".4%"
+                         Text="{Binding Bar.Percentage, Converter={StaticResource DoubleToDecimalConverter}, StringFormat=\.\{0:D2\}\%}"
+                         Foreground="{StaticResource WHITE_500}"
+                         FontSize="11"
+                         FontWeight="Normal" />
+                </TextBlock>
+
+                <!-- DPS -->
+                <TextBlock Grid.Column="1"
+                           Grid.Row="0"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Margin="0,0,2,0"
+                           Visibility="{Binding ShouldShowDPS.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Run Text="DPS"
+                         Foreground="{StaticResource WHITE_400}"
+                         FontSize="10"
+                         FontWeight="SemiBold"/>
+                    <Run d:Text="100.0"
+                         Text="{Binding DPS, Mode=OneWay, StringFormat=\{0:F1\}}"
+                         Foreground="{StaticResource WHITE_50}"
+                         FontWeight="Medium"/><!--
+                 --><Run Text="/s"
+                         FontSize="9"
+                         Foreground="{StaticResource WHITE_400}"/>
+                </TextBlock>
+
+                <!-- Total Damage -->
+                <TextBlock Grid.Column="1"
+                           Grid.Row="1"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Margin="0,0,2,0"
+                           Visibility="{Binding ShouldShowDamage.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Run Text="DMG"
+                         Foreground="{StaticResource WHITE_400}"
+                         FontSize="10"
+                         FontWeight="SemiBold"/>
+                    <Run d:Text="10.0K"
+                         Text="{Binding Damage, Mode=OneWay, Converter={StaticResource IntToKFormat}}"
+                         Foreground="{StaticResource WHITE_50}"
+                         FontWeight="Medium"/>
+                </TextBlock>
+            </Grid>
+            
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ShouldHighlightMyself.Value, Mode=OneWay}"
+                                           Value="True"/>
+                                <Condition Binding="{Binding IsUser, Mode=OneWay}"
+                                           Value="False"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+        </Grid>
+    </Border>
+</UserControl>

@@ -7,7 +7,10 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay;
 
-[Configuration("TELEMETRICS_WIDGET", "ICON_BUG", dependsOnFeature: FeatureFlags.FEATURE_METRICS_WIDGET)]
+[Configuration(name: "TELEMETRICS_WIDGET_STRING",
+    icon: "ICON_BUG",
+    group: CommonConfigurationGroups.OVERLAY,
+    dependsOnFeature: FeatureFlags.FEATURE_METRICS_WIDGET)]
 public class TelemetricsWidgetConfig : IWidgetSettings, ISettings
 {
     #region General Settings
@@ -26,9 +29,6 @@ public class TelemetricsWidgetConfig : IWidgetSettings, ISettings
 
     [ConfigurationProperty("WIDGET_SCALE", group: CommonConfigurationGroups.GENERAL)]
     public Range Scale { get; set; } = new(1, 2, 0.1, 0.1);
-
-    [ConfigurationProperty("ENABLE_STREAMER_MODE", group: CommonConfigurationGroups.GENERAL)]
-    public Observable<bool> StreamerMode { get; set; } = false;
 
     [ConfigurationProperty("WIDGET_POSITION", group: CommonConfigurationGroups.GENERAL)]
     public Position Position { get; set; } = new(100, 100);

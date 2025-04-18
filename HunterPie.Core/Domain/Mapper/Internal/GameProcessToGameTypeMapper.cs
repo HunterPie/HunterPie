@@ -6,16 +6,17 @@ using System;
 namespace HunterPie.Core.Domain.Mapper.Internal;
 
 #nullable enable
-internal class GameProcessToGameTypeMapper : IMapper<GameProcess, GameType?>
+internal class GameProcessToGameTypeMapper : IMapper<GameProcessType, GameType?>
 {
-    public GameType? Map(GameProcess data)
+    public GameType? Map(GameProcessType data)
     {
         return data switch
         {
-            GameProcess.None => null,
-            GameProcess.MonsterHunterRise => GameType.Rise,
-            GameProcess.MonsterHunterWorld => GameType.World,
-            GameProcess.All => null,
+            GameProcessType.None => null,
+            GameProcessType.MonsterHunterRise => GameType.Rise,
+            GameProcessType.MonsterHunterWorld => GameType.World,
+            GameProcessType.MonsterHunterWilds => GameType.Wilds,
+            GameProcessType.All => null,
             _ => throw new ArgumentOutOfRangeException(nameof(data), data, null)
         };
     }

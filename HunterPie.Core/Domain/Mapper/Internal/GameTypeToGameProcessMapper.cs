@@ -4,15 +4,16 @@ using HunterPie.Core.Domain.Interfaces;
 
 namespace HunterPie.Core.Domain.Mapper.Internal;
 
-internal class GameTypeToGameProcessMapper : IMapper<GameType, GameProcess>
+internal class GameTypeToGameProcessMapper : IMapper<GameType, GameProcessType>
 {
-    public GameProcess Map(GameType data)
+    public GameProcessType Map(GameType data)
     {
         return data switch
         {
-            GameType.Rise => GameProcess.MonsterHunterRise,
-            GameType.World => GameProcess.MonsterHunterWorld,
-            _ => GameProcess.None
+            GameType.Rise => GameProcessType.MonsterHunterRise,
+            GameType.World => GameProcessType.MonsterHunterWorld,
+            GameType.Wilds => GameProcessType.MonsterHunterWilds,
+            _ => GameProcessType.None
         };
     }
 }

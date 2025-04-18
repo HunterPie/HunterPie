@@ -1,6 +1,5 @@
 ﻿using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Client.Configuration.Games;
-using HunterPie.Core.Client.Configuration.Integrations;
 using HunterPie.Core.Domain.Enums;
 using System;
 
@@ -10,41 +9,37 @@ public static class ClientConfigHelper
 {
     public delegate T OverlayConfigDeferDelegate<T>(OverlayConfig config);
 
-    public static OverlayConfig GetOverlayConfigFrom(GameProcess game)
+    public static OverlayConfig GetOverlayConfigFrom(GameProcessType game)
     {
         return game switch
         {
-            GameProcess.MonsterHunterRise => ClientConfig.Config.Rise.Overlay,
+            GameProcessType.MonsterHunterRise => ClientConfig.Config.Rise.Overlay,
 
-            GameProcess.MonsterHunterWorld => ClientConfig.Config.World.Overlay,
+            GameProcessType.MonsterHunterWorld => ClientConfig.Config.World.Overlay,
+
+            GameProcessType.MonsterHunterWilds => ClientConfig.Config.Wilds.Overlay,
+
             _ => throw new NotImplementedException(),
         };
     }
 
-    public static T DeferOverlayConfig<T>(GameProcess game, OverlayConfigDeferDelegate<T> deferDelegate)
+    public static T DeferOverlayConfig<T>(GameProcessType game, OverlayConfigDeferDelegate<T> deferDelegate)
     {
         OverlayConfig config = GetOverlayConfigFrom(game);
 
         return deferDelegate(config);
     }
 
-    public static DiscordRichPresence GetDiscordRichPresenceConfigFrom(GameProcess game)
+    public static GameConfig GetGameConfigBy(GameProcessType game)
     {
         return game switch
         {
-            GameProcess.MonsterHunterRise => ClientConfig.Config.Rise.RichPresence,
-            GameProcess.MonsterHunterWorld => ClientConfig.Config.World.RichPresence,
-            _ => throw new NotImplementedException(),
-        };
-    }
+            GameProcessType.MonsterHunterRise => ClientConfig.Config.Rise,
 
-    public static GameConfig GetGameConfigBy(GameProcess game)
-    {
-        return game switch
-        {
-            GameProcess.MonsterHunterRise => ClientConfig.Config.Rise,
+            GameProcessType.MonsterHunterWorld => ClientConfig.Config.World,
 
-            GameProcess.MonsterHunterWorld => ClientConfig.Config.World,
+            GameProcessType.MonsterHunterWilds => ClientConfig.Config.Wilds,
+
             _ => throw new NotImplementedException(),
         };
     }

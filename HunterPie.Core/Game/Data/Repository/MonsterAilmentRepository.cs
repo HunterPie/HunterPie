@@ -13,9 +13,11 @@ public static class MonsterAilmentRepository
 {
     private const string RISE_DATA_FILE = "Game/Rise/Data/MonsterData.xml";
     private const string WORLD_DATA_FILE = "Game/World/Data/MonsterData.xml";
+    private const string WILDS_DATA_FILE = "Game/Wilds/Data/MonsterData.xml";
 
     private static readonly Lazy<Dictionary<int, AilmentDefinition>> LazyRiseAilmentsDataSource = new(() => LoadAilments(RISE_DATA_FILE));
     private static readonly Lazy<Dictionary<int, AilmentDefinition>> LazyWorldAilmentsDataSource = new(() => LoadAilments(WORLD_DATA_FILE));
+    private static readonly Lazy<Dictionary<int, AilmentDefinition>> LazyWildsAilmentsDataSource = new(() => LoadAilments(WILDS_DATA_FILE));
 
     public static readonly AilmentDefinition Enrage = new AilmentDefinition { Id = 99, String = "STATUS_ENRAGE" };
 
@@ -48,6 +50,7 @@ public static class MonsterAilmentRepository
         {
             GameType.Rise => LazyRiseAilmentsDataSource,
             GameType.World => LazyWorldAilmentsDataSource,
+            GameType.Wilds => LazyWildsAilmentsDataSource,
             _ => throw new ArgumentOutOfRangeException(nameof(game), game, null)
         };
 

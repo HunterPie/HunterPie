@@ -11,5 +11,4 @@ public interface IWidgetSettings
     Position Position { get; set; }
     Range Opacity { get; set; }
     Range Scale { get; set; }
-    Observable<bool> StreamerMode { get; set; }
 }

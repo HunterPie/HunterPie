@@ -4,6 +4,7 @@ using System.Windows.Data;
 
 namespace HunterPie.UI.Architecture.Converters;
 
+[Obsolete("Use DynamicMonsterWidthConverter instead")]
 public class DynamicMonsterBarSizeConverter : IMultiValueConverter
 {
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)

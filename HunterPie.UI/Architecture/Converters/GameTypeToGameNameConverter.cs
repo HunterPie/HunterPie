@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Domain.Constants;
 using System;
 using System.Globalization;
 using System.Windows.Data;
@@ -11,8 +12,9 @@ public class GameTypeToGameNameConverter : IValueConverter
     {
         return (GameType)value switch
         {
-            GameType.Rise => "Monster Hunter Rise",
-            GameType.World => "Monster Hunter: World",
+            GameType.Rise => Games.MONSTER_HUNTER_RISE,
+            GameType.World => Games.MONSTER_HUNTER_WORLD,
+            GameType.Wilds => Games.MONSTER_HUNTER_WILDS,
             _ => "unknown"
         };
     }

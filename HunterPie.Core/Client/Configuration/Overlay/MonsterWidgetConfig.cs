@@ -9,7 +9,10 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay;
 
-[Configuration("MONSTER_WIDGET_STRING", "ICON_SKULL")]
+[Configuration(name: "MONSTER_WIDGET_STRING",
+    icon: "ICON_SKULL",
+    group: CommonConfigurationGroups.OVERLAY,
+    availableGames: GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld | GameProcessType.MonsterHunterWilds)]
 public class MonsterWidgetConfig : IWidgetSettings, ISettings
 {
     #region General Settings
@@ -29,11 +32,42 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("WIDGET_SCALE", group: CommonConfigurationGroups.GENERAL)]
     public Range Scale { get; set; } = new(1, 2, 0.1, 0.1);
 
-    [ConfigurationProperty("ENABLE_STREAMER_MODE", group: CommonConfigurationGroups.GENERAL)]
-    public Observable<bool> StreamerMode { get; set; } = false;
-
     [ConfigurationProperty("WIDGET_POSITION", group: CommonConfigurationGroups.GENERAL)]
     public Position Position { get; set; } = new(1200, 100);
+    #endregion
+
+    #region Widget Settings
+    [ConfigurationProperty("MONSTER_WIDGET_COMPACT_MODE", group: CommonConfigurationGroups.WIDGET)]
+    public Observable<bool> IsCompactModeEnabled { get; set; } = true;
+
+    [ConfigurationProperty("MONSTER_WIDGET_COMPACT_MODE_COLUMN_LIMIT", group: CommonConfigurationGroups.WIDGET)]
+    public Range CompactModeColumnLimit { get; set; } = new Range(5, 10, 1, 1);
+
+    [ConfigurationProperty("ORIENTATION_STRING", group: CommonConfigurationGroups.WIDGET)]
+    public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Vertical;
+
+    [ConfigurationProperty("MONSTER_WIDGET_DYNAMIC_RESIZE_STRING", group: CommonConfigurationGroups.WIDGET)]
+    public Observable<bool> DynamicResize { get; set; } = false;
+
+    [ConfigurationProperty("MONSTER_WIDGET_MAX_WIDTH_STRING", group: CommonConfigurationGroups.WIDGET)]
+    public Range MaxWidth { get; set; } = new(600, 1000, 200, 1);
+
+    [ConfigurationProperty("MONSTER_WIDGET_MIN_WIDTH_STRING", group: CommonConfigurationGroups.WIDGET)]
+    public Range MinWidth { get; set; } = new(400, 600, 200, 1);
+
+    [ConfigurationProperty("MONSTER_WIDGET_ENABLE_STAMINA_STRING", group: CommonConfigurationGroups.WIDGET)]
+    public Observable<bool> EnableStamina { get; set; } = true;
+    #endregion
+
+    #region Target settings
+    [ConfigurationProperty("MONSTER_WIDGET_TARGET_MODE_STRING",
+        availableGames: GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld | GameProcessType.MonsterHunterWilds,
+        group: CommonConfigurationGroups.MONSTER_TARGET)]
+    [GameConfigurationAdapter(typeof(TargetModeEnumAdapter))]
+    public Observable<TargetModeType> TargetMode { get; set; } = TargetModeType.LockOn;
+
+    [ConfigurationProperty("MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING", group: CommonConfigurationGroups.MONSTER_TARGET)]
+    public Observable<bool> ShowOnlyTarget { get; set; } = false;
     #endregion
 
     #region Customization Settings
@@ -66,29 +100,5 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
     public Range AutoHideAilmentsDelay { get; set; } = new(15, 300, 1, 1);
     #endregion
 
-    #region Widget Settings
-    [ConfigurationProperty("ORIENTATION_STRING", group: CommonConfigurationGroups.WIDGET)]
-    public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Vertical;
 
-    [ConfigurationProperty("MONSTER_WIDGET_DYNAMIC_RESIZE_STRING", group: CommonConfigurationGroups.WIDGET)]
-    public Observable<bool> DynamicResize { get; set; } = false;
-
-    [ConfigurationProperty("MONSTER_WIDGET_MAX_WIDTH_STRING", group: CommonConfigurationGroups.WIDGET)]
-    public Range MaxWidth { get; set; } = new(600, 1000, 200, 1);
-
-    [ConfigurationProperty("MONSTER_WIDGET_MIN_WIDTH_STRING", group: CommonConfigurationGroups.WIDGET)]
-    public Range MinWidth { get; set; } = new(400, 600, 200, 1);
-
-    [ConfigurationProperty("MONSTER_WIDGET_ENABLE_STAMINA_STRING", group: CommonConfigurationGroups.WIDGET)]
-    public Observable<bool> EnableStamina { get; set; } = true;
-    #endregion
-
-    #region Target settings
-    [ConfigurationProperty("MONSTER_WIDGET_TARGET_MODE_STRING", availableGames: GameProcess.MonsterHunterRise | GameProcess.MonsterHunterWorld, group: CommonConfigurationGroups.MONSTER_TARGET)]
-    [GameConfigurationAdapter(typeof(TargetModeEnumAdapter))]
-    public Observable<TargetModeType> TargetMode { get; set; } = TargetModeType.LockOn;
-
-    [ConfigurationProperty("MONSTER_WIDGET_SHOW_ONLY_TARGET_STRING", group: CommonConfigurationGroups.MONSTER_TARGET)]
-    public Observable<bool> ShowOnlyTarget { get; set; } = false;
-    #endregion
 }

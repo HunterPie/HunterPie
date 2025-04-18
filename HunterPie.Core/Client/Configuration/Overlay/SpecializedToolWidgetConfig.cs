@@ -7,7 +7,10 @@ using HunterPie.Core.Settings.Types;
 
 namespace HunterPie.Core.Client.Configuration.Overlay;
 
-[Configuration("SPECIALIZED_TOOL_WIDGET_STRING", "ICON_MANTLE", availableGames: GameProcess.MonsterHunterWorld)]
+[Configuration(name: "SPECIALIZED_TOOL_WIDGET_STRING",
+    icon: "ICON_MANTLE",
+    group: CommonConfigurationGroups.OVERLAY,
+    availableGames: GameProcessType.MonsterHunterWorld)]
 public class SpecializedToolWidgetConfig : IWidgetSettings, ISettings
 {
     #region General Settings
@@ -26,9 +29,6 @@ public class SpecializedToolWidgetConfig : IWidgetSettings, ISettings
 
     [ConfigurationProperty("WIDGET_SCALE", group: CommonConfigurationGroups.GENERAL)]
     public Range Scale { get; set; } = new(1, 2, 0.1, 0.1);
-
-    [ConfigurationProperty("ENABLE_STREAMER_MODE", group: CommonConfigurationGroups.GENERAL)]
-    public Observable<bool> StreamerMode { get; set; } = false;
 
     [ConfigurationProperty("WIDGET_POSITION", group: CommonConfigurationGroups.GENERAL)]
     public Position Position { get; set; } = new(100, 100);

@@ -1,9 +1,12 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
+using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Remote;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Architecture.Images;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
@@ -12,6 +15,8 @@ namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 
 public class BossMonsterViewModel : ViewModel
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
+
     private string name;
     private string em;
     private double health;
@@ -29,6 +34,7 @@ public class BossMonsterViewModel : ViewModel
     private double _captureThreshold;
     private bool _isCapturable;
     private bool _canBeCaptured;
+    private VariantType _variant;
 
     public MonsterWidgetConfig Config { get; }
     private readonly ObservableCollection<MonsterPartViewModel> _parts = new();
@@ -118,6 +124,12 @@ public class BossMonsterViewModel : ViewModel
 
     public bool IsQurio { get; set; }
 
+    public VariantType Variant
+    {
+        get => _variant;
+        set => SetValue(ref _variant, value);
+    }
+
     public ref readonly ObservableCollection<MonsterPartViewModel> Parts => ref _parts;
     public ref readonly ObservableCollection<MonsterAilmentViewModel> Ailments => ref _ailments;
     public ref readonly ObservableCollection<Element> Weaknesses => ref _weaknesses;
@@ -177,11 +189,18 @@ public class BossMonsterViewModel : ViewModel
         if (File.Exists(imagePath))
             return imagePath;
 
-        imagePath = await ImageMergerService.MergeAsync(
-            imagePath,
-            defaultImagePath,
-            maskPath
-        );
+        try
+        {
+            imagePath = await ImageMergerService.MergeAsync(
+                imagePath,
+                defaultImagePath,
+                maskPath
+            );
+        }
+        catch (Exception ex)
+        {
+            _logger.Warning($"Failed to generate Qurio icon, defaulting to non-qurio icon. Error: {ex}");
+        }
 
         return imagePath;
     }

@@ -16,6 +16,7 @@
              xmlns:selectors="clr-namespace:HunterPie.UI.Architecture.Selectors"
              xmlns:genums="clr-namespace:HunterPie.Core.Game.Enums;assembly=HunterPie.Core"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Presentation"
              d:DataContext="{d:DesignInstance Type=viewmodels:BossMonsterViewModel}"
              IsHitTestVisible="False"
              d:DesignWidth="600">
@@ -29,6 +30,7 @@
         <converters:IsValidPartConverter x:Key="IsValidPartConverter"/>
         <converters:PercentageToLeftMarginDistanceConverter x:Key="PercentageToLeftMarginDistanceConverter"/>
         <converters:MonsterTypeToLocalizationConverter x:Key="MonsterTypeToLocalizationConverter"/>
+        <presentation:MonsterVariantBrushConverter x:Key="MonsterVariantBrushConverter"/>
 
         <LinearGradientBrush x:Key="MonsterHealthEnraged" EndPoint="1,1" StartPoint="0,1">
             <GradientStop Color="#d42c2c"/>
@@ -416,13 +418,25 @@
               VerticalAlignment="Top"
               Margin="20,47,0,0"
               Height="40">
-            <Rectangle Fill="#FF191A1B"
-                       RenderTransformOrigin="0.5,0.5" 
-                       Stroke="#FF343434">
+            <Rectangle Grid.Row="0"
+                       RenderTransformOrigin="0.5,0.5"
+                       Fill="{Binding Variant, Mode=OneWay, Converter={StaticResource MonsterVariantBrushConverter}}"
+                       x:Name="PART_VariantBorder">
                 <Rectangle.RenderTransform>
-                    <TransformGroup>
-                        <RotateTransform Angle="45"/>
-                    </TransformGroup>
+                    <RotateTransform Angle="45"/>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Rectangle Grid.Row="0" 
+                       Fill="{StaticResource GRAY_200}"
+                       Stroke="{StaticResource GRAY}"
+                       StrokeThickness="2"/>
+            <Rectangle Grid.Row="0"
+                       Fill="{StaticResource GRAY_50}"
+                       Stroke="{Binding Fill, ElementName=PART_VariantBorder}"
+                       StrokeThickness="1"
+                       RenderTransformOrigin="0.5,0.5">
+                <Rectangle.RenderTransform>
+                    <RotateTransform Angle="45"/>
                 </Rectangle.RenderTransform>
             </Rectangle>
 
