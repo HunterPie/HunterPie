@@ -6,6 +6,7 @@ using HunterPie.Features.Account.UseCase;
 using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.Integrations.Poogie.Settings;
 using HunterPie.Integrations.Poogie.Settings.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace HunterPie.Features.Account.Config;
@@ -59,11 +60,19 @@ internal class RemoteAccountConfigService : IRemoteAccountConfigUseCase
             return;
 
         string decodedConfig = Base64Service.Decode(response.Configuration);
-        object config = JsonProvider.Deserializer(decodedConfig, ClientConfig.Config.GetType());
 
-        ConfigHelper.WriteObject(
-            path: ConfigHelper.GetFullPath(ClientConfig.CONFIG_NAME),
-            obj: config
-        );
+        try
+        {
+            object config = JsonProvider.Deserializer(decodedConfig, ClientConfig.Config.GetType());
+
+            ConfigHelper.WriteObject(
+                path: ConfigHelper.GetFullPath(ClientConfig.CONFIG_NAME),
+                obj: config
+            );
+        }
+        catch (Exception ex)
+        {
+            _logger.Error($"Failed to synchronize remote config: {ex}");
+        }
     }
 }
