@@ -19,6 +19,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 
@@ -511,42 +512,103 @@ public sealed class MHWildsMonster : CommonMonster
         return variant;
     }
 
+    private static string FormatName(string format, string name, string variant, string subVariant)
+    {
+        return Regex.Replace(format, @"\{(\d+)(?::(\d+))?\}", match =>
+        {
+            int position = int.Parse(match.Groups[1].Value);
+            int padding = match.Groups[2].Success ? int.Parse(match.Groups[2].Value) : 0;
+            // The value we return is the name or variant mapped to the relevant position from the format string
+            string value = string.Empty;
+            switch (position)
+            {
+                case 0:
+                    value = name;
+                    break;
+                case 1:
+                    value = variant;
+                    break;
+                case 2:
+                    value = subVariant;
+                    break;
+                default:
+                    break;
+            }
+            return value.PadRight(value.Length + padding);
+        });
+    }
+
+    private static string GetLocalizedVariantString(string variantId, ILocalizationRepository localizationRepository)
+    {
+        if (variantId == string.Empty)
+            return string.Empty;
+
+        string variantPath = $"//Strings/Monsters/Variants/Variant[@Id='{variantId}']";
+        return localizationRepository.ExistsBy(variantPath)
+            ? localizationRepository.FindStringBy(variantPath)
+            : $"Unknown [id: {variantId}]";
+    }
+
+    private static string GetNameFormatString(string variantId, ILocalizationRepository localizationRepository)
+    {
+        string nameFormatPath = $"//Strings/Monsters/Formatting/Format[@Id='{variantId}']";
+        return localizationRepository.ExistsBy(nameFormatPath)
+            ? localizationRepository.FindStringBy(nameFormatPath)
+            : "{1:1}{2:1}{0}";
+    }
+
+    private static string GetName(int id, ILocalizationRepository localizationRepository)
+    {
+        string namePath = $"//Strings/Monsters/Wilds/Monster[@Id='{id}']";
+        return localizationRepository.ExistsBy(namePath)
+            ? localizationRepository.FindStringBy(namePath)
+            : $"Unknown [id: {id}]";
+    }
+
     private static string BuildName(
         ILocalizationRepository localizationRepository,
         VariantType variant,
         int id
     )
     {
-        var sb = new StringBuilder();
+        StringBuilder sbNameFormatLookupId = new StringBuilder();
 
+        string variantLookupId = string.Empty;
         if (variant.HasFlag(VariantType.Tempered))
         {
-            string prefix = localizationRepository.FindStringBy("//Strings/Monsters/Variants/Variant[@Id='TEMPERED']");
-            sb.Append(prefix);
-            sb.Append(' ');
+            variantLookupId = "TEMPERED";
         }
         else if (variant.HasFlag(VariantType.ArchTempered))
         {
-            string prefix = localizationRepository.FindStringBy("//Strings/Monsters/Variants/Variant[@Id='ARCH_TEMPERED']");
-            sb.Append(prefix);
-            sb.Append(' ');
+            variantLookupId = "ARCH_TEMPERED";
         }
 
+        string subVariantLookupId = string.Empty;
         if (variant.HasFlag(VariantType.Frenzy))
         {
-            string prefix = localizationRepository.FindStringBy("//Strings/Monsters/Variants/Variant[@Id='FRENZIED']");
-            sb.Append(prefix);
-            sb.Append(' ');
+            subVariantLookupId = "FRENZIED";
         }
 
-        string namePath = $"//Strings/Monsters/Wilds/Monster[@Id='{id}']";
+        if (!string.IsNullOrEmpty(variantLookupId) && !string.IsNullOrEmpty(subVariantLookupId))
+        {
+            sbNameFormatLookupId.AppendJoin("_", variantLookupId, subVariantLookupId);
+        } else
+        {
+            sbNameFormatLookupId.Append(!string.IsNullOrEmpty(variantLookupId) ? variantLookupId : subVariantLookupId);
+        }
 
-        string name = localizationRepository.ExistsBy(namePath)
-            ? localizationRepository.FindStringBy(namePath)
-            : $"Unknown [id: {id}]";
+        string name = GetName(id, localizationRepository);
+        string localizedVariantString = GetLocalizedVariantString(variantLookupId, localizationRepository);
+        string localizedSubVariantString = GetLocalizedVariantString(subVariantLookupId, localizationRepository);
 
-        sb.Append(name);
+        string nameFormatLookupId = sbNameFormatLookupId.ToString();
+        string nameFormatString = GetNameFormatString(nameFormatLookupId, localizationRepository);
 
-        return sb.ToString();
+        return FormatName(
+            format: nameFormatString, 
+            name: name,
+            variant: localizedVariantString,
+            subVariant: localizedSubVariantString
+        );
     }
 }
