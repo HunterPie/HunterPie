@@ -10,13 +10,20 @@ internal class ObservableConverter : JsonConverter
 
     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
     {
-
         Type T = objectType.GetGenericArguments()[0];
-        object value = T.IsEnum
-            ? Enum.Parse(T, reader.Value.ToString())
-            : reader.Value != null
-                ? Convert.ChangeType(reader.Value, T)
-                : null;
+        object? value;
+        if (T.IsEnum)
+        {
+            string? stringValue = reader.Value?.ToString();
+            value = stringValue is not null && Enum.TryParse(T, stringValue, out object? enumValue)
+                ? enumValue
+                : Enum.GetValues(T).GetValue(0);
+        }
+        else
+        {
+            value = reader.Value is not null ? Convert.ChangeType(reader.Value, T) : null;
+        }
+
         object observable = Activator.CreateInstance(objectType, value);
 
         if (value is null)
