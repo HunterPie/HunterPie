@@ -101,7 +101,7 @@ public partial class WidgetBase : Window, INotifyPropertyChanged
         if (_counter >= 30)
         {
             RenderingTime = (DateTime.UtcNow - _lastRender).TotalMilliseconds;
-            Dispatcher.Invoke(ForceAlwaysOnTop, DispatcherPriority.Render);
+            ForceAlwaysOnTop();
             _counter = 0;
         }
 

@@ -35,7 +35,7 @@ public sealed class MHRMonster : CommonMonster
     private float _stamina;
     private float _captureThreshold;
     private readonly MHRMonsterAilment _enrage = new(MonsterAilmentRepository.Enrage);
-    private MHRMonsterPart? _qurioThreshold;
+    private readonly MHRMonsterPart? _qurioThreshold;
     private readonly Dictionary<long, MHRMonsterPart> _parts = new();
     private readonly ConcurrentDictionary<long, MHRMonsterAilment> _ailments = new();
     private readonly List<Element> _weaknesses = new();
@@ -175,7 +175,8 @@ public sealed class MHRMonster : CommonMonster
         IGameProcess process,
         IScanService scanService,
         nint address,
-        int id
+        int id,
+        MonsterType monsterType
     ) : base(process, scanService)
     {
         _address = address;
@@ -183,6 +184,9 @@ public sealed class MHRMonster : CommonMonster
         Id = id;
 
         _definition = MonsterRepository.FindBy(GameType.Rise, Id) ?? MonsterRepository.UnknownDefinition;
+
+        if (monsterType == MonsterType.Qurio)
+            _qurioThreshold = new MHRMonsterPart(MHRiseUtils.QurioPartDefinition);
 
         UpdateData();
     }
@@ -208,7 +212,6 @@ public sealed class MHRMonster : CommonMonster
             return;
 
         Variant |= VariantType.Frenzy;
-        _qurioThreshold = new MHRMonsterPart(MHRiseUtils.QurioPartDefinition);
     }
 
     [ScannableMethod]

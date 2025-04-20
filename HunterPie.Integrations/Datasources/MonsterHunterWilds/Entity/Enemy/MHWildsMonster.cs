@@ -18,6 +18,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
+using System.Collections.Immutable;
 using System.Text;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
@@ -136,9 +137,9 @@ public sealed class MHWildsMonster : CommonMonster
 
     public override VariantType Variant { get; protected set; }
 
-    public override IReadOnlyCollection<IMonsterPart> Parts => _parts;
+    public override IReadOnlyCollection<IMonsterPart> Parts => _parts.ToImmutableArray();
 
-    public override IReadOnlyCollection<IMonsterAilment> Ailments => _ailments;
+    public override IReadOnlyCollection<IMonsterAilment> Ailments => _ailments.ToImmutableArray();
 
     public override IMonsterAilment Enrage => _enrage;
 
