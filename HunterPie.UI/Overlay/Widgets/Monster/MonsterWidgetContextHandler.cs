@@ -123,7 +123,7 @@ public class MonsterWidgetContextHandler : IContextHandler
                     inferredTarget: _context.Game.TargetDetectionService.Infer(it.Context)
                 );
 
-                return it.IsAlive && target == Target.Self;
+                return it.Context.Health > 0 && target == Target.Self;
             }).ToArray();
 
         _viewModel.Monster = targets.SingleOrNull();
