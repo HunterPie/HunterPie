@@ -44,7 +44,7 @@ internal class FileStreamLogWriter : ILogWriter
 
     public void Dispose()
     {
-        Stream.Dispose();
         _isClosed = true;
+        Stream.Dispose();
     }
 }

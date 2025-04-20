@@ -34,16 +34,16 @@ public class MonsterWidgetContextHandler : IContextHandler
         _viewModel = _view.ViewModel;
         _context = context;
 
-        UpdateData();
         HookEvents();
+        UpdateData();
     }
 
     private void UpdateData()
     {
         foreach (IMonster monster in _context.Game.Monsters)
         {
-            _viewModel.Monsters.Add(new MonsterContextHandler(_context.Game, monster, Settings));
             monster.OnTargetChange += OnTargetChange;
+            _viewModel.Monsters.Add(new MonsterContextHandler(_context.Game, monster, Settings));
         }
 
         CalculateVisibleMonsters();

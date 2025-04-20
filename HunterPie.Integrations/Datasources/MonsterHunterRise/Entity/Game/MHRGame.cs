@@ -304,12 +304,20 @@ public sealed class MHRGame : CommonGame
 
         int monsterId = await Memory.ReadAsync<int>(monsterAddress + 0x2D4);
 
+        nint monsterTypePtr = await Memory.ReadPtrAsync(
+            address: monsterAddress,
+            offsets: AddressMap.Get<int[]>("MONSTER_TYPE_OFFSETS")
+        );
+        int monsterType = await Memory.ReadAsync<int>(monsterTypePtr + 0x5C);
+
         var monster = new MHRMonster(
             process: Process,
             scanService: ScanService,
             address: monsterAddress,
-            id: monsterId
+            id: monsterId,
+            monsterType: (MonsterType)monsterType
         );
+
         _monsters.Add(monsterAddress, monster);
         Monsters.Add(monster);
 
