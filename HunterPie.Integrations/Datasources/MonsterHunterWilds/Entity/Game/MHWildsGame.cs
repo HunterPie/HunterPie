@@ -182,7 +182,7 @@ public sealed class MHWildsGame : CommonGame
         double hours = Math.Floor(worldTime.Current / 100);
         double minutes = Math.Floor(worldTime.Current - (hours * 100));
 
-        WorldTime = new TimeOnly((int)hours % 24, (int)minutes % 60);
+        WorldTime = new TimeOnly((int)hours % 24, (int)(minutes / 100 * 60));
     }
 
     [ScannableMethod]
