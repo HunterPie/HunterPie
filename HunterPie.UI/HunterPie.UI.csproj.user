@@ -182,6 +182,9 @@
     <Compile Update="Overlay\Widgets\Clock\Views\ClockView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Clock\Views\MoonView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Damage\View\DamageBarView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -469,6 +472,9 @@
     <Page Update="Overlay\Widgets\Clock\Views\ClockView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Overlay\Widgets\Clock\Views\MoonView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Overlay\Widgets\Damage\View\DamageBarView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -526,6 +532,9 @@
     <Page Update="Overlay\Widgets\Wirebug\Views\WirebugView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Resource Update="Resources\Icons\General.xaml">
+      <SubType>Designer</SubType>
+    </Resource>
     <Page Update="Resources\Seasons\WinterPie.xaml">
       <SubType>Designer</SubType>
     </Page>

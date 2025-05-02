@@ -15,13 +15,15 @@ public class ClockWidgetMocker : IWidgetMocker
         if (!ClientConfig.Config.Development.MockClockWidget)
             return;
 
-        var viewModel = new ClockViewModel
+        var config = new ClockWidgetConfig();
+
+        var viewModel = new ClockViewModel(config)
         {
             QuestTimeLeft = TimeSpan.FromSeconds(3000)
         };
 
         WidgetManager.Register<ClockView, ClockWidgetConfig>(
-            new ClockView(new ClockWidgetConfig())
+            new ClockView(config)
             {
                 DataContext = viewModel
             }
