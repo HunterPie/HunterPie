@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Process.Entity;
@@ -19,6 +20,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Quest;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.World;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game.Moon;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game.Quest;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game.Quest.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
@@ -85,6 +87,32 @@ public sealed class MHWildsGame : CommonGame
 
     private MHWildsQuest? _quest;
     public override IQuest? Quest => _quest;
+
+    private MoonPhase _moon;
+    public MoonPhase Moon
+    {
+        get => _moon;
+        private set
+        {
+            if (value == _moon)
+                return;
+
+            MoonPhase lastPhase = _moon;
+            _moon = value;
+
+            this.Dispatch(
+                toDispatch: _moonChanged,
+                data: new SimpleValueChangeEventArgs<MoonPhase>(lastPhase, value)
+            );
+        }
+    }
+
+    private readonly SmartEvent<SimpleValueChangeEventArgs<MoonPhase>> _moonChanged = new();
+    public event EventHandler<SimpleValueChangeEventArgs<MoonPhase>> MoonChanged
+    {
+        add => _moonChanged.Hook(value);
+        remove => _moonChanged.Unhook(value);
+    }
 
     public MHWildsGame(
         IGameProcess process,
@@ -294,6 +322,41 @@ public sealed class MHWildsGame : CommonGame
             : information.Timer / 1000;
     }
 
+    [ScannableMethod]
+    internal async Task GetMoonAsync()
+    {
+        nint controllersPointer = await Memory.DerefAsync<nint>(
+            address: AddressMap.GetAbsolute("Game::EnvironmentManager"),
+            offsets: AddressMap.GetOffsets("Environment::Moon")
+        );
+        MHWildsMoonControllers controllers = await Memory.ReadAsync<MHWildsMoonControllers>(controllersPointer);
+
+        nint[] moonPriorities = { controllers.Quest, controllers.Story, controllers.Main };
+
+        foreach (nint moonPointer in moonPriorities)
+        {
+            MHWildsMoon moon = await Memory.ReadAsync<MHWildsMoon>(moonPointer);
+
+            if (!moon.IsValid)
+                continue;
+
+            long decodedPhase = moon.Phase.Decode();
+
+            Moon = decodedPhase switch
+            {
+                0 => MoonPhase.Full,
+                1 => MoonPhase.WaningGibbous,
+                2 => MoonPhase.ThirdQuarter,
+                3 => MoonPhase.WaningCrescent,
+                4 => MoonPhase.WaxingCrescent,
+                5 => MoonPhase.FirstQuarter,
+                6 => MoonPhase.WaxingGibbous,
+                _ => MoonPhase.Full,
+            };
+            return;
+        }
+    }
+
     private void HandleMonsterSpawn(
         nint address,
         MHWildsMonsterBasicData data)
@@ -335,5 +398,6 @@ public sealed class MHWildsGame : CommonGame
     {
         base.Dispose();
         _cryptoService.Dispose();
+        _moonChanged.Dispose();
     }
 }

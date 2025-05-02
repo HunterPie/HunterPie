@@ -14,7 +14,6 @@ namespace HunterPie.Core.Client.Configuration.Overlay;
 public class ClockWidgetConfig : IWidgetSettings, ISettings
 {
     #region General Settings
-
     [ConfigurationProperty("INITIALIZE_WIDGET_STRING", requiresRestart: true, group: CommonConfigurationGroups.GENERAL)]
     [ConfigurationCondition]
     public Observable<bool> Initialize { get; set; } = true;
@@ -34,4 +33,7 @@ public class ClockWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("WIDGET_POSITION", group: CommonConfigurationGroups.GENERAL)]
     public Position Position { get; set; } = new(50, 0);
     #endregion
+
+    [ConfigurationProperty("IS_MOON_PHASES_ENABLED", group: CommonConfigurationGroups.WIDGET, availableGames: GameProcessType.MonsterHunterWilds)]
+    public Observable<bool> IsMoonPhaseEnabled { get; set; } = true;
 }

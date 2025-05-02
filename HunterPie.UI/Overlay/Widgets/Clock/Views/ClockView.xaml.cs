@@ -14,7 +14,7 @@ public partial class ClockView : View<ClockViewModel>, IWidget<ClockWidgetConfig
 {
     public readonly ClockWidgetConfig Config;
 
-    public ClockView(ClockWidgetConfig config)
+    public ClockView(ClockWidgetConfig config) : base(config)
     {
         Config = config;
         InitializeComponent();

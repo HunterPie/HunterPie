@@ -9,6 +9,7 @@ Address Game::SaveManager 0x1385D398
 Address Game::QuestManager 0x13794540
 Address Game::WorldManager 0x1378F148
 Address Game::PauseManager 0x1381D618
+Address Game::EnvironmentManager 0x13821D90
 
 Offset Environment::MonsterList 0x2A0
 Offset Monster::Magic 0x10,0x28,0x14
@@ -45,3 +46,4 @@ Offset Quest::DieCount 0x158,0x88
 Offset Quest::IsRetrying 0x158,0xBC
 Offset Quest::CurrentInformation 0x158,0x28,0x18
 Offset Game::PauseState 0x50,0x10,0x20
+Offset Environment::Moon 0x148
