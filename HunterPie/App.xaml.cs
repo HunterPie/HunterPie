@@ -139,11 +139,11 @@ public partial class App : Application
     {
         TrayService.AddDoubleClickHandler(OnTrayShowClick);
 
-        TrayService.AddItem("Show")
-            .Click += OnTrayShowClick;
+        if (TrayService.AddItem("Show") is { } showButton)
+            showButton.Click += OnTrayShowClick;
 
-        TrayService.AddItem("Close")
-            .Click += OnTrayClockClick;
+        if (TrayService.AddItem("Close") is { } closeButton)
+            closeButton.Click += OnTrayClockClick;
     }
 
     private async void OnUiException(object sender, DispatcherUnhandledExceptionEventArgs e)
