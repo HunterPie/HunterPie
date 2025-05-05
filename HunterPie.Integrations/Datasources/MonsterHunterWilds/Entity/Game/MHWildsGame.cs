@@ -141,10 +141,10 @@ public sealed class MHWildsGame : CommonGame
     {
         byte state = await Memory.DerefAsync<byte>(
             address: AddressMap.GetAbsolute("Game::GUIManager"),
-            offsets: AddressMap.GetOffsets("GUI::VisibilityFlag")
+            offsets: AddressMap.GetOffsets("GUI::IsNPCIndicatorVisible")
         );
 
-        IsHudOpen = state > 0;
+        IsHudOpen = state != 2;
     }
 
     [ScannableMethod]
