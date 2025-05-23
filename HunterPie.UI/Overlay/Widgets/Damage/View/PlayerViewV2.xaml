@@ -173,8 +173,8 @@
                          Foreground="{StaticResource WHITE_400}"
                          FontSize="10"
                          FontWeight="SemiBold"/>
-                    <Run d:Text="10.0K"
-                         Text="{Binding Damage, Mode=OneWay, Converter={StaticResource IntToKFormat}}"
+                    <Run d:Text="100,000"
+                         Text="{Binding Damage, Mode=OneWay, StringFormat={}{0:N0}}"
                          Foreground="{StaticResource WHITE_50}"
                          FontWeight="Medium"/>
                 </TextBlock>
