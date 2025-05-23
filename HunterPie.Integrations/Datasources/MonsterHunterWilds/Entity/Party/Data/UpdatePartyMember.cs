@@ -11,4 +11,5 @@ public struct UpdatePartyMember
     public required bool IsMyself;
     public required int Index;
     public required float Damage;
+    public required int HunterRank;
 }
