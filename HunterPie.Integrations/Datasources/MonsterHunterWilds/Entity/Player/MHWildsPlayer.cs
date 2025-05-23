@@ -358,7 +358,8 @@ public sealed class MHWildsPlayer : CommonPlayer
         if (syncedDamage > 0)
             return syncedDamage;
 
-        return await GetHistoricalPlayerDamage(address); ;
+        return await GetHistoricalPlayerDamage(address);
+        ;
     }
 
     private async Task<float> GetHistoricalPlayerDamage(nint playerAddress)
