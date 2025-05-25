@@ -518,36 +518,9 @@ public sealed class MHWildsMonster : CommonMonster
         int id
     )
     {
-        var sb = new StringBuilder();
+        var nameGenerator =
+            new MHWildsMonsterNameGenerator(localizationRepository);
 
-        if (variant.HasFlag(VariantType.Tempered))
-        {
-            string prefix = localizationRepository.FindStringBy("//Strings/Monsters/Variants/Variant[@Id='TEMPERED']");
-            sb.Append(prefix);
-            sb.Append(' ');
-        }
-        else if (variant.HasFlag(VariantType.ArchTempered))
-        {
-            string prefix = localizationRepository.FindStringBy("//Strings/Monsters/Variants/Variant[@Id='ARCH_TEMPERED']");
-            sb.Append(prefix);
-            sb.Append(' ');
-        }
-
-        if (variant.HasFlag(VariantType.Frenzy))
-        {
-            string prefix = localizationRepository.FindStringBy("//Strings/Monsters/Variants/Variant[@Id='FRENZIED']");
-            sb.Append(prefix);
-            sb.Append(' ');
-        }
-
-        string namePath = $"//Strings/Monsters/Wilds/Monster[@Id='{id}']";
-
-        string name = localizationRepository.ExistsBy(namePath)
-            ? localizationRepository.FindStringBy(namePath)
-            : $"Unknown [id: {id}]";
-
-        sb.Append(name);
-
-        return sb.ToString();
+        return nameGenerator.GetName(id, variant);
     }
 }
