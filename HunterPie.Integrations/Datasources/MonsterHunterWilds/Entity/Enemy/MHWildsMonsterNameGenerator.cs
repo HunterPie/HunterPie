@@ -21,8 +21,8 @@ public sealed class MHWildsMonsterNameGenerator
     {
         IEnumerable<LocalizationData> variantTypes =
             Enum.GetValues<VariantType>()
-            .Where(variantType => 
-                variant.HasFlag(variantType) && 
+            .Where(variantType =>
+                variant.HasFlag(variantType) &&
                 variantType != VariantType.Normal)
             .Select(GetVariantData);
 
