@@ -98,7 +98,10 @@ public partial class App : Application
     {
         _logger.Info("Initializing HunterPie client UI");
 
-        await MainApplication.Start();
+        bool shouldStart = await MainApplication.Start();
+
+        if (!shouldStart)
+            return;
 
         MainWindow = Window;
 
