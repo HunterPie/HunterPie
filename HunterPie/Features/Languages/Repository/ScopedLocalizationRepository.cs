@@ -3,7 +3,7 @@ using HunterPie.Core.Client.Localization.Entity;
 
 namespace HunterPie.Features.Languages.Repository;
 
-internal class ScopedLocalizationRepository : IScopedLocalizationRepository
+internal sealed class ScopedLocalizationRepository : IScopedLocalizationRepository
 {
     private readonly string _scopePath;
     private readonly ILocalizationRepository _localizationRepository;
@@ -14,6 +14,15 @@ internal class ScopedLocalizationRepository : IScopedLocalizationRepository
     {
         _scopePath = scopePath;
         _localizationRepository = localizationRepository;
+    }
+
+    public LocalizationData? TryFindBy(string id)
+    {
+        string path = $"{_scopePath}[@Id='{id}']";
+
+        return _localizationRepository.ExistsBy(path)
+            ? _localizationRepository.FindBy(path)
+            : null;
     }
 
     public LocalizationData FindBy(string id) =>

@@ -28,7 +28,7 @@ internal record PoogieMonsterStatisticsModel(
         HuntStartedAt: HuntStartedAt,
         HuntFinishedAt: HuntFinishedAt,
         HuntType: HuntType,
-        Variant: Variant as VariantType? ?? VariantType.Normal,
+        Variant: (VariantType?)Variant ?? VariantType.Normal,
         HealthSteps: HealthSteps?.Select(it => it.ToEntity())
             .ToList() ?? new List<MonsterHealthStepModel>()
     );

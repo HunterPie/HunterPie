@@ -60,8 +60,6 @@ public class QuestStatisticsSummaryViewModel : ViewModel
         UploadedAt = model.CreatedAt.ToLocalTime();
         QuestTime = model.ElapsedTime;
 
-
-
         IEnumerable<MonsterSummaryViewModel> monsterVms =
             model.Monsters.Select(it => new MonsterSummaryViewModel(GameType, it));
 
