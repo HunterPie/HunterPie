@@ -9,6 +9,7 @@ using HunterPie.Core.Game.Data.Repository;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
+using HunterPie.Core.Game.Services.Monster;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Scan.Service;
 using HunterPie.Core.Utils;
@@ -19,7 +20,6 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
 using System.Collections.Immutable;
-using System.Text;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 
@@ -32,6 +32,7 @@ public sealed class MHWildsMonster : CommonMonster
     private bool _isInitialized;
     private readonly ILogger _logger = LoggerFactory.Create();
 
+    private readonly MonsterVariantNameService _nameService;
     private readonly MHWildsMonsterTargetKeyManager _targetKeyManager;
     private readonly MHWildsCryptoService _cryptoService;
     private readonly nint _address;
@@ -170,16 +171,19 @@ public sealed class MHWildsMonster : CommonMonster
         ILocalizationRepository localizationRepository,
         MHWildsMonsterTargetKeyManager targetKeyManager) : base(process, scanService)
     {
+        _nameService = new MonsterVariantNameService(
+            localizationRepository: localizationRepository,
+            monsterNamesRepository: localizationRepository.WithScope("//Strings/Monsters/Wilds/Monster")
+        );
         _targetKeyManager = targetKeyManager;
         _basicData = basicData;
         Variant = CalculateVariant();
         _address = address;
         Id = basicData.Id;
 
-        Name = BuildName(
-            localizationRepository: localizationRepository,
-            variant: Variant,
-            id: Id
+        Name = _nameService.GetName(
+            id: Id,
+            variant: Variant
         );
 
         _cryptoService = cryptoService;
@@ -510,17 +514,5 @@ public sealed class MHWildsMonster : CommonMonster
         };
 
         return variant;
-    }
-
-    private static string BuildName(
-        ILocalizationRepository localizationRepository,
-        VariantType variant,
-        int id
-    )
-    {
-        var nameGenerator =
-            new MHWildsMonsterNameGenerator(localizationRepository);
-
-        return nameGenerator.GetName(id, variant);
     }
 }

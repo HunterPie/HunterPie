@@ -23,6 +23,7 @@ internal class QuestStatisticsSummariesViewModel : ViewModel
     private readonly PoogieStatisticsConnector _connector;
     private readonly IAccountUseCase _accountUseCase;
     private readonly IBodyNavigator _bodyNavigator;
+    private readonly QuestDetailsViewModelBuilder _questDetailsViewModelBuilder;
 
     private bool _hasQuests;
     public bool HasQuests
@@ -76,11 +77,13 @@ internal class QuestStatisticsSummariesViewModel : ViewModel
     public QuestStatisticsSummariesViewModel(
         PoogieStatisticsConnector connector,
         IAccountUseCase accountUseCase,
-        IBodyNavigator bodyNavigator)
+        IBodyNavigator bodyNavigator,
+        QuestDetailsViewModelBuilder questDetailsViewModelBuilder)
     {
         _connector = connector;
         _accountUseCase = accountUseCase;
         _bodyNavigator = bodyNavigator;
+        _questDetailsViewModelBuilder = questDetailsViewModelBuilder;
     }
 
     public QuestSupporterTierMessageType MessageType { get => _messageType; set => SetValue(ref _messageType, value); }
@@ -161,7 +164,7 @@ internal class QuestStatisticsSummariesViewModel : ViewModel
         };
         NotificationService.Update(notificationId, successNotification);
 
-        QuestDetailsViewModel viewModel = await QuestDetailsViewModelBuilder.From(questDetails.ToEntity());
+        QuestDetailsViewModel viewModel = await _questDetailsViewModelBuilder.From(questDetails.ToEntity());
         _bodyNavigator.Navigate(viewModel);
     }
 

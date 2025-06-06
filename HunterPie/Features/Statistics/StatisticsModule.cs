@@ -1,5 +1,6 @@
 ﻿using HunterPie.DI;
 using HunterPie.DI.Module;
+using HunterPie.Features.Statistics.Details.Builders;
 using HunterPie.Features.Statistics.Services;
 using HunterPie.Features.Statistics.ViewModels;
 
@@ -11,6 +12,8 @@ internal class StatisticsModule : IDependencyModule
     {
         registry
             .WithSingle<QuestTrackerService>()
-            .WithService<QuestStatisticsSummariesViewModel>();
+            .WithService<QuestStatisticsSummariesViewModel>()
+            .WithSingle<QuestDetailsViewModelBuilder>()
+            .WithSingle<MonsterDetailsViewModelBuilder>();
     }
 }
