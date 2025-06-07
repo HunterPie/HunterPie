@@ -21,7 +21,6 @@ internal class BooleanConfigurationPropertyBuilder : IConfigurationPropertyBuild
             Description = data.Description,
             Group = data.Group,
             RequiresRestart = data.RequiresRestart,
-            Condition = data.Condition,
             Conditions = data.Conditions,
         };
     }

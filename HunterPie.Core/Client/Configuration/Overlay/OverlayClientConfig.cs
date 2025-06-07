@@ -17,6 +17,7 @@ public class OverlayClientConfig : ISettings
     public Observable<bool> IsEnabled { get; set; } = true;
 
     [ConfigurationProperty("OVERLAY_HIDE_WHEN_GAME_UNFOCUS_STRING", group: CommonConfigurationGroups.GENERAL)]
+    [ConfigurationConditional(name: nameof(IsEnabled), withValue: true)]
     public Observable<bool> HideWhenUnfocus { get; set; } = false;
     #endregion
 
@@ -25,6 +26,7 @@ public class OverlayClientConfig : ISettings
     public Keybinding ToggleVisibility { get; set; } = "Ctrl+Alt+O";
 
     [ConfigurationProperty("OVERLAY_KEYBINDING_TOGGLE_DESIGN_MODE", requiresRestart: true, group: CommonConfigurationGroups.HOTKEYS)]
+    [ConfigurationConditional(name: nameof(IsEnabled), withValue: true)]
     public Keybinding ToggleDesignMode { get; set; } = "ScrollLock";
     #endregion
 }

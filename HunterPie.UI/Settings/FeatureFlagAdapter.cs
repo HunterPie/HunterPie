@@ -29,7 +29,6 @@ public static class FeatureFlagAdapter
                 Description = "",
                 Group = categoryName,
                 RequiresRestart = true,
-                Condition = null,
                 Conditions = Array.Empty<PropertyCondition>(),
                 IsMatch = false,
 

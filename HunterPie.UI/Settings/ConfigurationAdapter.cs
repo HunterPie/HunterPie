@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Architecture;
-using HunterPie.Core.Client.Localization;
+﻿using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Client.Localization.Entity;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Features.Repository;
@@ -96,7 +95,6 @@ public class ConfigurationAdapter
         List<ConfigurationCategory> categories = new();
         List<IConfigurationProperty> configurationProperties = new();
         PropertyInfo[] properties = categoryType.GetProperties();
-        Observable<bool>? conditionalConfiguration = null;
         var availableProperties = new Dictionary<string, (object, PropertyCondition[])>(properties.Length);
 
         foreach (PropertyInfo property in properties)
@@ -147,7 +145,6 @@ public class ConfigurationAdapter
                 Group: groupLocalization,
                 Value: propertyValue,
                 Adapter: adapterAttribute?.Adapter,
-                Condition: conditionalConfiguration,
                 Conditions: allConditions,
                 RequiresRestart: propertyAttribute.RequiresRestart
             );
@@ -156,10 +153,6 @@ public class ConfigurationAdapter
                 continue;
 
             configurationProperties.Add(configurationProperty);
-
-            if (property.GetCustomAttribute<ConfigurationConditionAttribute>() is { }
-                && propertyValue is Observable<bool> condition)
-                conditionalConfiguration = condition;
         }
 
         ObservableCollection<ConfigurationGroup> observableGroups =

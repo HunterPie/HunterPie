@@ -20,6 +20,7 @@ public class ClientConfig : ISettings
     public Observable<bool> EnableAutoUpdate { get; set; } = true;
 
     [ConfigurationProperty("ENABLE_SELF_UPDATE_CONFIRMATION", group: CommonConfigurationGroups.SELF_UDPATE)]
+    [ConfigurationConditional(name: nameof(EnableAutoUpdate), withValue: true)]
     public Observable<bool> EnableAutoUpdateConfirmation { get; set; } = true;
     #endregion
 

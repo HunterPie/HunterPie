@@ -85,7 +85,9 @@ public partial class SettingsView : UserControl
 
         var dataTrigger = new MultiDataTrigger();
 
-        IReadOnlyCollection<PropertyCondition> conditions = vm.Conditions.Count > 0 ? vm.Conditions : new[] { _defaultCondition };
+        IReadOnlyCollection<PropertyCondition> conditions = vm.Conditions.Count > 0
+            ? vm.Conditions
+            : new[] { _defaultCondition };
 
         foreach (PropertyCondition condition in conditions)
         {
@@ -131,6 +133,8 @@ public partial class SettingsView : UserControl
 
         bool hasChildrenVisible = e.NewSize.Height > 0;
 
-        parent.Visibility = hasChildrenVisible ? Visibility.Visible : Visibility.Collapsed;
+        parent.Visibility = hasChildrenVisible
+            ? Visibility.Visible
+            : Visibility.Collapsed;
     }
 }
