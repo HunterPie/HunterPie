@@ -18,6 +18,7 @@ using ConfigurationPropertyAttribute = HunterPie.Core.Settings.Annotations.Confi
 
 namespace HunterPie.UI.Settings;
 
+#nullable enable
 public class ConfigurationAdapter
 {
     private const string DEFAULT_SETTING_LOCALIZATION_PATH = "//Strings/Client/Settings/Setting[@Id='{0}']";
@@ -96,6 +97,7 @@ public class ConfigurationAdapter
         List<IConfigurationProperty> configurationProperties = new();
         PropertyInfo[] properties = categoryType.GetProperties();
         Observable<bool>? conditionalConfiguration = null;
+        var availableProperties = new Dictionary<string, (object, PropertyCondition[])>(properties.Length);
 
         foreach (PropertyInfo property in properties)
         {
@@ -116,6 +118,23 @@ public class ConfigurationAdapter
             if (propertyValue is null)
                 continue;
 
+            ConfigurationConditionalAttribute[] conditionAttributes = property.GetCustomAttributes<ConfigurationConditionalAttribute>()
+                .Where(it => availableProperties.ContainsKey(it.Name))
+                .ToArray();
+
+            IEnumerable<PropertyCondition> conditions = conditionAttributes
+                .Select(it => new PropertyCondition(
+                    Property: availableProperties[it.Name].Item1,
+                    Value: it.WithValue
+                ));
+            IEnumerable<PropertyCondition> inheritedConditions =
+                conditionAttributes.SelectMany(it => availableProperties[it.Name].Item2);
+
+            PropertyCondition[] allConditions = inheritedConditions.Concat(conditions)
+                .ToArray();
+
+            availableProperties.Add(property.Name, (propertyValue, allConditions));
+
             LocalizationData propertyLocalization = _localizationRepository.FindBy(DEFAULT_SETTING_LOCALIZATION_PATH.Format(propertyAttribute.Name));
             string groupLocalization = _localizationRepository.FindStringBy(DEFAULT_CONFIGURATION_GROUP_PATH.Format(propertyAttribute.Group));
 
@@ -129,8 +148,10 @@ public class ConfigurationAdapter
                 Value: propertyValue,
                 Adapter: adapterAttribute?.Adapter,
                 Condition: conditionalConfiguration,
+                Conditions: allConditions,
                 RequiresRestart: propertyAttribute.RequiresRestart
             );
+
             if (BuildProperty(propertyType, data, game) is not { } configurationProperty)
                 continue;
 

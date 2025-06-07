@@ -22,6 +22,7 @@ internal class StringConfigurationPropertyBuilder : IConfigurationPropertyBuilde
             Group = data.Group,
             RequiresRestart = data.RequiresRestart,
             Condition = data.Condition,
+            Conditions = data.Conditions,
         };
     }
 }

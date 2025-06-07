@@ -1,8 +1,10 @@
 ﻿using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Features.Domain;
 using HunterPie.Core.Settings.Common;
+using HunterPie.UI.Settings.Converter.Model;
 using HunterPie.UI.Settings.Models;
 using HunterPie.UI.Settings.ViewModels.Internal;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -27,6 +29,10 @@ public static class FeatureFlagAdapter
                 Description = "",
                 Group = categoryName,
                 RequiresRestart = true,
+                Condition = null,
+                Conditions = Array.Empty<PropertyCondition>(),
+                IsMatch = false,
+
             };
 
             properties.Add(property);

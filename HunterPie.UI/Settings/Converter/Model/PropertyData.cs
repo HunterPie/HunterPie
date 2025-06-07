@@ -11,5 +11,6 @@ public record PropertyData(
     object Value,
     bool RequiresRestart,
     Observable<bool>? Condition,
+    PropertyCondition[] Conditions,
     ISettingAdapter? Adapter
 );

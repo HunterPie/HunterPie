@@ -22,6 +22,7 @@ internal class KeybindingConfigurationPropertyBuilder : IConfigurationPropertyBu
             Group = data.Group,
             RequiresRestart = data.RequiresRestart,
             Condition = data.Condition,
+            Conditions = data.Conditions,
         };
     }
 }
