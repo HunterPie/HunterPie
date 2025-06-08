@@ -68,7 +68,8 @@ public class MeterViewModel : ViewModel
         return Settings.DamagePlotStrategy.Value switch
         {
             DamagePlotStrategy.TotalDamage => damage.ToString(CultureInfo.InvariantCulture),
-            DamagePlotStrategy.DamagePerSecond => $"{damage:0.00}/s",
+            DamagePlotStrategy.DamagePerSecond
+                or DamagePlotStrategy.MovingAverageDamagePerSecond => $"{damage:0.00}/s",
             _ => throw new NotImplementedException()
         };
     }

@@ -13,9 +13,9 @@ public static class ClientConfig
 
     public static bool IsInitialized => LazyConfig.IsValueCreated;
 
-    private static readonly Lazy<V4Config> LazyConfig = new(() => new V4Config(), LazyThreadSafetyMode.ExecutionAndPublication);
+    private static readonly Lazy<V5Config> LazyConfig = new(() => new V5Config(), LazyThreadSafetyMode.ExecutionAndPublication);
 
-    public static V4Config Config => LazyConfig.Value;
+    public static V5Config Config => LazyConfig.Value;
 
     internal static void Initialize()
     {

@@ -8,5 +8,8 @@ public enum DamagePlotStrategy
     TotalDamage,
 
     [Localization("//Strings/Client/Enums/Enum[@Id='PLOT_DPS_STRING']")]
-    DamagePerSecond
+    DamagePerSecond,
+
+    [Localization("//Strings/Client/Enums/Enum[@Id='PLOT_SLIDING_AVG']")]
+    MovingAverageDamagePerSecond
 }
