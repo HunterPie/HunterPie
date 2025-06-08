@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Architecture;
-using HunterPie.Core.Settings.Adapters;
+﻿using HunterPie.Core.Settings.Adapters;
 
 namespace HunterPie.UI.Settings.Converter.Model;
 
@@ -10,6 +9,6 @@ public record PropertyData(
     string Group,
     object Value,
     bool RequiresRestart,
-    Observable<bool>? Condition,
+    PropertyCondition[] Conditions,
     ISettingAdapter? Adapter
 );
