@@ -1,0 +1,182 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DrawingImage x:Key="Icons.Moon.FirstQuarter">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
+                <DrawingGroup Opacity="1">
+                    <GeometryDrawing>
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="#FFFFFFFF" Thickness="0.7599999" StartLineCap="Flat" EndLineCap="Flat" DashCap="Flat" LineJoin="Miter">
+                                <Pen.DashStyle>
+                                    <DashStyle Offset="0" Dashes="8.00000002631579 8.00000002631579" />
+                                </Pen.DashStyle>
+                            </Pen>
+                        </GeometryDrawing.Pen>
+                        <GeometryDrawing.Geometry>
+                            <EllipseGeometry RadiusX="30.2615" RadiusY="30.2615" Center="33.8667,33.8667" />
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+                <DrawingGroup Opacity="1">
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M67.733332,67.733335z M0,0z M33.512685,3.6049479C42.195342,3.6049479 50.023844,7.2616975 55.542348,13.119096 60.646248,18.536429 63.774404,25.836337 63.774404,33.866666 63.774404,41.898556 60.644907,49.199683 55.539248,54.617336 50.020905,60.472893 42.193782,64.128385 33.512685,64.128385 32.70782,64.128385 31.910643,64.094985 31.121616,64.033295 34.499936,62.251733 37.537898,59.865687 40.106081,57.01047 45.541175,50.967921 48.872471,42.82498 48.872471,33.866662 48.872471,24.910083 45.542921,16.768146 40.109698,10.725956 37.541282,7.8696695 34.502703,5.4827474 31.123683,3.7005492 31.912101,3.6389622 32.708458,3.6049482 33.512685,3.6049482z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Icons.Moon.Full">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
+                <DrawingGroup.Transform>
+                    <TranslateTransform X="64.1682" Y="64.128204345703125" />
+                </DrawingGroup.Transform>
+                <DrawingGroup Opacity="1">
+                    <DrawingGroup>
+                        <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M67.733332,67.733335z M0,0z M-3.6051273,-33.866665C-3.6051274,-25.510172 -6.9922654,-17.944788 -12.468527,-12.468527 -17.944788,-6.9922654 -25.510172,-3.6051274 -33.866665,-3.6051273 -43.684231,-3.6051272 -52.409865,-8.2802444 -57.938728,-15.525639 -61.821953,-20.61448 -64.128202,-26.971246 -64.128202,-33.866665 -64.128202,-40.888794 -61.736416,-47.35229 -57.723062,-52.486937 -52.18445,-59.572984 -43.557522,-64.128202 -33.866665,-64.128202 -25.306326,-64.128202 -17.576162,-60.573799 -12.071515,-54.860333 -6.8290308,-49.418975 -3.6051272,-42.019311 -3.6051273,-33.866665z" />
+                    </DrawingGroup>
+                    <DrawingGroup Transform="-1,0,0,1,0,0">
+                        <GeometryDrawing Brush="#FFFFFFFF">
+                            <GeometryDrawing.Pen>
+                                <Pen Brush="#FFFFFFFF" Thickness="0.76" StartLineCap="Flat" EndLineCap="Flat" DashCap="Flat" LineJoin="Miter">
+                                    <Pen.DashStyle>
+                                        <DashStyle Offset="0" Dashes="8 8" />
+                                    </Pen.DashStyle>
+                                </Pen>
+                            </GeometryDrawing.Pen>
+                            <GeometryDrawing.Geometry>
+                                <EllipseGeometry RadiusX="30.2615" RadiusY="30.2615" Center="-33.9067,33.8128" />
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Icons.Moon.ThirdQuarter">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
+                <DrawingGroup.Transform>
+                    <TranslateTransform X="64.2081" Y="0" />
+                </DrawingGroup.Transform>
+                <DrawingGroup Opacity="1" Transform="-1,0,0,1,0,0">
+                    <GeometryDrawing>
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="#FFFFFFFF" Thickness="0.76" StartLineCap="Flat" EndLineCap="Flat" DashCap="Flat" LineJoin="Miter">
+                                <Pen.DashStyle>
+                                    <DashStyle Offset="0" Dashes="8 8" />
+                                </Pen.DashStyle>
+                            </Pen>
+                        </GeometryDrawing.Pen>
+                        <GeometryDrawing.Geometry>
+                            <EllipseGeometry RadiusX="30.2615" RadiusY="30.2615" Center="-33.9466,33.8667" />
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+                <DrawingGroup Opacity="1">
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M67.733332,67.733335z M0,0z M34.300618,3.6049479C25.617961,3.6049479 17.789459,7.2616975 12.270955,13.119096 7.1670546,18.536429 4.0388986,25.836337 4.0388986,33.866666 4.0388986,41.898556 7.1683956,49.199683 12.274055,54.617336 17.792398,60.472893 25.619521,64.128385 34.300618,64.128385 35.105483,64.128385 35.90266,64.094985 36.691687,64.033295 33.313367,62.251733 30.275405,59.865687 27.707222,57.01047 22.272128,50.967921 18.940832,42.82498 18.940832,33.866662 18.940832,24.910083 22.270382,16.768146 27.703605,10.725956 30.272021,7.8696695 33.3106,5.4827474 36.68962,3.7005492 35.901202,3.6389622 35.104845,3.6049482 34.300618,3.6049479z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Icons.Moon.WaningCrescent">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
+                <DrawingGroup.Transform>
+                    <TranslateTransform X="64.1682" Y="0" />
+                </DrawingGroup.Transform>
+                <DrawingGroup Opacity="1">
+                    <DrawingGroup Transform="0.26458333,0,0,0.26458333,0,0">
+                        <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M67.733332,67.733335z M0,0z M128,13.625C95.183659,13.625 65.595619,27.445786 44.738281,49.583984 25.447952,70.058944 13.625,97.64915 13.625,128 13.625,158.35675 25.453021,185.95156 44.75,206.42773 65.606729,228.55897 95.189558,242.375 128,242.375 132.40215,242.375 136.74488,242.12279 141.01758,241.63867 113.43062,238.52147 88.815994,225.5977 70.75,206.42773 51.453021,185.95156 39.625,158.35675 39.625,128 39.625,97.64915 51.447951,70.058944 70.738281,49.583984 88.809893,30.402585 113.43786,17.474985 141.03906,14.361328 136.76009,13.875757 132.40885,13.625 128,13.625z" />
+                    </DrawingGroup>
+                    <DrawingGroup Transform="-1,0,0,1,0,0">
+                        <GeometryDrawing>
+                            <GeometryDrawing.Pen>
+                                <Pen Brush="#FFFFFFFF" Thickness="0.76" StartLineCap="Flat" EndLineCap="Flat" DashCap="Flat" LineJoin="Miter">
+                                    <Pen.DashStyle>
+                                        <DashStyle Offset="0" Dashes="8 8" />
+                                    </Pen.DashStyle>
+                                </Pen>
+                            </GeometryDrawing.Pen>
+                            <GeometryDrawing.Geometry>
+                                <EllipseGeometry RadiusX="30.2615" RadiusY="30.2615" Center="-33.9067,33.8128" />
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Icons.Moon.WaningGibbous">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
+                <DrawingGroup Opacity="1">
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M67.733332,67.733335z M0,0z M33.866676,3.2307706C56.432739,0.82747196,45.149707,2.0291213,33.866676,3.2307706z M33.858376,3.2307706C57.076324,13.656385,57.26771,53.41921,33.859476,63.754208L33.849106,63.754208C24.693546,63.754208 16.487531,59.688025 10.938359,53.263375 6.3578163,47.960173 3.5873873,41.049915 3.5873873,33.492489 3.5873873,26.145447 6.2057603,19.409927 10.560089,14.168088 16.110947,7.48583569999999 24.483163,3.23077059999999 33.849106,3.23077059999999 33.852006,3.23077059999999 33.854906,3.23076979999999 33.857906,3.23077059999999z M33.868726,63.753692C56.433412,21.001779,45.151069,42.377735,33.868726,63.753692z" />
+                    <GeometryDrawing>
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="#FFFFFFFF" Thickness="0.76" StartLineCap="Flat" EndLineCap="Flat" DashCap="Flat" LineJoin="Miter">
+                                <Pen.DashStyle>
+                                    <DashStyle Offset="0" Dashes="8 8" />
+                                </Pen.DashStyle>
+                            </Pen>
+                        </GeometryDrawing.Pen>
+                        <GeometryDrawing.Geometry>
+                            <EllipseGeometry RadiusX="30.2615" RadiusY="30.2615" Center="33.8267,33.8128" />
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Icons.Moon.WaxingCrescent">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
+                <DrawingGroup Opacity="1">
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M67.733332,67.733335z M0,0z M33.866669,3.6049479C42.549326,3.6049479 50.377828,7.2616975 55.896332,13.119096 61.000231,18.536429 64.128387,25.836337 64.128387,33.866666 64.128387,41.898556 60.99889,49.199683 55.893231,54.617336 50.374889,60.472893 42.547765,64.128385 33.866669,64.128385 32.701934,64.128385 31.55292,64.061655 30.422434,63.933564 37.721484,63.108805 44.234104,59.689391 49.014065,54.617336 54.119724,49.199683 57.249221,41.898556 57.249221,33.866666 57.249221,25.836337 54.121065,18.536429 49.017165,13.119096 44.235718,8.0440172 37.719569,4.6235897 30.416751,3.799768 31.548895,3.671294 32.700161,3.6049479 33.866669,3.6049479z" />
+                    <GeometryDrawing>
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="#FFFFFFFF" Thickness="0.76" StartLineCap="Flat" EndLineCap="Flat" DashCap="Flat" LineJoin="Miter">
+                                <Pen.DashStyle>
+                                    <DashStyle Offset="0" Dashes="8 8" />
+                                </Pen.DashStyle>
+                            </Pen>
+                        </GeometryDrawing.Pen>
+                        <GeometryDrawing.Geometry>
+                            <EllipseGeometry RadiusX="30.2615" RadiusY="30.2615" Center="33.8267,33.8128" />
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Icons.Moon.WaxingGibbous">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
+                <DrawingGroup.Transform>
+                    <TranslateTransform X="64.1682" Y="0" />
+                </DrawingGroup.Transform>
+                <DrawingGroup Opacity="1">
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M67.733332,67.733335z M0,0z M33.866656,3.2307706C11.300593,0.82747196,22.583625,2.0291213,33.866656,3.2307706z M33.874956,3.2307706C10.657008,13.656385,10.465622,53.41921,33.873856,63.754208L33.884226,63.754208C43.039786,63.754208 51.245801,59.688025 56.794973,53.263375 61.375516,47.960173 64.145945,41.049915 64.145945,33.492489 64.145945,26.145447 61.527572,19.409927 57.173243,14.168088 51.622385,7.4858357 43.250169,3.2307706 33.884226,3.2307706 33.881326,3.2307706 33.878426,3.2307698 33.875426,3.2307706z M33.864606,63.753692C11.29992,21.001779,22.582263,42.377735,33.864606,63.753692z" />
+                    <DrawingGroup Transform="-1,0,0,1,0,0">
+                        <GeometryDrawing>
+                            <GeometryDrawing.Pen>
+                                <Pen Brush="#FFFFFFFF" Thickness="0.76" StartLineCap="Flat" EndLineCap="Flat" DashCap="Flat" LineJoin="Miter">
+                                    <Pen.DashStyle>
+                                        <DashStyle Offset="0" Dashes="8 8" />
+                                    </Pen.DashStyle>
+                                </Pen>
+                            </GeometryDrawing.Pen>
+                            <GeometryDrawing.Geometry>
+                                <EllipseGeometry RadiusX="30.2615" RadiusY="30.2615" Center="-33.9067,33.8128" />
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+</ResourceDictionary>

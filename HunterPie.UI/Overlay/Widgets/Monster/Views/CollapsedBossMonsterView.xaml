@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="HunterPie.UI.Overlay.Widgets.Monster.Views.CollapsedBossMonsterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels"
+             xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets"
+             xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading"
+             xmlns:display="clr-namespace:HunterPie.UI.Controls.Display"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Presentation"
+             mc:Ignorable="d" 
+             d:DesignWidth="100"
+             d:DataContext="{d:DesignInstance Type=viewModels:BossMonsterViewModel}">
+    <UserControl.Resources>
+        <converters:CrownToIconConverter x:Key="CrownToIconConverter"/>
+        <converters:CrownToVisibilityConverter x:Key="CrownToVisibilityConverter"/>
+        <presentation:MonsterVariantBrushConverter x:Key="MonsterVariantBrushConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid Visibility="{Binding IsAlive, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+              Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+              Margin="0,16,0,0">
+            <Rectangle Grid.Row="0"
+                       Margin="16"
+                       RenderTransformOrigin="0.5,0.5"
+                       Fill="{Binding Variant, Mode=OneWay, Converter={StaticResource MonsterVariantBrushConverter}}"
+                       x:Name="PART_VariantBorder">
+                <Rectangle.RenderTransform>
+                    <RotateTransform Angle="45"/>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Rectangle Grid.Row="0" 
+                       Fill="{StaticResource GRAY_200}"
+                       Stroke="{StaticResource GRAY}"
+                       StrokeThickness="2"
+                       Margin="17"/>
+            <Rectangle Grid.Row="0"
+                       Margin="17"
+                       Fill="{StaticResource GRAY_50}"
+                       Stroke="{Binding Fill, ElementName=PART_VariantBorder}"
+                       StrokeThickness="1"
+                       RenderTransformOrigin="0.5,0.5">
+                <Rectangle.RenderTransform>
+                    <RotateTransform Angle="45"/>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+
+            <!-- Crown -->
+            <Image Source="{Binding Crown, Mode=OneWay, Converter={StaticResource CrownToIconConverter}}"
+                   Visibility="{Binding Crown, Mode=OneWay, Converter={StaticResource CrownToVisibilityConverter}}"
+                   Height="30"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   Margin="0,-12,0,0"/>
+
+            <display:Conditional Condition="{Binding IsLoadingIcon, Mode=OneWay}"
+                                 d:Condition="False">
+                <display:Conditional.Component>
+                    <DataTemplate>
+                        <loading:CircleLoading Height="15"
+                                               Width="15"/>
+                    </DataTemplate>
+                </display:Conditional.Component>
+                <display:Conditional.Otherwise>
+                    <DataTemplate>
+                        <Image d:Source="{StaticResource ICON_SKULL}"
+                               Source="{Binding Icon, Mode=OneWay, TargetNullValue={assets:MonsterIcon Rise_Unknown}}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Margin="20"
+                               RenderOptions.BitmapScalingMode="Fant"
+                               DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type local:CollapsedBossMonsterView}}}"/>
+                    </DataTemplate>
+                </display:Conditional.Otherwise>
+            </display:Conditional>
+        </Grid>
+        
+        <TextBlock Grid.Row="1"
+                   d:Text="Name of the monster"
+                   Text="{Binding Name, Mode=OneWay}"
+                   FontSize="14"
+                   TextAlignment="Center"
+                   TextTrimming="CharacterEllipsis"
+                   TextWrapping="WrapWithOverflow"
+                   Foreground="{StaticResource WHITE_50}"/>
+    </Grid>
+</UserControl>

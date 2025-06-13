@@ -16,16 +16,13 @@
     <Nullable>enable</Nullable>
     <LangVersion>11.0</LangVersion>
     <DelaySign>False</DelaySign>
-	<AssemblyVersion>2.12.0.0</AssemblyVersion>
-	<FileVersion>2.12.0.0</FileVersion>
-	<Version>2.12.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>TRACE;DEPLOY;DEBUG</DefineConstants>
+    <DefineConstants>TRACE;DEPLOY;</DefineConstants>
     <Optimize>True</Optimize>
     <ShouldCreateLogs>True</ShouldCreateLogs>
-    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+    <AdvancedSettingsExpanded>True</AdvancedSettingsExpanded>
     <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
     <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
@@ -185,6 +182,21 @@
     <None Update="Address\MonsterHunterRise.3.6.1.1.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Address\MonsterHunterWilds.1.11.1.0.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Address\MonsterHunterWilds.1.1.1.0.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Address\MonsterHunterWilds.1.1.0.0.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Address\MonsterHunterWilds.1.0.4.0.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Address\MonsterHunterWilds.1.0.3.0.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Address\MonsterHunterWorld.421810.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -239,6 +251,12 @@
     <None Update="Game\Rise\Data\MonsterData.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Game\Wilds\Data\AbnormalityData.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Game\Wilds\Data\MonsterData.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Game\World\Data\AbnormalityData.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -251,6 +269,7 @@
     <Folder Include="Features\Analytics\Strategies\" />
     <Folder Include="Features\Backup\Strategies\" />
     <Folder Include="Features\Settings\Factory\" />
+    <Folder Include="Features\Statistics\Details\Enums\" />
     <Folder Include="Integrations\Poogie\Localization\Models\" />
     <Folder Include="Integrations\Poogie\Patch\Models\" />
     <Folder Include="Integrations\Poogie\Report\Models\" />

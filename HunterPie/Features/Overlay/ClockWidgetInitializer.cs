@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
@@ -11,6 +12,11 @@ namespace HunterPie.Features.Overlay;
 public class ClockWidgetInitializer : IWidgetInitializer
 {
     private IContextHandler? _handler;
+
+    public GameProcessType SupportedGames =>
+        GameProcessType.MonsterHunterRise
+        | GameProcessType.MonsterHunterWorld
+        | GameProcessType.MonsterHunterWilds;
 
     public Task LoadAsync(IContext context)
     {

@@ -9,7 +9,8 @@ namespace HunterPie.Internal.Logger;
 
 internal class FileStreamLogWriter : ILogWriter
 {
-    private static readonly FileStream Stream = File.OpenWrite(ClientInfo.GetPathFor("HunterPie_Log.txt"));
+    private bool _isClosed = false;
+    private static readonly FileStream Stream = File.Create(ClientInfo.GetPathFor("HunterPie_Log.txt"));
 
     public void Debug(string message) =>
         WriteToBuffer(LogLevel.Debug, message);
@@ -30,8 +31,11 @@ internal class FileStreamLogWriter : ILogWriter
         WriteToBuffer(LogLevel.Info, message);
 
 
-    private static void WriteToBuffer(LogLevel level, string message)
+    private void WriteToBuffer(LogLevel level, string message)
     {
+        if (_isClosed)
+            return;
+
         string now = DateTime.Now.ToLongTimeString();
         byte[] buffer = Encoding.UTF8.GetBytes($"[{now}][{level}] {message}\n");
         Stream.Write(buffer, 0, buffer.Length);
@@ -40,6 +44,7 @@ internal class FileStreamLogWriter : ILogWriter
 
     public void Dispose()
     {
+        _isClosed = true;
         Stream.Dispose();
     }
 }

@@ -143,7 +143,8 @@ public class MHRQuest : Scannable, IQuest, IDisposable, IEventDispatcher
         base.Dispose();
         IDisposableExtensions.DisposeAll(
             _onQuestStatusChange,
-            _onDeathCounterChange
+            _onDeathCounterChange,
+            _onTimeLeftChange
         );
     }
 }

@@ -117,7 +117,13 @@ public abstract class CommonPlayer : Scannable, IPlayer, IEventDispatcher, IDisp
         IGameProcess process,
         IScanService scanService) : base(process, scanService) { }
 
-    protected void HandleAbnormality<T, S>(Dictionary<string, IAbnormality> abnormalities, AbnormalityDefinition schema, float timer, S newData)
+    protected void HandleAbnormality<T, S>(
+        Dictionary<string, IAbnormality> abnormalities,
+        AbnormalityDefinition schema,
+        float timer,
+        S newData,
+        Func<T>? activator = null
+    )
         where T : IAbnormality, IUpdatable<S>
         where S : struct
     {
@@ -145,14 +151,15 @@ public abstract class CommonPlayer : Scannable, IPlayer, IEventDispatcher, IDisp
             if (schema.Icon == "ICON_MISSING")
                 _logger.Info($"Missing abnormality: {schema.Id}");
 
-            var abnorm = (IUpdatable<S>)Activator.CreateInstance(typeof(T), schema);
+            T abnorm = activator switch
+            {
+                not null => activator(),
+                _ => (T)Activator.CreateInstance(typeof(T), schema)!,
+            };
 
-            if (abnorm is null)
-                return;
-
-            abnormalities.Add(schema.Id, (IAbnormality)abnorm);
+            abnormalities.Add(schema.Id, abnorm);
             abnorm.Update(newData);
-            this.Dispatch(_onAbnormalityStart, (IAbnormality)abnorm);
+            this.Dispatch(_onAbnormalityStart, abnorm);
         }
     }
 

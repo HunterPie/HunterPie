@@ -3,5 +3,6 @@
 public enum GameType
 {
     Rise,
-    World
+    World,
+    Wilds
 }

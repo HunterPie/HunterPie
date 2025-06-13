@@ -29,6 +29,9 @@
     <Compile Update="Controls\Display\Carousel.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Display\Conditional.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Display\Section.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -197,16 +200,25 @@
     <Compile Update="Overlay\Widgets\Clock\Views\ClockView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Clock\Views\MoonView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Damage\View\DamageBarView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Damage\View\MeterView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Damage\View\MeterViewV2.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Damage\View\PetsDamageView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Damage\View\PlayerDamageView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Damage\View\PlayerViewV2.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Metrics\View\TelemetricsView.xaml.cs">
@@ -231,6 +243,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Monster\Views\BossMonsterWeaknessView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Monster\Views\CollapsedBossMonsterView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Monster\Views\MonstersView.xaml.cs">
@@ -320,6 +335,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Display\Carousel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Display\Conditional.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Display\Section.xaml">
@@ -490,6 +508,9 @@
     <Page Update="Overlay\Widgets\Clock\Views\ClockView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Overlay\Widgets\Clock\Views\MoonView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Overlay\Widgets\Damage\View\DamageBarView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -526,6 +547,9 @@
     <Page Update="Overlay\Widgets\Monster\Views\BossMonsterWeaknessView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Overlay\Widgets\Monster\Views\CollapsedBossMonsterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Overlay\Widgets\Monster\Views\MonstersView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -544,6 +568,9 @@
     <Page Update="Overlay\Widgets\Wirebug\Views\WirebugView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Resource Update="Resources\Icons\General.xaml">
+      <SubType>Designer</SubType>
+    </Resource>
     <Page Update="Resources\Seasons\WinterPie.xaml">
       <SubType>Designer</SubType>
     </Page>

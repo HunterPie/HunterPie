@@ -26,8 +26,17 @@ internal class LocalizationRepository : ILocalizationRepository
 
         return new LocalizationData(
             String: stringValue,
-            Description: attributes["Description"]?.Value ?? path
+            Description: attributes["Description"]?.Value ?? path,
+            Affixation: Enum.TryParse(attributes["Affixation"]?.Value, out Affixation afx) ? afx : Affixation.Prefix,
+            Order: short.TryParse(attributes["Order"]?.Value, out short ord) ? ord : (short)0
         );
+    }
+
+    public bool ExistsBy(string path)
+    {
+        XmlAttributeCollection? attributes = _document.Value.SelectSingleNode(path)?.Attributes;
+
+        return attributes?["String"]?.Value != null;
     }
 
     public string FindStringBy(string path)
@@ -40,21 +49,23 @@ internal class LocalizationRepository : ILocalizationRepository
         return stringValue;
     }
 
-    public LocalizationData FindByEnum<T>(T value) where T : Enum
+    public LocalizationData FindByEnum<T>(T value) where T : notnull
     {
-        MemberInfo? memberInfo = value.GetType()
-            .GetMember(value.ToString())
+        string stringValue = value.ToString() ?? string.Empty;
+
+        MemberInfo? memberInfo = value!.GetType()
+            .GetMember(stringValue)
             .FirstOrDefault();
 
-        if (memberInfo is not { })
-            return CreateDefault(value.ToString());
+        if (memberInfo is null)
+            return CreateDefault(stringValue);
 
         LocalizationAttribute? attribute = memberInfo.GetCustomAttribute<LocalizationAttribute>();
 
         return attribute switch
         {
             { } => FindBy(attribute.XPath),
-            _ => CreateDefault(value.ToString())
+            _ => CreateDefault(stringValue)
         };
     }
 
@@ -66,9 +77,11 @@ internal class LocalizationRepository : ILocalizationRepository
 
     #region Loading localization document
 
-    private static LocalizationData CreateDefault(string path) => new LocalizationData(
+    private static LocalizationData CreateDefault(string path) => new(
         String: path,
-        Description: path
+        Description: path,
+        Affixation: Affixation.Prefix,
+        Order: 0
     );
 
     private static XmlDocument LocalizationDocumentFactory()

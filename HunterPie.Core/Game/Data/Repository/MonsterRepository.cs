@@ -2,6 +2,7 @@
 using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain.Mapper;
 using HunterPie.Core.Game.Data.Definitions;
+using HunterPie.Core.Game.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,18 @@ public static class MonsterRepository
 {
     private const string RISE_MONSTERS_FILE = "Game/Rise/Data/MonsterData.xml";
     private const string WORLD_MONSTERS_FILE = "Game/World/Data/MonsterData.xml";
+    private const string WILDS_MONSTERS_FILE = "Game/Wilds/Data/MonsterData.xml";
 
     private static readonly Lazy<Dictionary<int, MonsterDefinition>> LazyRiseMonstersDataSource = new(() => LoadMonsters(RISE_MONSTERS_FILE));
     private static readonly Lazy<Dictionary<int, MonsterDefinition>> LazyWorldMonstersDataSource = new(() => LoadMonsters(WORLD_MONSTERS_FILE));
+    private static readonly Lazy<Dictionary<int, MonsterDefinition>> LazyWildsMonstersDataSource = new(() => LoadMonsters(WILDS_MONSTERS_FILE));
 
-    public static MonsterDefinition UnknownDefinition = new();
+    public static MonsterDefinition UnknownDefinition = new MonsterDefinition
+    {
+        Parts = Array.Empty<MonsterPartDefinition>(),
+        Types = Array.Empty<string>(),
+        Weaknesses = Array.Empty<Element>()
+    };
 
     public static MonsterPartDefinition UnknownPartDefinition = new MonsterPartDefinition { String = "PART_UNKNOWN" };
 
@@ -52,6 +60,7 @@ public static class MonsterRepository
         {
             GameType.Rise => LazyRiseMonstersDataSource,
             GameType.World => LazyWorldMonstersDataSource,
+            GameType.Wilds => LazyWildsMonstersDataSource,
             _ => throw new ArgumentOutOfRangeException(nameof(game), game, null)
         };
 

@@ -7,14 +7,20 @@ namespace HunterPie.Features.Statistics.Details.Builders;
 
 internal class QuestDetailsViewModelBuilder
 {
+    private readonly MonsterDetailsViewModelBuilder _monsterDetailsViewModelBuilder;
 
-    public static async Task<QuestDetailsViewModel> From(HuntStatisticsModel model)
+    public QuestDetailsViewModelBuilder(MonsterDetailsViewModelBuilder monsterDetailsViewModelBuilder)
+    {
+        _monsterDetailsViewModelBuilder = monsterDetailsViewModelBuilder;
+    }
+
+    public async Task<QuestDetailsViewModel> From(HuntStatisticsModel model)
     {
         var quest = new QuestDetailsViewModel();
 
         Task<MonsterDetailsViewModel>[] monsterTasks = model.Monsters
             .OrderByDescending(it => it.Enrage.Activations.Length)
-            .Select(it => MonsterDetailsViewModelBuilder.Build(model, it))
+            .Select(it => _monsterDetailsViewModelBuilder.Build(model, it))
             .ToArray();
 
         MonsterDetailsViewModel[] monsters = await Task.WhenAll(monsterTasks);

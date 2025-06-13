@@ -9,6 +9,7 @@ using Range = HunterPie.Core.Settings.Types.Range;
 
 namespace HunterPie.UI.Settings;
 
+#nullable enable
 public static class ConfigurationPropertyProvider
 {
     private static readonly Dictionary<Type, Type> Builders = new()

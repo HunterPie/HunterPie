@@ -12,6 +12,7 @@ internal class GameTypeToGameProcessMapper : IMapper<GameType, GameProcessType>
         {
             GameType.Rise => GameProcessType.MonsterHunterRise,
             GameType.World => GameProcessType.MonsterHunterWorld,
+            GameType.Wilds => GameProcessType.MonsterHunterWilds,
             _ => GameProcessType.None
         };
     }

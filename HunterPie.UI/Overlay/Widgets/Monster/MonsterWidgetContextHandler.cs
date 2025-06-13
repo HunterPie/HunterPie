@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Extensions;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
@@ -33,8 +34,8 @@ public class MonsterWidgetContextHandler : IContextHandler
         _viewModel = _view.ViewModel;
         _context = context;
 
-        UpdateData();
         HookEvents();
+        UpdateData();
     }
 
     private void UpdateData()
@@ -88,6 +89,9 @@ public class MonsterWidgetContextHandler : IContextHandler
             monster.Dispose();
 
             _ = _viewModel.Monsters.Remove(monster);
+
+            if (_viewModel.Monster == monster)
+                _viewModel.Monster = null;
         });
 
         e.OnTargetChange -= OnTargetChange;
@@ -96,31 +100,37 @@ public class MonsterWidgetContextHandler : IContextHandler
 
     private void OnMonsterSpawn(object sender, IMonster monster)
     {
-        _view.Dispatcher.BeginInvoke(() => _viewModel.Monsters.Add(new MonsterContextHandler(_context.Game, monster, Settings)));
+        _view.Dispatcher.BeginInvoke(() =>
+        {
+            _viewModel.Monsters.Add(new MonsterContextHandler(_context.Game, monster, Settings));
 
-        monster.OnTargetChange += OnTargetChange;
-        CalculateVisibleMonsters();
+            monster.OnTargetChange += OnTargetChange;
+            CalculateVisibleMonsters();
+        });
     }
 
     private void OnTargetChange(object sender, EventArgs e) => CalculateVisibleMonsters();
 
     private void CalculateVisibleMonsters()
     {
-        int targets = _context.Game.Monsters.Count(monster =>
-        {
-            Target target = MonsterTargetAdapter.Adapt(
-                config: _config,
-                lockOnTarget: monster.Target,
-                manualTarget: monster.ManualTarget,
-                inferredTarget: _context.Game.TargetDetectionService.Infer(monster)
-            );
-            return target == Target.Self;
-        });
+        MonsterContextHandler[] targets = _viewModel.Monsters.Cast<MonsterContextHandler>()
+            .Where(it =>
+            {
+                Target target = MonsterTargetAdapter.Adapt(
+                    config: Settings,
+                    lockOnTarget: it.Context.Target,
+                    manualTarget: it.Context.ManualTarget,
+                    inferredTarget: _context.Game.TargetDetectionService.Infer(it.Context)
+                );
 
+                return it.Context.Health > 0 && target == Target.Self;
+            }).ToArray();
+
+        _viewModel.Monster = targets.SingleOrNull();
         _viewModel.VisibleMonsters = Settings.ShowOnlyTarget.Value switch
         {
-            true => targets,
-            false => targets == 0 ? _context.Game.Monsters.Count : targets,
+            true => targets.Length,
+            false => targets.Length == 0 ? _context.Game.Monsters.Count : targets.Length,
         };
         _viewModel.MonstersCount = _context.Game.Monsters.Count;
     }

@@ -28,6 +28,7 @@ using System.Diagnostics;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Game;
 
+#pragma warning disable IDE0051
 public sealed class MHWGame : CommonGame
 {
     private readonly MHWPlayer _player;
@@ -317,3 +318,4 @@ public sealed class MHWGame : CommonGame
     }
     #endregion
 }
+#pragma warning restore IDE0051

@@ -3,8 +3,6 @@ using System;
 
 namespace HunterPie.Core.Settings.Annotations;
 
-#nullable enable
-
 [AttributeUsage(AttributeTargets.Class)]
 public class ConfigurationAttribute : Attribute
 {

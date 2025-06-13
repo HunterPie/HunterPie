@@ -1,4 +1,5 @@
 using HunterPie.Core.Client;
+using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.DI;
@@ -13,6 +14,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
@@ -45,8 +48,8 @@ public partial class App : Application
 
         CheckIfHunterPiePathIsSafe();
         SetupFrameRate();
+        SetupRenderingMode();
         InitializeMainView();
-        SetupTrayIcon();
 
         InitializerManager.InitializeGUI();
         DebugWidgets.MockIfNeeded();
@@ -84,13 +87,25 @@ public partial class App : Application
         );
     }
 
+    private void SetupRenderingMode()
+    {
+        RenderOptions.ProcessRenderMode = ClientConfig.Config.Client.Render == RenderingStrategy.Hardware
+            ? RenderMode.Default
+            : RenderMode.SoftwareOnly;
+    }
+
     private async void InitializeMainView()
     {
         _logger.Info("Initializing HunterPie client UI");
 
-        await MainApplication.Start();
+        bool shouldStart = await MainApplication.Start();
+
+        if (!shouldStart)
+            return;
 
         MainWindow = Window;
+
+        SetupTrayIcon();
 
         if (ClientConfig.Config.Client.EnableSeamlessStartup)
             return;
@@ -127,11 +142,11 @@ public partial class App : Application
     {
         TrayService.AddDoubleClickHandler(OnTrayShowClick);
 
-        TrayService.AddItem("Show")
-            .Click += OnTrayShowClick;
+        if (TrayService.AddItem("Show") is { } showButton)
+            showButton.Click += OnTrayShowClick;
 
-        TrayService.AddItem("Close")
-            .Click += OnTrayClockClick;
+        if (TrayService.AddItem("Close") is { } closeButton)
+            closeButton.Click += OnTrayClockClick;
     }
 
     private async void OnUiException(object sender, DispatcherUnhandledExceptionEventArgs e)

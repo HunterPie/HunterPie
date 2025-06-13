@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
@@ -15,6 +16,8 @@ namespace HunterPie.Features.Overlay;
 internal class SpecializedToolWidgetInitializer : IWidgetInitializer
 {
     private readonly List<IContextHandler> _handlers = new(2);
+
+    public GameProcessType SupportedGames => GameProcessType.MonsterHunterWorld;
 
     public Task LoadAsync(IContext context)
     {

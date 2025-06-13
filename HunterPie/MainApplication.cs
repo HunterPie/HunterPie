@@ -45,15 +45,20 @@ internal class MainApplication : IDisposable
         _controllableWatcherService = controllableWatcherService;
     }
 
-    public async Task Start()
+    public async Task<bool> Start()
     {
 #if RELEASE
-        await SelfUpdate();
+        bool hasUpdated = await SelfUpdate();
+
+        if (hasUpdated)
+            return false;
 #endif
         _gameContextController.Subscribe();
         _remoteConfigSyncService.Start();
         await _navigatorController.SetupAsync();
         _controllableWatcherService.Start();
+
+        return true;
     }
 
     public async Task SendUiException(Exception exception)
@@ -73,15 +78,17 @@ internal class MainApplication : IDisposable
         Process.Start(executablePath);
     }
 
-    private async Task SelfUpdate()
+    private async Task<bool> SelfUpdate()
     {
         bool hasUpdated = await _updateUseCase.InvokeAsync();
 
         if (!hasUpdated)
-            return;
+            return false;
 
         InitializerManager.Unload();
         await Restart();
+
+        return true;
     }
 
     public void Dispose()

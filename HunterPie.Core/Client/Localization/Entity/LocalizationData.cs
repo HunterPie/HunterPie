@@ -2,5 +2,7 @@
 
 public record LocalizationData(
     string String,
-    string Description
+    string Description,
+    Affixation Affixation,
+    short Order
 );

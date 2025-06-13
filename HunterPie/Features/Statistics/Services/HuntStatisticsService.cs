@@ -7,6 +7,7 @@ using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Features.Statistics.Models;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Game;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Game;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,7 @@ internal class HuntStatisticsService : IHuntStatisticsService<HuntStatisticsMode
             .ToList();
 
         var monsters = _monsterStatisticsServices.Select(s => s.Export())
+            .Where(it => it.Enrage.Activations.Length > 0)
             .ToList();
 
         return new HuntStatisticsModel(
@@ -123,10 +125,11 @@ internal class HuntStatisticsService : IHuntStatisticsService<HuntStatisticsMode
 
     private GameType GetGameType()
     {
-        return (_context.Game) switch
+        return _context.Game switch
         {
             MHRGame => GameType.Rise,
             MHWGame => GameType.World,
+            MHWildsGame => GameType.Wilds,
             _ => throw new ArgumentOutOfRangeException()
         };
     }

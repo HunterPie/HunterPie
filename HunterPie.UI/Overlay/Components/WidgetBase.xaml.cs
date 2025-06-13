@@ -1,6 +1,4 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Enums;
-using HunterPie.Core.Observability.Logging;
+﻿using HunterPie.Core.Observability.Logging;
 using HunterPie.UI.Architecture.Extensions;
 using HunterPie.UI.Overlay.Enums;
 using HunterPie.UI.Platform.Windows.Native;
@@ -88,12 +86,6 @@ public partial class WidgetBase : Window, INotifyPropertyChanged
         CompositionTarget.Rendering += OnRender;
     }
 
-    protected override void OnSourceInitialized(EventArgs e)
-    {
-        ConfigureRenderingStrategy();
-        base.OnSourceInitialized(e);
-    }
-
     protected override void OnClosed(EventArgs e)
     {
         lock (_sync)
@@ -108,28 +100,13 @@ public partial class WidgetBase : Window, INotifyPropertyChanged
     {
         if (_counter >= 30)
         {
-            RenderingTime = (DateTime.Now - _lastRender).TotalMilliseconds;
-            Dispatcher.Invoke(ForceAlwaysOnTop, DispatcherPriority.Render);
+            RenderingTime = (DateTime.UtcNow - _lastRender).TotalMilliseconds;
+            ForceAlwaysOnTop();
             _counter = 0;
         }
 
-        _lastRender = DateTime.Now;
+        _lastRender = DateTime.UtcNow;
         _counter++;
-    }
-
-    private void ConfigureRenderingStrategy()
-    {
-        var hwndSource = PresentationSource.FromVisual(this) as HwndSource;
-
-        if (hwndSource?.CompositionTarget is null)
-            return;
-
-        hwndSource.CompositionTarget.RenderMode = ClientConfig.Config.Client.Render.Value switch
-        {
-            RenderingStrategy.Hardware => RenderMode.Default,
-            RenderingStrategy.Software => RenderMode.SoftwareOnly,
-            _ => throw new ArgumentOutOfRangeException()
-        };
     }
 
     protected override void OnClosing(CancelEventArgs e)
