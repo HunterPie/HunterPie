@@ -136,6 +136,9 @@
     <SolidColorBrush x:Key="YELLOW_600">#62420e</SolidColorBrush>
     <SolidColorBrush x:Key="YELLOW_700">#4a320a</SolidColorBrush>
     
+    <!-- Orange -->
+    <SolidColorBrush x:Key="ORANGE">#EC5D1C</SolidColorBrush>
+
     <!-- Blue -->
     <SolidColorBrush x:Key="BLUE_LIGHT_700">#b3d4fa</SolidColorBrush>
     <SolidColorBrush x:Key="BLUE_LIGHT_600">#99c5f8</SolidColorBrush>

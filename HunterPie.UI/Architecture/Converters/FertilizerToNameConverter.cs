@@ -15,7 +15,7 @@ public class FertilizerToNameConverter : IValueConverter
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not Fertilizer fertilizer)
-            throw new ArgumentException("value must be a Fertilizer");
+            return null;
 
         string? localizationId = fertilizer switch
         {
