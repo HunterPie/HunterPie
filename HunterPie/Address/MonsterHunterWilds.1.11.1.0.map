@@ -10,6 +10,7 @@ Address Game::QuestManager 0x139A6D00
 Address Game::WorldManager 0x13955760
 Address Game::PauseManager 0x139A49B0
 Address Game::NetworkManager 0x1396AEC0
+Address Game::EnvironmentManager 0x13982F58
 
 Offset Environment::MonsterList 0x2A0
 Offset Monster::Magic 0x10,0x28,0x14
@@ -51,3 +52,4 @@ Offset Quest::RemotePlayer::Damage 0x168,0x38,0x50,0x30
 Offset Game::PauseState 0x50,0x10,0x20
 Offset Network::Party 0xB8,0x18,0x10,0x20
 Offset Network::Party::Member::HunterRank 0x10,0x78
+Offset Environment::Moon 0x148

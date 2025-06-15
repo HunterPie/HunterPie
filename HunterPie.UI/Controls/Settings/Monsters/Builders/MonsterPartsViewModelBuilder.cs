@@ -6,6 +6,8 @@ using HunterPie.Core.Domain.Mapper;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Data.Repository;
+using HunterPie.Core.Game.Entity.Enemy;
+using HunterPie.DI;
 using HunterPie.UI.Architecture.Adapter;
 using HunterPie.UI.Controls.Settings.Monsters.ViewModels;
 using System;
@@ -17,6 +19,8 @@ namespace HunterPie.UI.Controls.Settings.Monsters.Builders;
 #nullable enable
 public static class MonsterPartsViewModelBuilder
 {
+    private static MonsterNameAdapter MonsterNameAdapter => DependencyContainer.Get<MonsterNameAdapter>();
+
     public static MonsterConfigurationViewModel[] Build(
         GameProcessType game,
         ICollection<MonsterConfiguration> configurations
@@ -73,7 +77,7 @@ public static class MonsterPartsViewModelBuilder
 
                 return new MonsterConfigurationViewModel
                 {
-                    Name = MonsterNameAdapter.From(gameType.Value, it.Id),
+                    Name = MonsterNameAdapter.From(gameType.Value, it.Id, VariantType.Normal),
                     GameType = gameType.Value,
                     Configuration = new MonsterConfiguration
                     {

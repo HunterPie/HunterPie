@@ -29,6 +29,40 @@
         <presentation:ConfigurationPropertyDataTemplateSelector x:Key="ConfigurationPropertyDataTemplateSelector"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
+        <Storyboard x:Key="DisableSettingComponentAnimation">
+            <DoubleAnimation To="0"
+                             Duration="0:0:0.25"
+                             Storyboard.TargetProperty="Opacity">
+                <DoubleAnimation.EasingFunction>
+                    <QuadraticEase/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation To="0"
+                             Duration="0:0:0.3"
+                             Storyboard.TargetProperty="(LayoutTransform).(ScaleTransform.ScaleY)">
+                <DoubleAnimation.EasingFunction>
+                    <QuadraticEase/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="EnableSettingComponentAnimation">
+            <DoubleAnimation To="1"
+                             Duration="0:0:0.25"
+                             Storyboard.TargetProperty="Opacity">
+                <DoubleAnimation.EasingFunction>
+                    <QuadraticEase/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation To="1"
+                             Duration="0:0:0.3"
+                             Storyboard.TargetProperty="(LayoutTransform).(ScaleTransform.ScaleY)">
+                <DoubleAnimation.EasingFunction>
+                    <QuadraticEase/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
         <DataTemplate x:Key="CategoryHeaderTemplate"
                       DataType="{x:Type viewModels:ConfigurationCategoryTab}">
             <buttons:TabItem Title="{Binding Category.Name, Mode=OneTime}"
@@ -168,7 +202,8 @@
                                 <ItemsControl.Template>
                                     <ControlTemplate>
                                         <VirtualizingStackPanel IsItemsHost="True"
-                                                                CanVerticallyScroll="False"/>
+                                                                CanVerticallyScroll="False"
+                                                                SizeChanged="OnSizeChanged"/>
                                     </ControlTemplate>
                                 </ItemsControl.Template>
 
@@ -176,35 +211,10 @@
                                     <DataTemplate DataType="{x:Type settings:ConfigurationPropertyViewModel}">
                                         <ContentPresenter ContentTemplateSelector="{StaticResource ConfigurationPropertyDataTemplateSelector}"
                                                           Visibility="{Binding IsMatch, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                          IsEnabled="{Binding Condition.Value, Mode=OneWay, FallbackValue={StaticResource True}}">
-                                            <ContentPresenter.Style>
-                                                <Style TargetType="ContentPresenter">
-                                                    <Style.Triggers>
-                                                        <!-- IsEnabled animation -->
-                                                        <DataTrigger Binding="{Binding Condition.Value, Mode=OneWay, FallbackValue={StaticResource True}}"
-                                                                     Value="True">
-                                                            <DataTrigger.EnterActions>
-                                                                <BeginStoryboard>
-                                                                    <Storyboard>
-                                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                                                         To="1"
-                                                                                         Duration="0:0:0.25"/>
-                                                                    </Storyboard>
-                                                                </BeginStoryboard>
-                                                            </DataTrigger.EnterActions>
-                                                            <DataTrigger.ExitActions>
-                                                                <BeginStoryboard>
-                                                                    <Storyboard>
-                                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                                                         To="0.3"
-                                                                                         Duration="0:0:0.25"/>
-                                                                    </Storyboard>
-                                                                </BeginStoryboard>
-                                                            </DataTrigger.ExitActions>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </ContentPresenter.Style>
+                                                          Loaded="OnSettingPropertyLoaded">
+                                            <ContentPresenter.LayoutTransform>
+                                                <ScaleTransform ScaleY="0"/>
+                                            </ContentPresenter.LayoutTransform>
                                         </ContentPresenter>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>

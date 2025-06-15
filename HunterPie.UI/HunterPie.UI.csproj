@@ -5,8 +5,8 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.12.1.10</AssemblyVersion>
-    <FileVersion>2.12.1.10</FileVersion>
+    <AssemblyVersion>2.13.1.37</AssemblyVersion>
+    <FileVersion>2.13.1.37</FileVersion>
     <LangVersion>11.0</LangVersion>
     <Authors>Haato</Authors>
     <Version>2.12.0.0</Version>
@@ -28,6 +28,7 @@
     <Page Remove="Resources\Abnormalities.xaml" />
     <Page Remove="Resources\Colors.xaml" />
     <Page Remove="Resources\Icons.xaml" />
+    <Page Remove="Resources\Icons\General.xaml" />
     <Page Remove="Resources\Interface.xaml" />
     <Page Remove="Resources\Styles.xaml" />
   </ItemGroup>
@@ -55,6 +56,7 @@
     <Resource Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Resource>
+    <Resource Include="Resources\Icons\General.xaml" />
     <Resource Include="Resources\Interface.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Resource>
@@ -683,7 +685,6 @@
     <Folder Include="Overlay\Controls\Progress\" />
     <Folder Include="Overlay\Widgets\Monster\Adapters\" />
     <Folder Include="Properties\" />
-    <Folder Include="Settings\Converter\Model\" />
     <Folder Include="Settings\Presentation\" />
   </ItemGroup>
 

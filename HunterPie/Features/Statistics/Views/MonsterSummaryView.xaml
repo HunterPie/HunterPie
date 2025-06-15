@@ -7,13 +7,17 @@
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
              xmlns:enums="clr-namespace:HunterPie.Features.Statistics.Models"
              xmlns:viewModels="clr-namespace:HunterPie.Features.Statistics.ViewModels"
+             xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Presentation;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignHeight="40" 
              d:DesignWidth="40"
              d:DataContext="{d:DesignInstance viewModels:MonsterSummaryViewModel}">
+    <UserControl.Resources>
+        <presentation:MonsterVariantBrushConverter x:Key="MonsterVariantBrushConverter"/>
+    </UserControl.Resources>
     <Border CornerRadius="5"
             BorderThickness="1"
-            BorderBrush="{StaticResource GRAY}">
+            BorderBrush="{Binding Variant, Mode=OneWay, Converter={StaticResource MonsterVariantBrushConverter}}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
