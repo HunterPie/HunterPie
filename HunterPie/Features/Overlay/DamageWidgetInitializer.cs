@@ -3,6 +3,7 @@ using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Damage;
@@ -31,13 +32,12 @@ internal class DamageWidgetInitializer : IWidgetInitializer
         if (!config.Initialize)
             return Task.CompletedTask;
 
-
         _handler = context switch
         {
-            MHWildsContext => new DamageMeterControllerV2(
-                context: context,
-                view: new MeterViewV2(config),
-                config: config
+            MHWildsContext or MHWContext => new DamageMeterControllerV2(
+            context: context,
+            view: new MeterViewV2(config),
+            config: config
             ),
             _ => new DamageMeterWidgetContextHandler(context)
         };

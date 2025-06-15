@@ -81,13 +81,23 @@ internal class WindowsCredentialVault : ICredentialVault
         if (password is not { })
             return null;
 
-        string decryptedPassword = _cryptoService.Decrypt(password);
+        try
+        {
+            string decryptedPassword = _cryptoService.Decrypt(password);
 
-        CredFree(handle);
-
-        return new Credential(
-            Username: username,
-            Password: decryptedPassword
-        );
+            return new Credential(
+                Username: username,
+                Password: decryptedPassword
+            );
+        }
+        catch (Exception ex)
+        {
+            _logger.Error($"Failed to decrypt password: {ex}");
+            return null;
+        }
+        finally
+        {
+            CredFree(handle);
+        }
     }
 }

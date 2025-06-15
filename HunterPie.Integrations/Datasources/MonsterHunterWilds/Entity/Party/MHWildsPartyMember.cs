@@ -59,5 +59,6 @@ public class MHWildsPartyMember : CommonPartyMember, IUpdatable<UpdatePartyMembe
         Damage = (int)data.Damage;
         Slot = data.Index;
         IsMyself = data.IsMyself;
+        MasterRank = data.HunterRank;
     }
 }

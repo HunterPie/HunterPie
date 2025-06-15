@@ -33,7 +33,8 @@ public class SmartEventsTracker
         foreach (ISmartEvent @event in Instance.TrackedEvents.ToArray())
         {
             if (@event.References.Any())
-                @event.References.ToList().ForEach(reference =>
+                @event.References.ToList()
+                    .ForEach(reference =>
                         Logger.Warning(
                         $"Detected dangling event reference at {reference.DeclaringType?.FullName ?? "unknown"}::{reference.Name}"
                         )

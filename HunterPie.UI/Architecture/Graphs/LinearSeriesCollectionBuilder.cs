@@ -1,4 +1,5 @@
 ﻿using HunterPie.UI.Architecture.Brushes;
+using HunterPie.UI.Architecture.Colors;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -12,14 +13,21 @@ public class LinearSeriesCollectionBuilder
 
     public LinearSeriesCollectionBuilder AddSeries(ChartValues<ObservablePoint> points, string title, Color color)
     {
+        Brush fill = ColorFadeGradient.FromColor(
+            color: AnalogousColor.NegativeFrom(
+                main: color,
+                angle: 41.5
+            )
+        );
+
         var series = new LineSeries
         {
             Title = title,
             Stroke = new SolidColorBrush(color),
-            Fill = ColorFadeGradient.FromColor(color),
-            PointGeometrySize = 0,
-            StrokeThickness = 2,
-            LineSmoothness = 0.7,
+            Fill = fill,
+            PointGeometry = null,
+            StrokeThickness = 1,
+            LineSmoothness = 0,
             Values = points
         };
 

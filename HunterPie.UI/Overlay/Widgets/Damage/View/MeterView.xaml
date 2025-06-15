@@ -125,6 +125,7 @@
 
             <lvc:CartesianChart Series="{Binding Series, Mode=OneTime}"
                                 Height="120"
+                                DisableAnimations="True"
                                 Margin="1"
                                 Visibility="{Binding Settings.ShouldShowPlots.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
                                 d:DataContext="{StaticResource MockViewModel}"

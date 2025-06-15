@@ -35,7 +35,7 @@
             <Grid Grid.Column="0"
                   Grid.ColumnSpan="3"
                   HorizontalAlignment="Left"
-                  Opacity="0.4">
+                  Opacity=".25">
                 <Grid.Width>
                     <MultiBinding Converter="{StaticResource ParentSizePercentageConverter}">
                         <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType={x:Type Grid}}" />
@@ -173,8 +173,8 @@
                          Foreground="{StaticResource WHITE_400}"
                          FontSize="10"
                          FontWeight="SemiBold"/>
-                    <Run d:Text="10.0K"
-                         Text="{Binding Damage, Mode=OneWay, Converter={StaticResource IntToKFormat}}"
+                    <Run d:Text="100,000"
+                         Text="{Binding Damage, Mode=OneWay, StringFormat={}{0:N0}}"
                          Foreground="{StaticResource WHITE_50}"
                          FontWeight="Medium"/>
                 </TextBlock>

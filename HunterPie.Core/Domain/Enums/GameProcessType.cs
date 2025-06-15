@@ -9,5 +9,6 @@ public enum GameProcessType : int
     MonsterHunterRise = 1 << 0,
     MonsterHunterWorld = 1 << 1,
     MonsterHunterWilds = 1 << 2,
+    WorldAndWilds = MonsterHunterWilds | MonsterHunterWorld,
     All = MonsterHunterRise | MonsterHunterWorld | MonsterHunterWilds,
 }

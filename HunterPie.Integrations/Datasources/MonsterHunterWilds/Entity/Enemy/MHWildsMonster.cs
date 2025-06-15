@@ -18,12 +18,14 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
+using System.Collections.Immutable;
 using System.Text;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 
 public sealed class MHWildsMonster : CommonMonster
 {
+    private int _targetKey;
     private bool _isDeadOrCaptured;
     private readonly MonsterDefinition _definition;
     private readonly MHWildsMonsterBasicData _basicData;
@@ -135,9 +137,9 @@ public sealed class MHWildsMonster : CommonMonster
 
     public override VariantType Variant { get; protected set; }
 
-    public override IReadOnlyCollection<IMonsterPart> Parts => _parts;
+    public override IReadOnlyCollection<IMonsterPart> Parts => _parts.ToImmutableArray();
 
-    public override IReadOnlyCollection<IMonsterAilment> Ailments => _ailments;
+    public override IReadOnlyCollection<IMonsterAilment> Ailments => _ailments.ToImmutableArray();
 
     public override IMonsterAilment Enrage => _enrage;
 
@@ -190,12 +192,12 @@ public sealed class MHWildsMonster : CommonMonster
     [ScannableMethod]
     internal async Task GetTargetKey()
     {
-        int targetKey = (int)await Memory.ReadPtrAsync(
+        _targetKey = (int)await Memory.ReadPtrAsync(
             address: _address,
             offsets: AddressMap.GetOffsets("Monster::TargetKey")
         );
 
-        _targetKeyManager.AddMonster(targetKey);
+        _targetKeyManager.AddMonster(_targetKey);
     }
 
     [ScannableMethod]
@@ -379,7 +381,6 @@ public sealed class MHWildsMonster : CommonMonster
                     continue;
 
                 _ailments.Add(new MHWildsMonsterAilment(definition.Value));
-                _logger.Debug($"Found new ailment with id: {ailment.Id} for monster {_address:X08}");
             }
 
             MHWildsMonsterAilment ailmentEntity = _ailments[index];
@@ -477,7 +478,7 @@ public sealed class MHWildsMonster : CommonMonster
         if (_isInitialized)
             return Task.CompletedTask;
 
-        _logger.Debug($"Initialized {Name} at address {_address:X} with id: {Id}");
+        _logger.Debug($"Initialized {Name} at address {_address:X} with id: {Id} and target key {_targetKey}");
         _isInitialized = true;
 
         this.Dispatch(

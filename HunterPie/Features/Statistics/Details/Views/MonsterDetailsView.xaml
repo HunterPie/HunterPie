@@ -14,6 +14,7 @@
              xmlns:sys="clr-namespace:System;assembly=System.Runtime"
              xmlns:enums="clr-namespace:HunterPie.Features.Statistics.Details.Enums"
              xmlns:sliders="clr-namespace:HunterPie.UI.Controls.Sliders;assembly=HunterPie.UI"
+             xmlns:visibilities="clr-namespace:HunterPie.UI.Architecture.Converters.Visibilities;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:MonsterDetailsViewModel}"
@@ -27,6 +28,7 @@
         <converters:AbnormalityStringToIconConverter x:Key="AbnormalityStringToIconConverter"/>
         <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
         <converters:IntToKFormat x:Key="NumberToKFormat"/>
+        <visibilities:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter"/>
         
         <ObjectDataProvider x:Key="PlotStrategyOptions"
                             MethodName="GetValues"
@@ -328,6 +330,19 @@
                                 <ColumnDefinition Width="2*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
+                            <buttons:Button Grid.Column="0"
+                                            Content="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_TOGGLE_HEALTH_STRING&quot;]'}"
+                                            HorizontalAlignment="Left"
+                                            Margin="2"
+                                            Padding="5"
+                                            BorderThickness="1"
+                                            BorderBrush="{StaticResource GRAY}"
+                                            CornerRadius="5"
+                                            Foreground="{StaticResource WHITE_200}"
+                                            Background="{StaticResource GRAY_200}"
+                                            Click="OnHealthToggleClick"
+                                            Visibility="{Binding HealthSteps, Mode=OneTime, Converter={StaticResource NullableToVisibilityConverter}}"/>
+                            
                             <ComboBox Grid.Column="1" 
                                       SelectedItem="{Binding PlotStrategy, Mode=TwoWay}"
                                       ItemsSource="{Binding Source={StaticResource PlotStrategyOptions}}"
@@ -347,14 +362,24 @@
                         <lvc:CartesianChart Series="{Binding DamageSeries, Mode=OneTime}"
                                             DisableAnimations="True" 
                                             Margin="5"
-                                            Zoom="X"
                                             Height="250"
                                             DataTooltip="{x:Null}"
                                             Hoverable="False"
+                                            Pan="X"
+                                            Zoom="X"
                                             x:Name="PART_Graph">
                             <lvc:CartesianChart.AxisY>
-                                <lvc:Axis LabelFormatter="{Binding DamageFormatter, Mode=OneTime}"
-                                          FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}">
+                                <lvc:Axis MaxValue="1" 
+                                          MinValue="0"
+                                          ShowLabels="False">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator IsEnabled="False"/>
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+
+                                    <lvc:Axis LabelFormatter="{Binding DamageFormatter, Mode=OneTime}"
+                                              FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                              MinValue="0">
                                     <lvc:Axis.Separator>
                                         <lvc:Separator Stroke="{StaticResource GRAY}"
                                                        StrokeDashArray="2"/>

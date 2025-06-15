@@ -199,6 +199,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
 
         MaxHealth = Context.MaxHealth;
         Health = Context.Health;
+
         HandleTargetUpdate(
             lockOnTarget: Context.Target,
             manualTarget: Context.ManualTarget,
@@ -221,10 +222,8 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
 
             foreach (Element weakness in Context.Weaknesses)
                 Weaknesses.Add(weakness);
-        });
 
-        if (Parts.Count != Context.Parts.Count || Ailments.Count != Context.Ailments.Count)
-            UIThread.BeginInvoke(() =>
+            if (Parts.Count != Context.Parts.Count || Ailments.Count != Context.Ailments.Count)
             {
                 foreach (IMonsterPart part in Context.Parts)
                 {
@@ -251,9 +250,8 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
 
                     Ailments.Add(new MonsterAilmentContextHandler(Context, ailment, Config));
                 }
-
-
-            });
+            }
+        });
     }
 
     private void AddEnrage() => UIThread.BeginInvoke(() => Ailments.Add(new MonsterAilmentContextHandler(Context, Context.Enrage, Config)));

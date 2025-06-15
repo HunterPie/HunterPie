@@ -30,9 +30,6 @@ public class TelemetricsWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("WIDGET_SCALE", group: CommonConfigurationGroups.GENERAL)]
     public Range Scale { get; set; } = new(1, 2, 0.1, 0.1);
 
-    [ConfigurationProperty("ENABLE_STREAMER_MODE", group: CommonConfigurationGroups.GENERAL)]
-    public Observable<bool> StreamerMode { get; set; } = false;
-
     [ConfigurationProperty("WIDGET_POSITION", group: CommonConfigurationGroups.GENERAL)]
     public Position Position { get; set; } = new(100, 100);
     #endregion

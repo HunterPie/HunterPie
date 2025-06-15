@@ -113,10 +113,10 @@ public sealed class MHWildsGame : CommonGame
     {
         byte state = await Memory.DerefAsync<byte>(
             address: AddressMap.GetAbsolute("Game::GUIManager"),
-            offsets: AddressMap.GetOffsets("GUI::VisibilityFlag")
+            offsets: AddressMap.GetOffsets("GUI::IsNPCIndicatorVisible")
         );
 
-        IsHudOpen = state > 0;
+        IsHudOpen = state != 2;
     }
 
     [ScannableMethod]
@@ -182,7 +182,7 @@ public sealed class MHWildsGame : CommonGame
         double hours = Math.Floor(worldTime.Current / 100);
         double minutes = Math.Floor(worldTime.Current - (hours * 100));
 
-        WorldTime = new TimeOnly((int)hours % 24, (int)minutes % 60);
+        WorldTime = new TimeOnly((int)hours % 24, (int)(minutes / 100 * 60));
     }
 
     [ScannableMethod]
@@ -192,7 +192,11 @@ public sealed class MHWildsGame : CommonGame
             address: AddressMap.GetAbsolute("Game::QuestManager"),
             offsets: AddressMap.GetOffsets("Quest::Data")
         );
-        bool isQuestValid = !questPointer.IsNullPointer();
+        nint informationPointer = await Memory.DerefAsync<nint>(
+            address: AddressMap.GetAbsolute("Game::QuestManager"),
+            offsets: AddressMap.GetOffsets("Quest::CurrentInformation")
+        );
+        bool isQuestValid = !questPointer.IsNullPointer() && !informationPointer.IsNullPointer();
 
         if (!isQuestValid && _quest is null)
         {
@@ -202,10 +206,6 @@ public sealed class MHWildsGame : CommonGame
 
         MHWildsQuestInformation quest = await Memory.ReadAsync<MHWildsQuestInformation>(questPointer);
 
-        nint informationPointer = await Memory.DerefAsync<nint>(
-            address: AddressMap.GetAbsolute("Game::QuestManager"),
-            offsets: AddressMap.GetOffsets("Quest::CurrentInformation")
-        );
         MHWildsCurrentQuestInformation information = await Memory.ReadAsync<MHWildsCurrentQuestInformation>(informationPointer);
         float timeLeft = information.MaxTimer - information.Timer;
         isQuestValid &= DateTimeExtensions.IsValidTimeSpan(timeLeft, TimeSpan.TicksPerMillisecond);
@@ -271,6 +271,7 @@ public sealed class MHWildsGame : CommonGame
                 information: quest,
                 details: details
             );
+            _logger.Debug($"started quest with target keys ({string.Join(',', targetKeys.Select(it => it.Key))})");
             _quest.Update(data);
             _monsterTargetKeyManager.SetQuestTargets(targetKeys);
 

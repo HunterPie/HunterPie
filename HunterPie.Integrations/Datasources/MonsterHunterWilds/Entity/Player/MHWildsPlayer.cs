@@ -259,10 +259,20 @@ public sealed class MHWildsPlayer : CommonPlayer
             address: AddressMap.GetAbsolute("Game::PlayerManager"),
             offsets: AddressMap.GetOffsets("Player::Party")
         );
+        nint partyMemberIndexesArrayPointer = await Memory.DerefAsync<nint>(
+            address: AddressMap.GetAbsolute("Game::PlayerManager"),
+            offsets: AddressMap.GetOffsets("Player::Quest::PlayerIndexes")
+        );
         MHWildsLimitedArray partyArrayPointer = await Memory.ReadAsync<MHWildsLimitedArray>(partyLimitedArrayPointer);
         MHWildsPartyArray partyArray = await Memory.ReadAsync<MHWildsPartyArray>(partyArrayPointer.Elements);
+        MHWildsPartyMemberIndex[] partyIndexesArray = await Memory.ReadArraySafeAsync<MHWildsPartyMemberIndex>(
+            address: partyMemberIndexesArrayPointer,
+            count: 4
+        );
 
-        if (partyArray.Capacity != 4 || partyArray.Members is not { Length: 4 })
+        if (partyArray.Capacity != 4
+            || partyArray.Members is not { Length: 4 }
+            || partyIndexesArray is not { Length: 4 })
         {
             _party.Clear();
             return;
@@ -273,16 +283,21 @@ public sealed class MHWildsPlayer : CommonPlayer
         if (membersCount > 4)
             return;
 
+        nint networkPartyMemberArray = await Memory.ReadAsync(
+            address: AddressMap.GetAbsolute("Game::NetworkManager"),
+            offsets: AddressMap.GetOffsets("Network::Party")
+        );
+
         var membersData = new UpdatePartyMember[membersCount];
         for (int i = 0; i < membersCount; i++)
         {
-            int index = partyArray.Members[i];
-
+            int playerIndex = partyArray.Members[i];
+            int realPartyIndex = partyIndexesArray[i].Index;
             nint playerPointer = await Memory.ReadAsync(
                 address: AddressMap.GetAbsolute("Game::PlayerManager"),
                 offsets: AddressMap.GetOffsets("Player::List")
             );
-            playerPointer += index * sizeof(long);
+            playerPointer += playerIndex * sizeof(long);
             playerPointer = await Memory.ReadAsync<nint>(playerPointer);
 
             MHWildsPlayerBase playerBase = await Memory.ReadAsync<MHWildsPlayerBase>(
@@ -297,18 +312,24 @@ public sealed class MHWildsPlayer : CommonPlayer
             if (string.IsNullOrEmpty(name))
                 continue;
 
-            Task<float> damageDefer = GetDamageByPlayerAsync(playerBase.BasePointer);
+            Task<float> damageDefer = GetDamageByPlayerAsync(playerBase.BasePointer, realPartyIndex);
 
-            bool isMyself = index == 0;
+            bool isMyself = playerIndex == 0;
             var data = new UpdatePartyMember
             {
                 IsValid = true,
                 Id = playerBase.BasePointer,
-                Index = i,
+                Index = realPartyIndex,
                 IsMyself = isMyself,
                 Name = name,
                 Weapon = isMyself ? Weapon.Id : await GetPlayerWeaponAsync(playerBase.BasePointer),
                 Damage = await damageDefer,
+                HunterRank = isMyself
+                    ? HighRank
+                    : await Memory.DerefAsync<int>(
+                        address: networkPartyMemberArray + (realPartyIndex * sizeof(long)),
+                        offsets: AddressMap.GetOffsets("Network::Party::Member::HunterRank")
+                    )
             };
 
             membersData[i] = data;
@@ -324,10 +345,27 @@ public sealed class MHWildsPlayer : CommonPlayer
         membersData.ForEach(_party.Update);
     }
 
-    private async Task<float> GetDamageByPlayerAsync(nint address)
+    private async Task<float> GetDamageByPlayerAsync(nint address, int index)
+    {
+        bool isLocalPlayer = address == _address;
+
+        float syncedDamage = isLocalPlayer switch
+        {
+            true => await GetQuestSyncedLocalPlayerDamage(),
+            _ => await GetQuestSyncedRemotePlayerDamage(index)
+        };
+
+        if (syncedDamage > 0)
+            return syncedDamage;
+
+        return await GetHistoricalPlayerDamage(address);
+        ;
+    }
+
+    private async Task<float> GetHistoricalPlayerDamage(nint playerAddress)
     {
         nint damageHistoryPointer = await Memory.ReadPtrAsync(
-            address: address,
+            address: playerAddress,
             offsets: AddressMap.GetOffsets("Player::DamageHistory")
         );
         MHWildsDamageHistory damageHistory = await Memory.ReadAsync<MHWildsDamageHistory>(damageHistoryPointer);
@@ -369,6 +407,26 @@ public sealed class MHWildsPlayer : CommonPlayer
         }
 
         return totalDamage;
+    }
+
+    private async Task<float> GetQuestSyncedLocalPlayerDamage()
+    {
+        nint damagePointer = await Memory.ReadAsync(
+            address: AddressMap.GetAbsolute("Game::QuestManager"),
+            offsets: AddressMap.GetOffsets("Quest::LocalPlayer::Damage")
+        );
+
+        return await Memory.ReadAsync<float>(damagePointer);
+    }
+
+    private async Task<float> GetQuestSyncedRemotePlayerDamage(int index)
+    {
+        nint damagePointer = await Memory.ReadAsync(
+            address: AddressMap.GetAbsolute("Game::QuestManager"),
+            offsets: AddressMap.GetOffsets("Quest::RemotePlayer::Damage")
+        );
+
+        return await Memory.ReadAsync<float>(damagePointer + (index * 0x78));
     }
 
     private async Task<string> GetPlayerNameAsync(nint address)
