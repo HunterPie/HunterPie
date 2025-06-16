@@ -364,17 +364,17 @@ public class DamageMeterControllerV2 : IContextHandler
 
     private ObservablePoint CalculatePointByConfiguredStrategy(PartyMemberContext context, double plotSampleSize)
     {
-        if (_config.IsPlotSlidingWindowEnabled)
+        double GetSlidingWindow()
         {
             int previousDamage = context.DamageHistory.GetFirst() ?? 0;
-            double dps = (context.ViewModel.Damage - previousDamage) / plotSampleSize;
-            return new ObservablePoint(_viewModel.TimeElapsed, dps);
+            return (context.ViewModel.Damage - previousDamage) / plotSampleSize;
         }
 
         double damage = _config.DamagePlotStrategy.Value switch
         {
             DamagePlotStrategy.TotalDamage => context.ViewModel.Damage,
             DamagePlotStrategy.DamagePerSecond => context.ViewModel.DPS,
+            DamagePlotStrategy.MovingAverageDamagePerSecond => GetSlidingWindow(),
             _ => throw new NotImplementedException(),
         };
 

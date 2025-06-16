@@ -5,6 +5,8 @@ using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Annotations;
 using HunterPie.Core.Settings.Common;
 using HunterPie.Core.Settings.Types;
+using System;
+using Range = HunterPie.Core.Settings.Types.Range;
 
 namespace HunterPie.Core.Client.Configuration.Overlay;
 
@@ -70,12 +72,15 @@ public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Observable<bool> ShouldShowPlots { get; set; } = true;
 
-    [ConfigurationProperty("DAMAGE_METER_ENABLE_SLIDING_WINDOW", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.WorldAndWilds)]
-    [ConfigurationConditional(name: nameof(ShouldShowPlots), withValue: true)]
+    [Obsolete]
     public Observable<bool> IsPlotSlidingWindowEnabled { get; set; } = true;
 
+    [ConfigurationProperty("DAMAGE_METER_DAMAGE_PLOT_STRATEGY_STRING", group: CommonConfigurationGroups.DAMAGE_PLOT)]
+    [ConfigurationConditional(name: nameof(ShouldShowPlots), withValue: true)]
+    public Observable<DamagePlotStrategy> DamagePlotStrategy { get; set; } = Enums.DamagePlotStrategy.DamagePerSecond;
+
     [ConfigurationProperty("DAMAGE_METER_SAMPLING_RATE", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.WorldAndWilds)]
-    [ConfigurationConditional(name: nameof(IsPlotSlidingWindowEnabled), withValue: true)]
+    [ConfigurationConditional(name: nameof(DamagePlotStrategy), withValue: Enums.DamagePlotStrategy.MovingAverageDamagePerSecond)]
     public Range PlotSamplingInSeconds { get; set; } = new Range(10.0, 60.0, 1.0, 1.0);
 
     [ConfigurationProperty("DAMAGE_METER_SLIDING_WINDOW_DISCARD_OLD_PLOTS", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.WorldAndWilds)]
@@ -85,10 +90,6 @@ public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("DAMAGE_METER_SLIDING_WINDOW_SECONDS", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.WorldAndWilds)]
     [ConfigurationConditional(name: nameof(IsOldPlotDiscardingEnabled), withValue: true)]
     public Range PlotSlidingWindowInSeconds { get; set; } = new Range(10.0, 120, 5.0, 1.0);
-
-    [ConfigurationProperty("DAMAGE_METER_DAMAGE_PLOT_STRATEGY_STRING", group: CommonConfigurationGroups.DAMAGE_PLOT)]
-    [ConfigurationConditional(name: nameof(ShouldShowPlots), withValue: true)]
-    public Observable<DamagePlotStrategy> DamagePlotStrategy { get; set; } = Enums.DamagePlotStrategy.DamagePerSecond;
 
     [ConfigurationProperty("DAMAGE_METER_PLOT_LINE_SMOOTHING_STRING", group: CommonConfigurationGroups.DAMAGE_PLOT, AvailableGames = GameProcessType.MonsterHunterRise)]
     [ConfigurationConditional(name: nameof(ShouldShowPlots), withValue: true)]

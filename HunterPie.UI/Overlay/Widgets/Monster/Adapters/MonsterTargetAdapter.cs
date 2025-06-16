@@ -14,6 +14,9 @@ public static class MonsterTargetAdapter
         Target inferredTarget
     )
     {
+        if (!config.IsTargetingEnabled.Value)
+            return Target.None;
+
         return config.TargetMode.Value switch
         {
             TargetModeType.LockOn => lockOnTarget,
