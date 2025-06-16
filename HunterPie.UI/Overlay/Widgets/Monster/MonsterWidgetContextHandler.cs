@@ -52,6 +52,7 @@ public class MonsterWidgetContextHandler : IContextHandler
     public void HookEvents()
     {
         _config.TargetMode.PropertyChanged += OnTargetModeChanged;
+        _config.IsTargetingEnabled.PropertyChanged += OnTargetModeChanged;
         _context.Game.OnMonsterSpawn += OnMonsterSpawn;
         _context.Game.OnMonsterDespawn += OnMonsterDespawn;
     }
@@ -59,6 +60,7 @@ public class MonsterWidgetContextHandler : IContextHandler
     public void UnhookEvents()
     {
         _config.TargetMode.PropertyChanged -= OnTargetModeChanged;
+        _config.IsTargetingEnabled.PropertyChanged -= OnTargetModeChanged;
         _context.Game.OnMonsterSpawn -= OnMonsterSpawn;
         _context.Game.OnMonsterDespawn -= OnMonsterDespawn;
 

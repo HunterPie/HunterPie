@@ -105,7 +105,7 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
     public Observable<bool> AutoHideParts { get; set; } = true;
 
     [ConfigurationProperty("MONSTER_WIDGET_AUTO_HIDE_PARTS_DELAY_STRING", group: CommonConfigurationGroups.MONSTER_PARTS)]
-    [ConfigurationConditional(name: nameof(EnableParts), withValue: true)]
+    [ConfigurationConditional(name: nameof(AutoHideParts), withValue: true)]
     public Range AutoHidePartsDelay { get; set; } = new(15, 300, 1, 1);
     #endregion
 
@@ -119,7 +119,7 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
     public Observable<bool> AutomaticallyHideAilments { get; set; } = true;
 
     [ConfigurationProperty("MONSTER_WIDGET_AUTO_HIDE_AILMENTS_DELAY_STRING", group: CommonConfigurationGroups.MONSTER_AILMENTS)]
-    [ConfigurationConditional(name: nameof(EnableAilments), withValue: true)]
+    [ConfigurationConditional(name: nameof(AutomaticallyHideAilments), withValue: true)]
     public Range AutoHideAilmentsDelay { get; set; } = new(15, 300, 1, 1);
     #endregion
 }

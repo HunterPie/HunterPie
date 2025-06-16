@@ -367,6 +367,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
         {
             DamagePlotStrategy.TotalDamage => player.Damage,
             DamagePlotStrategy.DamagePerSecond => player.DPS,
+            DamagePlotStrategy.MovingAverageDamagePerSecond => 0,
             _ => throw new NotImplementedException(),
         };
 
