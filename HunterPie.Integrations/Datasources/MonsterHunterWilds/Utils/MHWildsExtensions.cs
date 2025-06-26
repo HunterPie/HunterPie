@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Domain.Memory;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Collections;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Types;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Activities;
 using System.Text;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
@@ -56,5 +57,18 @@ public static class MHWildsExtensions
         size = Math.Max(0, Math.Min(size, str.Length));
 
         return await memory.ReadAsync(address + 0x14, size * 2, Encoding.Unicode);
+    }
+
+    public static MaterialRetrievalSourceType? ToMaterialRetrievalSourceType(this uint id)
+    {
+        return id switch
+        {
+            0x8552AD80 => MaterialRetrievalSourceType.Rysher,
+            0x23 => MaterialRetrievalSourceType.Murtabak,
+            0x251E0440 => MaterialRetrievalSourceType.Apar,
+            0x3F8E9480 => MaterialRetrievalSourceType.Plumpeach,
+            0x5CE6D780 => MaterialRetrievalSourceType.Sabar,
+            _ => null
+        };
     }
 }

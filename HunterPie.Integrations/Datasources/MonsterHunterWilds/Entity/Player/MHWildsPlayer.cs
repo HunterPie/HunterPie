@@ -16,12 +16,15 @@ using HunterPie.Core.Scan.Service;
 using HunterPie.Core.Utils;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Abnormality;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Activities;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Party.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Types;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Abnormalities;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Abnormalities.Data;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Activities;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Activities.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Party.Data;
@@ -171,13 +174,15 @@ public sealed class MHWildsPlayer : CommonPlayer
         }
     }
 
+    public MHWildsMaterialRetrieval MaterialRetrieval { get; } = new();
+
     public MHWildsPlayer(
         IGameProcess process,
         IScanService scanService,
         MHWildsMonsterTargetKeyManager monsterTargetKeyManager) : base(process, scanService)
     {
         _monsterTargetKeyManager = monsterTargetKeyManager;
-        Weapon = new MHWildsWeapon(WeaponType.Greatsword);
+        _weapon = new MHWildsWeapon(WeaponType.Greatsword);
     }
 
     [ScannableMethod]
@@ -447,6 +452,57 @@ public sealed class MHWildsPlayer : CommonPlayer
         );
 
         return context.WeaponId;
+    }
+
+    [ScannableMethod]
+    internal async Task GetActivitiesAsync()
+    {
+        int saveIndex = await Memory.DerefAsync<int>(
+            address: AddressMap.GetAbsolute("Game::SaveManager"),
+            offsets: AddressMap.GetOffsets("Save::Index")
+        );
+
+        nint saveDataArray = await Memory.ReadAsync(
+            address: AddressMap.GetAbsolute("Game::SaveManager"),
+            offsets: AddressMap.GetOffsets("Save::Data")
+        );
+        nint currentSavePointer = await Memory.ReadAsync<nint>(saveDataArray + (sizeof(long) * saveIndex));
+
+        await GetMaterialRetrievalAsync(currentSavePointer);
+    }
+
+    private async Task GetMaterialRetrievalAsync(nint saveAddress)
+    {
+        const int maxItems = 16;
+        nint sourcesArrayPointer = await Memory.ReadPtrAsync(
+            address: saveAddress,
+            offsets: AddressMap.GetOffsets("Activities::MaterialRetrieval")
+        );
+
+        IAsyncEnumerable<MHWildsMaterialCollector> collectors = Memory.ReadArrayOfPtrsSafeAsync<MHWildsMaterialCollector>(
+            address: sourcesArrayPointer,
+            count: 12
+        );
+
+        await foreach (MHWildsMaterialCollector collector in collectors)
+        {
+            if (collector.Id.ToMaterialRetrievalSourceType() is not { } type)
+                continue;
+
+            List<MHWildsMaterialCollectorItem> items = Memory.ReadArrayOfPtrsSafeAsync<MHWildsMaterialCollectorItem>(
+                address: collector.ItemsPointer,
+                count: maxItems
+            ).Collect();
+
+            var updateData = new UpdateMaterialCollectorData
+            {
+                Type = type,
+                Count = items.Count(it => it.Count > 0),
+                MaxCount = maxItems
+            };
+
+            MaterialRetrieval.Update(updateData);
+        }
     }
 
     [ScannableMethod]
