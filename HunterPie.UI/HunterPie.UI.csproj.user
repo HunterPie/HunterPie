@@ -134,6 +134,15 @@
     <Compile Update="Overlay\Widgets\Activities\Views\ActivitiesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Activities\Wilds\Views\MaterialRetrievalCollectorView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Activities\Wilds\Views\MaterialRetrievalView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Activities\Wilds\Views\MHWildsActivitiesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Activities\World\Views\ArgosyView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -437,6 +446,15 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Activities\Views\ActivitiesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Activities\Wilds\Views\MaterialRetrievalCollectorView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Activities\Wilds\Views\MaterialRetrievalView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Activities\Wilds\Views\MHWildsActivitiesView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Activities\World\Views\ArgosyView.xaml">

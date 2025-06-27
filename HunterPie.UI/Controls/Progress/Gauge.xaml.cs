@@ -97,6 +97,13 @@ public partial class Gauge : UserControl
         gauge.MarkerCollection.Clear();
 
         for (int i = 0; i < markers; i++)
-            gauge.MarkerCollection.Add(i < (markers - 1));
+        {
+            bool isMarkerVisible = gauge.Orientation == Orientation.Horizontal
+                ? i > 0
+                : i < (markers - 1);
+
+            gauge.MarkerCollection.Add(isMarkerVisible);
+        }
+
     }
 }

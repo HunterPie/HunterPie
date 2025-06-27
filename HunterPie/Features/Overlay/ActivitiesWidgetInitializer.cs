@@ -4,12 +4,15 @@ using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.DI;
 using HunterPie.Integrations.Datasources.MonsterHunterRise;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Activities.Rise.Controllers;
 using HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Activities.Views;
+using HunterPie.UI.Overlay.Widgets.Activities.Wilds.Controllers;
+using HunterPie.UI.Overlay.Widgets.Activities.Wilds.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Activities.World.Controllers;
 using HunterPie.UI.Overlay.Widgets.Activities.World.ViewModels;
 using System;
@@ -22,7 +25,10 @@ internal class ActivitiesWidgetInitializer : IWidgetInitializer
 {
     private IContextHandler? _handler;
 
-    public GameProcessType SupportedGames => GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld;
+    public GameProcessType SupportedGames =>
+        GameProcessType.MonsterHunterWilds |
+        GameProcessType.MonsterHunterRise |
+        GameProcessType.MonsterHunterWorld;
 
     public Task LoadAsync(IContext context)
     {
@@ -45,6 +51,12 @@ internal class ActivitiesWidgetInitializer : IWidgetInitializer
                 context: ctx,
                 view: view,
                 activities: DependencyContainer.Get<MHWorldActivitiesViewModel>()
+            ),
+            MHWildsContext ctx => new MHWildsActivitiesController(
+                context: ctx,
+                view: view,
+                activities: DependencyContainer.Get<MHWildsActivitiesViewModel>(),
+                dispatcher: DependencyContainer.Get<Dispatcher>()
             ),
             _ => throw new NotImplementedException("unreachable")
         };

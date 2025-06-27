@@ -62,6 +62,10 @@ public class ActivitiesWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("ACTIVITIES_ENABLE_STEAMWORKS_STRING", availableGames: GameProcessType.MonsterHunterWorld, group: CommonConfigurationGroups.ACTIVITIES)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Observable<bool> IsSteamworksEnabled { get; set; } = true;
+
+    [ConfigurationProperty("ACTIVITIES_ENABLE_MATERIAL_RETRIEVAL_STRING", availableGames: GameProcessType.MonsterHunterWorld, group: CommonConfigurationGroups.ACTIVITIES)]
+    [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    public Observable<bool> IsMaterialRetrievalEnabled { get; set; } = true;
     #endregion
 
 }

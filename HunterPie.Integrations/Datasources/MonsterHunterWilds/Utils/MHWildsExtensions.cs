@@ -59,15 +59,15 @@ public static class MHWildsExtensions
         return await memory.ReadAsync(address + 0x14, size * 2, Encoding.Unicode);
     }
 
-    public static MaterialRetrievalSourceType? ToMaterialRetrievalSourceType(this uint id)
+    public static MaterialRetrievalCollector? ToMaterialRetrievalSourceType(this uint id)
     {
         return id switch
         {
-            0x8552AD80 => MaterialRetrievalSourceType.Rysher,
-            0x23 => MaterialRetrievalSourceType.Murtabak,
-            0x251E0440 => MaterialRetrievalSourceType.Apar,
-            0x3F8E9480 => MaterialRetrievalSourceType.Plumpeach,
-            0x5CE6D780 => MaterialRetrievalSourceType.Sabar,
+            0x8552AD80 => MaterialRetrievalCollector.Rysher,
+            0x23 => MaterialRetrievalCollector.Murtabak,
+            0x251E0440 => MaterialRetrievalCollector.Apar,
+            0x3F8E9480 => MaterialRetrievalCollector.Plumpeach,
+            0x5CE6D780 => MaterialRetrievalCollector.Sabar,
             _ => null
         };
     }

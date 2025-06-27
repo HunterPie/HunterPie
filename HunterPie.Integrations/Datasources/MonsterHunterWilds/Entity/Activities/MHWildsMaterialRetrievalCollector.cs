@@ -6,9 +6,9 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Activities.Da
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Activities;
 
-public class MHWildsMaterialRetrievalSource : IEventDispatcher, IUpdatable<UpdateMaterialCollectorData>
+public class MHWildsMaterialRetrievalCollector : IEventDispatcher, IUpdatable<UpdateMaterialCollectorData>
 {
-    public required MaterialRetrievalSourceType SourceType { get; init; }
+    public required MaterialRetrievalCollector Collector { get; init; }
 
     private int _count;
     public int Count

@@ -496,7 +496,7 @@ public sealed class MHWildsPlayer : CommonPlayer
 
             var updateData = new UpdateMaterialCollectorData
             {
-                Type = type,
+                Collector = type,
                 Count = items.Count(it => it.Count > 0),
                 MaxCount = maxItems
             };

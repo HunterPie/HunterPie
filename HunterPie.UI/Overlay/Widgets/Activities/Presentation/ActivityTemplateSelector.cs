@@ -1,5 +1,6 @@
 ﻿using HunterPie.UI.Overlay.Widgets.Activities.Common;
 using HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
+using HunterPie.UI.Overlay.Widgets.Activities.Wilds.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Activities.World.ViewModels;
 using System;
 using System.Windows;
@@ -12,6 +13,7 @@ public class ActivityTemplateSelector : DataTemplateSelector
 {
     public required DataTemplate MonsterHunterWorldTemplate { get; init; }
     public required DataTemplate MonsterHunterRiseTemplate { get; init; }
+    public required DataTemplate MonsterHunterWildsTemplate { get; init; }
 
     public override DataTemplate? SelectTemplate(object? item, DependencyObject container)
     {
@@ -20,6 +22,7 @@ public class ActivityTemplateSelector : DataTemplateSelector
             {
                 MHWorldActivitiesViewModel => MonsterHunterWorldTemplate,
                 MHRiseActivitiesViewModel => MonsterHunterRiseTemplate,
+                MHWildsActivitiesViewModel => MonsterHunterWildsTemplate,
                 _ => throw new ArgumentOutOfRangeException(nameof(viewModel))
             }
             : null;

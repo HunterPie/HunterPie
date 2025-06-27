@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain.Interfaces;
+using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Events;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Activities.Data;
 using System.Collections.Concurrent;
@@ -8,18 +9,18 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Activitie
 
 public class MHWildsMaterialRetrieval : IEventDispatcher, IUpdatable<UpdateMaterialCollectorData>
 {
-    private readonly ConcurrentDictionary<MaterialRetrievalSourceType, MHWildsMaterialRetrievalSource> _sources = new();
-    public IReadOnlyCollection<MHWildsMaterialRetrievalSource> Sources => _sources.Values.ToArray();
+    private readonly ConcurrentDictionary<MaterialRetrievalCollector, MHWildsMaterialRetrievalCollector> _collectors = new();
+    public IReadOnlyCollection<MHWildsMaterialRetrievalCollector> Collectors => _collectors.Values.ToArray();
 
-    private readonly SmartEvent<ValueCreationEventArgs<MHWildsMaterialRetrievalSource>> _addSource = new();
-    public event EventHandler<ValueCreationEventArgs<MHWildsMaterialRetrievalSource>> AddSource
+    private readonly SmartEvent<ValueCreationEventArgs<MHWildsMaterialRetrievalCollector>> _addSource = new();
+    public event EventHandler<ValueCreationEventArgs<MHWildsMaterialRetrievalCollector>> AddSource
     {
         add => _addSource.Hook(value);
         remove => _addSource.Unhook(value);
     }
 
-    private readonly SmartEvent<ValueCreationEventArgs<MHWildsMaterialRetrievalSource>> _removeSource = new();
-    public event EventHandler<ValueCreationEventArgs<MHWildsMaterialRetrievalSource>> RemoveSource
+    private readonly SmartEvent<ValueCreationEventArgs<MHWildsMaterialRetrievalCollector>> _removeSource = new();
+    public event EventHandler<ValueCreationEventArgs<MHWildsMaterialRetrievalCollector>> RemoveSource
     {
         add => _removeSource.Hook(value);
         remove => _removeSource.Unhook(value);
@@ -27,11 +28,21 @@ public class MHWildsMaterialRetrieval : IEventDispatcher, IUpdatable<UpdateMater
 
     public void Update(UpdateMaterialCollectorData data)
     {
-        MHWildsMaterialRetrievalSource collector = _sources.GetOrAdd(
-            key: data.Type,
-            valueFactory: static (type) => new MHWildsMaterialRetrievalSource { SourceType = type }
+        bool doesCollectorExist = _collectors.ContainsKey(data.Collector);
+
+        MHWildsMaterialRetrievalCollector collector = _collectors.GetOrAdd(
+            key: data.Collector,
+            valueFactory: static (type) => new MHWildsMaterialRetrievalCollector { Collector = type }
         );
 
         collector.Update(data);
+
+        if (doesCollectorExist)
+            return;
+
+        this.Dispatch(
+            toDispatch: _addSource,
+            data: new ValueCreationEventArgs<MHWildsMaterialRetrievalCollector>(collector)
+        );
     }
 }

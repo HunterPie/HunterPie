@@ -55,7 +55,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_FLYING_WYVERN"/>
+				<Collector Name="TYPE_FLYING_WYVERN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>
@@ -78,7 +78,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_FLYING_WYVERN"/>
+				<Collector Name="TYPE_FLYING_WYVERN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>
@@ -101,7 +101,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_CONSTRUCT"/>
+				<Collector Name="TYPE_CONSTRUCT"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>
@@ -130,7 +130,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_FLYING_WYVERN"/>
+				<Collector Name="TYPE_FLYING_WYVERN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>
@@ -154,7 +154,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_BIRD_WYVERN"/>
+				<Collector Name="TYPE_BIRD_WYVERN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Ice"/>
@@ -177,7 +177,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_BIRD_WYVERN"/>
+				<Collector Name="TYPE_BIRD_WYVERN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -200,7 +200,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_FANGED_BEAST"/>
+				<Collector Name="TYPE_FANGED_BEAST"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -222,7 +222,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_FANGED_BEAST"/>
+				<Collector Name="TYPE_FANGED_BEAST"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -244,7 +244,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_TEMNOCERAN"/>
+				<Collector Name="TYPE_TEMNOCERAN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -276,7 +276,7 @@
 			        Silver="111"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_DEMI_ELDER"/>
+				<Collector Name="TYPE_DEMI_ELDER"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>
@@ -304,7 +304,7 @@
                     Silver="115"
                     Mini="90"/>
             <Types>
-                <Type Name="TYPE_LEVIATHAN"/>
+                <Collector Name="TYPE_LEVIATHAN"/>
             </Types>
             <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -329,7 +329,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_CONSTRUCT"/>
+				<Collector Name="TYPE_CONSTRUCT"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>
@@ -354,7 +354,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_CONSTRUCT"/>
+				<Collector Name="TYPE_CONSTRUCT"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Water"/>
@@ -387,7 +387,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_FANGED_BEAST"/>
+				<Collector Name="TYPE_FANGED_BEAST"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -409,7 +409,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_CONSTRUCT"/>
+				<Collector Name="TYPE_CONSTRUCT"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -431,7 +431,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_LEVIATHAN"/>
+				<Collector Name="TYPE_LEVIATHAN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Thunder"/>
@@ -454,7 +454,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_AMPHIBIAN"/>
+				<Collector Name="TYPE_AMPHIBIAN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Thunder"/>
@@ -489,7 +489,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_BRUTE_WYVERN"/>
+				<Collector Name="TYPE_BRUTE_WYVERN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Water"/>
@@ -513,7 +513,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_TEMNOCERAN"/>
+				<Collector Name="TYPE_TEMNOCERAN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -538,7 +538,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_BRUTE_WYVERN"/>
+				<Collector Name="TYPE_BRUTE_WYVERN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Water"/>
@@ -572,7 +572,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_FLYING_WYVERN"/>
+				<Collector Name="TYPE_FLYING_WYVERN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Ice"/>
@@ -601,7 +601,7 @@
 			        Silver="109"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_LEVIATHAN"/>
+				<Collector Name="TYPE_LEVIATHAN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Thunder"/>
@@ -634,7 +634,7 @@
 			        Silver="109"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_CEPHALOPOD"/>
+				<Collector Name="TYPE_CEPHALOPOD"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Water"/>
@@ -681,7 +681,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_FANGED_BEAST"/>
+				<Collector Name="TYPE_FANGED_BEAST"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Water"/>
@@ -711,7 +711,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_FLYING_WYVERN"/>
+				<Collector Name="TYPE_FLYING_WYVERN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>
@@ -737,7 +737,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_CONSTRUCT"/>
+				<Collector Name="TYPE_CONSTRUCT"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>
@@ -762,7 +762,7 @@
 			        Silver="109"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_LEVIATHAN"/>
+				<Collector Name="TYPE_LEVIATHAN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -792,7 +792,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_LEVIATHAN"/>
+				<Collector Name="TYPE_LEVIATHAN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -817,7 +817,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_CEPHALOPOD"/>
+				<Collector Name="TYPE_CEPHALOPOD"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Ice"/>
@@ -843,7 +843,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Type Name="TYPE_CONSTRUCT"/>
+				<Collector Name="TYPE_CONSTRUCT"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>

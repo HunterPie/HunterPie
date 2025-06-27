@@ -7,7 +7,8 @@
            xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Presentation"
            xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.ViewModels"
            xmlns:views="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.World.Views"
-           xmlns:viewsMHR="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.Views"
+           xmlns:viewsMhr="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.Views"
+           xmlns:viewMhwilds="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Wilds.Views"
            x:TypeArguments="vm:ActivitiesViewModel"
            mc:Ignorable="d"
            Style="{StaticResource STYLE_ACTIVITIES_WIDGET}"
@@ -20,12 +21,17 @@
         </DataTemplate>
 
         <DataTemplate x:Key="MonsterHunterRiseActivitiesTemplate">
-            <viewsMHR:MHRiseActivitiesView/>
+            <viewsMhr:MHRiseActivitiesView/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="MonsterHunterWildsActivitiesTemplate">
+            <viewMhwilds:MHWildsActivitiesView/>
         </DataTemplate>
 
         <presentation:ActivityTemplateSelector x:Key="ActivityTemplateSelector"
                                                MonsterHunterWorldTemplate="{StaticResource MonsterHunterWorldActivitiesTemplate}"
-                                               MonsterHunterRiseTemplate="{StaticResource MonsterHunterRiseActivitiesTemplate}"/>
+                                               MonsterHunterRiseTemplate="{StaticResource MonsterHunterRiseActivitiesTemplate}"
+                                               MonsterHunterWildsTemplate="{StaticResource MonsterHunterWildsActivitiesTemplate}"/>
     </UserControl.Resources>
 
     <ContentControl ContentTemplateSelector="{StaticResource ActivityTemplateSelector}"

@@ -1,6 +1,6 @@
 ﻿namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Activities;
 
-public enum MaterialRetrievalSourceType
+public enum MaterialRetrievalCollector
 {
     Rysher,
     Murtabak,

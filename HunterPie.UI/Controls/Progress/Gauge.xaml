@@ -69,12 +69,12 @@
                                                  Value="{x:Static Orientation.Horizontal}">
                                         <Setter Property="HorizontalAlignment" Value="Left"/>
                                         <Setter Property="Width" Value="1"/>
-                                        <Setter Property="Height" Value="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}}"/>
+                                        <Setter Property="Height" Value="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type UniformGrid}}}"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Orientation, ElementName=GaugeComponent}"
                                                  Value="{x:Static Orientation.Vertical}">
                                         <Setter Property="VerticalAlignment" Value="Bottom"/>
-                                        <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}}"/>
+                                        <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type UniformGrid}}}"/>
                                         <Setter Property="Height" Value="1"/>
                                     </DataTrigger>
                                 </Style.Triggers>
