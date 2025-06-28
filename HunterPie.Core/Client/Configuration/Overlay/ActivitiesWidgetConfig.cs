@@ -67,7 +67,7 @@ public class ActivitiesWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Observable<bool> IsMaterialRetrievalEnabled { get; set; } = true;
 
-    [ConfigurationProperty("ACTIVITIES_ENABLE_MATERIAL_RETRIEVAL_STRING", availableGames: GameProcessType.MonsterHunterWilds, group: CommonConfigurationGroups.ACTIVITIES)]
+    [ConfigurationProperty("ACTIVITIES_ENABLE_INGREDIENTS_CENTER_STRING", availableGames: GameProcessType.MonsterHunterWilds, group: CommonConfigurationGroups.ACTIVITIES)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Observable<bool> IsIngredientsCenterEnabled { get; set; } = true;
     #endregion
