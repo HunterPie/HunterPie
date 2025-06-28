@@ -6,7 +6,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Activities.Da
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Activities;
 
-public class MHWildsMaterialRetrievalCollector : IEventDispatcher, IUpdatable<UpdateMaterialCollectorData>
+public class MHWildsMaterialRetrievalCollector : IEventDispatcher, IUpdatable<UpdateMaterialCollectorData>, IDisposable
 {
     public required MaterialRetrievalCollector Collector { get; init; }
 
@@ -45,4 +45,6 @@ public class MHWildsMaterialRetrievalCollector : IEventDispatcher, IUpdatable<Up
         MaxCount = data.MaxCount;
         Count = data.Count;
     }
+
+    public void Dispose() => _countChanged.Dispose();
 }

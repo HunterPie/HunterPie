@@ -134,6 +134,9 @@
     <Compile Update="Overlay\Widgets\Activities\Views\ActivitiesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Overlay\Widgets\Activities\Wilds\Views\IngredientsCenterView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Overlay\Widgets\Activities\Wilds\Views\MaterialRetrievalCollectorView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -141,6 +144,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Activities\Wilds\Views\MHWildsActivitiesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Activities\Wilds\Views\SupportShipView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Activities\World\Views\ArgosyView.xaml.cs">
@@ -448,6 +454,9 @@
     <Page Update="Overlay\Widgets\Activities\Views\ActivitiesView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Overlay\Widgets\Activities\Wilds\Views\IngredientsCenterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Overlay\Widgets\Activities\Wilds\Views\MaterialRetrievalCollectorView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -455,6 +464,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Activities\Wilds\Views\MHWildsActivitiesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\Activities\Wilds\Views\SupportShipView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Activities\World\Views\ArgosyView.xaml">

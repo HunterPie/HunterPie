@@ -10,7 +10,7 @@ namespace HunterPie.Core.Client.Configuration.Overlay;
 [Configuration(name: "ACTIVITIES_WIDGET_STRING",
     icon: "ICON_ARGOSY",
     group: CommonConfigurationGroups.OVERLAY,
-    availableGames: GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld)]
+    availableGames: GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld | GameProcessType.MonsterHunterWilds)]
 public class ActivitiesWidgetConfig : IWidgetSettings, ISettings
 {
     #region General Settings
@@ -47,7 +47,7 @@ public class ActivitiesWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Observable<bool> IsTrainingDojoEnabled { get; set; } = true;
 
-    [ConfigurationProperty("ACTIVITIES_ENABLE_MEOWMASTERS_STRING", group: CommonConfigurationGroups.ACTIVITIES)]
+    [ConfigurationProperty("ACTIVITIES_ENABLE_MEOWMASTERS_STRING", availableGames: GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld, group: CommonConfigurationGroups.ACTIVITIES)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Observable<bool> IsMeowmastersEnabled { get; set; } = true;
 
@@ -63,9 +63,13 @@ public class ActivitiesWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Observable<bool> IsSteamworksEnabled { get; set; } = true;
 
-    [ConfigurationProperty("ACTIVITIES_ENABLE_MATERIAL_RETRIEVAL_STRING", availableGames: GameProcessType.MonsterHunterWorld, group: CommonConfigurationGroups.ACTIVITIES)]
+    [ConfigurationProperty("ACTIVITIES_ENABLE_MATERIAL_RETRIEVAL_STRING", availableGames: GameProcessType.MonsterHunterWilds, group: CommonConfigurationGroups.ACTIVITIES)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Observable<bool> IsMaterialRetrievalEnabled { get; set; } = true;
+
+    [ConfigurationProperty("ACTIVITIES_ENABLE_MATERIAL_RETRIEVAL_STRING", availableGames: GameProcessType.MonsterHunterWilds, group: CommonConfigurationGroups.ACTIVITIES)]
+    [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    public Observable<bool> IsIngredientsCenterEnabled { get; set; } = true;
     #endregion
 
 }

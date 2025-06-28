@@ -30,6 +30,8 @@ internal class ActivitiesWidgetModule : IDependencyModule
         // Monster Hunter Wilds
         registry
             .WithService<MaterialRetrievalViewModel>()
+            .WithService<SupportShipViewModel>()
+            .WithService<IngredientsCenterViewModel>()
             .WithService<MHWildsActivitiesViewModel>();
     }
 }

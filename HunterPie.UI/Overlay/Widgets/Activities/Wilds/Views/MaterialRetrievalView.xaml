@@ -5,21 +5,38 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Wilds.Views"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Wilds.ViewModels"
+             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
              mc:Ignorable="d" 
              d:DesignWidth="200"
              d:DataContext="{d:DesignInstance viewModels:MaterialRetrievalViewModel}">
-    <Border Background="{StaticResource GRAY_100}"
+    <UserControl.Resources>
+        <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
+    </UserControl.Resources>
+    <Border Background="{Binding Source={StaticResource GRAY_100}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
             BorderBrush="{StaticResource GRAY}"
             BorderThickness="1"
             CornerRadius="5">
         <Grid>
             <ItemsControl ItemsSource="{Binding Collectors, Mode=OneWay}"
-                          d:ItemsSource="{d:SampleData ItemCount=5}">
+                          d:ItemsSource="{d:SampleData ItemCount=5}"
+                          AlternationCount="{Binding Collectors.Count, Mode=OneWay}"
+                          d:AlternationCount="5">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:MaterialRetrievalCollectorView Height="35"
-                                                              BorderBrush="{StaticResource GRAY}"
-                                                              BorderThickness="0,1,0,0"/>
+                                                              BorderBrush="{StaticResource GRAY}">
+                            <local:MaterialRetrievalCollectorView.Style>
+                                <Style TargetType="local:MaterialRetrievalCollectorView">
+                                    <Setter Property="BorderThickness" Value="0,1,0,0"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding (ItemsControl.AlternationIndex), RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}}}"
+                                                     Value="0">
+                                            <Setter Property="BorderThickness" Value="0"/> 
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </local:MaterialRetrievalCollectorView.Style>
+                        </local:MaterialRetrievalCollectorView>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

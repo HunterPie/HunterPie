@@ -6,13 +6,32 @@
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Wilds.Views"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Wilds.ViewModels"
              mc:Ignorable="d"
-             d:DesignWidth="200"
+             Width="230"
              d:DataContext="{d:DesignInstance viewModels:MHWildsActivitiesViewModel}">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
     <Grid>
-        <local:MaterialRetrievalView DataContext="{Binding MaterialRetrieval, Mode=OneTime}"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <local:MaterialRetrievalView Grid.Row="0" 
+                                     DataContext="{Binding MaterialRetrieval, Mode=OneTime}"
                                      Visibility="{Binding DataContext.IsMaterialRetrievalEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:MHWildsActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+        <UniformGrid Grid.Row="1"
+                     Columns="2">
+            <local:SupportShipView Height="38"
+                                   Margin="2"
+                                   DataContext="{Binding SupportShip, Mode=OneTime}"
+                                   Visibility="{Binding DataContext.IsSupportShipEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:MHWildsActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+            <local:IngredientsCenterView Height="38"
+                                         Margin="2"
+                                         DataContext="{Binding IngredientsCenter, Mode=OneTime}"
+                                         Visibility="{Binding DataContext.IsIngredientsCenterEnabled.Value, RelativeSource={RelativeSource AncestorType={x:Type local:MHWildsActivitiesView}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        </UniformGrid>
+        
     </Grid>
 </UserControl>

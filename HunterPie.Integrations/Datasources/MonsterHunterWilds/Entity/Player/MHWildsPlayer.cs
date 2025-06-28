@@ -176,6 +176,10 @@ public sealed class MHWildsPlayer : CommonPlayer
 
     public MHWildsMaterialRetrieval MaterialRetrieval { get; } = new();
 
+    public MHWildsSupportShip SupportShip { get; } = new();
+
+    public MHWildsIngredientsCenter IngredientsCenter { get; } = new();
+
     public MHWildsPlayer(
         IGameProcess process,
         IScanService scanService,
@@ -468,7 +472,11 @@ public sealed class MHWildsPlayer : CommonPlayer
         );
         nint currentSavePointer = await Memory.ReadAsync<nint>(saveDataArray + (sizeof(long) * saveIndex));
 
-        await GetMaterialRetrievalAsync(currentSavePointer);
+        await Task.WhenAll(
+            GetMaterialRetrievalAsync(currentSavePointer),
+            GetSupportShipAsync(currentSavePointer),
+            GetIngredientsCenterAsync(currentSavePointer)
+        );
     }
 
     private async Task GetMaterialRetrievalAsync(nint saveAddress)
@@ -503,6 +511,26 @@ public sealed class MHWildsPlayer : CommonPlayer
 
             MaterialRetrieval.Update(updateData);
         }
+    }
+
+    private async Task GetSupportShipAsync(nint saveAddress)
+    {
+        MHWildsSupportShipContext context = await Memory.DerefPtrAsync<MHWildsSupportShipContext>(
+            address: saveAddress,
+            offsets: AddressMap.GetOffsets("Activities::SupportShip")
+        );
+
+        SupportShip.Update(context);
+    }
+
+    private async Task GetIngredientsCenterAsync(nint saveAddress)
+    {
+        MHWildsIngredientCenterContext context = await Memory.DerefPtrAsync<MHWildsIngredientCenterContext>(
+            address: saveAddress,
+            offsets: AddressMap.GetOffsets("Activities::IngredientsCenter")
+        );
+
+        IngredientsCenter.Update(context);
     }
 
     [ScannableMethod]
@@ -778,5 +806,12 @@ public sealed class MHWildsPlayer : CommonPlayer
                 activator: () => new MHWildsAbnormality(definition, AbnormalityType.Debuff)
             );
         }
+    }
+
+    public override void Dispose()
+    {
+        base.Dispose();
+        MaterialRetrieval.Dispose();
+        SupportShip.Dispose();
     }
 }

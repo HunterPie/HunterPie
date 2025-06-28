@@ -32,12 +32,22 @@ internal class MHWildsActivitiesController : IContextHandler
                 viewModel: activities.MaterialRetrieval,
                 dispatcher: dispatcher
             ),
+            new SupportShipController(
+                context: context,
+                viewModel: activities.SupportShip
+            ),
+            new IngredientsCenterController(
+                context: context,
+                viewModel: activities.IngredientsCenter
+            )
         };
     }
 
     public void HookEvents()
     {
         _context.Game.Player.OnStageUpdate += OnStageUpdate;
+        _context.Game.Player.OnVillageEnter += OnStageUpdate;
+        _context.Game.Player.OnVillageLeave += OnStageUpdate;
 
         foreach (IContextHandler handler in _contextHandlers)
             handler.HookEvents();
@@ -48,6 +58,7 @@ internal class MHWildsActivitiesController : IContextHandler
             widget: _view
         );
     }
+
 
     public void UnhookEvents()
     {

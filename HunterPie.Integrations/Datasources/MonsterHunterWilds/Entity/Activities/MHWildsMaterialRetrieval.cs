@@ -7,7 +7,7 @@ using System.Collections.Concurrent;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Activities;
 
-public class MHWildsMaterialRetrieval : IEventDispatcher, IUpdatable<UpdateMaterialCollectorData>
+public class MHWildsMaterialRetrieval : IEventDispatcher, IUpdatable<UpdateMaterialCollectorData>, IDisposable
 {
     private readonly ConcurrentDictionary<MaterialRetrievalCollector, MHWildsMaterialRetrievalCollector> _collectors = new();
     public IReadOnlyCollection<MHWildsMaterialRetrievalCollector> Collectors => _collectors.Values.ToArray();
@@ -44,5 +44,12 @@ public class MHWildsMaterialRetrieval : IEventDispatcher, IUpdatable<UpdateMater
             toDispatch: _addSource,
             data: new ValueCreationEventArgs<MHWildsMaterialRetrievalCollector>(collector)
         );
+    }
+
+    public void Dispose()
+    {
+        _addSource.Dispose();
+        _removeSource.Dispose();
+        _collectors.Values.DisposeAll();
     }
 }

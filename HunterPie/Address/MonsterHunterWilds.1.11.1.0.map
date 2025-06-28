@@ -56,3 +56,5 @@ Offset Environment::Moon 0x148
 Offset Save::Index 0xD8
 Offset Save::Data 0x80,0x10,0x20
 Offset Activities::MaterialRetrieval 0x130,0x10
+Offset Activities::SupportShip 0xC0
+Offset Activities::IngredientsCenter 0xB8
