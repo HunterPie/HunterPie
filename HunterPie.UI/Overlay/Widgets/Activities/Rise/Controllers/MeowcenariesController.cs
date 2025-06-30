@@ -39,8 +39,10 @@ internal class MeowcenariesController : IContextHandler
     {
         _viewModel.Step = _player.Meowmasters.Step;
         _viewModel.MaxSteps = _player.Meowmasters.MaxSteps;
-        _viewModel.ExpectedOutcome = _player.Meowmasters.ExpectedOutcome;
-        _viewModel.MaxOutcome = _player.Meowmasters.MaxOutcome;
+        _viewModel.SetOutcome(
+            current: _player.Meowmasters.ExpectedOutcome,
+            max: _player.Meowmasters.MaxOutcome
+        );
         _viewModel.BuddyCount = _player.Meowmasters.BuddyCount;
         _viewModel.MaxBuddyCount = _player.Meowmasters.MaxBuddies;
         _viewModel.IsDeployed = _player.Meowmasters.IsDeployed;
@@ -48,14 +50,20 @@ internal class MeowcenariesController : IContextHandler
 
     private void OnExpectedOutcomeChange(object sender, MHRMeowmasters e)
     {
-        _viewModel.ExpectedOutcome = e.ExpectedOutcome;
+        _viewModel.SetOutcome(
+            current: e.ExpectedOutcome,
+            max: e.MaxOutcome
+        );
     }
 
     private void OnBuddyCountChange(object sender, MHRMeowmasters e)
     {
         _viewModel.MaxBuddyCount = e.MaxBuddies;
         _viewModel.BuddyCount = e.BuddyCount;
-        _viewModel.ExpectedOutcome = e.ExpectedOutcome;
+        _viewModel.SetOutcome(
+            current: e.ExpectedOutcome,
+            max: e.MaxOutcome
+        );
     }
 
     private void OnStepChange(object sender, MHRMeowmasters e)
