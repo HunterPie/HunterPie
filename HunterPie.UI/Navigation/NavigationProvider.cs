@@ -14,8 +14,8 @@ public static class NavigationProvider
     /// <summary>
     /// Binds a view model to an specific view type
     /// </summary>
-    /// <typeparam name="TView">Collector of the view</typeparam>
-    /// <typeparam name="TViewModel">Collector of the view's view model</typeparam>
+    /// <typeparam name="TView">Type of the view</typeparam>
+    /// <typeparam name="TViewModel">Type of the view's view model</typeparam>
     public static void Bind<TView, TViewModel>()
         where TView : FrameworkElement
         where TViewModel : ViewModel

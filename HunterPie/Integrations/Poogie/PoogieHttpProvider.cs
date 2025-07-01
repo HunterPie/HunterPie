@@ -28,7 +28,7 @@ internal class PoogieHttpProvider
     private const string APP_VERSION = "X-App-Version";
 
     /// <summary>
-    /// Collector of HunterPie (always v2)
+    /// Type of HunterPie (always v2)
     /// </summary>
     private const string CLIENT_TYPE = "X-HunterPie-Client";
 

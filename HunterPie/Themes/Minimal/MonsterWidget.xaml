@@ -6,7 +6,7 @@
     <converters:CrownToIconConverter x:Key="CrownToIconConverter"/>
     <converters:CrownToVisibilityConverter x:Key="CrownToVisibilityConverter"/>
     <converters:OrientationConverter x:Key="OrientationConverter"/>
-    <Style x:Key="STYLE_MONSTERS_WIDGET" TargetType="{x:Collector monster:MonstersView}">
+    <Style x:Key="STYLE_MONSTERS_WIDGET" TargetType="{x:Type monster:MonstersView}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
@@ -61,7 +61,7 @@
 
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <StackPanel Orientation="{Binding Settings.Orientation.Value, RelativeSource={RelativeSource AncestorType={x:Collector UserControl}}, Converter={StaticResource OrientationConverter}}"
+                                <StackPanel Orientation="{Binding Settings.Orientation.Value, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Converter={StaticResource OrientationConverter}}"
                                             Margin="20"
                                             IsItemsHost="True">
                                 </StackPanel>
