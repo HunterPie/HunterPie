@@ -238,6 +238,21 @@
 				<Part Id="6" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
+        <Monster Id="8"
+                 Size="2535.460">
+            <Crowns Gold="113"
+                    Silver="109"
+                    Mini="90"/>
+            <Types>
+                <Type Name="TYPE_LEVIATHAN"/>
+            </Types>
+            <Weaknesses>
+                <Weakness Name="Fire"/>
+                <Weakness Name="Ice"/>
+                <Weakness Name="Dragon"/>
+            </Weaknesses>
+            <Parts/>
+        </Monster>
 		<Monster Id="9"
 		         Size="731.9625">
 			<Crowns Gold="123"
@@ -299,7 +314,22 @@
 				<Part Id="12" String="PART_L_WING"/>
 			</Parts>
 		</Monster>
-        <Monster Id="13">
+        <Monster Id="11"
+                 Size="1730.270">
+            <Crowns Gold="123"
+                    Silver="115"
+                    Mini="90"/>
+            <Types>
+                <Type Name="TYPE_FLYING_WYVERN"/>
+            </Types>
+            <Weaknesses>
+                <Weakness Name="Ice"/>
+                <Weakness Name="Thunder"/>
+            </Weaknesses>
+            <Parts/>
+        </Monster>
+        <Monster Id="13"
+                 Size="1923.434">
             <Crowns Gold="123"
                     Silver="115"
                     Mini="90"/>
