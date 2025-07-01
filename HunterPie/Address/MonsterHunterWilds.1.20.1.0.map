@@ -10,6 +10,7 @@ Address Game::QuestManager 0x1403E9E8
 Address Game::WorldManager 0x1408F8C0
 Address Game::PauseManager 0x140AF870
 Address Game::NetworkManager 0x13FE6D50
+Address Game::EnvironmentManager 0x13FE41A8
 
 Offset Environment::MonsterList 0x2A0
 Offset Monster::Magic 0x10,0x28,0x14
@@ -51,3 +52,9 @@ Offset Quest::RemotePlayer::Damage 0x168,0x40,0x50,0x30
 Offset Game::PauseState 0x50,0x10,0x20
 Offset Network::Party 0xB8,0x18,0x10,0x20
 Offset Network::Party::Member::HunterRank 0x10,0x78
+Offset Environment::Moon 0x148
+Offset Save::Index 0xD8
+Offset Save::Data 0x80,0x10,0x20
+Offset Activities::MaterialRetrieval 0x130,0x10
+Offset Activities::SupportShip 0xC0
+Offset Activities::IngredientsCenter 0xB8
