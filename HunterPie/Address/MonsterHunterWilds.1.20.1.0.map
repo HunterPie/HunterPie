@@ -1,15 +1,15 @@
-Address Game::CameraManager 0x140CFF28
-Address Game::EnemyManager 0x140EDE68
-Address Encryption::Round 0x141FABB0
-Address Encryption::Key 0x141FABC0
-Address Data:SizeTables 0x140EDE68
-Address Game::GUIManager 0x140CFF78
-Address Game::PlayerManager 0x140570C8
-Address Game::SaveManager 0x14064880
-Address Game::QuestManager 0x140A38E8
-Address Game::WorldManager 0x140F47C0
-Address Game::PauseManager 0x14114770
-Address Game::NetworkManager 0x1404BC50
+Address Game::CameraManager 0x1406B028
+Address Game::EnemyManager 0x14088F68
+Address Encryption::Round 0x14195CB0
+Address Encryption::Key 0x14195CC0
+Address Data:SizeTables 0x14088F68
+Address Game::GUIManager 0x1406B078
+Address Game::PlayerManager 0x13FF21C8
+Address Game::SaveManager 0x13FFF980
+Address Game::QuestManager 0x1403E9E8
+Address Game::WorldManager 0x1408F8C0
+Address Game::PauseManager 0x140AF870
+Address Game::NetworkManager 0x13FE6D50
 
 Offset Environment::MonsterList 0x2A0
 Offset Monster::Magic 0x10,0x28,0x14
