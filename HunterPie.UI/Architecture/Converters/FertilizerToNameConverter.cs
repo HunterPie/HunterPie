@@ -10,12 +10,13 @@ namespace HunterPie.UI.Architecture.Converters;
 #nullable enable
 public class FertilizerToNameConverter : IValueConverter
 {
-    private static ILocalizationRepository LocalizationRepository => DependencyContainer.Get<ILocalizationRepository>();
+    private static ILocalizationRepository LocalizationRepository =>
+        DependencyContainer.Get<ILocalizationRepository>();
 
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         if (value is not Fertilizer fertilizer)
-            throw new ArgumentException("value must be a Fertilizer");
+            return null;
 
         string? localizationId = fertilizer switch
         {
@@ -31,10 +32,11 @@ public class FertilizerToNameConverter : IValueConverter
             _ => null
         };
 
-        if (localizationId is null)
-            return null;
-
-        return LocalizationRepository.FindStringBy($"//Strings/Fertilizers/Fertilizer[@Id='{localizationId}']");
+        return localizationId switch
+        {
+            { } => LocalizationRepository.FindStringBy($"//Strings/Fertilizers/Fertilizer[@Id='{localizationId}']"),
+            _ => null
+        };
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => throw new NotImplementedException();

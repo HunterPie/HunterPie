@@ -181,45 +181,51 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:ConfigurationGroup}">
-                        <StackPanel Orientation="Vertical"
-                                    Margin="0,0,0,20">
-                            <Grid Margin="0,0,10,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" 
-                                           Text="{Binding Name, Mode=OneTime}"
-                                           FontSize="15"
-                                           Foreground="{StaticResource WHITE_600}"
-                                           Margin="5"
-                                           FontWeight="Medium"/>
-                                <Separator Grid.Column="1" 
-                                           Background="{StaticResource GRAY}"/>
-                            </Grid>
-                            
-                            <ItemsControl ItemsSource="{Binding Properties, Mode=OneTime}">
-                                <ItemsControl.Template>
-                                    <ControlTemplate>
-                                        <VirtualizingStackPanel IsItemsHost="True"
-                                                                CanVerticallyScroll="False"
-                                                                SizeChanged="OnSizeChanged"/>
-                                    </ControlTemplate>
-                                </ItemsControl.Template>
+                        <Border Background="{StaticResource GRAY_50}"
+                                BorderBrush="{StaticResource GRAY}"
+                                BorderThickness="1"
+                                CornerRadius="5"
+                                Padding="5"
+                                Margin="5,5">
+                            <StackPanel Orientation="Vertical">
+                                <Grid Margin="0,0,10,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" 
+                                               Text="{Binding Name, Mode=OneTime}"
+                                               FontSize="15"
+                                               Foreground="{StaticResource WHITE_700}"
+                                               Margin="5"
+                                               FontWeight="Medium"/>
+                                    <Separator Grid.Column="1" 
+                                               Background="{StaticResource GRAY}"/>
+                                </Grid>
+    
+                                <ItemsControl ItemsSource="{Binding Properties, Mode=OneTime}">
+                                    <ItemsControl.Template>
+                                        <ControlTemplate>
+                                            <VirtualizingStackPanel IsItemsHost="True"
+                                                                    CanVerticallyScroll="False"
+                                                                    SizeChanged="OnSizeChanged"/>
+                                        </ControlTemplate>
+                                    </ItemsControl.Template>
 
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type settings:ConfigurationPropertyViewModel}">
-                                        <ContentPresenter ContentTemplateSelector="{StaticResource ConfigurationPropertyDataTemplateSelector}"
-                                                          Visibility="{Binding IsMatch, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                          Loaded="OnSettingPropertyLoaded">
-                                            <ContentPresenter.LayoutTransform>
-                                                <ScaleTransform ScaleY="0"/>
-                                            </ContentPresenter.LayoutTransform>
-                                        </ContentPresenter>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </StackPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type settings:ConfigurationPropertyViewModel}">
+                                            <ContentPresenter ContentTemplateSelector="{StaticResource ConfigurationPropertyDataTemplateSelector}"
+                                                              Visibility="{Binding IsMatch, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                              Loaded="OnSettingPropertyLoaded">
+                                                <ContentPresenter.LayoutTransform>
+                                                    <ScaleTransform ScaleY="0"/>
+                                                </ContentPresenter.LayoutTransform>
+                                            </ContentPresenter>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

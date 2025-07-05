@@ -128,7 +128,7 @@ public partial class SettingsView : UserControl
         if (sender is not FrameworkElement element)
             return;
 
-        if (element.TryFindParent<StackPanel>() is not { } parent)
+        if (element.TryFindParent<Border>() is not { } parent)
             return;
 
         bool hasChildrenVisible = e.NewSize.Height > 0;
