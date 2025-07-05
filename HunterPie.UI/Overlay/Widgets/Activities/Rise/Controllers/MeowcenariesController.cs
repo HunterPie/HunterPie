@@ -2,18 +2,22 @@
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Activities;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 using HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
+using System.Windows.Threading;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.Rise.Controllers;
 
 internal class MeowcenariesController : IContextHandler
 {
+    private readonly Dispatcher _mainDispatcher;
     private readonly MHRPlayer _player;
     private readonly MeowcenariesViewModel _viewModel;
 
     public MeowcenariesController(
         MHRContext context,
-        MeowcenariesViewModel viewModel)
+        MeowcenariesViewModel viewModel,
+        Dispatcher mainDispatcher)
     {
+        _mainDispatcher = mainDispatcher;
         _viewModel = viewModel;
         _player = context.Game.Player as MHRPlayer;
         UpdateData();
@@ -50,20 +54,27 @@ internal class MeowcenariesController : IContextHandler
 
     private void OnExpectedOutcomeChange(object sender, MHRMeowmasters e)
     {
-        _viewModel.SetOutcome(
-            current: e.ExpectedOutcome,
-            max: e.MaxOutcome
-        );
+        _mainDispatcher.BeginInvoke(() =>
+        {
+            _viewModel.SetOutcome(
+                current: e.ExpectedOutcome,
+                max: e.MaxOutcome
+            );
+        });
+
     }
 
     private void OnBuddyCountChange(object sender, MHRMeowmasters e)
     {
         _viewModel.MaxBuddyCount = e.MaxBuddies;
         _viewModel.BuddyCount = e.BuddyCount;
-        _viewModel.SetOutcome(
-            current: e.ExpectedOutcome,
-            max: e.MaxOutcome
-        );
+        _mainDispatcher.BeginInvoke(() =>
+        {
+            _viewModel.SetOutcome(
+                current: e.ExpectedOutcome,
+                max: e.MaxOutcome
+            );
+        });
     }
 
     private void OnStepChange(object sender, MHRMeowmasters e)

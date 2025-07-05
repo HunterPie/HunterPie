@@ -17,6 +17,9 @@ public struct MHRSubmarineStructure
     [FieldOffset(0x30)]
     public int DaysLeft;
 
+    [FieldOffset(0x3D)]
+    public byte IsLagniappleEnabled;
+
     [FieldOffset(0x40)]
     public nint ItemArrayPtr;
 }
