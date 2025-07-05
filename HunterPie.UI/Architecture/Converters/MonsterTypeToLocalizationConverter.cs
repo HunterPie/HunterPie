@@ -10,7 +10,7 @@ public class MonsterTypeToLocalizationConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         if (value is string id)
-            return Localization.QueryString($"//Strings/Monsters/Types/Collector[@Id='{id}']");
+            return Localization.QueryString($"//Strings/Monsters/Types/Type[@Id='{id}']");
 
         return string.Empty;
     }

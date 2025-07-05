@@ -96,12 +96,13 @@ internal class SubmarinesController : IContextHandler
     {
         SubmarineViewModel viewModel = _submarineViewModels[source];
 
+        int totalDays = source.DaysLeft + source.DaysBoosted;
+
         for (int i = 0; i < source.MaxDays; i++)
         {
             SubmarineBoostViewModel boost = viewModel.Boosts[i];
-            boost.IsActive = i < source.DaysLeft;
-            // TODO: Implement extra boost
-            boost.IsExtraBoost = false;
+            boost.IsActive = i < totalDays;
+            boost.IsExtraBoost = i >= source.DaysLeft;
         }
     }
 }

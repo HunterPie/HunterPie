@@ -12,7 +12,7 @@
              d:DataContext="{d:DesignInstance Type=viewModels:SubmarineViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="35" 
-             d:DesignWidth="200">
+             d:DesignWidth="250">
     <UserControl.Resources>
         <converters:RatioConverter x:Key="RatioConverter"/>
         

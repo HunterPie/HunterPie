@@ -55,7 +55,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_FLYING_WYVERN"/>
+				<Type Name="TYPE_FLYING_WYVERN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>
@@ -78,7 +78,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_FLYING_WYVERN"/>
+				<Type Name="TYPE_FLYING_WYVERN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>
@@ -93,6 +93,13 @@
 				<Part Id="5" String="PART_L_LEG"/>
 				<Part Id="6" String="PART_R_WING"/>
 				<Part Id="7" String="PART_TAIL"/>
+				<Part Id="8" String="PART_UNKNOWN"/>
+				<Part Id="9" String="PART_TAIL"/>
+				<Part Id="10" String="PART_SKY_FALL"/>
+				<Part Id="11" String="PART_SKY_FALL"/>
+				<Part Id="12" String="PART_AIR_FLINCH"/>
+				<Part Id="13" String="PART_AIR_FLINCH"/>
+				<Part Id="14" String="PART_UNKNOWN"/>
 			</Parts>
 		</Monster>
 		<Monster Id="2"
@@ -101,7 +108,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_CONSTRUCT"/>
+				<Type Name="TYPE_CONSTRUCT"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>
@@ -130,7 +137,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_FLYING_WYVERN"/>
+				<Type Name="TYPE_FLYING_WYVERN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>
@@ -146,6 +153,9 @@
 				<Part Id="6" String="PART_R_LEG"/>
 				<Part Id="7" String="PART_L_WING"/>
 				<Part Id="8" String="PART_R_WING"/>
+				<Part Id="9" String="PART_BELLY"/>
+				<Part Id="10" String="PART_BELLY"/>
+				<Part Id="11" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
 		<Monster Id="4"
@@ -154,7 +164,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_BIRD_WYVERN"/>
+				<Type Name="TYPE_BIRD_WYVERN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Ice"/>
@@ -177,7 +187,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_BIRD_WYVERN"/>
+				<Type Name="TYPE_BIRD_WYVERN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -192,6 +202,10 @@
 				<Part Id="5" String="PART_TAIL"/>
 				<Part Id="6" String="PART_L_WING"/>
 				<Part Id="7" String="PART_R_WING"/>
+				<Part Id="8" String="PART_HEAD"/>
+				<Part Id="9" String="PART_HEAD"/>
+				<Part Id="10" String="PART_FEIGN_DEATH"/>
+				<Part Id="11" String="PART_UNKNOWN"/>
 			</Parts>
 		</Monster>
 		<Monster Id="6"
@@ -200,7 +214,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_FANGED_BEAST"/>
+				<Type Name="TYPE_FANGED_BEAST"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -222,7 +236,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_FANGED_BEAST"/>
+				<Type Name="TYPE_FANGED_BEAST"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -236,15 +250,41 @@
 				<Part Id="4" String="PART_L_H_LEG"/>
 				<Part Id="5" String="PART_R_H_LEG"/>
 				<Part Id="6" String="PART_TAIL"/>
+				<Part Id="7" String="PART_HEAD"/>
+				<Part Id="8" String="PART_HEAD"/>
 			</Parts>
 		</Monster>
+        <Monster Id="8"
+                 Size="2535.460">
+            <Crowns Gold="113"
+                    Silver="109"
+                    Mini="90"/>
+            <Types>
+                <Type Name="TYPE_LEVIATHAN"/>
+            </Types>
+            <Weaknesses>
+                <Weakness Name="Fire"/>
+                <Weakness Name="Ice"/>
+                <Weakness Name="Dragon"/>
+            </Weaknesses>
+            <Parts>
+                <Part Id="0" String="PART_HEAD"/>
+                <Part Id="1" String="PART_NECK"/>
+                <Part Id="2" String="PART_CHEST"/>
+                <Part Id="3" String="PART_BACK"/>
+                <Part Id="4" String="PART_TORSO"/>
+                <Part Id="5" String="PART_FORELEGS"/>
+                <Part Id="6" String="PART_H_LEGS"/>
+                <Part Id="7" String="PART_TAIL"/>
+            </Parts>
+        </Monster>
 		<Monster Id="9"
 		         Size="731.9625">
 			<Crowns Gold="123"
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_TEMNOCERAN"/>
+				<Type Name="TYPE_TEMNOCERAN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -276,7 +316,7 @@
 			        Silver="111"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_DEMI_ELDER"/>
+				<Type Name="TYPE_DEMI_ELDER"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>
@@ -297,14 +337,41 @@
 				<Part Id="10" String="PART_NECK"/>
 				<Part Id="11" String="PART_R_WING"/>
 				<Part Id="12" String="PART_L_WING"/>
+				<Part Id="13" String="PART_FRENZY_THRESHOLD"/>
+				<Part Id="14" String="PART_UNKNOWN"/>
+				<Part Id="15" String="PART_TAIL"/>
 			</Parts>
 		</Monster>
-        <Monster Id="13">
+        <Monster Id="11"
+                 Size="1730.270">
             <Crowns Gold="123"
                     Silver="115"
                     Mini="90"/>
             <Types>
-                <Collector Name="TYPE_LEVIATHAN"/>
+                <Type Name="TYPE_FLYING_WYVERN"/>
+            </Types>
+            <Weaknesses>
+                <Weakness Name="Ice"/>
+                <Weakness Name="Thunder"/>
+            </Weaknesses>
+            <Parts>
+                <Part Id="0" String="PART_HEAD"/>
+                <Part Id="1" String="PART_NECK"/>
+                <Part Id="2" String="PART_TORSO"/>
+                <Part Id="3" String="PART_L_LEG"/>
+                <Part Id="4" String="PART_R_LEG"/>
+                <Part Id="5" String="PART_L_WING"/>
+                <Part Id="6" String="PART_R_WING"/>
+                <Part Id="7" String="PART_TAIL"/>
+            </Parts>
+        </Monster>
+        <Monster Id="13"
+                 Size="1923.434">
+            <Crowns Gold="123"
+                    Silver="115"
+                    Mini="90"/>
+            <Types>
+                <Type Name="TYPE_LEVIATHAN"/>
             </Types>
             <Weaknesses>
                 <Weakness Name="Thunder"/>
@@ -321,6 +388,13 @@
                 <Part Id="7" String="PART_TORSO"/>
                 <Part Id="8" String="PART_TAIL"/>
                 <Part Id="9" String="PART_DORSAL_FIN"/>
+                <Part Id="10" String="PART_TAIL"/>
+                <Part Id="11" String="PART_TAIL"/>
+                <Part Id="12" String="PART_UNKNOWN"/>
+                <Part Id="13" String="PART_HEAD"/>
+                <Part Id="14" String="PART_HEAD"/>
+                <Part Id="15" String="PART_L_CLAW"/>
+                <Part Id="16" String="PART_R_CLAW"/>
             </Parts>
         </Monster>
 		<Monster Id="14"
@@ -329,7 +403,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_CONSTRUCT"/>
+				<Type Name="TYPE_CONSTRUCT"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>
@@ -346,6 +420,10 @@
 				<Part Id="6" String="PART_L_LEG"/>
 				<Part Id="7" String="PART_R_LEG"/>
 				<Part Id="8" String="PART_TAIL"/>
+				<Part Id="9" String="PART_UNKNOWN"/>
+				<Part Id="10" String="PART_TAIL"/>
+				<Part Id="11" String="PART_L_LEG"/>
+				<Part Id="12" String="PART_R_LEG"/>
 			</Parts>
 		</Monster>
 		<Monster Id="15"
@@ -354,7 +432,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_CONSTRUCT"/>
+				<Type Name="TYPE_CONSTRUCT"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Water"/>
@@ -387,7 +465,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_FANGED_BEAST"/>
+				<Type Name="TYPE_FANGED_BEAST"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -409,7 +487,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_CONSTRUCT"/>
+				<Type Name="TYPE_CONSTRUCT"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -431,7 +509,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_LEVIATHAN"/>
+				<Type Name="TYPE_LEVIATHAN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Thunder"/>
@@ -454,7 +532,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_AMPHIBIAN"/>
+				<Type Name="TYPE_AMPHIBIAN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Thunder"/>
@@ -489,7 +567,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_BRUTE_WYVERN"/>
+				<Type Name="TYPE_BRUTE_WYVERN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Water"/>
@@ -513,7 +591,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_TEMNOCERAN"/>
+				<Type Name="TYPE_TEMNOCERAN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -538,7 +616,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_BRUTE_WYVERN"/>
+				<Type Name="TYPE_BRUTE_WYVERN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Water"/>
@@ -572,7 +650,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_FLYING_WYVERN"/>
+				<Type Name="TYPE_FLYING_WYVERN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Ice"/>
@@ -601,7 +679,7 @@
 			        Silver="109"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_LEVIATHAN"/>
+				<Type Name="TYPE_LEVIATHAN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Thunder"/>
@@ -634,7 +712,7 @@
 			        Silver="109"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_CEPHALOPOD"/>
+				<Type Name="TYPE_CEPHALOPOD"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Water"/>
@@ -681,7 +759,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_FANGED_BEAST"/>
+				<Type Name="TYPE_FANGED_BEAST"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Water"/>
@@ -711,7 +789,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_FLYING_WYVERN"/>
+				<Type Name="TYPE_FLYING_WYVERN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>
@@ -728,6 +806,9 @@
 				<Part Id="7" String="PART_L_CHAINBLADE"/>
 				<Part Id="8" String="PART_R_CHAINBLADE"/>
 				<Part Id="9" String="PART_UNKNOWN"/>
+				<Part Id="10" String="PART_TAIL"/>
+				<Part Id="11" String="PART_L_CHAINBLADE"/>
+				<Part Id="12" String="PART_R_CHAINBLADE"/>
 			</Parts>
 		</Monster>
 		<Monster Id="28"
@@ -737,7 +818,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_CONSTRUCT"/>
+				<Type Name="TYPE_CONSTRUCT"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>
@@ -762,7 +843,7 @@
 			        Silver="109"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_LEVIATHAN"/>
+				<Type Name="TYPE_LEVIATHAN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -792,7 +873,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_LEVIATHAN"/>
+				<Type Name="TYPE_LEVIATHAN"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Fire"/>
@@ -809,6 +890,13 @@
 				<Part Id="8" String="PART_ABDOMINAL_ICEPLATE"/>
 				<Part Id="9" String="PART_LG_ICEPLATE_HIDDEN"/>
 				<Part Id="10" String="PART_LG_ICEPLATE_EXPOSED"/>
+				<Part Id="11" String="PART_TAIL"/>
+				<Part Id="12" String="PART_R_FORELEG"/>
+				<Part Id="13" String="PART_L_FORELEG"/>
+				<Part Id="14" String="PART_L_H_LEG"/>
+				<Part Id="15" String="PART_R_H_LEG"/>
+				<Part Id="16" String="PART_FLINCH"/>
+				<Part Id="17" String="PART_UNKNOWN"/>
 			</Parts>
 		</Monster>
 		<Monster Id="31"
@@ -817,7 +905,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_CEPHALOPOD"/>
+				<Type Name="TYPE_CEPHALOPOD"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Ice"/>
@@ -834,6 +922,14 @@
 				<Part Id="8" String="PART_REAR_L_ARM"/>
 				<Part Id="9" String="PART_REAR_R_ARM"/>
 				<Part Id="10" String="PART_MOUTH"/>
+				<Part Id="11" String="PART_L_F_ARM"/>
+				<Part Id="12" String="PART_R_F_ARM"/>
+				<Part Id="13" String="PART_M_L_ARM"/>
+				<Part Id="14" String="PART_M_R_ARM"/>
+				<Part Id="15" String="PART_REAR_L_ARM"/>
+				<Part Id="16" String="PART_REAR_R_ARM"/>
+				<Part Id="17" String="PART_MOUTH"/>
+				<Part Id="18" String="PART_UNKNOWN"/>
 			</Parts>
 		</Monster>
 		<Monster Id="32"
@@ -843,7 +939,7 @@
 			        Silver="115"
 			        Mini="90"/>
 			<Types>
-				<Collector Name="TYPE_CONSTRUCT"/>
+				<Type Name="TYPE_CONSTRUCT"/>
 			</Types>
 			<Weaknesses>
 				<Weakness Name="Dragon"/>
@@ -867,6 +963,9 @@
 				<Part Id="13" String="PART_NECK"/>
 				<Part Id="14" String="PART_TORSO"/>
 				<Part Id="15" String="PART_TAIL"/>
+				<Part Id="16" String="PART_TAIL"/>
+				<Part Id="17" String="PART_L_WINGARM_EXPOSED"/>
+				<Part Id="18" String="PART_R_WINGARM_EXPOSED"/>
 			</Parts>
 		</Monster>
 		<Monster Id="33">

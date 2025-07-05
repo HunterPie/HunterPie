@@ -34,7 +34,11 @@ public class MHRiseActivitiesController : IContextHandler
                 elgadoViewModel: DependencyContainer.Get<CohootNestViewModel>(),
                 kamuraViewModel: DependencyContainer.Get<CohootNestViewModel>()
             ),
-            new MeowcenariesController(context, activities.Meowcenaries),
+            new MeowcenariesController(
+                context: context,
+                viewModel: activities.Meowcenaries,
+                mainDispatcher: mainDispatcher
+            ),
             new SubmarinesController(mainDispatcher, context, activities.Submarines),
             new TrainingDojoController(context, activities.TrainingDojo)
         };
