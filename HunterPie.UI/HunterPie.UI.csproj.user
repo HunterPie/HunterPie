@@ -68,6 +68,9 @@
     <Compile Update="Controls\Progress\Pill.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Progress\SquareProgress.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\Settings\Abnormality\Views\AbnormalityElementView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -386,6 +389,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Progress\Pill.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Progress\SquareProgress.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\Abnormality\Views\AbnormalityElementView.xaml">
