@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="HunterPie.UI.Overlay.Widgets.SpecializedTools.Views.DetailedSpecializedToolView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.Views"
+             xmlns:progress="clr-namespace:HunterPie.UI.Controls.Progress"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.ViewModels"
+             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
+             xmlns:localizations="clr-namespace:HunterPie.UI.Architecture.Converters.Localizations"
+             mc:Ignorable="d" 
+             Height="45"
+             d:DataContext="{d:DesignInstance viewModels:SpecializedToolViewModelV2}">
+    <UserControl.Resources>
+        <brushes:SpecializedToolToColorConverter x:Key="SpecializedToolToColorConverter"/>
+        <localizations:SpecializedToolToNameConverter x:Key="SpecializedToolToNameConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="45"/> 
+            <ColumnDefinition Width="220"/> 
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0"
+                Grid.ColumnSpan="2"
+                BorderThickness="1"
+                BorderBrush="{StaticResource GRAY}"
+                Background="{StaticResource GRAY_100}"
+                CornerRadius="5"/>
+
+        <!-- Mantle icon -->
+        <Border Grid.Column="0"
+                BorderThickness="1"
+                BorderBrush="{StaticResource GRAY}"
+                Background="{StaticResource GRAY_300}"
+                CornerRadius="5">
+            <image:Icon Image="{StaticResource Icons.Mantle}"
+                        Foreground="{Binding Id, Mode=OneWay, Converter={StaticResource SpecializedToolToColorConverter}}"
+                        d:Foreground="White"
+                        Margin="5"/>
+        </Border>
+
+        <!-- Mantle info -->
+        <Grid Grid.Column="1"
+              Margin="5,2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       d:Text="Mantle Name"
+                       Text="{Binding Id, Mode=OneWay, Converter={StaticResource SpecializedToolToNameConverter}}"
+                       FontSize="14"
+                       VerticalAlignment="Center"
+                       Foreground="{StaticResource WHITE}"
+                       FontWeight="Medium"/>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" 
+                           Text="Duration"
+                           FontSize="10"
+                           Foreground="{StaticResource WHITE_400}"/>
+                <progress:Gauge Grid.Row="1" 
+                                d:Max="100"
+                                d:Current="50"
+                                Foreground="{Binding Id, Mode=OneWay, Converter={StaticResource SpecializedToolToColorConverter}}"
+                                BorderBrush="{StaticResource GRAY}"
+                                BorderThickness="1">
+                    <progress:Gauge.Style>
+                        <Style TargetType="progress:Gauge">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsRecharging, Mode=OneWay}"
+                                             Value="True">
+                                    <Setter Property="Current" Value="{Binding Cooldown, Mode=OneWay}"/>
+                                    <Setter Property="Max" Value="{Binding MaxCooldown, Mode=OneWay}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsRecharging, Mode=OneWay}"
+                                             Value="False">
+                                    <Setter Property="Current" Value="{Binding Timer, Mode=OneWay}"/>
+                                    <Setter Property="Max" Value="{Binding MaxTimer, Mode=OneWay}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </progress:Gauge.Style>
+                </progress:Gauge>
+            </Grid>
+
+            <TextBlock Grid.Row="0"
+                       Grid.RowSpan="2"
+                       VerticalAlignment="Center"
+                       Text="00:00"
+                       FontSize="14"
+                       Foreground="{StaticResource WHITE}"
+                       FontWeight="Medium"
+                       HorizontalAlignment="Right"/>
+        </Grid>
+    </Grid>
+</UserControl>

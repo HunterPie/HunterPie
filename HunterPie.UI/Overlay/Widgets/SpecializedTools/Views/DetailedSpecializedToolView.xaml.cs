@@ -13,14 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HunterPie.UI.Controls.Progress;
-/// <summary>
-/// Interaction logic for SquareProgress.xaml
-/// </summary>
-public partial class SquareProgress : UserControl
+namespace HunterPie.UI.Overlay.Widgets.SpecializedTools.Views
 {
-    public SquareProgress()
+    /// <summary>
+    /// Interaction logic for DetailedSpecializedToolView.xaml
+    /// </summary>
+    public partial class DetailedSpecializedToolView : UserControl
     {
-        InitializeComponent();
+        public DetailedSpecializedToolView()
+        {
+            InitializeComponent();
+        }
     }
 }

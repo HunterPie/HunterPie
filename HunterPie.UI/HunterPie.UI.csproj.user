@@ -68,9 +68,6 @@
     <Compile Update="Controls\Progress\Pill.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\Progress\SquareProgress.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Controls\Settings\Abnormality\Views\AbnormalityElementView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -272,7 +269,10 @@
     <Compile Update="Overlay\Widgets\Player\Views\WeaponSharpnessView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Overlay\Widgets\SpecializedTools\Views\SpecializedToolView.xaml.cs">
+    <Compile Update="Overlay\Widgets\SpecializedTools\Views\DetailedSpecializedToolView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\SpecializedTools\Views\SpecializedToolViewV2.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Wirebug\Views\WirebugsView.xaml.cs">
@@ -389,9 +389,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Progress\Pill.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Controls\Progress\SquareProgress.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Settings\Abnormality\Views\AbnormalityElementView.xaml">
@@ -589,7 +586,10 @@
     <Page Update="Overlay\Widgets\Player\Views\WeaponSharpnessView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Overlay\Widgets\SpecializedTools\Views\SpecializedToolView.xaml">
+    <Page Update="Overlay\Widgets\SpecializedTools\Views\DetailedSpecializedToolView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\SpecializedTools\Views\SpecializedToolViewV2.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Wirebug\Views\WirebugsView.xaml">

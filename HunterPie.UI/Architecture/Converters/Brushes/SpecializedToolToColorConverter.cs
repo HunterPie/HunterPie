@@ -6,7 +6,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using PrimitiveColor = System.Windows.Media.Colors;
 
-namespace HunterPie.UI.Architecture.Converters;
+namespace HunterPie.UI.Architecture.Converters.Brushes;
 
 public class SpecializedToolToColorConverter : IValueConverter
 {
@@ -15,7 +15,7 @@ public class SpecializedToolToColorConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         return value is SpecializedToolType tool
-            ? (object)(tool switch
+            ? tool switch
             {
                 SpecializedToolType.None => DefaultColor,
                 SpecializedToolType.GhillieMantle => Resources.Get<Brush>("COLOR_GHILLIE_MANTLE"),
@@ -39,7 +39,7 @@ public class SpecializedToolToColorConverter : IValueConverter
                 SpecializedToolType.BanditMantle => Resources.Get<Brush>("COLOR_BANDIT_MANTLE"),
                 SpecializedToolType.AssassinsHood => Resources.Get<Brush>("COLOR_ASSASSINS_HOOD"),
                 _ => throw new NotImplementedException(),
-            })
+            }
             : throw new ArgumentException($"expected value to be of type {nameof(SpecializedToolType)}");
     }
 
