@@ -16,7 +16,7 @@ internal class SpecializedToolWidgetMocker : IWidgetMocker
         var mockConfig = new SpecializedToolWidgetConfig();
 
         WidgetManager.Register<SpecializedToolViewV2, SpecializedToolWidgetConfig>(
-            new SpecializedToolViewV2(mockConfig)
+            new SpecializedToolViewV2(ClientConfig.Config.World.Overlay.PrimarySpecializedToolWidget)
             {
                 DataContext = new SpecializedToolViewModelV2
                 {

@@ -9,12 +9,17 @@
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.ViewModels"
              xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
              xmlns:localizations="clr-namespace:HunterPie.UI.Architecture.Converters.Localizations"
-             mc:Ignorable="d" 
-             Height="45"
-             d:DataContext="{d:DesignInstance viewModels:SpecializedToolViewModelV2}">
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance viewModels:SpecializedToolViewModelV2}"
+             d:DesignHeight="45">
     <UserControl.Resources>
         <brushes:SpecializedToolToColorConverter x:Key="SpecializedToolToColorConverter"/>
         <localizations:SpecializedToolToNameConverter x:Key="SpecializedToolToNameConverter"/>
+        <converters:RatioConverter x:Key="RatioConverter"/>
+        <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
+        <converters:SpecializedToolTypeToIconConverter x:Key="SpecializedToolTypeToIconConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -34,7 +39,8 @@
                 BorderBrush="{StaticResource GRAY}"
                 Background="{StaticResource GRAY_300}"
                 CornerRadius="5">
-            <image:Icon Image="{StaticResource Icons.Mantle}"
+            <image:Icon d:Image="{StaticResource Icons.Tools.Mantle}"
+                        Image="{Binding Id, Mode=OneWay, Converter={StaticResource SpecializedToolTypeToIconConverter}}"
                         Foreground="{Binding Id, Mode=OneWay, Converter={StaticResource SpecializedToolToColorConverter}}"
                         d:Foreground="White"
                         Margin="5"/>
@@ -53,8 +59,7 @@
                        Text="{Binding Id, Mode=OneWay, Converter={StaticResource SpecializedToolToNameConverter}}"
                        FontSize="14"
                        VerticalAlignment="Center"
-                       Foreground="{StaticResource WHITE}"
-                       FontWeight="Medium"/>
+                       Foreground="{StaticResource WHITE}"/>
 
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
@@ -62,12 +67,30 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" 
-                           Text="Duration"
                            FontSize="10"
-                           Foreground="{StaticResource WHITE_400}"/>
+                           Foreground="{StaticResource WHITE_400}"
+                           FontFamily="{StaticResource Font.Default}">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsRecharging, Mode=OneWay}"
+                                             Value="True">
+                                    <Setter Property="Text" Value="{markup:Localization '//Strings/Client/Overlay/String[@Id=&quot;TOOL_COOLDOWN&quot;]'}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsRecharging, Mode=OneWay}"
+                                             Value="False">
+                                    <Setter Property="Text" Value="{markup:Localization '//Strings/Client/Overlay/String[@Id=&quot;TOOL_TIMER&quot;]'}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
                 <progress:Gauge Grid.Row="1" 
                                 d:Max="100"
                                 d:Current="50"
+                                Markers="10"
+                                CornerRadius="2"
                                 Foreground="{Binding Id, Mode=OneWay, Converter={StaticResource SpecializedToolToColorConverter}}"
                                 BorderBrush="{StaticResource GRAY}"
                                 BorderThickness="1">
@@ -93,11 +116,34 @@
             <TextBlock Grid.Row="0"
                        Grid.RowSpan="2"
                        VerticalAlignment="Center"
-                       Text="00:00"
                        FontSize="14"
                        Foreground="{StaticResource WHITE}"
                        FontWeight="Medium"
-                       HorizontalAlignment="Right"/>
+                       HorizontalAlignment="Right"
+                       FontFamily="{StaticResource Font.Default}">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsRecharging, Mode=OneWay}"
+                                         Value="True">
+                                <Setter Property="Text">
+                                    <Setter.Value>
+                                        <MultiBinding Converter="{StaticResource RatioConverter}"
+                                                      StringFormat="P0">
+                                            <Binding Path="Cooldown"/>
+                                            <Binding Path="MaxCooldown"/>
+                                        </MultiBinding>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsRecharging, Mode=OneWay}"
+                                         Value="False">
+                                <Setter Property="Text" Value="{Binding Timer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
         </Grid>
     </Grid>
 </UserControl>

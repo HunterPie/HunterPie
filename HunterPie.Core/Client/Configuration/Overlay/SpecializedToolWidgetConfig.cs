@@ -8,7 +8,7 @@ using HunterPie.Core.Settings.Types;
 namespace HunterPie.Core.Client.Configuration.Overlay;
 
 [Configuration(name: "SPECIALIZED_TOOL_WIDGET_STRING",
-    icon: "ICON_MANTLE",
+    icon: "Icons.Tools.Mantle",
     group: CommonConfigurationGroups.OVERLAY,
     availableGames: GameProcessType.MonsterHunterWorld)]
 public class SpecializedToolWidgetConfig : IWidgetSettings, ISettings
@@ -36,5 +36,13 @@ public class SpecializedToolWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("WIDGET_POSITION", group: CommonConfigurationGroups.GENERAL)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Position Position { get; set; } = new(100, 100);
+    #endregion
+
+    #region Customizations
+
+    [ConfigurationProperty("SPECIALIZED_TOOL_COMPACT_MODE_ENABLED", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    public Observable<bool> IsCompactModeEnabled { get; set; } = false;
+
     #endregion
 }

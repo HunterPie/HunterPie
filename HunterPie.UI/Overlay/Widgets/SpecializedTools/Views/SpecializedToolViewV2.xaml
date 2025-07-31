@@ -7,9 +7,38 @@
                    xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.Views"
                    xmlns:architecture="clr-namespace:HunterPie.UI.Architecture"
                    xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.ViewModels"
-                   mc:Ignorable="d" 
-                   Height="45"
+                   mc:Ignorable="d"
                    d:DataContext="{d:DesignInstance viewModels:SpecializedToolViewModelV2}"
-                   Style="{DynamicResource Widgets.SpecializedToolV2}">
-    <local:DetailedSpecializedToolView DataContext="{Binding ., Mode=OneTime}"/>
+                   Style="{DynamicResource Widgets.SpecializedToolV2}"
+                   x:Name="WidgetComponent"
+                   d:DesignWidth="200"
+                   d:DesignHeight="50">
+    <Grid>
+        <ContentPresenter>
+            <ContentPresenter.Style>
+                <Style TargetType="ContentPresenter">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Settings.IsCompactModeEnabled.Value, ElementName=WidgetComponent}"
+                                     Value="True">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <local:CompactSpecializedToolView HorizontalAlignment="Left"
+                                                                      Width="45"
+                                                                      Height="45"/>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Settings.IsCompactModeEnabled.Value, ElementName=WidgetComponent}"
+                                     Value="False">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <local:DetailedSpecializedToolView Height="45"/>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentPresenter.Style>
+        </ContentPresenter>
+    </Grid>
 </architecture:View>

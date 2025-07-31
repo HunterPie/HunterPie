@@ -180,7 +180,7 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
-    <DrawingImage x:Key="Icons.Mantle">
+    <DrawingImage x:Key="Icons.Tools.Mantle">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">
                 <DrawingGroup Opacity="1" Transform="1,0,0,1,0.4948153,0.04321926">
@@ -190,6 +190,47 @@
                             <SolidColorBrush Color="#FFFFFFFF" Opacity="0.66" />
                         </GeometryDrawing.Brush>
                     </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Icons.Tools.Booster">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">
+                <DrawingGroup Transform="1,0,0,1.0000012,-64,-448.00013">
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F0 M64,64z M0,0z M84,503L86,496 104,496 107,503 84,503z" />
+                </DrawingGroup>
+                <DrawingGroup Transform="1.11111,0,0,1.0000012,-74.6111,-448.50013">
+                    <GeometryDrawing Geometry="F0 M64,64z M0,0z M100,488C100,487.448,99.597,487,99.1,487L91.9,487C91.403,487,91,487.448,91,488L91,494 100,494 100,488z">
+                        <GeometryDrawing.Brush>
+                            <SolidColorBrush Color="#FFFFFFFF" Opacity="0.80000001" />
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup>
+                <DrawingGroup Transform="1,0,0,1.0000012,0,-191.99981">
+                    <GeometryDrawing Geometry="F0 M64,64z M0,0z M16.984,221L14.5,224 18.5,227 20.5,225 16.984,221z M47.016,221L49.5,224 45.5,227 43.5,225 47.016,221z M23.5,218L27.5,216 28.5,222 25.5,223 23.5,218z M40.5,218L36.5,216 35.5,222 38.5,223 40.5,218z M9.159,219.216L12.554,216.171 7.5,211 4.5,215 9.159,219.216z M54.841,219.216L51.446,216.171 56.5,211 59.5,215 54.841,219.216z M20.5,210L25.5,208 23.5,202 17.545,203 20.5,210z M43.5,210L38.5,208 40.5,202 46.455,203 43.5,210z">
+                        <GeometryDrawing.Brush>
+                            <SolidColorBrush Color="#FFFFFFFF" Opacity="0.60000002" />
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Icons.Tools.AssassinsMantle">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">
+                <DrawingGroup Transform="1,0,0,1.0000012,0,-320">
+                    <GeometryDrawing Geometry="F0 M64,64z M0,0z M32,370C32,370 28.875,369.875 25,366 23,364 21,362 21,360 21,358 28,350.991 28,350.991L32,355 36,350.991C36,350.991 43,358 43,360 43,362 41,364 39,366 35,370 32,370 32,370z">
+                        <GeometryDrawing.Brush>
+                            <SolidColorBrush Color="#FFFFFFFF" Opacity="0.63729244" />
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup>
+                <DrawingGroup Transform="1,0,0,1.0000012,0,-320">
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F0 M64,64z M0,0z M28,349C28,349 19,356 19,362 19,368 27,378 27,378 27,378 22,376 19,373 16,370 15,367 15,367L11.5,374C11.5,374 8,368 8,366 8,364 11,363 14,358 17,353 16,351 18,339 20,327 29,326 32,326L32.071,326C35.14,326.016 44.016,327.094 46,339 48,351 47,353 50,358 53,363 56,364 56,366 56,368 52.5,374 52.5,374L49,367C49,367 48,370 45,373 42,376 37,378 37,378 37,378 45,368 45,362 45,356 36,349 36,349L32,353 28,349z" />
                 </DrawingGroup>
             </DrawingGroup>
         </DrawingImage.Drawing>

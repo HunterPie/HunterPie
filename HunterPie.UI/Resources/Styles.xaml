@@ -8,11 +8,11 @@
                     xmlns:abnormalities="clr-namespace:HunterPie.UI.Overlay.Widgets.Abnormality.View;assembly=HunterPie.UI"
                     xmlns:chat="clr-namespace:HunterPie.UI.Overlay.Widgets.Chat.Views;assembly=HunterPie.UI"
                     xmlns:wirebug="clr-namespace:HunterPie.UI.Overlay.Widgets.Wirebug.Views;assembly=HunterPie.UI"
-                    xmlns:specialized="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.Views;assembly=HunterPie.UI"
                     xmlns:playerHud="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.Views;assembly=HunterPie.UI"
                     xmlns:effects="clr-namespace:HunterPie.UI.Controls.Effects;assembly=HunterPie.UI"
                     xmlns:progress="clr-namespace:HunterPie.UI.Overlay.Controls.Progress;assembly=HunterPie.UI"
-                    xmlns:activities="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Views;assembly=HunterPie.UI">
+                    xmlns:activities="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Views;assembly=HunterPie.UI"
+                    xmlns:tools="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.Views">
     <!-- Converters -->
     <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
     
@@ -160,7 +160,8 @@
     </LinearGradientBrush>
 
     <!-- Font -->
-    <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">Work Sans, Microsoft Sans Serif</FontFamily>
+    <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">Work Sans, Segoe UI, Microsoft Sans Serif</FontFamily>
+    <FontFamily x:Key="Font.Default">Work Sans, Segoe UI, Microsoft Sans Serif</FontFamily>
 
     <!-- Constants -->
     <sys:Double x:Key="HUNTERPIE_SIDEBAR_WIDTH">300</sys:Double>
@@ -176,7 +177,7 @@
                 </Style.Resources>
             </Style>
         </Style.Resources>
-        <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Font.Default}"/>
         <Setter Property="Background" Value="{StaticResource GRAY_50}"/>
         <Setter Property="Foreground" Value="{StaticResource WHITE_100}"/>
         <Setter Property="BorderBrush" Value="{StaticResource GRAY}"/>
@@ -448,7 +449,7 @@
     </Style>
 
     <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
-        <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Font.Default}"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="UIElement.SnapsToDevicePixels" Value="True"/>
@@ -882,7 +883,7 @@
     <Style x:Key="STYLE_PLAYER_HUD_WIDGET" TargetType="{x:Type playerHud:PlayerHudView}"/>
 
     <Style x:Key="Widgets.SpecializedToolV2"
-           TargetType="{x:Type specialized:SpecializedToolViewV2}"/>
+           TargetType="{x:Type UserControl}"/>
     
     <sys:Double x:Key="Widgets.Background.Opacity">0.8</sys:Double>
 </ResourceDictionary>
