@@ -2,6 +2,8 @@
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
+using HunterPie.Core.Game.Entity;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
@@ -18,7 +20,9 @@ internal class SpecializedToolWidgetInitializer : IWidgetInitializer
 {
     private readonly List<IContextHandler> _handlers = new(2);
 
-    public GameProcessType SupportedGames => GameProcessType.MonsterHunterWorld;
+    public GameProcessType SupportedGames =>
+        GameProcessType.MonsterHunterWorld |
+        GameProcessType.MonsterHunterWilds;
 
     public Task LoadAsync(IContext context)
     {
@@ -72,16 +76,20 @@ internal class SpecializedToolWidgetInitializer : IWidgetInitializer
             config: configuration
         );
 
-        return context.Game.Player switch
+        ISpecializedTool? tool = context.Game.Player switch
         {
-            MHWPlayer player => new SpecializedToolController(
-                context: context,
-                tool: player.Tools.ElementAtOrDefault(index),
-                view: view,
-                config: configuration
-            ),
+            MHWPlayer player => player.Tools.ElementAtOrDefault(index),
+
+            MHWildsPlayer player => player.Tools.ElementAtOrDefault(index),
 
             _ => throw new NotImplementedException($"{context.Process.Type} does not support specialized tools")
         };
+
+        return new SpecializedToolController(
+            context: context,
+            tool: tool,
+            view: view,
+            config: configuration
+        );
     }
 }

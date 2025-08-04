@@ -20,6 +20,7 @@
         <converters:RatioConverter x:Key="RatioConverter"/>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:SpecializedToolTypeToIconConverter x:Key="SpecializedToolTypeToIconConverter" />
+        <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -29,21 +30,22 @@
         <Border Grid.Column="0"
                 Grid.ColumnSpan="2"
                 BorderThickness="1"
-                BorderBrush="{StaticResource GRAY}"
-                Background="{StaticResource GRAY_100}"
+                BorderBrush="{Binding Source={StaticResource GRAY}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+                Background="{Binding Source={StaticResource GRAY_100}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
                 CornerRadius="5"/>
 
         <!-- Mantle icon -->
         <Border Grid.Column="0"
                 BorderThickness="1"
                 BorderBrush="{StaticResource GRAY}"
-                Background="{StaticResource GRAY_300}"
+                Background="{Binding Source={StaticResource GRAY_300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
                 CornerRadius="5">
             <image:Icon d:Image="{StaticResource Icons.Tools.Mantle}"
                         Image="{Binding Id, Mode=OneWay, Converter={StaticResource SpecializedToolTypeToIconConverter}}"
                         Foreground="{Binding Id, Mode=OneWay, Converter={StaticResource SpecializedToolToColorConverter}}"
                         d:Foreground="White"
-                        Margin="5"/>
+                        Margin="5"
+                        Opacity="0.8"/>
         </Border>
 
         <!-- Mantle info -->
@@ -69,7 +71,8 @@
                 <TextBlock Grid.Row="0" 
                            FontSize="10"
                            Foreground="{StaticResource WHITE_400}"
-                           FontFamily="{StaticResource Font.Default}">
+                           FontFamily="{StaticResource Font.Default}"
+                           d:Text="Duration">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Style.Triggers>

@@ -126,7 +126,8 @@ public sealed class MHWildsGame : CommonGame
         _player = new MHWildsPlayer(
             process: process,
             scanService: scanService,
-            monsterTargetKeyManager: _monsterTargetKeyManager
+            monsterTargetKeyManager: _monsterTargetKeyManager,
+            cryptoService: _cryptoService
         );
         _player.OnStageUpdate += (_, _) =>
         {

@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Domain.Memory;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Collections;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Types;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Activities;
@@ -68,6 +69,19 @@ public static class MHWildsExtensions
             0x251E0440 => MaterialRetrievalCollector.Apar,
             0x3F8E9480 => MaterialRetrievalCollector.Plumpeach,
             0x5CE6D780 => MaterialRetrievalCollector.Sabar,
+            _ => null
+        };
+    }
+
+    public static SpecializedToolType? ToSpecializedToolType(this int id)
+    {
+        return id switch
+        {
+            1 => SpecializedToolType.GhillieMantle,
+            2 => SpecializedToolType.RocksteadyMantle,
+            3 => SpecializedToolType.MendingMantle,
+            4 => SpecializedToolType.EvasionMantle,
+            5 => SpecializedToolType.CorruptedMantle,
             _ => null
         };
     }

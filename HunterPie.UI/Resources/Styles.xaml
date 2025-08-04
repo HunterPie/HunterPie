@@ -92,7 +92,14 @@
         <GradientStop Color="#FFF5F7FA"/>
         <GradientStop Color="#FFB8C6DB" Offset="1"/>
     </LinearGradientBrush>
-    
+    <LinearGradientBrush x:Key="Brushes.Tools.MendingMantle" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF60FF40"/>
+        <GradientStop Color="#FFACFF40" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.CorruptedMantle" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF5E2FD6"/>
+        <GradientStop Color="#FF6C2FD6" Offset="1"/>
+    </LinearGradientBrush>
     <!-- Ailments -->
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_UNKNOWN">#FF73ABEE</SolidColorBrush>
     <LinearGradientBrush x:Key="COLOR_MONSTER_AILMENT_POISON" EndPoint="1,1" StartPoint="0,1">

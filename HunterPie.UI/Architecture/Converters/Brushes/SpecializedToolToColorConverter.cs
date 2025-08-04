@@ -38,6 +38,8 @@ public class SpecializedToolToColorConverter : IValueConverter
                 SpecializedToolType.AffinityBooster => Resources.Get<Brush>("COLOR_AFFINITY_BOOSTER"),
                 SpecializedToolType.BanditMantle => Resources.Get<Brush>("COLOR_BANDIT_MANTLE"),
                 SpecializedToolType.AssassinsHood => Resources.Get<Brush>("COLOR_ASSASSINS_HOOD"),
+                SpecializedToolType.MendingMantle => Resources.Get<Brush>("Brushes.Tools.MendingMantle"),
+                SpecializedToolType.CorruptedMantle => Resources.Get<Brush>("Brushes.Tools.CorruptedMantle"),
                 _ => throw new NotImplementedException(),
             }
             : throw new ArgumentException($"expected value to be of type {nameof(SpecializedToolType)}");

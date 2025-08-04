@@ -3,62 +3,54 @@ using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity;
 using HunterPie.Core.Game.Enums;
-using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player.Data;
 
-namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
+namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
 
-public class MHWSpecializedTool : ISpecializedTool, IEventDispatcher, IUpdatable<MHWSpecializedToolStructure>, IDisposable
+public class MHWildsSpecializedTool : ISpecializedTool, IEventDispatcher, IUpdatable<UpdateSpecializedTool>, IDisposable
 {
     private SpecializedToolType _id;
+    private float _cooldown;
+    private float _timer;
+
     public SpecializedToolType Id
     {
         get => _id;
         set
         {
-            if (value == _id)
-                return;
-
-            _id = value;
-            this.Dispatch(
-                toDispatch: _onChange,
-                data: this
-            );
+            if (value != _id)
+            {
+                _id = value;
+                this.Dispatch(_onChange, this);
+            }
         }
     }
 
-    private float _cooldown;
     public float Cooldown
     {
         get => _cooldown;
         set
         {
-            if (value == _cooldown)
-                return;
-
-            _cooldown = value;
-            this.Dispatch(
-                toDispatch: _onCooldownUpdate,
-                data: this
-            );
+            if (value != _cooldown)
+            {
+                _cooldown = value;
+                this.Dispatch(_onCooldownUpdate, this);
+            }
         }
     }
 
     public float MaxCooldown { get; private set; }
 
-    private float _timer;
     public float Timer
     {
         get => _timer;
         set
         {
-            if (value == _timer)
-                return;
-
-            _timer = value;
-            this.Dispatch(
-                toDispatch: _onTimerUpdate,
-                data: this
-            );
+            if (value != _timer)
+            {
+                _timer = value;
+                this.Dispatch(_onTimerUpdate, this);
+            }
         }
     }
 
@@ -85,13 +77,17 @@ public class MHWSpecializedTool : ISpecializedTool, IEventDispatcher, IUpdatable
         remove => _onChange.Unhook(value);
     }
 
-    public void Update(MHWSpecializedToolStructure data)
+    public void Update(UpdateSpecializedTool data)
     {
-        Id = data.Id;
-        MaxTimer = data.MaxTimer;
-        Timer = data.Timer;
+        Id = data.Type;
+
+        float timer = data.IsTimerActive ? data.Timer : 0;
+        float cooldown = data.IsTimerActive ? 0 : data.Timer;
+
         MaxCooldown = data.MaxCooldown;
-        Cooldown = data.Cooldown;
+        Cooldown = cooldown;
+        MaxTimer = data.MaxTimer;
+        Timer = timer;
     }
 
     public void Dispose()

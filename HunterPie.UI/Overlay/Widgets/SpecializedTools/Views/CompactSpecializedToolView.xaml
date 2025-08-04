@@ -18,10 +18,11 @@
         <converters:RatioConverter x:Key="RatioConverter"/>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/> 
         <converters:SpecializedToolTypeToIconConverter x:Key="SpecializedToolTypeToIconConverter"/>
+        <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter" />
     </UserControl.Resources>
     <Grid>
-        <Border Background="{StaticResource GRAY_300}"
-                BorderBrush="{StaticResource GRAY_500}"
+        <Border Background="{Binding Source={StaticResource GRAY_300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+                BorderBrush="{Binding Source={StaticResource GRAY_50}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
                 CornerRadius="5"
                 BorderThickness="2">
             <Grid>
@@ -32,35 +33,37 @@
                             Margin="5"
                             Opacity="0.5"/>
 
-                <Viewbox Margin="2">
-                    <TextBlock Foreground="{StaticResource WHITE}"
-                               d:Text="00:00"
-                               FontWeight="Medium"
-                               FontFamily="{StaticResource Font.Default}">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsRecharging, Mode=OneWay}"
-                                                 Value="True">
-                                        <Setter Property="Text">
-                                            <Setter.Value>
-                                                <MultiBinding Converter="{StaticResource RatioConverter}"
-                                                              StringFormat="P0">
-                                                    <Binding Path="Cooldown"/>
-                                                    <Binding Path="MaxCooldown"/>
-                                                </MultiBinding>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding IsRecharging, Mode=OneWay}"
-                                                 Value="False">
-                                        <Setter Property="Text" Value="{Binding Timer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                </Viewbox>
+                <TextBlock Foreground="{StaticResource WHITE}"
+                           d:Text="00:00"
+                           FontWeight="Medium"
+                           FontFamily="{StaticResource Font.Default}"
+                           FontSize="13"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Margin="2">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsRecharging, Mode=OneWay}"
+                                             Value="True">
+                                    <Setter Property="Text">
+                                        <Setter.Value>
+                                            <MultiBinding Converter="{StaticResource RatioConverter}"
+                                                          StringFormat="P0">
+                                                <Binding Path="Cooldown"/>
+                                                <Binding Path="MaxCooldown"/>
+                                            </MultiBinding>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsRecharging, Mode=OneWay}"
+                                             Value="False">
+                                    <Setter Property="Text" Value="{Binding Timer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
             </Grid>
         </Border>
         

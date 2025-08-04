@@ -10,7 +10,7 @@ namespace HunterPie.Core.Client.Configuration.Overlay;
 [Configuration(name: "SPECIALIZED_TOOL_WIDGET_STRING",
     icon: "Icons.Tools.Mantle",
     group: CommonConfigurationGroups.OVERLAY,
-    availableGames: GameProcessType.MonsterHunterWorld)]
+    availableGames: GameProcessType.MonsterHunterWorld | GameProcessType.MonsterHunterWilds)]
 public class SpecializedToolWidgetConfig : IWidgetSettings, ISettings
 {
     #region General Settings

@@ -29,7 +29,9 @@ internal class SpecializedToolTypeToIconConverter : IValueConverter
                 SpecializedToolType.ImpactMantle or
                 SpecializedToolType.ApothecaryMantle or
                 SpecializedToolType.ImmunityMantle or
-                SpecializedToolType.BanditMantle => Resources.Icon("Icons.Tools.Mantle"),
+                SpecializedToolType.BanditMantle or
+                SpecializedToolType.MendingMantle or
+                SpecializedToolType.CorruptedMantle => Resources.Icon("Icons.Tools.Mantle"),
 
                 SpecializedToolType.HealthBooster or
                 SpecializedToolType.AffinityBooster or

@@ -28,6 +28,8 @@ public class SpecializedToolController : IContextHandler
         _config = config;
 
         UpdateData();
+
+        WidgetManager.Register<SpecializedToolViewV2, SpecializedToolWidgetConfig>(_view);
     }
 
     public void HookEvents()
