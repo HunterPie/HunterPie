@@ -13,16 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HunterPie.UI.Overlay.Widgets.SpecializedTools.Views
+namespace HunterPie.UI.Overlay.Widgets.SpecializedTools.Views;
+
+/// <summary>
+/// Interaction logic for DetailedSpecializedToolView.xaml
+/// </summary>
+public partial class DetailedSpecializedToolView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for DetailedSpecializedToolView.xaml
-    /// </summary>
-    public partial class DetailedSpecializedToolView : UserControl
+    public DetailedSpecializedToolView()
     {
-        public DetailedSpecializedToolView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }
