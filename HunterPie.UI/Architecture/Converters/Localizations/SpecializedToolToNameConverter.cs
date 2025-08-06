@@ -40,6 +40,8 @@ public class SpecializedToolToNameConverter : IValueConverter
             SpecializedToolType.AffinityBooster => "AFFINITY_BOOSTER",
             SpecializedToolType.BanditMantle => "BANDIT_MANTLE",
             SpecializedToolType.AssassinsHood => "ASSASSINS_HOOD",
+            SpecializedToolType.MendingMantle => "MENDING_MANTLE",
+            SpecializedToolType.CorruptedMantle => "CORRUPTED_MANTLE",
             _ => null
         };
 

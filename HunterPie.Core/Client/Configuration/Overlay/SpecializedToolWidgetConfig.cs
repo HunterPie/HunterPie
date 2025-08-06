@@ -42,7 +42,11 @@ public class SpecializedToolWidgetConfig : IWidgetSettings, ISettings
 
     [ConfigurationProperty("SPECIALIZED_TOOL_COMPACT_MODE_ENABLED", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
-    public Observable<bool> IsCompactModeEnabled { get; set; } = false;
+    public Observable<bool> IsCompactModeEnabled { get; set; } = true;
+
+    [ConfigurationProperty("SPECIALIZED_TOOL_DISPLAY_ONLY_HUNTING_ZONE", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    public Observable<bool> IsShowOnlyInHuntingZoneEnabled { get; set; } = true;
 
     #endregion
 }

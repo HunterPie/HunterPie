@@ -4,6 +4,7 @@ using HunterPie.Core.Game.Entity;
 using HunterPie.UI.Overlay.Widgets.SpecializedTools.ViewModels;
 using HunterPie.UI.Overlay.Widgets.SpecializedTools.Views;
 using System;
+using System.ComponentModel;
 
 namespace HunterPie.UI.Overlay.Widgets.SpecializedTools.Controllers;
 
@@ -39,6 +40,7 @@ public class SpecializedToolController : IContextHandler
         _tool.OnChange += OnToolChange;
         _tool.OnCooldownUpdate += OnCooldownUpdate;
         _tool.OnTimerUpdate += OnTimerUpdate;
+        _config.IsShowOnlyInHuntingZoneEnabled.PropertyChanged += OnShowInHuntingZoneEnabledChanged;
     }
 
     public void UnhookEvents()
@@ -48,6 +50,7 @@ public class SpecializedToolController : IContextHandler
         _tool.OnChange -= OnToolChange;
         _tool.OnCooldownUpdate -= OnCooldownUpdate;
         _tool.OnTimerUpdate -= OnTimerUpdate;
+        _config.IsShowOnlyInHuntingZoneEnabled.PropertyChanged -= OnShowInHuntingZoneEnabledChanged;
 
         WidgetManager.Unregister<SpecializedToolViewV2, SpecializedToolWidgetConfig>(_view);
     }
@@ -68,15 +71,13 @@ public class SpecializedToolController : IContextHandler
 
     private void OnToolChange(object sender, ISpecializedTool e) => UpdateData();
 
+    private void OnVillageUpdate(object sender, EventArgs e) => UpdateVisibility();
 
-    private void OnVillageUpdate(object sender, EventArgs e)
-    {
-        _viewModel.IsVisible = _context.Game.Player.InHuntingZone;
-    }
+    private void OnShowInHuntingZoneEnabledChanged(object sender, PropertyChangedEventArgs e) => UpdateVisibility();
 
     private void UpdateData()
     {
-        _viewModel.IsVisible = _context.Game.Player.InHuntingZone;
+        UpdateVisibility();
         _viewModel.Id = _tool.Id;
         _viewModel.MaxCooldown = _tool.MaxCooldown;
         _viewModel.Cooldown = _tool.Cooldown;
@@ -86,5 +87,10 @@ public class SpecializedToolController : IContextHandler
 
         if (_viewModel.Cooldown == 0 && _viewModel.Timer == 0)
             _viewModel.Timer = _viewModel.MaxTimer;
+    }
+
+    private void UpdateVisibility()
+    {
+        _viewModel.IsVisible = _context.Game.Player.InHuntingZone || !_config.IsShowOnlyInHuntingZoneEnabled;
     }
 }

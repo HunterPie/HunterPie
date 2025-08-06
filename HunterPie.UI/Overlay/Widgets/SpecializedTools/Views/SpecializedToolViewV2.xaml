@@ -13,8 +13,11 @@
                    x:Name="WidgetComponent"
                    d:DesignWidth="200"
                    d:DesignHeight="50">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
     <Grid>
-        <ContentPresenter>
+        <ContentPresenter Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ContentPresenter.Style>
                 <Style TargetType="ContentPresenter">
                     <Style.Triggers>
