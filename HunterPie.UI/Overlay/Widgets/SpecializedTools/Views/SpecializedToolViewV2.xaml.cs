@@ -6,18 +6,11 @@ using HunterPie.UI.Overlay.Widgets.SpecializedTools.ViewModels;
 using System;
 
 namespace HunterPie.UI.Overlay.Widgets.SpecializedTools.Views;
-
 /// <summary>
-/// Interaction logic for SpecializedToolView.xaml
+/// Interaction logic for SpecializedToolViewV2.xaml
 /// </summary>
-public partial class SpecializedToolView : View<SpecializedToolViewModel>, IWidget<SpecializedToolWidgetConfig>, IWidgetWindow
+public partial class SpecializedToolViewV2 : View<SpecializedToolViewModelV2>, IWidget<SpecializedToolWidgetConfig>, IWidgetWindow
 {
-    public SpecializedToolView(SpecializedToolWidgetConfig config)
-    {
-        Settings = config;
-        InitializeComponent();
-    }
-
     public SpecializedToolWidgetConfig Settings { get; }
 
     public string Title => "Specialized Tool Widget";
@@ -27,4 +20,10 @@ public partial class SpecializedToolView : View<SpecializedToolViewModel>, IWidg
     IWidgetSettings IWidgetWindow.Settings => Settings;
 
     public event EventHandler<WidgetType> OnWidgetTypeChange;
+
+    public SpecializedToolViewV2(SpecializedToolWidgetConfig config)
+    {
+        Settings = config;
+        InitializeComponent();
+    }
 }

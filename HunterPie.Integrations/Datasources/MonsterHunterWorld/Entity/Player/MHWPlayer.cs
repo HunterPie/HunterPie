@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Address.Map;
+using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.DTO;
@@ -120,16 +121,22 @@ public sealed class MHWPlayer : CommonPlayer
         get => _zoneId;
         set
         {
-            if (value != _zoneId)
-            {
-                if (PeaceZones.Contains(value) && !PeaceZones.Contains(_zoneId))
-                    this.Dispatch(_onVillageEnter);
-                else if (!PeaceZones.Contains(value) && PeaceZones.Contains(_zoneId))
-                    this.Dispatch(_onVillageLeave);
+            if (value == _zoneId)
+                return;
 
-                _zoneId = value;
-                this.Dispatch(_onStageUpdate);
-            }
+            _zoneId = value;
+            this.Dispatch(
+                toDispatch: _onStageUpdate
+            );
+
+            SmartEvent<EventArgs> eventToDispatch = PeaceZones.Contains(value) switch
+            {
+                true => _onVillageEnter,
+                _ => _onVillageLeave
+            };
+            this.Dispatch(
+                toDispatch: eventToDispatch
+            );
         }
     }
 

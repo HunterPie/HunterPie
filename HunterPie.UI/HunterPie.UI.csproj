@@ -5,8 +5,8 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.13.1.108</AssemblyVersion>
-    <FileVersion>2.13.1.108</FileVersion>
+    <AssemblyVersion>2.13.1.254</AssemblyVersion>
+    <FileVersion>2.13.1.254</FileVersion>
     <LangVersion>11.0</LangVersion>
     <Authors>Haato</Authors>
     <Version>2.12.0.0</Version>
@@ -679,12 +679,14 @@
 
   <ItemGroup>
     <Folder Include="Architecture\Bindings\" />
+    <Folder Include="Architecture\Converters\Localizations\" />
     <Folder Include="Controls\Notification\ViewModels\" />
     <Folder Include="Controls\Paginating\Events\" />
     <Folder Include="Controls\Settings\Abnormality\Builders\" />
     <Folder Include="Overlay\Controls\Progress\" />
     <Folder Include="Overlay\Widgets\Activities\Wilds\ViewModels\" />
     <Folder Include="Overlay\Widgets\Monster\Adapters\" />
+    <Folder Include="Overlay\Widgets\SpecializedTools\Controllers\" />
     <Folder Include="Properties\" />
     <Folder Include="Settings\Presentation\" />
   </ItemGroup>

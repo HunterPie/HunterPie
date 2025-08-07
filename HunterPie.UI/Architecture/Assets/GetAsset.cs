@@ -33,6 +33,7 @@ public class MonsterIcon : MarkupExtension
 }
 
 [MarkupExtensionReturnType(typeof(string))]
+[Obsolete("Use Localization instead")]
 public class LocalizationString : MarkupExtension
 {
     public string LocalizationId { get; set; }

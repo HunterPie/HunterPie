@@ -22,5 +22,7 @@ public enum SpecializedToolType : int
     ImmunityMantle,
     AffinityBooster,
     BanditMantle,
-    AssassinsHood
+    AssassinsHood,
+    MendingMantle,
+    CorruptedMantle
 }

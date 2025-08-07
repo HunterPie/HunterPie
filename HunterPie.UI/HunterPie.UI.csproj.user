@@ -269,7 +269,13 @@
     <Compile Update="Overlay\Widgets\Player\Views\WeaponSharpnessView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Overlay\Widgets\SpecializedTools\Views\SpecializedToolView.xaml.cs">
+    <Compile Update="Overlay\Widgets\SpecializedTools\Views\CompactSpecializedToolView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\SpecializedTools\Views\DetailedSpecializedToolView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\SpecializedTools\Views\SpecializedToolViewV2.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Wirebug\Views\WirebugsView.xaml.cs">
@@ -583,7 +589,13 @@
     <Page Update="Overlay\Widgets\Player\Views\WeaponSharpnessView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Overlay\Widgets\SpecializedTools\Views\SpecializedToolView.xaml">
+    <Page Update="Overlay\Widgets\SpecializedTools\Views\CompactSpecializedToolView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\SpecializedTools\Views\DetailedSpecializedToolView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Overlay\Widgets\SpecializedTools\Views\SpecializedToolViewV2.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Wirebug\Views\WirebugsView.xaml">

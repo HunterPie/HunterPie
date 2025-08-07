@@ -218,8 +218,8 @@ public sealed class MHWildsMonster : CommonMonster
             address: healthComponent.MaxHealthPointer
         );
 
-        MaxHealth = await _cryptoService.DecryptFloat(encryptedMaxHealth);
-        Health = await _cryptoService.DecryptFloat(encryptedHealth);
+        MaxHealth = await _cryptoService.DecryptFloatAsync(encryptedMaxHealth);
+        Health = await _cryptoService.DecryptFloatAsync(encryptedHealth);
     }
 
     [ScannableMethod]
@@ -447,8 +447,8 @@ public sealed class MHWildsMonster : CommonMonster
                 BreakMultiplier = partBreak.HealthMultiplier,
                 MaxBreaks = partBreak.MaxBreaks,
                 Breaks = partBreak.Breaks,
-                Health = await _cryptoService.DecryptFloat(encryptedHealth),
-                MaxHealth = await _cryptoService.DecryptFloat(encryptedMaxHealth),
+                Health = await _cryptoService.DecryptFloatAsync(encryptedHealth),
+                MaxHealth = await _cryptoService.DecryptFloatAsync(encryptedMaxHealth),
                 HealthResetCount = part.Count
             };
 

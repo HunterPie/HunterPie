@@ -8,9 +8,9 @@ using HunterPie.Core.Settings.Types;
 namespace HunterPie.Core.Client.Configuration.Overlay;
 
 [Configuration(name: "SPECIALIZED_TOOL_WIDGET_STRING",
-    icon: "ICON_MANTLE",
+    icon: "Icons.Tools.Mantle",
     group: CommonConfigurationGroups.OVERLAY,
-    availableGames: GameProcessType.MonsterHunterWorld)]
+    availableGames: GameProcessType.MonsterHunterWorld | GameProcessType.MonsterHunterWilds)]
 public class SpecializedToolWidgetConfig : IWidgetSettings, ISettings
 {
     #region General Settings
@@ -36,5 +36,17 @@ public class SpecializedToolWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("WIDGET_POSITION", group: CommonConfigurationGroups.GENERAL)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Position Position { get; set; } = new(100, 100);
+    #endregion
+
+    #region Customizations
+
+    [ConfigurationProperty("SPECIALIZED_TOOL_COMPACT_MODE_ENABLED", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    public Observable<bool> IsCompactModeEnabled { get; set; } = true;
+
+    [ConfigurationProperty("SPECIALIZED_TOOL_DISPLAY_ONLY_HUNTING_ZONE", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    public Observable<bool> IsShowOnlyInHuntingZoneEnabled { get; set; } = true;
+
     #endregion
 }

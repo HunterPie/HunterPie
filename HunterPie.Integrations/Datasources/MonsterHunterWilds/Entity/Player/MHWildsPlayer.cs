@@ -5,6 +5,7 @@ using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Data.Repository;
+using HunterPie.Core.Game.Entity;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Entity.Player.Classes;
@@ -15,19 +16,25 @@ using HunterPie.Core.Game.Services;
 using HunterPie.Core.Scan.Service;
 using HunterPie.Core.Utils;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Abnormality;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Activities;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Party.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Player;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Quest;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Save;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Types;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Abnormalities;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Abnormalities.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Activities;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Activities.Data;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Party.Data;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player.Weapons;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
 using WeaponType = HunterPie.Core.Game.Enums.Weapon;
@@ -70,8 +77,10 @@ public sealed class MHWildsPlayer : CommonPlayer
     private static readonly Lazy<int> DebuffIndexMax = new(static () => DebuffDefinitions.Value.Max(it => it.Index));
 
     private readonly MHWildsMonsterTargetKeyManager _monsterTargetKeyManager;
+    private readonly MHWildsCryptoService _cryptoService;
 
     private nint _address;
+    private nint _saveAddress;
 
     private string _name = string.Empty;
     public override string Name
@@ -180,12 +189,17 @@ public sealed class MHWildsPlayer : CommonPlayer
 
     public MHWildsIngredientsCenter IngredientsCenter { get; } = new();
 
+    private readonly MHWildsSpecializedTool[] _tools = { new(), new() };
+    public IReadOnlyCollection<ISpecializedTool> Tools => _tools;
+
     public MHWildsPlayer(
         IGameProcess process,
         IScanService scanService,
-        MHWildsMonsterTargetKeyManager monsterTargetKeyManager) : base(process, scanService)
+        MHWildsMonsterTargetKeyManager monsterTargetKeyManager,
+        MHWildsCryptoService cryptoService) : base(process, scanService)
     {
         _monsterTargetKeyManager = monsterTargetKeyManager;
+        _cryptoService = cryptoService;
         _weapon = new MHWildsWeapon(WeaponType.Greatsword);
     }
 
@@ -470,12 +484,12 @@ public sealed class MHWildsPlayer : CommonPlayer
             address: AddressMap.GetAbsolute("Game::SaveManager"),
             offsets: AddressMap.GetOffsets("Save::Data")
         );
-        nint currentSavePointer = await Memory.ReadAsync<nint>(saveDataArray + (sizeof(long) * saveIndex));
+        _saveAddress = await Memory.ReadAsync<nint>(saveDataArray + (sizeof(long) * saveIndex));
 
         await Task.WhenAll(
-            GetMaterialRetrievalAsync(currentSavePointer),
-            GetSupportShipAsync(currentSavePointer),
-            GetIngredientsCenterAsync(currentSavePointer)
+            GetMaterialRetrievalAsync(_saveAddress),
+            GetSupportShipAsync(_saveAddress),
+            GetIngredientsCenterAsync(_saveAddress)
         );
     }
 
@@ -531,6 +545,114 @@ public sealed class MHWildsPlayer : CommonPlayer
         );
 
         IngredientsCenter.Update(context);
+    }
+
+    [ScannableMethod]
+    public async Task GetSpecializedToolsAsync()
+    {
+        nint specializedToolPointers = await Memory.ReadPtrAsync(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Player::SpecializedTools")
+        );
+        List<MHWildsSpecializedToolContext> contexts = Memory.ReadArrayOfPtrsSafeAsync<MHWildsSpecializedToolContext>(
+            address: specializedToolPointers,
+            count: 5
+        ).Collect();
+
+        int[] toolIds =
+        {
+            1,
+            await GetSecondaryToolId()
+        };
+
+        for (int i = 0; i < _tools.Length; i++)
+        {
+            MHWildsSpecializedTool tool = _tools[i];
+            int id = toolIds[i];
+            int normalizedId = id - 1;
+            var type = id.ToSpecializedToolType();
+
+            if (type is not { } toolType)
+                continue;
+
+            MHWildsSpecializedToolContext? context = normalizedId >= 0 && normalizedId < contexts.Count
+                ? contexts[normalizedId]
+                : null;
+
+            if (context is not { } ctx)
+                continue;
+
+            Task<MHWildsEncryptedFloat> timerDefer = ctx.Timer.Deref(Memory);
+            Task<MHWildsEncryptedFloat> maxTimerDefer = ctx.MaxTimer.Deref(Memory);
+            Task<MHWildsEncryptedFloat> cooldownDefer = ctx.Cooldown.Deref(Memory);
+            Task<MHWildsEncryptedFloat> maxCooldownDefer = ctx.MaxCooldown.Deref(Memory);
+
+            var data = new UpdateSpecializedTool
+            {
+                Type = toolType,
+                Timer = await _cryptoService.DecryptFloatAsync(await timerDefer),
+                MaxTimer = await _cryptoService.DecryptFloatAsync(await maxTimerDefer),
+                Cooldown = await _cryptoService.DecryptFloatAsync(await cooldownDefer),
+                MaxCooldown = await _cryptoService.DecryptFloatAsync(await maxCooldownDefer),
+                IsTimerActive = ctx.InUse
+            };
+
+            tool.Update(data);
+        }
+    }
+
+    private async Task<int> GetSecondaryToolId()
+    {
+        bool inArena = await Memory.DerefAsync<int>(
+            address: AddressMap.GetAbsolute("Game::PlayerManager"),
+            offsets: AddressMap.GetOffsets("Player::IsInArena")
+        ) >= 1;
+
+        if (!inArena)
+        {
+            MHWildsSaveEquipment equipment = await Memory.DerefPtrAsync<MHWildsSaveEquipment>(
+                address: _saveAddress,
+                offsets: AddressMap.GetOffsets("Save::SpecializedTool")
+            );
+
+            return equipment.SpecializedToolId;
+        }
+
+
+        Task<int> missionIdDefer = Memory.DerefAsync<int>(
+            address: AddressMap.GetAbsolute("Game::QuestManager"),
+            offsets: AddressMap.GetOffsets("Quest::MissionId")
+        );
+
+        Task<int> selectedLoadoutIndexDefer = Memory.DerefAsync<int>(
+            address: AddressMap.GetAbsolute("Game::QuestManager"),
+            offsets: AddressMap.GetOffsets("Quest::Arena::SelectedLoadout")
+        );
+
+        nint arenaDataArrayPointer = await Memory.DerefAsync<nint>(
+            address: AddressMap.GetAbsolute("Game::QuestManager"),
+            offsets: AddressMap.GetOffsets("Quest::Arena::Data")
+        );
+        IAsyncEnumerable<MHWildsArenaData> arenaData = Memory.ReadArrayOfPtrsSafeAsync<MHWildsArenaData>(
+            address: arenaDataArrayPointer,
+            count: 50
+        );
+
+        int missionId = await missionIdDefer;
+        int selectedLoadoutIndex = await selectedLoadoutIndexDefer;
+        await foreach (MHWildsArenaData data in arenaData)
+        {
+            MHWildsArenaMissionData mission = await data.Mission.Deref(Memory);
+            if (mission.Id != missionId)
+                continue;
+
+            MHWildsArenaLoadoutData selectedLoadout = await data.Loadouts.ElementAt(Memory, selectedLoadoutIndex);
+            MHWildsArenaLoadoutEquipmentData equipment = await selectedLoadout.Equipment.Deref(Memory);
+
+            return equipment.SpecializedToolId;
+        }
+
+        return default;
     }
 
     [ScannableMethod]
@@ -813,5 +935,6 @@ public sealed class MHWildsPlayer : CommonPlayer
         base.Dispose();
         MaterialRetrieval.Dispose();
         SupportShip.Dispose();
+        _tools.DisposeAll();
     }
 }

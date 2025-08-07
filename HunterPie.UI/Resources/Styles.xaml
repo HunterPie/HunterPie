@@ -8,91 +8,98 @@
                     xmlns:abnormalities="clr-namespace:HunterPie.UI.Overlay.Widgets.Abnormality.View;assembly=HunterPie.UI"
                     xmlns:chat="clr-namespace:HunterPie.UI.Overlay.Widgets.Chat.Views;assembly=HunterPie.UI"
                     xmlns:wirebug="clr-namespace:HunterPie.UI.Overlay.Widgets.Wirebug.Views;assembly=HunterPie.UI"
-                    xmlns:specialized="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.Views;assembly=HunterPie.UI"
                     xmlns:playerHud="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.Views;assembly=HunterPie.UI"
                     xmlns:effects="clr-namespace:HunterPie.UI.Controls.Effects;assembly=HunterPie.UI"
                     xmlns:progress="clr-namespace:HunterPie.UI.Overlay.Controls.Progress;assembly=HunterPie.UI"
-                    xmlns:activities="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Views;assembly=HunterPie.UI">
+                    xmlns:activities="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Views;assembly=HunterPie.UI"
+                    xmlns:tools="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.Views">
     <!-- Converters -->
     <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
     
     <!-- Specialized Tools -->
     
-    <LinearGradientBrush x:Key="COLOR_GHILLIE_MANTLE" EndPoint="1,1" StartPoint="0,1">
+    <LinearGradientBrush x:Key="Brushes.Tools.GhillieMantle" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FF74D680"/>
         <GradientStop Color="#FF378B29" Offset="1"/>
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_TEMPORAL_MANTLE" EndPoint="1,1" StartPoint="0,1">
+    <LinearGradientBrush x:Key="Brushes.Tools.TemporalMantle" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FFFFDD00"/>
         <GradientStop Color="#FFFBB034" Offset="1"/>
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_BANDIT_MANTLE" EndPoint="1,1" StartPoint="0,1">
+    <LinearGradientBrush x:Key="Brushes.Tools.BanditMantle" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FFFFDD00"/>
         <GradientStop Color="#FFFBB034" Offset="1"/>
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_HEALTH_BOOSTER" EndPoint="1,1" StartPoint="0,1">
+    <LinearGradientBrush x:Key="Brushes.Tools.HealthBooster" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FF74D680"/>
         <GradientStop Color="#FF378B29" Offset="1"/>
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_ROCKSTEADY_MANTLE" EndPoint="1,1" StartPoint="0,1">
+    <LinearGradientBrush x:Key="Brushes.Tools.RocksteadyMantle" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FFD2CCC4"/>
         <GradientStop Color="#FF2F4353" Offset="1"/>
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_DRAGONPROOF_MANTLE" EndPoint="1,1" StartPoint="0,1">
+    <LinearGradientBrush x:Key="Brushes.Tools.DragonproofMantle" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FFD2CCC4"/>
         <GradientStop Color="#FF2F4353" Offset="1"/>
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_CHALLENGER_MANTLE" EndPoint="1,1" StartPoint="0,1">
+    <LinearGradientBrush x:Key="Brushes.Tools.ChallengerMantle" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FF2FEBD2"/>
         <GradientStop Color="#FF2FEBB3" Offset="1"/>
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_THUNDERPROOF_MANTLE" EndPoint="1,1" StartPoint="0,1">
+    <LinearGradientBrush x:Key="Brushes.Tools.ThunderproofMantle" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FF74D4BA"/>
         <GradientStop Color="#FF74CAD4" Offset="1"/>
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_VITALITY_MANTLE" EndPoint="1,1" StartPoint="0,1">
+    <LinearGradientBrush x:Key="Brushes.Tools.VitalityMantle" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FF3CBD71"/>
         <GradientStop Color="#FF3CBD92" Offset="1"/>
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_FIREPROOF_MANTLE" EndPoint="1,1" StartPoint="0,1">
+    <LinearGradientBrush x:Key="Brushes.Tools.FireproofMantle" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FFF04654"/>
         <GradientStop Color="#FFE63737" Offset="1"/>
     </LinearGradientBrush>
-    <SolidColorBrush x:Key="COLOR_IMPACT_MANTLE">#FFFC5967</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_WATERPROOF_MANTLE">#FF57DBFF</SolidColorBrush>
-    <LinearGradientBrush x:Key="COLOR_ICEPROOF_MANTLE" EndPoint="1,1" StartPoint="0,1">
+    <SolidColorBrush x:Key="Brushes.Tools.ImpactMantle">#FFFC5967</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.Tools.WaterproofMantle">#FF57DBFF</SolidColorBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.IceproofMantle" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FFF5F7FA"/>
         <GradientStop Color="#FFB8C6DB" Offset="1"/>
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_EVASION_MANTLE" EndPoint="1,1" StartPoint="0,1">
+    <LinearGradientBrush x:Key="Brushes.Tools.EvasionMantle" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FFF5F7FA"/>
         <GradientStop Color="#FFB8C6DB" Offset="1"/>
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_IMMUNITY_MANTLE" EndPoint="1,1" StartPoint="0,1">
+    <LinearGradientBrush x:Key="Brushes.Tools.ImmunityMantle" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FFF5F7FA"/>
         <GradientStop Color="#FFB8C6DB" Offset="1"/>
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_CLEANSER_BOOSTER" EndPoint="1,1" StartPoint="0,1">
+    <LinearGradientBrush x:Key="Brushes.Tools.CleanserBooster" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FF4884EE"/>
         <GradientStop Color="#FF06BCFB" Offset="1"/>
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_GLIDER_MANTLE" EndPoint="1,1" StartPoint="0,1">
+    <LinearGradientBrush x:Key="Brushes.Tools.GliderMantle" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FF647DEE"/>
         <GradientStop Color="#FF7F53AC" Offset="1"/>
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_APOTHECARY_MANTLE" EndPoint="1,1" StartPoint="0,1">
+    <LinearGradientBrush x:Key="Brushes.Tools.ApothecaryMantle" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FF5F72BE"/>
         <GradientStop Color="#FF9921E8" Offset="1"/>
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_AFFINITY_BOOSTER" EndPoint="1,1" StartPoint="0,1">
+    <LinearGradientBrush x:Key="Brushes.Tools.AffinityBooster" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FFDB3445"/>
         <GradientStop Color="#FFF71735" Offset="1"/>
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_ASSASSINS_HOOD" EndPoint="1,1" StartPoint="0,1">
+    <LinearGradientBrush x:Key="Brushes.Tools.AssassinsHood" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FFF5F7FA"/>
         <GradientStop Color="#FFB8C6DB" Offset="1"/>
     </LinearGradientBrush>
-    
+    <LinearGradientBrush x:Key="Brushes.Tools.MendingMantle" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF60FF40"/>
+        <GradientStop Color="#FFACFF40" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.CorruptedMantle" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF5E2FD6"/>
+        <GradientStop Color="#FF6C2FD6" Offset="1"/>
+    </LinearGradientBrush>
     <!-- Ailments -->
     <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_UNKNOWN">#FF73ABEE</SolidColorBrush>
     <LinearGradientBrush x:Key="COLOR_MONSTER_AILMENT_POISON" EndPoint="1,1" StartPoint="0,1">
@@ -160,7 +167,8 @@
     </LinearGradientBrush>
 
     <!-- Font -->
-    <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">Work Sans, Microsoft Sans Serif</FontFamily>
+    <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">Work Sans, Segoe UI, Microsoft Sans Serif</FontFamily>
+    <FontFamily x:Key="Font.Default">Work Sans, Segoe UI, Microsoft Sans Serif</FontFamily>
 
     <!-- Constants -->
     <sys:Double x:Key="HUNTERPIE_SIDEBAR_WIDTH">300</sys:Double>
@@ -176,7 +184,7 @@
                 </Style.Resources>
             </Style>
         </Style.Resources>
-        <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Font.Default}"/>
         <Setter Property="Background" Value="{StaticResource GRAY_50}"/>
         <Setter Property="Foreground" Value="{StaticResource WHITE_100}"/>
         <Setter Property="BorderBrush" Value="{StaticResource GRAY}"/>
@@ -448,7 +456,7 @@
     </Style>
 
     <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
-        <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Font.Default}"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="UIElement.SnapsToDevicePixels" Value="True"/>
@@ -879,8 +887,10 @@
     <Style x:Key="STYLE_ACTIVITIES_WIDGET" TargetType="{x:Type activities:ActivitiesView}"/>
     <Style x:Key="STYLE_CHAT_WIDGET" TargetType="{x:Type chat:ChatView}"/>
     <Style x:Key="STYLE_WIREBUG_WIDGET" TargetType="{x:Type wirebug:WirebugsView}"/>
-    <Style x:Key="STYLE_SPECIALIZED_TOOLS_WIDGET" TargetType="{x:Type specialized:SpecializedToolView}"/>
     <Style x:Key="STYLE_PLAYER_HUD_WIDGET" TargetType="{x:Type playerHud:PlayerHudView}"/>
+
+    <Style x:Key="Widgets.SpecializedToolV2"
+           TargetType="{x:Type UserControl}"/>
     
     <sys:Double x:Key="Widgets.Background.Opacity">0.8</sys:Double>
 </ResourceDictionary>
