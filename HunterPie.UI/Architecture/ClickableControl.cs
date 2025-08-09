@@ -7,6 +7,11 @@ namespace HunterPie.UI.Architecture;
 
 public class ClickableControl : UserControl
 {
+    static ClickableControl()
+    {
+        FocusableProperty.OverrideMetadata(typeof(ClickableControl), new FrameworkPropertyMetadata(true));
+    }
+
     private bool _isMouseInside;
     private bool _isMouseDown;
 
@@ -26,6 +31,7 @@ public class ClickableControl : UserControl
 
         _isMouseDown = true;
         e.Handled = true;
+        Focus();
     }
 
     protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
