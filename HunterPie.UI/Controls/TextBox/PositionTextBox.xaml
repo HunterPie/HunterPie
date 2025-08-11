@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Controls.TextBox"
-             xmlns:types="clr-namespace:HunterPie.Core.Settings.Types;assembly=HunterPie.Core"
              mc:Ignorable="d" 
              d:DesignHeight="35" 
              d:DesignWidth="200">
@@ -24,7 +23,7 @@
                  HorizontalContentAlignment="Center"/>
         <TextBlock Grid.Column="0" 
                    Text="X"
-                   Foreground="{StaticResource WHITE_500}"
+                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                    VerticalAlignment="Bottom"
                    FontWeight="Medium"
                    HorizontalAlignment="Center"
@@ -40,7 +39,7 @@
                  HorizontalContentAlignment="Center"/>
         <TextBlock Grid.Column="1" 
                    Text="Y"
-                   Foreground="{StaticResource WHITE_500}"
+                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                    FontWeight="Medium"
                    VerticalAlignment="Bottom"
                    HorizontalAlignment="Center"

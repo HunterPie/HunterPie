@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="50" 
              d:DesignWidth="750">
-    <Grid d:Background="{StaticResource GRAY_400}">
+    <Grid d:Background="{StaticResource Gray@400}">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition/>
@@ -26,8 +26,7 @@
         <TextBlock d:Text="Strings.Client.Settings.CLIENT_STRING"
                    FontSize="10"
                    Grid.Row="1"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource WHITE_500}"
+                   Foreground="{StaticResource White@500}"
                    Grid.ColumnSpan="2"/>
     </Grid>
 </UserControl>

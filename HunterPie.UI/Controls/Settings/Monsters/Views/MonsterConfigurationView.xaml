@@ -7,7 +7,7 @@
              xmlns:viewModels="clr-namespace:HunterPie.UI.Controls.Settings.Monsters.ViewModels"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
-             xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets"
+             xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:MonsterConfigurationViewModel}"
              d:DesignWidth="500">
@@ -17,9 +17,9 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <buttons:Button Grid.Row="0"
-                        Background="{StaticResource GRAY_50}"
+                        Background="{StaticResource Brushes.HunterPie.Background.Primary}"
                         BorderThickness="1"
-                        BorderBrush="{StaticResource GRAY}"
+                        BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                         Margin="1"
                         Padding="0"
                         VerticalContentAlignment="Stretch"
@@ -54,18 +54,18 @@
                            Text="{Binding Name, Mode=OneTime}"
                            d:Text="Monster Name"
                            VerticalAlignment="Center"
-                           Foreground="{StaticResource WHITE_100}"
+                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                            FontWeight="Medium"
                            FontSize="13"/>
 
                 <TextBlock Grid.Row="1"
                            Grid.Column="1"
                            VerticalAlignment="Top"
-                           Foreground="{StaticResource WHITE_500}"
+                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                            FontSize="13">
                     <Run Text="{Binding Configuration.Parts.Count, Mode=OneTime}"
                          d:Text="0"/>
-                    <Run Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;MONSTER_PARTS_COUNT_STRING&quot;]'}"
+                    <Run Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;MONSTER_PARTS_COUNT_STRING&quot;]'}"
                          d:Text="parts"/>
                 </TextBlock>
 
@@ -73,15 +73,15 @@
                 <buttons:Button Grid.Row="0"
                                 Grid.RowSpan="2"
                                 Grid.Column="2"
-                                BorderBrush="{StaticResource GRAY_100}"
-                                Background="{StaticResource GRAY_200}"
+                                BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                                Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
                                 BorderThickness="1"
                                 CornerRadius="5"
                                 VerticalContentAlignment="Stretch"
                                 HorizontalContentAlignment="Stretch"
                                 Margin="5"
                                 Click="OnDeleteClick">
-                    <image:Icon Foreground="{StaticResource WHITE_400}"
+                    <image:Icon Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                                 Image="{StaticResource ICON_TRASH}"/>
                 </buttons:Button>
             </Grid>
@@ -92,8 +92,8 @@
                   IsExpanded="{Binding IsEditing, Mode=TwoWay}"
                   Style="{StaticResource ExpanderNoHeaderStyle}">
             <Border BorderThickness="1,0,1,1"
-                    BorderBrush="{StaticResource GRAY}"
-                    Background="{StaticResource GRAY_200}"
+                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                    Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
                     CornerRadius="0,0,5,5">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -105,9 +105,9 @@
                                 Margin="2,2">
                         <TextBlock FontSize="16"
                                    d:Text="PARTS"
-                                   Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;MONSTER_PARTS_STRING&quot;]'}"
+                                   Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;MONSTER_PARTS_STRING&quot;]'}"
                                    FontWeight="Medium"
-                                   Foreground="{StaticResource WHITE_500}"/>
+                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
 
                         <ItemsControl ItemsSource="{Binding Configuration.Parts, Mode=OneTime}"
                                       d:ItemsSource="{d:SampleData ItemCount=5}">
@@ -129,15 +129,15 @@
 
                     <GridSplitter Grid.Column="0"
                                   Width="1"
-                                  Background="{StaticResource GRAY}"/>
+                                  Background="{StaticResource Brushes.HunterPie.Border}"/>
 
                     <StackPanel Grid.Column="1"
                                 Margin="2,2">
                         <TextBlock FontSize="16"
                                    d:Text="AILMENTS"
-                                   Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;MONSTER_AILMENTS_STRING&quot;]'}"
+                                   Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;MONSTER_AILMENTS_STRING&quot;]'}"
                                    FontWeight="Medium"
-                                   Foreground="{StaticResource WHITE_500}"/>
+                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
 
                         <ItemsControl ItemsSource="{Binding Configuration.Ailments, Mode=OneTime}"
                                       d:ItemsSource="{d:SampleData ItemCount=5}">

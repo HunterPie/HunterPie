@@ -3,18 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.Views"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.ViewModels"
              xmlns:progress="clr-namespace:HunterPie.UI.Overlay.Controls.Progress"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
-             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image" xmlns:sys="clr-namespace:System;assembly=netstandard"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:conditionals="clr-namespace:HunterPie.UI.Architecture.Converters.Conditionals"
              xmlns:bindings="clr-namespace:HunterPie.UI.Architecture.Bindings"
              xmlns:animation="clr-namespace:HunterPie.UI.Architecture.Animation"
              mc:Ignorable="d" 
              Height="82" 
              Width="295"
-             d:DataContext="{d:DesignInstance viewModels:SwitchAxeViewModel}">
+             d:DataContext="{d:DesignInstance viewModels:SwitchAxeViewModel}"
+             Style="{DynamicResource Widgets.Classes.SwitchAxe}">
     <UserControl.Resources>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:RatioConverter x:Key="RatioConverter"/>

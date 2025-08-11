@@ -22,7 +22,7 @@
             <Setter Property="Opacity" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Background"  Value="#80000000"/>
-            <Setter Property="BorderBrush" Value="{StaticResource GRAY}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Brushes.HunterPie.Border}"/>
             <Setter Property="Height" Value="100"/>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
             <Setter Property="VerticalContentAlignment" Value="Stretch"/>
@@ -62,9 +62,9 @@
         </Style>
     </UserControl.Resources>
     <Border BorderThickness="1"
-            BorderBrush="{StaticResource GRAY}"
+            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
             CornerRadius="5"
-            Background="{StaticResource GRAY_200}">
+            Background="{StaticResource Brushes.HunterPie.Background.Secondary}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="40"/>
@@ -95,7 +95,7 @@
                             BorderThickness="0,1,1,1"
                             Style="{StaticResource CarouselButton}"
                             Click="OnPreviousClick">
-                <image:Icon Foreground="{StaticResource WHITE_200}"
+                <image:Icon Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                             Image="{StaticResource ICON_CHEVRON_LEFT}"
                             Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                             Margin="5"/>
@@ -107,7 +107,7 @@
                             BorderThickness="1,1,0,1"
                             Style="{StaticResource CarouselButton}"
                             Click="OnNextClick">
-                <image:Icon Foreground="{StaticResource WHITE_200}"
+                <image:Icon Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                             Image="{StaticResource ICON_CHEVRON_RIGHT}"
                             Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                             Margin="5"/>
@@ -121,7 +121,7 @@
                        HorizontalAlignment="Left"
                        Height="2"
                        Width="1"
-                       Fill="{StaticResource HunterPie::Accent::Horizontal}">
+                       Fill="{StaticResource Brushes.HunterPie.Accent.Horizontal}">
                 <Rectangle.RenderTransform>
                     <ScaleTransform d:ScaleX="500">
                         <ScaleTransform.ScaleX>

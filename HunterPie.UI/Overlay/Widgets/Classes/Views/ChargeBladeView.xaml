@@ -11,7 +11,8 @@
              mc:Ignorable="d" 
              Height="82" 
              Width="295"
-             d:DataContext="{d:DesignInstance viewModels:ChargeBladeViewModel}">
+             d:DataContext="{d:DesignInstance viewModels:ChargeBladeViewModel}"
+             Style="{DynamicResource Widgets.Classes.ChargeBlade}">
     <UserControl.Resources>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:SizeAndCountToSizeConverter x:Key="SizeAndCountToSizeConverter"/>

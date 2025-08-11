@@ -3,147 +3,12 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
                     xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
-                    xmlns:monster="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views;assembly=HunterPie.UI"
-                    xmlns:meter="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.View;assembly=HunterPie.UI"
-                    xmlns:abnormalities="clr-namespace:HunterPie.UI.Overlay.Widgets.Abnormality.View;assembly=HunterPie.UI"
-                    xmlns:chat="clr-namespace:HunterPie.UI.Overlay.Widgets.Chat.Views;assembly=HunterPie.UI"
-                    xmlns:wirebug="clr-namespace:HunterPie.UI.Overlay.Widgets.Wirebug.Views;assembly=HunterPie.UI"
-                    xmlns:playerHud="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.Views;assembly=HunterPie.UI"
                     xmlns:effects="clr-namespace:HunterPie.UI.Controls.Effects;assembly=HunterPie.UI"
                     xmlns:progress="clr-namespace:HunterPie.UI.Overlay.Controls.Progress;assembly=HunterPie.UI"
-                    xmlns:activities="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Views;assembly=HunterPie.UI"
-                    xmlns:tools="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.Views">
+                    xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup">
     <!-- Converters -->
     <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
     
-    <!-- Specialized Tools -->
-    
-    <LinearGradientBrush x:Key="Brushes.Tools.GhillieMantle" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FF74D680"/>
-        <GradientStop Color="#FF378B29" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.TemporalMantle" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FFFFDD00"/>
-        <GradientStop Color="#FFFBB034" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.BanditMantle" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FFFFDD00"/>
-        <GradientStop Color="#FFFBB034" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.HealthBooster" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FF74D680"/>
-        <GradientStop Color="#FF378B29" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.RocksteadyMantle" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FFD2CCC4"/>
-        <GradientStop Color="#FF2F4353" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.DragonproofMantle" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FFD2CCC4"/>
-        <GradientStop Color="#FF2F4353" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.ChallengerMantle" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FF2FEBD2"/>
-        <GradientStop Color="#FF2FEBB3" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.ThunderproofMantle" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FF74D4BA"/>
-        <GradientStop Color="#FF74CAD4" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.VitalityMantle" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FF3CBD71"/>
-        <GradientStop Color="#FF3CBD92" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.FireproofMantle" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FFF04654"/>
-        <GradientStop Color="#FFE63737" Offset="1"/>
-    </LinearGradientBrush>
-    <SolidColorBrush x:Key="Brushes.Tools.ImpactMantle">#FFFC5967</SolidColorBrush>
-    <SolidColorBrush x:Key="Brushes.Tools.WaterproofMantle">#FF57DBFF</SolidColorBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.IceproofMantle" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FFF5F7FA"/>
-        <GradientStop Color="#FFB8C6DB" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.EvasionMantle" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FFF5F7FA"/>
-        <GradientStop Color="#FFB8C6DB" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.ImmunityMantle" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FFF5F7FA"/>
-        <GradientStop Color="#FFB8C6DB" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.CleanserBooster" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FF4884EE"/>
-        <GradientStop Color="#FF06BCFB" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.GliderMantle" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FF647DEE"/>
-        <GradientStop Color="#FF7F53AC" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.ApothecaryMantle" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FF5F72BE"/>
-        <GradientStop Color="#FF9921E8" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.AffinityBooster" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FFDB3445"/>
-        <GradientStop Color="#FFF71735" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.AssassinsHood" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FFF5F7FA"/>
-        <GradientStop Color="#FFB8C6DB" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.MendingMantle" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FF60FF40"/>
-        <GradientStop Color="#FFACFF40" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="Brushes.Tools.CorruptedMantle" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FF5E2FD6"/>
-        <GradientStop Color="#FF6C2FD6" Offset="1"/>
-    </LinearGradientBrush>
-    <!-- Ailments -->
-    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_UNKNOWN">#FF73ABEE</SolidColorBrush>
-    <LinearGradientBrush x:Key="COLOR_MONSTER_AILMENT_POISON" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#DA22FF"/>
-        <GradientStop Color="#9733EE" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_MONSTER_AILMENT_PARALYSIS" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#e8cf6b"/>
-        <GradientStop Color="#fdfde2" Offset="1"/>
-    </LinearGradientBrush>
-    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_SLEEP">#6be8a5</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_BLAST">#db7e53</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_MOUNT">#5380db</SolidColorBrush>
-    <LinearGradientBrush x:Key="COLOR_MONSTER_AILMENT_WATER" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#82b5ff"/>
-        <GradientStop Color="#aff1ff" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_MONSTER_AILMENT_FIRE" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#e23a3a"/>
-        <GradientStop Color="#ff723f" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_MONSTER_AILMENT_ICE" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#ace3ff"/>
-        <GradientStop Color="#edfcff" Offset="1"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="COLOR_MONSTER_AILMENT_THUNDER" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#ffb04f"/>
-        <GradientStop Color="#feffed" Offset="1"/>
-    </LinearGradientBrush>
-    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_EXHAUSTION">#74d4b1</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_STUN">#deb83c</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_TRANQUILIZE">#c96ba0</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_FLASH">#f7c052</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_KNOCKDOWN">#5380db</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_DUNG">#472102</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_TRAP">#9dc20a</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_ELDERSEAL">#71369c</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_SMOKING">#9c9c9c</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_CLAW">#6ab7d4</SolidColorBrush>
-    <SolidColorBrush x:Key="COLOR_MONSTER_AILMENT_MISC">#97b3bf</SolidColorBrush>
-    <LinearGradientBrush x:Key="COLOR_MONSTER_STATUS_ENRAGE" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FFCB2D3E"/>
-        <GradientStop Color="#FFEF473A" Offset="1"/>
-    </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="MonsterHealthUnenraged" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#FF4B8EEE"/>
@@ -170,9 +35,6 @@
     <FontFamily x:Key="HUNTERPIE_DEFAULT_FONT">Work Sans, Segoe UI, Microsoft Sans Serif</FontFamily>
     <FontFamily x:Key="Font.Default">Work Sans, Segoe UI, Microsoft Sans Serif</FontFamily>
 
-    <!-- Constants -->
-    <sys:Double x:Key="HUNTERPIE_SIDEBAR_WIDTH">300</sys:Double>
-
     <!-- Styles -->
     <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}">
         <Style.Resources>
@@ -185,9 +47,10 @@
             </Style>
         </Style.Resources>
         <Setter Property="FontFamily" Value="{StaticResource Font.Default}"/>
-        <Setter Property="Background" Value="{StaticResource GRAY_50}"/>
-        <Setter Property="Foreground" Value="{StaticResource WHITE_100}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource GRAY}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Background" Value="{StaticResource Brushes.HunterPie.Background.Primary}"/>
+        <Setter Property="Foreground" Value="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Brushes.HunterPie.Border}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="MaxWidth" Value="350"/>
         <Setter Property="ToolTipService.InitialShowDelay" Value="1000"/>
@@ -215,46 +78,6 @@
         </Style.Triggers>
     </Style>
 
-    <SolidColorBrush x:Key="StandardBorderBrush" Color="#888" />
-    <SolidColorBrush x:Key="StandardBackgroundBrush" Color="Black" />
-    <SolidColorBrush x:Key="HoverBorderBrush" Color="#DDD" />
-    <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="Gray" />
-    <SolidColorBrush x:Key="SelectedForegroundBrush" Color="White" />
-    <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
-    <SolidColorBrush x:Key="GlyphBrush" Color="#444" />
-    <SolidColorBrush x:Key="NormalBrush" Color="#888" />
-    <SolidColorBrush x:Key="NormalBorderBrush" Color="#888" />
-    <SolidColorBrush x:Key="HorizontalNormalBrush" Color="#FF686868" />
-    <SolidColorBrush x:Key="HorizontalNormalBorderBrush" Color="#888" />
-
-    <LinearGradientBrush x:Key="ListBoxBackgroundBrush" StartPoint="0,0" EndPoint="1,0.001">
-        <GradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Color="White" Offset="0.0" />
-                <GradientStop Color="White" Offset="0.6" />
-                <GradientStop Color="#DDDDDD" Offset="1.2"/>
-            </GradientStopCollection>
-        </GradientBrush.GradientStops>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="StandardBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Color="#FFF" Offset="0.0"/>
-                <GradientStop Color="#CCC" Offset="1.0"/>
-            </GradientStopCollection>
-        </GradientBrush.GradientStops>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="PressedBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Color="#BBB" Offset="0.0"/>
-                <GradientStop Color="#EEE" Offset="0.1"/>
-                <GradientStop Color="#EEE" Offset="0.9"/>
-                <GradientStop Color="#FFF" Offset="1.0"/>
-            </GradientStopCollection>
-        </GradientBrush.GradientStops>
-    </LinearGradientBrush>
-
     <Style x:Key="ScrollBarLineButton" TargetType="{x:Type RepeatButton}">
         <Setter Property="Visibility" Value="Hidden"/>
     </Style>
@@ -271,7 +94,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Border CornerRadius="1" 
-                            Background="{StaticResource WHITE_500}" 
+                            Background="{StaticResource Brushes.HunterPie.Foreground.Tertiary}" 
                             BorderBrush="{TemplateBinding BorderBrush}" 
                             BorderThickness="0" />
                 </ControlTemplate>
@@ -286,11 +109,18 @@
                 <RowDefinition Height="0.00001*"/>
                 <RowDefinition MaxHeight="0"/>
             </Grid.RowDefinitions>
-            <Border Grid.RowSpan="3" 
+            <Border Grid.Row="0" 
+                    Grid.RowSpan="3" 
                     CornerRadius="2" 
-                    Background="{StaticResource GRAY_400}"/>
-            <RepeatButton Grid.Row="0" Style="{StaticResource ScrollBarLineButton}" Height="18" Command="ScrollBar.LineUpCommand" Content="M 0 4 L 8 4 L 4 0 Z" />
-            <Track Name="PART_Track" Grid.Row="1" IsDirectionReversed="true">
+                    Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"/>
+            <RepeatButton Grid.Row="0" 
+                          Style="{StaticResource ScrollBarLineButton}" 
+                          Height="18" 
+                          Command="ScrollBar.LineUpCommand" 
+                          Content="M 0 4 L 8 4 L 4 0 Z" />
+            <Track Name="PART_Track" 
+                   Grid.Row="1" 
+                   IsDirectionReversed="true">
                 <Track.DecreaseRepeatButton>
                     <RepeatButton Style="{StaticResource ScrollBarPageButton}"
                                   Command="ScrollBar.PageUpCommand" />
@@ -298,15 +128,19 @@
                 <Track.Thumb>
                     <Thumb Style="{StaticResource ScrollBarThumb}" 
                            Margin="1,1,1,1" 
-                           Background="{StaticResource WHITE_500}" 
-                           BorderBrush="{StaticResource WHITE_500}" />
+                           Background="{StaticResource Brushes.HunterPie.Foreground.Tertiary}" 
+                           BorderBrush="{StaticResource Brushes.HunterPie.Foreground.Tertiary}" />
                 </Track.Thumb>
                 <Track.IncreaseRepeatButton>
                     <RepeatButton Style="{StaticResource ScrollBarPageButton}" 
                                   Command="ScrollBar.PageDownCommand" />
                 </Track.IncreaseRepeatButton>
             </Track>
-            <RepeatButton Grid.Row="3" Style="{StaticResource ScrollBarLineButton}" Height="18" Command="ScrollBar.LineDownCommand" Content="M 0 0 L 4 4 L 8 0 Z"/>
+            <RepeatButton Grid.Row="2"
+                          Style="{StaticResource ScrollBarLineButton}" 
+                          Height="18" 
+                          Command="ScrollBar.LineDownCommand" 
+                          Content="M 0 0 L 4 4 L 8 0 Z"/>
         </Grid>
     </ControlTemplate>
     <ControlTemplate x:Key="HorizontalScrollBar" TargetType="{x:Type ScrollBar}">
@@ -319,8 +153,12 @@
             <Border Grid.Column="0" 
                     Grid.ColumnSpan="3" 
                     CornerRadius="2" 
-                    Background="{StaticResource GRAY_400}"/>
-            <RepeatButton Grid.Column="0"  Style="{StaticResource ScrollBarLineButton}" Width="0" Command="ScrollBar.LineLeftCommand" Content="M 4 0 L 4 8 L 0 4 Z" />
+                    Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"/>
+            <RepeatButton Grid.Column="0"  
+                          Style="{StaticResource ScrollBarLineButton}"
+                          Width="0" 
+                          Command="ScrollBar.LineLeftCommand" 
+                          Content="M 4 0 L 4 8 L 0 4 Z" />
             <Track Name="PART_Track" Grid.Column="1" IsDirectionReversed="False">
                 <Track.DecreaseRepeatButton>
                     <RepeatButton Style="{StaticResource ScrollBarPageButton}" 
@@ -329,11 +167,12 @@
                 <Track.Thumb>
                     <Thumb Style="{StaticResource ScrollBarThumb}" 
                            Margin="1" 
-                           Background="{StaticResource WHITE_500}" 
-                           BorderBrush="{StaticResource WHITE_500}" />
+                           Background="{StaticResource Brushes.HunterPie.Foreground.Tertiary}" 
+                           BorderBrush="{StaticResource Brushes.HunterPie.Foreground.Tertiary}" />
                 </Track.Thumb>
                 <Track.IncreaseRepeatButton>
-                    <RepeatButton Style="{StaticResource ScrollBarPageButton}" Command="ScrollBar.PageRightCommand" />
+                    <RepeatButton Style="{StaticResource ScrollBarPageButton}" 
+                                  Command="ScrollBar.PageRightCommand" />
                 </Track.IncreaseRepeatButton>
             </Track>
             <RepeatButton Grid.Column="2" 
@@ -405,36 +244,34 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="40" />
             </Grid.ColumnDefinitions>
-            <Border Grid.ColumnSpan="2" 
+            <Border Grid.Column="0" 
+                    Grid.ColumnSpan="2" 
                     Name="Border"
-                    BorderBrush="{StaticResource GRAY}"
+                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                     CornerRadius="5" 
                     BorderThickness="1"
-                    Background="{StaticResource GRAY_100}"/>
+                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"/>
             <Border Grid.Column="1" 
                     Margin="1,1,1,1"  
                     Name="ButtonBorder"
                     CornerRadius="0,5,5,0" 
                     BorderThickness="1, 0, 0, 0"
-                    BorderBrush="{StaticResource GRAY}"
-                    Background="{StaticResource GRAY_200}" />
+                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                    Background="{StaticResource Brushes.HunterPie.Background.Secondary}" />
 
             <Path Name="Arrow" Grid.Column="1"
                   Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
                   HorizontalAlignment="Center" 
-                  Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                  Fill="{StaticResource Brushes.HunterPie.Accent}"
                   VerticalAlignment="Center" />
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="UIElement.IsMouseOver" Value="True">
-                <Setter Property="Panel.Background" TargetName="ButtonBorder" Value="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}"/>
-            </Trigger>
             <Trigger Property="ToggleButton.IsChecked" Value="True">
                 <Setter Property="Panel.Background" TargetName="ButtonBorder" Value="#FF151515"/>
                 <Setter Property="Shape.Fill" TargetName="Arrow" Value="#FF8D979E"/>
             </Trigger>
             <Trigger Property="UIElement.IsEnabled" Value="False">
-                <Setter Property="TextElement.Foreground" Value="{StaticResource WHITE_50}"/>
+                <Setter Property="TextElement.Foreground" Value="{StaticResource White@50}"/>
                 <Setter Property="Shape.Fill" TargetName="Arrow" Value="#999"/>
             </Trigger>
         </ControlTemplate.Triggers>
@@ -443,28 +280,26 @@
     <Style x:Key="{x:Type ListBoxItem}" TargetType="{x:Type ListBoxItem}">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="Foreground" Value="{StaticResource WHITE_100}"/>
+        <Setter Property="Foreground" Value="{StaticResource White@100}"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource GRAY_400}"/>
+                <Setter Property="Background" Value="{StaticResource Gray@400}"/>
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{StaticResource GRAY_400}"/>
-                <Setter Property="Foreground" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
+                <Setter Property="Background" Value="{StaticResource Gray@400}"/>
+                <Setter Property="Foreground" Value="{StaticResource Brushes.HunterPie.Accent}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
 
     <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
         <Setter Property="FontFamily" Value="{StaticResource Font.Default}"/>
-        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="UIElement.SnapsToDevicePixels" Value="True"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
-        <Setter Property="TextElement.Foreground" Value="{StaticResource WHITE_100}"/>
-        <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="TextElement.Foreground" Value="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
                 <Style TargetType="ComboBoxItem">
@@ -472,7 +307,7 @@
                         <Setter.Value>
                             <ControlTemplate TargetType="ComboBoxItem">
                                 <effects:CursorHighLight>
-                                    <ContentPresenter Margin="2,3"/>
+                                    <ContentPresenter Margin="2,5"/>
                                 </effects:CursorHighLight>
                             </ControlTemplate>
                         </Setter.Value>
@@ -480,13 +315,13 @@
                     <Setter Property="BorderThickness" Value="0"/>
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Foreground" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
+                            <Setter Property="Foreground" Value="{StaticResource Brushes.HunterPie.Accent}"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
             </Setter.Value>
         </Setter>
-        <Setter Property="Control.Template">
+        <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
                     <Grid>
@@ -534,8 +369,8 @@
                                         Margin="0,0,0,0"
                                         CornerRadius="5" 
                                         BorderThickness="1,1,1,1"
-                                        BorderBrush="{StaticResource GRAY}"
-                                        Background="{StaticResource GRAY_200}"/>
+                                        BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                                        Background="{StaticResource Brushes.HunterPie.Background.Secondary}"/>
                                 <ScrollViewer Margin="0" 
                                               SnapsToDevicePixels="True">
                                     <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"
@@ -563,12 +398,13 @@
     </Style>
 
     <!-- TextBox -->
-    <Style x:Key="{x:Type TextBox}" TargetType="{x:Type TextBox}">
-        <Setter Property="CaretBrush" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
-        <Setter Property="Foreground" Value="{StaticResource WHITE_100}"/>
-        <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+    <Style x:Key="{x:Type TextBox}" 
+           TargetType="{x:Type TextBox}">
+        <Setter Property="CaretBrush" Value="{StaticResource Brushes.HunterPie.Accent}"/>
+        <Setter Property="Foreground" Value="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Font.Default}"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="Padding" Value="2"/>
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="Template">
@@ -576,9 +412,9 @@
                 <ControlTemplate TargetType="TextBox">
                     <Border CornerRadius="5"
                             ClipToBounds="True"
-                            BorderBrush="{StaticResource GRAY}"
+                            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                             BorderThickness="1"
-                            Background="{StaticResource GRAY_100}">
+                            Background="{StaticResource Brushes.HunterPie.Background.Primary}">
                         <ScrollViewer x:Name="PART_ContentHost"/>
                     </Border>
                 </ControlTemplate>
@@ -587,12 +423,12 @@
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
                 <ControlTemplate>
-                    <Border BorderBrush="#FFEA5151" 
+                    <Border BorderBrush="{StaticResource Brushes.HunterPie.Error}" 
                             BorderThickness="1"
                             CornerRadius="5">
                         <Border.Effect>
-                            <DropShadowEffect Color="#FFEA3434" 
-                                              BlurRadius="5" 
+                            <DropShadowEffect Color="{markup:BrushColor Brush={StaticResource Brushes.HunterPie.Error}}" 
+                                              BlurRadius="10" 
                                               RenderingBias="Performance"
                                               ShadowDepth="0"/>
                         </Border.Effect>
@@ -605,17 +441,17 @@
 
     <!-- PasswordBox -->
     <Style x:Key="{x:Type PasswordBox}" TargetType="{x:Type PasswordBox}">
-        <Setter Property="CaretBrush" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
-        <Setter Property="Foreground" Value="{StaticResource WHITE_100}"/>
-        <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
-        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="CaretBrush" Value="{StaticResource Brushes.HunterPie.Accent}"/>
+        <Setter Property="Foreground" Value="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Font.Default}"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="PasswordBox">
-                    <Border BorderBrush="{StaticResource GRAY}"
+                    <Border BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                             BorderThickness="1"
                             CornerRadius="5"
-                            Background="{StaticResource GRAY_100}">
+                            Background="{StaticResource Brushes.HunterPie.Background.Primary}">
                         <ScrollViewer SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                                       x:Name="PART_ContentHost"
                                       Background="Transparent"/>
@@ -648,7 +484,7 @@
     </Style>
     
     <!-- Slider -->
-    <Style x:Key="SliderRepeatButton" TargetType="RepeatButton">
+    <Style x:Key="SliderProgressRightSide" TargetType="RepeatButton">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="IsTabStop" Value="false" />
@@ -656,23 +492,26 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RepeatButton">
-                    <Border  Background="{StaticResource GRAY}" 
-                             Height="1"/>
+                    <Border  BorderBrush="{StaticResource Brushes.HunterPie.Border}" 
+                             BorderThickness="1" 
+                             CornerRadius="1"
+                             Height="2"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <Style x:Key="SliderRepeatButton1" TargetType="RepeatButton">
+    <Style x:Key="SliderProgressLeftSide" 
+           TargetType="RepeatButton">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RepeatButton">
-                    <Border SnapsToDevicePixels="True"  
-                            BorderThickness="0" 
-                            Height="1"
-                            Background="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
+                    <Border BorderThickness="1" 
+                            CornerRadius="1"
+                            Height="2"
+                            BorderBrush="{StaticResource Brushes.HunterPie.Accent}"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -686,37 +525,43 @@
                 <ControlTemplate TargetType="Thumb">
                     <Ellipse Height="13" 
                              Width="13" 
-                             Fill="{StaticResource WHITE_50}" 
+                             Fill="{StaticResource Brushes.HunterPie.Foreground.Primary}" 
                              Cursor="Hand" 
-                             Stroke="{StaticResource WHITE_100}" 
+                             Stroke="{StaticResource Brushes.HunterPie.Foreground.Primary}" 
                              StrokeThickness="1"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <ControlTemplate x:Key="Slider" TargetType="Slider">
+    <ControlTemplate x:Key="Slider" 
+                     TargetType="Slider">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}"/>
+                <RowDefinition Height="Auto" 
+                               MinHeight="{TemplateBinding MinHeight}"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Track Grid.Row="1" x:Name="PART_Track">
+            <Track Grid.Row="1" 
+                   x:Name="PART_Track">
                 <Track.DecreaseRepeatButton>
-                    <RepeatButton Style="{StaticResource SliderRepeatButton1}"  Command="Slider.DecreaseLarge" />
+                    <RepeatButton Style="{StaticResource SliderProgressLeftSide}"  
+                                  Command="Slider.DecreaseLarge" />
                 </Track.DecreaseRepeatButton>
                 <Track.Thumb>
                     <Thumb Style="{StaticResource SliderThumb}"  />
                 </Track.Thumb>
                 <Track.IncreaseRepeatButton>
-                    <RepeatButton Style="{StaticResource SliderRepeatButton}" Command="Slider.IncreaseLarge" />
+                    <RepeatButton Style="{StaticResource SliderProgressRightSide}"
+                                  Command="Slider.IncreaseLarge" />
                 </Track.IncreaseRepeatButton>
             </Track>
         </Grid>
     </ControlTemplate>
 
-    <Style x:Key="SliderDefault" TargetType="Slider">
+    <Style x:Key="SliderDefault" 
+           TargetType="Slider">
         <Setter Property="Focusable" Value="False"/>
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -730,10 +575,10 @@
     </Style>
 
     <Style x:Key="{x:Type lvc:DefaultTooltip}" TargetType="{x:Type lvc:DefaultTooltip}">
-        <Setter Property="Background" Value="{StaticResource GRAY_300}"/>
-        <Setter Property="Foreground" Value="{StaticResource WHITE_50}"/>
-        <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
+        <Setter Property="Background" Value="{StaticResource Gray@300}"/>
+        <Setter Property="Foreground" Value="{StaticResource White@50}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Font.Default}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Brushes.HunterPie.Accent}"/>
         <Setter Property="BulletSize" Value="4"/>
         <Setter Property="BorderThickness" Value="1"/>
     </Style>
@@ -752,7 +597,7 @@
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Opacity" Value="1"/>
                             <Setter TargetName="PART_Border" Property="BorderBrush" Value="Black" />
-                            <Setter Property="Foreground" Value="{StaticResource HUNTERPIE_ACCENT_COLOR}"/>
+                            <Setter Property="Foreground" Value="{StaticResource Brushes.HunterPie.Accent}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -761,12 +606,12 @@
     </Style>
 
     <Style TargetType="{x:Type TextBlock}">
-        <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Font.Default}"/>
     </Style>
 
     <DataTemplate x:Key="DATA_TEMPLATE_SETTINGS_ENUM_ELEMENT">
         <TextBlock Text="{Binding ., Mode=OneTime, Converter={StaticResource EnumToStringConverter}}"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+                   FontFamily="{StaticResource Font.Default}"/>
     </DataTemplate>
 
     <Style TargetType="{x:Type ListBox}">
@@ -880,17 +725,4 @@
     <Style TargetType="{x:Type progress:Bar}"
            BasedOn="{StaticResource DefaultProgressBarStyle}"/>
     
-    <!-- Themes support -->
-    <Style x:Key="STYLE_MONSTERS_WIDGET" TargetType="{x:Type monster:MonstersView}"/>
-    <Style x:Key="STYLE_DAMAGE_METER_WIDGET" TargetType="{x:Type meter:MeterView}"/>
-    <Style x:Key="STYLE_ABNORMALITIES_BAR_WIDGET" TargetType="{x:Type abnormalities:AbnormalityBarView}"/>
-    <Style x:Key="STYLE_ACTIVITIES_WIDGET" TargetType="{x:Type activities:ActivitiesView}"/>
-    <Style x:Key="STYLE_CHAT_WIDGET" TargetType="{x:Type chat:ChatView}"/>
-    <Style x:Key="STYLE_WIREBUG_WIDGET" TargetType="{x:Type wirebug:WirebugsView}"/>
-    <Style x:Key="STYLE_PLAYER_HUD_WIDGET" TargetType="{x:Type playerHud:PlayerHudView}"/>
-
-    <Style x:Key="Widgets.SpecializedToolV2"
-           TargetType="{x:Type UserControl}"/>
-    
-    <sys:Double x:Key="Widgets.Background.Opacity">0.8</sys:Double>
 </ResourceDictionary>

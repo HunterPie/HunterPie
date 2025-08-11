@@ -1,0 +1,225 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <!-- Overlay -->
+    <!-- Overlay Colors -->
+    <!-- Specilialized Tools -->
+    <LinearGradientBrush x:Key="Brushes.Tools.GhillieMantle"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FF74D680" />
+        <GradientStop Color="#FF378B29"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.TemporalMantle"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FFFFDD00" />
+        <GradientStop Color="#FFFBB034"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.BanditMantle"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FFFFDD00" />
+        <GradientStop Color="#FFFBB034"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.HealthBooster"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FF74D680" />
+        <GradientStop Color="#FF378B29"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.RocksteadyMantle"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FFD2CCC4" />
+        <GradientStop Color="#FF2F4353"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.DragonproofMantle"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FFD2CCC4" />
+        <GradientStop Color="#FF2F4353"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.ChallengerMantle"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FF2FEBD2" />
+        <GradientStop Color="#FF2FEBB3"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.ThunderproofMantle"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FF74D4BA" />
+        <GradientStop Color="#FF74CAD4"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.VitalityMantle"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FF3CBD71" />
+        <GradientStop Color="#FF3CBD92"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.FireproofMantle"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FFF04654" />
+        <GradientStop Color="#FFE63737"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Brushes.Tools.ImpactMantle">#FFFC5967</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.Tools.WaterproofMantle">#FF57DBFF</SolidColorBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.IceproofMantle"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FFF5F7FA" />
+        <GradientStop Color="#FFB8C6DB"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.EvasionMantle"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FFF5F7FA" />
+        <GradientStop Color="#FFB8C6DB"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.ImmunityMantle"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FFF5F7FA" />
+        <GradientStop Color="#FFB8C6DB"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.CleanserBooster"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FF4884EE" />
+        <GradientStop Color="#FF06BCFB"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.GliderMantle"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FF647DEE" />
+        <GradientStop Color="#FF7F53AC"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.ApothecaryMantle"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FF5F72BE" />
+        <GradientStop Color="#FF9921E8"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.AffinityBooster"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FFDB3445" />
+        <GradientStop Color="#FFF71735"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.AssassinsHood"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FFF5F7FA" />
+        <GradientStop Color="#FFB8C6DB"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.MendingMantle"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FF60FF40" />
+        <GradientStop Color="#FFACFF40"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Tools.CorruptedMantle"
+                         EndPoint="1,1"
+                         StartPoint="0,1">
+        <GradientStop Color="#FF5E2FD6" />
+        <GradientStop Color="#FF6C2FD6"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <!-- Ailments -->
+    <SolidColorBrush x:Key="Brushes.Ailments.Unknown">#FF73ABEE</SolidColorBrush>
+    <LinearGradientBrush x:Key="Brushes.Ailments.Poison" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#DA22FF"/>
+        <GradientStop Color="#9733EE" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Ailments.Paralysis" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#e8cf6b"/>
+        <GradientStop Color="#fdfde2" Offset="1"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Brushes.Ailments.Sleep">#6be8a5</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.Ailments.Blast">#db7e53</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.Ailments.Mount">#5380db</SolidColorBrush>
+    <LinearGradientBrush x:Key="Brushes.Ailments.Water" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#82b5ff"/>
+        <GradientStop Color="#aff1ff" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Ailments.Fire" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#e23a3a"/>
+        <GradientStop Color="#ff723f" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Ailments.Ice" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#ace3ff"/>
+        <GradientStop Color="#edfcff" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Ailments.Thunder" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#ffb04f"/>
+        <GradientStop Color="#feffed" Offset="1"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Brushes.Ailments.Exhaust">#74d4b1</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.Ailments.Stun">#deb83c</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.Ailments.Tranquilize">#c96ba0</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.Ailments.Flash">#f7c052</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.Ailments.Knockdown">#5380db</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.Ailments.Dung">#472102</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.Ailments.Elderseal">#71369c</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.Ailments.Smoking">#9c9c9c</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.Ailments.Claw">#6ab7d4</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.Ailments.Misc">#97b3bf</SolidColorBrush>
+    <LinearGradientBrush x:Key="Brushes.Ailments.Enrage" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFCB2D3E"/>
+        <GradientStop Color="#FFEF473A" Offset="1"/>
+    </LinearGradientBrush>
+    <!-- Overlay Widgets -->
+    <Style x:Key="Widgets.SpecializedToolV2"
+           TargetType="{x:Type UserControl}" />
+    <Style x:Key="Widgets.Monster"
+           TargetType="{x:Type UserControl}" />
+    <Style x:Key="Widgets.DamageMeterV2"
+           TargetType="{x:Type UserControl}" />
+    <Style x:Key="Widgets.AbnormalityTray"
+           TargetType="{x:Type UserControl}" />
+    <Style x:Key="Widgets.Activities"
+           TargetType="{x:Type UserControl}" />
+    <Style x:Key="Widgets.Chat"
+           TargetType="{x:Type UserControl}" />
+    <Style x:Key="Widgets.Wirebug"
+           TargetType="{x:Type UserControl}" />
+    <Style x:Key="Widgets.PlayerHud"
+           TargetType="{x:Type UserControl}" />
+    <Style x:Key="Widgets.Clock"
+           TargetType="{x:Type UserControl}"/>
+    <Style x:Key="Widgets.Classes"
+           TargetType="{x:Type UserControl}"/>
+    <Style x:Key="Widgets.Classes.ChargeBlade"
+           TargetType="{x:Type UserControl}"/>
+    <Style x:Key="Widgets.Classes.DualBlades"
+           TargetType="{x:Type UserControl}"/>
+    <Style x:Key="Widgets.Classes.LongSword"
+           TargetType="{x:Type UserControl}"/>
+    <Style x:Key="Widgets.Classes.SwitchAxe"
+           TargetType="{x:Type UserControl}"/>
+    <Style x:Key="Widgets.Classes.InsectGlaive"
+           TargetType="{x:Type UserControl}"/>
+    <!-- Constants -->
+    <system:Double x:Key="Widgets.Background.Opacity">0.8</system:Double>
+</ResourceDictionary>

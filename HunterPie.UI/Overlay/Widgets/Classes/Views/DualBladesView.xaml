@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.Views"
-             xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.ViewModels"
@@ -13,7 +11,8 @@
              mc:Ignorable="d" 
              Height="82" 
              Width="295"
-             d:DataContext="{d:DesignInstance viewModels:DualBladesViewModel}">
+             d:DataContext="{d:DesignInstance viewModels:DualBladesViewModel}"
+             Style="{DynamicResource Widgets.Classes.DualBlades}">
     <UserControl.Resources>
         <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>

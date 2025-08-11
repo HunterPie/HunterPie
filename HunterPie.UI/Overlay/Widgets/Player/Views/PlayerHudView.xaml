@@ -8,14 +8,12 @@
            xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.Views"
            xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
            xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.ViewModels"
-           xmlns:animations="clr-namespace:HunterPie.UI.Architecture.Animation"
-           xmlns:enums="clr-namespace:HunterPie.Core.Game.Enums;assembly=HunterPie.Core"
            xmlns:effects="clr-namespace:HunterPie.UI.Architecture.Effects"
            x:TypeArguments="viewmodels:PlayerHudViewModel"
            d:DataContext="{d:DesignInstance Type=viewmodels:PlayerHudViewModel}"
            mc:Ignorable="d"
            Width="800"
-           Style="{StaticResource STYLE_PLAYER_HUD_WIDGET}">
+           Style="{DynamicResource Widgets.PlayerHud}">
     <UserControl.Resources>
         <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
         <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>

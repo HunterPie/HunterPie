@@ -14,7 +14,8 @@
                    xmlns:system="clr-namespace:System;assembly=System.Runtime"
                    mc:Ignorable="d"
                    Width="300"
-                   d:DataContext="{d:DesignInstance viewModels:MeterViewModel}">
+                   d:DataContext="{d:DesignInstance viewModels:MeterViewModel}"
+                   Style="{DynamicResource Widgets.DamageMeterV2}">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>

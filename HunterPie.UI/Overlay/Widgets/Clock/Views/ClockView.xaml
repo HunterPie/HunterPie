@@ -16,7 +16,8 @@
                    mc:Ignorable="d"
                    d:DataContext="{d:DesignInstance Type=viewModels:ClockViewModel}"
                    HorizontalAlignment="Center"
-                   Width="130">
+                   Width="130"
+                   Style="{DynamicResource Widgets.Clock}">
     <UserControl.Resources>
         <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
         <system:Double x:Key="Background.Transparency">0.9</system:Double>

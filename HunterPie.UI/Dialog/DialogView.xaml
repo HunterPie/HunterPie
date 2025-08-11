@@ -3,13 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HunterPie.UI.Dialog"
-        xmlns:dialog="clr-namespace:HunterPie.Core.Domain.Dialog;assembly=HunterPie.Core"
         xmlns:wnd="clr-namespace:HunterPie.UI.Windows"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:converter="clr-namespace:HunterPie.UI.Architecture.Converters"
         xmlns:btn="clr-namespace:HunterPie.UI.Controls.Buttons"
-        xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets"
+        xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup"
         mc:Ignorable="d"
         MinWidth="400"
         Width="400"
@@ -26,13 +24,13 @@
         <sys:Int32 x:Key="Reject">2</sys:Int32>
         <sys:Int32 x:Key="Cancel">4</sys:Int32>
         <Style x:Key="DefaultButton" TargetType="{x:Type btn:Button}">
-            <Setter Property="Background" Value="{StaticResource GRAY_100}"/>
-            <Setter Property="Foreground" Value="{StaticResource WHITE_200}"/>
+            <Setter Property="Background" Value="{StaticResource Brushes.HunterPie.Background.Primary}"/>
+            <Setter Property="Foreground" Value="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
             <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="Margin" Value="10"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Padding" Value="30,5"/>
-            <Setter Property="BorderBrush" Value="{StaticResource GRAY}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Brushes.HunterPie.Border}"/>
             <Setter Property="CornerRadius" Value="5"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Cursor" Value="Hand"/>
@@ -49,9 +47,9 @@
                     <Label VerticalAlignment="Top"
                            HorizontalAlignment="Stretch"
                            Margin="20,35,20,0"
-                           Foreground="{StaticResource WHITE_100}"
+                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                            FontSize="16"
-                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                           FontFamily="{StaticResource Font.Default}"
                            VerticalContentAlignment="Center"
                            HorizontalContentAlignment="Center">
                         <Label.Content>
@@ -61,9 +59,8 @@
                                        MaxWidth="400"
                                        HorizontalAlignment="Stretch"
                                        TextWrapping="WrapWithOverflow"
-                                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                                        FontSize="14"
-                                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}" 
                                        TextAlignment="Center"/>
                         </Label.Content>
                     </Label>
@@ -72,17 +69,17 @@
                                    VerticalAlignment="Bottom"
                                    HorizontalAlignment="Center"
                                    Margin="10">
-                        <btn:Button Content="{loc:LocalizationString '//Strings/Client/Dialogs/Button[@Id=&quot;ACCEPT_STRING&quot;]'}"
+                        <btn:Button Content="{markup:Localization '//Strings/Client/Dialogs/Button[@Id=&quot;ACCEPT_STRING&quot;]'}"
                                     d:Content="Accept"
                                     Visibility="{Binding Buttons, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource DialogButtonToVisibilityConverter}, ConverterParameter={StaticResource Accept}}"
                                     Style="{StaticResource DefaultButton}"
                                     OnClick="OnAccept"/>
-                        <btn:Button Content="{loc:LocalizationString '//Strings/Client/Dialogs/Button[@Id=&quot;REJECT_STRING&quot;]'}"
+                        <btn:Button Content="{markup:Localization '//Strings/Client/Dialogs/Button[@Id=&quot;REJECT_STRING&quot;]'}"
                                     d:Content="Reject"
                                     Visibility="{Binding Buttons, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource DialogButtonToVisibilityConverter}, ConverterParameter={StaticResource Reject}}"
                                     Style="{StaticResource DefaultButton}"
                                     OnClick="OnReject"/>
-                        <btn:Button Content="{loc:LocalizationString '//Strings/Client/Dialogs/Button[@Id=&quot;CANCEL_STRING&quot;]'}"
+                        <btn:Button Content="{markup:Localization '//Strings/Client/Dialogs/Button[@Id=&quot;CANCEL_STRING&quot;]'}"
                                     d:Content="Cancel"
                                     Visibility="{Binding Buttons, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource DialogButtonToVisibilityConverter}, ConverterParameter={StaticResource Cancel}}"
                                     Style="{StaticResource DefaultButton}"

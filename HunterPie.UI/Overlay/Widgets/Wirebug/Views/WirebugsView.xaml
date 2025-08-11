@@ -10,7 +10,7 @@
            x:TypeArguments="vm:WirebugsViewModel"
            d:DataContext="{d:DesignInstance Type=vm:WirebugsViewModel}"
            mc:Ignorable="d"
-           Style="{StaticResource STYLE_WIREBUG_WIDGET}">
+           Style="{DynamicResource Widgets.Wirebug}">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <vm:MockWirebugsViewModel x:Key="MockViewModel"/>

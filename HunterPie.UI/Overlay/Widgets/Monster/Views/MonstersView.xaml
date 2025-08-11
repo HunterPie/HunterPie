@@ -16,7 +16,7 @@
            mc:Ignorable="d"
            d:DataContext="{d:DesignInstance Type=viewModels:MonstersViewModel}"
            x:TypeArguments="viewModels:MonstersViewModel"
-           Style="{StaticResource STYLE_MONSTERS_WIDGET}"
+           Style="{DynamicResource Widgets.Monster}"
            x:Name="MonsterWidget">
     <UserControl.Resources>
         <visibilities:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter"/>

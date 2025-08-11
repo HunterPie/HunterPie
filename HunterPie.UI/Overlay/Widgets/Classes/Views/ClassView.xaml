@@ -11,7 +11,8 @@
                    d:DesignHeight="450" 
                    d:DesignWidth="800"
                    x:TypeArguments="vm:ClassViewModel"
-                   d:DataContext="{d:DesignInstance vm:ClassViewModel}">
+                   d:DataContext="{d:DesignInstance vm:ClassViewModel}"
+                   Style="{DynamicResource Widgets.Classes}">
     <UserControl.Resources>
         <DataTemplate x:Key="InsectGlaiveTemplate">
             <local:InsectGlaiveView/>

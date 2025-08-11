@@ -6,10 +6,11 @@
            xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
            xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"           
            xmlns:arch="clr-namespace:HunterPie.UI.Architecture;assembly=HunterPie.UI"
-           xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
            xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
            xmlns:vm="clr-namespace:HunterPie.Features.Backup.ViewModels"
            xmlns:views="clr-namespace:HunterPie.Features.Backup.Views"
+           xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup;assembly=HunterPie.UI"
+           xmlns:gl="clr-namespace:System.Globalization;assembly=System.Runtime"
            d:DataContext="{d:DesignInstance vm:BackupsViewModel}"
            x:TypeArguments="vm:BackupsViewModel"
            mc:Ignorable="d" 
@@ -20,9 +21,9 @@
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
     </UserControl.Resources>
     <Border BorderThickness="1"
-            BorderBrush="{StaticResource GRAY}"
+            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
             CornerRadius="5"
-            Background="{StaticResource GRAY_100}"
+            Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
             Padding="10,0,10,10"
             Visibility="{Binding IsFetching, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
         <Grid>
@@ -32,8 +33,9 @@
             </Grid.RowDefinitions>
             
             <!-- Header text -->
-            <TextBlock Text="SAVE BACKUPS"
-                       Foreground="{StaticResource WHITE_400}"
+            <TextBlock Grid.Row="0" 
+                       Text="SAVE BACKUPS"
+                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                        FontWeight="Medium"
                        Grid.ColumnSpan="2"
                        FontSize="15"
@@ -42,11 +44,12 @@
             <Separator Grid.ColumnSpan="2"
                        Grid.Row="0"
                        VerticalAlignment="Bottom"
-                       Background="{StaticResource GRAY}"/>
+                       Background="{StaticResource Brushes.HunterPie.Border}"/>
             
             <!-- Details -->
-            <TextBlock FontSize="15"
-                       Foreground="{StaticResource WHITE_500}"
+            <TextBlock Grid.Row="0" 
+                       FontSize="15"
+                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                        Margin="0,0,5,0"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
@@ -55,28 +58,29 @@
                      FontWeight="Medium"/>
                 <Run Text="{Binding Count, Mode=OneWay}"
                      d:Text="3"
-                     Foreground="{StaticResource WHITE_200}"/><!--
+                     Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/><!--
              --><Run Text="/"/><!--
              --><Run Text="{Binding MaxCount, Mode=OneWay}"
                      d:Text="5"/>
             </TextBlock>
 
-            <StackPanel Orientation="Horizontal"
+            <StackPanel Grid.Row="0" 
+                        Orientation="Horizontal"
                         HorizontalAlignment="Center"
                         Visibility="{Binding HasBackups, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <image:Icon Foreground="{StaticResource GREEN_LIGHT_100}"
+                <image:Icon Foreground="{StaticResource LightGreen@100}"
                             Image="{StaticResource ICON_CLOUD_CHECK}"
                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                             Margin="7"
                             Opacity="0.3"/>
                 <TextBlock FontSize="13"
-                           Foreground="{StaticResource WHITE_500}"
+                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                            VerticalAlignment="Center">
                     <Run Text="Last sync:"
                          FontWeight="Medium"/>
                     <Run d:Text="An hour ago"
-                         Text="{Binding LastSync, Mode=OneWay, StringFormat=\{0:g\}}"
-                         Foreground="{StaticResource WHITE_200}"/>
+                         Text="{Binding LastSync, Mode=OneWay, StringFormat='G', ConverterCulture={x:Static gl:CultureInfo.CurrentCulture}}"
+                         Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
                 </TextBlock>
             </StackPanel>
 
@@ -85,20 +89,20 @@
                 <!-- Backup not enabled warning -->
                 <Border Margin="15,5,15,5"
                         BorderThickness="1"
-                        BorderBrush="{StaticResource YELLOW_600}"
+                        BorderBrush="{StaticResource Yellow@600}"
                         CornerRadius="5"
-                        Background="{StaticResource GRAY_200}"
+                        Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
                         HorizontalAlignment="Center"
                         Visibility="{Binding IsBackupEnabled, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <image:Icon Image="{StaticResource ICON_WARN}"
-                                    Foreground="{StaticResource YELLOW_300}"
+                                    Foreground="{StaticResource Yellow@300}"
                                     Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                                     Margin="8"/>
 
-                        <TextBlock Text="{loc:LocalizationString '//Strings/Client/Integrations/Poogie[@Id=&quot;BACKUP_NOT_ENABLED_STRING&quot;]'}"
+                        <TextBlock Text="{markup:Localization '//Strings/Client/Integrations/Poogie[@Id=&quot;BACKUP_NOT_ENABLED_STRING&quot;]'}"
                                    d:Text="Looks like you don't have automatic backups enabled.&#10;You can enable it in your Account settings."
-                                   Foreground="{StaticResource WHITE_300}"
+                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                                    FontSize="13.5"
                                    VerticalAlignment="Center"
                                    Margin="5"/>
@@ -108,20 +112,20 @@
                 <!-- No backups found message -->
                 <Border HorizontalAlignment="Center"
                         Padding="5"
-                        Background="{StaticResource GRAY_300}"
-                        BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                        Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                        BorderBrush="{StaticResource Brushes.HunterPie.Accent}"
                         BorderThickness="1"
                         CornerRadius="5"
                         Margin="0,10,0,0"
                         Visibility="{Binding HasBackups, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <image:Icon Image="{StaticResource ICON_INFO}"
-                                    Foreground="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                                    Foreground="{StaticResource Brushes.HunterPie.Accent}"
                                     Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"/>
                         <TextBlock d:Text="You have no backups."
-                                   Text="{loc:LocalizationString '//Strings/Client/Integrations/Poogie[@Id=&quot;BACKUP_NOT_FOUND_STRING&quot;]'}"
+                                   Text="{markup:Localization '//Strings/Client/Integrations/Poogie[@Id=&quot;BACKUP_NOT_FOUND_STRING&quot;]'}"
                                    FontSize="15"
-                                   Foreground="{StaticResource WHITE_300}"
+                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                                    Margin="10,0,10,0"/>
                     </StackPanel>
                 </Border>

@@ -27,7 +27,7 @@
 
             <buttons:Switch Grid.Column="1"
                             HorizontalAlignment="Right"
-                            VerticalAlignment="Top"
+                            VerticalAlignment="Center"
                             IsActive="{Binding Boolean.Value, Mode=TwoWay}"/>
         </Grid>
     </effects:CursorHighLight>

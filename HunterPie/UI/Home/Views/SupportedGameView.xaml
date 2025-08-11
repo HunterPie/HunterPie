@@ -3,14 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Home.Views"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Home.ViewModels"
              xmlns:process="clr-namespace:HunterPie.Core.Domain.Process;assembly=HunterPie.Core"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
-             xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
-             xmlns:display="clr-namespace:HunterPie.UI.Controls.Display;assembly=HunterPie.UI"
-             xmlns:animation="clr-namespace:HunterPie.UI.Architecture.Animation;assembly=HunterPie.UI"
+             xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup;assembly=HunterPie.UI"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:SupportedGameViewModel}">
     <UserControl.Resources>
@@ -19,19 +16,19 @@
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.NotFound}">
-                    <Setter Property="Text" Value="{assets:LocalizationString '//Strings/Client/Home/GameStatus[@Id=&quot;NOT_FOUND&quot;]'}"/>
+                    <Setter Property="Text" Value="{markup:Localization '//Strings/Client/Home/GameStatus[@Id=&quot;NOT_FOUND&quot;]'}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.Waiting}">
-                    <Setter Property="Text" Value="{assets:LocalizationString '//Strings/Client/Home/GameStatus[@Id=&quot;WAITING&quot;]'}"/>
+                    <Setter Property="Text" Value="{markup:Localization '//Strings/Client/Home/GameStatus[@Id=&quot;WAITING&quot;]'}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.Paused}">
-                    <Setter Property="Text" Value="{assets:LocalizationString '//Strings/Client/Home/GameStatus[@Id=&quot;ANOTHER_RUNNING&quot;]'}"/>
+                    <Setter Property="Text" Value="{markup:Localization '//Strings/Client/Home/GameStatus[@Id=&quot;ANOTHER_RUNNING&quot;]'}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.Hooked}">
-                    <Setter Property="Text" Value="{assets:LocalizationString '//Strings/Client/Home/GameStatus[@Id=&quot;RUNNING&quot;]'}"/>
+                    <Setter Property="Text" Value="{markup:Localization '//Strings/Client/Home/GameStatus[@Id=&quot;RUNNING&quot;]'}"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -41,19 +38,19 @@
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.NotFound}">
-                    <Setter Property="Fill" Value="{StaticResource RED_200}"/>
+                    <Setter Property="Fill" Value="{StaticResource Red@200}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.Waiting}">
-                    <Setter Property="Fill" Value="{StaticResource YELLOW_100}"/>
+                    <Setter Property="Fill" Value="{StaticResource Yellow@100}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.Paused}">
-                    <Setter Property="Fill" Value="{StaticResource BLUE_LIGHT_200}"/>
+                    <Setter Property="Fill" Value="{StaticResource LightBlue@200}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.Hooked}">
-                    <Setter Property="Fill" Value="{StaticResource GREEN_LIGHT_100}"/>
+                    <Setter Property="Fill" Value="{StaticResource LightGreen@100}"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -69,18 +66,18 @@
                     Orientation="Vertical">
             <buttons:Button Padding="5"
                             Margin="0,2"
-                            Background="{StaticResource GRAY_200}"
-                            BorderBrush="{StaticResource GRAY}"
+                            Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                             BorderThickness="1"
                             CornerRadius="5"
                             FontSize="14"
-                            Foreground="{StaticResource WHITE_100}"
+                            Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                             Click="OnSettingsClick">
                 <StackPanel Orientation="Horizontal">
                     <image:Icon Image="{StaticResource ICON_SETTINGS_FILLED}"
                                 Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                                 Height="20"
-                                Foreground="{StaticResource WHITE_300}"
+                                Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                                 Margin="0,0,5,0"
                                 Padding="2"/>
                     <TextBlock Text="Settings"
@@ -102,7 +99,7 @@
                         RenderTransformOrigin="0.5,0.5"
                         CornerRadius="5"
                         BorderThickness="1"
-                        BorderBrush="{StaticResource GRAY}">
+                        BorderBrush="{StaticResource Brushes.HunterPie.Border}">
             <buttons:Button.RenderTransform>
                 <ScaleTransform ScaleX="1"
                                 ScaleY="1"/>
@@ -163,7 +160,7 @@
                     </Image.Style>
                 </Image>
                 <image:Icon Image="{StaticResource ICON_PLAY}"
-                            Foreground="{StaticResource WHITE_50}"
+                            Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                             Width="50"
                             Height="50"
                             Opacity="0">

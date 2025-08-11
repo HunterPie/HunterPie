@@ -11,7 +11,7 @@
            xmlns:viewMhwilds="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Wilds.Views"
            x:TypeArguments="vm:ActivitiesViewModel"
            mc:Ignorable="d"
-           Style="{StaticResource STYLE_ACTIVITIES_WIDGET}"
+           Style="{DynamicResource Widgets.Activities}"
            d:DataContext="{d:DesignInstance vm:ActivitiesViewModel}">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>

@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HunterPie.UI.Controls.Buttons"
-             xmlns:types="clr-namespace:HunterPie.Core.Settings.Types;assembly=HunterPie.Core"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="45" 
@@ -17,8 +16,8 @@
                   VerticalContentAlignment="Stretch"
                   OnClick="OnButtonClick"
                   Padding="0"
-                  Background="{StaticResource GRAY_100}"
-                  BorderBrush="{StaticResource GRAY}"
+                  Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                  BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                   BorderThickness="1"
                   CornerRadius="5">
         <Grid>
@@ -26,8 +25,8 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                       Foreground="{StaticResource WHITE_200}"
+            <TextBlock FontFamily="{StaticResource Font.Default}"
+                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                        FontSize="15"
                        VerticalAlignment="Center"
                        Margin="5,0,5,0"
@@ -35,7 +34,7 @@
                        HorizontalAlignment="Right"
                        FontWeight="Medium">
                 <Run Text="#"
-                     Foreground="{StaticResource WHITE_700}"
+                     Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                      FontWeight="Regular"/><!--
              --><Run Text="{Binding Color, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPicker}}, Mode=OneWay, Converter={StaticResource HashPrefixFilterConverter}}"
                      d:Text="FF03A9FC"/>
@@ -43,9 +42,10 @@
             <Border d:Background="#FF03A9FC"
                     Background="{Binding Color, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPicker}}, Mode=OneWay}"
                     Grid.Column="0"
-                    BorderBrush="{StaticResource GRAY}"
-                    BorderThickness="0,0,1,0"
-                    CornerRadius="4.5,0,0,4.5"
+                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                    BorderThickness="1"
+                    CornerRadius="5"
+                    Margin="5"
                     Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"/>
         </Grid>
     </local:Button>

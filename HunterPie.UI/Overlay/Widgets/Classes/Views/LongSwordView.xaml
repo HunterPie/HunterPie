@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.Views"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.ViewModels"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:progress="clr-namespace:HunterPie.UI.Overlay.Controls.Progress"
@@ -13,7 +12,8 @@
              mc:Ignorable="d" 
              Height="82" 
              Width="295"
-             d:DataContext="{d:DesignInstance viewModels:LongSwordViewModel}">
+             d:DataContext="{d:DesignInstance viewModels:LongSwordViewModel}"
+             Style="{DynamicResource Widgets.Classes.LongSword}">
     <UserControl.Resources>
         <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource LONG_SWORD_BUILD_UP_BRUSH}, Mode=OneTime}"
                              Opacity="0.3"

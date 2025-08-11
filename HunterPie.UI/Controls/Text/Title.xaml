@@ -18,7 +18,7 @@
                    DataContext="{Binding ., RelativeSource={RelativeSource AncestorType={x:Type local:Title}}}"/>
 
         <Separator Grid.Column="1"
-                   Background="{StaticResource GRAY}"
+                   Background="{StaticResource Brushes.HunterPie.Border}"
                    Margin="5,0,0,0"
                    DataContext="{Binding ., RelativeSource={RelativeSource AncestorType={x:Type local:Title}}}"/>
     </Grid>

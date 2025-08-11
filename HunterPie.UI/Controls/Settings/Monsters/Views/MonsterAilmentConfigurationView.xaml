@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Controls.Settings.Monsters.Views"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
@@ -22,9 +21,9 @@
                     HorizontalContentAlignment="Stretch"
                     Padding="2"
                     BorderThickness="1"
-                    BorderBrush="{StaticResource GRAY}"
+                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                     CornerRadius="5"
-                    Background="{StaticResource GRAY_100}"
+                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"
                     Click="OnClick">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -45,11 +44,11 @@
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsEnabled.Value, Mode=OneWay}"
                                          Value="True">
-                                <Setter Property="Fill" Value="{StaticResource GREEN_200}"/>
+                                <Setter Property="Fill" Value="{StaticResource Green@200}"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding IsEnabled.Value, Mode=OneWay}"
                                          Value="False">
-                                <Setter Property="Fill" Value="{StaticResource RED_200}"/>
+                                <Setter Property="Fill" Value="{StaticResource Red@200}"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -57,7 +56,7 @@
             </Ellipse>
 
             <TextBlock Grid.Column="1"
-                       Foreground="{StaticResource WHITE_200}"
+                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                        d:Text="Ailment name"
                        Text="{Binding StringId, Mode=OneTime, Converter={StaticResource RiseMonsterAilmentIdToNameConverter}}"
                        FontSize="13"

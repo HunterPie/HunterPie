@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.SideBar.Views"
              xmlns:viewModels="clr-namespace:HunterPie.UI.SideBar.ViewModels"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
@@ -29,7 +28,7 @@
             </Grid.ColumnDefinitions>
 
             <Rectangle Grid.Column="0"
-                       Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}">
+                       Fill="{StaticResource Brushes.HunterPie.Accent}">
                 <Rectangle.Style>
                     <Style TargetType="Rectangle">
                         <Style.Triggers>
@@ -74,7 +73,7 @@
                         Padding="12"
                         Image="{Binding Icon, Mode=OneWay, Converter={StaticResource IconResolver}}"
                         d:Image="{StaticResource ICON_HUNTERPIE}"
-                        Foreground="{StaticResource WHITE_400}"/>
+                        Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
 
             <TextBlock Grid.Column="2"
                        VerticalAlignment="Center"
@@ -83,7 +82,7 @@
                        FontSize="18"
                        FontWeight="Medium"
                        Margin="10,0"
-                       Foreground="{StaticResource WHITE_600}"/>
+                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
         </Grid>
     </buttons:Button>
 </UserControl>

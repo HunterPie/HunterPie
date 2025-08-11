@@ -3,13 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Controls.Settings.Monsters.Views"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Controls.Settings.Monsters.ViewModels"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
-             xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets"
+             xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup"
              mc:Ignorable="d" 
              d:DesignWidth="500"
              d:DataContext="{d:DesignInstance viewModels:MonsterGlobalConfigurationViewModel}">
@@ -23,9 +22,9 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <buttons:Button Grid.Row="0"
-                        Background="{StaticResource GRAY_50}"
+                        Background="{StaticResource Brushes.HunterPie.Background.Primary}"
                         BorderThickness="1"
-                        BorderBrush="{StaticResource GRAY}"
+                        BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                         Margin="1"
                         Padding="0"
                         VerticalContentAlignment="Stretch"
@@ -52,24 +51,24 @@
                             Image="{StaticResource ICON_SETTINGS}"
                             RenderOptions.BitmapScalingMode="Linear"
                             Margin="10"
-                            Foreground="{StaticResource WHITE_500}"/>
+                            Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
 
                 <!-- Monster name -->
                 <TextBlock Grid.Row="0"
                            Grid.Column="1"
                            d:Text="Global settings"
-                           Text="{assets:LocalizationString '//Strings/Client/Settings/Setting[@Id=&quot;MONSTER_GLOBAL_SETTINGS_STRING&quot;]'}"
+                           Text="{markup:Localization '//Strings/Client/Settings/Setting[@Id=&quot;MONSTER_GLOBAL_SETTINGS_STRING&quot;]'}"
                            VerticalAlignment="Center"
-                           Foreground="{StaticResource WHITE_100}"
+                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                            FontWeight="Medium"
                            FontSize="13"/>
 
                 <TextBlock Grid.Row="1"
                            Grid.Column="1"
                            VerticalAlignment="Top"
-                           Foreground="{StaticResource WHITE_500}"
+                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                            FontSize="13"
-                           Text="{assets:LocalizationDescription '//Strings/Client/Settings/Setting[@Id=&quot;MONSTER_GLOBAL_SETTINGS_STRING&quot;]'}"
+                           Text="{markup:Localization '//Strings/Client/Settings/Setting[@Id=&quot;MONSTER_GLOBAL_SETTINGS_STRING&quot;]'}"
                            d:Text="Apply settings globally for all monsters."/>
             </Grid>
         </buttons:Button>
@@ -79,8 +78,8 @@
                   IsExpanded="{Binding IsExpanded, Mode=TwoWay}"
                   Style="{StaticResource ExpanderNoHeaderStyle}">
             <Border BorderThickness="1,0,1,1"
-                    BorderBrush="{StaticResource GRAY}"
-                    Background="{StaticResource GRAY_200}"
+                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                    Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
                     CornerRadius="0,0,5,5">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -90,15 +89,15 @@
 
                     <GridSplitter Grid.Column="0"
                                   Width="1"
-                                  Background="{StaticResource GRAY}"/>
+                                  Background="{StaticResource Brushes.HunterPie.Border}"/>
 
                     <StackPanel Grid.Column="0"
                                 Margin="2,2">
                         <TextBlock FontSize="16"
                                    d:Text="PART GROUPS"
-                                   Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;MONSTER_PART_GROUPS_STRING&quot;]'}"
+                                   Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;MONSTER_PART_GROUPS_STRING&quot;]'}"
                                    FontWeight="Medium"
-                                   Foreground="{StaticResource WHITE_500}"/>
+                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
 
                         <ItemsControl ItemsSource="{Binding Parts, Mode=OneTime}"
                                       d:ItemsSource="{d:SampleData ItemCount=5}">
@@ -116,9 +115,9 @@
                                                     HorizontalContentAlignment="Stretch"
                                                     Padding="2"
                                                     BorderThickness="1"
-                                                    BorderBrush="{StaticResource GRAY}"
+                                                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                                                     CornerRadius="5"
-                                                    Background="{StaticResource GRAY_100}"
+                                                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"
                                                     Click="OnPartGroupClick">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
@@ -139,11 +138,11 @@
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding IsEnabled, Mode=OneWay}"
                                                                          Value="True">
-                                                                <Setter Property="Fill" Value="{StaticResource GREEN_200}"/>
+                                                                <Setter Property="Fill" Value="{StaticResource Green@200}"/>
                                                             </DataTrigger>
                                                             <DataTrigger Binding="{Binding IsEnabled, Mode=OneWay}"
                                                                          Value="False">
-                                                                <Setter Property="Fill" Value="{StaticResource RED_200}"/>
+                                                                <Setter Property="Fill" Value="{StaticResource Red@200}"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
@@ -151,7 +150,7 @@
                                             </Ellipse>
 
                                             <TextBlock Grid.Column="1"
-                                                       Foreground="{StaticResource WHITE_200}"
+                                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                                                        d:Text="Part name"
                                                        Text="{Binding Type, Mode=OneTime}"
                                                        FontSize="13"
@@ -168,9 +167,9 @@
                                 Margin="2,2">
                         <TextBlock FontSize="16"
                                    d:Text="AILMENTS"
-                                   Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;MONSTER_AILMENTS_STRING&quot;]'}"
+                                   Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;MONSTER_AILMENTS_STRING&quot;]'}"
                                    FontWeight="Medium"
-                                   Foreground="{StaticResource WHITE_500}"/>
+                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
 
                         <ItemsControl ItemsSource="{Binding Ailments, Mode=OneTime}"
                                       d:ItemsSource="{d:SampleData ItemCount=10}">
@@ -188,9 +187,9 @@
                                                     HorizontalContentAlignment="Stretch"
                                                     Padding="2"
                                                     BorderThickness="1"
-                                                    BorderBrush="{StaticResource GRAY}"
+                                                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                                                     CornerRadius="5"
-                                                    Background="{StaticResource GRAY_100}"
+                                                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"
                                                     Click="OnAilmentClick">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
@@ -211,11 +210,11 @@
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding IsEnabled, Mode=OneWay}"
                                                                          Value="True">
-                                                                <Setter Property="Fill" Value="{StaticResource GREEN_200}"/>
+                                                                <Setter Property="Fill" Value="{StaticResource Green@200}"/>
                                                             </DataTrigger>
                                                             <DataTrigger Binding="{Binding IsEnabled, Mode=OneWay}"
                                                                          Value="False">
-                                                                <Setter Property="Fill" Value="{StaticResource RED_200}"/>
+                                                                <Setter Property="Fill" Value="{StaticResource Red@200}"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
@@ -223,7 +222,7 @@
                                             </Ellipse>
 
                                             <TextBlock Grid.Column="1"
-                                                       Foreground="{StaticResource WHITE_200}"
+                                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                                                        d:Text="Ailment name"
                                                        Text="{Binding Name, Mode=OneTime, Converter={StaticResource RiseMonsterAilmentIdToNameConverter}}"
                                                        FontSize="13"

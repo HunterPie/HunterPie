@@ -14,8 +14,8 @@
         <converters:RelativeSizeRectConverter x:Key="RelativeSizeRectConverter"/>
     </UserControl.Resources>
     <Border CornerRadius="{Binding CornerRadius, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:SearchTextBox}}}"
-            Background="{StaticResource GRAY_100}"
-            BorderBrush="{StaticResource GRAY}"
+            Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
             BorderThickness="1">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -24,15 +24,15 @@
             </Grid.ColumnDefinitions>
             <buttons:Button Grid.Column="0"
                             HorizontalAlignment="Stretch"
-                            Background="{StaticResource GRAY_300}"
+                            Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
                             BorderThickness="0,0,1,0"
-                            BorderBrush="{StaticResource GRAY}"
+                            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                             OnClick="OnSearchClick"
                             HorizontalContentAlignment="Stretch"
                             VerticalContentAlignment="Stretch"
                             CornerRadius="4.5,0,0,4.5">
                 <image:Icon Image="{StaticResource ICON_SEARCH}"
-                            Foreground="{StaticResource GRAY}"
+                            Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                             VerticalContentAlignment="Stretch"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
@@ -53,7 +53,7 @@
                      KeyUp="OnKeyUp"
                      GotKeyboardFocus="OnGotKeyboardFocus"
                      LostKeyboardFocus="OnLostKeyboardFocus"
-                     CaretBrush="{StaticResource WHITE_200}">
+                     CaretBrush="{StaticResource Brushes.HunterPie.Foreground.Secondary}">
                 <TextBox.Clip>
                     <RectangleGeometry RadiusX="1"
                                        RadiusY="1">
@@ -67,11 +67,11 @@
                 </TextBox.Clip>
                 <TextBox.Style>
                     <Style TargetType="TextBox">
-                        <Setter Property="Foreground" Value="{StaticResource WHITE_100}"/>
+                        <Setter Property="Foreground" Value="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
                         <Style.Triggers>
                             <Trigger Property="IsKeyboardFocused" Value="False">
                                 <Trigger.Setters>
-                                    <Setter Property="Foreground" Value="{StaticResource WHITE_600}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
                                     <Setter Property="FontWeight" Value="Medium"/>
                                 </Trigger.Setters>
                             </Trigger>

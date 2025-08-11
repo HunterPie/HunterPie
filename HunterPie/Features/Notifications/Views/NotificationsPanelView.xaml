@@ -9,9 +9,9 @@
              d:Height="400"
              Loaded="OnLoaded">
     <Border BorderThickness="1"
-            BorderBrush="{StaticResource GRAY}"
+            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
             CornerRadius="5"
-            Background="{StaticResource GRAY_50}">
+            Background="{StaticResource Brushes.HunterPie.Background.Secondary}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
@@ -19,7 +19,7 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal">
                 <Rectangle Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                           Fill="{StaticResource WHITE}"
+                           Fill="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                            Margin="6"
                            Opacity="0.2">
                     <Rectangle.OpacityMask>
@@ -27,7 +27,7 @@
                     </Rectangle.OpacityMask>
                 </Rectangle>
                 <TextBlock Text="Notifications"
-                           Foreground="{StaticResource WHITE}"
+                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                            VerticalAlignment="Center"
                            FontSize="15"
                            FontWeight="Medium"
@@ -36,7 +36,7 @@
             <Separator Grid.Row="1"
                        VerticalAlignment="Top"
                        Margin="3,0,3,0"
-                       Background="{StaticResource WHITE}"
+                       Background="{StaticResource Brushes.HunterPie.Border}"
                        Opacity="0.1"/>
             <ItemsControl ItemsSource="{Binding Notifications, Mode=OneWay}" 
                           Grid.Row="1"

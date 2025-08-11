@@ -14,6 +14,7 @@ internal class HunterPieModule : IDependencyModule
         // Intrinsic
         registry
             .WithSingle(() => Application.Current.Dispatcher)
+            .WithSingle(() => Application.Current)
             .WithService<InMemoryAsyncCache>()
             .WithSingle<CryptoService>()
             .WithService<CompressorService>()

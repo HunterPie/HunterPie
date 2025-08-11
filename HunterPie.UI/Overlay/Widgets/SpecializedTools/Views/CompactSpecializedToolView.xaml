@@ -21,8 +21,8 @@
         <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter" />
     </UserControl.Resources>
     <Grid>
-        <Border Background="{Binding Source={StaticResource GRAY_300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
-                BorderBrush="{Binding Source={StaticResource GRAY_50}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+        <Border Background="{Binding Source={StaticResource Gray@300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+                BorderBrush="{Binding Source={StaticResource Gray@50}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
                 CornerRadius="5"
                 BorderThickness="2">
             <Grid>
@@ -33,7 +33,7 @@
                             Margin="5"
                             Opacity="0.5"/>
 
-                <TextBlock Foreground="{StaticResource WHITE}"
+                <TextBlock Foreground="{StaticResource White}"
                            d:Text="00:00"
                            FontWeight="Medium"
                            FontFamily="{StaticResource Font.Default}"

@@ -15,7 +15,7 @@
            HorizontalAlignment="Left"
            Loaded="OnLoad"
            Unloaded="OnUnload"
-           Style="{StaticResource STYLE_ABNORMALITIES_BAR_WIDGET}"
+           Style="{DynamicResource Widgets.AbnormalityTray}"
            d:DataContext="{d:DesignInstance vm:AbnormalityBarViewModel}">
     <UserControl.Resources>
         <converter:OrientationToOppositeConverter x:Key="OrientationToOppositeConverter"/>

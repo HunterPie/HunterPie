@@ -3,14 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Controls.Buttons.Skeleton"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              mc:Ignorable="d" 
              d:DesignHeight="150" 
              d:DesignWidth="800">
-    <Border Background="{StaticResource GRAY_200}"
+    <Border Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
             BorderThickness="1"
-            BorderBrush="{StaticResource GRAY}"
+            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
             CornerRadius="5">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -23,7 +22,7 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                        Width="120"
-                       Fill="{StaticResource GRAY}"
+                       Fill="{StaticResource Gray}"
                        Margin="10,10,0,0"
                        RadiusX="5"
                        RadiusY="5"/>
@@ -33,7 +32,7 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                        Width="100"
-                       Fill="{StaticResource WHITE_700}"
+                       Fill="{StaticResource White@700}"
                        Margin="10,40,0,0"
                        RadiusX="5"
                        RadiusY="5"/>
@@ -43,7 +42,7 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                        Width="150"
-                       Fill="{StaticResource WHITE_700}"
+                       Fill="{StaticResource White@700}"
                        Margin="115,40,0,0"
                        RadiusX="5"
                        RadiusY="5"/>
@@ -53,13 +52,13 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                        Width="200"
-                       Fill="{StaticResource WHITE_700}"
+                       Fill="{StaticResource White@700}"
                        Margin="10,60,0,0"
                        RadiusX="5"
                        RadiusY="5"/>
 
             <image:Icon Image="{StaticResource ICON_ARROW_RIGHT}"
-                        Foreground="{StaticResource WHITE_600}"
+                        Foreground="{StaticResource White@600}"
                         Grid.Column="1"
                         HorizontalAlignment="Right"
                         Width="20"
@@ -68,12 +67,12 @@
                         Margin="5"/>
 
             <Rectangle Grid.Column="0"
-                       Fill="{StaticResource GRAY_50}"
+                       Fill="{StaticResource Gray@50}"
                        Margin="10"
                        RadiusX="5"
                        RadiusY="5"/>
             <image:Icon Image="{StaticResource ICON_IMAGE}"
-                        Foreground="{StaticResource GRAY_200}"
+                        Foreground="{StaticResource Gray@200}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         Height="50"
