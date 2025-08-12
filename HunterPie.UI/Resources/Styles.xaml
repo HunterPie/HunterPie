@@ -5,7 +5,8 @@
                     xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
                     xmlns:effects="clr-namespace:HunterPie.UI.Controls.Effects;assembly=HunterPie.UI"
                     xmlns:progress="clr-namespace:HunterPie.UI.Overlay.Controls.Progress;assembly=HunterPie.UI"
-                    xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup">
+                    xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup;assembly=HunterPie.UI"
+                    xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI">
     <!-- Converters -->
     <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
     
@@ -238,7 +239,8 @@
     </Style>
     
     <!-- ComboBox style -->
-    <ControlTemplate TargetType="ToggleButton" x:Key="ComboBoxToggleButtonTemplate">
+    <ControlTemplate TargetType="ToggleButton" 
+                     x:Key="ComboBoxToggleButtonTemplate">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -267,12 +269,12 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="ToggleButton.IsChecked" Value="True">
-                <Setter Property="Panel.Background" TargetName="ButtonBorder" Value="#FF151515"/>
-                <Setter Property="Shape.Fill" TargetName="Arrow" Value="#FF8D979E"/>
-            </Trigger>
-            <Trigger Property="UIElement.IsEnabled" Value="False">
-                <Setter Property="TextElement.Foreground" Value="{StaticResource White@50}"/>
-                <Setter Property="Shape.Fill" TargetName="Arrow" Value="#999"/>
+                <Setter Property="Panel.Background" 
+                        TargetName="ButtonBorder" 
+                        Value="{StaticResource Brushes.HunterPie.Background.Tertiary}"/>
+                <Setter Property="Shape.Fill" 
+                        TargetName="Arrow" 
+                        Value="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

@@ -23,10 +23,11 @@
         </Style>
 
         <Style x:Key="PopupButton" TargetType="buttons:Button">
-            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="Padding" Value="10,5"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -67,7 +68,7 @@
                                                     Padding="0"
                                                     BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                                                     BorderThickness="1"
-                                                    Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
+                                                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"
                                                     Style="{StaticResource LoggedInButton}"
                                                     Cursor="Hand"
                                                     CornerRadius="0,0,5,5">
@@ -100,7 +101,7 @@
                                 <Setter.Value>
                                     <Border BorderThickness="1"
                                             BorderBrush="{StaticResource Brushes.HunterPie.Border}"
-                                            Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
+                                            Background="{StaticResource Brushes.HunterPie.Background.Primary}"
                                             CornerRadius="0,0,5,5"
                                             Padding="2">
                                         <StackPanel Orientation="Horizontal">
@@ -125,7 +126,7 @@
                TargetUpdated="OnDropDownChanged"
                PopupAnimation="Fade"
                x:Name="PART_Popup">
-            <Border Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
+            <Border Background="{StaticResource Brushes.HunterPie.Background.Primary}"
                     BorderThickness="1"
                     BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                     CornerRadius="0, 0, 5, 5">

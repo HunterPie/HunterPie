@@ -150,8 +150,19 @@
                      Color="{markup:BrushColor Brush={StaticResource Red@50}}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Success"
                      Color="{markup:BrushColor Brush={StaticResource Green@50}}"/>
+    <SolidColorBrush x:Key="Brushes.HunterPie.Neutral"
+                     Color="{markup:BrushColor Brush={StaticResource Blue@100}}"/>
+    <SolidColorBrush x:Key="Brushes.HunterPie.Warning"
+                     Color="{markup:BrushColor Brush={StaticResource Yellow@100}}"/>
     
-    
+    <RadialGradientBrush x:Key="Brushes.HunterPie.Highlight">
+        <GradientStop Color="#45FFFFFF" Offset="0"/>
+        <GradientStop Color="#00000000" Offset="1"/>
+    </RadialGradientBrush>
+
+    <SolidColorBrush x:Key="Brushes.Quest.LowRank">#197df0</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.Quest.HighRank">#EC5D1C</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.Quest.MasterRank">#F6A522</SolidColorBrush>
 
     <system:Double x:Key="HunterPie.SideBar.Width">300</system:Double>
 </ResourceDictionary>

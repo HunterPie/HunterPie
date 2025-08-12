@@ -9,6 +9,7 @@
              xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
              xmlns:viewModels="clr-namespace:HunterPie.Features.Statistics.Details.ViewModels"
              xmlns:views="clr-namespace:HunterPie.Features.Statistics.Details.Views"
+             xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance viewModels:QuestDetailsViewModel}"
              d:DesignHeight="450" 
@@ -37,7 +38,6 @@
             <buttons:TabItem Padding="0"
                              Title="{Binding Name, Mode=OneTime}"
                              Icon="{Binding Icon, Mode=OneTime}"
-                             Background="{StaticResource GRAY_500}"
                              FontSize="13"/>
         </DataTemplate>
 
@@ -65,7 +65,7 @@
                         VerticalAlignment="Top"
                         Margin="5"
                         Padding="5"
-                        BorderBrush="{StaticResource GRAY}"
+                        BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                         BorderThickness="1"
                         CornerRadius="5"
                         Cursor="Hand"
@@ -74,10 +74,10 @@
                 <image:Icon Image="{StaticResource ICON_LEFT_ARROW}"
                             Height="15"
                             Width="15"
-                            Foreground="{StaticResource WHITE_400}"
+                            Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                             Margin="0,0,5,0"/>
-                <TextBlock Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;BACK_STRING&quot;]'}"
-                           Foreground="{StaticResource WHITE_400}"
+                <TextBlock Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;BACK_STRING&quot;]'}"
+                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                            VerticalAlignment="Center"/>
             </StackPanel>
         </buttons:Button>

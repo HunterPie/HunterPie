@@ -47,93 +47,98 @@
             </ContentControl.RenderTransform>
         </ContentControl>
 
-        <Grid Grid.Column="0"
-              Grid.Row="1" 
-              Grid.ColumnSpan="2" 
-              Height="120"
-              Background="{StaticResource Brushes.HunterPie.Background.Tertiary}">
-            <!-- Logo -->
-            <StackPanel Orientation="Horizontal"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
-                        Margin="20">
-                <image:Icon Image="{StaticResource ICON_HUNTERPIE}"
-                            Height="50"
-                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                            Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
+        <Border Grid.Column="0"
+                Grid.Row="1" 
+                Grid.ColumnSpan="2"
+                Height="120"
+                Background="{StaticResource Brushes.HunterPie.Background.Secondary}">
+            <Border.Effect>
+                <DropShadowEffect Opacity="0.1"/>
+            </Border.Effect>
+            <Grid>
+                <!-- Logo -->
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Margin="20">
+                    <image:Icon Image="{StaticResource ICON_HUNTERPIE}"
+                                Height="50"
+                                Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
 
-                <TextBlock VerticalAlignment="Center"
-                           FontSize="25"
-                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
-                           Margin="5">
-                    <Run Text="Hunter"
-                         FontWeight="Medium"/><!--
-                    --><Run Text="Pie"/>
-                </TextBlock>
-            </StackPanel>
+                    <TextBlock VerticalAlignment="Center"
+                               FontSize="25"
+                               Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                               Margin="5">
+                        <Run Text="Hunter"
+                             FontWeight="Medium"/><!--
+                        --><Run Text="Pie"/>
+                    </TextBlock>
+                </StackPanel>
 
-            <!-- Launch Game -->
-            <buttons:ComboButton VerticalAlignment="Center"
-                                 HorizontalAlignment="Right"
-                                 MinWidth="230"
-                                 Height="45"
-                                 Margin="20"
-                                 ItemsSource="{Binding Games, Mode=OneTime}"
-                                 SelectedValue="{Binding SelectedGame.Value, Mode=TwoWay, Converter={StaticResource GameTypeToGameNameConverter}}"
-                                 Click="OnLaunchButtonClick">
-                <buttons:ComboButton.Content>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="2*"/>
-                            <RowDefinition Height="1*"/>
-                        </Grid.RowDefinitions>
+                <!-- Launch Game -->
+                <buttons:ComboButton VerticalAlignment="Center"
+                                     HorizontalAlignment="Right"
+                                     MinWidth="230"
+                                     Height="45"
+                                     Margin="20"
+                                     ItemsSource="{Binding Games, Mode=OneTime}"
+                                     SelectedValue="{Binding SelectedGame.Value, Mode=TwoWay, Converter={StaticResource GameTypeToGameNameConverter}}"
+                                     Click="OnLaunchButtonClick">
+                    <buttons:ComboButton.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0"
-                                   Grid.Column="0"
-                                   Grid.RowSpan="2"
-                                   Text="▶"
-                                   FontSize="25"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"/>
-                        <TextBlock Grid.Row="0"
-                                   Grid.Column="1"
-                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Right"
-                                   Margin="0,0,5,0"
-                                   Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_LAUNCH_GAME&quot;]'}"
-                                   d:Text="LAUNCH GAME"
-                                   FontSize="17"
-                                   FontWeight="Medium"/>
-                        <TextBlock Grid.Row="1"
-                                   Grid.Column="1" 
-                                   d:Text="Monster Hunter: World"
-                                   Text="{Binding SelectedGame.Value, Mode=OneWay, Converter={StaticResource GameTypeToGameNameConverter}}"
-                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
-                                   FontSize="11"
-                                   VerticalAlignment="Top"
-                                   HorizontalAlignment="Right"
-                                   Margin="0,0,5,0"/>
-                    </Grid>
-                </buttons:ComboButton.Content>
-                <buttons:ComboButton.ItemTemplate>
-                    <DataTemplate DataType="{x:Type enums:GameType}">
-                        <effects:CursorHighLight>
-                            <TextBlock Text="{Binding ., Converter={StaticResource GameTypeToGameNameConverter}}"
-                                       FontSize="15"
+                            <TextBlock Grid.Row="0"
+                                       Grid.Column="0"
+                                       Grid.RowSpan="2"
+                                       Text="▶"
+                                       FontSize="25"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"/>
+                            <TextBlock Grid.Row="0"
+                                       Grid.Column="1"
                                        Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
-                                       Cursor="Hand"
-                                       Padding="2,5"/>
-                        </effects:CursorHighLight>
-                    </DataTemplate>
-                </buttons:ComboButton.ItemTemplate>
-            </buttons:ComboButton>
-        </Grid>
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right"
+                                       Margin="0,0,5,0"
+                                       Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_LAUNCH_GAME&quot;]'}"
+                                       d:Text="LAUNCH GAME"
+                                       FontSize="17"
+                                       FontWeight="Medium"/>
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="1" 
+                                       d:Text="Monster Hunter: World"
+                                       Text="{Binding SelectedGame.Value, Mode=OneWay, Converter={StaticResource GameTypeToGameNameConverter}}"
+                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                                       FontSize="11"
+                                       VerticalAlignment="Top"
+                                       HorizontalAlignment="Right"
+                                       Margin="0,0,5,0"/>
+                        </Grid>
+                    </buttons:ComboButton.Content>
+                    <buttons:ComboButton.ItemTemplate>
+                        <DataTemplate DataType="{x:Type enums:GameType}">
+                            <effects:CursorHighLight>
+                                <TextBlock Text="{Binding ., Converter={StaticResource GameTypeToGameNameConverter}}"
+                                           FontSize="15"
+                                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                           Cursor="Hand"
+                                           Padding="2,5"/>
+                            </effects:CursorHighLight>
+                        </DataTemplate>
+                    </buttons:ComboButton.ItemTemplate>
+                </buttons:ComboButton>
+            </Grid>
+        </Border>
 
         <!-- SideBar -->
         <views:SideBarView Grid.Column="0" 

@@ -7,18 +7,17 @@
              xmlns:text="clr-namespace:HunterPie.UI.Controls.Text;assembly=HunterPie.UI"
              xmlns:controls="clr-namespace:HunterPie.UI.Overlay.Controls;assembly=HunterPie.UI"
              xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
-             xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
              xmlns:viewModels="clr-namespace:HunterPie.Features.Statistics.Details.ViewModels"
              xmlns:sys="clr-namespace:System;assembly=System.Runtime"
              xmlns:enums="clr-namespace:HunterPie.Features.Statistics.Details.Enums"
-             xmlns:sliders="clr-namespace:HunterPie.UI.Controls.Sliders;assembly=HunterPie.UI"
              xmlns:visibilities="clr-namespace:HunterPie.UI.Architecture.Converters.Visibilities;assembly=HunterPie.UI"
+             xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:MonsterDetailsViewModel}"
-             Background="{StaticResource GRAY_200}" 
+             Background="{StaticResource Brushes.HunterPie.Background.Secondary}" 
              x:ClassModifier="internal">
     <UserControl.Resources>
         <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>
@@ -46,9 +45,9 @@
 
         <!-- Header -->
         <Border Margin="3"
-                Background="{StaticResource GRAY_400}"
+                Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
                 Grid.Row="0"
-                BorderBrush="{StaticResource GRAY_100}"
+                BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                 BorderThickness="1"
                 CornerRadius="5">
             <StackPanel Orientation="Horizontal">
@@ -62,7 +61,7 @@
                            Text="{Binding Name, Mode=OneWay}"
                            FontSize="14"
                            VerticalAlignment="Center"
-                           Foreground="{StaticResource WHITE_400}"
+                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                            FontWeight="Medium"/>
             </StackPanel>
         </Border>
@@ -72,8 +71,8 @@
             
             <!-- Quest Details -->
             <Border Margin="5"
-                    Background="{StaticResource GRAY_100}"
-                    BorderBrush="{StaticResource GRAY}"
+                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                     BorderThickness="1"
                     CornerRadius="5">
                 
@@ -90,15 +89,15 @@
                     
                     <Border Grid.Column="0" 
                             Grid.Row="0" 
-                            Background="{StaticResource GRAY_300}"
-                            BorderBrush="{StaticResource GRAY_100}"
+                            Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                             BorderThickness="0,0,1,0"
                             CornerRadius="5,0,0,0">
                         <TextBlock d:Text="Hunt Details"
-                                   Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_HUNT_DETAILS_STRING&quot;]'}"
+                                   Text="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_HUNT_DETAILS_STRING&quot;]'}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
-                                   Foreground="{StaticResource WHITE_300}"
+                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                                    FontSize="13"/>
                     </Border>
 
@@ -127,13 +126,13 @@
                     
                     <Border Grid.Column="1" 
                             Grid.Row="0" 
-                            Background="{StaticResource GRAY_300}"
+                            Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
                             CornerRadius="0,5,0,0">
                         <TextBlock d:Text="Status Details"
-                                   Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_STATUS_DETAILS_STRING&quot;]'}"
+                                   Text="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_STATUS_DETAILS_STRING&quot;]'}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
-                                   Foreground="{StaticResource WHITE_300}"
+                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                                    FontSize="13"/>
                     </Border>
                     
@@ -163,15 +162,15 @@
                                     <buttons:Button.BorderBrush>
                                         <MultiBinding Converter="{StaticResource BoolPickConverter}">
                                             <Binding Path="DataContext.IsToggled" RelativeSource="{RelativeSource Self}"/>
-                                            <Binding Source="{StaticResource GREEN_300}"/>
-                                            <Binding Source="{StaticResource GRAY}"/>
+                                            <Binding Source="{StaticResource Green@300}"/>
+                                            <Binding Source="{StaticResource Gray}"/>
                                         </MultiBinding>
                                     </buttons:Button.BorderBrush>
                                     <buttons:Button.Background>
                                         <MultiBinding Converter="{StaticResource BoolPickConverter}">
                                             <Binding Path="DataContext.IsToggled" RelativeSource="{RelativeSource Self}"/>
-                                            <Binding Source="{StaticResource GREEN_700}"/>
-                                            <Binding Source="{StaticResource GRAY_300}"/>
+                                            <Binding Source="{StaticResource Green@700}"/>
+                                            <Binding Source="{StaticResource Gray@300}"/>
                                         </MultiBinding>
                                     </buttons:Button.Background>
                                     <Grid>
@@ -190,12 +189,12 @@
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Center"
                                                    FontWeight="Medium"
-                                                   Foreground="{StaticResource WHITE_50}"/>
+                                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
 
                                         <TextBlock Grid.Row="1"
                                                    Text="{Binding Name, Mode=OneWay}"
                                                    HorizontalAlignment="Center"
-                                                   Foreground="{StaticResource WHITE_100}"
+                                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                                                    Margin="2"/>
                                     </Grid>
                                 </buttons:Button>
@@ -206,8 +205,8 @@
             </Border>
             
             <Border Margin="5"
-                    Background="{StaticResource GRAY_100}"
-                    BorderBrush="{StaticResource GRAY}"
+                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                     BorderThickness="1"
                     CornerRadius="5">
                 <Grid>
@@ -222,15 +221,15 @@
                     
                     <Border Grid.Column="0" 
                             Grid.Row="0" 
-                            Background="{StaticResource GRAY_300}"
-                            BorderBrush="{StaticResource GRAY_100}"
+                            Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                             BorderThickness="0,0,1,0"
                             CornerRadius="5,0,0,0">
                         <TextBlock d:Text="Party Members"
-                                   Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_PARTY_MEMBERS_STRING&quot;]'}"
+                                   Text="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_PARTY_MEMBERS_STRING&quot;]'}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
-                                   Foreground="{StaticResource WHITE_300}"
+                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                                    FontSize="13"/>
                     </Border>
 
@@ -252,7 +251,7 @@
                                 <buttons:Button Padding="0"
                                                 HorizontalContentAlignment="Stretch"
                                                 VerticalContentAlignment="Stretch"
-                                                Background="{StaticResource GRAY_300}"
+                                                Background="{StaticResource Brushes.HunterPie.Background.Primary}"
                                                 BorderThickness="1"
                                                 CornerRadius="5"
                                                 Margin="0,3,0,3"
@@ -262,7 +261,7 @@
                                         <MultiBinding Converter="{StaticResource BoolPickConverter}">
                                             <Binding Path="DataContext.IsToggled" RelativeSource="{RelativeSource Self}"/>
                                             <Binding Path="Color" Mode="OneWay"/>
-                                            <Binding Source="{StaticResource GRAY}"/>
+                                            <Binding Source="{StaticResource Gray}"/>
                                         </MultiBinding>
                                     </buttons:Button.BorderBrush>
                                     <Grid>
@@ -294,13 +293,13 @@
                                                    VerticalAlignment="Center"
                                                    Margin="5"
                                                    FontSize="15"
-                                                   Foreground="{StaticResource WHITE_100}"/>
+                                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
 
                                         <TextBlock Grid.Column="1"
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Right"
                                                    Text="{Binding Damage, Converter={StaticResource NumberToKFormat}}"
-                                                   Foreground="{StaticResource WHITE_300}"
+                                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                                                    FontSize="13"
                                                    Margin="5"/>
                                     </Grid>
@@ -312,13 +311,13 @@
                     <!-- Details -->
                     <Border Grid.Column="1" 
                             Grid.Row="0" 
-                            Background="{StaticResource GRAY_300}"
+                            Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
                             CornerRadius="0,5,0,0">
                         <TextBlock d:Text="Details"
-                                   Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_DETAILS_STRING&quot;]'}"
+                                   Text="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_DETAILS_STRING&quot;]'}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
-                                   Foreground="{StaticResource WHITE_300}"
+                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                                    FontSize="13"/>
                     </Border>
 
@@ -331,15 +330,15 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <buttons:Button Grid.Column="0"
-                                            Content="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_TOGGLE_HEALTH_STRING&quot;]'}"
+                                            Content="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_TOGGLE_HEALTH_STRING&quot;]'}"
                                             HorizontalAlignment="Left"
                                             Margin="2"
                                             Padding="5"
                                             BorderThickness="1"
-                                            BorderBrush="{StaticResource GRAY}"
+                                            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                                             CornerRadius="5"
-                                            Foreground="{StaticResource WHITE_200}"
-                                            Background="{StaticResource GRAY_200}"
+                                            Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                            Background="{StaticResource Brushes.HunterPie.Background.Primary}"
                                             Click="OnHealthToggleClick"
                                             Visibility="{Binding HealthSteps, Mode=OneTime, Converter={StaticResource NullableToVisibilityConverter}}"/>
                             
@@ -378,20 +377,20 @@
                                 </lvc:Axis>
 
                                     <lvc:Axis LabelFormatter="{Binding DamageFormatter, Mode=OneTime}"
-                                              FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                              FontFamily="{StaticResource Font.Default}"
                                               MinValue="0">
                                     <lvc:Axis.Separator>
-                                        <lvc:Separator Stroke="{StaticResource GRAY}"
+                                        <lvc:Separator Stroke="{StaticResource Brushes.HunterPie.Border}"
                                                        StrokeDashArray="2"/>
                                     </lvc:Axis.Separator>
                                 </lvc:Axis>
                             </lvc:CartesianChart.AxisY>
                             <lvc:CartesianChart.AxisX>
                                 <lvc:Axis LabelFormatter="{Binding TimeFormatter, Mode=OneTime}" 
-                                          FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                          FontFamily="{StaticResource Font.Default}"
                                           Sections="{Binding Sections, Mode=OneTime}">
                                     <lvc:Axis.Separator>
-                                        <lvc:Separator Stroke="{StaticResource GRAY}"
+                                        <lvc:Separator Stroke="{StaticResource Brushes.HunterPie.Border}"
                                                        StrokeDashArray="2"/>
                                     </lvc:Axis.Separator>
                                 </lvc:Axis>
@@ -404,15 +403,15 @@
                                   Grid.Column="0"
                                   Grid.RowSpan="2"
                                   Width="2"
-                                  Background="{StaticResource GRAY}"/>
+                                  Background="{StaticResource Brushes.HunterPie.Border}"/>
                 </Grid>
             </Border>
 
 
             <!-- Abnormalities -->
             <Border Margin="5"
-                    Background="{StaticResource GRAY_100}"
-                    BorderBrush="{StaticResource GRAY}"
+                    Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                     BorderThickness="1"
                     CornerRadius="5">
                 <Grid>
@@ -423,15 +422,15 @@
 
                     <Border Grid.Column="0" 
                             Grid.Row="0" 
-                            Background="{StaticResource GRAY_300}"
-                            BorderBrush="{StaticResource GRAY_100}"
+                            Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                             BorderThickness="0,0,1,0"
                             CornerRadius="5,0,0,0">
                         <TextBlock d:Text="Abnormalities"
-                                   Text="{assets:LocalizationString '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_ABNORMALITIES_STRING&quot;]'}"
+                                   Text="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_ABNORMALITIES_STRING&quot;]'}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
-                                   Foreground="{StaticResource WHITE_300}"
+                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                                    FontSize="13"/>
                     </Border>
     
@@ -458,15 +457,15 @@
                                     <buttons:Button.BorderBrush>
                                         <MultiBinding Converter="{StaticResource BoolPickConverter}">
                                             <Binding Path="DataContext.IsToggled" RelativeSource="{RelativeSource Self}"/>
-                                            <Binding Source="{StaticResource GREEN_300}"/>
-                                            <Binding Source="{StaticResource GRAY}"/>
+                                            <Binding Source="{StaticResource Green@300}"/>
+                                            <Binding Source="{StaticResource Gray}"/>
                                         </MultiBinding>
                                     </buttons:Button.BorderBrush>
                                     <buttons:Button.Background>
                                         <MultiBinding Converter="{StaticResource BoolPickConverter}">
                                             <Binding Path="DataContext.IsToggled" RelativeSource="{RelativeSource Self}"/>
-                                            <Binding Source="{StaticResource GREEN_700}"/>
-                                            <Binding Source="{StaticResource GRAY_300}"/>
+                                            <Binding Source="{StaticResource Green@700}"/>
+                                            <Binding Source="{StaticResource Gray@300}"/>
                                         </MultiBinding>
                                     </buttons:Button.Background>
                                     <Grid>
@@ -500,7 +499,7 @@
                                                    d:Text="50%"
                                                    Text="{Binding UpTime, Mode=OneWay, StringFormat='P0'}"
                                                    FontWeight="Medium"
-                                                   Foreground="{StaticResource WHITE_300}"/>
+                                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"/>
                                     </Grid>
                                 </buttons:Button>
                             </DataTemplate>

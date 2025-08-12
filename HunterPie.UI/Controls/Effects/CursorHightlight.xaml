@@ -13,13 +13,8 @@
         <Rectangle x:Name="PART_Highlight"
                    Height="500"
                    Width="500"
-                   Opacity="0">
-            <Rectangle.Fill>
-                <RadialGradientBrush>
-                    <GradientStop Color="#45FFFFFF" Offset="0"/>
-                    <GradientStop Color="#00000000" Offset="1"/>
-                </RadialGradientBrush>
-            </Rectangle.Fill>
+                   Opacity="0"
+                   Fill="{StaticResource Brushes.HunterPie.Highlight}">
             <Rectangle.Style>
                 <Style TargetType="{x:Type Rectangle}">
                     <Style.Triggers>

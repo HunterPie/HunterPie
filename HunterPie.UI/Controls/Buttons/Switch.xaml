@@ -26,7 +26,7 @@
                                         <QuadraticEase/>
                                     </ThicknessAnimation.EasingFunction>
                                 </ThicknessAnimation>
-                                <anim:BrushAnimation To="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                <anim:BrushAnimation To="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                                                      Duration="0:0:0.15"
                                                      Storyboard.TargetProperty="Fill"/>
                             </Storyboard>
