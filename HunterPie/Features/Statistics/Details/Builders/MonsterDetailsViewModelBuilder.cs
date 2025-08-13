@@ -16,8 +16,8 @@ using System.Windows.Media;
 namespace HunterPie.Features.Statistics.Details.Builders;
 internal sealed class MonsterDetailsViewModelBuilder
 {
-    private static readonly Brush EnrageBrush = Resources.Get<Brush>("HUNT_EXPORT_ENRAGE_BRUSH");
-    private static readonly Brush HealthStepBrush = Resources.Get<Brush>("WHITE_400");
+    private static readonly Brush EnrageBrush = Resources.Get<Brush>("Brushes.Ailments.Enrage");
+    private static readonly Brush HealthStepBrush = Resources.Get<Brush>("Brushes.HunterPie.Foreground.Primary");
     private readonly MonsterNameAdapter _monsterNameAdapter;
     private readonly ILocalizationRepository _localizationRepository;
 

@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Controls.Settings.Monsters.Views"
              xmlns:monster="clr-namespace:HunterPie.Core.Client.Configuration.Overlay.Monster;assembly=HunterPie.Core"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
@@ -44,11 +43,11 @@
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsEnabled.Value, Mode=OneWay}"
                                          Value="True">
-                                <Setter Property="Fill" Value="{StaticResource Green@200}"/>
+                                <Setter Property="Fill" Value="{StaticResource Brushes.HunterPie.Success}"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding IsEnabled.Value, Mode=OneWay}"
                                          Value="False">
-                                <Setter Property="Fill" Value="{StaticResource Red@200}"/>
+                                <Setter Property="Fill" Value="{StaticResource Brushes.HunterPie.Error}"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

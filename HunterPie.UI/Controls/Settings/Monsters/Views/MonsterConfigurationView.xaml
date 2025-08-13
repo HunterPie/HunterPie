@@ -93,7 +93,7 @@
                   Style="{StaticResource ExpanderNoHeaderStyle}">
             <Border BorderThickness="1,0,1,1"
                     BorderBrush="{StaticResource Brushes.HunterPie.Border}"
-                    Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
+                    Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
                     CornerRadius="0,0,5,5">
                 <Grid>
                     <Grid.ColumnDefinitions>

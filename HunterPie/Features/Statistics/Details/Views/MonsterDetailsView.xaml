@@ -36,176 +36,158 @@
                 <x:Type TypeName="enums:PlotStrategy"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+
+        <sys:Double x:Key="ToggledOffButtonOpacity">0.3</sys:Double>
+        <sys:Double x:Key="ToggledOnButtonOpacity">1</sys:Double>
     </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-
-        <!-- Header -->
-        <Border Margin="3"
-                Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
-                Grid.Row="0"
-                BorderBrush="{StaticResource Brushes.HunterPie.Border}"
-                BorderThickness="1"
-                CornerRadius="5">
-            <StackPanel Orientation="Horizontal">
-                <Image d:Source="{StaticResource ICON_SKULL}"
-                       Source="{Binding Icon, Mode=OneWay}"
-                       Margin="5"
-                       RenderOptions.BitmapScalingMode="Fant"/>
-
-                <TextBlock Margin="3"
-                           d:Text="Monster Name"
-                           Text="{Binding Name, Mode=OneWay}"
-                           FontSize="14"
-                           VerticalAlignment="Center"
-                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
-                           FontWeight="Medium"/>
-            </StackPanel>
-        </Border>
-            
         <!-- Details -->
-        <StackPanel Grid.Row="1">
-            
+        <StackPanel>
             <!-- Quest Details -->
-            <Border Margin="5"
-                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"
-                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
-                    BorderThickness="1"
-                    CornerRadius="5">
-                
-                <!-- General Details -->
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
+            <UniformGrid Columns="2">
+                <Border Margin="3"
+                        Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                        BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                        BorderThickness="1"
+                        CornerRadius="5">
                     
-                    <Border Grid.Column="0" 
-                            Grid.Row="0" 
-                            Background="{StaticResource Brushes.HunterPie.Background.Primary}"
-                            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
-                            BorderThickness="0,0,1,0"
-                            CornerRadius="5,0,0,0">
-                        <TextBlock d:Text="Hunt Details"
-                                   Text="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_HUNT_DETAILS_STRING&quot;]'}"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
-                                   FontSize="13"/>
-                    </Border>
+                    <!-- General Details -->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <Border Grid.Row="0" 
+                                Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
+                                CornerRadius="5,5,0,0">
+                            <TextBlock d:Text="Hunt Details"
+                                       Text="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_HUNT_DETAILS_STRING&quot;]'}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                       FontSize="13"/>
+                        </Border>
 
-                    <StackPanel Grid.Column="0"
-                                Grid.Row="1">
-                        <StackPanel Orientation="Vertical"
-                                    Margin="5">
-                            <text:LabeledText Label="Quest Time"
-                                              d:Text="00:00:00.000"
-                                              Text="{Binding TimeElapsed, Mode=OneWay, StringFormat='mm\\:ss\\&quot;fff', TargetNullValue='---'}"
-                                              Margin="2"/>
+                        <StackPanel Grid.Row="1">
+                            <StackPanel Orientation="Vertical"
+                                        Margin="5">
+                                <text:LabeledText Label="Quest Time"
+                                                  d:Text="00:00:00.000"
+                                                  Text="{Binding TimeElapsed, Mode=OneWay, StringFormat='mm\\:ss\\&quot;fff', TargetNullValue='---'}"
+                                                  Margin="2"/>
 
-                            <text:LabeledText Label="Hunt Time"
-                                              Text="{Binding HuntElapsed, Mode=OneWay, StringFormat='mm\\:ss\\&quot;fff', TargetNullValue='---'}"
-                                              Margin="2"/>
+                                <text:LabeledText Label="Hunt Time"
+                                                  Text="{Binding HuntElapsed, Mode=OneWay, StringFormat='mm\\:ss\\&quot;fff', TargetNullValue='---'}"
+                                                  Margin="2"/>
 
-                            <text:LabeledText Label="Health"
-                                              Text="{Binding MaxHealth, Mode=OneWay, StringFormat=\{0:N0\}}"
-                                              Margin="2"/>
+                                <text:LabeledText Label="Health"
+                                                  Text="{Binding MaxHealth, Mode=OneWay, StringFormat=\{0:N0\}}"
+                                                  Margin="2"/>
 
-                            <text:LabeledText Label="Size"
-                                              Text="{Binding Crown, Mode=OneWay}"
-                                              Margin="2"/>
+                                <text:LabeledText Label="Size"
+                                                  Text="{Binding Crown, Mode=OneWay}"
+                                                  Margin="2"/>
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
-                    
-                    <Border Grid.Column="1" 
-                            Grid.Row="0" 
-                            Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
-                            CornerRadius="0,5,0,0">
-                        <TextBlock d:Text="Status Details"
-                                   Text="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_STATUS_DETAILS_STRING&quot;]'}"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
-                                   FontSize="13"/>
-                    </Border>
-                    
-                    <!-- Monster ailments -->
-                    <ItemsControl Grid.Row="1"
-                                  Grid.Column="1"
-                                  Margin="5"
-                                  ItemsSource="{Binding Statuses, Mode=OneWay}">
-                        <ItemsControl.Template>
-                            <ControlTemplate>
-                                <StackPanel Orientation="Horizontal"
-                                            IsItemsHost="True"/>
-                            </ControlTemplate>
-                        </ItemsControl.Template>
+                    </Grid>
+                </Border>
 
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <buttons:Button Padding="0"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Stretch"
-                                                HorizontalContentAlignment="Stretch"
-                                                VerticalContentAlignment="Stretch"
-                                                BorderThickness="1"
-                                                CornerRadius="5"
-                                                Height="80"
-                                                Click="OnMonsterStatusClick">
-                                    <buttons:Button.BorderBrush>
-                                        <MultiBinding Converter="{StaticResource BoolPickConverter}">
-                                            <Binding Path="DataContext.IsToggled" RelativeSource="{RelativeSource Self}"/>
-                                            <Binding Source="{StaticResource Green@300}"/>
-                                            <Binding Source="{StaticResource Gray}"/>
-                                        </MultiBinding>
-                                    </buttons:Button.BorderBrush>
-                                    <buttons:Button.Background>
-                                        <MultiBinding Converter="{StaticResource BoolPickConverter}">
-                                            <Binding Path="DataContext.IsToggled" RelativeSource="{RelativeSource Self}"/>
-                                            <Binding Source="{StaticResource Green@700}"/>
-                                            <Binding Source="{StaticResource Gray@300}"/>
-                                        </MultiBinding>
-                                    </buttons:Button.Background>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="3*"/>
-                                            <RowDefinition Height="1*"/>
-                                        </Grid.RowDefinitions>
-                                        <controls:Arc Grid.Row="0"
-                                                      StrokeThickness="4"
-                                                      Stroke="{Binding Color, Mode=OneWay}"
-                                                      Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                                      Percentage="{Binding UpTime, Mode=OneWay}"
-                                                      Margin="5"/>
-                                        <TextBlock Grid.Row="0"
-                                                   Text="{Binding UpTime, Mode=OneWay, StringFormat='P0'}"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center"
-                                                   FontWeight="Medium"
-                                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
+                <Border Margin="3"
+                        Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                        BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                        BorderThickness="1"
+                        CornerRadius="5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
 
-                                        <TextBlock Grid.Row="1"
-                                                   Text="{Binding Name, Mode=OneWay}"
-                                                   HorizontalAlignment="Center"
-                                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
-                                                   Margin="2"/>
-                                    </Grid>
-                                </buttons:Button>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Grid>
-            </Border>
+                        <Border Grid.Row="0" 
+                                Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
+                                CornerRadius="5,5,0,0">
+                            <TextBlock d:Text="Status Details"
+                                       Text="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_STATUS_DETAILS_STRING&quot;]'}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                       FontSize="13"/>
+                        </Border>
+
+                        <!-- Monster ailments -->
+                        <ItemsControl Grid.Row="1"
+                                      Margin="5"
+                                      ItemsSource="{Binding Statuses, Mode=OneWay}">
+                            <ItemsControl.Template>
+                                <ControlTemplate>
+                                    <StackPanel Orientation="Horizontal"
+                                                IsItemsHost="True"/>
+                                </ControlTemplate>
+                            </ItemsControl.Template>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <buttons:Button Padding="0"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Stretch"
+                                                    HorizontalContentAlignment="Stretch"
+                                                    VerticalContentAlignment="Stretch"
+                                                    BorderThickness="1"
+                                                    CornerRadius="5"
+                                                    Height="80"
+                                                    Click="OnMonsterStatusClick">
+                                        <buttons:Button.BorderBrush>
+                                            <MultiBinding Converter="{StaticResource BoolPickConverter}">
+                                                <Binding Path="DataContext.IsToggled" RelativeSource="{RelativeSource Self}"/>
+                                                <Binding Source="{StaticResource Brushes.HunterPie.Success}"/>
+                                                <Binding Source="{StaticResource Brushes.HunterPie.Border}"/>
+                                            </MultiBinding>
+                                        </buttons:Button.BorderBrush>
+                                        <buttons:Button.Background>
+                                            <MultiBinding Converter="{StaticResource BoolPickConverter}">
+                                                <Binding Path="DataContext.IsToggled" RelativeSource="{RelativeSource Self}"/>
+                                                <Binding Source="{StaticResource Brushes.HunterPie.Success.Opacity}"/>
+                                                <Binding Source="{StaticResource Brushes.HunterPie.Background.Primary}"/>
+                                            </MultiBinding>
+                                        </buttons:Button.Background>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="3*"/>
+                                                <RowDefinition Height="1*"/>
+                                            </Grid.RowDefinitions>
+                                            <controls:Arc Grid.Row="0"
+                                                          StrokeThickness="4"
+                                                          Stroke="{Binding Color, Mode=OneWay}"
+                                                          Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                                          Percentage="{Binding UpTime, Mode=OneWay}"
+                                                          Margin="5"
+                                                          StrokeEndLineCap="Round"
+                                                          StrokeStartLineCap="Round"/>
+                                            <TextBlock Grid.Row="0"
+                                                       Text="{Binding UpTime, Mode=OneWay, StringFormat='P0'}"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       FontWeight="Medium"
+                                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
+
+                                            <TextBlock Grid.Row="1"
+                                                       Text="{Binding Name, Mode=OneWay}"
+                                                       HorizontalAlignment="Center"
+                                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                                                       Margin="2"/>
+                                        </Grid>
+                                    </buttons:Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </Border>
+            </UniformGrid>
+            
             
             <Border Margin="5"
-                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                    Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
                     BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                     BorderThickness="1"
                     CornerRadius="5">
@@ -221,7 +203,7 @@
                     
                     <Border Grid.Column="0" 
                             Grid.Row="0" 
-                            Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                            Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
                             BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                             BorderThickness="0,0,1,0"
                             CornerRadius="5,0,0,0">
@@ -253,17 +235,18 @@
                                                 VerticalContentAlignment="Stretch"
                                                 Background="{StaticResource Brushes.HunterPie.Background.Primary}"
                                                 BorderThickness="1"
+                                                BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                                                 CornerRadius="5"
                                                 Margin="0,3,0,3"
                                                 Height="40"
                                                 Click="OnPlayerClick">
-                                    <buttons:Button.BorderBrush>
+                                    <buttons:Button.Opacity>
                                         <MultiBinding Converter="{StaticResource BoolPickConverter}">
                                             <Binding Path="DataContext.IsToggled" RelativeSource="{RelativeSource Self}"/>
-                                            <Binding Path="Color" Mode="OneWay"/>
-                                            <Binding Source="{StaticResource Gray}"/>
+                                            <Binding Source="{StaticResource ToggledOnButtonOpacity}"/>
+                                            <Binding Source="{StaticResource ToggledOffButtonOpacity}"/>
                                         </MultiBinding>
-                                    </buttons:Button.BorderBrush>
+                                    </buttons:Button.Opacity>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="30"/>
@@ -311,7 +294,7 @@
                     <!-- Details -->
                     <Border Grid.Column="1" 
                             Grid.Row="0" 
-                            Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                            Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
                             CornerRadius="0,5,0,0">
                         <TextBlock d:Text="Details"
                                    Text="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_DETAILS_STRING&quot;]'}"
@@ -402,7 +385,7 @@
                     <GridSplitter Grid.Row="0"
                                   Grid.Column="0"
                                   Grid.RowSpan="2"
-                                  Width="2"
+                                  Width="1"
                                   Background="{StaticResource Brushes.HunterPie.Border}"/>
                 </Grid>
             </Border>
@@ -422,7 +405,7 @@
 
                     <Border Grid.Column="0" 
                             Grid.Row="0" 
-                            Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                            Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
                             BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                             BorderThickness="0,0,1,0"
                             CornerRadius="5,0,0,0">
@@ -457,15 +440,15 @@
                                     <buttons:Button.BorderBrush>
                                         <MultiBinding Converter="{StaticResource BoolPickConverter}">
                                             <Binding Path="DataContext.IsToggled" RelativeSource="{RelativeSource Self}"/>
-                                            <Binding Source="{StaticResource Green@300}"/>
-                                            <Binding Source="{StaticResource Gray}"/>
+                                            <Binding Source="{StaticResource Brushes.HunterPie.Success}"/>
+                                            <Binding Source="{StaticResource Brushes.HunterPie.Border}"/>
                                         </MultiBinding>
                                     </buttons:Button.BorderBrush>
                                     <buttons:Button.Background>
                                         <MultiBinding Converter="{StaticResource BoolPickConverter}">
                                             <Binding Path="DataContext.IsToggled" RelativeSource="{RelativeSource Self}"/>
-                                            <Binding Source="{StaticResource Green@700}"/>
-                                            <Binding Source="{StaticResource Gray@300}"/>
+                                            <Binding Source="{StaticResource Brushes.HunterPie.Success.Opacity}"/>
+                                            <Binding Source="{StaticResource Brushes.HunterPie.Background.Primary}"/>
                                         </MultiBinding>
                                     </buttons:Button.Background>
                                     <Grid>

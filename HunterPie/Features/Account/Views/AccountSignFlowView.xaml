@@ -34,16 +34,16 @@
         </Storyboard>
     </UserControl.Resources>
     <Grid>
-        <Rectangle Fill="{StaticResource GRAY_300}"/>
+        <Rectangle Fill="{StaticResource Brushes.HunterPie.Background.Tertiary}"/>
 
         <Border VerticalAlignment="Stretch"
                 HorizontalAlignment="Center"
                 Width="400"
                 Margin="50"
                 BorderThickness="1"
-                BorderBrush="{StaticResource GRAY_100}"
+                BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                 CornerRadius="5"
-                Background="{StaticResource GRAY_200}"
+                Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
                 ClipToBounds="True"
                 x:Name="PART_Border">
             <Grid>
@@ -58,7 +58,7 @@
                     <Image Source="{StaticResource ICON_HUNTERPIE}"
                            Margin="5"/>
                     <TextBlock Text="HunterPie Account"
-                               Foreground="{StaticResource WHITE_200}"
+                               Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                                FontSize="16"
                                VerticalAlignment="Center"
                                FontWeight="Medium"
@@ -72,7 +72,7 @@
                                 Padding="10,0,10,0"
                                 Click="OnCloseClick"/>
 
-                <Separator Background="{StaticResource WHITE_200}"
+                <Separator Background="{StaticResource Brushes.HunterPie.Border}"
                            Opacity="0.2"
                            Grid.Row="1"
                            VerticalAlignment="Top"
@@ -91,7 +91,7 @@
                            Margin="12, 12, 0, 10" 
                            RadiusX="2"
                            RadiusY="20"
-                           Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                           Fill="{StaticResource Brushes.HunterPie.Accent}"
                            Width="{Binding ActualWidth, ElementName=PART_Dummy}"
                            x:Name="PART_SelectedSignFlowHighlight">
                     <Rectangle.OpacityMask>

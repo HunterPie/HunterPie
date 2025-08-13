@@ -66,9 +66,9 @@
                 <TextBlock Grid.Row="1"
                            Grid.Column="1"
                            VerticalAlignment="Top"
-                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                            FontSize="13"
-                           Text="{markup:Localization '//Strings/Client/Settings/Setting[@Id=&quot;MONSTER_GLOBAL_SETTINGS_STRING&quot;]'}"
+                           Text="{markup:Localization '//Strings/Client/Settings/Setting[@Id=&quot;MONSTER_GLOBAL_SETTINGS_STRING&quot;]', Description=True}"
                            d:Text="Apply settings globally for all monsters."/>
             </Grid>
         </buttons:Button>

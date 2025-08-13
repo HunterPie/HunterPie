@@ -150,6 +150,8 @@
                      Color="{markup:BrushColor Brush={StaticResource Red@50}}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Success"
                      Color="{markup:BrushColor Brush={StaticResource Green@50}}"/>
+    <SolidColorBrush x:Key="Brushes.HunterPie.Success.Opacity"
+                     Color="{markup:BrushColor Brush={StaticResource Brushes.HunterPie.Success}, Opacity=0.2}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Neutral"
                      Color="{markup:BrushColor Brush={StaticResource Blue@100}}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Warning"

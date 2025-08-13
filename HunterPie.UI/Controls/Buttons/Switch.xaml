@@ -59,7 +59,7 @@
                     <DataTrigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard>
-                                <anim:BrushAnimation To="{StaticResource LightBlue@200}"
+                                <anim:BrushAnimation To="{StaticResource Brushes.HunterPie.Accent}"
                                                  Duration="0:0:0.25"
                                                  Storyboard.TargetProperty="Fill"/>
                             </Storyboard>
