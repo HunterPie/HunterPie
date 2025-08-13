@@ -60,8 +60,12 @@ public class ClientConfig : ISettings
     [ConfigurationProperty("RENDERING_STRATEGY_STRING", requiresRestart: true, group: CommonConfigurationGroups.RENDERING)]
     public Observable<RenderingStrategy> Render { get; set; } = RenderingStrategy.Software;
 
+    [ConfigurationProperty("ENABLE_RENDERING_FPS_LIMIT", requiresRestart: true, group: CommonConfigurationGroups.RENDERING)]
+    public Observable<bool> IsFramePerSecondLimitEnabled { get; set; } = false;
+
     [ConfigurationProperty("RENDERING_FPS_STRING", requiresRestart: true, group: CommonConfigurationGroups.RENDERING)]
-    public Range RenderFramePerSecond { get; set; } = new Range(60, 60, 1, 1);
+    [ConfigurationConditional(nameof(IsFramePerSecondLimitEnabled), withValue: true)]
+    public Range RenderFramePerSecond { get; set; } = new Range(60, 165, 1, 1);
     #endregion
 
     #region Scanning Settings

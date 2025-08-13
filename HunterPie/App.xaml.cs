@@ -81,6 +81,9 @@ public partial class App : Application
 
     private void SetupFrameRate()
     {
+        if (!ClientConfig.Config.Client.IsFramePerSecondLimitEnabled)
+            return;
+
         Timeline.DesiredFrameRateProperty.OverrideMetadata(
             forType: typeof(Timeline),
             typeMetadata: new FrameworkPropertyMetadata { DefaultValue = (int)ClientConfig.Config.Client.RenderFramePerSecond.Current }
