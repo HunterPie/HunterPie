@@ -610,7 +610,18 @@ public sealed class MHWildsPlayer : CommonPlayer
             nint abnormalityPointer = await Memory.ReadAsync<nint>(
                 address: skillsBasePtr + definition.Offset
             );
-            SkillAbnormality abnormality = await Memory.ReadAsync<SkillAbnormality>(abnormalityPointer);
+
+            int dependingValue = definition.DependsOn switch
+            {
+                0 => definition.WithValue,
+                _ => await Memory.ReadAsync<int>(
+                    address: abnormalityPointer + definition.DependsOn
+                )
+            };
+
+            SkillAbnormality abnormality = dependingValue == definition.WithValue
+                ? await Memory.ReadAsync<SkillAbnormality>(abnormalityPointer)
+                : default;
 
             HandleAbnormality(
                 abnormalities: _abnormalities,
