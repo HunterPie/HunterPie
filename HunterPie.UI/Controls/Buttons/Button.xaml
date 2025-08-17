@@ -12,8 +12,7 @@
                        d:DesignWidth="60"
                        ClipToBounds="True">
     <arch:ClickableControl.Resources>
-        <Storyboard x:Key="PART_RippleAnimation" 
-                    Storyboard.TargetName="PART_Ripple">
+        <Storyboard x:Key="PART_RippleAnimation">
             <DoubleAnimation Storyboard.TargetProperty="Width" 
                              From="0" 
                              Duration="0:0:0.3" />
@@ -59,13 +58,8 @@
                         </VisualBrush.Visual>
                     </VisualBrush>
                 </Grid.OpacityMask>
-                <Canvas ClipToBounds="True">
-                    <Ellipse x:Name="PART_Ripple"
-                             Fill="#10F5F5F5" 
-                             HorizontalAlignment="Left" 
-                             Height="{Binding Path=Width, RelativeSource={RelativeSource Self}}"
-                             VerticalAlignment="Top"/>
-                </Canvas>
+                <Canvas ClipToBounds="True"
+                        x:Name="PART_RippleContainer"/>
                 <effects:CursorHighLight>
                     <Label Content="{Binding Content, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
                            Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"

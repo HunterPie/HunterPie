@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="HunterPie.Features.Theme.Views.ThemeHomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.Features.Theme.Views"
+             xmlns:viewModels="clr-namespace:HunterPie.Features.Theme.ViewModels"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" 
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewModels:ThemeHomeViewModel}">
+    <UserControl.Resources>
+        <DataTemplate x:Key="Internal.HeaderTemplate"
+                      DataType="{x:Type viewModels:ThemeHomeTabViewModel}">
+            <buttons:TabItem Title="{Binding Title, Mode=OneWay}"
+                             Margin="2"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="Internal.ContentTemplate"
+                      DataType="{x:Type viewModels:ThemeHomeTabViewModel}">
+            <local:ThemeHomeTabView />
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <TabControl ItemsSource="{Binding Tabs, Mode=OneTime}"
+                    d:ItemsSource="{d:SampleData ItemCount=2}"
+                    ItemTemplate="{StaticResource Internal.HeaderTemplate}"
+                    ContentTemplate="{StaticResource Internal.ContentTemplate}"
+                    Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
+                    BorderThickness="0"/>
+    </Grid>
+</UserControl>

@@ -8,6 +8,7 @@
       d:DesignHeight="450" 
       d:DesignWidth="800" 
       MouseMove="OnMouseMove">
+    <ContentPresenter/>
     <Canvas ClipToBounds="True"
             Background="Transparent">
         <Rectangle x:Name="PART_Highlight"

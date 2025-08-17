@@ -129,7 +129,7 @@
     </LinearGradientBrush>
 
     <SolidColorBrush x:Key="Brushes.HunterPie.Accent.Solid"
-                     Color="#FF4B8EEE"/>
+                     Color="#0d76ef"/>
 
     <SolidColorBrush x:Key="Brushes.HunterPie.Foreground.Primary"
                      Color="{markup:BrushColor Brush={StaticResource White@100}}"/>
@@ -161,6 +161,8 @@
         <GradientStop Color="#45FFFFFF" Offset="0"/>
         <GradientStop Color="#00000000" Offset="1"/>
     </RadialGradientBrush>
+
+    <SolidColorBrush x:Key="Brushes.HunterPie.Ripple">#40F5F5F5</SolidColorBrush>
 
     <SolidColorBrush x:Key="Brushes.Quest.LowRank">#197df0</SolidColorBrush>
     <SolidColorBrush x:Key="Brushes.Quest.HighRank">#EC5D1C</SolidColorBrush>
