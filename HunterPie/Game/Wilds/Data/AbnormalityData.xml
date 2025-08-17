@@ -499,6 +499,10 @@
                      DependsOn="1C"
                      WithValue="1086324736"
                      Offset="80"/>
+        <Abnormality Id="Skills.30"
+                     Name="ABNORMALITY_CRITICAL_DRAW"
+                     Icon="ICON_AFFINITY"
+                     Offset="B0"/>
         <Abnormality Id="Skills.67"
                      Name="ABNORMALITY_BUTTERY_LEATHERCRAFT"
                      Offset="C0"/>
@@ -524,5 +528,9 @@
                      Name="ABNORMALITY_LEVIATHANS_FURY"
                      Icon="ICON_AFFINITY"
                      Offset="F8"/>
+        <Abnormality Id="Skills.230"
+                     Name="ABNORMALITY_POWER_STONE"
+                     Icon="ICON_ATTACKUP"
+                     Offset="100"/>
     </Skills>
 </Abnormalities>
