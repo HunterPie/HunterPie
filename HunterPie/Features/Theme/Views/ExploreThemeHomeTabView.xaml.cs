@@ -3,11 +3,11 @@
 namespace HunterPie.Features.Theme.Views;
 
 /// <summary>
-/// Interaction logic for ThemeHomeView.xaml
+/// Interaction logic for ThemeHomeTabView.xaml
 /// </summary>
-public partial class ThemeHomeView : UserControl
+public partial class ExploreThemeHomeTabView : UserControl
 {
-    public ThemeHomeView()
+    public ExploreThemeHomeTabView()
     {
         InitializeComponent();
     }

@@ -12,7 +12,7 @@
         Width="500"
         ResizeMode="NoResize"
         BorderThickness="1"
-        BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+        BorderBrush="{StaticResource Brushes.HunterPie.Accent}"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
         Topmost="True"
@@ -21,12 +21,11 @@
         d:DataContext="{d:DesignInstance Type=local:UpdateViewModel}">
     <Window.Resources>
         <converters:LongToByteRepresentationConverter x:Key="LongToByteRepresentationConverter"/>
-        <converters:ParentSizePercentageConverter x:Key="ParentSizePercentageConverter"/>
     </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="-1"/>
     </WindowChrome.WindowChrome>
-    <Grid Background="{StaticResource GRAY_400}">
+    <Grid Background="{StaticResource Brushes.HunterPie.Background.Tertiary}">
         <Image Source="{StaticResource ICON_HUNTERPIE}"
                Width="100"
                Height="{Binding Width, RelativeSource={RelativeSource Self}}"
@@ -34,7 +33,7 @@
                HorizontalAlignment="Center"
                Margin="40"
                Opacity="0.3"/>
-        <TextBlock Foreground="{StaticResource WHITE_400}"
+        <TextBlock Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                    FontSize="30"
                    FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                    VerticalAlignment="Top"
@@ -72,8 +71,8 @@
         <TextBlock d:Text="Verifying latest version"
                    Text="{Binding State}"
                    FontSize="12"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource WHITE_500}"
+                   FontFamily="{StaticResource Font.Default}"
+                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Center"
                    FontWeight="Medium"
@@ -81,21 +80,18 @@
 
         <!-- Download data -->
         <TextBlock FontSize="12"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource WHITE_200}"
+                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                    VerticalAlignment="Bottom"
                    HorizontalAlignment="Right"
                    Margin="0,0,30,5">
             <Run Text="{Binding DownloadedBytes, Converter={StaticResource LongToByteRepresentationConverter}}"
                  d:Text="20 MB"/><!--
-         --><Run Text="/"
-                 Foreground="{StaticResource WHITE_500}"/><!--
+         --><Run Text="/"/><!--
          --><Run Text="{Binding TotalBytes, Converter={StaticResource LongToByteRepresentationConverter}}"
-                 d:Text="50 MB"
-                 Foreground="{StaticResource WHITE_500}"/>
+                 d:Text="50 MB"/>
         </TextBlock>
 
-        <custom:Arc Stroke="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+        <custom:Arc Stroke="{StaticResource Brushes.HunterPie.Accent}"
                     StrokeThickness="3"
                     Width="15"
                     Height="{Binding Width, RelativeSource={RelativeSource Self}}"

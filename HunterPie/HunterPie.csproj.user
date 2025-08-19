@@ -15,10 +15,16 @@
     <Compile Update="Features\Settings\Views\SettingsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Features\Theme\Views\InstalledThemeHomeTabView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Features\Theme\Views\InstalledThemeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Features\Theme\Views\ThemeCardView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Features\Theme\Views\ThemeHomeTabView.xaml.cs">
+    <Compile Update="Features\Theme\Views\ExploreThemeHomeTabView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Features\Theme\Views\ThemeHomeView.xaml.cs">

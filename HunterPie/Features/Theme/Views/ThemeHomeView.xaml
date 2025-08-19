@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:HunterPie.Features.Theme.Views"
              xmlns:viewModels="clr-namespace:HunterPie.Features.Theme.ViewModels"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+             xmlns:presentation="clr-namespace:HunterPie.Features.Theme.Presentation"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
@@ -17,16 +18,24 @@
                              Margin="2"/>
         </DataTemplate>
 
-        <DataTemplate x:Key="Internal.ContentTemplate"
-                      DataType="{x:Type viewModels:ThemeHomeTabViewModel}">
-            <local:ThemeHomeTabView />
+        <DataTemplate x:Key="Internal.ExploreTabTemplate"
+                      DataType="{x:Type viewModels:ExploreThemeHomeTabViewModel}">
+            <local:ExploreThemeHomeTabView />
         </DataTemplate>
+
+        <DataTemplate x:Key="Internal.InstalledTabTemplate">
+            <local:InstalledThemeHomeTabView />
+        </DataTemplate>
+
+        <presentation:ThemeTabTemplateSelector x:Key="ThemeTabTemplateSelector" 
+                                               ExploreDataTemplate="{StaticResource Internal.ExploreTabTemplate}"
+                                               InstalledDataTemplate="{StaticResource Internal.InstalledTabTemplate}"/>
     </UserControl.Resources>
     <Grid>
         <TabControl ItemsSource="{Binding Tabs, Mode=OneTime}"
                     d:ItemsSource="{d:SampleData ItemCount=2}"
                     ItemTemplate="{StaticResource Internal.HeaderTemplate}"
-                    ContentTemplate="{StaticResource Internal.ContentTemplate}"
+                    ContentTemplateSelector="{StaticResource ThemeTabTemplateSelector}"
                     Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
                     BorderThickness="0"/>
     </Grid>

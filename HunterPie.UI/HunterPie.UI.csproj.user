@@ -604,9 +604,9 @@
     <Page Update="Overlay\Widgets\Wirebug\Views\WirebugView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Resource Update="Resources\Icons\General.xaml">
+    <Page Update="Resources\Icons\General.xaml">
       <SubType>Designer</SubType>
-    </Resource>
+    </Page>
     <Page Update="Resources\Seasons\WinterPie.xaml">
       <SubType>Designer</SubType>
     </Page>

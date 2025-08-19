@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="HunterPie.Features.Theme.Views.ThemeHomeTabView"
+﻿<UserControl x:Class="HunterPie.Features.Theme.Views.InstalledThemeHomeTabView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,24 +8,28 @@
              xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
-             d:DesignWidth="917"
-             d:DataContext="{d:DesignInstance viewModels:ThemeHomeTabViewModel}">
-    <Grid Margin="5">
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewModels:InstalledThemeHomeTabViewModel}"
+             MouseMove="OnMouseMove"
+             PreviewMouseLeftButtonUp="OnLeftMouseUp"
+             MouseLeave="OnMouseLeave"
+             AllowDrop="True"
+             Loaded="OnElementsPanelLoaded">
+    <Grid Background="{StaticResource Brushes.HunterPie.Background.Tertiary}">
         <ItemsControl ItemsSource="{Binding Themes, Mode=OneTime}"
                       d:ItemsSource="{d:SampleData ItemCount=10}">
             <ItemsControl.Template>
                 <ControlTemplate>
                     <viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto">
-                        <viewer:AutoWrapPanel IsItemsHost="True"
-                                              MinItemWidth="300"
-                                              ItemHeight="250">
-                        </viewer:AutoWrapPanel>
+                        <StackPanel IsItemsHost="True"/>
                     </viewer:SmoothScrollViewer>
                 </ControlTemplate>
             </ItemsControl.Template>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <local:ThemeCardView Margin="2"/>
+                    <local:InstalledThemeView Margin="2"
+                                              BeginDrag="OnElementBeginDrag"
+                                              Height="60"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
