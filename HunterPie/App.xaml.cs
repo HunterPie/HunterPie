@@ -11,10 +11,12 @@ using HunterPie.UI.Main.Views;
 using HunterPie.Usecases;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
@@ -47,6 +49,7 @@ public partial class App : Application
         ShutdownMode = ShutdownMode.OnMainWindowClose;
 
         CheckIfHunterPiePathIsSafe();
+        SetupLanguage();
         SetupFrameRate();
         SetupRenderingMode();
         InitializeMainView();
@@ -77,6 +80,18 @@ public partial class App : Application
         );
 
         Shutdown();
+    }
+
+    private void SetupLanguage()
+    {
+        string fileName = ClientConfig.Config.Client.Language.Current;
+        string language = fileName[..^".xml".Length];
+        Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
+        Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+        FrameworkElement.LanguageProperty.OverrideMetadata(
+            forType: typeof(FrameworkElement),
+            typeMetadata: new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(language))
+        );
     }
 
     private void SetupFrameRate()
