@@ -292,7 +292,6 @@ public sealed class MHWildsPlayer : CommonPlayer
         for (int i = 0; i < membersCount; i++)
         {
             int playerIndex = partyArray.Members[i];
-            int realPartyIndex = partyIndexesArray[i].Index;
             nint playerPointer = await Memory.ReadAsync(
                 address: AddressMap.GetAbsolute("Game::PlayerManager"),
                 offsets: AddressMap.GetOffsets("Player::List")
@@ -307,7 +306,18 @@ public sealed class MHWildsPlayer : CommonPlayer
             if (!playerBase.IsReady() && !_party.Contains(playerBase.BasePointer))
                 continue;
 
-            string name = await GetPlayerNameAsync(playerBase.BasePointer);
+            MHWildsPlayerContext playerContext = await Memory.DerefPtrAsync<MHWildsPlayerContext>(
+                address: playerBase.BasePointer,
+                offsets: AddressMap.GetOffsets("Player::Context")
+            );
+            MHWildsPlayerNetworkInfo networkInfo = await Memory.ReadAsync<MHWildsPlayerNetworkInfo>(playerContext.NetworkInfo);
+
+            if (networkInfo.QuestIndex >= partyIndexesArray.Length || networkInfo.QuestIndex < 0)
+                continue;
+
+            int realPartyIndex = partyIndexesArray[networkInfo.QuestIndex].Index;
+
+            string name = await GetPlayerNameAsync(playerContext);
 
             if (string.IsNullOrEmpty(name))
                 continue;
@@ -429,14 +439,10 @@ public sealed class MHWildsPlayer : CommonPlayer
         return await Memory.ReadAsync<float>(damagePointer + (index * 0x78));
     }
 
-    private async Task<string> GetPlayerNameAsync(nint address)
+    private async Task<string> GetPlayerNameAsync(MHWildsPlayerContext ctx)
     {
-        MHWildsPlayerContext context = await Memory.DerefPtrAsync<MHWildsPlayerContext>(
-            address: address,
-            offsets: AddressMap.GetOffsets("Player::Context")
-        );
 
-        return await Memory.ReadStringSafeAsync(context.NamePointer, size: 64);
+        return await Memory.ReadStringSafeAsync(ctx.NamePointer, size: 64);
     }
 
     private async Task<WeaponType> GetPlayerWeaponAsync(nint address)
