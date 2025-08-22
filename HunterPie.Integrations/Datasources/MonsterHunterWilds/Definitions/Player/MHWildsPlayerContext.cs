@@ -11,5 +11,8 @@ public struct MHWildsPlayerContext
     /// </summary>
     [FieldOffset(0x38)] public nint NamePointer;
 
+    [FieldOffset(0x40)] public nint NetworkInfo;
+
     [FieldOffset(0x64)] public int StageId;
+
 }
