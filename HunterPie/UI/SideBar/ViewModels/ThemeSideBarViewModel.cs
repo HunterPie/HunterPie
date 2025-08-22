@@ -31,12 +31,10 @@ internal class ThemeSideBarViewModel : ViewModel, ISideBarViewModel
         _themeHomeController = themeHomeController;
     }
 
-    public Task ExecuteAsync()
+    public async Task ExecuteAsync()
     {
         _bodyNavigator.Navigate(
-            viewModel: _themeHomeController.GetViewModel()
+            viewModel: await _themeHomeController.GetViewModelAsync()
         );
-
-        return Task.CompletedTask;
     }
 }

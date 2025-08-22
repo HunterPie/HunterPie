@@ -110,7 +110,7 @@
                                 Visibility="{Binding IsDownloaded, Converter={StaticResource BooleanToVisibilityConverter}}"
                                 Click="OnOpenFolderClick">
                     <image:Icon Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
-                                Image="{StaticResource ICON_OPEN_FOLDER}"/>
+                                Image="{StaticResource Icons.Folder}"/>
                 </buttons:Button>                
                 
                 <!-- Download button-->

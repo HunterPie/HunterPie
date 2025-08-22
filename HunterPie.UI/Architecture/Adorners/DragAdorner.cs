@@ -1,13 +1,15 @@
-﻿using System.Windows;
+﻿using HunterPie.UI.Architecture.Brushes;
+using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 
 namespace HunterPie.UI.Architecture.Adorners;
 
-public sealed class DragAdorner : Adorner
+public sealed class DragAdorner<T> : Adorner where T : UIElement
 {
-    private readonly VisualBrush _brush;
+    private readonly Brush _brush;
     private readonly Size _size;
+
     private Point _offset;
     public Point MouseOffset
     {
@@ -18,20 +20,27 @@ public sealed class DragAdorner : Adorner
             InvalidateVisual();
         }
     }
-    public Point Position { get; set; }
 
-    public DragAdorner(UIElement adornerLayerOwner, UIElement visualToDisplay) : base(adornerLayerOwner)
+    private Point _position;
+    public Point Position
+    {
+        get => _position;
+        set
+        {
+            _position = value;
+            InvalidateVisual();
+        }
+    }
+
+    public T ConcreteElement { get; }
+
+    public DragAdorner(UIElement adornerLayerOwner, T visualToDisplay) : base(adornerLayerOwner)
     {
         IsHitTestVisible = false;
-        _brush = new VisualBrush(visualToDisplay)
-        {
-            Opacity = 0.7,
-            Stretch = Stretch.None,
-            AlignmentX = AlignmentX.Left,
-            AlignmentY = AlignmentY.Top
-        };
+        _brush = SnapshotBrush.From(visualToDisplay);
         visualToDisplay.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
         _size = visualToDisplay.RenderSize;
+        ConcreteElement = visualToDisplay;
     }
 
     protected override void OnRender(DrawingContext dc)

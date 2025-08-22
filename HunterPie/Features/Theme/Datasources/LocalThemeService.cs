@@ -11,7 +11,7 @@ namespace HunterPie.Features.Theme.Datasources;
 
 internal class LocalThemeService
 {
-    public async Task<IReadOnlyCollection<LocalThemeManifest>> ListAll()
+    public async Task<IReadOnlyCollection<LocalThemeManifest>> ListAllAsync()
     {
         IEnumerable<string> manifestPaths = Directory.GetDirectories(ClientInfo.ThemesPath)
             .Select(it => Path.Join(ClientInfo.ThemesPath, it, "manifest.json"))

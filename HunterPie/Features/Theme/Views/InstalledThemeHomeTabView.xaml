@@ -15,7 +15,7 @@
              MouseLeave="OnMouseLeave"
              AllowDrop="True"
              Loaded="OnElementsPanelLoaded">
-    <Grid Background="{StaticResource Brushes.HunterPie.Background.Tertiary}">
+    <Grid Margin="5">
         <ItemsControl ItemsSource="{Binding Themes, Mode=OneTime}"
                       d:ItemsSource="{d:SampleData ItemCount=10}">
             <ItemsControl.Template>

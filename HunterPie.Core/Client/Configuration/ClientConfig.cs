@@ -1,11 +1,14 @@
 using HunterPie.Core.Architecture;
 using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Converters;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Generics;
 using HunterPie.Core.Settings;
 using HunterPie.Core.Settings.Annotations;
 using HunterPie.Core.Settings.Common;
 using HunterPie.Core.Settings.Types;
+using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace HunterPie.Core.Client.Configuration;
 
@@ -32,9 +35,6 @@ public class ClientConfig : ISettings
     #region General Settings
     [ConfigurationProperty("LANGUAGE_STRING", requiresRestart: true, group: CommonConfigurationGroups.GENERAL)]
     public GenericFileSelector Language { get; set; } = new GenericFileSelector("en-us.xml", "*.xml", ClientInfo.LanguagesPath);
-
-    [ConfigurationProperty("THEME_STRING", requiresRestart: true, group: CommonConfigurationGroups.GENERAL)]
-    public GenericFolderSelector Theme { get; set; } = new GenericFolderSelector("Default", "*", ClientInfo.ThemesPath);
     #endregion
 
     #region Customization Settings
@@ -82,4 +82,8 @@ public class ClientConfig : ISettings
 
     // States
     public Observable<GameProcessType> LastConfiguredGame { get; set; } = GameProcessType.MonsterHunterRise;
+
+    // Themes
+    [JsonConverter(typeof(ObservableCollectionConverter<string>))]
+    public ObservableCollection<string> Themes { get; set; } = new();
 }

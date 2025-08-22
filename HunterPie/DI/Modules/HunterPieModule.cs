@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Crypto;
+﻿using HunterPie.Core.Client;
+using HunterPie.Core.Crypto;
 using HunterPie.Core.Domain.Cache;
 using HunterPie.Core.Zip.Service;
 using HunterPie.DI.Module;
@@ -18,6 +19,7 @@ internal class HunterPieModule : IDependencyModule
             .WithService<InMemoryAsyncCache>()
             .WithSingle<CryptoService>()
             .WithService<CompressorService>()
-            .WithSingle<FileStreamLogWriter>();
+            .WithSingle<FileStreamLogWriter>()
+            .WithSingle(() => ClientConfig.Config);
     }
 }

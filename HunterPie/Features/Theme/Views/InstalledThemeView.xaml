@@ -6,50 +6,148 @@
              xmlns:local="clr-namespace:HunterPie.Features.Theme.Views"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
              xmlns:viewModels="clr-namespace:HunterPie.Features.Theme.ViewModels"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignHeight="60" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:InstalledThemeViewModel}">
-    <Border Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
-            CornerRadius="5"
-            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
-            BorderThickness="1">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="40"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+    <UserControl.Resources>
+        <DataTemplate x:Key="Internal.DefaultTemplate">
+            <Border Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
+                    CornerRadius="5"
+                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                    BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-            <image:Icon Grid.Column="0"
-                        Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
-                        Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
-                        Image="{StaticResource Icons.Chevron.UpDown}"
-                        Margin="10"
-                        MouseLeftButtonDown="OnDragButtonDown"
-                        Cursor="SizeAll"/>
+                    <image:Icon Grid.Column="0"
+                                Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                                Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
+                                Image="{StaticResource Icons.Chevron.UpDown}"
+                                Margin="10"
+                                MouseLeftButtonDown="OnDragButtonDown"
+                                Cursor="SizeAll"/>
 
-            <Border Grid.Column="1"
-                    Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
-                    CornerRadius="5,4.5,4.5,5">
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="2*"/>
-                    </Grid.RowDefinitions>
+                    <Border Grid.Column="1"
+                            Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                            CornerRadius="5,4.5,4.5,5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="0"
-                               Text="{Binding Name, Mode=OneWay}"
-                               d:Text="Theme Name"
-                               FontSize="14"
-                               FontWeight="Medium"
-                               Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
-                    <TextBlock Grid.Row="1"
-                               Text="by Username"
-                               FontSize="10"
-                               Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
+                            <Grid Grid.Column="0" 
+                                  Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="2*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0"
+                                           Text="{Binding Name, Mode=OneWay}"
+                                           d:Text="Theme Name"
+                                           FontSize="14"
+                                           FontWeight="Medium"
+                                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
+                                <TextBlock Grid.Row="1"
+                                           Text="by Username"
+                                           FontSize="10"
+                                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
+                            </Grid>
+
+                            <StackPanel Grid.Column="1"
+                                        Margin="5"
+                                        Orientation="Horizontal">
+                                <buttons:Button VerticalContentAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                Width="30"
+                                                Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                                                BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                                                BorderThickness="1"
+                                                Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                                                CornerRadius="5"
+                                                Margin="2.5">
+                                    <image:Icon Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                                Image="{StaticResource Icons.Folder}"/>
+                                </buttons:Button>
+
+                                <buttons:Switch />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
                 </Grid>
             </Border>
-        </Grid>
-    </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="Internal.DragOverTemplate">
+            <Border Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                    CornerRadius="5"
+                    BorderThickness="1"
+                    RenderTransformOrigin="0.5,0.5">
+                <Border.BorderBrush>
+                    <DrawingBrush Viewport="0,0,15,15" 
+                                  ViewportUnits="Absolute" 
+                                  TileMode="Tile">
+                        <DrawingBrush.Drawing>
+                            <DrawingGroup>
+                                <GeometryDrawing Brush="{StaticResource Brushes.HunterPie.Border}">
+                                    <GeometryDrawing.Geometry>
+                                        <GeometryGroup>
+                                            <RectangleGeometry Rect="0,0,1,1" />
+                                            <RectangleGeometry Rect="1,1,1,1" />
+                                        </GeometryGroup>
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </Border.BorderBrush>
+
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <Trigger Property="IsVisible"
+                                     Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation From="0"
+                                                             Duration="0:0:0.250"
+                                                             Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <QuadraticEase/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <ContentPresenter d:ContentTemplate="{StaticResource Internal.DefaultTemplate}"
+                      Content="{Binding }">
+        <ContentPresenter.Style>
+            <Style TargetType="ContentPresenter">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsDraggingOver, Mode=OneWay}"
+                                 Value="False">
+                        <Setter Property="ContentTemplate" Value="{StaticResource Internal.DefaultTemplate}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsDraggingOver, Mode=OneWay}"
+                                 Value="True">
+                        <Setter Property="ContentTemplate" Value="{StaticResource Internal.DragOverTemplate}"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ContentPresenter.Style>
+    </ContentPresenter>
 </UserControl>

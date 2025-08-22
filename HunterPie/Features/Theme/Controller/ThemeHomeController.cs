@@ -1,14 +1,28 @@
-﻿using HunterPie.Features.Theme.ViewModels;
+﻿using HunterPie.Core.Client.Configuration.Versions;
+using HunterPie.Features.Theme.Datasources;
+using HunterPie.Features.Theme.Entity;
+using HunterPie.Features.Theme.ViewModels;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HunterPie.Features.Theme.Controller;
 
 internal class ThemeHomeController
 {
-    public ThemeHomeViewModel GetViewModel()
+    private readonly LocalThemeService _localThemeService;
+    private readonly V5Config _config;
+
+    public ThemeHomeController(
+        LocalThemeService localThemeService,
+        V5Config config)
+    {
+        _localThemeService = localThemeService;
+        _config = config;
+    }
+
+    public async Task<ThemeHomeViewModel> GetViewModelAsync()
     {
         var viewModel = new ThemeHomeViewModel();
-
-        string[] tabs = { "Discover", "Installed" };
 
         var tab = new ExploreThemeHomeTabViewModel { Title = "Discover" };
 
@@ -17,21 +31,30 @@ internal class ThemeHomeController
                 item: new ThemeCardViewModel()
             );
 
-        viewModel.Tabs.Add(tab);
+        viewModel.Tabs.Add(
+            item: await GetInstalledTabViewModelAsync()
+        );
+
+
+        return viewModel;
+    }
+
+    private async Task<InstalledThemeHomeTabViewModel> GetInstalledTabViewModelAsync()
+    {
+        IReadOnlyCollection<LocalThemeManifest> themes = await _localThemeService.ListAllAsync();
 
         var installedTab = new InstalledThemeHomeTabViewModel { Title = "Installed" };
 
-        for (int i = 0; i < 7; i++)
-            installedTab.Themes.Add(
-                item: new InstalledThemeViewModel
-                {
-                    IsEnabled = true,
-                    Name = $"Theme {i}"
-                }
-            );
+        foreach (LocalThemeManifest theme in themes)
+            installedTab.Themes.Add(new InstalledThemeViewModel
+            {
+                Name = theme.Manifest.Name,
+                Author = theme.Manifest.Author,
+                Path = theme.Path,
+                IsEnabled = _config.Client.Themes.Contains(theme.Path),
+                IsDraggingOver = false
+            });
 
-        viewModel.Tabs.Add(installedTab);
-
-        return viewModel;
+        return installedTab;
     }
 }

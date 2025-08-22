@@ -3,7 +3,5 @@
 internal record ThemeManifest(
     string Name,
     string Description,
-    string Author,
-    bool IsVerified,
-    string[] AssetUrls
+    string Author
 );
