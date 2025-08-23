@@ -8,9 +8,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="150" 
              d:DesignWidth="800">
-    <local:Button Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+    <local:Button Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                   BorderThickness="1"
-                  BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                  BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                   CornerRadius="5"
                   HorizontalContentAlignment="Stretch"
                   VerticalContentAlignment="Stretch"
@@ -54,20 +54,20 @@
             <Border Grid.Row="0" 
                     Grid.Column="2"
                     CornerRadius="0,4,4,0"
-                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                    Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                     Opacity="0.8" 
                     Grid.RowSpan="2">
-                <image:Icon Image="{StaticResource ICON_ARROW_RIGHT}"
+                <image:Icon Image="{DynamicResource ICON_ARROW_RIGHT}"
                             Margin="2"
                             Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                            Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"/>
+                            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"/>
             </Border>
 
             <TextBlock Grid.Row="0" 
                        d:Text="Title"
                        Text="{Binding Title}"
                        FontSize="18"
-                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                        FontWeight="Medium"
                        VerticalAlignment="Bottom"
                        Margin="10,0" 
@@ -78,7 +78,7 @@
                        Grid.Row="1"
                        FontSize="15"
                        TextWrapping="WrapWithOverflow"
-                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                        Margin="10,5,10,0" 
                        Grid.Column="1"/>
 

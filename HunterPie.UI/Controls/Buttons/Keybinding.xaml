@@ -26,11 +26,11 @@
                         <Grid Margin="5,0,0,0">
                             <Rectangle RadiusX="5"
                                        RadiusY="5"
-                                       Stroke="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
-                                       Fill="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                                       Stroke="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+                                       Fill="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                                        Opacity="0.2"/>
                             <TextBlock Text="{Binding .}"
-                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                                        FontSize="13"
                                        Padding="5"/>
                         </Grid>
@@ -43,7 +43,7 @@
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding IsFocused, RelativeSource={RelativeSource AncestorType={x:Type local:Keybinding}}}" Value="True">
                         <DataTrigger.Setters>
-                            <Setter Property="BorderBrush" Value="{StaticResource Brushes.HunterPie.Accent}"/>
+                            <Setter Property="BorderBrush" Value="{DynamicResource Brushes.HunterPie.Accent}"/>
                             <Setter Property="BorderThickness" Value="1"/>
                         </DataTrigger.Setters>
                     </DataTrigger>

@@ -13,14 +13,14 @@
     <viewer:SmoothScrollViewer>
         <StackPanel Margin="5">
             <!-- News section -->
-            <Border Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+            <Border Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
                     BorderThickness="1"
-                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                     CornerRadius="5"
                     Padding="5"
                     Visibility="Collapsed">
                 <display:Section Title="News"
-                                 Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}">
+                                 Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}">
                     <display:Carousel d:ItemsSource="{d:SampleData ItemCount=5}"
                                       ItemsSource="{Binding News, Mode=OneWay}"
                                       MaxHeight="200"
@@ -49,16 +49,16 @@
                 </display:Section>
             </Border>
             
-            <Border Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+            <Border Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
                     BorderThickness="1"
-                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                     CornerRadius="5"
                     Padding="5"
                     Margin="0,5,0,0">
                 <StackPanel Orientation="Vertical">
                     <!-- Games section -->
                     <display:Section Title="Games"
-                                     Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}">
+                                     Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}">
                         <ItemsControl ItemsSource="{Binding SupportedGames, Mode=OneTime}"
                                       d:ItemsSource="{d:SampleData ItemCount=5}">
                             <ItemsControl.Template>
@@ -83,7 +83,7 @@
                     </display:Section>
 
                     <display:Section Title="Quick Access"
-                                     Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}">
+                                     Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}">
                         <ItemsControl ItemsSource="{Binding QuickActions, Mode=OneTime}"
                                       d:ItemsSource="{d:SampleData ItemCount=5}">
                             <ItemsControl.Template>

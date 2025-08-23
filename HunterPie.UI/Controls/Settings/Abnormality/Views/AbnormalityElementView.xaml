@@ -20,8 +20,8 @@
                     HorizontalContentAlignment="Stretch"
                     CornerRadius="5"
                     BorderThickness="1"
-                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"
-                    BorderBrush="{StaticResource Brushes.HunterPie.Border}">
+                    Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
+                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="40"/>
@@ -36,9 +36,9 @@
             <Border Grid.Column="0"
                     Grid.Row="0"
                     Grid.RowSpan="2"
-                    Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                    Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
                     BorderThickness="0,0,1,0"
-                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"/>
+                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"/>
             <Image Grid.Column="0"
                    Grid.Row="0"
                    Grid.RowSpan="2"
@@ -56,7 +56,7 @@
                        VerticalAlignment="Bottom"
                        Margin="2,0,0,0"
                        FontSize="13"
-                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                        TextTrimming="CharacterEllipsis"/>
             <TextBlock Grid.Column="1"
                        Grid.Row="1"
@@ -65,7 +65,7 @@
                        FontWeight="Regular"
                        VerticalAlignment="Top"
                        Margin="2,0,0,0"
-                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                        FontSize="11"/>
 
             <image:Icon Grid.Row="0"
@@ -74,18 +74,18 @@
                         Width="20"
                         Height="20"
                         Margin="0,0,5,0"
-                        Image="{StaticResource ICON_CHECKMARK}"
-                        d:Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}">
+                        Image="{DynamicResource ICON_CHECKMARK}"
+                        d:Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}">
                 <image:Icon.Style>
                     <Style TargetType="{x:Type image:Icon}">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type local:AbnormalityElementView}}}"
                                          Value="True">
-                                <Setter Property="Foreground" Value="{StaticResource Brushes.HunterPie.Success}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Success}"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type local:AbnormalityElementView}}}"
                                          Value="False">
-                                <Setter Property="Foreground" Value="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

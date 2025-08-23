@@ -51,7 +51,7 @@
                 Grid.Row="1" 
                 Grid.ColumnSpan="2"
                 Height="120"
-                Background="{StaticResource Brushes.HunterPie.Background.Secondary}">
+                Background="{DynamicResource Brushes.HunterPie.Background.Secondary}">
             <Border.Effect>
                 <DropShadowEffect Opacity="0.1"/>
             </Border.Effect>
@@ -61,14 +61,14 @@
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             Margin="20">
-                    <image:Icon Image="{StaticResource ICON_HUNTERPIE}"
+                    <image:Icon Image="{DynamicResource ICON_HUNTERPIE}"
                                 Height="50"
                                 Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
+                                Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>
 
                     <TextBlock VerticalAlignment="Center"
                                FontSize="25"
-                               Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                               Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                                Margin="5">
                         <Run Text="Hunter"
                              FontWeight="Medium"/><!--
@@ -103,10 +103,10 @@
                                        FontSize="25"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
-                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"/>
+                                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"/>
                             <TextBlock Grid.Row="0"
                                        Grid.Column="1"
-                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Right"
                                        Margin="0,0,5,0"
@@ -118,7 +118,7 @@
                                        Grid.Column="1" 
                                        d:Text="Monster Hunter: World"
                                        Text="{Binding SelectedGame.Value, Mode=OneWay, Converter={StaticResource GameTypeToGameNameConverter}}"
-                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                                        FontSize="11"
                                        VerticalAlignment="Top"
                                        HorizontalAlignment="Right"
@@ -130,7 +130,7 @@
                             <effects:CursorHighLight>
                                 <TextBlock Text="{Binding ., Converter={StaticResource GameTypeToGameNameConverter}}"
                                            FontSize="15"
-                                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                                            Cursor="Hand"
                                            Padding="2,5"/>
                             </effects:CursorHighLight>
@@ -152,13 +152,13 @@
                          Grid.ColumnSpan="2"
                          Cursor="Hand"
                          Text="Want to support HunterPie's development and have access to BETA updates? Support the project on Patreon!"
-                         Icon="{StaticResource ICON_PATREON}"
+                         Icon="{DynamicResource ICON_PATREON}"
                          Padding="1"
-                         Background="{StaticResource SUPPORTER_BANNER_BACKGROUND}"
-                         BorderBrush="{StaticResource SUPPORTER_BANNER_BORDER}"
+                         Background="{DynamicResource SUPPORTER_BANNER_BACKGROUND}"
+                         BorderBrush="{DynamicResource SUPPORTER_BANNER_BORDER}"
                          BorderThickness="0,1"
                          FontSize="13"
-                         Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                         Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                          CloseClick="OnCloseSupporterFeedback"
                          IsCloseable="True"
                          MouseLeftButtonUp="OnBannerClick"

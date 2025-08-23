@@ -11,8 +11,8 @@
              d:DesignHeight="250" 
              d:DesignWidth="250"
              d:DataContext="{d:DesignInstance viewModels:ThemeCardViewModel}">
-    <buttons:Button Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
-                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+    <buttons:Button Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
+                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                     CornerRadius="5"
                     BorderThickness="1"
                     HorizontalContentAlignment="Stretch"
@@ -37,13 +37,13 @@
 
                 <Border Grid.Row="0"
                         Grid.Column="0"
-                        Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
+                        Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
                         Margin="3"
                         CornerRadius="5"
                         Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                         VerticalAlignment="Top">
-                    <image:Icon Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
-                                Image="{StaticResource Icons.Palette}"
+                    <image:Icon Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+                                Image="{DynamicResource Icons.Palette}"
                                 Margin="5"/>
                 </Border>
 
@@ -51,18 +51,18 @@
                             Grid.Column="1"
                             Margin="5">
                     <TextBlock Text="Theme Name"
-                               Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                               Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                                FontWeight="Medium"
                                FontSize="14"/>
                     <TextBlock Text="by Haato"
-                               Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                               Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                                FontSize="10"/>
                 </StackPanel>
 
                 <buttons:Button Grid.Row="0"
                                 Grid.Column="2"
                                 VerticalAlignment="Top"
-                                Background="{StaticResource Brushes.HunterPie.Accent.Solid}"
+                                Background="{DynamicResource Brushes.HunterPie.Accent.Solid}"
                                 Content="Download"
                                 Padding="10,8"
                                 CornerRadius="5"
@@ -74,12 +74,12 @@
                            Grid.ColumnSpan="2"
                            Text="This is a test description very long and descriptive of my theme, hell yeah"
                            TextWrapping="WrapWithOverflow"
-                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                            FontSize="11"/>
             </Grid>
 
             <Border Grid.Row="1"
-                    Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
+                    Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
                     Margin="5"
                     CornerRadius="5"/>
         </Grid>

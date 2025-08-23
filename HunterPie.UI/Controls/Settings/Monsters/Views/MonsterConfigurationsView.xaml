@@ -30,25 +30,25 @@
                         VerticalAlignment="Top"
                         Margin="5"
                         Padding="5"
-                        BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                        BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                         BorderThickness="1"
                         CornerRadius="5"
                         Click="OnBackButtonClick">
             <StackPanel Orientation="Horizontal">
-                <image:Icon Image="{StaticResource ICON_LEFT_ARROW}"
+                <image:Icon Image="{DynamicResource ICON_LEFT_ARROW}"
                             Height="15"
                             Width="15"
-                            Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                             Margin="0,0,5,0"/>
                 <TextBlock Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;BACK_STRING&quot;]'}"
                            d:Text="Back"
-                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                            VerticalAlignment="Center"/>
             </StackPanel>
         </buttons:Button>
 
         <buttons:Button Grid.Row="1" 
-                        Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                        Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
                         BorderThickness="1"
                         CornerRadius="5"
                         Padding="0"
@@ -61,7 +61,7 @@
                 <DrawingBrush Viewport="0,0,15,15" ViewportUnits="Absolute" TileMode="Tile">
                     <DrawingBrush.Drawing>
                         <DrawingGroup>
-                            <GeometryDrawing Brush="{StaticResource Brushes.HunterPie.Border}">
+                            <GeometryDrawing Brush="{DynamicResource Brushes.HunterPie.Border}">
                                 <GeometryDrawing.Geometry>
                                     <GeometryGroup>
                                         <RectangleGeometry Rect="0,0,1,1" />
@@ -78,14 +78,14 @@
                             Height="30"
                             Margin="5,0"
                             HorizontalAlignment="Center">
-                    <image:Icon Image="{StaticResource ICON_ADD_OUTLINE}"
+                    <image:Icon Image="{DynamicResource ICON_ADD_OUTLINE}"
                                 Height="15"
                                 Width="15"
-                                Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                                Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                                 VerticalAlignment="Center"/>
                     <TextBlock d:Text="Override monster"
                                Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;MONSTER_OVERRIDE_STRING&quot;]'}"
-                               Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                               Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                                Margin="5,0,0,0"
                                FontSize="14"
                                VerticalAlignment="Center"/>
@@ -127,8 +127,8 @@
                                        Text="{Binding Name, Mode=OneWay}"/>
 
                             <image:Icon Grid.Column="2"
-                                        Image="{StaticResource ICON_CHEVRON_RIGHT}"
-                                        Foreground="{StaticResource Brushes.HunterPie.Background.Primary}"
+                                        Image="{DynamicResource ICON_CHEVRON_RIGHT}"
+                                        Foreground="{DynamicResource Brushes.HunterPie.Background.Primary}"
                                         Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                                         Margin="5"/>
                         </Grid>

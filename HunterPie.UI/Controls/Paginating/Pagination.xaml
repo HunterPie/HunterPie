@@ -17,8 +17,8 @@
             <Setter Property="Padding" Value="10"/>
             <Setter Property="VerticalContentAlignment" Value="Stretch"/>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-            <Setter Property="Background" Value="{StaticResource Brushes.HunterPie.Background.Primary}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Brushes.HunterPie.Border}"/>
+            <Setter Property="Background" Value="{DynamicResource Brushes.HunterPie.Background.Primary}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource Brushes.HunterPie.Border}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="CornerRadius" Value="5"/>
             <Style.Triggers>
@@ -37,10 +37,10 @@
                         <Setter Property="Content">
                             <Setter.Value>
                                 <buttons:Button Content="{Binding Page, Mode=OneWay}"
-                                                Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                                                Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                                                 Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                                Background="{StaticResource Brushes.HunterPie.Background.Primary}"
-                                                BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                                                Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
+                                                BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                                                 BorderThickness="1"
                                                 CornerRadius="5"
                                                 Margin="1,0"
@@ -53,10 +53,10 @@
                                 <Setter Property="Content">
                                     <Setter.Value>
                                         <buttons:Button Content="{Binding Page, Mode=OneWay}"
-                                                        Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                                                        Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                                                         Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                                        Background="{StaticResource Brushes.HunterPie.Accent.Transparent}"
-                                                        BorderBrush="{StaticResource Brushes.HunterPie.Accent}"
+                                                        Background="{DynamicResource Brushes.HunterPie.Accent.Transparent}"
+                                                        BorderBrush="{DynamicResource Brushes.HunterPie.Accent}"
                                                         BorderThickness="1"
                                                         CornerRadius="5"
                                                         Margin="1,0"/>
@@ -74,8 +74,8 @@
         <buttons:Button Style="{StaticResource PaginationButtonStyle}"
                         Click="OnPreviousPageClick"
                         IsEnabled="{Binding CanPaginatePrevious, ElementName=PaginationControl}">
-            <image:Icon Image="{StaticResource ICON_CHEVRON_LEFT}"
-                        Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
+            <image:Icon Image="{DynamicResource ICON_CHEVRON_LEFT}"
+                        Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"/>
         </buttons:Button>
 
         <ItemsControl ItemsSource="{Binding Pages, Mode=OneTime, ElementName=PaginationControl}"
@@ -92,8 +92,8 @@
         <buttons:Button Style="{StaticResource PaginationButtonStyle}"
                         Click="OnNextPageClick"
                         IsEnabled="{Binding CanPaginateNext, ElementName=PaginationControl}">
-            <image:Icon Image="{StaticResource ICON_CHEVRON_RIGHT}"
-                        Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
+            <image:Icon Image="{DynamicResource ICON_CHEVRON_RIGHT}"
+                        Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"/>
         </buttons:Button>
     </StackPanel>
 </UserControl>

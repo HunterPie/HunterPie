@@ -38,19 +38,19 @@
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.NotFound}">
-                    <Setter Property="Fill" Value="{StaticResource Red@200}"/>
+                    <Setter Property="Fill" Value="{DynamicResource Red@200}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.Waiting}">
-                    <Setter Property="Fill" Value="{StaticResource Yellow@100}"/>
+                    <Setter Property="Fill" Value="{DynamicResource Yellow@100}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.Paused}">
-                    <Setter Property="Fill" Value="{StaticResource LightBlue@200}"/>
+                    <Setter Property="Fill" Value="{DynamicResource LightBlue@200}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Status, Mode=OneWay}"
                              Value="{x:Static process:ProcessStatus.Hooked}">
-                    <Setter Property="Fill" Value="{StaticResource LightGreen@100}"/>
+                    <Setter Property="Fill" Value="{DynamicResource LightGreen@100}"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -66,18 +66,18 @@
                     Orientation="Vertical">
             <buttons:Button Padding="5"
                             Margin="0,2"
-                            Background="{StaticResource Brushes.HunterPie.Background.Primary}"
-                            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                            Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
+                            BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                             BorderThickness="1"
                             CornerRadius="5"
                             FontSize="14"
-                            Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                             Click="OnSettingsClick">
                 <StackPanel Orientation="Horizontal">
-                    <image:Icon Image="{StaticResource ICON_SETTINGS_FILLED}"
+                    <image:Icon Image="{DynamicResource ICON_SETTINGS_FILLED}"
                                 Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                                 Height="20"
-                                Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                                 Margin="0,0,5,0"
                                 Padding="2"/>
                     <TextBlock Text="Settings"
@@ -99,7 +99,7 @@
                         RenderTransformOrigin="0.5,0.5"
                         CornerRadius="5"
                         BorderThickness="1"
-                        BorderBrush="{StaticResource Brushes.HunterPie.Border}">
+                        BorderBrush="{DynamicResource Brushes.HunterPie.Border}">
             <buttons:Button.RenderTransform>
                 <ScaleTransform ScaleX="1"
                                 ScaleY="1"/>
@@ -159,8 +159,8 @@
                         </Style>
                     </Image.Style>
                 </Image>
-                <image:Icon Image="{StaticResource ICON_PLAY}"
-                            Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                <image:Icon Image="{DynamicResource ICON_PLAY}"
+                            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                             Width="50"
                             Height="50"
                             Opacity="0">

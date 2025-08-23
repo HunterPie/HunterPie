@@ -22,7 +22,7 @@
             <Setter Property="Opacity" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Background"  Value="#80000000"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Brushes.HunterPie.Border}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource Brushes.HunterPie.Border}"/>
             <Setter Property="Height" Value="100"/>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
             <Setter Property="VerticalContentAlignment" Value="Stretch"/>
@@ -62,9 +62,9 @@
         </Style>
     </UserControl.Resources>
     <Border BorderThickness="1"
-            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+            BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
             CornerRadius="5"
-            Background="{StaticResource Brushes.HunterPie.Background.Secondary}">
+            Background="{DynamicResource Brushes.HunterPie.Background.Secondary}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="40"/>
@@ -95,8 +95,8 @@
                             BorderThickness="0,1,1,1"
                             Style="{StaticResource CarouselButton}"
                             Click="OnPreviousClick">
-                <image:Icon Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
-                            Image="{StaticResource ICON_CHEVRON_LEFT}"
+                <image:Icon Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+                            Image="{DynamicResource ICON_CHEVRON_LEFT}"
                             Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                             Margin="5"/>
             </buttons:Button>
@@ -105,10 +105,10 @@
             <buttons:Button Grid.Column="2" 
                             CornerRadius="5,0,0,5"
                             BorderThickness="1,1,0,1"
-                            Style="{StaticResource CarouselButton}"
+                            Style="{DynamicResource CarouselButton}"
                             Click="OnNextClick">
-                <image:Icon Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
-                            Image="{StaticResource ICON_CHEVRON_RIGHT}"
+                <image:Icon Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+                            Image="{DynamicResource ICON_CHEVRON_RIGHT}"
                             Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                             Margin="5"/>
             </buttons:Button>
@@ -121,7 +121,7 @@
                        HorizontalAlignment="Left"
                        Height="2"
                        Width="1"
-                       Fill="{StaticResource Brushes.HunterPie.Accent.Horizontal}">
+                       Fill="{DynamicResource Brushes.HunterPie.Accent.Horizontal}">
                 <Rectangle.RenderTransform>
                     <ScaleTransform d:ScaleX="500">
                         <ScaleTransform.ScaleX>

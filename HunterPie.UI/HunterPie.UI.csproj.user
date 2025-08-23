@@ -35,7 +35,7 @@
     <Compile Update="Controls\Display\Section.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\Effects\CursorHightlight.xaml.cs">
+    <Compile Update="Controls\Effects\CursorHighLight.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Feedback\Prompt.xaml.cs">
@@ -361,7 +361,7 @@
     <Page Update="Controls\Display\Section.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Controls\Effects\CursorHightLight.xaml">
+    <Page Update="Controls\Effects\CursorHighLight.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Feedback\Prompt.xaml">

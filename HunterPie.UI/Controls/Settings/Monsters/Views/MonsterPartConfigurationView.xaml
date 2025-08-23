@@ -20,9 +20,9 @@
                     HorizontalContentAlignment="Stretch"
                     Padding="2"
                     BorderThickness="1"
-                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                     CornerRadius="5"
-                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                    Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                     Click="OnClick">
         <Grid>
             <Grid.ColumnDefinitions>

@@ -89,20 +89,20 @@
                             VerticalAlignment="Top"
                             Margin="5"
                             Padding="5"
-                            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
-                            Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                            BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+                            Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                             BorderThickness="1"
                             CornerRadius="5"
                             Cursor="Hand"
                             Click="OnBackButtonClick">
                 <StackPanel Orientation="Horizontal">
-                    <image:Icon Image="{StaticResource ICON_CHEVRON_LEFT}"
+                    <image:Icon Image="{DynamicResource ICON_CHEVRON_LEFT}"
                                 Height="15"
                                 Width="15"
-                                Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                                 Margin="0,0,5,0"/>
                     <TextBlock Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;BACK_STRING&quot;]'}"
-                               Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                               Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                                VerticalAlignment="Center"/>
                 </StackPanel>
             </buttons:Button>
@@ -124,24 +124,24 @@
                     <buttons:Button VerticalAlignment="Center"
                                     Margin="5"
                                     Padding="5"
-                                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                                     BorderThickness="1"
                                     CornerRadius="5"
                                     Cursor="Hand"
                                     Content="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;SELECT_ALL_STRING&quot;]'}"
-                                    Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
-                                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                                    Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+                                    Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                                     Click="OnSelectAllClick"/>
                     <buttons:Button VerticalAlignment="Center"
                                     Margin="5"
                                     Padding="5"
-                                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                                     BorderThickness="1"
                                     CornerRadius="5"
                                     Cursor="Hand"
                                     Content="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;UNSELECT_ALL_STRING&quot;]'}"
-                                    Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
-                                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                                    Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+                                    Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                                     Click="OnUnselectAllClick"/>
                 </StackPanel>
             </Grid>
@@ -178,11 +178,11 @@
                                 <TextBlock Grid.Column="0" 
                                            Text="{Binding Name, Mode=OneTime}"
                                            FontSize="15"
-                                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                                           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                                            Margin="5"
                                            FontWeight="Medium"/>
                                 <Separator Grid.Column="1" 
-                                           Background="{StaticResource Brushes.HunterPie.Border}"/>
+                                           Background="{DynamicResource Brushes.HunterPie.Border}"/>
                             </Grid>
                             
                             <ItemsControl ItemsSource="{Binding Properties, Mode=OneTime}"

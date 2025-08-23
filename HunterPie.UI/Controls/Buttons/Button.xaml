@@ -41,7 +41,7 @@
         </Storyboard>
     </arch:ClickableControl.Resources>
     <Grid>
-        <Border CornerRadius="{Binding CornerRadius, ElementName=NativeButtonControl }"
+        <Border CornerRadius="{Binding CornerRadius, ElementName=NativeButtonControl}"
                 BorderThickness="{Binding BorderThickness, ElementName=NativeButtonControl}"
                 BorderBrush="{Binding BorderBrush, ElementName=NativeButtonControl}"
                 Background="{Binding Background, ElementName=NativeButtonControl}">

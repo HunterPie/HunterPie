@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="50" 
              d:DesignWidth="750">
-    <Grid d:Background="{StaticResource Gray@400}">
+    <Grid d:Background="{DynamicResource Gray@400}">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition/>
@@ -26,7 +26,7 @@
         <TextBlock d:Text="Strings.Client.Settings.CLIENT_STRING"
                    FontSize="10"
                    Grid.Row="1"
-                   Foreground="{StaticResource White@500}"
+                   Foreground="{DynamicResource White@500}"
                    Grid.ColumnSpan="2"/>
     </Grid>
 </UserControl>

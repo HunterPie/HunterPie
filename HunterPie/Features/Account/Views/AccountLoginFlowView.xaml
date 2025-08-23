@@ -26,7 +26,7 @@
             <StackPanel Orientation="Vertical"
                         Margin="10,20,10,10">
                 <TextBlock Text="Email"
-                            Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                             Margin="0,0,0,1"/>
                 <TextBox Height="35"
                             IsReadOnly="{Binding IsLoggingIn, Mode=OneWay}">
@@ -46,7 +46,7 @@
                 <buttons:Button Content="Resend verification"
                                 HorizontalAlignment="Right"
                                 Padding="5,10,5,10"
-                                Foreground="{StaticResource Brushes.HunterPie.Accent}"
+                                Foreground="{DynamicResource Brushes.HunterPie.Accent}"
                                 CornerRadius="5"
                                 Click="OnResendVerificationClick"/>
             </StackPanel>
@@ -54,7 +54,7 @@
             <StackPanel Orientation="Vertical"
                         Margin="10,10,10,10">
                 <TextBlock Text="Password"
-                            Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                             Margin="0,0,0,1"/>
                 <textbox:SecretTextBox Height="35"
                                         Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -69,13 +69,13 @@
                                 CornerRadius="5"
                                 HorizontalAlignment="Center"
                                 Click="OnForgotPasswordClick"
-                                Foreground="{StaticResource Brushes.HunterPie.Accent}"/>
+                                Foreground="{DynamicResource Brushes.HunterPie.Accent}"/>
 
                 <buttons:Button FontSize="14"
                                 HorizontalAlignment="Right"
                                 BorderThickness="1"
-                                BorderBrush="{StaticResource Brushes.HunterPie.Border}"
-                                Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                                BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+                                Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                                 CornerRadius="5"
                                 OnClick="OnSignInClick"
                                 IsEnabled="{Binding CanLogIn, Mode=OneWay}"

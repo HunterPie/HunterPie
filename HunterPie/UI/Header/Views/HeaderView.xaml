@@ -15,20 +15,20 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
     <Grid MouseLeftButtonDown="OnMouseLeftDown"
-          Background="{StaticResource Brushes.HunterPie.Background.Secondary}">
+          Background="{DynamicResource Brushes.HunterPie.Background.Secondary}">
         <!-- Left panel -->
         <StackPanel Orientation="Horizontal">
-            <image:Icon Image="{StaticResource ICON_ADMINISTRATOR}"
-                        Foreground="{StaticResource Brushes.HunterPie.Accent}"
+            <image:Icon Image="{DynamicResource ICON_ADMINISTRATOR}"
+                        Foreground="{DynamicResource Brushes.HunterPie.Accent}"
                         Width="15"
                         Margin="5,0,0,0"
                         Visibility="{Binding IsAdmin, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            <image:Icon Image="{StaticResource ICON_HUNTERPIE}"
-                        Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+            <image:Icon Image="{DynamicResource ICON_HUNTERPIE}"
+                        Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                         Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                         Padding="5"/>
             <TextBlock FontWeight="Light"
-                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                        VerticalAlignment="Center"
                        FontSize="13">
                 <Run Text="Hunter"
@@ -49,7 +49,7 @@
             <buttons:Button Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                             Click="OnMinimizeClick">_</buttons:Button>
             <buttons:Button Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                            Background="{StaticResource Brushes.HunterPie.Accent}"
+                            Background="{DynamicResource Brushes.HunterPie.Accent}"
                             Click="OnCloseClick">✕</buttons:Button>
         </StackPanel>
     </Grid>

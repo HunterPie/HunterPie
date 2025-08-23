@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Client.Configuration.Versions;
-using HunterPie.Features.Theme.Datasources;
+using HunterPie.Core.Extensions;
 using HunterPie.Features.Theme.Entity;
+using HunterPie.Features.Theme.Repository;
 using HunterPie.Features.Theme.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,14 +10,14 @@ namespace HunterPie.Features.Theme.Controller;
 
 internal class ThemeHomeController
 {
-    private readonly LocalThemeService _localThemeService;
+    private readonly LocalThemeRepository _localThemeRepository;
     private readonly V5Config _config;
 
     public ThemeHomeController(
-        LocalThemeService localThemeService,
+        LocalThemeRepository localThemeRepository,
         V5Config config)
     {
-        _localThemeService = localThemeService;
+        _localThemeRepository = localThemeRepository;
         _config = config;
     }
 
@@ -41,18 +42,22 @@ internal class ThemeHomeController
 
     private async Task<InstalledThemeHomeTabViewModel> GetInstalledTabViewModelAsync()
     {
-        IReadOnlyCollection<LocalThemeManifest> themes = await _localThemeService.ListAllAsync();
+        IReadOnlyCollection<LocalThemeManifest> themes = await _localThemeRepository.ListAllAsync();
 
         var installedTab = new InstalledThemeHomeTabViewModel { Title = "Installed" };
 
         foreach (LocalThemeManifest theme in themes)
             installedTab.Themes.Add(new InstalledThemeViewModel
             {
+                Id = theme.Manifest.Id,
                 Name = theme.Manifest.Name,
+                Description = theme.Manifest.Description,
                 Author = theme.Manifest.Author,
+                Version = theme.Manifest.Version,
                 Path = theme.Path,
-                IsEnabled = _config.Client.Themes.Contains(theme.Path),
-                IsDraggingOver = false
+                IsEnabled = _config.Client.Themes.Contains(theme.Manifest.Id),
+                IsDraggingOver = false,
+                Tags = theme.Manifest.Tags.ToObservableCollection()
             });
 
         return installedTab;

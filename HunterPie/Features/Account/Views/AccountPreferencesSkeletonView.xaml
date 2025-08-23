@@ -7,11 +7,11 @@
              mc:Ignorable="d">
     <Border CornerRadius="5"
             Padding="10"
-            Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
-            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+            Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
+            BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
             BorderThickness="1">
         <Grid Height="130">
-            <Rectangle Fill="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+            <Rectangle Fill="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                        Width="60"
                        Height="20"
                        RadiusX="5"
@@ -20,7 +20,7 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                        Margin="0"/>
-            <Rectangle Fill="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+            <Rectangle Fill="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                        Width="100"
                        Height="20"
                        RadiusX="5"
@@ -35,10 +35,10 @@
                      VerticalAlignment="Center"
                      HorizontalAlignment="Left"
                      Opacity="0.2"
-                     Fill="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                     Fill="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                      Margin="10,25,0,0"/>
 
-            <Rectangle Fill="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+            <Rectangle Fill="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                        Width="60"
                        Height="10"
                        RadiusX="2"
@@ -47,7 +47,7 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                        Margin="110,38,0,0"/>
-            <Rectangle Fill="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+            <Rectangle Fill="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                        Width="80"
                        Height="12"
                        RadiusX="3"
@@ -57,7 +57,7 @@
                        HorizontalAlignment="Left"
                        Margin="110,51,0,0"/>
 
-            <Rectangle Fill="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+            <Rectangle Fill="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                        Width="35"
                        Height="10"
                        RadiusX="2"
@@ -66,7 +66,7 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                        Margin="110,70,0,0"/>
-            <Rectangle Fill="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+            <Rectangle Fill="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                        Width="130"
                        Height="12"
                        RadiusX="3"

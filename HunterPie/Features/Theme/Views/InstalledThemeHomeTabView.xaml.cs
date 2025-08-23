@@ -76,6 +76,9 @@ public partial class InstalledThemeHomeTabView : UserControl
             Position = Mouse.GetPosition(this)
         };
 
+        if (element is { DataContext: InstalledThemeViewModel vm })
+            vm.IsBeingDragged = true;
+
         _adornerLayer?.Add(_draggedElement);
     }
 
@@ -83,6 +86,8 @@ public partial class InstalledThemeHomeTabView : UserControl
     {
         if (_draggedElement is not { ConcreteElement.DataContext: InstalledThemeViewModel sourceViewModel })
             return;
+
+        sourceViewModel.IsBeingDragged = false;
 
         if (_lastHoveredViewModel is { } targetViewModel)
         {

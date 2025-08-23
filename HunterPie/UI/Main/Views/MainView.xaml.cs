@@ -70,4 +70,9 @@ public partial class MainView : Window
         if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) && e.KeyboardDevice.IsKeyDown(Key.R))
             App.Restart();
     }
+
+    public void Reload()
+    {
+        UpdateLayout();
+    }
 }

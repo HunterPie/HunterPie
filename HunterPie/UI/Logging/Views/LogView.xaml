@@ -38,7 +38,6 @@
                            d:Text="Info"
                            d:Foreground="AliceBlue"
                            Foreground="{Binding Level, Mode=OneTime, Converter={StaticResource LogLevelToColorConverter}}"
-                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                            FontWeight="Medium"
                            TextAlignment="Center"
                            Padding="5,2,5,2"/>
@@ -46,7 +45,7 @@
 
             <TextBlock Text="{Binding Message, Mode=OneTime}"
                        d:Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                        FontWeight="Medium"
                        FontSize="13"
                        Padding="5,2"

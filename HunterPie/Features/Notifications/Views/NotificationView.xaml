@@ -7,8 +7,8 @@
              mc:Ignorable="d" 
              d:DesignWidth="350"
              Cursor="Hand">
-    <Border Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
-            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+    <Border Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
+            BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
             BorderThickness="1"
             CornerRadius="5">
         <Grid>
@@ -19,16 +19,16 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal"
                         Margin="2,2,0,0">
-                <Rectangle Fill="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                <Rectangle Fill="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                            Margin="2">
                     <Rectangle.OpacityMask>
-                        <ImageBrush ImageSource="{StaticResource ICON_INFO}"/>
+                        <ImageBrush ImageSource="{DynamicResource ICON_INFO}"/>
                     </Rectangle.OpacityMask>
                 </Rectangle>
                 <TextBlock d:Text="Very cool title"
                            Text="{Binding Title, Mode=OneWay}"
-                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                            FontSize="13"
                            VerticalAlignment="Center"
                            FontWeight="Medium"/>
@@ -40,11 +40,11 @@
                        TextWrapping="WrapWithOverflow"
                        FontSize="13"
                        Margin="5"
-                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>
 
             <TextBlock Grid.Row="2"
                        d:Text="13:45 10/09/2022"
-                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                        FontSize="10"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Left"

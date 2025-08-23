@@ -26,8 +26,8 @@
                                    OnSearchTextChanged="OnSearch"/>
 
             <Border Grid.Row="1"
-                    Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
-                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                    Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
+                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                     BorderThickness="1,0,1,1"
                     CornerRadius="0,0,5,5">
                 <ListBox Background="Transparent"

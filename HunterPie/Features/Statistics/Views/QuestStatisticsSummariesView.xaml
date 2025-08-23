@@ -32,12 +32,12 @@
                 <feedback:Prompt d:Text="Become a Supporter to see more than 7 days of hunts!"
                                  Text="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_SUPPORTER_FREE_TIER_STRING&quot;]'}"
                                  HorizontalAlignment="Center"
-                                 Icon="{StaticResource ICON_SUPPORTER_TIER_1}"
-                                 BorderBrush="{StaticResource Blue@200}"
+                                 Icon="{DynamicResource ICON_SUPPORTER_TIER_1}"
+                                 BorderBrush="{DynamicResource Blue@200}"
                                  BorderThickness="1"
                                  CornerRadius="5"
-                                 Background="{StaticResource Blue@700}"
-                                 Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
+                                 Background="{DynamicResource Blue@700}"
+                                 Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>
             </buttons:Button>
         </DataTemplate>
 
@@ -52,12 +52,12 @@
                 <feedback:Prompt d:Text="Become a Tier 2 Supporter to see more than 30 days of hunts!"
                                  Text="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_SUPPORTER_LOW_TIER_STRING&quot;]'}"
                                  HorizontalAlignment="Center"
-                                 Icon="{StaticResource ICON_SUPPORTER_TIER_2}"
-                                 Background="{StaticResource HUNTERPIE_SUPPORTER_T2_BACKGROUND}"
-                                 BorderBrush="{StaticResource HUNTERPIE_SUPPORTER_T2}"
+                                 Icon="{DynamicResource ICON_SUPPORTER_TIER_2}"
+                                 Background="{DynamicResource HUNTERPIE_SUPPORTER_T2_BACKGROUND}"
+                                 BorderBrush="{DynamicResource HUNTERPIE_SUPPORTER_T2}"
                                  BorderThickness="1"
                                  CornerRadius="5"
-                                 Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
+                                 Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>
             </buttons:Button>
         </DataTemplate>
 
@@ -73,9 +73,9 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0"
-                Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
                 BorderThickness="1"
-                BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                 CornerRadius="5,5,0,0">
             <Grid Margin="5,3">
                 <ComboBox VerticalAlignment="Center"
@@ -90,7 +90,7 @@
                 <TextBlock Grid.Row="0"
                            d:Text="Hunts"
                            Text="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_SUMMARY_TITLE_STRING&quot;]'}"
-                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            FontSize="15"
@@ -105,9 +105,9 @@
         </Border>
 
         <Border Grid.Row="1"
-                Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
+                Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
                 BorderThickness="1,0,1,1"
-                BorderBrush="{StaticResource Brushes.HunterPie.Border}">
+                BorderBrush="{DynamicResource Brushes.HunterPie.Border}">
             <viewer:SmoothScrollViewer>
                 <StackPanel Orientation="Vertical">
                     
@@ -169,11 +169,11 @@
                                                                  Icon="{StaticResource ICON_INFO}"
                                                                  d:Text="There were no exported hunts available in the period available for your account."
                                                                  Text="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_NO_LOGS_STRING&quot;]'}"
-                                                                 BorderBrush="{StaticResource Blue}"
-                                                                 Background="{StaticResource Blue@700}"
+                                                                 BorderBrush="{DynamicResource Blue}"
+                                                                 Background="{DynamicResource Blue@700}"
                                                                  BorderThickness="1"
                                                                  CornerRadius="5"
-                                                                 Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                                                 Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                                                                  HorizontalAlignment="Center"/>
                                             </Setter.Value>
                                         </Setter>
@@ -209,15 +209,15 @@
                                         <Setter Property="Content">
                                             <Setter.Value>
                                                 <feedback:Prompt Margin="10"
-                                                                 Icon="{StaticResource ICON_ERROR_MASK}"
+                                                                 Icon="{DynamicResource ICON_ERROR_MASK}"
                                                                  d:Text="Failed to fetch exported hunts. Try again later."
                                                                  Text="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_FETCH_FAILED_ERROR_STRING&quot;]'}"
-                                                                 BorderBrush="{StaticResource Red}"
+                                                                 BorderBrush="{DynamicResource Red}"
                                                                  HorizontalAlignment="Center"
-                                                                 Background="{StaticResource Red@700}"
+                                                                 Background="{DynamicResource Red@700}"
                                                                  BorderThickness="1"
                                                                  CornerRadius="5"
-                                                                 Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
+                                                                 Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>
                                             </Setter.Value>
                                         </Setter>
                                     </DataTrigger>

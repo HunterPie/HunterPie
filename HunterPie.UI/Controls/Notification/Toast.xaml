@@ -16,16 +16,16 @@
         <visibilities:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter"/>
         <Style x:Key="ButtonStyles"
                TargetType="buttons:Button">
-            <Setter Property="Background" Value="{StaticResource Brushes.HunterPie.Background.Primary}"/>
+            <Setter Property="Background" Value="{DynamicResource Brushes.HunterPie.Background.Primary}"/>
             <Setter Property="FontSize" Value="13"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Brushes.HunterPie.Border}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource Brushes.HunterPie.Border}"/>
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
     </UserControl.Resources>
     <Border CornerRadius="5"
-            Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+            Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
             BorderThickness="1"
-            BorderBrush="{StaticResource Brushes.HunterPie.Border}">
+            BorderBrush="{DynamicResource Brushes.HunterPie.Border}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
@@ -34,10 +34,10 @@
             </Grid.RowDefinitions>
 
             <Border Grid.Row="0"
-                    Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
+                    Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
                     CornerRadius="4.5,4.5,0,0"
                     BorderThickness="0,0,0,1"
-                    BorderBrush="{StaticResource Brushes.HunterPie.Border}">
+                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -55,8 +55,8 @@
                                             <Setter.Value>
                                                 <image:Icon Width="20"
                                                             Height="20"
-                                                            Image="{StaticResource ICON_INFO}"
-                                                            Foreground="{StaticResource Brushes.HunterPie.Neutral}"/>
+                                                            Image="{DynamicResource ICON_INFO}"
+                                                            Foreground="{DynamicResource Brushes.HunterPie.Neutral}"/>
                                             </Setter.Value>
                                         </Setter>
                                     </DataTrigger>
@@ -67,8 +67,8 @@
                                             <Setter.Value>
                                                 <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                                                             Padding="5"
-                                                            Image="{StaticResource ICON_ERROR}"
-                                                            Foreground="{StaticResource Brushes.HunterPie.Error}"/>
+                                                            Image="{DynamicResource ICON_ERROR}"
+                                                            Foreground="{DynamicResource Brushes.HunterPie.Error}"/>
                                             </Setter.Value>
                                         </Setter>
                                     </DataTrigger>
@@ -79,8 +79,8 @@
                                             <Setter.Value>
                                                 <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                                                             Padding="5"
-                                                            Image="{StaticResource ICON_CHECKMARK}"
-                                                            Foreground="{StaticResource Brushes.HunterPie.Success}"/>
+                                                            Image="{DynamicResource ICON_CHECKMARK}"
+                                                            Foreground="{DynamicResource Brushes.HunterPie.Success}"/>
                                             </Setter.Value>
                                         </Setter>
                                     </DataTrigger>
@@ -91,8 +91,8 @@
                                             <Setter.Value>
                                                 <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                                                             Padding="6"
-                                                            Image="{StaticResource ICON_WARN}"
-                                                            Foreground="{StaticResource Brushes.HunterPie.Warning}"/>
+                                                            Image="{DynamicResource ICON_WARN}"
+                                                            Foreground="{DynamicResource Brushes.HunterPie.Warning}"/>
                                             </Setter.Value>
                                         </Setter>
                                     </DataTrigger>
@@ -114,7 +114,7 @@
                     <TextBlock Grid.Column="1"
                                d:Text="Title"
                                Text="{Binding Title, Mode=OneWay}"
-                               Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                               Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                                FontSize="14"
                                VerticalAlignment="Center"
                                FontWeight="Medium"/>
@@ -127,7 +127,7 @@
                        Padding="4"
                        Margin="10,5"
                        FontSize="13"
-                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                        TextWrapping="WrapWithOverflow"/>
 
             <UniformGrid Grid.Row="2"
@@ -135,7 +135,7 @@
                          Columns="{Binding ButtonCount, Mode=OneWay}">
                 <buttons:Button d:Content="Primary"
                                 Content="{Binding PrimaryLabel, Mode=OneWay}"
-                                Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                                 Style="{StaticResource ButtonStyles}"
                                 BorderThickness="0,1,1,0"
                                 CornerRadius="0,0,0,4.5"
@@ -143,7 +143,7 @@
                                 Visibility="{Binding PrimaryHandler, Mode=OneWay, Converter={StaticResource NullableToVisibilityConverter}}"/>
                 <buttons:Button d:Content="Primary"
                                 Content="{Binding SecondaryLabel, Mode=OneWay}"
-                                Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                                 Style="{StaticResource ButtonStyles}"
                                 BorderThickness="0,1,0,0"
                                 CornerRadius="0,0,4.5,0"

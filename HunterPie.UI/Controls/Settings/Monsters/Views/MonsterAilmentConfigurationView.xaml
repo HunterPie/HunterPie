@@ -21,9 +21,9 @@
                     HorizontalContentAlignment="Stretch"
                     Padding="2"
                     BorderThickness="1"
-                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                     CornerRadius="5"
-                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                    Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                     Click="OnClick">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -44,11 +44,11 @@
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsEnabled.Value, Mode=OneWay}"
                                          Value="True">
-                                <Setter Property="Fill" Value="{StaticResource Green@200}"/>
+                                <Setter Property="Fill" Value="{DynamicResource Green@200}"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding IsEnabled.Value, Mode=OneWay}"
                                          Value="False">
-                                <Setter Property="Fill" Value="{StaticResource Red@200}"/>
+                                <Setter Property="Fill" Value="{DynamicResource Red@200}"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -56,7 +56,7 @@
             </Ellipse>
 
             <TextBlock Grid.Column="1"
-                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                        d:Text="Ailment name"
                        Text="{Binding StringId, Mode=OneTime, Converter={StaticResource RiseMonsterAilmentIdToNameConverter}}"
                        FontSize="13"

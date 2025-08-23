@@ -47,11 +47,11 @@
                 </Style.Resources>
             </Style>
         </Style.Resources>
-        <Setter Property="FontFamily" Value="{StaticResource Font.Default}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource Font.Default}"/>
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Background" Value="{StaticResource Brushes.HunterPie.Background.Primary}"/>
-        <Setter Property="Foreground" Value="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource Brushes.HunterPie.Border}"/>
+        <Setter Property="Background" Value="{DynamicResource Brushes.HunterPie.Background.Primary}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Brushes.HunterPie.Border}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="MaxWidth" Value="350"/>
         <Setter Property="ToolTipService.InitialShowDelay" Value="1000"/>
@@ -95,7 +95,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Border CornerRadius="2" 
-                            Background="{StaticResource Brushes.HunterPie.Foreground.Tertiary}" 
+                            Background="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}" 
                             BorderBrush="{TemplateBinding BorderBrush}" 
                             BorderThickness="0" />
                 </ControlTemplate>
@@ -113,7 +113,7 @@
             <Border Grid.Row="0" 
                     Grid.RowSpan="3" 
                     CornerRadius="2" 
-                    Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"/>
+                    Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"/>
             <RepeatButton Grid.Row="0" 
                           Style="{StaticResource ScrollBarLineButton}" 
                           Height="18" 
@@ -129,8 +129,8 @@
                 <Track.Thumb>
                     <Thumb Style="{StaticResource ScrollBarThumb}" 
                            Margin="1,1,1,1" 
-                           Background="{StaticResource Brushes.HunterPie.Foreground.Tertiary}" 
-                           BorderBrush="{StaticResource Brushes.HunterPie.Foreground.Tertiary}" />
+                           Background="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}" 
+                           BorderBrush="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}" />
                 </Track.Thumb>
                 <Track.IncreaseRepeatButton>
                     <RepeatButton Style="{StaticResource ScrollBarPageButton}" 
@@ -154,7 +154,7 @@
             <Border Grid.Column="0" 
                     Grid.ColumnSpan="3" 
                     CornerRadius="2" 
-                    Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"/>
+                    Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"/>
             <RepeatButton Grid.Column="0"  
                           Style="{StaticResource ScrollBarLineButton}"
                           Width="0" 
@@ -168,8 +168,8 @@
                 <Track.Thumb>
                     <Thumb Style="{StaticResource ScrollBarThumb}" 
                            Margin="1" 
-                           Background="{StaticResource Brushes.HunterPie.Foreground.Tertiary}" 
-                           BorderBrush="{StaticResource Brushes.HunterPie.Foreground.Tertiary}" />
+                           Background="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}" 
+                           BorderBrush="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}" />
                 </Track.Thumb>
                 <Track.IncreaseRepeatButton>
                     <RepeatButton Style="{StaticResource ScrollBarPageButton}" 
@@ -249,32 +249,32 @@
             <Border Grid.Column="0" 
                     Grid.ColumnSpan="2" 
                     Name="Border"
-                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                     CornerRadius="5" 
                     BorderThickness="1"
-                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"/>
+                    Background="{DynamicResource Brushes.HunterPie.Background.Primary}"/>
             <Border Grid.Column="1" 
                     Margin="1,1,1,1"  
                     Name="ButtonBorder"
                     CornerRadius="0,5,5,0" 
                     BorderThickness="1, 0, 0, 0"
-                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
-                    Background="{StaticResource Brushes.HunterPie.Background.Secondary}" />
+                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+                    Background="{DynamicResource Brushes.HunterPie.Background.Secondary}" />
 
             <Path Name="Arrow" Grid.Column="1"
                   Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
                   HorizontalAlignment="Center" 
-                  Fill="{StaticResource Brushes.HunterPie.Accent}"
+                  Fill="{DynamicResource Brushes.HunterPie.Accent}"
                   VerticalAlignment="Center" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="ToggleButton.IsChecked" Value="True">
                 <Setter Property="Panel.Background" 
                         TargetName="ButtonBorder" 
-                        Value="{StaticResource Brushes.HunterPie.Background.Tertiary}"/>
+                        Value="{DynamicResource Brushes.HunterPie.Background.Tertiary}"/>
                 <Setter Property="Shape.Fill" 
                         TargetName="Arrow" 
-                        Value="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
+                        Value="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -282,26 +282,26 @@
     <Style x:Key="{x:Type ListBoxItem}" TargetType="{x:Type ListBoxItem}">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="Foreground" Value="{StaticResource White@100}"/>
+        <Setter Property="Foreground" Value="{DynamicResource White@100}"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource Gray@400}"/>
+                <Setter Property="Background" Value="{DynamicResource Gray@400}"/>
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{StaticResource Gray@400}"/>
-                <Setter Property="Foreground" Value="{StaticResource Brushes.HunterPie.Accent}"/>
+                <Setter Property="Background" Value="{DynamicResource Gray@400}"/>
+                <Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Accent}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
 
     <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
-        <Setter Property="FontFamily" Value="{StaticResource Font.Default}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource Font.Default}"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
-        <Setter Property="TextElement.Foreground" Value="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
+        <Setter Property="TextElement.Foreground" Value="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
                 <Style TargetType="ComboBoxItem">
@@ -317,7 +317,7 @@
                     <Setter Property="BorderThickness" Value="0"/>
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Foreground" Value="{StaticResource Brushes.HunterPie.Accent}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Accent}"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -371,8 +371,8 @@
                                         Margin="0,0,0,0"
                                         CornerRadius="5" 
                                         BorderThickness="1,1,1,1"
-                                        BorderBrush="{StaticResource Brushes.HunterPie.Border}"
-                                        Background="{StaticResource Brushes.HunterPie.Background.Secondary}"/>
+                                        BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+                                        Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"/>
                                 <ScrollViewer Margin="0" 
                                               SnapsToDevicePixels="True">
                                     <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"
@@ -402,9 +402,9 @@
     <!-- TextBox -->
     <Style x:Key="{x:Type TextBox}" 
            TargetType="{x:Type TextBox}">
-        <Setter Property="CaretBrush" Value="{StaticResource Brushes.HunterPie.Accent}"/>
-        <Setter Property="Foreground" Value="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
-        <Setter Property="FontFamily" Value="{StaticResource Font.Default}"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource Brushes.HunterPie.Accent}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource Font.Default}"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Padding" Value="2"/>
@@ -414,9 +414,9 @@
                 <ControlTemplate TargetType="TextBox">
                     <Border CornerRadius="5"
                             ClipToBounds="True"
-                            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                            BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                             BorderThickness="1"
-                            Background="{StaticResource Brushes.HunterPie.Background.Primary}">
+                            Background="{DynamicResource Brushes.HunterPie.Background.Primary}">
                         <ScrollViewer x:Name="PART_ContentHost"/>
                     </Border>
                 </ControlTemplate>
@@ -425,7 +425,7 @@
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
                 <ControlTemplate>
-                    <Border BorderBrush="{StaticResource Brushes.HunterPie.Error}" 
+                    <Border BorderBrush="{DynamicResource Brushes.HunterPie.Error}" 
                             BorderThickness="1"
                             CornerRadius="5">
                         <Border.Effect>
@@ -443,17 +443,17 @@
 
     <!-- PasswordBox -->
     <Style x:Key="{x:Type PasswordBox}" TargetType="{x:Type PasswordBox}">
-        <Setter Property="CaretBrush" Value="{StaticResource Brushes.HunterPie.Accent}"/>
-        <Setter Property="Foreground" Value="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
-        <Setter Property="FontFamily" Value="{StaticResource Font.Default}"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource Brushes.HunterPie.Accent}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource Font.Default}"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="PasswordBox">
-                    <Border BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                    <Border BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                             BorderThickness="1"
                             CornerRadius="5"
-                            Background="{StaticResource Brushes.HunterPie.Background.Primary}">
+                            Background="{DynamicResource Brushes.HunterPie.Background.Primary}">
                         <ScrollViewer SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                                       x:Name="PART_ContentHost"
                                       Background="Transparent"/>
@@ -494,7 +494,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RepeatButton">
-                    <Border  BorderBrush="{StaticResource Brushes.HunterPie.Border}" 
+                    <Border  BorderBrush="{DynamicResource Brushes.HunterPie.Border}" 
                              BorderThickness="1" 
                              CornerRadius="1"
                              Height="2"/>
@@ -513,7 +513,7 @@
                     <Border BorderThickness="1" 
                             CornerRadius="1"
                             Height="2"
-                            BorderBrush="{StaticResource Brushes.HunterPie.Accent}"/>
+                            BorderBrush="{DynamicResource Brushes.HunterPie.Accent}"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -527,9 +527,9 @@
                 <ControlTemplate TargetType="Thumb">
                     <Ellipse Height="13" 
                              Width="13" 
-                             Fill="{StaticResource Brushes.HunterPie.Foreground.Primary}" 
+                             Fill="{DynamicResource Brushes.HunterPie.Foreground.Primary}" 
                              Cursor="Hand" 
-                             Stroke="{StaticResource Brushes.HunterPie.Foreground.Primary}" 
+                             Stroke="{DynamicResource Brushes.HunterPie.Foreground.Primary}" 
                              StrokeThickness="1"/>
                 </ControlTemplate>
             </Setter.Value>
@@ -577,10 +577,10 @@
     </Style>
 
     <Style x:Key="{x:Type lvc:DefaultTooltip}" TargetType="{x:Type lvc:DefaultTooltip}">
-        <Setter Property="Background" Value="{StaticResource Gray@300}"/>
-        <Setter Property="Foreground" Value="{StaticResource White@50}"/>
-        <Setter Property="FontFamily" Value="{StaticResource Font.Default}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource Brushes.HunterPie.Accent}"/>
+        <Setter Property="Background" Value="{DynamicResource Gray@300}"/>
+        <Setter Property="Foreground" Value="{DynamicResource White@50}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource Font.Default}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Brushes.HunterPie.Accent}"/>
         <Setter Property="BulletSize" Value="4"/>
         <Setter Property="BorderThickness" Value="1"/>
     </Style>
@@ -599,7 +599,7 @@
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Opacity" Value="1"/>
                             <Setter TargetName="PART_Border" Property="BorderBrush" Value="Black" />
-                            <Setter Property="Foreground" Value="{StaticResource Brushes.HunterPie.Accent}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Accent}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -608,12 +608,12 @@
     </Style>
 
     <Style TargetType="{x:Type TextBlock}">
-        <Setter Property="FontFamily" Value="{StaticResource Font.Default}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource Font.Default}"/>
     </Style>
 
     <DataTemplate x:Key="DATA_TEMPLATE_SETTINGS_ENUM_ELEMENT">
         <TextBlock Text="{Binding ., Mode=OneTime, Converter={StaticResource EnumToStringConverter}}"
-                   FontFamily="{StaticResource Font.Default}"/>
+                   FontFamily="{DynamicResource Font.Default}"/>
     </DataTemplate>
 
     <Style TargetType="{x:Type ListBox}">

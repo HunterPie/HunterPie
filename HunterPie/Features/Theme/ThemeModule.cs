@@ -1,8 +1,8 @@
 ﻿using HunterPie.DI;
 using HunterPie.DI.Module;
 using HunterPie.Features.Theme.Controller;
-using HunterPie.Features.Theme.Datasources;
 using HunterPie.Features.Theme.Loader;
+using HunterPie.Features.Theme.Repository;
 
 namespace HunterPie.Features.Theme;
 
@@ -11,7 +11,7 @@ internal class ThemeModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
-            .WithService<LocalThemeService>()
+            .WithSingle<LocalThemeRepository>()
             .WithSingle<ThemeLoaderService>()
             .WithService<ThemeHomeController>();
     }

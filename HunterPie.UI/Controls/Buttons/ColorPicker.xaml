@@ -16,8 +16,8 @@
                   VerticalContentAlignment="Stretch"
                   OnClick="OnButtonClick"
                   Padding="0"
-                  Background="{StaticResource Brushes.HunterPie.Background.Primary}"
-                  BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                  Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
+                  BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                   BorderThickness="1"
                   CornerRadius="5">
         <Grid>
@@ -25,8 +25,8 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock FontFamily="{StaticResource Font.Default}"
-                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+            <TextBlock FontFamily="{DynamicResource Font.Default}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                        FontSize="15"
                        VerticalAlignment="Center"
                        Margin="5,0,5,0"
@@ -34,7 +34,7 @@
                        HorizontalAlignment="Right"
                        FontWeight="Medium">
                 <Run Text="#"
-                     Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                     Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                      FontWeight="Regular"/><!--
              --><Run Text="{Binding Color, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPicker}}, Mode=OneWay, Converter={StaticResource HashPrefixFilterConverter}}"
                      d:Text="FF03A9FC"/>
@@ -42,7 +42,7 @@
             <Border d:Background="#FF03A9FC"
                     Background="{Binding Color, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPicker}}, Mode=OneWay}"
                     Grid.Column="0"
-                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                     BorderThickness="1"
                     CornerRadius="5"
                     Margin="5"

@@ -28,7 +28,7 @@
             </Grid.ColumnDefinitions>
 
             <Rectangle Grid.Column="0"
-                       Fill="{StaticResource Brushes.HunterPie.Accent}">
+                       Fill="{DynamicResource Brushes.HunterPie.Accent}">
                 <Rectangle.Style>
                     <Style TargetType="Rectangle">
                         <Style.Triggers>
@@ -72,8 +72,8 @@
             <image:Icon Grid.Column="1"
                         Padding="12"
                         Image="{Binding Icon, Mode=OneWay, Converter={StaticResource IconResolver}}"
-                        d:Image="{StaticResource ICON_HUNTERPIE}"
-                        Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
+                        d:Image="{DynamicResource ICON_HUNTERPIE}"
+                        Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"/>
 
             <TextBlock Grid.Column="2"
                        VerticalAlignment="Center"
@@ -82,7 +82,7 @@
                        FontSize="18"
                        FontWeight="Medium"
                        Margin="10,0"
-                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"/>
         </Grid>
     </buttons:Button>
 </UserControl>

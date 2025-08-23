@@ -11,8 +11,8 @@
              d:DesignWidth="200"
              d:DataContext="{d:DesignInstance viewModels:HomeCallToActionViewModel}">
     <buttons:Button BorderThickness="1"
-                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"
-                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                    Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
+                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                     CornerRadius="5"
                     VerticalContentAlignment="Stretch"
                     HorizontalContentAlignment="Stretch"
@@ -35,7 +35,7 @@
                         Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                         Image="{Binding Icon, Mode=OneTime}"
                         d:Image="{StaticResource ICON_ADD}"
-                        Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                        Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                         HorizontalAlignment="Left"/>
 
             <TextBlock Grid.Row="0" 
@@ -44,7 +44,7 @@
                        VerticalAlignment="Center"
                        FontSize="14"
                        FontWeight="Medium"
-                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                        Margin="0,0,20,0"/>
 
             <TextBlock Grid.Row="1"
@@ -54,7 +54,7 @@
                        d:Text="Join our Discord server for real-time assistance and support from our community."
                        FontSize="13"
                        TextWrapping="WrapWithOverflow"
-                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                        Margin="10,5"/>
 
             <StackPanel Grid.Column="0"
@@ -66,11 +66,11 @@
                         Orientation="Horizontal">
                 <TextBlock Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;GO_TO_STRING&quot;]'}"
                            d:Text="Go to"
-                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
+                           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"/>
                 <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                            Image="{StaticResource ICON_CHEVRON_RIGHT}"
+                            Image="{DynamicResource ICON_CHEVRON_RIGHT}"
                             Margin="2"
-                            Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
+                            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"/>
             </StackPanel>
         </Grid>
     </buttons:Button>

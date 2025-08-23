@@ -10,8 +10,8 @@
              d:DesignHeight="450" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:ConsoleViewModel}">
-    <Border BorderBrush="{StaticResource Brushes.HunterPie.Border}"
-            Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+    <Border BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+            Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
             BorderThickness="1"
             Margin="5,5,5,8"
             CornerRadius="5">

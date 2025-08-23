@@ -23,14 +23,14 @@
         <viewModels:MockQuestStatisticsSummaryViewModel x:Key="MockQuestStatisticsSummaryViewModel"/>
         <visibilities:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter"/>
     </architecture:ClickableControl.Resources>
-    <buttons:Button BorderBrush="{StaticResource Brushes.HunterPie.Border}"
-                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+    <buttons:Button BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+                    Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                     BorderThickness="1"
                     CornerRadius="5"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
                     Padding="0"
-                    d:DataContext="{StaticResource MockQuestStatisticsSummaryViewModel}">
+                    d:DataContext="{DynamicResource MockQuestStatisticsSummaryViewModel}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -47,8 +47,8 @@
                     Grid.Column="0"
                     CornerRadius="5,0,0,0"
                     BorderThickness="0,0,0,1"
-                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
-                    Background="{StaticResource Brushes.HunterPie.Background.Secondary}">
+                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+                    Background="{DynamicResource Brushes.HunterPie.Background.Secondary}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -65,8 +65,8 @@
                                 Grid.Column="0"
                                 VerticalAlignment="Center"
                                 Text="{Binding GameType, Mode=OneWay, Converter={StaticResource GameTypeToGameAliasConverter}}"
-                                Foreground="{StaticResource Brushes.HunterPie.Accent.Transparent}"
-                                Background="{StaticResource Brushes.HunterPie.Accent.Transparent}"
+                                Foreground="{DynamicResource Brushes.HunterPie.Accent.Transparent}"
+                                Background="{DynamicResource Brushes.HunterPie.Accent.Transparent}"
                                 Margin="5,0"/>
 
                     <StackPanel Grid.Row="0"
@@ -74,9 +74,9 @@
                                 VerticalAlignment="Stretch"
                                 Orientation="Horizontal">
                         <!-- Quest level -->
-                        <Border Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                        <Border Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                                 BorderThickness="1,0,1,1"
-                                BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                                BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                                 CornerRadius="0,0,5,5"
                                 HorizontalAlignment="Left"
                                 Margin="5,0,0,2"
@@ -92,20 +92,20 @@
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding QuestLevel, Mode=OneWay}"
                                                              Value="{x:Static enums:QuestLevel.LowRank}">
-                                                    <Setter Property="Foreground" Value="{StaticResource Brushes.Quest.LowRank}"/>
-                                                    <Setter Property="Image" Value="{StaticResource ICON_STAR}"/>
+                                                    <Setter Property="Foreground" Value="{DynamicResource Brushes.Quest.LowRank}"/>
+                                                    <Setter Property="Image" Value="{DynamicResource ICON_STAR}"/>
                                                 </DataTrigger>
 
                                                 <DataTrigger Binding="{Binding QuestLevel, Mode=OneWay}"
                                                              Value="{x:Static enums:QuestLevel.HighRank}">
-                                                    <Setter Property="Foreground" Value="{StaticResource Brushes.Quest.HighRank}"/>
-                                                    <Setter Property="Image" Value="{StaticResource ICON_STAR}"/>
+                                                    <Setter Property="Foreground" Value="{DynamicResource Brushes.Quest.HighRank}"/>
+                                                    <Setter Property="Image" Value="{DynamicResource ICON_STAR}"/>
                                                 </DataTrigger>
 
                                                 <DataTrigger Binding="{Binding QuestLevel, Mode=OneWay}"
                                                              Value="{x:Static enums:QuestLevel.MasterRank}">
-                                                    <Setter Property="Foreground" Value="{StaticResource Brushes.Quest.MasterRank}"/>
-                                                    <Setter Property="Image" Value="{StaticResource ICON_MASTER_RANK}"/>
+                                                    <Setter Property="Foreground" Value="{DynamicResource Brushes.Quest.MasterRank}"/>
+                                                    <Setter Property="Image" Value="{DynamicResource ICON_MASTER_RANK}"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
@@ -123,13 +123,13 @@
                                    VerticalAlignment="Center"
                                    FontSize="14"
                                    FontWeight="Medium"
-                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                   Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                                    Margin="5,0,0,0"/>
                     </StackPanel>
 
                     <TextBlock Grid.Row="1" 
                                Grid.Column="1"
-                               Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                               Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                                VerticalAlignment="Center"
                                Margin="5,0">
                         <Run Text="{Binding QuestType, Mode=OneWay, TargetNullValue='Unknown'}"/>
@@ -153,9 +153,9 @@
                             Orientation="Horizontal">
 
                     <!-- Quest Time -->
-                    <Border Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                    <Border Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
                             BorderThickness="1"
-                            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                            BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                             CornerRadius="5"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top"
@@ -164,12 +164,12 @@
                             ToolTip="Deaths">
                         <StackPanel Orientation="Horizontal">
                             <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                        Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
-                                        Image="{StaticResource ICON_STOPWATCH}"
+                                        Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+                                        Image="{DynamicResource ICON_STOPWATCH}"
                                         Margin="1"
                                         HorizontalAlignment="Left"/>
                             <TextBlock Margin="5,0,0,0"
-                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Right"
                                        Text="{Binding QuestTime, Mode=OneWay, StringFormat='mm\\:ss\\&quot;fff', TargetNullValue='---'}"/>
@@ -177,9 +177,9 @@
                     </Border>
 
                     <!-- Deaths -->
-                    <Border Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                    <Border Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
                             BorderThickness="1"
-                            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                            BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                             CornerRadius="5"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top"
@@ -189,12 +189,12 @@
                             ToolTip="Deaths">
                         <StackPanel Orientation="Horizontal">
                             <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                        Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
-                                        Image="{StaticResource ICON_SKULL}"
+                                        Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+                                        Image="{DynamicResource ICON_SKULL}"
                                         Margin="1"
                                         HorizontalAlignment="Left"/>
                             <TextBlock Margin="5,0,0,0"
-                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Right">
                                 <Run Text="{Binding Deaths, Mode=OneWay}"/><!--
@@ -227,12 +227,12 @@
             <Border Grid.Row="0"
                     Grid.Column="1"
                     Grid.RowSpan="3"
-                    Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                    Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                     CornerRadius="0,5,5,0"
                     BorderThickness="1,0,0,0"
-                    BorderBrush="{StaticResource Brushes.HunterPie.Border}">
-                <image:Icon Image="{StaticResource ICON_ARROW_RIGHT}"
-                            Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}">
+                <image:Icon Image="{DynamicResource ICON_ARROW_RIGHT}"
+                            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                             Height="15"
                             Margin="5"/>
             </Border>

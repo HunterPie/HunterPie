@@ -36,7 +36,7 @@
                     d:ItemsSource="{d:SampleData ItemCount=2}"
                     ItemTemplate="{StaticResource Internal.HeaderTemplate}"
                     ContentTemplateSelector="{StaticResource ThemeTabTemplateSelector}"
-                    Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
+                    Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
                     BorderThickness="0"/>
     </Grid>
 </UserControl>

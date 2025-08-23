@@ -8,7 +8,8 @@
                        xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
                        mc:Ignorable="d" 
                        Width="45"
-                       Height="25">
+                       Height="25"
+                       Cursor="Hand">
     <arch:ClickableControl.Resources>
         <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
         <Style x:Key="StyleForeground"
@@ -68,7 +69,7 @@
                     <DataTrigger.ExitActions>
                         <BeginStoryboard>
                             <Storyboard Storyboard.TargetProperty="Width">
-                                <anim:BrushAnimation To="{StaticResource Brushes.HunterPie.Background.Tertiary}"
+                                <anim:BrushAnimation To="{StaticResource Brushes.HunterPie.Background.Secondary}"
                                                  Duration="0:0:0.25"
                                                  Storyboard.TargetProperty="Fill"/>
                             </Storyboard>
@@ -80,16 +81,16 @@
         
     </arch:ClickableControl.Resources>
     <Grid>
-        <Rectangle Fill="{StaticResource Brushes.HunterPie.Background.Primary}"
+        <Rectangle Fill="{DynamicResource Brushes.HunterPie.Background.Secondary}"
                    RadiusX="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.5}"
                    RadiusY="{Binding RadiusX, RelativeSource={RelativeSource Self}}"
-                   Stroke="{StaticResource Brushes.HunterPie.Border}"
+                   Stroke="{DynamicResource Brushes.HunterPie.Border}"
                    Style="{StaticResource SwitchBackground}"
                    StrokeThickness="1"
                    Margin="2"/>
         
         <Rectangle x:Name="PART_Slider"
-                   Fill="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                   Fill="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                    Height="{Binding ActualHeight, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=.6, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
                    Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
                    Margin="5,0,0,0"

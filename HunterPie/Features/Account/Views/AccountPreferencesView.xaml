@@ -11,7 +11,7 @@
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="400"
-             Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
+             Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
              d:DataContext="{d:DesignInstance viewModels:AccountPreferencesViewModel}">
     <viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel>

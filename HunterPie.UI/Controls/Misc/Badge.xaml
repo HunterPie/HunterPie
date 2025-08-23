@@ -11,6 +11,6 @@
             CornerRadius="10"
             Padding="5,2">
         <TextBlock Text="{Binding Text, ElementName=BadgeControl}"
-                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
+                   Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>
     </Border>
 </UserControl>

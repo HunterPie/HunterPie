@@ -21,9 +21,9 @@
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
     </UserControl.Resources>
     <Border BorderThickness="1"
-            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+            BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
             CornerRadius="5"
-            Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+            Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
             Padding="10,0,10,10"
             Visibility="{Binding IsFetching, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
         <Grid>
@@ -44,12 +44,12 @@
             <Separator Grid.ColumnSpan="2"
                        Grid.Row="0"
                        VerticalAlignment="Bottom"
-                       Background="{StaticResource Brushes.HunterPie.Border}"/>
+                       Background="{DynamicResource Brushes.HunterPie.Border}"/>
             
             <!-- Details -->
             <TextBlock Grid.Row="0" 
                        FontSize="15"
-                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                        Margin="0,0,5,0"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
@@ -58,7 +58,7 @@
                      FontWeight="Medium"/>
                 <Run Text="{Binding Count, Mode=OneWay}"
                      d:Text="3"
-                     Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/><!--
+                     Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/><!--
              --><Run Text="/"/><!--
              --><Run Text="{Binding MaxCount, Mode=OneWay}"
                      d:Text="5"/>
@@ -68,19 +68,19 @@
                         Orientation="Horizontal"
                         HorizontalAlignment="Center"
                         Visibility="{Binding HasBackups, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <image:Icon Foreground="{StaticResource LightGreen@100}"
-                            Image="{StaticResource ICON_CLOUD_CHECK}"
+                <image:Icon Foreground="{DynamicResource Brushes.HunterPie.Success}"
+                            Image="{DynamicResource ICON_CLOUD_CHECK}"
                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                             Margin="7"
                             Opacity="0.3"/>
                 <TextBlock FontSize="13"
-                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                            VerticalAlignment="Center">
                     <Run Text="Last sync:"
                          FontWeight="Medium"/>
                     <Run d:Text="An hour ago"
                          Text="{Binding LastSync, Mode=OneWay, StringFormat='G', ConverterCulture={x:Static gl:CultureInfo.CurrentCulture}}"
-                         Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
+                         Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>
                 </TextBlock>
             </StackPanel>
 
@@ -89,20 +89,20 @@
                 <!-- Backup not enabled warning -->
                 <Border Margin="15,5,15,5"
                         BorderThickness="1"
-                        BorderBrush="{StaticResource Yellow@600}"
+                        BorderBrush="{DynamicResource Brushes.HunterPie.Warning}"
                         CornerRadius="5"
-                        Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                        Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
                         HorizontalAlignment="Center"
                         Visibility="{Binding IsBackupEnabled, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
-                        <image:Icon Image="{StaticResource ICON_WARN}"
-                                    Foreground="{StaticResource Yellow@300}"
+                        <image:Icon Image="{DynamicResource ICON_WARN}"
+                                    Foreground="{DynamicResource Brushes.HunterPie.Warning}"
                                     Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                                     Margin="8"/>
 
                         <TextBlock Text="{markup:Localization '//Strings/Client/Integrations/Poogie[@Id=&quot;BACKUP_NOT_ENABLED_STRING&quot;]'}"
                                    d:Text="Looks like you don't have automatic backups enabled.&#10;You can enable it in your Account settings."
-                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                   Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                                    FontSize="13.5"
                                    VerticalAlignment="Center"
                                    Margin="5"/>
@@ -112,20 +112,20 @@
                 <!-- No backups found message -->
                 <Border HorizontalAlignment="Center"
                         Padding="5"
-                        Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
-                        BorderBrush="{StaticResource Brushes.HunterPie.Accent}"
+                        Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
+                        BorderBrush="{DynamicResource Brushes.HunterPie.Accent}"
                         BorderThickness="1"
                         CornerRadius="5"
                         Margin="0,10,0,0"
                         Visibility="{Binding HasBackups, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
-                        <image:Icon Image="{StaticResource ICON_INFO}"
-                                    Foreground="{StaticResource Brushes.HunterPie.Accent}"
+                        <image:Icon Image="{DynamicResource ICON_INFO}"
+                                    Foreground="{DynamicResource Brushes.HunterPie.Accent}"
                                     Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"/>
                         <TextBlock d:Text="You have no backups."
                                    Text="{markup:Localization '//Strings/Client/Integrations/Poogie[@Id=&quot;BACKUP_NOT_FOUND_STRING&quot;]'}"
                                    FontSize="15"
-                                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                                   Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                                    Margin="10,0,10,0"/>
                     </StackPanel>
                 </Border>

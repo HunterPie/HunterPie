@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="30" 
              d:DesignWidth="30">
-    <controls:Arc Stroke="{StaticResource Brushes.HunterPie.Accent}"
+    <controls:Arc Stroke="{DynamicResource Brushes.HunterPie.Accent}"
                   StrokeThickness="3"
                   StartAngle="60"
                   RenderTransformOrigin="0.5,0.5"

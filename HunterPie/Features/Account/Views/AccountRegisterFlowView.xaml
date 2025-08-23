@@ -20,7 +20,7 @@
         <StackPanel Orientation="Vertical"
                     Margin="10">
             <TextBlock Text="Username"
-                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                        Margin="0,0,0,1"/>
             <TextBox Height="35">
                 <TextBox.Text>
@@ -42,7 +42,7 @@
         <StackPanel Orientation="Vertical"
                     Margin="10">
             <TextBlock Text="Email"
-                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                        Margin="0,0,0,1"/>
             <TextBox Height="35">
                 <TextBox.Text>
@@ -64,7 +64,7 @@
         <StackPanel Orientation="Vertical"
                     Margin="10">
             <TextBlock Text="Password"
-                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                        Margin="0,0,0,1"/>
             <textbox:SecretTextBox Height="35"
                                    Text="{Binding Password, Mode=TwoWay}"/>
@@ -74,8 +74,8 @@
                         FontSize="14"
                         Padding="20,10"
                         BorderThickness="1"
-                        BorderBrush="{StaticResource Brushes.HunterPie.Border}"
-                        Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                        BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+                        Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                         CornerRadius="5"
                         HorizontalAlignment="Center"
                         IsEnabled="{Binding CanRegister, Mode=OneWay}"

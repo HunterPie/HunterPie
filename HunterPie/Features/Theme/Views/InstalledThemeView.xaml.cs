@@ -1,13 +1,15 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using HunterPie.Features.Theme.ViewModels;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HunterPie.Features.Theme.Views;
 /// <summary>
 /// Interaction logic for InstalledThemeView.xaml
 /// </summary>
-public partial class InstalledThemeView : UserControl
+public partial class InstalledThemeView
 {
+    private InstalledThemeViewModel ViewModel => (InstalledThemeViewModel)DataContext;
+
     public static readonly RoutedEvent BeginDragEvent = EventManager.RegisterRoutedEvent(
         nameof(BeginDrag),
         RoutingStrategy.Bubble,
@@ -27,4 +29,9 @@ public partial class InstalledThemeView : UserControl
     }
 
     private void OnDragButtonDown(object sender, MouseButtonEventArgs e) => RaiseEvent(new RoutedEventArgs(BeginDragEvent, this));
+
+    private void OnEnableTheme(object sender, RoutedEventArgs e)
+    {
+        ViewModel.Toggle();
+    }
 }

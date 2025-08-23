@@ -34,9 +34,9 @@
                              To="1" />
         </Storyboard>
     </UserControl.Resources>
-    <local:Button BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+    <local:Button BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                   BorderThickness="1"
-                  Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+                  Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                   CornerRadius="5"
                   Padding="0"
                   HorizontalContentAlignment="Stretch"

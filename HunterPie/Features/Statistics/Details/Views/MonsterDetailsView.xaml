@@ -17,7 +17,7 @@
              mc:Ignorable="d" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:MonsterDetailsViewModel}"
-             Background="{StaticResource Brushes.HunterPie.Background.Secondary}" 
+             Background="{DynamicResource Brushes.HunterPie.Background.Secondary}" 
              x:ClassModifier="internal">
     <UserControl.Resources>
         <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>
@@ -46,8 +46,8 @@
             <!-- Quest Details -->
             <UniformGrid Columns="2">
                 <Border Margin="3"
-                        Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
-                        BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                        Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
+                        BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                         BorderThickness="1"
                         CornerRadius="5">
                     
@@ -59,13 +59,13 @@
                         </Grid.RowDefinitions>
                         
                         <Border Grid.Row="0" 
-                                Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
+                                Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
                                 CornerRadius="5,5,0,0">
                             <TextBlock d:Text="Hunt Details"
                                        Text="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_HUNT_DETAILS_STRING&quot;]'}"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
-                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                                        FontSize="13"/>
                         </Border>
 
@@ -94,8 +94,8 @@
                 </Border>
 
                 <Border Margin="3"
-                        Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
-                        BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                        Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
+                        BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                         BorderThickness="1"
                         CornerRadius="5">
                     <Grid>
@@ -105,13 +105,13 @@
                         </Grid.RowDefinitions>
 
                         <Border Grid.Row="0" 
-                                Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
+                                Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
                                 CornerRadius="5,5,0,0">
                             <TextBlock d:Text="Status Details"
                                        Text="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_STATUS_DETAILS_STRING&quot;]'}"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
-                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                                        FontSize="13"/>
                         </Border>
 
@@ -169,12 +169,12 @@
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Center"
                                                        FontWeight="Medium"
-                                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"/>
+                                                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>
 
                                             <TextBlock Grid.Row="1"
                                                        Text="{Binding Name, Mode=OneWay}"
                                                        HorizontalAlignment="Center"
-                                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                                                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                                                        Margin="2"/>
                                         </Grid>
                                     </buttons:Button>

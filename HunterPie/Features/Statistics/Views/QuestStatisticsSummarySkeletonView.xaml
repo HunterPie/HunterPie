@@ -7,8 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="130" 
              d:DesignWidth="800">
-    <Border BorderBrush="{StaticResource Brushes.HunterPie.Border}"
-            Background="{StaticResource Brushes.HunterPie.Background.Primary}"
+    <Border BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+            Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
             BorderThickness="1"
             CornerRadius="5"
             ClipToBounds="True">
@@ -26,10 +26,10 @@
             <Border Grid.Row="0" 
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
-                    Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                    Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
                     BorderThickness="0,0,1,1"
                     CornerRadius="5,0,0,0"
-                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"/>
+                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"/>
 
             <loading:Skeleton Grid.Row="0"
                               Grid.Column="0"
@@ -37,7 +37,7 @@
                               VerticalAlignment="Center"
                               Height="20"
                               Opacity="0.2"
-                              Background="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                              Background="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                               Margin="5"/>
 
             <loading:Skeleton Grid.Row="0"
@@ -47,7 +47,7 @@
                               VerticalAlignment="Top"
                               Height="15"
                               Opacity="0.2"
-                              Background="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                              Background="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                               Margin="5"/>
 
             <loading:Skeleton Grid.Row="0"
@@ -57,7 +57,7 @@
                               VerticalAlignment="Top"
                               Height="15"
                               Opacity="0.2"
-                              Background="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
+                              Background="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                               Margin="60,5,5,5"/>
 
             <loading:Skeleton Grid.Row="1"
@@ -68,7 +68,7 @@
                               VerticalAlignment="Top"
                               Height="15"
                               Opacity="0.2"
-                              Background="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                              Background="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                               Margin="5,5,5,5"/>
 
             <loading:Skeleton Grid.Row="1"
@@ -78,7 +78,7 @@
                               HorizontalAlignment="Left"
                               VerticalAlignment="Top"
                               Height="15"
-                              Background="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                              Background="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                               Opacity="0.2"
                               Margin="110,5,5,5"/>
 
@@ -89,7 +89,7 @@
                               VerticalAlignment="Bottom"
                               Height="10"
                               Opacity="0.2"
-                              Background="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                              Background="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                               Margin="5"/>
 
             <loading:Skeleton Grid.Row="1"
@@ -97,7 +97,7 @@
                               Grid.ColumnSpan="2"
                               Height="40"
                               Width="40"
-                              Background="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                              Background="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                               VerticalAlignment="Bottom"
                               HorizontalAlignment="Left"
                               Opacity="0.2"
@@ -107,7 +107,7 @@
                               Grid.ColumnSpan="2"
                               Height="40"
                               Width="40"
-                              Background="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                              Background="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                               VerticalAlignment="Bottom"
                               HorizontalAlignment="Left"
                               Opacity="0.2"
@@ -117,7 +117,7 @@
                               Grid.ColumnSpan="2"
                               Height="40"
                               Width="40"
-                              Background="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                              Background="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                               VerticalAlignment="Bottom"
                               HorizontalAlignment="Left"
                               Opacity="0.2"
