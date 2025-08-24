@@ -39,6 +39,9 @@ public class ObservableCollectionConverter<T> : JsonConverter
         if (existingObject is ICollection)
             return;
 
+        if (existingObject is string)
+            return;
+
         foreach (PropertyInfo property in objectType.GetProperties())
         {
             Type propertyType = property.PropertyType;

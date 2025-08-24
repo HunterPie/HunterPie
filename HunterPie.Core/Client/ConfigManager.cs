@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client.Events;
 using HunterPie.Core.Client.Observer;
+using HunterPie.Core.Crypto;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Json;
 using HunterPie.Core.Observability.Logging;
@@ -29,6 +30,7 @@ public class ConfigManager
     private static readonly Dictionary<string, long> _lastWrites = new();
     private const long MinTicks = 100 * TimeSpan.TicksPerMillisecond;
     private static readonly Dictionary<string, object> _settings = new();
+    private static readonly Dictionary<string, string> _hashes = new();
 
     public static event EventHandler<ConfigSaveEventArgs> OnSync;
 
@@ -62,6 +64,19 @@ public class ConfigManager
 
         _fileSystemWatcher.Changed += (_, args) =>
         {
+            string cachedHash = string.Empty;
+            if (_hashes.ContainsKey(args.FullPath))
+                cachedHash = _hashes[args.FullPath];
+
+            string currentHash = HashService.Hash(
+                value: ConfigHelper.ReadObject(args.FullPath)
+            );
+
+            if (cachedHash == currentHash)
+                return;
+
+            _hashes[args.FullPath] = currentHash;
+
             if (!Settings.ContainsKey(args.FullPath))
                 return;
 

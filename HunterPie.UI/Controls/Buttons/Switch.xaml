@@ -17,10 +17,13 @@
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type arch:ClickableControl}}}"
                              Value="True">
+                    <Setter Property="Margin" Value="25,0,0,0"/>
+                    <Setter Property="Fill" Value="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>
                     <DataTrigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard>
                                 <ThicknessAnimation To="25,0,0,0"
+                                                    From="5,0,0,0"
                                                     Duration="0:0:0.15"
                                                  Storyboard.TargetProperty="Margin">
                                     <ThicknessAnimation.EasingFunction>
@@ -28,6 +31,7 @@
                                     </ThicknessAnimation.EasingFunction>
                                 </ThicknessAnimation>
                                 <anim:BrushAnimation To="{StaticResource Brushes.HunterPie.Foreground.Primary}"
+                                                     From="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                                                      Duration="0:0:0.15"
                                                      Storyboard.TargetProperty="Fill"/>
                             </Storyboard>
@@ -37,6 +41,7 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <ThicknessAnimation To="5,0,0,0"
+                                                    From="25,0,0,0"
                                                     Duration="0:0:0.15"
                                                     Storyboard.TargetProperty="Margin">
                                     <ThicknessAnimation.EasingFunction>
@@ -44,11 +49,17 @@
                                     </ThicknessAnimation.EasingFunction>
                                 </ThicknessAnimation>
                                 <anim:BrushAnimation To="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
+                                                     From="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                                                      Duration="0:0:0.15"
                                                      Storyboard.TargetProperty="Fill"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </DataTrigger.ExitActions>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type arch:ClickableControl}}}"
+                             Value="False">
+                    <Setter Property="Margin" Value="5,0,0,0"/>
+                    <Setter Property="Fill" Value="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -57,32 +68,38 @@
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type arch:ClickableControl}}}" 
                              Value="True">
+                    <Setter Property="Fill" Value="{DynamicResource Brushes.HunterPie.Accent}"/>
                     <DataTrigger.EnterActions>
                         <BeginStoryboard>
-                            <Storyboard>
+                            <Storyboard FillBehavior="Stop">
                                 <anim:BrushAnimation To="{StaticResource Brushes.HunterPie.Accent}"
-                                                 Duration="0:0:0.25"
-                                                 Storyboard.TargetProperty="Fill"/>
+                                                     From="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                                                     Duration="0:0:0.25"
+                                                     Storyboard.TargetProperty="Fill"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </DataTrigger.EnterActions>
                     <DataTrigger.ExitActions>
                         <BeginStoryboard>
-                            <Storyboard Storyboard.TargetProperty="Width">
+                            <Storyboard FillBehavior="Stop">
                                 <anim:BrushAnimation To="{StaticResource Brushes.HunterPie.Background.Secondary}"
-                                                 Duration="0:0:0.25"
-                                                 Storyboard.TargetProperty="Fill"/>
+                                                     From="{StaticResource Brushes.HunterPie.Accent}"
+                                                     Duration="0:0:0.25"
+                                                     Storyboard.TargetProperty="Fill"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </DataTrigger.ExitActions>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type arch:ClickableControl}}}"
+                             Value="False">
+                    <Setter Property="Fill" Value="{DynamicResource Brushes.HunterPie.Background.Secondary}"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
         
     </arch:ClickableControl.Resources>
     <Grid>
-        <Rectangle Fill="{DynamicResource Brushes.HunterPie.Background.Secondary}"
-                   RadiusX="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.5}"
+        <Rectangle RadiusX="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.5}"
                    RadiusY="{Binding RadiusX, RelativeSource={RelativeSource Self}}"
                    Stroke="{DynamicResource Brushes.HunterPie.Border}"
                    Style="{StaticResource SwitchBackground}"
@@ -90,11 +107,8 @@
                    Margin="2"/>
         
         <Rectangle x:Name="PART_Slider"
-                   Fill="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                    Height="{Binding ActualHeight, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=.6, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"
                    Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
-                   Margin="5,0,0,0"
-                   Cursor="Hand"
                    VerticalAlignment="Stretch"
                    HorizontalAlignment="Left"
                    RadiusX="20"

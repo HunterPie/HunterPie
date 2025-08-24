@@ -71,8 +71,12 @@ public partial class MainView : Window
             App.Restart();
     }
 
-    public void Reload()
+    public void Refresh()
     {
+        InvalidateVisual();
+        InvalidateArrange();
+        InvalidateMeasure();
+        InvalidateProperty(ContentProperty);
         UpdateLayout();
     }
 }

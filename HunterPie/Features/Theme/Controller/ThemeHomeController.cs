@@ -33,9 +33,23 @@ internal class ThemeHomeController
             );
 
         viewModel.Tabs.Add(
+            GetExploreTabViewModel()
+        );
+
+        viewModel.Tabs.Add(
             item: await GetInstalledTabViewModelAsync()
         );
 
+
+        return viewModel;
+    }
+
+    private ExploreThemeHomeTabViewModel GetExploreTabViewModel()
+    {
+        var viewModel = new ExploreThemeHomeTabViewModel { Title = "Explore" };
+
+        for (int i = 0; i < 30; i++)
+            viewModel.Themes.Add(new());
 
         return viewModel;
     }

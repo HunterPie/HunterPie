@@ -42,5 +42,7 @@ internal class InstalledThemeViewModel : ViewModel
             enabledThemes.Remove(Id);
         else
             enabledThemes.Add(Id);
+
+        IsEnabled = enabledThemes.Contains(Id);
     }
 }

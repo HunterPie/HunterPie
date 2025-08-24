@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Versions;
+using HunterPie.Core.Extensions;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.Features.Theme.Entity;
 using HunterPie.Features.Theme.Repository;
@@ -45,9 +46,11 @@ internal class ThemeLoaderService
             EnableRaisingEvents = true,
             IncludeSubdirectories = true
         };
-        _watcher.Changed += OnFileChanged;
+        Action reloadThemes = ReloadAllThemes;
+        Action callback = reloadThemes.Debounce();
+        _watcher.Changed += (_, __) => callback();
 
-
+        await LoadAllEnabledThemesAsync();
     }
 
     public async Task LoadAllEnabledThemesAsync()
@@ -151,16 +154,9 @@ internal class ThemeLoaderService
         }
     }
 
-    private void OnFileChanged(object sender, FileSystemEventArgs e)
+    private async void ReloadAllThemes()
     {
-        string? directory = Directory.GetParent(e.FullPath)?.FullName;
-
-        if (directory is null)
-            return;
-
-        if (!_config.Client.Themes.Contains(directory))
-            return;
-
-        // LoadTheme(directory);
+        UnloadAllThemes();
+        await LoadAllEnabledThemesAsync();
     }
 }

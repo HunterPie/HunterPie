@@ -429,7 +429,7 @@
                             BorderThickness="1"
                             CornerRadius="5">
                         <Border.Effect>
-                            <DropShadowEffect Color="{markup:BrushColor Brush={StaticResource Brushes.HunterPie.Error}}" 
+                            <DropShadowEffect Color="{markup:BrushColor Brushes.HunterPie.Error}" 
                                               BlurRadius="10" 
                                               RenderingBias="Performance"
                                               ShadowDepth="0"/>

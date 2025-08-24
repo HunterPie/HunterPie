@@ -34,6 +34,7 @@
     <Grid>
         <TabControl ItemsSource="{Binding Tabs, Mode=OneTime}"
                     d:ItemsSource="{d:SampleData ItemCount=2}"
+                    SelectedIndex="0"
                     ItemTemplate="{StaticResource Internal.HeaderTemplate}"
                     ContentTemplateSelector="{StaticResource ThemeTabTemplateSelector}"
                     Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"

@@ -132,31 +132,39 @@
                      Color="#0d76ef"/>
 
     <SolidColorBrush x:Key="Brushes.HunterPie.Foreground.Primary"
-                     Color="{markup:BrushColor Brush={StaticResource White@100}}"/>
+                     Color="{markup:BrushColor White@100}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Foreground.Secondary"
-                     Color="{markup:BrushColor Brush={StaticResource White@300}}"/>
+                     Color="{markup:BrushColor White@300}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Foreground.Tertiary"
-                     Color="{markup:BrushColor Brush={StaticResource White@500}}"/>
+                     Color="{markup:BrushColor White@500}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Background.Primary"
-                     Color="{markup:BrushColor Brush={StaticResource Gray@100}}"/>
+                     Color="{markup:BrushColor Gray@100}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Background.Secondary"
-                     Color="{markup:BrushColor Brush={StaticResource Gray@200}}"/>
+                     Color="{markup:BrushColor Gray@200}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Background.Tertiary"
-                     Color="{markup:BrushColor Brush={StaticResource Gray@300}}"/>
+                     Color="{markup:BrushColor Gray@300}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Border"
-                     Color="{markup:BrushColor Brush={StaticResource Gray@50}}"/>
+                     Color="{markup:BrushColor Gray@50}"/>
 
     <SolidColorBrush x:Key="Brushes.HunterPie.Error"
-                     Color="{markup:BrushColor Brush={StaticResource Red@50}}"/>
+                     Color="{markup:BrushColor Red@50}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Success"
-                     Color="{markup:BrushColor Brush={StaticResource Green@50}}"/>
+                     Color="{markup:BrushColor Green@50}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Success.Opacity"
-                     Color="{markup:BrushColor Brush={StaticResource Brushes.HunterPie.Success}, Opacity=0.2}"/>
+                     Color="{markup:BrushColor Brushes.HunterPie.Success, Opacity=0.2}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Neutral"
-                     Color="{markup:BrushColor Brush={StaticResource Blue@100}}"/>
+                     Color="{markup:BrushColor Blue@100}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Warning"
-                     Color="{markup:BrushColor Brush={StaticResource Yellow@100}}"/>
+                     Color="{markup:BrushColor Yellow@100}"/>
     
+    <LinearGradientBrush EndPoint="1,1" 
+                         StartPoint="0,.5"
+                         x:Key="Brushes.HunterPie.Tab.Highlight">
+        <GradientStop Color="#00000000"/>
+        <GradientStop Color="{markup:BrushColor Brushes.HunterPie.Accent.Solid, Opacity=0.1}" 
+                      Offset="1"/>
+    </LinearGradientBrush>
+
     <RadialGradientBrush x:Key="Brushes.HunterPie.Highlight">
         <GradientStop Color="#45FFFFFF" Offset="0"/>
         <GradientStop Color="#00000000" Offset="1"/>
