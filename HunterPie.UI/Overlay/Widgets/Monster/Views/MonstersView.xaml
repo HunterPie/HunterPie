@@ -8,7 +8,6 @@
            xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels"
            xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
            xmlns:enums="clr-namespace:HunterPie.Core.Client.Configuration.Enums;assembly=HunterPie.Core"
-           xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Components"
            xmlns:display="clr-namespace:HunterPie.UI.Controls.Display"
            xmlns:conditionals="clr-namespace:HunterPie.UI.Architecture.Converters.Conditionals"
            xmlns:visibilities="clr-namespace:HunterPie.UI.Architecture.Converters.Visibilities"

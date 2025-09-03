@@ -34,7 +34,7 @@
                     Grid.RowSpan="2">
                 <Border.Background>
                     <ImageBrush d:ImageSource="https://cdn.hunterpie.com/Static/update-2.5.0-banner.png"
-                                ImageSource="{Binding Banner}"
+                                ImageSource="{Binding Banner, Mode=OneWay}"
                                 Stretch="Uniform"
                                 RenderOptions.BitmapScalingMode="LowQuality"
                                 AlignmentX="Left"/>

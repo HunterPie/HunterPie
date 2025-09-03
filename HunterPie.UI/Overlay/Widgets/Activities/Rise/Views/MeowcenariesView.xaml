@@ -3,11 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
-             xmlns:loc="clr-namespace:HunterPie.UI.Architecture.Assets"
-             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Views"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels"
-             xmlns:views="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.Views"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:progress="clr-namespace:HunterPie.UI.Controls.Progress"
              xmlns:sys="clr-namespace:System;assembly=System.Runtime"
@@ -19,8 +15,8 @@
     <UserControl.Resources>
         <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
     </UserControl.Resources>
-    <Border Background="{Binding Source={StaticResource GRAY_100}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
-            BorderBrush="{StaticResource GRAY}"
+    <Border Background="{Binding Source={StaticResource Gray@100}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+            BorderBrush="{StaticResource Gray}"
             BorderThickness="1"
             CornerRadius="5">
         <Grid>
@@ -31,7 +27,7 @@
 
             <image:Icon Grid.Column="0"
                         Image="{StaticResource ICON_DOJO}"
-                        Foreground="{StaticResource WHITE_200}"
+                        Foreground="{StaticResource White@200}"
                         Margin="5"/>
 
             <Grid Grid.Column="1">
@@ -42,9 +38,9 @@
 
                 <!-- Step progress -->
                 <progress:Gauge Grid.Row="0"
-                                Foreground="{StaticResource GREEN}"
-                                Background="{StaticResource GRAY_200}"
-                                BorderBrush="{StaticResource GRAY}"
+                                Foreground="{StaticResource Green}"
+                                Background="{StaticResource Gray@200}"
+                                BorderBrush="{StaticResource Gray}"
                                 Markers="{Binding MaxSteps, Mode=OneWay}"
                                 d:Markers="5"
                                 Height="5"
@@ -56,7 +52,7 @@
 
                 <!-- Buddy Count -->
                 <Border Grid.Row="1"
-                        Background="{StaticResource GRAY_50}"
+                        Background="{StaticResource Gray@50}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Padding="10,2"
@@ -64,8 +60,8 @@
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Buddies"
                                    FontSize="8"
-                                   Foreground="{StaticResource WHITE_200}"/>
-                        <TextBlock Foreground="{StaticResource WHITE}"
+                                   Foreground="{StaticResource White@200}"/>
+                        <TextBlock Foreground="{StaticResource White}"
                                    HorizontalAlignment="Center">
                             <Run Text="{Binding BuddyCount, Mode=OneWay}"
                                  d:Text="3"/><!--
@@ -91,16 +87,16 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type sys:Boolean}">
                             <progress:Pill Width="9"
-                                           BorderBrush="{StaticResource GRAY}"
+                                           BorderBrush="{StaticResource Gray}"
                                            Height="12"
                                            Margin="1,0">
                                 <progress:Pill.Style>
                                     <Style TargetType="progress:Pill">
-                                        <Setter Property="Foreground" Value="{StaticResource GRAY_200}"/>
+                                        <Setter Property="Foreground" Value="{StaticResource Gray@200}"/>
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ., Mode=ONeTime}"
+                                            <DataTrigger Binding="{Binding ., Mode=OneTime}"
                                                          Value="True">
-                                                <Setter Property="Foreground" Value="{StaticResource YELLOW}"/>
+                                                <Setter Property="Foreground" Value="{StaticResource Yellow}"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>

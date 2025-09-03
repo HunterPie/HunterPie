@@ -194,6 +194,8 @@
            TargetType="{x:Type UserControl}" />
     <Style x:Key="Widgets.Monster"
            TargetType="{x:Type UserControl}" />
+    <Style x:Key="Widgets.DamageMeter"
+           TargetType="{x:Type UserControl}" />
     <Style x:Key="Widgets.DamageMeterV2"
            TargetType="{x:Type UserControl}" />
     <Style x:Key="Widgets.AbnormalityTray"
@@ -222,4 +224,249 @@
            TargetType="{x:Type UserControl}"/>
     <!-- Constants -->
     <system:Double x:Key="Widgets.Background.Opacity">0.8</system:Double>
+
+    <SolidColorBrush x:Key="Brushes.Overlay.DesignMode.Border">#50FFFFFF</SolidColorBrush>
+
+    <!-- Overlay Colors -->
+    <!-- Abnormality -->
+    <LinearGradientBrush x:Key="Brushes.Widgets.AbnormalityTray.Buff" EndPoint="1,1" StartPoint="0,0">
+        <GradientStop Color="#1ACA65"/>
+        <GradientStop Color="#5FDA93" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="Brushes.Widgets.AbnormalityTray.Debuff" EndPoint="1,1" StartPoint="0,0">
+        <GradientStop Color="#F41162"/>
+        <GradientStop Color="#F52972" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- Classes -->
+    <RadialGradientBrush x:Key="Brushes.Widgets.Classes.Background.Common">
+        <GradientStop Color="#202427"/>
+        <GradientStop Color="#16181a" Offset="1"/>
+    </RadialGradientBrush>
+
+    <!-- Charge Blade -->
+    <Color x:Key="Brushes.Widgets.ChargeBlade.Uncharged">#bdbfbf</Color>
+    <Color x:Key="Brushes.Widgets.ChargeBlade.YellowCharge">#E7C507</Color>
+    <Color x:Key="Brushes.Widgets.ChargeBlade.RedCharge">#D6114B</Color>
+    <Color x:Key="Brushes.Widgets.ChargeBlade.OverCharge">#eb4dcb</Color>
+    <Color x:Key="Brushes.Widgets.ChargeBlade.ShieldBuff">#4787E2</Color>
+    <Color x:Key="Brushes.Widgets.ChargeBlade.SwordBuff">#D6114B</Color>
+    <Color x:Key="Brushes.Widgets.ChargeBlade.AxeBuff">#48C373</Color>
+    <RadialGradientBrush x:Key="Brushes.Widgets.ChargeBlade.Shield.Active" RadiusX="5" RadiusY="5">
+        <GradientStop Color="#1A1D20"/>
+        <GradientStop Color="{StaticResource Brushes.Widgets.ChargeBlade.ShieldBuff}" Offset="1"/>
+    </RadialGradientBrush>
+    <RadialGradientBrush x:Key="Brushes.Widgets.ChargeBlade.Sword.Active" RadiusX="5" RadiusY="5">
+        <GradientStop Color="#1A1D20"/>
+        <GradientStop Color="{StaticResource Brushes.Widgets.ChargeBlade.SwordBuff}" Offset="1"/>
+    </RadialGradientBrush>
+    <RadialGradientBrush x:Key="Brushes.Widgets.ChargeBlade.Axe.Active" RadiusX="5" RadiusY="5">
+        <GradientStop Color="#1A1D20"/>
+        <GradientStop Color="{StaticResource Brushes.Widgets.ChargeBlade.AxeBuff}" Offset="1"/>
+    </RadialGradientBrush>
+
+    <!-- Dual Blades -->
+    <Color x:Key="Brushes.Widgets.DualBlades.Demon.Shadow">#AA2A2A</Color>
+    <LinearGradientBrush x:Key="Brushes.Widgets.DualBlades.Demon" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#C24327" Offset="1"/>
+        <GradientStop Color="#AA2A2A" Offset="0"/>
+    </LinearGradientBrush>
+    <Color x:Key="Brushes.Widgets.DualBlades.Bind">#4480D6</Color>
+    <LinearGradientBrush x:Key="Brushes.Widgets.DualBlades.PiercingBind" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#3CA7BE" Offset="1"/>
+        <GradientStop Color="{StaticResource Brushes.Widgets.DualBlades.Bind}" Offset="0"/>
+    </LinearGradientBrush>
+    <RadialGradientBrush x:Key="Brushes.Widgets.DualBlades.DemonMode.Active" RadiusX="3" RadiusY="3">
+        <GradientStop Color="#1A1D20"/>
+        <GradientStop Color="{StaticResource Brushes.Widgets.DualBlades.Bind}" Offset="1"/>
+    </RadialGradientBrush>
+    <SolidColorBrush x:Key="Brushes.Widgets.DualBlades.DemonBlink.Foreground" Color="#bdbfbf"/>
+    <SolidColorBrush x:Key="Brushes.Widgets.DualBlades.DemonBlink.Background" Color="#bdbfbf" Opacity="0.3"/>
+    
+    <!-- Insect Glaive -->
+    <Color x:Key="Brushes.Widgets.InsectGlaive.AttackExtract">#A83248</Color>
+    <Color x:Key="Brushes.Widgets.InsectGlaive.DefenseExtract">#d97925</Color>
+    <Color x:Key="Brushes.Widgets.InsectGlaive.HealExtract">#5BF77F</Color>
+    <Color x:Key="Brushes.Widgets.InsectGlaive.SpeedExtract">#fff3e8</Color>
+    <Color x:Key="Brushes.Widgets.InsectGlaive.NoExtract">#3a3e40</Color>
+    <LinearGradientBrush x:Key="Brushes.Widgets.InsectGlaive.Stamina" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFE6F542" Offset="1"/>
+        <GradientStop Color="#FFF57B42" Offset="0"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Brushes.Widgets.InsectGlaive.ChargeDisabled">#292d30</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.Widgets.InsectGlaive.ChargeRed">#A83248</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.Widgets.InsectGlaive.ChargeYellow">#FFE7C507</SolidColorBrush>
+    <LinearGradientBrush x:Key="Brushes.Widgets.InsectGlaive.ChargeRedYellow" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFE7C507" Offset="1"/>
+        <GradientStop Color="#FFE7C507" Offset="0.500001"/>
+        <GradientStop Color="#A83248" Offset="0.5"/>
+    </LinearGradientBrush>
+
+    <!-- Longsword -->
+    <LinearGradientBrush x:Key="Brushes.Widgets.Longsword.BuildUp" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#61f4de" Offset="1"/>
+        <GradientStop Color="#6e78ff" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Widgets.Longsword.LevelOne" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#ebf4f5" Offset="1"/>
+        <GradientStop Color="#b5c6e0" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource Brushes.Widgets.Longsword.LevelOne}, Mode=OneTime}"
+                         Opacity="0.3"
+                         x:Key="Brushes.Widgets.Longsword.LevelOne.Background"/>
+    <LinearGradientBrush x:Key="Brushes.Widgets.Longsword.LevelTwo" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#f4d941" Offset="1"/>
+        <GradientStop Color="#ff930f" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource Brushes.Widgets.Longsword.LevelTwo}, Mode=OneTime}"
+                         Opacity="0.3"
+                         x:Key="Brushes.Widgets.Longsword.LevelTwo.Background"/>
+    <LinearGradientBrush x:Key="Brushes.Widgets.Longsword.LevelMax" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#fd4b2f" Offset="1"/>
+        <GradientStop Color="#f83d5c" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource Brushes.Widgets.Longsword.LevelMax}, Mode=OneTime}"
+                         Opacity="0.3"
+                         x:Key="Brushes.Widgets.Longsword.LevelMax.Background"/>
+    <LinearGradientBrush x:Key="LONG_SWORD_BUILD_UP_REGEN_BRUSH" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#f89b29" Offset="1"/>
+        <GradientStop Color="#ff0f7b" Offset="0"/>
+    </LinearGradientBrush>
+
+    <!-- Switch Axe -->
+    <LinearGradientBrush x:Key="Brushes.Widgets.SwitchAxe.BuildUp.Low" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#9C3CBE" Offset="1"/>
+        <GradientStop Color="#4464D6" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Widgets.SwitchAxe.BuildUp.Low.Background" EndPoint="1,1" StartPoint="0,1"
+                         Opacity="0.3">
+        <GradientStop Color="#9C3CBE" Offset="1"/>
+        <GradientStop Color="#4464D6" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Widgets.SwitchAxe.BuildUp.High" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#3F8AE2" Offset="1"/>
+        <GradientStop Color="#2BCE8A" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Widgets.SwitchAxe.BuildUp.High.Background" EndPoint="1,1" StartPoint="0,1"
+                         Opacity="0.3">
+        <GradientStop Color="#3F8AE2" Offset="1"/>
+        <GradientStop Color="#2BCE8A" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Widgets.SwitchAxe.Charged" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#BE7A3C" Offset="1"/>
+        <GradientStop Color="#D64444" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.Widgets.SwitchAxe.PowerAxe" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#00B7AC" Offset="1"/>
+        <GradientStop Color="#0085FF" Offset="0"/>
+    </LinearGradientBrush>
+
+    <!-- Monster Widget -->
+    <LinearGradientBrush x:Key="Brushes.Widgets.Monster.Health.Default" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF4B8EEE"/>
+        <GradientStop Color="#FF10B9DE" Offset="1"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Health.Default.Background" Color="#FF9CE4FF"/>
+
+    <LinearGradientBrush x:Key="Brushes.Widgets.Monster.Health.Enraged" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#d42c2c"/>
+        <GradientStop Color="#e63f29" Offset="1"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Health.Enraged.Background" Color="#FFEB6C5B"/>
+
+    <LinearGradientBrush x:Key="Brushes.Widgets.Monster.Part.Breakable.Foreground" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFFBB623"/>
+        <GradientStop Color="#FFFFCC72" Offset="1"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Part.Breakable.Background" Color="#FFFFE1AC"/>
+
+    <LinearGradientBrush x:Key="Brushes.Widgets.Monster.Part.Severable.Foreground" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFDE1010"/>
+        <GradientStop Color="#FFEE4B4B" Offset="1"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Part.Severable.Background" Color="#FFFF8F8F"/>
+
+    <LinearGradientBrush x:Key="Brushes.Widgets.Monster.Part.Broken.Foreground" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF3D3D3D"/>
+        <GradientStop Color="#FF8A8A8A" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="Brushes.Widgets.Monster.Part.Qurio.Foreground" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFEE4B96" Offset="1"/>
+        <GradientStop Color="#FFDE1078" Offset="0"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Part.Qurio.Background" Color="#FFF7A1C8"/>
+
+    <LinearGradientBrush x:Key="Brushes.Widgets.Monster.Tenderize.Foreground" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF03E5B7"/>
+        <GradientStop Color="#FF69F3D7" Offset="1"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Tenderize.Background" Color="#FFFFDB9C"/>
+
+    <!-- Player Hud -->
+    <LinearGradientBrush x:Key="Brushes.Widgets.Player.Health.Default" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#3ecfa6"/>
+        <GradientStop Color="#3ecf87" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="Brushes.Widgets.Player.Health.Fire" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFCF5F3E"/>
+        <GradientStop Color="#FFCF733E" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="Brushes.Widgets.Player.Health.Poison" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF563ECF"/>
+        <GradientStop Color="#FF7445DE" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="Brushes.Widgets.Player.Health.Bleed" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FF7F0F29"/>
+        <GradientStop Color="#FFCF3E5F" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="Brushes.Widgets.Player.Health.Heal" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFBFFFED"/>
+        <GradientStop Color="#FFCFFFE7" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="Brushes.Widgets.Player.Stamina.Default" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFFF9A36" Offset="1"/>
+        <GradientStop Color="#FFFF2E00" Offset="0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="Brushes.Widgets.Player.Health.Recoverable" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#FFA52F45" Offset="1"/>
+        <GradientStop Color="#FFA52F2F" Offset="0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="Brushes.Widgets.Player.Health.Effluvia" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#a67f00" Offset="1"/>
+        <GradientStop Color="#5e4800" Offset="0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="Brushes.Widgets.Player.Stamina.Ice" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#93d1f5" Offset="1"/>
+        <GradientStop Color="#6bb7e3" Offset="0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="Brushes.Widgets.Player.Stamina.Water" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#87abff" Offset="1"/>
+        <GradientStop Color="#4973d6" Offset="0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="Brushes.Widgets.Player.Health.NaturalHeal" EndPoint="1,1" StartPoint="0,1">
+        <GradientStop Color="#ffd942" Offset="1"/>
+        <GradientStop Color="#deb100" Offset="0"/>
+    </LinearGradientBrush>
+
+    <!-- Sharpness -->
+    <Color x:Key="Colors.Widgets.Sharpness.Broken">#000000</Color>
+    <Color x:Key="Colors.Widgets.Sharpness.Red">#D13232</Color>
+    <Color x:Key="Colors.Widgets.Sharpness.Orange">#F78B00</Color>
+    <Color x:Key="Colors.Widgets.Sharpness.Yellow">#F7E024</Color>
+    <Color x:Key="Colors.Widgets.Sharpness.Green">#5BF77F</Color>
+    <Color x:Key="Colors.Widgets.Sharpness.Blue">#49B2E3</Color>
+    <Color x:Key="Colors.Widgets.Sharpness.White">#EAF5F4</Color>
+    <Color x:Key="Colors.Widgets.Sharpness.Purple">#cd55e6</Color>
 </ResourceDictionary>

@@ -31,42 +31,29 @@
 
         <DataTemplate DataType="{x:Type viewModels:PaginationItemViewModel}"
                       x:Key="NormalPaginationItemTemplate">
-            <ContentControl Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <ContentControl.Style>
-                    <Style TargetType="ContentControl">
-                        <Setter Property="Content">
-                            <Setter.Value>
-                                <buttons:Button Content="{Binding Page, Mode=OneWay}"
-                                                Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
-                                                Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                                Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
-                                                BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
-                                                BorderThickness="1"
-                                                CornerRadius="5"
-                                                Margin="1,0"
-                                                Click="OnPageButtonClick"/>
-                            </Setter.Value>
-                        </Setter>
+            <buttons:Button Content="{Binding Page, Mode=OneWay}"
+                            Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
+                            BorderThickness="1"
+                            CornerRadius="5"
+                            Margin="1,0"
+                            Click="OnPageButtonClick"
+                            Cursor="Hand">
+                <buttons:Button.Style>
+                    <Style TargetType="buttons:Button">
+                        <Setter Property="BorderBrush" Value="{DynamicResource Brushes.HunterPie.Accent}"/>
+                        <Setter Property="Background" Value="{DynamicResource Brushes.HunterPie.Accent.Transparent}"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsActive, Mode=OneWay}"
-                                         Value="True">
-                                <Setter Property="Content">
-                                    <Setter.Value>
-                                        <buttons:Button Content="{Binding Page, Mode=OneWay}"
-                                                        Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
-                                                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                                        Background="{DynamicResource Brushes.HunterPie.Accent.Transparent}"
-                                                        BorderBrush="{DynamicResource Brushes.HunterPie.Accent}"
-                                                        BorderThickness="1"
-                                                        CornerRadius="5"
-                                                        Margin="1,0"/>
-                                    </Setter.Value>
-                                </Setter>
+                                         Value="False">
+                                <Setter Property="BorderBrush" Value="{DynamicResource Brushes.HunterPie.Border}"/>
+                                <Setter Property="Background" Value="{DynamicResource Brushes.HunterPie.Background.Primary}"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </ContentControl.Style>
-            </ContentControl>
+                </buttons:Button.Style>
+            </buttons:Button>
         </DataTemplate>
 
     </UserControl.Resources>

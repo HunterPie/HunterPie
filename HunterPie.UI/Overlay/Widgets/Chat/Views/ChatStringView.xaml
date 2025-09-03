@@ -4,26 +4,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Chat.Presentation"
-             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Chat.Views"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Chat.ViewModels"
              mc:Ignorable="d"
              SnapsToDevicePixels="True"
-             UseLayoutRounding="True">
+             UseLayoutRounding="True"
+             d:DataContext="{d:DesignInstance viewModels:ChatElementViewModel}">
     <UserControl.Resources>
         <presentation:MemberIndexToColorConverter x:Key="MemberIndexToColorConverter"/>
     </UserControl.Resources>
     <StackPanel Orientation="Horizontal">
         <!-- Player name -->
         <Grid HorizontalAlignment="Left">
-            <Rectangle Fill="#FF211F2B"
+            <Rectangle Fill="{StaticResource Gray@100}"
                        Opacity="0.8"/>
             <Rectangle Width="2"
                        HorizontalAlignment="Left"
                        Fill="{Binding Index, Converter={StaticResource MemberIndexToColorConverter}}"
                        d:Fill="DarkCyan"/>
             <TextBlock d:Text="Poggies"
-                       Text="{Binding Author}"
+                       Text="{Binding Author, Mode=OneWay}"
                        FontWeight="Bold"
-                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                        Foreground="{Binding Index, Converter={StaticResource MemberIndexToColorConverter}}"
                        d:Foreground="DarkCyan"
                        HorizontalAlignment="Center"
@@ -38,7 +38,7 @@
             </TextBlock>
         </Grid>
         <Grid ClipToBounds="True">
-            <Rectangle Fill="#FF211F2B"
+            <Rectangle Fill="{StaticResource Gray@100}"
                        Opacity="0.8"
                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                        HorizontalAlignment="Left" 
@@ -54,7 +54,7 @@
             </Rectangle>
             <TextBlock d:Text="Hello, this is a message."
                        Text="{Binding Text, Mode=OneWay}"
-                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                       Foreground="{StaticResource White}"
                        Padding="1"
                        FontSize="14"
                        FontWeight="Medium"

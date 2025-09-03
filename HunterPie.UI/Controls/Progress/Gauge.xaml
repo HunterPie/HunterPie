@@ -8,8 +8,8 @@
         mc:Ignorable="d" 
         d:DesignHeight="10" 
         d:DesignWidth="100"
-        d:BorderBrush="{StaticResource GRAY}"
-        d:Foreground="{StaticResource YELLOW}"
+        d:BorderBrush="{StaticResource Gray}"
+        d:Foreground="{StaticResource Yellow}"
         x:Name="GaugeComponent">
     <UserControl.Resources>
         <converters:CurrentValueToWidthConverter x:Key="CurrentValueToWidthConverter"/>
@@ -55,7 +55,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type system:Boolean}">
-                    <Rectangle Fill="{StaticResource GRAY}"
+                    <Rectangle Fill="{StaticResource Gray}"
                                Opacity="0.5">
                         <Rectangle.Style>
                             <Style TargetType="Rectangle">

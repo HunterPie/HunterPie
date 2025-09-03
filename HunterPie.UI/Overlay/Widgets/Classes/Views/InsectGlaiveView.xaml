@@ -30,11 +30,11 @@
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:KinsectBuffToBooleanConverter x:Key="KinsectBuffToBooleanConverter"/>
         <converters:NumberToBooleanConverter x:Key="NumberToBooleanConverter"/>
-        <SolidColorBrush Color="{StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}"
+        <SolidColorBrush Color="{StaticResource Brushes.Widgets.InsectGlaive.AttackExtract}"
                          x:Key="InsectGlaiveAttackBrush"/>
-        <SolidColorBrush Color="{StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}"
+        <SolidColorBrush Color="{StaticResource Brushes.Widgets.InsectGlaive.SpeedExtract}"
                          x:Key="InsectGlaiveSpeedBrush"/>
-        <SolidColorBrush Color="{StaticResource INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR}"
+        <SolidColorBrush Color="{StaticResource Brushes.Widgets.InsectGlaive.DefenseExtract}"
                          x:Key="InsectGlaiveDefenseBrush"/>
     </UserControl.Resources>
     <Grid>
@@ -59,11 +59,11 @@
                    d:Margin="-13,0,0,0"
                    Height="40"
                    Width="40"
-                   d:Fill="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}, Converter={StaticResource ColorToBrushConverter}}"
+                   d:Fill="{Binding Source={StaticResource Brushes.Widgets.InsectGlaive.AttackExtract}, Converter={StaticResource ColorToBrushConverter}}"
                    Fill="{Binding PrimaryQueuedBuff, Mode=OneWay, Converter={StaticResource KinsectBuffToBrushConverter}}">
             <Rectangle.Effect>
                 <DropShadowEffect BlurRadius="10"
-                                  d:Color="{StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}"
+                                  d:Color="{StaticResource Brushes.Widgets.InsectGlaive.AttackExtract}"
                                   Color="{Binding PrimaryQueuedBuff, Mode=OneWay, Converter={StaticResource KinsectBuffToColorConverter}}"
                                   ShadowDepth="0"/>
             </Rectangle.Effect>
@@ -119,11 +119,11 @@
                    d:Margin="13,0,0,0"
                    Height="40"
                    Width="40"
-                   d:Fill="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}, Converter={StaticResource ColorToBrushConverter}}"
+                   d:Fill="{Binding Source={StaticResource Brushes.Widgets.InsectGlaive.SpeedExtract}, Converter={StaticResource ColorToBrushConverter}}"
                    Fill="{Binding SecondaryQueuedBuff, Mode=OneWay, Converter={StaticResource KinsectBuffToBrushConverter}}">
             <Rectangle.Effect>
                 <DropShadowEffect BlurRadius="20"
-                                  d:Color="{StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}"
+                                  d:Color="{StaticResource Brushes.Widgets.InsectGlaive.SpeedExtract}"
                                   Color="{Binding SecondaryQueuedBuff, Mode=OneWay, Converter={StaticResource KinsectBuffToColorConverter}}"
                                   ShadowDepth="0"/>
             </Rectangle.Effect>
@@ -178,8 +178,8 @@
                 Grid.RowSpan="2"
                 CornerRadius="1"
                 BorderThickness="1"
-                BorderBrush="{StaticResource GRAY_50}"
-                Background="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}">
+                BorderBrush="{StaticResource Gray@50}"
+                Background="{StaticResource Brushes.Widgets.Classes.Background.Common}">
             <Border.RenderTransform>
                 <TransformGroup>
                     <RotateTransform Angle="45"/>
@@ -188,7 +188,7 @@
 
             <Grid RenderTransformOrigin="0.5,0.5">
                 <image:Icon Image="{StaticResource ICON_DISABLED_KINSECT}"
-                            d:Foreground="{StaticResource INSECT_GLAIVE_CHARGE_DISABLED_BRUSH}"
+                            d:Foreground="{StaticResource Brushes.Widgets.InsectGlaive.ChargeDisabled}"
                             Margin="3">
                     <image:Icon.Effect>
                         <DropShadowEffect BlurRadius="20"
@@ -202,20 +202,20 @@
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding ChargeType, Mode=OneWay}"
                                              Value="{x:Static enums:KinsectChargeType.None}">
-                                    <Setter Property="Foreground" Value="{StaticResource INSECT_GLAIVE_CHARGE_DISABLED_BRUSH}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource Brushes.Widgets.InsectGlaive.ChargeDisabled}"/>
                                     <Setter Property="Opacity" Value="1"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding ChargeType, Mode=OneWay}"
                                              Value="{x:Static enums:KinsectChargeType.Red}">
-                                    <Setter Property="Foreground" Value="{StaticResource INSECT_GLAIVE_CHARGE_RED_BRUSH}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource Brushes.Widgets.InsectGlaive.ChargeRed}"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding ChargeType, Mode=OneWay}"
                                              Value="{x:Static enums:KinsectChargeType.Yellow}">
-                                    <Setter Property="Foreground" Value="{StaticResource INSECT_GLAIVE_CHARGE_YELLOW_BRUSH}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource Brushes.Widgets.InsectGlaive.ChargeYellow}"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding ChargeType, Mode=OneWay}"
                                              Value="{x:Static enums:KinsectChargeType.RedAndYellow}">
-                                    <Setter Property="Foreground" Value="{StaticResource INSECT_GLAIVE_CHARGE_RED_YELLOW_BRUSH}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource Brushes.Widgets.InsectGlaive.ChargeRedYellow}"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -224,7 +224,7 @@
 
                 <TextBlock d:Text="00:00"
                            Text="{Binding ChargeTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"
-                           Foreground="{StaticResource WHITE_50}"
+                           Foreground="{StaticResource White@50}"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            FontWeight="Medium"
@@ -254,8 +254,8 @@
                     RenderTransformOrigin="0.5,0.5"
                     BorderThickness="1"
                     CornerRadius="1"
-                    d:BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}, Converter={StaticResource ColorToBrushConverter}}"
-                    Background="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}">
+                    d:BorderBrush="{Binding Source={StaticResource Brushes.Widgets.InsectGlaive.AttackExtract}, Converter={StaticResource ColorToBrushConverter}}"
+                    Background="{StaticResource Brushes.Widgets.Classes.Background.Common}">
                 <Border.RenderTransform>
                     <RotateTransform Angle="45"/>
                 </Border.RenderTransform>
@@ -264,11 +264,11 @@
                                       ShadowDepth="0"
                                       Opacity="0"
                                       d:Opacity="1"
-                                      Color="{StaticResource INSECT_GLAIVE_EXTRACT_ATTACK_COLOR}"/>
+                                      Color="{StaticResource Brushes.Widgets.InsectGlaive.AttackExtract}"/>
                 </Border.Effect>
                 <TextBlock d:Text="0:00"
                            Text="{Binding AttackTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}, ConverterParameter='m\\:ss'}"
-                           Foreground="{StaticResource WHITE_100}"
+                           Foreground="{StaticResource White@100}"
                            RenderTransformOrigin="0.5,0.5"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
@@ -298,7 +298,7 @@
                                 <DataTrigger.ExitActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <animation:BrushAnimation To="{StaticResource GRAY_50}"
+                                            <animation:BrushAnimation To="{StaticResource Gray@50}"
                                                                       Duration="0:0:0.3"
                                                                       Storyboard.TargetProperty="BorderBrush"/>
                                             <DoubleAnimation To="0"
@@ -319,8 +319,8 @@
                     RenderTransformOrigin="0.5,0.5"
                     BorderThickness="1"
                     CornerRadius="1"
-                    d:BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}, Converter={StaticResource ColorToBrushConverter}}"
-                    Background="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}">
+                    d:BorderBrush="{Binding Source={StaticResource Brushes.Widgets.InsectGlaive.SpeedExtract}, Converter={StaticResource ColorToBrushConverter}}"
+                    Background="{StaticResource Brushes.Widgets.Classes.Background.Common}">
                 <Border.RenderTransform>
                     <RotateTransform Angle="45"/>
                 </Border.RenderTransform>
@@ -329,11 +329,11 @@
                                       ShadowDepth="0"
                                       Opacity="0"
                                       d:Opacity="1"
-                                      Color="{StaticResource INSECT_GLAIVE_EXTRACT_SPEED_COLOR}"/>
+                                      Color="{StaticResource Brushes.Widgets.InsectGlaive.SpeedExtract}"/>
                 </Border.Effect>
                 <TextBlock d:Text="0:00"
                            Text="{Binding MovementSpeedTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}, ConverterParameter='m\\:ss'}"
-                           Foreground="{StaticResource WHITE_100}"
+                           Foreground="{StaticResource White@100}"
                            RenderTransformOrigin="0.5,0.5"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
@@ -363,7 +363,7 @@
                                 <DataTrigger.ExitActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <animation:BrushAnimation To="{StaticResource GRAY_50}"
+                                            <animation:BrushAnimation To="{StaticResource Gray@50}"
                                                                       Duration="0:0:0.3"
                                                                       Storyboard.TargetProperty="BorderBrush"/>
                                             <DoubleAnimation To="0"
@@ -384,8 +384,8 @@
                     RenderTransformOrigin="0.5,0.5"
                     BorderThickness="1"
                     CornerRadius="1"
-                    d:BorderBrush="{Binding Source={StaticResource INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR}, Converter={StaticResource ColorToBrushConverter}}"
-                    Background="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}">
+                    d:BorderBrush="{Binding Source={StaticResource Brushes.Widgets.InsectGlaive.DefenseExtract}, Converter={StaticResource ColorToBrushConverter}}"
+                    Background="{StaticResource Brushes.Widgets.Classes.Background.Common}">
                 <Border.RenderTransform>
                     <RotateTransform Angle="45"/>
                 </Border.RenderTransform>
@@ -394,11 +394,11 @@
                                       ShadowDepth="0"
                                       Opacity="0"
                                       d:Opacity="1"
-                                      Color="{StaticResource INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR}"/>
+                                      Color="{StaticResource Brushes.Widgets.InsectGlaive.DefenseExtract}"/>
                 </Border.Effect>
                 <TextBlock d:Text="0:00"
                            Text="{Binding DefenseTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}, ConverterParameter='m\\:ss'}"
-                           Foreground="{StaticResource WHITE_100}"
+                           Foreground="{StaticResource White@100}"
                            RenderTransformOrigin="0.5,0.5"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
@@ -428,7 +428,7 @@
                                 <DataTrigger.ExitActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <animation:BrushAnimation To="{StaticResource GRAY_50}"
+                                            <animation:BrushAnimation To="{StaticResource Gray@50}"
                                                                       Duration="0:0:0.3"
                                                                       Storyboard.TargetProperty="BorderBrush"/>
                                             <DoubleAnimation To="0"
@@ -456,9 +456,9 @@
                       VerticalAlignment="Top"
                       HorizontalAlignment="Left"
                       BorderThickness="1"
-                      BorderBrush="{StaticResource GRAY}"
-                      Background="{StaticResource GRAY_100}"
-                      Foreground="{StaticResource INSECT_GLAIVE_KINSECT_STAMINA}">
+                      BorderBrush="{StaticResource Gray}"
+                      Background="{StaticResource Gray@100}"
+                      Foreground="{StaticResource Brushes.Widgets.InsectGlaive.Stamina}">
             <controls:Bar.RenderTransform>
                 <SkewTransform AngleX="-50"/>
             </controls:Bar.RenderTransform>

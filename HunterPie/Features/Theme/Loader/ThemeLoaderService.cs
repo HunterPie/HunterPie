@@ -7,6 +7,7 @@ using HunterPie.Features.Theme.Repository;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
@@ -57,13 +58,12 @@ internal class ThemeLoaderService
     {
         IReadOnlyCollection<LocalThemeManifest> themes = await _localThemeRepository.ListAllAsync();
 
-        foreach (LocalThemeManifest theme in themes)
-        {
-            if (!_config.Client.Themes.Contains(theme.Manifest.Id))
-                continue;
+        IOrderedEnumerable<LocalThemeManifest> enabledThemes = themes
+            .Where(it => _config.Client.Themes.Contains(it.Manifest.Id))
+            .OrderByDescending(it => _config.Client.Themes.IndexOf(it.Manifest.Id));
 
+        foreach (LocalThemeManifest theme in enabledThemes)
             LoadTheme(theme);
-        }
     }
 
     public void UnloadAllThemes()

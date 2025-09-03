@@ -29,6 +29,7 @@
                 <DataTemplate>
                     <local:InstalledThemeView Margin="2"
                                               BeginDrag="OnElementBeginDrag"
+                                              Toggle="OnThemeToggle"
                                               Height="80"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

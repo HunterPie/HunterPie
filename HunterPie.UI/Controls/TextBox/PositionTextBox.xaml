@@ -17,7 +17,6 @@
                  HorizontalAlignment="Stretch"
                  Margin="2"
                  Text="{Binding X, RelativeSource={RelativeSource AncestorType={x:Type local:PositionTextBox}}, UpdateSourceTrigger=PropertyChanged}"
-                 FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                  FontSize="15"
                  VerticalContentAlignment="Top"
                  HorizontalContentAlignment="Center"/>

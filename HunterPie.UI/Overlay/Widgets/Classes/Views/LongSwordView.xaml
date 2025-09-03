@@ -15,7 +15,7 @@
              d:DataContext="{d:DesignInstance viewModels:LongSwordViewModel}"
              Style="{DynamicResource Widgets.Classes.LongSword}">
     <UserControl.Resources>
-        <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource LONG_SWORD_BUILD_UP_BRUSH}, Mode=OneTime}"
+        <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource Brushes.Widgets.Longsword.BuildUp}, Mode=OneTime}"
                              Opacity="0.3"
                              x:Key="LongSwordBuildUpBrushBackground"/>
         <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource LONG_SWORD_BUILD_UP_REGEN_BRUSH}, Mode=OneTime}"
@@ -28,14 +28,14 @@
         <converters:PercentageToLeftMarginDistanceConverter x:Key="PercentageToLeftMarginDistanceConverter"/>
         <presentation:LongSwordLevelColorConverter x:Key="LongSwordLevelBackgroundColorConverter"
                                                    DefaultBrush="Transparent"
-                                                   LevelOneBrush="{StaticResource LONG_SWORD_LEVEL_ONE_BACKGROUND_BRUSH}"
-                                                   LevelTwoBrush="{StaticResource LONG_SWORD_LEVEL_TWO_BACKGROUND_BRUSH}"
-                                                   LevelMaxBrush="{StaticResource LONG_SWORD_LEVEL_MAX_BACKGROUND_BRUSH}"/>
+                                                   LevelOneBrush="{StaticResource Brushes.Widgets.Longsword.LevelOne.Background}"
+                                                   LevelTwoBrush="{StaticResource Brushes.Widgets.Longsword.LevelTwo.Background}"
+                                                   LevelMaxBrush="{StaticResource Brushes.Widgets.Longsword.LevelMax.Background}"/>
         <presentation:LongSwordLevelColorConverter x:Key="LongSwordLevelBorderColorConverter"
                                                    DefaultBrush="Transparent"
-                                                   LevelOneBrush="{StaticResource LONG_SWORD_LEVEL_ONE_BRUSH}"
-                                                   LevelTwoBrush="{StaticResource LONG_SWORD_LEVEL_TWO_BRUSH}"
-                                                   LevelMaxBrush="{StaticResource LONG_SWORD_LEVEL_MAX_BRUSH}"/>
+                                                   LevelOneBrush="{StaticResource Brushes.Widgets.Longsword.LevelOne}"
+                                                   LevelTwoBrush="{StaticResource Brushes.Widgets.Longsword.LevelTwo}"
+                                                   LevelMaxBrush="{StaticResource Brushes.Widgets.Longsword.LevelMax}"/>
 
         <system:Double x:Key="ComboMinimumSpiritBuildUp">0.75</system:Double>
     </UserControl.Resources>
@@ -56,9 +56,9 @@
               Grid.RowSpan="2">
             <Rectangle RenderTransformOrigin="0.5, 0.5"
                        Margin="13"
-                       Stroke="{StaticResource GRAY_50}"
+                       Stroke="{StaticResource Gray@50}"
                        StrokeThickness="1"
-                       Fill="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}"
+                       Fill="{StaticResource Brushes.Widgets.Classes.Background.Common}"
                        Name="PART_BuffBackground">
                 <Rectangle.RenderTransform>
                     <RotateTransform Angle="45"/>
@@ -102,7 +102,7 @@
             <Border RenderTransformOrigin="0.5, 0.5"
                     Margin="17">
                 <Border.Background>
-                    <LinearGradientBrush GradientStops="{Binding GradientStops, Mode=OneTime, Source={StaticResource COMMON_CLASS_HELPER_BACKGROUND}}"
+                    <LinearGradientBrush GradientStops="{Binding GradientStops, Mode=OneTime, Source={StaticResource Brushes.Widgets.Classes.Background.Common}}"
                                          Opacity="0.9"/>
                 </Border.Background>
                 <Border.RenderTransform>
@@ -115,14 +115,14 @@
                     </Grid.RenderTransform>
 
                     <image:Icon Image="{StaticResource ICON_LONGSWORD}"
-                                Foreground="{StaticResource WHITE}"
+                                Foreground="{StaticResource White}"
                                 Margin="5"
                                 Opacity="0.1"/>
                     <TextBlock d:Text="3"
                                Text="{Binding SpiritLevel, Mode=OneWay}"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
-                               Foreground="{StaticResource WHITE_100}"
+                               Foreground="{StaticResource White@100}"
                                FontWeight="Medium"
                                FontSize="16"
                                RenderTransformOrigin="0.5, 0.5"
@@ -132,7 +132,7 @@
                                Text="{Binding SpiritLevelTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
-                               Foreground="{StaticResource WHITE_400}"
+                               Foreground="{StaticResource White@400}"
                                FontWeight="Medium"
                                FontSize="13"
                                RenderTransformOrigin="0.5, 0.5"
@@ -158,14 +158,13 @@
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Left"
                     BorderThickness="1"
-                    BorderBrush="{StaticResource GRAY_50}"
-                    Background="{StaticResource GRAY_300}" 
+                    BorderBrush="{StaticResource Gray@50}"
+                    Background="{StaticResource Gray@300}" 
                     Width="51">
                 <TextBlock d:Text="0%"
-                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
-                           Foreground="{StaticResource WHITE_100}"
+                           Foreground="{StaticResource White@100}"
                            RenderTransformOrigin="0.5, 0.5">
                     <TextBlock.RenderTransform>
                         <SkewTransform AngleX="-45"/>
@@ -186,10 +185,10 @@
                           d:MaxValue="100"
                           Value="{Binding SpiritGaugeBuildUp, Mode=OneWay}"
                           MaxValue="{Binding SpiritGaugeMaxBuildUp, Mode=OneWay}"
-                          ForegroundBorder="{StaticResource LONG_SWORD_BUILD_UP_BRUSH}"
+                          ForegroundBorder="{StaticResource Brushes.Widgets.Longsword.BuildUp}"
                           ForegroundColor="{StaticResource LongSwordBuildUpBrushBackground}"
-                          BackgroundBorder="{StaticResource GRAY_50}"
-                          BackgroundColor="{StaticResource GRAY_400}"/>
+                          BackgroundBorder="{StaticResource Gray@50}"
+                          BackgroundColor="{StaticResource Gray@400}"/>
 
             <!-- Combo tick -->
             <image:Icon Grid.Row="1"
@@ -198,7 +197,7 @@
                         Width="10"
                         Height="10"
                         Image="{StaticResource ICON_FUNNEL}"
-                        Foreground="{StaticResource WHITE_300}"
+                        Foreground="{StaticResource White@300}"
                         RenderTransformOrigin="0.5,0.5"
                         d:Margin="50,-2,0,0">
                 <image:Icon.Margin>
@@ -239,20 +238,20 @@
                           MaxValue="{Binding SpiritGaugeRegenMaxTimer, Mode=OneWay}"
                           ForegroundBorder="{StaticResource LONG_SWORD_BUILD_UP_REGEN_BRUSH}"
                           ForegroundColor="{StaticResource LongSwordBuildUpRegenBrushBackground}"
-                          BackgroundBorder="{StaticResource GRAY_50}"
-                          BackgroundColor="{StaticResource GRAY_400}"/>
+                          BackgroundBorder="{StaticResource Gray@50}"
+                          BackgroundColor="{StaticResource Gray@400}"/>
 
             <Border Grid.Row="1"
                     Padding="15,1"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Left"
                     BorderThickness="1"
-                    BorderBrush="{StaticResource GRAY_50}"
-                    Background="{StaticResource GRAY_300}">
+                    BorderBrush="{StaticResource Gray@50}"
+                    Background="{StaticResource Gray@300}">
                 <TextBlock d:Text="00:00"
                            Text="{Binding SpiritGaugeRegenTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"
                            FontWeight="Medium"
-                           Foreground="{StaticResource WHITE_100}"
+                           Foreground="{StaticResource White@100}"
                            RenderTransformOrigin="0.5, 0.5">
                     <TextBlock.RenderTransform>
                         <SkewTransform AngleX="45"/>

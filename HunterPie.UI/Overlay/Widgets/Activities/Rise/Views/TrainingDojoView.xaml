@@ -18,9 +18,9 @@
                                              Factor="0.5"/>
         <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
     </UserControl.Resources>
-    <Border Background="{Binding Source={StaticResource GRAY_200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+    <Border Background="{Binding Source={StaticResource Gray@200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
             CornerRadius="8"
-            BorderBrush="{StaticResource GRAY}"
+            BorderBrush="{StaticResource Gray}"
             BorderThickness="1">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -31,7 +31,7 @@
             <!-- Rounds -->
             <Border Grid.Column="0"
                     Margin="2"
-                    Background="{StaticResource GRAY_50}"
+                    Background="{StaticResource Gray@50}"
                     CornerRadius="8">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -41,20 +41,20 @@
 
                     <progress:Gauge Grid.Row="0"
                                     Orientation="Vertical"
-                                    Foreground="{StaticResource GREEN}"
-                                    Background="{StaticResource GRAY_200}"
+                                    Foreground="{StaticResource Green}"
+                                    Background="{StaticResource Gray@200}"
                                     d:Current="20"
                                     Current="{Binding Rounds, Mode=OneWay}"
                                     d:Max="100"
                                     Max="{Binding MaxRounds, Mode=OneWay}"
                                     Markers="{Binding MaxRounds, Mode=OneWay}"
                                     Margin="4,5"
-                                    BorderBrush="{StaticResource GRAY}"
+                                    BorderBrush="{StaticResource Gray}"
                                     CornerRadius="{Binding ActualWidth, 
                                                             RelativeSource={RelativeSource Self}, 
                                                             Converter={StaticResource MultiplyHalfConverter}}"/>
                     <image:Icon Grid.Row="1"
-                                Foreground="{StaticResource GREEN}"
+                                Foreground="{StaticResource Green}"
                                 Image="{StaticResource ICON_DOJO}"
                                 Margin="0"/>
                 </Grid>
@@ -63,7 +63,7 @@
             <!-- Boosts -->
             <Border Grid.Column="1"
                     Margin="2"
-                    Background="{StaticResource GRAY_50}"
+                    Background="{StaticResource Gray@50}"
                     CornerRadius="8">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -73,20 +73,20 @@
 
                     <progress:Gauge Grid.Row="0"
                                     Orientation="Vertical"
-                                    Foreground="{StaticResource YELLOW}"
-                                    Background="{StaticResource GRAY_200}"
+                                    Foreground="{StaticResource Yellow}"
+                                    Background="{StaticResource Gray@200}"
                                     d:Current="50"
                                     Current="{Binding Boosts, Mode=OneWay}"
                                     d:Max="100"
                                     Max="{Binding MaxBoosts, Mode=OneWay}"
                                     Markers="{Binding MaxRounds, Mode=OneWay}"
                                     Margin="4,5"
-                                    BorderBrush="{StaticResource GRAY}"
+                                    BorderBrush="{StaticResource Gray}"
                                     CornerRadius="{Binding ActualWidth, 
                                                             RelativeSource={RelativeSource Self}, 
                                                             Converter={StaticResource MultiplyHalfConverter}}"/>
                     <image:Icon Grid.Row="1"
-                                Foreground="{StaticResource YELLOW}"
+                                Foreground="{StaticResource Yellow}"
                                 Image="{StaticResource Icons.Hot}"
                                 Margin="0"/>
                 </Grid>

@@ -50,17 +50,15 @@
                     <StackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}, Converter={StaticResource OrientationToOppositeConverter}}">
                         <overlay:Abnormality Margin="5,2,5,2"
                                              Width="30"
-                                             Height="30"
-                                             x:Name="PART_ABNORMALITY"/>
-                        <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                             Height="30"/>
+                        <TextBlock Foreground="{DynamicResource White@100}"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center">
                             <TextBlock.Effect>
                                 <DropShadowEffect Color="Black"
-                                      BlurRadius="4" 
-                                      ShadowDepth="0"/>
+                                                  BlurRadius="4" 
+                                                  ShadowDepth="0"/>
                             </TextBlock.Effect>
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
@@ -76,8 +74,10 @@
                                                 <Setter Property="Text">
                                                     <Setter.Value>
                                                         <MultiBinding Converter="{StaticResource RatioConverter}" StringFormat="{}{0:P0}">
-                                                            <Binding Path="DataContext.Timer" ElementName="PART_ABNORMALITY"/>
-                                                            <Binding Path="DataContext.MaxTimer" ElementName="PART_ABNORMALITY"/>
+                                                            <Binding Path="Timer" 
+                                                                     Mode="OneWay"/>
+                                                            <Binding Path="MaxTimer" 
+                                                                     Mode="OneWay"/>
                                                         </MultiBinding>
                                                     </Setter.Value>
                                                 </Setter>

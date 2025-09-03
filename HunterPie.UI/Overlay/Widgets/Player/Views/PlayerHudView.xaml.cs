@@ -27,23 +27,23 @@ public partial class PlayerHudView : View<PlayerHudViewModel>, IWidget<PlayerHud
     private readonly BrushAnimation _currentStaminaBarAnimation = new BrushAnimation();
     private readonly BrushAnimation _currentHealthRecoverableAnimation = new BrushAnimation();
 
-    private readonly Brush _defaultHealthBrush = ResourcesService.Get<Brush>("WIDGET_PLAYER_HEALTH_FOREGROUND");
-    private readonly Brush _defaultStaminaBrush = ResourcesService.Get<Brush>("WIDGET_PLAYER_STAMINA_FOREGROUND");
-    private readonly Brush _defaultRecoverableBrush = ResourcesService.Get<Brush>("WIDGET_PLAYER_RECOVERABLE_FOREGROUND");
+    private readonly Brush _defaultHealthBrush = ResourcesService.Get<Brush>("Brushes.Widgets.Player.Health.Default");
+    private readonly Brush _defaultStaminaBrush = ResourcesService.Get<Brush>("Brushes.Widgets.Player.Stamina.Default");
+    private readonly Brush _defaultRecoverableBrush = ResourcesService.Get<Brush>("Brushes.Widgets.Player.Health.Recoverable");
 
     private readonly AbnormalityCategory[] _healthCategoriesPriority = { AbnormalityCategory.Effluvia, AbnormalityCategory.Poison, AbnormalityCategory.Fire, AbnormalityCategory.Bleed };
     private readonly AbnormalityCategory[] _staminaCategoriesPriority = { AbnormalityCategory.Water, AbnormalityCategory.Ice };
     private readonly AbnormalityCategory[] _recoverableCategoriesPriority = { AbnormalityCategory.NaturalHealing };
 
-    private readonly Dictionary<AbnormalityCategory, Brush> _abnormalityColors = new Dictionary<AbnormalityCategory, Brush>()
+    private readonly Dictionary<AbnormalityCategory, Brush> _abnormalityColors = new()
     {
-        { AbnormalityCategory.Fire, ResourcesService.Get<Brush>("WIDGET_PLAYER_HEALTH_FIRE_FOREGROUND") },
-        { AbnormalityCategory.Poison, ResourcesService.Get<Brush>("WIDGET_PLAYER_POISON_FOREGROUND") },
-        { AbnormalityCategory.Bleed, ResourcesService.Get<Brush>("WIDGET_PLAYER_BLEED_FOREGROUND") },
-        { AbnormalityCategory.Effluvia, ResourcesService.Get<Brush>("WIDGET_PLAYER_EFFLUVIA_FOREGROUND") },
-        { AbnormalityCategory.Ice, ResourcesService.Get<Brush>("WIDGET_PLAYER_ICE_FOREGROUND") },
-        { AbnormalityCategory.Water, ResourcesService.Get<Brush>("WIDGET_PLAYER_WATER_FOREGROUND") },
-        { AbnormalityCategory.NaturalHealing, ResourcesService.Get<Brush>("WIDGET_PLAYER_NATURAL_HEAL_FOREGROUND") },
+        { AbnormalityCategory.Fire, ResourcesService.Get<Brush>("Brushes.Widgets.Player.Health.Fire") },
+        { AbnormalityCategory.Poison, ResourcesService.Get<Brush>("Brushes.Widgets.Player.Health.Poison") },
+        { AbnormalityCategory.Bleed, ResourcesService.Get<Brush>("Brushes.Widgets.Player.Health.Bleed") },
+        { AbnormalityCategory.Effluvia, ResourcesService.Get<Brush>("Brushes.Widgets.Player.Health.Effluvia") },
+        { AbnormalityCategory.Ice, ResourcesService.Get<Brush>("Brushes.Widgets.Player.Stamina.Ice") },
+        { AbnormalityCategory.Water, ResourcesService.Get<Brush>("Brushes.Widgets.Player.Stamina.Water") },
+        { AbnormalityCategory.NaturalHealing, ResourcesService.Get<Brush>("Brushes.Widgets.Player.Health.NaturalHeal") },
     };
 
     public PlayerHudWidgetConfig Settings { get; }

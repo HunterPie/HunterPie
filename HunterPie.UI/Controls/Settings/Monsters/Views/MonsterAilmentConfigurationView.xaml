@@ -44,11 +44,11 @@
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsEnabled.Value, Mode=OneWay}"
                                          Value="True">
-                                <Setter Property="Fill" Value="{DynamicResource Green@200}"/>
+                                <Setter Property="Fill" Value="{DynamicResource Brushes.HunterPie.Success}"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding IsEnabled.Value, Mode=OneWay}"
                                          Value="False">
-                                <Setter Property="Fill" Value="{DynamicResource Red@200}"/>
+                                <Setter Property="Fill" Value="{DynamicResource Brushes.HunterPie.Error}"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

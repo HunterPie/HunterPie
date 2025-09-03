@@ -20,7 +20,19 @@
                     BorderThickness="1">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition >
+                            <ColumnDefinition.Style>
+                                <Style TargetType="ColumnDefinition">
+                                    <Setter Property="Width" Value="40"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsEnabled, Mode=OneWay}"
+                                                     Value="False">
+                                            <Setter Property="Width" Value="0"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ColumnDefinition.Style>
+                        </ColumnDefinition>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
@@ -92,7 +104,8 @@
                                                 BorderThickness="1"
                                                 Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                                                 CornerRadius="5"
-                                                Margin="2.5">
+                                                Margin="2.5"
+                                                Click="OnOpenFolderClick">
                                     <image:Icon Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                                                 Image="{DynamicResource Icons.Folder}"/>
                                 </buttons:Button>
@@ -175,6 +188,8 @@
                 <Style.Triggers>
                     <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsEnabled, Mode=OneWay}"
+                                       Value="True"/>
                             <Condition Binding="{Binding IsDraggingOver, Mode=OneWay}"
                                        Value="True"/>
                             <Condition Binding="{Binding IsBeingDragged, Mode=OneWay}"

@@ -53,8 +53,8 @@
                                  Text="{markup:Localization '//Strings/Client/Main/String[@Id=&quot;CLIENT_HUNT_EXPORT_SUPPORTER_LOW_TIER_STRING&quot;]'}"
                                  HorizontalAlignment="Center"
                                  Icon="{DynamicResource ICON_SUPPORTER_TIER_2}"
-                                 Background="{DynamicResource HUNTERPIE_SUPPORTER_T2_BACKGROUND}"
-                                 BorderBrush="{DynamicResource HUNTERPIE_SUPPORTER_T2}"
+                                 Background="{DynamicResource Violet@700}"
+                                 BorderBrush="{DynamicResource Violet@50}"
                                  BorderThickness="1"
                                  CornerRadius="5"
                                  Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>

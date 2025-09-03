@@ -14,8 +14,8 @@
     <UserControl.Resources>
         <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
     </UserControl.Resources>
-    <Border Background="{Binding Source={StaticResource GRAY_200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
-            BorderBrush="{StaticResource GRAY}"
+    <Border Background="{Binding Source={StaticResource Gray@200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+            BorderBrush="{DynamicResource Gray}"
             BorderThickness="1,0,1,1"
             CornerRadius="0,0,7,7">
         <Grid>
@@ -25,7 +25,7 @@
             </Grid.ColumnDefinitions>
 
             <image:Icon Grid.Column="0"
-                        Foreground="{StaticResource WHITE_200}"
+                        Foreground="{DynamicResource White@200}"
                         Image="{StaticResource ICON_COHOOT}"
                         Margin="5"/>
 

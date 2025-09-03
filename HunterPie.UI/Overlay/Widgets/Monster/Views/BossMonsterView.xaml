@@ -13,7 +13,6 @@
              xmlns:view="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
              xmlns:ocomponents="clr-namespace:HunterPie.UI.Overlay.Components"
              xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading"
-             xmlns:selectors="clr-namespace:HunterPie.UI.Architecture.Selectors"
              xmlns:genums="clr-namespace:HunterPie.Core.Game.Enums;assembly=HunterPie.Core"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
              xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Presentation"
@@ -27,17 +26,9 @@
         <converters:CrownToIconConverter x:Key="CrownToIconConverter"/>
         <converters:CrownToVisibilityConverter x:Key="CrownToVisibilityConverter"/>
         <converters:TargetTypeToVisibility x:Key="TargetTypeToVisibility"/>
-        <converters:IsValidPartConverter x:Key="IsValidPartConverter"/>
         <converters:PercentageToLeftMarginDistanceConverter x:Key="PercentageToLeftMarginDistanceConverter"/>
         <converters:MonsterTypeToLocalizationConverter x:Key="MonsterTypeToLocalizationConverter"/>
         <presentation:MonsterVariantBrushConverter x:Key="MonsterVariantBrushConverter"/>
-
-        <LinearGradientBrush x:Key="MonsterHealthEnraged" EndPoint="1,1" StartPoint="0,1">
-            <GradientStop Color="#d42c2c"/>
-            <GradientStop Color="#e63f29" Offset="1"/>
-        </LinearGradientBrush>
-        <SolidColorBrush x:Key="MonsterHealthEnragedDelayed" Color="#FFEB6C5B"/>
-
         <Style x:Key="BEHAVIOR_AILMENT_VIEW" TargetType="{x:Type local:BossMonsterAilmentView}">
             <Style.Triggers>
                 <MultiDataTrigger>
@@ -186,8 +177,8 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type system:String}">
                     <Border Padding="2"
-                            Background="{StaticResource GRAY_50}"
-                            BorderBrush="{StaticResource GRAY}"
+                            Background="{StaticResource Gray@50}"
+                            BorderBrush="{StaticResource Gray}"
                             BorderThickness="1"
                             CornerRadius="5"
                             Margin="0,0,5,0"
@@ -196,7 +187,7 @@
                         <TextBlock Text="{Binding ., Mode=OneTime, Converter={StaticResource MonsterTypeToLocalizationConverter}}"
                                    FontSize="9"
                                    VerticalAlignment="Center"
-                                   Foreground="{StaticResource WHITE_300}"/>
+                                   Foreground="{StaticResource White@300}"/>
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -221,8 +212,8 @@
                            d:Text="Dodogama"
                            VerticalAlignment="Top"
                            HorizontalAlignment="Left"
-                           Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                           Foreground="{StaticResource White}"
+                           FontFamily="{StaticResource Font.Default}"
                            FontSize="15">
                     <TextBlock.Effect>
                         <DropShadowEffect Color="Black"
@@ -265,7 +256,7 @@
                        HorizontalAlignment="Right"
                        Margin="0,55,15,0"
                        Foreground="#FFF3F3F3"
-                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       FontFamily="{StaticResource Font.Default}"
                        FontWeight="Medium"
                        FontSize="13"
                        Visibility="{Binding Widget.Settings.EnableStamina.Value, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -281,13 +272,13 @@
          --><Run Text="{Binding MaxStamina, Mode=OneWay, StringFormat=\{0:F0\}}"
                  d:Text="25000" 
                  FontWeight="Light"
-                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"/>
+                 Foreground="{StaticResource White@200}"/>
             </TextBlock>
 
             <!-- Health bar -->
             <overlay:Bar Height="15"
-                         Foreground="{StaticResource MonsterHealthUnenraged}"
-                         ForegroundDelayed="{StaticResource MonsterHealthUnenragedDelayed}"
+                         Foreground="{StaticResource Brushes.Widgets.Monster.Health.Default}"
+                         ForegroundDelayed="{StaticResource Brushes.Widgets.Monster.Health.Default.Background}"
                          MaxValue="{Binding MaxHealth, Mode=OneWay}"
                          Background="#B2181A1B"
                          d:MaxValue="100"
@@ -314,10 +305,10 @@
                                     <BeginStoryboard>
                                         <Storyboard >
                                             <animations:BrushAnimation Storyboard.TargetProperty="Foreground"
-                                                                       To="{StaticResource MonsterHealthEnraged}"
+                                                                       To="{StaticResource Brushes.Widgets.Monster.Health.Enraged}"
                                                                        Duration="0:0:0.2"/>
                                             <animations:BrushAnimation Storyboard.TargetProperty="ForegroundDelayed"
-                                                                       To="{StaticResource MonsterHealthEnragedDelayed}"
+                                                                       To="{StaticResource Brushes.Widgets.Monster.Health.Enraged.Background}"
                                                                        Duration="0:0:0.2"/>
                                         </Storyboard>
                                     </BeginStoryboard>
@@ -326,10 +317,10 @@
                                     <BeginStoryboard>
                                         <Storyboard >
                                             <animations:BrushAnimation Storyboard.TargetProperty="Foreground"
-                                                                       To="{StaticResource MonsterHealthUnenraged}"
+                                                                       To="{StaticResource Brushes.Widgets.Monster.Health.Default}"
                                                                        Duration="0:0:0.2"/>
                                             <animations:BrushAnimation Storyboard.TargetProperty="ForegroundDelayed"
-                                                                       To="{StaticResource MonsterHealthUnenragedDelayed}"
+                                                                       To="{StaticResource Brushes.Widgets.Monster.Health.Default.Background}"
                                                                        Duration="0:0:0.2"/>
                                         </Storyboard>
                                     </BeginStoryboard>
@@ -343,8 +334,8 @@
             <TextBlock VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                        Margin="10,15,0,0"
-                       Foreground="#FFF3F3F3"
-                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       Foreground="{StaticResource White}"
+                       FontFamily="{StaticResource Font.Default}"
                        FontWeight="Medium"
                        FontSize="16">
                 <TextBlock.Effect>
@@ -359,14 +350,14 @@
             <Run Text="{Binding MaxHealth, Mode=OneWay, StringFormat=\{0:F1\}}"
                  d:Text="25000.0" 
                  FontWeight="Light"
-                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"/>
+                 Foreground="{StaticResource White@200}"/>
             </TextBlock>
 
             <TextBlock VerticalAlignment="Top"
                    HorizontalAlignment="Right"
                    Margin="0,15,20,0"
-                   Foreground="#FFF3F3F3"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   Foreground="{StaticResource White}"
+                   FontFamily="{StaticResource Font.Default}"
                    FontWeight="Medium">
                 <TextBlock.Effect>
                     <DropShadowEffect Color="Black"
@@ -380,7 +371,7 @@
          --><Run Text="{Binding HealthPercentage, Mode=OneWay, Converter={StaticResource DoubleToDecimalConverter}, StringFormat={}.{0:D2}%}"
                  d:Text=".63%" 
                  FontWeight="Light"
-                 Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"/>
+                 Foreground="{StaticResource White@200}"/>
             </TextBlock>
 
             <!-- Capture tick -->
@@ -427,11 +418,11 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
             <Rectangle Grid.Row="0" 
-                       Fill="{StaticResource GRAY_200}"
-                       Stroke="{StaticResource GRAY}"
+                       Fill="{StaticResource Gray@200}"
+                       Stroke="{StaticResource Gray}"
                        StrokeThickness="2"/>
             <Rectangle Grid.Row="0"
-                       Fill="{StaticResource GRAY_50}"
+                       Fill="{StaticResource Gray@50}"
                        Stroke="{Binding Fill, ElementName=PART_VariantBorder}"
                        StrokeThickness="1"
                        RenderTransformOrigin="0.5,0.5">

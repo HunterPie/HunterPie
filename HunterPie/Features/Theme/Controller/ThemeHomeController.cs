@@ -58,7 +58,10 @@ internal class ThemeHomeController
     {
         IReadOnlyCollection<LocalThemeManifest> themes = await _localThemeRepository.ListAllAsync();
 
-        var installedTab = new InstalledThemeHomeTabViewModel { Title = "Installed" };
+        var installedTab = new InstalledThemeHomeTabViewModel(_config.Client.Themes)
+        {
+            Title = "Installed"
+        };
 
         foreach (LocalThemeManifest theme in themes)
             installedTab.Themes.Add(new InstalledThemeViewModel
@@ -73,6 +76,8 @@ internal class ThemeHomeController
                 IsDraggingOver = false,
                 Tags = theme.Manifest.Tags.ToObservableCollection()
             });
+
+        installedTab.Sort();
 
         return installedTab;
     }

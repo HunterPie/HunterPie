@@ -48,6 +48,9 @@ public class View<TViewModel> : UserControl, IDisposable, IView<TViewModel>
 
     public View()
     {
+        if (IsDesignMode)
+            return;
+
         DataContext = InitializeViewModel();
     }
 

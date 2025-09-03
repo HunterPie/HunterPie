@@ -31,18 +31,19 @@
         </Grid.ColumnDefinitions>
         
         <!-- Player name -->
-        <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource WHITE_100}"
+        <TextBlock Grid.Row="0" 
+                   FontFamily="{StaticResource Font.Default}"
+                   Foreground="{StaticResource White@100}"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Margin="5,5,0,0" 
                    Grid.Column="1">
             <Run Text="Lv."
-                 Foreground="{StaticResource WHITE_400}"
+                 Foreground="{StaticResource White@400}"
                  FontSize="13"/>
             <Run d:Text="55"
                  Text="{Binding Level, Mode=OneWay}"
-                 Foreground="{StaticResource WHITE_400}"
+                 Foreground="{StaticResource White@400}"
                  FontSize="13"/>
             <Run d:Text="Lyss"
                  Text="{Binding Name, Mode=OneWay}"
@@ -56,15 +57,16 @@
         </TextBlock>
 
         <!-- Health bar -->
-        <Grid VerticalAlignment="Top"
+        <Grid Grid.Row="0" 
+              VerticalAlignment="Top"
               Margin="0,30,10,0" 
               Grid.Column="1" 
               Grid.RowSpan="2">
             <Rectangle VerticalAlignment="Top"
                        Height="15"
-                       Stroke="{StaticResource WHITE_100}"
+                       Stroke="{StaticResource White@100}"
                        StrokeThickness="2" 
-                       Fill="{StaticResource WHITE_300}"
+                       Fill="{StaticResource White@300}"
                        Opacity="0.5"
                        HorizontalAlignment="Stretch"
                        Margin="-10,0,20,0"
@@ -76,8 +78,8 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <overlay:Bar Foreground="{StaticResource WIDGET_PLAYER_RECOVERABLE_FOREGROUND}"
-                         Background="{StaticResource GRAY_500}"
+            <overlay:Bar Foreground="{StaticResource Brushes.Widgets.Player.Health.Recoverable}"
+                         Background="{StaticResource Gray@200}"
                          Height="15"
                          MaxValue="{Binding MaxHealth, Mode=OneWay}"
                          Value="{Binding RecoverableHealth, Mode=OneWay}"
@@ -106,7 +108,7 @@
                     </MultiBinding>
                 </overlay:Bar.Width>
             </overlay:Bar>
-            <overlay:Bar Foreground="{StaticResource WIDGET_PLAYER_HEAL_FOREGROUND}"
+            <overlay:Bar Foreground="{StaticResource Brushes.Widgets.Player.Health.Heal}"
                          Background="Transparent"
                          Height="15"
                          d:MaxValue="150"
@@ -146,8 +148,8 @@
                          HorizontalAlignment="Left"
                          RenderTransformOrigin="0.5,0.5"
                          VerticalAlignment="Top"
-                         Foreground="{StaticResource WIDGET_PLAYER_HEALTH_FOREGROUND}"
-                         BorderBrush="{StaticResource GRAY_300}"
+                         Foreground="{StaticResource Brushes.Widgets.Player.Health.Default}"
+                         BorderBrush="{StaticResource Gray@50}"
                          d:Width="700"
                          x:Name="PART_HealthBar">
                 <overlay:Bar.RenderTransform>
@@ -179,9 +181,9 @@
             <!-- Stamina bar -->
             <Rectangle VerticalAlignment="Top"
                        Height="8"
-                       Stroke="{StaticResource WHITE_100}"
+                       Stroke="{StaticResource White@100}"
                        StrokeThickness="2" 
-                       Fill="{StaticResource WHITE_300}"
+                       Fill="{StaticResource White@300}"
                        Opacity="0.5"
                        HorizontalAlignment="Stretch"
                        Margin="0,15,10,0"
@@ -194,8 +196,8 @@
             </Rectangle>
             <Rectangle VerticalAlignment="Top"
                        Height="8"
-                       Stroke="{StaticResource RED_LIGHT_300}"
-                       Fill="{StaticResource GRAY_200}"
+                       Stroke="{StaticResource LightRed@200}"
+                       Fill="{StaticResource Gray@200}"
                        StrokeThickness="2" 
                        Opacity="1"
                        HorizontalAlignment="Left"
@@ -218,9 +220,9 @@
                     </MultiBinding>
                 </Rectangle.Width>
             </Rectangle>
-            <overlay:Bar Foreground="{StaticResource WIDGET_PLAYER_STAMINA_FOREGROUND}"
-                         BorderBrush="{StaticResource GRAY_200}"
-                         Background="#B2181A1B"
+            <overlay:Bar Foreground="{StaticResource Brushes.Widgets.Player.Stamina.Default}"
+                         BorderBrush="{StaticResource Gray@50}"
+                         Background="{StaticResource Gray@200}"
                          Height="8"
                          d:MaxValue="2000"
                          d:Value="550"
@@ -253,8 +255,9 @@
         </Grid>
 
 
-        <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource WHITE_50}"
+        <TextBlock Grid.Row="0" 
+                   FontFamily="{StaticResource Font.Default}"
+                   Foreground="{StaticResource White@50}"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Right"
                    Margin="0,12,18,0"
@@ -268,7 +271,7 @@
             <Run d:Text="(200)"
                  Text="{Binding MaxExtendableHealth, Mode=OneWay, StringFormat='(\{0:F0})'}"
                  FontWeight="Medium"
-                 Foreground="{StaticResource WHITE_200}"/>
+                 Foreground="{StaticResource White@200}"/>
             <TextBlock.Effect>
                 <DropShadowEffect Color="Black"
                                   BlurRadius="2" 
@@ -277,8 +280,8 @@
         </TextBlock>
 
         
-        <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource WHITE_50}"
+        <TextBlock FontFamily="{StaticResource Font.Default}"
+                   Foreground="{StaticResource White@50}"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Right"
                    Margin="0,25,15,0"

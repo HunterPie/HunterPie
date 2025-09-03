@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
              xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels"
              xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
@@ -13,11 +12,8 @@
     <UserControl.Resources>
         <converters:MonsterPartIdToNameConverter x:Key="MonsterPartIdToNameConverter"/>
 
-        <LinearGradientBrush x:Key="MonsterTenderizeBar" EndPoint="1,1" StartPoint="0,1">
-            <GradientStop Color="#FF03E5B7"/>
-            <GradientStop Color="#FF69F3D7" Offset="1"/>
-        </LinearGradientBrush>
-        <SolidColorBrush x:Key="MonsterTenderizeBarDelayed" Color="#FFFFDB9C"/>
+        
+        
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -26,8 +22,8 @@
         </Grid.ColumnDefinitions>
         <TextBlock Text="{Binding Breaks}"
                    d:Text="3"
-                   Foreground="{StaticResource WHITE_50}"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   Foreground="{StaticResource White@50}"
+                   FontFamily="{StaticResource Font.Default}"
                    FontSize="14"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center">
@@ -39,8 +35,8 @@
         </TextBlock>
         <TextBlock Text="{Binding Name, Converter={StaticResource MonsterPartIdToNameConverter}, Mode=OneTime}"
                    d:Text="Head"
-                   Foreground="{StaticResource WHITE_50}"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   Foreground="{StaticResource White@50}"
+                   FontFamily="{StaticResource Font.Default}"
                    FontSize="14"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Left"
@@ -52,9 +48,11 @@
             </TextBlock.Effect>
         </TextBlock>
 
-        <Grid Margin="30,15,0,0" Grid.ColumnSpan="2">
-            <overlay:Bar Foreground="{StaticResource MonsterTenderizeBar}"
-                         ForegroundDelayed="{StaticResource MonsterTenderizeBarDelayed}"
+        <Grid Grid.Column="0" 
+              Margin="30,15,0,0" 
+              Grid.ColumnSpan="2">
+            <overlay:Bar Foreground="{StaticResource Brushes.Widgets.Monster.Tenderize.Foreground}"
+                         ForegroundDelayed="{StaticResource Brushes.Widgets.Monster.Tenderize.Background}"
                          Height="10"
                          MarkersVisibility="Hidden"
                          VerticalAlignment="Top"
@@ -75,12 +73,12 @@
                 </overlay:Bar.RenderTransform>
             </overlay:Bar>
 
-            <overlay:Bar Foreground="{StaticResource MonsterHealthUnenraged}"
-                         ForegroundDelayed="{StaticResource MonsterHealthUnenragedDelayed}"
+            <overlay:Bar Foreground="{StaticResource Brushes.Widgets.Monster.Health.Default}"
+                         ForegroundDelayed="{StaticResource Brushes.Widgets.Monster.Health.Default.Background}"
                          Height="7"
                          VerticalAlignment="Top"
                          Margin="4.5,0,5,0"
-                         Background="{StaticResource GRAY_500}"
+                         Background="{StaticResource Gray@500}"
                          MaxValue="{Binding MaxFlinch, Mode=OneWay}"
                          Value="{Binding Flinch, Mode=OneWay}"
                          d:Value="50"
@@ -98,8 +96,8 @@
             </overlay:Bar>
 
 
-            <TextBlock Foreground="{StaticResource WHITE_50}"
-                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+            <TextBlock Foreground="{StaticResource White@50}"
+                       FontFamily="{StaticResource Font.Default}"
                        FontSize="14"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Center"
@@ -112,10 +110,10 @@
                 <Run Text="{Binding Flinch, StringFormat=\{0:F1\}}"
                      d:Text="2000.0"/><!--
              --><Run Text="/"
-                     Foreground="{StaticResource WHITE_200}"
+                     Foreground="{StaticResource White@200}"
                      FontWeight="Light"/><!--
              --><Run Text="{Binding MaxFlinch, StringFormat=\{0:F1\}}"
-                     Foreground="{StaticResource WHITE_200}"
+                     Foreground="{StaticResource White@200}"
                      FontWeight="Light"
                      d:Text="2000.0"/>
             </TextBlock>

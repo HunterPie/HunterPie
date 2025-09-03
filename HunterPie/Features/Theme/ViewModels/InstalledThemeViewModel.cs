@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client;
+using HunterPie.Core.System;
 using HunterPie.UI.Architecture;
 using System.Collections.ObjectModel;
 
@@ -44,5 +45,10 @@ internal class InstalledThemeViewModel : ViewModel
             enabledThemes.Add(Id);
 
         IsEnabled = enabledThemes.Contains(Id);
+    }
+
+    public void OpenFolder()
+    {
+        BrowserService.OpenFolder(Path);
     }
 }

@@ -108,6 +108,13 @@
     <!-- Violet -->
     <SolidColorBrush x:Key="Violet">#8E51FF</SolidColorBrush>
     <SolidColorBrush x:Key="Violet@50">#874DF2</SolidColorBrush>
+    <SolidColorBrush x:Key="Violet@100">#8049e6</SolidColorBrush>
+    <SolidColorBrush x:Key="Violet@200">#7241cc</SolidColorBrush>
+    <SolidColorBrush x:Key="Violet@300">#6339b3</SolidColorBrush>
+    <SolidColorBrush x:Key="Violet@400">#553199</SolidColorBrush>
+    <SolidColorBrush x:Key="Violet@500">#472980</SolidColorBrush>
+    <SolidColorBrush x:Key="Violet@600">#392066</SolidColorBrush>
+    <SolidColorBrush x:Key="Violet@700">#2b184d</SolidColorBrush>
 
 
     <!-- HunterPie -->
@@ -132,36 +139,36 @@
                      Color="#0d76ef"/>
 
     <SolidColorBrush x:Key="Brushes.HunterPie.Foreground.Primary"
-                     Color="{markup:BrushColor White@100}"/>
+                     Color="{markup:BrushColor Brush={StaticResource White@100}}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Foreground.Secondary"
-                     Color="{markup:BrushColor White@300}"/>
+                     Color="{markup:BrushColor Brush={StaticResource White@300}}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Foreground.Tertiary"
-                     Color="{markup:BrushColor White@500}"/>
+                     Color="{markup:BrushColor Brush={StaticResource White@500}}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Background.Primary"
-                     Color="{markup:BrushColor Gray@100}"/>
+                     Color="{markup:BrushColor Brush={StaticResource Gray@100}}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Background.Secondary"
-                     Color="{markup:BrushColor Gray@200}"/>
+                     Color="{markup:BrushColor Brush={StaticResource Gray@200}}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Background.Tertiary"
-                     Color="{markup:BrushColor Gray@300}"/>
+                     Color="{markup:BrushColor Brush={StaticResource Gray@300}}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Border"
-                     Color="{markup:BrushColor Gray@50}"/>
+                     Color="{markup:BrushColor Brush={StaticResource Gray@50}}"/>
 
     <SolidColorBrush x:Key="Brushes.HunterPie.Error"
-                     Color="{markup:BrushColor Red@50}"/>
+                     Color="{markup:BrushColor Brush={StaticResource Red@50}}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Success"
-                     Color="{markup:BrushColor Green@50}"/>
+                     Color="{markup:BrushColor Brush={StaticResource Green@50}}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Success.Opacity"
-                     Color="{markup:BrushColor Brushes.HunterPie.Success, Opacity=0.2}"/>
+                     Color="{markup:BrushColor Brush={StaticResource Brushes.HunterPie.Success}, Opacity=0.2}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Neutral"
-                     Color="{markup:BrushColor Blue@100}"/>
+                     Color="{markup:BrushColor Brush={StaticResource Blue@100}}"/>
     <SolidColorBrush x:Key="Brushes.HunterPie.Warning"
-                     Color="{markup:BrushColor Yellow@100}"/>
+                     Color="{markup:BrushColor Brush={StaticResource Yellow@100}}"/>
     
     <LinearGradientBrush EndPoint="1,1" 
                          StartPoint="0,.5"
                          x:Key="Brushes.HunterPie.Tab.Highlight">
         <GradientStop Color="#00000000"/>
-        <GradientStop Color="{markup:BrushColor Brushes.HunterPie.Accent.Solid, Opacity=0.1}" 
+        <GradientStop Color="{markup:BrushColor Brush={StaticResource Brushes.HunterPie.Accent.Solid}, Opacity=0.1}" 
                       Offset="1"/>
     </LinearGradientBrush>
 
@@ -177,4 +184,36 @@
     <SolidColorBrush x:Key="Brushes.Quest.MasterRank">#F6A522</SolidColorBrush>
 
     <system:Double x:Key="HunterPie.SideBar.Width">300</system:Double>
+
+    <RadialGradientBrush x:Key="Brushes.Overlay.DesignMode.Background" 
+                         SpreadMethod="Pad"  
+                         RadiusY="1" 
+                         RadiusX="1" 
+                         Center="0.5,0.5">
+        <GradientStop Color="#10D9D9D9" Offset="0"/>
+        <GradientStop Color="#20D9D9D9" Offset="1"/>
+    </RadialGradientBrush>
+
+    <LinearGradientBrush x:Key="Brushes.HunterPie.Supporter.Border" 
+                         EndPoint="1,1" 
+                         StartPoint="0,1">
+        <GradientStop Color="#f89b29" Offset="1"/>
+        <GradientStop Color="#ff0f7b" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Brushes.HunterPie.Supporter.Background"
+                         EndPoint="1,1"
+                         StartPoint="0,1" 
+                         Opacity="0.3">
+        <GradientStop Color="#f89b29" Offset="1"/>
+        <GradientStop Color="#ff0f7b" Offset="0"/>
+    </LinearGradientBrush>
+
+    <!-- Logging -->
+    <SolidColorBrush x:Key="Brushes.HunterPie.Log.Info">#5cb7f2</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.HunterPie.Log.Native">#e84ad3</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.HunterPie.Log.Debug">#35cc76</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.HunterPie.Log.Warn">#E6CF5E</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.HunterPie.Log.Error">#e65e5e</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.HunterPie.Log.Panic">#ab5ee6</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.HunterPie.Log.Benchmark">#1BC9B6</SolidColorBrush>
 </ResourceDictionary>

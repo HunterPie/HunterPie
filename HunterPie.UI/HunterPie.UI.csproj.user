@@ -652,9 +652,6 @@
     <Page Update="Resources\Seasons\SpookyPie.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Resource Update="Resources\Colors.xaml">
-      <SubType>Designer</SubType>
-    </Resource>
     <Page Update="Windows\WindowChrome.xaml">
       <SubType>Designer</SubType>
     </Page>

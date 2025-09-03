@@ -14,8 +14,8 @@
         <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
     </UserControl.Resources>
     <Border BorderThickness="1"
-            BorderBrush="{StaticResource GRAY}"
-            Background="{StaticResource GRAY_100}"
+            BorderBrush="{DynamicResource Gray}"
+            Background="{DynamicResource Gray@100}"
             CornerRadius="5,5,0,0">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -25,13 +25,13 @@
             </Grid.ColumnDefinitions>
             <image:Icon Grid.Column="0"
                         Image="{StaticResource ICON_HUNTERPIE}"
-                        Foreground="{StaticResource GRAY}"
+                        Foreground="{DynamicResource Gray}"
                         Margin="3"/>
 
             <TextBlock Grid.Column="1"
                        Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}}"
                        d:Text="Widget Name"
-                       Foreground="{StaticResource WHITE_500}"
+                       Foreground="{DynamicResource White@500}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        FontWeight="Medium"/>
@@ -40,16 +40,16 @@
                         Orientation="Horizontal"
                         HorizontalAlignment="Right">
                 <TextBlock VerticalAlignment="Center"
-                           Foreground="{StaticResource WHITE_500}"
+                           Foreground="{DynamicResource White@500}"
                            Margin="0,0,5,0">
                     <Run Text="x:"/>
                     <Run d:Text="1000"
                          Text="{Binding Left, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}, StringFormat=\{0:F0\}}"
-                         Foreground="{StaticResource WHITE_100}"/>
+                         Foreground="{DynamicResource White@100}"/>
                     <Run Text="y:"/>
                     <Run d:Text="800"
                          Text="{Binding Top, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}, StringFormat=\{0:F0\}}"
-                         Foreground="{StaticResource WHITE_100}"/>
+                         Foreground="{DynamicResource White@100}"/>
                 </TextBlock>
                 <buttons:Button Width="20"
                                 HorizontalContentAlignment="Stretch"
@@ -57,19 +57,19 @@
                                 Margin="2,0"
                                 Click="OnHideButtonClick">
                     <image:Icon d:Image="{StaticResource ICON_EYE}"
-                                d:Foreground="{StaticResource GREEN_100}">
+                                d:Foreground="{StaticResource Green@100}">
                         <image:Icon.Style>
                             <Style TargetType="image:Icon">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Widget.Settings.Enabled.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}}"
                                                  Value="False">
                                         <Setter Property="Image" Value="{StaticResource ICON_EYE_INVISIBLE}"/>
-                                        <Setter Property="Foreground" Value="{StaticResource RED_100}"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource Red@100}"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Widget.Settings.Enabled.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WidgetBase}}}"
                                                  Value="True">
                                         <Setter Property="Image" Value="{StaticResource ICON_EYE}"/>
-                                        <Setter Property="Foreground" Value="{StaticResource GREEN_100}"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource Green@100}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -82,7 +82,7 @@
                                 Margin="2,0"
                                 Click="OnCloseButtonClick">
                     <image:Icon Image="{StaticResource ICON_TRASH}"
-                                Foreground="{StaticResource RED_100}"/>
+                                Foreground="{DynamicResource Red@100}"/>
                 </buttons:Button>
             </StackPanel>
         </Grid>

@@ -25,7 +25,8 @@
         ShowInTaskbar="False"
         ResizeMode="NoResize" 
         MouseWheel="OnMouseWheel"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+        d:DataContext="{d:DesignInstance local:WidgetBase}">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <enums:WidgetType x:Key="WidgetType_Window">Window</enums:WidgetType>
@@ -45,8 +46,8 @@
             <Border Grid.Row="1"
                     x:Name="PART_Highlight"
                     BorderThickness="1,0,1,1"
-                    Background="{StaticResource HUNTERPIE_HIGHLIGHT_BACKGROUND}"
-                    BorderBrush="{StaticResource HUNTERPIE_HIGHLIGHT_BORDER}"
+                    Background="{DynamicResource Brushes.Overlay.DesignMode.Background}"
+                    BorderBrush="{DynamicResource Brushes.Overlay.DesignMode.Border}"
                     CornerRadius="0,0,5,5"/>
             
             <local:WidgetHeader Grid.Row="0" 

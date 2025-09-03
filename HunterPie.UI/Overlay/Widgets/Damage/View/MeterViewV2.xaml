@@ -34,15 +34,15 @@
         
         <!-- Header -->
         <Border Grid.Row="0"
-                BorderBrush="{StaticResource GRAY}"
+                BorderBrush="{StaticResource Gray}"
                 BorderThickness="1,1,1,0"
                 CornerRadius="5,5,0,0"
-                Background="{Binding Source={StaticResource GRAY_300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Background.Transparency}}">
+                Background="{Binding Source={StaticResource Gray@300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Background.Transparency}}">
             <UniformGrid Rows="1">
                 <!-- Time Elapsed -->
                 <StackPanel Orientation="Horizontal">
                     <image:Icon Image="{StaticResource ICON_STOPWATCH}"
-                                Foreground="{StaticResource WHITE_400}"
+                                Foreground="{StaticResource White@400}"
                                 Height="18"
                                 Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                                 Margin="5"/>
@@ -50,7 +50,7 @@
                                d:Text="00:00:00"
                                VerticalAlignment="Center"
                                FontSize="13"
-                               Foreground="{StaticResource WHITE_100}"/>
+                               Foreground="{StaticResource White@100}"/>
                 </StackPanel>
                 
                 <!-- Deaths -->
@@ -59,13 +59,13 @@
                             Margin="5,0"
                             Visibility="{Binding MaxDeaths, Mode=OneWay, Converter={StaticResource MaxDeathsToVisibilityConverter}}">
                     <image:Icon Image="{StaticResource ICON_SKULL}"
-                                Foreground="{StaticResource WHITE_400}"
+                                Foreground="{StaticResource White@400}"
                                 Height="18"
                                 Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                                 Margin="5"/>
                     <TextBlock VerticalAlignment="Center"
                                FontSize="13"
-                               Foreground="{StaticResource WHITE_100}">
+                               Foreground="{StaticResource White@100}">
                         <Run Text="{Binding Deaths, Mode=OneWay}"
                              d:Text="0"/><!--
                      --><Run Text="/"/><!--
@@ -78,10 +78,10 @@
         
         <!-- Party Members -->
         <Border Grid.Row="1"
-                BorderBrush="{StaticResource GRAY}"
+                BorderBrush="{StaticResource Gray}"
                 BorderThickness="1,0,1,1"
                 CornerRadius="0,0,5,5"
-                Background="{Binding Source={StaticResource GRAY_200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Background.Transparency}}">
+                Background="{Binding Source={StaticResource Gray@200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Background.Transparency}}">
             <ItemsControl ItemsSource="{Binding Players, Mode=OneTime}"
                           d:DataContext="{StaticResource MockViewModel}">
                 <ItemsControl.ItemsPanel>
@@ -103,11 +103,11 @@
         <Border Grid.Row="2"
                 Margin="0,2"
                 Padding="2"
-                BorderBrush="{StaticResource GRAY}"
+                BorderBrush="{StaticResource Gray}"
                 BorderThickness="1"
                 CornerRadius="5"
                 Visibility="{Binding Settings.ShouldShowPlots.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                Background="{Binding Source={StaticResource GRAY_300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Background.Transparency}}">
+                Background="{Binding Source={StaticResource Gray@300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Background.Transparency}}">
             <wpf:CartesianChart Height="120"
                                 d:DataContext="{StaticResource MockViewModel}"
                                 Hoverable="False"
@@ -122,17 +122,17 @@
                 <wpf:CartesianChart.AxisY>
                     <wpf:Axis MinValue="0"
                               LabelFormatter="{Binding DamageFormatter, Mode=OneWay}"
-                              FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}">
+                              FontFamily="{StaticResource Font.Default}">
                         <wpf:Axis.Separator>
                             <wpf:Separator StrokeDashArray="2"
                                            StrokeThickness="1"
-                                           Stroke="{StaticResource GRAY}"/>
+                                           Stroke="{StaticResource Gray}"/>
                         </wpf:Axis.Separator>
                     </wpf:Axis>
                 </wpf:CartesianChart.AxisY>
                 <wpf:CartesianChart.AxisX>
                     <wpf:Axis LabelFormatter="{Binding TimeFormatter, Mode=OneTime}"
-                              FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                              FontFamily="{StaticResource Font.Default}"
                               ShowLabels="False"/>
                 </wpf:CartesianChart.AxisX>
             </wpf:CartesianChart>

@@ -10,7 +10,8 @@
                        mc:Ignorable="d" 
                        d:DesignHeight="25" 
                        d:DesignWidth="60"
-                       ClipToBounds="True">
+                       ClipToBounds="True"
+                       Cursor="Hand">
     <arch:ClickableControl.Resources>
         <Storyboard x:Key="PART_RippleAnimation">
             <DoubleAnimation Storyboard.TargetProperty="Width" 
@@ -40,50 +41,34 @@
             </DoubleAnimation>
         </Storyboard>
     </arch:ClickableControl.Resources>
-    <Grid>
-        <Border CornerRadius="{Binding CornerRadius, ElementName=NativeButtonControl}"
-                BorderThickness="{Binding BorderThickness, ElementName=NativeButtonControl}"
-                BorderBrush="{Binding BorderBrush, ElementName=NativeButtonControl}"
-                Background="{Binding Background, ElementName=NativeButtonControl}">
-            <Grid>
-                <Grid.OpacityMask>
-                    <VisualBrush>
-                        <VisualBrush.Visual>
-                            <Border CornerRadius="{Binding CornerRadius, ElementName=NativeButtonControl}"
-                                    BorderThickness="{Binding BorderThickness, ElementName=NativeButtonControl}"
-                                    BorderBrush="Black"
-                                    Background="Black"
-                                    Height="{Binding ActualHeight, ElementName=NativeButtonControl}"
-                                    Width="{Binding ActualWidth, ElementName=NativeButtonControl}"/>
-                        </VisualBrush.Visual>
-                    </VisualBrush>
-                </Grid.OpacityMask>
-                <Canvas ClipToBounds="True"
-                        x:Name="PART_RippleContainer"/>
-                <effects:CursorHighLight>
-                    <Label Content="{Binding Content, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
-                           Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
-                           FontFamily="{StaticResource Font.Default}"
-                           Padding="{Binding Padding, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
-                           HorizontalContentAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
-                           VerticalContentAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"/>
-                </effects:CursorHighLight>
-            </Grid>
-        </Border>
-    </Grid>
-    
-    <arch:ClickableControl.Style>
-        <Style TargetType="{x:Type arch:ClickableControl}">
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Opacity" Value="0.7"/>
-                    <Setter Property="Cursor" Value="Hand"/>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="True">
-                    <Setter Property="Opacity" Value="1"/>
-                    <Setter Property="Cursor" Value="Hand"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </arch:ClickableControl.Style>
+    <Border CornerRadius="{Binding CornerRadius, ElementName=NativeButtonControl}"
+            BorderThickness="{Binding BorderThickness, ElementName=NativeButtonControl}"
+            BorderBrush="{Binding BorderBrush, ElementName=NativeButtonControl}"
+            Background="{Binding Background, ElementName=NativeButtonControl}">
+        <Grid>
+            <Grid.OpacityMask>
+                <VisualBrush>
+                    <VisualBrush.Visual>
+                        <Border CornerRadius="{Binding CornerRadius, ElementName=NativeButtonControl}"
+                                BorderThickness="{Binding BorderThickness, ElementName=NativeButtonControl}"
+                                BorderBrush="Black"
+                                Background="Black"
+                                Height="{Binding ActualHeight, ElementName=NativeButtonControl}"
+                                Width="{Binding ActualWidth, ElementName=NativeButtonControl}"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Grid.OpacityMask>
+            <effects:CursorHighLight>
+                <Label Content="{Binding Content, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
+                       Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
+                       FontFamily="{StaticResource Font.Default}"
+                       Padding="{Binding Padding, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
+                       HorizontalContentAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"
+                       VerticalContentAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type local:Button}}}"/>
+            </effects:CursorHighLight>
+            <Canvas ClipToBounds="True"
+                    x:Name="PART_RippleContainer"
+                    IsHitTestVisible="False"/>
+        </Grid>
+    </Border>
 </arch:ClickableControl>

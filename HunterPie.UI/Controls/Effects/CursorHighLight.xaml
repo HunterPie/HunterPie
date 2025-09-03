@@ -8,40 +8,38 @@
       d:DesignHeight="450" 
       d:DesignWidth="800" 
       MouseMove="OnMouseMove">
-    <Grid>
-        <ContentControl Content="{Binding Children, RelativeSource={RelativeSource AncestorType={x:Type local:CursorHighLight}}}"/>
-        <Canvas ClipToBounds="True"
-                Background="Transparent"
-                IsHitTestVisible="False">
-            <Rectangle x:Name="PART_Highlight"
-                       Height="500"
-                       Width="500"
-                       Opacity="0"
-                       Fill="{DynamicResource Brushes.HunterPie.Highlight}">
-                <Rectangle.Style>
-                    <Style TargetType="{x:Type Rectangle}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsMouseOver, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:CursorHighLight}}}"
-                                         Value="True">
-                                <DataTrigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard Storyboard.TargetProperty="Opacity">
-                                            <DoubleAnimation To="0.2" Duration="0:0:0.3"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.EnterActions>
-                                <DataTrigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard Storyboard.TargetProperty="Opacity">
-                                            <DoubleAnimation To="0" Duration="0:0:0.3"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.ExitActions>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Rectangle.Style>
-            </Rectangle>
-        </Canvas>
-    </Grid>
+    <ContentControl Content="{Binding Children, RelativeSource={RelativeSource AncestorType={x:Type local:CursorHighLight}}}"/>
+    <Canvas ClipToBounds="True"
+            Background="Transparent"
+            IsHitTestVisible="False">
+        <Rectangle x:Name="PART_Highlight"
+                   Height="500"
+                   Width="500"
+                   Opacity="0"
+                   Fill="{DynamicResource Brushes.HunterPie.Highlight}">
+            <Rectangle.Style>
+                <Style TargetType="{x:Type Rectangle}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMouseOver, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:CursorHighLight}}}"
+                                     Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetProperty="Opacity">
+                                        <DoubleAnimation To="0.2" Duration="0:0:0.3"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetProperty="Opacity">
+                                        <DoubleAnimation To="0" Duration="0:0:0.3"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
+        </Rectangle>
+    </Canvas>
 </Grid>

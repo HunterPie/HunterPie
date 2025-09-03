@@ -23,7 +23,6 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <ThicknessAnimation To="25,0,0,0"
-                                                    From="5,0,0,0"
                                                     Duration="0:0:0.15"
                                                  Storyboard.TargetProperty="Margin">
                                     <ThicknessAnimation.EasingFunction>
@@ -31,7 +30,6 @@
                                     </ThicknessAnimation.EasingFunction>
                                 </ThicknessAnimation>
                                 <anim:BrushAnimation To="{StaticResource Brushes.HunterPie.Foreground.Primary}"
-                                                     From="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                                                      Duration="0:0:0.15"
                                                      Storyboard.TargetProperty="Fill"/>
                             </Storyboard>
@@ -41,7 +39,6 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <ThicknessAnimation To="5,0,0,0"
-                                                    From="25,0,0,0"
                                                     Duration="0:0:0.15"
                                                     Storyboard.TargetProperty="Margin">
                                     <ThicknessAnimation.EasingFunction>
@@ -49,7 +46,6 @@
                                     </ThicknessAnimation.EasingFunction>
                                 </ThicknessAnimation>
                                 <anim:BrushAnimation To="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
-                                                     From="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                                                      Duration="0:0:0.15"
                                                      Storyboard.TargetProperty="Fill"/>
                             </Storyboard>

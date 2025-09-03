@@ -3,7 +3,6 @@ using HunterPie.Features.Theme.ViewModels;
 using HunterPie.UI.Architecture.Adorners;
 using HunterPie.UI.Architecture.Tree;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -13,7 +12,7 @@ namespace HunterPie.Features.Theme.Views;
 /// <summary>
 /// Interaction logic for InstalledThemeHomeTabView.xaml
 /// </summary>
-public partial class InstalledThemeHomeTabView : UserControl
+public partial class InstalledThemeHomeTabView
 {
     private InstalledThemeViewModel? _lastHoveredViewModel;
     private DragAdorner<InstalledThemeView>? _draggedElement;
@@ -91,15 +90,17 @@ public partial class InstalledThemeHomeTabView : UserControl
 
         if (_lastHoveredViewModel is { } targetViewModel)
         {
-            int oldIndex = ViewModel.Themes.IndexOf(sourceViewModel);
-            int newIndex = ViewModel.Themes.IndexOf(targetViewModel);
-
-            ViewModel.Themes.Move(oldIndex, newIndex);
+            ViewModel.Arrange(sourceViewModel, targetViewModel);
             targetViewModel.IsDraggingOver = false;
         }
 
         _adornerLayer?.Remove(_draggedElement);
         _draggedElement = null;
         _lastHoveredViewModel = null;
+    }
+
+    private void OnThemeToggle(object sender, RoutedEventArgs e)
+    {
+        ViewModel.Sort();
     }
 }

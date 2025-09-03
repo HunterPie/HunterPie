@@ -64,51 +64,31 @@
             </ItemsControl>
         </DataTemplate>
 
-        <Style TargetType="{x:Type TabItem}">
-            <Setter Property="Background" Value="#171717"/>
-            <Setter Property="Foreground" Value="#FF9C9C9C"/>
-            <Setter Property="Opacity" Value="0.6"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TabItem}">
-                        <Border x:Name="PART_Border">
-                            <ContentPresenter ContentSource="Header" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Opacity" Value="1"/>
-                                <Setter TargetName="PART_Border" Property="BorderBrush" Value="Black" />
-                                <Setter Property="Foreground" Value="{StaticResource HUNTERPIE_FOREGROUND_DARK}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <DataTemplate x:Key="HeaderTemplate" DataType="{x:Type vm:ChatCategoryViewModel}">
-            <native:TabItem Padding="10,5,10,5"
-                            Title="{Binding Name}"
+        <DataTemplate x:Key="HeaderTemplate" 
+                      DataType="{x:Type vm:ChatCategoryViewModel}">
+            <native:TabItem Title="{Binding Name}"
                             Description="{Binding Description}"
                             Icon="{Binding Icon}"
                             Background="Transparent"
                             FontSize="13"
-                            BorderThickness="0" Foreground="#FFD8D8D8"/>
+                            BorderThickness="0" 
+                            Foreground="{StaticResource White@100}"/>
         </DataTemplate>
     </UserControl.Resources>
-    <Grid Background="#CC151819"
+    <Grid Background="{Binding Source={StaticResource Gray@200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
           Visibility="{Binding IsChatOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
         <Border BorderThickness="1"
-                BorderBrush="{StaticResource HUNTERPIE_ACCENT_COLOR}"
-                Margin="2"/>
-        <TabControl ItemsSource="{Binding Categories, Mode=OneWay}"
-                    ItemTemplate="{StaticResource HeaderTemplate}"
-                    ContentTemplate="{StaticResource PanelTemplate}"
-                    d:DataContext="{StaticResource MockChatViewModel}"
-                    SelectedIndex="0"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Padding="0"
-                    Margin="5"/>
+                BorderBrush="{StaticResource Brushes.HunterPie.Accent.Transparent}"
+                CornerRadius="5"
+                Padding="5">
+            <TabControl ItemsSource="{Binding Categories, Mode=OneWay}"
+                        ItemTemplate="{StaticResource HeaderTemplate}"
+                        ContentTemplate="{StaticResource PanelTemplate}"
+                        d:DataContext="{StaticResource MockChatViewModel}"
+                        SelectedIndex="0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Padding="0"/>
+        </Border>
     </Grid>
 </arch:View>

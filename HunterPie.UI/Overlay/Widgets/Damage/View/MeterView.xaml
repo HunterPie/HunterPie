@@ -14,7 +14,7 @@
            xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
            mc:Ignorable="d" 
            Width="300"
-           Style="{StaticResource STYLE_DAMAGE_METER_WIDGET}">
+           Style="{DynamicResource Widgets.DamageMeter}">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <viewmodels:MockMeterViewModel x:Key="MockViewModel"/>
@@ -38,8 +38,8 @@
                            Height="18"/>
                     <TextBlock Text="{Binding TimeElapsed, Converter={StaticResource SecondsToTimeString}, ConverterParameter='hh\\:mm\\:ss'}"
                                d:Text="3:33"
-                               Foreground="{StaticResource WHITE}"
-                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                               Foreground="{StaticResource White}"
+                               FontFamily="{StaticResource Font.Default}"
                                VerticalAlignment="Center"
                                FontSize="13"/>
                 </WrapPanel>
@@ -52,12 +52,12 @@
                            Height="18"/>
                     <TextBlock d:Text="2"
                                Text="{Binding Deaths, Mode=OneWay}"
-                               Foreground="{StaticResource WHITE}"
-                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                               Foreground="{StaticResource White}"
+                               FontFamily="{StaticResource Font.Default}"
                                VerticalAlignment="Center"
                                FontSize="13"/>
-                    <TextBlock Foreground="{StaticResource WHITE_200}"
-                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                    <TextBlock Foreground="{StaticResource White@200}"
+                               FontFamily="{StaticResource Font.Default}"
                                VerticalAlignment="Center"
                                FontSize="13"
                                Visibility="{Binding MaxDeaths, Mode=OneWay, Converter={StaticResource MaxDeathsToVisibilityConverter}}"
@@ -139,11 +139,11 @@
                 <lvc:CartesianChart.AxisY>
                     <lvc:Axis MinValue="0"
                               LabelFormatter="{Binding DamageFormatter, Mode=OneWay}"
-                              FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+                              FontFamily="{StaticResource Font.Default}"/>
                 </lvc:CartesianChart.AxisY>
                 <lvc:CartesianChart.AxisX>
                     <lvc:Axis LabelFormatter="{Binding TimeFormatter, Mode=OneTime}"
-                              FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                              FontFamily="{StaticResource Font.Default}"
                               ShowLabels="False"/>
                 </lvc:CartesianChart.AxisX>
             </lvc:CartesianChart>
@@ -158,7 +158,7 @@
                             ToolTip="Highlight Myself"
                             Margin="0,0,5,0"
                             OnClick="OnPlayerHighlightToggle"
-                            Background="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}"
+                            Background="{StaticResource Gray@50}"
                             Height="25"
                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
                 <Image Source="{StaticResource ICON_SPARKLING}"/>
@@ -173,7 +173,7 @@
                             ToolTip="Hide names"
                             Margin="0,0,5,0"
                             OnClick="OnPlayerBlurToggle"
-                            Background="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}"
+                            Background="{StaticResource Gray@50}"
                             Height="25"
                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
                 <Image Source="{StaticResource ICON_HIDE}"/>

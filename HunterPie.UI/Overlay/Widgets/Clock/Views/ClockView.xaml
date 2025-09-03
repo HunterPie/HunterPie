@@ -12,7 +12,6 @@
                    xmlns:system="clr-namespace:System;assembly=System.Runtime"
                    xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
                    xmlns:game="clr-namespace:HunterPie.UI.Architecture.Converters.Game"
-                   xmlns:conditionals="clr-namespace:HunterPie.UI.Architecture.Converters.Conditionals"
                    mc:Ignorable="d"
                    d:DataContext="{d:DesignInstance Type=viewModels:ClockViewModel}"
                    HorizontalAlignment="Center"
@@ -26,9 +25,9 @@
     </UserControl.Resources>
     <StackPanel Orientation="Vertical">
         <Border Padding="2"
-                BorderBrush="{StaticResource GRAY}"
+                BorderBrush="{StaticResource Gray}"
                 BorderThickness="1"
-                Background="{Binding Source={StaticResource GRAY_400}, ConverterParameter={StaticResource Background.Transparency}, Converter={StaticResource BrushOpacityConverter}}"
+                Background="{Binding Source={StaticResource Gray@400}, ConverterParameter={StaticResource Background.Transparency}, Converter={StaticResource BrushOpacityConverter}}"
                 CornerRadius="5">
             <StackPanel Orientation="Vertical">
                 <!-- Quest Timer -->
@@ -40,17 +39,17 @@
                     <image:Icon Grid.Column="0" 
                                 Image="{StaticResource ICON_HOUR_GLASS}"
                                 Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                Foreground="{StaticResource WHITE_700}"/>
+                                Foreground="{StaticResource White@700}"/>
                     <TextBlock Grid.Column="1" 
                                d:Text="00:00:00"
                                Text="{Binding QuestTimeLeft, Mode=OneWay, StringFormat='hh\\:mm\\:ss', TargetNullValue='--:--:--'}"
-                               Foreground="{StaticResource WHITE_200}"
+                               Foreground="{StaticResource White@200}"
                                HorizontalAlignment="Right"
                                Margin="5,0,0,0"
                                FontSize="13"/>
                 </Grid>
                 <Separator Margin="2"
-                           Background="{StaticResource GRAY}"/>
+                           Background="{StaticResource Gray}"/>
 
                 <!-- World Time -->
                 <Grid>
@@ -61,11 +60,11 @@
                     <image:Icon Grid.Column="0" 
                                 Image="{StaticResource ICON_GLOBE}"
                                 Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                Foreground="{StaticResource WHITE_700}"/>
+                                Foreground="{StaticResource White@700}"/>
                     <TextBlock Grid.Column="1" 
                                d:Text="10:00 PM"
                                Text="{Binding WorldTime, Mode=OneWay, StringFormat='h:mm tt'}"
-                               Foreground="{StaticResource WHITE_200}"
+                               Foreground="{StaticResource White@200}"
                                HorizontalAlignment="Right"
                                Margin="5,0,0,0"
                                FontSize="13"/>
@@ -75,9 +74,9 @@
 
         <!-- Moon Phases -->
         <Border Padding="5,2"
-                BorderBrush="{StaticResource GRAY}"
+                BorderBrush="{StaticResource Gray}"
                 BorderThickness="1"
-                Background="{Binding Source={StaticResource GRAY_400}, ConverterParameter={StaticResource Background.Transparency}, Converter={StaticResource BrushOpacityConverter}}"
+                Background="{Binding Source={StaticResource Gray@400}, ConverterParameter={StaticResource Background.Transparency}, Converter={StaticResource BrushOpacityConverter}}"
                 CornerRadius="5"
                 Margin="0,2,0,0">
             <Border.Style>
@@ -103,7 +102,7 @@
                            Text="{Binding Moon.Phase, Mode=OneWay, FallbackValue={x:Null}, Converter={StaticResource MoonPhaseToStringConverter}}"
                            FontWeight="Medium"
                            HorizontalAlignment="Center"
-                           Foreground="{StaticResource WHITE_200}"
+                           Foreground="{StaticResource White@200}"
                            Margin="0,0,0,3"/>
 
                 <ItemsControl ItemsSource="{Binding Moons, Mode=OneTime}"
