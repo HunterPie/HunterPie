@@ -11,7 +11,7 @@ using HunterPie.UI.Overlay.Widgets.Damage.Controllers;
 using HunterPie.UI.Overlay.Widgets.Damage.View;
 using System.Threading.Tasks;
 
-namespace HunterPie.Features.Overlay;
+namespace HunterPie.Features.Overlay.Widgets;
 
 internal class DamageWidgetInitializer : IWidgetInitializer
 {

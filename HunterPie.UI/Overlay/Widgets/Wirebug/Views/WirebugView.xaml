@@ -152,7 +152,7 @@
                      Fill="#80000000"/>
             <TextBlock Text="{Binding Cooldown, Mode=OneWay, StringFormat=\{0:F1\}}"
                        Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       FontFamily="{StaticResource Font.Default}"
                        FontSize="15"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"

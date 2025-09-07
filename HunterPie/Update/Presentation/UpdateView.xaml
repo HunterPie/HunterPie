@@ -35,7 +35,7 @@
                Opacity="0.3"/>
         <TextBlock Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                    FontSize="30"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   FontFamily="{StaticResource Font.Default}"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Center"
                    Margin="0,100,0,0"

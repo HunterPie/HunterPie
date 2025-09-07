@@ -24,7 +24,7 @@
                                               Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
                                             <Rectangle Fill="#FF191A1B"
                                                        RenderTransformOrigin="0.5,0.5"
-                                                       Stroke="{StaticResource GRAY_400}">
+                                                       Stroke="{StaticResource Gray@400}">
                                                 <Rectangle.RenderTransform>
                                                     <TransformGroup>
                                                         <RotateTransform Angle="45"/>
@@ -42,8 +42,8 @@
                                                    Margin="0,0,2,0"
                                                    VerticalAlignment="Top"/>
                                             <TextBlock Text="{Binding Name, Mode=OneWay}"
-                                                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                                                       Foreground="{StaticResource WHITE_100}"
+                                                       FontFamily="{StaticResource Font.Default}"
+                                                       Foreground="{StaticResource White@100}"
                                                        FontSize="15"
                                                        VerticalAlignment="Top"
                                                        HorizontalAlignment="Left">

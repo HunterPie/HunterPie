@@ -7,7 +7,7 @@ using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Clock;
 using System.Threading.Tasks;
 
-namespace HunterPie.Features.Overlay;
+namespace HunterPie.Features.Overlay.Widgets;
 
 public class ClockWidgetInitializer : IWidgetInitializer
 {

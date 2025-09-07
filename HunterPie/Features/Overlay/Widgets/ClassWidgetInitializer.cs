@@ -5,7 +5,7 @@ using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Widgets.Classes;
 using System.Threading.Tasks;
 
-namespace HunterPie.Features.Overlay;
+namespace HunterPie.Features.Overlay.Widgets;
 internal class ClassWidgetInitializer : IWidgetInitializer
 {
     private IContextHandler? _handler;

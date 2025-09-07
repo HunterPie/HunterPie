@@ -45,7 +45,7 @@
                      HorizontalAlignment="Stretch"
                      Padding="2,0,30,0"
                      TextAlignment="Left"
-                     FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                     FontFamily="{StaticResource Font.Default}"
                      d:Text="Search..."
                      Text="{Binding SearchText.Value, UpdateSourceTrigger=PropertyChanged}"
                      BorderThickness="0"

@@ -19,7 +19,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
-namespace HunterPie.Features.Overlay;
+namespace HunterPie.Features.Overlay.Widgets;
 
 internal class ActivitiesWidgetInitializer : IWidgetInitializer
 {

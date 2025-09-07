@@ -3,25 +3,29 @@ using HunterPie.Core.Client.Configuration;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.UI.Architecture.Overlay;
-using HunterPie.UI.Overlay.Widgets.Player;
+using HunterPie.UI.Overlay;
+using HunterPie.UI.Overlay.Widgets.Monster;
 using System.Threading.Tasks;
 
-namespace HunterPie.Features.Overlay;
+namespace HunterPie.Features.Overlay.Widgets;
 
-internal class PlayerHudWidgetInitializer : IWidgetInitializer
+internal class MonsterWidgetInitializer : IWidgetInitializer
 {
-    private PlayerHudWidgetContextHandler? _handler;
+    private IContextHandler? _handler;
 
-    public GameProcessType SupportedGames => GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWorld;
+    public GameProcessType SupportedGames =>
+        GameProcessType.MonsterHunterRise |
+        GameProcessType.MonsterHunterWorld |
+        GameProcessType.MonsterHunterWilds;
 
     public Task LoadAsync(IContext context)
     {
         OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(context.Process.Type);
 
-        if (!config.PlayerHudWidget.Initialize)
+        if (!config.BossesWidget.Initialize)
             return Task.CompletedTask;
 
-        _handler = new PlayerHudWidgetContextHandler(context);
+        _handler = new MonsterWidgetContextHandler(context);
 
         return Task.CompletedTask;
     }

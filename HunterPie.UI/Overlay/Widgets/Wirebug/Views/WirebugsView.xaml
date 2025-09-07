@@ -36,7 +36,7 @@
                                            Visibility="{Binding IsAvailable, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                         <TextBlock Text="{Binding Timer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"
                                    Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                   FontFamily="{StaticResource Font.Default}"
                                    FontSize="14"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
