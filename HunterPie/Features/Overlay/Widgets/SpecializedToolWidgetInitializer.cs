@@ -7,8 +7,10 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
+using HunterPie.UI.Overlay.Service;
+using HunterPie.UI.Overlay.Views;
 using HunterPie.UI.Overlay.Widgets.SpecializedTools.Controllers;
-using HunterPie.UI.Overlay.Widgets.SpecializedTools.Views;
+using HunterPie.UI.Overlay.Widgets.SpecializedTools.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +20,18 @@ namespace HunterPie.Features.Overlay.Widgets;
 
 internal class SpecializedToolWidgetInitializer : IWidgetInitializer
 {
-    private readonly List<IContextHandler> _handlers = new(2);
+    private readonly IOverlay _overlay;
+
+    private readonly List<(IContextHandler, WidgetView)> _handlers = new(2);
 
     public GameProcessType SupportedGames =>
         GameProcessType.MonsterHunterWorld |
         GameProcessType.MonsterHunterWilds;
+
+    public SpecializedToolWidgetInitializer(IOverlay overlay)
+    {
+        _overlay = overlay;
+    }
 
     public Task LoadAsync(IContext context)
     {
@@ -45,15 +54,25 @@ internal class SpecializedToolWidgetInitializer : IWidgetInitializer
             if (!config.Initialize)
                 continue;
 
-            IContextHandler controller = CreateControllerByGame(
+            var viewModel = new SpecializedToolViewModelV2(
+                settings: config
+            );
+            ISpecializedTool? tool = GetSpecializedToolByGame(context, i);
+
+            if (tool is null)
+                continue;
+
+            IContextHandler controller = new SpecializedToolController(
                 context: context,
-                index: i,
-                configuration: config
+                tool: tool,
+                viewModel: viewModel,
+                config: config
             );
 
             controller.HookEvents();
+            WidgetView view = _overlay.Register(viewModel);
 
-            _handlers.Add(controller);
+            _handlers.Add((controller, view));
         }
 
         return Task.CompletedTask;
@@ -61,22 +80,20 @@ internal class SpecializedToolWidgetInitializer : IWidgetInitializer
 
     public void Unload()
     {
-        foreach (IContextHandler handler in _handlers)
+        foreach ((IContextHandler handler, WidgetView view) in _handlers)
+        {
             handler.UnhookEvents();
+            _overlay.Unregister(view);
+        }
 
         _handlers.Clear();
     }
 
-    private static IContextHandler CreateControllerByGame(
+    private static ISpecializedTool? GetSpecializedToolByGame(
         IContext context,
-        int index,
-        SpecializedToolWidgetConfig configuration)
+        int index)
     {
-        var view = new SpecializedToolViewV2(
-            config: configuration
-        );
-
-        ISpecializedTool? tool = context.Game.Player switch
+        return context.Game.Player switch
         {
             MHWPlayer player => player.Tools.ElementAtOrDefault(index),
 
@@ -84,12 +101,5 @@ internal class SpecializedToolWidgetInitializer : IWidgetInitializer
 
             _ => throw new NotImplementedException($"{context.Process.Type} does not support specialized tools")
         };
-
-        return new SpecializedToolController(
-            context: context,
-            tool: tool,
-            view: view,
-            config: configuration
-        );
     }
 }

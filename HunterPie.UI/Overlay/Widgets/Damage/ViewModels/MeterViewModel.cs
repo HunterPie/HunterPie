@@ -1,7 +1,8 @@
 ﻿using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Extensions;
-using HunterPie.UI.Architecture;
+using HunterPie.UI.Overlay.Enums;
+using HunterPie.UI.Overlay.ViewModels;
 using LiveCharts;
 using System;
 using System.Collections.ObjectModel;
@@ -9,9 +10,9 @@ using System.Globalization;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
 
-public class MeterViewModel : ViewModel
+public class MeterViewModel : WidgetViewModel
 {
-    public DamageMeterWidgetConfig Settings { get; }
+    public DamageMeterWidgetConfig Config { get; }
     private double _timeElapsed = 1;
     private int _maxDeaths;
     private int _deaths;
@@ -52,11 +53,9 @@ public class MeterViewModel : ViewModel
 
     public bool HasPetsToBeDisplayed { get => _hasPetsToBeDisplayed; set => SetValue(ref _hasPetsToBeDisplayed, value); }
 
-    public MeterViewModel() { }
-
-    public MeterViewModel(DamageMeterWidgetConfig config)
+    public MeterViewModel(DamageMeterWidgetConfig config) : base(config, "Damage Meter Widget", WidgetType.ClickThrough)
     {
-        Settings = config;
+        Config = config;
         Pets = new(config);
         SetupFormatters();
     }
@@ -65,7 +64,7 @@ public class MeterViewModel : ViewModel
 
     private string FormatDamageByStrategy(double damage)
     {
-        return Settings.DamagePlotStrategy.Value switch
+        return Config.DamagePlotStrategy.Value switch
         {
             DamagePlotStrategy.TotalDamage => damage.ToString(CultureInfo.InvariantCulture),
             DamagePlotStrategy.DamagePerSecond
@@ -74,9 +73,9 @@ public class MeterViewModel : ViewModel
         };
     }
 
-    public void ToggleHighlight() => Settings.ShouldHighlightMyself.Value = !Settings.ShouldHighlightMyself;
+    public void ToggleHighlight() => Config.ShouldHighlightMyself.Value = !Config.ShouldHighlightMyself;
 
-    public void ToggleBlur() => Settings.ShouldBlurNames.Value = !Settings.ShouldBlurNames;
+    public void ToggleBlur() => Config.ShouldBlurNames.Value = !Config.ShouldBlurNames;
 
     public void SortMembers()
     {

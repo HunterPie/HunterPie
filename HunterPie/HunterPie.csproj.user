@@ -12,6 +12,9 @@
     <Compile Update="Features\Account\Views\RequestAccountVerificationFlowView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Features\Debug\Views\DebugOverlayManagerView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Features\Settings\Views\SettingsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

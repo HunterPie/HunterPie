@@ -29,6 +29,20 @@ public partial class WidgetView
         CompositionTarget.Rendering += OnRender;
     }
 
+    internal void UpdateFlags()
+    {
+        nint hWnd = GetHandle();
+
+        uint styles = User32.GetWindowLong(hWnd, User32.GWL_EXSTYLE);
+
+        if (Context.State.IsDesignModeEnabled)
+            styles &= ~(uint)User32.EX_WINDOW_STYLES.WS_EX_TRANSPARENT;
+        else
+            styles |= (uint)User32.EX_WINDOW_STYLES.WS_EX_TRANSPARENT;
+
+        User32.SetWindowLong(hWnd, User32.GWL_EXSTYLE, styles);
+    }
+
     private void OnRender(object sender, EventArgs e)
     {
         DateTime lastRender = _lastRenderAt;

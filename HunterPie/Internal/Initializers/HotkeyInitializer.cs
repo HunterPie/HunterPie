@@ -1,5 +1,6 @@
-﻿using HunterPie.Core.Input;
+﻿using HunterPie.Core.Observability.Logging;
 using HunterPie.Domain.Interfaces;
+using HunterPie.Features.Input;
 using HunterPie.UI.Main.Views;
 using System;
 using System.Threading.Tasks;
@@ -9,33 +10,36 @@ namespace HunterPie.Internal.Initializers;
 
 internal class HotkeyInitializer : IInitializer, IDisposable
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
     private readonly MainView _mainView;
+    private readonly HotkeyService _hotkeyService;
 
-    private static HwndSource? _source;
-    private static IntPtr _hWnd;
-
-    public HotkeyInitializer(MainView mainView)
+    public HotkeyInitializer(
+        MainView mainView,
+        HotkeyService hotkeyService)
     {
         _mainView = mainView;
+        _hotkeyService = hotkeyService;
     }
 
     public Task Init()
     {
-        _hWnd = new WindowInteropHelper(_mainView)
+        nint hWnd = new WindowInteropHelper(_mainView)
             .EnsureHandle();
 
-        _source = HwndSource.FromHwnd(_hWnd);
+        if (HwndSource.FromHwnd(hWnd) is not { } source)
+        {
+            _logger.Error($"failed to initialize hotkey service");
+            return Task.CompletedTask;
+        }
 
-        _source?.AddHook(Hotkey.HwndHook);
-        Hotkey.hWnd = _hWnd;
+        _hotkeyService.Setup(source);
 
         return Task.CompletedTask;
     }
 
     public void Dispose()
     {
-        _source?.RemoveHook(Hotkey.HwndHook);
-        _source?.Dispose();
-        _hWnd = IntPtr.Zero;
+        _hotkeyService.Dispose();
     }
 }

@@ -5,7 +5,10 @@ using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
+using HunterPie.UI.Overlay.Service;
+using HunterPie.UI.Overlay.Views;
 using HunterPie.UI.Overlay.Widgets.Abnormality;
+using HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,12 +17,18 @@ namespace HunterPie.Features.Overlay.Widgets;
 
 internal class AbnormalitiesWidgetInitializer : IWidgetInitializer
 {
-    private readonly List<IContextHandler> _handlers = new();
+    private readonly IOverlay _overlay;
+    private readonly List<(IContextHandler, WidgetView)> _handlers = new();
 
     public GameProcessType SupportedGames =>
         GameProcessType.MonsterHunterRise
         | GameProcessType.MonsterHunterWorld
         | GameProcessType.MonsterHunterWilds;
+
+    public AbnormalitiesWidgetInitializer(IOverlay overlay)
+    {
+        _overlay = overlay;
+    }
 
     public Task LoadAsync(IContext context)
     {
@@ -29,12 +38,24 @@ internal class AbnormalitiesWidgetInitializer : IWidgetInitializer
         AbnormalityWidgetConfig[] configs = config.AbnormalityTray.Trays.Trays.ToArray();
         for (int i = 0; i < config.AbnormalityTray.Trays.Trays.Count; i++)
         {
-            ref AbnormalityWidgetConfig abnormConfig = ref configs[i];
+            AbnormalityWidgetConfig widgetConfig = configs[i];
 
-            if (!abnormConfig.Initialize)
+            if (!widgetConfig.Initialize)
                 continue;
 
-            _handlers.Add(new AbnormalityWidgetContextHandler(context, ref abnormConfig));
+            var vm = new AbnormalityBarViewModel(widgetConfig);
+            WidgetView view = _overlay.Register(vm);
+
+            _handlers.Add(
+                item: (
+                    new AbnormalityWidgetContextHandler(
+                        context: context,
+                        config: widgetConfig,
+                        viewModel: vm
+                    ),
+                    view
+                )
+            );
         }
 
         return Task.CompletedTask;
@@ -42,8 +63,11 @@ internal class AbnormalitiesWidgetInitializer : IWidgetInitializer
 
     public void Unload()
     {
-        foreach (IContextHandler handler in _handlers)
+        foreach ((IContextHandler handler, WidgetView view) in _handlers)
+        {
             handler.UnhookEvents();
+            _overlay.Unregister(view);
+        }
 
         _handlers.Clear();
     }

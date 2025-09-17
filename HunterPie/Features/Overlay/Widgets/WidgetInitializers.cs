@@ -8,23 +8,19 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-internal static class WidgetInitializers
+internal class WidgetInitializers
 {
-    private static readonly ILogger Logger = LoggerFactory.Create();
+    private readonly ILogger _logger = LoggerFactory.Create();
+    private readonly IWidgetInitializer[] _initializers;
 
-    private static readonly Lazy<IWidgetInitializer[]> Initializers = new(() =>
+    public WidgetInitializers(IWidgetInitializer[] initializers)
     {
-        return AppDomain.CurrentDomain.GetAssemblies()
-            .SelectMany(asm => asm.GetTypes())
-            .Where(types => typeof(IWidgetInitializer).IsAssignableFrom(types) && !types.IsInterface)
-            .Select(Activator.CreateInstance)
-            .Cast<IWidgetInitializer>()
-            .ToArray();
-    });
+        _initializers = initializers;
+    }
 
-    public static async Task InitializeAsync(Context context)
+    public async Task InitializeAsync(Context context)
     {
-        IEnumerable<Task> tasks = Initializers.Value
+        IEnumerable<Task> tasks = _initializers
             .Where(it => it.SupportedGames.HasFlag(context.Process.Type))
             .Select(it => it.LoadAsync(context));
 
@@ -34,13 +30,13 @@ internal static class WidgetInitializers
         }
         catch (Exception err)
         {
-            Logger.Error(err.ToString());
+            _logger.Error(err.ToString());
         }
     }
 
-    public static void Unload()
+    public void Unload()
     {
-        foreach (IWidgetInitializer initializer in Initializers.Value)
+        foreach (IWidgetInitializer initializer in _initializers)
             initializer.Unload();
     }
 }

@@ -1,9 +1,11 @@
-﻿using HunterPie.Core.Game.Enums;
-using HunterPie.UI.Architecture;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Game.Enums;
+using HunterPie.UI.Overlay.Enums;
+using HunterPie.UI.Overlay.ViewModels;
 
 namespace HunterPie.UI.Overlay.Widgets.SpecializedTools.ViewModels;
 
-public class SpecializedToolViewModelV2 : ViewModel
+public class SpecializedToolViewModelV2 : WidgetViewModel
 {
     private SpecializedToolType _id;
     public SpecializedToolType Id { get => _id; set => SetValue(ref _id, value); }
@@ -25,4 +27,11 @@ public class SpecializedToolViewModelV2 : ViewModel
 
     private bool _isVisible;
     public bool IsVisible { get => _isVisible; set => SetValue(ref _isVisible, value); }
+
+    public SpecializedToolWidgetConfig Config { get; }
+
+    public SpecializedToolViewModelV2(SpecializedToolWidgetConfig settings) : base(settings, "Specialized Tool Widget", WidgetType.ClickThrough)
+    {
+        Config = settings;
+    }
 }

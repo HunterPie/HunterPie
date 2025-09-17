@@ -11,14 +11,14 @@
              xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels" 
              xmlns:animations="clr-namespace:HunterPie.UI.Architecture.Animation"
              xmlns:view="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
-             xmlns:ocomponents="clr-namespace:HunterPie.UI.Overlay.Components"
              xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading"
              xmlns:genums="clr-namespace:HunterPie.Core.Game.Enums;assembly=HunterPie.Core"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
              xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Presentation"
              d:DataContext="{d:DesignInstance Type=viewmodels:BossMonsterViewModel}"
              IsHitTestVisible="False"
-             d:DesignWidth="600">
+             d:DesignWidth="600"
+             x:Name="BossMonsterComponent">
     <UserControl.Resources>
         <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -29,11 +29,12 @@
         <converters:PercentageToLeftMarginDistanceConverter x:Key="PercentageToLeftMarginDistanceConverter"/>
         <converters:MonsterTypeToLocalizationConverter x:Key="MonsterTypeToLocalizationConverter"/>
         <presentation:MonsterVariantBrushConverter x:Key="MonsterVariantBrushConverter"/>
-        <Style x:Key="BEHAVIOR_AILMENT_VIEW" TargetType="{x:Type local:BossMonsterAilmentView}">
+        <Style x:Key="BEHAVIOR_AILMENT_VIEW" 
+               TargetType="{x:Type local:BossMonsterAilmentView}">
             <Style.Triggers>
                 <MultiDataTrigger>
                     <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding Widget.Settings.AutomaticallyHideAilments.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}}"
+                        <Condition Binding="{Binding DataContext.Config.AutomaticallyHideAilments.Value, Mode=OneWay, ElementName=BossMonsterComponent}"
                                    Value="True"/>
                         <Condition Binding="{Binding DataContext.IsActive, RelativeSource={RelativeSource Self}}"
                                    Value="False"/>
@@ -44,7 +45,7 @@
                 </MultiDataTrigger>
                 <MultiDataTrigger>
                     <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding Widget.Settings.AutomaticallyHideAilments.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}}"
+                        <Condition Binding="{Binding DataContext.Config.AutomaticallyHideAilments.Value, Mode=OneWay, ElementName=BossMonsterComponent}"
                                    Value="True"/>
                         <Condition Binding="{Binding DataContext.IsActive, RelativeSource={RelativeSource Self}}"
                                    Value="True"/>
@@ -77,7 +78,7 @@
             <Style.Triggers>
                 <MultiDataTrigger>
                     <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding Widget.Settings.AutoHideParts.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}}"
+                        <Condition Binding="{Binding DataContext.Config.AutoHideParts.Value, Mode=OneWay, ElementName=BossMonsterComponent}"
                                    Value="True"/>
                         <Condition Binding="{Binding DataContext.IsActive, RelativeSource={RelativeSource Self}}"
                                    Value="False"/>
@@ -88,7 +89,7 @@
                 </MultiDataTrigger>
                 <MultiDataTrigger>
                     <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding Widget.Settings.AutoHideParts.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}}"
+                        <Condition Binding="{Binding DataContext.Config.AutoHideParts.Value, Mode=OneWay, ElementName=BossMonsterComponent}"
                                    Value="True"/>
                         <Condition Binding="{Binding DataContext.IsActive, RelativeSource={RelativeSource Self}}"
                                    Value="True"/>
@@ -108,7 +109,7 @@
                 </MultiDataTrigger>
                 <MultiDataTrigger>
                     <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding Widget.Settings.HideUnknownParts.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}}"
+                        <Condition Binding="{Binding DataContext.Config.HideUnknownParts.Value, Mode=OneWay, ElementName=BossMonsterComponent}"
                                    Value="True"/>
                         <Condition Binding="{Binding DataContext.IsKnownPart, RelativeSource={RelativeSource Self}}"
                                    Value="False"/>
@@ -235,7 +236,7 @@
                          Margin="13,47,10,0" 
                          ForegroundDelayed="#FFFFCFA8" 
                          BorderBrush="#C7212426"
-                         Visibility="{Binding Widget.Settings.EnableStamina.Value, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                         Visibility="{Binding Config.EnableStamina.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <overlay:Bar.Foreground>
                     <LinearGradientBrush EndPoint="1,1" StartPoint="0,1">
                         <GradientStop Color="#FFFF9A36" Offset="1"/>
@@ -259,7 +260,7 @@
                        FontFamily="{StaticResource Font.Default}"
                        FontWeight="Medium"
                        FontSize="13"
-                       Visibility="{Binding Widget.Settings.EnableStamina.Value, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                       Visibility="{Binding Config.EnableStamina.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <TextBlock.Effect>
                     <DropShadowEffect Color="Black"
                                       BlurRadius="4" 
@@ -482,7 +483,7 @@
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"
-                                   Visibility="{Binding Widget.Settings.EnableAilments.Value, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                   Visibility="{Binding Config.EnableAilments.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
@@ -499,7 +500,7 @@
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"
-                                   Visibility="{Binding Widget.Settings.EnableParts.Value, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ocomponents:WidgetBase}}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                   Visibility="{Binding Config.EnableParts.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 

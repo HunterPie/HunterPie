@@ -1,4 +1,4 @@
-﻿using HunterPie.Core.Client.Configuration;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.UI.Architecture;
 using HunterPie.UI.Overlay.Service;
 
@@ -7,18 +7,19 @@ namespace HunterPie.UI.Overlay.ViewModels;
 #nullable enable
 public sealed class WidgetContext : ViewModel
 {
-    public OverlayConfig OverlaySettings { get; }
+    public OverlayClientConfig OverlaySettings { get; }
 
-    public WidgetViewModel ViewModel { get; }
+    private WidgetViewModel _viewModel;
+    public WidgetViewModel ViewModel { get => _viewModel; set => SetValue(ref _viewModel, value); }
 
     public IOverlayState State { get; }
 
     public WidgetContext(
         WidgetViewModel viewModel,
-        OverlayConfig overlaySettings,
+        OverlayClientConfig overlaySettings,
         IOverlayState state)
     {
-        ViewModel = viewModel;
+        _viewModel = viewModel;
         OverlaySettings = overlaySettings;
         State = state;
     }

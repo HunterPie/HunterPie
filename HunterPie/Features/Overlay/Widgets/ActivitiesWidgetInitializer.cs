@@ -8,9 +8,11 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
+using HunterPie.UI.Overlay.Service;
+using HunterPie.UI.Overlay.Views;
 using HunterPie.UI.Overlay.Widgets.Activities.Rise.Controllers;
 using HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
-using HunterPie.UI.Overlay.Widgets.Activities.Views;
+using HunterPie.UI.Overlay.Widgets.Activities.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Activities.Wilds.Controllers;
 using HunterPie.UI.Overlay.Widgets.Activities.Wilds.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Activities.World.Controllers;
@@ -23,12 +25,20 @@ namespace HunterPie.Features.Overlay.Widgets;
 
 internal class ActivitiesWidgetInitializer : IWidgetInitializer
 {
+    private readonly IOverlay _overlay;
+
     private IContextHandler? _handler;
+    private WidgetView? _view;
 
     public GameProcessType SupportedGames =>
         GameProcessType.MonsterHunterWilds |
         GameProcessType.MonsterHunterRise |
         GameProcessType.MonsterHunterWorld;
+
+    public ActivitiesWidgetInitializer(IOverlay overlay)
+    {
+        _overlay = overlay;
+    }
 
     public Task LoadAsync(IContext context)
     {
@@ -37,30 +47,30 @@ internal class ActivitiesWidgetInitializer : IWidgetInitializer
         if (!config.ActivitiesWidget.Initialize)
             return Task.CompletedTask;
 
-        var view = new ActivitiesView(config.ActivitiesWidget);
+        var viewModel = new ActivitiesViewModel(config.ActivitiesWidget);
 
         _handler = context switch
         {
             MHRContext ctx => new MHRiseActivitiesController(
                 mainDispatcher: DependencyContainer.Get<Dispatcher>(),
                 context: ctx,
-                view: view,
+                viewModel: viewModel,
                 activities: DependencyContainer.Get<MHRiseActivitiesViewModel>()
             ),
             MHWContext ctx => new MHWorldActivitiesController(
                 context: ctx,
-                view: view,
+                viewModel: viewModel,
                 activities: DependencyContainer.Get<MHWorldActivitiesViewModel>()
             ),
             MHWildsContext ctx => new MHWildsActivitiesController(
                 context: ctx,
-                view: view,
+                viewModel: viewModel,
                 activities: DependencyContainer.Get<MHWildsActivitiesViewModel>(),
                 dispatcher: DependencyContainer.Get<Dispatcher>()
             ),
             _ => throw new NotImplementedException("unreachable")
         };
-
+        _view = _overlay.Register(viewModel);
         _handler?.HookEvents();
         return Task.CompletedTask;
     }
@@ -68,6 +78,7 @@ internal class ActivitiesWidgetInitializer : IWidgetInitializer
     public void Unload()
     {
         _handler?.UnhookEvents();
+        _overlay.Unregister(_view);
         _handler = null;
     }
 }

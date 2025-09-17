@@ -4,16 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.ViewModels"
-        xmlns:components="clr-namespace:HunterPie.UI.Overlay.Components"
         xmlns:enums="clr-namespace:HunterPie.UI.Overlay.Enums"
         xmlns:converters="clr-namespace:HunterPie.UI.Overlay.Presentation.Converters"
+        xmlns:local="clr-namespace:HunterPie.UI.Overlay.Views"
         mc:Ignorable="d"
         Height="450" 
         Width="800"
-        Top="{Binding Settings.Position.X, Mode=TwoWay}"
-        Left="{Binding Settings.Position.Y, Mode=TwoWay}"
-        Opacity="{Binding Settings.Opacity.Current, Mode=OneWay}"
-        Title="{Binding Title, Mode=OneWay}"
+        Top="{Binding ViewModel.Settings.Position.Y, Mode=TwoWay}"
+        Left="{Binding ViewModel.Settings.Position.X, Mode=TwoWay}"
+        Opacity="{Binding ViewModel.Settings.Opacity.Current, Mode=OneWay}"
+        Title="{Binding ViewModel.Title, Mode=OneWay}"
         UseLayoutRounding="False"
         SnapsToDevicePixels="False"
         ShowInTaskbar="False"
@@ -24,7 +24,8 @@
         d:DataContext="{d:DesignInstance viewModels:WidgetContext}"
         Background="#01000000"
         MouseWheel="OnMouseWheel"
-        Loaded="OnLoaded">
+        Loaded="OnLoaded"
+        Topmost="True">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:WidgetByViewModelConverter x:Key="WidgetByViewModelConverter"/>
@@ -35,8 +36,8 @@
     </WindowChrome.WindowChrome>
     <Grid>
         <Grid.LayoutTransform>
-            <ScaleTransform ScaleX="{Binding Settings.Scale.Current, Mode=OneWay}"
-                            ScaleY="{Binding Settings.Scale.Current, Mode=OneWay}"
+            <ScaleTransform ScaleX="{Binding ViewModel.Settings.Scale.Current, Mode=OneWay}"
+                            ScaleY="{Binding ViewModel.Settings.Scale.Current, Mode=OneWay}"
                             CenterX="0.5"
                             CenterY="0.5"/>
         </Grid.LayoutTransform>
@@ -53,7 +54,7 @@
                     BorderBrush="{DynamicResource Brushes.Overlay.DesignMode.Border}"
                     CornerRadius="0,0,5,5"/>
 
-            <components:WidgetHeader Grid.Row="0"/>
+            <local:WidgetHeader Grid.Row="0"/>
 
             <Grid.Style>
                 <Style TargetType="Grid">
@@ -81,7 +82,7 @@
                         <!-- OnMouseOver -->
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding Type, Mode=OneWay}"
+                                <Condition Binding="{Binding ViewModel.Type, Mode=OneWay}"
                                            Value="{x:Static enums:WidgetType.Window}"/>
                                 <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}"
                                            Value="True"/>
@@ -115,12 +116,12 @@
                     <Style TargetType="ContentControl">
                         <Style.Setters>
                             <Setter Property="Visibility"
-                                    Value="{Binding Settings.Enabled.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                    Value="{Binding ViewModel.Settings.Enabled.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                         </Style.Setters>
                         <Style.Triggers>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding Settings.HideWhenUiOpen.Value, Mode=OneWay}"
+                                    <Condition Binding="{Binding ViewModel.Settings.HideWhenUiOpen.Value, Mode=OneWay}"
                                                Value="True"/>
                                     <Condition Binding="{Binding State.IsGameHudVisible, Mode=OneWay}"
                                                Value="True"/>

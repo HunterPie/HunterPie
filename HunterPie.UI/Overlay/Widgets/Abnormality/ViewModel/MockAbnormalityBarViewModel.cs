@@ -40,7 +40,7 @@ public class MockAbnormalityBarViewModel : AbnormalityBarViewModel
         new() { Name = "ABNORMALITY_THE_FRENZY_BUILDUP", Icon = "ICON_THE_FRENZY", MaxDuration = 150, IsDebuff = true, IsBuildup = true },
     };
 
-    public MockAbnormalityBarViewModel()
+    public MockAbnormalityBarViewModel() : base(new())
     {
         SetupAbnormalities();
         MockBehavior.Run(() =>

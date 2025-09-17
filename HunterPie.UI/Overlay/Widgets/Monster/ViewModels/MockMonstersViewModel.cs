@@ -22,7 +22,7 @@ public class MockMonstersViewModel : MonstersViewModel
         }
     }
 
-    public MockMonstersViewModel(MonsterWidgetConfig config)
+    public MockMonstersViewModel(MonsterWidgetConfig config) : base(config)
     {
         Monsters.Add(new MockBossMonsterViewModel(config)
         {

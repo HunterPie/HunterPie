@@ -1,13 +1,16 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration;
+using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.Integrations.Datasources.MonsterHunterRise;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
+using HunterPie.UI.Overlay.Service;
+using HunterPie.UI.Overlay.Views;
 using HunterPie.UI.Overlay.Widgets.Wirebug;
+using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModels;
 using System;
 using System.Threading.Tasks;
 
@@ -17,28 +20,46 @@ internal class WirebugWidgetInitializer : IWidgetInitializer
 {
     private static readonly ILogger Logger = LoggerFactory.Create();
 
+    private readonly IOverlay _overlay;
+
     public GameProcessType SupportedGames => GameProcessType.MonsterHunterRise;
 
     private IContextHandler? _handler;
+    private WidgetView? _view;
+
+    public WirebugWidgetInitializer(IOverlay overlay)
+    {
+        _overlay = overlay;
+    }
 
     public async Task LoadAsync(IContext context)
     {
-        OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(context.Process.Type);
+        WirebugWidgetConfig config = ClientConfigHelper.DeferOverlayConfig(
+            game: context.Process.Type,
+            it => it.WirebugWidget
+        );
 
-        if (!config.WirebugWidget.Initialize)
+        if (!config.Initialize)
             return;
 
         if (context is not MHRContext ctx)
             return;
 
-        if (config.WirebugWidget.PatchInGameHud)
+        if (config.PatchInGameHud)
             await PatchInGameHudAssemblyAsync(context);
 
-        _handler = new WirebugWidgetContextHandler(ctx);
+        var viewModel = new WirebugsViewModel(config);
+
+        _handler = new WirebugWidgetContextHandler(
+            context: ctx,
+            viewModel: viewModel
+        );
+        _view = _overlay.Register(viewModel);
     }
 
     public void Unload()
     {
+        _overlay.Unregister(_view);
         _handler?.UnhookEvents();
         _handler = null;
     }

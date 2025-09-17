@@ -1,11 +1,7 @@
-﻿using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.Core.Extensions;
+﻿using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Enums;
-using HunterPie.Core.Settings;
-using HunterPie.UI.Architecture;
 using HunterPie.UI.Architecture.Animation;
 using HunterPie.UI.Overlay.Controls;
-using HunterPie.UI.Overlay.Enums;
 using HunterPie.UI.Overlay.Widgets.Player.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -21,7 +17,7 @@ namespace HunterPie.UI.Overlay.Widgets.Player.Views;
 /// <summary>
 /// Interaction logic for PlayerHudView.xaml
 /// </summary>
-public partial class PlayerHudView : View<PlayerHudViewModel>, IWidget<PlayerHudWidgetConfig>, IWidgetWindow
+public partial class PlayerHudView
 {
     private readonly BrushAnimation _currentHealthBarAnimation = new BrushAnimation();
     private readonly BrushAnimation _currentStaminaBarAnimation = new BrushAnimation();
@@ -46,30 +42,11 @@ public partial class PlayerHudView : View<PlayerHudViewModel>, IWidget<PlayerHud
         { AbnormalityCategory.NaturalHealing, ResourcesService.Get<Brush>("Brushes.Widgets.Player.Health.NaturalHeal") },
     };
 
-    public PlayerHudWidgetConfig Settings { get; }
-
-    public WidgetType Type => WidgetType.ClickThrough;
-
-    IWidgetSettings IWidgetWindow.Settings => Settings;
-
-    public string Title => "Player Widget";
-
-    public event EventHandler<WidgetType> OnWidgetTypeChange;
+    private PlayerHudViewModel ViewModel => (PlayerHudViewModel)DataContext;
 
     public PlayerHudView()
     {
         InitializeComponent();
-    }
-
-    public PlayerHudView(PlayerHudWidgetConfig config)
-    {
-        Settings = config;
-        InitializeComponent();
-    }
-
-    protected override void Initialize()
-    {
-        HookEvents();
     }
 
     private void HookEvents()
@@ -80,6 +57,16 @@ public partial class PlayerHudView : View<PlayerHudViewModel>, IWidget<PlayerHud
     private void UnhookEvents()
     {
         ViewModel.ActiveAbnormalities.CollectionChanged -= OnActiveAbnormalitiesCollectionChanged;
+    }
+
+    private void OnLoad(object sender, RoutedEventArgs e)
+    {
+        HookEvents();
+    }
+
+    private void OnUnload(object sender, RoutedEventArgs e)
+    {
+        UnhookEvents();
     }
 
     private void ResetAnimation(Bar bar, BrushAnimation animation, Brush defaultBrush) =>
@@ -98,7 +85,7 @@ public partial class PlayerHudView : View<PlayerHudViewModel>, IWidget<PlayerHud
     }
 
     private void HandleAbnormalityCategoryChange() =>
-        UIThread.Invoke(() =>
+        ViewModel.UIThread.Invoke(() =>
         {
 
             var categories = ViewModel.ActiveAbnormalities.ToHashSet();
@@ -132,12 +119,5 @@ public partial class PlayerHudView : View<PlayerHudViewModel>, IWidget<PlayerHud
         animation.Duration = new Duration(TimeSpan.FromMilliseconds(500));
 
         return animation;
-    }
-
-    public override void Dispose()
-    {
-        UnhookEvents();
-
-        base.Dispose();
     }
 }

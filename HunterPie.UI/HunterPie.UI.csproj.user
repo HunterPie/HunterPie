@@ -110,10 +110,7 @@
     <Compile Update="Dialog\DialogView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Overlay\Components\WidgetBase.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Overlay\Components\WidgetHeader.xaml.cs">
+    <Compile Update="Overlay\Views\WidgetHeader.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Controls\Abnormality.xaml.cs">
@@ -439,10 +436,7 @@
     <Page Update="Dialog\DialogView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Overlay\Components\WidgetBase.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Overlay\Components\WidgetHeader.xaml">
+    <Page Update="Overlay\Views\WidgetHeader.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Controls\Abnormality.xaml">

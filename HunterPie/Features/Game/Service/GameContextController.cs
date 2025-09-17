@@ -36,6 +36,7 @@ internal class GameContextController : IDisposable
     private readonly IControllableScanService _controllableScanService;
     private readonly DiscordPresenceFactory _discordPresenceFactory;
     private readonly OverlayManager _overlayManager;
+    private readonly WidgetInitializers _widgetInitializers;
 
     private CancellationTokenSource? _cancellationTokenSource;
     private DiscordPresenceService? _discordPresenceService;
@@ -47,7 +48,8 @@ internal class GameContextController : IDisposable
         IBackupService backupService,
         IControllableScanService controllableScanService,
         DiscordPresenceFactory discordPresenceFactory,
-        OverlayManager overlayManager)
+        OverlayManager overlayManager,
+        WidgetInitializers widgetInitializers)
     {
         _uiDispatcher = uiDispatcher;
         _processWatcherService = processWatcherService;
@@ -56,6 +58,7 @@ internal class GameContextController : IDisposable
         _controllableScanService = controllableScanService;
         _discordPresenceFactory = discordPresenceFactory;
         _overlayManager = overlayManager;
+        _widgetInitializers = widgetInitializers;
     }
 
     public void Subscribe()
@@ -78,7 +81,7 @@ internal class GameContextController : IDisposable
 
             await ContextInitializers.InitializeAsync(_context);
 
-            await _uiDispatcher.InvokeAsync(() => WidgetInitializers.InitializeAsync(_context));
+            await _uiDispatcher.InvokeAsync(() => _widgetInitializers.InitializeAsync(_context));
 
             _controllableScanService.Start(_cancellationTokenSource.Token);
         });
@@ -109,7 +112,7 @@ internal class GameContextController : IDisposable
 
         _context = null;
 
-        await _uiDispatcher.InvokeAsync(WidgetInitializers.Unload);
+        await _uiDispatcher.InvokeAsync(_widgetInitializers.Unload);
         await _uiDispatcher.InvokeAsync(_overlayManager.Dispose);
 
         _logger.Info("Process has closed");

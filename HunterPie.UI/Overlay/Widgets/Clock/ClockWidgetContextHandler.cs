@@ -1,11 +1,9 @@
-﻿using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.Core.Game;
+﻿using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Events;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game.Moon;
 using HunterPie.UI.Overlay.Widgets.Clock.ViewModels;
-using HunterPie.UI.Overlay.Widgets.Clock.Views;
 using System;
 using System.Linq;
 
@@ -14,21 +12,15 @@ namespace HunterPie.UI.Overlay.Widgets.Clock;
 public class ClockWidgetContextHandler : IContextHandler
 {
     private readonly ClockViewModel _viewModel;
-    private readonly ClockView _view;
     private readonly IContext _context;
 
     public ClockWidgetContextHandler(
         IContext context,
-        ClockWidgetConfig configuration
+        ClockViewModel viewModel
     )
     {
-        _view = new ClockView(configuration);
-        _viewModel = _view.ViewModel;
+        _viewModel = viewModel;
         _context = context;
-
-        WidgetManager.Register<ClockView, ClockWidgetConfig>(
-            widget: _view
-        );
 
         HookEvents();
         UpdateData();
@@ -48,10 +40,6 @@ public class ClockWidgetContextHandler : IContextHandler
 
     public void UnhookEvents()
     {
-        WidgetManager.Unregister<ClockView, ClockWidgetConfig>(
-            widget: _view
-        );
-
         _context.Game.OnQuestStart -= OnQuestStart;
         _context.Game.OnQuestEnd -= OnQuestEnd;
         _context.Game.OnWorldTimeChange -= OnWorldTimeChange;

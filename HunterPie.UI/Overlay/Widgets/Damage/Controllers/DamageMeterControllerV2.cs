@@ -9,8 +9,8 @@ using HunterPie.Core.List;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.UI.Architecture.Brushes;
 using HunterPie.UI.Architecture.Colors;
+using HunterPie.UI.Overlay.ViewModels;
 using HunterPie.UI.Overlay.Widgets.Damage.Helpers;
-using HunterPie.UI.Overlay.Widgets.Damage.View;
 using HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
 using LiveCharts;
 using LiveCharts.Defaults;
@@ -33,27 +33,24 @@ public class DamageMeterControllerV2 : IContextHandler
     private readonly ILogger _logger = LoggerFactory.Create();
 
     private readonly IContext _context;
+    private readonly WidgetContext _widgetContext;
     private MeterViewModel _viewModel;
     private MeterViewModel _viewModelSnapshot;
-    private readonly MeterViewV2 _view;
     private readonly DamageMeterWidgetConfig _config;
     private readonly ConcurrentDictionary<IPartyMember, PartyMemberContext> _members = new();
     private int _windowSecondsCount;
 
     public DamageMeterControllerV2(
         IContext context,
-        MeterViewV2 view,
+        MeterViewModel viewModel,
+        WidgetContext widgetContext,
         DamageMeterWidgetConfig config)
     {
         _context = context;
-        _view = view;
         _config = config;
-        _viewModel = _view.ViewModel;
-        _viewModelSnapshot = _view.ViewModel;
-
-        WidgetManager.Register<MeterViewV2, DamageMeterWidgetConfig>(
-            widget: _view
-        );
+        _viewModel = viewModel;
+        _viewModelSnapshot = viewModel;
+        _widgetContext = widgetContext;
 
         HookEvents();
         UpdateData();
@@ -92,10 +89,6 @@ public class DamageMeterControllerV2 : IContextHandler
 
         if (_context.Game.Quest is { } quest)
             quest.OnDeathCounterChange -= OnDeathCounterChange;
-
-        WidgetManager.Unregister<MeterViewV2, DamageMeterWidgetConfig>(
-            widget: _view
-        );
     }
 
     private void OnPlotSlidingWindowChange(object? sender, PropertyChangedEventArgs e)
@@ -111,7 +104,7 @@ public class DamageMeterControllerV2 : IContextHandler
 
     private void OnQuestEnd(object? sender, QuestEndEventArgs e)
     {
-        _view.Dispatcher.BeginInvoke(() =>
+        _viewModel.UIThread.BeginInvoke(() =>
         {
             foreach (IPartyMember member in _members.Keys)
             {
@@ -123,7 +116,7 @@ public class DamageMeterControllerV2 : IContextHandler
 
             _viewModel.TimeElapsed = e.TimeElapsed.TotalSeconds;
             _viewModelSnapshot = _viewModel;
-            _view.DataContext = _viewModelSnapshot;
+            _widgetContext.ViewModel = _viewModelSnapshot;
 
             _viewModel = new MeterViewModel(_config);
         });
@@ -131,9 +124,9 @@ public class DamageMeterControllerV2 : IContextHandler
 
     private void OnQuestStart(object? sender, IQuest e)
     {
-        _view.Dispatcher.BeginInvoke(() =>
+        _viewModel.UIThread.BeginInvoke(() =>
         {
-            _view.DataContext = _viewModel;
+            _widgetContext.ViewModel = _viewModel;
 
             _members.Clear();
             _viewModel.Players.Clear();
@@ -155,9 +148,9 @@ public class DamageMeterControllerV2 : IContextHandler
         if (_context.Game.Quest is not null)
             return;
 
-        _view.Dispatcher.BeginInvoke(() =>
+        _viewModel.UIThread.BeginInvoke(() =>
         {
-            _view.DataContext = _viewModel;
+            _widgetContext.ViewModel = _viewModel;
 
             _members.Clear();
             _viewModel.Players.Clear();
@@ -193,14 +186,14 @@ public class DamageMeterControllerV2 : IContextHandler
         if (!canUpdate)
             return;
 
-        _view.Dispatcher.BeginInvoke(CalculatePlayerSeries);
+        _viewModel.UIThread.BeginInvoke(CalculatePlayerSeries);
     }
 
     private void OnMemberLeave(object? sender, IPartyMember e) =>
-        _view.Dispatcher.BeginInvoke(() => HandleMemberLeave(e));
+        _viewModel.UIThread.BeginInvoke(() => HandleMemberLeave(e));
 
     private void OnMemberJoin(object? sender, IPartyMember e) =>
-        _view.Dispatcher.BeginInvoke(() => HandleMemberJoin(e));
+        _viewModel.UIThread.BeginInvoke(() => HandleMemberJoin(e));
 
     private void UpdateData()
     {

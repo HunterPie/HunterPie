@@ -7,7 +7,6 @@ using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.UI.Overlay.Widgets.Classes.Controllers;
 using HunterPie.UI.Overlay.Widgets.Classes.ViewModels;
-using HunterPie.UI.Overlay.Widgets.Classes.Views;
 using System;
 
 namespace HunterPie.UI.Overlay.Widgets.Classes;
@@ -16,16 +15,14 @@ namespace HunterPie.UI.Overlay.Widgets.Classes;
 public class ClassWidgetContextHandler : IContextHandler
 {
     private readonly ClassViewModel _viewModel;
-    private readonly ClassView _view;
     private readonly IContext _context;
     private IClassController<IClassViewModel>? _weaponController;
 
-    public ClassWidgetContextHandler(IContext context)
+    public ClassWidgetContextHandler(
+        IContext context,
+        ClassViewModel viewModel)
     {
-        _view = new ClassView();
-        _ = WidgetManager.Register<ClassView, ClassWidgetConfig>(_view);
-
-        _viewModel = _view.ViewModel;
+        _viewModel = viewModel;
         _context = context;
 
         Update();
@@ -44,7 +41,6 @@ public class ClassWidgetContextHandler : IContextHandler
     {
         _context.Game.Player.OnWeaponChange -= OnWeaponChange;
         _context.Game.Player.OnStageUpdate -= OnStageUpdate;
-        _ = WidgetManager.Unregister<ClassView, ClassWidgetConfig>(_view);
     }
 
     private void OnWeaponChange(object? sender, WeaponChangeEventArgs e)
@@ -65,7 +61,7 @@ public class ClassWidgetContextHandler : IContextHandler
             Weapon.Longsword => overlayConfig.LongSwordWidget,
             _ => null
         };
-        _viewModel.CurrentSettings = config;
+        _viewModel.Settings = config;
     }
 
     private void UpdateController(IWeapon weapon)

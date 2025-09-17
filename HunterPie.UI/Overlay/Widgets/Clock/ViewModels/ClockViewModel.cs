@@ -1,13 +1,14 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.UI.Architecture;
+using HunterPie.UI.Overlay.Enums;
+using HunterPie.UI.Overlay.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.Overlay.Widgets.Clock.ViewModels;
 
 #nullable enable
-public class ClockViewModel : ViewModel
+public class ClockViewModel : WidgetViewModel
 {
     private readonly ClockWidgetConfig _config;
 
@@ -24,7 +25,7 @@ public class ClockViewModel : ViewModel
 
     public Observable<bool> IsMoonPhaseEnabled => _config.IsMoonPhaseEnabled;
 
-    public ClockViewModel(ClockWidgetConfig config)
+    public ClockViewModel(ClockWidgetConfig config) : base(config, "Clock Widget", WidgetType.ClickThrough)
     {
         _config = config;
     }

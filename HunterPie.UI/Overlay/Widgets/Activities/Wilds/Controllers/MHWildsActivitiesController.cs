@@ -1,7 +1,5 @@
-﻿using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.Integrations.Datasources.MonsterHunterWilds;
+﻿using HunterPie.Integrations.Datasources.MonsterHunterWilds;
 using HunterPie.UI.Overlay.Widgets.Activities.ViewModels;
-using HunterPie.UI.Overlay.Widgets.Activities.Views;
 using HunterPie.UI.Overlay.Widgets.Activities.Wilds.ViewModels;
 using System;
 using System.Windows.Threading;
@@ -11,19 +9,17 @@ namespace HunterPie.UI.Overlay.Widgets.Activities.Wilds.Controllers;
 internal class MHWildsActivitiesController : IContextHandler
 {
     private readonly MHWildsContext _context;
-    private readonly ActivitiesView _view;
     private readonly ActivitiesViewModel _viewModel;
     private readonly IContextHandler[] _contextHandlers;
 
     public MHWildsActivitiesController(
         MHWildsContext context,
-        ActivitiesView view,
+        ActivitiesViewModel viewModel,
         MHWildsActivitiesViewModel activities,
         Dispatcher dispatcher)
     {
         _context = context;
-        _view = view;
-        _viewModel = view.ViewModel;
+        _viewModel = viewModel;
         _viewModel.Activities = activities;
         _contextHandlers = new IContextHandler[]
         {
@@ -53,10 +49,6 @@ internal class MHWildsActivitiesController : IContextHandler
             handler.HookEvents();
 
         UpdateData();
-
-        WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(
-            widget: _view
-        );
     }
 
 
@@ -66,10 +58,6 @@ internal class MHWildsActivitiesController : IContextHandler
 
         foreach (IContextHandler handler in _contextHandlers)
             handler.UnhookEvents();
-
-        WidgetManager.Unregister<ActivitiesView, ActivitiesWidgetConfig>(
-            widget: _view
-        );
     }
 
     private void OnStageUpdate(object sender, EventArgs e) =>

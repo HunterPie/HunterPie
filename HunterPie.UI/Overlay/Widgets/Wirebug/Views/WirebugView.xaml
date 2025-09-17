@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Wirebug.Views"
-             xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel"
+             xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Wirebug.ViewModels"
              xmlns:controls="clr-namespace:HunterPie.UI.Overlay.Controls"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              d:DataContext="{d:DesignInstance Type=vm:WirebugViewModel}"
@@ -151,7 +150,7 @@
             <Ellipse Margin="5"
                      Fill="#80000000"/>
             <TextBlock Text="{Binding Cooldown, Mode=OneWay, StringFormat=\{0:F1\}}"
-                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                       Foreground="{StaticResource White@100}"
                        FontFamily="{StaticResource Font.Default}"
                        FontSize="15"
                        VerticalAlignment="Center"
@@ -165,10 +164,10 @@
             </TextBlock>
         </Grid>
 
-        <Ellipse Fill="{StaticResource RED_600}"
+        <Ellipse Fill="{StaticResource Red@600}"
                  Visibility="{Binding WirebugState, Mode=OneWay, Converter={StaticResource WirebugStateToVisibilityConverter}}"
                  Opacity="1"/>
-        <Ellipse Fill="{StaticResource RED_LIGHT_300}"
+        <Ellipse Fill="{StaticResource LightRed@300}"
                  Visibility="{Binding WirebugState, Mode=OneWay, Converter={StaticResource WirebugStateToVisibilityConverter}}">
             <Ellipse.OpacityMask>
                 <ImageBrush ImageSource="{StaticResource ICON_ERROR_MASK}"/>

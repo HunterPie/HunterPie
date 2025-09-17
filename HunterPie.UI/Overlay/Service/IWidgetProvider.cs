@@ -10,8 +10,10 @@ public interface IWidgetProvider
     /// Binds a ViewModel type to a data template
     /// </summary>
     /// <typeparam name="TViewModel">ViewModel type</typeparam>
-    /// <param name="template">DataTemplate of the Widget that should be rendered for that ViewModel</param>
-    public void Bind<TViewModel>(DataTemplate template) where TViewModel : ViewModel;
+    /// /// <typeparam name="TView">Widget type</typeparam>
+    public void Bind<TViewModel, TView>()
+        where TViewModel : ViewModel
+        where TView : Widget;
 
     /// <summary>
     /// Provides the DataTemplate that should be used in the given context

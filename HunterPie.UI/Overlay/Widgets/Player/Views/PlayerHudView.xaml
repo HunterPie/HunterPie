@@ -1,19 +1,20 @@
-﻿<arch:View x:Class="HunterPie.UI.Overlay.Widgets.Player.Views.PlayerHudView"
-           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-           xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-           xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
-           xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
-           xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.Views"
-           xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
-           xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.ViewModels"
-           xmlns:effects="clr-namespace:HunterPie.UI.Architecture.Effects"
-           x:TypeArguments="viewmodels:PlayerHudViewModel"
-           d:DataContext="{d:DesignInstance Type=viewmodels:PlayerHudViewModel}"
-           mc:Ignorable="d"
-           Width="800"
-           Style="{DynamicResource Widgets.PlayerHud}">
+﻿<overlay:Widget x:Class="HunterPie.UI.Overlay.Widgets.Player.Views.PlayerHudView"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                xmlns:controls="clr-namespace:HunterPie.UI.Overlay.Controls"
+                xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.Views"
+                xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+                xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.ViewModels"
+                xmlns:effects="clr-namespace:HunterPie.UI.Architecture.Effects"
+                xmlns:overlay="clr-namespace:HunterPie.UI.Overlay"
+                d:DataContext="{d:DesignInstance Type=viewmodels:PlayerHudViewModel}"
+                mc:Ignorable="d"
+                Width="800"
+                Style="{DynamicResource Widgets.PlayerHud}"
+                Loaded="OnLoad"
+                Unloaded="OnUnload">
     <UserControl.Resources>
         <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
         <converters:WeaponToIconConverter x:Key="WeaponToIconConverter"/>
@@ -78,25 +79,25 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
 
-            <overlay:Bar Foreground="{StaticResource Brushes.Widgets.Player.Health.Recoverable}"
-                         Background="{StaticResource Gray@200}"
-                         Height="15"
-                         MaxValue="{Binding MaxHealth, Mode=OneWay}"
-                         Value="{Binding RecoverableHealth, Mode=OneWay}"
-                         d:MaxValue="150"
-                         d:Value="100"
-                         HorizontalAlignment="Left"
-                         BorderThickness="2" 
-                         RenderTransformOrigin="0.5,0.5"
-                         VerticalAlignment="Top"
-                         d:Width="500"
-                         x:Name="PART_RecoverableHealthBar">
-                <overlay:Bar.RenderTransform>
+            <controls:Bar Foreground="{StaticResource Brushes.Widgets.Player.Health.Recoverable}"
+                          Background="{StaticResource Gray@200}"
+                          Height="15"
+                          MaxValue="{Binding MaxHealth, Mode=OneWay}"
+                          Value="{Binding RecoverableHealth, Mode=OneWay}"
+                          d:MaxValue="150"
+                          d:Value="100"
+                          HorizontalAlignment="Left"
+                          BorderThickness="2" 
+                          RenderTransformOrigin="0.5,0.5"
+                          VerticalAlignment="Top"
+                          d:Width="500"
+                          x:Name="PART_RecoverableHealthBar">
+                <controls:Bar.RenderTransform>
                     <TransformGroup>
                         <SkewTransform AngleX="45"/>
                     </TransformGroup>
-                </overlay:Bar.RenderTransform>
-                <overlay:Bar.Width>
+                </controls:Bar.RenderTransform>
+                <controls:Bar.Width>
                     <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
                         <Binding Path="MaxHealth"
                                  Mode="OneWay"/>
@@ -106,27 +107,27 @@
                                  Mode="OneWay"
                                  ElementName="PART_MaxHealthPossible"/>
                     </MultiBinding>
-                </overlay:Bar.Width>
-            </overlay:Bar>
-            <overlay:Bar Foreground="{StaticResource Brushes.Widgets.Player.Health.Heal}"
-                         Background="Transparent"
-                         Height="15"
-                         d:MaxValue="150"
-                         d:Value="50"
-                         MaxValue="{Binding MaxHealth, Mode=OneWay}"
-                         Value="{Binding Heal, Mode=OneWay}"
-                         BorderThickness="2" 
-                         HorizontalAlignment="Left"
-                         RenderTransformOrigin="0.5,0.5"
-                         VerticalAlignment="Top"
-                         MarkersVisibility="Collapsed"
-                         d:Width="500">
-                <overlay:Bar.RenderTransform>
+                </controls:Bar.Width>
+            </controls:Bar>
+            <controls:Bar Foreground="{StaticResource Brushes.Widgets.Player.Health.Heal}"
+                          Background="Transparent"
+                          Height="15"
+                          d:MaxValue="150"
+                          d:Value="50"
+                          MaxValue="{Binding MaxHealth, Mode=OneWay}"
+                          Value="{Binding Heal, Mode=OneWay}"
+                          BorderThickness="2" 
+                          HorizontalAlignment="Left"
+                          RenderTransformOrigin="0.5,0.5"
+                          VerticalAlignment="Top"
+                          MarkersVisibility="Collapsed"
+                          d:Width="500">
+                <controls:Bar.RenderTransform>
                     <TransformGroup>
                         <SkewTransform AngleX="45"/>
                     </TransformGroup>
-                </overlay:Bar.RenderTransform>
-                <overlay:Bar.Width>
+                </controls:Bar.RenderTransform>
+                <controls:Bar.Width>
                     <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
                         <Binding Path="MaxHealth"
                                  Mode="OneWay"/>
@@ -136,28 +137,28 @@
                                  Mode="OneWay"
                                  ElementName="PART_MaxHealthPossible"/>
                     </MultiBinding>
-                </overlay:Bar.Width>
-            </overlay:Bar>
-            <overlay:Bar Background="Transparent"
-                         Height="15"
-                         d:MaxValue="150"
-                         d:Value="64"
-                         MaxValue="{Binding MaxHealth, Mode=OneWay}"
-                         Value="{Binding Health, Mode=OneWay}"
-                         BorderThickness="2" 
-                         HorizontalAlignment="Left"
-                         RenderTransformOrigin="0.5,0.5"
-                         VerticalAlignment="Top"
-                         Foreground="{StaticResource Brushes.Widgets.Player.Health.Default}"
-                         BorderBrush="{StaticResource Gray@50}"
-                         d:Width="700"
-                         x:Name="PART_HealthBar">
-                <overlay:Bar.RenderTransform>
+                </controls:Bar.Width>
+            </controls:Bar>
+            <controls:Bar Background="Transparent"
+                          Height="15"
+                          d:MaxValue="150"
+                          d:Value="64"
+                          MaxValue="{Binding MaxHealth, Mode=OneWay}"
+                          Value="{Binding Health, Mode=OneWay}"
+                          BorderThickness="2" 
+                          HorizontalAlignment="Left"
+                          RenderTransformOrigin="0.5,0.5"
+                          VerticalAlignment="Top"
+                          Foreground="{StaticResource Brushes.Widgets.Player.Health.Default}"
+                          BorderBrush="{StaticResource Gray@50}"
+                          d:Width="700"
+                          x:Name="PART_HealthBar">
+                <controls:Bar.RenderTransform>
                     <TransformGroup>
                         <SkewTransform AngleX="45"/>
                     </TransformGroup>
-                </overlay:Bar.RenderTransform>
-                <overlay:Bar.Width>
+                </controls:Bar.RenderTransform>
+                <controls:Bar.Width>
                     <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
                         <Binding Path="MaxHealth"
                                  Mode="OneWay"/>
@@ -167,8 +168,8 @@
                                  Mode="OneWay"
                                  ElementName="PART_MaxHealthPossible"/>
                     </MultiBinding>
-                </overlay:Bar.Width>
-            </overlay:Bar>
+                </controls:Bar.Width>
+            </controls:Bar>
 
             <Image Source="{StaticResource ICON_FUNNEL}"
                    Height="10"
@@ -220,27 +221,27 @@
                     </MultiBinding>
                 </Rectangle.Width>
             </Rectangle>
-            <overlay:Bar Foreground="{StaticResource Brushes.Widgets.Player.Stamina.Default}"
-                         BorderBrush="{StaticResource Gray@50}"
-                         Background="{StaticResource Gray@200}"
-                         Height="8"
-                         d:MaxValue="2000"
-                         d:Value="550"
-                         MaxValue="{Binding MaxStamina, Mode=OneWay}"
-                         Value="{Binding Stamina, Mode=OneWay}"
-                         BorderThickness="2" 
-                         RenderTransformOrigin="0.5,0.5"
-                         VerticalAlignment="Top"
-                         HorizontalAlignment="Left"
-                         d:Width="500"
-                         Margin="0,15,0,0"
-                         x:Name="PART_StaminaBar">
-                <overlay:Bar.RenderTransform>
+            <controls:Bar Foreground="{StaticResource Brushes.Widgets.Player.Stamina.Default}"
+                          BorderBrush="{StaticResource Gray@50}"
+                          Background="{StaticResource Gray@200}"
+                          Height="8"
+                          d:MaxValue="2000"
+                          d:Value="550"
+                          MaxValue="{Binding MaxStamina, Mode=OneWay}"
+                          Value="{Binding Stamina, Mode=OneWay}"
+                          BorderThickness="2" 
+                          RenderTransformOrigin="0.5,0.5"
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Left"
+                          d:Width="500"
+                          Margin="0,15,0,0"
+                          x:Name="PART_StaminaBar">
+                <controls:Bar.RenderTransform>
                     <TransformGroup>
                         <SkewTransform AngleX="-45"/>
                     </TransformGroup>
-                </overlay:Bar.RenderTransform>
-                <overlay:Bar.Width>
+                </controls:Bar.RenderTransform>
+                <controls:Bar.Width>
                     <MultiBinding Converter="{StaticResource PercentageToRelativeSizeConverter}">
                         <Binding Path="MaxStamina"
                                  Mode="OneWay"/>
@@ -250,8 +251,8 @@
                                  Mode="OneWay"
                                  ElementName="PART_MaxStaminaPossible"/>
                     </MultiBinding>
-                </overlay:Bar.Width>
-            </overlay:Bar>
+                </controls:Bar.Width>
+            </controls:Bar>
         </Grid>
 
 
@@ -385,4 +386,4 @@
                                    Visibility="{Binding ViewModel.Weapon, Mode=OneWay, Converter={StaticResource WeaponToMeleeVisibility}, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerHudView}}}"
                                    DataContext="{Binding SharpnessViewModel, Mode=OneTime}"/>
     </Grid>
-</arch:View>
+</overlay:Widget>
