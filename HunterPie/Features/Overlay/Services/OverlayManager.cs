@@ -86,8 +86,11 @@ internal class OverlayManager : Bindable, IOverlay, IOverlayState, IDisposable
         return widget;
     }
 
-    public void Unregister(WidgetView widget)
+    public void Unregister(WidgetView? widget)
     {
+        if (widget is null)
+            return;
+
         widget.Close();
 
         _widgets.Remove(widget);

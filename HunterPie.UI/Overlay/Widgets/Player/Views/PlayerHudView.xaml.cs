@@ -85,7 +85,7 @@ public partial class PlayerHudView
     }
 
     private void HandleAbnormalityCategoryChange() =>
-        ViewModel.UIThread.Invoke(() =>
+        Dispatcher.Invoke(() =>
         {
 
             var categories = ViewModel.ActiveAbnormalities.ToHashSet();

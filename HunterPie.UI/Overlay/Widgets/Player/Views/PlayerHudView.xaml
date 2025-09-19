@@ -383,7 +383,7 @@
                                    Grid.Column="1"
                                    Grid.Row="1"
                                    Margin="0,25,0,0"
-                                   Visibility="{Binding ViewModel.Weapon, Mode=OneWay, Converter={StaticResource WeaponToMeleeVisibility}, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerHudView}}}"
+                                   Visibility="{Binding DataContext.Weapon, Mode=OneWay, Converter={StaticResource WeaponToMeleeVisibility}, RelativeSource={RelativeSource AncestorType={x:Type local:PlayerHudView}}}"
                                    DataContext="{Binding SharpnessViewModel, Mode=OneTime}"/>
     </Grid>
 </overlay:Widget>
