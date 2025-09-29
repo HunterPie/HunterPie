@@ -985,5 +985,23 @@
 				<Part Id="5" String="PART_MISC"/>
 			</Parts>
 		</Monster>
+        <Monster Id="34">
+            <Crowns Gold="123"
+                    Silver="115"
+                    Mini="90"/>
+            <Weaknesses>
+                <Weakness Name="Thunder"/>
+                <Weakness Name="Dragon"/>
+            </Weaknesses>
+            <Parts>
+                <Part Id="0" String="PART_HEAD"/>
+                <Part Id="1" String="PART_L_FORELEG"/>
+                <Part Id="2" String="PART_R_FORELEG"/>
+                <Part Id="3" String="PART_L_H_LEG"/>
+                <Part Id="4" String="PART_R_H_LEG"/>
+                <Part Id="5" String="unk (id: 5)"/>
+                <Part Id="6" String="PART_REAR"/>
+            </Parts>
+        </Monster>
 	</Monsters>
 </GameData>
