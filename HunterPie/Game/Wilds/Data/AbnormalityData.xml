@@ -417,14 +417,14 @@
                      Name="ABNORMALITY_BUBBLES"
                      Icon="ICON_BUBBLE"
                      Index="16"
-                     Offset="3C"
+                     Offset="40"
                      DependsOn="38"
                      WithValue="1" />
         <Abnormality Id="Debuffs.16.Large"
                      Name="ABNORMALITY_BUBBLES_PLUS"
                      Icon="ICON_BUBBLE+"
                      Index="16"
-                     Offset="3C"
+                     Offset="40"
                      DependsOn="38"
                      WithValue="2" />
     </Debuffs>
