@@ -38,7 +38,7 @@
                     Height="15"
                     DockPanel.Dock="Right"
                     VerticalAlignment="Center"
-                    Image="{StaticResource ICON_RELOAD}"
+                    Image="{StaticResource Icons.Refresh}"
                     Foreground="{StaticResource Yellow}"
                     Grid.Column="1"
                     Visibility="{Binding RequiresRestart, 

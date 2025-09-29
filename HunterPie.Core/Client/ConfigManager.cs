@@ -64,6 +64,9 @@ public class ConfigManager
 
         _fileSystemWatcher.Changed += (_, args) =>
         {
+            if (!Settings.ContainsKey(args.FullPath))
+                return;
+
             string cachedHash = string.Empty;
             if (_hashes.ContainsKey(args.FullPath))
                 cachedHash = _hashes[args.FullPath];
@@ -76,9 +79,6 @@ public class ConfigManager
                 return;
 
             _hashes[args.FullPath] = currentHash;
-
-            if (!Settings.ContainsKey(args.FullPath))
-                return;
 
             long lastWrite = File.GetLastWriteTime(args.FullPath).Ticks;
 

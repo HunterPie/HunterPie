@@ -7,14 +7,18 @@
              xmlns:viewModels="clr-namespace:HunterPie.Features.Theme.ViewModels"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
              xmlns:presentation="clr-namespace:HunterPie.Features.Theme.Presentation"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:ThemeHomeViewModel}">
     <UserControl.Resources>
+        <converters:IconResolver x:Key="IconResolver"/>
         <DataTemplate x:Key="Internal.HeaderTemplate"
                       DataType="{x:Type viewModels:ThemeHomeTabViewModel}">
             <buttons:TabItem Title="{Binding Title, Mode=OneWay}"
+                             Icon="{Binding Icon, Mode=OneWay, Converter={StaticResource IconResolver}}"
+                             ToolTip=""
                              Margin="2"/>
         </DataTemplate>
 

@@ -1,19 +1,29 @@
-﻿using HunterPie.Core.Extensions;
+﻿using HunterPie.Core.Client;
+using HunterPie.Core.Extensions;
+using HunterPie.Features.Theme.Entity;
+using HunterPie.Features.Theme.Repository;
+using Microsoft.Win32;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO.Compression;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace HunterPie.Features.Theme.ViewModels;
 
 internal class InstalledThemeHomeTabViewModel : ThemeHomeTabViewModel
 {
     private readonly ObservableCollection<string> _configuredThemes;
+    private readonly LocalThemeRepository _localThemeRepository;
 
     public ObservableCollection<InstalledThemeViewModel> Themes { get; } = new();
 
-    public InstalledThemeHomeTabViewModel(ObservableCollection<string> configuredThemes)
+    public InstalledThemeHomeTabViewModel(
+        ObservableCollection<string> configuredThemes,
+        LocalThemeRepository localThemeRepository)
     {
         _configuredThemes = configuredThemes;
+        _localThemeRepository = localThemeRepository;
     }
 
     public void Arrange(InstalledThemeViewModel source, InstalledThemeViewModel target)
@@ -46,5 +56,52 @@ internal class InstalledThemeHomeTabViewModel : ThemeHomeTabViewModel
 
         foreach (InstalledThemeViewModel element in elements)
             Themes.Add(element);
+    }
+
+    public async Task InstallTheme()
+    {
+        var dialog = new OpenFileDialog
+        {
+            DefaultExt = ".zip",
+            Filter = "ZIP files (*.zip)|*.zip"
+        };
+
+        bool? result = dialog.ShowDialog();
+
+        if (result != true)
+            return;
+
+        string fileName = dialog.FileName;
+
+        ZipFile.ExtractToDirectory(
+            sourceArchiveFileName: fileName,
+            destinationDirectoryName: ClientInfo.ThemesPath,
+            overwriteFiles: true
+        );
+
+        await RefreshAsync();
+    }
+
+    public async Task RefreshAsync()
+    {
+        Themes.Clear();
+
+        IReadOnlyCollection<LocalThemeManifest> localThemes = await _localThemeRepository.ListAllAsync();
+
+        foreach (LocalThemeManifest theme in localThemes)
+            Themes.Add(new InstalledThemeViewModel
+            {
+                Id = theme.Manifest.Id,
+                Name = theme.Manifest.Name,
+                Description = theme.Manifest.Description,
+                Author = theme.Manifest.Author,
+                Version = theme.Manifest.Version,
+                Path = theme.Path,
+                IsEnabled = _configuredThemes.Contains(theme.Manifest.Id),
+                IsDraggingOver = false,
+                Tags = theme.Manifest.Tags.ToObservableCollection()
+            });
+
+        Sort();
     }
 }

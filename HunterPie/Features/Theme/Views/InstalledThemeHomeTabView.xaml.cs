@@ -103,4 +103,9 @@ public partial class InstalledThemeHomeTabView
     {
         ViewModel.Sort();
     }
+
+    private void OnInstallButtonClicked(object sender, RoutedEventArgs e)
+    {
+        ViewModel.InstallTheme();
+    }
 }

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using HunterPie.UI.Architecture.Media;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -8,18 +9,7 @@ public static class SnapshotBrush
 {
     public static ImageBrush From(UIElement element)
     {
-        double width = element.RenderSize.Width;
-        double height = element.RenderSize.Height;
-        DpiScale dpi = VisualTreeHelper.GetDpi(element);
-
-        var bitmap = new RenderTargetBitmap(
-            pixelWidth: (int)width,
-            pixelHeight: (int)height,
-            dpiX: dpi.DpiScaleX * dpi.PixelsPerInchX,
-            dpiY: dpi.DpiScaleY * dpi.PixelsPerInchY,
-            pixelFormat: PixelFormats.Pbgra32
-        );
-        bitmap.Render(element);
+        RenderTargetBitmap bitmap = Bitmap.From(element);
 
         return new ImageBrush(bitmap)
         {

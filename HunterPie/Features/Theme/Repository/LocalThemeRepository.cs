@@ -24,7 +24,7 @@ internal class LocalThemeRepository
             _manifests.Clear();
 
             IEnumerable<string> manifestPaths = Directory.GetDirectories(ClientInfo.ThemesPath)
-                .Select(it => Path.Join(it, "manifest.json"))
+                .Select(it => Path.Join(it, "theme.manifest.json"))
                 .Where(File.Exists);
 
             foreach (string manifestPath in manifestPaths)

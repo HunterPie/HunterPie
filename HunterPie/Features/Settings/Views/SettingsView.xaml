@@ -263,7 +263,7 @@
                             Orientation="Horizontal"
                             HorizontalAlignment="Right"
                             Margin="5,0">
-                    <image:Icon Image="{DynamicResource ICON_RELOAD}"
+                    <image:Icon Image="{DynamicResource Icons.Refresh}"
                                 VerticalAlignment="Center"
                                 Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                                 Width="15"
