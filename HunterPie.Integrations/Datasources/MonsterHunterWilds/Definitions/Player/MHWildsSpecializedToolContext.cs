@@ -13,6 +13,6 @@ public struct MHWildsSpecializedToolContext
     [FieldOffset(0x18)] public Ref<MHWildsEncryptedFloat> Cooldown;
     [FieldOffset(0x20)] public Ref<MHWildsEncryptedFloat> MaxCooldown;
 
-    [FieldOffset(0x3C)]
+    [FieldOffset(0x33)]
     [MarshalAs(UnmanagedType.I1)] public bool InUse;
 }
