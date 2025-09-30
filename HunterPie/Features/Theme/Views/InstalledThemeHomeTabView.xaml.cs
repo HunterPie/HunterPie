@@ -104,8 +104,13 @@ public partial class InstalledThemeHomeTabView
         ViewModel.Sort();
     }
 
-    private void OnInstallButtonClicked(object sender, RoutedEventArgs e)
+    private async void OnInstallButtonClicked(object sender, RoutedEventArgs e)
     {
-        ViewModel.InstallTheme();
+        await ViewModel.InstallTheme();
+    }
+
+    private async void OnRefreshButtonClicked(object sender, RoutedEventArgs e)
+    {
+        await ViewModel.RefreshAsync();
     }
 }

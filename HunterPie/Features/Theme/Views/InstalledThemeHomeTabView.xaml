@@ -8,6 +8,7 @@
              xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+             xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
@@ -33,7 +34,8 @@
                             BorderThickness="1"
                             CornerRadius="5"
                             HorizontalContentAlignment="Stretch"
-                            VerticalContentAlignment="Stretch">
+                            VerticalContentAlignment="Stretch"
+                            Click="OnRefreshButtonClicked">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="20"/>
@@ -46,15 +48,15 @@
                                 Margin="5"/>
 
                     <TextBlock Grid.Column="1"
-                               Text="Refresh"
+                               Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;REFRESH_STRING&quot;]'}"
                                VerticalAlignment="Center"
                                Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>
                 </Grid>
             </buttons:Button>
-            <buttons:Button Content="Install new"
+            <buttons:Button Content="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;INSTALL_STRING&quot;]'}"
                             Padding="10,5"
                             Margin="2"
-                            Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
+                            Background="{DynamicResource Brushes.HunterPie.Accent.Solid}"
                             BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                             BorderThickness="1"
                             CornerRadius="5"

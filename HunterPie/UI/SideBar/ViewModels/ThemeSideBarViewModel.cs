@@ -14,7 +14,7 @@ internal class ThemeSideBarViewModel : ViewModel, ISideBarViewModel
 
     public Type Type => typeof(ThemeHomeViewModel);
 
-    public string Label => "//Strings/Client/Tabs/Tab[@Id='THEME_STRING']";
+    public string Label => "//Strings/Client/Tabs/Tab[@Id='THEMES_STRING']";
 
     public string Icon => "Icons.Palette";
 
