@@ -9,6 +9,9 @@
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
              xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup;assembly=HunterPie.UI"
+             xmlns:display="clr-namespace:HunterPie.UI.Controls.Display;assembly=HunterPie.UI"
+             xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading;assembly=HunterPie.UI"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
@@ -18,6 +21,12 @@
              MouseLeave="OnMouseLeave"
              AllowDrop="True"
              Loaded="OnElementsPanelLoaded">
+    <UserControl.Resources>
+        <converters:ConverterPipeline x:Key="InverseNumberToVisibilityConverter">
+            <converters:NumberToBooleanConverter/>
+            <converters:InverseBooleanToVisibilityConverter/>
+        </converters:ConverterPipeline>
+    </UserControl.Resources>
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -63,26 +72,76 @@
                             Click="OnInstallButtonClicked"/>
         </StackPanel>
 
-        
-
-        <ItemsControl Grid.Row="1" 
-                      ItemsSource="{Binding Themes, Mode=OneTime}"
-                      d:ItemsSource="{d:SampleData ItemCount=10}">
-            <ItemsControl.Template>
-                <ControlTemplate>
-                    <viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto">
-                        <StackPanel IsItemsHost="True"/>
-                    </viewer:SmoothScrollViewer>
-                </ControlTemplate>
-            </ItemsControl.Template>
-            <ItemsControl.ItemTemplate>
+        <display:Conditional Grid.Row="1"
+                             Condition="{Binding IsRefreshing, Mode=OneWay}"
+                             d:Condition="True">
+            <!-- Loading skeleton -->
+            <display:Conditional.Component>
                 <DataTemplate>
-                    <local:InstalledThemeView Margin="2"
-                                              BeginDrag="OnElementBeginDrag"
-                                              Toggle="OnThemeToggle"
-                                              Height="80"/>
+                    <ItemsControl ItemsSource="{markup:CreateCollection ItemsCount=10}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel CanVerticallyScroll="False"
+                                            IsItemsHost="True"
+                                            Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <local:InstalledThemeViewSkeleton Height="80"
+                                                                  Margin="2"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+            </display:Conditional.Component>
+
+            <!-- Themes -->
+            <display:Conditional.Otherwise>
+                <DataTemplate>
+                    <Grid>
+                        <Border Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
+                                BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+                                BorderThickness="1"
+                                CornerRadius="5"
+                                Padding="10"
+                                Visibility="{Binding Themes.Count, Converter={StaticResource InverseNumberToVisibilityConverter}}">
+                            <StackPanel>
+                                <image:Icon Image="{StaticResource Visuals.ThemeBoy}"
+                                            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+                                            Opacity="0.5"
+                                            Height="250"/>
+                                <TextBlock Text="You have no themes installed. &#xA;Install a new one or create your own!"
+                                           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+                                           FontSize="14"
+                                           TextAlignment="Center"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                        
+
+                        <ItemsControl ItemsSource="{Binding Themes, Mode=OneTime}"
+                                      d:ItemsSource="{d:SampleData ItemCount=10}">
+                            <ItemsControl.Template>
+                                <ControlTemplate>
+                                    <viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto">
+                                        <StackPanel IsItemsHost="True"/>
+                                    </viewer:SmoothScrollViewer>
+                                </ControlTemplate>
+                            </ItemsControl.Template>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <local:InstalledThemeView Margin="2"
+                                                              BeginDrag="OnElementBeginDrag"
+                                                              Toggle="OnThemeToggle"
+                                                              Height="80"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </DataTemplate>
+            </display:Conditional.Otherwise>
+        </display:Conditional>
     </Grid>
 </UserControl>

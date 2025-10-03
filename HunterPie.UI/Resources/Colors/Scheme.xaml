@@ -178,6 +178,7 @@
     </RadialGradientBrush>
 
     <SolidColorBrush x:Key="Brushes.HunterPie.Ripple">#40F5F5F5</SolidColorBrush>
+    <SolidColorBrush x:Key="Brushes.HunterPie.Skeleton.Highlight">#40F5F5F5</SolidColorBrush>
 
     <SolidColorBrush x:Key="Brushes.Quest.LowRank">#197df0</SolidColorBrush>
     <SolidColorBrush x:Key="Brushes.Quest.HighRank">#EC5D1C</SolidColorBrush>

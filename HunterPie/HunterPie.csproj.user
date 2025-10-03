@@ -24,6 +24,9 @@
     <Compile Update="Features\Theme\Views\InstalledThemeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Features\Theme\Views\InstalledThemeViewSkeleton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Features\Theme\Views\ThemeCardView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

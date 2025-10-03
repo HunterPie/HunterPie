@@ -17,7 +17,7 @@
                    RadiusY="{Binding RadiusX, RelativeSource={RelativeSource Self}}"
                    x:Name="PART_Background"/>
 
-        <Rectangle Fill="White">
+        <Rectangle Fill="{DynamicResource Brushes.HunterPie.Skeleton.Highlight}">
             <Rectangle.OpacityMask>
                 <VisualBrush Visual="{Binding ElementName=PART_Background}"/>
             </Rectangle.OpacityMask>

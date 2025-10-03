@@ -30,8 +30,7 @@
             <display:Conditional.Component>
                 <DataTemplate DataType="{x:Type viewModels:MonstersViewModel}">
                     <ItemsControl ItemsSource="{Binding Monsters, Mode=OneWay}"
-                                  Visibility="{Binding Config.ShowOnlyTarget.Value, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
-                                  DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type local:MonstersView}}}">
+                                  Visibility="{Binding Config.ShowOnlyTarget.Value, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid HorizontalAlignment="Left"
@@ -51,8 +50,7 @@
             <display:Conditional.Otherwise>
                 <DataTemplate>
                     <ItemsControl ItemsSource="{Binding Monsters, Mode=OneWay}"
-                                  Visibility="{Binding Config.ShowOnlyTarget.Value, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
-                                  DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type local:MonstersView}}}">
+                                  Visibility="{Binding Config.ShowOnlyTarget.Value, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid HorizontalAlignment="Left" >

@@ -89,7 +89,7 @@ internal class ThemeLoaderService
 
         _loadedFiles.Remove(manifest.Manifest.Id);
 
-        _logger.Info($"Unloaded theme {manifest.Manifest.Id}");
+        _logger.Info($"Unloaded theme {manifest.Manifest.Name}");
     }
 
     private void LoadTheme(LocalThemeManifest manifest)
@@ -113,7 +113,7 @@ internal class ThemeLoaderService
             loadedFiles++;
         }
 
-        string themeIdentifier = $"{manifest.Manifest.Id}@{manifest.Manifest.Version}";
+        string themeIdentifier = $"{manifest.Manifest.Name} @ {manifest.Manifest.Version}";
 
         if (loadedFiles == totalFiles)
             _logger.Info($"Loaded theme {themeIdentifier}");
@@ -148,7 +148,7 @@ internal class ThemeLoaderService
         }
         catch (Exception err)
         {
-            _logger.Error($"[{manifest.Id}@{manifest.Version}] Failed to load theme file {filePath}\n{err}");
+            _logger.Error($"[{manifest.Name} @ {manifest.Version}] Failed to load theme file {filePath}\n{err}");
 
             return false;
         }

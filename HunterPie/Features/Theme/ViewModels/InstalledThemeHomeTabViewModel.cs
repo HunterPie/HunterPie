@@ -18,6 +18,9 @@ internal class InstalledThemeHomeTabViewModel : ThemeHomeTabViewModel
 
     public ObservableCollection<InstalledThemeViewModel> Themes { get; } = new();
 
+    private bool _isRefreshing;
+    public bool IsRefreshing { get => _isRefreshing; set => SetValue(ref _isRefreshing, value); }
+
     public InstalledThemeHomeTabViewModel(
         ObservableCollection<string> configuredThemes,
         LocalThemeRepository localThemeRepository)
@@ -43,6 +46,8 @@ internal class InstalledThemeHomeTabViewModel : ThemeHomeTabViewModel
 
     public void Sort()
     {
+        IsRefreshing = true;
+
         IEnumerable<InstalledThemeViewModel> enabledThemes = _configuredThemes.Select(id => Themes.FirstOrDefault(theme => theme.Id == id))
             .FilterNull();
 
@@ -56,6 +61,10 @@ internal class InstalledThemeHomeTabViewModel : ThemeHomeTabViewModel
 
         foreach (InstalledThemeViewModel element in elements)
             Themes.Add(element);
+
+        // Artificially simulate loading time because it feels very weird to have a very quick response
+        Task.Delay(300)
+            .ContinueWith(_ => IsRefreshing = false);
     }
 
     public async Task InstallTheme()
