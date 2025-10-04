@@ -14,7 +14,8 @@
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Slider Value="{Binding Value, RelativeSource={RelativeSource AncestorType={x:Type local:Range}}}"
+        <Slider Grid.Column="0" 
+                Value="{Binding Value, RelativeSource={RelativeSource AncestorType={x:Type local:Range}}}"
                 Maximum="{Binding Maximum, RelativeSource={RelativeSource AncestorType={x:Type local:Range}}}"
                 Minimum="{Binding Minimum, RelativeSource={RelativeSource AncestorType={x:Type local:Range}}}"
                 SmallChange="{Binding Change, RelativeSource={RelativeSource AncestorType={x:Type local:Range}}}"
@@ -32,7 +33,7 @@
                  HorizontalAlignment="Stretch" 
                  TextAlignment="Center"
                  Grid.Column="1"
-                 FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                 FontFamily="{StaticResource Font.Default}"
                  KeyDown="OnKeyDown"
                  LostFocus="OnLostFocus"
                  VerticalContentAlignment="Center"

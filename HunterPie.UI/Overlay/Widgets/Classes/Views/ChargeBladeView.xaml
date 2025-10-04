@@ -11,7 +11,8 @@
              mc:Ignorable="d" 
              Height="82" 
              Width="295"
-             d:DataContext="{d:DesignInstance viewModels:ChargeBladeViewModel}">
+             d:DataContext="{d:DesignInstance viewModels:ChargeBladeViewModel}"
+             Style="{DynamicResource Widgets.Classes.ChargeBlade}">
     <UserControl.Resources>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:SizeAndCountToSizeConverter x:Key="SizeAndCountToSizeConverter"/>
@@ -25,11 +26,11 @@
         </converters:ConverterPipeline>
 
         <SolidColorBrush x:Key="ShieldBuffBrush" 
-                         Color="{StaticResource CHARGE_BLADE_SHIELD_BUFF}"/>
+                         Color="{StaticResource Brushes.Widgets.ChargeBlade.ShieldBuff}"/>
         <SolidColorBrush x:Key="SwordBuffBrush" 
-                         Color="{StaticResource CHARGE_BLADE_SWORD_BUFF}"/>
+                         Color="{StaticResource Brushes.Widgets.ChargeBlade.SwordBuff}"/>
         <SolidColorBrush x:Key="AxeBuffBrush" 
-                         Color="{StaticResource CHARGE_BLADE_AXE_BUFF}"/>
+                         Color="{StaticResource Brushes.Widgets.ChargeBlade.AxeBuff}"/>
         <system:Double x:Key="YellowThreshold">0.3</system:Double>
         <system:Double x:Key="RedThreshold">0.46</system:Double>
         <system:Double x:Key="OverChargeThreshold">0.72</system:Double>
@@ -41,8 +42,8 @@
         </Grid.RowDefinitions>
         <!-- Axe Buff -->
         <Border Grid.Row="0" 
-                d:Background="{StaticResource GRAY_400}"
-                d:BorderBrush="{StaticResource GRAY_50}"
+                d:Background="{StaticResource Gray@400}"
+                d:BorderBrush="{StaticResource Gray@50}"
                 BorderThickness="1"
                 Width="79"
                 Height="27"
@@ -66,7 +67,7 @@
                                              Value="True">
                                     <Setter Property="Effect">
                                         <Setter.Value>
-                                            <DropShadowEffect Color="{StaticResource CHARGE_BLADE_AXE_BUFF}"
+                                            <DropShadowEffect Color="{StaticResource Brushes.Widgets.ChargeBlade.AxeBuff}"
                                                               ShadowDepth="0"
                                                               BlurRadius="20"
                                                               Opacity="1"/>
@@ -88,7 +89,7 @@
                            HorizontalAlignment="Right"
                            VerticalAlignment="Center"
                            FontWeight="Medium"
-                           Foreground="{StaticResource WHITE_100}">
+                           Foreground="{StaticResource White@100}">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                             <Style.Triggers>
@@ -118,14 +119,14 @@
                         <DataTrigger Binding="{Binding AxeBuff, Converter={StaticResource NumberToBooleanConverter}}"
                                      Value="True">
                             <Setter Property="BorderBrush" Value="{StaticResource AxeBuffBrush}"/>
-                            <Setter Property="Background" Value="{StaticResource CHARGE_BLADE_AXE_ACTIVE}"/>
+                            <Setter Property="Background" Value="{StaticResource Brushes.Widgets.ChargeBlade.Axe.Active}"/>
                         </DataTrigger>
 
                         <!-- Axe buff is not active-->
                         <DataTrigger Binding="{Binding AxeBuff, Converter={StaticResource NumberToBooleanConverter}}"
                                      Value="False">
-                            <Setter Property="BorderBrush" Value="{StaticResource GRAY_50}"/>
-                            <Setter Property="Background" Value="{StaticResource GRAY_400}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource Gray@50}"/>
+                            <Setter Property="Background" Value="{StaticResource Gray@400}"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -134,7 +135,7 @@
 
         <!-- Sword Buff -->
         <Border Grid.Row="0" 
-                d:Background="{StaticResource CHARGE_BLADE_SWORD_ACTIVE}"
+                d:Background="{StaticResource Brushes.Widgets.ChargeBlade.Sword.Active}"
                 d:BorderBrush="{StaticResource SwordBuffBrush}"
                 BorderThickness="1"
                 Width="80"
@@ -159,7 +160,7 @@
                                              Value="True">
                                     <Setter Property="Effect">
                                         <Setter.Value>
-                                            <DropShadowEffect Color="{StaticResource CHARGE_BLADE_SWORD_BUFF}"
+                                            <DropShadowEffect Color="{StaticResource Brushes.Widgets.ChargeBlade.SwordBuff}"
                                                               ShadowDepth="0"
                                                               BlurRadius="20"
                                                               Opacity="1"/>
@@ -181,7 +182,7 @@
                            HorizontalAlignment="Right"
                            VerticalAlignment="Center"
                            FontWeight="Medium"
-                           Foreground="{StaticResource WHITE_100}">
+                           Foreground="{StaticResource White@100}">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                             <Style.Triggers>
@@ -211,14 +212,14 @@
                         <DataTrigger Binding="{Binding SwordBuff, Converter={StaticResource NumberToBooleanConverter}}"
                                      Value="True">
                             <Setter Property="BorderBrush" Value="{StaticResource SwordBuffBrush}"/>
-                            <Setter Property="Background" Value="{StaticResource CHARGE_BLADE_SWORD_ACTIVE}"/>
+                            <Setter Property="Background" Value="{StaticResource Brushes.Widgets.ChargeBlade.Sword.Active}"/>
                         </DataTrigger>
 
                         <!-- Sword buff is not active-->
                         <DataTrigger Binding="{Binding SwordBuff, Converter={StaticResource NumberToBooleanConverter}}"
                                      Value="False">
-                            <Setter Property="BorderBrush" Value="{StaticResource GRAY_50}"/>
-                            <Setter Property="Background" Value="{StaticResource GRAY_400}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource Gray@50}"/>
+                            <Setter Property="Background" Value="{StaticResource Gray@400}"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -227,8 +228,8 @@
 
         <!-- Charge Gauge -->
         <Border Grid.Row="1" 
-                Background="{StaticResource GRAY_500}"
-                BorderBrush="{StaticResource GRAY_50}"
+                Background="{StaticResource Gray@500}"
+                BorderBrush="{StaticResource Gray@50}"
                 BorderThickness="1"
                 Width="180"
                 Height="18"
@@ -260,7 +261,7 @@
                 <Path Data="M3.14084 3.32354L0.210663 0.393379H6.071L3.14084 3.32354Z"
                       VerticalAlignment="Top"
                       HorizontalAlignment="Left"
-                      Fill="{Binding Source={StaticResource CHARGE_BLADE_YELLOW_CHARGE}, Converter={StaticResource ColorToBrushConverter}}">
+                      Fill="{Binding Source={StaticResource Brushes.Widgets.ChargeBlade.YellowCharge}, Converter={StaticResource ColorToBrushConverter}}">
                     <Path.Margin>
                         <MultiBinding Converter="{StaticResource PercentageToLeftMarginDistanceConverter}">
                             <Binding Path="ActualWidth" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Grid}}"/>
@@ -276,7 +277,7 @@
                 <Path Data="M3.14084 3.32354L0.210663 0.393379H6.071L3.14084 3.32354Z"
                       VerticalAlignment="Top"
                       HorizontalAlignment="Left"
-                      Fill="{Binding Source={StaticResource CHARGE_BLADE_RED_CHARGE}, Converter={StaticResource ColorToBrushConverter}}">
+                      Fill="{Binding Source={StaticResource Brushes.Widgets.ChargeBlade.RedCharge}, Converter={StaticResource ColorToBrushConverter}}">
                     <Path.Margin>
                         <MultiBinding Converter="{StaticResource PercentageToLeftMarginDistanceConverter}">
                             <Binding Path="ActualWidth" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Grid}}"/>
@@ -292,7 +293,7 @@
                 <Path Data="M3.14084 3.32354L0.210663 0.393379H6.071L3.14084 3.32354Z"
                       VerticalAlignment="Top"
                       HorizontalAlignment="Left"
-                      Fill="{Binding Source={StaticResource CHARGE_BLADE_OVER_CHARGE}, Converter={StaticResource ColorToBrushConverter}}">
+                      Fill="{Binding Source={StaticResource Brushes.Widgets.ChargeBlade.OverCharge}, Converter={StaticResource ColorToBrushConverter}}">
                     <Path.Margin>
                         <MultiBinding Converter="{StaticResource PercentageToLeftMarginDistanceConverter}">
                             <Binding Path="ActualWidth" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Grid}}"/>
@@ -325,7 +326,7 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type viewModels:ChargeBladePhialViewModel}">
-                            <Rectangle d:Fill="{StaticResource WHITE_50}"
+                            <Rectangle d:Fill="{StaticResource White@50}"
                                        Margin="1,0,1,0">
                                 <Rectangle.Style>
                                     <Style TargetType="Rectangle">
@@ -337,7 +338,7 @@
                                                     <Condition Binding="{Binding DataContext.Charge, RelativeSource={RelativeSource AncestorType={x:Type local:ChargeBladeView}}}"
                                                                Value="{x:Static enums:PhialChargeLevel.None}"/>
                                                 </MultiDataTrigger.Conditions>
-                                                <Setter Property="Fill" Value="{StaticResource WHITE_50}"/>
+                                                <Setter Property="Fill" Value="{StaticResource White@50}"/>
                                                 <Setter Property="StrokeThickness" Value="0"/>
                                                 <Setter Property="Effect">
                                                     <Setter.Value>
@@ -355,11 +356,11 @@
                                                     <Condition Binding="{Binding DataContext.Charge, RelativeSource={RelativeSource AncestorType={x:Type local:ChargeBladeView}}}"
                                                                Value="{x:Static enums:PhialChargeLevel.Yellow}"/>
                                                 </MultiDataTrigger.Conditions>
-                                                <Setter Property="Fill" Value="{Binding Source={StaticResource CHARGE_BLADE_YELLOW_CHARGE}, Converter={StaticResource ColorToBrushConverter}}"/>
+                                                <Setter Property="Fill" Value="{Binding Source={StaticResource Brushes.Widgets.ChargeBlade.YellowCharge}, Converter={StaticResource ColorToBrushConverter}}"/>
                                                 <Setter Property="StrokeThickness" Value="0"/>
                                                 <Setter Property="Effect">
                                                     <Setter.Value>
-                                                        <DropShadowEffect Color="{StaticResource CHARGE_BLADE_YELLOW_CHARGE}"
+                                                        <DropShadowEffect Color="{StaticResource Brushes.Widgets.ChargeBlade.YellowCharge}"
                                                                           ShadowDepth="0"
                                                                           BlurRadius="5"/>
                                                     </Setter.Value>
@@ -373,11 +374,11 @@
                                                     <Condition Binding="{Binding DataContext.Charge, RelativeSource={RelativeSource AncestorType={x:Type local:ChargeBladeView}}}"
                                                                Value="{x:Static enums:PhialChargeLevel.Red}"/>
                                                 </MultiDataTrigger.Conditions>
-                                                <Setter Property="Fill" Value="{Binding Source={StaticResource CHARGE_BLADE_RED_CHARGE}, Converter={StaticResource ColorToBrushConverter}}"/>
+                                                <Setter Property="Fill" Value="{Binding Source={StaticResource Brushes.Widgets.ChargeBlade.RedCharge}, Converter={StaticResource ColorToBrushConverter}}"/>
                                                 <Setter Property="StrokeThickness" Value="0"/>
                                                 <Setter Property="Effect">
                                                     <Setter.Value>
-                                                        <DropShadowEffect Color="{StaticResource CHARGE_BLADE_RED_CHARGE}"
+                                                        <DropShadowEffect Color="{StaticResource Brushes.Widgets.ChargeBlade.RedCharge}"
                                                                           ShadowDepth="0"
                                                                           BlurRadius="5"/>
                                                     </Setter.Value>
@@ -391,11 +392,11 @@
                                                     <Condition Binding="{Binding DataContext.Charge, RelativeSource={RelativeSource AncestorType={x:Type local:ChargeBladeView}}}"
                                                                Value="{x:Static enums:PhialChargeLevel.Overcharged}"/>
                                                 </MultiDataTrigger.Conditions>
-                                                <Setter Property="Fill" Value="{Binding Source={StaticResource CHARGE_BLADE_OVER_CHARGE}, Converter={StaticResource ColorToBrushConverter}}"/>
+                                                <Setter Property="Fill" Value="{Binding Source={StaticResource Brushes.Widgets.ChargeBlade.OverCharge}, Converter={StaticResource ColorToBrushConverter}}"/>
                                                 <Setter Property="StrokeThickness" Value="0"/>
                                                 <Setter Property="Effect">
                                                     <Setter.Value>
-                                                        <DropShadowEffect Color="{StaticResource CHARGE_BLADE_OVER_CHARGE}"
+                                                        <DropShadowEffect Color="{StaticResource Brushes.Widgets.ChargeBlade.OverCharge}"
                                                                           ShadowDepth="0"
                                                                           BlurRadius="5"/>
                                                     </Setter.Value>
@@ -411,12 +412,12 @@
                                                     <Condition Binding="{Binding DataContext.Charge, RelativeSource={RelativeSource AncestorType={x:Type local:ChargeBladeView}}}"
                                                                Value="{x:Static enums:PhialChargeLevel.Overcharged}"/>
                                                 </MultiDataTrigger.Conditions>
-                                                <Setter Property="Stroke" Value="{Binding Source={StaticResource CHARGE_BLADE_OVER_CHARGE}, Converter={StaticResource ColorToBrushConverter}}"/>
+                                                <Setter Property="Stroke" Value="{Binding Source={StaticResource Brushes.Widgets.ChargeBlade.OverCharge}, Converter={StaticResource ColorToBrushConverter}}"/>
                                                 <Setter Property="StrokeThickness" Value="1"/>
-                                                <Setter Property="Fill" Value="{StaticResource WHITE_700}"/>
+                                                <Setter Property="Fill" Value="{StaticResource White@700}"/>
                                                 <Setter Property="Effect">
                                                     <Setter.Value>
-                                                        <DropShadowEffect Color="{StaticResource CHARGE_BLADE_OVER_CHARGE}"
+                                                        <DropShadowEffect Color="{StaticResource Brushes.Widgets.ChargeBlade.OverCharge}"
                                                                           ShadowDepth="0"
                                                                           BlurRadius="5"/>
                                                     </Setter.Value>
@@ -430,12 +431,12 @@
                                                     <Condition Binding="{Binding DataContext.Charge, RelativeSource={RelativeSource AncestorType={x:Type local:ChargeBladeView}}}"
                                                                Value="{x:Static enums:PhialChargeLevel.Red}"/>
                                                 </MultiDataTrigger.Conditions>
-                                                <Setter Property="Stroke" Value="{Binding Source={StaticResource CHARGE_BLADE_RED_CHARGE}, Converter={StaticResource ColorToBrushConverter}}"/>
+                                                <Setter Property="Stroke" Value="{Binding Source={StaticResource Brushes.Widgets.ChargeBlade.RedCharge}, Converter={StaticResource ColorToBrushConverter}}"/>
                                                 <Setter Property="StrokeThickness" Value="1"/>
-                                                <Setter Property="Fill" Value="{StaticResource WHITE_700}"/>
+                                                <Setter Property="Fill" Value="{StaticResource White@700}"/>
                                                 <Setter Property="Effect">
                                                     <Setter.Value>
-                                                        <DropShadowEffect Color="{StaticResource CHARGE_BLADE_RED_CHARGE}"
+                                                        <DropShadowEffect Color="{StaticResource Brushes.Widgets.ChargeBlade.RedCharge}"
                                                                           ShadowDepth="0"
                                                                           BlurRadius="5"/>
                                                     </Setter.Value>
@@ -449,12 +450,12 @@
                                                     <Condition Binding="{Binding DataContext.Charge, RelativeSource={RelativeSource AncestorType={x:Type local:ChargeBladeView}}}"
                                                                Value="{x:Static enums:PhialChargeLevel.Yellow}"/>
                                                 </MultiDataTrigger.Conditions>
-                                                <Setter Property="Stroke" Value="{Binding Source={StaticResource CHARGE_BLADE_YELLOW_CHARGE}, Converter={StaticResource ColorToBrushConverter}}"/>
+                                                <Setter Property="Stroke" Value="{Binding Source={StaticResource Brushes.Widgets.ChargeBlade.YellowCharge}, Converter={StaticResource ColorToBrushConverter}}"/>
                                                 <Setter Property="StrokeThickness" Value="1"/>
-                                                <Setter Property="Fill" Value="{StaticResource WHITE_700}"/>
+                                                <Setter Property="Fill" Value="{StaticResource White@700}"/>
                                                 <Setter Property="Effect">
                                                     <Setter.Value>
-                                                        <DropShadowEffect Color="{StaticResource CHARGE_BLADE_YELLOW_CHARGE}"
+                                                        <DropShadowEffect Color="{StaticResource Brushes.Widgets.ChargeBlade.YellowCharge}"
                                                                           ShadowDepth="0"
                                                                           BlurRadius="5"/>
                                                     </Setter.Value>
@@ -469,7 +470,7 @@
                                                                Value="{x:Static enums:PhialChargeLevel.None}"/>
                                                 </MultiDataTrigger.Conditions>
                                                 <Setter Property="StrokeThickness" Value="0"/>
-                                                <Setter Property="Fill" Value="{StaticResource WHITE_700}"/>
+                                                <Setter Property="Fill" Value="{StaticResource White@700}"/>
                                             </MultiDataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -492,7 +493,7 @@
                 HorizontalAlignment="Left" 
                 RenderTransformOrigin="0.5,0.5"
                 Margin="12,0,0,0"
-                d:Background="{StaticResource CHARGE_BLADE_SHIELD_ACTIVE}">
+                d:Background="{StaticResource Brushes.Widgets.ChargeBlade.Shield.Active}">
             <Border.RenderTransform>
                 <TransformGroup>
                     <RotateTransform Angle="45"/>
@@ -515,7 +516,7 @@
                                              Value="True">
                                     <Setter Property="Effect">
                                         <Setter.Value>
-                                            <DropShadowEffect Color="{StaticResource CHARGE_BLADE_SHIELD_BUFF}"
+                                            <DropShadowEffect Color="{StaticResource Brushes.Widgets.ChargeBlade.ShieldBuff}"
                                                               ShadowDepth="0"
                                                               BlurRadius="10"
                                                               Opacity="1"/>
@@ -536,7 +537,7 @@
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
-                           Foreground="{StaticResource WHITE_100}">
+                           Foreground="{StaticResource White@100}">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                             <Style.Triggers>
@@ -562,14 +563,14 @@
                         <DataTrigger Binding="{Binding ShieldBuff, Converter={StaticResource NumberToBooleanConverter}}"
                                      Value="True">
                             <Setter Property="BorderBrush" Value="{StaticResource ShieldBuffBrush}"/>
-                            <Setter Property="Background" Value="{StaticResource CHARGE_BLADE_SHIELD_ACTIVE}"/>
+                            <Setter Property="Background" Value="{StaticResource Brushes.Widgets.ChargeBlade.Shield.Active}"/>
                         </DataTrigger>
 
                         <!-- Shield buff is not active-->
                         <DataTrigger Binding="{Binding ShieldBuff, Converter={StaticResource NumberToBooleanConverter}}"
                                      Value="False">
-                            <Setter Property="BorderBrush" Value="{StaticResource GRAY_50}"/>
-                            <Setter Property="Background" Value="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource Gray@50}"/>
+                            <Setter Property="Background" Value="{StaticResource Brushes.Widgets.Classes.Background.Common}"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -580,7 +581,7 @@
         <Path Grid.Row="0"
               Grid.RowSpan="2" 
               Data="M3 3.50001L12 12.5L3 21.5"
-              d:Stroke="{StaticResource WHITE_600}"
+              d:Stroke="{StaticResource White@600}"
               VerticalAlignment="Center"
               HorizontalAlignment="Left"
               StrokeThickness="2"
@@ -592,45 +593,45 @@
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Charge, Mode=OneWay}"
                                      Value="{x:Static enums:PhialChargeLevel.None}">
-                            <Setter Property="Stroke" Value="{Binding Source={StaticResource CHARGE_BLADE_NONE_CHARGE}, Converter={StaticResource ColorToBrushConverter}}"/>
+                            <Setter Property="Stroke" Value="{Binding Source={StaticResource Brushes.Widgets.ChargeBlade.Uncharged}, Converter={StaticResource ColorToBrushConverter}}"/>
                             <Setter Property="Effect">
                                 <Setter.Value>
                                     <DropShadowEffect BlurRadius="20"
                                                       ShadowDepth="0"
-                                                      Color="{StaticResource CHARGE_BLADE_NONE_CHARGE}"/>
+                                                      Color="{StaticResource Brushes.Widgets.ChargeBlade.Uncharged}"/>
                                 </Setter.Value>
                             </Setter>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Charge, Mode=OneWay}"
                                      Value="{x:Static enums:PhialChargeLevel.Yellow}">
-                            <Setter Property="Stroke" Value="{Binding Source={StaticResource CHARGE_BLADE_YELLOW_CHARGE}, Converter={StaticResource ColorToBrushConverter}}"/>
+                            <Setter Property="Stroke" Value="{Binding Source={StaticResource Brushes.Widgets.ChargeBlade.YellowCharge}, Converter={StaticResource ColorToBrushConverter}}"/>
                             <Setter Property="Effect">
                                 <Setter.Value>
                                     <DropShadowEffect BlurRadius="20"
                                                       ShadowDepth="0"
-                                                      Color="{StaticResource CHARGE_BLADE_YELLOW_CHARGE}"/>
+                                                      Color="{StaticResource Brushes.Widgets.ChargeBlade.YellowCharge}"/>
                                 </Setter.Value>
                             </Setter>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Charge, Mode=OneWay}"
                                      Value="{x:Static enums:PhialChargeLevel.Red}">
-                            <Setter Property="Stroke" Value="{Binding Source={StaticResource CHARGE_BLADE_RED_CHARGE}, Converter={StaticResource ColorToBrushConverter}}"/>
+                            <Setter Property="Stroke" Value="{Binding Source={StaticResource Brushes.Widgets.ChargeBlade.RedCharge}, Converter={StaticResource ColorToBrushConverter}}"/>
                             <Setter Property="Effect">
                                 <Setter.Value>
                                     <DropShadowEffect BlurRadius="20"
                                                       ShadowDepth="0"
-                                                      Color="{StaticResource CHARGE_BLADE_RED_CHARGE}"/>
+                                                      Color="{StaticResource Brushes.Widgets.ChargeBlade.RedCharge}"/>
                                 </Setter.Value>
                             </Setter>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Charge, Mode=OneWay}"
                                      Value="{x:Static enums:PhialChargeLevel.Overcharged}">
-                            <Setter Property="Stroke" Value="{Binding Source={StaticResource CHARGE_BLADE_OVER_CHARGE}, Converter={StaticResource ColorToBrushConverter}}"/>
+                            <Setter Property="Stroke" Value="{Binding Source={StaticResource Brushes.Widgets.ChargeBlade.OverCharge}, Converter={StaticResource ColorToBrushConverter}}"/>
                             <Setter Property="Effect">
                                 <Setter.Value>
                                     <DropShadowEffect BlurRadius="20"
                                                       ShadowDepth="0"
-                                                      Color="{StaticResource CHARGE_BLADE_OVER_CHARGE}"/>
+                                                      Color="{StaticResource Brushes.Widgets.ChargeBlade.OverCharge}"/>
                                 </Setter.Value>
                             </Setter>
                         </DataTrigger>

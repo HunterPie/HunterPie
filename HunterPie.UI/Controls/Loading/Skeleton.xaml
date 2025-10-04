@@ -13,11 +13,11 @@
     </UserControl.Resources>
     <Grid>
         <Rectangle Fill="{Binding Background, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:Skeleton}}}"
-                   RadiusX="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.1}"
+                   RadiusX="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.5}"
                    RadiusY="{Binding RadiusX, RelativeSource={RelativeSource Self}}"
                    x:Name="PART_Background"/>
 
-        <Rectangle Fill="#10FFFFFF">
+        <Rectangle Fill="{DynamicResource Brushes.HunterPie.Skeleton.Highlight}">
             <Rectangle.OpacityMask>
                 <VisualBrush Visual="{Binding ElementName=PART_Background}"/>
             </Rectangle.OpacityMask>

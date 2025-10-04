@@ -8,9 +8,9 @@
     <Border BorderBrush="{Binding Foreground, ElementName=BadgeControl}"
             Background="{Binding Background, ElementName=BadgeControl}"
             BorderThickness="1"
-            CornerRadius="3"
+            CornerRadius="10"
             Padding="5,2">
         <TextBlock Text="{Binding Text, ElementName=BadgeControl}"
-                   Foreground="{StaticResource WHITE_100}"/>
+                   Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>
     </Border>
 </UserControl>

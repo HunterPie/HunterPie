@@ -10,7 +10,7 @@
         <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
     </UserControl.Resources>
     <Rectangle Stroke="{Binding BorderBrush, Mode=OneWay}"
-               d:Stroke="{StaticResource GRAY}"
+               d:Stroke="{StaticResource Gray}"
                RadiusY="{Binding ActualWidth, RelativeSource={RelativeSource Self}, Converter={StaticResource RelativeSizeConverter}, ConverterParameter=0.5}"
                RadiusX="{Binding RadiusY, RelativeSource={RelativeSource Self}}"
                StrokeThickness="1"
@@ -24,7 +24,7 @@
                     </DataTrigger>
                     <DataTrigger Binding="{Binding IsActive, Mode=OneWay}"
                                  Value="False">
-                        <Setter Property="Fill" Value="{StaticResource GRAY_300}"/>
+                        <Setter Property="Fill" Value="{StaticResource Gray@300}"/>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>

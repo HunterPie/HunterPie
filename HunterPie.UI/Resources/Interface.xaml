@@ -35,11 +35,11 @@
                 <DrawingGroup Opacity="1">
                     <GeometryDrawing Geometry="F1 M150,40z M0,0z M140.2025,7.8052082L135.13329,25.888146 129.29064,31.653912 14.445852,31.587762 14.445852,25.822 23.722724,7.7390624z">
                         <GeometryDrawing.Pen>
-                            <Pen Brush="{StaticResource GRAY}" Thickness="3" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                            <Pen Brush="{StaticResource Gray}" Thickness="3" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
                         </GeometryDrawing.Pen>
                     </GeometryDrawing>
-                    <GeometryDrawing Brush="{StaticResource GRAY}" Geometry="F1 M150,40z M0,0z M21.8447,6.2206984L12.880918,22.954251 8.9649841,13.856009 14.257373,6.2206984z" />
-                    <GeometryDrawing Brush="{StaticResource GRAY}" Geometry="F1 M150,40z M0,0z M9.2804789,11.250472L6.6156795,6.2206984 12.899507,6.2206984z" />
+                    <GeometryDrawing Brush="{StaticResource Gray}" Geometry="F1 M150,40z M0,0z M21.8447,6.2206984L12.880918,22.954251 8.9649841,13.856009 14.257373,6.2206984z" />
+                    <GeometryDrawing Brush="{StaticResource Gray}" Geometry="F1 M150,40z M0,0z M9.2804789,11.250472L6.6156795,6.2206984 12.899507,6.2206984z" />
                 </DrawingGroup>
             </DrawingGroup>
         </DrawingImage.Drawing>

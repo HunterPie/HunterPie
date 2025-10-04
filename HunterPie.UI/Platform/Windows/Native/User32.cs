@@ -9,19 +9,19 @@ public static class User32
     public static extern IntPtr GetForegroundWindow();
 
     [DllImport("user32.dll")]
-    public static extern int SetWindowLong(IntPtr hwnd, int index, int style);
+    public static extern uint SetWindowLong(IntPtr hwnd, int index, uint style);
 
     [DllImport("user32.dll")]
-    public static extern int GetWindowLong(IntPtr hwnd, int index);
+    public static extern uint GetWindowLong(IntPtr hwnd, int index);
 
     [DllImport("User32.dll", SetLastError = true)]
     public static extern bool SetForegroundWindow(IntPtr hWnd);
 
     [DllImport("user32.dll")]
-    public static extern bool SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+    public static extern bool SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
 
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
-    public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, nuint wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
+    public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, nuint wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
 
     public const int GWL_EXSTYLE = -20;
     public const long HWND_BROADCAST = 0xFFFF;
@@ -44,4 +44,18 @@ public static class User32
         SWP_NOSIZE = 0x0001,
         SWP_NOACTIVATE = 0x0010
     }
+
+    public const uint DEFAULT_FLAGS = (uint)(SWP_WINDOWN_FLAGS.SWP_SHOWWINDOW
+                                            | SWP_WINDOWN_FLAGS.SWP_NOMOVE
+                                            | SWP_WINDOWN_FLAGS.SWP_NOSIZE
+                                            | SWP_WINDOWN_FLAGS.SWP_NOACTIVATE);
+
+    public const uint CLICK_THROUGH_FLAGS = (uint)(EX_WINDOW_STYLES.WS_EX_TRANSPARENT
+                                                   | EX_WINDOW_STYLES.WS_EX_TOPMOST
+                                                   | EX_WINDOW_STYLES.WS_EX_NOACTIVATE
+                                                   | EX_WINDOW_STYLES.WS_EX_TOOLWINDOW);
+
+    public const uint WINDOW_FLAGS = (uint)(EX_WINDOW_STYLES.WS_EX_TOPMOST
+                                            | EX_WINDOW_STYLES.WS_EX_NOACTIVATE
+                                            | EX_WINDOW_STYLES.WS_EX_TOOLWINDOW);
 }

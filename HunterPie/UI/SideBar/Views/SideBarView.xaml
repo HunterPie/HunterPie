@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:HunterPie.UI.SideBar.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:HunterPie.UI.SideBar.ViewModels"
-    Width="{StaticResource HUNTERPIE_SIDEBAR_WIDTH}"
+    Width="{DynamicResource HunterPie.SideBar.Width}"
     d:DataContext="{d:DesignInstance viewModels:SideBarViewModel}"
     d:DesignHeight="450"
     mc:Ignorable="d">
@@ -59,7 +59,7 @@
             </Rectangle.Style>
         </Rectangle>
         <Grid x:Name="PART_SideBar"
-              Background="{StaticResource GRAY_50}"
+              Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
               IsHitTestVisible="False"
               MouseLeave="OnMouseLeave">
             <Grid.OpacityMask>

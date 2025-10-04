@@ -1,9 +1,11 @@
 ﻿using HunterPie.UI.Architecture;
 using System;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Shapes;
 
 namespace HunterPie.UI.Controls.Buttons;
 
@@ -109,15 +111,50 @@ public partial class Button : ClickableControl
     protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
     {
         base.OnMouseLeftButtonDown(e);
+
         double targetWidth = Math.Max(ActualWidth, ActualHeight) * 2;
         Point mousePosition = e.GetPosition(this);
-        var startMargin = new Thickness(mousePosition.X, mousePosition.Y, 0, 0);
-        PART_Ripple.Margin = startMargin;
-        (_rippleAnimation.Children[0] as DoubleAnimation).To = targetWidth;
-        (_rippleAnimation.Children[1] as ThicknessAnimation).From = startMargin;
-        (_rippleAnimation.Children[1] as ThicknessAnimation).To = new Thickness(mousePosition.X - (targetWidth / 2), mousePosition.Y - (targetWidth / 2), 0, 0);
-        PART_Ripple.BeginStoryboard(_rippleAnimation);
+        var startMargin = new Thickness(
+            left: mousePosition.X,
+            top: mousePosition.Y,
+            right: 0,
+            bottom: 0
+        );
 
+        var ripple = new Ellipse
+        {
+            Margin = startMargin,
+            Fill = Assets.Application.Resources.Get<Brush>("Brushes.HunterPie.Ripple"),
+            VerticalAlignment = VerticalAlignment.Top,
+        };
+
+        ripple.SetBinding(HeightProperty, new Binding
+        {
+            Path = new PropertyPath(nameof(Width)),
+            RelativeSource = RelativeSource.Self
+        });
+
+        ripple.Margin = startMargin;
+        Storyboard rippleAnimation = _rippleAnimation.Clone();
+
+        if (rippleAnimation.Children[0] is DoubleAnimation widthAnimation)
+            widthAnimation.To = targetWidth;
+
+        if (rippleAnimation.Children[1] is ThicknessAnimation marginAnimation)
+        {
+            marginAnimation.From = startMargin;
+            marginAnimation.To = new Thickness(
+                left: mousePosition.X - (targetWidth / 2),
+                top: mousePosition.Y - (targetWidth / 2),
+                right: 0,
+                bottom: 0
+            );
+        }
+
+        ripple.BeginStoryboard(rippleAnimation);
+        rippleAnimation.Completed += (_, __) => PART_RippleContainer.Children.Remove(ripple);
+
+        PART_RippleContainer.Children.Add(ripple);
         e.Handled = true;
     }
 }

@@ -10,25 +10,24 @@
              d:DesignWidth="800"
              Loaded="OnLoaded">
     <Grid x:Name="PART_Header"
-                  Height="30"
-                  VerticalAlignment="Top"
-                  Background="Transparent"
-                  MouseLeftButtonDown="OnLeftMouseDown">
+          Height="30"
+          VerticalAlignment="Top"
+          Background="Transparent"
+          MouseLeftButtonDown="OnLeftMouseDown">
         <!-- Left container -->
         <StackPanel HorizontalAlignment="Left"
                     Orientation="Horizontal"
                     Margin="5,0,0,0">
             <image:Icon Image="{Binding Owner.Icon, Mode=OneWay}"
                         d:Image="{StaticResource ICON_INFO}"
-                        Foreground="{StaticResource GRAY}"
+                        Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                         Width="20"
                         Margin="0,0,5,0"
                         Height="20"/>
-            <TextBlock FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                       Text="{Binding Owner.Title}"
+            <TextBlock Text="{Binding Owner.Title}"
                        FontSize="14"
                        d:Text="HunterPie"
-                       Foreground="{StaticResource GRAY}"
+                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                        HorizontalAlignment="Stretch" 
                        VerticalAlignment="Center"/>
         </StackPanel>
@@ -39,7 +38,7 @@
             <native:Button 
                 Content="_"
                 FontSize="14"
-                Foreground="{StaticResource GRAY}"
+                Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                 Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
                 OnClick="OnMinimizeButtonClick"/>
 
@@ -48,7 +47,7 @@
                 FontSize="15"
                 Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
                 OnClick="OnCloseButtonClick"
-                Foreground="{StaticResource GRAY}"
+                Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                 HorizontalAlignment="Right"/>
 
         </StackPanel>

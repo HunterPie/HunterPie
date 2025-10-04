@@ -11,8 +11,8 @@
                 </TextBlock>
             </Setter.Value>
         </Setter>
-        <Setter Property="Foreground" Value="{StaticResource WHITE_50}"/>
+        <Setter Property="Foreground" Value="{StaticResource White@50}"/>
         <Setter Property="FontSize" Value="40"/>
-        <Setter Property="FontFamily" Value="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Font.Default}"/>
     </Style>
 </ResourceDictionary>

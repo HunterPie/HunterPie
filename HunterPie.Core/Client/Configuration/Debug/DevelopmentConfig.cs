@@ -14,6 +14,9 @@ namespace HunterPie.Core.Client.Configuration.Debug;
     dependsOnFeature: FeatureFlags.FEATURE_ADVANCED_DEV)]
 public class DevelopmentConfig : ISettings
 {
+    [ConfigurationProperty("DEV_OVERLAY_MANAGER_DEBUGGER_ENABLED", requiresRestart: false, group: CommonConfigurationGroups.DEVELOPMENT)]
+    public Observable<bool> IsOverlayManagerDebugEnabled { get; set; } = false;
+
     #region Mocking Settings
     [ConfigurationProperty("DEV_MOCK_MONSTER_WIDGET_STRING", requiresRestart: true, group: CommonConfigurationGroups.MOCKS)]
     public Observable<bool> MockBossesWidget { get; set; } = false;

@@ -1,7 +1,6 @@
 ﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Player;
-using HunterPie.UI.Overlay.Widgets.Abnormality.View;
 using HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel;
 using System.Linq;
 using System.Windows;
@@ -11,20 +10,19 @@ namespace HunterPie.UI.Overlay.Widgets.Abnormality;
 
 internal class AbnormalityWidgetContextHandler : IContextHandler
 {
-    private AbnormalityWidgetConfig _config;
-    public readonly IContext Context;
-    public readonly AbnormalityBarViewModel ViewModel;
-    private readonly AbnormalityBarView View;
-    private ref AbnormalityWidgetConfig Config => ref _config;
+    private readonly IContext _context;
+    private readonly AbnormalityWidgetConfig _config;
+    private readonly AbnormalityBarViewModel _viewModel;
 
-    public AbnormalityWidgetContextHandler(IContext context, ref AbnormalityWidgetConfig config)
+    public AbnormalityWidgetContextHandler(
+        IContext context,
+        AbnormalityWidgetConfig config,
+        AbnormalityBarViewModel viewModel)
     {
         _config = config;
-        View = new AbnormalityBarView(ref Config);
-        _ = WidgetManager.Register<AbnormalityBarView, AbnormalityWidgetConfig>(View);
-        Context = context;
+        _context = context;
 
-        ViewModel = View.ViewModel;
+        _viewModel = viewModel;
 
         UpdateData();
         HookEvents();
@@ -32,22 +30,22 @@ internal class AbnormalityWidgetContextHandler : IContextHandler
 
     public void HookEvents()
     {
-        Context.Game.Player.OnAbnormalityStart += OnAbnormalityStart;
-        Context.Game.Player.OnAbnormalityEnd += OnAbnormalityEnd;
+        _context.Game.Player.OnAbnormalityStart += OnAbnormalityStart;
+        _context.Game.Player.OnAbnormalityEnd += OnAbnormalityEnd;
     }
 
     private void OnAbnormalityEnd(object sender, IAbnormality e)
     {
         Application.Current.Dispatcher.BeginInvoke(() =>
         {
-            AbnormalityContextHandler handler = ViewModel.Abnormalities.Cast<AbnormalityContextHandler>()
+            AbnormalityContextHandler handler = _viewModel.Abnormalities.Cast<AbnormalityContextHandler>()
                 .FirstOrDefault(vm => vm.Context == e);
 
             if (handler is null)
                 return;
 
             handler.UnhookEvents();
-            _ = ViewModel.Abnormalities.Remove(handler);
+            _viewModel.Abnormalities.Remove(handler);
         }, DispatcherPriority.Normal);
     }
 
@@ -55,30 +53,29 @@ internal class AbnormalityWidgetContextHandler : IContextHandler
     {
         Application.Current.Dispatcher.BeginInvoke(() =>
         {
-            if (!Config.AllowedAbnormalities.Contains(e.Id))
+            if (!_config.AllowedAbnormalities.Contains(e.Id))
                 return;
 
-            ViewModel.Abnormalities.Add(new AbnormalityContextHandler(e));
+            _viewModel.Abnormalities.Add(new AbnormalityContextHandler(e));
         }, DispatcherPriority.Normal);
     }
 
     public void UnhookEvents()
     {
-        Context.Game.Player.OnAbnormalityStart -= OnAbnormalityStart;
-        Context.Game.Player.OnAbnormalityEnd -= OnAbnormalityEnd;
-        _ = WidgetManager.Unregister<AbnormalityBarView, AbnormalityWidgetConfig>(View);
+        _context.Game.Player.OnAbnormalityStart -= OnAbnormalityStart;
+        _context.Game.Player.OnAbnormalityEnd -= OnAbnormalityEnd;
     }
 
     private void UpdateData()
     {
         Application.Current.Dispatcher.BeginInvoke(() =>
         {
-            foreach (IAbnormality abnormality in Context.Game.Player.Abnormalities)
+            foreach (IAbnormality abnormality in _context.Game.Player.Abnormalities)
             {
-                if (!Config.AllowedAbnormalities.Contains(abnormality.Id))
+                if (!_config.AllowedAbnormalities.Contains(abnormality.Id))
                     return;
 
-                ViewModel.Abnormalities.Add(new AbnormalityContextHandler(abnormality));
+                _viewModel.Abnormalities.Add(new AbnormalityContextHandler(abnormality));
             }
         }, DispatcherPriority.Normal);
     }

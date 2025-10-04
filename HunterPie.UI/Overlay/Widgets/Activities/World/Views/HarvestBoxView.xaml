@@ -34,8 +34,8 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Border Background="{Binding Source={StaticResource GRAY_200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
-                    BorderBrush="{StaticResource GRAY}"
+            <Border Background="{Binding Source={StaticResource Gray@200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+                    BorderBrush="{StaticResource Gray}"
                     BorderThickness="1"
                     CornerRadius="0,0,5,5"
                     Padding="2">
@@ -45,9 +45,9 @@
                            FontSize="14">
                     <Run Text="{Binding Count, Mode=OneWay}"
                          d:Text="20"
-                         Foreground="{StaticResource WHITE_100}"/><!--
+                         Foreground="{StaticResource White@100}"/><!--
                  --><Run Text="{Binding MaxCount, Mode=OneWay, StringFormat='/{0}'}"
-                         Foreground="{StaticResource WHITE_500}"
+                         Foreground="{StaticResource White@500}"
                          d:Text="/50"/>
                 </TextBlock>
             </Border>

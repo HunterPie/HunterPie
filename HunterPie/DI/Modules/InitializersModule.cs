@@ -30,6 +30,7 @@ public class InitializersModule : IDependencyModule
             .WithSingle<NavigationTemplatesInitializer>()
             .WithSingle<AppNotificationsInitializer>()
             .WithSingle<HotkeyInitializer>()
-            .WithSingle<DebugWidgetInitializer>();
+            .WithSingle<DebugWidgetInitializer>()
+            .WithSingle<OverlayWidgetsInitializer>();
     }
 }

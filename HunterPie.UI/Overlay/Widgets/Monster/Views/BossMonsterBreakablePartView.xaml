@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
              xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels"
@@ -16,8 +15,7 @@
     <Grid>
         <TextBlock Text="{Binding Name, Converter={StaticResource MonsterPartIdToNameConverter}, Mode=OneTime}"
                    d:Text="Head"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   Foreground="{StaticResource White}"
                    FontSize="14"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Left"
@@ -32,12 +30,12 @@
         <Grid Margin="30,15,0,0">
 
             <!-- Break Bar -->
-            <overlay:Bar d:Foreground="{StaticResource MONSTER_PART_BREAKABLE_FOREGROUND}"
-                         d:ForegroundDelayed="{StaticResource MonsterHealthUnenragedDelayed}"
+            <overlay:Bar d:Foreground="{StaticResource Brushes.Widgets.Monster.Part.Breakable.Foreground}"
+                         d:ForegroundDelayed="{StaticResource Brushes.Widgets.Monster.Health.Default.Background}"
                          Height="5"
                          VerticalAlignment="Top"
                          Margin="4.5,0,5,0"
-                         Background="{StaticResource HUNTERPIE_BACKGROUND_DARKER}"
+                         Background="{StaticResource Gray@500}"
                          MaxValue="{Binding MaxHealth, Mode=OneWay}"
                          Value="{Binding Health, Mode=OneWay}"
                          d:Value="50"
@@ -56,11 +54,11 @@
                     <Style TargetType="overlay:Bar">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsPartBroken}" Value="True">
-                                <Setter Property="Foreground" Value="{StaticResource MONSTER_PART_BROKEN_FOREGROUND}"/>
+                                <Setter Property="Foreground" Value="{StaticResource Brushes.Widgets.Monster.Part.Broken.Foreground}"/>
                                 <Setter Property="ForegroundDelayed" Value="#c4c4c4"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding IsPartBroken}" Value="False">
-                                <Setter Property="Foreground" Value="{StaticResource MONSTER_PART_BREAKABLE_FOREGROUND}"/>
+                                <Setter Property="Foreground" Value="{StaticResource Brushes.Widgets.Monster.Part.Breakable.Foreground}"/>
                                 <Setter Property="ForegroundDelayed" Value="#FFFFE1AC"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -69,12 +67,12 @@
             </overlay:Bar>
 
             <!-- Flinch bar -->
-            <overlay:Bar Foreground="{StaticResource MonsterHealthUnenraged}"
-                         ForegroundDelayed="{StaticResource MonsterHealthUnenragedDelayed}"
+            <overlay:Bar Foreground="{StaticResource Brushes.Widgets.Monster.Health.Default}"
+                         ForegroundDelayed="{StaticResource Brushes.Widgets.Monster.Health.Default.Background}"
                          Height="5"
                          VerticalAlignment="Top"
                          Margin="4.5,5,5,0"
-                         Background="{StaticResource HUNTERPIE_BACKGROUND_DARKER}"
+                         Background="{StaticResource Gray@500}"
                          MaxValue="{Binding MaxFlinch, Mode=OneWay}"
                          Value="{Binding Flinch, Mode=OneWay}"
                          d:Value="50"
@@ -91,8 +89,8 @@
                 </overlay:Bar.RenderTransform>
             </overlay:Bar>
 
-            <Label Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+            <Label Foreground="{StaticResource White}"
+                   FontFamily="{StaticResource Font.Default}"
                    FontSize="14"
                    VerticalAlignment="Bottom"
                    HorizontalAlignment="Center"
@@ -113,10 +111,10 @@
                                            <Run Text="{Binding Flinch, StringFormat=\{0:F1\}}"
                                                 d:Text="2000.0"/><!--
                                         --><Run Text="/"
-                                                Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                                                Foreground="{StaticResource White@200}"
                                                 FontWeight="Light"/><!--
                                         --><Run Text="{Binding MaxFlinch, StringFormat=\{0:F1\}}"
-                                                Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                                                Foreground="{StaticResource White@200}"
                                                 FontWeight="Light"
                                                 d:Text="2000.0"/>
                                         </TextBlock>
@@ -130,10 +128,10 @@
                                            <Run Text="{Binding Health, StringFormat=\{0:F1\}}"
                                                 d:Text="2000.0"/><!--
                                         --><Run Text="/"
-                                                Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                                                Foreground="{StaticResource White@200}"
                                                 FontWeight="Light"/><!--
                                         --><Run Text="{Binding MaxHealth, StringFormat=\{0:F1\}}"
-                                                Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                                                Foreground="{StaticResource White@200}"
                                                 FontWeight="Light"
                                                 d:Text="2000.0"/>
                                         </TextBlock>

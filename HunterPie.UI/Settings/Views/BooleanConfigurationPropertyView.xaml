@@ -13,7 +13,8 @@
              PreviewMouseLeftButtonUp="OnLeftMouseUp"
              Cursor="Hand">
     <effects:CursorHighLight>
-        <Grid Margin="5">
+        <Grid Margin="5"
+              Background="#01000000">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="2*"/> 
@@ -27,7 +28,7 @@
 
             <buttons:Switch Grid.Column="1"
                             HorizontalAlignment="Right"
-                            VerticalAlignment="Top"
+                            VerticalAlignment="Center"
                             IsActive="{Binding Boolean.Value, Mode=TwoWay}"/>
         </Grid>
     </effects:CursorHighLight>

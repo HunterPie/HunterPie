@@ -8,8 +8,8 @@
              d:DesignHeight="16" 
              d:DesignWidth="10"
              d:DataContext="{d:DesignInstance viewModels:FertilizerDayViewModel}">
-    <Rectangle Stroke="{StaticResource GRAY}"
-               d:Fill="{StaticResource GREEN}"
+    <Rectangle Stroke="{StaticResource Gray}"
+               d:Fill="{StaticResource Green}"
                RadiusX="5"
                RadiusY="5"
                StrokeThickness="1">
@@ -18,11 +18,11 @@
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding IsActive, Mode=OneWay}"
                                  Value="True">
-                        <Setter Property="Fill" Value="{StaticResource GREEN}"/>
+                        <Setter Property="Fill" Value="{StaticResource Green}"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding IsActive, Mode=OneWay}"
                                  Value="False">
-                        <Setter Property="Fill" Value="{StaticResource GRAY_300}"/>
+                        <Setter Property="Fill" Value="{StaticResource Gray@300}"/>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>

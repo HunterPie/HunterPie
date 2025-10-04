@@ -14,11 +14,11 @@ public class KinsectBuffToColorConverter : IValueConverter
 {
     private static readonly KeyValuePair<KinsectBuff, Color>[] KinsectBuffColors =
     {
-        new(KinsectBuff.Attack, Resources.Get<Color>("INSECT_GLAIVE_EXTRACT_ATTACK_COLOR")),
-        new(KinsectBuff.Speed, Resources.Get<Color>("INSECT_GLAIVE_EXTRACT_SPEED_COLOR")),
-        new(KinsectBuff.Defense, Resources.Get<Color>("INSECT_GLAIVE_EXTRACT_DEFENSE_COLOR")),
-        new(KinsectBuff.Heal, Resources.Get<Color>("INSECT_GLAIVE_EXTRACT_HEAL_COLOR")),
-        new(KinsectBuff.None, Resources.Get<Color>("INSECT_GLAIVE_EXTRACT_NONE_COLOR"))
+        new(KinsectBuff.Attack, Resources.Get<Color>("Brushes.Widgets.InsectGlaive.AttackExtract")),
+        new(KinsectBuff.Speed, Resources.Get<Color>("Brushes.Widgets.InsectGlaive.SpeedExtract")),
+        new(KinsectBuff.Defense, Resources.Get<Color>("Brushes.Widgets.InsectGlaive.DefenseExtract")),
+        new(KinsectBuff.Heal, Resources.Get<Color>("Brushes.Widgets.InsectGlaive.HealExtract")),
+        new(KinsectBuff.None, Resources.Get<Color>("Brushes.Widgets.InsectGlaive.NoExtract"))
     };
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

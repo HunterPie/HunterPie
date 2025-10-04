@@ -23,10 +23,11 @@
         </Style>
 
         <Style x:Key="PopupButton" TargetType="buttons:Button">
-            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="Padding" Value="10,5"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -38,20 +39,20 @@
                             <buttons:Button HorizontalContentAlignment="Stretch"
                                             VerticalContentAlignment="Stretch"
                                             Padding="5,0,10,0"
-                                            BorderBrush="{StaticResource GRAY}"
+                                            BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                                             BorderThickness="1,0,1,1"
                                             CornerRadius="0,0,5,5"
                                             Cursor="Hand"
                                             Style="{StaticResource SignInButton}">
                                 <StackPanel Orientation="Horizontal">
                                     <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                                Image="{StaticResource ICON_ACCOUNT}"
-                                                Foreground="{StaticResource WHITE_500}"
+                                                Image="{DynamicResource ICON_ACCOUNT}"
+                                                Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                                                 Padding="0,3"
                                                 Margin="0,0,5,0"/>
                                     <TextBlock Text="Sign In"
                                                VerticalAlignment="Center"
-                                               Foreground="{StaticResource WHITE_200}"
+                                               Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                                                FontSize="12"/>
                                 </StackPanel>
                             </buttons:Button>
@@ -65,9 +66,9 @@
                                     <buttons:Button VerticalContentAlignment="Stretch"
                                                     HorizontalContentAlignment="Stretch"
                                                     Padding="0"
-                                                    BorderBrush="{StaticResource GRAY_50}"
+                                                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                                                     BorderThickness="1"
-                                                    Background="{StaticResource GRAY_300}"
+                                                    Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                                                     Style="{StaticResource LoggedInButton}"
                                                     Cursor="Hand"
                                                     CornerRadius="0,0,5,5">
@@ -81,11 +82,12 @@
                                                 </Border.Background>
                                             </Border>
                                             <TextBlock Text="{Binding Username, Mode=OneWay}"
+                                                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                                                        VerticalAlignment="Center"
                                                        Margin="5,0,0,0"/>
                                             <Path Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
                                                   HorizontalAlignment="Center" 
-                                                  Fill="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                                                  Fill="{DynamicResource Brushes.HunterPie.Accent}"
                                                   VerticalAlignment="Center"
                                                   Margin="5"/>
                                         </StackPanel>
@@ -99,17 +101,17 @@
                             <Setter Property="Content">
                                 <Setter.Value>
                                     <Border BorderThickness="1"
-                                            BorderBrush="{StaticResource GRAY_50}"
-                                            Background="{StaticResource GRAY_300}"
+                                            BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+                                            Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                                             CornerRadius="0,0,5,5"
                                             Padding="2">
                                         <StackPanel Orientation="Horizontal">
                                             <loading:Skeleton Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                                              Background="{StaticResource GRAY_50}"/>
+                                                              Background="{DynamicResource Brushes.HunterPie.Border}"/>
                                             <loading:Skeleton Width="80"
                                                               VerticalAlignment="Stretch"
                                                               Padding="2, 5, 0, 5"
-                                                              Background="{StaticResource GRAY_50}"/>
+                                                              Background="{DynamicResource Brushes.HunterPie.Background.Primary}"/>
                                         </StackPanel>
                                     </Border>
                                 </Setter.Value>
@@ -125,9 +127,9 @@
                TargetUpdated="OnDropDownChanged"
                PopupAnimation="Fade"
                x:Name="PART_Popup">
-            <Border Background="{StaticResource GRAY_300}"
+            <Border Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                     BorderThickness="1"
-                    BorderBrush="{StaticResource GRAY_50}"
+                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                     CornerRadius="0, 0, 5, 5">
                 <StackPanel Orientation="Vertical">
                     <buttons:Button Content="View my account"

@@ -52,5 +52,4 @@ internal class MainBodyNavigator : IBodyNavigator, IBodyNavigationDispatcher, IE
         if (_stack.TryPeek(out ViewModel? vm) && vm is TViewModel)
             Return();
     }
-
 }

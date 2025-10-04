@@ -14,7 +14,7 @@
     <UserControl.Resources>
         <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
     </UserControl.Resources>
-    <Border Background="{Binding Source={StaticResource GRAY_50}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+    <Border Background="{Binding Source={StaticResource Gray@50}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
             CornerRadius="5">
         <Grid>
             <Grid.RowDefinitions>
@@ -28,7 +28,7 @@
                        d:Text="Kamura"
                        HorizontalAlignment="Center"
                        FontSize="14"
-                       Foreground="{StaticResource WHITE_200}"/>
+                       Foreground="{DynamicResource White@200}"/>
 
             <!-- Items -->
             <ItemsControl Grid.Row="1"
@@ -45,8 +45,8 @@
                     <DataTemplate DataType="{x:Type viewModels:CohootItemViewModel}">
                         <progress:Pill Margin="2,1"
                                        Width="10"
-                                       BorderBrush="{StaticResource GRAY}"
-                                       Foreground="{StaticResource GREEN}"
+                                       BorderBrush="{DynamicResource Gray}"
+                                       Foreground="{DynamicResource Green}"
                                        IsActive="{Binding IsActive, Mode=OneWay}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

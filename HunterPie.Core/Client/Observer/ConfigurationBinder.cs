@@ -35,6 +35,8 @@ public static class ConfigurationBinder
             foreach (object? newElement in newItems)
                 if (newElement is not null)
                     BindElement(newElement, PropertyHandler, CollectionHandler, false);
+
+            handler();
         }
 
         BindElement(configuration, PropertyHandler, CollectionHandler, false);

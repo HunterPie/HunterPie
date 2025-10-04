@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HunterPie.Playground", "HunterPie.Playground.csproj", "{A2F80437-DC4C-39FD-B1C5-66C7EB0E23FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A2F80437-DC4C-39FD-B1C5-66C7EB0E23FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2F80437-DC4C-39FD-B1C5-66C7EB0E23FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2F80437-DC4C-39FD-B1C5-66C7EB0E23FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2F80437-DC4C-39FD-B1C5-66C7EB0E23FE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2C5474F8-8224-44E8-A4C0-5C4DD4B602D3}
+	EndGlobalSection
+EndGlobal

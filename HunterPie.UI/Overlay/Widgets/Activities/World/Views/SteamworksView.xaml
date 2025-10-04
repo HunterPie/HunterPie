@@ -16,8 +16,8 @@
         <converters:IntToKFormat x:Key="IntToKFormatter"/>
         <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
     </UserControl.Resources>
-    <Border BorderBrush="{StaticResource GRAY}"
-            Background="{Binding Source={StaticResource GRAY_200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+    <Border BorderBrush="{StaticResource Gray}"
+            Background="{Binding Source={StaticResource Gray@200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
             BorderThickness="1"
             CornerRadius="0,5,5,0">
         <Grid>
@@ -30,14 +30,14 @@
             <!-- Icon -->
             <image:Icon Grid.Row="0"
                         Image="{StaticResource ICON_STEAMWORKS}"
-                        Foreground="{StaticResource WHITE_700}"
+                        Foreground="{StaticResource White@700}"
                         Margin="0,2"/>
 
             <!-- Gauge -->
             <progress:Gauge Grid.Row="1"
-                            Background="{StaticResource GRAY_300}"
-                            BorderBrush="{StaticResource GRAY}"
-                            Foreground="{StaticResource YELLOW}"
+                            Background="{StaticResource Gray@300}"
+                            BorderBrush="{StaticResource Gray}"
+                            Foreground="{StaticResource Yellow}"
                             Width="10"
                             Orientation="Vertical"
                             Current="{Binding NaturalFuel, Mode=OneWay}"
@@ -48,12 +48,12 @@
                 <TextBlock d:Text="500"
                            Text="{Binding NaturalFuel, Mode=OneWay}"
                            HorizontalAlignment="Center"
-                           Foreground="{StaticResource WHITE_100}"/>
+                           Foreground="{StaticResource White@100}"/>
                 <TextBlock d:Text="17.2k"
                            FontSize="10"
                            Text="{Binding StoredFuel, Mode=OneWay, Converter={StaticResource IntToKFormatter}}"
                            HorizontalAlignment="Center"
-                           Foreground="{StaticResource WHITE_300}"/>
+                           Foreground="{StaticResource White@300}"/>
             </StackPanel>
         </Grid>
     </Border>

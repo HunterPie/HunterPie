@@ -1,53 +1,41 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Observability.Logging;
+﻿using HunterPie.Core.Client.Configuration.Versions;
 using HunterPie.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.IO;
+using HunterPie.Features.Theme.Loader;
+using HunterPie.UI.Main.Views;
+using System.Collections.Specialized;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Markup;
 
 namespace HunterPie.Internal.Initializers;
 
 internal class CustomThemeInitializer : IInitializer
 {
-    private readonly ILogger _logger = LoggerFactory.Create();
+    private readonly ThemeLoaderService _themeLoaderService;
+    private readonly V5Config _config;
+    private readonly MainView _mainView;
 
-    public Task Init()
+    public CustomThemeInitializer(
+        ThemeLoaderService themeLoaderService,
+        V5Config config,
+        MainView mainView)
     {
-        string themePath = Path.Combine(ClientInfo.ThemesPath, ClientConfig.Config.Client.Theme);
-
-        if (!Directory.Exists(themePath))
-        {
-            _logger.Error($"Failed to load theme {ClientConfig.Config.Client.Theme.Current}");
-            _logger.Info($"Failed to find theme {ClientConfig.Config.Client.Theme.Current}, Changed to Default theme");
-            themePath = Path.Combine(ClientInfo.ThemesPath, "Default");
-            ClientConfig.Config.Client.Theme.Current = "Default";
-        }
-
-        IEnumerable<string> xamlFilesToLoad = Directory.EnumerateFiles(themePath, "*.xaml");
-
-        foreach (string file in xamlFilesToLoad)
-            TryLoadingResource(file);
-
-        _logger.Info($"Loaded theme {ClientConfig.Config.Client.Theme.Current}");
-
-        return Task.CompletedTask;
+        _themeLoaderService = themeLoaderService;
+        _config = config;
+        _mainView = mainView;
     }
 
-    private void TryLoadingResource(string file)
+    public async Task Init()
     {
-        try
-        {
-            using var stream = new FileStream(file, FileMode.Open, FileAccess.Read);
+        await _themeLoaderService.LoadAsync();
 
-            var resource = (ResourceDictionary)XamlReader.Load(stream);
-            Application.Current.Resources.MergedDictionaries.Add(resource);
-        }
-        catch (Exception err)
-        {
-            _logger.Error($"Failed to load custom file {file}\n{err}");
-        }
+        _config.Client.Themes.CollectionChanged += OnThemeCollectionChange;
+    }
+
+    private async void OnThemeCollectionChange(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        _themeLoaderService.UnloadAllThemes();
+
+        await _themeLoaderService.LoadAllEnabledThemesAsync();
+
+        _mainView.Refresh();
     }
 }

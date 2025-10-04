@@ -25,8 +25,8 @@
         </Grid.ColumnDefinitions>
         <Border Grid.Column="1"
                 BorderThickness="1,1,0,0"
-                BorderBrush="{StaticResource GRAY}"
-                Background="{Binding Source={StaticResource GRAY_100}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}">
+                BorderBrush="{StaticResource Gray}"
+                Background="{Binding Source={StaticResource Gray@100}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -43,7 +43,7 @@
                            Text="{Binding Fertilizer, Mode=OneWay, Converter={StaticResource FertilizerToNameConverter}}"
                            TextTrimming="CharacterEllipsis"
                            Margin="5,0"
-                           Foreground="{StaticResource WHITE_50}"
+                           Foreground="{StaticResource White@50}"
                            FontSize="13"
                            d:Text="Fertilizer name"/>
 
@@ -53,7 +53,7 @@
                             Image="{StaticResource ICON_WARN}"
                             Width="13"
                             Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                            Foreground="{StaticResource YELLOW}"
+                            Foreground="{StaticResource Yellow}"
                             Margin="5"
                             Visibility="{Binding IsExpiring, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
@@ -80,8 +80,8 @@
         </Border>
         
         <Border Grid.Column="0"
-                Background="{Binding Source={StaticResource GRAY_300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
-                BorderBrush="{StaticResource GRAY}"
+                Background="{Binding Source={StaticResource Gray@300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+                BorderBrush="{StaticResource Gray}"
                 BorderThickness="1,1,0,0">
             <Image Source="{Binding Fertilizer, Mode=OneWay, Converter={StaticResource FertilizerToIconConverter}}"
                    d:Source="{StaticResource ICON_FERTILIZER_GROWTH_L}"

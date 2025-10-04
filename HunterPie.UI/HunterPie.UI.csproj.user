@@ -35,7 +35,7 @@
     <Compile Update="Controls\Display\Section.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\Effects\CursorHightlight.xaml.cs">
+    <Compile Update="Controls\Effects\CursorHighLight.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\Feedback\Prompt.xaml.cs">
@@ -110,16 +110,16 @@
     <Compile Update="Dialog\DialogView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Overlay\Components\WidgetBase.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Overlay\Components\WidgetHeader.xaml.cs">
+    <Compile Update="Overlay\Views\WidgetHeader.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Controls\Abnormality.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Controls\Bar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Views\WidgetView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml.cs">
@@ -361,7 +361,7 @@
     <Page Update="Controls\Display\Section.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Controls\Effects\CursorHightLight.xaml">
+    <Page Update="Controls\Effects\CursorHighLight.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Feedback\Prompt.xaml">
@@ -436,10 +436,7 @@
     <Page Update="Dialog\DialogView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Overlay\Components\WidgetBase.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Overlay\Components\WidgetHeader.xaml">
+    <Page Update="Overlay\Views\WidgetHeader.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Controls\Abnormality.xaml">
@@ -604,9 +601,9 @@
     <Page Update="Overlay\Widgets\Wirebug\Views\WirebugView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Resource Update="Resources\Icons\General.xaml">
+    <Page Update="Resources\Icons\General.xaml">
       <SubType>Designer</SubType>
-    </Resource>
+    </Page>
     <Page Update="Resources\Seasons\WinterPie.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -652,9 +649,6 @@
     <Page Update="Resources\Seasons\SpookyPie.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Resource Update="Resources\Colors.xaml">
-      <SubType>Designer</SubType>
-    </Resource>
     <Page Update="Windows\WindowChrome.xaml">
       <SubType>Designer</SubType>
     </Page>

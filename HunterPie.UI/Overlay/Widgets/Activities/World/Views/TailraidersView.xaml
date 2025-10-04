@@ -8,6 +8,7 @@
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.World.ViewModels"
              xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+             xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup"
              mc:Ignorable="d" 
              d:DesignHeight="40" 
              d:DesignWidth="135"
@@ -19,10 +20,10 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
     </UserControl.Resources>
-    <Border BorderBrush="{StaticResource GRAY}"
+    <Border BorderBrush="{StaticResource Gray}"
             BorderThickness="1"
             CornerRadius="5"
-            Background="{Binding Source={StaticResource GRAY_200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}">
+            Background="{Binding Source={StaticResource Gray@200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -31,7 +32,7 @@
 
             <image:Icon Grid.Column="0"
                         Image="{StaticResource ICON_TAILRAIDERS}"
-                        Foreground="{StaticResource WHITE_200}"
+                        Foreground="{StaticResource White@200}"
                         Margin="3"
                         Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"/>
 
@@ -41,7 +42,7 @@
                      Height="{Binding Width, RelativeSource={RelativeSource Self}}"
                      VerticalAlignment="Top"
                      HorizontalAlignment="Right"
-                     d:Fill="{StaticResource GREEN}"
+                     d:Fill="{StaticResource Green}"
                      Margin="3">
                 <Ellipse.Effect>
                     <DropShadowEffect Color="{Binding Fill, RelativeSource={RelativeSource AncestorType={x:Type Ellipse}}, Converter={StaticResource BrushToColorConverter}}"
@@ -52,10 +53,10 @@
                     <Style TargetType="Ellipse">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsDeployed, Mode=OneWay}" Value="True">
-                                <Setter Property="Fill" Value="{StaticResource GREEN}"/>
+                                <Setter Property="Fill" Value="{StaticResource Green}"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding IsDeployed, Mode=OneWay}" Value="False">
-                                <Setter Property="Fill" Value="{StaticResource RED}"/>
+                                <Setter Property="Fill" Value="{StaticResource Red}"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -67,13 +68,13 @@
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontSize="20"
-                       Foreground="{StaticResource GRAY}"
+                       Foreground="{StaticResource Gray}"
                        Visibility="{Binding IsDeployed, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>
 
             <TextBlock Grid.Column="1"
                        d:Text="5"
                        Text="{Binding QuestsLeft, Mode=OneWay}"
-                       Foreground="{StaticResource WHITE_200}"
+                       Foreground="{StaticResource White@200}"
                        FontSize="16"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
@@ -82,8 +83,8 @@
                        Visibility="{Binding IsDeployed, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
             <TextBlock Grid.Column="1"
                        d:Text="days"
-                       Text="{loc:LocalizationString '//Strings/Client/Overlay/String[@Id=&quot;TAILRAIDERS_QUEST_STRING&quot;]'}"
-                       Foreground="{StaticResource WHITE_500}"
+                       Text="{markup:Localization '//Strings/Client/Overlay/String[@Id=&quot;TAILRAIDERS_QUEST_STRING&quot;]'}"
+                       Foreground="{StaticResource White@500}"
                        FontSize="14"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Center"

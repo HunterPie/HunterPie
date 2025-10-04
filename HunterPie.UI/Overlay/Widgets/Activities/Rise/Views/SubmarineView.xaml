@@ -29,7 +29,7 @@
 
         <image:Icon Grid.Column="0" 
                     Image="{StaticResource ICON_SUBMARINE}"
-                    Foreground="{StaticResource WHITE_200}"
+                    Foreground="{StaticResource White@200}"
                     VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch"
                     Margin="5"/>
@@ -46,9 +46,9 @@
 
             <progress:Gauge Grid.Row="0"
                             Grid.Column="0"
-                            Foreground="{StaticResource GREEN}"
-                            Background="{StaticResource GRAY_200}"
-                            BorderBrush="{StaticResource GRAY}"
+                            Foreground="{StaticResource Green}"
+                            Background="{StaticResource Gray@200}"
+                            BorderBrush="{StaticResource Gray}"
                             Height="6"
                             CornerRadius="3"
                             Current="{Binding Count, Mode=OneWay}"
@@ -58,12 +58,12 @@
             <TextBlock Grid.Column="1"
                        Grid.Row="0"
                        Grid.RowSpan="2"
-                       Foreground="{StaticResource WHITE_500}"
+                       Foreground="{StaticResource White@500}"
                        FontSize="10"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center">
                 <Run d:Text="70"
-                     Foreground="{StaticResource WHITE_200}"
+                     Foreground="{StaticResource White@200}"
                      FontSize="13"
                      FontWeight="Medium">
                     <Run.Text>
@@ -89,8 +89,8 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <progress:Pill Width="11"
-                                       d:Foreground="{StaticResource YELLOW}"
-                                       BorderBrush="{StaticResource GRAY}"
+                                       d:Foreground="{StaticResource Yellow}"
+                                       BorderBrush="{StaticResource Gray}"
                                        Margin="1.7, 2"
                                        IsActive="{Binding IsActive, Mode=OneWay}">
                             <progress:Pill.Style>
@@ -98,11 +98,11 @@
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding IsExtraBoost, Mode=OneWay}"
                                                      Value="True">
-                                            <Setter Property="Foreground" Value="{StaticResource ORANGE}"/>
+                                            <Setter Property="Foreground" Value="{StaticResource Orange}"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding IsExtraBoost, Mode=OneWay}"
                                                      Value="False">
-                                            <Setter Property="Foreground" Value="{StaticResource YELLOW}"/>
+                                            <Setter Property="Foreground" Value="{StaticResource Yellow}"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>

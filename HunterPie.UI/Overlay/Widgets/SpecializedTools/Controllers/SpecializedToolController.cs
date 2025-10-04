@@ -2,7 +2,6 @@
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity;
 using HunterPie.UI.Overlay.Widgets.SpecializedTools.ViewModels;
-using HunterPie.UI.Overlay.Widgets.SpecializedTools.Views;
 using System;
 using System.ComponentModel;
 
@@ -12,25 +11,21 @@ public class SpecializedToolController : IContextHandler
 {
     private readonly IContext _context;
     private readonly ISpecializedTool _tool;
-    private readonly SpecializedToolViewV2 _view;
     private readonly SpecializedToolViewModelV2 _viewModel;
     private readonly SpecializedToolWidgetConfig _config;
 
     public SpecializedToolController(
         IContext context,
         ISpecializedTool tool,
-        SpecializedToolViewV2 view,
+        SpecializedToolViewModelV2 viewModel,
         SpecializedToolWidgetConfig config)
     {
         _context = context;
         _tool = tool;
-        _view = view;
-        _viewModel = view.ViewModel;
+        _viewModel = viewModel;
         _config = config;
 
         UpdateData();
-
-        WidgetManager.Register<SpecializedToolViewV2, SpecializedToolWidgetConfig>(_view);
     }
 
     public void HookEvents()
@@ -51,8 +46,6 @@ public class SpecializedToolController : IContextHandler
         _tool.OnCooldownUpdate -= OnCooldownUpdate;
         _tool.OnTimerUpdate -= OnTimerUpdate;
         _config.IsShowOnlyInHuntingZoneEnabled.PropertyChanged -= OnShowInHuntingZoneEnabledChanged;
-
-        WidgetManager.Unregister<SpecializedToolViewV2, SpecializedToolWidgetConfig>(_view);
     }
 
     private void OnTimerUpdate(object sender, ISpecializedTool e)

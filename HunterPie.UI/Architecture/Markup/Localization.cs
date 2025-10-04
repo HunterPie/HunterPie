@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Client.Localization.Entity;
 using HunterPie.DI;
 using System;
 using System.ComponentModel;
@@ -16,6 +17,8 @@ public class Localization : MarkupExtension
 
     private readonly string _id;
 
+    public bool Description { get; init; } = false;
+
     public Localization(string id)
     {
         _id = id;
@@ -26,6 +29,8 @@ public class Localization : MarkupExtension
         if (DesignerProperties.GetIsInDesignMode(Dummy))
             return "String";
 
-        return Repository.FindStringBy(_id);
+        LocalizationData localization = Repository.FindBy(_id);
+
+        return Description ? localization.Description : localization.String;
     }
 }

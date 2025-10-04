@@ -8,31 +8,31 @@ namespace HunterPie.UI.Logging.Presentation;
 
 public class LogLevelToColorConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         string colorName;
         switch ((LogLevel)value)
         {
             case LogLevel.Debug:
-                colorName = "LOGGER_LEVEL_DEBUG";
+                colorName = "Brushes.HunterPie.Log.Debug";
                 break;
             case LogLevel.Native:
-                colorName = "LOGGER_LEVEL_NATIVE";
+                colorName = "Brushes.HunterPie.Log.Native";
                 break;
             case LogLevel.Info:
-                colorName = "LOGGER_LEVEL_INFO";
+                colorName = "Brushes.HunterPie.Log.Info";
                 break;
             case LogLevel.Warn:
-                colorName = "LOGGER_LEVEL_WARN";
+                colorName = "Brushes.HunterPie.Log.Warn";
                 break;
             case LogLevel.Error:
-                colorName = "LOGGER_LEVEL_ERROR";
+                colorName = "Brushes.HunterPie.Log.Error";
                 break;
             case LogLevel.Panic:
-                colorName = "LOGGER_LEVEL_PANIC";
+                colorName = "Brushes.HunterPie.Log.Panic";
                 break;
             case LogLevel.Benchmark:
-                colorName = "LOGGER_LEVEL_BENCHMARK";
+                colorName = "Brushes.HunterPie.Log.Benchmark";
                 break;
             default:
                 return null;

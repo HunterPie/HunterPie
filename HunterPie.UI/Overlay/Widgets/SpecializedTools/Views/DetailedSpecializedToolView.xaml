@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.Views"
              xmlns:progress="clr-namespace:HunterPie.UI.Controls.Progress"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.SpecializedTools.ViewModels"
@@ -30,15 +29,15 @@
         <Border Grid.Column="0"
                 Grid.ColumnSpan="2"
                 BorderThickness="1"
-                BorderBrush="{Binding Source={StaticResource GRAY}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
-                Background="{Binding Source={StaticResource GRAY_100}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+                BorderBrush="{Binding Source={StaticResource Gray}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+                Background="{Binding Source={StaticResource Gray@100}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
                 CornerRadius="5"/>
 
         <!-- Mantle icon -->
         <Border Grid.Column="0"
                 BorderThickness="1"
-                BorderBrush="{StaticResource GRAY}"
-                Background="{Binding Source={StaticResource GRAY_300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+                BorderBrush="{StaticResource Gray}"
+                Background="{Binding Source={StaticResource Gray@300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
                 CornerRadius="5">
             <image:Icon d:Image="{StaticResource Icons.Tools.Mantle}"
                         Image="{Binding Id, Mode=OneWay, Converter={StaticResource SpecializedToolTypeToIconConverter}}"
@@ -61,7 +60,7 @@
                        Text="{Binding Id, Mode=OneWay, Converter={StaticResource SpecializedToolToNameConverter}}"
                        FontSize="14"
                        VerticalAlignment="Center"
-                       Foreground="{StaticResource WHITE}"/>
+                       Foreground="{StaticResource White}"/>
 
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
@@ -70,7 +69,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" 
                            FontSize="10"
-                           Foreground="{StaticResource WHITE_400}"
+                           Foreground="{StaticResource White@400}"
                            FontFamily="{StaticResource Font.Default}"
                            d:Text="Duration">
                     <TextBlock.Style>
@@ -95,7 +94,7 @@
                                 Markers="10"
                                 CornerRadius="2"
                                 Foreground="{Binding Id, Mode=OneWay, Converter={StaticResource SpecializedToolToColorConverter}}"
-                                BorderBrush="{StaticResource GRAY}"
+                                BorderBrush="{StaticResource Gray}"
                                 BorderThickness="1">
                     <progress:Gauge.Style>
                         <Style TargetType="progress:Gauge">
@@ -120,7 +119,7 @@
                        Grid.RowSpan="2"
                        VerticalAlignment="Center"
                        FontSize="14"
-                       Foreground="{StaticResource WHITE}"
+                       Foreground="{StaticResource White}"
                        FontWeight="Medium"
                        HorizontalAlignment="Right"
                        FontFamily="{StaticResource Font.Default}">

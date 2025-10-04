@@ -12,8 +12,8 @@
         <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
     </UserControl.Resources>
     <Border BorderThickness="1,1,1,0"
-            BorderBrush="{StaticResource GRAY}"
-            Background="{Binding Source={StaticResource GRAY_100}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+            BorderBrush="{StaticResource Gray}"
+            Background="{Binding Source={StaticResource Gray@100}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
             CornerRadius="5,5,0,0">
         <ItemsControl ItemsSource="{Binding Submarines, Mode=OneWay}"
                       d:ItemsSource="{d:SampleData ItemCount=3}">
@@ -27,7 +27,7 @@
                 <DataTemplate>
                     <views:SubmarineView Height="35"
                                          BorderThickness="0,0,0,1"
-                                         BorderBrush="{StaticResource GRAY}">
+                                         BorderBrush="{StaticResource Gray}">
                         <views:SubmarineView.Style>
                             <Style TargetType="views:SubmarineView">
                                 <Style.Triggers>

@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Settings.Views"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:internal="clr-namespace:HunterPie.UI.Settings.ViewModels.Internal"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
@@ -15,8 +14,8 @@
         <!-- Monster parts -->
         <buttons:Button Padding="0"
                         BorderThickness="1"
-                        BorderBrush="{StaticResource GRAY}"
-                        Background="{StaticResource GRAY_50}"
+                        BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+                        Background="{StaticResource Brushes.HunterPie.Background.Primary}"
                         CornerRadius="5"
                         HorizontalContentAlignment="Stretch"
                         MinHeight="40"
@@ -32,18 +31,18 @@
                             Margin="5">
                     <image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                                 Image="{StaticResource ICON_SETTINGS}"
-                                Foreground="{StaticResource WHITE_600}"
+                                Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                                 Margin="5,0"/>
                     <TextBlock Text="Configure monsters"
                                VerticalAlignment="Center"
-                               Foreground="{StaticResource WHITE_500}"
+                               Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                                FontSize="14"/>
                 </StackPanel>
 
                 <image:Icon Grid.Column="1"
                             Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                             Image="{StaticResource ICON_CHEVRON_RIGHT}"
-                            Foreground="{StaticResource WHITE_600}"
+                            Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                             Margin="10,5"/>
             </Grid>
         </buttons:Button>

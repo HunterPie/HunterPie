@@ -23,13 +23,13 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Expander Header="{Binding Name, Mode=OneTime}"
-                              Foreground="{StaticResource WHITE_200}"
+                              Foreground="{StaticResource White@200}"
                               FontSize="14"
                               Margin="5"
-                              BorderBrush="{StaticResource GRAY}"
+                              BorderBrush="{StaticResource Gray}"
                               Padding="5"
                               Cursor="Hand"
-                              Background="{StaticResource GRAY_200}">
+                              Background="{StaticResource Gray@200}">
                         <ItemsControl ItemsSource="{Binding References, Mode=OneTime}"
                                       d:DataContext="{d:DesignInstance events:ISmartEvent}">
                             <ItemsControl.Template>
@@ -42,9 +42,9 @@
                                 <DataTemplate>
                                     <TextBlock>
                                         <Run Text="{Binding DeclaringType, Mode=OneTime, StringFormat='\{0}::'}"
-                                             Foreground="{StaticResource WHITE_400}"/><!--
+                                             Foreground="{StaticResource White@400}"/><!--
                                      --><Run Text="{Binding Name, Mode=OneTime}"
-                                             Foreground="{StaticResource WHITE}"
+                                             Foreground="{StaticResource White}"
                                              FontWeight="Medium"/>
                                     </TextBlock>
                                 </DataTemplate>

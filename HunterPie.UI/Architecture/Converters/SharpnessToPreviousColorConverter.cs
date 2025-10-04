@@ -12,14 +12,14 @@ public class SharpnessToPreviousColorConverter : IValueConverter
 
     private readonly Dictionary<Sharpness, Color> _associatedColors = new Dictionary<Sharpness, Color>(7)
     {
-        { Sharpness.Broken, Resources.Get<Color>("WIDGET_SHARPNESS_BROKEN") },
-        { Sharpness.Red, Resources.Get<Color>("WIDGET_SHARPNESS_RED") },
-        { Sharpness.Orange, Resources.Get<Color>("WIDGET_SHARPNESS_ORANGE") },
-        { Sharpness.Yellow, Resources.Get<Color>("WIDGET_SHARPNESS_YELLOW") },
-        { Sharpness.Green, Resources.Get<Color>("WIDGET_SHARPNESS_GREEN") },
-        { Sharpness.Blue, Resources.Get<Color>("WIDGET_SHARPNESS_BLUE") },
-        { Sharpness.White, Resources.Get<Color>("WIDGET_SHARPNESS_WHITE") },
-        { Sharpness.Purple, Resources.Get<Color>("WIDGET_SHARPNESS_PURPLE") },
+        { Sharpness.Broken, Resources.Get<Color>("Colors.Widgets.Sharpness.Broken") },
+        { Sharpness.Red, Resources.Get<Color>("Colors.Widgets.Sharpness.Red") },
+        { Sharpness.Orange, Resources.Get<Color>("Colors.Widgets.Sharpness.Orange") },
+        { Sharpness.Yellow, Resources.Get<Color>("Colors.Widgets.Sharpness.Yellow") },
+        { Sharpness.Green, Resources.Get<Color>("Colors.Widgets.Sharpness.Green") },
+        { Sharpness.Blue, Resources.Get<Color>("Colors.Widgets.Sharpness.Blue") },
+        { Sharpness.White, Resources.Get<Color>("Colors.Widgets.Sharpness.White") },
+        { Sharpness.Purple, Resources.Get<Color>("Colors.Widgets.Sharpness.Purple") },
     };
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

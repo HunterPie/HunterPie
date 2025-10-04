@@ -3,12 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Controls.Loading"
              xmlns:controls="clr-namespace:HunterPie.UI.Overlay.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="30" 
              d:DesignWidth="30">
-    <controls:Arc Stroke="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+    <controls:Arc Stroke="{DynamicResource Brushes.HunterPie.Accent}"
                   StrokeThickness="3"
                   StartAngle="60"
                   RenderTransformOrigin="0.5,0.5"

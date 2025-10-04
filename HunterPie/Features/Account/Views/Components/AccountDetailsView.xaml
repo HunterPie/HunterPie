@@ -7,8 +7,10 @@
              xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading;assembly=HunterPie.UI"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
              xmlns:local="clr-namespace:HunterPie.Features.Account.Views.Components"
+             xmlns:viewModels="clr-namespace:HunterPie.Features.Account.ViewModels"
              d:DesignWidth="800"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance viewModels:AccountPreferencesViewModel}">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
@@ -17,9 +19,9 @@
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
     </UserControl.Resources>
-    <Border Background="{StaticResource GRAY_100}"
+    <Border Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
             Padding="10"
-            BorderBrush="{StaticResource GRAY}"
+            BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
             BorderThickness="1"
             CornerRadius="5">
         <Grid>
@@ -35,7 +37,7 @@
             <TextBlock Grid.Row="0"
                        Grid.Column="0" 
                        Text="ACCOUNT DETAILS"
-                       Foreground="{StaticResource WHITE_400}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                        FontWeight="Medium"
                        Grid.ColumnSpan="2"
                        FontSize="15"
@@ -44,7 +46,7 @@
                        Grid.ColumnSpan="2"
                        Grid.Row="0"
                        VerticalAlignment="Bottom"
-                       Background="{StaticResource GRAY}"/>
+                       Background="{DynamicResource Brushes.HunterPie.Border}"/>
 
             <buttons:Button Height="90"
                             Width="90"
@@ -52,7 +54,7 @@
                             HorizontalAlignment="Center"
                             Grid.Column="0"
                             Grid.Row="1"
-                            Background="{StaticResource GRAY_400}"
+                            Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                             Style="{StaticResource AvatarButton}">
                 <ContentPresenter>
                     <ContentPresenter.Style>
@@ -64,9 +66,9 @@
                                         <Setter Property="Content">
                                             <Setter.Value>
                                                 <Image d:Source="https://media.discordapp.net/attachments/877388915986817105/1017171064977113178/unknown.png"
-                                                Source="{Binding AvatarUrl, Mode=OneWay, FallbackValue={StaticResource ICON_DISCONNECTED_ACCOUNT}}"
-                                                RenderOptions.BitmapScalingMode="Fant" 
-                                                Stretch="UniformToFill"/>
+                                                       Source="{Binding AvatarUrl, Mode=OneWay, FallbackValue={StaticResource ICON_DISCONNECTED_ACCOUNT}}"
+                                                       RenderOptions.BitmapScalingMode="Fant" 
+                                                       Stretch="UniformToFill"/>
                                             </Setter.Value>
                                         </Setter>
                                     </DataTrigger.Setters>
@@ -97,7 +99,7 @@
                             Width="25"
                             Grid.Column="0"
                             Grid.Row="1"
-                            Background="{StaticResource GRAY_100}"
+                            Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
                             Margin="12.5"
@@ -106,15 +108,15 @@
                 <Grid>
                     <Ellipse Height="21"
                              Width="21"
-                             Fill="{StaticResource GRAY_300}"/>
+                             Fill="{DynamicResource Brushes.HunterPie.Background.Tertiary}"/>
                     <Rectangle Margin="2.5"
-                               Fill="{StaticResource WHITE_300}"
+                               Fill="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                                VerticalAlignment="Stretch"
                                HorizontalAlignment="Stretch"
                                SnapsToDevicePixels="True"
                                UseLayoutRounding="True">
                         <Rectangle.OpacityMask>
-                            <ImageBrush ImageSource="{StaticResource ICON_CAMERA_MASK}"
+                            <ImageBrush ImageSource="{DynamicResource ICON_CAMERA_MASK}"
                                         Stretch="Uniform"
                                         RenderOptions.BitmapScalingMode="Fant"/>
                         </Rectangle.OpacityMask>
@@ -136,17 +138,18 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <StackPanel Margin="0,0,0,10">
+                <StackPanel Grid.Row="0" 
+                            Margin="0,0,0,10">
                     <StackPanel Orientation="Vertical"
                                 Margin="0,0,0,5">
                         <TextBlock Text="USERNAME"
                                    FontSize="11"
-                                   Foreground="{StaticResource WHITE_500}"
+                                   Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                                    FontWeight="Bold"/>
                         <TextBlock d:Text="Haato"
                                    Text="{Binding Username, Mode=OneWay}"
                                    FontSize="14"
-                                   Foreground="{StaticResource WHITE_200}"
+                                   Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Left"
                                    FontWeight="Regular"/>
@@ -154,12 +157,12 @@
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="EMAIL"
                                    FontSize="11"
-                                   Foreground="{StaticResource WHITE_500}"
+                                   Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                                    FontWeight="Bold"/>
                         <TextBlock d:Text="me@haato.dev"
                                    Text="{Binding Email, Mode=OneWay}"
                                    FontSize="14"
-                                   Foreground="{StaticResource WHITE_200}"
+                                   Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Left"
                                    FontWeight="Regular"/>
@@ -172,8 +175,8 @@
                             VerticalAlignment="Top"
                             HorizontalAlignment="Left"
                             Text="Supporter" 
-                            Background="{StaticResource GREEN_700}" 
-                            Foreground="{StaticResource GREEN_LIGHT_200}"
+                            Background="{DynamicResource Brushes.HunterPie.Accent.Transparent}" 
+                            Foreground="{DynamicResource Brushes.HunterPie.Accent.Transparent}"
                             Visibility="{Binding IsSupporter, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
                 <!-- Badges

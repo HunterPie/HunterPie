@@ -1,9 +1,7 @@
-﻿using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.Core.Game.Enums;
+﻿using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
 using HunterPie.UI.Overlay.Widgets.Activities.ViewModels;
-using HunterPie.UI.Overlay.Widgets.Activities.Views;
 using HunterPie.UI.Overlay.Widgets.Activities.World.ViewModels;
 using System;
 
@@ -13,19 +11,17 @@ public class MHWorldActivitiesController : IContextHandler
 {
     private readonly MHWContext _context;
     private readonly MHWPlayer _player;
-    private readonly ActivitiesView _view;
     private readonly ActivitiesViewModel _viewModel;
     private readonly IContextHandler[] _contextHandlers;
 
     public MHWorldActivitiesController(
         MHWContext context,
-        ActivitiesView view,
+        ActivitiesViewModel viewModel,
         MHWorldActivitiesViewModel activities)
     {
         _context = context;
         _player = context.Game.Player as MHWPlayer;
-        _view = view;
-        _viewModel = view.ViewModel;
+        _viewModel = viewModel;
         _viewModel.Activities = activities;
         _contextHandlers = new IContextHandler[]
         {
@@ -44,10 +40,6 @@ public class MHWorldActivitiesController : IContextHandler
             contextHandler.HookEvents();
 
         UpdateData();
-
-        WidgetManager.Register<ActivitiesView, ActivitiesWidgetConfig>(
-            widget: _view
-        );
     }
 
     public void UnhookEvents()
@@ -56,10 +48,6 @@ public class MHWorldActivitiesController : IContextHandler
 
         foreach (IContextHandler contextHandler in _contextHandlers)
             contextHandler.UnhookEvents();
-
-        WidgetManager.Unregister<ActivitiesView, ActivitiesWidgetConfig>(
-            widget: _view
-        );
     }
 
     private void OnStageUpdate(object sender, EventArgs e) =>

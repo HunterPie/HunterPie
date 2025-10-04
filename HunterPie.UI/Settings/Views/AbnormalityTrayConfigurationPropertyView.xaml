@@ -22,9 +22,9 @@
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type overlay:AbnormalityWidgetConfig}"> 
-                    <Border Background="{StaticResource GRAY_50}"
+                    <Border Background="{StaticResource Brushes.HunterPie.Background.Primary}"
                             BorderThickness="1"
-                            BorderBrush="{StaticResource GRAY}"
+                            BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                             CornerRadius="5"
                             Padding="5"
                             Margin="0,0,0,5">
@@ -38,38 +38,38 @@
                                        d:Text="Buffs"
                                        Text="{Binding Name.Value, Mode=OneWay}"
                                        FontSize="15"
-                                       Foreground="{StaticResource WHITE_200}"
+                                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                                        VerticalAlignment="Center"/>
 
                             <StackPanel Grid.Column="1"
                                         Orientation="Horizontal">
                                 <buttons:Button Margin="2,0"
-                                                BorderBrush="{StaticResource GRAY}"
+                                                BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                                                 BorderThickness="1"
                                                 CornerRadius="5"
                                                 Width="30"
                                                 Height="{Binding Width, RelativeSource={RelativeSource Self}}"
                                                 VerticalContentAlignment="Stretch"
                                                 HorizontalContentAlignment="Stretch"
-                                                Background="{StaticResource GRAY_100}"
+                                                Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
                                                 Click="OnConfigureTrayButtonClick"
                                                 Key="{Binding ., Mode=OneWay}">
                                     <image:Icon Image="{StaticResource ICON_SETTINGS}"
-                                                Foreground="{StaticResource WHITE_700}"/>
+                                                Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
                                 </buttons:Button>
                                 <buttons:Button Margin="2,0"
-                                                BorderBrush="{StaticResource GRAY}"
+                                                BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                                                 BorderThickness="1"
                                                 CornerRadius="5"
                                                 Width="30"
                                                 Height="{Binding Width, RelativeSource={RelativeSource Self}}"
                                                 VerticalContentAlignment="Stretch"
                                                 HorizontalContentAlignment="Stretch"
-                                                Background="{StaticResource GRAY_100}"
+                                                Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
                                                 Click="OnDeleteTrayButtonClick"
                                                 Key="{Binding ., Mode=OneWay}">
                                     <image:Icon Image="{StaticResource ICON_TRASH}"
-                                                Foreground="{StaticResource WHITE_700}"/>
+                                                Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"/>
                                 </buttons:Button>
                             </StackPanel>
                         </Grid>
@@ -78,7 +78,7 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         
-        <buttons:Button Background="{StaticResource GRAY_100}"
+        <buttons:Button Background="{StaticResource Brushes.HunterPie.Background.Primary}"
                         BorderThickness="1"
                         CornerRadius="5"
                         Click="OnCreateNewTrayButtonClick">
@@ -86,7 +86,7 @@
                 <DrawingBrush Viewport="0,0,15,15" ViewportUnits="Absolute" TileMode="Tile">
                     <DrawingBrush.Drawing>
                         <DrawingGroup>
-                            <GeometryDrawing Brush="{StaticResource GRAY}">
+                            <GeometryDrawing Brush="{StaticResource Brushes.HunterPie.Border}">
                                 <GeometryDrawing.Geometry>
                                     <GeometryGroup>
                                         <RectangleGeometry Rect="0,0,1,1" />
@@ -103,10 +103,10 @@
                 <image:Icon Image="{StaticResource ICON_ADD_OUTLINE}"
                             Height="15"
                             Width="15"
-                            Foreground="{StaticResource WHITE_600}"
+                            Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                             VerticalAlignment="Center"/>
                 <TextBlock Text="Add New"
-                           Foreground="{StaticResource WHITE_600}"
+                           Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                            Margin="5,0,0,0"
                            FontSize="14"
                            VerticalAlignment="Center"/>

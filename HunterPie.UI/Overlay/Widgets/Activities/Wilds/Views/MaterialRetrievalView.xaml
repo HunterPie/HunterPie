@@ -12,8 +12,8 @@
     <UserControl.Resources>
         <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
     </UserControl.Resources>
-    <Border Background="{Binding Source={StaticResource GRAY_100}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
-            BorderBrush="{StaticResource GRAY}"
+    <Border Background="{Binding Source={StaticResource Gray@100}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+            BorderBrush="{StaticResource Gray}"
             BorderThickness="1"
             CornerRadius="5">
         <Grid>
@@ -24,7 +24,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:MaterialRetrievalCollectorView Height="35"
-                                                              BorderBrush="{StaticResource GRAY}">
+                                                              BorderBrush="{StaticResource Gray}">
                             <local:MaterialRetrievalCollectorView.Style>
                                 <Style TargetType="local:MaterialRetrievalCollectorView">
                                     <Setter Property="BorderThickness" Value="0,1,0,0"/>

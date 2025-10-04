@@ -10,6 +10,7 @@ internal static class SideBarProvider
             .WithButton(dependency.Get<HomeSideBarViewModel>())
             .WithButton(dependency.Get<ConsoleSideBarViewModel>())
             .WithButton(dependency.Get<SettingsSideBarViewModel>())
+            .WithButton(dependency.Get<ThemeSideBarViewModel>())
             .WithButton(dependency.Get<PatchNotesSideBarViewModel>())
             .WithButton(dependency.Get<QuestStatisticsSideBarViewModel>())
             .WithButton(dependency.Get<DiscordSideBarViewModel>())

@@ -1,33 +1,24 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.Core.Game;
+﻿using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Entity.Player.Classes;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.UI.Overlay.Widgets.Player.ViewModels;
-using HunterPie.UI.Overlay.Widgets.Player.Views;
 using System;
 
 namespace HunterPie.UI.Overlay.Widgets.Player;
 public class PlayerHudWidgetContextHandler : IContextHandler
 {
-    private readonly PlayerHudView _view;
     private readonly PlayerHudViewModel _viewModel;
     private readonly IContext _context;
     private IPlayer Player => _context.Game.Player;
 
-    public PlayerHudWidgetContextHandler(IContext context)
+    public PlayerHudWidgetContextHandler(
+        IContext context,
+        PlayerHudViewModel viewModel)
     {
-        PlayerHudWidgetConfig config = ClientConfigHelper.DeferOverlayConfig(
-            game: context.Process.Type,
-            deferDelegate: (config) => config.PlayerHudWidget
-        );
-
-        _view = new PlayerHudView(config);
-        _viewModel = _view.ViewModel;
+        _viewModel = viewModel;
         _context = context;
-        _ = WidgetManager.Register<PlayerHudView, PlayerHudWidgetConfig>(_view);
 
         HookEvents();
         UpdateData();
@@ -69,8 +60,6 @@ public class PlayerHudWidgetContextHandler : IContextHandler
             weapon.OnSharpnessChange -= OnSharpnessChange;
             weapon.OnSharpnessLevelChange -= OnSharpnessLevelChange;
         }
-
-        _ = WidgetManager.Unregister<PlayerHudView, PlayerHudWidgetConfig>(_view);
     }
 
     private void OnPlayerAbnormalityEnd(object sender, IAbnormality e)

@@ -3,7 +3,7 @@ using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain.Dialog;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.DI;
-using HunterPie.Features.Debug;
+using HunterPie.Features.Debug.Mocks;
 using HunterPie.Internal;
 using HunterPie.Internal.Tray;
 using HunterPie.Platforms;
@@ -55,7 +55,9 @@ public partial class App : Application
         InitializeMainView();
 
         InitializerManager.InitializeGUI();
-        DebugWidgets.MockIfNeeded();
+
+        DependencyContainer.Get<WidgetMocksProvider>()
+            .MockEnabled();
 
         SetUiThreadPriority();
     }
@@ -96,6 +98,9 @@ public partial class App : Application
 
     private void SetupFrameRate()
     {
+        if (!ClientConfig.Config.Client.IsFramePerSecondLimitEnabled)
+            return;
+
         Timeline.DesiredFrameRateProperty.OverrideMetadata(
             forType: typeof(Timeline),
             typeMetadata: new FrameworkPropertyMetadata { DefaultValue = (int)ClientConfig.Config.Client.RenderFramePerSecond.Current }

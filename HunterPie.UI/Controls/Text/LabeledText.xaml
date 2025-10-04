@@ -10,13 +10,13 @@
     <Grid>
         <TextBlock Text="{Binding Label, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LabeledText}}}"
                    VerticalAlignment="Center"
-                   Foreground="{StaticResource WHITE_300}"
+                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Secondary}"
                    FontSize="12"
                    FontWeight="Medium"/>
         <TextBlock Text="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:LabeledText}}}"
                    HorizontalAlignment="Right"
                    VerticalAlignment="Center"
-                   Foreground="{StaticResource WHITE_100}"
+                   Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                    FontSize="14"/>
     </Grid>
 </UserControl>

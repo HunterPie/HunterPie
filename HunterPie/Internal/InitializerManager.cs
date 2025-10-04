@@ -54,8 +54,12 @@ internal class InitializerManager
     {
         typeof(HotkeyInitializer),
 
+        // Overlay
+        typeof(OverlayWidgetsInitializer),
+
         // Debugging
-        typeof(DebugWidgetInitializer)
+        typeof(DebugWidgetInitializer),
+
     };
 
     public static async Task InitializeCore()
