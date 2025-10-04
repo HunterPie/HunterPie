@@ -505,7 +505,7 @@
         <Abnormality Id="Skills.30"
                      Name="ABNORMALITY_CRITICAL_DRAW"
                      Icon="ICON_AFFINITY"
-                     Offset="B0"/>
+                     Offset="C0"/>
         <Abnormality Id="Skills.67"
                      Name="ABNORMALITY_BUTTERY_LEATHERCRAFT"
                      Offset="D0"/>
