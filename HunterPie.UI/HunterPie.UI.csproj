@@ -5,8 +5,8 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Deploy</Configurations>
-    <AssemblyVersion>2.12.1.57</AssemblyVersion>
-    <FileVersion>2.12.1.57</FileVersion>
+    <AssemblyVersion>2.12.1.60</AssemblyVersion>
+    <FileVersion>2.12.1.60</FileVersion>
     <LangVersion>11.0</LangVersion>
     <Authors>Haato</Authors>
     <Version>2.12.0.0</Version>
