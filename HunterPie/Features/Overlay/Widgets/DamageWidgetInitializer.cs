@@ -53,11 +53,11 @@ internal class DamageWidgetInitializer : IWidgetInitializer
 
         _view = _overlay.Register(viewModel);
 
-        _handler = context switch
+        _handler = (context, viewModel) switch
         {
-            MHWildsContext or MHWContext => new DamageMeterControllerV2(
+            (MHWildsContext or MHWContext, MeterViewModelV2 vm) => new DamageMeterControllerV2(
                 context: context,
-                viewModel: viewModel,
+                viewModel: vm,
                 widgetContext: (WidgetContext)_view.DataContext,
                 config: config
             ),

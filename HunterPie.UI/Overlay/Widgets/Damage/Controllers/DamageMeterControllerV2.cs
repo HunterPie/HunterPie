@@ -34,15 +34,15 @@ public class DamageMeterControllerV2 : IContextHandler
 
     private readonly IContext _context;
     private readonly WidgetContext _widgetContext;
-    private MeterViewModel _viewModel;
-    private MeterViewModel _viewModelSnapshot;
+    private MeterViewModelV2 _viewModel;
+    private MeterViewModelV2 _viewModelSnapshot;
     private readonly DamageMeterWidgetConfig _config;
     private readonly ConcurrentDictionary<IPartyMember, PartyMemberContext> _members = new();
     private int _windowSecondsCount;
 
     public DamageMeterControllerV2(
         IContext context,
-        MeterViewModel viewModel,
+        MeterViewModelV2 viewModel,
         WidgetContext widgetContext,
         DamageMeterWidgetConfig config)
     {
@@ -118,7 +118,7 @@ public class DamageMeterControllerV2 : IContextHandler
             _viewModelSnapshot = _viewModel;
             _widgetContext.ViewModel = _viewModelSnapshot;
 
-            _viewModel = new MeterViewModel(_config);
+            _viewModel = new MeterViewModelV2(_config);
         });
     }
 
