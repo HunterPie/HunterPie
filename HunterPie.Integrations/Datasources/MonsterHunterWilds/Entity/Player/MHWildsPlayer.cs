@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
+using HunterPie.Core.Domain.Memory.Types;
 using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data.Definitions;
@@ -368,6 +369,10 @@ public sealed class MHWildsPlayer : CommonPlayer
             membersData[i] = data;
         }
 
+        IEnumerable<UpdatePartyMember> npcPartyMembers = await GetNpcPartyMembersAsync(playerCount: membersData.Length);
+        membersData = membersData.Concat(npcPartyMembers)
+            .ToArray();
+
         _party.Update(new UpdateParty
         {
             Players = membersData.Where(it => it.IsValid)
@@ -376,6 +381,49 @@ public sealed class MHWildsPlayer : CommonPlayer
         });
 
         membersData.ForEach(_party.Update);
+    }
+
+    private async Task<IEnumerable<UpdatePartyMember>> GetNpcPartyMembersAsync(int playerCount)
+    {
+        List<UpdatePartyMember> members = new();
+        Ref<nint> npcArrayPointer = await Memory.ReadAsync(
+            address: AddressMap.GetAbsolute("Game::NpcManager"),
+            offsets: AddressMap.GetOffsets("Npcs::Party")
+        );
+        IAsyncEnumerable<MHWildsNpcPartyMember> npcPointers = Memory.ReadArrayOfPtrsSafeAsync<MHWildsNpcPartyMember>(
+            address: await npcArrayPointer.Deref(Memory),
+            size: 6
+        );
+
+        int index = 0;
+        await foreach (MHWildsNpcPartyMember npc in npcPointers)
+        {
+            if (!npc.IsInParty() || npc.IsHandler())
+                continue;
+
+            nint damageHistoryPointer = await Memory.ReadPtrAsync(
+                address: npc.ContextPointer,
+                offsets: AddressMap.GetOffsets("Npc::DamageHistory")
+            );
+            Task<float> damageDefer = GetHistoricalPlayerDamage(damageHistoryPointer);
+            MHWildsNpcCreation creationParams = await npc.CreationParams.Deref(Memory);
+
+            members.Add(new UpdatePartyMember
+            {
+                Id = npc.ContextPointer,
+                Name = creationParams.Id.ToNpcName(),
+                IsNpc = true,
+                IsValid = true,
+                Damage = await damageDefer,
+                HunterRank = 100,
+                IsMyself = false,
+                Index = playerCount + index,
+                Weapon = creationParams.Weapon,
+            });
+            index++;
+        }
+
+        return members;
     }
 
     private async Task<float> GetDamageByPlayerAsync(nint address, int index)
@@ -391,16 +439,15 @@ public sealed class MHWildsPlayer : CommonPlayer
         if (syncedDamage > 0)
             return syncedDamage;
 
-        return await GetHistoricalPlayerDamage(address);
-        ;
-    }
-
-    private async Task<float> GetHistoricalPlayerDamage(nint playerAddress)
-    {
         nint damageHistoryPointer = await Memory.ReadPtrAsync(
-            address: playerAddress,
+            address: address,
             offsets: AddressMap.GetOffsets("Player::DamageHistory")
         );
+        return await GetHistoricalPlayerDamage(damageHistoryPointer);
+    }
+
+    private async Task<float> GetHistoricalPlayerDamage(nint damageHistoryPointer)
+    {
         MHWildsDamageHistory damageHistory = await Memory.ReadAsync<MHWildsDamageHistory>(damageHistoryPointer);
 
         if (damageHistory.Size <= 0)

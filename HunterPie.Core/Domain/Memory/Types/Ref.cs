@@ -17,4 +17,9 @@ public readonly struct Ref<T> where T : struct
     {
         return await reader.ReadAsync<T>(Address);
     }
+
+    public static implicit operator Ref<T>(nint pointer)
+    {
+        return new Ref<T>(pointer);
+    }
 }

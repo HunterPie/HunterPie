@@ -85,4 +85,18 @@ public static class MHWildsExtensions
             _ => null
         };
     }
+
+    public static string ToNpcName(this int id)
+    {
+        return id switch
+        {
+            27 => "Alessa",
+            25 => "Mina",
+            17 => "Kai",
+            9 => "Olivia",
+            6 => "Rosso",
+            4 => "Fabius",
+            _ => $"Unknown {id}"
+        };
+    }
 }
