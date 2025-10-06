@@ -41,7 +41,7 @@ internal static class MonsterDetailsViewModelBuilder
                 double capturedAt = (it.Time - hunt.StartedAt + huntStartedDelta).TotalSeconds;
                 return new ObservablePoint(
                     x: capturedAt,
-                    y: it.Percentage
+                    y: Math.Clamp(it.Percentage, 0, 1)
                 );
             });
 
