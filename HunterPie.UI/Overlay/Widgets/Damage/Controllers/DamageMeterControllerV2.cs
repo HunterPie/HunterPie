@@ -4,6 +4,7 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Party;
+using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.List;
 using HunterPie.Core.Observability.Logging;
@@ -235,7 +236,7 @@ public class DamageMeterControllerV2 : IContextHandler
 
         ObservableColor playerColor = PlayerConfigHelper.GetColorFromPlayer(
             game: _context.Process.Type,
-            slot: member.Slot,
+            slot: member.Type == MemberType.Player ? member.Slot : null,
             isSelf: member.IsMyself
         );
 

@@ -121,8 +121,8 @@ public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Color PlayerFourth { get; set; } = "#FFFF8040";
 
-    [ConfigurationProperty("DAMAGE_METER_NPC_COLOR_STRING", availableGames: GameProcessType.MonsterHunterRise, group: CommonConfigurationGroups.COLORS)]
+    [ConfigurationProperty("DAMAGE_METER_NPC_COLOR_STRING", availableGames: GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWilds, group: CommonConfigurationGroups.COLORS)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
-    public Color NpcColor { get; set; } = "#FF9534EB";
+    public Color NpcColor { get; set; } = "#FFEBD5FF";
     #endregion
 }
