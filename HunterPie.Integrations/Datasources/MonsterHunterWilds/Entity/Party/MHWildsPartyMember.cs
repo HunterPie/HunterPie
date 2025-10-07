@@ -50,10 +50,13 @@ public class MHWildsPartyMember : CommonPartyMember, IUpdatable<UpdatePartyMembe
 
     public override bool IsMyself { get; protected set; }
 
-    public override MemberType Type { get; protected set; } = MemberType.Player;
+    public override MemberType Type { get; protected set; }
 
     public void Update(UpdatePartyMember data)
     {
+        Type = data.IsNpc
+            ? MemberType.Companion
+            : MemberType.Player;
         Name = data.Name;
         Weapon = data.Weapon;
         Damage = (int)data.Damage;
