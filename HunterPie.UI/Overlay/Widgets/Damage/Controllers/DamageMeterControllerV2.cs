@@ -21,6 +21,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 using Color = System.Windows.Media.Color;
 using ObservableColor = HunterPie.Core.Settings.Types.Color;
@@ -68,6 +69,7 @@ public class DamageMeterControllerV2 : IContextHandler
         _context.Game.OnQuestStart += OnQuestStart;
         _context.Game.OnQuestEnd += OnQuestEnd;
         _config.PlotSamplingInSeconds.PropertyChanged += OnPlotSlidingWindowChange;
+        _config.ShowOnlySelf.PropertyChanged += OnShowOnlySelfChange;
 
         if (_context.Game.Quest is { } quest)
             quest.OnDeathCounterChange += OnDeathCounterChange;
@@ -91,6 +93,19 @@ public class DamageMeterControllerV2 : IContextHandler
         if (_context.Game.Quest is { } quest)
             quest.OnDeathCounterChange -= OnDeathCounterChange;
     }
+
+    private void OnShowOnlySelfChange(object? sender, PropertyChangedEventArgs e) => _viewModel.UIThread.BeginInvoke(
+        () =>
+        {
+            bool shouldHideOthers = _config.ShowOnlySelf.Value;
+            _members.Values.ForEach(it =>
+            {
+                it.ViewModel.IsVisible = it.ViewModel.IsUser || !shouldHideOthers;
+                it.Plots.Visibility = it.ViewModel.IsVisible
+                    ? Visibility.Visible
+                    : Visibility.Collapsed;
+            });
+        });
 
     private void OnPlotSlidingWindowChange(object? sender, PropertyChangedEventArgs e)
     {
@@ -393,7 +408,7 @@ public class DamageMeterControllerV2 : IContextHandler
             PointGeometry = null,
             Values = points,
             StrokeThickness = 1,
-            LineSmoothness = 0
+            LineSmoothness = 0,
         };
 
         _viewModel.Series.Add(series);

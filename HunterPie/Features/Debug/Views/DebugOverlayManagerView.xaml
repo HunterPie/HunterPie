@@ -5,15 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:HunterPie.Features.Debug.ViewModels"
         xmlns:views="clr-namespace:HunterPie.UI.Settings.Views;assembly=HunterPie.UI"
+        xmlns:text="clr-namespace:HunterPie.UI.Controls.Text;assembly=HunterPie.UI"
+        xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+        xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+        xmlns:windows="clr-namespace:HunterPie.UI.Windows;assembly=HunterPie.UI"
         mc:Ignorable="d"
         SizeToContent="Height"
         Title="[Debug] OverlayManager" 
+        WindowStyle="None"
         Width="400"
         d:DataContext="{d:DesignInstance viewModels:DebugOverlayManagerViewModel}"
-        Background="{StaticResource Brushes.HunterPie.Background.Tertiary}">
-    <StackPanel>
-        <views:BooleanConfigurationPropertyView DataContext="{Binding IsDesignModeEnabled, Mode=OneTime}"/>
-        <views:BooleanConfigurationPropertyView DataContext="{Binding IsGameFocused, Mode=OneTime}"/>
-        <views:BooleanConfigurationPropertyView DataContext="{Binding IsGameHudOpen, Mode=OneTime}"/>
-    </StackPanel>
+        Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0"
+                      CornerRadius="2"
+                      GlassFrameThickness="-1"
+                      ResizeBorderThickness="5"
+                      UseAeroCaptionButtons="False"
+                      NonClientFrameEdges="Bottom"/>
+    </WindowChrome.WindowChrome>
+    <windows:WindowChrome>
+        <windows:WindowChrome.Container>
+            <StackPanel>
+                <text:Title Text="Overlay Settings"
+                            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+                            Margin="5"/>
+                <views:BooleanConfigurationPropertyView DataContext="{Binding IsDesignModeEnabled, Mode=OneTime}"
+                                                        Margin="5,0,0,0"/>
+                <views:BooleanConfigurationPropertyView DataContext="{Binding IsGameFocused, Mode=OneTime}"
+                                                        Margin="5,0,0,0"/>
+                <views:BooleanConfigurationPropertyView DataContext="{Binding IsGameHudOpen, Mode=OneTime}"
+                                                        Margin="5,0,0,0"/>
+
+                <text:Title Text="Mocked Widget Settings"
+                            Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+                            Margin="5"/>
+
+                <buttons:Button Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
+                                BorderThickness="1"
+                                Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
+                                BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+                                Margin="2"
+                                CornerRadius="5"
+                                HorizontalContentAlignment="Stretch"
+                                Click="OnSettingsButtonClick">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" 
+                                   Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
+                                   Text="Open settings"
+                                   FontSize="13"/>
+
+                        <image:Icon Grid.Column="1"
+                                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                    Image="{StaticResource ICON_CHEVRON_RIGHT}"
+                                    Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+                                    Margin="2"/>
+                    </Grid>
+                </buttons:Button>
+            </StackPanel>
+        </windows:WindowChrome.Container>
+    </windows:WindowChrome>
 </Window>

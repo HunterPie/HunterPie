@@ -16,7 +16,6 @@
                  Style="{DynamicResource Widgets.DamageMeter}">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <viewmodels:MockMeterViewModel x:Key="MockViewModel"/>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:MaxDeathsToVisibilityConverter x:Key="MaxDeathsToVisibilityConverter"/>
     </UserControl.Resources>
@@ -81,8 +80,7 @@
                     Orientation="Vertical">
             <ItemsControl ItemsSource="{Binding Players, Mode=OneTime}"
                           Margin="1,1,1,1" 
-                          Grid.Row="1"
-                          d:DataContext="{StaticResource MockViewModel}">
+                          Grid.Row="1">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical"
@@ -127,7 +125,6 @@
                                 DisableAnimations="True"
                                 Margin="1"
                                 Visibility="{Binding Config.ShouldShowPlots.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                d:DataContext="{StaticResource MockViewModel}"
                                 Hoverable="False"
                                 DataTooltip="{x:Null}">
                 <lvc:CartesianChart.CacheMode>

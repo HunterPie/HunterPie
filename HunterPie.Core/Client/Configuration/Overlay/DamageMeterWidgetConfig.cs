@@ -54,6 +54,10 @@ public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Observable<bool> ShouldShowOtomos { get; set; } = true;
 
+    [ConfigurationProperty("DAMAGE_METER_SHOW_ONLY_SELF_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    public Observable<bool> ShowOnlySelf { get; set; } = false;
+
     [ConfigurationProperty("DAMAGE_METER_DPS_CALCULATION_STRATEGY_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Observable<DPSCalculationStrategy> DpsCalculationStrategy { get; set; } = DPSCalculationStrategy.RelativeToJoin;
@@ -107,22 +111,27 @@ public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
 
     [ConfigurationProperty("DAMAGE_METER_PLAYER_1_COLOR_STRING", group: CommonConfigurationGroups.COLORS)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    [ConfigurationConditional(name: nameof(ShowOnlySelf), withValue: false)]
     public Color PlayerFirst { get; set; } = "#FFF24891";
 
     [ConfigurationProperty("DAMAGE_METER_PLAYER_2_COLOR_STRING", group: CommonConfigurationGroups.COLORS)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    [ConfigurationConditional(name: nameof(ShowOnlySelf), withValue: false)]
     public Color PlayerSecond { get; set; } = "#FF50C5B7";
 
     [ConfigurationProperty("DAMAGE_METER_PLAYER_3_COLOR_STRING", group: CommonConfigurationGroups.COLORS)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    [ConfigurationConditional(name: nameof(ShowOnlySelf), withValue: false)]
     public Color PlayerThird { get; set; } = "#FF49CFF5";
 
     [ConfigurationProperty("DAMAGE_METER_PLAYER_4_COLOR_STRING", group: CommonConfigurationGroups.COLORS)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    [ConfigurationConditional(name: nameof(ShowOnlySelf), withValue: false)]
     public Color PlayerFourth { get; set; } = "#FFFF8040";
 
     [ConfigurationProperty("DAMAGE_METER_NPC_COLOR_STRING", availableGames: GameProcessType.MonsterHunterRise | GameProcessType.MonsterHunterWilds, group: CommonConfigurationGroups.COLORS)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    [ConfigurationConditional(name: nameof(ShowOnlySelf), withValue: false)]
     public Color NpcColor { get; set; } = "#FFEBD5FF";
     #endregion
 }

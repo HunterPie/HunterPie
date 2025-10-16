@@ -20,7 +20,7 @@ public partial class WidgetView
     private bool _isClosed;
     private DateTime _lastRenderAt;
 
-    private WidgetContext Context => (WidgetContext)DataContext;
+    public WidgetContext Context => (WidgetContext)DataContext;
 
     public WidgetView()
     {

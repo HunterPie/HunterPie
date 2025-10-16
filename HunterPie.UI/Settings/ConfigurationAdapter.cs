@@ -34,10 +34,9 @@ public class ConfigurationAdapter
         _localizationRepository = localizationRepository;
     }
 
-    public ObservableCollection<ConfigurationCategoryGroup> Adapt<T>(T configuration, GameProcessType game = GameProcessType.None)
+    public ObservableCollection<ConfigurationCategoryGroup> Adapt<T>(T configuration, GameProcessType game = GameProcessType.None) where T : notnull
     {
-        Type configurationType = typeof(T);
-        ConfigurationCategory[] categories = BuildCategoryParent(configurationType, configuration, game);
+        ConfigurationCategory[] categories = BuildCategoryParent(configuration.GetType(), configuration, game);
 
         return categories.GroupBy(it => it.CategoryGroup)
             .Select(it =>

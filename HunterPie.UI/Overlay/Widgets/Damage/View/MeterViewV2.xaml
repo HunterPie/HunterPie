@@ -11,6 +11,7 @@
                 xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
                 xmlns:system="clr-namespace:System;assembly=System.Runtime"
                 xmlns:overlay="clr-namespace:HunterPie.UI.Overlay"
+                xmlns:arithmetics="clr-namespace:HunterPie.UI.Architecture.Converters.Arithmetics"
                 mc:Ignorable="d"
                 Width="300"
                 d:DataContext="{d:DesignInstance viewModels:MeterViewModelV2}"
@@ -20,7 +21,8 @@
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:MaxDeathsToVisibilityConverter x:Key="MaxDeathsToVisibilityConverter"/>
         <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
-        <viewModels:MockMeterViewModel x:Key="MockViewModel"/>
+        <arithmetics:MultiplyNumberConverter x:Key="MultiplyNumberConverter"
+                                             Factor="1.15"/>
 
         <system:Double x:Key="Background.Transparency">0.9</system:Double>
     </UserControl.Resources>
@@ -81,8 +83,7 @@
                 BorderThickness="1,0,1,1"
                 CornerRadius="0,0,5,5"
                 Background="{Binding Source={StaticResource Gray@200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Background.Transparency}}">
-            <ItemsControl ItemsSource="{Binding Players, Mode=OneTime}"
-                          d:DataContext="{StaticResource MockViewModel}">
+            <ItemsControl ItemsSource="{Binding Players, Mode=OneTime}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical"
@@ -92,7 +93,8 @@
                 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewModels:PlayerViewModel}">
-                        <local:PlayerViewV2 Height="40"/>
+                        <local:PlayerViewV2 Height="40"
+                                            Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -108,7 +110,6 @@
                 Visibility="{Binding Config.ShouldShowPlots.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                 Background="{Binding Source={StaticResource Gray@300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Background.Transparency}}">
             <wpf:CartesianChart Height="120"
-                                d:DataContext="{StaticResource MockViewModel}"
                                 Hoverable="False"
                                 DataTooltip="{x:Null}"
                                 DisableAnimations="True"
@@ -120,6 +121,7 @@
                 </wpf:CartesianChart.CacheMode>
                 <wpf:CartesianChart.AxisY>
                     <wpf:Axis MinValue="0"
+                              MaxValue="{Binding MaxPlotValue, Mode=OneWay, Converter={StaticResource MultiplyNumberConverter}}"
                               LabelFormatter="{Binding DamageFormatter, Mode=OneWay}"
                               FontFamily="{StaticResource Font.Default}">
                         <wpf:Axis.Separator>
