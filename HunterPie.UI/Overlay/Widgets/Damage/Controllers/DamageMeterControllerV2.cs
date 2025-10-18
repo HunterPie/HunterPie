@@ -86,6 +86,7 @@ public class DamageMeterControllerV2 : IContextHandler
         _context.Game.OnQuestStart -= OnQuestStart;
         _context.Game.OnQuestEnd -= OnQuestEnd;
         _config.PlotSamplingInSeconds.PropertyChanged -= OnPlotSlidingWindowChange;
+        _config.ShowOnlySelf.PropertyChanged -= OnShowOnlySelfChange;
 
         foreach (IPartyMember member in _members.Keys)
             HandleMemberLeave(member);
@@ -254,6 +255,7 @@ public class DamageMeterControllerV2 : IContextHandler
             slot: member.Type == MemberType.Player ? member.Slot : null,
             isSelf: member.IsMyself
         );
+        bool isVisible = !_config.ShowOnlySelf || member.IsMyself;
 
         var memberContext = new PartyMemberContext
         {
@@ -265,10 +267,12 @@ public class DamageMeterControllerV2 : IContextHandler
                 Bar = new DamageBarViewModel(playerColor),
                 IsUser = member.IsMyself,
                 MasterRank = member.MasterRank,
+                IsVisible = isVisible
             },
             Plots = BuildPlayerPlots(
                 name: member.Name,
-                color: playerColor
+                color: playerColor,
+                isVisible: isVisible
             ),
             JoinedAt = _context.Game.TimeElapsed,
             FirstHitAt = member.Damage > 0
@@ -390,7 +394,7 @@ public class DamageMeterControllerV2 : IContextHandler
         return new ObservablePoint(_viewModel.TimeElapsed, damage);
     }
 
-    private Series BuildPlayerPlots(string name, string color)
+    private Series BuildPlayerPlots(string name, string color, bool isVisible)
     {
         ChartValues<ObservablePoint> points = new();
 
@@ -409,6 +413,9 @@ public class DamageMeterControllerV2 : IContextHandler
             Values = points,
             StrokeThickness = 1,
             LineSmoothness = 0,
+            Visibility = isVisible
+                ? Visibility.Visible
+                : Visibility.Collapsed,
         };
 
         _viewModel.Series.Add(series);

@@ -90,7 +90,8 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:PlayerViewModel}">
-                        <local:PlayerDamageView Height="38"/>
+                        <local:PlayerDamageView Height="38"
+                                                Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
