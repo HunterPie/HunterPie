@@ -145,6 +145,7 @@ internal class DamageWidgetMocker : IWidgetMocker
 
             viewModel.MaxPlotValue = maxYAxis;
         }
+
         viewModel.SortMembers();
         viewModel.TimeElapsed = newTime;
     }
