@@ -21,6 +21,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 using Color = System.Windows.Media.Color;
 using ObservableColor = HunterPie.Core.Settings.Types.Color;
@@ -68,6 +69,7 @@ public class DamageMeterControllerV2 : IContextHandler
         _context.Game.OnQuestStart += OnQuestStart;
         _context.Game.OnQuestEnd += OnQuestEnd;
         _config.PlotSamplingInSeconds.PropertyChanged += OnPlotSlidingWindowChange;
+        _config.ShowOnlySelf.PropertyChanged += OnShowOnlySelfChange;
 
         if (_context.Game.Quest is { } quest)
             quest.OnDeathCounterChange += OnDeathCounterChange;
@@ -84,6 +86,7 @@ public class DamageMeterControllerV2 : IContextHandler
         _context.Game.OnQuestStart -= OnQuestStart;
         _context.Game.OnQuestEnd -= OnQuestEnd;
         _config.PlotSamplingInSeconds.PropertyChanged -= OnPlotSlidingWindowChange;
+        _config.ShowOnlySelf.PropertyChanged -= OnShowOnlySelfChange;
 
         foreach (IPartyMember member in _members.Keys)
             HandleMemberLeave(member);
@@ -91,6 +94,19 @@ public class DamageMeterControllerV2 : IContextHandler
         if (_context.Game.Quest is { } quest)
             quest.OnDeathCounterChange -= OnDeathCounterChange;
     }
+
+    private void OnShowOnlySelfChange(object? sender, PropertyChangedEventArgs e) => _viewModel.UIThread.BeginInvoke(
+        () =>
+        {
+            bool shouldHideOthers = _config.ShowOnlySelf.Value;
+            _members.Values.ForEach(it =>
+            {
+                it.ViewModel.IsVisible = it.ViewModel.IsUser || !shouldHideOthers;
+                it.Plots.Visibility = it.ViewModel.IsVisible
+                    ? Visibility.Visible
+                    : Visibility.Collapsed;
+            });
+        });
 
     private void OnPlotSlidingWindowChange(object? sender, PropertyChangedEventArgs e)
     {
@@ -239,6 +255,7 @@ public class DamageMeterControllerV2 : IContextHandler
             slot: member.Type == MemberType.Player ? member.Slot : null,
             isSelf: member.IsMyself
         );
+        bool isVisible = !_config.ShowOnlySelf || member.IsMyself;
 
         var memberContext = new PartyMemberContext
         {
@@ -250,10 +267,12 @@ public class DamageMeterControllerV2 : IContextHandler
                 Bar = new DamageBarViewModel(playerColor),
                 IsUser = member.IsMyself,
                 MasterRank = member.MasterRank,
+                IsVisible = isVisible
             },
             Plots = BuildPlayerPlots(
                 name: member.Name,
-                color: playerColor
+                color: playerColor,
+                isVisible: isVisible
             ),
             JoinedAt = _context.Game.TimeElapsed,
             FirstHitAt = member.Damage > 0
@@ -300,6 +319,7 @@ public class DamageMeterControllerV2 : IContextHandler
         bool hasBeenOneSecond = secondsCount != _windowSecondsCount;
         _windowSecondsCount = secondsCount;
 
+        double maxAxisY = 5;
         foreach ((IPartyMember member, PartyMemberContext memberCtx) in _members)
         {
             if (memberCtx.Plots.Values is not ChartValues<ObservablePoint> chartValues)
@@ -321,9 +341,12 @@ public class DamageMeterControllerV2 : IContextHandler
 
             if (shouldDiscardOldPlots)
                 ClearOldPoints(chartValues, plottingWindowSize);
+
+            maxAxisY = Math.Max(maxAxisY, chartValues.MaxBy(it => it.Y)?.Y ?? 0);
         }
 
         _viewModel.SortMembers();
+        _viewModel.MaxPlotValue = maxAxisY;
     }
 
     private void ClearOldPoints(ChartValues<ObservablePoint> chart, double plottingWindowSize)
@@ -375,7 +398,7 @@ public class DamageMeterControllerV2 : IContextHandler
         return new ObservablePoint(_viewModel.TimeElapsed, damage);
     }
 
-    private Series BuildPlayerPlots(string name, string color)
+    private Series BuildPlayerPlots(string name, string color, bool isVisible)
     {
         ChartValues<ObservablePoint> points = new();
 
@@ -393,7 +416,10 @@ public class DamageMeterControllerV2 : IContextHandler
             PointGeometry = null,
             Values = points,
             StrokeThickness = 1,
-            LineSmoothness = 0
+            LineSmoothness = 0,
+            Visibility = isVisible
+                ? Visibility.Visible
+                : Visibility.Collapsed,
         };
 
         _viewModel.Series.Add(series);

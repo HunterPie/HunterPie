@@ -1,7 +1,7 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration;
-using HunterPie.Core.Client.Configuration.Enums;
+﻿using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Extensions;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Party;
@@ -17,7 +17,9 @@ using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 using ObservableColor = HunterPie.Core.Settings.Types.Color;
@@ -32,6 +34,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
     private readonly MeterViewModel _viewModel;
     private readonly IContext _context;
     private readonly ILocalizationRepository _localizationRepository;
+    private readonly DamageMeterWidgetConfig _config;
     private readonly Dictionary<IPartyMember, MemberInfo> _members = new();
     private readonly Dictionary<IPartyMember, DamageBarViewModel> _pets = new();
     private double _lastTimeElapsed;
@@ -39,13 +42,13 @@ public class DamageMeterWidgetContextHandler : IContextHandler
     public DamageMeterWidgetContextHandler(
         IContext context,
         MeterViewModel viewModel,
-        ILocalizationRepository localizationRepository)
+        ILocalizationRepository localizationRepository,
+        DamageMeterWidgetConfig config)
     {
-        OverlayConfig config = ClientConfigHelper.GetOverlayConfigFrom(context.Process.Type);
-
         _viewModel = viewModel;
         _context = context;
         _localizationRepository = localizationRepository;
+        _config = config;
 
         HookEvents();
         UpdateData();
@@ -73,6 +76,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
         _context.Game.Player.OnStageUpdate += OnStageUpdate;
         _context.Game.OnQuestStart += OnQuestStart;
         _context.Game.OnQuestEnd += OnQuestEnd;
+        _config.ShowOnlySelf.PropertyChanged += OnShowOnlySelfChange;
     }
 
     public void UnhookEvents()
@@ -83,6 +87,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
         _context.Game.Player.OnStageUpdate -= OnStageUpdate;
         _context.Game.OnQuestStart -= OnQuestStart;
         _context.Game.OnQuestEnd -= OnQuestEnd;
+        _config.ShowOnlySelf.PropertyChanged -= OnShowOnlySelfChange;
 
         foreach (IPartyMember member in _members.Keys.ToArray())
             HandleRemoveMember(member);
@@ -92,6 +97,19 @@ public class DamageMeterWidgetContextHandler : IContextHandler
     }
 
     #region Events
+    private void OnShowOnlySelfChange(object? sender, PropertyChangedEventArgs e) => _viewModel.UIThread.BeginInvoke(
+        () =>
+        {
+            bool shouldHideOthers = _config.ShowOnlySelf.Value;
+            _members.Values.ForEach(it =>
+            {
+                it.ViewModel.IsVisible = it.ViewModel.IsUser || !shouldHideOthers;
+                it.Series.Visibility = it.ViewModel.IsVisible
+                    ? Visibility.Visible
+                    : Visibility.Collapsed;
+            });
+        });
+
     private void OnQuestStart(object? sender, IQuest e)
     {
         e.OnDeathCounterChange += OnDeathCounterChange;
@@ -213,7 +231,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
     #endregion
 
     #region Helpers
-    private Series BuildPlayerSeries(string name, string color)
+    private Series BuildPlayerSeries(string name, string color, bool isVisible)
     {
         ChartValues<ObservablePoint> points = new();
 
@@ -224,7 +242,8 @@ public class DamageMeterWidgetContextHandler : IContextHandler
             Stroke = new SolidColorBrush(actualColor),
             Fill = ColorFadeGradient.FromColor(actualColor),
             PointGeometry = null,
-            Values = points
+            Values = points,
+            Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed,
         };
         Binding smoothingBinding = VisualConverterHelper.CreateBinding(_viewModel.Config.PlotLineSmoothing, nameof(Range.Current));
         Binding thicknessBinding =
@@ -301,6 +320,7 @@ public class DamageMeterWidgetContextHandler : IContextHandler
             member.IsMyself
         );
 
+        bool isVisible = !_config.ShowOnlySelf || member.IsMyself;
         var memberInfo = new MemberInfo
         {
             ViewModel = new(_viewModel.Config)
@@ -310,9 +330,10 @@ public class DamageMeterWidgetContextHandler : IContextHandler
                 Weapon = member.Weapon,
                 Bar = new(playerColor),
                 IsUser = member.IsMyself,
-                MasterRank = member.MasterRank
+                MasterRank = member.MasterRank,
+                IsVisible = isVisible
             },
-            Series = BuildPlayerSeries(member.Name, playerColor),
+            Series = BuildPlayerSeries(member.Name, playerColor, isVisible),
             JoinedAt = _context.Game.TimeElapsed
         };
 

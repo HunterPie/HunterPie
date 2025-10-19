@@ -2,7 +2,7 @@
 
 namespace HunterPie.Core.Settings.Annotations;
 
-[AttributeUsage(AttributeTargets.Property)]
+[AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
 public class ConfigurationConditionalAttribute : Attribute
 {
     public string Name { get; init; }

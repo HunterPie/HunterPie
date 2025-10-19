@@ -64,7 +64,8 @@ internal class DamageWidgetInitializer : IWidgetInitializer
             _ => new DamageMeterWidgetContextHandler(
                 context: context,
                 viewModel: viewModel,
-                localizationRepository: DependencyContainer.Get<ILocalizationRepository>()
+                localizationRepository: DependencyContainer.Get<ILocalizationRepository>(),
+                config: config
             )
         };
 
