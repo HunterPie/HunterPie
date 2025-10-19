@@ -319,6 +319,7 @@ public class DamageMeterControllerV2 : IContextHandler
         bool hasBeenOneSecond = secondsCount != _windowSecondsCount;
         _windowSecondsCount = secondsCount;
 
+        double maxAxisY = 5;
         foreach ((IPartyMember member, PartyMemberContext memberCtx) in _members)
         {
             if (memberCtx.Plots.Values is not ChartValues<ObservablePoint> chartValues)
@@ -340,9 +341,12 @@ public class DamageMeterControllerV2 : IContextHandler
 
             if (shouldDiscardOldPlots)
                 ClearOldPoints(chartValues, plottingWindowSize);
+
+            maxAxisY = Math.Max(maxAxisY, chartValues.MaxBy(it => it.Y)?.Y ?? 0);
         }
 
         _viewModel.SortMembers();
+        _viewModel.MaxPlotValue = maxAxisY;
     }
 
     private void ClearOldPoints(ChartValues<ObservablePoint> chart, double plottingWindowSize)
