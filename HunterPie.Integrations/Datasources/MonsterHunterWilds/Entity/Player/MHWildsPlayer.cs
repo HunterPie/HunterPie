@@ -800,7 +800,8 @@ public sealed class MHWildsPlayer : CommonPlayer
             var data = new UpdateAbnormalityData
             {
                 Timer = songTimers[i],
-                MaxTimer = songMaxTimers[i]
+                MaxTimer = songMaxTimers[i],
+                ShouldInferMaxTimer = definition.HasMaxTimer
             };
 
             HandleAbnormality(
