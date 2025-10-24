@@ -116,7 +116,7 @@
                                SnapsToDevicePixels="True"
                                UseLayoutRounding="True">
                         <Rectangle.OpacityMask>
-                            <ImageBrush ImageSource="{DynamicResource ICON_CAMERA_MASK}"
+                            <ImageBrush ImageSource="{StaticResource Icons.Camera}"
                                         Stretch="Uniform"
                                         RenderOptions.BitmapScalingMode="Fant"/>
                         </Rectangle.OpacityMask>
