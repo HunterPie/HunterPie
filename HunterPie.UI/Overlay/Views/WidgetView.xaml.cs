@@ -1,4 +1,5 @@
-﻿using HunterPie.UI.Overlay.Enums;
+﻿using HunterPie.Core.Observability.Logging;
+using HunterPie.UI.Overlay.Enums;
 using HunterPie.UI.Overlay.ViewModels;
 using HunterPie.UI.Platform.Windows.Native;
 using System;
@@ -15,10 +16,11 @@ namespace HunterPie.UI.Overlay.Views;
 /// </summary>
 public partial class WidgetView
 {
+    private readonly ILogger _logger = LoggerFactory.Create();
     private nint? _hWnd;
     private readonly object _sync = new();
     private bool _isClosed;
-    private DateTime _lastRenderAt;
+    private DateTime _lastTopMostForce;
 
     public WidgetContext Context => (WidgetContext)DataContext;
 
@@ -45,12 +47,14 @@ public partial class WidgetView
 
     private void OnRender(object sender, EventArgs e)
     {
-        DateTime lastRender = _lastRenderAt;
-        _lastRenderAt = DateTime.Now;
-        TimeSpan timeDiff = lastRender - _lastRenderAt;
+        DateTime lastRender = _lastTopMostForce;
+        TimeSpan timeDiff = DateTime.Now - lastRender;
 
-        if (timeDiff.TotalMilliseconds > 500)
-            ForceAlwaysOnTop();
+        if (timeDiff.TotalMilliseconds <= 500)
+            return;
+
+        ForceAlwaysOnTop();
+        _lastTopMostForce = DateTime.Now;
     }
 
     protected override void OnClosed(EventArgs e)
