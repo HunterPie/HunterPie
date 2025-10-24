@@ -22,22 +22,23 @@
     <StackPanel Orientation="Vertical"
                 Visibility="{Binding IsFlowActive, Converter={StaticResource BooleanToVisibilityConverter}}">
         <buttons:Button HorizontalAlignment="Left"
-                        Padding="5"
+                        Padding="8"
                         Width="30"
                         Height="30"
                         Margin="2"
+                        CornerRadius="5"
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="Stretch"
                         Click="OnBackButtonClick">
-            <image:Icon Image="{StaticResource ICON_BACK}"
-                        Foreground="{StaticResource WHITE_400}"/>
+            <image:Icon Image="{DynamicResource ICON_CHEVRON_LEFT}"
+                        Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"/>
         </buttons:Button>
 
         <!-- Email -->
         <StackPanel Orientation="Vertical"
                     Margin="10,5,10,10">
             <TextBlock Text="Email"
-                       Foreground="{StaticResource WHITE_200}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                        Margin="0,0,0,1"/>
             <TextBox Height="35">
                 <TextBox.Text>
@@ -56,7 +57,8 @@
 
             <buttons:Button Content="Resend verification"
                             FontSize="15"
-                            BorderBrush="{StaticResource GRAY}"
+                            BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+                            Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                             CornerRadius="5"
                             BorderThickness="1"
                             HorizontalAlignment="Right"

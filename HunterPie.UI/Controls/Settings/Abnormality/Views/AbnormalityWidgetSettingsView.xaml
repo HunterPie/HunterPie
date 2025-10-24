@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:HunterPie.UI.Controls.Settings.Abnormality.Views"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Controls.Settings.Abnormality.ViewModels"
              xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer"
-             xmlns:settings="clr-namespace:HunterPie.UI.Settings.ViewModels"
              xmlns:presentation="clr-namespace:HunterPie.UI.Settings.Presentation"
              xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
@@ -15,6 +14,7 @@
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:localPresentation="clr-namespace:HunterPie.UI.Controls.Settings.Abnormality.Presentation"
              xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets"
+             xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
@@ -31,7 +31,6 @@
             <buttons:TabItem Title="{Binding Name, Mode=OneWay}"
                              Icon="{Binding Icon, Mode=OneWay, Converter={StaticResource IconResolver}}"
                              Description="{Binding Description, Mode=OneWay}"
-                             Background="{StaticResource GRAY_200}"
                              FontSize="13"
                              Margin="1"/>
         </DataTemplate>
@@ -90,19 +89,20 @@
                             VerticalAlignment="Top"
                             Margin="5"
                             Padding="5"
-                            BorderBrush="{StaticResource GRAY}"
+                            BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+                            Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                             BorderThickness="1"
                             CornerRadius="5"
                             Cursor="Hand"
                             Click="OnBackButtonClick">
                 <StackPanel Orientation="Horizontal">
-                    <image:Icon Image="{StaticResource ICON_LEFT_ARROW}"
+                    <image:Icon Image="{DynamicResource ICON_CHEVRON_LEFT}"
                                 Height="15"
                                 Width="15"
-                                Foreground="{StaticResource WHITE_400}"
+                                Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                                 Margin="0,0,5,0"/>
-                    <TextBlock Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;BACK_STRING&quot;]'}"
-                               Foreground="{StaticResource WHITE_400}"
+                    <TextBlock Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;BACK_STRING&quot;]'}"
+                               Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
                                VerticalAlignment="Center"/>
                 </StackPanel>
             </buttons:Button>
@@ -124,22 +124,24 @@
                     <buttons:Button VerticalAlignment="Center"
                                     Margin="5"
                                     Padding="5"
-                                    BorderBrush="{StaticResource GRAY}"
+                                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                                     BorderThickness="1"
                                     CornerRadius="5"
                                     Cursor="Hand"
-                                    Content="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;SELECT_ALL_STRING&quot;]'}"
-                                    Foreground="{StaticResource WHITE_400}"
+                                    Content="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;SELECT_ALL_STRING&quot;]'}"
+                                    Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+                                    Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                                     Click="OnSelectAllClick"/>
                     <buttons:Button VerticalAlignment="Center"
                                     Margin="5"
                                     Padding="5"
-                                    BorderBrush="{StaticResource GRAY}"
+                                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                                     BorderThickness="1"
                                     CornerRadius="5"
                                     Cursor="Hand"
-                                    Content="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;UNSELECT_ALL_STRING&quot;]'}"
-                                    Foreground="{StaticResource WHITE_400}"
+                                    Content="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;UNSELECT_ALL_STRING&quot;]'}"
+                                    Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+                                    Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
                                     Click="OnUnselectAllClick"/>
                 </StackPanel>
             </Grid>
@@ -176,11 +178,11 @@
                                 <TextBlock Grid.Column="0" 
                                            Text="{Binding Name, Mode=OneTime}"
                                            FontSize="15"
-                                           Foreground="{StaticResource WHITE_600}"
+                                           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                                            Margin="5"
                                            FontWeight="Medium"/>
                                 <Separator Grid.Column="1" 
-                                           Background="{StaticResource GRAY}"/>
+                                           Background="{DynamicResource Brushes.HunterPie.Border}"/>
                             </Grid>
                             
                             <ItemsControl ItemsSource="{Binding Properties, Mode=OneTime}"

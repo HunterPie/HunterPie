@@ -1,12 +1,13 @@
 ﻿using HunterPie.Core.Architecture.Collections;
 using HunterPie.Core.Game.Enums;
-using HunterPie.UI.Architecture;
+using HunterPie.Core.Settings;
+using HunterPie.UI.Overlay.Enums;
+using HunterPie.UI.Overlay.ViewModels;
 
 namespace HunterPie.UI.Overlay.Widgets.Player.ViewModels;
 
-public class PlayerHudViewModel : ViewModel
+public class PlayerHudViewModel : WidgetViewModel
 {
-
     private int _level;
     public int Level { get => _level; set => SetValue(ref _level, value); }
 
@@ -52,4 +53,8 @@ public class PlayerHudViewModel : ViewModel
     public bool IsMoxieActive { get => _isMoxieActive; set => SetValue(ref _isMoxieActive, value); }
 
     public WeaponSharpnessViewModel SharpnessViewModel { get; } = new();
+
+    public PlayerHudViewModel(IWidgetSettings settings) : base(settings, "Player Hud Widget", WidgetType.ClickThrough)
+    {
+    }
 }

@@ -11,30 +11,62 @@
              xmlns:presentation="clr-namespace:HunterPie.UI.Settings.Presentation;assembly=HunterPie.UI"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
              xmlns:settings="clr-namespace:HunterPie.UI.Settings.ViewModels;assembly=HunterPie.UI"
-             xmlns:system="clr-namespace:System;assembly=System.Runtime"
              xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading;assembly=HunterPie.UI"
-             xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets;assembly=HunterPie.UI"
              xmlns:gl="clr-namespace:System.Globalization;assembly=System.Runtime"
              xmlns:localPresentation="clr-namespace:HunterPie.Features.Settings.Presentation"
              xmlns:viewModels="clr-namespace:HunterPie.Features.Settings.ViewModels"
+             xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup;assembly=HunterPie.UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:SettingsViewModel}"
+             Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
              Loaded="OnLoaded">
     <UserControl.Resources>
-        <system:Boolean x:Key="True">True</system:Boolean>
         <converters:IconResolver x:Key="IconResolver"/>
         <converters:GameProcessToGameNameConverter x:Key="GameProcessToGameNameConverter"/>
         <presentation:ConfigurationPropertyDataTemplateSelector x:Key="ConfigurationPropertyDataTemplateSelector"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+        <Storyboard x:Key="DisableSettingComponentAnimation">
+            <DoubleAnimation To="0"
+                             Duration="0:0:0.25"
+                             Storyboard.TargetProperty="Opacity">
+                <DoubleAnimation.EasingFunction>
+                    <QuadraticEase/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation To="0"
+                             Duration="0:0:0.3"
+                             Storyboard.TargetProperty="(LayoutTransform).(ScaleTransform.ScaleY)">
+                <DoubleAnimation.EasingFunction>
+                    <QuadraticEase/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="EnableSettingComponentAnimation">
+            <DoubleAnimation To="1"
+                             Duration="0:0:0.25"
+                             Storyboard.TargetProperty="Opacity">
+                <DoubleAnimation.EasingFunction>
+                    <QuadraticEase/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation To="1"
+                             Duration="0:0:0.3"
+                             Storyboard.TargetProperty="(LayoutTransform).(ScaleTransform.ScaleY)">
+                <DoubleAnimation.EasingFunction>
+                    <QuadraticEase/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
 
         <DataTemplate x:Key="CategoryHeaderTemplate"
                       DataType="{x:Type viewModels:ConfigurationCategoryTab}">
             <buttons:TabItem Title="{Binding Category.Name, Mode=OneTime}"
                              Description="{Binding Category.Description, Mode=OneTime}"
                              Icon="{Binding Category.Icon, Mode=OneTime, Converter={StaticResource IconResolver}}"
-                             Background="{StaticResource GRAY_100}"
                              FontSize="13"
                              Margin="5, 2.5"/>
         </DataTemplate>
@@ -57,23 +89,23 @@
                 <loading:CircleLoading Width="15"
                                        Height="15"
                                        HorizontalAlignment="Left"/>
-                <TextBlock Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_FETCH_IN_PROGRESS_VERSION&quot;]'}"
+                <TextBlock Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_FETCH_IN_PROGRESS_VERSION&quot;]'}"
                            VerticalAlignment="Center"
                            FontWeight="Medium"
                            FontSize="13"
                            Margin="5,0,0,0"
-                           Foreground="{StaticResource WHITE_600}"/>
+                           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"/>
             </StackPanel>
         </DataTemplate>
 
         <DataTemplate x:Key="LatestVersionTemplate">
             <StackPanel Orientation="Horizontal">
-                <image:Icon Image="{StaticResource ICON_CHECKMARK_GREEN}"
-                            Foreground="{StaticResource GREEN_100}"
+                <image:Icon Image="{DynamicResource ICON_CHECKMARK_GREEN}"
+                            Foreground="{DynamicResource Brushes.HunterPie.Success}"
                             Width="20"
                             Height="20"/>
-                <TextBlock Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_IS_LATEST_VERSION&quot;]'}"
-                           Foreground="{StaticResource GREEN_100}"
+                <TextBlock Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_IS_LATEST_VERSION&quot;]'}"
+                           Foreground="{DynamicResource Brushes.HunterPie.Success}"
                            VerticalAlignment="Center"
                            FontWeight="Medium"
                            FontSize="13"
@@ -89,12 +121,12 @@
                             Click="OnRetryVersionFetchClick">
                 <StackPanel Orientation="Horizontal"
                             Margin="0,0,10,0">
-                    <image:Icon Image="{StaticResource ICON_ERROR_MASK}"
-                                Foreground="{StaticResource RED_50}"
+                    <image:Icon Image="{DynamicResource ICON_ERROR_MASK}"
+                                Foreground="{DynamicResource Brushes.HunterPie.Error}"
                                 Width="20"
                                 Height="20"/>
-                    <TextBlock Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_FETCH_FAILED_VERSION&quot;]'}"
-                               Foreground="{StaticResource RED_50}"
+                    <TextBlock Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_FETCH_FAILED_VERSION&quot;]'}"
+                               Foreground="{DynamicResource Brushes.HunterPie.Error}"
                                VerticalAlignment="Center"
                                FontWeight="Medium"
                                FontSize="13"
@@ -106,17 +138,16 @@
         <DataTemplate x:Key="NeedsUpdateVersionTemplate">
             <buttons:Button HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Padding="2"
+                            Padding="10,5"
                             CornerRadius="5"
                             Click="OnDownloadVersionClick">
-                <StackPanel Orientation="Horizontal"
-                            Margin="0,0,10,0">
-                    <image:Icon Image="{StaticResource ICON_DOWNLOAD_YELLOW}"
-                                Foreground="{StaticResource YELLOW}"
+                <StackPanel Orientation="Horizontal">
+                    <image:Icon Image="{DynamicResource ICON_DOWNLOAD_YELLOW}"
+                                Foreground="{DynamicResource Brushes.HunterPie.Warning}"
                                 Width="20"
                                 Height="20"/>
-                    <TextBlock Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_NOT_LATEST_VERSION&quot;]'}"
-                               Foreground="{StaticResource YELLOW}"
+                    <TextBlock Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;HUNTERPIE_NOT_LATEST_VERSION&quot;]'}"
+                               Foreground="{DynamicResource Brushes.HunterPie.Warning}"
                                VerticalAlignment="Center"
                                FontWeight="Medium"
                                FontSize="13"
@@ -147,69 +178,51 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:ConfigurationGroup}">
-                        <StackPanel Orientation="Vertical"
-                                    Margin="0,0,0,20">
-                            <Grid Margin="0,0,10,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" 
-                                           Text="{Binding Name, Mode=OneTime}"
-                                           FontSize="15"
-                                           Foreground="{StaticResource WHITE_600}"
-                                           Margin="5"
-                                           FontWeight="Medium"/>
-                                <Separator Grid.Column="1" 
-                                           Background="{StaticResource GRAY}"/>
-                            </Grid>
-                            
-                            <ItemsControl ItemsSource="{Binding Properties, Mode=OneTime}">
-                                <ItemsControl.Template>
-                                    <ControlTemplate>
-                                        <VirtualizingStackPanel IsItemsHost="True"
-                                                                CanVerticallyScroll="False"/>
-                                    </ControlTemplate>
-                                </ItemsControl.Template>
+                        <Border Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
+                                BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+                                BorderThickness="1"
+                                CornerRadius="5"
+                                Padding="5"
+                                Margin="5,5">
+                            <StackPanel Orientation="Vertical">
+                                <Grid Margin="0,0,10,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" 
+                                               Text="{Binding Name, Mode=OneTime}"
+                                               FontSize="15"
+                                               Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+                                               Margin="5"
+                                               FontWeight="Medium"/>
+                                    <Separator Grid.Column="1" 
+                                               Background="{DynamicResource Brushes.HunterPie.Border}"/>
+                                </Grid>
+    
+                                <ItemsControl ItemsSource="{Binding Properties, Mode=OneTime}">
+                                    <ItemsControl.Template>
+                                        <ControlTemplate>
+                                            <VirtualizingStackPanel IsItemsHost="True"
+                                                                    CanVerticallyScroll="False"
+                                                                    SizeChanged="OnSizeChanged"/>
+                                        </ControlTemplate>
+                                    </ItemsControl.Template>
 
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type settings:ConfigurationPropertyViewModel}">
-                                        <ContentPresenter ContentTemplateSelector="{StaticResource ConfigurationPropertyDataTemplateSelector}"
-                                                          Visibility="{Binding IsMatch, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                          IsEnabled="{Binding Condition.Value, Mode=OneWay, FallbackValue={StaticResource True}}">
-                                            <ContentPresenter.Style>
-                                                <Style TargetType="ContentPresenter">
-                                                    <Style.Triggers>
-                                                        <!-- IsEnabled animation -->
-                                                        <DataTrigger Binding="{Binding Condition.Value, Mode=OneWay, FallbackValue={StaticResource True}}"
-                                                                     Value="True">
-                                                            <DataTrigger.EnterActions>
-                                                                <BeginStoryboard>
-                                                                    <Storyboard>
-                                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                                                         To="1"
-                                                                                         Duration="0:0:0.25"/>
-                                                                    </Storyboard>
-                                                                </BeginStoryboard>
-                                                            </DataTrigger.EnterActions>
-                                                            <DataTrigger.ExitActions>
-                                                                <BeginStoryboard>
-                                                                    <Storyboard>
-                                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                                                         To="0.3"
-                                                                                         Duration="0:0:0.25"/>
-                                                                    </Storyboard>
-                                                                </BeginStoryboard>
-                                                            </DataTrigger.ExitActions>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </ContentPresenter.Style>
-                                        </ContentPresenter>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </StackPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type settings:ConfigurationPropertyViewModel}">
+                                            <ContentPresenter ContentTemplateSelector="{StaticResource ConfigurationPropertyDataTemplateSelector}"
+                                                              Visibility="{Binding IsMatch, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                              Loaded="OnSettingPropertyLoaded">
+                                                <ContentPresenter.LayoutTransform>
+                                                    <ScaleTransform ScaleY="0"/>
+                                                </ContentPresenter.LayoutTransform>
+                                            </ContentPresenter>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -221,9 +234,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0"
-                Background="{StaticResource GRAY_200}"
+                Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
                 BorderThickness="1,1,1,1"
-                BorderBrush="{StaticResource GRAY}"
+                BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                 CornerRadius="5,5,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -250,20 +263,20 @@
                             Orientation="Horizontal"
                             HorizontalAlignment="Right"
                             Margin="5,0">
-                    <image:Icon Image="{StaticResource ICON_RELOAD}"
+                    <image:Icon Image="{DynamicResource Icons.Refresh}"
                                 VerticalAlignment="Center"
-                                Foreground="{StaticResource WHITE_400}"
+                                Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
                                 Width="15"
                                 Height="{Binding Width, RelativeSource={RelativeSource Self}, Mode=OneWay}"
                                 Margin="5"/>
                     <TextBlock VerticalAlignment="Center"
                                HorizontalAlignment="Right"
                                FontSize="13"
-                               Foreground="{StaticResource WHITE_400}">
-                        <Run Text="{assets:LocalizationString '//Strings/Client/Generics/Generic[@Id=&quot;CONFIGURATION_SYNC_AT_STRING&quot;]'}"/>
+                               Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}">
+                        <Run Text="{markup:Localization '//Strings/Client/Generics/Generic[@Id=&quot;CONFIGURATION_SYNC_AT_STRING&quot;]'}"/>
                         <Run Text="{Binding SynchronizedAt, Mode=OneWay, StringFormat='G', ConverterCulture={x:Static gl:CultureInfo.CurrentCulture}}"
                              d:Text="00/00/0000 00:00"
-                             Foreground="{StaticResource WHITE_100}"/>
+                             Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"/>
                     </TextBlock>
                 </StackPanel>
 
@@ -299,7 +312,7 @@
                     TabStripPlacement="Left">
             <TabControl.Template>
                 <ControlTemplate TargetType="TabControl">
-                    <Border BorderBrush="{StaticResource GRAY}"
+                    <Border BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
                             BorderThickness="1,0,1,1"
                             CornerRadius="0,0,5,5"
                             ClipToBounds="True">
@@ -311,7 +324,8 @@
 
                             <viewer:SmoothScrollViewer Grid.Column="0"
                                                        VerticalScrollBarVisibility="Auto"
-                                                       Background="{StaticResource GRAY_200}">
+                                                       Margin="0,0,0,5"
+                                                       Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}">
                                 <TabPanel x:Name="HeaderPanel"
                                           IsItemsHost="True"/>
                             </viewer:SmoothScrollViewer>

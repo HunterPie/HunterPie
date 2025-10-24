@@ -13,7 +13,12 @@ public class BrushToColorConverter : IValueConverter
         if (value is not SolidColorBrush solidBrush)
             return PrimitiveColor.Transparent;
 
-        return solidBrush.Color;
+        Color color = solidBrush.Clone().Color;
+
+        if (parameter is double opacity)
+            color.A = (byte)(255 * opacity);
+
+        return color;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();

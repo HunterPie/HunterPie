@@ -11,7 +11,7 @@ public class IconResolver : IValueConverter
     public object? Convert(object? value, Type targetType, object parameter, CultureInfo culture)
     {
         if (value is not string icon)
-            throw new ArgumentException("Argument must be a string");
+            return null;
 
         return Resources.Icon(icon);
     }

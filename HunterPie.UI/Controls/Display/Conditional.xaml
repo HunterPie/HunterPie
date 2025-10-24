@@ -11,6 +11,6 @@
     <UserControl.Resources>
         <presentation:ConditionalTemplateSelector x:Key="ConditionalTemplateSelector"/>
     </UserControl.Resources>
-    <ContentControl Content="{Binding Condition, ElementName=ConditionalComponent}"
-                    ContentTemplateSelector="{StaticResource ConditionalTemplateSelector}"/>
+    <ContentControl Content="{Binding DataContext, ElementName=ConditionalComponent}"
+                    ContentTemplate="{Binding CurrentTemplate, ElementName=ConditionalComponent}"/>
 </UserControl>

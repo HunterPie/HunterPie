@@ -14,7 +14,7 @@ public partial class Switch : ClickableControl
         set => SetValue(IsActiveProperty, value);
     }
     public static readonly DependencyProperty IsActiveProperty =
-        DependencyProperty.Register("IsActive", typeof(bool), typeof(Switch), new PropertyMetadata(false));
+        DependencyProperty.Register(nameof(IsActive), typeof(bool), typeof(Switch), new PropertyMetadata(false));
 
     public Switch()
     {

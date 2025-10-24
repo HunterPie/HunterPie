@@ -8,7 +8,6 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environmen
 public class MHRSubmarine : IEventDispatcher, IUpdatable<MHRSubmarineData>, IDisposable
 {
     private int _count;
-    private int _daysLeft;
     private bool _isUnlocked;
 
     public int Count
@@ -26,6 +25,7 @@ public class MHRSubmarine : IEventDispatcher, IUpdatable<MHRSubmarineData>, IDis
 
     public int MaxCount { get; private set; } = 20;
 
+    private int _daysLeft;
     public int DaysLeft
     {
         get => _daysLeft;
@@ -38,6 +38,25 @@ public class MHRSubmarine : IEventDispatcher, IUpdatable<MHRSubmarineData>, IDis
             }
         }
     }
+
+    private int _daysBoosted;
+    public int DaysBoosted
+    {
+        get => _daysBoosted;
+        private set
+        {
+            if (value == _daysBoosted)
+                return;
+
+            _daysBoosted = value;
+            this.Dispatch(
+                toDispatch: _onDaysLeftChange,
+                data: this
+            );
+        }
+    }
+
+    public readonly int MaxDays = 9;
 
     public bool IsUnlocked
     {
@@ -76,6 +95,9 @@ public class MHRSubmarine : IEventDispatcher, IUpdatable<MHRSubmarineData>, IDis
     public void Update(MHRSubmarineData data)
     {
         DaysLeft = data.Data.DaysLeft;
+        DaysBoosted = data.Data.IsLagniappleEnabled == 1
+            ? Math.Min(MaxDays - DaysLeft, 3)
+            : 0;
         MaxCount = data.Items.Length;
         Count = data.Items.Count(item => item.IsNotEmpty());
         IsUnlocked = data.Data.Buddy != 0;

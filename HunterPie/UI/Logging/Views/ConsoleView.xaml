@@ -10,7 +10,11 @@
              d:DesignHeight="450" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:ConsoleViewModel}">
-    <Grid>
+    <Border BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+            Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
+            BorderThickness="1"
+            Margin="5,5,5,8"
+            CornerRadius="5">
         <ListBox ItemsSource="{Binding Logs, Mode=OneTime}"
                  Background="Transparent"
                  BorderThickness="0"
@@ -19,7 +23,7 @@
             <ListBox.Template>
                 <ControlTemplate>
                     <viewer:SmoothScrollViewer HorizontalScrollBarVisibility="Disabled">
-                        <ItemsPresenter/>
+                        <ItemsPresenter Margin="5"/>
                     </viewer:SmoothScrollViewer>
                 </ControlTemplate>
             </ListBox.Template>
@@ -30,5 +34,5 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-    </Grid>
+    </Border>
 </UserControl>

@@ -1,7 +1,10 @@
 ﻿using HunterPie.Core.Architecture;
+using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Scan.Service;
 using HunterPie.UI.Architecture.Graphs;
+using HunterPie.UI.Overlay.Enums;
+using HunterPie.UI.Overlay.ViewModels;
 using LiveCharts;
 using LiveCharts.Defaults;
 using System;
@@ -11,7 +14,7 @@ using System.Windows.Media;
 
 namespace HunterPie.UI.Overlay.Widgets.Metrics.ViewModel;
 
-public class TelemetricsViewModel : Bindable
+public class TelemetricsViewModel : WidgetViewModel
 {
 
     private long _memoryUsage;
@@ -69,8 +72,9 @@ public class TelemetricsViewModel : Bindable
     public Observable<long> ScanTime { get; }
 
     public TelemetricsViewModel(
+        TelemetricsWidgetConfig config,
         IScanService scanService
-    )
+    ) : base(config, "Metrics Widget", WidgetType.Window)
     {
         ScanTime = scanService.ElapsedTime;
         // TODO: Make the graphs easier to code

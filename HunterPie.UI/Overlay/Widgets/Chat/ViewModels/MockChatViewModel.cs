@@ -1,4 +1,5 @@
-﻿using HunterPie.UI.Architecture.Test;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.UI.Architecture.Test;
 using HunterPie.UI.Assets.Application;
 using System;
 using System.Collections;
@@ -9,7 +10,7 @@ namespace HunterPie.UI.Overlay.Widgets.Chat.ViewModels;
 
 internal class MockChatViewModel : ChatViewModel
 {
-    public MockChatViewModel()
+    public MockChatViewModel(ChatWidgetConfig config) : base(config)
     {
         SolidColorBrush[] playerColors =
         {

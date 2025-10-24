@@ -6,13 +6,13 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Colors.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Colors/Scheme.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Icons.xaml"/>
+                <!--<ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Seasons/SpookyPie.xaml"/>-->
+                <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Icons/General.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/HunterPie;component/Resources/Styles/Client.xaml"/>
-                <!--
-                    Spooky season
-                <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Seasons/SpookyPie.xaml"/>
-                -->
+                <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Themes/Base.xaml"/>
+                
                 <!-- 
                     Winter season 
                 <ResourceDictionary Source="pack://application:,,,/HunterPie.UI;component/Resources/Seasons/WinterPie.xaml"/>

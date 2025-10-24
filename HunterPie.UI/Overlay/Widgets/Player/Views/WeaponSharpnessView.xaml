@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.Views"
              xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Player.ViewModels"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -13,7 +12,6 @@
              d:DataContext="{d:DesignInstance vm:WeaponSharpnessViewModel}">
     <UserControl.Resources>
         <converters:SharpnessToColorConverter x:Key="SharpnessToColorConverter"/>
-        <converters:SharpnessToPreviousColorConverter x:Key="SharpnessToPreviousColorConverter"/>
         <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
 
         <sys:Boolean x:Key="ConvertToBrush">True</sys:Boolean>
@@ -31,7 +29,7 @@
               Height="13"
               Width="110"
               ClipToBounds="True">
-            <Rectangle Fill="{StaticResource GRAY_400}"
+            <Rectangle Fill="{StaticResource Gray@400}"
                        Width="94"
                        Height="13"
                        VerticalAlignment="Center"
@@ -72,7 +70,7 @@
                 </Rectangle.Width>
             </Rectangle>
 
-            <Border BorderBrush="{StaticResource GRAY_200}"
+            <Border BorderBrush="{StaticResource Gray@200}"
                     BorderThickness="3,2,3,2"
                     Width="94"
                     Height="13"
@@ -89,7 +87,7 @@
               Margin="15,0,0,0"
               HorizontalAlignment="Left"
               Grid.ColumnSpan="2">
-            <Rectangle Fill="{StaticResource GRAY_100}"
+            <Rectangle Fill="{StaticResource Gray@100}"
                        Width="25"
                        Height="25"
                        HorizontalAlignment="Left" 

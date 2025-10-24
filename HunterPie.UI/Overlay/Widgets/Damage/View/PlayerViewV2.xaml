@@ -3,11 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.View"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.ViewModels"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.Presentation"
-             xmlns:system="clr-namespace:System;assembly=System.Runtime"
              mc:Ignorable="d" 
              d:DesignHeight="40" 
              d:DesignWidth="300"
@@ -22,7 +20,7 @@
         <converters:ParentSizePercentageConverter x:Key="ParentSizePercentageConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
-    <Border BorderBrush="{StaticResource GRAY}"
+    <Border BorderBrush="{StaticResource Gray}"
             BorderThickness="0,1,0,0">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -61,10 +59,10 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0"
-                           Foreground="{StaticResource WHITE_50}">
+                           Foreground="{StaticResource White@50}">
                     <Run Text="Lv."
                          FontWeight="SemiBold"
-                         Foreground="{StaticResource WHITE_400}"
+                         Foreground="{StaticResource White@400}"
                          FontSize="10" />
                     <Run d:Text="180"
                          Text="{Binding MasterRank, Mode=OneWay}"
@@ -73,11 +71,11 @@
                 <TextBlock Grid.Row="1"
                            Text="{Binding Name, Mode=OneWay}"
                            d:Text="Player Name"
-                           Foreground="{StaticResource WHITE_50}"
+                           Foreground="{StaticResource White@50}"
                            VerticalAlignment="Center"
                            FontSize="14"
                            TextTrimming="CharacterEllipsis"
-                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}">
+                           FontFamily="{StaticResource Font.Default}">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Style.Triggers>
@@ -111,23 +109,23 @@
                 <TextBlock Grid.Column="0"
                            Grid.Row="0"
                            Grid.RowSpan="2"
-                           Foreground="{StaticResource WHITE}"
+                           Foreground="{StaticResource White}"
                            FontWeight="Medium"
                            FontSize="13"
                            VerticalAlignment="Center"
                            TextAlignment="Center"
                            Margin="0,0,5,0">
                     <Run d:Text="▴"
-                         d:Foreground="{StaticResource GREEN}">
+                         d:Foreground="{StaticResource Green}">
                         <Run.Style>
                             <Style TargetType="{x:Type Run}">
                                 <Setter Property="Text" Value="▾" />
-                                <Setter Property="Foreground" Value="{StaticResource RED}" />
+                                <Setter Property="Foreground" Value="{StaticResource Red}" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsIncreasing, Mode=OneWay}"
                                                  Value="True">
                                         <Setter Property="Text" Value="▴" />
-                                        <Setter Property="Foreground" Value="{StaticResource GREEN}" />
+                                        <Setter Property="Foreground" Value="{StaticResource Green}" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -137,7 +135,7 @@
                          Text="{Binding Bar.Percentage, Converter={StaticResource DoubleFlooringConverter}, StringFormat=\{0:F0\}}" /><!--
                  --><Run d:Text=".4%"
                          Text="{Binding Bar.Percentage, Converter={StaticResource DoubleToDecimalConverter}, StringFormat=\.\{0:D2\}\%}"
-                         Foreground="{StaticResource WHITE_500}"
+                         Foreground="{StaticResource White@500}"
                          FontSize="11"
                          FontWeight="Normal" />
                 </TextBlock>
@@ -150,16 +148,16 @@
                            Margin="0,0,2,0"
                            Visibility="{Binding ShouldShowDPS.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Run Text="DPS"
-                         Foreground="{StaticResource WHITE_400}"
+                         Foreground="{StaticResource White@400}"
                          FontSize="10"
                          FontWeight="SemiBold"/>
                     <Run d:Text="100.0"
                          Text="{Binding DPS, Mode=OneWay, StringFormat=\{0:F1\}}"
-                         Foreground="{StaticResource WHITE_50}"
+                         Foreground="{StaticResource White@50}"
                          FontWeight="Medium"/><!--
                  --><Run Text="/s"
                          FontSize="9"
-                         Foreground="{StaticResource WHITE_400}"/>
+                         Foreground="{StaticResource White@400}"/>
                 </TextBlock>
 
                 <!-- Total Damage -->
@@ -170,12 +168,12 @@
                            Margin="0,0,2,0"
                            Visibility="{Binding ShouldShowDamage.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Run Text="DMG"
-                         Foreground="{StaticResource WHITE_400}"
+                         Foreground="{StaticResource White@400}"
                          FontSize="10"
                          FontWeight="SemiBold"/>
                     <Run d:Text="100,000"
                          Text="{Binding Damage, Mode=OneWay, StringFormat={}{0:N0}}"
-                         Foreground="{StaticResource WHITE_50}"
+                         Foreground="{StaticResource White@50}"
                          FontWeight="Medium"/>
                 </TextBlock>
             </Grid>

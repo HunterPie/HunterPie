@@ -1,66 +1,124 @@
-﻿<architecture:View x:TypeArguments="viewModels:ClockViewModel" 
-                   x:Class="HunterPie.UI.Overlay.Widgets.Clock.Views.ClockView"
-                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-                   xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Clock.Views"
-                   xmlns:architecture="clr-namespace:HunterPie.UI.Architecture"
-                   xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Clock.ViewModels"
-                   xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
-                   xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
-                   xmlns:system="clr-namespace:System;assembly=System.Runtime"
-                   xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
-                   mc:Ignorable="d"
-                   d:DataContext="{d:DesignInstance Type=viewModels:ClockViewModel}"
-                   HorizontalAlignment="Center"
-                   Width="120">
+﻿<overlay:Widget x:Class="HunterPie.UI.Overlay.Widgets.Clock.Views.ClockView"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Clock.Views"
+                xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Clock.ViewModels"
+                xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+                xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
+                xmlns:system="clr-namespace:System;assembly=System.Runtime"
+                xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+                xmlns:game="clr-namespace:HunterPie.UI.Architecture.Converters.Game"
+                xmlns:overlay="clr-namespace:HunterPie.UI.Overlay"
+                mc:Ignorable="d"
+                d:DataContext="{d:DesignInstance Type=viewModels:ClockViewModel}"
+                HorizontalAlignment="Center"
+                Width="130"
+                Style="{DynamicResource Widgets.Clock}">
     <UserControl.Resources>
         <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
-        <system:Double x:Key="BackgroundOpacity">0.8</system:Double>
+        <system:Double x:Key="Background.Transparency">0.9</system:Double>
+        <game:MoonPhaseToStringConverter x:Key="MoonPhaseToStringConverter"/>
+        <converters:NumberToBooleanConverter x:Key="NumberToBooleanConverter"/>
     </UserControl.Resources>
-    <Border Padding="5"
-            BorderThickness="1"
-            BorderBrush="{Binding Source={StaticResource GRAY_50}, ConverterParameter={StaticResource BackgroundOpacity}, Converter={StaticResource BrushOpacityConverter}}"
-            Background="{Binding Source={StaticResource GRAY_500}, ConverterParameter={StaticResource BackgroundOpacity}, Converter={StaticResource BrushOpacityConverter}}"
-            CornerRadius="5">
-        <StackPanel Orientation="Vertical">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <image:Icon Grid.Column="0" 
-                            Image="{StaticResource ICON_HOUR_GLASS}"
-                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                            Foreground="{StaticResource WHITE_600}"/>
-                <TextBlock Grid.Column="1" 
-                           d:Text="00:00:00"
-                           Text="{Binding QuestTimeLeft, Mode=OneWay, StringFormat='hh\\:mm\\:ss', TargetNullValue='--:--:--'}"
-                           Foreground="{StaticResource WHITE_200}"
-                           HorizontalAlignment="Right"
-                           Margin="5,0,0,0"
-                           FontSize="13"/>
-            </Grid>
-            <Separator Margin="2"
-                       Background="{StaticResource GRAY_50}"/>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <image:Icon Grid.Column="0" 
-                            Image="{StaticResource ICON_GLOBE}"
-                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                            Foreground="{StaticResource WHITE_600}"/>
-                <TextBlock Grid.Column="1" 
-                           d:Text="10:00 PM"
-                           Text="{Binding WorldTime, Mode=OneWay, StringFormat='h:mm tt'}"
-                           Foreground="{StaticResource WHITE_200}"
-                           HorizontalAlignment="Right"
-                           Margin="5,0,0,0"
-                           FontSize="13"/>
-            </Grid>
-        </StackPanel>
-    </Border>
-</architecture:View>
+    <StackPanel Orientation="Vertical">
+        <Border Padding="2"
+                BorderBrush="{StaticResource Gray}"
+                BorderThickness="1"
+                Background="{Binding Source={StaticResource Gray@400}, ConverterParameter={StaticResource Background.Transparency}, Converter={StaticResource BrushOpacityConverter}}"
+                CornerRadius="5">
+            <StackPanel Orientation="Vertical">
+                <!-- Quest Timer -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <image:Icon Grid.Column="0" 
+                                Image="{StaticResource ICON_HOUR_GLASS}"
+                                Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                Foreground="{StaticResource White@700}"/>
+                    <TextBlock Grid.Column="1" 
+                               d:Text="00:00:00"
+                               Text="{Binding QuestTimeLeft, Mode=OneWay, StringFormat='hh\\:mm\\:ss', TargetNullValue='--:--:--'}"
+                               Foreground="{StaticResource White@200}"
+                               HorizontalAlignment="Right"
+                               Margin="5,0,0,0"
+                               FontSize="13"/>
+                </Grid>
+                <Separator Margin="2"
+                           Background="{StaticResource Gray}"/>
+
+                <!-- World Time -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <image:Icon Grid.Column="0" 
+                                Image="{StaticResource ICON_GLOBE}"
+                                Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                Foreground="{StaticResource White@700}"/>
+                    <TextBlock Grid.Column="1" 
+                               d:Text="10:00 PM"
+                               Text="{Binding WorldTime, Mode=OneWay, StringFormat='h:mm tt'}"
+                               Foreground="{StaticResource White@200}"
+                               HorizontalAlignment="Right"
+                               Margin="5,0,0,0"
+                               FontSize="13"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- Moon Phases -->
+        <Border Padding="5,2"
+                BorderBrush="{StaticResource Gray}"
+                BorderThickness="1"
+                Background="{Binding Source={StaticResource Gray@400}, ConverterParameter={StaticResource Background.Transparency}, Converter={StaticResource BrushOpacityConverter}}"
+                CornerRadius="5"
+                Margin="0,2,0,0">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsMoonPhaseEnabled.Value, Mode=OneWay}"
+                                           Value="True"/>
+                                <Condition Binding="{Binding Moons.Count, Mode=OneWay, Converter={StaticResource NumberToBooleanConverter}}"
+                                           Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <StackPanel Orientation="Vertical">
+                <TextBlock d:Text="Full Moon"
+                           Text="{Binding Moon.Phase, Mode=OneWay, FallbackValue={x:Null}, Converter={StaticResource MoonPhaseToStringConverter}}"
+                           FontWeight="Medium"
+                           HorizontalAlignment="Center"
+                           Foreground="{StaticResource White@200}"
+                           Margin="0,0,0,3"/>
+
+                <ItemsControl ItemsSource="{Binding Moons, Mode=OneTime}"
+                              d:ItemsSource="{d:SampleData ItemCount=7}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:MoonViewModel}">
+                            <local:MoonView Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="7"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</overlay:Widget>

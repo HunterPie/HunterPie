@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.Views"
-             xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.ViewModels"
@@ -13,24 +11,23 @@
              mc:Ignorable="d" 
              Height="82" 
              Width="295"
-             d:DataContext="{d:DesignInstance viewModels:DualBladesViewModel}">
+             d:DataContext="{d:DesignInstance viewModels:DualBladesViewModel}"
+             Style="{DynamicResource Widgets.Classes.DualBlades}">
     <UserControl.Resources>
-        <converters:PercentageToRelativeSizeConverter x:Key="PercentageToRelativeSizeConverter"/>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:RatioConverter x:Key="RatioConverter"/>
-        <converters:EqualityToBooleanConverter x:Key="EqualityToBooleanConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
-        <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource DUAL_BLADES_DEMON_BRUSH}, Mode=OneTime}"
+        <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource Brushes.Widgets.DualBlades.Demon}, Mode=OneTime}"
                              Opacity="1"
                              x:Key="DualBladesDemonBrushBorder"/>
-        <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource DUAL_BLADES_DEMON_BRUSH}, Mode=OneTime}"
+        <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource Brushes.Widgets.DualBlades.Demon}, Mode=OneTime}"
                              Opacity="0.3"
                              x:Key="DualBladesDemonBrushBackground"/>
-        <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource DUAL_BLADES_PIERCING_BIND_BRUSH}, Mode=OneTime}"
+        <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource Brushes.Widgets.DualBlades.PiercingBind}, Mode=OneTime}"
                              Opacity="1"
                              x:Key="DualBladesPiercingBindBrushBorder"/>
-        <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource DUAL_BLADES_PIERCING_BIND_BRUSH}, Mode=OneTime}"
+        <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource Brushes.Widgets.DualBlades.PiercingBind}, Mode=OneTime}"
                              Opacity="0.3"
                              x:Key="DualBladesPiercingBindBrushBackground"/>
     </UserControl.Resources>
@@ -47,8 +44,8 @@
         <!-- Piercing Bind -->
         <Border Grid.Row="0"
                 Grid.Column="1"
-                Background="{StaticResource GRAY_300}"
-                BorderBrush="{StaticResource GRAY_50}"
+                Background="{StaticResource Gray@300}"
+                BorderBrush="{StaticResource Gray@50}"
                 BorderThickness="1"
                 Height="15"
                 VerticalAlignment="Bottom"
@@ -64,7 +61,7 @@
             <TextBlock d:Text="00:00"
                        Text="{Binding PiercingBindTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"
                        HorizontalAlignment="Center"
-                       Foreground="{StaticResource WHITE_300}"
+                       Foreground="{StaticResource White@300}"
                        FontWeight="Medium"
                        VerticalAlignment="Center"
                        RenderTransformOrigin="0.5,0.5">
@@ -87,8 +84,8 @@
                       RenderTransformOrigin="0.5,0.5"
                       ForegroundColor="{StaticResource DualBladesPiercingBindBrushBackground}"
                       ForegroundBorder="{StaticResource DualBladesPiercingBindBrushBorder}"
-                      BackgroundColor="{StaticResource GRAY_400}"
-                      BackgroundBorder="{StaticResource GRAY_50}"
+                      BackgroundColor="{StaticResource Gray@400}"
+                      BackgroundBorder="{StaticResource Gray@50}"
                       Visibility="{Binding IsPiercingBindVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
             <progress:Bar.RenderTransform>
                 <SkewTransform AngleX="45"/>
@@ -98,8 +95,8 @@
         <!-- Demon Gauge -->
         <Border Grid.Row="1"
                 Grid.Column="1"
-                Background="{StaticResource GRAY_300}"
-                BorderBrush="{StaticResource GRAY_50}"
+                Background="{StaticResource Gray@300}"
+                BorderBrush="{StaticResource Gray@50}"
                 BorderThickness="1"
                 Height="15"
                 VerticalAlignment="Top"
@@ -114,7 +111,7 @@
             <TextBlock d:Text="0%"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       Foreground="{StaticResource WHITE_300}"
+                       Foreground="{StaticResource White@300}"
                        FontWeight="Medium"
                        RenderTransformOrigin="0.5,0.5">
                 <TextBlock.RenderTransform>
@@ -142,8 +139,8 @@
                       RenderTransformOrigin="0.5,0.5"
                       ForegroundColor="{StaticResource DualBladesDemonBrushBackground}"
                       ForegroundBorder="{StaticResource DualBladesDemonBrushBorder}"
-                      BackgroundColor="{StaticResource GRAY_400}"
-                      BackgroundBorder="{StaticResource GRAY_50}">
+                      BackgroundColor="{StaticResource Gray@400}"
+                      BackgroundBorder="{StaticResource Gray@50}">
             <progress:Bar.RenderTransform>
                 <SkewTransform AngleX="-45"/>
             </progress:Bar.RenderTransform>
@@ -158,11 +155,11 @@
                                                  Name="SbArchDemon">
                                     <Storyboard RepeatBehavior="Forever"
                                                 Duration="0:0:1.6">
-                                        <animation:BrushAnimation To="{StaticResource DUAL_BLADES_ARCH_DEMON_BLINK_BACKGROUND_BRUSH}"
+                                        <animation:BrushAnimation To="{StaticResource Brushes.Widgets.DualBlades.DemonBlink.Background}"
                                                                   Storyboard.TargetProperty="ForegroundColor"
                                                                   Duration="0:0:0.4"
                                                                   AutoReverse="True"/>
-                                        <animation:BrushAnimation To="{StaticResource DUAL_BLADES_ARCH_DEMON_BLINK_BRUSH}"
+                                        <animation:BrushAnimation To="{StaticResource Brushes.Widgets.DualBlades.DemonBlink.Foreground}"
                                                                   Storyboard.TargetProperty="ForegroundBorder"
                                                                   Duration="0:0:0.4"
                                                                   AutoReverse="True"/>
@@ -185,8 +182,8 @@
                 HorizontalAlignment="Left"
                 Margin="15" 
                 RenderTransformOrigin="0.5,0.5"
-                d:Background="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}"
-                d:BorderBrush="{StaticResource GRAY_50}"
+                d:Background="{StaticResource Brushes.Widgets.Classes.Background.Common}"
+                d:BorderBrush="{StaticResource Gray@50}"
                 BorderThickness="1">
             <Border.RenderTransform>
                 <TransformGroup>
@@ -194,7 +191,7 @@
                 </TransformGroup>
             </Border.RenderTransform>
             <image:Icon Image="{StaticResource ICON_DEMON_MODE}"
-                        d:Foreground="{StaticResource GRAY_50}"
+                        d:Foreground="{StaticResource Gray@50}"
                         Margin="8,8,5,5" 
                         RenderTransformOrigin="0.5,0.5">
                 <image:Icon.RenderTransform>
@@ -208,23 +205,23 @@
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding InDemonMode, Mode=OneWay}"
                                          Value="True">
-                                <Setter Property="Foreground" Value="{StaticResource DUAL_BLADES_DEMON_BRUSH}"/>
+                                <Setter Property="Foreground" Value="{StaticResource Brushes.Widgets.DualBlades.Demon}"/>
                                 <Setter Property="Effect">
                                     <Setter.Value>
                                         <DropShadowEffect ShadowDepth="0"
                                                           BlurRadius="2"
-                                                          Color="{StaticResource DUAL_BLADES_DEMON_COLOR}"/>
+                                                          Color="{StaticResource Brushes.Widgets.DualBlades.Demon.Shadow}"/>
                                     </Setter.Value>
                                 </Setter>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding InDemonMode, Mode=OneWay}"
                                          Value="False">
-                                <Setter Property="Foreground" Value="{StaticResource GRAY_50}"/>
+                                <Setter Property="Foreground" Value="{StaticResource Gray@50}"/>
                                 <Setter Property="Effect">
                                     <Setter.Value>
                                         <DropShadowEffect ShadowDepth="0"
                                                           BlurRadius="2"
-                                                          Color="{Binding Color, Source={StaticResource WHITE_600}}"/>
+                                                          Color="{Binding Color, Source={StaticResource White@600}}"/>
                                     </Setter.Value>
                                 </Setter>
                             </DataTrigger>
@@ -238,13 +235,13 @@
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding InDemonMode, Mode=OneWay}"
                                      Value="True">
-                            <Setter Property="Background" Value="{StaticResource DUAL_BLADES_DEMON_MODE_ACTIVE}"/>
-                            <Setter Property="BorderBrush" Value="{StaticResource DUAL_BLADES_DEMON_BRUSH}"/>
+                            <Setter Property="Background" Value="{StaticResource Brushes.Widgets.DualBlades.DemonMode.Active}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource Brushes.Widgets.DualBlades.Demon}"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding InDemonMode, Mode=OneWay}"
                                      Value="False">
-                            <Setter Property="Background" Value="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}"/>
-                            <Setter Property="BorderBrush" Value="{StaticResource GRAY_50}"/>
+                            <Setter Property="Background" Value="{StaticResource Brushes.Widgets.Classes.Background.Common}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource Gray@50}"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

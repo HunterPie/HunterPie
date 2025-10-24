@@ -26,7 +26,7 @@ public class MHWildsCryptoService : IDisposable
         _memory = memory;
     }
 
-    public async Task<float> DecryptFloat(MHWildsEncryptedFloat encrypted)
+    public async Task<float> DecryptFloatAsync(MHWildsEncryptedFloat encrypted)
     {
         CryptographyVectors vectors = await GetCryptographyVectors();
 

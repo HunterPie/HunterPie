@@ -1,23 +1,21 @@
-﻿<arch:View x:Class="HunterPie.UI.Overlay.Widgets.Damage.View.MeterView"
-           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-           xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-           xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.View"
-           xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.ViewModels"
-           d:DataContext="{d:DesignInstance Type=viewmodels:MeterViewModel}"
-           xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Components"
-           xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-           xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
-           x:TypeArguments="viewmodels:MeterViewModel"
-           xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
-           xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
-           mc:Ignorable="d" 
-           Width="300"
-           Style="{StaticResource STYLE_DAMAGE_METER_WIDGET}">
+﻿<overlay:Widget x:Class="HunterPie.UI.Overlay.Widgets.Damage.View.MeterView"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                 xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.View"
+                 xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.ViewModels"
+                 xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+                 xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
+                 xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+                 xmlns:overlay="clr-namespace:HunterPie.UI.Overlay"
+                 xmlns:views="clr-namespace:HunterPie.UI.Overlay.Views"
+                 mc:Ignorable="d" 
+                 Width="300"
+                 d:DataContext="{d:DesignInstance Type=viewmodels:MeterViewModel}"
+                 Style="{DynamicResource Widgets.DamageMeter}">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <viewmodels:MockMeterViewModel x:Key="MockViewModel"/>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:MaxDeathsToVisibilityConverter x:Key="MaxDeathsToVisibilityConverter"/>
     </UserControl.Resources>
@@ -26,7 +24,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition/>
-            <RowDefinition Height="{Binding ActualHeight, ElementName=PART_BottomBar}"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Header -->
@@ -38,8 +36,8 @@
                            Height="18"/>
                     <TextBlock Text="{Binding TimeElapsed, Converter={StaticResource SecondsToTimeString}, ConverterParameter='hh\\:mm\\:ss'}"
                                d:Text="3:33"
-                               Foreground="{StaticResource WHITE}"
-                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                               Foreground="{StaticResource White}"
+                               FontFamily="{StaticResource Font.Default}"
                                VerticalAlignment="Center"
                                FontSize="13"/>
                 </WrapPanel>
@@ -52,12 +50,12 @@
                            Height="18"/>
                     <TextBlock d:Text="2"
                                Text="{Binding Deaths, Mode=OneWay}"
-                               Foreground="{StaticResource WHITE}"
-                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                               Foreground="{StaticResource White}"
+                               FontFamily="{StaticResource Font.Default}"
                                VerticalAlignment="Center"
                                FontSize="13"/>
-                    <TextBlock Foreground="{StaticResource WHITE_200}"
-                               FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                    <TextBlock Foreground="{StaticResource White@200}"
+                               FontFamily="{StaticResource Font.Default}"
                                VerticalAlignment="Center"
                                FontSize="13"
                                Visibility="{Binding MaxDeaths, Mode=OneWay, Converter={StaticResource MaxDeathsToVisibilityConverter}}"
@@ -82,8 +80,7 @@
                     Orientation="Vertical">
             <ItemsControl ItemsSource="{Binding Players, Mode=OneTime}"
                           Margin="1,1,1,1" 
-                          Grid.Row="1"
-                          d:DataContext="{StaticResource MockViewModel}">
+                          Grid.Row="1">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical"
@@ -93,7 +90,8 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:PlayerViewModel}">
-                        <local:PlayerDamageView Height="38"/>
+                        <local:PlayerDamageView Height="38"
+                                                Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -127,8 +125,7 @@
                                 Height="120"
                                 DisableAnimations="True"
                                 Margin="1"
-                                Visibility="{Binding Settings.ShouldShowPlots.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                d:DataContext="{StaticResource MockViewModel}"
+                                Visibility="{Binding Config.ShouldShowPlots.Value, Converter={StaticResource BooleanToVisibilityConverter}}"
                                 Hoverable="False"
                                 DataTooltip="{x:Null}">
                 <lvc:CartesianChart.CacheMode>
@@ -139,11 +136,11 @@
                 <lvc:CartesianChart.AxisY>
                     <lvc:Axis MinValue="0"
                               LabelFormatter="{Binding DamageFormatter, Mode=OneWay}"
-                              FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"/>
+                              FontFamily="{StaticResource Font.Default}"/>
                 </lvc:CartesianChart.AxisY>
                 <lvc:CartesianChart.AxisX>
                     <lvc:Axis LabelFormatter="{Binding TimeFormatter, Mode=OneTime}"
-                              FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                              FontFamily="{StaticResource Font.Default}"
                               ShowLabels="False"/>
                 </lvc:CartesianChart.AxisX>
             </lvc:CartesianChart>
@@ -158,7 +155,7 @@
                             ToolTip="Highlight Myself"
                             Margin="0,0,5,0"
                             OnClick="OnPlayerHighlightToggle"
-                            Background="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}"
+                            Background="{StaticResource Gray@50}"
                             Height="25"
                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
                 <Image Source="{StaticResource ICON_SPARKLING}"/>
@@ -173,7 +170,7 @@
                             ToolTip="Hide names"
                             Margin="0,0,5,0"
                             OnClick="OnPlayerBlurToggle"
-                            Background="{StaticResource HUNTERPIE_BACKGROUND_LIGHTER}"
+                            Background="{StaticResource Gray@50}"
                             Height="25"
                             Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
                 <Image Source="{StaticResource ICON_HIDE}"/>
@@ -187,7 +184,7 @@
                 <Style TargetType="StackPanel">
                     <Setter Property="Height" Value="0"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type overlay:WidgetBase}}}" Value="True">
+                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type views:WidgetView}}}" Value="True">
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
@@ -212,4 +209,4 @@
             </StackPanel.Style>
         </StackPanel>
     </Grid>
-</arch:View>
+</overlay:Widget>

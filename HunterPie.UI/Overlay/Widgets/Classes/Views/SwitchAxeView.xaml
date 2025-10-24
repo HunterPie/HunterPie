@@ -3,28 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.Views"
              xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Classes.ViewModels"
              xmlns:progress="clr-namespace:HunterPie.UI.Overlay.Controls.Progress"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
-             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image" xmlns:sys="clr-namespace:System;assembly=netstandard"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:conditionals="clr-namespace:HunterPie.UI.Architecture.Converters.Conditionals"
              xmlns:bindings="clr-namespace:HunterPie.UI.Architecture.Bindings"
              xmlns:animation="clr-namespace:HunterPie.UI.Architecture.Animation"
              mc:Ignorable="d" 
              Height="82" 
              Width="295"
-             d:DataContext="{d:DesignInstance viewModels:SwitchAxeViewModel}">
+             d:DataContext="{d:DesignInstance viewModels:SwitchAxeViewModel}"
+             Style="{DynamicResource Widgets.Classes.SwitchAxe}">
     <UserControl.Resources>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:RatioConverter x:Key="RatioConverter"/>
         <converters:TimerToSizeConverter x:Key="TimerToSizeConverter"/>
         <converters:PercentageToLeftMarginDistanceConverter x:Key="PercentageToLeftMarginDistanceConverter"/>
         <conditionals:LessThanOrEqualConverter x:Key="LessThanOrEqualConverter"/>
-        <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource SWITCH_AXE_CHARGED_BRUSH}, Mode=OneTime}"
+        <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource Brushes.Widgets.SwitchAxe.Charged}, Mode=OneTime}"
                              Opacity="0.3"
                              x:Key="SwitchAxeChargeBrushBackground"/>
-        <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource SWITCH_AXE_POWER_AXE_BRUSH}, Mode=OneTime}"
+        <LinearGradientBrush GradientStops="{Binding GradientStops, Source={StaticResource Brushes.Widgets.SwitchAxe.PowerAxe}, Mode=OneTime}"
                              Opacity="0.3"
                              x:Key="SwitchAxePowerAxeBrushBackground"/>
 
@@ -63,9 +63,9 @@
               Grid.RowSpan="2">
             <Rectangle RenderTransformOrigin="0.5, 0.5"
                        Margin="13"
-                       Stroke="{StaticResource GRAY_50}"
+                       Stroke="{StaticResource Gray@50}"
                        StrokeThickness="1"
-                       Fill="{StaticResource COMMON_CLASS_HELPER_BACKGROUND}"
+                       Fill="{StaticResource Brushes.Widgets.Classes.Background.Common}"
                        Name="PART_BuffBackground">
                 <Rectangle.RenderTransform>
                     <RotateTransform Angle="45"/>
@@ -86,7 +86,7 @@
                            Canvas.Left="13"
                            d:Width="56"
                            d:Height="56"
-                           Stroke="{StaticResource SWITCH_AXE_POWER_AXE_BRUSH}"
+                           Stroke="{StaticResource Brushes.Widgets.SwitchAxe.PowerAxe}"
                            StrokeThickness="1"
                            Fill="{StaticResource SwitchAxePowerAxeBrushBackground}"
                            HorizontalAlignment="Stretch"
@@ -133,7 +133,7 @@
             <Border RenderTransformOrigin="0.5, 0.5"
                     Margin="17">
                 <Border.Background>
-                    <LinearGradientBrush GradientStops="{Binding GradientStops, Mode=OneTime, Source={StaticResource COMMON_CLASS_HELPER_BACKGROUND}}"
+                    <LinearGradientBrush GradientStops="{Binding GradientStops, Mode=OneTime, Source={StaticResource Brushes.Widgets.Classes.Background.Common}}"
                                          Opacity="0.9"/>
                 </Border.Background>
                 <Border.RenderTransform>
@@ -143,9 +143,9 @@
                 <TextBlock d:Text="00:00"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
-                           Foreground="{StaticResource WHITE_100}"
+                           Foreground="{StaticResource White@100}"
                            FontWeight="Medium"
-                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                           FontFamily="{StaticResource Font.Default}"
                            FontSize="14"
                            RenderTransformOrigin="0.5, 0.5">
                     <TextBlock.RenderTransform>
@@ -194,14 +194,14 @@
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Left"
                     BorderThickness="1"
-                    BorderBrush="{StaticResource GRAY_50}"
-                    Background="{StaticResource GRAY_300}" 
+                    BorderBrush="{StaticResource Gray@50}"
+                    Background="{StaticResource Gray@300}" 
                     Width="51">
                 <TextBlock d:Text="00:00"
-                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                           FontFamily="{StaticResource Font.Default}"
                            HorizontalAlignment="Center"
                            FontWeight="Medium"
-                           Foreground="{StaticResource WHITE_100}"
+                           Foreground="{StaticResource White@100}"
                            Text="{Binding PowerBuffTimer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"
                            RenderTransformOrigin="0.5, 0.5">
                     <TextBlock.RenderTransform>
@@ -217,10 +217,10 @@
                           d:MaxValue="100"
                           Value="{Binding PowerBuffTimer, Mode=OneWay}"
                           MaxValue="{Binding MaxPowerBuffTimer, Mode=OneWay}"
-                          ForegroundBorder="{StaticResource SWITCH_AXE_CHARGED_BRUSH}"
+                          ForegroundBorder="{StaticResource Brushes.Widgets.SwitchAxe.Charged}"
                           ForegroundColor="{StaticResource SwitchAxeChargeBrushBackground}"
-                          BackgroundBorder="{StaticResource GRAY_50}"
-                          BackgroundColor="{StaticResource GRAY_400}"/>
+                          BackgroundBorder="{StaticResource Gray@50}"
+                          BackgroundColor="{StaticResource Gray@400}"/>
         </Grid>
         
 
@@ -243,15 +243,15 @@
                           Border="1"
                           Value="{Binding BuildUp, Mode=OneWay}"
                           MaxValue="{Binding MaxBuildUp, Mode=OneWay}"
-                          d:ForegroundBorder="{StaticResource SWITCH_AXE_BUILD_UP_LOW_BRUSH}"
-                          d:ForegroundColor="{StaticResource SWITCH_AXE_BUILD_UP_LOW_BACKGROUND_BRUSH}"
-                          BackgroundBorder="{StaticResource GRAY_50}"
-                          BackgroundColor="{StaticResource GRAY_400}">
+                          d:ForegroundBorder="{StaticResource Brushes.Widgets.SwitchAxe.BuildUp.Low}"
+                          d:ForegroundColor="{StaticResource Brushes.Widgets.SwitchAxe.BuildUp.Low.Background}"
+                          BackgroundBorder="{StaticResource Gray@50}"
+                          BackgroundColor="{StaticResource Gray@400}">
                 <progress:Bar.Style>
                     <Style TargetType="progress:Bar"
                            BasedOn="{StaticResource DefaultProgressBarStyle}">
-                        <Setter Property="ForegroundBorder" Value="{StaticResource SWITCH_AXE_BUILD_UP_HIGH_BRUSH}"/>
-                        <Setter Property="ForegroundColor" Value="{StaticResource SWITCH_AXE_BUILD_UP_HIGH_BACKGROUND_BRUSH}"/>
+                        <Setter Property="ForegroundBorder" Value="{StaticResource Brushes.Widgets.SwitchAxe.BuildUp.High}"/>
+                        <Setter Property="ForegroundColor" Value="{StaticResource Brushes.Widgets.SwitchAxe.BuildUp.High.Background}"/>
                         <Style.Triggers>
                             <DataTrigger Value="True">
                                 <DataTrigger.Binding>
@@ -265,10 +265,10 @@
                                     <BeginStoryboard>
                                         <Storyboard>
                                             <animation:BrushAnimation Storyboard.TargetProperty="ForegroundBorder"
-                                                                      To="{StaticResource SWITCH_AXE_BUILD_UP_LOW_BRUSH}"
+                                                                      To="{StaticResource Brushes.Widgets.SwitchAxe.BuildUp.Low}"
                                                                       Duration="0:0:0.25"/>
                                             <animation:BrushAnimation Storyboard.TargetProperty="ForegroundColor"
-                                                                      To="{StaticResource SWITCH_AXE_BUILD_UP_LOW_BACKGROUND_BRUSH}"
+                                                                      To="{StaticResource Brushes.Widgets.SwitchAxe.BuildUp.Low.Background}"
                                                                       Duration="0:0:0.25"/>
                                         </Storyboard>
                                     </BeginStoryboard>
@@ -277,10 +277,10 @@
                                     <BeginStoryboard>
                                         <Storyboard>
                                             <animation:BrushAnimation Storyboard.TargetProperty="ForegroundBorder"
-                                                                      To="{StaticResource SWITCH_AXE_BUILD_UP_HIGH_BRUSH}"
+                                                                      To="{StaticResource Brushes.Widgets.SwitchAxe.BuildUp.High}"
                                                                       Duration="0:0:0.25"/>
                                             <animation:BrushAnimation Storyboard.TargetProperty="ForegroundColor"
-                                                                      To="{StaticResource SWITCH_AXE_BUILD_UP_HIGH_BACKGROUND_BRUSH}"
+                                                                      To="{StaticResource Brushes.Widgets.SwitchAxe.BuildUp.High.Background}"
                                                                       Duration="0:0:0.25"/>
                                         </Storyboard>
                                     </BeginStoryboard>
@@ -296,11 +296,11 @@
                     VerticalAlignment="Top"
                     HorizontalAlignment="Left"
                     BorderThickness="1"
-                    BorderBrush="{StaticResource GRAY_50}"
-                    Background="{StaticResource GRAY_300}">
+                    BorderBrush="{StaticResource Gray@50}"
+                    Background="{StaticResource Gray@300}">
                 <TextBlock d:Text="0%"
                            FontWeight="Medium"
-                           Foreground="{StaticResource WHITE_100}"
+                           Foreground="{StaticResource White@100}"
                            RenderTransformOrigin="0.5, 0.5">
                     <TextBlock.Text>
                         <MultiBinding Converter="{StaticResource RatioConverter}" StringFormat="{}{0:P0}">
@@ -321,7 +321,7 @@
                         Width="10"
                         Height="10"
                         Image="{StaticResource ICON_FUNNEL}"
-                        Foreground="{StaticResource WHITE_300}"
+                        Foreground="{StaticResource White@300}"
                         RenderTransformOrigin="0.5,0.5"
                         d:Margin="50,0,0,-2">
                 <image:Icon.Margin>

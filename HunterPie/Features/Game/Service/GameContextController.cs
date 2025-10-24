@@ -9,13 +9,13 @@ using HunterPie.Core.Game;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Utils;
 using HunterPie.Features.Backup.Services;
-using HunterPie.Features.Overlay;
+using HunterPie.Features.Overlay.Services;
+using HunterPie.Features.Overlay.Widgets;
 using HunterPie.Features.Scan.Service;
 using HunterPie.Integrations.Discord.Factory;
 using HunterPie.Integrations.Discord.Service;
 using HunterPie.Integrations.Services;
 using HunterPie.Integrations.Services.Exceptions;
-using HunterPie.UI.Overlay;
 using System;
 using System.Threading;
 using System.Windows;
@@ -35,6 +35,8 @@ internal class GameContextController : IDisposable
     private readonly IBackupService _backupService;
     private readonly IControllableScanService _controllableScanService;
     private readonly DiscordPresenceFactory _discordPresenceFactory;
+    private readonly OverlayManager _overlayManager;
+    private readonly WidgetInitializers _widgetInitializers;
 
     private CancellationTokenSource? _cancellationTokenSource;
     private DiscordPresenceService? _discordPresenceService;
@@ -45,7 +47,9 @@ internal class GameContextController : IDisposable
         IGameContextService gameContextService,
         IBackupService backupService,
         IControllableScanService controllableScanService,
-        DiscordPresenceFactory discordPresenceFactory)
+        DiscordPresenceFactory discordPresenceFactory,
+        OverlayManager overlayManager,
+        WidgetInitializers widgetInitializers)
     {
         _uiDispatcher = uiDispatcher;
         _processWatcherService = processWatcherService;
@@ -53,6 +57,8 @@ internal class GameContextController : IDisposable
         _backupService = backupService;
         _controllableScanService = controllableScanService;
         _discordPresenceFactory = discordPresenceFactory;
+        _overlayManager = overlayManager;
+        _widgetInitializers = widgetInitializers;
     }
 
     public void Subscribe()
@@ -71,11 +77,11 @@ internal class GameContextController : IDisposable
 
         await _logger.CatchAndLogAsync(async () =>
         {
-            await _uiDispatcher.InvokeAsync(() => WidgetManager.Hook(_context));
+            await _uiDispatcher.InvokeAsync(() => _overlayManager.Setup(_context));
 
             await ContextInitializers.InitializeAsync(_context);
 
-            await _uiDispatcher.InvokeAsync(() => WidgetInitializers.InitializeAsync(_context));
+            await _uiDispatcher.InvokeAsync(() => _widgetInitializers.InitializeAsync(_context));
 
             _controllableScanService.Start(_cancellationTokenSource.Token);
         });
@@ -106,8 +112,8 @@ internal class GameContextController : IDisposable
 
         _context = null;
 
-        await _uiDispatcher.InvokeAsync(WidgetInitializers.Unload);
-        WidgetManager.Dispose();
+        await _uiDispatcher.InvokeAsync(_widgetInitializers.Unload);
+        await _uiDispatcher.InvokeAsync(_overlayManager.Dispose);
 
         _logger.Info("Process has closed");
 

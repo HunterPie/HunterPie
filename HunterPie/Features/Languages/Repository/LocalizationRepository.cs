@@ -26,7 +26,9 @@ internal class LocalizationRepository : ILocalizationRepository
 
         return new LocalizationData(
             String: stringValue,
-            Description: attributes["Description"]?.Value ?? path
+            Description: attributes["Description"]?.Value ?? path,
+            Affixation: Enum.TryParse(attributes["Affixation"]?.Value, out Affixation afx) ? afx : Affixation.Prefix,
+            Order: short.TryParse(attributes["Order"]?.Value, out short ord) ? ord : (short)0
         );
     }
 
@@ -77,7 +79,9 @@ internal class LocalizationRepository : ILocalizationRepository
 
     private static LocalizationData CreateDefault(string path) => new(
         String: path,
-        Description: path
+        Description: path,
+        Affixation: Affixation.Prefix,
+        Order: 0
     );
 
     private static XmlDocument LocalizationDocumentFactory()

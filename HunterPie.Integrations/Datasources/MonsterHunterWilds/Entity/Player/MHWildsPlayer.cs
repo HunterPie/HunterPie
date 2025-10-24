@@ -1,10 +1,12 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
+using HunterPie.Core.Domain.Memory.Types;
 using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Data.Repository;
+using HunterPie.Core.Game.Entity;
 using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Entity.Player.Classes;
@@ -15,16 +17,25 @@ using HunterPie.Core.Game.Services;
 using HunterPie.Core.Scan.Service;
 using HunterPie.Core.Utils;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Abnormality;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Activities;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Party.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Player;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Quest;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Save;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Types;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Abnormalities;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Abnormalities.Data;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Activities;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Activities.Data;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Party.Data;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player.Weapons;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
 using WeaponType = HunterPie.Core.Game.Enums.Weapon;
@@ -67,8 +78,10 @@ public sealed class MHWildsPlayer : CommonPlayer
     private static readonly Lazy<int> DebuffIndexMax = new(static () => DebuffDefinitions.Value.Max(it => it.Index));
 
     private readonly MHWildsMonsterTargetKeyManager _monsterTargetKeyManager;
+    private readonly MHWildsCryptoService _cryptoService;
 
     private nint _address;
+    private nint _saveAddress;
 
     private string _name = string.Empty;
     public override string Name
@@ -171,13 +184,24 @@ public sealed class MHWildsPlayer : CommonPlayer
         }
     }
 
+    public MHWildsMaterialRetrieval MaterialRetrieval { get; } = new();
+
+    public MHWildsSupportShip SupportShip { get; } = new();
+
+    public MHWildsIngredientsCenter IngredientsCenter { get; } = new();
+
+    private readonly MHWildsSpecializedTool[] _tools = { new(), new() };
+    public IReadOnlyCollection<ISpecializedTool> Tools => _tools;
+
     public MHWildsPlayer(
         IGameProcess process,
         IScanService scanService,
-        MHWildsMonsterTargetKeyManager monsterTargetKeyManager) : base(process, scanService)
+        MHWildsMonsterTargetKeyManager monsterTargetKeyManager,
+        MHWildsCryptoService cryptoService) : base(process, scanService)
     {
         _monsterTargetKeyManager = monsterTargetKeyManager;
-        Weapon = new MHWildsWeapon(WeaponType.Greatsword);
+        _cryptoService = cryptoService;
+        _weapon = new MHWildsWeapon(WeaponType.Greatsword);
     }
 
     [ScannableMethod]
@@ -345,6 +369,10 @@ public sealed class MHWildsPlayer : CommonPlayer
             membersData[i] = data;
         }
 
+        IEnumerable<UpdatePartyMember> npcPartyMembers = await GetNpcPartyMembersAsync(playerCount: membersData.Length);
+        membersData = membersData.Concat(npcPartyMembers)
+            .ToArray();
+
         _party.Update(new UpdateParty
         {
             Players = membersData.Where(it => it.IsValid)
@@ -353,6 +381,49 @@ public sealed class MHWildsPlayer : CommonPlayer
         });
 
         membersData.ForEach(_party.Update);
+    }
+
+    private async Task<IEnumerable<UpdatePartyMember>> GetNpcPartyMembersAsync(int playerCount)
+    {
+        List<UpdatePartyMember> members = new();
+        Ref<nint> npcArrayPointer = await Memory.ReadAsync(
+            address: AddressMap.GetAbsolute("Game::NpcManager"),
+            offsets: AddressMap.GetOffsets("Npcs::Party")
+        );
+        IAsyncEnumerable<MHWildsNpcPartyMember> npcPointers = Memory.ReadArrayOfPtrsSafeAsync<MHWildsNpcPartyMember>(
+            address: await npcArrayPointer.Deref(Memory),
+            size: 6
+        );
+
+        int index = 0;
+        await foreach (MHWildsNpcPartyMember npc in npcPointers)
+        {
+            if (!npc.IsInParty() || npc.IsHandler())
+                continue;
+
+            nint damageHistoryPointer = await Memory.ReadPtrAsync(
+                address: npc.ContextPointer,
+                offsets: AddressMap.GetOffsets("Npc::DamageHistory")
+            );
+            Task<float> damageDefer = GetHistoricalPlayerDamage(damageHistoryPointer);
+            MHWildsNpcCreation creationParams = await npc.CreationParams.Deref(Memory);
+
+            members.Add(new UpdatePartyMember
+            {
+                Id = npc.ContextPointer,
+                Name = creationParams.Id.ToNpcName(),
+                IsNpc = true,
+                IsValid = true,
+                Damage = await damageDefer,
+                HunterRank = 100,
+                IsMyself = false,
+                Index = playerCount + index,
+                Weapon = creationParams.Weapon,
+            });
+            index++;
+        }
+
+        return members;
     }
 
     private async Task<float> GetDamageByPlayerAsync(nint address, int index)
@@ -368,16 +439,15 @@ public sealed class MHWildsPlayer : CommonPlayer
         if (syncedDamage > 0)
             return syncedDamage;
 
-        return await GetHistoricalPlayerDamage(address);
-        ;
-    }
-
-    private async Task<float> GetHistoricalPlayerDamage(nint playerAddress)
-    {
         nint damageHistoryPointer = await Memory.ReadPtrAsync(
-            address: playerAddress,
+            address: address,
             offsets: AddressMap.GetOffsets("Player::DamageHistory")
         );
+        return await GetHistoricalPlayerDamage(damageHistoryPointer);
+    }
+
+    private async Task<float> GetHistoricalPlayerDamage(nint damageHistoryPointer)
+    {
         MHWildsDamageHistory damageHistory = await Memory.ReadAsync<MHWildsDamageHistory>(damageHistoryPointer);
 
         if (damageHistory.Size <= 0)
@@ -453,6 +523,189 @@ public sealed class MHWildsPlayer : CommonPlayer
         );
 
         return context.WeaponId;
+    }
+
+    [ScannableMethod]
+    internal async Task GetActivitiesAsync()
+    {
+        int saveIndex = await Memory.DerefAsync<int>(
+            address: AddressMap.GetAbsolute("Game::SaveManager"),
+            offsets: AddressMap.GetOffsets("Save::Index")
+        );
+
+        nint saveDataArray = await Memory.ReadAsync(
+            address: AddressMap.GetAbsolute("Game::SaveManager"),
+            offsets: AddressMap.GetOffsets("Save::Data")
+        );
+        _saveAddress = await Memory.ReadAsync<nint>(saveDataArray + (sizeof(long) * saveIndex));
+
+        await Task.WhenAll(
+            GetMaterialRetrievalAsync(_saveAddress),
+            GetSupportShipAsync(_saveAddress),
+            GetIngredientsCenterAsync(_saveAddress)
+        );
+    }
+
+    private async Task GetMaterialRetrievalAsync(nint saveAddress)
+    {
+        const int maxItems = 16;
+        nint sourcesArrayPointer = await Memory.ReadPtrAsync(
+            address: saveAddress,
+            offsets: AddressMap.GetOffsets("Activities::MaterialRetrieval")
+        );
+
+        IAsyncEnumerable<MHWildsMaterialCollector> collectors = Memory.ReadArrayOfPtrsSafeAsync<MHWildsMaterialCollector>(
+            address: sourcesArrayPointer,
+            count: 12
+        );
+
+        await foreach (MHWildsMaterialCollector collector in collectors)
+        {
+            if (collector.Id.ToMaterialRetrievalSourceType() is not { } type)
+                continue;
+
+            List<MHWildsMaterialCollectorItem> items = Memory.ReadArrayOfPtrsSafeAsync<MHWildsMaterialCollectorItem>(
+                address: collector.ItemsPointer,
+                count: maxItems
+            ).Collect();
+
+            var updateData = new UpdateMaterialCollectorData
+            {
+                Collector = type,
+                Count = items.Count(it => it.Count > 0),
+                MaxCount = maxItems
+            };
+
+            MaterialRetrieval.Update(updateData);
+        }
+    }
+
+    private async Task GetSupportShipAsync(nint saveAddress)
+    {
+        MHWildsSupportShipContext context = await Memory.DerefPtrAsync<MHWildsSupportShipContext>(
+            address: saveAddress,
+            offsets: AddressMap.GetOffsets("Activities::SupportShip")
+        );
+
+        SupportShip.Update(context);
+    }
+
+    private async Task GetIngredientsCenterAsync(nint saveAddress)
+    {
+        MHWildsIngredientCenterContext context = await Memory.DerefPtrAsync<MHWildsIngredientCenterContext>(
+            address: saveAddress,
+            offsets: AddressMap.GetOffsets("Activities::IngredientsCenter")
+        );
+
+        IngredientsCenter.Update(context);
+    }
+
+    [ScannableMethod]
+    public async Task GetSpecializedToolsAsync()
+    {
+        nint specializedToolPointers = await Memory.ReadPtrAsync(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Player::SpecializedTools")
+        );
+        List<MHWildsSpecializedToolContext> contexts = Memory.ReadArrayOfPtrsSafeAsync<MHWildsSpecializedToolContext>(
+            address: specializedToolPointers,
+            count: 5
+        ).Collect();
+
+        int[] toolIds =
+        {
+            1,
+            await GetSecondaryToolId()
+        };
+
+        for (int i = 0; i < _tools.Length; i++)
+        {
+            MHWildsSpecializedTool tool = _tools[i];
+            int id = toolIds[i];
+            int normalizedId = id - 1;
+            var type = id.ToSpecializedToolType();
+
+            if (type is not { } toolType)
+                continue;
+
+            MHWildsSpecializedToolContext? context = normalizedId >= 0 && normalizedId < contexts.Count
+                ? contexts[normalizedId]
+                : null;
+
+            if (context is not { } ctx)
+                continue;
+
+            Task<MHWildsEncryptedFloat> timerDefer = ctx.Timer.Deref(Memory);
+            Task<MHWildsEncryptedFloat> maxTimerDefer = ctx.MaxTimer.Deref(Memory);
+            Task<MHWildsEncryptedFloat> cooldownDefer = ctx.Cooldown.Deref(Memory);
+            Task<MHWildsEncryptedFloat> maxCooldownDefer = ctx.MaxCooldown.Deref(Memory);
+
+            var data = new UpdateSpecializedTool
+            {
+                Type = toolType,
+                Timer = await _cryptoService.DecryptFloatAsync(await timerDefer),
+                MaxTimer = await _cryptoService.DecryptFloatAsync(await maxTimerDefer),
+                Cooldown = await _cryptoService.DecryptFloatAsync(await cooldownDefer),
+                MaxCooldown = await _cryptoService.DecryptFloatAsync(await maxCooldownDefer),
+                IsTimerActive = ctx.InUse
+            };
+
+            tool.Update(data);
+        }
+    }
+
+    private async Task<int> GetSecondaryToolId()
+    {
+        bool inArena = await Memory.DerefAsync<int>(
+            address: AddressMap.GetAbsolute("Game::PlayerManager"),
+            offsets: AddressMap.GetOffsets("Player::IsInArena")
+        ) >= 1;
+
+        if (!inArena)
+        {
+            MHWildsSaveEquipment equipment = await Memory.DerefPtrAsync<MHWildsSaveEquipment>(
+                address: _saveAddress,
+                offsets: AddressMap.GetOffsets("Save::SpecializedTool")
+            );
+
+            return equipment.SpecializedToolId;
+        }
+
+
+        Task<int> missionIdDefer = Memory.DerefAsync<int>(
+            address: AddressMap.GetAbsolute("Game::QuestManager"),
+            offsets: AddressMap.GetOffsets("Quest::MissionId")
+        );
+
+        Task<int> selectedLoadoutIndexDefer = Memory.DerefAsync<int>(
+            address: AddressMap.GetAbsolute("Game::QuestManager"),
+            offsets: AddressMap.GetOffsets("Quest::Arena::SelectedLoadout")
+        );
+
+        nint arenaDataArrayPointer = await Memory.DerefAsync<nint>(
+            address: AddressMap.GetAbsolute("Game::QuestManager"),
+            offsets: AddressMap.GetOffsets("Quest::Arena::Data")
+        );
+        IAsyncEnumerable<MHWildsArenaData> arenaData = Memory.ReadArrayOfPtrsSafeAsync<MHWildsArenaData>(
+            address: arenaDataArrayPointer,
+            count: 50
+        );
+
+        int missionId = await missionIdDefer;
+        int selectedLoadoutIndex = await selectedLoadoutIndexDefer;
+        await foreach (MHWildsArenaData data in arenaData)
+        {
+            MHWildsArenaMissionData mission = await data.Mission.Deref(Memory);
+            if (mission.Id != missionId)
+                continue;
+
+            MHWildsArenaLoadoutData selectedLoadout = await data.Loadouts.ElementAt(Memory, selectedLoadoutIndex);
+            MHWildsArenaLoadoutEquipmentData equipment = await selectedLoadout.Equipment.Deref(Memory);
+
+            return equipment.SpecializedToolId;
+        }
+
+        return default;
     }
 
     [ScannableMethod]
@@ -547,7 +800,8 @@ public sealed class MHWildsPlayer : CommonPlayer
             var data = new UpdateAbnormalityData
             {
                 Timer = songTimers[i],
-                MaxTimer = songMaxTimers[i]
+                MaxTimer = songMaxTimers[i],
+                ShouldInferMaxTimer = definition.HasMaxTimer
             };
 
             HandleAbnormality(
@@ -739,5 +993,13 @@ public sealed class MHWildsPlayer : CommonPlayer
                 activator: () => new MHWildsAbnormality(definition, AbnormalityType.Debuff)
             );
         }
+    }
+
+    public override void Dispose()
+    {
+        base.Dispose();
+        MaterialRetrieval.Dispose();
+        SupportShip.Dispose();
+        _tools.DisposeAll();
     }
 }

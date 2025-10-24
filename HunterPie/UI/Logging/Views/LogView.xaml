@@ -3,24 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters;assembly=HunterPie.UI"
              xmlns:entity="clr-namespace:HunterPie.UI.Logging.Entity"
              xmlns:presentation="clr-namespace:HunterPie.UI.Logging.Presentation"
              mc:Ignorable="d"
              d:DesignWidth="400"
              d:DataContext="{d:DesignInstance entity:LogString}">
     <UserControl.Resources>
-        <converters:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
         <presentation:LogLevelToColorConverter x:Key="LogLevelToColorConverter"/>
-        <presentation:LogLevelToStringConverter x:Key="LogLevelToStringConverter"/>
     </UserControl.Resources>
     <Grid>
         <WrapPanel Orientation="Horizontal">
             <!-- Timestamp -->
             <TextBlock Text="{Binding Timestamp, Mode=OneTime}"
                        d:Text="[12:03:59]"
-                       Foreground="{StaticResource HUNTERPIE_FOREGROUND_DARK}"
-                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                        MinWidth="65"
                        Margin="5,0,5,0"
                        FontSize="13"
@@ -42,7 +38,6 @@
                            d:Text="Info"
                            d:Foreground="AliceBlue"
                            Foreground="{Binding Level, Mode=OneTime, Converter={StaticResource LogLevelToColorConverter}}"
-                           FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
                            FontWeight="Medium"
                            TextAlignment="Center"
                            Padding="5,2,5,2"/>
@@ -50,8 +45,7 @@
 
             <TextBlock Text="{Binding Message, Mode=OneTime}"
                        d:Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                       Foreground="{StaticResource WHITE_50}"
-                       FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
                        FontWeight="Medium"
                        FontSize="13"
                        Padding="5,2"

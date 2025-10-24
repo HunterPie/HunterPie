@@ -1,0 +1,204 @@
+﻿<UserControl x:Class="HunterPie.Features.Theme.Views.InstalledThemeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.Features.Theme.Views"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
+             xmlns:viewModels="clr-namespace:HunterPie.Features.Theme.ViewModels"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI"
+             xmlns:effects="clr-namespace:HunterPie.UI.Controls.Effects;assembly=HunterPie.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="80" 
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewModels:InstalledThemeViewModel}">
+    <UserControl.Resources>
+        <DataTemplate x:Key="Internal.DefaultTemplate">
+            <Border Background="{DynamicResource Brushes.HunterPie.Border}"
+                    CornerRadius="5"
+                    BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+                    BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition >
+                            <ColumnDefinition.Style>
+                                <Style TargetType="ColumnDefinition">
+                                    <Setter Property="Width" Value="40"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsEnabled, Mode=OneWay}"
+                                                     Value="False">
+                                            <Setter Property="Width" Value="0"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ColumnDefinition.Style>
+                        </ColumnDefinition>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <effects:CursorHighLight Grid.Column="0">
+                        <image:Icon Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+                                    Background="{DynamicResource Brushes.HunterPie.Border}"
+                                    Image="{DynamicResource Icons.Chevron.UpDown}"
+                                    Margin="10"
+                                    MouseLeftButtonDown="OnDragButtonDown"
+                                    Cursor="SizeAll"/>
+                    </effects:CursorHighLight>
+
+                    <Border Grid.Column="1"
+                            Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
+                            CornerRadius="5,4.5,4.5,5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0" 
+                                  Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Header -->
+                                <TextBlock Grid.Row="0"
+                                           FontSize="14"
+                                           FontWeight="Medium"
+                                           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}">
+                                    <Run Text="{Binding Name, Mode=OneWay}"
+                                         d:Text="Theme Name"/>
+                                    <Run Text="{Binding Version, Mode=OneWay}"
+                                         d:Text="1.0.0"
+                                         Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+                                         FontSize="10"/>
+                                </TextBlock>
+
+                                <!-- Author -->
+                                <TextBlock Grid.Row="1"
+                                           FontSize="10"
+                                           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}">
+                                    <Run Text="by"/>
+                                    <Run Text="{Binding Author, Mode=OneWay}"
+                                         d:Text="Haato"/>
+                                </TextBlock>
+
+                                <!-- Description -->
+                                <TextBlock Grid.Row="2"
+                                           Text="{Binding Description, Mode=OneWay}"
+                                           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+                                           TextWrapping="WrapWithOverflow"
+                                           TextTrimming="WordEllipsis"
+                                           d:Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac erat quis nisi lacinia lacinia in at lacus. Vivamus nec diam felis. Mauris hendrerit faucibus maximus."/>
+                            </Grid>
+
+                            <StackPanel Grid.Column="1"
+                                        Margin="5"
+                                        Orientation="Horizontal">
+                                <buttons:Button VerticalContentAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                Width="30"
+                                                Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                                                BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+                                                BorderThickness="1"
+                                                Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
+                                                CornerRadius="5"
+                                                Margin="2.5"
+                                                Click="OnOpenFolderClick">
+                                    <image:Icon Foreground="{DynamicResource Brushes.HunterPie.Foreground.Secondary}"
+                                                Image="{DynamicResource Icons.Folder}"/>
+                                </buttons:Button>
+
+                                <buttons:Switch Click="OnEnableTheme"
+                                                IsActive="{Binding IsEnabled, Mode=OneWay}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Opacity" Value="1"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsBeingDragged, Mode=OneWay}"
+                                         Value="True">
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="Internal.DragOverTemplate">
+            <Border Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
+                    CornerRadius="5"
+                    BorderThickness="1"
+                    RenderTransformOrigin="0.5,0.5">
+                <Border.BorderBrush>
+                    <DrawingBrush Viewport="0,0,15,15" 
+                                  ViewportUnits="Absolute" 
+                                  TileMode="Tile">
+                        <DrawingBrush.Drawing>
+                            <DrawingGroup>
+                                <GeometryDrawing Brush="{DynamicResource Brushes.HunterPie.Border}">
+                                    <GeometryDrawing.Geometry>
+                                        <GeometryGroup>
+                                            <RectangleGeometry Rect="0,0,1,1" />
+                                            <RectangleGeometry Rect="1,1,1,1" />
+                                        </GeometryGroup>
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </Border.BorderBrush>
+
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <Trigger Property="IsVisible"
+                                     Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation From="0"
+                                                             Duration="0:0:0.250"
+                                                             Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <QuadraticEase/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <ContentPresenter d:ContentTemplate="{StaticResource Internal.DefaultTemplate}"
+                      Content="{Binding }">
+        <ContentPresenter.Style>
+            <Style TargetType="ContentPresenter">
+                <Setter Property="ContentTemplate" Value="{StaticResource Internal.DefaultTemplate}"/>
+                <Style.Triggers>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsEnabled, Mode=OneWay}"
+                                       Value="True"/>
+                            <Condition Binding="{Binding IsDraggingOver, Mode=OneWay}"
+                                       Value="True"/>
+                            <Condition Binding="{Binding IsBeingDragged, Mode=OneWay}"
+                                       Value="False"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="ContentTemplate" Value="{StaticResource Internal.DragOverTemplate}"/>
+                    </MultiDataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ContentPresenter.Style>
+    </ContentPresenter>
+</UserControl>

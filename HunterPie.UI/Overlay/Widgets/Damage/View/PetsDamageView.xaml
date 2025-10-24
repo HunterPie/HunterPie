@@ -52,8 +52,8 @@
 
         <TextBlock d:Text="Otomos"
                    Text="{Binding Name, Mode=OneWay}"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
+                   FontFamily="{StaticResource Font.Default}"
+                   Foreground="{StaticResource White}"
                    FontSize="16"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Stretch"
@@ -62,8 +62,8 @@
 
         <TextBlock d:Text="26,354"
                    Text="{Binding TotalDamage, Mode=OneWay}"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource HUNTERPIE_FOREGROUND_SECONDARY}"
+                   FontFamily="{StaticResource Font.Default}"
+                   Foreground="{StaticResource White@200}"
                    FontSize="16"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"

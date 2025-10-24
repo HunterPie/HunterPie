@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
 <Abnormalities>
     <Songs>
         <Abnormality Id="38"
@@ -43,10 +42,10 @@
                      Icon="ICON_MANTLEUP" />
         <Abnormality Id="80"
                      Name="ABNORMALITY_HEALTH_REC"
-                     Icon="ICON_NATURALHEALING" />
+                     Icon="Abnormalities.NaturalHealing" />
         <Abnormality Id="84"
                      Name="ABNORMALITY_HEALTH_REC_L"
-                     Icon="ICON_NATURALHEALING" />
+                     Icon="Abnormalities.NaturalHealing" />
         <Abnormality Id="88"
                      Name="ABNORMALITY_EARPLUG"
                      Icon="ICON_EARPLUGS" />
@@ -162,7 +161,7 @@
                      Icon="ICON_AFFINITY" />
         <Abnormality Id="134"
                      Name="ABNORMALITY_HEALTH_REC"
-                     Icon="ICON_NATURALHEALING" />
+                     Icon="Abnormalities.NaturalHealing" />
         <Abnormality Id="138"
                      Name="ABNORMALITY_HEALTH_BOOST"
                      Icon="ICON_HEALTHUP" />
@@ -220,7 +219,7 @@
                      Name="ABNORMALITY_BLEED"
                      Icon="ICON_BLEED" />
         <Abnormality Id="604"
-                     Icon="ICON_NATURALHEALING" />
+                     Icon="Abnormalities.NaturalHealing" />
         <Abnormality Id="608"
                      Name="ABNORMALITY_EFFLUVIA"
                      Icon="ICON_EFFLUVIA" />
@@ -250,7 +249,7 @@
                      Icon="ICON_STAMINAUP" />
         <Abnormality Id="698"
                      Name="ABNORMALITY_ASTERA_JERKY"
-                     Icon="ICON_NATURALHEALING" />
+                     Icon="Abnormalities.NaturalHealing" />
         <Abnormality Id="6A0-8"
                      Name="ABNORMALITY_MIGHT_SEED"
                      Offset="6A0"
@@ -336,9 +335,7 @@
                      Name="ABNORMALITY_FOOD_TIMER"
                      Icon="ICON_MEAT" />
     </Foods>
-    <Gears>
-
-    </Gears>
+    <Gears />
     <Skills>
         <Abnormality Id="6CC"
                      Name="ABNORMALITY_DEMON_AMMO"

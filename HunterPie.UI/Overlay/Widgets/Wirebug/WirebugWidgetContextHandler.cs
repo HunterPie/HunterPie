@@ -1,9 +1,6 @@
-﻿using HunterPie.Core.Client;
-using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.Integrations.Datasources.MonsterHunterRise;
+﻿using HunterPie.Integrations.Datasources.MonsterHunterRise;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
-using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
-using HunterPie.UI.Overlay.Widgets.Wirebug.Views;
+using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModels;
 using System;
 using System.Collections.Generic;
 
@@ -18,15 +15,13 @@ public class WirebugWidgetContextHandler : IContextHandler
     };
     private readonly MHRContext _context;
     private readonly WirebugsViewModel _viewModel;
-    private readonly WirebugsView _view;
     private MHRPlayer Player => (MHRPlayer)_context.Game.Player;
 
-    public WirebugWidgetContextHandler(MHRContext context)
+    public WirebugWidgetContextHandler(
+        MHRContext context,
+        WirebugsViewModel viewModel)
     {
-        _view = new WirebugsView(ClientConfig.Config.Rise.Overlay.WirebugWidget);
-        _ = WidgetManager.Register<WirebugsView, WirebugWidgetConfig>(_view);
-
-        _viewModel = _view.ViewModel;
+        _viewModel = viewModel;
         _context = context;
 
         HookEvents();
@@ -49,15 +44,13 @@ public class WirebugWidgetContextHandler : IContextHandler
                 model.UnhookEvents();
 
         _viewModel.Elements.Clear();
-
-        _ = WidgetManager.Unregister<WirebugsView, WirebugWidgetConfig>(_view);
     }
 
     private void OnStageUpdate(object sender, EventArgs e) => _viewModel.IsAvailable = !UnavailableStages.Contains(Player.StageId);
 
     private void OnWirebugsRefresh(object sender, MHRWirebug[] e)
     {
-        _view.Dispatcher.BeginInvoke(() =>
+        _viewModel.UIThread.BeginInvoke(() =>
         {
             foreach (WirebugViewModel vm in _viewModel.Elements)
                 if (vm is WirebugContextHandler model)

@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
              xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels"
              d:DataContext="{d:DesignInstance Type=vm:MonsterAilmentViewModel}"
              xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
@@ -22,10 +21,11 @@
             <RowDefinition Height="3*"/>
             <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
-        <TextBlock d:Text="AILMENT_1"
+        <TextBlock Grid.Row="0" 
+                   d:Text="AILMENT_1"
                    Text="{Binding Name, Converter={StaticResource RiseMonsterAilmentIdToNameConverter}}"
-                   Foreground="{StaticResource WHITE_100}"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                   Foreground="{StaticResource White@100}"
+                   FontFamily="{StaticResource Font.Default}"
                    FontWeight="Medium"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
@@ -38,7 +38,7 @@
         </TextBlock>
 
         <Ellipse Width="40"
-                 Fill="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}"
+                 Fill="{StaticResource Gray@300}"
                  Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                  VerticalAlignment="Top"
                  Grid.Row="1"/>
@@ -49,6 +49,8 @@
                      Width="40"
                      Height="40"
                      VerticalAlignment="Top"
+                     StrokeEndLineCap="Round"
+                     StrokeStartLineCap="Round"
                      Grid.Row="1">
             <overlay:Arc.Percentage>
                 <MultiBinding Converter="{StaticResource RatioConverter}">
@@ -70,6 +72,8 @@
                      Width="40"
                      Height="40"
                      VerticalAlignment="Top"
+                     StrokeEndLineCap="Round"
+                     StrokeStartLineCap="Round"
                      Grid.Row="1"
                      Stroke="{Binding Name, Mode=OneWay, Converter={StaticResource MonsterAilmentIdToColorConverter}}"
                      d:Stroke="Red">
@@ -86,8 +90,8 @@
                    Text="{Binding Count}"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Center"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource WHITE}"
+                   FontFamily="{StaticResource Font.Default}"
+                   Foreground="{StaticResource White}"
                    FontWeight="Medium"
                    FontSize="15"
                    Margin="0,5,0,0" 
@@ -97,8 +101,8 @@
         <TextBlock d:Text="1:30"
                    Text="{Binding Timer, Converter={StaticResource SecondsToTimeString}}"
                    FontSize="13"
-                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
-                   Foreground="{StaticResource WHITE_200}"
+                   FontFamily="{StaticResource Font.Default}"
+                   Foreground="{StaticResource White@200}"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Center"
                    Margin="0,18,0,0" 

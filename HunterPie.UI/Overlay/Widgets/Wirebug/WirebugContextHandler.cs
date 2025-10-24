@@ -1,6 +1,5 @@
-﻿using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
-using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
-using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModel;
+﻿using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
+using HunterPie.UI.Overlay.Widgets.Wirebug.ViewModels;
 
 namespace HunterPie.UI.Overlay.Widgets.Wirebug;
 

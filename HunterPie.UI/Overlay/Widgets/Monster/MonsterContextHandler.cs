@@ -38,6 +38,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
     {
         _game.TargetDetectionService.OnTargetChanged += OnTargetDetectionChanged;
         Config.TargetMode.PropertyChanged += OnTargetModeChange;
+        Config.IsTargetingEnabled.PropertyChanged += OnTargetModeChange;
         Context.OnHealthChange += OnHealthUpdate;
         Context.OnStaminaChange += OnStaminaUpdate;
         Context.OnCaptureThresholdChange += OnCaptureThresholdChange;
@@ -56,6 +57,7 @@ public class MonsterContextHandler : BossMonsterViewModel, IContextHandler, IDis
     {
         _game.TargetDetectionService.OnTargetChanged -= OnTargetDetectionChanged;
         Config.TargetMode.PropertyChanged -= OnTargetModeChange;
+        Config.IsTargetingEnabled.PropertyChanged -= OnTargetModeChange;
         Context.OnHealthChange -= OnHealthUpdate;
         Context.OnStaminaChange -= OnStaminaUpdate;
         Context.OnCaptureThresholdChange -= OnCaptureThresholdChange;

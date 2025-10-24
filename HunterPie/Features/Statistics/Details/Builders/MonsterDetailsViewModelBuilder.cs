@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Extensions;
+﻿using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Extensions;
 using HunterPie.Features.Statistics.Details.ViewModels;
 using HunterPie.Features.Statistics.Models;
 using HunterPie.UI.Architecture.Adapter;
@@ -11,16 +12,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media;
-using Localization = HunterPie.Core.Client.Localization.Localization;
 
 namespace HunterPie.Features.Statistics.Details.Builders;
-internal static class MonsterDetailsViewModelBuilder
+internal sealed class MonsterDetailsViewModelBuilder
 {
-    private static readonly Brush EnrageBrush = Resources.Get<Brush>("HUNT_EXPORT_ENRAGE_BRUSH");
-    private static readonly Brush HealthStepBrush = Resources.Get<Brush>("WHITE_400");
+    private static readonly Brush EnrageBrush = Resources.Get<Brush>("Brushes.Ailments.Enrage");
+    private static readonly Brush HealthStepBrush = Resources.Get<Brush>("Brushes.HunterPie.Foreground.Primary");
+    private readonly MonsterNameAdapter _monsterNameAdapter;
+    private readonly ILocalizationRepository _localizationRepository;
 
-    [Obsolete]
-    public static async Task<MonsterDetailsViewModel> Build(HuntStatisticsModel hunt, MonsterModel monster)
+    public MonsterDetailsViewModelBuilder(
+        MonsterNameAdapter monsterNameAdapter,
+        ILocalizationRepository localizationRepository)
+    {
+        _monsterNameAdapter = monsterNameAdapter;
+        _localizationRepository = localizationRepository;
+    }
+
+    public async Task<MonsterDetailsViewModel> Build(HuntStatisticsModel hunt, MonsterModel monster)
     {
         TimeSpan? huntElapsed = null;
         LineSeries? healthSteps = null;
@@ -67,7 +76,7 @@ internal static class MonsterDetailsViewModelBuilder
 
         return new MonsterDetailsViewModel
         {
-            Name = MonsterNameAdapter.From(hunt.Game, monster.Id),
+            Name = _monsterNameAdapter.From(hunt.Game, monster.Id, monster.Variant),
             Icon = await MonsterIconAdapter.UriFrom(hunt.Game, monster.Id),
             TimeElapsed = hunt.FinishedAt - hunt.StartedAt,
             MaxHealth = monster.MaxHealth,
@@ -81,8 +90,7 @@ internal static class MonsterDetailsViewModelBuilder
         };
     }
 
-    [Obsolete]
-    private static StatusDetailsViewModel BuildEnrage(
+    private StatusDetailsViewModel BuildEnrage(
         HuntStatisticsModel quest,
         TimeSpan huntTimeElapsed,
         MonsterStatusModel status
@@ -106,7 +114,7 @@ internal static class MonsterDetailsViewModelBuilder
         return new StatusDetailsViewModel
         {
             Color = EnrageBrush,
-            Name = Localization.QueryString("//Strings/Ailments/Rise/Ailment[@Id='STATUS_ENRAGE']"),
+            Name = _localizationRepository.FindStringBy("//Strings/Ailments/Rise/Ailment[@Id='STATUS_ENRAGE']"),
             UpTime = activationsTotalSeconds / Math.Max(1.0, timeElapsed),
             Activations = activations
         };

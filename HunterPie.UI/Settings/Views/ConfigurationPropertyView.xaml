@@ -20,7 +20,7 @@
                     Grid.Column="0">
             <TextBlock d:Text="Setting name"
                        FontSize="14"
-                       Foreground="{StaticResource WHITE_200}"
+                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Primary}"
                        Text="{Binding Title, 
                                         Mode=OneWay, 
                                         RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ConfigurationPropertyView}}}"
@@ -30,7 +30,7 @@
                                         Mode=OneWay, 
                                         RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ConfigurationPropertyView}}}"
                        TextWrapping="WrapWithOverflow"
-                       Foreground="{StaticResource WHITE_400}"
+                       Foreground="{StaticResource Brushes.HunterPie.Foreground.Tertiary}"
                        Margin="0,5,0,0"/>
         </StackPanel>
 
@@ -38,8 +38,8 @@
                     Height="15"
                     DockPanel.Dock="Right"
                     VerticalAlignment="Center"
-                    Image="{StaticResource ICON_RELOAD}"
-                    Foreground="{StaticResource YELLOW}"
+                    Image="{StaticResource Icons.Refresh}"
+                    Foreground="{StaticResource Yellow}"
                     Grid.Column="1"
                     Visibility="{Binding RequiresRestart, 
                                             Mode=OneWay, 

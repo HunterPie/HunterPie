@@ -12,7 +12,28 @@
     <Compile Update="Features\Account\Views\RequestAccountVerificationFlowView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Features\Debug\Views\DebugOverlayManagerView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Features\Settings\Views\SettingsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Features\Theme\Views\InstalledThemeHomeTabView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Features\Theme\Views\InstalledThemeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Features\Theme\Views\InstalledThemeViewSkeleton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Features\Theme\Views\ThemeCardView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Features\Theme\Views\ExploreThemeHomeTabView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Features\Theme\Views\ThemeHomeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Features\Tools\Localization\Views\LocalizableStringView.xaml.cs">

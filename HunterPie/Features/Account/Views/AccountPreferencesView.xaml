@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer;assembly=HunterPie.UI"
-             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image;assembly=HunterPie.UI"
              xmlns:viewModels="clr-namespace:HunterPie.Features.Account.ViewModels"
              xmlns:local="clr-namespace:HunterPie.Features.Account.Views"
              xmlns:components="clr-namespace:HunterPie.Features.Account.Views.Components"
@@ -12,7 +11,7 @@
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="400"
-             Background="{StaticResource GRAY_200}"
+             Background="{DynamicResource Brushes.HunterPie.Background.Tertiary}"
              d:DataContext="{d:DesignInstance viewModels:AccountPreferencesViewModel}">
     <viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel>

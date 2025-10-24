@@ -12,4 +12,5 @@ public struct UpdatePartyMember
     public required int Index;
     public required float Damage;
     public required int HunterRank;
+    public bool IsNpc;
 }

@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="HunterPie.UI.Overlay.Widgets.Activities.Rise.Views.TrainingDojoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels"
+             xmlns:progress="clr-namespace:HunterPie.UI.Controls.Progress"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+             xmlns:arithmetics="clr-namespace:HunterPie.UI.Architecture.Converters.Arithmetics"
+             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
+             d:DataContext="{d:DesignInstance Type=viewModels:TrainingDojoViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="150"
+             d:DesignWidth="40"
+             ClipToBounds="True">
+    <UserControl.Resources>
+        <arithmetics:MultiplyNumberConverter x:Key="MultiplyHalfConverter"
+                                             Factor="0.5"/>
+        <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
+    </UserControl.Resources>
+    <Border Background="{Binding Source={StaticResource Gray@200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+            CornerRadius="8"
+            BorderBrush="{StaticResource Gray}"
+            BorderThickness="1">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Rounds -->
+            <Border Grid.Column="0"
+                    Margin="2"
+                    Background="{StaticResource Gray@50}"
+                    CornerRadius="8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+
+                    <progress:Gauge Grid.Row="0"
+                                    Orientation="Vertical"
+                                    Foreground="{StaticResource Green}"
+                                    Background="{StaticResource Gray@200}"
+                                    d:Current="20"
+                                    Current="{Binding Rounds, Mode=OneWay}"
+                                    d:Max="100"
+                                    Max="{Binding MaxRounds, Mode=OneWay}"
+                                    Markers="{Binding MaxRounds, Mode=OneWay}"
+                                    Margin="4,5"
+                                    BorderBrush="{StaticResource Gray}"
+                                    CornerRadius="{Binding ActualWidth, 
+                                                            RelativeSource={RelativeSource Self}, 
+                                                            Converter={StaticResource MultiplyHalfConverter}}"/>
+                    <image:Icon Grid.Row="1"
+                                Foreground="{StaticResource Green}"
+                                Image="{StaticResource ICON_DOJO}"
+                                Margin="0"/>
+                </Grid>
+            </Border>
+
+            <!-- Boosts -->
+            <Border Grid.Column="1"
+                    Margin="2"
+                    Background="{StaticResource Gray@50}"
+                    CornerRadius="8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+
+                    <progress:Gauge Grid.Row="0"
+                                    Orientation="Vertical"
+                                    Foreground="{StaticResource Yellow}"
+                                    Background="{StaticResource Gray@200}"
+                                    d:Current="50"
+                                    Current="{Binding Boosts, Mode=OneWay}"
+                                    d:Max="100"
+                                    Max="{Binding MaxBoosts, Mode=OneWay}"
+                                    Markers="{Binding MaxRounds, Mode=OneWay}"
+                                    Margin="4,5"
+                                    BorderBrush="{StaticResource Gray}"
+                                    CornerRadius="{Binding ActualWidth, 
+                                                            RelativeSource={RelativeSource Self}, 
+                                                            Converter={StaticResource MultiplyHalfConverter}}"/>
+                    <image:Icon Grid.Row="1"
+                                Foreground="{StaticResource Yellow}"
+                                Image="{StaticResource Icons.Hot}"
+                                Margin="0"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

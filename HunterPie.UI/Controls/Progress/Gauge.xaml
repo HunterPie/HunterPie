@@ -1,0 +1,141 @@
+﻿<UserControl x:Class="HunterPie.UI.Controls.Progress.Gauge"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        mc:Ignorable="d" 
+        d:DesignHeight="10" 
+        d:DesignWidth="100"
+        d:BorderBrush="{StaticResource Gray}"
+        d:Foreground="{StaticResource Yellow}"
+        x:Name="GaugeComponent">
+    <UserControl.Resources>
+        <converters:CurrentValueToWidthConverter x:Key="CurrentValueToWidthConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <!-- Background -->
+        <Rectangle Fill="{Binding Background, ElementName=GaugeComponent}"
+                   StrokeThickness="1"
+                   Stroke="{Binding BorderBrush, ElementName=GaugeComponent}"
+                   RadiusX="{Binding CornerRadius, ElementName=GaugeComponent}"
+                   RadiusY="{Binding CornerRadius, ElementName=GaugeComponent}"/>
+
+        <ItemsControl ItemsSource="{Binding MarkerCollection, ElementName=GaugeComponent}"
+                      d:ItemsSource="{d:SampleData ItemCount=10}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid IsItemsHost="True"
+                                 RenderTransformOrigin="0.5,0.5">
+                        <UniformGrid.Style>
+                            <Style TargetType="UniformGrid">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Orientation, ElementName=GaugeComponent}"
+                                                 Value="{x:Static Orientation.Horizontal}">
+                                        <Setter Property="Columns" Value="{Binding MarkerCollection.Count, ElementName=GaugeComponent}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Orientation, ElementName=GaugeComponent}"
+                                                 Value="{x:Static Orientation.Vertical}">
+                                        <Setter Property="Rows" Value="{Binding MarkerCollection.Count, ElementName=GaugeComponent}"/>
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <RotateTransform Angle="180"
+                                                                 CenterX="0.5"
+                                                                 CenterY="0.5"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </UniformGrid.Style>
+                    </UniformGrid>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type system:Boolean}">
+                    <Rectangle Fill="{StaticResource Gray}"
+                               Opacity="0.5">
+                        <Rectangle.Style>
+                            <Style TargetType="Rectangle">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ., Mode=OneTime}"
+                                                 Value="False">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Orientation, ElementName=GaugeComponent}"
+                                                 Value="{x:Static Orientation.Horizontal}">
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="Width" Value="1"/>
+                                        <Setter Property="Height" Value="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type UniformGrid}}}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Orientation, ElementName=GaugeComponent}"
+                                                 Value="{x:Static Orientation.Vertical}">
+                                        <Setter Property="VerticalAlignment" Value="Bottom"/>
+                                        <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type UniformGrid}}}"/>
+                                        <Setter Property="Height" Value="1"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Rectangle.Style>
+                    </Rectangle>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!-- Foreground -->
+        <Rectangle Fill="{Binding Foreground, ElementName=GaugeComponent}"
+                   Stroke="Transparent"
+                   RadiusX="{Binding CornerRadius, ElementName=GaugeComponent}"
+                   RadiusY="{Binding CornerRadius, ElementName=GaugeComponent}"
+                   StrokeThickness="1"
+                   d:Width="30"
+                   d:HorizontalAlignment="Left">
+            <Rectangle.Style>
+                <Style TargetType="Rectangle">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Orientation, ElementName=GaugeComponent}"
+                                     Value="{x:Static Orientation.Horizontal}">
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                            <Setter Property="VerticalAlignment" Value="Stretch"/>
+                            <Setter Property="Width">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource CurrentValueToWidthConverter}">
+                                        <Binding Path="Current" ElementName="GaugeComponent"/>
+                                        <Binding Path="Max" ElementName="GaugeComponent"/>
+                                        <Binding Path="ActualWidth" ElementName="GaugeComponent"/>
+                                        <Binding Path="Margin" RelativeSource="{RelativeSource Self}"/>
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Orientation, ElementName=GaugeComponent}"
+                                     Value="{x:Static Orientation.Vertical}">
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="VerticalAlignment" Value="Bottom"/>
+                            <Setter Property="Height">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource CurrentValueToWidthConverter}">
+                                        <Binding Path="Current" ElementName="GaugeComponent"/>
+                                        <Binding Path="Max" ElementName="GaugeComponent"/>
+                                        <Binding Path="ActualHeight" ElementName="GaugeComponent"/>
+                                        <Binding Path="Margin" RelativeSource="{RelativeSource Self}"/>
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
+        </Rectangle>
+
+        <!-- Border -->
+        <Rectangle Fill="Transparent"
+                   StrokeThickness="1"
+                   Stroke="{Binding BorderBrush, ElementName=GaugeComponent}"
+                   RadiusX="{Binding CornerRadius, ElementName=GaugeComponent}"
+                   RadiusY="{Binding CornerRadius, ElementName=GaugeComponent}"/>
+    </Grid>
+</UserControl>

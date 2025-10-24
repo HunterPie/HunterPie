@@ -10,47 +10,55 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
 public class MHWSpecializedTool : ISpecializedTool, IEventDispatcher, IUpdatable<MHWSpecializedToolStructure>, IDisposable
 {
     private SpecializedToolType _id;
-    private float _cooldown;
-    private float _timer;
-
     public SpecializedToolType Id
     {
         get => _id;
         set
         {
-            if (value != _id)
-            {
-                _id = value;
-                this.Dispatch(_onChange, this);
-            }
+            if (value == _id)
+                return;
+
+            _id = value;
+            this.Dispatch(
+                toDispatch: _onChange,
+                data: this
+            );
         }
     }
 
+    private float _cooldown;
     public float Cooldown
     {
         get => _cooldown;
         set
         {
-            if (value != _cooldown)
-            {
-                _cooldown = value;
-                this.Dispatch(_onCooldownUpdate, this);
-            }
+            if (value == _cooldown)
+                return;
+
+            _cooldown = value;
+            this.Dispatch(
+                toDispatch: _onCooldownUpdate,
+                data: this
+            );
         }
     }
 
     public float MaxCooldown { get; private set; }
 
+    private float _timer;
     public float Timer
     {
         get => _timer;
         set
         {
-            if (value != _timer)
-            {
-                _timer = value;
-                this.Dispatch(_onTimerUpdate, this);
-            }
+            if (value == _timer)
+                return;
+
+            _timer = value;
+            this.Dispatch(
+                toDispatch: _onTimerUpdate,
+                data: this
+            );
         }
     }
 

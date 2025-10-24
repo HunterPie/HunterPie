@@ -9,8 +9,8 @@
              d:DesignWidth="300"
              d:DesignHeight="150"
              Loaded="OnLoaded">
-    <Border BorderBrush="{StaticResource GRAY}"
-            Background="{StaticResource GRAY_200}"
+    <Border BorderBrush="{StaticResource Brushes.HunterPie.Border}"
+            Background="{StaticResource Brushes.HunterPie.Background.Tertiary}"
             BorderThickness="1"
             CornerRadius="5">
         <Grid>
@@ -21,8 +21,8 @@
             <!-- Content -->
             <Border Grid.Row="1"
                     BorderThickness="0,1,0,0"
-                    Background="{StaticResource GRAY_100}"
-                    BorderBrush="{StaticResource GRAY}"
+                    Background="{StaticResource Brushes.HunterPie.Background.Secondary}"
+                    BorderBrush="{StaticResource Brushes.HunterPie.Border}"
                     CornerRadius="0,0,5,5">
                 <ContentControl Content="{Binding Container, ElementName=PART_WndContainer}"
                                 Margin="5"/>

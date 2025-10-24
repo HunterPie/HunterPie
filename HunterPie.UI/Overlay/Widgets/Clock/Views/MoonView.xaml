@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="HunterPie.UI.Overlay.Widgets.Clock.Views.MoonView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Clock.ViewModels"
+             xmlns:game="clr-namespace:HunterPie.UI.Architecture.Converters.Game"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" 
+             d:DesignWidth="50"
+             d:DataContext="{d:DesignInstance viewModels:MoonViewModel}">
+    <UserControl.Resources>
+        <game:MoonPhaseToIconConverter x:Key="MoonPhaseToIconConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <image:Icon Image="{StaticResource Icons.Moon.Full}"
+                    Foreground="{StaticResource Gray@50}"/>
+        <image:Icon Image="{Binding Phase, Mode=OneWay, Converter={StaticResource MoonPhaseToIconConverter}}"
+                    d:Image="{StaticResource Icons.Moon.WaxingCrescent}">
+            <image:Icon.Style>
+                <Style TargetType="image:Icon">
+                    <Setter Property="Foreground" Value="{StaticResource Gray}"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsActive, Mode=OneWay}"
+                                     Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource White@100}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </image:Icon.Style>
+        </image:Icon>
+    </Grid>
+</UserControl>

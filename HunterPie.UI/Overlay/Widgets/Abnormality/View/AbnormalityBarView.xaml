@@ -1,22 +1,21 @@
-﻿<arch:View x:Class="HunterPie.UI.Overlay.Widgets.Abnormality.View.AbnormalityBarView"
-           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-           xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel"
-           xmlns:arch="clr-namespace:HunterPie.UI.Architecture"
-           xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-           xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Abnormality.View"
-           xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
-           xmlns:converter="clr-namespace:HunterPie.UI.Architecture.Converters"
-           mc:Ignorable="d" 
-           x:TypeArguments="vm:AbnormalityBarViewModel"
-           d:DesignHeight="450" 
-           d:DesignWidth="800"
-           HorizontalAlignment="Left"
-           Loaded="OnLoad"
-           Unloaded="OnUnload"
-           Style="{StaticResource STYLE_ABNORMALITIES_BAR_WIDGET}"
-           d:DataContext="{d:DesignInstance vm:AbnormalityBarViewModel}">
+﻿<overlay:Widget x:Class="HunterPie.UI.Overlay.Widgets.Abnormality.View.AbnormalityBarView"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Abnormality.View"
+                xmlns:controls="clr-namespace:HunterPie.UI.Overlay.Controls"
+                xmlns:converter="clr-namespace:HunterPie.UI.Architecture.Converters"
+                xmlns:overlay="clr-namespace:HunterPie.UI.Overlay"
+                mc:Ignorable="d"
+                d:DesignHeight="450" 
+                d:DesignWidth="800"
+                HorizontalAlignment="Left"
+                Loaded="OnLoad"
+                Unloaded="OnUnload"
+                Style="{DynamicResource Widgets.AbnormalityTray}"
+                d:DataContext="{d:DesignInstance vm:AbnormalityBarViewModel}">
     <UserControl.Resources>
         <converter:OrientationToOppositeConverter x:Key="OrientationToOppositeConverter"/>
         <converter:OrientationConverter x:Key="OrientationConverter"/>
@@ -28,15 +27,15 @@
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel ItemHeight="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"
-                               Orientation="{Binding Settings.Orientation.Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityBarView}}, Mode=OneWay, Converter={StaticResource OrientationConverter}}">
+                               Orientation="{Binding Config.Orientation.Value, Mode=OneWay, Converter={StaticResource OrientationConverter}}">
                         <WrapPanel.Style>
                             <Style TargetType="WrapPanel">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Orientation, RelativeSource={RelativeSource Self}}" Value="Horizontal">
-                                        <Setter Property="MaxWidth" Value="{Binding Settings.MaxSize.Current, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityBarView}}, Mode=OneWay}"/>
+                                        <Setter Property="MaxWidth" Value="{Binding Config.MaxSize.Current, Mode=OneWay}"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Orientation, RelativeSource={RelativeSource Self}}" Value="Vertical">
-                                        <Setter Property="MaxHeight" Value="{Binding Settings.MaxSize.Current, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:AbnormalityBarView}}, Mode=OneWay}"/>
+                                        <Setter Property="MaxHeight" Value="{Binding Config.MaxSize.Current, Mode=OneWay}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -48,19 +47,17 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type vm:AbnormalityViewModel}">
                     <StackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type WrapPanel}}, Converter={StaticResource OrientationToOppositeConverter}}">
-                        <overlay:Abnormality Margin="5,2,5,2"
+                        <controls:Abnormality Margin="5,2,5,2"
                                              Width="30"
-                                             Height="30"
-                                             x:Name="PART_ABNORMALITY"/>
-                        <TextBlock Foreground="{StaticResource HUNTERPIE_FOREGROUND_PRIMARY}"
-                                   FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                                             Height="30"/>
+                        <TextBlock Foreground="{DynamicResource White@100}"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center">
                             <TextBlock.Effect>
                                 <DropShadowEffect Color="Black"
-                                      BlurRadius="4" 
-                                      ShadowDepth="0"/>
+                                                  BlurRadius="4" 
+                                                  ShadowDepth="0"/>
                             </TextBlock.Effect>
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
@@ -76,8 +73,10 @@
                                                 <Setter Property="Text">
                                                     <Setter.Value>
                                                         <MultiBinding Converter="{StaticResource RatioConverter}" StringFormat="{}{0:P0}">
-                                                            <Binding Path="DataContext.Timer" ElementName="PART_ABNORMALITY"/>
-                                                            <Binding Path="DataContext.MaxTimer" ElementName="PART_ABNORMALITY"/>
+                                                            <Binding Path="Timer" 
+                                                                     Mode="OneWay"/>
+                                                            <Binding Path="MaxTimer" 
+                                                                     Mode="OneWay"/>
                                                         </MultiBinding>
                                                     </Setter.Value>
                                                 </Setter>
@@ -98,4 +97,4 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
     </Grid>
-</arch:View>
+</overlay:Widget>

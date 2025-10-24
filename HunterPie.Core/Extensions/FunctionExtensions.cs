@@ -25,4 +25,24 @@ public static class FunctionExtensions
 
         return Action;
     }
+
+    public static Action Debounce(this Action func, int milliseconds = 300)
+    {
+        int last = 0;
+
+        void Action()
+        {
+            int current = Interlocked.Increment(ref last);
+            _ = Task.Delay(milliseconds)
+                .ContinueWith(task =>
+                {
+                    if (current == last)
+                        func();
+
+                    task.Dispose();
+                });
+        }
+
+        return Action;
+    }
 }

@@ -55,5 +55,4 @@ internal class MainNavigator : IAppNavigator, IAppNavigationDispatcher, IEventDi
         if (_stack.TryPeek(out ViewModel? vm) && vm is TViewModel)
             Return();
     }
-
 }

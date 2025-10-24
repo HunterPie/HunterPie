@@ -37,13 +37,13 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
             <Rectangle Grid.Row="0" 
-                       Fill="{StaticResource GRAY_200}"
-                       Stroke="{StaticResource GRAY}"
+                       Fill="{StaticResource Gray@200}"
+                       Stroke="{StaticResource Gray}"
                        StrokeThickness="2"
                        Margin="17"/>
             <Rectangle Grid.Row="0"
                        Margin="17"
-                       Fill="{StaticResource GRAY_50}"
+                       Fill="{StaticResource Gray@50}"
                        Stroke="{Binding Fill, ElementName=PART_VariantBorder}"
                        StrokeThickness="1"
                        RenderTransformOrigin="0.5,0.5">
@@ -89,6 +89,6 @@
                    TextAlignment="Center"
                    TextTrimming="CharacterEllipsis"
                    TextWrapping="WrapWithOverflow"
-                   Foreground="{StaticResource WHITE_50}"/>
+                   Foreground="{StaticResource White@50}"/>
     </Grid>
 </UserControl>

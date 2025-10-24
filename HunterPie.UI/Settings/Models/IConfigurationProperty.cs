@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Architecture;
+﻿using HunterPie.UI.Settings.Converter.Model;
+using System.Collections.Generic;
 
 namespace HunterPie.UI.Settings.Models;
 
@@ -9,5 +10,5 @@ public interface IConfigurationProperty
     public string Description { get; }
     public string Group { get; }
     public bool RequiresRestart { get; }
-    public Observable<bool>? Condition { get; }
+    public IReadOnlyCollection<PropertyCondition> Conditions { get; init; }
 }
