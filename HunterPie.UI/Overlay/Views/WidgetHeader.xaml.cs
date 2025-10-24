@@ -1,7 +1,12 @@
-﻿using HunterPie.UI.Overlay.ViewModels;
+﻿using HunterPie.Core.Client;
+using HunterPie.UI.Architecture.Media;
+using HunterPie.UI.Overlay.ViewModels;
+using System.Collections.Specialized;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace HunterPie.UI.Overlay.Views;
 
@@ -39,5 +44,21 @@ public partial class WidgetHeader : UserControl
     {
         base.OnMouseLeftButtonDown(e);
         Owner.DragMove();
+    }
+
+    private void OnSnapshotButtonClick(object sender, RoutedEventArgs e)
+    {
+        RenderTargetBitmap bitmap = Bitmap.From(Owner.PART_Content);
+
+        string temporaryFile = ClientInfo.GetRandomTempFile() + ".png";
+
+        using FileStream stream = File.OpenWrite(temporaryFile);
+        var encoder = new PngBitmapEncoder();
+        encoder.Frames.Add(BitmapFrame.Create(bitmap));
+        encoder.Save(stream);
+
+        var data = new DataObject();
+        data.SetFileDropList(new StringCollection { temporaryFile });
+        Clipboard.SetDataObject(data, true);
     }
 }

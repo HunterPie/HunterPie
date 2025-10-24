@@ -111,7 +111,8 @@
 
         <Grid Margin="10,40,10,10">
             <ContentControl ContentTemplate="{Binding ViewModel, Mode=OneWay, Converter={StaticResource WidgetByViewModelConverter}}"
-                            Content="{Binding ViewModel, Mode=OneWay}">
+                            Content="{Binding ViewModel, Mode=OneWay}"
+                            x:Name="PART_Content">
                 <ContentControl.Style>
                     <Style TargetType="ContentControl">
                         <Style.Setters>
