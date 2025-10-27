@@ -23,12 +23,12 @@
 
         <DataTemplate x:Key="DetailedAbnormalityView">
             <local:DetailedAbnormalityView Height="35"
-                                           Margin="1"/>
+                                           Margin="1"
+                                           MaxWidth="200"/>
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
-        <ItemsControl ItemsSource="{Binding Abnormalities, Mode=OneWay}"
-                      MaxWidth="200">
+        <ItemsControl ItemsSource="{Binding Abnormalities, Mode=OneWay}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid>
