@@ -45,7 +45,8 @@
                      VirtualizingPanel.VirtualizationMode="Standard">
                 <ListBox.Template>
                     <ControlTemplate TargetType="ListBox">
-                        <viewer:SmoothScrollViewer>
+                        <viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto"
+                                                   HorizontalScrollBarVisibility="Disabled">
                             <ItemsPresenter/>
                         </viewer:SmoothScrollViewer>
                     </ControlTemplate>
@@ -149,13 +150,14 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
             <!-- Configuration properties -->
             <ItemsControl Grid.Column="0"
-                          ItemsSource="{Binding Configuration.Groups, Mode=OneTime}">
+                          ItemsSource="{Binding Configuration.Groups, Mode=OneTime}"
+                          d:ItemsSource="{d:SampleData ItemCount=5}">
                 <ItemsControl.Template>
                     <ControlTemplate>
                         <viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto">
@@ -168,33 +170,51 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:ConfigurationGroup}">
-                        <StackPanel Orientation="Vertical"
-                                    Margin="0,0,0,20">
-                            <Grid Margin="0,0,10,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" 
-                                           Text="{Binding Name, Mode=OneTime}"
-                                           FontSize="15"
-                                           Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
-                                           Margin="5"
-                                           FontWeight="Medium"/>
-                                <Separator Grid.Column="1" 
-                                           Background="{DynamicResource Brushes.HunterPie.Border}"/>
-                            </Grid>
-                            
-                            <ItemsControl ItemsSource="{Binding Properties, Mode=OneTime}"
-                                          ItemTemplateSelector="{StaticResource ConfigurationPropertyDataTemplateSelector}">
-                                <ItemsControl.Template>
-                                    <ControlTemplate>
-                                        <VirtualizingStackPanel IsItemsHost="True"
-                                                                CanVerticallyScroll="False"/>
-                                    </ControlTemplate>
-                                </ItemsControl.Template>
-                            </ItemsControl>
-                        </StackPanel>
+                        <Border Background="{DynamicResource Brushes.HunterPie.Background.Secondary}"
+                                BorderBrush="{DynamicResource Brushes.HunterPie.Border}"
+                                BorderThickness="1"
+                                CornerRadius="5"
+                                Padding="5"
+                                Margin="5,5">
+                            <StackPanel Orientation="Vertical"
+                                        Margin="0,0,0,20">
+                                <Grid Margin="0,0,10,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" 
+                                               Text="{Binding Name, Mode=OneTime}"
+                                               FontSize="15"
+                                               Foreground="{DynamicResource Brushes.HunterPie.Foreground.Tertiary}"
+                                               Margin="5"
+                                               FontWeight="Medium"/>
+                                    <Separator Grid.Column="1" 
+                                               Background="{DynamicResource Brushes.HunterPie.Border}"/>
+                                </Grid>
+                                
+                                <ItemsControl ItemsSource="{Binding Properties, Mode=OneTime}">
+                                    <ItemsControl.Template>
+                                        <ControlTemplate>
+                                            <VirtualizingStackPanel IsItemsHost="True"
+                                                                    CanVerticallyScroll="False"
+                                                                    SizeChanged="OnSizeChanged"/>
+                                        </ControlTemplate>
+                                    </ItemsControl.Template>
+
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <ContentPresenter ContentTemplateSelector="{StaticResource ConfigurationPropertyDataTemplateSelector}"
+                                                              Loaded="OnSettingPropertyLoaded">
+                                                <ContentPresenter.LayoutTransform>
+                                                    <ScaleTransform ScaleY="0"/>
+                                                </ContentPresenter.LayoutTransform>
+                                            </ContentPresenter>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

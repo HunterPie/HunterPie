@@ -113,9 +113,6 @@
     <Compile Update="Overlay\Views\WidgetHeader.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Overlay\Controls\Abnormality.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Overlay\Controls\Bar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -123,6 +120,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Abnormality\View\AbnormalityBarView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Abnormality\View\CompactAbnormalityView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Overlay\Widgets\Abnormality\View\DetailedAbnormalityView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Activities\Rise\Views\CohootNestView.xaml.cs">
@@ -437,9 +440,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Views\WidgetHeader.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Overlay\Controls\Abnormality.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Controls\Bar.xaml">

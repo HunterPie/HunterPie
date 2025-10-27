@@ -46,7 +46,7 @@ public class AbnormalityViewModel : Bindable
         set => SetValue(ref _isBuff, value);
     }
 
-    public bool _isBuildup;
+    private bool _isBuildup;
     public bool IsBuildup
     {
         get => _isBuildup;

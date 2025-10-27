@@ -9,8 +9,8 @@ using Newtonsoft.Json;
 
 namespace HunterPie.Core.Client.Configuration.Overlay;
 
-[Configuration(name: "ABNORMALITY_WIDGET",
-    icon: "ICON_STOPWATCH",
+[Configuration(name: "ABNORMALITY_TRAY_STRING",
+    icon: "ICON_SELFIMPROVEMENT+",
     group: CommonConfigurationGroups.OVERLAY)]
 public class AbnormalityWidgetConfig : IWidgetSettings, ISettings
 {
@@ -46,18 +46,24 @@ public class AbnormalityWidgetConfig : IWidgetSettings, ISettings
     #endregion
 
     #region Customization Settings
+    [ConfigurationProperty("ABNORMALITY_TRAY_COMPACT_MODE_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    public Observable<bool> IsCompactModeEnabled { get; set; } = true;
+
     [ConfigurationProperty("ABNORMALITY_TRAY_SORT_BY_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Observable<SortBy> SortByAlgorithm { get; set; } = SortBy.Off;
 
-    [ConfigurationProperty("ABNORMALITY_TRAY_MAX_SIZE_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
-    [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
-    public Range MaxSize { get; set; } = new(300, 1200, 30, 30);
-
     [ConfigurationProperty("ORIENTATION_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Observable<Orientation> Orientation { get; set; } = Enums.Orientation.Horizontal;
+
+    [ConfigurationProperty("ABNORMALITY_TRAY_COLUMNS_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationConditional(name: nameof(Orientation), withValue: Enums.Orientation.Horizontal)]
+    public Range Columns { get; set; } = new(5, 100, 1, 1);
+
+    [ConfigurationProperty("ABNORMALITY_TRAY_ROWS_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationConditional(name: nameof(Orientation), withValue: Enums.Orientation.Vertical)]
+    public Range Rows { get; set; } = new(5, 100, 1, 1);
     #endregion
-
-
 }
