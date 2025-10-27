@@ -50,11 +50,11 @@ internal class AbnormalityWidgetMocker : IWidgetMocker
 
     private static void CreateAbnormalities(AbnormalityBarViewModel viewModel)
     {
-        AbnormalityDefinition[] consumables = AbnormalityRepository.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.CONSUMABLES);
+        AbnormalityDefinition[] consumables = AbnormalityRepository.FindAllAbnormalitiesBy(GameType.World, AbnormalityGroup.SONGS);
         AbnormalityDefinition[] debuffs = AbnormalityRepository.FindAllAbnormalitiesBy(GameType.Wilds, AbnormalityGroup.DEBUFFS);
 
         var abnormalities = consumables
-            .Take(5)
+            .TakeLast(5)
             .Concat(debuffs.Take(5))
             .ToImmutableArray();
 

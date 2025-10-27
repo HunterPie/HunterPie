@@ -27,7 +27,8 @@
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
-        <ItemsControl ItemsSource="{Binding Abnormalities, Mode=OneWay}">
+        <ItemsControl ItemsSource="{Binding Abnormalities, Mode=OneWay}"
+                      MaxWidth="200">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid>

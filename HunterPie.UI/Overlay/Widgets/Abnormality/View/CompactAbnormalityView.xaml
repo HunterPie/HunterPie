@@ -30,7 +30,8 @@
                           d:Stroke="{StaticResource Brushes.Widgets.AbnormalityTray.Buff}"
                           StrokeEndLineCap="Round"
                           StrokeStartLineCap="Round"
-                          StrokeDashCap="Round">
+                          StrokeDashCap="Round"
+                          Height="35">
                 <controls:Arc.Percentage>
                     <MultiBinding Converter="{StaticResource RatioConverter}">
                         <Binding Path="Timer"
@@ -57,11 +58,11 @@
                        d:Source="{StaticResource ITEM_DASH}"
                        Width="20"
                        Height="20"/>
-            <controls:Arc Margin="2.5"
+            <controls:Arc StrokeThickness="5"
                           d:Percentage="0.2"
-                          StrokeThickness="0"
                           Fill="#90000000"
-                          RenderTransformOrigin="0.5,0.5">
+                          RenderTransformOrigin="0.5,0.5"
+                          Height="35">
                 <controls:Arc.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="-1"/>

@@ -9,8 +9,7 @@
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              xmlns:controls="clr-namespace:HunterPie.UI.Overlay.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="35" 
-             d:DesignWidth="200"
+             d:DesignHeight="35"
              d:DataContext="{d:DesignInstance viewModel:AbnormalityViewModel}">
     <UserControl.Resources>
         <arithmetics:MultiplyNumberConverter Factor="0.5"
@@ -47,15 +46,13 @@
                    d:Source="{StaticResource ITEM_DASH}"
                    Margin="6"/>
 
-            <controls:Arc Margin="2"
-                          d:Percentage="0.2"
-                          d:Width="35"
-                          Fill="#B0000000" 
+            <controls:Arc d:Percentage="0.8"
+                          StrokeThickness="5"
+                          Width="35"
+                          Fill="#B0000000"
                           RenderTransformOrigin="0.5,0.5">
                 <controls:Arc.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="-1"/>
-                    </TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
                 </controls:Arc.RenderTransform>
                 <controls:Arc.Percentage>
                     <MultiBinding Converter="{StaticResource ReverseRatioConverter}">
@@ -68,8 +65,8 @@
             </controls:Arc>
 
             <controls:Arc StrokeThickness="2.5"
+                          Width="35"
                           d:Percentage="0.8"
-                          d:Width="35"
                           d:Stroke="{StaticResource Brushes.Widgets.AbnormalityTray.Buff}"
                           StrokeEndLineCap="Round"
                           StrokeStartLineCap="Round"
@@ -99,7 +96,7 @@
         </Grid>
 
         <Grid Column="1"
-              Margin="5,2">
+              Margin="5,2,10,2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>

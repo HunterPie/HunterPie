@@ -45,7 +45,8 @@
                      VirtualizingPanel.VirtualizationMode="Standard">
                 <ListBox.Template>
                     <ControlTemplate TargetType="ListBox">
-                        <viewer:SmoothScrollViewer>
+                        <viewer:SmoothScrollViewer VerticalScrollBarVisibility="Auto"
+                                                   HorizontalScrollBarVisibility="Disabled">
                             <ItemsPresenter/>
                         </viewer:SmoothScrollViewer>
                     </ControlTemplate>

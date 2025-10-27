@@ -51,15 +51,15 @@ public class Arc : Shape
         double end = ConvertPercentageIntoAngle(Reverse, Percentage);
 
         var middlePoint = new Point(
-            x: RenderSize.Width / 2,
-            y: RenderSize.Height / 2
+            x: (RenderSize.Width - StrokeThickness) / 2,
+            y: (RenderSize.Height - StrokeThickness) / 2
         );
         Point realStartPoint = PointAtAngle(Math.Min(StartAngle, end));
         Point endPoint = PointAtAngle(Math.Max(StartAngle, end));
 
         var arcSize = new Size(
-            width: Math.Max(0, (RenderSize.Width - StrokeThickness) / 2),
-            height: Math.Max(0, (RenderSize.Height - StrokeThickness) / 2)
+            width: Math.Max(0, middlePoint.X),
+            height: Math.Max(0, middlePoint.Y)
         );
         bool isLargeArc = Math.Abs(end - StartAngle) > 180;
         var geom = new StreamGeometry();
