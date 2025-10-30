@@ -15,7 +15,7 @@
     <Grid>
         <Ellipse Fill="{StaticResource Gray@300}"
                  StrokeThickness="1"
-                 Stroke="{StaticResource Gray@100}"/>
+                 Stroke="{StaticResource Gray@50}"/>
         <Image Source="{Binding ., Mode=OneTime, Converter={StaticResource ElementToIconConverter}}"
                d:Source="{StaticResource ELEMENT_FIRE}"
                Margin="2"/>

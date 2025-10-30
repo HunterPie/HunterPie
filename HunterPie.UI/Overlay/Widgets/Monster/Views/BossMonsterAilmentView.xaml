@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels"
              d:DataContext="{d:DesignInstance Type=vm:MonsterAilmentViewModel}"
-             xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
+             xmlns:controls="clr-namespace:HunterPie.UI.Overlay.Controls"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
              mc:Ignorable="d"
              Padding="0,0,0,2"
@@ -18,94 +18,49 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="7*"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="15"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" 
-                   d:Text="AILMENT_1"
-                   Text="{Binding Name, Converter={StaticResource RiseMonsterAilmentIdToNameConverter}}"
-                   Foreground="{StaticResource White@100}"
-                   FontFamily="{StaticResource Font.Default}"
-                   FontWeight="Medium"
+        <controls:Arc Grid.Row="0"
+                      HorizontalAlignment="Center"
+                      Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                      d:Percentage="0.3"
+                      StrokeThickness="5"
+                      Margin="5"
+                      Stroke="{StaticResource Blue}"
+                      StrokeEndLineCap="Round"
+                      StrokeStartLineCap="Round"
+                      StrokeDashCap="Round"/>
+        <controls:Arc Grid.Row="0"
+                      HorizontalAlignment="Center"
+                      Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                      d:Percentage="0.83"
+                      StrokeThickness="5"
+                      Stroke="{StaticResource Red}"
+                      StrokeEndLineCap="Round"
+                      StrokeStartLineCap="Round"
+                      StrokeDashCap="Round"/>
+
+        <TextBlock Grid.Row="0"
+                   HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   TextTrimming="CharacterEllipsis">
-            <TextBlock.Effect>
-                <DropShadowEffect Color="Black"
-                                      BlurRadius="4" 
-                                      ShadowDepth="0"/>
-            </TextBlock.Effect>
-        </TextBlock>
+                   d:Text="9"
+                   Foreground="{StaticResource White@50}"
+                   FontSize="14"/>
 
-        <Ellipse Width="40"
-                 Fill="{StaticResource Gray@300}"
-                 Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                 VerticalAlignment="Top"
-                 Grid.Row="1"/>
-
-        <!-- Outer ring: Buildup -->
-        <overlay:Arc d:Percentage="0.5"
-                     StrokeThickness="3"
-                     Width="40"
-                     Height="40"
-                     VerticalAlignment="Top"
-                     StrokeEndLineCap="Round"
-                     StrokeStartLineCap="Round"
-                     Grid.Row="1">
-            <overlay:Arc.Percentage>
-                <MultiBinding Converter="{StaticResource RatioConverter}">
-                    <Binding Path="Buildup"/>
-                    <Binding Path="MaxBuildup"/>
-                </MultiBinding>
-            </overlay:Arc.Percentage>
-            <overlay:Arc.Stroke>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0,0" SpreadMethod="Pad">
-                    <GradientStop Color="#36D1DC"/>
-                    <GradientStop Color="#5B86E5" Offset="1"/>
-                </LinearGradientBrush>
-            </overlay:Arc.Stroke>
-        </overlay:Arc>
-
-        <!-- Inner ring: Timer -->
-        <overlay:Arc d:Percentage="0.3"
-                     StrokeThickness="3"
-                     Width="40"
-                     Height="40"
-                     VerticalAlignment="Top"
-                     StrokeEndLineCap="Round"
-                     StrokeStartLineCap="Round"
-                     Grid.Row="1"
-                     Stroke="{Binding Name, Mode=OneWay, Converter={StaticResource MonsterAilmentIdToColorConverter}}"
-                     d:Stroke="Red">
-            <overlay:Arc.Percentage>
-                <MultiBinding Converter="{StaticResource RatioConverter}">
-                    <Binding Path="Timer"/>
-                    <Binding Path="MaxTimer"/>
-                </MultiBinding>
-            </overlay:Arc.Percentage>
-        </overlay:Arc>
-
-        <!-- Proc counter -->
-        <TextBlock d:Text="5"
-                   Text="{Binding Count}"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Center"
-                   FontFamily="{StaticResource Font.Default}"
-                   Foreground="{StaticResource White}"
+        <TextBlock Grid.Row="1"
+                   TextAlignment="Center"
+                   TextTrimming="CharacterEllipsis"
+                   d:Text="Enrage"
+                   Foreground="{StaticResource White@300}"
                    FontWeight="Medium"
-                   FontSize="15"
-                   Margin="0,5,0,0" 
-                   Grid.Row="1"/>
+                   FontSize="14"/>
 
-        <!-- Timer/Buildup text -->
-        <TextBlock d:Text="1:30"
-                   Text="{Binding Timer, Converter={StaticResource SecondsToTimeString}}"
-                   FontSize="13"
-                   FontFamily="{StaticResource Font.Default}"
-                   Foreground="{StaticResource White@200}"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Center"
-                   Margin="0,18,0,0" 
-                   Grid.Row="1"/>
+        <TextBlock Grid.Row="2"
+                   TextAlignment="Center"
+                   d:Text="00:00"
+                   Foreground="{StaticResource White@100}"
+                   FontSize="13"/>
     </Grid>
 </UserControl>

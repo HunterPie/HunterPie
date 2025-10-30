@@ -87,23 +87,25 @@
     <SolidColorBrush x:Key="Orange">#EC5D1C</SolidColorBrush>
 
     <!-- Blue -->
-    <SolidColorBrush x:Key="LightBlue@700">#b3d4fa</SolidColorBrush>
-    <SolidColorBrush x:Key="LightBlue@600">#99c5f8</SolidColorBrush>
-    <SolidColorBrush x:Key="LightBlue@500">#80b7f7</SolidColorBrush>
-    <SolidColorBrush x:Key="LightBlue@400">#66a9f5</SolidColorBrush>
-    <SolidColorBrush x:Key="LightBlue@300">#4d9af3</SolidColorBrush>
-    <SolidColorBrush x:Key="LightBlue@200">#338cf1</SolidColorBrush>
-    <SolidColorBrush x:Key="LightBlue@100">#197df0</SolidColorBrush>
-    <SolidColorBrush x:Key="LightBlue@50">#0d76ef</SolidColorBrush>
-    <SolidColorBrush x:Key="Blue">#006fee</SolidColorBrush>
-    <SolidColorBrush x:Key="Blue@50">#0069e2</SolidColorBrush>
-    <SolidColorBrush x:Key="Blue@100">#0064d6</SolidColorBrush>
-    <SolidColorBrush x:Key="Blue@200">#0059be</SolidColorBrush>
-    <SolidColorBrush x:Key="Blue@300">#004ea7</SolidColorBrush>
-    <SolidColorBrush x:Key="Blue@400">#00438f</SolidColorBrush>
-    <SolidColorBrush x:Key="Blue@500">#003877</SolidColorBrush>
-    <SolidColorBrush x:Key="Blue@600">#002c5f</SolidColorBrush>
-    <SolidColorBrush x:Key="Blue@700">#002147</SolidColorBrush>
+    <SolidColorBrush x:Key="LightBlue@700">#cfddfa</SolidColorBrush>
+    <SolidColorBrush x:Key="LightBlue@600">#bfd2f8</SolidColorBrush>
+    <SolidColorBrush x:Key="LightBlue@500">#afc7f6</SolidColorBrush>
+    <SolidColorBrush x:Key="LightBlue@400">#9ebbf4</SolidColorBrush>
+    <SolidColorBrush x:Key="LightBlue@300">#8eb0f2</SolidColorBrush>
+    <SolidColorBrush x:Key="LightBlue@200">#7ea5f1</SolidColorBrush>
+    <SolidColorBrush x:Key="LightBlue@100">#6e99ef</SolidColorBrush>
+    <SolidColorBrush x:Key="LightBlue@50">#6694ee</SolidColorBrush>
+    <SolidColorBrush x:Key="LightBlue">#5E8EED</SolidColorBrush>
+
+    <SolidColorBrush x:Key="Blue">#4B8EEE</SolidColorBrush>
+    <SolidColorBrush x:Key="Blue@50">#4787E2</SolidColorBrush>
+    <SolidColorBrush x:Key="Blue@100">#4480D6</SolidColorBrush>
+    <SolidColorBrush x:Key="Blue@200">#3C72BE</SolidColorBrush>
+    <SolidColorBrush x:Key="Blue@300">#3563A7</SolidColorBrush>
+    <SolidColorBrush x:Key="Blue@400">#2D558F</SolidColorBrush>
+    <SolidColorBrush x:Key="Blue@500">#264777</SolidColorBrush>
+    <SolidColorBrush x:Key="Blue@600">#1E395F</SolidColorBrush>
+    <SolidColorBrush x:Key="Blue@700">#172B47</SolidColorBrush>
 
     <!-- Violet -->
     <SolidColorBrush x:Key="Violet">#8E51FF</SolidColorBrush>
