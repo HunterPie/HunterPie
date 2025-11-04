@@ -39,7 +39,7 @@
                                         <Binding Path="Current" ElementName="GaugeComponent"/>
                                         <Binding Path="Max" ElementName="GaugeComponent"/>
                                         <Binding Path="ActualWidth" ElementName="GaugeComponent"/>
-                                        <Binding Path="Margin" RelativeSource="{RelativeSource Self}"/>
+                                        <Binding Path="BorderThickness" ElementName="GaugeComponent"/>
                                     </MultiBinding>
                                 </Setter.Value>
                             </Setter>
@@ -54,7 +54,7 @@
                                         <Binding Path="Current" ElementName="GaugeComponent"/>
                                         <Binding Path="Max" ElementName="GaugeComponent"/>
                                         <Binding Path="ActualHeight" ElementName="GaugeComponent"/>
-                                        <Binding Path="Margin" RelativeSource="{RelativeSource Self}"/>
+                                        <Binding Path="BorderThickness" ElementName="GaugeComponent"/>
                                     </MultiBinding>
                                 </Setter.Value>
                             </Setter>

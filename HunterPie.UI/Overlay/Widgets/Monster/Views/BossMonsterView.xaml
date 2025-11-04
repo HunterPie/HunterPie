@@ -7,17 +7,164 @@
              mc:Ignorable="d"
              xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels"
              xmlns:progress="clr-namespace:HunterPie.UI.Controls.Progress"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Presentation"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:display="clr-namespace:HunterPie.UI.Controls.Display"
+             xmlns:loading="clr-namespace:HunterPie.UI.Controls.Loading"
+             xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets"
+             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
+             xmlns:animation="clr-namespace:HunterPie.UI.Architecture.Animation"
+             xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer"
              d:DataContext="{d:DesignInstance Type=viewmodels:BossMonsterViewModel}"
              IsHitTestVisible="False"
-             d:DesignWidth="600">
+             d:DesignWidth="600"
+             x:Name="BossMonsterComponent">
+    <UserControl.Resources>
+        <converters:DoubleToDecimalConverter x:Key="DoubleToDecimalConverter"/>
+        <converters:FloatFloorConverter x:Key="FloatFloorConverter"/>
+        <converters:CrownToIconConverter x:Key="CrownToIconConverter"/>
+        <converters:CrownToVisibilityConverter x:Key="CrownToVisibilityConverter"/>
+        <converters:TargetTypeToVisibility x:Key="TargetTypeToVisibility"/>
+        <converters:MonsterTypeToLocalizationConverter x:Key="MonsterTypeToLocalizationConverter"/>
+        <presentation:MonsterVariantBrushConverter x:Key="MonsterVariantBrushConverter"/>
+        <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
+        <converters:RatioConverter x:Key="RatioConverter"/>
+
+        <!-- Styles to handle default configurations -->
+        <Style TargetType="{x:Type local:BossMonsterAilmentView}">
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding DataContext.Config.AutomaticallyHideAilments.Value, Mode=OneWay, ElementName=BossMonsterComponent}"
+                                   Value="True"/>
+                        <Condition Binding="{Binding DataContext.IsActive, RelativeSource={RelativeSource Self}}"
+                                   Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding DataContext.Config.AutomaticallyHideAilments.Value, Mode=OneWay, ElementName=BossMonsterComponent}"
+                                   Value="True"/>
+                        <Condition Binding="{Binding DataContext.IsActive, RelativeSource={RelativeSource Self}}"
+                                   Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Visible"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding DataContext.IsActive, RelativeSource={RelativeSource Self}}"
+                                   Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Visible"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding DataContext.IsEnabled, RelativeSource={RelativeSource Self}}"
+                                   Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="Internal.Part.Style" 
+               TargetType="ContentPresenter">
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding DataContext.Config.AutoHideParts.Value, Mode=OneWay, ElementName=BossMonsterComponent}"
+                                   Value="True"/>
+                        <Condition Binding="{Binding DataContext.IsActive, RelativeSource={RelativeSource Self}}"
+                                   Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding DataContext.Config.AutoHideParts.Value, Mode=OneWay, ElementName=BossMonsterComponent}"
+                                   Value="True"/>
+                        <Condition Binding="{Binding DataContext.IsActive, RelativeSource={RelativeSource Self}}"
+                                   Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Visible"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding DataContext.IsActive, RelativeSource={RelativeSource Self}}"
+                                   Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Visible"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding DataContext.Config.HideUnknownParts.Value, Mode=OneWay, ElementName=BossMonsterComponent}"
+                                   Value="True"/>
+                        <Condition Binding="{Binding DataContext.IsKnownPart, RelativeSource={RelativeSource Self}}"
+                                   Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding DataContext.IsEnabled, RelativeSource={RelativeSource Self}}"
+                                   Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Part templates setup for the dynamic rendering -->
+        <DataTemplate x:Key="Internal.Templates.Part.Default">
+            <local:BossMonsterPartView />
+        </DataTemplate>
+
+        <DataTemplate x:Key="Internal.Templates.Part.Severable">
+            <local:BossMonsterSeverablePartView />
+        </DataTemplate>
+
+        <DataTemplate x:Key="Internal.Templates.Part.Breakable">
+            <local:BossMonsterBreakablePartView />
+        </DataTemplate>
+
+        <DataTemplate x:Key="Internal.Templates.Part.Qurio">
+            <local:BossMonsterQurioPartView />
+        </DataTemplate>
+
+        <converters:MonsterPartTypeToDataTemplateConverter x:Key="MonsterPartTypeToDataTemplateConverter"
+                                                           DefaultTemplate="{StaticResource Internal.Templates.Part.Default}"
+                                                           SeverableTemplate="{StaticResource Internal.Templates.Part.Severable}"
+                                                           BreakableTemplate="{StaticResource Internal.Templates.Part.Breakable}"
+                                                           QurioTemplate="{StaticResource Internal.Templates.Part.Qurio}"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="10"/>
-            <RowDefinition Height="6"/>
+            <RowDefinition Height="8"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"/>
@@ -26,25 +173,91 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="20"/>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="15"/>
             </Grid.RowDefinitions>
 
             <!-- Monster Icon -->
-            <Image Grid.Column="0"
-                   Grid.Row="1"
-                   Grid.RowSpan="2"
-                   Height="35"
-                   Width="35"
-                   d:Source="{StaticResource ICON_SKULL}"/>
+            <Grid Grid.Column="0"
+                  Grid.Row="1"
+                  Grid.RowSpan="2">
+                <Rectangle Fill="{StaticResource Gray@100}"
+                           StrokeThickness="2"
+                           Stroke="{Binding Variant, Mode=OneWay, Converter={StaticResource MonsterVariantBrushConverter}}"
+                           Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                           RenderTransformOrigin="0.5,0.5">
+                    <Rectangle.OpacityMask>
+                        <LinearGradientBrush StartPoint="0,0"
+                                             EndPoint="1,1">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="#00000000" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Rectangle.OpacityMask>
+                    <Rectangle.RenderTransform>
+                        <RotateTransform Angle="45"/>
+                    </Rectangle.RenderTransform>
+                </Rectangle>
+                <display:Conditional Height="35"
+                                     Width="35"
+                                     d:Condition="False"
+                                     Condition="{Binding IsLoadingIcon, Mode=OneWay}">
+                    <display:Conditional.Component>
+                        <DataTemplate>
+                            <loading:CircleLoading Margin="10"/>
+                        </DataTemplate>
+                    </display:Conditional.Component>
+                    <display:Conditional.Otherwise>
+                        <DataTemplate>
+                            <Image RenderOptions.BitmapScalingMode="Fant"
+                                   d:Source="{StaticResource ICON_SKULL}"
+                                   Source="{Binding Icon, Mode=OneWay, TargetNullValue={assets:MonsterIcon Rise_Unknown}}"/>
+                        </DataTemplate>
+                    </display:Conditional.Otherwise>
+                </display:Conditional>
+            </Grid>
+
+            <!-- Monster types -->
+            <ItemsControl Grid.Row="0"
+                          Grid.Column="1"
+                          VerticalAlignment="Top"
+                          ItemsSource="{Binding Types, Mode=OneWay}"
+                          d:ItemsSource="{d:SampleData ItemCount=3}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type system:String}">
+                        <Border Padding="2"
+                                Background="{StaticResource Gray@50}"
+                                BorderBrush="{StaticResource Gray}"
+                                BorderThickness="1"
+                                CornerRadius="5"
+                                Margin="0,0,5,0"
+                                VerticalAlignment="Top"
+                                Opacity="0.7">
+                            <TextBlock Text="{Binding ., Mode=OneTime, Converter={StaticResource MonsterTypeToLocalizationConverter}}"
+                                       d:Text="Type"
+                                       FontSize="9"
+                                       VerticalAlignment="Center"
+                                       Foreground="{StaticResource White@300}"/>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
             <!-- Name and Crown -->
             <StackPanel Orientation="Horizontal"
                         Grid.Row="1"
                         Grid.Column="1">
                 <Image d:Source="{StaticResource CROWN_GOLD}"
+                       Source="{Binding Crown, Mode=OneWay, Converter={StaticResource CrownToIconConverter}}"
                        Margin="0,5"
-                       VerticalAlignment="Center"/>
+                       VerticalAlignment="Center"
+                       Visibility="{Binding Crown, Mode=OneWay, Converter={StaticResource CrownToVisibilityConverter}}"/>
                 <TextBlock d:Text="Monster Name"
+                           Text="{Binding Name, Mode=OneWay}"
                            Foreground="{StaticResource White@50}"
                            FontSize="14"
                            VerticalAlignment="Center"
@@ -54,61 +267,96 @@
             <!-- Health -->
             <TextBlock Grid.Row="2"
                        Grid.Column="1"
-                       Foreground="{StaticResource White@400}"
+                       Foreground="{StaticResource White@100}"
                        HorizontalAlignment="Left"
                        FontSize="14"
-                       VerticalAlignment="Center">
-                <Run d:Text="98,400"
-                     Foreground="{StaticResource White@50}"
-                     FontWeight="Medium"/><!--
-             --><Run d:Text="/"/><!--
-             --><Run d:Text="120,000"/>
+                       VerticalAlignment="Center"
+                       FontWeight="Medium">
+                <Run d:Text="98400"
+                     Text="{Binding Health, Mode=OneWay, StringFormat='{}{0:#,#.}'}"
+                     Foreground="{StaticResource White@50}"/><!--
+             --><Run Text="/"/><!--
+             --><Run d:Text="120000"
+                    Text="{Binding MaxHealth, Mode=OneWay, StringFormat='{}{0:#,#.}'}"/>
             </TextBlock>
 
             <!-- Percentage -->
             <TextBlock Grid.Row="2"
                        Grid.Column="1"
-                       Foreground="{StaticResource White@500}"
+                       Foreground="{StaticResource White@100}"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center">
                 <Run d:Text="82"
+                     Text="{Binding HealthPercentage, Mode=OneWay, Converter={StaticResource FloatFloorConverter}}"
                      Foreground="{StaticResource White@50}"
                      FontSize="14"/><!--
-             --><Run d:Text="."
-                     FontSize="12"/><!--
-             --><Run d:Text="00%"
-                    FontSize="12"/>
+             --><Run d:Text=".00%"
+                     Text="{Binding HealthPercentage, Mode=OneWay, Converter={StaticResource DoubleToDecimalConverter}, StringFormat={}.{0:D2}%}"
+                     FontSize="12"/>
             </TextBlock>
         </Grid>
 
         <!-- Health Bar -->
         <progress:Gauge Grid.Row="1"
                         Foreground="{DynamicResource Brushes.Widgets.Monster.Health.Default}"
-                        Background="{StaticResource Gray@300}"
+                        Background="{Binding Source={StaticResource Gray@300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
                         BorderBrush="{StaticResource Gray@50}"
                         CornerRadius="3"
                         BorderThickness="1"
-                        Height="9"
-                        Current="82"
-                        Max="100"
-                        Markers="10"/>
+                        Height="10"
+                        d:Current="82"
+                        d:Max="100"
+                        Current="{Binding Health, Mode=OneWay}"
+                        Max="{Binding MaxHealth, Mode=OneWay}"
+                        Markers="10">
+            <progress:Gauge.Style>
+                <Style TargetType="{x:Type progress:Gauge}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsEnraged, Mode=OneWay}" 
+                                     Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <animation:BrushAnimation Storyboard.TargetProperty="Foreground"
+                                                                  To="{StaticResource Brushes.Widgets.Monster.Health.Enraged}"
+                                                                  Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <animation:BrushAnimation Storyboard.TargetProperty="Foreground"
+                                                                  To="{StaticResource Brushes.Widgets.Monster.Health.Default}"
+                                                                  Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                    </Style>
+            </progress:Gauge.Style>
+        </progress:Gauge>
 
         <!-- Stamina Bar -->
         <progress:Gauge Grid.Row="2"
                         Foreground="{DynamicResource Brushes.Widgets.Monster.Stamina.Default}"
-                        Background="{StaticResource Gray@300}"
+                        Background="{Binding Source={StaticResource Gray@300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
                         BorderBrush="{StaticResource Gray@50}"
-                        CornerRadius="1.5"
-                        BorderThickness="1"
-                        Height="6"
-                        Current="30"
-                        Max="100"
+                        CornerRadius="2"
+                        BorderThickness="2"
+                        Height="10"
+                        d:Current="30"
+                        d:Max="100"
+                        Current="{Binding Stamina, Mode=OneWay}"
+                        Max="{Binding MaxStamina, Mode=OneWay}"
                         Markers="10"
                         VerticalAlignment="Top"/>
 
         <!-- Weaknesses -->
         <ItemsControl Grid.Row="3"
-                      d:ItemsSource="{d:SampleData ItemCount=3}">
+                      d:ItemsSource="{d:SampleData ItemCount=3}"
+                      ItemsSource="{Binding Weaknesses, Mode=OneWay}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>
@@ -116,17 +364,24 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <local:BossMonsterWeaknessView Height="15"
-                                                   Width="15"
+                    <local:BossMonsterWeaknessView Height="20"
+                                                   Width="20"
                                                    Margin="1"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
         <!-- Parts and Ailments -->
-        <Grid Grid.Row="4">
-            <ItemsControl ItemsSource="{Binding Ailments, Mode=OneWay}"
-                          d:ItemsSource="{d:SampleData ItemCount=5}">
+        <Grid Grid.Row="4"
+              Visibility="{Binding TargetType, Mode=OneWay, Converter={StaticResource TargetTypeToVisibility}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <!-- Ailments -->
+            <ItemsControl Grid.Row="0" 
+                          ItemsSource="{Binding Ailments, Mode=OneWay}"
+                          d:ItemsSource="{d:SampleData ItemCount=3}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>
@@ -135,7 +390,34 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:BossMonsterAilmentView />
+                        <local:BossMonsterAilmentView Width="60"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- Parts -->
+            <ItemsControl Grid.Row="1"
+                          ItemsSource="{Binding Parts, Mode=OneWay}"
+                          d:ItemsSource="{d:SampleData ItemCount=10}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ContentPresenter ContentTemplate="{Binding Type, Converter={StaticResource MonsterPartTypeToDataTemplateConverter}}"
+                                          d:ContentTemplate="{StaticResource Internal.Templates.Part.Default}"
+                                          Style="{StaticResource Internal.Part.Style}">
+                            <ContentPresenter.Width>
+                                <MultiBinding Converter="{StaticResource RatioConverter}">
+                                    <Binding Path="ActualWidth"
+                                             RelativeSource="{RelativeSource AncestorType={x:Type WrapPanel}}"/>
+                                    <Binding Source="3"/>
+                                </MultiBinding>
+                            </ContentPresenter.Width>
+                        </ContentPresenter>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

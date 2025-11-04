@@ -107,7 +107,7 @@ public class Arc : Shape
     {
         double angle = reverse switch
         {
-            true => -90.0 + (360.0 * percentage),
+            true => 90.0 + (360.0 * percentage),
             false => 90.0 - (360.0 * percentage),
         };
         double cap = -269.999;

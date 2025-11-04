@@ -13,36 +13,19 @@ public class MonsterAilmentViewModel : AutoVisibilityViewModel
     public string Name { get => _name; set => SetValue(ref _name, value); }
 
     private double _timer;
-    public double Timer
-    {
-        get => _timer;
-        set
-        {
-            if (value != _timer)
-                RefreshTimer();
-
-            SetValue(ref _timer, value);
-        }
-    }
+    public double Timer { get => _timer; set => SetValueAndRefresh(ref _timer, value); }
 
     private double _maxTimer;
     public double MaxTimer { get => _maxTimer; set => SetValue(ref _maxTimer, value); }
 
     private double _buildup;
-    public double Buildup
-    {
-        get => _buildup;
-        set
-        {
-            if (value != _buildup)
-                RefreshTimer();
-
-            SetValue(ref _buildup, value);
-        }
-    }
+    public double Buildup { get => _buildup; set => SetValueAndRefresh(ref _buildup, value); }
 
     private double _maxBuildup;
     public double MaxBuildup { get => _maxBuildup; set => SetValue(ref _maxBuildup, value); }
+
+    private bool _isTimerActive;
+    public bool IsTimerActive { get => _isTimerActive; set => SetValueAndRefresh(ref _isTimerActive, value); }
 
     private int _count;
     public int Count { get => _count; set => SetValue(ref _count, value); }

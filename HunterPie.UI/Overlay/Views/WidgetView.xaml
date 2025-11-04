@@ -35,12 +35,6 @@
                       CaptionHeight="0"/>
     </WindowChrome.WindowChrome>
     <Grid>
-        <Grid.LayoutTransform>
-            <ScaleTransform ScaleX="{Binding ViewModel.Settings.Scale.Current, Mode=OneWay}"
-                            ScaleY="{Binding ViewModel.Settings.Scale.Current, Mode=OneWay}"
-                            CenterX="0.5"
-                            CenterY="0.5"/>
-        </Grid.LayoutTransform>
         <!-- Widget holder -->
         <Grid>
             <Grid.RowDefinitions>
@@ -113,6 +107,12 @@
             <ContentControl ContentTemplate="{Binding ViewModel, Mode=OneWay, Converter={StaticResource WidgetByViewModelConverter}}"
                             Content="{Binding ViewModel, Mode=OneWay}"
                             x:Name="PART_Content">
+                <ContentControl.LayoutTransform>
+                    <ScaleTransform ScaleX="{Binding ViewModel.Settings.Scale.Current, Mode=OneWay}"
+                                    ScaleY="{Binding ViewModel.Settings.Scale.Current, Mode=OneWay}"
+                                    CenterX="0.5"
+                                    CenterY="0.5"/>
+                </ContentControl.LayoutTransform>
                 <ContentControl.Style>
                     <Style TargetType="ContentControl">
                         <Style.Setters>

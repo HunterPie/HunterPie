@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime"
-                    xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup">
+                    xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup;assembly=HunterPie.UI">
     <!-- Overlay -->
     <!-- Overlay Colors -->
     <!-- Specilialized Tools -->
@@ -364,10 +364,13 @@
     </LinearGradientBrush>
 
     <!-- Monster Widget -->
-    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Health.Default" Color="{markup:BrushColor Brush={StaticResource Blue}}"/>
-    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Health.Default.Background" Color="{markup:BrushColor Brush={StaticResource Blue@400}}"/>
+    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Health.Default"
+                     Color="{markup:BrushColor Brush={StaticResource Blue}}"/>
+    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Health.Default.Background" 
+                     Color="{markup:BrushColor Brush={StaticResource Blue@400}}"/>
 
-    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Stamina.Default" Color="{markup:BrushColor Brush={StaticResource Yellow}}"/>
+    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Stamina.Default" 
+                     Color="{markup:BrushColor Brush={StaticResource Yellow}}"/>
 
     <LinearGradientBrush x:Key="Brushes.Widgets.Monster.Health.Enraged" EndPoint="1,1" StartPoint="0,1">
         <GradientStop Color="#d42c2c"/>
@@ -375,16 +378,15 @@
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Brushes.Widgets.Monster.Health.Enraged.Background" Color="#FFEB6C5B"/>
 
-    <LinearGradientBrush x:Key="Brushes.Widgets.Monster.Part.Breakable.Foreground" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FFFBB623"/>
-        <GradientStop Color="#FFFFCC72" Offset="1"/>
-    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Part.Default.Foreground"
+                     Color="{markup:BrushColor Brush={StaticResource Blue}}"/>
+
+    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Part.Breakable.Foreground" 
+                     Color="{markup:BrushColor Brush={StaticResource Yellow}}"/>
     <SolidColorBrush x:Key="Brushes.Widgets.Monster.Part.Breakable.Background" Color="#FFFFE1AC"/>
 
-    <LinearGradientBrush x:Key="Brushes.Widgets.Monster.Part.Severable.Foreground" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FFDE1010"/>
-        <GradientStop Color="#FFEE4B4B" Offset="1"/>
-    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Part.Severable.Foreground"
+                         Color="{markup:BrushColor Brush={StaticResource Red}}"/>
     <SolidColorBrush x:Key="Brushes.Widgets.Monster.Part.Severable.Background" Color="#FFFF8F8F"/>
 
     <LinearGradientBrush x:Key="Brushes.Widgets.Monster.Part.Broken.Foreground" EndPoint="1,1" StartPoint="0,1">
@@ -399,8 +401,8 @@
     <SolidColorBrush x:Key="Brushes.Widgets.Monster.Part.Qurio.Background" Color="#FFF7A1C8"/>
 
     <LinearGradientBrush x:Key="Brushes.Widgets.Monster.Tenderize.Foreground" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FF03E5B7"/>
-        <GradientStop Color="#FF69F3D7" Offset="1"/>
+        <GradientStop Color="#3BDEFF"/>
+        <GradientStop Color="#7EE7FC" Offset="1"/>
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Brushes.Widgets.Monster.Tenderize.Background" Color="#FFFFDB9C"/>
 

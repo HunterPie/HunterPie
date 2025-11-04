@@ -7,60 +7,124 @@
              d:DataContext="{d:DesignInstance Type=vm:MonsterAilmentViewModel}"
              xmlns:controls="clr-namespace:HunterPie.UI.Overlay.Controls"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
              mc:Ignorable="d"
              Padding="0,0,0,2"
-             Width="80">
+             Width="60">
     <UserControl.Resources>
         <converters:RatioConverter x:Key="RatioConverter"/>
         <converters:SecondsToTimeString x:Key="SecondsToTimeString"/>
         <converters:RiseMonsterAilmentIdToNameConverter x:Key="RiseMonsterAilmentIdToNameConverter"/>
         <converters:MonsterAilmentIdToColorConverter x:Key="MonsterAilmentIdToColorConverter"/>
+        <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="15"/>
             <RowDefinition Height="15"/>
         </Grid.RowDefinitions>
+        <Ellipse Grid.Row="0"
+                 Height="35"
+                 Width="35"
+                 Fill="{Binding Source={StaticResource Gray@50}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+                 StrokeThickness="3"
+                 Stroke="{StaticResource Gray}"/>
+
+        <Ellipse Grid.Row="0"
+                 Height="25"
+                 Width="25"
+                 StrokeThickness="3"
+                 Stroke="{StaticResource Gray}"/>
+
+        <!-- Build Up -->
         <controls:Arc Grid.Row="0"
+                      Reverse="True"
                       HorizontalAlignment="Center"
-                      Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                      d:Percentage="0.3"
-                      StrokeThickness="5"
-                      Margin="5"
+                      Width="25"
+                      Height="25"
+                      d:Percentage="0.17"
+                      StrokeThickness="3"
                       Stroke="{StaticResource Blue}"
                       StrokeEndLineCap="Round"
                       StrokeStartLineCap="Round"
-                      StrokeDashCap="Round"/>
+                      StrokeDashCap="Round">
+            <controls:Arc.Percentage>
+                <MultiBinding Converter="{StaticResource RatioConverter}">
+                    <Binding Path="Buildup"/>
+                    <Binding Path="MaxBuildup"/>
+                </MultiBinding>
+            </controls:Arc.Percentage>
+        </controls:Arc>
+
+        <!-- Timer -->
         <controls:Arc Grid.Row="0"
                       HorizontalAlignment="Center"
-                      Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                      Width="35"
+                      Height="35"
                       d:Percentage="0.83"
-                      StrokeThickness="5"
-                      Stroke="{StaticResource Red}"
+                      StrokeThickness="3"
+                      d:Stroke="{StaticResource Red}"
+                      Stroke="{Binding Name, Mode=OneWay, Converter={StaticResource MonsterAilmentIdToColorConverter}}"
                       StrokeEndLineCap="Round"
                       StrokeStartLineCap="Round"
-                      StrokeDashCap="Round"/>
+                      StrokeDashCap="Round">
+            <controls:Arc.Percentage>
+                <MultiBinding Converter="{StaticResource RatioConverter}">
+                    <Binding Path="Timer"/>
+                    <Binding Path="MaxTimer"/>
+                </MultiBinding>
+            </controls:Arc.Percentage>
+        </controls:Arc>
 
+        <!-- Counter -->
         <TextBlock Grid.Row="0"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    d:Text="9"
+                   Text="{Binding Count, Mode=OneWay}"
                    Foreground="{StaticResource White@50}"
                    FontSize="14"/>
 
+        <!-- Name -->
         <TextBlock Grid.Row="1"
                    TextAlignment="Center"
+                   VerticalAlignment="Center"
                    TextTrimming="CharacterEllipsis"
                    d:Text="Enrage"
-                   Foreground="{StaticResource White@300}"
+                   Text="{Binding Name, Converter={StaticResource RiseMonsterAilmentIdToNameConverter}}"
+                   Foreground="{StaticResource White@200}"
                    FontWeight="Medium"
-                   FontSize="14"/>
+                   FontSize="13"/>
 
+        <!-- Progress Text -->
         <TextBlock Grid.Row="2"
                    TextAlignment="Center"
                    d:Text="00:00"
                    Foreground="{StaticResource White@100}"
-                   FontSize="13"/>
+                   FontFamily="{StaticResource Font.Default}"
+                   FontWeight="Medium"
+                   FontSize="13">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Text">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource RatioConverter}" StringFormat="{}{0:P0}">
+                                <Binding Path="Buildup" 
+                                         Mode="OneWay"/>
+                                <Binding Path="MaxBuildup" 
+                                         Mode="OneWay"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsTimerActive, Mode=OneWay}"
+                                     Value="True">
+                            <Setter Property="Text" Value="{Binding Timer, Mode=OneWay, Converter={StaticResource SecondsToTimeString}}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
     </Grid>
 </UserControl>

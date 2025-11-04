@@ -3,11 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
              xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels"
              xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
-             d:DataContext="{d:DesignData Type=vm:MonsterPartViewModel}"
+             d:DataContext="{d:DesignInstance Type=vm:MonsterPartViewModel}"
              mc:Ignorable="d"
              d:DesignWidth="200">
     <UserControl.Resources>
