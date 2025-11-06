@@ -15,7 +15,8 @@
              xmlns:assets="clr-namespace:HunterPie.UI.Architecture.Assets"
              xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
              xmlns:animation="clr-namespace:HunterPie.UI.Architecture.Animation"
-             xmlns:viewer="clr-namespace:HunterPie.UI.Controls.Viewer"
+             xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
+             xmlns:visibilities="clr-namespace:HunterPie.UI.Architecture.Converters.Visibilities"
              d:DataContext="{d:DesignInstance Type=viewmodels:BossMonsterViewModel}"
              IsHitTestVisible="False"
              d:DesignWidth="600"
@@ -30,9 +31,14 @@
         <presentation:MonsterVariantBrushConverter x:Key="MonsterVariantBrushConverter"/>
         <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
         <converters:RatioConverter x:Key="RatioConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:PercentageToLeftMarginDistanceConverter x:Key="PercentageToLeftMarginDistanceConverter"/>
+        <visibilities:BooleansToVisibilityMultiConverter x:Key="BooleansToVisibilityMultiConverter"/>
+        <converters:NumberToBooleanConverter x:Key="NumberToBooleanConverter"/>
 
         <!-- Styles to handle default configurations -->
-        <Style TargetType="{x:Type local:BossMonsterAilmentView}">
+        <Style x:Key="Internal.Ailment.Style"
+               TargetType="ContentPresenter">
             <Style.Triggers>
                 <MultiDataTrigger>
                     <MultiDataTrigger.Conditions>
@@ -159,8 +165,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -220,7 +226,8 @@
                           Grid.Column="1"
                           VerticalAlignment="Top"
                           ItemsSource="{Binding Types, Mode=OneWay}"
-                          d:ItemsSource="{d:SampleData ItemCount=3}">
+                          d:ItemsSource="{d:SampleData ItemCount=3}"
+                          Visibility="{Binding Config.IsTypeEnabled.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>
@@ -271,13 +278,14 @@
                        HorizontalAlignment="Left"
                        FontSize="14"
                        VerticalAlignment="Center"
-                       FontWeight="Medium">
-                <Run d:Text="98400"
-                     Text="{Binding Health, Mode=OneWay, StringFormat='{}{0:#,#.}'}"
+                       FontWeight="Medium"
+                       Visibility="{Binding Config.IsHealthTextEnabled.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Run d:Text="98,400"
+                     Text="{Binding Health, Mode=OneWay, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}"
                      Foreground="{StaticResource White@50}"/><!--
              --><Run Text="/"/><!--
-             --><Run d:Text="120000"
-                    Text="{Binding MaxHealth, Mode=OneWay, StringFormat='{}{0:#,#.}'}"/>
+             --><Run d:Text="120,000"
+                    Text="{Binding MaxHealth, Mode=OneWay, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}"/>
             </TextBlock>
 
             <!-- Percentage -->
@@ -285,7 +293,8 @@
                        Grid.Column="1"
                        Foreground="{StaticResource White@100}"
                        HorizontalAlignment="Right"
-                       VerticalAlignment="Center">
+                       VerticalAlignment="Center"
+                       Visibility="{Binding Config.IsHealthTextEnabled.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Run d:Text="82"
                      Text="{Binding HealthPercentage, Mode=OneWay, Converter={StaticResource FloatFloorConverter}}"
                      Foreground="{StaticResource White@50}"
@@ -304,11 +313,13 @@
                         CornerRadius="3"
                         BorderThickness="1"
                         Height="10"
-                        d:Current="82"
+                        d:Current="81"
                         d:Max="100"
                         Current="{Binding Health, Mode=OneWay}"
                         Max="{Binding MaxHealth, Mode=OneWay}"
-                        Markers="10">
+                        Markers="10"
+                        IsAnimationEnabled="True"
+                        Visibility="{Binding Config.IsHealthBarEnabled.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
             <progress:Gauge.Style>
                 <Style TargetType="{x:Type progress:Gauge}">
                     <Style.Triggers>
@@ -338,6 +349,28 @@
             </progress:Gauge.Style>
         </progress:Gauge>
 
+        <!-- Capture Tick -->
+        <image:Icon Grid.Row="1"
+                    Image="{StaticResource ICON_FUNNEL}"
+                    Foreground="{StaticResource Yellow}"
+                    Height="8"
+                    Width="8"
+                    HorizontalAlignment="Left"
+                    d:Margin="100,0,0,0">
+            <image:Icon.Visibility>
+                <MultiBinding Converter="{StaticResource BooleansToVisibilityMultiConverter}">
+                    <Binding Path="Config.IsHealthBarEnabled.Value" Mode="OneWay"/>
+                    <Binding Path="CanBeCaptured" Mode="OneWay"/>
+                </MultiBinding>
+            </image:Icon.Visibility>
+            <image:Icon.Margin>
+                <MultiBinding Converter="{StaticResource PercentageToLeftMarginDistanceConverter}" ConverterParameter="0,0,0,0">
+                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Grid}}"/>
+                    <Binding Path="CaptureThreshold" Mode="OneWay"/>
+                </MultiBinding>
+            </image:Icon.Margin>
+        </image:Icon>
+
         <!-- Stamina Bar -->
         <progress:Gauge Grid.Row="2"
                         Foreground="{DynamicResource Brushes.Widgets.Monster.Stamina.Default}"
@@ -351,12 +384,48 @@
                         Current="{Binding Stamina, Mode=OneWay}"
                         Max="{Binding MaxStamina, Mode=OneWay}"
                         Markers="10"
-                        VerticalAlignment="Top"/>
+                        VerticalAlignment="Top"
+                        IsAnimationEnabled="True">
+            <progress:Gauge.Visibility>
+                <MultiBinding Converter="{StaticResource BooleansToVisibilityMultiConverter}">
+                    <Binding Path="Config.IsStaminaBarEnabled.Value"
+                             Mode="OneWay"/>
+                    <Binding Path="MaxStamina"
+                             Mode="OneWay"
+                             Converter="{StaticResource NumberToBooleanConverter}"/>
+                </MultiBinding>
+            </progress:Gauge.Visibility>
+        </progress:Gauge>
+
+                        <!-- Stamina Text -->
+        <TextBlock Grid.Row="3"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Top"
+                   Foreground="{StaticResource White@100}"
+                   FontSize="13">
+            <Run d:Text="300"
+                 Text="{Binding Stamina, Mode=OneWay, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}"
+                 Foreground="{StaticResource White@50}"/><!--
+         --><Run Text="/"/><!--
+         --><Run d:Text="1,000"
+                 Text="{Binding MaxStamina, Mode=OneWay, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}"/>
+            <TextBlock.Visibility>
+                <MultiBinding Converter="{StaticResource BooleansToVisibilityMultiConverter}">
+                    <Binding Path="Config.IsStaminaTextEnabled.Value"
+                             Mode="OneWay"/>
+                    <Binding Path="MaxStamina"
+                             Mode="OneWay"
+                             Converter="{StaticResource NumberToBooleanConverter}"/>
+                </MultiBinding>
+            </TextBlock.Visibility>
+        </TextBlock>
 
         <!-- Weaknesses -->
         <ItemsControl Grid.Row="3"
                       d:ItemsSource="{d:SampleData ItemCount=3}"
-                      ItemsSource="{Binding Weaknesses, Mode=OneWay}">
+                      ItemsSource="{Binding Weaknesses, Mode=OneWay}"
+                      HorizontalAlignment="Left"
+                      Visibility="{Binding Config.IsWeaknessEnabled.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>
@@ -381,16 +450,24 @@
             <!-- Ailments -->
             <ItemsControl Grid.Row="0" 
                           ItemsSource="{Binding Ailments, Mode=OneWay}"
-                          d:ItemsSource="{d:SampleData ItemCount=3}">
+                          d:ItemsSource="{d:SampleData ItemCount=3}"
+                          Visibility="{Binding Config.EnableAilments.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
+                        <WrapPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:BossMonsterAilmentView Width="60"/>
+                        <ContentPresenter Style="{StaticResource Internal.Ailment.Style}"
+                                          Width="60">
+                            <ContentPresenter.ContentTemplate>
+                                <DataTemplate>
+                                    <local:BossMonsterAilmentView />
+                                </DataTemplate>
+                            </ContentPresenter.ContentTemplate>
+                        </ContentPresenter>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -398,10 +475,11 @@
             <!-- Parts -->
             <ItemsControl Grid.Row="1"
                           ItemsSource="{Binding Parts, Mode=OneWay}"
-                          d:ItemsSource="{d:SampleData ItemCount=10}">
+                          d:ItemsSource="{d:SampleData ItemCount=10}"
+                          Visibility="{Binding Config.EnableParts.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel />
+                        <WrapPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 

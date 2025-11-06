@@ -376,35 +376,26 @@
         <GradientStop Color="#d42c2c"/>
         <GradientStop Color="#e63f29" Offset="1"/>
     </LinearGradientBrush>
-    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Health.Enraged.Background" Color="#FFEB6C5B"/>
 
     <SolidColorBrush x:Key="Brushes.Widgets.Monster.Part.Default.Foreground"
                      Color="{markup:BrushColor Brush={StaticResource Blue}}"/>
 
     <SolidColorBrush x:Key="Brushes.Widgets.Monster.Part.Breakable.Foreground" 
                      Color="{markup:BrushColor Brush={StaticResource Yellow}}"/>
-    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Part.Breakable.Background" Color="#FFFFE1AC"/>
 
     <SolidColorBrush x:Key="Brushes.Widgets.Monster.Part.Severable.Foreground"
                          Color="{markup:BrushColor Brush={StaticResource Red}}"/>
-    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Part.Severable.Background" Color="#FFFF8F8F"/>
 
-    <LinearGradientBrush x:Key="Brushes.Widgets.Monster.Part.Broken.Foreground" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FF3D3D3D"/>
-        <GradientStop Color="#FF8A8A8A" Offset="1"/>
-    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Part.Broken.Foreground"
+                     Color="#71717A"/>
 
-    <LinearGradientBrush x:Key="Brushes.Widgets.Monster.Part.Qurio.Foreground" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#FFEE4B96" Offset="1"/>
-        <GradientStop Color="#FFDE1078" Offset="0"/>
-    </LinearGradientBrush>
-    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Part.Qurio.Background" Color="#FFF7A1C8"/>
+    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Part.Qurio.Foreground"
+                         Color="{markup:BrushColor Brush={StaticResource Pink@50}}"/>
 
-    <LinearGradientBrush x:Key="Brushes.Widgets.Monster.Tenderize.Foreground" EndPoint="1,1" StartPoint="0,1">
-        <GradientStop Color="#3BDEFF"/>
-        <GradientStop Color="#7EE7FC" Offset="1"/>
-    </LinearGradientBrush>
-    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Tenderize.Background" Color="#FFFFDB9C"/>
+    <SolidColorBrush x:Key="Brushes.Widgets.Monster.Tenderize.Foreground" 
+                     Color="#7EE7FC"/>
+
+    <system:String x:Key="Text.Widgets.Monster.Health.Format">{0:#,#.;;0}</system:String>
 
     <!-- Player Hud -->
     <LinearGradientBrush x:Key="Brushes.Widgets.Player.Health.Default" EndPoint="1,1" StartPoint="0,1">

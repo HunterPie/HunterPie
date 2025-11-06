@@ -118,6 +118,17 @@
     <SolidColorBrush x:Key="Violet@600">#392066</SolidColorBrush>
     <SolidColorBrush x:Key="Violet@700">#2b184d</SolidColorBrush>
 
+    <!-- Pink -->
+    <SolidColorBrush x:Key="Pink">#FF4ECD</SolidColorBrush>
+    <SolidColorBrush x:Key="Pink@50">#f24ac3</SolidColorBrush>
+    <SolidColorBrush x:Key="Pink@100">#e646b9</SolidColorBrush>
+    <SolidColorBrush x:Key="Pink@200">#cc3ea4</SolidColorBrush>
+    <SolidColorBrush x:Key="Pink@300">#b33790</SolidColorBrush>
+    <SolidColorBrush x:Key="Pink@400">#992f7b</SolidColorBrush>
+    <SolidColorBrush x:Key="Pink@500">#802767</SolidColorBrush>
+    <SolidColorBrush x:Key="Pink@600">#661f52</SolidColorBrush>
+    <SolidColorBrush x:Key="Pink@700">#4d173e</SolidColorBrush>
+
 
     <!-- HunterPie -->
     <LinearGradientBrush x:Key="Brushes.HunterPie.Accent" EndPoint="1,1" StartPoint="0,1">

@@ -36,7 +36,7 @@
                             <Setter Property="Width">
                                 <Setter.Value>
                                     <MultiBinding Converter="{StaticResource CurrentValueToWidthConverter}">
-                                        <Binding Path="Current" ElementName="GaugeComponent"/>
+                                        <Binding Path="AnimatedCurrent" ElementName="GaugeComponent"/>
                                         <Binding Path="Max" ElementName="GaugeComponent"/>
                                         <Binding Path="ActualWidth" ElementName="GaugeComponent"/>
                                         <Binding Path="BorderThickness" ElementName="GaugeComponent"/>
@@ -51,7 +51,7 @@
                             <Setter Property="Height">
                                 <Setter.Value>
                                     <MultiBinding Converter="{StaticResource CurrentValueToWidthConverter}">
-                                        <Binding Path="Current" ElementName="GaugeComponent"/>
+                                        <Binding Path="AnimatedCurrent" ElementName="GaugeComponent"/>
                                         <Binding Path="Max" ElementName="GaugeComponent"/>
                                         <Binding Path="ActualHeight" ElementName="GaugeComponent"/>
                                         <Binding Path="BorderThickness" ElementName="GaugeComponent"/>

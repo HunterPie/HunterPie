@@ -47,6 +47,8 @@
                            RadiusY="{Binding ActualWidth, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource DivideEquallyConverter}}"/>
 
                 <TextBlock Text="{Binding Breaks, Mode=OneWay}"
+                           MinWidth="10"
+                           TextAlignment="Center"
                            d:Text="9"
                            Foreground="{StaticResource White@100}"
                            FontSize="13"
@@ -107,12 +109,12 @@
                 <DataTemplate>
                     <TextBlock Foreground="{StaticResource White@50}"
                                FontSize="13">
-                        <Run Text="{Binding Flinch, StringFormat='{}{0:#,#.}'}"
+                        <Run Text="{Binding Flinch, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}"
                              d:Text="2,000"/><!--
                      --><Run Text="/"
                              Foreground="{StaticResource White@100}"
                              FontWeight="Light"/><!--
-                     --><Run Text="{Binding MaxFlinch, StringFormat='{}{0:#,#.}'}"
+                     --><Run Text="{Binding MaxFlinch, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}"
                              Foreground="{StaticResource White@100}"
                              d:Text="2,000"/>
                     </TextBlock>
@@ -122,12 +124,12 @@
                 <DataTemplate>
                     <TextBlock Foreground="{StaticResource White@50}"
                                FontSize="13">
-                        <Run Text="{Binding Health, StringFormat='{}{0:#,#.}'}"
+                        <Run Text="{Binding Health, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}"
                              d:Text="2,000"/><!--
                      --><Run Text="/"
                              Foreground="{StaticResource White@100}"
                              FontWeight="Light"/><!--
-                     --><Run Text="{Binding MaxHealth, StringFormat='{}{0:#,#.}'}"
+                     --><Run Text="{Binding MaxHealth, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}"
                             Foreground="{StaticResource White@100}"
                             d:Text="2,000"/>
                     </TextBlock>

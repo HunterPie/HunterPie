@@ -62,10 +62,32 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("MONSTER_WIDGET_MIN_WIDTH_STRING", group: CommonConfigurationGroups.WIDGET)]
     [ConfigurationConditional(name: nameof(DynamicResize), withValue: true)]
     public Range MinWidth { get; set; } = new(400, 600, 200, 1);
+    #endregion
 
-    [ConfigurationProperty("MONSTER_WIDGET_ENABLE_STAMINA_STRING", group: CommonConfigurationGroups.WIDGET)]
+    #region Customization settings
+    [ConfigurationProperty("MONSTER_WIDGET_ENABLE_MONSTER_TYPE_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
-    public Observable<bool> EnableStamina { get; set; } = true;
+    public Observable<bool> IsTypeEnabled { get; set; } = true;
+
+    [ConfigurationProperty("MONSTER_WIDGET_ENABLE_HEALTH_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    public Observable<bool> IsHealthBarEnabled { get; set; } = true;
+
+    [ConfigurationProperty("MONSTER_WIDGET_ENABLE_HEALTH_TEXT_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    public Observable<bool> IsHealthTextEnabled { get; set; } = true;
+
+    [ConfigurationProperty("MONSTER_WIDGET_ENABLE_STAMINA_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    public Observable<bool> IsStaminaBarEnabled { get; set; } = true;
+
+    [ConfigurationProperty("MONSTER_WIDGET_ENABLE_STAMINA_TEXT_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    public Observable<bool> IsStaminaTextEnabled { get; set; } = true;
+
+    [ConfigurationProperty("MONSTER_WIDGET_ENABLE_WEAKNESS_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    public Observable<bool> IsWeaknessEnabled { get; set; } = true;
     #endregion
 
     #region Target settings
@@ -85,8 +107,8 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
     public Observable<bool> ShowOnlyTarget { get; set; } = false;
     #endregion
 
-    #region Customization Settings
-    [ConfigurationProperty("MONSTER_WIDGET_DETAILS_CONFIGURATIONS_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    #region Filter Settings
+    [ConfigurationProperty("MONSTER_WIDGET_DETAILS_CONFIGURATIONS_STRING", group: CommonConfigurationGroups.MONSTER_FILTERS)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public virtual MonsterDetailsConfiguration Details { get; set; } = new();
     #endregion

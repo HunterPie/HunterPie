@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
-             xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
              xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels"
              xmlns:display="clr-namespace:HunterPie.UI.Controls.Display"
              xmlns:progress="clr-namespace:HunterPie.UI.Controls.Progress"
@@ -44,6 +43,8 @@
                            RadiusY="{Binding ActualWidth, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource DivideEquallyConverter}}"/>
 
                 <TextBlock Text="{Binding Breaks, Mode=OneWay}"
+                           MinWidth="10"
+                           TextAlignment="Center"
                            d:Text="9"
                            Foreground="{StaticResource White@100}"
                            FontSize="13"
@@ -104,12 +105,12 @@
                 <DataTemplate>
                     <TextBlock Foreground="{StaticResource White@50}"
                                FontSize="13">
-                        <Run Text="{Binding Flinch, StringFormat='{}{0:#,#.}'}"
+                        <Run Text="{Binding Flinch, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}"
                              d:Text="2,000"/><!--
                      --><Run Text="/"
                              Foreground="{StaticResource White@100}"
                              FontWeight="Light"/><!--
-                     --><Run Text="{Binding MaxFlinch, StringFormat='{}{0:#,#.}'}"
+                     --><Run Text="{Binding MaxFlinch, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}"
                              Foreground="{StaticResource White@100}"
                              d:Text="2,000"/>
                     </TextBlock>
@@ -119,12 +120,12 @@
                 <DataTemplate>
                     <TextBlock Foreground="{StaticResource White@50}"
                                FontSize="13">
-                        <Run Text="{Binding Sever, StringFormat='{}{0:#,#.}'}"
+                        <Run Text="{Binding Sever, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}"
                              d:Text="2,000"/><!--
                      --><Run Text="/"
                              Foreground="{StaticResource White@100}"
                              FontWeight="Light"/><!--
-                     --><Run Text="{Binding MaxSever, StringFormat='{}{0:#,#.}'}"
+                     --><Run Text="{Binding MaxSever, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}"
                             Foreground="{StaticResource White@100}"
                             d:Text="2,000"/>
                     </TextBlock>
