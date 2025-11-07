@@ -48,7 +48,12 @@ public class Arc : Shape
 
     private Geometry GetArcGeometry()
     {
-        double end = ConvertPercentageIntoAngle(Reverse, Percentage);
+        double percentage = Math.Clamp(
+            value: Percentage,
+            min: 0.0,
+            max: 1.0
+        );
+        double end = ConvertPercentageIntoAngle(Reverse, percentage);
 
         var middlePoint = new Point(
             x: (RenderSize.Width - StrokeThickness) / 2,
