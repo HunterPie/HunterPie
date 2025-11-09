@@ -102,6 +102,7 @@ public class MonsterAilmentContextHandler : MonsterAilmentViewModel
 
         MaxTimer = e.MaxTimer;
         Timer = e.Timer;
+        IsTimerActive = e.Timer > 0;
     }
 
     private void Update()

@@ -6,6 +6,7 @@ public static class CommonConfigurationGroups
     public const string GENERAL = "CONFIGURATION_GROUP_GENERAL";
     public const string CUSTOMIZATIONS = "CONFIGURATION_GROUP_CUSTOMIZATIONS";
     public const string MONSTER_TARGET = "CONFIGURATION_GROUP_MONSTER_TARGET";
+    public const string MONSTER_FILTERS = "CONFIGURATION_GROUP_MONSTER_FILTERS";
     public const string MONSTER_PARTS = "CONFIGURATION_GROUP_MONSTER_PARTS";
     public const string MONSTER_AILMENTS = "CONFIGURATION_GROUP_MONSTER_AILMENTS";
     public const string MISCELLANEOUS = "CONFIGURATION_GROUP_MISC";

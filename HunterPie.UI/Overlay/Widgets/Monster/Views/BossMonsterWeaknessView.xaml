@@ -5,17 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:genums="clr-namespace:HunterPie.Core.Game.Enums;assembly=HunterPie.Core"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
              mc:Ignorable="d" 
              d:DesignHeight="30"
              d:DesignWidth="30"
              d:DataContext="{d:DesignData Type=genums:Element}">
     <UserControl.Resources>
         <converters:ElementToIconConverter x:Key="ElementToIconConverter"/>
+        <brushes:BrushOpacityConverter x:Key="BrushOpacityConverter"/>
     </UserControl.Resources>
     <Grid>
-        <Ellipse Fill="{StaticResource Gray@300}"
+        <Ellipse Fill="{Binding Source={StaticResource Gray@50}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
                  StrokeThickness="1"
-                 Stroke="{StaticResource Gray@100}"/>
+                 Stroke="{StaticResource Gray}"/>
         <Image Source="{Binding ., Mode=OneTime, Converter={StaticResource ElementToIconConverter}}"
                d:Source="{StaticResource ELEMENT_FIRE}"
                Margin="2"/>
