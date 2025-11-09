@@ -14,7 +14,7 @@
         Left="{Binding ViewModel.Settings.Position.X, Mode=TwoWay}"
         Opacity="{Binding ViewModel.Settings.Opacity.Current, Mode=OneWay}"
         Title="{Binding ViewModel.Title, Mode=OneWay}"
-        UseLayoutRounding="True"
+        UseLayoutRounding="False"
         SnapsToDevicePixels="True"
         ShowInTaskbar="False"
         AllowsTransparency="True"

@@ -113,10 +113,18 @@ public class MonsterWidgetConfig : IWidgetSettings, ISettings
     public virtual MonsterDetailsConfiguration Details { get; set; } = new();
     #endregion
 
+    [ConfigurationProperty("MONSTER_WIDGET_PARTS_AILMENTS_STACKING_STRING", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    public Observable<Orientation> PartsAilmentsOrientation { get; set; } = Enums.Orientation.Vertical;
+
     #region Part Settings
     [ConfigurationProperty("MONSTER_WIDGET_ENABLE_PARTS_STRING", group: CommonConfigurationGroups.MONSTER_PARTS)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Observable<bool> EnableParts { get; set; } = true;
+
+    [ConfigurationProperty("MONSTER_WIDGET_PARTS_COLUMNS_STRING", group: CommonConfigurationGroups.MONSTER_PARTS)]
+    [ConfigurationConditional(name: nameof(EnableParts), withValue: true)]
+    public Range PartColumns { get; set; } = new(3, 5, 1, 1);
 
     [ConfigurationProperty("MONSTER_WIDGET_HIDE_UNKNOWN_PARTS_STRING", group: CommonConfigurationGroups.MONSTER_PARTS)]
     [ConfigurationConditional(name: nameof(EnableParts), withValue: true)]

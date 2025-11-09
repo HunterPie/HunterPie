@@ -17,6 +17,7 @@
              xmlns:animation="clr-namespace:HunterPie.UI.Architecture.Animation"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:visibilities="clr-namespace:HunterPie.UI.Architecture.Converters.Visibilities"
+             xmlns:enums="clr-namespace:HunterPie.Core.Client.Configuration.Enums;assembly=HunterPie.Core"
              d:DataContext="{d:DesignInstance Type=viewmodels:BossMonsterViewModel}"
              IsHitTestVisible="False"
              d:DesignWidth="600"
@@ -35,6 +36,7 @@
         <converters:PercentageToLeftMarginDistanceConverter x:Key="PercentageToLeftMarginDistanceConverter"/>
         <visibilities:BooleansToVisibilityMultiConverter x:Key="BooleansToVisibilityMultiConverter"/>
         <converters:NumberToBooleanConverter x:Key="NumberToBooleanConverter"/>
+        <converters:OrientationConverter x:Key="OrientationConverter"/>
 
         <!-- Styles to handle default configurations -->
         <Style x:Key="Internal.Ailment.Style"
@@ -441,15 +443,30 @@
         </ItemsControl>
 
         <!-- Parts and Ailments -->
-        <Grid Grid.Row="4"
-              Visibility="{Binding TargetType, Mode=OneWay, Converter={StaticResource TargetTypeToVisibility}}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+        <WrapPanel Grid.Row="4"
+                   Visibility="{Binding TargetType, Mode=OneWay, Converter={StaticResource TargetTypeToVisibility}}"
+                   Orientation="{Binding Config.PartsAilmentsOrientation.Value, Converter={StaticResource OrientationConverter}}"
+                   d:Orientation="Horizontal">
+            <WrapPanel.Style>
+                <Style TargetType="WrapPanel">
+                    <Setter Property="ItemWidth" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Config.PartsAilmentsOrientation.Value, Mode=OneWay}"
+                                     Value="{x:Static enums:Orientation.Horizontal}">
+                            <Setter Property="ItemWidth">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource RatioConverter}">
+                                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType={x:Type Grid}}"/>
+                                        <Binding Source="2"/>
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </WrapPanel.Style>
             <!-- Ailments -->
-            <ItemsControl Grid.Row="0" 
-                          ItemsSource="{Binding Ailments, Mode=OneWay}"
+            <ItemsControl ItemsSource="{Binding Ailments, Mode=OneWay}"
                           d:ItemsSource="{d:SampleData ItemCount=3}"
                           Visibility="{Binding Config.EnableAilments.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <ItemsControl.ItemsPanel>
@@ -473,8 +490,7 @@
             </ItemsControl>
 
             <!-- Parts -->
-            <ItemsControl Grid.Row="1"
-                          ItemsSource="{Binding Parts, Mode=OneWay}"
+            <ItemsControl ItemsSource="{Binding Parts, Mode=OneWay}"
                           d:ItemsSource="{d:SampleData ItemCount=10}"
                           Visibility="{Binding Config.EnableParts.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <ItemsControl.ItemsPanel>
@@ -487,18 +503,20 @@
                     <DataTemplate>
                         <ContentPresenter ContentTemplate="{Binding Type, Converter={StaticResource MonsterPartTypeToDataTemplateConverter}}"
                                           d:ContentTemplate="{StaticResource Internal.Templates.Part.Default}"
-                                          Style="{StaticResource Internal.Part.Style}">
+                                          Style="{StaticResource Internal.Part.Style}"
+                                          d:Width="200">
                             <ContentPresenter.Width>
                                 <MultiBinding Converter="{StaticResource RatioConverter}">
                                     <Binding Path="ActualWidth"
                                              RelativeSource="{RelativeSource AncestorType={x:Type WrapPanel}}"/>
-                                    <Binding Source="3"/>
+                                    <Binding Path="DataContext.Config.PartColumns.Current"
+                                             ElementName="BossMonsterComponent"/>
                                 </MultiBinding>
                             </ContentPresenter.Width>
                         </ContentPresenter>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-        </Grid>
+        </WrapPanel>
     </Grid>
 </UserControl>
