@@ -15,6 +15,7 @@ using HunterPie.Core.Scan.Service;
 using HunterPie.Integrations.Datasources.Common.Monster;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Game;
+
 public abstract class CommonGame : Scannable, IGame, IEventDispatcher
 {
     private readonly SimpleTargetDetectionService _targetDetectionService;

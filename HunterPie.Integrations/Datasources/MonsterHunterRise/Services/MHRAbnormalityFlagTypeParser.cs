@@ -3,6 +3,7 @@ using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Services;
+
 public class MHRAbnormalityFlagTypeParser : IAbnormalityFlagTypeParser
 {
     public Enum? Parse(AbnormalityFlagType type, string value)

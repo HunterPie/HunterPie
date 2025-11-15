@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Windows.Data;
 
 namespace HunterPie.UI.Architecture.Converters;
+
 public class NotEqualToBooleanConverter : IMultiValueConverter
 {
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)

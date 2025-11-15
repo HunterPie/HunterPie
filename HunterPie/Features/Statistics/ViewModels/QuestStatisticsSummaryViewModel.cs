@@ -10,6 +10,7 @@ using System.Linq;
 using GameType = HunterPie.Core.Client.Configuration.Enums.GameType;
 
 namespace HunterPie.Features.Statistics.ViewModels;
+
 public class QuestStatisticsSummaryViewModel : ViewModel
 {
     public string? UploadId { get; }

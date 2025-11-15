@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 
 namespace HunterPie.Core.Architecture.Collections;
+
 public class ThreadSafeObservableCollection<T> : INotifyCollectionChanged, ICollection<T>
 {
     private readonly List<T> _list = new();

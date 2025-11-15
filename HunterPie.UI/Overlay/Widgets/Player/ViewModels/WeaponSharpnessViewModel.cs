@@ -2,6 +2,7 @@
 using HunterPie.UI.Architecture;
 
 namespace HunterPie.UI.Overlay.Widgets.Player.ViewModels;
+
 public class WeaponSharpnessViewModel : ViewModel
 {
     private Sharpness _sharpnessLevel;

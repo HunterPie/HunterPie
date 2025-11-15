@@ -1,6 +1,7 @@
 ﻿using System;
 
 namespace HunterPie.Core.Networking.Http.Events;
+
 public class DownloadEventArgs : EventArgs
 {
 

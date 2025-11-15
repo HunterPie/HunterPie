@@ -13,6 +13,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Weapons;
+
 public sealed class MHRInsectGlaive : MHRMeleeWeapon, IInsectGlaive
 {
     private KinsectBuff _primaryExtract;

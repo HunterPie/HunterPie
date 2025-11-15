@@ -4,6 +4,7 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Game.Chat;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Chat;
+
 public abstract class CommonChat : IChat, IEventDispatcher, IDisposable
 {
     public abstract List<IChatMessage> Messages { get; }

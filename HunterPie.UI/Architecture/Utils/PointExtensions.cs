@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 
 namespace HunterPie.UI.Architecture.Utils;
+
 public static class PointExtensions
 {
 

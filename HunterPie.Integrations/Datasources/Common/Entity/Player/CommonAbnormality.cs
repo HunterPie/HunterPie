@@ -4,6 +4,7 @@ using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Enums;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Player;
+
 public abstract class CommonAbnormality : IAbnormality, IEventDispatcher, IDisposable
 {
     public abstract string Id { get; protected set; }

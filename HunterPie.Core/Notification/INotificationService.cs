@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 
 namespace HunterPie.Core.Notification;
+
 public interface INotificationService
 {
     public Task<Guid> Show(NotificationOptions options);

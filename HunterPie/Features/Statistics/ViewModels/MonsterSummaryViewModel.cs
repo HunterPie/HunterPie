@@ -6,6 +6,7 @@ using HunterPie.UI.Architecture;
 using HunterPie.UI.Architecture.Adapter;
 
 namespace HunterPie.Features.Statistics.ViewModels;
+
 public class MonsterSummaryViewModel : ViewModel
 {
     private GameType _gameType;

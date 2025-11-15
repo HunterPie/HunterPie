@@ -5,6 +5,7 @@ using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Entity.Enemy;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Enemy;
+
 public abstract class CommonAilment : IMonsterAilment, IEventDispatcher, IDisposable
 {
     public AilmentDefinition Definition { get; }

@@ -6,6 +6,7 @@ using HunterPie.UI.Overlay.Widgets.Activities.World.ViewModels;
 using System.Collections.Generic;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.World.Controllers;
+
 public class HarvestBoxController : IContextHandler
 {
     private readonly MHWContext _context;

@@ -6,6 +6,7 @@ using HunterPie.Core.Game.Events;
 using HunterPie.Integrations.Datasources.Common.Definition;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
+
 public class HealthComponent : IHealthComponent, IEventDispatcher, IUpdatable<HealthData>, IDisposable
 {
     private double _current;

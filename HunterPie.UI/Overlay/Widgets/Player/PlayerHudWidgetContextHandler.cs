@@ -7,6 +7,7 @@ using HunterPie.UI.Overlay.Widgets.Player.ViewModels;
 using System;
 
 namespace HunterPie.UI.Overlay.Widgets.Player;
+
 public class PlayerHudWidgetContextHandler : IContextHandler
 {
     private readonly PlayerHudViewModel _viewModel;

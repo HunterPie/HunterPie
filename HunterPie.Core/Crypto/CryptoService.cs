@@ -4,6 +4,7 @@ using System.IO;
 using System.Security.Cryptography;
 
 namespace HunterPie.Core.Crypto;
+
 public class CryptoService : ICryptoService
 {
     private readonly ILocalRegistry _localRegistry;

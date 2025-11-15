@@ -2,6 +2,7 @@
 using System.Linq;
 
 namespace HunterPie.Usecases;
+
 internal class VerifyHunterPiePathUseCase
 {
 

@@ -5,6 +5,7 @@ using System.Windows.Media;
 using MediaBrushes = System.Windows.Media.Brushes;
 
 namespace HunterPie.UI.Architecture.Converters;
+
 public class ColorToBrushConverter : IValueConverter
 {
     private static readonly SolidColorBrush Default = MediaBrushes.White;

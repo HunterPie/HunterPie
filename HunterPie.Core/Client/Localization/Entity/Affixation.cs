@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace HunterPie.Core.Client.Localization.Entity;
+
 public enum Affixation
 {
     Prefix,

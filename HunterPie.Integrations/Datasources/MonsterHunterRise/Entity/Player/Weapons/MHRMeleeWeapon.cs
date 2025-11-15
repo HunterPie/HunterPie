@@ -10,6 +10,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Weapons;
+
 public class MHRMeleeWeapon : CommonMeleeWeapon
 {
     private long _weaponSharpnessPointer;
