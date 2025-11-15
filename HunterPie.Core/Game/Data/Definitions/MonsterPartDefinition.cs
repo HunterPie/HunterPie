@@ -1,4 +1,6 @@
-﻿namespace HunterPie.Core.Game.Data.Definitions;
+﻿using System.Collections.Generic;
+
+namespace HunterPie.Core.Game.Data.Definitions;
 
 public struct MonsterPartDefinition
 {
@@ -7,4 +9,5 @@ public struct MonsterPartDefinition
     public bool IsSeverable;
     public uint[] TenderizeIds;
     public PartGroupType Group;
+    public IReadOnlyCollection<int> BreakThresholds;
 }
