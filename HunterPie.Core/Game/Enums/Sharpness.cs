@@ -1,4 +1,5 @@
 ﻿namespace HunterPie.Core.Game.Enums;
+
 public enum Sharpness
 {
     Broken = -1,

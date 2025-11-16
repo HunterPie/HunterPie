@@ -6,6 +6,7 @@ using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Enums;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Enemy;
+
 public abstract class CommonPart : IMonsterPart, IEventDispatcher, IDisposable
 {
     public MonsterPartDefinition Definition { get; }

@@ -5,6 +5,7 @@ using HunterPie.Core.Game.Entity.Party;
 using HunterPie.Core.Game.Enums;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Party;
+
 public abstract class CommonPartyMember : IPartyMember, IEventDispatcher, IDisposable
 {
     public abstract string Name { get; protected set; }

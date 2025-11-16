@@ -3,6 +3,7 @@ using HunterPie.UI.Navigation;
 using System.Collections.ObjectModel;
 
 namespace HunterPie.Features.Statistics.Details.ViewModels;
+
 internal class QuestDetailsViewModel : ViewModel
 {
     private int _selectedIndex;

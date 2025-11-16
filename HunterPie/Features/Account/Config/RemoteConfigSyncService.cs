@@ -8,6 +8,7 @@ using System.Timers;
 using Timer = System.Timers.Timer;
 
 namespace HunterPie.Features.Account.Config;
+
 internal class RemoteConfigSyncService
 {
     private readonly IRemoteAccountConfigUseCase _remoteAccountConfigService;

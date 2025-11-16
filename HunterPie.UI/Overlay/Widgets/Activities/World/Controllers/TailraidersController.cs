@@ -4,6 +4,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
 using HunterPie.UI.Overlay.Widgets.Activities.World.ViewModels;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.World.Controllers;
+
 public class TailraidersController : IContextHandler
 {
     private readonly MHWContext _context;

@@ -2,6 +2,7 @@
 using System;
 
 namespace HunterPie.Core.Game.Entity.Player.Vitals;
+
 public interface IStaminaComponent
 {
 

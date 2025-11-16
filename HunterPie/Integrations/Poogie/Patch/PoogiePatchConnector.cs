@@ -4,6 +4,7 @@ using HunterPie.Integrations.Poogie.Patch.Models;
 using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Patch;
+
 internal class PoogiePatchConnector
 {
     private readonly IPoogieClientAsync _client;

@@ -3,6 +3,7 @@ using System.Drawing.Imaging;
 using System.Threading.Tasks;
 
 namespace HunterPie.UI.Architecture.Images;
+
 public static class ImageMergerService
 {
 

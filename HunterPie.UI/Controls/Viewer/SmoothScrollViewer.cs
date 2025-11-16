@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 
 namespace HunterPie.UI.Controls.Viewer;
+
 public class SmoothScrollViewer : ScrollViewer
 {
     private double _totalOffset;

@@ -2,6 +2,7 @@
 using HunterPie.Core.Game.Data.Definitions;
 using HunterPie.Core.Game.Data.Repository;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -29,11 +30,25 @@ public class XmlNodeToMonsterPartDefinitionMapper : IMapper<XmlNode, MonsterPart
         {
             String = localizationId ?? string.Empty,
             TenderizeIds = tenderizeIds,
-            Group = MonsterPartRepository.FindBy(localizationId ?? string.Empty) ?? throw new InvalidDataException($"Part group for '{localizationId}' not found")
+            Group = MonsterPartRepository.FindBy(localizationId ?? string.Empty) ?? throw new InvalidDataException($"Part group for '{localizationId}' not found"),
         };
 
         int.TryParse(id, out output.Id);
         bool.TryParse(isSeverableFlag, out output.IsSeverable);
+
+        var breakThresholds = new List<int>();
+        foreach (XmlNode node in data.ChildNodes)
+        {
+            if (node.Name != "Break")
+                continue;
+
+            string? rawThreshold = node.Attributes?["Threshold"]?.Value;
+
+            if (int.TryParse(rawThreshold, out int threshold))
+                breakThresholds.Add(threshold);
+        }
+
+        output.BreakThresholds = breakThresholds;
 
         return output;
     }

@@ -4,6 +4,7 @@ using HunterPie.Integrations.Poogie.Localization.Models;
 using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Localization;
+
 internal class PoogieLocalizationConnector
 {
     private readonly IPoogieClientAsync _client;

@@ -5,6 +5,7 @@ using HunterPie.Integrations.Poogie.Version.Models;
 using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Version;
+
 internal class PoogieVersionConnector
 {
     private readonly IPoogieClientAsync _client;

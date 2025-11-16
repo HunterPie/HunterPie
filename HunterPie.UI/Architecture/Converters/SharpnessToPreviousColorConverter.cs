@@ -7,6 +7,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 
 namespace HunterPie.UI.Architecture.Converters;
+
 public class SharpnessToPreviousColorConverter : IValueConverter
 {
 

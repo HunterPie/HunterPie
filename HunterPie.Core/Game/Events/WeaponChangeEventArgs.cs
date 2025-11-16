@@ -2,6 +2,7 @@
 using System;
 
 namespace HunterPie.Core.Game.Events;
+
 public class WeaponChangeEventArgs : EventArgs
 {
     public IWeapon OldWeapon { get; }

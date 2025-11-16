@@ -2,6 +2,7 @@
 using System.Diagnostics;
 
 namespace HunterPie.UI.Architecture.Utils;
+
 public static class Development
 {
     public static bool IsDesignMode()

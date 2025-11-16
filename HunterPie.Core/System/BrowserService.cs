@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 
 namespace HunterPie.Core.System;
+
 public static class BrowserService
 {
     public static void OpenUrl(string url) =>
