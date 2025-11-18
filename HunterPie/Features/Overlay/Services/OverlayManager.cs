@@ -73,6 +73,7 @@ internal class OverlayManager : Bindable, IOverlay, IOverlayState, IDisposable
             DataContext = new WidgetContext(
                 viewModel: viewModel,
                 overlaySettings: ClientConfig.Config.Overlay,
+                developmentSettings: ClientConfig.Config.Development,
                 state: this
             )
         }, DispatcherPriority.Send);
