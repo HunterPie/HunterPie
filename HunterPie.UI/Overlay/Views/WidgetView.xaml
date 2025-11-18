@@ -17,39 +17,30 @@
         Loaded="OnLoaded"
         MouseWheel="OnMouseWheel"
         Opacity="{Binding ViewModel.Settings.Opacity.Current, Mode=OneWay}"
-        Title="{Binding ViewModel.Title, Mode=OneWay}"
-        UseLayoutRounding="False"
-        SnapsToDevicePixels="True"
-        ShowInTaskbar="False"
-        AllowsTransparency="True"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         SizeToContent="WidthAndHeight"
-        SnapsToDevicePixels="False"
+        SnapsToDevicePixels="True"
         Top="{Binding ViewModel.Settings.Position.Y, Mode=TwoWay}"
         Topmost="True"
         UseLayoutRounding="False"
         WindowStyle="None"
-        d:DataContext="{d:DesignInstance viewModels:WidgetContext}"
-        Background="#01000000"
-        MouseWheel="OnMouseWheel"
-        Loaded="OnLoaded"
-        Topmost="True">
-    <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <converters:WidgetByViewModelConverter x:Key="WidgetByViewModelConverter"/>
-    </Window.Resources>
-    <WindowChrome.WindowChrome>
-        <WindowChrome GlassFrameThickness="-1"
-                      CaptionHeight="0"/>
-    </WindowChrome.WindowChrome>
-    <Grid>
-        <!-- Widget holder -->
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
+        mc:Ignorable="d">
+	<Window.Resources>
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+		<converters:WidgetByViewModelConverter x:Key="WidgetByViewModelConverter" />
+	</Window.Resources>
+	<WindowChrome.WindowChrome>
+		<WindowChrome CaptionHeight="0"
+		              GlassFrameThickness="-1" />
+	</WindowChrome.WindowChrome>
+	<Grid>
+		<!--  Widget holder  -->
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="30" />
+				<RowDefinition Height="1*" />
+			</Grid.RowDefinitions>
 
 			<Border Grid.Row="1"
 			        Background="{DynamicResource Brushes.Overlay.DesignMode.Background}"
@@ -110,32 +101,26 @@
 			</Grid.Style>
 		</Grid>
 
-        <Grid Margin="10,40,10,10">
-            <ContentControl ContentTemplate="{Binding ViewModel, Mode=OneWay, Converter={StaticResource WidgetByViewModelConverter}}"
-                            Content="{Binding ViewModel, Mode=OneWay}"
-                            x:Name="PART_Content">
-                <ContentControl.LayoutTransform>
-                    <ScaleTransform ScaleX="{Binding ViewModel.Settings.Scale.Current, Mode=OneWay}"
-                                    ScaleY="{Binding ViewModel.Settings.Scale.Current, Mode=OneWay}"
-                                    CenterX="0.5"
-                                    CenterY="0.5"/>
-                </ContentControl.LayoutTransform>
-                <ContentControl.Style>
-                    <Style TargetType="ContentControl">
-                        <Style.Setters>
-                            <Setter Property="Visibility"
-                                    Value="{Binding ViewModel.Settings.Enabled.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                        </Style.Setters>
-                        <Style.Triggers>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding ViewModel.Settings.HideWhenUiOpen.Value, Mode=OneWay}"
-                                               Value="True"/>
-                                    <Condition Binding="{Binding State.IsGameHudVisible, Mode=OneWay}"
-                                               Value="True"/>
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Visibility" Value="Hidden"/>
-                            </MultiDataTrigger>
+		<Grid Margin="10,40,10,10">
+			<ContentControl x:Name="PART_Content"
+			                Content="{Binding ViewModel, Mode=OneWay}"
+			                ContentTemplate="{Binding ViewModel, Mode=OneWay, Converter={StaticResource WidgetByViewModelConverter}}">
+				<ContentControl.LayoutTransform>
+					<ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="{Binding ViewModel.Settings.Scale.Current, Mode=OneWay}" ScaleY="{Binding ViewModel.Settings.Scale.Current, Mode=OneWay}" />
+				</ContentControl.LayoutTransform>
+				<ContentControl.Style>
+					<Style TargetType="ContentControl">
+						<Style.Setters>
+							<Setter Property="Visibility" Value="{Binding ViewModel.Settings.Enabled.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+						</Style.Setters>
+						<Style.Triggers>
+							<MultiDataTrigger>
+								<MultiDataTrigger.Conditions>
+									<Condition Binding="{Binding ViewModel.Settings.HideWhenUiOpen.Value, Mode=OneWay}" Value="True" />
+									<Condition Binding="{Binding State.IsGameHudVisible, Mode=OneWay}" Value="True" />
+								</MultiDataTrigger.Conditions>
+								<Setter Property="Visibility" Value="Hidden" />
+							</MultiDataTrigger>
 
 							<MultiDataTrigger>
 								<MultiDataTrigger.Conditions>
