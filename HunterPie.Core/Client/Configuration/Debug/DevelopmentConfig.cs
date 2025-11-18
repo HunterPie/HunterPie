@@ -17,6 +17,9 @@ public class DevelopmentConfig : ISettings
     [ConfigurationProperty("DEV_OVERLAY_MANAGER_DEBUGGER_ENABLED", requiresRestart: false, group: CommonConfigurationGroups.DEVELOPMENT)]
     public Observable<bool> IsOverlayManagerDebugEnabled { get; set; } = false;
 
+    [ConfigurationProperty("DEV_OVERLAY_ENABLE_RENDER_TIME", requiresRestart: false, group: CommonConfigurationGroups.DEVELOPMENT)]
+    public Observable<bool> IsRenderTimeEnabled { get; set; } = false;
+
     #region Mocking Settings
     [ConfigurationProperty("DEV_MOCK_MONSTER_WIDGET_STRING", requiresRestart: true, group: CommonConfigurationGroups.MOCKS)]
     public Observable<bool> MockBossesWidget { get; set; } = false;

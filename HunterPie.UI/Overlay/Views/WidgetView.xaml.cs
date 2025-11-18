@@ -21,6 +21,7 @@ public partial class WidgetView
     private readonly object _sync = new();
     private bool _isClosed;
     private DateTime _lastTopMostForce;
+    private DateTime _lastRender;
 
     public WidgetContext Context => (WidgetContext)DataContext;
 
@@ -45,10 +46,13 @@ public partial class WidgetView
         User32.SetWindowLong(hWnd, User32.GWL_EXSTYLE, styles);
     }
 
-    private void OnRender(object sender, EventArgs e)
+    private void OnRender(object sender, object e)
     {
-        DateTime lastRender = _lastTopMostForce;
-        TimeSpan timeDiff = DateTime.Now - lastRender;
+        DateTime now = DateTime.Now;
+        Context.RenderTime = (now - _lastRender).TotalMilliseconds;
+        _lastRender = now;
+
+        TimeSpan timeDiff = now - _lastTopMostForce;
 
         if (timeDiff.TotalMilliseconds <= 500)
             return;
