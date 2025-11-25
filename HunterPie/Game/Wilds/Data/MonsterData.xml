@@ -52,13 +52,13 @@
         <Ailment Id="24"
                  String="unk24" />
         <Ailment Id="25"
-                 String="unk25" />
+                 String="AILMENT_OFFSET" />
         <Ailment Id="26"
                  String="unk26" />
         <Ailment Id="27"
                  String="unk27" />
         <Ailment Id="28"
-                 String="unk28" />
+                 String="AILMENT_POWERCLASH" />
         <Ailment Id="29"
                  String="unk29" />
         <Ailment Id="30"
@@ -1164,6 +1164,8 @@
                       String="PART_CEILING_FALL" />
                 <Part Id="14"
                       String="PART_SUPERHEAT" />
+                <Part Id="15"
+                      String="PART_FIRE_STATE" />
             </Parts>
         </Monster>
         <Monster Id="27"
@@ -1487,9 +1489,11 @@
                 <Part Id="4"
                       String="PART_R_H_LEG" />
                 <Part Id="5"
-                      String="unk (id: 5)" />
+                      String="PART_TORSO" />
                 <Part Id="6"
-                      String="PART_REAR" />
+                      String="PART_REAR_POWER_UNIT" />
+                <Part Id="7"
+                      String="PART_BACK" />
             </Parts>
         </Monster>
     </Monsters>
