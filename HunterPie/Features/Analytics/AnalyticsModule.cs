@@ -10,6 +10,7 @@ internal class AnalyticsModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
+            .WithSingle<ClientMetrics>()
             .WithService<CrashEventStrategy>()
             .WithService<AnalyticsService>();
     }
