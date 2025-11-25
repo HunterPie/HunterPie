@@ -8,6 +8,7 @@ using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.List;
 using HunterPie.Core.Observability.Logging;
+using HunterPie.Core.Utils;
 using HunterPie.UI.Architecture.Brushes;
 using HunterPie.UI.Architecture.Colors;
 using HunterPie.UI.Overlay.ViewModels;
@@ -147,7 +148,7 @@ public class DamageMeterControllerV2 : IContextHandler
 
             _members.Clear();
             _viewModel.Players.Clear();
-            _viewModel.Series.Clear();
+            _logger.CatchAndLog(_viewModel.Series.Clear);
 
             foreach (IPartyMember member in _context.Game.Player.Party.Members)
                 HandleMemberJoin(member);
@@ -171,7 +172,7 @@ public class DamageMeterControllerV2 : IContextHandler
 
             _members.Clear();
             _viewModel.Players.Clear();
-            _viewModel.Series.Clear();
+            _logger.CatchAndLog(_viewModel.Series.Clear);
 
             foreach (IPartyMember member in _context.Game.Player.Party.Members)
                 HandleMemberJoin(member);
@@ -304,7 +305,7 @@ public class DamageMeterControllerV2 : IContextHandler
             _viewModel.Players.Remove(memberCtx.ViewModel);
 
         if (_viewModel.Series.Contains(memberCtx.Plots))
-            _viewModel.Series.Remove(memberCtx.Plots);
+            _logger.CatchAndLog(() => _viewModel.Series.Remove(memberCtx.Plots));
 
         _logger.Debug($"removed player {member.Name} from party [{member.GetHashCode():X08}]");
     }

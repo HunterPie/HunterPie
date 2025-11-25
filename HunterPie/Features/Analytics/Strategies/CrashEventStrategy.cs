@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Analytics.Entity;
 using HunterPie.Features.Analytics.Entity;
+using HunterPie.Features.Analytics.Services;
 using HunterPie.Integrations.Poogie.Report;
 using HunterPie.Integrations.Poogie.Report.Models;
 using System;
@@ -9,10 +10,15 @@ namespace HunterPie.Features.Analytics.Strategies;
 
 internal class CrashEventStrategy : IAnalyticsStrategy
 {
+    private readonly ClientMetrics _clientMetrics;
     private readonly PoogieReportConnector _connector;
 
-    public CrashEventStrategy(PoogieReportConnector connector)
+    public CrashEventStrategy(
+        ClientMetrics clientMetrics,
+        PoogieReportConnector connector
+    )
     {
+        _clientMetrics = clientMetrics;
         _connector = connector;
     }
 
@@ -23,6 +29,8 @@ internal class CrashEventStrategy : IAnalyticsStrategy
         if (analyticsEvent is not CrashPayload payload)
             return;
 
+        DateTime now = DateTime.UtcNow;
+
         var request = new CrashReportRequest(
             Version: payload.Version,
             GameBuild: payload.GameBuild ?? "Unknown",
@@ -32,7 +40,8 @@ internal class CrashEventStrategy : IAnalyticsStrategy
             Context: new CrashReportContextRequest(
                 RamTotal: payload.Context.TotalSystemMemory,
                 RamUsed: payload.Context.AllocatedMemory,
-                WindowsVersion: payload.Context.WindowsVersion
+                WindowsVersion: payload.Context.WindowsVersion,
+                SessionTime: (now - _clientMetrics.StartedAt).ToString()
             )
         );
 
