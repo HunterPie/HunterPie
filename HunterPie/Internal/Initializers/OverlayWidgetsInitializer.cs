@@ -42,7 +42,6 @@ internal class OverlayWidgetsInitializer : IInitializer
         _widgetProvider.Bind<ChatViewModel, ChatView>();
         _widgetProvider.Bind<ClassViewModel, ClassView>();
         _widgetProvider.Bind<ClockViewModel, ClockView>();
-        _widgetProvider.Bind<MeterViewModel, MeterView>();
         _widgetProvider.Bind<MeterViewModelV2, MeterViewV2>();
         _widgetProvider.Bind<TelemetricsViewModel, TelemetricsView>();
         _widgetProvider.Bind<MonstersViewModel, MonstersView>();

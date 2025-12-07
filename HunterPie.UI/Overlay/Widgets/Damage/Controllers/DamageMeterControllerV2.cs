@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Client.Configuration.Overlay;
+using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Game.Quest;
@@ -40,23 +41,42 @@ public class DamageMeterControllerV2 : IContextHandler
     private MeterViewModelV2 _viewModel;
     private MeterViewModelV2 _viewModelSnapshot;
     private readonly DamageMeterWidgetConfig _config;
+    private readonly ILocalizationRepository _localizationRepository;
+
     private readonly ConcurrentDictionary<IPartyMember, PartyMemberContext> _members = new();
+    private readonly ConcurrentDictionary<IPartyMember, DamageBarViewModel> _pets = new();
     private int _windowSecondsCount;
 
     public DamageMeterControllerV2(
         IContext context,
         MeterViewModelV2 viewModel,
         WidgetContext widgetContext,
-        DamageMeterWidgetConfig config)
+        DamageMeterWidgetConfig config,
+        ILocalizationRepository localizationRepository)
     {
         _context = context;
         _config = config;
         _viewModel = viewModel;
         _viewModelSnapshot = viewModel;
         _widgetContext = widgetContext;
+        _localizationRepository = localizationRepository;
 
         HookEvents();
         UpdateData();
+    }
+
+    private void UpdateData()
+    {
+        _viewModel.Pets.Name = _localizationRepository.FindStringBy("//Strings/Client/Overlay/String[@Id='DAMAGE_METER_OTOMOS_NAME_STRING']");
+        _viewModel.InHuntingZone = _context.Game.Player.InHuntingZone || _context.Game.Quest is not null;
+        _viewModel.MaxDeaths = _context.Game.Quest?.MaxDeaths ?? 0;
+        _viewModel.Deaths = _context.Game.Quest?.Deaths ?? 0;
+        _viewModel.TimeElapsed = _context.Game.TimeElapsed;
+
+        foreach (IPartyMember member in _context.Game.Player.Party.Members)
+            HandleMemberJoin(member);
+
+        _viewModel.HasPetsToBeDisplayed = _pets.Keys.Count > 0;
     }
 
     public void HookEvents()
@@ -204,7 +224,12 @@ public class DamageMeterControllerV2 : IContextHandler
         if (!canUpdate)
             return;
 
-        _viewModel.UIThread.BeginInvoke(CalculatePlayerSeries);
+        _viewModel.UIThread.BeginInvoke(() =>
+        {
+            CalculatePlayerSeries();
+            CalculatePetsDamage();
+            _viewModel.SortMembers();
+        });
     }
 
     private void OnMemberLeave(object? sender, IPartyMember e) =>
@@ -212,17 +237,6 @@ public class DamageMeterControllerV2 : IContextHandler
 
     private void OnMemberJoin(object? sender, IPartyMember e) =>
         _viewModel.UIThread.BeginInvoke(() => HandleMemberJoin(e));
-
-    private void UpdateData()
-    {
-        _viewModel.InHuntingZone = _context.Game.Player.InHuntingZone || _context.Game.Quest is not null;
-        _viewModel.MaxDeaths = _context.Game.Quest?.MaxDeaths ?? 0;
-        _viewModel.Deaths = _context.Game.Quest?.Deaths ?? 0;
-        _viewModel.TimeElapsed = _context.Game.TimeElapsed;
-
-        foreach (IPartyMember member in _context.Game.Player.Party.Members)
-            HandleMemberJoin(member);
-    }
 
     private void OnWeaponChange(object? sender, IPartyMember e)
     {
@@ -246,7 +260,36 @@ public class DamageMeterControllerV2 : IContextHandler
         memberCtx.ViewModel.Damage = e.Damage;
     }
 
-    private void HandleMemberJoin(IPartyMember member)
+    private void AddPet(IPartyMember pet)
+    {
+        if (_pets.ContainsKey(pet))
+            return;
+
+        ObservableColor color = PlayerConfigHelper.GetColorFromPlayer(
+            game: _context.Process.Type,
+            slot: Math.Max(pet.Slot - 5, 0),
+            isSelf: pet.IsMyself
+        );
+        var damageViewModel = new DamageBarViewModel(color);
+
+        _viewModel.Pets.Damages.Add(damageViewModel);
+
+        if (!_pets.TryAdd(pet, damageViewModel))
+            return;
+
+        _viewModel.HasPetsToBeDisplayed = !_pets.IsEmpty;
+    }
+
+    private void RemovePet(IPartyMember pet)
+    {
+        if (!_pets.ContainsKey(pet))
+            return;
+
+        _pets.Remove(pet, out _);
+        _viewModel.HasPetsToBeDisplayed = !_pets.IsEmpty;
+    }
+
+    private void AddMember(IPartyMember member)
     {
         if (_members.ContainsKey(member))
             return;
@@ -293,7 +336,7 @@ public class DamageMeterControllerV2 : IContextHandler
         _logger.Debug($"added player {member.Name} | {memberContext.JoinedAt} to party [{member.GetHashCode():X08}]");
     }
 
-    private void HandleMemberLeave(IPartyMember member)
+    private void RemoveMember(IPartyMember member)
     {
         member.OnDamageDealt -= OnDamageDealt;
         member.OnWeaponChange -= OnWeaponChange;
@@ -308,6 +351,32 @@ public class DamageMeterControllerV2 : IContextHandler
             _logger.CatchAndLog(() => _viewModel.Series.Remove(memberCtx.Plots));
 
         _logger.Debug($"removed player {member.Name} from party [{member.GetHashCode():X08}]");
+    }
+
+    private void HandleMemberJoin(IPartyMember member)
+    {
+        Action<IPartyMember>? handler = member.Type switch
+        {
+            MemberType.Pet => AddPet,
+            MemberType.Player or
+            MemberType.Companion => AddMember,
+            _ => null
+        };
+
+        handler?.Invoke(member);
+    }
+
+    private void HandleMemberLeave(IPartyMember member)
+    {
+        Action<IPartyMember>? handler = member.Type switch
+        {
+            MemberType.Pet => RemovePet,
+            MemberType.Player or
+            MemberType.Companion => RemoveMember,
+            _ => null
+        };
+
+        handler?.Invoke(member);
     }
 
     private void CalculatePlayerSeries()
@@ -346,8 +415,16 @@ public class DamageMeterControllerV2 : IContextHandler
             maxAxisY = Math.Max(maxAxisY, chartValues.MaxBy(it => it.Y)?.Y ?? 0);
         }
 
-        _viewModel.SortMembers();
         _viewModel.MaxPlotValue = maxAxisY;
+    }
+
+    private void CalculatePetsDamage()
+    {
+        double totalDamage = _pets.Keys.Sum(pet => pet.Damage);
+        _viewModel.Pets.TotalDamage = (int)totalDamage;
+
+        foreach ((IPartyMember pet, DamageBarViewModel viewModel) in _pets)
+            viewModel.Percentage = pet.Damage / totalDamage * 100;
     }
 
     private void ClearOldPoints(ChartValues<ObservablePoint> chart, double plottingWindowSize)
