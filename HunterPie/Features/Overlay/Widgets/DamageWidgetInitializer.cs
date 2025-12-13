@@ -1,9 +1,7 @@
 ﻿using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
-using HunterPie.DI;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Service;
@@ -50,8 +48,7 @@ internal class DamageWidgetInitializer : IWidgetInitializer
             context: context,
             viewModel: viewModel,
             widgetContext: (WidgetContext)_view.DataContext,
-            config: config,
-            localizationRepository: DependencyContainer.Get<ILocalizationRepository>()
+            config: config
         );
 
         return Task.CompletedTask;

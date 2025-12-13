@@ -5,16 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
              xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.View"
+             xmlns:markup="clr-namespace:HunterPie.UI.Architecture.Markup"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.Presentation"
              xmlns:progress="clr-namespace:HunterPie.UI.Controls.Progress"
              xmlns:viewmodels="clr-namespace:HunterPie.UI.Overlay.Widgets.Damage.ViewModels"
              d:DataContext="{d:DesignInstance viewmodels:PetsViewModel}"
-             d:DesignWidth="200"
+             d:DesignWidth="250"
              mc:Ignorable="d">
 	<UserControl.Resources>
 		<brushes:BrushOpacityConverter x:Key="BrushOpacityConverter" />
-		<presentation:PlayerDamageBarGradientBrushConverter x:Key="PlayerDamageBarGradientBrushConverter" />
 	</UserControl.Resources>
 	<Border BorderBrush="{StaticResource Gray}"
 	        BorderThickness="1"
@@ -23,52 +23,65 @@
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="20" />
-				<RowDefinition Height="Auto" />
 				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
 
-			<StackPanel Orientation="Horizontal">
-				<image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-				            Margin="5"
-				            Foreground="{StaticResource White@300}"
-				            Image="{StaticResource Icons.Otomo}" />
-				<TextBlock VerticalAlignment="Center"
-				           d:Text="Otomos"
-				           FontSize="13"
-				           Foreground="{StaticResource White@100}"
-				           Text="{Binding Name, Mode=OneWay}" />
-			</StackPanel>
+			<Grid Grid.Row="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<StackPanel Grid.Column="0"
+				            Orientation="Horizontal">
+					<image:Icon Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+					            Margin="5"
+					            Foreground="{StaticResource White@300}"
+					            Image="{StaticResource Icons.Otomo}" />
+					<TextBlock VerticalAlignment="Center"
+					           d:Text="Otomos"
+					           FontSize="13"
+					           Foreground="{StaticResource White@100}"
+					           Text="{markup:Localization '//Strings/Client/Overlay/String[@Id=&quot;DAMAGE_METER_OTOMOS_NAME_STRING&quot;]'}" />
+				</StackPanel>
 
-			<TextBlock Grid.Row="1"
-			           Margin="5,0"
-			           d:Text="20,000"
-			           FontSize="13"
-			           FontWeight="Medium"
-			           Foreground="{StaticResource White@50}">
-				<Run FontSize="10"
-				     FontWeight="SemiBold"
-				     Foreground="{StaticResource White@400}"
-				     Text="DMG" />
-				<Run Text="{Binding TotalDamage, Mode=OneWay, StringFormat={}{0:N0}}" />
-			</TextBlock>
+				<TextBlock Grid.Column="1"
+				           Margin="2,0"
+				           HorizontalAlignment="Right"
+				           VerticalAlignment="Center"
+				           FontSize="13"
+				           FontWeight="Medium"
+				           Foreground="{StaticResource White@50}">
+					<Run FontSize="10"
+					     FontWeight="SemiBold"
+					     Foreground="{StaticResource White@400}"
+					     Text="DMG" />
+					<Run d:Text="20,000"
+					     Text="{Binding TotalDamage, Mode=OneWay, StringFormat={}{0:N0}}" />
+				</TextBlock>
+			</Grid>
 
 			<ItemsControl Grid.Row="2"
 			              d:ItemsSource="{d:SampleData ItemCount=4}"
-			              ItemsSource="{Binding Damages, Mode=OneTime}">
+			              ItemsSource="{Binding Members, Mode=OneWay}">
 				<ItemsControl.ItemTemplate>
-					<DataTemplate DataType="{x:Type viewmodels:DamageBarViewModel}">
-						<progress:Gauge BorderBrush="{StaticResource Gray}"
-						                BorderThickness="1"
-						                Height="6"
-						                Margin="5,2"
-						                d:Current="50"
-						                d:Foreground="Red"
-						                Background="{StaticResource Gray@200}"
-						                CornerRadius="1.5"
-						                Current="{Binding Percentage, Mode=OneWay}"
-						                Foreground="{Binding Color.Value, Mode=OneWay, Converter={StaticResource PlayerDamageBarGradientBrushConverter}}"
-						                Markers="4"
-						                Max="100" />
+					<DataTemplate DataType="{x:Type viewmodels:PetViewModel}">
+						<StackPanel Orientation="Vertical">
+							<TextBlock Margin="5,0"
+							           Foreground="{StaticResource White@100}"
+							           Text="{Binding Name, Mode=OneWay}" />
+							<progress:Gauge BorderBrush="{StaticResource Gray}"
+							                BorderThickness="1"
+							                Height="6"
+							                Margin="5,1"
+							                d:Current="50"
+							                d:Foreground="Red"
+							                Background="{StaticResource Gray@200}"
+							                CornerRadius="1.5"
+							                Current="{Binding DamageBar.Percentage, Mode=OneWay}"
+							                Foreground="{Binding DamageBar.Color.Value, Mode=OneWay}"
+							                Markers="4"
+							                Max="100" />
+						</StackPanel>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
 			</ItemsControl>

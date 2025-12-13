@@ -218,16 +218,10 @@
     <Compile Update="Overlay\Widgets\Clock\Views\MoonView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Overlay\Widgets\Damage\View\DamageBarView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Overlay\Widgets\Damage\View\MeterViewV2.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Damage\View\PetsViewV2.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Overlay\Widgets\Damage\View\PlayerDamageView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Overlay\Widgets\Damage\View\PlayerViewV2.xaml.cs">
@@ -533,12 +527,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Clock\Views\MoonView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Overlay\Widgets\Damage\View\DamageBarView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Overlay\Widgets\Damage\View\PlayerDamageView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Overlay\Widgets\Metrics\View\TelemetricsView.xaml">

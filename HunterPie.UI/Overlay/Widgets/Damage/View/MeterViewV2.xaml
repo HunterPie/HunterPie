@@ -86,6 +86,7 @@
 		<Border Grid.Row="1"
 		        BorderBrush="{StaticResource Gray}"
 		        BorderThickness="1,0,1,1"
+		        Margin="0,1"
 		        Background="{Binding Source={StaticResource Gray@200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
 		        CornerRadius="0,0,5,5">
 			<ItemsControl ItemsSource="{Binding Players, Mode=OneTime}">
@@ -107,7 +108,7 @@
 
 		<!--  Pets  -->
 		<local:PetsViewV2 Grid.Row="2"
-		                  Margin="0,2"
+		                  Margin="0,1"
 		                  DataContext="{Binding Pets, Mode=OneWay}">
 			<local:PetsViewV2.Visibility>
 				<MultiBinding Converter="{StaticResource BooleansToVisibilityMultiConverter}">
@@ -124,6 +125,7 @@
 		<Border Grid.Row="3"
 		        BorderBrush="{StaticResource Gray}"
 		        BorderThickness="1"
+		        Margin="0,1"
 		        Padding="2"
 		        Background="{Binding Source={StaticResource Gray@300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
 		        CornerRadius="5"

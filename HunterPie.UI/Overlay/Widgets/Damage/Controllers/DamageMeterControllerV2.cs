@@ -1,6 +1,5 @@
 ﻿using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Game.Quest;
@@ -41,25 +40,22 @@ public class DamageMeterControllerV2 : IContextHandler
     private MeterViewModelV2 _viewModel;
     private MeterViewModelV2 _viewModelSnapshot;
     private readonly DamageMeterWidgetConfig _config;
-    private readonly ILocalizationRepository _localizationRepository;
 
     private readonly ConcurrentDictionary<IPartyMember, PartyMemberContext> _members = new();
-    private readonly ConcurrentDictionary<IPartyMember, DamageBarViewModel> _pets = new();
+    private readonly ConcurrentDictionary<IPartyMember, PetViewModel> _pets = new();
     private int _windowSecondsCount;
 
     public DamageMeterControllerV2(
         IContext context,
         MeterViewModelV2 viewModel,
         WidgetContext widgetContext,
-        DamageMeterWidgetConfig config,
-        ILocalizationRepository localizationRepository)
+        DamageMeterWidgetConfig config)
     {
         _context = context;
         _config = config;
         _viewModel = viewModel;
         _viewModelSnapshot = viewModel;
         _widgetContext = widgetContext;
-        _localizationRepository = localizationRepository;
 
         HookEvents();
         UpdateData();
@@ -67,7 +63,6 @@ public class DamageMeterControllerV2 : IContextHandler
 
     private void UpdateData()
     {
-        _viewModel.Pets.Name = _localizationRepository.FindStringBy("//Strings/Client/Overlay/String[@Id='DAMAGE_METER_OTOMOS_NAME_STRING']");
         _viewModel.InHuntingZone = _context.Game.Player.InHuntingZone || _context.Game.Quest is not null;
         _viewModel.MaxDeaths = _context.Game.Quest?.MaxDeaths ?? 0;
         _viewModel.Deaths = _context.Game.Quest?.Deaths ?? 0;
@@ -151,6 +146,7 @@ public class DamageMeterControllerV2 : IContextHandler
             }
 
             _members.Clear();
+            _pets.Clear();
 
             _viewModel.TimeElapsed = e.TimeElapsed.TotalSeconds;
             _viewModelSnapshot = _viewModel;
@@ -166,8 +162,10 @@ public class DamageMeterControllerV2 : IContextHandler
         {
             _widgetContext.ViewModel = _viewModel;
 
+            _pets.Clear();
             _members.Clear();
             _viewModel.Players.Clear();
+            _viewModel.Pets.Members.Clear();
             _logger.CatchAndLog(_viewModel.Series.Clear);
 
             foreach (IPartyMember member in _context.Game.Player.Party.Members)
@@ -192,6 +190,7 @@ public class DamageMeterControllerV2 : IContextHandler
 
             _members.Clear();
             _viewModel.Players.Clear();
+            _viewModel.Pets.Members.Clear();
             _logger.CatchAndLog(_viewModel.Series.Clear);
 
             foreach (IPartyMember member in _context.Game.Player.Party.Members)
@@ -270,14 +269,21 @@ public class DamageMeterControllerV2 : IContextHandler
             slot: Math.Max(pet.Slot - 5, 0),
             isSelf: pet.IsMyself
         );
-        var damageViewModel = new DamageBarViewModel(color);
+        var petViewModel = new PetViewModel(
+            damageBar: new DamageBarViewModel(color)
+        )
+        {
+            Name = pet.Name,
+        };
 
-        _viewModel.Pets.Damages.Add(damageViewModel);
-
-        if (!_pets.TryAdd(pet, damageViewModel))
+        if (!_pets.TryAdd(pet, petViewModel))
             return;
 
+        _viewModel.Pets.Members.Add(petViewModel);
+
         _viewModel.HasPetsToBeDisplayed = !_pets.IsEmpty;
+
+        _logger.Debug($"added pet {pet.Name}");
     }
 
     private void RemovePet(IPartyMember pet)
@@ -287,6 +293,8 @@ public class DamageMeterControllerV2 : IContextHandler
 
         _pets.Remove(pet, out _);
         _viewModel.HasPetsToBeDisplayed = !_pets.IsEmpty;
+
+        _logger.Debug($"removed pet {pet.Name}");
     }
 
     private void AddMember(IPartyMember member)
@@ -423,8 +431,8 @@ public class DamageMeterControllerV2 : IContextHandler
         double totalDamage = _pets.Keys.Sum(pet => pet.Damage);
         _viewModel.Pets.TotalDamage = (int)totalDamage;
 
-        foreach ((IPartyMember pet, DamageBarViewModel viewModel) in _pets)
-            viewModel.Percentage = pet.Damage / totalDamage * 100;
+        foreach ((IPartyMember pet, PetViewModel viewModel) in _pets)
+            viewModel.DamageBar.Percentage = pet.Damage / totalDamage * 100;
     }
 
     private void ClearOldPoints(ChartValues<ObservablePoint> chart, double plottingWindowSize)

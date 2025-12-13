@@ -14,13 +14,10 @@ public class PetsViewModel : ViewModel
         Settings = config;
     }
 
-    private string _name;
-    public string Name { get => _name; set => SetValue(ref _name, value); }
-
     private int _totalDamage;
     public int TotalDamage { get => _totalDamage; set => SetValue(ref _totalDamage, value); }
 
-    public ObservableCollection<DamageBarViewModel> Damages { get; } = new();
+    public ObservableCollection<PetViewModel> Members { get; } = new();
 
     public Observable<bool> ShouldHighlightMyself => Settings.ShouldHighlightMyself;
 }

@@ -60,7 +60,7 @@ public sealed class MHRPartyMember : CommonPartyMember, IUpdatable<MHRPartyMembe
         Name = data.Name;
         Weapon = data.WeaponId;
         IsMyself = data.IsMyself;
-        Slot = data.Index;
+        Slot = data.Slot;
         Type = data.MemberType;
         HighRank = data.HighRank;
         MasterRank = data.MasterRank;

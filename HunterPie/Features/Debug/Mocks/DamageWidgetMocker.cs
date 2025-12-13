@@ -1,7 +1,6 @@
 ﻿using HunterPie.Core.Architecture;
 using HunterPie.Core.Client;
 using HunterPie.Core.Client.Configuration.Overlay;
-using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Game.Enums;
 using HunterPie.UI.Architecture.Graphs;
 using HunterPie.UI.Architecture.Test;
@@ -20,20 +19,10 @@ namespace HunterPie.Features.Debug.Mocks;
 
 internal class DamageWidgetMocker : IWidgetMocker
 {
-    private readonly ILocalizationRepository _localizationRepository;
-
-    public DamageWidgetMocker(ILocalizationRepository localizationRepository)
-    {
-        _localizationRepository = localizationRepository;
-    }
-
     private int _totalDamage;
     private readonly List<ChartValues<ObservablePoint>> _playerChartValues = new();
     public Observable<bool> Setting => ClientConfig.Config.Development.MockDamageWidget;
     private DispatcherTimer? _timer;
-
-
-
     public WidgetView Mock(IOverlay overlay)
     {
         _timer?.Stop();
@@ -45,7 +34,6 @@ internal class DamageWidgetMocker : IWidgetMocker
             MaxDeaths = 3,
             Deaths = 1,
         };
-        viewModel.Pets.Name = _localizationRepository.FindStringBy("//Strings/Client/Overlay/String[@Id='DAMAGE_METER_OTOMOS_NAME_STRING']");
         _totalDamage = 0;
         _playerChartValues.Clear();
 
@@ -93,9 +81,9 @@ internal class DamageWidgetMocker : IWidgetMocker
         int i = 0;
         foreach (PlayerViewModel player in viewModel.Players)
         {
-            DamageBarViewModel petDamage = CreatePet(player);
+            PetViewModel petViewModel = CreatePet(player);
 
-            viewModel.Pets.Damages.Add(petDamage);
+            viewModel.Pets.Members.Add(petViewModel);
 
             _playerChartValues.Add(new ChartValues<ObservablePoint>());
             var color = (Color)ColorConverter.ConvertFromString(player.Bar.Color);
@@ -110,9 +98,12 @@ internal class DamageWidgetMocker : IWidgetMocker
         viewModel.Series.AddRange(builder.Build());
     }
 
-    private DamageBarViewModel CreatePet(PlayerViewModel player)
+    private PetViewModel CreatePet(PlayerViewModel player)
     {
-        return new DamageBarViewModel(player.Bar.Color);
+        return new PetViewModel(new DamageBarViewModel(player.Bar.Color))
+        {
+            Name = player.Name,
+        };
     }
 
     private void BindConfiguration(
@@ -182,7 +173,7 @@ internal class DamageWidgetMocker : IWidgetMocker
 
             for (int j = 0; j < nextDamages.Length; j++)
             {
-                DamageBarViewModel petVm = viewModel.Pets.Damages[j];
+                DamageBarViewModel petVm = viewModel.Pets.Members[j].DamageBar;
 
                 double damage = nextDamages[j];
                 double lastDamage = lastTotalDamage * (petVm.Percentage / 100);
