@@ -8,16 +8,16 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
 public class PetsViewModel : ViewModel
 {
     public DamageMeterWidgetConfig Settings { get; }
-    private string _name;
-    private int _totalDamage;
 
     public PetsViewModel(DamageMeterWidgetConfig config)
     {
         Settings = config;
     }
 
-    public string Name { get => _name; set => SetValue(ref _name, value); }
+    private int _totalDamage;
     public int TotalDamage { get => _totalDamage; set => SetValue(ref _totalDamage, value); }
-    public ObservableCollection<DamageBarViewModel> Damages { get; } = new();
+
+    public ObservableCollection<PetViewModel> Members { get; } = new();
+
     public Observable<bool> ShouldHighlightMyself => Settings.ShouldHighlightMyself;
 }

@@ -502,7 +502,7 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetSessionPlayers()
+    public async Task GetSessionPlayers()
     {
         int questState = await Memory.DerefAsync<int>(
             address: AddressMap.GetAbsolute("QUEST_ADDRESS"),
@@ -531,7 +531,7 @@ public sealed class MHRPlayer : CommonPlayer
 
         PartyMemberMetadata[] sessionPlayersArray = (await Memory.ReadAsync<nint>(playersArrayPtr + 0x20, 4))
             .Select(pointer => (isValid: pointer != 0, pointer))
-            .Select(async (player, index) => new PartyMemberMetadata(index, player.isValid, await Memory.ReadAsync<MHRCharacterData>(player.pointer)))
+            .Select(async (player, index) => new PartyMemberMetadata(index, index, player.isValid, await Memory.ReadAsync<MHRCharacterData>(player.pointer)))
             .Select(it => it.Result)
             .ToArray();
 
@@ -546,7 +546,7 @@ public sealed class MHRPlayer : CommonPlayer
 
             sessionPlayersArray = (await Memory.ReadAsync<nint>(playersArrayPtr + 0x20, 6))
                 .Select(pointer => (isValid: pointer != 0, pointer))
-                .Select(async (player, index) => new PartyMemberMetadata(index, player.isValid, await Memory.ReadAsync<MHRCharacterData>(player.pointer)))
+                .Select(async (player, index) => new PartyMemberMetadata(index, index, player.isValid, await Memory.ReadAsync<MHRCharacterData>(player.pointer)))
                 .Select(it => it.Result)
                 .ToArray();
         }
@@ -554,7 +554,9 @@ public sealed class MHRPlayer : CommonPlayer
         bool isOnlineSession = sessionPlayersArray[..4].Any(player => player.IsValid);
 
         nint[] playerWeaponsPtr = await Memory.ReadAsync<nint>(playersWeaponPtr + 0x20, 6);
-        PartyMemberMetadata[] servantsData = await GetServantsDataAsync();
+        PartyMemberMetadata[] servantsData = await GetServantsDataAsync(
+            realPlayersCount: sessionPlayersArray.Count(it => it.IsValid)
+        );
 
         if (!isSos && servantsData.Any())
             Array.Copy(servantsData, 0, sessionPlayersArray, 4, 2);
@@ -568,18 +570,20 @@ public sealed class MHRPlayer : CommonPlayer
             _party.Update(new MHRPartyMemberData
             {
                 Index = 0,
+                Slot = 0,
                 Name = Name,
                 HighRank = HighRank,
                 MasterRank = MasterRank,
                 WeaponId = _weaponId,
-                IsMyself = true
+                IsMyself = true,
+                MemberType = MemberType.Player,
             });
 
             if (!servantsData.Any())
                 return;
         }
 
-        foreach ((int index, bool isValid, MHRCharacterData data) in sessionPlayersArray)
+        foreach ((int index, int slot, bool isValid, MHRCharacterData data) in sessionPlayersArray)
         {
             nint weaponPtr = playerWeaponsPtr[index];
             string name = await Memory.ReadAsync(data.NamePointer + 0x14, 32, Encoding.Unicode);
@@ -597,18 +601,20 @@ public sealed class MHRPlayer : CommonPlayer
             var memberData = new MHRPartyMemberData
             {
                 Index = index,
+                Slot = slot,
                 Name = name,
                 HighRank = data.HighRank,
                 MasterRank = data.MasterRank,
                 WeaponId = weapon,
-                IsMyself = name == Name
+                IsMyself = name == Name,
+                MemberType = index >= 4 ? MemberType.Companion : MemberType.Player
             };
 
             _party.Update(memberData);
         }
     }
 
-    private async Task<PartyMemberMetadata[]> GetServantsDataAsync()
+    private async Task<PartyMemberMetadata[]> GetServantsDataAsync(int realPlayersCount)
     {
         nint servantsArrayPtr = await Memory.ReadAsync(
             address: AddressMap.GetAbsolute("SERVANTS_DATA_ADDRESS"),
@@ -631,6 +637,7 @@ public sealed class MHRPlayer : CommonPlayer
         for (int i = 0; i < servants.Length; i++)
             servants[i] = new PartyMemberMetadata(
                 Index: i + 4,
+                Slot: i + realPlayersCount,
                 IsValid: !servantsArray[i].IsNullPointer(),
                 Data: new MHRCharacterData { NamePointer = servantsNamePtrs.ElementAtOrDefault(i), HighRank = HighRank, MasterRank = MasterRank }
             );

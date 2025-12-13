@@ -1,13 +1,12 @@
 ﻿using System.Windows.Controls;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.View;
-
 /// <summary>
-/// Interaction logic for DamageBarView.xaml
+/// Interaction logic for PetsViewV2.xaml
 /// </summary>
-public partial class DamageBarView : UserControl
+public partial class PetsViewV2 : UserControl
 {
-    public DamageBarView()
+    public PetsViewV2()
     {
         InitializeComponent();
     }

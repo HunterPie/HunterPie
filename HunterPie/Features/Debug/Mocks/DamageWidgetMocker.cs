@@ -23,7 +23,6 @@ internal class DamageWidgetMocker : IWidgetMocker
     private readonly List<ChartValues<ObservablePoint>> _playerChartValues = new();
     public Observable<bool> Setting => ClientConfig.Config.Development.MockDamageWidget;
     private DispatcherTimer? _timer;
-
     public WidgetView Mock(IOverlay overlay)
     {
         _timer?.Stop();
@@ -33,7 +32,7 @@ internal class DamageWidgetMocker : IWidgetMocker
         {
             InHuntingZone = true,
             MaxDeaths = 3,
-            Deaths = 1
+            Deaths = 1,
         };
         _totalDamage = 0;
         _playerChartValues.Clear();
@@ -80,8 +79,12 @@ internal class DamageWidgetMocker : IWidgetMocker
 
         LinearSeriesCollectionBuilder builder = new();
         int i = 0;
-        foreach (PlayerViewModel? player in viewModel.Players)
+        foreach (PlayerViewModel player in viewModel.Players)
         {
+            PetViewModel petViewModel = CreatePet(player);
+
+            viewModel.Pets.Members.Add(petViewModel);
+
             _playerChartValues.Add(new ChartValues<ObservablePoint>());
             var color = (Color)ColorConverter.ConvertFromString(player.Bar.Color);
             builder.AddSeries(
@@ -93,6 +96,14 @@ internal class DamageWidgetMocker : IWidgetMocker
         }
 
         viewModel.Series.AddRange(builder.Build());
+    }
+
+    private PetViewModel CreatePet(PlayerViewModel player)
+    {
+        return new PetViewModel(new DamageBarViewModel(player.Bar.Color))
+        {
+            Name = player.Name,
+        };
     }
 
     private void BindConfiguration(
@@ -118,6 +129,8 @@ internal class DamageWidgetMocker : IWidgetMocker
         MeterViewModelV2 viewModel,
         Random seeder)
     {
+        viewModel.HasPetsToBeDisplayed = true;
+
         int i = 1;
         double newTime = viewModel.TimeElapsed + 0.016;
 
@@ -144,9 +157,33 @@ internal class DamageWidgetMocker : IWidgetMocker
             }
 
             viewModel.MaxPlotValue = maxYAxis;
+
+            Span<double> nextDamages = stackalloc double[4]
+            {
+                seeder.NextDouble() * 100,
+                seeder.NextDouble() * 150,
+                seeder.NextDouble() * 100,
+                seeder.NextDouble() * 200,
+            };
+
+            double lastTotalDamage = viewModel.Pets.TotalDamage;
+            foreach (double next in nextDamages)
+                viewModel.Pets.TotalDamage += (int)next;
+            double totalDamage = viewModel.Pets.TotalDamage;
+
+            for (int j = 0; j < nextDamages.Length; j++)
+            {
+                DamageBarViewModel petVm = viewModel.Pets.Members[j].DamageBar;
+
+                double damage = nextDamages[j];
+                double lastDamage = lastTotalDamage * (petVm.Percentage / 100);
+
+                petVm.Percentage = (damage + lastDamage) / totalDamage * 100;
+            }
+
+            viewModel.SortMembers();
         }
 
-        viewModel.SortMembers();
         viewModel.TimeElapsed = newTime;
     }
 }

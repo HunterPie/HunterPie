@@ -1470,7 +1470,7 @@
             </Parts>
         </Monster>
         <Monster Id="34"
-                 IsNotCapturable="True" />
+                 IsNotCapturable="True">
             <Crowns Gold="123"
                     Silver="115"
                     Mini="90" />

@@ -80,6 +80,6 @@ public class MeterViewModel : WidgetViewModel
     public void SortMembers()
     {
         Players.SortInPlace(player => player.Damage);
-        Pets.Damages.SortInPlace(pet => pet.Percentage);
+        Pets.Members.SortInPlace(pet => pet.DamageBar.Percentage);
     }
 }
