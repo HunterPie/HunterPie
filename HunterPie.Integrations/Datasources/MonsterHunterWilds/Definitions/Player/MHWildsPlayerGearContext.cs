@@ -8,5 +8,5 @@ public struct MHWildsPlayerGearContext
 {
     [FieldOffset(0x38)]
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = 6)] public int[] Gear;
-    [FieldOffset(0xBC)] public Weapon WeaponId;
+    [FieldOffset(0xC8)] public Weapon WeaponId;
 }

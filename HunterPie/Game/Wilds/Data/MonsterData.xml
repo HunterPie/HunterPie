@@ -545,6 +545,11 @@
                       String="PART_TAIL" />
             </Parts>
         </Monster>
+        <Monster Id="12">
+            <Crowns Gold="123"
+                    Silver="115"
+                    Mini="90" />
+        </Monster>
         <Monster Id="13"
                  Size="1923.434">
             <Crowns Gold="123"
