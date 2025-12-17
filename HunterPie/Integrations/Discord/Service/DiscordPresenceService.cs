@@ -56,6 +56,7 @@ internal class DiscordPresenceService : IDisposable
 
     private void OnPlayerStageUpdate(object? sender, EventArgs e)
     {
+        _logger.Debug($"Player teleported to stage {_context.Game.Player.StageId}");
         _stageElapsedTime = Timestamps.Now;
         HandlePresenceUpdate();
     }
