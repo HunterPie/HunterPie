@@ -3,8 +3,6 @@ using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity;
-using HunterPie.Core.Observability.Logging;
-using HunterPie.Integrations.Datasources.MonsterHunterWilds;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
 using HunterPie.UI.Architecture.Overlay;
@@ -22,7 +20,6 @@ namespace HunterPie.Features.Overlay.Widgets;
 
 internal class SpecializedToolWidgetInitializer : IWidgetInitializer
 {
-    private readonly ILogger _logger = LoggerFactory.Create();
     private readonly IOverlay _overlay;
 
     private readonly List<(IContextHandler, WidgetView)> _handlers = new(2);
@@ -38,12 +35,6 @@ internal class SpecializedToolWidgetInitializer : IWidgetInitializer
 
     public Task LoadAsync(IContext context)
     {
-        if (context is MHWildsContext)
-        {
-            _logger.Warning($"Specialized Tool Widget has been temporarily disabled due to Monster Hunter Wilds v1.40.0.0 update. Full support for the newest update is still under development.");
-            return Task.CompletedTask;
-        }
-
         SpecializedToolWidgetConfig[] configs =
         {
             ClientConfigHelper.DeferOverlayConfig(
