@@ -93,6 +93,8 @@ public static class MHWildsExtensions
             27 => "Alessa",
             25 => "Mina",
             17 => "Kai",
+            15 => "Griffin",
+            12 => "Nadia",
             9 => "Olivia",
             6 => "Rosso",
             4 => "Fabius",

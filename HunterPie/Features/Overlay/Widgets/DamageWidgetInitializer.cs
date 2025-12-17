@@ -3,7 +3,6 @@ using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
-using HunterPie.Core.Observability.Logging;
 using HunterPie.DI;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld;
@@ -21,7 +20,6 @@ namespace HunterPie.Features.Overlay.Widgets;
 
 internal class DamageWidgetInitializer : IWidgetInitializer
 {
-    private readonly ILogger _logger = LoggerFactory.Create();
     private readonly IOverlay _overlay;
 
     private IContextHandler? _handler;
@@ -39,12 +37,6 @@ internal class DamageWidgetInitializer : IWidgetInitializer
 
     public Task LoadAsync(IContext context)
     {
-        if (context is MHWildsContext)
-        {
-            _logger.Warning($"Damage Widget has been temporarily disabled due to Monster Hunter Wilds v1.40.0.0 update. Full support for the newest update is still under development.");
-            return Task.CompletedTask;
-        }
-
         DamageMeterWidgetConfig config = ClientConfigHelper.DeferOverlayConfig(
             game: context.Process.Type,
             it => it.DamageMeterWidget
