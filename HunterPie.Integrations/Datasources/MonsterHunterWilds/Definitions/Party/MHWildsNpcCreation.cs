@@ -6,6 +6,6 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Part
 [StructLayout(LayoutKind.Explicit)]
 public struct MHWildsNpcCreation
 {
-    [FieldOffset(0x10)] public int Id;
-    [FieldOffset(0x20)] public Weapon Weapon;
+    [FieldOffset(0x24)] public Weapon Weapon;
+    [FieldOffset(0x28)] public int Id;
 }
