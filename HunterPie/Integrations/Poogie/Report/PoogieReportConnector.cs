@@ -4,6 +4,7 @@ using HunterPie.Integrations.Poogie.Report.Models;
 using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Report;
+
 internal class PoogieReportConnector
 {
     private readonly IPoogieClientAsync _client;

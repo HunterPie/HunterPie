@@ -1,6 +1,7 @@
 ﻿using HunterPie.UI.Architecture;
 
 namespace HunterPie.UI.Overlay.Widgets.Classes.ViewModels;
+
 public class ChargeBladePhialViewModel : ViewModel
 {
     private bool _isActive;

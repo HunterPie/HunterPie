@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 
 namespace HunterPie.Core.Domain.Interfaces;
+
 public interface ILocalRegistryAsync
 {
     public Task SetAsync<T>(string name, T value);

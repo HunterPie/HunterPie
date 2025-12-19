@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Data;
 
 namespace HunterPie.UI.Architecture.Converters;
+
 public class WeaponToMeleeVisibility : IValueConverter
 {
 

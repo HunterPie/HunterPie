@@ -1,4 +1,5 @@
 ﻿namespace HunterPie.Features.Account.Model;
+
 internal enum AccountTier
 {
     None,

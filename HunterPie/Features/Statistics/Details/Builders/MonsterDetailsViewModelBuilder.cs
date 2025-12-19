@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace HunterPie.Features.Statistics.Details.Builders;
+
 internal sealed class MonsterDetailsViewModelBuilder
 {
     private static readonly Brush EnrageBrush = Resources.Get<Brush>("Brushes.Ailments.Enrage");

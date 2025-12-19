@@ -11,6 +11,7 @@ using HunterPie.UI.Overlay.Widgets.Classes.ViewModels;
 using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
+
 internal class ClassWidgetInitializer : IWidgetInitializer
 {
     private readonly IOverlay _overlay;

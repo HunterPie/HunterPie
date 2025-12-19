@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 
 namespace HunterPie.UI.Architecture.Adapter;
+
 public class MonsterIconAdapter
 {
     public static async Task<string> UriFrom(GameType game, int monsterId)

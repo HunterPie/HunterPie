@@ -8,6 +8,7 @@ using HunterPie.Core.Game.Events;
 using HunterPie.Core.Scan.Service;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Player.Weapons;
+
 public abstract class CommonMeleeWeapon : Scannable, IWeapon, IMeleeWeapon, IEventDispatcher, IDisposable
 {
     public abstract Weapon Id { get; }

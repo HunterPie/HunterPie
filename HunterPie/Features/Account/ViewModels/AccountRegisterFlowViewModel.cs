@@ -8,6 +8,7 @@ using HunterPie.UI.Architecture;
 using System;
 
 namespace HunterPie.Features.Account.ViewModels;
+
 internal class AccountRegisterFlowViewModel : ViewModel
 {
     private readonly PoogieAccountConnector _accountConnector;

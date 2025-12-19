@@ -2,6 +2,7 @@
 using GameTypeEntity = HunterPie.Core.Client.Configuration.Enums.GameType;
 
 namespace HunterPie.Integrations.Poogie.Common.Models;
+
 internal enum GameType
 {
     MHR,

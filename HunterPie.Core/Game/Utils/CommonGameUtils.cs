@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Game.Enums;
 
 namespace HunterPie.Core.Game.Utils;
+
 public static class CommonGameUtils
 {
 

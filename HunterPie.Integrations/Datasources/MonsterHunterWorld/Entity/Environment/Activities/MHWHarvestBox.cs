@@ -4,6 +4,7 @@ using HunterPie.Core.Extensions;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Environment.Activities;
+
 public class MHWHarvestBox : IEventDispatcher, IUpdatable<MHWHarvestBoxData>, IDisposable
 {
     private int _count;

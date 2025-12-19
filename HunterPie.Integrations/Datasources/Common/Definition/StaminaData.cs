@@ -1,4 +1,5 @@
 ﻿namespace HunterPie.Integrations.Datasources.Common.Definition;
+
 public struct StaminaData
 {
     public double Stamina;
