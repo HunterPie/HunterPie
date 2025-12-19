@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Address.Map;
 using HunterPie.Core.Client.Configuration.Enums;
+using HunterPie.Core.Client.Localization;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.Memory.Types;
 using HunterPie.Core.Domain.Process.Entity;
@@ -79,6 +80,7 @@ public sealed class MHWildsPlayer : CommonPlayer
 
     private readonly MHWildsMonsterTargetKeyManager _monsterTargetKeyManager;
     private readonly MHWildsCryptoService _cryptoService;
+    private readonly ILocalizationRepository _localizationRepository;
 
     private nint _address;
     private nint _saveAddress;
@@ -197,10 +199,12 @@ public sealed class MHWildsPlayer : CommonPlayer
         IGameProcess process,
         IScanService scanService,
         MHWildsMonsterTargetKeyManager monsterTargetKeyManager,
-        MHWildsCryptoService cryptoService) : base(process, scanService)
+        MHWildsCryptoService cryptoService,
+        ILocalizationRepository localizationRepository) : base(process, scanService)
     {
         _monsterTargetKeyManager = monsterTargetKeyManager;
         _cryptoService = cryptoService;
+        _localizationRepository = localizationRepository;
         _weapon = new MHWildsWeapon(WeaponType.Greatsword);
     }
 
@@ -411,7 +415,7 @@ public sealed class MHWildsPlayer : CommonPlayer
             members.Add(new UpdatePartyMember
             {
                 Id = npc.ContextPointer,
-                Name = creationParams.Id.ToNpcName(),
+                Name = creationParams.Id.ToNpcName(_localizationRepository),
                 IsNpc = true,
                 IsValid = true,
                 Damage = await damageDefer,
