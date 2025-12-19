@@ -2,6 +2,7 @@
 using System.IO.Compression;
 
 namespace HunterPie.Core.Zip;
+
 public static class CompressionProvider
 {
     public static string Compress(string zipPath, params string[] files)

@@ -4,6 +4,7 @@ using HunterPie.Integrations.Poogie.Notification.Models;
 using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Notification;
+
 internal class PoogieNotificationConnector
 {
     private readonly IPoogieClientAsync _client;

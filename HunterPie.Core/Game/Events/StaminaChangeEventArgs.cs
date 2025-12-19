@@ -2,6 +2,7 @@
 using System;
 
 namespace HunterPie.Core.Game.Events;
+
 public class StaminaChangeEventArgs : EventArgs
 {
 

@@ -4,6 +4,7 @@ using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Party;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Party;
+
 public abstract class CommonParty : IParty, IEventDispatcher, IDisposable
 {
     public abstract int Size { get; protected set; }

@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Controls;
 
 namespace HunterPie.UI.Architecture.Validation;
+
 public class UsernameValidationRule : ValidationRule
 {
     private const string ERROR_RANGE_USERNAME = "VALIDATION_SHOULD_BE_WITHIN_RANGE_STRING";

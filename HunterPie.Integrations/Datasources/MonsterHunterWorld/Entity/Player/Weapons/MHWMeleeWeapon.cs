@@ -11,6 +11,7 @@ using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
+
 public class MHWMeleeWeapon : CommonMeleeWeapon
 {
     private int[]? _minimumSharpnessByLevel;

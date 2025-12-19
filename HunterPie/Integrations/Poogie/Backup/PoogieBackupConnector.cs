@@ -5,6 +5,7 @@ using HunterPie.Integrations.Poogie.Common.Models;
 using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Backup;
+
 internal class PoogieBackupConnector
 {
     private const string BACKUP_ENDPOINT = "/v1/backup";

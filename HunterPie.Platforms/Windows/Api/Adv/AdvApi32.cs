@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 
 namespace HunterPie.Platforms.Windows.Api.Adv;
+
 internal class AdvApi32
 {
     private const string ADV_API_32 = "advapi32.dll";

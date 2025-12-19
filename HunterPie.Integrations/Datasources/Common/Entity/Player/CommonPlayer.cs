@@ -14,6 +14,7 @@ using HunterPie.Core.Scan.Service;
 using System.Runtime.CompilerServices;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Player;
+
 public abstract class CommonPlayer : Scannable, IPlayer, IEventDispatcher, IDisposable
 {
     private readonly ILogger _logger = LoggerFactory.Create();

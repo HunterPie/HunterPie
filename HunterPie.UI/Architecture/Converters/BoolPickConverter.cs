@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 
 namespace HunterPie.UI.Architecture.Converters;
+
 public class BoolPickConverter : IMultiValueConverter
 {
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)

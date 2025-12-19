@@ -3,6 +3,7 @@ using HunterPie.Core.Game.Enums;
 using System;
 
 namespace HunterPie.Core.Game.Events;
+
 public class KinsectChargeChangeEventArgs : EventArgs
 {
     public KinsectChargeType Type { get; }

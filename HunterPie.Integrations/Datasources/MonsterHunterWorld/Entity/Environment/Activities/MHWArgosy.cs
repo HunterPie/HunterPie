@@ -4,6 +4,7 @@ using HunterPie.Core.Extensions;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Environment.Activities;
+
 public class MHWArgosy : IEventDispatcher, IDisposable, IUpdatable<MHWArgosyData>
 {
 

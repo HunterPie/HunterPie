@@ -1,6 +1,7 @@
 ﻿using HunterPie.Core.Game.Entity.Player.Vitals;
 
 namespace HunterPie.Core.Game.Events;
+
 public class HealthChangeEventArgs
 {
 

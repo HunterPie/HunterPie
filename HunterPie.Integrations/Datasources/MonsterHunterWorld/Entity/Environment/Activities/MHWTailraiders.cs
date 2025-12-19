@@ -4,6 +4,7 @@ using HunterPie.Core.Extensions;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Environment.Activities;
+
 public class MHWTailraiders : IEventDispatcher, IDisposable, IUpdatable<MHWTailraidersData>
 {
 
