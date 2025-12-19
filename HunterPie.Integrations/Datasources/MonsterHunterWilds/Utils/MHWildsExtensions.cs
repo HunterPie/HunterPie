@@ -1,4 +1,5 @@
-﻿using HunterPie.Core.Domain.Memory;
+﻿using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Domain.Memory;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Collections;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Types;
@@ -86,19 +87,13 @@ public static class MHWildsExtensions
         };
     }
 
-    public static string ToNpcName(this int id)
+    public static string ToNpcName(this int id, ILocalizationRepository localizationRepository)
     {
-        return id switch
+        string path = $"//Strings/Npcs/Wilds/Npc[@Id='{id}']";
+
+        return localizationRepository.ExistsBy(path) switch
         {
-            29 => "Nightmist",
-            27 => "Alessa",
-            25 => "Mina",
-            17 => "Kai",
-            15 => "Griffin",
-            12 => "Nadia",
-            9 => "Olivia",
-            6 => "Rosso",
-            4 => "Fabius",
+            true => localizationRepository.FindStringBy(path),
             _ => $"Unknown {id}"
         };
     }
