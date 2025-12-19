@@ -90,6 +90,7 @@ public static class MHWildsExtensions
     {
         return id switch
         {
+            29 => "Nightmist",
             27 => "Alessa",
             25 => "Mina",
             17 => "Kai",
