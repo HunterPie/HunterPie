@@ -127,7 +127,8 @@ public sealed class MHWildsGame : CommonGame
             process: process,
             scanService: scanService,
             monsterTargetKeyManager: _monsterTargetKeyManager,
-            cryptoService: _cryptoService
+            cryptoService: _cryptoService,
+            localizationRepository: _localizationRepository
         );
         _player.OnStageUpdate += (_, _) =>
         {
