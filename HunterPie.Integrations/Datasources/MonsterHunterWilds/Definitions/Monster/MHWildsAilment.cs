@@ -1,4 +1,5 @@
-﻿using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Game;
+﻿using HunterPie.Core.Domain.Memory.Types;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Game;
 using System.Runtime.InteropServices;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
@@ -6,8 +7,8 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Mons
 [StructLayout(LayoutKind.Explicit)]
 public struct MHWildsAilment
 {
-    [FieldOffset(0x28)] public nint BuildUpPointer;
-    [FieldOffset(0x54)] public int IsActive;
-    [FieldOffset(0x58)] public MHWildsTimer Timer;
+    [FieldOffset(0x20)] public Ref<MHWildsBuildUp> BuildUpPointer;
+    [FieldOffset(0x48)] public MHWildsTimer Timer;
+    [FieldOffset(0x58)] public int IsActive;
     [FieldOffset(0xB4)] public int Id;
 }

@@ -2,6 +2,7 @@
 using HunterPie.Core.Client;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Domain.Process.Exceptions;
 using HunterPie.Core.Domain.Process.Service;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Events;
@@ -47,8 +48,13 @@ internal class MHRProcessAttachStrategy : IProcessAttachStrategy
         if (version is not { })
             throw new UnauthorizedAccessException("Failed to get Monster Hunter Rise version, missing permissions");
 
+        string mapPath = Path.Combine(ClientInfo.AddressPath, $"MonsterHunterRise.{version}.map");
+
+        if (!Path.Exists(mapPath))
+            throw new UnsupportedGamePatchException(Name, version);
+
         bool hasLoaded = AddressMap.Parse(
-            filePath: Path.Combine(ClientInfo.AddressPath, $"MonsterHunterRise.{version}.map")
+            filePath: mapPath
         );
 
         if (!hasLoaded)

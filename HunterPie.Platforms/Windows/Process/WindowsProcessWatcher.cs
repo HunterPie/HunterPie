@@ -2,13 +2,13 @@
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Domain.Process;
 using HunterPie.Core.Domain.Process.Events;
+using HunterPie.Core.Domain.Process.Exceptions;
 using HunterPie.Core.Domain.Process.Internal;
 using HunterPie.Core.Domain.Process.Service;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.Platforms.Windows.Api.Kernel;
 using HunterPie.Platforms.Windows.Memory;
-using System.ComponentModel;
 using SystemProcess = System.Diagnostics.Process;
 
 namespace HunterPie.Platforms.Windows.Process;
@@ -130,15 +130,24 @@ internal class WindowsProcessWatcher : IControllableWatcherService, IEventDispat
                 return;
 
             CurrentProcess = AttachToGame(strategy, process);
+            return;
+        }
+        catch (UnauthorizedAccessException)
+        {
+            _logger.Error("Failed to open game process. Run HunterPie as Administrator!");
+        }
+        catch (UnsupportedGamePatchException err)
+        {
+            _logger.Error($"Current version ({err.Version}) of {err.Game} is not supported.\n" +
+                $"This usually happens due to a new patch of the game that hasn't been mapped yet, please wait patiently until the developer has time to look into it.");
         }
         catch (Exception err)
         {
-            _logger.Error("Failed to open game process. Run HunterPie as Administrator!");
             _logger.Info($"Error details: {err}");
-
-            _failedProcesses.Add(strategy.Name);
-            process.Dispose();
         }
+
+        _failedProcesses.Add(strategy.Name);
+        process.Dispose();
     }
 
     private static WindowsGameProcess AttachToGame(
@@ -155,7 +164,7 @@ internal class WindowsProcessWatcher : IControllableWatcherService, IEventDispat
         );
 
         if (handle == IntPtr.Zero)
-            throw new Win32Exception("Failed to attach to process, missing permissions");
+            throw new UnauthorizedAccessException("Failed to attach to process, missing permissions");
 
         strategy.SetStatus(ProcessStatus.Hooked);
 
