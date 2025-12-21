@@ -2,6 +2,7 @@
 using HunterPie.Core.Client;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Domain.Process;
+using HunterPie.Core.Domain.Process.Exceptions;
 using HunterPie.Core.Domain.Process.Service;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Events;
@@ -50,9 +51,14 @@ internal class MHWProcessAttachStrategy : IProcessAttachStrategy
         if (!isValidVersion)
             throw new UnauthorizedAccessException("Failed to get Monster Hunter World version");
 
+        string mapPath = Path.Combine(ClientInfo.AddressPath, $"MonsterHunterWorld.{rawVersion}.map");
+
+        if (!IsIce(version) && !Path.Exists(mapPath))
+            throw new UnsupportedGamePatchException(Name, version.ToString());
+
         bool hasLoaded = IsIce(version)
             ? AddressMap.ParseLatest(ClientInfo.AddressPath)
-            : AddressMap.Parse(Path.Combine(ClientInfo.AddressPath, $"MonsterHunterWorld.{rawVersion}.map"));
+            : AddressMap.Parse(mapPath);
 
         if (!hasLoaded)
             throw new Exception($"Failed to load address for Monster Hunter World v{version}");

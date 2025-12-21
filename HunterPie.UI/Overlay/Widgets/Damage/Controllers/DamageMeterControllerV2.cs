@@ -312,7 +312,7 @@ public class DamageMeterControllerV2 : IContextHandler
 
     private void CalculatePlayerSeries()
     {
-        float totalDamage = _members.Keys.Sum(it => it.Damage);
+        double totalDamage = _members.Keys.Sum(it => (double)it.Damage);
         bool shouldDiscardOldPlots = _config.IsOldPlotDiscardingEnabled;
         double plottingWindowSize = _config.PlotSlidingWindowInSeconds.Current;
         double plotSampleRate = _config.PlotSamplingInSeconds.Current;
