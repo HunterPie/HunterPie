@@ -238,7 +238,7 @@ public sealed class MHWildsMonster : CommonMonster
         }
         else
         {
-            MHWildsBuildUp stamina = await Memory.ReadAsync<MHWildsBuildUp>(ailment.BuildUpPointer);
+            MHWildsBuildUp stamina = await ailment.BuildUpPointer.Deref(Memory);
 
             MaxStamina = stamina.Max;
             Stamina = stamina.Current;
@@ -333,7 +333,7 @@ public sealed class MHWildsMonster : CommonMonster
             offsets: AddressMap.GetOffsets("Monster::Enrage")
         );
 
-        MHWildsBuildUp buildUp = await Memory.ReadAsync<MHWildsBuildUp>(ailment.BuildUpPointer);
+        MHWildsBuildUp buildUp = await ailment.BuildUpPointer.Deref(Memory);
 
         _enrage.Update(ailment);
         _enrage.Update(buildUp);
@@ -389,7 +389,7 @@ public sealed class MHWildsMonster : CommonMonster
 
             MHWildsMonsterAilment ailmentEntity = _ailments[index];
 
-            MHWildsBuildUp buildUp = await Memory.ReadAsync<MHWildsBuildUp>(ailment.BuildUpPointer);
+            MHWildsBuildUp buildUp = await ailment.BuildUpPointer.Deref(Memory);
 
             ailmentEntity.Update(ailment);
             ailmentEntity.Update(buildUp);
