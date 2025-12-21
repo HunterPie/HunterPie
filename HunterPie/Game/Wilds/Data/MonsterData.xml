@@ -545,10 +545,18 @@
                       String="PART_TAIL" />
             </Parts>
         </Monster>
-        <Monster Id="12">
+        <Monster Id="12"
+                 IsNotCapturable="True">
             <Crowns Gold="123"
                     Silver="115"
                     Mini="90" />
+            <Types>
+                <Type Name="TYPE_ELDER_DRAGON" />
+            </Types>
+            <Weaknesses>
+                <Weakness Name="Fire" />
+                <Weakness Name="Dragon" />
+            </Weaknesses>
         </Monster>
         <Monster Id="13"
                  Size="1923.434">
@@ -1335,9 +1343,9 @@
                 <Part Id="13"
                       String="PART_L_FORELEG" />
                 <Part Id="14"
-                      String="PART_L_H_LEG" />
-                <Part Id="15"
                       String="PART_R_H_LEG" />
+                <Part Id="15"
+                      String="PART_L_H_LEG" />
                 <Part Id="16"
                       String="PART_FLINCH" />
                 <Part Id="17"
