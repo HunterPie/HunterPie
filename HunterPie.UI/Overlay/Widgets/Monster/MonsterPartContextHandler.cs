@@ -114,9 +114,6 @@ public class MonsterPartContextHandler : MonsterPartViewModel
 
     private void OnFlinchUpdate(object? sender, IMonsterPart e)
     {
-        if (Flinch < e.Flinch && MaxFlinch > 0)
-            Breaks++;
-
         MaxFlinch = e.MaxFlinch;
         Flinch = e.Flinch;
 
@@ -143,6 +140,7 @@ public class MonsterPartContextHandler : MonsterPartViewModel
         Flinch = Context.Flinch;
         MaxSever = Context.MaxSever;
         Sever = Context.Sever;
+        Breaks = Context.Count;
 
         IsPartSevered = MaxSever == Sever && (Breaks > 0 || Flinch != MaxFlinch);
         IsPartBroken = MaxHealth <= 0 || (Health == MaxHealth && (Breaks > 0 || Flinch != MaxFlinch));
