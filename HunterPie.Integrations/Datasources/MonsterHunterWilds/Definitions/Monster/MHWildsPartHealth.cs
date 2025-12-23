@@ -16,8 +16,8 @@ public struct MHWildsPartHealth
     /// </summary>
     [FieldOffset(0x28)] public nint HealthPointer;
 
-    [FieldOffset(0x50)] public int Count;
+    [FieldOffset(0x58)] public int Count;
 
-    [FieldOffset(0x54)]
+    [FieldOffset(0x5C)]
     [MarshalAs(UnmanagedType.I1)] public bool IsEnabled;
 }

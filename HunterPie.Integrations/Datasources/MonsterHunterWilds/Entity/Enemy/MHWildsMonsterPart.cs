@@ -133,6 +133,8 @@ public sealed class MHWildsMonsterPart : CommonPart, IUpdatable<UpdatePartData>
                 ? MaxHealth
                 : (data.MaxHealth * normalizedBreakMultiplier) + data.Health;
         }
+        else
+            Count = data.HealthResetCount;
 
         MaxFlinch = data.MaxHealth;
         Flinch = data.Health;
