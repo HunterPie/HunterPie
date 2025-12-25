@@ -20,6 +20,7 @@ internal class SettingsModule : IDependencyModule
             .WithSingle<RangeConfigurationPropertyBuilder>()
             .WithSingle<SecretConfigurationPropertyBuilder>()
             .WithSingle<StringConfigurationPropertyBuilder>()
-            .WithSingle<ConfigurationAdapter>();
+            .WithSingle<ConfigurationAdapter>()
+            .WithSingle<FeatureFlagAdapter>();
     }
 }
