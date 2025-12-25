@@ -21,17 +21,20 @@ internal class SettingsFactory
     private readonly LocalAccountConfig _localAccountConfig;
     private readonly DefaultFeatureFlags _defaultFeatureFlags;
     private readonly ConfigurationAdapter _configurationAdapter;
+    private readonly FeatureFlagAdapter _featureFlagAdapter;
 
     public SettingsFactory(
         PoogieVersionConnector versionConnector,
         LocalAccountConfig localAccountConfig,
         DefaultFeatureFlags defaultFeatureFlags,
-        ConfigurationAdapter configurationAdapter)
+        ConfigurationAdapter configurationAdapter,
+        FeatureFlagAdapter featureFlagAdapter)
     {
         _versionConnector = versionConnector;
         _localAccountConfig = localAccountConfig;
         _defaultFeatureFlags = defaultFeatureFlags;
         _configurationAdapter = configurationAdapter;
+        _featureFlagAdapter = featureFlagAdapter;
     }
 
     public async Task<SettingsViewModel> CreateFullAsync(Observable<GameProcessType> currentGame)
@@ -106,7 +109,7 @@ internal class SettingsFactory
         ObservableCollection<ConfigurationCategoryGroup> accountConfig = await _localAccountConfig.BuildAccountConfigAsync();
         ObservableCollection<ConfigurationCategoryGroup> featureFlags = ClientConfig.Config.Client.EnableFeatureFlags.Value switch
         {
-            true => FeatureFlagAdapter.Adapt(_defaultFeatureFlags.Flags),
+            true => _featureFlagAdapter.Adapt(_defaultFeatureFlags.Flags),
             _ => new ObservableCollection<ConfigurationCategoryGroup>()
         };
 
