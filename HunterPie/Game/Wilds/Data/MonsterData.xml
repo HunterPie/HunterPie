@@ -926,7 +926,7 @@
                       String="PART_UNKNOWN" />
             </Parts>
         </Monster>
-<"-- Chatacabra -->
+<!-- Chatacabra -->
         <Monster Id="19"
                  Size="498.3">
             <Crowns Gold="123"
