@@ -449,15 +449,15 @@
 				<Part Id="18"
                       String="PART_UNKNOWN" />                <!-- HP over Monster-HP -->
 				<Part Id="19"
-                      String="PART_WATERFIGHT" />
+                      String="PART_WATERFIGHT_LR" />
                 <Part Id="20"
-                      String="PART_UNKNOWN" />
+                      String="PART_WATERFIGHT_HR" />
                 <Part Id="21"
                       String="PART_UNKNOWN" />
 				<Part Id="22"
-                      String="PART_WATERFIGHT" />
+                      String="PART_WATER_MOUNT_FLINCH" />
 				<Part Id="23"
-                      String="PART_WATERFIGHT" />					  
+                      String="PART_WATER_SHOT_FLINCH" />					  
 				<Part Id="24"
                       String="PART_UNKNOWN" />                <!-- HP over Monster-HP -->
             </Parts>
@@ -509,7 +509,7 @@
                 <Part Id="15"
                       String="PART_MANTLE_BREAK" />
                 <Part Id="16"
-                      String="PART_UNKNOWN" />
+                      String="PART_CEILING_FALL" />
             </Parts>
         </Monster>
 <!-- Gore Magala -->
@@ -554,9 +554,9 @@
                 <Part Id="12"
                       String="PART_L_WING" />
                 <Part Id="13"
-                      String="PART_FRENZY_THRESHOLD" />
+                      String="PART_FRENZY_HR" />
                 <Part Id="14"
-                      String="PART_UNKNOWN" />                <!-- HP over Monster-HP -->
+                      String="PART_FRENZY_THR" />                <!-- HP over Monster-HP -->
                 <Part Id="15"
                       String="PART_TAIL_CUT" />
             </Parts>
@@ -957,29 +957,29 @@
                 <Part Id="7"
                       String="PART_UNKNOWN" />                <!-- HP over Monster-HP -->
                 <Part Id="8"
-                      String="PART_UNKNOWN" />
+                      String="PART_L_FORELEG_RF_LR_CRYSTAL" />
                 <Part Id="9"
-                      String="PART_UNKNOWN" />
+                      String="PART_R_FORELEG_RF_LR_CRYSTAL" />
                 <Part Id="10"
-                      String="PART_UNKNOWN" />
+                      String="PART_L_FORELEG_RF_LR_STONE" />
                 <Part Id="11"
-                      String="PART_UNKNOWN" />
+                      String="PART_R_FORELEG_RF_LR_STONE" />
                 <Part Id="12"
-                      String="PART_UNKNOWN" />
+                      String="PART_L_FORELEG_RF_LR_SAND" />
                 <Part Id="13"
-                      String="PART_UNKNOWN" />
+                      String="PART_R_FORELEG_RF_LR_SAND" />
                 <Part Id="14"
-                      String="PART_UNKNOWN" />
+                      String="PART_L_FORELEG_RF_HR_CRYSTAL" />
                 <Part Id="15"
-                      String="PART_UNKNOWN" />
+                      String="PART_R_FORELEG_RF_HR_CRYSTAL" />
                 <Part Id="16"
-                      String="PART_UNKNOWN" />
+                      String="PART_L_FORELEG_RF_HR_STONE" />
                 <Part Id="17"
-                      String="PART_UNKNOWN" />
+                      String="PART_R_FORELEG_RF_HR_STONE" />
                 <Part Id="18"
-                      String="PART_UNKNOWN" />
+                      String="PART_L_FORELEG_RF_HR_SAND" />
                 <Part Id="19"
-                      String="PART_UNKNOWN" />
+                      String="PART_R_FORELEG_RF_HR_SAND" />
             </Parts>
         </Monster>
 <!-- Quematrice -->
@@ -1051,7 +1051,7 @@
                 <Part Id="9"
                       String="PART_PETALS" />
                 <Part Id="10"
-                      String="PART_UNKNOWN" />
+                      String="PART_CEILING_FALL" />
             </Parts>
         </Monster>
 <!-- Rompopolo -->
@@ -1087,31 +1087,31 @@
                 <Part Id="7"
                       String="PART_TAIL" />
                 <Part Id="8"
-                      String="PART_UNKNOWN" />
+                      String="PART_SACK_COLLAPSE_LR" />
                 <Part Id="9"
-                      String="PART_UNKNOWN" />
+                      String="PART_HEAD_SACK_LR" />
                 <Part Id="10"
-                      String="PART_UNKNOWN" />
+                      String="PART_BACK_SACK_LR" />
                 <Part Id="11"
-                      String="PART_UNKNOWN" />
+                      String="PART_TAIL_SACK_LR" />
                 <Part Id="12"
                       String="PART_FORELEGS" />
                 <Part Id="13"
-                      String="PART_SACK_COLLAPSE" />
+                      String="PART_SACK_COLLAPSE_HR" />
                 <Part Id="14"
-                      String="PART_HEAD_SACK" />
+                      String="PART_HEAD_SACK_HR" />
                 <Part Id="15"
-                      String="PART_BACK_SACK" />
+                      String="PART_BACK_SACK_HR" />
                 <Part Id="16"
-                      String="PART_TAIL_SACK" />
+                      String="PART_TAIL_SACK_HR" />
                 <Part Id="17"
-                      String="PART_UNKNOWN" />
+                      String="PART_SACK_COLLAPSE_THR" />
                 <Part Id="18"
-                      String="PART_UNKNOWN" />
+                      String="PART_HEAD_SACK_THR" />
                 <Part Id="19"
-                      String="PART_UNKNOWN" />
+                      String="PART_BACK_SACK_THR" />
                 <Part Id="20"
-                      String="PART_UNKNOWN" />
+                      String="PART_TAIL_SACK_THR" />
             </Parts>
         </Monster>
 <!-- Rey Dau -->
@@ -1297,7 +1297,7 @@
                 <Part Id="31"
                       String="PART_REAR_R_ARM_OIL" />
                 <Part Id="32"
-                      String="PART_UNKNOWN" />
+                      String="PART_AT_ZONE_CHANGE" />
             </Parts>
         </Monster>
 <!-- Ajarakan -->
@@ -1337,13 +1337,13 @@
                 <Part Id="10"
                       String="PART_UNKNOWN" />              <!-- 0 HP Part -->
                 <Part Id="11"
-                      String="PART_UNKNOWN" />
+                      String="PART_SUPERHEAT_LR" />
                 <Part Id="12"
                       String="PART_TAIL_CUT" />
                 <Part Id="13"
                       String="PART_CEILING_FALL" />
                 <Part Id="14"
-                      String="PART_SUPERHEAT" />
+                      String="PART_SUPERHEAT_HR" />
                 <Part Id="15"
                       String="PART_UNKNOWN" />
             </Parts>
@@ -1425,6 +1425,12 @@
                       String="PART_R_CHAINBLADE" />
                 <Part Id="9"
                       String="PART_UNKNOWN" />
+                <Part Id="10"
+                      String="PART_TAIL_CUT" />					  
+                <Part Id="11"
+                      String="PART_L_CHAINBLADE_SPLITTED" />
+                <Part Id="12"
+                      String="PART_R_CHAINBLADE_SPLITTED" />
             </Parts>
         </Monster>
 <!-- Hirabami -->
