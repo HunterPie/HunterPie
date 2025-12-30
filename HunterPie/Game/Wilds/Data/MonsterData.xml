@@ -162,9 +162,9 @@
                 <Part Id="9"
                       String="PART_TAIL_CUT" />
                 <Part Id="10"
-                      String="PART_SKY_FALL" />
+                      String="PART_CRASH" />
                 <Part Id="11"
-                      String="PART_SKY_FALL" />
+                      String="PART_CRASH" />
                 <Part Id="12"
                       String="PART_AIR_FLINCH_MELEE_WEAPON" />
                 <Part Id="13"
@@ -656,7 +656,7 @@
                 <Part Id="21"
                       String="PART_TAIL_CUT" />
                 <Part Id="22"
-                      String="PART_SKY_FALL" />
+                      String="PART_CRASH" />
                 <Part Id="23"
                       String="PART_UNKNOWN" />
                 <Part Id="24"
