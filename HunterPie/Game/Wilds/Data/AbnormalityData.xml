@@ -499,6 +499,7 @@
                      Offset="40" />
         <Abnormality Id="Skills.168"
                      Name="ABNORMALITY_XUWU_VIGOR"
+                     Icon="ICON_ATTACKUP"
                      Offset="48" />
         <Abnormality Id="Skills.64"
                      Name="ABNORMALITY_LATENTPOWER"
