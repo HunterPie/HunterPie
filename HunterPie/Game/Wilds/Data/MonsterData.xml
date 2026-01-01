@@ -1345,7 +1345,7 @@
                 <Part Id="14"
                       String="PART_SUPERHEAT_HR" />
                 <Part Id="15"
-                      String="PART_UNKNOWN" />
+                      String="PART_SUPERHEAT_GHR" />
             </Parts>
         </Monster>
 <!-- Akrveld -->
