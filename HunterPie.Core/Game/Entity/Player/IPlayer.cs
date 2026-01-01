@@ -19,6 +19,7 @@ public interface IPlayer
     public IHealthComponent Health { get; }
     public IStaminaComponent Stamina { get; }
     public IWeapon Weapon { get; }
+    public IPlayerStatus? Status { get; }
 
 
     public event EventHandler<EventArgs> OnLogin;

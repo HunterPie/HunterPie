@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Native.IPC.Models.Common;
 using HunterPie.Integrations.Datasources.Common.Entity.Party;
@@ -47,6 +48,8 @@ public sealed class MHRPartyMember : CommonPartyMember, IUpdatable<MHRPartyMembe
 
     public int HighRank { get; private set; }
     public override int MasterRank { get; protected set; }
+
+    public override IPlayerStatus? Status => null;
 
     public MHRPartyMember() { }
 

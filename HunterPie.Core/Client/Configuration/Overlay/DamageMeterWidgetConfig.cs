@@ -69,6 +69,22 @@ public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_DAMAGE", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Observable<bool> ShouldShowDamage { get; set; } = true;
+
+    [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_STATUS", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
+    public Observable<bool> IsStatusEnabled { get; set; } = true;
+
+    [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_AFFINITY", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationConditional(name: nameof(IsStatusEnabled), withValue: true)]
+    public Observable<bool> IsAffinityEnabled { get; set; } = true;
+
+    [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_RAW_DAMAGE", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationConditional(name: nameof(IsStatusEnabled), withValue: true)]
+    public Observable<bool> IsRawDamageEnabled { get; set; } = true;
+
+    [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_ELEMENTAL_DAMAGE", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationConditional(name: nameof(IsStatusEnabled), withValue: true)]
+    public Observable<bool> IsElementalDamageEnabled { get; set; } = true;
     #endregion
 
     #region Plotting

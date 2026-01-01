@@ -167,6 +167,9 @@ public sealed class MHWildsPlayer : CommonPlayer
     public override IHealthComponent? Health { get; }
     public override IStaminaComponent? Stamina { get; }
 
+    private readonly MHWildsPlayerStatus _status = new();
+    public override IPlayerStatus Status => _status;
+
     private IWeapon _weapon;
     public override IWeapon Weapon
     {
@@ -278,6 +281,14 @@ public sealed class MHWildsPlayer : CommonPlayer
     }
 
     [ScannableMethod]
+    internal async Task GetStatusAsync()
+    {
+        UpdatePlayerStatus status = await GetPlayerStatusAsync(_address);
+
+        _status.Update(status);
+    }
+
+    [ScannableMethod]
     internal async Task GetPartyAsync()
     {
         if (StageId < 0)
@@ -367,7 +378,8 @@ public sealed class MHWildsPlayer : CommonPlayer
                     : await Memory.DerefAsync<int>(
                         address: networkPartyMemberArray + (realPartyIndex * sizeof(long)),
                         offsets: AddressMap.GetOffsets("Network::Party::Member::HunterRank")
-                    )
+                    ),
+                Status = await GetPlayerStatusAsync(playerBase.BasePointer),
             };
 
             membersData[i] = data;
@@ -385,6 +397,29 @@ public sealed class MHWildsPlayer : CommonPlayer
         });
 
         membersData.ForEach(_party.Update);
+    }
+
+    private async Task<UpdatePlayerStatus> GetPlayerStatusAsync(nint address)
+    {
+        MHWildsAffinityStatus affinityContext = await Memory.DerefPtrAsync<MHWildsAffinityStatus>(
+            address: address,
+            offsets: AddressMap.GetOffsets("Player::Status::Affinity")
+        );
+        MHWildsDamageStatus damageContext = await Memory.DerefPtrAsync<MHWildsDamageStatus>(
+            address: address,
+            offsets: AddressMap.GetOffsets("Player::Status::Damage")
+        );
+
+        MHWildsEncryptedFloat encryptedCritRate = await affinityContext.CurrentCriticalRate.Deref(Memory);
+        MHWildsEncryptedFloat encryptedRawDamage = await damageContext.CurrentRawAttack.Deref(Memory);
+        MHWildsEncryptedFloat encryptedElementalDamage = await damageContext.CurrentElementalAttack.Deref(Memory);
+
+        return new UpdatePlayerStatus
+        {
+            Affinity = await _cryptoService.DecryptFloatAsync(encryptedCritRate),
+            RawDamage = await _cryptoService.DecryptFloatAsync(encryptedRawDamage),
+            ElementalDamage = Math.Round(await _cryptoService.DecryptFloatAsync(encryptedElementalDamage) * 10),
+        };
     }
 
     private async Task<IEnumerable<UpdatePartyMember>> GetNpcPartyMembersAsync(int playerCount)
@@ -1005,5 +1040,6 @@ public sealed class MHWildsPlayer : CommonPlayer
         MaterialRetrieval.Dispose();
         SupportShip.Dispose();
         _tools.DisposeAll();
+        _status.Dispose();
     }
 }

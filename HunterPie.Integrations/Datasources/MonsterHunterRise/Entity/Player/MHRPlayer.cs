@@ -155,6 +155,8 @@ public sealed class MHRPlayer : CommonPlayer
 
     public Scroll SwitchScroll { get; private set; }
 
+    public override IPlayerStatus? Status => null;
+
     #region Events
 
     private readonly SmartEvent<MHRWirebug[]> _onWirebugsRefresh = new();

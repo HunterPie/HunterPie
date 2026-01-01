@@ -302,13 +302,14 @@ public class DamageMeterControllerV2 : IContextHandler
         if (_members.ContainsKey(member))
             return;
 
+        bool isPlayer = member.Type == MemberType.Player;
+
         ObservableColor playerColor = PlayerConfigHelper.GetColorFromPlayer(
             game: _context.Process.Type,
-            slot: member.Type == MemberType.Player ? member.Slot : null,
+            slot: isPlayer ? member.Slot : null,
             isSelf: member.IsMyself
         );
         bool isVisible = !_config.ShowOnlySelf || member.IsMyself;
-
         var memberContext = new PartyMemberContext
         {
             ViewModel = new PlayerViewModel(_config)
@@ -319,7 +320,10 @@ public class DamageMeterControllerV2 : IContextHandler
                 Bar = new DamageBarViewModel(playerColor),
                 IsUser = member.IsMyself,
                 MasterRank = member.MasterRank,
-                IsVisible = isVisible
+                IsVisible = isVisible,
+                Affinity = isPlayer ? member.Status?.Affinity : null,
+                RawDamage = isPlayer ? member.Status?.RawDamage : null,
+                ElementalDamage = isPlayer ? member.Status?.ElementalDamage : null,
             },
             Plots = BuildPlayerPlots(
                 name: member.Name,
@@ -340,6 +344,12 @@ public class DamageMeterControllerV2 : IContextHandler
 
         member.OnDamageDealt += OnDamageDealt;
         member.OnWeaponChange += OnWeaponChange;
+        if (isPlayer && member.Status is { } status)
+        {
+            status.AffinityChanged += memberContext.OnAffinityChanged;
+            status.RawDamageChanged += memberContext.OnRawDamageChanged;
+            status.ElementalDamageChanged += memberContext.OnElementalDamageChanged;
+        }
 
         _logger.Debug($"added player {member.Name} | {memberContext.JoinedAt} to party [{member.GetHashCode():X08}]");
     }
@@ -351,6 +361,13 @@ public class DamageMeterControllerV2 : IContextHandler
 
         if (!_members.Remove(member, out PartyMemberContext? memberCtx))
             return;
+
+        if (member.Status is { } status)
+        {
+            status.AffinityChanged -= memberCtx.OnAffinityChanged;
+            status.RawDamageChanged -= memberCtx.OnRawDamageChanged;
+            status.ElementalDamageChanged -= memberCtx.OnElementalDamageChanged;
+        }
 
         if (_viewModel.Players.Contains(memberCtx.ViewModel))
             _viewModel.Players.Remove(memberCtx.ViewModel);
