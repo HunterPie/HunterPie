@@ -52,7 +52,11 @@ internal class DamageWidgetMocker : IWidgetMocker
             Name = "Player 1",
             Weapon = Weapon.Bow,
             Bar = new(config.PlayerFirst),
-            IsVisible = true
+            IsVisible = true,
+            Affinity = 20,
+            RawDamage = 264,
+            ElementalDamage = 560,
+            MasterRank = 999
         });
         viewModel.Players.Add(new(config)
         {
@@ -60,21 +64,33 @@ internal class DamageWidgetMocker : IWidgetMocker
             Weapon = Weapon.ChargeBlade,
             Bar = new(config.PlayerSelf),
             IsUser = true,
-            IsVisible = true
+            IsVisible = true,
+            Affinity = 80,
+            RawDamage = 266,
+            ElementalDamage = 640,
+            MasterRank = 69
         });
         viewModel.Players.Add(new(config)
         {
             Name = "Player 3",
             Weapon = Weapon.Greatsword,
             Bar = new(config.PlayerThird),
-            IsVisible = true
+            IsVisible = true,
+            Affinity = -10,
+            RawDamage = 185,
+            ElementalDamage = 408,
+            MasterRank = 420
         });
         viewModel.Players.Add(new(config)
         {
             Name = "Player 4",
             Weapon = Weapon.HuntingHorn,
             Bar = new(config.PlayerFourth),
-            IsVisible = true
+            IsVisible = true,
+            Affinity = 45,
+            RawDamage = 225,
+            ElementalDamage = 384,
+            MasterRank = 111
         });
 
         LinearSeriesCollectionBuilder builder = new();
@@ -143,15 +159,15 @@ internal class DamageWidgetMocker : IWidgetMocker
                 ChartValues<ObservablePoint> playerPlots = _playerChartValues[i - 1];
 
                 double lastDps = player.DPS;
-                int hit = seeder.Next(0, seeder.Next(1, 20));
-                player.Damage += hit;
+                double hit = seeder.NextDouble() * 300 * ((i + 1) / 4);
+                player.Damage += (int)hit;
                 player.DPS = player.Damage / viewModel.TimeElapsed;
                 player.Bar.Percentage = player.Damage / (double)Math.Max(1, _totalDamage) * 100;
                 player.IsIncreasing = lastDps < player.DPS;
 
 
                 playerPlots.Add(new ObservablePoint(viewModel.TimeElapsed, player.DPS));
-                _totalDamage += hit;
+                _totalDamage += (int)hit;
                 i++;
                 maxYAxis = Math.Max(maxYAxis, playerPlots.MaxBy(it => it.Y)?.Y ?? 0);
             }
