@@ -5,6 +5,7 @@ using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Native.IPC.Models.Common;
 using HunterPie.Integrations.Datasources.Common.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Party;
 
@@ -49,13 +50,15 @@ public sealed class MHRPartyMember : CommonPartyMember, IUpdatable<MHRPartyMembe
     public int HighRank { get; private set; }
     public override int MasterRank { get; protected set; }
 
-    public override IPlayerStatus? Status => null;
+    private readonly MHRPlayerStatus? _status;
+    public override IPlayerStatus? Status => _status;
 
-    public MHRPartyMember() { }
-
-    public MHRPartyMember(MemberType type)
+    public MHRPartyMember(MemberType type, bool isLocalPlayer)
     {
         Type = type;
+
+        if (isLocalPlayer)
+            _status = new MHRPlayerStatus();
     }
 
     public void Update(MHRPartyMemberData data)
@@ -67,6 +70,9 @@ public sealed class MHRPartyMember : CommonPartyMember, IUpdatable<MHRPartyMembe
         Type = data.MemberType;
         HighRank = data.HighRank;
         MasterRank = data.MasterRank;
+
+        if (data.Status is { } status)
+            _status?.Update(status);
     }
 
     public void Update(EntityDamageData data)
@@ -76,4 +82,10 @@ public sealed class MHRPartyMember : CommonPartyMember, IUpdatable<MHRPartyMembe
     }
 
     public string GetHash() => $"{Name}:{HighRank}:{MasterRank}";
+
+    public override void Dispose()
+    {
+        base.Dispose();
+        _status?.Dispose();
+    }
 }

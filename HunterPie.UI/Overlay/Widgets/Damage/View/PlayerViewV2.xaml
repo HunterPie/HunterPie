@@ -23,6 +23,7 @@
 		<converters:ParentSizePercentageConverter x:Key="ParentSizePercentageConverter" />
 		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 		<visibilities:BooleansToVisibilityMultiConverter x:Key="BooleansToVisibilityMultiConverter" />
+		<visibilities:PartialBooleansToVisibilityConverter x:Key="PartialBooleansToVisibilityConverter" />
 		<arithmetics:NumberCapConverter x:Key="NumberCapConverter"
 		                                Format="{}{0:N0}"
 		                                Maximum="9999" />
@@ -67,16 +68,39 @@
 
 			<!--  Status Data  -->
 			<StackPanel Grid.Column="1"
-			            Orientation="Horizontal"
-			            Visibility="{Binding Config.IsStatusEnabled.Value, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-				<Grid Grid.Column="4"
-				      Margin="2,0">
+			            Orientation="Horizontal">
+				<StackPanel.Style>
+					<Style TargetType="StackPanel">
+						<Style.Triggers>
+							<DataTrigger Binding="{Binding Config.IsStatusEnabled.Value, Mode=OneWay}"
+							             Value="True">
+								<Setter Property="Visibility">
+									<Setter.Value>
+										<MultiBinding Converter="{StaticResource PartialBooleansToVisibilityConverter}">
+											<Binding Converter="{StaticResource IsNotNullConverter}"
+											         Path="RawDamage" />
+											<Binding Converter="{StaticResource IsNotNullConverter}"
+											         Path="ElementalDamage" />
+											<Binding Converter="{StaticResource IsNotNullConverter}"
+											         Path="Affinity" />
+										</MultiBinding>
+									</Setter.Value>
+								</Setter>
+							</DataTrigger>
+							<DataTrigger Binding="{Binding Config.IsStatusEnabled.Value, Mode=OneWay}"
+							             Value="False">
+								<Setter Property="Visibility" Value="Collapsed" />
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+				</StackPanel.Style>
+				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*" />
 						<ColumnDefinition Width="*" />
 					</Grid.ColumnDefinitions>
 					<Viewbox Grid.Column="0"
-					         Width="24"
+					         MaxWidth="24"
 					         Margin="0,0,5,0"
 					         HorizontalAlignment="Center"
 					         VerticalAlignment="Center"
@@ -121,7 +145,7 @@
 					</Viewbox>
 
 					<Viewbox Grid.Column="1"
-					         Width="20"
+					         MaxWidth="24"
 					         HorizontalAlignment="Center"
 					         VerticalAlignment="Center">
 						<TextBlock d:Text="42%"

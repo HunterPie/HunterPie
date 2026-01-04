@@ -32,7 +32,7 @@ public abstract class CommonPartyMember : IPartyMember, IEventDispatcher, IDispo
         remove => _onWeaponChange.Unhook(value);
     }
 
-    public void Dispose()
+    public virtual void Dispose()
     {
         IDisposable[] events =
         {

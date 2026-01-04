@@ -3,11 +3,11 @@ using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Events;
-using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player.Data;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Data;
 
-namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
+namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 
-public class MHWildsPlayerStatus : IPlayerStatus, IEventDispatcher, IUpdatable<UpdatePlayerStatus>, IDisposable
+internal class MHRPlayerStatus : IPlayerStatus, IEventDispatcher, IUpdatable<UpdatePlayerStatus>, IDisposable
 {
     private double _affinity;
     public double Affinity

@@ -20,9 +20,11 @@ using HunterPie.Integrations.Datasources.Common.Definition;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions.Player;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Activities;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Party;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Entities;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Weapons;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Services;
@@ -35,6 +37,7 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 public sealed class MHRPlayer : CommonPlayer
 {
     #region Private
+    private nint _address;
     private int _saveSlotId;
     private string _name = string.Empty;
     private int _stageId = -1;
@@ -155,7 +158,8 @@ public sealed class MHRPlayer : CommonPlayer
 
     public Scroll SwitchScroll { get; private set; }
 
-    public override IPlayerStatus? Status => null;
+    private readonly MHRPlayerStatus _status = new();
+    public override IPlayerStatus Status => _status;
 
     #region Events
 
@@ -189,7 +193,16 @@ public sealed class MHRPlayer : CommonPlayer
     // TODO: Add DTOs for middlewares
 
     [ScannableMethod]
-    private async Task GetStageData()
+    internal async Task GetLocalPlayerAsync()
+    {
+        _address = await Memory.DerefAsync<nint>(
+            address: AddressMap.GetAbsolute("Game::PlayerManager"),
+            offsets: AddressMap.GetOffsets("Player::Local")
+        );
+    }
+
+    [ScannableMethod]
+    internal async Task GetStageData()
     {
         nint stageAddress = await Memory.ReadAsync(
             address: AddressMap.GetAbsolute("STAGE_ADDRESS"),
@@ -214,7 +227,7 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetPlayerSaveData()
+    internal async Task GetPlayerSaveData()
     {
         if (_stageData.IsMainMenu())
         {
@@ -241,7 +254,7 @@ public sealed class MHRPlayer : CommonPlayer
         Name = name;
     }
 
-    private async Task FindPlayerSaveSlotAsync()
+    internal async Task FindPlayerSaveSlotAsync()
     {
         if (_stageData.IsMainMenu())
         {
@@ -275,7 +288,7 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetPlayerLevel()
+    internal async Task GetPlayerLevel()
     {
         if (_saveSlotId < 0)
             return;
@@ -294,7 +307,7 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetPlayerWeaponData()
+    internal async Task GetPlayerWeaponData()
     {
         if (_stageData.IsMainMenu())
             return;
@@ -343,7 +356,32 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetPlayerAbnormalitiesCleanup()
+    internal async Task GetStatusAsync()
+    {
+        if (_stageData.IsMainMenu())
+            return;
+
+        UpdatePlayerStatus data = await GetPlayerStatusAsync(_address);
+
+        _status.Update(data);
+    }
+
+    private async Task<UpdatePlayerStatus> GetPlayerStatusAsync(nint address)
+    {
+        MHRPlayerStatusContext context = await Memory.DerefPtrAsync<MHRPlayerStatusContext>(
+            address: address,
+            offsets: AddressMap.GetOffsets("Player::Status")
+        );
+
+        return new UpdatePlayerStatus(
+            RawDamage: context.RawDamage,
+            ElementalDamage: Math.Max(context.PrimaryElementalDamage, context.SecondaryElementalDamage),
+            Affinity: context.Affinity
+        );
+    }
+
+    [ScannableMethod]
+    internal async Task GetPlayerAbnormalitiesCleanup()
     {
         nint debuffsPtr = await Memory.ReadAsync(
             address: AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
@@ -355,7 +393,7 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetPlayerEquipmentSkills()
+    internal async Task GetPlayerEquipmentSkills()
     {
         nint armorSkillsPtr = await Memory.ReadAsync(
             address: AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
@@ -372,7 +410,7 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetPlayerSwitchState()
+    internal async Task GetPlayerSwitchState()
     {
         int switchScroll = await Memory.DerefAsync<int>(
             address: AddressMap.GetAbsolute("LOCAL_PLAYER_DATA_ADDRESS"),
@@ -383,7 +421,7 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetConsumableAbnormalities()
+    internal async Task GetConsumableAbnormalities()
     {
         if (!InHuntingZone)
             return;
@@ -444,7 +482,7 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetPlayerDebuffAbnormalities()
+    internal async Task GetPlayerDebuffAbnormalities()
     {
         if (!InHuntingZone)
             return;
@@ -579,6 +617,11 @@ public sealed class MHRPlayer : CommonPlayer
                 WeaponId = _weaponId,
                 IsMyself = true,
                 MemberType = MemberType.Player,
+                Status = new(
+                    RawDamage: (float)_status.RawDamage,
+                    ElementalDamage: (float)_status.ElementalDamage,
+                    Affinity: (int)_status.Affinity
+                )
             });
 
             if (!servantsData.Any())
@@ -598,8 +641,9 @@ public sealed class MHRPlayer : CommonPlayer
                 continue;
             }
 
-            Weapon weapon = (await Memory.ReadAsync<int>(weaponPtr + 0x134)).ToWeaponId();
+            int weapon = await Memory.ReadAsync<int>(weaponPtr + 0x134);
 
+            bool isLocalPlayer = name == Name;
             var memberData = new MHRPartyMemberData
             {
                 Index = index,
@@ -607,9 +651,14 @@ public sealed class MHRPlayer : CommonPlayer
                 Name = name,
                 HighRank = data.HighRank,
                 MasterRank = data.MasterRank,
-                WeaponId = weapon,
-                IsMyself = name == Name,
-                MemberType = index >= 4 ? MemberType.Companion : MemberType.Player
+                WeaponId = weapon.ToWeaponId(),
+                IsMyself = isLocalPlayer,
+                MemberType = index >= 4 ? MemberType.Companion : MemberType.Player,
+                Status = isLocalPlayer ? new(
+                    RawDamage: (float)_status.RawDamage,
+                    ElementalDamage: (float)_status.ElementalDamage,
+                    Affinity: (int)_status.Affinity
+                ) : null,
             };
 
             _party.Update(memberData);
@@ -648,7 +697,7 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetPlayerSongAbnormalities()
+    internal async Task GetPlayerSongAbnormalities()
     {
         if (!InHuntingZone)
             return;
@@ -667,7 +716,7 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetPlayerStatus()
+    internal async Task GetPlayerStatus()
     {
         if (!InHuntingZone)
             return;
@@ -719,7 +768,7 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod(typeof(MHRWirebugData))]
-    private async Task GetPlayerWirebugs()
+    internal async Task GetPlayerWirebugs()
     {
         MHRWirebugCountStructure wirebugCount = await Memory.DerefAsync<MHRWirebugCountStructure>(
             AddressMap.GetAbsolute("ABNORMALITIES_ADDRESS"),
@@ -799,7 +848,7 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetPlayerConditions()
+    internal async Task GetPlayerConditions()
     {
         if (!InHuntingZone)
         {
@@ -825,7 +874,7 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetPlayerActionArgs()
+    internal async Task GetPlayerActionArgs()
     {
         if (!InHuntingZone)
         {
@@ -848,7 +897,7 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod(typeof(MHRSubmarineData))]
-    private async Task GetArgosy()
+    internal async Task GetArgosy()
     {
         int maxSubmarinesCount = Argosy.Submarines.Length;
         nint argosyAddress = await Memory.ReadAsync(
@@ -880,7 +929,7 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetCohoot()
+    internal async Task GetCohoot()
     {
         MHRCohootStructure cohoot = await Memory.DerefAsync<MHRCohootStructure>(
             address: AddressMap.GetAbsolute("COHOOT_ADDRESS"),
@@ -891,7 +940,7 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetTrainingDojo()
+    internal async Task GetTrainingDojo()
     {
         int[] staticTrainingData = await Memory.ReadAsync<int>(
             address: AddressMap.GetAbsolute("DATA_TRAINING_DOJO_ROUNDS_LEFT"),
@@ -927,7 +976,7 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetMeowcenaries()
+    internal async Task GetMeowcenaries()
     {
         nint meowmastersAddress = await Memory.ReadAsync(
             address: AddressMap.GetAbsolute("MEOWMASTERS_ADDRESS"),
@@ -948,7 +997,7 @@ public sealed class MHRPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetPartyData()
+    internal async Task GetPartyData()
     {
         nint partyArrayPtr = await Memory.ReadAsync(
             AddressMap.GetAbsolute("SESSION_PLAYERS_ADDRESS"),
@@ -1037,6 +1086,7 @@ public sealed class MHRPlayer : CommonPlayer
 
     public override void Dispose()
     {
+        _status.Dispose();
         Wirebugs.DisposeAll();
         Argosy.Dispose();
         TrainingDojo.Dispose();

@@ -87,9 +87,6 @@ internal class DamageWidgetMocker : IWidgetMocker
             Weapon = Weapon.HuntingHorn,
             Bar = new(config.PlayerFourth),
             IsVisible = true,
-            Affinity = 45,
-            RawDamage = 225,
-            ElementalDamage = 384,
             MasterRank = 111
         });
 

@@ -74,4 +74,10 @@ public sealed class MHWildsPartyMember : CommonPartyMember, IUpdatable<UpdatePar
 
         _status.Update(data.Status);
     }
+
+    public override void Dispose()
+    {
+        base.Dispose();
+        _status.Dispose();
+    }
 }
