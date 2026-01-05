@@ -86,7 +86,7 @@
 		<Border Grid.Row="1"
 		        BorderBrush="{StaticResource Gray}"
 		        BorderThickness="1,0,1,1"
-		        Margin="0,1"
+		        Margin="0,0,0,1"
 		        Background="{Binding Source={StaticResource Gray@200}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
 		        CornerRadius="0,0,5,5">
 			<ItemsControl ItemsSource="{Binding Players, Mode=OneTime}">
@@ -135,11 +135,6 @@
 			                    DisableAnimations="True"
 			                    Hoverable="False"
 			                    Series="{Binding Series, Mode=OneTime}">
-				<wpf:CartesianChart.CacheMode>
-					<BitmapCache EnableClearType="False"
-					             RenderAtScale="1"
-					             SnapsToDevicePixels="False" />
-				</wpf:CartesianChart.CacheMode>
 				<wpf:CartesianChart.AxisY>
 					<wpf:Axis FontFamily="{StaticResource Font.Default}"
 					          LabelFormatter="{Binding DamageFormatter, Mode=OneWay}"

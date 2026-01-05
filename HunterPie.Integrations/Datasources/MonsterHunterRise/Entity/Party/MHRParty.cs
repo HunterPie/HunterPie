@@ -56,8 +56,8 @@ public sealed class MHRParty : CommonParty, IUpdatable<EntityDamageData>, IUpdat
             if (!_partyMembers.ContainsKey(data.Index))
                 return;
 
-            IUpdatable<MHRPartyMemberData> updatable = _partyMembers[data.Index];
-            updatable.Update(data);
+            MHRPartyMember member = _partyMembers[data.Index];
+            member.Update(data);
         }
     }
 
@@ -91,8 +91,8 @@ public sealed class MHRParty : CommonParty, IUpdatable<EntityDamageData>, IUpdat
         if (_partyMembers.ContainsKey(data.Index))
             Remove(data.Index);
 
-        MHRPartyMember member = new(data.MemberType);
-        MHRPartyMember memberPet = new(MemberType.Pet);
+        MHRPartyMember member = new(data.MemberType, data.IsMyself);
+        MHRPartyMember memberPet = new(MemberType.Pet, false);
 
         MHRPartyMemberData petData = data.ToPetData();
 

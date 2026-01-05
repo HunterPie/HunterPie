@@ -1,12 +1,14 @@
 ﻿using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Enums;
 using HunterPie.Integrations.Datasources.Common.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Party.Data;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Party;
 
-public class MHWildsPartyMember : CommonPartyMember, IUpdatable<UpdatePartyMember>
+public sealed class MHWildsPartyMember : CommonPartyMember, IUpdatable<UpdatePartyMember>
 {
     public override string Name { get; protected set; } = string.Empty;
 
@@ -52,6 +54,9 @@ public class MHWildsPartyMember : CommonPartyMember, IUpdatable<UpdatePartyMembe
 
     public override MemberType Type { get; protected set; }
 
+    private readonly MHWildsPlayerStatus _status = new();
+    public override IPlayerStatus Status => _status;
+
     public void Update(UpdatePartyMember data)
     {
         Type = data.IsNpc
@@ -63,5 +68,16 @@ public class MHWildsPartyMember : CommonPartyMember, IUpdatable<UpdatePartyMembe
         Slot = data.Index;
         IsMyself = data.IsMyself;
         MasterRank = data.HunterRank;
+
+        if (data.IsNpc)
+            return;
+
+        _status.Update(data.Status);
+    }
+
+    public override void Dispose()
+    {
+        base.Dispose();
+        _status.Dispose();
     }
 }

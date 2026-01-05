@@ -29,6 +29,7 @@ public abstract class CommonPlayer : Scannable, IPlayer, IEventDispatcher, IDisp
     public abstract IHealthComponent Health { get; }
     public abstract IStaminaComponent Stamina { get; }
     public abstract IWeapon Weapon { get; protected set; }
+    public abstract IPlayerStatus? Status { get; }
 
     protected readonly SmartEvent<EventArgs> _onLogin = new();
     public event EventHandler<EventArgs> OnLogin

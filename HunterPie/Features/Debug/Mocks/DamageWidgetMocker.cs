@@ -52,7 +52,11 @@ internal class DamageWidgetMocker : IWidgetMocker
             Name = "Player 1",
             Weapon = Weapon.Bow,
             Bar = new(config.PlayerFirst),
-            IsVisible = true
+            IsVisible = true,
+            Affinity = 20,
+            RawDamage = 264,
+            ElementalDamage = 560,
+            MasterRank = 999
         });
         viewModel.Players.Add(new(config)
         {
@@ -60,21 +64,30 @@ internal class DamageWidgetMocker : IWidgetMocker
             Weapon = Weapon.ChargeBlade,
             Bar = new(config.PlayerSelf),
             IsUser = true,
-            IsVisible = true
+            IsVisible = true,
+            Affinity = 80,
+            RawDamage = 266,
+            ElementalDamage = 640,
+            MasterRank = 69
         });
         viewModel.Players.Add(new(config)
         {
             Name = "Player 3",
             Weapon = Weapon.Greatsword,
             Bar = new(config.PlayerThird),
-            IsVisible = true
+            IsVisible = true,
+            Affinity = -10,
+            RawDamage = 185,
+            ElementalDamage = 408,
+            MasterRank = 420
         });
         viewModel.Players.Add(new(config)
         {
             Name = "Player 4",
             Weapon = Weapon.HuntingHorn,
             Bar = new(config.PlayerFourth),
-            IsVisible = true
+            IsVisible = true,
+            MasterRank = 111
         });
 
         LinearSeriesCollectionBuilder builder = new();
@@ -136,46 +149,50 @@ internal class DamageWidgetMocker : IWidgetMocker
 
         if ((int)newTime > (int)viewModel.TimeElapsed)
         {
-            viewModel.Pets.TotalDamage = seeder.Next(0, 10_000);
             double maxYAxis = 5;
+
+            double[] nextDamages = new double[4] { 300, 200, 100, 50 }
+            .Select((dmg, index) =>
+            {
+                const double variance = 0.1;
+                double multiplier = ((seeder.NextDouble() * 2) - 1) * variance;
+                double critMultiplier = seeder.NextDouble() > 0.85
+                    ? 1 + ((index + 1.0) / 4)
+                    : 1.0;
+                return dmg * (1 + multiplier) * critMultiplier;
+            }).ToArray();
+
+            _totalDamage += (int)nextDamages.Sum();
+
             foreach (PlayerViewModel player in viewModel.Players)
             {
                 ChartValues<ObservablePoint> playerPlots = _playerChartValues[i - 1];
 
                 double lastDps = player.DPS;
-                int hit = seeder.Next(0, seeder.Next(1, 20));
-                player.Damage += hit;
+                player.Damage += (int)nextDamages[i - 1];
                 player.DPS = player.Damage / viewModel.TimeElapsed;
                 player.Bar.Percentage = player.Damage / (double)Math.Max(1, _totalDamage) * 100;
                 player.IsIncreasing = lastDps < player.DPS;
 
 
                 playerPlots.Add(new ObservablePoint(viewModel.TimeElapsed, player.DPS));
-                _totalDamage += hit;
+
                 i++;
                 maxYAxis = Math.Max(maxYAxis, playerPlots.MaxBy(it => it.Y)?.Y ?? 0);
             }
 
             viewModel.MaxPlotValue = maxYAxis;
 
-            Span<double> nextDamages = stackalloc double[4]
-            {
-                seeder.NextDouble() * 100,
-                seeder.NextDouble() * 150,
-                seeder.NextDouble() * 100,
-                seeder.NextDouble() * 200,
-            };
-
             double lastTotalDamage = viewModel.Pets.TotalDamage;
-            foreach (double next in nextDamages)
-                viewModel.Pets.TotalDamage += (int)next;
+
+            viewModel.Pets.TotalDamage += (int)(nextDamages.Sum() / 10.0);
             double totalDamage = viewModel.Pets.TotalDamage;
 
             for (int j = 0; j < nextDamages.Length; j++)
             {
                 DamageBarViewModel petVm = viewModel.Pets.Members[j].DamageBar;
 
-                double damage = nextDamages[j];
+                double damage = nextDamages[j] / 10.0;
                 double lastDamage = lastTotalDamage * (petVm.Percentage / 100);
 
                 petVm.Percentage = (damage + lastDamage) / totalDamage * 100;
