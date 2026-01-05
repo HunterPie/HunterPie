@@ -70,19 +70,19 @@ public class DamageMeterWidgetConfig : IWidgetSettings, ISettings
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Observable<bool> ShouldShowDamage { get; set; } = true;
 
-    [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_STATUS", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_STATUS", group: CommonConfigurationGroups.GEAR_STATUS, availableGames: GameProcessType.MonsterHunterWilds | GameProcessType.MonsterHunterRise)]
     [ConfigurationConditional(name: nameof(Initialize), withValue: true)]
     public Observable<bool> IsStatusEnabled { get; set; } = true;
 
-    [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_AFFINITY", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_AFFINITY", group: CommonConfigurationGroups.GEAR_STATUS, availableGames: GameProcessType.MonsterHunterWilds | GameProcessType.MonsterHunterRise)]
     [ConfigurationConditional(name: nameof(IsStatusEnabled), withValue: true)]
     public Observable<bool> IsAffinityEnabled { get; set; } = true;
 
-    [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_RAW_DAMAGE", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_RAW_DAMAGE", group: CommonConfigurationGroups.GEAR_STATUS, availableGames: GameProcessType.MonsterHunterWilds | GameProcessType.MonsterHunterRise)]
     [ConfigurationConditional(name: nameof(IsStatusEnabled), withValue: true)]
     public Observable<bool> IsRawDamageEnabled { get; set; } = true;
 
-    [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_ELEMENTAL_DAMAGE", group: CommonConfigurationGroups.CUSTOMIZATIONS)]
+    [ConfigurationProperty("DAMAGE_METER_SHOULD_SHOW_ELEMENTAL_DAMAGE", group: CommonConfigurationGroups.GEAR_STATUS, availableGames: GameProcessType.MonsterHunterWilds | GameProcessType.MonsterHunterRise)]
     [ConfigurationConditional(name: nameof(IsStatusEnabled), withValue: true)]
     public Observable<bool> IsElementalDamageEnabled { get; set; } = true;
     #endregion
