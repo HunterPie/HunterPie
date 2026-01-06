@@ -72,13 +72,13 @@
         <Ailment Id="34"
                  String="unk34" />
         <Ailment Id="35"
-                 String="unk35" />
+                 String="AILMENT_FLAYER_P1" />
         <Ailment Id="36"
-                 String="unk36" />
+                 String="AILMENT_FLAYER_P2" />
         <Ailment Id="37"
-                 String="unk37" />
+                 String="AILMENT_FLAYER_P3" />
         <Ailment Id="38"
-                 String="unk38" />
+                 String="AILMENT_FLAYER_P4" />
         <Ailment Id="39"
                  String="unk39" />
         <Ailment Id="40"
