@@ -48,7 +48,13 @@ public partial class WidgetHeader : UserControl
 
     private void OnSnapshotButtonClick(object sender, RoutedEventArgs e)
     {
-        RenderTargetBitmap bitmap = Bitmap.From(Owner.PART_Content);
+        if (Owner.DataContext is not WidgetContext ctx)
+            return;
+
+        RenderTargetBitmap bitmap = Bitmap.From(
+            element: Owner.PART_Content,
+            scale: ctx.ViewModel.Settings.Scale.Current
+        );
 
         string temporaryFile = ClientInfo.GetRandomTempFile() + ".png";
 

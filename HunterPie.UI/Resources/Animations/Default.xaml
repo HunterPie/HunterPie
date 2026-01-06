@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Storyboard x:Key="Animations.Scale.Hide">
+        <DoubleAnimation To="0"
+                         Duration="0:0:0.25"
+                         Storyboard.TargetProperty="Opacity">
+            <DoubleAnimation.EasingFunction>
+                <QuadraticEase/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+        <DoubleAnimation To="0"
+                         Duration="0:0:0.3"
+                         Storyboard.TargetProperty="(LayoutTransform).(ScaleTransform.ScaleY)">
+            <DoubleAnimation.EasingFunction>
+                <QuadraticEase/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+    </Storyboard>
+
+    <Storyboard x:Key="Animations.Scale.Show">
+        <DoubleAnimation To="1"
+                         Duration="0:0:0.25"
+                         Storyboard.TargetProperty="Opacity">
+            <DoubleAnimation.EasingFunction>
+                <QuadraticEase/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+        <DoubleAnimation To="1"
+                         Duration="0:0:0.3"
+                         Storyboard.TargetProperty="(LayoutTransform).(ScaleTransform.ScaleY)">
+            <DoubleAnimation.EasingFunction>
+                <QuadraticEase/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+    </Storyboard>
+</ResourceDictionary>

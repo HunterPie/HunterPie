@@ -185,6 +185,8 @@ public sealed class MHWPlayer : CommonPlayer
     public MHWArgosy Argosy { get; } = new();
 
     public MHWTailraiders Tailraiders { get; } = new();
+
+    public override IPlayerStatus? Status => null;
     #endregion
 
     internal MHWPlayer(

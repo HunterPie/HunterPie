@@ -20,7 +20,7 @@
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         SizeToContent="WidthAndHeight"
-        SnapsToDevicePixels="False"
+        SnapsToDevicePixels="True"
         Top="{Binding ViewModel.Settings.Position.Y, Mode=TwoWay}"
         Topmost="True"
         UseLayoutRounding="False"
@@ -35,9 +35,6 @@
 		              GlassFrameThickness="-1" />
 	</WindowChrome.WindowChrome>
 	<Grid>
-		<Grid.LayoutTransform>
-			<ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="{Binding ViewModel.Settings.Scale.Current, Mode=OneWay}" ScaleY="{Binding ViewModel.Settings.Scale.Current, Mode=OneWay}" />
-		</Grid.LayoutTransform>
 		<!--  Widget holder  -->
 		<Grid>
 			<Grid.RowDefinitions>
@@ -108,6 +105,9 @@
 			<ContentControl x:Name="PART_Content"
 			                Content="{Binding ViewModel, Mode=OneWay}"
 			                ContentTemplate="{Binding ViewModel, Mode=OneWay, Converter={StaticResource WidgetByViewModelConverter}}">
+				<ContentControl.LayoutTransform>
+					<ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="{Binding ViewModel.Settings.Scale.Current, Mode=OneWay}" ScaleY="{Binding ViewModel.Settings.Scale.Current, Mode=OneWay}" />
+				</ContentControl.LayoutTransform>
 				<ContentControl.Style>
 					<Style TargetType="ContentControl">
 						<Style.Setters>

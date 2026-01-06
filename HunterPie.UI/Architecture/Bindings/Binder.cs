@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Data;
 
-namespace HunterPie.Features.Settings.Bindings;
+namespace HunterPie.UI.Architecture.Bindings;
 
 public static class Binder
 {

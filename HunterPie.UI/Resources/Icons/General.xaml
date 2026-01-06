@@ -1,353 +1,462 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <DrawingImage x:Key="Icons.Moon.FirstQuarter">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
-                <DrawingGroup Opacity="1">
-                    <GeometryDrawing>
-                        <GeometryDrawing.Pen>
-                            <Pen Brush="#FFFFFFFF" Thickness="0.7599999" StartLineCap="Flat" EndLineCap="Flat" DashCap="Flat" LineJoin="Miter">
-                                <Pen.DashStyle>
-                                    <DashStyle Offset="0" Dashes="8.00000002631579 8.00000002631579" />
-                                </Pen.DashStyle>
-                            </Pen>
-                        </GeometryDrawing.Pen>
-                        <GeometryDrawing.Geometry>
-                            <EllipseGeometry RadiusX="30.2615" RadiusY="30.2615" Center="33.8667,33.8667" />
-                        </GeometryDrawing.Geometry>
-                    </GeometryDrawing>
-                </DrawingGroup>
-                <DrawingGroup Opacity="1">
-                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M67.733332,67.733335z M0,0z M33.512685,3.6049479C42.195342,3.6049479 50.023844,7.2616975 55.542348,13.119096 60.646248,18.536429 63.774404,25.836337 63.774404,33.866666 63.774404,41.898556 60.644907,49.199683 55.539248,54.617336 50.020905,60.472893 42.193782,64.128385 33.512685,64.128385 32.70782,64.128385 31.910643,64.094985 31.121616,64.033295 34.499936,62.251733 37.537898,59.865687 40.106081,57.01047 45.541175,50.967921 48.872471,42.82498 48.872471,33.866662 48.872471,24.910083 45.542921,16.768146 40.109698,10.725956 37.541282,7.8696695 34.502703,5.4827474 31.123683,3.7005492 31.912101,3.6389622 32.708458,3.6049482 33.512685,3.6049482z" />
-                </DrawingGroup>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
+	<DrawingImage x:Key="Icons.Moon.FirstQuarter">
+		<DrawingImage.Drawing>
+			<DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
+				<DrawingGroup Opacity="1">
+					<GeometryDrawing>
+						<GeometryDrawing.Pen>
+							<Pen Brush="#FFFFFFFF"
+							     DashCap="Flat"
+							     EndLineCap="Flat"
+							     LineJoin="Miter"
+							     StartLineCap="Flat"
+							     Thickness="0.7599999">
+								<Pen.DashStyle>
+									<DashStyle Dashes="8.00000002631579 8.00000002631579"
+									           Offset="0" />
+								</Pen.DashStyle>
+							</Pen>
+						</GeometryDrawing.Pen>
+						<GeometryDrawing.Geometry>
+							<EllipseGeometry Center="33.8667,33.8667"
+							                 RadiusX="30.2615"
+							                 RadiusY="30.2615" />
+						</GeometryDrawing.Geometry>
+					</GeometryDrawing>
+				</DrawingGroup>
+				<DrawingGroup Opacity="1">
+					<GeometryDrawing Brush="#FFFFFFFF"
+					                 Geometry="F1 M67.733332,67.733335z M0,0z M33.512685,3.6049479C42.195342,3.6049479 50.023844,7.2616975 55.542348,13.119096 60.646248,18.536429 63.774404,25.836337 63.774404,33.866666 63.774404,41.898556 60.644907,49.199683 55.539248,54.617336 50.020905,60.472893 42.193782,64.128385 33.512685,64.128385 32.70782,64.128385 31.910643,64.094985 31.121616,64.033295 34.499936,62.251733 37.537898,59.865687 40.106081,57.01047 45.541175,50.967921 48.872471,42.82498 48.872471,33.866662 48.872471,24.910083 45.542921,16.768146 40.109698,10.725956 37.541282,7.8696695 34.502703,5.4827474 31.123683,3.7005492 31.912101,3.6389622 32.708458,3.6049482 33.512685,3.6049482z" />
+				</DrawingGroup>
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
 
-    <DrawingImage x:Key="Icons.Moon.Full">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
-                <DrawingGroup.Transform>
-                    <TranslateTransform X="64.1682" Y="64.128204345703125" />
-                </DrawingGroup.Transform>
-                <DrawingGroup Opacity="1">
-                    <DrawingGroup>
-                        <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M67.733332,67.733335z M0,0z M-3.6051273,-33.866665C-3.6051274,-25.510172 -6.9922654,-17.944788 -12.468527,-12.468527 -17.944788,-6.9922654 -25.510172,-3.6051274 -33.866665,-3.6051273 -43.684231,-3.6051272 -52.409865,-8.2802444 -57.938728,-15.525639 -61.821953,-20.61448 -64.128202,-26.971246 -64.128202,-33.866665 -64.128202,-40.888794 -61.736416,-47.35229 -57.723062,-52.486937 -52.18445,-59.572984 -43.557522,-64.128202 -33.866665,-64.128202 -25.306326,-64.128202 -17.576162,-60.573799 -12.071515,-54.860333 -6.8290308,-49.418975 -3.6051272,-42.019311 -3.6051273,-33.866665z" />
-                    </DrawingGroup>
-                    <DrawingGroup Transform="-1,0,0,1,0,0">
-                        <GeometryDrawing Brush="#FFFFFFFF">
-                            <GeometryDrawing.Pen>
-                                <Pen Brush="#FFFFFFFF" Thickness="0.76" StartLineCap="Flat" EndLineCap="Flat" DashCap="Flat" LineJoin="Miter">
-                                    <Pen.DashStyle>
-                                        <DashStyle Offset="0" Dashes="8 8" />
-                                    </Pen.DashStyle>
-                                </Pen>
-                            </GeometryDrawing.Pen>
-                            <GeometryDrawing.Geometry>
-                                <EllipseGeometry RadiusX="30.2615" RadiusY="30.2615" Center="-33.9067,33.8128" />
-                            </GeometryDrawing.Geometry>
-                        </GeometryDrawing>
-                    </DrawingGroup>
-                </DrawingGroup>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
+	<DrawingImage x:Key="Icons.Moon.Full">
+		<DrawingImage.Drawing>
+			<DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
+				<DrawingGroup.Transform>
+					<TranslateTransform X="64.1682" Y="64.128204345703125" />
+				</DrawingGroup.Transform>
+				<DrawingGroup Opacity="1">
+					<DrawingGroup>
+						<GeometryDrawing Brush="#FFFFFFFF"
+						                 Geometry="F1 M67.733332,67.733335z M0,0z M-3.6051273,-33.866665C-3.6051274,-25.510172 -6.9922654,-17.944788 -12.468527,-12.468527 -17.944788,-6.9922654 -25.510172,-3.6051274 -33.866665,-3.6051273 -43.684231,-3.6051272 -52.409865,-8.2802444 -57.938728,-15.525639 -61.821953,-20.61448 -64.128202,-26.971246 -64.128202,-33.866665 -64.128202,-40.888794 -61.736416,-47.35229 -57.723062,-52.486937 -52.18445,-59.572984 -43.557522,-64.128202 -33.866665,-64.128202 -25.306326,-64.128202 -17.576162,-60.573799 -12.071515,-54.860333 -6.8290308,-49.418975 -3.6051272,-42.019311 -3.6051273,-33.866665z" />
+					</DrawingGroup>
+					<DrawingGroup Transform="-1,0,0,1,0,0">
+						<GeometryDrawing Brush="#FFFFFFFF">
+							<GeometryDrawing.Pen>
+								<Pen Brush="#FFFFFFFF"
+								     DashCap="Flat"
+								     EndLineCap="Flat"
+								     LineJoin="Miter"
+								     StartLineCap="Flat"
+								     Thickness="0.76">
+									<Pen.DashStyle>
+										<DashStyle Dashes="8 8"
+										           Offset="0" />
+									</Pen.DashStyle>
+								</Pen>
+							</GeometryDrawing.Pen>
+							<GeometryDrawing.Geometry>
+								<EllipseGeometry Center="-33.9067,33.8128"
+								                 RadiusX="30.2615"
+								                 RadiusY="30.2615" />
+							</GeometryDrawing.Geometry>
+						</GeometryDrawing>
+					</DrawingGroup>
+				</DrawingGroup>
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
 
-    <DrawingImage x:Key="Icons.Moon.ThirdQuarter">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
-                <DrawingGroup.Transform>
-                    <TranslateTransform X="64.2081" Y="0" />
-                </DrawingGroup.Transform>
-                <DrawingGroup Opacity="1" Transform="-1,0,0,1,0,0">
-                    <GeometryDrawing>
-                        <GeometryDrawing.Pen>
-                            <Pen Brush="#FFFFFFFF" Thickness="0.76" StartLineCap="Flat" EndLineCap="Flat" DashCap="Flat" LineJoin="Miter">
-                                <Pen.DashStyle>
-                                    <DashStyle Offset="0" Dashes="8 8" />
-                                </Pen.DashStyle>
-                            </Pen>
-                        </GeometryDrawing.Pen>
-                        <GeometryDrawing.Geometry>
-                            <EllipseGeometry RadiusX="30.2615" RadiusY="30.2615" Center="-33.9466,33.8667" />
-                        </GeometryDrawing.Geometry>
-                    </GeometryDrawing>
-                </DrawingGroup>
-                <DrawingGroup Opacity="1">
-                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M67.733332,67.733335z M0,0z M34.300618,3.6049479C25.617961,3.6049479 17.789459,7.2616975 12.270955,13.119096 7.1670546,18.536429 4.0388986,25.836337 4.0388986,33.866666 4.0388986,41.898556 7.1683956,49.199683 12.274055,54.617336 17.792398,60.472893 25.619521,64.128385 34.300618,64.128385 35.105483,64.128385 35.90266,64.094985 36.691687,64.033295 33.313367,62.251733 30.275405,59.865687 27.707222,57.01047 22.272128,50.967921 18.940832,42.82498 18.940832,33.866662 18.940832,24.910083 22.270382,16.768146 27.703605,10.725956 30.272021,7.8696695 33.3106,5.4827474 36.68962,3.7005492 35.901202,3.6389622 35.104845,3.6049482 34.300618,3.6049479z" />
-                </DrawingGroup>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
+	<DrawingImage x:Key="Icons.Moon.ThirdQuarter">
+		<DrawingImage.Drawing>
+			<DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
+				<DrawingGroup.Transform>
+					<TranslateTransform X="64.2081" Y="0" />
+				</DrawingGroup.Transform>
+				<DrawingGroup Opacity="1"
+				              Transform="-1,0,0,1,0,0">
+					<GeometryDrawing>
+						<GeometryDrawing.Pen>
+							<Pen Brush="#FFFFFFFF"
+							     DashCap="Flat"
+							     EndLineCap="Flat"
+							     LineJoin="Miter"
+							     StartLineCap="Flat"
+							     Thickness="0.76">
+								<Pen.DashStyle>
+									<DashStyle Dashes="8 8"
+									           Offset="0" />
+								</Pen.DashStyle>
+							</Pen>
+						</GeometryDrawing.Pen>
+						<GeometryDrawing.Geometry>
+							<EllipseGeometry Center="-33.9466,33.8667"
+							                 RadiusX="30.2615"
+							                 RadiusY="30.2615" />
+						</GeometryDrawing.Geometry>
+					</GeometryDrawing>
+				</DrawingGroup>
+				<DrawingGroup Opacity="1">
+					<GeometryDrawing Brush="#FFFFFFFF"
+					                 Geometry="F1 M67.733332,67.733335z M0,0z M34.300618,3.6049479C25.617961,3.6049479 17.789459,7.2616975 12.270955,13.119096 7.1670546,18.536429 4.0388986,25.836337 4.0388986,33.866666 4.0388986,41.898556 7.1683956,49.199683 12.274055,54.617336 17.792398,60.472893 25.619521,64.128385 34.300618,64.128385 35.105483,64.128385 35.90266,64.094985 36.691687,64.033295 33.313367,62.251733 30.275405,59.865687 27.707222,57.01047 22.272128,50.967921 18.940832,42.82498 18.940832,33.866662 18.940832,24.910083 22.270382,16.768146 27.703605,10.725956 30.272021,7.8696695 33.3106,5.4827474 36.68962,3.7005492 35.901202,3.6389622 35.104845,3.6049482 34.300618,3.6049479z" />
+				</DrawingGroup>
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
 
-    <DrawingImage x:Key="Icons.Moon.WaningCrescent">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
-                <DrawingGroup.Transform>
-                    <TranslateTransform X="64.1682" Y="0" />
-                </DrawingGroup.Transform>
-                <DrawingGroup Opacity="1">
-                    <DrawingGroup Transform="0.26458333,0,0,0.26458333,0,0">
-                        <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M67.733332,67.733335z M0,0z M128,13.625C95.183659,13.625 65.595619,27.445786 44.738281,49.583984 25.447952,70.058944 13.625,97.64915 13.625,128 13.625,158.35675 25.453021,185.95156 44.75,206.42773 65.606729,228.55897 95.189558,242.375 128,242.375 132.40215,242.375 136.74488,242.12279 141.01758,241.63867 113.43062,238.52147 88.815994,225.5977 70.75,206.42773 51.453021,185.95156 39.625,158.35675 39.625,128 39.625,97.64915 51.447951,70.058944 70.738281,49.583984 88.809893,30.402585 113.43786,17.474985 141.03906,14.361328 136.76009,13.875757 132.40885,13.625 128,13.625z" />
-                    </DrawingGroup>
-                    <DrawingGroup Transform="-1,0,0,1,0,0">
-                        <GeometryDrawing>
-                            <GeometryDrawing.Pen>
-                                <Pen Brush="#FFFFFFFF" Thickness="0.76" StartLineCap="Flat" EndLineCap="Flat" DashCap="Flat" LineJoin="Miter">
-                                    <Pen.DashStyle>
-                                        <DashStyle Offset="0" Dashes="8 8" />
-                                    </Pen.DashStyle>
-                                </Pen>
-                            </GeometryDrawing.Pen>
-                            <GeometryDrawing.Geometry>
-                                <EllipseGeometry RadiusX="30.2615" RadiusY="30.2615" Center="-33.9067,33.8128" />
-                            </GeometryDrawing.Geometry>
-                        </GeometryDrawing>
-                    </DrawingGroup>
-                </DrawingGroup>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
+	<DrawingImage x:Key="Icons.Moon.WaningCrescent">
+		<DrawingImage.Drawing>
+			<DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
+				<DrawingGroup.Transform>
+					<TranslateTransform X="64.1682" Y="0" />
+				</DrawingGroup.Transform>
+				<DrawingGroup Opacity="1">
+					<DrawingGroup Transform="0.26458333,0,0,0.26458333,0,0">
+						<GeometryDrawing Brush="#FFFFFFFF"
+						                 Geometry="F1 M67.733332,67.733335z M0,0z M128,13.625C95.183659,13.625 65.595619,27.445786 44.738281,49.583984 25.447952,70.058944 13.625,97.64915 13.625,128 13.625,158.35675 25.453021,185.95156 44.75,206.42773 65.606729,228.55897 95.189558,242.375 128,242.375 132.40215,242.375 136.74488,242.12279 141.01758,241.63867 113.43062,238.52147 88.815994,225.5977 70.75,206.42773 51.453021,185.95156 39.625,158.35675 39.625,128 39.625,97.64915 51.447951,70.058944 70.738281,49.583984 88.809893,30.402585 113.43786,17.474985 141.03906,14.361328 136.76009,13.875757 132.40885,13.625 128,13.625z" />
+					</DrawingGroup>
+					<DrawingGroup Transform="-1,0,0,1,0,0">
+						<GeometryDrawing>
+							<GeometryDrawing.Pen>
+								<Pen Brush="#FFFFFFFF"
+								     DashCap="Flat"
+								     EndLineCap="Flat"
+								     LineJoin="Miter"
+								     StartLineCap="Flat"
+								     Thickness="0.76">
+									<Pen.DashStyle>
+										<DashStyle Dashes="8 8"
+										           Offset="0" />
+									</Pen.DashStyle>
+								</Pen>
+							</GeometryDrawing.Pen>
+							<GeometryDrawing.Geometry>
+								<EllipseGeometry Center="-33.9067,33.8128"
+								                 RadiusX="30.2615"
+								                 RadiusY="30.2615" />
+							</GeometryDrawing.Geometry>
+						</GeometryDrawing>
+					</DrawingGroup>
+				</DrawingGroup>
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
 
-    <DrawingImage x:Key="Icons.Moon.WaningGibbous">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
-                <DrawingGroup Opacity="1">
-                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M67.733332,67.733335z M0,0z M33.866676,3.2307706C56.432739,0.82747196,45.149707,2.0291213,33.866676,3.2307706z M33.858376,3.2307706C57.076324,13.656385,57.26771,53.41921,33.859476,63.754208L33.849106,63.754208C24.693546,63.754208 16.487531,59.688025 10.938359,53.263375 6.3578163,47.960173 3.5873873,41.049915 3.5873873,33.492489 3.5873873,26.145447 6.2057603,19.409927 10.560089,14.168088 16.110947,7.48583569999999 24.483163,3.23077059999999 33.849106,3.23077059999999 33.852006,3.23077059999999 33.854906,3.23076979999999 33.857906,3.23077059999999z M33.868726,63.753692C56.433412,21.001779,45.151069,42.377735,33.868726,63.753692z" />
-                    <GeometryDrawing>
-                        <GeometryDrawing.Pen>
-                            <Pen Brush="#FFFFFFFF" Thickness="0.76" StartLineCap="Flat" EndLineCap="Flat" DashCap="Flat" LineJoin="Miter">
-                                <Pen.DashStyle>
-                                    <DashStyle Offset="0" Dashes="8 8" />
-                                </Pen.DashStyle>
-                            </Pen>
-                        </GeometryDrawing.Pen>
-                        <GeometryDrawing.Geometry>
-                            <EllipseGeometry RadiusX="30.2615" RadiusY="30.2615" Center="33.8267,33.8128" />
-                        </GeometryDrawing.Geometry>
-                    </GeometryDrawing>
-                </DrawingGroup>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
+	<DrawingImage x:Key="Icons.Moon.WaningGibbous">
+		<DrawingImage.Drawing>
+			<DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
+				<DrawingGroup Opacity="1">
+					<GeometryDrawing Brush="#FFFFFFFF"
+					                 Geometry="F1 M67.733332,67.733335z M0,0z M33.866676,3.2307706C56.432739,0.82747196,45.149707,2.0291213,33.866676,3.2307706z M33.858376,3.2307706C57.076324,13.656385,57.26771,53.41921,33.859476,63.754208L33.849106,63.754208C24.693546,63.754208 16.487531,59.688025 10.938359,53.263375 6.3578163,47.960173 3.5873873,41.049915 3.5873873,33.492489 3.5873873,26.145447 6.2057603,19.409927 10.560089,14.168088 16.110947,7.48583569999999 24.483163,3.23077059999999 33.849106,3.23077059999999 33.852006,3.23077059999999 33.854906,3.23076979999999 33.857906,3.23077059999999z M33.868726,63.753692C56.433412,21.001779,45.151069,42.377735,33.868726,63.753692z" />
+					<GeometryDrawing>
+						<GeometryDrawing.Pen>
+							<Pen Brush="#FFFFFFFF"
+							     DashCap="Flat"
+							     EndLineCap="Flat"
+							     LineJoin="Miter"
+							     StartLineCap="Flat"
+							     Thickness="0.76">
+								<Pen.DashStyle>
+									<DashStyle Dashes="8 8"
+									           Offset="0" />
+								</Pen.DashStyle>
+							</Pen>
+						</GeometryDrawing.Pen>
+						<GeometryDrawing.Geometry>
+							<EllipseGeometry Center="33.8267,33.8128"
+							                 RadiusX="30.2615"
+							                 RadiusY="30.2615" />
+						</GeometryDrawing.Geometry>
+					</GeometryDrawing>
+				</DrawingGroup>
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
 
-    <DrawingImage x:Key="Icons.Moon.WaxingCrescent">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
-                <DrawingGroup Opacity="1">
-                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M67.733332,67.733335z M0,0z M33.866669,3.6049479C42.549326,3.6049479 50.377828,7.2616975 55.896332,13.119096 61.000231,18.536429 64.128387,25.836337 64.128387,33.866666 64.128387,41.898556 60.99889,49.199683 55.893231,54.617336 50.374889,60.472893 42.547765,64.128385 33.866669,64.128385 32.701934,64.128385 31.55292,64.061655 30.422434,63.933564 37.721484,63.108805 44.234104,59.689391 49.014065,54.617336 54.119724,49.199683 57.249221,41.898556 57.249221,33.866666 57.249221,25.836337 54.121065,18.536429 49.017165,13.119096 44.235718,8.0440172 37.719569,4.6235897 30.416751,3.799768 31.548895,3.671294 32.700161,3.6049479 33.866669,3.6049479z" />
-                    <GeometryDrawing>
-                        <GeometryDrawing.Pen>
-                            <Pen Brush="#FFFFFFFF" Thickness="0.76" StartLineCap="Flat" EndLineCap="Flat" DashCap="Flat" LineJoin="Miter">
-                                <Pen.DashStyle>
-                                    <DashStyle Offset="0" Dashes="8 8" />
-                                </Pen.DashStyle>
-                            </Pen>
-                        </GeometryDrawing.Pen>
-                        <GeometryDrawing.Geometry>
-                            <EllipseGeometry RadiusX="30.2615" RadiusY="30.2615" Center="33.8267,33.8128" />
-                        </GeometryDrawing.Geometry>
-                    </GeometryDrawing>
-                </DrawingGroup>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
+	<DrawingImage x:Key="Icons.Moon.WaxingCrescent">
+		<DrawingImage.Drawing>
+			<DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
+				<DrawingGroup Opacity="1">
+					<GeometryDrawing Brush="#FFFFFFFF"
+					                 Geometry="F1 M67.733332,67.733335z M0,0z M33.866669,3.6049479C42.549326,3.6049479 50.377828,7.2616975 55.896332,13.119096 61.000231,18.536429 64.128387,25.836337 64.128387,33.866666 64.128387,41.898556 60.99889,49.199683 55.893231,54.617336 50.374889,60.472893 42.547765,64.128385 33.866669,64.128385 32.701934,64.128385 31.55292,64.061655 30.422434,63.933564 37.721484,63.108805 44.234104,59.689391 49.014065,54.617336 54.119724,49.199683 57.249221,41.898556 57.249221,33.866666 57.249221,25.836337 54.121065,18.536429 49.017165,13.119096 44.235718,8.0440172 37.719569,4.6235897 30.416751,3.799768 31.548895,3.671294 32.700161,3.6049479 33.866669,3.6049479z" />
+					<GeometryDrawing>
+						<GeometryDrawing.Pen>
+							<Pen Brush="#FFFFFFFF"
+							     DashCap="Flat"
+							     EndLineCap="Flat"
+							     LineJoin="Miter"
+							     StartLineCap="Flat"
+							     Thickness="0.76">
+								<Pen.DashStyle>
+									<DashStyle Dashes="8 8"
+									           Offset="0" />
+								</Pen.DashStyle>
+							</Pen>
+						</GeometryDrawing.Pen>
+						<GeometryDrawing.Geometry>
+							<EllipseGeometry Center="33.8267,33.8128"
+							                 RadiusX="30.2615"
+							                 RadiusY="30.2615" />
+						</GeometryDrawing.Geometry>
+					</GeometryDrawing>
+				</DrawingGroup>
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
 
-    <DrawingImage x:Key="Icons.Moon.WaxingGibbous">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
-                <DrawingGroup.Transform>
-                    <TranslateTransform X="64.1682" Y="0" />
-                </DrawingGroup.Transform>
-                <DrawingGroup Opacity="1">
-                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M67.733332,67.733335z M0,0z M33.866656,3.2307706C11.300593,0.82747196,22.583625,2.0291213,33.866656,3.2307706z M33.874956,3.2307706C10.657008,13.656385,10.465622,53.41921,33.873856,63.754208L33.884226,63.754208C43.039786,63.754208 51.245801,59.688025 56.794973,53.263375 61.375516,47.960173 64.145945,41.049915 64.145945,33.492489 64.145945,26.145447 61.527572,19.409927 57.173243,14.168088 51.622385,7.4858357 43.250169,3.2307706 33.884226,3.2307706 33.881326,3.2307706 33.878426,3.2307698 33.875426,3.2307706z M33.864606,63.753692C11.29992,21.001779,22.582263,42.377735,33.864606,63.753692z" />
-                    <DrawingGroup Transform="-1,0,0,1,0,0">
-                        <GeometryDrawing>
-                            <GeometryDrawing.Pen>
-                                <Pen Brush="#FFFFFFFF" Thickness="0.76" StartLineCap="Flat" EndLineCap="Flat" DashCap="Flat" LineJoin="Miter">
-                                    <Pen.DashStyle>
-                                        <DashStyle Offset="0" Dashes="8 8" />
-                                    </Pen.DashStyle>
-                                </Pen>
-                            </GeometryDrawing.Pen>
-                            <GeometryDrawing.Geometry>
-                                <EllipseGeometry RadiusX="30.2615" RadiusY="30.2615" Center="-33.9067,33.8128" />
-                            </GeometryDrawing.Geometry>
-                        </GeometryDrawing>
-                    </DrawingGroup>
-                </DrawingGroup>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
+	<DrawingImage x:Key="Icons.Moon.WaxingGibbous">
+		<DrawingImage.Drawing>
+			<DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
+				<DrawingGroup.Transform>
+					<TranslateTransform X="64.1682" Y="0" />
+				</DrawingGroup.Transform>
+				<DrawingGroup Opacity="1">
+					<GeometryDrawing Brush="#FFFFFFFF"
+					                 Geometry="F1 M67.733332,67.733335z M0,0z M33.866656,3.2307706C11.300593,0.82747196,22.583625,2.0291213,33.866656,3.2307706z M33.874956,3.2307706C10.657008,13.656385,10.465622,53.41921,33.873856,63.754208L33.884226,63.754208C43.039786,63.754208 51.245801,59.688025 56.794973,53.263375 61.375516,47.960173 64.145945,41.049915 64.145945,33.492489 64.145945,26.145447 61.527572,19.409927 57.173243,14.168088 51.622385,7.4858357 43.250169,3.2307706 33.884226,3.2307706 33.881326,3.2307706 33.878426,3.2307698 33.875426,3.2307706z M33.864606,63.753692C11.29992,21.001779,22.582263,42.377735,33.864606,63.753692z" />
+					<DrawingGroup Transform="-1,0,0,1,0,0">
+						<GeometryDrawing>
+							<GeometryDrawing.Pen>
+								<Pen Brush="#FFFFFFFF"
+								     DashCap="Flat"
+								     EndLineCap="Flat"
+								     LineJoin="Miter"
+								     StartLineCap="Flat"
+								     Thickness="0.76">
+									<Pen.DashStyle>
+										<DashStyle Dashes="8 8"
+										           Offset="0" />
+									</Pen.DashStyle>
+								</Pen>
+							</GeometryDrawing.Pen>
+							<GeometryDrawing.Geometry>
+								<EllipseGeometry Center="-33.9067,33.8128"
+								                 RadiusX="30.2615"
+								                 RadiusY="30.2615" />
+							</GeometryDrawing.Geometry>
+						</GeometryDrawing>
+					</DrawingGroup>
+				</DrawingGroup>
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
 
-    <DrawingImage x:Key="Icons.Tools.Mantle">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">
-                <DrawingGroup Opacity="1" Transform="1,0,0,1,0.4948153,0.04321926">
-                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F0 M64,64z M0,0z M27.877991,0.51992148L27.877991,23.492152 35.132378,23.492152 49.641153,12.006036 35.132378,0.51992148z M15.787345,27.119338L10.951087,38.000919 15.787345,42.837184 22.4372,38.000919 29.087055,42.837184 35.73691,38.000919 41.782233,44.046249 46.013959,39.209986 38.759572,27.119338z M22.4372,41.628118L15.787345,47.673436 11.555619,44.046249 3.6966994,63.39364 59.31367,63.39364 46.013959,44.046249 42.386765,47.673436 35.73691,41.628118 29.087055,47.673436z M15.787345,52.660833L20.623603,61.124283 10.951087,61.124283z M30.900652,52.660833L35.73691,61.124283 26.064394,61.124283z M46.013959,52.660833L50.850218,61.124283 41.177701,61.124283z" />
-                    <GeometryDrawing Geometry="F0 M64,64z M0,0z M23.646265,23.4933C25.459861,23.4933,25.459861,22.284234,25.459861,22.284234L25.459861,2.9391779C25.459861,1.7301118 25.459861,0.52104591 20.019071,0.52104591 14.57828,0.52104591 14.57828,1.7301118 14.57828,2.9391779L14.57828,22.284234C14.57828,22.284234 14.57828,23.4933 15.787345,23.4933 16.996409,23.4933 16.996409,22.284234 16.996409,22.284234L16.996409,6.566376C16.996409,5.3573099 16.996409,4.1482439 19.414539,4.1482439 21.832668,4.1482439 21.832668,5.3573099 21.832668,6.566376L21.832668,22.284234C21.832668,22.284234,21.832668,23.4933,23.646265,23.4933z">
-                        <GeometryDrawing.Brush>
-                            <SolidColorBrush Color="#FFFFFFFF" Opacity="0.66" />
-                        </GeometryDrawing.Brush>
-                    </GeometryDrawing>
-                </DrawingGroup>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
+	<DrawingImage x:Key="Icons.Tools.Mantle">
+		<DrawingImage.Drawing>
+			<DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">
+				<DrawingGroup Opacity="1"
+				              Transform="1,0,0,1,0.4948153,0.04321926">
+					<GeometryDrawing Brush="#FFFFFFFF"
+					                 Geometry="F0 M64,64z M0,0z M27.877991,0.51992148L27.877991,23.492152 35.132378,23.492152 49.641153,12.006036 35.132378,0.51992148z M15.787345,27.119338L10.951087,38.000919 15.787345,42.837184 22.4372,38.000919 29.087055,42.837184 35.73691,38.000919 41.782233,44.046249 46.013959,39.209986 38.759572,27.119338z M22.4372,41.628118L15.787345,47.673436 11.555619,44.046249 3.6966994,63.39364 59.31367,63.39364 46.013959,44.046249 42.386765,47.673436 35.73691,41.628118 29.087055,47.673436z M15.787345,52.660833L20.623603,61.124283 10.951087,61.124283z M30.900652,52.660833L35.73691,61.124283 26.064394,61.124283z M46.013959,52.660833L50.850218,61.124283 41.177701,61.124283z" />
+					<GeometryDrawing Geometry="F0 M64,64z M0,0z M23.646265,23.4933C25.459861,23.4933,25.459861,22.284234,25.459861,22.284234L25.459861,2.9391779C25.459861,1.7301118 25.459861,0.52104591 20.019071,0.52104591 14.57828,0.52104591 14.57828,1.7301118 14.57828,2.9391779L14.57828,22.284234C14.57828,22.284234 14.57828,23.4933 15.787345,23.4933 16.996409,23.4933 16.996409,22.284234 16.996409,22.284234L16.996409,6.566376C16.996409,5.3573099 16.996409,4.1482439 19.414539,4.1482439 21.832668,4.1482439 21.832668,5.3573099 21.832668,6.566376L21.832668,22.284234C21.832668,22.284234,21.832668,23.4933,23.646265,23.4933z">
+						<GeometryDrawing.Brush>
+							<SolidColorBrush Opacity="0.66"
+							                 Color="#FFFFFFFF" />
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+				</DrawingGroup>
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
 
-    <DrawingImage x:Key="Icons.Tools.Booster">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">
-                <DrawingGroup Transform="1,0,0,1.0000012,-64,-448.00013">
-                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F0 M64,64z M0,0z M84,503L86,496 104,496 107,503 84,503z" />
-                </DrawingGroup>
-                <DrawingGroup Transform="1.11111,0,0,1.0000012,-74.6111,-448.50013">
-                    <GeometryDrawing Geometry="F0 M64,64z M0,0z M100,488C100,487.448,99.597,487,99.1,487L91.9,487C91.403,487,91,487.448,91,488L91,494 100,494 100,488z">
-                        <GeometryDrawing.Brush>
-                            <SolidColorBrush Color="#FFFFFFFF" Opacity="0.80000001" />
-                        </GeometryDrawing.Brush>
-                    </GeometryDrawing>
-                </DrawingGroup>
-                <DrawingGroup Transform="1,0,0,1.0000012,0,-191.99981">
-                    <GeometryDrawing Geometry="F0 M64,64z M0,0z M16.984,221L14.5,224 18.5,227 20.5,225 16.984,221z M47.016,221L49.5,224 45.5,227 43.5,225 47.016,221z M23.5,218L27.5,216 28.5,222 25.5,223 23.5,218z M40.5,218L36.5,216 35.5,222 38.5,223 40.5,218z M9.159,219.216L12.554,216.171 7.5,211 4.5,215 9.159,219.216z M54.841,219.216L51.446,216.171 56.5,211 59.5,215 54.841,219.216z M20.5,210L25.5,208 23.5,202 17.545,203 20.5,210z M43.5,210L38.5,208 40.5,202 46.455,203 43.5,210z">
-                        <GeometryDrawing.Brush>
-                            <SolidColorBrush Color="#FFFFFFFF" Opacity="0.60000002" />
-                        </GeometryDrawing.Brush>
-                    </GeometryDrawing>
-                </DrawingGroup>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
+	<DrawingImage x:Key="Icons.Tools.Booster">
+		<DrawingImage.Drawing>
+			<DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">
+				<DrawingGroup Transform="1,0,0,1.0000012,-64,-448.00013">
+					<GeometryDrawing Brush="#FFFFFFFF"
+					                 Geometry="F0 M64,64z M0,0z M84,503L86,496 104,496 107,503 84,503z" />
+				</DrawingGroup>
+				<DrawingGroup Transform="1.11111,0,0,1.0000012,-74.6111,-448.50013">
+					<GeometryDrawing Geometry="F0 M64,64z M0,0z M100,488C100,487.448,99.597,487,99.1,487L91.9,487C91.403,487,91,487.448,91,488L91,494 100,494 100,488z">
+						<GeometryDrawing.Brush>
+							<SolidColorBrush Opacity="0.80000001"
+							                 Color="#FFFFFFFF" />
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+				</DrawingGroup>
+				<DrawingGroup Transform="1,0,0,1.0000012,0,-191.99981">
+					<GeometryDrawing Geometry="F0 M64,64z M0,0z M16.984,221L14.5,224 18.5,227 20.5,225 16.984,221z M47.016,221L49.5,224 45.5,227 43.5,225 47.016,221z M23.5,218L27.5,216 28.5,222 25.5,223 23.5,218z M40.5,218L36.5,216 35.5,222 38.5,223 40.5,218z M9.159,219.216L12.554,216.171 7.5,211 4.5,215 9.159,219.216z M54.841,219.216L51.446,216.171 56.5,211 59.5,215 54.841,219.216z M20.5,210L25.5,208 23.5,202 17.545,203 20.5,210z M43.5,210L38.5,208 40.5,202 46.455,203 43.5,210z">
+						<GeometryDrawing.Brush>
+							<SolidColorBrush Opacity="0.60000002"
+							                 Color="#FFFFFFFF" />
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+				</DrawingGroup>
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
 
-    <DrawingImage x:Key="Icons.Tools.AssassinsMantle">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">
-                <DrawingGroup Transform="1,0,0,1.0000012,0,-320">
-                    <GeometryDrawing Geometry="F0 M64,64z M0,0z M32,370C32,370 28.875,369.875 25,366 23,364 21,362 21,360 21,358 28,350.991 28,350.991L32,355 36,350.991C36,350.991 43,358 43,360 43,362 41,364 39,366 35,370 32,370 32,370z">
-                        <GeometryDrawing.Brush>
-                            <SolidColorBrush Color="#FFFFFFFF" Opacity="0.63729244" />
-                        </GeometryDrawing.Brush>
-                    </GeometryDrawing>
-                </DrawingGroup>
-                <DrawingGroup Transform="1,0,0,1.0000012,0,-320">
-                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F0 M64,64z M0,0z M28,349C28,349 19,356 19,362 19,368 27,378 27,378 27,378 22,376 19,373 16,370 15,367 15,367L11.5,374C11.5,374 8,368 8,366 8,364 11,363 14,358 17,353 16,351 18,339 20,327 29,326 32,326L32.071,326C35.14,326.016 44.016,327.094 46,339 48,351 47,353 50,358 53,363 56,364 56,366 56,368 52.5,374 52.5,374L49,367C49,367 48,370 45,373 42,376 37,378 37,378 37,378 45,368 45,362 45,356 36,349 36,349L32,353 28,349z" />
-                </DrawingGroup>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
+	<DrawingImage x:Key="Icons.Tools.AssassinsMantle">
+		<DrawingImage.Drawing>
+			<DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">
+				<DrawingGroup Transform="1,0,0,1.0000012,0,-320">
+					<GeometryDrawing Geometry="F0 M64,64z M0,0z M32,370C32,370 28.875,369.875 25,366 23,364 21,362 21,360 21,358 28,350.991 28,350.991L32,355 36,350.991C36,350.991 43,358 43,360 43,362 41,364 39,366 35,370 32,370 32,370z">
+						<GeometryDrawing.Brush>
+							<SolidColorBrush Opacity="0.63729244"
+							                 Color="#FFFFFFFF" />
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+				</DrawingGroup>
+				<DrawingGroup Transform="1,0,0,1.0000012,0,-320">
+					<GeometryDrawing Brush="#FFFFFFFF"
+					                 Geometry="F0 M64,64z M0,0z M28,349C28,349 19,356 19,362 19,368 27,378 27,378 27,378 22,376 19,373 16,370 15,367 15,367L11.5,374C11.5,374 8,368 8,366 8,364 11,363 14,358 17,353 16,351 18,339 20,327 29,326 32,326L32.071,326C35.14,326.016 44.016,327.094 46,339 48,351 47,353 50,358 53,363 56,364 56,366 56,368 52.5,374 52.5,374L49,367C49,367 48,370 45,373 42,376 37,378 37,378 37,378 45,368 45,362 45,356 36,349 36,349L32,353 28,349z" />
+				</DrawingGroup>
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
 
-    <DrawingImage x:Key="Icons.Palette">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
-                <GeometryDrawing Brush="White" Geometry="F1 M512,512z M0,0z M441,336.2L440.94,336.15C431.01,326.97,418.16,324.81,408.78,323.23L408.09,323.11C399.04,321.62 397.61,320.61 393.51,316.94 391.07,314.77 388.16,311.29 388.16,307 388.16,302.71 391.07,299.23 393.5,297.06L423.78,270.19C449.7,247.28 463.98,216.53 463.98,183.6 463.98,150.67 449.73,119.92 423.78,96.9999999999999 387.89,65.4099999999999 338.78,47.9999999999999 285.41,47.9999999999999 223.72,48 162,71.37 116,112.11 72.13,150.88 48,202.82 48,258.35 48,313.88 72.16,365.82 116,404.58 137.75,423.82 163.49,438.76 192.52,449A266.17,266.17,0,0,0,279.39,464L281.2,464C342.2,464 400.29,443.43 440.59,407.6 450.29,399.04 455.74,386.77 455.93,373.04 456.14,358.87 450.56,345.09 441,336.2z M112,208A32,32,0,1,1,144,240A32,32,0,0,1,112,208z M152,343A32,32,0,1,1,184,311A32,32,0,0,1,152,343z M192,144A32,32,0,1,1,224,176A32,32,0,0,1,192,144z M256,415A48,48,0,1,1,304,367A48,48,0,0,1,256,415z M328,176A32,32,0,1,1,360,144A32,32,0,0,1,328,176z" />
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
+	<DrawingImage x:Key="Icons.Palette">
+		<DrawingImage.Drawing>
+			<DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+				<GeometryDrawing Brush="White"
+				                 Geometry="F1 M512,512z M0,0z M441,336.2L440.94,336.15C431.01,326.97,418.16,324.81,408.78,323.23L408.09,323.11C399.04,321.62 397.61,320.61 393.51,316.94 391.07,314.77 388.16,311.29 388.16,307 388.16,302.71 391.07,299.23 393.5,297.06L423.78,270.19C449.7,247.28 463.98,216.53 463.98,183.6 463.98,150.67 449.73,119.92 423.78,96.9999999999999 387.89,65.4099999999999 338.78,47.9999999999999 285.41,47.9999999999999 223.72,48 162,71.37 116,112.11 72.13,150.88 48,202.82 48,258.35 48,313.88 72.16,365.82 116,404.58 137.75,423.82 163.49,438.76 192.52,449A266.17,266.17,0,0,0,279.39,464L281.2,464C342.2,464 400.29,443.43 440.59,407.6 450.29,399.04 455.74,386.77 455.93,373.04 456.14,358.87 450.56,345.09 441,336.2z M112,208A32,32,0,1,1,144,240A32,32,0,0,1,112,208z M152,343A32,32,0,1,1,184,311A32,32,0,0,1,152,343z M192,144A32,32,0,1,1,224,176A32,32,0,0,1,192,144z M256,415A48,48,0,1,1,304,367A48,48,0,0,1,256,415z M328,176A32,32,0,1,1,360,144A32,32,0,0,1,328,176z" />
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
 
-    <DrawingImage x:Key="Icons.Chevron.UpDown">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
-                <GeometryDrawing Brush="White" Geometry="F0 M24,24z M0,0z M11.47,4.72A0.75,0.75,0,0,1,12.53,4.72L16.28,8.47A0.75,0.75,0,0,1,15.22,9.53L12,6.31 8.78,9.53A0.75,0.75,0,0,1,7.72,8.47L11.47,4.72z M7.72,14.47A0.75,0.75,0,0,1,8.78,14.47L12,17.69 15.22,14.47A0.75,0.75,0,1,1,16.28,15.53L12.53,19.28A0.75,0.75,0,0,1,11.47,19.28L7.72,15.53A0.75,0.75,0,0,1,7.72,14.47z" />
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
+	<DrawingImage x:Key="Icons.Chevron.UpDown">
+		<DrawingImage.Drawing>
+			<DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+				<GeometryDrawing Brush="White"
+				                 Geometry="F0 M24,24z M0,0z M11.47,4.72A0.75,0.75,0,0,1,12.53,4.72L16.28,8.47A0.75,0.75,0,0,1,15.22,9.53L12,6.31 8.78,9.53A0.75,0.75,0,0,1,7.72,8.47L11.47,4.72z M7.72,14.47A0.75,0.75,0,0,1,8.78,14.47L12,17.69 15.22,14.47A0.75,0.75,0,1,1,16.28,15.53L12.53,19.28A0.75,0.75,0,0,1,11.47,19.28L7.72,15.53A0.75,0.75,0,0,1,7.72,14.47z" />
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
 
-    <DrawingImage x:Key="Icons.Folder">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
-                <GeometryDrawing Brush="White" Geometry="F1 M512,512z M0,0z M408,96L252.11,96A23.89,23.89,0,0,1,238.8,92L211,73.41A55.77,55.77,0,0,0,179.89,64L104,64A56.06,56.06,0,0,0,48,120L48,144 464,144C464,113.12,438.88,96,408,96z M423.75,448L88.25,448A56,56,0,0,1,32.32,392.85L16.18,228.11 16.18,227.83A48,48,0,0,1,64,176L448.1,176A48,48,0,0,1,495.9,227.83L495.9,228.11 479.68,392.85A56,56,0,0,1,423.75,448z M479.9,226.55z" />
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
+	<DrawingImage x:Key="Icons.Folder">
+		<DrawingImage.Drawing>
+			<DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
+				<GeometryDrawing Brush="White"
+				                 Geometry="F1 M512,512z M0,0z M408,96L252.11,96A23.89,23.89,0,0,1,238.8,92L211,73.41A55.77,55.77,0,0,0,179.89,64L104,64A56.06,56.06,0,0,0,48,120L48,144 464,144C464,113.12,438.88,96,408,96z M423.75,448L88.25,448A56,56,0,0,1,32.32,392.85L16.18,228.11 16.18,227.83A48,48,0,0,1,64,176L448.1,176A48,48,0,0,1,495.9,227.83L495.9,228.11 479.68,392.85A56,56,0,0,1,423.75,448z M479.9,226.55z" />
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
 
-    <DrawingImage x:Key="Icons.Refresh">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V18 H21 V0 H0 Z">
-                <GeometryDrawing Geometry="F1 M21,18z M0,0z M14.7734,6.348L19.7654,6.348 16.5844,3.165C15.5603,2.14087 14.2846,1.40439 12.8856,1.02961 11.4866,0.654818 10.0136,0.654928 8.61464,1.02992 7.2157,1.40492 5.94014,2.14159 4.91617,3.16587 3.89221,4.19015 3.15594,5.46595 2.78138,6.865 M1.73537,16.644L1.73537,11.652 M1.73537,11.652L6.72738,11.652 M1.73537,11.652L4.91537,14.835C5.93949,15.8591 7.21517,16.5956 8.61416,16.9704 10.0132,17.3452 11.4862,17.3451 12.8851,16.9701 14.284,16.5951 15.5596,15.8584 16.5836,14.8341 17.6075,13.8099 18.3438,12.5341 18.7184,11.135 M19.7654,1.356L19.7654,6.346">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="#FF3A3E40" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
-                    </GeometryDrawing.Pen>
-                </GeometryDrawing>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
+	<DrawingImage x:Key="Icons.Refresh">
+		<DrawingImage.Drawing>
+			<DrawingGroup ClipGeometry="M0,0 V18 H21 V0 H0 Z">
+				<GeometryDrawing Geometry="F1 M21,18z M0,0z M14.7734,6.348L19.7654,6.348 16.5844,3.165C15.5603,2.14087 14.2846,1.40439 12.8856,1.02961 11.4866,0.654818 10.0136,0.654928 8.61464,1.02992 7.2157,1.40492 5.94014,2.14159 4.91617,3.16587 3.89221,4.19015 3.15594,5.46595 2.78138,6.865 M1.73537,16.644L1.73537,11.652 M1.73537,11.652L6.72738,11.652 M1.73537,11.652L4.91537,14.835C5.93949,15.8591 7.21517,16.5956 8.61416,16.9704 10.0132,17.3452 11.4862,17.3451 12.8851,16.9701 14.284,16.5951 15.5596,15.8584 16.5836,14.8341 17.6075,13.8099 18.3438,12.5341 18.7184,11.135 M19.7654,1.356L19.7654,6.346">
+					<GeometryDrawing.Pen>
+						<Pen Brush="#FF3A3E40"
+						     EndLineCap="Round"
+						     LineJoin="Round"
+						     MiterLimit="1"
+						     StartLineCap="Round"
+						     Thickness="1.5" />
+					</GeometryDrawing.Pen>
+				</GeometryDrawing>
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
 
-    <!-- Assets -->
-    <DrawingImage x:Key="Visuals.ThemeBoy">
-      <DrawingImage.Drawing>
-        <DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
-          <GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M23.142736,2.2173048C22.735791,2.2173048 22.539541,2.3483253 21.926211,3.0286103 18.685144,6.6234852 17.14465,9.7680708 16.546247,14.011837 16.431421,14.825659 16.427645,18.320349 16.541047,18.833111L16.617767,19.180567 16.440159,19.452152C15.477585,20.923163 14.650806,22.855471 14.305418,24.439826 14.214778,24.855634 14.113573,25.088342 13.868295,25.445119 13.692637,25.70063 13.455216,26.048075 13.340646,26.216764 13.012781,26.699505 12.800678,27.361161 12.760402,28.026466 12.702752,28.978677 12.925158,29.73891 13.526876,30.644025 14.370346,31.912785 15.680722,32.999133 17.429072,33.879762L18.167092,34.251359 17.657549,34.375502C16.074568,34.759214 14.145037,35.616726 12.984568,36.452477 10.863864,37.979778 9.2917217,40.105302 8.4736767,42.55063 8.086725,43.707321 7.9522211,44.484753 7.9080921,45.821717 7.8748851,46.827517 7.8907121,47.127949 8.0158741,47.859895 8.2724899,49.360744 8.815005,50.74321 9.6307256,51.973323 10.169113,52.785216 11.493281,54.115975 12.379334,54.73659 14.284315,56.070885 16.709285,57.004158 19.352593,57.418811 20.467173,57.593681 23.010386,57.591552 24.154038,57.415311 27.284041,56.933105 30.185003,55.726367 32.580058,53.90885 32.868402,53.690038 33.236331,53.42424 33.397399,53.318263L33.689675,53.125134 34.472529,53.269118C34.902908,53.348138,35.437267,53.433306,35.659742,53.458796L36.064101,53.505346 35.751994,53.791588C35.287247,54.217512 34.808036,54.852036 34.567367,55.360743 34.388159,55.739554 34.353858,55.895793 34.353549,56.332413 34.352876,57.285538 34.770752,57.720511 35.688193,57.720511L36.126178,57.720511 36.3331,57.955023C36.747728,58.427259 37.306921,58.530629 38.066068,58.27489 38.601119,58.094645 42.185715,56.018634 44.672903,54.448565L45.41782,53.977816 45.67906,54.126105C46.369568,54.518427 46.640616,55.001727 46.581754,55.73492 46.535194,56.315017 46.278905,56.789475 45.696302,57.374774 44.217165,58.860749 41.599828,59.67625 38.272988,59.686261 36.484154,59.691561 34.63114,59.389552 33.245657,58.868058 32.717615,58.6693 32.132155,58.625302 31.904976,58.767183 31.698351,58.896217 31.588291,59.197302 31.642014,59.483649 31.712704,59.860419 32.181913,60.495291 32.890442,61.172646 34.824562,63.021679 37.750349,64.212061 41.012975,64.476494L41.013839,64.476494C42.118424,64.566024 44.197855,64.409424 45.513522,64.137662 50.691893,63.068039 54.891238,59.499789 55.96565,55.257274 56.254951,54.114945 56.336199,53.299464 56.291553,51.972393 56.238033,50.381324 55.986395,49.123066 55.481108,47.920179 55.383048,47.686757 55.311668,47.491696 55.310399,47.457192 55.310419,47.456694 55.310337,47.455092 55.310399,47.454592L55.310399,47.453731 55.310399,47.452868 55.311261,47.452868 55.311261,47.452006 55.312124,47.452006C55.428428,47.452006 56.305782,47.798224 56.74333,48.016729 57.038211,48.163983 57.32591,48.284865 57.382202,48.284865 57.57566,48.284865 57.822591,48.13037 57.899505,47.96155 58.14483,47.423117 57.764214,45.630398 57.142516,44.399051 56.431678,42.991147 55.082365,41.594519 53.141171,40.256306L52.616968,39.895055 53.892124,39.276015C55.488593,38.500751 55.613011,38.374092 55.355232,37.793077 55.068889,37.147678 53.805245,35.795078 52.790265,35.047917 52.562955,34.880584 52.375435,34.724724 52.358316,34.690116 52.358129,34.689612 52.35755,34.688016 52.357454,34.687516L52.356593,34.686654C52.356593,34.636414 53.619726,33.46197 54.137843,33.030418 54.828252,32.455361 54.792335,32.111686 53.957649,31.287966 53.33032,30.668894 52.58917,30.100955 51.769439,29.611041L51.172816,29.254101 51.331464,29.074771C51.418684,28.975751 51.709248,28.660367 51.977231,28.373823 53.215809,27.049451 53.565079,26.48666 53.398956,26.085615 53.287944,25.81761 52.836314,25.521593 52.125526,25.250169 51.515149,25.017088 50.249196,24.682033 49.495035,24.553532 49.237275,24.509602 49.007484,24.443079 48.984627,24.406094 48.961767,24.369114 49.080537,24.161468 49.248452,23.944832 50.516077,22.309502 50.761568,21.917371 50.761568,21.526435 50.761568,20.887679 50.35829,20.551658 49.321737,20.325427 48.825612,20.217149 47.042543,20.049162 46.373104,20.047807 46.112515,20.047279 46.202708,19.910631 47.881046,17.75615 49.45911,15.730399 49.760213,15.161721 49.481241,14.735957 49.251074,14.384682 48.894277,14.291882 47.757755,14.290213 46.57622,14.288313 45.708745,14.373643 44.603925,14.59801 44.174643,14.68518 43.823657,14.747866 43.823657,14.737689 43.823657,14.727499 44.099272,14.27137 44.436662,13.723773 45.630016,11.786907 46.419457,10.23851 47.154234,8.39209130000002 47.755166,6.88201410000002 48.001918,6.06732210000002 48.012096,5.55899010000002L48.020796,5.11928160000002 47.825945,4.95202070000002C47.702158,4.84534440000002 47.545545,4.78389520000002 47.394854,4.78389520000002 46.658482,4.78389520000002 42.094625,6.87620260000002 39.789623,8.27052470000002 38.809414,8.86346360000002 37.66915,9.62328320000002 36.598718,10.395781L36.207292,10.677713 36.267642,10.419061C36.300862,10.276896,36.348452,9.81481120000002,36.373684,9.39221280000002L36.419377,8.6240164 36.207283,8.3869196 35.994325,8.1489594 35.514956,8.1489594 35.035589,8.1489594 34.2786,8.5343496C33.466957,8.9465586,32.259042,9.6849088,31.386871,10.30353L30.849736,10.685472 30.847136,9.9371069C30.842904,8.5609038 30.731035,7.1062283 30.611755,6.8755293 30.414417,6.4939244 30.069251,6.4182758 29.605599,6.6548123 29.010845,6.9582342 27.35454,8.4138986 25.386121,10.362158L24.258398,11.47781 24.257536,10.229382C24.255548,8.3868177 24.192501,4.4753662 24.155791,3.9165496 24.086136,2.8559007 23.70503,2.2172054 23.142737,2.2172054z M22.905639,3.6467877L22.950479,4.0589085C22.974949,4.2859377 22.998049,5.8500363 23.002219,7.5343287 23.008419,10.058763 22.990049,10.698857 22.899617,11.177011 22.783127,11.792979 22.471851,13.120458 22.439217,13.14018 21.765939,13.547154 19.913591,15.20707 19.025872,16.198309 18.71775,16.542363 18.272896,17.041444 18.037822,17.307927L17.610184,17.792469 17.559314,17.591581C17.484504,17.296629 17.577554,14.78916 17.694672,13.940277 18.18693,10.372671 19.526726,7.59486360000001 22.344374,4.3020404z M46.747321,6.1695113L46.699901,6.326425C46.511955,6.9526911 45.552402,9.2141216 44.998833,10.334669 43.29686,13.779827 41.924713,15.652666 38.920509,18.633952 37.0238,20.51619 36.786963,20.813386 37.180643,20.809214 37.470381,20.806214 38.094808,20.487979 38.928268,19.919451 39.417558,19.585693 39.828359,19.353866 39.930114,19.353866 40.355576,19.353866 42.09764,19.975081 42.758906,20.362608 43.27731,20.666414 43.245479,20.722796 41.724298,22.234386 40.989749,22.964302 39.854222,24.05053 39.200716,24.647611 38.547211,25.244692 37.995973,25.796435 37.975568,25.874482 37.954378,25.955552 37.985758,26.064034 38.048868,26.1271 38.176351,26.254583 38.693889,26.22098 39.434381,26.03657L39.86633,25.928788 40.3707,26.168472C40.970785,26.454774 42.435605,27.57297 42.435605,27.744526 42.435605,28.102405 41.081727,28.740159 39.990482,28.896389 39.77592,28.927099 39.660269,28.977719 39.660269,29.04124 39.660269,29.183055 39.969749,29.651487 40.39484,30.152581 40.796429,30.625972 41.048369,31.061195 41.048369,31.282891 41.048369,31.460338 40.86244,31.580228 40.124118,31.881239 39.363274,32.19143 38.523261,32.369141 37.382407,32.460619L36.47109,32.533049 35.584776,33.020177C35.096954,33.287753 34.433491,33.61715 34.111322,33.753025 32.908654,34.260244 31.064648,34.713248 29.325396,34.927305 28.209912,35.064582 26.690494,35.0492 25.507693,34.889365 21.852212,34.395394 19.873965,33.890467 17.910221,32.949474 16.30644,32.18097 15.094553,31.153587 14.345996,29.927557 13.534826,28.598976 13.696718,27.253735 14.818466,25.994323 15.266115,25.491732 15.261477,25.502962 15.375429,24.665714 15.628916,22.80336 16.901359,20.495293 19.043117,18.014907 19.7378,17.210389 21.747763,15.155087 21.794312,15.201636 21.808822,15.216146 21.761482,15.617686 21.688269,16.093985 21.405479,17.933641 21.357429,19.941683 21.581357,20.588495 21.629187,20.726672 21.748543,20.898508 21.846044,20.971301L22.022788,21.104073 22.277993,21.020443C22.615652,20.909009 24.24106,19.917201 26.374178,18.521865 27.84479,17.559893 31.13172,15.537883 31.224767,15.537883 31.240777,15.537883 31.142617,15.809149 31.007498,16.140541 30.828674,16.579164 30.780985,16.772787 30.830754,16.851835 30.981261,17.09087 31.132049,17.001325 31.83691,16.254348 33.033193,14.986603 34.391314,13.652848 35.04678,13.102243 36.739549,11.68029 39.498707,9.74376349999999 41.221667,8.76895879999999 42.688249,7.93920639999999 45.002839,6.83217379999999 46.30849,6.33590579999999z M20.713132,35.172164L21.983113,35.486857C22.681347,35.659773,23.720502,35.880743,24.292877,35.978295L25.33352,36.155903 25.570618,36.374896C26.287179,37.037765 26.513141,37.478096 26.462105,38.113899 26.395745,38.940762 25.927175,39.560623 24.653264,40.507292 23.624056,41.272118 23.317132,41.66095 23.241887,42.296301 23.151667,43.058045 23.667224,43.940613 24.421341,44.317237 24.991335,44.601912 25.612026,44.649412 26.738862,44.493983L27.033726,44.453463 27.033726,44.59658C27.033726,45.012432 27.200017,45.475596 27.443259,45.736372 27.752655,46.068059 28.151713,46.146 28.658061,45.97347L28.976203,45.864844 28.977803,46.051935C28.979703,46.279932 29.199615,46.779388 29.433893,47.086543 29.93628,47.745207 30.821844,47.65216 31.854877,46.833064 32.572953,46.263698 33.013931,45.99531 33.233491,45.993307 33.353162,45.992207 33.887553,45.916487 34.421567,45.825184 34.955578,45.733884 35.399717,45.666135 35.407892,45.674309 35.416092,45.682509 35.458592,45.921768 35.502742,46.206271 35.785389,48.027976 34.81404,50.305193 33.011061,52.045771 30.750904,54.227703 27.628483,55.707922 24.189301,56.228174 23.485606,56.334639 21.151184,56.417736 20.512131,56.359228 15.888696,55.935953 11.935866,53.76114 10.222969,50.698194 9.3313369,49.103805 8.8928594,47.051296 9.0642087,45.27426 9.2379183,43.472722 9.8837718,41.721954 10.960989,40.133121 11.809679,38.88135 13.338989,37.508074 14.775245,36.708568 16.163254,35.93592 18.024935,35.403396 19.901728,35.242011z">
-            <GeometryDrawing.Brush>
-              <SolidColorBrush Color="#FFFFFFFF" Opacity="0.1" />
-            </GeometryDrawing.Brush>
-          </GeometryDrawing>
-          <DrawingGroup Opacity="1" Transform="1.6684074,0,0,1.6684074,-20.887599,-28.18638">
-            <GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M27.962634,45.889189C27.316441,45.893589,26.630921,46.303132,26.331726,46.897396L26.207186,47.144926 26.207703,47.519063 26.207703,47.893201 26.324491,48.115926C26.524755,48.497454 26.915951,48.81054 27.324947,48.916911 27.396247,48.935461 27.641778,48.944451 27.87065,48.936551 28.226767,48.924311 28.326559,48.903721 28.564148,48.795991 29.12186,48.543112 29.463328,48.032544 29.501558,47.394009 29.518098,47.117763 29.505758,47.019861 29.428178,46.814717 29.259531,46.368859 28.792926,46.015916 28.236003,45.912963 28.146533,45.896423 28.054948,45.888563 27.962634,45.889193z">
-              <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FFFFFFFF" Opacity="0.19827586" />
-              </GeometryDrawing.Brush>
-            </GeometryDrawing>
-            <GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M23.117452,45.794104C22.947692,45.800204 22.781621,45.826204 22.640479,45.873164 21.758613,46.16663 21.240158,46.996108 21.461739,47.75832 21.586824,48.188598 21.895491,48.490178 22.382096,48.65749 23.035243,48.882063 23.898808,48.68306 24.326681,48.209455 24.992739,47.472208 24.781823,46.329585 23.905001,45.925874 23.694343,45.828884 23.400385,45.783933 23.117452,45.794099z">
-              <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FF000000" Opacity="0.4838362" />
-              </GeometryDrawing.Brush>
-            </GeometryDrawing>
-            <GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M20.571331,42.411945C20.401571,42.418045 20.2355,42.444045 20.094358,42.491005 19.212492,42.784471 18.694037,43.613949 18.915618,44.376161 19.040703,44.806439 19.34937,45.108019 19.835975,45.275331 20.489122,45.499904 21.352687,45.300901 21.78056,44.827296 22.446618,44.090049 22.235702,42.947426 21.35888,42.543715 21.148222,42.446725 20.854264,42.401774 20.571331,42.41194z">
-              <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FF000000" Opacity="0.65840518" />
-              </GeometryDrawing.Brush>
-            </GeometryDrawing>
-            <GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M23.420793,39.376408C22.749832,39.375935 22.019966,39.718518 21.672579,40.355676 21.438504,40.785003 21.533286,41.414703 21.875151,41.702364 22.057044,41.855416 22.311301,41.977544 22.568132,42.034644 22.89998,42.108424 23.096672,42.102794 23.462134,42.009324 24.061818,41.85595 24.476016,41.550277 24.699268,41.097235 24.772888,40.94783 24.792798,40.835491 24.792798,40.57427 24.792798,40.284645 24.777278,40.213622 24.671875,40.023399 24.428811,39.584712 23.942647,39.376778 23.420789,39.37641z">
-              <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FF979797" Opacity="0.17133622" />
-              </GeometryDrawing.Brush>
-            </GeometryDrawing>
-          </DrawingGroup>
-          <GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M20.713132,35.17216L19.901826,35.242C18.025033,35.403385 16.163353,35.935909 14.775343,36.708557 13.339088,37.508063 11.809779,38.881339 10.961089,40.13311 9.8838711,41.721943 9.2380165,43.472711 9.0643068,45.274249 8.8929588,47.051285 9.3314362,49.103795 10.223068,50.698183 11.935965,53.76113 15.888794,55.935942 20.512246,56.359214 21.151299,56.417724 23.485719,56.334614 24.189415,56.22816 27.628597,55.707908 30.751018,54.227688 33.011174,52.045756 34.814155,50.305179 35.785502,48.027961 35.502856,46.206257 35.458706,45.921754 35.416186,45.682462 35.408006,45.674295 35.399806,45.666095 34.955693,45.733875 34.42168,45.82517 33.887666,45.91647 33.353272,45.992177 33.233606,45.993293 33.014045,45.995293 32.573066,46.263683 31.85499,46.833049 30.821958,47.652145 29.936394,47.745192 29.434006,47.086528 29.199728,46.779373 28.979779,46.279917 28.977918,46.051921L28.976318,45.864829 28.658176,45.973456C28.151827,46.145985 27.752769,46.068036 27.443372,45.736358 27.200124,45.47558 27.033841,45.012417 27.033841,44.596565L27.033841,44.453449 26.738977,44.493969C25.612141,44.649398 24.99145,44.6019 24.421455,44.317223 23.667338,43.940598 23.151783,43.058031 23.242001,42.296287 23.317251,41.660936 23.624169,41.272103 24.653379,40.507277 25.927289,39.560608 26.395846,38.940747 26.46222,38.113884 26.51325,37.478081 26.287294,37.03775 25.570732,36.374881L25.333633,36.155888 24.292991,35.97828C23.720615,35.88073,22.68146,35.659758,21.983228,35.486842z M18.187827,37.509512C19.058498,37.510126 19.869618,37.857045 20.275148,38.588954 20.450995,38.906323 20.476897,39.024818 20.476897,39.508031 20.476897,39.943854 20.443677,40.131281 20.320851,40.38055 19.948375,41.136408 19.257325,41.646396 18.256807,41.902286 17.647067,42.058232 17.318905,42.067625 16.765247,41.944526 16.336749,41.849256 15.912545,41.645502 15.609073,41.390148 15.038703,40.910213 14.880568,39.859617 15.2711,39.143324 15.850683,38.080284 17.068397,37.508717 18.187833,37.509506z">
-            <GeometryDrawing.Brush>
-              <SolidColorBrush Color="#FFFFFFFF" Opacity="0.3" />
-            </GeometryDrawing.Brush>
-          </GeometryDrawing>
-          <DrawingGroup Opacity="1" Transform="1.6684074,0,0,1.6684074,-20.887599,-28.18638">
-            <GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M39.077201,29.581657L39.586731,30.109273C40.018199,30.555861 40.847185,31.584258 41.190251,32.098816 41.358544,32.351236 41.851106,33.322225 42.063582,33.819641 42.640111,35.169326 43.100828,37.161962 43.274361,39.056531 43.338821,39.760327 43.329491,41.231973 43.256271,41.85791 43.020981,43.869345 42.322186,45.648053 41.23779,46.996098 40.685771,47.682328 40.056043,48.233305 39.122157,48.846631 38.456485,49.283807 35.559898,51.010825 35.324973,51.110575 35.062754,51.221925 34.898836,51.244896 34.813376,51.182405 34.749616,51.135785 34.745216,51.105815 34.783406,50.966397 34.807826,50.877267 34.852426,50.742617 34.882626,50.667707 34.995922,50.386651 34.763662,50.277513 34.501254,50.48839 34.299345,50.650649 33.973609,50.824804 33.871835,50.824804 33.692951,50.824804 33.725781,50.546952 33.949345,50.16903 34.13777,49.850516 34.52613,49.445171 34.928097,49.147903 35.095144,49.024366 35.258062,48.891628 35.289832,48.853348L35.347712,48.784098 35.214904,48.647156C34.992126,48.417307 34.908168,48.132981 34.886758,47.53818 34.865118,46.936993 34.918558,46.656797 35.144624,46.188391 35.42422,45.60907 35.87449,45.179668 36.524385,44.872709 37.55188,44.387402 38.459053,44.533975 39.396044,45.336247 39.747362,45.637054 39.820967,45.670235 39.908157,45.565173 40.129868,45.298029 39.320977,44.47589 38.541832,44.176628 37.531421,43.788538 36.537388,43.988258 35.550801,44.777625 35.015273,45.206101 34.607723,45.805524 34.379813,46.5 34.271549,46.829902 34.202269,47.537539 34.238219,47.94539L34.265089,48.246663 33.833074,48.241963C33.59549,48.239263,33.3471,48.224893,33.28117,48.210443L33.16128,48.184093 33.309592,48.006843C33.730477,47.5035 34.191139,46.630319 34.337436,46.059675 34.511615,45.380257 34.534908,44.631851 34.396346,44.145063L34.371026,44.056183 34.717775,43.941461C35.588166,43.653708 36.610717,43.136927 37.372393,42.600457 37.869667,42.250213 38.706068,41.420328 38.969711,41.015541 39.413494,40.334181 39.637686,39.693294 39.478724,39.561367 39.345232,39.450578 39.23316,39.522047 39.058078,39.830084 38.571005,40.687032 37.821987,41.543942 37.123312,42.043902 35.779477,43.005527 34.243214,43.596628 32.507057,43.819505 31.917735,43.895155 31.850059,43.925598 31.321599,44.355906 31.13863,44.504891 30.924626,44.648676 30.846176,44.675266L30.703549,44.723326 30.628619,44.630826C30.439044,44.39671 30.447449,44.078187 30.656009,43.606599 30.775279,43.336905 30.784701,43.245547 30.700449,43.175617 30.625179,43.113147 30.551146,43.150577 30.157846,43.451053 29.814051,43.713711 29.550424,43.850665 29.457114,43.814855 29.350234,43.773845 29.332631,43.537954 29.408024,43.165282 29.657866,41.930203 30.238955,41.411302 32.215605,40.660008 33.741878,40.079896 34.469606,39.740669 35.128088,39.301435 35.780594,38.866187 36.485268,38.089791 36.450488,37.84416 36.424848,37.663118 36.287427,37.706896 35.915637,38.014692 34.860641,38.888096 34.041315,39.317561 31.903996,40.116889 30.667437,40.579344 30.162557,40.862799 29.674674,41.370043 29.304236,41.755182 29.118903,42.058099 28.87369,42.679523L28.81426,42.830419 28.446324,42.898119C27.758755,43.024314 27.48031,42.978969 27.235545,42.700198 27.127927,42.577632 27.101186,42.510382 27.101186,42.365335 27.101186,42.146949 27.178356,42.055072 27.662392,41.697675 27.845361,41.562576 28.146086,41.300959 28.330568,41.116315 29.037994,40.408264 29.224401,39.610824 28.8525,38.88286L28.731578,38.646182 28.799788,38.618282C28.837378,38.602882 29.139433,38.564112 29.471065,38.531982 30.694017,38.413483 31.986817,38.137298 32.878609,37.804378 33.132406,37.709628 33.631522,37.48475 33.988102,37.304667L34.636642,36.977555 34.918795,36.977555C35.493824,36.977555 36.43671,36.734473 37.107292,36.413765 37.508122,36.222066 37.704671,36.043779 37.704671,35.872196 37.704671,35.816736 37.601431,35.571957 37.475228,35.328043L37.245785,34.884143 37.329495,34.795263C37.375425,34.746373 37.614122,34.587334 37.860212,34.44128 38.50642,34.057758 38.744396,33.809982 38.744396,33.520922 38.744396,33.321726 37.418851,32.099376 37.03804,31.947375 36.95866,31.915685 36.889445,31.887215 36.884045,31.883815 36.878645,31.880415 37.259352,31.495313 37.729988,31.028053 38.200624,30.560793 38.696034,30.044383 38.831213,29.88032z M43.240771,44.568856L43.471765,44.921289C43.768325,45.37293 44.173857,46.19994 44.351815,46.716528 44.501182,47.150119 44.549626,47.217273 44.713033,47.217273 44.879328,47.217273 44.963238,47.106008 45.153833,46.631779L45.332117,46.188912 45.387407,46.375464C45.616934,47.152642 45.69333,48.516778 45.550705,49.286397 45.423302,49.973872 45.116703,50.777373 44.782276,51.299711 44.244968,52.138927 43.275458,53.059768 42.334364,53.625151 41.342818,54.220844 39.936121,54.675339 38.652418,54.814742 38.187195,54.865282 37.203855,54.863802 36.748658,54.812142 35.223273,54.639083 33.60924,53.976016 32.714796,53.154879 32.454984,52.916356 32.424536,52.92125 33.151462,53.087699 35.460477,53.61641 38.055924,53.31128 39.618251,52.327538 40.109757,52.018054 40.448595,51.71356 40.699322,51.356538 41.008898,50.915718 41.087829,50.678259 41.091029,50.179349L41.094129,49.762837 40.957704,49.486368C40.867574,49.303185,40.74285,49.137846,40.588734,48.996992L40.35619,48.784085 40.858485,48.305562C41.432979,47.758151 41.757392,47.371172 42.163315,46.749584 42.562212,46.138755 42.901666,45.459554 43.197877,44.68046z">
-              <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FFFFFFFF" Opacity="0.34806034" />
-              </GeometryDrawing.Brush>
-            </GeometryDrawing>
-            <GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M40.538611,20.592025L40.275578,20.691755C39.493004,20.989205 38.105699,21.652732 37.226668,22.150064 36.193971,22.734336 34.540203,23.89504 33.525602,24.747322 33.132732,25.07734 32.31871,25.876758 31.601689,26.636612 31.179214,27.084325 31.088832,27.138001 30.998625,26.99473 30.968795,26.94735 30.997425,26.831298 31.104561,26.568399 31.185541,26.369771 31.244389,26.207181 31.234786,26.207181 31.179016,26.207181 29.208916,27.419121 28.32747,27.995702 27.048934,28.83203 26.074707,29.426493 25.872323,29.493285L25.71936,29.543415 25.613424,29.463835C25.554984,29.420205 25.483449,29.317207 25.454777,29.234391 25.320559,28.846709 25.349359,27.643141 25.518857,26.540499 25.562737,26.255018 25.591137,26.014367 25.582417,26.005648 25.554517,25.977748 24.349797,27.209642 23.933422,27.69185 22.649709,29.178529 21.887039,30.561924 21.735106,31.67817 21.666806,32.179995 21.669586,32.173264 21.401277,32.474504 20.72893,33.229363 20.631896,34.035665 21.11809,34.831982 21.566756,35.566833 22.29313,36.182619 23.254394,36.643241 24.431411,37.207247 25.617121,37.509887 27.808121,37.805961 28.517061,37.901761 29.427761,37.910984 30.096353,37.828701 31.138815,37.700401 32.244065,37.428882 32.964912,37.124868 33.158012,37.043428 33.555675,36.845996 33.848062,36.685618L34.379296,36.393646 34.925516,36.350236C35.609314,36.295406 36.112796,36.188891 36.568826,36.00297 37.011357,35.822552 37.122798,35.750694 37.122798,35.644336 37.122798,35.511457 36.971792,35.250596 36.73109,34.966858 36.476301,34.666515 36.290807,34.385751 36.290807,34.300749 36.290807,34.262679 36.360127,34.232339 36.488728,34.213929 37.142792,34.120289 37.954271,33.738036 37.954271,33.523532 37.954271,33.420706 37.076296,32.750489 36.716621,32.578887L36.414314,32.435226 36.155415,32.499826C35.711584,32.610353 35.401385,32.630496 35.324975,32.554086 35.287175,32.516286 35.268355,32.451264 35.281045,32.402674 35.293275,32.355894 35.623673,32.025194 36.015367,31.667319 36.407061,31.309444 37.087667,30.658388 37.527936,30.220895 38.439692,29.314887 38.458771,29.281093 38.148053,29.099 37.751708,28.866726 36.70756,28.494386 36.452549,28.494386 36.391559,28.494386 36.145336,28.633337 35.852069,28.833383 35.352514,29.174144 34.978249,29.364852 34.804588,29.366684 34.568626,29.369184 34.710578,29.191053 35.847418,28.062888 37.64806,26.275983 38.470489,25.153452 39.490607,23.088514 39.822402,22.416887 40.397533,21.061444 40.510183,20.686077z M23.206852,30.798637C23.324681,30.800237 23.424611,30.861367 23.540682,30.98984 23.727128,31.196214 23.815709,31.497137 23.815084,31.922083 23.813684,32.897646 23.238534,33.603019 22.708175,33.279622 22.627575,33.230472 22.532229,33.107674 22.458577,32.957678L22.339722,32.715316 22.341822,32.236792C22.343622,31.843605 22.360672,31.717171 22.436902,31.524174 22.573769,31.17763 22.751982,30.95368 22.968136,30.858065 23.059026,30.817855 23.136184,30.797665 23.206881,30.798635z M30.468941,31.040483C30.709388,31.032483 30.93926,31.135683 31.1335,31.346407 31.477472,31.719573 31.605797,32.251062 31.490068,32.823319 31.409918,33.219635 31.279462,33.486585 31.050301,33.725073 30.73709,34.051032 30.293505,34.157003 29.96613,33.983972 29.325215,33.645223 29.108857,32.584752 29.515511,31.775321 29.667646,31.472502 29.813365,31.302953 30.030208,31.175875 30.176641,31.090055 30.324673,31.045307 30.468941,31.040483z">
-              <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FFFFFFFF" Opacity="0.41810346" />
-              </GeometryDrawing.Brush>
-            </GeometryDrawing>
-          </DrawingGroup>
-          <GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M22.905639,3.6467877L22.344363,4.3020404C19.526715,7.5948636 18.186919,10.372671 17.694662,13.940277 17.577538,14.78916 17.484495,17.296629 17.559305,17.591581L17.610175,17.792469 18.037812,17.307927C18.272888,17.041444 18.717742,16.542363 19.025863,16.198309 19.913583,15.20707 21.765929,13.547154 22.439208,13.14018 22.471838,13.12045 22.783125,11.792979 22.899609,11.177011 22.990039,10.698857 23.008409,10.058763 23.00221,7.5343287 22.99801,5.8500363 22.97495,4.2859377 22.95047,4.0589085z">
-            <GeometryDrawing.Brush>
-              <SolidColorBrush Color="#FFFFFFFF" Opacity="0.3" />
-            </GeometryDrawing.Brush>
-          </GeometryDrawing>
-          <DrawingGroup Opacity="1" Transform="1.6684074,0,0,1.6684074,-20.887599,-28.18638">
-            <GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M30.468941,31.040483C30.324673,31.045283 30.176641,31.090063 30.030208,31.175875 29.813365,31.302953 29.667646,31.472502 29.515511,31.775321 29.108857,32.584752 29.325215,33.645223 29.96613,33.983972 30.293505,34.157003 30.73709,34.051032 31.050301,33.725073 31.279462,33.486585 31.409918,33.219635 31.490068,32.823319 31.605797,32.251062 31.477468,31.719573 31.1335,31.346407 30.93926,31.135681 30.709388,31.032442 30.468941,31.040483z">
-              <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FFFFFFFF" Opacity="0.54956895" />
-              </GeometryDrawing.Brush>
-            </GeometryDrawing>
-            <GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M23.206852,30.798637C23.136152,30.797668 23.059002,30.817857 22.968107,30.858067 22.751953,30.953677 22.57374,31.177632 22.436873,31.524176 22.360643,31.717173 22.343593,31.843607 22.341793,32.236794L22.339693,32.715318 22.458548,32.95768C22.532198,33.107676 22.627546,33.230474 22.708146,33.279624 23.238505,33.603021 23.813655,32.897648 23.815055,31.922085 23.81568,31.497139 23.727095,31.196216 23.540653,30.989842 23.424582,30.861364 23.324652,30.800253 23.206823,30.798639z">
-              <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FFFFFFFF" Opacity="0.54956895" />
-              </GeometryDrawing.Brush>
-            </GeometryDrawing>
-            <GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M39.804806,31.702458C39.751656,31.705358 39.718066,31.753598 39.708686,31.850252 39.698786,31.952656 39.742436,32.05238 39.900406,32.286918 40.227336,32.772324 40.249129,32.900645 40.135017,33.668746 40.088387,33.982573 40.082387,34.127287 40.113827,34.186027 40.137857,34.230917 40.33101,34.389246 40.542741,34.537427 40.754472,34.685607 41.000774,34.870474 41.089994,34.948254L41.252258,35.089331 41.197998,35.378719C41.168348,35.537673 41.081545,35.864109 41.005245,36.104256 40.928935,36.344403 40.866539,36.587612 40.866235,36.644792 40.865373,36.807207 41.017636,37.018134 41.478601,37.493319 41.71303,37.734979 41.904932,37.958222 41.904932,37.989412 41.904932,38.089671 41.815982,38.316761 41.566451,38.855509 41.432277,39.145192 41.322538,39.41745 41.322538,39.46064 41.322538,39.570143 41.508904,39.85184 41.835169,40.23527 41.987805,40.414649 42.112671,40.589774 42.112671,40.624394 42.112671,40.659014 41.981831,40.939977 41.821733,41.248645 41.661635,41.557312 41.530794,41.846867 41.530794,41.892017 41.530794,41.937167 41.635664,42.163909 41.764372,42.396379 42.106284,43.013941 42.10753,42.996241 41.681172,43.81438 41.483967,44.192798 41.322537,44.527227 41.322537,44.557487 41.322537,44.587747 41.345217,44.634937 41.372667,44.66239 41.475852,44.765575 41.574461,44.70938 41.779878,44.431396 41.893955,44.277015 42.085973,43.956924 42.206208,43.720329 42.395837,43.347176 42.4248,43.257984 42.4248,43.047502L42.4248,42.805139 42.186055,42.334884 41.947826,41.864628 42.214993,41.385588C42.361839,41.122131,42.505327,40.819365,42.533837,40.71276L42.585517,40.518974 42.479581,40.359294C42.421341,40.271694 42.240395,40.041067 42.077538,39.846663 41.91468,39.652258 41.78135,39.462877 41.780915,39.426017 41.780479,39.389157 41.853205,39.202392 41.942663,39.010539 42.27329,38.301501 42.359447,37.875639 42.216031,37.656099 42.173931,37.591649 41.955848,37.363351 41.731823,37.148637 41.507798,36.933924 41.313694,36.723622 41.300324,36.681482 41.286954,36.639342 41.342544,36.384808 41.423831,36.115625 41.62723,35.442109 41.677185,35.061493 41.587645,34.872807 41.507545,34.704016 41.298365,34.516565 40.856941,34.219617 40.680732,34.10108 40.52826,33.984845 40.51846,33.961235 40.50856,33.937625 40.51736,33.81602 40.5381,33.690967 40.59923,33.321498 40.58864,32.726372 40.51795,32.557186 40.48354,32.474836 40.381324,32.299226 40.290574,32.166512 40.079242,31.857469 39.90629,31.696872 39.804816,31.702458z">
-              <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FF000000" Opacity="0.1950431" />
-              </GeometryDrawing.Brush>
-            </GeometryDrawing>
-            <GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M22.958805,34.519857C22.910085,34.519092 22.863195,34.545027 22.810494,34.592717 22.642354,34.744882 22.742544,35.026507 23.142257,35.527543 23.582241,36.079052 24.042906,36.436816 24.312728,36.436532 24.501832,36.436333 24.653854,36.341922 25.029997,35.991081 25.64911,35.413622 25.722506,35.356123 25.799976,35.383883 25.840906,35.398553 25.995994,35.508063 26.144657,35.627279 26.687648,36.062716 27.210499,36.382767 27.579195,36.505778 27.913741,36.617396 28.461457,36.515178 29.078845,36.225692 29.413268,36.068859 29.554268,35.934584 29.554268,35.773523 29.554268,35.619005 29.426101,35.480518 29.282967,35.480518 29.225137,35.480518 29.070693,35.534418 28.939836,35.600407 28.619735,35.761827 28.171505,35.896513 27.953333,35.896513 27.632674,35.896513 26.879487,35.454182 26.182898,34.856783 26.025242,34.721574 25.804081,34.662308 25.624276,34.707438 25.559966,34.723578 25.272663,34.983902 24.921476,35.343575L24.327197,35.952323 24.174752,35.858273C24.001491,35.751192 23.647473,35.347556 23.393921,34.968405 23.182977,34.652966 23.065989,34.521536 22.958805,34.519854z">
-              <GeometryDrawing.Brush>
-                <SolidColorBrush Color="#FF000000" Opacity="0.1950431" />
-              </GeometryDrawing.Brush>
-            </GeometryDrawing>
-          </DrawingGroup>
-        </DrawingGroup>
-      </DrawingImage.Drawing>
-    </DrawingImage>
+	<DrawingImage x:Key="Icons.Otomo">
+		<DrawingImage.Drawing>
+			<DrawingGroup ClipGeometry="M0,0 V135.46667 H135.46666 V0 H0 Z">
+				<DrawingGroup Opacity="1">
+					<GeometryDrawing Brush="#FFFEFEFE"
+					                 Geometry="F1 M135.46666,135.46667z M0,0z M17.318227,63.211486C4.4835418,65.827073,7.1218946,126.99507,7.1218946,126.99507L96.676705,126.99507C96.676705,126.99507 115.39395,127.66114 118.44483,118.02049 127.89702,88.151949 123.31401,8.4160967 122.16832,7.0794587 121.02263,5.7428192 111.86782,2.7082166 108.6833,5.8354834 99.267187,15.082265 100.59261,29.733351 93.335107,39.827112 88.392188,46.701746 81.973677,54.434667 74.717636,57.107945 67.461596,59.781222 39.326129,58.726483 17.318227,63.211486z" />
+					<GeometryDrawing Brush="#FFFEFEFE"
+					                 Geometry="F1 M135.46666,135.46667z M0,0z M64.689206,14.058176C57.567574,22.212806 48.446327,39.638455 40.732782,51.955126 40.260212,54.250482 75.840021,55.268672 76.920189,49.800329 78.000358,44.331983 79.676528,14.935817 77.921258,12.707972 72.706318,8.17999299999999 67.605572,10.718791 64.689206,14.058176z" />
+				</DrawingGroup>
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
+
+	<!--  Assets  -->
+	<DrawingImage x:Key="Visuals.ThemeBoy">
+		<DrawingImage.Drawing>
+			<DrawingGroup ClipGeometry="M0,0 V67.733335 H67.733332 V0 H0 Z">
+				<GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M23.142736,2.2173048C22.735791,2.2173048 22.539541,2.3483253 21.926211,3.0286103 18.685144,6.6234852 17.14465,9.7680708 16.546247,14.011837 16.431421,14.825659 16.427645,18.320349 16.541047,18.833111L16.617767,19.180567 16.440159,19.452152C15.477585,20.923163 14.650806,22.855471 14.305418,24.439826 14.214778,24.855634 14.113573,25.088342 13.868295,25.445119 13.692637,25.70063 13.455216,26.048075 13.340646,26.216764 13.012781,26.699505 12.800678,27.361161 12.760402,28.026466 12.702752,28.978677 12.925158,29.73891 13.526876,30.644025 14.370346,31.912785 15.680722,32.999133 17.429072,33.879762L18.167092,34.251359 17.657549,34.375502C16.074568,34.759214 14.145037,35.616726 12.984568,36.452477 10.863864,37.979778 9.2917217,40.105302 8.4736767,42.55063 8.086725,43.707321 7.9522211,44.484753 7.9080921,45.821717 7.8748851,46.827517 7.8907121,47.127949 8.0158741,47.859895 8.2724899,49.360744 8.815005,50.74321 9.6307256,51.973323 10.169113,52.785216 11.493281,54.115975 12.379334,54.73659 14.284315,56.070885 16.709285,57.004158 19.352593,57.418811 20.467173,57.593681 23.010386,57.591552 24.154038,57.415311 27.284041,56.933105 30.185003,55.726367 32.580058,53.90885 32.868402,53.690038 33.236331,53.42424 33.397399,53.318263L33.689675,53.125134 34.472529,53.269118C34.902908,53.348138,35.437267,53.433306,35.659742,53.458796L36.064101,53.505346 35.751994,53.791588C35.287247,54.217512 34.808036,54.852036 34.567367,55.360743 34.388159,55.739554 34.353858,55.895793 34.353549,56.332413 34.352876,57.285538 34.770752,57.720511 35.688193,57.720511L36.126178,57.720511 36.3331,57.955023C36.747728,58.427259 37.306921,58.530629 38.066068,58.27489 38.601119,58.094645 42.185715,56.018634 44.672903,54.448565L45.41782,53.977816 45.67906,54.126105C46.369568,54.518427 46.640616,55.001727 46.581754,55.73492 46.535194,56.315017 46.278905,56.789475 45.696302,57.374774 44.217165,58.860749 41.599828,59.67625 38.272988,59.686261 36.484154,59.691561 34.63114,59.389552 33.245657,58.868058 32.717615,58.6693 32.132155,58.625302 31.904976,58.767183 31.698351,58.896217 31.588291,59.197302 31.642014,59.483649 31.712704,59.860419 32.181913,60.495291 32.890442,61.172646 34.824562,63.021679 37.750349,64.212061 41.012975,64.476494L41.013839,64.476494C42.118424,64.566024 44.197855,64.409424 45.513522,64.137662 50.691893,63.068039 54.891238,59.499789 55.96565,55.257274 56.254951,54.114945 56.336199,53.299464 56.291553,51.972393 56.238033,50.381324 55.986395,49.123066 55.481108,47.920179 55.383048,47.686757 55.311668,47.491696 55.310399,47.457192 55.310419,47.456694 55.310337,47.455092 55.310399,47.454592L55.310399,47.453731 55.310399,47.452868 55.311261,47.452868 55.311261,47.452006 55.312124,47.452006C55.428428,47.452006 56.305782,47.798224 56.74333,48.016729 57.038211,48.163983 57.32591,48.284865 57.382202,48.284865 57.57566,48.284865 57.822591,48.13037 57.899505,47.96155 58.14483,47.423117 57.764214,45.630398 57.142516,44.399051 56.431678,42.991147 55.082365,41.594519 53.141171,40.256306L52.616968,39.895055 53.892124,39.276015C55.488593,38.500751 55.613011,38.374092 55.355232,37.793077 55.068889,37.147678 53.805245,35.795078 52.790265,35.047917 52.562955,34.880584 52.375435,34.724724 52.358316,34.690116 52.358129,34.689612 52.35755,34.688016 52.357454,34.687516L52.356593,34.686654C52.356593,34.636414 53.619726,33.46197 54.137843,33.030418 54.828252,32.455361 54.792335,32.111686 53.957649,31.287966 53.33032,30.668894 52.58917,30.100955 51.769439,29.611041L51.172816,29.254101 51.331464,29.074771C51.418684,28.975751 51.709248,28.660367 51.977231,28.373823 53.215809,27.049451 53.565079,26.48666 53.398956,26.085615 53.287944,25.81761 52.836314,25.521593 52.125526,25.250169 51.515149,25.017088 50.249196,24.682033 49.495035,24.553532 49.237275,24.509602 49.007484,24.443079 48.984627,24.406094 48.961767,24.369114 49.080537,24.161468 49.248452,23.944832 50.516077,22.309502 50.761568,21.917371 50.761568,21.526435 50.761568,20.887679 50.35829,20.551658 49.321737,20.325427 48.825612,20.217149 47.042543,20.049162 46.373104,20.047807 46.112515,20.047279 46.202708,19.910631 47.881046,17.75615 49.45911,15.730399 49.760213,15.161721 49.481241,14.735957 49.251074,14.384682 48.894277,14.291882 47.757755,14.290213 46.57622,14.288313 45.708745,14.373643 44.603925,14.59801 44.174643,14.68518 43.823657,14.747866 43.823657,14.737689 43.823657,14.727499 44.099272,14.27137 44.436662,13.723773 45.630016,11.786907 46.419457,10.23851 47.154234,8.39209130000002 47.755166,6.88201410000002 48.001918,6.06732210000002 48.012096,5.55899010000002L48.020796,5.11928160000002 47.825945,4.95202070000002C47.702158,4.84534440000002 47.545545,4.78389520000002 47.394854,4.78389520000002 46.658482,4.78389520000002 42.094625,6.87620260000002 39.789623,8.27052470000002 38.809414,8.86346360000002 37.66915,9.62328320000002 36.598718,10.395781L36.207292,10.677713 36.267642,10.419061C36.300862,10.276896,36.348452,9.81481120000002,36.373684,9.39221280000002L36.419377,8.6240164 36.207283,8.3869196 35.994325,8.1489594 35.514956,8.1489594 35.035589,8.1489594 34.2786,8.5343496C33.466957,8.9465586,32.259042,9.6849088,31.386871,10.30353L30.849736,10.685472 30.847136,9.9371069C30.842904,8.5609038 30.731035,7.1062283 30.611755,6.8755293 30.414417,6.4939244 30.069251,6.4182758 29.605599,6.6548123 29.010845,6.9582342 27.35454,8.4138986 25.386121,10.362158L24.258398,11.47781 24.257536,10.229382C24.255548,8.3868177 24.192501,4.4753662 24.155791,3.9165496 24.086136,2.8559007 23.70503,2.2172054 23.142737,2.2172054z M22.905639,3.6467877L22.950479,4.0589085C22.974949,4.2859377 22.998049,5.8500363 23.002219,7.5343287 23.008419,10.058763 22.990049,10.698857 22.899617,11.177011 22.783127,11.792979 22.471851,13.120458 22.439217,13.14018 21.765939,13.547154 19.913591,15.20707 19.025872,16.198309 18.71775,16.542363 18.272896,17.041444 18.037822,17.307927L17.610184,17.792469 17.559314,17.591581C17.484504,17.296629 17.577554,14.78916 17.694672,13.940277 18.18693,10.372671 19.526726,7.59486360000001 22.344374,4.3020404z M46.747321,6.1695113L46.699901,6.326425C46.511955,6.9526911 45.552402,9.2141216 44.998833,10.334669 43.29686,13.779827 41.924713,15.652666 38.920509,18.633952 37.0238,20.51619 36.786963,20.813386 37.180643,20.809214 37.470381,20.806214 38.094808,20.487979 38.928268,19.919451 39.417558,19.585693 39.828359,19.353866 39.930114,19.353866 40.355576,19.353866 42.09764,19.975081 42.758906,20.362608 43.27731,20.666414 43.245479,20.722796 41.724298,22.234386 40.989749,22.964302 39.854222,24.05053 39.200716,24.647611 38.547211,25.244692 37.995973,25.796435 37.975568,25.874482 37.954378,25.955552 37.985758,26.064034 38.048868,26.1271 38.176351,26.254583 38.693889,26.22098 39.434381,26.03657L39.86633,25.928788 40.3707,26.168472C40.970785,26.454774 42.435605,27.57297 42.435605,27.744526 42.435605,28.102405 41.081727,28.740159 39.990482,28.896389 39.77592,28.927099 39.660269,28.977719 39.660269,29.04124 39.660269,29.183055 39.969749,29.651487 40.39484,30.152581 40.796429,30.625972 41.048369,31.061195 41.048369,31.282891 41.048369,31.460338 40.86244,31.580228 40.124118,31.881239 39.363274,32.19143 38.523261,32.369141 37.382407,32.460619L36.47109,32.533049 35.584776,33.020177C35.096954,33.287753 34.433491,33.61715 34.111322,33.753025 32.908654,34.260244 31.064648,34.713248 29.325396,34.927305 28.209912,35.064582 26.690494,35.0492 25.507693,34.889365 21.852212,34.395394 19.873965,33.890467 17.910221,32.949474 16.30644,32.18097 15.094553,31.153587 14.345996,29.927557 13.534826,28.598976 13.696718,27.253735 14.818466,25.994323 15.266115,25.491732 15.261477,25.502962 15.375429,24.665714 15.628916,22.80336 16.901359,20.495293 19.043117,18.014907 19.7378,17.210389 21.747763,15.155087 21.794312,15.201636 21.808822,15.216146 21.761482,15.617686 21.688269,16.093985 21.405479,17.933641 21.357429,19.941683 21.581357,20.588495 21.629187,20.726672 21.748543,20.898508 21.846044,20.971301L22.022788,21.104073 22.277993,21.020443C22.615652,20.909009 24.24106,19.917201 26.374178,18.521865 27.84479,17.559893 31.13172,15.537883 31.224767,15.537883 31.240777,15.537883 31.142617,15.809149 31.007498,16.140541 30.828674,16.579164 30.780985,16.772787 30.830754,16.851835 30.981261,17.09087 31.132049,17.001325 31.83691,16.254348 33.033193,14.986603 34.391314,13.652848 35.04678,13.102243 36.739549,11.68029 39.498707,9.74376349999999 41.221667,8.76895879999999 42.688249,7.93920639999999 45.002839,6.83217379999999 46.30849,6.33590579999999z M20.713132,35.172164L21.983113,35.486857C22.681347,35.659773,23.720502,35.880743,24.292877,35.978295L25.33352,36.155903 25.570618,36.374896C26.287179,37.037765 26.513141,37.478096 26.462105,38.113899 26.395745,38.940762 25.927175,39.560623 24.653264,40.507292 23.624056,41.272118 23.317132,41.66095 23.241887,42.296301 23.151667,43.058045 23.667224,43.940613 24.421341,44.317237 24.991335,44.601912 25.612026,44.649412 26.738862,44.493983L27.033726,44.453463 27.033726,44.59658C27.033726,45.012432 27.200017,45.475596 27.443259,45.736372 27.752655,46.068059 28.151713,46.146 28.658061,45.97347L28.976203,45.864844 28.977803,46.051935C28.979703,46.279932 29.199615,46.779388 29.433893,47.086543 29.93628,47.745207 30.821844,47.65216 31.854877,46.833064 32.572953,46.263698 33.013931,45.99531 33.233491,45.993307 33.353162,45.992207 33.887553,45.916487 34.421567,45.825184 34.955578,45.733884 35.399717,45.666135 35.407892,45.674309 35.416092,45.682509 35.458592,45.921768 35.502742,46.206271 35.785389,48.027976 34.81404,50.305193 33.011061,52.045771 30.750904,54.227703 27.628483,55.707922 24.189301,56.228174 23.485606,56.334639 21.151184,56.417736 20.512131,56.359228 15.888696,55.935953 11.935866,53.76114 10.222969,50.698194 9.3313369,49.103805 8.8928594,47.051296 9.0642087,45.27426 9.2379183,43.472722 9.8837718,41.721954 10.960989,40.133121 11.809679,38.88135 13.338989,37.508074 14.775245,36.708568 16.163254,35.93592 18.024935,35.403396 19.901728,35.242011z">
+					<GeometryDrawing.Brush>
+						<SolidColorBrush Opacity="0.1"
+						                 Color="#FFFFFFFF" />
+					</GeometryDrawing.Brush>
+				</GeometryDrawing>
+				<DrawingGroup Opacity="1"
+				              Transform="1.6684074,0,0,1.6684074,-20.887599,-28.18638">
+					<GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M27.962634,45.889189C27.316441,45.893589,26.630921,46.303132,26.331726,46.897396L26.207186,47.144926 26.207703,47.519063 26.207703,47.893201 26.324491,48.115926C26.524755,48.497454 26.915951,48.81054 27.324947,48.916911 27.396247,48.935461 27.641778,48.944451 27.87065,48.936551 28.226767,48.924311 28.326559,48.903721 28.564148,48.795991 29.12186,48.543112 29.463328,48.032544 29.501558,47.394009 29.518098,47.117763 29.505758,47.019861 29.428178,46.814717 29.259531,46.368859 28.792926,46.015916 28.236003,45.912963 28.146533,45.896423 28.054948,45.888563 27.962634,45.889193z">
+						<GeometryDrawing.Brush>
+							<SolidColorBrush Opacity="0.19827586"
+							                 Color="#FFFFFFFF" />
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M23.117452,45.794104C22.947692,45.800204 22.781621,45.826204 22.640479,45.873164 21.758613,46.16663 21.240158,46.996108 21.461739,47.75832 21.586824,48.188598 21.895491,48.490178 22.382096,48.65749 23.035243,48.882063 23.898808,48.68306 24.326681,48.209455 24.992739,47.472208 24.781823,46.329585 23.905001,45.925874 23.694343,45.828884 23.400385,45.783933 23.117452,45.794099z">
+						<GeometryDrawing.Brush>
+							<SolidColorBrush Opacity="0.4838362"
+							                 Color="#FF000000" />
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M20.571331,42.411945C20.401571,42.418045 20.2355,42.444045 20.094358,42.491005 19.212492,42.784471 18.694037,43.613949 18.915618,44.376161 19.040703,44.806439 19.34937,45.108019 19.835975,45.275331 20.489122,45.499904 21.352687,45.300901 21.78056,44.827296 22.446618,44.090049 22.235702,42.947426 21.35888,42.543715 21.148222,42.446725 20.854264,42.401774 20.571331,42.41194z">
+						<GeometryDrawing.Brush>
+							<SolidColorBrush Opacity="0.65840518"
+							                 Color="#FF000000" />
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M23.420793,39.376408C22.749832,39.375935 22.019966,39.718518 21.672579,40.355676 21.438504,40.785003 21.533286,41.414703 21.875151,41.702364 22.057044,41.855416 22.311301,41.977544 22.568132,42.034644 22.89998,42.108424 23.096672,42.102794 23.462134,42.009324 24.061818,41.85595 24.476016,41.550277 24.699268,41.097235 24.772888,40.94783 24.792798,40.835491 24.792798,40.57427 24.792798,40.284645 24.777278,40.213622 24.671875,40.023399 24.428811,39.584712 23.942647,39.376778 23.420789,39.37641z">
+						<GeometryDrawing.Brush>
+							<SolidColorBrush Opacity="0.17133622"
+							                 Color="#FF979797" />
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+				</DrawingGroup>
+				<GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M20.713132,35.17216L19.901826,35.242C18.025033,35.403385 16.163353,35.935909 14.775343,36.708557 13.339088,37.508063 11.809779,38.881339 10.961089,40.13311 9.8838711,41.721943 9.2380165,43.472711 9.0643068,45.274249 8.8929588,47.051285 9.3314362,49.103795 10.223068,50.698183 11.935965,53.76113 15.888794,55.935942 20.512246,56.359214 21.151299,56.417724 23.485719,56.334614 24.189415,56.22816 27.628597,55.707908 30.751018,54.227688 33.011174,52.045756 34.814155,50.305179 35.785502,48.027961 35.502856,46.206257 35.458706,45.921754 35.416186,45.682462 35.408006,45.674295 35.399806,45.666095 34.955693,45.733875 34.42168,45.82517 33.887666,45.91647 33.353272,45.992177 33.233606,45.993293 33.014045,45.995293 32.573066,46.263683 31.85499,46.833049 30.821958,47.652145 29.936394,47.745192 29.434006,47.086528 29.199728,46.779373 28.979779,46.279917 28.977918,46.051921L28.976318,45.864829 28.658176,45.973456C28.151827,46.145985 27.752769,46.068036 27.443372,45.736358 27.200124,45.47558 27.033841,45.012417 27.033841,44.596565L27.033841,44.453449 26.738977,44.493969C25.612141,44.649398 24.99145,44.6019 24.421455,44.317223 23.667338,43.940598 23.151783,43.058031 23.242001,42.296287 23.317251,41.660936 23.624169,41.272103 24.653379,40.507277 25.927289,39.560608 26.395846,38.940747 26.46222,38.113884 26.51325,37.478081 26.287294,37.03775 25.570732,36.374881L25.333633,36.155888 24.292991,35.97828C23.720615,35.88073,22.68146,35.659758,21.983228,35.486842z M18.187827,37.509512C19.058498,37.510126 19.869618,37.857045 20.275148,38.588954 20.450995,38.906323 20.476897,39.024818 20.476897,39.508031 20.476897,39.943854 20.443677,40.131281 20.320851,40.38055 19.948375,41.136408 19.257325,41.646396 18.256807,41.902286 17.647067,42.058232 17.318905,42.067625 16.765247,41.944526 16.336749,41.849256 15.912545,41.645502 15.609073,41.390148 15.038703,40.910213 14.880568,39.859617 15.2711,39.143324 15.850683,38.080284 17.068397,37.508717 18.187833,37.509506z">
+					<GeometryDrawing.Brush>
+						<SolidColorBrush Opacity="0.3"
+						                 Color="#FFFFFFFF" />
+					</GeometryDrawing.Brush>
+				</GeometryDrawing>
+				<DrawingGroup Opacity="1"
+				              Transform="1.6684074,0,0,1.6684074,-20.887599,-28.18638">
+					<GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M39.077201,29.581657L39.586731,30.109273C40.018199,30.555861 40.847185,31.584258 41.190251,32.098816 41.358544,32.351236 41.851106,33.322225 42.063582,33.819641 42.640111,35.169326 43.100828,37.161962 43.274361,39.056531 43.338821,39.760327 43.329491,41.231973 43.256271,41.85791 43.020981,43.869345 42.322186,45.648053 41.23779,46.996098 40.685771,47.682328 40.056043,48.233305 39.122157,48.846631 38.456485,49.283807 35.559898,51.010825 35.324973,51.110575 35.062754,51.221925 34.898836,51.244896 34.813376,51.182405 34.749616,51.135785 34.745216,51.105815 34.783406,50.966397 34.807826,50.877267 34.852426,50.742617 34.882626,50.667707 34.995922,50.386651 34.763662,50.277513 34.501254,50.48839 34.299345,50.650649 33.973609,50.824804 33.871835,50.824804 33.692951,50.824804 33.725781,50.546952 33.949345,50.16903 34.13777,49.850516 34.52613,49.445171 34.928097,49.147903 35.095144,49.024366 35.258062,48.891628 35.289832,48.853348L35.347712,48.784098 35.214904,48.647156C34.992126,48.417307 34.908168,48.132981 34.886758,47.53818 34.865118,46.936993 34.918558,46.656797 35.144624,46.188391 35.42422,45.60907 35.87449,45.179668 36.524385,44.872709 37.55188,44.387402 38.459053,44.533975 39.396044,45.336247 39.747362,45.637054 39.820967,45.670235 39.908157,45.565173 40.129868,45.298029 39.320977,44.47589 38.541832,44.176628 37.531421,43.788538 36.537388,43.988258 35.550801,44.777625 35.015273,45.206101 34.607723,45.805524 34.379813,46.5 34.271549,46.829902 34.202269,47.537539 34.238219,47.94539L34.265089,48.246663 33.833074,48.241963C33.59549,48.239263,33.3471,48.224893,33.28117,48.210443L33.16128,48.184093 33.309592,48.006843C33.730477,47.5035 34.191139,46.630319 34.337436,46.059675 34.511615,45.380257 34.534908,44.631851 34.396346,44.145063L34.371026,44.056183 34.717775,43.941461C35.588166,43.653708 36.610717,43.136927 37.372393,42.600457 37.869667,42.250213 38.706068,41.420328 38.969711,41.015541 39.413494,40.334181 39.637686,39.693294 39.478724,39.561367 39.345232,39.450578 39.23316,39.522047 39.058078,39.830084 38.571005,40.687032 37.821987,41.543942 37.123312,42.043902 35.779477,43.005527 34.243214,43.596628 32.507057,43.819505 31.917735,43.895155 31.850059,43.925598 31.321599,44.355906 31.13863,44.504891 30.924626,44.648676 30.846176,44.675266L30.703549,44.723326 30.628619,44.630826C30.439044,44.39671 30.447449,44.078187 30.656009,43.606599 30.775279,43.336905 30.784701,43.245547 30.700449,43.175617 30.625179,43.113147 30.551146,43.150577 30.157846,43.451053 29.814051,43.713711 29.550424,43.850665 29.457114,43.814855 29.350234,43.773845 29.332631,43.537954 29.408024,43.165282 29.657866,41.930203 30.238955,41.411302 32.215605,40.660008 33.741878,40.079896 34.469606,39.740669 35.128088,39.301435 35.780594,38.866187 36.485268,38.089791 36.450488,37.84416 36.424848,37.663118 36.287427,37.706896 35.915637,38.014692 34.860641,38.888096 34.041315,39.317561 31.903996,40.116889 30.667437,40.579344 30.162557,40.862799 29.674674,41.370043 29.304236,41.755182 29.118903,42.058099 28.87369,42.679523L28.81426,42.830419 28.446324,42.898119C27.758755,43.024314 27.48031,42.978969 27.235545,42.700198 27.127927,42.577632 27.101186,42.510382 27.101186,42.365335 27.101186,42.146949 27.178356,42.055072 27.662392,41.697675 27.845361,41.562576 28.146086,41.300959 28.330568,41.116315 29.037994,40.408264 29.224401,39.610824 28.8525,38.88286L28.731578,38.646182 28.799788,38.618282C28.837378,38.602882 29.139433,38.564112 29.471065,38.531982 30.694017,38.413483 31.986817,38.137298 32.878609,37.804378 33.132406,37.709628 33.631522,37.48475 33.988102,37.304667L34.636642,36.977555 34.918795,36.977555C35.493824,36.977555 36.43671,36.734473 37.107292,36.413765 37.508122,36.222066 37.704671,36.043779 37.704671,35.872196 37.704671,35.816736 37.601431,35.571957 37.475228,35.328043L37.245785,34.884143 37.329495,34.795263C37.375425,34.746373 37.614122,34.587334 37.860212,34.44128 38.50642,34.057758 38.744396,33.809982 38.744396,33.520922 38.744396,33.321726 37.418851,32.099376 37.03804,31.947375 36.95866,31.915685 36.889445,31.887215 36.884045,31.883815 36.878645,31.880415 37.259352,31.495313 37.729988,31.028053 38.200624,30.560793 38.696034,30.044383 38.831213,29.88032z M43.240771,44.568856L43.471765,44.921289C43.768325,45.37293 44.173857,46.19994 44.351815,46.716528 44.501182,47.150119 44.549626,47.217273 44.713033,47.217273 44.879328,47.217273 44.963238,47.106008 45.153833,46.631779L45.332117,46.188912 45.387407,46.375464C45.616934,47.152642 45.69333,48.516778 45.550705,49.286397 45.423302,49.973872 45.116703,50.777373 44.782276,51.299711 44.244968,52.138927 43.275458,53.059768 42.334364,53.625151 41.342818,54.220844 39.936121,54.675339 38.652418,54.814742 38.187195,54.865282 37.203855,54.863802 36.748658,54.812142 35.223273,54.639083 33.60924,53.976016 32.714796,53.154879 32.454984,52.916356 32.424536,52.92125 33.151462,53.087699 35.460477,53.61641 38.055924,53.31128 39.618251,52.327538 40.109757,52.018054 40.448595,51.71356 40.699322,51.356538 41.008898,50.915718 41.087829,50.678259 41.091029,50.179349L41.094129,49.762837 40.957704,49.486368C40.867574,49.303185,40.74285,49.137846,40.588734,48.996992L40.35619,48.784085 40.858485,48.305562C41.432979,47.758151 41.757392,47.371172 42.163315,46.749584 42.562212,46.138755 42.901666,45.459554 43.197877,44.68046z">
+						<GeometryDrawing.Brush>
+							<SolidColorBrush Opacity="0.34806034"
+							                 Color="#FFFFFFFF" />
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M40.538611,20.592025L40.275578,20.691755C39.493004,20.989205 38.105699,21.652732 37.226668,22.150064 36.193971,22.734336 34.540203,23.89504 33.525602,24.747322 33.132732,25.07734 32.31871,25.876758 31.601689,26.636612 31.179214,27.084325 31.088832,27.138001 30.998625,26.99473 30.968795,26.94735 30.997425,26.831298 31.104561,26.568399 31.185541,26.369771 31.244389,26.207181 31.234786,26.207181 31.179016,26.207181 29.208916,27.419121 28.32747,27.995702 27.048934,28.83203 26.074707,29.426493 25.872323,29.493285L25.71936,29.543415 25.613424,29.463835C25.554984,29.420205 25.483449,29.317207 25.454777,29.234391 25.320559,28.846709 25.349359,27.643141 25.518857,26.540499 25.562737,26.255018 25.591137,26.014367 25.582417,26.005648 25.554517,25.977748 24.349797,27.209642 23.933422,27.69185 22.649709,29.178529 21.887039,30.561924 21.735106,31.67817 21.666806,32.179995 21.669586,32.173264 21.401277,32.474504 20.72893,33.229363 20.631896,34.035665 21.11809,34.831982 21.566756,35.566833 22.29313,36.182619 23.254394,36.643241 24.431411,37.207247 25.617121,37.509887 27.808121,37.805961 28.517061,37.901761 29.427761,37.910984 30.096353,37.828701 31.138815,37.700401 32.244065,37.428882 32.964912,37.124868 33.158012,37.043428 33.555675,36.845996 33.848062,36.685618L34.379296,36.393646 34.925516,36.350236C35.609314,36.295406 36.112796,36.188891 36.568826,36.00297 37.011357,35.822552 37.122798,35.750694 37.122798,35.644336 37.122798,35.511457 36.971792,35.250596 36.73109,34.966858 36.476301,34.666515 36.290807,34.385751 36.290807,34.300749 36.290807,34.262679 36.360127,34.232339 36.488728,34.213929 37.142792,34.120289 37.954271,33.738036 37.954271,33.523532 37.954271,33.420706 37.076296,32.750489 36.716621,32.578887L36.414314,32.435226 36.155415,32.499826C35.711584,32.610353 35.401385,32.630496 35.324975,32.554086 35.287175,32.516286 35.268355,32.451264 35.281045,32.402674 35.293275,32.355894 35.623673,32.025194 36.015367,31.667319 36.407061,31.309444 37.087667,30.658388 37.527936,30.220895 38.439692,29.314887 38.458771,29.281093 38.148053,29.099 37.751708,28.866726 36.70756,28.494386 36.452549,28.494386 36.391559,28.494386 36.145336,28.633337 35.852069,28.833383 35.352514,29.174144 34.978249,29.364852 34.804588,29.366684 34.568626,29.369184 34.710578,29.191053 35.847418,28.062888 37.64806,26.275983 38.470489,25.153452 39.490607,23.088514 39.822402,22.416887 40.397533,21.061444 40.510183,20.686077z M23.206852,30.798637C23.324681,30.800237 23.424611,30.861367 23.540682,30.98984 23.727128,31.196214 23.815709,31.497137 23.815084,31.922083 23.813684,32.897646 23.238534,33.603019 22.708175,33.279622 22.627575,33.230472 22.532229,33.107674 22.458577,32.957678L22.339722,32.715316 22.341822,32.236792C22.343622,31.843605 22.360672,31.717171 22.436902,31.524174 22.573769,31.17763 22.751982,30.95368 22.968136,30.858065 23.059026,30.817855 23.136184,30.797665 23.206881,30.798635z M30.468941,31.040483C30.709388,31.032483 30.93926,31.135683 31.1335,31.346407 31.477472,31.719573 31.605797,32.251062 31.490068,32.823319 31.409918,33.219635 31.279462,33.486585 31.050301,33.725073 30.73709,34.051032 30.293505,34.157003 29.96613,33.983972 29.325215,33.645223 29.108857,32.584752 29.515511,31.775321 29.667646,31.472502 29.813365,31.302953 30.030208,31.175875 30.176641,31.090055 30.324673,31.045307 30.468941,31.040483z">
+						<GeometryDrawing.Brush>
+							<SolidColorBrush Opacity="0.41810346"
+							                 Color="#FFFFFFFF" />
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+				</DrawingGroup>
+				<GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M22.905639,3.6467877L22.344363,4.3020404C19.526715,7.5948636 18.186919,10.372671 17.694662,13.940277 17.577538,14.78916 17.484495,17.296629 17.559305,17.591581L17.610175,17.792469 18.037812,17.307927C18.272888,17.041444 18.717742,16.542363 19.025863,16.198309 19.913583,15.20707 21.765929,13.547154 22.439208,13.14018 22.471838,13.12045 22.783125,11.792979 22.899609,11.177011 22.990039,10.698857 23.008409,10.058763 23.00221,7.5343287 22.99801,5.8500363 22.97495,4.2859377 22.95047,4.0589085z">
+					<GeometryDrawing.Brush>
+						<SolidColorBrush Opacity="0.3"
+						                 Color="#FFFFFFFF" />
+					</GeometryDrawing.Brush>
+				</GeometryDrawing>
+				<DrawingGroup Opacity="1"
+				              Transform="1.6684074,0,0,1.6684074,-20.887599,-28.18638">
+					<GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M30.468941,31.040483C30.324673,31.045283 30.176641,31.090063 30.030208,31.175875 29.813365,31.302953 29.667646,31.472502 29.515511,31.775321 29.108857,32.584752 29.325215,33.645223 29.96613,33.983972 30.293505,34.157003 30.73709,34.051032 31.050301,33.725073 31.279462,33.486585 31.409918,33.219635 31.490068,32.823319 31.605797,32.251062 31.477468,31.719573 31.1335,31.346407 30.93926,31.135681 30.709388,31.032442 30.468941,31.040483z">
+						<GeometryDrawing.Brush>
+							<SolidColorBrush Opacity="0.54956895"
+							                 Color="#FFFFFFFF" />
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M23.206852,30.798637C23.136152,30.797668 23.059002,30.817857 22.968107,30.858067 22.751953,30.953677 22.57374,31.177632 22.436873,31.524176 22.360643,31.717173 22.343593,31.843607 22.341793,32.236794L22.339693,32.715318 22.458548,32.95768C22.532198,33.107676 22.627546,33.230474 22.708146,33.279624 23.238505,33.603021 23.813655,32.897648 23.815055,31.922085 23.81568,31.497139 23.727095,31.196216 23.540653,30.989842 23.424582,30.861364 23.324652,30.800253 23.206823,30.798639z">
+						<GeometryDrawing.Brush>
+							<SolidColorBrush Opacity="0.54956895"
+							                 Color="#FFFFFFFF" />
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M39.804806,31.702458C39.751656,31.705358 39.718066,31.753598 39.708686,31.850252 39.698786,31.952656 39.742436,32.05238 39.900406,32.286918 40.227336,32.772324 40.249129,32.900645 40.135017,33.668746 40.088387,33.982573 40.082387,34.127287 40.113827,34.186027 40.137857,34.230917 40.33101,34.389246 40.542741,34.537427 40.754472,34.685607 41.000774,34.870474 41.089994,34.948254L41.252258,35.089331 41.197998,35.378719C41.168348,35.537673 41.081545,35.864109 41.005245,36.104256 40.928935,36.344403 40.866539,36.587612 40.866235,36.644792 40.865373,36.807207 41.017636,37.018134 41.478601,37.493319 41.71303,37.734979 41.904932,37.958222 41.904932,37.989412 41.904932,38.089671 41.815982,38.316761 41.566451,38.855509 41.432277,39.145192 41.322538,39.41745 41.322538,39.46064 41.322538,39.570143 41.508904,39.85184 41.835169,40.23527 41.987805,40.414649 42.112671,40.589774 42.112671,40.624394 42.112671,40.659014 41.981831,40.939977 41.821733,41.248645 41.661635,41.557312 41.530794,41.846867 41.530794,41.892017 41.530794,41.937167 41.635664,42.163909 41.764372,42.396379 42.106284,43.013941 42.10753,42.996241 41.681172,43.81438 41.483967,44.192798 41.322537,44.527227 41.322537,44.557487 41.322537,44.587747 41.345217,44.634937 41.372667,44.66239 41.475852,44.765575 41.574461,44.70938 41.779878,44.431396 41.893955,44.277015 42.085973,43.956924 42.206208,43.720329 42.395837,43.347176 42.4248,43.257984 42.4248,43.047502L42.4248,42.805139 42.186055,42.334884 41.947826,41.864628 42.214993,41.385588C42.361839,41.122131,42.505327,40.819365,42.533837,40.71276L42.585517,40.518974 42.479581,40.359294C42.421341,40.271694 42.240395,40.041067 42.077538,39.846663 41.91468,39.652258 41.78135,39.462877 41.780915,39.426017 41.780479,39.389157 41.853205,39.202392 41.942663,39.010539 42.27329,38.301501 42.359447,37.875639 42.216031,37.656099 42.173931,37.591649 41.955848,37.363351 41.731823,37.148637 41.507798,36.933924 41.313694,36.723622 41.300324,36.681482 41.286954,36.639342 41.342544,36.384808 41.423831,36.115625 41.62723,35.442109 41.677185,35.061493 41.587645,34.872807 41.507545,34.704016 41.298365,34.516565 40.856941,34.219617 40.680732,34.10108 40.52826,33.984845 40.51846,33.961235 40.50856,33.937625 40.51736,33.81602 40.5381,33.690967 40.59923,33.321498 40.58864,32.726372 40.51795,32.557186 40.48354,32.474836 40.381324,32.299226 40.290574,32.166512 40.079242,31.857469 39.90629,31.696872 39.804816,31.702458z">
+						<GeometryDrawing.Brush>
+							<SolidColorBrush Opacity="0.1950431"
+							                 Color="#FF000000" />
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M67.733332,67.733335z M0,0z M22.958805,34.519857C22.910085,34.519092 22.863195,34.545027 22.810494,34.592717 22.642354,34.744882 22.742544,35.026507 23.142257,35.527543 23.582241,36.079052 24.042906,36.436816 24.312728,36.436532 24.501832,36.436333 24.653854,36.341922 25.029997,35.991081 25.64911,35.413622 25.722506,35.356123 25.799976,35.383883 25.840906,35.398553 25.995994,35.508063 26.144657,35.627279 26.687648,36.062716 27.210499,36.382767 27.579195,36.505778 27.913741,36.617396 28.461457,36.515178 29.078845,36.225692 29.413268,36.068859 29.554268,35.934584 29.554268,35.773523 29.554268,35.619005 29.426101,35.480518 29.282967,35.480518 29.225137,35.480518 29.070693,35.534418 28.939836,35.600407 28.619735,35.761827 28.171505,35.896513 27.953333,35.896513 27.632674,35.896513 26.879487,35.454182 26.182898,34.856783 26.025242,34.721574 25.804081,34.662308 25.624276,34.707438 25.559966,34.723578 25.272663,34.983902 24.921476,35.343575L24.327197,35.952323 24.174752,35.858273C24.001491,35.751192 23.647473,35.347556 23.393921,34.968405 23.182977,34.652966 23.065989,34.521536 22.958805,34.519854z">
+						<GeometryDrawing.Brush>
+							<SolidColorBrush Opacity="0.1950431"
+							                 Color="#FF000000" />
+						</GeometryDrawing.Brush>
+					</GeometryDrawing>
+				</DrawingGroup>
+			</DrawingGroup>
+		</DrawingImage.Drawing>
+	</DrawingImage>
 </ResourceDictionary>

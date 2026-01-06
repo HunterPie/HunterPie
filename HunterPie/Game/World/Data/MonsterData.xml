@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GameData>
     <Ailments>
-        <Ailment Id="-1"
-                 String="AILMENT_UNKNOWN" />
         <Ailment Id="0"
                  String="0" />
         <Ailment Id="1"
@@ -70,19 +68,27 @@
                       IsSeverable="True" />
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="5" />
+                </Part>
                 <Part Id="3"
                       String="PART_BODY"
                       TenderizeIds="1,5" />
                 <Part Id="4"
                       String="PART_L_LEG"
-                      TenderizeIds="2" />
+                      TenderizeIds="2">
+                    <Break Threshold="3" />
+                </Part>
                 <Part Id="5"
                       String="PART_R_LEG"
-                      TenderizeIds="6" />
+                      TenderizeIds="6">
+                    <Break Threshold="3" />
+                </Part>
                 <Part Id="6"
                       String="PART_TAIL"
                       TenderizeIds="3,7" />
@@ -100,18 +106,28 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,5" />
+                      TenderizeIds="0,5">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="2"
-                      String="PART_BODY" />
+                      String="PART_BODY">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="3"
                       String="PART_L_WING"
-                      TenderizeIds="1,2" />
+                      TenderizeIds="1,2">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_R_WING"
-                      TenderizeIds="6,7" />
+                      TenderizeIds="6,7">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_L_LEG"
                       TenderizeIds="3" />
@@ -137,11 +153,15 @@
                       String="PART_REPEL"
                       IsSeverable="True" />
                 <Part Id="1"
-                      String="PART_HEAD" />
+                      String="PART_HEAD">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_BODY" />
                 <Part Id="3"
-                      String="PART_CHEST" />
+                      String="PART_CHEST">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_L_ARM" />
                 <Part Id="5"
@@ -155,17 +175,29 @@
                 <Part Id="9"
                       String="PART_SHELL" />
                 <Part Id="10"
-                      String="PART_EXHAUST_ORGAN_CENTRAL" />
+                      String="PART_EXHAUST_ORGAN_CENTRAL">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="11"
-                      String="PART_EXHAUST_ORGAN_HEAD" />
+                      String="PART_EXHAUST_ORGAN_HEAD">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="12"
-                      String="PART_EXHAUST_ORGAN_CRATER" />
+                      String="PART_EXHAUST_ORGAN_CRATER">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="13"
-                      String="PART_EXHAUST_ORGAN_REAR" />
+                      String="PART_EXHAUST_ORGAN_REAR">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="14"
-                      String="PART_WEAK_L_SHELL" />
+                      String="PART_WEAK_L_SHELL">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="15"
-                      String="PART_WEAK_R_SHELL" />
+                      String="PART_WEAK_R_SHELL">
+                    <Break Threshold="1" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="7"
@@ -180,19 +212,25 @@
             <Parts>
                 <Part Id="0"
                       String="PART_HEAD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="1"
                       String="PART_BODY"
                       TenderizeIds="2,5" />
                 <Part Id="2"
                       String="PART_ARMS"
-                      TenderizeIds="1,4" />
+                      TenderizeIds="1,4">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="3"
                       String="PART_LEGS" />
                 <Part Id="4"
                       String="PART_TAIL" />
                 <Part Id="5"
-                      String="PART_ABDOMEN" />
+                      String="PART_ABDOMEN">
+                    <Break Threshold="3" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="9"
@@ -207,18 +245,28 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,5" />
+                      TenderizeIds="0,5">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="2"
-                      String="PART_BODY" />
+                      String="PART_BODY">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="3"
                       String="PART_L_WING"
-                      TenderizeIds="1,2" />
+                      TenderizeIds="1,2">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_R_WING"
-                      TenderizeIds="6,7" />
+                      TenderizeIds="6,7">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_L_LEG"
                       TenderizeIds="3" />
@@ -242,18 +290,28 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,5" />
+                      TenderizeIds="0,5">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="2"
-                      String="PART_BODY" />
+                      String="PART_BODY">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="3"
                       String="PART_L_WING"
-                      TenderizeIds="1,2" />
+                      TenderizeIds="1,2">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_R_WING"
-                      TenderizeIds="6,7" />
+                      TenderizeIds="6,7">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_L_LEG"
                       TenderizeIds="3" />
@@ -277,18 +335,28 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,5" />
+                      TenderizeIds="0,5">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="2"
-                      String="PART_BODY" />
+                      String="PART_BODY">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="3"
                       String="PART_L_WING"
-                      TenderizeIds="1,2" />
+                      TenderizeIds="1,2">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_R_WING"
-                      TenderizeIds="6,7" />
+                      TenderizeIds="6,7">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_L_LEG"
                       TenderizeIds="3" />
@@ -312,16 +380,23 @@
             <Parts>
                 <Part Id="0"
                       String="PART_HORNS"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="1"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_HEAD"
                       TenderizeIds="0,4" />
                 <Part Id="3"
                       String="PART_BODY"
-                      TenderizeIds="1,5" />
+                      TenderizeIds="1,5">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_L_WING" />
                 <Part Id="5"
@@ -349,16 +424,23 @@
             <Parts>
                 <Part Id="0"
                       String="PART_HORNS"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="1"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_HEAD"
                       TenderizeIds="0,4" />
                 <Part Id="3"
                       String="PART_BODY"
-                      TenderizeIds="1,5" />
+                      TenderizeIds="1,5">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_L_WING" />
                 <Part Id="5"
@@ -386,7 +468,12 @@
             <Parts>
                 <Part Id="0"
                       String="PART_HORN"
-                      TenderizeIds="0,2" />
+                      TenderizeIds="0,2">
+                    <Break Threshold="1"
+                           HasConditions="True"
+                           MinFlinch="1"
+                           MinHealth="15" />
+                </Part>
                 <Part Id="1"
                       String="PART_ARMS"
                       TenderizeIds="1,3" />
@@ -407,9 +494,14 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
-                      String="PART_HORNS" />
+                      String="PART_HORNS">
+                    <Break Threshold="2" />
+                    <Break Threshold="3" />
+                </Part>
                 <Part Id="2"
                       String="PART_HEAD"
                       TenderizeIds="0,3" />
@@ -417,10 +509,14 @@
                       String="PART_BODY" />
                 <Part Id="4"
                       String="PART_L_ARM"
-                      TenderizeIds="1" />
+                      TenderizeIds="1">
+                    <Break Threshold="3" />
+                </Part>
                 <Part Id="5"
                       String="PART_R_ARM"
-                      TenderizeIds="4" />
+                      TenderizeIds="4">
+                    <Break Threshold="3" />
+                </Part>
                 <Part Id="6"
                       String="PART_L_LEG" />
                 <Part Id="7"
@@ -442,10 +538,17 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="1"
+                           HasConditions="True"
+                           MinFlinch="5"
+                           MinHealth="15" />
+                </Part>
                 <Part Id="2"
                       String="PART_BODY" />
                 <Part Id="3"
@@ -457,7 +560,9 @@
                       String="PART_R_LIMBS" />
                 <Part Id="6"
                       String="PART_WINGS"
-                      TenderizeIds="1,4" />
+                      TenderizeIds="1,4">
+                    <Break Threshold="2" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="17"
@@ -472,10 +577,17 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="1"
+                           HasConditions="True"
+                           MinFlinch="4"
+                           MinHealth="15" />
+                </Part>
                 <Part Id="2"
                       String="PART_BODY" />
                 <Part Id="3"
@@ -483,10 +595,14 @@
                       TenderizeIds="1,5" />
                 <Part Id="4"
                       String="PART_L_WING"
-                      TenderizeIds="2" />
+                      TenderizeIds="2">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="5"
                       String="PART_R_WING"
-                      TenderizeIds="6" />
+                      TenderizeIds="6">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="6"
                       String="PART_TAIL"
                       TenderizeIds="3,7" />
@@ -504,13 +620,20 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HORNS"
                       IsSeverable="True" />
                 <Part Id="2"
                       String="PART_HEAD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="1"
+                           HasConditions="True"
+                           MinFlinch="1"
+                           MinHealth="20" />
+                </Part>
                 <Part Id="3"
                       String="PART_BODY" />
                 <Part Id="4"
@@ -519,7 +642,9 @@
                       String="PART_LEGS" />
                 <Part Id="6"
                       String="PART_WINGS"
-                      TenderizeIds="1,4" />
+                      TenderizeIds="1,4">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="7"
                       String="PART_TAIL"
                       TenderizeIds="2,5" />
@@ -537,19 +662,29 @@
             <Parts>
                 <Part Id="0"
                       String="PART_HEAD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="6" />
+                </Part>
                 <Part Id="1"
                       String="PART_BODY"
-                      TenderizeIds="1,4" />
+                      TenderizeIds="1,4">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="2"
                       String="PART_ABDOMEN" />
                 <Part Id="3"
-                      String="PART_L_LEG" />
+                      String="PART_L_LEG">
+                    <Break Threshold="4" />
+                </Part>
                 <Part Id="4"
-                      String="PART_R_LEG" />
+                      String="PART_R_LEG">
+                    <Break Threshold="4" />
+                </Part>
                 <Part Id="5"
                       String="PART_TAIL"
-                      TenderizeIds="2,5" />
+                      TenderizeIds="2,5">
+                    <Break Threshold="4" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="20"
@@ -564,18 +699,24 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_BIG_FLINCH"
                       IsSeverable="True" />
                 <Part Id="2"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="3" />
+                </Part>
                 <Part Id="3"
                       String="PART_BODY"
                       TenderizeIds="1,5" />
                 <Part Id="4"
-                      String="PART_CHEST" />
+                      String="PART_CHEST">
+                    <Break Threshold="5" />
+                </Part>
                 <Part Id="5"
                       String="PART_REAR" />
                 <Part Id="6"
@@ -603,44 +744,66 @@
             <Parts>
                 <Part Id="0"
                       String="PART_HEAD"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_HEAD"
                       TenderizeIds="0,4" />
                 <Part Id="3"
                       String="PART_HEAD_MUD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
-                      String="PART_TORSO"
+                      String="PART_BODY"
                       TenderizeIds="1,5" />
                 <Part Id="5"
-                      String="PART_TORSO_MUD"
-                      TenderizeIds="1,5" />
+                      String="PART_BODY_MUD"
+                      TenderizeIds="1,5">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="6"
-                      String="PART_ARMS" />
+                      String="PART_ARMS">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="7"
-                      String="PART_ARMS_MUD" />
+                      String="PART_ARMS_MUD">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="8"
                       String="PART_L_LEG"
-                      TenderizeIds="2" />
+                      TenderizeIds="2">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="9"
                       String="PART_L_LEG_MUD"
-                      TenderizeIds="2" />
+                      TenderizeIds="2">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="10"
                       String="PART_R_LEG"
-                      TenderizeIds="6" />
+                      TenderizeIds="6">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="11"
                       String="PART_R_LEG_MUD"
-                      TenderizeIds="6" />
+                      TenderizeIds="6">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="12"
                       String="PART_TAIL"
                       TenderizeIds="3,7" />
                 <Part Id="13"
                       String="PART_TAIL_MUD"
-                      TenderizeIds="3,7" />
+                      TenderizeIds="3,7">
+                    <Break Threshold="1" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="22"
@@ -655,15 +818,21 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
-                      String="PART_JAW" />
+                      String="PART_JAW">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_HEAD"
                       TenderizeIds="0,4" />
                 <Part Id="3"
                       String="PART_BODY"
-                      TenderizeIds="1,5" />
+                      TenderizeIds="1,5">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_ARMS" />
                 <Part Id="5"
@@ -674,7 +843,9 @@
                       TenderizeIds="6" />
                 <Part Id="7"
                       String="PART_TAIL"
-                      TenderizeIds="3,7" />
+                      TenderizeIds="3,7">
+                    <Break Threshold="1" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="23"
@@ -689,10 +860,15 @@
             <Parts>
                 <Part Id="0"
                       String="PART_BODY_LEGS"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_ANTLERS"
-                      TenderizeIds="0,1" />
+                      TenderizeIds="0,1">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="2"
                       String="PART_BODY"
                       TenderizeIds="0,1" />
@@ -719,18 +895,28 @@
                       IsSeverable="True" />
                 <Part Id="1"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="3"
-                      String="PART_BODY" />
+                      String="PART_BODY">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_L_WING"
-                      TenderizeIds="1" />
+                      TenderizeIds="1">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_R_WING"
-                      TenderizeIds="5" />
+                      TenderizeIds="5">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="6"
                       String="PART_L_LEG"
                       TenderizeIds="2" />
@@ -754,10 +940,15 @@
             <Parts>
                 <Part Id="0"
                       String="PART_HORNS"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="2" />
+                    <Break Threshold="3" />
+                </Part>
                 <Part Id="1"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_UNKNOWN"
                       IsSeverable="True" />
@@ -801,13 +992,17 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_UNKNOWN"
                       IsSeverable="True" />
                 <Part Id="2"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="3"
                       String="PART_NECK" />
                 <Part Id="4"
@@ -816,17 +1011,23 @@
                       String="PART_CHEST" />
                 <Part Id="6"
                       String="PART_L_ARM"
-                      TenderizeIds="1" />
+                      TenderizeIds="1">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="7"
                       String="PART_R_ARM"
-                      TenderizeIds="5" />
+                      TenderizeIds="5">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="8"
                       String="PART_L_LEG" />
                 <Part Id="9"
                       String="PART_R_LEG" />
                 <Part Id="10"
                       String="PART_WINGS"
-                      TenderizeIds="2,6,8,9" />
+                      TenderizeIds="2,6,8,9">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="11"
                       String="PART_TAIL"
                       TenderizeIds="3,7" />
@@ -844,10 +1045,14 @@
             <Parts>
                 <Part Id="0"
                       String="PART_HEAD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_ARMS"
-                      TenderizeIds="1,4" />
+                      TenderizeIds="1,4">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_LEGS" />
                 <Part Id="3"
@@ -868,7 +1073,9 @@
             </Weaknesses>
             <Parts>
                 <Part Id="0"
-                      String="PART_HEAD" />
+                      String="PART_HEAD">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
                       TenderizeIds="0,3" />
@@ -894,30 +1101,50 @@
             <Parts>
                 <Part Id="0"
                       String="PART_HEAD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="4" />
+                </Part>
                 <Part Id="1"
                       String="PART_TORSO"
-                      TenderizeIds="1,4" />
+                      TenderizeIds="1,4">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
-                      String="PART_L_LEG" />
+                      String="PART_L_LEG">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="3"
-                      String="PART_R_LEG" />
+                      String="PART_R_LEG">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="4"
                       String="PART_TAIL"
-                      TenderizeIds="2,5" />
+                      TenderizeIds="2,5">
+                    <Break Threshold="3" />
+                </Part>
                 <Part Id="5"
                       String="PART_HEAD_MUD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="6"
                       String="PART_TORSO_MUD"
-                      TenderizeIds="1,4" />
+                      TenderizeIds="1,4">
+                    <Break Threshold="3" />
+                </Part>
                 <Part Id="7"
-                      String="PART_L_LEG_MUD" />
+                      String="PART_L_LEG_MUD">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="8"
-                      String="PART_R_LEG_MUD" />
+                      String="PART_R_LEG_MUD">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="9"
                       String="PART_TAIL_MUD"
-                      TenderizeIds="2,5" />
+                      TenderizeIds="2,5">
+                    <Break Threshold="1" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="30"
@@ -932,20 +1159,28 @@
             <Parts>
                 <Part Id="0"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="1"
                       String="PART_BODY"
                       TenderizeIds="2,6" />
                 <Part Id="2"
-                      String="PART_MANE" />
+                      String="PART_MANE">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="3"
                       String="PART_ARMS"
-                      TenderizeIds="1,5" />
+                      TenderizeIds="1,5">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_LEGS" />
                 <Part Id="5"
                       String="PART_TAIL"
-                      TenderizeIds="3,7" />
+                      TenderizeIds="3,7">
+                    <Break Threshold="4" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="31"
@@ -960,27 +1195,37 @@
             <Parts>
                 <Part Id="0"
                       String="PART_BALLOON"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
                       TenderizeIds="0,4" />
                 <Part Id="2"
                       String="PART_BALLOON" />
                 <Part Id="3"
-                      String="PART_BODY" />
+                      String="PART_BODY">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_L_LEG" />
                 <Part Id="5"
                       String="PART_R_LEG" />
                 <Part Id="6"
                       String="PART_L_WING"
-                      TenderizeIds="1,2" />
+                      TenderizeIds="1,2">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="7"
                       String="PART_R_WING"
-                      TenderizeIds="5,6" />
+                      TenderizeIds="5,6">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="8"
                       String="PART_TAIL"
-                      TenderizeIds="3,7" />
+                      TenderizeIds="3,7">
+                    <Break Threshold="1" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="32"
@@ -995,15 +1240,23 @@
             <Parts>
                 <Part Id="0"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="1"
-                      String="PART_BODY" />
+                      String="PART_BODY">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_L_WING"
-                      TenderizeIds="1" />
+                      TenderizeIds="1">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="3"
                       String="PART_R_WING"
-                      TenderizeIds="5" />
+                      TenderizeIds="5">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_L_LEG"
                       TenderizeIds="2" />
@@ -1012,7 +1265,9 @@
                       TenderizeIds="6" />
                 <Part Id="6"
                       String="PART_TAIL"
-                      TenderizeIds="3,7" />
+                      TenderizeIds="3,7">
+                    <Break Threshold="1" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="33"
@@ -1027,15 +1282,21 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="2"
                       String="PART_BODY" />
                 <Part Id="3"
                       String="PART_ARMS"
-                      TenderizeIds="1,4" />
+                      TenderizeIds="1,4">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_LEGS" />
                 <Part Id="5"
@@ -1058,21 +1319,32 @@
                       IsSeverable="True" />
                 <Part Id="1"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="3"
                       String="PART_BODY"
                       TenderizeIds="2,6" />
                 <Part Id="4"
                       String="PART_ARMS"
-                      TenderizeIds="1,5" />
+                      TenderizeIds="1,5">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
-                      String="PART_LEGS" />
+                      String="PART_LEGS">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="6"
                       String="PART_TAIL"
-                      TenderizeIds="3,7" />
+                      TenderizeIds="3,7">
+                    <Break Threshold="1" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="35"
@@ -1087,7 +1359,9 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_UNKNOWN"
                       IsSeverable="True" />
@@ -1116,13 +1390,25 @@
                       String="PART_TAIL"
                       TenderizeIds="3,7" />
                 <Part Id="10"
-                      String="PART_JAW" />
+                      String="PART_JAW">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="11"
-                      String="PART_BACK" />
+                      String="PART_BACK">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="12"
-                      String="PART_L_BONE" />
+                      String="PART_L_BONE">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="13"
-                      String="PART_R_BONE" />
+                      String="PART_R_BONE">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="36"
@@ -1140,24 +1426,34 @@
                       IsSeverable="True" />
                 <Part Id="1"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="3"
                       String="PART_BACK" />
                 <Part Id="4"
                       String="PART_CHEST"
-                      TenderizeIds="2,6" />
+                      TenderizeIds="2,6">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_TAIL"
                       TenderizeIds="3,7" />
                 <Part Id="6"
                       String="PART_L_ARM"
-                      TenderizeIds="1" />
+                      TenderizeIds="1">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="7"
                       String="PART_R_ARM"
-                      TenderizeIds="5" />
+                      TenderizeIds="5">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="8"
                       String="PART_L_LEG" />
                 <Part Id="9"
@@ -1178,15 +1474,21 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="5" />
+                </Part>
                 <Part Id="2"
                       String="PART_BODY" />
                 <Part Id="3"
                       String="PART_ARMS"
-                      TenderizeIds="1,4" />
+                      TenderizeIds="1,4">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_LEGS" />
                 <Part Id="5"
@@ -1206,13 +1508,19 @@
             <Parts>
                 <Part Id="1"
                       String="PART_HORNS"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="0"
                       String="PART_HORNS_2"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_HORNS"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="3"
                       String="PART_CHEST"
                       TenderizeIds="1,4" />
@@ -1224,31 +1532,51 @@
                       String="PART_R_LIMBS" />
                 <Part Id="7"
                       String="PART_TAIL"
-                      TenderizeIds="7,9" />
+                      TenderizeIds="7,9">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="8"
-                      String="PART_HORNS_GOLD" />
+                      String="PART_HORNS_GOLD">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="9"
                       String="PART_MANE_GOLD" />
                 <Part Id="10"
-                      String="PART_L_CHEST_GOLD" />
+                      String="PART_L_CHEST_GOLD">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="11"
-                      String="PART_R_CHEST_GOLD" />
+                      String="PART_R_CHEST_GOLD">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="12"
                       String="PART_L_ARM_GOLD"
-                      TenderizeIds="2" />
+                      TenderizeIds="2">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="13"
                       String="PART_R_ARM_GOLD"
-                      TenderizeIds="5" />
+                      TenderizeIds="5">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="14"
                       String="PART_L_LEG_GOLD"
-                      TenderizeIds="6" />
+                      TenderizeIds="6">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="15"
                       String="PART_R_LEG_GOLD"
-                      TenderizeIds="8" />
+                      TenderizeIds="8">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="16"
-                      String="PART_L_TAIL_GOLD" />
+                      String="PART_L_TAIL_GOLD">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="17"
-                      String="PART_R_TAIL_GOLD" />
+                      String="PART_R_TAIL_GOLD">
+                    <Break Threshold="1" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="39"
@@ -1263,21 +1591,31 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,5" />
+                      TenderizeIds="0,5">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="2"
-                      String="PART_BODY" />
+                      String="PART_BODY">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="3"
                       String="PART_LEGS"
                       TenderizeIds="3,8" />
                 <Part Id="4"
                       String="PART_L_WING"
-                      TenderizeIds="1,2" />
+                      TenderizeIds="1,2">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_R_WING"
-                      TenderizeIds="6,7" />
+                      TenderizeIds="6,7">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="6"
                       String="PART_TAIL"
                       TenderizeIds="4,9" />
@@ -1295,10 +1633,15 @@
             <Parts>
                 <Part Id="0"
                       String="PART_BODY_LEGS"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_ANTLERS"
-                      TenderizeIds="0,1" />
+                      TenderizeIds="0,1">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="2"
                       String="PART_BODY"
                       TenderizeIds="0,1" />
@@ -1322,18 +1665,26 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_BODY" />
                 <Part Id="3"
                       String="PART_L_ARM"
-                      TenderizeIds="1,6" />
+                      TenderizeIds="1,6">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="4"
                       String="PART_R_ARM"
-                      TenderizeIds="4,7" />
+                      TenderizeIds="4,7">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="5"
                       String="PART_L_LEG" />
                 <Part Id="6"
@@ -1355,18 +1706,26 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="4" />
+                </Part>
                 <Part Id="2"
                       String="PART_BODY" />
                 <Part Id="3"
                       String="PART_L_ARM"
-                      TenderizeIds="1,6" />
+                      TenderizeIds="1,6">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_R_ARM"
-                      TenderizeIds="4,7" />
+                      TenderizeIds="4,7">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_L_LEG" />
                 <Part Id="6"
@@ -1388,18 +1747,26 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="3" />
+                </Part>
                 <Part Id="2"
                       String="PART_BODY" />
                 <Part Id="3"
                       String="PART_L_ARM"
-                      TenderizeIds="1,6" />
+                      TenderizeIds="1,6">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_R_ARM"
-                      TenderizeIds="4,7" />
+                      TenderizeIds="4,7">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_L_LEG" />
                 <Part Id="6"
@@ -1421,7 +1788,9 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_BIG_FLINCH"
                       IsSeverable="True" />
@@ -1430,12 +1799,16 @@
                       IsSeverable="True" />
                 <Part Id="3"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="4"
                       String="PART_BODY"
                       TenderizeIds="1,5" />
                 <Part Id="5"
-                      String="PART_CHEST" />
+                      String="PART_CHEST">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="6"
                       String="PART_REAR" />
                 <Part Id="7"
@@ -1463,18 +1836,26 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="4" />
+                </Part>
                 <Part Id="2"
                       String="PART_BODY" />
                 <Part Id="3"
                       String="PART_L_ARM"
-                      TenderizeIds="1" />
+                      TenderizeIds="1">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="4"
                       String="PART_R_ARM"
-                      TenderizeIds="4" />
+                      TenderizeIds="4">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="5"
                       String="PART_L_LEG" />
                 <Part Id="6"
@@ -1499,17 +1880,26 @@
                       IsSeverable="True" />
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="3"
-                      String="PART_FIN" />
+                      String="PART_FIN">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_BODY"
                       TenderizeIds="1,5" />
                 <Part Id="5"
-                      String="PART_ARMS" />
+                      String="PART_ARMS">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="6"
                       String="PART_L_LEG"
                       TenderizeIds="2" />
@@ -1518,7 +1908,9 @@
                       TenderizeIds="6" />
                 <Part Id="8"
                       String="PART_TAIL"
-                      TenderizeIds="3,7" />
+                      TenderizeIds="3,7">
+                    <Break Threshold="1" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="67"
@@ -1536,20 +1928,29 @@
                       IsSeverable="True" />
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_UNKNOWN"
                       IsSeverable="True" />
                 <Part Id="3"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="4"
-                      String="PART_FIN" />
+                      String="PART_FIN">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_BODY"
                       TenderizeIds="1,5" />
                 <Part Id="6"
-                      String="PART_ARMS" />
+                      String="PART_ARMS">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="7"
                       String="PART_L_LEG"
                       TenderizeIds="2" />
@@ -1558,7 +1959,9 @@
                       TenderizeIds="6" />
                 <Part Id="9"
                       String="PART_TAIL"
-                      TenderizeIds="3,7" />
+                      TenderizeIds="3,7">
+                    <Break Threshold="1" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="68"
@@ -1576,19 +1979,27 @@
                       IsSeverable="True" />
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="5" />
+                </Part>
                 <Part Id="3"
                       String="PART_BODY"
                       TenderizeIds="1,5" />
                 <Part Id="4"
                       String="PART_L_LEG"
-                      TenderizeIds="2" />
+                      TenderizeIds="2">
+                    <Break Threshold="3" />
+                </Part>
                 <Part Id="5"
                       String="PART_R_LEG"
-                      TenderizeIds="6" />
+                      TenderizeIds="6">
+                    <Break Threshold="3" />
+                </Part>
                 <Part Id="6"
                       String="PART_TAIL"
                       TenderizeIds="3,7" />
@@ -1609,21 +2020,31 @@
                       IsSeverable="True" />
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_INFLATED_TAIL"
                       IsSeverable="True" />
                 <Part Id="3"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="4"
-                      String="PART_BODY" />
+                      String="PART_BODY">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_L_WING"
-                      TenderizeIds="1" />
+                      TenderizeIds="1">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="6"
                       String="PART_R_WING"
-                      TenderizeIds="5" />
+                      TenderizeIds="5">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="7"
                       String="PART_L_LEG"
                       TenderizeIds="2" />
@@ -1647,28 +2068,43 @@
             <Parts>
                 <Part Id="0"
                       String="PART_HORNS"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="2" />
+                    <Break Threshold="4" />
+                </Part>
                 <Part Id="1"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_UNKNOWN"
                       IsSeverable="True" />
                 <Part Id="3"
                       String="PART_SILVER_SPIKES_HEAD"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_SILVER_SPIKES_L_ARM"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_SILVER_SPIKES_R_ARM"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="6"
                       String="PART_SILVER_SPIKES_L_WING"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="7"
                       String="PART_SILVER_SPIKES_R_WING"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="8"
                       String="PART_HORNS" />
                 <Part Id="9"
@@ -1709,20 +2145,28 @@
             <Parts>
                 <Part Id="0"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="1"
                       String="PART_BODY"
                       TenderizeIds="2,6" />
                 <Part Id="2"
-                      String="PART_MANE" />
+                      String="PART_MANE">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="3"
                       String="PART_ARMS"
-                      TenderizeIds="1,5" />
+                      TenderizeIds="1,5">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_LEGS" />
                 <Part Id="5"
                       String="PART_TAIL"
-                      TenderizeIds="3,7" />
+                      TenderizeIds="3,7">
+                    <Break Threshold="1" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="72"
@@ -1737,27 +2181,37 @@
             <Parts>
                 <Part Id="0"
                       String="PART_BALLOON"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
                       TenderizeIds="0,4" />
                 <Part Id="2"
                       String="PART_BALLOON" />
                 <Part Id="3"
-                      String="PART_BODY" />
+                      String="PART_BODY">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_L_LEG" />
                 <Part Id="5"
                       String="PART_R_LEG" />
                 <Part Id="6"
                       String="PART_L_WING"
-                      TenderizeIds="1,2" />
+                      TenderizeIds="1,2">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="7"
                       String="PART_R_WING"
-                      TenderizeIds="5,6" />
+                      TenderizeIds="5,6">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="8"
                       String="PART_TAIL"
-                      TenderizeIds="3,7" />
+                      TenderizeIds="3,7">
+                    <Break Threshold="1" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="73"
@@ -1775,21 +2229,31 @@
                       IsSeverable="True" />
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="2"
-                      String="PART_BODY" />
+                      String="PART_BODY">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="3"
                       String="PART_L_WING"
-                      TenderizeIds="1" />
+                      TenderizeIds="1">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_R_WING"
-                      TenderizeIds="5" />
+                      TenderizeIds="5">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_LEGS"
                       TenderizeIds="2,6" />
                 <Part Id="6"
                       String="PART_TAIL"
-                      TenderizeIds="3,7" />
+                      TenderizeIds="3,7">
+                    <Break Threshold="1" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="74"
@@ -1807,10 +2271,15 @@
                       IsSeverable="True" />
                 <Part Id="2"
                       String="PART_HEAD"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="1"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="3"
                       String="PART_HEAD"
                       TenderizeIds="0,4" />
@@ -1819,12 +2288,18 @@
                       TenderizeIds="2,6" />
                 <Part Id="5"
                       String="PART_ARMS"
-                      TenderizeIds="1,5" />
+                      TenderizeIds="1,5">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="6"
-                      String="PART_LEGS" />
+                      String="PART_LEGS">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="7"
                       String="PART_TAIL"
-                      TenderizeIds="3,7" />
+                      TenderizeIds="3,7">
+                    <Break Threshold="1" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="75"
@@ -1839,27 +2314,37 @@
             <Parts>
                 <Part Id="1"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="0"
                       String="PART_EMISSIONS"
                       IsSeverable="True" />
                 <Part Id="2"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="3" />
+                </Part>
                 <Part Id="3"
                       String="PART_BACK" />
                 <Part Id="4"
                       String="PART_CHEST"
-                      TenderizeIds="2,6" />
+                      TenderizeIds="2,6">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_TAIL"
                       TenderizeIds="3,7" />
                 <Part Id="6"
                       String="PART_L_ARM"
-                      TenderizeIds="1" />
+                      TenderizeIds="1">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="7"
                       String="PART_R_ARM"
-                      TenderizeIds="5" />
+                      TenderizeIds="5">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="8"
                       String="PART_L_LEG" />
                 <Part Id="9"
@@ -1893,24 +2378,34 @@
                       IsSeverable="True" />
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_GLOWING_TAIL"
                       IsSeverable="True" />
                 <Part Id="3"
                       String="PART_HEAD"
-                      TenderizeIds="0,5" />
+                      TenderizeIds="0,5">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="4"
-                      String="PART_BODY" />
+                      String="PART_BODY">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_LEGS"
                       TenderizeIds="3,8" />
                 <Part Id="6"
                       String="PART_L_WING"
-                      TenderizeIds="1,2" />
+                      TenderizeIds="1,2">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="7"
                       String="PART_R_WING"
-                      TenderizeIds="6,7" />
+                      TenderizeIds="6,7">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="8"
                       String="PART_TAIL"
                       TenderizeIds="4,9" />
@@ -1937,24 +2432,38 @@
                       IsSeverable="True" />
                 <Part Id="3"
                       String="PART_HEAD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="4"
                       String="PART_HEAD_SNOW"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_BODY"
-                      TenderizeIds="1,4" />
+                      TenderizeIds="1,4">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="6"
                       String="PART_BODY_SNOW"
-                      TenderizeIds="1,4" />
+                      TenderizeIds="1,4">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="7"
-                      String="PART_LEGS" />
+                      String="PART_LEGS">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="8"
                       String="PART_TAIL"
-                      TenderizeIds="2,5" />
+                      TenderizeIds="2,5">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="9"
                       String="PART_TAIL_SNOW"
-                      TenderizeIds="2,5" />
+                      TenderizeIds="2,5">
+                    <Break Threshold="1" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="78"
@@ -1969,10 +2478,15 @@
             <Parts>
                 <Part Id="0"
                       String="PART_HORNS"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="1"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_UNKNOWN"
                       IsSeverable="True" />
@@ -1983,10 +2497,14 @@
                       String="PART_BODY" />
                 <Part Id="5"
                       String="PART_L_LEG"
-                      TenderizeIds="1" />
+                      TenderizeIds="1">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="6"
                       String="PART_R_LEG"
-                      TenderizeIds="4" />
+                      TenderizeIds="4">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="7"
                       String="PART_TAIL"
                       TenderizeIds="2,5" />
@@ -2004,13 +2522,17 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_SKY_FALL"
                       IsSeverable="True" />
                 <Part Id="2"
                       String="PART_HEAD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="3"
                       String="PART_HEAD_ICE" />
                 <Part Id="4"
@@ -2019,7 +2541,9 @@
                       String="PART_BODY_ICE" />
                 <Part Id="6"
                       String="PART_WINGS"
-                      TenderizeIds="1,4" />
+                      TenderizeIds="1,4">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="7"
                       String="PART_WINGS_ICE" />
                 <Part Id="8"
@@ -2045,10 +2569,14 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="5" />
+                </Part>
                 <Part Id="2"
                       String="PART_BACK" />
                 <Part Id="3"
@@ -2056,12 +2584,16 @@
                       TenderizeIds="3,7" />
                 <Part Id="4"
                       String="PART_ARMS"
-                      TenderizeIds="1,5" />
+                      TenderizeIds="1,5">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="5"
                       String="PART_LEGS" />
                 <Part Id="6"
                       String="PART_WINGS"
-                      TenderizeIds="2,6" />
+                      TenderizeIds="2,6">
+                    <Break Threshold="2" />
+                </Part>
             </Parts>
         </Monster>
         <Monster Id="81"
@@ -2076,19 +2608,38 @@
             <Parts>
                 <Part Id="0"
                       String="PART_HEAD_ROCK"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                    <Break Threshold="3" />
+                    <Break Threshold="4" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD_ROCK"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                    <Break Threshold="3" />
+                    <Break Threshold="4" />
+                </Part>
                 <Part Id="2"
                       String="PART_CHEST_ROCK"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                    <Break Threshold="3" />
+                    <Break Threshold="4" />
+                    <Break Threshold="5" />
+                    <Break Threshold="6" />
+                </Part>
                 <Part Id="4"
                       String="PART_UNKNOWN"
                       IsSeverable="True" />
                 <Part Id="3"
                       String="PART_HEAD"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_L_NECK_ROCK" />
                 <Part Id="6"
@@ -2098,19 +2649,31 @@
                 <Part Id="8"
                       String="PART_TAIL_ROCK" />
                 <Part Id="9"
-                      String="PART_L_WING_ROCK" />
+                      String="PART_L_WING_ROCK">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="10"
-                      String="PART_R_WING_ROCK" />
+                      String="PART_R_WING_ROCK">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="11"
-                      String="PART_L_ARM_ROCK" />
+                      String="PART_L_ARM_ROCK">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="12"
-                      String="PART_R_ARM_ROCK" />
+                      String="PART_R_ARM_ROCK">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="13"
                       String="PART_LEGS"
                       TenderizeIds="2,5" />
                 <Part Id="14"
                       String="PART_HEAD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="15"
                       String="PART_BODY" />
                 <Part Id="16"
@@ -2119,10 +2682,14 @@
                       String="PART_R_WING" />
                 <Part Id="18"
                       String="PART_L_ARM"
-                      TenderizeIds="1" />
+                      TenderizeIds="1">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="19"
                       String="PART_R_ARM"
-                      TenderizeIds="4" />
+                      TenderizeIds="4">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="20"
                       String="PART_TAIL" />
             </Parts>
@@ -2140,21 +2707,30 @@
             <Parts>
                 <Part Id="0"
                       String="PART_HORNS"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="1"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="3"
                       String="PART_EXPLOSION_WEAKENING"
-                      IsSeverable="True" />
-                <Part Id="2"
+                      IsSeverable="True">
+                    <Break Threshold="3" />
+                </Part>
+                <Part Id="3"
                       String="PART_HEAD"
                       TenderizeIds="0,5" />
                 <Part Id="4"
                       String="PART_CHEST" />
                 <Part Id="5"
                       String="PART_WINGS"
-                      TenderizeIds="2,7" />
+                      TenderizeIds="2,7">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="6"
                       String="PART_ARMS"
                       TenderizeIds="1,6" />
@@ -2181,18 +2757,28 @@
                       IsSeverable="True" />
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_HEAD"
-                      TenderizeIds="0,5" />
+                      TenderizeIds="0,5">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="3"
-                      String="PART_BODY" />
+                      String="PART_BODY">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_L_WING"
-                      TenderizeIds="1,2" />
+                      TenderizeIds="1,2">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_R_WING"
-                      TenderizeIds="6,7" />
+                      TenderizeIds="6,7">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="6"
                       String="PART_L_LEG"
                       TenderizeIds="3" />
@@ -2219,18 +2805,28 @@
                       IsSeverable="True" />
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_HEAD"
-                      TenderizeIds="0,5" />
+                      TenderizeIds="0,5">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="3"
-                      String="PART_BODY" />
+                      String="PART_BODY">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="4"
                       String="PART_L_WING"
-                      TenderizeIds="1,2" />
+                      TenderizeIds="1,2">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_R_WING"
-                      TenderizeIds="6,7" />
+                      TenderizeIds="6,7">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="6"
                       String="PART_L_LEG"
                       TenderizeIds="3" />
@@ -2254,12 +2850,19 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,5" />
+                      TenderizeIds="0,5">
+                    <Break Threshold="2" />
+                    <Break Threshold="4" />
+                </Part>
                 <Part Id="2"
-                      String="PART_BODY" />
+                      String="PART_BODY">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="3"
                       String="PART_L_LEG"
                       TenderizeIds="3" />
@@ -2268,10 +2871,14 @@
                       TenderizeIds="8" />
                 <Part Id="5"
                       String="PART_L_WING"
-                      TenderizeIds="1,2" />
+                      TenderizeIds="1,2">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="6"
                       String="PART_R_WING"
-                      TenderizeIds="6,7" />
+                      TenderizeIds="6,7">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="7"
                       String="PART_TAIL"
                       TenderizeIds="4,9" />
@@ -2289,13 +2896,19 @@
             <Parts>
                 <Part Id="0"
                       String="PART_HORNS"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HORNS_2"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="3"
                       String="PART_RAGE"
                       IsSeverable="True" />
@@ -2305,10 +2918,14 @@
                       String="PART_BODY" />
                 <Part Id="6"
                       String="PART_L_ARM"
-                      TenderizeIds="0" />
+                      TenderizeIds="0">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="7"
                       String="PART_R_ARM"
-                      TenderizeIds="2" />
+                      TenderizeIds="2">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="8"
                       String="PART_L_LEG"
                       TenderizeIds="1,3" />
@@ -2331,13 +2948,17 @@
             <Parts>
                 <Part Id="0"
                       String="PART_HORNS"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_TAIL"
                       IsSeverable="True" />
                 <Part Id="1"
                       String="PART_HORNS_2"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="3"
                       String="PART_RAGE"
                       IsSeverable="True" />
@@ -2347,10 +2968,14 @@
                       String="PART_BODY" />
                 <Part Id="6"
                       String="PART_L_ARM"
-                      TenderizeIds="0" />
+                      TenderizeIds="0">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="7"
                       String="PART_R_ARM"
-                      TenderizeIds="2" />
+                      TenderizeIds="2">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="8"
                       String="PART_L_LEG"
                       TenderizeIds="1,3" />
@@ -2373,18 +2998,26 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_BODY" />
                 <Part Id="3"
                       String="PART_L_ARM"
-                      TenderizeIds="1,6" />
+                      TenderizeIds="1,6">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="4"
                       String="PART_R_ARM"
-                      TenderizeIds="4,7" />
+                      TenderizeIds="4,7">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="5"
                       String="PART_L_LEG" />
                 <Part Id="6"
@@ -2409,18 +3042,27 @@
                       IsSeverable="True" />
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="2" />
+                    <Break Threshold="4" />
+                </Part>
                 <Part Id="3"
                       String="PART_BODY"
                       TenderizeIds="2,6" />
                 <Part Id="4"
-                      String="PART_BACK" />
+                      String="PART_BACK">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_ARMS"
-                      TenderizeIds="1,5" />
+                      TenderizeIds="1,5">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="6"
                       String="PART_LEGS" />
                 <Part Id="7"
@@ -2443,18 +3085,27 @@
                       IsSeverable="True" />
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="2"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="2" />
+                    <Break Threshold="4" />
+                </Part>
                 <Part Id="3"
                       String="PART_BODY"
                       TenderizeIds="2,6" />
                 <Part Id="4"
-                      String="PART_BACK" />
+                      String="PART_BACK">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
                       String="PART_ARMS"
-                      TenderizeIds="1,5" />
+                      TenderizeIds="1,5">
+                    <Break Threshold="3" />
+                </Part>
                 <Part Id="6"
                       String="PART_LEGS" />
                 <Part Id="7"
@@ -2474,20 +3125,28 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,4" />
+                      TenderizeIds="0,4">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="2"
                       String="PART_BODY" />
                 <Part Id="3"
                       String="PART_BACK" />
                 <Part Id="4"
                       String="PART_L_ARM"
-                      TenderizeIds="1" />
+                      TenderizeIds="1">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="5"
                       String="PART_R_ARM"
-                      TenderizeIds="5" />
+                      TenderizeIds="5">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="6"
                       String="PART_L_LEG"
                       TenderizeIds="2" />
@@ -2513,34 +3172,55 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,4,8,9" />
+                      TenderizeIds="0,4,8,9">
+                    <Break Threshold="5" />
+                    <Break Threshold="10" />
+                </Part>
                 <Part Id="2"
                       String="PART_BODY" />
                 <Part Id="3"
                       String="PART_ABDOMEN" />
                 <Part Id="4"
-                      String="PART_BACK" />
+                      String="PART_BACK">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="5"
-                      String="PART_CHEST" />
+                      String="PART_CHEST">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="6"
                       String="PART_L_ARM"
-                      TenderizeIds="1,10" />
+                      TenderizeIds="1,10">
+                    <Break Threshold="7" />
+                </Part>
                 <Part Id="7"
                       String="PART_R_ARM"
-                      TenderizeIds="5" />
+                      TenderizeIds="5">
+                    <Break Threshold="7" />
+                </Part>
                 <Part Id="8"
                       String="PART_L_LEG"
-                      TenderizeIds="2,12" />
+                      TenderizeIds="2,12">
+                    <Break Threshold="5" />
+                </Part>
                 <Part Id="9"
                       String="PART_R_LEG"
-                      TenderizeIds="6" />
+                      TenderizeIds="6">
+                    <Break Threshold="5" />
+                </Part>
                 <Part Id="10"
-                      String="PART_L_WING" />
+                      String="PART_L_WING">
+                    <Break Threshold="3" />
+                </Part>
                 <Part Id="11"
-                      String="PART_R_WING" />
+                      String="PART_R_WING">
+                    <Break Threshold="3" />
+                </Part>
                 <Part Id="12"
                       String="PART_TAIL"
                       TenderizeIds="3,7" />
@@ -2576,12 +3256,19 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,5" />
+                      TenderizeIds="0,5">
+                    <Break Threshold="2" />
+                    <Break Threshold="4" />
+                </Part>
                 <Part Id="2"
-                      String="PART_BODY" />
+                      String="PART_BODY">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="3"
                       String="PART_L_LEG"
                       TenderizeIds="3" />
@@ -2590,10 +3277,14 @@
                       TenderizeIds="8" />
                 <Part Id="5"
                       String="PART_L_WING"
-                      TenderizeIds="1,2" />
+                      TenderizeIds="1,2">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="6"
                       String="PART_R_WING"
-                      TenderizeIds="6,7" />
+                      TenderizeIds="6,7">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="7"
                       String="PART_TAIL"
                       TenderizeIds="4,9" />
@@ -2611,18 +3302,27 @@
             <Parts>
                 <Part Id="0"
                       String="PART_TAIL"
-                      IsSeverable="True" />
+                      IsSeverable="True">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="1" />
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="2"
                       String="PART_BODY" />
                 <Part Id="3"
                       String="PART_L_ARM"
-                      TenderizeIds="1,6" />
+                      TenderizeIds="1,6">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="4"
                       String="PART_R_ARM"
-                      TenderizeIds="4,7" />
+                      TenderizeIds="4,7">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="5"
                       String="PART_L_LEG" />
                 <Part Id="6"
@@ -2647,11 +3347,16 @@
                       IsSeverable="True" />
                 <Part Id="1"
                       String="PART_HEAD"
-                      TenderizeIds="0,3" />
+                      TenderizeIds="0,3">
+                    <Break Threshold="3" />
+                    <Break Threshold="6" />
+                </Part>
                 <Part Id="2"
                       String="PART_NECK" />
                 <Part Id="3"
-                      String="PART_CHEST" />
+                      String="PART_CHEST">
+                    <Break Threshold="2" />
+                </Part>
                 <Part Id="4"
                       String="PART_BODY" />
                 <Part Id="5"
@@ -2667,9 +3372,13 @@
                       String="PART_R_LEG"
                       TenderizeIds="5" />
                 <Part Id="9"
-                      String="PART_L_WING" />
+                      String="PART_L_WING">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="10"
-                      String="PART_R_WING" />
+                      String="PART_R_WING">
+                    <Break Threshold="1" />
+                </Part>
                 <Part Id="11"
                       String="PART_TAIL" />
             </Parts>

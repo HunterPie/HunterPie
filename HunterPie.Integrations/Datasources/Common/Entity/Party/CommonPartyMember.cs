@@ -2,6 +2,7 @@
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Entity.Party;
+using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Enums;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Party;
@@ -15,6 +16,7 @@ public abstract class CommonPartyMember : IPartyMember, IEventDispatcher, IDispo
     public abstract int Slot { get; protected set; }
     public abstract bool IsMyself { get; protected set; }
     public abstract MemberType Type { get; protected set; }
+    public abstract IPlayerStatus? Status { get; }
 
     protected readonly SmartEvent<IPartyMember> _onDamageDealt = new();
     public event EventHandler<IPartyMember> OnDamageDealt
@@ -30,7 +32,7 @@ public abstract class CommonPartyMember : IPartyMember, IEventDispatcher, IDispo
         remove => _onWeaponChange.Unhook(value);
     }
 
-    public void Dispose()
+    public virtual void Dispose()
     {
         IDisposable[] events =
         {

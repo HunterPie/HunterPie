@@ -15,10 +15,7 @@ public sealed class MHRParty : CommonParty, IUpdatable<EntityDamageData>, IUpdat
 
     private readonly object _syncParty = new();
     private readonly Dictionary<int, MHRPartyMember> _partyMembers = new();
-    private readonly Dictionary<int, MHRPartyMember> _partyMemberPets = new()
-    {
-        { 4, new MHRPartyMember(MemberType.Pet) }
-    };
+    private readonly Dictionary<int, MHRPartyMember> _partyMemberPets = new();
     private readonly Dictionary<string, MHRPartyMember> _partyHashNameLookup = new();
 
     public const int MAX_PARTY_SIZE = 4;
@@ -59,8 +56,8 @@ public sealed class MHRParty : CommonParty, IUpdatable<EntityDamageData>, IUpdat
             if (!_partyMembers.ContainsKey(data.Index))
                 return;
 
-            IUpdatable<MHRPartyMemberData> updatable = _partyMembers[data.Index];
-            updatable.Update(data);
+            MHRPartyMember member = _partyMembers[data.Index];
+            member.Update(data);
         }
     }
 
@@ -70,7 +67,8 @@ public sealed class MHRParty : CommonParty, IUpdatable<EntityDamageData>, IUpdat
         {
             Dictionary<int, MHRPartyMember>? localData = data.Entity.Type switch
             {
-                EntityType.PLAYER => _partyMembers,
+                EntityType.PLAYER or
+                EntityType.COMPANION => _partyMembers,
                 EntityType.PET => _partyMemberPets,
                 _ => null
             };
@@ -93,8 +91,8 @@ public sealed class MHRParty : CommonParty, IUpdatable<EntityDamageData>, IUpdat
         if (_partyMembers.ContainsKey(data.Index))
             Remove(data.Index);
 
-        MHRPartyMember member = new();
-        MHRPartyMember memberPet = new(MemberType.Pet);
+        MHRPartyMember member = new(data.MemberType, data.IsMyself);
+        MHRPartyMember memberPet = new(MemberType.Pet, false);
 
         MHRPartyMemberData petData = data.ToPetData();
 
@@ -143,10 +141,6 @@ public sealed class MHRParty : CommonParty, IUpdatable<EntityDamageData>, IUpdat
         {
             foreach (int index in _partyMembers.Keys.ToArray())
                 Remove(index);
-
-            // Reset pet damage
-            IUpdatable<MHRPartyMemberData> updatable = _partyMemberPets[4];
-            updatable.Update(new MHRPartyMemberData { Index = 4, MemberType = MemberType.Pet });
         }
     }
 

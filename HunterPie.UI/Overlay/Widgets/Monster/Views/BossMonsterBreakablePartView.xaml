@@ -1,148 +1,159 @@
 ﻿<UserControl x:Class="HunterPie.UI.Overlay.Widgets.Monster.Views.BossMonsterBreakablePartView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:arithmetics="clr-namespace:HunterPie.UI.Architecture.Converters.Arithmetics"
+             xmlns:brushes="clr-namespace:HunterPie.UI.Architecture.Converters.Brushes"
+             xmlns:controls="clr-namespace:HunterPie.UI.Overlay.Controls"
              xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
-             xmlns:overlay="clr-namespace:HunterPie.UI.Overlay.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:display="clr-namespace:HunterPie.UI.Controls.Display"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:progress="clr-namespace:HunterPie.UI.Controls.Progress"
              xmlns:vm="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels"
-             d:DataContext="{d:DesignData Type=vm:MonsterPartViewModel}"
-             mc:Ignorable="d"
-             d:DesignWidth="200">
-    <UserControl.Resources>
-        <converters:MonsterPartIdToNameConverter x:Key="MonsterPartIdToNameConverter"/>
-    </UserControl.Resources>
-    <Grid>
-        <TextBlock Text="{Binding Name, Converter={StaticResource MonsterPartIdToNameConverter}, Mode=OneTime}"
-                   d:Text="Head"
-                   Foreground="{StaticResource White}"
-                   FontSize="14"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Left"
-                   Margin="35,0,0,0">
-            <TextBlock.Effect>
-                <DropShadowEffect Color="Black"
-                                      BlurRadius="4" 
-                                      ShadowDepth="0"/>
-            </TextBlock.Effect>
-        </TextBlock>
+             d:DataContext="{d:DesignInstance Type=vm:MonsterPartViewModel}"
+             d:DesignWidth="200"
+             mc:Ignorable="d">
+	<UserControl.Resources>
+		<converters:MonsterPartIdToNameConverter x:Key="MonsterPartIdToNameConverter" />
+		<arithmetics:MultiplyNumberConverter x:Key="DivideEquallyConverter" Factor="0.5" />
+		<brushes:BrushOpacityConverter x:Key="BrushOpacityConverter" />
+		<converters:ConverterPipeline x:Key="NumberToVisibilityConverter">
+			<converters:NumberToBooleanConverter />
+			<BooleanToVisibilityConverter />
+		</converters:ConverterPipeline>
+		<converters:RatioConverter x:Key="RatioConverter" />
+	</UserControl.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="20" />
+			<RowDefinition Height="10" />
+			<RowDefinition Height="10" />
+			<RowDefinition Height="15" />
+		</Grid.RowDefinitions>
 
-        <Grid Margin="30,15,0,0">
+		<!--  Counter and Name  -->
+		<Grid Grid.Row="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
 
-            <!-- Break Bar -->
-            <overlay:Bar d:Foreground="{StaticResource Brushes.Widgets.Monster.Part.Breakable.Foreground}"
-                         d:ForegroundDelayed="{StaticResource Brushes.Widgets.Monster.Health.Default.Background}"
-                         Height="5"
-                         VerticalAlignment="Top"
-                         Margin="4.5,0,5,0"
-                         Background="{StaticResource Gray@500}"
-                         MaxValue="{Binding MaxHealth, Mode=OneWay}"
-                         Value="{Binding Health, Mode=OneWay}"
-                         d:Value="50"
-                         d:MaxValue="100"
-                         BorderThickness="0"
-                         RenderTransformOrigin="0.5,0.5">
-                <overlay:Bar.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform AngleX="45"/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </overlay:Bar.RenderTransform>
-                <overlay:Bar.Style>
-                    <Style TargetType="overlay:Bar">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsPartBroken}" Value="True">
-                                <Setter Property="Foreground" Value="{StaticResource Brushes.Widgets.Monster.Part.Broken.Foreground}"/>
-                                <Setter Property="ForegroundDelayed" Value="#c4c4c4"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsPartBroken}" Value="False">
-                                <Setter Property="Foreground" Value="{StaticResource Brushes.Widgets.Monster.Part.Breakable.Foreground}"/>
-                                <Setter Property="ForegroundDelayed" Value="#FFFFE1AC"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </overlay:Bar.Style>
-            </overlay:Bar>
+			<!--  Counter  -->
+			<Grid Grid.Column="0" Margin="1">
+				<Rectangle Fill="{Binding Source={StaticResource Gray@100}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+				           RadiusX="{Binding ActualHeight, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource DivideEquallyConverter}}"
+				           RadiusY="{Binding ActualWidth, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource DivideEquallyConverter}}"
+				           Stroke="{StaticResource Gray@50}"
+				           StrokeThickness="1" />
 
-            <!-- Flinch bar -->
-            <overlay:Bar Foreground="{StaticResource Brushes.Widgets.Monster.Health.Default}"
-                         ForegroundDelayed="{StaticResource Brushes.Widgets.Monster.Health.Default.Background}"
-                         Height="5"
-                         VerticalAlignment="Top"
-                         Margin="4.5,5,5,0"
-                         Background="{StaticResource Gray@500}"
-                         MaxValue="{Binding MaxFlinch, Mode=OneWay}"
-                         Value="{Binding Flinch, Mode=OneWay}"
-                         d:Value="50"
-                         d:MaxValue="100"
-                         BorderThickness="0"
-                         RenderTransformOrigin="0.5,0.5">
-                <overlay:Bar.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform AngleX="-45"/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </overlay:Bar.RenderTransform>
-            </overlay:Bar>
+				<TextBlock MinWidth="10"
+				           Margin="2"
+				           VerticalAlignment="Center"
+				           d:Text="9"
+				           FontSize="13"
+				           Foreground="{StaticResource White@100}"
+				           Text="{Binding Breaks, Mode=OneWay}"
+				           TextAlignment="Center" />
+			</Grid>
 
-            <Label Foreground="{StaticResource White}"
-                   FontFamily="{StaticResource Font.Default}"
-                   FontSize="14"
-                   VerticalAlignment="Bottom"
-                   HorizontalAlignment="Center"
-                   d:Content="2000.0/2000.0"
-                   Margin="0,8,0,0" Padding="0,0,0,0">
-                <Label.Effect>
-                    <DropShadowEffect Color="Black"
-                                      BlurRadius="2"
-                                      ShadowDepth="0"/>
-                </Label.Effect>
-                <Label.Style>
-                    <Style TargetType="Label">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsPartBroken}" Value="True">
-                                <Setter Property="Content">
-                                    <Setter.Value>
-                                        <TextBlock>
-                                           <Run Text="{Binding Flinch, StringFormat=\{0:F1\}}"
-                                                d:Text="2000.0"/><!--
-                                        --><Run Text="/"
-                                                Foreground="{StaticResource White@200}"
-                                                FontWeight="Light"/><!--
-                                        --><Run Text="{Binding MaxFlinch, StringFormat=\{0:F1\}}"
-                                                Foreground="{StaticResource White@200}"
-                                                FontWeight="Light"
-                                                d:Text="2000.0"/>
-                                        </TextBlock>
-                                    </Setter.Value>
-                                </Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsPartBroken}" Value="False">
-                                <Setter Property="Content">
-                                    <Setter.Value>
-                                        <TextBlock>
-                                           <Run Text="{Binding Health, StringFormat=\{0:F1\}}"
-                                                d:Text="2000.0"/><!--
-                                        --><Run Text="/"
-                                                Foreground="{StaticResource White@200}"
-                                                FontWeight="Light"/><!--
-                                        --><Run Text="{Binding MaxHealth, StringFormat=\{0:F1\}}"
-                                                Foreground="{StaticResource White@200}"
-                                                FontWeight="Light"
-                                                d:Text="2000.0"/>
-                                        </TextBlock>
-                                    </Setter.Value>
-                                </Setter>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Label.Style>
+			<!--  Name  -->
+			<TextBlock Grid.Column="1"
+			           Margin="2,0,0,0"
+			           VerticalAlignment="Center"
+			           d:Text="Head"
+			           FontSize="13"
+			           Foreground="{StaticResource White@50}"
+			           Text="{Binding Name, Mode=OneWay, Converter={StaticResource MonsterPartIdToNameConverter}}" />
 
-            </Label>
-        </Grid>
-    </Grid>
+			<controls:Arc Grid.Column="2"
+			              Width="10"
+			              Height="10"
+			              d:Percentage="0.8"
+			              Stroke="{StaticResource Brushes.Widgets.Monster.Tenderize.Foreground}"
+			              StrokeDashCap="Round"
+			              StrokeEndLineCap="Round"
+			              StrokeStartLineCap="Round"
+			              StrokeThickness="3"
+			              Visibility="{Binding Tenderize, Mode=OneWay, Converter={StaticResource NumberToVisibilityConverter}}">
+				<controls:Arc.Percentage>
+					<MultiBinding Converter="{StaticResource RatioConverter}">
+						<Binding Mode="OneWay" Path="Tenderize" />
+						<Binding Mode="OneWay" Path="MaxTenderize" />
+					</MultiBinding>
+				</controls:Arc.Percentage>
+			</controls:Arc>
+		</Grid>
+
+		<!--  Flinch  -->
+		<progress:Gauge Grid.Row="1"
+		                d:Current="30"
+		                d:Max="100"
+		                Background="{Binding Source={StaticResource Gray@300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+		                BorderBrush="{StaticResource Gray@50}"
+		                BorderThickness="1"
+		                CornerRadius="4"
+		                Current="{Binding Flinch, Mode=OneWay}"
+		                Foreground="{StaticResource Brushes.Widgets.Monster.Part.Default.Foreground}"
+		                Markers="10"
+		                Max="{Binding MaxFlinch, Mode=OneWay}" />
+
+		<!--  Break  -->
+		<progress:Gauge Grid.Row="2"
+		                d:Current="50"
+		                d:Max="100"
+		                Background="{Binding Source={StaticResource Gray@300}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter={StaticResource Widgets.Background.Opacity}}"
+		                BorderBrush="{StaticResource Gray@50}"
+		                BorderThickness="1"
+		                CornerRadius="4"
+		                Current="{Binding Health, Mode=OneWay}"
+		                Markers="10"
+		                Max="{Binding MaxHealth, Mode=OneWay}">
+			<progress:Gauge.Style>
+				<Style TargetType="progress:Gauge">
+					<Setter Property="Foreground" Value="{StaticResource Brushes.Widgets.Monster.Part.Breakable.Foreground}" />
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding IsPartBroken}" Value="True">
+							<Setter Property="Foreground" Value="{StaticResource Brushes.Widgets.Monster.Part.Broken.Foreground}" />
+						</DataTrigger>
+					</Style.Triggers>
+				</Style>
+			</progress:Gauge.Style>
+		</progress:Gauge>
+
+		<display:Conditional Grid.Row="3"
+		                     HorizontalAlignment="Center"
+		                     Condition="{Binding IsPartBroken, Mode=OneWay}">
+			<display:Conditional.Component>
+				<DataTemplate>
+					<TextBlock FontSize="13" Foreground="{StaticResource White@50}">
+						<Run d:Text="2,000" Text="{Binding Flinch, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}" />
+						<!--
+						--><Run FontWeight="Light"
+						     Foreground="{StaticResource White@100}"
+						     Text="/" />
+						<!--
+						--><Run d:Text="2,000"
+						     Foreground="{StaticResource White@100}"
+						     Text="{Binding MaxFlinch, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}" />
+					</TextBlock>
+				</DataTemplate>
+			</display:Conditional.Component>
+			<display:Conditional.Otherwise>
+				<DataTemplate>
+					<TextBlock FontSize="13" Foreground="{StaticResource White@50}">
+						<Run d:Text="2,000" Text="{Binding Health, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}" />
+						<!--
+						--><Run FontWeight="Light"
+						     Foreground="{StaticResource White@100}"
+						     Text="/" />
+						<!--
+						--><Run d:Text="2,000"
+						     Foreground="{StaticResource White@100}"
+						     Text="{Binding MaxHealth, StringFormat={StaticResource Text.Widgets.Monster.Health.Format}}" />
+					</TextBlock>
+				</DataTemplate>
+			</display:Conditional.Otherwise>
+		</display:Conditional>
+	</Grid>
 </UserControl>

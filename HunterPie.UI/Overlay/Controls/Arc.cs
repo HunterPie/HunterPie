@@ -17,68 +17,84 @@ public class Arc : Shape
         get => (double)GetValue(StartAngleProperty);
         set => SetValue(StartAngleProperty, value);
     }
-
-    // Using a DependencyProperty as the backing store for StartAngle.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty StartAngleProperty =
-        DependencyProperty.Register("StartAngle", typeof(double), typeof(Arc), new PropertyMetadata(90.0, AnglesChanged));
+        DependencyProperty.Register(nameof(StartAngle), typeof(double), typeof(Arc), new FrameworkPropertyMetadata(90.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
     public bool Reverse
     {
         get => (bool)GetValue(ReverseProperty);
         set => SetValue(ReverseProperty, value);
     }
-
-    // Using a DependencyProperty as the backing store for Reverse.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty ReverseProperty =
-        DependencyProperty.Register("Reverse", typeof(bool), typeof(Arc), new PropertyMetadata(false));
+        DependencyProperty.Register(nameof(Reverse), typeof(bool), typeof(Arc), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender));
 
     public double Percentage
     {
         get => (double)GetValue(PercentageProperty);
         set => SetValue(PercentageProperty, value);
     }
-
-    // Using a DependencyProperty as the backing store for Percentage.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty PercentageProperty =
-        DependencyProperty.Register("Percentage", typeof(double), typeof(Arc), new PropertyMetadata(0.0, AnglesChanged));
+        DependencyProperty.Register(nameof(Percentage), typeof(double), typeof(Arc), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
     public double EndAngle
     {
         get => (double)GetValue(EndAngleProperty);
         set => SetValue(EndAngleProperty, value);
     }
-
-    // Using a DependencyProperty as the backing store for EndAngle.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty EndAngleProperty =
-        DependencyProperty.Register("EndAngle", typeof(double), typeof(Arc), new PropertyMetadata(0.0, AnglesChanged));
+        DependencyProperty.Register(nameof(EndAngle), typeof(double), typeof(Arc), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
     protected override Geometry DefiningGeometry => GetArcGeometry();
 
-    private static void AnglesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        if (d is Arc arc)
-            arc.InvalidateVisual();
-    }
-
     private Geometry GetArcGeometry()
     {
-        double end = ConvertPercentageIntoAngle(Reverse, Percentage);
+        double percentage = Math.Clamp(
+            value: Percentage,
+            min: 0.0,
+            max: 1.0
+        );
+        double end = ConvertPercentageIntoAngle(Reverse, percentage);
 
-        Point startPoint = PointAtAngle(Math.Min(StartAngle, end));
+        var middlePoint = new Point(
+            x: (RenderSize.Width - StrokeThickness) / 2,
+            y: (RenderSize.Height - StrokeThickness) / 2
+        );
+        Point realStartPoint = PointAtAngle(Math.Min(StartAngle, end));
         Point endPoint = PointAtAngle(Math.Max(StartAngle, end));
 
-        var arcSize = new Size(Math.Max(0, (RenderSize.Width - StrokeThickness) / 2),
-        Math.Max(0, (RenderSize.Height - StrokeThickness) / 2));
+        var arcSize = new Size(
+            width: Math.Max(0, middlePoint.X),
+            height: Math.Max(0, middlePoint.Y)
+        );
         bool isLargeArc = Math.Abs(end - StartAngle) > 180;
         var geom = new StreamGeometry();
         using (StreamGeometryContext context = geom.Open())
         {
-            context.BeginFigure(startPoint, false, false);
-            context.ArcTo(endPoint, arcSize, 0, isLargeArc,
-            SweepDirection.Counterclockwise, true, false);
+            context.BeginFigure(
+                startPoint: middlePoint,
+                isFilled: true,
+                isClosed: false
+            );
+            context.LineTo(
+                point: realStartPoint,
+                isStroked: false,
+                isSmoothJoin: false
+            );
+            context.ArcTo(
+                point: endPoint,
+                size: arcSize,
+                rotationAngle: 0,
+                isLargeArc: isLargeArc,
+                sweepDirection: SweepDirection.Counterclockwise,
+                isStroked: true,
+                isSmoothJoin: true
+            );
         }
 
-        geom.Transform = new TranslateTransform(StrokeThickness / 2, StrokeThickness / 2);
+        geom.Transform = new TranslateTransform(
+            offsetX: StrokeThickness / 2,
+            offsetY: StrokeThickness / 2
+        );
         return geom;
     }
 
@@ -96,7 +112,7 @@ public class Arc : Shape
     {
         double angle = reverse switch
         {
-            true => -90.0 + (360.0 * percentage),
+            true => 90.0 + (360.0 * percentage),
             false => 90.0 - (360.0 * percentage),
         };
         double cap = -269.999;

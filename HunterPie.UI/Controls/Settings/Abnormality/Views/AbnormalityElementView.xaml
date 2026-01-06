@@ -9,8 +9,8 @@
                                xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
                                xmlns:architecture="clr-namespace:HunterPie.UI.Architecture"
                                xmlns:image="clr-namespace:HunterPie.UI.Controls.Image"
-                               mc:Ignorable="d" 
-                               Height="40" 
+                               mc:Ignorable="d"
+                               MinHeight="40"
                                d:DesignWidth="200"
                                d:DataContext="{d:DesignInstance viewModels:AbnormalityElementViewModel}">
     <UserControl.Resources>
@@ -18,6 +18,7 @@
     </UserControl.Resources>
     <buttons:Button Padding="0"
                     HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
                     CornerRadius="5"
                     BorderThickness="1"
                     Background="{DynamicResource Brushes.HunterPie.Background.Primary}"
@@ -26,7 +27,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="40"/>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="25"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
@@ -42,7 +43,7 @@
             <Image Grid.Column="0"
                    Grid.Row="0"
                    Grid.RowSpan="2"
-                   Margin="5"
+                   Margin="10"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Source="{Binding Icon, Mode=OneWay, Converter={StaticResource AbnormalityStringToIconConverter}}"
@@ -56,8 +57,8 @@
                        VerticalAlignment="Bottom"
                        Margin="2,0,0,0"
                        FontSize="13"
-                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"
-                       TextTrimming="CharacterEllipsis"/>
+                       TextTrimming="CharacterEllipsis"
+                       Foreground="{DynamicResource Brushes.HunterPie.Foreground.Primary}"/>
             <TextBlock Grid.Column="1"
                        Grid.Row="1"
                        d:Text="Category"

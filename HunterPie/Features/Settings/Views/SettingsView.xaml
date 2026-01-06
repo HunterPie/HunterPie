@@ -28,40 +28,6 @@
         <presentation:ConfigurationPropertyDataTemplateSelector x:Key="ConfigurationPropertyDataTemplateSelector"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
-        <Storyboard x:Key="DisableSettingComponentAnimation">
-            <DoubleAnimation To="0"
-                             Duration="0:0:0.25"
-                             Storyboard.TargetProperty="Opacity">
-                <DoubleAnimation.EasingFunction>
-                    <QuadraticEase/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation To="0"
-                             Duration="0:0:0.3"
-                             Storyboard.TargetProperty="(LayoutTransform).(ScaleTransform.ScaleY)">
-                <DoubleAnimation.EasingFunction>
-                    <QuadraticEase/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-        </Storyboard>
-
-        <Storyboard x:Key="EnableSettingComponentAnimation">
-            <DoubleAnimation To="1"
-                             Duration="0:0:0.25"
-                             Storyboard.TargetProperty="Opacity">
-                <DoubleAnimation.EasingFunction>
-                    <QuadraticEase/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation To="1"
-                             Duration="0:0:0.3"
-                             Storyboard.TargetProperty="(LayoutTransform).(ScaleTransform.ScaleY)">
-                <DoubleAnimation.EasingFunction>
-                    <QuadraticEase/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-        </Storyboard>
-
         <DataTemplate x:Key="CategoryHeaderTemplate"
                       DataType="{x:Type viewModels:ConfigurationCategoryTab}">
             <buttons:TabItem Title="{Binding Category.Name, Mode=OneTime}"

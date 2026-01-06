@@ -1,5 +1,4 @@
-﻿using HunterPie.Core.Architecture;
-using HunterPie.Core.Client.Configuration.Overlay;
+﻿using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Game.Enums;
 using HunterPie.UI.Architecture;
 
@@ -7,11 +6,11 @@ namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
 
 public class PlayerViewModel : ViewModel
 {
-    private readonly DamageMeterWidgetConfig _config;
+    public DamageMeterWidgetConfig Config { get; }
 
     public PlayerViewModel(DamageMeterWidgetConfig config)
     {
-        _config = config;
+        Config = config;
     }
 
     private string _name;
@@ -65,10 +64,12 @@ public class PlayerViewModel : ViewModel
     private bool _isVisible;
     public bool IsVisible { get => _isVisible; set => SetValue(ref _isVisible, value); }
 
-    // Settings related
-    public Observable<bool> ShouldHighlightMyself => _config.ShouldHighlightMyself;
-    public Observable<bool> ShouldBlurNames => _config.ShouldBlurNames;
-    public Observable<bool> ShouldShowDPS => _config.ShouldShowDPS;
-    public Observable<bool> ShouldShowDamage => _config.ShouldShowDamage;
+    private double? _affinity = null;
+    public double? Affinity { get => _affinity; set => SetValue(ref _affinity, value); }
 
+    private double? _rawDamage = null;
+    public double? RawDamage { get => _rawDamage; set => SetValue(ref _rawDamage, value); }
+
+    private double? _elementalDamage = null;
+    public double? ElementalDamage { get => _elementalDamage; set => SetValue(ref _elementalDamage, value); }
 }

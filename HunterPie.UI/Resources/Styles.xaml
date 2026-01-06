@@ -9,9 +9,6 @@
                     xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons;assembly=HunterPie.UI">
     <!-- Converters -->
     <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
-    
-
-    
 
     <!-- Font -->
     <FontFamily x:Key="Font.Default">Work Sans, Segoe UI, Microsoft Sans Serif</FontFamily>
