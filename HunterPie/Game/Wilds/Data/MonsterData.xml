@@ -95,6 +95,7 @@
                  String="unk45" />
     </Ailments>
     <Monsters>
+<!-- Rathian -->
         <Monster Id="0"
                  Size="1754.37">
             <Crowns Gold="123"
@@ -123,9 +124,10 @@
                 <Part Id="6"
                       String="PART_R_WING" />
                 <Part Id="7"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_CUT" />
             </Parts>
         </Monster>
+<!-- Rathalos -->
         <Monster Id="1"
                  Size="1704.22">
             <Crowns Gold="123"
@@ -156,21 +158,22 @@
                 <Part Id="7"
                       String="PART_TAIL" />
                 <Part Id="8"
-                      String="PART_UNKNOWN" />
+                      String="PART_UNKNOWN" />                <!-- 0 HP Part -->
                 <Part Id="9"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_CUT" />
                 <Part Id="10"
-                      String="PART_SKY_FALL" />
+                      String="PART_CRASH" />
                 <Part Id="11"
-                      String="PART_SKY_FALL" />
+                      String="PART_CRASH" />
                 <Part Id="12"
-                      String="PART_AIR_FLINCH" />
+                      String="PART_AIR_FLINCH_MELEE_WEAPON" />
                 <Part Id="13"
-                      String="PART_AIR_FLINCH" />
+                      String="PART_AIR_FLINCH_MELEE_WEAPON" />
                 <Part Id="14"
-                      String="PART_UNKNOWN" />
+                      String="PART_AIR_FLINCH_RANGE_WEAPON" />
             </Parts>
         </Monster>
+<!-- Guardian Rathalos -->
         <Monster Id="2"
                  Size="1704.22">
             <Crowns Gold="123"
@@ -185,11 +188,11 @@
             </Weaknesses>
             <Parts>
                 <Part Id="0"
-                      String="PART_HEAD" />
+                      String="PART_UNKNOWN" />
                 <Part Id="1"
-                      String="PART_NECK" />
+                      String="PART_UNKNOWN" />                <!-- 0 HP Part -->
                 <Part Id="2"
-                      String="PART_TORSO" />
+                      String="PART_UNKNOWN" />                <!-- HP over Monster-HP -->
                 <Part Id="3"
                       String="PART_L_WING" />
                 <Part Id="4"
@@ -197,9 +200,9 @@
                 <Part Id="5"
                       String="PART_L_LEG" />
                 <Part Id="6"
-                      String="PART_R_WING" />
+                      String="PART_R_LEG" />
                 <Part Id="7"
-                      String="PART_TAIL" />
+                      String="PART_UNKNOWN" />                <!-- HP over Monster-HP -->
                 <Part Id="8"
                       String="PART_TAIL" />
                 <Part Id="9"
@@ -207,13 +210,14 @@
                 <Part Id="10"
                       String="PART_CRASH" />
                 <Part Id="11"
-                      String="PART_AIR_FLINCH" />
+                      String="PART_AIR_FLINCH_MELEE_WEAPON" />
                 <Part Id="12"
-                      String="PART_AIR_FLINCH" />
+                      String="PART_AIR_FLINCH_MELEE_WEAPON" />
                 <Part Id="13"
-                      String="PART_WINGS" />
+                      String="PART_AIR_FLINCH_RANGE_WEAPON" />
             </Parts>
         </Monster>
+<!-- Gravios -->
         <Monster Id="3"
                  Size="2100.58">
             <Crowns Gold="123"
@@ -246,13 +250,14 @@
                 <Part Id="8"
                       String="PART_R_WING" />
                 <Part Id="9"
-                      String="PART_BELLY" />
+                      String="PART_BELLY_BREAK1" />
                 <Part Id="10"
-                      String="PART_BELLY" />
+                      String="PART_BELLY_BREAK2" />
                 <Part Id="11"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_CUT" />
             </Parts>
         </Monster>
+<!-- Yian Kut-Ku -->
         <Monster Id="4"
                  Size="994.5472">
             <Crowns Gold="123"
@@ -269,7 +274,7 @@
                 <Part Id="0"
                       String="PART_HEAD" />
                 <Part Id="1"
-                      String="PART_NECK" />
+                      String="PART_UNKNOWN" />                <!-- HP over Monster-HP -->
                 <Part Id="2"
                       String="PART_TORSO" />
                 <Part Id="3"
@@ -284,6 +289,7 @@
                       String="PART_L_WING" />
             </Parts>
         </Monster>
+<!-- Gypceros -->
         <Monster Id="5"
                  Size="964.138">
             <Crowns Gold="123"
@@ -300,7 +306,7 @@
                 <Part Id="0"
                       String="PART_HEAD" />
                 <Part Id="1"
-                      String="PART_NECK" />
+                      String="PART_UNKNOWN" />
                 <Part Id="2"
                       String="PART_TORSO" />
                 <Part Id="3"
@@ -314,15 +320,16 @@
                 <Part Id="7"
                       String="PART_R_WING" />
                 <Part Id="8"
-                      String="PART_HEAD" />
+                      String="PART_HEAD_BREAK1" />
                 <Part Id="9"
-                      String="PART_HEAD" />
+                      String="PART_HEAD_BREAK2" />
                 <Part Id="10"
                       String="PART_FEIGN_DEATH" />
                 <Part Id="11"
                       String="PART_UNKNOWN" />
             </Parts>
         </Monster>
+<!-- Congala -->
         <Monster Id="6"
                  Size="1051.15">
             <Crowns Gold="123"
@@ -350,8 +357,11 @@
                       String="PART_R_H_LEG" />
                 <Part Id="6"
                       String="PART_TAIL" />
+                <Part Id="7"
+                      String="PART_EAT_FLINCH" />
             </Parts>
         </Monster>
+<!-- Blangonga -->
         <Monster Id="7"
                  Size="899.3712">
             <Crowns Gold="123"
@@ -380,11 +390,12 @@
                 <Part Id="6"
                       String="PART_TAIL" />
                 <Part Id="7"
-                      String="PART_HEAD" />
+                      String="PART_FANG_BREAK1" />
                 <Part Id="8"
-                      String="PART_HEAD" />
+                      String="PART_FANG_BREAK2" />
             </Parts>
         </Monster>
+<!-- Lagiacrus -->
         <Monster Id="8"
                  Size="2535.460">
             <Crowns Gold="113"
@@ -415,8 +426,43 @@
                       String="PART_H_LEGS" />
                 <Part Id="7"
                       String="PART_TAIL" />
+                <Part Id="8"
+                      String="PART_UNKNOWN" />                <!-- 0 HP Part -->
+				<Part Id="9"
+                      String="PART_UNKNOWN" />                <!-- 0 HP Part -->
+				<Part Id="10"
+                      String="PART_UNKNOWN" />                <!-- 0 HP Part -->
+				<Part Id="11"
+                      String="PART_UNKNOWN" />                <!-- 0 HP Part -->
+				<Part Id="12"
+                      String="PART_UNKNOWN" />                <!-- 0 HP Part -->
+				<Part Id="13"
+                      String="PART_UNKNOWN" />                <!-- 0 HP Part -->
+				<Part Id="14"
+                      String="PART_UNKNOWN" />                <!-- 0 HP Part -->
+				<Part Id="15"
+                      String="PART_UNKNOWN" />                <!-- 0 HP Part -->	
+				<Part Id="16"
+                      String="PART_TAIL_CUT" />
+				<Part Id="17"
+                      String="PART_SUPERCHARGE" />
+				<Part Id="18"
+                      String="PART_UNKNOWN" />                <!-- HP over Monster-HP -->
+				<Part Id="19"
+                      String="PART_WATERFIGHT_LR" />
+                <Part Id="20"
+                      String="PART_WATERFIGHT_HR" />
+                <Part Id="21"
+                      String="PART_UNKNOWN" />
+				<Part Id="22"
+                      String="PART_WATER_MOUNT_FLINCH" />
+				<Part Id="23"
+                      String="PART_WATER_SHOT_FLINCH" />					  
+				<Part Id="24"
+                      String="PART_UNKNOWN" />                <!-- HP over Monster-HP -->
             </Parts>
         </Monster>
+<!-- Nerscylla -->
         <Monster Id="9"
                  Size="731.9625">
             <Crowns Gold="123"
@@ -447,7 +493,7 @@
                 <Part Id="7"
                       String="PART_MANTLE" />
                 <Part Id="8"
-                      String="PART_UNKNOWN" />
+                      String="PART_UNKNOWN" />                <!-- 0 HP Part -->
                 <Part Id="9"
                       String="PART_L_H_LEG" />
                 <Part Id="10"
@@ -455,17 +501,18 @@
                 <Part Id="11"
                       String="PART_STINGER" />
                 <Part Id="12"
-                      String="PART_UNKNOWN" />
+                      String="PART_UNKNOWN" />                <!-- 0 HP Part -->
                 <Part Id="13"
-                      String="PART_STINGER" />
+                      String="PART_STINGER_BREAK1" />
                 <Part Id="14"
-                      String="PART_STINGER" />
+                      String="PART_STINGER_BREAK2" />
                 <Part Id="15"
-                      String="PART_MANTLE" />
+                      String="PART_MANTLE_BREAK" />
                 <Part Id="16"
                       String="PART_CEILING_FALL" />
             </Parts>
         </Monster>
+<!-- Gore Magala -->
         <Monster Id="10"
                  Size="1765.9">
             <Crowns Gold="117"
@@ -501,19 +548,20 @@
                 <Part Id="9"
                       String="PART_TORSO" />
                 <Part Id="10"
-                      String="PART_NECK" />
+                      String="PART_UNKNOWN" />                <!-- HP over Monster-HP -->
                 <Part Id="11"
                       String="PART_R_WING" />
                 <Part Id="12"
                       String="PART_L_WING" />
                 <Part Id="13"
-                      String="PART_FRENZY_THRESHOLD" />
+                      String="PART_FRENZY_HR" />
                 <Part Id="14"
-                      String="PART_UNKNOWN" />
+                      String="PART_FRENZY_THR" />                <!-- HP over Monster-HP -->
                 <Part Id="15"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_CUT" />
             </Parts>
         </Monster>
+<!-- Seregios -->
         <Monster Id="11"
                  Size="1730.270">
             <Crowns Gold="123"
@@ -543,8 +591,13 @@
                       String="PART_R_WING" />
                 <Part Id="7"
                       String="PART_TAIL" />
+                <Part Id="8"
+                      String="PART_UNKNOWN" />                <!-- 0 HP Part -->
+                <Part Id="9"
+                      String="PART_TAIL_CUT" />
             </Parts>
         </Monster>
+<!-- Gogmazios -->
         <Monster Id="12"
                  IsNotCapturable="True">
             <Crowns Gold="123"
@@ -557,7 +610,82 @@
                 <Weakness Name="Fire" />
                 <Weakness Name="Dragon" />
             </Weaknesses>
+            <Parts>
+                <Part Id="0"
+                      String="PART_UNKNOWN" />
+                <Part Id="1"
+                      String="PART_UNKNOWN" />
+                <Part Id="2"
+                      String="PART_L_WINGARM" />
+                <Part Id="3"
+                      String="PART_R_WINGARM" />
+                <Part Id="4"
+                      String="PART_UNKNOWN" />
+                <Part Id="5"
+                      String="PART_UNKNOWN" />
+                <Part Id="6"
+                      String="PART_UNKNOWN" />
+                <Part Id="7"
+                      String="PART_UNKNOWN" />
+                <Part Id="8"
+                      String="PART_UNKNOWN" />
+                <Part Id="9"
+                      String="PART_UNKNOWN" />
+                <Part Id="10"
+                      String="PART_UNKNOWN" />
+                <Part Id="11"
+                      String="PART_UNKNOWN" />
+                <Part Id="12"
+                      String="PART_GOG_NECK" />
+                <Part Id="13"
+                      String="PART_GOG_L_WINGARM" />
+                <Part Id="14"
+                      String="PART_GOG_R_WINGARM" />
+                <Part Id="15"
+                      String="PART_GOG_TAIL_TIP" />
+                <Part Id="16"
+                      String="PART_GOG_TAIL" />
+                <Part Id="17"
+                      String="PART_GOG_BACK" />
+                <Part Id="18"
+                      String="PART_BACK" />
+                <Part Id="19"
+                      String="PART_BACK_CANNON" />
+                <Part Id="20"
+                      String="PART_TAIL" />
+                <Part Id="21"
+                      String="PART_TAIL_CUT" />
+                <Part Id="22"
+                      String="PART_CRASH" />
+                <Part Id="23"
+                      String="PART_UNKNOWN" />
+                <Part Id="24"
+                      String="PART_AIR_FLINCH" />
+                <Part Id="25"
+                      String="PART_UNKNOWN" />
+                <Part Id="26"
+                      String="PART_UNKNOWN" />
+                <Part Id="27"
+                      String="PART_L_WINGARM_FLINCH_PHASE1" />
+                <Part Id="28"
+                      String="PART_R_WINGARM_FLINCH_PHASE1" />
+                <Part Id="29"
+                      String="PART_L_WINGARM_FLINCH_PHASE2" />
+                <Part Id="30"
+                      String="PART_R_WINGARM_FLINCH_PHASE2" />
+                <Part Id="31"
+                      String="PART_L_WINGARM_FLINCH_PHASE3" />
+                <Part Id="32"
+                      String="PART_R_WINGARM_FLINCH_PHASE3" />
+                <Part Id="33"
+                      String="PART_HEAD" />
+                <Part Id="34"
+                      String="PART_CHEST" />
+                <Part Id="35"
+                      String="PART_UNKNOWN" />
+            </Parts>
         </Monster>
+<!-- Mizutsune -->
         <Monster Id="13"
                  Size="1923.434">
             <Crowns Gold="123"
@@ -592,21 +720,22 @@
                 <Part Id="9"
                       String="PART_DORSAL_FIN" />
                 <Part Id="10"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_BREAK" />
                 <Part Id="11"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_CUT" />
                 <Part Id="12"
-                      String="PART_UNKNOWN" />
+                      String="PART_BEAM_FLINCH" />
                 <Part Id="13"
-                      String="PART_HEAD" />
+                      String="PART_HEAD_BREAK1" />
                 <Part Id="14"
-                      String="PART_HEAD" />
+                      String="PART_HEAD_BREAK2" />
                 <Part Id="15"
                       String="PART_L_CLAW" />
                 <Part Id="16"
                       String="PART_R_CLAW" />
             </Parts>
         </Monster>
+<!-- Guardian Fulgur Anjanath -->
         <Monster Id="14"
                  Size="1646.46">
             <Crowns Gold="123"
@@ -624,15 +753,15 @@
                 <Part Id="0"
                       String="PART_HEAD" />
                 <Part Id="1"
-                      String="PART_NOSE" />
+                      String="PART_UNKNOWN" />                <!-- 0 HP Part -->
                 <Part Id="2"
                       String="PART_NECK" />
                 <Part Id="3"
                       String="PART_TORSO" />
                 <Part Id="4"
-                      String="PART_L_WING" />
+                      String="PART_UNKNOWN" />                <!-- 0 HP Part -->
                 <Part Id="5"
-                      String="PART_R_WING" />
+                      String="PART_UNKNOWN" />                <!-- 0 HP Part -->
                 <Part Id="6"
                       String="PART_L_LEG" />
                 <Part Id="7"
@@ -640,15 +769,16 @@
                 <Part Id="8"
                       String="PART_TAIL" />
                 <Part Id="9"
-                      String="PART_UNKNOWN" />
+                      String="PART_UNKNOWN" />                <!-- 0 HP Part -->
                 <Part Id="10"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_CUT" />
                 <Part Id="11"
                       String="PART_L_LEG" />
                 <Part Id="12"
                       String="PART_R_LEG" />
             </Parts>
         </Monster>
+<!-- Guardian Ebony Odogaron -->
         <Monster Id="15"
                  Size="1388.7515">
             <Crowns Gold="123"
@@ -685,19 +815,20 @@
                 <Part Id="9"
                       String="PART_TAIL_TIP" />
                 <Part Id="10"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_CUT" />
                 <Part Id="11"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_BREAK" />
                 <Part Id="12"
-                      String="PART_FORELEGS" />
+                      String="PART_FORELEGS_BREAK" />
                 <Part Id="13"
-                      String="PART_H_LEGS" />
+                      String="PART_H_LEGS_BREAK" />
                 <Part Id="14"
-                      String="PART_HEAD" />
+                      String="PART_HEAD_BREAK1" />
                 <Part Id="15"
-                      String="PART_HEAD" />
+                      String="PART_HEAD_BREAK2" />
             </Parts>
         </Monster>
+<!-- Doshaguma -->
         <Monster Id="16"
                  Size="1390.47">
             <Crowns Gold="123"
@@ -727,6 +858,7 @@
                       String="PART_TAIL_HAIR" />
             </Parts>
         </Monster>
+<!-- Guardian Doshaguma -->
         <Monster Id="17"
                  Size="1390.47">
             <Crowns Gold="123"
@@ -756,6 +888,7 @@
                       String="PART_TAIL_HAIR" />
             </Parts>
         </Monster>
+<!-- Balahara -->
         <Monster Id="18"
                  Size="1912.616">
             <Crowns Gold="123"
@@ -772,7 +905,7 @@
                 <Part Id="0"
                       String="PART_HEAD" />
                 <Part Id="1"
-                      String="PART_NECK" />
+                      String="PART_UNKNOWN" />                <!-- HP over Monster-HP -->
                 <Part Id="2"
                       String="PART_TORSO" />
                 <Part Id="3"
@@ -785,8 +918,15 @@
                       String="PART_L_H_FORELEG" />
                 <Part Id="7"
                       String="PART_TAIL" />
+                <Part Id="8"
+                      String="PART_WRAP_FLINCH" />
+                <Part Id="9"
+                      String="PART_TAIL_CUT" />
+                <Part Id="10"
+                      String="PART_UNKNOWN" />
             </Parts>
         </Monster>
+<!-- Chatacabra -->
         <Monster Id="19"
                  Size="498.3">
             <Crowns Gold="123"
@@ -815,33 +955,34 @@
                 <Part Id="6"
                       String="PART_REAR" />
                 <Part Id="7"
-                      String="PART_TONGUE" />
+                      String="PART_UNKNOWN" />                <!-- HP over Monster-HP -->
                 <Part Id="8"
-                      String="PART_L_FORELEG_REINFORCED" />
+                      String="PART_L_FORELEG_RF_LR_CRYSTAL" />
                 <Part Id="9"
-                      String="PART_R_FORELEG_REINFORCED" />
+                      String="PART_R_FORELEG_RF_LR_CRYSTAL" />
                 <Part Id="10"
-                      String="PART_L_FORELEG_REINFORCED" />
+                      String="PART_L_FORELEG_RF_LR_STONE" />
                 <Part Id="11"
-                      String="PART_R_FORELEG_REINFORCED" />
+                      String="PART_R_FORELEG_RF_LR_STONE" />
                 <Part Id="12"
-                      String="PART_L_FORELEG_REINFORCED" />
+                      String="PART_L_FORELEG_RF_LR_SAND" />
                 <Part Id="13"
-                      String="PART_R_FORELEG_REINFORCED" />
+                      String="PART_R_FORELEG_RF_LR_SAND" />
                 <Part Id="14"
-                      String="PART_L_FORELEG_REINFORCED" />
+                      String="PART_L_FORELEG_RF_HR_CRYSTAL" />
                 <Part Id="15"
-                      String="PART_R_FORELEG_REINFORCED" />
+                      String="PART_R_FORELEG_RF_HR_CRYSTAL" />
                 <Part Id="16"
-                      String="PART_L_FORELEG_REINFORCED" />
+                      String="PART_L_FORELEG_RF_HR_STONE" />
                 <Part Id="17"
-                      String="PART_R_FORELEG_REINFORCED" />
+                      String="PART_R_FORELEG_RF_HR_STONE" />
                 <Part Id="18"
-                      String="PART_L_FORELEG_REINFORCED" />
+                      String="PART_L_FORELEG_RF_HR_SAND" />
                 <Part Id="19"
-                      String="PART_R_FORELEG_REINFORCED" />
+                      String="PART_R_FORELEG_RF_HR_SAND" />
             </Parts>
         </Monster>
+<!-- Quematrice -->
         <Monster Id="20"
                  Size="1244.165">
             <Crowns Gold="123"
@@ -870,11 +1011,12 @@
                 <Part Id="6"
                       String="PART_L_H_FORELEG" />
                 <Part Id="7"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_BREAK" />
                 <Part Id="8"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_CUT" />
             </Parts>
         </Monster>
+<!-- Lala Barina -->
         <Monster Id="21"
                  Size="698.7456">
             <Crowns Gold="123"
@@ -908,8 +1050,11 @@
                       String="PART_R_H_LEG" />
                 <Part Id="9"
                       String="PART_PETALS" />
+                <Part Id="10"
+                      String="PART_CEILING_FALL" />
             </Parts>
         </Monster>
+<!-- Rompopolo -->
         <Monster Id="22"
                  Size="1197.82">
             <Crowns Gold="123"
@@ -942,25 +1087,34 @@
                 <Part Id="7"
                       String="PART_TAIL" />
                 <Part Id="8"
-                      String="PART_SACK_COLLAPSE" />
+                      String="PART_SACK_COLLAPSE_LR" />
                 <Part Id="9"
-                      String="PART_HEAD_SACK" />
+                      String="PART_HEAD_SACK_LR" />
                 <Part Id="10"
-                      String="PART_BACK_SACK" />
+                      String="PART_BACK_SACK_LR" />
                 <Part Id="11"
-                      String="PART_TAIL_SACK" />
+                      String="PART_TAIL_SACK_LR" />
                 <Part Id="12"
                       String="PART_FORELEGS" />
                 <Part Id="13"
-                      String="PART_SACK_COLLAPSE" />
+                      String="PART_SACK_COLLAPSE_HR" />
                 <Part Id="14"
-                      String="PART_HEAD_SACK" />
+                      String="PART_HEAD_SACK_HR" />
                 <Part Id="15"
-                      String="PART_BACK_SACK" />
+                      String="PART_BACK_SACK_HR" />
                 <Part Id="16"
-                      String="PART_TAIL_SACK" />
+                      String="PART_TAIL_SACK_HR" />
+                <Part Id="17"
+                      String="PART_SACK_COLLAPSE_THR" />
+                <Part Id="18"
+                      String="PART_HEAD_SACK_THR" />
+                <Part Id="19"
+                      String="PART_BACK_SACK_THR" />
+                <Part Id="20"
+                      String="PART_TAIL_SACK_THR" />
             </Parts>
         </Monster>
+<!-- Rey Dau -->
         <Monster Id="23"
                  Size="2057.0854">
             <Crowns Gold="123"
@@ -989,21 +1143,30 @@
                 <Part Id="6"
                       String="PART_R_WING" />
                 <Part Id="7"
-                      String="unk (id: 7)" />
+                      String="PART_UNKNOWN" />                <!-- HP over Monster-HP -->
                 <Part Id="8"
-                      String="unk (id: 8)" />
+                      String="PART_UNKNOWN" />                <!-- HP over Monster-HP -->
                 <Part Id="9"
-                      String="unk (id: 9)" />
+                      String="PART_UNKNOWN" />                <!-- HP over Monster-HP -->
                 <Part Id="10"
-                      String="unk (id: 10)" />
+                      String="PART_UNKNOWN" />                <!-- HP over Monster-HP -->
                 <Part Id="11"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_CUT" />
                 <Part Id="12"
-                      String="PART_L_WING" />
+                      String="PART_L_WING_BREAK" />
                 <Part Id="13"
-                      String="PART_R_WING" />
+                      String="PART_R_WING_BREAK" />
+                <Part Id="14"
+                      String="PART_UNKNOWN" />					<!-- HP over Monster-HP -->
+                <Part Id="15"
+                      String="PART_UNKNOWN" />					<!-- HP over Monster-HP -->
+                <Part Id="16"
+                      String="PART_UNKNOWN" />					<!-- HP over Monster-HP -->
+                <Part Id="17"
+                      String="PART_UNKNOWN" />					<!-- HP over Monster-HP -->
             </Parts>
         </Monster>
+<!-- Uth Duna -->
         <Monster Id="24"
                  Size="2979.2935">
             <Crowns Gold="113"
@@ -1050,11 +1213,12 @@
                 <Part Id="15"
                       String="PART_L_TAIL_VEIL" />
                 <Part Id="16"
-                      String="PART_UNKNOWN" />
+                      String="PART_UNKNOWN" />					<!-- HP over Monster-HP -->
                 <Part Id="17"
                       String="PART_VEIL" />
             </Parts>
         </Monster>
+<!-- Nu Udra -->
         <Monster Id="25"
                  Size="2093.7">
             <Crowns Gold="113"
@@ -1071,39 +1235,39 @@
                 <Part Id="0"
                       String="PART_HEAD" />
                 <Part Id="1"
-                      String="PART_TENTACLE" />
+                      String="PART_UNKNOWN" />					<!-- HP over Monster-HP -->
                 <Part Id="2"
-                      String="PART_MEMBRANE" />
+                      String="PART_UNKNOWN" />					<!-- HP over Monster-HP -->
                 <Part Id="3"
-                      String="PART_TORSO" />
+                      String="PART_UNKNOWN" />                  <!-- 0 HP Part -->
                 <Part Id="4"
-                      String="PART_L_F_ARM" />
+                      String="PART_UNKNOWN" />					<!-- HP over Monster-HP -->
                 <Part Id="5"
-                      String="PART_R_F_ARM" />
+                      String="PART_UNKNOWN" />					<!-- HP over Monster-HP -->
                 <Part Id="6"
-                      String="PART_M_L_ARM" />
+                      String="PART_UNKNOWN" />					<!-- HP over Monster-HP -->
                 <Part Id="7"
-                      String="PART_M_R_ARM" />
+                      String="PART_UNKNOWN" />					<!-- HP over Monster-HP -->
                 <Part Id="8"
-                      String="PART_REAR_L_ARM" />
+                      String="PART_UNKNOWN" />					<!-- HP over Monster-HP -->
                 <Part Id="9"
-                      String="PART_REAR_R_ARM" />
+                      String="PART_UNKNOWN" />					<!-- HP over Monster-HP -->
                 <Part Id="10"
-                      String="PART_MOUTH" />
+                      String="PART_UNKNOWN" />                  <!-- HP over Monster-HP -->
                 <Part Id="11"
-                      String="PART_UNKNOWN" />
+                      String="PART_UNKNOWN" />   	            <!-- 0 HP Part -->
                 <Part Id="12"
-                      String="PART_L_F_ARM" />
+                      String="PART_L_F_ARM_CUT" />
                 <Part Id="13"
-                      String="PART_R_F_ARM" />
+                      String="PART_R_F_ARM_CUT" />
                 <Part Id="14"
-                      String="PART_M_L_ARM" />
+                      String="PART_M_L_ARM_CUT" />
                 <Part Id="15"
-                      String="PART_M_R_ARM" />
+                      String="PART_M_R_ARM_CUT" />
                 <Part Id="16"
-                      String="PART_REAR_L_ARM" />
+                      String="PART_REAR_L_ARM_CUT" />
                 <Part Id="17"
-                      String="PART_REAR_R_ARM" />
+                      String="PART_REAR_R_ARM_CUT" />
                 <Part Id="18"
                       String="PART_FIRE_STATE" />
                 <Part Id="19"
@@ -1132,8 +1296,11 @@
                       String="PART_REAR_L_ARM_OIL" />
                 <Part Id="31"
                       String="PART_REAR_R_ARM_OIL" />
+                <Part Id="32"
+                      String="PART_AT_ZONE_CHANGE" />
             </Parts>
         </Monster>
+<!-- Ajarakan -->
         <Monster Id="26"
                  Size="1164.36">
             <Crowns Gold="123"
@@ -1158,29 +1325,30 @@
                 <Part Id="4"
                       String="PART_L_H_LEG" />
                 <Part Id="5"
-                      String="PART_TAIL_TIP" />
-                <Part Id="6"
                       String="PART_TAIL" />
+                <Part Id="6"
+                      String="PART_UNKNOWN" />
                 <Part Id="7"
                       String="PART_BACK" />
                 <Part Id="8"
                       String="PART_BELLY" />
                 <Part Id="9"
-                      String="PART_UNKNOWN" />
+                      String="PART_UNKNOWN" />              <!-- 0 HP Part -->
                 <Part Id="10"
-                      String="PART_UNKNOWN" />
+                      String="PART_UNKNOWN" />              <!-- 0 HP Part -->
                 <Part Id="11"
-                      String="PART_SUPERHEAT" />
+                      String="PART_SUPERHEAT_LR" />
                 <Part Id="12"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_CUT" />
                 <Part Id="13"
                       String="PART_CEILING_FALL" />
                 <Part Id="14"
-                      String="PART_SUPERHEAT" />
+                      String="PART_SUPERHEAT_HR" />
                 <Part Id="15"
-                      String="PART_FIRE_STATE" />
+                      String="PART_SUPERHEAT_GHR" />
             </Parts>
         </Monster>
+<!-- Akrveld -->
         <Monster Id="27"
                  Size="1666.54">
             <Crowns Gold="123"
@@ -1213,15 +1381,16 @@
                 <Part Id="8"
                       String="PART_R_CHAINBLADE" />
                 <Part Id="9"
-                      String="PART_UNKNOWN" />
+                      String="PART_UNKNOWN" />              <!-- 0 HP Part -->
                 <Part Id="10"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_CUT" />
                 <Part Id="11"
-                      String="PART_L_CHAINBLADE" />
+                      String="PART_L_CHAINBLADE_SPLITTED" />
                 <Part Id="12"
-                      String="PART_R_CHAINBLADE" />
+                      String="PART_R_CHAINBLADE_SPLITTED" />
             </Parts>
         </Monster>
+<!-- Guardian Arkveld -->
         <Monster Id="28"
                  Size="1666.54"
                  IsNotCapturable="True">
@@ -1256,8 +1425,15 @@
                       String="PART_R_CHAINBLADE" />
                 <Part Id="9"
                       String="PART_UNKNOWN" />
+                <Part Id="10"
+                      String="PART_TAIL_CUT" />					  
+                <Part Id="11"
+                      String="PART_L_CHAINBLADE_SPLITTED" />
+                <Part Id="12"
+                      String="PART_R_CHAINBLADE_SPLITTED" />
             </Parts>
         </Monster>
+<!-- Hirabami -->
         <Monster Id="29"
                  Size="1659.3395">
             <Crowns Gold="113"
@@ -1288,19 +1464,24 @@
                 <Part Id="7"
                       String="PART_TAIL" />
                 <Part Id="8"
-                      String="PART_HEAD" />
+                      String="PART_MOUTH" />
                 <Part Id="9"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_BREAK1" />
                 <Part Id="10"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_BREAK2" />
                 <Part Id="11"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_BREAK3" />
                 <Part Id="12"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_BREAK4" />
                 <Part Id="13"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_BREAK5" />
+                <Part Id="14"
+                      String="PART_UNKNOWN" />                   <!-- HP over Monster-HP -->
+                <Part Id="15"
+                      String="PART_UNKNOWN" />                   <!-- HP over Monster-HP -->
             </Parts>
         </Monster>
+<!-- Jin Dahaad -->
         <Monster Id="30"
                  Size="4560.894"
                  IsNotCapturable="True">
@@ -1317,27 +1498,27 @@
                 <Part Id="0"
                       String="PART_HEAD" />
                 <Part Id="1"
-                      String="PART_NECK" />
+                      String="PART_UNKNOWN" />
                 <Part Id="2"
-                      String="PART_TORSO" />
+                      String="PART_UNKNOWN" />
                 <Part Id="3"
-                      String="PART_R_FORELEG" />
+                      String="PART_UNKNOWN" />
                 <Part Id="4"
-                      String="PART_L_FORELEG" />
+                      String="PART_UNKNOWN" />
                 <Part Id="5"
-                      String="PART_R_H_LEG" />
+                      String="PART_UNKNOWN" />
                 <Part Id="6"
-                      String="PART_L_H_LEG" />
+                      String="PART_UNKNOWN" />
                 <Part Id="7"
                       String="PART_TAIL" />
                 <Part Id="8"
                       String="PART_ABDOMINAL_ICEPLATE" />
                 <Part Id="9"
-                      String="PART_LG_ICEPLATE_HIDDEN" />
+                      String="PART_UNKNOWN" />                   <!-- HP over Monster-HP -->
                 <Part Id="10"
                       String="PART_LG_ICEPLATE_EXPOSED" />
                 <Part Id="11"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_CUT" />
                 <Part Id="12"
                       String="PART_R_FORELEG" />
                 <Part Id="13"
@@ -1347,11 +1528,12 @@
                 <Part Id="15"
                       String="PART_L_H_LEG" />
                 <Part Id="16"
-                      String="PART_FLINCH" />
+                      String="PART_WRAP_FLINCH" />
                 <Part Id="17"
                       String="PART_UNKNOWN" />
             </Parts>
         </Monster>
+<!-- Xu Wu -->
         <Monster Id="31"
                  Size="1396.3015">
             <Crowns Gold="123"
@@ -1367,15 +1549,15 @@
                 <Part Id="0"
                       String="PART_HEAD" />
                 <Part Id="1"
-                      String="PART_TENTACLE" />
+                      String="PART_UNKNOWN" />              <!-- 0 HP Part -->
                 <Part Id="2"
-                      String="PART_MEMBRANE" />
+                      String="PART_UNKNOWN" />              <!-- 0 HP Part -->
                 <Part Id="3"
-                      String="PART_TORSO" />
+                      String="PART_UNKNOWN" />              <!-- 0 HP Part -->
                 <Part Id="4"
-                      String="PART_L_F_ARM" />
+                      String="PART_L_F_ARM_BREAK" />
                 <Part Id="5"
-                      String="PART_R_F_ARM" />
+                      String="PART_R_F_ARM_BREAK" />
                 <Part Id="6"
                       String="PART_M_L_ARM" />
                 <Part Id="7"
@@ -1385,25 +1567,26 @@
                 <Part Id="9"
                       String="PART_REAR_R_ARM" />
                 <Part Id="10"
-                      String="PART_MOUTH" />
+                      String="PART_MOUTH_BREAK" />
                 <Part Id="11"
                       String="PART_L_F_ARM" />
                 <Part Id="12"
                       String="PART_R_F_ARM" />
                 <Part Id="13"
-                      String="PART_M_L_ARM" />
+                      String="PART_M_L_ARM_CUT" />
                 <Part Id="14"
-                      String="PART_M_R_ARM" />
+                      String="PART_M_R_ARM_CUT" />
                 <Part Id="15"
-                      String="PART_REAR_L_ARM" />
+                      String="PART_REAR_L_ARM_CUT" />
                 <Part Id="16"
-                      String="PART_REAR_R_ARM" />
+                      String="PART_REAR_R_ARM_CUT" />
                 <Part Id="17"
                       String="PART_MOUTH" />
                 <Part Id="18"
                       String="PART_UNKNOWN" />
             </Parts>
         </Monster>
+<!-- Zoh Shia -->
         <Monster Id="32"
                  Size="4623.598"
                  IsNotCapturable="True">
@@ -1420,13 +1603,13 @@
             </Weaknesses>
             <Parts>
                 <Part Id="0"
-                      String="PART_HEAD_CRYSTALIZED" />
+                      String="PART_HEAD_CRYSTAL_BREAK" />
                 <Part Id="1"
-                      String="PART_L_WINGARM_CRYSTALIZED" />
+                      String="PART_L_WINGARM_CRYSTAL_BREAK" />
                 <Part Id="2"
-                      String="PART_R_WINGARM_CRYSTALIZED" />
+                      String="PART_R_WINGARM_CRYSTAL_BREAK" />
                 <Part Id="3"
-                      String="PART_HEAD" />
+                      String="PART_HEAD_EXPOSED" />
                 <Part Id="4"
                       String="PART_L_WINGARM" />
                 <Part Id="5"
@@ -1438,27 +1621,28 @@
                 <Part Id="8"
                       String="PART_R_WINGARM" />
                 <Part Id="9"
-                      String="PART_L_FORELEG" />
+                      String="PART_L_FORELEG_BREAK" />
                 <Part Id="10"
-                      String="PART_R_FORELEG" />
+                      String="PART_R_FORELEG_BREAK" />
                 <Part Id="11"
                       String="PART_L_H_LEG" />
                 <Part Id="12"
                       String="PART_R_H_LEG" />
                 <Part Id="13"
-                      String="PART_NECK" />
+                      String="PART_UNKNOWN" />                   <!-- HP over Monster-HP -->
                 <Part Id="14"
-                      String="PART_TORSO" />
+                      String="PART_UNKNOWN" />                   <!-- HP over Monster-HP -->
                 <Part Id="15"
                       String="PART_TAIL" />
                 <Part Id="16"
-                      String="PART_TAIL" />
+                      String="PART_TAIL_CUT" />
                 <Part Id="17"
                       String="PART_L_WINGARM_EXPOSED" />
                 <Part Id="18"
                       String="PART_R_WINGARM_EXPOSED" />
             </Parts>
         </Monster>
+<!-- Trainings-Dummy -->
         <Monster Id="33">
             <Weaknesses>
                 <Weakness Name="Fire" />
@@ -1482,6 +1666,7 @@
                       String="PART_MISC" />
             </Parts>
         </Monster>
+<!-- Omega Planetes -->
         <Monster Id="34">
             <Crowns Gold="123"
                     Silver="115"
@@ -1506,7 +1691,11 @@
                 <Part Id="6"
                       String="PART_REAR_POWER_UNIT" />
                 <Part Id="7"
-                      String="PART_BACK" />
+                      String="PART_UNKNOWN" />                   <!-- HP over Monster-HP -->
+                 <Part Id="8"
+                      String="PART_UNKNOWN" />                   <!-- 0 HP Part -->
+                <Part Id="9"
+                      String="PART_UNKNOWN" />                   <!-- HP over Monster-HP -->
             </Parts>
         </Monster>
     </Monsters>
