@@ -13,87 +13,86 @@ using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Game.Quest;
 
-public class MHWQuest : Scannable, IQuest, IDisposable, IEventDispatcher
+public class MHWQuest(
+    IGameProcess process,
+    IScanService scanService,
+    int id,
+    int stars,
+    QuestType questType
+    ) : Scannable(process, scanService), IQuest, IDisposable, IEventDispatcher
 {
     /// <inheritdoc />
-    public int Id { get; }
+    public int Id { get; } = id;
 
     /// <inheritdoc />
     public string Name => string.Empty;
 
     /// <inheritdoc />
-    public QuestType Type { get; }
-
-    private QuestStatus _status;
+    public QuestType Type { get; } = questType;
 
     /// <inheritdoc />
     public QuestStatus Status
     {
-        get => _status;
+        get;
         private set
         {
-            if (value == _status)
+            if (value == field)
                 return;
 
-            QuestStatus temp = _status;
-            _status = value;
+            QuestStatus temp = field;
+            field = value;
             this.Dispatch(_onQuestStatusChange, new SimpleValueChangeEventArgs<QuestStatus>(temp, value));
         }
     }
 
-    private int _deaths;
-
     /// <inheritdoc />
     public int Deaths
     {
-        get => _deaths;
+        get;
         private set
         {
-            if (value == _deaths)
+            if (value == field)
                 return;
 
-            _deaths = value;
+            field = value;
             this.Dispatch(_onDeathCounterChange, new CounterChangeEventArgs(value, MaxDeaths));
         }
     }
 
-    private int _maxDeaths;
     /// <inheritdoc />
     public int MaxDeaths
     {
-        get => _maxDeaths;
+        get;
         private set
         {
-            if (value == _maxDeaths)
+            if (value == field)
                 return;
 
-            _maxDeaths = value;
+            field = value;
             this.Dispatch(_onDeathCounterChange, new CounterChangeEventArgs(Deaths, value));
         }
     }
 
     /// <inheritdoc />
-    public QuestLevel Level { get; }
+    public QuestLevel Level { get; } = GetLevelByStars(stars);
 
     /// <inheritdoc />
-    public int Stars { get; }
-
-    private TimeSpan _timeLeft = TimeSpan.Zero;
+    public int Stars { get; } = stars % 10;
 
     /// <inheritdoc />
     public TimeSpan TimeLeft
     {
-        get => _timeLeft;
+        get;
         protected set
         {
-            if (value == _timeLeft)
+            if (value == field)
                 return;
 
-            TimeSpan oldValue = _timeLeft;
-            _timeLeft = value;
+            TimeSpan oldValue = field;
+            field = value;
             this.Dispatch(_onTimeLeftChange, new SimpleValueChangeEventArgs<TimeSpan>(oldValue, value));
         }
-    }
+    } = TimeSpan.Zero;
 
     private readonly SmartEvent<SimpleValueChangeEventArgs<QuestStatus>> _onQuestStatusChange = new();
 
@@ -120,20 +119,6 @@ public class MHWQuest : Scannable, IQuest, IDisposable, IEventDispatcher
     {
         add => _onTimeLeftChange.Hook(value);
         remove => _onTimeLeftChange.Unhook(value);
-    }
-
-    public MHWQuest(
-        IGameProcess process,
-        IScanService scanService,
-        int id,
-        int stars,
-        QuestType questType
-    ) : base(process, scanService)
-    {
-        Id = id;
-        Stars = stars % 10;
-        Level = GetLevelByStars(stars);
-        Type = questType;
     }
 
     [ScannableMethod]

@@ -11,7 +11,9 @@ using HunterPie.Core.Scan.Service;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 
-public abstract class CommonMonster : Scannable, IMonster, IEventDispatcher
+public abstract class CommonMonster(
+    IGameProcess process,
+    IScanService scanService) : Scannable(process, scanService), IMonster, IEventDispatcher
 {
     private readonly ILogger _logger = LoggerFactory.Create();
 
@@ -137,10 +139,6 @@ public abstract class CommonMonster : Scannable, IMonster, IEventDispatcher
         add => _onCaptureThresholdChange.Hook(value);
         remove => _onCaptureThresholdChange.Unhook(value);
     }
-
-    protected CommonMonster(
-        IGameProcess process,
-        IScanService scanService) : base(process, scanService) { }
 
     public override void Dispose()
     {

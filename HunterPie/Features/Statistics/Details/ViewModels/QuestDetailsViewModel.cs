@@ -6,8 +6,7 @@ namespace HunterPie.Features.Statistics.Details.ViewModels;
 
 internal class QuestDetailsViewModel : ViewModel
 {
-    private int _selectedIndex;
-    public int SelectedIndex { get => _selectedIndex; set => SetValue(ref _selectedIndex, value); }
+    public int SelectedIndex { get; set => SetValue(ref field, value); }
 
     public ObservableCollection<MonsterDetailsViewModel> Monsters { get; } = new();
 

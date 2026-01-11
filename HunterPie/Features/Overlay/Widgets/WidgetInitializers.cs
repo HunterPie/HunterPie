@@ -8,15 +8,10 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-internal class WidgetInitializers
+internal class WidgetInitializers(IWidgetInitializer[] initializers)
 {
     private readonly ILogger _logger = LoggerFactory.Create();
-    private readonly IWidgetInitializer[] _initializers;
-
-    public WidgetInitializers(IWidgetInitializer[] initializers)
-    {
-        _initializers = initializers;
-    }
+    private readonly IWidgetInitializer[] _initializers = initializers;
 
     public async Task InitializeAsync(Context context)
     {

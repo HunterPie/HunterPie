@@ -8,16 +8,11 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;
 
-internal class ExceptionCatcherInitializer : IInitializer
+internal class ExceptionCatcherInitializer(IAnalyticsService analyticsService) : IInitializer
 {
     private readonly ILogger _logger = LoggerFactory.Create();
 
-    private readonly IAnalyticsService _analyticsService;
-
-    public ExceptionCatcherInitializer(IAnalyticsService analyticsService)
-    {
-        _analyticsService = analyticsService;
-    }
+    private readonly IAnalyticsService _analyticsService = analyticsService;
 
     public Task Init()
     {

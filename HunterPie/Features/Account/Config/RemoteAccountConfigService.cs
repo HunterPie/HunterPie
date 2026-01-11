@@ -11,21 +11,15 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Account.Config;
 
-internal class RemoteAccountConfigService : IRemoteAccountConfigUseCase
+internal class RemoteAccountConfigService(
+    IAccountUseCase accountUseCase,
+    PoogieClientSettingsConnector settingsConnector
+    ) : IRemoteAccountConfigUseCase
 {
     private readonly ILogger _logger = LoggerFactory.Create();
 
-    private readonly IAccountUseCase _accountUseCase;
-    private readonly PoogieClientSettingsConnector _settingsConnector;
-
-    public RemoteAccountConfigService(
-        IAccountUseCase accountUseCase,
-        PoogieClientSettingsConnector settingsConnector
-    )
-    {
-        _accountUseCase = accountUseCase;
-        _settingsConnector = settingsConnector;
-    }
+    private readonly IAccountUseCase _accountUseCase = accountUseCase;
+    private readonly PoogieClientSettingsConnector _settingsConnector = settingsConnector;
 
     public async Task Upload()
     {

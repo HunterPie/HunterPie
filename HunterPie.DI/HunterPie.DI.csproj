@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	<LangVersion>11.0</LangVersion>
-    <AssemblyVersion>1.2.0.41</AssemblyVersion>
-    <FileVersion>1.2.0.41</FileVersion>
+	<LangVersion>14.0</LangVersion>
+    <AssemblyVersion>1.2.0.43</AssemblyVersion>
+    <FileVersion>1.2.0.43</FileVersion>
   </PropertyGroup>
 
 </Project>

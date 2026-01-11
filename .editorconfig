@@ -17,6 +17,9 @@ insert_final_newline = false
 
 #### .NET Coding Conventions ####
 
+# Constructor
+csharp_style_prefer_primary_constructors = true:error
+
 # Organize usings
 dotnet_separate_import_directive_groups = false
 dotnet_sort_system_directives_first = false

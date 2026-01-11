@@ -5,18 +5,12 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Theme.Controller;
 
-internal class ThemeHomeController
+internal class ThemeHomeController(
+    LocalThemeRepository localThemeRepository,
+    V5Config config)
 {
-    private readonly LocalThemeRepository _localThemeRepository;
-    private readonly V5Config _config;
-
-    public ThemeHomeController(
-        LocalThemeRepository localThemeRepository,
-        V5Config config)
-    {
-        _localThemeRepository = localThemeRepository;
-        _config = config;
-    }
+    private readonly LocalThemeRepository _localThemeRepository = localThemeRepository;
+    private readonly V5Config _config = config;
 
     public async Task<ThemeHomeViewModel> GetViewModelAsync()
     {

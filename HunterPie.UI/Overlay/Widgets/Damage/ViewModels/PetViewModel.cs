@@ -2,15 +2,9 @@
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
 
-public class PetViewModel : ViewModel
+public class PetViewModel(DamageBarViewModel damageBar) : ViewModel
 {
-    private string _name = string.Empty;
-    public string Name { get => _name; set => SetValue(ref _name, value); }
+    public string Name { get; set => SetValue(ref field, value); } = string.Empty;
 
-    public DamageBarViewModel DamageBar { get; set; }
-
-    public PetViewModel(DamageBarViewModel damageBar)
-    {
-        DamageBar = damageBar;
-    }
+    public DamageBarViewModel DamageBar { get; set; } = damageBar;
 }

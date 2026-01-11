@@ -3,16 +3,8 @@ using HunterPie.UI.Architecture;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
 
-public class DamageBarViewModel : ViewModel
+public class DamageBarViewModel(Color color) : ViewModel
 {
-    public DamageBarViewModel(Color color)
-    {
-        _color = color;
-    }
-
-    private Color _color;
-    public Color Color { get => _color; set => SetValue(ref _color, value); }
-
-    private double _percentage;
-    public double Percentage { get => _percentage; set => SetValue(ref _percentage, value); }
+    public Color Color { get; set => SetValue(ref field, value); } = color;
+    public double Percentage { get; set => SetValue(ref field, value); }
 }

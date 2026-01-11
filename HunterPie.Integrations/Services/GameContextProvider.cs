@@ -12,18 +12,12 @@ using HunterPie.Integrations.Services.Exceptions;
 
 namespace HunterPie.Integrations.Services;
 
-internal class GameContextProvider : IGameContextService
+internal class GameContextProvider(
+    IScanService scanService,
+    ILocalizationRepository localizationRepository) : IGameContextService
 {
-    private readonly IScanService _scanService;
-    private readonly ILocalizationRepository _localizationRepository;
-
-    public GameContextProvider(
-        IScanService scanService,
-        ILocalizationRepository localizationRepository)
-    {
-        _scanService = scanService;
-        _localizationRepository = localizationRepository;
-    }
+    private readonly IScanService _scanService = scanService;
+    private readonly ILocalizationRepository _localizationRepository = localizationRepository;
 
     public Context Get(IGameProcess game)
     {

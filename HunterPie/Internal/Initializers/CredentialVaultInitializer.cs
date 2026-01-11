@@ -5,14 +5,9 @@ using System.Threading.Tasks;
 namespace HunterPie.Internal.Initializers;
 
 // TODO: Migrate everything to use ICredentialVault and then delete this
-internal class CredentialVaultInitializer : IInitializer
+internal class CredentialVaultInitializer(ICredentialVault credentialVault) : IInitializer
 {
-    private readonly ICredentialVault _credentialVault;
-
-    public CredentialVaultInitializer(ICredentialVault credentialVault)
-    {
-        _credentialVault = credentialVault;
-    }
+    private readonly ICredentialVault _credentialVault = credentialVault;
 
     public Task Init()
     {

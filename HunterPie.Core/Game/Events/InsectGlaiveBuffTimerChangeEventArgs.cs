@@ -2,13 +2,8 @@
 
 namespace HunterPie.Core.Game.Events;
 
-public class InsectGlaiveBuffTimerChangeEventArgs : EventArgs
+public class InsectGlaiveBuffTimerChangeEventArgs(float timer) : EventArgs
 {
 
-    public float Timer { get; }
-
-    public InsectGlaiveBuffTimerChangeEventArgs(float timer)
-    {
-        Timer = timer;
-    }
+    public float Timer { get; } = timer;
 }

@@ -5,15 +5,9 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Settings;
 
-internal class PoogieClientSettingsConnector
+internal class PoogieClientSettingsConnector(IPoogieClientAsync client)
 {
-    private readonly IPoogieClientAsync _client;
-
-    public PoogieClientSettingsConnector(IPoogieClientAsync client)
-    {
-        _client = client;
-    }
-
+    private readonly IPoogieClientAsync _client = client;
     private const string CLIENT_SETTINGS_ENDPOINT = "/v1/account/client/settings";
 
     public async Task<PoogieResult<ClientSettingsResponse>> UploadClientSettingsAsync(ClientSettingsRequest request) =>

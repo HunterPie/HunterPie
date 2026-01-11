@@ -5,17 +5,10 @@ using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
 
-public class PetsViewModel : ViewModel
+public class PetsViewModel(DamageMeterWidgetConfig config) : ViewModel
 {
-    public DamageMeterWidgetConfig Settings { get; }
-
-    public PetsViewModel(DamageMeterWidgetConfig config)
-    {
-        Settings = config;
-    }
-
-    private int _totalDamage;
-    public int TotalDamage { get => _totalDamage; set => SetValue(ref _totalDamage, value); }
+    public DamageMeterWidgetConfig Settings { get; } = config;
+    public int TotalDamage { get; set => SetValue(ref field, value); }
 
     public ObservableCollection<PetViewModel> Members { get; } = new();
 

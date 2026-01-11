@@ -12,18 +12,12 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;
 
-internal class DebugWidgetInitializer : IInitializer
+internal class DebugWidgetInitializer(
+    IFeatureFlagRepository featureFlagRepository,
+    IOverlay overlay) : IInitializer
 {
-    private readonly IFeatureFlagRepository _featureFlagRepository;
-    private readonly IOverlay _overlay;
-
-    public DebugWidgetInitializer(
-        IFeatureFlagRepository featureFlagRepository,
-        IOverlay overlay)
-    {
-        _featureFlagRepository = featureFlagRepository;
-        _overlay = overlay;
-    }
+    private readonly IFeatureFlagRepository _featureFlagRepository = featureFlagRepository;
+    private readonly IOverlay _overlay = overlay;
 
     public Task Init()
     {

@@ -7,9 +7,9 @@ using HunterPie.Core.Game.Enums;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 
-public abstract class CommonPart : IMonsterPart, IEventDispatcher, IDisposable
+public abstract class CommonPart(MonsterPartDefinition definition) : IMonsterPart, IEventDispatcher, IDisposable
 {
-    public MonsterPartDefinition Definition { get; }
+    public MonsterPartDefinition Definition { get; } = definition;
     public abstract string Id { get; protected set; }
     public abstract float Health { get; protected set; }
     public abstract float MaxHealth { get; protected set; }
@@ -21,11 +21,6 @@ public abstract class CommonPart : IMonsterPart, IEventDispatcher, IDisposable
     public abstract float MaxTenderize { get; protected set; }
     public abstract int Count { get; protected set; }
     public abstract PartType Type { get; protected set; }
-
-    protected CommonPart(MonsterPartDefinition definition)
-    {
-        Definition = definition;
-    }
 
     protected readonly SmartEvent<IMonsterPart> _onHealthUpdate = new();
     public event EventHandler<IMonsterPart> OnHealthUpdate

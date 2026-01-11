@@ -12,46 +12,49 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Game.Quest;
 
-public class MHRQuest : Scannable, IQuest, IDisposable, IEventDispatcher
+public class MHRQuest(
+    IGameProcess process,
+    IScanService scanService,
+    int id,
+    QuestType type,
+    QuestLevel level,
+    int stars
+    ) : Scannable(process, scanService), IQuest, IDisposable, IEventDispatcher
 {
     /// <inheritdoc />
-    public int Id { get; }
+    public int Id { get; } = id;
 
     /// <inheritdoc />
     public string Name => string.Empty;
 
     /// <inheritdoc />
-    public QuestType Type { get; }
-
-    private QuestStatus _status;
+    public QuestType Type { get; } = type;
 
     /// <inheritdoc />
     public QuestStatus Status
     {
-        get => _status;
+        get;
         private set
         {
-            if (value == _status)
+            if (value == field)
                 return;
 
-            QuestStatus temp = _status;
-            _status = value;
+            QuestStatus temp = field;
+            field = value;
             this.Dispatch(_onQuestStatusChange, new SimpleValueChangeEventArgs<QuestStatus>(temp, value));
         }
     }
 
-    private int _deaths;
-
     /// <inheritdoc />
     public int Deaths
     {
-        get => _deaths;
+        get;
         private set
         {
-            if (value == _deaths)
+            if (value == field)
                 return;
 
-            _deaths = value;
+            field = value;
             this.Dispatch(_onDeathCounterChange, new CounterChangeEventArgs(value, MaxDeaths));
         }
     }
@@ -60,27 +63,25 @@ public class MHRQuest : Scannable, IQuest, IDisposable, IEventDispatcher
     public int MaxDeaths { get; private set; }
 
     /// <inheritdoc />
-    public QuestLevel Level { get; }
+    public QuestLevel Level { get; } = level;
 
     /// <inheritdoc />
-    public int Stars { get; }
-
-    private TimeSpan _timeLeft = TimeSpan.Zero;
+    public int Stars { get; } = stars;
 
     /// <inheritdoc />
     public TimeSpan TimeLeft
     {
-        get => _timeLeft;
+        get;
         protected set
         {
-            if (value == _timeLeft)
+            if (value == field)
                 return;
 
-            TimeSpan oldValue = _timeLeft;
-            _timeLeft = value;
+            TimeSpan oldValue = field;
+            field = value;
             this.Dispatch(_onTimeLeftChange, new SimpleValueChangeEventArgs<TimeSpan>(oldValue, value));
         }
-    }
+    } = TimeSpan.Zero;
 
     private readonly SmartEvent<SimpleValueChangeEventArgs<QuestStatus>> _onQuestStatusChange = new();
 
@@ -107,21 +108,6 @@ public class MHRQuest : Scannable, IQuest, IDisposable, IEventDispatcher
     {
         add => _onTimeLeftChange.Hook(value);
         remove => _onTimeLeftChange.Unhook(value);
-    }
-
-    public MHRQuest(
-        IGameProcess process,
-        IScanService scanService,
-        int id,
-        QuestType type,
-        QuestLevel level,
-        int stars
-    ) : base(process, scanService)
-    {
-        Id = id;
-        Type = type;
-        Level = level;
-        Stars = stars;
     }
 
     [ScannableMethod]

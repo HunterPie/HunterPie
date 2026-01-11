@@ -7,15 +7,13 @@ using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player;
 
-public class MHWSkillService : Scannable, ISkillService
+public class MHWSkillService(
+    IGameProcess process,
+    IScanService scanService) : Scannable(process, scanService), ISkillService
 {
     private readonly Skill[] _skills = Enumerable.Repeat(false, 226)
         .Select(_ => new Skill())
         .ToArray();
-
-    public MHWSkillService(
-        IGameProcess process,
-        IScanService scanService) : base(process, scanService) { }
 
     public Skill GetSkillBy(int id)
     {

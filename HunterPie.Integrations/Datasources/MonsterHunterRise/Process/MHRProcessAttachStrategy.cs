@@ -16,18 +16,16 @@ internal class MHRProcessAttachStrategy : IProcessAttachStrategy
 
     public GameProcessType Game => GameProcessType.MonsterHunterRise;
 
-    private ProcessStatus _status;
-
     public ProcessStatus Status
     {
-        get => _status;
+        get;
         private set
         {
-            if (value == _status)
+            if (value == field)
                 return;
 
-            ProcessStatus oldStatus = _status;
-            _status = value;
+            ProcessStatus oldStatus = field;
+            field = value;
 
             this.Dispatch(
                 StatusChange,

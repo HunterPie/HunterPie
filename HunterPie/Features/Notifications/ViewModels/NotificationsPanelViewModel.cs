@@ -7,16 +7,11 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Notifications.ViewModels;
 
-internal class NotificationsPanelViewModel : ViewModel
+internal class NotificationsPanelViewModel(PoogieNotificationConnector notificationConnector) : ViewModel
 {
-    private readonly PoogieNotificationConnector _notificationConnector;
+    private readonly PoogieNotificationConnector _notificationConnector = notificationConnector;
 
     public ObservableCollection<NotificationViewModel> Notifications { get; } = new();
-
-    public NotificationsPanelViewModel(PoogieNotificationConnector notificationConnector)
-    {
-        _notificationConnector = notificationConnector;
-    }
 
     public async Task FetchNotificationsAsync()
     {

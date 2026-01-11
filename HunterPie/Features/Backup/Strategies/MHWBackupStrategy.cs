@@ -9,17 +9,12 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Backup.Strategies;
 
-internal class MHWBackupStrategy : IBackupStrategy
+internal class MHWBackupStrategy(ICompressor compressor) : IBackupStrategy
 {
     private const string SAVE_FOLDER = "582010/remote";
     private readonly string[] _patterns = { "*.dat", "SAVEDATA*" };
 
-    private readonly ICompressor _compressor;
-
-    public MHWBackupStrategy(ICompressor compressor)
-    {
-        _compressor = compressor;
-    }
+    private readonly ICompressor _compressor = compressor;
 
     public GameType Type => GameType.MHW;
 

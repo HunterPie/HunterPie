@@ -9,54 +9,43 @@ using System;
 
 namespace HunterPie.Features.Account.ViewModels;
 
-internal class AccountRegisterFlowViewModel : ViewModel
+internal class AccountRegisterFlowViewModel(PoogieAccountConnector accountConnector) : ViewModel
 {
-    private readonly PoogieAccountConnector _accountConnector;
-
-    private string _username = string.Empty;
-    private string _email = string.Empty;
-    private string _password = string.Empty;
-    private bool _canRegister;
-    private bool _isRegistering;
+    private readonly PoogieAccountConnector _accountConnector = accountConnector;
 
     public string Username
     {
-        get => _username;
+        get;
         set
         {
             VerifyIfCanRegister();
-            SetValue(ref _username, value);
+            SetValue(ref field, value);
         }
-    }
+    } = string.Empty;
 
     public string Email
     {
-        get => _email;
+        get;
         set
         {
             VerifyIfCanRegister();
-            SetValue(ref _email, value);
+            SetValue(ref field, value);
         }
-    }
+    } = string.Empty;
 
     public string Password
     {
-        get => _password;
+        get;
         set
         {
             VerifyIfCanRegister();
-            SetValue(ref _password, value);
+            SetValue(ref field, value);
         }
-    }
+    } = string.Empty;
 
-    public bool CanRegister { get => _canRegister; set => SetValue(ref _canRegister, value); }
+    public bool CanRegister { get; set => SetValue(ref field, value); }
 
-    public bool IsRegistering { get => _isRegistering; set => SetValue(ref _isRegistering, value); }
-
-    public AccountRegisterFlowViewModel(PoogieAccountConnector accountConnector)
-    {
-        _accountConnector = accountConnector;
-    }
+    public bool IsRegistering { get; set => SetValue(ref field, value); }
 
     public async void SignUp()
     {

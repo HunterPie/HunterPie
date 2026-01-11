@@ -8,24 +8,16 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 
 public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasStructure>, IUpdatable<MHRWirebugData>, IDisposable
 {
-    private bool _isAvailable;
-    private bool _isTemporary;
-    private double _timer;
-    private double _maxTimer;
-    private double _cooldown;
-    private double _maxCooldown;
-    private WirebugState _wirebugState = WirebugState.None;
-
     public long Address { get; internal set; }
 
     public bool IsAvailable
     {
-        get => _isAvailable;
+        get;
         private set
         {
-            if (value != _isAvailable)
+            if (value != field)
             {
-                _isAvailable = value;
+                field = value;
                 this.Dispatch(_onAvailableChange, this);
             }
         }
@@ -33,12 +25,12 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
 
     public bool IsTemporary
     {
-        get => _isTemporary;
+        get;
         private set
         {
-            if (value != _isTemporary)
+            if (value != field)
             {
-                _isTemporary = value;
+                field = value;
                 this.Dispatch(_onTemporaryChange, this);
             }
         }
@@ -46,12 +38,12 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
 
     public double Timer
     {
-        get => _timer;
+        get;
         private set
         {
-            if (value != _timer)
+            if (value != field)
             {
-                _timer = value;
+                field = value;
                 this.Dispatch(_onTimerUpdate, this);
             }
         }
@@ -59,12 +51,12 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
 
     public double MaxTimer
     {
-        get => _maxTimer;
+        get;
         private set
         {
-            if (value != _maxTimer)
+            if (value != field)
             {
-                _maxTimer = value;
+                field = value;
                 this.Dispatch(_onTimerUpdate, this);
             }
         }
@@ -72,12 +64,12 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
 
     public double Cooldown
     {
-        get => _cooldown;
+        get;
         private set
         {
-            if (value != _cooldown)
+            if (value != field)
             {
-                _cooldown = value;
+                field = value;
                 this.Dispatch(_onCooldownUpdate, this);
             }
         }
@@ -85,12 +77,12 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
 
     public double MaxCooldown
     {
-        get => _maxCooldown;
+        get;
         private set
         {
-            if (value != _maxCooldown)
+            if (value != field)
             {
-                _maxCooldown = value;
+                field = value;
                 this.Dispatch(_onCooldownUpdate, this);
             }
         }
@@ -98,16 +90,16 @@ public sealed class MHRWirebug : IEventDispatcher, IUpdatable<MHRWirebugExtrasSt
 
     public WirebugState WirebugState
     {
-        get => _wirebugState;
+        get;
         private set
         {
-            if (value != _wirebugState)
+            if (value != field)
             {
-                _wirebugState = value;
+                field = value;
                 this.Dispatch(_onWirebugStateChange, this);
             }
         }
-    }
+    } = WirebugState.None;
 
     private readonly SmartEvent<MHRWirebug> _onAvailableChange = new();
     public event EventHandler<MHRWirebug> OnAvailableChange

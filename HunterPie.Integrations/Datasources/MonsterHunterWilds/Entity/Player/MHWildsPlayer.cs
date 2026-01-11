@@ -43,7 +43,12 @@ using WeaponType = HunterPie.Core.Game.Enums.Weapon;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Player;
 
-public sealed class MHWildsPlayer : CommonPlayer
+public sealed class MHWildsPlayer(
+    IGameProcess process,
+    IScanService scanService,
+    MHWildsMonsterTargetKeyManager monsterTargetKeyManager,
+    MHWildsCryptoService cryptoService,
+    ILocalizationRepository localizationRepository) : CommonPlayer(process, scanService)
 {
     private const int MAX_DAMAGE_HISTORY_SIZE = 100;
     private static readonly Lazy<AbnormalityDefinition[]> ConsumableDefinitions = new(static () =>
@@ -78,9 +83,9 @@ public sealed class MHWildsPlayer : CommonPlayer
     );
     private static readonly Lazy<int> DebuffIndexMax = new(static () => DebuffDefinitions.Value.Max(it => it.Index));
 
-    private readonly MHWildsMonsterTargetKeyManager _monsterTargetKeyManager;
-    private readonly MHWildsCryptoService _cryptoService;
-    private readonly ILocalizationRepository _localizationRepository;
+    private readonly MHWildsMonsterTargetKeyManager _monsterTargetKeyManager = monsterTargetKeyManager;
+    private readonly MHWildsCryptoService _cryptoService = cryptoService;
+    private readonly ILocalizationRepository _localizationRepository = localizationRepository;
 
     private nint _address;
     private nint _saveAddress;
@@ -170,7 +175,7 @@ public sealed class MHWildsPlayer : CommonPlayer
     private readonly MHWildsPlayerStatus _status = new();
     public override IPlayerStatus Status => _status;
 
-    private IWeapon _weapon;
+    private IWeapon _weapon = new MHWildsWeapon(WeaponType.Greatsword);
     public override IWeapon Weapon
     {
         get => _weapon;
@@ -197,19 +202,6 @@ public sealed class MHWildsPlayer : CommonPlayer
 
     private readonly MHWildsSpecializedTool[] _tools = { new(), new() };
     public IReadOnlyCollection<ISpecializedTool> Tools => _tools;
-
-    public MHWildsPlayer(
-        IGameProcess process,
-        IScanService scanService,
-        MHWildsMonsterTargetKeyManager monsterTargetKeyManager,
-        MHWildsCryptoService cryptoService,
-        ILocalizationRepository localizationRepository) : base(process, scanService)
-    {
-        _monsterTargetKeyManager = monsterTargetKeyManager;
-        _cryptoService = cryptoService;
-        _localizationRepository = localizationRepository;
-        _weapon = new MHWildsWeapon(WeaponType.Greatsword);
-    }
 
     [ScannableMethod]
     internal async Task GetBasicDataAsync()

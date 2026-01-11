@@ -2,12 +2,7 @@
 
 namespace HunterPie.UI.Controls.TextBox.Events;
 
-public class SearchTextChangedEventArgs : EventArgs
+public class SearchTextChangedEventArgs(string text) : EventArgs
 {
-    public string Text { get; }
-
-    public SearchTextChangedEventArgs(string text)
-    {
-        Text = text;
-    }
+    public string Text { get; } = text;
 }

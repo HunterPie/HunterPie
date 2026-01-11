@@ -1,13 +1,7 @@
 ﻿namespace HunterPie.DI.Exceptions;
 
-public class SingletonsCreationException : Exception
+public class SingletonsCreationException(IEnumerable<Type> types, Exception[] innerExceptions) : Exception($"Failed to create instances for {string.Join(", ", types.Select(it => it.Name))}")
 {
 
-    public readonly Exception[] InnerExceptions;
-
-    public SingletonsCreationException(IEnumerable<Type> types, Exception[] innerExceptions)
-        : base($"Failed to create instances for {string.Join(", ", types.Select(it => it.Name))}")
-    {
-        InnerExceptions = innerExceptions;
-    }
+    public readonly Exception[] InnerExceptions = innerExceptions;
 }

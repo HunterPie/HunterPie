@@ -3,18 +3,11 @@ using System;
 
 namespace HunterPie.Core.Game.Events;
 
-public class QuestEndEventArgs : EventArgs
+public class QuestEndEventArgs(IQuest quest, QuestStatus status, float timeElapsed) : EventArgs
 {
-    public IQuest Quest { get; }
+    public IQuest Quest { get; } = quest;
 
-    public QuestStatus Status { get; }
+    public QuestStatus Status { get; } = status;
 
-    public TimeSpan TimeElapsed { get; }
-
-    public QuestEndEventArgs(IQuest quest, QuestStatus status, float timeElapsed)
-    {
-        Quest = quest;
-        Status = status;
-        TimeElapsed = TimeSpan.FromSeconds(timeElapsed);
-    }
+    public TimeSpan TimeElapsed { get; } = TimeSpan.FromSeconds(timeElapsed);
 }

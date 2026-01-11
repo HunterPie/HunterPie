@@ -7,17 +7,14 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environmen
 
 public class MHRCohoot : IEventDispatcher, IUpdatable<MHRCohootStructure>, IDisposable
 {
-    private int _kamuraCount;
-    private int _elgadoCount;
-
     public int KamuraCount
     {
-        get => _kamuraCount;
+        get;
         private set
         {
-            if (value != _kamuraCount)
+            if (value != field)
             {
-                _kamuraCount = value;
+                field = value;
                 this.Dispatch(_onKamuraCountChange, this);
             }
         }
@@ -25,12 +22,12 @@ public class MHRCohoot : IEventDispatcher, IUpdatable<MHRCohootStructure>, IDisp
 
     public int ElgadoCount
     {
-        get => _elgadoCount;
+        get;
         private set
         {
-            if (value != _elgadoCount)
+            if (value != field)
             {
-                _elgadoCount = value;
+                field = value;
                 this.Dispatch(_onElgadoCountChange, this);
             }
         }

@@ -6,16 +6,11 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Analytics.Services;
 
-internal class AnalyticsService : IAnalyticsService
+internal class AnalyticsService(
+    IAnalyticsStrategy[] strategies
+    ) : IAnalyticsService
 {
-    private readonly IAnalyticsStrategy[] _strategies;
-
-    public AnalyticsService(
-        IAnalyticsStrategy[] strategies
-    )
-    {
-        _strategies = strategies;
-    }
+    private readonly IAnalyticsStrategy[] _strategies = strategies;
 
     public async Task SendAsync(IAnalyticsEvent analyticsEvent)
     {

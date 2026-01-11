@@ -8,26 +8,20 @@ using System.Linq;
 
 namespace HunterPie.UI.Overlay.Widgets.Abnormality.ViewModel;
 
-public class AbnormalityBarViewModel : WidgetViewModel
+public class AbnormalityBarViewModel(AbnormalityWidgetConfig settings) : WidgetViewModel(settings, settings.Name, WidgetType.ClickThrough)
 {
-    private ObservableCollection<AbnormalityViewModel> _abnormalities = new();
-    public ObservableCollection<AbnormalityViewModel> Abnormalities { get => _abnormalities; set => SetValue(ref _abnormalities, value); }
+    public ObservableCollection<AbnormalityViewModel> Abnormalities { get; set => SetValue(ref field, value); } = new();
 
-    public AbnormalityWidgetConfig Config { get; }
+    public AbnormalityWidgetConfig Config { get; } = settings;
 
     public void SortAbnormalities()
     {
         Abnormalities = Config.SortByAlgorithm.Value switch
         {
-            SortBy.Lowest => new(_abnormalities.OrderBy(e => e.Timer)),
-            SortBy.Highest => new(_abnormalities.OrderByDescending(e => e.Timer)),
-            SortBy.Off => _abnormalities,
+            SortBy.Lowest => new(Abnormalities.OrderBy(e => e.Timer)),
+            SortBy.Highest => new(Abnormalities.OrderByDescending(e => e.Timer)),
+            SortBy.Off => Abnormalities,
             _ => throw new NotImplementedException("unreachable"),
         };
-    }
-
-    public AbnormalityBarViewModel(AbnormalityWidgetConfig settings) : base(settings, settings.Name, WidgetType.ClickThrough)
-    {
-        Config = settings;
     }
 }

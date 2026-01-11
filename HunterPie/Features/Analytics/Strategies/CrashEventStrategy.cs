@@ -8,19 +8,13 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Analytics.Strategies;
 
-internal class CrashEventStrategy : IAnalyticsStrategy
+internal class CrashEventStrategy(
+    ClientMetrics clientMetrics,
+    PoogieReportConnector connector
+    ) : IAnalyticsStrategy
 {
-    private readonly ClientMetrics _clientMetrics;
-    private readonly PoogieReportConnector _connector;
-
-    public CrashEventStrategy(
-        ClientMetrics clientMetrics,
-        PoogieReportConnector connector
-    )
-    {
-        _clientMetrics = clientMetrics;
-        _connector = connector;
-    }
+    private readonly ClientMetrics _clientMetrics = clientMetrics;
+    private readonly PoogieReportConnector _connector = connector;
 
     public bool CanHandle(Type type) => type == typeof(CrashPayload);
 

@@ -7,21 +7,14 @@ using System.Linq;
 
 namespace HunterPie.Core.Game.Services.Monster;
 
-public sealed class MonsterVariantNameService
+public sealed class MonsterVariantNameService(
+    ILocalizationRepository localizationRepository,
+    IScopedLocalizationRepository monsterNamesRepository)
 {
     private const string VARIANT_PATH = "//Strings/Monsters/Variants/Variant[@Id='{0}']";
 
-    private readonly ILocalizationRepository _localizationRepository;
-    private readonly IScopedLocalizationRepository _monsterNamesRepository;
-
-
-    public MonsterVariantNameService(
-        ILocalizationRepository localizationRepository,
-        IScopedLocalizationRepository monsterNamesRepository)
-    {
-        _localizationRepository = localizationRepository;
-        _monsterNamesRepository = monsterNamesRepository;
-    }
+    private readonly ILocalizationRepository _localizationRepository = localizationRepository;
+    private readonly IScopedLocalizationRepository _monsterNamesRepository = monsterNamesRepository;
 
     public string GetName(
         int id,

@@ -107,8 +107,7 @@ public class ClockWidgetContextHandler : IContextHandler
 
     private void OnMoonChanged(object sender, SimpleValueChangeEventArgs<MoonPhase> e)
     {
-        if (_viewModel.Moon is not null)
-            _viewModel.Moon.IsActive = false;
+        _viewModel.Moon?.IsActive = false;
 
         _viewModel.Moon = _viewModel.Moons.FirstOrDefault(it => it.Phase == e.NewValue);
 

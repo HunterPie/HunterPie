@@ -12,47 +12,46 @@ using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
 
-public sealed class MHWDualBlades : MHWMeleeWeapon, IDualBlades
+public sealed class MHWDualBlades(
+    IGameProcess process,
+    ISkillService skillService,
+    IScanService scanService) : MHWMeleeWeapon(process, scanService, skillService, Weapon.DualBlades), IDualBlades
 {
-    private bool _isDemonMode;
-    private bool _isArchDemonMode;
-    private float _demonBuildUp;
-
     public bool IsDemonMode
     {
-        get => _isDemonMode;
+        get;
         private set
         {
-            if (value == _isDemonMode)
+            if (value == field)
                 return;
 
-            _isDemonMode = value;
+            field = value;
             this.Dispatch(_onDemonModeStateChange, new StateChangeEventArgs<bool>(value, !value));
         }
     }
 
     public bool IsArchDemonMode
     {
-        get => _isArchDemonMode;
+        get;
         private set
         {
-            if (value == _isArchDemonMode)
+            if (value == field)
                 return;
 
-            _isArchDemonMode = value;
+            field = value;
             this.Dispatch(_onArchDemonModeStateChange, new StateChangeEventArgs<bool>(value, !value));
         }
     }
 
     public float DemonBuildUp
     {
-        get => _demonBuildUp;
+        get;
         private set
         {
-            if (value == _demonBuildUp)
+            if (value == field)
                 return;
 
-            _demonBuildUp = value;
+            field = value;
             this.Dispatch(_onDemonBuildUpChange, new BuildUpChangeEventArgs(value, MaxDemonBuildUp));
         }
     }
@@ -90,11 +89,6 @@ public sealed class MHWDualBlades : MHWMeleeWeapon, IDualBlades
         add => _onPiercingBindTimerChange.Hook(value);
         remove => _onPiercingBindTimerChange.Unhook(value);
     }
-
-    public MHWDualBlades(
-        IGameProcess process,
-        ISkillService skillService,
-        IScanService scanService) : base(process, scanService, skillService, Weapon.DualBlades) { }
 
     [ScannableMethod]
     private async Task GetData()

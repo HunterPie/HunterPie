@@ -5,7 +5,11 @@ using HunterPie.UI.Overlay.Widgets.Activities.Common;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.World.ViewModels;
 
-public class MHWorldActivitiesViewModel : ViewModel, IActivitiesViewModel
+public class MHWorldActivitiesViewModel(
+    HarvestBoxViewModel harvestBox,
+    TailraidersViewModel tailraiders,
+    SteamworksViewModel steamworks,
+    ArgosyViewModel argosy) : ViewModel, IActivitiesViewModel
 {
     public Observable<bool> IsHarvestBoxEnabled { get; } =
         ClientConfig.Config.World.Overlay.ActivitiesWidget.IsHarvestBoxEnabled;
@@ -20,21 +24,8 @@ public class MHWorldActivitiesViewModel : ViewModel, IActivitiesViewModel
         ClientConfig.Config.World.Overlay.ActivitiesWidget.IsSteamworksEnabled;
 
 
-    public HarvestBoxViewModel HarvestBox { get; }
-    public TailraidersViewModel Tailraiders { get; }
-    public SteamworksViewModel Steamworks { get; }
-    public ArgosyViewModel Argosy { get; }
-
-    public MHWorldActivitiesViewModel(
-        HarvestBoxViewModel harvestBox,
-        TailraidersViewModel tailraiders,
-        SteamworksViewModel steamworks,
-        ArgosyViewModel argosy)
-    {
-        HarvestBox = harvestBox;
-        Steamworks = steamworks;
-        Argosy = argosy;
-        Tailraiders = tailraiders;
-    }
-
+    public HarvestBoxViewModel HarvestBox { get; } = harvestBox;
+    public TailraidersViewModel Tailraiders { get; } = tailraiders;
+    public SteamworksViewModel Steamworks { get; } = steamworks;
+    public ArgosyViewModel Argosy { get; } = argosy;
 }
