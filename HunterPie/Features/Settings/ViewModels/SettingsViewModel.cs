@@ -23,18 +23,12 @@ internal class SettingsViewModel : ViewModel
 
     public ObservableCollection<GameProcessType> ConfigurableGames { get; }
     public Observable<GameProcessType> SelectedGameConfiguration { get; }
-
-    private UpdateFetchStatus _updateStatus = UpdateFetchStatus.Fetching;
-    public UpdateFetchStatus UpdateStatus { get => _updateStatus; set => SetValue(ref _updateStatus, value); }
-
-    private int _currentTabIndex;
-    public int CurrentTabIndex { get => _currentTabIndex; set => SetValue(ref _currentTabIndex, value); }
+    public UpdateFetchStatus UpdateStatus { get; set => SetValue(ref field, value); } = UpdateFetchStatus.Fetching;
+    public int CurrentTabIndex { get; set => SetValue(ref field, value); }
 
     private ObservableCollection<IConfigurationCategory> _categories;
     public ObservableCollection<IConfigurationCategory> Categories { get => _categories; set => SetValue(ref _categories, value); }
-
-    private DateTime _synchronizedAt = DateTime.Now;
-    public DateTime SynchronizedAt { get => _synchronizedAt; set => SetValue(ref _synchronizedAt, value); }
+    public DateTime SynchronizedAt { get; set => SetValue(ref field, value); } = DateTime.Now;
 
     public SettingsViewModel(
         Dictionary<GameProcessType, ObservableCollection<ConfigurationCategoryGroup>> configurations,

@@ -12,16 +12,20 @@ using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
 
-public class MHWMeleeWeapon : CommonMeleeWeapon
+public class MHWMeleeWeapon(
+    IGameProcess process,
+    IScanService scanService,
+    ISkillService skillService,
+    Weapon id) : CommonMeleeWeapon(process, scanService)
 {
     private int[]? _minimumSharpnessByLevel;
-    protected readonly ISkillService _skillService;
+    protected readonly ISkillService _skillService = skillService;
     private int _weaponId;
     private Sharpness _sharpness = Sharpness.Red;
     private int _currentSharpness;
     private int _threshold;
 
-    public override Weapon Id { get; }
+    public override Weapon Id { get; } = id;
 
     public override Sharpness Sharpness
     {
@@ -64,16 +68,6 @@ public class MHWMeleeWeapon : CommonMeleeWeapon
             _threshold = value;
             this.Dispatch(_onSharpnessChange, new SharpnessEventArgs(this));
         }
-    }
-
-    public MHWMeleeWeapon(
-        IGameProcess process,
-        IScanService scanService,
-        ISkillService skillService,
-        Weapon id) : base(process, scanService)
-    {
-        _skillService = skillService;
-        Id = id;
     }
 
     [ScannableMethod]

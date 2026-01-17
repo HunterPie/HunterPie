@@ -7,25 +7,14 @@ using System.Collections.ObjectModel;
 namespace HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
 
 #nullable enable
-public class MonstersViewModel : WidgetViewModel
+public class MonstersViewModel(MonsterWidgetConfig settings) : WidgetViewModel(settings, "Monster Widget", WidgetType.ClickThrough)
 {
     private const int MINIMUM_MONSTER_COUNT = 3;
 
     public ObservableCollection<BossMonsterViewModel> Monsters { get; } = new();
+    public BossMonsterViewModel? Monster { get; set => SetValue(ref field, value); }
+    public int VisibleMonsters { get; set => SetValue(ref field, value); }
+    public int MonstersCount { get; set => SetValue(ref field, Math.Max(MINIMUM_MONSTER_COUNT, value)); }
 
-    private BossMonsterViewModel? _monster;
-    public BossMonsterViewModel? Monster { get => _monster; set => SetValue(ref _monster, value); }
-
-    private int _visibleMonsters;
-    public int VisibleMonsters { get => _visibleMonsters; set => SetValue(ref _visibleMonsters, value); }
-
-    private int _monstersCount;
-    public int MonstersCount { get => _monstersCount; set => SetValue(ref _monstersCount, Math.Max(MINIMUM_MONSTER_COUNT, value)); }
-
-    public MonsterWidgetConfig Config { get; }
-
-    public MonstersViewModel(MonsterWidgetConfig settings) : base(settings, "Monster Widget", WidgetType.ClickThrough)
-    {
-        Config = settings;
-    }
+    public MonsterWidgetConfig Config { get; } = settings;
 }

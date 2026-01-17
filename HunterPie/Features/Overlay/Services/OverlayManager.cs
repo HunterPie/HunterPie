@@ -13,43 +13,32 @@ using ClientConfig = HunterPie.Core.Client.ClientConfig;
 
 namespace HunterPie.Features.Overlay.Services;
 
-internal class OverlayManager : Bindable, IOverlay, IOverlayState, IDisposable
+internal class OverlayManager(
+    Dispatcher dispatcher,
+    IHotkeyService hotkeyService,
+    V5Config config) : Bindable, IOverlay, IOverlayState, IDisposable
 {
     private readonly ILogger _logger = LoggerFactory.Create();
     private readonly LinkedList<WidgetView> _widgets = new();
 
-    private readonly Dispatcher _dispatcher;
-    private readonly IHotkeyService _hotkeyService;
-    private readonly V5Config _config;
+    private readonly Dispatcher _dispatcher = dispatcher;
+    private readonly IHotkeyService _hotkeyService = hotkeyService;
+    private readonly V5Config _config = config;
 
-    private bool _isDesignModeEnabled;
     public bool IsDesignModeEnabled
     {
-        get => _isDesignModeEnabled;
+        get;
         internal set
         {
-            SetValue(ref _isDesignModeEnabled, value);
+            SetValue(ref field, value);
 
             foreach (WidgetView widget in _widgets)
                 widget.UpdateFlags();
         }
     }
 
-    private bool _isGameHudVisible;
-    public bool IsGameHudVisible { get => _isGameHudVisible; internal set => SetValue(ref _isGameHudVisible, value); }
-
-    private bool _isGameFocused;
-    public bool IsGameFocused { get => _isGameFocused; internal set => SetValue(ref _isGameFocused, value); }
-
-    public OverlayManager(
-        Dispatcher dispatcher,
-        IHotkeyService hotkeyService,
-        V5Config config)
-    {
-        _dispatcher = dispatcher;
-        _hotkeyService = hotkeyService;
-        _config = config;
-    }
+    public bool IsGameHudVisible { get; internal set => SetValue(ref field, value); }
+    public bool IsGameFocused { get; internal set => SetValue(ref field, value); }
 
     public void Setup(IContext context)
     {

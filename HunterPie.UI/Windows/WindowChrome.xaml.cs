@@ -12,15 +12,14 @@ namespace HunterPie.UI.Windows;
 /// </summary>
 public partial class WindowChrome : UserControl, INotifyPropertyChanged
 {
-    private Window _owner;
     public Window Owner
     {
-        get => _owner;
+        get;
         private set
         {
-            if (value != _owner)
+            if (value != field)
             {
-                _owner = value;
+                field = value;
                 this.N(PropertyChanged);
             }
         }

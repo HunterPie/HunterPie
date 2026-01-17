@@ -3,27 +3,18 @@ using HunterPie.UI.Architecture;
 
 namespace HunterPie.UI.Controls.Settings.Monsters.ViewModels;
 
-public class MonsterGlobalAilmentViewModel : ViewModel
+public class MonsterGlobalAilmentViewModel(
+    ObservableHashSet<int> allowedAilments,
+    int id,
+    string name
+    ) : ViewModel
 {
-    private readonly ObservableHashSet<int> _allowedAilments;
+    private readonly ObservableHashSet<int> _allowedAilments = allowedAilments;
 
-    private readonly int _id;
+    private readonly int _id = id;
 
-    public string Name { get; }
-
-    private bool _isEnabled;
-    public bool IsEnabled { get => _isEnabled; set => SetValue(ref _isEnabled, value); }
-
-    public MonsterGlobalAilmentViewModel(
-        ObservableHashSet<int> allowedAilments,
-        int id,
-        string name
-    )
-    {
-        _allowedAilments = allowedAilments;
-        _id = id;
-        Name = name;
-    }
+    public string Name { get; } = name;
+    public bool IsEnabled { get; set => SetValue(ref field, value); }
 
     public void Toggle()
     {

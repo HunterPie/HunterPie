@@ -8,47 +8,35 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Account.ViewModels;
 
-internal class AccountLoginFlowViewModel : ViewModel
+internal class AccountLoginFlowViewModel(
+    AccountPasswordResetFlowViewModel passwordResetFlowViewModel,
+    IAccountUseCase accountUseCase,
+    AccountVerificationResendFlowViewModel accountVerificationResendFlowViewModel) : ViewModel
 {
-    private string _email = "";
-    private string _password = "";
-    private bool _canLogIn;
-    private bool _isLoggingIn;
-
     public string Email
     {
-        get => _email;
+        get;
         set
         {
             CanLogIn = Password.Length > 0 && value.Length > 0;
-            SetValue(ref _email, value);
+            SetValue(ref field, value);
         }
-    }
+    } = "";
     public string Password
     {
-        get => _password;
+        get;
         set
         {
             CanLogIn = Email.Length > 0 && value.Length > 0;
-            SetValue(ref _password, value);
+            SetValue(ref field, value);
         }
-    }
-    public bool IsLoggingIn { get => _isLoggingIn; set => SetValue(ref _isLoggingIn, value); }
-    public bool CanLogIn { get => _canLogIn; set => SetValue(ref _canLogIn, value); }
+    } = "";
+    public bool IsLoggingIn { get; set => SetValue(ref field, value); }
+    public bool CanLogIn { get; set => SetValue(ref field, value); }
 
-    private readonly IAccountUseCase _accountUseCase;
-    public AccountPasswordResetFlowViewModel PasswordResetFlowViewModel { get; }
-    public AccountVerificationResendFlowViewModel AccountVerificationResendFlowViewModel { get; }
-
-    public AccountLoginFlowViewModel(
-        AccountPasswordResetFlowViewModel passwordResetFlowViewModel,
-        IAccountUseCase accountUseCase,
-        AccountVerificationResendFlowViewModel accountVerificationResendFlowViewModel)
-    {
-        PasswordResetFlowViewModel = passwordResetFlowViewModel;
-        _accountUseCase = accountUseCase;
-        AccountVerificationResendFlowViewModel = accountVerificationResendFlowViewModel;
-    }
+    private readonly IAccountUseCase _accountUseCase = accountUseCase;
+    public AccountPasswordResetFlowViewModel PasswordResetFlowViewModel { get; } = passwordResetFlowViewModel;
+    public AccountVerificationResendFlowViewModel AccountVerificationResendFlowViewModel { get; } = accountVerificationResendFlowViewModel;
 
     public async Task<bool> SignIn()
     {

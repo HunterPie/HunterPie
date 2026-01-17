@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;
 
-internal class FileStreamLoggerInitializer : IInitializer, IDisposable
+internal class FileStreamLoggerInitializer(FileStreamLogWriter logWriter) : IInitializer, IDisposable
 {
-    private readonly FileStreamLogWriter _logWriter;
-
-    public FileStreamLoggerInitializer(FileStreamLogWriter logWriter)
-    {
-        _logWriter = logWriter;
-    }
+    private readonly FileStreamLogWriter _logWriter = logWriter;
 
     public Task Init()
     {

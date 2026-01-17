@@ -4,12 +4,10 @@ namespace HunterPie.Core.Settings.Types;
 
 public class Keybinding : Bindable
 {
-    private string _keyCombo;
-
     public string KeyCombo
     {
-        get => _keyCombo;
-        set => SetValue(ref _keyCombo, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public static implicit operator string(Keybinding keybinding) => keybinding.KeyCombo;

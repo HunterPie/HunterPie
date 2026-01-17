@@ -7,17 +7,12 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;
 
-internal class LocalConfigInitializer : IInitializer
+internal class LocalConfigInitializer(ILocalRegistryAsync localRegistryAsync) : IInitializer
 {
-    private readonly ILocalRegistryAsync _localRegistryAsync;
+    private readonly ILocalRegistryAsync _localRegistryAsync = localRegistryAsync;
 
     private const string KEY_SECRET = "secret";
     private const string CLIENT_ID = "client_id";
-
-    public LocalConfigInitializer(ILocalRegistryAsync localRegistryAsync)
-    {
-        _localRegistryAsync = localRegistryAsync;
-    }
 
     public async Task Init()
     {

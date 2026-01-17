@@ -8,17 +8,16 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Activitie
 
 public class MHWildsSupportShip : IEventDispatcher, IDisposable, IUpdatable<MHWildsSupportShipContext>
 {
-    private bool _inTown;
     public bool InTown
     {
-        get => _inTown;
+        get;
         private set
         {
-            if (value == _inTown)
+            if (value == field)
                 return;
 
-            bool old = _inTown;
-            _inTown = value;
+            bool old = field;
+            field = value;
 
             this.Dispatch(
                 toDispatch: _inTownChanged,
@@ -27,17 +26,16 @@ public class MHWildsSupportShip : IEventDispatcher, IDisposable, IUpdatable<MHWi
         }
     }
 
-    private int _days;
     public int Days
     {
-        get => _days;
+        get;
         private set
         {
-            if (value == _days)
+            if (value == field)
                 return;
 
-            int old = _days;
-            _days = value;
+            int old = field;
+            field = value;
 
             this.Dispatch(
                 toDispatch: _daysChanged,

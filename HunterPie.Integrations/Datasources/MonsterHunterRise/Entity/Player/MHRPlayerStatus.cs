@@ -9,17 +9,16 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player;
 
 internal class MHRPlayerStatus : IPlayerStatus, IEventDispatcher, IUpdatable<UpdatePlayerStatus>, IDisposable
 {
-    private double _affinity;
     public double Affinity
     {
-        get => _affinity;
+        get;
         private set
         {
-            if (value.Equals(_affinity))
+            if (value.Equals(field))
                 return;
 
-            double oldValue = _affinity;
-            _affinity = value;
+            double oldValue = field;
+            field = value;
 
             this.Dispatch(
                 toDispatch: _affinityChanged,
@@ -28,17 +27,16 @@ internal class MHRPlayerStatus : IPlayerStatus, IEventDispatcher, IUpdatable<Upd
         }
     }
 
-    private double _rawDamage;
     public double RawDamage
     {
-        get => _rawDamage;
+        get;
         private set
         {
-            if (value == _rawDamage)
+            if (value == field)
                 return;
 
-            double oldValue = _rawDamage;
-            _rawDamage = value;
+            double oldValue = field;
+            field = value;
 
             this.Dispatch(
                 toDispatch: _rawDamageChanged,
@@ -47,17 +45,16 @@ internal class MHRPlayerStatus : IPlayerStatus, IEventDispatcher, IUpdatable<Upd
         }
     }
 
-    private double _elementalDamage;
     public double ElementalDamage
     {
-        get => _elementalDamage;
+        get;
         private set
         {
-            if (value == _elementalDamage)
+            if (value == field)
                 return;
 
-            double oldValue = _elementalDamage;
-            _elementalDamage = value;
+            double oldValue = field;
+            field = value;
 
             this.Dispatch(
                 toDispatch: _elementalDamageChanged,

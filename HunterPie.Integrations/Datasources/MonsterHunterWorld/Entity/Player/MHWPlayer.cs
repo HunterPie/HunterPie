@@ -50,9 +50,7 @@ public sealed class MHWPlayer : CommonPlayer
 
     #region Private fields
 
-    private nint _playerSaveAddress;
     private nint _localPlayerAddress;
-    private Stage _zoneId;
     private Weapon _weaponId = WeaponType.None;
     private readonly Dictionary<string, IAbnormality> _abnormalities = new();
     private readonly MHWParty _party = new();
@@ -69,12 +67,12 @@ public sealed class MHWPlayer : CommonPlayer
 
     public nint PlayerSaveAddress
     {
-        get => _playerSaveAddress;
+        get;
         private set
         {
-            if (value != _playerSaveAddress)
+            if (value != field)
             {
-                _playerSaveAddress = value;
+                field = value;
 
                 this.Dispatch(
                     value != 0
@@ -118,13 +116,13 @@ public sealed class MHWPlayer : CommonPlayer
 
     public Stage ZoneId
     {
-        get => _zoneId;
+        get;
         set
         {
-            if (value == _zoneId)
+            if (value == field)
                 return;
 
-            _zoneId = value;
+            field = value;
             this.Dispatch(
                 toDispatch: _onStageUpdate
             );
@@ -142,7 +140,7 @@ public sealed class MHWPlayer : CommonPlayer
 
     public SpecializedTool[] Tools { get; } = { new(), new() };
 
-    public bool IsLoggedOn => _playerSaveAddress != 0;
+    public bool IsLoggedOn => PlayerSaveAddress != 0;
 
     public override int StageId
     {
@@ -155,7 +153,7 @@ public sealed class MHWPlayer : CommonPlayer
     public override IParty Party => _party;
 
     public override bool InHuntingZone => ZoneId != Stage.MainMenu
-                                 && !PeaceZones.Contains(_zoneId);
+                                 && !PeaceZones.Contains(ZoneId);
 
     public override IHealthComponent Health => _health;
 
@@ -237,7 +235,7 @@ public sealed class MHWPlayer : CommonPlayer
         const nint nextPlayerSave = 0x26CC00;
         nint currentPlayerSaveHeader = await Memory.ReadAsync<nint>(firstSaveAddress) + (nextPlayerSave * (nint)currentSaveSlot);
 
-        if (currentPlayerSaveHeader == _playerSaveAddress)
+        if (currentPlayerSaveHeader == PlayerSaveAddress)
             return;
 
         Name = await Memory.ReadAsync(currentPlayerSaveHeader + 0x50, 32);

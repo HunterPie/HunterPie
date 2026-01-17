@@ -5,12 +5,16 @@ using HunterPie.UI.Overlay.Widgets.Activities.Common;
 
 namespace HunterPie.UI.Overlay.Widgets.Activities.Rise.ViewModels;
 
-public class MHRiseActivitiesViewModel : ViewModel, IActivitiesViewModel
+public class MHRiseActivitiesViewModel(
+    CohootNestsViewModel cohootNests,
+    MeowcenariesViewModel meowcenaries,
+    SubmarinesViewModel submarines,
+    TrainingDojoViewModel trainingDojo) : ViewModel, IActivitiesViewModel
 {
-    public CohootNestsViewModel CohootNests { get; }
-    public MeowcenariesViewModel Meowcenaries { get; }
-    public SubmarinesViewModel Submarines { get; }
-    public TrainingDojoViewModel TrainingDojo { get; }
+    public CohootNestsViewModel CohootNests { get; } = cohootNests;
+    public MeowcenariesViewModel Meowcenaries { get; } = meowcenaries;
+    public SubmarinesViewModel Submarines { get; } = submarines;
+    public TrainingDojoViewModel TrainingDojo { get; } = trainingDojo;
 
     public Observable<bool> IsCohootEnabled { get; } =
         ClientConfig.Config.Rise.Overlay.ActivitiesWidget.IsCohootEnabled;
@@ -23,16 +27,4 @@ public class MHRiseActivitiesViewModel : ViewModel, IActivitiesViewModel
 
     public Observable<bool> IsTrainingDojoEnabled { get; } =
         ClientConfig.Config.Rise.Overlay.ActivitiesWidget.IsTrainingDojoEnabled;
-
-    public MHRiseActivitiesViewModel(
-        CohootNestsViewModel cohootNests,
-        MeowcenariesViewModel meowcenaries,
-        SubmarinesViewModel submarines,
-        TrainingDojoViewModel trainingDojo)
-    {
-        CohootNests = cohootNests;
-        Meowcenaries = meowcenaries;
-        Submarines = submarines;
-        TrainingDojo = trainingDojo;
-    }
 }

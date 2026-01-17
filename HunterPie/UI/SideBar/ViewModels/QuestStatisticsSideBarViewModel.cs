@@ -19,11 +19,8 @@ internal class QuestStatisticsSideBarViewModel : ViewModel, ISideBarViewModel
 
     public string Icon => "ICON_TRAP";
 
-    private bool _isAvailable;
-    public bool IsAvailable { get => _isAvailable; private set => SetValue(ref _isAvailable, value); }
-
-    private bool _isSelected;
-    public bool IsSelected { get => _isSelected; set => SetValue(ref _isSelected, value); }
+    public bool IsAvailable { get; private set => SetValue(ref field, value); }
+    public bool IsSelected { get; set => SetValue(ref field, value); }
 
     public QuestStatisticsSideBarViewModel(
         IBodyNavigator bodyNavigator,

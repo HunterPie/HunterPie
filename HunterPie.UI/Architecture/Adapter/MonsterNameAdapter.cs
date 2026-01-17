@@ -5,14 +5,9 @@ using HunterPie.Core.Game.Services.Monster;
 
 namespace HunterPie.UI.Architecture.Adapter;
 
-public class MonsterNameAdapter
+public class MonsterNameAdapter(ILocalizationRepository localizationRepository)
 {
-    private readonly ILocalizationRepository _localizationRepository;
-
-    public MonsterNameAdapter(ILocalizationRepository localizationRepository)
-    {
-        _localizationRepository = localizationRepository;
-    }
+    private readonly ILocalizationRepository _localizationRepository = localizationRepository;
 
     public string From(
         GameType game,

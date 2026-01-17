@@ -5,15 +5,10 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;
 
-internal class HunterPieLoggerInitializer : IInitializer
+internal class HunterPieLoggerInitializer(HunterPieLogWriter logWriter) : IInitializer
 {
     private readonly ILogger _logger = LoggerFactory.Create();
-    private readonly HunterPieLogWriter _logWriter;
-
-    public HunterPieLoggerInitializer(HunterPieLogWriter logWriter)
-    {
-        _logWriter = logWriter;
-    }
+    private readonly HunterPieLogWriter _logWriter = logWriter;
 
     public Task Init()
     {

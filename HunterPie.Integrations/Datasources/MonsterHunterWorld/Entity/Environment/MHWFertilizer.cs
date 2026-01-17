@@ -8,29 +8,27 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Environme
 
 public class MHWFertilizer : IEventDispatcher, IUpdatable<MHWFertilizerStructure>, IDisposable
 {
-    private Fertilizer _id;
     public Fertilizer Id
     {
-        get => _id;
+        get;
         private set
         {
-            if (value != _id)
+            if (value != field)
             {
-                _id = value;
+                field = value;
                 this.Dispatch(_onIdChange, this);
             }
         }
     }
 
-    private int _count;
     public int Count
     {
-        get => _count;
+        get;
         private set
         {
-            if (value != _count)
+            if (value != field)
             {
-                _count = value;
+                field = value;
                 this.Dispatch(_onCountChange, this);
             }
         }

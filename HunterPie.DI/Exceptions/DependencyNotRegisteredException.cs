@@ -1,6 +1,5 @@
 ﻿namespace HunterPie.DI.Exceptions;
 
-public class DependencyNotRegisteredException : Exception
+public class DependencyNotRegisteredException(Type type) : Exception($"Type {type.Name} has not been registered as dependency")
 {
-    public DependencyNotRegisteredException(Type type) : base($"Type {type.Name} has not been registered as dependency") { }
 }

@@ -5,14 +5,9 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Statistics.Details.Builders;
 
-internal class QuestDetailsViewModelBuilder
+internal class QuestDetailsViewModelBuilder(MonsterDetailsViewModelBuilder monsterDetailsViewModelBuilder)
 {
-    private readonly MonsterDetailsViewModelBuilder _monsterDetailsViewModelBuilder;
-
-    public QuestDetailsViewModelBuilder(MonsterDetailsViewModelBuilder monsterDetailsViewModelBuilder)
-    {
-        _monsterDetailsViewModelBuilder = monsterDetailsViewModelBuilder;
-    }
+    private readonly MonsterDetailsViewModelBuilder _monsterDetailsViewModelBuilder = monsterDetailsViewModelBuilder;
 
     public async Task<QuestDetailsViewModel> From(HuntStatisticsModel model)
     {

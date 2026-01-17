@@ -9,19 +9,14 @@ namespace HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
 
 public class StaminaComponent : IStaminaComponent, IEventDispatcher, IUpdatable<StaminaData>, IDisposable
 {
-    private double _current;
-    private double _max;
-    private double _maxRecoverableStamina;
-    private double _maxPossibleStamina;
-
     public double Current
     {
-        get => _current;
+        get;
         private set
         {
-            if (value != _current)
+            if (value != field)
             {
-                _current = value;
+                field = value;
                 this.Dispatch(_onStaminaChange, new StaminaChangeEventArgs(this));
             }
         }
@@ -29,12 +24,12 @@ public class StaminaComponent : IStaminaComponent, IEventDispatcher, IUpdatable<
 
     public double Max
     {
-        get => _max;
+        get;
         private set
         {
-            if (value != _max)
+            if (value != field)
             {
-                _max = value;
+                field = value;
                 this.Dispatch(_onStaminaChange, new StaminaChangeEventArgs(this));
             }
         }
@@ -42,12 +37,12 @@ public class StaminaComponent : IStaminaComponent, IEventDispatcher, IUpdatable<
 
     public double MaxRecoverableStamina
     {
-        get => _maxRecoverableStamina;
+        get;
         private set
         {
-            if (value != _maxRecoverableStamina)
+            if (value != field)
             {
-                _maxRecoverableStamina = value;
+                field = value;
                 this.Dispatch(_onStaminaChange, new StaminaChangeEventArgs(this));
             }
         }
@@ -55,12 +50,12 @@ public class StaminaComponent : IStaminaComponent, IEventDispatcher, IUpdatable<
 
     public double MaxPossibleStamina
     {
-        get => _maxPossibleStamina;
+        get;
         private set
         {
-            if (value != _maxPossibleStamina)
+            if (value != field)
             {
-                _maxPossibleStamina = value;
+                field = value;
                 this.Dispatch(_onStaminaChange, new StaminaChangeEventArgs(this));
             }
         }

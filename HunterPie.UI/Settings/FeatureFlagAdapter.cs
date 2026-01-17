@@ -11,18 +11,13 @@ using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.Settings;
 
-public class FeatureFlagAdapter
+public class FeatureFlagAdapter(ILocalizationRepository localizationRepository)
 {
     private const string FEATURES_FLAG_XPATH = "//Strings/Client/Settings/Setting[@Id='FEATURE_FLAGS_STRING']";
     private const string GENERAL_GROUP_XPATH = $"//Strings/Client/ConfigurationGroups/Group[@Id='{CommonConfigurationGroups.GENERAL}']";
     private const string FEATURE_FLAG_GROUP_XPATH = $"//Strings/Client/ConfigurationGroups/Group[@Id='{CommonConfigurationGroups.FEATURE_FLAGS}']";
 
-    private readonly ILocalizationRepository _localizationRepository;
-
-    public FeatureFlagAdapter(ILocalizationRepository localizationRepository)
-    {
-        _localizationRepository = localizationRepository;
-    }
+    private readonly ILocalizationRepository _localizationRepository = localizationRepository;
 
     public ObservableCollection<ConfigurationCategoryGroup> Adapt(Dictionary<string, IFeature> flags)
     {

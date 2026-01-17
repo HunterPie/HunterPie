@@ -15,27 +15,18 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Settings.Factory;
 
-internal class SettingsFactory
+internal class SettingsFactory(
+    PoogieVersionConnector versionConnector,
+    LocalAccountConfig localAccountConfig,
+    DefaultFeatureFlags defaultFeatureFlags,
+    ConfigurationAdapter configurationAdapter,
+    FeatureFlagAdapter featureFlagAdapter)
 {
-    private readonly PoogieVersionConnector _versionConnector;
-    private readonly LocalAccountConfig _localAccountConfig;
-    private readonly DefaultFeatureFlags _defaultFeatureFlags;
-    private readonly ConfigurationAdapter _configurationAdapter;
-    private readonly FeatureFlagAdapter _featureFlagAdapter;
-
-    public SettingsFactory(
-        PoogieVersionConnector versionConnector,
-        LocalAccountConfig localAccountConfig,
-        DefaultFeatureFlags defaultFeatureFlags,
-        ConfigurationAdapter configurationAdapter,
-        FeatureFlagAdapter featureFlagAdapter)
-    {
-        _versionConnector = versionConnector;
-        _localAccountConfig = localAccountConfig;
-        _defaultFeatureFlags = defaultFeatureFlags;
-        _configurationAdapter = configurationAdapter;
-        _featureFlagAdapter = featureFlagAdapter;
-    }
+    private readonly PoogieVersionConnector _versionConnector = versionConnector;
+    private readonly LocalAccountConfig _localAccountConfig = localAccountConfig;
+    private readonly DefaultFeatureFlags _defaultFeatureFlags = defaultFeatureFlags;
+    private readonly ConfigurationAdapter _configurationAdapter = configurationAdapter;
+    private readonly FeatureFlagAdapter _featureFlagAdapter = featureFlagAdapter;
 
     public async Task<SettingsViewModel> CreateFullAsync(Observable<GameProcessType> currentGame)
     {

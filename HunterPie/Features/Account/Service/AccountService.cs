@@ -17,28 +17,21 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Account.Service;
 
-internal class AccountService : IAccountUseCase, IEventDispatcher
+internal class AccountService(
+    ICredentialVault credentialVault,
+    IAsyncCache cache,
+    PoogieAccountConnector accountConnector
+    ) : IAccountUseCase, IEventDispatcher
 {
     private const string ACCOUNT_CACHE_KEY = "account::key";
-    private readonly ICredentialVault _credentialVault;
-    private readonly IAsyncCache _cache;
-    private readonly PoogieAccountConnector _accountConnector;
+    private readonly ICredentialVault _credentialVault = credentialVault;
+    private readonly IAsyncCache _cache = cache;
+    private readonly PoogieAccountConnector _accountConnector = accountConnector;
 
     public event EventHandler<AccountLoginEventArgs>? SignIn;
     public event EventHandler<EventArgs>? SignOut;
     public event EventHandler<AccountLoginEventArgs>? SessionStart;
     public event EventHandler<AccountAvatarEventArgs>? AvatarChange;
-
-    public AccountService(
-        ICredentialVault credentialVault,
-        IAsyncCache cache,
-        PoogieAccountConnector accountConnector
-    )
-    {
-        _credentialVault = credentialVault;
-        _cache = cache;
-        _accountConnector = accountConnector;
-    }
 
     public async Task<UserAccount?> GetAsync()
     {

@@ -13,16 +13,15 @@ public class Localization
 {
     private readonly ILogger _logger = LoggerFactory.Create();
     private readonly XmlDocument? document;
-    private static Localization? _instance;
 
     public static Localization Instance
     {
         get
         {
-            if (_instance is null)
-                _instance = new();
+            if (field is null)
+                field = new();
 
-            return _instance;
+            return field;
         }
     }
 

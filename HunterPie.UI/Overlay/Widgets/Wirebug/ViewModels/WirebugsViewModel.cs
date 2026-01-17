@@ -5,15 +5,9 @@ using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.Overlay.Widgets.Wirebug.ViewModels;
 
-public class WirebugsViewModel : WidgetViewModel
+public class WirebugsViewModel(IWidgetSettings settings) : WidgetViewModel(settings, "Wirebugs Widget", WidgetType.ClickThrough)
 {
 
     public ObservableCollection<WirebugViewModel> Elements { get; } = new();
-
-    private bool _isAvailable;
-    public bool IsAvailable { get => _isAvailable; set => SetValue(ref _isAvailable, value); }
-
-    public WirebugsViewModel(IWidgetSettings settings) : base(settings, "Wirebugs Widget", WidgetType.ClickThrough)
-    {
-    }
+    public bool IsAvailable { get; set => SetValue(ref field, value); }
 }

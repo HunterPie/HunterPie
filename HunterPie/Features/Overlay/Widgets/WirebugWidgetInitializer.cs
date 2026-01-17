@@ -16,21 +16,16 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-internal class WirebugWidgetInitializer : IWidgetInitializer
+internal class WirebugWidgetInitializer(IOverlay overlay) : IWidgetInitializer
 {
     private static readonly ILogger Logger = LoggerFactory.Create();
 
-    private readonly IOverlay _overlay;
+    private readonly IOverlay _overlay = overlay;
 
     public GameProcessType SupportedGames => GameProcessType.MonsterHunterRise;
 
     private IContextHandler? _handler;
     private WidgetView? _view;
-
-    public WirebugWidgetInitializer(IOverlay overlay)
-    {
-        _overlay = overlay;
-    }
 
     public async Task LoadAsync(IContext context)
     {

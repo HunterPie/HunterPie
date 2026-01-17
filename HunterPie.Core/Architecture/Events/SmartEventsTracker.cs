@@ -7,8 +7,8 @@ namespace HunterPie.Core.Architecture.Events;
 public class SmartEventsTracker
 {
     private static readonly ILogger Logger = LoggerFactory.Create();
-    private static SmartEventsTracker? _instance;
-    public static SmartEventsTracker Instance => _instance ??= new SmartEventsTracker();
+
+    public static SmartEventsTracker Instance => field ??= new SmartEventsTracker();
 
     public readonly HashSet<ISmartEvent> TrackedEvents = new();
 

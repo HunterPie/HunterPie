@@ -4,12 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace HunterPie.UI.Logging.ViewModels;
 
-internal class ConsoleViewModel : ViewModel
+internal class ConsoleViewModel(ObservableCollection<LogString> logs) : ViewModel
 {
-    public ObservableCollection<LogString> Logs { get; }
-
-    public ConsoleViewModel(ObservableCollection<LogString> logs)
-    {
-        Logs = logs;
-    }
+    public ObservableCollection<LogString> Logs { get; } = logs;
 }

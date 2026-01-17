@@ -5,11 +5,11 @@ using System.Runtime.Intrinsics;
 using X86Aes = System.Runtime.Intrinsics.X86.Aes;
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 
-public class MHWildsCryptoService : IDisposable
+public class MHWildsCryptoService(IMemoryAsync memory) : IDisposable
 {
     private delegate Vector128<byte> AesFunc(Vector128<byte> values, Vector128<byte> roundKey);
 
-    private readonly IMemoryAsync _memory;
+    private readonly IMemoryAsync _memory = memory;
     private CryptographyVectors? _vectors;
     private readonly SemaphoreSlim _semaphore = new(1, 1);
 
@@ -20,11 +20,6 @@ public class MHWildsCryptoService : IDisposable
 
         return ManualAesCrypto.DecryptLast;
     });
-
-    public MHWildsCryptoService(IMemoryAsync memory)
-    {
-        _memory = memory;
-    }
 
     public async Task<float> DecryptFloatAsync(MHWildsEncryptedFloat encrypted)
     {

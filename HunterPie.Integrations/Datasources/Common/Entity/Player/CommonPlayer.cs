@@ -15,7 +15,9 @@ using System.Runtime.CompilerServices;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Player;
 
-public abstract class CommonPlayer : Scannable, IPlayer, IEventDispatcher, IDisposable
+public abstract class CommonPlayer(
+    IGameProcess process,
+    IScanService scanService) : Scannable(process, scanService), IPlayer, IEventDispatcher, IDisposable
 {
     private readonly ILogger _logger = LoggerFactory.Create();
 
@@ -114,10 +116,6 @@ public abstract class CommonPlayer : Scannable, IPlayer, IEventDispatcher, IDisp
         add => _onLevelChange.Hook(value);
         remove => _onLevelChange.Unhook(value);
     }
-
-    protected CommonPlayer(
-        IGameProcess process,
-        IScanService scanService) : base(process, scanService) { }
 
     protected void HandleAbnormality<T, S>(
         Dictionary<string, IAbnormality> abnormalities,

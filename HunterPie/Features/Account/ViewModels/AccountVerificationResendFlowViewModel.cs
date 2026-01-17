@@ -10,47 +10,37 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Account.ViewModels;
 
-internal class AccountVerificationResendFlowViewModel : ViewModel
+internal class AccountVerificationResendFlowViewModel(PoogieAccountConnector accountConnector) : ViewModel
 {
-    private readonly PoogieAccountConnector _accountConnector;
-
-    private bool _isRequestingVerification;
-    private bool _canRequestVerification;
-    private bool _isFlowActive;
-    private string _email = string.Empty;
+    private readonly PoogieAccountConnector _accountConnector = accountConnector;
 
     public bool IsRequestingVerification
     {
-        get => _isRequestingVerification;
-        set => SetValue(ref _isRequestingVerification, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public bool CanRequestVerification
     {
-        get => _canRequestVerification;
-        set => SetValue(ref _canRequestVerification, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public bool IsFlowActive
     {
-        get => _isFlowActive;
-        set => SetValue(ref _isFlowActive, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public string Email
     {
-        get => _email;
+        get;
         set
         {
-            CanRequestVerification = _email.Length > 0;
-            SetValue(ref _email, value);
+            CanRequestVerification = field.Length > 0;
+            SetValue(ref field, value);
         }
-    }
-
-    public AccountVerificationResendFlowViewModel(PoogieAccountConnector accountConnector)
-    {
-        _accountConnector = accountConnector;
-    }
+    } = string.Empty;
 
     public async Task RequestAccountVerification()
     {

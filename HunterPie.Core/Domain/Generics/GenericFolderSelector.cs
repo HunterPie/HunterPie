@@ -15,11 +15,10 @@ public class GenericFolderSelector : Bindable, IFileSelector
     private readonly string _filter;
     private readonly string _basePath;
 
-    private string _current;
     public string Current
     {
-        get => _current;
-        set => SetValue(ref _current, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     [JsonConstructor]

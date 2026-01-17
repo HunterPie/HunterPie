@@ -6,20 +6,15 @@ using HunterPie.Core.Game.Entity.Enemy;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 
-public abstract class CommonAilment : IMonsterAilment, IEventDispatcher, IDisposable
+public abstract class CommonAilment(AilmentDefinition definition) : IMonsterAilment, IEventDispatcher, IDisposable
 {
-    public AilmentDefinition Definition { get; }
+    public AilmentDefinition Definition { get; } = definition;
     public abstract string Id { get; protected set; }
     public abstract int Counter { get; protected set; }
     public abstract float Timer { get; protected set; }
     public abstract float MaxTimer { get; protected set; }
     public abstract float BuildUp { get; protected set; }
     public abstract float MaxBuildUp { get; protected set; }
-
-    protected CommonAilment(AilmentDefinition definition)
-    {
-        Definition = definition;
-    }
 
     protected readonly SmartEvent<IMonsterAilment> _onTimerUpdate = new();
     public event EventHandler<IMonsterAilment> OnTimerUpdate

@@ -7,19 +7,14 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environmen
 
 public class MHRMeowmasters : IEventDispatcher, IUpdatable<MHRMeowmasterData>, IDisposable
 {
-    private int _step;
-    private int _expectedOutcome;
-    private bool _isDeployed;
-    private int _buddyCount;
-
     public int Step
     {
-        get => _step;
+        get;
         private set
         {
-            if (_step != value)
+            if (field != value)
             {
-                _step = value;
+                field = value;
                 this.Dispatch(_onStepChange, this);
             }
         }
@@ -29,12 +24,12 @@ public class MHRMeowmasters : IEventDispatcher, IUpdatable<MHRMeowmasterData>, I
 
     public int ExpectedOutcome
     {
-        get => _expectedOutcome;
+        get;
         private set
         {
-            if (value != _expectedOutcome)
+            if (value != field)
             {
-                _expectedOutcome = value;
+                field = value;
                 this.Dispatch(_onExpectedOutcomeChange, this);
             }
         }
@@ -42,12 +37,12 @@ public class MHRMeowmasters : IEventDispatcher, IUpdatable<MHRMeowmasterData>, I
 
     public bool IsDeployed
     {
-        get => _isDeployed;
+        get;
         private set
         {
-            if (_isDeployed != value)
+            if (field != value)
             {
-                _isDeployed = value;
+                field = value;
                 this.Dispatch(_onDeployStateChange, this);
             }
         }
@@ -55,12 +50,12 @@ public class MHRMeowmasters : IEventDispatcher, IUpdatable<MHRMeowmasterData>, I
 
     public int BuddyCount
     {
-        get => _buddyCount;
+        get;
         private set
         {
-            if (_buddyCount != value)
+            if (field != value)
             {
-                _buddyCount = value;
+                field = value;
                 this.Dispatch(_onBuddyCountChange, this);
             }
         }

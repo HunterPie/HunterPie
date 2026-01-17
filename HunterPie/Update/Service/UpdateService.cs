@@ -20,35 +20,24 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Update.Service;
 
-internal class UpdateService : IUpdateUseCase
+internal class UpdateService(
+    LocalizationUpdateService localizationUpdateService,
+    UpdateGateway gateway,
+    ChecksumService checksumService,
+    ILocalRegistryAsync localRegistryAsync,
+    IUpdateCleanUpUseCase updateCleanUpUseCase,
+    IAnalyticsService analyticsService,
+    IBodyNavigator bodyNavigator) : IUpdateUseCase
 {
     private readonly ILogger _logger = LoggerFactory.Create();
     private const string JUST_UPDATED_KEY = "JustUpdated";
-    private readonly LocalizationUpdateService _localizationUpdateService;
-    private readonly UpdateGateway _gateway;
-    private readonly ChecksumService _checksumService;
-    private readonly ILocalRegistryAsync _localRegistryAsync;
-    private readonly IUpdateCleanUpUseCase _updateCleanUpUseCase;
-    private readonly IAnalyticsService _analyticsService;
-    private readonly IBodyNavigator _bodyNavigator;
-
-    public UpdateService(
-        LocalizationUpdateService localizationUpdateService,
-        UpdateGateway gateway,
-        ChecksumService checksumService,
-        ILocalRegistryAsync localRegistryAsync,
-        IUpdateCleanUpUseCase updateCleanUpUseCase,
-        IAnalyticsService analyticsService,
-        IBodyNavigator bodyNavigator)
-    {
-        _localizationUpdateService = localizationUpdateService;
-        _gateway = gateway;
-        _checksumService = checksumService;
-        _localRegistryAsync = localRegistryAsync;
-        _updateCleanUpUseCase = updateCleanUpUseCase;
-        _analyticsService = analyticsService;
-        _bodyNavigator = bodyNavigator;
-    }
+    private readonly LocalizationUpdateService _localizationUpdateService = localizationUpdateService;
+    private readonly UpdateGateway _gateway = gateway;
+    private readonly ChecksumService _checksumService = checksumService;
+    private readonly ILocalRegistryAsync _localRegistryAsync = localRegistryAsync;
+    private readonly IUpdateCleanUpUseCase _updateCleanUpUseCase = updateCleanUpUseCase;
+    private readonly IAnalyticsService _analyticsService = analyticsService;
+    private readonly IBodyNavigator _bodyNavigator = bodyNavigator;
 
     public async Task<bool> InvokeAsync()
     {

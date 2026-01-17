@@ -3,15 +3,8 @@ using HunterPie.UI.Header.ViewModels;
 
 namespace HunterPie.UI.Main.ViewModels;
 
-internal class MainViewModel : ViewModel
+internal class MainViewModel(HeaderViewModel headerViewModel) : ViewModel
 {
-    public HeaderViewModel HeaderViewModel { get; }
-
-    private ViewModel? _contentViewModel;
-    public ViewModel? ContentViewModel { get => _contentViewModel; set => SetValue(ref _contentViewModel, value); }
-
-    public MainViewModel(HeaderViewModel headerViewModel)
-    {
-        HeaderViewModel = headerViewModel;
-    }
+    public HeaderViewModel HeaderViewModel { get; } = headerViewModel;
+    public ViewModel? ContentViewModel { get; set => SetValue(ref field, value); }
 }

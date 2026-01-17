@@ -2,14 +2,9 @@
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Types;
 
-public readonly struct MHWildsArrayRef<T> where T : struct
+public readonly struct MHWildsArrayRef<T>(nint address) where T : struct
 {
-    public readonly nint Address;
-
-    public MHWildsArrayRef(nint address)
-    {
-        Address = address;
-    }
+    public readonly nint Address = address;
 
     public async Task<T> ElementAt(IMemoryAsync memory, int index)
     {
