@@ -9,16 +9,11 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Update.Service;
 
-internal class LocalizationUpdateService
+internal class LocalizationUpdateService(UpdateGateway gateway)
 {
     private readonly ILogger _logger = LoggerFactory.Create();
 
-    private readonly UpdateGateway _gateway;
-
-    public LocalizationUpdateService(UpdateGateway gateway)
-    {
-        _gateway = gateway;
-    }
+    private readonly UpdateGateway _gateway = gateway;
 
     public async Task InvokeAsync()
     {

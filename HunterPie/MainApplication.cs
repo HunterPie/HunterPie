@@ -16,34 +16,23 @@ using System.Threading.Tasks;
 
 namespace HunterPie;
 
-internal class MainApplication : IDisposable
+internal class MainApplication(
+    IAnalyticsService analyticsService,
+    IUpdateUseCase updateUseCase,
+    IRemoteAccountConfigUseCase remoteAccountConfigUseCase,
+    RemoteConfigSyncService remoteConfigSyncService,
+    NavigatorController navigatorController,
+    GameContextController gameContextController,
+    IControllableWatcherService controllableWatcherService) : IDisposable
 {
     private readonly ILogger _logger = LoggerFactory.Create();
-    private readonly IAnalyticsService _analyticsService;
-    private readonly IUpdateUseCase _updateUseCase;
-    private readonly IRemoteAccountConfigUseCase _remoteAccountConfigUseCase;
-    private readonly IControllableWatcherService _controllableWatcherService;
-    private readonly RemoteConfigSyncService _remoteConfigSyncService;
-    private readonly NavigatorController _navigatorController;
-    private readonly GameContextController _gameContextController;
-
-    public MainApplication(
-        IAnalyticsService analyticsService,
-        IUpdateUseCase updateUseCase,
-        IRemoteAccountConfigUseCase remoteAccountConfigUseCase,
-        RemoteConfigSyncService remoteConfigSyncService,
-        NavigatorController navigatorController,
-        GameContextController gameContextController,
-        IControllableWatcherService controllableWatcherService)
-    {
-        _analyticsService = analyticsService;
-        _updateUseCase = updateUseCase;
-        _remoteAccountConfigUseCase = remoteAccountConfigUseCase;
-        _remoteConfigSyncService = remoteConfigSyncService;
-        _navigatorController = navigatorController;
-        _gameContextController = gameContextController;
-        _controllableWatcherService = controllableWatcherService;
-    }
+    private readonly IAnalyticsService _analyticsService = analyticsService;
+    private readonly IUpdateUseCase _updateUseCase = updateUseCase;
+    private readonly IRemoteAccountConfigUseCase _remoteAccountConfigUseCase = remoteAccountConfigUseCase;
+    private readonly IControllableWatcherService _controllableWatcherService = controllableWatcherService;
+    private readonly RemoteConfigSyncService _remoteConfigSyncService = remoteConfigSyncService;
+    private readonly NavigatorController _navigatorController = navigatorController;
+    private readonly GameContextController _gameContextController = gameContextController;
 
     public async Task<bool> Start()
     {

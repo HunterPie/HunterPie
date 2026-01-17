@@ -16,26 +16,19 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Statistics.Services;
 
-internal class QuestTrackerService : IContextInitializer, IDisposable
+internal class QuestTrackerService(
+    PoogieStatisticsConnector connector,
+    IAccountUseCase accountUseCase,
+    AccountConfig accountConfig) : IContextInitializer, IDisposable
 {
     private readonly ILogger _logger = LoggerFactory.Create();
 
-    private readonly PoogieStatisticsConnector _connector;
-    private readonly IAccountUseCase _accountUseCase;
-    private readonly AccountConfig _accountConfig;
+    private readonly PoogieStatisticsConnector _connector = connector;
+    private readonly IAccountUseCase _accountUseCase = accountUseCase;
+    private readonly AccountConfig _accountConfig = accountConfig;
 
     private IContext? _context;
     private HuntStatisticsService? _statisticsService;
-
-    public QuestTrackerService(
-        PoogieStatisticsConnector connector,
-        IAccountUseCase accountUseCase,
-        AccountConfig accountConfig)
-    {
-        _connector = connector;
-        _accountUseCase = accountUseCase;
-        _accountConfig = accountConfig;
-    }
 
     private void HookEvents()
     {

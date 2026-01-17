@@ -6,18 +6,12 @@ using System.Windows.Threading;
 
 namespace HunterPie.UI.Logging.Services;
 
-internal class HunterPieLogWriter : ILogWriter
+internal class HunterPieLogWriter(
+    Dispatcher dispatcher,
+    ObservableCollection<LogString> logs) : ILogWriter
 {
-    private readonly Dispatcher _dispatcher;
-    private readonly ObservableCollection<LogString> _logs;
-
-    public HunterPieLogWriter(
-        Dispatcher dispatcher,
-        ObservableCollection<LogString> logs)
-    {
-        _dispatcher = dispatcher;
-        _logs = logs;
-    }
+    private readonly Dispatcher _dispatcher = dispatcher;
+    private readonly ObservableCollection<LogString> _logs = logs;
 
     public void Benchmark(string message) =>
         WriteToBuffer(LogLevel.Benchmark, message);

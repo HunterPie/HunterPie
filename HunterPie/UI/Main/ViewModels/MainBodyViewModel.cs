@@ -10,30 +10,20 @@ using System.Threading.Tasks;
 
 namespace HunterPie.UI.Main.ViewModels;
 
-internal class MainBodyViewModel : ViewModel
+internal class MainBodyViewModel(
+    SideBarViewModel sideBarViewModel,
+    ILocalRegistryAsync localRegistryAsync) : ViewModel
 {
     private const string SUPPORTER_PROMPT_KEY = "supporter_prompt_closed";
-    private readonly ILocalRegistryAsync _localRegistryAsync;
+    private readonly ILocalRegistryAsync _localRegistryAsync = localRegistryAsync;
 
-    public SideBarViewModel SideBarViewModel { get; init; }
-
-    private ViewModel? _navigationViewModel;
-    public ViewModel? NavigationViewModel { get => _navigationViewModel; set => SetValue(ref _navigationViewModel, value); }
+    public SideBarViewModel SideBarViewModel { get; init; } = sideBarViewModel;
+    public ViewModel? NavigationViewModel { get; set => SetValue(ref field, value); }
 
     public Observable<GameType> SelectedGame => ClientConfig.Config.Client.DefaultGameType;
 
     public ObservableCollection<GameType> Games { get; } = new() { GameType.Rise, GameType.World, GameType.Wilds };
-
-    private bool _shouldDisplaySupporterPrompt;
-    public bool ShouldDisplaySupporterPrompt { get => _shouldDisplaySupporterPrompt; set => SetValue(ref _shouldDisplaySupporterPrompt, value); }
-
-    public MainBodyViewModel(
-        SideBarViewModel sideBarViewModel,
-        ILocalRegistryAsync localRegistryAsync)
-    {
-        SideBarViewModel = sideBarViewModel;
-        _localRegistryAsync = localRegistryAsync;
-    }
+    public bool ShouldDisplaySupporterPrompt { get; set => SetValue(ref field, value); }
 
     public void LaunchGame()
     {

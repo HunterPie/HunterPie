@@ -4,16 +4,11 @@ using HunterPie.UI.Overlay.Widgets.Classes.ViewModels;
 
 namespace HunterPie.UI.Overlay.Widgets.Classes.Controllers;
 
-internal class LongSwordController : IClassController<LongSwordViewModel>
+internal class LongSwordController(ILongSword weapon) : IClassController<LongSwordViewModel>
 {
-    private readonly ILongSword _weapon;
+    private readonly ILongSword _weapon = weapon;
 
     public LongSwordViewModel ViewModel { get; } = new();
-
-    public LongSwordController(ILongSword weapon)
-    {
-        _weapon = weapon;
-    }
 
     public void HookEvents()
     {

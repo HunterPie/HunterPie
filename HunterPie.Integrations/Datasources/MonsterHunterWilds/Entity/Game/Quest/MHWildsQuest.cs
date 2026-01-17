@@ -8,48 +8,46 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game.Quest.Da
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game.Quest;
 
-public sealed class MHWildsQuest : IQuest, IEventDispatcher, IUpdatable<UpdateQuest>, IDisposable
+public sealed class MHWildsQuest(
+    MHWildsQuestInformation information,
+    MHWildsQuestDetails? details) : IQuest, IEventDispatcher, IUpdatable<UpdateQuest>, IDisposable
 {
     /// <inheritdoc />
-    public int Id { get; }
+    public int Id { get; } = information.Id;
 
     /// <inheritdoc />
     public string Name => string.Empty;
 
     /// <inheritdoc />
-    public QuestType Type { get; }
-
-    private QuestStatus _status;
+    public QuestType Type { get; } = details?.ToQuestType() ?? QuestType.Hunt;
 
     /// <inheritdoc />
     public QuestStatus Status
     {
-        get => _status;
+        get;
         private set
         {
-            if (value == _status)
+            if (value == field)
                 return;
 
-            QuestStatus temp = _status;
-            _status = value;
+            QuestStatus temp = field;
+            field = value;
             this.Dispatch(
                 toDispatch: _onQuestStatusChange,
                 data: new SimpleValueChangeEventArgs<QuestStatus>(temp, value));
         }
     }
 
-    private int _deaths;
-
     /// <inheritdoc />
     public int Deaths
     {
-        get => _deaths;
+        get;
         private set
         {
-            if (value == _deaths)
+            if (value == field)
                 return;
 
-            _deaths = value;
+            field = value;
             this.Dispatch(_onDeathCounterChange, new CounterChangeEventArgs(value, MaxDeaths));
         }
     }
@@ -58,27 +56,25 @@ public sealed class MHWildsQuest : IQuest, IEventDispatcher, IUpdatable<UpdateQu
     public int MaxDeaths { get; private set; }
 
     /// <inheritdoc />
-    public QuestLevel Level { get; }
+    public QuestLevel Level { get; } = details?.ToQuestLevel() ?? QuestLevel.HighRank;
 
     /// <inheritdoc />
-    public int Stars { get; }
-
-    private TimeSpan _timeLeft = TimeSpan.Zero;
+    public int Stars { get; } = details?.Level ?? 0;
 
     /// <inheritdoc />
     public TimeSpan TimeLeft
     {
-        get => _timeLeft;
+        get;
         private set
         {
-            if (value == _timeLeft)
+            if (value == field)
                 return;
 
-            TimeSpan oldValue = _timeLeft;
-            _timeLeft = value;
+            TimeSpan oldValue = field;
+            field = value;
             this.Dispatch(_onTimeLeftChange, new SimpleValueChangeEventArgs<TimeSpan>(oldValue, value));
         }
-    }
+    } = TimeSpan.Zero;
 
     private readonly SmartEvent<SimpleValueChangeEventArgs<QuestStatus>> _onQuestStatusChange = new();
 
@@ -105,16 +101,6 @@ public sealed class MHWildsQuest : IQuest, IEventDispatcher, IUpdatable<UpdateQu
     {
         add => _onTimeLeftChange.Hook(value);
         remove => _onTimeLeftChange.Unhook(value);
-    }
-
-    public MHWildsQuest(
-        MHWildsQuestInformation information,
-        MHWildsQuestDetails? details)
-    {
-        Id = information.Id;
-        Type = details?.ToQuestType() ?? QuestType.Hunt;
-        Level = details?.ToQuestLevel() ?? QuestLevel.HighRank;
-        Stars = details?.Level ?? 0;
     }
 
     public void Update(UpdateQuest data)

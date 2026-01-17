@@ -5,14 +5,9 @@ using System.IO;
 
 namespace HunterPie.Features.Backup.ViewModels;
 
-internal class BackupElementFactory
+internal class BackupElementFactory(PoogieBackupConnector backupConnector)
 {
-    private readonly PoogieBackupConnector _backupConnector;
-
-    public BackupElementFactory(PoogieBackupConnector backupConnector)
-    {
-        _backupConnector = backupConnector;
-    }
+    private readonly PoogieBackupConnector _backupConnector = backupConnector;
 
     public BackupElementViewModel Create(BackupResponse response) =>
         new(

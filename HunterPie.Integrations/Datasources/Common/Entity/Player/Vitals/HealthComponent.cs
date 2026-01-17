@@ -9,20 +9,14 @@ namespace HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
 
 public class HealthComponent : IHealthComponent, IEventDispatcher, IUpdatable<HealthData>, IDisposable
 {
-    private double _current;
-    private double _max;
-    private double _heal;
-    private double _recoverableHealth;
-    private double _maxPossibleHealth;
-
     public double Current
     {
-        get => _current;
+        get;
         private set
         {
-            if (value != _current)
+            if (value != field)
             {
-                _current = value;
+                field = value;
                 this.Dispatch(_onHealthChange, new HealthChangeEventArgs(this));
             }
         }
@@ -30,12 +24,12 @@ public class HealthComponent : IHealthComponent, IEventDispatcher, IUpdatable<He
 
     public double Max
     {
-        get => _max;
+        get;
         private set
         {
-            if (value != _max)
+            if (value != field)
             {
-                _max = value;
+                field = value;
                 this.Dispatch(_onHealthChange, new HealthChangeEventArgs(this));
             }
         }
@@ -44,12 +38,12 @@ public class HealthComponent : IHealthComponent, IEventDispatcher, IUpdatable<He
 
     public double Heal
     {
-        get => _heal;
+        get;
         private set
         {
-            if (value != _heal)
+            if (value != field)
             {
-                _heal = value;
+                field = value;
                 this.Dispatch(_onHeal, new HealthChangeEventArgs(this));
             }
         }
@@ -57,12 +51,12 @@ public class HealthComponent : IHealthComponent, IEventDispatcher, IUpdatable<He
 
     public double RecoverableHealth
     {
-        get => _recoverableHealth;
+        get;
         private set
         {
-            if (value != _recoverableHealth)
+            if (value != field)
             {
-                _recoverableHealth = value;
+                field = value;
                 this.Dispatch(_onHealthChange, new HealthChangeEventArgs(this));
             }
         }
@@ -70,12 +64,12 @@ public class HealthComponent : IHealthComponent, IEventDispatcher, IUpdatable<He
 
     public double MaxPossibleHealth
     {
-        get => _maxPossibleHealth;
+        get;
         private set
         {
-            if (value != _maxPossibleHealth)
+            if (value != field)
             {
-                _maxPossibleHealth = value;
+                field = value;
                 this.Dispatch(_onHealthChange, new HealthChangeEventArgs(this));
             }
         }

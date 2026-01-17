@@ -9,23 +9,12 @@ namespace HunterPie.Features.Statistics.ViewModels;
 
 public class MonsterSummaryViewModel : ViewModel
 {
-    private GameType _gameType;
-    public GameType GameType { get => _gameType; set => SetValue(ref _gameType, value); }
-
-    private int _id;
-    public int Id { get => _id; set => SetValue(ref _id, value); }
-
-    private string? _icon;
-    public string? Icon { get => _icon; set => SetValue(ref _icon, value); }
-
-    private bool _isTarget;
-    public bool IsTarget { get => _isTarget; set => SetValue(ref _isTarget, value); }
-
-    private MonsterHuntType? _huntType;
-    public MonsterHuntType? HuntType { get => _huntType; set => SetValue(ref _huntType, value); }
-
-    private VariantType _variant;
-    public VariantType Variant { get => _variant; set => SetValue(ref _variant, value); }
+    public GameType GameType { get; set => SetValue(ref field, value); }
+    public int Id { get; set => SetValue(ref field, value); }
+    public string? Icon { get; set => SetValue(ref field, value); }
+    public bool IsTarget { get; set => SetValue(ref field, value); }
+    public MonsterHuntType? HuntType { get; set => SetValue(ref field, value); }
+    public VariantType Variant { get; set => SetValue(ref field, value); }
 
     public MonsterSummaryViewModel() { }
 

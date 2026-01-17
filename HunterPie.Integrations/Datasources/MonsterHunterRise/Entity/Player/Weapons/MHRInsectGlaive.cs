@@ -14,37 +14,32 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Weapons;
 
-public sealed class MHRInsectGlaive : MHRMeleeWeapon, IInsectGlaive
+public sealed class MHRInsectGlaive(
+    IGameProcess process,
+    IScanService scanService) : MHRMeleeWeapon(process, scanService, Weapon.InsectGlaive), IInsectGlaive
 {
-    private KinsectBuff _primaryExtract;
-    private KinsectBuff _secondaryExtract;
-    private float _attackTimer;
-    private float _speedTimer;
-    private float _defenseTimer;
-    private float _stamina;
-
     public KinsectBuff PrimaryExtract
     {
-        get => _primaryExtract;
+        get;
         private set
         {
-            if (value == _primaryExtract)
+            if (value == field)
                 return;
 
-            _primaryExtract = value;
+            field = value;
             this.Dispatch(_onPrimaryExtractChange, new InsectGlaiveExtractChangeEventArgs(value));
         }
     }
 
     public KinsectBuff SecondaryExtract
     {
-        get => _secondaryExtract;
+        get;
         private set
         {
-            if (value == _secondaryExtract)
+            if (value == field)
                 return;
 
-            _secondaryExtract = value;
+            field = value;
             this.Dispatch(_onSecondaryExtractChange, new InsectGlaiveExtractChangeEventArgs(value));
         }
     }
@@ -53,52 +48,52 @@ public sealed class MHRInsectGlaive : MHRMeleeWeapon, IInsectGlaive
 
     public float AttackTimer
     {
-        get => _attackTimer;
+        get;
         private set
         {
-            if (value == _attackTimer)
+            if (value == field)
                 return;
 
-            _attackTimer = value;
+            field = value;
             this.Dispatch(_onAttackTimerChange, new InsectGlaiveBuffTimerChangeEventArgs(value));
         }
     }
 
     public float SpeedTimer
     {
-        get => _speedTimer;
+        get;
         private set
         {
-            if (value == _speedTimer)
+            if (value == field)
                 return;
 
-            _speedTimer = value;
+            field = value;
             this.Dispatch(_onSpeedTimerChange, new InsectGlaiveBuffTimerChangeEventArgs(value));
         }
     }
 
     public float DefenseTimer
     {
-        get => _defenseTimer;
+        get;
         private set
         {
-            if (value == _defenseTimer)
+            if (value == field)
                 return;
 
-            _defenseTimer = value;
+            field = value;
             this.Dispatch(_onDefenseTimerChange, new InsectGlaiveBuffTimerChangeEventArgs(value));
         }
     }
 
     public float Stamina
     {
-        get => _stamina;
+        get;
         private set
         {
-            if (value == _stamina)
+            if (value == field)
                 return;
 
-            _stamina = value;
+            field = value;
             this.Dispatch(_onKinsectStaminaChange, new KinsectStaminaChangeEventArgs(this));
         }
     }
@@ -155,10 +150,6 @@ public sealed class MHRInsectGlaive : MHRMeleeWeapon, IInsectGlaive
         add => _onChargeChange.Hook(value);
         remove => _onChargeChange.Unhook(value);
     }
-
-    public MHRInsectGlaive(
-        IGameProcess process,
-        IScanService scanService) : base(process, scanService, Weapon.InsectGlaive) { }
 
     [ScannableMethod]
     private async Task GetKinsectData()

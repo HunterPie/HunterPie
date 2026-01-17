@@ -11,20 +11,12 @@ public class MonsterConfigurationViewModel : ViewModel
     public required string Name { get; init; }
 
     public required GameType GameType { get; init; }
-
-    private string? _icon;
-    public string? Icon { get => _icon; private set => SetValue(ref _icon, value); }
+    public string? Icon { get; private set => SetValue(ref field, value); }
 
     public required MonsterConfiguration Configuration { get; init; }
-
-    private bool _isEditing;
-    public bool IsEditing { get => _isEditing; set => SetValue(ref _isEditing, value); }
-
-    private bool _isOverriding;
-    public bool IsOverriding { get => _isOverriding; set => SetValue(ref _isOverriding, value); }
-
-    private bool _isMatch = true;
-    public bool IsMatch { get => _isMatch; set => SetValue(ref _isMatch, value); }
+    public bool IsEditing { get; set => SetValue(ref field, value); }
+    public bool IsOverriding { get; set => SetValue(ref field, value); }
+    public bool IsMatch { get; set => SetValue(ref field, value); } = true;
 
     public async void FetchIcon()
     {

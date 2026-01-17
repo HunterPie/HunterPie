@@ -9,19 +9,14 @@ using MyUserAccountResponse = HunterPie.Integrations.Poogie.Account.Models.MyUse
 
 namespace HunterPie.Integrations.Poogie.Account;
 
-internal class PoogieAccountConnector
+internal class PoogieAccountConnector(IPoogieClientAsync client)
 {
-    private readonly IPoogieClientAsync _client;
+    private readonly IPoogieClientAsync _client = client;
 
     private const string ACCOUNT_ENDPOINT = "/v1/account";
     private const string USER_ENDPOINT = "/v1/user";
     private const string LOGIN_ENDPOINT = "/v1/login";
     private const string LOGOUT_ENDPOINT = "/v1/logout";
-
-    public PoogieAccountConnector(IPoogieClientAsync client)
-    {
-        _client = client;
-    }
 
     public async Task<PoogieResult<LoginResponse>> LoginAsync(LoginRequest request) =>
         await _client.PostAsync<LoginRequest, LoginResponse>(LOGIN_ENDPOINT, request);

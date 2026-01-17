@@ -11,7 +11,6 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enemy;
 
 public sealed class MHRMonsterPart : CommonPart, IUpdatable<MHRPartStructure>, IUpdatable<MHRQurioPartData>
 {
-    private float _qurioHealth;
     private float _health;
     private float _flinch;
     private float _sever;
@@ -70,12 +69,12 @@ public sealed class MHRMonsterPart : CommonPart, IUpdatable<MHRPartStructure>, I
 
     public float QurioHealth
     {
-        get => _qurioHealth;
+        get;
         private set
         {
-            if (value != _qurioHealth)
+            if (value != field)
             {
-                _qurioHealth = value;
+                field = value;
                 this.Dispatch(_onQurioHealthChange, this);
             }
         }

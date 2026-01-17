@@ -16,8 +16,6 @@ public class IPCService
     private const string IPC_DEFAULT_ADDRESS = "127.0.0.1";
     private const short IPC_DEFAULT_PORT = 22002;
     private const int IPC_DEFAULT_BUFFER_SIZE = 8192;
-
-    private static IPCService? _instance;
     private TcpClient? _client;
     private NetworkStream? Stream => _client?.GetStream();
     private bool IsConnected => _client?.Connected ?? false;
@@ -27,10 +25,10 @@ public class IPCService
     {
         get
         {
-            if (_instance == null)
-                _instance = new IPCService();
+            if (field == null)
+                field = new IPCService();
 
-            return _instance;
+            return field;
         }
     }
 

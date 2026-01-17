@@ -9,24 +9,18 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Integrations.Poogie.Statistics;
 
-internal class PoogieStatisticsConnector
+internal class PoogieStatisticsConnector(
+    IAsyncCache cache,
+    IPoogieClientAsync client)
 {
     private const string SUMMARIES_CACHE_KEY = "summaries";
     private const string UPLOAD_CACHE_KEY = "quest::{0}";
 
-    private readonly IAsyncCache _cache;
-    private readonly IPoogieClientAsync _client;
+    private readonly IAsyncCache _cache = cache;
+    private readonly IPoogieClientAsync _client = client;
 
     private const string STATISTICS_ENDPOINT = "/v1/hunt";
     private const string STATISTICS_ENDPOINT_V2 = "/v2/hunt";
-
-    public PoogieStatisticsConnector(
-        IAsyncCache cache,
-        IPoogieClientAsync client)
-    {
-        _cache = cache;
-        _client = client;
-    }
 
     public async Task<PoogieResult<PoogieQuestStatisticsModel>> UploadAsync(PoogieQuestStatisticsModel model) =>
         await _client.PostAsync<PoogieQuestStatisticsModel, PoogieQuestStatisticsModel>($"{STATISTICS_ENDPOINT}/upload", model);

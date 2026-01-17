@@ -16,44 +16,39 @@ namespace HunterPie.UI.Overlay.Widgets.Metrics.ViewModel;
 
 public class TelemetricsViewModel : WidgetViewModel
 {
-
-    private long _memoryUsage;
-    private float _cpuUsage;
-    private int _threads;
     private readonly Timer _dispatcher;
 
-    private PerformanceCounter _cpuPerfCounter;
     private PerformanceCounter CpuPerfCounter
     {
         get
         {
             // Lazy initializer
-            if (_cpuPerfCounter is null)
+            if (field is null)
             {
                 using var self = Process.GetCurrentProcess();
-                _cpuPerfCounter = new("Process", "% Processor Time", self.ProcessName, true);
+                field = new("Process", "% Processor Time", self.ProcessName, true);
             }
 
-            return _cpuPerfCounter;
+            return field;
         }
     }
 
     public long Memory
     {
-        get => _memoryUsage;
-        set => SetValue(ref _memoryUsage, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public float CPU
     {
-        get => _cpuUsage;
-        set => SetValue(ref _cpuUsage, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public int Threads
     {
-        get => _threads;
-        set => SetValue(ref _threads, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
     public SeriesCollection CPUSeries { get; private set; }

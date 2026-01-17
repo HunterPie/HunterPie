@@ -8,18 +8,12 @@ using System;
 
 namespace HunterPie.UI.Settings.Converter.Internal;
 
-internal class AbnormalityTrayConfigurationPropertyBuilder : IConfigurationPropertyBuilder
+internal class AbnormalityTrayConfigurationPropertyBuilder(
+    ConfigurationAdapter configurationAdapter,
+    IBodyNavigator bodyNavigator) : IConfigurationPropertyBuilder
 {
-    private readonly ConfigurationAdapter _configurationAdapter;
-    private readonly IBodyNavigator _bodyNavigator;
-
-    public AbnormalityTrayConfigurationPropertyBuilder(
-        ConfigurationAdapter configurationAdapter,
-        IBodyNavigator bodyNavigator)
-    {
-        _configurationAdapter = configurationAdapter;
-        _bodyNavigator = bodyNavigator;
-    }
+    private readonly ConfigurationAdapter _configurationAdapter = configurationAdapter;
+    private readonly IBodyNavigator _bodyNavigator = bodyNavigator;
 
     public IConfigurationProperty Build(PropertyData data, GameProcessType game)
     {

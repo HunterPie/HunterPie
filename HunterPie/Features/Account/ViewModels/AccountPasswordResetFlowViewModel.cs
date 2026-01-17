@@ -10,32 +10,18 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Account.ViewModels;
 
-internal class AccountPasswordResetFlowViewModel : ViewModel
+internal class AccountPasswordResetFlowViewModel(PoogieAccountConnector accountConnector) : ViewModel
 {
-    private readonly PoogieAccountConnector _accountConnector;
+    private readonly PoogieAccountConnector _accountConnector = accountConnector;
 
-    private bool _isRequestingCode;
-    private bool _hasCodeBeenSent;
-    private bool _isResetInProgress;
-    private bool _canChangePassword;
-    private bool _isFlowActive;
-    private string _email = string.Empty;
-    private string _code = string.Empty;
-    private string _password = string.Empty;
-
-    public bool IsRequestingCode { get => _isRequestingCode; set => SetValue(ref _isRequestingCode, value); }
-    public bool HasCodeBeenSent { get => _hasCodeBeenSent; set => SetValue(ref _hasCodeBeenSent, value); }
-    public bool IsResetInProgress { get => _isResetInProgress; set => SetValue(ref _isResetInProgress, value); }
-    public bool CanChangePassword { get => _canChangePassword; set => SetValue(ref _canChangePassword, value); }
-    public bool IsFlowActive { get => _isFlowActive; set => SetValue(ref _isFlowActive, value); }
-    public string Email { get => _email; set => SetValueAndUpdateState(ref _email, value); }
-    public string Code { get => _code; set => SetValueAndUpdateState(ref _code, value); }
-    public string Password { get => _password; set => SetValueAndUpdateState(ref _password, value); }
-
-    public AccountPasswordResetFlowViewModel(PoogieAccountConnector accountConnector)
-    {
-        _accountConnector = accountConnector;
-    }
+    public bool IsRequestingCode { get; set => SetValue(ref field, value); }
+    public bool HasCodeBeenSent { get; set => SetValue(ref field, value); }
+    public bool IsResetInProgress { get; set => SetValue(ref field, value); }
+    public bool CanChangePassword { get; set => SetValue(ref field, value); }
+    public bool IsFlowActive { get; set => SetValue(ref field, value); }
+    public string Email { get; set => SetValueAndUpdateState(ref field, value); } = string.Empty;
+    public string Code { get; set => SetValueAndUpdateState(ref field, value); } = string.Empty;
+    public string Password { get; set => SetValueAndUpdateState(ref field, value); } = string.Empty;
 
     public async Task RequestResetCodeAsync()
     {

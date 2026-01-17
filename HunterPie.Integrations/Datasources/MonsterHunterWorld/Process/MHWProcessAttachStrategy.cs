@@ -16,18 +16,16 @@ internal class MHWProcessAttachStrategy : IProcessAttachStrategy
 
     public GameProcessType Game => GameProcessType.MonsterHunterWorld;
 
-    private ProcessStatus _status;
-
     public ProcessStatus Status
     {
-        get => _status;
+        get;
         private set
         {
-            if (_status == value)
+            if (field == value)
                 return;
 
-            ProcessStatus oldStatus = _status;
-            _status = value;
+            ProcessStatus oldStatus = field;
+            field = value;
 
             this.Dispatch(
                 StatusChange,

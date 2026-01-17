@@ -13,48 +13,45 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Weapons;
 
-public sealed class MHRDualBlades : MHRMeleeWeapon, IDualBlades
+public sealed class MHRDualBlades(
+    IGameProcess process,
+    IScanService scanService) : MHRMeleeWeapon(process, scanService, Weapon.DualBlades), IDualBlades
 {
-    private bool _isDemonMode;
-    private bool _isArchDemonMode;
-    private float _demonBuildUp;
-    private float _piercingBindTimer;
-
     public bool IsDemonMode
     {
-        get => _isDemonMode;
+        get;
         private set
         {
-            if (value == _isDemonMode)
+            if (value == field)
                 return;
 
-            _isDemonMode = value;
+            field = value;
             this.Dispatch(_onDemonModeStateChange, new StateChangeEventArgs<bool>(value, !value));
         }
     }
 
     public bool IsArchDemonMode
     {
-        get => _isArchDemonMode;
+        get;
         private set
         {
-            if (value == _isArchDemonMode)
+            if (value == field)
                 return;
 
-            _isArchDemonMode = value;
+            field = value;
             this.Dispatch(_onArchDemonModeStateChange, new StateChangeEventArgs<bool>(value, !value));
         }
     }
 
     public float DemonBuildUp
     {
-        get => _demonBuildUp;
+        get;
         private set
         {
-            if (value == _demonBuildUp)
+            if (value == field)
                 return;
 
-            _demonBuildUp = value;
+            field = value;
             this.Dispatch(_onDemonBuildUpChange, new BuildUpChangeEventArgs(value, MaxDemonBuildUp));
         }
     }
@@ -63,13 +60,13 @@ public sealed class MHRDualBlades : MHRMeleeWeapon, IDualBlades
 
     public float PiercingBindTimer
     {
-        get => _piercingBindTimer;
+        get;
         private set
         {
-            if (value == _piercingBindTimer)
+            if (value == field)
                 return;
 
-            _piercingBindTimer = value;
+            field = value;
             this.Dispatch(_onPiercingBindTimerChange, new TimerChangeEventArgs(value, MaxPiercingBindTimer));
         }
     }
@@ -103,10 +100,6 @@ public sealed class MHRDualBlades : MHRMeleeWeapon, IDualBlades
         add => _onPiercingBindTimerChange.Hook(value);
         remove => _onPiercingBindTimerChange.Unhook(value);
     }
-
-    public MHRDualBlades(
-        IGameProcess process,
-        IScanService scanService) : base(process, scanService, Weapon.DualBlades) { }
 
     [ScannableMethod]
     private async Task GetData()

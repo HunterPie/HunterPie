@@ -2,12 +2,7 @@
 
 namespace HunterPie.UI.Settings.ViewModels.Internal;
 
-internal class ColorPropertyViewModel : ConfigurationPropertyViewModel
+internal class ColorPropertyViewModel(Color color) : ConfigurationPropertyViewModel
 {
-    public Color Color { get; }
-
-    public ColorPropertyViewModel(Color color)
-    {
-        Color = color;
-    }
+    public Color Color { get; } = color;
 }

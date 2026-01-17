@@ -6,13 +6,13 @@ using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Enemy;
 
-public sealed class MHWMonsterAilment : CommonAilment, IUpdatable<MHWMonsterStatusStructure>, IUpdatable<MHWMonsterAilmentStructure>
+public sealed class MHWMonsterAilment(AilmentDefinition definition) : CommonAilment(definition), IUpdatable<MHWMonsterStatusStructure>, IUpdatable<MHWMonsterAilmentStructure>
 {
     private int _counter;
     private float _timer;
     private float _buildup;
 
-    public override string Id { get; protected set; }
+    public override string Id { get; protected set; } = definition.String;
 
     public override int Counter
     {
@@ -55,11 +55,6 @@ public sealed class MHWMonsterAilment : CommonAilment, IUpdatable<MHWMonsterStat
     }
 
     public override float MaxBuildUp { get; protected set; }
-
-    public MHWMonsterAilment(AilmentDefinition definition) : base(definition)
-    {
-        Id = definition.String;
-    }
 
     public void Update(MHWMonsterStatusStructure data)
     {

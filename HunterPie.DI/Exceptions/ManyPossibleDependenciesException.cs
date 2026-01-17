@@ -1,13 +1,7 @@
 ﻿namespace HunterPie.DI.Exceptions;
 
-public class ManyPossibleDependenciesException : Exception
+public class ManyPossibleDependenciesException(Type type, Type[] possibilities) : Exception($"Too many possible options to satisfy dependency '{type.Name}'")
 {
-    public Type Type { get; }
-    public Type[] Possibilities { get; }
-
-    public ManyPossibleDependenciesException(Type type, Type[] possibilities) : base($"Too many possible options to satisfy dependency '{type.Name}'")
-    {
-        Type = type;
-        Possibilities = possibilities;
-    }
+    public Type Type { get; } = type;
+    public Type[] Possibilities { get; } = possibilities;
 }

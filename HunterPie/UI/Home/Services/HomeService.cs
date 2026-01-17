@@ -17,11 +17,14 @@ using System.Threading.Tasks;
 
 namespace HunterPie.UI.Home.Services;
 
-internal class HomeService
+internal class HomeService(
+    IGameWatcher[] gameWatchers,
+    IBodyNavigator bodyNavigator,
+    SettingsFactory settingsFactory)
 {
-    private readonly IGameWatcher[] _gameWatchers;
-    private readonly IBodyNavigator _bodyNavigator;
-    private readonly SettingsFactory _settingsFactory;
+    private readonly IGameWatcher[] _gameWatchers = gameWatchers;
+    private readonly IBodyNavigator _bodyNavigator = bodyNavigator;
+    private readonly SettingsFactory _settingsFactory = settingsFactory;
 
     private static readonly Dictionary<GameType, SupportedGameViewModel> SupportedGames = new()
     {
@@ -51,16 +54,6 @@ internal class HomeService
             }
         },
     };
-
-    public HomeService(
-        IGameWatcher[] gameWatchers,
-        IBodyNavigator bodyNavigator,
-        SettingsFactory settingsFactory)
-    {
-        _gameWatchers = gameWatchers;
-        _bodyNavigator = bodyNavigator;
-        _settingsFactory = settingsFactory;
-    }
 
     public void Subscribe()
     {

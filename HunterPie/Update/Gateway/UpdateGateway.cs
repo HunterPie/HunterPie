@@ -12,18 +12,12 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Update.Gateway;
 
-internal class UpdateGateway
+internal class UpdateGateway(
+    PoogieVersionConnector versionConnector,
+    PoogieLocalizationConnector localizationConnector)
 {
-    private readonly PoogieVersionConnector _versionConnector;
-    private readonly PoogieLocalizationConnector _localizationConnector;
-
-    public UpdateGateway(
-        PoogieVersionConnector versionConnector,
-        PoogieLocalizationConnector localizationConnector)
-    {
-        _localizationConnector = localizationConnector;
-        _versionConnector = versionConnector;
-    }
+    private readonly PoogieVersionConnector _versionConnector = versionConnector;
+    private readonly PoogieLocalizationConnector _localizationConnector = localizationConnector;
 
     public async Task<string?> GetLatestVersionAsync()
     {

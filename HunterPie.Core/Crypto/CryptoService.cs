@@ -5,14 +5,9 @@ using System.Security.Cryptography;
 
 namespace HunterPie.Core.Crypto;
 
-public class CryptoService : ICryptoService
+public class CryptoService(ILocalRegistry localRegistry) : ICryptoService
 {
-    private readonly ILocalRegistry _localRegistry;
-
-    public CryptoService(ILocalRegistry localRegistry)
-    {
-        _localRegistry = localRegistry;
-    }
+    private readonly ILocalRegistry _localRegistry = localRegistry;
 
     public string Encrypt(string value)
     {

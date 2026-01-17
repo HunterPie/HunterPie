@@ -3,14 +3,8 @@ using System;
 
 namespace HunterPie.Core.Game.Events;
 
-public class LevelChangeEventArgs : EventArgs
+public class LevelChangeEventArgs(IPlayer player) : EventArgs
 {
-    public int HighRank { get; }
-    public int MasterRank { get; }
-
-    public LevelChangeEventArgs(IPlayer player)
-    {
-        HighRank = player.HighRank;
-        MasterRank = player.MasterRank;
-    }
+    public int HighRank { get; } = player.HighRank;
+    public int MasterRank { get; } = player.MasterRank;
 }

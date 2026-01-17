@@ -9,18 +9,13 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Backup.Strategies;
 
-internal class MHRBackupStrategy : IBackupStrategy
+internal class MHRBackupStrategy(ICompressor compressor) : IBackupStrategy
 {
     private const string SAVE_FILE_PATTERN = "*.bin";
     private const string RISE_SAVE_FOLDER = "1446780/remote/win64_save";
     private readonly byte[] _magicBytes = { 0x44, 0x53, 0x53, 0x53 };
 
-    private readonly ICompressor _compressor;
-
-    public MHRBackupStrategy(ICompressor compressor)
-    {
-        _compressor = compressor;
-    }
+    private readonly ICompressor _compressor = compressor;
 
     public GameType Type => GameType.MHR;
 

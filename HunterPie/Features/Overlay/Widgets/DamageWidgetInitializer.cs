@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-internal class DamageWidgetInitializer : IWidgetInitializer
+internal class DamageWidgetInitializer(IOverlay overlay) : IWidgetInitializer
 {
-    private readonly IOverlay _overlay;
+    private readonly IOverlay _overlay = overlay;
 
     private IContextHandler? _handler;
     private WidgetView? _view;
@@ -24,11 +24,6 @@ internal class DamageWidgetInitializer : IWidgetInitializer
         GameProcessType.MonsterHunterRise
         | GameProcessType.MonsterHunterWorld
         | GameProcessType.MonsterHunterWilds;
-
-    public DamageWidgetInitializer(IOverlay overlay)
-    {
-        _overlay = overlay;
-    }
 
     public Task LoadAsync(IContext context)
     {

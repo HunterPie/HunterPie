@@ -5,23 +5,15 @@ using HunterPie.UI.Architecture;
 namespace HunterPie.UI.Controls.Settings.Monsters.ViewModels;
 
 #nullable enable
-public class MonsterPartGroupViewModel : ViewModel
+public class MonsterPartGroupViewModel(
+    PartGroupType type,
+    ObservableHashSet<PartGroupType> groups
+    ) : ViewModel
 {
-    private readonly ObservableHashSet<PartGroupType> _groups;
+    private readonly ObservableHashSet<PartGroupType> _groups = groups;
 
-    public PartGroupType Type { get; }
-
-    private bool _isEnabled;
-    public bool IsEnabled { get => _isEnabled; set => SetValue(ref _isEnabled, value); }
-
-    public MonsterPartGroupViewModel(
-        PartGroupType type,
-        ObservableHashSet<PartGroupType> groups
-    )
-    {
-        _groups = groups;
-        Type = type;
-    }
+    public PartGroupType Type { get; } = type;
+    public bool IsEnabled { get; set => SetValue(ref field, value); }
 
     public void Toggle()
     {

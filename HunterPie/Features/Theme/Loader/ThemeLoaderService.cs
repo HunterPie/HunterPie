@@ -14,27 +14,20 @@ using System.Windows.Markup;
 
 namespace HunterPie.Features.Theme.Loader;
 
-internal class ThemeLoaderService
+internal class ThemeLoaderService(
+    Application application,
+    V5Config config,
+    LocalThemeRepository localThemeRepository)
 {
     private const string XAML_PATTERN = "*.xaml";
     private readonly ILogger _logger = LoggerFactory.Create();
     private readonly Dictionary<string, List<ResourceDictionary>> _loadedFiles = new();
 
-    private readonly Application _application;
-    private readonly V5Config _config;
-    private readonly LocalThemeRepository _localThemeRepository;
+    private readonly Application _application = application;
+    private readonly V5Config _config = config;
+    private readonly LocalThemeRepository _localThemeRepository = localThemeRepository;
 
     private FileSystemWatcher? _watcher;
-
-    public ThemeLoaderService(
-        Application application,
-        V5Config config,
-        LocalThemeRepository localThemeRepository)
-    {
-        _application = application;
-        _config = config;
-        _localThemeRepository = localThemeRepository;
-    }
 
     public async Task LoadAsync()
     {

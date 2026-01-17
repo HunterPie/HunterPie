@@ -36,18 +36,16 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
 
     public abstract IQuest? Quest { get; }
 
-    private TimeOnly _worldTime;
-
     public TimeOnly WorldTime
     {
-        get => _worldTime;
+        get;
         protected set
         {
-            if (_worldTime == value)
+            if (field == value)
                 return;
 
-            TimeOnly oldValue = _worldTime;
-            _worldTime = value;
+            TimeOnly oldValue = field;
+            field = value;
             this.Dispatch(_onWorldTimeChange, new SimpleValueChangeEventArgs<TimeOnly>(oldValue, value));
         }
     }

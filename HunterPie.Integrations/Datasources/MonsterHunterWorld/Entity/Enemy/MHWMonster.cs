@@ -146,16 +146,15 @@ public sealed class MHWMonster : CommonMonster
 
     public override string[] Types { get; } = Array.Empty<string>();
 
-    private bool _isCaptured;
     public bool IsCaptured
     {
-        get => _isCaptured;
+        get;
         private set
         {
-            if (value == _isCaptured)
+            if (value == field)
                 return;
 
-            _isCaptured = value;
+            field = value;
             this.Dispatch(_onCapture, EventArgs.Empty);
         }
     }

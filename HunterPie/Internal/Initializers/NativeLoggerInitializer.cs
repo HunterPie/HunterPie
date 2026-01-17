@@ -7,19 +7,13 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Internal.Initializers;
 
-internal class NativeLoggerInitializer : IInitializer
+internal class NativeLoggerInitializer(
+    INativeLogWriter logWriter,
+    IFeatureFlagRepository featureFlagRepository) : IInitializer
 {
     private readonly ILogger _logger = LoggerFactory.Create();
-    private readonly INativeLogWriter _logWriter;
-    private readonly IFeatureFlagRepository _featureFlagRepository;
-
-    public NativeLoggerInitializer(
-        INativeLogWriter logWriter,
-        IFeatureFlagRepository featureFlagRepository)
-    {
-        _logWriter = logWriter;
-        _featureFlagRepository = featureFlagRepository;
-    }
+    private readonly INativeLogWriter _logWriter = logWriter;
+    private readonly IFeatureFlagRepository _featureFlagRepository = featureFlagRepository;
 
     public Task Init()
     {

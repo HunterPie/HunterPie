@@ -11,13 +11,16 @@ using HunterPie.Integrations.Datasources.MonsterHunterRise.Utils;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Player.Weapons;
 
-public class MHRMeleeWeapon : CommonMeleeWeapon
+public class MHRMeleeWeapon(
+    IGameProcess process,
+    IScanService scanService,
+    Weapon id) : CommonMeleeWeapon(process, scanService)
 {
     private long _weaponSharpnessPointer;
     private Sharpness _sharpness;
     private int _currentSharpness;
 
-    public override Weapon Id { get; }
+    public override Weapon Id { get; } = id;
 
     public override Sharpness Sharpness
     {
@@ -50,14 +53,6 @@ public class MHRMeleeWeapon : CommonMeleeWeapon
     public override int MaxSharpness { get; protected set; }
 
     public override int Threshold { get; protected set; }
-
-    public MHRMeleeWeapon(
-        IGameProcess process,
-        IScanService scanService,
-        Weapon id) : base(process, scanService)
-    {
-        Id = id;
-    }
 
     [ScannableMethod]
     protected async Task GetWeaponSharpness()

@@ -9,25 +9,17 @@ using System.Linq;
 
 namespace HunterPie.UI.Settings.ViewModels.Internal;
 
-internal class AbnormalityTrayPropertyViewModel : ConfigurationPropertyViewModel
+internal class AbnormalityTrayPropertyViewModel(
+    ObservableCollection<AbnormalityWidgetConfig> trays,
+    GameProcessType game,
+    ConfigurationAdapter configurationAdapter,
+    IBodyNavigator bodyNavigator) : ConfigurationPropertyViewModel
 {
-    private readonly ConfigurationAdapter _configurationAdapter;
-    private readonly IBodyNavigator _bodyNavigator;
+    private readonly ConfigurationAdapter _configurationAdapter = configurationAdapter;
+    private readonly IBodyNavigator _bodyNavigator = bodyNavigator;
 
-    public ObservableCollection<AbnormalityWidgetConfig> Trays { get; }
-    public GameProcessType Game { get; }
-
-    public AbnormalityTrayPropertyViewModel(
-        ObservableCollection<AbnormalityWidgetConfig> trays,
-        GameProcessType game,
-        ConfigurationAdapter configurationAdapter,
-        IBodyNavigator bodyNavigator)
-    {
-        Trays = trays;
-        Game = game;
-        _configurationAdapter = configurationAdapter;
-        _bodyNavigator = bodyNavigator;
-    }
+    public ObservableCollection<AbnormalityWidgetConfig> Trays { get; } = trays;
+    public GameProcessType Game { get; } = game;
 
     public void CreateNewTray()
     {

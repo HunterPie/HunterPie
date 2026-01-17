@@ -18,20 +18,15 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
 
-internal class SpecializedToolWidgetInitializer : IWidgetInitializer
+internal class SpecializedToolWidgetInitializer(IOverlay overlay) : IWidgetInitializer
 {
-    private readonly IOverlay _overlay;
+    private readonly IOverlay _overlay = overlay;
 
     private readonly List<(IContextHandler, WidgetView)> _handlers = new(2);
 
     public GameProcessType SupportedGames =>
         GameProcessType.MonsterHunterWorld |
         GameProcessType.MonsterHunterWilds;
-
-    public SpecializedToolWidgetInitializer(IOverlay overlay)
-    {
-        _overlay = overlay;
-    }
 
     public Task LoadAsync(IContext context)
     {

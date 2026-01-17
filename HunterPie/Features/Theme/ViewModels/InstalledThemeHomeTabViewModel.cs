@@ -11,23 +11,15 @@ using System.Threading.Tasks;
 
 namespace HunterPie.Features.Theme.ViewModels;
 
-internal class InstalledThemeHomeTabViewModel : ThemeHomeTabViewModel
+internal class InstalledThemeHomeTabViewModel(
+    ObservableCollection<string> configuredThemes,
+    LocalThemeRepository localThemeRepository) : ThemeHomeTabViewModel
 {
-    private readonly ObservableCollection<string> _configuredThemes;
-    private readonly LocalThemeRepository _localThemeRepository;
+    private readonly ObservableCollection<string> _configuredThemes = configuredThemes;
+    private readonly LocalThemeRepository _localThemeRepository = localThemeRepository;
 
     public ObservableCollection<InstalledThemeViewModel> Themes { get; } = new();
-
-    private bool _isRefreshing;
-    public bool IsRefreshing { get => _isRefreshing; set => SetValue(ref _isRefreshing, value); }
-
-    public InstalledThemeHomeTabViewModel(
-        ObservableCollection<string> configuredThemes,
-        LocalThemeRepository localThemeRepository)
-    {
-        _configuredThemes = configuredThemes;
-        _localThemeRepository = localThemeRepository;
-    }
+    public bool IsRefreshing { get; set => SetValue(ref field, value); }
 
     public void Arrange(InstalledThemeViewModel source, InstalledThemeViewModel target)
     {

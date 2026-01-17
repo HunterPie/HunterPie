@@ -16,46 +16,35 @@ using System.Linq;
 
 namespace HunterPie.Features.Debug.ViewModels;
 
-internal class DebugOverlayManagerViewModel : ViewModel
+internal class DebugOverlayManagerViewModel(
+    OverlayManager manager,
+    ConfigurationAdapter configurationAdapter,
+    PoogieVersionConnector poogieVersionConnector,
+    IBodyNavigator bodyNavigator,
+    ObservableCollection<IWidgetSettings> settings) : ViewModel
 {
-    private readonly ConfigurationAdapter _configurationAdapter;
-    private readonly PoogieVersionConnector _poogieVersionConnector;
-    private readonly IBodyNavigator _bodyNavigator;
+    private readonly ConfigurationAdapter _configurationAdapter = configurationAdapter;
+    private readonly PoogieVersionConnector _poogieVersionConnector = poogieVersionConnector;
+    private readonly IBodyNavigator _bodyNavigator = bodyNavigator;
 
     public BooleanPropertyViewModel IsDesignModeEnabled
-    { get; }
-    public BooleanPropertyViewModel IsGameFocused { get; }
-    public BooleanPropertyViewModel IsGameHudOpen { get; }
-
-    public ObservableCollection<IWidgetSettings> Settings { get; }
-
-    public DebugOverlayManagerViewModel(
-        OverlayManager manager,
-        ConfigurationAdapter configurationAdapter,
-        PoogieVersionConnector poogieVersionConnector,
-        IBodyNavigator bodyNavigator,
-        ObservableCollection<IWidgetSettings> settings)
-    {
-        _configurationAdapter = configurationAdapter;
-        _poogieVersionConnector = poogieVersionConnector;
-        _bodyNavigator = bodyNavigator;
-        IsDesignModeEnabled = CreateBooleanObservable(
+    { get; } = CreateBooleanObservable(
             name: "Is design mode enabled",
             description: "Simulates design mode",
             callback: state => manager.IsDesignModeEnabled = state
         );
-        IsGameFocused = CreateBooleanObservable(
+    public BooleanPropertyViewModel IsGameFocused { get; } = CreateBooleanObservable(
             name: "Is game focused",
             description: "Simulates game window focus",
             callback: state => manager.IsGameFocused = state
         );
-        IsGameHudOpen = CreateBooleanObservable(
+    public BooleanPropertyViewModel IsGameHudOpen { get; } = CreateBooleanObservable(
             name: "Is Hud open",
             description: "Simulates game Hud state",
             callback: state => manager.IsGameHudVisible = state
         );
-        Settings = settings;
-    }
+
+    public ObservableCollection<IWidgetSettings> Settings { get; } = settings;
 
     public void NavigateToSettings()
     {

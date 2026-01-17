@@ -10,21 +10,14 @@ using System.Linq;
 
 namespace HunterPie.Integrations.Discord.Strategies;
 
-internal class MHWDiscordPresenceStrategy : IDiscordRichPresenceStrategy
+internal class MHWDiscordPresenceStrategy(
+    DiscordRichPresence configuration,
+    ILocalizationRepository localizationRepository,
+    IContext context) : IDiscordRichPresenceStrategy
 {
-    private readonly DiscordRichPresence _configuration;
-    private readonly IScopedLocalizationRepository _localizationRepository;
-    private readonly IContext _context;
-
-    public MHWDiscordPresenceStrategy(
-        DiscordRichPresence configuration,
-        ILocalizationRepository localizationRepository,
-        IContext context)
-    {
-        _configuration = configuration;
-        _localizationRepository = localizationRepository.WithScope("//Strings/Client/Integrations/Discord");
-        _context = context;
-    }
+    private readonly DiscordRichPresence _configuration = configuration;
+    private readonly IScopedLocalizationRepository _localizationRepository = localizationRepository.WithScope("//Strings/Client/Integrations/Discord");
+    private readonly IContext _context = context;
 
     public string AppId => "567152028070051859";
 

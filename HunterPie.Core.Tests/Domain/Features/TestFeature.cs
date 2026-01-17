@@ -6,10 +6,8 @@ namespace HunterPie.Core.Tests.Domain.Features;
 [TestClass]
 public class TestFeature
 {
-    private class MockFeature : Feature
+    private class MockFeature(bool defaultValue) : Feature(defaultValue)
     {
-
-        public MockFeature(bool defaultValue) : base(defaultValue) { }
 
         // TODO: Find a way to test if a method was called in MSTest
         public string TestCalls = "Nothing";

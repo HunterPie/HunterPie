@@ -4,72 +4,51 @@ using HunterPie.UI.Architecture;
 
 namespace HunterPie.UI.Overlay.Widgets.Damage.ViewModels;
 
-public class PlayerViewModel : ViewModel
+public class PlayerViewModel(DamageMeterWidgetConfig config) : ViewModel
 {
-    public DamageMeterWidgetConfig Config { get; }
+    public DamageMeterWidgetConfig Config { get; } = config;
 
-    public PlayerViewModel(DamageMeterWidgetConfig config)
-    {
-        Config = config;
-    }
-
-    private string _name;
     public string Name
     {
-        get => _name;
-        set => SetValue(ref _name, value);
+        get;
+        set => SetValue(ref field, value);
     }
-
-    private Weapon _weapon;
     public Weapon Weapon
     {
-        get => _weapon;
-        set => SetValue(ref _weapon, value);
+        get;
+        set => SetValue(ref field, value);
     }
-
-    private int _damage;
     public int Damage
     {
-        get => _damage;
-        set => SetValue(ref _damage, value);
+        get;
+        set => SetValue(ref field, value);
     }
-
-    private double _dps;
     public double DPS
     {
-        get => _dps;
-        set => SetValue(ref _dps, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
-    private DamageBarViewModel _bar;
-    public DamageBarViewModel Bar { get => _bar; set => SetValue(ref _bar, value); }
+    public DamageBarViewModel Bar { get; set => SetValue(ref field, value); }
 
-    private bool _isIncreasing;
     public bool IsIncreasing
     {
-        get => _isIncreasing;
-        set => SetValue(ref _isIncreasing, value);
+        get;
+        set => SetValue(ref field, value);
     }
-
-    private bool _isUser;
     public bool IsUser
     {
-        get => _isUser;
-        set => SetValue(ref _isUser, value);
+        get;
+        set => SetValue(ref field, value);
     }
 
-    private int _masterRank;
-    public int MasterRank { get => _masterRank; set => SetValue(ref _masterRank, value); }
+    public int MasterRank { get; set => SetValue(ref field, value); }
 
-    private bool _isVisible;
-    public bool IsVisible { get => _isVisible; set => SetValue(ref _isVisible, value); }
+    public bool IsVisible { get; set => SetValue(ref field, value); }
 
-    private double? _affinity = null;
-    public double? Affinity { get => _affinity; set => SetValue(ref _affinity, value); }
+    public double? Affinity { get; set => SetValue(ref field, value); } = null;
 
-    private double? _rawDamage = null;
-    public double? RawDamage { get => _rawDamage; set => SetValue(ref _rawDamage, value); }
+    public double? RawDamage { get; set => SetValue(ref field, value); } = null;
 
-    private double? _elementalDamage = null;
-    public double? ElementalDamage { get => _elementalDamage; set => SetValue(ref _elementalDamage, value); }
+    public double? ElementalDamage { get; set => SetValue(ref field, value); } = null;
 }
