@@ -17,7 +17,6 @@ internal class InitializerManager
     private static readonly Type[] Initializers =
     {
         typeof(FileStreamLoggerInitializer),
-        typeof(CustomFontsInitializer),
         
         // Core
         typeof(CredentialVaultInitializer),

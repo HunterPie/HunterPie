@@ -27,7 +27,8 @@ internal class UpdateService(
     ILocalRegistryAsync localRegistryAsync,
     IUpdateCleanUpUseCase updateCleanUpUseCase,
     IAnalyticsService analyticsService,
-    IBodyNavigator bodyNavigator) : IUpdateUseCase
+    IBodyNavigator bodyNavigator,
+    ILocalizationRepository localizationRepository) : IUpdateUseCase
 {
     private readonly ILogger _logger = LoggerFactory.Create();
     private const string JUST_UPDATED_KEY = "JustUpdated";
@@ -38,6 +39,7 @@ internal class UpdateService(
     private readonly IUpdateCleanUpUseCase _updateCleanUpUseCase = updateCleanUpUseCase;
     private readonly IAnalyticsService _analyticsService = analyticsService;
     private readonly IBodyNavigator _bodyNavigator = bodyNavigator;
+    private readonly ILocalizationRepository _localizationRepository = localizationRepository;
 
     public async Task<bool> InvokeAsync()
     {
@@ -82,11 +84,14 @@ internal class UpdateService(
 
         if (ClientConfig.Config.Client.EnableAutoUpdateConfirmation)
         {
+            string title = _localizationRepository.FindStringBy("//Strings/Client/Dialogs/Dialog[@Id='UPDATE_TITLE_STRING']");
+            string descritpion = _localizationRepository
+                    .FindStringBy("//Strings/Client/Dialogs/Dialog[@Id='UPDATE_CONFIRMATION_DESCRIPTION_STRING']")
+                    .Replace("{Latest}", $"{version}");
+
             NativeDialogResult result = DialogManager.Warn(
-                title: Localization.QueryString("//Strings/Client/Dialogs/Dialog[@Id='UPDATE_TITLE_STRING']"),
-                description: Localization
-                    .QueryString("//Strings/Client/Dialogs/Dialog[@Id='UPDATE_CONFIRMATION_DESCRIPTION_STRING']")
-                    .Replace("{Latest}", $"{version}"),
+                title: title,
+                description: descritpion,
                 buttons: NativeDialogButtons.Accept | NativeDialogButtons.Reject
             );
 
@@ -94,23 +99,23 @@ internal class UpdateService(
                 return false;
         }
 
-        string? packageFile = await DownloadPackageAsync(vm, version);
-
-        if (packageFile is null)
-            return false;
-
-        string? extractedPackagePath = ExtractPackage(vm, packageFile);
-
-        if (extractedPackagePath is null)
-            return false;
-
-        UpdateFileChecksums? checksums = await CalculateChecksumsAsync(vm, extractedPackagePath);
-
-        if (checksums is null)
-            return false;
-
         try
         {
+            string? packageFile = await DownloadPackageAsync(vm, version);
+
+            if (packageFile is null)
+                return false;
+
+            string? extractedPackagePath = ExtractPackage(vm, packageFile);
+
+            if (extractedPackagePath is null)
+                return false;
+
+            UpdateFileChecksums? checksums = await CalculateChecksumsAsync(vm, extractedPackagePath);
+
+            if (checksums is null)
+                return false;
+
             ReplaceFiles(vm, extractedPackagePath, checksums);
             CleanUp(vm, extractedPackagePath, packageFile);
             await _localRegistryAsync.SetAsync("JustUpdated", true);
@@ -126,7 +131,7 @@ internal class UpdateService(
             {
                 IOException => "Failed to replace old files, make sure HunterPie has permissions to move files.",
                 UnauthorizedAccessException => "HunterPie is missing permissions to manage files.",
-                _ => "Failed to update HunterPie. Please check it is in a non-special folder and that it has permissions to write to files.",
+                _ => "Failed to update HunterPie. Check HunterPie's console for more information.",
             };
 
             DialogManager.Error(
@@ -183,9 +188,6 @@ internal class UpdateService(
         if (success)
             return packagePath;
 
-        vm.State = "Failed to update HunterPie";
-        _logger.Warning("Failed to update HunterPie");
-
         return null;
     }
 
@@ -194,22 +196,14 @@ internal class UpdateService(
         string packageDirectory = ClientInfo.GetRandomTempDirectory();
 
         vm.State = "Extracting package...";
-        try
-        {
-            ZipFile.ExtractToDirectory(
+
+        ZipFile.ExtractToDirectory(
                 sourceArchiveFileName: packagePath,
                 destinationDirectoryName: packageDirectory
             );
-            File.Delete(packagePath);
+        File.Delete(packagePath);
 
-            return packageDirectory;
-        }
-        catch (Exception err)
-        {
-            _logger.Error($"Failed to update HunterPie: {err}");
-
-            return null;
-        }
+        return packageDirectory;
     }
 
     private async Task<UpdateFileChecksums?> CalculateChecksumsAsync(UpdateViewModel vm, string packageFolder)

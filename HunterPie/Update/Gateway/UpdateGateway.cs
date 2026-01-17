@@ -1,5 +1,6 @@
 ﻿using HunterPie.Core.Networking.Http;
 using HunterPie.Core.Networking.Http.Events;
+using HunterPie.Core.Networking.Http.Exceptions;
 using HunterPie.Integrations.Poogie.Common.Models;
 using HunterPie.Integrations.Poogie.Localization;
 using HunterPie.Integrations.Poogie.Localization.Models;
@@ -31,7 +32,7 @@ internal class UpdateGateway(
         using HttpClientResponse resp = await _versionConnector.Download(version);
 
         if (resp.StatusCode != HttpStatusCode.OK)
-            return false;
+            throw new NetworkException($"Failed to request package file, was expecting status code 200 but got {resp.StatusCode}");
 
         resp.OnDownloadProgressChanged += callback;
         await resp.DownloadAsync(output);

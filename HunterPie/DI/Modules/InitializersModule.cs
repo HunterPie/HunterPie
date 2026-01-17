@@ -9,7 +9,6 @@ public class InitializersModule : IDependencyModule
     {
         registry
             .WithSingle<FileStreamLoggerInitializer>()
-            .WithSingle<CustomFontsInitializer>()
             .WithSingle<CredentialVaultInitializer>()
             .WithSingle<LocalConfigInitializer>()
             .WithSingle<FeatureFlagsInitializer>()

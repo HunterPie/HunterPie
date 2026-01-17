@@ -136,7 +136,7 @@ internal class WindowsProcessWatcher(IProcessAttachStrategy[] strategies) : ICon
         }
         catch (Exception err)
         {
-            _logger.Info($"Error details: {err}");
+            _logger.Error($"Error details: {err}");
         }
 
         _failedProcesses.Add(strategy.Name);
