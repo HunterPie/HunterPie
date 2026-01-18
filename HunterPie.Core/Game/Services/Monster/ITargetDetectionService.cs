@@ -5,7 +5,6 @@ using System;
 
 namespace HunterPie.Core.Game.Services.Monster;
 
-#nullable enable
 public interface ITargetDetectionService
 {
     public IMonster? Target { get; }

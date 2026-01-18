@@ -1,10 +1,13 @@
-﻿using System.Runtime.InteropServices;
+﻿using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Types;
+using System.Runtime.InteropServices;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
 
 [StructLayout(LayoutKind.Explicit)]
 public struct MHWildsMonsterContext
 {
+    [FieldOffset(0x30)] public MHWildsVector3 Position;
+
     [FieldOffset(0x3E0)] public short Size;
 
     // Nullable structure

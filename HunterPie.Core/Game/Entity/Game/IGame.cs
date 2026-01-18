@@ -4,20 +4,16 @@ using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
-using HunterPie.Core.Game.Services.Monster;
 using System;
 using System.Collections.Generic;
 
 namespace HunterPie.Core.Game.Entity.Game;
 
-#nullable enable
 public interface IGame : IDisposable
 {
     public IPlayer Player { get; }
 
     public IAbnormalityCategorizationService AbnormalityCategorizationService { get; }
-
-    public ITargetDetectionService TargetDetectionService { get; }
 
     public IReadOnlyCollection<IMonster> Monsters { get; }
 

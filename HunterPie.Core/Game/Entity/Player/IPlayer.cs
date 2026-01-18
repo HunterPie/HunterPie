@@ -23,7 +23,6 @@ public interface IPlayer
     public IPlayerStatus? Status { get; }
     public Vector3 Position { get; }
 
-
     public event EventHandler<EventArgs> OnLogin;
     public event EventHandler<EventArgs> OnLogout;
     public event EventHandler<EventArgs> OnDeath;

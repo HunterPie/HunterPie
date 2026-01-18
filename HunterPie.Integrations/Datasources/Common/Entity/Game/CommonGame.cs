@@ -10,21 +10,18 @@ using HunterPie.Core.Game.Entity.Game.Quest;
 using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services;
-using HunterPie.Core.Game.Services.Monster;
 using HunterPie.Core.Scan.Service;
-using HunterPie.Integrations.Datasources.Common.Monster;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Game;
 
-public abstract class CommonGame : Scannable, IGame, IEventDispatcher
+public abstract class CommonGame(
+    IGameProcess process,
+    IScanService scanService
+) : Scannable(process, scanService), IGame, IEventDispatcher
 {
-    private readonly SimpleTargetDetectionService _targetDetectionService;
-
     public abstract IPlayer Player { get; }
 
     public abstract IAbnormalityCategorizationService AbnormalityCategorizationService { get; }
-
-    public ITargetDetectionService TargetDetectionService => _targetDetectionService;
 
     public abstract IReadOnlyCollection<IMonster> Monsters { get; }
 
@@ -99,13 +96,6 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
         remove => _onWorldTimeChange.Unhook(value);
     }
 
-    protected CommonGame(
-        IGameProcess process,
-        IScanService scanService) : base(process, scanService)
-    {
-        _targetDetectionService = new SimpleTargetDetectionService(this);
-    }
-
     public override void Dispose()
     {
         base.Dispose();
@@ -121,7 +111,7 @@ public abstract class CommonGame : Scannable, IGame, IEventDispatcher
         IDisposableExtensions.DisposeAll(
             _onMonsterSpawn, _onMonsterDespawn, _onHudStateChange,
             _onTimeElapsedChange, _onQuestStart,
-            _onQuestEnd, _targetDetectionService, _onWorldTimeChange
+            _onQuestEnd, _onWorldTimeChange
         );
     }
 }

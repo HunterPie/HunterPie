@@ -17,7 +17,7 @@ public class MHWildsContext(
         process: process,
         scanService: scanService,
         localizationRepository: localizationRepository,
-                monsterTargetKeyManager: monsterTargetKeyManager
-            ),
+        monsterTargetKeyManager: monsterTargetKeyManager
+    ),
     process: process
 );

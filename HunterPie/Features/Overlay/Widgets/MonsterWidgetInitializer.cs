@@ -2,6 +2,7 @@
 using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
+using HunterPie.Integrations.Datasources.Common.Monster;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Service;
@@ -16,6 +17,7 @@ internal class MonsterWidgetInitializer(IOverlay overlay) : IWidgetInitializer
 {
     private readonly IOverlay _overlay = overlay;
 
+    private SimpleTargetDetectionService? _targetDetectionService;
     private IContextHandler? _handler;
     private WidgetView? _view;
 
@@ -38,8 +40,10 @@ internal class MonsterWidgetInitializer(IOverlay overlay) : IWidgetInitializer
             settings: config
         );
 
+        _targetDetectionService = new SimpleTargetDetectionService(context);
         _handler = new MonsterWidgetContextHandler(
             context: context,
+            targetDetectionService: _targetDetectionService,
             viewModel: viewModel,
             config: config
         );
@@ -54,5 +58,7 @@ internal class MonsterWidgetInitializer(IOverlay overlay) : IWidgetInitializer
         _overlay.Unregister(_view);
         _handler?.UnhookEvents();
         _handler = null;
+        _targetDetectionService?.Dispose();
+        _targetDetectionService = null;
     }
 }

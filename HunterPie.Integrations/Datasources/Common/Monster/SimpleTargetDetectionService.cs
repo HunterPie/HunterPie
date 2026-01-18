@@ -1,40 +1,57 @@
 ﻿using HunterPie.Core.Architecture.Events;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
+using HunterPie.Core.Game;
 using HunterPie.Core.Game.Entity.Enemy;
 using HunterPie.Core.Game.Entity.Game;
+using HunterPie.Core.Game.Entity.Player;
+using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services.Monster;
 using HunterPie.Core.Game.Services.Monster.Events;
+using System.Collections.Concurrent;
+using System.Numerics;
 using TargetType = HunterPie.Core.Game.Enums.Target;
 
 namespace HunterPie.Integrations.Datasources.Common.Monster;
 
 internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposable, IEventDispatcher
 {
+    // 6400 is 80 meters
+    private const double MAXIMUM_DISTANCE = 6400.0;
     private readonly IGame _game;
-    private readonly object _lock = new();
-    private IMonster? _cachedTarget;
+    private readonly IPlayer _player;
+
+    private readonly Lock _lock = new();
+    private readonly ConcurrentDictionary<IMonster, double> _monsterDistances = new();
 
     public IMonster? Target
     {
         get
         {
             lock (_lock)
-                return _cachedTarget;
+                return field;
         }
         private set
         {
-            if (_cachedTarget == value)
-                return;
+            lock (_lock)
+            {
+                if (field == value)
+                    return;
 
-            _cachedTarget = value;
-            this.Dispatch(_onTargetChanged, new InferTargetChangedEventArgs(value));
+                field = value;
+            }
+
+            this.Dispatch(
+                toDispatch: _onTargetChanged,
+                data: new InferTargetChangedEventArgs(value)
+            );
         }
     }
 
-    public SimpleTargetDetectionService(IGame game)
+    public SimpleTargetDetectionService(IContext context)
     {
-        _game = game;
+        _game = context.Game;
+        _player = context.Game.Player;
         HookEvents();
     }
 
@@ -47,7 +64,7 @@ internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposab
 
     public TargetType Infer(IMonster monster)
     {
-        if (_cachedTarget is not { } cached)
+        if (Target is not { } cached)
             return TargetType.None;
 
         return cached == monster
@@ -55,21 +72,18 @@ internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposab
             : TargetType.Another;
     }
 
-    public void Dispose()
-    {
-        UnhookEvents();
-    }
-
     private void HookEvents()
     {
         _game.OnMonsterSpawn += OnMonsterSpawn;
         _game.OnMonsterDespawn += OnMonsterDespawn;
+        _player.PositionChange += OnPlayerPositionChange;
     }
 
     private void UnhookEvents()
     {
         _game.OnMonsterSpawn -= OnMonsterSpawn;
         _game.OnMonsterDespawn -= OnMonsterDespawn;
+        _player.PositionChange -= OnPlayerPositionChange;
     }
 
     private void OnMonsterSpawn(object? sender, IMonster e)
@@ -77,6 +91,7 @@ internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposab
         Target ??= e;
 
         e.OnHealthChange += OnMonsterHealthChange;
+        e.PositionChange += OnMonsterPositionChange;
     }
 
     private void OnMonsterDespawn(object? sender, IMonster e)
@@ -84,6 +99,7 @@ internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposab
         Target = _game.Monsters.SingleOrNull();
 
         e.OnHealthChange -= OnMonsterHealthChange;
+        e.PositionChange -= OnMonsterPositionChange;
     }
 
     private void OnMonsterHealthChange(object? sender, EventArgs e)
@@ -91,7 +107,58 @@ internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposab
         if (sender is not IMonster monster)
             return;
 
-        lock (_lock)
-            Target = monster;
+        InferNextTarget();
+    }
+
+    private void OnMonsterPositionChange(object? sender, SimpleValueChangeEventArgs<Vector3> e)
+    {
+        if (sender is not IMonster monster)
+            return;
+
+        HandlePositionChange(_player, monster);
+
+        InferNextTarget();
+    }
+
+
+    private void OnPlayerPositionChange(object? sender, SimpleValueChangeEventArgs<Vector3> e)
+    {
+        if (sender is not IPlayer player)
+            return;
+
+        foreach (IMonster monster in _game.Monsters)
+            HandlePositionChange(player, monster);
+
+        InferNextTarget();
+    }
+
+    private void HandlePositionChange(IPlayer player, IMonster monster)
+    {
+        float distance = Vector3.DistanceSquared(player.Position, monster.Position);
+
+        _monsterDistances.AddOrUpdate(monster, distance, (_, __) => distance);
+    }
+
+    private void InferNextTarget()
+    {
+        IMonster? nearestMonster = _monsterDistances
+            .Where(it => it.Value <= MAXIMUM_DISTANCE)
+            .OrderBy(it =>
+            {
+                double distance = it.Value;
+                double damageTaken = it.Key.Health / Math.Max(it.Key.MaxHealth, 1.0);
+
+                return damageTaken / distance;
+            })
+            .FirstOrDefault()
+            .Key;
+
+        Target = nearestMonster;
+    }
+
+    public void Dispose()
+    {
+        _onTargetChanged.Dispose();
+        UnhookEvents();
     }
 }

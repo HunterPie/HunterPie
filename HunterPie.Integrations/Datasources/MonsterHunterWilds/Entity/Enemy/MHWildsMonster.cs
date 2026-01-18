@@ -16,7 +16,6 @@ using HunterPie.Core.Utils;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
-using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Types;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
@@ -247,17 +246,6 @@ public sealed class MHWildsMonster : CommonMonster
     }
 
     [ScannableMethod]
-    internal async Task GetPositionAsync()
-    {
-        MHWildsVector3 position = await Memory.DerefPtrAsync<MHWildsVector3>(
-            address: _address,
-            offsets: AddressMap.GetOffsets("Monster::Position")
-        );
-
-        Position = position.ToVector3();
-    }
-
-    [ScannableMethod]
     internal async Task GetThresholdsAsync()
     {
         if (_definition is { IsNotCapturable: true })
@@ -307,6 +295,13 @@ public sealed class MHWildsMonster : CommonMonster
         if (_isDeadOrCaptured)
             return;
 
+        MHWildsMonsterContext context = await Memory.DerefPtrAsync<MHWildsMonsterContext>(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Monster::ContextData")
+        );
+
+        Position = context.Position.ToVector3();
+
         short size;
         // to handle Alpha Doshaguma
         // cmp dword ptr [rdx+48],10
@@ -316,15 +311,10 @@ public sealed class MHWildsMonster : CommonMonster
             size = 130;
         else
         {
-            MHWildsMonsterContext data = await Memory.DerefPtrAsync<MHWildsMonsterContext>(
-                address: _address,
-                offsets: AddressMap.GetOffsets("Monster::ContextData")
-            );
-
-            size = data switch
+            size = context switch
             {
-                { HasFixedSize: true } => data.FixedSize,
-                _ => data.Size
+                { HasFixedSize: true } => context.FixedSize,
+                _ => context.Size
             };
         }
 

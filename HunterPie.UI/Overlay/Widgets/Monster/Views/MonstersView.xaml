@@ -1,106 +1,107 @@
 ﻿<overlay:Widget x:Class="HunterPie.UI.Overlay.Widgets.Monster.Views.MonstersView"
                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-                xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
-                xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels"
-                xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
-                xmlns:enums="clr-namespace:HunterPie.Core.Client.Configuration.Enums;assembly=HunterPie.Core"
-                xmlns:display="clr-namespace:HunterPie.UI.Controls.Display"
                 xmlns:conditionals="clr-namespace:HunterPie.UI.Architecture.Converters.Conditionals"
-                xmlns:visibilities="clr-namespace:HunterPie.UI.Architecture.Converters.Visibilities"
-                xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Presentation"
+                xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:display="clr-namespace:HunterPie.UI.Controls.Display"
+                xmlns:enums="clr-namespace:HunterPie.Core.Client.Configuration.Enums;assembly=HunterPie.Core"
+                xmlns:local="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Views"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                 xmlns:overlay="clr-namespace:HunterPie.UI.Overlay"
-                mc:Ignorable="d"
+                xmlns:presentation="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.Presentation"
+                xmlns:viewModels="clr-namespace:HunterPie.UI.Overlay.Widgets.Monster.ViewModels"
+                xmlns:visibilities="clr-namespace:HunterPie.UI.Architecture.Converters.Visibilities"
                 d:DataContext="{d:DesignInstance Type=viewModels:MonstersViewModel}"
-                Style="{DynamicResource Widgets.Monster}">
-    <UserControl.Resources>
-        <visibilities:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter"/>
-        <converters:ConverterPipeline x:Key="InverseNullableToVisibilityConverter">
-            <conditionals:IsNullConverter/>
-            <BooleanToVisibilityConverter/>
-        </converters:ConverterPipeline>
-        <presentation:DynamicMonsterWidthConverter x:Key="DynamicMonsterWidthConverter"/>
-        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
-    </UserControl.Resources>
-    <Grid>
-        <display:Conditional Condition="{Binding Config.IsCompactModeEnabled.Value, Mode=OneWay}"
-                             Visibility="{Binding Monster, Mode=OneWay, Converter={StaticResource InverseNullableToVisibilityConverter}}">
-            <display:Conditional.Component>
-                <DataTemplate DataType="{x:Type viewModels:MonstersViewModel}">
-                    <ItemsControl ItemsSource="{Binding Monsters, Mode=OneWay}"
-                                  Visibility="{Binding Config.ShowOnlyTarget.Value, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid HorizontalAlignment="Left"
-                                             Columns="{Binding Config.CompactModeColumnLimit.Current, Mode=OneWay}"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
+                Style="{DynamicResource Widgets.Monster}"
+                mc:Ignorable="d">
+	<UserControl.Resources>
+		<visibilities:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
+		<converters:ConverterPipeline x:Key="InverseNullableToVisibilityConverter">
+			<conditionals:IsNullConverter />
+			<BooleanToVisibilityConverter />
+		</converters:ConverterPipeline>
+		<presentation:DynamicMonsterWidthConverter x:Key="DynamicMonsterWidthConverter" />
+		<converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+	</UserControl.Resources>
+	<Grid>
+		<display:Conditional Condition="{Binding Config.IsCompactModeEnabled.Value, Mode=OneWay}"
+		                     Visibility="{Binding Monster, Mode=OneWay, Converter={StaticResource InverseNullableToVisibilityConverter}}">
+			<display:Conditional.Component>
+				<DataTemplate DataType="{x:Type viewModels:MonstersViewModel}">
+					<ItemsControl ItemsSource="{Binding Monsters, Mode=OneWay}"
+					              Visibility="{Binding Config.ShowOnlyTarget.Value, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<UniformGrid HorizontalAlignment="Left"
+								             Columns="{Binding Config.CompactModeColumnLimit.Current, Mode=OneWay}" />
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
 
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type viewModels:BossMonsterViewModel}">
-                                <local:CollapsedBossMonsterView Width="80"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </DataTemplate>
-            </display:Conditional.Component>
+						<ItemsControl.ItemTemplate>
+							<DataTemplate DataType="{x:Type viewModels:BossMonsterViewModel}">
+								<local:CollapsedBossMonsterView Width="80" />
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</DataTemplate>
+			</display:Conditional.Component>
 
-            <display:Conditional.Otherwise>
-                <DataTemplate>
-                    <ItemsControl ItemsSource="{Binding Monsters, Mode=OneWay}"
-                                  Visibility="{Binding Config.ShowOnlyTarget.Value, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid HorizontalAlignment="Left" >
-                                    <UniformGrid.Style>
-                                        <Style TargetType="UniformGrid">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Config.Orientation.Value}"
-                                                             Value="{x:Static enums:Orientation.Vertical}">
-                                                    <Setter Property="Columns" Value="1"/>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding Config.Orientation.Value}"
-                                                             Value="{x:Static enums:Orientation.Horizontal}">
-                                                    <Setter Property="Rows" Value="1"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </UniformGrid.Style>
-                                </UniformGrid>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type viewModels:BossMonsterViewModel}">
-                                <local:BossMonsterView MaxWidth="{Binding Config.MaxWidth.Current, Mode=OneWay}">
-                                    <local:BossMonsterView.Width>
-                                        <MultiBinding Converter="{StaticResource DynamicMonsterWidthConverter}">
-                                            <Binding Path="DataContext.Config.DynamicResize.Value" 
-                                                     Mode="OneWay" 
-                                                     RelativeSource="{RelativeSource AncestorType={x:Type local:MonstersView}}"/>
-                                            <Binding Path="DataContext.Config.MinWidth.Current" 
-                                                     Mode="OneWay" 
-                                                     RelativeSource="{RelativeSource AncestorType={x:Type local:MonstersView}}"/>
-                                            <Binding Path="DataContext.Config.MaxWidth.Current" 
-                                                     Mode="OneWay" 
-                                                     RelativeSource="{RelativeSource AncestorType={x:Type local:MonstersView}}"/>
-                                            <Binding Path="DataContext.VisibleMonsters" 
-                                                     Mode="OneWay" 
-                                                     RelativeSource="{RelativeSource AncestorType={x:Type local:MonstersView}}"/>
-                                        </MultiBinding>
-                                    </local:BossMonsterView.Width>
-                                </local:BossMonsterView>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </DataTemplate>
-            </display:Conditional.Otherwise>
-        </display:Conditional>
+			<display:Conditional.Otherwise>
+				<DataTemplate>
+					<ItemsControl ItemsSource="{Binding Monsters, Mode=OneWay}"
+					              Visibility="{Binding Config.ShowOnlyTarget.Value, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<UniformGrid HorizontalAlignment="Left">
+									<UniformGrid.Style>
+										<Style TargetType="UniformGrid">
+											<Style.Triggers>
+												<DataTrigger Binding="{Binding Config.Orientation.Value}"
+												             Value="{x:Static enums:Orientation.Vertical}">
+													<Setter Property="Columns" Value="1" />
+												</DataTrigger>
+												<DataTrigger Binding="{Binding Config.Orientation.Value}"
+												             Value="{x:Static enums:Orientation.Horizontal}">
+													<Setter Property="Rows" Value="1" />
+												</DataTrigger>
+											</Style.Triggers>
+										</Style>
+									</UniformGrid.Style>
+								</UniformGrid>
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+						<ItemsControl.ItemTemplate>
+							<DataTemplate DataType="{x:Type viewModels:BossMonsterViewModel}">
+								<local:BossMonsterView MaxWidth="{Binding Config.MaxWidth.Current, Mode=OneWay}">
+									<local:BossMonsterView.Width>
+										<MultiBinding Converter="{StaticResource DynamicMonsterWidthConverter}">
+											<Binding Mode="OneWay"
+											         Path="DataContext.Config.DynamicResize.Value"
+											         RelativeSource="{RelativeSource AncestorType={x:Type local:MonstersView}}" />
+											<Binding Mode="OneWay"
+											         Path="DataContext.Config.MinWidth.Current"
+											         RelativeSource="{RelativeSource AncestorType={x:Type local:MonstersView}}" />
+											<Binding Mode="OneWay"
+											         Path="DataContext.Config.MaxWidth.Current"
+											         RelativeSource="{RelativeSource AncestorType={x:Type local:MonstersView}}" />
+											<Binding Mode="OneWay"
+											         Path="DataContext.VisibleMonsters"
+											         RelativeSource="{RelativeSource AncestorType={x:Type local:MonstersView}}" />
+										</MultiBinding>
+									</local:BossMonsterView.Width>
+								</local:BossMonsterView>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</DataTemplate>
+			</display:Conditional.Otherwise>
+		</display:Conditional>
 
 
-        <local:BossMonsterView Visibility="{Binding ., Mode=OneWay, Converter={StaticResource NullableToVisibilityConverter}}"
-                               DataContext="{Binding Monster, Mode=OneWay}"
-                               Width="{Binding DataContext.Config.MaxWidth.Current, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:MonstersView}}}"/>
-    </Grid>
+		<local:BossMonsterView Width="{Binding DataContext.Config.MaxWidth.Current, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:MonstersView}}}"
+		                       DataContext="{Binding Monster, Mode=OneWay}"
+		                       Visibility="{Binding ., Mode=OneWay, Converter={StaticResource NullableToVisibilityConverter}}" />
+
+	</Grid>
 </overlay:Widget>
