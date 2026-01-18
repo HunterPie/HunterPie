@@ -16,6 +16,7 @@ using HunterPie.Core.Utils;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Monster;
+using HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Types;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Crypto;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Enemy.Data;
 using HunterPie.Integrations.Datasources.MonsterHunterWilds.Utils;
@@ -243,6 +244,17 @@ public sealed class MHWildsMonster : CommonMonster
             MaxStamina = stamina.Max;
             Stamina = stamina.Current;
         }
+    }
+
+    [ScannableMethod]
+    internal async Task GetPositionAsync()
+    {
+        MHWildsVector3 position = await Memory.DerefPtrAsync<MHWildsVector3>(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Monster::Position")
+        );
+
+        Position = position.ToVector3();
     }
 
     [ScannableMethod]

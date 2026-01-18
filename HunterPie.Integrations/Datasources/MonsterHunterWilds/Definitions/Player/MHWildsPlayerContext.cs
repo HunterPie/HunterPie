@@ -6,6 +6,8 @@ namespace HunterPie.Integrations.Datasources.MonsterHunterWilds.Definitions.Play
 [StructLayout(LayoutKind.Explicit)]
 public struct MHWildsPlayerContext
 {
+    [FieldOffset(0x10)] public MHWildsVector3 Position;
+
     /// <summary>
     /// <see cref="NamePointer"/> is of type <see cref="MHWildsString"/>
     /// </summary>

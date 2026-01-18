@@ -4,6 +4,7 @@ using HunterPie.Core.Game.Entity.Player.Vitals;
 using HunterPie.Core.Game.Events;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace HunterPie.Core.Game.Entity.Player;
 
@@ -20,6 +21,7 @@ public interface IPlayer
     public IStaminaComponent Stamina { get; }
     public IWeapon Weapon { get; }
     public IPlayerStatus? Status { get; }
+    public Vector3 Position { get; }
 
 
     public event EventHandler<EventArgs> OnLogin;
@@ -34,4 +36,5 @@ public interface IPlayer
     public event EventHandler<IAbnormality> OnAbnormalityStart;
     public event EventHandler<IAbnormality> OnAbnormalityEnd;
     public event EventHandler<LevelChangeEventArgs> OnLevelChange;
+    public event EventHandler<SimpleValueChangeEventArgs<Vector3>> PositionChange;
 }

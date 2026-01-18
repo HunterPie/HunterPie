@@ -22,7 +22,7 @@ internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposab
             lock (_lock)
                 return _cachedTarget;
         }
-        set
+        private set
         {
             if (_cachedTarget == value)
                 return;

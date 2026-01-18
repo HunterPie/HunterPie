@@ -188,8 +188,7 @@ public sealed class MHWildsPlayer(
             _weapon = value;
             this.Dispatch(
                 toDispatch: _onWeaponChange,
-                data: new WeaponChangeEventArgs(oldWeapon, value
-                )
+                data: new WeaponChangeEventArgs(oldWeapon, value)
             );
         }
     }
@@ -223,6 +222,7 @@ public sealed class MHWildsPlayer(
 
         Name = await Memory.ReadStringSafeAsync(context.NamePointer, size: 64);
         HighRank = hunterRank;
+        Position = context.Position.ToVector3();
     }
 
     [ScannableMethod]
