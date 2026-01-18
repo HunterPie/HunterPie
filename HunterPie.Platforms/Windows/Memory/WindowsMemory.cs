@@ -242,6 +242,4 @@ internal class WindowsMemory(IntPtr handle) : IMemoryAsync
 
         return buffer;
     }
-
-    public Task<T> DerefLastAsync<T>(nint address, int[] offsets) where T : struct => throw new NotImplementedException();
 }

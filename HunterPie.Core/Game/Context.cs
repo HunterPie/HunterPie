@@ -6,9 +6,11 @@ namespace HunterPie.Core.Game;
 
 public class Context(
     IGame game,
-    IGameProcess process) : IContext, IDisposable
+    IGameProcess process
+) : IContext, IDisposable
 {
     public IGame Game { get; } = game;
+
     public IGameProcess Process { get; } = process;
 
     public virtual void Dispose()
