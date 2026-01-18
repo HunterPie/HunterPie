@@ -48,7 +48,7 @@ internal class CohootNestController : IContextHandler
 
     private void OnKamuraCountChange(object sender, MHRCohoot e)
     {
-        _elgadoViewModel.SetItems(
+        _kamuraViewModel.SetItems(
             count: e.KamuraCount
         );
     }
