@@ -8,6 +8,7 @@ using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services.Monster;
 using HunterPie.Core.Game.Services.Monster.Events;
+using HunterPie.Core.Observability.Logging;
 using System.Collections.Concurrent;
 using System.Numerics;
 using TargetType = HunterPie.Core.Game.Enums.Target;
@@ -16,13 +17,14 @@ namespace HunterPie.Integrations.Datasources.Common.Monster;
 
 internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposable, IEventDispatcher
 {
-    // 6400 is 80 meters
-    private const double MAXIMUM_DISTANCE = 6400.0;
+    private readonly ILogger _logger = LoggerFactory.Create();
+    private const double MAXIMUM_DISTANCE_METERS = 80.0;
+    private const double RECENT_HIT_DURATION_SECONDS = 30.0;
     private readonly IGame _game;
     private readonly IPlayer _player;
 
     private readonly Lock _lock = new();
-    private readonly ConcurrentDictionary<IMonster, double> _monsterDistances = new();
+    private readonly ConcurrentDictionary<IMonster, TargetInferenceParams> _inferenceParams = new();
 
     public IMonster? Target
     {
@@ -41,6 +43,7 @@ internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposab
                 field = value;
             }
 
+            _logger.Debug($"New target set to {value?.Name}");
             this.Dispatch(
                 toDispatch: _onTargetChanged,
                 data: new InferTargetChangedEventArgs(value)
@@ -107,6 +110,19 @@ internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposab
         if (sender is not IMonster monster)
             return;
 
+        _inferenceParams.AddOrUpdate(
+            key: monster,
+            addValueFactory: static (m) => new TargetInferenceParams(
+                LastHitAt: DateTime.Now,
+                HealthRatio: m.Health / Math.Max(m.MaxHealth, 1.0),
+                Distance: MAXIMUM_DISTANCE_METERS
+            ),
+            updateValueFactory: static (m, existing) => existing with
+            {
+                LastHitAt = DateTime.Now,
+                HealthRatio = m.Health / Math.Max(m.MaxHealth, 1.0),
+            }
+        );
         InferNextTarget();
     }
 
@@ -134,21 +150,42 @@ internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposab
 
     private void HandlePositionChange(IPlayer player, IMonster monster)
     {
-        float distance = Vector3.DistanceSquared(player.Position, monster.Position);
+        float distance = Vector3.Distance(player.Position, monster.Position);
 
-        _monsterDistances.AddOrUpdate(monster, distance, (_, __) => distance);
+        _inferenceParams.AddOrUpdate(
+            key: monster,
+            addValueFactory: (m) => new TargetInferenceParams(
+                LastHitAt: DateTime.Now,
+                HealthRatio: m.Health / Math.Max(m.MaxHealth, 1.0),
+                Distance: distance
+            ),
+            updateValueFactory: (m, existing) => existing with
+            {
+                Distance = distance
+            }
+        );
     }
 
     private void InferNextTarget()
     {
-        IMonster? nearestMonster = _monsterDistances
-            .Where(it => it.Value <= MAXIMUM_DISTANCE)
-            .OrderBy(it =>
+        IMonster? nearestMonster = _inferenceParams
+            .Where(it => it.Value.Distance <= MAXIMUM_DISTANCE_METERS)
+            .OrderByDescending(it =>
             {
-                double distance = it.Value;
-                double damageTaken = it.Key.Health / Math.Max(it.Key.MaxHealth, 1.0);
+                TargetInferenceParams inferenceParams = it.Value;
+                double normalizedDistance = 1 - (inferenceParams.Distance / MAXIMUM_DISTANCE_METERS);
+                double normalizedDamageTime = Math.Max(0, 1 - ((DateTime.Now - inferenceParams.LastHitAt).TotalSeconds / RECENT_HIT_DURATION_SECONDS));
+                double normalizedHealthRatio = 1 - inferenceParams.HealthRatio;
 
-                return damageTaken / distance;
+                double score =
+                    (normalizedDistance * 0.45) +
+                    (normalizedDamageTime * 0.40) +
+                    (normalizedHealthRatio * 0.15);
+
+                if (inferenceParams.HealthRatio >= 0.99)
+                    score *= 0.5;
+
+                return score;
             })
             .FirstOrDefault()
             .Key;
