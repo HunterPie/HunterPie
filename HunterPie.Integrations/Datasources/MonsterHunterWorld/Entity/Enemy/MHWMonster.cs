@@ -13,6 +13,7 @@ using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Scan.Service;
 using HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions.Types;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Utils;
 using System.Runtime.InteropServices;
 
@@ -223,6 +224,14 @@ public sealed class MHWMonster : CommonMonster
 
         MaxStamina = staminaValues[1];
         Stamina = staminaValues[0];
+    }
+
+    [ScannableMethod]
+    internal async Task GetMonsterPositionAsync()
+    {
+        MHWVector3 position = await Memory.ReadAsync<MHWVector3>(_address + 0x160);
+
+        Position = position.ToVector3();
     }
 
     [ScannableMethod]

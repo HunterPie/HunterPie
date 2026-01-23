@@ -8,23 +8,25 @@ using HunterPie.Core.Game.Entity.Player;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Game.Services.Monster;
 using HunterPie.Core.Game.Services.Monster.Events;
-using HunterPie.Core.Observability.Logging;
 using System.Collections.Concurrent;
 using System.Numerics;
 using TargetType = HunterPie.Core.Game.Enums.Target;
 
 namespace HunterPie.Integrations.Datasources.Common.Monster;
 
+public delegate float DistanceFunc(Vector3 playerPosition, Vector3 monsterPosition);
+
 internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposable, IEventDispatcher
 {
-    private readonly ILogger _logger = LoggerFactory.Create();
     private const double MAXIMUM_DISTANCE_METERS = 80.0;
     private const double RECENT_HIT_DURATION_SECONDS = 30.0;
     private readonly IGame _game;
     private readonly IPlayer _player;
+    private readonly DistanceFunc _distanceFunc;
 
     private readonly Lock _lock = new();
     private readonly ConcurrentDictionary<IMonster, TargetInferenceParams> _inferenceParams = new();
+
 
     public IMonster? Target
     {
@@ -43,7 +45,6 @@ internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposab
                 field = value;
             }
 
-            _logger.Debug($"New target set to {value?.Name}");
             this.Dispatch(
                 toDispatch: _onTargetChanged,
                 data: new InferTargetChangedEventArgs(value)
@@ -51,10 +52,14 @@ internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposab
         }
     }
 
-    public SimpleTargetDetectionService(IContext context)
+    public SimpleTargetDetectionService(
+        IContext context,
+        DistanceFunc distanceFunc
+    )
     {
         _game = context.Game;
         _player = context.Game.Player;
+        _distanceFunc = distanceFunc;
         HookEvents();
     }
 
@@ -150,7 +155,7 @@ internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposab
 
     private void HandlePositionChange(IPlayer player, IMonster monster)
     {
-        float distance = Vector3.Distance(player.Position, monster.Position);
+        float distance = _distanceFunc(player.Position, monster.Position);
 
         _inferenceParams.AddOrUpdate(
             key: monster,

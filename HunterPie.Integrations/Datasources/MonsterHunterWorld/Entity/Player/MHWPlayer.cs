@@ -4,6 +4,7 @@ using HunterPie.Core.Client.Configuration.Enums;
 using HunterPie.Core.Domain;
 using HunterPie.Core.Domain.DTO;
 using HunterPie.Core.Domain.Interfaces;
+using HunterPie.Core.Domain.Memory.Types;
 using HunterPie.Core.Domain.Process.Entity;
 using HunterPie.Core.Extensions;
 using HunterPie.Core.Game.Data.Definitions;
@@ -21,6 +22,7 @@ using HunterPie.Integrations.Datasources.Common.Definition;
 using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions.Types;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Environment.Activities;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Party;
 using HunterPie.Integrations.Datasources.MonsterHunterWorld.Entity.Player.Weapons;
@@ -207,7 +209,7 @@ public sealed class MHWPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetZoneData()
+    internal async Task GetZoneData()
     {
         nint zoneAddress = await Memory.ReadAsync(
             address: AddressMap.GetAbsolute("ZONE_OFFSET"),
@@ -218,7 +220,7 @@ public sealed class MHWPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetBasicData()
+    internal async Task GetBasicData()
     {
         if (ZoneId == Stage.MainMenu)
         {
@@ -245,10 +247,20 @@ public sealed class MHWPlayer : CommonPlayer
         PlayerSaveAddress = currentPlayerSaveHeader;
     }
 
+    [ScannableMethod]
+    internal async Task GetPositionAsync()
+    {
+        Ref<MHWVector3> positionRef = await Memory.ReadAsync(
+            address: AddressMap.GetAbsolute("EQUIPMENT_ADDRESS"),
+            offsets: AddressMap.GetOffsets("Player::Position")
+        );
+        MHWVector3 position = await positionRef.Deref(Memory);
 
+        Position = position.ToVector3();
+    }
 
     [ScannableMethod]
-    private async Task GetPlayerHudData()
+    internal async Task GetPlayerHudData()
     {
         nint basicPlayerDataPtr = await Memory.ReadAsync(
             address: AddressMap.GetAbsolute("EQUIPMENT_ADDRESS"),
@@ -282,7 +294,7 @@ public sealed class MHWPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetWeaponData()
+    internal async Task GetWeaponData()
     {
         PlayerEquipmentData data = new();
 
@@ -330,7 +342,7 @@ public sealed class MHWPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetParty()
+    internal async Task GetParty()
     {
         MHWQuestStructure quest = await Memory.DerefAsync<MHWQuestStructure>(
             address: AddressMap.GetAbsolute("QUEST_DATA_ADDRESS"),
@@ -416,7 +428,7 @@ public sealed class MHWPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetHarvestBoxData()
+    internal async Task GetHarvestBoxData()
     {
         if (PlayerSaveAddress.IsNullPointer())
             return;
@@ -435,7 +447,7 @@ public sealed class MHWPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetSteamFuel()
+    internal async Task GetSteamFuel()
     {
         if (PlayerSaveAddress.IsNullPointer())
             return;
@@ -451,7 +463,7 @@ public sealed class MHWPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetArgosy()
+    internal async Task GetArgosy()
     {
         if (PlayerSaveAddress.IsNullPointer())
             return;
@@ -473,7 +485,7 @@ public sealed class MHWPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetTailraiders()
+    internal async Task GetTailraiders()
     {
         if (PlayerSaveAddress.IsNullPointer())
             return;
@@ -495,7 +507,7 @@ public sealed class MHWPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetMantlesData()
+    internal async Task GetMantlesData()
     {
         nint address = await Memory.ReadAsync(
             address: AddressMap.GetAbsolute("WEAPON_ADDRESS"),
@@ -531,7 +543,7 @@ public sealed class MHWPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetAbnormalitiesCleanup()
+    internal async Task GetAbnormalitiesCleanup()
     {
         nint abnormalityBaseAddress = await Memory.ReadAsync(
             address: AddressMap.GetAbsolute("ABNORMALITY_ADDRESS"),
@@ -543,7 +555,7 @@ public sealed class MHWPlayer : CommonPlayer
     }
 
     [ScannableMethod]
-    private async Task GetAbnormalities()
+    internal async Task GetAbnormalities()
     {
         if (!InHuntingZone)
             return;

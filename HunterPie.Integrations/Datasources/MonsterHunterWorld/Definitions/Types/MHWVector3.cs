@@ -1,10 +1,10 @@
 ﻿using System.Numerics;
 using System.Runtime.InteropServices;
 
-namespace HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions.Types;
+namespace HunterPie.Integrations.Datasources.MonsterHunterWorld.Definitions.Types;
 
 [StructLayout(LayoutKind.Sequential)]
-public struct MHRiseVector3
+public struct MHWVector3
 {
     public float X;
     public float Y;

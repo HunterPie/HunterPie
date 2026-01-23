@@ -3,12 +3,14 @@ using HunterPie.Core.Client.Configuration.Overlay;
 using HunterPie.Core.Domain.Enums;
 using HunterPie.Core.Game;
 using HunterPie.Integrations.Datasources.Common.Monster;
+using HunterPie.Integrations.Datasources.MonsterHunterWorld;
 using HunterPie.UI.Architecture.Overlay;
 using HunterPie.UI.Overlay;
 using HunterPie.UI.Overlay.Service;
 using HunterPie.UI.Overlay.Views;
 using HunterPie.UI.Overlay.Widgets.Monster;
 using HunterPie.UI.Overlay.Widgets.Monster.ViewModels;
+using System.Numerics;
 using System.Threading.Tasks;
 
 namespace HunterPie.Features.Overlay.Widgets;
@@ -40,7 +42,16 @@ internal class MonsterWidgetInitializer(IOverlay overlay) : IWidgetInitializer
             settings: config
         );
 
-        _targetDetectionService = new SimpleTargetDetectionService(context);
+        DistanceFunc distanceFunc = context switch
+        {
+            MHWContext => static (Vector3 playerPosition, Vector3 monsterPosition) => Vector3.Distance(playerPosition, monsterPosition) / 100.0f,
+            _ => Vector3.Distance
+        };
+
+        _targetDetectionService = new SimpleTargetDetectionService(
+            context: context,
+            distanceFunc: distanceFunc
+        );
         _handler = new MonsterWidgetContextHandler(
             context: context,
             targetDetectionService: _targetDetectionService,
