@@ -21,6 +21,7 @@ using HunterPie.Integrations.Datasources.Common.Entity.Player;
 using HunterPie.Integrations.Datasources.Common.Entity.Player.Vitals;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions.Player;
+using HunterPie.Integrations.Datasources.MonsterHunterRise.Definitions.Types;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Enums;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Environment.Activities;
 using HunterPie.Integrations.Datasources.MonsterHunterRise.Entity.Party;
@@ -378,6 +379,17 @@ public sealed class MHRPlayer : CommonPlayer
             ElementalDamage: Math.Max(context.PrimaryElementalDamage, context.SecondaryElementalDamage),
             Affinity: context.Affinity
         );
+    }
+
+    [ScannableMethod]
+    internal async Task GetCameraAsync()
+    {
+        MHRiseVector3 position = await Memory.DerefAsync<MHRiseVector3>(
+            address: AddressMap.GetAbsolute("Game::CameraManager"),
+            offsets: AddressMap.GetOffsets("Camera::Player::Position")
+        );
+
+        Position = position.ToVector3();
     }
 
     [ScannableMethod]

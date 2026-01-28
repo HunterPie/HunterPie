@@ -8,6 +8,7 @@ using HunterPie.Core.Game.Enums;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Scan.Service;
+using System.Numerics;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Enemy;
 
@@ -34,6 +35,25 @@ public abstract class CommonMonster(
     public abstract Element[] Weaknesses { get; }
     public abstract string[] Types { get; }
     public abstract VariantType Variant { get; protected set; }
+
+    public Vector3 Position
+    {
+        get => field;
+        protected set
+        {
+            float distance = Vector3.Distance(field, value);
+
+            if (distance <= 0.1)
+                return;
+
+            Vector3 oldValue = field;
+            field = value;
+            this.Dispatch(
+                toDispatch: _positionChange,
+                data: new SimpleValueChangeEventArgs<Vector3>(oldValue, value)
+            );
+        }
+    }
 
     protected readonly SmartEvent<EventArgs> _onSpawn = new();
     public event EventHandler<EventArgs> OnSpawn
@@ -140,6 +160,13 @@ public abstract class CommonMonster(
         remove => _onCaptureThresholdChange.Unhook(value);
     }
 
+    protected readonly SmartEvent<SimpleValueChangeEventArgs<Vector3>> _positionChange = new();
+    public event EventHandler<SimpleValueChangeEventArgs<Vector3>> PositionChange
+    {
+        add => _positionChange.Hook(value);
+        remove => _positionChange.Unhook(value);
+    }
+
     public override void Dispose()
     {
         base.Dispose();
@@ -147,7 +174,7 @@ public abstract class CommonMonster(
         {
             _onSpawn, _onLoad, _onDespawn, _onDeath, _onCapture, _onCrownChange, _onHealthChange,
             _onStaminaChange, _onActionChange, _onEnrageStateChange, _onTargetChange, _onNewPartFound,
-            _onNewAilmentFound, _onWeaknessesChange, _onCaptureThresholdChange,
+            _onNewAilmentFound, _onWeaknessesChange, _onCaptureThresholdChange, _positionChange,
         };
 
         events.DisposeAll();

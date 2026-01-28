@@ -36,7 +36,7 @@ public sealed class MHRMonster : CommonMonster
     private float _captureThreshold;
     private readonly MHRMonsterAilment _enrage = new(MonsterAilmentRepository.Enrage);
     private readonly MHRMonsterPart? _qurioThreshold;
-    private readonly Dictionary<long, MHRMonsterPart> _parts = new();
+    private readonly ConcurrentDictionary<long, MHRMonsterPart> _parts = new();
     private readonly ConcurrentDictionary<long, MHRMonsterAilment> _ailments = new();
     private readonly List<Element> _weaknesses = new();
     private readonly List<string> _types = new();
@@ -387,7 +387,7 @@ public sealed class MHRMonster : CommonMonster
                 MonsterPartDefinition definition = _definition.Parts.Length > i ? _definition.Parts[i] : MonsterRepository.UnknownPartDefinition;
 
                 var dummy = new MHRMonsterPart(definition, partInfo);
-                _parts.Add(flinchPart, dummy);
+                _parts.TryAdd(flinchPart, dummy);
 
                 _logger.Debug($"Found {definition.String} for {Name} -> Flinch: {flinchPart:X} Break: {breakablePart:X} Sever: {severablePart:X} Qurio: {qurioPart:X}");
                 this.Dispatch(_onNewPartFound, dummy);
@@ -463,6 +463,17 @@ public sealed class MHRMonster : CommonMonster
             (false, 0) => Target.None,
             (false, _) => Target.Another,
         };
+    }
+
+    [ScannableMethod]
+    internal async Task GetPositionAsync()
+    {
+        MHRiseMonsterMoveContext context = await Memory.DerefPtrAsync<MHRiseMonsterMoveContext>(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Monster::Position")
+        );
+
+        Position = context.Position.ToVector3();
     }
 
     [ScannableMethod]
