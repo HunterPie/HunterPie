@@ -7,19 +7,17 @@ using HunterPie.Integrations.Datasources.MonsterHunterWilds.Entity.Game;
 
 namespace HunterPie.Integrations.Datasources.MonsterHunterWilds;
 
-public class MHWildsContext : Context
-{
-    internal MHWildsContext(
-        IGameProcess process,
-        IScanService scanService,
-        ILocalizationRepository localizationRepository,
-        MHWildsMonsterTargetKeyManager monsterTargetKeyManager) : base(
-            new MHWildsGame(
-                process: process,
-                scanService: scanService,
-                localizationRepository: localizationRepository,
-                monsterTargetKeyManager: monsterTargetKeyManager
-            ), process)
-    {
-    }
-}
+public class MHWildsContext(
+    IGameProcess process,
+    IScanService scanService,
+    ILocalizationRepository localizationRepository,
+    MHWildsMonsterTargetKeyManager monsterTargetKeyManager
+) : Context(
+    game: new MHWildsGame(
+        process: process,
+        scanService: scanService,
+        localizationRepository: localizationRepository,
+        monsterTargetKeyManager: monsterTargetKeyManager
+    ),
+    process: process
+);

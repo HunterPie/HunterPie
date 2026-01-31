@@ -295,6 +295,13 @@ public sealed class MHWildsMonster : CommonMonster
         if (_isDeadOrCaptured)
             return;
 
+        MHWildsMonsterContext context = await Memory.DerefPtrAsync<MHWildsMonsterContext>(
+            address: _address,
+            offsets: AddressMap.GetOffsets("Monster::ContextData")
+        );
+
+        Position = context.Position.ToVector3();
+
         short size;
         // to handle Alpha Doshaguma
         // cmp dword ptr [rdx+48],10
@@ -304,15 +311,10 @@ public sealed class MHWildsMonster : CommonMonster
             size = 130;
         else
         {
-            MHWildsMonsterContext data = await Memory.DerefPtrAsync<MHWildsMonsterContext>(
-                address: _address,
-                offsets: AddressMap.GetOffsets("Monster::ContextData")
-            );
-
-            size = data switch
+            size = context switch
             {
-                { HasFixedSize: true } => data.FixedSize,
-                _ => data.Size
+                { HasFixedSize: true } => context.FixedSize,
+                _ => context.Size
             };
         }
 

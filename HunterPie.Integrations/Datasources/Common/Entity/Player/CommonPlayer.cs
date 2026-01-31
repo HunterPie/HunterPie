@@ -11,6 +11,7 @@ using HunterPie.Core.Game.Entity.Player.Vitals;
 using HunterPie.Core.Game.Events;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Scan.Service;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 
 namespace HunterPie.Integrations.Datasources.Common.Entity.Player;
@@ -32,6 +33,26 @@ public abstract class CommonPlayer(
     public abstract IStaminaComponent Stamina { get; }
     public abstract IWeapon Weapon { get; protected set; }
     public abstract IPlayerStatus? Status { get; }
+
+    public Vector3 Position
+    {
+        get => field;
+        protected set
+        {
+            float distance = Vector3.Distance(field, value);
+
+            if (distance <= 0.1)
+                return;
+
+            Vector3 oldValue = field;
+            field = value;
+
+            this.Dispatch(
+                toDispatch: _positionChange,
+                data: new SimpleValueChangeEventArgs<Vector3>(oldValue, value)
+            );
+        }
+    }
 
     protected readonly SmartEvent<EventArgs> _onLogin = new();
     public event EventHandler<EventArgs> OnLogin
@@ -117,6 +138,13 @@ public abstract class CommonPlayer(
         remove => _onLevelChange.Unhook(value);
     }
 
+    protected readonly SmartEvent<SimpleValueChangeEventArgs<Vector3>> _positionChange = new();
+    public event EventHandler<SimpleValueChangeEventArgs<Vector3>> PositionChange
+    {
+        add => _positionChange.Hook(value);
+        remove => _positionChange.Unhook(value);
+    }
+
     protected void HandleAbnormality<T, S>(
         Dictionary<string, IAbnormality> abnormalities,
         AbnormalityDefinition schema,
@@ -183,7 +211,7 @@ public abstract class CommonPlayer(
         IDisposable[] events =
         {
             _onLogin, _onLogout, _onDeath, _onActionUpdate, _onStageUpdate, _onVillageEnter, _onVillageLeave,
-            _onAilmentUpdate, _onWeaponChange, _onAbnormalityStart, _onAbnormalityEnd, _onLevelChange
+            _onAilmentUpdate, _onWeaponChange, _onAbnormalityStart, _onAbnormalityEnd, _onLevelChange, _positionChange
         };
 
         if (Health is IDisposable health)
