@@ -19,7 +19,7 @@ internal class MonsterWidgetInitializer(IOverlay overlay) : IWidgetInitializer
 {
     private readonly IOverlay _overlay = overlay;
 
-    private SimpleTargetDetectionService? _targetDetectionService;
+    private WeightedTargetDetectionService? _targetDetectionService;
     private IContextHandler? _handler;
     private WidgetView? _view;
 
@@ -48,10 +48,12 @@ internal class MonsterWidgetInitializer(IOverlay overlay) : IWidgetInitializer
             _ => Vector3.Distance
         };
 
-        _targetDetectionService = new SimpleTargetDetectionService(
+        _targetDetectionService = new WeightedTargetDetectionService(
             context: context,
             distanceFunc: distanceFunc
         );
+        _targetDetectionService.Initialize();
+
         _handler = new MonsterWidgetContextHandler(
             context: context,
             targetDetectionService: _targetDetectionService,

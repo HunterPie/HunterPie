@@ -16,17 +16,21 @@ namespace HunterPie.Integrations.Datasources.Common.Monster;
 
 public delegate float DistanceFunc(Vector3 playerPosition, Vector3 monsterPosition);
 
-internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposable, IEventDispatcher
+internal class WeightedTargetDetectionService(
+    IContext context,
+    DistanceFunc distanceFunc
+) : ITargetDetectionService, IDisposable, IEventDispatcher
 {
     private const double MAXIMUM_DISTANCE_METERS = 80.0;
     private const double RECENT_HIT_DURATION_SECONDS = 30.0;
-    private readonly IGame _game;
-    private readonly IPlayer _player;
-    private readonly DistanceFunc _distanceFunc;
+    private const double LOW_HEALTH_RATIO = 0.75;
+
+    private readonly IGame _game = context.Game;
+    private readonly IPlayer _player = context.Game.Player;
+    private readonly DistanceFunc _distanceFunc = distanceFunc;
 
     private readonly Lock _lock = new();
     private readonly ConcurrentDictionary<IMonster, TargetInferenceParams> _inferenceParams = new();
-
 
     public IMonster? Target
     {
@@ -52,17 +56,6 @@ internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposab
         }
     }
 
-    public SimpleTargetDetectionService(
-        IContext context,
-        DistanceFunc distanceFunc
-    )
-    {
-        _game = context.Game;
-        _player = context.Game.Player;
-        _distanceFunc = distanceFunc;
-        HookEvents();
-    }
-
     private readonly SmartEvent<InferTargetChangedEventArgs> _onTargetChanged = new();
     public event EventHandler<InferTargetChangedEventArgs> OnTargetChanged
     {
@@ -80,7 +73,7 @@ internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposab
             : TargetType.Another;
     }
 
-    private void HookEvents()
+    public void Initialize()
     {
         _game.OnMonsterSpawn += OnMonsterSpawn;
         _game.OnMonsterDespawn += OnMonsterDespawn;
@@ -174,7 +167,7 @@ internal class SimpleTargetDetectionService : ITargetDetectionService, IDisposab
     private void InferNextTarget()
     {
         IMonster? nearestMonster = _inferenceParams
-            .Where(it => it.Value.Distance <= MAXIMUM_DISTANCE_METERS)
+            .Where(it => it.Value.Distance <= MAXIMUM_DISTANCE_METERS || it.Value.HealthRatio <= LOW_HEALTH_RATIO)
             .OrderByDescending(it =>
             {
                 TargetInferenceParams inferenceParams = it.Value;
