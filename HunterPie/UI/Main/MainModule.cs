@@ -17,12 +17,12 @@ internal class MainModule : IDependencyModule
             .WithSingle<MainViewModel>()
             .WithSingle<MainNavigator>()
             .WithSingle<NavigatorController>()
-            .WithSingle(() =>
+            .WithSingle(static (r) =>
                 new MainView(
-                    localizationRepository: registry.Get<ILocalizationRepository>()
+                    localizationRepository: r.Get<ILocalizationRepository>()
                 )
                 {
-                    DataContext = registry.Get<MainViewModel>()
+                    DataContext = r.Get<MainViewModel>()
                 }
             );
     }

@@ -10,8 +10,8 @@ internal class FeatureFlagsModule : IDependencyModule
     {
         registry
             .WithSingle<DefaultFeatureFlags>()
-            .WithSingle(() => new LocalFeatureFlagRepository(
-                    source: registry.Get<DefaultFeatureFlags>().ReadOnlyFlags
+            .WithSingle(static (r) => new LocalFeatureFlagRepository(
+                    source: r.Get<DefaultFeatureFlags>().ReadOnlyFlags
                 )
             );
     }

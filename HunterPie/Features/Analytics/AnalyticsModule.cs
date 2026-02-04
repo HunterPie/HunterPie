@@ -11,7 +11,7 @@ internal class AnalyticsModule : IDependencyModule
     {
         registry
             .WithSingle<ClientMetrics>()
-            .WithService<CrashEventStrategy>()
-            .WithService<AnalyticsService>();
+            .WithFactory<CrashEventStrategy>()
+            .WithFactory<AnalyticsService>();
     }
 }

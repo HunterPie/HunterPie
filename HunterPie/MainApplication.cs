@@ -4,6 +4,7 @@ using HunterPie.Core.Domain.Process.Internal;
 using HunterPie.Core.Observability.Logging;
 using HunterPie.Core.Utils;
 using HunterPie.Features.Account.Config;
+using HunterPie.Features.Account.Controller;
 using HunterPie.Features.Account.UseCase;
 using HunterPie.Features.Analytics.Entity;
 using HunterPie.Features.Game.Service;
@@ -23,16 +24,10 @@ internal class MainApplication(
     RemoteConfigSyncService remoteConfigSyncService,
     NavigatorController navigatorController,
     GameContextController gameContextController,
+    AccountController accountController,
     IControllableWatcherService controllableWatcherService) : IDisposable
 {
     private readonly ILogger _logger = LoggerFactory.Create();
-    private readonly IAnalyticsService _analyticsService = analyticsService;
-    private readonly IUpdateUseCase _updateUseCase = updateUseCase;
-    private readonly IRemoteAccountConfigUseCase _remoteAccountConfigUseCase = remoteAccountConfigUseCase;
-    private readonly IControllableWatcherService _controllableWatcherService = controllableWatcherService;
-    private readonly RemoteConfigSyncService _remoteConfigSyncService = remoteConfigSyncService;
-    private readonly NavigatorController _navigatorController = navigatorController;
-    private readonly GameContextController _gameContextController = gameContextController;
 
     public async Task<bool> Start()
     {
@@ -42,10 +37,11 @@ internal class MainApplication(
         if (hasUpdated)
             return false;
 #endif
-        _gameContextController.Subscribe();
-        _remoteConfigSyncService.Start();
-        await _navigatorController.SetupAsync();
-        _controllableWatcherService.Start();
+        gameContextController.Subscribe();
+        remoteConfigSyncService.Start();
+        await navigatorController.SetupAsync();
+        controllableWatcherService.Start();
+        await accountController.SetupAsync();
 
         return true;
     }
@@ -54,14 +50,14 @@ internal class MainApplication(
     {
         _logger.Error(exception.ToString());
 
-        await _analyticsService.SendAsync(
+        await analyticsService.SendAsync(
             analyticsEvent: AnalyticsEvent.FromException(exception, isUiError: true)
         );
     }
 
     public async Task Restart()
     {
-        await _remoteAccountConfigUseCase.Upload();
+        await remoteAccountConfigUseCase.Upload();
 
         string executablePath = typeof(MainApplication).Assembly.Location.Replace(".dll", ".exe");
         Process.Start(executablePath);
@@ -69,7 +65,7 @@ internal class MainApplication(
 
     private async Task<bool> SelfUpdate()
     {
-        bool hasUpdated = await _updateUseCase.InvokeAsync();
+        bool hasUpdated = await updateUseCase.InvokeAsync();
 
         if (!hasUpdated)
             return false;
@@ -83,6 +79,6 @@ internal class MainApplication(
     public void Dispose()
     {
         ConfigManager.SaveAll();
-        AsyncHelper.RunSync(_remoteAccountConfigUseCase.Upload);
+        AsyncHelper.RunSync(remoteAccountConfigUseCase.Upload);
     }
 }

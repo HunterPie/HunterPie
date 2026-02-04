@@ -23,10 +23,22 @@ public class DependencyRegistry : IDependencyRegistry
     /// <inheritdoc />
     public T[] GetAll<T>() where T : class
     {
-        return GetBeans(typeof(T))
-            .Select(it => it.Create(this))
+        return GetAll(typeof(T))
             .Cast<T>()
             .ToArray();
+    }
+
+    /// <inheritdoc />
+    public Array GetAll(Type type)
+    {
+        object[] beans = GetBeans(type)
+            .Select(it => it.Create(this))
+            .ToArray();
+
+        var array = Array.CreateInstance(type, beans.Length);
+        Array.Copy(beans, array, array.Length);
+
+        return array;
     }
 
     private List<IDependencyBean> GetBeans(Type type)
@@ -38,38 +50,40 @@ public class DependencyRegistry : IDependencyRegistry
     }
 
     /// <inheritdoc />
-    public IDependencyRegistry WithFactory<T>(Activator<T> activator) where T : class
+    public IDependencyRegistry WithFactory<T>(Activator<T>? activator = null) where T : class
     {
-        Type type = typeof(T);
-
-        _beans.AddOrUpdate(
-            key: type,
-            addValueFactory: (_) => new List<IDependencyBean> { new FactoryDependencyBean<T>(activator) },
-            updateValueFactory: (_, dependencies) =>
-            {
-                dependencies.Add(new FactoryDependencyBean<T>(activator));
-                return dependencies;
-            }
+        RegisterBean(
+            type: typeof(T),
+            bean: new FactoryDependencyBean<T>(activator ?? ReflectionActivator.Create<T>)
         );
 
         return this;
     }
 
     /// <inheritdoc />
-    public IDependencyRegistry WithSingle<T>(Activator<T> activator) where T : class
+    public IDependencyRegistry WithSingle<T>(Activator<T>? activator = null) where T : class
     {
-        Type type = typeof(T);
-
-        _beans.AddOrUpdate(
-            key: type,
-            addValueFactory: (_) => new List<IDependencyBean> { new SingletonDependencyBean<T>(activator) },
-            updateValueFactory: (_, dependencies) =>
-            {
-                dependencies.Add(new SingletonDependencyBean<T>(activator));
-                return dependencies;
-            }
+        RegisterBean(
+            type: typeof(T),
+            bean: new SingletonDependencyBean<T>(activator ?? ReflectionActivator.Create<T>)
         );
 
         return this;
+    }
+
+    private void RegisterBean(Type type, IDependencyBean bean)
+    {
+        Type[] innerTypes = [.. type.GetInterfaces(), type];
+
+        foreach (Type innerType in innerTypes)
+            _beans.AddOrUpdate(
+                key: innerType,
+                addValueFactory: (_) => new List<IDependencyBean>() { bean },
+                updateValueFactory: (_, dependencies) =>
+                {
+                    dependencies.Add(bean);
+                    return dependencies;
+                }
+            );
     }
 }

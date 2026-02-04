@@ -1,4 +1,5 @@
 ﻿using HunterPie.Core.Client.Localization;
+using HunterPie.Core.Client.Localization.Entity;
 using HunterPie.Core.Domain.Cache;
 using HunterPie.Core.Domain.Interfaces;
 using HunterPie.Core.Extensions;
@@ -20,13 +21,11 @@ namespace HunterPie.Features.Account.Service;
 internal class AccountService(
     ICredentialVault credentialVault,
     IAsyncCache cache,
-    PoogieAccountConnector accountConnector
+    PoogieAccountConnector accountConnector,
+    ILocalizationRepository localizationRepository
     ) : IAccountUseCase, IEventDispatcher
 {
     private const string ACCOUNT_CACHE_KEY = "account::key";
-    private readonly ICredentialVault _credentialVault = credentialVault;
-    private readonly IAsyncCache _cache = cache;
-    private readonly PoogieAccountConnector _accountConnector = accountConnector;
 
     public event EventHandler<AccountLoginEventArgs>? SignIn;
     public event EventHandler<EventArgs>? SignOut;
@@ -35,21 +34,21 @@ internal class AccountService(
 
     public async Task<UserAccount?> GetAsync()
     {
-        Credential? credential = _credentialVault.Get();
+        Credential? credential = credentialVault.Get();
 
         if (credential is not { })
             return null;
 
-        if (await _cache.GetAsync<UserAccount>(ACCOUNT_CACHE_KEY) is { } cachedAccount)
+        if (await cache.GetAsync<UserAccount>(ACCOUNT_CACHE_KEY) is { } cachedAccount)
             return cachedAccount;
 
-        PoogieResult<MyUserAccountResponse> result = await _accountConnector.MyUserAccountAsync();
+        PoogieResult<MyUserAccountResponse> result = await accountConnector.MyUserAccountAsync();
 
         if (result.Response is not { } account)
             return null;
 
         UserAccount model = account.ToModel();
-        await _cache.SetAsync(ACCOUNT_CACHE_KEY, model);
+        await cache.SetAsync(ACCOUNT_CACHE_KEY, model);
 
         this.Dispatch(
             toDispatch: SignIn,
@@ -67,32 +66,31 @@ internal class AccountService(
         if (await GetAsync() is { })
             return true;
 
-        _credentialVault.Delete();
+        credentialVault.Delete();
         this.Dispatch(toDispatch: SignOut);
         return false;
     }
 
     public async Task<PoogieResult<LoginResponse>?> LoginAsync(LoginRequest request)
     {
-        (string title, string description) =
-            Localization.Resolve("//Strings/Client/Integrations/Poogie[@Id='SIGN_IN_NOTIFICATION']");
+        LocalizationData data = localizationRepository.FindBy("//Strings/Client/Integrations/Poogie[@Id='SIGN_IN_NOTIFICATION']");
 
         var progressNotification = new NotificationOptions(
             Type: NotificationType.InProgress,
-            Title: title,
-            Description: description,
+            Title: data.String,
+            Description: data.Description,
             DisplayTime: TimeSpan.FromSeconds(10)
         );
         Guid notificationId = await NotificationService.Show(progressNotification);
 
-        PoogieResult<LoginResponse> loginResponse = await _accountConnector.LoginAsync(request);
+        PoogieResult<LoginResponse> loginResponse = await accountConnector.LoginAsync(request);
 
         if (loginResponse.Error is { } err)
         {
             NotificationOptions errorNotification = progressNotification with
             {
                 Type = NotificationType.Error,
-                Description = Localization.GetEnumString(err.Code)
+                Description = localizationRepository.FindByEnum(err.Code).String
             };
             NotificationService.Update(notificationId, errorNotification);
 
@@ -102,7 +100,7 @@ internal class AccountService(
         if (loginResponse.Response is not { } response)
             return null;
 
-        _credentialVault.Create(
+        credentialVault.Create(
             username: request.Email,
             password: response.Token
         );
@@ -115,7 +113,7 @@ internal class AccountService(
         NotificationOptions successOptions = progressNotification with
         {
             Type = NotificationType.Success,
-            Description = Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='LOGIN_SUCCESS']")
+            Description = localizationRepository.FindStringBy("//Strings/Client/Integrations/Poogie[@Id='LOGIN_SUCCESS']")
                 .Replace("{Username}", account.Username)
         };
         NotificationService.Update(notificationId, successOptions);
@@ -135,14 +133,14 @@ internal class AccountService(
         );
         Guid notificationId = await NotificationService.Show(notificationOptions);
 
-        PoogieResult<MyUserAccountResponse> account = await _accountConnector.UploadAvatarAsync(path);
+        PoogieResult<MyUserAccountResponse> account = await accountConnector.UploadAvatarAsync(path);
 
         if (account.Error is { } error)
         {
             NotificationOptions errorOptions = notificationOptions with
             {
                 Type = NotificationType.Error,
-                Description = Localization.GetEnumString(error.Code),
+                Description = localizationRepository.FindByEnum(error.Code).String,
                 DisplayTime = TimeSpan.FromSeconds(10)
             };
             NotificationService.Update(notificationId, errorOptions);
@@ -153,7 +151,7 @@ internal class AccountService(
         NotificationOptions successOptions = notificationOptions with
         {
             Type = NotificationType.Success,
-            Description = Localization.QueryString("//Strings/Client/Integrations/Poogie[@Id='AVATAR_UPLOAD_SUCCESS']"),
+            Description = localizationRepository.FindStringBy("//Strings/Client/Integrations/Poogie[@Id='AVATAR_UPLOAD_SUCCESS']"),
         };
         NotificationService.Update(notificationId, successOptions);
 
@@ -162,24 +160,19 @@ internal class AccountService(
         if (model is not { })
             return;
 
-        await _cache.SetAsync(ACCOUNT_CACHE_KEY, model);
+        await cache.SetAsync(ACCOUNT_CACHE_KEY, model);
 
         this.Dispatch(AvatarChange, new AccountAvatarEventArgs { AvatarUrl = model.AvatarUrl });
     }
 
     public async Task LogoutAsync()
     {
-        _ = await _accountConnector.LogoutAsync();
+        _ = await accountConnector.LogoutAsync();
 
-        _credentialVault.Delete();
+        credentialVault.Delete();
 
-        await _cache.ClearAsync(ACCOUNT_CACHE_KEY);
+        await cache.ClearAsync(ACCOUNT_CACHE_KEY);
 
         this.Dispatch(SignOut);
-    }
-
-    private string? GetSessionToken()
-    {
-        return _credentialVault.Get()?.Password;
     }
 }

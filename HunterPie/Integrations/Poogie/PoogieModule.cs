@@ -19,17 +19,17 @@ internal class PoogieModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
-            .WithService<PoogieConnector>()
+            .WithFactory<PoogieConnector>()
             .WithSingle<PoogieHttpProvider>()
-            .WithService<PoogieAccountConnector>()
-            .WithService<PoogieBackupConnector>()
-            .WithService<PoogieLocalizationConnector>()
-            .WithService<PoogieNotificationConnector>()
-            .WithService<PoogiePatchConnector>()
-            .WithService<PoogieReportConnector>()
-            .WithService<PoogieClientSettingsConnector>()
+            .WithFactory<PoogieAccountConnector>()
+            .WithFactory<PoogieBackupConnector>()
+            .WithFactory<PoogieLocalizationConnector>()
+            .WithFactory<PoogieNotificationConnector>()
+            .WithFactory<PoogiePatchConnector>()
+            .WithFactory<PoogieReportConnector>()
+            .WithFactory<PoogieClientSettingsConnector>()
             .WithSingle<PoogieStatisticsConnector>()
-            .WithService<PoogieSupporterConnector>()
-            .WithService<PoogieVersionConnector>();
+            .WithFactory<PoogieSupporterConnector>()
+            .WithFactory<PoogieVersionConnector>();
     }
 }

@@ -9,6 +9,6 @@ internal class NotificationsModule : IDependencyModule
     public void Register(IDependencyRegistry registry)
     {
         registry
-            .WithService<NotificationsPanelViewModel>();
+            .WithFactory<NotificationsPanelViewModel>();
     }
 }
