@@ -418,12 +418,14 @@ public class DamageMeterControllerV2 : IContextHandler
             Values = points,
             StrokeThickness = 1,
             LineSmoothness = 0,
-            Visibility = isVisible
-                ? Visibility.Visible
-                : Visibility.Collapsed,
         };
 
         _viewModel.Series.Add(series);
+
+        // Set Visibility AFTER adding to chart to avoid NullReferenceException in LiveCharts
+        if (!isVisible)
+            series.Visibility = Visibility.Collapsed;
+
         return series;
     }
 }
