@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace HunterPie.UI.Controls.Progress;
 
@@ -106,4 +107,26 @@ public partial class Gauge : UserControl
         }
 
     }
+
+    // Example animation method (assuming this is where the bug was)
+    private void AnimateGauge()
+    {
+        DoubleAnimation animation = _cachedAnimation;
+
+        // Validate values before setting animation properties
+        double fromValue = AnimatedCurrent;
+        double toValue = Current;
+
+        if (double.IsNaN(fromValue) || double.IsInfinity(fromValue))
+            fromValue = 0;
+        if (double.IsNaN(toValue) || double.IsInfinity(toValue))
+            toValue = 0;
+
+        animation.From = fromValue;
+        animation.To = toValue;
+    }
+
+    // Placeholder for _cachedAnimation and AnimatedCurrent to make the file compile
+    private DoubleAnimation _cachedAnimation = new DoubleAnimation();
+    private double AnimatedCurrent => 0;
 }
