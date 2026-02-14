@@ -147,8 +147,18 @@ public partial class Gauge
             return;
 
         DoubleAnimation animation = gauge._cachedAnimation;
-        animation.From = gauge.AnimatedCurrent;
-        animation.To = gauge.Current;
+
+        double fromValue = gauge.AnimatedCurrent;
+        double toValue = gauge.Current;
+
+        // Validate animation values to prevent ArgumentException
+        if (double.IsNaN(fromValue) || double.IsInfinity(fromValue))
+            fromValue = 0;
+        if (double.IsNaN(toValue) || double.IsInfinity(toValue))
+            return;
+
+        animation.From = fromValue;
+        animation.To = toValue;
 
         gauge.BeginAnimation(
             dp: AnimatedCurrentProperty,
