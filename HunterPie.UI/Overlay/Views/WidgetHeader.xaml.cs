@@ -27,7 +27,8 @@ public partial class WidgetHeader : UserControl
         if (DataContext is not WidgetContext vm)
             return;
 
-        vm.ViewModel.Settings.Initialize.Value = false;
+        if (vm.ViewModel?.Settings?.Initialize is { } initialize)
+            initialize.Value = false;
     }
 
     private void OnHideButtonClick(object sender, RoutedEventArgs e)
